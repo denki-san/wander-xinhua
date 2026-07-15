@@ -2,20 +2,20 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "新华信使｜幸福里一平米行动地图",
-  description: "从幸福里出发，用三次轻行动认识新华路街区。无需登录，打开即可漫游。",
+  title: "新华信使｜新华路 3D 闲逛",
+  description: "进入上海新华路的手绘 3D 小世界，自由闲逛，并发现唯一的一平米行动点。无需登录。",
   applicationName: "新华信使",
   keywords: ["新华路", "幸福里", "一平米行动", "社区地图", "上海"],
   openGraph: {
-    title: "新华信使｜幸福里一平米行动地图",
-    description: "把街区装进一封可以行走的信里。",
+    title: "新华信使｜新华路 3D 闲逛",
+    description: "在手绘 3D 新华路里随便走走。",
     type: "website",
     locale: "zh_CN",
   },
   twitter: {
     card: "summary_large_image",
-    title: "新华信使｜幸福里一平米行动地图",
-    description: "把街区装进一封可以行走的信里。",
+    title: "新华信使｜新华路 3D 闲逛",
+    description: "在手绘 3D 新华路里随便走走。",
   },
 };
 
@@ -23,7 +23,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#f7edd7",
+  themeColor: "#69b9b5",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

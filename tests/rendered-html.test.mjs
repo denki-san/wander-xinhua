@@ -14,34 +14,40 @@ async function render(pathname = "/") {
   );
 }
 
-test("服务端渲染新华信使体验入口", async () => {
+test("服务端渲染新华信使 3D 闲逛入口", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
   assert.match(html, /<html[^>]*lang="zh-CN"/i);
-  assert.match(html, /<title>新华信使｜幸福里一平米行动地图<\/title>/i);
-  assert.match(html, /开始今天的漫游/);
-  assert.match(html, /无需登录/);
-  assert.match(html, /地图参考 © OpenStreetMap contributors/);
+  assert.match(html, /<title>新华信使｜新华路 3D 闲逛<\/title>/i);
+  assert.match(html, /开始闲逛/);
+  assert.match(html, /非官方独立重建/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });
 
-test("核心任务和地点都保留在产品源码中", async () => {
-  const source = await readFile(new URL("../app/xinhua-game.tsx", import.meta.url), "utf8");
-  for (const text of [
-    "送出第一张行动邀请",
-    "点亮一家街角小店",
-    "找到今年的行动地图",
-    "WAWA 行动入口",
-    "幸福里步行街",
-    "一方小店",
-    "口袋花园",
-    "行动地图牌",
-  ]) {
-    assert.match(source, new RegExp(text));
-  }
-  await assert.rejects(access(new URL("../app/_sites-preview", import.meta.url)));
-  assert.doesNotMatch(source, /login|password|账号|密码/i);
+test("产品源码锁定 WebGL 自由闲逛和唯一行动点", async () => {
+  const experience = await readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8");
+  const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
+  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+
+  assert.match(experience, /@react-three\/fiber/);
+  assert.match(experience, /<Canvas/);
+  assert.match(world, /PlayableMessenger/);
+  assert.match(world, /PLANET_RADIUS/);
+  assert.equal((world.match(/data-action-point=/g) ?? []).length, 1);
+  assert.match(experience, /唯一行动点/);
+  assert.doesNotMatch(experience + world, /送出第一张行动邀请|点亮一家街角小店|找到今年的行动地图|故事线/);
+  assert.doesNotMatch(experience + world, /login|password|账号|密码/i);
+  assert.doesNotMatch(page, /xinhua-game/);
+  await assert.rejects(access(new URL("../app/xinhua-game.tsx", import.meta.url)));
+});
+
+test("最终运行时代码不引用参考站资产", async () => {
+  const experience = await readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8");
+  const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
+  assert.doesNotMatch(world, /messenger\.abeto\.co|promptwhisper\/messenger/);
+  assert.match(experience, /href="https:\/\/messenger\.abeto\.co\/"/);
+  assert.doesNotMatch(experience + world, /\/assets\/|\.drc|\.ktx2|\.ogg/);
 });

@@ -93,7 +93,7 @@ zsh:1: command not found: npm
 
 ### Resolution
 - **Resolved**: 2026-07-15T21:44:00+08:00
-- **Notes**: 已在 VPS 的隔离 Node 22 镜像中完成 build 和 4 项测试。
+- **Notes**: 2026-07-15 复核发现本机 Node/npm 实际位于 `/opt/homebrew/bin` 与 `/usr/local/bin`，只是当前 shell 的 PATH 未包含它们。后续应直接使用本机绝对路径或显式补充 PATH，不再把 VPS 当开发和构建环境。
 
 ---
 
@@ -186,5 +186,38 @@ curl: (52) Empty reply from server
 ### Metadata
 - Reproducible: yes
 - Related Files: deploy/nginx/xinhua.denkisan.me.conf
+
+---
+
+## [ERR-20260715-007] remote_development_workflow
+
+**Logged**: 2026-07-15T22:42:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: workflow
+
+### Summary
+在本机 Node/npm 只是缺少 PATH 的情况下，错误地把依赖安装、构建与浏览器采集放到低配 VPS，浪费服务器磁盘和计算资源。
+
+### Error
+```
+应当本地开发、构建和测试，服务器只负责最终部署与线上验证。
+```
+
+### Context
+- 为复核 `messenger.abeto.co` 使用了 VPS 上的 headless Chrome。
+- 随后又准备在 VPS 生成依赖锁和执行构建，超出了合理的服务器用途。
+- 用户明确纠正了工作流。
+
+### Suggested Fix
+优先检查本机工具的绝对路径；所有依赖、开发、构建、测试和截图对比在本机完成。只有本地验收通过后，才把最终产物一次性部署到服务器。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json, package-lock.json
+
+### Resolution
+- **Resolved**: 2026-07-15T22:43:00+08:00
+- **Notes**: 已终止服务器上的后续采集流程，改用 `/opt/homebrew/bin/node` 与 `/opt/homebrew/bin/npm` 进行本地工作。
 
 ---

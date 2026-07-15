@@ -1,5 +1,5 @@
-import { XinhuaGame } from "./xinhua-game";
+import { XinhuaExperience } from "./xinhua-experience";
 
 export default function Home() {
-  return <XinhuaGame />;
+  return <XinhuaExperience />;
 }
