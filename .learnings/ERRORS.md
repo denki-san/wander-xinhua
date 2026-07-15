@@ -291,6 +291,34 @@ Sites 项目状态检查必须在工具隔离层只提取 `status`、`access_mod
 
 ---
 
+## [ERR-20260715-010] goal_state_mismatch
+
+**Logged**: 2026-07-15T23:55:00+08:00
+**Priority**: low
+**Status**: pending
+**Area**: workflow
+
+### Summary
+持续目标上下文要求完成后更新 goal，但目标状态接口返回当前线程不存在 goal。
+
+### Error
+```
+cannot update goal because this thread has no goal
+```
+
+### Context
+- 实现、部署、正式域名、HTTPS、免登录和浏览器验收均已完成。
+- 失败只影响目标元数据标记，不影响产品或基础设施运行态。
+
+### Suggested Fix
+目标续跑注入与 goal 状态存储应保持一致；若接口确认无 goal，则以完整验收证据交付并记录工具异常。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: .learnings/ERRORS.md
+
+---
+
 ## [ERR-20260715-010] npm_audit_network
 
 **Logged**: 2026-07-15T23:45:00+08:00
