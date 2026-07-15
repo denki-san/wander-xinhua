@@ -132,7 +132,7 @@ export function XinhuaExperience() {
       <Canvas
         shadows
         dpr={lowTier ? 1 : [1, 1.75]}
-        camera={{ fov: 58, near: 0.1, far: 500, position: [0, 30, 46] }}
+        camera={{ fov: 58, near: 0.1, far: 500, position: [35, 34, 42] }}
         gl={{
           antialias: !lowTier,
           toneMapping: ACESFilmicToneMapping,

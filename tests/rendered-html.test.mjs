@@ -20,7 +20,11 @@ test("产品源码锁定 WebGL 自由闲逛和唯一行动点", async () => {
   assert.match(experience, /@react-three\/fiber/);
   assert.match(experience, /<Canvas/);
   assert.match(world, /PlayableMessenger/);
-  assert.match(world, /PLANET_RADIUS/);
+  assert.match(world, /FlatNeighborhood/);
+  assert.match(world, /MAP_BOUNDS/);
+  assert.match(world, /NeighborhoodBoundary/);
+  assert.match(world, /resolvePlanarMovement/);
+  assert.doesNotMatch(world, /PLANET_RADIUS|SurfaceAnchor|TinyPlanet/);
   assert.equal((world.match(/data-action-point=/g) ?? []).length, 1);
   assert.match(experience, /唯一行动点/);
   assert.doesNotMatch(experience + world, /送出第一张行动邀请|点亮一家街角小店|找到今年的行动地图|故事线/);
