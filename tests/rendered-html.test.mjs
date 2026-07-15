@@ -6,6 +6,8 @@ test("静态生产入口加载新华信使 3D 闲逛应用", async () => {
   const html = await readFile(new URL("../dist-static/index.html", import.meta.url), "utf8");
   assert.match(html, /<html[^>]*lang="zh-CN"/i);
   assert.match(html, /<title>新华信使｜新华路 3D 闲逛<\/title>/i);
+  assert.match(html, /有边界的手绘 3D 社区街区/i);
+  assert.doesNotMatch(html, /手绘 3D 小世界/i);
   assert.match(html, /<script[^>]+src="\/assets\/index-[^"]+\.js"/i);
   assert.match(html, /<link[^>]+href="\/assets\/index-[^"]+\.css"/i);
   assert.doesNotMatch(html, /__VINEXT_RSC|\/dist\/server|127\.0\.0\.1:8790/i);

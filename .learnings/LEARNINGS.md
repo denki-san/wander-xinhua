@@ -22,3 +22,26 @@
 - Tags: camera, flat-world, movement, model-orientation, product-direction
 
 ---
+
+## [LRN-20260716-002] best_practice
+
+**Logged**: 2026-07-16T00:42:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: deployment
+
+### Summary
+静态 Vite 构建的公开元数据来源是根目录 `index.html`，不能只更新 Next `app/layout.tsx`。
+
+### Details
+平面街区首次同步后，公网 HTML 仍显示旧的“3D 小世界”描述。原因是静态部署走 `vite.static.config.ts` 与根目录 `index.html`，`app/layout.tsx` 的 metadata 不会注入该入口。
+
+### Suggested Action
+场景定位或 SEO 文案变更时同步更新两个入口，并在 `rendered-html.test.mjs` 中直接验证最终 `dist-static/index.html`。
+
+### Metadata
+- Source: self_discovery
+- Related Files: index.html, app/layout.tsx, tests/rendered-html.test.mjs
+- Tags: static-build, metadata, deployment, regression-test
+
+---
