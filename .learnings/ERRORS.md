@@ -128,3 +128,63 @@ Parsing error: Invalid character
 - **Notes**: 已在干净源码目录中通过 lint，并让 Docker 与 ESLint 永久忽略 AppleDouble 元数据文件。
 
 ---
+
+## [ERR-20260715-005] sites_sensitive_readback
+
+**Logged**: 2026-07-15T21:58:30+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: config
+
+### Summary
+Sites 项目详情读取结果包含访问令牌，完整序列化响应会扩大凭据暴露面。
+
+### Error
+```
+项目详情工具在常规元数据之外返回了敏感访问字段。
+```
+
+### Context
+- 发布前复核 Sites 项目与访问策略时发生。
+- 后续输出不得序列化完整项目响应，只能选择非敏感字段。
+
+### Suggested Fix
+轮换相关令牌，并让后续工具调用只返回状态、版本、访问模式和 URL 等白名单字段。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .openai/hosting.json
+
+### Resolution
+- **Resolved**: 2026-07-15T21:58:30+08:00
+- **Notes**: 已立即轮换令牌；后续 Sites 检查改为白名单字段输出。
+
+---
+
+## [ERR-20260715-006] origin_public_ip_probe
+
+**Logged**: 2026-07-15T22:03:00+08:00
+**Priority**: medium
+**Status**: pending
+**Area**: infra
+
+### Summary
+从当前 Mac 直接使用源站 IP 和 Host 头访问 Nginx 得到空响应，但 VPS 回环访问同一站点返回 200。
+
+### Error
+```
+curl: (52) Empty reply from server
+```
+
+### Context
+- Nginx 已监听公网 80/443，`xinhua.denkisan.me` 站点在 VPS 本机返回 200。
+- 域名尚无 Cloudflare DNS 记录，因此最终公网链路还不能验证。
+
+### Suggested Fix
+创建 Cloudflare DNS 后从正式域名复测；如果仍失败，再检查云防火墙、Cloudflare 代理与源站访问日志。
+
+### Metadata
+- Reproducible: yes
+- Related Files: deploy/nginx/xinhua.denkisan.me.conf
+
+---
