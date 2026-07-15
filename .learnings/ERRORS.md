@@ -63,3 +63,68 @@ AssertionError: Missing expected rejection.
 - **Notes**: 已删除空目录并重新运行测试。
 
 ---
+
+## [ERR-20260715-003] local_node_path
+
+**Logged**: 2026-07-15T21:37:38+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+本机终端环境在部署复核期间找不到 Node.js、npm 和 Docker，导致本地测试无法启动。
+
+### Error
+```
+zsh:1: command not found: npm
+```
+
+### Context
+- 尝试运行 `npm test` 和 `npm run lint` 时发生。
+- 当前 PATH 中同时没有 `node`、`npm`、`corepack` 和 `docker`。
+- 目标 VPS 的 Node 22 Docker 构建环境仍可使用。
+
+### Suggested Fix
+本轮在 VPS 的隔离 Node 22 构建容器中完成同等验证；后续恢复本机 Node 22 的 PATH 配置。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json
+
+### Resolution
+- **Resolved**: 2026-07-15T21:44:00+08:00
+- **Notes**: 已在 VPS 的隔离 Node 22 镜像中完成 build 和 4 项测试。
+
+---
+
+## [ERR-20260715-004] macos_tar_appledouble
+
+**Logged**: 2026-07-15T21:44:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+macOS tar 包夹带 `._*` AppleDouble 元数据文件，导致 Linux 容器中的 ESLint 解析失败。
+
+### Error
+```
+Parsing error: Invalid character
+```
+
+### Context
+- 使用 macOS 自带 tar 打包源码并在 Debian VPS 解压后发生。
+- 功能测试仍为 4/4 通过，失败只来自 AppleDouble 元数据文件。
+
+### Suggested Fix
+使用命令级 `COPYFILE_DISABLE=1` 重新创建测试包，并在干净目录中重跑 lint。
+
+### Metadata
+- Reproducible: yes
+- Related Files: eslint.config.mjs
+
+### Resolution
+- **Resolved**: 2026-07-15T21:48:00+08:00
+- **Notes**: 已在干净源码目录中通过 lint，并让 Docker 与 ESLint 永久忽略 AppleDouble 元数据文件。
+
+---

@@ -24,6 +24,11 @@ npm run dev
 npm test
 ```
 
+## 部署
+
+VPS 容器、`xinhua.denkisan.me` 的 Nginx 入口、HTTPS 启用步骤和回滚方式见
+[`deploy/README.md`](deploy/README.md)。
+
 ## 数据与内容边界
 
 - 街区位置和道路关系参考 OpenStreetMap，遵循 ODbL 署名要求。
