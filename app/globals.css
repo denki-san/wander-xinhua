@@ -1,0 +1,744 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #2a302a;
+  --paper: #f7edd7;
+  --orange: #f5a72f;
+  --deep-orange: #d45f3d;
+  --green: #496c58;
+  --line: rgba(73, 58, 39, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+  background: #2f392f;
+  color: var(--ink);
+}
+
+body {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+  overflow: hidden;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+}
+
+.game-shell {
+  position: relative;
+  display: grid;
+  grid-template-rows: 72px minmax(0, 1fr) 34px;
+  width: 100vw;
+  height: 100svh;
+  min-height: 620px;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.topbar {
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(247, 237, 215, 0.96);
+  backdrop-filter: blur(16px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 13px 13px 13px 4px;
+  color: #fff7df;
+  background: var(--deep-orange);
+  font-family: "Songti SC", serif;
+  font-size: 22px;
+  font-weight: 800;
+  box-shadow: 0 7px 18px rgba(154, 70, 45, 0.2);
+}
+
+.brand strong,
+.brand small {
+  display: block;
+}
+
+.brand strong {
+  font-family: "Songti SC", "STSong", serif;
+  font-size: 19px;
+  letter-spacing: 0.12em;
+}
+
+.brand small {
+  margin-top: 2px;
+  color: #88775f;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.live-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: #6f654f;
+  background: rgba(255, 255, 255, 0.35);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.live-chip i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #68a16f;
+  box-shadow: 0 0 0 4px rgba(104, 161, 111, 0.13);
+}
+
+.icon-button {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: #6c5d48;
+  background: transparent;
+  cursor: pointer;
+}
+
+.game-stage {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: #e8cca0;
+}
+
+.world-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.map-caption {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: rgba(70, 54, 35, 0.72);
+  pointer-events: none;
+}
+
+.map-caption span {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+.map-caption strong {
+  font-family: "Songti SC", serif;
+  font-size: 16px;
+  letter-spacing: 0.09em;
+}
+
+.mission-card {
+  position: absolute;
+  z-index: 5;
+  top: 22px;
+  right: 24px;
+  width: min(330px, calc(100vw - 48px));
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 22px;
+  background: rgba(255, 248, 231, 0.9);
+  box-shadow: 0 22px 60px rgba(90, 65, 38, 0.17);
+  backdrop-filter: blur(18px);
+}
+
+.mission-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #83745f;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.mission-heading b {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: #5f5647;
+}
+
+.progress-track {
+  width: 100%;
+  height: 4px;
+  margin: 11px 0 18px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgba(87, 72, 51, 0.12);
+}
+
+.progress-track i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #ec9430, #d75e42);
+  transition: width 480ms cubic-bezier(.2, .8, .2, 1);
+}
+
+.mission-kicker {
+  margin: 0 0 7px !important;
+  color: #bd5e42 !important;
+  font-size: 10px !important;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mission-card h1 {
+  margin: 0;
+  font-family: "Songti SC", "STSong", serif;
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+}
+
+.mission-card > p {
+  margin: 8px 0 16px;
+  color: #746a59;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.primary-button,
+.start-button,
+.story-next,
+.action-dock button {
+  border: 0;
+  color: #fff9e8;
+  background: #3f5e4b;
+  box-shadow: 0 10px 24px rgba(49, 80, 61, 0.2);
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.primary-button:hover,
+.start-button:hover,
+.story-next:hover,
+.action-dock button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #355340;
+  box-shadow: 0 13px 28px rgba(49, 80, 61, 0.25);
+}
+
+.primary-button {
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.place-strip {
+  position: absolute;
+  z-index: 4;
+  left: 24px;
+  bottom: 74px;
+  display: flex;
+  gap: 8px;
+  max-width: calc(100% - 48px);
+  overflow-x: auto;
+  padding: 3px 2px 5px;
+  scrollbar-width: none;
+}
+
+.place-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.place-strip button {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 11px 7px 7px;
+  border: 1px solid rgba(255,255,255,.42);
+  border-radius: 999px;
+  color: #625644;
+  background: rgba(255, 248, 231, 0.82);
+  box-shadow: 0 8px 22px rgba(92, 65, 36, 0.1);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+}
+
+.place-strip button.is-active {
+  outline: 2px solid rgba(255,255,255,.82);
+  background: #fff8e9;
+}
+
+.place-strip i {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fffbed;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.place-strip span {
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.action-dock {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: min(440px, calc(100vw - 48px));
+  padding: 8px 8px 8px 16px;
+  border: 1px solid rgba(255,255,255,.42);
+  border-radius: 17px;
+  background: rgba(255, 248, 231, 0.91);
+  box-shadow: 0 18px 44px rgba(81, 58, 35, 0.18);
+  backdrop-filter: blur(16px);
+  transform: translateX(-50%);
+}
+
+.action-dock span {
+  flex: 1;
+  color: #675b49;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.action-dock button {
+  flex: 0 0 auto;
+  padding: 10px 15px;
+  border-radius: 11px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.action-dock button:disabled {
+  color: #978c7a;
+  background: rgba(100, 89, 71, 0.12);
+  box-shadow: none;
+  cursor: default;
+}
+
+.controls-tip {
+  position: absolute;
+  right: 24px;
+  bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(80, 65, 46, 0.68);
+  font-size: 10px;
+  pointer-events: none;
+}
+
+.controls-tip kbd {
+  padding: 4px 6px;
+  border: 1px solid rgba(82, 67, 48, 0.18);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  background: rgba(255,255,255,.4);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.intro-layer,
+.story-layer {
+  position: absolute;
+  z-index: 30;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(48, 57, 47, 0.44);
+  backdrop-filter: blur(12px) saturate(.8);
+}
+
+.intro-card {
+  position: relative;
+  width: min(540px, 100%);
+  overflow: hidden;
+  padding: clamp(28px, 6vw, 54px);
+  border: 1px solid rgba(255,255,255,.52);
+  border-radius: 32px 32px 32px 8px;
+  background: #f8ecd3;
+  box-shadow: 0 34px 90px rgba(24, 37, 29, 0.34);
+}
+
+.intro-card::after {
+  content: "一平方米";
+  position: absolute;
+  right: -28px;
+  bottom: 24px;
+  color: rgba(194, 85, 54, 0.07);
+  font-family: "Songti SC", serif;
+  font-size: 70px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  transform: rotate(-7deg);
+  pointer-events: none;
+}
+
+.intro-kicker {
+  margin: 0 0 18px;
+  color: #b75d43;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .16em;
+}
+
+.intro-card h1 {
+  position: relative;
+  margin: 0;
+  font-family: "Songti SC", "STSong", serif;
+  font-size: clamp(34px, 6.2vw, 54px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: .015em;
+}
+
+.intro-card > p:not(.intro-kicker) {
+  position: relative;
+  max-width: 420px;
+  margin: 22px 0;
+  color: #6e6454;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.intro-meta {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+
+.intro-meta span {
+  padding: 6px 10px;
+  border: 1px solid rgba(89, 72, 50, 0.14);
+  border-radius: 999px;
+  color: #746954;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.start-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: 15px;
+  font-weight: 800;
+}
+
+.start-button b {
+  font-size: 20px;
+}
+
+.story-layer {
+  background: rgba(44, 52, 43, 0.55);
+}
+
+.story-card {
+  --story-accent: #e89c32;
+  position: relative;
+  width: min(450px, 100%);
+  padding: 34px;
+  border-top: 5px solid var(--story-accent);
+  border-radius: 6px 6px 26px 26px;
+  background: #fff5df;
+  box-shadow: 0 34px 90px rgba(25, 34, 27, 0.35);
+}
+
+.story-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  color: #776b59;
+  background: rgba(102, 83, 58, .08);
+  font-size: 23px;
+  cursor: pointer;
+}
+
+.story-symbol {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  margin-bottom: 22px;
+  border-radius: 15px 15px 15px 4px;
+  color: #fff9e9;
+  background: var(--story-accent);
+  font-family: "Songti SC", serif;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.story-card > p {
+  margin: 0 0 8px;
+  color: var(--story-accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+}
+
+.story-card h2 {
+  margin: 0;
+  font-family: "Songti SC", serif;
+  font-size: 30px;
+}
+
+.story-divider {
+  width: 40px;
+  height: 2px;
+  margin: 20px 0;
+  background: var(--story-accent);
+}
+
+.story-card blockquote {
+  margin: 0 0 24px;
+  color: #655c4e;
+  font-family: "Songti SC", serif;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.story-next {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 13px;
+  font-weight: 800;
+}
+
+.site-footer {
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 24px;
+  border-top: 1px solid var(--line);
+  color: #8a7961;
+  background: #f7edd7;
+  font-size: 9px;
+  letter-spacing: .03em;
+}
+
+.site-footer a {
+  color: inherit;
+}
+
+@media (max-width: 760px) {
+  body {
+    overflow: hidden;
+  }
+
+  .game-shell {
+    grid-template-rows: 62px minmax(0, 1fr) 0;
+    min-height: 540px;
+  }
+
+  .topbar {
+    padding: 0 14px;
+  }
+
+  .brand-mark {
+    width: 35px;
+    height: 35px;
+    border-radius: 11px 11px 11px 4px;
+    font-size: 18px;
+  }
+
+  .brand strong {
+    font-size: 16px;
+  }
+
+  .brand small,
+  .live-chip,
+  .controls-tip,
+  .site-footer {
+    display: none;
+  }
+
+  .mission-card {
+    top: 12px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    padding: 14px 15px;
+    border-radius: 17px;
+  }
+
+  .mission-heading {
+    font-size: 9px;
+  }
+
+  .progress-track {
+    margin: 8px 0 10px;
+  }
+
+  .mission-card h1 {
+    max-width: 75%;
+    font-size: 18px;
+  }
+
+  .mission-card > p {
+    max-width: 72%;
+    margin: 5px 0 0;
+    font-size: 11px;
+  }
+
+  .primary-button {
+    position: absolute;
+    right: 15px;
+    bottom: 14px;
+  }
+
+  .map-caption {
+    top: auto;
+    bottom: 150px;
+    left: 14px;
+  }
+
+  .map-caption span {
+    font-size: 8px;
+  }
+
+  .map-caption strong {
+    font-size: 13px;
+  }
+
+  .place-strip {
+    left: 10px;
+    bottom: 69px;
+    max-width: calc(100% - 20px);
+  }
+
+  .place-strip span {
+    display: none;
+  }
+
+  .place-strip button {
+    padding: 6px;
+  }
+
+  .place-strip i {
+    width: 30px;
+    height: 30px;
+  }
+
+  .action-dock {
+    bottom: 12px;
+    min-width: calc(100% - 24px);
+    padding-left: 12px;
+  }
+
+  .action-dock span {
+    max-width: 55vw;
+    overflow: hidden;
+    font-size: 10px;
+    text-overflow: ellipsis;
+  }
+
+  .action-dock button {
+    padding: 10px 12px;
+  }
+
+  .intro-layer,
+  .story-layer {
+    padding: 14px;
+  }
+
+  .intro-card {
+    padding: 30px 24px 24px;
+    border-radius: 26px 26px 26px 7px;
+  }
+
+  .intro-card h1 {
+    font-size: 36px;
+  }
+
+  .intro-card > p:not(.intro-kicker) {
+    font-size: 13px;
+  }
+
+  .story-card {
+    padding: 28px 24px 24px;
+  }
+}
+
+@media (max-height: 680px) and (min-width: 761px) {
+  .mission-card {
+    top: 12px;
+  }
+  .mission-card > p {
+    margin-bottom: 10px;
+  }
+  .place-strip {
+    bottom: 65px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
