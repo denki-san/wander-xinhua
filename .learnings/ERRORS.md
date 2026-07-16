@@ -1,5 +1,69 @@
 # Errors
 
+## [ERR-20260716-017] rolldown_optional_chain_assignment
+
+**Logged**: 2026-07-16T17:50:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+新增地标树木实例时，对可选链结果赋值导致 Vite/Rolldown 在转换阶段拒绝构建。
+
+### Error
+```
+Cannot assign to this expression
+trunks.current?.instanceMatrix.needsUpdate = true
+```
+
+### Context
+- ESLint 未报告此语法问题，生产构建在 Vite transform 阶段失败。
+- 出现在华山绿地和上生新所两个 InstancedMesh 更新函数中。
+
+### Suggested Fix
+写入 ref 属性时显式判断 `ref.current`，不要把可选链放在赋值表达式左侧。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/huashan-green-block.tsx, app/scene/shangsheng-xinsuo-block.tsx
+
+### Resolution
+- **Resolved**: 2026-07-16T17:51:00+08:00
+- **Notes**: 两处实例矩阵写入均改为显式判空，重新运行生产构建验证。
+
+---
+## [ERR-20260716-021] fountain_json_tuple_typecheck
+
+**Logged**: 2026-07-16T19:51:36+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+给上生新所喷泉补碰撞时，边界工具函数只接受二元 tuple，但 JSON 导入被推断为 `number[][]`，导致场景 TypeScript 门禁失败。
+
+### Error
+```
+Argument of type 'number[][]' is not assignable to parameter of type 'readonly MapPolygonPoint[]'.
+```
+
+### Context
+- 场景构建和其余 27 项测试通过。
+- 错误只出现在喷泉边界传入 `boundaryBounds` 的两个调用点。
+
+### Suggested Fix
+边界只依赖前两个数值，不要求调用方必须保留 tuple 推断；将参数放宽为只读数值数组集合。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/shangsheng-xinsuo-block.tsx
+
+### Resolution
+- **Resolved**: 2026-07-16T19:51:36+08:00
+- **Notes**: `boundaryBounds` 改为接受 `readonly (readonly number[])[]`，保留只读约束并兼容 JSON 推断。
+
+---
+
 ## [ERR-20260716-016] npm_missing_from_tool_path
 
 **Logged**: 2026-07-16T16:20:00+08:00
@@ -543,5 +607,172 @@ npm error audit endpoint returned an error
 ### Resolution
 - **Resolved**: 2026-07-15T23:46:00+08:00
 - **Notes**: 在获准联网的本机环境重跑完成，生产依赖审计结果为 0 个漏洞。
+
+---
+## [ERR-20260716-018] landmark_full_test_contract
+
+**Logged**: 2026-07-16T18:18:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+两处地标首版通过 Vite 构建，但完整测试暴露 JSON 坐标类型转换不严格，以及阴影测试仍锁定旧的单地标中心。
+
+### Error
+```
+TS2352: Conversion of type 'number[][]' to type 'MapPolygonPoint[]' may be a mistake
+旧断言仍匹配 target.position.set(XINGFULI_POSITION...)
+```
+
+### Context
+- 命令：`env PATH=/opt/homebrew/bin:/usr/bin:/bin /opt/homebrew/bin/npm test`
+- Vite 构建通过，TypeScript 场景检查和旧阴影契约失败。
+- 当前实现已将阴影范围扩展到幸福里、华山绿地与上生·新所三个地标。
+- 直接执行全仓 `tsc` 还会遇到既有 Worker 的 Cloudflare 全局类型缺失；项目正式门禁只筛选场景与体验入口错误。
+- 首轮修正后，React Compiler 的 Lint 还要求 `useMemo` 第一个参数必须是内联函数。
+
+### Suggested Fix
+从 JSON 边界显式映射为二元坐标元组；把阴影测试更新为验证三地标中心和 `SHADOW_CENTER` 目标，不降低覆盖范围。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/huashan-green-block.tsx, app/scene/shangsheng-xinsuo-block.tsx, app/scene/xinhua-world.tsx, tests/map-data.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-16T19:25:00+08:00
+- **Notes**: JSON 边界改为显式元组映射，阴影契约更新为三地标中心，`useMemo` 改为内联函数；完整测试 27/27 和 Lint 均通过。
+
+---
+## [ERR-20260716-019] landmark_runtime_sky_only
+
+**Logged**: 2026-07-16T18:29:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+两处地标接入后，默认、华山绿地和上生新所三个起点在浏览器进入闲逛状态时都只显示天空。
+
+### Error
+```
+WebGL Canvas 正常加载且无页面异常，进入闲逛后场景几何与人物不可见，只剩天空背景。
+```
+
+### Context
+- 本地最新静态资产：`index-CpT37ghb.js`。
+- `npm test` 27/27 通过，Lint 修正后通过。
+- 浏览器网络只见 favicon 404；控制台仅有 THREE.Clock 弃用警告。
+- `?start=huashan`、`?start=shangsheng` 与默认起点表现一致。
+
+### Suggested Fix
+在 `qa=1` 下临时输出相机和人物坐标，确认 `PlayableMessenger` 帧循环是否运行以及相机是否得到有限坐标；再隔离新地标几何或相机碰撞源。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-world.tsx, app/scene/huashan-green-block.tsx, app/scene/shangsheng-xinsuo-block.tsx
+
+### Resolution
+- **Resolved**: 2026-07-16T19:25:00+08:00
+- **Notes**: 结构化浏览器错误显示 `data-landmark` 与 `data-osm-way` 在同一 R3F 对象上被解释为嵌套属性路径；两处地标全部改用 Three.js `name + userData`。新增源码契约禁止 `data-osm-way`，桌面和手机新会话 `errors=[]`，默认与全部地标直达坐标恢复渲染。
+
+---
+## [ERR-20260716-020] apply_patch_mixed_file_context
+
+**Logged**: 2026-07-16T19:07:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+补充篮球场验收坐标时，把测试断言上下文误放进场景文件补丁段，导致补丁校验失败。
+
+### Error
+```
+apply_patch verification failed: Failed to find expected lines in app/scene/xinhua-world.tsx
+```
+
+### Context
+- 补丁同时修改 `xinhua-world.tsx` 和 `tests/landmarks.test.mjs`。
+- 失败发生在应用补丁前，没有产生部分写入。
+
+### Suggested Fix
+按文件拆分并使用各自真实上下文重新应用。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-world.tsx, tests/landmarks.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-16T19:08:00+08:00
+- **Notes**: 已读取精确上下文并分文件重新应用。
+
+---
+## [ERR-20260716-022] agent_browser_environment_and_cli_mismatch
+
+**Logged**: 2026-07-16T20:43:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+最终浏览器验收时连续遇到 shell URL 展开、缺失 PATH、沙箱 socket 权限、错误子命令及一次 Chrome crashpad 启动失败。
+
+### Error
+```
+zsh: no matches found: http://127.0.0.1:4173/?start=huashan
+command not found: agent-browser
+Socket directory '/Users/lei/.agent-browser' is not writable
+Unknown subcommand: errors
+Chrome exited early without writing DevToolsActivePort
+```
+
+### Context
+- 当前 shell PATH 没有 `/opt/homebrew/bin`，但二进制位于该目录。
+- `?` 未加引号时被 zsh 当成 glob。
+- 正确错误读取命令是顶级 `errors`，不是 `get errors`。
+- 一次性关闭全部旧 WebGL 会话后，首次重启 Chrome crashpad 异常，第二次启动成功。
+
+### Suggested Fix
+URL 始终加单引号；使用绝对二进制路径；浏览器命令按 skill/`--help` 的顶级语法调用；涉及 home socket 时走已授权的沙箱外执行；Chrome 早退先做一次同参数重试。
+
+### Metadata
+- Reproducible: partially
+- Related Files: /opt/homebrew/bin/agent-browser
+
+### Resolution
+- **Resolved**: 2026-07-16T20:43:00+08:00
+- **Notes**: 后续全部使用绝对路径和正确顶级命令；关闭冗余 WebGL 会话后，干净手机会话华山绿地 5 秒采样达到 60 FPS，浏览器错误为空。
+
+---
+## [ERR-20260716-023] stale_xingfuli_obstacle_source_contract
+
+**Logged**: 2026-07-16T20:47:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: test
+
+### Summary
+相机性能优化把幸福里障碍的全局变换抽成可复用常量后，旧源码正则仍要求在总障碍数组中直接展开局部障碍名，导致完整测试 27/28。
+
+### Error
+```
+The input did not match the regular expression /\.\.\.XINGFULI_OBSTACLES/
+```
+
+### Context
+- `XINGFULI_WORLD_OBSTACLES` 由 `XINGFULI_OBSTACLES.map(transformMapObstacle)` 生成。
+- 角色障碍与相机障碍现在复用同一组全局结果，避免重复变换并维持坐标一致。
+
+### Suggested Fix
+测试同时验证“局部障碍经过统一变换生成全局常量”和“总障碍数组展开该全局常量”，不要锁死旧的内联写法。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-world.tsx, tests/rendered-html.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-16T20:47:00+08:00
+- **Notes**: 已更新源码契约断言，并保留幸福里碰撞变换链路验证。
 
 ---

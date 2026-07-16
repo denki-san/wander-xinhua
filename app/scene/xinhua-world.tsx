@@ -22,6 +22,18 @@ import {
   useRef,
 } from "react";
 import { inputState, resetInput } from "./input";
+import {
+  HuashanGreenBlock,
+  HUASHAN_GREEN_CAMERA_OBSTACLES,
+  HUASHAN_GREEN_OBSTACLES,
+  HUASHAN_GREEN_POSITION,
+} from "./huashan-green-block";
+import {
+  ShangshengXinsuoBlock,
+  SHANGSHENG_XINSUO_CAMERA_OBSTACLES,
+  SHANGSHENG_XINSUO_OBSTACLES,
+  SHANGSHENG_XINSUO_POSITION,
+} from "./shangsheng-xinsuo-block";
 import { XingfuliBlock, XINGFULI_OBSTACLES } from "./xingfuli-block";
 import {
   XINHUA_ENVIRONMENT_SCALE,
@@ -32,6 +44,7 @@ import {
 import {
   composeCameraOffset,
   isPlanarPositionBlockedInPolygon,
+  isPlanarSightLineBlockedInPolygon,
   type MapObstacle,
   type MapPolygonPoint,
   resolvePolygonMovement,
@@ -44,6 +57,9 @@ const WORLD_UP = new Vector3(0, 1, 0);
 const CAMERA_DISTANCE = 7.4;
 const CAMERA_HEIGHT = 5.0;
 const CAMERA_FOLLOW_YAW_SPEED = 3.4;
+const CAMERA_FALLBACK_HEIGHT = 3.6;
+const CAMERA_FALLBACK_YAWS = [Math.PI / 2, -Math.PI / 2, Math.PI / 4, -Math.PI / 4, Math.PI];
+const CAMERA_FALLBACK_RADII = [4.2, 3.2, 2.4, 1.5, 0.8, 0.4];
 const CAMERA_DEFAULT_PITCH = CAMERA_HEIGHT / Math.hypot(CAMERA_DISTANCE, CAMERA_HEIGHT);
 const PLAYER_RADIUS = 0.48;
 const BASE_XINGFULI_VERTICAL_SCALE = 0.3;
@@ -54,6 +70,11 @@ const XINGFULI_POSITION: MapPolygonPoint = [
   XINGFULI_PLACEMENT.position[0],
   XINGFULI_PLACEMENT.position[1],
 ];
+const SHADOW_CENTER = new Vector3(
+  (XINGFULI_POSITION[0] + HUASHAN_GREEN_POSITION[0] + SHANGSHENG_XINSUO_POSITION[0]) / 3,
+  0,
+  (XINGFULI_POSITION[1] + HUASHAN_GREEN_POSITION[1] + SHANGSHENG_XINSUO_POSITION[1]) / 3,
+);
 
 function xingfuliLocalToWorld(x: number, z: number) {
   return transformMapPoint(
@@ -75,15 +96,106 @@ const START_FORWARD = new Vector3(
   0,
   -Math.sin(XINGFULI_PLACEMENT.rotationY),
 ).normalize();
+const HUASHAN_START_POSITION = new Vector3(
+  HUASHAN_GREEN_POSITION[0] + 3.2228,
+  0.33,
+  HUASHAN_GREEN_POSITION[1] + 30.9915,
+);
+const HUASHAN_COURT_START_POSITION = new Vector3(
+  HUASHAN_GREEN_POSITION[0] + 4,
+  0.33,
+  HUASHAN_GREEN_POSITION[1] + 33,
+);
+const HUASHAN_BRIDGE_START_POSITION = new Vector3(
+  HUASHAN_GREEN_POSITION[0] - 16.4,
+  0.33,
+  HUASHAN_GREEN_POSITION[1] + 40.4,
+);
+const SHANGSHENG_START_POSITION = new Vector3(
+  SHANGSHENG_XINSUO_POSITION[0] + 25,
+  0.33,
+  SHANGSHENG_XINSUO_POSITION[1] + 15,
+);
+const SHANGSHENG_POOL_START_POSITION = new Vector3(
+  SHANGSHENG_XINSUO_POSITION[0] - 20.65,
+  0.33,
+  SHANGSHENG_XINSUO_POSITION[1] - 6.65,
+);
+const SUNKE_START_POSITION = new Vector3(
+  SHANGSHENG_XINSUO_POSITION[0] + 45,
+  0.33,
+  SHANGSHENG_XINSUO_POSITION[1] + 10,
+);
+
+type StartPreset = {
+  position: Vector3;
+  forward: Vector3;
+};
+
+function requestedStartPreset(): StartPreset {
+  const name = typeof window === "undefined"
+    ? ""
+    : new URLSearchParams(window.location.search).get("start");
+  if (name === "huashan") {
+    return {
+      position: HUASHAN_START_POSITION.clone(),
+      forward: new Vector3(-0.8, 0, 0.6).normalize(),
+    };
+  }
+  if (name === "court") {
+    return {
+      position: HUASHAN_COURT_START_POSITION.clone(),
+      forward: new Vector3(0.7, 0, 0.7).normalize(),
+    };
+  }
+  if (name === "bridge") {
+    return {
+      position: HUASHAN_BRIDGE_START_POSITION.clone(),
+      forward: new Vector3(Math.cos(0.13), 0, -Math.sin(0.13)).normalize(),
+    };
+  }
+  if (name === "shangsheng") {
+    return {
+      position: SHANGSHENG_START_POSITION.clone(),
+      forward: new Vector3(-0.75, 0, -0.66).normalize(),
+    };
+  }
+  if (name === "pool") {
+    return {
+      position: SHANGSHENG_POOL_START_POSITION.clone(),
+      forward: new Vector3(0, 0, 1),
+    };
+  }
+  if (name === "sunke") {
+    return {
+      position: SUNKE_START_POSITION.clone(),
+      forward: new Vector3(-0.1, 0, -0.995).normalize(),
+    };
+  }
+  return {
+    position: START_POSITION.clone(),
+    forward: START_FORWARD.clone(),
+  };
+}
+
+const XINGFULI_WORLD_OBSTACLES = XINGFULI_OBSTACLES.map((obstacle) => transformMapObstacle(
+  obstacle,
+  XINGFULI_POSITION,
+  XINGFULI_PLACEMENT.rotationY,
+  XINGFULI_PLACEMENT.horizontalScale,
+  XINGFULI_PLACEMENT.localLaneCenterZ,
+));
 
 const WORLD_OBSTACLES: MapObstacle[] = [
-  ...XINGFULI_OBSTACLES.map((obstacle) => transformMapObstacle(
-    obstacle,
-    XINGFULI_POSITION,
-    XINGFULI_PLACEMENT.rotationY,
-    XINGFULI_PLACEMENT.horizontalScale,
-    XINGFULI_PLACEMENT.localLaneCenterZ,
-  )),
+  ...XINGFULI_WORLD_OBSTACLES,
+  ...HUASHAN_GREEN_OBSTACLES,
+  ...SHANGSHENG_XINSUO_OBSTACLES,
+];
+
+const WORLD_CAMERA_OBSTACLES: MapObstacle[] = [
+  ...XINGFULI_WORLD_OBSTACLES,
+  ...HUASHAN_GREEN_CAMERA_OBSTACLES,
+  ...SHANGSHENG_XINSUO_CAMERA_OBSTACLES,
 ];
 
 function GroundAnchor({
@@ -189,6 +301,8 @@ function FlatNeighborhood({ onOpenAction }: { onOpenAction: () => void }) {
           </group>
         </group>
       </group>
+      <HuashanGreenBlock />
+      <ShangshengXinsuoBlock />
       <ActionInstallation onOpenAction={onOpenAction} />
     </group>
   );
@@ -469,12 +583,13 @@ function useKeyboardControls() {
 function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => void }) {
   const { camera, gl } = useThree();
   const outer = useRef<Group>(null);
-  const initialForward = useMemo(() => START_FORWARD.clone(), []);
+  const initialStart = useMemo(() => requestedStartPreset(), []);
+  const initialForward = useMemo(() => initialStart.forward.clone(), [initialStart]);
   const initialCameraOffset = useMemo(
     () => initialForward.clone().multiplyScalar(-CAMERA_DISTANCE).addScaledVector(WORLD_UP, CAMERA_HEIGHT),
     [initialForward],
   );
-  const characterPosition = useRef(START_POSITION.clone());
+  const characterPosition = useRef(initialStart.position.clone());
   const forward = useRef(initialForward.clone());
   const cameraOffset = useRef(initialCameraOffset.clone());
   const lockedMoveDirection = useRef(initialForward.clone());
@@ -508,6 +623,8 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
     cameraBase: new Vector3(),
     cameraTarget: new Vector3(),
     revertedOffset: new Vector3(),
+    fallbackBase: new Vector3(),
+    fallbackDirection: new Vector3(),
   }), []);
 
   useEffect(() => {
@@ -646,21 +763,69 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
         s.cameraPosition.x,
         s.cameraPosition.z,
         XINHUA_BOUNDARY,
-        WORLD_OBSTACLES,
+        WORLD_CAMERA_OBSTACLES,
         0.25,
+      ) && !isPlanarSightLineBlockedInPolygon(
+        currentPosition.x,
+        currentPosition.z,
+        s.cameraPosition.x,
+        s.cameraPosition.z,
+        XINHUA_BOUNDARY,
+        WORLD_CAMERA_OBSTACLES,
+        0.18,
       )) {
         cameraClear = true;
         break;
       }
     }
-    if (!cameraClear) s.cameraPosition.copy(s.cameraBase).addScaledVector(WORLD_UP, 2.2);
+    if (!cameraClear) {
+      s.fallbackBase.copy(cameraOffset.current).projectOnPlane(WORLD_UP);
+      if (s.fallbackBase.lengthSq() < 0.001) s.fallbackBase.copy(currentForward).multiplyScalar(-1);
+      s.fallbackBase.normalize();
+      fallbackSearch: for (const radius of CAMERA_FALLBACK_RADII) {
+        for (const yaw of CAMERA_FALLBACK_YAWS) {
+          s.fallbackDirection.copy(s.fallbackBase).applyAxisAngle(WORLD_UP, yaw);
+          s.cameraPosition.copy(s.cameraBase)
+            .addScaledVector(s.fallbackDirection, radius)
+            .addScaledVector(WORLD_UP, CAMERA_FALLBACK_HEIGHT);
+          if (!isPlanarPositionBlockedInPolygon(
+            s.cameraPosition.x,
+            s.cameraPosition.z,
+            XINHUA_BOUNDARY,
+            WORLD_CAMERA_OBSTACLES,
+            0.18,
+          ) && !isPlanarSightLineBlockedInPolygon(
+            currentPosition.x,
+            currentPosition.z,
+            s.cameraPosition.x,
+            s.cameraPosition.z,
+            XINHUA_BOUNDARY,
+            WORLD_CAMERA_OBSTACLES,
+            0.12,
+          )) {
+            cameraClear = true;
+            break fallbackSearch;
+          }
+        }
+      }
+    }
+    // 极端夹角仍以角色正上方作为安全兜底；正常紧凑空间会先使用侧后方候选。
+    if (!cameraClear) s.cameraPosition.copy(s.cameraBase).addScaledVector(WORLD_UP, 4.8);
     s.cameraLerp.copy(camera.position).lerp(s.cameraPosition, Math.min(1, delta * 8));
     if (isPlanarPositionBlockedInPolygon(
       s.cameraLerp.x,
       s.cameraLerp.z,
       XINHUA_BOUNDARY,
-      WORLD_OBSTACLES,
+      WORLD_CAMERA_OBSTACLES,
       0.25,
+    ) || isPlanarSightLineBlockedInPolygon(
+      currentPosition.x,
+      currentPosition.z,
+      s.cameraLerp.x,
+      s.cameraLerp.z,
+      XINHUA_BOUNDARY,
+      WORLD_CAMERA_OBSTACLES,
+      0.12,
     )) {
       camera.position.copy(s.cameraPosition);
     } else {
@@ -710,7 +875,7 @@ export function XinhuaWorld({
 }) {
   const shadowTarget = useMemo(() => {
     const target = new Object3D();
-    target.position.set(XINGFULI_POSITION[0], 0, XINGFULI_POSITION[1]);
+    target.position.copy(SHADOW_CENTER);
     return target;
   }, []);
 
@@ -726,18 +891,18 @@ export function XinhuaWorld({
       <hemisphereLight args={["#eff8e9", "#6d765c", 1.45]} />
       <primitive object={shadowTarget} />
       <directionalLight
-        position={[XINGFULI_POSITION[0] + 28, 48, XINGFULI_POSITION[1] + 36]}
+        position={[SHADOW_CENTER.x + 70, 120, SHADOW_CENTER.z + 90]}
         target={shadowTarget}
         intensity={2.1}
         color="#fff2ce"
         castShadow
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
-        shadow-camera-far={230}
-        shadow-camera-left={-92}
-        shadow-camera-right={92}
-        shadow-camera-top={92}
-        shadow-camera-bottom={-92}
+        shadow-camera-far={520}
+        shadow-camera-left={-240}
+        shadow-camera-right={240}
+        shadow-camera-top={240}
+        shadow-camera-bottom={-240}
         shadow-bias={-0.00025}
       />
       <FlatNeighborhood onOpenAction={onOpenAction} />

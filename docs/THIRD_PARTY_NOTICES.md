@@ -16,8 +16,12 @@
 
 地图数据：
 
-- 新华路街道行政边界、道路拓扑与幸福里中心线来自 OpenStreetMap contributors。
+- 新华路街道行政边界、道路拓扑、幸福里中心线、华山绿地和上生·新所的公开场地与要素轮廓来自 OpenStreetMap contributors。
 - 数据许可：Open Data Commons Open Database License (ODbL) 1.0。
 - 版权与许可说明：<https://www.openstreetmap.org/copyright>
 - 使用的行政边界关系：<https://www.openstreetmap.org/relation/13469094>
 - 使用的幸福里步行街路径：<https://www.openstreetmap.org/way/400066625>
+- 使用的华山绿地场地：<https://www.openstreetmap.org/way/444342095>
+- 使用的华山绿地篮球场与配套建筑：<https://www.openstreetmap.org/way/743778425>、<https://www.openstreetmap.org/way/743778426>
+- 使用的上生·新所场地：<https://www.openstreetmap.org/way/765939973>
+- 使用的孙科别墅、乡村俱乐部与海军俱乐部轮廓：<https://www.openstreetmap.org/way/864847877>、<https://www.openstreetmap.org/way/864847881>、<https://www.openstreetmap.org/way/864847883>

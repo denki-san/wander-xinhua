@@ -298,6 +298,20 @@ button {
   white-space: nowrap;
 }
 
+.map-landmark-label {
+  border-color: #8c6349;
+  background: #efe3c6;
+  color: #31433e;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.map-landmark-label-dark {
+  border-color: #d2a56c;
+  background: #202724;
+  color: #f1d5a2;
+}
+
 .desktop-controls {
   position: absolute;
   z-index: 10;

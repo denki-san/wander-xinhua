@@ -133,6 +133,70 @@ export function isPlanarPositionBlockedInPolygon(
   ));
 }
 
+function segmentIntersectsExpandedObstacle(
+  startX: number,
+  startZ: number,
+  endX: number,
+  endZ: number,
+  obstacle: MapObstacle,
+  padding: number,
+) {
+  const minX = obstacle.minX - padding;
+  const maxX = obstacle.maxX + padding;
+  const minZ = obstacle.minZ - padding;
+  const maxZ = obstacle.maxZ + padding;
+  const deltaX = endX - startX;
+  const deltaZ = endZ - startZ;
+  let near = 0;
+  let far = 1;
+
+  for (const [start, delta, minimum, maximum] of [
+    [startX, deltaX, minX, maxX],
+    [startZ, deltaZ, minZ, maxZ],
+  ]) {
+    if (Math.abs(delta) < 1e-9) {
+      if (start < minimum || start > maximum) return false;
+      continue;
+    }
+    let entry = (minimum - start) / delta;
+    let exit = (maximum - start) / delta;
+    if (entry > exit) [entry, exit] = [exit, entry];
+    near = Math.max(near, entry);
+    far = Math.min(far, exit);
+    if (near > far) return false;
+  }
+  return far >= 0 && near <= 1;
+}
+
+/** 判断角色到候选镜头的整条地面投影视线是否穿过建筑或离开地图。 */
+export function isPlanarSightLineBlockedInPolygon(
+  startX: number,
+  startZ: number,
+  endX: number,
+  endZ: number,
+  polygon: readonly MapPolygonPoint[],
+  obstacles: MapObstacle[],
+  radius = 0,
+) {
+  // 对边界做短步长采样，兼容新华路街道的凹多边形边界。
+  for (let step = 0; step <= 8; step += 1) {
+    const t = step / 8;
+    if (!isPointInsidePolygon(
+      startX + (endX - startX) * t,
+      startZ + (endZ - startZ) * t,
+      polygon,
+    )) return true;
+  }
+  return obstacles.some((obstacle) => segmentIntersectsExpandedObstacle(
+    startX,
+    startZ,
+    endX,
+    endZ,
+    obstacle,
+    radius,
+  ));
+}
+
 /** 真实多边形边界内的分轴移动解析，保留沿建筑和边界滑动的手感。 */
 export function resolvePolygonMovement(
   current: Vector3,

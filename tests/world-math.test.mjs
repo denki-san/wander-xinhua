@@ -4,6 +4,7 @@ import { Vector3 } from "three";
 import {
   composeCameraOffset,
   isPlanarPositionBlockedInPolygon,
+  isPlanarSightLineBlockedInPolygon,
   isPointInsidePolygon,
   isPlanarPositionBlocked,
   resolvePolygonMovement,
@@ -62,6 +63,15 @@ test("相机可以识别建筑和地图外部为阻挡区域", () => {
   assert.equal(isPlanarPositionBlocked(3, 3, bounds, obstacles, 0.2), true);
   assert.equal(isPlanarPositionBlocked(10.1, 0, bounds, obstacles, 0.2), true);
   assert.equal(isPlanarPositionBlocked(0, 0, bounds, obstacles, 0.2), false);
+});
+
+test("相机候选点虽安全但整条视线穿墙时仍判定为阻挡", () => {
+  const polygon = [[-10, -10], [10, -10], [10, 10], [-10, 10]];
+  const wall = [{ minX: -0.4, maxX: 0.4, minZ: -4, maxZ: 4 }];
+  assert.equal(isPlanarPositionBlockedInPolygon(-4, 0, polygon, wall, 0.2), false);
+  assert.equal(isPlanarPositionBlockedInPolygon(4, 0, polygon, wall, 0.2), false);
+  assert.equal(isPlanarSightLineBlockedInPolygon(-4, 0, 4, 0, polygon, wall, 0.2), true);
+  assert.equal(isPlanarSightLineBlockedInPolygon(-4, 6, 4, 6, polygon, wall, 0.2), false);
 });
 
 test("真实多边形边界会阻止角色进入外接矩形中的无效区域", () => {

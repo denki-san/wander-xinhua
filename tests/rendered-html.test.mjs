@@ -18,6 +18,8 @@ test("产品源码锁定 WebGL 自由闲逛和唯一行动点", async () => {
   const experience = await readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8");
   const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
   const xingfuli = await readFile(new URL("../app/scene/xingfuli-block.tsx", import.meta.url), "utf8");
+  const huashan = await readFile(new URL("../app/scene/huashan-green-block.tsx", import.meta.url), "utf8");
+  const shangsheng = await readFile(new URL("../app/scene/shangsheng-xinsuo-block.tsx", import.meta.url), "utf8");
   const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
 
   assert.match(experience, /@react-three\/fiber/);
@@ -29,7 +31,7 @@ test("产品源码锁定 WebGL 自由闲逛和唯一行动点", async () => {
   assert.match(world, /resolvePolygonMovement/);
   assert.doesNotMatch(world, /MAP_BOUNDS|NeighborhoodBoundary|NeighborhoodRoads/);
   assert.doesNotMatch(world, /PLANET_RADIUS|SurfaceAnchor|TinyPlanet/);
-  assert.equal(((world + xingfuli).match(/data-action-point=/g) ?? []).length, 1);
+  assert.equal(((world + xingfuli + huashan + shangsheng).match(/data-action-point=/g) ?? []).length, 1);
   assert.match(experience, /唯一行动点/);
   assert.doesNotMatch(experience + world, /送出第一张行动邀请|点亮一家街角小店|找到今年的行动地图|故事线/);
   assert.doesNotMatch(experience + world, /login|password|账号|密码/i);
@@ -60,7 +62,8 @@ test("幸福里使用七栋固定建筑和可识别的核心街具", async () =>
   const layout = JSON.parse(await readFile(new URL("../app/scene/xingfuli-layout.json", import.meta.url), "utf8"));
 
   assert.match(world, /<XingfuliBlock \/>/);
-  assert.match(world, /\.\.\.XINGFULI_OBSTACLES/);
+  assert.match(world, /const XINGFULI_WORLD_OBSTACLES = XINGFULI_OBSTACLES\.map/);
+  assert.match(world, /\.\.\.XINGFULI_WORLD_OBSTACLES/);
   assert.equal(layout.buildings.length, 7);
   assert.deepEqual(layout.buildings.map((building) => building.side), [
     "north", "north", "north", "north", "south", "south", "south",
