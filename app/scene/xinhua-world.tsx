@@ -64,7 +64,6 @@ const INTRO_MAP_RADIUS = Math.hypot(
   (XINHUA_BOUNDS.maxX - XINHUA_BOUNDS.minX) / 2,
   (XINHUA_BOUNDS.maxZ - XINHUA_BOUNDS.minZ) / 2,
 ) * 1.08;
-const INTRO_ORBIT_SPEED = 0.035;
 const CAMERA_DISTANCE = 7.4;
 const CAMERA_HEIGHT = 5.0;
 const CAMERA_FOLLOW_DAMPING = 3.2;
@@ -995,15 +994,15 @@ export function IntroCamera() {
     return () => query.removeEventListener("change", sync);
   }, []);
 
-  useFrame(({ clock }, delta) => {
+  useFrame((_, delta) => {
     const perspective = camera as PerspectiveCamera;
     const verticalHalfFov = MathUtils.degToRad(perspective.fov / 2);
     const horizontalHalfFov = Math.atan(Math.tan(verticalHalfFov) * perspective.aspect);
     // 以更窄的视场角计算距离，横屏和竖屏都能完整容纳新华社区边界。
     const fitDistance = INTRO_MAP_RADIUS
       / Math.sin(Math.min(verticalHalfFov, horizontalHalfFov));
-    const orbit = reducedMotion.current ? 0 : clock.elapsedTime * INTRO_ORBIT_SPEED;
-    direction.copy(INTRO_CAMERA_DIRECTION).applyAxisAngle(WORLD_UP, orbit);
+    // 首页使用稳定的静态全景。密集道路在远景下逐帧旋转会产生亚像素闪烁和摩尔纹。
+    direction.copy(INTRO_CAMERA_DIRECTION);
     desired.copy(target).addScaledVector(direction, fitDistance);
     if (reducedMotion.current) camera.position.copy(desired);
     else camera.position.lerp(desired, Math.min(1, delta * 2.5));

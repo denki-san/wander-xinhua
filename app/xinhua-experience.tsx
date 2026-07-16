@@ -5,11 +5,25 @@ import { Canvas } from "@react-three/fiber";
 import { ACESFilmicToneMapping, SRGBColorSpace } from "three";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { inputState, resetInput, setMoveVector } from "./scene/input";
-import { InkOutline, PaperWash, WatercolourSky } from "./scene/visual-effects";
+import {
+  InkOutline,
+  NormalPassControl,
+  PaperWash,
+  WatercolourSky,
+} from "./scene/visual-effects";
 import { XinhuaWorld } from "./scene/xinhua-world";
 import mapData from "./scene/xinhua-map-data.json";
 
 const TOUCH_STICK_TRAVEL = 42;
+
+function detectLowTier() {
+  if (typeof window === "undefined") return false;
+  const coarse = window.matchMedia("(any-pointer: coarse)").matches;
+  const touch = coarse || (navigator.maxTouchPoints ?? 0) > 0;
+  const narrow = window.innerWidth < 720;
+  const limited = (navigator.hardwareConcurrency ?? 8) <= 4;
+  return touch || narrow || limited;
+}
 
 function TouchControls() {
   const zone = useRef<HTMLDivElement>(null);
@@ -131,17 +145,15 @@ export function XinhuaExperience() {
   const [actionOpen, setActionOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
-  const [lowTier, setLowTier] = useState(false);
+  // 在 Canvas 首次创建前确定渲染档位，避免低配置设备先分配一套高配后处理资源。
+  const [lowTier] = useState(detectLowTier);
   const [touchCapable, setTouchCapable] = useState(false);
 
   useEffect(() => {
     const coarse = window.matchMedia("(any-pointer: coarse)").matches;
     const touch = coarse || (navigator.maxTouchPoints ?? 0) > 0;
-    const narrow = window.innerWidth < 720;
-    const limited = (navigator.hardwareConcurrency ?? 8) <= 4;
     const frame = window.requestAnimationFrame(() => {
       setTouchCapable(touch);
-      setLowTier(touch || narrow || limited);
     });
     return () => window.cancelAnimationFrame(frame);
   }, []);
@@ -181,7 +193,7 @@ export function XinhuaExperience() {
     <main className={`xinhua-stage${playing ? " is-playing" : " is-intro"}${touchCapable ? " is-touch" : ""}`}>
       <Canvas
         shadows
-        dpr={lowTier ? 1 : [1, 1.75]}
+        dpr={lowTier ? 1.25 : [1, 1.75]}
         camera={{
           fov: 58,
           near: 0.1,
@@ -189,7 +201,7 @@ export function XinhuaExperience() {
           position: [35, 34, 42],
         }}
         gl={{
-          antialias: !lowTier,
+          antialias: true,
           toneMapping: ACESFilmicToneMapping,
           outputColorSpace: SRGBColorSpace,
           powerPreference: "high-performance",
@@ -202,16 +214,11 @@ export function XinhuaExperience() {
           onNearAction={setNearAction}
           onOpenAction={() => setActionOpen(true)}
         />
-        {lowTier ? (
-          <EffectComposer multisampling={0}>
-            <PaperWash />
-          </EffectComposer>
-        ) : (
-          <EffectComposer multisampling={2} enableNormalPass>
-            <InkOutline />
-            <PaperWash />
-          </EffectComposer>
-        )}
+        <EffectComposer multisampling={lowTier ? 0 : 2} enableNormalPass={!lowTier}>
+          <NormalPassControl enabled={playing && !lowTier} />
+          <InkOutline enabled={playing && !lowTier} />
+          <PaperWash animated={playing} />
+        </EffectComposer>
       </Canvas>
 
       {!ready && (

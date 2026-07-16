@@ -82,7 +82,7 @@ test("移动端下方触发区与浮动摇杆结构已接入", async () => {
   assert.match(styles, /\.xinhua-stage\.is-touch \.touch-controls\s*\{\s*display:\s*block/);
 });
 
-test("首页远景按最窄视场适配完整社区并提供低速环绕", async () => {
+test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", async () => {
   const [world, effects, experience] = await Promise.all([
     readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/scene/visual-effects.tsx", import.meta.url), "utf8"),
@@ -91,12 +91,25 @@ test("首页远景按最窄视场适配完整社区并提供低速环绕", async
 
   assert.match(world, /INTRO_MAP_RADIUS/);
   assert.match(world, /Math\.min\(verticalHalfFov, horizontalHalfFov\)/);
-  assert.match(world, /INTRO_ORBIT_SPEED/);
+  assert.doesNotMatch(world, /INTRO_ORBIT_SPEED|applyAxisAngle\(WORLD_UP, orbit\)/);
+  assert.match(world, /direction\.copy\(INTRO_CAMERA_DIRECTION\)/);
   assert.match(world, /prefers-reduced-motion: reduce/);
   assert.match(world, /const reducedMotion = useRef\(\s*typeof window !== "undefined"/s);
   assert.match(world, /reducedMotion\.current\) camera\.position\.copy\(desired\)/);
   assert.match(world, /\{playing && \(\s*<fog/s);
   assert.match(experience, /far: 800 \* mapData\.meta\.environmentScale/);
+  assert.match(experience, /const \[lowTier\] = useState\(detectLowTier\)/);
+  assert.match(experience, /dpr=\{lowTier \? 1\.25 : \[1, 1\.75\]\}/);
+  assert.match(experience, /antialias: true/);
+  assert.equal((experience.match(/<EffectComposer/g) ?? []).length, 1);
+  assert.match(experience, /<EffectComposer multisampling=\{lowTier \? 0 : 2\} enableNormalPass=\{!lowTier\}>/);
+  assert.match(experience, /<NormalPassControl enabled=\{playing && !lowTier\} \/>/);
+  assert.match(experience, /<InkOutline enabled=\{playing && !lowTier\} \/>/);
+  assert.match(experience, /<PaperWash animated=\{playing\} \/>/);
+  assert.match(effects, /if \(!enabled\) return null/);
+  assert.match(effects, /normalPassRef\.current\.enabled = enabled/);
+  assert.match(effects, /effect\.setAnimated\(animated\)/);
+  assert.match(effects, /if \(!this\.animated\) return/);
   assert.doesNotMatch(effects, /length\(uv - 0\.5\)/);
   assert.match(effects, /max\(edge\.x, edge\.y\)/);
 
