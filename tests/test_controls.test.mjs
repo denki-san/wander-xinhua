@@ -1,0 +1,83 @@
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import test from "node:test";
+import { Vector3 } from "three";
+import {
+  inputState,
+  normalizeMoveVector,
+  resetInput,
+  setMoveVector,
+} from "../app/scene/input.ts";
+import {
+  dampTangentTowards,
+  dampingFactor,
+} from "../app/scene/world-math.ts";
+
+const EPSILON = 1e-9;
+
+test("模拟摇杆保留圆周上的连续输入角度", () => {
+  for (let degrees = 0; degrees < 360; degrees += 15) {
+    const angle = degrees * Math.PI / 180;
+    const sourceX = Math.cos(angle) * 0.8;
+    const sourceY = Math.sin(angle) * 0.8;
+    const move = normalizeMoveVector(sourceX, sourceY);
+    const cross = sourceX * move.y - sourceY * move.x;
+    const dot = sourceX * move.x + sourceY * move.y;
+
+    assert.ok(move.magnitude > 0);
+    assert.ok(Math.abs(cross) < EPSILON, `未保留 ${degrees}° 的方向`);
+    assert.ok(dot > 0, `错误翻转了 ${degrees}° 的方向`);
+  }
+});
+
+test("模拟摇杆使用径向死区并向共享状态写入连续分量", () => {
+  assert.deepEqual(normalizeMoveVector(0.08, -0.08), { x: 0, y: 0, magnitude: 0 });
+
+  setMoveVector(0.61, -0.37);
+  assert.ok(inputState.moveX > 0);
+  assert.ok(inputState.moveY < 0);
+  assert.ok(Math.abs(inputState.moveX / inputState.moveY - 0.61 / -0.37) < EPSILON);
+
+  resetInput();
+  assert.equal(inputState.moveX, 0);
+  assert.equal(inputState.moveY, 0);
+});
+
+test("转向阻尼不随 30fps 或 60fps 改变结果", () => {
+  const up = new Vector3(0, 1, 0);
+  const target = new Vector3(0, 0, 1);
+  const at30fps = dampTangentTowards(
+    new Vector3(1, 0, 0),
+    target,
+    up,
+    5,
+    1 / 30,
+  );
+  const at60fps = new Vector3(1, 0, 0);
+  dampTangentTowards(at60fps, target, up, 5, 1 / 60, at60fps);
+  dampTangentTowards(at60fps, target, up, 5, 1 / 60, at60fps);
+
+  assert.ok(at30fps.distanceTo(at60fps) < EPSILON);
+  assert.ok(Math.abs(dampingFactor(5, 1 / 30) - (1 - Math.exp(-5 / 30))) < EPSILON);
+});
+
+test("移动端下方触发区与浮动摇杆结构已接入", async () => {
+  const [experience, styles] = await Promise.all([
+    readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(experience, /className="touch-stick-zone"/);
+  assert.match(experience, /setPointerCapture\(event\.pointerId\)/);
+  assert.match(experience, /event\.pointerType !== "touch"/);
+  assert.match(experience, /event\.target instanceof HTMLCanvasElement/);
+  assert.match(experience, /addEventListener\("pointerdown", beginMove, \{ capture: true/);
+  assert.match(experience, /matchMedia\("\(any-pointer: coarse\)"\)/);
+  assert.match(experience, /navigator\.maxTouchPoints/);
+  assert.match(experience, /touchCapable \? " is-touch" : ""/);
+  assert.match(styles, /\.touch-stick-zone\s*\{/);
+  assert.match(styles, /height:\s*min\(48svh, 430px\)/);
+  assert.match(styles, /\.touch-stick-zone\s*\{[^}]*pointer-events:\s*none/s);
+  assert.match(styles, /\.xinhua-stage\.is-touch\s*\{\s*min-height:\s*0/);
+  assert.match(styles, /\.xinhua-stage\.is-touch \.touch-controls\s*\{\s*display:\s*block/);
+});

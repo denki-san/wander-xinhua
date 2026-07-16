@@ -43,12 +43,13 @@ import {
 } from "./xinhua-map";
 import {
   composeCameraOffset,
+  dampingFactor,
+  dampTangentTowards,
   isPlanarPositionBlockedInPolygon,
   isPlanarSightLineBlockedInPolygon,
   type MapObstacle,
   type MapPolygonPoint,
   resolvePolygonMovement,
-  rotateTangentTowards,
   transformMapObstacle,
   transformMapPoint,
 } from "./world-math";
@@ -56,7 +57,13 @@ import {
 const WORLD_UP = new Vector3(0, 1, 0);
 const CAMERA_DISTANCE = 7.4;
 const CAMERA_HEIGHT = 5.0;
-const CAMERA_FOLLOW_YAW_SPEED = 3.4;
+const CAMERA_FOLLOW_DAMPING = 3.2;
+const CAMERA_ORBIT_DAMPING = 18;
+const CAMERA_POSITION_DAMPING = 10;
+const CAMERA_ROTATION_SPEED_X = 0.005;
+const CAMERA_ROTATION_SPEED_Y = 0.004;
+const CHARACTER_TURN_DAMPING = 9;
+const CHARACTER_MAX_TURN_SPEED = 8;
 const CAMERA_FALLBACK_HEIGHT = 3.6;
 const CAMERA_FALLBACK_YAWS = [Math.PI / 2, -Math.PI / 2, Math.PI / 4, -Math.PI / 4, Math.PI];
 const CAMERA_FALLBACK_RADII = [4.2, 3.2, 2.4, 1.5, 0.8, 0.4];
@@ -521,19 +528,27 @@ function MessengerCharacter({ outerRef }: { outerRef: RefObject<Group | null> })
   const leftLeg = useRef<Group>(null);
   const rightLeg = useRef<Group>(null);
   const body = useRef<Group>(null);
-  const moving = useRef(false);
 
   useFrame(({ clock }) => {
-    const stride = moving.current ? Math.sin(clock.elapsedTime * (inputState.sprint ? 12 : 8)) : 0;
+    const analogStrength = Math.min(1, Math.hypot(inputState.moveX, inputState.moveY));
+    const keyboardMoving = inputState.forward || inputState.back || inputState.left || inputState.right;
+    const moveStrength = analogStrength > 0 ? analogStrength : (keyboardMoving ? 1 : 0);
+    const strideStrength = Math.sqrt(moveStrength);
+    const stride = Math.sin(
+      clock.elapsedTime * (inputState.sprint ? 12 : 5.5 + moveStrength * 2.5),
+    ) * strideStrength;
     if (leftArm.current) leftArm.current.rotation.x = stride * 0.58;
     if (rightArm.current) rightArm.current.rotation.x = -stride * 0.58;
     if (leftLeg.current) leftLeg.current.rotation.x = -stride * 0.52;
     if (rightLeg.current) rightLeg.current.rotation.x = stride * 0.52;
     if (body.current) {
-      body.current.position.y = moving.current ? Math.abs(stride) * 0.038 : Math.sin(clock.elapsedTime * 2.3) * 0.014;
-      body.current.rotation.z = moving.current ? stride * 0.014 : Math.sin(clock.elapsedTime * 1.2) * 0.006;
+      body.current.position.y = moveStrength > 0
+        ? Math.abs(stride) * 0.038
+        : Math.sin(clock.elapsedTime * 2.3) * 0.014;
+      body.current.rotation.z = moveStrength > 0
+        ? stride * 0.014
+        : Math.sin(clock.elapsedTime * 1.2) * 0.006;
     }
-    moving.current = inputState.forward || inputState.back || inputState.left || inputState.right;
   });
 
   return (
@@ -552,7 +567,8 @@ function MessengerCharacter({ outerRef }: { outerRef: RefObject<Group | null> })
 
 function useKeyboardControls() {
   useEffect(() => {
-    const mapping: Record<string, keyof typeof inputState> = {
+    type KeyboardInputKey = "forward" | "back" | "left" | "right" | "sprint" | "jump";
+    const mapping: Record<string, KeyboardInputKey> = {
       KeyW: "forward", ArrowUp: "forward",
       KeyS: "back", ArrowDown: "back",
       KeyA: "left", ArrowLeft: "left",
@@ -592,12 +608,16 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
   const characterPosition = useRef(initialStart.position.clone());
   const forward = useRef(initialForward.clone());
   const cameraOffset = useRef(initialCameraOffset.clone());
-  const lockedMoveDirection = useRef(initialForward.clone());
+  const cameraGoalOffset = useRef(initialCameraOffset.clone());
+  const moveCameraForward = useRef(initialForward.clone());
+  const moveCameraRight = useRef(initialForward.clone().cross(WORLD_UP).normalize());
   const driveSignature = useRef("");
   const jumpHeight = useRef(0);
   const jumpVelocity = useRef(0);
   const jumpHeld = useRef(false);
   const dragging = useRef(false);
+  const dragPointerId = useRef<number | null>(null);
+  const lastDragPointer = useRef({ x: 0, y: 0 });
   const dragDelta = useRef({ x: 0, y: 0 });
   const zoom = useRef(initialCameraOffset.length());
   const wasNear = useRef(false);
@@ -629,24 +649,49 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
 
   useEffect(() => {
     const canvas = gl.domElement;
-    const pointerDown = () => { dragging.current = true; };
-    const pointerUp = () => { dragging.current = false; };
+    const pointerDown = (event: PointerEvent) => {
+      if (dragPointerId.current !== null) return;
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      dragPointerId.current = event.pointerId;
+      lastDragPointer.current = { x: event.clientX, y: event.clientY };
+      dragging.current = true;
+      canvas.setPointerCapture(event.pointerId);
+    };
+    const pointerUp = (event: PointerEvent) => {
+      if (dragPointerId.current !== event.pointerId) return;
+      dragPointerId.current = null;
+      dragging.current = false;
+    };
     const pointerMove = (event: PointerEvent) => {
-      if (!dragging.current || event.pointerType === "touch") return;
-      dragDelta.current.x += event.movementX;
-      dragDelta.current.y += event.movementY;
+      if (!dragging.current || dragPointerId.current !== event.pointerId) return;
+      const x = event.clientX - lastDragPointer.current.x;
+      const y = event.clientY - lastDragPointer.current.y;
+      // 切回页面或系统手势可能产生异常大跳变，限制单次增量避免镜头瞬移。
+      dragDelta.current.x += Math.max(-120, Math.min(120, x));
+      dragDelta.current.y += Math.max(-120, Math.min(120, y));
+      lastDragPointer.current = { x: event.clientX, y: event.clientY };
+    };
+    const cancelDrag = () => {
+      dragPointerId.current = null;
+      dragging.current = false;
+      dragDelta.current.x = 0;
+      dragDelta.current.y = 0;
     };
     const wheel = (event: WheelEvent) => {
       zoom.current = Math.min(12.5, Math.max(6.4, zoom.current * (1 + event.deltaY * 0.0012)));
     };
     canvas.addEventListener("pointerdown", pointerDown);
     window.addEventListener("pointerup", pointerUp);
+    window.addEventListener("pointercancel", pointerUp);
     window.addEventListener("pointermove", pointerMove);
+    window.addEventListener("blur", cancelDrag);
     canvas.addEventListener("wheel", wheel, { passive: true });
     return () => {
       canvas.removeEventListener("pointerdown", pointerDown);
       window.removeEventListener("pointerup", pointerUp);
+      window.removeEventListener("pointercancel", pointerUp);
       window.removeEventListener("pointermove", pointerMove);
+      window.removeEventListener("blur", cancelDrag);
       canvas.removeEventListener("wheel", wheel);
     };
   }, [gl]);
@@ -657,67 +702,111 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
     const currentPosition = characterPosition.current;
     const s = scratch;
 
+    const analogMagnitude = Math.hypot(inputState.moveX, inputState.moveY);
+    const usingAnalog = analogMagnitude > 0;
+    const z = usingAnalog
+      ? -inputState.moveY
+      : (inputState.forward ? 1 : 0) - (inputState.back ? 1 : 0);
+    const x = usingAnalog
+      ? inputState.moveX
+      : (inputState.right ? 1 : 0) - (inputState.left ? 1 : 0);
+    const moving = Math.hypot(x, z) > 1e-4;
+
     if (dragDelta.current.x !== 0) {
-      s.quaternion.setFromAxisAngle(WORLD_UP, -dragDelta.current.x * 0.005);
-      cameraOffset.current.applyQuaternion(s.quaternion);
+      s.quaternion.setFromAxisAngle(
+        WORLD_UP,
+        -dragDelta.current.x * CAMERA_ROTATION_SPEED_X,
+      );
+      cameraGoalOffset.current.applyQuaternion(s.quaternion);
     }
     if (dragDelta.current.y !== 0) {
-      s.revertedOffset.copy(cameraOffset.current);
-      s.right.copy(WORLD_UP).cross(cameraOffset.current).normalize();
-      s.quaternion.setFromAxisAngle(s.right, -dragDelta.current.y * 0.004);
-      cameraOffset.current.applyQuaternion(s.quaternion);
-      const pitch = cameraOffset.current.clone().normalize().dot(WORLD_UP);
-      if (pitch > 0.93 || pitch < 0.12) cameraOffset.current.copy(s.revertedOffset);
+      s.revertedOffset.copy(cameraGoalOffset.current);
+      s.right.copy(WORLD_UP).cross(cameraGoalOffset.current).normalize();
+      s.quaternion.setFromAxisAngle(
+        s.right,
+        -dragDelta.current.y * CAMERA_ROTATION_SPEED_Y,
+      );
+      cameraGoalOffset.current.applyQuaternion(s.quaternion);
+      const pitch = cameraGoalOffset.current.dot(WORLD_UP) / cameraGoalOffset.current.length();
+      if (pitch > 0.93 || pitch < 0.12) cameraGoalOffset.current.copy(s.revertedOffset);
     }
     dragDelta.current.x = 0;
     dragDelta.current.y = 0;
+    cameraGoalOffset.current.setLength(zoom.current);
 
-    if (!dragging.current) {
-      // 相机只做水平转向；后退时平滑绕到角色正面，不再经过顶部。
-      s.cameraHorizontal.copy(cameraOffset.current).projectOnPlane(WORLD_UP);
+    if (!dragging.current && moving) {
+      // 手动旋转在静止时会停留在任意圆周角；移动时再柔和回到角色身后。
+      s.cameraHorizontal.copy(cameraGoalOffset.current).projectOnPlane(WORLD_UP);
       s.desiredHorizontal.copy(currentForward).multiplyScalar(-1);
-      rotateTangentTowards(
+      dampTangentTowards(
         s.cameraHorizontal,
         s.desiredHorizontal,
         WORLD_UP,
-        CAMERA_FOLLOW_YAW_SPEED * delta,
+        CAMERA_FOLLOW_DAMPING,
+        delta,
         s.cameraHorizontal,
       );
       const currentPitch = Math.min(0.93, Math.max(
         0.12,
-        cameraOffset.current.clone().normalize().dot(WORLD_UP),
+        cameraGoalOffset.current.dot(WORLD_UP) / cameraGoalOffset.current.length(),
       ));
-      const pitch = currentPitch + (CAMERA_DEFAULT_PITCH - currentPitch) * Math.min(1, delta * 2.6);
+      const pitch = currentPitch
+        + (CAMERA_DEFAULT_PITCH - currentPitch) * dampingFactor(CAMERA_FOLLOW_DAMPING, delta);
       composeCameraOffset(
         s.cameraHorizontal,
         WORLD_UP,
         zoom.current,
         pitch,
-        cameraOffset.current,
+        cameraGoalOffset.current,
       );
-    } else {
-      cameraOffset.current.setLength(zoom.current);
     }
+
+    // 输入只改变目标轨道；真实相机用帧率无关阻尼追赶，消除逐像素硬跳。
+    s.cameraHorizontal.copy(cameraOffset.current).projectOnPlane(WORLD_UP);
+    s.desiredHorizontal.copy(cameraGoalOffset.current).projectOnPlane(WORLD_UP);
+    dampTangentTowards(
+      s.cameraHorizontal,
+      s.desiredHorizontal,
+      WORLD_UP,
+      CAMERA_ORBIT_DAMPING,
+      delta,
+      s.cameraHorizontal,
+    );
+    const currentPitch = Math.min(0.93, Math.max(
+      0.12,
+      cameraOffset.current.dot(WORLD_UP) / cameraOffset.current.length(),
+    ));
+    const goalPitch = Math.min(0.93, Math.max(
+      0.12,
+      cameraGoalOffset.current.dot(WORLD_UP) / cameraGoalOffset.current.length(),
+    ));
+    const pitch = currentPitch
+      + (goalPitch - currentPitch) * dampingFactor(CAMERA_ORBIT_DAMPING, delta);
+    composeCameraOffset(
+      s.cameraHorizontal,
+      WORLD_UP,
+      zoom.current,
+      pitch,
+      cameraOffset.current,
+    );
 
     s.cameraForward.copy(cameraOffset.current).multiplyScalar(-1).projectOnPlane(WORLD_UP);
     if (s.cameraForward.lengthSq() < 0.001) s.cameraForward.copy(currentForward);
     s.cameraForward.normalize();
     s.cameraRight.copy(s.cameraForward).cross(WORLD_UP).normalize();
 
-    const z = (inputState.forward ? 1 : 0) - (inputState.back ? 1 : 0);
-    const x = (inputState.right ? 1 : 0) - (inputState.left ? 1 : 0);
-    const moving = x !== 0 || z !== 0;
     if (moving) {
-      const signature = `${x}:${z}`;
+      const signature = usingAnalog ? "analog" : `${x}:${z}`;
       if (signature !== driveSignature.current) {
-        lockedMoveDirection.current.set(0, 0, 0)
-          .addScaledVector(s.cameraForward, z)
-          .addScaledVector(s.cameraRight, x)
-          .normalize();
+        moveCameraForward.current.copy(s.cameraForward);
+        moveCameraRight.current.copy(s.cameraRight);
         driveSignature.current = signature;
       }
-      s.move.copy(lockedMoveDirection.current);
-      const speed = inputState.sprint ? 6.4 : 3.6;
+      s.move.set(0, 0, 0)
+        .addScaledVector(moveCameraForward.current, z)
+        .addScaledVector(moveCameraRight.current, x)
+        .normalize();
+      const speed = inputState.sprint ? 6.4 : 3.6 * (usingAnalog ? analogMagnitude : 1);
       s.displacement.copy(s.move).multiplyScalar(speed * delta);
       resolvePolygonMovement(
         currentPosition,
@@ -727,7 +816,15 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
         PLAYER_RADIUS,
         currentPosition,
       );
-      currentForward.copy(s.move).projectOnPlane(WORLD_UP).normalize();
+      dampTangentTowards(
+        currentForward,
+        s.move,
+        WORLD_UP,
+        CHARACTER_TURN_DAMPING,
+        delta,
+        currentForward,
+        CHARACTER_MAX_TURN_SPEED,
+      );
     } else {
       driveSignature.current = "";
     }
@@ -811,7 +908,10 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
     }
     // 极端夹角仍以角色正上方作为安全兜底；正常紧凑空间会先使用侧后方候选。
     if (!cameraClear) s.cameraPosition.copy(s.cameraBase).addScaledVector(WORLD_UP, 4.8);
-    s.cameraLerp.copy(camera.position).lerp(s.cameraPosition, Math.min(1, delta * 8));
+    s.cameraLerp.copy(camera.position).lerp(
+      s.cameraPosition,
+      dampingFactor(CAMERA_POSITION_DAMPING, delta),
+    );
     if (isPlanarPositionBlockedInPolygon(
       s.cameraLerp.x,
       s.cameraLerp.z,

@@ -46,6 +46,11 @@ button {
   isolation: isolate;
 }
 
+/* 触屏短边设备应严格贴合真实 viewport，避免横屏控件落到可视区外。 */
+.xinhua-stage.is-touch {
+  min-height: 0;
+}
+
 .xinhua-stage canvas {
   display: block;
   width: 100% !important;
@@ -396,7 +401,108 @@ kbd {
 }
 
 .touch-controls {
+  position: absolute;
+  z-index: 19;
+  inset: 0;
   display: none;
+  pointer-events: none;
+}
+
+.xinhua-stage.is-touch .touch-controls {
+  display: block;
+}
+
+.xinhua-stage.is-touch .desktop-controls,
+.xinhua-stage.is-touch .study-note {
+  display: none;
+}
+
+.touch-jump {
+  pointer-events: auto;
+  touch-action: none;
+}
+
+.touch-stick-zone {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: min(48svh, 430px);
+  min-height: 220px;
+  pointer-events: none;
+  touch-action: none;
+}
+
+.touch-stick {
+  position: absolute;
+  top: calc(100% - 78px);
+  left: 78px;
+  width: 112px;
+  height: 112px;
+  border: 2px solid rgba(241, 235, 208, 0.72);
+  border-radius: 50%;
+  background: rgba(43, 67, 62, 0.23);
+  box-shadow: inset 0 0 0 8px rgba(48, 73, 68, 0.11);
+  opacity: 0.68;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 120ms ease, background-color 120ms ease;
+}
+
+.touch-stick.is-active {
+  background: rgba(43, 67, 62, 0.34);
+  opacity: 1;
+}
+
+.touch-stick::before,
+.touch-stick::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: rgba(242, 236, 211, 0.32);
+  transform: translate(-50%, -50%);
+}
+
+.touch-stick::before { width: 62px; height: 1px; }
+.touch-stick::after { width: 1px; height: 62px; }
+
+.touch-stick > span {
+  position: absolute;
+  z-index: 2;
+  top: 33px;
+  left: 33px;
+  display: block;
+  width: 44px;
+  height: 44px;
+  border: 2px solid #2e4843;
+  border-radius: 50%;
+  background: #efe7cf;
+  box-shadow: 3px 4px 0 rgba(39, 62, 57, 0.68);
+}
+
+.touch-jump {
+  position: absolute;
+  z-index: 2;
+  right: 22px;
+  bottom: 22px;
+  display: grid;
+  width: 68px;
+  height: 68px;
+  place-items: center;
+  border: 2px solid #2e4742;
+  border-radius: 50%;
+  color: #fff3d1;
+  background: var(--red);
+  box-shadow: 4px 5px 0 rgba(39, 62, 57, 0.78);
+  font-size: 16px;
+  font-weight: 1000;
+}
+
+.touch-jump.is-pressed {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 2px 0 rgba(39, 62, 57, 0.78);
 }
 
 .panel-layer {
@@ -574,80 +680,6 @@ kbd {
   .desktop-controls,
   .study-note {
     display: none;
-  }
-
-  .touch-controls {
-    position: absolute;
-    z-index: 19;
-    right: 22px;
-    bottom: 22px;
-    left: 22px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    pointer-events: none;
-  }
-
-  .touch-stick,
-  .touch-jump {
-    pointer-events: auto;
-    touch-action: none;
-  }
-
-  .touch-stick {
-    position: relative;
-    width: 112px;
-    height: 112px;
-    border: 2px solid rgba(241, 235, 208, 0.72);
-    border-radius: 50%;
-    background: rgba(43, 67, 62, 0.23);
-    box-shadow: inset 0 0 0 8px rgba(48, 73, 68, 0.11);
-  }
-
-  .touch-stick::before,
-  .touch-stick::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    background: rgba(242, 236, 211, 0.32);
-    transform: translate(-50%, -50%);
-  }
-
-  .touch-stick::before { width: 62px; height: 1px; }
-  .touch-stick::after { width: 1px; height: 62px; }
-
-  .touch-stick > span {
-    position: absolute;
-    z-index: 2;
-    top: 33px;
-    left: 33px;
-    display: block;
-    width: 44px;
-    height: 44px;
-    border: 2px solid #2e4843;
-    border-radius: 50%;
-    background: #efe7cf;
-    box-shadow: 3px 4px 0 rgba(39, 62, 57, 0.68);
-  }
-
-  .touch-jump {
-    display: grid;
-    width: 68px;
-    height: 68px;
-    place-items: center;
-    border: 2px solid #2e4742;
-    border-radius: 50%;
-    color: #fff3d1;
-    background: var(--red);
-    box-shadow: 4px 5px 0 rgba(39, 62, 57, 0.78);
-    font-size: 16px;
-    font-weight: 1000;
-  }
-
-  .touch-jump.is-pressed {
-    transform: translate(3px, 3px);
-    box-shadow: 1px 2px 0 rgba(39, 62, 57, 0.78);
   }
 
   .action-prompt {

@@ -9,52 +9,96 @@ import { InkOutline, PaperWash, WatercolourSky } from "./scene/visual-effects";
 import { XinhuaWorld } from "./scene/xinhua-world";
 import mapData from "./scene/xinhua-map-data.json";
 
+const TOUCH_STICK_TRAVEL = 42;
+
 function TouchControls() {
-  const base = useRef<HTMLDivElement>(null);
+  const zone = useRef<HTMLDivElement>(null);
   const pointerId = useRef<number | null>(null);
   const center = useRef({ x: 0, y: 0 });
   const [knob, setKnob] = useState({ x: 0, y: 0 });
+  const [origin, setOrigin] = useState<{ x: number; y: number } | null>(null);
   const [jumping, setJumping] = useState(false);
-  const travel = 42;
 
-  useEffect(() => () => resetInput(), []);
+  useEffect(() => {
+    const element = zone.current;
+    if (!element) return;
 
-  const release = useCallback((event: React.PointerEvent) => {
-    if (pointerId.current !== event.pointerId) return;
-    pointerId.current = null;
-    setKnob({ x: 0, y: 0 });
-    setMoveVector(0, 0);
+    const clearMove = () => {
+      pointerId.current = null;
+      setKnob({ x: 0, y: 0 });
+      setOrigin(null);
+      setMoveVector(0, 0);
+    };
+    const beginMove = (event: PointerEvent) => {
+      if (event.pointerType !== "touch" || pointerId.current !== null) return;
+      if (!(event.target instanceof HTMLCanvasElement)) return;
+      const bounds = element.getBoundingClientRect();
+      if (
+        event.clientX < bounds.left
+        || event.clientX > bounds.right
+        || event.clientY < bounds.top
+        || event.clientY > bounds.bottom
+      ) return;
+
+      // 在捕获阶段仅接管下半屏触摸；鼠标和触控板仍会直达 Canvas 控制镜头。
+      event.preventDefault();
+      event.stopPropagation();
+      pointerId.current = event.pointerId;
+      center.current = { x: event.clientX, y: event.clientY };
+      setOrigin({
+        x: event.clientX - bounds.left,
+        y: event.clientY - bounds.top,
+      });
+      setKnob({ x: 0, y: 0 });
+      setMoveVector(0, 0);
+      event.target.setPointerCapture(event.pointerId);
+    };
+    const updateMove = (event: PointerEvent) => {
+      if (pointerId.current !== event.pointerId) return;
+      event.preventDefault();
+      event.stopPropagation();
+      let x = event.clientX - center.current.x;
+      let y = event.clientY - center.current.y;
+      const length = Math.hypot(x, y);
+      if (length > TOUCH_STICK_TRAVEL) {
+        x = x / length * TOUCH_STICK_TRAVEL;
+        y = y / length * TOUCH_STICK_TRAVEL;
+      }
+      setKnob({ x, y });
+      setMoveVector(x / TOUCH_STICK_TRAVEL, y / TOUCH_STICK_TRAVEL);
+    };
+    const endMove = (event: PointerEvent) => {
+      if (pointerId.current !== event.pointerId) return;
+      event.preventDefault();
+      event.stopPropagation();
+      clearMove();
+    };
+
+    window.addEventListener("pointerdown", beginMove, { capture: true, passive: false });
+    window.addEventListener("pointermove", updateMove, { capture: true, passive: false });
+    window.addEventListener("pointerup", endMove, { capture: true, passive: false });
+    window.addEventListener("pointercancel", endMove, { capture: true, passive: false });
+    window.addEventListener("blur", clearMove);
+    return () => {
+      window.removeEventListener("pointerdown", beginMove, true);
+      window.removeEventListener("pointermove", updateMove, true);
+      window.removeEventListener("pointerup", endMove, true);
+      window.removeEventListener("pointercancel", endMove, true);
+      window.removeEventListener("blur", clearMove);
+      resetInput();
+    };
   }, []);
 
   return (
     <div className="touch-controls">
-      <div
-        ref={base}
-        className="touch-stick"
-        aria-label="移动摇杆"
-        onPointerDown={(event) => {
-          event.preventDefault();
-          pointerId.current = event.pointerId;
-          center.current = { x: event.clientX, y: event.clientY };
-          base.current?.setPointerCapture(event.pointerId);
-        }}
-        onPointerMove={(event) => {
-          if (pointerId.current !== event.pointerId) return;
-          event.preventDefault();
-          let x = event.clientX - center.current.x;
-          let y = event.clientY - center.current.y;
-          const length = Math.hypot(x, y);
-          if (length > travel) {
-            x = x / length * travel;
-            y = y / length * travel;
-          }
-          setKnob({ x, y });
-          setMoveVector(x / travel, y / travel);
-        }}
-        onPointerUp={release}
-        onPointerCancel={release}
-      >
-        <span style={{ transform: `translate(${knob.x}px, ${knob.y}px)` }} />
+      <div ref={zone} className="touch-stick-zone" aria-hidden="true">
+        <div
+          className={`touch-stick${origin ? " is-active" : ""}`}
+          style={origin ? { left: origin.x, top: origin.y } : undefined}
+          aria-hidden="true"
+        >
+          <span style={{ transform: `translate(${knob.x}px, ${knob.y}px)` }} />
+        </div>
       </div>
       <button
         type="button"
@@ -88,12 +132,17 @@ export function XinhuaExperience() {
   const [helpOpen, setHelpOpen] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
   const [lowTier, setLowTier] = useState(false);
+  const [touchCapable, setTouchCapable] = useState(false);
 
   useEffect(() => {
-    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    const coarse = window.matchMedia("(any-pointer: coarse)").matches;
+    const touch = coarse || (navigator.maxTouchPoints ?? 0) > 0;
     const narrow = window.innerWidth < 720;
     const limited = (navigator.hardwareConcurrency ?? 8) <= 4;
-    const frame = window.requestAnimationFrame(() => setLowTier(coarse || narrow || limited));
+    const frame = window.requestAnimationFrame(() => {
+      setTouchCapable(touch);
+      setLowTier(touch || narrow || limited);
+    });
     return () => window.cancelAnimationFrame(frame);
   }, []);
 
@@ -129,7 +178,7 @@ export function XinhuaExperience() {
   }, []);
 
   return (
-    <main className={`xinhua-stage${playing ? " is-playing" : " is-intro"}`}>
+    <main className={`xinhua-stage${playing ? " is-playing" : " is-intro"}${touchCapable ? " is-touch" : ""}`}>
       <Canvas
         shadows
         dpr={lowTier ? 1 : [1, 1.75]}
@@ -243,7 +292,8 @@ export function XinhuaExperience() {
               <li><kbd>WASD</kbd> 或方向键移动</li>
               <li><kbd>Shift</kbd> 奔跑，<kbd>Space</kbd> 跳跃</li>
               <li>拖拽转动镜头，滚轮拉近或拉远</li>
-              <li>手机使用左侧摇杆与右侧跳跃按钮</li>
+              <li>手机下半屏任意处拖动移动，上半屏拖动镜头</li>
+              <li>右下角按钮用于跳跃</li>
             </ul>
           </article>
         </div>

@@ -1,5 +1,9 @@
 import { Vector3 } from "three";
 
+const DAMP_FROM = new Vector3();
+const DAMP_TO = new Vector3();
+const DAMP_CROSS = new Vector3();
+
 export type MapBounds = {
   minX: number;
   maxX: number;
@@ -24,15 +28,50 @@ export function rotateTangentTowards(
   maxRadians: number,
   result = new Vector3(),
 ) {
-  const from = current.clone().projectOnPlane(normal);
-  const to = target.clone().projectOnPlane(normal);
+  const from = DAMP_FROM.copy(current).projectOnPlane(normal);
+  const to = DAMP_TO.copy(target).projectOnPlane(normal);
   if (from.lengthSq() < 1e-8 || to.lengthSq() < 1e-8) return result.copy(current);
 
   from.normalize();
   to.normalize();
-  const cross = from.clone().cross(to);
+  const cross = DAMP_CROSS.copy(from).cross(to);
   let angle = Math.atan2(normal.dot(cross), Math.min(1, Math.max(-1, from.dot(to))));
   if (Math.abs(angle) > maxRadians) angle = Math.sign(angle) * maxRadians;
+  return result.copy(from).applyAxisAngle(normal, angle).normalize();
+}
+
+/** 返回与帧率无关的指数阻尼插值比例。 */
+export function dampingFactor(lambda: number, delta: number) {
+  return 1 - Math.exp(-Math.max(0, lambda) * Math.max(0, delta));
+}
+
+/**
+ * 在切平面内按指数阻尼转向，既走最短圆弧，也会在接近目标时自然减速。
+ */
+export function dampTangentTowards(
+  current: Vector3,
+  target: Vector3,
+  normal: Vector3,
+  lambda: number,
+  delta: number,
+  result = new Vector3(),
+  maxRadiansPerSecond = Number.POSITIVE_INFINITY,
+) {
+  const from = DAMP_FROM.copy(current).projectOnPlane(normal);
+  const to = DAMP_TO.copy(target).projectOnPlane(normal);
+  if (from.lengthSq() < 1e-8 || to.lengthSq() < 1e-8) return result.copy(current);
+
+  from.normalize();
+  to.normalize();
+  const signedAngle = Math.atan2(
+    normal.dot(DAMP_CROSS.copy(from).cross(to)),
+    Math.min(1, Math.max(-1, from.dot(to))),
+  );
+  const dampedAngle = signedAngle * dampingFactor(lambda, delta);
+  const maximumStep = Math.max(0, maxRadiansPerSecond) * Math.max(0, delta);
+  const angle = Number.isFinite(maximumStep)
+    ? Math.sign(dampedAngle) * Math.min(Math.abs(dampedAngle), maximumStep)
+    : dampedAngle;
   return result.copy(from).applyAxisAngle(normal, angle).normalize();
 }
 
