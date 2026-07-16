@@ -2,10 +2,10 @@ import assert from "node:assert/strict";
 import { access, readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
-test("静态生产入口加载新华信使 3D 闲逛应用", async () => {
+test("静态生产入口加载新华漫游志 3D 闲逛应用", async () => {
   const html = await readFile(new URL("../dist-static/index.html", import.meta.url), "utf8");
   assert.match(html, /<html[^>]*lang="zh-CN"/i);
-  assert.match(html, /<title>新华信使｜新华路 3D 闲逛<\/title>/i);
+  assert.match(html, /<title>新华漫游志｜新华路 3D 闲逛<\/title>/i);
   assert.match(html, /按真实行政边界和道路比例重建/i);
   assert.doesNotMatch(html, /手绘 3D 小世界/i);
   assert.match(html, /<script[^>]+src="\/assets\/index-[^"]+\.js"/i);

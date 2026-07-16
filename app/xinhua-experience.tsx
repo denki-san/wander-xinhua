@@ -185,7 +185,7 @@ export function XinhuaExperience() {
         camera={{
           fov: 58,
           near: 0.1,
-          far: 500 * mapData.meta.environmentScale,
+          far: 800 * mapData.meta.environmentScale,
           position: [35, 34, 42],
         }}
         gl={{
@@ -226,10 +226,10 @@ export function XinhuaExperience() {
           type="button"
           className="xinhua-brand"
           onClick={() => window.location.reload()}
-          aria-label="重新开始新华信使"
+          aria-label="重新开始新华漫游志"
         >
-          <span>新</span>
-          <strong>新华信使</strong>
+          <span>游</span>
+          <strong>新华漫游志</strong>
         </button>
         {playing && (
           <nav className="world-tools" aria-label="体验工具">
@@ -243,8 +243,10 @@ export function XinhuaExperience() {
 
       {!playing && (
         <section className={`intro-ui${ready ? "" : " is-waiting"}`} aria-labelledby="intro-title" aria-hidden={!ready}>
-          <p>XINHUA ROAD · SHANGHAI</p>
-          <h1 id="intro-title"><span>新华</span><span>信使</span></h1>
+          <p>WANDER · XINHUA · SHANGHAI</p>
+          <h1 id="intro-title" aria-label="新华漫游志">
+            <span>新华</span><span>漫游志</span>
+          </h1>
           <button type="button" onClick={begin} disabled={!ready}>开始闲逛</button>
         </section>
       )}

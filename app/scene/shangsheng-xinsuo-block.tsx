@@ -11,6 +11,12 @@ import {
   ShapeGeometry,
 } from "three";
 import landmarks from "./xinhua-landmarks-data.json";
+import {
+  SHANGSHENG_FACILITIES,
+  SHANGSHENG_FACILITY_CLEARANCES,
+  SHANGSHENG_LOCAL_FACILITY_OBSTACLES,
+} from "./shangsheng-facilities";
+import { terrainHeightAt } from "./terrain";
 import { isPointInsidePolygon, type MapObstacle, type MapPolygonPoint } from "./world-math";
 
 type Building = (typeof landmarks.shangshengXinsuo.buildings)[number];
@@ -53,6 +59,7 @@ const SHANGSHENG_FIXED_OBSTACLES: MapObstacle[] = [
   // 海军俱乐部泳池保留为不可穿越水面，南侧窄廊仍可通行。
   localToWorldObstacle({ minX: -23.05, maxX: -18.25, minZ: -5.7, maxZ: 5.2 }),
   ...SITE.fountains.map((fountain) => localToWorldObstacle(boundaryBounds(fountain.boundary))),
+  ...SHANGSHENG_LOCAL_FACILITY_OBSTACLES.map(localToWorldObstacle),
 ];
 
 export const SHANGSHENG_XINSUO_CAMERA_OBSTACLES: MapObstacle[] = [...SHANGSHENG_FIXED_OBSTACLES];
@@ -271,6 +278,97 @@ function GenericCampusBuilding({ building }: { building: Building }) {
             ))}
           </group>
         ))}
+        {building.feature === "industrial" && (
+          <>
+            {/* 工业改造楼用连续大窗、锯齿屋顶和玻璃入口表达旧厂房骨架。 */}
+            {Array.from({ length: Math.max(3, Math.floor(building.width / 2.6)) }, (_, index) => (
+              <group key={`industrial-window-${index}`} position={[
+                -building.width * 0.42 + index * building.width * 0.84
+                  / Math.max(1, Math.floor(building.width / 2.6) - 1),
+                height * 0.48,
+                building.depth / 2 + 0.13,
+              ]}>
+                <mesh castShadow>
+                  <boxGeometry args={[1.35, Math.max(1.8, height * 0.52), 0.14]} />
+                  <meshToonMaterial color="#4e6867" />
+                </mesh>
+                <mesh position={[0, 0, 0.09]}>
+                  <boxGeometry args={[0.08, Math.max(1.75, height * 0.5), 0.04]} />
+                  <meshBasicMaterial color="#c5b9a5" />
+                </mesh>
+              </group>
+            ))}
+            {Array.from({ length: Math.max(2, Math.round(building.width / 4.4)) }, (_, index) => (
+              <mesh
+                key={`sawtooth-${index}`}
+                position={[
+                  -building.width * 0.34 + index * building.width * 0.68
+                    / Math.max(1, Math.round(building.width / 4.4) - 1),
+                  height + 0.72,
+                  0,
+                ]}
+                rotation-x={Math.PI / 2}
+                castShadow
+              >
+                <cylinderGeometry args={[1.22, 1.22, building.depth * 0.78, 3]} />
+                <meshToonMaterial color={building.roof} />
+              </mesh>
+            ))}
+            <group position={[building.width * 0.27, 1.75, building.depth / 2 + 1.05]}>
+              <RoundedBox args={[building.width * 0.26, 3.2, 1.9]} radius={0.08} smoothness={2} castShadow>
+                <meshToonMaterial color="#587b7c" transparent opacity={0.9} />
+              </RoundedBox>
+              <mesh position={[0, 1.86, 0.5]} rotation-x={-0.18} castShadow>
+                <boxGeometry args={[building.width * 0.34, 0.14, 2.4]} />
+                <meshToonMaterial color="#2c3735" />
+              </mesh>
+            </group>
+          </>
+        )}
+        {building.feature === "new-campus" && (
+          <>
+            {/* 二期体量增加竖向金属鳍片、悬挑玻璃盒和屋顶花架，弱化单一方盒感。 */}
+            {Array.from({ length: Math.max(5, Math.floor(building.width / 2.2)) }, (_, index) => (
+              <mesh
+                key={`facade-fin-${index}`}
+                position={[
+                  -building.width * 0.43 + index * building.width * 0.86
+                    / Math.max(1, Math.floor(building.width / 2.2) - 1),
+                  height * 0.52,
+                  building.depth / 2 + 0.2,
+                ]}
+                rotation-y={(index % 3 - 1) * 0.12}
+                castShadow
+              >
+                <boxGeometry args={[0.12, height * 0.74, 0.48]} />
+                <meshToonMaterial color={index % 2 ? "#303c3a" : "#d4cdbf"} />
+              </mesh>
+            ))}
+            <group position={[-building.width * 0.24, height * 0.58, building.depth / 2 + 0.62]}>
+              <RoundedBox args={[building.width * 0.32, height * 0.34, 1.28]} radius={0.1} smoothness={2} castShadow>
+                <meshToonMaterial color="#72999a" transparent opacity={0.88} />
+              </RoundedBox>
+              {[-0.32, 0, 0.32].map((ratio) => (
+                <mesh key={ratio} position={[building.width * 0.32 * ratio, 0, 0.68]}>
+                  <boxGeometry args={[0.07, height * 0.31, 0.06]} />
+                  <meshBasicMaterial color="#2e3d3b" />
+                </mesh>
+              ))}
+            </group>
+            <group position={[building.width * 0.2, height + 0.58, 0]}>
+              {[-1.8, 0, 1.8].map((x) => (
+                <mesh key={x} position={[x, 0.55, 0]} castShadow>
+                  <boxGeometry args={[0.13, 1.1, building.depth * 0.46]} />
+                  <meshToonMaterial color="#454c48" />
+                </mesh>
+              ))}
+              <mesh position={[0, 1.08, 0]} castShadow>
+                <boxGeometry args={[4.5, 0.16, building.depth * 0.48]} />
+                <meshToonMaterial color="#73644f" />
+              </mesh>
+            </group>
+          </>
+        )}
         <mesh position={[0, height + 0.18, 0]} castShadow>
           <boxGeometry args={[building.width * 0.96, 0.32, building.depth * 0.96]} />
           <meshToonMaterial color={building.roof} />
@@ -303,6 +401,9 @@ const CAMPUS_TREES = Array.from({ length: 90 }, (_, index) => {
     x > box.minX - 1.4 && x < box.maxX + 1.4 && z > box.minZ - 1.4 && z < box.maxZ + 1.4
   )))
   && !(x > -5 && x < 14 && z > 1 && z < 10)
+  && !SHANGSHENG_FACILITY_CLEARANCES.some((facility) => (
+    Math.hypot(x - facility.x, z - facility.z) < facility.radius
+  ))
 )).slice(0, 44);
 
 export const SHANGSHENG_XINSUO_OBSTACLES: MapObstacle[] = [
@@ -349,6 +450,157 @@ function CampusTrees() {
   );
 }
 
+function WayfindingTotem({ x, z, yaw = 0 }: { x: number; z: number; yaw?: number }) {
+  return (
+    <group name="shangsheng-wayfinding" position={[x, 0.18, z]} rotation-y={yaw} userData={{ facility: "wayfinding" }}>
+      <mesh position={[0, 1.75, 0]} castShadow>
+        <cylinderGeometry args={[0.48, 0.62, 3.5, 6]} />
+        <meshToonMaterial color="#252d2b" />
+      </mesh>
+      {[0.92, 1.55, 2.18].map((y, index) => (
+        <group key={y} position={[index % 2 ? -0.62 : 0.62, y, 0]} rotation-y={index % 2 ? Math.PI : 0}>
+          <mesh castShadow>
+            <coneGeometry args={[0.34, 1.22, 3]} />
+            <meshToonMaterial color={["#d4aa52", "#d6cfbd", "#6f9a91"][index]} />
+          </mesh>
+        </group>
+      ))}
+    </group>
+  );
+}
+
+function CafePavilion() {
+  return (
+    <group
+      name="shangsheng-cafe-pavilion"
+      position={[SHANGSHENG_FACILITIES.cafe[0], 0.2, SHANGSHENG_FACILITIES.cafe[1]]}
+      userData={{ facility: "cafe-pavilion" }}
+    >
+      <mesh position={[0, 2.72, 0]} rotation-y={Math.PI / 6} castShadow>
+        <cylinderGeometry args={[3.4, 3.4, 0.3, 6]} />
+        <meshToonMaterial color="#313a37" />
+      </mesh>
+      {Array.from({ length: 6 }, (_, index) => {
+        const angle = index / 6 * Math.PI * 2;
+        return (
+          <mesh key={index} position={[Math.cos(angle) * 2.65, 1.35, Math.sin(angle) * 2.65]} castShadow>
+            <cylinderGeometry args={[0.08, 0.11, 2.7, 7]} />
+            <meshToonMaterial color="#37423e" />
+          </mesh>
+        );
+      })}
+      <group position={[0, 0.56, 0]}>
+        <mesh castShadow>
+          <cylinderGeometry args={[1.45, 1.62, 1.12, 8]} />
+          <meshToonMaterial color="#b49b78" />
+        </mesh>
+        <mesh position={[0, 0.2, 1.45]}>
+          <boxGeometry args={[1.5, 0.5, 0.08]} />
+          <meshToonMaterial color="#567a78" />
+        </mesh>
+      </group>
+      {[-4.2, 4.2].map((x) => (
+        <group key={x} position={[x, 0, 0]}>
+          <mesh position={[0, 0.72, 0]} castShadow>
+            <cylinderGeometry args={[0.58, 0.58, 0.12, 12]} />
+            <meshToonMaterial color="#8e674b" />
+          </mesh>
+          <mesh position={[0, 0.35, 0]} castShadow>
+            <cylinderGeometry args={[0.06, 0.09, 0.7, 7]} />
+            <meshToonMaterial color="#34413d" />
+          </mesh>
+          {[-1, 1].map((z) => (
+            <mesh key={z} position={[0, 0.42, z]} castShadow>
+              <cylinderGeometry args={[0.42, 0.34, 0.54, 6]} />
+              <meshToonMaterial color="#52635c" />
+            </mesh>
+          ))}
+        </group>
+      ))}
+    </group>
+  );
+}
+
+function BicycleParking() {
+  return (
+    <group
+      name="shangsheng-bicycle-parking"
+      position={[
+        SHANGSHENG_FACILITIES.bicycleParking[0],
+        0.2,
+        SHANGSHENG_FACILITIES.bicycleParking[1],
+      ]}
+      rotation-y={0.15}
+      userData={{ facility: "bicycle-parking" }}
+    >
+      {Array.from({ length: 7 }, (_, index) => (
+        <group key={index} position={[(index - 3) * 0.78, 0, 0]}>
+          <mesh position={[0, 0.52, 0]} rotation-y={Math.PI / 2}>
+            <torusGeometry args={[0.52, 0.055, 7, 18, Math.PI]} />
+            <meshToonMaterial color="#2e3b38" />
+          </mesh>
+          {index % 2 === 0 && (
+            <>
+              {[-0.36, 0.36].map((x) => (
+                <mesh key={x} position={[x, 0.4, 0.28]} rotation-y={Math.PI / 2}>
+                  <torusGeometry args={[0.32, 0.045, 7, 18]} />
+                  <meshToonMaterial color="#667c73" />
+                </mesh>
+              ))}
+              <mesh position={[0, 0.62, 0.28]} rotation-z={-0.42}>
+                <cylinderGeometry args={[0.035, 0.035, 0.88, 7]} />
+                <meshToonMaterial color="#9b684d" />
+              </mesh>
+            </>
+          )}
+        </group>
+      ))}
+    </group>
+  );
+}
+
+function ReadingTerrace() {
+  return (
+    <group
+      name="shangsheng-reading-terrace"
+      position={[
+        SHANGSHENG_FACILITIES.readingTerrace[0],
+        0.2,
+        SHANGSHENG_FACILITIES.readingTerrace[1],
+      ]}
+      userData={{ facility: "outdoor-reading" }}
+    >
+      <mesh position={[0, 0.05, 0]} rotation-x={-Math.PI / 2}>
+        <ringGeometry args={[2.7, 4.8, 8]} />
+        <meshToonMaterial color="#968f7e" />
+      </mesh>
+      {Array.from({ length: 8 }, (_, index) => {
+        const angle = index / 8 * Math.PI * 2;
+        return (
+          <group key={index} position={[Math.cos(angle) * 3.65, 0, Math.sin(angle) * 3.65]} rotation-y={-angle}>
+            <mesh position={[0, 0.48, 0]} castShadow>
+              <boxGeometry args={[1.45, 0.14, 0.46]} />
+              <meshToonMaterial color="#936848" />
+            </mesh>
+            <mesh position={[0, 0.92, -0.18]} rotation-x={-0.24} castShadow>
+              <boxGeometry args={[1.38, 0.65, 0.12]} />
+              <meshToonMaterial color="#a97853" />
+            </mesh>
+          </group>
+        );
+      })}
+      <mesh position={[0, 0.86, 0]} rotation-y={Math.PI / 8} castShadow>
+        <cylinderGeometry args={[1.2, 1.42, 1.72, 8]} />
+        <meshToonMaterial color="#495a54" />
+      </mesh>
+      <mesh position={[0, 1.78, 0]} rotation-x={-0.16} castShadow>
+        <boxGeometry args={[1.85, 0.12, 1.24]} />
+        <meshToonMaterial color="#d6c6a4" />
+      </mesh>
+    </group>
+  );
+}
+
 function CampusLandscape() {
   return (
     <group>
@@ -382,7 +634,7 @@ function CampusLandscape() {
           <span className="map-road-label map-landmark-label map-landmark-label-dark">上生·新所</span>
         </Html>
       </group>
-      {[[8, 5], [13, 6.5], [-9, -14], [34, 8], [-30, 20]].map(([x, z], index) => (
+      {[[8, 5], [13, 6.5], [-9, -14], [34, 8]].map(([x, z], index) => (
         <group key={`${x}-${z}`} position={[x, 0.25, z]} rotation-y={index * 0.63}>
           <mesh position={[0, 0.4, 0]} castShadow>
             <boxGeometry args={[2.2, 0.14, 0.62]} />
@@ -394,6 +646,12 @@ function CampusLandscape() {
           </mesh>
         </group>
       ))}
+      <CafePavilion />
+      <BicycleParking />
+      <ReadingTerrace />
+      {SHANGSHENG_FACILITIES.wayfinding.map(([x, z, yaw]) => (
+        <WayfindingTotem key={`${x}-${z}`} x={x} z={z} yaw={yaw} />
+      ))}
       <CampusTrees />
     </group>
   );
@@ -403,7 +661,11 @@ export function ShangshengXinsuoBlock() {
   return (
     <group
       name="shangsheng-xinsuo"
-      position={[SITE_POSITION[0], 0.16, SITE_POSITION[1]]}
+      position={[
+        SITE_POSITION[0],
+        terrainHeightAt(SITE_POSITION[0], SITE_POSITION[1]) + 0.16,
+        SITE_POSITION[1],
+      ]}
       userData={{ landmark: "shangsheng-xinsuo", osmWayId: 765939973 }}
     >
       <SiteGround />

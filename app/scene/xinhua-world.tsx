@@ -10,8 +10,10 @@ import {
   Color,
   Group,
   Matrix4,
+  MathUtils,
   Object3D,
   Quaternion,
+  type PerspectiveCamera,
   Vector3,
 } from "three";
 import {
@@ -39,8 +41,10 @@ import {
   XINHUA_ENVIRONMENT_SCALE,
   XINGFULI_PLACEMENT,
   XINHUA_BOUNDARY,
+  XINHUA_BOUNDS,
   XinhuaStreetMap,
 } from "./xinhua-map";
+import { terrainHeightAt } from "./terrain";
 import {
   composeCameraOffset,
   dampingFactor,
@@ -55,6 +59,12 @@ import {
 } from "./world-math";
 
 const WORLD_UP = new Vector3(0, 1, 0);
+const INTRO_CAMERA_DIRECTION = new Vector3(126, 142, 138).normalize();
+const INTRO_MAP_RADIUS = Math.hypot(
+  (XINHUA_BOUNDS.maxX - XINHUA_BOUNDS.minX) / 2,
+  (XINHUA_BOUNDS.maxZ - XINHUA_BOUNDS.minZ) / 2,
+) * 1.08;
+const INTRO_ORBIT_SPEED = 0.035;
 const CAMERA_DISTANCE = 7.4;
 const CAMERA_HEIGHT = 5.0;
 const CAMERA_FOLLOW_DAMPING = 3.2;
@@ -71,12 +81,25 @@ const CAMERA_DEFAULT_PITCH = CAMERA_HEIGHT / Math.hypot(CAMERA_DISTANCE, CAMERA_
 const PLAYER_RADIUS = 0.48;
 const BASE_XINGFULI_VERTICAL_SCALE = 0.3;
 const XINGFULI_SURFACE_LOCAL_Y = 0.26;
-const XINGFULI_BASE_Y = 0.18
-  + (BASE_XINGFULI_VERTICAL_SCALE - XINGFULI_PLACEMENT.verticalScale) * XINGFULI_SURFACE_LOCAL_Y;
-const XINGFULI_POSITION: MapPolygonPoint = [
+const XINGFULI_OSM_POSITION: MapPolygonPoint = [
   XINGFULI_PLACEMENT.position[0],
   XINGFULI_PLACEMENT.position[1],
 ];
+// OSM 步行中心线的番禺路端落在路口中心。模型需退到道路边缘，不能把铺装和建筑压到机动车道。
+export const XINGFULI_FANYU_CLEARANCE = 4.1;
+const XINGFULI_MODEL_LENGTH = 94;
+export const XINGFULI_LONGITUDINAL_SCALE = XINGFULI_PLACEMENT.horizontalScale
+  - XINGFULI_FANYU_CLEARANCE / XINGFULI_MODEL_LENGTH;
+const XINGFULI_AXIS_X: MapPolygonPoint = [
+  Math.cos(XINGFULI_PLACEMENT.rotationY),
+  -Math.sin(XINGFULI_PLACEMENT.rotationY),
+];
+const XINGFULI_POSITION: MapPolygonPoint = [
+  XINGFULI_OSM_POSITION[0] - XINGFULI_AXIS_X[0] * XINGFULI_FANYU_CLEARANCE / 2,
+  XINGFULI_OSM_POSITION[1] - XINGFULI_AXIS_X[1] * XINGFULI_FANYU_CLEARANCE / 2,
+];
+const XINGFULI_BASE_Y = terrainHeightAt(XINGFULI_POSITION[0], XINGFULI_POSITION[1]) + 0.18
+  + (BASE_XINGFULI_VERTICAL_SCALE - XINGFULI_PLACEMENT.verticalScale) * XINGFULI_SURFACE_LOCAL_Y;
 const SHADOW_CENTER = new Vector3(
   (XINGFULI_POSITION[0] + HUASHAN_GREEN_POSITION[0] + SHANGSHENG_XINSUO_POSITION[0]) / 3,
   0,
@@ -91,46 +114,45 @@ function xingfuliLocalToWorld(x: number, z: number) {
     XINGFULI_PLACEMENT.rotationY,
     XINGFULI_PLACEMENT.horizontalScale,
     XINGFULI_PLACEMENT.localLaneCenterZ,
+    XINGFULI_LONGITUDINAL_SCALE,
   );
 }
 
 const [actionX, actionZ] = xingfuliLocalToWorld(-48, XINGFULI_PLACEMENT.localLaneCenterZ);
 const [startX, startZ] = xingfuliLocalToWorld(-65, XINGFULI_PLACEMENT.localLaneCenterZ);
-const ACTION_POSITION = new Vector3(actionX, 0.34, actionZ);
-const START_POSITION = new Vector3(startX, 0.33, startZ);
+const ACTION_POSITION = new Vector3(actionX, terrainHeightAt(actionX, actionZ) + 0.34, actionZ);
+const START_POSITION = new Vector3(startX, terrainHeightAt(startX, startZ) + 0.33, startZ);
 const START_FORWARD = new Vector3(
   Math.cos(XINGFULI_PLACEMENT.rotationY),
   0,
   -Math.sin(XINGFULI_PLACEMENT.rotationY),
 ).normalize();
-const HUASHAN_START_POSITION = new Vector3(
+function groundedPosition(x: number, z: number) {
+  return new Vector3(x, terrainHeightAt(x, z) + 0.33, z);
+}
+
+const HUASHAN_START_POSITION = groundedPosition(
   HUASHAN_GREEN_POSITION[0] + 3.2228,
-  0.33,
   HUASHAN_GREEN_POSITION[1] + 30.9915,
 );
-const HUASHAN_COURT_START_POSITION = new Vector3(
+const HUASHAN_COURT_START_POSITION = groundedPosition(
   HUASHAN_GREEN_POSITION[0] + 4,
-  0.33,
   HUASHAN_GREEN_POSITION[1] + 33,
 );
-const HUASHAN_BRIDGE_START_POSITION = new Vector3(
+const HUASHAN_BRIDGE_START_POSITION = groundedPosition(
   HUASHAN_GREEN_POSITION[0] - 16.4,
-  0.33,
   HUASHAN_GREEN_POSITION[1] + 40.4,
 );
-const SHANGSHENG_START_POSITION = new Vector3(
+const SHANGSHENG_START_POSITION = groundedPosition(
   SHANGSHENG_XINSUO_POSITION[0] + 25,
-  0.33,
   SHANGSHENG_XINSUO_POSITION[1] + 15,
 );
-const SHANGSHENG_POOL_START_POSITION = new Vector3(
+const SHANGSHENG_POOL_START_POSITION = groundedPosition(
   SHANGSHENG_XINSUO_POSITION[0] - 20.65,
-  0.33,
   SHANGSHENG_XINSUO_POSITION[1] - 6.65,
 );
-const SUNKE_START_POSITION = new Vector3(
+const SUNKE_START_POSITION = groundedPosition(
   SHANGSHENG_XINSUO_POSITION[0] + 45,
-  0.33,
   SHANGSHENG_XINSUO_POSITION[1] + 10,
 );
 
@@ -191,6 +213,7 @@ const XINGFULI_WORLD_OBSTACLES = XINGFULI_OBSTACLES.map((obstacle) => transformM
   XINGFULI_PLACEMENT.rotationY,
   XINGFULI_PLACEMENT.horizontalScale,
   XINGFULI_PLACEMENT.localLaneCenterZ,
+  XINGFULI_LONGITUDINAL_SCALE,
 ));
 
 const WORLD_OBSTACLES: MapObstacle[] = [
@@ -299,7 +322,7 @@ function FlatNeighborhood({ onOpenAction }: { onOpenAction: () => void }) {
         data-landmark-position="osm-way-400066625"
       >
         <group scale={[
-          XINGFULI_PLACEMENT.horizontalScale,
+          XINGFULI_LONGITUDINAL_SCALE,
           XINGFULI_PLACEMENT.verticalScale,
           XINGFULI_PLACEMENT.horizontalScale,
         ]}>
@@ -806,7 +829,7 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
         .addScaledVector(moveCameraForward.current, z)
         .addScaledVector(moveCameraRight.current, x)
         .normalize();
-      const speed = inputState.sprint ? 6.4 : 3.6 * (usingAnalog ? analogMagnitude : 1);
+      const speed = inputState.sprint ? 9.2 : 3.6 * (usingAnalog ? analogMagnitude : 1);
       s.displacement.copy(s.move).multiplyScalar(speed * delta);
       resolvePolygonMovement(
         currentPosition,
@@ -842,15 +865,20 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
       }
     }
 
+    const surfaceHeight = terrainHeightAt(currentPosition.x, currentPosition.z);
     if (outer.current) {
-      outer.current.position.set(currentPosition.x, 0.33 + jumpHeight.current, currentPosition.z);
+      outer.current.position.set(
+        currentPosition.x,
+        surfaceHeight + 0.33 + jumpHeight.current,
+        currentPosition.z,
+      );
       s.right.copy(WORLD_UP).cross(currentForward).normalize();
       s.basis.makeBasis(s.right, WORLD_UP, currentForward);
       outer.current.quaternion.setFromRotationMatrix(s.basis);
     }
 
-    s.cameraTarget.set(currentPosition.x, 1.68 + jumpHeight.current, currentPosition.z);
-    s.cameraBase.set(currentPosition.x, 0.33 + jumpHeight.current, currentPosition.z);
+    s.cameraTarget.set(currentPosition.x, surfaceHeight + 1.68 + jumpHeight.current, currentPosition.z);
+    s.cameraBase.set(currentPosition.x, surfaceHeight + 0.33 + jumpHeight.current, currentPosition.z);
     s.cameraPosition.copy(s.cameraBase).add(cameraOffset.current);
     // 相机绕转经过建筑或地图边缘时沿视线向角色收近，避免穿墙和看到边界外。
     let cameraClear = false;
@@ -950,14 +978,35 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
 export function IntroCamera() {
   const { camera } = useThree();
   const target = useMemo(() => new Vector3(0, 0, 0), []);
+  const desired = useMemo(() => new Vector3(), []);
+  const direction = useMemo(() => new Vector3(), []);
+  const reducedMotion = useRef(
+    typeof window !== "undefined"
+      && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
+
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => {
+      reducedMotion.current = query.matches;
+    };
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, []);
+
   useFrame(({ clock }, delta) => {
-    const time = clock.elapsedTime;
-    const desired = new Vector3(
-      126 * XINHUA_ENVIRONMENT_SCALE + Math.sin(time * 0.11) * 3.2 * XINHUA_ENVIRONMENT_SCALE,
-      142 * XINHUA_ENVIRONMENT_SCALE,
-      138 * XINHUA_ENVIRONMENT_SCALE + Math.cos(time * 0.12) * 2.8 * XINHUA_ENVIRONMENT_SCALE,
-    );
-    camera.position.lerp(desired, Math.min(1, delta * 2.5));
+    const perspective = camera as PerspectiveCamera;
+    const verticalHalfFov = MathUtils.degToRad(perspective.fov / 2);
+    const horizontalHalfFov = Math.atan(Math.tan(verticalHalfFov) * perspective.aspect);
+    // 以更窄的视场角计算距离，横屏和竖屏都能完整容纳新华社区边界。
+    const fitDistance = INTRO_MAP_RADIUS
+      / Math.sin(Math.min(verticalHalfFov, horizontalHalfFov));
+    const orbit = reducedMotion.current ? 0 : clock.elapsedTime * INTRO_ORBIT_SPEED;
+    direction.copy(INTRO_CAMERA_DIRECTION).applyAxisAngle(WORLD_UP, orbit);
+    desired.copy(target).addScaledVector(direction, fitDistance);
+    if (reducedMotion.current) camera.position.copy(desired);
+    else camera.position.lerp(desired, Math.min(1, delta * 2.5));
     camera.up.set(0, 1, 0);
     camera.lookAt(target);
   });
@@ -983,8 +1032,8 @@ export function XinhuaWorld({
     <>
       <fog attach="fog" args={[
         "#72b7b1",
-        145 * XINHUA_ENVIRONMENT_SCALE,
-        310 * XINHUA_ENVIRONMENT_SCALE,
+        playing ? 145 * XINHUA_ENVIRONMENT_SCALE : 2300,
+        playing ? 310 * XINHUA_ENVIRONMENT_SCALE : 3200,
       ]} />
       <color attach="background" args={[new Color("#69bab6")]} />
       <ambientLight intensity={1.15} />

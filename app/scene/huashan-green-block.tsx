@@ -15,6 +15,7 @@ import {
 } from "three";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import landmarks from "./xinhua-landmarks-data.json";
+import { terrainHeightAt } from "./terrain";
 import { isPointInsidePolygon, type MapObstacle, type MapPolygonPoint } from "./world-math";
 
 type Path = { id: number; points: [number, number][] };
@@ -28,6 +29,11 @@ const POND = { x: -7.8, z: 39.2, radiusX: 9.4, radiusZ: 4.5 };
 const POND_BRIDGE_CLEARANCE = 2.4;
 const POND_COLLISION_RADIUS_X = POND.radiusX * 0.88;
 const POND_COLLISION_RADIUS_Z = POND.radiusZ * 0.82;
+const PARK_MOUNDS = [
+  { x: -34, z: 35, radiusX: 5.8, radiusZ: 4.4, height: 1.35 },
+  { x: -15, z: 58, radiusX: 7.2, radiusZ: 5.4, height: 1.7 },
+  { x: 31, z: 45, radiusX: 5.4, radiusZ: 4.7, height: 1.2 },
+] as const;
 
 function offsetObstacle(obstacle: MapObstacle): MapObstacle {
   return {
@@ -53,6 +59,12 @@ const HUASHAN_FIXED_OBSTACLES: MapObstacle[] = [
     minZ: POND.z - POND_COLLISION_RADIUS_Z,
     maxZ: POND.z - POND_BRIDGE_CLEARANCE,
   }),
+  ...PARK_MOUNDS.map((mound) => offsetObstacle({
+    minX: mound.x - mound.radiusX * 0.62,
+    maxX: mound.x + mound.radiusX * 0.62,
+    minZ: mound.z - mound.radiusZ * 0.62,
+    maxZ: mound.z + mound.radiusZ * 0.62,
+  })),
 ];
 
 // 树干仍阻挡角色，但不参与每帧镜头视线判断，避免林地镜头检测被细小障碍拖慢。
@@ -165,6 +177,32 @@ function ParkGroundAndPaths() {
       <mesh geometry={paths} receiveShadow>
         <meshToonMaterial color="#aaa38f" />
       </mesh>
+    </group>
+  );
+}
+
+function ParkRelief() {
+  return (
+    <group name="huashan-greenland-relief" userData={{ landscape: "low-poly-relief" }}>
+      {PARK_MOUNDS.map((mound, index) => (
+        <group key={`${mound.x}-${mound.z}`} position={[mound.x, -0.28, mound.z]} rotation-y={index * 0.73}>
+          <mesh scale={[mound.radiusX, mound.height, mound.radiusZ]} castShadow receiveShadow>
+            <sphereGeometry args={[1, 12, 6]} />
+            <meshToonMaterial color={index % 2 ? "#71845a" : "#667d54"} />
+          </mesh>
+          {[0.48, 0.7, 0.88].map((scale, ringIndex) => (
+            <mesh
+              key={scale}
+              position={[0, mound.height * scale - 0.08, 0]}
+              rotation-x={Math.PI / 2}
+              scale={[mound.radiusX * (1 - scale * 0.36), mound.radiusZ * (1 - scale * 0.36), 1]}
+            >
+              <torusGeometry args={[1, 0.035 + ringIndex * 0.008, 5, 28]} />
+              <meshBasicMaterial color="#b7ae85" transparent opacity={0.72} />
+            </mesh>
+          ))}
+        </group>
+      ))}
     </group>
   );
 }
@@ -459,10 +497,15 @@ export function HuashanGreenBlock() {
   return (
     <group
       name="huashan-greenland"
-      position={[PARK_POSITION[0], 0.16, PARK_POSITION[1]]}
+      position={[
+        PARK_POSITION[0],
+        terrainHeightAt(PARK_POSITION[0], PARK_POSITION[1]) + 0.16,
+        PARK_POSITION[1],
+      ]}
       userData={{ landmark: "huashan-greenland", osmWayId: 444342095 }}
     >
       <ParkGroundAndPaths />
+      <ParkRelief />
       <ForestInstances />
       <UnderstoryInstances />
       <PondGarden />

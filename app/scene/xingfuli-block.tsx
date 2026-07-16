@@ -17,6 +17,7 @@ const GARDEN_CELLS = Array.from({ length: 72 }, (_, index) => ({
   scale: 0.26 + (index % 3) * 0.045,
 }));
 const GARDEN_COLORS = ["#78924e", "#4f7d55", "#386849"] as const;
+const REFLECTING_POOL = { x: 16.5, z: -3.95, width: 18, depth: 2.15 };
 
 type Building = {
   id: string;
@@ -42,8 +43,13 @@ export const XINGFULI_OBSTACLES: MapObstacle[] = [
     minZ: building.z - building.depth / 2 - 0.28,
     maxZ: building.z + building.depth / 2 + 0.28,
   })),
-  // 倒影池是幸福里中段最明显的空间地标，角色不可从水面穿过。
-  { minX: 7.6, maxX: 25.4, minZ: -6.65, maxZ: -3.75 },
+  // 倒影池向北收进庭院，主通道保留连续净空；只有真实水面参与碰撞。
+  {
+    minX: REFLECTING_POOL.x - REFLECTING_POOL.width / 2 + 0.18,
+    maxX: REFLECTING_POOL.x + REFLECTING_POOL.width / 2 - 0.18,
+    minZ: REFLECTING_POOL.z - REFLECTING_POOL.depth / 2 + 0.12,
+    maxZ: REFLECTING_POOL.z + REFLECTING_POOL.depth / 2 - 0.12,
+  },
   // 东入口绿墙略伸出 7 座主体，单独补齐端墙碰撞。
   { minX: 41.75, maxX: 43.2, minZ: -21.6, maxZ: -12.8 },
   // 只给占地明显的长椅和咖啡桌组简化碰撞，小花盆与灯杆保持通行宽容度。
@@ -451,13 +457,13 @@ function PlaneTree({ scale = 1 }: { scale?: number }) {
 
 function ReflectingPool() {
   return (
-    <group position={[16.5, 0, -5.2]}>
+    <group position={[REFLECTING_POOL.x, 0, REFLECTING_POOL.z]}>
       <mesh position={[0, 0.31, 0]} castShadow receiveShadow>
-        <boxGeometry args={[18, 0.32, 2.9]} />
+        <boxGeometry args={[REFLECTING_POOL.width, 0.32, REFLECTING_POOL.depth]} />
         <meshToonMaterial color="#303f3c" />
       </mesh>
       <mesh position={[0, 0.49, 0]} receiveShadow>
-        <boxGeometry args={[17.42, 0.05, 2.28]} />
+        <boxGeometry args={[REFLECTING_POOL.width - 0.58, 0.05, REFLECTING_POOL.depth - 0.56]} />
         <meshToonMaterial color="#5d9da0" transparent opacity={0.86} />
       </mesh>
       {[-6.2, -2.7, 0.7, 4.1].map((x, index) => (
@@ -482,7 +488,7 @@ function ReflectingPool() {
       <group position={[-3.9, 0.57, 0]}>
         {Array.from({ length: 7 }, (_, index) => (
           <mesh key={index} position={[(index - 3) * 0.34, 0, 0]} castShadow>
-            <boxGeometry args={[0.28, 0.13, 3.25]} />
+            <boxGeometry args={[0.28, 0.13, REFLECTING_POOL.depth + 0.72]} />
             <meshToonMaterial color={index % 2 ? "#9a704f" : "#ad7d55"} />
           </mesh>
         ))}
@@ -673,6 +679,13 @@ function LaneFurniture() {
   ] as const;
   return (
     <group>
+      {/* 连续导向铺装把可步行带从倒影池南侧明确标出来，避免视觉上误判为死路。 */}
+      {Array.from({ length: 12 }, (_, index) => (
+        <mesh key={`pool-bypass-${index}`} position={[4.5 + index * 2.15, 0.31, -8.15]} receiveShadow>
+          <boxGeometry args={[1.55, 0.035, 0.42]} />
+          <meshBasicMaterial color={index % 2 ? "#e4ddca" : "#d0c5ad"} />
+        </mesh>
+      ))}
       {lamps.map(([x, z], index) => (
         <group key={index} position={[x, 0.26, z]} rotation-y={index % 2 ? Math.PI : 0}>
           <LaneLamp lit={index === 1 || index === 4} />

@@ -7,7 +7,7 @@ import { BackSide, Color, ShaderMaterial, Uniform, Vector2, type Texture } from 
 import mapData from "./xinhua-map-data.json";
 
 // 这两个 shader 的组织方式参考 promptwhisper/messenger 的 MIT 实现；
-// 参数与颜色为“新华信使”重新标定，不使用原站的模型、贴图或媒体资产。
+// 参数与颜色为“新华漫游志”重新标定，不使用原站的模型、贴图或媒体资产。
 const outlineFragment = /* glsl */ `
 uniform vec3 uColor;
 uniform float uStrength;
@@ -101,8 +101,10 @@ void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor)
   color *= 0.955 + grain * 0.09;
   color.r *= 1.0 + (grain - 0.5) * 0.025;
   color.b *= 1.0 - (grain - 0.5) * 0.025;
-  float vignette = smoothstep(0.28, 0.78, length(uv - 0.5));
-  color *= 1.0 - vignette * 0.08;
+  // 沿真实视口边缘做纸张晕染，避免圆形暗角在宽屏或窄屏上被裁成残缺光圈。
+  vec2 edge = abs(uv * 2.0 - 1.0);
+  float edgeWash = smoothstep(0.64, 1.0, max(edge.x, edge.y));
+  color *= 1.0 - edgeWash * 0.055;
   outputColor = vec4(color, inputColor.a);
 }
 `;

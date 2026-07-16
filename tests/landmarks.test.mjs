@@ -158,6 +158,13 @@ test("上生新所保留三处历史建筑与泳池庭院结构", async () => {
   assert.match(source, /function NavyClub/);
   assert.match(source, /function PoolArcade/);
   assert.match(source, /function CampusLandscape/);
+  assert.match(source, /function CafePavilion/);
+  assert.match(source, /function BicycleParking/);
+  assert.match(source, /function ReadingTerrace/);
+  assert.match(source, /function WayfindingTotem/);
+  assert.match(source, /industrial-window-/);
+  assert.match(source, /sawtooth-/);
+  assert.match(source, /facade-fin-/);
   assert.match(source, /\.\.\.CAMPUS_TREES\.map/);
   assert.match(source, /building\.collision\.map\(\(wing, index\)/);
   assert.match(source, /name="shangsheng-xinsuo"/);

@@ -32,6 +32,196 @@ trunks.current?.instanceMatrix.needsUpdate = true
 - **Notes**: 两处实例矩阵写入均改为显式判空，重新运行生产构建验证。
 
 ---
+## [ERR-20260716-029] readme_concurrent_rename_context
+
+**Logged**: 2026-07-16T22:24:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: docs
+
+### Summary
+更新 README 标题时，同一工作区的并行改名修改已先替换产品中文名，导致包含旧中文名的补丁上下文失效。
+
+### Error
+```
+apply_patch verification failed: Failed to find expected lines in README.md
+```
+
+### Context
+- 当前工作区会被多个任务共享，改名任务在本轮执行期间更新了 README 首段。
+- 失败补丁没有产生部分写入。
+
+### Suggested Fix
+共享工作区出现新改动后重新读取最小上下文，只修改仍需调整的行，不覆盖并行任务内容。
+
+### Metadata
+- Reproducible: no
+- Related Files: README.md
+
+### Resolution
+- **Resolved**: 2026-07-16T22:24:00+08:00
+- **Notes**: 重新读取后仅把英文标题更新为 Wander Xinhua，保留并行任务写入的“新华漫游志”。
+
+---
+## [ERR-20260716-027] vite_preview_host_forwarding_and_sandbox
+
+**Logged**: 2026-07-16T21:40:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+首次启动静态预览时把 `--host` 传给了外层 npm，并在沙箱内监听 IPv6，导致参数丢失和 `EPERM`。
+
+### Error
+```
+npm warn Unknown cli config "--host"
+Error: listen EPERM: operation not permitted ::1:4173
+```
+
+### Context
+- 错误命令为 `npm start -- --host 127.0.0.1`，项目的 `start` 又封装了一层 npm script。
+- 本地监听端口需要获批的沙箱外执行。
+
+### Suggested Fix
+直接运行 `npm run preview:static -- --host 127.0.0.1`，并按本地浏览器验收需要申请端口监听权限。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json
+
+### Resolution
+- **Resolved**: 2026-07-16T21:40:00+08:00
+- **Notes**: 使用正确的脚本参数转发后，预览在 127.0.0.1:4173 正常启动。
+
+---
+## [ERR-20260716-028] node_typescript_extension_resolution
+
+**Logged**: 2026-07-16T22:08:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: test
+
+### Summary
+`terrain.ts` 同时被 Vite 和 Node 原生 TypeScript 测试加载时，无扩展名与 `.ts` 扩展名分别触发不同解析错误。
+
+### Error
+```
+ERR_MODULE_NOT_FOUND: Cannot find module './world-math'
+TS5097: An import path can only end with a '.ts' extension when allowImportingTsExtensions is enabled
+```
+
+### Context
+- Vite/TypeScript 项目源码使用无扩展名导入。
+- Node 25 直接加载 `.ts` 测试时要求 ESM 文件扩展名，但项目 TypeScript 配置又禁止源码导入以 `.ts` 结尾。
+
+### Suggested Fix
+需要被 Node 原生测试直接导入的纯模块应避免依赖无扩展名的 TS 子模块，或后续统一引入支持两端的测试编译器。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/terrain.ts, tests/test_terrain.test.mjs, tsconfig.json
+
+### Resolution
+- **Resolved**: 2026-07-16T22:08:00+08:00
+- **Notes**: 地形模块内保留轻量、无依赖的多边形判断，实现已重新通过 Node 与场景 TypeScript 测试。
+
+---
+## [ERR-20260716-026] full_tsc_cloudflare_ambient_types
+
+**Logged**: 2026-07-16T21:25:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+直接运行全仓 `tsc --noEmit` 时，Cloudflare Worker 的环境类型缺失产生与本轮场景无关的错误。
+
+### Error
+```
+Cannot find module 'cloudflare:workers'
+Cannot find name 'Fetcher'
+Cannot find name 'D1Database'
+```
+
+### Context
+- 项目自带 `tests/typecheck-scene.test.mjs` 会运行同一类型检查，但只筛选 `app/scene` 与体验入口的错误。
+- 本轮 3D 场景类型错误已经通过该测试精确识别和修复。
+
+### Suggested Fix
+场景改动使用项目自带的定向类型测试；若要让全仓 `tsc` 归零，需另行补齐 Cloudflare Worker ambient types。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tsconfig.json, tests/typecheck-scene.test.mjs, worker/index.ts, db/index.ts
+
+### Resolution
+- **Resolved**: 2026-07-16T21:25:00+08:00
+- **Notes**: 本轮改用定向场景类型测试作为验收，不把既有 Worker 类型问题混入场景修改。
+
+---
+## [ERR-20260716-025] r3f_mesh_toon_flat_shading_type
+
+**Logged**: 2026-07-16T21:22:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+新增低多边形造型时给 R3F 的 `meshToonMaterial` 传入 `flatShading`，严格 TypeScript 场景测试不接受该 JSX 属性。
+
+### Error
+```
+TS2322: Type '{ color: string; flatShading: true; }' is not assignable to type ... MeshToonMaterial ...
+```
+
+### Context
+- Vite 生产构建与 ESLint 均通过，错误只在 `tsc --noEmit` 场景类型检查中暴露。
+- 几何已经使用低分段球体、三棱柱和多边形柱体，不依赖该材质属性维持造型。
+
+### Suggested Fix
+优先用几何分段数塑造低多边形轮廓；R3F 材质属性要以项目当前 Three/R3F 类型定义为准。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/huashan-green-block.tsx, app/scene/shangsheng-xinsuo-block.tsx
+
+### Resolution
+- **Resolved**: 2026-07-16T21:22:00+08:00
+- **Notes**: 已移除不兼容属性，保留低分段几何造型。
+
+---
+## [ERR-20260716-024] create_goal_existing_active_goal
+
+**Logged**: 2026-07-16T21:02:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+用户通过 `/goal` 已自动创建活动目标，再次调用创建目标接口时发生状态冲突。
+
+### Error
+```
+cannot create a new goal because this thread has an unfinished goal; complete the existing goal first
+```
+
+### Context
+- 用户消息以 `/goal` 开头，线程中已经存在内容相同的活动目标。
+- 再次创建目标不会覆盖原目标，接口安全拒绝了请求。
+
+### Suggested Fix
+收到 `/goal` 请求时先读取当前目标；若目标已经存在且内容一致，直接沿用，不再重复创建。
+
+### Metadata
+- Reproducible: yes
+- Related Files: none
+
+### Resolution
+- **Resolved**: 2026-07-16T21:02:00+08:00
+- **Notes**: 已通过目标查询确认现有活动目标正是本轮六项修改，并继续沿用。
+
+---
 ## [ERR-20260716-024] github_publish_preflight
 
 **Logged**: 2026-07-16T22:35:00+08:00

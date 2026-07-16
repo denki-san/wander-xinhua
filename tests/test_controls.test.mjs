@@ -81,3 +81,33 @@ test("移动端下方触发区与浮动摇杆结构已接入", async () => {
   assert.match(styles, /\.xinhua-stage\.is-touch\s*\{\s*min-height:\s*0/);
   assert.match(styles, /\.xinhua-stage\.is-touch \.touch-controls\s*\{\s*display:\s*block/);
 });
+
+test("首页远景按最窄视场适配完整社区并提供低速环绕", async () => {
+  const [world, effects] = await Promise.all([
+    readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/scene/visual-effects.tsx", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(world, /INTRO_MAP_RADIUS/);
+  assert.match(world, /Math\.min\(verticalHalfFov, horizontalHalfFov\)/);
+  assert.match(world, /INTRO_ORBIT_SPEED/);
+  assert.match(world, /prefers-reduced-motion: reduce/);
+  assert.match(world, /reducedMotion\.current\) camera\.position\.copy\(desired\)/);
+  assert.match(world, /playing \? 145 \* XINHUA_ENVIRONMENT_SCALE : 2300/);
+  assert.doesNotMatch(effects, /length\(uv - 0\.5\)/);
+  assert.match(effects, /max\(edge\.x, edge\.y\)/);
+
+  const map = JSON.parse(await readFile(
+    new URL("../app/scene/xinhua-map-data.json", import.meta.url),
+    "utf8",
+  ));
+  const halfWidth = (map.bounds.maxX - map.bounds.minX) / 2;
+  const halfDepth = (map.bounds.maxZ - map.bounds.minZ) / 2;
+  const radius = Math.hypot(halfWidth, halfDepth) * 1.08;
+  const verticalHalfFov = 58 / 2 * Math.PI / 180;
+  const phoneAspect = 390 / 844;
+  const horizontalHalfFov = Math.atan(Math.tan(verticalHalfFov) * phoneAspect);
+  const fitDistance = radius / Math.sin(Math.min(verticalHalfFov, horizontalHalfFov));
+  const farPlane = 800 * map.meta.environmentScale;
+  assert.ok(farPlane > fitDistance + radius, "竖屏远景不应被相机最远裁切面截断");
+});

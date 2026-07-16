@@ -162,10 +162,15 @@ button {
 }
 
 .xinhua-brand strong {
-  font-family: "Songti SC", STSong, serif;
-  font-size: 18px;
-  letter-spacing: 0.12em;
-  text-shadow: 1px 2px 0 rgba(42, 64, 59, 0.75);
+  font-family: "Kaiti SC", STKaiti, "Songti SC", STSong, serif;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-shadow:
+    1px 2px 0 rgba(42, 64, 59, 0.8),
+    3px 4px 0 rgba(42, 64, 59, 0.22);
+  transform: rotate(-2deg);
 }
 
 .world-tools {
@@ -221,28 +226,32 @@ button {
 }
 
 .intro-ui h1 {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  gap: clamp(5px, 1vw, 12px);
+  display: flex;
+  align-items: baseline;
+  gap: clamp(2px, 0.7vw, 9px);
   margin: 0 0 24px;
-  font-family: "Heiti SC", "PingFang SC", sans-serif;
-  font-size: clamp(60px, 10vw, 130px);
-  font-weight: 1000;
-  line-height: 0.8;
-  letter-spacing: -0.08em;
-  transform: scaleX(0.86) rotate(-1.5deg);
+  font-family: "Kaiti SC", STKaiti, "Songti SC", STSong, serif;
+  font-size: clamp(54px, 8.6vw, 112px);
+  font-style: italic;
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.11em;
+  transform: rotate(-2.2deg);
 }
 
 .intro-ui h1 span {
   color: #e9eadc;
   -webkit-text-stroke: clamp(2px, 0.3vw, 5px) #29413d;
   text-shadow:
-    3px 4px 0 #2b433f,
-    7px 9px 0 rgba(50, 73, 68, 0.32);
+    2px 3px 0 #2b433f,
+    5px 7px 0 rgba(50, 73, 68, 0.3),
+    -1px -1px 0 rgba(255, 248, 218, 0.48);
 }
 
 .intro-ui h1 span:nth-child(2) {
-  transform: translateY(0.06em) rotate(1.5deg);
+  font-size: 0.74em;
+  letter-spacing: -0.05em;
+  transform: translateY(0.08em) rotate(2.4deg);
 }
 
 .intro-ui > button {
@@ -668,7 +677,8 @@ kbd {
 
   .intro-ui h1 {
     margin-bottom: 21px;
-    font-size: clamp(52px, 20vw, 82px);
+    font-size: clamp(44px, 15vw, 68px);
+    letter-spacing: -0.13em;
   }
 
   .intro-ui > button {

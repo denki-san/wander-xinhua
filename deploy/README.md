@@ -4,6 +4,9 @@
 静态产物，并由 Nginx 直接提供服务。公网入口使用 `xinhua.denkisan.me`，
 不设置登录或 HTTP Basic Auth。
 
+`/var/www/xinhua-messenger` 是项目改名前沿用至今的线上兼容目录；发布时保留
+该路径，避免为了目录改名引入额外停机和 Nginx 配置迁移。
+
 ## 当前架构
 
 ```text
@@ -55,7 +58,7 @@ scp /tmp/test_xinhua_release.tgz root@66.154.109.135:/tmp/
 
 依次确认：
 
-- VPS 上不存在新华信使的构建或开发进程；
+- VPS 上不存在新华漫游志的构建或开发进程；
 - VPS 本机使用域名 Host 访问 Nginx 返回 200；
 - 公网访问 `https://xinhua.denkisan.me/` 返回 200；
 - 页面无需登录，可自由 3D 闲逛，并且只有一个行动点；

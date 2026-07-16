@@ -108,3 +108,18 @@ test("幸福里碰撞盒与模型使用同一平移旋转缩放", () => {
   assert.ok(Math.abs(transformed.minZ - 2) < EPSILON);
   assert.ok(Math.abs(transformed.maxZ - 4) < EPSILON);
 });
+
+test("幸福里纵向退界不会错误压缩横向街巷宽度", () => {
+  const transformed = transformMapObstacle(
+    { minX: -2, maxX: 2, minZ: -9, maxZ: -5 },
+    [0, 0],
+    0,
+    0.6,
+    -7,
+    0.5,
+  );
+  assert.equal(transformed.minX, -1);
+  assert.equal(transformed.maxX, 1);
+  assert.equal(transformed.minZ, -1.2);
+  assert.equal(transformed.maxZ, 1.2);
+});

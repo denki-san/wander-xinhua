@@ -12,7 +12,7 @@
 
 - Messenger by abeto: <https://messenger.abeto.co/>
 
-“新华信使”是独立、非官方重建，与 abeto 不存在从属或授权关系。
+“新华漫游志”是独立、非官方重建，与 abeto 不存在从属或授权关系。
 
 地图数据：
 

@@ -254,7 +254,7 @@ export function resolvePolygonMovement(
   return result;
 }
 
-/** 将局部 X/Z 点按地图锚点、Y 轴旋转和统一水平比例变换到全局坐标。 */
+/** 将局部 X/Z 点按地图锚点、Y 轴旋转和横纵比例变换到全局坐标。 */
 export function transformMapPoint(
   x: number,
   z: number,
@@ -262,8 +262,9 @@ export function transformMapPoint(
   rotationY: number,
   horizontalScale: number,
   localCenterZ = 0,
+  longitudinalScale = horizontalScale,
 ): MapPolygonPoint {
-  const scaledX = x * horizontalScale;
+  const scaledX = x * longitudinalScale;
   const scaledZ = (z - localCenterZ) * horizontalScale;
   const cos = Math.cos(rotationY);
   const sin = Math.sin(rotationY);
@@ -280,6 +281,7 @@ export function transformMapObstacle(
   rotationY: number,
   horizontalScale: number,
   localCenterZ = 0,
+  longitudinalScale = horizontalScale,
 ): MapObstacle {
   const corners = [
     [obstacle.minX, obstacle.minZ],
@@ -293,6 +295,7 @@ export function transformMapObstacle(
     rotationY,
     horizontalScale,
     localCenterZ,
+    longitudinalScale,
   ));
   return {
     minX: Math.min(...corners.map(([x]) => x)),
