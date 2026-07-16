@@ -1,5 +1,70 @@
 # Errors
 
+## [ERR-20260716-016] npm_missing_from_tool_path
+
+**Logged**: 2026-07-16T16:20:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+并行执行五倍版本检查时，工具子进程的 PATH 中没有 `npm`，三条命令均在测试启动前以 127 退出。
+
+### Error
+```
+zsh:1: command not found: npm
+env: node: No such file or directory
+```
+
+### Context
+- 失败发生在命令解析阶段，没有形成 lint、测试或构建结论。
+- 本机 Node/npm 安装在 `/opt/homebrew/bin`。
+
+### Suggested Fix
+项目自动化命令在受限工具环境中使用 `/opt/homebrew/bin/npm` 明确路径。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json
+
+### Resolution
+- **Resolved**: 2026-07-16T16:21:00+08:00
+- **Notes**: 仅使用 npm 绝对路径后，其 shebang 仍通过 PATH 查找 node；最终为检查命令显式设置 `PATH=/opt/homebrew/bin:/usr/bin:/bin` 后重跑全部检查。
+
+---
+
+## [ERR-20260716-015] overpass_primary_gateway_timeout
+
+**Logged**: 2026-07-16T16:00:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: infra
+
+### Summary
+按三倍世界比例重新生成地图时，Overpass 主节点返回 504，生成器在写入任何新快照前退出。
+
+### Error
+```
+Error: 504 Gateway Timeout: https://overpass-api.de/api/interpreter
+```
+
+### Context
+- Nominatim 行政边界请求已成功。
+- 原始快照写入位于道路请求之后，因此这次失败没有产生半截文件，也没有覆盖旧数据。
+
+### Suggested Fix
+为 Overpass 请求增加公共实例顺序回退；只有边界与道路数据都成功后才继续写入新的时间戳快照。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: scripts/test_generate_xinhua_map.mjs
+
+### Resolution
+- **Resolved**: 2026-07-16T16:05:00+08:00
+- **Notes**: 改为按 Nominatim 边界 bbox 查询道路、再用真实行政多边形本地裁切；重新抓取得到与旧基线一致的 59 个边界点、308 段道路和 33 条具名道路，并保存新时间戳快照。16:17 在五倍比例重放时两个公共节点同时失败，生成器补充了 75 秒客户端超时与“读取最近一组完整快照”回退；回退不写假快照、不覆盖旧数据，并在运行时元数据记录来源与失败原因。
+
+---
+
 ## [ERR-20260716-014] zsh_url_query_glob
 
 **Logged**: 2026-07-16T15:00:00+08:00

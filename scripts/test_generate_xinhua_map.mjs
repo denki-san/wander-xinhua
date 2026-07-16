@@ -1,4 +1,5 @@
 import { mkdir, writeFile } from "node:fs/promises";
+import { loadLatestCompleteRawSnapshot } from "./xinhua-map-snapshots.mjs";
 
 const RUN_STAMP = new Date().toISOString()
   .replace(/[-:]/g, "")
@@ -6,7 +7,10 @@ const RUN_STAMP = new Date().toISOString()
   .slice(0, 15);
 const RELATION_ID = 13469094;
 const XINGFULI_WAY_ID = 400066625;
-const METERS_PER_SCENE_UNIT = 13.5;
+const BASE_METERS_PER_SCENE_UNIT = 13.5;
+const ENVIRONMENT_SCALE = 5;
+const METERS_PER_SCENE_UNIT = BASE_METERS_PER_SCENE_UNIT / ENVIRONMENT_SCALE;
+const BASE_XINGFULI_VERTICAL_SCALE = 0.3;
 const RESEARCH_DIR = new URL("../docs/research/data/", import.meta.url);
 const OUTPUT_FILE = new URL("../app/scene/xinhua-map-data.json", import.meta.url);
 
@@ -28,6 +32,7 @@ const includedHighways = new Set([
 async function fetchJson(url, options = {}) {
   const response = await fetch(url, {
     ...options,
+    signal: options.signal ?? AbortSignal.timeout(75_000),
     headers: {
       "User-Agent": "XinhuaMessengerMap/1.0 (local map generation)",
       ...options.headers,
@@ -162,36 +167,96 @@ function midpointAndDirection(points) {
 
 await mkdir(RESEARCH_DIR, { recursive: true });
 
-const nominatimUrl = new URL("https://nominatim.openstreetmap.org/search");
-nominatimUrl.search = new URLSearchParams({
-  q: "新华路街道,长宁区,上海市",
-  format: "jsonv2",
-  polygon_geojson: "1",
-  addressdetails: "1",
-}).toString();
-const boundarySearch = await fetchJson(nominatimUrl);
-const boundaryResult = boundarySearch.find((result) => result.osm_type === "relation" && result.osm_id === RELATION_ID);
-if (!boundaryResult || boundaryResult.geojson?.type !== "Polygon") throw new Error("未找到新华路街道 OSM 行政边界");
+let boundarySearch;
+let boundaryResult;
+let south;
+let north;
+let west;
+let east;
+let roadData;
+let sourceSnapshotNames;
+const replayRawSnapshot = process.argv.includes("--from-raw-snapshot");
 
-const overpassQuery = `[out:json][timeout:90];rel(${RELATION_ID});map_to_area->.a;way(area.a)[highway];out tags geom;`;
-const roadData = await fetchJson("https://overpass-api.de/api/interpreter", {
-  method: "POST",
-  headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-  body: new URLSearchParams({ data: overpassQuery }),
-});
+if (replayRawSnapshot) {
+  const fallback = await loadLatestCompleteRawSnapshot({
+    researchDir: RESEARCH_DIR,
+    relationId: RELATION_ID,
+    xingfuliWayId: XINGFULI_WAY_ID,
+  });
+  boundarySearch = fallback.boundarySearch;
+  roadData = fallback.roadData;
+  sourceSnapshotNames = {
+    boundary: fallback.boundaryName,
+    roads: fallback.roadName,
+    mode: "cached-replay",
+  };
+} else {
+  const nominatimUrl = new URL("https://nominatim.openstreetmap.org/search");
+  nominatimUrl.search = new URLSearchParams({
+    q: "新华路街道,长宁区,上海市",
+    format: "jsonv2",
+    polygon_geojson: "1",
+    addressdetails: "1",
+  }).toString();
+  boundarySearch = await fetchJson(nominatimUrl);
+  boundaryResult = boundarySearch.find((result) => result.osm_type === "relation" && result.osm_id === RELATION_ID);
+  if (!boundaryResult || boundaryResult.geojson?.type !== "Polygon") throw new Error("未找到新华路街道 OSM 行政边界");
+  [south, north, west, east] = boundaryResult.boundingbox.map(Number);
 
-await writeFile(
-  new URL(`xinhua-boundary-osm-${RUN_STAMP}.json`, RESEARCH_DIR),
-  `${JSON.stringify(boundarySearch, null, 2)}\n`,
-  { flag: "wx" },
-);
-await writeFile(
-  new URL(`xinhua-roads-osm-${RUN_STAMP}.json`, RESEARCH_DIR),
-  `${JSON.stringify(roadData, null, 2)}\n`,
-  { flag: "wx" },
-);
+  // 先按官方边界外接矩形取道路，再在本地用真实多边形逐段裁切；避免公共节点重复计算 relation area。
+  const overpassQuery = `[out:json][timeout:60];way[highway](${south},${west},${north},${east});out tags geom;`;
+  const overpassEndpoints = [
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter",
+  ];
+  const overpassErrors = [];
+  for (const endpoint of overpassEndpoints) {
+    try {
+      roadData = await fetchJson(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+        body: new URLSearchParams({ data: overpassQuery }),
+      });
+      break;
+    } catch (error) {
+      overpassErrors.push(`${endpoint}: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+  if (!roadData) {
+    const fallback = await loadLatestCompleteRawSnapshot({
+      researchDir: RESEARCH_DIR,
+      relationId: RELATION_ID,
+      xingfuliWayId: XINGFULI_WAY_ID,
+    });
+    boundarySearch = fallback.boundarySearch;
+    roadData = fallback.roadData;
+    sourceSnapshotNames = {
+      boundary: fallback.boundaryName,
+      roads: fallback.roadName,
+      mode: "cached-fallback",
+      overpassErrors,
+    };
+  } else {
+    const boundaryName = `xinhua-boundary-osm-${RUN_STAMP}.json`;
+    const roadName = `xinhua-roads-osm-${RUN_STAMP}.json`;
+    await writeFile(
+      new URL(boundaryName, RESEARCH_DIR),
+      `${JSON.stringify(boundarySearch, null, 2)}\n`,
+      { flag: "wx" },
+    );
+    await writeFile(
+      new URL(roadName, RESEARCH_DIR),
+      `${JSON.stringify(roadData, null, 2)}\n`,
+      { flag: "wx" },
+    );
+    sourceSnapshotNames = { boundary: boundaryName, roads: roadName, mode: "live" };
+  }
+}
 
-const [south, north, west, east] = boundaryResult.boundingbox.map(Number);
+boundaryResult = boundarySearch.find((result) => result.osm_type === "relation" && result.osm_id === RELATION_ID);
+if (!boundaryResult || boundaryResult.geojson?.type !== "Polygon") throw new Error("原始快照中缺少新华路街道行政边界");
+[south, north, west, east] = boundaryResult.boundingbox.map(Number);
+
 const centerLat = (south + north) / 2;
 const centerLon = (west + east) / 2;
 const metersPerLonDegree = 111_320 * Math.cos(centerLat * Math.PI / 180);
@@ -208,7 +273,7 @@ const closedBoundary = rawBoundary[0][0] === rawBoundary.at(-1)[0]
   : rawBoundary;
 const projectedBoundary = simplify(
   closedBoundary.map(([longitude, latitude]) => project(longitude, latitude)),
-  0.04,
+  0.04 * ENVIRONMENT_SCALE,
 ).map(([x, z]) => [round(x), round(z)]);
 
 const roads = [];
@@ -218,9 +283,12 @@ for (const element of roadData.elements) {
   const projected = element.geometry.map(({ lon, lat }) => project(lon, lat));
   const clipped = clipPolyline(projected, projectedBoundary);
   clipped.forEach((chunk, chunkIndex) => {
-    const simplified = simplify(chunk, highway.includes("link") ? 0.025 : 0.045)
+    const simplified = simplify(
+      chunk,
+      (highway.includes("link") ? 0.025 : 0.045) * ENVIRONMENT_SCALE,
+    )
       .map(([x, z]) => [round(x), round(z)]);
-    if (simplified.length < 2 || pathLength(simplified) < 0.08) return;
+    if (simplified.length < 2 || pathLength(simplified) < 0.08 * ENVIRONMENT_SCALE) return;
     roads.push({
       id: `${element.id}-${chunkIndex}`,
       osmWayId: element.id,
@@ -253,6 +321,8 @@ const output = {
     name: "上海市长宁区新华路街道",
     osmRelationId: RELATION_ID,
     areaSqKm: 2.2,
+    environmentScale: ENVIRONMENT_SCALE,
+    baseMetersPerSceneUnit: BASE_METERS_PER_SCENE_UNIT,
     metersPerSceneUnit: METERS_PER_SCENE_UNIT,
     centerWgs84: [round(centerLon, 7), round(centerLat, 7)],
     sourceUpdatedAt: new Date().toISOString(),
@@ -260,6 +330,7 @@ const output = {
       officialBoundaryDescription: "https://zwgk.shcn.gov.cn/xxgk/qtzcwj-xhljdzcwj/2022/286/63744.html",
       openStreetMapRelation: `https://www.openstreetmap.org/relation/${RELATION_ID}`,
       openStreetMapCopyright: "https://www.openstreetmap.org/copyright",
+      rawSnapshot: sourceSnapshotNames,
     },
   },
   bounds: {
@@ -277,7 +348,7 @@ const output = {
       position: xingfuliAnchor.point.map((value) => round(value)),
       rotationY: round(-Math.atan2(xingfuliAnchor.direction[1], xingfuliAnchor.direction[0]), 6),
       horizontalScale: round(xingfuliScale, 6),
-      verticalScale: 0.3,
+      verticalScale: round(BASE_XINGFULI_VERTICAL_SCALE * ENVIRONMENT_SCALE, 6),
       localLaneCenterZ: -7,
       lengthMeters: round(xingfuliLengthScene * METERS_PER_SCENE_UNIT, 1),
     },
@@ -286,6 +357,7 @@ const output = {
 
 await writeFile(OUTPUT_FILE, `${JSON.stringify(output, null, 2)}\n`);
 console.log(JSON.stringify({
+  rawSnapshot: sourceSnapshotNames,
   boundaryPoints: output.boundary.length,
   roadWays: output.roads.length,
   namedRoads: [...new Set(output.roads.map((road) => road.name).filter(Boolean))].sort((a, b) => a.localeCompare(b, "zh")),

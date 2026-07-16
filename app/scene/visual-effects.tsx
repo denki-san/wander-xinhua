@@ -4,6 +4,7 @@ import { useContext, useEffect, useMemo } from "react";
 import { EffectComposerContext } from "@react-three/postprocessing";
 import { Effect, EffectAttribute } from "postprocessing";
 import { BackSide, Color, ShaderMaterial, Uniform, Vector2, type Texture } from "three";
+import mapData from "./xinhua-map-data.json";
 
 // 这两个 shader 的组织方式参考 promptwhisper/messenger 的 MIT 实现；
 // 参数与颜色为“新华信使”重新标定，不使用原站的模型、贴图或媒体资产。
@@ -182,7 +183,7 @@ export function WatercolourSky() {
 
   return (
     <mesh material={material} renderOrder={-10} frustumCulled={false}>
-      <sphereGeometry args={[420, 40, 24]} />
+      <sphereGeometry args={[420 * mapData.meta.environmentScale, 40, 24]} />
     </mesh>
   );
 }

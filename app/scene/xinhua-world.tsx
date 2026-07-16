@@ -10,6 +10,7 @@ import {
   Color,
   Group,
   Matrix4,
+  Object3D,
   Quaternion,
   Vector3,
 } from "three";
@@ -23,6 +24,7 @@ import {
 import { inputState, resetInput } from "./input";
 import { XingfuliBlock, XINGFULI_OBSTACLES } from "./xingfuli-block";
 import {
+  XINHUA_ENVIRONMENT_SCALE,
   XINGFULI_PLACEMENT,
   XINHUA_BOUNDARY,
   XinhuaStreetMap,
@@ -44,6 +46,10 @@ const CAMERA_HEIGHT = 5.0;
 const CAMERA_FOLLOW_YAW_SPEED = 3.4;
 const CAMERA_DEFAULT_PITCH = CAMERA_HEIGHT / Math.hypot(CAMERA_DISTANCE, CAMERA_HEIGHT);
 const PLAYER_RADIUS = 0.48;
+const BASE_XINGFULI_VERTICAL_SCALE = 0.3;
+const XINGFULI_SURFACE_LOCAL_Y = 0.26;
+const XINGFULI_BASE_Y = 0.18
+  + (BASE_XINGFULI_VERTICAL_SCALE - XINGFULI_PLACEMENT.verticalScale) * XINGFULI_SURFACE_LOCAL_Y;
 const XINGFULI_POSITION: MapPolygonPoint = [
   XINGFULI_PLACEMENT.position[0],
   XINGFULI_PLACEMENT.position[1],
@@ -169,7 +175,7 @@ function FlatNeighborhood({ onOpenAction }: { onOpenAction: () => void }) {
     <group>
       <XinhuaStreetMap />
       <group
-        position={[XINGFULI_POSITION[0], 0.18, XINGFULI_POSITION[1]]}
+        position={[XINGFULI_POSITION[0], XINGFULI_BASE_Y, XINGFULI_POSITION[1]]}
         rotation-y={XINGFULI_PLACEMENT.rotationY}
         data-landmark-position="osm-way-400066625"
       >
@@ -682,9 +688,9 @@ export function IntroCamera() {
   useFrame(({ clock }, delta) => {
     const time = clock.elapsedTime;
     const desired = new Vector3(
-      126 + Math.sin(time * 0.11) * 3.2,
-      142,
-      138 + Math.cos(time * 0.12) * 2.8,
+      126 * XINHUA_ENVIRONMENT_SCALE + Math.sin(time * 0.11) * 3.2 * XINHUA_ENVIRONMENT_SCALE,
+      142 * XINHUA_ENVIRONMENT_SCALE,
+      138 * XINHUA_ENVIRONMENT_SCALE + Math.cos(time * 0.12) * 2.8 * XINHUA_ENVIRONMENT_SCALE,
     );
     camera.position.lerp(desired, Math.min(1, delta * 2.5));
     camera.up.set(0, 1, 0);
@@ -702,14 +708,26 @@ export function XinhuaWorld({
   onNearAction: (near: boolean) => void;
   onOpenAction: () => void;
 }) {
+  const shadowTarget = useMemo(() => {
+    const target = new Object3D();
+    target.position.set(XINGFULI_POSITION[0], 0, XINGFULI_POSITION[1]);
+    return target;
+  }, []);
+
   return (
     <>
-      <fog attach="fog" args={["#72b7b1", 145, 310]} />
+      <fog attach="fog" args={[
+        "#72b7b1",
+        145 * XINHUA_ENVIRONMENT_SCALE,
+        310 * XINHUA_ENVIRONMENT_SCALE,
+      ]} />
       <color attach="background" args={[new Color("#69bab6")]} />
       <ambientLight intensity={1.15} />
       <hemisphereLight args={["#eff8e9", "#6d765c", 1.45]} />
+      <primitive object={shadowTarget} />
       <directionalLight
-        position={[28, 48, 36]}
+        position={[XINGFULI_POSITION[0] + 28, 48, XINGFULI_POSITION[1] + 36]}
+        target={shadowTarget}
         intensity={2.1}
         color="#fff2ce"
         castShadow

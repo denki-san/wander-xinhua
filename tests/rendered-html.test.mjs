@@ -91,19 +91,22 @@ test("地图使用真实行政边界、完整道路骨架和柏油主干道", as
 
   assert.equal(map.meta.osmRelationId, 13469094);
   assert.equal(map.meta.areaSqKm, 2.2);
-  assert.equal(map.meta.metersPerSceneUnit, 13.5);
+  assert.equal(map.meta.environmentScale, 5);
+  assert.equal(map.meta.baseMetersPerSceneUnit, 13.5);
+  assert.equal(map.meta.metersPerSceneUnit, 2.7);
   assert.ok(map.boundary.length >= 50);
   assert.ok(map.roads.length >= 300);
-  assert.ok(map.bounds.maxX - map.bounds.minX > 140);
-  assert.ok(map.bounds.maxZ - map.bounds.minZ > 150);
+  assert.ok(map.bounds.maxX - map.bounds.minX > 700);
+  assert.ok(map.bounds.maxZ - map.bounds.minZ > 750);
   for (const roadName of ["延安西路", "凯旋路", "淮海西路", "华山路", "新华路", "番禺路", "法华镇路", "幸福路", "定西路", "安顺路"]) {
     assert.ok(map.roads.some((road) => road.name === roadName), `缺少道路：${roadName}`);
   }
   assert.match(mapSource, /data-administrative-boundary="osm-13469094"/);
   assert.match(mapSource, /data-road-network="osm-13469094"/);
-  assert.match(mapSource, /arterial: \{ width: 2\.18, color: "#424a4a"/);
-  assert.match(mapSource, /highway\.startsWith\("trunk"\)\) return 2\.62/);
-  assert.match(mapSource, /highway\.startsWith\("secondary"\)\) return 1\.82/);
+  assert.match(mapSource, /2\.18 \* XINHUA_ENVIRONMENT_SCALE/);
+  assert.match(mapSource, /2\.62 \* XINHUA_ENVIRONMENT_SCALE/);
+  assert.match(mapSource, /1\.82 \* XINHUA_ENVIRONMENT_SCALE/);
+  assert.match(mapSource, /const curbCenterY = 0\.07 \+ curbHeight \/ 2/);
   assert.doesNotMatch(mapSource, /#e8dcc0|#efe5cb/);
 });
 
@@ -120,7 +123,8 @@ test("幸福里按 OSM 中心线置于真实相对位置并保持统一横向比
   const placement = map.landmarks.xingfuli;
 
   assert.equal(placement.osmWayId, 400066625);
-  assert.deepEqual(placement.position, [21.3332, 2.5809]);
+  assert.ok(Math.abs(placement.position[0] / map.meta.environmentScale - 21.3332) < 0.0001);
+  assert.ok(Math.abs(placement.position[1] / map.meta.environmentScale - 2.5809) < 0.0001);
   assert.ok(Math.abs(placement.lengthMeters - 147.7) < 0.1);
   assert.ok(Math.abs(placement.horizontalScale - (placement.lengthMeters / map.meta.metersPerSceneUnit / 94)) < 0.0001);
   assert.match(world, /data-landmark-position="osm-way-400066625"/);

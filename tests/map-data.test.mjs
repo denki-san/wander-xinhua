@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
-import { readFile, readdir } from "node:fs/promises";
+import { mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import test from "node:test";
 import {
   isPlanarPositionBlockedInPolygon,
@@ -7,6 +9,7 @@ import {
   transformMapObstacle,
   transformMapPoint,
 } from "../app/scene/world-math.ts";
+import { loadLatestCompleteRawSnapshot } from "../scripts/xinhua-map-snapshots.mjs";
 
 const root = new URL("../", import.meta.url);
 
@@ -69,6 +72,9 @@ test("幸福里锚点、方向、长度和缩放可从最新 OSM 原始快照重
   const anchor = midpointAndDirection(projected);
   const placement = map.landmarks.xingfuli;
 
+  assert.equal(map.meta.environmentScale, 5);
+  assert.equal(map.meta.baseMetersPerSceneUnit, 13.5);
+  assert.equal(map.meta.metersPerSceneUnit, 2.7);
   assert.ok(Math.hypot(
     placement.position[0] - anchor.point[0],
     placement.position[1] - anchor.point[1],
@@ -76,6 +82,56 @@ test("幸福里锚点、方向、长度和缩放可从最新 OSM 原始快照重
   assert.ok(Math.abs(placement.rotationY - -Math.atan2(anchor.direction[1], anchor.direction[0])) < 0.000001);
   assert.ok(Math.abs(placement.lengthMeters - pathLength(projected) * map.meta.metersPerSceneUnit) < 0.06);
   assert.ok(Math.abs(placement.horizontalScale - pathLength(projected) / 94) < 0.000001);
+});
+
+test("人物尺寸不变且五倍环境为幸福里街巷留下充足通行宽度", async () => {
+  const map = JSON.parse(await readFile(new URL("app/scene/xinhua-map-data.json", root), "utf8"));
+  const layout = JSON.parse(await readFile(new URL("app/scene/xingfuli-layout.json", root), "utf8"));
+  const world = await readFile(new URL("app/scene/xinhua-world.tsx", root), "utf8");
+  const northBuildings = layout.buildings.filter((building) => building.side === "north");
+  const southBuildings = layout.buildings.filter((building) => building.side === "south");
+  const northEdge = Math.min(...northBuildings.map((building) => building.z - building.depth / 2 - 0.28));
+  const southEdge = Math.max(...southBuildings.map((building) => building.z + building.depth / 2 + 0.28));
+  const laneClearance = (northEdge - southEdge) * map.landmarks.xingfuli.horizontalScale;
+  const playerDiameter = 0.48 * 2;
+  const threeFloorHeight = (3 * 2.08 + 0.4) * map.landmarks.xingfuli.verticalScale;
+
+  assert.equal(map.landmarks.xingfuli.verticalScale, 1.5);
+  assert.ok(laneClearance > 6.7, `街巷有效宽度不足：${laneClearance}`);
+  assert.ok(laneClearance - playerDiameter > 5.7, "人物两侧没有足够的闲逛空间");
+  assert.ok(threeFloorHeight > 9.9, "三层建筑仍然与人物接近等高");
+  assert.match(world, /const PLAYER_RADIUS = 0\.48/);
+  assert.match(world, /const CAMERA_DISTANCE = 7\.4/);
+  assert.match(world, /const CAMERA_HEIGHT = 5\.0/);
+  assert.match(world, /<group ref=\{body\} scale=\{0\.9\}>/);
+  assert.match(world, /target\.position\.set\(XINGFULI_POSITION\[0\], 0, XINGFULI_POSITION\[1\]\)/);
+  assert.match(world, /target=\{shadowTarget\}/);
+  const surfaceY = 0.18 + (0.3 - map.landmarks.xingfuli.verticalScale) * 0.26
+    + map.landmarks.xingfuli.verticalScale * 0.26;
+  assert.ok(Math.abs(surfaceY - 0.258) < 0.000001, "幸福里铺装顶面在五倍缩放后发生 Y 漂移");
+});
+
+test("离线回放会跳过损坏或语义不完整的较新快照", async () => {
+  const raw = await latestOsmSnapshots();
+  const directory = await mkdtemp(join(tmpdir(), "test_xinhua_snapshots_"));
+  const researchDir = new URL(`file://${directory}/`);
+  try {
+    await writeFile(new URL("xinhua-boundary-osm-20260716-080509.json", researchDir), JSON.stringify(raw.boundary));
+    await writeFile(new URL("xinhua-roads-osm-20260716-080509.json", researchDir), JSON.stringify(raw.roads));
+    await writeFile(new URL("xinhua-boundary-osm-20260716-235958.json", researchDir), JSON.stringify(raw.boundary));
+    await writeFile(new URL("xinhua-roads-osm-20260716-235958.json", researchDir), JSON.stringify({ elements: [] }));
+    await writeFile(new URL("xinhua-boundary-osm-20260716-235959.json", researchDir), JSON.stringify(raw.boundary));
+    await writeFile(new URL("xinhua-roads-osm-20260716-235959.json", researchDir), "{损坏的 JSON");
+
+    const selected = await loadLatestCompleteRawSnapshot({
+      researchDir,
+      relationId: 13469094,
+      xingfuliWayId: 400066625,
+    });
+    assert.equal(selected.roadName, "xinhua-roads-osm-20260716-080509.json");
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
 });
 
 test("幸福里真实建筑碰撞四角与模型点使用同一全局变换", async () => {

@@ -30,12 +30,14 @@ type Road = {
 
 type RoadStyleName = "arterial" | "collector" | "neighborhood" | "lane" | "service";
 
+export const XINHUA_ENVIRONMENT_SCALE = mapData.meta.environmentScale;
+
 const ROAD_STYLES: Record<RoadStyleName, { width: number; color: string; y: number }> = {
-  arterial: { width: 2.18, color: "#424a4a", y: 0.13 },
-  collector: { width: 1.45, color: "#535a58", y: 0.12 },
-  neighborhood: { width: 0.9, color: "#666b67", y: 0.11 },
-  lane: { width: 0.68, color: "#777971", y: 0.1 },
-  service: { width: 0.5, color: "#8a877d", y: 0.09 },
+  arterial: { width: 2.18 * XINHUA_ENVIRONMENT_SCALE, color: "#424a4a", y: 0.13 },
+  collector: { width: 1.45 * XINHUA_ENVIRONMENT_SCALE, color: "#535a58", y: 0.12 },
+  neighborhood: { width: 0.9 * XINHUA_ENVIRONMENT_SCALE, color: "#666b67", y: 0.11 },
+  lane: { width: 0.68 * XINHUA_ENVIRONMENT_SCALE, color: "#777971", y: 0.1 },
+  service: { width: 0.5 * XINHUA_ENVIRONMENT_SCALE, color: "#8a877d", y: 0.09 },
 };
 
 const LABELLED_ROADS = [
@@ -69,13 +71,13 @@ function roadStyle(highway: string): RoadStyleName {
 }
 
 function roadWidth(highway: string) {
-  if (highway.startsWith("trunk")) return 2.62;
-  if (highway.startsWith("primary")) return 2.18;
-  if (highway.startsWith("secondary")) return 1.82;
-  if (highway.startsWith("tertiary")) return 1.45;
-  if (highway === "residential") return 0.9;
-  if (highway === "living_street" || highway === "unclassified") return 0.68;
-  return 0.5;
+  if (highway.startsWith("trunk")) return 2.62 * XINHUA_ENVIRONMENT_SCALE;
+  if (highway.startsWith("primary")) return 2.18 * XINHUA_ENVIRONMENT_SCALE;
+  if (highway.startsWith("secondary")) return 1.82 * XINHUA_ENVIRONMENT_SCALE;
+  if (highway.startsWith("tertiary")) return 1.45 * XINHUA_ENVIRONMENT_SCALE;
+  if (highway === "residential") return 0.9 * XINHUA_ENVIRONMENT_SCALE;
+  if (highway === "living_street" || highway === "unclassified") return 0.68 * XINHUA_ENVIRONMENT_SCALE;
+  return 0.5 * XINHUA_ENVIRONMENT_SCALE;
 }
 
 function isSurfaceRoad(road: Road) {
@@ -147,7 +149,7 @@ function mergeCenterLines(roads: Road[]) {
       const dz = end[1] - start[1];
       const length = Math.hypot(dx, dz);
       if (length < 0.12) continue;
-      const line = new BoxGeometry(0.055, 0.018, length * 0.86);
+      const line = new BoxGeometry(0.055 * XINHUA_ENVIRONMENT_SCALE, 0.018, length * 0.86);
       const matrix = new Matrix4().makeRotationY(Math.atan2(dx, dz));
       matrix.setPosition((start[0] + end[0]) / 2, y, (start[1] + end[1]) / 2);
       line.applyMatrix4(matrix);
@@ -162,15 +164,25 @@ function mergeCenterLines(roads: Road[]) {
 
 function mergeBoundaryCurb() {
   const pieces: BufferGeometry[] = [];
+  const curbHeight = 0.22 * XINHUA_ENVIRONMENT_SCALE;
+  const curbCenterY = 0.07 + curbHeight / 2;
   for (let index = 0; index < XINHUA_BOUNDARY.length; index += 1) {
     const start = XINHUA_BOUNDARY[index];
     const end = XINHUA_BOUNDARY[(index + 1) % XINHUA_BOUNDARY.length];
     const dx = end[0] - start[0];
     const dz = end[1] - start[1];
     const length = Math.hypot(dx, dz);
-    const curb = new BoxGeometry(0.26, 0.22, length + 0.08);
+    const curb = new BoxGeometry(
+      0.26 * XINHUA_ENVIRONMENT_SCALE,
+      curbHeight,
+      length + 0.08 * XINHUA_ENVIRONMENT_SCALE,
+    );
     const matrix = new Matrix4().makeRotationY(Math.atan2(dx, dz));
-    matrix.setPosition((start[0] + end[0]) / 2, 0.18, (start[1] + end[1]) / 2);
+    matrix.setPosition(
+      (start[0] + end[0]) / 2,
+      curbCenterY,
+      (start[1] + end[1]) / 2,
+    );
     curb.applyMatrix4(matrix);
     pieces.push(curb);
   }
@@ -245,7 +257,12 @@ function DistrictBoundary() {
         </mesh>
       )}
       {XINHUA_BOUNDARY.filter((_, index) => index % 4 === 0).map(([x, z], index) => (
-        <group key={`${x}-${z}`} position={[x * 0.985, 0.16, z * 0.985]} rotation-y={index * 0.73}>
+        <group
+          key={`${x}-${z}`}
+          position={[x * 0.985, 0.16, z * 0.985]}
+          rotation-y={index * 0.73}
+          scale={XINHUA_ENVIRONMENT_SCALE}
+        >
           <mesh position={[0, 0.44, 0]} castShadow>
             <cylinderGeometry args={[0.12, 0.16, 0.88, 7]} />
             <meshToonMaterial color="#425e4e" />
@@ -276,8 +293,8 @@ function RoadLabels() {
           center
           transform
           sprite
-          distanceFactor={20}
-          position={[label.position[0], 0.72, label.position[1]]}
+          distanceFactor={20 * XINHUA_ENVIRONMENT_SCALE}
+          position={[label.position[0], 0.72 * XINHUA_ENVIRONMENT_SCALE, label.position[1]]}
           style={{ pointerEvents: "none" }}
         >
           <span className="map-road-label">{label.name}</span>

@@ -7,6 +7,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { inputState, resetInput, setMoveVector } from "./scene/input";
 import { InkOutline, PaperWash, WatercolourSky } from "./scene/visual-effects";
 import { XinhuaWorld } from "./scene/xinhua-world";
+import mapData from "./scene/xinhua-map-data.json";
 
 function TouchControls() {
   const base = useRef<HTMLDivElement>(null);
@@ -132,7 +133,12 @@ export function XinhuaExperience() {
       <Canvas
         shadows
         dpr={lowTier ? 1 : [1, 1.75]}
-        camera={{ fov: 58, near: 0.1, far: 500, position: [35, 34, 42] }}
+        camera={{
+          fov: 58,
+          near: 0.1,
+          far: 500 * mapData.meta.environmentScale,
+          position: [35, 34, 42],
+        }}
         gl={{
           antialias: !lowTier,
           toneMapping: ACESFilmicToneMapping,
