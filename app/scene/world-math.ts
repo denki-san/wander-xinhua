@@ -14,6 +14,8 @@ export type MapObstacle = {
   maxZ: number;
 };
 
+export type MapPolygonPoint = readonly [number, number];
+
 /** 只绕地面法线旋转方向，180 度转向时也不会穿过镜头顶部。 */
 export function rotateTangentTowards(
   current: Vector3,
@@ -71,6 +73,130 @@ export function isPlanarPositionBlocked(
     && z + radius > obstacle.minZ
     && z - radius < obstacle.maxZ
   ));
+}
+
+/** 使用射线法判断地面点是否位于真实街道行政边界内。 */
+export function isPointInsidePolygon(
+  x: number,
+  z: number,
+  polygon: readonly MapPolygonPoint[],
+) {
+  for (let index = 0; index < polygon.length; index += 1) {
+    if (distanceToSegment(x, z, polygon[index], polygon[(index + 1) % polygon.length]) < 1e-9) return true;
+  }
+  let inside = false;
+  for (let index = 0, previous = polygon.length - 1; index < polygon.length; previous = index, index += 1) {
+    const currentPoint = polygon[index];
+    const previousPoint = polygon[previous];
+    const intersects = ((currentPoint[1] > z) !== (previousPoint[1] > z))
+      && x < (previousPoint[0] - currentPoint[0]) * (z - currentPoint[1])
+        / (previousPoint[1] - currentPoint[1]) + currentPoint[0];
+    if (intersects) inside = !inside;
+  }
+  return inside;
+}
+
+function distanceToSegment(
+  x: number,
+  z: number,
+  start: MapPolygonPoint,
+  end: MapPolygonPoint,
+) {
+  const dx = end[0] - start[0];
+  const dz = end[1] - start[1];
+  if (Math.abs(dx) + Math.abs(dz) < 1e-9) return Math.hypot(x - start[0], z - start[1]);
+  const t = Math.max(0, Math.min(1, ((x - start[0]) * dx + (z - start[1]) * dz) / (dx * dx + dz * dz)));
+  return Math.hypot(x - (start[0] + dx * t), z - (start[1] + dz * t));
+}
+
+/**
+ * 多边形版阻挡判断。半径会同时作用于边界和建筑，角色及相机不会露到行政区外。
+ */
+export function isPlanarPositionBlockedInPolygon(
+  x: number,
+  z: number,
+  polygon: readonly MapPolygonPoint[],
+  obstacles: MapObstacle[],
+  radius = 0,
+) {
+  if (!isPointInsidePolygon(x, z, polygon)) return true;
+  if (radius > 0) {
+    for (let index = 0; index < polygon.length; index += 1) {
+      if (distanceToSegment(x, z, polygon[index], polygon[(index + 1) % polygon.length]) < radius) return true;
+    }
+  }
+  return obstacles.some((obstacle) => (
+    x + radius > obstacle.minX
+    && x - radius < obstacle.maxX
+    && z + radius > obstacle.minZ
+    && z - radius < obstacle.maxZ
+  ));
+}
+
+/** 真实多边形边界内的分轴移动解析，保留沿建筑和边界滑动的手感。 */
+export function resolvePolygonMovement(
+  current: Vector3,
+  displacement: Vector3,
+  polygon: readonly MapPolygonPoint[],
+  obstacles: MapObstacle[],
+  radius: number,
+  result = new Vector3(),
+) {
+  result.copy(current);
+  const nextX = current.x + displacement.x;
+  if (!isPlanarPositionBlockedInPolygon(nextX, result.z, polygon, obstacles, radius)) result.x = nextX;
+
+  const nextZ = current.z + displacement.z;
+  if (!isPlanarPositionBlockedInPolygon(result.x, nextZ, polygon, obstacles, radius)) result.z = nextZ;
+  return result;
+}
+
+/** 将局部 X/Z 点按地图锚点、Y 轴旋转和统一水平比例变换到全局坐标。 */
+export function transformMapPoint(
+  x: number,
+  z: number,
+  position: MapPolygonPoint,
+  rotationY: number,
+  horizontalScale: number,
+  localCenterZ = 0,
+): MapPolygonPoint {
+  const scaledX = x * horizontalScale;
+  const scaledZ = (z - localCenterZ) * horizontalScale;
+  const cos = Math.cos(rotationY);
+  const sin = Math.sin(rotationY);
+  return [
+    position[0] + scaledX * cos + scaledZ * sin,
+    position[1] - scaledX * sin + scaledZ * cos,
+  ];
+}
+
+/** 将局部街区模型中的轴对齐碰撞盒变换到全局地图坐标。 */
+export function transformMapObstacle(
+  obstacle: MapObstacle,
+  position: MapPolygonPoint,
+  rotationY: number,
+  horizontalScale: number,
+  localCenterZ = 0,
+): MapObstacle {
+  const corners = [
+    [obstacle.minX, obstacle.minZ],
+    [obstacle.minX, obstacle.maxZ],
+    [obstacle.maxX, obstacle.minZ],
+    [obstacle.maxX, obstacle.maxZ],
+  ].map(([x, z]) => transformMapPoint(
+    x,
+    z,
+    position,
+    rotationY,
+    horizontalScale,
+    localCenterZ,
+  ));
+  return {
+    minX: Math.min(...corners.map(([x]) => x)),
+    maxX: Math.max(...corners.map(([x]) => x)),
+    minZ: Math.min(...corners.map(([, z]) => z)),
+    maxZ: Math.max(...corners.map(([, z]) => z)),
+  };
 }
 
 /**

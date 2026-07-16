@@ -3,9 +3,13 @@ import test from "node:test";
 import { Vector3 } from "three";
 import {
   composeCameraOffset,
+  isPlanarPositionBlockedInPolygon,
+  isPointInsidePolygon,
   isPlanarPositionBlocked,
+  resolvePolygonMovement,
   resolvePlanarMovement,
   rotateTangentTowards,
+  transformMapObstacle,
 } from "../app/scene/world-math.ts";
 
 const EPSILON = 1e-9;
@@ -58,4 +62,39 @@ test("相机可以识别建筑和地图外部为阻挡区域", () => {
   assert.equal(isPlanarPositionBlocked(3, 3, bounds, obstacles, 0.2), true);
   assert.equal(isPlanarPositionBlocked(10.1, 0, bounds, obstacles, 0.2), true);
   assert.equal(isPlanarPositionBlocked(0, 0, bounds, obstacles, 0.2), false);
+});
+
+test("真实多边形边界会阻止角色进入外接矩形中的无效区域", () => {
+  const polygon = [[0, 0], [8, 0], [8, 3], [3, 3], [3, 8], [0, 8]];
+  assert.equal(isPointInsidePolygon(1, 6, polygon), true);
+  assert.equal(isPointInsidePolygon(6, 6, polygon), false);
+  assert.equal(isPointInsidePolygon(0, 4, polygon), true);
+  assert.equal(isPointInsidePolygon(3, 6, polygon), true);
+  assert.equal(isPointInsidePolygon(8, 2, polygon), true);
+  assert.equal(isPointInsidePolygon(2, 8, polygon), true);
+  assert.equal(isPlanarPositionBlockedInPolygon(0.2, 4, polygon, [], 0.3), true);
+
+  const result = resolvePolygonMovement(
+    new Vector3(2, 0, 6),
+    new Vector3(4, 0, 1),
+    polygon,
+    [],
+    0.25,
+  );
+  assert.equal(result.x, 2);
+  assert.equal(result.z, 7);
+});
+
+test("幸福里碰撞盒与模型使用同一平移旋转缩放", () => {
+  const transformed = transformMapObstacle(
+    { minX: -2, maxX: 2, minZ: -8, maxZ: -6 },
+    [20, 3],
+    Math.PI / 2,
+    0.5,
+    -7,
+  );
+  assert.ok(Math.abs(transformed.minX - 19.5) < EPSILON);
+  assert.ok(Math.abs(transformed.maxX - 20.5) < EPSILON);
+  assert.ok(Math.abs(transformed.minZ - 2) < EPSILON);
+  assert.ok(Math.abs(transformed.maxZ - 4) < EPSILON);
 });

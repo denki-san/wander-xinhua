@@ -33,6 +33,102 @@ Target is not empty
 
 ---
 
+## [ERR-20260716-011] kimi_webbridge_stale_pid
+
+**Logged**: 2026-07-16T11:15:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: infra
+
+### Summary
+Kimi WebBridge 状态检查发现 PID 文件仍存在，但本地 HTTP 探针不可用。
+
+### Error
+```
+{"note":"PID file exists but HTTP probe failed — daemon may be starting or stuck","pid":3035,"running":false}
+```
+
+### Context
+- 在使用更新后的 Kimi WebBridge 核对新华路街道地图来源前运行状态检查。
+- PID 存在不能证明 daemon 已经可用；必须以 `running` 与 HTTP 探针为准。
+
+### Suggested Fix
+按照 Kimi WebBridge 1.11.3 的恢复流程执行幂等 `start`，但最终必须用实际 `navigate` 或 `snapshot` 判定可用性；不要只依赖 `status`，也不要自动执行 `restart` 或 `stop`。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-16T14:08:00+08:00
+- **Notes**: 用户确认扩展端已就绪后，实际 `navigate`、`snapshot`、`evaluate` 与 `screenshot` 均成功；确认本次为 `status` 误报。
+
+---
+
+## [ERR-20260716-012] agent_browser_missing_binary
+
+**Logged**: 2026-07-16T14:05:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+本地 3D 页面视觉验收时，已安装的 agent-browser skill 没有对应 CLI 可执行文件。
+
+### Error
+```
+zsh:1: command not found: agent-browser
+```
+
+### Context
+- 静态预览已在 `http://127.0.0.1:4173/` 正常运行。
+- 失败发生在打开页面前，与应用构建或运行时无关。
+
+### Suggested Fix
+先用 `rg --files ~/.npm/_npx` 查找本机已有的 agent-browser 缓存入口；只有确实没有可复用安装时才考虑全局安装。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-16T14:05:00+08:00
+- **Notes**: 找到本机 npx 缓存中的 `agent-browser/bin/agent-browser.js`，复用现有安装完成桌面与移动端验收，没有新增全局安装。
+
+---
+
+## [ERR-20260716-013] kimi_evaluate_top_level_await
+
+**Logged**: 2026-07-16T14:12:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Kimi WebBridge 1.11.3 的 `evaluate` 实际不接受顶层 await，与 skill 说明存在差异。
+
+### Error
+```
+evaluate: SyntaxError: await is only valid in async functions and the top level bodies of modules
+```
+
+### Context
+- 在真实 Chrome 标签中等待本地 Three.js 页面首帧后读取 ready 状态。
+- 同一段逻辑包进 async IIFE 后立即成功。
+
+### Suggested Fix
+所有含 await 的 Kimi `evaluate` 代码统一使用 `(async () => { ... })()`，同时继续用 IIFE 隔离重复变量声明。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-16T14:12:00+08:00
+- **Notes**: 改为 async IIFE 后成功读取 canvas、WebGL context 和页面 ready 状态。
+
+---
+
 ## [ERR-20260715-008] static_build_lint_scope
 
 **Logged**: 2026-07-15T23:39:00+08:00

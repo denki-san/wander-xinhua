@@ -13,3 +13,11 @@
 - Messenger by abeto: <https://messenger.abeto.co/>
 
 “新华信使”是独立、非官方重建，与 abeto 不存在从属或授权关系。
+
+地图数据：
+
+- 新华路街道行政边界、道路拓扑与幸福里中心线来自 OpenStreetMap contributors。
+- 数据许可：Open Data Commons Open Database License (ODbL) 1.0。
+- 版权与许可说明：<https://www.openstreetmap.org/copyright>
+- 使用的行政边界关系：<https://www.openstreetmap.org/relation/13469094>
+- 使用的幸福里步行街路径：<https://www.openstreetmap.org/way/400066625>

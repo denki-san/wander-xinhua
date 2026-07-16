@@ -284,6 +284,20 @@ button {
   cursor: pointer;
 }
 
+.map-road-label {
+  display: block;
+  padding: 2px 5px;
+  border: 1px solid rgba(233, 220, 180, 0.72);
+  border-radius: 2px;
+  color: #efe5c6;
+  background: rgba(47, 59, 56, 0.78);
+  box-shadow: 1px 2px 0 rgba(32, 46, 43, 0.4);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
 .desktop-controls {
   position: absolute;
   z-index: 10;
@@ -493,6 +507,7 @@ kbd {
   text-shadow: 1px 1px 0 rgba(39, 61, 56, 0.6);
   font-size: 8px;
   letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .study-note a {

@@ -244,7 +244,8 @@ export function XinhuaExperience() {
       )}
 
       <footer className="study-note">
-        非官方独立重建 · 技术体验参考 <a href="https://messenger.abeto.co/" target="_blank" rel="noreferrer">Messenger by abeto</a>
+        非官方独立重建 · 体验参考 <a href="https://messenger.abeto.co/" target="_blank" rel="noreferrer">Messenger by abeto</a>
+        <span> · 地图数据 <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a></span>
       </footer>
     </main>
   );

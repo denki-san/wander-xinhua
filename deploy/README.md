@@ -24,11 +24,16 @@ npm run lint
 npm run build
 ```
 
-确认 `dist-static/index.html` 与 `dist-static/assets/` 存在后，再同步到 VPS：
+确认 `dist-static/index.html` 与 `dist-static/assets/` 存在后，把本地静态产物打包并上传到 VPS 的临时目录：
 
 ```bash
-rsync -avz --delete dist-static/ root@66.154.109.135:/var/www/xinhua-messenger/
+COPYFILE_DISABLE=1 tar -C dist-static -czf /tmp/test_xinhua_release.tgz .
+scp /tmp/test_xinhua_release.tgz root@66.154.109.135:/tmp/
 ```
+
+服务器只负责解包和目录切换：先解包到带时间戳的 release 目录，检查
+`index.html` 与 `assets/` 后，将现有线上目录改名为 backup，再把 release 改名为
+`/var/www/xinhua-messenger`。不在 VPS 安装依赖、运行构建或删除历史版本。
 
 ## 首次启用
 
@@ -58,6 +63,7 @@ rsync -avz --delete dist-static/ root@66.154.109.135:/var/www/xinhua-messenger/
 
 ## 回滚
 
-每次覆盖发布前，把 `/var/www/xinhua-messenger` 复制为带时间戳的备份目录。
-如果新版本异常，把 Nginx 的 `root` 临时切换到备份目录，运行 `nginx -t`，
-检查通过后 reload Nginx。回滚不删除当前失败产物，便于后续定位。
+每次切换前，把 `/var/www/xinhua-messenger` 改名为带时间戳的 backup 目录。
+如果新版本异常，先把失败版本改名保留，再把 backup 改回
+`/var/www/xinhua-messenger`；运行 `nginx -t` 通过后 reload Nginx。回滚不删除
+当前失败产物，便于后续定位。

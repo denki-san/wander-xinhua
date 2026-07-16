@@ -1,5 +1,28 @@
 # Learnings
 
+## [LRN-20260716-005] correction
+
+**Logged**: 2026-07-16T14:08:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Kimi WebBridge 更新后不能把 daemon `status` 探针误报当成浏览器助手不可用，实际命令结果优先。
+
+### Details
+`status` 连续返回 PID 存在但 HTTP 探针失败，用户在 Chrome 中确认“浏览器助手已就绪”。随后不重启 daemon，直接执行同一 session 的 `navigate`、`snapshot` 和 `screenshot` 全部成功。
+
+### Suggested Action
+先执行一次无破坏性的实际 `navigate` 或 `list_tabs`；只有真实命令也连接失败时，才按 skill 的 daemon 恢复流程处理。
+
+### Metadata
+- Source: user_feedback
+- Related Files: .learnings/ERRORS.md
+- Tags: kimi-webbridge, status-probe, browser-extension, verification
+
+---
+
 ## [LRN-20260716-001] correction
 
 **Logged**: 2026-07-16T00:10:00+08:00

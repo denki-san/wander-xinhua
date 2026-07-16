@@ -6,7 +6,7 @@ test("静态生产入口加载新华信使 3D 闲逛应用", async () => {
   const html = await readFile(new URL("../dist-static/index.html", import.meta.url), "utf8");
   assert.match(html, /<html[^>]*lang="zh-CN"/i);
   assert.match(html, /<title>新华信使｜新华路 3D 闲逛<\/title>/i);
-  assert.match(html, /有边界的手绘 3D 社区街区/i);
+  assert.match(html, /按真实行政边界和道路比例重建/i);
   assert.doesNotMatch(html, /手绘 3D 小世界/i);
   assert.match(html, /<script[^>]+src="\/assets\/index-[^"]+\.js"/i);
   assert.match(html, /<link[^>]+href="\/assets\/index-[^"]+\.css"/i);
@@ -24,9 +24,10 @@ test("产品源码锁定 WebGL 自由闲逛和唯一行动点", async () => {
   assert.match(experience, /<Canvas/);
   assert.match(world, /PlayableMessenger/);
   assert.match(world, /FlatNeighborhood/);
-  assert.match(world, /MAP_BOUNDS/);
-  assert.match(world, /NeighborhoodBoundary/);
-  assert.match(world, /resolvePlanarMovement/);
+  assert.match(world, /XinhuaStreetMap/);
+  assert.match(world, /XINHUA_BOUNDARY/);
+  assert.match(world, /resolvePolygonMovement/);
+  assert.doesNotMatch(world, /MAP_BOUNDS|NeighborhoodBoundary|NeighborhoodRoads/);
   assert.doesNotMatch(world, /PLANET_RADIUS|SurfaceAnchor|TinyPlanet/);
   assert.equal(((world + xingfuli).match(/data-action-point=/g) ?? []).length, 1);
   assert.match(experience, /唯一行动点/);
@@ -42,14 +43,15 @@ test("最终运行时代码不引用参考站资产", async () => {
   const xingfuli = await readFile(new URL("../app/scene/xingfuli-block.tsx", import.meta.url), "utf8");
   assert.doesNotMatch(world, /messenger\.abeto\.co|promptwhisper\/messenger/);
   assert.match(experience, /href="https:\/\/messenger\.abeto\.co\/"/);
-  assert.doesNotMatch(experience + world + xingfuli, /\/assets\/|\.drc|\.ktx2|\.ogg|bdimg|bcebos|openstreetmap/);
+  assert.doesNotMatch(experience + world + xingfuli, /\/assets\/|\.drc|\.ktx2|\.ogg|bdimg|bcebos/);
+  assert.match(experience, /openstreetmap\.org\/copyright/);
 
   const assets = await readdir(new URL("../dist-static/assets/", import.meta.url));
   const javascript = await Promise.all(
     assets.filter((name) => name.endsWith(".js"))
       .map((name) => readFile(new URL(`../dist-static/assets/${name}`, import.meta.url), "utf8")),
   );
-  assert.doesNotMatch(javascript.join("\n"), /bdimg|bcebos|openstreetmap|poi-pic|\.drc|\.ktx2|\.ogg/i);
+  assert.doesNotMatch(javascript.join("\n"), /bdimg|bcebos|poi-pic|\.drc|\.ktx2|\.ogg/i);
 });
 
 test("幸福里使用七栋固定建筑和可识别的核心街具", async () => {
@@ -83,16 +85,47 @@ test("幸福里使用七栋固定建筑和可识别的核心街具", async () =>
   assert.doesNotMatch(xingfuli, /瑞幸|星巴克|FASCINO|Minecraft/i);
 });
 
-test("角色边界与可见围墙内表面对齐", async () => {
-  const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
-  const maxX = Number(world.match(/MAP_BOUNDS = \{ minX: -[\d.]+, maxX: ([\d.]+)/)?.[1]);
-  const maxZ = Number(world.match(/maxZ: ([\d.]+) \} as const/)?.[1]);
-  const radius = Number(world.match(/PLAYER_RADIUS = ([\d.]+)/)?.[1]);
-  const wallX = Number(world.match(/\{ x: ([\d.]+), z: 15\.41, width: 0\.6/)?.[1]);
-  const wallZ = Number(world.match(/x: 25\.91, z: ([\d.]+), width: 41\.82/)?.[1]);
+test("地图使用真实行政边界、完整道路骨架和柏油主干道", async () => {
+  const mapSource = await readFile(new URL("../app/scene/xinhua-map.tsx", import.meta.url), "utf8");
+  const map = JSON.parse(await readFile(new URL("../app/scene/xinhua-map-data.json", import.meta.url), "utf8"));
 
-  assert.ok(Math.abs((maxX - radius) - (wallX - 0.3)) < 1e-9);
-  assert.ok(Math.abs((maxZ - radius) - (wallZ - 0.3)) < 1e-9);
+  assert.equal(map.meta.osmRelationId, 13469094);
+  assert.equal(map.meta.areaSqKm, 2.2);
+  assert.equal(map.meta.metersPerSceneUnit, 13.5);
+  assert.ok(map.boundary.length >= 50);
+  assert.ok(map.roads.length >= 300);
+  assert.ok(map.bounds.maxX - map.bounds.minX > 140);
+  assert.ok(map.bounds.maxZ - map.bounds.minZ > 150);
+  for (const roadName of ["延安西路", "凯旋路", "淮海西路", "华山路", "新华路", "番禺路", "法华镇路", "幸福路", "定西路", "安顺路"]) {
+    assert.ok(map.roads.some((road) => road.name === roadName), `缺少道路：${roadName}`);
+  }
+  assert.match(mapSource, /data-administrative-boundary="osm-13469094"/);
+  assert.match(mapSource, /data-road-network="osm-13469094"/);
+  assert.match(mapSource, /arterial: \{ width: 2\.18, color: "#424a4a"/);
+  assert.match(mapSource, /highway\.startsWith\("trunk"\)\) return 2\.62/);
+  assert.match(mapSource, /highway\.startsWith\("secondary"\)\) return 1\.82/);
+  assert.doesNotMatch(mapSource, /#e8dcc0|#efe5cb/);
+});
+
+test("地图抓取脚本保留每次原始数据快照", async () => {
+  const generator = await readFile(new URL("../scripts/test_generate_xinhua_map.mjs", import.meta.url), "utf8");
+  assert.match(generator, /RUN_STAMP/);
+  assert.match(generator, /\{ flag: "wx" \}/);
+  assert.doesNotMatch(generator, /DATE_STAMP = "20260716"/);
+});
+
+test("幸福里按 OSM 中心线置于真实相对位置并保持统一横向比例", async () => {
+  const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
+  const map = JSON.parse(await readFile(new URL("../app/scene/xinhua-map-data.json", import.meta.url), "utf8"));
+  const placement = map.landmarks.xingfuli;
+
+  assert.equal(placement.osmWayId, 400066625);
+  assert.deepEqual(placement.position, [21.3332, 2.5809]);
+  assert.ok(Math.abs(placement.lengthMeters - 147.7) < 0.1);
+  assert.ok(Math.abs(placement.horizontalScale - (placement.lengthMeters / map.meta.metersPerSceneUnit / 94)) < 0.0001);
+  assert.match(world, /data-landmark-position="osm-way-400066625"/);
+  assert.match(world, /XINGFULI_PLACEMENT\.horizontalScale/);
+  assert.match(world, /transformMapObstacle/);
 });
 
 test("主角使用完整分层 3D 建模而不是几何占位人", async () => {

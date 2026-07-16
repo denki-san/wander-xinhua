@@ -23,11 +23,19 @@ import {
 import { inputState, resetInput } from "./input";
 import { XingfuliBlock, XINGFULI_OBSTACLES } from "./xingfuli-block";
 import {
+  XINGFULI_PLACEMENT,
+  XINHUA_BOUNDARY,
+  XinhuaStreetMap,
+} from "./xinhua-map";
+import {
   composeCameraOffset,
-  isPlanarPositionBlocked,
+  isPlanarPositionBlockedInPolygon,
   type MapObstacle,
-  resolvePlanarMovement,
+  type MapPolygonPoint,
+  resolvePolygonMovement,
   rotateTangentTowards,
+  transformMapObstacle,
+  transformMapPoint,
 } from "./world-math";
 
 const WORLD_UP = new Vector3(0, 1, 0);
@@ -36,38 +44,40 @@ const CAMERA_HEIGHT = 5.0;
 const CAMERA_FOLLOW_YAW_SPEED = 3.4;
 const CAMERA_DEFAULT_PITCH = CAMERA_HEIGHT / Math.hypot(CAMERA_DISTANCE, CAMERA_HEIGHT);
 const PLAYER_RADIUS = 0.48;
-const MAP_BOUNDS = { minX: -47, maxX: 47, minZ: -31, maxZ: 31 } as const;
-const ACTION_POSITION = new Vector3(-16, 0.3, 12.5);
+const XINGFULI_POSITION: MapPolygonPoint = [
+  XINGFULI_PLACEMENT.position[0],
+  XINGFULI_PLACEMENT.position[1],
+];
 
-const BUILDINGS = [
-  { x: -8.2, z: 23, yaw: Math.PI / 2, width: 5.2, depth: 3.4, floors: 3, color: "#e4d8bf", trim: "#546b65", accent: "#d26f55", roof: "flat" },
-  { x: -8.3, z: 15, yaw: Math.PI / 2, width: 4.5, depth: 3.1, floors: 2, color: "#dca17f", trim: "#745142", accent: "#e7c36c", roof: "gable" },
-  { x: 8.2, z: 23, yaw: -Math.PI / 2, width: 4.5, depth: 3.2, floors: 2, color: "#d98b6c", trim: "#694b42", accent: "#efc35c", roof: "gable" },
-  { x: 8.3, z: 15, yaw: -Math.PI / 2, width: 5.0, depth: 3.4, floors: 3, color: "#e6ddc7", trim: "#4b6d65", accent: "#cc6852", roof: "flat" },
-] as const;
+function xingfuliLocalToWorld(x: number, z: number) {
+  return transformMapPoint(
+    x,
+    z,
+    XINGFULI_POSITION,
+    XINGFULI_PLACEMENT.rotationY,
+    XINGFULI_PLACEMENT.horizontalScale,
+    XINGFULI_PLACEMENT.localLaneCenterZ,
+  );
+}
 
-const TREE_POINTS = [
-  [-5.2, 27, 0.95], [5.2, 27, 1.05], [-5.2, 18, 1.08], [5.2, 18, 0.95],
-  [-5.2, 9, 1.06], [5.2, 9, 1.0], [-5.1, -26, 1.05], [5.2, -26, 0.95],
-  [-42, 25, 1.0], [42, 24, 1.08], [-41, -27, 1.1], [41, -27, 0.95],
-] as const;
-
-const BUILDING_OBSTACLES: MapObstacle[] = BUILDINGS.map((building) => {
-  const cos = Math.abs(Math.cos(building.yaw));
-  const sin = Math.abs(Math.sin(building.yaw));
-  const halfX = (building.width * cos + building.depth * sin) / 2 + 0.3;
-  const halfZ = (building.width * sin + building.depth * cos) / 2 + 0.3;
-  return {
-    minX: building.x - halfX,
-    maxX: building.x + halfX,
-    minZ: building.z - halfZ,
-    maxZ: building.z + halfZ,
-  };
-});
+const [actionX, actionZ] = xingfuliLocalToWorld(-48, XINGFULI_PLACEMENT.localLaneCenterZ);
+const [startX, startZ] = xingfuliLocalToWorld(-65, XINGFULI_PLACEMENT.localLaneCenterZ);
+const ACTION_POSITION = new Vector3(actionX, 0.34, actionZ);
+const START_POSITION = new Vector3(startX, 0.33, startZ);
+const START_FORWARD = new Vector3(
+  Math.cos(XINGFULI_PLACEMENT.rotationY),
+  0,
+  -Math.sin(XINGFULI_PLACEMENT.rotationY),
+).normalize();
 
 const WORLD_OBSTACLES: MapObstacle[] = [
-  ...BUILDING_OBSTACLES,
-  ...XINGFULI_OBSTACLES,
+  ...XINGFULI_OBSTACLES.map((obstacle) => transformMapObstacle(
+    obstacle,
+    XINGFULI_POSITION,
+    XINGFULI_PLACEMENT.rotationY,
+    XINGFULI_PLACEMENT.horizontalScale,
+    XINGFULI_PLACEMENT.localLaneCenterZ,
+  )),
 ];
 
 function GroundAnchor({
@@ -90,257 +100,16 @@ function GroundAnchor({
   );
 }
 
-function NeighborhoodRoads() {
-  return (
-    <group>
-      <mesh position={[0, 0.16, 0]} receiveShadow>
-        <boxGeometry args={[7.2, 0.16, 62]} />
-        <meshBasicMaterial color="#e8dcc0" />
-      </mesh>
-      <mesh position={[-13, 0.17, 12.5]} receiveShadow>
-        <boxGeometry args={[19, 0.18, 3.7]} />
-        <meshBasicMaterial color="#efe5cb" />
-      </mesh>
-      {[-27, 2, 11, 20, 28].map((z) => (
-        <mesh key={z} position={[0, 0.25, z]}>
-          <boxGeometry args={[0.12, 0.035, 1.4]} />
-          <meshBasicMaterial color="#f5ead1" />
-        </mesh>
-      ))}
-      {[-5.25, 5.25].map((x) => (
-        <mesh key={x} position={[x, 0.16, 0]} receiveShadow>
-          <boxGeometry args={[2.9, 0.16, 62]} />
-          <meshBasicMaterial color="#bdae8d" />
-        </mesh>
-      ))}
-    </group>
-  );
-}
-
-function ShikumenBuilding({
-  width,
-  depth,
-  floors,
-  color,
-  trim,
-  accent,
-  roof,
-}: {
-  width: number;
-  depth: number;
-  floors: number;
-  color: string;
-  trim: string;
-  accent: string;
-  roof: "flat" | "gable";
-}) {
-  const height = floors * 1.75 + 0.65;
-  const windows = useMemo(
-    () => Array.from({ length: floors * 3 }, (_, index) => ({
-      floor: Math.floor(index / 3),
-      column: index % 3,
-    })),
-    [floors],
-  );
-
-  return (
-    <group>
-      <RoundedBox args={[width, height, depth]} radius={0.12} smoothness={2} position={[0, height / 2, 0]} castShadow receiveShadow>
-        <meshToonMaterial color={color} />
-      </RoundedBox>
-
-      <mesh position={[0, height - 0.22, depth / 2 + 0.035]} castShadow>
-        <boxGeometry args={[width + 0.18, 0.22, 0.16]} />
-        <meshToonMaterial color={trim} />
-      </mesh>
-      <mesh position={[0, 0.34, depth / 2 + 0.12]} castShadow>
-        <boxGeometry args={[1.45, 0.68, 0.25]} />
-        <meshToonMaterial color={trim} />
-      </mesh>
-      <mesh position={[0, 0.72, depth / 2 + 0.14]} castShadow>
-        <torusGeometry args={[0.72, 0.13, 5, 18, Math.PI]} />
-        <meshToonMaterial color={trim} />
-      </mesh>
-      <mesh position={[0, 0.62, depth / 2 + 0.27]} castShadow>
-        <boxGeometry args={[0.68, 1.08, 0.12]} />
-        <meshToonMaterial color="#3e5350" />
-      </mesh>
-
-      {windows.map(({ floor, column }) => {
-        const x = (column - 1) * (width * 0.27);
-        const y = 1.58 + floor * 1.68;
-        return (
-          <group key={`${floor}-${column}`} position={[x, y, depth / 2 + 0.11]}>
-            <mesh castShadow>
-              <boxGeometry args={[0.7, 0.82, 0.13]} />
-              <meshToonMaterial color={trim} />
-            </mesh>
-            <mesh position={[0, 0, 0.075]}>
-              <boxGeometry args={[0.48, 0.58, 0.035]} />
-              <meshToonMaterial color={floor % 2 === 0 ? "#8bb7ae" : "#ead79f"} />
-            </mesh>
-            <mesh position={[0, 0, 0.105]}>
-              <boxGeometry args={[0.045, 0.58, 0.025]} />
-              <meshBasicMaterial color="#39514e" />
-            </mesh>
-          </group>
-        );
-      })}
-
-      {floors >= 3 && (
-        <group position={[-width * 0.34, 2.95, depth / 2 + 0.27]}>
-          <mesh castShadow>
-            <boxGeometry args={[0.9, 0.56, 0.42]} />
-            <meshToonMaterial color="#d8d6c5" />
-          </mesh>
-          <mesh position={[0, 0, 0.22]}>
-            <circleGeometry args={[0.18, 14]} />
-            <meshBasicMaterial color="#6f7e78" />
-          </mesh>
-        </group>
-      )}
-
-      <mesh position={[width * 0.28, 1.15, depth / 2 + 0.34]} rotation-z={-0.035} castShadow>
-        <boxGeometry args={[1.25, 0.48, 0.14]} />
-        <meshToonMaterial color={accent} />
-      </mesh>
-      <mesh position={[width * 0.28, 1.15, depth / 2 + 0.42]}>
-        <boxGeometry args={[0.78, 0.07, 0.025]} />
-        <meshBasicMaterial color="#fff0be" />
-      </mesh>
-
-      {roof === "gable" ? (
-        <mesh position={[0, height + 0.5, 0]} rotation-y={Math.PI / 4} castShadow>
-          <coneGeometry args={[Math.max(width, depth) * 0.52, 1.05, 4]} />
-          <meshToonMaterial color="#4d6660" />
-        </mesh>
-      ) : (
-        <group position={[0, height + 0.17, 0]}>
-          <mesh castShadow>
-            <boxGeometry args={[width + 0.35, 0.32, depth + 0.35]} />
-            <meshToonMaterial color="#62746d" />
-          </mesh>
-          <mesh position={[width * 0.28, 0.37, 0]} castShadow>
-            <boxGeometry args={[0.72, 0.55, 0.72]} />
-            <meshToonMaterial color="#b7b5a4" />
-          </mesh>
-        </group>
-      )}
-
-      <group position={[-width * 0.22, height + 0.55, 0]}>
-        <mesh position={[0, 0.48, 0]} castShadow>
-          <cylinderGeometry args={[0.09, 0.11, 0.95, 8]} />
-          <meshToonMaterial color="#344a46" />
-        </mesh>
-        <mesh position={[0, 0.99, 0]} rotation-z={0.2} castShadow>
-          <boxGeometry args={[0.52, 0.08, 0.08]} />
-          <meshToonMaterial color="#344a46" />
-        </mesh>
-      </group>
-    </group>
-  );
-}
-
-function PlaneTree({ scale = 1 }: { scale?: number }) {
-  return (
-    <group scale={scale}>
-      <mesh position={[0, 1.35, 0]} castShadow>
-        <cylinderGeometry args={[0.24, 0.34, 2.7, 8]} />
-        <meshToonMaterial color="#765f49" />
-      </mesh>
-      <mesh position={[-0.35, 2.65, 0]} rotation-z={-0.45} castShadow>
-        <cylinderGeometry args={[0.12, 0.18, 1.55, 7]} />
-        <meshToonMaterial color="#765f49" />
-      </mesh>
-      <mesh position={[0.38, 2.75, 0]} rotation-z={0.5} castShadow>
-        <cylinderGeometry args={[0.11, 0.18, 1.45, 7]} />
-        <meshToonMaterial color="#765f49" />
-      </mesh>
-      {[
-        [-0.65, 3.55, 0.12, 1.05], [0.18, 3.85, -0.2, 1.18],
-        [0.8, 3.5, 0.12, 0.95], [-0.05, 3.25, 0.58, 0.9],
-      ].map(([x, y, z, s], index) => (
-        <mesh key={index} position={[x, y, z]} scale={s} castShadow>
-          <icosahedronGeometry args={[0.9, 1]} />
-          <meshToonMaterial color={index % 2 ? "#4e8768" : "#3d715b"} />
-        </mesh>
-      ))}
-    </group>
-  );
-}
-
-function StreetLamp() {
-  return (
-    <group>
-      <mesh position={[0, 1.55, 0]} castShadow>
-        <cylinderGeometry args={[0.08, 0.13, 3.1, 8]} />
-        <meshToonMaterial color="#304b47" />
-      </mesh>
-      <mesh position={[0.32, 3.0, 0]} rotation-z={Math.PI / 2} castShadow>
-        <cylinderGeometry args={[0.07, 0.07, 0.65, 8]} />
-        <meshToonMaterial color="#304b47" />
-      </mesh>
-      <mesh position={[0.66, 2.82, 0]} castShadow>
-        <boxGeometry args={[0.42, 0.5, 0.42]} />
-        <meshToonMaterial color="#f0cd72" />
-      </mesh>
-      <pointLight position={[0.66, 2.8, 0]} color="#ffd987" intensity={0.7} distance={5} />
-    </group>
-  );
-}
-
-function Bicycle({ color = "#d05e4b" }: { color?: string }) {
-  return (
-    <group scale={0.72} rotation-y={0.2}>
-      {[-0.72, 0.72].map((x) => (
-        <mesh key={x} position={[x, 0.56, 0]} rotation-y={Math.PI / 2} castShadow>
-          <torusGeometry args={[0.5, 0.075, 8, 24]} />
-          <meshToonMaterial color="#2e403d" />
-        </mesh>
-      ))}
-      <mesh position={[0, 0.78, 0]} rotation-z={-0.12} castShadow>
-        <boxGeometry args={[1.45, 0.09, 0.09]} />
-        <meshToonMaterial color={color} />
-      </mesh>
-      <mesh position={[-0.25, 1.04, 0]} rotation-z={0.65} castShadow>
-        <boxGeometry args={[0.78, 0.09, 0.09]} />
-        <meshToonMaterial color={color} />
-      </mesh>
-      <mesh position={[0.45, 1.12, 0]} rotation-z={-0.72} castShadow>
-        <boxGeometry args={[0.82, 0.09, 0.09]} />
-        <meshToonMaterial color={color} />
-      </mesh>
-      <mesh position={[0.55, 1.55, 0]} castShadow>
-        <boxGeometry args={[0.62, 0.08, 0.08]} />
-        <meshToonMaterial color="#304744" />
-      </mesh>
-    </group>
-  );
-}
-
-function Bench() {
-  return (
-    <group>
-      {[0.42, 0.78].map((y) => (
-        <mesh key={y} position={[0, y, 0]} castShadow>
-          <boxGeometry args={[1.8, 0.18, 0.34]} />
-          <meshToonMaterial color="#9a6b4b" />
-        </mesh>
-      ))}
-      {[-0.68, 0.68].map((x) => (
-        <mesh key={x} position={[x, 0.22, 0]} castShadow>
-          <boxGeometry args={[0.13, 0.5, 0.46]} />
-          <meshToonMaterial color="#344c48" />
-        </mesh>
-      ))}
-    </group>
-  );
-}
-
 function ActionInstallation({ onOpenAction }: { onOpenAction: () => void }) {
   return (
-    <GroundAnchor x={ACTION_POSITION.x} z={ACTION_POSITION.z} y={ACTION_POSITION.y} yaw={-0.15}>
+    <GroundAnchor
+      x={ACTION_POSITION.x}
+      z={ACTION_POSITION.z}
+      y={ACTION_POSITION.y}
+      yaw={XINGFULI_PLACEMENT.rotationY}
+    >
       <group
+        scale={0.7}
         data-action-point="one-square-metre"
         onClick={(event) => {
           event.stopPropagation();
@@ -395,134 +164,25 @@ function ActionInstallation({ onOpenAction }: { onOpenAction: () => void }) {
   );
 }
 
-function DecorativeDetails() {
-  const lamps = [[-4.5, 24], [-4.5, 10]] as const;
-  return (
-    <group>
-      {lamps.map(([x, z], index) => (
-        <GroundAnchor key={`lamp-${index}`} x={x} z={z} y={0.14}>
-          <StreetLamp />
-        </GroundAnchor>
-      ))}
-      <GroundAnchor x={-4.8} z={5.2} y={0.14} yaw={0.2}>
-        <Bicycle />
-      </GroundAnchor>
-      <GroundAnchor x={4.9} z={23.5} y={0.14} yaw={0.1}>
-        <Bench />
-      </GroundAnchor>
-      <GroundAnchor x={-4.8} z={17} y={0.14} yaw={0.1}>
-        <group>
-          {[0, 0.42, 0.84].map((x, index) => (
-            <mesh key={x} position={[x - 0.42, 0.22 + index * 0.04, 0]} rotation-y={index * 0.15} castShadow>
-              <boxGeometry args={[0.72, 0.42, 0.56]} />
-              <meshToonMaterial color={index === 1 ? "#d76851" : "#d8c59e"} />
-            </mesh>
-          ))}
-        </group>
-      </GroundAnchor>
-    </group>
-  );
-}
-
-function RoadBarrier({ x, z, yaw = 0 }: { x: number; z: number; yaw?: number }) {
-  return (
-    <GroundAnchor x={x} z={z} y={0.14} yaw={yaw}>
-      <group>
-        {[-1.65, 1.65].map((postX) => (
-          <mesh key={postX} position={[postX, 0.55, 0]} castShadow>
-            <boxGeometry args={[0.16, 1.1, 0.16]} />
-            <meshToonMaterial color="#3d5550" />
-          </mesh>
-        ))}
-        <mesh position={[0, 0.82, 0]} castShadow>
-          <boxGeometry args={[3.65, 0.48, 0.18]} />
-          <meshToonMaterial color="#e7c25e" />
-        </mesh>
-        {[-1.15, -0.38, 0.38, 1.15].map((stripe) => (
-          <mesh key={stripe} position={[stripe, 0.82, 0.1]} rotation-z={-0.45}>
-            <boxGeometry args={[0.18, 0.52, 0.025]} />
-            <meshBasicMaterial color="#b95b4b" />
-          </mesh>
-        ))}
-      </group>
-    </GroundAnchor>
-  );
-}
-
-function NeighborhoodBoundary() {
-  const wallSegments = [
-    { x: -46.82, z: 15.41, width: 0.6, depth: 30.82 },
-    { x: -46.82, z: -22.41, width: 0.6, depth: 16.82 },
-    { x: 46.82, z: 15.41, width: 0.6, depth: 30.82 },
-    { x: 46.82, z: -22.41, width: 0.6, depth: 16.82 },
-    { x: -25.91, z: -30.82, width: 41.82, depth: 0.6 },
-    { x: 25.91, z: -30.82, width: 41.82, depth: 0.6 },
-    { x: -25.91, z: 30.82, width: 41.82, depth: 0.6 },
-    { x: 25.91, z: 30.82, width: 41.82, depth: 0.6 },
-  ] as const;
-  const skyline = [
-    [-42, -37, 10, 8, 5], [-27, -38, 12, 6, 4], [26, -38, 12, 7, 5], [42, -37, 10, 9, 5],
-    [-16, 38, 10, 8, 5], [0, 39, 9, 10, 5], [16, 38, 10, 7, 5],
-    [-53, 20, 7, 8, 12], [53, 19, 8, 10, 11], [-53, -24, 8, 9, 9], [53, -24, 7, 8, 10],
-  ] as const;
-
-  return (
-    <group>
-      {wallSegments.map((wall, index) => (
-        <mesh key={index} position={[wall.x, 0.75, wall.z]} castShadow receiveShadow>
-          <boxGeometry args={[wall.width, 1.5, wall.depth]} />
-          <meshToonMaterial color={index % 2 ? "#8b836f" : "#9b8d73"} />
-        </mesh>
-      ))}
-      {skyline.map(([x, z, width, height, depth], index) => (
-        <RoundedBox
-          key={index}
-          args={[width, height, depth]}
-          radius={0.12}
-          smoothness={2}
-          position={[x, height / 2, z]}
-          castShadow
-        >
-          <meshToonMaterial color={index % 3 === 0 ? "#c9876e" : index % 2 ? "#d6cab0" : "#b9b7a5"} />
-        </RoundedBox>
-      ))}
-      <RoadBarrier x={0} z={29.2} />
-      <RoadBarrier x={0} z={-29.2} />
-    </group>
-  );
-}
-
 function FlatNeighborhood({ onOpenAction }: { onOpenAction: () => void }) {
   return (
     <group>
-      <mesh position={[0, -0.5, 0]} receiveShadow>
-        <boxGeometry args={[100, 1, 68]} />
-        <meshToonMaterial color="#87966c" />
-      </mesh>
-      <mesh position={[0, 0.035, 0]} receiveShadow>
-        <boxGeometry args={[97.5, 0.07, 65.5]} />
-        <meshToonMaterial color="#89996f" />
-      </mesh>
-      <NeighborhoodRoads />
-      <XingfuliBlock />
-      {BUILDINGS.map((building, index) => (
-        <GroundAnchor
-          key={index}
-          x={building.x}
-          z={building.z}
-          y={0.2}
-          yaw={building.yaw}
-        >
-          <ShikumenBuilding {...building} />
-        </GroundAnchor>
-      ))}
-      {TREE_POINTS.map(([x, z, scale], index) => (
-        <GroundAnchor key={index} x={x} z={z} y={0.12} yaw={index * 0.31}>
-          <PlaneTree scale={scale} />
-        </GroundAnchor>
-      ))}
-      <DecorativeDetails />
-      <NeighborhoodBoundary />
+      <XinhuaStreetMap />
+      <group
+        position={[XINGFULI_POSITION[0], 0.18, XINGFULI_POSITION[1]]}
+        rotation-y={XINGFULI_PLACEMENT.rotationY}
+        data-landmark-position="osm-way-400066625"
+      >
+        <group scale={[
+          XINGFULI_PLACEMENT.horizontalScale,
+          XINGFULI_PLACEMENT.verticalScale,
+          XINGFULI_PLACEMENT.horizontalScale,
+        ]}>
+          <group position={[0, 0, -XINGFULI_PLACEMENT.localLaneCenterZ]}>
+            <XingfuliBlock />
+          </group>
+        </group>
+      </group>
       <ActionInstallation onOpenAction={onOpenAction} />
     </group>
   );
@@ -803,12 +463,12 @@ function useKeyboardControls() {
 function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => void }) {
   const { camera, gl } = useThree();
   const outer = useRef<Group>(null);
-  const initialForward = useMemo(() => new Vector3(0, 0, -1), []);
+  const initialForward = useMemo(() => START_FORWARD.clone(), []);
   const initialCameraOffset = useMemo(
     () => initialForward.clone().multiplyScalar(-CAMERA_DISTANCE).addScaledVector(WORLD_UP, CAMERA_HEIGHT),
     [initialForward],
   );
-  const characterPosition = useRef(new Vector3(0, 0.33, 20));
+  const characterPosition = useRef(START_POSITION.clone());
   const forward = useRef(initialForward.clone());
   const cameraOffset = useRef(initialCameraOffset.clone());
   const lockedMoveDirection = useRef(initialForward.clone());
@@ -838,6 +498,7 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
     desiredHorizontal: new Vector3(),
     displacement: new Vector3(),
     cameraPosition: new Vector3(),
+    cameraLerp: new Vector3(),
     cameraBase: new Vector3(),
     cameraTarget: new Vector3(),
     revertedOffset: new Vector3(),
@@ -935,10 +596,10 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
       s.move.copy(lockedMoveDirection.current);
       const speed = inputState.sprint ? 6.4 : 3.6;
       s.displacement.copy(s.move).multiplyScalar(speed * delta);
-      resolvePlanarMovement(
+      resolvePolygonMovement(
         currentPosition,
         s.displacement,
-        MAP_BOUNDS,
+        XINHUA_BOUNDARY,
         WORLD_OBSTACLES,
         PLAYER_RADIUS,
         currentPosition,
@@ -975,10 +636,10 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
     let cameraClear = false;
     for (let scale = 1; scale >= 0.28; scale -= 0.08) {
       s.cameraPosition.copy(s.cameraBase).addScaledVector(cameraOffset.current, scale);
-      if (!isPlanarPositionBlocked(
+      if (!isPlanarPositionBlockedInPolygon(
         s.cameraPosition.x,
         s.cameraPosition.z,
-        MAP_BOUNDS,
+        XINHUA_BOUNDARY,
         WORLD_OBSTACLES,
         0.25,
       )) {
@@ -987,14 +648,25 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
       }
     }
     if (!cameraClear) s.cameraPosition.copy(s.cameraBase).addScaledVector(WORLD_UP, 2.2);
-    camera.position.lerp(s.cameraPosition, Math.min(1, delta * 8));
+    s.cameraLerp.copy(camera.position).lerp(s.cameraPosition, Math.min(1, delta * 8));
+    if (isPlanarPositionBlockedInPolygon(
+      s.cameraLerp.x,
+      s.cameraLerp.z,
+      XINHUA_BOUNDARY,
+      WORLD_OBSTACLES,
+      0.25,
+    )) {
+      camera.position.copy(s.cameraPosition);
+    } else {
+      camera.position.copy(s.cameraLerp);
+    }
     camera.up.copy(WORLD_UP);
     camera.lookAt(s.cameraTarget);
 
     const near = Math.hypot(
       currentPosition.x - ACTION_POSITION.x,
       currentPosition.z - ACTION_POSITION.z,
-    ) < 5.0;
+    ) < 3.2;
     if (near !== wasNear.current) {
       wasNear.current = near;
       onNearRef.current(near);
@@ -1006,10 +678,14 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
 
 export function IntroCamera() {
   const { camera } = useThree();
-  const target = useMemo(() => new Vector3(0, 0, -5), []);
+  const target = useMemo(() => new Vector3(0, 0, 0), []);
   useFrame(({ clock }, delta) => {
     const time = clock.elapsedTime;
-    const desired = new Vector3(61 + Math.sin(time * 0.11) * 2.2, 45, 68 + Math.cos(time * 0.12) * 1.8);
+    const desired = new Vector3(
+      126 + Math.sin(time * 0.11) * 3.2,
+      142,
+      138 + Math.cos(time * 0.12) * 2.8,
+    );
     camera.position.lerp(desired, Math.min(1, delta * 2.5));
     camera.up.set(0, 1, 0);
     camera.lookAt(target);
@@ -1028,7 +704,7 @@ export function XinhuaWorld({
 }) {
   return (
     <>
-      <fog attach="fog" args={["#72b7b1", 72, 190]} />
+      <fog attach="fog" args={["#72b7b1", 145, 310]} />
       <color attach="background" args={[new Color("#69bab6")]} />
       <ambientLight intensity={1.15} />
       <hemisphereLight args={["#eff8e9", "#6d765c", 1.45]} />
@@ -1039,11 +715,11 @@ export function XinhuaWorld({
         castShadow
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
-        shadow-camera-far={120}
-        shadow-camera-left={-70}
-        shadow-camera-right={70}
-        shadow-camera-top={70}
-        shadow-camera-bottom={-70}
+        shadow-camera-far={230}
+        shadow-camera-left={-92}
+        shadow-camera-right={92}
+        shadow-camera-top={92}
+        shadow-camera-bottom={-92}
         shadow-bias={-0.00025}
       />
       <FlatNeighborhood onOpenAction={onOpenAction} />
