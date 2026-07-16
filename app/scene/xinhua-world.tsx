@@ -557,6 +557,213 @@ function FlatNeighborhood({ onOpenAction }: { onOpenAction: () => void }) {
   );
 }
 
+function CharacterHead() {
+  return (
+    <group position={[0, 2.14, 0.02]}>
+      <mesh position={[0, -0.48, -0.01]} castShadow>
+        <cylinderGeometry args={[0.17, 0.19, 0.28, 14]} />
+        <meshToonMaterial color="#d9a98a" />
+      </mesh>
+      <mesh scale={[0.94, 1.05, 0.9]} castShadow>
+        <sphereGeometry args={[0.46, 24, 18]} />
+        <meshToonMaterial color="#e9bea0" />
+      </mesh>
+      {[-0.46, 0.46].map((x) => (
+        <mesh key={x} position={[x, 0, 0]} scale={[0.42, 0.72, 0.34]} castShadow>
+          <sphereGeometry args={[0.2, 14, 10]} />
+          <meshToonMaterial color="#dfae90" />
+        </mesh>
+      ))}
+
+      <mesh position={[0, 0.08, -0.02]} scale={[1.03, 1, 1.02]} castShadow>
+        <sphereGeometry args={[0.475, 24, 14, 0, Math.PI * 2, 0, Math.PI * 0.6]} />
+        <meshToonMaterial color="#293f3b" />
+      </mesh>
+      {[-0.31, -0.1, 0.12, 0.31].map((x, index) => (
+        <mesh
+          key={x}
+          position={[x, 0.19 - Math.abs(x) * 0.18, 0.38]}
+          rotation-z={(index - 1.5) * 0.16}
+          castShadow
+        >
+          <coneGeometry args={[0.115, 0.34 - Math.abs(x) * 0.15, 8]} />
+          <meshToonMaterial color={index % 2 ? "#304943" : "#293f3b"} />
+        </mesh>
+      ))}
+      {[-0.36, 0.36].map((x) => (
+        <mesh key={x} position={[x, -0.04, -0.23]} scale={[0.7, 1.25, 0.62]} castShadow>
+          <sphereGeometry args={[0.25, 14, 10]} />
+          <meshToonMaterial color="#293f3b" />
+        </mesh>
+      ))}
+
+      {[-0.17, 0.17].map((x) => (
+        <group key={x} position={[x, 0.03, 0.405]}>
+          <mesh scale={[1, 0.72, 0.32]}>
+            <sphereGeometry args={[0.085, 14, 10]} />
+            <meshBasicMaterial color="#f8edd7" />
+          </mesh>
+          <mesh position={[0, 0, 0.03]}>
+            <sphereGeometry args={[0.037, 12, 8]} />
+            <meshBasicMaterial color="#273936" />
+          </mesh>
+          <mesh position={[0.012, 0.012, 0.064]}>
+            <sphereGeometry args={[0.012, 8, 6]} />
+            <meshBasicMaterial color="#ffffff" />
+          </mesh>
+        </group>
+      ))}
+      {[-0.17, 0.17].map((x) => (
+        <mesh key={x} position={[x, 0.16, 0.405]} rotation-z={x * -0.48}>
+          <boxGeometry args={[0.13, 0.025, 0.022]} />
+          <meshBasicMaterial color="#32423e" />
+        </mesh>
+      ))}
+      <mesh position={[0, -0.055, 0.438]} rotation-x={Math.PI / 2}>
+        <coneGeometry args={[0.035, 0.075, 8]} />
+        <meshToonMaterial color="#d79b7d" />
+      </mesh>
+      <mesh position={[0, -0.19, 0.425]} rotation-z={0.08}>
+        <torusGeometry args={[0.075, 0.015, 6, 18, Math.PI]} />
+        <meshBasicMaterial color="#a85f55" />
+      </mesh>
+      {[-0.28, 0.28].map((x) => (
+        <mesh key={x} position={[x, -0.1, 0.4]}>
+          <circleGeometry args={[0.065, 16]} />
+          <meshBasicMaterial color="#dc8c80" transparent opacity={0.34} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+function MessengerBackpack() {
+  return (
+    <group position={[0, 1.27, -0.4]}>
+      <RoundedBox args={[0.76, 0.88, 0.3]} radius={0.14} smoothness={3} castShadow>
+        <meshToonMaterial color="#b94f45" />
+      </RoundedBox>
+      <RoundedBox args={[0.7, 0.34, 0.09]} radius={0.08} smoothness={2} position={[0, 0.24, -0.19]} castShadow>
+        <meshToonMaterial color="#d86a50" />
+      </RoundedBox>
+      <mesh position={[0, 0.14, -0.25]} rotation-z={Math.PI / 4} castShadow>
+        <boxGeometry args={[0.3, 0.3, 0.045]} />
+        <meshToonMaterial color="#fff0c8" />
+      </mesh>
+      <mesh position={[0, 0.14, -0.28]} rotation-z={Math.PI / 4}>
+        <boxGeometry args={[0.16, 0.16, 0.025]} />
+        <meshBasicMaterial color="#d3624d" />
+      </mesh>
+      {[-0.25, 0.25].map((x) => (
+        <RoundedBox key={x} args={[0.22, 0.3, 0.22]} radius={0.06} smoothness={2} position={[x, -0.24, -0.05]} castShadow>
+          <meshToonMaterial color="#9f463f" />
+        </RoundedBox>
+      ))}
+      <mesh position={[0, 0.51, 0]} rotation-x={Math.PI / 2} castShadow>
+        <torusGeometry args={[0.16, 0.035, 8, 16, Math.PI]} />
+        <meshToonMaterial color="#394d48" />
+      </mesh>
+    </group>
+  );
+}
+
+function CharacterTorso() {
+  return (
+    <group>
+      <RoundedBox args={[0.88, 0.98, 0.55]} radius={0.18} smoothness={3} position={[0, 1.29, 0]} castShadow>
+        <meshToonMaterial color="#d9823f" />
+      </RoundedBox>
+      <RoundedBox args={[0.4, 0.7, 0.075]} radius={0.08} smoothness={2} position={[0, 1.29, 0.31]}>
+        <meshToonMaterial color="#f1dfba" />
+      </RoundedBox>
+      {[-0.24, 0.24].map((x) => (
+        <mesh key={x} position={[x, 1.49, 0.345]} rotation-z={x * -1.05} castShadow>
+          <boxGeometry args={[0.16, 0.48, 0.065]} />
+          <meshToonMaterial color="#bb5a3f" />
+        </mesh>
+      ))}
+      {[-0.27, 0.27].map((x) => (
+        <mesh key={x} position={[x, 1.31, 0.35]} castShadow>
+          <capsuleGeometry args={[0.045, 0.62, 3, 8]} />
+          <meshToonMaterial color="#40524d" />
+        </mesh>
+      ))}
+      {[1.45, 1.25, 1.05].map((y) => (
+        <mesh key={y} position={[0, y, 0.365]}>
+          <sphereGeometry args={[0.027, 8, 6]} />
+          <meshBasicMaterial color="#344944" />
+        </mesh>
+      ))}
+      <mesh position={[0, 0.79, 0]} castShadow>
+        <cylinderGeometry args={[0.35, 0.39, 0.2, 14]} />
+        <meshToonMaterial color="#344d48" />
+      </mesh>
+      <MessengerBackpack />
+    </group>
+  );
+}
+
+function CharacterArm({
+  side,
+  armRef,
+}: {
+  side: -1 | 1;
+  armRef: RefObject<Group | null>;
+}) {
+  return (
+    <group ref={armRef} position={[side * 0.49, 1.68, 0]} rotation-z={side * -0.08}>
+      <mesh position={[0, -0.25, 0]} castShadow>
+        <capsuleGeometry args={[0.145, 0.28, 5, 10]} />
+        <meshToonMaterial color="#c96b3e" />
+      </mesh>
+      <mesh position={[0, -0.51, 0]} castShadow>
+        <sphereGeometry args={[0.14, 14, 10]} />
+        <meshToonMaterial color="#d89b7b" />
+      </mesh>
+      <mesh position={[0, -0.67, 0.015]} castShadow>
+        <capsuleGeometry args={[0.12, 0.23, 5, 10]} />
+        <meshToonMaterial color="#e1ae8e" />
+      </mesh>
+      <mesh position={[0, -0.9, 0.04]} scale={[0.92, 1.08, 0.82]} castShadow>
+        <sphereGeometry args={[0.14, 14, 10]} />
+        <meshToonMaterial color="#e7b798" />
+      </mesh>
+    </group>
+  );
+}
+
+function CharacterLeg({
+  side,
+  legRef,
+}: {
+  side: -1 | 1;
+  legRef: RefObject<Group | null>;
+}) {
+  return (
+    <group ref={legRef} position={[side * 0.22, 0.88, 0]}>
+      <mesh position={[0, -0.25, 0]} castShadow>
+        <capsuleGeometry args={[0.17, 0.28, 5, 10]} />
+        <meshToonMaterial color="#526b62" />
+      </mesh>
+      <mesh position={[0, -0.49, 0]} castShadow>
+        <sphereGeometry args={[0.155, 14, 10]} />
+        <meshToonMaterial color="#405851" />
+      </mesh>
+      <mesh position={[0, -0.65, 0]} castShadow>
+        <capsuleGeometry args={[0.14, 0.24, 5, 10]} />
+        <meshToonMaterial color="#314b46" />
+      </mesh>
+      <RoundedBox args={[0.34, 0.2, 0.56]} radius={0.07} smoothness={2} position={[0, -0.88, 0.12]} castShadow>
+        <meshToonMaterial color="#263b38" />
+      </RoundedBox>
+      <mesh position={[0, -0.99, 0.14]} castShadow>
+        <boxGeometry args={[0.35, 0.07, 0.58]} />
+        <meshToonMaterial color="#e9d9b4" />
+      </mesh>
+    </group>
+  );
+}
+
 function MessengerCharacter({ outerRef }: { outerRef: RefObject<Group | null> }) {
   const leftArm = useRef<Group>(null);
   const rightArm = useRef<Group>(null);
@@ -567,80 +774,26 @@ function MessengerCharacter({ outerRef }: { outerRef: RefObject<Group | null> })
 
   useFrame(({ clock }) => {
     const stride = moving.current ? Math.sin(clock.elapsedTime * (inputState.sprint ? 12 : 8)) : 0;
-    if (leftArm.current) leftArm.current.rotation.x = stride * 0.62;
-    if (rightArm.current) rightArm.current.rotation.x = -stride * 0.62;
-    if (leftLeg.current) leftLeg.current.rotation.x = -stride * 0.58;
-    if (rightLeg.current) rightLeg.current.rotation.x = stride * 0.58;
-    if (body.current) body.current.position.y = moving.current ? Math.abs(stride) * 0.045 : Math.sin(clock.elapsedTime * 2.3) * 0.018;
+    if (leftArm.current) leftArm.current.rotation.x = stride * 0.58;
+    if (rightArm.current) rightArm.current.rotation.x = -stride * 0.58;
+    if (leftLeg.current) leftLeg.current.rotation.x = -stride * 0.52;
+    if (rightLeg.current) rightLeg.current.rotation.x = stride * 0.52;
+    if (body.current) {
+      body.current.position.y = moving.current ? Math.abs(stride) * 0.038 : Math.sin(clock.elapsedTime * 2.3) * 0.014;
+      body.current.rotation.z = moving.current ? stride * 0.014 : Math.sin(clock.elapsedTime * 1.2) * 0.006;
+    }
     moving.current = inputState.forward || inputState.back || inputState.left || inputState.right;
   });
 
   return (
     <group ref={outerRef}>
-      <group ref={body} scale={0.92}>
-        <mesh position={[0, 1.24, 0]} castShadow>
-          <capsuleGeometry args={[0.39, 0.72, 5, 10]} />
-          <meshToonMaterial color="#edae3f" />
-        </mesh>
-        <mesh position={[0, 2.18, 0.02]} scale={[0.95, 1.05, 0.9]} castShadow>
-          <sphereGeometry args={[0.46, 16, 12]} />
-          <meshToonMaterial color="#e6bd9d" />
-        </mesh>
-        <mesh position={[0, 2.52, -0.02]} rotation-x={-0.08} castShadow>
-          <cylinderGeometry args={[0.48, 0.44, 0.18, 14]} />
-          <meshToonMaterial color="#334f49" />
-        </mesh>
-        <mesh position={[0, 2.5, 0.34]} rotation-x={0.12} castShadow>
-          <boxGeometry args={[0.64, 0.08, 0.48]} />
-          <meshToonMaterial color="#334f49" />
-        </mesh>
-        {[-0.16, 0.16].map((x) => (
-          <mesh key={x} position={[x, 2.2, 0.42]}>
-            <sphereGeometry args={[0.045, 10, 8]} />
-            <meshBasicMaterial color="#293b38" />
-          </mesh>
-        ))}
-        <mesh position={[0, 1.26, -0.43]} castShadow>
-          <RoundedBox args={[0.72, 0.88, 0.26]} radius={0.12} smoothness={2}>
-            <meshToonMaterial color="#c75547" />
-          </RoundedBox>
-        </mesh>
-        <mesh position={[0, 1.2, -0.58]} castShadow>
-          <boxGeometry args={[0.48, 0.34, 0.08]} />
-          <meshToonMaterial color="#fff1c6" />
-        </mesh>
-        <group ref={leftArm} position={[-0.43, 1.72, 0]}>
-          <mesh position={[0, -0.42, 0]} castShadow>
-            <capsuleGeometry args={[0.13, 0.58, 4, 8]} />
-            <meshToonMaterial color="#d88d43" />
-          </mesh>
-        </group>
-        <group ref={rightArm} position={[0.43, 1.72, 0]}>
-          <mesh position={[0, -0.42, 0]} castShadow>
-            <capsuleGeometry args={[0.13, 0.58, 4, 8]} />
-            <meshToonMaterial color="#d88d43" />
-          </mesh>
-        </group>
-        <group ref={leftLeg} position={[-0.2, 0.88, 0]}>
-          <mesh position={[0, -0.45, 0]} castShadow>
-            <capsuleGeometry args={[0.16, 0.56, 4, 8]} />
-            <meshToonMaterial color="#3d5c56" />
-          </mesh>
-          <mesh position={[0, -0.8, 0.13]} castShadow>
-            <boxGeometry args={[0.31, 0.18, 0.52]} />
-            <meshToonMaterial color="#263b38" />
-          </mesh>
-        </group>
-        <group ref={rightLeg} position={[0.2, 0.88, 0]}>
-          <mesh position={[0, -0.45, 0]} castShadow>
-            <capsuleGeometry args={[0.16, 0.56, 4, 8]} />
-            <meshToonMaterial color="#3d5c56" />
-          </mesh>
-          <mesh position={[0, -0.8, 0.13]} castShadow>
-            <boxGeometry args={[0.31, 0.18, 0.52]} />
-            <meshToonMaterial color="#263b38" />
-          </mesh>
-        </group>
+      <group ref={body} scale={0.9}>
+        <CharacterTorso />
+        <CharacterHead />
+        <CharacterArm side={-1} armRef={leftArm} />
+        <CharacterArm side={1} armRef={rightArm} />
+        <CharacterLeg side={-1} legRef={leftLeg} />
+        <CharacterLeg side={1} legRef={rightLeg} />
       </group>
     </group>
   );

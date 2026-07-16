@@ -23,6 +23,32 @@
 
 ---
 
+## [LRN-20260716-003] correction
+
+**Logged**: 2026-07-16T01:05:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+第三人称闲逛产品的主角是持续占据视觉中心的核心资产，不能使用只满足碰撞和动画验证的几何占位模型发布。
+
+### Details
+当前角色虽然具备行走、奔跑和跳跃逻辑，但头脸只有球体与两点眼睛，四肢为单段胶囊，服装和背包缺少结构层次，近景与移动端都会显得粗糙。
+
+### Suggested Action
+保持原创程序化建模与现有轻量运行时，重建头脸、发型、躯干服装、双段四肢和信使背包，并从角色正面、背面与手机近景分别验收。
+
+### Resolution
+已完成分层角色模型、行走动画调整及桌面正反面和移动端视觉验收，并增加源码结构回归测试防止退回占位模型。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/xinhua-world.tsx, tests/rendered-html.test.mjs
+- Tags: character-model, art-quality, third-person, visual-regression
+
+---
+
 ## [LRN-20260716-002] best_practice
 
 **Logged**: 2026-07-16T00:42:00+08:00

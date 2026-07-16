@@ -42,3 +42,20 @@ test("最终运行时代码不引用参考站资产", async () => {
   assert.match(experience, /href="https:\/\/messenger\.abeto\.co\/"/);
   assert.doesNotMatch(experience + world, /\/assets\/|\.drc|\.ktx2|\.ogg/);
 });
+
+test("主角使用完整分层 3D 建模而不是几何占位人", async () => {
+  const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
+  const head = world.slice(world.indexOf("function CharacterHead"), world.indexOf("function MessengerBackpack"));
+  const backpack = world.slice(world.indexOf("function MessengerBackpack"), world.indexOf("function CharacterTorso"));
+
+  assert.match(world, /function CharacterHead/);
+  assert.match(world, /function CharacterTorso/);
+  assert.match(world, /function CharacterArm/);
+  assert.match(world, /function CharacterLeg/);
+  assert.match(world, /function MessengerBackpack/);
+  assert.match(head, /sphereGeometry/);
+  assert.match(head, /torusGeometry/);
+  assert.match(backpack, /RoundedBox/);
+  assert.match(backpack, /torusGeometry/);
+  assert.doesNotMatch(world, /capsuleGeometry args=\{\[0\.39, 0\.72/);
+});
