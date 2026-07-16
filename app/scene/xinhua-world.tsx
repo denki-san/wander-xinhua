@@ -21,6 +21,7 @@ import {
   useRef,
 } from "react";
 import { inputState, resetInput } from "./input";
+import { XingfuliBlock, XINGFULI_OBSTACLES } from "./xingfuli-block";
 import {
   composeCameraOffset,
   isPlanarPositionBlocked,
@@ -35,29 +36,20 @@ const CAMERA_HEIGHT = 5.0;
 const CAMERA_FOLLOW_YAW_SPEED = 3.4;
 const CAMERA_DEFAULT_PITCH = CAMERA_HEIGHT / Math.hypot(CAMERA_DISTANCE, CAMERA_HEIGHT);
 const PLAYER_RADIUS = 0.48;
-const MAP_BOUNDS = { minX: -24, maxX: 24, minZ: -31, maxZ: 31 } as const;
-const ACTION_POSITION = new Vector3(3.8, 0.3, -11.5);
+const MAP_BOUNDS = { minX: -47, maxX: 47, minZ: -31, maxZ: 31 } as const;
+const ACTION_POSITION = new Vector3(-16, 0.3, 12.5);
 
 const BUILDINGS = [
   { x: -8.2, z: 23, yaw: Math.PI / 2, width: 5.2, depth: 3.4, floors: 3, color: "#e4d8bf", trim: "#546b65", accent: "#d26f55", roof: "flat" },
   { x: -8.3, z: 15, yaw: Math.PI / 2, width: 4.5, depth: 3.1, floors: 2, color: "#dca17f", trim: "#745142", accent: "#e7c36c", roof: "gable" },
-  { x: -8.4, z: 7, yaw: Math.PI / 2, width: 5.1, depth: 3.4, floors: 3, color: "#d9c9aa", trim: "#496960", accent: "#d7664d", roof: "flat" },
-  { x: -8.2, z: -16, yaw: Math.PI / 2, width: 4.7, depth: 3.0, floors: 2, color: "#c9745d", trim: "#5f433b", accent: "#e7bf58", roof: "gable" },
-  { x: -8.3, z: -24, yaw: Math.PI / 2, width: 5.2, depth: 3.4, floors: 3, color: "#e2d1b5", trim: "#426a61", accent: "#d96b53", roof: "flat" },
   { x: 8.2, z: 23, yaw: -Math.PI / 2, width: 4.5, depth: 3.2, floors: 2, color: "#d98b6c", trim: "#694b42", accent: "#efc35c", roof: "gable" },
   { x: 8.3, z: 15, yaw: -Math.PI / 2, width: 5.0, depth: 3.4, floors: 3, color: "#e6ddc7", trim: "#4b6d65", accent: "#cc6852", roof: "flat" },
-  { x: 8.2, z: 6, yaw: -Math.PI / 2, width: 4.6, depth: 3.2, floors: 2, color: "#d6a37e", trim: "#715044", accent: "#e4be5c", roof: "gable" },
-  { x: 8.4, z: -17, yaw: -Math.PI / 2, width: 5.2, depth: 3.5, floors: 3, color: "#dbd2bd", trim: "#4d6d66", accent: "#cf7159", roof: "flat" },
-  { x: 8.2, z: -25, yaw: -Math.PI / 2, width: 4.5, depth: 3.0, floors: 2, color: "#ca755d", trim: "#5c443d", accent: "#edc865", roof: "gable" },
-  { x: -17.5, z: -11.2, yaw: 0, width: 5.2, depth: 3.2, floors: 2, color: "#e2d6be", trim: "#486860", accent: "#d96d52", roof: "flat" },
-  { x: 17.5, z: -2.8, yaw: Math.PI, width: 5.4, depth: 3.2, floors: 3, color: "#d99573", trim: "#64483e", accent: "#e8bd57", roof: "flat" },
 ] as const;
 
 const TREE_POINTS = [
   [-5.2, 27, 0.95], [5.2, 27, 1.05], [-5.2, 18, 1.08], [5.2, 18, 0.95],
-  [-5.2, 9, 1.06], [5.2, 8, 1.0], [-5.1, -18, 1.05], [5.2, -20, 0.95],
-  [-21, 25, 1.0], [21, 24, 1.08], [-20, -25, 1.1], [20, -24, 0.95],
-  [-20, 2, 0.92], [20, 7, 0.9],
+  [-5.2, 9, 1.06], [5.2, 9, 1.0], [-5.1, -26, 1.05], [5.2, -26, 0.95],
+  [-42, 25, 1.0], [42, 24, 1.08], [-41, -27, 1.1], [41, -27, 0.95],
 ] as const;
 
 const BUILDING_OBSTACLES: MapObstacle[] = BUILDINGS.map((building) => {
@@ -72,6 +64,11 @@ const BUILDING_OBSTACLES: MapObstacle[] = BUILDINGS.map((building) => {
     maxZ: building.z + halfZ,
   };
 });
+
+const WORLD_OBSTACLES: MapObstacle[] = [
+  ...BUILDING_OBSTACLES,
+  ...XINGFULI_OBSTACLES,
+];
 
 function GroundAnchor({
   x,
@@ -100,29 +97,19 @@ function NeighborhoodRoads() {
         <boxGeometry args={[7.2, 0.16, 62]} />
         <meshBasicMaterial color="#e8dcc0" />
       </mesh>
-      <mesh position={[0, 0.165, -7]} receiveShadow>
-        <boxGeometry args={[48, 0.17, 6.4]} />
-        <meshBasicMaterial color="#d9cdb1" />
-      </mesh>
       <mesh position={[-13, 0.17, 12.5]} receiveShadow>
         <boxGeometry args={[19, 0.18, 3.7]} />
         <meshBasicMaterial color="#efe5cb" />
       </mesh>
-      {[-25, -16, 2, 11, 20, 28].map((z) => (
+      {[-27, 2, 11, 20, 28].map((z) => (
         <mesh key={z} position={[0, 0.25, z]}>
-            <boxGeometry args={[0.12, 0.035, 1.4]} />
-            <meshBasicMaterial color="#f5ead1" />
+          <boxGeometry args={[0.12, 0.035, 1.4]} />
+          <meshBasicMaterial color="#f5ead1" />
         </mesh>
       ))}
       {[-5.25, 5.25].map((x) => (
         <mesh key={x} position={[x, 0.16, 0]} receiveShadow>
           <boxGeometry args={[2.9, 0.16, 62]} />
-          <meshBasicMaterial color="#bdae8d" />
-        </mesh>
-      ))}
-      {[-17, -11, 11, 17].map((x) => (
-        <mesh key={x} position={[x, 0.165, -11.4]} receiveShadow>
-          <boxGeometry args={[5.1, 0.17, 2.2]} />
           <meshBasicMaterial color="#bdae8d" />
         </mesh>
       ))}
@@ -409,7 +396,7 @@ function ActionInstallation({ onOpenAction }: { onOpenAction: () => void }) {
 }
 
 function DecorativeDetails() {
-  const lamps = [[-4.5, 24], [-4.5, 10], [4.5, -1], [4.5, -21]] as const;
+  const lamps = [[-4.5, 24], [-4.5, 10]] as const;
   return (
     <group>
       {lamps.map(([x, z], index) => (
@@ -419,9 +406,6 @@ function DecorativeDetails() {
       ))}
       <GroundAnchor x={-4.8} z={5.2} y={0.14} yaw={0.2}>
         <Bicycle />
-      </GroundAnchor>
-      <GroundAnchor x={4.9} z={-18} y={0.14} yaw={-0.18}>
-        <Bicycle color="#e2b64f" />
       </GroundAnchor>
       <GroundAnchor x={4.9} z={23.5} y={0.14} yaw={0.1}>
         <Bench />
@@ -434,18 +418,6 @@ function DecorativeDetails() {
               <meshToonMaterial color={index === 1 ? "#d76851" : "#d8c59e"} />
             </mesh>
           ))}
-        </group>
-      </GroundAnchor>
-      <GroundAnchor x={-14.5} z={-3.2} y={0.14}>
-        <group>
-          <mesh position={[0, 0.45, 0]} castShadow>
-            <cylinderGeometry args={[0.52, 0.62, 0.9, 10]} />
-            <meshToonMaterial color="#b75e4d" />
-          </mesh>
-          <mesh position={[0, 1.05, 0]} castShadow>
-            <icosahedronGeometry args={[0.72, 1]} />
-            <meshToonMaterial color="#56886a" />
-          </mesh>
         </group>
       </GroundAnchor>
     </group>
@@ -479,19 +451,19 @@ function RoadBarrier({ x, z, yaw = 0 }: { x: number; z: number; yaw?: number }) 
 
 function NeighborhoodBoundary() {
   const wallSegments = [
-    { x: -25, z: 13, width: 0.6, depth: 36 },
-    { x: -25, z: -25, width: 0.6, depth: 10 },
-    { x: 25, z: 13, width: 0.6, depth: 36 },
-    { x: 25, z: -25, width: 0.6, depth: 10 },
-    { x: -15, z: -33, width: 20, depth: 0.6 },
-    { x: 15, z: -33, width: 20, depth: 0.6 },
-    { x: -15, z: 33, width: 20, depth: 0.6 },
-    { x: 15, z: 33, width: 20, depth: 0.6 },
+    { x: -46.82, z: 15.41, width: 0.6, depth: 30.82 },
+    { x: -46.82, z: -22.41, width: 0.6, depth: 16.82 },
+    { x: 46.82, z: 15.41, width: 0.6, depth: 30.82 },
+    { x: 46.82, z: -22.41, width: 0.6, depth: 16.82 },
+    { x: -25.91, z: -30.82, width: 41.82, depth: 0.6 },
+    { x: 25.91, z: -30.82, width: 41.82, depth: 0.6 },
+    { x: -25.91, z: 30.82, width: 41.82, depth: 0.6 },
+    { x: 25.91, z: 30.82, width: 41.82, depth: 0.6 },
   ] as const;
   const skyline = [
-    [-22, -36, 9, 8, 5], [-11, -37, 8, 6, 4], [12, -37, 9, 7, 5], [22, -36, 8, 9, 5],
-    [-9, 38, 8, 8, 5], [0, 39, 7, 10, 5], [9, 38, 8, 7, 5],
-    [-27, 18, 7, 7, 12], [27, 19, 8, 9, 11], [-27, -20, 8, 10, 9], [27, -21, 7, 8, 10],
+    [-42, -37, 10, 8, 5], [-27, -38, 12, 6, 4], [26, -38, 12, 7, 5], [42, -37, 10, 9, 5],
+    [-16, 38, 10, 8, 5], [0, 39, 9, 10, 5], [16, 38, 10, 7, 5],
+    [-53, 20, 7, 8, 12], [53, 19, 8, 10, 11], [-53, -24, 8, 9, 9], [53, -24, 7, 8, 10],
   ] as const;
 
   return (
@@ -516,8 +488,6 @@ function NeighborhoodBoundary() {
       ))}
       <RoadBarrier x={0} z={29.2} />
       <RoadBarrier x={0} z={-29.2} />
-      <RoadBarrier x={22.2} z={-7} yaw={Math.PI / 2} />
-      <RoadBarrier x={-22.2} z={-7} yaw={Math.PI / 2} />
     </group>
   );
 }
@@ -526,14 +496,15 @@ function FlatNeighborhood({ onOpenAction }: { onOpenAction: () => void }) {
   return (
     <group>
       <mesh position={[0, -0.5, 0]} receiveShadow>
-        <boxGeometry args={[52, 1, 68]} />
+        <boxGeometry args={[100, 1, 68]} />
         <meshToonMaterial color="#87966c" />
       </mesh>
       <mesh position={[0, 0.035, 0]} receiveShadow>
-        <boxGeometry args={[49.5, 0.07, 65.5]} />
+        <boxGeometry args={[97.5, 0.07, 65.5]} />
         <meshToonMaterial color="#89996f" />
       </mesh>
       <NeighborhoodRoads />
+      <XingfuliBlock />
       {BUILDINGS.map((building, index) => (
         <GroundAnchor
           key={index}
@@ -968,7 +939,7 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
         currentPosition,
         s.displacement,
         MAP_BOUNDS,
-        BUILDING_OBSTACLES,
+        WORLD_OBSTACLES,
         PLAYER_RADIUS,
         currentPosition,
       );
@@ -1008,7 +979,7 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
         s.cameraPosition.x,
         s.cameraPosition.z,
         MAP_BOUNDS,
-        BUILDING_OBSTACLES,
+        WORLD_OBSTACLES,
         0.25,
       )) {
         cameraClear = true;
@@ -1035,10 +1006,10 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
 
 export function IntroCamera() {
   const { camera } = useThree();
-  const target = useMemo(() => new Vector3(0, 0, -3), []);
+  const target = useMemo(() => new Vector3(0, 0, -5), []);
   useFrame(({ clock }, delta) => {
     const time = clock.elapsedTime;
-    const desired = new Vector3(35 + Math.sin(time * 0.11) * 1.6, 34, 42 + Math.cos(time * 0.12) * 1.4);
+    const desired = new Vector3(61 + Math.sin(time * 0.11) * 2.2, 45, 68 + Math.cos(time * 0.12) * 1.8);
     camera.position.lerp(desired, Math.min(1, delta * 2.5));
     camera.up.set(0, 1, 0);
     camera.lookAt(target);
@@ -1057,7 +1028,7 @@ export function XinhuaWorld({
 }) {
   return (
     <>
-      <fog attach="fog" args={["#72b7b1", 54, 150]} />
+      <fog attach="fog" args={["#72b7b1", 72, 190]} />
       <color attach="background" args={[new Color("#69bab6")]} />
       <ambientLight intensity={1.15} />
       <hemisphereLight args={["#eff8e9", "#6d765c", 1.45]} />
@@ -1069,10 +1040,10 @@ export function XinhuaWorld({
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
         shadow-camera-far={120}
-        shadow-camera-left={-45}
-        shadow-camera-right={45}
-        shadow-camera-top={45}
-        shadow-camera-bottom={-45}
+        shadow-camera-left={-70}
+        shadow-camera-right={70}
+        shadow-camera-top={70}
+        shadow-camera-bottom={-70}
         shadow-bias={-0.00025}
       />
       <FlatNeighborhood onOpenAction={onOpenAction} />

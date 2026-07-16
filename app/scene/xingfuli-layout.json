@@ -1,0 +1,95 @@
+{
+  "buildings": [
+    {
+      "id": "north-west",
+      "x": -34,
+      "z": 3.45,
+      "width": 18,
+      "depth": 8.4,
+      "floors": 3,
+      "side": "north",
+      "wall": "#e8e7df",
+      "frame": "#354745",
+      "glass": "#8eb4b4",
+      "feature": "bands"
+    },
+    {
+      "id": "north-inner-west",
+      "x": -16.25,
+      "z": 3.45,
+      "width": 14,
+      "depth": 8.4,
+      "floors": 4,
+      "side": "north",
+      "wall": "#f0eee4",
+      "frame": "#495654",
+      "glass": "#9bbcbc",
+      "feature": "bay"
+    },
+    {
+      "id": "north-inner-east",
+      "x": 12.5,
+      "z": 3.45,
+      "width": 17,
+      "depth": 8.4,
+      "floors": 4,
+      "side": "north",
+      "wall": "#eeeae0",
+      "frame": "#334542",
+      "glass": "#91b8b8",
+      "feature": "balcony"
+    },
+    {
+      "id": "north-east-entry",
+      "x": 32.5,
+      "z": 3.45,
+      "width": 18,
+      "depth": 8.4,
+      "floors": 3,
+      "side": "north",
+      "wall": "#e9e7df",
+      "frame": "#394745",
+      "glass": "#7fa9ab",
+      "feature": "glass"
+    },
+    {
+      "id": "south-west",
+      "x": -34,
+      "z": -17.5,
+      "width": 18,
+      "depth": 9,
+      "floors": 3,
+      "side": "south",
+      "wall": "#dedfd8",
+      "frame": "#394a47",
+      "glass": "#86adae",
+      "feature": "mural"
+    },
+    {
+      "id": "south-inner-west",
+      "x": -16.25,
+      "z": -17.5,
+      "width": 14,
+      "depth": 9,
+      "floors": 2,
+      "side": "south",
+      "wall": "#626b68",
+      "frame": "#273c39",
+      "glass": "#739b9d",
+      "feature": "pavilion"
+    },
+    {
+      "id": "south-east-entry",
+      "x": 24,
+      "z": -17.5,
+      "width": 36,
+      "depth": 9,
+      "floors": 3,
+      "side": "south",
+      "wall": "#aeb4af",
+      "frame": "#344440",
+      "glass": "#7da6a7",
+      "feature": "timber"
+    }
+  ]
+}

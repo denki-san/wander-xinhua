@@ -71,3 +71,26 @@
 - Tags: static-build, metadata, deployment, regression-test
 
 ---
+
+## [LRN-20260716-004] correction
+
+**Logged**: 2026-07-16T04:05:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+低多边形手绘风格不等于 Minecraft 式方块堆砌；真实地标区块必须先锁定可识别结构、空间比例、立面颜色与核心街具，再做风格化简化。
+
+### Details
+“幸福里”是居民能够识别的真实地点。只放通用盒子建筑，即使颜色接近，也无法满足“走到这里就知道是幸福里”的产品目标。公开地图负责拓扑，多个角度的外观照片负责立面与设施，Messenger 只负责手绘渲染语言，三类证据不能混用。
+
+### Suggested Action
+已建立独立的幸福里建模基准与七栋固定建筑规格，加入入口垂直绿墙、倒影池、池中树、喷泉石景、木桥、街灯、长椅、红伞、屋顶亭和水塔，并增加源码回归测试，防止退回通用街区随机排布。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/xingfuli-block.tsx, docs/research/xingfuli-reference.md, tests/rendered-html.test.mjs
+- Tags: landmark-modeling, proportion, visual-identity, non-minecraft, xingfuli
+
+---
