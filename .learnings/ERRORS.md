@@ -32,6 +32,39 @@ trunks.current?.instanceMatrix.needsUpdate = true
 - **Notes**: 两处实例矩阵写入均改为显式判空，重新运行生产构建验证。
 
 ---
+## [ERR-20260716-024] github_publish_preflight
+
+**Logged**: 2026-07-16T22:35:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+发布前检查发现 GitHub CLI 令牌失效，且沙箱内 SSH 远端检查遇到 DNS 解析失败。
+
+### Error
+```
+The token in default is invalid.
+ssh: Could not resolve hostname github.com: -65563
+```
+
+### Context
+- 目标远端为 `git@github.com:denki-san/wander-xinhua.git`。
+- Git 提交与 SSH 推送可独立于 GitHub CLI token 工作，需在允许网络访问的环境复测 SSH key。
+
+### Suggested Fix
+优先在沙箱外运行只读 `git ls-remote` 验证 SSH；若 SSH 可用则继续提交推送，后续需要 PR/API 操作时再更新 `gh` 登录。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: .git/config
+
+### Resolution
+- **Resolved**: 2026-07-16T22:39:00+08:00
+- **Commit/PR**: 911f63b
+- **Notes**: 在允许网络和 Git 元数据写入的环境完成 SSH 校验、关联远端及 main 推送；GitHub CLI token 失效未影响 SSH 发布。
+
+---
 ## [ERR-20260716-021] fountain_json_tuple_typecheck
 
 **Logged**: 2026-07-16T19:51:36+08:00
