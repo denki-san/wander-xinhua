@@ -1,5 +1,37 @@
 # Errors
 
+## [ERR-20260716-014] zsh_url_query_glob
+
+**Logged**: 2026-07-16T15:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+公网发布校验时，未加引号的 cache-buster URL 被 zsh 当成文件通配模式，curl 没有启动。
+
+### Error
+```
+zsh:1: no matches found: https://xinhua.denkisan.me/?release=43c1098
+```
+
+### Context
+- HTTP 跳转、新 JS 资源与 Nginx 源站 HTML 已经分别验证成功。
+- 失败只发生在带 `?` 查询参数的补充公网 HTML 读取命令。
+
+### Suggested Fix
+在 zsh 中执行包含 `?`、`&` 或 `[]` 的 URL 时，始终用单引号包住整个 URL。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-16T15:00:00+08:00
+- **Notes**: 改用单引号 URL 后重新执行公网 HTML 校验。
+
+---
+
 ## [ERR-20260715-001] sites_initializer
 
 **Logged**: 2026-07-15T21:00:00+08:00
