@@ -83,17 +83,20 @@ test("移动端下方触发区与浮动摇杆结构已接入", async () => {
 });
 
 test("首页远景按最窄视场适配完整社区并提供低速环绕", async () => {
-  const [world, effects] = await Promise.all([
+  const [world, effects, experience] = await Promise.all([
     readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/scene/visual-effects.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8"),
   ]);
 
   assert.match(world, /INTRO_MAP_RADIUS/);
   assert.match(world, /Math\.min\(verticalHalfFov, horizontalHalfFov\)/);
   assert.match(world, /INTRO_ORBIT_SPEED/);
   assert.match(world, /prefers-reduced-motion: reduce/);
+  assert.match(world, /const reducedMotion = useRef\(\s*typeof window !== "undefined"/s);
   assert.match(world, /reducedMotion\.current\) camera\.position\.copy\(desired\)/);
-  assert.match(world, /playing \? 145 \* XINHUA_ENVIRONMENT_SCALE : 2300/);
+  assert.match(world, /\{playing && \(\s*<fog/s);
+  assert.match(experience, /far: 800 \* mapData\.meta\.environmentScale/);
   assert.doesNotMatch(effects, /length\(uv - 0\.5\)/);
   assert.match(effects, /max\(edge\.x, edge\.y\)/);
 

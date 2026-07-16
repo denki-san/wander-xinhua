@@ -32,6 +32,39 @@ trunks.current?.instanceMatrix.needsUpdate = true
 - **Notes**: 两处实例矩阵写入均改为显式判空，重新运行生产构建验证。
 
 ---
+
+## [ERR-20260716-030] github_remote_verify_dns
+
+**Logged**: 2026-07-16T23:39:58+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+发布后的 `git ls-remote` 复核遇到一次 GitHub DNS 瞬时解析失败。
+
+### Error
+```
+ssh: Could not resolve hostname github.com: -65563
+fatal: Could not read from remote repository.
+```
+
+### Context
+- 同一轮稍早的 `git push origin main` 已成功完成。
+- 公网站点、HTTPS 和静态资源验证均正常，故障只影响额外的远端查询。
+
+### Suggested Fix
+保留成功推送输出作为首要证据，遇到单次 DNS 解析失败时重新执行只读远端查询，不重复推送。
+
+### Metadata
+- Reproducible: no
+- Related Files: none
+
+### Resolution
+- **Resolved**: 2026-07-16T23:39:58+08:00
+- **Notes**: 继续通过分支跟踪状态和重试远端查询完成核验。
+
+---
 ## [ERR-20260716-029] readme_concurrent_rename_context
 
 **Logged**: 2026-07-16T22:24:00+08:00

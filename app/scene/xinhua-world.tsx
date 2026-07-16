@@ -1030,11 +1030,13 @@ export function XinhuaWorld({
 
   return (
     <>
-      <fog attach="fog" args={[
-        "#72b7b1",
-        playing ? 145 * XINHUA_ENVIRONMENT_SCALE : 2300,
-        playing ? 310 * XINHUA_ENVIRONMENT_SCALE : 3200,
-      ]} />
+      {playing && (
+        <fog attach="fog" args={[
+          "#72b7b1",
+          145 * XINHUA_ENVIRONMENT_SCALE,
+          310 * XINHUA_ENVIRONMENT_SCALE,
+        ]} />
+      )}
       <color attach="background" args={[new Color("#69bab6")]} />
       <ambientLight intensity={1.15} />
       <hemisphereLight args={["#eff8e9", "#6d765c", 1.45]} />
