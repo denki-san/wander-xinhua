@@ -1099,10 +1099,12 @@ function OverviewPoiMarkers({ nearPoiId }: { nearPoiId: string | null }) {
 
 function OverviewMessenger({
   initialPosition,
+  cameraFocus,
   onNearPoi,
   onPositionChange,
 }: {
   initialPosition: readonly [number, number];
+  cameraFocus: RefObject<Vector3>;
   onNearPoi: (poiId: string | null) => void;
   onPositionChange: (position: readonly [number, number]) => void;
 }) {
@@ -1171,6 +1173,7 @@ function OverviewMessenger({
     }
 
     position.current.y = terrainHeightAt(position.current.x, position.current.z) + 0.33;
+    cameraFocus.current.copy(position.current);
     if (outer.current) {
       outer.current.position.copy(position.current);
       scratchRight.copy(WORLD_UP).cross(forward.current).normalize();
@@ -1191,13 +1194,20 @@ function OverviewMessenger({
   return <MessengerCharacter outerRef={outer} scale={OVERVIEW_CHARACTER_SCALE} />;
 }
 
-function OverviewCamera({ active }: { active: boolean }) {
+function OverviewCamera({
+  active,
+  focus,
+}: {
+  active: boolean;
+  focus: RefObject<Vector3>;
+}) {
   const { camera } = useThree();
   const target = useMemo(() => new Vector3(0, 0, 0), []);
   const desired = useMemo(() => new Vector3(), []);
 
   useFrame(() => {
     if (!active) return;
+    target.copy(focus.current);
     const perspective = camera as PerspectiveCamera;
     const verticalHalfFov = MathUtils.degToRad(perspective.fov / 2);
     const horizontalHalfFov = Math.atan(Math.tan(verticalHalfFov) * perspective.aspect);
@@ -1277,11 +1287,25 @@ export function XinhuaWorld({
 }) {
   const exploring = mode === "explore";
   const overview = mode === "overview";
+  const overviewCameraFocus = useRef(new Vector3(
+    overviewStartPosition[0],
+    terrainHeightAt(overviewStartPosition[0], overviewStartPosition[1]) + 0.33,
+    overviewStartPosition[1],
+  ));
   const shadowTarget = useMemo(() => {
     const target = new Object3D();
     target.position.copy(SHADOW_CENTER);
     return target;
   }, []);
+
+  useLayoutEffect(() => {
+    if (!overview) return;
+    overviewCameraFocus.current.set(
+      overviewStartPosition[0],
+      terrainHeightAt(overviewStartPosition[0], overviewStartPosition[1]) + 0.33,
+      overviewStartPosition[1],
+    );
+  }, [overview, overviewStartPosition]);
 
   return (
     <>
@@ -1316,17 +1340,18 @@ export function XinhuaWorld({
         detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
       />
       <IntroCamera active={mode === "intro"} />
-      <OverviewCamera active={overview} />
       {overview && (
         <>
           <OverviewPoiMarkers nearPoiId={nearPoiId} />
           <OverviewMessenger
             initialPosition={overviewStartPosition}
+            cameraFocus={overviewCameraFocus}
             onNearPoi={onNearPoi}
             onPositionChange={onPositionChange}
           />
         </>
       )}
+      <OverviewCamera active={overview} focus={overviewCameraFocus} />
       {exploring && (
         <PlayableMessenger
           onNearAction={onNearAction}

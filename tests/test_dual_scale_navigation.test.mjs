@@ -25,7 +25,7 @@ test("人物只有走进 POI 邻近范围才会激活进入卡片", () => {
   assert.equal(nearestMapPoi([1_000, 1_000], 42), null);
 });
 
-test("双尺度视图锁定全览镜头并在闲逛态放大环境而非人物", async () => {
+test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而非人物", async () => {
   const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
   const experience = await readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8");
 
@@ -33,6 +33,13 @@ test("双尺度视图锁定全览镜头并在闲逛态放大环境而非人物",
   assert.match(world, /const OVERVIEW_CHARACTER_SCALE = 22/);
   assert.match(world, /const OVERVIEW_CAMERA_FILL = 0\.24/);
   assert.match(world, /function OverviewCamera/);
+  assert.match(world, /target\.copy\(focus\.current\)/);
+  assert.match(world, /cameraFocus\.current\.copy\(position\.current\)/);
+  assert.match(world, /<OverviewCamera active=\{overview\} focus=\{overviewCameraFocus\} \/>/);
+  assert.ok(
+    world.indexOf("<OverviewMessenger") < world.indexOf("<OverviewCamera active={overview}"),
+    "全览人物必须先更新位置，镜头再在同一帧跟随，避免人物偏离中心一帧",
+  );
   assert.match(world, /camera\.position\.copy\(desired\)/);
   assert.match(world, /detailScale=\{exploring \? DETAIL_WORLD_SCALE : 1\}/);
   assert.match(world, /scale=\{OVERVIEW_CHARACTER_SCALE\}/);

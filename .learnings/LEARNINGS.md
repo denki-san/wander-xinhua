@@ -1,5 +1,33 @@
 # Learnings
 
+## [LRN-20260717-007] correction
+
+**Logged**: 2026-07-17T16:46:56+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+放大后的全览地图应采用角色中心跟随镜头，而不是让角色在固定镜头中从中心走向屏幕边缘。
+
+### Details
+用户期望人物的地图位置始终作为屏幕中心锚点；人物移动时，地图内容在镜头下平移。此前镜头固定看向地图原点，只实现了人物在地图上的移动，没有实现全览地图常见的中心跟随导航。
+
+### Suggested Action
+让全览人物与镜头共享同一个实时位置引用；每帧更新人物位置后，让固定斜视角镜头以该位置为目标点，保持缩放与朝向不变。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/xinhua-world.tsx, tests/test_dual_scale_navigation.test.mjs
+- Tags: overview-map, camera-follow, player-centered, navigation
+- See Also: LRN-20260717-005, LRN-20260717-006
+
+### Resolution
+- **Resolved**: 2026-07-17T16:46:56+08:00
+- **Notes**: 全览人物位置已作为镜头实时焦点，并增加源码契约测试锁定中心跟随关系。
+
+---
+
 ## [LRN-20260716-005] correction
 
 **Logged**: 2026-07-16T14:08:00+08:00

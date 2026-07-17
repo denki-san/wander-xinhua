@@ -1,5 +1,37 @@
 # Errors
 
+## [ERR-20260717-033] multi_file_patch_context_mismatch
+
+**Logged**: 2026-07-17T16:46:56+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+一次多文件补丁因学习日志顶部上下文假设错误而整体未应用。
+
+### Error
+```
+apply_patch verification failed: Failed to find expected lines in .learnings/LEARNINGS.md
+```
+
+### Context
+- 补丁假设 `LRN-20260717-006` 紧邻文件标题，实际中间还有一条前一日记录。
+- 同一次补丁还包含源码和测试改动，因此上下文失配导致整批改动均未落盘。
+
+### Suggested Fix
+先读取目标文件的准确邻接上下文；将源码、测试和日志分成较小补丁应用。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/LEARNINGS.md, app/scene/xinhua-world.tsx
+
+### Resolution
+- **Resolved**: 2026-07-17T16:46:56+08:00
+- **Notes**: 读取准确上下文后拆分补丁，源码、测试与日志均已成功更新。
+
+---
+
 ## [ERR-20260717-029] agent_browser_mobile_profile_setup
 
 **Logged**: 2026-07-17T09:31:00+08:00
