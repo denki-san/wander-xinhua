@@ -23,6 +23,33 @@ Kimi WebBridge 更新后不能把 daemon `status` 探针误报当成浏览器助
 
 ---
 
+## [LRN-20260717-006] correction
+
+**Logged**: 2026-07-17T16:38:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+固定俯视世界地图的移动输入必须绑定屏幕坐标，而不是人物朝向或写死的等距世界轴。
+
+### Details
+上一版用 `x - z`、`x + z` 把输入映射到假定的 45 度世界轴。即使人物会转身，按键方向仍可能和屏幕视觉方向不一致。用户明确要求地图上下左右就是自然的屏幕上下左右，不使用主角视角。
+
+### Suggested Action
+每帧从全览相机 `matrixWorld` 读取本地右轴和上轴，投影到地面后组合输入；用相机投影测试验证向上移动后的屏幕 Y 增大、向右移动后的屏幕 X 增大。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/world-math.ts, app/scene/xinhua-world.tsx, tests/world-math.test.mjs
+- Tags: overview-map, screen-space-input, camera-relative, controls
+
+### Resolution
+- **Resolved**: 2026-07-17T16:38:00+08:00
+- **Notes**: 全览移动改为相机屏幕坐标映射，人物朝向只跟随最终移动方向。
+
+---
+
 ## [LRN-20260717-005] correction
 
 **Logged**: 2026-07-17T16:31:00+08:00

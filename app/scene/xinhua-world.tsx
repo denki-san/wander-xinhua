@@ -63,6 +63,7 @@ import {
   type MapObstacle,
   type MapPolygonPoint,
   resolvePolygonMovement,
+  screenInputToPlanarMove,
   transformMapObstacle,
   transformMapPoint,
 } from "./world-math";
@@ -1105,6 +1106,7 @@ function OverviewMessenger({
   onNearPoi: (poiId: string | null) => void;
   onPositionChange: (position: readonly [number, number]) => void;
 }) {
+  const { camera } = useThree();
   const outer = useRef<Group>(null);
   const position = useRef(new Vector3(
     initialPosition[0],
@@ -1116,6 +1118,7 @@ function OverviewMessenger({
   const onNearPoiRef = useRef(onNearPoi);
   const onPositionRef = useRef(onPositionChange);
   const scratchMove = useMemo(() => new Vector3(), []);
+  const scratchDisplacement = useMemo(() => new Vector3(), []);
   const scratchBasis = useMemo(() => new Matrix4(), []);
   const scratchRight = useMemo(() => new Vector3(), []);
   useKeyboardControls();
@@ -1144,13 +1147,13 @@ function OverviewMessenger({
       ? inputState.moveX
       : (inputState.right ? 1 : 0) - (inputState.left ? 1 : 0);
     if (Math.hypot(x, z) > 1e-4) {
-      scratchMove.set(x - z, 0, x + z).normalize();
+      screenInputToPlanarMove(camera.matrixWorld, x, z, WORLD_UP, scratchMove);
       const speed = OVERVIEW_MOVE_SPEED * (inputState.sprint ? 1.45 : 1)
         * (usingAnalog ? analogMagnitude : 1);
-      const displacement = scratchMove.clone().multiplyScalar(speed * delta);
+      scratchDisplacement.copy(scratchMove).multiplyScalar(speed * delta);
       resolvePolygonMovement(
         position.current,
-        displacement,
+        scratchDisplacement,
         XINHUA_BOUNDARY,
         [],
         PLAYER_RADIUS,

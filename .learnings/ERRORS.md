@@ -94,6 +94,7 @@ TypeError [ERR_IMPORT_ATTRIBUTE_MISSING]: Module needs an import attribute of "t
 ### Resolution
 - **Resolved**: 2026-07-17T00:00:00+08:00
 - **Notes**: 已更新状态契约断言并为 POI 数据模块添加 JSON import attribute。
+- **Recurrence**: 2026-07-17 再次因移动临时变量从 `displacement` 改名为 `scratchDisplacement` 导致源码契约失配；已同步断言，并保留实际屏幕投影行为测试作为主要保障。
 
 ---
 ## [ERR-20260717-030] json_shape_assumption_in_probe

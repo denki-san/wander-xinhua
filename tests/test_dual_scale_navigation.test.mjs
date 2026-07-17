@@ -38,7 +38,7 @@ test("双尺度视图锁定全览镜头并在闲逛态放大环境而非人物",
   assert.match(world, /scale=\{OVERVIEW_CHARACTER_SCALE\}/);
   assert.match(
     world,
-    /resolvePolygonMovement\(\s*position\.current,\s*displacement,\s*XINHUA_BOUNDARY,\s*\[\],\s*PLAYER_RADIUS/s,
+    /resolvePolygonMovement\(\s*position\.current,\s*scratchDisplacement,\s*XINHUA_BOUNDARY,\s*\[\],\s*PLAYER_RADIUS/s,
   );
   assert.match(experience, /"intro" \| "overview" \| "explore"/);
   assert.match(experience, /查看全览/);
