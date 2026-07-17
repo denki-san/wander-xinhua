@@ -287,6 +287,7 @@ write_stdin failed: Unknown process id 37575
 ### Resolution
 - **Resolved**: 2026-07-17T08:01:00+08:00
 - **Notes**: 改用 Terminal 承载的静态预览脚本，先构建再由系统 Python HTTP server 固定托管在 127.0.0.1:3002；浏览器打开后持续复查仍为 HTTP 200。
+- **Recurrence**: 2026-07-17 双尺度地图预览再次确认统一执行会话中的 Vinext 地址无法从宿主机访问；改用 Terminal 承载 `dist-static`，在独立端口 3003 返回 HTTP 200 且资源哈希与目标 worktree 一致。
 
 ---
 ## [ERR-20260717-024] vinext_localhost_ipv6_binding
