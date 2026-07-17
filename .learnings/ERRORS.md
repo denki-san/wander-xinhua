@@ -1,5 +1,37 @@
 # Errors
 
+## [ERR-20260717-034] shell_regex_quote_mismatch
+
+**Logged**: 2026-07-17T17:18:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+抓取照片地址时，混合单双引号的正则表达式导致 zsh 解析失败。
+
+### Error
+```
+zsh:1: unmatched '
+```
+
+### Context
+- 命令在单引号包裹的页面地址之后，又在正则中拼接转义单引号。
+- Shell 在执行 `curl | rg` 前即终止，未产生网络或文件副作用。
+
+### Suggested Fix
+正则整体使用双引号，只转义其中的双引号，不在同一参数中混合 shell 单引号。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/huashan-green-reference.md
+
+### Resolution
+- **Resolved**: 2026-07-17T17:18:00+08:00
+- **Notes**: 改用单一双引号正则后命令可执行，并通过官方页面补齐照片地址。
+
+---
+
 ## [ERR-20260717-033] multi_file_patch_context_mismatch
 
 **Logged**: 2026-07-17T16:46:56+08:00

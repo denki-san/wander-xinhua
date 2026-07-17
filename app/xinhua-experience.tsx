@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element -- POI 实景图由动态数据提供，并需要保留对应的外部图源链接。 */
+
 import { EffectComposer } from "@react-three/postprocessing";
 import { Canvas } from "@react-three/fiber";
 import { ACESFilmicToneMapping, SRGBColorSpace } from "three";
@@ -362,10 +364,25 @@ export function XinhuaExperience() {
 
       {overview && nearPoi && (
         <aside className="overview-poi-card" aria-live="polite">
-          <p>{nearPoi.eyebrow}</p>
-          <h2>{nearPoi.name}</h2>
-          <span>{nearPoi.description}</span>
-          <button type="button" onClick={enterPoi}>进入 {nearPoi.name}</button>
+          <figure className="overview-poi-photo">
+            <img
+              src={nearPoi.photo.src}
+              alt={`${nearPoi.name}实景`}
+              decoding="async"
+              referrerPolicy="no-referrer"
+            />
+            <figcaption>
+              <a href={nearPoi.photo.sourceUrl} target="_blank" rel="noreferrer">
+                实景图 · {nearPoi.photo.sourceLabel}
+              </a>
+            </figcaption>
+          </figure>
+          <div className="overview-poi-card-body">
+            <p>{nearPoi.eyebrow}</p>
+            <h2>{nearPoi.name}</h2>
+            <span className="overview-poi-card-copy">{nearPoi.description}</span>
+            <button type="button" onClick={enterPoi}>进入 {nearPoi.name}</button>
+          </div>
         </aside>
       )}
 
