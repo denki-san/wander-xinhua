@@ -32,6 +32,101 @@ Unknown device: iPhone 15 Pro
 - **Notes**: 改用 `iPhone 15` 后完成 393×852、DPR 3 的 180 帧采样；页面无错误且稳定 60 FPS。
 
 ---
+## [ERR-20260717-032] react_ref_read_during_render
+
+**Logged**: 2026-07-17T00:00:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+双尺度模式首次 lint 时发现 JSX 属性在渲染阶段读取 `playerPosition.current`，违反 React refs 规则。
+
+### Error
+```
+Error: Cannot access refs during render
+overviewStartPosition={playerPosition.current}
+```
+
+### Context
+- 连续人物位置适合保存在 ref 中，避免每帧触发重渲染。
+- 全览组件只需要切换瞬间的位置快照，不应在 render 中直接读取 ref。
+
+### Suggested Fix
+保留 ref 接收高频位置更新，并在“查看全览”事件处理器中把当前值复制到 state，渲染时只读取该 state。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/xinhua-experience.tsx
+
+### Resolution
+- **Resolved**: 2026-07-17T00:00:00+08:00
+- **Notes**: 新增 `overviewStartPosition` state，并在模式切换事件中同步 ref 快照。
+
+---
+## [ERR-20260717-031] dual_scale_test_contract_and_json_import
+
+**Logged**: 2026-07-17T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+首次完整测试中，两条旧源码契约仍匹配单一 `playing` 状态，新测试直接导入含 JSON 依赖的 TypeScript 模块时缺少 Node JSON import attribute。
+
+### Error
+```
+AssertionError: The input did not match /\{playing && .../
+TypeError [ERR_IMPORT_ATTRIBUTE_MISSING]: Module needs an import attribute of "type: json"
+```
+
+### Context
+- 场景状态已经从 `playing` 拆成 `intro`、`overview`、`explore`，雾效和角色挂载只属于 `explore`。
+- Vite 能处理无 attribute 的 JSON 导入，但 Node 25 的直接 ESM 测试要求显式 `with { type: "json" }`。
+
+### Suggested Fix
+更新旧测试，使其验证新的三状态语义；为会被 Node 直接导入的模块补充 JSON import attribute。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/poi-data.ts, tests/test_controls.test.mjs, tests/test_dual_scale_navigation.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-17T00:00:00+08:00
+- **Notes**: 已更新状态契约断言并为 POI 数据模块添加 JSON import attribute。
+
+---
+## [ERR-20260717-030] json_shape_assumption_in_probe
+
+**Logged**: 2026-07-17T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+一次性 Node 数据探查脚本假定三个 JSON 文件拥有相同顶层结构，读取首个对象型文件时对 `undefined` 调用了 `slice`。
+
+### Error
+```
+TypeError: Cannot read properties of undefined (reading 'slice')
+```
+
+### Context
+- `xinhua-landmarks-data.json` 的顶层是对象，不是数组，也没有统一的 `landmarks` 字段。
+- 探查命令同时读取多个不同用途的数据文件，却没有先分别输出其顶层类型和键名。
+
+### Suggested Fix
+先按文件输出 `Array.isArray` 和 `Object.keys`，再依据每个文件的真实结构读取样本；不要在通用探查表达式里假设共享 schema。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-landmarks-data.json, app/scene/xinhua-road-landmarks-data.json, app/scene/xinhua-map-data.json
+
+### Resolution
+- **Resolved**: 2026-07-17T00:00:00+08:00
+- **Notes**: 后续探查改为逐文件识别 schema，再读取对应字段。
+
+---
 
 ## [ERR-20260717-028] git_index_write_sandbox_permission
 
@@ -62,6 +157,7 @@ fatal: Unable to create '.git/index.lock': Operation not permitted
 ### Resolution
 - **Resolved**: 2026-07-17T09:15:39+08:00
 - **Notes**: 沿已批准的 `git add` 前缀重试成功，提交范围不变。
+- **Recurrence**: 2026-07-17 双尺度地图分支首次暂存时再次遇到 worktree `index.lock` 权限限制；继续使用精确文件列表在沙箱外重试。
 
 ---
 

@@ -63,6 +63,11 @@ button {
   cursor: grabbing;
 }
 
+.xinhua-stage.is-overview canvas,
+.xinhua-stage.is-overview canvas:active {
+  cursor: default;
+}
+
 .xinhua-stage.is-intro canvas {
   pointer-events: none;
 }
@@ -133,6 +138,26 @@ button {
 .world-tools button {
   pointer-events: auto;
   cursor: pointer;
+}
+
+.world-tools .overview-toggle {
+  display: flex;
+  width: auto;
+  min-width: 112px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 13px;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.overview-toggle span {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 21px;
+  transform: rotate(-12deg);
 }
 
 .xinhua-brand {
@@ -324,6 +349,79 @@ button {
   border-color: #d2a56c;
   background: #202724;
   color: #f1d5a2;
+}
+
+.overview-poi-label {
+  display: block;
+  padding: 5px 8px 4px;
+  border: 1px solid rgba(45, 71, 66, 0.78);
+  border-radius: 4px 4px 4px 1px;
+  color: #f8efd3;
+  background: rgba(43, 65, 60, 0.88);
+  box-shadow: 2px 3px 0 rgba(36, 55, 51, 0.52);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: color 150ms ease, background-color 150ms ease, transform 150ms ease;
+}
+
+.overview-poi-label.is-near {
+  color: #2d4641;
+  background: #fff0b2;
+  transform: translateY(-3px) scale(1.08);
+}
+
+.overview-poi-card {
+  position: absolute;
+  z-index: 24;
+  bottom: 70px;
+  left: 50%;
+  width: min(430px, calc(100vw - 32px));
+  padding: 20px 22px 19px;
+  border: 3px solid #2d4641;
+  border-radius: 8px 8px 18px 3px;
+  color: #304642;
+  background: #f3ead1;
+  box-shadow: 8px 9px 0 rgba(42, 65, 60, 0.78);
+  transform: translateX(-50%) rotate(-0.35deg);
+}
+
+.overview-poi-card p {
+  margin: 0 0 5px;
+  color: #bd5b49;
+  font-size: 9px;
+  font-weight: 1000;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.overview-poi-card h2 {
+  margin: 0;
+  font-family: "Songti SC", STSong, serif;
+  font-size: 28px;
+  line-height: 1.15;
+}
+
+.overview-poi-card > span {
+  display: block;
+  margin: 10px 0 16px;
+  color: #5f6b64;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.overview-poi-card button {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #2c4540;
+  border-radius: 6px 6px 6px 2px;
+  color: #fff3cd;
+  background: #c85f4c;
+  box-shadow: 4px 5px 0 #2c4540;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
 }
 
 .desktop-controls {
@@ -665,6 +763,13 @@ kbd {
     height: 42px;
   }
 
+  .world-tools .overview-toggle {
+    width: auto;
+    min-width: 98px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
   .intro-ui {
     justify-content: flex-end;
     padding: 0 14px 60px;
@@ -695,6 +800,20 @@ kbd {
   .action-prompt {
     bottom: 116px;
     min-width: 240px;
+  }
+
+  .overview-poi-card {
+    bottom: 104px;
+    padding: 17px 18px 16px;
+  }
+
+  .overview-poi-card h2 {
+    font-size: 24px;
+  }
+
+  .overview-poi-card > span {
+    margin: 8px 0 13px;
+    font-size: 12px;
   }
 
   .action-panel,
