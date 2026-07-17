@@ -285,7 +285,7 @@ export function XinhuaExperience() {
           }}
         />
         <DisposableEffectComposer
-          key={playing ? "playing" : "intro"}
+          key={mode}
           playing={exploring}
           lowTier={lowTier}
         />

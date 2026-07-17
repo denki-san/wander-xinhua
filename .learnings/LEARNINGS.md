@@ -1,5 +1,33 @@
 # Learnings
 
+## [LRN-20260717-008] correction
+
+**Logged**: 2026-07-17T17:03:57+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+从全览进入闲逛时，环境必须三轴等比放大，并为 `overview -> explore` 单独重建后处理合成器。
+
+### Details
+闲逛环境此前只放大 X/Z，建筑高度没有放大，人物相对建筑仍然过大。同时后处理合成器只区分 `intro` 和 `playing`，新增全览状态后，`overview` 与 `explore` 共用实例，切换时会把前一视图的法线轮廓缓冲带入闲逛首帧，形成错位的巨大线稿。
+
+### Suggested Action
+用统一比例缩放环境的 X/Y/Z，并同步人物、地形和镜头的世界高度；合成器以完整 `mode` 为 key，使三种视图各自获得干净的渲染缓冲。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/xinhua-world.tsx, app/xinhua-experience.tsx, tests/test_dual_scale_navigation.test.mjs
+- Tags: detail-scale, postprocessing, normal-buffer, view-transition, character-proportion
+- See Also: LRN-20260717-007
+
+### Resolution
+- **Resolved**: 2026-07-17T17:03:57+08:00
+- **Notes**: 闲逛环境改为三轴等比缩放，人物和镜头高度同步，并按三种视图重建后处理。
+
+---
+
 ## [LRN-20260717-007] correction
 
 **Logged**: 2026-07-17T16:46:56+08:00

@@ -141,7 +141,7 @@ test("进入游玩态时立即把相机从首页远景切到角色身后", async
   assert.match(world, /<IntroCamera active=\{mode === "intro"\} \/>/);
   assert.match(world, /\{exploring && \(\s*<PlayableMessenger/s);
   assert.match(world, /if \(!activeRef\.current\) return/);
-  assert.match(experience, /key=\{playing \? "playing" : "intro"\}/);
+  assert.match(experience, /key=\{mode\}/);
   assert.match(experience, /const composer = composerRef\.current/);
   assert.match(experience, /return \(\) => composer\?\.dispose\(\)/);
 });

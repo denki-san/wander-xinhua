@@ -346,7 +346,7 @@ function FlatNeighborhood({
   detailScale?: number;
 }) {
   return (
-    <group scale={[detailScale, 1, detailScale]}>
+    <group scale={[detailScale, detailScale, detailScale]}>
       <XinhuaStreetMap />
       <group
         position={[XINGFULI_POSITION[0], XINGFULI_BASE_Y, XINGFULI_POSITION[1]]}
@@ -700,14 +700,15 @@ function PlayableMessenger({
   useLayoutEffect(() => {
     const currentPosition = characterPosition.current;
     const surfaceHeight = terrainHeightAt(currentPosition.x, currentPosition.z);
+    const scaledSurfaceHeight = surfaceHeight * DETAIL_WORLD_SCALE;
     const cameraBase = new Vector3(
       currentPosition.x * DETAIL_WORLD_SCALE,
-      surfaceHeight + 0.33,
+      scaledSurfaceHeight + 0.33,
       currentPosition.z * DETAIL_WORLD_SCALE,
     );
     const cameraTarget = new Vector3(
       currentPosition.x * DETAIL_WORLD_SCALE,
-      surfaceHeight + 1.68,
+      scaledSurfaceHeight + 1.68,
       currentPosition.z * DETAIL_WORLD_SCALE,
     );
 
@@ -946,10 +947,11 @@ function PlayableMessenger({
     }
 
     const surfaceHeight = terrainHeightAt(currentPosition.x, currentPosition.z);
+    const scaledSurfaceHeight = surfaceHeight * DETAIL_WORLD_SCALE;
     if (outer.current) {
       outer.current.position.set(
         currentPosition.x * DETAIL_WORLD_SCALE,
-        surfaceHeight + 0.33 + jumpHeight.current,
+        scaledSurfaceHeight + 0.33 + jumpHeight.current,
         currentPosition.z * DETAIL_WORLD_SCALE,
       );
       s.right.copy(WORLD_UP).cross(currentForward).normalize();
@@ -959,12 +961,12 @@ function PlayableMessenger({
 
     s.cameraTarget.set(
       currentPosition.x * DETAIL_WORLD_SCALE,
-      surfaceHeight + 1.68 + jumpHeight.current,
+      scaledSurfaceHeight + 1.68 + jumpHeight.current,
       currentPosition.z * DETAIL_WORLD_SCALE,
     );
     s.cameraBase.set(
       currentPosition.x * DETAIL_WORLD_SCALE,
-      surfaceHeight + 0.33 + jumpHeight.current,
+      scaledSurfaceHeight + 0.33 + jumpHeight.current,
       currentPosition.z * DETAIL_WORLD_SCALE,
     );
     s.cameraPosition.copy(s.cameraBase).add(cameraOffset.current);
