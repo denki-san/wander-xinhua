@@ -341,9 +341,11 @@ function ActionInstallation({ onOpenAction }: { onOpenAction: () => void }) {
 function FlatNeighborhood({
   onOpenAction,
   detailScale = 1,
+  showDetailModels = false,
 }: {
   onOpenAction: () => void;
   detailScale?: number;
+  showDetailModels?: boolean;
 }) {
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
@@ -364,9 +366,13 @@ function FlatNeighborhood({
         </group>
       </group>
       <HuashanGreenBlock />
-      <ShangshengXinsuoBlock />
-      <XinhuaRoadPlaneTrees />
-      <XinhuaRoadLandmarks />
+      {showDetailModels && (
+        <>
+          <ShangshengXinsuoBlock />
+          <XinhuaRoadPlaneTrees />
+          <XinhuaRoadLandmarks />
+        </>
+      )}
       <ActionInstallation onOpenAction={onOpenAction} />
     </group>
   );
@@ -1342,6 +1348,7 @@ export function XinhuaWorld({
       <FlatNeighborhood
         onOpenAction={onOpenAction}
         detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
+        showDetailModels={exploring}
       />
       <IntroCamera active={mode === "intro"} />
       {overview && (

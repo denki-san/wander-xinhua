@@ -276,7 +276,6 @@ function NavyClub({ building }: { building: Building }) {
   );
 }
 
-useGLTF.preload("/models/shangsheng/navy-club-pool.glb");
 
 function GenericCampusBuilding({ building }: { building: Building }) {
   const floorHeight = building.feature === "new-campus" ? 2.35 : 2.05;
