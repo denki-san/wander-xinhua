@@ -31,7 +31,7 @@ test("双尺度视图锁定全览镜头并在闲逛态放大环境而非人物",
 
   assert.match(world, /export const DETAIL_WORLD_SCALE = 1\.65/);
   assert.match(world, /const OVERVIEW_CHARACTER_SCALE = 22/);
-  assert.match(world, /const OVERVIEW_CAMERA_FILL = 0\.72/);
+  assert.match(world, /const OVERVIEW_CAMERA_FILL = 0\.24/);
   assert.match(world, /function OverviewCamera/);
   assert.match(world, /camera\.position\.copy\(desired\)/);
   assert.match(world, /detailScale=\{exploring \? DETAIL_WORLD_SCALE : 1\}/);
