@@ -92,6 +92,7 @@ export const DETAIL_WORLD_SCALE = 1.65;
 const OVERVIEW_CHARACTER_SCALE = 22;
 const OVERVIEW_MOVE_SPEED = 54;
 const OVERVIEW_POI_DISTANCE = 42;
+const OVERVIEW_CAMERA_FILL = 0.72;
 const BASE_XINGFULI_VERTICAL_SCALE = 0.3;
 const XINGFULI_SURFACE_LOCAL_Y = 0.26;
 const XINGFULI_OSM_POSITION: MapPolygonPoint = [
@@ -1151,8 +1152,8 @@ function OverviewMessenger({
         position.current,
         displacement,
         XINHUA_BOUNDARY,
-        WORLD_OBSTACLES,
-        PLAYER_RADIUS * OVERVIEW_CHARACTER_SCALE * 0.25,
+        [],
+        PLAYER_RADIUS,
         position.current,
       );
       dampTangentTowards(
@@ -1197,7 +1198,7 @@ function OverviewCamera({ active }: { active: boolean }) {
     const perspective = camera as PerspectiveCamera;
     const verticalHalfFov = MathUtils.degToRad(perspective.fov / 2);
     const horizontalHalfFov = Math.atan(Math.tan(verticalHalfFov) * perspective.aspect);
-    const fitDistance = INTRO_MAP_RADIUS * 1.12
+    const fitDistance = INTRO_MAP_RADIUS * OVERVIEW_CAMERA_FILL
       / Math.sin(Math.min(verticalHalfFov, horizontalHalfFov));
     desired.copy(target).addScaledVector(OVERVIEW_CAMERA_DIRECTION, fitDistance);
     camera.position.copy(desired);

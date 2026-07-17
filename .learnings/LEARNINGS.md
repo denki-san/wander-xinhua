@@ -23,6 +23,33 @@ Kimi WebBridge 更新后不能把 daemon `status` 探针误报当成浏览器助
 
 ---
 
+## [LRN-20260717-005] correction
+
+**Logged**: 2026-07-17T16:31:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+全览地图中的放大人物是导航化身，不应继承局部闲逛的建筑碰撞；全览镜头也不能为了完整包围边界而留下过多空白。
+
+### Details
+上一版将放大 22 倍的全览人物接入全部建筑障碍，人物出生在幸福里附近时会被大半径障碍卡住。全览镜头又使用行政边界外接圆加 12% 留白，导致地图在屏幕中明显偏小。用户明确要求该场景只限制行政边界，不需要建筑碰撞，并希望地图更大。
+
+### Suggested Action
+全览移动只向 `resolvePolygonMovement` 传行政边界和人物基础半径，障碍数组保持为空；全览相机使用独立填充系数拉近，不改变首页远景和局部闲逛镜头。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/xinhua-world.tsx, tests/test_dual_scale_navigation.test.mjs
+- Tags: overview-map, collision, camera-framing, navigation-avatar
+
+### Resolution
+- **Resolved**: 2026-07-17T16:31:00+08:00
+- **Notes**: 全览模式取消建筑碰撞，仅保留行政边界；镜头填充系数调整为 0.72。
+
+---
+
 ## [LRN-20260716-001] correction
 
 **Logged**: 2026-07-16T00:10:00+08:00
