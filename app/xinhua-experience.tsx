@@ -206,6 +206,21 @@ export function XinhuaExperience() {
   }, []);
 
   useEffect(() => {
+    if (ready) return;
+
+    // 部分 SSR 生产环境会完成 Canvas 水合，却漏掉 react-three-fiber 的 onCreated 回调。
+    // 仅在画布已有实际尺寸时解除遮罩，避免功能已可用但入口一直被加载层挡住。
+    const fallback = window.setTimeout(() => {
+      const canvas = document.querySelector<HTMLCanvasElement>(".xinhua-stage canvas");
+      if (canvas && canvas.width > 0 && canvas.height > 0) {
+        setReady(true);
+      }
+    }, 2_500);
+
+    return () => window.clearTimeout(fallback);
+  }, [ready]);
+
+  useEffect(() => {
     const syncFullscreen = () => setFullscreen(Boolean(document.fullscreenElement));
     document.addEventListener("fullscreenchange", syncFullscreen);
     return () => document.removeEventListener("fullscreenchange", syncFullscreen);
