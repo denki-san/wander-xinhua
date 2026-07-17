@@ -64,8 +64,8 @@ function transformedFootprint(
   };
 }
 
-// 旧地标仍使用完整包络；新增园区和微空间按建筑、墙体或水池拆分碰撞，
-// 保留口袋公园路径、社区草坪、园区广场和牌坊中门的可步行性。
+// 旧地标仍使用完整包络；新增园区和微空间按建筑、墙体、水池或纪念展板拆分碰撞，
+// 保留口袋公园路径、社区草坪和园区广场的可步行性。
 export const XINHUA_ROAD_OBSTACLES: MapObstacle[] = XINHUA_ROAD_LANDMARKS.flatMap(
   (landmark) => (landmark.localObstacles ?? [landmark.localBounds]).map(
     (localObstacle) => transformedFootprint(landmark, localObstacle),

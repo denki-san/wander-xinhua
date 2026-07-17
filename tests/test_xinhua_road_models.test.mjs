@@ -185,6 +185,41 @@ function segmentDistance(startA, endA, startB, endB) {
   );
 }
 
+function renderedRoadWidth(highway) {
+  const environmentScale = mapData.meta.environmentScale;
+  if (highway.startsWith("trunk")) return 2.62 * environmentScale;
+  if (highway.startsWith("primary")) return 2.18 * environmentScale;
+  if (highway.startsWith("secondary")) return 1.82 * environmentScale;
+  if (highway.startsWith("tertiary")) return 1.45 * environmentScale;
+  if (highway === "residential") return 0.9 * environmentScale;
+  if (highway === "living_street" || highway === "unclassified") return 0.68 * environmentScale;
+  return 0.5 * environmentScale;
+}
+
+function isSurfaceMotorRoad(road) {
+  return !road.tunnel
+    && road.layer >= 0
+    && /^(trunk|primary|secondary|tertiary|residential|living_street|unclassified)/.test(road.highway);
+}
+
+function footprintToRoadDistance(landmark, road) {
+  const corners = transformedFootprintCorners(landmark);
+  let distance = Number.POSITIVE_INFINITY;
+  for (let edgeIndex = 0; edgeIndex < corners.length; edgeIndex += 1) {
+    const footprintStart = corners[edgeIndex];
+    const footprintEnd = corners[(edgeIndex + 1) % corners.length];
+    for (let roadIndex = 1; roadIndex < road.points.length; roadIndex += 1) {
+      distance = Math.min(distance, segmentDistance(
+        footprintStart,
+        footprintEnd,
+        road.points[roadIndex - 1],
+        road.points[roadIndex],
+      ));
+    }
+  }
+  return distance;
+}
+
 test("8 个地标和 3 类梧桐树都有自有 GLB、Blend 源文件和测试预览", async () => {
   for (const slug of assetSlugs) {
     const glbUrl = new URL(`public/models/xinhua-road/${slug}.glb`, root);
@@ -349,11 +384,11 @@ test("地标碰撞范围由 GLB 实际边界派生，不再维护会漏穿的手
   assert.match(sceneSource, /transformedFootprint\(landmark, localObstacle\)/);
 });
 
-test("所有新华路地标都退到道路边界以外，不再压住路面", () => {
+test("原有新华路地标继续保持主路人行退界", () => {
   // 道路外还要保留明确可见的人行退界，不能只满足几何上“不相交”。
   const minimumSetback = 1.45 * mapData.meta.environmentScale / 2 + 3;
   for (const landmark of landmarkData.landmarks) {
-    if (landmark.roadSetbackExempt) continue;
+    if (landmark.poi) continue;
     const corners = transformedFootprintCorners(landmark);
     let distance = Number.POSITIVE_INFINITY;
     for (let edgeIndex = 0; edgeIndex < corners.length; edgeIndex += 1) {
@@ -374,6 +409,32 @@ test("所有新华路地标都退到道路边界以外，不再压住路面", ()
     assert.ok(
       distance >= requiredSetback,
       `${landmark.id} 距道路中心仅 ${distance.toFixed(2)}，会压住 ${requiredSetback.toFixed(2)} 的道路及退界`,
+    );
+  }
+});
+
+test("本轮 6 个 POI 都退出整张地图的地面机动车道路", () => {
+  const requested = landmarkData.landmarks.filter(({ poi }) => poi);
+  const surfaceRoads = mapData.roads.filter(isSurfaceMotorRoad);
+  const minimumVisibleClearance = 0.75;
+  assert.equal(requested.length, 6);
+
+  for (const landmark of requested) {
+    assert.equal(
+      landmark.roadSetbackExempt,
+      undefined,
+      `${landmark.id} 不得再用道路退界豁免绕过检测`,
+    );
+    let closest = null;
+    for (const road of surfaceRoads) {
+      const width = renderedRoadWidth(road.highway) * (road.highway.endsWith("_link") ? 0.78 : 1);
+      const clearance = footprintToRoadDistance(landmark, road) - width / 2;
+      if (!closest || clearance < closest.clearance) closest = { clearance, road };
+    }
+    assert.ok(
+      closest.clearance >= minimumVisibleClearance,
+      `${landmark.id} 与 ${closest.road.name || closest.road.osmWayId} 路面仅余 `
+        + `${closest.clearance.toFixed(2)}，低于 ${minimumVisibleClearance.toFixed(2)} 的可见退界`,
     );
   }
 });

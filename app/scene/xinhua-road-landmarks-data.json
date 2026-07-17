@@ -135,20 +135,20 @@
       "name": "新华路口袋公园",
       "address": "新华路359号旁",
       "model": "/models/requested-pois/xinhua-pocket-park.glb",
-      "position": [-56, 64],
+      "cacheVersion": "20260717-roadfix-1",
+      "position": [-56.9, 66.3],
       "yaw": -0.38,
       "scale": 0.88,
-      "localBounds": { "minX": -2.1, "maxX": 2.1, "minZ": -4.6, "maxZ": 4.64 },
+      "localBounds": { "minX": -0.8524, "maxX": 0.8524, "minZ": -4.6, "maxZ": 4.64 },
       "localObstacles": [
-        { "minX": -2.1, "maxX": -1.72, "minZ": -4.64, "maxZ": 4.6 },
-        { "minX": 1.72, "maxX": 2.1, "minZ": -4.64, "maxZ": 4.6 }
+        { "minX": -0.84, "maxX": -0.68, "minZ": -4.64, "maxZ": 4.6 },
+        { "minX": 0.68, "maxX": 0.84, "minZ": -4.64, "maxZ": 4.6 }
       ],
-      "start": [-50, 64],
-      "forward": [-1, 0],
+      "start": [-51.5, 67],
+      "forward": [-0.992, -0.129],
       "poi": true,
       "labelHeight": 4.2,
-      "positioning": "inferred-xinhua-road-359",
-      "roadSetbackExempt": true
+      "positioning": "inferred-xinhua-road-359-scaled-to-4.2m-width"
     },
     {
       "id": "xinhua-community-center",
@@ -178,7 +178,7 @@
       "address": "法华镇路525号",
       "model": "/models/requested-pois/debi-fahua-525.glb",
       "cacheVersion": "20260717-3",
-      "position": [-110, -30],
+      "position": [-102, -49],
       "yaw": -2.6,
       "scale": 0.92,
       "localBounds": { "minX": -14, "maxX": 14, "minZ": -12, "maxZ": 12 },
@@ -189,11 +189,11 @@
         { "minX": -4.6, "maxX": 1.4, "minZ": 1.45, "maxZ": 5.2 },
         { "minX": -9.1, "maxX": -6.2, "minZ": 7.2, "maxZ": 8.7 }
       ],
-      "start": [-103.8, -19.5],
+      "start": [-95.8, -38.5],
       "forward": [-0.51, -0.86],
       "poi": true,
       "labelHeight": 4.5,
-      "positioning": "inferred-fahua-road-525"
+      "positioning": "inferred-fahua-road-525-south-compound"
     },
     {
       "id": "fahua-heritage",
@@ -201,9 +201,10 @@
       "name": "法华遗韵",
       "address": "法华镇路与香花桥路交会处",
       "model": "/models/requested-pois/fahua-heritage.glb",
-      "position": [-75, -7],
-      "yaw": -2.6,
-      "scale": 0.52,
+      "cacheVersion": "20260717-roadfix-1",
+      "position": [-63.4, -2.6],
+      "yaw": -0.5,
+      "scale": 0.27,
       "localBounds": { "minX": -7.75, "maxX": 7.75, "minZ": -2.1, "maxZ": 2.1 },
       "localObstacles": [
         { "minX": -5.95, "maxX": -5.05, "minZ": -0.6, "maxZ": 0.6 },
@@ -211,13 +212,14 @@
         { "minX": 1.9, "maxX": 2.8, "minZ": -0.6, "maxZ": 0.6 },
         { "minX": 5.05, "maxX": 5.95, "minZ": -0.6, "maxZ": 0.6 },
         { "minX": -5.3, "maxX": -2.7, "minZ": -0.75, "maxZ": -0.3 },
+        { "minX": -2.05, "maxX": 2.05, "minZ": -0.75, "maxZ": -0.3 },
         { "minX": 2.7, "maxX": 5.3, "minZ": -0.75, "maxZ": -0.3 }
       ],
-      "start": [-68.8, 1.8],
-      "forward": [-0.575, -0.818],
+      "start": [-61.97, -5.23],
+      "forward": [-0.479, 0.878],
       "poi": true,
       "labelHeight": 4.3,
-      "positioning": "fahua-xianghuaqiao-intersection"
+      "positioning": "fahua-xianghuaqiao-southeast-sidewalk"
     },
     {
       "id": "fics-xinhua-365",
@@ -226,10 +228,11 @@
       "name": "FICS新华365",
       "address": "新华路365弄",
       "model": "/models/requested-pois/fics-xinhua-365.glb",
-      "position": [-74.2, 70.6],
+      "cacheVersion": "20260717-roadfix-1",
+      "position": [-76.1, 75.2],
       "yaw": -0.38,
       "scale": 0.9,
-      "localBounds": { "minX": -24, "maxX": 24, "minZ": -22.5, "maxZ": 22.5 },
+      "localBounds": { "minX": -21.25, "maxX": 23.5, "minZ": -22.2, "maxZ": 13.176 },
       "localObstacles": [
         { "minX": 4.1, "maxX": 19.9, "minZ": -5, "maxZ": 5 },
         { "minX": 1.6, "maxX": 7, "minZ": -5.3, "maxZ": 1.9 },
@@ -243,8 +246,7 @@
       "poi": true,
       "labelHeight": 4.8,
       "labelOffset": [10, -2],
-      "positioning": "inferred-campus-pivot-preserving-xinhua-mansion",
-      "roadSetbackExempt": true
+      "positioning": "inferred-campus-shifted-behind-xinhua-road-edge"
     }
   ]
 }

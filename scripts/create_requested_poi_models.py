@@ -186,46 +186,48 @@ def build_xinhua_pocket_park() -> None:
     blue = base.material("口袋公园展板蓝", "#537f89")
     coral = base.material("口袋公园展板红", "#b76252")
 
-    base.add_box("pocket-ground", (0, 0, 0.08), (4.2, 9.2, 0.16), paving, bevel=0.18)
+    # 设计资料给出的场地长约 22 米、最宽不足 4.2 米。按项目的
+    # 2.7 米/场景单位换算后，宽度应约 1.55，而不是把 4.2 米直接当场景单位。
+    base.add_box("pocket-ground", (0, 0, 0.08), (1.7, 9.2, 0.16), paving, bevel=0.18)
     # 曲折路径以短段串联，中央全程保持可行走。
-    path_centers = ((-0.25, -3.45), (0.25, -1.75), (-0.12, 0), (0.28, 1.8), (-0.18, 3.55))
+    path_centers = ((-0.08, -3.45), (0.08, -1.75), (-0.04, 0), (0.08, 1.8), (-0.06, 3.55))
     for index, (x, y) in enumerate(path_centers):
         base.add_box(
             f"pocket-path-{index}",
             (x, y, 0.17),
-            (2.25, 1.95, 0.08),
+            (1.08, 1.95, 0.08),
             paving,
             bevel=0.42,
             rotation=(0, 0, (-0.07 if index % 2 else 0.07)),
         )
-    for side, x in (("left", -1.95), ("right", 1.95)):
+    for side, x in (("left", -0.78), ("right", 0.78)):
         for index in range(6):
             y = -3.75 + index * 1.5
             height = 2.45 + 0.2 * math.sin(index * 1.3)
             base.add_box(
                 f"pocket-mirror-{side}-{index}",
                 (x, y, height / 2),
-                (0.16, 1.35, height),
+                (0.1, 1.35, height),
                 mirror,
                 bevel=0.035,
                 rotation=(0, 0, (0.035 if (index + (side == "left")) % 2 else -0.035)),
             )
     # 耐候钢入口框顶边略有起伏，形成狭长空间的明确入口。
-    for x in (-1.92, 1.92):
-        base.add_box(f"pocket-entry-post-{x}", (x, -4.5, 1.7), (0.24, 0.28, 3.4), steel, bevel=0.05)
-    base.add_beam("pocket-entry-wave-a", (-1.92, -4.5, 3.35), (0, -4.5, 3.72), 0.22, steel)
-    base.add_beam("pocket-entry-wave-b", (0, -4.5, 3.72), (1.92, -4.5, 3.42), 0.22, steel)
-    base.add_bench("pocket-bench", (0.75, -3.45), 1.55, wood, dark, rotation_z=0.08)
+    for x in (-0.76, 0.76):
+        base.add_box(f"pocket-entry-post-{x}", (x, -4.5, 1.7), (0.16, 0.28, 3.4), steel, bevel=0.05)
+    base.add_beam("pocket-entry-wave-a", (-0.76, -4.5, 3.35), (0, -4.5, 3.72), 0.13, steel)
+    base.add_beam("pocket-entry-wave-b", (0, -4.5, 3.72), (0.76, -4.5, 3.42), 0.13, steel)
+    base.add_bench("pocket-bench", (0.16, -3.45), 0.72, wood, dark, rotation_z=0.08)
     colors = (yellow, blue, coral, blue)
     for index, y in enumerate((-2.0, -0.45, 1.1, 2.65)):
-        base.add_cylinder(f"pocket-board-pole-{index}", (-1.45, y, 1.0), 0.04, 1.85, dark, vertices=10)
-        base.add_box(f"pocket-board-{index}", (-1.38, y, 1.55), (0.14, 0.92, 1.02), colors[index], bevel=0.08)
+        base.add_cylinder(f"pocket-board-pole-{index}", (-0.5, y, 1.0), 0.035, 1.85, dark, vertices=10)
+        base.add_box(f"pocket-board-{index}", (-0.45, y, 1.55), (0.1, 0.72, 0.92), colors[index], bevel=0.06)
     for index, y in enumerate((-2.85, -1.1, 0.65, 2.3, 3.75)):
         side = -1 if index % 2 == 0 else 1
-        x = side * 1.35
-        base.add_icosphere(f"pocket-grass-green-{index}", (x, y, 0.58), (0.65, 0.72, 0.58), green, subdivisions=1)
-        base.add_icosphere(f"pocket-grass-pink-{index}", (x * 0.93, y + 0.18, 0.92), (0.5, 0.58, 0.65), pink, subdivisions=1)
-    base.add_paving_grid("pocket-paving-detail", (0, 0), 3.8, 8.7, 0.215, paving_dark, columns=4, rows=12)
+        x = side * 0.56
+        base.add_icosphere(f"pocket-grass-green-{index}", (x, y, 0.5), (0.28, 0.56, 0.5), green, subdivisions=1)
+        base.add_icosphere(f"pocket-grass-pink-{index}", (x * 0.93, y + 0.18, 0.78), (0.22, 0.44, 0.52), pink, subdivisions=1)
+    base.add_paving_grid("pocket-paving-detail", (0, 0), 1.5, 8.7, 0.215, paving_dark, columns=2, rows=12)
 
 
 def build_xinhua_community_center() -> None:
@@ -384,6 +386,16 @@ def build_fahua_heritage() -> None:
     base.add_box("heritage-main-beam", (0, 0, 5.25), (5.35, 0.82, 0.72), stone, bevel=0.06)
     base.add_box("heritage-main-plaque", (0, -0.47, 5.35), (3.9, 0.12, 0.82), plaque, bevel=0.04)
     base.add_text_label("heritage-title", "法华遗韵", (0, -0.58, 5.35), 0.55, 0.055, gold, bevel=0.018)
+    # 参考照片中央不是可穿行门洞，而是一块大幅历史说明板。
+    base.add_box("heritage-center-panel", (0, 0.48, 2.15), (4.1, 0.22, 2.55), plaque, bevel=0.05)
+    for row in range(7):
+        base.add_box(
+            f"heritage-center-line-{row}",
+            (0, 0.61, 1.35 + row * 0.28),
+            (3.15 - row * 0.08, 0.04, 0.045),
+            gold,
+            bevel=0.01,
+        )
     for side, x in (("left", -4.0), ("right", 4.0)):
         base.add_box(f"heritage-side-beam-{side}", (x, 0, 4.25), (3.0, 0.7, 0.55), stone, bevel=0.05)
         base.add_gable_roof(
@@ -462,11 +474,11 @@ def build_fics_xinhua_365() -> None:
     warm = base.material("FICS标识暖白", "#f2dfad", emission_strength=0.38)
     steel = base.material("FICS黑钢", "#2c3433", roughness=0.4, metallic=0.46)
 
-    campus_ground = base.add_box("fics-campus-ground", (0, 0, 0.05), (48, 45, 0.1), paving, bevel=0.18)
-    # 合并时让场地基座成为活动对象，确保 GLB 节点原点留在园区中心，
-    # 避免复用新华公馆后的偏移被保留为隐藏节点变换。
-    base.ASSET_OBJECTS.remove(campus_ground)
-    base.ASSET_OBJECTS.insert(0, campus_ground)
+    # 不再用一整块 48×45 的铺地盖住 OSM 车道。只保留一个极小的原点垫片，
+    # 让园区建筑、广场和道路各自保持独立，同时稳定 GLB 节点原点。
+    origin_pad = base.add_box("fics-origin-pad", (0, 0, 0.02), (0.2, 0.2, 0.04), paving, bevel=0.02)
+    base.ASSET_OBJECTS.remove(origin_pad)
+    base.ASSET_OBJECTS.insert(0, origin_pad)
     # 西北白色主楼：大尺度白框、深玻璃和屋顶标识。
     base.add_box("fics-main", (-13.5, 8.2, 6.2), (15.5, 11.0, 12.4), white, bevel=0.11)
     base.add_box("fics-main-glass", (-13.5, 2.62, 6.2), (14.4, 0.18, 11.4), glass)
