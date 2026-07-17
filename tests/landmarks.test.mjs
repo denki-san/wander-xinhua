@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 import {
   isPlanarPositionBlocked,
@@ -156,7 +156,15 @@ test("上生新所保留三处历史建筑与泳池庭院结构", async () => {
   assert.match(source, /function SunKeVilla/);
   assert.match(source, /function CountryClub/);
   assert.match(source, /function NavyClub/);
-  assert.match(source, /function PoolArcade/);
+  assert.match(source, /useGLTF\("\/models\/shangsheng\/navy-club-pool\.glb"\)/);
+  const navyGlbUrl = new URL("public/models/shangsheng/navy-club-pool.glb", root);
+  await access(navyGlbUrl);
+  const navyGlb = await readFile(navyGlbUrl);
+  const navyJsonLength = navyGlb.readUInt32LE(12);
+  const navyData = JSON.parse(navyGlb.toString("utf8", 20, 20 + navyJsonLength).trim());
+  assert.equal(navyData.nodes?.length, 1, "海军俱乐部运行时资产应合并为单节点");
+  assert.equal(navyData.meshes?.length, 1, "海军俱乐部运行时资产应合并为单网格");
+  assert.match(source, /sources\.map\(\(source\) =>/);
   assert.match(source, /function CampusLandscape/);
   assert.match(source, /function CafePavilion/);
   assert.match(source, /function BicycleParking/);
@@ -166,7 +174,7 @@ test("上生新所保留三处历史建筑与泳池庭院结构", async () => {
   assert.match(source, /sawtooth-/);
   assert.match(source, /facade-fin-/);
   assert.match(source, /\.\.\.CAMPUS_TREES\.map/);
-  assert.match(source, /building\.collision\.map\(\(wing, index\)/);
+  assert.match(source, /name="shangsheng-navy-club-and-pool"/);
   assert.match(source, /name="shangsheng-xinsuo"/);
   assert.match(source, /osmWayId: 765939973/);
 

@@ -1,4 +1,5 @@
 import landmarks from "./xinhua-landmarks-data.json" with { type: "json" };
+import elevationData from "./xinhua-elevation-model.json" with { type: "json" };
 import mapData from "./xinhua-map-data.json" with { type: "json" };
 type TerrainPoint = readonly [number, number];
 type TerrainBounds = { minX: number; maxX: number; minZ: number; maxZ: number };
@@ -25,11 +26,14 @@ type TerrainPlateau = {
 };
 
 function rawTerrainHeight(x: number, z: number) {
-  const westToEastRise = (x - mapData.bounds.minX) * 0.0018;
-  const southToNorthRise = (z - mapData.bounds.minZ) * 0.0031;
-  const longWave = Math.sin((x + z * 0.72) / 118) * 0.46;
-  const streetUndulation = Math.sin((z - x * 0.28) / 54) * 0.2;
-  return Math.max(0.45, 0.82 + westToEastRise + southToNorthRise + longWave + streetUndulation);
+  const eastMeters = x * mapData.meta.metersPerSceneUnit;
+  const sceneZMeters = z * mapData.meta.metersPerSceneUnit;
+  const elevationMeters = elevationData.model.referenceElevationMeters
+    + eastMeters * elevationData.model.eastWestGrade
+    + sceneZMeters * elevationData.model.sceneZGrade;
+  return elevationData.model.referenceSceneHeight
+    + (elevationMeters - elevationData.model.referenceElevationMeters)
+      / mapData.meta.metersPerSceneUnit;
 }
 
 const xingfuliRotation = mapData.landmarks.xingfuli.rotationY;
@@ -102,8 +106,8 @@ function distanceFromPlateau(x: number, z: number, plateau: TerrainPlateau) {
 }
 
 /**
- * 新华街道的风格化连续地形。公开数据没有提供足够精细的 DEM，
- * 因此这里只表达街区尺度的缓坡与起伏，不冒充测绘级海拔。
+ * 新华街道的近似真实地形。高度来自 Copernicus GLO-30 DSM 的低频拟合；
+ * 楼顶、树冠和像素噪声已被舍弃，因此只表达街区尺度缓坡，不表达台阶或微地形。
  */
 export function terrainHeightAt(x: number, z: number) {
   let height = rawTerrainHeight(x, z);

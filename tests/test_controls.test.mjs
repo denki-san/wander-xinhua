@@ -102,7 +102,8 @@ test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", as
   assert.match(experience, /dpr=\{lowTier \? 1\.25 : \[1, 1\.75\]\}/);
   assert.match(experience, /antialias: true/);
   assert.equal((experience.match(/<EffectComposer/g) ?? []).length, 1);
-  assert.match(experience, /<EffectComposer multisampling=\{lowTier \? 0 : 2\} enableNormalPass=\{!lowTier\}>/);
+  assert.match(experience, /multisampling=\{lowTier \? 0 : 2\}/);
+  assert.match(experience, /enableNormalPass=\{!lowTier\}/);
   assert.match(experience, /<NormalPassControl enabled=\{playing && !lowTier\} \/>/);
   assert.match(experience, /<InkOutline enabled=\{playing && !lowTier\} \/>/);
   assert.match(experience, /<PaperWash animated=\{playing\} \/>/);
@@ -126,4 +127,21 @@ test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", as
   const fitDistance = radius / Math.sin(Math.min(verticalHalfFov, horizontalHalfFov));
   const farPlane = 800 * map.meta.environmentScale;
   assert.ok(farPlane > fitDistance + radius, "竖屏远景不应被相机最远裁切面截断");
+});
+
+test("进入游玩态时立即把相机从首页远景切到角色身后", async () => {
+  const [world, experience] = await Promise.all([
+    readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(world, /useLayoutEffect\(\(\) => \{/);
+  assert.match(world, /camera\.position\.copy\(cameraBase\)\.add\(cameraOffset\.current\)/);
+  assert.match(world, /camera\.lookAt\(cameraTarget\)/);
+  assert.match(world, /<IntroCamera active=\{!playing\} \/>/);
+  assert.match(world, /\{playing && <PlayableMessenger/);
+  assert.match(world, /if \(!activeRef\.current\) return/);
+  assert.match(experience, /key=\{playing \? "playing" : "intro"\}/);
+  assert.match(experience, /const composer = composerRef\.current/);
+  assert.match(experience, /return \(\) => composer\?\.dispose\(\)/);
 });

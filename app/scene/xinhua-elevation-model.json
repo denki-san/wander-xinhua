@@ -1,0 +1,28 @@
+{
+  "source": {
+    "dataset": "Copernicus DEM GLO-30 Public 2021 release",
+    "kind": "DSM containing terrain, buildings and vegetation",
+    "tile": "Copernicus_DSM_COG_10_N31_00_E121_00_DEM",
+    "downloadedAt": "2026-07-17",
+    "resolutionMeters": 30.71,
+    "rawFile": "docs/research/data/copernicus-dem-glo30-n31-e121-20260717.tif",
+    "analysisFile": "docs/research/data/copernicus-dem-glo30-xinhua-analysis-v2-20260717.json"
+  },
+  "model": {
+    "method": "robust linear plane fitted to surface-road samples after local 5x5 p20 filtering",
+    "referenceSceneHeight": 0.82,
+    "referenceElevationMeters": 4.465701,
+    "eastWestGrade": 0.00054513,
+    "sceneZGrade": 0.00061046,
+    "fittedBoundaryRangeMeters": 1.375,
+    "retainedSamples": 1367,
+    "totalSamples": 1374,
+    "retainedResidualRmseMeters": 1.691
+  },
+  "crossCheck": {
+    "dataset": "Mapzen Terrain Tiles SRTM N31E121",
+    "rawFile": "docs/research/data/mapzen-srtm-n31e121-20260717.hgt.gz",
+    "fittedBoundaryRangeMeters": 1.816,
+    "usage": "scale check only"
+  }
+}

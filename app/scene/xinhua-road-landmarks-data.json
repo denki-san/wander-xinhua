@@ -1,0 +1,122 @@
+{
+  "collisionMargin": 0.2,
+  "landmarks": [
+    {
+      "id": "shanghai-cinema",
+      "query": "cinema",
+      "name": "上海影城",
+      "address": "新华路160号",
+      "model": "/models/xinhua-road/shanghai-cinema.glb",
+      "position": [74.1, 80.9],
+      "yaw": 2.761592653589793,
+      "scale": 1,
+      "localBounds": { "minX": -19, "maxX": 19, "minZ": -13, "maxZ": 13 },
+      "start": [75.5, 106.2],
+      "forward": [-0.08, -1]
+    },
+    {
+      "id": "film-art-center",
+      "query": "film-art",
+      "name": "上海电影艺术中心",
+      "address": "新华路200号",
+      "model": "/models/xinhua-road/film-art-center.glb",
+      "position": [47.5, 81.5],
+      "yaw": 2.761592653589793,
+      "scale": 0.92,
+      "localBounds": { "minX": -9.404186, "maxX": 9.404186, "minZ": -6.704061, "maxZ": 9.91 },
+      "start": [28, 90],
+      "forward": [0.91, -0.41]
+    },
+    {
+      "id": "one-step-garden",
+      "query": "garden179",
+      "name": "一尺花园",
+      "address": "新华路179弄",
+      "model": "/models/xinhua-road/one-step-garden.glb",
+      "position": [61, 120.4],
+      "yaw": -0.38,
+      "scale": 0.88,
+      "localBounds": { "minX": -10, "maxX": 10, "minZ": -8, "maxZ": 8 },
+      "start": [73, 109],
+      "forward": [-0.925, 0.381]
+    },
+    {
+      "id": "xinhua-villas-211",
+      "query": "villas",
+      "name": "新华别墅 · 211弄",
+      "address": "外国弄堂",
+      "model": "/models/xinhua-road/xinhua-villas.glb",
+      "position": [40, 106.5],
+      "yaw": -0.38,
+      "scale": 0.62,
+      "localBounds": { "minX": -15.44861, "maxX": 15.25, "minZ": -23.349998, "maxZ": 6.325001 },
+      "start": [51.7, 106.5],
+      "forward": [-0.925, 0.381]
+    },
+    {
+      "id": "xinhua-villas-329",
+      "query": "villas329",
+      "name": "新华别墅 · 329弄",
+      "address": "外国弄堂",
+      "model": "/models/xinhua-road/xinhua-villas.glb",
+      "position": [-40, 74.2],
+      "yaw": -0.38,
+      "scale": 0.62,
+      "localBounds": { "minX": -15.44861, "maxX": 15.25, "minZ": -23.349998, "maxZ": 6.325001 },
+      "start": [-26, 63],
+      "forward": [-0.79, 0.62]
+    },
+    {
+      "id": "house-315",
+      "query": "house315",
+      "name": "新华路315号住宅",
+      "address": "新华路315号",
+      "model": "/models/xinhua-road/house-315.glb",
+      "position": [-21.8, 82.6],
+      "yaw": -0.38,
+      "scale": 0.9,
+      "localBounds": { "minX": -9.25, "maxX": 9.25, "minZ": -8.1, "maxZ": 8.1 },
+      "start": [-21.8, 67.6],
+      "forward": [-0.05, 1]
+    },
+    {
+      "id": "villa-le-bec",
+      "query": "villa-le-bec",
+      "name": "Villa Le Bec",
+      "address": "新华路321号",
+      "model": "/models/xinhua-road/villa-le-bec.glb",
+      "position": [-34.1, 88.8],
+      "yaw": -0.38,
+      "scale": 0.82,
+      "localBounds": { "minX": -9.5, "maxX": 9.5, "minZ": -9.5, "maxZ": 7.2 },
+      "start": [-58, 88],
+      "forward": [1, 0.03]
+    },
+    {
+      "id": "shanghai-orchestra",
+      "query": "orchestra",
+      "name": "上海民族乐团",
+      "address": "新华路336号",
+      "model": "/models/xinhua-road/shanghai-orchestra.glb",
+      "position": [-44.4, 44],
+      "yaw": 2.761592653589793,
+      "scale": 0.88,
+      "localBounds": { "minX": -13.5, "maxX": 13.5, "minZ": -11.208925, "maxZ": 10.5 },
+      "start": [-28.5, 60],
+      "forward": [-0.707, -0.707]
+    },
+    {
+      "id": "xinhua-mansion",
+      "query": "xinhua365",
+      "name": "新华公馆",
+      "address": "新华路365弄2号楼",
+      "model": "/models/xinhua-road/xinhua-mansion.glb",
+      "position": [-63, 75],
+      "yaw": -0.38,
+      "scale": 0.82,
+      "localBounds": { "minX": -11.5, "maxX": 11.5, "minZ": -9.300001, "maxZ": 9 },
+      "start": [-63, 55.5],
+      "forward": [-0.05, 1]
+    }
+  ]
+}

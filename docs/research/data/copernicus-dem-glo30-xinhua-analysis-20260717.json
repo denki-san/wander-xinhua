@@ -1,0 +1,169 @@
+{
+  "source": {
+    "dataset": "Copernicus DEM GLO-30 Public 2021 release",
+    "kind": "DSM containing terrain, buildings and vegetation",
+    "rawFile": "docs/research/data/copernicus-dem-glo30-n31-e121-20260717.tif",
+    "resolutionArcSeconds": 1.0,
+    "approximateResolutionMeters": 30.71,
+    "notice": "produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved"
+  },
+  "xinhua": {
+    "wgs84Bounds": {
+      "west": 121.41229464986748,
+      "south": 31.197228649574814,
+      "east": 121.43326915013253,
+      "north": 31.216046550425187
+    },
+    "cropPixels": {
+      "left": 1482,
+      "top": 2820,
+      "width": 81,
+      "height": 73,
+      "insideBoundary": 2695
+    },
+    "rawDsmMeters": {
+      "count": 2695,
+      "min": 0.239,
+      "p05": 1.957,
+      "p10": 2.728,
+      "p25": 4.363,
+      "median": 6.35,
+      "p75": 8.372,
+      "p90": 10.679,
+      "p95": 11.981,
+      "max": 22.125,
+      "mean": 6.597,
+      "stddev": 3.152
+    },
+    "localP20FiveByFiveMeters": {
+      "count": 2695,
+      "min": 0.965,
+      "p05": 1.853,
+      "p10": 2.318,
+      "p25": 3.204,
+      "median": 4.464,
+      "p75": 5.72,
+      "p90": 6.747,
+      "p95": 7.236,
+      "max": 11.068,
+      "mean": 4.514,
+      "stddev": 1.687
+    },
+    "surfaceRoadRawMeters": {
+      "count": 1374,
+      "min": 0.239,
+      "p05": 1.817,
+      "p10": 2.575,
+      "p25": 4.189,
+      "median": 6.16,
+      "p75": 8.254,
+      "p90": 10.61,
+      "p95": 11.872,
+      "max": 22.125,
+      "mean": 6.446,
+      "stddev": 3.228
+    },
+    "surfaceRoadLocalP20Meters": {
+      "count": 1374,
+      "min": 0.965,
+      "p05": 1.825,
+      "p10": 2.254,
+      "p25": 3.099,
+      "median": 4.361,
+      "p75": 5.774,
+      "p90": 6.768,
+      "p95": 7.353,
+      "max": 11.068,
+      "mean": 4.461,
+      "stddev": 1.759
+    },
+    "broadPlaneFromRoadLocalP20": {
+      "eastWestGradePercent": 0.05451,
+      "sceneZGradePercent": 0.06105,
+      "fittedBoundaryRangeMeters": 1.375,
+      "retainedSamples": 1367,
+      "totalSamples": 1374,
+      "retainedResidualRmseMeters": 1.691
+    },
+    "landmarks": {
+      "huashanGreenland": {
+        "scenePosition": [
+          176.5313,
+          -83.3055
+        ],
+        "wgs84": [
+          121.4277879,
+          31.2086724
+        ],
+        "rawCenterMeters": 10.353,
+        "raw3x3": {
+          "count": 9,
+          "min": 5.946,
+          "p05": 5.971,
+          "p10": 5.996,
+          "p25": 6.123,
+          "median": 7.003,
+          "p75": 10.477,
+          "p90": 11.333,
+          "p95": 11.894,
+          "max": 12.454,
+          "mean": 8.395,
+          "stddev": 2.486
+        },
+        "localP20Meters": 6.132
+      },
+      "shangshengXinsuo": {
+        "scenePosition": [
+          8.3149,
+          -147.5366
+        ],
+        "wgs84": [
+          121.4230177,
+          31.2102413
+        ],
+        "rawCenterMeters": 6.861,
+        "raw3x3": {
+          "count": 9,
+          "min": 3.855,
+          "p05": 4.312,
+          "p10": 4.77,
+          "p25": 5.032,
+          "median": 5.608,
+          "p75": 6.611,
+          "p90": 7.059,
+          "p95": 7.454,
+          "max": 7.849,
+          "mean": 5.807,
+          "stddev": 1.114
+        },
+        "localP20Meters": 4.612
+      },
+      "xingfuli": {
+        "scenePosition": [
+          106.6662,
+          12.9045
+        ],
+        "wgs84": [
+          121.4258067,
+          31.2063224
+        ],
+        "rawCenterMeters": 7.971,
+        "raw3x3": {
+          "count": 9,
+          "min": 7.964,
+          "p05": 7.967,
+          "p10": 7.969,
+          "p25": 7.982,
+          "median": 9.956,
+          "p75": 10.906,
+          "p90": 11.011,
+          "p95": 11.086,
+          "max": 11.161,
+          "mean": 9.584,
+          "stddev": 1.323
+        },
+        "localP20Meters": 7.22
+      }
+    }
+  }
+}

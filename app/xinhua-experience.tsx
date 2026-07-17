@@ -3,7 +3,8 @@
 import { EffectComposer } from "@react-three/postprocessing";
 import { Canvas } from "@react-three/fiber";
 import { ACESFilmicToneMapping, SRGBColorSpace } from "three";
-import { useCallback, useEffect, useRef, useState } from "react";
+import type { EffectComposer as PostprocessingEffectComposer } from "postprocessing";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { inputState, resetInput, setMoveVector } from "./scene/input";
 import {
   InkOutline,
@@ -15,6 +16,33 @@ import { XinhuaWorld } from "./scene/xinhua-world";
 import mapData from "./scene/xinhua-map-data.json";
 
 const TOUCH_STICK_TRAVEL = 42;
+
+function DisposableEffectComposer({
+  playing,
+  lowTier,
+}: {
+  playing: boolean;
+  lowTier: boolean;
+}) {
+  const composerRef = useRef<PostprocessingEffectComposer>(null);
+
+  useLayoutEffect(() => {
+    const composer = composerRef.current;
+    return () => composer?.dispose();
+  }, []);
+
+  return (
+    <EffectComposer
+      ref={composerRef}
+      multisampling={lowTier ? 0 : 2}
+      enableNormalPass={!lowTier}
+    >
+      <NormalPassControl enabled={playing && !lowTier} />
+      <InkOutline enabled={playing && !lowTier} />
+      <PaperWash animated={playing} />
+    </EffectComposer>
+  );
+}
 
 function detectLowTier() {
   if (typeof window === "undefined") return false;
@@ -214,11 +242,11 @@ export function XinhuaExperience() {
           onNearAction={setNearAction}
           onOpenAction={() => setActionOpen(true)}
         />
-        <EffectComposer multisampling={lowTier ? 0 : 2} enableNormalPass={!lowTier}>
-          <NormalPassControl enabled={playing && !lowTier} />
-          <InkOutline enabled={playing && !lowTier} />
-          <PaperWash animated={playing} />
-        </EffectComposer>
+        <DisposableEffectComposer
+          key={playing ? "playing" : "intro"}
+          playing={playing}
+          lowTier={lowTier}
+        />
       </Canvas>
 
       {!ready && (

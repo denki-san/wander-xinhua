@@ -9,24 +9,28 @@ import {
 
 const root = new URL("../", import.meta.url);
 
-test("新华街道地形存在连续且适合步行的高差", async () => {
+test("新华街道地形使用真实数据支持的低频缓坡", async () => {
   const map = JSON.parse(await readFile(new URL("app/scene/xinhua-map-data.json", root), "utf8"));
+  const elevation = JSON.parse(await readFile(new URL("app/scene/xinhua-elevation-model.json", root), "utf8"));
   const heights = [];
-  let maximumFiveUnitRise = 0;
+  let maximumFiveUnitGrade = 0;
   for (let x = map.bounds.minX + 20; x <= map.bounds.maxX - 20; x += 45) {
     for (let z = map.bounds.minZ + 20; z <= map.bounds.maxZ - 20; z += 45) {
+      if (isPlanarPositionBlockedInPolygon(x, z, map.boundary, [], 0)) continue;
       const height = terrainHeightAt(x, z);
       heights.push(height);
-      maximumFiveUnitRise = Math.max(
-        maximumFiveUnitRise,
-        Math.abs(terrainHeightAt(x + 5, z) - height),
-        Math.abs(terrainHeightAt(x, z + 5) - height),
+      maximumFiveUnitGrade = Math.max(
+        maximumFiveUnitGrade,
+        Math.abs(terrainHeightAt(x + 5, z) - height) / 5,
+        Math.abs(terrainHeightAt(x, z + 5) - height) / 5,
       );
     }
   }
 
-  assert.ok(Math.max(...heights) - Math.min(...heights) > 2.8, "全街区高差不明显");
-  assert.ok(maximumFiveUnitRise < 0.3, `局部坡度过陡：${maximumFiveUnitRise}`);
+  const rangeMeters = (Math.max(...heights) - Math.min(...heights)) * map.meta.metersPerSceneUnit;
+  assert.equal(elevation.source.dataset, "Copernicus DEM GLO-30 Public 2021 release");
+  assert.ok(rangeMeters > 1 && rangeMeters < 2, `街区高差偏离数据拟合结果：${rangeMeters}`);
+  assert.ok(maximumFiveUnitGrade < 0.005, `局部坡度过陡：${maximumFiveUnitGrade}`);
 });
 
 test("地形、道路、角色和地标共用同一高程基准", async () => {
@@ -43,7 +47,7 @@ test("地形、道路、角色和地标共用同一高程基准", async () => {
   assert.match(mapSource, /CanvasTexture/);
   assert.match(worldSource, /const surfaceHeight = terrainHeightAt/);
   assert.match(worldSource, /inputState\.sprint \? 9\.2 : 3\.6/);
-  assert.match(huashanSource, /function ParkRelief/);
+  assert.doesNotMatch(huashanSource, /PARK_MOUNDS|function ParkRelief/);
   assert.match(huashanSource, /terrainHeightAt\(PARK_POSITION\[0\], PARK_POSITION\[1\]\)/);
   assert.match(shangshengSource, /terrainHeightAt\(SITE_POSITION\[0\], SITE_POSITION\[1\]\)/);
 });

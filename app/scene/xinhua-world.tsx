@@ -20,6 +20,7 @@ import {
   type ReactNode,
   type RefObject,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
 } from "react";
@@ -37,6 +38,13 @@ import {
   SHANGSHENG_XINSUO_POSITION,
 } from "./shangsheng-xinsuo-block";
 import { XingfuliBlock, XINGFULI_OBSTACLES } from "./xingfuli-block";
+import {
+  XinhuaRoadLandmarks,
+  XinhuaRoadPlaneTrees,
+  XINHUA_ROAD_CAMERA_OBSTACLES,
+  XINHUA_ROAD_OBSTACLES,
+  XINHUA_ROAD_START_PRESETS,
+} from "./xinhua-road-landmarks";
 import {
   XINHUA_ENVIRONMENT_SCALE,
   XINGFULI_PLACEMENT,
@@ -200,6 +208,15 @@ function requestedStartPreset(): StartPreset {
       forward: new Vector3(-0.1, 0, -0.995).normalize(),
     };
   }
+  const xinhuaRoadPreset = name ? XINHUA_ROAD_START_PRESETS[name] : undefined;
+  if (xinhuaRoadPreset) {
+    const [x, z] = xinhuaRoadPreset.position;
+    const [forwardX, forwardZ] = xinhuaRoadPreset.forward;
+    return {
+      position: groundedPosition(x, z),
+      forward: new Vector3(forwardX, 0, forwardZ).normalize(),
+    };
+  }
   return {
     position: START_POSITION.clone(),
     forward: START_FORWARD.clone(),
@@ -219,12 +236,14 @@ const WORLD_OBSTACLES: MapObstacle[] = [
   ...XINGFULI_WORLD_OBSTACLES,
   ...HUASHAN_GREEN_OBSTACLES,
   ...SHANGSHENG_XINSUO_OBSTACLES,
+  ...XINHUA_ROAD_OBSTACLES,
 ];
 
 const WORLD_CAMERA_OBSTACLES: MapObstacle[] = [
   ...XINGFULI_WORLD_OBSTACLES,
   ...HUASHAN_GREEN_CAMERA_OBSTACLES,
   ...SHANGSHENG_XINSUO_CAMERA_OBSTACLES,
+  ...XINHUA_ROAD_CAMERA_OBSTACLES,
 ];
 
 function GroundAnchor({
@@ -332,6 +351,8 @@ function FlatNeighborhood({ onOpenAction }: { onOpenAction: () => void }) {
       </group>
       <HuashanGreenBlock />
       <ShangshengXinsuoBlock />
+      <XinhuaRoadPlaneTrees />
+      <XinhuaRoadLandmarks />
       <ActionInstallation onOpenAction={onOpenAction} />
     </group>
   );
@@ -645,6 +666,27 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
   const wasNear = useRef(false);
   const onNearRef = useRef(onNearAction);
   useKeyboardControls();
+
+  useLayoutEffect(() => {
+    const currentPosition = characterPosition.current;
+    const surfaceHeight = terrainHeightAt(currentPosition.x, currentPosition.z);
+    const cameraBase = new Vector3(
+      currentPosition.x,
+      surfaceHeight + 0.33,
+      currentPosition.z,
+    );
+    const cameraTarget = new Vector3(
+      currentPosition.x,
+      surfaceHeight + 1.68,
+      currentPosition.z,
+    );
+
+    // 首页相机离街区很远。进入游玩态时先同步切到角色身后，保证新建的游戏
+    // 后处理合成器从正确视角绘制首帧，不把首页全景缓存带进游戏画面。
+    camera.position.copy(cameraBase).add(cameraOffset.current);
+    camera.up.copy(WORLD_UP);
+    camera.lookAt(cameraTarget);
+  }, [camera]);
 
   useEffect(() => {
     onNearRef.current = onNearAction;
@@ -974,11 +1016,12 @@ function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => 
   return <MessengerCharacter outerRef={outer} />;
 }
 
-export function IntroCamera() {
+export function IntroCamera({ active = true }: { active?: boolean }) {
   const { camera } = useThree();
   const target = useMemo(() => new Vector3(0, 0, 0), []);
   const desired = useMemo(() => new Vector3(), []);
   const direction = useMemo(() => new Vector3(), []);
+  const activeRef = useRef(active);
   const reducedMotion = useRef(
     typeof window !== "undefined"
       && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
@@ -994,7 +1037,12 @@ export function IntroCamera() {
     return () => query.removeEventListener("change", sync);
   }, []);
 
+  useLayoutEffect(() => {
+    activeRef.current = active;
+  }, [active]);
+
   useFrame((_, delta) => {
+    if (!activeRef.current) return;
     const perspective = camera as PerspectiveCamera;
     const verticalHalfFov = MathUtils.degToRad(perspective.fov / 2);
     const horizontalHalfFov = Math.atan(Math.tan(verticalHalfFov) * perspective.aspect);
@@ -1056,7 +1104,8 @@ export function XinhuaWorld({
         shadow-bias={-0.00025}
       />
       <FlatNeighborhood onOpenAction={onOpenAction} />
-      {playing ? <PlayableMessenger onNearAction={onNearAction} /> : <IntroCamera />}
+      <IntroCamera active={!playing} />
+      {playing && <PlayableMessenger onNearAction={onNearAction} />}
     </>
   );
 }

@@ -12,6 +12,9 @@
 
 # testing
 /coverage
+/test_artifacts/*
+!/test_artifacts/test_*_preview.png
+/test_local_preview.command
 
 # next.js
 /.next/
@@ -42,3 +45,12 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+
+# Blender 与 Python 本地产物
+*.blend1
+__pycache__/
+*.pyc
+
+# 可再下载的原始高程栅格；派生的 JSON 数据保留在仓库中
+/docs/research/data/*.tif
+/docs/research/data/*.hgt.gz

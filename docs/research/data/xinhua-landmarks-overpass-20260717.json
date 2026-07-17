@@ -1,0 +1,1992 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-07-16T16:31:11Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+    {
+      "type": "node",
+      "id": 5232418909,
+      "lat": 31.2042868,
+      "lon": 121.425163,
+      "tags": {
+        "addr:city": "上海",
+        "addr:district": "长宁",
+        "addr:housenumber": "160",
+        "addr:street": "新华路",
+        "name": "城市超市",
+        "name:en": "City shop",
+        "shop": "supermarket"
+      }
+    },
+    {
+      "type": "way",
+      "id": 155515137,
+      "bounds": {
+        "minlat": 31.1928084,
+        "minlon": 121.4311773,
+        "maxlat": 31.193207,
+        "maxlon": 121.4319184
+      },
+      "geometry": [
+        {
+          "lat": 31.192886,
+          "lon": 121.4318966
+        },
+        {
+          "lat": 31.1929623,
+          "lon": 121.4319059
+        },
+        {
+          "lat": 31.1930651,
+          "lon": 121.4319184
+        },
+        {
+          "lat": 31.1931206,
+          "lon": 121.4318066
+        },
+        {
+          "lat": 31.1931344,
+          "lon": 121.4314979
+        },
+        {
+          "lat": 31.1931947,
+          "lon": 121.4315024
+        },
+        {
+          "lat": 31.193207,
+          "lon": 121.4312739
+        },
+        {
+          "lat": 31.1931381,
+          "lon": 121.4312709
+        },
+        {
+          "lat": 31.193142,
+          "lon": 121.4312003
+        },
+        {
+          "lat": 31.1928927,
+          "lon": 121.4311773
+        },
+        {
+          "lat": 31.1928904,
+          "lon": 121.4312471
+        },
+        {
+          "lat": 31.1928238,
+          "lon": 121.4312417
+        },
+        {
+          "lat": 31.1928084,
+          "lon": 121.4314733
+        },
+        {
+          "lat": 31.1928767,
+          "lon": 121.4314808
+        },
+        {
+          "lat": 31.1928567,
+          "lon": 121.431774
+        },
+        {
+          "lat": 31.192886,
+          "lon": 121.4318966
+        }
+      ],
+      "tags": {
+        "addr:housenumber": "158",
+        "addr:street": "蒲西路",
+        "amenity": "place_of_worship",
+        "building": "yes",
+        "denomination": "catholic",
+        "heritage": "2",
+        "heritage:operator": "上海全国重点文物保护单位列表",
+        "heritage:ref": "7-1697",
+        "name": "徐家汇圣依纳爵主教座堂",
+        "name:en": "Xujiahui Saint Ignatius Catholic Cathedral",
+        "name:zh": "徐家汇圣依纳爵主教座堂",
+        "opening_hours": "Mo-Fr 06:15-07:00; Sa 16:30-18:00; Su 06:00-18:00",
+        "religion": "christian",
+        "service_times": "Mo-Fr 06:15,07:00; Sa 16:30,18:00; Su 06:00,07:30,10:00,12:00,18:00",
+        "start_date": "1910",
+        "wikidata": "Q49633",
+        "wikimedia_commons": "Category:St. Ignatius Cathedral, Shanghai",
+        "wikipedia": "en:St. Ignatius Cathedral"
+      }
+    },
+    {
+      "type": "way",
+      "id": 292250766,
+      "bounds": {
+        "minlat": 31.2041212,
+        "minlon": 121.424298,
+        "maxlat": 31.2052017,
+        "maxlon": 121.4254675
+      },
+      "geometry": [
+        {
+          "lat": 31.2050362,
+          "lon": 121.4254675
+        },
+        {
+          "lat": 31.2046111,
+          "lon": 121.425379
+        },
+        {
+          "lat": 31.20461,
+          "lon": 121.4252638
+        },
+        {
+          "lat": 31.2044342,
+          "lon": 121.4252818
+        },
+        {
+          "lat": 31.2044446,
+          "lon": 121.4253184
+        },
+        {
+          "lat": 31.2043438,
+          "lon": 121.4253347
+        },
+        {
+          "lat": 31.2043403,
+          "lon": 121.42529
+        },
+        {
+          "lat": 31.2042673,
+          "lon": 121.4252615
+        },
+        {
+          "lat": 31.2041873,
+          "lon": 121.4251883
+        },
+        {
+          "lat": 31.2041212,
+          "lon": 121.4250664
+        },
+        {
+          "lat": 31.2041212,
+          "lon": 121.4249322
+        },
+        {
+          "lat": 31.2041595,
+          "lon": 121.4248021
+        },
+        {
+          "lat": 31.2041282,
+          "lon": 121.4246923
+        },
+        {
+          "lat": 31.2041768,
+          "lon": 121.4245013
+        },
+        {
+          "lat": 31.2042673,
+          "lon": 121.4245257
+        },
+        {
+          "lat": 31.2043368,
+          "lon": 121.4243143
+        },
+        {
+          "lat": 31.2043785,
+          "lon": 121.424298
+        },
+        {
+          "lat": 31.2047958,
+          "lon": 121.4244728
+        },
+        {
+          "lat": 31.2049829,
+          "lon": 121.4245599
+        },
+        {
+          "lat": 31.2052017,
+          "lon": 121.4246428
+        },
+        {
+          "lat": 31.2051045,
+          "lon": 121.4251274
+        },
+        {
+          "lat": 31.2050775,
+          "lon": 121.4252616
+        },
+        {
+          "lat": 31.2050362,
+          "lon": 121.4254675
+        }
+      ],
+      "tags": {
+        "addr:city": "上海",
+        "addr:housenumber": "160",
+        "addr:street": "新华路",
+        "amenity": "cinema",
+        "building": "yes",
+        "cinema:cinity": "yes",
+        "cinema:dolby_atmos": "yes",
+        "cinema:dolby_cinema": "yes",
+        "cinema:onyx": "yes",
+        "cinema:realD": "yes",
+        "dsscreated": "#cinema",
+        "name": "Shanghai Film Art Center",
+        "name:zh": "上海影城",
+        "note": "Show this to your taxi driver: 160 Xinhua Lu, near Panyu Lu 新华路160号， 近番禺路",
+        "opening_hours": "08:00-22:30",
+        "phone": "+86 21 6280 6088",
+        "screen": "7",
+        "website": "http://www.shanghai.lashou.com",
+        "wikidata": "Q96079079",
+        "wikimedia_commons": "Category:Shanghai Film Art Center",
+        "wikipedia": "zh:上海影城"
+      }
+    },
+    {
+      "type": "way",
+      "id": 293434151,
+      "bounds": {
+        "minlat": 31.2059766,
+        "minlon": 121.4334133,
+        "maxlat": 31.2065692,
+        "maxlon": 121.4339882
+      },
+      "geometry": [
+        {
+          "lat": 31.2060175,
+          "lon": 121.4334133
+        },
+        {
+          "lat": 31.2061614,
+          "lon": 121.4334935
+        },
+        {
+          "lat": 31.2061484,
+          "lon": 121.4335068
+        },
+        {
+          "lat": 31.2062001,
+          "lon": 121.4335886
+        },
+        {
+          "lat": 31.2062299,
+          "lon": 121.4335377
+        },
+        {
+          "lat": 31.2063532,
+          "lon": 121.4336076
+        },
+        {
+          "lat": 31.2062822,
+          "lon": 121.4337149
+        },
+        {
+          "lat": 31.2063429,
+          "lon": 121.4338106
+        },
+        {
+          "lat": 31.2063844,
+          "lon": 121.4337697
+        },
+        {
+          "lat": 31.206362,
+          "lon": 121.433752
+        },
+        {
+          "lat": 31.2064135,
+          "lon": 121.4336586
+        },
+        {
+          "lat": 31.2065692,
+          "lon": 121.4337589
+        },
+        {
+          "lat": 31.2065141,
+          "lon": 121.4338239
+        },
+        {
+          "lat": 31.2064864,
+          "lon": 121.4338115
+        },
+        {
+          "lat": 31.2063689,
+          "lon": 121.4339111
+        },
+        {
+          "lat": 31.2063792,
+          "lon": 121.4339278
+        },
+        {
+          "lat": 31.2063083,
+          "lon": 121.4339882
+        },
+        {
+          "lat": 31.2059766,
+          "lon": 121.4334657
+        },
+        {
+          "lat": 31.2059776,
+          "lon": 121.433438
+        },
+        {
+          "lat": 31.2059931,
+          "lon": 121.4334175
+        },
+        {
+          "lat": 31.2060175,
+          "lon": 121.4334133
+        }
+      ],
+      "tags": {
+        "addr:housenumber": "1850",
+        "architect": "László Hudec",
+        "building": "yes",
+        "building:levels": "8",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "D-Ⅲ-012",
+        "historic": "yes",
+        "name": "武康大楼",
+        "name:en": "Wukang Mansion",
+        "old_name": "Normandie Apartments",
+        "start_date": "1924",
+        "wikidata": "Q11124219",
+        "wikipedia": "zh:武康大楼"
+      }
+    },
+    {
+      "type": "way",
+      "id": 293518764,
+      "bounds": {
+        "minlat": 31.2110586,
+        "minlon": 121.430414,
+        "maxlat": 31.2113081,
+        "maxlon": 121.4307786
+      },
+      "geometry": [
+        {
+          "lat": 31.2112417,
+          "lon": 121.430414
+        },
+        {
+          "lat": 31.2113081,
+          "lon": 121.4307252
+        },
+        {
+          "lat": 31.211125,
+          "lon": 121.4307786
+        },
+        {
+          "lat": 31.2110586,
+          "lon": 121.4304674
+        },
+        {
+          "lat": 31.2112417,
+          "lon": 121.430414
+        }
+      ],
+      "tags": {
+        "building": "yes",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "1989年57号",
+        "name": "兴国路住宅",
+        "start_date": "1935"
+      }
+    },
+    {
+      "type": "way",
+      "id": 294625607,
+      "bounds": {
+        "minlat": 31.2181212,
+        "minlon": 121.4380657,
+        "maxlat": 31.2182602,
+        "maxlon": 121.4384074
+      },
+      "geometry": [
+        {
+          "lat": 31.2182251,
+          "lon": 121.4380657
+        },
+        {
+          "lat": 31.2182602,
+          "lon": 121.4383921
+        },
+        {
+          "lat": 31.2181563,
+          "lon": 121.4384074
+        },
+        {
+          "lat": 31.2181212,
+          "lon": 121.438081
+        },
+        {
+          "lat": 31.2182251,
+          "lon": 121.4380657
+        }
+      ],
+      "tags": {
+        "building": "yes",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "B-Ⅲ-24",
+        "name": "哈佛楼",
+        "old_name": "法国会所",
+        "ref": "5号楼",
+        "start_date": "1910"
+      }
+    },
+    {
+      "type": "way",
+      "id": 488967560,
+      "bounds": {
+        "minlat": 31.2125527,
+        "minlon": 121.4394881,
+        "maxlat": 31.212783,
+        "maxlon": 121.4400386
+      },
+      "geometry": [
+        {
+          "lat": 31.2125618,
+          "lon": 121.43958
+        },
+        {
+          "lat": 31.2125527,
+          "lon": 121.4400386
+        },
+        {
+          "lat": 31.212783,
+          "lon": 121.4399293
+        },
+        {
+          "lat": 31.2127821,
+          "lon": 121.4394881
+        },
+        {
+          "lat": 31.2125868,
+          "lon": 121.4395503
+        },
+        {
+          "lat": 31.2125618,
+          "lon": 121.43958
+        }
+      ],
+      "tags": {
+        "addr:housenumber": "62",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "1989年39号",
+        "landuse": "residential",
+        "name": "修道院公寓",
+        "start_date": "1948"
+      }
+    },
+    {
+      "type": "way",
+      "id": 488969912,
+      "bounds": {
+        "minlat": 31.2058322,
+        "minlon": 121.4298046,
+        "maxlat": 31.2071605,
+        "maxlon": 121.431371
+      },
+      "geometry": [
+        {
+          "lat": 31.2068944,
+          "lon": 121.4298046
+        },
+        {
+          "lat": 31.2071605,
+          "lon": 121.4309711
+        },
+        {
+          "lat": 31.2070166,
+          "lon": 121.4310756
+        },
+        {
+          "lat": 31.20661,
+          "lon": 121.431371
+        },
+        {
+          "lat": 31.2065365,
+          "lon": 121.4312637
+        },
+        {
+          "lat": 31.2063002,
+          "lon": 121.4313278
+        },
+        {
+          "lat": 31.2061465,
+          "lon": 121.430789
+        },
+        {
+          "lat": 31.2059355,
+          "lon": 121.4308424
+        },
+        {
+          "lat": 31.2058976,
+          "lon": 121.4306435
+        },
+        {
+          "lat": 31.2058322,
+          "lon": 121.4303008
+        },
+        {
+          "lat": 31.2062856,
+          "lon": 121.430089
+        },
+        {
+          "lat": 31.2068944,
+          "lon": 121.4298046
+        }
+      ],
+      "tags": {
+        "boundary": "protected_area",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "1989年49号",
+        "landuse": "residential",
+        "name": "花园里",
+        "protect_class": "22",
+        "start_date": "1948"
+      }
+    },
+    {
+      "type": "way",
+      "id": 490214455,
+      "bounds": {
+        "minlat": 31.2053076,
+        "minlon": 121.4338137,
+        "maxlat": 31.2063483,
+        "maxlon": 121.4349005
+      },
+      "geometry": [
+        {
+          "lat": 31.2060411,
+          "lon": 121.4338137
+        },
+        {
+          "lat": 31.2063483,
+          "lon": 121.434307
+        },
+        {
+          "lat": 31.2062407,
+          "lon": 121.4343583
+        },
+        {
+          "lat": 31.2061563,
+          "lon": 121.4344792
+        },
+        {
+          "lat": 31.2055963,
+          "lon": 121.4349005
+        },
+        {
+          "lat": 31.2053076,
+          "lon": 121.4344381
+        },
+        {
+          "lat": 31.2056954,
+          "lon": 121.4341734
+        },
+        {
+          "lat": 31.205842,
+          "lon": 121.4339559
+        },
+        {
+          "lat": 31.2060411,
+          "lon": 121.4338137
+        }
+      ],
+      "tags": {
+        "addr:housenumber": "1843",
+        "heritage": "2",
+        "heritage:operator": "上海全国重点文物保护单位列表",
+        "heritage:ref": "5-482",
+        "historic": "memorial",
+        "name": "宋庆龄故居",
+        "name:en": "Former Residence of Soong Chingling",
+        "name:zh": "宋庆龄故居",
+        "name:zh-Hans": "宋庆龄故居",
+        "start_date": "1948",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 490279570,
+      "bounds": {
+        "minlat": 31.2188354,
+        "minlon": 121.4353316,
+        "maxlat": 31.2190471,
+        "maxlon": 121.4356313
+      },
+      "geometry": [
+        {
+          "lat": 31.2190471,
+          "lon": 121.4355748
+        },
+        {
+          "lat": 31.2189071,
+          "lon": 121.4356313
+        },
+        {
+          "lat": 31.2188354,
+          "lon": 121.435388
+        },
+        {
+          "lat": 31.2189754,
+          "lon": 121.4353316
+        },
+        {
+          "lat": 31.2190471,
+          "lon": 121.4355748
+        }
+      ],
+      "tags": {
+        "addr:housenumber": "630",
+        "building": "yes",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "4B023",
+        "name": "佛西楼",
+        "old_name": "熊佛西楼",
+        "start_date": "1936"
+      }
+    },
+    {
+      "type": "way",
+      "id": 493695214,
+      "bounds": {
+        "minlat": 31.2090294,
+        "minlon": 121.4369005,
+        "maxlat": 31.2101657,
+        "maxlon": 121.4384939
+      },
+      "geometry": [
+        {
+          "lat": 31.2097418,
+          "lon": 121.4369005
+        },
+        {
+          "lat": 31.2099206,
+          "lon": 121.4374109
+        },
+        {
+          "lat": 31.2101657,
+          "lon": 121.437655
+        },
+        {
+          "lat": 31.2099537,
+          "lon": 121.4379961
+        },
+        {
+          "lat": 31.2095084,
+          "lon": 121.4384939
+        },
+        {
+          "lat": 31.2091641,
+          "lon": 121.4379525
+        },
+        {
+          "lat": 31.209081,
+          "lon": 121.4378079
+        },
+        {
+          "lat": 31.2090611,
+          "lon": 121.4377046
+        },
+        {
+          "lat": 31.2090523,
+          "lon": 121.4376587
+        },
+        {
+          "lat": 31.2091163,
+          "lon": 121.4376332
+        },
+        {
+          "lat": 31.2090294,
+          "lon": 121.4371683
+        },
+        {
+          "lat": 31.2097418,
+          "lon": 121.4369005
+        }
+      ],
+      "tags": {
+        "boundary": "protected_area",
+        "heritage": "4",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "D-Ⅲ-010",
+        "landuse": "residential",
+        "name": "中南新村",
+        "protect_class": "22",
+        "start_date": "1941"
+      }
+    },
+    {
+      "type": "way",
+      "id": 493695215,
+      "bounds": {
+        "minlat": 31.2097801,
+        "minlon": 121.4387591,
+        "maxlat": 31.2109385,
+        "maxlon": 121.4398078
+      },
+      "geometry": [
+        {
+          "lat": 31.2108273,
+          "lon": 121.4387591
+        },
+        {
+          "lat": 31.2109385,
+          "lon": 121.4393504
+        },
+        {
+          "lat": 31.2106229,
+          "lon": 121.4393677
+        },
+        {
+          "lat": 31.2103712,
+          "lon": 121.4394923
+        },
+        {
+          "lat": 31.210029,
+          "lon": 121.4398078
+        },
+        {
+          "lat": 31.2097801,
+          "lon": 121.4394303
+        },
+        {
+          "lat": 31.2098835,
+          "lon": 121.4393178
+        },
+        {
+          "lat": 31.2099506,
+          "lon": 121.4392595
+        },
+        {
+          "lat": 31.2100233,
+          "lon": 121.4392319
+        },
+        {
+          "lat": 31.2104362,
+          "lon": 121.4389791
+        },
+        {
+          "lat": 31.2106296,
+          "lon": 121.4388598
+        },
+        {
+          "lat": 31.2108273,
+          "lon": 121.4387591
+        }
+      ],
+      "tags": {
+        "boundary": "protected_area",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "D-Ⅲ-008",
+        "landuse": "residential",
+        "name": "逸村",
+        "protect_class": "22",
+        "start_date": "1942"
+      }
+    },
+    {
+      "type": "way",
+      "id": 493696429,
+      "bounds": {
+        "minlat": 31.2071697,
+        "minlon": 121.4346262,
+        "maxlat": 31.2087205,
+        "maxlon": 121.4357519
+      },
+      "geometry": [
+        {
+          "lat": 31.207913,
+          "lon": 121.4346262
+        },
+        {
+          "lat": 31.2071697,
+          "lon": 121.4351994
+        },
+        {
+          "lat": 31.2075184,
+          "lon": 121.4357519
+        },
+        {
+          "lat": 31.2077662,
+          "lon": 121.4356991
+        },
+        {
+          "lat": 31.208514,
+          "lon": 121.4356669
+        },
+        {
+          "lat": 31.2087205,
+          "lon": 121.4355159
+        },
+        {
+          "lat": 31.2084223,
+          "lon": 121.4349749
+        },
+        {
+          "lat": 31.207913,
+          "lon": 121.4346262
+        }
+      ],
+      "tags": {
+        "addr:housenumber": "1768弄",
+        "addr:street": "淮海中路",
+        "boundary": "protected_area",
+        "building:levels": "2",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "D-Ⅲ-011",
+        "landuse": "residential",
+        "name": "花园住宅",
+        "protect_class": "22",
+        "start_date": "1930"
+      }
+    },
+    {
+      "type": "way",
+      "id": 494633276,
+      "bounds": {
+        "minlat": 31.2102821,
+        "minlon": 121.4248866,
+        "maxlat": 31.2114943,
+        "maxlon": 121.4253954
+      },
+      "geometry": [
+        {
+          "lat": 31.2102821,
+          "lon": 121.4248866
+        },
+        {
+          "lat": 31.2103155,
+          "lon": 121.4253954
+        },
+        {
+          "lat": 31.2114943,
+          "lon": 121.4253898
+        },
+        {
+          "lat": 31.2114926,
+          "lon": 121.4248981
+        },
+        {
+          "lat": 31.2102821,
+          "lon": 121.4248866
+        }
+      ],
+      "tags": {
+        "boundary": "protected_area",
+        "heritage": "4",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "4M031",
+        "landuse": "residential",
+        "name": "外国弄堂",
+        "protect_class": "22",
+        "start_date": "1929",
+        "type": "site"
+      }
+    },
+    {
+      "type": "way",
+      "id": 494633921,
+      "bounds": {
+        "minlat": 31.2097459,
+        "minlon": 121.425244,
+        "maxlat": 31.2100024,
+        "maxlon": 121.4255869
+      },
+      "geometry": [
+        {
+          "lat": 31.2097459,
+          "lon": 121.4252597
+        },
+        {
+          "lat": 31.2097895,
+          "lon": 121.4255869
+        },
+        {
+          "lat": 31.2100024,
+          "lon": 121.4255524
+        },
+        {
+          "lat": 31.2099844,
+          "lon": 121.4253294
+        },
+        {
+          "lat": 31.2098648,
+          "lon": 121.425244
+        },
+        {
+          "lat": 31.2097459,
+          "lon": 121.4252597
+        }
+      ],
+      "tags": {
+        "addr:housenumber": "129",
+        "addr:street": "番禺路",
+        "building": "yes",
+        "building:levels": "3",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "4M032",
+        "name": "邬达克纪念馆",
+        "name:en": "Hudec Memorial Hall",
+        "old_name": "邬达克旧居",
+        "start_date": "1930",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 494634318,
+      "bounds": {
+        "minlat": 31.2046434,
+        "minlon": 121.4306165,
+        "maxlat": 31.2047792,
+        "maxlon": 121.4309437
+      },
+      "geometry": [
+        {
+          "lat": 31.2046599,
+          "lon": 121.4306858
+        },
+        {
+          "lat": 31.2046966,
+          "lon": 121.4307582
+        },
+        {
+          "lat": 31.2046939,
+          "lon": 121.4307908
+        },
+        {
+          "lat": 31.2046434,
+          "lon": 121.430882
+        },
+        {
+          "lat": 31.2047191,
+          "lon": 121.4309437
+        },
+        {
+          "lat": 31.2047765,
+          "lon": 121.4308418
+        },
+        {
+          "lat": 31.2047765,
+          "lon": 121.4307935
+        },
+        {
+          "lat": 31.2047792,
+          "lon": 121.430667
+        },
+        {
+          "lat": 31.2047444,
+          "lon": 121.4306165
+        },
+        {
+          "lat": 31.2046599,
+          "lon": 121.4306858
+        }
+      ],
+      "tags": {
+        "addr:housenumber": "2068",
+        "addr:street": "淮海中路",
+        "building": "apartments",
+        "building:levels": "7",
+        "heritage": "4",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "4M033",
+        "name": "登云公寓",
+        "old_name": "又斯登公寓",
+        "start_date": "1910"
+      }
+    },
+    {
+      "type": "way",
+      "id": 494637057,
+      "bounds": {
+        "minlat": 31.2115615,
+        "minlon": 121.417117,
+        "maxlat": 31.2125296,
+        "maxlon": 121.4183261
+      },
+      "geometry": [
+        {
+          "lat": 31.2125296,
+          "lon": 121.4180713
+        },
+        {
+          "lat": 31.2116349,
+          "lon": 121.4183261
+        },
+        {
+          "lat": 31.2115638,
+          "lon": 121.4178728
+        },
+        {
+          "lat": 31.211651,
+          "lon": 121.4178514
+        },
+        {
+          "lat": 31.2115615,
+          "lon": 121.4172572
+        },
+        {
+          "lat": 31.2123932,
+          "lon": 121.417117
+        },
+        {
+          "lat": 31.2125296,
+          "lon": 121.4180713
+        }
+      ],
+      "tags": {
+        "addr:street": "延安西路1453弄",
+        "boundary": "protected_area",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "4M028",
+        "landuse": "residential",
+        "name": "大西别墅",
+        "protect_class": "22",
+        "start_date": "1924",
+        "wikidata": "Q54983399",
+        "wikimedia_commons": "Category:Great Western Villa",
+        "wikipedia": "zh:大西别墅"
+      }
+    },
+    {
+      "type": "way",
+      "id": 494637551,
+      "bounds": {
+        "minlat": 31.2137306,
+        "minlon": 121.4160005,
+        "maxlat": 31.2145399,
+        "maxlon": 121.4166603
+      },
+      "geometry": [
+        {
+          "lat": 31.2144899,
+          "lon": 121.4160005
+        },
+        {
+          "lat": 31.2145399,
+          "lon": 121.41645
+        },
+        {
+          "lat": 31.2138017,
+          "lon": 121.4166603
+        },
+        {
+          "lat": 31.2137306,
+          "lon": 121.416156
+        },
+        {
+          "lat": 31.2144899,
+          "lon": 121.4160005
+        }
+      ],
+      "tags": {
+        "addr:street": "武夷路466弄",
+        "boundary": "protected_area",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "4M029",
+        "landuse": "residential",
+        "name": "汤山村",
+        "protect_class": "22",
+        "start_date": "1911"
+      }
+    },
+    {
+      "type": "way",
+      "id": 494639947,
+      "bounds": {
+        "minlat": 31.2186073,
+        "minlon": 121.4272271,
+        "maxlat": 31.2195656,
+        "maxlon": 121.4279701
+      },
+      "geometry": [
+        {
+          "lat": 31.2195656,
+          "lon": 121.4277575
+        },
+        {
+          "lat": 31.2186803,
+          "lon": 121.4279701
+        },
+        {
+          "lat": 31.2186073,
+          "lon": 121.4275408
+        },
+        {
+          "lat": 31.2194304,
+          "lon": 121.4272271
+        },
+        {
+          "lat": 31.2195656,
+          "lon": 121.4277575
+        }
+      ],
+      "tags": {
+        "addr:street": "江苏路495弄",
+        "boundary": "protected_area",
+        "heritage": "4",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "4M008",
+        "landuse": "residential",
+        "name": "忆定村",
+        "protect_class": "22",
+        "start_date": "1934",
+        "wikidata": "Q48934647",
+        "wikimedia_commons": "Category:Edinburgh Terrace",
+        "wikipedia": "zh:忆定村"
+      }
+    },
+    {
+      "type": "way",
+      "id": 494640875,
+      "bounds": {
+        "minlat": 31.2185587,
+        "minlon": 121.4260121,
+        "maxlat": 31.2194216,
+        "maxlon": 121.4271091
+      },
+      "geometry": [
+        {
+          "lat": 31.2194216,
+          "lon": 121.4268944
+        },
+        {
+          "lat": 31.2188294,
+          "lon": 121.4271091
+        },
+        {
+          "lat": 31.2185706,
+          "lon": 121.4262265
+        },
+        {
+          "lat": 31.2185587,
+          "lon": 121.4261516
+        },
+        {
+          "lat": 31.219201,
+          "lon": 121.4260121
+        },
+        {
+          "lat": 31.2194216,
+          "lon": 121.4268944
+        }
+      ],
+      "tags": {
+        "addr:street": "江苏路480弄",
+        "boundary": "protected_area",
+        "building": "yes",
+        "heritage": "4",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "4M007",
+        "name": "上海市房地产协会",
+        "protect_class": "22",
+        "start_date": "1921"
+      }
+    },
+    {
+      "type": "way",
+      "id": 494643587,
+      "bounds": {
+        "minlat": 31.2132081,
+        "minlon": 121.4316084,
+        "maxlat": 31.2147914,
+        "maxlon": 121.4329175
+      },
+      "geometry": [
+        {
+          "lat": 31.2132442,
+          "lon": 121.4320215
+        },
+        {
+          "lat": 31.213781,
+          "lon": 121.4316084
+        },
+        {
+          "lat": 31.2139445,
+          "lon": 121.4320109
+        },
+        {
+          "lat": 31.2143168,
+          "lon": 121.4317644
+        },
+        {
+          "lat": 31.2144473,
+          "lon": 121.4316781
+        },
+        {
+          "lat": 31.2147914,
+          "lon": 121.4323353
+        },
+        {
+          "lat": 31.2139862,
+          "lon": 121.4328181
+        },
+        {
+          "lat": 31.2138986,
+          "lon": 121.4326653
+        },
+        {
+          "lat": 31.2135453,
+          "lon": 121.4329175
+        },
+        {
+          "lat": 31.2134306,
+          "lon": 121.4327592
+        },
+        {
+          "lat": 31.2133153,
+          "lon": 121.4324909
+        },
+        {
+          "lat": 31.2132081,
+          "lon": 121.4320565
+        },
+        {
+          "lat": 31.2132442,
+          "lon": 121.4320215
+        }
+      ],
+      "tags": {
+        "addr:street": "华山路1006弄",
+        "boundary": "protected_area",
+        "heritage": "4",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "M-Ⅲ-22",
+        "landuse": "residential",
+        "name": "花园住宅群",
+        "old_name": "海格园",
+        "protect_class": "22",
+        "start_date": "1925"
+      }
+    },
+    {
+      "type": "way",
+      "id": 494643591,
+      "bounds": {
+        "minlat": 31.2147577,
+        "minlon": 121.432868,
+        "maxlat": 31.2149936,
+        "maxlon": 121.4331839
+      },
+      "geometry": [
+        {
+          "lat": 31.2149841,
+          "lon": 121.4329247
+        },
+        {
+          "lat": 31.2148422,
+          "lon": 121.4329337
+        },
+        {
+          "lat": 31.2148392,
+          "lon": 121.432868
+        },
+        {
+          "lat": 31.2147577,
+          "lon": 121.4328731
+        },
+        {
+          "lat": 31.2147721,
+          "lon": 121.4331839
+        },
+        {
+          "lat": 31.2148762,
+          "lon": 121.4331773
+        },
+        {
+          "lat": 31.2148744,
+          "lon": 121.4331385
+        },
+        {
+          "lat": 31.2149936,
+          "lon": 121.433131
+        },
+        {
+          "lat": 31.2149841,
+          "lon": 121.4329247
+        }
+      ],
+      "tags": {
+        "building": "yes",
+        "building:levels": "3",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "M-Ⅲ-29",
+        "name": "丁香别墅",
+        "name:en": "Lilac Villa",
+        "old_name": "丁香花园",
+        "start_date": "1920s"
+      }
+    },
+    {
+      "type": "way",
+      "id": 494643592,
+      "bounds": {
+        "minlat": 31.212969,
+        "minlon": 121.4298891,
+        "maxlat": 31.2143207,
+        "maxlon": 121.4314101
+      },
+      "geometry": [
+        {
+          "lat": 31.2139578,
+          "lon": 121.4299802
+        },
+        {
+          "lat": 31.2143207,
+          "lon": 121.4307395
+        },
+        {
+          "lat": 31.2141394,
+          "lon": 121.4308763
+        },
+        {
+          "lat": 31.2140752,
+          "lon": 121.4307529
+        },
+        {
+          "lat": 31.2138114,
+          "lon": 121.4309353
+        },
+        {
+          "lat": 31.2140041,
+          "lon": 121.4312786
+        },
+        {
+          "lat": 31.2139003,
+          "lon": 121.4313482
+        },
+        {
+          "lat": 31.2137541,
+          "lon": 121.4310962
+        },
+        {
+          "lat": 31.2135384,
+          "lon": 121.4312277
+        },
+        {
+          "lat": 31.2130842,
+          "lon": 121.4314101
+        },
+        {
+          "lat": 31.2130699,
+          "lon": 121.430565
+        },
+        {
+          "lat": 31.212969,
+          "lon": 121.4300313
+        },
+        {
+          "lat": 31.2130447,
+          "lon": 121.4299401
+        },
+        {
+          "lat": 31.2132305,
+          "lon": 121.4298891
+        },
+        {
+          "lat": 31.2134209,
+          "lon": 121.430388
+        },
+        {
+          "lat": 31.2139578,
+          "lon": 121.4299802
+        }
+      ],
+      "tags": {
+        "addr:street": "华山路",
+        "boundary": "protected_area",
+        "heritage": "4",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "M-Ⅲ-21",
+        "landuse": "residential",
+        "name": "上海市信息中心一号楼及西侧花园住宅群",
+        "protect_class": "22",
+        "start_date": "1930"
+      }
+    },
+    {
+      "type": "way",
+      "id": 494645590,
+      "bounds": {
+        "minlat": 31.2051445,
+        "minlon": 121.4156413,
+        "maxlat": 31.2065554,
+        "maxlon": 121.4172131
+      },
+      "geometry": [
+        {
+          "lat": 31.206314,
+          "lon": 121.4161349
+        },
+        {
+          "lat": 31.2061907,
+          "lon": 121.4164138
+        },
+        {
+          "lat": 31.2065554,
+          "lon": 121.4166204
+        },
+        {
+          "lat": 31.2064247,
+          "lon": 121.4172131
+        },
+        {
+          "lat": 31.2055345,
+          "lon": 121.4165882
+        },
+        {
+          "lat": 31.2053808,
+          "lon": 121.4164621
+        },
+        {
+          "lat": 31.2051537,
+          "lon": 121.4162904
+        },
+        {
+          "lat": 31.2051445,
+          "lon": 121.4160839
+        },
+        {
+          "lat": 31.2055202,
+          "lon": 121.4158184
+        },
+        {
+          "lat": 31.2056561,
+          "lon": 121.4156413
+        },
+        {
+          "lat": 31.2059721,
+          "lon": 121.4158345
+        },
+        {
+          "lat": 31.206314,
+          "lon": 121.4161349
+        }
+      ],
+      "tags": {
+        "addr:street": "新华路593弄",
+        "boundary": "protected_area",
+        "heritage": "4",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "M-Ⅲ-18",
+        "landuse": "residential",
+        "name": "梅泉别墅",
+        "protect_class": "22",
+        "start_date": "1933"
+      }
+    },
+    {
+      "type": "way",
+      "id": 494649384,
+      "bounds": {
+        "minlat": 31.2075255,
+        "minlon": 121.4303584,
+        "maxlat": 31.2092139,
+        "maxlon": 121.4318951
+      },
+      "geometry": [
+        {
+          "lat": 31.2091517,
+          "lon": 121.4303584
+        },
+        {
+          "lat": 31.2092139,
+          "lon": 121.4306398
+        },
+        {
+          "lat": 31.2086886,
+          "lon": 121.4308464
+        },
+        {
+          "lat": 31.2081632,
+          "lon": 121.4310529
+        },
+        {
+          "lat": 31.2082229,
+          "lon": 121.4312889
+        },
+        {
+          "lat": 31.2079017,
+          "lon": 121.431423
+        },
+        {
+          "lat": 31.2079613,
+          "lon": 121.4316805
+        },
+        {
+          "lat": 31.2075392,
+          "lon": 121.4318951
+        },
+        {
+          "lat": 31.2075255,
+          "lon": 121.4318414
+        },
+        {
+          "lat": 31.2078349,
+          "lon": 121.4316809
+        },
+        {
+          "lat": 31.2077182,
+          "lon": 121.4314096
+        },
+        {
+          "lat": 31.2078785,
+          "lon": 121.4313349
+        },
+        {
+          "lat": 31.2078143,
+          "lon": 121.4310023
+        },
+        {
+          "lat": 31.2078505,
+          "lon": 121.4309898
+        },
+        {
+          "lat": 31.2080781,
+          "lon": 121.4309111
+        },
+        {
+          "lat": 31.208037,
+          "lon": 121.4306559
+        },
+        {
+          "lat": 31.2082527,
+          "lon": 121.4305835
+        },
+        {
+          "lat": 31.20828,
+          "lon": 121.4306965
+        },
+        {
+          "lat": 31.2091517,
+          "lon": 121.4303584
+        }
+      ],
+      "tags": {
+        "addr:street": "泰安路76弄",
+        "boundary": "protected_area",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "M-Ⅲ-06",
+        "landuse": "residential",
+        "name": "亦村",
+        "protect_class": "22",
+        "start_date": "1945"
+      }
+    },
+    {
+      "type": "way",
+      "id": 494662056,
+      "bounds": {
+        "minlat": 31.2151303,
+        "minlon": 121.4273654,
+        "maxlat": 31.2153661,
+        "maxlon": 121.4277246
+      },
+      "geometry": [
+        {
+          "lat": 31.2153661,
+          "lon": 121.4276548
+        },
+        {
+          "lat": 31.2152628,
+          "lon": 121.4277246
+        },
+        {
+          "lat": 31.2152197,
+          "lon": 121.4276417
+        },
+        {
+          "lat": 31.215194,
+          "lon": 121.4276522
+        },
+        {
+          "lat": 31.2151555,
+          "lon": 121.4275666
+        },
+        {
+          "lat": 31.2151784,
+          "lon": 121.4275478
+        },
+        {
+          "lat": 31.2151303,
+          "lon": 121.4274405
+        },
+        {
+          "lat": 31.2152541,
+          "lon": 121.4273654
+        },
+        {
+          "lat": 31.2153477,
+          "lon": 121.427561
+        },
+        {
+          "lat": 31.2153317,
+          "lon": 121.427569
+        },
+        {
+          "lat": 31.2153661,
+          "lon": 121.4276548
+        }
+      ],
+      "tags": {
+        "addr:housenumber": "918-928",
+        "addr:street": "延安西路",
+        "building": "yes",
+        "building:levels": "10",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "M-Ⅲ-28",
+        "name": "达华宾馆",
+        "old_name": "达华公寓",
+        "start_date": "1937"
+      }
+    },
+    {
+      "type": "way",
+      "id": 494662067,
+      "bounds": {
+        "minlat": 31.2149594,
+        "minlon": 121.4270207,
+        "maxlat": 31.2151831,
+        "maxlon": 121.4273604
+      },
+      "geometry": [
+        {
+          "lat": 31.2149594,
+          "lon": 121.4270803
+        },
+        {
+          "lat": 31.2150539,
+          "lon": 121.4270207
+        },
+        {
+          "lat": 31.2151831,
+          "lon": 121.4273008
+        },
+        {
+          "lat": 31.2150886,
+          "lon": 121.4273604
+        },
+        {
+          "lat": 31.2149594,
+          "lon": 121.4270803
+        }
+      ],
+      "tags": {
+        "addr:housenumber": "934",
+        "addr:street": "延安西路",
+        "building": "yes",
+        "building:levels": "4",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "M-Ⅲ-10",
+        "name": "长宁区妇幼保健院",
+        "old_name": "私立妇孺医院",
+        "start_date": "1935"
+      }
+    },
+    {
+      "type": "way",
+      "id": 494663000,
+      "bounds": {
+        "minlat": 31.2069747,
+        "minlon": 121.4291087,
+        "maxlat": 31.2079451,
+        "maxlon": 121.4311502
+      },
+      "geometry": [
+        {
+          "lat": 31.2074955,
+          "lon": 121.4291087
+        },
+        {
+          "lat": 31.207,
+          "lon": 121.429321
+        },
+        {
+          "lat": 31.2069747,
+          "lon": 121.4294417
+        },
+        {
+          "lat": 31.2074221,
+          "lon": 121.4311502
+        },
+        {
+          "lat": 31.2076859,
+          "lon": 121.431064
+        },
+        {
+          "lat": 31.2078143,
+          "lon": 121.4310023
+        },
+        {
+          "lat": 31.2078505,
+          "lon": 121.4309898
+        },
+        {
+          "lat": 31.2077869,
+          "lon": 121.4307211
+        },
+        {
+          "lat": 31.2079451,
+          "lon": 121.4306594
+        },
+        {
+          "lat": 31.2076584,
+          "lon": 121.4293263
+        },
+        {
+          "lat": 31.2075551,
+          "lon": 121.4292884
+        },
+        {
+          "lat": 31.2074955,
+          "lon": 121.4291087
+        }
+      ],
+      "tags": {
+        "addr:street": "泰安路120弄",
+        "boundary": "protected_area",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "M-Ⅲ-007",
+        "landuse": "residential",
+        "name": "卫乐园",
+        "protect_class": "22",
+        "start_date": "1924"
+      }
+    },
+    {
+      "type": "way",
+      "id": 495925675,
+      "bounds": {
+        "minlat": 31.2097815,
+        "minlon": 121.4384195,
+        "maxlat": 31.210011,
+        "maxlon": 121.4387223
+      },
+      "geometry": [
+        {
+          "lat": 31.20997,
+          "lon": 121.4384195
+        },
+        {
+          "lat": 31.2099988,
+          "lon": 121.4385072
+        },
+        {
+          "lat": 31.2099541,
+          "lon": 121.438532
+        },
+        {
+          "lat": 31.2099658,
+          "lon": 121.4385706
+        },
+        {
+          "lat": 31.2099927,
+          "lon": 121.4385607
+        },
+        {
+          "lat": 31.210011,
+          "lon": 121.4386191
+        },
+        {
+          "lat": 31.2099773,
+          "lon": 121.4386362
+        },
+        {
+          "lat": 31.2099812,
+          "lon": 121.4386489
+        },
+        {
+          "lat": 31.2098105,
+          "lon": 121.4387223
+        },
+        {
+          "lat": 31.2097818,
+          "lon": 121.438621
+        },
+        {
+          "lat": 31.2097815,
+          "lon": 121.4385702
+        },
+        {
+          "lat": 31.2098577,
+          "lon": 121.4385327
+        },
+        {
+          "lat": 31.2098599,
+          "lon": 121.4384839
+        },
+        {
+          "lat": 31.2098978,
+          "lon": 121.4384634
+        },
+        {
+          "lat": 31.2098961,
+          "lon": 121.4384495
+        },
+        {
+          "lat": 31.20997,
+          "lon": 121.4384195
+        }
+      ],
+      "tags": {
+        "addr:housenumber": "1634",
+        "addr:street": "淮海中路",
+        "building": "yes",
+        "building:levels": "2",
+        "heritage": "4",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "D-Ⅲ-009",
+        "name": "市科技情报所",
+        "office": "government",
+        "old_name": "花园住宅",
+        "start_date": "1930"
+      }
+    },
+    {
+      "type": "way",
+      "id": 495926903,
+      "bounds": {
+        "minlat": 31.2137045,
+        "minlon": 121.4339205,
+        "maxlat": 31.2139523,
+        "maxlon": 121.4343843
+      },
+      "geometry": [
+        {
+          "lat": 31.2139152,
+          "lon": 121.4342336
+        },
+        {
+          "lat": 31.2138173,
+          "lon": 121.4343843
+        },
+        {
+          "lat": 31.2137045,
+          "lon": 121.4342123
+        },
+        {
+          "lat": 31.2138028,
+          "lon": 121.4340733
+        },
+        {
+          "lat": 31.2137734,
+          "lon": 121.4340004
+        },
+        {
+          "lat": 31.213858,
+          "lon": 121.4339205
+        },
+        {
+          "lat": 31.2139064,
+          "lon": 121.4340165
+        },
+        {
+          "lat": 31.2139451,
+          "lon": 121.4340599
+        },
+        {
+          "lat": 31.2139454,
+          "lon": 121.4341291
+        },
+        {
+          "lat": 31.2139523,
+          "lon": 121.4341749
+        },
+        {
+          "lat": 31.2139152,
+          "lon": 121.4342336
+        }
+      ],
+      "tags": {
+        "addr:housenumber": "849",
+        "addr:street": "华山路",
+        "building": "yes",
+        "building:levels": "2",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "2D013",
+        "name": "丁香花园3号楼",
+        "old_name": "花园住宅",
+        "start_date": "1862"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1272941794,
+      "bounds": {
+        "minlat": 31.2042268,
+        "minlon": 121.4324618,
+        "maxlat": 31.2044797,
+        "maxlon": 121.4327249
+      },
+      "geometry": [
+        {
+          "lat": 31.2044043,
+          "lon": 121.4327249
+        },
+        {
+          "lat": 31.2043142,
+          "lon": 121.4325984
+        },
+        {
+          "lat": 31.2042718,
+          "lon": 121.4326396
+        },
+        {
+          "lat": 31.2042268,
+          "lon": 121.4325764
+        },
+        {
+          "lat": 31.2043446,
+          "lon": 121.4324618
+        },
+        {
+          "lat": 31.2044797,
+          "lon": 121.4326516
+        },
+        {
+          "lat": 31.2044043,
+          "lon": 121.4327249
+        }
+      ],
+      "tags": {
+        "addr:housenumber": "40",
+        "addr:street": "天平路",
+        "building": "hospital",
+        "building:levels": "3",
+        "height": "13",
+        "heritage": "yes",
+        "heritage:operator": "上海市优秀历史建筑",
+        "heritage:ref": "?",
+        "name": "文艺医院洋房"
+      }
+    }
+  ],
+  "research": {
+    "endpoint": "https://overpass-api.de/api/interpreter",
+    "query": "[out:json][timeout:120];(\n  nwr[\"name\"~\"上海影城|上海电影艺术中心|一尺花园|安和花园|外国弄堂|新华别墅|Villa Le Bec|上海民族乐团|新华公馆\",i](31.19,121.40,31.22,121.44);\n  nwr[\"addr:street\"=\"新华路\"][\"addr:housenumber\"~\"^(160|179|200|211|315|321|329|336|365)\"](31.19,121.40,31.22,121.44);\n  way[\"heritage\"](31.19,121.40,31.22,121.44);\n);out tags center geom;",
+    "fetchedAt": "2026-07-16T16:32:22.658Z"
+  }
+}

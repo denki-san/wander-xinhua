@@ -1,11 +1,15 @@
 "use client";
 
-import { Html, RoundedBox } from "@react-three/drei";
+import { Html, RoundedBox, useGLTF } from "@react-three/drei";
 import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import {
   DoubleSide,
   ExtrudeGeometry,
   InstancedMesh,
+  Mesh,
+  MeshBasicMaterial,
+  MeshStandardMaterial,
+  MeshToonMaterial,
   Object3D,
   Shape,
   ShapeGeometry,
@@ -206,59 +210,73 @@ function SunKeVilla({ building }: { building: Building }) {
   );
 }
 
-function PoolArcade({ x, z, side, level }: { x: number; z: number; side: number; level: number }) {
+function NavyClub({ building }: { building: Building }) {
+  const { scene } = useGLTF("/models/shangsheng/navy-club-pool.glb");
+  const model = useMemo(() => {
+    const clone = scene.clone(true);
+    const materialCache = new Map<string, MeshToonMaterial | MeshStandardMaterial | MeshBasicMaterial>();
+    clone.traverse((child) => {
+      if (!(child instanceof Mesh)) return;
+      const sources = Array.isArray(child.material) ? child.material : [child.material];
+      child.material = sources.map((source) => {
+        const materialName = source?.name ?? "PlasterWhite";
+        let material = materialCache.get(materialName);
+        if (!material) {
+          const sourceColor = source && "color" in source && source.color
+            ? source.color.clone()
+            : undefined;
+          if (materialName === "PoolWater") {
+            material = new MeshStandardMaterial({
+              color: sourceColor ?? "#58bfc4",
+              transparent: true,
+              opacity: 0.76,
+              roughness: 0.16,
+              metalness: 0.08,
+              depthWrite: false,
+            });
+          } else if (materialName === "WarmArcadeLight") {
+            material = new MeshBasicMaterial({ color: sourceColor ?? "#f1c67a" });
+          } else {
+            material = new MeshToonMaterial({
+              color: sourceColor ?? "#e9e4d9",
+              transparent: materialName === "DeepTealGlass",
+              opacity: materialName === "DeepTealGlass" ? 0.86 : 1,
+            });
+          }
+          materialCache.set(materialName, material);
+        }
+        return material;
+      });
+      child.castShadow = !sources.every(({ name }) => name === "PoolWater" || name === "DeepTealGlass");
+      child.receiveShadow = true;
+    });
+    return clone;
+  }, [scene]);
+
+  useEffect(() => () => {
+    const materials = new Set<MeshToonMaterial | MeshStandardMaterial | MeshBasicMaterial>();
+    model.traverse((child) => {
+      if (!(child instanceof Mesh)) return;
+      const childMaterials = Array.isArray(child.material) ? child.material : [child.material];
+      for (const material of childMaterials) {
+        if (material instanceof MeshToonMaterial || material instanceof MeshStandardMaterial || material instanceof MeshBasicMaterial) {
+          materials.add(material);
+        }
+      }
+    });
+    materials.forEach((material) => material.dispose());
+  }, [model]);
+
   return (
-    <group position={[x, 0.1 + level * 2.65, z]} rotation-y={side > 0 ? -Math.PI / 2 : Math.PI / 2}>
-      {[-0.58, 0.58].map((column) => (
-        <mesh key={column} position={[column, 1.25, 0]} castShadow>
-          <boxGeometry args={[0.14, 2.5, 0.18]} />
-          <meshToonMaterial color="#efe9dc" />
-        </mesh>
-      ))}
-      <mesh position={[0, 2.14, 0]} rotation-z={Math.PI}>
-        <torusGeometry args={[0.58, 0.12, 8, 20, Math.PI]} />
-        <meshToonMaterial color="#efe9dc" />
-      </mesh>
+    <group name="shangsheng-navy-club-and-pool" userData={{ building: "navy-club-and-pool", osmWayId: building.id }}>
+      {/* 公开照片只用于人工判断结构与配色；部署产物是原创网格，不包含照片贴图。 */}
+      {/* glTF 将 Blender 的 +Y 映射为 WebGL 的 -Z；翻转 Z 后与场景的本地坐标约定一致。 */}
+      <primitive object={model} scale={[1, 1, -1]} />
     </group>
   );
 }
 
-function NavyClub({ building }: { building: Building }) {
-  const height = 5.7;
-  const pool = { minX: -22.9, maxX: -18.4, minZ: -5.6, maxZ: 5.05 };
-  const centerX = (pool.minX + pool.maxX) / 2;
-  const centerZ = (pool.minZ + pool.maxZ) / 2;
-  return (
-    <group name="shangsheng-navy-club-and-pool" userData={{ building: "navy-club-and-pool", osmWayId: building.id }}>
-      <FootprintVolume building={building} height={height} />
-      <mesh position={[centerX, 0.22, centerZ]} receiveShadow>
-        <boxGeometry args={[pool.maxX - pool.minX, 0.18, pool.maxZ - pool.minZ]} />
-        <meshToonMaterial color="#69c0bc" />
-      </mesh>
-      <mesh position={[centerX, 0.31, centerZ]}>
-        <boxGeometry args={[pool.maxX - pool.minX - 0.45, 0.035, 0.055]} />
-        <meshBasicMaterial color="#e9e2bf" />
-      </mesh>
-      {Array.from({ length: 7 }, (_, index) => {
-        const z = pool.minZ + 0.75 + index * (pool.maxZ - pool.minZ - 1.5) / 6;
-        return [0, 1].flatMap((level) => [
-          <PoolArcade key={`left-${level}-${index}`} x={pool.minX - 0.25} z={z} side={1} level={level} />,
-          <PoolArcade key={`right-${level}-${index}`} x={pool.maxX + 0.25} z={z} side={-1} level={level} />,
-        ]);
-      })}
-      {building.collision.map((wing, index) => (
-        <mesh
-          key={`navy-roof-${index}`}
-          position={[(wing.minX + wing.maxX) / 2, height + 0.26, (wing.minZ + wing.maxZ) / 2]}
-          castShadow
-        >
-          <boxGeometry args={[wing.maxX - wing.minX - 0.18, 0.34, wing.maxZ - wing.minZ - 0.18]} />
-          <meshToonMaterial color={building.roof} />
-        </mesh>
-      ))}
-    </group>
-  );
-}
+useGLTF.preload("/models/shangsheng/navy-club-pool.glb");
 
 function GenericCampusBuilding({ building }: { building: Building }) {
   const floorHeight = building.feature === "new-campus" ? 2.35 : 2.05;

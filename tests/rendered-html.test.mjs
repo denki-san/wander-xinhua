@@ -43,9 +43,11 @@ test("最终运行时代码不引用参考站资产", async () => {
   const experience = await readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8");
   const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
   const xingfuli = await readFile(new URL("../app/scene/xingfuli-block.tsx", import.meta.url), "utf8");
+  const shangsheng = await readFile(new URL("../app/scene/shangsheng-xinsuo-block.tsx", import.meta.url), "utf8");
   assert.doesNotMatch(world, /messenger\.abeto\.co|promptwhisper\/messenger/);
   assert.match(experience, /href="https:\/\/messenger\.abeto\.co\/"/);
-  assert.doesNotMatch(experience + world + xingfuli, /\/assets\/|\.drc|\.ktx2|\.ogg|bdimg|bcebos/);
+  assert.doesNotMatch(experience + world + xingfuli + shangsheng, /\/assets\/|\.drc|\.ktx2|\.ogg|bdimg|bcebos/);
+  assert.match(shangsheng, /"\/models\/shangsheng\/navy-club-pool\.glb"/);
   assert.match(experience, /openstreetmap\.org\/copyright/);
 
   const assets = await readdir(new URL("../dist-static/assets/", import.meta.url));
@@ -53,7 +55,8 @@ test("最终运行时代码不引用参考站资产", async () => {
     assets.filter((name) => name.endsWith(".js"))
       .map((name) => readFile(new URL(`../dist-static/assets/${name}`, import.meta.url), "utf8")),
   );
-  assert.doesNotMatch(javascript.join("\n"), /bdimg|bcebos|poi-pic|\.drc|\.ktx2|\.ogg/i);
+  // GLTFLoader 自身包含 ktx2Loader 属性名；这里只拦截参考站和图片 CDN，而不误判库内部 API。
+  assert.doesNotMatch(javascript.join("\n"), /bdimg|bcebos|poi-pic|messenger\.abeto\.co\/assets/i);
 });
 
 test("幸福里使用七栋固定建筑和可识别的核心街具", async () => {

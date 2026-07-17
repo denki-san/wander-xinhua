@@ -1,10 +1,107 @@
 # Errors
 
+## [ERR-20260717-029] agent_browser_mobile_profile_setup
+
+**Logged**: 2026-07-17T09:31:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+发布前移动端验收首次被 agent-browser socket 权限和无效设备名拦截。
+
+### Error
+```
+Socket directory '~/.agent-browser' is not writable: Operation not permitted
+Unknown device: iPhone 15 Pro
+```
+
+### Context
+- 普通沙箱不能写 agent-browser 的用户级 socket 目录。
+- 技能示例使用 `iPhone 15 Pro`，当前 CLI 的受支持名称实际包含 `iPhone 15`，不包含该名称。
+
+### Suggested Fix
+沿已批准的 agent-browser 前缀在沙箱外执行，并先用 CLI 返回的受支持列表选择设备名。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/test_mobile_release_performance.png
+
+### Resolution
+- **Resolved**: 2026-07-17T09:32:00+08:00
+- **Notes**: 改用 `iPhone 15` 后完成 393×852、DPR 3 的 180 帧采样；页面无错误且稳定 60 FPS。
+
+---
+
+## [ERR-20260717-028] git_index_write_sandbox_permission
+
+**Logged**: 2026-07-17T09:15:39+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+发布前补充暂存三个已跟踪文件时，普通沙箱命令无法创建 Git 索引锁。
+
+### Error
+```
+fatal: Unable to create '.git/index.lock': Operation not permitted
+```
+
+### Context
+- 之前的精确 `git add` 已成功，失败发生在后续增量暂存。
+- 工作区允许读取 `.git`，但本轮增量写入需要沿已批准的 Git 命令前缀在沙箱外执行。
+
+### Suggested Fix
+遇到同类索引锁权限错误时，不更改仓库结构；使用 `git add` 的已批准前缀重新执行同一精确暂存命令。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: .git/index
+
+### Resolution
+- **Resolved**: 2026-07-17T09:15:39+08:00
+- **Notes**: 沿已批准的 `git add` 前缀重试成功，提交范围不变。
+
+---
+
+## [ERR-20260717-027] agent_browser_webgl_screenshot_timeout
+
+**Logged**: 2026-07-17T08:49:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+复核民族乐团时，旧 agent-browser WebGL 会话无输出且首张截图未生成。
+
+### Error
+```
+agent-browser screenshot reached the 10 second yield without creating the target file
+```
+
+### Context
+- 同一会话此前已多次切换高负载 WebGL 直达页。
+- 新建干净会话后页面正常；截图仍需超过 10 秒，但继续等待后成功保存。
+
+### Suggested Fix
+多次切换 WebGL 地标后若会话无响应，使用新会话；截图超过单次 yield 时继续等待完成，不立即判定失败。
+
+### Metadata
+- Reproducible: partially
+- Related Files: test_artifacts/test_orchestra_text_direction_runtime.png
+
+### Resolution
+- **Resolved**: 2026-07-17T08:51:00+08:00
+- **Notes**: 使用 `orchestra-fix` 新会话并等待截图完成，成功取得文字方向证据。
+
+---
+
 ## [ERR-20260716-017] rolldown_optional_chain_assignment
 
 **Logged**: 2026-07-16T17:50:00+08:00
 **Priority**: low
-**Status**: resolved
+**Status**: in_progress
 **Area**: frontend
 
 ### Summary
@@ -30,6 +127,300 @@ trunks.current?.instanceMatrix.needsUpdate = true
 ### Resolution
 - **Resolved**: 2026-07-16T17:51:00+08:00
 - **Notes**: 两处实例矩阵写入均改为显式判空，重新运行生产构建验证。
+
+---
+
+## [ERR-20260717-026] zsh_path_loop_and_preview_namespace
+
+**Logged**: 2026-07-17T08:31:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+本地预览 HTTP 批量检查先误用 zsh 特殊变量 `path`，修正变量名后又因预览服务运行在授权环境而从沙箱内无法访问。
+
+### Error
+```
+zsh: command not found: curl
+curl: (7) Failed to connect to 127.0.0.1 port 4173
+```
+
+### Context
+- zsh 的 `path` 数组与 `PATH` 绑定，在 `for path in ...` 中赋值会覆盖命令搜索路径。
+- Vite 预览通过授权环境启动，沙箱内 curl 无法直接访问同一监听端口。
+
+### Suggested Fix
+循环变量使用 `endpoint` 等普通名称；本地预览连通性检查与服务器保持相同授权环境。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json
+
+### Resolution
+- **Resolved**: 2026-07-17T08:32:00+08:00
+- **Notes**: 改用 `endpoint`，并在授权环境并行检查页面与 8 个 GLB，全部返回 HTTP 200。
+
+---
+## [ERR-20260717-025] foreground_dev_server_reaped_after_turn
+
+**Logged**: 2026-07-17T07:49:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+通过交互式 exec 会话启动的本地开发服务器在回复结束后被回收，导致交给用户的 localhost 地址无法访问。
+
+### Error
+```
+write_stdin failed: Unknown process id 37575
+```
+
+### Context
+- `npm run dev -- --host localhost` 曾返回 `http://localhost:3001/`，当时 curl 为 200。
+- 用户随后访问时，承载服务的统一终端进程已经不存在。
+
+### Suggested Fix
+需要交给用户持续访问的本地预览，应使用脱离交互终端的后台进程，并在回复前重新检查 PID 和 HTTP 200。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json
+
+### Resolution
+- **Resolved**: 2026-07-17T08:01:00+08:00
+- **Notes**: 改用 Terminal 承载的静态预览脚本，先构建再由系统 Python HTTP server 固定托管在 127.0.0.1:3002；浏览器打开后持续复查仍为 HTTP 200。
+
+---
+## [ERR-20260717-024] vinext_localhost_ipv6_binding
+
+**Logged**: 2026-07-17T00:34:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Vinext 显示 localhost 地址时，使用 127.0.0.1 访问被拒绝，但 localhost 可正常访问。
+
+### Error
+```
+Navigation failed: net::ERR_CONNECTION_REFUSED
+curl: (7) Failed to connect to 127.0.0.1 port 3001
+```
+
+### Context
+- 开发服务命令包含 `--host 127.0.0.1`，但实际仅通过 `http://localhost:3001/` 可达。
+- `curl http://localhost:3001/` 返回 200。
+
+### Suggested Fix
+视觉验收优先使用开发服务器实际打印的完整 URL，不自行把 localhost 替换为 127.0.0.1。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json
+- See Also: ERR-20260716-022
+
+### Resolution
+- **Resolved**: 2026-07-17T00:34:00+08:00
+- **Notes**: 改用 `http://localhost:3001/` 继续验收。
+
+---
+## [ERR-20260717-002] camera_transition_source_assertion
+
+**Logged**: 2026-07-17T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+游玩相机回归测试把整个 JSX 三元表达式写成单条正则，属性中的花括号导致断言误判。
+
+### Error
+```
+The input did not match the regular expression /\{playing \? <PlayableMessenger[^}]+: <IntroCamera \/>\}/
+```
+
+### Context
+- 生产代码中的 `PlayableMessenger` 带有 JSX 回调属性。
+- `[^}]+` 会在属性闭合花括号处提前停止，无法匹配到三元表达式的另一分支。
+
+### Suggested Fix
+源码契约测试分别断言游玩分支和首页分支，不用一条正则锁定完整 JSX 排版。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_controls.test.mjs, app/scene/xinhua-world.tsx
+
+### Resolution
+- **Resolved**: 2026-07-17T00:00:00+08:00
+- **Notes**: 已拆成两条只覆盖关键分支的断言。
+
+---
+## [ERR-20260717-001] preview_server_sandbox_and_webgl_capture_artifacts
+
+**Logged**: 2026-07-17T00:22:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+本地 Vite Preview 在沙箱内无法监听端口；同一无头浏览器会话多次切换 WebGL 开场与游戏态后，截图出现旧帧残影。
+
+### Error
+```
+Error: listen EPERM: operation not permitted 127.0.0.1:4173
+```
+
+### Context
+- 预览服务器属于本地只读验收用途。
+- 首次干净会话能正常加载 GLB 且 `agent-browser errors` 为空。
+- 连续刷新和切换相机后出现开场地图与游戏镜头叠帧，模型离线渲染不受影响。
+
+### Suggested Fix
+本地监听端口使用获准的沙箱外执行；WebGL 截图为每轮验收使用独立 `--session`，模型视觉交付同时保留 Blender 确定性预览。
+
+### Metadata
+- Reproducible: partially
+- Related Files: test_artifacts/test_navy_club_desktop.png, test_artifacts/test_navy_club_preview.png
+
+### Resolution
+- **Resolved**: 2026-07-17T00:22:00+08:00
+- **Notes**: Preview 在沙箱外成功启动；干净浏览器会话确认模型加载且无页面错误，最终视觉以 Blender 4.5 LTS 确定性预览图交付。
+
+---
+
+## [ERR-20260717-001] effect_composer_conditional_child_type
+
+**Logged**: 2026-07-17T00:02:16+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+在 `EffectComposer` 内使用 `playing && <InkOutline />` 生成 `false | Element`，不符合其只接受 `Element` 的子节点类型。
+
+### Error
+```
+app/xinhua-experience.tsx(212,13): error TS2322: Type 'false | Element' is not assignable to type 'Element'.
+```
+
+### Context
+- 首页和游戏态需要不同的后处理组合。
+- Vite 生产构建能通过，但完整 TypeScript 场景检查失败。
+
+### Suggested Fix
+把首页态和游戏态拆成两个明确的 `EffectComposer` 分支，不在 Composer 内放置可能为 `false` 的条件子节点。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/xinhua-experience.tsx, tests/typecheck-scene.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-17T00:02:16+08:00
+- **Notes**: 拆分首页和游戏态 Composer，随后重新运行完整测试。
+
+---
+## [ERR-20260716-024] sandbox_dns_blocked_reference_image_download
+
+**Logged**: 2026-07-16T21:12:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+网页检索已取得公开参考图直链，但沙箱内使用 curl 下载时 DNS 解析被阻止。
+
+### Error
+```
+curl: (6) Could not resolve host: imagepphcloud.thepaper.cn
+curl: (6) Could not resolve host: imagel.sekainavi.com
+curl: (6) Could not resolve host: images.smartshanghai.com.cn
+```
+
+### Context
+- 图片链接已由网页工具成功打开并确认来源。
+- 本地下载仅用于临时视觉参考，不会把第三方照片打包进产品。
+- 当前命令在 workspace-write 沙箱内执行。
+
+### Suggested Fix
+对已核实来源的只读参考图下载使用沙箱外 curl；下载到 `/private/tmp/test_*`，不得进入部署资产。
+
+### Metadata
+- Reproducible: yes
+- Related Files: /private/tmp/test_navy_refs
+
+### Resolution
+- **Resolved**: 2026-07-17T00:20:00+08:00
+- **Notes**: 在获准的沙箱外环境下载到 `/private/tmp/test_navy_refs`，仅作视觉参考，未进入产品资产。
+
+---
+## [ERR-20260716-025] homebrew_autoupdate_blocks_blender_install
+
+**Logged**: 2026-07-16T21:18:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+安装 Blender 时 Homebrew 自动更新被无关的 antigravity-manager tap stash 冲突阻断。
+
+### Error
+```
+error: could not apply b68ebf8e... feat: release v2.0.0 (Tauri Rewrite)
+Could not apply b68ebf8e...
+```
+
+### Context
+- 目标操作是 `brew install --cask blender`。
+- 冲突来自 `/opt/homebrew/Library/Taps/lbjlaq/homebrew-antigravity-manager`，与 Blender 和当前仓库无关。
+- 不应修改或弹出该 tap 的用户 stash。
+
+### Suggested Fix
+设置 `HOMEBREW_NO_AUTO_UPDATE=1` 后重试安装，绕过无关 tap 更新，不触碰其现有修改。
+
+### Metadata
+- Reproducible: yes
+- Related Files: /opt/homebrew/Library/Taps/lbjlaq/homebrew-antigravity-manager
+
+### Resolution
+- **Resolved**: 2026-07-17T00:20:00+08:00
+- **Notes**: 使用 `HOMEBREW_NO_AUTO_UPDATE=1` 绕过无关 tap 更新，未改动其 stash；Blender 安装完成。
+
+---
+## [ERR-20260716-026] blender_5_2_headless_arch_cache_crash
+
+**Logged**: 2026-07-16T21:31:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Homebrew 安装的 Blender 5.2.0 LTS 在沙箱内以 background 模式启动时，于加载阶段因 Arch cache line 假设失败而崩溃。
+
+### Error
+```
+ArchWarn: ARCH_CACHE_LINE_SIZE != Arch_ObtainCacheLineSize()
+Blender 5.2.0 LTS
+Segmentation fault: 11
+```
+
+### Context
+- 命令：`blender --background --python scripts/create_navy_club_model.py --`
+- 崩溃发生在脚本输出之前，属于 Blender/USD 运行时启动阶段。
+- 当前为 Apple Silicon macOS，Blender 通过 Homebrew cask 安装。
+
+### Suggested Fix
+先在沙箱外直接运行同一 headless 命令，排除系统信息访问受限；若仍失败，再固定到较稳定的 Blender 4.5 LTS。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: scripts/create_navy_club_model.py, /var/folders/9m/y4r0hmv54wg70vv7xm95n2bh0000gn/T/blender.crash.txt
+
+### Resolution
+- **Resolved**: 2026-07-17T00:20:00+08:00
+- **Notes**: Blender 5.2 在沙箱外仍异常，改用 Blender 4.5.11 LTS；GLB、Blend 源文件和预览图均成功生成。
+- **Recurrence**: 2026-07-17 Blender 4.5.11 在沙箱内批量生成新华路资产时同样于启动阶段触发 Arch cache line 崩溃，继续沿用沙箱外后台执行方案。
 
 ---
 
@@ -999,6 +1390,7 @@ URL 始终加单引号；使用绝对二进制路径；浏览器命令按 skill/
 ### Resolution
 - **Resolved**: 2026-07-16T20:43:00+08:00
 - **Notes**: 后续全部使用绝对路径和正确顶级命令；关闭冗余 WebGL 会话后，干净手机会话华山绿地 5 秒采样达到 60 FPS，浏览器错误为空。
+- **Recurrence**: 2026-07-17 两次复查本地预览时遗漏 URL 引号；均在发现后改用单引号重试成功。后续所有带查询参数的本地 URL 必须直接使用单引号模板。
 
 ---
 ## [ERR-20260716-023] stale_xingfuli_obstacle_source_contract

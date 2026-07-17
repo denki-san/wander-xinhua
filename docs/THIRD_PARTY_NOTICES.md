@@ -25,3 +25,11 @@
 - 使用的华山绿地篮球场与配套建筑：<https://www.openstreetmap.org/way/743778425>、<https://www.openstreetmap.org/way/743778426>
 - 使用的上生·新所场地：<https://www.openstreetmap.org/way/765939973>
 - 使用的孙科别墅、乡村俱乐部与海军俱乐部轮廓：<https://www.openstreetmap.org/way/864847877>、<https://www.openstreetmap.org/way/864847881>、<https://www.openstreetmap.org/way/864847883>
+
+高程数据：
+
+- 全街道低频高程趋势基于 Copernicus DEM GLO-30 Public 2021 release。
+- 原始数据为包含地形、建筑与植被表面的 DSM；项目仅使用过滤后的街区尺度拟合，不把它表述为测绘级 DTM。
+- 数据集说明与许可：<https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM>
+- 下载入口：<https://registry.opendata.aws/copernicus-dem/>
+- Attribution: produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.
