@@ -27,4 +27,4 @@
 - 上海市文化和旅游局孙科别墅信息：<https://whlyj.sh.gov.cn/gqfc/20240716/6914b6ee61274aaf960f18d97d427fd0.html>
 - OpenStreetMap 场地：<https://www.openstreetmap.org/way/765939973>
 
-参考照片不作为 3D 模型贴图，也不复制品牌标识；全览 POI 卡片单独使用带图源链接的上生·新所实景图。
+参考照片只用于人工判断结构、颜色与空间关系，不打包进产品，也不复制品牌标识或照片贴图。

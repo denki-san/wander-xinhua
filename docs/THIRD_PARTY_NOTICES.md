@@ -26,12 +26,6 @@
 - 使用的上生·新所场地：<https://www.openstreetmap.org/way/765939973>
 - 使用的孙科别墅、乡村俱乐部与海军俱乐部轮廓：<https://www.openstreetmap.org/way/864847877>、<https://www.openstreetmap.org/way/864847881>、<https://www.openstreetmap.org/way/864847883>
 
-POI 卡片实景图：
-
-- 卡片中的照片由原发布页面远程提供，卡片内保留可点击图源；图片权利归各原作者或发布机构所有。
-- 图源包括上海长宁、上海商报、CGTN、PR Newswire、Time Out Shanghai、上观新闻、SmartShanghai 与 gooood。
-- 这些照片只用于地点信息卡，不作为 3D 模型贴图或训练素材。
-
 高程数据：
 
 - 全街道低频高程趋势基于 Copernicus DEM GLO-30 Public 2021 release。

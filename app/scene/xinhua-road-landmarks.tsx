@@ -1,31 +1,45 @@
 "use client";
 
-import { useGLTF } from "@react-three/drei";
+import { Html, useGLTF } from "@react-three/drei";
 import { InstancedMesh, Matrix4, Mesh, Quaternion, Vector3, type Object3D } from "three";
 import { useLayoutEffect, useMemo, useRef } from "react";
 import { terrainHeightAt } from "./terrain";
 import type { MapObstacle, MapPolygonPoint } from "./world-math";
+import {
+  buildPlaneTreePlacements,
+  XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
+} from "./xinhua-road-placement.mjs";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
 
 type LandmarkPlacement = {
   id: string;
   query: string;
+  aliases?: string[];
   name: string;
   address: string;
   model: string;
+  cacheVersion?: string;
   position: MapPolygonPoint;
   yaw: number;
   scale: number;
   localBounds: MapObstacle;
+  localObstacles?: MapObstacle[];
   start: MapPolygonPoint;
   forward: MapPolygonPoint;
+  poi?: boolean;
+  labelHeight?: number;
+  labelOffset?: MapPolygonPoint;
+  positioning?: string;
 };
 
 // 160 号使用 OSM way 292250766 的建筑轮廓中心；其余位置由新华路中心线、
 // 345 弄入口和门牌递增方向校准。奇数门牌位于北侧，偶数门牌位于南侧。
 export const XINHUA_ROAD_LANDMARKS = landmarkData.landmarks as unknown as readonly LandmarkPlacement[];
 
-function transformedFootprint({ position, yaw, scale, localBounds }: LandmarkPlacement): MapObstacle {
+function transformedFootprint(
+  { position, yaw, scale }: LandmarkPlacement,
+  localBounds: MapObstacle,
+): MapObstacle {
   const [positionX, positionZ] = position;
   const cosine = Math.cos(yaw);
   const sine = Math.sin(yaw);
@@ -50,22 +64,24 @@ function transformedFootprint({ position, yaw, scale, localBounds }: LandmarkPla
   };
 }
 
-// 这些地标是完整的街景样板，院落尚未设计成可进入区域，因此碰撞覆盖全部可见资产，
-// 避免角色穿过围墙、长椅或建筑附属构件。
-export const XINHUA_ROAD_OBSTACLES: MapObstacle[] = XINHUA_ROAD_LANDMARKS.map(transformedFootprint);
-export const XINHUA_ROAD_CAMERA_OBSTACLES: MapObstacle[] = [...XINHUA_ROAD_OBSTACLES];
+// 旧地标仍使用完整包络；新增园区和微空间按建筑、墙体或水池拆分碰撞，
+// 保留口袋公园路径、社区草坪、园区广场和牌坊中门的可步行性。
+export const XINHUA_ROAD_OBSTACLES: MapObstacle[] = XINHUA_ROAD_LANDMARKS.flatMap(
+  (landmark) => (landmark.localObstacles ?? [landmark.localBounds]).map(
+    (localObstacle) => transformedFootprint(landmark, localObstacle),
+  ),
+);
+const XINHUA_ROAD_MODEL_FOOTPRINTS: MapObstacle[] = XINHUA_ROAD_LANDMARKS.map(
+  (landmark) => transformedFootprint(landmark, landmark.localBounds),
+);
+// 人物仍被建筑阻挡，但第三人称摄像机把街景地标视为透明层。
+// 这样人物贴近门面转动视角时，镜头可以短暂穿过建筑，而不会被锁在门前。
+export const XINHUA_ROAD_CAMERA_OBSTACLES = XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES as MapObstacle[];
 export const XINHUA_ROAD_START_PRESETS = Object.fromEntries(
-  XINHUA_ROAD_LANDMARKS.map(({ query, start, forward }) => [query, { position: start, forward }]),
+  XINHUA_ROAD_LANDMARKS.flatMap(({ query, aliases = [], start, forward }) => (
+    [query, ...aliases].map((preset) => [preset, { position: start, forward }])
+  )),
 ) as Record<string, { position: MapPolygonPoint; forward: MapPolygonPoint }>;
-
-const XINHUA_ROAD_AXIS: readonly MapPolygonPoint[] = [
-  [-144.9257, 22.4335],
-  [-88.5458, 44.2631],
-  [55.7046, 102.2229],
-  [171.4336, 151.3149],
-];
-
-const TREE_CLEARANCES: readonly MapPolygonPoint[] = XINHUA_ROAD_LANDMARKS.map(({ start }) => start);
 
 type TreePlacement = {
   id: string;
@@ -75,65 +91,10 @@ type TreePlacement = {
   scale: number;
 };
 
-function polylineLength(points: readonly MapPolygonPoint[]) {
-  let length = 0;
-  for (let index = 1; index < points.length; index += 1) {
-    length += Math.hypot(points[index][0] - points[index - 1][0], points[index][1] - points[index - 1][1]);
-  }
-  return length;
-}
-
-function samplePolyline(points: readonly MapPolygonPoint[], distance: number) {
-  let remaining = distance;
-  for (let index = 1; index < points.length; index += 1) {
-    const start = points[index - 1];
-    const end = points[index];
-    const dx = end[0] - start[0];
-    const dz = end[1] - start[1];
-    const length = Math.hypot(dx, dz);
-    if (remaining <= length) {
-      const ratio = remaining / length;
-      return {
-        point: [start[0] + dx * ratio, start[1] + dz * ratio] as MapPolygonPoint,
-        tangent: [dx / length, dz / length] as MapPolygonPoint,
-      };
-    }
-    remaining -= length;
-  }
-  const last = points.at(-1) ?? [0, 0];
-  return { point: [...last] as MapPolygonPoint, tangent: [1, 0] as MapPolygonPoint };
-}
-
-function buildPlaneTreePlacements(): TreePlacement[] {
-  const placements: TreePlacement[] = [];
-  const spacing = 14.5;
-  const total = polylineLength(XINHUA_ROAD_AXIS);
-  const cycle: readonly (0 | 1 | 2)[] = [0, 1, 2, 1];
-  for (let side = 0; side < 2; side += 1) {
-    for (let distance = 7 + side * spacing * 0.5, index = 0; distance < total - 6; distance += spacing, index += 1) {
-      const { point, tangent } = samplePolyline(XINHUA_ROAD_AXIS, distance);
-      const sideSign = side === 0 ? 1 : -1;
-      const offset = 6.6 + ((index * 17 + side * 11) % 5) * 0.12;
-      const position: MapPolygonPoint = [
-        point[0] - tangent[1] * offset * sideSign,
-        point[1] + tangent[0] * offset * sideSign,
-      ];
-      // 入口不仅给角色留空，也给第三人称相机留出后退距离，避免树干遮住首屏。
-      const tooCloseToEntrance = TREE_CLEARANCES.some(([x, z]) => Math.hypot(position[0] - x, position[1] - z) < 9.2);
-      if (tooCloseToEntrance) continue;
-      placements.push({
-        id: `plane-tree-${side}-${index}`,
-        variant: cycle[(index + side * 2) % cycle.length],
-        position,
-        yaw: (index * 1.618 + side * 0.47) % (Math.PI * 2),
-        scale: 0.88 + ((index * 7 + side * 3) % 6) * 0.038,
-      });
-    }
-  }
-  return placements;
-}
-
-export const XINHUA_PLANE_TREE_PLACEMENTS = buildPlaneTreePlacements();
+export const XINHUA_PLANE_TREE_PLACEMENTS = buildPlaneTreePlacements(
+  XINHUA_ROAD_LANDMARKS,
+  XINHUA_ROAD_MODEL_FOOTPRINTS,
+) as unknown as TreePlacement[];
 
 function configureModel(model: Object3D) {
   model.traverse((child) => {
@@ -156,26 +117,24 @@ const TREE_MODELS = [
   "/models/xinhua-road/plane-tree-c.glb",
 ] as const;
 
-function InstancedPlaneTreeVariant({ variant }: { variant: 0 | 1 | 2 }) {
+function InstancedPlaneTreePart({
+  sourceMesh,
+  placements,
+  variant,
+  part,
+}: {
+  sourceMesh: Mesh;
+  placements: TreePlacement[];
+  variant: 0 | 1 | 2;
+  part: number;
+}) {
   const instanceRef = useRef<InstancedMesh>(null);
-  const { scene } = useGLTF(TREE_MODELS[variant]);
-  const sourceMesh = useMemo(() => {
-    let result: Mesh | null = null;
-    scene.traverse((child) => {
-      if (!result && child instanceof Mesh) result = child;
-    });
-    if (!result) throw new Error(`梧桐树模型缺少网格：${TREE_MODELS[variant]}`);
-    return result as Mesh;
-  }, [scene, variant]);
-  const placements = useMemo(
-    () => XINHUA_PLANE_TREE_PLACEMENTS.filter((placement) => placement.variant === variant),
-    [variant],
-  );
 
   useLayoutEffect(() => {
     const instances = instanceRef.current;
     if (!instances) return;
-    const matrix = new Matrix4();
+    const placementMatrix = new Matrix4();
+    const instanceMatrix = new Matrix4();
     const quaternion = new Quaternion();
     const position = new Vector3();
     const scale = new Vector3();
@@ -187,22 +146,52 @@ function InstancedPlaneTreeVariant({ variant }: { variant: 0 | 1 | 2 }) {
       position.set(x, terrainHeightAt(x, z) + 0.08, -z);
       quaternion.setFromAxisAngle(up, -placement.yaw);
       scale.setScalar(placement.scale);
-      matrix.compose(position, quaternion, scale);
-      instances.setMatrixAt(index, matrix);
+      placementMatrix.compose(position, quaternion, scale);
+      instanceMatrix.multiplyMatrices(placementMatrix, sourceMesh.matrixWorld);
+      instances.setMatrixAt(index, instanceMatrix);
     });
     instances.instanceMatrix.needsUpdate = true;
     instances.computeBoundingSphere();
-  }, [placements]);
+  }, [placements, sourceMesh]);
+
+  return (
+    <instancedMesh
+      ref={instanceRef}
+      args={[sourceMesh.geometry, sourceMesh.material, placements.length]}
+      castShadow
+      receiveShadow
+      userData={{ vegetation: "xinhua-plane-tree", variant, part }}
+    />
+  );
+}
+
+function InstancedPlaneTreeVariant({ variant }: { variant: 0 | 1 | 2 }) {
+  const { scene } = useGLTF(TREE_MODELS[variant]);
+  const sourceMeshes = useMemo(() => {
+    const result: Mesh[] = [];
+    scene.updateMatrixWorld(true);
+    scene.traverse((child) => {
+      if (child instanceof Mesh) result.push(child);
+    });
+    if (result.length === 0) throw new Error(`梧桐树模型缺少网格：${TREE_MODELS[variant]}`);
+    return result;
+  }, [scene, variant]);
+  const placements = useMemo(
+    () => XINHUA_PLANE_TREE_PLACEMENTS.filter((placement) => placement.variant === variant),
+    [variant],
+  );
 
   return (
     <group scale={[1, 1, -1]}>
-      <instancedMesh
-        ref={instanceRef}
-        args={[sourceMesh.geometry, sourceMesh.material, placements.length]}
-        castShadow
-        receiveShadow
-        userData={{ vegetation: "xinhua-plane-tree", variant }}
-      />
+      {sourceMeshes.map((sourceMesh, part) => (
+        <InstancedPlaneTreePart
+          key={sourceMesh.uuid}
+          sourceMesh={sourceMesh}
+          placements={placements}
+          variant={variant}
+          part={part}
+        />
+      ))}
     </group>
   );
 }
@@ -222,16 +211,45 @@ export function XinhuaRoadLandmarks() {
     <group name="xinhua-road-photo-reference-landmarks">
       {XINHUA_ROAD_LANDMARKS.map((landmark) => {
         const [x, z] = landmark.position;
+        const [labelOffsetX, labelOffsetZ] = landmark.labelOffset ?? [0, 0];
         const y = terrainHeightAt(x, z) + 0.1;
         return (
           <group
             key={landmark.id}
             name={landmark.id}
-            userData={{ landmark: landmark.id, address: landmark.address, modeling: "photo-reference-blender-glb" }}
+            userData={{
+              landmark: landmark.id,
+              address: landmark.address,
+              positioning: landmark.positioning,
+              modeling: "photo-reference-blender-glb",
+            }}
           >
             <group position={[x, y, z]} rotation-y={landmark.yaw} scale={landmark.scale}>
-              <GlbModel path={landmark.model} />
+              <GlbModel
+                path={landmark.cacheVersion
+                  ? `${landmark.model}?v=${landmark.cacheVersion}`
+                  : landmark.model}
+              />
             </group>
+            {landmark.poi && (
+              <Html
+                center
+                position={[
+                  x + labelOffsetX,
+                  y + (landmark.labelHeight ?? 8),
+                  z + labelOffsetZ,
+                ]}
+                style={{ pointerEvents: "none" }}
+              >
+                <span
+                  className="map-road-label map-landmark-label"
+                  data-poi={landmark.id}
+                  data-poi-address={landmark.address}
+                >
+                  {landmark.name}
+                </span>
+              </Html>
+            )}
           </group>
         );
       })}

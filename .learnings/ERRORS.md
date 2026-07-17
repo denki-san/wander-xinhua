@@ -1,66 +1,67 @@
 # Errors
 
-## [ERR-20260717-034] shell_regex_quote_mismatch
+## [ERR-20260717-031] worktree_metadata_sandbox_cleanup
 
-**Logged**: 2026-07-17T17:18:00+08:00
+**Logged**: 2026-07-17T10:00:00+08:00
 **Priority**: low
 **Status**: resolved
 **Area**: tooling
 
 ### Summary
-抓取照片地址时，混合单双引号的正则表达式导致 zsh 解析失败。
+移除已合并 worktree 时，目录删除成功，但沙箱阻止清理 `.git/worktrees` 元数据。
 
 ### Error
 ```
-zsh:1: unmatched '
+error: failed to delete '.git/worktrees/dual-scale-map-navigation': Operation not permitted
 ```
 
 ### Context
-- 命令在单引号包裹的页面地址之后，又在正则中拼接转义单引号。
-- Shell 在执行 `curl | rg` 前即终止，未产生网络或文件副作用。
+- worktree 本身干净，分支提交与 `origin/main` 相同。
+- 命令执行后工作目录已不存在，Git 将该记录标为 `prunable`。
+- 本地 `main` 落后远端时，`git branch -d` 仍会按本地 `main` 判定“未合并”；确认功能分支与 `origin/main` 同 SHA 后才可删除本地引用。
 
 ### Suggested Fix
-正则整体使用双引号，只转义其中的双引号，不在同一参数中混合 shell 单引号。
+确认目录确实不存在后，使用已授权的 `git worktree prune` 清理元数据，再删除已合并的本地分支。
 
 ### Metadata
 - Reproducible: yes
-- Related Files: docs/research/huashan-green-reference.md
+- Related Files: .git/worktrees/dual-scale-map-navigation
 
 ### Resolution
-- **Resolved**: 2026-07-17T17:18:00+08:00
-- **Notes**: 改用单一双引号正则后命令可执行，并通过官方页面补齐照片地址。
+- **Resolved**: 2026-07-17T10:00:00+08:00
+- **Notes**: 通过提权执行 Git 元数据清理；确认功能分支与 `origin/main` 同 SHA 后删除本地分支引用。
 
 ---
 
-## [ERR-20260717-033] multi_file_patch_context_mismatch
+## [ERR-20260717-030] sites_tool_name_in_exec
 
-**Logged**: 2026-07-17T16:46:56+08:00
+**Logged**: 2026-07-17T09:45:00+08:00
 **Priority**: low
 **Status**: resolved
 **Area**: tooling
 
 ### Summary
-一次多文件补丁因学习日志顶部上下文假设错误而整体未应用。
+用 `functions.exec` 编排 Sites 查询时，根据展示名称拼接出的嵌套工具名不存在。
 
 ### Error
 ```
-apply_patch verification failed: Failed to find expected lines in .learnings/LEARNINGS.md
+TypeError: tools.mcp__codex_apps__sites___get_site is not a function
 ```
 
 ### Context
-- 补丁假设 `LRN-20260717-006` 紧邻文件标题，实际中间还有一条前一日记录。
-- 同一次补丁还包含源码和测试改动，因此上下文失配导致整批改动均未落盘。
+- `tool_search` 返回的连接器命名空间与 `functions.exec` 中的嵌套名称不保证能直接按字符串推导。
+- 查询为只读操作，没有触发保存版本或生产部署。
 
 ### Suggested Fix
-先读取目标文件的准确邻接上下文；将源码、测试和日志分成较小补丁应用。
+Sites 工具发现后优先直接调用已暴露的连接器工具；若需编排，先从 `ALL_TOOLS` 读取精确名称。
 
 ### Metadata
 - Reproducible: yes
-- Related Files: .learnings/LEARNINGS.md, app/scene/xinhua-world.tsx
+- Related Files: .openai/hosting.json
 
 ### Resolution
-- **Resolved**: 2026-07-17T16:46:56+08:00
-- **Notes**: 读取准确上下文后拆分补丁，源码、测试与日志均已成功更新。
+- **Resolved**: 2026-07-17T09:45:00+08:00
+- **Notes**: 改为直接调用 Sites 连接器查询站点与版本状态。
 
 ---
 
@@ -96,102 +97,6 @@ Unknown device: iPhone 15 Pro
 - **Notes**: 改用 `iPhone 15` 后完成 393×852、DPR 3 的 180 帧采样；页面无错误且稳定 60 FPS。
 
 ---
-## [ERR-20260717-032] react_ref_read_during_render
-
-**Logged**: 2026-07-17T00:00:00+08:00
-**Priority**: medium
-**Status**: resolved
-**Area**: frontend
-
-### Summary
-双尺度模式首次 lint 时发现 JSX 属性在渲染阶段读取 `playerPosition.current`，违反 React refs 规则。
-
-### Error
-```
-Error: Cannot access refs during render
-overviewStartPosition={playerPosition.current}
-```
-
-### Context
-- 连续人物位置适合保存在 ref 中，避免每帧触发重渲染。
-- 全览组件只需要切换瞬间的位置快照，不应在 render 中直接读取 ref。
-
-### Suggested Fix
-保留 ref 接收高频位置更新，并在“查看全览”事件处理器中把当前值复制到 state，渲染时只读取该 state。
-
-### Metadata
-- Reproducible: yes
-- Related Files: app/xinhua-experience.tsx
-
-### Resolution
-- **Resolved**: 2026-07-17T00:00:00+08:00
-- **Notes**: 新增 `overviewStartPosition` state，并在模式切换事件中同步 ref 快照。
-
----
-## [ERR-20260717-031] dual_scale_test_contract_and_json_import
-
-**Logged**: 2026-07-17T00:00:00+08:00
-**Priority**: low
-**Status**: resolved
-**Area**: tests
-
-### Summary
-首次完整测试中，两条旧源码契约仍匹配单一 `playing` 状态，新测试直接导入含 JSON 依赖的 TypeScript 模块时缺少 Node JSON import attribute。
-
-### Error
-```
-AssertionError: The input did not match /\{playing && .../
-TypeError [ERR_IMPORT_ATTRIBUTE_MISSING]: Module needs an import attribute of "type: json"
-```
-
-### Context
-- 场景状态已经从 `playing` 拆成 `intro`、`overview`、`explore`，雾效和角色挂载只属于 `explore`。
-- Vite 能处理无 attribute 的 JSON 导入，但 Node 25 的直接 ESM 测试要求显式 `with { type: "json" }`。
-
-### Suggested Fix
-更新旧测试，使其验证新的三状态语义；为会被 Node 直接导入的模块补充 JSON import attribute。
-
-### Metadata
-- Reproducible: yes
-- Related Files: app/scene/poi-data.ts, tests/test_controls.test.mjs, tests/test_dual_scale_navigation.test.mjs
-
-### Resolution
-- **Resolved**: 2026-07-17T00:00:00+08:00
-- **Notes**: 已更新状态契约断言并为 POI 数据模块添加 JSON import attribute。
-- **Recurrence**: 2026-07-17 再次因移动临时变量从 `displacement` 改名为 `scratchDisplacement` 导致源码契约失配；已同步断言，并保留实际屏幕投影行为测试作为主要保障。
-
----
-## [ERR-20260717-030] json_shape_assumption_in_probe
-
-**Logged**: 2026-07-17T00:00:00+08:00
-**Priority**: low
-**Status**: resolved
-**Area**: tooling
-
-### Summary
-一次性 Node 数据探查脚本假定三个 JSON 文件拥有相同顶层结构，读取首个对象型文件时对 `undefined` 调用了 `slice`。
-
-### Error
-```
-TypeError: Cannot read properties of undefined (reading 'slice')
-```
-
-### Context
-- `xinhua-landmarks-data.json` 的顶层是对象，不是数组，也没有统一的 `landmarks` 字段。
-- 探查命令同时读取多个不同用途的数据文件，却没有先分别输出其顶层类型和键名。
-
-### Suggested Fix
-先按文件输出 `Array.isArray` 和 `Object.keys`，再依据每个文件的真实结构读取样本；不要在通用探查表达式里假设共享 schema。
-
-### Metadata
-- Reproducible: yes
-- Related Files: app/scene/xinhua-landmarks-data.json, app/scene/xinhua-road-landmarks-data.json, app/scene/xinhua-map-data.json
-
-### Resolution
-- **Resolved**: 2026-07-17T00:00:00+08:00
-- **Notes**: 后续探查改为逐文件识别 schema，再读取对应字段。
-
----
 
 ## [ERR-20260717-028] git_index_write_sandbox_permission
 
@@ -222,7 +127,6 @@ fatal: Unable to create '.git/index.lock': Operation not permitted
 ### Resolution
 - **Resolved**: 2026-07-17T09:15:39+08:00
 - **Notes**: 沿已批准的 `git add` 前缀重试成功，提交范围不变。
-- **Recurrence**: 2026-07-17 双尺度地图分支首次暂存时再次遇到 worktree `index.lock` 权限限制；继续使用精确文件列表在沙箱外重试。
 
 ---
 
@@ -262,7 +166,7 @@ agent-browser screenshot reached the 10 second yield without creating the target
 
 **Logged**: 2026-07-16T17:50:00+08:00
 **Priority**: low
-**Status**: in_progress
+**Status**: resolved
 **Area**: frontend
 
 ### Summary
@@ -352,7 +256,7 @@ write_stdin failed: Unknown process id 37575
 ### Resolution
 - **Resolved**: 2026-07-17T08:01:00+08:00
 - **Notes**: 改用 Terminal 承载的静态预览脚本，先构建再由系统 Python HTTP server 固定托管在 127.0.0.1:3002；浏览器打开后持续复查仍为 HTTP 200。
-- **Recurrence**: 2026-07-17 双尺度地图预览再次确认统一执行会话中的 Vinext 地址无法从宿主机访问；改用 Terminal 承载 `dist-static`，在独立端口 3003 返回 HTTP 200 且资源哈希与目标 worktree 一致。
+- **Recurrence**: 2026-07-17T15:24:00+08:00 完成二次构建和浏览器验收后，Terminal 预览进程曾退出；交付前重新启动脚本并再次确认带查询参数页面返回 HTTP 200。
 
 ---
 ## [ERR-20260717-024] vinext_localhost_ipv6_binding
@@ -1552,7 +1456,7 @@ URL 始终加单引号；使用绝对二进制路径；浏览器命令按 skill/
 ### Resolution
 - **Resolved**: 2026-07-16T20:43:00+08:00
 - **Notes**: 后续全部使用绝对路径和正确顶级命令；关闭冗余 WebGL 会话后，干净手机会话华山绿地 5 秒采样达到 60 FPS，浏览器错误为空。
-- **Recurrence**: 2026-07-17 两次复查本地预览时遗漏 URL 引号；均在发现后改用单引号重试成功。后续所有带查询参数的本地 URL 必须直接使用单引号模板。
+- **Recurrence**: 2026-07-17 三次复查本地预览时遗漏 URL 引号；均在发现后改用单引号重试成功。后续所有带查询参数的本地 URL 必须直接使用单引号模板。
 
 ---
 ## [ERR-20260716-023] stale_xingfuli_obstacle_source_contract
@@ -1584,5 +1488,265 @@ The input did not match the regular expression /\.\.\.XINGFULI_OBSTACLES/
 ### Resolution
 - **Resolved**: 2026-07-16T20:47:00+08:00
 - **Notes**: 已更新源码契约断言，并保留幸福里碰撞变换链路验证。
+
+---
+
+## [ERR-20260717-027] browser_statsig_initialize_timeout
+
+**Logged**: 2026-07-17T15:36:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+接管本地测试页时，浏览器控制组件的 Statsig 初始化请求超时，但目标页面仍正常加载。
+
+### Error
+```
+[Statsig] A networking error occurred during POST request to https://ab.chatgpt.com/v1/initialize
+Timeout of 10000ms expired
+```
+
+### Context
+- 目标是 `http://127.0.0.1:3002/?start=house315`。
+- DOM、WebGL 场景和页面控制台均正常，错误来自浏览器控制组件而非项目代码。
+
+### Suggested Fix
+把该错误与页面 `tab.dev.logs()` 分开判断；只要本地页面加载、交互和项目控制台正常，不应把 Statsig 超时归因于应用。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: none
+
+### Resolution
+- **Resolved**: 2026-07-17T15:36:00+08:00
+- **Notes**: 继续完成页面点击、视角旋转和截图，项目错误日志为空。
+
+---
+
+## [ERR-20260717-028] sandbox_dns_blocks_reference_download
+
+**Logged**: 2026-07-17T16:10:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: docs
+
+### Summary
+本地沙箱中的 `curl` 无法解析外部参考站点域名，不能直接批量下载地标照片页。
+
+### Error
+```
+curl: (6) Could not resolve host
+```
+
+### Context
+- 目标是为真实建筑制作“公开照片与系统同角度截图”对照表。
+- CGTN、上海长宁、澎湃、上观、gooood 等多个域名均出现同样的 DNS 限制。
+- 已创建的 `test_*.html` 空占位文件按爬取数据保留规则不删除。
+
+### Suggested Fix
+外部资料检索改用已联网的 Web 通道；如仍需落地原图，再对明确的单张图片 URL 申请受控网络下载。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/test_landmark_comparison_sources/
+
+### Resolution
+- **Resolved**: 2026-07-17T16:10:00+08:00
+- **Notes**: 改用 Web 检索和页面图片链接提取，项目本地服务继续由浏览器直接验证。
+
+---
+
+## [ERR-20260717-029] query_only_navigation_keeps_old_start_camera
+
+**Logged**: 2026-07-17T16:28:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: test
+
+### Summary
+批量切换 `?start=` 查询参数时，React 保留上一场景的相机状态，导致不同文件出现重复截图。
+
+### Error
+```
+不同地标截图出现相同 SHA-1，URL 虽已变化但画面仍沿用上一入口。
+```
+
+### Context
+- `requestedStartPreset()` 的结果被组件 `useMemo` 保留。
+- 仅导航到同一路径的新查询参数不足以保证游玩组件重新挂载。
+- 开场动画结束与 3D 游玩态完成也不能只用固定等待时间判断。
+
+### Suggested Fix
+每栋建筑截图前执行整页重载；看到“开始闲逛”后点击，并以“查看操作说明”按钮出现作为游玩态完成信号，再调整相机和保存截图。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-world.tsx, docs/research/assets/landmark-comparison/
+
+### Resolution
+- **Resolved**: 2026-07-17T16:28:00+08:00
+- **Notes**: 9 个入口均按整页重载和 UI 状态门槛重新采集，最终截图尺寸统一为 1280 × 720 且 SHA-1 全部不同。
+
+---
+
+## [ERR-20260717-031] nominatim_missing_micro_space
+
+**Logged**: 2026-07-17T17:05:00+08:00
+**Priority**: low
+**Status**: in_progress
+**Area**: docs
+
+### Summary
+Nominatim 无法按名称或门牌直接定位新华路口袋公园这类弄堂级微空间。
+
+### Error
+```
+Error: 无法定位：新华路口袋公园
+```
+
+### Context
+- `scripts/test_fetch_requested_pois.mjs` 先搜索“新华路口袋公园 上海”，再搜索“新华路359号 上海”，均返回空结果。
+- 设计方资料已确认公园位于新华路359号青年中心旁，但该微空间没有独立 OSM/Nominatim 条目。
+
+### Suggested Fix
+为缺少标准地图条目的微空间配置经来源验证的回退坐标；用周边道路、相邻建筑和现场照片校核，且在快照中明确标记 `inferred: true`，不伪装成地理编码直接命中。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/test_fetch_requested_pois.mjs, docs/research/requested-poi-model-brief.md
+
+### Resolution
+- **Resolved**: 2026-07-17T18:38:48+08:00
+- **Notes**: 脚本先用街区级 OSM 精确条目定位，再对缺少条目的三处使用带 `evidence` 与 `inferred: true` 的路网投影坐标，成功生成新的快照文件。
+
+---
+
+## [ERR-20260717-032] overpass_rate_limit_on_sequential_radius_queries
+
+**Logged**: 2026-07-17T18:35:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: docs
+
+### Summary
+对五个地点连续发送半径查询时，Overpass 主节点返回 429。
+
+### Error
+```
+Error: 429 Too Many Requests: https://overpass-api.de/api/interpreter
+```
+
+### Context
+- 原脚本完成一次街区种子查询后，又为每个地点分别请求一次周边数据。
+- 快速连续请求容易触发公共 Overpass 节点限流。
+
+### Suggested Fix
+把所有地点的半径选择器合并为一次批量查询，并配置第二个公共节点作为只读备用端点。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/test_fetch_requested_pois.mjs
+
+### Resolution
+- **Resolved**: 2026-07-17T18:38:48+08:00
+- **Notes**: 改为一次种子查询加一次整批周边查询；成功写入 `requested-pois-osm-20260717-103840.json`。
+
+---
+## [ERR-20260717-033] in_app_browser_screenshot
+
+**Logged**: 2026-07-17T19:10:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+道路回退后本地 WebGL 页面可进入，但应用内浏览器连续两次截取当前画面超时。
+
+### Error
+```
+Timed out running CDP command "Page.captureScreenshot"
+```
+
+### Context
+- 已重新构建静态产物并刷新 `http://127.0.0.1:3002/?start=cinema`
+- DOM 显示场景与“开始闲逛”按钮正常，点击后仅截图命令超时
+- 同时工作区新增了多处 POI 模型，页面首次加载和 GPU 截图负担较之前更高
+
+### Suggested Fix
+后续视觉验收优先复用用户当前可见页面；若必须自动留图，使用新标签页或降低临时视口后再截取，不把 CDP 截图超时误判为场景构建失败。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-map.tsx
+- See Also: ERR-20260717-029
+
+### Resolution
+- **Resolved**: 2026-07-17T19:27:00+08:00
+- **Notes**: 改用真实 Chrome 会话逐页重载；点击进入游玩态后等待 GPU 再稳定 2.5 秒才保存截图，六处 POI 均成功留图。WebGL 首帧偶发黑块属于截图过早，稳定后消失。
+
+---
+
+## [ERR-20260717-034] blender_metal_crash_in_sandbox
+
+**Logged**: 2026-07-17T18:46:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Blender 在受限沙箱中后台导出时触发 Metal 初始化崩溃，无法生成 GLB、Blend 和固定机位预览。
+
+### Error
+```
+Segmentation fault
+```
+
+### Context
+- 任务需要用同一生成器保留运行时 GLB、可编辑 Blend 与预览图。
+- Blender 即使使用 `--background` 仍会初始化本机图形栈。
+
+### Suggested Fix
+在用户批准后，通过受控命令前缀于沙箱外运行 Blender；仍使用 `--background --python`，不打开交互窗口。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_requested_poi_models.py
+
+### Resolution
+- **Resolved**: 2026-07-17T19:19:20+08:00
+- **Notes**: 使用获批的 `/opt/homebrew/bin/blender --background --python` 成功重导出资产，并通过 GLB 审计。
+
+---
+
+## [ERR-20260717-035] chrome_locator_detached_during_webgl_loading
+
+**Logged**: 2026-07-17T19:07:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+批量导航 WebGL 入口时，加载页切换导致“开始闲逛”按钮 locator 失效。
+
+### Error
+```
+Element is not attached
+```
+
+### Context
+- 同一标签页连续切换多个 `?start=` 参数。
+- 3D 资源加载完成时，欢迎界面按钮会重新挂载。
+
+### Suggested Fix
+每次导航后先等待完整页面状态，用 DOM 快照确认“开始闲逛”出现，再创建新的 locator 并点击；截图前额外等待渲染稳定。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/test_runtime_*.png
+
+### Resolution
+- **Resolved**: 2026-07-17T19:27:00+08:00
+- **Notes**: 改为逐入口加载、确认、点击和保存，最终生成六张不同的运行时验收截图。
 
 ---

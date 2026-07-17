@@ -25,7 +25,6 @@ import {
   useRef,
 } from "react";
 import { inputState, resetInput } from "./input";
-import { MAP_POIS, nearestMapPoi } from "./poi-data";
 import {
   HuashanGreenBlock,
   HUASHAN_GREEN_CAMERA_OBSTACLES,
@@ -63,14 +62,12 @@ import {
   type MapObstacle,
   type MapPolygonPoint,
   resolvePolygonMovement,
-  screenInputToPlanarMove,
   transformMapObstacle,
   transformMapPoint,
 } from "./world-math";
 
 const WORLD_UP = new Vector3(0, 1, 0);
 const INTRO_CAMERA_DIRECTION = new Vector3(126, 142, 138).normalize();
-const OVERVIEW_CAMERA_DIRECTION = new Vector3(1, 1.18, 1).normalize();
 const INTRO_MAP_RADIUS = Math.hypot(
   (XINHUA_BOUNDS.maxX - XINHUA_BOUNDS.minX) / 2,
   (XINHUA_BOUNDS.maxZ - XINHUA_BOUNDS.minZ) / 2,
@@ -89,11 +86,6 @@ const CAMERA_FALLBACK_YAWS = [Math.PI / 2, -Math.PI / 2, Math.PI / 4, -Math.PI /
 const CAMERA_FALLBACK_RADII = [4.2, 3.2, 2.4, 1.5, 0.8, 0.4];
 const CAMERA_DEFAULT_PITCH = CAMERA_HEIGHT / Math.hypot(CAMERA_DISTANCE, CAMERA_HEIGHT);
 const PLAYER_RADIUS = 0.48;
-export const DETAIL_WORLD_SCALE = 1.65;
-const OVERVIEW_CHARACTER_SCALE = 22;
-const OVERVIEW_MOVE_SPEED = 108;
-const OVERVIEW_POI_DISTANCE = 42;
-const OVERVIEW_CAMERA_FILL = 0.24;
 const BASE_XINGFULI_VERTICAL_SCALE = 0.3;
 const XINGFULI_SURFACE_LOCAL_Y = 0.26;
 const XINGFULI_OSM_POSITION: MapPolygonPoint = [
@@ -176,10 +168,10 @@ type StartPreset = {
   forward: Vector3;
 };
 
-function requestedStartPreset(requestedName?: string): StartPreset {
-  const name = requestedName ?? (typeof window === "undefined"
+function requestedStartPreset(): StartPreset {
+  const name = typeof window === "undefined"
     ? ""
-    : new URLSearchParams(window.location.search).get("start"));
+    : new URLSearchParams(window.location.search).get("start");
   if (name === "huashan") {
     return {
       position: HUASHAN_START_POSITION.clone(),
@@ -338,15 +330,9 @@ function ActionInstallation({ onOpenAction }: { onOpenAction: () => void }) {
   );
 }
 
-function FlatNeighborhood({
-  onOpenAction,
-  detailScale = 1,
-}: {
-  onOpenAction: () => void;
-  detailScale?: number;
-}) {
+function FlatNeighborhood({ onOpenAction }: { onOpenAction: () => void }) {
   return (
-    <group scale={[detailScale, detailScale, detailScale]}>
+    <group>
       <XinhuaStreetMap />
       <group
         position={[XINGFULI_POSITION[0], XINGFULI_BASE_Y, XINGFULI_POSITION[1]]}
@@ -579,13 +565,7 @@ function CharacterLeg({
   );
 }
 
-function MessengerCharacter({
-  outerRef,
-  scale = 1,
-}: {
-  outerRef: RefObject<Group | null>;
-  scale?: number;
-}) {
+function MessengerCharacter({ outerRef }: { outerRef: RefObject<Group | null> }) {
   const leftArm = useRef<Group>(null);
   const rightArm = useRef<Group>(null);
   const leftLeg = useRef<Group>(null);
@@ -615,7 +595,7 @@ function MessengerCharacter({
   });
 
   return (
-    <group ref={outerRef} scale={scale}>
+    <group ref={outerRef}>
       <group ref={body} scale={0.9}>
         <CharacterTorso />
         <CharacterHead />
@@ -659,18 +639,10 @@ function useKeyboardControls() {
   }, []);
 }
 
-function PlayableMessenger({
-  onNearAction,
-  startPreset,
-  onPositionChange,
-}: {
-  onNearAction: (near: boolean) => void;
-  startPreset?: string;
-  onPositionChange: (position: readonly [number, number]) => void;
-}) {
+function PlayableMessenger({ onNearAction }: { onNearAction: (near: boolean) => void }) {
   const { camera, gl } = useThree();
   const outer = useRef<Group>(null);
-  const initialStart = useMemo(() => requestedStartPreset(startPreset), [startPreset]);
+  const initialStart = useMemo(() => requestedStartPreset(), []);
   const initialForward = useMemo(() => initialStart.forward.clone(), [initialStart]);
   const initialCameraOffset = useMemo(
     () => initialForward.clone().multiplyScalar(-CAMERA_DISTANCE).addScaledVector(WORLD_UP, CAMERA_HEIGHT),
@@ -693,23 +665,20 @@ function PlayableMessenger({
   const zoom = useRef(initialCameraOffset.length());
   const wasNear = useRef(false);
   const onNearRef = useRef(onNearAction);
-  const onPositionRef = useRef(onPositionChange);
-  const positionReportElapsed = useRef(0);
   useKeyboardControls();
 
   useLayoutEffect(() => {
     const currentPosition = characterPosition.current;
     const surfaceHeight = terrainHeightAt(currentPosition.x, currentPosition.z);
-    const scaledSurfaceHeight = surfaceHeight * DETAIL_WORLD_SCALE;
     const cameraBase = new Vector3(
-      currentPosition.x * DETAIL_WORLD_SCALE,
-      scaledSurfaceHeight + 0.33,
-      currentPosition.z * DETAIL_WORLD_SCALE,
+      currentPosition.x,
+      surfaceHeight + 0.33,
+      currentPosition.z,
     );
     const cameraTarget = new Vector3(
-      currentPosition.x * DETAIL_WORLD_SCALE,
-      scaledSurfaceHeight + 1.68,
-      currentPosition.z * DETAIL_WORLD_SCALE,
+      currentPosition.x,
+      surfaceHeight + 1.68,
+      currentPosition.z,
     );
 
     // 首页相机离街区很远。进入游玩态时先同步切到角色身后，保证新建的游戏
@@ -717,20 +686,11 @@ function PlayableMessenger({
     camera.position.copy(cameraBase).add(cameraOffset.current);
     camera.up.copy(WORLD_UP);
     camera.lookAt(cameraTarget);
-    onPositionRef.current([currentPosition.x, currentPosition.z]);
   }, [camera]);
 
   useEffect(() => {
     onNearRef.current = onNearAction;
   }, [onNearAction]);
-
-  useEffect(() => {
-    onPositionRef.current = onPositionChange;
-  }, [onPositionChange]);
-
-  useEffect(() => () => {
-    onPositionRef.current([characterPosition.current.x, characterPosition.current.z]);
-  }, []);
 
   const scratch = useMemo(() => ({
     quaternion: new Quaternion(),
@@ -947,44 +907,37 @@ function PlayableMessenger({
     }
 
     const surfaceHeight = terrainHeightAt(currentPosition.x, currentPosition.z);
-    const scaledSurfaceHeight = surfaceHeight * DETAIL_WORLD_SCALE;
     if (outer.current) {
       outer.current.position.set(
-        currentPosition.x * DETAIL_WORLD_SCALE,
-        scaledSurfaceHeight + 0.33 + jumpHeight.current,
-        currentPosition.z * DETAIL_WORLD_SCALE,
+        currentPosition.x,
+        surfaceHeight + 0.33 + jumpHeight.current,
+        currentPosition.z,
       );
       s.right.copy(WORLD_UP).cross(currentForward).normalize();
       s.basis.makeBasis(s.right, WORLD_UP, currentForward);
       outer.current.quaternion.setFromRotationMatrix(s.basis);
     }
 
-    s.cameraTarget.set(
-      currentPosition.x * DETAIL_WORLD_SCALE,
-      scaledSurfaceHeight + 1.68 + jumpHeight.current,
-      currentPosition.z * DETAIL_WORLD_SCALE,
-    );
-    s.cameraBase.set(
-      currentPosition.x * DETAIL_WORLD_SCALE,
-      scaledSurfaceHeight + 0.33 + jumpHeight.current,
-      currentPosition.z * DETAIL_WORLD_SCALE,
-    );
+    s.cameraTarget.set(currentPosition.x, surfaceHeight + 1.68 + jumpHeight.current, currentPosition.z);
+    s.cameraBase.set(currentPosition.x, surfaceHeight + 0.33 + jumpHeight.current, currentPosition.z);
     s.cameraPosition.copy(s.cameraBase).add(cameraOffset.current);
-    // 相机绕转经过建筑或地图边缘时沿视线向角色收近，避免穿墙和看到边界外。
+    // Spring Arm 遇到硬碰撞层时沿视线向角色收近；街景建筑使用独立透明层，
+    // 人物贴近门面转动视角时镜头可以穿过，人物本身仍不能穿墙。
     let cameraClear = false;
-    for (let scale = 1; scale >= 0.28; scale -= 0.08) {
+    for (let step = 0; step <= 16; step += 1) {
+      const scale = Math.max(0.06, 1 - step * 0.06);
       s.cameraPosition.copy(s.cameraBase).addScaledVector(cameraOffset.current, scale);
       if (!isPlanarPositionBlockedInPolygon(
-        s.cameraPosition.x / DETAIL_WORLD_SCALE,
-        s.cameraPosition.z / DETAIL_WORLD_SCALE,
+        s.cameraPosition.x,
+        s.cameraPosition.z,
         XINHUA_BOUNDARY,
         WORLD_CAMERA_OBSTACLES,
         0.25,
       ) && !isPlanarSightLineBlockedInPolygon(
         currentPosition.x,
         currentPosition.z,
-        s.cameraPosition.x / DETAIL_WORLD_SCALE,
-        s.cameraPosition.z / DETAIL_WORLD_SCALE,
+        s.cameraPosition.x,
+        s.cameraPosition.z,
         XINHUA_BOUNDARY,
         WORLD_CAMERA_OBSTACLES,
         0.18,
@@ -1004,16 +957,16 @@ function PlayableMessenger({
             .addScaledVector(s.fallbackDirection, radius)
             .addScaledVector(WORLD_UP, CAMERA_FALLBACK_HEIGHT);
           if (!isPlanarPositionBlockedInPolygon(
-            s.cameraPosition.x / DETAIL_WORLD_SCALE,
-            s.cameraPosition.z / DETAIL_WORLD_SCALE,
+            s.cameraPosition.x,
+            s.cameraPosition.z,
             XINHUA_BOUNDARY,
             WORLD_CAMERA_OBSTACLES,
             0.18,
           ) && !isPlanarSightLineBlockedInPolygon(
             currentPosition.x,
             currentPosition.z,
-            s.cameraPosition.x / DETAIL_WORLD_SCALE,
-            s.cameraPosition.z / DETAIL_WORLD_SCALE,
+            s.cameraPosition.x,
+            s.cameraPosition.z,
             XINHUA_BOUNDARY,
             WORLD_CAMERA_OBSTACLES,
             0.12,
@@ -1031,16 +984,16 @@ function PlayableMessenger({
       dampingFactor(CAMERA_POSITION_DAMPING, delta),
     );
     if (isPlanarPositionBlockedInPolygon(
-      s.cameraLerp.x / DETAIL_WORLD_SCALE,
-      s.cameraLerp.z / DETAIL_WORLD_SCALE,
+      s.cameraLerp.x,
+      s.cameraLerp.z,
       XINHUA_BOUNDARY,
       WORLD_CAMERA_OBSTACLES,
       0.25,
     ) || isPlanarSightLineBlockedInPolygon(
       currentPosition.x,
       currentPosition.z,
-      s.cameraLerp.x / DETAIL_WORLD_SCALE,
-      s.cameraLerp.z / DETAIL_WORLD_SCALE,
+      s.cameraLerp.x,
+      s.cameraLerp.z,
       XINHUA_BOUNDARY,
       WORLD_CAMERA_OBSTACLES,
       0.12,
@@ -1060,168 +1013,9 @@ function PlayableMessenger({
       wasNear.current = near;
       onNearRef.current(near);
     }
-    positionReportElapsed.current += delta;
-    if (positionReportElapsed.current >= 0.25) {
-      positionReportElapsed.current = 0;
-      onPositionRef.current([currentPosition.x, currentPosition.z]);
-    }
   });
 
   return <MessengerCharacter outerRef={outer} />;
-}
-
-function OverviewPoiMarkers({ nearPoiId }: { nearPoiId: string | null }) {
-  return (
-    <group data-overview-poi-count={MAP_POIS.length}>
-      {MAP_POIS.map((poi) => {
-        const near = poi.id === nearPoiId;
-        const [x, z] = poi.position;
-        const y = terrainHeightAt(x, z) + 1.1;
-        return (
-          <group key={poi.id} position={[x, y, z]} scale={near ? 1.18 : 1}>
-            <mesh rotation-x={Math.PI / 2}>
-              <torusGeometry args={[near ? 8.8 : 6.6, near ? 1.25 : 0.75, 10, 42]} />
-              <meshBasicMaterial color={near ? "#fff2a8" : "#c85f4c"} />
-            </mesh>
-            <mesh position={[0, 4.8, 0]}>
-              <coneGeometry args={[2.8, 7.2, 8]} />
-              <meshToonMaterial color={near ? "#efbd49" : "#c85f4c"} />
-            </mesh>
-            <Html center position={[0, 12.5, 0]} distanceFactor={180} transform sprite>
-              <span className={`overview-poi-label${near ? " is-near" : ""}`}>
-                {poi.name}
-              </span>
-            </Html>
-          </group>
-        );
-      })}
-    </group>
-  );
-}
-
-function OverviewMessenger({
-  initialPosition,
-  cameraFocus,
-  onNearPoi,
-  onPositionChange,
-}: {
-  initialPosition: readonly [number, number];
-  cameraFocus: RefObject<Vector3>;
-  onNearPoi: (poiId: string | null) => void;
-  onPositionChange: (position: readonly [number, number]) => void;
-}) {
-  const { camera } = useThree();
-  const outer = useRef<Group>(null);
-  const position = useRef(new Vector3(
-    initialPosition[0],
-    terrainHeightAt(initialPosition[0], initialPosition[1]) + 0.33,
-    initialPosition[1],
-  ));
-  const forward = useRef(new Vector3(-1, 0, -1).normalize());
-  const nearPoi = useRef<string | null>(null);
-  const onNearPoiRef = useRef(onNearPoi);
-  const onPositionRef = useRef(onPositionChange);
-  const scratchMove = useMemo(() => new Vector3(), []);
-  const scratchDisplacement = useMemo(() => new Vector3(), []);
-  const scratchBasis = useMemo(() => new Matrix4(), []);
-  const scratchRight = useMemo(() => new Vector3(), []);
-  useKeyboardControls();
-
-  useEffect(() => {
-    onNearPoiRef.current = onNearPoi;
-  }, [onNearPoi]);
-
-  useEffect(() => {
-    onPositionRef.current = onPositionChange;
-  }, [onPositionChange]);
-
-  useEffect(() => () => {
-    onPositionRef.current([position.current.x, position.current.z]);
-    onNearPoiRef.current(null);
-  }, []);
-
-  useFrame((_, rawDelta) => {
-    const delta = Math.min(rawDelta, 0.05);
-    const analogMagnitude = Math.hypot(inputState.moveX, inputState.moveY);
-    const usingAnalog = analogMagnitude > 0;
-    const z = usingAnalog
-      ? -inputState.moveY
-      : (inputState.forward ? 1 : 0) - (inputState.back ? 1 : 0);
-    const x = usingAnalog
-      ? inputState.moveX
-      : (inputState.right ? 1 : 0) - (inputState.left ? 1 : 0);
-    if (Math.hypot(x, z) > 1e-4) {
-      screenInputToPlanarMove(camera.matrixWorld, x, z, WORLD_UP, scratchMove);
-      const speed = OVERVIEW_MOVE_SPEED * (inputState.sprint ? 1.45 : 1)
-        * (usingAnalog ? analogMagnitude : 1);
-      scratchDisplacement.copy(scratchMove).multiplyScalar(speed * delta);
-      resolvePolygonMovement(
-        position.current,
-        scratchDisplacement,
-        XINHUA_BOUNDARY,
-        [],
-        PLAYER_RADIUS,
-        position.current,
-      );
-      dampTangentTowards(
-        forward.current,
-        scratchMove,
-        WORLD_UP,
-        CHARACTER_TURN_DAMPING,
-        delta,
-        forward.current,
-        CHARACTER_MAX_TURN_SPEED,
-      );
-    }
-
-    position.current.y = terrainHeightAt(position.current.x, position.current.z) + 0.33;
-    cameraFocus.current.copy(position.current);
-    if (outer.current) {
-      outer.current.position.copy(position.current);
-      scratchRight.copy(WORLD_UP).cross(forward.current).normalize();
-      scratchBasis.makeBasis(scratchRight, WORLD_UP, forward.current);
-      outer.current.quaternion.setFromRotationMatrix(scratchBasis);
-    }
-
-    const closestId = nearestMapPoi(
-      [position.current.x, position.current.z],
-      OVERVIEW_POI_DISTANCE,
-    )?.id ?? null;
-    if (closestId !== nearPoi.current) {
-      nearPoi.current = closestId;
-      onNearPoiRef.current(closestId);
-    }
-  });
-
-  return <MessengerCharacter outerRef={outer} scale={OVERVIEW_CHARACTER_SCALE} />;
-}
-
-function OverviewCamera({
-  active,
-  focus,
-}: {
-  active: boolean;
-  focus: RefObject<Vector3>;
-}) {
-  const { camera } = useThree();
-  const target = useMemo(() => new Vector3(0, 0, 0), []);
-  const desired = useMemo(() => new Vector3(), []);
-
-  useFrame(() => {
-    if (!active) return;
-    target.copy(focus.current);
-    const perspective = camera as PerspectiveCamera;
-    const verticalHalfFov = MathUtils.degToRad(perspective.fov / 2);
-    const horizontalHalfFov = Math.atan(Math.tan(verticalHalfFov) * perspective.aspect);
-    const fitDistance = INTRO_MAP_RADIUS * OVERVIEW_CAMERA_FILL
-      / Math.sin(Math.min(verticalHalfFov, horizontalHalfFov));
-    desired.copy(target).addScaledVector(OVERVIEW_CAMERA_DIRECTION, fitDistance);
-    camera.position.copy(desired);
-    camera.up.copy(WORLD_UP);
-    camera.lookAt(target);
-  });
-
-  return null;
 }
 
 export function IntroCamera({ active = true }: { active?: boolean }) {
@@ -1269,49 +1063,23 @@ export function IntroCamera({ active = true }: { active?: boolean }) {
 }
 
 export function XinhuaWorld({
-  mode,
+  playing,
   onNearAction,
   onOpenAction,
-  nearPoiId,
-  overviewStartPosition,
-  destinationPreset,
-  onNearPoi,
-  onPositionChange,
 }: {
-  mode: "intro" | "overview" | "explore";
+  playing: boolean;
   onNearAction: (near: boolean) => void;
   onOpenAction: () => void;
-  nearPoiId: string | null;
-  overviewStartPosition: readonly [number, number];
-  destinationPreset?: string;
-  onNearPoi: (poiId: string | null) => void;
-  onPositionChange: (position: readonly [number, number]) => void;
 }) {
-  const exploring = mode === "explore";
-  const overview = mode === "overview";
-  const overviewCameraFocus = useRef(new Vector3(
-    overviewStartPosition[0],
-    terrainHeightAt(overviewStartPosition[0], overviewStartPosition[1]) + 0.33,
-    overviewStartPosition[1],
-  ));
   const shadowTarget = useMemo(() => {
     const target = new Object3D();
     target.position.copy(SHADOW_CENTER);
     return target;
   }, []);
 
-  useLayoutEffect(() => {
-    if (!overview) return;
-    overviewCameraFocus.current.set(
-      overviewStartPosition[0],
-      terrainHeightAt(overviewStartPosition[0], overviewStartPosition[1]) + 0.33,
-      overviewStartPosition[1],
-    );
-  }, [overview, overviewStartPosition]);
-
   return (
     <>
-      {exploring && (
+      {playing && (
         <fog attach="fog" args={[
           "#72b7b1",
           145 * XINHUA_ENVIRONMENT_SCALE,
@@ -1337,30 +1105,9 @@ export function XinhuaWorld({
         shadow-camera-bottom={-240}
         shadow-bias={-0.00025}
       />
-      <FlatNeighborhood
-        onOpenAction={onOpenAction}
-        detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
-      />
-      <IntroCamera active={mode === "intro"} />
-      {overview && (
-        <>
-          <OverviewPoiMarkers nearPoiId={nearPoiId} />
-          <OverviewMessenger
-            initialPosition={overviewStartPosition}
-            cameraFocus={overviewCameraFocus}
-            onNearPoi={onNearPoi}
-            onPositionChange={onPositionChange}
-          />
-        </>
-      )}
-      <OverviewCamera active={overview} focus={overviewCameraFocus} />
-      {exploring && (
-        <PlayableMessenger
-          onNearAction={onNearAction}
-          startPreset={destinationPreset}
-          onPositionChange={onPositionChange}
-        />
-      )}
+      <FlatNeighborhood onOpenAction={onOpenAction} />
+      <IntroCamera active={!playing} />
+      {playing && <PlayableMessenger onNearAction={onNearAction} />}
     </>
   );
 }

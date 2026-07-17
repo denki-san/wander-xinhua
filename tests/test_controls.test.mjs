@@ -96,7 +96,7 @@ test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", as
   assert.match(world, /prefers-reduced-motion: reduce/);
   assert.match(world, /const reducedMotion = useRef\(\s*typeof window !== "undefined"/s);
   assert.match(world, /reducedMotion\.current\) camera\.position\.copy\(desired\)/);
-  assert.match(world, /\{exploring && \(\s*<fog/s);
+  assert.match(world, /\{playing && \(\s*<fog/s);
   assert.match(experience, /far: 800 \* mapData\.meta\.environmentScale/);
   assert.match(experience, /const \[lowTier\] = useState\(detectLowTier\)/);
   assert.match(experience, /dpr=\{lowTier \? 1\.25 : \[1, 1\.75\]\}/);
@@ -138,10 +138,10 @@ test("进入游玩态时立即把相机从首页远景切到角色身后", async
   assert.match(world, /useLayoutEffect\(\(\) => \{/);
   assert.match(world, /camera\.position\.copy\(cameraBase\)\.add\(cameraOffset\.current\)/);
   assert.match(world, /camera\.lookAt\(cameraTarget\)/);
-  assert.match(world, /<IntroCamera active=\{mode === "intro"\} \/>/);
-  assert.match(world, /\{exploring && \(\s*<PlayableMessenger/s);
+  assert.match(world, /<IntroCamera active=\{!playing\} \/>/);
+  assert.match(world, /\{playing && <PlayableMessenger/);
   assert.match(world, /if \(!activeRef\.current\) return/);
-  assert.match(experience, /key=\{mode\}/);
+  assert.match(experience, /key=\{playing \? "playing" : "intro"\}/);
   assert.match(experience, /const composer = composerRef\.current/);
   assert.match(experience, /return \(\) => composer\?\.dispose\(\)/);
 });

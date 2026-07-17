@@ -1,61 +1,5 @@
 # Learnings
 
-## [LRN-20260717-008] correction
-
-**Logged**: 2026-07-17T17:03:57+08:00
-**Priority**: high
-**Status**: resolved
-**Area**: frontend
-
-### Summary
-从全览进入闲逛时，环境必须三轴等比放大，并为 `overview -> explore` 单独重建后处理合成器。
-
-### Details
-闲逛环境此前只放大 X/Z，建筑高度没有放大，人物相对建筑仍然过大。同时后处理合成器只区分 `intro` 和 `playing`，新增全览状态后，`overview` 与 `explore` 共用实例，切换时会把前一视图的法线轮廓缓冲带入闲逛首帧，形成错位的巨大线稿。
-
-### Suggested Action
-用统一比例缩放环境的 X/Y/Z，并同步人物、地形和镜头的世界高度；合成器以完整 `mode` 为 key，使三种视图各自获得干净的渲染缓冲。
-
-### Metadata
-- Source: user_feedback
-- Related Files: app/scene/xinhua-world.tsx, app/xinhua-experience.tsx, tests/test_dual_scale_navigation.test.mjs
-- Tags: detail-scale, postprocessing, normal-buffer, view-transition, character-proportion
-- See Also: LRN-20260717-007
-
-### Resolution
-- **Resolved**: 2026-07-17T17:03:57+08:00
-- **Notes**: 闲逛环境改为三轴等比缩放，人物和镜头高度同步，并按三种视图重建后处理。
-
----
-
-## [LRN-20260717-007] correction
-
-**Logged**: 2026-07-17T16:46:56+08:00
-**Priority**: high
-**Status**: resolved
-**Area**: frontend
-
-### Summary
-放大后的全览地图应采用角色中心跟随镜头，而不是让角色在固定镜头中从中心走向屏幕边缘。
-
-### Details
-用户期望人物的地图位置始终作为屏幕中心锚点；人物移动时，地图内容在镜头下平移。此前镜头固定看向地图原点，只实现了人物在地图上的移动，没有实现全览地图常见的中心跟随导航。
-
-### Suggested Action
-让全览人物与镜头共享同一个实时位置引用；每帧更新人物位置后，让固定斜视角镜头以该位置为目标点，保持缩放与朝向不变。
-
-### Metadata
-- Source: user_feedback
-- Related Files: app/scene/xinhua-world.tsx, tests/test_dual_scale_navigation.test.mjs
-- Tags: overview-map, camera-follow, player-centered, navigation
-- See Also: LRN-20260717-005, LRN-20260717-006
-
-### Resolution
-- **Resolved**: 2026-07-17T16:46:56+08:00
-- **Notes**: 全览人物位置已作为镜头实时焦点，并增加源码契约测试锁定中心跟随关系。
-
----
-
 ## [LRN-20260716-005] correction
 
 **Logged**: 2026-07-16T14:08:00+08:00
@@ -76,61 +20,6 @@ Kimi WebBridge 更新后不能把 daemon `status` 探针误报当成浏览器助
 - Source: user_feedback
 - Related Files: .learnings/ERRORS.md
 - Tags: kimi-webbridge, status-probe, browser-extension, verification
-
----
-
-## [LRN-20260717-006] correction
-
-**Logged**: 2026-07-17T16:38:00+08:00
-**Priority**: high
-**Status**: resolved
-**Area**: frontend
-
-### Summary
-固定俯视世界地图的移动输入必须绑定屏幕坐标，而不是人物朝向或写死的等距世界轴。
-
-### Details
-上一版用 `x - z`、`x + z` 把输入映射到假定的 45 度世界轴。即使人物会转身，按键方向仍可能和屏幕视觉方向不一致。用户明确要求地图上下左右就是自然的屏幕上下左右，不使用主角视角。
-
-### Suggested Action
-每帧从全览相机 `matrixWorld` 读取本地右轴和上轴，投影到地面后组合输入；用相机投影测试验证向上移动后的屏幕 Y 增大、向右移动后的屏幕 X 增大。
-
-### Metadata
-- Source: user_feedback
-- Related Files: app/scene/world-math.ts, app/scene/xinhua-world.tsx, tests/world-math.test.mjs
-- Tags: overview-map, screen-space-input, camera-relative, controls
-
-### Resolution
-- **Resolved**: 2026-07-17T16:38:00+08:00
-- **Notes**: 全览移动改为相机屏幕坐标映射，人物朝向只跟随最终移动方向。
-
----
-
-## [LRN-20260717-005] correction
-
-**Logged**: 2026-07-17T16:31:00+08:00
-**Priority**: high
-**Status**: resolved
-**Area**: frontend
-
-### Summary
-全览地图中的放大人物是导航化身，不应继承局部闲逛的建筑碰撞；全览镜头也不能为了完整包围边界而留下过多空白。
-
-### Details
-上一版将放大 22 倍的全览人物接入全部建筑障碍，人物出生在幸福里附近时会被大半径障碍卡住。全览镜头又使用行政边界外接圆加 12% 留白，导致地图在屏幕中明显偏小。用户明确要求该场景只限制行政边界，不需要建筑碰撞，并希望地图更大。
-
-### Suggested Action
-全览移动只向 `resolvePolygonMovement` 传行政边界和人物基础半径，障碍数组保持为空；全览相机使用独立填充系数拉近，不改变首页远景和局部闲逛镜头。
-
-### Metadata
-- Source: user_feedback
-- Related Files: app/scene/xinhua-world.tsx, tests/test_dual_scale_navigation.test.mjs
-- Tags: overview-map, collision, camera-framing, navigation-avatar
-
-### Resolution
-- **Resolved**: 2026-07-17T16:31:00+08:00
-- **Notes**: 全览模式取消建筑碰撞，仅保留行政边界；镜头填充系数调整为 0.72。
-- **Recurrence**: 2026-07-17 用户确认 0.72 仍然偏小，要求线性尺寸再放大三倍试看；镜头填充系数进一步改为 0.24，允许地图超出单屏以优先确认目标视觉尺度。
 
 ---
 
@@ -336,5 +225,143 @@ Blender 立体文字不能只在单体预览中确认存在，还必须从网页
 ### Resolution
 - **Resolved**: 2026-07-17T09:01:00+08:00
 - **Notes**: 统一翻转文字网格本地 X 并应用变换；上海影城、电影艺术中心和民族乐团运行时截图均恢复正常字序，完整测试通过。
+
+---
+
+## [LRN-20260717-005] correction
+
+**Logged**: 2026-07-17T14:52:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+GLB 审计通过不代表网页运行时完整渲染；植被实例化必须保留全部材质分片，放置还要同时校验道路和建筑占地，人物碰撞与摄像机碰撞也不能共用同一层。
+
+### Details
+梧桐树 GLB 保留了树干、深浅斑痕和三层树冠共 6 个材质分片，但网页实例化只读取第一个 Mesh，导致树冠与斑痕全部消失。树阵只避让入口点，没有避让建筑碰撞范围，因而会穿进房屋。摄像机直接复用人物的建筑碰撞体，也会在人物贴近墙面转动视角时被锁死。
+
+### Suggested Action
+运行时按 GLB 的全部 Mesh 分片分别实例化；用建筑实际包络过滤树位，并以道路中心线和渲染宽度检查建筑退界；人物继续使用硬碰撞，摄像机改用独立透明层与可收缩 Spring Arm，最后从真实网页视角截图验收。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/xinhua-road-landmarks.tsx, app/scene/xinhua-world.tsx, app/scene/xinhua-road-landmarks-data.json
+- Tags: instancing, vegetation, placement, collision-layers, spring-arm, runtime-qa
+- See Also: LRN-20260717-002
+
+### Resolution
+- **Resolved**: 2026-07-17T15:05:00+08:00
+- **Notes**: 运行时按 6 个 Mesh 分片实例化梧桐树；生产与测试共享树位生成及相机透明层，逐棵验证建筑和入口避让；315 号完成道路退界，Spring Arm 最小收缩调整为 6%；53 项测试、定向 lint、真实 WebGL 与独立代码复核全部通过。
+
+---
+
+## [LRN-20260717-006] correction
+
+**Logged**: 2026-07-17T15:23:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+建筑与道路在几何上不相交仍不足以通过街景验收，带门房和围墙的院落必须保留明确可见的路外空带。
+
+### Details
+初版退界只要求模型包络位于柏油边缘外约 0.96 个场景单位，测试可以通过，但 329 弄的门房和围墙在第三人称透视中仍像压在车道上。院落模型自身比例偏大也放大了这一视觉问题。
+
+### Suggested Action
+一般地标在路缘外保留至少 3 个场景单位；带门房的 329 弄保留 5.5 个场景单位，并从用户实际行走视角复核，而不能只依赖俯视几何距离。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/xinhua-road-landmarks-data.json, tests/test_xinhua_road_models.test.mjs
+- Tags: road-setback, visual-clearance, landmark-scale, runtime-qa
+- See Also: LRN-20260717-005
+
+### Resolution
+- **Resolved**: 2026-07-17T15:23:00+08:00
+- **Notes**: 329 弄与 315 号通过向路外平移获得可见退界；曾采用的缩放方案被用户否决并已在 LRN-20260717-007 中完全恢复。
+
+---
+
+## [LRN-20260717-007] correction
+
+**Logged**: 2026-07-17T15:28:00+08:00
+**Priority**: critical
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+地图与房屋使用同一既定比例，任何道路退界问题都不得通过缩放房屋解决。
+
+### Details
+为了让 329 弄门房与道路形成更明显的视觉间距，错误地把两处新华别墅比例从 0.62 缩到 0.48，并把 315 号从 0.9 缩到 0.82。这破坏了地图、人物和房屋之间已经确定的统一比例关系。
+
+### Suggested Action
+恢复全部原始比例，只沿道路法线平移建筑；在测试中锁定关键地标比例，确保后续退界修复只能改变位置。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/xinhua-road-landmarks-data.json, tests/test_xinhua_road_models.test.mjs
+- Tags: world-scale, landmark-scale, road-setback, regression
+- See Also: LRN-20260717-006
+
+### Resolution
+- **Resolved**: 2026-07-17T15:28:00+08:00
+- **Notes**: 两处新华别墅恢复 0.62，315 号恢复 0.9；三处建筑仅沿路外方向平移，并新增不可通过缩放解决退界的比例锁定测试。
+
+---
+
+## [LRN-20260717-008] best_practice
+
+**Logged**: 2026-07-17T16:28:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: docs
+
+### Summary
+新建真实建筑模型前，必须先把真实照片、来源和标准对比视角保存到项目中。
+
+### Details
+只在研究文档中保留网页链接，会让建模、运行时截图和后续复核使用不同证据。真实照片先落项目后，可以固定建筑地址、观察方向和来源，并让建模 brief、Blender 几何、网页相机和最终对照表引用同一份资料。
+
+### Suggested Action
+把本地参考照片设为硬性工作流门槛：先保存照片和来源元数据，再选择标准对比视角，然后写 brief、建模、导出并在实际网页中复现相同方向。
+
+### Metadata
+- Source: user_feedback
+- Related Files: docs/research/landmark-model-comparison.md, docs/research/assets/landmark-comparison/
+- Tags: photo-reference, workflow-gate, canonical-view, runtime-qa
+
+### Resolution
+- **Resolved**: 2026-07-17T16:28:00+08:00
+- **Notes**: 已写回 photo-reference-webgl-modeling skill 及 modeling checklist；当前 8 个独立模型、9 个落地点的真实照片和系统截图已按同一目录归档。
+
+---
+
+## [LRN-20260717-009] correction
+
+**Logged**: 2026-07-17T18:31:00+08:00
+**Priority**: critical
+**Status**: wont_fix
+**Area**: frontend
+
+### Summary
+把全部道路烘焙进整张地形 CanvasTexture 会在近距离斜视角严重模糊，不能用作道路共面方案。
+
+### Details
+第一次错误实现把全部道路改成统一高度的 BoxGeometry，并把道路下方地形一起压平，出现可见侧壁。随后改成把全区道路烘焙进一张 2048px 地形纹理；虽然没有几何厚度，但第三人称近距离斜视时道路边缘、中心线和文字都经过纹理缩小过滤，整体发糊，视觉效果比原版更差。
+
+### Suggested Action
+按用户要求恢复原有清晰道路渲染。以后若重新处理共面问题，不能使用全区单张 CanvasTexture；需要先做小范围原型并从第三人称斜视近景验收，未通过前不得替换全场道路。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/terrain.ts, app/scene/xinhua-map.tsx, tests/test_terrain.test.mjs
+- Tags: terrain, road-surface, coplanar-overlay, no-thickness, visual-regression
+
+### Resolution
+- **Resolved**: 2026-07-17T19:02:00+08:00
+- **Notes**: 用户明确否决 CanvasTexture 视觉效果；已完整恢复修改前的道路几何与测试，不再保留模糊纹理方案。
 
 ---

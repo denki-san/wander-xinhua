@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { PerspectiveCamera, Vector3 } from "three";
+import { Vector3 } from "three";
 import {
   composeCameraOffset,
   isPlanarPositionBlockedInPolygon,
@@ -10,35 +10,10 @@ import {
   resolvePolygonMovement,
   resolvePlanarMovement,
   rotateTangentTowards,
-  screenInputToPlanarMove,
   transformMapObstacle,
 } from "../app/scene/world-math.ts";
 
 const EPSILON = 1e-9;
-
-test("全览地图方向始终对应屏幕上下左右而不是人物朝向", () => {
-  const camera = new PerspectiveCamera(58, 16 / 9, 0.1, 2000);
-  camera.position.set(10, 12, 10);
-  camera.lookAt(0, 0, 0);
-  camera.updateMatrixWorld(true);
-  const originOnScreen = new Vector3(0, 0, 0).project(camera);
-
-  const upMove = screenInputToPlanarMove(
-    camera.matrixWorld,
-    0,
-    1,
-    new Vector3(0, 1, 0),
-  );
-  const rightMove = screenInputToPlanarMove(
-    camera.matrixWorld,
-    1,
-    0,
-    new Vector3(0, 1, 0),
-  );
-
-  assert.ok(upMove.clone().project(camera).y > originOnScreen.y);
-  assert.ok(rightMove.clone().project(camera).x > originOnScreen.x);
-});
 
 test("相反方向的相机跟随只做水平转向并保持俯仰", () => {
   const up = new Vector3(0, 1, 0);
