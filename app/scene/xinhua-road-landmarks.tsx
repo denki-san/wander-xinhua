@@ -206,7 +206,7 @@ export function XinhuaRoadPlaneTrees() {
   );
 }
 
-export function XinhuaRoadLandmarks() {
+export function XinhuaRoadLandmarks({ showLabels = true }: { showLabels?: boolean }) {
   return (
     <group name="xinhua-road-photo-reference-landmarks">
       {XINHUA_ROAD_LANDMARKS.map((landmark) => {
@@ -231,7 +231,7 @@ export function XinhuaRoadLandmarks() {
                   : landmark.model}
               />
             </group>
-            {landmark.poi && (
+            {showLabels && landmark.poi && (
               <Html
                 center
                 position={[

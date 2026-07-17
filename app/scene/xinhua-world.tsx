@@ -17,6 +17,7 @@ import {
   Vector3,
 } from "three";
 import {
+  type CSSProperties,
   type ReactNode,
   type RefObject,
   useEffect,
@@ -25,7 +26,11 @@ import {
   useRef,
 } from "react";
 import { inputState, resetInput } from "./input";
-import { MAP_POIS, nearestMapPoi } from "./poi-data";
+import {
+  MAP_POIS,
+  nearestMapPoi,
+  OVERVIEW_POI_LABEL_OFFSETS,
+} from "./poi-data";
 import {
   HuashanGreenBlock,
   HUASHAN_GREEN_CAMERA_OBSTACLES,
@@ -342,10 +347,12 @@ function FlatNeighborhood({
   onOpenAction,
   detailScale = 1,
   showDetailModels = false,
+  showDetailLabels = true,
 }: {
   onOpenAction: () => void;
   detailScale?: number;
   showDetailModels?: boolean;
+  showDetailLabels?: boolean;
 }) {
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
@@ -370,7 +377,7 @@ function FlatNeighborhood({
         <>
           <ShangshengXinsuoBlock />
           <XinhuaRoadPlaneTrees />
-          <XinhuaRoadLandmarks />
+          <XinhuaRoadLandmarks showLabels={showDetailLabels} />
         </>
       )}
       <ActionInstallation onOpenAction={onOpenAction} />
@@ -1078,6 +1085,26 @@ function PlayableMessenger({
   return <MessengerCharacter outerRef={outer} />;
 }
 
+type OverviewLabelStyle = CSSProperties & {
+  "--overview-label-x": string;
+  "--overview-label-y": string;
+  "--overview-leader-length": string;
+  "--overview-leader-angle": string;
+  "--overview-leader-opacity": string;
+};
+
+function overviewLabelStyle(offset: readonly [number, number]): OverviewLabelStyle {
+  const [x, y] = offset;
+  const length = Math.hypot(x, y);
+  return {
+    "--overview-label-x": `${x}px`,
+    "--overview-label-y": `${y}px`,
+    "--overview-leader-length": `${length}px`,
+    "--overview-leader-angle": `${Math.atan2(-y, -x)}rad`,
+    "--overview-leader-opacity": length >= 14 ? "1" : "0",
+  };
+}
+
 function OverviewPoiMarkers({ nearPoiId }: { nearPoiId: string | null }) {
   return (
     <group data-overview-poi-count={MAP_POIS.length}>
@@ -1096,8 +1123,14 @@ function OverviewPoiMarkers({ nearPoiId }: { nearPoiId: string | null }) {
               <meshToonMaterial color={near ? "#efbd49" : "#c85f4c"} />
             </mesh>
             <Html center position={[0, 12.5, 0]} distanceFactor={180} transform sprite>
-              <span className={`overview-poi-label${near ? " is-near" : ""}`}>
-                {poi.name}
+              <span
+                className="overview-poi-label-anchor"
+                data-overview-poi={poi.id}
+                style={overviewLabelStyle(OVERVIEW_POI_LABEL_OFFSETS[poi.id] ?? [0, 0])}
+              >
+                <span className={`overview-poi-label${near ? " is-near" : ""}`}>
+                  {poi.name}
+                </span>
               </span>
             </Html>
           </group>
@@ -1348,7 +1381,8 @@ export function XinhuaWorld({
       <FlatNeighborhood
         onOpenAction={onOpenAction}
         detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
-        showDetailModels={exploring}
+        showDetailModels={mode !== "intro"}
+        showDetailLabels={exploring}
       />
       <IntroCamera active={mode === "intro"} />
       {overview && (

@@ -366,6 +366,28 @@ button {
   transition: color 150ms ease, background-color 150ms ease, transform 150ms ease;
 }
 
+.overview-poi-label-anchor {
+  position: relative;
+  display: block;
+  pointer-events: none;
+  transform: translate(var(--overview-label-x), var(--overview-label-y));
+}
+
+.overview-poi-label-anchor::before {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  width: var(--overview-leader-length);
+  height: 1px;
+  content: "";
+  background: rgba(239, 224, 181, 0.68);
+  box-shadow: 0 1px 0 rgba(42, 65, 60, 0.48);
+  opacity: var(--overview-leader-opacity);
+  transform: rotate(var(--overview-leader-angle));
+  transform-origin: 0 50%;
+}
+
 .overview-poi-label.is-near {
   color: #2d4641;
   background: #fff0b2;

@@ -16,6 +16,30 @@ export type MapPoi = {
   startPreset: string;
 };
 
+// 全览相机的朝向固定，因此可以为密集地标保留稳定的屏幕空间错位。
+// 这些偏移只移动名称牌，不改变真实 POI 坐标或建筑落点。
+export const OVERVIEW_POI_LABEL_OFFSETS: Readonly<
+  Record<string, readonly [number, number]>
+> = {
+  xingfuli: [0, -12],
+  shangsheng: [0, -12],
+  huashan: [0, -12],
+  "shanghai-cinema": [18, 4],
+  "film-art-center": [68, -18],
+  "one-step-garden": [20, 8],
+  "xinhua-villas-211": [-20, -8],
+  "xinhua-villas-329": [-18, -26],
+  "house-315": [54, 20],
+  "villa-le-bec": [-58, 22],
+  "shanghai-orchestra": [26, -16],
+  "hudec-memorial": [0, -12],
+  "xinhua-pocket-park": [-34, 26],
+  "xinhua-community-center": [-18, 2],
+  "debi-fahua-525": [0, -12],
+  "fahua-heritage": [34, 8],
+  "fics-xinhua-365": [-30, -26],
+};
+
 const roadPhotos: Record<string, MapPoi["photo"]> = {
   "shanghai-cinema": {
     src: "https://news.cgtn.com/news/2023-06-14/Upgraded-Shanghai-Film-Art-Center-offers-more-immersive-experience-1kCY4faLMkw/img/196572101df24a5fb3e6f263fe6af184/196572101df24a5fb3e6f263fe6af184-1920.jpeg",

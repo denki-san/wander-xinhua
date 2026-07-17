@@ -1895,3 +1895,37 @@ Rejected: remote, branch and credential were undefined
 - **Notes**: 最终提交基于 Sites 最新 main，64 项测试、全局 lint 与 Sites 构建通过后，以普通快进方式成功推送。
 
 ---
+
+## [ERR-20260717-040] local_preview_and_browser_docs_bootstrap
+
+**Logged**: 2026-07-17T22:25:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+沙箱内启动本地预览被端口权限拒绝，首次读取浏览器文档时又误用了不存在的 `browser.docs` 接口。
+
+### Error
+```
+Error: listen EPERM: operation not permitted 127.0.0.1:3002
+Cannot read properties of undefined (reading 'listNamespaces')
+```
+
+### Context
+- 本地视觉验收需要启动静态构建并连接应用内浏览器。
+- 3002 和 3003 已被旧 Python 预览占用，本轮新预览最终运行在 3004。
+- 当前浏览器客户端的完整文档入口是 `browser.documentation()`。
+
+### Suggested Fix
+端口监听失败后按权限流程启动预览并检查真实占用；浏览器连接后直接调用并完整读取 `browser.documentation()`，不要假设存在命名空间接口。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json
+
+### Resolution
+- **Resolved**: 2026-07-17T22:28:00+08:00
+- **Notes**: 已在 3004 启动最新静态预览，完整读取浏览器文档并完成全览画面验收。
+
+---
