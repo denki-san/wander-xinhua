@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element -- POI 实景图由动态数据提供，并需要保留对应的外部图源链接。 */
+
 import { EffectComposer } from "@react-three/postprocessing";
 import { Canvas } from "@react-three/fiber";
 import { ACESFilmicToneMapping, SRGBColorSpace } from "three";
@@ -12,10 +14,15 @@ import {
   PaperWash,
   WatercolourSky,
 } from "./scene/visual-effects";
+import { mapPoiById } from "./scene/poi-data";
 import { XinhuaWorld } from "./scene/xinhua-world";
 import mapData from "./scene/xinhua-map-data.json";
 
 const TOUCH_STICK_TRAVEL = 42;
+const INITIAL_OVERVIEW_POSITION = [
+  mapData.landmarks.xingfuli.position[0],
+  mapData.landmarks.xingfuli.position[1],
+] as const;
 
 function DisposableEffectComposer({
   playing,
@@ -53,7 +60,7 @@ function detectLowTier() {
   return touch || narrow || limited;
 }
 
-function TouchControls() {
+function TouchControls({ showJump }: { showJump: boolean }) {
   const zone = useRef<HTMLDivElement>(null);
   const pointerId = useRef<number | null>(null);
   const center = useRef({ x: 0, y: 0 });
@@ -142,40 +149,52 @@ function TouchControls() {
           <span style={{ transform: `translate(${knob.x}px, ${knob.y}px)` }} />
         </div>
       </div>
-      <button
-        type="button"
-        className={`touch-jump${jumping ? " is-pressed" : ""}`}
-        onPointerDown={(event) => {
-          event.preventDefault();
-          inputState.jump = true;
-          setJumping(true);
-        }}
-        onPointerUp={() => {
-          inputState.jump = false;
-          setJumping(false);
-        }}
-        onPointerCancel={() => {
-          inputState.jump = false;
-          setJumping(false);
-        }}
-        aria-label="跳跃"
-      >
-        跳
-      </button>
+      {showJump && (
+        <button
+          type="button"
+          className={`touch-jump${jumping ? " is-pressed" : ""}`}
+          onPointerDown={(event) => {
+            event.preventDefault();
+            inputState.jump = true;
+            setJumping(true);
+          }}
+          onPointerUp={() => {
+            inputState.jump = false;
+            setJumping(false);
+          }}
+          onPointerCancel={() => {
+            inputState.jump = false;
+            setJumping(false);
+          }}
+          aria-label="跳跃"
+        >
+          跳
+        </button>
+      )}
     </div>
   );
 }
 
 export function XinhuaExperience() {
-  const [playing, setPlaying] = useState(false);
+  const [mode, setMode] = useState<"intro" | "overview" | "explore">("intro");
   const [ready, setReady] = useState(false);
   const [nearAction, setNearAction] = useState(false);
+  const [nearPoiId, setNearPoiId] = useState<string | null>(null);
+  const [destinationPreset, setDestinationPreset] = useState<string>();
   const [actionOpen, setActionOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
   // 在 Canvas 首次创建前确定渲染档位，避免低配置设备先分配一套高配后处理资源。
   const [lowTier] = useState(detectLowTier);
   const [touchCapable, setTouchCapable] = useState(false);
+  const playerPosition = useRef<readonly [number, number]>(INITIAL_OVERVIEW_POSITION);
+  const [overviewStartPosition, setOverviewStartPosition] = useState<readonly [number, number]>(
+    INITIAL_OVERVIEW_POSITION,
+  );
+  const playing = mode !== "intro";
+  const exploring = mode === "explore";
+  const overview = mode === "overview";
+  const nearPoi = mapPoiById(nearPoiId);
 
   useEffect(() => {
     const coarse = window.matchMedia("(any-pointer: coarse)").matches;
@@ -193,7 +212,7 @@ export function XinhuaExperience() {
   }, []);
 
   useEffect(() => {
-    if (!playing) return;
+    if (!exploring) return;
     const interact = (event: KeyboardEvent) => {
       if (event.code === "KeyE" && nearAction) {
         event.preventDefault();
@@ -202,12 +221,30 @@ export function XinhuaExperience() {
     };
     window.addEventListener("keydown", interact);
     return () => window.removeEventListener("keydown", interact);
-  }, [playing, nearAction]);
+  }, [exploring, nearAction]);
 
   const begin = useCallback(() => {
     resetInput();
-    setPlaying(true);
+    setNearPoiId(null);
+    setMode("overview");
   }, []);
+
+  const showOverview = useCallback(() => {
+    resetInput();
+    setNearAction(false);
+    setActionOpen(false);
+    setNearPoiId(null);
+    setOverviewStartPosition(playerPosition.current);
+    setMode("overview");
+  }, []);
+
+  const enterPoi = useCallback(() => {
+    if (!nearPoi) return;
+    resetInput();
+    setDestinationPreset(nearPoi.startPreset);
+    setNearPoiId(null);
+    setMode("explore");
+  }, [nearPoi]);
 
   const toggleFullscreen = useCallback(() => {
     if (document.fullscreenElement) {
@@ -218,7 +255,7 @@ export function XinhuaExperience() {
   }, []);
 
   return (
-    <main className={`xinhua-stage${playing ? " is-playing" : " is-intro"}${touchCapable ? " is-touch" : ""}`}>
+    <main className={`xinhua-stage is-${mode}${playing ? " is-playing" : ""}${touchCapable ? " is-touch" : ""}`}>
       <Canvas
         shadows
         dpr={lowTier ? 1.25 : [1, 1.75]}
@@ -238,13 +275,20 @@ export function XinhuaExperience() {
       >
         <WatercolourSky />
         <XinhuaWorld
-          playing={playing}
+          mode={mode}
           onNearAction={setNearAction}
           onOpenAction={() => setActionOpen(true)}
+          nearPoiId={nearPoiId}
+          overviewStartPosition={overviewStartPosition}
+          destinationPreset={destinationPreset}
+          onNearPoi={setNearPoiId}
+          onPositionChange={(position) => {
+            playerPosition.current = position;
+          }}
         />
         <DisposableEffectComposer
-          key={playing ? "playing" : "intro"}
-          playing={playing}
+          key={mode}
+          playing={exploring}
           lowTier={lowTier}
         />
       </Canvas>
@@ -268,6 +312,17 @@ export function XinhuaExperience() {
         </button>
         {playing && (
           <nav className="world-tools" aria-label="体验工具">
+            {exploring && (
+              <button
+                type="button"
+                className="overview-toggle"
+                onClick={showOverview}
+                aria-label="查看新华街道全览"
+              >
+                <span aria-hidden="true">⌁</span>
+                查看全览
+              </button>
+            )}
             <button type="button" onClick={() => setHelpOpen(true)} aria-label="查看操作说明">?</button>
             <button type="button" onClick={toggleFullscreen} aria-label={fullscreen ? "退出全屏" : "进入全屏"}>
               {fullscreen ? "↙" : "↗"}
@@ -282,7 +337,7 @@ export function XinhuaExperience() {
           <h1 id="intro-title" aria-label="新华漫游志">
             <span>新华</span><span>漫游志</span>
           </h1>
-          <button type="button" onClick={begin} disabled={!ready}>开始闲逛</button>
+          <button type="button" onClick={begin} disabled={!ready}>从全览出发</button>
         </section>
       )}
 
@@ -290,13 +345,14 @@ export function XinhuaExperience() {
         <>
           <div className="desktop-controls" aria-hidden="true">
             <span><kbd>WASD</kbd> 移动</span>
-            <span><kbd>SHIFT</kbd> 奔跑</span>
-            <span><kbd>SPACE</kbd> 跳跃</span>
-            <span><kbd>拖拽</kbd> 转动视角</span>
+            <span><kbd>SHIFT</kbd> {overview ? "快走" : "奔跑"}</span>
+            {exploring && <span><kbd>SPACE</kbd> 跳跃</span>}
+            {exploring && <span><kbd>拖拽</kbd> 转动视角</span>}
+            {overview && <span>靠近地标以查看并进入</span>}
           </div>
-          <TouchControls />
+          <TouchControls showJump={exploring} />
 
-          {nearAction && !actionOpen && (
+          {exploring && nearAction && !actionOpen && (
             <button type="button" className="action-prompt" onClick={() => setActionOpen(true)}>
               <span>唯一行动点</span>
               <strong>看看这一平米</strong>
@@ -304,6 +360,30 @@ export function XinhuaExperience() {
             </button>
           )}
         </>
+      )}
+
+      {overview && nearPoi && (
+        <aside className="overview-poi-card" aria-live="polite">
+          <figure className="overview-poi-photo">
+            <img
+              src={nearPoi.photo.src}
+              alt={`${nearPoi.name}实景`}
+              decoding="async"
+              referrerPolicy="no-referrer"
+            />
+            <figcaption>
+              <a href={nearPoi.photo.sourceUrl} target="_blank" rel="noreferrer">
+                实景图 · {nearPoi.photo.sourceLabel}
+              </a>
+            </figcaption>
+          </figure>
+          <div className="overview-poi-card-body">
+            <p>{nearPoi.eyebrow}</p>
+            <h2>{nearPoi.name}</h2>
+            <span className="overview-poi-card-copy">{nearPoi.description}</span>
+            <button type="button" onClick={enterPoi}>进入 {nearPoi.name}</button>
+          </div>
+        </aside>
       )}
 
       {actionOpen && (
@@ -326,11 +406,11 @@ export function XinhuaExperience() {
             <p>HOW TO ROAM</p>
             <h2 id="help-title">随便走走就好</h2>
             <ul>
-              <li><kbd>WASD</kbd> 或方向键移动</li>
-              <li><kbd>Shift</kbd> 奔跑，<kbd>Space</kbd> 跳跃</li>
-              <li>拖拽转动镜头，滚轮拉近或拉远</li>
-              <li>手机下半屏任意处拖动移动，上半屏拖动镜头</li>
-              <li>右下角按钮用于跳跃</li>
+              <li>全览地图中用 <kbd>WASD</kbd> 或摇杆移动，靠近 POI 后选择“进入”</li>
+              <li>闲逛状态中按 <kbd>Shift</kbd> 奔跑，按 <kbd>Space</kbd> 跳跃</li>
+              <li>闲逛时拖拽转动镜头，滚轮拉近或拉远</li>
+              <li>点击“查看全览”可随时返回固定比例的新华街道全景</li>
+              <li>手机下半屏任意处拖动移动；闲逛时上半屏可拖动镜头</li>
             </ul>
           </article>
         </div>

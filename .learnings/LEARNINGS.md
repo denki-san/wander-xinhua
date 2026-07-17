@@ -1,5 +1,33 @@
 # Learnings
 
+## [LRN-20260717-010] correction
+
+**Logged**: 2026-07-17T20:20:00+08:00
+**Priority**: critical
+**Status**: resolved
+**Area**: deployment
+
+### Summary
+用户所说的“世界地图”是曾在独立工作树实际测试的双尺度全览导航，不能仅凭名称相近就当作普通首页远景或在单一部署入口上做判断。
+
+### Details
+用户曾在 `dual-scale-map-navigation` 的 3003 预览中连续验收地图缩放、无建筑碰撞、屏幕绝对方向、人物居中跟随、移动速度与 POI 实景卡片。该功能已经合入 `e329467`，但后续 Sites v6 `b24e8cf` 在加入新 POI 时误删全览状态、POI 数据、样式和回归测试，导致线上出现“新地标存在、世界地图消失”。
+
+### Suggested Action
+发布前必须分别核对 GitHub 源码提交、Sites 当前生产版本和 VPS 自定义域名；合并并行功能时以最新共同父提交为基线，通过全览专项测试及真实入口点击验收，禁止用陈旧工作区快照覆盖已经合并的功能。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/xinhua-experience.tsx, app/scene/xinhua-world.tsx, app/scene/poi-data.ts, tests/test_dual_scale_navigation.test.mjs
+- Tags: world-map, sites, deployment-regression, worktree, user-tested
+- See Also: LRN-20260717-005, LRN-20260717-006, LRN-20260717-007
+
+### Resolution
+- **Resolved**: 2026-07-17T20:20:00+08:00
+- **Notes**: 已从 Sites v6 建立隔离修复分支，恢复 `e329467` 的世界地图功能并保留 v6 新增 POI 资产。
+
+---
+
 ## [LRN-20260716-005] correction
 
 **Logged**: 2026-07-16T14:08:00+08:00

@@ -1,8 +1,10 @@
-import { Vector3 } from "three";
+import { type Matrix4, Vector3 } from "three";
 
 const DAMP_FROM = new Vector3();
 const DAMP_TO = new Vector3();
 const DAMP_CROSS = new Vector3();
+const SCREEN_RIGHT = new Vector3();
+const SCREEN_UP = new Vector3();
 
 export type MapBounds = {
   minX: number;
@@ -19,6 +21,30 @@ export type MapObstacle = {
 };
 
 export type MapPolygonPoint = readonly [number, number];
+
+/**
+ * 把屏幕上的左右/上下输入换算为相机所见地面的绝对方向。
+ * 适用于固定俯视地图：向上输入始终让物体向屏幕上方移动，不受角色朝向影响。
+ */
+export function screenInputToPlanarMove(
+  cameraMatrixWorld: Matrix4,
+  rightInput: number,
+  upInput: number,
+  planeNormal: Vector3,
+  result = new Vector3(),
+) {
+  SCREEN_RIGHT
+    .setFromMatrixColumn(cameraMatrixWorld, 0)
+    .projectOnPlane(planeNormal)
+    .normalize();
+  SCREEN_UP
+    .setFromMatrixColumn(cameraMatrixWorld, 1)
+    .projectOnPlane(planeNormal)
+    .normalize();
+  result.copy(SCREEN_RIGHT).multiplyScalar(rightInput).addScaledVector(SCREEN_UP, upInput);
+  if (result.lengthSq() > 1) result.normalize();
+  return result;
+}
 
 /** 只绕地面法线旋转方向，180 度转向时也不会穿过镜头顶部。 */
 export function rotateTangentTowards(

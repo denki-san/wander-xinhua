@@ -353,6 +353,7 @@ Error: listen EPERM: operation not permitted 127.0.0.1:4173
 ### Resolution
 - **Resolved**: 2026-07-17T00:22:00+08:00
 - **Notes**: Preview 在沙箱外成功启动；干净浏览器会话确认模型加载且无页面错误，最终视觉以 Blender 4.5 LTS 确定性预览图交付。
+- **Recurrence**: 2026-07-17T20:28:00+08:00 世界地图恢复验收时，3004 端口在沙箱内再次触发 `listen EPERM`；改用获准的沙箱外预览后完成“从全览出发 → POI 卡片 → 进入地点 → 查看全览”真实浏览器验证。
 
 ---
 
@@ -743,6 +744,7 @@ ssh: Could not resolve hostname github.com: -65563
 - **Resolved**: 2026-07-16T22:39:00+08:00
 - **Commit/PR**: 911f63b
 - **Notes**: 在允许网络和 Git 元数据写入的环境完成 SSH 校验、关联远端及 main 推送；GitHub CLI token 失效未影响 SSH 发布。
+- **Recurrence**: 2026-07-17T20:10:00+08:00 再次确认 `gh` 默认令牌失效；改用 GitHub connector 与沙箱外 `git ls-remote` 完成远端分支和 PR 引用核验。
 
 ---
 ## [ERR-20260716-021] fountain_json_tuple_typecheck
