@@ -1,0 +1,453 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-17",
+  "rules": {
+    "maximumReferencePhotosPerPoi": 3,
+    "cardPhotosMustBeLocal": true,
+    "referencePhotosAreModelingEvidenceOnly": true
+  },
+  "pois": [
+    {
+      "id": "xingfuli",
+      "address": "幸福路67号／番禺路381号一带",
+      "model": {
+        "kind": "procedural-scene",
+        "runtimeFiles": ["app/scene/xingfuli-block.tsx"],
+        "sourceFiles": ["app/scene/xingfuli-block.tsx"],
+        "positionEvidence": "osm-way-400066625"
+      },
+      "cardPhoto": "/images/poi/xingfuli.jpg",
+      "canonicalReference": "docs/research/assets/poi-references/xingfuli/courtyard-canonical.jpg",
+      "photoStatus": "verified-same-compound",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/poi-references/xingfuli/courtyard-canonical.jpg",
+          "sourceUrl": "https://k.sina.com.cn/article_7517400647_1c0126e47059031uwk.html",
+          "view": "central-courtyard",
+          "captureDate": "unknown"
+        },
+        {
+          "path": "docs/research/assets/poi-references/xingfuli/central-lane.jpg",
+          "sourceUrl": "https://k.sina.com.cn/article_7517400647_1c0126e47059031uwk.html",
+          "view": "central-lane-opposite-direction",
+          "captureDate": "unknown"
+        },
+        {
+          "path": "docs/research/assets/poi-references/xingfuli/water-lane.jpg",
+          "sourceUrl": "https://k.sina.com.cn/article_7517400647_1c0126e47059031uwk.html",
+          "view": "water-feature-lane",
+          "captureDate": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "shangsheng",
+      "address": "延安西路1262号",
+      "model": {
+        "kind": "hybrid-scene",
+        "runtimeFiles": [
+          "app/scene/shangsheng-xinsuo-block.tsx",
+          "public/models/shangsheng/navy-club-pool.glb"
+        ],
+        "sourceFiles": [
+          "app/scene/shangsheng-xinsuo-block.tsx",
+          "assets/models/source/navy-club-pool.blend",
+          "scripts/create_navy_club_model.py"
+        ],
+        "positionEvidence": "osm-way-765939973"
+      },
+      "cardPhoto": "/images/poi/shangsheng.jpg",
+      "canonicalReference": "docs/research/assets/poi-references/shangsheng-xinsuo/yanan-road-entrance.jpg",
+      "photoStatus": "verified-same-compound",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/poi-references/shangsheng-xinsuo/yanan-road-entrance.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col3991/20241008/1269200.html",
+          "view": "yanan-road-main-entrance",
+          "captureDate": "unknown"
+        },
+        {
+          "path": "docs/research/assets/poi-references/shangsheng-xinsuo/navy-club-canonical.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col3991/20241008/1269200.html",
+          "view": "navy-club-front",
+          "captureDate": "unknown"
+        },
+        {
+          "path": "docs/research/assets/poi-references/shangsheng-xinsuo/columbia-country-club.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col3991/20241008/1269200.html",
+          "view": "columbia-country-club-entry",
+          "captureDate": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "huashan",
+      "address": "华山路1500号",
+      "model": {
+        "kind": "procedural-scene",
+        "runtimeFiles": ["app/scene/huashan-green-block.tsx"],
+        "sourceFiles": ["app/scene/huashan-green-block.tsx"],
+        "positionEvidence": "osm-way-444342095"
+      },
+      "cardPhoto": "/images/poi/huashan.jpg",
+      "canonicalReference": "docs/research/assets/poi-references/huashan-greenland/running-track-canonical.jpg",
+      "photoStatus": "verified-same-park",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/poi-references/huashan-greenland/running-track-canonical.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col6991/20250824/1296845.html",
+          "view": "running-track-entrance",
+          "captureDate": "2025"
+        },
+        {
+          "path": "docs/research/assets/poi-references/huashan-greenland/curved-track.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col6991/20250824/1296845.html",
+          "view": "curved-running-track",
+          "captureDate": "2025"
+        },
+        {
+          "path": "docs/research/assets/poi-references/huashan-greenland/forest-track.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col6991/20250824/1296845.html",
+          "view": "forest-running-track",
+          "captureDate": "2025"
+        }
+      ]
+    },
+    {
+      "id": "shanghai-cinema",
+      "address": "新华路160号",
+      "model": {
+        "kind": "glb",
+        "runtimeFiles": ["public/models/xinhua-road/shanghai-cinema.glb"],
+        "sourceFiles": ["assets/models/source/xinhua-road/shanghai-cinema.blend", "scripts/create_xinhua_road_models.py"],
+        "positionEvidence": "osm-way-292250766"
+      },
+      "cardPhoto": "/images/poi/shanghai-cinema.jpg",
+      "canonicalReference": "docs/research/assets/landmark-comparison/shanghai-cinema-real.jpg",
+      "photoStatus": "verified-same-building",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/landmark-comparison/shanghai-cinema-real.jpg",
+          "sourceUrl": "https://www.thepaper.cn/newsDetail_forward_23253561",
+          "view": "left-front-three-quarter",
+          "captureDate": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "film-art-center",
+      "address": "新华路200号",
+      "model": {
+        "kind": "glb",
+        "runtimeFiles": ["public/models/xinhua-road/film-art-center.glb"],
+        "sourceFiles": ["assets/models/source/xinhua-road/film-art-center.blend", "scripts/create_xinhua_road_models.py"],
+        "positionEvidence": "address-and-osm-building"
+      },
+      "cardPhoto": "/images/poi/film-art-center.jpg",
+      "canonicalReference": "docs/research/assets/landmark-comparison/film-art-center-real.jpg",
+      "photoStatus": "verified-same-building",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/landmark-comparison/film-art-center-real.jpg",
+          "sourceUrl": "https://www.prnewswire.com/apac/news-releases/fod-and-shanghai-film-art-center-debut-as-cultural-hub-amidst-26th-shanghai-international-film-festival-302175363.html",
+          "view": "front",
+          "captureDate": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "one-step-garden",
+      "address": "新华路179弄",
+      "model": {
+        "kind": "glb",
+        "runtimeFiles": ["public/models/xinhua-road/one-step-garden.glb"],
+        "sourceFiles": ["assets/models/source/xinhua-road/one-step-garden.blend", "scripts/create_xinhua_road_models.py"],
+        "positionEvidence": "address-interpolation-and-road-setback"
+      },
+      "cardPhoto": "/images/poi/one-step-garden.jpg",
+      "canonicalReference": "docs/research/assets/landmark-comparison/one-step-garden-real.jpg",
+      "photoStatus": "verified-same-building",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/landmark-comparison/one-step-garden-real.jpg",
+          "sourceUrl": "https://www.jfdaily.com/sgh/detail?id=1697461",
+          "view": "front-gable",
+          "captureDate": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "xinhua-villas-211",
+      "address": "新华路211弄",
+      "model": {
+        "kind": "glb",
+        "runtimeFiles": ["public/models/xinhua-road/xinhua-villas-211.glb"],
+        "sourceFiles": ["assets/models/source/xinhua-road/xinhua-villas-211.blend", "scripts/create_xinhua_road_models.py"],
+        "positionEvidence": "address-and-osm-lane"
+      },
+      "cardPhoto": "/images/poi/xinhua-villas-211.jpg",
+      "canonicalReference": "docs/research/assets/landmark-comparison/xinhua-villas-211-real.jpg",
+      "photoStatus": "verified-same-compound",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/landmark-comparison/xinhua-villas-211-real.jpg",
+          "sourceUrl": "https://www.thepaper.cn/newsDetail_forward_28954961",
+          "view": "lane-entrance",
+          "captureDate": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "xinhua-villas-329",
+      "address": "新华路329弄",
+      "model": {
+        "kind": "glb",
+        "runtimeFiles": ["public/models/xinhua-road/xinhua-villas-329.glb"],
+        "sourceFiles": ["assets/models/source/xinhua-road/xinhua-villas-329.blend", "scripts/create_xinhua_road_models.py"],
+        "positionEvidence": "address-and-osm-lane"
+      },
+      "cardPhoto": "/images/poi/xinhua-villas-329.jpg",
+      "canonicalReference": "docs/research/assets/landmark-comparison/xinhua-villas-329-real.jpg",
+      "photoStatus": "verified-same-compound",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/landmark-comparison/xinhua-villas-329-real.jpg",
+          "sourceUrl": "https://www.thepaper.cn/newsDetail_forward_28954961",
+          "view": "garden-house-front",
+          "captureDate": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "house-315",
+      "address": "新华路315号",
+      "model": {
+        "kind": "glb",
+        "runtimeFiles": ["public/models/xinhua-road/house-315.glb"],
+        "sourceFiles": ["assets/models/source/xinhua-road/house-315.blend", "scripts/create_xinhua_road_models.py"],
+        "positionEvidence": "address-and-road-setback"
+      },
+      "cardPhoto": "/images/poi/house-315.jpg",
+      "canonicalReference": "docs/research/assets/landmark-comparison/house-315-real.jpg",
+      "photoStatus": "verified-same-building",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/landmark-comparison/house-315-real.jpg",
+          "sourceUrl": "https://www.jfdaily.com/sgh/detail?id=1697461",
+          "view": "front-gable",
+          "captureDate": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "villa-le-bec",
+      "address": "新华路321号",
+      "model": {
+        "kind": "glb",
+        "runtimeFiles": ["public/models/xinhua-road/villa-le-bec.glb"],
+        "sourceFiles": ["assets/models/source/xinhua-road/villa-le-bec.blend", "scripts/create_xinhua_road_models.py"],
+        "positionEvidence": "address-and-road-setback"
+      },
+      "cardPhoto": "/images/poi/villa-le-bec.jpg",
+      "canonicalReference": "docs/research/assets/landmark-comparison/villa-le-bec-real.jpg",
+      "photoStatus": "verified-same-building",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/landmark-comparison/villa-le-bec-real.jpg",
+          "sourceUrl": "https://shanghai-zine.com/listings/16308/",
+          "view": "courtyard-front",
+          "captureDate": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "shanghai-orchestra",
+      "address": "新华路336号",
+      "model": {
+        "kind": "glb",
+        "runtimeFiles": ["public/models/xinhua-road/shanghai-orchestra.glb"],
+        "sourceFiles": ["assets/models/source/xinhua-road/shanghai-orchestra.blend", "scripts/create_xinhua_road_models.py"],
+        "positionEvidence": "address-and-building-compound"
+      },
+      "cardPhoto": "/images/poi/shanghai-orchestra.jpg",
+      "canonicalReference": "docs/research/assets/landmark-comparison/shanghai-orchestra-real.jpg",
+      "photoStatus": "verified-same-building",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/landmark-comparison/shanghai-orchestra-real.jpg",
+          "sourceUrl": "https://www.gooood.cn/renovation-project-of-shanghai-chinese-orchestra-located-at-no-336-xinhua-road-phase-i-china-by-tjad.htm",
+          "view": "right-front-three-quarter",
+          "captureDate": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "hudec-memorial",
+      "address": "番禺路129号",
+      "model": {
+        "kind": "glb",
+        "runtimeFiles": ["public/models/requested-pois/hudec-memorial.glb"],
+        "sourceFiles": ["assets/models/source/requested-pois/hudec-memorial.blend", "scripts/create_requested_poi_models.py"],
+        "positionEvidence": "osm-way-494633921"
+      },
+      "cardPhoto": "/images/poi/hudec-memorial.jpg",
+      "canonicalReference": "docs/research/assets/requested-poi-references/hudec-memorial-front-wikimedia.jpg",
+      "photoStatus": "verified-same-building",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/requested-poi-references/hudec-memorial-front-wikimedia.jpg",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hudec_House.jpeg",
+          "view": "front-right-three-quarter",
+          "captureDate": "2018-06-09"
+        },
+        {
+          "path": "docs/research/assets/requested-poi-references/hudec-memorial-west-elevations.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col6991/20260405/1307940.html",
+          "view": "west-elevations",
+          "captureDate": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "xinhua-pocket-park",
+      "address": "新华路359号旁",
+      "model": {
+        "kind": "glb",
+        "runtimeFiles": ["public/models/requested-pois/xinhua-pocket-park.glb"],
+        "sourceFiles": ["assets/models/source/requested-pois/xinhua-pocket-park.blend", "scripts/create_requested_poi_models.py"],
+        "positionEvidence": "inferred-xinhua-road-359-scaled-to-4.2m-width"
+      },
+      "cardPhoto": "/images/poi/xinhua-pocket-park.jpg",
+      "canonicalReference": "docs/research/assets/requested-poi-references/xinhua-pocket-park-canonical.jpg",
+      "photoStatus": "verified-same-place",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/requested-poi-references/xinhua-pocket-park-canonical.jpg",
+          "sourceUrl": "https://mooool.com/pocket-park-on-xinhua-road-shanghai-byshuishi.html",
+          "view": "entrance-to-interior",
+          "captureDate": "unknown"
+        },
+        {
+          "path": "docs/research/assets/requested-poi-references/xinhua-pocket-park-signage.jpg",
+          "sourceUrl": "https://mooool.com/pocket-park-on-xinhua-road-shanghai-byshuishi.html",
+          "view": "signage-detail",
+          "captureDate": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "xinhua-community-center",
+      "address": "新华路345弄4号楼",
+      "model": {
+        "kind": "glb",
+        "runtimeFiles": ["public/models/requested-pois/xinhua-community-center.glb"],
+        "sourceFiles": ["assets/models/source/requested-pois/xinhua-community-center.blend", "scripts/create_requested_poi_models.py"],
+        "positionEvidence": "osm-node-13765678129"
+      },
+      "cardPhoto": "/images/poi/xinhua-community-center.jpg",
+      "canonicalReference": "docs/research/assets/requested-poi-references/xinhua-community-center-front.jpg",
+      "photoStatus": "verified-same-place",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/requested-poi-references/xinhua-community-center-front.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col7343/20230609/1237981.html",
+          "view": "building-front",
+          "captureDate": "unknown"
+        },
+        {
+          "path": "docs/research/assets/requested-poi-references/xinhua-community-center-toy-house.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col7343/20230609/1237981.html",
+          "view": "toy-exchange-house",
+          "captureDate": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "debi-fahua-525",
+      "address": "法华镇路525号",
+      "model": {
+        "kind": "glb",
+        "runtimeFiles": ["public/models/requested-pois/debi-fahua-525.glb"],
+        "sourceFiles": ["assets/models/source/requested-pois/debi-fahua-525.blend", "scripts/create_requested_poi_models.py"],
+        "positionEvidence": "inferred-fahua-road-525-south-compound"
+      },
+      "cardPhoto": "/images/poi/debi-fahua-525.jpg",
+      "canonicalReference": "docs/research/assets/requested-poi-references/debi-fahua-525-front.jpg",
+      "photoStatus": "verified-same-compound",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/requested-poi-references/debi-fahua-525-front.jpg",
+          "sourceUrl": "https://www.dobechina.com/projects/mandr/77",
+          "view": "main-building-front",
+          "captureDate": "unknown"
+        },
+        {
+          "path": "docs/research/assets/requested-poi-references/debi-fahua-525-courtyard.jpg",
+          "sourceUrl": "https://www.dobechina.com/projects/mandr/77",
+          "view": "courtyard",
+          "captureDate": "unknown"
+        },
+        {
+          "path": "docs/research/assets/requested-poi-references/debi-fahua-525-garden.jpg",
+          "sourceUrl": "https://www.dobechina.com/projects/mandr/77",
+          "view": "garden",
+          "captureDate": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "fahua-heritage",
+      "address": "法华镇路与香花桥路交会处",
+      "model": {
+        "kind": "glb",
+        "runtimeFiles": ["public/models/requested-pois/fahua-heritage.glb"],
+        "sourceFiles": ["assets/models/source/requested-pois/fahua-heritage.blend", "scripts/create_requested_poi_models.py"],
+        "positionEvidence": "fahua-xianghuaqiao-southeast-sidewalk"
+      },
+      "cardPhoto": "/images/poi/fahua-heritage.jpg",
+      "canonicalReference": "docs/research/assets/requested-poi-references/fahua-heritage-arch.jpg",
+      "photoStatus": "verified-same-structure",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/requested-poi-references/fahua-heritage-arch.jpg",
+          "sourceUrl": "https://www.thepaper.cn/newsDetail_forward_11011983",
+          "view": "front",
+          "captureDate": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "fics-xinhua-365",
+      "address": "新华路365弄",
+      "model": {
+        "kind": "glb-compound",
+        "runtimeFiles": ["public/models/requested-pois/fics-xinhua-365.glb"],
+        "sourceFiles": ["assets/models/source/requested-pois/fics-xinhua-365.blend", "scripts/create_requested_poi_models.py"],
+        "positionEvidence": "inferred-campus-shifted-behind-xinhua-road-edge"
+      },
+      "cardPhoto": "/images/poi/fics-xinhua-365.jpg",
+      "canonicalReference": "docs/research/assets/requested-poi-references/fics-xinhua-365-built-logo.jpg",
+      "photoStatus": "verified-same-compound",
+      "referencePhotos": [
+        {
+          "path": "docs/research/assets/requested-poi-references/fics-xinhua-365-built-logo.jpg",
+          "sourceUrl": "https://sghexport.shobserver.com/html/baijiahao/2024/07/02/1368152.html",
+          "view": "logo-building",
+          "captureDate": "2024"
+        },
+        {
+          "path": "docs/research/assets/requested-poi-references/fics-xinhua-365-built-courtyard.jpg",
+          "sourceUrl": "https://sghexport.shobserver.com/html/baijiahao/2024/07/02/1368152.html",
+          "view": "courtyard",
+          "captureDate": "2024"
+        },
+        {
+          "path": "docs/research/assets/requested-poi-references/fics-xinhua-365-built-mansion.jpg",
+          "sourceUrl": "https://sghexport.shobserver.com/html/baijiahao/2024/07/02/1368152.html",
+          "view": "historic-mansion",
+          "captureDate": "2024"
+        }
+      ]
+    }
+  ]
+}

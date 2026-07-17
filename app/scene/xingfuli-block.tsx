@@ -18,6 +18,14 @@ const GARDEN_CELLS = Array.from({ length: 72 }, (_, index) => ({
 }));
 const GARDEN_COLORS = ["#78924e", "#4f7d55", "#386849"] as const;
 const REFLECTING_POOL = { x: 16.5, z: -3.95, width: 18, depth: 2.15 };
+export const XINGFULI_DETAIL_UPGRADE = {
+  windowLayersBefore: 3,
+  windowLayersAfter: 6,
+  storefrontLayersBefore: 3,
+  storefrontLayersAfter: 7,
+  poolEdgeDetailsBefore: 1,
+  poolEdgeDetailsAfter: 9,
+} as const;
 
 type Building = {
   id: string;
@@ -91,6 +99,18 @@ function Window({
         <boxGeometry args={[0.045, 0.94, 0.02]} />
         <meshBasicMaterial color="#d9dfd7" />
       </mesh>
+      <mesh position={[0, 0, sign * 0.112]}>
+        <boxGeometry args={[width - 0.2, 0.04, 0.024]} />
+        <meshBasicMaterial color="#d9dfd7" />
+      </mesh>
+      <mesh position={[0, -0.59, sign * 0.12]} castShadow>
+        <boxGeometry args={[width + 0.08, 0.08, 0.24]} />
+        <meshToonMaterial color="#dddcd2" />
+      </mesh>
+      <mesh position={[0, 0.62, sign * 0.13]} castShadow>
+        <boxGeometry args={[width + 0.12, 0.07, 0.28]} />
+        <meshToonMaterial color={frame} />
+      </mesh>
     </group>
   );
 }
@@ -116,6 +136,20 @@ function Storefront({ building, frontZ }: { building: Building; frontZ: number }
             <mesh position={[0, 0.65, sign * 0.13]}>
               <boxGeometry args={[unitWidth - 0.42, 0.07, 0.025]} />
               <meshBasicMaterial color="#d6d7cb" />
+            </mesh>
+            {[-0.23, 0.23].map((ratio) => (
+              <mesh key={ratio} position={[unitWidth * ratio, 0.02, sign * 0.135]}>
+                <boxGeometry args={[0.045, 1.34, 0.028]} />
+                <meshBasicMaterial color="#d8ddd5" />
+              </mesh>
+            ))}
+            <mesh position={[0, 0.3, sign * 0.14]}>
+              <boxGeometry args={[unitWidth - 0.46, 0.045, 0.028]} />
+              <meshBasicMaterial color="#d8ddd5" />
+            </mesh>
+            <mesh position={[unitWidth * 0.18, -0.2, sign * 0.17]}>
+              <boxGeometry args={[0.035, 0.28, 0.04]} />
+              <meshToonMaterial color="#d7b86d" />
             </mesh>
           </group>
         );
@@ -466,6 +500,20 @@ function ReflectingPool() {
         <boxGeometry args={[REFLECTING_POOL.width - 0.58, 0.05, REFLECTING_POOL.depth - 0.56]} />
         <meshToonMaterial color="#5d9da0" transparent opacity={0.86} />
       </mesh>
+      {[-1, 1].map((side) => (
+        <group key={side} position={[0, 0.52, side * (REFLECTING_POOL.depth / 2 - 0.08)]}>
+          <mesh castShadow>
+            <boxGeometry args={[REFLECTING_POOL.width + 0.28, 0.12, 0.22]} />
+            <meshToonMaterial color="#59635f" />
+          </mesh>
+          {[-6.6, -2.2, 2.2, 6.6].map((x) => (
+            <mesh key={x} position={[x, 0.065, side * 0.12]}>
+              <boxGeometry args={[1.25, 0.025, 0.07]} />
+              <meshBasicMaterial color="#263b38" />
+            </mesh>
+          ))}
+        </group>
+      ))}
       {[-6.2, -2.7, 0.7, 4.1].map((x, index) => (
         <group key={x} position={[x, 0.66, index % 2 ? 0.34 : -0.28]}>
           <mesh castShadow>

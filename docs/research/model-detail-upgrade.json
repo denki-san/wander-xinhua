@@ -1,0 +1,105 @@
+{
+  "capturedAt": "2026-07-18",
+  "rule": "优先增加照片中可辨识的专属构件；只有构件本身需要曲面和倒角时才增加三角面，禁止无意义细分。每个既有资产必须满足三角面至少翻倍，或核心构件的可见语义层至少翻倍。",
+  "sharedSemanticGates": {
+    "window": {
+      "before": 4,
+      "after": 9,
+      "parts": ["外框", "玻璃", "纵梃", "横梃", "窗台", "滴水檐", "左右盖缝", "执手"]
+    },
+    "door": {
+      "before": 8,
+      "after": 16,
+      "parts": ["外框", "门扇", "中挺", "四块门芯", "双拉手", "门槛", "气窗横档", "踢脚板", "门锁", "三枚铰链"]
+    },
+    "railing": {
+      "beforeFormula": "posts + 3",
+      "afterFormula": "4 * posts + 5",
+      "parts": ["顶横杆", "中横杆", "底横杆", "立柱", "柱帽", "双向交叉撑"]
+    }
+  },
+  "completed": {
+    "xingfuli": {
+      "referenceSet": "docs/research/assets/poi-references/xingfuli",
+      "semanticLayers": {
+        "window": { "before": 3, "after": 6 },
+        "storefront": { "before": 3, "after": 7 },
+        "poolEdge": { "before": 1, "after": 9 }
+      },
+      "runtimeFile": "app/scene/xingfuli-block.tsx"
+    },
+    "shangsheng": {
+      "referenceSet": "docs/research/assets/poi-references/shangsheng-xinsuo",
+      "semanticLayers": {
+        "archWindow": { "before": 2, "after": 7 },
+        "countryClubUpperWindow": { "before": 1, "after": 5 },
+        "mainEntrance": { "before": 3, "after": 12 }
+      },
+      "navyClubGlb": {
+        "runtimeFile": "public/models/shangsheng/navy-club-pool.glb",
+        "trianglesBefore": 43224,
+        "trianglesAfter": 134940,
+        "ratio": 3.122,
+        "visibleDetailPartsBefore": 550,
+        "visibleDetailPartsAfter": 1237,
+        "bytesAfter": 9430544,
+        "sha256": "67237bdfafc1606c151450ac0c08ed2755d59972e813fccc877cdb213d017445"
+      }
+    },
+    "huashan": {
+      "referenceSet": "docs/research/assets/poi-references/huashan-greenland",
+      "semanticLayers": {
+        "runningTrack": { "before": 1, "after": 5 },
+        "matureTree": { "before": 2, "after": 4 },
+        "serviceBuilding": { "before": 2, "after": 8 }
+      },
+      "runtimeFile": "app/scene/huashan-green-block.tsx"
+    },
+    "requestedPoiGlbs": {
+      "debi-fahua-525": { "trianglesBefore": 15672, "trianglesAfter": 21336, "gate": "window" },
+      "fahua-heritage": { "trianglesBefore": 11652, "trianglesAfter": 28152, "ratio": 2.416 },
+      "fics-xinhua-365": { "trianglesBefore": 39016, "trianglesAfter": 88416, "ratio": 2.266 },
+      "hudec-memorial": { "trianglesBefore": 7540, "trianglesAfter": 16624, "ratio": 2.205 },
+      "xinhua-community-center": { "trianglesBefore": 4472, "trianglesAfter": 10836, "ratio": 2.423 },
+      "xinhua-pocket-park": {
+        "trianglesBefore": 4604,
+        "trianglesAfter": 15524,
+        "ratio": 3.372,
+        "visibleDetailPartsBefore": 57,
+        "visibleDetailPartsAfter": 147
+      }
+    },
+    "xinhuaRoadGlbs": {
+      "film-art-center": { "trianglesBefore": 23324, "trianglesAfter": 49360, "ratio": 2.116 },
+      "house-315": { "trianglesBefore": 11964, "trianglesAfter": 23512, "gate": "window+door+railing" },
+      "one-step-garden": { "trianglesBefore": 22092, "trianglesAfter": 31900, "gate": "window+door+railing" },
+      "shanghai-cinema": {
+        "trianglesBefore": 45056,
+        "trianglesAfter": 68992,
+        "visibleDetailPartsBefore": 293,
+        "visibleDetailPartsAfter": 603,
+        "partsRatio": 2.058
+      },
+      "shanghai-orchestra": { "trianglesBefore": 20244, "trianglesAfter": 37276, "gate": "window+door" },
+      "villa-le-bec": { "trianglesBefore": 23016, "trianglesAfter": 41156, "gate": "window+door+railing" },
+      "xinhua-villas-211": {
+        "replacementFor": "xinhua-villas",
+        "trianglesAfter": 62674,
+        "visibleDetailPartsAfter": 805,
+        "gate": "window+door+railing"
+      },
+      "xinhua-villas-329": {
+        "replacementFor": "xinhua-villas",
+        "trianglesAfter": 20524,
+        "visibleDetailPartsAfter": 286,
+        "gate": "new-photo-specific-model+window+door+railing"
+      }
+    }
+  },
+  "runtimeIntegrity": {
+    "rootNodeTranslation": [0, 0, 0],
+    "collisionRule": "GLB 根节点变换已烘焙到网格；localBounds 与 POSITION accessor 一致，localObstacles 仅覆盖实体建筑，广场、草坪、庭院铺装和车道保持可步行。",
+    "roadClearanceRule": "全部可见 POI 模型退出生产机动车道路，并至少保留 0.75 场景单位净距。"
+  },
+  "pending": []
+}

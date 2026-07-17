@@ -25,6 +25,24 @@
 - 长宁区政府二期介绍：<https://www.shcn.gov.cn/col7344/20240327/1257062.html>
 - 万科项目介绍：<https://www.vankehk.com/tc/portfolio/columbia-circle>
 - 上海市文化和旅游局孙科别墅信息：<https://whlyj.sh.gov.cn/gqfc/20240716/6914b6ee61274aaf960f18d97d427fd0.html>
+- 长宁区政府园区实景组：<https://www.shcn.gov.cn/col3991/20241008/1269200.html>
 - OpenStreetMap 场地：<https://www.openstreetmap.org/way/765939973>
 
-参考照片只用于人工判断结构、颜色与空间关系，不打包进产品，也不复制品牌标识或照片贴图。
+## 本地照片组与同主体核验（2026-07-17）
+
+| 本地文件 | 角度 | 同主体交叉证据 |
+| --- | --- | --- |
+| `docs/research/assets/poi-references/shangsheng-xinsuo/yanan-road-entrance.jpg` | 延安西路主入口 | 黑色入口构架、园区中轴和成排成熟乔木共同限定园区入口 |
+| `docs/research/assets/poi-references/shangsheng-xinsuo/navy-club-canonical.jpg` | 海军俱乐部正面 | 白色连续圆拱、蓝绿色露天泳池和二层栏杆与园区资料一致 |
+| `docs/research/assets/poi-references/shangsheng-xinsuo/columbia-country-club.jpg` | 哥伦比亚乡村俱乐部入口 | 米白墙、红褐坡屋顶、首层圆拱与中央入口山花对应园区建筑 |
+
+三张照片来自同一长宁区政府园区介绍，分别覆盖入口和园内两个核心历史建筑；页面语境、成熟树阵、米白历史建筑和圆拱语言一致，判定为同一上生·新所园区。由于园区本身包含多栋不同建筑，“同主体”在这里指同一园区，而不是强行把三张照片当成同一栋房屋。
+
+## 本轮细节提升门槛
+
+- 程序化场景改造前基线：`96` 个 JSX mesh 标签、`45` 个 geometry 标签；海军俱乐部 GLB 基线为 `43,224` 三角面。
+- 不通过无意义细分翻倍。新增细节必须对应照片中的入口构架、拱券层次、窗格、栏杆、屋面瓦脊、檐沟/落水管、泳池压顶与水线、庭院铺地和灯具。
+- 海军俱乐部、哥伦比亚乡村俱乐部和入口三处的可辨识构件数量至少翻倍；二期通用体量只补照片能支持的开窗、金属框架和玻璃入口。
+- 坐标与场地轮廓继续来自 OSM way `765939973`；碰撞体只覆盖墙体和实体柱，不覆盖雨棚挑檐、树冠、泳池水面与装饰灯。
+
+参考照片只用于人工判断结构、颜色与空间关系；本地留档不作为运行时贴图，也不复制品牌标识。

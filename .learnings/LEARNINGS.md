@@ -28,6 +28,30 @@
 
 ---
 
+## [LRN-20260717-011] correction
+
+**Logged**: 2026-07-17T22:55:00+08:00
+**Priority**: critical
+**Status**: in_progress
+**Area**: frontend
+
+### Summary
+POI 卡片必须使用可核验的对应场所实景，不能从来源文章里直接取首图或宣传横幅。
+
+### Details
+逐项下载当前 17 张卡片图后确认：上生·新所实际显示“2024 迎春消费季”宣传插画，华山绿地显示“为宁办实事”横幅，一尺花园显示的是 Villa Le Bec 门面。它们虽然来自相关或邻近内容页面，但并不是对应 POI 的真实外观，无法支持用户识别，也会误导后续建模。
+
+### Suggested Action
+为每个 POI 建立本地照片清单和来源元数据，逐张确认主体、地址及不同视角的一致性；卡片只引用已通过核验的本地典型实景图。测试禁止远程首图和未核验宣传图重新进入卡片。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/poi-data.ts, docs/research/poi-photo-model-audit.md
+- Tags: poi-photo, subject-verification, card-image, modeling-evidence
+- See Also: LRN-20260717-008
+
+---
+
 ## [LRN-20260716-005] correction
 
 **Logged**: 2026-07-16T14:08:00+08:00

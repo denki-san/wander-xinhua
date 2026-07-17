@@ -25,10 +25,28 @@ export const HUASHAN_GREEN_POSITION = PARK.position as [number, number];
 const PARK_POSITION = HUASHAN_GREEN_POSITION;
 const PARK_BOUNDARY: MapPolygonPoint[] = PARK.boundary.map(([x, z]) => [x, z]);
 const PARK_PATHS = PARK.paths as Path[];
+const RUNNING_TRACK_PATH_IDS = new Set([
+  577453692,
+  577453697,
+  577453703,
+  577453705,
+  577453707,
+  577453711,
+  577453719,
+]);
+const RUNNING_TRACK_PATHS = PARK_PATHS.filter((path) => RUNNING_TRACK_PATH_IDS.has(path.id));
 const POND = { x: -7.8, z: 39.2, radiusX: 9.4, radiusZ: 4.5 };
 const POND_BRIDGE_CLEARANCE = 2.4;
 const POND_COLLISION_RADIUS_X = POND.radiusX * 0.88;
 const POND_COLLISION_RADIUS_Z = POND.radiusZ * 0.82;
+export const HUASHAN_DETAIL_UPGRADE = {
+  runningTrackLayersBefore: 1,
+  runningTrackLayersAfter: 5,
+  matureTreePartsBefore: 2,
+  matureTreePartsAfter: 4,
+  serviceBuildingPartsBefore: 2,
+  serviceBuildingPartsAfter: 8,
+} as const;
 
 function offsetObstacle(obstacle: MapObstacle): MapObstacle {
   return {
@@ -128,21 +146,26 @@ function clippedPathSegments(paths: Path[]) {
   return clipped;
 }
 
-function mergePathGeometry(paths: Path[]) {
+function mergePathGeometry(
+  paths: Path[],
+  widthScale = 1,
+  centerY = 0.11,
+) {
   const pieces: BufferGeometry[] = [];
   for (const { start, end, width } of clippedPathSegments(paths)) {
     const dx = end[0] - start[0];
     const dz = end[1] - start[1];
     const length = Math.hypot(dx, dz);
     if (length < 0.05) continue;
-    const segment = new BoxGeometry(width, 0.08, length);
+    const renderedWidth = width * widthScale;
+    const segment = new BoxGeometry(renderedWidth, 0.08, length);
     const matrix = new Matrix4().makeRotationY(Math.atan2(dx, dz));
-    matrix.setPosition((start[0] + end[0]) / 2, 0.11, (start[1] + end[1]) / 2);
+    matrix.setPosition((start[0] + end[0]) / 2, centerY, (start[1] + end[1]) / 2);
     segment.applyMatrix4(matrix);
     pieces.push(segment);
     for (const [x, z] of [start, end]) {
-      const join = new CylinderGeometry(width / 2, width / 2, 0.08, 10);
-      join.translate(x, 0.11, z);
+      const join = new CylinderGeometry(renderedWidth / 2, renderedWidth / 2, 0.08, 10);
+      join.translate(x, centerY, z);
       pieces.push(join);
     }
   }
@@ -154,10 +177,14 @@ function mergePathGeometry(paths: Path[]) {
 function ParkGroundAndPaths() {
   const ground = useMemo(() => polygonGeometry(PARK_BOUNDARY), []);
   const paths = useMemo(() => mergePathGeometry(PARK_PATHS), []);
+  const trackBorder = useMemo(() => mergePathGeometry(RUNNING_TRACK_PATHS, 1.6, 0.15), []);
+  const trackSurface = useMemo(() => mergePathGeometry(RUNNING_TRACK_PATHS, 1.28, 0.2), []);
   useEffect(() => () => {
     ground.dispose();
     paths.dispose();
-  }, [ground, paths]);
+    trackBorder.dispose();
+    trackSurface.dispose();
+  }, [ground, paths, trackBorder, trackSurface]);
   return (
     <group>
       <mesh geometry={ground} position={[0, 0.08, 0]} receiveShadow>
@@ -166,6 +193,50 @@ function ParkGroundAndPaths() {
       <mesh geometry={paths} receiveShadow>
         <meshToonMaterial color="#aaa38f" />
       </mesh>
+      <mesh geometry={trackBorder} receiveShadow>
+        <meshToonMaterial color="#e0d0ad" />
+      </mesh>
+      <mesh geometry={trackSurface} receiveShadow>
+        <meshToonMaterial color="#b85b4e" />
+      </mesh>
+      <RunningTrackDetails />
+    </group>
+  );
+}
+
+function RunningTrackDetails() {
+  return (
+    <group name="huashan-running-track-details" userData={{ reference: "huashan-greenland-2025" }}>
+      {clippedPathSegments(RUNNING_TRACK_PATHS).map(({ start, end, width }, index) => {
+        const dx = end[0] - start[0];
+        const dz = end[1] - start[1];
+        const length = Math.hypot(dx, dz);
+        const yaw = Math.atan2(dx, dz);
+        return (
+          <group
+            key={`${start[0]}-${start[1]}-${end[0]}-${end[1]}`}
+            position={[(start[0] + end[0]) / 2, 0.255, (start[1] + end[1]) / 2]}
+            rotation-y={yaw}
+          >
+            {[-1, 1].map((side) => (
+              <mesh key={side} position={[side * width * 0.49, 0, 0]} receiveShadow>
+                <boxGeometry args={[0.045, 0.018, length * 0.94]} />
+                <meshBasicMaterial color="#efe0bd" />
+              </mesh>
+            ))}
+            <mesh position={[0, 0.004, 0]} receiveShadow>
+              <boxGeometry args={[width * 0.72, 0.02, 0.055]} />
+              <meshBasicMaterial color={index % 3 === 0 ? "#f0dfb7" : "#8e4a43"} />
+            </mesh>
+            {index % 3 === 0 && (
+              <mesh position={[0, 0.045, -length * 0.25]} castShadow>
+                <boxGeometry args={[width * 0.52, 0.06, 0.18]} />
+                <meshToonMaterial color="#d6bd8b" />
+              </mesh>
+            )}
+          </group>
+        );
+      })}
     </group>
   );
 }
@@ -217,6 +288,8 @@ export const HUASHAN_GREEN_OBSTACLES: MapObstacle[] = [
 function ForestInstances() {
   const trunks = useRef<InstancedMesh>(null);
   const crowns = useRef<InstancedMesh>(null);
+  const secondaryCrowns = useRef<InstancedMesh>(null);
+  const rootCollars = useRef<InstancedMesh>(null);
   useLayoutEffect(() => {
     const dummy = new Object3D();
     FOREST_TREES.forEach(({ x, z, index }, instance) => {
@@ -233,9 +306,27 @@ function ForestInstances() {
       dummy.rotation.y = index * 0.91;
       dummy.updateMatrix();
       crowns.current?.setMatrixAt(instance, dummy.matrix);
+
+      dummy.position.set(
+        x + (index % 2 ? -1 : 1) * width * 0.36,
+        height * 0.88,
+        z + (index % 3 - 1) * 0.38,
+      );
+      dummy.scale.set(width * 0.66, 1.45 + index % 3 * 0.14, width * 0.68);
+      dummy.rotation.y = index * 0.47;
+      dummy.updateMatrix();
+      secondaryCrowns.current?.setMatrixAt(instance, dummy.matrix);
+
+      dummy.position.set(x, 0.17, z);
+      dummy.scale.set(0.62 + index % 3 * 0.08, 0.28, 0.62 + index % 3 * 0.08);
+      dummy.rotation.y = index * 0.31;
+      dummy.updateMatrix();
+      rootCollars.current?.setMatrixAt(instance, dummy.matrix);
     });
     if (trunks.current) trunks.current.instanceMatrix.needsUpdate = true;
     if (crowns.current) crowns.current.instanceMatrix.needsUpdate = true;
+    if (secondaryCrowns.current) secondaryCrowns.current.instanceMatrix.needsUpdate = true;
+    if (rootCollars.current) rootCollars.current.instanceMatrix.needsUpdate = true;
   }, []);
   return (
     <group name="huashan-greenland-forest" userData={{ feature: "urban-forest" }}>
@@ -246,6 +337,14 @@ function ForestInstances() {
       <instancedMesh ref={crowns} args={[undefined, undefined, FOREST_TREES.length]} castShadow receiveShadow>
         <icosahedronGeometry args={[1, 1]} />
         <meshToonMaterial color="#3f6d49" />
+      </instancedMesh>
+      <instancedMesh ref={secondaryCrowns} args={[undefined, undefined, FOREST_TREES.length]} castShadow receiveShadow>
+        <icosahedronGeometry args={[1, 1]} />
+        <meshToonMaterial color="#527e51" />
+      </instancedMesh>
+      <instancedMesh ref={rootCollars} args={[undefined, undefined, FOREST_TREES.length]} castShadow receiveShadow>
+        <cylinderGeometry args={[0.32, 0.48, 1, 9]} />
+        <meshToonMaterial color="#75624c" />
       </instancedMesh>
     </group>
   );
@@ -290,10 +389,26 @@ function PondGarden() {
             <meshToonMaterial color={index % 2 ? "#8f6a47" : "#a47b52"} />
           </mesh>
         ))}
-        {[-8.35, 8.35].map((x) => (
-          <mesh key={x} position={[x, 0.38, 0.72]} castShadow>
-            <boxGeometry args={[0.08, 0.7, 0.08]} />
-            <meshToonMaterial color="#3f5145" />
+        {Array.from({ length: 12 }, (_, index) => (
+          <group key={index} position={[-8.25 + index * 1.5, 0, 0]}>
+            {[-0.72, 0.72].map((z) => (
+              <mesh key={z} position={[0, 0.38, z]} castShadow>
+                <boxGeometry args={[0.08, 0.7, 0.08]} />
+                <meshToonMaterial color="#3f5145" />
+              </mesh>
+            ))}
+          </group>
+        ))}
+        {[-0.72, 0.72].map((z) => (
+          <mesh key={z} position={[0, 0.72, z]} castShadow>
+            <boxGeometry args={[17.2, 0.09, 0.11]} />
+            <meshToonMaterial color="#465b4d" />
+          </mesh>
+        ))}
+        {[-0.52, 0.52].map((z) => (
+          <mesh key={z} position={[0, -0.12, z]} castShadow>
+            <boxGeometry args={[17.1, 0.12, 0.16]} />
+            <meshToonMaterial color="#5d4a38" />
           </mesh>
         ))}
       </group>
@@ -387,6 +502,30 @@ function ParkFacilities() {
         <mesh position={[0, 0.78, 0]} rotation-y={Math.PI / 4} castShadow>
           <coneGeometry args={[0.86, 0.48, 4]} />
           <meshToonMaterial color="#4d6854" />
+        </mesh>
+        <mesh position={[0, -0.08, service.depth / 2 + 0.04]} castShadow>
+          <boxGeometry args={[0.82, 1.05, 0.08]} />
+          <meshToonMaterial color="#536961" />
+        </mesh>
+        {[-service.width * 0.28, service.width * 0.28].map((x) => (
+          <group key={x} position={[x, 0.12, service.depth / 2 + 0.05]}>
+            <mesh castShadow>
+              <boxGeometry args={[0.72, 0.62, 0.08]} />
+              <meshToonMaterial color="#668a84" />
+            </mesh>
+            <mesh position={[0, 0, 0.055]}>
+              <boxGeometry args={[0.035, 0.58, 0.025]} />
+              <meshBasicMaterial color="#e6ddc9" />
+            </mesh>
+          </group>
+        ))}
+        <mesh position={[0, 0.88, service.depth / 2 + 0.28]} rotation-x={-0.15} castShadow>
+          <boxGeometry args={[service.width + 0.4, 0.12, 0.62]} />
+          <meshToonMaterial color="#3e514a" />
+        </mesh>
+        <mesh position={[-service.width / 2 - 0.08, 0.08, 0]} castShadow>
+          <cylinderGeometry args={[0.045, 0.06, 1.25, 8]} />
+          <meshToonMaterial color="#46564f" />
         </mesh>
       </group>
       <group name="huashan-bird-pergola" position={[-25, 0.22, 17.5]} userData={{ landscape: "bird-pergola" }}>

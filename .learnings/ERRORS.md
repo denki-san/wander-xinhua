@@ -1929,3 +1929,220 @@ Cannot read properties of undefined (reading 'listNamespaces')
 - **Notes**: 已在 3004 启动最新静态预览，完整读取浏览器文档并完成全览画面验收。
 
 ---
+
+## [ERR-20260717-041] git_branch_ref_permission
+
+**Logged**: 2026-07-17T22:50:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+新建改造分支时，沙箱无法写入 Git refs。
+
+### Error
+```
+fatal: cannot lock ref 'refs/heads/codex/poi-model-photo-overhaul':
+Operation not permitted
+```
+
+### Context
+- 当前基线已先提交到 `main`。
+- 工作区只允许读取 `.git`，普通 `git switch -c` 无法创建 ref。
+
+### Suggested Fix
+分支创建应直接使用受控权限流程，不要在普通沙箱重复尝试。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git/refs/heads
+
+### Resolution
+- **Resolved**: 2026-07-17T22:51:00+08:00
+- **Notes**: 经授权成功创建并切换到 `codex/poi-model-photo-overhaul`。
+
+---
+
+## [ERR-20260718-042] blender_sandbox_arch_crash
+
+**Logged**: 2026-07-18T00:02:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Blender 4.5.11 在受限环境启动时因 USD 架构缓存行断言直接崩溃。
+
+### Error
+```
+ArchWarn: ARCH_CACHE_LINE_SIZE != Arch_ObtainCacheLineSize()
+Segmentation fault: 11
+```
+
+### Context
+- 任务是重新生成海军俱乐部 GLB、Blend 源文件和固定角度预览。
+- 崩溃发生在脚本开始写资产前，原 GLB 未被半成品覆盖。
+
+### Suggested Fix
+Blender 这类需要读取系统硬件架构信息的本机二进制应直接按受控权限流程运行；生成后仍要单独审计 GLB、预览图和嵌入的细节计数。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_navy_club_model.py
+
+### Resolution
+- **Resolved**: 2026-07-18T00:05:00+08:00
+- **Notes**: 沙箱外重跑成功；生成 134,940 三角面的 GLB，嵌入可见细节 1,237 / 基线 550，并输出 Blend 与固定预览。
+
+---
+
+## [ERR-20260718-043] inline_glb_metrics_quote
+
+**Logged**: 2026-07-18T01:30:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+内联 Node 指标脚本在拼接 `.glb` 属性时引号不配对，首次执行触发语法错误。
+
+### Context
+- 脚本只读模型指标，没有写入或覆盖资产。
+- 修正字符串与属性访问之间的分隔后，原命令成功返回指标。
+
+### Suggested Fix
+内联脚本优先使用短的 here-document，并将路径字符串和属性访问拆成独立表达式；复杂统计应放入已有测试辅助函数。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_model_detail_upgrade.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-18T01:31:00+08:00
+- **Notes**: 修正引号后重跑成功，模型升级测试随后全部通过。
+
+---
+
+## [ERR-20260718-044] missing_gltf_transform_cli_dependency
+
+**Logged**: 2026-07-18T01:32:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+为检查角色动画名称临时导入 `@gltf-transform/core`，但项目没有安装该包，命令以 `ERR_MODULE_NOT_FOUND` 退出。
+
+### Error
+```
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@gltf-transform/core'
+```
+
+### Context
+- 项目运行时只依赖 Three.js，不需要为这次只读检查新增依赖。
+- GLB 的 JSON chunk 本身已经包含动画名称和节点信息。
+
+### Suggested Fix
+只读审计优先使用 Node 内置 `fs` 读取 GLB 头部和 JSON chunk；只有需要重写或优化资产时再引入 glTF Transform。
+
+### Metadata
+- Reproducible: yes
+- Related Files: public/models/character/urban-messenger.glb
+
+### Resolution
+- **Resolved**: 2026-07-18T01:33:00+08:00
+- **Notes**: 改用 Node 内置模块解析 GLB，确认 76 个动画及 Idle、Unarmed_Idle、Walking_A、Running_A 均存在。
+
+---
+
+## [ERR-20260718-045] gltf_hook_scene_name_mutation
+
+**Logged**: 2026-07-18T01:40:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: code
+
+### Summary
+角色调试阶段给 `useGLTF` 返回的 scene 重命名，触发 React Hooks immutability lint。
+
+### Error
+```
+Error: This value cannot be modified
+scene.name = "UrbanMessengerCharacter";
+```
+
+### Context
+- 重命名只为了在临时动画状态中辨认 mixer root，不参与渲染或动画绑定。
+- GLB 原始 scene 已能直接作为单实例骨架根节点。
+
+### Suggested Fix
+不要修改 hook 返回对象的顶层属性；调试标签应放在局部变量或 DOM 测试输出中，并在收尾时移除。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-world.tsx
+
+### Resolution
+- **Resolved**: 2026-07-18T01:41:00+08:00
+- **Notes**: 删除无功能用途的 scene 重命名，保留单实例骨架与动画混合。
+
+---
+
+## [ERR-20260718-046] stale_dual_scale_source_shape_assertion
+
+**Logged**: 2026-07-18T01:44:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+全量测试仍要求上生新所和梧桐树组件在源码中直接相邻，新增独立 Suspense 边界后旧正则失败。
+
+### Context
+- 静态构建和 73 项其他测试均通过。
+- 独立 Suspense 是为避免大型 GLB 首次加载时挂起整张地面与相机，双尺度功能本身没有回归。
+
+### Suggested Fix
+结构测试应验证关键组件仍存在且各自被渐进加载边界保护，不应依赖无语义的 JSX 相邻关系。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_dual_scale_navigation.test.mjs, app/scene/xinhua-world.tsx
+
+### Resolution
+- **Resolved**: 2026-07-18T01:45:00+08:00
+- **Notes**: 断言已改为分别验证上生新所、梧桐树和新华路地标的三个 Suspense 边界。
+
+---
+
+## [ERR-20260718-047] git_index_lock_permission
+
+**Logged**: 2026-07-18T01:55:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+功能分支收尾暂存时，普通沙箱无法创建 `.git/index.lock`。
+
+### Error
+```
+fatal: Unable to create '.git/index.lock': Operation not permitted
+```
+
+### Context
+- `git diff --check` 已通过，失败发生在任何文件进入暂存区之前。
+- 工作区允许写源码，但 `.git` 元数据需要受控权限。
+
+### Suggested Fix
+在同一仓库遇到 Git ref 或 index lock 权限错误时，直接使用受控 Git 写入流程，避免重复普通沙箱命令。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git/index
+
+### Resolution
+- **Resolved**: 2026-07-18T01:56:00+08:00
+- **Notes**: 使用受控权限完成暂存与提交。
+
+---

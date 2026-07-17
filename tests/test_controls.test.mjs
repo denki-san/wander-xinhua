@@ -75,8 +75,11 @@ test("移动端下方触发区与浮动摇杆结构已接入", async () => {
   assert.match(experience, /matchMedia\("\(any-pointer: coarse\)"\)/);
   assert.match(experience, /navigator\.maxTouchPoints/);
   assert.match(experience, /touchCapable \? " is-touch" : ""/);
+  assert.match(experience, /new URLSearchParams\(window\.location\.search\)\.get\("start"\)/);
+  assert.match(experience, /setMode\(requestedPreset \? "explore" : "overview"\)/);
   assert.match(styles, /\.touch-stick-zone\s*\{/);
-  assert.match(styles, /height:\s*min\(48svh, 430px\)/);
+  assert.match(styles, /height:\s*50svh/);
+  assert.doesNotMatch(styles, /\.touch-stick-zone\s*\{[^}]*max-height:/s);
   assert.match(styles, /\.touch-stick-zone\s*\{[^}]*pointer-events:\s*none/s);
   assert.match(styles, /\.xinhua-stage\.is-touch\s*\{\s*min-height:\s*0/);
   assert.match(styles, /\.xinhua-stage\.is-touch \.touch-controls\s*\{\s*display:\s*block/);
@@ -107,6 +110,9 @@ test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", as
   assert.match(experience, /<NormalPassControl enabled=\{playing && !lowTier\} \/>/);
   assert.match(experience, /<InkOutline enabled=\{playing && !lowTier\} \/>/);
   assert.match(experience, /<PaperWash animated=\{playing\} \/>/);
+  assert.match(experience, /\{!playing && \(\s*<DisposableEffectComposer/s);
+  assert.match(experience, /playing=\{false\}/);
+  assert.match(world, /<Suspense fallback=\{null\}>\s*<XinhuaRoadLandmarks/s);
   assert.match(effects, /if \(!enabled\) return null/);
   assert.match(effects, /normalPassRef\.current\.enabled = enabled/);
   assert.match(effects, /effect\.setAnimated\(animated\)/);

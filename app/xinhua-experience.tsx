@@ -241,7 +241,9 @@ export function XinhuaExperience() {
   const begin = useCallback(() => {
     resetInput();
     setNearPoiId(null);
-    setMode("overview");
+    const requestedPreset = new URLSearchParams(window.location.search).get("start") ?? undefined;
+    setDestinationPreset(requestedPreset);
+    setMode(requestedPreset ? "explore" : "overview");
   }, []);
 
   const showOverview = useCallback(() => {
@@ -301,11 +303,14 @@ export function XinhuaExperience() {
             playerPosition.current = position;
           }}
         />
-        <DisposableEffectComposer
-          key={mode}
-          playing={exploring}
-          lowTier={lowTier}
-        />
+        {/* 全览和探索直接由 R3F 渲染：游玩态重挂后处理会清空颜色缓冲，只保留 HTML 标签。 */}
+        {!playing && (
+          <DisposableEffectComposer
+            key={mode}
+            playing={false}
+            lowTier={lowTier}
+          />
+        )}
       </Canvas>
 
       {!ready && (

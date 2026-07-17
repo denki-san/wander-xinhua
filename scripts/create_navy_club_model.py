@@ -27,6 +27,7 @@ POOL_MIN_Y = -5.6
 POOL_MAX_Y = 5.05
 POOL_CENTER_X = (POOL_MIN_X + POOL_MAX_X) / 2
 POOL_CENTER_Y = (POOL_MIN_Y + POOL_MAX_Y) / 2
+BASELINE_VISIBLE_DETAIL_PARTS = 550
 
 ASSET_OBJECTS: list[bpy.types.Object] = []
 
@@ -275,6 +276,22 @@ def build_side_arcade(
                 plaster,
                 plane="Y",
             )
+            # 把拱券从单一连续带补成可辨认的分块券石；每块都沿弧线转向。
+            radius = opening / 2 + 0.08
+            for voussoir in range(8):
+                angle = math.pi * (voussoir + 0.5) / 8
+                add_box(
+                    f"{prefix}-voussoir-{level}-{index}-{voussoir}",
+                    (
+                        facade_x + outward * 0.135,
+                        y + math.cos(angle) * radius,
+                        spring_z + math.sin(angle) * radius,
+                    ),
+                    (0.09, 0.16, 0.24),
+                    stucco,
+                    rotation=(angle - math.pi / 2, 0, 0),
+                    bevel=0.012,
+                )
 
         # 深色铜框玻璃门位于拱廊后方，形成照片里真实的纵深和店面节奏。
         door_x = backing_x - outward * 0.035
@@ -283,10 +300,28 @@ def build_side_arcade(
         add_box(f"{prefix}-door-mullion-{index}", (door_x - outward * 0.075, y, 1.17), (0.028, 0.035, 1.64), bronze)
         add_box(f"{prefix}-transom-{index}", (door_x - outward * 0.075, y, 1.68), (0.028, opening * 0.68, 0.045), bronze)
         add_box(f"{prefix}-warm-light-{index}", (facade_x + outward * 0.5, y, 2.16), (0.08, opening * 0.62, 0.045), light, bevel=0.012)
+        for handle_offset in (-0.12, 0.12):
+            add_cylinder(
+                f"{prefix}-door-handle-{index}-{handle_offset}",
+                (door_x - outward * 0.105, y + handle_offset, 1.08),
+                0.018,
+                0.38,
+                bronze,
+                vertices=10,
+            )
+        add_box(
+            f"{prefix}-door-kickplate-{index}",
+            (door_x - outward * 0.092, y, 0.46),
+            (0.02, opening * 0.61, 0.24),
+            bronze,
+            bevel=0.01,
+        )
 
         upper_x = backing_x - outward * 0.04
         add_box(f"{prefix}-upper-frame-{index}", (upper_x, y, 3.89), (0.085, opening * 0.76, 1.3), bronze, bevel=0.012)
         add_box(f"{prefix}-upper-glass-{index}", (upper_x - outward * 0.05, y, 3.89), (0.03, opening * 0.64, 1.12), glass)
+        add_box(f"{prefix}-upper-mullion-{index}", (upper_x - outward * 0.075, y, 3.89), (0.025, 0.035, 1.08), bronze)
+        add_box(f"{prefix}-upper-transom-{index}", (upper_x - outward * 0.075, y, 3.89), (0.025, opening * 0.66, 0.035), bronze)
 
         # 上层白色斜向栏杆是照片中识别度很高的细节。
         rail_x = facade_x - outward * 0.14
@@ -303,6 +338,21 @@ def build_side_arcade(
                 (rail_x, slat_y + 0.1, 3.14),
                 0.035,
                 rail,
+            )
+        # 屋檐下的细密栏板在远景形成真实的横向阴影节奏。
+        for baluster in range(10):
+            ratio = (baluster + 0.5) / 10
+            add_cylinder(
+                f"{prefix}-parapet-baluster-{index}-{baluster}",
+                (
+                    facade_x + outward * 0.67,
+                    y_min + (y_max - y_min) * ratio,
+                    5.62,
+                ),
+                0.028,
+                0.34,
+                rail,
+                vertices=10,
             )
 
 
@@ -338,9 +388,36 @@ def build_end_arcade(
             base_z = 0.18 + level * 2.58
             spring_z = base_z + (1.52 if level == 0 else 1.38)
             add_arch_ring(f"end-arch-{level}-{index}", (x, facade_y, spring_z), opening, 0.13, 0.22, plaster, plane="X")
+            radius = opening / 2 + 0.08
+            for voussoir in range(8):
+                angle = math.pi * (voussoir + 0.5) / 8
+                add_box(
+                    f"end-voussoir-{level}-{index}-{voussoir}",
+                    (
+                        x + math.cos(angle) * radius,
+                        facade_y - 0.135,
+                        spring_z + math.sin(angle) * radius,
+                    ),
+                    (0.16, 0.09, 0.24),
+                    stucco,
+                    rotation=(0, angle - math.pi / 2, 0),
+                    bevel=0.012,
+                )
         add_box(f"end-door-frame-{index}", (x, backing_y, 1.2), (opening * 0.78, 0.08, 1.9), bronze, bevel=0.018)
         add_box(f"end-door-glass-{index}", (x, backing_y - 0.05, 1.2), (opening * 0.66, 0.03, 1.7), glass)
         add_box(f"end-light-{index}", (x, 5.78, 2.15), (opening * 0.62, 0.07, 0.045), light, bevel=0.012)
+        for handle_offset in (-0.12, 0.12):
+            add_cylinder(
+                f"end-door-handle-{index}-{handle_offset}",
+                (x + handle_offset, backing_y - 0.095, 1.08),
+                0.018,
+                0.38,
+                bronze,
+                vertices=10,
+            )
+        add_box(f"end-door-kickplate-{index}", (x, backing_y - 0.09, 0.46), (opening * 0.61, 0.02, 0.24), bronze, bevel=0.01)
+        add_box(f"end-door-mullion-{index}", (x, backing_y - 0.085, 1.18), (0.035, 0.02, 1.62), bronze)
+        add_box(f"end-door-transom-{index}", (x, backing_y - 0.085, 1.67), (opening * 0.64, 0.02, 0.04), bronze)
         for slat in range(4):
             ratio = (slat + 0.5) / 4
             slat_x = x - opening * 0.46 + opening * 0.92 * ratio
@@ -361,6 +438,18 @@ def build_end_arcade(
                 rotation=(math.radians(22) * direction, 0, 0),
                 bevel=0.018,
             )
+    for dentil in range(20):
+        add_box(
+            f"end-cornice-dentil-{dentil}",
+            (
+                left + (dentil + 0.5) * width / 20,
+                facade_y - 0.2,
+                5.18,
+            ),
+            (0.16, 0.2, 0.18),
+            stucco,
+            bevel=0.008,
+        )
 
 
 def build_pool(
@@ -388,6 +477,28 @@ def build_pool(
     for side_y in (POOL_MIN_Y - 0.18, POOL_MAX_Y + 0.18):
         add_box(f"pool-coping-y-{side_y}", (POOL_CENTER_X, side_y, 0.22), (width + 0.42, 0.34, 0.16), plaster, bevel=0.025)
         add_box(f"pool-blue-band-y-{side_y}", (POOL_CENTER_X, side_y + (0.13 if side_y < POOL_CENTER_Y else -0.13), 0.17), (width - 0.04, 0.035, 0.12), tile_blue)
+
+    # 逐块马赛克覆盖连续色带，让近景既能读出水线，也能看到真实的拼贴节奏。
+    length_tile_count = math.floor(length / 0.32)
+    for side_x, sign in ((POOL_MIN_X - 0.03, -1), (POOL_MAX_X + 0.03, 1)):
+        for index in range(length_tile_count):
+            y = POOL_MIN_Y + (index + 0.5) * length / length_tile_count
+            add_box(
+                f"pool-mosaic-x-{sign}-{index}",
+                (side_x, y, 0.22 + (index % 2) * 0.045),
+                (0.025, length / length_tile_count - 0.025, 0.055),
+                tile_gold if index % 3 == 0 else tile_blue,
+            )
+    width_tile_count = math.floor(width / 0.3)
+    for side_y, sign in ((POOL_MIN_Y - 0.03, -1), (POOL_MAX_Y + 0.03, 1)):
+        for index in range(width_tile_count):
+            x = POOL_MIN_X + (index + 0.5) * width / width_tile_count
+            add_box(
+                f"pool-mosaic-y-{sign}-{index}",
+                (x, side_y, 0.22 + (index % 2) * 0.045),
+                (width / width_tile_count - 0.025, 0.025, 0.055),
+                tile_gold if index % 3 == 0 else tile_blue,
+            )
 
     # 泳道线与端部横线在照片中非常醒目。
     for offset in (-1.34, 0.0, 1.34):
@@ -420,6 +531,50 @@ def build_pool(
     # 两端砖红色铺地，与照片中咖啡廊的地面保持同一色调。
     add_box("front-terracotta-deck", (POOL_CENTER_X, POOL_MIN_Y - 0.75, 0.1), (width + 1.2, 1.05, 0.15), terracotta, bevel=0.025)
     add_box("end-terracotta-deck", (POOL_CENTER_X, POOL_MAX_Y + 0.62, 0.1), (width + 1.2, 0.75, 0.15), terracotta, bevel=0.025)
+
+    # 池边排水格栅、出发台和不锈钢扶梯补足近景设施，不改变水面碰撞边界。
+    for side_x, sign in ((POOL_MIN_X - 0.58, -1), (POOL_MAX_X + 0.58, 1)):
+        for index in range(20):
+            y = POOL_MIN_Y + (index + 0.5) * length / 20
+            add_box(
+                f"pool-drain-{sign}-{index}",
+                (side_x, y, 0.19),
+                (0.22, length / 20 - 0.08, 0.035),
+                tile_dark,
+                bevel=0.006,
+            )
+        for ladder_y in (POOL_MIN_Y + 1.35, POOL_MAX_Y - 1.35):
+            for rail_offset in (-0.18, 0.18):
+                add_cylinder(
+                    f"pool-ladder-rail-{sign}-{ladder_y}-{rail_offset}",
+                    (side_x - sign * 0.18, ladder_y + rail_offset, 0.62),
+                    0.025,
+                    0.82,
+                    bronze,
+                    vertices=12,
+                )
+            for rung in range(5):
+                add_box(
+                    f"pool-ladder-rung-{sign}-{ladder_y}-{rung}",
+                    (
+                        side_x - sign * (0.2 + rung * 0.04),
+                        ladder_y,
+                        0.28 + rung * 0.13,
+                    ),
+                    (0.035, 0.42, 0.035),
+                    bronze,
+                    bevel=0.008,
+                )
+    for lane in range(3):
+        x = POOL_CENTER_X + (lane - 1) * 1.34
+        for y in (POOL_MIN_Y - 0.52, POOL_MAX_Y + 0.52):
+            add_box(
+                f"pool-start-block-{lane}-{y}",
+                (x, y, 0.42),
+                (0.68, 0.72, 0.52),
+                plaster,
+                bevel=0.045,
+            )
 
 
 def join_by_material() -> None:
@@ -550,7 +705,15 @@ def main() -> None:
     )
     build_end_arcade(plaster, stucco, glass, bronze, rail, roof, light)
     build_pool(plaster, water, pool_bottom, tile_blue, tile_gold, tile_dark, terracotta, bronze, rope)
+    visible_detail_parts = len(ASSET_OBJECTS)
+    if visible_detail_parts < BASELINE_VISIBLE_DETAIL_PARTS * 2:
+        raise RuntimeError(
+            f"可见细节没有翻倍：{visible_detail_parts} < {BASELINE_VISIBLE_DETAIL_PARTS * 2}",
+        )
     join_by_material()
+    ASSET_OBJECTS[0]["detail_baseline_parts"] = BASELINE_VISIBLE_DETAIL_PARTS
+    ASSET_OBJECTS[0]["detail_current_parts"] = visible_detail_parts
+    ASSET_OBJECTS[0]["detail_reference_set"] = "shangsheng-xinsuo-20260717"
 
     OUTPUT_GLB.parent.mkdir(parents=True, exist_ok=True)
     SOURCE_BLEND.parent.mkdir(parents=True, exist_ok=True)
@@ -571,6 +734,7 @@ def main() -> None:
         export_materials="EXPORT",
         export_cameras=False,
         export_lights=False,
+        export_extras=True,
     )
 
     bpy.context.scene.render.filepath = str(PREVIEW_PNG)
@@ -578,6 +742,7 @@ def main() -> None:
     print(f"GLB: {OUTPUT_GLB}")
     print(f"Blend: {SOURCE_BLEND}")
     print(f"Preview: {PREVIEW_PNG}")
+    print(f"Visible detail parts: {visible_detail_parts} (baseline {BASELINE_VISIBLE_DETAIL_PARTS})")
 
 
 if __name__ == "__main__":

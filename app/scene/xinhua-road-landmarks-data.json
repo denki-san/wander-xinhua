@@ -7,10 +7,14 @@
       "name": "上海影城",
       "address": "新华路160号",
       "model": "/models/xinhua-road/shanghai-cinema.glb",
+      "cacheVersion": "20260718-detail-1",
       "position": [74.1, 80.9],
       "yaw": 2.761592653589793,
       "scale": 1,
-      "localBounds": { "minX": -19, "maxX": 19, "minZ": -13, "maxZ": 13 },
+      "localBounds": { "minX": -19, "maxX": 19, "minZ": -11.8, "maxZ": 14.2 },
+      "localObstacles": [
+        { "minX": -15.5, "maxX": 15.5, "minZ": -8.5, "maxZ": 8.5 }
+      ],
       "start": [75.5, 106.2],
       "forward": [-0.08, -1]
     },
@@ -20,10 +24,14 @@
       "name": "上海电影艺术中心",
       "address": "新华路200号",
       "model": "/models/xinhua-road/film-art-center.glb",
+      "cacheVersion": "20260718-detail-1",
       "position": [47.5, 81.5],
       "yaw": 2.761592653589793,
       "scale": 0.92,
-      "localBounds": { "minX": -9.404186, "maxX": 9.404186, "minZ": -6.704061, "maxZ": 9.91 },
+      "localBounds": { "minX": -9.404186, "maxX": 9.404186, "minZ": -7.504061, "maxZ": 9.11 },
+      "localObstacles": [
+        { "minX": -9.0, "maxX": 9.0, "minZ": -7.5, "maxZ": 6.8 }
+      ],
       "start": [28, 90],
       "forward": [0.91, -0.41]
     },
@@ -33,10 +41,14 @@
       "name": "一尺花园",
       "address": "新华路179弄",
       "model": "/models/xinhua-road/one-step-garden.glb",
-      "position": [61, 120.4],
+      "cacheVersion": "20260718-detail-1",
+      "position": [60.86, 120.73],
       "yaw": -0.38,
       "scale": 0.88,
-      "localBounds": { "minX": -10, "maxX": 10, "minZ": -8, "maxZ": 8 },
+      "localBounds": { "minX": -10, "maxX": 10, "minZ": -6.8, "maxZ": 9.2 },
+      "localObstacles": [
+        { "minX": -8.8, "maxX": 8.8, "minZ": -6.1, "maxZ": 4.7 }
+      ],
       "start": [73, 109],
       "forward": [-0.925, 0.381]
     },
@@ -44,12 +56,22 @@
       "id": "xinhua-villas-211",
       "query": "villas",
       "name": "新华别墅 · 211弄",
-      "address": "外国弄堂",
-      "model": "/models/xinhua-road/xinhua-villas.glb",
-      "position": [39.7, 107.24],
+      "address": "新华路211弄（外国弄堂）",
+      "model": "/models/xinhua-road/xinhua-villas-211.glb",
+      "cacheVersion": "20260718-detail-1",
+      "position": [38.32, 110.67],
       "yaw": -0.38,
       "scale": 0.62,
-      "localBounds": { "minX": -15.44861, "maxX": 15.25, "minZ": -23.349998, "maxZ": 6.325001 },
+      "localBounds": { "minX": -15.44861, "maxX": 15.25, "minZ": -13.949999, "maxZ": 15.725 },
+      "localObstacles": [
+        { "minX": -12.4, "maxX": -4.6, "minZ": 0.6, "maxZ": 7.4 },
+        { "minX": 4.6, "maxX": 12.4, "minZ": 0.1, "maxZ": 6.9 },
+        { "minX": -11.4, "maxX": -3.6, "minZ": -13.4, "maxZ": -6.6 },
+        { "minX": 3.3, "maxX": 11.1, "minZ": -13.6, "maxZ": -6.7 },
+        { "minX": 4.1, "maxX": 7.3, "minZ": 11.1, "maxZ": 14.5 },
+        { "minX": -3.7, "maxX": -2.3, "minZ": 14.4, "maxZ": 15.7 },
+        { "minX": 2.3, "maxX": 3.7, "minZ": 14.4, "maxZ": 15.7 }
+      ],
       "start": [51.7, 106.5],
       "forward": [-0.925, 0.381]
     },
@@ -57,12 +79,16 @@
       "id": "xinhua-villas-329",
       "query": "villas329",
       "name": "新华别墅 · 329弄",
-      "address": "外国弄堂",
-      "model": "/models/xinhua-road/xinhua-villas.glb",
-      "position": [-41.31, 77.44],
+      "address": "新华路329弄",
+      "model": "/models/xinhua-road/xinhua-villas-329.glb",
+      "cacheVersion": "20260718-detail-1",
+      "position": [-42.13, 79.48],
       "yaw": -0.38,
       "scale": 0.62,
-      "localBounds": { "minX": -15.44861, "maxX": 15.25, "minZ": -23.349998, "maxZ": 6.325001 },
+      "localBounds": { "minX": -11.24861, "maxX": 11.415185, "minZ": -7.825001, "maxZ": 11.5 },
+      "localObstacles": [
+        { "minX": -8.6, "maxX": 9.6, "minZ": -7.2, "maxZ": 5.0 }
+      ],
       "start": [-26, 63],
       "forward": [-0.79, 0.62]
     },
@@ -72,10 +98,14 @@
       "name": "新华路315号住宅",
       "address": "新华路315号",
       "model": "/models/xinhua-road/house-315.glb",
+      "cacheVersion": "20260718-detail-1",
       "position": [-23.03, 85.67],
       "yaw": -0.38,
       "scale": 0.9,
-      "localBounds": { "minX": -9.25, "maxX": 9.25, "minZ": -8.1, "maxZ": 8.1 },
+      "localBounds": { "minX": -9.25, "maxX": 9.25, "minZ": -6.7, "maxZ": 9.5 },
+      "localObstacles": [
+        { "minX": -7.3, "maxX": 5.4, "minZ": -5.0, "maxZ": 5.6 }
+      ],
       "start": [-21.8, 67.6],
       "forward": [-0.05, 1]
     },
@@ -85,10 +115,14 @@
       "name": "Villa Le Bec",
       "address": "新华路321号",
       "model": "/models/xinhua-road/villa-le-bec.glb",
+      "cacheVersion": "20260718-detail-1",
       "position": [-34.1, 88.8],
       "yaw": -0.38,
       "scale": 0.82,
-      "localBounds": { "minX": -9.5, "maxX": 9.5, "minZ": -9.5, "maxZ": 7.2 },
+      "localBounds": { "minX": -9.5, "maxX": 9.5, "minZ": -6.3, "maxZ": 10.4 },
+      "localObstacles": [
+        { "minX": -7.8, "maxX": 7.8, "minZ": -6.2, "maxZ": 5.4 }
+      ],
       "start": [-58, 88],
       "forward": [1, 0.03]
     },
@@ -98,10 +132,14 @@
       "name": "上海民族乐团",
       "address": "新华路336号",
       "model": "/models/xinhua-road/shanghai-orchestra.glb",
+      "cacheVersion": "20260718-detail-1",
       "position": [-44.4, 44],
       "yaw": 2.761592653589793,
       "scale": 0.88,
-      "localBounds": { "minX": -13.5, "maxX": 13.5, "minZ": -11.208925, "maxZ": 10.5 },
+      "localBounds": { "minX": -13.5, "maxX": 13.5, "minZ": -9.208925, "maxZ": 12.5 },
+      "localObstacles": [
+        { "minX": -12.3, "maxX": 12.3, "minZ": -9.2, "maxZ": 8.4 }
+      ],
       "start": [-28.5, 60],
       "forward": [-0.707, -0.707]
     },
@@ -111,10 +149,11 @@
       "name": "邬达克纪念馆",
       "address": "番禺路129号",
       "model": "/models/requested-pois/hudec-memorial.glb",
+      "cacheVersion": "20260718-detail-1",
       "position": [91.34, -131.74],
       "yaw": 1.5707963267948966,
       "scale": 0.72,
-      "localBounds": { "minX": -8.75, "maxX": 8.75, "minZ": -7.75, "maxZ": 7.75 },
+      "localBounds": { "minX": -8.75, "maxX": 8.75, "minZ": -6.95, "maxZ": 8.55 },
       "localObstacles": [
         { "minX": -6.4, "maxX": 4.4, "minZ": -5.1, "maxZ": 2.1 },
         { "minX": 2.65, "maxX": 6.95, "minZ": -5.15, "maxZ": 0.35 },
@@ -135,14 +174,14 @@
       "name": "新华路口袋公园",
       "address": "新华路359号旁",
       "model": "/models/requested-pois/xinhua-pocket-park.glb",
-      "cacheVersion": "20260717-roadfix-1",
+      "cacheVersion": "20260718-detail-1",
       "position": [-56.9, 66.3],
       "yaw": -0.38,
       "scale": 0.88,
       "localBounds": { "minX": -0.8524, "maxX": 0.8524, "minZ": -4.6, "maxZ": 4.64 },
       "localObstacles": [
-        { "minX": -0.84, "maxX": -0.68, "minZ": -4.64, "maxZ": 4.6 },
-        { "minX": 0.68, "maxX": 0.84, "minZ": -4.64, "maxZ": 4.6 }
+        { "minX": -0.84, "maxX": -0.68, "minZ": -4.6, "maxZ": 4.6 },
+        { "minX": 0.68, "maxX": 0.84, "minZ": -4.6, "maxZ": 4.6 }
       ],
       "start": [-51.5, 67],
       "forward": [-0.992, -0.129],
@@ -156,10 +195,11 @@
       "name": "新华·社区营造中心",
       "address": "新华路345弄4号楼",
       "model": "/models/requested-pois/xinhua-community-center.glb",
+      "cacheVersion": "20260718-detail-1",
       "position": [-74.78, 112.55],
       "yaw": -0.38,
       "scale": 0.6,
-      "localBounds": { "minX": -10, "maxX": 10, "minZ": -8, "maxZ": 8.1 },
+      "localBounds": { "minX": -10, "maxX": 10, "minZ": -8.5, "maxZ": 7.6 },
       "localObstacles": [
         { "minX": -6.9, "maxX": 6.9, "minZ": -5.5, "maxZ": 1.75 },
         { "minX": -1.55, "maxX": 1.55, "minZ": 1.65, "maxZ": 4.3 },
@@ -177,7 +217,7 @@
       "name": "德必法华525",
       "address": "法华镇路525号",
       "model": "/models/requested-pois/debi-fahua-525.glb",
-      "cacheVersion": "20260717-3",
+      "cacheVersion": "20260718-detail-1",
       "position": [-102, -49],
       "yaw": -2.6,
       "scale": 0.92,
@@ -201,7 +241,7 @@
       "name": "法华遗韵",
       "address": "法华镇路与香花桥路交会处",
       "model": "/models/requested-pois/fahua-heritage.glb",
-      "cacheVersion": "20260717-roadfix-1",
+      "cacheVersion": "20260718-detail-1",
       "position": [-63.4, -2.6],
       "yaw": -0.5,
       "scale": 0.27,
@@ -228,16 +268,16 @@
       "name": "FICS新华365",
       "address": "新华路365弄",
       "model": "/models/requested-pois/fics-xinhua-365.glb",
-      "cacheVersion": "20260717-roadfix-1",
+      "cacheVersion": "20260718-detail-1",
       "position": [-76.1, 75.2],
       "yaw": -0.38,
       "scale": 0.9,
-      "localBounds": { "minX": -21.25, "maxX": 23.5, "minZ": -22.2, "maxZ": 13.176 },
+      "localBounds": { "minX": -21.25, "maxX": 23.5, "minZ": -22.200001, "maxZ": 13.242599 },
       "localObstacles": [
         { "minX": 4.1, "maxX": 19.9, "minZ": -5, "maxZ": 5 },
         { "minX": 1.6, "maxX": 7, "minZ": -5.3, "maxZ": 1.9 },
         { "minX": 0.5, "maxX": 23.5, "minZ": 9.2, "maxZ": 10.4 },
-        { "minX": -21.4, "maxX": -5.5, "minZ": -13.8, "maxZ": -2.6 },
+        { "minX": -21.25, "maxX": -5.5, "minZ": -13.8, "maxZ": -2.6 },
         { "minX": -21.1, "maxX": -4.9, "minZ": 4.9, "maxZ": 13.1 },
         { "minX": -19.2, "maxX": 10.2, "minZ": -21.7, "maxZ": -14.3 }
       ],

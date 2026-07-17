@@ -21,6 +21,10 @@ ROOT = Path(__file__).resolve().parents[1]
 base.OUTPUT_DIR = ROOT / "public/models/requested-pois"
 base.SOURCE_DIR = ROOT / "assets/models/source/requested-pois"
 base.PREVIEW_DIR = ROOT / "test_artifacts"
+base.DETAIL_BASELINE_PARTS.update({
+    "xinhua-pocket-park": 57,
+    "fahua-heritage": 76,
+})
 
 
 def add_front_windows(
@@ -212,6 +216,20 @@ def build_xinhua_pocket_park() -> None:
                 bevel=0.035,
                 rotation=(0, 0, (0.035 if (index + (side == "left")) % 2 else -0.035)),
             )
+            # 镜面板四角保留不锈钢驳接件，近景能读出真实安装方式。
+            for bolt_index, (bolt_y, bolt_z) in enumerate((
+                (y - 0.5, 0.35),
+                (y + 0.5, 0.35),
+                (y - 0.5, height - 0.35),
+                (y + 0.5, height - 0.35),
+            )):
+                base.add_icosphere(
+                    f"pocket-mirror-bolt-{side}-{index}-{bolt_index}",
+                    (x + (0.065 if side == "left" else -0.065), bolt_y, bolt_z),
+                    (0.055, 0.055, 0.055),
+                    dark,
+                    subdivisions=1,
+                )
     # 耐候钢入口框顶边略有起伏，形成狭长空间的明确入口。
     for x in (-0.76, 0.76):
         base.add_box(f"pocket-entry-post-{x}", (x, -4.5, 1.7), (0.16, 0.28, 3.4), steel, bevel=0.05)
@@ -228,6 +246,28 @@ def build_xinhua_pocket_park() -> None:
         base.add_icosphere(f"pocket-grass-green-{index}", (x, y, 0.5), (0.28, 0.56, 0.5), green, subdivisions=1)
         base.add_icosphere(f"pocket-grass-pink-{index}", (x * 0.93, y + 0.18, 0.78), (0.22, 0.44, 0.52), pink, subdivisions=1)
     base.add_paving_grid("pocket-paving-detail", (0, 0), 1.5, 8.7, 0.215, paving_dark, columns=2, rows=12)
+    # 五段触觉提示点与埋地引导灯补齐狭长公共空间的使用细节。
+    for row, y in enumerate((-3.45, -1.75, 0.0, 1.8, 3.55)):
+        for column in range(6):
+            x = -0.3 + column * 0.12
+            base.add_cylinder(
+                f"pocket-tactile-stud-{row}-{column}",
+                (x, y, 0.245),
+                0.035,
+                0.035,
+                steel,
+                vertices=10,
+            )
+    for index in range(12):
+        y = -4.0 + index * 8.0 / 11
+        base.add_cylinder(
+            f"pocket-ground-light-{index}",
+            (0.48 if index % 2 else -0.48, y, 0.255),
+            0.055,
+            0.04,
+            yellow,
+            vertices=12,
+        )
 
 
 def build_xinhua_community_center() -> None:
@@ -383,6 +423,14 @@ def build_fahua_heritage() -> None:
         base.add_box(f"heritage-pillar-{index}", (x, 0, 2.75), (width, 0.78, 5.5), stone, bevel=0.055)
         base.add_box(f"heritage-pillar-base-{index}", (x, 0, 0.22), (1.0, 1.12, 0.42), stone_light, bevel=0.05)
         base.add_box(f"heritage-pillar-cap-{index}", (x, 0, 5.45), (1.08, 1.02, 0.34), stone_light, bevel=0.05)
+        for course in range(6):
+            base.add_box(
+                f"heritage-pillar-joint-{index}-{course}",
+                (x, -0.405, 0.75 + course * 0.78),
+                (width * 0.88, 0.035, 0.045),
+                stone_light,
+                bevel=0.008,
+            )
     base.add_box("heritage-main-beam", (0, 0, 5.25), (5.35, 0.82, 0.72), stone, bevel=0.06)
     base.add_box("heritage-main-plaque", (0, -0.47, 5.35), (3.9, 0.12, 0.82), plaque, bevel=0.04)
     base.add_text_label("heritage-title", "法华遗韵", (0, -0.58, 5.35), 0.55, 0.055, gold, bevel=0.018)
@@ -427,6 +475,19 @@ def build_fahua_heritage() -> None:
                 gold,
                 bevel=0.012,
             )
+        # 侧屋檐逐片瓦当，取代两块无细节坡面。
+        for edge in (-0.82, 0.82):
+            for tile_index in range(12):
+                tile_x = x - 1.52 + tile_index * 3.04 / 11
+                base.add_cylinder(
+                    f"heritage-eave-tile-{side}-{edge}-{tile_index}",
+                    (tile_x, edge, 4.48),
+                    0.08,
+                    0.12,
+                    roof_ridge,
+                    vertices=10,
+                    rotation=(math.pi / 2, 0, 0),
+                )
     # 柱头云纹以成对小圆盘和短梁抽象表现，避免高面数雕刻。
     for index, x in enumerate((-5.5, -2.35, 2.35, 5.5)):
         base.add_cylinder(
@@ -447,6 +508,29 @@ def build_fahua_heritage() -> None:
             vertices=16,
             rotation=(math.pi / 2, 0, 0),
         )
+    for panel_index, panel_x in enumerate((-4.0, 0.0, 4.0)):
+        for rivet_index, (offset_x, offset_z) in enumerate((
+            (-0.9, -0.85), (0.0, -0.85), (0.9, -0.85),
+            (-0.9, 0.0), (0.9, 0.0),
+            (-0.9, 0.85), (0.0, 0.85), (0.9, 0.85),
+        )):
+            base.add_icosphere(
+                f"heritage-panel-rivet-{panel_index}-{rivet_index}",
+                (panel_x + offset_x, -0.16, 2.15 + offset_z),
+                (0.045, 0.03, 0.045),
+                gold,
+                subdivisions=1,
+            )
+    base.add_paving_grid(
+        "heritage-paving-joints",
+        (0, 0),
+        15.0,
+        3.7,
+        0.17,
+        stone_light,
+        columns=14,
+        rows=3,
+    )
 
 
 def build_fics_xinhua_365() -> None:

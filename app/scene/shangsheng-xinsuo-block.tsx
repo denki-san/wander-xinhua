@@ -29,6 +29,14 @@ const SITE = landmarks.shangshengXinsuo;
 export const SHANGSHENG_XINSUO_POSITION = SITE.position as [number, number];
 const SITE_POSITION = SHANGSHENG_XINSUO_POSITION;
 const SITE_BOUNDARY: MapPolygonPoint[] = SITE.boundary.map(([x, z]) => [x, z]);
+export const SHANGSHENG_DETAIL_UPGRADE = {
+  archWindowLayersBefore: 2,
+  archWindowLayersAfter: 7,
+  countryClubUpperWindowLayersBefore: 1,
+  countryClubUpperWindowLayersAfter: 5,
+  entranceStructurePartsBefore: 3,
+  entranceStructurePartsAfter: 12,
+} as const;
 
 function shapeFromBoundary(points: readonly MapPolygonPoint[]) {
   const shape = new Shape();
@@ -119,6 +127,26 @@ function ArchWindow({ x, y, z, facing = 1, pointed = false }: { x: number; y: nu
           <meshToonMaterial color="#4d625c" />
         </mesh>
       )}
+      <mesh position={[0, -0.24, facing * 0.082]}>
+        <boxGeometry args={[0.55, 1.05, 0.025]} />
+        <meshToonMaterial color="#76908a" />
+      </mesh>
+      <mesh position={[0, -0.24, facing * 0.105]}>
+        <boxGeometry args={[0.045, 1.03, 0.025]} />
+        <meshBasicMaterial color="#d4cbb9" />
+      </mesh>
+      <mesh position={[0, -0.24, facing * 0.106]}>
+        <boxGeometry args={[0.53, 0.04, 0.025]} />
+        <meshBasicMaterial color="#d4cbb9" />
+      </mesh>
+      <mesh position={[0, -0.93, facing * 0.11]} castShadow>
+        <boxGeometry args={[0.9, 0.1, 0.28]} />
+        <meshToonMaterial color="#c9bda8" />
+      </mesh>
+      <mesh position={[0, 0.78, facing * 0.1]} castShadow>
+        <boxGeometry args={[0.22, 0.16, 0.18]} />
+        <meshToonMaterial color="#d2c4aa" />
+      </mesh>
     </group>
   );
 }
@@ -151,10 +179,28 @@ function CountryClub({ building }: { building: Building }) {
         return <ArchWindow key={index} x={x} y={1.7} z={facadeZ} />;
       })}
       {Array.from({ length: 7 }, (_, index) => (
-        <mesh key={index} position={[-building.width * 0.38 + index * building.width * 0.76 / 6, 4.5, facadeZ + 0.02]}>
-          <boxGeometry args={[1.05, 0.92, 0.09]} />
-          <meshToonMaterial color="#60706a" />
-        </mesh>
+        <group key={index} position={[-building.width * 0.38 + index * building.width * 0.76 / 6, 4.5, facadeZ + 0.02]}>
+          <mesh>
+            <boxGeometry args={[1.05, 0.92, 0.09]} />
+            <meshToonMaterial color="#60706a" />
+          </mesh>
+          <mesh position={[0, 0, 0.06]}>
+            <boxGeometry args={[0.82, 0.7, 0.035]} />
+            <meshToonMaterial color="#7f9992" />
+          </mesh>
+          <mesh position={[0, 0, 0.09]}>
+            <boxGeometry args={[0.04, 0.68, 0.025]} />
+            <meshBasicMaterial color="#d5cab6" />
+          </mesh>
+          <mesh position={[0, 0, 0.091]}>
+            <boxGeometry args={[0.8, 0.035, 0.025]} />
+            <meshBasicMaterial color="#d5cab6" />
+          </mesh>
+          <mesh position={[0, -0.51, 0.08]} castShadow>
+            <boxGeometry args={[1.18, 0.09, 0.24]} />
+            <meshToonMaterial color="#cdbfa8" />
+          </mesh>
+        </group>
       ))}
       <mesh position={[0, 5.42, facadeZ + 0.08]} castShadow>
         <boxGeometry args={[2.15, 1.08, 0.16]} />
@@ -647,6 +693,32 @@ function CampusLandscape() {
             <meshToonMaterial color="#1f2926" />
           </mesh>
         ))}
+        <mesh position={[0, 2.04, 0]} castShadow>
+          <boxGeometry args={[8.72, 0.18, 3.48]} />
+          <meshToonMaterial color="#303936" />
+        </mesh>
+        {[-2.55, 0, 2.55].map((x) => (
+          <mesh key={x} position={[x, 1.03, 0]} rotation-z={x === 0 ? 0 : Math.sign(x) * 0.4} castShadow>
+            <boxGeometry args={[0.16, 1.74, 3.1]} />
+            <meshToonMaterial color="#39423e" />
+          </mesh>
+        ))}
+        {[-3.5, -1.2, 1.2, 3.5].map((x) => (
+          <group key={x} position={[x, 1.62, 1.55]}>
+            <mesh castShadow>
+              <cylinderGeometry args={[0.11, 0.15, 0.24, 10]} />
+              <meshToonMaterial color="#b28a50" />
+            </mesh>
+            <mesh position={[0, -0.18, 0]}>
+              <sphereGeometry args={[0.1, 10, 8]} />
+              <meshBasicMaterial color="#f0ca78" />
+            </mesh>
+          </group>
+        ))}
+        <mesh position={[0, 0.12, 1.48]} receiveShadow>
+          <boxGeometry args={[8.15, 0.08, 0.34]} />
+          <meshToonMaterial color="#8d806b" />
+        </mesh>
         <Html center transform sprite position={[0, 1.78, 1.72]} distanceFactor={18} style={{ pointerEvents: "none" }}>
           <span className="map-road-label map-landmark-label map-landmark-label-dark">上生·新所</span>
         </Html>

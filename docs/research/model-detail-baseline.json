@@ -1,0 +1,25 @@
+{
+  "capturedAt": "2026-07-17",
+  "rule": "改造后每个资产必须增加至少一倍可见专属构件，或三角面不少于本基线的两倍；禁止无意义细分。",
+  "glb": {
+    "requested-pois/debi-fahua-525.glb": { "triangles": 15672, "bytes": 945532 },
+    "requested-pois/fahua-heritage.glb": { "triangles": 11652, "bytes": 587128 },
+    "requested-pois/fics-xinhua-365.glb": { "triangles": 39016, "bytes": 2542848 },
+    "requested-pois/hudec-memorial.glb": { "triangles": 7540, "bytes": 528472 },
+    "requested-pois/xinhua-community-center.glb": { "triangles": 4472, "bytes": 312876 },
+    "requested-pois/xinhua-pocket-park.glb": { "triangles": 4604, "bytes": 334140 },
+    "shangsheng/navy-club-pool.glb": { "triangles": 43224, "bytes": 2852276 },
+    "xinhua-road/film-art-center.glb": { "triangles": 23324, "bytes": 1323844 },
+    "xinhua-road/house-315.glb": { "triangles": 11964, "bytes": 805340 },
+    "xinhua-road/one-step-garden.glb": { "triangles": 22092, "bytes": 1368276 },
+    "xinhua-road/shanghai-cinema.glb": { "triangles": 45056, "bytes": 2843968 },
+    "xinhua-road/shanghai-orchestra.glb": { "triangles": 20244, "bytes": 1163424 },
+    "xinhua-road/villa-le-bec.glb": { "triangles": 23016, "bytes": 1477512 },
+    "xinhua-road/xinhua-villas.glb": { "triangles": 34378, "bytes": 2159752 }
+  },
+  "proceduralScene": {
+    "xingfuli": { "file": "app/scene/xingfuli-block.tsx", "meshElements": 131, "geometryElements": 65 },
+    "shangsheng": { "file": "app/scene/shangsheng-xinsuo-block.tsx", "meshElements": 96, "geometryElements": 45 },
+    "huashan": { "file": "app/scene/huashan-green-block.tsx", "meshElements": 55, "geometryElements": 27 }
+  }
+}

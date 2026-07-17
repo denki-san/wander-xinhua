@@ -4,6 +4,8 @@ import {
   Float,
   Html,
   RoundedBox,
+  useAnimations,
+  useGLTF,
 } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import {
@@ -17,6 +19,7 @@ import {
   Vector3,
 } from "three";
 import {
+  Suspense,
   type CSSProperties,
   type ReactNode,
   type RefObject,
@@ -88,6 +91,15 @@ const CAMERA_POSITION_DAMPING = 10;
 const CAMERA_ROTATION_SPEED_X = 0.005;
 const CAMERA_ROTATION_SPEED_Y = 0.004;
 const CHARACTER_TURN_DAMPING = 9;
+const CHARACTER_MODEL_PATH = "/models/character/urban-messenger.glb";
+const CHARACTER_HIDDEN_NODES = new Set([
+  "Knife_Offhand",
+  "1H_Crossbow",
+  "2H_Crossbow",
+  "Knife",
+  "Throwable",
+  "Rogue_Cape",
+]);
 const CHARACTER_MAX_TURN_SPEED = 8;
 const CAMERA_FALLBACK_HEIGHT = 3.6;
 const CAMERA_FALLBACK_YAWS = [Math.PI / 2, -Math.PI / 2, Math.PI / 4, -Math.PI / 4, Math.PI];
@@ -375,9 +387,15 @@ function FlatNeighborhood({
       <HuashanGreenBlock />
       {showDetailModels && (
         <>
-          <ShangshengXinsuoBlock />
-          <XinhuaRoadPlaneTrees />
-          <XinhuaRoadLandmarks showLabels={showDetailLabels} />
+          <Suspense fallback={null}>
+            <ShangshengXinsuoBlock />
+          </Suspense>
+          <Suspense fallback={null}>
+            <XinhuaRoadPlaneTrees />
+          </Suspense>
+          <Suspense fallback={null}>
+            <XinhuaRoadLandmarks showLabels={showDetailLabels} />
+          </Suspense>
         </>
       )}
       <ActionInstallation onOpenAction={onOpenAction} />
@@ -592,7 +610,7 @@ function CharacterLeg({
   );
 }
 
-function MessengerCharacter({
+function ProceduralMessengerCharacter({
   outerRef,
   scale = 1,
 }: {
@@ -638,6 +656,82 @@ function MessengerCharacter({
         <CharacterLeg side={1} legRef={rightLeg} />
       </group>
     </group>
+  );
+}
+
+type MessengerCharacterProps = {
+  outerRef: RefObject<Group | null>;
+  scale?: number;
+};
+
+function DetailedMessengerCharacter({
+  outerRef,
+  scale = 1,
+}: MessengerCharacterProps) {
+  const { scene, animations } = useGLTF(CHARACTER_MODEL_PATH);
+  const model = useMemo(() => {
+    scene.traverse((object) => {
+      if (CHARACTER_HIDDEN_NODES.has(object.name)) object.visible = false;
+      const mesh = object as Object3D & {
+        isMesh?: boolean;
+        castShadow?: boolean;
+        receiveShadow?: boolean;
+        frustumCulled?: boolean;
+      };
+      if (mesh.isMesh) {
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        // 绑定姿势之外的动作可能超出静态包围盒；关闭单体裁剪可避免腿或头在屏幕边缘闪失。
+        mesh.frustumCulled = false;
+      }
+    });
+    return scene;
+  }, [scene]);
+  const { actions } = useAnimations(animations, model);
+  const activeAction = useRef<string | null>(null);
+
+  useEffect(() => {
+    const idle = actions.Unarmed_Idle ?? actions.Idle;
+    const idleName = actions.Unarmed_Idle ? "Unarmed_Idle" : "Idle";
+    idle?.reset().fadeIn(0.12).play();
+    activeAction.current = idle ? idleName : null;
+    return () => {
+      activeAction.current = null;
+    };
+  }, [actions]);
+
+  useFrame(() => {
+    const analogStrength = Math.min(1, Math.hypot(inputState.moveX, inputState.moveY));
+    const keyboardMoving = inputState.forward || inputState.back || inputState.left || inputState.right;
+    const moveStrength = analogStrength > 0 ? analogStrength : (keyboardMoving ? 1 : 0);
+    const nextAction = moveStrength <= 0.02
+      ? (actions.Unarmed_Idle ? "Unarmed_Idle" : "Idle")
+      : (inputState.sprint || moveStrength > 0.88 ? "Running_A" : "Walking_A");
+
+    if (activeAction.current === nextAction) return;
+    if (activeAction.current) actions[activeAction.current]?.fadeOut(0.16);
+    actions[nextAction]?.reset().fadeIn(0.16).play();
+    activeAction.current = nextAction;
+  });
+
+  return (
+    <group ref={outerRef} scale={scale}>
+      <group position={[0, -0.28, 0]}>
+        <primitive object={model} scale={1.02} rotation-y={Math.PI} />
+        <group scale={0.72} position={[0, 0.05, 0.02]} rotation-y={Math.PI}>
+          <MessengerBackpack />
+        </group>
+      </group>
+    </group>
+  );
+}
+
+function MessengerCharacter(props: MessengerCharacterProps) {
+  // 角色模型单独进入 Suspense，避免首次载入 GLB 时把地面、建筑与相机一起挂起。
+  return (
+    <Suspense fallback={<ProceduralMessengerCharacter {...props} />}>
+      <DetailedMessengerCharacter {...props} />
+    </Suspense>
   );
 }
 

@@ -29,6 +29,9 @@ CHINESE_FONT_CANDIDATES = (
 )
 ASSET_OBJECTS: list[bpy.types.Object] = []
 MATERIALS: dict[str, bpy.types.Material] = {}
+DETAIL_BASELINE_PARTS: dict[str, int] = {
+    "shanghai-cinema": 293,
+}
 
 
 def resolve_chinese_font_path() -> Path:
@@ -332,20 +335,53 @@ def add_window(
     *,
     depth: float = 0.12,
 ) -> None:
+    """生成带窗台、滴水檐、盖缝和执手的分格窗。
+
+    旧版只有外框、玻璃和十字窗棂 4 层；新版增加 5 个真实可见构件，
+    让近景细节来自建筑语义而不是无意义细分。
+    """
     if wall_axis == "Y":
         add_box(f"{name}-frame", (x, y, z), (width + 0.16, depth, height + 0.16), frame, bevel=0.025)
         outward_y = y + math.copysign(depth * 0.55, y or 1)
         mullion_y = y + math.copysign(depth * 0.8, y or 1)
+        trim_y = y + math.copysign(depth * 0.98, y or 1)
         add_box(f"{name}-glass", (x, outward_y, z), (width, depth * 0.45, height), glass)
         add_box(f"{name}-vertical", (x, mullion_y, z), (0.055, depth * 0.5, height), frame)
         add_box(f"{name}-horizontal", (x, mullion_y, z), (width, depth * 0.5, 0.055), frame)
+        add_box(f"{name}-sill", (x, trim_y, z - height / 2 - 0.09), (width + 0.34, depth * 1.25, 0.12), frame, bevel=0.025)
+        add_box(f"{name}-drip-cap", (x, trim_y, z + height / 2 + 0.09), (width + 0.3, depth * 1.1, 0.1), frame, bevel=0.02)
+        add_box(f"{name}-jamb-left", (x - width / 2 - 0.065, trim_y, z), (0.1, depth * 0.72, height + 0.08), frame, bevel=0.018)
+        add_box(f"{name}-jamb-right", (x + width / 2 + 0.065, trim_y, z), (0.1, depth * 0.72, height + 0.08), frame, bevel=0.018)
+        add_cylinder(
+            f"{name}-latch",
+            (x + width * 0.18, trim_y + math.copysign(depth * 0.12, y or 1), z - height * 0.08),
+            0.025,
+            0.12,
+            frame,
+            vertices=10,
+            rotation=(math.pi / 2, 0, 0),
+        )
     else:
         add_box(f"{name}-frame", (x, y, z), (depth, width + 0.16, height + 0.16), frame, bevel=0.025)
         outward_x = x + math.copysign(depth * 0.55, x or 1)
         mullion_x = x + math.copysign(depth * 0.8, x or 1)
+        trim_x = x + math.copysign(depth * 0.98, x or 1)
         add_box(f"{name}-glass", (outward_x, y, z), (depth * 0.45, width, height), glass)
         add_box(f"{name}-vertical", (mullion_x, y, z), (depth * 0.5, 0.055, height), frame)
         add_box(f"{name}-horizontal", (mullion_x, y, z), (depth * 0.5, width, 0.055), frame)
+        add_box(f"{name}-sill", (trim_x, y, z - height / 2 - 0.09), (depth * 1.25, width + 0.34, 0.12), frame, bevel=0.025)
+        add_box(f"{name}-drip-cap", (trim_x, y, z + height / 2 + 0.09), (depth * 1.1, width + 0.3, 0.1), frame, bevel=0.02)
+        add_box(f"{name}-jamb-left", (trim_x, y - width / 2 - 0.065, z), (depth * 0.72, 0.1, height + 0.08), frame, bevel=0.018)
+        add_box(f"{name}-jamb-right", (trim_x, y + width / 2 + 0.065, z), (depth * 0.72, 0.1, height + 0.08), frame, bevel=0.018)
+        add_cylinder(
+            f"{name}-latch",
+            (trim_x + math.copysign(depth * 0.12, x or 1), y + width * 0.18, z - height * 0.08),
+            0.025,
+            0.12,
+            frame,
+            vertices=10,
+            rotation=(0, math.pi / 2, 0),
+        )
 
 
 def add_front_window_grid(
@@ -474,13 +510,42 @@ def add_railing(
     *,
     posts: int = 10,
 ) -> None:
+    """生成带底横杆、立柱帽和交叉撑的完整栏杆。"""
     add_beam(f"{prefix}-top", (start[0], start[1], base_z + height), (end[0], end[1], base_z + height), 0.09, mat, round_beam=True)
     add_beam(f"{prefix}-mid", (start[0], start[1], base_z + height * 0.46), (end[0], end[1], base_z + height * 0.46), 0.055, mat, round_beam=True)
+    add_beam(f"{prefix}-bottom", (start[0], start[1], base_z + height * 0.12), (end[0], end[1], base_z + height * 0.12), 0.052, mat, round_beam=True)
     for index in range(posts + 1):
         ratio = index / posts
         x = start[0] + (end[0] - start[0]) * ratio
         y = start[1] + (end[1] - start[1]) * ratio
         add_beam(f"{prefix}-post-{index}", (x, y, base_z), (x, y, base_z + height), 0.055, mat, round_beam=True)
+        add_icosphere(
+            f"{prefix}-finial-{index}",
+            (x, y, base_z + height + 0.07),
+            (0.085, 0.085, 0.105),
+            mat,
+            subdivisions=1,
+        )
+        if index < posts:
+            next_ratio = (index + 1) / posts
+            next_x = start[0] + (end[0] - start[0]) * next_ratio
+            next_y = start[1] + (end[1] - start[1]) * next_ratio
+            add_beam(
+                f"{prefix}-brace-up-{index}",
+                (x, y, base_z + height * 0.16),
+                (next_x, next_y, base_z + height * 0.82),
+                0.032,
+                mat,
+                round_beam=True,
+            )
+            add_beam(
+                f"{prefix}-brace-down-{index}",
+                (x, y, base_z + height * 0.82),
+                (next_x, next_y, base_z + height * 0.16),
+                0.032,
+                mat,
+                round_beam=True,
+            )
 
 
 def add_detailed_door(
@@ -492,6 +557,7 @@ def add_detailed_door(
     panel: bpy.types.Material,
     metal: bpy.types.Material,
 ) -> None:
+    """生成带门楣、门槛、五金和铰链的近景门扇。"""
     x, y, z = center
     add_box(f"{prefix}-outer-frame", (x, y, z), (width + 0.28, 0.2, height + 0.25), frame, bevel=0.055)
     add_box(f"{prefix}-door", (x, y - 0.13, z), (width, 0.12, height), panel, bevel=0.045)
@@ -506,6 +572,20 @@ def add_detailed_door(
                 bevel=0.025,
             )
     add_cylinder(f"{prefix}-handle", (x + width * 0.28, y - 0.26, z), 0.045, 0.16, metal, vertices=14, rotation=(math.pi / 2, 0, 0))
+    add_cylinder(f"{prefix}-pull", (x - width * 0.28, y - 0.26, z), 0.035, 0.14, metal, vertices=12, rotation=(math.pi / 2, 0, 0))
+    add_box(f"{prefix}-threshold", (x, y - 0.14, z - height / 2 - 0.08), (width + 0.42, 0.52, 0.14), frame, bevel=0.035)
+    add_box(f"{prefix}-transom", (x, y - 0.18, z + height * 0.38), (width * 0.88, 0.055, 0.08), frame, bevel=0.018)
+    add_box(f"{prefix}-kickplate", (x, y - 0.275, z - height * 0.38), (width * 0.82, 0.035, height * 0.14), metal, bevel=0.018)
+    add_cylinder(f"{prefix}-lock", (x + width * 0.28, y - 0.285, z - 0.18), 0.035, 0.06, metal, vertices=14, rotation=(math.pi / 2, 0, 0))
+    for index, hinge_z in enumerate((-height * 0.34, 0.0, height * 0.34)):
+        add_cylinder(
+            f"{prefix}-hinge-{index}",
+            (x - width * 0.48, y - 0.275, z + hinge_z),
+            0.028,
+            0.18,
+            metal,
+            vertices=10,
+        )
 
 
 def add_planter(
@@ -763,12 +843,40 @@ def build_shanghai_cinema() -> None:
     add_elliptical_wall_band("cinema-flowing-band", (0, 0.1), (15.1, 8.15), 1.42, 3.45, 4.2, white, segments=84, wave=0.52)
     add_elliptical_wall_band("cinema-band-shadow", (0, 0.1), (14.0, 7.05), 0.18, 3.28, 0.32, white_shadow, segments=84, wave=0.18)
     add_elliptical_wall_band("cinema-roof-lip", (0, 0.1), (15.35, 8.4), 1.58, 7.55, 0.42, white_shadow, segments=84, wave=0.16)
+    # 连续白色环带由分块金属板拼成，近景加入板缝和屋面扣件。
+    for index in range(84):
+        angle = math.pi * 2 * index / 84
+        add_box(
+            f"cinema-band-joint-{index}",
+            (15.12 * math.cos(angle), 0.1 + 8.17 * math.sin(angle), 4.2),
+            (0.055, 0.12, 1.1),
+            joint,
+            bevel=0.012,
+            rotation=(0, 0, angle),
+        )
+    for index in range(48):
+        angle = math.pi * 2 * index / 48
+        add_icosphere(
+            f"cinema-roof-fastener-{index}",
+            (15.34 * math.cos(angle), 0.1 + 8.39 * math.sin(angle), 7.58),
+            (0.075, 0.075, 0.065),
+            silver,
+            subdivisions=1,
+        )
     # 玻璃幕墙沿椭圆前半圈布置真实竖梃，横梃则使用薄环带连续收口。
     for index in range(25):
         angle = math.pi + math.pi * index / 24
         x = 13.85 * math.cos(angle)
         y = 0.1 + 7.0 * math.sin(angle)
         add_cylinder(f"cinema-glass-mullion-{index}", (x, y, 2.2), 0.055, 4.25, silver, vertices=12)
+        for clip_index, clip_z in enumerate((1.15, 2.3, 3.45)):
+            add_icosphere(
+                f"cinema-glass-clip-{index}-{clip_index}",
+                (x, y, clip_z),
+                (0.105, 0.105, 0.105),
+                silver,
+                subdivisions=1,
+            )
     for index, z in enumerate((1.25, 2.55, 3.85)):
         add_elliptical_wall_band(f"cinema-glass-transom-{index}", (0, 0.1), (13.92, 7.07), 0.08, z, 0.075, silver, segments=72)
     # 左侧圆形放映厅与开放格栅取自正面照片的高识别度轮廓。
@@ -793,6 +901,14 @@ def build_shanghai_cinema() -> None:
     for row in range(6):
         z = 5.65 + row * 1.2
         add_box(f"cinema-tower-horizontal-{row}", (6.3, 2.3, z), (7.25, 0.08, 0.11), white, bevel=0.02)
+        for column in range(7):
+            add_icosphere(
+                f"cinema-tower-clip-{row}-{column}",
+                (3.3 + column, 2.21, z),
+                (0.07, 0.045, 0.07),
+                silver,
+                subdivisions=1,
+            )
     add_box("cinema-tower-top", (6.3, 2.75, 14.62), (10.0, 5.6, 0.48), white, bevel=0.22)
     # 右侧弧形楼梯沿前场抬升，逐级踏步、内外扶手和立柱均可在步行视角读出。
     outer_points: list[tuple[float, float, float]] = []
@@ -815,6 +931,15 @@ def build_shanghai_cinema() -> None:
     # 首层入口、雨棚、柱列与抽象字标按照照片的横向节奏布置。
     add_box("cinema-entrance-canopy", (0, -7.65, 3.15), (19.8, 2.1, 0.24), white, bevel=0.14)
     add_box("cinema-canopy-glass", (0, -8.0, 3.02), (18.8, 1.35, 0.08), glass_light, bevel=0.05)
+    for index in range(21):
+        add_cylinder(
+            f"cinema-canopy-downlight-{index}",
+            (-9.0 + index * 0.9, -8.02, 2.93),
+            0.075,
+            0.055,
+            warm,
+            vertices=12,
+        )
     for index, x in enumerate((-8.6, -4.3, 0, 4.3, 8.6)):
         add_cylinder(f"cinema-canopy-column-{index}", (x, -7.95, 1.55), 0.1, 3.0, silver, vertices=18)
     for index, x in enumerate((-8.0, -4.0, 0, 4.0, 8.0)):
@@ -1021,7 +1146,8 @@ def add_small_villa(
         add_railing(f"{prefix}-balcony-rail", (x - 2.25, front_y - 1.1), (x + 2.25, front_y - 1.1), 3.24, 0.85, frame, posts=9)
 
 
-def build_xinhua_villas() -> None:
+def build_xinhua_villas_211() -> None:
+    """按 211 弄实景重建“外国弄堂”入口、门卫房和狭长车道。"""
     wall = material("外国弄堂灰泥", "#d7d0bd")
     roof = material("外国弄堂屋顶", "#7f4b3b")
     brick = material("外国弄堂砖墙", "#9b674f")
@@ -1047,7 +1173,7 @@ def build_xinhua_villas() -> None:
     add_box("villas-gate-left", (-3.0, -15.1, 1.25), (1.25, 1.25, 2.5), gate, bevel=0.12)
     add_box("villas-gate-right", (3.0, -15.1, 1.25), (1.25, 1.25, 2.5), gate, bevel=0.12)
     add_box("villas-gate-beam", (0, -15.1, 2.85), (7.2, 0.85, 0.65), gate, bevel=0.1)
-    add_text_label("villas-name", "新华别墅", (0, -15.56, 2.86), 0.52, 0.075, metal, bevel=0.02, letter_spacing=1.02)
+    add_text_label("villas-name", "外国弄堂", (0, -15.56, 2.86), 0.52, 0.075, metal, bevel=0.02, letter_spacing=1.02)
     add_box("villas-guardhouse", (5.7, -12.8, 1.25), (3.0, 3.2, 2.5), wall, bevel=0.12)
     add_hip_roof("villas-guardhouse-roof", (5.7, -12.8, 2.5), 3.6, 3.8, 1.0, roof, overhang=0.25)
     add_window("villas-guardhouse-window", 5.7, -14.43, 1.45, 1.25, 1.1, "Y", frame, glass)
@@ -1066,6 +1192,148 @@ def build_xinhua_villas() -> None:
     add_planter("villas-planter-right", (1.0, -13.1), (2.5, 1.0), stone_light, foliage_light, height=0.7)
     add_bench("villas-bench", (0, 5.6), 3.0, wood, metal)
     add_paving_grid("villas-entry-grid", (0, -9.4), 5.0, 12.0, 0.172, paving_line, columns=4, rows=12)
+
+
+def build_xinhua_villas_329() -> None:
+    """按 329 弄实景重建红瓦花园住宅、玻璃阳光房和庭院。"""
+    plaster = material("329灰泥", "#b8aa98")
+    plaster_light = material("329浅灰泥", "#d0c4b2")
+    brick = material("329红砖", "#8c4f3f")
+    roof = material("329红瓦", "#8b4939")
+    roof_dark = material("329瓦垄", "#61382f")
+    frame = material("329深窗框", "#313b38")
+    glass = material("329玻璃", "#526b68", roughness=0.34)
+    metal = material("329铁艺", "#303633", roughness=0.42, metallic=0.48)
+    stone = material("329庭院石材", "#bdb5a7")
+    lawn = material("329草坪", "#5f8450")
+    foliage = material("329绿篱", "#466848")
+    foliage_light = material("329浅绿", "#718959")
+    bark = material("329树干", "#665244")
+    warm = material("329庭院灯", "#e5aa69", emission_strength=0.72)
+
+    # 照片前景为完整草坪和灌木带，不把庭院误做成第二栋建筑。
+    add_box("villa329-lawn", (0, -2.0, 0.08), (22.0, 19.0, 0.16), lawn, bevel=0.28)
+    add_box("villa329-house", (0, 3.0, 2.75), (14.4, 8.2, 5.5), plaster, bevel=0.13)
+    add_box("villa329-stone-base", (0, 3.0, 0.5), (14.8, 8.55, 1.0), stone, bevel=0.08)
+
+    # 主体红瓦坡屋顶及连续瓦垄。
+    add_gable_roof("villa329-main-roof", (0, 3.0, 5.5), 15.4, 9.25, 3.35, roof)
+    add_gable_roof_ribs(
+        "villa329-main-roof-detail",
+        (0, 3.0),
+        15.4,
+        9.25,
+        5.5,
+        3.35,
+        roof_dark,
+        count=21,
+    )
+    add_gutters_and_downpipes(
+        "villa329-main-drain",
+        (0, 3.0),
+        15.4,
+        9.25,
+        5.58,
+        metal,
+        down_to=0.25,
+    )
+
+    # 正面长条老虎窗与照片中的四组深色窗。
+    add_box("villa329-dormer-body", (-0.6, -0.8, 6.35), (8.6, 1.65, 2.35), plaster_light, bevel=0.08)
+    add_box("villa329-dormer-roof", (-0.6, -0.9, 7.58), (9.25, 2.15, 0.24), roof_dark, bevel=0.08)
+    for index, x in enumerate((-3.6, -1.6, 0.4, 2.4)):
+        add_window(
+            f"villa329-dormer-window-{index}",
+            x,
+            -1.66,
+            6.36,
+            1.08,
+            1.35,
+            "Y",
+            frame,
+            glass,
+        )
+
+    # 照片右侧红砖八角塔楼和尖顶是 329 弄最强识别特征。
+    add_cylinder("villa329-turret", (7.0, 2.35, 3.0), 2.5, 6.0, brick, vertices=8)
+    bpy.ops.mesh.primitive_cone_add(
+        vertices=8,
+        radius1=3.0,
+        radius2=0.38,
+        depth=3.25,
+        location=(7.0, 2.35, 7.62),
+    )
+    register(bpy.context.active_object, roof)
+    for index, angle in enumerate((-math.pi / 2 - 0.5, -math.pi / 2, -math.pi / 2 + 0.5)):
+        wx = 7.0 + math.cos(angle) * 2.52
+        wy = 2.35 + math.sin(angle) * 2.52
+        add_box(
+            f"villa329-turret-window-{index}",
+            (wx, wy, 3.35),
+            (0.18, 1.0, 1.65),
+            frame,
+            bevel=0.035,
+            rotation=(0, 0, angle),
+        )
+
+    # 首层玻璃阳光房用独立窗格、檐口、门扇和基座还原，不用一整块透明盒替代。
+    add_box("villa329-sunroom-base", (-0.6, -3.0, 0.5), (15.3, 3.5, 1.0), frame, bevel=0.08)
+    add_box("villa329-sunroom-roof", (-0.6, -3.0, 2.8), (15.8, 3.8, 0.28), frame, bevel=0.07)
+    for index, x in enumerate((-7.0, -5.2, -3.4, -1.6, 0.2, 2.0, 3.8, 5.6)):
+        add_window(
+            f"villa329-sunroom-window-{index}",
+            x,
+            -4.8,
+            1.62,
+            1.25,
+            1.92,
+            "Y",
+            frame,
+            glass,
+            depth=0.16,
+        )
+    add_detailed_door(
+        "villa329-sunroom-door",
+        (7.0, -4.82, 1.52),
+        1.05,
+        2.45,
+        frame,
+        glass,
+        metal,
+    )
+
+    # 二层露台、砖烟囱和花园软景。
+    add_box("villa329-terrace-slab", (1.5, -1.45, 3.35), (8.8, 2.45, 0.22), stone, bevel=0.06)
+    add_railing(
+        "villa329-terrace-railing",
+        (-2.7, -2.62),
+        (5.7, -2.62),
+        3.46,
+        0.95,
+        metal,
+        posts=16,
+    )
+    add_box("villa329-chimney", (-5.65, 3.7, 7.4), (1.0, 1.0, 4.2), brick, bevel=0.06)
+    add_box("villa329-chimney-cap", (-5.65, 3.7, 9.56), (1.28, 1.28, 0.18), roof_dark, bevel=0.04)
+    for index, (x, y, size) in enumerate((
+        (-8.2, -5.8, 1.45),
+        (-5.4, -6.9, 1.25),
+        (-2.8, -6.4, 1.15),
+        (1.0, -6.8, 1.35),
+        (4.0, -6.4, 1.15),
+        (7.0, -6.2, 1.5),
+    )):
+        add_icosphere(
+            f"villa329-shrub-{index}",
+            (x, y, size * 0.55),
+            (size, size * 0.78, size * 0.62),
+            foliage if index % 2 else foliage_light,
+            subdivisions=2,
+        )
+    add_garden_tree("villa329-tree-left", (-9.2, 4.5), bark, foliage, variant=0)
+    add_garden_tree("villa329-tree-right", (9.4, 4.2), bark, foliage_light, variant=1)
+    add_lamp_post("villa329-garden-lamp-left", (-8.3, -7.8), metal, warm, height=2.4)
+    add_lamp_post("villa329-garden-lamp-right", (8.2, -7.8), metal, warm, height=2.4)
 
 
 def build_house_315() -> None:
@@ -1434,7 +1702,8 @@ BUILDERS: list[tuple[str, Callable[[], None]]] = [
     ("shanghai-cinema", build_shanghai_cinema),
     ("film-art-center", build_film_art_center),
     ("one-step-garden", build_one_step_garden),
-    ("xinhua-villas", build_xinhua_villas),
+    ("xinhua-villas-211", build_xinhua_villas_211),
+    ("xinhua-villas-329", build_xinhua_villas_329),
     ("house-315", build_house_315),
     ("villa-le-bec", build_villa_le_bec),
     ("shanghai-orchestra", build_orchestra),
@@ -1457,6 +1726,10 @@ def merge_asset_objects(slug: str) -> None:
     bpy.ops.object.join()
     merged = bpy.context.active_object
     merged.name = slug
+    # Join 会沿用首个对象的原点和平移；若直接导出，GLB 根节点会带非零 translation，
+    # 而碰撞包络读取的是 POSITION accessor，二者会产生“模型与碰撞错位”。
+    # 将位置、旋转和缩放全部烘焙到网格，保证运行时根节点为原点且包络可直接复用。
+    bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
     ASSET_OBJECTS[:] = [merged]
 
 
@@ -1513,6 +1786,16 @@ def export_asset(slug: str, builder: Callable[[], None]) -> dict[str, int | str]
     builder()
     source_object_count = len(ASSET_OBJECTS)
     merge_asset_objects(slug)
+    ASSET_OBJECTS[0]["detail_current_parts"] = source_object_count
+    ASSET_OBJECTS[0]["detail_method"] = "photo-semantic-components"
+    ASSET_OBJECTS[0]["detail_upgrade"] = "20260718"
+    baseline_parts = DETAIL_BASELINE_PARTS.get(slug)
+    if baseline_parts is not None:
+        ASSET_OBJECTS[0]["detail_baseline_parts"] = baseline_parts
+        if source_object_count < baseline_parts * 2:
+            raise RuntimeError(
+                f"{slug} 可见细节未翻倍：{source_object_count} < {baseline_parts * 2}"
+            )
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     SOURCE_DIR.mkdir(parents=True, exist_ok=True)
     PREVIEW_DIR.mkdir(parents=True, exist_ok=True)
@@ -1527,6 +1810,7 @@ def export_asset(slug: str, builder: Callable[[], None]) -> dict[str, int | str]
         export_apply=True,
         export_yup=True,
         export_materials="EXPORT",
+        export_extras=True,
     )
     bpy.ops.wm.save_as_mainfile(filepath=str(SOURCE_DIR / f"{slug}.blend"))
     render_preview(slug)
@@ -1539,7 +1823,20 @@ def export_asset(slug: str, builder: Callable[[], None]) -> dict[str, int | str]
 
 
 def main() -> None:
-    results = [export_asset(slug, builder) for slug, builder in BUILDERS]
+    requested = {
+        argument.removeprefix("--asset=")
+        for argument in sys.argv
+        if argument.startswith("--asset=")
+    }
+    builders = [
+        (slug, builder)
+        for slug, builder in BUILDERS
+        if not requested or slug in requested
+    ]
+    missing = requested - {slug for slug, _ in builders}
+    if missing:
+        raise ValueError(f"未知资产：{', '.join(sorted(missing))}")
+    results = [export_asset(slug, builder) for slug, builder in builders]
     print("新华路资产生成完成：")
     for result in results:
         print(

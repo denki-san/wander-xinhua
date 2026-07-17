@@ -603,8 +603,7 @@ kbd {
   right: 0;
   bottom: 0;
   left: 0;
-  height: min(48svh, 430px);
-  min-height: 220px;
+  height: 50svh;
   pointer-events: none;
   touch-action: none;
 }
