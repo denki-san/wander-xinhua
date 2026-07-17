@@ -45,6 +45,7 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+/.worktrees/
 
 # Blender 与 Python 本地产物
 *.blend1

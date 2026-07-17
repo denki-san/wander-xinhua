@@ -1459,6 +1459,7 @@ URL 始终加单引号；使用绝对二进制路径；浏览器命令按 skill/
 - **Resolved**: 2026-07-16T20:43:00+08:00
 - **Notes**: 后续全部使用绝对路径和正确顶级命令；关闭冗余 WebGL 会话后，干净手机会话华山绿地 5 秒采样达到 60 FPS，浏览器错误为空。
 - **Recurrence**: 2026-07-17 三次复查本地预览时遗漏 URL 引号；均在发现后改用单引号重试成功。后续所有带查询参数的本地 URL 必须直接使用单引号模板。
+- **Recurrence**: 2026-07-17 线上发布验收完成后，`agent-browser close` 再次因用户级 socket 目录不可写而失败；页面打开、点击和 DOM 验收均已成功，关闭命令应继续使用已授权的沙箱外执行。
 
 ---
 ## [ERR-20260716-023] stale_xingfuli_obstacle_source_contract
@@ -1596,7 +1597,7 @@ curl: (6) Could not resolve host
 
 **Logged**: 2026-07-17T17:05:00+08:00
 **Priority**: low
-**Status**: in_progress
+**Status**: resolved
 **Area**: docs
 
 ### Summary
@@ -1750,5 +1751,147 @@ Element is not attached
 ### Resolution
 - **Resolved**: 2026-07-17T19:27:00+08:00
 - **Notes**: 改为逐入口加载、确认、点击和保存，最终生成六张不同的运行时验收截图。
+
+---
+
+## [ERR-20260717-036] blender_sandbox_crash_on_road_fix_export
+
+**Logged**: 2026-07-17T20:06:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+道路退界修复重新导出三项资产时，Blender 再次在受限沙箱中崩溃。
+
+### Error
+```
+ArchWarn: ARCH_CACHE_LINE_SIZE != Arch_ObtainCacheLineSize()
+Segmentation fault: 11
+```
+
+### Context
+- 使用 `blender --background --python scripts/create_requested_poi_models.py`。
+- 脚本只重导出口袋公园、法华遗韵和 FICS 新华 365。
+- 源代码与既有模型文件未被删除。
+
+### Suggested Fix
+沿用已验证方案，在沙箱外以受控 Blender 后台命令重导出，并完成 GLB 边界与浏览器复测。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_requested_poi_models.py
+- See Also: ERR-20260717-034
+
+### Resolution
+- **Resolved**: 2026-07-17T20:20:00+08:00
+- **Notes**: 使用已批准的沙箱外 Blender 后台命令成功重导出 3 项资产，并生成新的 Blend、GLB 与固定机位预览。
+
+---
+
+## [ERR-20260717-037] eslint_scans_nested_worktree_builds
+
+**Logged**: 2026-07-17T20:25:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+仓库级 lint 扫描 `.worktrees/restore-world-map` 内的历史构建产物，产生大量与当前源码无关的错误。
+
+### Error
+```
+✖ 9031 problems (164 errors, 8867 warnings)
+```
+
+### Context
+- 根目录命令已经忽略 `dist`、`dist-static` 和 `.next`，但未忽略嵌套 `.worktrees`。
+- 本轮静态构建和 60 项测试均已通过。
+- 报错路径主要位于 `.worktrees/restore-world-map/dist*`。
+
+### Suggested Fix
+在 Git 与 ESLint 的全局忽略规则中排除 `.worktrees/**`，再从含嵌套 worktree 的主目录运行完整 lint。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .gitignore, eslint.config.mjs
+- See Also: ERR-20260715-008
+
+### Resolution
+- **Resolved**: 2026-07-17T21:45:00+08:00
+- **Notes**: 已在 `.gitignore` 和 ESLint `globalIgnores` 中排除 `.worktrees/**`，发布工作树全局 lint 通过。
+
+---
+
+## [ERR-20260717-038] release_branch_stale_poi_tests
+
+**Logged**: 2026-07-17T21:05:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+把新增地标叠加到最新远端主线后，旧测试仍锁定地标数量和旧实现，并暴露新增全览 POI 缺少图片元数据。
+
+### Error
+```
+tests 55
+pass 50
+fail 5
+17 !== 12
+缺少地标：新华公馆
+```
+
+### Context
+- 当前工作区比 `origin/main` 落后 9 个提交，不能直接发布旧基线。
+- 新建发布 worktree 后，生产静态构建成功。
+- 失败项均来自最新主线中的旧数量、旧源码正则或旧碰撞断言；全览 POI 的通用图片完整性断言还发现新增地标没有卡片图片。
+
+### Suggested Fix
+在最新主线上同步本轮地标测试契约，为新增 POI 提供可发布的原创 3D 预览元数据，再重跑完整测试和 Sites 构建。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_dual_scale_navigation.test.mjs, tests/test_xinhua_road_models.test.mjs, app/scene/poi-data.ts
+
+### Resolution
+- **Resolved**: 2026-07-17T21:12:00+08:00
+- **Commit/PR**: 816d424
+- **Notes**: 发布分支同步了最新测试契约，为 6 个新增 POI 接入原创 3D 预览和卡片元数据；59 项测试、全局 lint 与 Sites 构建全部通过。
+
+---
+
+## [ERR-20260717-039] sites_source_push_provenance
+
+**Logged**: 2026-07-17T21:24:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: infra
+
+### Summary
+Sites 源码推送先因凭据响应多一层结构被安全拦截，修正解析后又因远端 main 已有更新而拒绝非快进推送。
+
+### Error
+```
+Rejected: remote, branch and credential were undefined
+! [rejected] HEAD -> main (non-fast-forward)
+```
+
+### Context
+- 第一次失败发生在任何 Git 写入前，安全机制阻止了空目标推送。
+- 第二次使用了明确的 Sites 专用仓库和 main 分支，但远端已有 4 个新提交。
+- 没有使用 force push，也没有覆盖现有线上源码。
+
+### Suggested Fix
+从连接器响应的 `structuredContent` 读取短期凭据；推送前先抓取 Sites main，以其最新提交为基线重新整合、测试、构建和提交。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .openai/hosting.json
+
+### Resolution
+- **Resolved**: 2026-07-17T21:24:00+08:00
+- **Commit/PR**: 14f4bc9
+- **Notes**: 最终提交基于 Sites 最新 main，64 项测试、全局 lint 与 Sites 构建通过后，以普通快进方式成功推送。
 
 ---
