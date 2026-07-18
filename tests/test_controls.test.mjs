@@ -101,22 +101,26 @@ test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", as
   assert.match(world, /reducedMotion\.current\) camera\.position\.copy\(desired\)/);
   assert.match(world, /\{exploring && \(\s*<fog/s);
   assert.match(experience, /far: 800 \* mapData\.meta\.environmentScale/);
+  assert.match(experience, /fov:\s*50/);
   assert.match(experience, /const \[lowTier\] = useState\(detectLowTier\)/);
   assert.match(experience, /dpr=\{lowTier \? 1\.25 : \[1, 1\.75\]\}/);
   assert.match(experience, /antialias: true/);
   assert.equal((experience.match(/<EffectComposer/g) ?? []).length, 1);
   assert.match(experience, /multisampling=\{lowTier \? 0 : 2\}/);
-  assert.match(experience, /enableNormalPass=\{!lowTier\}/);
-  assert.match(experience, /<NormalPassControl enabled=\{playing && !lowTier\} \/>/);
-  assert.match(experience, /<InkOutline enabled=\{playing && !lowTier\} \/>/);
-  assert.match(experience, /<PaperWash animated=\{playing\} \/>/);
-  assert.match(experience, /\{!playing && \(\s*<DisposableEffectComposer/s);
-  assert.match(experience, /playing=\{false\}/);
+  assert.match(experience, /const VisualEffectComposer = memo/);
+  assert.match(experience, /lowTier\s*\?\s*<PaperWash \/>/);
+  assert.match(experience, /<InkOutline key="ink-outline" \/>/);
+  assert.doesNotMatch(experience, /enableNormalPass/);
+  assert.doesNotMatch(experience, /<NormalPassControl/);
+  assert.match(experience, /<VisualEffectComposer lowTier=\{lowTier\} \/>/);
+  assert.doesNotMatch(experience, /\{!playing && \(\s*<VisualEffectComposer/s);
+  assert.doesNotMatch(experience, /key=\{mode\}/);
   assert.match(world, /<Suspense fallback=\{null\}>\s*<XinhuaRoadLandmarks/s);
-  assert.match(effects, /if \(!enabled\) return null/);
-  assert.match(effects, /normalPassRef\.current\.enabled = enabled/);
-  assert.match(effects, /effect\.setAnimated\(animated\)/);
-  assert.match(effects, /if \(!this\.animated\) return/);
+  assert.match(effects, /\["uStrength", new Uniform\(0\.72\)\]/);
+  assert.doesNotMatch(effects, /setEnabled|activeStrength/);
+  assert.match(effects, /texture2D\(inputBuffer, uv \+ offset\)\.rgb/);
+  assert.doesNotMatch(effects, /uNormalBuffer/);
+  assert.doesNotMatch(effects, /setAnimated|private animated/);
   assert.doesNotMatch(effects, /length\(uv - 0\.5\)/);
   assert.match(effects, /max\(edge\.x, edge\.y\)/);
 
@@ -127,7 +131,7 @@ test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", as
   const halfWidth = (map.bounds.maxX - map.bounds.minX) / 2;
   const halfDepth = (map.bounds.maxZ - map.bounds.minZ) / 2;
   const radius = Math.hypot(halfWidth, halfDepth) * 1.08;
-  const verticalHalfFov = 58 / 2 * Math.PI / 180;
+  const verticalHalfFov = 50 / 2 * Math.PI / 180;
   const phoneAspect = 390 / 844;
   const horizontalHalfFov = Math.atan(Math.tan(verticalHalfFov) * phoneAspect);
   const fitDistance = radius / Math.sin(Math.min(verticalHalfFov, horizontalHalfFov));
@@ -135,19 +139,26 @@ test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", as
   assert.ok(farPlane > fitDistance + radius, "竖屏远景不应被相机最远裁切面截断");
 });
 
-test("进入游玩态时立即把相机从首页远景切到角色身后", async () => {
+test("进入游玩态时立即切到低位后肩镜头且视觉合成器不重挂", async () => {
   const [world, experience] = await Promise.all([
     readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8"),
   ]);
 
   assert.match(world, /useLayoutEffect\(\(\) => \{/);
+  assert.match(world, /cameraBase\.addScaledVector\(cameraRight, CAMERA_SHOULDER_OFFSET\)/);
+  assert.match(world, /cameraTarget\.addScaledVector\(cameraRight, CAMERA_TARGET_SHOULDER_OFFSET\)/);
   assert.match(world, /camera\.position\.copy\(cameraBase\)\.add\(cameraOffset\.current\)/);
   assert.match(world, /camera\.lookAt\(cameraTarget\)/);
+  assert.match(world, /addScaledVector\(s\.cameraRight, CAMERA_SHOULDER_OFFSET\)/);
+  assert.match(world, /addScaledVector\(s\.cameraRight, CAMERA_TARGET_SHOULDER_OFFSET\)/);
   assert.match(world, /<IntroCamera active=\{mode === "intro"\} \/>/);
   assert.match(world, /\{exploring && \(\s*<PlayableMessenger/s);
   assert.match(world, /if \(!activeRef\.current\) return/);
-  assert.match(experience, /key=\{mode\}/);
   assert.match(experience, /const composer = composerRef\.current/);
   assert.match(experience, /return \(\) => composer\?\.dispose\(\)/);
+  assert.match(experience, /<VisualEffectComposer lowTier=\{lowTier\} \/>/);
+  assert.match(world, /lastSafeCameraPosition/);
+  assert.match(world, /isPlanarCameraCandidateClearInPolygon/);
+  assert.doesNotMatch(world, /addScaledVector\(currentForward, -0\.52\)/);
 });

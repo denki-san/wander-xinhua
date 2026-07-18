@@ -55,7 +55,6 @@ import {
   XINHUA_ROAD_START_PRESETS,
 } from "./xinhua-road-landmarks";
 import {
-  XINHUA_ENVIRONMENT_SCALE,
   XINGFULI_PLACEMENT,
   XINHUA_BOUNDARY,
   XINHUA_BOUNDS,
@@ -66,8 +65,7 @@ import {
   composeCameraOffset,
   dampingFactor,
   dampTangentTowards,
-  isPlanarPositionBlockedInPolygon,
-  isPlanarSightLineBlockedInPolygon,
+  isPlanarCameraCandidateClearInPolygon,
   type MapObstacle,
   type MapPolygonPoint,
   resolvePolygonMovement,
@@ -83,8 +81,11 @@ const INTRO_MAP_RADIUS = Math.hypot(
   (XINHUA_BOUNDS.maxX - XINHUA_BOUNDS.minX) / 2,
   (XINHUA_BOUNDS.maxZ - XINHUA_BOUNDS.minZ) / 2,
 ) * 1.08;
-const CAMERA_DISTANCE = 7.4;
-const CAMERA_HEIGHT = 5.0;
+const CAMERA_DISTANCE = 6.4;
+const CAMERA_HEIGHT = 2.65;
+const CAMERA_TARGET_HEIGHT = 1.65;
+const CAMERA_SHOULDER_OFFSET = 0.62;
+const CAMERA_TARGET_SHOULDER_OFFSET = 0.18;
 const CAMERA_FOLLOW_DAMPING = 3.2;
 const CAMERA_ORBIT_DAMPING = 18;
 const CAMERA_POSITION_DAMPING = 10;
@@ -101,9 +102,15 @@ const CHARACTER_HIDDEN_NODES = new Set([
   "Rogue_Cape",
 ]);
 const CHARACTER_MAX_TURN_SPEED = 8;
-const CAMERA_FALLBACK_HEIGHT = 3.6;
-const CAMERA_FALLBACK_YAWS = [Math.PI / 2, -Math.PI / 2, Math.PI / 4, -Math.PI / 4, Math.PI];
-const CAMERA_FALLBACK_RADII = [4.2, 3.2, 2.4, 1.5, 0.8, 0.4];
+const CAMERA_FALLBACK_HEIGHT = 2.45;
+const CAMERA_FALLBACK_YAWS = [
+  Math.PI / 4,
+  -Math.PI / 4,
+  Math.PI / 2,
+  -Math.PI / 2,
+  Math.PI,
+];
+const CAMERA_FALLBACK_RADII = [3.8, 3.0, 2.2, 1.45, 0.82, 0.42];
 const CAMERA_DEFAULT_PITCH = CAMERA_HEIGHT / Math.hypot(CAMERA_DISTANCE, CAMERA_HEIGHT);
 const PLAYER_RADIUS = 0.48;
 export const DETAIL_WORLD_SCALE = 1.65;
@@ -152,8 +159,14 @@ function xingfuliLocalToWorld(x: number, z: number) {
 
 const [actionX, actionZ] = xingfuliLocalToWorld(-48, XINGFULI_PLACEMENT.localLaneCenterZ);
 const [startX, startZ] = xingfuliLocalToWorld(-65, XINGFULI_PLACEMENT.localLaneCenterZ);
+const [heroStartX, heroStartZ] = xingfuliLocalToWorld(-39.5, XINGFULI_PLACEMENT.localLaneCenterZ);
 const ACTION_POSITION = new Vector3(actionX, terrainHeightAt(actionX, actionZ) + 0.34, actionZ);
 const START_POSITION = new Vector3(startX, terrainHeightAt(startX, startZ) + 0.33, startZ);
+const HERO_START_POSITION = new Vector3(
+  heroStartX,
+  terrainHeightAt(heroStartX, heroStartZ) + 0.33,
+  heroStartZ,
+);
 const START_FORWARD = new Vector3(
   Math.cos(XINGFULI_PLACEMENT.rotationY),
   0,
@@ -197,6 +210,12 @@ function requestedStartPreset(requestedName?: string): StartPreset {
   const name = requestedName ?? (typeof window === "undefined"
     ? ""
     : new URLSearchParams(window.location.search).get("start"));
+  if (name === "xingfuli" || name === "hero") {
+    return {
+      position: HERO_START_POSITION.clone(),
+      forward: START_FORWARD.clone(),
+    };
+  }
   if (name === "huashan") {
     return {
       position: HUASHAN_START_POSITION.clone(),
@@ -717,8 +736,8 @@ function DetailedMessengerCharacter({
   return (
     <group ref={outerRef} scale={scale}>
       <group position={[0, -0.28, 0]}>
-        <primitive object={model} scale={1.02} rotation-y={Math.PI} />
-        <group scale={0.72} position={[0, 0.05, 0.02]} rotation-y={Math.PI}>
+        <primitive object={model} scale={1.02} />
+        <group scale={0.72} position={[0, 0.05, 0.02]}>
           <MessengerBackpack />
         </group>
       </group>
@@ -787,6 +806,7 @@ function PlayableMessenger({
   const forward = useRef(initialForward.clone());
   const cameraOffset = useRef(initialCameraOffset.clone());
   const cameraGoalOffset = useRef(initialCameraOffset.clone());
+  const lastSafeCameraPosition = useRef<Vector3 | null>(null);
   const moveCameraForward = useRef(initialForward.clone());
   const moveCameraRight = useRef(initialForward.clone().cross(WORLD_UP).normalize());
   const driveSignature = useRef("");
@@ -813,19 +833,33 @@ function PlayableMessenger({
       scaledSurfaceHeight + 0.33,
       currentPosition.z * DETAIL_WORLD_SCALE,
     );
+    const cameraRight = initialForward.clone().cross(WORLD_UP).normalize();
+    cameraBase.addScaledVector(cameraRight, CAMERA_SHOULDER_OFFSET);
     const cameraTarget = new Vector3(
       currentPosition.x * DETAIL_WORLD_SCALE,
-      scaledSurfaceHeight + 1.68,
+      scaledSurfaceHeight + CAMERA_TARGET_HEIGHT,
       currentPosition.z * DETAIL_WORLD_SCALE,
     );
-
+    cameraTarget.addScaledVector(cameraRight, CAMERA_TARGET_SHOULDER_OFFSET);
     // 首页相机离街区很远。进入游玩态时先同步切到角色身后，保证新建的游戏
     // 后处理合成器从正确视角绘制首帧，不把首页全景缓存带进游戏画面。
     camera.position.copy(cameraBase).add(cameraOffset.current);
     camera.up.copy(WORLD_UP);
     camera.lookAt(cameraTarget);
+    if (isPlanarCameraCandidateClearInPolygon(
+      currentPosition.x,
+      currentPosition.z,
+      camera.position.x / DETAIL_WORLD_SCALE,
+      camera.position.z / DETAIL_WORLD_SCALE,
+      XINHUA_BOUNDARY,
+      WORLD_CAMERA_OBSTACLES,
+      0.25,
+      0.18,
+    )) {
+      lastSafeCameraPosition.current = camera.position.clone();
+    }
     onPositionRef.current([currentPosition.x, currentPosition.z]);
-  }, [camera]);
+  }, [camera, initialForward]);
 
   useEffect(() => {
     onNearRef.current = onNearAction;
@@ -1068,14 +1102,14 @@ function PlayableMessenger({
 
     s.cameraTarget.set(
       currentPosition.x * DETAIL_WORLD_SCALE,
-      scaledSurfaceHeight + 1.68 + jumpHeight.current,
+      scaledSurfaceHeight + CAMERA_TARGET_HEIGHT + jumpHeight.current,
       currentPosition.z * DETAIL_WORLD_SCALE,
-    );
+    ).addScaledVector(s.cameraRight, CAMERA_TARGET_SHOULDER_OFFSET);
     s.cameraBase.set(
       currentPosition.x * DETAIL_WORLD_SCALE,
       scaledSurfaceHeight + 0.33 + jumpHeight.current,
       currentPosition.z * DETAIL_WORLD_SCALE,
-    );
+    ).addScaledVector(s.cameraRight, CAMERA_SHOULDER_OFFSET);
     s.cameraPosition.copy(s.cameraBase).add(cameraOffset.current);
     // 相机绕转经过硬碰撞层或地图边缘时沿视线向角色收近；街景地标使用
     // 独立透明层，人物仍受建筑阻挡，但镜头不会被整栋模型的外包络卡死。
@@ -1083,19 +1117,14 @@ function PlayableMessenger({
     for (let step = 0; step <= 16; step += 1) {
       const scale = Math.max(0.06, 1 - step * 0.06);
       s.cameraPosition.copy(s.cameraBase).addScaledVector(cameraOffset.current, scale);
-      if (!isPlanarPositionBlockedInPolygon(
-        s.cameraPosition.x / DETAIL_WORLD_SCALE,
-        s.cameraPosition.z / DETAIL_WORLD_SCALE,
-        XINHUA_BOUNDARY,
-        WORLD_CAMERA_OBSTACLES,
-        0.25,
-      ) && !isPlanarSightLineBlockedInPolygon(
+      if (isPlanarCameraCandidateClearInPolygon(
         currentPosition.x,
         currentPosition.z,
         s.cameraPosition.x / DETAIL_WORLD_SCALE,
         s.cameraPosition.z / DETAIL_WORLD_SCALE,
         XINHUA_BOUNDARY,
         WORLD_CAMERA_OBSTACLES,
+        0.25,
         0.18,
       )) {
         cameraClear = true;
@@ -1112,19 +1141,14 @@ function PlayableMessenger({
           s.cameraPosition.copy(s.cameraBase)
             .addScaledVector(s.fallbackDirection, radius)
             .addScaledVector(WORLD_UP, CAMERA_FALLBACK_HEIGHT);
-          if (!isPlanarPositionBlockedInPolygon(
-            s.cameraPosition.x / DETAIL_WORLD_SCALE,
-            s.cameraPosition.z / DETAIL_WORLD_SCALE,
-            XINHUA_BOUNDARY,
-            WORLD_CAMERA_OBSTACLES,
-            0.18,
-          ) && !isPlanarSightLineBlockedInPolygon(
+          if (isPlanarCameraCandidateClearInPolygon(
             currentPosition.x,
             currentPosition.z,
             s.cameraPosition.x / DETAIL_WORLD_SCALE,
             s.cameraPosition.z / DETAIL_WORLD_SCALE,
             XINHUA_BOUNDARY,
             WORLD_CAMERA_OBSTACLES,
+            0.18,
             0.12,
           )) {
             cameraClear = true;
@@ -1133,30 +1157,62 @@ function PlayableMessenger({
         }
       }
     }
-    // 极端夹角仍以角色正上方作为安全兜底；正常紧凑空间会先使用侧后方候选。
-    if (!cameraClear) s.cameraPosition.copy(s.cameraBase).addScaledVector(WORLD_UP, 4.8);
-    s.cameraLerp.copy(camera.position).lerp(
-      s.cameraPosition,
-      dampingFactor(CAMERA_POSITION_DAMPING, delta),
-    );
-    if (isPlanarPositionBlockedInPolygon(
-      s.cameraLerp.x / DETAIL_WORLD_SCALE,
-      s.cameraLerp.z / DETAIL_WORLD_SCALE,
-      XINHUA_BOUNDARY,
-      WORLD_CAMERA_OBSTACLES,
-      0.25,
-    ) || isPlanarSightLineBlockedInPolygon(
-      currentPosition.x,
-      currentPosition.z,
-      s.cameraLerp.x / DETAIL_WORLD_SCALE,
-      s.cameraLerp.z / DETAIL_WORLD_SCALE,
-      XINHUA_BOUNDARY,
-      WORLD_CAMERA_OBSTACLES,
-      0.12,
-    )) {
-      camera.position.copy(s.cameraPosition);
-    } else {
-      camera.position.copy(s.cameraLerp);
+    // 极端夹角优先保留上一帧合法位置；若角色移动后视线也失效，再验证一个
+    // 位于角色安全半径内的紧凑低位候选，绝不把未经检查的位置交给相机。
+    if (!cameraClear) {
+      const lastSafe = lastSafeCameraPosition.current;
+      if (lastSafe && isPlanarCameraCandidateClearInPolygon(
+        currentPosition.x,
+        currentPosition.z,
+        lastSafe.x / DETAIL_WORLD_SCALE,
+        lastSafe.z / DETAIL_WORLD_SCALE,
+        XINHUA_BOUNDARY,
+        WORLD_CAMERA_OBSTACLES,
+        0.18,
+        0.12,
+      )) {
+        s.cameraPosition.copy(lastSafe);
+        cameraClear = true;
+      }
+    }
+    if (!cameraClear) {
+      s.cameraPosition.set(
+        currentPosition.x * DETAIL_WORLD_SCALE,
+        scaledSurfaceHeight + CAMERA_TARGET_HEIGHT + 0.45 + jumpHeight.current,
+        currentPosition.z * DETAIL_WORLD_SCALE,
+      ).addScaledVector(currentForward, -0.16);
+      cameraClear = isPlanarCameraCandidateClearInPolygon(
+        currentPosition.x,
+        currentPosition.z,
+        s.cameraPosition.x / DETAIL_WORLD_SCALE,
+        s.cameraPosition.z / DETAIL_WORLD_SCALE,
+        XINHUA_BOUNDARY,
+        WORLD_CAMERA_OBSTACLES,
+        0.12,
+        0.08,
+      );
+    }
+    if (cameraClear) {
+      s.cameraLerp.copy(camera.position).lerp(
+        s.cameraPosition,
+        dampingFactor(CAMERA_POSITION_DAMPING, delta),
+      );
+      if (isPlanarCameraCandidateClearInPolygon(
+        currentPosition.x,
+        currentPosition.z,
+        s.cameraLerp.x / DETAIL_WORLD_SCALE,
+        s.cameraLerp.z / DETAIL_WORLD_SCALE,
+        XINHUA_BOUNDARY,
+        WORLD_CAMERA_OBSTACLES,
+        0.25,
+        0.12,
+      )) {
+        camera.position.copy(s.cameraLerp);
+      } else {
+        camera.position.copy(s.cameraPosition);
+      }
+      lastSafeCameraPosition.current?.copy(camera.position);
+      if (!lastSafeCameraPosition.current) lastSafeCameraPosition.current = camera.position.clone();
     }
     camera.up.copy(WORLD_UP);
     camera.lookAt(s.cameraTarget);
@@ -1448,19 +1504,19 @@ export function XinhuaWorld({
     <>
       {exploring && (
         <fog attach="fog" args={[
-          "#72b7b1",
-          145 * XINHUA_ENVIRONMENT_SCALE,
-          310 * XINHUA_ENVIRONMENT_SCALE,
+          "#73aaa6",
+          78 * DETAIL_WORLD_SCALE,
+          190 * DETAIL_WORLD_SCALE,
         ]} />
       )}
       <color attach="background" args={[new Color("#69bab6")]} />
-      <ambientLight intensity={1.15} />
-      <hemisphereLight args={["#eff8e9", "#6d765c", 1.45]} />
+      <ambientLight intensity={exploring ? 0.58 : 1.15} />
+      <hemisphereLight args={["#eff8e9", "#536056", exploring ? 0.72 : 1.45]} />
       <primitive object={shadowTarget} />
       <directionalLight
         position={[SHADOW_CENTER.x + 70, 120, SHADOW_CENTER.z + 90]}
         target={shadowTarget}
-        intensity={2.1}
+        intensity={exploring ? 2.65 : 2.1}
         color="#fff2ce"
         castShadow
         shadow-mapSize-width={1024}
@@ -1476,7 +1532,7 @@ export function XinhuaWorld({
         onOpenAction={onOpenAction}
         detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
         showDetailModels={mode !== "intro"}
-        showDetailLabels={exploring}
+        showDetailLabels={false}
       />
       <IntroCamera active={mode === "intro"} />
       {overview && (

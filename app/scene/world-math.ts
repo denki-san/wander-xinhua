@@ -262,6 +262,34 @@ export function isPlanarSightLineBlockedInPolygon(
   ));
 }
 
+/** 统一验证相机候选点与角色到镜头的投影视线，避免采用只检查一半条件的兜底点。 */
+export function isPlanarCameraCandidateClearInPolygon(
+  startX: number,
+  startZ: number,
+  endX: number,
+  endZ: number,
+  polygon: readonly MapPolygonPoint[],
+  obstacles: MapObstacle[],
+  positionRadius = 0.18,
+  sightRadius = 0.12,
+) {
+  return !isPlanarPositionBlockedInPolygon(
+    endX,
+    endZ,
+    polygon,
+    obstacles,
+    positionRadius,
+  ) && !isPlanarSightLineBlockedInPolygon(
+    startX,
+    startZ,
+    endX,
+    endZ,
+    polygon,
+    obstacles,
+    sightRadius,
+  );
+}
+
 /** 真实多边形边界内的分轴移动解析，保留沿建筑和边界滑动的手感。 */
 export function resolvePolygonMovement(
   current: Vector3,

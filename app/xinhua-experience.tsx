@@ -6,11 +6,17 @@ import { EffectComposer } from "@react-three/postprocessing";
 import { Canvas } from "@react-three/fiber";
 import { ACESFilmicToneMapping, SRGBColorSpace } from "three";
 import type { EffectComposer as PostprocessingEffectComposer } from "postprocessing";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  memo,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { inputState, resetInput, setMoveVector } from "./scene/input";
 import {
   InkOutline,
-  NormalPassControl,
   PaperWash,
   WatercolourSky,
 } from "./scene/visual-effects";
@@ -24,11 +30,9 @@ const INITIAL_OVERVIEW_POSITION = [
   mapData.landmarks.xingfuli.position[1],
 ] as const;
 
-function DisposableEffectComposer({
-  playing,
+const VisualEffectComposer = memo(function VisualEffectComposer({
   lowTier,
 }: {
-  playing: boolean;
   lowTier: boolean;
 }) {
   const composerRef = useRef<PostprocessingEffectComposer>(null);
@@ -42,14 +46,13 @@ function DisposableEffectComposer({
     <EffectComposer
       ref={composerRef}
       multisampling={lowTier ? 0 : 2}
-      enableNormalPass={!lowTier}
     >
-      <NormalPassControl enabled={playing && !lowTier} />
-      <InkOutline enabled={playing && !lowTier} />
-      <PaperWash animated={playing} />
+      {lowTier
+        ? <PaperWash />
+        : [<InkOutline key="ink-outline" />, <PaperWash key="paper-wash" />]}
     </EffectComposer>
   );
-}
+});
 
 function detectLowTier() {
   if (typeof window === "undefined") return false;
@@ -277,7 +280,7 @@ export function XinhuaExperience() {
         shadows
         dpr={lowTier ? 1.25 : [1, 1.75]}
         camera={{
-          fov: 58,
+          fov: 50,
           near: 0.1,
           far: 800 * mapData.meta.environmentScale,
           position: [35, 34, 42],
@@ -303,14 +306,8 @@ export function XinhuaExperience() {
             playerPosition.current = position;
           }}
         />
-        {/* 全览和探索直接由 R3F 渲染：游玩态重挂后处理会清空颜色缓冲，只保留 HTML 标签。 */}
-        {!playing && (
-          <DisposableEffectComposer
-            key={mode}
-            playing={false}
-            lowTier={lowTier}
-          />
-        )}
+        {/* 合成器在模式切换时保持挂载，避免重新创建时清空颜色缓冲；各效果按档位单独启停。 */}
+          <VisualEffectComposer lowTier={lowTier} />
       </Canvas>
 
       {!ready && (

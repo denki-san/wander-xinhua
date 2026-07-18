@@ -36,6 +36,7 @@ npm start
 
 - `/?start=huashan`：华山绿地核心水景
 - `/?start=shangsheng`：上生·新所庭院
+- `/?start=xingfuli`、`/?start=hero`：幸福里英雄街区固定视觉验收入口
 - `/?start=court`、`/?start=pool`、`/?start=sunke`：篮球场、露天泳池和孙科别墅的细部验收坐标；这些地址不增加产品内按钮或行动点
 
 ## 验证

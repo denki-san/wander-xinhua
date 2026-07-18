@@ -33,6 +33,300 @@ error: failed to delete '.git/worktrees/dual-scale-map-navigation': Operation no
 
 ---
 
+## [ERR-20260718-048] sandbox_preview_port_permission
+
+**Logged**: 2026-07-18T11:40:11+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+新 worktree 内的 Vite 静态预览首次启动时，普通沙箱不允许监听本机端口。
+
+### Error
+```
+Error: listen EPERM: operation not permitted 127.0.0.1:4174
+```
+
+### Context
+- `npm test` 已完成生产构建并通过 74 项测试，失败不属于应用构建或运行时代码。
+- 预览命令为 `npm run preview:static -- --host 127.0.0.1 --port 4174`。
+- 当前环境对本地监听端口要求受控授权。
+
+### Suggested Fix
+需要浏览器验收时，在不修改网络配置的前提下，以受控权限重新运行同一条预览命令。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json, vite.static.config.ts
+
+### Resolution
+- **Resolved**: 2026-07-18T11:41:00+08:00
+- **Notes**: 使用受控权限在 127.0.0.1:4174 启动静态预览，并完成桌面与移动端验收。
+
+---
+
+## [ERR-20260718-049] zsh_unquoted_query_url
+
+**Logged**: 2026-07-18T11:42:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+浏览器命令中的查询参数 URL 未加引号，被 zsh 当作通配符拒绝执行。
+
+### Error
+```
+zsh:1: no matches found: http://127.0.0.1:4174/?start=xingfuli
+```
+
+### Context
+- 页面和预览服务均正常，失败发生在 shell 参数展开阶段。
+- URL 含有 `?`，在 zsh 中需要整体加引号。
+
+### Suggested Fix
+所有包含查询参数的浏览器 URL 都使用单引号包裹。
+
+### Metadata
+- Reproducible: yes
+- Related Files: none
+
+### Resolution
+- **Resolved**: 2026-07-18T11:42:00+08:00
+- **Notes**: 后续浏览器命令统一使用带引号的完整 URL。
+
+---
+
+## [ERR-20260718-050] agent_browser_viewport_subcommand
+
+**Logged**: 2026-07-18T11:45:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+固定浏览器视口时误把 `viewport` 当作顶层命令，并在连续调用中触发本地 socket 权限提示。
+
+### Error
+```
+Unknown command: viewport
+Socket directory '/Users/lei/.agent-browser' is not writable: Operation not permitted
+```
+
+### Context
+- `agent-browser --help` 把该能力列在 `set` 命令下，正确形式不是顶层 `agent-browser viewport`。
+- 同一 shell 内连续启动多个调用会放大 socket 访问问题，应改为串行、单次调用。
+
+### Suggested Fix
+使用 `agent-browser set viewport <width> <height>`，每次调用完成后再执行下一条浏览器命令。
+
+### Metadata
+- Reproducible: yes
+- Related Files: none
+
+### Resolution
+- **Resolved**: 2026-07-18T11:45:00+08:00
+- **Notes**: 已改用正确的 `set viewport` 子命令和串行执行。
+
+---
+
+## [ERR-20260718-051] stale_composer_remount_assertion
+
+**Logged**: 2026-07-18T11:55:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+视觉管线改为常驻合成器后，双尺度测试仍要求旧的 `key={mode}` 重挂行为。
+
+### Error
+```
+AssertionError: The input did not match /key=\{mode\}/
+```
+
+### Context
+- 生产构建成功，其余 73 项测试通过。
+- 本次修复的核心目标就是取消模式切换时重新创建 EffectComposer，避免颜色缓冲被清空。
+- `tests/test_controls.test.mjs` 已更新，但 `tests/test_dual_scale_navigation.test.mjs` 仍保留重复的旧断言。
+
+### Suggested Fix
+将重复结构测试改为验证 `VisualEffectComposer` 常驻，且源码不存在 `key={mode}`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_dual_scale_navigation.test.mjs, app/xinhua-experience.tsx
+
+### Resolution
+- **Resolved**: 2026-07-18T11:55:00+08:00
+- **Notes**: 更新双尺度测试，使其验证新的常驻视觉管线契约。
+
+---
+
+## [ERR-20260718-052] persistent_composer_explore_overlay
+
+**Logged**: 2026-07-18T12:00:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+常驻 EffectComposer 在 intro 切换到 explore 后出现全览底板叠入低位街景、颜色被轮廓效果洗成青色的运行时回归。
+
+### Error
+```
+浏览器截图中，低位街景与整张新华路全览底板同时出现，InkOutline 输出缺少正常场景颜色。
+```
+
+### Context
+- `npm test` 74 项全部通过，问题只能通过真实 WebGL 浏览器验收发现。
+- 改造前游玩态绕过 EffectComposer；改造后合成器跨模式常驻，并在 explore 启用 Normal Pass 与 InkOutline。
+- 需要分别确认全览底板的可见条件，以及 Normal Pass 在同一合成器内从 disabled 切到 enabled 的生命周期。
+
+### Suggested Fix
+先让全览底板只在 intro/overview 可见，再验证 Normal Pass 是否支持运行时启停；必要时改为稳定的双合成器或不依赖 Normal Pass 的轮廓实现。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/xinhua-experience.tsx, app/scene/xinhua-world.tsx, app/scene/visual-effects.tsx
+
+### Resolution
+- **Resolved**: 2026-07-18T12:16:00+08:00
+- **Notes**: 移除不稳定的 Normal Pass 依赖，以深度加颜色差分生成轮廓；Ink pass 从首帧常驻，仅切换强度。桌面与移动端模式切换均通过真实浏览器验证。
+
+---
+
+## [ERR-20260718-053] agent_browser_socket_lost_during_capture
+
+**Logged**: 2026-07-18T12:08:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+浏览器复合命令在完成页面点击后丢失控制 socket，后续状态读取与截图未执行。
+
+### Error
+```
+Socket directory '/Users/lei/.agent-browser' is not writable: Operation not permitted
+```
+
+### Context
+- 本地 Vite 预览仍在 127.0.0.1:4174 运行。
+- 页面打开、等待和点击均成功，失败发生在同一批次后段。
+- 需要重新建立独立浏览器会话，再使用短命令串行截图。
+
+### Suggested Fix
+关闭失效的 agent-browser 会话并重新打开；视口、点击和截图分开执行，避免长链路中途丢失 socket。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: none
+
+### Resolution
+- **Resolved**: 2026-07-18T12:18:00+08:00
+- **Notes**: 关闭失效会话后重建浏览器，并将视口、点击、等待、截图拆为短命令；最终截图、错误检查和帧率采样均完成。
+
+---
+
+## [ERR-20260718-054] imperative_camera_fov_lint
+
+**Logged**: 2026-07-18T12:25:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+探索态在布局副作用中直接修改 R3F 相机 FOV，运行正常但触发 React immutability lint。
+
+### Error
+```
+react-hooks/immutability: This value cannot be modified
+perspective.fov = CAMERA_PLAY_FOV
+```
+
+### Context
+- 相机位置本身由 R3F 帧循环命令式控制，但 FOV 不需要在模式切换时临时改写。
+- IntroCamera 和 OverviewCamera 已按相机实时 FOV 自动计算完整地图适配距离。
+
+### Suggested Fix
+将 50 度 FOV 直接声明在 Canvas 的初始相机配置中，删除探索组件里的临时修改与恢复。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/xinhua-experience.tsx, app/scene/xinhua-world.tsx
+
+### Resolution
+- **Resolved**: 2026-07-18T12:25:00+08:00
+- **Notes**: 改为 Canvas 声明式 50 度 FOV，并同步更新视口适配测试。
+
+---
+
+## [ERR-20260718-055] effect_composer_conditional_child_type
+
+**Logged**: 2026-07-18T13:05:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+低配后处理使用布尔短路渲染 InkOutline 时，EffectComposer 的窄 children 类型拒绝 `false | Element`。
+
+### Error
+```
+Type 'false | Element' is not assignable to type 'Element'.
+```
+
+### Context
+- 静态构建成功，但场景 TypeScript 专项测试发现类型错误。
+- 低配必须完全不创建带 DEPTH 采样的 InkOutline，不能退回只把强度设为零。
+
+### Suggested Fix
+向 EffectComposer 传入明确的单个 PaperWash 元素或由 InkOutline 与 PaperWash 组成的元素数组，不使用布尔短路 children。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/xinhua-experience.tsx
+
+### Resolution
+- **Resolved**: 2026-07-18T13:08:00+08:00
+- **Notes**: 将 children 改为低配单元素、高配元素数组的显式分支。
+
+---
+
+## [ERR-20260718-056] missing_generic_preview_script
+
+**Logged**: 2026-07-18T13:12:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+浏览器验收误用通用的 `npm run preview`，但仓库只提供 `preview:static` 与 `start`。
+
+### Error
+```
+npm error Missing script: "preview"
+```
+
+### Context
+- 静态产物已由 `npm test` 成功生成。
+- `package.json` 的正确入口是 `npm run preview:static`。
+
+### Suggested Fix
+启动本项目静态验收前先读取 package scripts，使用 `npm run preview:static -- --host ... --port ...`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json
+
+### Resolution
+- **Resolved**: 2026-07-18T13:13:00+08:00
+- **Notes**: 已确认并切换到仓库声明的 `preview:static` 入口。
+
+---
+
 ## [ERR-20260717-030] sites_tool_name_in_exec
 
 **Logged**: 2026-07-17T09:45:00+08:00

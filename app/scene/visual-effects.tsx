@@ -1,10 +1,8 @@
 "use client";
 
-import { useContext, useEffect, useMemo, useRef } from "react";
-import { EffectComposerContext } from "@react-three/postprocessing";
-import { useFrame } from "@react-three/fiber";
+import { useEffect, useMemo } from "react";
 import { Effect, EffectAttribute } from "postprocessing";
-import { BackSide, Color, ShaderMaterial, Uniform, Vector2, type Texture } from "three";
+import { BackSide, Color, ShaderMaterial, Uniform, Vector2 } from "three";
 import mapData from "./xinhua-map-data.json";
 
 // 这两个 shader 的组织方式参考 promptwhisper/messenger 的 MIT 实现；
@@ -13,13 +11,8 @@ const outlineFragment = /* glsl */ `
 uniform vec3 uColor;
 uniform float uStrength;
 uniform float uThreshold;
-uniform float uNormalThreshold;
+uniform float uColorThreshold;
 uniform vec2 uTexel;
-uniform sampler2D uNormalBuffer;
-
-vec3 readNormal(const in vec2 uv) {
-  return texture2D(uNormalBuffer, uv).xyz * 2.0 - 1.0;
-}
 
 const vec2 DIRS[8] = vec2[8](
   vec2(1.0, 0.0), vec2(-1.0, 0.0), vec2(0.0, 1.0), vec2(0.0, -1.0),
@@ -28,18 +21,19 @@ const vec2 DIRS[8] = vec2[8](
 
 void mainImage(const in vec4 inputColor, const in vec2 uv, const in float depth, out vec4 outputColor) {
   float centerDepth = -getViewZ(depth);
-  vec3 centerNormal = readNormal(uv);
+  vec3 centerColor = inputColor.rgb;
   float depthDelta = 0.0;
-  float normalDelta = 0.0;
+  float colorDelta = 0.0;
   for (int i = 0; i < 8; i++) {
     vec2 offset = DIRS[i] * uTexel * 1.35;
     float sampleDepth = -getViewZ(readDepth(uv + offset));
     depthDelta = max(depthDelta, abs(centerDepth - sampleDepth));
-    normalDelta = max(normalDelta, 1.0 - max(0.0, dot(centerNormal, readNormal(uv + offset))));
+    vec3 sampleColor = texture2D(inputBuffer, uv + offset).rgb;
+    colorDelta = max(colorDelta, length(centerColor - sampleColor) / 1.732);
   }
   float depthEdge = step(uThreshold, depthDelta / max(centerDepth, 1.0));
-  float normalEdge = step(uNormalThreshold, normalDelta) * 0.7;
-  float edge = max(depthEdge, normalEdge) * uStrength;
+  float colorEdge = smoothstep(uColorThreshold, uColorThreshold * 2.15, colorDelta) * 0.52;
+  float edge = max(depthEdge, colorEdge) * uStrength;
   outputColor = vec4(mix(inputColor.rgb, uColor, edge), inputColor.a);
 }
 `;
@@ -50,11 +44,10 @@ class InkOutlineEffect extends Effect {
       attributes: EffectAttribute.DEPTH,
       uniforms: new Map<string, Uniform>([
         ["uColor", new Uniform(new Color("#263c38"))],
-        ["uStrength", new Uniform(0.82)],
-        ["uThreshold", new Uniform(0.055)],
-        ["uNormalThreshold", new Uniform(0.46)],
+        ["uStrength", new Uniform(0.72)],
+        ["uThreshold", new Uniform(0.052)],
+        ["uColorThreshold", new Uniform(0.075)],
         ["uTexel", new Uniform(new Vector2(1, 1))],
-        ["uNormalBuffer", new Uniform<Texture | null>(null)],
       ]),
     });
   }
@@ -64,38 +57,10 @@ class InkOutlineEffect extends Effect {
   }
 }
 
-export function InkOutline({ enabled = true }: { enabled?: boolean }) {
-  const { normalPass } = useContext(EffectComposerContext);
+export function InkOutline() {
   const effect = useMemo(() => new InkOutlineEffect(), []);
-
-  useEffect(() => {
-    const uniform = effect.uniforms.get("uNormalBuffer");
-    if (uniform && normalPass) uniform.value = normalPass.texture;
-  }, [effect, normalPass]);
-
   useEffect(() => () => effect.dispose(), [effect]);
-
-  if (!enabled) return null;
   return <primitive object={effect} dispose={null} />;
-}
-
-export function NormalPassControl({ enabled }: { enabled: boolean }) {
-  const { normalPass } = useContext(EffectComposerContext);
-  const normalPassRef = useRef(normalPass);
-
-  useEffect(() => {
-    normalPassRef.current = normalPass;
-    return () => {
-      if (normalPassRef.current) normalPassRef.current.enabled = false;
-    };
-  }, [normalPass]);
-
-  // EffectComposer 会在布局阶段默认打开法线通道；在实际渲染前按游戏状态关闭它。
-  useFrame(() => {
-    if (normalPassRef.current) normalPassRef.current.enabled = enabled;
-  }, -1);
-
-  return null;
 }
 
 const paperFragment = /* glsl */ `
@@ -133,8 +98,6 @@ void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor)
 `;
 
 class PaperWashEffect extends Effect {
-  private animated = true;
-
   constructor() {
     super("XinhuaPaperWash", paperFragment, {
       uniforms: new Map<string, Uniform>([
@@ -148,20 +111,14 @@ class PaperWashEffect extends Effect {
     (this.uniforms.get("uResolution")?.value as Vector2).set(width, height);
   }
 
-  setAnimated(animated: boolean) {
-    this.animated = animated;
-  }
-
   update(_renderer: unknown, _inputBuffer: unknown, deltaTime: number) {
-    if (!this.animated) return;
     const time = this.uniforms.get("uTime");
     if (time) time.value += deltaTime;
   }
 }
 
-export function PaperWash({ animated = true }: { animated?: boolean }) {
+export function PaperWash() {
   const effect = useMemo(() => new PaperWashEffect(), []);
-  effect.setAnimated(animated);
   useEffect(() => () => effect.dispose(), [effect]);
   return <primitive object={effect} dispose={null} />;
 }

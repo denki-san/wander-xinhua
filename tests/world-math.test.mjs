@@ -3,6 +3,7 @@ import test from "node:test";
 import { PerspectiveCamera, Vector3 } from "three";
 import {
   composeCameraOffset,
+  isPlanarCameraCandidateClearInPolygon,
   isPlanarPositionBlockedInPolygon,
   isPlanarSightLineBlockedInPolygon,
   isPointInsidePolygon,
@@ -97,6 +98,36 @@ test("相机候选点虽安全但整条视线穿墙时仍判定为阻挡", () =>
   assert.equal(isPlanarPositionBlockedInPolygon(4, 0, polygon, wall, 0.2), false);
   assert.equal(isPlanarSightLineBlockedInPolygon(-4, 0, 4, 0, polygon, wall, 0.2), true);
   assert.equal(isPlanarSightLineBlockedInPolygon(-4, 6, 4, 6, polygon, wall, 0.2), false);
+  assert.equal(isPlanarCameraCandidateClearInPolygon(
+    -4,
+    0,
+    4,
+    0,
+    polygon,
+    wall,
+    0.2,
+    0.2,
+  ), false);
+  assert.equal(isPlanarCameraCandidateClearInPolygon(
+    -4,
+    6,
+    4,
+    6,
+    polygon,
+    wall,
+    0.2,
+    0.2,
+  ), true);
+  assert.equal(isPlanarCameraCandidateClearInPolygon(
+    -4,
+    6,
+    0,
+    0,
+    polygon,
+    wall,
+    0.2,
+    0.2,
+  ), false);
 });
 
 test("真实多边形边界会阻止角色进入外接矩形中的无效区域", () => {
