@@ -1,5 +1,69 @@
 # Errors
 
+## [ERR-20260718-058] gltf_probe_extra_brace
+
+**Logged**: 2026-07-18T14:16:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+用 Node 临时读取 Quaternius glTF 结构时，单行脚本末尾多写一个右花括号。
+
+### Error
+```
+SyntaxError: Unexpected token '}'
+```
+
+### Context
+- 资产文件已正常下载并解压。
+- 失败仅发生在只读结构探针，不涉及模型修改。
+
+### Suggested Fix
+缩短单行探针并先只输出一个模型；复杂资产检查改用仓库脚本。
+
+### Metadata
+- Reproducible: yes
+- Related Files: none
+
+### Resolution
+- **Resolved**: 2026-07-18T14:17:00+08:00
+- **Notes**: 删除多余花括号并重新执行只读 glTF 检查。
+
+---
+
+## [ERR-20260718-057] three_package_version_exports
+
+**Logged**: 2026-07-18T14:08:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+用 CommonJS `require` 直接读取 Three.js 的 `package.json` 时被包的 exports 边界拒绝。
+
+### Error
+```
+Error [ERR_PACKAGE_PATH_NOT_EXPORTED]: Package subpath './package.json' is not defined by "exports"
+```
+
+### Context
+- 尝试命令：`require('three/package.json').version`。
+- Blender 与角色资产工具检查均正常，该错误不影响运行时或角色制作。
+
+### Suggested Fix
+需要确认依赖版本时使用包管理器的依赖树输出，不直接读取受 exports 限制的包内部文件。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json
+
+### Resolution
+- **Resolved**: 2026-07-18T14:08:00+08:00
+- **Notes**: 后续使用 `npm list three --depth=0` 查询版本。
+
+---
+
 ## [ERR-20260717-031] worktree_metadata_sandbox_cleanup
 
 **Logged**: 2026-07-17T10:00:00+08:00
@@ -2440,3 +2504,275 @@ fatal: Unable to create '.git/index.lock': Operation not permitted
 - **Notes**: 使用受控权限完成暂存与提交。
 
 ---
+## [ERR-20260718-059] Blender 无界面复查角色源文件时进程崩溃
+
+**时间**：2026-07-18
+**状态**：已解决
+
+### 现象
+
+再次运行 `/opt/homebrew/bin/blender --background --python /private/tmp/test_inspect_quaternius_character.py` 时，Blender 4.5.11 在脚本输出前触发 `Segmentation fault: 11`。
+
+### 影响
+
+仅阻塞新的角色 GLB 生成；现有项目文件、已下载的 CC0 源资产和运行时角色均未损坏。
+
+### 下一步
+
+改用 Blender 主程序并加 `--factory-startup`、隔离用户配置进行复测；若仍失败，再检查是否存在残留 Blender 进程或 macOS 图形初始化问题。
+
+### 复测记录
+
+同一隔离配置连续复用时仍会偶发在启动阶段崩溃；改用新的临时 `BLENDER_USER_CONFIG` 目录可恢复。后续无界面生成命令为每轮使用独立的 `test_blender_config_*` 目录。
+## [ERR-20260718-060] 角色生成脚本遍历了已删除的 Blender 对象引用
+
+**时间**：2026-07-18
+**状态**：已解决
+
+### 现象
+
+脚本删除导入包中的 `Icosphere` 骨骼辅助物后，仍遍历原始对象列表，触发 `ReferenceError: StructRNA of type Object has been removed`。
+
+### 根因
+
+Blender 数据块删除后，Python 列表里原对象引用不会自动失效清理，但再次访问其 RNA 属性会抛错。
+
+### 修复
+
+在删除辅助对象之前先收集需要保留的眼睛和眉毛网格，后续只遍历这些有效引用。
+
+同一规则也应用到后续导入的模块化服装：先筛选服装网格，再删除 `Icosphere` 辅助对象。
+## [ERR-20260718-061] Quaternius 男性基础体的节点名称与女性包不同
+
+**时间**：2026-07-18
+**状态**：调查中
+
+### 现象
+
+角色生成脚本切换到 `Superhero_Male_FullBody.gltf` 后，按女性包的 `Superhero_Male` 规则查找主体网格失败。导入日志显示男性包使用 `Face`、`Face.001` 和 `Sphere.005_Retopology.004` 等源节点名。
+
+### 影响
+
+仅阻塞中性角色新 GLB 的生成；当前浏览器仍运行上一版已验证角色。
+
+### 下一步
+
+检查男性包各网格的材质、尺寸和骨骼父级，改用稳定的材质/顶点特征或明确源节点名选择头部、眼睛与眉毛。
+
+### 解决
+
+Blender 导入后的稳定名称为 `SuperHero_Male`（大写 H），眼睛与眉毛仍分别规范化为 `Eyes`、`Eyebrows`。脚本已改用实际名称，并把男性头部截取下界调整到 `z >= 1.50`，避免带入上胸。
+
+---
+## [ERR-20260718-062] 角色组件重命名补丁上下文不完整
+
+**时间**：2026-07-18
+**状态**：已解决
+
+### 现象
+
+首次批量重命名角色组件时，补丁遗漏了组件上方的说明注释，导致上下文匹配失败，文件未发生修改。
+
+### 修复
+
+先读取实际函数片段，再使用更小的精确上下文完成 `MessengerCharacter` 到 `WandererCharacter` 的重命名，并同步更新相关测试。
+
+---
+## [ERR-20260718-063] 两个 Vite 构建并行写入同一输出目录
+
+**时间**：2026-07-18
+**状态**：已解决
+
+### 现象
+
+并行运行 `npm test` 与 `npm run build` 时，两条命令都会清理并写入 `dist-static`。其中一次构建在复制静态 GLB 时遇到瞬时 `ENOENT`，另一条独立构建正常成功。
+
+### 根因
+
+验证命令共享同一构建输出目录，不具备并发安全性。
+
+### 修复
+
+保留 Lint 并行能力，但所有包含 Vite 构建的验证命令必须串行执行；随后单独重跑 `npm test`。
+
+---
+## [ERR-20260718-064] 全量测试仍锁定旧的高位摄像机参数
+
+**时间**：2026-07-18
+**状态**：已解决
+
+### 现象
+
+新后肩镜头已将距离与高度分别调整为 `5.35` 和 `2.1`，但地图比例测试仍断言旧值 `6.4` 和 `2.65`，导致 75 项测试中 1 项失败。
+
+### 根因
+
+镜头实现已变更，关联的回归测试没有同步更新。
+
+### 修复
+
+把测试更新为完整的新镜头参数组，包括目标高度、角色侧偏和目标侧偏，继续保留人物半径与街巷净宽约束。
+
+---
+## [ERR-20260718-065] Blender UV 图层集合不支持 clear
+
+**时间**：2026-07-18
+**状态**：已解决
+
+### 现象
+
+为了移除候选角色未使用的 UV 与切线数据，生成脚本调用 `obj.data.uv_layers.clear()`，Blender 4.5 抛出 `AttributeError`。
+
+### 根因
+
+`bpy_prop_collection` 的 UV 图层集合不提供 `clear()` 方法。
+
+### 修复
+
+把 UV 图层和颜色属性复制为列表后逐项调用集合的 `remove()`，再重新生成角色。
+
+---
+## [ERR-20260718-066] 对拆边低模服装直接应用 Catmull-Clark 产生裂缝
+
+**时间**：2026-07-18
+**状态**：已解决
+
+### 现象
+
+为了减少服装大三角面的明暗色块，生成脚本对上衣和长裤应用一级 Catmull-Clark。预览中每个三角面独立收缩，衣服出现大量白色裂缝。
+
+### 根因
+
+源 glTF 为硬表面法线复制了边界顶点，拓扑并非连续四边面；直接细分会把这些面当作互不连接的小岛。
+
+### 修复
+
+删除拓扑细分，仅保留材质低对比配色和可逆的平滑法线处理；破损版本未进入最终运行时验证。
+
+---
+## [ERR-20260718-067] Google Drive 首次打开超时但页面已部分加载
+
+**时间**：2026-07-18
+**状态**：已解决
+
+### 现象
+
+浏览器打开 Quaternius 官方 Drive 目录时命令超时，但随后快照显示目录与文件清单已经加载。
+
+### 修复
+
+超时后先读取当前浏览器状态，不重复开启页面；通过目录 DOM 和页面内 `data-id` 取得官方文件 ID，再逐个下载并校验大小与 SHA-256。
+
+---
+## [ERR-20260718-068] cp 不支持多个源目标配对
+
+**时间**：2026-07-18
+**状态**：已解决
+
+### 现象
+
+试图在一次 `cp` 命令中按“源、目标、源、目标”复制三个 glTF，命令把最后一个参数当成目标目录并失败。
+
+### 修复
+
+对三个已验证的源文件分别执行明确的单源单目标复制，复制后再次校验 SHA-256。
+
+---
+## [ERR-20260718-069] Blender 重新导入当前角色 GLB 时崩溃
+
+**时间**：2026-07-18
+**状态**：调查中
+
+### 现象
+
+为了审计最终 GLB 的重复顶点、平滑面和自定义法线，使用 Blender 4.5.11 后台重新导入 `urban-wanderer.glb`。Blender 在 glTF 导入阶段直接以退出码 139 崩溃，只留下 `blender.crash.txt`。
+
+### 影响
+
+网页端仍能正常加载和播放该 GLB，但不能把“重新导入最终 GLB”作为当前迭代的拓扑审计路径。
+
+### 下一步
+
+改为直接打开可编辑的 `urban-wanderer.blend`，或在导出前的生成脚本中统计各模块拓扑和法线；候选模型仍需通过网页实际运行、GLB 结构解析和浏览器错误检查验证。
+
+### 元数据
+
+- 可复现：待确认
+- 相关文件：`public/models/character/urban-wanderer.glb`、`test_character_mesh_audit.py`
+- 参见：ERR-20260718-066
+
+### 解决
+
+崩溃发生在 Blender 启动时的 Metal 设备白名单检测，而不是 GLB 或 Blend 解析阶段。使用已获准的沙箱外 Blender 后台模式后，可正常打开 Blend、完成拓扑审计和重新导出。
+
+---
+## [ERR-20260718-070] agent-browser 无法在受限沙箱写入套接字目录
+
+**时间**：2026-07-18
+**状态**：已解决
+
+### 现象
+
+新建人物运行时验证会话时，`agent-browser` 报错：
+
+```text
+Socket directory '/Users/lei/.agent-browser' is not writable: Operation not permitted
+```
+
+### 修复
+
+使用已获准的沙箱外 `agent-browser` 前缀运行独立会话；页面随后正常打开。
+
+---
+## [ERR-20260718-071] agent-browser eval 误用了 Playwright page 对象
+
+**时间**：2026-07-18
+**状态**：已解决
+
+### 现象
+
+尝试在 `agent-browser eval` 中调用 `page.setViewportSize` 和顶层 `await`，分别触发语法错误与 `page is not defined`。
+
+### 根因
+
+`agent-browser eval` 执行的是页面 JavaScript，不直接暴露 Playwright 的 `page` 对象。
+
+### 修复
+
+视口和等待分别改用 `agent-browser set viewport` 与 `agent-browser wait`；页面内持续移动则返回一个原生 Promise 并派发键盘事件。
+
+---
+## [ERR-20260718-072] 角色测试把旧文件体积误当成质量下限
+
+**时间**：2026-07-18
+**状态**：已解决
+
+### 现象
+
+焊接重复顶点后，GLB 从 823KB 降到 378KB，实际画面更平滑，但测试仍断言文件必须大于 700KB。
+
+### 根因
+
+旧门槛锁定了拆分法线造成的冗余顶点体积，没有证明视觉质量。
+
+### 修复
+
+体积门槛改为 300KB～500KB，并新增导出顶点范围和生成器焊接逻辑断言；继续锁定三角面、四模块、骨骼、动作、无贴图和禁用背包节点。
+
+---
+## [ERR-20260718-073] 受限沙箱不能写入主仓库 worktree 索引锁
+
+**时间**：2026-07-18
+**状态**：已解决
+
+### 现象
+
+为 Sites 发布准备精确源码提交时，`git add` 无法创建主仓库 `.git/worktrees/hero-district-visual-overhaul/index.lock`，返回 `Operation not permitted`。
+
+### 根因
+
+当前工作树目录可写，但共享的主仓库 `.git` 在受限文件系统中只有读取权限。
+
+### 修复
+
+使用已获准的 Git 暂存前缀在沙箱外完成同一组显式文件的暂存；不使用全量暂存，也不纳入临时截图或审计脚本。

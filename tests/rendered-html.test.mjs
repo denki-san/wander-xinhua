@@ -140,17 +140,15 @@ test("幸福里按 OSM 中心线置于真实相对位置并保持统一横向比
 
 test("主角使用完整分层 3D 建模而不是几何占位人", async () => {
   const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
-  const head = world.slice(world.indexOf("function CharacterHead"), world.indexOf("function MessengerBackpack"));
-  const backpack = world.slice(world.indexOf("function MessengerBackpack"), world.indexOf("function CharacterTorso"));
+  const head = world.slice(world.indexOf("function CharacterHead"), world.indexOf("function CharacterTorso"));
 
   assert.match(world, /function CharacterHead/);
   assert.match(world, /function CharacterTorso/);
   assert.match(world, /function CharacterArm/);
   assert.match(world, /function CharacterLeg/);
-  assert.match(world, /function MessengerBackpack/);
+  assert.match(world, /function WandererCharacter/);
   assert.match(head, /sphereGeometry/);
   assert.match(head, /torusGeometry/);
-  assert.match(backpack, /RoundedBox/);
-  assert.match(backpack, /torusGeometry/);
+  assert.doesNotMatch(world, /MessengerBackpack|Backpack|ShoulderStrap/);
   assert.doesNotMatch(world, /capsuleGeometry args=\{\[0\.39, 0\.72/);
 });

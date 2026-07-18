@@ -1,5 +1,81 @@
 # Learnings
 
+## [LRN-20260718-014] best_practice
+
+**Logged**: 2026-07-18T16:52:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+低模人物即使所有面都设为平滑，拆分法线产生的同位置重复顶点仍会阻断插值；应先清理未使用属性并焊接重复顶点，再重算法线。
+
+### Details
+Quaternius 模块导入后，上衣 6132 个顶点中有 4606 个同位置重复点，下装 1492 个中有 1123 个。`polygon.use_smooth = True` 只能平滑拓扑相连的面，因此第一版实机仍出现大面积三角色块。移除未使用 UV、顶点色、自定义硬法线和 sharp edge 后，以极小容差焊接完全重合顶点，角色三角面仍保持约 6700，但 GLB 从 823KB 降到约 370KB，实机背部明暗变为连续渐变。
+
+### Suggested Action
+处理拆法线低模人物时，先统计同位置重复顶点比例；焊接后必须重新检查蒙皮、材质边界、动作、正面预览和真实 WebGL 页面。资产测试应锁定骨骼、模块、三角面、动作和禁用节点，不应把较大的文件体积当作质量指标。
+
+### Metadata
+- Source: error
+- Related Files: scripts/create_urban_wanderer_character.py, tests/test_character_asset.test.mjs
+- Tags: character-model, normals, remove-doubles, gltf, runtime-size, visual-qa
+- See Also: LRN-20260718-012, ERR-20260718-066
+
+### Resolution
+- **Resolved**: 2026-07-18T16:52:00+08:00
+- **Notes**: 第二版已在固定 Blender 预览、1440×1024 桌面页和 390×844 手机页验证，未见裂缝、背包或浏览器错误。
+
+---
+
+## [LRN-20260718-013] correction
+
+**Logged**: 2026-07-18T14:22:00+08:00
+**Priority**: critical
+**Status**: in_progress
+**Area**: frontend
+
+### Summary
+新华路项目的主角必须被明确读成中国人、偏中性且略 masculine，并且用户明确不要背包；不能把开源角色默认的性别、肤色、五官印象或“信使背包”当作既定产品身份。
+
+### Details
+第一版 Quaternius 骨架、服装和动画在浏览器里工作正常，但所选深肤色女性头部和西式短发不符合本地上海街区语境；背包虽然已降低饱和度，仍然是用户不需要的视觉道具。角色也不应具有明显性别或职业背景，应让不同玩家都能代入。
+
+### Suggested Action
+保留已验证的骨架和动作系统，默认改用偏中性男性头部、黑色侧分短发、暖中性东亚肤色、深棕眼睛和宽松低饱和服装；从程序化 fallback、GLB、文档与测试中彻底删除背包。上装、下装、鞋和头发必须保留独立模块，为未来换装留接口，并用正面预览和后肩实机截图共同验收。
+
+### Metadata
+- Source: user_feedback
+- Related Files: scripts/create_urban_wanderer_character.py, app/scene/xinhua-world.tsx, docs/research/urban-wanderer-character-brief.md
+- Tags: chinese-character, gender-neutral, masculine, modular-outfit, no-backpack, art-direction
+- See Also: LRN-20260718-012
+
+---
+
+## [LRN-20260718-012] correction
+
+**Logged**: 2026-07-18T14:05:00+08:00
+**Priority**: high
+**Status**: in_progress
+**Area**: frontend
+
+### Summary
+第三人称主角不能只以“高面数、完整骨骼和动画齐全”作为质量标准；大块单色头发、服装与高饱和配件会让人物在后肩近景中像几个色块拼接。
+
+### Details
+当前 KayKit Rogue 资产虽然有 6,377 三角面、76 个动画和完整骨骼，但大头比例、整片棕色发型、绿色上衣与红色背包在后肩镜头里形成四个高对比大色块。自动结构测试全部通过，仍不能证明人物与新华漫游志的纸张、墨线和真实街区美术相匹配。
+
+### Suggested Action
+角色验收必须加入固定后肩近景、正面、侧面、移动中和 390×844 窄屏截图；优先使用比例更自然、可商用修改的开源骨骼角色，并通过低饱和城市服装、细分材质和更轻的轮廓控制色块面积。镜头距离、肩位偏移与人物屏占比要与角色同时调整。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/xinhua-world.tsx, public/models/character/urban-messenger.glb, tests/test_character_asset.test.mjs
+- Tags: character-model, color-blocking, art-direction, camera, visual-regression
+- See Also: LRN-20260716-003
+
+---
+
 ## [LRN-20260717-010] correction
 
 **Logged**: 2026-07-17T20:20:00+08:00

@@ -81,28 +81,20 @@ const INTRO_MAP_RADIUS = Math.hypot(
   (XINHUA_BOUNDS.maxX - XINHUA_BOUNDS.minX) / 2,
   (XINHUA_BOUNDS.maxZ - XINHUA_BOUNDS.minZ) / 2,
 ) * 1.08;
-const CAMERA_DISTANCE = 6.4;
-const CAMERA_HEIGHT = 2.65;
-const CAMERA_TARGET_HEIGHT = 1.65;
-const CAMERA_SHOULDER_OFFSET = 0.62;
-const CAMERA_TARGET_SHOULDER_OFFSET = 0.18;
+const CAMERA_DISTANCE = 5;
+const CAMERA_HEIGHT = 1.95;
+const CAMERA_TARGET_HEIGHT = 1.45;
+const CAMERA_SHOULDER_OFFSET = 0.9;
+const CAMERA_TARGET_SHOULDER_OFFSET = 0.12;
 const CAMERA_FOLLOW_DAMPING = 3.2;
 const CAMERA_ORBIT_DAMPING = 18;
 const CAMERA_POSITION_DAMPING = 10;
 const CAMERA_ROTATION_SPEED_X = 0.005;
 const CAMERA_ROTATION_SPEED_Y = 0.004;
 const CHARACTER_TURN_DAMPING = 9;
-const CHARACTER_MODEL_PATH = "/models/character/urban-messenger.glb";
-const CHARACTER_HIDDEN_NODES = new Set([
-  "Knife_Offhand",
-  "1H_Crossbow",
-  "2H_Crossbow",
-  "Knife",
-  "Throwable",
-  "Rogue_Cape",
-]);
+const CHARACTER_MODEL_PATH = "/models/character/urban-wanderer.glb";
 const CHARACTER_MAX_TURN_SPEED = 8;
-const CAMERA_FALLBACK_HEIGHT = 2.45;
+const CAMERA_FALLBACK_HEIGHT = 1.9;
 const CAMERA_FALLBACK_YAWS = [
   Math.PI / 4,
   -Math.PI / 4,
@@ -502,36 +494,6 @@ function CharacterHead() {
   );
 }
 
-function MessengerBackpack() {
-  return (
-    <group position={[0, 1.27, -0.4]}>
-      <RoundedBox args={[0.76, 0.88, 0.3]} radius={0.14} smoothness={3} castShadow>
-        <meshToonMaterial color="#b94f45" />
-      </RoundedBox>
-      <RoundedBox args={[0.7, 0.34, 0.09]} radius={0.08} smoothness={2} position={[0, 0.24, -0.19]} castShadow>
-        <meshToonMaterial color="#d86a50" />
-      </RoundedBox>
-      <mesh position={[0, 0.14, -0.25]} rotation-z={Math.PI / 4} castShadow>
-        <boxGeometry args={[0.3, 0.3, 0.045]} />
-        <meshToonMaterial color="#fff0c8" />
-      </mesh>
-      <mesh position={[0, 0.14, -0.28]} rotation-z={Math.PI / 4}>
-        <boxGeometry args={[0.16, 0.16, 0.025]} />
-        <meshBasicMaterial color="#d3624d" />
-      </mesh>
-      {[-0.25, 0.25].map((x) => (
-        <RoundedBox key={x} args={[0.22, 0.3, 0.22]} radius={0.06} smoothness={2} position={[x, -0.24, -0.05]} castShadow>
-          <meshToonMaterial color="#9f463f" />
-        </RoundedBox>
-      ))}
-      <mesh position={[0, 0.51, 0]} rotation-x={Math.PI / 2} castShadow>
-        <torusGeometry args={[0.16, 0.035, 8, 16, Math.PI]} />
-        <meshToonMaterial color="#394d48" />
-      </mesh>
-    </group>
-  );
-}
-
 function CharacterTorso() {
   return (
     <group>
@@ -563,7 +525,6 @@ function CharacterTorso() {
         <cylinderGeometry args={[0.35, 0.39, 0.2, 14]} />
         <meshToonMaterial color="#344d48" />
       </mesh>
-      <MessengerBackpack />
     </group>
   );
 }
@@ -629,7 +590,7 @@ function CharacterLeg({
   );
 }
 
-function ProceduralMessengerCharacter({
+function ProceduralWandererCharacter({
   outerRef,
   scale = 1,
 }: {
@@ -678,19 +639,18 @@ function ProceduralMessengerCharacter({
   );
 }
 
-type MessengerCharacterProps = {
+type WandererCharacterProps = {
   outerRef: RefObject<Group | null>;
   scale?: number;
 };
 
-function DetailedMessengerCharacter({
+function DetailedWandererCharacter({
   outerRef,
   scale = 1,
-}: MessengerCharacterProps) {
+}: WandererCharacterProps) {
   const { scene, animations } = useGLTF(CHARACTER_MODEL_PATH);
   const model = useMemo(() => {
     scene.traverse((object) => {
-      if (CHARACTER_HIDDEN_NODES.has(object.name)) object.visible = false;
       const mesh = object as Object3D & {
         isMesh?: boolean;
         castShadow?: boolean;
@@ -710,8 +670,8 @@ function DetailedMessengerCharacter({
   const activeAction = useRef<string | null>(null);
 
   useEffect(() => {
-    const idle = actions.Unarmed_Idle ?? actions.Idle;
-    const idleName = actions.Unarmed_Idle ? "Unarmed_Idle" : "Idle";
+    const idle = actions.Idle_Neutral;
+    const idleName = "Idle_Neutral";
     idle?.reset().fadeIn(0.12).play();
     activeAction.current = idle ? idleName : null;
     return () => {
@@ -724,8 +684,8 @@ function DetailedMessengerCharacter({
     const keyboardMoving = inputState.forward || inputState.back || inputState.left || inputState.right;
     const moveStrength = analogStrength > 0 ? analogStrength : (keyboardMoving ? 1 : 0);
     const nextAction = moveStrength <= 0.02
-      ? (actions.Unarmed_Idle ? "Unarmed_Idle" : "Idle")
-      : (inputState.sprint || moveStrength > 0.88 ? "Running_A" : "Walking_A");
+      ? "Idle_Neutral"
+      : (inputState.sprint ? "Run" : "Walk");
 
     if (activeAction.current === nextAction) return;
     if (activeAction.current) actions[activeAction.current]?.fadeOut(0.16);
@@ -735,21 +695,16 @@ function DetailedMessengerCharacter({
 
   return (
     <group ref={outerRef} scale={scale}>
-      <group position={[0, -0.28, 0]}>
-        <primitive object={model} scale={1.02} />
-        <group scale={0.72} position={[0, 0.05, 0.02]}>
-          <MessengerBackpack />
-        </group>
-      </group>
+      <primitive object={model} scale={1.15} />
     </group>
   );
 }
 
-function MessengerCharacter(props: MessengerCharacterProps) {
+function WandererCharacter(props: WandererCharacterProps) {
   // 角色模型单独进入 Suspense，避免首次载入 GLB 时把地面、建筑与相机一起挂起。
   return (
-    <Suspense fallback={<ProceduralMessengerCharacter {...props} />}>
-      <DetailedMessengerCharacter {...props} />
+    <Suspense fallback={<ProceduralWandererCharacter {...props} />}>
+      <DetailedWandererCharacter {...props} />
     </Suspense>
   );
 }
@@ -1232,7 +1187,7 @@ function PlayableMessenger({
     }
   });
 
-  return <MessengerCharacter outerRef={outer} />;
+  return <WandererCharacter outerRef={outer} />;
 }
 
 type OverviewLabelStyle = CSSProperties & {
@@ -1384,7 +1339,7 @@ function OverviewMessenger({
     }
   });
 
-  return <MessengerCharacter outerRef={outer} scale={OVERVIEW_CHARACTER_SCALE} />;
+  return <WandererCharacter outerRef={outer} scale={OVERVIEW_CHARACTER_SCALE} />;
 }
 
 function OverviewCamera({
