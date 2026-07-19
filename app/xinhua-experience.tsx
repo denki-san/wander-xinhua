@@ -191,6 +191,7 @@ export function XinhuaExperience() {
   const [lowTier] = useState(detectLowTier);
   const [touchCapable, setTouchCapable] = useState(false);
   const playerPosition = useRef<readonly [number, number]>(INITIAL_OVERVIEW_POSITION);
+  const overviewPhotoPreload = useRef<HTMLImageElement | null>(null);
   const [overviewStartPosition, setOverviewStartPosition] = useState<readonly [number, number]>(
     INITIAL_OVERVIEW_POSITION,
   );
@@ -213,8 +214,13 @@ export function XinhuaExperience() {
     if (!firstOverviewPhoto) return;
     const preview = new Image();
     preview.fetchPriority = "high";
-    preview.decoding = "async";
+    preview.decoding = "sync";
     preview.src = firstOverviewPhoto;
+    overviewPhotoPreload.current = preview;
+    void preview.decode().catch(() => undefined);
+    return () => {
+      overviewPhotoPreload.current = null;
+    };
   }, []);
 
   useEffect(() => {
@@ -395,7 +401,7 @@ export function XinhuaExperience() {
               key={nearPoi.photo.src}
               src={nearPoi.photo.src}
               alt={`${nearPoi.name}实景`}
-              decoding="async"
+              decoding="sync"
               loading="eager"
               fetchPriority="high"
               referrerPolicy="no-referrer"

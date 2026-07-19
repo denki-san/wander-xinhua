@@ -4,27 +4,23 @@
 
 **Logged**: 2026-07-19T13:35:00+08:00
 **Priority**: critical
-**Status**: resolved
+**Status**: in_progress
 **Area**: frontend
 
 ### Summary
 全览态不能用一个大 Suspense 边界包住整组新华路建筑；单个大模型慢就会让所有建筑一起消失，并拖延 POI 实景缩略图的可见时间。
 
 ### Details
-线上复核发现，人物 GLB 已加载后，新华路 14 个建筑仍全部缺失，网络时序只完成第一棵梧桐树模型。`XinhuaRoadLandmarks` 内部连续调用 14 次 `useGLTF`，外部却只有一个 `fallback={null}`；这会产生加载瀑布和整组全有或全无的表现。POI 卡片同时使用最高 3.4MB 的原图，在静态资源响应较慢时只显示绿色底色。
+线上复核发现，人物 GLB 已加载后，新华路 14 个建筑仍全部缺失，网络时序只完成第一棵梧桐树模型。`XinhuaRoadLandmarks` 内部连续调用 14 次 `useGLTF`，外部却只有一个 `fallback={null}`；这会产生加载瀑布和整组全有或全无的表现。POI 卡片同时使用最高 3.4MB 的原图，在静态资源响应较慢时只显示绿色底色。Sites v13 进一步确认，即使轻量图已经 `complete` 且 `naturalWidth=640`，重 WebGL 页面里的 `decoding="async"` 仍可能延迟实际绘制；显式执行 `img.decode()` 后照片才进入截图。
 
 ### Suggested Action
-每栋建筑、每个梧桐树变体和上生·新所的大 GLB 都必须拥有自己的 Suspense 边界；建筑未完成时显示与真实落位一致的轻量体块，完成一栋就替换一栋。POI 卡片使用独立的 640px 轻量缩略图，并在首页预取默认地点。
+每栋建筑、每个梧桐树变体和上生·新所的大 GLB 都必须拥有自己的 Suspense 边界；建筑未完成时显示与真实落位一致的轻量体块，完成一栋就替换一栋。POI 卡片使用独立的 640px 轻量缩略图，在首页预取并显式解码默认地点；实际可见图片使用同步解码提示。验收必须看截图，不能只看 HTTP、`complete` 或 `naturalWidth`。
 
 ### Metadata
 - Source: user_feedback
 - Related Files: app/scene/xinhua-road-landmarks.tsx, app/scene/shangsheng-xinsuo-block.tsx, app/scene/poi-data.ts, app/xinhua-experience.tsx
 - Tags: suspense-waterfall, landmark-loading, overview, poi-thumbnail, visual-regression
 - See Also: LRN-20260719-015, LRN-20260717-010
-
-### Resolution
-- **Resolved**: 2026-07-19T13:58:00+08:00
-- **Notes**: 14 栋新华路地标、三个梧桐树变体和上生·新所大模型均改为独立加载边界；17 张 640px 缩略图已接入并在桌面、390×844 手机全览中显示。浏览器记录 19 个 GLB 全部完成且无资源错误。
 
 ---
 
