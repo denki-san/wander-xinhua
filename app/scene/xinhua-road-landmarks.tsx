@@ -2,7 +2,7 @@
 
 import { Html, useGLTF } from "@react-three/drei";
 import { InstancedMesh, Matrix4, Mesh, Quaternion, Vector3, type Object3D } from "three";
-import { useLayoutEffect, useMemo, useRef } from "react";
+import { Suspense, useLayoutEffect, useMemo, useRef } from "react";
 import { terrainHeightAt } from "./terrain";
 import type { MapObstacle, MapPolygonPoint } from "./world-math";
 import {
@@ -111,6 +111,32 @@ function GlbModel({ path }: { path: string }) {
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
+function LandmarkLoadingVolume({ landmark }: { landmark: LandmarkPlacement }) {
+  const { minX, maxX, minZ, maxZ } = landmark.localBounds;
+  const width = maxX - minX;
+  const depth = maxZ - minZ;
+  const height = Math.min(9, Math.max(1.4, (width + depth) * 0.16));
+  const centerX = (minX + maxX) / 2;
+  const centerZ = -(minZ + maxZ) / 2;
+
+  return (
+    <group
+      position={[centerX, 0, centerZ]}
+      name={`${landmark.id}-loading-volume`}
+      userData={{ landmarkLoading: landmark.id }}
+    >
+      <mesh position={[0, height / 2, 0]} castShadow receiveShadow>
+        <boxGeometry args={[width, height, depth]} />
+        <meshToonMaterial color="#d8d2bd" />
+      </mesh>
+      <mesh position={[0, height + 0.16, 0]} castShadow>
+        <boxGeometry args={[width * 1.04, 0.32, depth * 1.04]} />
+        <meshToonMaterial color="#596a64" />
+      </mesh>
+    </group>
+  );
+}
+
 const TREE_MODELS = [
   "/models/xinhua-road/plane-tree-a.glb",
   "/models/xinhua-road/plane-tree-b.glb",
@@ -199,9 +225,11 @@ function InstancedPlaneTreeVariant({ variant }: { variant: 0 | 1 | 2 }) {
 export function XinhuaRoadPlaneTrees() {
   return (
     <group name="xinhua-road-plane-trees" userData={{ variants: 3, arrangement: "A-B-C-B" }}>
-      <InstancedPlaneTreeVariant variant={0} />
-      <InstancedPlaneTreeVariant variant={1} />
-      <InstancedPlaneTreeVariant variant={2} />
+      {TREE_MODELS.map((path, variant) => (
+        <Suspense key={path} fallback={null}>
+          <InstancedPlaneTreeVariant variant={variant as 0 | 1 | 2} />
+        </Suspense>
+      ))}
     </group>
   );
 }
@@ -213,6 +241,9 @@ export function XinhuaRoadLandmarks({ showLabels = true }: { showLabels?: boolea
         const [x, z] = landmark.position;
         const [labelOffsetX, labelOffsetZ] = landmark.labelOffset ?? [0, 0];
         const y = terrainHeightAt(x, z) + 0.1;
+        const modelPath = landmark.cacheVersion
+          ? `${landmark.model}?v=${landmark.cacheVersion}`
+          : landmark.model;
         return (
           <group
             key={landmark.id}
@@ -225,11 +256,9 @@ export function XinhuaRoadLandmarks({ showLabels = true }: { showLabels?: boolea
             }}
           >
             <group position={[x, y, z]} rotation-y={landmark.yaw} scale={landmark.scale}>
-              <GlbModel
-                path={landmark.cacheVersion
-                  ? `${landmark.model}?v=${landmark.cacheVersion}`
-                  : landmark.model}
-              />
+              <Suspense fallback={<LandmarkLoadingVolume landmark={landmark} />}>
+                <GlbModel path={modelPath} />
+              </Suspense>
             </group>
             {showLabels && landmark.poi && (
               <Html

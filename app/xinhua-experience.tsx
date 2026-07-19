@@ -209,6 +209,15 @@ export function XinhuaExperience() {
   }, []);
 
   useEffect(() => {
+    const firstOverviewPhoto = mapPoiById("xingfuli")?.photo.src;
+    if (!firstOverviewPhoto) return;
+    const preview = new Image();
+    preview.fetchPriority = "high";
+    preview.decoding = "async";
+    preview.src = firstOverviewPhoto;
+  }, []);
+
+  useEffect(() => {
     if (ready) return;
 
     // 部分 SSR 生产环境会完成 Canvas 水合，却漏掉 react-three-fiber 的 onCreated 回调。
@@ -383,9 +392,12 @@ export function XinhuaExperience() {
         <aside className="overview-poi-card" aria-live="polite">
           <figure className="overview-poi-photo">
             <img
+              key={nearPoi.photo.src}
               src={nearPoi.photo.src}
               alt={`${nearPoi.name}实景`}
               decoding="async"
+              loading="eager"
+              fetchPriority="high"
               referrerPolicy="no-referrer"
             />
             <figcaption>

@@ -16,7 +16,7 @@
         "sourceFiles": ["app/scene/xingfuli-block.tsx"],
         "positionEvidence": "osm-way-400066625"
       },
-      "cardPhoto": "/images/poi/xingfuli.jpg",
+      "cardPhoto": "/images/poi-thumbnails/xingfuli.jpg",
       "canonicalReference": "docs/research/assets/poi-references/xingfuli/courtyard-canonical.jpg",
       "photoStatus": "verified-same-compound",
       "referencePhotos": [
@@ -56,7 +56,7 @@
         ],
         "positionEvidence": "osm-way-765939973"
       },
-      "cardPhoto": "/images/poi/shangsheng.jpg",
+      "cardPhoto": "/images/poi-thumbnails/shangsheng.jpg",
       "canonicalReference": "docs/research/assets/poi-references/shangsheng-xinsuo/yanan-road-entrance.jpg",
       "photoStatus": "verified-same-compound",
       "referencePhotos": [
@@ -89,7 +89,7 @@
         "sourceFiles": ["app/scene/huashan-green-block.tsx"],
         "positionEvidence": "osm-way-444342095"
       },
-      "cardPhoto": "/images/poi/huashan.jpg",
+      "cardPhoto": "/images/poi-thumbnails/huashan.jpg",
       "canonicalReference": "docs/research/assets/poi-references/huashan-greenland/running-track-canonical.jpg",
       "photoStatus": "verified-same-park",
       "referencePhotos": [
@@ -122,7 +122,7 @@
         "sourceFiles": ["assets/models/source/xinhua-road/shanghai-cinema.blend", "scripts/create_xinhua_road_models.py"],
         "positionEvidence": "osm-way-292250766"
       },
-      "cardPhoto": "/images/poi/shanghai-cinema.jpg",
+      "cardPhoto": "/images/poi-thumbnails/shanghai-cinema.jpg",
       "canonicalReference": "docs/research/assets/landmark-comparison/shanghai-cinema-real.jpg",
       "photoStatus": "verified-same-building",
       "referencePhotos": [
@@ -143,7 +143,7 @@
         "sourceFiles": ["assets/models/source/xinhua-road/film-art-center.blend", "scripts/create_xinhua_road_models.py"],
         "positionEvidence": "address-and-osm-building"
       },
-      "cardPhoto": "/images/poi/film-art-center.jpg",
+      "cardPhoto": "/images/poi-thumbnails/film-art-center.jpg",
       "canonicalReference": "docs/research/assets/landmark-comparison/film-art-center-real.jpg",
       "photoStatus": "verified-same-building",
       "referencePhotos": [
@@ -164,7 +164,7 @@
         "sourceFiles": ["assets/models/source/xinhua-road/one-step-garden.blend", "scripts/create_xinhua_road_models.py"],
         "positionEvidence": "address-interpolation-and-road-setback"
       },
-      "cardPhoto": "/images/poi/one-step-garden.jpg",
+      "cardPhoto": "/images/poi-thumbnails/one-step-garden.jpg",
       "canonicalReference": "docs/research/assets/landmark-comparison/one-step-garden-real.jpg",
       "photoStatus": "verified-same-building",
       "referencePhotos": [
@@ -185,7 +185,7 @@
         "sourceFiles": ["assets/models/source/xinhua-road/xinhua-villas-211.blend", "scripts/create_xinhua_road_models.py"],
         "positionEvidence": "address-and-osm-lane"
       },
-      "cardPhoto": "/images/poi/xinhua-villas-211.jpg",
+      "cardPhoto": "/images/poi-thumbnails/xinhua-villas-211.jpg",
       "canonicalReference": "docs/research/assets/landmark-comparison/xinhua-villas-211-real.jpg",
       "photoStatus": "verified-same-compound",
       "referencePhotos": [
@@ -206,7 +206,7 @@
         "sourceFiles": ["assets/models/source/xinhua-road/xinhua-villas-329.blend", "scripts/create_xinhua_road_models.py"],
         "positionEvidence": "address-and-osm-lane"
       },
-      "cardPhoto": "/images/poi/xinhua-villas-329.jpg",
+      "cardPhoto": "/images/poi-thumbnails/xinhua-villas-329.jpg",
       "canonicalReference": "docs/research/assets/landmark-comparison/xinhua-villas-329-real.jpg",
       "photoStatus": "verified-same-compound",
       "referencePhotos": [
@@ -227,7 +227,7 @@
         "sourceFiles": ["assets/models/source/xinhua-road/house-315.blend", "scripts/create_xinhua_road_models.py"],
         "positionEvidence": "address-and-road-setback"
       },
-      "cardPhoto": "/images/poi/house-315.jpg",
+      "cardPhoto": "/images/poi-thumbnails/house-315.jpg",
       "canonicalReference": "docs/research/assets/landmark-comparison/house-315-real.jpg",
       "photoStatus": "verified-same-building",
       "referencePhotos": [
@@ -248,7 +248,7 @@
         "sourceFiles": ["assets/models/source/xinhua-road/villa-le-bec.blend", "scripts/create_xinhua_road_models.py"],
         "positionEvidence": "address-and-road-setback"
       },
-      "cardPhoto": "/images/poi/villa-le-bec.jpg",
+      "cardPhoto": "/images/poi-thumbnails/villa-le-bec.jpg",
       "canonicalReference": "docs/research/assets/landmark-comparison/villa-le-bec-real.jpg",
       "photoStatus": "verified-same-building",
       "referencePhotos": [
@@ -269,7 +269,7 @@
         "sourceFiles": ["assets/models/source/xinhua-road/shanghai-orchestra.blend", "scripts/create_xinhua_road_models.py"],
         "positionEvidence": "address-and-building-compound"
       },
-      "cardPhoto": "/images/poi/shanghai-orchestra.jpg",
+      "cardPhoto": "/images/poi-thumbnails/shanghai-orchestra.jpg",
       "canonicalReference": "docs/research/assets/landmark-comparison/shanghai-orchestra-real.jpg",
       "photoStatus": "verified-same-building",
       "referencePhotos": [
@@ -290,7 +290,7 @@
         "sourceFiles": ["assets/models/source/requested-pois/hudec-memorial.blend", "scripts/create_requested_poi_models.py"],
         "positionEvidence": "osm-way-494633921"
       },
-      "cardPhoto": "/images/poi/hudec-memorial.jpg",
+      "cardPhoto": "/images/poi-thumbnails/hudec-memorial.jpg",
       "canonicalReference": "docs/research/assets/requested-poi-references/hudec-memorial-front-wikimedia.jpg",
       "photoStatus": "verified-same-building",
       "referencePhotos": [
@@ -317,7 +317,7 @@
         "sourceFiles": ["assets/models/source/requested-pois/xinhua-pocket-park.blend", "scripts/create_requested_poi_models.py"],
         "positionEvidence": "inferred-xinhua-road-359-scaled-to-4.2m-width"
       },
-      "cardPhoto": "/images/poi/xinhua-pocket-park.jpg",
+      "cardPhoto": "/images/poi-thumbnails/xinhua-pocket-park.jpg",
       "canonicalReference": "docs/research/assets/requested-poi-references/xinhua-pocket-park-canonical.jpg",
       "photoStatus": "verified-same-place",
       "referencePhotos": [
@@ -344,7 +344,7 @@
         "sourceFiles": ["assets/models/source/requested-pois/xinhua-community-center.blend", "scripts/create_requested_poi_models.py"],
         "positionEvidence": "osm-node-13765678129"
       },
-      "cardPhoto": "/images/poi/xinhua-community-center.jpg",
+      "cardPhoto": "/images/poi-thumbnails/xinhua-community-center.jpg",
       "canonicalReference": "docs/research/assets/requested-poi-references/xinhua-community-center-front.jpg",
       "photoStatus": "verified-same-place",
       "referencePhotos": [
@@ -371,7 +371,7 @@
         "sourceFiles": ["assets/models/source/requested-pois/debi-fahua-525.blend", "scripts/create_requested_poi_models.py"],
         "positionEvidence": "inferred-fahua-road-525-south-compound"
       },
-      "cardPhoto": "/images/poi/debi-fahua-525.jpg",
+      "cardPhoto": "/images/poi-thumbnails/debi-fahua-525.jpg",
       "canonicalReference": "docs/research/assets/requested-poi-references/debi-fahua-525-front.jpg",
       "photoStatus": "verified-same-compound",
       "referencePhotos": [
@@ -404,7 +404,7 @@
         "sourceFiles": ["assets/models/source/requested-pois/fahua-heritage.blend", "scripts/create_requested_poi_models.py"],
         "positionEvidence": "fahua-xianghuaqiao-southeast-sidewalk"
       },
-      "cardPhoto": "/images/poi/fahua-heritage.jpg",
+      "cardPhoto": "/images/poi-thumbnails/fahua-heritage.jpg",
       "canonicalReference": "docs/research/assets/requested-poi-references/fahua-heritage-arch.jpg",
       "photoStatus": "verified-same-structure",
       "referencePhotos": [
@@ -425,7 +425,7 @@
         "sourceFiles": ["assets/models/source/requested-pois/fics-xinhua-365.blend", "scripts/create_requested_poi_models.py"],
         "positionEvidence": "inferred-campus-shifted-behind-xinhua-road-edge"
       },
-      "cardPhoto": "/images/poi/fics-xinhua-365.jpg",
+      "cardPhoto": "/images/poi-thumbnails/fics-xinhua-365.jpg",
       "canonicalReference": "docs/research/assets/requested-poi-references/fics-xinhua-365-built-logo.jpg",
       "photoStatus": "verified-same-compound",
       "referencePhotos": [

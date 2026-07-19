@@ -1,7 +1,7 @@
 "use client";
 
 import { Html, RoundedBox, useGLTF } from "@react-three/drei";
-import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import { Suspense, useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import {
   DoubleSide,
   ExtrudeGeometry,
@@ -447,7 +447,16 @@ function CampusBuildings() {
       {SITE.buildings.map((building) => {
         if (building.feature === "sun-ke-villa") return <SunKeVilla key={building.id} building={building} />;
         if (building.feature === "country-club") return <CountryClub key={building.id} building={building} />;
-        if (building.feature === "navy-club") return <NavyClub key={building.id} building={building} />;
+        if (building.feature === "navy-club") {
+          return (
+            <Suspense
+              key={building.id}
+              fallback={<GenericCampusBuilding building={building} />}
+            >
+              <NavyClub building={building} />
+            </Suspense>
+          );
+        }
         return <GenericCampusBuilding key={building.id} building={building} />;
       })}
     </group>

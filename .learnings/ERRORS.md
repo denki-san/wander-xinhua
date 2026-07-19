@@ -1,5 +1,199 @@
 # Errors
 
+## [ERR-20260719-079] map_test_locked_old_fallback_scale
+
+**Logged**: 2026-07-19T14:02:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+完整测试仍锁定旧卡通 fallback 的 `body scale={0.9}`，自然比例占位角色删除该补偿缩放后出现误报。
+
+### Error
+```
+Expected /<group ref={body} scale={0.9}>/
+```
+
+### Context
+- 角色半径、最终 GLB 比例、幸福里通行宽度和建筑高度均未退化。
+- 新 fallback 直接按约 1.9 米比例建模，不再需要旧卡通人物的整体缩放。
+
+### Suggested Fix
+回归测试锁定最终 GLB 比例、自然比例 fallback 结构和通行宽度，不再锁定旧实现的内部补偿值。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/map-data.test.mjs, app/scene/xinhua-world.tsx
+
+### Resolution
+- **Resolved**: 2026-07-19T14:03:00+08:00
+- **Notes**: 已改为验证 `urban-wanderer` 运行时比例、自然 fallback 和既有街巷净宽。
+
+---
+
+## [ERR-20260719-078] vinext_dev_ipv6_localhost_only
+
+**Logged**: 2026-07-19T13:51:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+本轮 vinext 开发服务器只监听 `localhost` 的 IPv6 地址，使用 `127.0.0.1:3004` 验收时连接被拒绝。
+
+### Error
+```
+Navigation failed: net::ERR_CONNECTION_REFUSED
+```
+
+### Context
+- `curl http://localhost:3004/` 返回 200。
+- `curl http://127.0.0.1:3004/` 无法连接，开发进程本身仍正常运行。
+
+### Suggested Fix
+本地浏览器验收使用开发服务器输出的精确 URL；只有需要 IPv4 访问时才显式配置 host 绑定。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json
+
+### Resolution
+- **Resolved**: 2026-07-19T13:52:00+08:00
+- **Notes**: 改用 `http://localhost:3004/` 后完成桌面、手机、全览和探索态截图。
+
+---
+
+## [ERR-20260719-077] poi_manifest_stale_card_paths
+
+**Logged**: 2026-07-19T13:47:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+运行时切换到轻量缩略图后，POI 证据清单仍锁定旧原图路径，专项测试失败。
+
+### Error
+```
+actual: /images/poi-thumbnails/xingfuli.jpg
+expected: /images/poi/xingfuli.jpg
+```
+
+### Context
+- 原始本地照片仍完整保留，没有删除。
+- `cardPhoto` 表示运行时卡片资源，应该同步到新缩略图路径。
+
+### Suggested Fix
+更新证据清单中的 17 个 `cardPhoto`，测试同时验证缩略图路径、本地文件和照片证据来源。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/poi-reference-manifest.json, tests/test_poi_reference_manifest.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-19T13:48:00+08:00
+- **Notes**: 清单与运行时统一使用 `images/poi-thumbnails`，原始照片继续保留在 `images/poi`。
+
+---
+
+## [ERR-20260719-076] tree_variant_test_expected_literal_instances
+
+**Logged**: 2026-07-19T13:43:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+梧桐树测试把三个 JSX 实例写死为文本计数，改成数组映射和独立 Suspense 后误报只剩一个变体。
+
+### Error
+```
+AssertionError: 1 !== 3
+```
+
+### Context
+- 三个模型路径、变体类型和实际 placement 数据均未减少。
+- 运行时改用 `TREE_MODELS.map` 是为了让三个 GLB 并行独立加载。
+
+### Suggested Fix
+测试应验证三条模型路径、映射渲染、独立 Suspense 和 placement 中的 0/1/2 三个变体，而不是统计重复 JSX 文本。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_xinhua_road_models.test.mjs, app/scene/xinhua-road-landmarks.tsx
+
+### Resolution
+- **Resolved**: 2026-07-19T13:44:00+08:00
+- **Notes**: 已改为验证 `TREE_MODELS.map`、独立 Suspense 和三个运行时 placement 变体。
+
+---
+
+## [ERR-20260719-075] ffmpeg_missing_webp_encoder
+
+**Logged**: 2026-07-19T13:31:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+系统 ffmpeg 未编译 `libwebp`，无法直接生成 WebP POI 缩略图。
+
+### Error
+```
+Unknown encoder 'libwebp'
+Error selecting an encoder
+```
+
+### Context
+- 原图与已生成的 JPEG 均未被删除或覆盖。
+- 失败只产生于 `/private/tmp/test_xingfuli.webp` 的格式探针。
+
+### Suggested Fix
+使用系统 `sips` 生成 640px、质量 68 的独立 JPEG 缩略图，保持浏览器兼容且无需新增构建依赖。
+
+### Metadata
+- Reproducible: yes
+- Related Files: public/images/poi-thumbnails
+
+### Resolution
+- **Resolved**: 2026-07-19T13:32:00+08:00
+- **Notes**: 已用 sips 生成 17 张独立 JPEG 缩略图，总体积由原图 9.2MB 降为 1.5MB。
+
+---
+
+## [ERR-20260719-074] agent_browser_socket_sandbox
+
+**Logged**: 2026-07-19T13:20:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+沙箱模式禁止 agent-browser 写入用户目录下的会话 socket，首次线上验证未能启动。
+
+### Error
+```
+Socket directory '/Users/lei/.agent-browser' is not writable: Operation not permitted
+```
+
+### Context
+- 页面与代码没有报错。
+- 同一命令需要访问 agent-browser 自己的状态目录。
+
+### Suggested Fix
+对明确范围的 agent-browser 命令请求权限后重试，不改变项目文件或浏览器配置。
+
+### Metadata
+- Reproducible: yes
+- Related Files: none
+
+### Resolution
+- **Resolved**: 2026-07-19T13:21:00+08:00
+- **Notes**: 获得 agent-browser 命令范围授权后成功启动独立线上验证会话。
+
+---
+
 ## [ERR-20260718-058] gltf_probe_extra_brace
 
 **Logged**: 2026-07-18T14:16:00+08:00

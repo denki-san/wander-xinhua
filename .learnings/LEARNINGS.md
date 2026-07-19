@@ -1,5 +1,61 @@
 # Learnings
 
+## [LRN-20260719-016] correction
+
+**Logged**: 2026-07-19T13:35:00+08:00
+**Priority**: critical
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+全览态不能用一个大 Suspense 边界包住整组新华路建筑；单个大模型慢就会让所有建筑一起消失，并拖延 POI 实景缩略图的可见时间。
+
+### Details
+线上复核发现，人物 GLB 已加载后，新华路 14 个建筑仍全部缺失，网络时序只完成第一棵梧桐树模型。`XinhuaRoadLandmarks` 内部连续调用 14 次 `useGLTF`，外部却只有一个 `fallback={null}`；这会产生加载瀑布和整组全有或全无的表现。POI 卡片同时使用最高 3.4MB 的原图，在静态资源响应较慢时只显示绿色底色。
+
+### Suggested Action
+每栋建筑、每个梧桐树变体和上生·新所的大 GLB 都必须拥有自己的 Suspense 边界；建筑未完成时显示与真实落位一致的轻量体块，完成一栋就替换一栋。POI 卡片使用独立的 640px 轻量缩略图，并在首页预取默认地点。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/xinhua-road-landmarks.tsx, app/scene/shangsheng-xinsuo-block.tsx, app/scene/poi-data.ts, app/xinhua-experience.tsx
+- Tags: suspense-waterfall, landmark-loading, overview, poi-thumbnail, visual-regression
+- See Also: LRN-20260719-015, LRN-20260717-010
+
+### Resolution
+- **Resolved**: 2026-07-19T13:58:00+08:00
+- **Notes**: 14 栋新华路地标、三个梧桐树变体和上生·新所大模型均改为独立加载边界；17 张 640px 缩略图已接入并在桌面、390×844 手机全览中显示。浏览器记录 19 个 GLB 全部完成且无资源错误。
+
+---
+
+## [LRN-20260719-015] correction
+
+**Logged**: 2026-07-19T00:18:00+08:00
+**Priority**: critical
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+人物替换必须同时验收全览与探索、加载 fallback 与加载完成两套状态；只看探索态会把旧卡通角色发布出去。
+
+### Details
+新 `urban-wanderer.glb` 在探索态已正确加载，但全览首次进入时仍使用旧的程序化橙色卡通人物作为 Suspense fallback。线上移动网络加载 378KB GLB 实测约 5.1 秒，这段时间旧人物会以全览尺度显示；在用户截图中，它呈现为巨大的橙色背带角色，直接违反中性中国城市漫游者和无背包的视觉要求。
+
+### Suggested Action
+删除旧橙色前襟、背带和大头比例的 fallback，改为与最终人物相同的黑色短发、灰绿上装、黑色直筒裤和自然比例。人物发布验收必须覆盖：全览点击后即时截图、全览模型加载完成截图、探索态截图、移动端截图，并核对实际角色 GLB 网络请求完成前后的画面。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/xinhua-world.tsx, tests/test_character_asset.test.mjs, tests/test_dual_scale_navigation.test.mjs
+- Tags: character-fallback, overview, suspense, visual-regression, no-backpack
+- See Also: LRN-20260718-012, LRN-20260718-013
+
+### Resolution
+- **Resolved**: 2026-07-19T13:58:00+08:00
+- **Notes**: 全览加载占位已替换为黑色短发、灰绿上装、黑色长裤的自然比例无背包角色；加载完成角色保持原有比例，桌面全览与手机探索态均已截图验证。
+
+---
+
 ## [LRN-20260718-014] best_practice
 
 **Logged**: 2026-07-18T16:52:00+08:00

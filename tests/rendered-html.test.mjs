@@ -24,7 +24,7 @@ test("产品源码锁定 WebGL 自由闲逛和唯一行动点", async () => {
 
   assert.match(experience, /@react-three\/fiber/);
   assert.match(experience, /<Canvas/);
-  assert.match(world, /PlayableMessenger/);
+  assert.match(world, /PlayableWanderer/);
   assert.match(world, /FlatNeighborhood/);
   assert.match(world, /XinhuaStreetMap/);
   assert.match(world, /XINHUA_BOUNDARY/);
@@ -138,17 +138,22 @@ test("幸福里按 OSM 中心线置于真实相对位置并保持统一横向比
   assert.match(world, /transformMapObstacle/);
 });
 
-test("主角使用完整分层 3D 建模而不是几何占位人", async () => {
+test("主角加载占位与最终 GLB 使用同一套无背包城市漫游者配色", async () => {
   const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
-  const head = world.slice(world.indexOf("function CharacterHead"), world.indexOf("function CharacterTorso"));
+  const head = world.slice(
+    world.indexOf("function FallbackWandererHead"),
+    world.indexOf("function FallbackWandererTorso"),
+  );
 
-  assert.match(world, /function CharacterHead/);
-  assert.match(world, /function CharacterTorso/);
-  assert.match(world, /function CharacterArm/);
-  assert.match(world, /function CharacterLeg/);
+  assert.match(world, /function FallbackWandererHead/);
+  assert.match(world, /function FallbackWandererTorso/);
+  assert.match(world, /function FallbackWandererArm/);
+  assert.match(world, /function FallbackWandererLeg/);
   assert.match(world, /function WandererCharacter/);
   assert.match(head, /sphereGeometry/);
-  assert.match(head, /torusGeometry/);
+  assert.match(world, /#657772/);
+  assert.match(world, /#202b2f/);
+  assert.doesNotMatch(world, /#d9823f|#f1dfba|#bb5a3f/);
   assert.doesNotMatch(world, /MessengerBackpack|Backpack|ShoulderStrap/);
   assert.doesNotMatch(world, /capsuleGeometry args=\{\[0\.39, 0\.72/);
 });

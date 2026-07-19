@@ -28,7 +28,7 @@ test("17 个 POI 均有模型、可编辑来源和已核验的本地真实照片
     assert.ok(record, `${poi.id} 缺少照片与模型清单`);
     assert.match(record.photoStatus, /^verified-/);
     assert.equal(poi.photo.src, record.cardPhoto);
-    assert.match(record.cardPhoto, /^\/images\/poi\/[a-z0-9-]+\.jpg$/);
+    assert.match(record.cardPhoto, /^\/images\/poi-thumbnails\/[a-z0-9-]+\.jpg$/);
     await assertNonEmptyFile(`public${record.cardPhoto}`, 10_000);
 
     assert.ok(record.model.runtimeFiles.length > 0, `${poi.id} 缺少运行时模型`);
@@ -60,7 +60,7 @@ test("17 个 POI 均有模型、可编辑来源和已核验的本地真实照片
 });
 
 test("卡片不再直接引用文章首图、宣传图或第三方远程图片", () => {
-  assert.ok(MAP_POIS.every(({ photo }) => photo.src.startsWith("/images/poi/")));
+  assert.ok(MAP_POIS.every(({ photo }) => photo.src.startsWith("/images/poi-thumbnails/")));
   assert.doesNotMatch(
     JSON.stringify(MAP_POIS),
     /af8b4d0831f444339b8ec18be74b6025|709aa6b87fe44a168204ef5486040eea|20220815050534554_Large/,

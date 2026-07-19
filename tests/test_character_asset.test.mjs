@@ -100,6 +100,13 @@ test("运行时只加载单个角色 GLB 并混合待机、行走和奔跑动作
   assert.match(world, /"Walk"/);
   assert.match(world, /"Run"/);
   assert.match(world, /<primitive object=\{model\} scale=\{1\.15\} \/>/);
+  assert.match(world, /function FallbackWandererHead/);
+  assert.match(world, /function FallbackWandererTorso/);
+  assert.match(world, /function FallbackWandererArm/);
+  assert.match(world, /function FallbackWandererLeg/);
+  assert.match(world, /#657772/);
+  assert.match(world, /#202b2f/);
+  assert.doesNotMatch(world, /#d9823f|#f1dfba|#bb5a3f/);
   assert.doesNotMatch(world, /MessengerBackpack|Backpack|ShoulderStrap/);
   assert.doesNotMatch(world, /<primitive object=\{model\}[^>]*rotation-y=\{Math\.PI\}/);
 });

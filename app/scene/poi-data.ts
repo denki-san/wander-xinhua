@@ -42,42 +42,42 @@ export const OVERVIEW_POI_LABEL_OFFSETS: Readonly<
 
 const roadPhotos: Record<string, MapPoi["photo"]> = {
   "shanghai-cinema": {
-    src: "/images/poi/shanghai-cinema.jpg",
+    src: "/images/poi-thumbnails/shanghai-cinema.jpg",
     sourceLabel: "CGTN",
     sourceUrl: "https://news.cgtn.com/news/2023-06-14/Upgraded-Shanghai-Film-Art-Center-offers-more-immersive-experience-1kCY4faLMkw/index.html",
   },
   "film-art-center": {
-    src: "/images/poi/film-art-center.jpg",
+    src: "/images/poi-thumbnails/film-art-center.jpg",
     sourceLabel: "PR Newswire",
     sourceUrl: "https://www.prnewswire.com/apac/news-releases/fod-and-shanghai-film-art-center-debut-as-cultural-hub-amidst-26th-shanghai-international-film-festival-302175363.html",
   },
   "one-step-garden": {
-    src: "/images/poi/one-step-garden.jpg",
+    src: "/images/poi-thumbnails/one-step-garden.jpg",
     sourceLabel: "Time Out Shanghai",
     sourceUrl: "https://www.timeoutshanghai.cn/features/6714.html",
   },
   "xinhua-villas-211": {
-    src: "/images/poi/xinhua-villas-211.jpg",
+    src: "/images/poi-thumbnails/xinhua-villas-211.jpg",
     sourceLabel: "上海长宁",
     sourceUrl: "https://www.shcn.gov.cn/col7343/20241227/1275366.html",
   },
   "xinhua-villas-329": {
-    src: "/images/poi/xinhua-villas-329.jpg",
+    src: "/images/poi-thumbnails/xinhua-villas-329.jpg",
     sourceLabel: "上海长宁",
     sourceUrl: "https://www.shcn.gov.cn/col7343/20241227/1275366.html",
   },
   "house-315": {
-    src: "/images/poi/house-315.jpg",
+    src: "/images/poi-thumbnails/house-315.jpg",
     sourceLabel: "上观新闻",
     sourceUrl: "https://www.jfdaily.com/sgh/detail?id=1697461",
   },
   "villa-le-bec": {
-    src: "/images/poi/villa-le-bec.jpg",
+    src: "/images/poi-thumbnails/villa-le-bec.jpg",
     sourceLabel: "SmartShanghai",
     sourceUrl: "https://www.smartshanghai.com/venue/11099/villa_le_bec",
   },
   "shanghai-orchestra": {
-    src: "/images/poi/shanghai-orchestra.jpg",
+    src: "/images/poi-thumbnails/shanghai-orchestra.jpg",
     sourceLabel: "gooood",
     sourceUrl: "https://www.gooood.cn/renovation-project-of-shanghai-chinese-orchestra-located-at-no-336-xinhua-road-phase-i-china-by-tjad.htm",
   },
@@ -87,32 +87,32 @@ const roadPhotos: Record<string, MapPoi["photo"]> = {
     sourceUrl: "https://www.shcn.gov.cn/col5441/20230426/1235276.html",
   },
   "hudec-memorial": {
-    src: "/images/poi/hudec-memorial.jpg",
+    src: "/images/poi-thumbnails/hudec-memorial.jpg",
     sourceLabel: "Wikimedia Commons",
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Hudec_House.jpeg",
   },
   "xinhua-pocket-park": {
-    src: "/images/poi/xinhua-pocket-park.jpg",
+    src: "/images/poi-thumbnails/xinhua-pocket-park.jpg",
     sourceLabel: "水石设计 / mooool",
     sourceUrl: "https://mooool.com/pocket-park-on-xinhua-road-shanghai-byshuishi.html",
   },
   "xinhua-community-center": {
-    src: "/images/poi/xinhua-community-center.jpg",
+    src: "/images/poi-thumbnails/xinhua-community-center.jpg",
     sourceLabel: "上海长宁",
     sourceUrl: "https://www.shcn.gov.cn/col7343/20230609/1237981.html",
   },
   "debi-fahua-525": {
-    src: "/images/poi/debi-fahua-525.jpg",
+    src: "/images/poi-thumbnails/debi-fahua-525.jpg",
     sourceLabel: "德必集团",
     sourceUrl: "https://www.dobechina.com/projects/mandr/77",
   },
   "fahua-heritage": {
-    src: "/images/poi/fahua-heritage.jpg",
+    src: "/images/poi-thumbnails/fahua-heritage.jpg",
     sourceLabel: "澎湃新闻",
     sourceUrl: "https://www.thepaper.cn/newsDetail_forward_11011983",
   },
   "fics-xinhua-365": {
-    src: "/images/poi/fics-xinhua-365.jpg",
+    src: "/images/poi-thumbnails/fics-xinhua-365.jpg",
     sourceLabel: "上观新闻",
     sourceUrl: "https://sghexport.shobserver.com/html/baijiahao/2024/07/02/1368152.html",
   },
@@ -143,7 +143,7 @@ const majorPois: MapPoi[] = [
     eyebrow: "街区更新 · 番禺路",
     description: "从番禺路入口进入幸福里，在旧工业建筑、街巷商业与公共空间之间慢慢闲逛。",
     photo: {
-      src: "/images/poi/xingfuli.jpg",
+      src: "/images/poi-thumbnails/xingfuli.jpg",
       sourceLabel: "上海商报",
       sourceUrl: "https://k.sina.com.cn/article_7517400647_1c0126e47059031uwk.html",
     },
@@ -159,7 +159,7 @@ const majorPois: MapPoi[] = [
     eyebrow: "历史建筑群 · 延安西路",
     description: "进入上生·新所，逛孙科别墅、海军俱乐部泳池和哥伦比亚乡村俱乐部等空间。",
     photo: {
-      src: "/images/poi/shangsheng.jpg",
+      src: "/images/poi-thumbnails/shangsheng.jpg",
       sourceLabel: "上海长宁",
       sourceUrl: "https://www.shcn.gov.cn/col7344/20240327/1257062.html",
     },
@@ -175,7 +175,7 @@ const majorPois: MapPoi[] = [
     eyebrow: "社区公园 · 华山路",
     description: "从华山绿地开始散步，穿过林荫、草地、球场与连接街区的步行路径。",
     photo: {
-      src: "/images/poi/huashan.jpg",
+      src: "/images/poi-thumbnails/huashan.jpg",
       sourceLabel: "上海长宁",
       sourceUrl: "https://www.shcn.gov.cn/col6991/20250824/1296845.html",
     },

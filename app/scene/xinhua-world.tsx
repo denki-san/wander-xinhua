@@ -398,15 +398,9 @@ function FlatNeighborhood({
       <HuashanGreenBlock />
       {showDetailModels && (
         <>
-          <Suspense fallback={null}>
-            <ShangshengXinsuoBlock />
-          </Suspense>
-          <Suspense fallback={null}>
-            <XinhuaRoadPlaneTrees />
-          </Suspense>
-          <Suspense fallback={null}>
-            <XinhuaRoadLandmarks showLabels={showDetailLabels} />
-          </Suspense>
+          <ShangshengXinsuoBlock />
+          <XinhuaRoadPlaneTrees />
+          <XinhuaRoadLandmarks showLabels={showDetailLabels} />
         </>
       )}
       <ActionInstallation onOpenAction={onOpenAction} />
@@ -414,122 +408,48 @@ function FlatNeighborhood({
   );
 }
 
-function CharacterHead() {
+function FallbackWandererHead() {
   return (
-    <group position={[0, 2.14, 0.02]}>
-      <mesh position={[0, -0.48, -0.01]} castShadow>
-        <cylinderGeometry args={[0.17, 0.19, 0.28, 14]} />
-        <meshToonMaterial color="#d9a98a" />
+    <group position={[0, 1.68, 0]}>
+      <mesh scale={[0.9, 1.02, 0.88]} castShadow>
+        <sphereGeometry args={[0.23, 18, 14]} />
+        <meshToonMaterial color="#c99373" />
       </mesh>
-      <mesh scale={[0.94, 1.05, 0.9]} castShadow>
-        <sphereGeometry args={[0.46, 24, 18]} />
-        <meshToonMaterial color="#e9bea0" />
+      <mesh position={[0, 0.075, -0.015]} scale={[0.98, 0.78, 0.96]} castShadow>
+        <sphereGeometry args={[0.245, 18, 12, 0, Math.PI * 2, 0, Math.PI * 0.72]} />
+        <meshToonMaterial color="#111c1c" />
       </mesh>
-      {[-0.46, 0.46].map((x) => (
-        <mesh key={x} position={[x, 0, 0]} scale={[0.42, 0.72, 0.34]} castShadow>
-          <sphereGeometry args={[0.2, 14, 10]} />
-          <meshToonMaterial color="#dfae90" />
-        </mesh>
-      ))}
-
-      <mesh position={[0, 0.08, -0.02]} scale={[1.03, 1, 1.02]} castShadow>
-        <sphereGeometry args={[0.475, 24, 14, 0, Math.PI * 2, 0, Math.PI * 0.6]} />
-        <meshToonMaterial color="#293f3b" />
-      </mesh>
-      {[-0.31, -0.1, 0.12, 0.31].map((x, index) => (
-        <mesh
-          key={x}
-          position={[x, 0.19 - Math.abs(x) * 0.18, 0.38]}
-          rotation-z={(index - 1.5) * 0.16}
-          castShadow
-        >
-          <coneGeometry args={[0.115, 0.34 - Math.abs(x) * 0.15, 8]} />
-          <meshToonMaterial color={index % 2 ? "#304943" : "#293f3b"} />
-        </mesh>
-      ))}
-      {[-0.36, 0.36].map((x) => (
-        <mesh key={x} position={[x, -0.04, -0.23]} scale={[0.7, 1.25, 0.62]} castShadow>
-          <sphereGeometry args={[0.25, 14, 10]} />
-          <meshToonMaterial color="#293f3b" />
-        </mesh>
-      ))}
-
-      {[-0.17, 0.17].map((x) => (
-        <group key={x} position={[x, 0.03, 0.405]}>
-          <mesh scale={[1, 0.72, 0.32]}>
-            <sphereGeometry args={[0.085, 14, 10]} />
-            <meshBasicMaterial color="#f8edd7" />
-          </mesh>
-          <mesh position={[0, 0, 0.03]}>
-            <sphereGeometry args={[0.037, 12, 8]} />
-            <meshBasicMaterial color="#273936" />
-          </mesh>
-          <mesh position={[0.012, 0.012, 0.064]}>
-            <sphereGeometry args={[0.012, 8, 6]} />
-            <meshBasicMaterial color="#ffffff" />
-          </mesh>
-        </group>
-      ))}
-      {[-0.17, 0.17].map((x) => (
-        <mesh key={x} position={[x, 0.16, 0.405]} rotation-z={x * -0.48}>
-          <boxGeometry args={[0.13, 0.025, 0.022]} />
-          <meshBasicMaterial color="#32423e" />
-        </mesh>
-      ))}
-      <mesh position={[0, -0.055, 0.438]} rotation-x={Math.PI / 2}>
-        <coneGeometry args={[0.035, 0.075, 8]} />
-        <meshToonMaterial color="#d79b7d" />
-      </mesh>
-      <mesh position={[0, -0.19, 0.425]} rotation-z={0.08}>
-        <torusGeometry args={[0.075, 0.015, 6, 18, Math.PI]} />
-        <meshBasicMaterial color="#a85f55" />
-      </mesh>
-      {[-0.28, 0.28].map((x) => (
-        <mesh key={x} position={[x, -0.1, 0.4]}>
-          <circleGeometry args={[0.065, 16]} />
-          <meshBasicMaterial color="#dc8c80" transparent opacity={0.34} />
+      {[-0.085, 0.085].map((x) => (
+        <mesh key={x} position={[x, 0.005, 0.205]}>
+          <sphereGeometry args={[0.018, 8, 6]} />
+          <meshBasicMaterial color="#1b2423" />
         </mesh>
       ))}
     </group>
   );
 }
 
-function CharacterTorso() {
+function FallbackWandererTorso() {
   return (
     <group>
-      <RoundedBox args={[0.88, 0.98, 0.55]} radius={0.18} smoothness={3} position={[0, 1.29, 0]} castShadow>
-        <meshToonMaterial color="#d9823f" />
+      <RoundedBox
+        args={[0.56, 0.7, 0.32]}
+        radius={0.12}
+        smoothness={3}
+        position={[0, 1.18, 0]}
+        castShadow
+      >
+        <meshToonMaterial color="#657772" />
       </RoundedBox>
-      <RoundedBox args={[0.4, 0.7, 0.075]} radius={0.08} smoothness={2} position={[0, 1.29, 0.31]}>
-        <meshToonMaterial color="#f1dfba" />
-      </RoundedBox>
-      {[-0.24, 0.24].map((x) => (
-        <mesh key={x} position={[x, 1.49, 0.345]} rotation-z={x * -1.05} castShadow>
-          <boxGeometry args={[0.16, 0.48, 0.065]} />
-          <meshToonMaterial color="#bb5a3f" />
-        </mesh>
-      ))}
-      {[-0.27, 0.27].map((x) => (
-        <mesh key={x} position={[x, 1.31, 0.35]} castShadow>
-          <capsuleGeometry args={[0.045, 0.62, 3, 8]} />
-          <meshToonMaterial color="#40524d" />
-        </mesh>
-      ))}
-      {[1.45, 1.25, 1.05].map((y) => (
-        <mesh key={y} position={[0, y, 0.365]}>
-          <sphereGeometry args={[0.027, 8, 6]} />
-          <meshBasicMaterial color="#344944" />
-        </mesh>
-      ))}
-      <mesh position={[0, 0.79, 0]} castShadow>
-        <cylinderGeometry args={[0.35, 0.39, 0.2, 14]} />
-        <meshToonMaterial color="#344d48" />
+      <mesh position={[0, 1.5, -0.13]} rotation-x={Math.PI / 2} scale={[1, 0.72, 1]}>
+        <torusGeometry args={[0.19, 0.045, 8, 20, Math.PI]} />
+        <meshToonMaterial color="#536560" />
       </mesh>
     </group>
   );
 }
 
-function CharacterArm({
+function FallbackWandererArm({
   side,
   armRef,
 }: {
@@ -537,28 +457,20 @@ function CharacterArm({
   armRef: RefObject<Group | null>;
 }) {
   return (
-    <group ref={armRef} position={[side * 0.49, 1.68, 0]} rotation-z={side * -0.08}>
+    <group ref={armRef} position={[side * 0.36, 1.42, 0]} rotation-z={side * -0.06}>
       <mesh position={[0, -0.25, 0]} castShadow>
-        <capsuleGeometry args={[0.145, 0.28, 5, 10]} />
-        <meshToonMaterial color="#c96b3e" />
+        <capsuleGeometry args={[0.095, 0.42, 5, 10]} />
+        <meshToonMaterial color="#5b6d68" />
       </mesh>
-      <mesh position={[0, -0.51, 0]} castShadow>
-        <sphereGeometry args={[0.14, 14, 10]} />
-        <meshToonMaterial color="#d89b7b" />
-      </mesh>
-      <mesh position={[0, -0.67, 0.015]} castShadow>
-        <capsuleGeometry args={[0.12, 0.23, 5, 10]} />
-        <meshToonMaterial color="#e1ae8e" />
-      </mesh>
-      <mesh position={[0, -0.9, 0.04]} scale={[0.92, 1.08, 0.82]} castShadow>
-        <sphereGeometry args={[0.14, 14, 10]} />
-        <meshToonMaterial color="#e7b798" />
+      <mesh position={[0, -0.53, 0.015]} scale={[0.92, 1.08, 0.82]} castShadow>
+        <sphereGeometry args={[0.095, 12, 8]} />
+        <meshToonMaterial color="#c99373" />
       </mesh>
     </group>
   );
 }
 
-function CharacterLeg({
+function FallbackWandererLeg({
   side,
   legRef,
 }: {
@@ -566,26 +478,20 @@ function CharacterLeg({
   legRef: RefObject<Group | null>;
 }) {
   return (
-    <group ref={legRef} position={[side * 0.22, 0.88, 0]}>
-      <mesh position={[0, -0.25, 0]} castShadow>
-        <capsuleGeometry args={[0.17, 0.28, 5, 10]} />
-        <meshToonMaterial color="#526b62" />
+    <group ref={legRef} position={[side * 0.15, 0.82, 0]}>
+      <mesh position={[0, -0.29, 0]} castShadow>
+        <capsuleGeometry args={[0.12, 0.46, 5, 10]} />
+        <meshToonMaterial color="#202b2f" />
       </mesh>
-      <mesh position={[0, -0.49, 0]} castShadow>
-        <sphereGeometry args={[0.155, 14, 10]} />
-        <meshToonMaterial color="#405851" />
-      </mesh>
-      <mesh position={[0, -0.65, 0]} castShadow>
-        <capsuleGeometry args={[0.14, 0.24, 5, 10]} />
-        <meshToonMaterial color="#314b46" />
-      </mesh>
-      <RoundedBox args={[0.34, 0.2, 0.56]} radius={0.07} smoothness={2} position={[0, -0.88, 0.12]} castShadow>
-        <meshToonMaterial color="#263b38" />
+      <RoundedBox
+        args={[0.23, 0.16, 0.38]}
+        radius={0.055}
+        smoothness={2}
+        position={[0, -0.67, 0.08]}
+        castShadow
+      >
+        <meshToonMaterial color="#555650" />
       </RoundedBox>
-      <mesh position={[0, -0.99, 0.14]} castShadow>
-        <boxGeometry args={[0.35, 0.07, 0.58]} />
-        <meshToonMaterial color="#e9d9b4" />
-      </mesh>
     </group>
   );
 }
@@ -627,13 +533,13 @@ function ProceduralWandererCharacter({
 
   return (
     <group ref={outerRef} scale={scale}>
-      <group ref={body} scale={0.9}>
-        <CharacterTorso />
-        <CharacterHead />
-        <CharacterArm side={-1} armRef={leftArm} />
-        <CharacterArm side={1} armRef={rightArm} />
-        <CharacterLeg side={-1} legRef={leftLeg} />
-        <CharacterLeg side={1} legRef={rightLeg} />
+      <group ref={body}>
+        <FallbackWandererTorso />
+        <FallbackWandererHead />
+        <FallbackWandererArm side={-1} armRef={leftArm} />
+        <FallbackWandererArm side={1} armRef={rightArm} />
+        <FallbackWandererLeg side={-1} legRef={leftLeg} />
+        <FallbackWandererLeg side={1} legRef={rightLeg} />
       </group>
     </group>
   );
@@ -740,7 +646,7 @@ function useKeyboardControls() {
   }, []);
 }
 
-function PlayableMessenger({
+function PlayableWanderer({
   onNearAction,
   startPreset,
   onPositionChange,
@@ -1245,7 +1151,7 @@ function OverviewPoiMarkers({ nearPoiId }: { nearPoiId: string | null }) {
   );
 }
 
-function OverviewMessenger({
+function OverviewWanderer({
   initialPosition,
   cameraFocus,
   onNearPoi,
@@ -1493,7 +1399,7 @@ export function XinhuaWorld({
       {overview && (
         <>
           <OverviewPoiMarkers nearPoiId={nearPoiId} />
-          <OverviewMessenger
+          <OverviewWanderer
             initialPosition={overviewStartPosition}
             cameraFocus={overviewCameraFocus}
             onNearPoi={onNearPoi}
@@ -1503,7 +1409,7 @@ export function XinhuaWorld({
       )}
       <OverviewCamera active={overview} focus={overviewCameraFocus} />
       {exploring && (
-        <PlayableMessenger
+        <PlayableWanderer
           onNearAction={onNearAction}
           startPreset={destinationPreset}
           onPositionChange={onPositionChange}
