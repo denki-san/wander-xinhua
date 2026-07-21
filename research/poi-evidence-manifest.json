@@ -1,0 +1,163 @@
+{
+  "project": "xinhua-wonder-photo-to-place-workbench",
+  "worldScale": {
+    "metersPerSceneUnit": 2.7,
+    "rule": "sceneScale = meterAuthoredScale × visualScaleMultiplier",
+    "note": "视觉倍率与米制换算必须分开记录。"
+  },
+  "copyrightPolicy": "公开参考照片只保存在 research 目录中，不进入 GLB，不作为网页运行时素材。用户在 Demo 中选择的图片只以临时 object URL 在本机浏览器显示。",
+  "pois": [
+    {
+      "id": "wukang-mansion",
+      "subject": "武康大楼",
+      "address": "上海市徐汇区淮海中路1850号",
+      "runtimeModel": "public/models/building-evidence-lab/wukang-mansion.glb",
+      "editableSource": "research/source/wukang-mansion.blend",
+      "generator": "research/source/create_wukang_mansion.py",
+      "preview": "research/previews/test_wukang-mansion_preview.png",
+      "canonicalReference": {
+        "localPath": "research/references/wukang-mansion/aerial-canonical.jpg",
+        "sourceUrl": "user-supplied-local-file",
+        "sourceName": "用户提供",
+        "view": "aerial-west-north-west-three-quarter",
+        "captureDate": "unknown",
+        "runtimeUse": false
+      },
+      "secondaryReferences": [
+        {
+          "localPath": "research/references/wukang-mansion/street-corner.jpg",
+          "sourceUrl": "user-supplied-local-file",
+          "sourceName": "用户提供",
+          "view": "street-rounded-corner-three-quarter",
+          "captureDate": "unknown",
+          "runtimeUse": false
+        },
+        {
+          "localPath": "research/references/wukang-mansion/aerial-footprint.jpg",
+          "sourceUrl": "user-supplied-local-file",
+          "sourceName": "用户提供",
+          "view": "near-vertical-aerial",
+          "captureDate": "unknown",
+          "runtimeUse": false
+        },
+        {
+          "localPath": "research/references/wukang-mansion/corner-detail.jpg",
+          "sourceUrl": "user-supplied-local-file",
+          "sourceName": "用户提供",
+          "view": "street-corner-detail",
+          "captureDate": "unknown",
+          "runtimeUse": false
+        }
+      ],
+      "placementEvidence": "user-supplied-aerial-footprint",
+      "identifyingCues": [
+        "船头般圆角西端",
+        "连续石材拱券柱廊",
+        "红砖窗格与层叠阳台",
+        "平屋顶双层水平檐带"
+      ],
+      "explicitInferences": [
+        "非测绘来源的楼层高度",
+        "照片不可见的后立面开窗",
+        "网页展示所需的长度压缩"
+      ]
+    },
+    {
+      "id": "house-315",
+      "subject": "新华路315号住宅",
+      "address": "上海市长宁区新华路315号",
+      "runtimeModel": "public/models/xinhua-road/house-315.glb",
+      "editableSource": "assets/models/source/xinhua-road/house-315.blend",
+      "generator": "scripts/create_xinhua_road_models.py",
+      "preview": "test_artifacts/test_house-315_preview.png",
+      "canonicalReference": {
+        "localPath": "docs/research/assets/landmark-comparison/house-315-real.jpg",
+        "sourceUrl": "https://www.jfdaily.com/sgh/detail?id=1697461",
+        "sourceName": "上观新闻",
+        "view": "front-gable",
+        "captureDate": "unknown",
+        "runtimeUse": false
+      },
+      "placementEvidence": "address-and-road-setback",
+      "identifyingCues": [
+        "红砖首层与白灰泥上层",
+        "深色半木构山墙",
+        "正面凸窗",
+        "陡坡屋顶与烟囱"
+      ],
+      "explicitInferences": [
+        "公开照片不可见的后立面",
+        "精确建筑高度与屋顶坡度",
+        "建筑中心相对地址点的退界"
+      ]
+    },
+    {
+      "id": "shanghai-cinema",
+      "subject": "上海影城",
+      "address": "上海市长宁区新华路160号",
+      "runtimeModel": "public/models/xinhua-road/shanghai-cinema.glb",
+      "editableSource": "assets/models/source/xinhua-road/shanghai-cinema.blend",
+      "generator": "scripts/create_xinhua_road_models.py",
+      "preview": "test_artifacts/test_shanghai-cinema_preview.png",
+      "canonicalReference": {
+        "localPath": "docs/research/assets/landmark-comparison/shanghai-cinema-real.jpg",
+        "sourceUrl": "https://www.thepaper.cn/newsDetail_forward_23253561",
+        "sourceName": "澎湃新闻",
+        "view": "left-front-three-quarter",
+        "captureDate": "unknown",
+        "runtimeUse": false
+      },
+      "placementEvidence": "osm-way-292250766",
+      "identifyingCues": [
+        "连续弧形白色外壳",
+        "环形玻璃首层",
+        "外置弧形楼梯",
+        "屋顶格栅"
+      ],
+      "explicitInferences": [
+        "被曲面遮挡的后侧服务空间",
+        "公开照片没有给出的精确楼层净高",
+        "玻璃分格背后的室内结构"
+      ]
+    },
+    {
+      "id": "hudec-memorial",
+      "subject": "邬达克纪念馆",
+      "address": "上海市长宁区番禺路129号",
+      "runtimeModel": "public/models/requested-pois/hudec-memorial.glb",
+      "editableSource": "assets/models/source/requested-pois/hudec-memorial.blend",
+      "generator": "scripts/create_requested_poi_models.py",
+      "preview": "test_artifacts/test_hudec-memorial_preview.png",
+      "canonicalReference": {
+        "localPath": "docs/research/assets/requested-poi-references/hudec-memorial-front-wikimedia.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hudec_House.jpeg",
+        "sourceName": "Wikimedia Commons",
+        "view": "front-right-three-quarter",
+        "captureDate": "2018-06-09",
+        "runtimeUse": false
+      },
+      "secondaryReferences": [
+        {
+          "localPath": "docs/research/assets/requested-poi-references/hudec-memorial-west-elevations.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col6991/20260405/1307940.html",
+          "sourceName": "上海长宁",
+          "view": "west-elevations",
+          "captureDate": "unknown",
+          "runtimeUse": false
+        }
+      ],
+      "placementEvidence": "osm-way-494633921",
+      "identifyingCues": [
+        "深色都铎半木构",
+        "双烟囱陡坡屋顶与老虎窗",
+        "三角入口门廊",
+        "砖拱门与圆形树池"
+      ],
+      "explicitInferences": [
+        "植被遮挡的局部开窗",
+        "照片没有覆盖的东侧细节",
+        "非测绘来源的构件厚度"
+      ]
+    }
+  ]
+}

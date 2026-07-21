@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Callable
 
 import bpy
-from mathutils import Vector
+from mathutils import Matrix, Vector
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -823,137 +823,403 @@ def add_elliptical_wall_band(
     return register(obj, mat)
 
 
+def cinema_front_y(x: float) -> float:
+    """返回上海影城正面丝带的椭圆平面位置，正面始终朝本地 -Y。"""
+    radius_x = 15.2
+    radius_y = 7.15
+    normalized = min(1.0, abs(x) / radius_x)
+    return 0.35 - radius_y * math.sqrt(max(0.0, 1.0 - normalized * normalized))
+
+
+def add_cinema_ribbon_surface(name: str, mat: bpy.types.Material) -> bpy.types.Object:
+    """生成带右侧椭圆开洞的非对称白色丝带，不再使用等高椭圆筒近似。"""
+    hole_center_x = 8.05
+    hole_center_z = 6.55
+    hole_radius_x = 4.35
+    hole_radius_z = 1.5
+    panel_depth = 0.42
+    x_values = [-15.2 + 30.4 * index / 76 for index in range(77)]
+    x_values.extend((hole_center_x - hole_radius_x, hole_center_x + hole_radius_x))
+    x_values = sorted(set(round(value, 6) for value in x_values))
+
+    def lower_z(x: float) -> float:
+        normalized = x / 15.2
+        return 3.92 + 0.48 * ((normalized + 1.0) * 0.5) + 0.23 * math.cos(normalized * math.pi)
+
+    def upper_z(x: float) -> float:
+        normalized = x / 15.2
+        crown = max(0.0, 1.0 - ((normalized + 0.15) / 0.95) ** 2)
+        return 7.15 + 2.15 * crown + 0.15 * ((1.0 - normalized) * 0.5)
+
+    def hole_limits(x: float) -> tuple[float, float]:
+        normalized = (x - hole_center_x) / hole_radius_x
+        span = hole_radius_z * math.sqrt(max(0.0, 1.0 - normalized * normalized))
+        return hole_center_z - span, hole_center_z + span
+
+    vertices: list[tuple[float, float, float]] = []
+    faces: list[tuple[int, int, int, int]] = []
+    for index in range(len(x_values) - 1):
+        x0 = x_values[index]
+        x1 = x_values[index + 1]
+        midpoint = (x0 + x1) * 0.5
+        intervals: list[tuple[Callable[[float], float], Callable[[float], float]]]
+        if abs(midpoint - hole_center_x) < hole_radius_x:
+            intervals = [
+                (lower_z, lambda x: hole_limits(x)[0]),
+                (lambda x: hole_limits(x)[1], upper_z),
+            ]
+        else:
+            intervals = [(lower_z, upper_z)]
+
+        for interval_lower, interval_upper in intervals:
+            low0 = interval_lower(x0)
+            low1 = interval_lower(x1)
+            high0 = interval_upper(x0)
+            high1 = interval_upper(x1)
+            if min(high0 - low0, high1 - low1) <= 0.015:
+                continue
+            front_y0 = cinema_front_y(x0)
+            front_y1 = cinema_front_y(x1)
+            base = len(vertices)
+            vertices.extend((
+                (x0, front_y0, low0),
+                (x1, front_y1, low1),
+                (x1, front_y1, high1),
+                (x0, front_y0, high0),
+                (x0, front_y0 + panel_depth, low0),
+                (x1, front_y1 + panel_depth, low1),
+                (x1, front_y1 + panel_depth, high1),
+                (x0, front_y0 + panel_depth, high0),
+            ))
+            faces.extend((
+                (base, base + 1, base + 2, base + 3),
+                (base + 7, base + 6, base + 5, base + 4),
+                (base, base + 4, base + 5, base + 1),
+                (base + 3, base + 2, base + 6, base + 7),
+            ))
+
+    mesh = bpy.data.meshes.new(f"{name}Mesh")
+    mesh.from_pydata(vertices, [], faces)
+    mesh.update()
+    obj = bpy.data.objects.new(name, mesh)
+    bpy.context.collection.objects.link(obj)
+    bevel = obj.modifiers.new("丝带柔边", "BEVEL")
+    bevel.width = 0.065
+    bevel.segments = 2
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.modifier_apply(modifier=bevel.name)
+    return register(obj, mat)
+
+
+def add_vertical_ellipse_reveal(
+    name: str,
+    center: tuple[float, float, float],
+    radii: tuple[float, float],
+    depth: float,
+    thickness: float,
+    mat: bpy.types.Material,
+    *,
+    segments: int = 56,
+) -> bpy.types.Object:
+    """生成位于 XZ 立面的椭圆洞口收边和纵深，强调真实照片中的大开洞。"""
+    cx, front_y, cz = center
+    radius_x, radius_z = radii
+    inner_x = radius_x - thickness
+    inner_z = radius_z - thickness
+    back_y = front_y + depth
+    vertices: list[tuple[float, float, float]] = []
+    faces: list[tuple[int, int, int, int]] = []
+    for index in range(segments):
+        angle = math.pi * 2 * index / segments
+        cosine = math.cos(angle)
+        sine = math.sin(angle)
+        vertices.extend((
+            (cx + radius_x * cosine, front_y, cz + radius_z * sine),
+            (cx + inner_x * cosine, front_y, cz + inner_z * sine),
+            (cx + radius_x * cosine, back_y, cz + radius_z * sine),
+            (cx + inner_x * cosine, back_y, cz + inner_z * sine),
+        ))
+    for index in range(segments):
+        current = index * 4
+        following = ((index + 1) % segments) * 4
+        faces.extend((
+            (current, following, following + 1, current + 1),
+            (current + 2, current + 3, following + 3, following + 2),
+            (current, current + 2, following + 2, following),
+            (current + 1, following + 1, following + 3, current + 3),
+        ))
+    mesh = bpy.data.meshes.new(f"{name}Mesh")
+    mesh.from_pydata(vertices, [], faces)
+    mesh.update()
+    obj = bpy.data.objects.new(name, mesh)
+    bpy.context.collection.objects.link(obj)
+    return register(obj, mat)
+
+
+def add_vertical_ellipse_disc(
+    name: str,
+    center: tuple[float, float, float],
+    radii: tuple[float, float],
+    mat: bpy.types.Material,
+    *,
+    segments: int = 56,
+) -> bpy.types.Object:
+    """生成洞口后方的弧形玻璃近似面，照片不作为贴图。"""
+    cx, y, cz = center
+    radius_x, radius_z = radii
+    vertices = [(cx, y, cz)]
+    for index in range(segments):
+        angle = math.pi * 2 * index / segments
+        vertices.append((cx + radius_x * math.cos(angle), y, cz + radius_z * math.sin(angle)))
+    faces = [(0, index + 1, (index + 1) % segments + 1) for index in range(segments)]
+    mesh = bpy.data.meshes.new(f"{name}Mesh")
+    mesh.from_pydata(vertices, [], faces)
+    mesh.update()
+    obj = bpy.data.objects.new(name, mesh)
+    bpy.context.collection.objects.link(obj)
+    return register(obj, mat)
+
+
 def build_shanghai_cinema() -> None:
-    white = material("影城象牙白", "#e8e5dd")
-    white_shadow = material("影城阴影白", "#c8c9c3")
-    glass = material("影城玻璃", "#4f7779", roughness=0.28, metallic=0.08, alpha=0.72)
-    dark = material("影城深框", "#26393b", roughness=0.45)
-    warm = material("影城灯光", "#e9ad67", emission_strength=0.75)
-    paving = material("影城广场", "#aaa59a")
-    silver = material("影城金属", "#8d9b99", roughness=0.36, metallic=0.55)
-    glass_light = material("影城浅玻璃", "#79a0a0", roughness=0.22, metallic=0.05, alpha=0.62)
+    """按 2023 年改造后外观重建上海影城的非对称丝带正立面。"""
+    white = material("影城象牙白", "#e4e1da", roughness=0.72)
+    white_shadow = material("影城阴影白", "#cfd0ca", roughness=0.82)
+    glass = material("影城玻璃", "#4f7478", roughness=0.25, metallic=0.06, alpha=0.7)
+    dark = material("影城深框", "#26383a", roughness=0.44)
+    warm = material("影城灯光", "#edb66e", emission_strength=0.72)
+    paving = material("影城广场", "#aaa69d")
+    silver = material("影城金属", "#929f9d", roughness=0.34, metallic=0.5)
+    glass_light = material("影城浅玻璃", "#79a2a5", roughness=0.2, metallic=0.04, alpha=0.58)
     planter = material("影城花池", "#777b75")
     foliage = material("影城绿植", "#4d7155")
     wood = material("影城座椅木", "#967257")
-    paving_line = material("影城铺装缝", "#777b76")
-    joint = material("影城板缝", "#73827f")
+    paving_line = material("影城铺装缝", "#7b7b76")
+    joint = material("影城板缝", "#d6d5d0")
+
+    # Massing：广场、内退玻璃大厅、非对称丝带、左侧鼓体和退后的塔楼。
     add_box("cinema-plaza", (0, -1.2, 0.12), (38, 26, 0.24), paving, bevel=0.12)
-    # 照片中的主体是椭圆玻璃大厅与连续白色环带，不再使用矩形盒体近似。
-    add_elliptical_cylinder("cinema-glass-core", (0, 0.1, 3.45), (13.75, 6.9), 6.7, glass, vertices=72, bevel=0.16)
-    add_elliptical_wall_band("cinema-flowing-band", (0, 0.1), (15.1, 8.15), 1.42, 3.45, 4.2, white, segments=84, wave=0.52)
-    add_elliptical_wall_band("cinema-band-shadow", (0, 0.1), (14.0, 7.05), 0.18, 3.28, 0.32, white_shadow, segments=84, wave=0.18)
-    add_elliptical_wall_band("cinema-roof-lip", (0, 0.1), (15.35, 8.4), 1.58, 7.55, 0.42, white_shadow, segments=84, wave=0.16)
-    # 连续白色环带由分块金属板拼成，近景加入板缝和屋面扣件。
-    for index in range(84):
-        angle = math.pi * 2 * index / 84
-        add_box(
-            f"cinema-band-joint-{index}",
-            (15.12 * math.cos(angle), 0.1 + 8.17 * math.sin(angle), 4.2),
-            (0.055, 0.12, 1.1),
-            joint,
-            bevel=0.012,
-            rotation=(0, 0, angle),
-        )
-    for index in range(48):
-        angle = math.pi * 2 * index / 48
-        add_icosphere(
-            f"cinema-roof-fastener-{index}",
-            (15.34 * math.cos(angle), 0.1 + 8.39 * math.sin(angle), 7.58),
-            (0.075, 0.075, 0.065),
+    add_elliptical_cylinder("cinema-glass-core", (0, 0.35, 2.45), (14.25, 6.65), 4.65, glass, vertices=80, bevel=0.14)
+    add_elliptical_wall_band("cinema-lower-ribbon-lip", (0, 0.35), (15.15, 7.25), 0.72, 3.82, 0.34, white_shadow, segments=88, wave=0.08)
+    add_cinema_ribbon_surface("cinema-main-ribbon", white)
+
+    hole_front_y = cinema_front_y(8.05) - 0.035
+    add_vertical_ellipse_reveal(
+        "cinema-oculus-reveal",
+        (8.05, hole_front_y, 6.55),
+        (4.35, 1.5),
+        0.72,
+        0.2,
+        white_shadow,
+    )
+    add_vertical_ellipse_disc(
+        "cinema-oculus-glass",
+        (8.05, hole_front_y + 0.74, 6.55),
+        (4.1, 1.3),
+        glass_light,
+    )
+
+    # 洞口玻璃分格严格限制在椭圆内部，不再把右侧读成封闭白墙。
+    for index in range(11):
+        x = 4.35 + index * 0.74
+        normalized = (x - 8.05) / 4.1
+        half_height = 1.24 * math.sqrt(max(0.0, 1.0 - normalized * normalized))
+        add_cylinder(
+            f"cinema-oculus-mullion-{index}",
+            (x, cinema_front_y(x) + 0.78, 6.55),
+            0.045,
+            max(0.18, half_height * 2),
             silver,
-            subdivisions=1,
+            vertices=10,
         )
-    # 玻璃幕墙沿椭圆前半圈布置真实竖梃，横梃则使用薄环带连续收口。
-    for index in range(25):
-        angle = math.pi + math.pi * index / 24
-        x = 13.85 * math.cos(angle)
-        y = 0.1 + 7.0 * math.sin(angle)
-        add_cylinder(f"cinema-glass-mullion-{index}", (x, y, 2.2), 0.055, 4.25, silver, vertices=12)
-        for clip_index, clip_z in enumerate((1.15, 2.3, 3.45)):
+        for clip_index, clip_z in enumerate((6.15, 6.55, 6.95)):
+            if abs(clip_z - 6.55) < half_height:
+                add_icosphere(
+                    f"cinema-oculus-clip-{index}-{clip_index}",
+                    (x, cinema_front_y(x) + 0.73, clip_z),
+                    (0.07, 0.045, 0.07),
+                    silver,
+                    subdivisions=1,
+                )
+    for row, z in enumerate((6.1, 6.55, 7.0)):
+        normalized_z = (z - 6.55) / 1.3
+        half_width = 4.02 * math.sqrt(max(0.0, 1.0 - normalized_z * normalized_z))
+        points = []
+        for index in range(13):
+            x = 8.05 - half_width + 2 * half_width * index / 12
+            points.append((x, cinema_front_y(x) + 0.77, z))
+        for index in range(len(points) - 1):
+            add_beam(f"cinema-oculus-transom-{row}-{index}", points[index], points[index + 1], 0.055, silver)
+
+    # 首层玻璃大厅、横梃、细柱和入口大台阶保持整体内退。
+    lobby_points_by_row: dict[int, list[tuple[float, float, float]]] = {0: [], 1: [], 2: []}
+    for index in range(31):
+        x = -13.5 + index * 0.9
+        y = cinema_front_y(x) + 0.5
+        add_cylinder(f"cinema-lobby-mullion-{index}", (x, y, 2.05), 0.05, 3.95, silver, vertices=10)
+        for clip_index, clip_z in enumerate((1.15, 2.25, 3.35)):
+            if index % 2 == 0:
+                add_icosphere(
+                    f"cinema-lobby-clip-{index}-{clip_index}",
+                    (x, y - 0.035, clip_z),
+                    (0.075, 0.045, 0.075),
+                    silver,
+                    subdivisions=1,
+                )
+            lobby_points_by_row[clip_index].append((x, y, clip_z))
+    for row, points in lobby_points_by_row.items():
+        for index in range(len(points) - 1):
+            add_beam(f"cinema-lobby-transom-{row}-{index}", points[index], points[index + 1], 0.052, silver)
+
+    for step_index in range(5):
+        add_box(
+            f"cinema-entry-step-{step_index}",
+            (0, -7.55 - step_index * 0.28, 0.08 + step_index * 0.1),
+            (23.5 - step_index * 0.4, 0.62, 0.16),
+            white_shadow,
+            bevel=0.035,
+        )
+    for index, x in enumerate((-9.6, -6.4, -3.2, 0.0, 3.2, 6.4, 9.6)):
+        add_cylinder(f"cinema-front-column-{index}", (x, cinema_front_y(x) - 0.12, 2.05), 0.14, 4.0, white, vertices=20)
+    for index, x in enumerate((-3.15, -1.05, 1.05, 3.15)):
+        add_detailed_door(f"cinema-door-{index}", (x, cinema_front_y(x) - 0.06, 1.34), 1.45, 2.5, silver, glass, silver)
+
+    # 白色板缝跟随丝带曲率；颜色压低对比，避免旧版竖线过密造成百叶感。
+    for index in range(58):
+        x = -14.7 + index * (29.4 / 57)
+        normalized = x / 15.2
+        lower = 3.92 + 0.48 * ((normalized + 1.0) * 0.5) + 0.23 * math.cos(normalized * math.pi)
+        crown = max(0.0, 1.0 - ((normalized + 0.15) / 0.95) ** 2)
+        upper = 7.15 + 2.15 * crown + 0.15 * ((1.0 - normalized) * 0.5)
+        if ((x - 8.05) / 4.35) ** 2 < 1.0:
+            continue
+        add_box(
+            f"cinema-ribbon-joint-{index}",
+            (x, cinema_front_y(x) - 0.025, (lower + upper) * 0.5),
+            (0.028, 0.055, max(0.2, upper - lower - 0.18)),
+            joint,
+            bevel=0.008,
+        )
+
+    # 左侧玻璃鼓体高出主丝带，开放格栅冠部向外挑出，是远景轮廓的第二识别点。
+    add_elliptical_cylinder("cinema-left-drum", (-9.8, 0.8, 7.9), (4.45, 3.45), 5.6, glass_light, vertices=64, bevel=0.1)
+    add_elliptical_wall_band("cinema-left-drum-base", (-9.8, 0.8), (4.78, 3.78), 0.5, 5.0, 0.42, white, segments=68)
+    add_elliptical_wall_band("cinema-left-drum-crown", (-9.8, 0.8), (5.15, 4.05), 0.58, 10.65, 0.38, white, segments=68)
+    for index in range(15):
+        angle = math.pi + math.pi * index / 14
+        x = -9.8 + 4.48 * math.cos(angle)
+        y = 0.8 + 3.48 * math.sin(angle)
+        add_cylinder(f"cinema-left-mullion-{index}", (x, y, 7.9), 0.05, 5.1, silver, vertices=10)
+        for clip_index, z in enumerate((6.65, 7.9, 9.15)):
             add_icosphere(
-                f"cinema-glass-clip-{index}-{clip_index}",
-                (x, y, clip_z),
-                (0.105, 0.105, 0.105),
-                silver,
-                subdivisions=1,
-            )
-    for index, z in enumerate((1.25, 2.55, 3.85)):
-        add_elliptical_wall_band(f"cinema-glass-transom-{index}", (0, 0.1), (13.92, 7.07), 0.08, z, 0.075, silver, segments=72)
-    # 左侧圆形放映厅与开放格栅取自正面照片的高识别度轮廓。
-    add_elliptical_cylinder("cinema-upper-drum", (-8.0, 0.7, 7.4), (4.45, 3.75), 4.5, glass_light, vertices=56, bevel=0.12)
-    add_elliptical_wall_band("cinema-upper-drum-base", (-8.0, 0.7), (4.9, 4.2), 0.6, 5.08, 0.42, white, segments=64)
-    add_elliptical_wall_band("cinema-upper-drum-roof", (-8.0, 0.7), (5.05, 4.35), 0.72, 9.55, 0.45, white, segments=64)
-    for index in range(13):
-        angle = math.pi + math.pi * index / 12
-        x = -8.0 + 4.5 * math.cos(angle)
-        y = 0.7 + 3.8 * math.sin(angle)
-        add_cylinder(f"cinema-upper-mullion-{index}", (x, y, 7.38), 0.055, 4.1, silver, vertices=12)
-    for index, angle in enumerate([math.radians(195 + value * 9) for value in range(12)]):
-        start = (-8.0 + 4.3 * math.cos(angle), 0.7 + 3.6 * math.sin(angle), 9.82)
-        end = (-8.0 + 6.2 * math.cos(angle), 0.7 + 5.1 * math.sin(angle), 10.15)
-        add_beam(f"cinema-upper-pergola-{index}", start, end, 0.12, white_shadow, round_beam=True)
-    # 后方塔楼保留圆角白框、密集窗格与顶部挑檐，避免成为无细节背景盒子。
-    add_box("cinema-tower", (6.3, 4.9, 8.65), (9.2, 4.8, 11.9), white_shadow, bevel=0.72)
-    add_box("cinema-tower-inset", (6.3, 2.43, 8.75), (7.35, 0.16, 7.65), glass, bevel=0.08)
-    for column in range(7):
-        x = 3.3 + column
-        add_box(f"cinema-tower-vertical-{column}", (x, 2.31, 8.75), (0.11, 0.08, 7.55), white, bevel=0.02)
-    for row in range(6):
-        z = 5.65 + row * 1.2
-        add_box(f"cinema-tower-horizontal-{row}", (6.3, 2.3, z), (7.25, 0.08, 0.11), white, bevel=0.02)
-        for column in range(7):
-            add_icosphere(
-                f"cinema-tower-clip-{row}-{column}",
-                (3.3 + column, 2.21, z),
+                f"cinema-left-clip-{index}-{clip_index}",
+                (x, y - 0.04, z),
                 (0.07, 0.045, 0.07),
                 silver,
                 subdivisions=1,
             )
-    add_box("cinema-tower-top", (6.3, 2.75, 14.62), (10.0, 5.6, 0.48), white, bevel=0.22)
-    # 右侧弧形楼梯沿前场抬升，逐级踏步、内外扶手和立柱均可在步行视角读出。
-    outer_points: list[tuple[float, float, float]] = []
-    inner_points: list[tuple[float, float, float]] = []
-    for index in range(24):
-        angle = math.radians(-96 + index * 4.25)
-        step_z = 0.24 + index * 0.19
-        radius = 6.2
-        x = 9.4 + math.cos(angle) * radius
-        y = -0.3 + math.sin(angle) * radius
-        add_box(f"cinema-spiral-step-{index}", (x, y, step_z), (2.35, 0.68, 0.18), white, bevel=0.065, rotation=(0, 0, angle + math.pi / 2))
-        outer_points.append((9.4 + math.cos(angle) * 7.0, -0.3 + math.sin(angle) * 7.0, step_z + 1.0))
-        inner_points.append((9.4 + math.cos(angle) * 5.35, -0.3 + math.sin(angle) * 5.35, step_z + 1.0))
-    for index in range(len(outer_points) - 1):
-        add_beam(f"cinema-stair-outer-rail-{index}", outer_points[index], outer_points[index + 1], 0.085, silver, round_beam=True)
-        add_beam(f"cinema-stair-inner-rail-{index}", inner_points[index], inner_points[index + 1], 0.085, silver, round_beam=True)
-        add_beam(f"cinema-stair-outer-stringer-{index}", (outer_points[index][0], outer_points[index][1], outer_points[index][2] - 0.9), (outer_points[index + 1][0], outer_points[index + 1][1], outer_points[index + 1][2] - 0.9), 0.16, white_shadow, round_beam=True)
-        if index % 2 == 0:
-            add_beam(f"cinema-stair-post-{index}", (outer_points[index][0], outer_points[index][1], outer_points[index][2] - 0.9), outer_points[index], 0.055, silver, round_beam=True)
-    # 首层入口、雨棚、柱列与抽象字标按照照片的横向节奏布置。
-    add_box("cinema-entrance-canopy", (0, -7.65, 3.15), (19.8, 2.1, 0.24), white, bevel=0.14)
-    add_box("cinema-canopy-glass", (0, -8.0, 3.02), (18.8, 1.35, 0.08), glass_light, bevel=0.05)
-    for index in range(21):
-        add_cylinder(
-            f"cinema-canopy-downlight-{index}",
-            (-9.0 + index * 0.9, -8.02, 2.93),
-            0.075,
-            0.055,
-            warm,
-            vertices=12,
+    for index, angle in enumerate(math.radians(188 + value * 8.0) for value in range(15)):
+        start = (-9.8 + 4.5 * math.cos(angle), 0.8 + 3.5 * math.sin(angle), 10.95)
+        end = (-9.8 + 6.2 * math.cos(angle), 0.8 + 4.8 * math.sin(angle), 11.18)
+        add_beam(f"cinema-left-pergola-{index}", start, end, 0.11, white_shadow, round_beam=True)
+
+    # 后塔楼只用框架和窗格表达，缩窄并后退，避免旧版大白盒压住主丝带。
+    tower_x = 7.4
+    tower_front_y = 3.18
+    add_box("cinema-tower-core", (tower_x, 5.2, 9.55), (7.35, 4.05, 10.9), glass, bevel=0.18)
+    add_box("cinema-tower-left-frame", (tower_x - 3.85, 5.2, 9.55), (0.58, 4.35, 11.95), white, bevel=0.22)
+    add_box("cinema-tower-right-frame", (tower_x + 3.85, 5.2, 9.55), (0.58, 4.35, 11.95), white, bevel=0.22)
+    add_box("cinema-tower-top-frame", (tower_x, 5.2, 15.45), (8.3, 4.4, 0.72), white, bevel=0.32)
+    for column in range(9):
+        x = tower_x - 3.2 + column * 0.8
+        add_box(f"cinema-tower-vertical-{column}", (x, tower_front_y - 0.035, 10.55), (0.085, 0.07, 6.85), white_shadow, bevel=0.018)
+    for row in range(9):
+        z = 7.15 + row * 0.85
+        add_box(f"cinema-tower-horizontal-{row}", (tower_x, tower_front_y - 0.05, z), (6.75, 0.075, 0.09), white_shadow, bevel=0.018)
+        for column in range(9):
+            if row % 2 == 0 and column % 2 == 0:
+                add_icosphere(
+                    f"cinema-tower-clip-{row}-{column}",
+                    (tower_x - 3.2 + column * 0.8, tower_front_y - 0.1, z),
+                    (0.055, 0.04, 0.055),
+                    silver,
+                    subdivisions=1,
+                )
+
+    # 右侧大楼梯使用宽缓的贝塞尔路径，而不是旧版紧凑螺旋楼梯。
+    stair_centers: list[tuple[float, float, float]] = []
+    stair_angles: list[float] = []
+    start = Vector((11.0, -9.55, 0.35))
+    control = Vector((17.2, -7.15, 2.05))
+    end = Vector((14.55, -1.25, 4.35))
+    for index in range(32):
+        t = index / 31
+        point = (1 - t) ** 2 * start + 2 * (1 - t) * t * control + t ** 2 * end
+        tangent = 2 * (1 - t) * (control - start) + 2 * t * (end - control)
+        angle = math.atan2(tangent.y, tangent.x)
+        stair_centers.append((point.x, point.y, point.z))
+        stair_angles.append(angle)
+        add_box(
+            f"cinema-stair-step-{index}",
+            (point.x, point.y, point.z),
+            (3.35, 0.62, 0.17),
+            white_shadow,
+            bevel=0.045,
+            rotation=(0, 0, angle + math.pi / 2),
         )
-    for index, x in enumerate((-8.6, -4.3, 0, 4.3, 8.6)):
-        add_cylinder(f"cinema-canopy-column-{index}", (x, -7.95, 1.55), 0.1, 3.0, silver, vertices=18)
-    for index, x in enumerate((-8.0, -4.0, 0, 4.0, 8.0)):
-        add_detailed_door(f"cinema-door-{index}", (x, -7.08, 1.35), 1.75, 2.55, silver, dark, silver)
-        add_box(f"cinema-door-light-{index}", (x, -7.34, 2.72), (1.45, 0.06, 0.08), warm)
-    add_text_label("cinema-name", "上海影城", (0, -8.23, 6.2), 1.3, 0.11, white_shadow, bevel=0.045, letter_spacing=1.08)
-    for index, x in enumerate((-12.8, -10.8, 11.2)):
-        add_cylinder(f"cinema-flagpole-{index}", (x, -10.0, 3.7), 0.055, 7.2, silver, vertices=16)
-        add_box(f"cinema-flag-{index}", (x + 0.65, -10.0, 6.6), (1.3, 0.055, 0.72), warm if index == 0 else white_shadow, bevel=0.04)
-    for index, x in enumerate((-13.0, -7.0, 7.0, 13.0)):
-        add_planter(f"cinema-planter-{index}", (x, -10.25), (2.8, 1.1), planter, foliage, height=0.7)
-    add_bench("cinema-bench-left", (-9.0, -11.2), 3.4, wood, silver)
-    add_bench("cinema-bench-right", (9.0, -11.2), 3.4, wood, silver)
-    add_paving_grid("cinema-plaza-grid", (0, -2.0), 37.0, 24.0, 0.248, paving_line, columns=14, rows=10)
+
+    outer_top: list[tuple[float, float, float]] = []
+    inner_top: list[tuple[float, float, float]] = []
+    for index, ((x, y, z), angle) in enumerate(zip(stair_centers, stair_angles)):
+        lateral = Vector((-math.sin(angle), math.cos(angle), 0))
+        outer = Vector((x, y, z)) + lateral * 1.72
+        inner = Vector((x, y, z)) - lateral * 1.72
+        outer_top.append((outer.x, outer.y, outer.z + 1.02))
+        inner_top.append((inner.x, inner.y, inner.z + 1.02))
+        if index % 2 == 0:
+            add_beam(f"cinema-stair-outer-post-{index}", (outer.x, outer.y, outer.z + 0.12), outer_top[-1], 0.05, silver, round_beam=True)
+            add_beam(f"cinema-stair-inner-post-{index}", (inner.x, inner.y, inner.z + 0.12), inner_top[-1], 0.05, silver, round_beam=True)
+    for index in range(len(stair_centers) - 1):
+        for side, rail_points in (("outer", outer_top), ("inner", inner_top)):
+            current = Vector(rail_points[index])
+            following = Vector(rail_points[index + 1])
+            add_beam(f"cinema-stair-{side}-rail-{index}", current, following, 0.075, silver, round_beam=True)
+            midpoint = (current + following) * 0.5
+            length = (following - current).length
+            angle = math.atan2(following.y - current.y, following.x - current.x)
+            add_box(
+                f"cinema-stair-{side}-glass-{index}",
+                (midpoint.x, midpoint.y, midpoint.z - 0.45),
+                (length + 0.04, 0.045, 0.76),
+                glass_light,
+                bevel=0.018,
+                rotation=(0, 0, angle),
+            )
+    for index in range(len(outer_top) - 1):
+        current = (outer_top[index][0], outer_top[index][1], outer_top[index][2] - 0.9)
+        following = (outer_top[index + 1][0], outer_top[index + 1][1], outer_top[index + 1][2] - 0.9)
+        add_beam(f"cinema-stair-outer-cheek-{index}", current, following, 0.22, white, round_beam=True)
+
+    # 字标、檐底灯和场地只保留照片可见且不遮挡主体轮廓的构件。
+    cinema_name = add_text_label("cinema-name", "上海影城", (-1.4, cinema_front_y(-1.4) - 0.12, 7.78), 1.22, 0.105, white_shadow, bevel=0.04, letter_spacing=1.11)
+    # 通用 helper 为旧资产保留了 X 翻转；影城正面机位与运行时无需该补偿，恢复正常字序。
+    cinema_name.scale.x = -1
+    bpy.context.view_layer.objects.active = cinema_name
+    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+    for index in range(23):
+        x = -10.5 + index * (21.0 / 22)
+        add_cylinder(
+            f"cinema-soffit-light-{index}",
+            (x, cinema_front_y(x) - 0.16, 3.84),
+            0.07,
+            0.05,
+            warm,
+            vertices=10,
+        )
+    for index, x in enumerate((-12.6, -7.1, 7.0, 12.4)):
+        add_planter(f"cinema-planter-{index}", (x, -10.2), (2.45, 0.95), planter, foliage, height=0.62)
+    add_bench("cinema-bench-left", (-9.3, -11.15), 3.1, wood, silver)
+    add_bench("cinema-bench-right", (8.9, -11.15), 3.1, wood, silver)
+    add_paving_grid("cinema-plaza-grid", (0, -1.8), 37.0, 24.0, 0.248, paving_line, columns=14, rows=10)
 
 
 def build_film_art_center() -> None:
@@ -1766,7 +2032,11 @@ def render_preview(slug: str) -> None:
     fill.data.energy = 1200
     fill.data.size = extent * 0.7
     scene = bpy.context.scene
-    scene.render.engine = "BLENDER_EEVEE_NEXT"
+    # Blender 4.5 使用 EEVEE_NEXT，5.2 又统一回 EEVEE；按运行时枚举兼容两代 LTS。
+    try:
+        scene.render.engine = "BLENDER_EEVEE_NEXT"
+    except TypeError:
+        scene.render.engine = "BLENDER_EEVEE"
     scene.render.resolution_x = 900
     scene.render.resolution_y = 700
     scene.render.resolution_percentage = 100
@@ -1777,8 +2047,30 @@ def render_preview(slug: str) -> None:
     background.inputs["Color"].default_value = (0.72, 0.79, 0.82, 1.0)
     background.inputs["Strength"].default_value = 0.72
     scene.view_settings.look = "AgX - Medium High Contrast"
-    scene.render.filepath = str(PREVIEW_DIR / f"test_{slug}_preview.png")
-    bpy.ops.render.render(write_still=True)
+    if slug == "shanghai-cinema":
+        key.data.energy = 1600
+        fill.data.energy = 650
+        background.inputs["Color"].default_value = (0.55, 0.67, 0.72, 1.0)
+        background.inputs["Strength"].default_value = 0.55
+        target_default = Vector((0.0, -0.6, 6.2))
+        cinema_views = (
+            ("preview", (12.0, -50.0, 7.0), target_default, 48),
+            ("canonical", (12.0, -50.0, 7.0), target_default, 48),
+            ("side", (39.0, -34.0, 8.5), Vector((4.0, -0.2, 6.5)), 52),
+            ("street", (14.0, -57.0, 5.5), Vector((0.0, -0.8, 5.8)), 52),
+        )
+        scene.render.resolution_x = 1000
+        scene.render.resolution_y = 700
+        for suffix, location, target, lens in cinema_views:
+            camera.location = location
+            camera.data.lens = lens
+            camera.rotation_euler = (target - camera.location).to_track_quat("-Z", "Y").to_euler()
+            filename = f"test_{slug}_preview.png" if suffix == "preview" else f"test_{slug}_{suffix}_preview.png"
+            scene.render.filepath = str(PREVIEW_DIR / filename)
+            bpy.ops.render.render(write_still=True)
+    else:
+        scene.render.filepath = str(PREVIEW_DIR / f"test_{slug}_preview.png")
+        bpy.ops.render.render(write_still=True)
 
 
 def export_asset(slug: str, builder: Callable[[], None]) -> dict[str, int | str]:
@@ -1786,6 +2078,9 @@ def export_asset(slug: str, builder: Callable[[], None]) -> dict[str, int | str]
     builder()
     source_object_count = len(ASSET_OBJECTS)
     merge_asset_objects(slug)
+    runtime_mirrored = slug == "shanghai-cinema"
+    if runtime_mirrored:
+        ASSET_OBJECTS[0]["runtime_x_mirrored"] = True
     ASSET_OBJECTS[0]["detail_current_parts"] = source_object_count
     ASSET_OBJECTS[0]["detail_method"] = "photo-semantic-components"
     ASSET_OBJECTS[0]["detail_upgrade"] = "20260718"
@@ -1803,6 +2098,14 @@ def export_asset(slug: str, builder: Callable[[], None]) -> dict[str, int | str]
         obj.select_set(True)
     bpy.context.view_layer.objects.active = ASSET_OBJECTS[0]
     output_glb = OUTPUT_DIR / f"{slug}.glb"
+    if runtime_mirrored:
+        # 可编辑 Blend 始终保存 canonical 左右关系；仅在导出 GLB 前临时镜像网格，
+        # 适配 glTF Y-up 与网页端 Z 翻转后的运行时水平轴。
+        bpy.ops.wm.save_as_mainfile(filepath=str(SOURCE_DIR / f"{slug}.blend"))
+        merged_mesh = ASSET_OBJECTS[0].data
+        merged_mesh.transform(Matrix.Scale(-1.0, 4, Vector((1.0, 0.0, 0.0))))
+        merged_mesh.flip_normals()
+        merged_mesh.update()
     bpy.ops.export_scene.gltf(
         filepath=str(output_glb),
         export_format="GLB",
@@ -1812,7 +2115,14 @@ def export_asset(slug: str, builder: Callable[[], None]) -> dict[str, int | str]
         export_materials="EXPORT",
         export_extras=True,
     )
-    bpy.ops.wm.save_as_mainfile(filepath=str(SOURCE_DIR / f"{slug}.blend"))
+    if runtime_mirrored:
+        # GLB 已保存运行时方向；内存恢复 canonical 几何，确保预览与 Blend 一致。
+        merged_mesh = ASSET_OBJECTS[0].data
+        merged_mesh.transform(Matrix.Scale(-1.0, 4, Vector((1.0, 0.0, 0.0))))
+        merged_mesh.flip_normals()
+        merged_mesh.update()
+    else:
+        bpy.ops.wm.save_as_mainfile(filepath=str(SOURCE_DIR / f"{slug}.blend"))
     render_preview(slug)
     return {
         "slug": slug,

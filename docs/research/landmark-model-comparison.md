@@ -33,16 +33,16 @@
         <code>shanghai-cinema.glb</code>
       </td>
       <td>
-        <img src="assets/landmark-comparison/shanghai-cinema-real.jpg" width="480" alt="上海影城真实照片"><br>
-        来源：<a href="https://www.thepaper.cn/newsDetail_forward_23253561">澎湃新闻</a>
+        <img src="assets/poi-references/shanghai-cinema/shanghai-cinema-front-official.jpg" width="480" alt="上海影城官方正面参考照片"><br>
+        来源：<a href="https://www.meet-in-shanghai.net/en/news/renovated-cinema-to-reopen-in-time-for-siff-203526/">上海市文旅推广网 / SHINE</a>
       </td>
       <td>
-        <img src="assets/landmark-comparison/shanghai-cinema-runtime.png" width="480" alt="上海影城系统截图"><br>
-        入口参数：<code>?start=cinema</code>
+        <img src="../../test_artifacts/test_shanghai-cinema_runtime_preview.png" width="480" alt="上海影城最终运行时验收截图"><br>
+        入口参数：<code>?start=cinema</code>；2026-07-21 实际 Three.js 页面验收
       </td>
       <td>
         <strong>A</strong><br>
-        左前方三分之四视角。重点比较连续弧形白色外壳、环形玻璃首层、外楼梯和屋顶格栅。
+        正面略偏左视角。连续白色丝带、右侧椭圆开洞、右侧宽弧形楼梯、左侧玻璃鼓体和后塔楼均可一眼对应；运行时采用更低的街平视角，因此不要求透视完全重合。
       </td>
     </tr>
     <tr>

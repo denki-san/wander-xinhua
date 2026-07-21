@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-21",
+  "subject": {
+    "id": "sun-ke-villa",
+    "name": "孙科别墅",
+    "address": "上海市长宁区番禺路60号（上生·新所内）",
+    "osmWayId": 864847877
+  },
+  "usageBoundary": "仅用于研究、比例判断和人工视觉对照；不嵌入 GLB，不作为运行时贴图。",
+  "canonicalComparison": "garden-front",
+  "referencePhotos": [
+    {
+      "id": "garden-front",
+      "path": "docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-front-canonical.jpg",
+      "sourcePageUrl": "https://www.shcn.gov.cn/col6991/20231215/1250456.html",
+      "imageUrl": "https://cn.storage.shmedia.tech/14d16fb16e1642309c56ca36acad9bc9",
+      "publisher": "上海市长宁区人民政府",
+      "viewDirection": "花园正立面，近正视",
+      "captureDate": "unknown",
+      "retrievedAt": "2026-07-21",
+      "sha256": "a745ecb8cd3c9cf49155e059706e45cdfa601b71ea2393abd742ef98922bff5f"
+    },
+    {
+      "id": "right-front",
+      "path": "docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-right-front.jpg",
+      "sourcePageUrl": "https://mzj.sh.gov.cn/lnb-xw/20201117/a91886a37b954de283d159a39afca025.html",
+      "imageUrl": "https://mzj.sh.gov.cn/cmsres/97/97a5231a77b14bcfa18d7c1034166a8b/eccbc87e4b5ce2fe28308fd9f2a7baf3.jpg",
+      "publisher": "上海市民政局／上海老年报",
+      "viewDirection": "花园右前斜视",
+      "captureDate": "2020",
+      "retrievedAt": "2026-07-21",
+      "sha256": "2ce8d886d3b16708a1b81b902946c28103f72ed14ed81909bff9278cfbddc2d6"
+    },
+    {
+      "id": "north-entrance",
+      "path": "docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-north-entrance.jpg",
+      "sourcePageUrl": "https://www.shcn.gov.cn/col6991/20231215/1250456.html",
+      "imageUrl": "https://cn.storage.shmedia.tech/bf52bb5c1cf44953bab0b0e41fc18f82",
+      "publisher": "上海市长宁区人民政府",
+      "viewDirection": "北侧门廊与入口斜视",
+      "captureDate": "unknown",
+      "retrievedAt": "2026-07-21",
+      "sha256": "5d7f815bd751446a0fbb39b02b9dd6ee5fbcaae6c81c68b7433ef7731ed67331"
+    }
+  ],
+  "textSources": [
+    {
+      "url": "https://mzj.sh.gov.cn/lnb-xw/20201117/a91886a37b954de283d159a39afca025.html",
+      "use": "建成年代、设计者、混合风格、红砖瓦、弧顶窗框、尖券门洞与巴洛克弧拱门窗"
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col6991/20231215/1250456.html",
+      "use": "拉毛墙面、平缓坡屋顶、烟囱、北门廊、花园立面与室内结构背景"
+    }
+  ]
+}

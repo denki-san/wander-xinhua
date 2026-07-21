@@ -189,13 +189,14 @@ const SHANGSHENG_POOL_START_POSITION = groundedPosition(
   SHANGSHENG_XINSUO_POSITION[1] - 6.65,
 );
 const SUNKE_START_POSITION = groundedPosition(
-  SHANGSHENG_XINSUO_POSITION[0] + 45,
-  SHANGSHENG_XINSUO_POSITION[1] + 10,
+  SHANGSHENG_XINSUO_POSITION[0] + 50,
+  SHANGSHENG_XINSUO_POSITION[1],
 );
 
 type StartPreset = {
   position: Vector3;
   forward: Vector3;
+  cameraTargetHeight?: number;
 };
 
 function requestedStartPreset(requestedName?: string): StartPreset {
@@ -241,7 +242,8 @@ function requestedStartPreset(requestedName?: string): StartPreset {
   if (name === "sunke") {
     return {
       position: SUNKE_START_POSITION.clone(),
-      forward: new Vector3(-0.1, 0, -0.995).normalize(),
+      // 从花园右前侧斜看正立面，避开自行车架与入口导视对三联尖券的遮挡。
+      forward: new Vector3(-0.56, 0, -0.83).normalize(),
     };
   }
   const xinhuaRoadPreset = name ? XINHUA_ROAD_START_PRESETS[name] : undefined;
@@ -251,6 +253,7 @@ function requestedStartPreset(requestedName?: string): StartPreset {
     return {
       position: groundedPosition(x, z),
       forward: new Vector3(forwardX, 0, forwardZ).normalize(),
+      cameraTargetHeight: xinhuaRoadPreset.cameraTargetHeight,
     };
   }
   return {
@@ -659,6 +662,7 @@ function PlayableWanderer({
   const outer = useRef<Group>(null);
   const initialStart = useMemo(() => requestedStartPreset(startPreset), [startPreset]);
   const initialForward = useMemo(() => initialStart.forward.clone(), [initialStart]);
+  const cameraTargetHeight = initialStart.cameraTargetHeight ?? CAMERA_TARGET_HEIGHT;
   const initialCameraOffset = useMemo(
     () => initialForward.clone().multiplyScalar(-CAMERA_DISTANCE).addScaledVector(WORLD_UP, CAMERA_HEIGHT),
     [initialForward],
@@ -698,7 +702,7 @@ function PlayableWanderer({
     cameraBase.addScaledVector(cameraRight, CAMERA_SHOULDER_OFFSET);
     const cameraTarget = new Vector3(
       currentPosition.x * DETAIL_WORLD_SCALE,
-      scaledSurfaceHeight + CAMERA_TARGET_HEIGHT,
+      scaledSurfaceHeight + cameraTargetHeight,
       currentPosition.z * DETAIL_WORLD_SCALE,
     );
     cameraTarget.addScaledVector(cameraRight, CAMERA_TARGET_SHOULDER_OFFSET);
@@ -720,7 +724,7 @@ function PlayableWanderer({
       lastSafeCameraPosition.current = camera.position.clone();
     }
     onPositionRef.current([currentPosition.x, currentPosition.z]);
-  }, [camera, initialForward]);
+  }, [camera, cameraTargetHeight, initialForward]);
 
   useEffect(() => {
     onNearRef.current = onNearAction;
@@ -963,7 +967,7 @@ function PlayableWanderer({
 
     s.cameraTarget.set(
       currentPosition.x * DETAIL_WORLD_SCALE,
-      scaledSurfaceHeight + CAMERA_TARGET_HEIGHT + jumpHeight.current,
+      scaledSurfaceHeight + cameraTargetHeight + jumpHeight.current,
       currentPosition.z * DETAIL_WORLD_SCALE,
     ).addScaledVector(s.cameraRight, CAMERA_TARGET_SHOULDER_OFFSET);
     s.cameraBase.set(
@@ -1039,7 +1043,7 @@ function PlayableWanderer({
     if (!cameraClear) {
       s.cameraPosition.set(
         currentPosition.x * DETAIL_WORLD_SCALE,
-        scaledSurfaceHeight + CAMERA_TARGET_HEIGHT + 0.45 + jumpHeight.current,
+        scaledSurfaceHeight + cameraTargetHeight + 0.45 + jumpHeight.current,
         currentPosition.z * DETAIL_WORLD_SCALE,
       ).addScaledVector(currentForward, -0.16);
       cameraClear = isPlanarCameraCandidateClearInPolygon(

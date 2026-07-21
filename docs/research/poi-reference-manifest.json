@@ -47,14 +47,18 @@
         "kind": "hybrid-scene",
         "runtimeFiles": [
           "app/scene/shangsheng-xinsuo-block.tsx",
-          "public/models/shangsheng/navy-club-pool.glb"
+          "public/models/shangsheng/navy-club-pool.glb",
+          "public/models/shangsheng/sun-ke-villa.glb"
         ],
         "sourceFiles": [
           "app/scene/shangsheng-xinsuo-block.tsx",
           "assets/models/source/navy-club-pool.blend",
-          "scripts/create_navy_club_model.py"
+          "assets/models/source/sun-ke-villa.blend",
+          "scripts/create_navy_club_model.py",
+          "scripts/create_sun_ke_villa_model.py"
         ],
-        "positionEvidence": "osm-way-765939973"
+        "positionEvidence": "osm-way-765939973",
+        "sunKeVillaReferenceManifest": "docs/research/sun-ke-villa-reference-manifest.json"
       },
       "cardPhoto": "/images/poi-thumbnails/shangsheng.jpg",
       "canonicalReference": "docs/research/assets/poi-references/shangsheng-xinsuo/yanan-road-entrance.jpg",
@@ -123,14 +127,28 @@
         "positionEvidence": "osm-way-292250766"
       },
       "cardPhoto": "/images/poi-thumbnails/shanghai-cinema.jpg",
-      "canonicalReference": "docs/research/assets/landmark-comparison/shanghai-cinema-real.jpg",
+      "canonicalReference": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-front-official.jpg",
+      "referenceManifest": "docs/research/shanghai-cinema-reference-manifest.json",
+      "modelBrief": "docs/research/shanghai-cinema-model-brief.md",
       "photoStatus": "verified-same-building",
       "referencePhotos": [
+        {
+          "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-front-official.jpg",
+          "sourceUrl": "https://www.meet-in-shanghai.net/en/news/renovated-cinema-to-reopen-in-time-for-siff-203526/",
+          "view": "front-left-three-quarter-canonical",
+          "captureDate": "2023-06-01"
+        },
+        {
+          "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-spiral-stair-official.jpg",
+          "sourceUrl": "https://www.meet-in-shanghai.net/en/news/renovated-cinema-to-reopen-in-time-for-siff-203526/",
+          "view": "right-front-stair-detail",
+          "captureDate": "2023-06-01"
+        },
         {
           "path": "docs/research/assets/landmark-comparison/shanghai-cinema-real.jpg",
           "sourceUrl": "https://www.thepaper.cn/newsDetail_forward_23253561",
           "view": "left-front-three-quarter",
-          "captureDate": "unknown"
+          "captureDate": "2023-05-30"
         }
       ]
     },

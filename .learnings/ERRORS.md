@@ -32,6 +32,244 @@ Expected /<group ref={body} scale={0.9}>/
 
 ---
 
+## [ERR-20260721-081] create_goal_existing_active_goal_recurrence
+
+**Logged**: 2026-07-21T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+用户以 `/goal` 继续已有目标时，未先读取当前 Goal 就重复调用了创建接口。
+
+### Error
+```text
+cannot create a new goal because this thread has an unfinished goal; complete the existing goal first
+```
+
+### Context
+- 当前线程已经存在内容完全一致的 active Goal。
+- 重复创建没有覆盖或修改原 Goal。
+
+### Suggested Fix
+收到 `/goal` 后先调用 `get_goal`；若 active Goal 与用户目标一致，直接沿用，只有不存在未完成 Goal 时才创建。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `.learnings/ERRORS.md`
+- See Also: ERR-20260716-024
+
+### Resolution
+- **Resolved**: 2026-07-21T00:00:00+08:00
+- **Notes**: 已读取并沿用现有 Goal，未再次创建。
+
+---
+
+## [ERR-20260721-082] sun_ke_blender_browser_toolchain
+
+**Logged**: 2026-07-21T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+孙科别墅批处理首次受 Blender 5.2 环境差异与浏览器验收接口边界影响，未直接产生产物或性能数据。
+
+### Error
+```text
+ARCH_CACHE_LINE_SIZE != Arch_ObtainCacheLineSize
+BLENDER_EEVEE_NEXT not found in ('BLENDER_EEVEE', ...)
+Performance API unavailable in browser read-only evaluate sandbox
+Input.dispatchKeyEvent is not supported through raw CDP
+OSError: [Errno 48] Address already in use
+```
+
+### Context
+- Blender 在文件沙箱中启动时触发 USD cache-line assertion；经批准在宿主应用二进制中运行后正常。
+- Blender 5.2 的有效 Eevee enum 为 `BLENDER_EEVEE`。
+- 浏览器只读 evaluate 不暴露 `globalThis.performance`；CDP 支持性能指标，但不允许原始持续按键注入。
+- `agent-browser` CLI 不在当前环境，改用已安装的 in-app Browser 插件完成真实页面验收。
+- 重新启动预览时 3002 端口已有 Python 服务监听；沙箱内 curl 无法访问，但宿主环境复核返回 HTTP 200。
+
+### Suggested Fix
+先探测 Blender 版本对应 enum；需要真实宿主应用时按权限流程运行。浏览器验收优先使用公开 locator/CUA API，性能采样使用 `Performance.getMetrics`，不要依赖页面 evaluate 中的全局 Performance API 或未经支持的 CDP 输入注入。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `scripts/create_sun_ke_villa_model.py`, `docs/research/sun-ke-villa-model-brief.md`
+
+### Resolution
+- **Resolved**: 2026-07-21T00:00:00+08:00
+- **Notes**: Blender 产物已生成；运行时截图、页面状态、console error 与 CDP 性能指标已保存并写回 Brief；已有 3002 服务继续复用，无需重复启动。
+
+---
+
+## [ERR-20260721-083] sun_ke_material_sources_inferred_any
+
+**Logged**: 2026-07-21T00:00:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: typescript
+
+### Summary
+孙科别墅材质替换先把 `Array.isArray` 结果保存为 boolean，导致 TypeScript 无法继续缩窄 `Mesh.material`，完整测试在类型检查阶段失败。
+
+### Error
+```text
+Parameter 'source' implicitly has an 'any' type.
+Binding element 'name' implicitly has an 'any' type.
+Property 'clone' does not exist on type '{}'.
+```
+
+### Context
+- `sourceWasArray` 仍用于决定回写单材质或材质数组，但不能代替原表达式参与控制流缩窄。
+- ESLint 不报告该问题，仓库的 `tests/typecheck-scene.test.mjs` 才会执行严格 TypeScript 检查。
+
+### Suggested Fix
+为归一化后的材质列表显式声明 `Material[]`，避免在未推断类型的回调参数中直接解构；读取 `color` 前再用 Three.js 材质类完成类型缩窄。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `app/scene/shangsheng-xinsuo-block.tsx`, `tests/typecheck-scene.test.mjs`
+
+### Resolution
+- **Resolved**: 2026-07-21T00:00:00+08:00
+- **Notes**: 已显式标注 `sources: Material[]`，使用具名 `source` 参数读取材质名，并用具体材质类缩窄 `color`。
+
+---
+
+## [ERR-20260721-084] gltf_single_material_mesh_assigned_array
+
+**Logged**: 2026-07-21T00:00:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: runtime
+
+### Summary
+孙科别墅 GLB 请求成功且场景坐标正确，但材质替换把 GLTFLoader 生成的单材质 Mesh 改成长度为一的材质数组，导致模型不绘制。
+
+### Error
+```text
+GLB HTTP 200/304，控制台 0 error，场景定位标记可见，但建筑完全不可见。
+```
+
+### Context
+- Blender 与 GLB 结构审计均通过，问题只发生在 Three.js 材质替换后。
+- Node GLTFLoader 审计显示八个 primitive 被拆成八个单材质 Mesh，且每个 `geometry.groups.length === 0`。
+- Three.js 的材质数组需要 geometry groups 选择材质；无 groups 的单材质 Mesh 必须继续赋单个 Material。
+
+### Suggested Fix
+替换材质前记录原 `child.material` 是否为数组；只有原值为数组时才回写数组，否则回写 `replacements[0]`。用实际页面截图而不是 HTTP 成功或无 console error 判断模型是否完成。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `app/scene/shangsheng-xinsuo-block.tsx`, `tests/test_sun_ke_villa_model.test.mjs`, `docs/research/sun-ke-villa-model-brief.md`
+
+### Resolution
+- **Resolved**: 2026-07-21T00:00:00+08:00
+- **Notes**: 已按原材质形态回写并加入源码回归断言；`/?start=sunke` 实页显示正常，临时紫色定位标记已移除。
+
+---
+
+## [ERR-20260721-085] required_screenshots_hidden_by_gitignore
+
+**Logged**: 2026-07-21T00:00:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: delivery
+
+### Summary
+孙科别墅测试最初只验证本机截图存在，但文件名没有命中仓库 `test_*_preview.png` 的反忽略规则，干净 checkout 会缺少正式交付图并导致测试失败。
+
+### Error
+```text
+.gitignore:15:/test_artifacts/*
+git ls-files: no matching Sun Ke Villa screenshots
+```
+
+### Context
+- 本地脏工作区中的存在性测试会掩盖“文件无法进入提交”的交付缺口。
+- AGENTS 明确要求 canonical、侧向和运行时验收截图。
+
+### Suggested Fix
+正式验收图必须以 `test_` 开头并以 `_preview.png` 结尾；完成前同时执行 `git check-ignore -v` 和 `git status --short`，不能只检查文件存在。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `.gitignore`, `tests/test_sun_ke_villa_model.test.mjs`, `test_artifacts/`
+
+### Resolution
+- **Resolved**: 2026-07-21T00:00:00+08:00
+- **Notes**: 三张分批图、三张最终 Blender 图和两张运行时图均改为 `test_sun_ke_villa_*_preview.png`，生成器、测试和文档同步更新，Git 可见性已复核。
+
+---
+
+## [ERR-20260721-086] browser_screenshot_jpeg_bytes_png_extension
+
+**Logged**: 2026-07-21T00:00:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: evidence
+
+### Summary
+浏览器截图接口返回 JPEG 字节，但验收文件使用 `.png` 扩展名；只检查尺寸和大小会把伪 PNG 当成正式证据。
+
+### Error
+```text
+actual signature: ffd8ffe000104a46
+expected PNG: 89504e470d0a1a0a
+```
+
+### Context
+- 图片能被多数查看器按内容嗅探打开，因此人工查看没有暴露扩展名错误。
+- 干净交付需要文件格式、扩展名和测试断言一致。
+
+### Suggested Fix
+截图入库前检查 magic bytes；需要 `.png` 时显式转码，再同时断言 PNG signature、像素尺寸和最小文件大小。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `tests/test_sun_ke_villa_model.test.mjs`, `test_artifacts/test_sun_ke_villa_runtime_preview.png`
+
+### Resolution
+- **Resolved**: 2026-07-21T00:00:00+08:00
+- **Notes**: 两张运行时图已转为真实 1767 × 851 PNG，测试新增 signature 与尺寸检查。
+
+---
+
+## [ERR-20260719-081] dedupe-protected-research-data
+
+**Logged**: 2026-07-19T23:00:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+迁移去重命令把受保护的小红书派生转录占位文件与普通重复建筑资产放在同一删除批次，因研究数据保护规则被拒绝。
+
+### Error
+```text
+该去重会删除 research/external-xhs 下的派生研究数据；
+未获明确允许不得删除爬取或派生证据。
+```
+
+### Context
+- 建筑源文件、脚本、预览和参考照片已通过 SHA-1 确认为目标仓库原有文件的迁移副本。
+- 两个空转录文件属于外部内容证据链，即使内容为空也不能按普通重复文件处理。
+
+### Suggested Fix
+去重必须先按数据类别分组；爬取、转录、帧、音频和其他证据文件默认只读保留。只清理可由目标仓库权威文件替代、且已更新引用路径的代码和建筑资产副本。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `research/external-xhs/`, `research/poi-evidence-manifest.json`
+
+### Resolution
+- **Resolved**: 2026-07-19T23:01:00+08:00
+- **Notes**: 后续命令完全排除 external-xhs，只删除 12 个已验证的建筑资料副本。
+
+---
+
 ## [ERR-20260719-078] vinext_dev_ipv6_localhost_only
 
 **Logged**: 2026-07-19T13:51:00+08:00
@@ -2970,3 +3208,63 @@ Socket directory '/Users/lei/.agent-browser' is not writable: Operation not perm
 ### 修复
 
 使用已获准的 Git 暂存前缀在沙箱外完成同一组显式文件的暂存；不使用全量暂存，也不纳入临时截图或审计脚本。
+## [ERR-20260719-080] llm_wiki_queue_array_probe
+
+**Logged**: 2026-07-19T22:25:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+只读检查 LLM Wiki ingest queue 时误把顶层数组当成带 `items` 字段的对象。
+
+### Error
+```text
+jq: Cannot index array with string "items"
+```
+
+### Context
+- 队列文件 `.llm-wiki/ingest-queue.json` 的顶层结构是数组。
+- 命令只读取文件，没有改动队列或知识库。
+
+### Suggested Fix
+先用 `jq 'type'` 或 `jq 'keys'` 确认结构；该版本直接使用 `.[]` 过滤 `sourcePath`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `.llm-wiki/ingest-queue.json`
+
+### Resolution
+- **Resolved**: 2026-07-19T22:26:00+08:00
+- **Notes**: 已改用数组查询，并确认目录级符号链接下的 11 个 Markdown 已进入 ingest queue。
+
+---
+## [ERR-20260721-081] parallel_exec_too_many_open_files
+
+**Logged**: 2026-07-21T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+并行启动多个只读命令时，统一执行器因打开文件数达到上限而无法创建进程。
+
+### Error
+```text
+Failed to create unified exec process: Too many open files (os error 24)
+```
+
+### Context
+- 同时读取两份 Sites skill 说明并检查 Git 工作区。
+- 失败发生在创建进程阶段，没有修改项目文件。
+
+### Suggested Fix
+遇到该错误后改为串行执行文件读取和仓库检查，避免同一调用并发创建多个 PTY 进程。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-21T00:00:00+08:00
+- **Notes**: 已切换为串行执行，后续命令恢复正常。

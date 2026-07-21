@@ -34,7 +34,16 @@ const assetSlugs = [
 ];
 
 const landmarkDetailThresholds = {
-  "shanghai-cinema": { bytes: 2_500_000, triangles: 38_000, materials: 12 },
+  "shanghai-cinema": {
+    bytes: 2_500_000,
+    triangles: 38_000,
+    materials: 12,
+    maxBytes: 5_500_000,
+    maxTriangles: 80_000,
+    maxNodes: 8,
+    maxMaterials: 14,
+    maxImages: 0,
+  },
   "film-art-center": { bytes: 950_000, triangles: 14_500, materials: 11 },
   "one-step-garden": { bytes: 1_150_000, triangles: 18_000, materials: 13 },
   "xinhua-villas-211": { bytes: 4_000_000, triangles: 60_000, materials: 13 },
@@ -251,6 +260,13 @@ test("9 个地标达到海军俱乐部级的结构细节下限，而不是简单
     assert.ok(glb.length >= threshold.bytes, `${slug} 的 GLB 体量低于照片细化基线`);
     assert.ok(countTriangles(data) >= threshold.triangles, `${slug} 的有效三角面不足以保留近景构件`);
     assert.ok((data.materials?.length ?? 0) >= threshold.materials, `${slug} 的材质分层不足`);
+    if (threshold.maxBytes !== undefined) {
+      assert.ok(glb.length <= threshold.maxBytes, `${slug} 的 GLB 超出运行时文件预算`);
+      assert.ok(countTriangles(data) <= threshold.maxTriangles, `${slug} 的三角面超出运行时预算`);
+      assert.ok((data.nodes?.length ?? 0) <= threshold.maxNodes, `${slug} 的节点数超出运行时预算`);
+      assert.ok((data.materials?.length ?? 0) <= threshold.maxMaterials, `${slug} 的材质数超出运行时预算`);
+      assert.ok((data.images?.length ?? 0) <= threshold.maxImages, `${slug} 不得嵌入参考照片`);
+    }
   }
 });
 
@@ -313,6 +329,19 @@ test("地图与房屋使用既定统一比例，退界修复只能调整位置",
     assert.ok(landmark, `缺少比例锁定地标：${id}`);
     assert.equal(landmark.scale, expectedScale, `${id} 不得通过缩放解决道路退界`);
   }
+
+  const cinema = landmarkData.landmarks.find(({ id }) => id === "shanghai-cinema");
+  assert.equal(cinema.scale, 1, "上海影城应保持经 OSM 包络校准的 1:1 场景比例");
+  assert.equal(cinema.cameraTargetHeight, 2.8, "上海影城入口镜头应抬高目标点，完整展示主丝带与后塔楼");
+  assert.equal(cinema.localObstacles.length, 3, "上海影城碰撞应贴合弧形主体，不能用单一大盒封住入口广场");
+  assert.ok(Math.max(...cinema.localObstacles.map(({ maxZ }) => maxZ)) <= 6.2, "上海影城台阶和正门接近区必须保持开放");
+  assert.match(sceneSource, /start, forward, cameraTargetHeight/);
+  assert.match(worldSource, /initialStart\.cameraTargetHeight \?\? CAMERA_TARGET_HEIGHT/);
+  assert.equal(
+    worldSource.match(/scaledSurfaceHeight \+ cameraTargetHeight/g)?.length,
+    3,
+    "上海影城专属相机目标高度必须覆盖初始化、逐帧和兜底分支",
+  );
 });
 
 test("梧桐树按 3 个模型变体沿新华路双侧交错排列，并为地标入口留空", () => {

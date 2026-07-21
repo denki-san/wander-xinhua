@@ -1,0 +1,55 @@
+{
+  "asset": "shanghai-cinema",
+  "subject": "上海影城（上海电影艺术中心）",
+  "address": "上海市长宁区新华路160号",
+  "retrievedAt": "2026-07-21",
+  "usageBoundary": "仅作为建筑轮廓、比例、构件和材质研究证据；不嵌入 GLB，不作为运行时贴图，不复制 SHO 品牌图形。",
+  "canonicalComparisonView": {
+    "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-front-official.jpg",
+    "sourceUrl": "https://www.meet-in-shanghai.net/en/news/renovated-cinema-to-reopen-in-time-for-siff-203526/",
+    "sourceImageUrl": "https://obj.shine.cn/files/2023/05/30/127fb601-5627-42cd-b001-d152b8f3c982_0.jpg",
+    "view": "front-left-three-quarter",
+    "publishDate": "2023-06-01",
+    "reason": "完整显示主白色丝带、右侧椭圆开洞、内退玻璃大厅、左侧玻璃鼓体、右侧旋转楼梯和后部塔楼。"
+  },
+  "referencePhotos": [
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-front-official.jpg",
+      "sha256": "194e5b4c8408ef5a3cd777be60e72d7b4a1d2768e60c8c80cacba1643d3cf297",
+      "sourceUrl": "https://www.meet-in-shanghai.net/en/news/renovated-cinema-to-reopen-in-time-for-siff-203526/",
+      "sourceImageUrl": "https://obj.shine.cn/files/2023/05/30/127fb601-5627-42cd-b001-d152b8f3c982_0.jpg",
+      "view": "front-left-three-quarter",
+      "publishDate": "2023-06-01"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-spiral-stair-official.jpg",
+      "sha256": "62cc201bc49e4f743deb634e13d9dbf3317eaf96a1d2b99eb4514c697de5169a",
+      "sourceUrl": "https://www.meet-in-shanghai.net/en/news/renovated-cinema-to-reopen-in-time-for-siff-203526/",
+      "sourceImageUrl": "https://obj.shine.cn/files/2023/05/30/32a71824-7c0d-49d2-856b-a0edba2a8bb2_0.jpg",
+      "view": "right-front-stair-detail",
+      "publishDate": "2023-06-01"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-lobby-official.jpg",
+      "sha256": "89eb4215fdeb5953d5d30ed614240a20e845d82a9c2007b0e1e5ead85c32deb5",
+      "sourceUrl": "https://www.meet-in-shanghai.net/en/news/renovated-cinema-to-reopen-in-time-for-siff-203526/",
+      "view": "interior-lobby",
+      "publishDate": "2023-06-01",
+      "usage": "仅用于判断首层大厅的暖光与通透度，不用于外形比例。"
+    },
+    {
+      "path": "docs/research/assets/landmark-comparison/shanghai-cinema-real.jpg",
+      "sourceUrl": "https://www.thepaper.cn/newsDetail_forward_23253561",
+      "view": "front-left-three-quarter-with-street-context",
+      "publishDate": "2023-05-30"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-renovation-official.jpeg",
+      "sha256": "5421be1b94fae2cdccd1910c31758953350a683933afee1e01cb6670a39d5bd6",
+      "sourceUrl": "https://cn.chinadaily.com.cn/a/202306/09/WS6482a84ca310dbde06d229ec.html",
+      "sourceImageUrl": "https://img3.chinadaily.com.cn/images/202306/09/6482a84ba310dbde2d5b6b91.jpeg",
+      "view": "front-close-up",
+      "publishDate": "2023-06-09"
+    }
+  ]
+}

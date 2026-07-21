@@ -1,0 +1,56 @@
+{
+  "subject": "Platanus × hispanica hero street tree",
+  "botanicalSource": {
+    "url": "https://powo.science.kew.org/taxon/685854-1",
+    "publisher": "Royal Botanic Gardens, Kew",
+    "use": "taxonomy and hybrid identity"
+  },
+  "references": [
+    {
+      "id": "canonical",
+      "localPath": "research/references/plane-tree/plane-tree-canonical.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Platanus_x_acerifolia.jpg",
+      "author": "Sordelli",
+      "license": "CC BY-SA 4.0",
+      "captureDate": "2019-05-02",
+      "viewDirection": "near-frontal full-tree portrait",
+      "use": "silhouette, taper, height-to-crown relationship"
+    },
+    {
+      "id": "avenue",
+      "localPath": "research/references/plane-tree/plane-tree-avenue.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Platanus_acerifolia_trees_(1).jpg",
+      "author": "Fanghong",
+      "license": "CC BY 2.5 / GFDL",
+      "captureDate": "2005-05-09",
+      "viewDirection": "street-level avenue",
+      "use": "raised street crowns, spacing, interlocking canopy and branch visibility"
+    },
+    {
+      "id": "bark",
+      "localPath": "research/references/plane-tree/plane-tree-bark.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Plane_tree_bark_pattern.jpg",
+      "author": "Ian Alexander",
+      "license": "Creative Commons license listed on the source page",
+      "captureDate": "2000",
+      "viewDirection": "close-up",
+      "use": "exfoliating bark patch shape and palette"
+    },
+    {
+      "id": "style-target",
+      "localPath": "research/references/plane-tree/style-target.png",
+      "sourceUrl": "user-provided image",
+      "author": "user-provided",
+      "license": "user-provided reference",
+      "captureDate": null,
+      "viewDirection": "marketing-art three-quarter view",
+      "use": "stylization target only; not factual geometry evidence"
+    }
+  ],
+  "canonicalComparison": "canonical",
+  "inferences": [
+    "The hero asset uses a broader, street-pruned crown than the canonical park specimen.",
+    "Branch layout is original and deterministic rather than copied from one photographed tree.",
+    "The model is a reusable Xinhua-road plane-tree archetype, not an exact surveyed individual."
+  ]
+}

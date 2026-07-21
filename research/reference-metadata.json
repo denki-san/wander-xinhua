@@ -1,0 +1,82 @@
+{
+  "policy": {
+    "runtimeUse": false,
+    "copyright": "公开照片只保存在研究目录，用于人工建模、特征核验与固定机位对照；不嵌入 GLB，不作为网页运行时素材。",
+    "scaleBoundary": "所有未由现场尺度物或可靠尺寸来源支持的数值均标为体块参数或推断，不宣称测绘精度。"
+  },
+  "subjects": [
+    {
+      "id": "house-315",
+      "subject": "新华路315号住宅",
+      "address": "上海市长宁区新华路315号",
+      "canonicalReference": "HOUSE-REF-A",
+      "canonicalViewDirection": "front-gable",
+      "placementEvidence": "address-and-road-setback",
+      "positionConfidence": "B-",
+      "references": [
+        {
+          "id": "HOUSE-REF-A",
+          "localPath": "docs/research/assets/landmark-comparison/house-315-real.jpg",
+          "sourceUrl": "https://www.jfdaily.com/sgh/detail?id=1697461",
+          "sourceName": "上观新闻",
+          "view": "front-gable",
+          "captureDate": "unknown",
+          "sha256": "78581fafb11ff48f917f186c67370cc6b03d624e208776638f314d885c9da883",
+          "runtimeUse": false
+        }
+      ]
+    },
+    {
+      "id": "shanghai-cinema",
+      "subject": "上海影城",
+      "address": "上海市长宁区新华路160号",
+      "canonicalReference": "CINEMA-REF-A",
+      "canonicalViewDirection": "left-front-three-quarter",
+      "placementEvidence": "osm-way-292250766",
+      "positionConfidence": "A-",
+      "references": [
+        {
+          "id": "CINEMA-REF-A",
+          "localPath": "docs/research/assets/landmark-comparison/shanghai-cinema-real.jpg",
+          "sourceUrl": "https://www.thepaper.cn/newsDetail_forward_23253561",
+          "sourceName": "澎湃新闻",
+          "view": "left-front-three-quarter",
+          "captureDate": "unknown",
+          "sha256": "295cf8c4acc246cf8766eb021a5cecfb4047136669f08660c4655d5b3bd6129a",
+          "runtimeUse": false
+        }
+      ]
+    },
+    {
+      "id": "hudec-memorial",
+      "subject": "邬达克纪念馆",
+      "address": "上海市长宁区番禺路129号",
+      "canonicalReference": "HUDEC-REF-A",
+      "canonicalViewDirection": "front-right-three-quarter",
+      "placementEvidence": "osm-way-494633921",
+      "positionConfidence": "A",
+      "references": [
+        {
+          "id": "HUDEC-REF-A",
+          "localPath": "docs/research/assets/requested-poi-references/hudec-memorial-front-wikimedia.jpg",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hudec_House.jpeg",
+          "sourceName": "Wikimedia Commons",
+          "view": "front-right-three-quarter",
+          "captureDate": "2018-06-09",
+          "sha256": "d2284eaec967e7414ad5873d2c63795b051b112a30dd9f39f3f7641a690a8f86",
+          "runtimeUse": false
+        },
+        {
+          "id": "HUDEC-REF-B",
+          "localPath": "docs/research/assets/requested-poi-references/hudec-memorial-west-elevations.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col6991/20260405/1307940.html",
+          "sourceName": "上海长宁",
+          "view": "west-elevations",
+          "captureDate": "unknown",
+          "sha256": "a23e28ef2cd1b985b5217654cca797b20f83048945d4fe57e9abac4fd8bf6a4b",
+          "runtimeUse": false
+        }
+      ]
+    }
+  ]
+}

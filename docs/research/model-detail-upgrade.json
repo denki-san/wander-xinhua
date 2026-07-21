@@ -75,10 +75,13 @@
       "one-step-garden": { "trianglesBefore": 22092, "trianglesAfter": 31900, "gate": "window+door+railing" },
       "shanghai-cinema": {
         "trianglesBefore": 45056,
-        "trianglesAfter": 68992,
+        "trianglesAfter": 77964,
         "visibleDetailPartsBefore": 293,
-        "visibleDetailPartsAfter": 603,
-        "partsRatio": 2.058
+        "visibleDetailPartsAfter": 792,
+        "partsRatio": 2.703,
+        "glbBytes": 5412320,
+        "sha256": "f16ec7dfe499cf1de18a6f54754240d36a88deed94df6c92fb0c9cfb34ae6b61",
+        "gate": "photo-specific-ribbon+oculus+spiral-stair+glass-drum+tower"
       },
       "shanghai-orchestra": { "trianglesBefore": 20244, "trianglesAfter": 37276, "gate": "window+door" },
       "villa-le-bec": { "trianglesBefore": 23016, "trianglesAfter": 41156, "gate": "window+door+railing" },

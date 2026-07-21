@@ -7,16 +7,19 @@
       "name": "上海影城",
       "address": "新华路160号",
       "model": "/models/xinhua-road/shanghai-cinema.glb",
-      "cacheVersion": "20260718-detail-1",
+      "cacheVersion": "20260721-cinema-4",
       "position": [74.1, 80.9],
       "yaw": 2.761592653589793,
       "scale": 1,
       "localBounds": { "minX": -19, "maxX": 19, "minZ": -11.8, "maxZ": 14.2 },
       "localObstacles": [
-        { "minX": -15.5, "maxX": 15.5, "minZ": -8.5, "maxZ": 8.5 }
+        { "minX": -10.5, "maxX": 10.5, "minZ": -7.3, "maxZ": 6.2 },
+        { "minX": -14.4, "maxX": -10.5, "minZ": -5.0, "maxZ": 4.5 },
+        { "minX": 10.5, "maxX": 14.4, "minZ": -5.0, "maxZ": 4.5 }
       ],
-      "start": [75.5, 106.2],
-      "forward": [-0.08, -1]
+      "start": [55, 104],
+      "forward": [0.637, -0.771],
+      "cameraTargetHeight": 2.8
     },
     {
       "id": "film-art-center",

@@ -1,7 +1,7 @@
 "use client";
 
 import { Html, RoundedBox, useGLTF } from "@react-three/drei";
-import { Suspense, useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import { Component, Suspense, useEffect, useLayoutEffect, useMemo, useRef, type ReactNode } from "react";
 import {
   DoubleSide,
   ExtrudeGeometry,
@@ -13,6 +13,7 @@ import {
   Object3D,
   Shape,
   ShapeGeometry,
+  type Material,
 } from "three";
 import landmarks from "./xinhua-landmarks-data.json";
 import {
@@ -211,7 +212,7 @@ function CountryClub({ building }: { building: Building }) {
   );
 }
 
-function SunKeVilla({ building }: { building: Building }) {
+function SunKeVillaFallback({ building }: { building: Building }) {
   const height = 7.45;
   const frontZ = building.depth / 2 + 0.12;
   return (
@@ -252,6 +253,93 @@ function SunKeVilla({ building }: { building: Building }) {
           </mesh>
         );
       })}
+    </group>
+  );
+}
+
+class SunKeVillaErrorBoundary extends Component<
+  { building: Building; children: ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  render() {
+    if (this.state.failed) return <SunKeVillaFallback building={this.props.building} />;
+    return this.props.children;
+  }
+}
+
+function SunKeVilla({ building }: { building: Building }) {
+  const { scene } = useGLTF("/models/shangsheng/sun-ke-villa.glb");
+  const model = useMemo(() => {
+    const clone = scene.clone(true);
+    const materialCache = new Map<string, MeshToonMaterial | MeshStandardMaterial>();
+    clone.traverse((child) => {
+      if (!(child instanceof Mesh)) return;
+      const sourceWasArray = Array.isArray(child.material);
+      const sources: Material[] = Array.isArray(child.material) ? child.material : [child.material];
+      const replacements = sources.map((source) => {
+        const materialName = source?.name ?? "SunKe_StuccoWarm";
+        let material = materialCache.get(materialName);
+        if (!material) {
+          const sourceColor = source instanceof MeshStandardMaterial
+            || source instanceof MeshToonMaterial
+            || source instanceof MeshBasicMaterial
+            ? source.color.clone()
+            : undefined;
+          if (materialName === "SunKe_DeepTealGlass") {
+            material = new MeshStandardMaterial({
+              color: sourceColor ?? "#334847",
+              transparent: true,
+              opacity: 0.82,
+              roughness: 0.24,
+              metalness: 0,
+              depthWrite: false,
+            });
+          } else {
+            material = new MeshToonMaterial({ color: sourceColor ?? "#b7a48d" });
+          }
+          material.name = materialName;
+          materialCache.set(materialName, material);
+        }
+        return material;
+      });
+      // GLTFLoader 会把无 geometry groups 的 glTF primitives 拆成单材质 Mesh；
+      // 此时必须继续赋单个 Material，否则长度为 1 的材质数组不会被渲染。
+      child.material = sourceWasArray ? replacements : replacements[0];
+      child.castShadow = !sources.every((source) => source.name === "SunKe_DeepTealGlass");
+      child.receiveShadow = true;
+    });
+    return clone;
+  }, [scene]);
+
+  useEffect(() => () => {
+    const materials = new Set<MeshToonMaterial | MeshStandardMaterial>();
+    model.traverse((child) => {
+      if (!(child instanceof Mesh)) return;
+      const childMaterials = Array.isArray(child.material) ? child.material : [child.material];
+      for (const material of childMaterials) {
+        if (material instanceof MeshToonMaterial || material instanceof MeshStandardMaterial) {
+          materials.add(material);
+        }
+      }
+    });
+    materials.forEach((material) => material.dispose());
+  }, [model]);
+
+  return (
+    <group
+      name="shangsheng-sun-ke-villa"
+      position={[building.position[0], 0.1, building.position[1]]}
+      rotation-y={building.rotationY}
+      userData={{ building: "sun-ke-villa", osmWayId: building.id, referenceView: "garden-front" }}
+    >
+      {/* Blender 本地 -Y 正面经 glTF Y-up 转换后朝 Three.js +Z，与既有场地正面一致。 */}
+      <primitive object={model} />
     </group>
   );
 }
@@ -445,7 +533,15 @@ function CampusBuildings() {
   return (
     <group>
       {SITE.buildings.map((building) => {
-        if (building.feature === "sun-ke-villa") return <SunKeVilla key={building.id} building={building} />;
+        if (building.feature === "sun-ke-villa") {
+          return (
+            <SunKeVillaErrorBoundary key={building.id} building={building}>
+              <Suspense fallback={<SunKeVillaFallback building={building} />}>
+                <SunKeVilla building={building} />
+              </Suspense>
+            </SunKeVillaErrorBoundary>
+          );
+        }
         if (building.feature === "country-club") return <CountryClub key={building.id} building={building} />;
         if (building.feature === "navy-club") {
           return (

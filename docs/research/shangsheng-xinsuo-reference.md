@@ -46,3 +46,16 @@
 - 坐标与场地轮廓继续来自 OSM way `765939973`；碰撞体只覆盖墙体和实体柱，不覆盖雨棚挑檐、树冠、泳池水面与装饰灯。
 
 参考照片只用于人工判断结构、颜色与空间关系；本地留档不作为运行时贴图，也不复制品牌标识。
+
+## 孙科别墅独立资产（2026-07-21）
+
+- 参考照片与来源清单：`docs/research/sun-ke-villa-reference-manifest.json`
+- 模型 Brief 与验收日志：`docs/research/sun-ke-villa-model-brief.md`
+- 确定性生成器：`scripts/create_sun_ke_villa_model.py`
+- 可编辑源：`assets/models/source/sun-ke-villa.blend`
+- 运行时资产：`public/models/shangsheng/sun-ke-villa.glb`
+- Blender 验收图：`test_artifacts/test_sun_ke_villa_canonical_preview.png`、`test_artifacts/test_sun_ke_villa_right_front_preview.png`、`test_artifacts/test_sun_ke_villa_north_entrance_preview.png`
+- Blender 分批质量门：`test_artifacts/test_sun_ke_villa_batch_01_massing_preview.png`、`test_artifacts/test_sun_ke_villa_batch_02_identity_materials_preview.png`、`test_artifacts/test_sun_ke_villa_batch_03_site_preview.png`
+- Three.js 验收图：`test_artifacts/test_sun_ke_villa_runtime_preview.png`、`test_artifacts/test_sun_ke_villa_runtime_overview_preview.png`
+
+该资产使用独立官方照片证据，不再只依赖园区级三张照片。运行时保留原程序化建筑作为延迟加载和加载失败 fallback，并继续沿用 OSM way `864847877` 的落点、朝向和碰撞范围。

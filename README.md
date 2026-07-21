@@ -45,6 +45,21 @@ npm start
 npm test
 ```
 
+## AI 辅助建模工作流
+
+真实 POI、建筑、角色和重要环境资产必须遵循
+[Codex × Blender × Three.js 资产工作流](docs/research/blender-ai-workflow.md)。
+
+新资产开始前，复制
+[Blender Model Brief 模板](docs/research/templates/blender-model-brief-template.md)，
+完成本地参考图、canonical comparison view、质量合同、分批计划和三层验收定义。
+仓库级硬门槛见 [`AGENTS.md`](AGENTS.md)。
+
+内容采集、视频拉片、专题调研和 LLM Wiki 学习统一执行
+[内容研究到知识库工作流](docs/research/content-research-wiki-workflow.md)。
+可复用的 Blender、Three.js 与建模方法位于
+[Blender Three.js Modeling Playbook](docs/knowledge-sources/blender-threejs-modeling-playbook.md)。
+
 ## 部署
 
 本地构建产物、`xinhua.denkisan.me` 的 Nginx 静态入口、HTTPS 和回滚方式见

@@ -26,6 +26,7 @@ type LandmarkPlacement = {
   localObstacles?: MapObstacle[];
   start: MapPolygonPoint;
   forward: MapPolygonPoint;
+  cameraTargetHeight?: number;
   poi?: boolean;
   labelHeight?: number;
   labelOffset?: MapPolygonPoint;
@@ -78,10 +79,10 @@ const XINHUA_ROAD_MODEL_FOOTPRINTS: MapObstacle[] = XINHUA_ROAD_LANDMARKS.map(
 // 这样人物贴近门面转动视角时，镜头可以短暂穿过建筑，而不会被锁在门前。
 export const XINHUA_ROAD_CAMERA_OBSTACLES = XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES as MapObstacle[];
 export const XINHUA_ROAD_START_PRESETS = Object.fromEntries(
-  XINHUA_ROAD_LANDMARKS.flatMap(({ query, aliases = [], start, forward }) => (
-    [query, ...aliases].map((preset) => [preset, { position: start, forward }])
+  XINHUA_ROAD_LANDMARKS.flatMap(({ query, aliases = [], start, forward, cameraTargetHeight }) => (
+    [query, ...aliases].map((preset) => [preset, { position: start, forward, cameraTargetHeight }])
   )),
-) as Record<string, { position: MapPolygonPoint; forward: MapPolygonPoint }>;
+) as Record<string, { position: MapPolygonPoint; forward: MapPolygonPoint; cameraTargetHeight?: number }>;
 
 type TreePlacement = {
   id: string;
