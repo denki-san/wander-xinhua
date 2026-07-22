@@ -1,0 +1,373 @@
+{
+  "generatedAt": "2026-07-22T16:13:00.335Z",
+  "browser": {
+    "Browser": "Chrome/150.0.7871.129",
+    "Protocol-Version": "1.3",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/150.0.0.0 Safari/537.36",
+    "V8-Version": "15.0.1240245",
+    "WebKit-Version": "537.36 (@e69b30bba288603e514cffb4c79c359cac68e923)",
+    "webSocketDebuggerUrl": "ws://127.0.0.1:9223/devtools/browser/e8579be2-7cd8-4c5c-bccb-a40b09d5360d"
+  },
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "deviceScaleFactor": 1,
+      "mobile": false
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "deviceScaleFactor": 1,
+      "mobile": true
+    }
+  },
+  "results": [
+    {
+      "id": "full-glb-near",
+      "url": "http://localhost:3013/hybrid-model-test?mode=baseline&distance=near",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "network": {
+        "latencyMs": 80,
+        "downloadMbps": 5,
+        "uploadMbps": 2,
+        "cacheDisabled": true
+      },
+      "wallMs": 30779,
+      "metrics": {
+        "mode": "baseline",
+        "distancePreset": "near",
+        "tier": "detail",
+        "ready": true,
+        "readyMs": 9154,
+        "sampleMs": 2994,
+        "fps": 7.1,
+        "p95FrameMs": 149.3,
+        "drawCalls": 15,
+        "triangles": 94164,
+        "geometries": 13,
+        "textures": 1,
+        "glbRequests": [
+          {
+            "file": "shanghai-cinema.glb",
+            "durationMs": 9046.4,
+            "transferBytes": 5862960,
+            "decodedBytes": 5862660
+          }
+        ]
+      },
+      "glbResponses": [
+        {
+          "file": "shanghai-cinema.glb",
+          "status": 200,
+          "mimeType": "model/gltf-binary",
+          "encodedBytes": 5862939
+        }
+      ],
+      "consoleErrors": [
+        {
+          "type": "warning",
+          "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+        }
+      ],
+      "pageErrors": [],
+      "performance": {
+        "Nodes": 76,
+        "LayoutCount": 20,
+        "RecalcStyleCount": 4,
+        "JSHeapUsedSize": 15400964
+      }
+    },
+    {
+      "id": "hybrid-far",
+      "url": "http://localhost:3013/hybrid-model-test?mode=hybrid&distance=far",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "network": {
+        "latencyMs": 80,
+        "downloadMbps": 5,
+        "uploadMbps": 2,
+        "cacheDisabled": true
+      },
+      "wallMs": 23165,
+      "metrics": {
+        "mode": "hybrid",
+        "distancePreset": "far",
+        "tier": "massing",
+        "ready": true,
+        "readyMs": 91,
+        "sampleMs": 4621,
+        "fps": 38,
+        "p95FrameMs": 30.2,
+        "drawCalls": 5,
+        "triangles": 620,
+        "geometries": 4,
+        "textures": 1,
+        "glbRequests": []
+      },
+      "glbResponses": [],
+      "consoleErrors": [
+        {
+          "type": "warning",
+          "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+        }
+      ],
+      "pageErrors": [],
+      "performance": {
+        "Nodes": 76,
+        "LayoutCount": 23,
+        "RecalcStyleCount": 4,
+        "JSHeapUsedSize": 13996960
+      }
+    },
+    {
+      "id": "hybrid-medium",
+      "url": "http://localhost:3013/hybrid-model-test?mode=hybrid&distance=medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "network": {
+        "latencyMs": 80,
+        "downloadMbps": 5,
+        "uploadMbps": 2,
+        "cacheDisabled": true
+      },
+      "wallMs": 23589,
+      "metrics": {
+        "mode": "hybrid",
+        "distancePreset": "medium",
+        "tier": "identity",
+        "ready": true,
+        "readyMs": 818,
+        "sampleMs": 4714,
+        "fps": 25.8,
+        "p95FrameMs": 43.9,
+        "drawCalls": 9,
+        "triangles": 8740,
+        "geometries": 7,
+        "textures": 1,
+        "glbRequests": [
+          {
+            "file": "shanghai-cinema-hybrid-identity.glb",
+            "durationMs": 731.4,
+            "transferBytes": 418920,
+            "decodedBytes": 418620
+          }
+        ]
+      },
+      "glbResponses": [
+        {
+          "file": "shanghai-cinema-hybrid-identity.glb",
+          "status": 200,
+          "mimeType": "model/gltf-binary",
+          "encodedBytes": 418897
+        }
+      ],
+      "consoleErrors": [
+        {
+          "type": "warning",
+          "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+        }
+      ],
+      "pageErrors": [],
+      "performance": {
+        "Nodes": 76,
+        "LayoutCount": 24,
+        "RecalcStyleCount": 4,
+        "JSHeapUsedSize": 14558136
+      }
+    },
+    {
+      "id": "hybrid-near",
+      "url": "http://localhost:3013/hybrid-model-test?mode=hybrid&distance=near",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "network": {
+        "latencyMs": 80,
+        "downloadMbps": 5,
+        "uploadMbps": 2,
+        "cacheDisabled": true
+      },
+      "wallMs": 23693,
+      "metrics": {
+        "mode": "hybrid",
+        "distancePreset": "near",
+        "tier": "detail",
+        "ready": true,
+        "readyMs": 824,
+        "sampleMs": 4738,
+        "fps": 17.2,
+        "p95FrameMs": 64.7,
+        "drawCalls": 13,
+        "triangles": 11464,
+        "geometries": 11,
+        "textures": 1,
+        "glbRequests": [
+          {
+            "file": "shanghai-cinema-hybrid-identity.glb",
+            "durationMs": 727.5,
+            "transferBytes": 418920,
+            "decodedBytes": 418620
+          }
+        ]
+      },
+      "glbResponses": [
+        {
+          "file": "shanghai-cinema-hybrid-identity.glb",
+          "status": 200,
+          "mimeType": "model/gltf-binary",
+          "encodedBytes": 418897
+        }
+      ],
+      "consoleErrors": [
+        {
+          "type": "warning",
+          "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+        }
+      ],
+      "pageErrors": [],
+      "performance": {
+        "Nodes": 76,
+        "LayoutCount": 24,
+        "RecalcStyleCount": 4,
+        "JSHeapUsedSize": 16843540
+      }
+    },
+    {
+      "id": "full-glb-near-mobile",
+      "url": "http://localhost:3013/hybrid-model-test?mode=baseline&distance=near",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1,
+        "mobile": true
+      },
+      "network": {
+        "latencyMs": 80,
+        "downloadMbps": 5,
+        "uploadMbps": 2,
+        "cacheDisabled": true
+      },
+      "wallMs": 30306,
+      "metrics": {
+        "mode": "baseline",
+        "distancePreset": "near",
+        "tier": "detail",
+        "ready": true,
+        "readyMs": 9131,
+        "sampleMs": 3151,
+        "fps": 19.4,
+        "p95FrameMs": 54.4,
+        "drawCalls": 14,
+        "triangles": 94056,
+        "geometries": 12,
+        "textures": 1,
+        "glbRequests": [
+          {
+            "file": "shanghai-cinema.glb",
+            "durationMs": 9036.9,
+            "transferBytes": 5862960,
+            "decodedBytes": 5862660
+          }
+        ]
+      },
+      "glbResponses": [
+        {
+          "file": "shanghai-cinema.glb",
+          "status": 200,
+          "mimeType": "model/gltf-binary",
+          "encodedBytes": 5862939
+        }
+      ],
+      "consoleErrors": [
+        {
+          "type": "warning",
+          "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+        }
+      ],
+      "pageErrors": [],
+      "performance": {
+        "Nodes": 76,
+        "LayoutCount": 20,
+        "RecalcStyleCount": 4,
+        "JSHeapUsedSize": 15491568
+      }
+    },
+    {
+      "id": "hybrid-near-mobile",
+      "url": "http://localhost:3013/hybrid-model-test?mode=hybrid&distance=near",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1,
+        "mobile": true
+      },
+      "network": {
+        "latencyMs": 80,
+        "downloadMbps": 5,
+        "uploadMbps": 2,
+        "cacheDisabled": true
+      },
+      "wallMs": 23568,
+      "metrics": {
+        "mode": "hybrid",
+        "distancePreset": "near",
+        "tier": "detail",
+        "ready": true,
+        "readyMs": 814,
+        "sampleMs": 4552,
+        "fps": 44.6,
+        "p95FrameMs": 25.9,
+        "drawCalls": 13,
+        "triangles": 11464,
+        "geometries": 11,
+        "textures": 1,
+        "glbRequests": [
+          {
+            "file": "shanghai-cinema-hybrid-identity.glb",
+            "durationMs": 731.2,
+            "transferBytes": 418920,
+            "decodedBytes": 418620
+          }
+        ]
+      },
+      "glbResponses": [
+        {
+          "file": "shanghai-cinema-hybrid-identity.glb",
+          "status": 200,
+          "mimeType": "model/gltf-binary",
+          "encodedBytes": 418897
+        }
+      ],
+      "consoleErrors": [
+        {
+          "type": "warning",
+          "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+        }
+      ],
+      "pageErrors": [],
+      "performance": {
+        "Nodes": 82,
+        "LayoutCount": 29,
+        "RecalcStyleCount": 13,
+        "JSHeapUsedSize": 17890652
+      }
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "asset": "shanghai-cinema-hybrid-identity",
+  "generatedAt": "2026-07-22T23:45:49+08:00",
+  "role": "experimental-unique-silhouette",
+  "generator": {
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_shanghai_cinema_hybrid_identity.py",
+    "path": "scripts/create_shanghai_cinema_hybrid_identity.py",
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "outputs": {
+    "blend": "assets/models/source/xinhua-road/shanghai-cinema-hybrid-identity.blend",
+    "blendSha256": "d087771e0547df66085c831f6befad1af9dd2b003e097d8af372187ddd2889ef",
+    "glb": "public/models/xinhua-road/shanghai-cinema-hybrid-identity.glb",
+    "glbSha256": "66ea8425313f9024d0b707b87be27549504ec9dddab3a8fdb30961aaf2d48d9c",
+    "cacheVersion": "20260722-hybrid-1"
+  },
+  "baseline": {
+    "glb": "public/models/xinhua-road/shanghai-cinema.glb",
+    "glbSha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+    "bytes": 5862660,
+    "triangles": 83820
+  },
+  "metrics": {
+    "bytes": 418620,
+    "sourceParts": 6,
+    "nodes": 1,
+    "meshes": 1,
+    "triangles": 8064,
+    "materials": 3,
+    "images": 0,
+    "textures": 0,
+    "bounds": {
+      "min": [-15.199999809265137, 3.690000057220459, -7.599999904632568],
+      "max": [15.199999809265137, 11.029999732971191, 6.900000095367432]
+    }
+  },
+  "evidence": {
+    "sourceBrief": "docs/research/shanghai-cinema-model-brief.md",
+    "experimentReport": "docs/research/shanghai-cinema-hybrid-comparison.md",
+    "canonicalPreview": "test_artifacts/test_shanghai-cinema-hybrid-identity_canonical_preview.png",
+    "sidePreview": "test_artifacts/test_shanghai-cinema-hybrid-identity_side_preview.png",
+    "baselineRuntime": "test_artifacts/test_shanghai-cinema_full-glb-near_cdp.png",
+    "hybridRuntime": "test_artifacts/test_shanghai-cinema_hybrid-near_cdp.png",
+    "baselineMobileRuntime": "test_artifacts/test_shanghai-cinema_full-glb-near-mobile_cdp.png",
+    "hybridMobileRuntime": "test_artifacts/test_shanghai-cinema_hybrid-near-mobile_cdp.png",
+    "threeWayComparison": "test_artifacts/test_shanghai-cinema_hybrid_three-way-comparison.png",
+    "runtimeMetrics": "test_artifacts/test_shanghai-cinema_hybrid_metrics.json"
+  },
+  "validation": {
+    "glbAudit": "passed",
+    "forbidImages": "passed",
+    "maxNodes": "passed",
+    "runtimeQa": "passed-with-visual-gap",
+    "productionReplacement": "not-approved"
+  }
+}
