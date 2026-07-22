@@ -20,11 +20,12 @@ import {
   PaperWash,
   WatercolourSky,
 } from "./scene/visual-effects";
-import { mapPoiById } from "./scene/poi-data";
+import { MAP_POIS, mapPoiById } from "./scene/poi-data";
 import { XinhuaWorld } from "./scene/xinhua-world";
 import mapData from "./scene/xinhua-map-data.json";
 
 const TOUCH_STICK_TRAVEL = 42;
+const POI_PHOTO_PREFETCH_INTERVAL_MS = 120;
 const INITIAL_OVERVIEW_POSITION = [
   mapData.landmarks.xingfuli.position[0],
   mapData.landmarks.xingfuli.position[1],
@@ -191,7 +192,7 @@ export function XinhuaExperience() {
   const [lowTier] = useState(detectLowTier);
   const [touchCapable, setTouchCapable] = useState(false);
   const playerPosition = useRef<readonly [number, number]>(INITIAL_OVERVIEW_POSITION);
-  const overviewPhotoPreload = useRef<HTMLImageElement | null>(null);
+  const overviewPhotoRequests = useRef(new Set<string>());
   const [overviewStartPosition, setOverviewStartPosition] = useState<readonly [number, number]>(
     INITIAL_OVERVIEW_POSITION,
   );
@@ -209,19 +210,28 @@ export function XinhuaExperience() {
     return () => window.cancelAnimationFrame(frame);
   }, []);
 
-  useEffect(() => {
-    const firstOverviewPhoto = mapPoiById("xingfuli")?.photo.src;
-    if (!firstOverviewPhoto) return;
+  const prefetchOverviewPhoto = useCallback((src: string, priority: "high" | "low") => {
+    if (overviewPhotoRequests.current.has(src)) return;
+    overviewPhotoRequests.current.add(src);
     const preview = new Image();
-    preview.fetchPriority = "high";
-    preview.decoding = "sync";
-    preview.src = firstOverviewPhoto;
-    overviewPhotoPreload.current = preview;
+    preview.fetchPriority = priority;
+    preview.decoding = "async";
+    preview.src = src;
     void preview.decode().catch(() => undefined);
-    return () => {
-      overviewPhotoPreload.current = null;
-    };
   }, []);
+
+  useEffect(() => {
+    if (!overview) return;
+    const [playerX, playerZ] = playerPosition.current;
+    const photosByDistance = [...MAP_POIS].sort((left, right) => (
+      Math.hypot(left.position[0] - playerX, left.position[1] - playerZ)
+      - Math.hypot(right.position[0] - playerX, right.position[1] - playerZ)
+    ));
+    const timers = photosByDistance.map((poi, index) => window.setTimeout(() => {
+      prefetchOverviewPhoto(poi.photo.src, index < 2 ? "high" : "low");
+    }, index * POI_PHOTO_PREFETCH_INTERVAL_MS));
+    return () => timers.forEach((timer) => window.clearTimeout(timer));
+  }, [overview, prefetchOverviewPhoto]);
 
   useEffect(() => {
     if (ready) return;
@@ -401,7 +411,7 @@ export function XinhuaExperience() {
               key={nearPoi.photo.src}
               src={nearPoi.photo.src}
               alt={`${nearPoi.name}实景`}
-              decoding="sync"
+              decoding="async"
               loading="eager"
               fetchPriority="high"
               referrerPolicy="no-referrer"

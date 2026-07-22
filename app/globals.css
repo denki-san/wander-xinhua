@@ -398,11 +398,11 @@ button {
 .overview-poi-card {
   position: absolute;
   z-index: 24;
-  bottom: 70px;
+  top: 88px;
   left: 50%;
   display: grid;
   grid-template-columns: minmax(190px, 0.92fr) minmax(0, 1.28fr);
-  width: min(700px, calc(100vw - 32px));
+  width: min(700px, calc(100vw - 176px));
   min-height: 244px;
   overflow: hidden;
   border: 3px solid #2d4641;
@@ -871,9 +871,13 @@ kbd {
   }
 
   .overview-poi-card {
-    bottom: 104px;
+    top: calc(env(safe-area-inset-top, 0px) + 68px);
+    right: 72px;
+    left: 15px;
     grid-template-columns: minmax(112px, 0.72fr) minmax(0, 1.28fr);
+    width: auto;
     min-height: 218px;
+    transform: rotate(-0.35deg);
   }
 
   .overview-poi-photo img {
