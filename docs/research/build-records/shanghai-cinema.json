@@ -1,0 +1,40 @@
+{
+  "asset": "shanghai-cinema",
+  "generatedAt": "2026-07-21T17:16:00+08:00",
+  "generator": {
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xinhua_road_models.py -- --asset=shanghai-cinema",
+    "path": "scripts/create_xinhua_road_models.py",
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "outputs": {
+    "blend": "assets/models/source/xinhua-road/shanghai-cinema.blend",
+    "glb": "public/models/xinhua-road/shanghai-cinema.glb",
+    "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+    "cacheVersion": "20260721-cinema-7"
+  },
+  "metrics": {
+    "bytes": 5862660,
+    "nodes": 1,
+    "meshes": 1,
+    "triangles": 83820,
+    "materials": 13,
+    "images": 0,
+    "textures": 0,
+    "bounds": {
+      "min": [-19, -0.06000000983476639, -11.800000190734863],
+      "max": [19, 17.225000381469727, 14.199999809265137]
+    }
+  },
+  "evidence": {
+    "brief": "docs/research/shanghai-cinema-model-brief.md",
+    "comparison": "test_artifacts/test_shanghai-cinema_three-way-comparison.png",
+    "runtimeScreenshot": "test_artifacts/test_shanghai-cinema_runtime_preview.png"
+  },
+  "validation": {
+    "grayboxRuntimeGate": "passed",
+    "glbAudit": "passed",
+    "automatedTests": "passed",
+    "runtimeQa": "passed",
+    "independentReview": "passed"
+  }
+}

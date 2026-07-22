@@ -50,6 +50,151 @@
       "sourceImageUrl": "https://img3.chinadaily.com.cn/images/202306/09/6482a84ba310dbde2d5b6b91.jpeg",
       "view": "front-close-up",
       "publishDate": "2023-06-09"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-government-front-wide-2023.jpg",
+      "sha256": "177cf13e48274ea79ba92e24b8ce7fe7c44ffa32cde776dd0f9d9a15299b7eb9",
+      "sourceUrl": "https://www.shcn.gov.cn/col314/20230531/1237444.html",
+      "sourceImageUrl": "https://cn.storage.shmedia.tech/7c2777c2816c4ea6a36ffd8bf748216a.jpg",
+      "view": "front-wide",
+      "kind": "built-photo",
+      "publishDate": "2023-05-31",
+      "selected": true,
+      "evidenceUse": "核对主丝带、开洞、左鼓体、右楼梯、后部高层与广场的整体比例。"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-government-front-right-stair-2023.jpg",
+      "sha256": "9d97f6268fb64e906ee53915ecf052c427d83f543bf0072545cd733a1b2d3a19",
+      "sourceUrl": "https://www.shcn.gov.cn/col314/20230531/1237444.html",
+      "sourceImageUrl": "https://cn.storage.shmedia.tech/999905dfa2944846a9956fa3e87d66e0.jpg",
+      "view": "front-right-ground-level",
+      "kind": "built-photo",
+      "publishDate": "2023-05-31",
+      "selected": true,
+      "evidenceUse": "核对首层玻璃大厅、柱列、连续台阶、开洞玻璃和楼梯起步高度。"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-before-renovation-2024.png",
+      "sha256": "b70a6450afb65767b5461698f069d4e2346c1a6f0383ceea940d468cc2379adc",
+      "sourceUrl": "https://www.archina.com/index.php?g=works&m=index&a=show&id=156570",
+      "sourceImageUrl": "http://www.archina.com/uploadWX/20240319/65f96548d7b26171084320851432.png",
+      "view": "front-before-renovation",
+      "kind": "before-photo",
+      "publishDate": "2024-03-19",
+      "selected": false,
+      "evidenceUse": "历史对照，仅用于辨认保留旧主体，不作为2023外形依据。"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-project-image-02-2024.png",
+      "sha256": "7480e041190dee32b0607a9eec4a91abce7258af32a19b055c8c2274751f0eca",
+      "sourceUrl": "https://www.archina.com/index.php?g=works&m=index&a=show&id=156570",
+      "sourceImageUrl": "http://www.archina.com/uploadWX/20240319/65f96548e26d1171084320849693.png",
+      "view": "front-after-renovation",
+      "kind": "built-photo",
+      "publishDate": "2024-03-19",
+      "selected": true,
+      "evidenceUse": "与改造前照片成组，复核主立面落成结果。"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-front-built-2024.jpeg",
+      "sha256": "b9a388c70cc57f6820d8abd57159c6c30a2ab8e330336a778053dc92989506f0",
+      "sourceUrl": "https://www.archina.com/index.php?g=works&m=index&a=show&id=156570",
+      "sourceImageUrl": "http://www.archina.com/uploadWX/20240319/65f96548ecadb171084320846513.jpeg",
+      "view": "front-wide-from-street",
+      "kind": "built-photo",
+      "publishDate": "2024-03-19",
+      "selected": true,
+      "evidenceUse": "核对道路树阵、正面退界、广场宽度和整体天际线。"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-ribbon-glass-detail-2024.jpeg",
+      "sha256": "4ddc314087772b2d73dc3d81641ca7e77c5606302931df5390855e170d170917",
+      "sourceUrl": "https://www.archina.com/index.php?g=works&m=index&a=show&id=156570",
+      "sourceImageUrl": "http://www.archina.com/uploadWX/20240319/65f965490bd9b171084320937965.jpeg",
+      "view": "right-side-looking-toward-front",
+      "kind": "built-photo",
+      "publishDate": "2024-03-19",
+      "selected": true,
+      "evidenceUse": "证明右侧不是椭圆后壳，而是长条玻璃商业界面、深悬挑白色露台、玻璃栏板和上部平直体量；前端楼梯在远端汇合。"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-oculus-stair-detail-2024.jpeg",
+      "sha256": "a94809192b2a13a1a8f81f317303f2c63b8fbb7c640e4def6cc410f89f4a92da",
+      "sourceUrl": "https://www.archina.com/index.php?g=works&m=index&a=show&id=156570",
+      "sourceImageUrl": "http://www.archina.com/uploadWX/20240319/65f96549729ce171084320991875.jpeg",
+      "view": "left-side-looking-toward-front",
+      "kind": "built-photo",
+      "publishDate": "2024-03-19",
+      "selected": true,
+      "evidenceUse": "证明左侧有长弧形玻璃界面、深白色挑檐、室外餐饮平台和连续抬高景观带。"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-grc-grid-2024.png",
+      "sha256": "f53a6a2b6041d8fab83c6452361db32746991476b551b5f8fcdcc1cb0fabdf71",
+      "sourceUrl": "https://www.archina.com/index.php?g=works&m=index&a=show&id=156570",
+      "sourceImageUrl": "http://www.archina.com/uploadWX/20240319/65f965491dbb8171084320922727.png",
+      "view": "front-design-render",
+      "kind": "design-render",
+      "publishDate": "2024-03-19",
+      "selected": false,
+      "evidenceUse": "仅作为设计意图；文件名沿首次下载保留，目视分类优先于Hermes文本分类。"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-project-image-06-2024.png",
+      "sha256": "042c5a43ca8f85e19bcb36afc64d172082e6aac65f13db666e526441f566079f",
+      "sourceUrl": "https://www.archina.com/index.php?g=works&m=index&a=show&id=156570",
+      "sourceImageUrl": "http://www.archina.com/uploadWX/20240319/65f965493a951171084320971495.png",
+      "view": "front-three-quarter-design-model",
+      "kind": "design-model",
+      "publishDate": "2024-03-19",
+      "selected": true,
+      "evidenceUse": "确认GRC飘带是悬挂在玻璃大厅外的薄表皮，楼梯与开洞收边独立连接；不作为建成材质证据。"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-project-image-07-2024.png",
+      "sha256": "a417610e416bc1877a9dd29a1957c2ea8cd0cf510b5c9141fcf14d9b24c4068a",
+      "sourceUrl": "https://www.archina.com/index.php?g=works&m=index&a=show&id=156570",
+      "sourceImageUrl": "http://www.archina.com/uploadWX/20240319/65f96549550c4171084320949743.png",
+      "view": "facade-section-detail",
+      "kind": "construction-section",
+      "publishDate": "2024-03-19",
+      "selected": true,
+      "evidenceUse": "确认GRC表皮和主体楼板之间有明显空腔，外皮不应建成厚重实体楼层。"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-project-image-08-2024.png",
+      "sha256": "ba2bca61b0d8f177e054b078f0da7a28bc114375bb042ca2fe18a32d5776822e",
+      "sourceUrl": "https://www.archina.com/index.php?g=works&m=index&a=show&id=156570",
+      "sourceImageUrl": "http://www.archina.com/uploadWX/20240319/65f965495cea7171084320915177.png",
+      "view": "facade-support-detail",
+      "kind": "design-model-detail",
+      "publishDate": "2024-03-19",
+      "selected": false,
+      "evidenceUse": "支撑结构参考，不进入游戏可见几何。"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-government-west-street-2024.jpg",
+      "sha256": "8faec82135abd02c37aab10df79fe496f097f6ecaee962dc4d098a8e6d2ccabb",
+      "sourceUrl": "https://www.shcn.gov.cn/col6991/20241120/1271838.html",
+      "sourceImageUrl": "https://cn.storage.shmedia.tech/b6d435cd59574663b682df0d02f9be2d",
+      "view": "wrong-subject-front",
+      "kind": "rejected-photo",
+      "publishDate": "2024-11-18",
+      "selected": false,
+      "subjectMatch": "rejected",
+      "rejectionReason": "目视确认主体为上海电影艺术中心，不是上海影城。"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-jiemian-west-context-2024.png",
+      "sha256": "e19f92a027e06fad0b45c086f4a6d0c580babbf909cfca5f480fd2ecbfffd446",
+      "sourceUrl": "https://m.jiemian.com/article/11309954.html",
+      "sourceImageUrl": "https://img.jiemian.com/101/original/20240620/17188707522784400.png",
+      "view": "wrong-subject-detail",
+      "kind": "rejected-photo",
+      "publishDate": "2024-06-20",
+      "selected": false,
+      "subjectMatch": "rejected",
+      "rejectionReason": "目视确认主体为上海电影艺术中心门厅，不是上海影城。"
     }
   ]
 }

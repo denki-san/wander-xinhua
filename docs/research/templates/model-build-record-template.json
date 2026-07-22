@@ -1,0 +1,40 @@
+{
+  "asset": "<asset-slug>",
+  "generatedAt": "<ISO-8601>",
+  "generator": {
+    "command": "<single-asset-build-command>",
+    "path": "<generator-path>",
+    "blenderVersion": "<version>"
+  },
+  "outputs": {
+    "blend": "<editable-blend-path>",
+    "glb": "<runtime-glb-path>",
+    "sha256": "<glb-sha256>",
+    "cacheVersion": "<runtime-cache-version>"
+  },
+  "metrics": {
+    "bytes": 0,
+    "nodes": 0,
+    "meshes": 0,
+    "triangles": 0,
+    "materials": 0,
+    "images": 0,
+    "textures": 0,
+    "bounds": {
+      "min": [0, 0, 0],
+      "max": [0, 0, 0]
+    }
+  },
+  "evidence": {
+    "brief": "<model-brief-path>",
+    "comparison": "<test-three-way-comparison-path>",
+    "runtimeScreenshot": "<test-runtime-screenshot-path>"
+  },
+  "validation": {
+    "grayboxRuntimeGate": "pending",
+    "glbAudit": "pending",
+    "automatedTests": "pending",
+    "runtimeQa": "pending",
+    "independentReview": "pending"
+  }
+}

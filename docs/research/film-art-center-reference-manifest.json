@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-21",
+  "subject": {
+    "id": "film-art-center",
+    "name": "上海电影艺术中心·新华两佰",
+    "address": "上海市长宁区新华路200号",
+    "scope": "上海电影艺术中心四栋建筑中的新华路200号历史花园住宅，不包含新华路160号上海影城及CHAO酒店"
+  },
+  "usageBoundary": "仅作为建筑轮廓、比例、构件、材质和场地研究证据；不嵌入 GLB，不作为运行时贴图，不复制受保护品牌图形。",
+  "retrievedAt": "2026-07-21",
+  "canonicalComparison": {
+    "id": "government-front-canonical",
+    "path": "docs/research/assets/poi-references/film-art-center/film-art-center-government-front-canonical-2024.jpg",
+    "sourcePageUrl": "https://www.shcn.gov.cn/col6991/20241120/1271838.html",
+    "imageUrl": "https://cn.storage.shmedia.tech/b6d435cd59574663b682df0d02f9be2d",
+    "publisher": "上海市长宁区人民政府",
+    "viewDirection": "南侧花园正立面，近正视",
+    "publishDate": "2024-11-18",
+    "reason": "修缮后照片完整显示红瓦大屋顶、二层敞廊、白色栏杆、中央入口、草坪和两侧连接空间，适合同时约束轮廓与场地关系。"
+  },
+  "referencePhotos": [
+    {
+      "id": "government-front-canonical",
+      "path": "docs/research/assets/poi-references/film-art-center/film-art-center-government-front-canonical-2024.jpg",
+      "sha256": "8faec82135abd02c37aab10df79fe496f097f6ecaee962dc4d098a8e6d2ccabb",
+      "sourcePageUrl": "https://www.shcn.gov.cn/col6991/20241120/1271838.html",
+      "imageUrl": "https://cn.storage.shmedia.tech/b6d435cd59574663b682df0d02f9be2d",
+      "publisher": "上海市长宁区人民政府",
+      "viewDirection": "南侧花园正立面，近正视",
+      "captureDate": "unknown",
+      "publishDate": "2024-11-18",
+      "evidenceUse": "修缮后整体轮廓、立面开敞度、红瓦色相、草坪退界和左右低层连接体。"
+    },
+    {
+      "id": "citynews-front-detail",
+      "path": "docs/research/assets/poi-references/film-art-center/film-art-center-citynews-front-detail-2026.png",
+      "sha256": "f32227b6c39db3e30648a6d778ff8727c21acfd509cb692a2bf50600fd036875",
+      "sourcePageUrl": "https://www.citynewsservice.cn/articles/cns/city-news/journey-through-time-and-style-explore-historic-buildings-along-xinhua-road-gno57axm",
+      "imageUrl": "https://english.shanghai.gov.cn/cmsres/67/67201a9254dd40d0ae0e300b413ebaec/11d79da65a12e57ebac2c7bcb6d1c304.png",
+      "publisher": "City News Service / shanghaigov",
+      "photoCredit": "Xi Zi / International Research Center for Architectural Heritage Conservation, Shanghai Jiao Tong University",
+      "viewDirection": "南侧花园正立面，略偏右",
+      "captureDate": "unknown",
+      "publishDate": "2026-03-19",
+      "evidenceUse": "屋面瓦垄、四角起翘、三层开口节奏、仿斗拱、柱列、栏杆与南入口石狮。"
+    },
+    {
+      "id": "prnewswire-entrance-detail",
+      "path": "docs/research/assets/poi-references/film-art-center/film-art-center-prnewswire-entrance-detail-2024.jpg",
+      "sha256": "f04cc620fc644d97559fa45323e18edff7f0bb3e4d809dcaf6a019bb4c9002a9",
+      "sourcePageUrl": "https://www.prnewswire.com/apac/news-releases/fod-and-shanghai-film-art-center-debut-as-cultural-hub-amidst-26th-shanghai-international-film-festival-302175363.html",
+      "imageUrl": "https://mma.prnewswire.com/media/2441607/Shanghai_Film_Art_Center.jpg",
+      "publisher": "FOD / PR Newswire",
+      "viewDirection": "南入口近景",
+      "captureDate": "2024-06",
+      "publishDate": "2024-06-18",
+      "evidenceUse": "入口黑底金字牌匾、白色柱脚、深色门扇、卧狮和修剪灌木。"
+    }
+  ],
+  "textSources": [
+    {
+      "url": "https://www.shcn.gov.cn/col6991/20240618/1261652.html",
+      "publisher": "上海市长宁区人民政府",
+      "use": "确认上海电影艺术中心位于新华路200号，百年宅园经保护性修缮。"
+    },
+    {
+      "url": "https://culture.qianlong.com/2025/0701/8514479.shtml",
+      "publisher": "千龙网",
+      "use": "确认新华路200号是上海二类优秀历史保护建筑、始建于20世纪30年代，改造后称新华两佰，并与草坪和长排玻璃房构成开放文化空间。"
+    },
+    {
+      "url": "https://www.citynewsservice.cn/articles/cns/city-news/journey-through-time-and-style-explore-historic-buildings-along-xinhua-road-gno57axm",
+      "publisher": "City News Service / shanghaigov",
+      "use": "确认中西合璧风格、对称立面、琉璃瓦大屋顶、四角起翘、开放走廊、南入口卧狮和仿斗拱。"
+    }
+  ],
+  "searchRecord": {
+    "provider": "bocha-search + official-page verification",
+    "queries": [
+      "上海电影艺术中心 新华路200号 建筑 正面",
+      "上海电影艺术中心 新华路200号 侧面 屋顶",
+      "新华两佰 建筑 正面 侧面",
+      "新华路200号 建筑 草坪 玻璃房"
+    ],
+    "note": "Bocha 用于发现和交叉确认对象边界；最终照片与文字事实以本清单记录的官方或可追溯页面为准。"
+  }
+}

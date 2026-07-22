@@ -322,6 +322,111 @@ def add_hip_roof(
     return register(obj, mat)
 
 
+def add_upturned_hip_roof(
+    name: str,
+    location: tuple[float, float, float],
+    width: float,
+    depth: float,
+    height: float,
+    mat: bpy.types.Material,
+    *,
+    overhang: float = 0.55,
+    upturn: float = 0.55,
+    segments: int = 18,
+) -> bpy.types.Object:
+    """生成檐线向四角抬升的中式四坡屋面。"""
+    cx, cy, base_z = location
+    half_width = width / 2 + overhang
+    half_depth = depth / 2 + overhang
+    ridge_half = max(0.3, width * 0.14)
+    x_values = [-half_width + half_width * 2 * index / segments for index in range(segments + 1)]
+    vertices: list[tuple[float, float, float]] = []
+    front_indices: list[int] = []
+    back_indices: list[int] = []
+    crest_indices: list[int] = []
+    for x in x_values:
+        corner_ratio = abs(x) / half_width
+        eave_z = base_z + upturn * corner_ratio ** 4
+        if abs(x) <= ridge_half:
+            crest_z = base_z + height
+        else:
+            hip_ratio = (half_width - abs(x)) / (half_width - ridge_half)
+            crest_z = eave_z + (height - (eave_z - base_z)) * max(0.0, hip_ratio)
+        front_indices.append(len(vertices))
+        vertices.append((cx + x, cy - half_depth, eave_z))
+        back_indices.append(len(vertices))
+        vertices.append((cx + x, cy + half_depth, eave_z))
+        crest_indices.append(len(vertices))
+        vertices.append((cx + x, cy, crest_z))
+    faces: list[tuple[int, ...]] = []
+    for index in range(segments):
+        faces.append((front_indices[index], front_indices[index + 1], crest_indices[index + 1], crest_indices[index]))
+        faces.append((back_indices[index + 1], back_indices[index], crest_indices[index], crest_indices[index + 1]))
+    faces.append((front_indices[0], crest_indices[0], back_indices[0]))
+    faces.append((front_indices[-1], back_indices[-1], crest_indices[-1]))
+    faces.append(tuple(front_indices + list(reversed(back_indices))))
+    mesh = bpy.data.meshes.new(f"{name}Mesh")
+    mesh.from_pydata(vertices, [], faces)
+    mesh.update()
+    obj = bpy.data.objects.new(name, mesh)
+    bpy.context.collection.objects.link(obj)
+    return register(obj, mat)
+
+
+def add_upturned_roof_ridges(
+    prefix: str,
+    center: tuple[float, float],
+    width: float,
+    depth: float,
+    base_z: float,
+    height: float,
+    mat: bpy.types.Material,
+    *,
+    upturn: float = 0.55,
+    rows: int = 19,
+) -> None:
+    """按起翘檐线布置瓦垄和角脊，避免细节穿出屋面。"""
+    cx, cy = center
+    half_width = width / 2
+    half_depth = depth / 2
+    ridge_half = max(0.3, (width - 1.0) * 0.14)
+    add_beam(
+        f"{prefix}-main-ridge",
+        (cx - ridge_half, cy, base_z + height + 0.04),
+        (cx + ridge_half, cy, base_z + height + 0.04),
+        0.2,
+        mat,
+        round_beam=True,
+    )
+    for index in range(rows):
+        x = -half_width * 0.94 + half_width * 1.88 * (index + 0.5) / rows
+        corner_ratio = abs(x) / half_width
+        eave_z = base_z + upturn * corner_ratio ** 4
+        if abs(x) <= ridge_half:
+            crest_z = base_z + height
+        else:
+            hip_ratio = (half_width - abs(x)) / (half_width - ridge_half)
+            crest_z = eave_z + (height - (eave_z - base_z)) * max(0.0, hip_ratio)
+        add_beam(
+            f"{prefix}-front-row-{index}",
+            (cx + x, cy - half_depth, eave_z + 0.035),
+            (cx + x, cy, crest_z + 0.035),
+            0.065,
+            mat,
+            round_beam=True,
+        )
+        add_beam(
+            f"{prefix}-back-row-{index}",
+            (cx + x, cy, crest_z + 0.035),
+            (cx + x, cy + half_depth, eave_z + 0.035),
+            0.065,
+            mat,
+            round_beam=True,
+        )
+    # 当前屋面使用分段曲面而不是四块平面，斜角脊若直接连到主脊会悬空；
+    # 正背瓦垄和水平正脊已经能表达尺度，角脊留到有测绘屋面证据时再补。
+
+
 def add_window(
     name: str,
     x: float,
@@ -837,7 +942,8 @@ def add_cinema_ribbon_surface(name: str, mat: bpy.types.Material) -> bpy.types.O
     hole_center_z = 6.55
     hole_radius_x = 4.35
     hole_radius_z = 1.5
-    panel_depth = 0.42
+    # 施工剖面证明 GRC 是悬挂在主体外侧的薄表皮，不应读成厚重楼层。
+    panel_depth = 0.24
     x_values = [-15.2 + 30.4 * index / 76 for index in range(77)]
     x_values.extend((hole_center_x - hole_radius_x, hole_center_x + hole_radius_x))
     x_values = sorted(set(round(value, 6) for value in x_values))
@@ -1002,18 +1108,133 @@ def build_shanghai_cinema() -> None:
     add_elliptical_wall_band("cinema-lower-ribbon-lip", (0, 0.35), (15.15, 7.25), 0.72, 3.82, 0.34, white_shadow, segments=88, wave=0.08)
     add_cinema_ribbon_surface("cinema-main-ribbon", white)
 
+    # 两张侧向建成照片共同证明：正面曲面之后是沿进深展开的长玻璃界面、
+    # 平直深挑檐与二层露台，而不是由椭圆玻璃内核直接闭合成侧墙。
+    side_length = 10.8
+    side_center_y = 4.15
+    for side_name, side_sign in (("right", 1), ("left", -1)):
+        outer_x = side_sign * 13.05
+        face_x = outer_x + side_sign * 0.1
+        rail_x = side_sign * 14.15
+        add_box(
+            f"cinema-{side_name}-glass-wing",
+            (side_sign * 11.45, side_center_y, 2.35),
+            (3.45, side_length, 4.3),
+            glass,
+            bevel=0.12,
+        )
+        add_box(
+            f"cinema-{side_name}-glass-face",
+            (face_x, side_center_y, 2.35),
+            (0.12, side_length - 0.25, 4.05),
+            glass_light,
+            bevel=0.025,
+        )
+        add_box(
+            f"cinema-{side_name}-cantilever",
+            (side_sign * 12.15, side_center_y - 0.15, 4.62),
+            (4.25, side_length + 1.15, 0.36),
+            white,
+            bevel=0.1,
+            rotation=(math.radians(3.0), 0.0, 0.0),
+        )
+        add_box(
+            f"cinema-{side_name}-terrace-base",
+            (side_sign * 13.35, side_center_y + 0.1, 4.78),
+            (1.95, side_length - 0.15, 0.2),
+            white_shadow,
+            bevel=0.055,
+        )
+
+        # 幕墙分格沿进深展开；水平分格保持稀疏，避免再次形成百叶噪声。
+        for index in range(10):
+            y = side_center_y - (side_length - 0.55) * 0.5 + index * (side_length - 0.55) / 9
+            add_box(
+                f"cinema-{side_name}-mullion-{index}",
+                (face_x + side_sign * 0.035, y, 2.35),
+                (0.075, 0.08, 4.0),
+                silver,
+                bevel=0.012,
+            )
+        for row, z in enumerate((1.15, 2.45, 3.72)):
+            add_box(
+                f"cinema-{side_name}-transom-{row}",
+                (face_x + side_sign * 0.04, side_center_y, z),
+                (0.085, side_length - 0.35, 0.07),
+                silver,
+                bevel=0.012,
+            )
+
+        # 二层玻璃栏板以连续薄面加节奏化立柱表达，不复制照片中的品牌图形。
+        add_box(
+            f"cinema-{side_name}-terrace-glass",
+            (rail_x, side_center_y + 0.1, 5.32),
+            (0.06, side_length - 0.45, 0.92),
+            glass_light,
+            bevel=0.016,
+        )
+        add_box(
+            f"cinema-{side_name}-terrace-top-rail",
+            (rail_x, side_center_y + 0.1, 5.8),
+            (0.09, side_length - 0.25, 0.08),
+            silver,
+            bevel=0.018,
+        )
+        for index in range(7):
+            y = side_center_y - (side_length - 0.65) * 0.5 + index * (side_length - 0.65) / 6
+            add_box(
+                f"cinema-{side_name}-terrace-post-{index}",
+                (rail_x + side_sign * 0.02, y, 5.32),
+                (0.07, 0.07, 1.02),
+                silver,
+                bevel=0.012,
+            )
+
+    # 楼梯一侧照片还显示平直的上层实体界面和一块深色内容面；只保留体块，
+    # 不复制 SHO 或商户商标。
+    add_box("cinema-right-upper-side", (13.0, 5.25, 7.45), (0.42, 7.25, 3.5), white, bevel=0.1)
+    add_box("cinema-right-upper-glass", (13.24, 3.65, 7.15), (0.075, 3.35, 2.25), glass, bevel=0.025)
+    add_box("cinema-right-upper-screen", (13.25, 6.45, 7.55), (0.055, 2.25, 1.25), dark, bevel=0.018)
+    for index, y in enumerate((2.35, 3.22, 4.09, 4.96)):
+        add_box(
+            f"cinema-right-upper-mullion-{index}",
+            (13.3, y, 7.15),
+            (0.05, 0.065, 2.2),
+            silver,
+            bevel=0.01,
+        )
+    for row, z in enumerate((6.45, 7.15, 7.85)):
+        add_box(
+            f"cinema-right-upper-transom-{row}",
+            (13.3, 3.65, z),
+            (0.05, 3.25, 0.06),
+            silver,
+            bevel=0.01,
+        )
+
+    # 无楼梯一侧的连续抬高景观带是照片中最稳定的场地识别线索。
+    for index, y in enumerate((0.35, 3.0, 5.65, 8.3)):
+        add_planter(
+            f"cinema-left-side-planter-{index}",
+            (-14.65, y),
+            (2.15, 1.65),
+            planter,
+            foliage,
+            height=0.56,
+        )
+
     hole_front_y = cinema_front_y(8.05) - 0.035
     add_vertical_ellipse_reveal(
         "cinema-oculus-reveal",
         (8.05, hole_front_y, 6.55),
         (4.35, 1.5),
-        0.72,
+        0.42,
         0.2,
         white_shadow,
     )
     add_vertical_ellipse_disc(
         "cinema-oculus-glass",
-        (8.05, hole_front_y + 0.74, 6.55),
+        (8.05, hole_front_y + 0.44, 6.55),
         (4.1, 1.3),
         glass_light,
     )
@@ -1025,7 +1246,7 @@ def build_shanghai_cinema() -> None:
         half_height = 1.24 * math.sqrt(max(0.0, 1.0 - normalized * normalized))
         add_cylinder(
             f"cinema-oculus-mullion-{index}",
-            (x, cinema_front_y(x) + 0.78, 6.55),
+            (x, cinema_front_y(x) + 0.48, 6.55),
             0.045,
             max(0.18, half_height * 2),
             silver,
@@ -1035,7 +1256,7 @@ def build_shanghai_cinema() -> None:
             if abs(clip_z - 6.55) < half_height:
                 add_icosphere(
                     f"cinema-oculus-clip-{index}-{clip_index}",
-                    (x, cinema_front_y(x) + 0.73, clip_z),
+                    (x, cinema_front_y(x) + 0.43, clip_z),
                     (0.07, 0.045, 0.07),
                     silver,
                     subdivisions=1,
@@ -1046,7 +1267,7 @@ def build_shanghai_cinema() -> None:
         points = []
         for index in range(13):
             x = 8.05 - half_width + 2 * half_width * index / 12
-            points.append((x, cinema_front_y(x) + 0.77, z))
+            points.append((x, cinema_front_y(x) + 0.47, z))
         for index in range(len(points) - 1):
             add_beam(f"cinema-oculus-transom-{row}-{index}", points[index], points[index + 1], 0.055, silver)
 
@@ -1084,8 +1305,8 @@ def build_shanghai_cinema() -> None:
         add_detailed_door(f"cinema-door-{index}", (x, cinema_front_y(x) - 0.06, 1.34), 1.45, 2.5, silver, glass, silver)
 
     # 白色板缝跟随丝带曲率；颜色压低对比，避免旧版竖线过密造成百叶感。
-    for index in range(58):
-        x = -14.7 + index * (29.4 / 57)
+    for index in range(37):
+        x = -14.7 + index * (29.4 / 36)
         normalized = x / 15.2
         lower = 3.92 + 0.48 * ((normalized + 1.0) * 0.5) + 0.23 * math.cos(normalized * math.pi)
         crown = max(0.0, 1.0 - ((normalized + 0.15) / 0.95) ** 2)
@@ -1125,15 +1346,18 @@ def build_shanghai_cinema() -> None:
     # 后塔楼只用框架和窗格表达，缩窄并后退，避免旧版大白盒压住主丝带。
     tower_x = 7.4
     tower_front_y = 3.18
-    add_box("cinema-tower-core", (tower_x, 5.2, 9.55), (7.35, 4.05, 10.9), glass, bevel=0.18)
-    add_box("cinema-tower-left-frame", (tower_x - 3.85, 5.2, 9.55), (0.58, 4.35, 11.95), white, bevel=0.22)
-    add_box("cinema-tower-right-frame", (tower_x + 3.85, 5.2, 9.55), (0.58, 4.35, 11.95), white, bevel=0.22)
-    add_box("cinema-tower-top-frame", (tower_x, 5.2, 15.45), (8.3, 4.4, 0.72), white, bevel=0.32)
+    # 实景中后塔楼露出主丝带约 7 层窗格；旧版把层间距压到 0.85，
+    # 运行时只剩一截矮框。保持底标高不变，仅恢复塔楼竖向比例，
+    # 避免整体放大后连门厅、台阶和碰撞范围一起失真。
+    add_box("cinema-tower-core", (tower_x, 5.2, 10.3), (7.35, 4.05, 12.4), glass, bevel=0.18)
+    add_box("cinema-tower-left-frame", (tower_x - 3.85, 5.2, 10.225), (0.58, 4.35, 13.35), white, bevel=0.23)
+    add_box("cinema-tower-right-frame", (tower_x + 3.85, 5.2, 10.225), (0.58, 4.35, 13.35), white, bevel=0.23)
+    add_box("cinema-tower-top-frame", (tower_x, 5.2, 16.85), (8.3, 4.4, 0.75), white, bevel=0.35)
     for column in range(9):
         x = tower_x - 3.2 + column * 0.8
-        add_box(f"cinema-tower-vertical-{column}", (x, tower_front_y - 0.035, 10.55), (0.085, 0.07, 6.85), white_shadow, bevel=0.018)
-    for row in range(9):
-        z = 7.15 + row * 0.85
+        add_box(f"cinema-tower-vertical-{column}", (x, tower_front_y - 0.035, 11.2), (0.085, 0.07, 8.2), white_shadow, bevel=0.018)
+    for row in range(10):
+        z = 7.2 + row * 0.9
         add_box(f"cinema-tower-horizontal-{row}", (tower_x, tower_front_y - 0.05, z), (6.75, 0.075, 0.09), white_shadow, bevel=0.018)
         for column in range(9):
             if row % 2 == 0 and column % 2 == 0:
@@ -1223,59 +1447,149 @@ def build_shanghai_cinema() -> None:
 
 
 def build_film_art_center() -> None:
-    wall = material("艺术中心白墙", "#e1ded2")
-    roof = material("艺术中心屋顶", "#394641")
-    trim = material("艺术中心檐口", "#b79c70")
-    frame = material("艺术中心窗框", "#3f524d")
-    glass = material("艺术中心玻璃", "#58716e", roughness=0.42)
-    stone = material("艺术中心石材", "#a9a69c")
-    ridge = material("艺术中心屋脊", "#273530")
-    wood = material("艺术中心门扇", "#705343")
-    metal = material("艺术中心金属", "#88734f", roughness=0.42, metallic=0.4)
-    warm = material("艺术中心灯笼", "#d48a4e", emission_strength=0.65)
-    foliage = material("艺术中心花木", "#4b6d50")
-    stone_light = material("艺术中心浅石", "#c4beb0")
-    add_box("art-center-main", (0, 0.8, 4.25), (15.8, 10.2, 8.5), wall, bevel=0.18)
-    add_box("art-center-portico", (0, -5.55, 2.55), (6.2, 2.1, 5.1), wall, bevel=0.12)
-    for x in (-2.45, -0.82, 0.82, 2.45):
-        add_cylinder(f"art-center-column-{x}", (x, -6.48, 2.45), 0.23, 4.65, stone, vertices=18)
-        add_box(f"art-center-column-base-{x}", (x, -6.48, 0.22), (0.65, 0.65, 0.2), stone, bevel=0.04)
-    add_stairs("art-center-stair", (0, -7.2), 7.2, 5, 0.65, 2.1, stone)
-    add_front_window_grid("art-center-window", 15.8, -4.37, 3, 5, 1.35, 2.55, frame, glass, margin=1.2)
-    add_hip_roof("art-center-lower-roof", (0, 0.7, 8.5), 17.0, 11.8, 2.2, roof, overhang=0.85)
-    add_box("art-center-upper", (0, 0.7, 9.45), (8.2, 6.5, 2.0), wall, bevel=0.12)
-    add_hip_roof("art-center-upper-roof", (0, 0.7, 10.45), 9.4, 7.6, 1.65, roof, overhang=0.8)
-    # 四角小挑檐强化中式屋顶的起翘感。
-    for x in (-8.3, 8.3):
-        for y in (-5.65, 6.95):
-            add_box(f"art-center-upturn-{x}-{y}", (x, y, 9.05), (1.25, 0.32, 0.22), trim, bevel=0.08, rotation=(0, 0, math.copysign(0.18, x)))
-    add_box("art-center-sign", (0, -6.72, 4.35), (5.4, 0.16, 0.62), frame, bevel=0.08)
-    add_text_label("art-center-name", "上海电影艺术中心", (0, -6.84, 4.35), 0.43, 0.055, stone_light, bevel=0.018, letter_spacing=0.92)
-    add_hip_roof_ridges("art-center-lower-detail", (0, 0.7), 18.7, 13.5, 8.5, 2.2, ridge, rows=13)
-    add_hip_roof_ridges("art-center-upper-detail", (0, 0.7), 11.0, 9.2, 10.45, 1.65, ridge, rows=9)
-    add_gutters_and_downpipes("art-center-drain", (0, 0.7), 17.9, 12.7, 8.58, metal, down_to=0.45)
-    for index, x in enumerate((-6.8, -5.55, -4.3, -3.05, -1.8, 1.8, 3.05, 4.3, 5.55, 6.8)):
-        add_box(f"art-center-bracket-{index}", (x, -5.45, 8.35), (0.42, 0.82, 0.38), trim, bevel=0.075, rotation=(0, 0, math.radians(8 if index % 2 else -8)))
-    for floor, z in enumerate((1.35, 3.9, 6.45)):
-        for column, x in enumerate((-5.8, -2.9, 0, 2.9, 5.8)):
-            add_box(f"art-center-sill-{floor}-{column}", (x, -4.48, z - 0.76), (1.45, 0.28, 0.16), stone_light, bevel=0.04)
-    # 侧立面继续窗格节奏，避免只有正面一张“贴皮”。
-    for side, x in (("left", -7.96), ("right", 7.96)):
-        for floor, z in enumerate((1.45, 4.05, 6.55)):
-            for row, y in enumerate((-1.5, 1.2, 3.9)):
-                add_window(f"art-center-side-{side}-{floor}-{row}", x, y, z, 1.1, 1.35, "X", frame, glass)
-    add_detailed_door("art-center-main-door", (0, -6.72, 1.65), 2.7, 3.15, stone_light, wood, metal)
-    add_railing("art-center-stair-left", (-3.65, -6.6), (-3.65, -8.2), 0.4, 1.0, metal, posts=6)
-    add_railing("art-center-stair-right", (3.65, -6.6), (3.65, -8.2), 0.4, 1.0, metal, posts=6)
-    for index, x in enumerate((-3.1, 3.1)):
-        add_cylinder(f"art-center-lion-base-{index}", (x, -8.05, 0.28), 0.58, 0.5, stone_light, vertices=20)
-        add_icosphere(f"art-center-lion-body-{index}", (x, -8.05, 0.92), (0.55, 0.7, 0.65), stone_light, subdivisions=2)
-        add_icosphere(f"art-center-lion-head-{index}", (x, -8.28, 1.5), (0.38, 0.42, 0.42), stone_light, subdivisions=2)
-    for index, x in enumerate((-2.9, 2.9)):
-        add_box(f"art-center-lantern-{index}", (x, -6.85, 3.45), (0.34, 0.34, 0.5), warm, bevel=0.08)
-        add_cylinder(f"art-center-lantern-cap-{index}", (x, -6.85, 3.77), 0.24, 0.1, metal, vertices=16)
-    add_planter("art-center-planter-left", (-6.1, -7.15), (2.5, 1.2), stone, foliage, height=0.85)
-    add_planter("art-center-planter-right", (6.1, -7.15), (2.5, 1.2), stone, foliage, height=0.85)
+    wall = material("艺术中心暖白墙", "#e7e1d3")
+    wall_light = material("艺术中心白色构件", "#f0ecdf")
+    roof = material("艺术中心朱红屋瓦", "#a94f34", roughness=0.7)
+    ridge = material("艺术中心暗红屋脊", "#6c3028", roughness=0.72)
+    frame = material("艺术中心深色窗框", "#303b38")
+    glass = material("艺术中心深青玻璃", "#405754", roughness=0.38, alpha=0.82)
+    stone = material("艺术中心浅灰石材", "#aaa79e")
+    wood = material("艺术中心深木门", "#493b33")
+    metal = material("艺术中心暗铜金属", "#74644c", roughness=0.45, metallic=0.35)
+    warm = material("艺术中心入口暖光", "#e7ad68", emission_strength=0.45)
+    foliage = material("艺术中心修剪灌木", "#4b6a4d")
+    grass = material("艺术中心草坪", "#6e855a")
+    shadow = material("艺术中心廊道阴影", "#242c2a")
+    paving_line = material("艺术中心铺装缝", "#7e7d76")
+
+    # 主楼分成三层体块，照片中的双层敞廊必须有真实退深，不能再用单一白盒贴窗。
+    add_box("art-center-ground-core", (0, 0.55, 1.9), (15.8, 9.3, 3.8), wall, bevel=0.15)
+    add_box("art-center-second-core", (0, 0.55, 5.45), (15.8, 9.3, 3.3), wall, bevel=0.13)
+    add_box("art-center-third-core", (0, 0.55, 9.05), (15.4, 9.0, 3.45), wall, bevel=0.14)
+
+    # 首层与二层正面均向外展开，连续柱列和深色后墙共同形成可读的敞廊。
+    column_positions = (-7.15, -4.8, -2.4, -1.1, 1.1, 2.4, 4.8, 7.15)
+    add_box("art-center-ground-veranda-slab", (0, -5.25, 0.18), (17.2, 2.65, 0.36), stone, bevel=0.07)
+    add_box("art-center-ground-shadow", (0, -4.28, 1.95), (15.1, 0.24, 2.72), shadow, bevel=0.04)
+    add_box("art-center-ground-beam", (0, -5.76, 3.58), (17.15, 0.42, 0.46), wall_light, bevel=0.06)
+    add_box("art-center-second-veranda-floor", (0, -5.18, 3.82), (17.25, 2.85, 0.28), wall_light, bevel=0.06)
+    add_box("art-center-second-shadow", (0, -4.28, 5.45), (15.1, 0.24, 2.3), shadow, bevel=0.04)
+    add_box("art-center-second-beam", (0, -5.72, 6.98), (17.25, 0.46, 0.44), wall_light, bevel=0.06)
+    for index, x in enumerate(column_positions):
+        for floor, (z, height) in enumerate(((1.9, 3.25), (5.46, 2.76))):
+            add_cylinder(f"art-center-column-{floor}-{index}", (x, -5.75, z), 0.17, height, wall_light, vertices=18)
+            add_cylinder(f"art-center-column-base-{floor}-{index}", (x, -5.75, z - height / 2 + 0.12), 0.25, 0.2, stone, vertices=18)
+            add_box(f"art-center-column-capital-{floor}-{index}", (x, -5.75, z + height / 2 - 0.11), (0.58, 0.48, 0.22), wall_light, bevel=0.045)
+
+    # 二层白色栏杆采用矩形开口节奏，避免通用交叉栏杆带来的欧式误读。
+    add_box("art-center-balustrade-bottom", (0, -6.12, 4.05), (17.0, 0.2, 0.22), wall_light, bevel=0.04)
+    add_box("art-center-balustrade-top", (0, -6.12, 4.82), (17.0, 0.24, 0.2), wall_light, bevel=0.04)
+    for index in range(23):
+        x = -8.15 + 16.3 * index / 22
+        add_box(f"art-center-balustrade-post-{index}", (x, -6.12, 4.43), (0.15, 0.2, 0.74), wall_light, bevel=0.025)
+    for index, x in enumerate(column_positions):
+        add_box(f"art-center-balustrade-pier-{index}", (x, -6.12, 4.42), (0.34, 0.3, 0.86), wall_light, bevel=0.035)
+
+    # 七开间深窗统一回退到柱列之后，中央入口与上层凉廊形成最强轴线。
+    for floor, (z, height) in enumerate(((1.92, 2.26), (5.48, 1.92))):
+        for bay, x in enumerate((-6.45, -4.3, -2.15, 0.0, 2.15, 4.3, 6.45)):
+            if floor == 0 and bay == 3:
+                continue
+            if floor == 0:
+                add_window(f"art-center-front-window-{floor}-{bay}", x, -4.43, z, 1.42, height, "Y", frame, glass, depth=0.16)
+            else:
+                add_box(f"art-center-gallery-opening-{bay}", (x, -4.43, z), (1.58, 0.2, height), shadow, bevel=0.035)
+                add_box(f"art-center-gallery-opening-mullion-{bay}", (x, -4.58, z), (0.06, 0.08, height * 0.92), frame, bevel=0.012)
+    add_detailed_door("art-center-main-door", (0, -4.48, 1.58), 2.05, 2.7, wall_light, wood, metal)
+    add_box("art-center-entry-glow", (0, -4.59, 1.65), (1.58, 0.035, 2.16), warm, bevel=0.02)
+
+    # 三层中央内退凉廊和左右窗组决定正面不是普通住宅盒子。
+    add_box("art-center-upper-loggia-shadow", (0, -4.22, 9.0), (4.65, 0.3, 1.92), shadow, bevel=0.09)
+    add_box("art-center-upper-loggia-frame-top", (0, -4.42, 10.03), (5.1, 0.32, 0.24), wall_light, bevel=0.055)
+    for index, x in enumerate((-2.35, 2.35)):
+        add_box(f"art-center-upper-loggia-frame-{index}", (x, -4.42, 9.03), (0.24, 0.32, 2.05), wall_light, bevel=0.05)
+    for index, x in enumerate((-1.52, 1.52)):
+        add_cylinder(f"art-center-upper-loggia-column-{index}", (x, -4.48, 9.0), 0.13, 1.82, wall_light, vertices=16)
+    add_box("art-center-upper-loggia-rail-bottom", (0, -4.54, 8.34), (4.25, 0.2, 0.16), wall_light, bevel=0.025)
+    add_box("art-center-upper-loggia-rail-top", (0, -4.54, 8.92), (4.25, 0.2, 0.16), wall_light, bevel=0.025)
+    for index in range(10):
+        x = -1.92 + 3.84 * index / 9
+        add_box(f"art-center-upper-loggia-rail-{index}", (x, -4.54, 8.63), (0.11, 0.18, 0.56), wall_light, bevel=0.02)
+    for index, (x, width, height) in enumerate(((-6.45, 1.18, 2.05), (-4.25, 1.68, 1.72), (4.25, 1.68, 1.72), (6.45, 1.18, 2.05))):
+        add_window(f"art-center-upper-window-{index}", x, -4.1, 9.0, width, height, "Y", frame, glass, depth=0.15)
+
+    # 中层红瓦檐形成第二条水平识别线；仿斗拱位于檐下深色阴影中。
+    add_upturned_hip_roof("art-center-gallery-roof", (0, -5.02, 7.08), 17.25, 2.85, 0.88, roof, overhang=0.52, upturn=0.34, segments=18)
+    add_upturned_roof_ridges("art-center-gallery-roof-detail", (0, -5.02), 18.15, 3.65, 7.08, 0.88, ridge, upturn=0.34, rows=17)
+    add_box("art-center-gallery-eave-shadow", (0, -6.68, 7.08), (18.1, 0.38, 0.28), ridge, bevel=0.045)
+    for index in range(19):
+        x = -8.05 + 16.1 * index / 18
+        add_box(f"art-center-gallery-bracket-{index}", (x, -6.48, 6.8), (0.28, 0.52, 0.42), ridge, bevel=0.045)
+
+    # 顶部全宽朱红大屋顶替换旧版“小上盖”，并以瓦垄、角脊和翘角保持远景可读性。
+    add_upturned_hip_roof("art-center-main-roof", (0, 0.48, 10.78), 17.55, 10.65, 2.92, roof, overhang=0.92, upturn=0.72, segments=22)
+    add_upturned_roof_ridges("art-center-main-roof-detail", (0, 0.48), 19.2, 12.35, 10.78, 2.92, ridge, upturn=0.72, rows=23)
+    add_box("art-center-main-eave-shadow", (0, -5.56, 10.76), (19.25, 0.46, 0.34), ridge, bevel=0.055)
+    for index in range(21):
+        x = -8.65 + 17.3 * index / 20
+        add_box(f"art-center-main-eave-bracket-{index}", (x, -5.35, 10.48), (0.26, 0.52, 0.4), ridge, bevel=0.04)
+    for index, x in enumerate((-2.55, 2.55)):
+        add_box(f"art-center-ridge-end-{index}", (x, 0.48, 13.83), (0.48, 0.78, 0.38), ridge, bevel=0.1)
+        add_icosphere(f"art-center-ridge-finial-{index}", (x, 0.48, 14.12), (0.22, 0.32, 0.28), ridge, subdivisions=1)
+
+    # 侧立面只延续能从正面和斜视推断的窗格、柱廊和檐口，不虚构完整背面装饰。
+    for side, x in (("left", -7.98), ("right", 7.98)):
+        for floor, z in enumerate((1.92, 5.45, 8.98)):
+            for row, y in enumerate((-1.8, 0.8, 3.35)):
+                add_window(f"art-center-side-{side}-{floor}-{row}", x, y, z, 1.08, 1.45 if floor < 2 else 1.62, "X", frame, glass, depth=0.14)
+    for index, x in enumerate((-7.72, 7.72)):
+        add_beam(
+            f"art-center-front-downpipe-{index}",
+            (x, -4.12, 10.78),
+            (x, -4.12, 0.42),
+            0.085,
+            frame,
+            round_beam=True,
+        )
+
+    # 中央入口、牌匾、台阶和卧狮来自入口近景；文字使用通用几何字，不复制品牌图形。
+    add_box("art-center-sign", (0, -5.99, 3.22), (4.25, 0.16, 0.54), frame, bevel=0.065)
+    art_center_name = add_text_label(
+        "art-center-name",
+        "上海电影艺术中心",
+        (0, -6.1, 3.22),
+        0.33,
+        0.052,
+        warm,
+        bevel=0.016,
+        letter_spacing=0.9,
+    )
+    # 本资产 canonical 正面直接沿 Blender 本地 -Y 观察，无需通用 helper 的历史镜像补偿。
+    art_center_name.scale.x = -1
+    bpy.context.view_layer.objects.active = art_center_name
+    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+    add_stairs("art-center-stair", (0, -6.35), 3.65, 4, 0.58, 1.75, stone)
+    for index, x in enumerate((-2.25, 2.25)):
+        add_cylinder(f"art-center-lion-base-{index}", (x, -7.02, 0.26), 0.46, 0.42, stone, vertices=18)
+        add_icosphere(f"art-center-lion-body-{index}", (x, -7.0, 0.72), (0.48, 0.62, 0.46), stone, subdivisions=2)
+        add_icosphere(f"art-center-lion-head-{index}", (x, -7.26, 1.08), (0.3, 0.34, 0.32), stone, subdivisions=2)
+        add_box(f"art-center-entry-lamp-{index}", (x * 0.76, -5.98, 2.72), (0.22, 0.22, 0.42), warm, bevel=0.055)
+        add_box(f"art-center-entry-lamp-cap-{index}", (x * 0.76, -5.98, 2.98), (0.3, 0.3, 0.1), metal, bevel=0.025)
+
+    # 草坪、正中路径和两侧低矮玻璃空间只作为历史主楼的场地框景。
+    add_box("art-center-lawn", (0, -9.1, 0.055), (21.4, 4.2, 0.11), grass, bevel=0.04)
+    add_box("art-center-front-path", (0, -9.1, 0.12), (2.45, 4.25, 0.13), stone, bevel=0.035)
+    add_paving_grid("art-center-front-path-grid", (0, -9.1), 2.4, 4.1, 0.194, paving_line, columns=2, rows=5)
+    for side, x in (("left", -9.78), ("right", 9.78)):
+        add_box(f"art-center-glass-wing-{side}", (x, -0.5, 1.28), (3.35, 8.25, 2.55), glass, bevel=0.12)
+        add_box(f"art-center-glass-wing-frame-{side}", (x, -0.5, 2.62), (3.55, 8.45, 0.18), frame, bevel=0.04)
+        for row, y in enumerate((-3.25, -1.35, 0.55, 2.45)):
+            add_box(f"art-center-glass-wing-mullion-{side}-{row}", (x, y, 1.32), (3.5, 0.09, 2.45), frame, bevel=0.02)
+    for index, x in enumerate((-7.1, -5.8, 5.8, 7.1)):
+        add_icosphere(f"art-center-shrub-{index}", (x, -6.85, 0.56), (0.72, 0.58, 0.56), foliage, subdivisions=2)
+    for index, (x, y) in enumerate(((-6.8, -8.5), (6.8, -8.5), (-6.8, -10.4), (6.8, -10.4))):
+        add_cylinder(f"art-center-lawn-light-{index}", (x, y, 0.24), 0.16, 0.35, frame, vertices=14)
+        add_box(f"art-center-lawn-light-cap-{index}", (x, y, 0.44), (0.4, 0.4, 0.08), warm, bevel=0.025)
 
 
 def add_half_timber(
@@ -2234,11 +2548,34 @@ def render_preview(slug: str) -> None:
             ("preview", (12.0, -50.0, 7.0), target_default, 48),
             ("canonical", (12.0, -50.0, 7.0), target_default, 48),
             ("side", (39.0, -34.0, 8.5), Vector((4.0, -0.2, 6.5)), 52),
+            ("right-side", (49.0, 17.0, 8.5), Vector((8.0, 3.5, 5.2)), 52),
+            ("left-side", (-49.0, 17.0, 8.5), Vector((-8.0, 3.5, 5.2)), 52),
             ("street", (14.0, -57.0, 5.5), Vector((0.0, -0.8, 5.8)), 52),
         )
         scene.render.resolution_x = 1000
         scene.render.resolution_y = 700
         for suffix, location, target, lens in cinema_views:
+            camera.location = location
+            camera.data.lens = lens
+            camera.rotation_euler = (target - camera.location).to_track_quat("-Z", "Y").to_euler()
+            filename = f"test_{slug}_preview.png" if suffix == "preview" else f"test_{slug}_{suffix}_preview.png"
+            scene.render.filepath = str(PREVIEW_DIR / filename)
+            bpy.ops.render.render(write_still=True)
+    elif slug == "film-art-center":
+        key.data.energy = 1900
+        fill.data.energy = 850
+        background.inputs["Color"].default_value = (0.58, 0.68, 0.72, 1.0)
+        background.inputs["Strength"].default_value = 0.6
+        target_default = Vector((0.0, -0.5, 6.3))
+        art_center_views = (
+            ("preview", (3.0, -43.0, 8.0), target_default, 54),
+            ("canonical", (3.0, -43.0, 8.0), target_default, 54),
+            ("side", (34.0, -28.0, 9.0), Vector((1.0, 0.0, 6.1)), 52),
+            ("street", (10.0, -48.0, 4.8), Vector((0.0, -0.8, 5.7)), 56),
+        )
+        scene.render.resolution_x = 1000
+        scene.render.resolution_y = 700
+        for suffix, location, target, lens in art_center_views:
             camera.location = location
             camera.data.lens = lens
             camera.rotation_euler = (target - camera.location).to_track_quat("-Z", "Y").to_euler()

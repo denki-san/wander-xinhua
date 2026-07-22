@@ -139,16 +139,16 @@
           "captureDate": "2023-06-01"
         },
         {
-          "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-spiral-stair-official.jpg",
-          "sourceUrl": "https://www.meet-in-shanghai.net/en/news/renovated-cinema-to-reopen-in-time-for-siff-203526/",
-          "view": "right-front-stair-detail",
-          "captureDate": "2023-06-01"
+          "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-ribbon-glass-detail-2024.jpeg",
+          "sourceUrl": "https://www.archina.com/index.php?g=works&m=index&a=show&id=156570",
+          "view": "right-side-looking-toward-front",
+          "captureDate": "2024-03-19"
         },
         {
-          "path": "docs/research/assets/landmark-comparison/shanghai-cinema-real.jpg",
-          "sourceUrl": "https://www.thepaper.cn/newsDetail_forward_23253561",
-          "view": "left-front-three-quarter",
-          "captureDate": "2023-05-30"
+          "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-oculus-stair-detail-2024.jpeg",
+          "sourceUrl": "https://www.archina.com/index.php?g=works&m=index&a=show&id=156570",
+          "view": "left-side-looking-toward-front",
+          "captureDate": "2024-03-19"
         }
       ]
     },
@@ -162,14 +162,31 @@
         "positionEvidence": "address-and-osm-building"
       },
       "cardPhoto": "/images/poi-thumbnails/film-art-center.jpg",
-      "canonicalReference": "docs/research/assets/landmark-comparison/film-art-center-real.jpg",
+      "canonicalReference": "docs/research/assets/poi-references/film-art-center/film-art-center-government-front-canonical-2024.jpg",
+      "referenceManifest": "docs/research/film-art-center-reference-manifest.json",
+      "modelBrief": "docs/research/film-art-center-model-brief.md",
       "photoStatus": "verified-same-building",
       "referencePhotos": [
         {
-          "path": "docs/research/assets/landmark-comparison/film-art-center-real.jpg",
+          "path": "docs/research/assets/poi-references/film-art-center/film-art-center-government-front-canonical-2024.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col6991/20241120/1271838.html",
+          "view": "south-garden-front-canonical",
+          "captureDate": "unknown",
+          "publishDate": "2024-11-18"
+        },
+        {
+          "path": "docs/research/assets/poi-references/film-art-center/film-art-center-citynews-front-detail-2026.png",
+          "sourceUrl": "https://www.citynewsservice.cn/articles/cns/city-news/journey-through-time-and-style-explore-historic-buildings-along-xinhua-road-gno57axm",
+          "view": "south-garden-front-detail",
+          "captureDate": "unknown",
+          "publishDate": "2026-03-19"
+        },
+        {
+          "path": "docs/research/assets/poi-references/film-art-center/film-art-center-prnewswire-entrance-detail-2024.jpg",
           "sourceUrl": "https://www.prnewswire.com/apac/news-releases/fod-and-shanghai-film-art-center-debut-as-cultural-hub-amidst-26th-shanghai-international-film-festival-302175363.html",
-          "view": "front",
-          "captureDate": "unknown"
+          "view": "south-entrance-detail",
+          "captureDate": "2024-06",
+          "publishDate": "2024-06-18"
         }
       ]
     },

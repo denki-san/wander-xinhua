@@ -102,9 +102,13 @@ export const XINHUA_HERO_PLANE_TREE_ID = "plane-tree-0-12";
 export const XINHUA_HERO_PLANE_TREE_MODEL =
   "/models/building-evidence-lab/xinhua-plane-tree-hero.glb?v=3";
 const XINHUA_HERO_PLANE_TREE_TARGET = [20.75, 95.57] as const;
-const LANDMARK_OVERVIEW_LOAD_DELAY_MS = 2_200;
-const LANDMARK_EXPLORE_LOAD_DELAY_MS = 1_600;
-const LANDMARK_STAGGER_INTERVAL_MS = 850;
+// 上海影城和新华两佰是全览中的主识别建筑，首帧直接挂载，不能让地图只剩 POI 标签。
+// 其余模型给附近卡片图片保留一个很短的高优先级窗口，再快速分批挂载，避免 35 MB
+// 地标资源同时争抢连接，也避免旧版十余秒的空场。
+const LANDMARK_IMMEDIATE_MODEL_IDS = new Set(["shanghai-cinema", "film-art-center"]);
+const LANDMARK_OVERVIEW_LOAD_DELAY_MS = 320;
+const LANDMARK_EXPLORE_LOAD_DELAY_MS = 240;
+const LANDMARK_STAGGER_INTERVAL_MS = 180;
 
 export const XINHUA_PLANE_TREE_PLACEMENTS = buildPlaneTreePlacements(
   XINHUA_ROAD_LANDMARKS,
@@ -230,14 +234,19 @@ export function XinhuaRoadLandmarks({
   priorityPreset?: string;
   loadMode?: "overview" | "explore";
 }) {
-  const [mountedModelIds, setMountedModelIds] = useState<ReadonlySet<string>>(() => new Set());
+  const [mountedModelIds, setMountedModelIds] = useState<ReadonlySet<string>>(
+    () => new Set(LANDMARK_IMMEDIATE_MODEL_IDS),
+  );
 
   useEffect(() => {
     const priorityLandmark = XINHUA_ROAD_LANDMARKS.find((landmark) => (
       landmarkMatchesPreset(landmark, priorityPreset)
     ));
     const deferredLandmarks = XINHUA_ROAD_LANDMARKS.filter(
-      (landmark) => landmark.id !== priorityLandmark?.id,
+      (landmark) => (
+        landmark.id !== priorityLandmark?.id
+        && !LANDMARK_IMMEDIATE_MODEL_IDS.has(landmark.id)
+      ),
     );
     const initialDelay = loadMode === "explore"
       ? LANDMARK_EXPLORE_LOAD_DELAY_MS

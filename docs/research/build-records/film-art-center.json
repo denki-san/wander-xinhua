@@ -1,0 +1,40 @@
+{
+  "asset": "film-art-center",
+  "generatedAt": "2026-07-22T00:43:00+08:00",
+  "generator": {
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xinhua_road_models.py -- --asset=film-art-center",
+    "path": "scripts/create_xinhua_road_models.py",
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "outputs": {
+    "blend": "assets/models/source/xinhua-road/film-art-center.blend",
+    "glb": "public/models/xinhua-road/film-art-center.glb",
+    "sha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6",
+    "cacheVersion": "20260722-film-art-4"
+  },
+  "metrics": {
+    "bytes": 4082744,
+    "nodes": 1,
+    "meshes": 1,
+    "triangles": 63516,
+    "materials": 14,
+    "images": 0,
+    "textures": 0,
+    "bounds": {
+      "min": [-11.554999351501465, -1.1920928955078125e-7, -6.724999904632568],
+      "max": [11.554999351501465, 14.399999618530273, 11.225000381469727]
+    }
+  },
+  "evidence": {
+    "brief": "docs/research/film-art-center-model-brief.md",
+    "comparison": "test_artifacts/test_film-art-center_three-way-comparison.png",
+    "runtimeScreenshot": "test_artifacts/test_film-art-center_runtime_preview.png"
+  },
+  "validation": {
+    "grayboxRuntimeGate": "passed",
+    "glbAudit": "passed",
+    "automatedTests": "passed",
+    "runtimeQa": "passed",
+    "independentReview": "passed"
+  }
+}

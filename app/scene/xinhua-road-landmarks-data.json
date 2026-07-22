@@ -7,17 +7,17 @@
       "name": "上海影城",
       "address": "新华路160号",
       "model": "/models/xinhua-road/shanghai-cinema.glb",
-      "cacheVersion": "20260721-cinema-4",
+      "cacheVersion": "20260721-cinema-7",
       "position": [74.1, 80.9],
       "yaw": 2.761592653589793,
       "scale": 1,
       "localBounds": { "minX": -19, "maxX": 19, "minZ": -11.8, "maxZ": 14.2 },
       "localObstacles": [
         { "minX": -10.5, "maxX": 10.5, "minZ": -7.3, "maxZ": 6.2 },
-        { "minX": -14.4, "maxX": -10.5, "minZ": -5.0, "maxZ": 4.5 },
-        { "minX": 10.5, "maxX": 14.4, "minZ": -5.0, "maxZ": 4.5 }
+        { "minX": -14.4, "maxX": -10.5, "minZ": -10.0, "maxZ": 4.5 },
+        { "minX": 10.5, "maxX": 14.4, "minZ": -10.0, "maxZ": 4.5 }
       ],
-      "start": [55, 104],
+      "start": [57.5, 101.0],
       "forward": [0.637, -0.771],
       "cameraTargetHeight": 2.8
     },
@@ -27,16 +27,19 @@
       "name": "上海电影艺术中心",
       "address": "新华路200号",
       "model": "/models/xinhua-road/film-art-center.glb",
-      "cacheVersion": "20260718-detail-1",
+      "cacheVersion": "20260722-film-art-4",
       "position": [47.5, 81.5],
       "yaw": 2.761592653589793,
-      "scale": 0.92,
-      "localBounds": { "minX": -9.404186, "maxX": 9.404186, "minZ": -7.504061, "maxZ": 9.11 },
+      "scale": 1,
+      "localBounds": { "minX": -11.554999, "maxX": 11.554999, "minZ": -6.725, "maxZ": 11.225 },
       "localObstacles": [
-        { "minX": -9.0, "maxX": 9.0, "minZ": -7.5, "maxZ": 6.8 }
+        { "minX": -8.0, "maxX": 8.0, "minZ": -5.2, "maxZ": 4.2 },
+        { "minX": -11.46, "maxX": -8.1, "minZ": -3.63, "maxZ": 4.63 },
+        { "minX": 8.1, "maxX": 11.46, "minZ": -3.63, "maxZ": 4.63 }
       ],
-      "start": [28, 90],
-      "forward": [0.91, -0.41]
+      "start": [35, 99],
+      "forward": [0.581, -0.814],
+      "cameraTargetHeight": 3.6
     },
     {
       "id": "one-step-garden",

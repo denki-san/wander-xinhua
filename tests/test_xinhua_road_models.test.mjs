@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile, stat } from "node:fs/promises";
 import test from "node:test";
 import { Mesh } from "three";
@@ -40,13 +41,22 @@ const landmarkDetailThresholds = {
     bytes: 2_500_000,
     triangles: 38_000,
     materials: 12,
-    maxBytes: 5_500_000,
-    maxTriangles: 80_000,
+    maxBytes: 6_300_000,
+    maxTriangles: 90_000,
     maxNodes: 8,
     maxMaterials: 14,
     maxImages: 0,
   },
-  "film-art-center": { bytes: 950_000, triangles: 14_500, materials: 11 },
+  "film-art-center": {
+    bytes: 3_500_000,
+    triangles: 55_000,
+    materials: 14,
+    maxBytes: 6_300_000,
+    maxTriangles: 90_000,
+    maxNodes: 8,
+    maxMaterials: 14,
+    maxImages: 0,
+  },
   "one-step-garden": { bytes: 1_150_000, triangles: 18_000, materials: 13 },
   "xinhua-villas-211": { bytes: 4_000_000, triangles: 60_000, materials: 13 },
   "xinhua-villas-329": { bytes: 1_400_000, triangles: 20_000, materials: 13 },
@@ -255,6 +265,98 @@ test("9 个地标和 3 类梧桐树都有自有 GLB、Blend 源文件和测试�
   }
 });
 
+test("上海影城保留证据驱动的左右侧翼与双侧固定机位", async () => {
+  for (const suffix of ["right-side", "left-side"]) {
+    const preview = await stat(new URL(
+      `test_artifacts/test_shanghai-cinema_${suffix}_preview.png`,
+      root,
+    ));
+    assert.ok(preview.size > 10_000, `上海影城缺少 ${suffix} 固定机位预览`);
+  }
+  for (const suffix of ["right-side", "left-side"]) {
+    const preview = await stat(new URL(
+      `test_artifacts/test_shanghai-cinema_runtime_${suffix}_preview.png`,
+      root,
+    ));
+    assert.ok(preview.size > 10_000, `上海影城缺少 ${suffix} Three.js 运行时验收图`);
+  }
+  assert.match(generatorSource, /side_length = 10\.8/);
+  assert.match(generatorSource, /cinema-\{side_name\}-glass-wing/);
+  assert.match(generatorSource, /cinema-\{side_name\}-cantilever/);
+  assert.match(generatorSource, /cinema-\{side_name\}-terrace-glass/);
+  assert.match(generatorSource, /cinema-left-side-planter/);
+  assert.match(generatorSource, /cinema-tower-top-frame.*16\.85/);
+  assert.match(generatorSource, /for index in range\(37\)/);
+});
+
+test("新华两佰保留照片对照机位、运行时截图和正确牌匾朝向", async () => {
+  for (const suffix of ["canonical", "side", "street", "runtime"]) {
+    const preview = await stat(new URL(
+      `test_artifacts/test_film-art-center_${suffix}_preview.png`,
+      root,
+    ));
+    assert.ok(preview.size > 10_000, `新华两佰缺少 ${suffix} 固定机位预览`);
+  }
+  const runtimePreview = await readFile(new URL(
+    "test_artifacts/test_film-art-center_runtime_preview.png",
+    root,
+  ));
+  assert.deepEqual(
+    [...runtimePreview.subarray(0, 8)],
+    [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a],
+    "新华两佰运行时验收图必须是实际 PNG 文件",
+  );
+  assert.match(generatorSource, /art_center_name = add_text_label/);
+  assert.match(generatorSource, /art_center_name\.scale\.x = -1/);
+  assert.match(
+    generatorSource,
+    /view_layer\.objects\.active = art_center_name[\s\S]*?transform_apply\(location=False, rotation=False, scale=True\)/,
+  );
+});
+
+test("上海影城和新华两佰首帧挂载，其余建筑在短窗口内快速分批加载", () => {
+  assert.match(
+    sceneSource,
+    /LANDMARK_IMMEDIATE_MODEL_IDS = new Set\(\["shanghai-cinema", "film-art-center"\]\)/,
+  );
+  assert.match(sceneSource, /new Set\(LANDMARK_IMMEDIATE_MODEL_IDS\)/);
+  const overviewDelay = Number(
+    sceneSource.match(/LANDMARK_OVERVIEW_LOAD_DELAY_MS = ([\d_]+)/)?.[1].replaceAll("_", ""),
+  );
+  const staggerInterval = Number(
+    sceneSource.match(/LANDMARK_STAGGER_INTERVAL_MS = ([\d_]+)/)?.[1].replaceAll("_", ""),
+  );
+  assert.ok(overviewDelay <= 500, "全览建筑不应在多秒空场后才开始挂载");
+  assert.ok(staggerInterval <= 250, "地标分批间隔不应让最后一栋建筑等待十余秒");
+});
+
+test("上海影城和新华两佰的 build record 与当前 GLB、缓存版本一致", async () => {
+  for (const slug of ["shanghai-cinema", "film-art-center"]) {
+    const record = JSON.parse(await readFile(
+      new URL(`docs/research/build-records/${slug}.json`, root),
+      "utf8",
+    ));
+    const glb = await readFile(new URL(`public/models/xinhua-road/${slug}.glb`, root));
+    const data = parseGlb(glb);
+    const landmark = landmarkData.landmarks.find(({ id }) => id === slug);
+    const comparison = await stat(new URL(record.evidence.comparison, root));
+
+    assert.equal(record.asset, slug);
+    assert.equal(record.outputs.sha256, createHash("sha256").update(glb).digest("hex"));
+    assert.equal(record.outputs.cacheVersion, landmark.cacheVersion);
+    assert.equal(record.metrics.bytes, glb.length);
+    assert.equal(record.metrics.nodes, data.nodes?.length ?? 0);
+    assert.equal(record.metrics.meshes, data.meshes?.length ?? 0);
+    assert.equal(record.metrics.triangles, countTriangles(data));
+    assert.equal(record.metrics.materials, data.materials?.length ?? 0);
+    assert.equal(record.metrics.images, data.images?.length ?? 0);
+    assert.equal(record.metrics.textures, data.textures?.length ?? 0);
+    assert.ok(comparison.size > 10_000, `${slug} 缺少三联对照证据`);
+    assert.equal(record.validation.glbAudit, "passed");
+    assert.equal(record.validation.runtimeQa, "passed");
+  }
+});
+
 test("9 个地标达到海军俱乐部级的结构细节下限，而不是简单盒子占位", async () => {
   for (const [slug, threshold] of Object.entries(landmarkDetailThresholds)) {
     const glb = await readFile(new URL(`public/models/xinhua-road/${slug}.glb`, root));
@@ -334,9 +436,20 @@ test("地图与房屋使用既定统一比例，退界修复只能调整位置",
 
   const cinema = landmarkData.landmarks.find(({ id }) => id === "shanghai-cinema");
   assert.equal(cinema.scale, 1, "上海影城应保持经 OSM 包络校准的 1:1 场景比例");
+  assert.deepEqual(cinema.start, [57.5, 101], "上海影城首屏应收近，但不能靠整体放大模型制造体量感");
   assert.equal(cinema.cameraTargetHeight, 2.8, "上海影城入口镜头应抬高目标点，完整展示主丝带与后塔楼");
   assert.equal(cinema.localObstacles.length, 3, "上海影城碰撞应贴合弧形主体，不能用单一大盒封住入口广场");
   assert.ok(Math.max(...cinema.localObstacles.map(({ maxZ }) => maxZ)) <= 6.2, "上海影城台阶和正门接近区必须保持开放");
+  const filmArtCenter = landmarkData.landmarks.find(({ id }) => id === "film-art-center");
+  assert.equal(filmArtCenter.scale, 1, "新华两佰应使用重建后的 1:1 场景比例，不得延续旧版缩小系数");
+  assert.deepEqual(filmArtCenter.start, [35, 99], "新华两佰首屏应以南侧花园近正视方向保留完整主屋顶与两侧连接体");
+  assert.deepEqual(filmArtCenter.forward, [0.581, -0.814], "新华两佰首屏方向应接近 canonical 南侧正视，不能退化成大角度侧视");
+  assert.equal(filmArtCenter.cameraTargetHeight, 3.6, "新华两佰镜头应抬高以完整展示三层立面和主屋顶");
+  assert.equal(filmArtCenter.localObstacles.length, 3, "新华两佰应拆分历史主楼和两侧低玻璃连接体的碰撞");
+  assert.ok(
+    Math.max(...filmArtCenter.localObstacles.map(({ maxZ }) => maxZ)) <= 4.63,
+    "新华两佰正面草坪、路径和入口台阶必须保持开放",
+  );
   assert.match(sceneSource, /start, forward, cameraTargetHeight/);
   assert.match(worldSource, /initialStart\.cameraTargetHeight \?\? CAMERA_TARGET_HEIGHT/);
   assert.equal(

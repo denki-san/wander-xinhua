@@ -70,18 +70,31 @@
       }
     },
     "xinhuaRoadGlbs": {
-      "film-art-center": { "trianglesBefore": 23324, "trianglesAfter": 49360, "ratio": 2.116 },
+      "film-art-center": {
+        "trianglesBefore": 23324,
+        "trianglesHeadBefore": 49360,
+        "trianglesAfter": 63516,
+        "ratio": 2.723,
+        "incrementalRatio": 1.287,
+        "baselineSource": "docs/research/model-detail-baseline.json",
+        "visibleDetailPartsAfter": 570,
+        "glbBytes": 4082744,
+        "sha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6",
+        "gate": "photo-specific-full-width-red-roof+double-veranda+central-loggia+entry-lions+open-lawn",
+        "buildRecord": "docs/research/build-records/film-art-center.json"
+      },
       "house-315": { "trianglesBefore": 11964, "trianglesAfter": 23512, "gate": "window+door+railing" },
       "one-step-garden": { "trianglesBefore": 22092, "trianglesAfter": 31900, "gate": "window+door+railing" },
       "shanghai-cinema": {
         "trianglesBefore": 45056,
-        "trianglesAfter": 77964,
+        "trianglesAfter": 83820,
         "visibleDetailPartsBefore": 293,
-        "visibleDetailPartsAfter": 792,
-        "partsRatio": 2.703,
-        "glbBytes": 5412320,
-        "sha256": "f16ec7dfe499cf1de18a6f54754240d36a88deed94df6c92fb0c9cfb34ae6b61",
-        "gate": "photo-specific-ribbon+oculus+spiral-stair+glass-drum+tower"
+        "visibleDetailPartsAfter": 856,
+        "partsRatio": 2.922,
+        "glbBytes": 5862660,
+        "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+        "gate": "photo-specific-ribbon+oculus+spiral-stair+glass-drum+tower-scale+side-glass-wings+terraces",
+        "buildRecord": "docs/research/build-records/shanghai-cinema.json"
       },
       "shanghai-orchestra": { "trianglesBefore": 20244, "trianglesAfter": 37276, "gate": "window+door" },
       "villa-le-bec": { "trianglesBefore": 23016, "trianglesAfter": 41156, "gate": "window+door+railing" },
