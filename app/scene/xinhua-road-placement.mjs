@@ -37,19 +37,29 @@ function samplePolyline(points, distance) {
   return { point: [...last], tangent: [1, 0] };
 }
 
+function deterministicUnit(id, salt) {
+  let hash = (2166136261 ^ salt) >>> 0;
+  for (let index = 0; index < id.length; index += 1) {
+    hash ^= id.charCodeAt(index);
+    hash = Math.imul(hash, 16777619) >>> 0;
+  }
+  return hash / 0xffffffff;
+}
+
 /** 使用生产道路轴线、入口和建筑碰撞包络生成梧桐树阵。 */
 export function buildPlaneTreePlacements(landmarks, obstacles) {
   const entrances = landmarks.map(({ start }) => start);
   const placements = [];
   const spacing = 14.5;
   const total = polylineLength(XINHUA_ROAD_AXIS);
-  const cycle = [0, 1, 2, 1];
 
   for (let side = 0; side < 2; side += 1) {
+    let previousVariant = -1;
     for (let distance = 7 + side * spacing * 0.5, index = 0; distance < total - 6; distance += spacing, index += 1) {
       const { point, tangent } = samplePolyline(XINHUA_ROAD_AXIS, distance);
       const sideSign = side === 0 ? 1 : -1;
-      const offset = 6.6 + ((index * 17 + side * 11) % 5) * 0.12;
+      const id = `plane-tree-${side}-${index}`;
+      const offset = 6.55 + deterministicUnit(id, 13) * 0.55;
       const position = [
         point[0] - tangent[1] * offset * sideSign,
         point[1] + tangent[0] * offset * sideSign,
@@ -64,12 +74,21 @@ export function buildPlaneTreePlacements(landmarks, obstacles) {
         && position[1] <= obstacle.maxZ + TREE_BUILDING_CLEARANCE
       ));
       if (tooCloseToEntrance || intersectsBuilding) continue;
+      let variant = Math.floor(deterministicUnit(id, 29) * 3);
+      if (variant === previousVariant) {
+        variant = (variant + 1 + (deterministicUnit(id, 37) > 0.5 ? 1 : 0)) % 3;
+      }
+      previousVariant = variant;
       placements.push({
-        id: `plane-tree-${side}-${index}`,
-        variant: cycle[(index + side * 2) % cycle.length],
+        id,
+        variant,
         position,
-        yaw: (index * 1.618 + side * 0.47) % (Math.PI * 2),
-        scale: 0.88 + ((index * 7 + side * 3) % 6) * 0.038,
+        yaw: deterministicUnit(id, 43) * Math.PI * 2,
+        scale: [
+          0.92 + deterministicUnit(id, 53) * 0.16,
+          0.9 + deterministicUnit(id, 61) * 0.19,
+          0.94 + deterministicUnit(id, 71) * 0.12,
+        ],
       });
     }
   }

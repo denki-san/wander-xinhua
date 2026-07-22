@@ -97,8 +97,13 @@
 ## Repeated-object variant plan
 
 - This deliverable is the hero parent asset.
-- The avenue implementation should derive at least three deterministic variants by changing trunk lean, fork angles, crown spread, rotation, leaf density and pruning profile.
-- Repeated trees should share materials and use instancing or merged batches at street scale.
+- The avenue implementation derives three deterministic structural variants: upright high crown (A), leaning side-spread crown (B), and open multi-fork crown (C).
+- All three inherit the continuous root collar, six low buttress roots, mottled bark and raised fork language without copying the full Hero mesh.
+- Xinhua Road and the two explicitly identified Xingfuli plane trees share the same GLB family, geometry and materials through `InstancedMesh` batches.
+- Per-tree yaw and three-axis positive scale come from a stable ID hash; adjacent avenue trees cannot use the same structural variant.
+- Generic garden trees, ginkgoes, shrubs and unconfirmed vegetation are outside the replacement whitelist.
+- Runtime budget: three street-tree GLBs together stay below 700 KB, with at most six material parts per variant and no embedded images or textures.
+- Full rollout and semantic replacement boundary: `docs/research/plane-tree-variant-rollout.md`.
 
 ## Collision and camera-clearance plan
 

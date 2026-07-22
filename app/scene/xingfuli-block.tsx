@@ -4,6 +4,10 @@ import { RoundedBox } from "@react-three/drei";
 import { useLayoutEffect, useMemo, useRef } from "react";
 import { InstancedMesh, Object3D } from "three";
 import layout from "./xingfuli-layout.json";
+import {
+  PlaneTreeInstances,
+  type PlaneTreeInstancePlacement,
+} from "./plane-tree-instances";
 import type { MapObstacle } from "./world-math";
 
 const FLOOR_HEIGHT = 2.08;
@@ -18,6 +22,22 @@ const GARDEN_CELLS = Array.from({ length: 72 }, (_, index) => ({
 }));
 const GARDEN_COLORS = ["#78924e", "#4f7d55", "#386849"] as const;
 const REFLECTING_POOL = { x: 16.5, z: -3.95, width: 18, depth: 2.15 };
+const XINGFULI_PLANE_TREE_PLACEMENTS: PlaneTreeInstancePlacement[] = [
+  {
+    id: "xingfuli-pool-plane-tree",
+    variant: 1,
+    position: [REFLECTING_POOL.x + 5.6, 0.48, REFLECTING_POOL.z],
+    yaw: 0.42,
+    scale: [0.82, 0.86, 0.88],
+  },
+  {
+    id: "xingfuli-lane-plane-tree",
+    variant: 2,
+    position: [-5, 0.25, -2.6],
+    yaw: 2.18,
+    scale: [0.72, 0.76, 0.8],
+  },
+];
 export const XINGFULI_DETAIL_UPGRADE = {
   windowLayersBefore: 3,
   windowLayersAfter: 6,
@@ -467,28 +487,6 @@ function LanePaving() {
   );
 }
 
-function PlaneTree({ scale = 1 }: { scale?: number }) {
-  return (
-    <group scale={scale}>
-      <mesh position={[0, 1.45, 0]} castShadow>
-        <cylinderGeometry args={[0.21, 0.31, 2.9, 9]} />
-        <meshToonMaterial color="#76644e" />
-      </mesh>
-      {[
-        [-0.42, 2.85, 0.12, 0.78],
-        [0.32, 3.2, -0.18, 0.92],
-        [0.72, 2.75, 0.22, 0.74],
-        [-0.2, 3.55, 0.16, 0.72],
-      ].map(([x, y, z, size], index) => (
-        <mesh key={index} position={[x, y, z]} scale={size} castShadow>
-          <icosahedronGeometry args={[0.9, 1]} />
-          <meshToonMaterial color={index % 2 ? "#4f8567" : "#3d725a"} />
-        </mesh>
-      ))}
-    </group>
-  );
-}
-
 function ReflectingPool() {
   return (
     <group position={[REFLECTING_POOL.x, 0, REFLECTING_POOL.z]}>
@@ -527,7 +525,6 @@ function ReflectingPool() {
         </group>
       ))}
       <group position={[5.6, 0.48, 0]}>
-        <PlaneTree scale={0.86} />
         <mesh position={[0, 0.08, 0]} castShadow>
           <cylinderGeometry args={[0.72, 0.86, 0.28, 12]} />
           <meshToonMaterial color="#47534e" />
@@ -747,7 +744,6 @@ function LaneFurniture() {
       <Planter x={-11.2} z={-11.4} scale={0.8} />
       <Planter x={28.8} z={-2.4} scale={0.78} />
       <Planter x={40.3} z={-10.7} scale={0.9} />
-      <group position={[-5, 0.25, -2.6]}><PlaneTree scale={0.76} /></group>
       <EntryBollards />
     </group>
   );
@@ -767,6 +763,10 @@ export function XingfuliBlock() {
       <VerticalGarden />
       <EntranceMural />
       <LaneFurniture />
+      <PlaneTreeInstances
+        name="xingfuli-plane-tree-batches"
+        placements={XINGFULI_PLANE_TREE_PLACEMENTS}
+      />
     </group>
   );
 }

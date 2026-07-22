@@ -1,9 +1,14 @@
 "use client";
 
 import { Html, useGLTF } from "@react-three/drei";
-import { InstancedMesh, Matrix4, Mesh, Quaternion, Vector3, type Object3D } from "three";
-import { Suspense, useLayoutEffect, useMemo, useRef } from "react";
+import { Mesh, type Object3D } from "three";
+import { Suspense, useMemo } from "react";
 import { terrainHeightAt } from "./terrain";
+import {
+  PlaneTreeInstances,
+  type PlaneTreeInstancePlacement,
+  type PlaneTreeVariant,
+} from "./plane-tree-instances";
 import type { MapObstacle, MapPolygonPoint } from "./world-math";
 import {
   buildPlaneTreePlacements,
@@ -86,16 +91,25 @@ export const XINHUA_ROAD_START_PRESETS = Object.fromEntries(
 
 type TreePlacement = {
   id: string;
-  variant: 0 | 1 | 2;
+  variant: PlaneTreeVariant;
   position: MapPolygonPoint;
   yaw: number;
-  scale: number;
+  scale: [number, number, number];
 };
 
 export const XINHUA_PLANE_TREE_PLACEMENTS = buildPlaneTreePlacements(
   XINHUA_ROAD_LANDMARKS,
   XINHUA_ROAD_MODEL_FOOTPRINTS,
 ) as unknown as TreePlacement[];
+
+const XINHUA_PLANE_TREE_INSTANCES: PlaneTreeInstancePlacement[] =
+  XINHUA_PLANE_TREE_PLACEMENTS.map((placement) => {
+    const [x, z] = placement.position;
+    return {
+      ...placement,
+      position: [x, terrainHeightAt(x, z) + 0.08, z],
+    };
+  });
 
 function configureModel(model: Object3D) {
   model.traverse((child) => {
@@ -138,99 +152,16 @@ function LandmarkLoadingVolume({ landmark }: { landmark: LandmarkPlacement }) {
   );
 }
 
-const TREE_MODELS = [
-  "/models/xinhua-road/plane-tree-a.glb",
-  "/models/xinhua-road/plane-tree-b.glb",
-  "/models/xinhua-road/plane-tree-c.glb",
-] as const;
-
-function InstancedPlaneTreePart({
-  sourceMesh,
-  placements,
-  variant,
-  part,
-}: {
-  sourceMesh: Mesh;
-  placements: TreePlacement[];
-  variant: 0 | 1 | 2;
-  part: number;
-}) {
-  const instanceRef = useRef<InstancedMesh>(null);
-
-  useLayoutEffect(() => {
-    const instances = instanceRef.current;
-    if (!instances) return;
-    const placementMatrix = new Matrix4();
-    const instanceMatrix = new Matrix4();
-    const quaternion = new Quaternion();
-    const position = new Vector3();
-    const scale = new Vector3();
-    const up = new Vector3(0, 1, 0);
-    placements.forEach((placement, index) => {
-      const [x, z] = placement.position;
-      // InstancedMesh 不支持单实例负缩放；把统一的 Z 翻转放到父组，
-      // 实例矩阵使用等价的镜像位置与反向旋转，保持每个矩阵行列式为正。
-      position.set(x, terrainHeightAt(x, z) + 0.08, -z);
-      quaternion.setFromAxisAngle(up, -placement.yaw);
-      scale.setScalar(placement.scale);
-      placementMatrix.compose(position, quaternion, scale);
-      instanceMatrix.multiplyMatrices(placementMatrix, sourceMesh.matrixWorld);
-      instances.setMatrixAt(index, instanceMatrix);
-    });
-    instances.instanceMatrix.needsUpdate = true;
-    instances.computeBoundingSphere();
-  }, [placements, sourceMesh]);
-
-  return (
-    <instancedMesh
-      ref={instanceRef}
-      args={[sourceMesh.geometry, sourceMesh.material, placements.length]}
-      castShadow
-      receiveShadow
-      userData={{ vegetation: "xinhua-plane-tree", variant, part }}
-    />
-  );
-}
-
-function InstancedPlaneTreeVariant({ variant }: { variant: 0 | 1 | 2 }) {
-  const { scene } = useGLTF(TREE_MODELS[variant]);
-  const sourceMeshes = useMemo(() => {
-    const result: Mesh[] = [];
-    scene.updateMatrixWorld(true);
-    scene.traverse((child) => {
-      if (child instanceof Mesh) result.push(child);
-    });
-    if (result.length === 0) throw new Error(`梧桐树模型缺少网格：${TREE_MODELS[variant]}`);
-    return result;
-  }, [scene, variant]);
-  const placements = useMemo(
-    () => XINHUA_PLANE_TREE_PLACEMENTS.filter((placement) => placement.variant === variant),
-    [variant],
-  );
-
-  return (
-    <group scale={[1, 1, -1]}>
-      {sourceMeshes.map((sourceMesh, part) => (
-        <InstancedPlaneTreePart
-          key={sourceMesh.uuid}
-          sourceMesh={sourceMesh}
-          placements={placements}
-          variant={variant}
-          part={part}
-        />
-      ))}
-    </group>
-  );
-}
-
 export function XinhuaRoadPlaneTrees() {
   return (
-    <group name="xinhua-road-plane-trees" userData={{ variants: 3, arrangement: "A-B-C-B" }}>
-      {TREE_MODELS.map((path, variant) => (
-        <Suspense key={path} fallback={null}>
-          <InstancedPlaneTreeVariant variant={variant as 0 | 1 | 2} />
-        </Suspense>
-      ))}
+    <group
+      name="xinhua-road-plane-trees"
+      userData={{ variants: 3, arrangement: "deterministic-id-hash" }}
+    >
+      <PlaneTreeInstances
+        name="xinhua-road-plane-tree-batches"
+        placements={XINHUA_PLANE_TREE_INSTANCES}
+      />
     </group>
   );
 }

@@ -1902,8 +1902,140 @@ def build_xinhua_mansion() -> None:
     add_paving_grid("mansion-paving-detail", (0, -2.1), 22.0, 16.5, 0.215, paving_line, columns=14, rows=12)
 
 
+def create_plane_tree_trunk(
+    variant: int,
+    trunk_height: float,
+    lean: tuple[float, float],
+    bark: bpy.types.Material,
+) -> bpy.types.Object:
+    """创建带连续根颈的低多边形树干，避免树干像圆柱一样直接插入地面。"""
+    ring_heights = (0.0, 0.28, 0.86, trunk_height)
+    ring_radii = (0.61, 0.53, 0.39, 0.25)
+    ring_segments = 14
+    vertices: list[tuple[float, float, float]] = []
+    faces: list[tuple[int, ...]] = []
+    for ring_index, height in enumerate(ring_heights):
+        progress = height / trunk_height
+        center_x = lean[0] * progress ** 1.25
+        center_y = lean[1] * progress ** 1.25
+        phase = variant * 0.11 + ring_index * 0.025
+        for segment in range(ring_segments):
+            angle = segment * math.tau / ring_segments + phase
+            radius = ring_radii[ring_index] * (
+                1.0 + 0.025 * math.sin(segment * 2.1 + variant * 0.8)
+            )
+            vertices.append((
+                center_x + math.cos(angle) * radius,
+                center_y + math.sin(angle) * radius,
+                height,
+            ))
+    for ring_index in range(len(ring_heights) - 1):
+        current = ring_index * ring_segments
+        following = (ring_index + 1) * ring_segments
+        for segment in range(ring_segments):
+            next_segment = (segment + 1) % ring_segments
+            faces.append((
+                current + segment,
+                current + next_segment,
+                following + next_segment,
+                following + segment,
+            ))
+    faces.append(tuple(reversed(range(ring_segments))))
+    top_start = (len(ring_heights) - 1) * ring_segments
+    faces.append(tuple(top_start + index for index in range(ring_segments)))
+    mesh = bpy.data.meshes.new(f"plane-tree-{variant}-trunk-mesh")
+    mesh.from_pydata(vertices, [], faces)
+    mesh.update()
+    obj = bpy.data.objects.new(f"plane-tree-{variant}-trunk", mesh)
+    bpy.context.collection.objects.link(obj)
+    for polygon in mesh.polygons:
+        polygon.use_smooth = True
+    return register(obj, bark)
+
+
+def create_plane_tree_buttress(
+    variant: int,
+    index: int,
+    angle: float,
+    length: float,
+    width: float,
+    height: float,
+    bend: float,
+    bark: bpy.types.Material,
+) -> bpy.types.Object:
+    """创建低矮、圆缓并逐渐沉入地面的板根实体。"""
+    direction = Vector((math.cos(angle), math.sin(angle), 0.0))
+    side = Vector((-direction.y, direction.x, 0.0))
+    progress_values = (0.0, 0.18, 0.4, 0.64, 0.82, 1.0)
+    profile = (
+        (-1.0, 0.0),
+        (-0.72, 0.5),
+        (-0.28, 1.0),
+        (0.28, 1.0),
+        (0.72, 0.5),
+        (1.0, 0.0),
+        (0.62, -0.18),
+        (-0.62, -0.18),
+    )
+    vertices: list[tuple[float, float, float]] = []
+    faces: list[tuple[int, ...]] = []
+    for progress in progress_values:
+        distance = 0.05 + (length - 0.05) * progress
+        center = direction * distance + side * bend * math.sin(progress * math.pi)
+        half_width = 0.012 + width * (1.0 - progress) ** 0.72
+        ridge_height = 0.003 + height * (1.0 - progress) ** 1.25
+        base_height = -0.09 * progress ** 1.2
+        for horizontal, vertical in profile:
+            point = center + side * horizontal * half_width
+            point.z = base_height + vertical * ridge_height
+            vertices.append(tuple(point))
+    profile_size = len(profile)
+    for station in range(len(progress_values) - 1):
+        current = station * profile_size
+        following = (station + 1) * profile_size
+        for profile_index in range(profile_size):
+            next_profile = (profile_index + 1) % profile_size
+            faces.append((
+                current + profile_index,
+                current + next_profile,
+                following + next_profile,
+                following + profile_index,
+            ))
+    faces.append(tuple(reversed(range(profile_size))))
+    tip_start = (len(progress_values) - 1) * profile_size
+    faces.append(tuple(tip_start + index for index in range(profile_size)))
+    mesh = bpy.data.meshes.new(f"plane-tree-{variant}-root-{index}-mesh")
+    mesh.from_pydata(vertices, [], faces)
+    mesh.update()
+    obj = bpy.data.objects.new(f"plane-tree-{variant}-root-{index}", mesh)
+    bpy.context.collection.objects.link(obj)
+    for polygon in mesh.polygons:
+        polygon.use_smooth = True
+    return register(obj, bark)
+
+
+def merge_plane_tree_roots(
+    trunk: bpy.types.Object,
+    roots: list[bpy.types.Object],
+) -> None:
+    """用 Voxel Remesh 把板根焊入根颈，避免连续 Boolean 在交叠根部产生坏拓扑。"""
+    bpy.ops.object.select_all(action="DESELECT")
+    trunk.select_set(True)
+    for root in roots:
+        root.select_set(True)
+    bpy.context.view_layer.objects.active = trunk
+    bpy.ops.object.join()
+    trunk.data.remesh_voxel_size = 0.12
+    trunk.data.remesh_voxel_adaptivity = 0.0
+    bpy.ops.object.voxel_remesh()
+    ASSET_OBJECTS[:] = [obj for obj in ASSET_OBJECTS if obj not in roots]
+    for polygon in trunk.data.polygons:
+        polygon.use_smooth = True
+
+
 def build_plane_tree(variant: int) -> None:
     rng = random.Random(9107 + variant * 103)
+    root_rng = random.Random(12011 + variant * 137)
     bark = material("梧桐树皮", "#8d826e")
     bark_light = material("梧桐树皮浅斑", "#b9ae90")
     bark_dark = material("梧桐树皮深斑", "#6f675b")
@@ -1913,15 +2045,38 @@ def build_plane_tree(variant: int) -> None:
         material("梧桐叶浅", "#78905b"),
     ]
     trunk_height = (4.6, 4.2, 4.4)[variant]
-    trunk_x = (0.0, 0.15, -0.18)[variant]
-    add_tapered_cylinder("tree-trunk", (trunk_x, 0, trunk_height / 2), 0.42, 0.25, trunk_height, bark, vertices=14)
+    trunk_lean = ((0.0, 0.0), (0.24, -0.09), (-0.2, 0.12))[variant]
+    trunk = create_plane_tree_trunk(variant, trunk_height, trunk_lean, bark)
+    roots = []
+    root_count = 6
+    for index in range(root_count):
+        angle = (
+            index * math.tau / root_count
+            + variant * 0.17
+            + root_rng.uniform(-0.18, 0.18)
+        )
+        roots.append(create_plane_tree_buttress(
+            variant,
+            index,
+            angle,
+            root_rng.uniform(0.76, 1.02)
+            + (0.05 if variant == 2 and index % 2 == 0 else 0.0),
+            root_rng.uniform(0.26, 0.36),
+            root_rng.uniform(0.14, 0.2),
+            root_rng.uniform(-0.075, 0.075),
+            bark,
+        ))
+    merge_plane_tree_roots(trunk, roots)
     # 用不规则浅深色片段表现悬铃木斑驳树皮，而不是单一棕色圆柱。
     for index in range(10):
         angle = rng.random() * math.pi * 2
         z = 0.55 + rng.random() * (trunk_height - 0.8)
+        progress = z / trunk_height
+        center_x = trunk_lean[0] * progress ** 1.25
+        center_y = trunk_lean[1] * progress ** 1.25
         radius = 0.40 - z / trunk_height * 0.14
-        x = trunk_x + math.cos(angle) * (radius + 0.012)
-        y = math.sin(angle) * (radius + 0.012)
+        x = center_x + math.cos(angle) * (radius + 0.012)
+        y = center_y + math.sin(angle) * (radius + 0.012)
         add_box(
             f"tree-bark-patch-{index}",
             (x, y, z),
@@ -1936,7 +2091,7 @@ def build_plane_tree(variant: int) -> None:
         branch_ends = [(-1.0, 0.1, 7.4), (2.8, -0.2, 7.0), (3.4, 0.7, 7.9), (0.8, -1.8, 7.3)]
     else:
         branch_ends = [(-2.5, 0.0, 7.0), (2.4, 0.1, 7.1), (-1.7, 1.5, 7.8), (1.6, -1.45, 7.7), (0.0, 0.3, 8.3)]
-    fork = (trunk_x, 0, trunk_height - 0.2)
+    fork = (trunk_lean[0] * 0.94, trunk_lean[1] * 0.94, trunk_height - 0.2)
     for index, end in enumerate(branch_ends):
         mid = (
             fork[0] + (end[0] - fork[0]) * 0.48,
@@ -2015,7 +2170,8 @@ def render_preview(slug: str) -> None:
             max_corner.z = max(max_corner.z, world.z)
     center = (min_corner + max_corner) * 0.5
     extent = max(max_corner.x - min_corner.x, max_corner.y - min_corner.y, max_corner.z - min_corner.z)
-    ground = add_box("test-preview-ground", (center.x, center.y, min_corner.z - 0.08), (extent * 1.5, extent * 1.5, 0.16), material("测试地面", "#d8d5ca"), asset=False)
+    ground_level = 0.04 if slug.startswith("plane-tree-") else min_corner.z
+    ground = add_box("test-preview-ground", (center.x, center.y, ground_level - 0.08), (extent * 1.5, extent * 1.5, 0.16), material("测试地面", "#d8d5ca"), asset=False)
     ground.is_shadow_catcher = False
     bpy.ops.object.camera_add(location=(center.x + extent * 1.05, center.y - extent * 1.35, center.z + extent * 0.82))
     camera = bpy.context.active_object
@@ -2047,6 +2203,27 @@ def render_preview(slug: str) -> None:
     background.inputs["Color"].default_value = (0.72, 0.79, 0.82, 1.0)
     background.inputs["Strength"].default_value = 0.72
     scene.view_settings.look = "AgX - Medium High Contrast"
+    if slug.startswith("plane-tree-"):
+        tree_target = Vector((center.x, center.y, min_corner.z + extent * 0.44))
+        tree_views = (
+            ("preview", (center.x + extent * 1.05, center.y - extent * 1.35, min_corner.z + extent * 0.82), 52),
+            ("canonical", (center.x + extent * 0.16, center.y - extent * 1.55, min_corner.z + extent * 0.72), 54),
+            ("side", (center.x + extent * 1.48, center.y + extent * 0.12, min_corner.z + extent * 0.68), 54),
+        )
+        for suffix, location, lens in tree_views:
+            camera.location = location
+            camera.data.lens = lens
+            camera.rotation_euler = (tree_target - camera.location).to_track_quat("-Z", "Y").to_euler()
+            filename = f"test_{slug}_preview.png" if suffix == "preview" else f"test_{slug}_{suffix}_preview.png"
+            scene.render.filepath = str(PREVIEW_DIR / filename)
+            bpy.ops.render.render(write_still=True)
+        camera.location = (center.x + 2.3, center.y - 3.0, min_corner.z + 1.15)
+        camera.data.lens = 62
+        root_target = Vector((center.x, center.y, min_corner.z + 0.4))
+        camera.rotation_euler = (root_target - camera.location).to_track_quat("-Z", "Y").to_euler()
+        scene.render.filepath = str(PREVIEW_DIR / f"test_{slug}_root_preview.png")
+        bpy.ops.render.render(write_still=True)
+        return
     if slug == "shanghai-cinema":
         key.data.energy = 1600
         fill.data.energy = 650
@@ -2084,6 +2261,10 @@ def export_asset(slug: str, builder: Callable[[], None]) -> dict[str, int | str]
     ASSET_OBJECTS[0]["detail_current_parts"] = source_object_count
     ASSET_OBJECTS[0]["detail_method"] = "photo-semantic-components"
     ASSET_OBJECTS[0]["detail_upgrade"] = "20260718"
+    if slug.startswith("plane-tree-"):
+        ASSET_OBJECTS[0]["plane_tree_family"] = "root-collar-v2"
+        ASSET_OBJECTS[0]["plane_tree_variant"] = slug.removeprefix("plane-tree-")
+        ASSET_OBJECTS[0]["instancing_ready"] = True
     baseline_parts = DETAIL_BASELINE_PARTS.get(slug)
     if baseline_parts is not None:
         ASSET_OBJECTS[0]["detail_baseline_parts"] = baseline_parts

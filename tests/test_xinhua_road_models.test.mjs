@@ -12,6 +12,8 @@ import {
 
 const root = new URL("../", import.meta.url);
 const sceneSource = await readFile(new URL("app/scene/xinhua-road-landmarks.tsx", root), "utf8");
+const planeTreeInstancesSource = await readFile(new URL("app/scene/plane-tree-instances.tsx", root), "utf8");
+const xingfuliSource = await readFile(new URL("app/scene/xingfuli-block.tsx", root), "utf8");
 const worldSource = await readFile(new URL("app/scene/xinhua-world.tsx", root), "utf8");
 const generatorSource = await readFile(new URL("scripts/create_xinhua_road_models.py", root), "utf8");
 const researchSource = await readFile(new URL("docs/research/xinhua-road-landmarks-reference.md", root), "utf8");
@@ -345,26 +347,31 @@ test("地图与房屋使用既定统一比例，退界修复只能调整位置",
 });
 
 test("梧桐树按 3 个模型变体沿新华路双侧交错排列，并为地标入口留空", () => {
-  assert.match(sceneSource, /plane-tree-a\.glb/);
-  assert.match(sceneSource, /plane-tree-b\.glb/);
-  assert.match(sceneSource, /plane-tree-c\.glb/);
-  assert.match(sceneSource, /InstancedPlaneTreeVariant/);
-  assert.match(sceneSource, /InstancedPlaneTreePart/);
-  assert.match(sceneSource, /sourceMeshes\.map/);
-  assert.match(sceneSource, /multiplyMatrices\(placementMatrix, sourceMesh\.matrixWorld\)/);
-  assert.match(sceneSource, /instances\.setMatrixAt/);
-  assert.match(sceneSource, /scale\.setScalar\(placement\.scale\)/);
-  assert.match(sceneSource, /<group scale=\{\[1, 1, -1\]\}>/);
-  assert.match(sceneSource, /TREE_MODELS\.map\(\(path, variant\) =>/);
-  assert.match(sceneSource, /<Suspense key=\{path\} fallback=\{null\}>/);
-  assert.match(sceneSource, /<InstancedPlaneTreeVariant variant=\{variant as 0 \| 1 \| 2\} \/>/);
-  assert.match(sceneSource, /userData=\{\{ variants: 3, arrangement: "A-B-C-B" \}\}/);
+  assert.match(planeTreeInstancesSource, /plane-tree-a\.glb\?v=2/);
+  assert.match(planeTreeInstancesSource, /plane-tree-b\.glb\?v=2/);
+  assert.match(planeTreeInstancesSource, /plane-tree-c\.glb\?v=2/);
+  assert.match(planeTreeInstancesSource, /InstancedPlaneTreeVariant/);
+  assert.match(planeTreeInstancesSource, /InstancedPlaneTreePart/);
+  assert.match(planeTreeInstancesSource, /sourceMeshes\.map/);
+  assert.match(planeTreeInstancesSource, /multiplyMatrices\(placementMatrix, sourceMesh\.matrixWorld\)/);
+  assert.match(planeTreeInstancesSource, /instances\.setMatrixAt/);
+  assert.match(planeTreeInstancesSource, /scale\.set\(scaleX, scaleY, scaleZ\)/);
+  assert.match(planeTreeInstancesSource, /scale=\{\[1, 1, -1\]\}/);
+  assert.match(planeTreeInstancesSource, /placementsByVariant\[variant\]\.length > 0/);
+  assert.match(sceneSource, /arrangement: "deterministic-id-hash"/);
+  assert.match(sceneSource, /<PlaneTreeInstances/);
 
   const obstacles = landmarkData.landmarks.map(transformedFootprint);
   const placements = buildPlaneTreePlacements(landmarkData.landmarks, obstacles);
   assert.ok(placements.length >= 20, "避让后仍需保留连续的双侧梧桐树阵");
   assert.deepEqual([...new Set(placements.map(({ variant }) => variant))].sort(), [0, 1, 2]);
+  const previousVariantBySide = new Map();
   for (const placement of placements) {
+    const side = placement.id.split("-")[2];
+    assert.notEqual(placement.variant, previousVariantBySide.get(side));
+    previousVariantBySide.set(side, placement.variant);
+    assert.equal(placement.scale.length, 3);
+    assert.ok(placement.scale.every((value) => value > 0));
     for (const obstacle of obstacles) {
       assert.equal(
         pointIntersectsObstacle(placement.position, obstacle, TREE_BUILDING_CLEARANCE),
@@ -401,8 +408,11 @@ test("梧桐树的树干、深浅树皮斑痕和三层树冠都进入运行时�
       assert.ok(mesh.matrixWorld.elements.every(Number.isFinite), `${slug} 的实例源矩阵必须有效`);
     }
   }
-  assert.match(sceneSource, /scene\.traverse\(\(child\) => \{[\s\S]*result\.push\(child\)/);
-  assert.match(sceneSource, /userData=\{\{ vegetation: "xinhua-plane-tree", variant, part \}\}/);
+  assert.match(planeTreeInstancesSource, /scene\.traverse\(\(child\) => \{[\s\S]*result\.push\(child\)/);
+  assert.match(planeTreeInstancesSource, /vegetation: "xinhua-plane-tree", variant, part, instanced: true/);
+  assert.doesNotMatch(xingfuliSource, /function PlaneTree/);
+  assert.equal((xingfuliSource.match(/id: "xingfuli-[^"]+-plane-tree"/g) ?? []).length, 2);
+  assert.match(xingfuliSource, /<PlaneTreeInstances/);
 });
 
 test("地标碰撞范围由 GLB 实际边界派生，不再维护会漏穿的手写盒", async () => {
