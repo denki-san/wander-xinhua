@@ -101,6 +101,7 @@ type TreePlacement = {
 export const XINHUA_HERO_PLANE_TREE_ID = "plane-tree-0-12";
 export const XINHUA_HERO_PLANE_TREE_MODEL =
   "/models/building-evidence-lab/xinhua-plane-tree-hero.glb?v=3";
+const XINHUA_HERO_PLANE_TREE_TARGET = [20.75, 95.57] as const;
 const LANDMARK_OVERVIEW_LOAD_DELAY_MS = 2_200;
 const LANDMARK_EXPLORE_LOAD_DELAY_MS = 1_600;
 const LANDMARK_STAGGER_INTERVAL_MS = 850;
@@ -118,18 +119,33 @@ const XINHUA_PLANE_TREE_INSTANCES: PlaneTreeInstancePlacement[] =
       position: [x, terrainHeightAt(x, z) + 0.08, z],
     };
   });
-function requirePlaneTreePlacement(id: string) {
-  const placement = XINHUA_PLANE_TREE_INSTANCES.find((candidate) => candidate.id === id);
-  if (!placement) {
-    throw new Error(`找不到 Hero 梧桐树位：${id}`);
+function selectHeroPlaneTreePlacement(preferredId: string) {
+  const preferred = XINHUA_PLANE_TREE_INSTANCES.find(
+    (candidate) => candidate.id === preferredId,
+  );
+  if (preferred) return preferred;
+  if (XINHUA_PLANE_TREE_INSTANCES.length === 0) {
+    throw new Error("找不到可安全放置 Hero 梧桐的既有树位");
   }
-  return placement;
+
+  const [targetX, targetZ] = XINHUA_HERO_PLANE_TREE_TARGET;
+  return XINHUA_PLANE_TREE_INSTANCES.reduce((closest, candidate) => {
+    const closestDistance = Math.hypot(
+      closest.position[0] - targetX,
+      closest.position[2] - targetZ,
+    );
+    const candidateDistance = Math.hypot(
+      candidate.position[0] - targetX,
+      candidate.position[2] - targetZ,
+    );
+    return candidateDistance < closestDistance ? candidate : closest;
+  });
 }
-const XINHUA_HERO_PLANE_TREE_PLACEMENT = requirePlaneTreePlacement(
+const XINHUA_HERO_PLANE_TREE_PLACEMENT = selectHeroPlaneTreePlacement(
   XINHUA_HERO_PLANE_TREE_ID,
 );
 const XINHUA_LIGHTWEIGHT_PLANE_TREE_INSTANCES = XINHUA_PLANE_TREE_INSTANCES.filter(
-  (placement) => placement.id !== XINHUA_HERO_PLANE_TREE_ID,
+  (placement) => placement.id !== XINHUA_HERO_PLANE_TREE_PLACEMENT.id,
 );
 
 function configureModel(model: Object3D) {
@@ -160,7 +176,7 @@ function HeroPlaneTree() {
       userData={{
         vegetation: "xinhua-plane-tree-hero",
         source: XINHUA_HERO_PLANE_TREE_MODEL,
-        replaces: XINHUA_HERO_PLANE_TREE_ID,
+        replaces: XINHUA_HERO_PLANE_TREE_PLACEMENT.id,
       }}
     >
       <primitive object={model} scale={[1, 1, -1]} />

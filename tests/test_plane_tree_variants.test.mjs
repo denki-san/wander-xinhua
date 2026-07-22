@@ -111,7 +111,10 @@ test("主地图近景使用已验收 Hero 梧桐且不与轻量实例重叠", as
   assert.equal(hero.textures, undefined);
   assert.match(landmarks, /XINHUA_HERO_PLANE_TREE_ID = "plane-tree-0-12"/);
   assert.match(landmarks, /xinhua-plane-tree-hero\.glb\?v=3/);
-  assert.match(landmarks, /placement\.id !== XINHUA_HERO_PLANE_TREE_ID/);
+  assert.match(landmarks, /selectHeroPlaneTreePlacement/);
+  assert.match(landmarks, /XINHUA_HERO_PLANE_TREE_TARGET/);
+  assert.match(landmarks, /candidateDistance < closestDistance/);
+  assert.match(landmarks, /placement\.id !== XINHUA_HERO_PLANE_TREE_PLACEMENT\.id/);
   assert.match(landmarks, /showHero && \(/);
   assert.match(landmarks, /xinhua-road-hero-plane-tree-loading-fallback/);
   assert.match(world, /showHeroTree=\{exploring\}/);

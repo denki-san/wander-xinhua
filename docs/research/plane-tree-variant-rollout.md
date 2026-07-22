@@ -24,7 +24,7 @@ Hero 资产负责定义物种身份和近景质量，不直接批量复制到主
 | 场景 | 当前实现 | 本轮处理 |
 | --- | --- | --- |
 | 新华路双侧树阵 | `plane-tree-a.glb`、`plane-tree-b.glb`、`plane-tree-c.glb` | 原路径原位升级为三种新版低模梧桐 |
-| 新华路 Hero 树位 | `plane-tree-0-12` 轻量实例 | 近景模式替换为 `xinhua-plane-tree-hero.glb?v=3`，加载期间仍用原轻量实例回退 |
+| 新华路 Hero 树位 | 优先 `plane-tree-0-12` 轻量实例 | 近景模式替换为 `xinhua-plane-tree-hero.glb?v=3`；若建筑避让使首选树位不存在，则自动选择距 211 弄入口目标点最近的安全既有树位，加载期间仍用同位置轻量实例回退 |
 | 幸福里倒影池旁 | `xingfuli-block.tsx` 中明确命名的 `PlaneTree` | 改用共享 GLB 的实例化变体 |
 | 幸福里主通道 | `xingfuli-block.tsx` 中明确命名的 `PlaneTree` | 改用另一种共享 GLB 实例化变体 |
 | Hero 检查页 | `xinhua-plane-tree-hero.glb?v=3` | 保留，继续作为近景母版和验收入口 |
