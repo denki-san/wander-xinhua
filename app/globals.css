@@ -920,7 +920,7 @@ kbd {
   }
 
   .overview-poi-card {
-    top: calc(env(safe-area-inset-top, 0px) + 68px);
+    top: calc(env(safe-area-inset-top, 0px) + 48px);
     right: 72px;
     left: 15px;
     grid-template-columns: minmax(112px, 0.72fr) minmax(0, 1.28fr);
