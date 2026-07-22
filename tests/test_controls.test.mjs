@@ -116,8 +116,9 @@ test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", as
   assert.match(experience, /<VisualEffectComposer lowTier=\{lowTier\} \/>/);
   assert.doesNotMatch(experience, /\{!playing && \(\s*<VisualEffectComposer/s);
   assert.doesNotMatch(experience, /key=\{mode\}/);
-  assert.match(world, /<XinhuaRoadLandmarks showLabels=\{showDetailLabels\} \/>/);
-  assert.match(roadLandmarks, /<Suspense fallback=\{<LandmarkLoadingVolume landmark=\{landmark\} \/>\}>/);
+  assert.match(world, /<XinhuaRoadLandmarks[\s\S]*?showLabels=\{showDetailLabels\}[\s\S]*?priorityPreset=\{priorityPreset\}[\s\S]*?loadMode=\{landmarkLoadMode\}/);
+  assert.doesNotMatch(roadLandmarks, /LandmarkLoadingVolume/);
+  assert.match(roadLandmarks, /<Suspense fallback=\{null\}>/);
   assert.match(effects, /\["uStrength", new Uniform\(0\.72\)\]/);
   assert.doesNotMatch(effects, /setEnabled|activeStrength/);
   assert.match(effects, /texture2D\(inputBuffer, uv \+ offset\)\.rgb/);

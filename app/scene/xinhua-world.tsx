@@ -374,11 +374,17 @@ function FlatNeighborhood({
   detailScale = 1,
   showDetailModels = false,
   showDetailLabels = true,
+  showHeroTree = false,
+  priorityPreset,
+  landmarkLoadMode = "overview",
 }: {
   onOpenAction: () => void;
   detailScale?: number;
   showDetailModels?: boolean;
   showDetailLabels?: boolean;
+  showHeroTree?: boolean;
+  priorityPreset?: string;
+  landmarkLoadMode?: "overview" | "explore";
 }) {
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
@@ -402,8 +408,12 @@ function FlatNeighborhood({
       {showDetailModels && (
         <>
           <ShangshengXinsuoBlock />
-          <XinhuaRoadPlaneTrees />
-          <XinhuaRoadLandmarks showLabels={showDetailLabels} />
+          <XinhuaRoadPlaneTrees showHero={showHeroTree} />
+          <XinhuaRoadLandmarks
+            showLabels={showDetailLabels}
+            priorityPreset={priorityPreset}
+            loadMode={landmarkLoadMode}
+          />
         </>
       )}
       <ActionInstallation onOpenAction={onOpenAction} />
@@ -1137,7 +1147,14 @@ function OverviewPoiMarkers({ nearPoiId }: { nearPoiId: string | null }) {
               <coneGeometry args={[2.8, 7.2, 8]} />
               <meshToonMaterial color={near ? "#efbd49" : "#c85f4c"} />
             </mesh>
-            <Html center position={[0, 12.5, 0]} distanceFactor={180} transform sprite>
+            <Html
+              center
+              position={[0, 12.5, 0]}
+              distanceFactor={180}
+              transform
+              sprite
+              zIndexRange={[12, 0]}
+            >
               <span
                 className="overview-poi-label-anchor"
                 data-overview-poi={poi.id}
@@ -1398,6 +1415,9 @@ export function XinhuaWorld({
         detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
         showDetailModels={mode !== "intro"}
         showDetailLabels={false}
+        showHeroTree={exploring}
+        priorityPreset={destinationPreset}
+        landmarkLoadMode={exploring ? "explore" : "overview"}
       />
       <IntroCamera active={mode === "intro"} />
       {overview && (

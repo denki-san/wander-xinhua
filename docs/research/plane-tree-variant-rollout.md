@@ -17,13 +17,14 @@
 - 街道树阵参考：`research/references/plane-tree/plane-tree-avenue.jpg`
 - 树皮参考：`research/references/plane-tree/plane-tree-bark.jpg`
 
-Hero 资产负责定义物种身份和近景质量，不直接批量复制到主场景。街景资产只继承经过确认的造型规则，并保持低多边形预算。
+Hero 资产负责定义物种身份和近景质量，不直接批量复制到主场景。街景树阵仍以轻量变体为主；近景模式在一个已经通过建筑避让检查的既有树位放置单棵 Hero，确保用户能在主地图看到此前验收的资产。
 
 ## 替换白名单
 
 | 场景 | 当前实现 | 本轮处理 |
 | --- | --- | --- |
 | 新华路双侧树阵 | `plane-tree-a.glb`、`plane-tree-b.glb`、`plane-tree-c.glb` | 原路径原位升级为三种新版低模梧桐 |
+| 新华路 Hero 树位 | `plane-tree-0-12` 轻量实例 | 近景模式替换为 `xinhua-plane-tree-hero.glb?v=3`，加载期间仍用原轻量实例回退 |
 | 幸福里倒影池旁 | `xingfuli-block.tsx` 中明确命名的 `PlaneTree` | 改用共享 GLB 的实例化变体 |
 | 幸福里主通道 | `xingfuli-block.tsx` 中明确命名的 `PlaneTree` | 改用另一种共享 GLB 实例化变体 |
 | Hero 检查页 | `xinhua-plane-tree-hero.glb?v=3` | 保留，继续作为近景母版和验收入口 |
@@ -72,7 +73,8 @@ Hero 资产负责定义物种身份和近景质量，不直接批量复制到主
 - 全部梧桐树的 draw call 上限按 `3 个变体 × 6 个材质分片 = 18` 计算，不按树木数量增长。
 - 实例矩阵只在初始化或布局变化时更新，不在动画帧中重建。
 - 不为单棵树 clone Geometry 或 Material。
-- Hero GLB 不进入普通街道和院落的实例批次。
+- Hero GLB 不进入普通街道和院落的实例批次；只在近景模式替换一个既有安全树位，不增加新的碰撞或占地。
+- Hero GLB 约 `2 MB`，只加载一份；全览模式不请求，避免与 POI 图片和建筑模型争抢首屏带宽。
 
 ## 交付与验收
 
@@ -91,6 +93,7 @@ Hero 资产负责定义物种身份和近景质量，不直接批量复制到主
 - 三款 GLB 分别为 `224536`、`220232`、`237432` 字节，合计 `682200` 字节。
 - 每款 GLB 均为 `1 node / 1 mesh / 6 materials / 0 images / 0 textures`。
 - 新华路树阵按稳定 ID 哈希分配 A/B/C、朝向和三轴比例；相邻同侧树不会使用同一结构变体。
+- 主地图近景模式把 `plane-tree-0-12` 替换为此前验收的 Hero 梧桐；全览和 Hero 未完成加载时继续显示同位置的轻量树，不出现双树重叠或空洞。
 - 幸福里倒影池旁和主通道两棵明确命名的梧桐已改用同一个共享实例组件；普通庭院树、银杏、灌木和其他未确认树种未改动。
 - `InstancedMesh` 的矩阵只在布局变化时写入；Geometry 和 Material 不做逐树 clone，draw call 上限保持为 `18`。
 - Tailwind 和 TypeScript 的扫描范围排除了两个外部 3D 知识库链接，完整构建由卡住恢复为约 `0.3 s`，且不修改或删除知识库内容。

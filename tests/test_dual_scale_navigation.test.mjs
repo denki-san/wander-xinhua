@@ -76,17 +76,20 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(world, /showDetailLabels=\{false\}/);
   assert.match(world, /showDetailModels && \(\s*<>/s);
   assert.match(world, /<ShangshengXinsuoBlock \/>/);
-  assert.match(world, /<XinhuaRoadPlaneTrees \/>/);
-  assert.match(world, /<XinhuaRoadLandmarks showLabels=\{showDetailLabels\} \/>/);
+  assert.match(world, /<XinhuaRoadPlaneTrees showHero=\{showHeroTree\} \/>/);
+  assert.match(world, /priorityPreset=\{destinationPreset\}/);
+  assert.match(world, /landmarkLoadMode=\{exploring \? "explore" : "overview"\}/);
   assert.doesNotMatch(world, /<Suspense fallback=\{null\}>\s*<XinhuaRoad/);
   assert.match(roadLandmarks, /<PlaneTreeInstances/);
   assert.match(planeTreeInstances, /placementsByVariant\[variant\]\.length > 0/);
-  assert.match(
-    roadLandmarks,
-    /<Suspense fallback=\{<LandmarkLoadingVolume landmark=\{landmark\} \/>\}>/,
-  );
+  assert.doesNotMatch(roadLandmarks, /LandmarkLoadingVolume/);
+  assert.match(roadLandmarks, /mountedModelIds\.has\(landmark\.id\)/);
+  assert.match(roadLandmarks, /landmarkMatchesPreset\(landmark, priorityPreset\)/);
+  assert.match(roadLandmarks, /LANDMARK_STAGGER_INTERVAL_MS/);
+  assert.match(roadLandmarks, /<Suspense fallback=\{null\}>\s*<GlbModel path=\{modelPath\} \/>/s);
   assert.match(shangsheng, /fallback=\{<GenericCampusBuilding building=\{building\} \/>\}/);
   assert.match(world, /className="overview-poi-label-anchor"/);
+  assert.match(world, /zIndexRange=\{\[12, 0\]\}/);
   assert.doesNotMatch(shangsheng, /useGLTF\.preload/);
   assert.match(world, /scale=\{OVERVIEW_CHARACTER_SCALE\}/);
   assert.match(
@@ -101,13 +104,20 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(experience, /alt=\{`\$\{nearPoi\.name\}实景`\}/);
   assert.match(experience, /实景图 · \{nearPoi\.photo\.sourceLabel\}/);
   assert.match(experience, /const photosByDistance = \[\.\.\.MAP_POIS\]\.sort/);
+  assert.match(experience, /new Map<string, HTMLImageElement>\(\)/);
+  assert.match(experience, /POI_PHOTO_NEARBY_PREFETCH_COUNT = 4/);
   assert.match(experience, /index < 2 \? "high" : "low"/);
-  assert.match(experience, /POI_PHOTO_PREFETCH_INTERVAL_MS/);
+  assert.match(experience, /POI_PHOTO_BACKGROUND_PREFETCH_DELAY_MS/);
+  assert.match(experience, /overviewPhotoCache\.current\.set\(src, preview\)/);
+  assert.match(experience, /overviewPhotoCache\.current\.delete\(src\)/);
   assert.match(experience, /preview\.decoding = "async"/);
   assert.match(experience, /void preview\.decode\(\)\.catch/);
   assert.match(experience, /decoding="async"/);
   assert.match(experience, /loading="eager"/);
   assert.match(experience, /fetchPriority="high"/);
+  assert.match(experience, /aria-busy=\{loadedOverviewPhoto !== nearPoi\.photo\.src\}/);
+  assert.match(styles, /\.overview-poi-photo\.is-loaded img/);
+  assert.match(styles, /@keyframes poi-photo-loading/);
   assert.match(styles, /\.overview-poi-card\s*\{[^}]*top: 88px;/);
   assert.match(styles, /top: calc\(env\(safe-area-inset-top, 0px\) \+ 68px\)/);
   assert.doesNotMatch(styles, /\.overview-poi-card\s*\{[^}]*bottom:/);

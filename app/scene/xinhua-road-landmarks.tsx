@@ -2,9 +2,10 @@
 
 import { Html, useGLTF } from "@react-three/drei";
 import { Mesh, type Object3D } from "three";
-import { Suspense, useMemo } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { terrainHeightAt } from "./terrain";
 import {
+  PLANE_TREE_GROUND_INSET,
   PlaneTreeInstances,
   type PlaneTreeInstancePlacement,
   type PlaneTreeVariant,
@@ -97,6 +98,13 @@ type TreePlacement = {
   scale: [number, number, number];
 };
 
+export const XINHUA_HERO_PLANE_TREE_ID = "plane-tree-0-12";
+export const XINHUA_HERO_PLANE_TREE_MODEL =
+  "/models/building-evidence-lab/xinhua-plane-tree-hero.glb?v=3";
+const LANDMARK_OVERVIEW_LOAD_DELAY_MS = 2_200;
+const LANDMARK_EXPLORE_LOAD_DELAY_MS = 1_600;
+const LANDMARK_STAGGER_INTERVAL_MS = 850;
+
 export const XINHUA_PLANE_TREE_PLACEMENTS = buildPlaneTreePlacements(
   XINHUA_ROAD_LANDMARKS,
   XINHUA_ROAD_MODEL_FOOTPRINTS,
@@ -110,6 +118,19 @@ const XINHUA_PLANE_TREE_INSTANCES: PlaneTreeInstancePlacement[] =
       position: [x, terrainHeightAt(x, z) + 0.08, z],
     };
   });
+function requirePlaneTreePlacement(id: string) {
+  const placement = XINHUA_PLANE_TREE_INSTANCES.find((candidate) => candidate.id === id);
+  if (!placement) {
+    throw new Error(`找不到 Hero 梧桐树位：${id}`);
+  }
+  return placement;
+}
+const XINHUA_HERO_PLANE_TREE_PLACEMENT = requirePlaneTreePlacement(
+  XINHUA_HERO_PLANE_TREE_ID,
+);
+const XINHUA_LIGHTWEIGHT_PLANE_TREE_INSTANCES = XINHUA_PLANE_TREE_INSTANCES.filter(
+  (placement) => placement.id !== XINHUA_HERO_PLANE_TREE_ID,
+);
 
 function configureModel(model: Object3D) {
   model.traverse((child) => {
@@ -126,33 +147,31 @@ function GlbModel({ path }: { path: string }) {
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
-function LandmarkLoadingVolume({ landmark }: { landmark: LandmarkPlacement }) {
-  const { minX, maxX, minZ, maxZ } = landmark.localBounds;
-  const width = maxX - minX;
-  const depth = maxZ - minZ;
-  const height = Math.min(9, Math.max(1.4, (width + depth) * 0.16));
-  const centerX = (minX + maxX) / 2;
-  const centerZ = -(minZ + maxZ) / 2;
-
+function HeroPlaneTree() {
+  const { scene } = useGLTF(XINHUA_HERO_PLANE_TREE_MODEL);
+  const model = useMemo(() => configureModel(scene.clone(true)), [scene]);
+  const [x, y, z] = XINHUA_HERO_PLANE_TREE_PLACEMENT.position;
   return (
     <group
-      position={[centerX, 0, centerZ]}
-      name={`${landmark.id}-loading-volume`}
-      userData={{ landmarkLoading: landmark.id }}
+      name="xinhua-road-hero-plane-tree"
+      position={[x, y - PLANE_TREE_GROUND_INSET, z]}
+      rotation-y={XINHUA_HERO_PLANE_TREE_PLACEMENT.yaw}
+      scale={XINHUA_HERO_PLANE_TREE_PLACEMENT.scale}
+      userData={{
+        vegetation: "xinhua-plane-tree-hero",
+        source: XINHUA_HERO_PLANE_TREE_MODEL,
+        replaces: XINHUA_HERO_PLANE_TREE_ID,
+      }}
     >
-      <mesh position={[0, height / 2, 0]} castShadow receiveShadow>
-        <boxGeometry args={[width, height, depth]} />
-        <meshToonMaterial color="#d8d2bd" />
-      </mesh>
-      <mesh position={[0, height + 0.16, 0]} castShadow>
-        <boxGeometry args={[width * 1.04, 0.32, depth * 1.04]} />
-        <meshToonMaterial color="#596a64" />
-      </mesh>
+      <primitive object={model} scale={[1, 1, -1]} />
     </group>
   );
 }
 
-export function XinhuaRoadPlaneTrees() {
+export function XinhuaRoadPlaneTrees({ showHero = false }: { showHero?: boolean }) {
+  const lightweightPlacements = showHero
+    ? XINHUA_LIGHTWEIGHT_PLANE_TREE_INSTANCES
+    : XINHUA_PLANE_TREE_INSTANCES;
   return (
     <group
       name="xinhua-road-plane-trees"
@@ -160,13 +179,60 @@ export function XinhuaRoadPlaneTrees() {
     >
       <PlaneTreeInstances
         name="xinhua-road-plane-tree-batches"
-        placements={XINHUA_PLANE_TREE_INSTANCES}
+        placements={lightweightPlacements}
       />
+      {showHero && (
+        <Suspense
+          fallback={(
+            <PlaneTreeInstances
+              name="xinhua-road-hero-plane-tree-loading-fallback"
+              placements={[XINHUA_HERO_PLANE_TREE_PLACEMENT]}
+            />
+          )}
+        >
+          <HeroPlaneTree />
+        </Suspense>
+      )}
     </group>
   );
 }
 
-export function XinhuaRoadLandmarks({ showLabels = true }: { showLabels?: boolean }) {
+function landmarkMatchesPreset(landmark: LandmarkPlacement, preset?: string) {
+  return Boolean(preset && (
+    landmark.id === preset
+    || landmark.query === preset
+    || landmark.aliases?.includes(preset)
+  ));
+}
+
+export function XinhuaRoadLandmarks({
+  showLabels = true,
+  priorityPreset,
+  loadMode = "overview",
+}: {
+  showLabels?: boolean;
+  priorityPreset?: string;
+  loadMode?: "overview" | "explore";
+}) {
+  const [mountedModelIds, setMountedModelIds] = useState<ReadonlySet<string>>(() => new Set());
+
+  useEffect(() => {
+    const priorityLandmark = XINHUA_ROAD_LANDMARKS.find((landmark) => (
+      landmarkMatchesPreset(landmark, priorityPreset)
+    ));
+    const deferredLandmarks = XINHUA_ROAD_LANDMARKS.filter(
+      (landmark) => landmark.id !== priorityLandmark?.id,
+    );
+    const initialDelay = loadMode === "explore"
+      ? LANDMARK_EXPLORE_LOAD_DELAY_MS
+      : LANDMARK_OVERVIEW_LOAD_DELAY_MS;
+    const timers = deferredLandmarks.map((landmark, index) => window.setTimeout(() => {
+      setMountedModelIds((current) => new Set([...current, landmark.id]));
+    }, initialDelay + index * LANDMARK_STAGGER_INTERVAL_MS));
+
+    return () => timers.forEach((timer) => window.clearTimeout(timer));
+  }, [loadMode, priorityPreset]);
+
   return (
     <group name="xinhua-road-photo-reference-landmarks">
       {XINHUA_ROAD_LANDMARKS.map((landmark) => {
@@ -176,6 +242,8 @@ export function XinhuaRoadLandmarks({ showLabels = true }: { showLabels?: boolea
         const modelPath = landmark.cacheVersion
           ? `${landmark.model}?v=${landmark.cacheVersion}`
           : landmark.model;
+        const shouldMountModel = mountedModelIds.has(landmark.id)
+          || landmarkMatchesPreset(landmark, priorityPreset);
         return (
           <group
             key={landmark.id}
@@ -188,9 +256,11 @@ export function XinhuaRoadLandmarks({ showLabels = true }: { showLabels?: boolea
             }}
           >
             <group position={[x, y, z]} rotation-y={landmark.yaw} scale={landmark.scale}>
-              <Suspense fallback={<LandmarkLoadingVolume landmark={landmark} />}>
-                <GlbModel path={modelPath} />
-              </Suspense>
+              {shouldMountModel && (
+                <Suspense fallback={null}>
+                  <GlbModel path={modelPath} />
+                </Suspense>
+              )}
             </group>
             {showLabels && landmark.poi && (
               <Html

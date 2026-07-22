@@ -23,6 +23,8 @@ test("Nginx 直接提供静态产物且不启用登录", async () => {
   assert.match(config, /server_name\s+xinhua\.denkisan\.me;/);
   assert.match(config, /root\s+\/var\/www\/xinhua-messenger;/);
   assert.match(config, /try_files\s+\$uri\s+\$uri\/\s+\/index\.html;/);
+  assert.match(config, /location \/models\/\s*\{[^}]*expires 7d;/s);
+  assert.match(config, /location \/images\/\s*\{[^}]*expires 7d;/s);
   assert.doesNotMatch(config, /proxy_pass|127\.0\.0\.1:8790/);
   assert.doesNotMatch(config, /auth_basic|password|login/i);
 });

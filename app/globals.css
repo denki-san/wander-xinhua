@@ -423,6 +423,37 @@ button {
   background: #809b77;
 }
 
+.overview-poi-photo::before,
+.overview-poi-photo::after {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.overview-poi-photo::before {
+  inset: 0;
+  content: "";
+  background: linear-gradient(110deg, #718d70 16%, #9db18b 38%, #718d70 60%);
+  background-size: 220% 100%;
+  animation: poi-photo-loading 1.15s ease-in-out infinite;
+}
+
+.overview-poi-photo::after {
+  top: 50%;
+  left: 50%;
+  padding: 5px 8px;
+  border-radius: 3px;
+  content: "正在载入实景";
+  color: #fff0c9;
+  background: rgba(43, 65, 60, 0.78);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
 .overview-poi-photo img {
   width: 100%;
   height: 100%;
@@ -430,6 +461,19 @@ button {
   display: block;
   object-fit: cover;
   filter: saturate(0.88) contrast(0.96);
+  opacity: 0;
+  transform: scale(1.015);
+  transition: opacity 180ms ease, transform 260ms ease;
+}
+
+.overview-poi-photo.is-loaded::before,
+.overview-poi-photo.is-loaded::after {
+  opacity: 0;
+}
+
+.overview-poi-photo.is-loaded img {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .overview-poi-photo figcaption {
@@ -449,6 +493,11 @@ button {
   font-weight: 800;
   letter-spacing: 0.04em;
   text-decoration: none;
+}
+
+@keyframes poi-photo-loading {
+  from { background-position: 100% 0; }
+  to { background-position: -120% 0; }
 }
 
 .overview-poi-card-body {

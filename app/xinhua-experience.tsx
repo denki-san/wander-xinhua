@@ -25,7 +25,10 @@ import { XinhuaWorld } from "./scene/xinhua-world";
 import mapData from "./scene/xinhua-map-data.json";
 
 const TOUCH_STICK_TRAVEL = 42;
-const POI_PHOTO_PREFETCH_INTERVAL_MS = 120;
+const POI_PHOTO_NEARBY_PREFETCH_COUNT = 4;
+const POI_PHOTO_NEARBY_PREFETCH_INTERVAL_MS = 90;
+const POI_PHOTO_BACKGROUND_PREFETCH_DELAY_MS = 1_800;
+const POI_PHOTO_BACKGROUND_PREFETCH_INTERVAL_MS = 480;
 const INITIAL_OVERVIEW_POSITION = [
   mapData.landmarks.xingfuli.position[0],
   mapData.landmarks.xingfuli.position[1],
@@ -192,7 +195,8 @@ export function XinhuaExperience() {
   const [lowTier] = useState(detectLowTier);
   const [touchCapable, setTouchCapable] = useState(false);
   const playerPosition = useRef<readonly [number, number]>(INITIAL_OVERVIEW_POSITION);
-  const overviewPhotoRequests = useRef(new Set<string>());
+  const overviewPhotoCache = useRef(new Map<string, HTMLImageElement>());
+  const [loadedOverviewPhoto, setLoadedOverviewPhoto] = useState<string | null>(null);
   const [overviewStartPosition, setOverviewStartPosition] = useState<readonly [number, number]>(
     INITIAL_OVERVIEW_POSITION,
   );
@@ -211,13 +215,23 @@ export function XinhuaExperience() {
   }, []);
 
   const prefetchOverviewPhoto = useCallback((src: string, priority: "high" | "low") => {
-    if (overviewPhotoRequests.current.has(src)) return;
-    overviewPhotoRequests.current.add(src);
+    const cached = overviewPhotoCache.current.get(src);
+    if (cached) {
+      if (priority === "high") cached.fetchPriority = "high";
+      return cached;
+    }
     const preview = new Image();
     preview.fetchPriority = priority;
     preview.decoding = "async";
+    overviewPhotoCache.current.set(src, preview);
+    preview.addEventListener("error", () => {
+      if (overviewPhotoCache.current.get(src) === preview) {
+        overviewPhotoCache.current.delete(src);
+      }
+    }, { once: true });
     preview.src = src;
     void preview.decode().catch(() => undefined);
+    return preview;
   }, []);
 
   useEffect(() => {
@@ -229,9 +243,37 @@ export function XinhuaExperience() {
     ));
     const timers = photosByDistance.map((poi, index) => window.setTimeout(() => {
       prefetchOverviewPhoto(poi.photo.src, index < 2 ? "high" : "low");
-    }, index * POI_PHOTO_PREFETCH_INTERVAL_MS));
+    }, index < POI_PHOTO_NEARBY_PREFETCH_COUNT
+      ? index * POI_PHOTO_NEARBY_PREFETCH_INTERVAL_MS
+      : POI_PHOTO_BACKGROUND_PREFETCH_DELAY_MS
+        + (index - POI_PHOTO_NEARBY_PREFETCH_COUNT) * POI_PHOTO_BACKGROUND_PREFETCH_INTERVAL_MS));
     return () => timers.forEach((timer) => window.clearTimeout(timer));
   }, [overview, prefetchOverviewPhoto]);
+
+  useEffect(() => {
+    const src = overview ? nearPoi?.photo.src : undefined;
+    if (!src) return;
+
+    let active = true;
+    const preview = prefetchOverviewPhoto(src, "high");
+    const reveal = () => {
+      if (active && preview.naturalWidth > 0) setLoadedOverviewPhoto(src);
+    };
+    const decodeAndReveal = () => {
+      void preview.decode().catch(() => undefined).finally(reveal);
+    };
+    if (preview.complete) decodeAndReveal();
+    else preview.addEventListener("load", decodeAndReveal, { once: true });
+
+    return () => {
+      active = false;
+      preview.removeEventListener("load", decodeAndReveal);
+    };
+  }, [nearPoi?.photo.src, overview, prefetchOverviewPhoto]);
+
+  useEffect(() => () => {
+    overviewPhotoCache.current.clear();
+  }, []);
 
   useEffect(() => {
     if (ready) return;
@@ -406,7 +448,10 @@ export function XinhuaExperience() {
 
       {overview && nearPoi && (
         <aside className="overview-poi-card" aria-live="polite">
-          <figure className="overview-poi-photo">
+          <figure
+            className={`overview-poi-photo${loadedOverviewPhoto === nearPoi.photo.src ? " is-loaded" : ""}`}
+            aria-busy={loadedOverviewPhoto !== nearPoi.photo.src}
+          >
             <img
               key={nearPoi.photo.src}
               src={nearPoi.photo.src}
@@ -415,6 +460,15 @@ export function XinhuaExperience() {
               loading="eager"
               fetchPriority="high"
               referrerPolicy="no-referrer"
+              onLoad={(event) => {
+                const image = event.currentTarget;
+                void image.decode().catch(() => undefined).finally(() => {
+                  setLoadedOverviewPhoto(nearPoi.photo.src);
+                });
+              }}
+              onError={() => {
+                overviewPhotoCache.current.delete(nearPoi.photo.src);
+              }}
             />
             <figcaption>
               <a href={nearPoi.photo.sourceUrl} target="_blank" rel="noreferrer">
