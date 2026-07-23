@@ -1,0 +1,204 @@
+{
+  "asset": "xingfuli",
+  "stage": "final",
+  "generatedAt": "2026-07-23T01:40:30+08:00",
+  "generator": {
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xingfuli_models.py -- --segment=all --stage=final",
+    "path": "scripts/create_xingfuli_models.py",
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "outputs": {
+    "cacheVersion": "20260723-final-1",
+    "segments": [
+      {
+        "id": "west",
+        "blend": "assets/models/source/xingfuli/xingfuli-west.blend",
+        "glb": "public/models/xingfuli/xingfuli-west.glb",
+        "sha256": "ababb1860c360f5807ce99b392a5388eba30f0991bdcb4f653c99752786bf853"
+      },
+      {
+        "id": "center",
+        "blend": "assets/models/source/xingfuli/xingfuli-center.blend",
+        "glb": "public/models/xingfuli/xingfuli-center.glb",
+        "sha256": "860249a2656cf7af9aa2ef746f05cc7f39506ec1e8751df236e3c1e3f0f594b9"
+      },
+      {
+        "id": "east",
+        "blend": "assets/models/source/xingfuli/xingfuli-east.blend",
+        "glb": "public/models/xingfuli/xingfuli-east.glb",
+        "sha256": "4dc21aa6f137daa076a6da1948b0c08c15310789541ee59af06c352febea4327"
+      }
+    ]
+  },
+  "metrics": {
+    "bytes": 1370828,
+    "nodes": 3,
+    "meshes": 3,
+    "triangles": 19224,
+    "materialsBySegment": [7, 9, 10],
+    "images": 0,
+    "textures": 0,
+    "boundsBySegment": {
+      "west": {
+        "min": [-47, 0.09000000357627869, -7.739999771118164],
+        "max": [-22, 6.980000019073486, 22.09000015258789]
+      },
+      "center": {
+        "min": [-23.34000015258789, 0.09000000357627869, -7.739999771118164],
+        "max": [25.625, 9.0600004196167, 22.09000015258789]
+      },
+      "east": {
+        "min": [5.909999847412109, 0.09000000357627869, -7.739999771118164],
+        "max": [47, 8.46500015258789, 22.09000015258789]
+      }
+    }
+  },
+  "composition": {
+    "blender": [
+      "three merged architecture segments",
+      "warm-white and cool-gray facade hierarchy",
+      "red-brick vertical identity volumes",
+      "wood slat and glass storefront rhythm",
+      "reflecting-pool shell, coping and seven-plank bridge",
+      "Panyu Road entrance matrix wall"
+    ],
+    "runtime": [
+      "three deterministic plane-tree variants",
+      "six instanced short-arm lamps",
+      "two red cantilever umbrellas",
+      "white molded, dark wood-metal and colorful folding dining sets",
+      "slatted benches, four collision-backed planters and five dark squat Panyu Road entrance bollards",
+      "twelve-batch longitudinal mixed-gray stone paving",
+      "water surface and fountain jets"
+    ],
+    "furnitureScale": {
+      "tableHeight": "0.65-0.68 local units",
+      "seatHeight": "0.44-0.45 local units",
+      "maximumChairBackHeight": "0.99 local units"
+    }
+  },
+  "evidence": {
+    "manifest": "docs/research/xingfuli-reference-manifest.json",
+    "brief": "docs/research/xingfuli-model-brief.md",
+    "comparison": "test_artifacts/test_xingfuli_final_three-way_preview.png",
+    "blenderCanonical": "test_artifacts/test_xingfuli-final-master_canonical_preview.png",
+    "blenderComparison": "test_artifacts/test_xingfuli-final-master_comparison_preview.png",
+    "runtimeCanonical": "test_artifacts/test_xingfuli_final_canonical_runtime_preview.png",
+    "runtimePool": "test_artifacts/test_xingfuli_final_pool_runtime_preview.png",
+    "runtimeEntrance": "test_artifacts/test_xingfuli_final_entrance_runtime_preview.png",
+    "runtimeViews": "test_artifacts/test_xingfuli_final_runtime_views_preview.png",
+    "runtimeMobile": "test_artifacts/test_xingfuli_final_mobile_runtime_preview.png",
+    "runtimeMetrics": "test_artifacts/test_xingfuli_final_runtime_metrics.json"
+  },
+  "validation": {
+    "finalRuntimeGate": "passed",
+    "glbAudit": "passed",
+    "collisionQa": "passed",
+    "targetedLint": "passed",
+    "automatedTests": "passed",
+    "fullRepositoryTests": "passed-112-of-112",
+    "fullRepositoryLint": "passed",
+    "productionBuild": "passed",
+    "desktopRuntimeGate": "passed",
+    "mobileRuntimeGate": "passed",
+    "performanceQa": "passed",
+    "visualReview": "passed",
+    "independentReview": "passed-critical-0-important-0-minor-1",
+    "knowledgeBaseSync": "passed-threejs-3d-research-search-read-graph"
+  },
+  "knowledgeBaseEvidence": {
+    "verifiedAt": "2026-07-23",
+    "projectId": "0e0c3670-c275-42f9-8c06-6de01e3683b5",
+    "projectName": "Threejs-3d-research",
+    "source": "raw/sources/threejs-modeling-knowledge-base/xinhua-scene-dressing-kit.md",
+    "generatedPage": "wiki/sources/31-threejs-modeling-knowledge-base--25-xinhua-scene-dressing-kit--geb0y2.md",
+    "queue": "empty-after-10-of-10",
+    "reviewCleanup": "one-source-specific-sync-verification-suggestion-remains-open-nonblocking",
+    "reviewItemId": "review-d1f1a636",
+    "searchTopResult": "wiki/findings/幸福里场景布置应由语义锚点与稳定-seed-驱动.md",
+    "readVerification": "generated source page read through LLM Wiki MCP",
+    "graphVerification": "Xinhua Scene Dressing Kit -> Scene Dressing Kit",
+    "graphNodeCount": 3,
+    "graphEdgeCount": 1
+  },
+  "runtimeGate": {
+    "paths": [
+      "/?start=xingfuli-canonical",
+      "/?start=xingfuli-pool-detail",
+      "/?start=xingfuli-entrance-detail"
+    ],
+    "viewport": [1920, 851],
+    "capturedFrame": [1920, 907],
+    "buildMode": "vite-static-production",
+    "warmupSeconds": 7,
+    "sampleSeconds": 10.081263999993098,
+    "pageVisibility": "visible",
+    "canonicalDirection": "local +X toward Panyu Road entrance",
+    "directionDeviationDegrees": 0,
+    "qaRoutes": 3,
+    "collisionBackedPlanters": 4,
+    "collisionBackedEntranceBollards": 5,
+    "xingfuliAutomatedTests": 12,
+    "repositoryAutomatedTests": 112,
+    "newApplicationConsoleErrors": 0,
+    "externalExtensionErrors": [],
+    "knownWarnings": [
+      "THREE.Clock deprecated",
+      "PCFSoftShadowMap deprecated"
+    ],
+    "performance": {
+      "requestAnimationFrameSamples": 120,
+      "averageFps": 60.162438584177295,
+      "averageFrameMilliseconds": 16.621666666666663,
+      "p95FrameMilliseconds": 17.3,
+      "maximumFrameMilliseconds": 17.7,
+      "jsHeapUsedBytes": 72273732,
+      "jsHeapTotalBytes": 140361728,
+      "taskDurationSecondsDuringSample": 9.648641000000001,
+      "scriptDurationSecondsDuringSample": 9.362601,
+      "resourceTiming": [
+        {
+          "name": "xingfuli-west.glb?v=20260723-final-1",
+          "initiatorType": "fetch",
+          "durationMs": 5.700000002980232,
+          "transferSize": 317312,
+          "encodedBodySize": 317012,
+          "decodedBodySize": 317012
+        },
+        {
+          "name": "xingfuli-center.glb?v=20260723-final-1",
+          "initiatorType": "fetch",
+          "durationMs": 12.300000011920927,
+          "transferSize": 554380,
+          "encodedBodySize": 554080,
+          "decodedBodySize": 554080
+        },
+        {
+          "name": "xingfuli-east.glb?v=20260723-final-1",
+          "initiatorType": "fetch",
+          "durationMs": 11.799999997019768,
+          "transferSize": 500036,
+          "encodedBodySize": 499736,
+          "decodedBodySize": 499736
+        }
+      ],
+      "rawEvidence": "test_artifacts/test_xingfuli_final_runtime_metrics.json",
+      "baselineComparison": "not claimed; historical baseline used different conditions"
+    },
+    "mobile": {
+      "path": "/?start=xingfuli-canonical",
+      "viewport": [390, 844],
+      "devicePixelRatio": 2,
+      "warmupSeconds": 7,
+      "pageVisibility": "visible",
+      "newApplicationConsoleErrors": 0,
+      "keyDetailsVisible": [
+        "final storefront GLB",
+        "short-arm lamp",
+        "cantilever umbrella",
+        "mixed-gray paving",
+        "entrance furniture"
+      ]
+    }
+  }
+}

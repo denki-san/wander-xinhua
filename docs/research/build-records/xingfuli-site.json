@@ -1,0 +1,110 @@
+{
+  "asset": "xingfuli-site",
+  "generatedAt": "2026-07-23T00:46:00+08:00",
+  "generator": {
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xingfuli_models.py -- --segment=all --stage=site",
+    "path": "scripts/create_xingfuli_models.py",
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "outputs": {
+    "cacheVersion": "2",
+    "segments": [
+      {
+        "id": "west",
+        "blend": "assets/models/source/xingfuli/xingfuli-west-site.blend",
+        "glb": "public/models/xingfuli/xingfuli-west-site.glb",
+        "sha256": "00766ec48d0b35528f53c59037477543da29a913b85c4712fe14e59ffe5fedd9"
+      },
+      {
+        "id": "center",
+        "blend": "assets/models/source/xingfuli/xingfuli-center-site.blend",
+        "glb": "public/models/xingfuli/xingfuli-center-site.glb",
+        "sha256": "0bc90d543702df195f59a5c96625fe49446f212a1bdae2ffe7c2806a5b471ac5"
+      },
+      {
+        "id": "east",
+        "blend": "assets/models/source/xingfuli/xingfuli-east-site.blend",
+        "glb": "public/models/xingfuli/xingfuli-east-site.glb",
+        "sha256": "9bafbd648bd60417c832c6faa68c6ff93ed0e35c768e9b5c2e1bdfa5036d3b15"
+      }
+    ]
+  },
+  "metrics": {
+    "bytes": 1370840,
+    "nodes": 3,
+    "meshes": 3,
+    "triangles": 19224,
+    "materialsBySegment": [7, 9, 10],
+    "images": 0,
+    "textures": 0,
+    "boundsBySegment": {
+      "west": {
+        "min": [-47, 0.09000000357627869, -7.739999771118164],
+        "max": [-22, 6.980000019073486, 22.09000015258789]
+      },
+      "center": {
+        "min": [-23.34000015258789, 0.09000000357627869, -7.739999771118164],
+        "max": [25.625, 9.0600004196167, 22.09000015258789]
+      },
+      "east": {
+        "min": [5.909999847412109, 0.09000000357627869, -7.739999771118164],
+        "max": [47, 8.46500015258789, 22.09000015258789]
+      }
+    }
+  },
+  "siteComposition": {
+    "blenderHardscape": [
+      "reflecting pool shell",
+      "pool coping",
+      "seven-plank bridge",
+      "Panyu Road side matrix wall"
+    ],
+    "runtimeDynamic": [
+      "water surface",
+      "fountain jets",
+      "pool plane tree",
+      "mixed gray-stone instanced paving",
+      "reusable vegetation and street furniture"
+    ],
+    "entranceWallCorrection": "parallel to lane at south-side boundary; does not close the public passage"
+  },
+  "evidence": {
+    "brief": "docs/research/xingfuli-model-brief.md",
+    "comparison": "test_artifacts/test_xingfuli_site_three-way_preview.png",
+    "blenderCanonical": "test_artifacts/test_xingfuli-site-master_canonical_preview.png",
+    "runtimeScreenshot": "test_artifacts/test_xingfuli_site_canonical_runtime_preview.png"
+  },
+  "validation": {
+    "siteRuntimeGate": "passed",
+    "glbAudit": "passed",
+    "automatedTests": "passed",
+    "runtimeQa": "passed",
+    "visualReview": "passed-after-entry-wall-correction"
+  },
+  "runtimeGate": {
+    "path": "/?start=xingfuli-canonical",
+    "viewport": [1920, 907],
+    "buildMode": "vite-static-production",
+    "warmupSeconds": 6.5,
+    "pageVisibility": "visible",
+    "canonicalDirection": "local +X toward Panyu Road entrance",
+    "directionDeviationDegrees": 0,
+    "paving": "three close-value gray colors, four rectangle lengths, longitudinal running bond, twelve instanced draw calls",
+    "streetAssets": [
+      "six short-arm lamps",
+      "two cantilever umbrellas",
+      "white molded dining set",
+      "dark wood and metal dining set",
+      "colorful folding dining set",
+      "slatted benches",
+      "four planters",
+      "eight irregular stone bollards",
+      "three deterministic plane-tree variants"
+    ],
+    "newConsoleErrors": 0,
+    "knownWarnings": [
+      "THREE.Clock deprecated",
+      "PCFSoftShadowMap deprecated"
+    ]
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "asset": "xingfuli-identity",
+  "generatedAt": "2026-07-23T00:26:00+08:00",
+  "generator": {
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xingfuli_models.py -- --segment=all --stage=identity",
+    "path": "scripts/create_xingfuli_models.py",
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "outputs": {
+    "cacheVersion": "1",
+    "segments": [
+      {
+        "id": "west",
+        "blend": "assets/models/source/xingfuli/xingfuli-west-identity.blend",
+        "glb": "public/models/xingfuli/xingfuli-west-identity.glb",
+        "sha256": "69dc45a7237bd563204aa0189a0e3396b183d7b822e9ee676f2f5db72894aca1"
+      },
+      {
+        "id": "center",
+        "blend": "assets/models/source/xingfuli/xingfuli-center-identity.blend",
+        "glb": "public/models/xingfuli/xingfuli-center-identity.glb",
+        "sha256": "19800200464e0e9423e5a355abde7216478ba73c10b7539b0bafe5674fc4dc21"
+      },
+      {
+        "id": "east",
+        "blend": "assets/models/source/xingfuli/xingfuli-east-identity.blend",
+        "glb": "public/models/xingfuli/xingfuli-east-identity.glb",
+        "sha256": "d83f31ef60d01b342dd350605bafa71b87152e9f7ea9cd8fb04cbe80eb50e592"
+      }
+    ]
+  },
+  "metrics": {
+    "bytes": 1171132,
+    "nodes": 3,
+    "meshes": 3,
+    "triangles": 16452,
+    "materialsBySegment": [6, 6, 8],
+    "images": 0,
+    "textures": 0,
+    "boundsBySegment": {
+      "west": {
+        "min": [-47, 0.09000000357627869, -7.739999771118164],
+        "max": [-22, 6.980000019073486, 22.09000015258789]
+      },
+      "center": {
+        "min": [-23.34000015258789, 0.09000000357627869, -7.739999771118164],
+        "max": [22, 9.0600004196167, 22.09000015258789]
+      },
+      "east": {
+        "min": [5.909999847412109, 0.09000000357627869, -7.739999771118164],
+        "max": [47, 8.46500015258789, 22.09000015258789]
+      }
+    }
+  },
+  "evidence": {
+    "brief": "docs/research/xingfuli-model-brief.md",
+    "comparison": "test_artifacts/test_xingfuli_identity_three-way_preview.png",
+    "blenderCanonical": "test_artifacts/test_xingfuli-identity-master_canonical_preview.png",
+    "runtimeScreenshot": "test_artifacts/test_xingfuli_identity_canonical_runtime_preview.png"
+  },
+  "validation": {
+    "identityRuntimeGate": "passed",
+    "glbAudit": "passed",
+    "automatedTests": "passed",
+    "runtimeQa": "passed",
+    "independentReview": "not-required-before-final"
+  },
+  "runtimeGate": {
+    "path": "/?start=xingfuli-canonical",
+    "viewport": [1920, 907],
+    "buildMode": "vite-static-production",
+    "warmupSeconds": 6,
+    "pageVisibility": "visible",
+    "canonicalDirection": "local +X toward Panyu Road entrance",
+    "directionDeviationDegrees": 0,
+    "playerScale": "passed against storefront and floor rhythm",
+    "groundContact": "passed",
+    "visibleIdentityCues": [
+      "continuous upper window rhythm",
+      "north-side cantilever and balcony edges",
+      "blue-gray glazed corner",
+      "wood-slat storefront volume",
+      "red-brick vertical window volume",
+      "varied roof and corner silhouettes"
+    ],
+    "newConsoleErrors": 0,
+    "knownWarnings": [
+      "THREE.Clock deprecated",
+      "PCFSoftShadowMap deprecated"
+    ]
+  }
+}

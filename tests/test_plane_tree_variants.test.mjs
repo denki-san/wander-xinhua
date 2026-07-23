@@ -24,9 +24,10 @@ test("梧桐树替换白名单明确排除其他树种和通用绿化", async ()
   assert.match(rollout, /银杏/);
   assert.match(rollout, /灌木/);
   assert.doesNotMatch(xingfuli, /function PlaneTree/);
-  assert.equal((xingfuli.match(/id: "xingfuli-[^"]+-plane-tree"/g) ?? []).length, 2);
+  assert.equal((xingfuli.match(/id: "xingfuli-[^"]+-plane-tree"/g) ?? []).length, 3);
+  assert.match(xingfuli, /variant: 0[\s\S]*variant: 1[\s\S]*variant: 2/);
   assert.match(xingfuli, /GARDEN_CELLS/);
-  assert.match(xingfuli, /function Planter/);
+  assert.match(xingfuli, /StreetPlanter/);
   assert.match(generator, /def add_garden_tree/);
   assert.match(heroViewer, /xinhua-plane-tree-hero\.glb\?v=3/);
 });

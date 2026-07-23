@@ -1,0 +1,90 @@
+{
+  "asset": "xingfuli-materials",
+  "generatedAt": "2026-07-23T00:27:00+08:00",
+  "generator": {
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xingfuli_models.py -- --segment=all --stage=materials",
+    "path": "scripts/create_xingfuli_models.py",
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "outputs": {
+    "cacheVersion": "1",
+    "segments": [
+      {
+        "id": "west",
+        "blend": "assets/models/source/xingfuli/xingfuli-west-materials.blend",
+        "glb": "public/models/xingfuli/xingfuli-west-materials.glb",
+        "sha256": "651279e36b13c99a19be5ae8e21886dc4a05e2cb0e70a9ea30c0e1e46d931706"
+      },
+      {
+        "id": "center",
+        "blend": "assets/models/source/xingfuli/xingfuli-center-materials.blend",
+        "glb": "public/models/xingfuli/xingfuli-center-materials.glb",
+        "sha256": "6b12467a099054a0bdf27bc61064dbc122f77b6f78f7e61ed6b4b92172503534"
+      },
+      {
+        "id": "east",
+        "blend": "assets/models/source/xingfuli/xingfuli-east-materials.blend",
+        "glb": "public/models/xingfuli/xingfuli-east-materials.glb",
+        "sha256": "2252be5ad783277b79b77eada85ab9d4efc78af4df32a32f9b35efaaf64d9a18"
+      }
+    ]
+  },
+  "metrics": {
+    "bytes": 1341276,
+    "nodes": 3,
+    "meshes": 3,
+    "triangles": 18828,
+    "materialsBySegment": [7, 7, 10],
+    "images": 0,
+    "textures": 0,
+    "boundsBySegment": {
+      "west": {
+        "min": [-47, 0.09000000357627869, -7.739999771118164],
+        "max": [-22, 6.980000019073486, 22.09000015258789]
+      },
+      "center": {
+        "min": [-23.34000015258789, 0.09000000357627869, -7.739999771118164],
+        "max": [22, 9.0600004196167, 22.09000015258789]
+      },
+      "east": {
+        "min": [5.909999847412109, 0.09000000357627869, -7.739999771118164],
+        "max": [47, 8.46500015258789, 22.09000015258789]
+      }
+    }
+  },
+  "evidence": {
+    "brief": "docs/research/xingfuli-model-brief.md",
+    "comparison": "test_artifacts/test_xingfuli_materials_three-way_preview.png",
+    "blenderCanonical": "test_artifacts/test_xingfuli-materials-master_canonical_preview.png",
+    "runtimeScreenshot": "test_artifacts/test_xingfuli_materials_canonical_runtime_preview.png"
+  },
+  "validation": {
+    "materialsRuntimeGate": "passed",
+    "glbAudit": "passed",
+    "automatedTests": "passed",
+    "runtimeQa": "passed",
+    "visualReview": "passed"
+  },
+  "runtimeGate": {
+    "path": "/?start=xingfuli-canonical",
+    "viewport": [1920, 907],
+    "buildMode": "vite-static-production",
+    "warmupSeconds": 6,
+    "pageVisibility": "visible",
+    "canonicalDirection": "local +X toward Panyu Road entrance",
+    "directionDeviationDegrees": 0,
+    "materialChecks": [
+      "warm-white and cool-gray facade separation",
+      "low-saturation red-brick shadow courses",
+      "warm timber slat volume",
+      "blue-gray glass without black blocks",
+      "charcoal metal frame continuity"
+    ],
+    "referencePhotosEmbedded": false,
+    "newConsoleErrors": 0,
+    "knownWarnings": [
+      "THREE.Clock deprecated",
+      "PCFSoftShadowMap deprecated"
+    ]
+  }
+}

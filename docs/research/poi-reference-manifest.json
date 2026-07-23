@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "auditedAt": "2026-07-17",
+  "auditedAt": "2026-07-23",
   "rules": {
     "maximumReferencePhotosPerPoi": 3,
     "cardPhotosMustBeLocal": true,
@@ -11,13 +11,33 @@
       "id": "xingfuli",
       "address": "幸福路67号／番禺路381号一带",
       "model": {
-        "kind": "procedural-scene",
-        "runtimeFiles": ["app/scene/xingfuli-block.tsx"],
-        "sourceFiles": ["app/scene/xingfuli-block.tsx"],
+        "kind": "hybrid-scene",
+        "runtimeFiles": [
+          "app/scene/xingfuli-block.tsx",
+          "public/models/xingfuli/xingfuli-west.glb",
+          "public/models/xingfuli/xingfuli-center.glb",
+          "public/models/xingfuli/xingfuli-east.glb"
+        ],
+        "sourceFiles": [
+          "app/scene/xingfuli-block.tsx",
+          "app/scene/xingfuli-layout.json",
+          "scripts/create_xingfuli_models.py",
+          "assets/models/source/xingfuli/xingfuli-west.blend",
+          "assets/models/source/xingfuli/xingfuli-center.blend",
+          "assets/models/source/xingfuli/xingfuli-east.blend"
+        ],
+        "preservedStageRecords": [
+          "docs/research/build-records/xingfuli-massing.json",
+          "docs/research/build-records/xingfuli-identity.json",
+          "docs/research/build-records/xingfuli-materials.json",
+          "docs/research/build-records/xingfuli-site.json"
+        ],
         "positionEvidence": "osm-way-400066625"
       },
       "cardPhoto": "/images/poi-thumbnails/xingfuli.jpg",
       "canonicalReference": "docs/research/assets/poi-references/xingfuli/courtyard-canonical.jpg",
+      "referenceManifest": "docs/research/xingfuli-reference-manifest.json",
+      "modelBrief": "docs/research/xingfuli-model-brief.md",
       "photoStatus": "verified-same-compound",
       "referencePhotos": [
         {
@@ -27,16 +47,18 @@
           "captureDate": "unknown"
         },
         {
-          "path": "docs/research/assets/poi-references/xingfuli/central-lane.jpg",
-          "sourceUrl": "https://k.sina.com.cn/article_7517400647_1c0126e47059031uwk.html",
-          "view": "central-lane-opposite-direction",
-          "captureDate": "unknown"
+          "path": "docs/research/assets/poi-references/xingfuli/xingfuli-panyu-entrance-shanghai-changning-2018.jpeg",
+          "sourceUrl": "https://www.sohu.com/a/234924710_391448",
+          "view": "panyu-road-entrance",
+          "captureDate": "unknown",
+          "publishDate": "2018-06-10"
         },
         {
-          "path": "docs/research/assets/poi-references/xingfuli/water-lane.jpg",
-          "sourceUrl": "https://k.sina.com.cn/article_7517400647_1c0126e47059031uwk.html",
-          "view": "water-feature-lane",
-          "captureDate": "unknown"
+          "path": "docs/research/assets/poi-references/xingfuli/xingfuli-smartshanghai-03-2021.jpeg",
+          "sourceUrl": "https://www.smartshanghai.com/venue/17729/xingfu_li_fanyu_lu",
+          "view": "outdoor-seating-and-paving-detail",
+          "captureDate": "unknown",
+          "publishDate": "2021-07-23"
         }
       ]
     },

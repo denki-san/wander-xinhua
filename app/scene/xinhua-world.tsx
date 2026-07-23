@@ -154,12 +154,33 @@ function xingfuliLocalToWorld(x: number, z: number) {
 const [actionX, actionZ] = xingfuliLocalToWorld(-48, XINGFULI_PLACEMENT.localLaneCenterZ);
 const [startX, startZ] = xingfuliLocalToWorld(-65, XINGFULI_PLACEMENT.localLaneCenterZ);
 const [heroStartX, heroStartZ] = xingfuliLocalToWorld(-39.5, XINGFULI_PLACEMENT.localLaneCenterZ);
+const [xingfuliCanonicalX, xingfuliCanonicalZ] = xingfuliLocalToWorld(
+  4,
+  XINGFULI_PLACEMENT.localLaneCenterZ,
+);
+const [xingfuliPoolDetailX, xingfuliPoolDetailZ] = xingfuliLocalToWorld(5.5, -10.4);
+const [xingfuliEntranceDetailX, xingfuliEntranceDetailZ] = xingfuliLocalToWorld(45, -5.5);
 const ACTION_POSITION = new Vector3(actionX, terrainHeightAt(actionX, actionZ) + 0.34, actionZ);
 const START_POSITION = new Vector3(startX, terrainHeightAt(startX, startZ) + 0.33, startZ);
 const HERO_START_POSITION = new Vector3(
   heroStartX,
   terrainHeightAt(heroStartX, heroStartZ) + 0.33,
   heroStartZ,
+);
+const XINGFULI_CANONICAL_POSITION = new Vector3(
+  xingfuliCanonicalX,
+  terrainHeightAt(xingfuliCanonicalX, xingfuliCanonicalZ) + 0.33,
+  xingfuliCanonicalZ,
+);
+const XINGFULI_POOL_DETAIL_POSITION = new Vector3(
+  xingfuliPoolDetailX,
+  terrainHeightAt(xingfuliPoolDetailX, xingfuliPoolDetailZ) + 0.33,
+  xingfuliPoolDetailZ,
+);
+const XINGFULI_ENTRANCE_DETAIL_POSITION = new Vector3(
+  xingfuliEntranceDetailX,
+  terrainHeightAt(xingfuliEntranceDetailX, xingfuliEntranceDetailZ) + 0.33,
+  xingfuliEntranceDetailZ,
 );
 const START_FORWARD = new Vector3(
   Math.cos(XINGFULI_PLACEMENT.rotationY),
@@ -209,6 +230,24 @@ function requestedStartPreset(requestedName?: string): StartPreset {
     return {
       position: HERO_START_POSITION.clone(),
       forward: START_FORWARD.clone(),
+    };
+  }
+  if (name === "xingfuli-canonical") {
+    return {
+      position: XINGFULI_CANONICAL_POSITION.clone(),
+      forward: START_FORWARD.clone(),
+    };
+  }
+  if (name === "xingfuli-pool-detail") {
+    return {
+      position: XINGFULI_POOL_DETAIL_POSITION.clone(),
+      forward: START_FORWARD.clone(),
+    };
+  }
+  if (name === "xingfuli-entrance-detail") {
+    return {
+      position: XINGFULI_ENTRANCE_DETAIL_POSITION.clone(),
+      forward: START_FORWARD.clone().negate(),
     };
   }
   if (name === "huashan") {
@@ -402,7 +441,7 @@ function FlatNeighborhood({
           XINGFULI_PLACEMENT.horizontalScale,
         ]}>
           <group position={[0, 0, -XINGFULI_PLACEMENT.localLaneCenterZ]}>
-            <XingfuliBlock />
+            <XingfuliBlock loadDetailedArchitecture={showDetailModels} />
           </group>
         </group>
       </group>

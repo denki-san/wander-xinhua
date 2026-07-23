@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-07-22T17:47:06.056Z",
+  "build": {
+    "mode": "vite-static-production",
+    "command": "npm run build",
+    "asset": "http://127.0.0.1:3002/assets/index-CMHftIQ_.js",
+    "url": "http://127.0.0.1:3002/?start=xingfuli-canonical"
+  },
+  "environment": {
+    "viewport": [1920, 851],
+    "devicePixelRatio": 1,
+    "visibility": "visible",
+    "warmupSeconds": 7
+  },
+  "performanceMetrics": {
+    "protocol": "Chrome DevTools Protocol Performance.getMetrics",
+    "sampleSeconds": 10.081263999993098,
+    "start": {
+      "timestamp": 114824.190732,
+      "taskDurationSeconds": 0.014147,
+      "scriptDurationSeconds": 0.013553,
+      "layoutDurationSeconds": 0,
+      "recalcStyleDurationSeconds": 0,
+      "jsHeapUsedBytes": 77846988,
+      "jsHeapTotalBytes": 140361728
+    },
+    "end": {
+      "timestamp": 114834.271996,
+      "taskDurationSeconds": 9.662788,
+      "scriptDurationSeconds": 9.376154,
+      "layoutDurationSeconds": 0,
+      "recalcStyleDurationSeconds": 0,
+      "jsHeapUsedBytes": 72273732,
+      "jsHeapTotalBytes": 140361728
+    },
+    "delta": {
+      "taskDurationSeconds": 9.648641000000001,
+      "scriptDurationSeconds": 9.362601,
+      "layoutDurationSeconds": 0,
+      "recalcStyleDurationSeconds": 0
+    }
+  },
+  "requestAnimationFrame": {
+    "protocol": "Chrome DevTools Protocol Runtime.evaluate",
+    "durationMs": 1994.60000000298,
+    "samples": [
+      11.2, 16.6, 16.7, 16.7, 16.7, 16.6, 16.7, 16.7, 16.7, 16.5,
+      16.8, 16.2, 17, 16.7, 16, 17, 17, 16.7, 15.9, 17.4,
+      16.7, 16.6, 16.7, 15.7, 17.7, 16.7, 16.6, 16.7, 16.6, 16.7,
+      16.7, 16.2, 16.5, 17.3, 16.6, 16.7, 16.7, 16.6, 16.7, 16.7,
+      16.6, 16.7, 16.3, 16.5, 17.2, 16.7, 16.6, 16.7, 15.7, 17.7,
+      16.6, 16.7, 16.7, 16.6, 16.7, 16.6, 16.8, 16.6, 16.1, 17.3,
+      16.6, 16.6, 16.8, 15.6, 17.7, 16.6, 16.7, 16.7, 16.6, 16.7,
+      16.7, 16.6, 16.7, 16.6, 16.8, 16.6, 16.6, 16.7, 16.7, 16.6,
+      16.8, 16.6, 16.6, 16.7, 16.7, 16.7, 16.6, 16.6, 16.8, 16.6,
+      16.7, 16.7, 16.6, 16.7, 16.7, 16.6, 16.7, 16.6, 16.7, 16.7,
+      16.7, 16.7, 15.6, 16.7, 17.6, 16.7, 16.7, 16.6, 16.7, 16.6,
+      16.7, 16.7, 16.6, 16.7, 16, 16.9, 17.1, 16.7, 16.3, 17.1
+    ],
+    "reportedSummary": {
+      "sampleCount": 120,
+      "averageFrameMilliseconds": 16.621666666666663,
+      "averageFps": 60.162438584177295,
+      "p95FrameMilliseconds": 17.3,
+      "maximumFrameMilliseconds": 17.7
+    }
+  },
+  "resourceTiming": {
+    "protocol": "PerformanceResourceTiming",
+    "entries": [
+      {
+        "name": "xingfuli-west.glb?v=20260723-final-1",
+        "initiatorType": "fetch",
+        "durationMs": 5.700000002980232,
+        "transferSize": 317312,
+        "encodedBodySize": 317012,
+        "decodedBodySize": 317012
+      },
+      {
+        "name": "xingfuli-center.glb?v=20260723-final-1",
+        "initiatorType": "fetch",
+        "durationMs": 12.300000011920927,
+        "transferSize": 554380,
+        "encodedBodySize": 554080,
+        "decodedBodySize": 554080
+      },
+      {
+        "name": "xingfuli-east.glb?v=20260723-final-1",
+        "initiatorType": "fetch",
+        "durationMs": 11.799999997019768,
+        "transferSize": 500036,
+        "encodedBodySize": 499736,
+        "decodedBodySize": 499736
+      }
+    ]
+  },
+  "console": {
+    "protocol": "in-app browser dev logs",
+    "entries": [
+      {
+        "level": "log",
+        "message": "CookieCloud Content Script Loaded",
+        "sourceUrl": "chrome-extension://ffjiejobkoibkjlhjnlgmcnnigeelbdl/content-scripts/content.js",
+        "origin": "extension"
+      },
+      {
+        "level": "debug",
+        "message": "setupReplaceUnsafeHeader() should be called only once",
+        "sourceUrl": "chrome-extension://iloddidemhbedaopmipajgclofjocogb/src/entries/content-script/index.js",
+        "origin": "extension"
+      },
+      {
+        "level": "warning",
+        "message": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+        "sourceUrl": "http://127.0.0.1:3002/assets/index-CMHftIQ_.js",
+        "origin": "application"
+      },
+      {
+        "level": "warning",
+        "message": "THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead.",
+        "sourceUrl": "http://127.0.0.1:3002/assets/index-CMHftIQ_.js",
+        "origin": "application",
+        "repeatCount": 3
+      }
+    ],
+    "applicationErrorCount": 0,
+    "extensionErrorCount": 0,
+    "applicationWarningCount": 4
+  }
+}

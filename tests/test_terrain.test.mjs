@@ -112,10 +112,11 @@ test("三个平面地标范围内使用严格一致的地面高度", async () =>
 });
 
 test("幸福里番禺路端单独退界且不压缩横向通行宽度", async () => {
-  const [map, worldSource, xingfuliSource] = await Promise.all([
+  const [map, worldSource, xingfuliSource, qaPaths] = await Promise.all([
     readFile(new URL("app/scene/xinhua-map-data.json", root), "utf8").then(JSON.parse),
     readFile(new URL("app/scene/xinhua-world.tsx", root), "utf8"),
     readFile(new URL("app/scene/xingfuli-block.tsx", root), "utf8"),
+    readFile(new URL("app/scene/xingfuli-qa-paths.json", root), "utf8").then(JSON.parse),
   ]);
   const clearance = 4.1;
   const longitudinalScale = map.landmarks.xingfuli.horizontalScale - clearance / 94;
@@ -126,6 +127,7 @@ test("幸福里番禺路端单独退界且不压缩横向通行宽度", async ()
   assert.match(worldSource, /XINGFULI_LONGITUDINAL_SCALE/);
   assert.match(worldSource, /XINGFULI_PLACEMENT\.horizontalScale,\s*XINGFULI_PLACEMENT\.localLaneCenterZ,\s*XINGFULI_LONGITUDINAL_SCALE/s);
   assert.match(xingfuliSource, /REFLECTING_POOL = \{ x: 16\.5, z: -3\.95, width: 18, depth: 2\.15 \}/);
-  assert.match(xingfuliSource, /pool-bypass-/);
+  assert.equal(qaPaths.routes.some(({ id }) => id === "pool-north-bypass"), true);
+  assert.equal(qaPaths.routes.some(({ id }) => id === "pool-bridge-crossing"), true);
   assert.doesNotMatch(xingfuliSource, /minZ: -6\.65, maxZ: -3\.75/);
 });

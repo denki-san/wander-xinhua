@@ -1,19 +1,49 @@
 "use client";
 
-import { RoundedBox } from "@react-three/drei";
-import { useLayoutEffect, useMemo, useRef } from "react";
-import { InstancedMesh, Object3D } from "three";
-import layout from "./xingfuli-layout.json";
+import { RoundedBox, useGLTF } from "@react-three/drei";
+import {
+  Component,
+  Suspense,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  type ReactNode,
+} from "react";
+import {
+  InstancedMesh,
+  Material,
+  Mesh,
+  MeshBasicMaterial,
+  MeshStandardMaterial,
+  MeshToonMaterial,
+  Object3D,
+} from "three";
 import {
   PlaneTreeInstances,
   type PlaneTreeInstancePlacement,
 } from "./plane-tree-instances";
-import type { MapObstacle } from "./world-math";
+import { MixedStonePaving } from "./mixed-stone-paving";
+import {
+  CantileverCafeUmbrella,
+  IrregularStoneBollards,
+  OutdoorDiningSet,
+  SlattedBench,
+  StreetLampInstances,
+  StreetPlanter,
+  type StoneBollardPlacement,
+  type StreetLampPlacement,
+} from "./shared-street-assets";
+import {
+  XINGFULI_BUILDINGS,
+  XINGFULI_OBSTACLES,
+  XINGFULI_QA_PATHS,
+  type XingfuliBuilding,
+} from "./xingfuli-collision";
 
 const FLOOR_HEIGHT = 2.08;
 const LANE_CENTER_Z = -7;
-const PAVING_DARK_INDICES = Array.from({ length: 31 }, (_, index) => index).filter((index) => index % 3 === 0);
-const PAVING_LIGHT_INDICES = Array.from({ length: 31 }, (_, index) => index).filter((index) => index % 3 !== 0);
+const XINGFULI_STREET_EVIDENCE = "docs/research/xingfuli-reference-manifest.json";
 const GARDEN_CELLS = Array.from({ length: 72 }, (_, index) => ({
   y: 0.7 + Math.floor(index / 8) * 0.78,
   z: -3.1 + (index % 8) * 0.88,
@@ -23,6 +53,13 @@ const GARDEN_CELLS = Array.from({ length: 72 }, (_, index) => ({
 const GARDEN_COLORS = ["#78924e", "#4f7d55", "#386849"] as const;
 const REFLECTING_POOL = { x: 16.5, z: -3.95, width: 18, depth: 2.15 };
 const XINGFULI_PLANE_TREE_PLACEMENTS: PlaneTreeInstancePlacement[] = [
+  {
+    id: "xingfuli-panyu-entrance-plane-tree",
+    variant: 0,
+    position: [40.1, 0.25, -3.15],
+    yaw: 1.08,
+    scale: [0.66, 0.7, 0.68],
+  },
   {
     id: "xingfuli-pool-plane-tree",
     variant: 1,
@@ -38,6 +75,31 @@ const XINGFULI_PLANE_TREE_PLACEMENTS: PlaneTreeInstancePlacement[] = [
     scale: [0.72, 0.76, 0.8],
   },
 ];
+const XINGFULI_LAMP_PLACEMENTS: StreetLampPlacement[] = [
+  { id: "west-north", position: [-35, 0.26, -2.1] },
+  { id: "west-south", position: [-20, 0.26, -11.7], yaw: Math.PI, lit: true },
+  { id: "center-north", position: [-6.5, 0.26, -2.1] },
+  { id: "center-south", position: [2.5, 0.26, -11.7], yaw: Math.PI },
+  { id: "east-south", position: [30, 0.26, -11.7], yaw: Math.PI, lit: true },
+  { id: "east-north", position: [39, 0.26, -2.1] },
+];
+// 公开照片只证明番禺路入口存在一排膝高石桩；不把未知的幸福路入口补成对称造景。
+const XINGFULI_ENTRY_BOLLARDS: StoneBollardPlacement[] = [
+  -11.8,
+  -9,
+  -6.2,
+  -3.4,
+  -0.6,
+].map((z, index) => ({
+    id: `east-entry-bollard-${index}`,
+    position: [44.6, 0.3, z] as [number, number, number],
+    scale: [
+      0.34 + (index % 2) * 0.045,
+      0.26 + (index % 3) * 0.035,
+      0.32 + ((index + 1) % 2) * 0.04,
+    ] as [number, number, number],
+    yaw: index * 0.37,
+  }));
 export const XINGFULI_DETAIL_UPGRADE = {
   windowLayersBefore: 3,
   windowLayersAfter: 6,
@@ -47,45 +109,123 @@ export const XINGFULI_DETAIL_UPGRADE = {
   poolEdgeDetailsAfter: 9,
 } as const;
 
-type Building = {
-  id: string;
-  x: number;
-  z: number;
-  width: number;
-  depth: number;
-  floors: number;
-  side: "north" | "south";
-  wall: string;
-  frame: string;
-  glass: string;
-  feature: "bands" | "bay" | "balcony" | "glass" | "mural" | "pavilion" | "timber";
-};
+type Building = XingfuliBuilding;
 
 // JSON 是可直接回归测试的结构化事实表；ID 只表示方位，不冒充真实座号。
-export const XINGFULI_BUILDINGS = layout.buildings as Building[];
+export { XINGFULI_BUILDINGS, XINGFULI_OBSTACLES, XINGFULI_QA_PATHS };
 
-export const XINGFULI_OBSTACLES: MapObstacle[] = [
-  ...XINGFULI_BUILDINGS.map((building) => ({
-    minX: building.x - building.width / 2 - 0.28,
-    maxX: building.x + building.width / 2 + 0.28,
-    minZ: building.z - building.depth / 2 - 0.28,
-    maxZ: building.z + building.depth / 2 + 0.28,
-  })),
-  // 倒影池向北收进庭院，主通道保留连续净空；只有真实水面参与碰撞。
-  {
-    minX: REFLECTING_POOL.x - REFLECTING_POOL.width / 2 + 0.18,
-    maxX: REFLECTING_POOL.x + REFLECTING_POOL.width / 2 - 0.18,
-    minZ: REFLECTING_POOL.z - REFLECTING_POOL.depth / 2 + 0.12,
-    maxZ: REFLECTING_POOL.z + REFLECTING_POOL.depth / 2 - 0.12,
-  },
-  // 东入口绿墙略伸出 7 座主体，单独补齐端墙碰撞。
-  { minX: 41.75, maxX: 43.2, minZ: -21.6, maxZ: -12.8 },
-  // 只给占地明显的长椅和咖啡桌组简化碰撞，小花盆与灯杆保持通行宽容度。
-  { minX: -28.7, maxX: -26.3, minZ: -3.15, maxZ: -2.25 },
-  { minX: 27.8, maxX: 30.2, minZ: -11.35, maxZ: -10.45 },
-  { minX: -19.75, maxX: -17.25, minZ: -9.65, maxZ: -7.15 },
-  { minX: 32.75, maxX: 35.25, minZ: -9.85, maxZ: -7.35 },
-];
+const XINGFULI_ARCHITECTURE_MODELS = [
+  "/models/xingfuli/xingfuli-west.glb?v=20260723-final-1",
+  "/models/xingfuli/xingfuli-center.glb?v=20260723-final-1",
+  "/models/xingfuli/xingfuli-east.glb?v=20260723-final-1",
+] as const;
+
+function configureArchitectureModel(source: Object3D) {
+  const clone = source.clone(true);
+  const materialCache = new Map<string, MeshToonMaterial | MeshStandardMaterial>();
+  clone.traverse((child) => {
+    if (!(child instanceof Mesh)) return;
+    const sourceWasArray = Array.isArray(child.material);
+    const sourceMaterials: Material[] = sourceWasArray ? child.material : [child.material];
+    const replacements = sourceMaterials.map((sourceMaterial) => {
+      const name = sourceMaterial.name || "幸福里灰模材质";
+      let replacement = materialCache.get(name);
+      if (replacement) return replacement;
+      const color = sourceMaterial instanceof MeshStandardMaterial
+        || sourceMaterial instanceof MeshToonMaterial
+        || sourceMaterial instanceof MeshBasicMaterial
+        ? sourceMaterial.color.clone()
+        : undefined;
+      if (name.includes("玻璃")) {
+        replacement = new MeshStandardMaterial({
+          color: color ?? "#739b9e",
+          transparent: true,
+          opacity: 0.78,
+          roughness: 0.34,
+          metalness: 0,
+          depthWrite: false,
+        });
+      } else {
+        replacement = new MeshToonMaterial({ color: color ?? "#e9e7de" });
+      }
+      replacement.name = name;
+      materialCache.set(name, replacement);
+      return replacement;
+    });
+    child.material = sourceWasArray ? replacements : replacements[0];
+    child.castShadow = !sourceMaterials.every(({ name }) => name.includes("玻璃"));
+    child.receiveShadow = true;
+  });
+  return clone;
+}
+
+function XingfuliArchitectureSegment({ path }: { path: string }) {
+  const { scene } = useGLTF(path);
+  const model = useMemo(() => configureArchitectureModel(scene), [scene]);
+  useEffect(() => () => {
+    const materials = new Set<Material>();
+    model.traverse((child) => {
+      if (!(child instanceof Mesh)) return;
+      const childMaterials = Array.isArray(child.material) ? child.material : [child.material];
+      childMaterials.forEach((childMaterial) => materials.add(childMaterial));
+    });
+    materials.forEach((childMaterial) => childMaterial.dispose());
+  }, [model]);
+  return <primitive object={model} scale={[1, 1, -1]} />;
+}
+
+class XingfuliArchitectureBoundary extends Component<{
+  children: ReactNode;
+  fallback: ReactNode;
+}, { failed: boolean }> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children;
+  }
+}
+
+function XingfuliProceduralArchitectureFallback() {
+  return (
+    <>
+      <mesh position={[0, 0.17, LANE_CENTER_Z]} receiveShadow>
+        <boxGeometry args={[94, 0.18, 14]} />
+        <meshToonMaterial color="#aaa9a1" />
+      </mesh>
+      {XINGFULI_BUILDINGS.map((building) => (
+        <XingfuliBuilding key={building.id} building={building} />
+      ))}
+      <ReflectingPoolHardscapeFallback />
+    </>
+  );
+}
+
+function XingfuliArchitecture() {
+  const fallback = <XingfuliProceduralArchitectureFallback />;
+  return (
+    <XingfuliArchitectureBoundary fallback={fallback}>
+      <Suspense fallback={fallback}>
+        <group
+          name="xingfuli-final-architecture"
+          userData={{
+            asset: "xingfuli",
+            stage: "final",
+            segments: 3,
+            referenceManifest: "docs/research/xingfuli-reference-manifest.json",
+          }}
+        >
+          {XINGFULI_ARCHITECTURE_MODELS.map((path) => (
+            <XingfuliArchitectureSegment key={path} path={path} />
+          ))}
+        </group>
+      </Suspense>
+    </XingfuliArchitectureBoundary>
+  );
+}
 
 function Window({
   x,
@@ -448,62 +588,41 @@ function XingfuliBuilding({ building }: { building: Building }) {
   );
 }
 
-function PavingBands({ indices, color }: { indices: number[]; color: string }) {
-  const instances = useRef<InstancedMesh>(null);
-  const helper = useMemo(() => new Object3D(), []);
-  useLayoutEffect(() => {
-    if (!instances.current) return;
-    indices.forEach((index, instanceIndex) => {
-      helper.position.set(-45 + index * 3, 0.275, LANE_CENTER_Z);
-      helper.updateMatrix();
-      instances.current?.setMatrixAt(instanceIndex, helper.matrix);
-    });
-    instances.current.instanceMatrix.needsUpdate = true;
-  }, [helper, indices]);
+function ReflectingPoolHardscapeFallback() {
   return (
-    <instancedMesh ref={instances} args={[undefined, undefined, indices.length]} receiveShadow>
-      <boxGeometry args={[1.08, 0.035, 13.55]} />
-      <meshBasicMaterial color={color} />
-    </instancedMesh>
-  );
-}
-
-function LanePaving() {
-  return (
-    <group>
-      <mesh position={[0, 0.17, LANE_CENTER_Z]} receiveShadow>
-        <boxGeometry args={[94, 0.18, 14]} />
-        <meshToonMaterial color="#c9c5b8" />
+    <group position={[REFLECTING_POOL.x, 0, REFLECTING_POOL.z]}>
+      <mesh position={[0, 0.32, 0]} castShadow receiveShadow>
+        <boxGeometry args={[REFLECTING_POOL.width, 0.34, REFLECTING_POOL.depth]} />
+        <meshToonMaterial color="#394b47" />
       </mesh>
-      <PavingBands indices={PAVING_DARK_INDICES} color="#a9aaa3" />
-      <PavingBands indices={PAVING_LIGHT_INDICES} color="#b8b7ae" />
-      {[-13.2, -0.8].map((z) => (
-        <mesh key={z} position={[0, 0.3, z]} receiveShadow>
-          <boxGeometry args={[93, 0.035, 0.22]} />
-          <meshBasicMaterial color="#5f6b66" />
+      {[-1, 1].map((side) => (
+        <mesh key={side} position={[0, 0.56, side * 1]} castShadow receiveShadow>
+          <boxGeometry args={[REFLECTING_POOL.width + 0.25, 0.13, 0.22]} />
+          <meshToonMaterial color="#394b47" />
         </mesh>
       ))}
+      <group position={[-3.9, 0.65, 0]}>
+        {Array.from({ length: 7 }, (_, index) => (
+          <mesh key={index} position={[(index - 3) * 0.34, 0, 0]} castShadow>
+            <boxGeometry args={[0.28, 0.13, REFLECTING_POOL.depth + 0.75]} />
+            <meshToonMaterial color="#8d5f43" />
+          </mesh>
+        ))}
+      </group>
     </group>
   );
 }
 
-function ReflectingPool() {
+function ReflectingPoolDynamicDetails() {
   return (
     <group position={[REFLECTING_POOL.x, 0, REFLECTING_POOL.z]}>
-      <mesh position={[0, 0.31, 0]} castShadow receiveShadow>
-        <boxGeometry args={[REFLECTING_POOL.width, 0.32, REFLECTING_POOL.depth]} />
-        <meshToonMaterial color="#303f3c" />
-      </mesh>
-      <mesh position={[0, 0.49, 0]} receiveShadow>
+      {/* 池壳、池沿和木桥已经进入 site GLB；这里只保留动态水面、喷泉和树基座。 */}
+      <mesh position={[0, 0.505, 0]} receiveShadow>
         <boxGeometry args={[REFLECTING_POOL.width - 0.58, 0.05, REFLECTING_POOL.depth - 0.56]} />
         <meshToonMaterial color="#5d9da0" transparent opacity={0.86} />
       </mesh>
       {[-1, 1].map((side) => (
         <group key={side} position={[0, 0.52, side * (REFLECTING_POOL.depth / 2 - 0.08)]}>
-          <mesh castShadow>
-            <boxGeometry args={[REFLECTING_POOL.width + 0.28, 0.12, 0.22]} />
-            <meshToonMaterial color="#59635f" />
-          </mesh>
           {[-6.6, -2.2, 2.2, 6.6].map((x) => (
             <mesh key={x} position={[x, 0.065, side * 0.12]}>
               <boxGeometry args={[1.25, 0.025, 0.07]} />
@@ -529,14 +648,6 @@ function ReflectingPool() {
           <cylinderGeometry args={[0.72, 0.86, 0.28, 12]} />
           <meshToonMaterial color="#47534e" />
         </mesh>
-      </group>
-      <group position={[-3.9, 0.57, 0]}>
-        {Array.from({ length: 7 }, (_, index) => (
-          <mesh key={index} position={[(index - 3) * 0.34, 0, 0]} castShadow>
-            <boxGeometry args={[0.28, 0.13, REFLECTING_POOL.depth + 0.72]} />
-            <meshToonMaterial color={index % 2 ? "#9a704f" : "#ad7d55"} />
-          </mesh>
-        ))}
       </group>
     </group>
   );
@@ -620,131 +731,48 @@ function EntranceMural() {
   );
 }
 
-function LaneLamp({ lit = false }: { lit?: boolean }) {
-  return (
-    <group>
-      <mesh position={[0, 1.65, 0]} castShadow>
-        <cylinderGeometry args={[0.055, 0.09, 3.3, 8]} />
-        <meshToonMaterial color="#283b38" />
-      </mesh>
-      <mesh position={[0.25, 3.15, 0]} rotation-z={Math.PI / 2} castShadow>
-        <cylinderGeometry args={[0.045, 0.045, 0.5, 8]} />
-        <meshToonMaterial color="#283b38" />
-      </mesh>
-      <mesh position={[0.54, 3.02, 0]} castShadow>
-        <boxGeometry args={[0.34, 0.32, 0.34]} />
-        <meshToonMaterial color="#f0cf79" />
-      </mesh>
-      {lit && <pointLight position={[0.54, 3, 0]} color="#ffd991" intensity={0.45} distance={4.5} />}
-    </group>
-  );
-}
-
-function Bench({ yaw = 0 }: { yaw?: number }) {
-  return (
-    <group rotation-y={yaw}>
-      {[0.48, 0.83].map((y) => (
-        <mesh key={y} position={[0, y, 0]} castShadow>
-          <boxGeometry args={[2.1, 0.15, 0.32]} />
-          <meshToonMaterial color="#9c6c4b" />
-        </mesh>
-      ))}
-      {[-0.82, 0.82].map((x) => (
-        <mesh key={x} position={[x, 0.24, 0]} castShadow>
-          <boxGeometry args={[0.12, 0.52, 0.48]} />
-          <meshToonMaterial color="#2f4541" />
-        </mesh>
-      ))}
-    </group>
-  );
-}
-
-function CafeCluster({ x, z, yaw = 0 }: { x: number; z: number; yaw?: number }) {
-  return (
-    <group position={[x, 0.28, z]} rotation-y={yaw}>
-      <mesh position={[0, 1.92, 0]} castShadow>
-        <coneGeometry args={[2.05, 0.65, 8]} />
-        <meshToonMaterial color="#be5549" />
-      </mesh>
-      <mesh position={[0, 0.92, 0]} castShadow>
-        <cylinderGeometry args={[0.055, 0.08, 2.1, 8]} />
-        <meshToonMaterial color="#374a46" />
-      </mesh>
-      <mesh position={[0, 0.64, 0]} castShadow>
-        <cylinderGeometry args={[0.72, 0.72, 0.12, 14]} />
-        <meshToonMaterial color="#a77551" />
-      </mesh>
-      {[-1.05, 1.05].map((offset) => (
-        <group key={offset} position={[offset, 0, 0]}>
-          <mesh position={[0, 0.42, 0]} castShadow>
-            <boxGeometry args={[0.56, 0.12, 0.62]} />
-            <meshToonMaterial color="#334844" />
-          </mesh>
-          <mesh position={[0, 0.24, 0]} castShadow>
-            <boxGeometry args={[0.09, 0.48, 0.09]} />
-            <meshToonMaterial color="#334844" />
-          </mesh>
-        </group>
-      ))}
-    </group>
-  );
-}
-
-function Planter({ x, z, scale = 1 }: { x: number; z: number; scale?: number }) {
-  return (
-    <group position={[x, 0.28, z]} scale={scale}>
-      <mesh position={[0, 0.34, 0]} castShadow>
-        <cylinderGeometry args={[0.42, 0.5, 0.68, 10]} />
-        <meshToonMaterial color="#474f4b" />
-      </mesh>
-      <mesh position={[0, 0.93, 0]} castShadow>
-        <icosahedronGeometry args={[0.58, 1]} />
-        <meshToonMaterial color="#4d805f" />
-      </mesh>
-    </group>
-  );
-}
-
-function EntryBollards() {
-  return (
-    <group>
-      {[-44.6, 44.6].flatMap((x) => [-11, -8.2, -5.4, -2.6].map((z, index) => (
-        <mesh key={`${x}-${z}`} position={[x, 0.66, z]} castShadow>
-          <coneGeometry args={[0.34, 0.86 + index * 0.02, 4]} />
-          <meshToonMaterial color="#6f7771" />
-        </mesh>
-      )))}
-    </group>
-  );
-}
-
 function LaneFurniture() {
-  const lamps = [
-    [-35, -2.1], [-20, -11.7], [-6.5, -2.1], [2.5, -11.7], [30, -11.7], [39, -2.1],
-  ] as const;
   return (
-    <group>
-      {/* 连续导向铺装把可步行带从倒影池南侧明确标出来，避免视觉上误判为死路。 */}
-      {Array.from({ length: 12 }, (_, index) => (
-        <mesh key={`pool-bypass-${index}`} position={[4.5 + index * 2.15, 0.31, -8.15]} receiveShadow>
-          <boxGeometry args={[1.55, 0.035, 0.42]} />
-          <meshBasicMaterial color={index % 2 ? "#e4ddca" : "#d0c5ad"} />
-        </mesh>
-      ))}
-      {lamps.map(([x, z], index) => (
-        <group key={index} position={[x, 0.26, z]} rotation-y={index % 2 ? Math.PI : 0}>
-          <LaneLamp lit={index === 1 || index === 4} />
-        </group>
-      ))}
-      <group position={[-27.5, 0.25, -2.7]}><Bench /></group>
-      <group position={[29, 0.25, -10.9]}><Bench yaw={Math.PI} /></group>
-      <CafeCluster x={-18.5} z={-8.4} yaw={0.1} />
-      <CafeCluster x={34} z={-8.6} yaw={-0.08} />
-      <Planter x={-40} z={-3} scale={0.9} />
-      <Planter x={-11.2} z={-11.4} scale={0.8} />
-      <Planter x={28.8} z={-2.4} scale={0.78} />
-      <Planter x={40.3} z={-10.7} scale={0.9} />
-      <EntryBollards />
+    <group name="xingfuli-reusable-street-dressing">
+      <StreetLampInstances
+        name="xingfuli-street-lamps"
+        placements={XINGFULI_LAMP_PLACEMENTS}
+        evidenceRef={XINGFULI_STREET_EVIDENCE}
+      />
+      <group position={[-27.5, 0.25, -2.7]}>
+        <SlattedBench seed={27} evidenceRef={XINGFULI_STREET_EVIDENCE} />
+      </group>
+      <group position={[29, 0.25, -10.9]} rotation-y={Math.PI}>
+        <SlattedBench seed={29} evidenceRef={XINGFULI_STREET_EVIDENCE} />
+      </group>
+      <group position={[-18.5, 0.29, -8.4]} rotation-y={0.1}>
+        <CantileverCafeUmbrella seed={18} evidenceRef={XINGFULI_STREET_EVIDENCE} />
+        <OutdoorDiningSet variant="dark-wood-metal" seed={19} evidenceRef={XINGFULI_STREET_EVIDENCE} />
+      </group>
+      <group position={[34, 0.29, -8.6]} rotation-y={-0.08}>
+        <CantileverCafeUmbrella color="#c04f45" seed={7} evidenceRef={XINGFULI_STREET_EVIDENCE} />
+        <OutdoorDiningSet variant="white-molded" seed={8} evidenceRef={XINGFULI_STREET_EVIDENCE} />
+      </group>
+      <group position={[-6.8, 0.29, -10.7]} rotation-y={0.12}>
+        <OutdoorDiningSet variant="colorful-folding" seed={32} evidenceRef={XINGFULI_STREET_EVIDENCE} />
+      </group>
+      <group name="planter-west-square-base" position={[-40, 0.28, -3]} scale={0.9}>
+        <StreetPlanter variant="square" seed={40} evidenceRef={XINGFULI_STREET_EVIDENCE} />
+      </group>
+      <group name="planter-center-tall-base" position={[-11.2, 0.28, -11.4]} scale={0.8}>
+        <StreetPlanter variant="tall" seed={11} evidenceRef={XINGFULI_STREET_EVIDENCE} />
+      </group>
+      <group name="planter-east-long-base" position={[28.8, 0.28, -2.4]} scale={0.78}>
+        <StreetPlanter variant="long" seed={28} evidenceRef={XINGFULI_STREET_EVIDENCE} />
+      </group>
+      <group name="planter-east-square-base" position={[40.3, 0.28, -10.7]} scale={0.9}>
+        <StreetPlanter variant="square" seed={41} evidenceRef={XINGFULI_STREET_EVIDENCE} />
+      </group>
+      <IrregularStoneBollards
+        name="xingfuli-entry-stone-bollards"
+        placements={XINGFULI_ENTRY_BOLLARDS}
+        evidenceRef={XINGFULI_STREET_EVIDENCE}
+      />
     </group>
   );
 }
@@ -752,14 +780,18 @@ function LaneFurniture() {
 /**
  * 幸福里采用公开地图拓扑与多角度公开照片重建；不包含门牌、店名或参考照片贴图。
  */
-export function XingfuliBlock() {
+export function XingfuliBlock({
+  loadDetailedArchitecture = true,
+}: {
+  loadDetailedArchitecture?: boolean;
+}) {
   return (
     <group data-neighborhood="xingfuli">
-      <LanePaving />
-      {XINGFULI_BUILDINGS.map((building) => (
-        <XingfuliBuilding key={building.id} building={building} />
-      ))}
-      <ReflectingPool />
+      {loadDetailedArchitecture
+        ? <XingfuliArchitecture />
+        : <XingfuliProceduralArchitectureFallback />}
+      <MixedStonePaving name="xingfuli-mixed-stone-paving" />
+      <ReflectingPoolDynamicDetails />
       <VerticalGarden />
       <EntranceMural />
       <LaneFurniture />

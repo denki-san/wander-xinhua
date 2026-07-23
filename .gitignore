@@ -14,6 +14,7 @@
 /coverage
 /test_artifacts/*
 !/test_artifacts/test_*_preview.png
+!/test_artifacts/test_*_runtime_metrics.json
 /test_local_preview.command
 
 # next.js

@@ -64,7 +64,7 @@ test("幸福里使用七栋固定建筑和可识别的核心街具", async () =>
   const xingfuli = await readFile(new URL("../app/scene/xingfuli-block.tsx", import.meta.url), "utf8");
   const layout = JSON.parse(await readFile(new URL("../app/scene/xingfuli-layout.json", import.meta.url), "utf8"));
 
-  assert.match(world, /<XingfuliBlock \/>/);
+  assert.match(world, /<XingfuliBlock loadDetailedArchitecture=\{showDetailModels\} \/>/);
   assert.match(world, /const XINGFULI_WORLD_OBSTACLES = XINGFULI_OBSTACLES\.map/);
   assert.match(world, /\.\.\.XINGFULI_WORLD_OBSTACLES/);
   assert.equal(layout.buildings.length, 7);
@@ -78,13 +78,15 @@ test("幸福里使用七栋固定建筑和可识别的核心街具", async () =>
   assert.equal(new Set(layout.buildings.map((building) => `${building.x}:${building.z}`)).size, 7);
   assert.ok(layout.buildings.every((building) => /^#[0-9a-f]{6}$/i.test(building.wall)));
   assert.ok(layout.buildings.every((building) => !/^[A-F7]$/.test(building.id)));
-  assert.match(xingfuli, /function ReflectingPool/);
+  assert.match(xingfuli, /function ReflectingPoolDynamicDetails/);
+  assert.match(xingfuli, /function XingfuliArchitecture/);
   assert.match(xingfuli, /function VerticalGarden/);
-  assert.match(xingfuli, /function GardenInstances/);
+  assert.match(xingfuli, /GARDEN_CELLS/);
   assert.match(xingfuli, /function EntranceMural/);
-  assert.match(xingfuli, /function LaneLamp/);
-  assert.match(xingfuli, /function Bench/);
-  assert.match(xingfuli, /function CafeCluster/);
+  assert.match(xingfuli, /StreetLampInstances/);
+  assert.match(xingfuli, /SlattedBench/);
+  assert.match(xingfuli, /CantileverCafeUmbrella/);
+  assert.match(xingfuli, /OutdoorDiningSet/);
   assert.match(xingfuli, /番禺路入口右侧的白色玻璃转角体量/);
   assert.match(xingfuli, /sign \* 0\.082/);
   assert.match(xingfuli, /data-neighborhood="xingfuli"/);

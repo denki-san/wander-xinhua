@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "asset": "xingfuli",
+  "auditedAt": "2026-07-23",
+  "positionEvidence": {
+    "osmWayId": 400066625,
+    "address": "幸福路67号 / 番禺路381号",
+    "lengthMeters": 147.7,
+    "usage": "OSM 只用于位置、长轴和场地边界关系，不作为立面测绘证据"
+  },
+  "policy": {
+    "referencePhotosAreResearchOnly": true,
+    "embedInRuntime": false,
+    "copyProtectedLogos": false,
+    "unknownSurfacesRemainConservative": true
+  },
+  "canonicalReference": "docs/research/assets/poi-references/xingfuli/courtyard-canonical.jpg",
+  "canonicalRuntimeDirection": "沿场地长轴朝本地 +X / 番禺路入口；照片绝对朝向仍为推断，灰模阶段用立面对应关系复核",
+  "coverageMatrix": [
+    {
+      "slot": "canonical",
+      "path": "docs/research/assets/poi-references/xingfuli/courtyard-canonical.jpg",
+      "status": "covered",
+      "questions": ["主巷长宽关系", "两侧连续立面", "水景、树与外摆的画面占比"]
+    },
+    {
+      "slot": "side-or-depth",
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-smartshanghai-01-2021.jpeg",
+      "status": "covered",
+      "questions": ["悬挑与阳台纵深", "灰白玻璃体量", "木格栅店面与水景关系"]
+    },
+    {
+      "slot": "entrance-identity",
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-panyu-entrance-shanghai-changning-2018.jpeg",
+      "status": "covered",
+      "questions": ["番禺路入口黑白体块", "右侧品牌矩阵墙的几何节奏", "树阵、矮石桩和铺地"]
+    },
+    {
+      "slot": "site-material-detail",
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-smartshanghai-03-2021.jpeg",
+      "status": "covered",
+      "questions": ["混合灰石铺地尺度", "红色悬臂伞", "三类桌椅和花箱"]
+    }
+  ],
+  "references": [
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/courtyard-canonical.jpg",
+      "sha256": "35ac96bb60d6d5e78fc441a2dd0296f5755f17303b98947b770a2bafbefbe20e",
+      "dimensions": [1080, 1080],
+      "sourceUrl": "https://k.sina.com.cn/article_7517400647_1c0126e47059031uwk.html",
+      "view": "central-courtyard-canonical",
+      "captureDate": "unknown",
+      "usage": "research-only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/central-lane.jpg",
+      "sha256": "4a4555fbd087475f2d3ba77ebcc00bf50ea4d54ae983ff4711f06baf0d0d942f",
+      "dimensions": [700, 700],
+      "sourceUrl": "https://k.sina.com.cn/article_7517400647_1c0126e47059031uwk.html",
+      "view": "central-lane-opposite-direction",
+      "captureDate": "unknown",
+      "usage": "research-only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/water-lane.jpg",
+      "sha256": "1b7a5b80cca4dca2bf4321e0da97d9618e406867bd4ce892519b415f58a0f838",
+      "dimensions": [700, 752],
+      "sourceUrl": "https://k.sina.com.cn/article_7517400647_1c0126e47059031uwk.html",
+      "view": "water-feature-lane",
+      "captureDate": "unknown",
+      "usage": "research-only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-panyu-entrance-shanghai-changning-2018.jpeg",
+      "sha256": "73155483737f7f3a35eeb17b8db9f063fe9b395b9c4d409770b3c3e6fa2af3ba",
+      "dimensions": [800, 600],
+      "sourceUrl": "https://www.sohu.com/a/234924710_391448",
+      "assetUrl": "https://5b0988e595225.cdn.sohucs.com/images/20180610/5991e4333d044457855832e784691921.jpeg",
+      "view": "panyu-road-entrance",
+      "publishDate": "2018-06-10",
+      "usage": "research-only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-panyu-bookstore-shanghai-changning-2018.jpeg",
+      "sha256": "1e9ce83cda74aec0da6b09c30d1d052a0f9a9f9fec9d032c7aa12e89adec39d3",
+      "dimensions": [800, 600],
+      "sourceUrl": "https://www.sohu.com/a/234924710_391448",
+      "assetUrl": "https://5b0988e595225.cdn.sohucs.com/images/20180610/900c0f5f12dd4fbd993cc4ee5337199a.jpeg",
+      "view": "inner-lane-bookstore-and-seating",
+      "publishDate": "2018-06-10",
+      "usage": "research-only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-smartshanghai-01-2021.jpeg",
+      "sha256": "8e7d615bae97c6ecde80852ac5e33f3ddcf35e5044f016110ee14572e34559fe",
+      "dimensions": [1200, 800],
+      "sourceUrl": "https://www.smartshanghai.com/venue/17729/xingfu_li_fanyu_lu",
+      "assetUrl": "https://images.smartshanghai.com.cn/uploads/repository/2021/07/23/3e34ce84-9528-4cec-bb42-b9de6992daf6.jpeg",
+      "view": "central-lane-water-and-facades",
+      "publishDate": "2021-07-23",
+      "usage": "research-only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-smartshanghai-02-2021.jpeg",
+      "sha256": "9aecd7e5fc74b269cfffb2c80d854c373ded4f9c7d684ede2ca7952d33b95438",
+      "dimensions": [1200, 800],
+      "sourceUrl": "https://www.smartshanghai.com/venue/17729/xingfu_li_fanyu_lu",
+      "assetUrl": "https://images.smartshanghai.com.cn/uploads/repository/2021/07/23/2ba01147-bc6e-4286-8b6a-3b37e0ecb287.jpeg",
+      "view": "entrance-depth-and-outdoor-seating",
+      "publishDate": "2021-07-23",
+      "usage": "research-only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-smartshanghai-03-2021.jpeg",
+      "sha256": "0cb28d38805c2ce42f130cc9f048ecb388426f539a8e4eb7fb7d36f90b82a2d4",
+      "dimensions": [1200, 800],
+      "sourceUrl": "https://www.smartshanghai.com/venue/17729/xingfu_li_fanyu_lu",
+      "assetUrl": "https://images.smartshanghai.com.cn/uploads/repository/2021/07/23/fbff9b97-f423-4839-a9f3-2637b2d93ad1.jpeg",
+      "view": "outdoor-seating-and-paving-detail",
+      "publishDate": "2021-07-23",
+      "usage": "research-only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-smartshanghai-04-2021.jpeg",
+      "sha256": "c38b600378a8c8d35f7cdf238a35234f76d0266c51b43a246424d530332bb996",
+      "dimensions": [1200, 800],
+      "sourceUrl": "https://www.smartshanghai.com/venue/17729/xingfu_li_fanyu_lu",
+      "assetUrl": "https://images.smartshanghai.com.cn/uploads/repository/2021/07/23/db915fa9-5a1b-422d-804f-4b2c794a49d8.jpeg",
+      "view": "storefront-entry-and-hanging-vegetation-detail",
+      "publishDate": "2021-07-23",
+      "usage": "research-only"
+    }
+  ]
+}

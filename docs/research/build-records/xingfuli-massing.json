@@ -1,0 +1,96 @@
+{
+  "asset": "xingfuli-massing",
+  "generatedAt": "2026-07-22T23:51:00+08:00",
+  "generator": {
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xingfuli_models.py -- --segment=all --stage=massing",
+    "path": "scripts/create_xingfuli_models.py",
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "outputs": {
+    "cacheVersion": "1",
+    "segments": [
+      {
+        "id": "west",
+        "blend": "assets/models/source/xingfuli/xingfuli-west-massing.blend",
+        "glb": "public/models/xingfuli/xingfuli-west-massing.glb",
+        "sha256": "178c1bbf89a15a082c596cae6e994f042997998fef02a3bf6fcaecdb104e5c04"
+      },
+      {
+        "id": "center",
+        "blend": "assets/models/source/xingfuli/xingfuli-center-massing.blend",
+        "glb": "public/models/xingfuli/xingfuli-center-massing.glb",
+        "sha256": "d6eeae59d35c3577817cdf35febb06493b53cbb661774e81a6e55d7a6dce26d3"
+      },
+      {
+        "id": "east",
+        "blend": "assets/models/source/xingfuli/xingfuli-east-massing.blend",
+        "glb": "public/models/xingfuli/xingfuli-east-massing.glb",
+        "sha256": "5924e935ed9cba120c77396f28adbea12368ad31448c63ad67c5b75a96d319ee"
+      }
+    ]
+  },
+  "metrics": {
+    "bytes": 794476,
+    "nodes": 3,
+    "meshes": 3,
+    "triangles": 11088,
+    "materialsBySegment": [5, 6, 7],
+    "images": 0,
+    "textures": 0,
+    "boundsBySegment": {
+      "west": {
+        "min": [-47, 0.09000000357627869, -7.739999771118164],
+        "max": [-22, 6.980000019073486, 22.09000015258789]
+      },
+      "center": {
+        "min": [-23.34000015258789, 0.09000000357627869, -7.739999771118164],
+        "max": [22, 9.0600004196167, 22.09000015258789]
+      },
+      "east": {
+        "min": [5.909999847412109, 0.09000000357627869, -7.739999771118164],
+        "max": [47, 6.980000019073486, 22.09000015258789]
+      }
+    }
+  },
+  "evidence": {
+    "brief": "docs/research/xingfuli-model-brief.md",
+    "comparison": "test_artifacts/test_xingfuli_massing_three-way_preview.png",
+    "blenderCanonical": "test_artifacts/test_xingfuli-massing-master_canonical_preview.png",
+    "runtimeScreenshot": "test_artifacts/test_xingfuli_massing_canonical_runtime_preview.png"
+  },
+  "validation": {
+    "grayboxRuntimeGate": "passed",
+    "glbAudit": "passed",
+    "automatedTests": "passed",
+    "runtimeQa": "passed",
+    "independentReview": "passed"
+  },
+  "runtimeGate": {
+    "path": "/?start=xingfuli-canonical",
+    "viewport": [1920, 907],
+    "buildMode": "vite-static-production",
+    "warmupSeconds": 5,
+    "pageVisibility": "visible",
+    "canonicalDirection": "local +X toward Panyu Road entrance",
+    "directionDeviationDegrees": 0,
+    "screenWidthOccupancy": "approximately 68% between inner facade edges",
+    "playerScale": "passed against storefront and floor rhythm",
+    "groundContact": "passed",
+    "newConsoleErrors": 0,
+    "knownWarnings": [
+      "THREE.Clock deprecated",
+      "PCFSoftShadowMap deprecated"
+    ],
+    "collisionQa": {
+      "coordinateSystem": "production world coordinates after non-uniform scale and rotation",
+      "playerRadius": 0.48,
+      "sampleStepLocal": 0.2,
+      "routes": [
+        "west-to-east-main",
+        "pool-north-bypass",
+        "pool-bridge-crossing"
+      ],
+      "result": "passed"
+    }
+  }
+}
