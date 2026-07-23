@@ -8,6 +8,7 @@ import { ACESFilmicToneMapping, SRGBColorSpace } from "three";
 import type { EffectComposer as PostprocessingEffectComposer } from "postprocessing";
 import {
   memo,
+  Suspense,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -16,9 +17,9 @@ import {
 } from "react";
 import { inputState, resetInput, setMoveVector } from "./scene/input";
 import {
+  AutumnStorybookSky,
   InkOutline,
   PaperWash,
-  WatercolourSky,
 } from "./scene/visual-effects";
 import { MAP_POIS, mapPoiById } from "./scene/poi-data";
 import { XinhuaWorld } from "./scene/xinhua-world";
@@ -360,9 +361,12 @@ export function XinhuaExperience() {
         }}
         onCreated={() => setReady(true)}
       >
-        <WatercolourSky />
+        <Suspense fallback={null}>
+          <AutumnStorybookSky />
+        </Suspense>
         <XinhuaWorld
           mode={mode}
+          lowTier={lowTier}
           onNearAction={setNearAction}
           onOpenAction={() => setActionOpen(true)}
           nearPoiId={nearPoiId}

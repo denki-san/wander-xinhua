@@ -1,12 +1,29 @@
 "use client";
 
 import { Html, useGLTF } from "@react-three/drei";
-import { Mesh, type Object3D } from "three";
-import { Suspense, useEffect, useMemo, useState } from "react";
+import {
+  Color,
+  InstancedMesh,
+  Material,
+  Matrix4,
+  Mesh,
+  Quaternion,
+  Vector3,
+  type Object3D,
+} from "three";
+import {
+  Suspense,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { terrainHeightAt } from "./terrain";
 import {
   PLANE_TREE_GROUND_INSET,
   PlaneTreeInstances,
+  cloneAutumnPlaneTreeMaterial,
   type PlaneTreeInstancePlacement,
   type PlaneTreeVariant,
 } from "./plane-tree-instances";
@@ -152,9 +169,68 @@ const XINHUA_LIGHTWEIGHT_PLANE_TREE_INSTANCES = XINHUA_PLANE_TREE_INSTANCES.filt
   (placement) => placement.id !== XINHUA_HERO_PLANE_TREE_PLACEMENT.id,
 );
 
-function configureModel(model: Object3D) {
+function AutumnLeafCarpet() {
+  const leaves = useMemo(() => XINHUA_PLANE_TREE_INSTANCES.flatMap((tree, treeIndex) => (
+    Array.from({ length: 4 }, (_, leafIndex) => {
+      const phase = treeIndex * 1.71 + leafIndex * 2.39;
+      const radius = 0.42 + ((treeIndex + leafIndex * 3) % 5) * 0.16;
+      return {
+        position: [
+          tree.position[0] + Math.cos(phase) * radius,
+          tree.position[1] + 0.025,
+          tree.position[2] + Math.sin(phase) * radius,
+        ] as const,
+        yaw: phase * 1.83,
+        scale: 0.72 + ((treeIndex + leafIndex) % 4) * 0.12,
+        color: ["#c59a4e", "#a87339", "#d2ad63", "#7f7544"][
+          (treeIndex + leafIndex) % 4
+        ],
+      };
+    })
+  )), []);
+  const mesh = useRef<InstancedMesh>(null);
+
+  useLayoutEffect(() => {
+    if (!mesh.current) return;
+    const matrix = new Matrix4();
+    const quaternion = new Quaternion();
+    const position = new Vector3();
+    const scale = new Vector3();
+    const up = new Vector3(0, 1, 0);
+    leaves.forEach((leaf, index) => {
+      position.set(...leaf.position);
+      quaternion.setFromAxisAngle(up, leaf.yaw);
+      scale.set(leaf.scale, 1, leaf.scale);
+      matrix.compose(position, quaternion, scale);
+      mesh.current?.setMatrixAt(index, matrix);
+      mesh.current?.setColorAt(index, new Color(leaf.color));
+    });
+    mesh.current.instanceMatrix.needsUpdate = true;
+    if (mesh.current.instanceColor) mesh.current.instanceColor.needsUpdate = true;
+    mesh.current.computeBoundingSphere();
+  }, [leaves]);
+
+  return (
+    <instancedMesh
+      ref={mesh}
+      args={[undefined, undefined, leaves.length]}
+      receiveShadow
+      userData={{ vegetation: "xinhua-autumn-leaf-carpet", instanced: true }}
+    >
+      <boxGeometry args={[0.17, 0.012, 0.075]} />
+      <meshToonMaterial vertexColors />
+    </instancedMesh>
+  );
+}
+
+function configureModel(model: Object3D, autumnTree = false) {
   model.traverse((child) => {
     if (!(child instanceof Mesh)) return;
+    if (autumnTree) {
+      child.material = Array.isArray(child.material)
+        ? child.material.map(cloneAutumnPlaneTreeMaterial)
+        : cloneAutumnPlaneTreeMaterial(child.material);
+    }
     child.castShadow = true;
     child.receiveShadow = true;
   });
@@ -169,7 +245,16 @@ function GlbModel({ path }: { path: string }) {
 
 function HeroPlaneTree() {
   const { scene } = useGLTF(XINHUA_HERO_PLANE_TREE_MODEL);
-  const model = useMemo(() => configureModel(scene.clone(true)), [scene]);
+  const model = useMemo(() => configureModel(scene.clone(true), true), [scene]);
+  useEffect(() => () => {
+    const materials = new Set<Material>();
+    model.traverse((child) => {
+      if (!(child instanceof Mesh)) return;
+      const childMaterials = Array.isArray(child.material) ? child.material : [child.material];
+      childMaterials.forEach((material) => materials.add(material));
+    });
+    materials.forEach((material) => material.dispose());
+  }, [model]);
   const [x, y, z] = XINHUA_HERO_PLANE_TREE_PLACEMENT.position;
   return (
     <group
@@ -201,6 +286,7 @@ export function XinhuaRoadPlaneTrees({ showHero = false }: { showHero?: boolean 
         name="xinhua-road-plane-tree-batches"
         placements={lightweightPlacements}
       />
+      <AutumnLeafCarpet />
       {showHero && (
         <Suspense
           fallback={(

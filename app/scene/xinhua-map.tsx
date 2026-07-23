@@ -36,11 +36,11 @@ type RoadStyleName = "arterial" | "collector" | "neighborhood" | "lane" | "servi
 export const XINHUA_ENVIRONMENT_SCALE = mapData.meta.environmentScale;
 
 const ROAD_STYLES: Record<RoadStyleName, { width: number; color: string; y: number }> = {
-  arterial: { width: 2.18 * XINHUA_ENVIRONMENT_SCALE, color: "#424a4a", y: 0.13 },
-  collector: { width: 1.45 * XINHUA_ENVIRONMENT_SCALE, color: "#535a58", y: 0.12 },
-  neighborhood: { width: 0.9 * XINHUA_ENVIRONMENT_SCALE, color: "#666b67", y: 0.11 },
-  lane: { width: 0.68 * XINHUA_ENVIRONMENT_SCALE, color: "#777971", y: 0.1 },
-  service: { width: 0.5 * XINHUA_ENVIRONMENT_SCALE, color: "#8a877d", y: 0.09 },
+  arterial: { width: 2.18 * XINHUA_ENVIRONMENT_SCALE, color: "#454847", y: 0.13 },
+  collector: { width: 1.45 * XINHUA_ENVIRONMENT_SCALE, color: "#585955", y: 0.12 },
+  neighborhood: { width: 0.9 * XINHUA_ENVIRONMENT_SCALE, color: "#696760", y: 0.11 },
+  lane: { width: 0.68 * XINHUA_ENVIRONMENT_SCALE, color: "#777268", y: 0.1 },
+  service: { width: 0.5 * XINHUA_ENVIRONMENT_SCALE, color: "#898174", y: 0.09 },
 };
 
 const LABELLED_ROADS = [
@@ -229,8 +229,8 @@ function MapGround() {
     const ground = new BufferGeometry();
     const positions: number[] = [];
     const colors: number[] = [];
-    const low = new Color("#718b66");
-    const high = new Color("#9ba477");
+    const low = new Color("#78815d");
+    const high = new Color("#a49766");
     const color = new Color();
     const addVertex = (x: number, z: number) => {
       const y = terrainHeightAt(x, z) - 0.06;

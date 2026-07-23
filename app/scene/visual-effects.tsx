@@ -1,9 +1,22 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useTexture } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
+import { useEffect, useMemo, useRef } from "react";
 import { Effect, EffectAttribute } from "postprocessing";
-import { BackSide, Color, ShaderMaterial, Uniform, Vector2 } from "three";
+import {
+  BackSide,
+  Color,
+  RepeatWrapping,
+  ShaderMaterial,
+  SRGBColorSpace,
+  Uniform,
+  Vector2,
+  Vector3,
+  type Mesh,
+} from "three";
 import mapData from "./xinhua-map-data.json";
+import { XINHUA_AUTUMN_ATMOSPHERE } from "./atmosphere-contract";
 
 // 这两个 shader 的组织方式参考 promptwhisper/messenger 的 MIT 实现；
 // 参数与颜色为“新华漫游志”重新标定，不使用原站的模型、贴图或媒体资产。
@@ -43,10 +56,10 @@ class InkOutlineEffect extends Effect {
     super("XinhuaInkOutline", outlineFragment, {
       attributes: EffectAttribute.DEPTH,
       uniforms: new Map<string, Uniform>([
-        ["uColor", new Uniform(new Color("#263c38"))],
-        ["uStrength", new Uniform(0.72)],
+        ["uColor", new Uniform(new Color("#31423f"))],
+        ["uStrength", new Uniform(0.56)],
         ["uThreshold", new Uniform(0.052)],
-        ["uColorThreshold", new Uniform(0.075)],
+        ["uColorThreshold", new Uniform(0.086)],
         ["uTexel", new Uniform(new Vector2(1, 1))],
       ]),
     });
@@ -82,17 +95,17 @@ float noise(vec2 p) {
 void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
   vec3 color = inputColor.rgb;
   float luminance = dot(color, vec3(0.299, 0.587, 0.114));
-  color = mix(vec3(luminance), color, 0.86);
-  color = (color - 0.5) * 1.035 + 0.5;
+  color = mix(vec3(luminance), color, 0.93);
+  color = (color - 0.5) * 1.018 + 0.5;
   float grain = noise(uv * uResolution * 0.28 + uTime * 0.03) * 0.55
               + noise(uv * uResolution * 0.065) * 0.45;
-  color *= 0.955 + grain * 0.09;
-  color.r *= 1.0 + (grain - 0.5) * 0.025;
-  color.b *= 1.0 - (grain - 0.5) * 0.025;
+  color *= 0.972 + grain * 0.055;
+  color.r *= 1.0 + (grain - 0.5) * 0.016;
+  color.b *= 1.0 - (grain - 0.5) * 0.016;
   // 沿真实视口边缘做纸张晕染，避免圆形暗角在宽屏或窄屏上被裁成残缺光圈。
   vec2 edge = abs(uv * 2.0 - 1.0);
   float edgeWash = smoothstep(0.64, 1.0, max(edge.x, edge.y));
-  color *= 1.0 - edgeWash * 0.055;
+  color *= 1.0 - edgeWash * 0.03;
   outputColor = vec4(color, inputColor.a);
 }
 `;
@@ -178,3 +191,96 @@ export function WatercolourSky() {
     </mesh>
   );
 }
+
+const autumnSkyVertex = /* glsl */ `
+varying vec2 vUv;
+varying vec3 vWorldDirection;
+
+void main() {
+  vUv = uv;
+  vWorldDirection = normalize(mat3(modelMatrix) * position);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}
+`;
+
+const autumnSkyFragment = /* glsl */ `
+uniform sampler2D uSky;
+uniform vec3 uSunDirection;
+varying vec2 vUv;
+varying vec3 vWorldDirection;
+
+float wrappedDistance(float left, float right) {
+  float delta = abs(left - right);
+  return min(delta, 1.0 - delta);
+}
+
+void main() {
+  vec2 skyUv = vec2(fract(vUv.x), clamp(vUv.y, 0.002, 0.998));
+  vec3 color = texture2D(uSky, skyUv).rgb;
+
+  // Kenney day 原图的太阳偏高。先用邻近天空修补，再绘制与真实方向光一致的低太阳。
+  vec2 sourceSunDelta = vec2(
+    wrappedDistance(skyUv.x, 0.916),
+    abs(skyUv.y - 0.78)
+  );
+  float sourceSunMask = 1.0 - smoothstep(0.012, 0.052, length(sourceSunDelta));
+  vec3 sourceSunRepair = texture2D(
+    uSky,
+    vec2(fract(skyUv.x - 0.075), skyUv.y)
+  ).rgb;
+  color = mix(color, sourceSunRepair, sourceSunMask * 0.96);
+
+  float upperHeight = clamp(vWorldDirection.y, 0.0, 1.0);
+  float warmHorizon = 1.0 - smoothstep(0.02, 0.48, upperHeight);
+  color = mix(color, vec3(1.0, 0.87, 0.70), warmHorizon * 0.14);
+
+  float sunFacing = dot(normalize(vWorldDirection), normalize(uSunDirection));
+  float sunHalo = smoothstep(0.965, 0.9985, sunFacing);
+  float sunDisc = smoothstep(0.9984, 0.99965, sunFacing);
+  color += vec3(1.0, 0.67, 0.34) * sunHalo * 0.12;
+  color = mix(color, vec3(1.0, 0.82, 0.50), sunDisc * 0.92);
+
+  gl_FragColor = vec4(color, 1.0);
+}
+`;
+
+export function AutumnStorybookSky() {
+  const sky = useTexture(XINHUA_AUTUMN_ATMOSPHERE.skyTexture, (texture) => {
+    texture.colorSpace = SRGBColorSpace;
+    texture.wrapS = RepeatWrapping;
+    texture.needsUpdate = true;
+  });
+  const mesh = useRef<Mesh>(null);
+  const material = useMemo(() => {
+    const [sunX, sunY, sunZ] = XINHUA_AUTUMN_ATMOSPHERE.sunOffset;
+    return new ShaderMaterial({
+      vertexShader: autumnSkyVertex,
+      fragmentShader: autumnSkyFragment,
+      side: BackSide,
+      depthWrite: false,
+      depthTest: false,
+      uniforms: {
+        uSky: new Uniform(sky),
+        uSunDirection: new Uniform(new Vector3(sunX, sunY, sunZ).normalize()),
+      },
+    });
+  }, [sky]);
+
+  useFrame(({ camera }) => {
+    mesh.current?.position.copy(camera.position);
+  });
+  useEffect(() => () => material.dispose(), [material]);
+
+  return (
+    <mesh
+      ref={mesh}
+      material={material}
+      renderOrder={-10}
+      frustumCulled={false}
+    >
+      <sphereGeometry args={[420 * mapData.meta.environmentScale, 48, 28]} />
+    </mesh>
+  );
+}
+
+useTexture.preload(XINHUA_AUTUMN_ATMOSPHERE.skyTexture);

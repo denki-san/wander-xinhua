@@ -8,14 +8,16 @@ export const metadata: Metadata = {
   keywords: ["新华路", "幸福里", "一平米行动", "社区地图", "上海"],
   openGraph: {
     title: "新华漫游志｜新华路 3D 闲逛",
-    description: "在按真实边界和道路比例重建的手绘 3D 新华路社区里随便走走。",
+    description: "在上海秋日暖光与梧桐树影里，沿着手绘 3D 新华路社区随便走走。",
     type: "website",
     locale: "zh_CN",
+    images: [{ url: "/og.png", width: 1732, height: 909, alt: "新华路秋日绘本漫游" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "新华漫游志｜新华路 3D 闲逛",
-    description: "在按真实边界和道路比例重建的手绘 3D 新华路社区里随便走走。",
+    description: "在上海秋日暖光与梧桐树影里，沿着手绘 3D 新华路社区随便走走。",
+    images: ["/og.png"],
   },
 };
 
@@ -23,7 +25,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#69b9b5",
+  themeColor: "#91bce3",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -10,6 +10,7 @@ import {
 import { useFrame, useThree } from "@react-three/fiber";
 import {
   Color,
+  DirectionalLight,
   Group,
   Matrix4,
   MathUtils,
@@ -73,6 +74,7 @@ import {
   transformMapObstacle,
   transformMapPoint,
 } from "./world-math";
+import { XINHUA_AUTUMN_ATMOSPHERE } from "./atmosphere-contract";
 
 const WORLD_UP = new Vector3(0, 1, 0);
 const INTRO_CAMERA_DIRECTION = new Vector3(126, 142, 138).normalize();
@@ -604,6 +606,43 @@ type WandererCharacterProps = {
   scale?: number;
 };
 
+function AutumnWandererBag() {
+  return (
+    <group
+      name="xinhua-autumn-messenger-bag"
+      scale={CHARACTER_VISUAL_SCALE}
+      userData={{ characterDetail: "xinhua-postcard-bag" }}
+    >
+      <mesh
+        position={[-0.015, 1.18, -0.155]}
+        rotation-z={-0.5}
+        castShadow
+      >
+        <capsuleGeometry args={[0.023, 0.68, 5, 10]} />
+        <meshToonMaterial color="#6e4334" />
+      </mesh>
+      <RoundedBox
+        args={[0.36, 0.3, 0.12]}
+        radius={0.055}
+        smoothness={3}
+        position={[0.13, 0.91, -0.205]}
+        rotation-z={0.035}
+        castShadow
+      >
+        <meshToonMaterial color="#a7543f" />
+      </RoundedBox>
+      <mesh position={[0.13, 1.01, -0.27]} rotation-x={-0.08} castShadow>
+        <boxGeometry args={[0.31, 0.105, 0.025]} />
+        <meshToonMaterial color="#d19a52" />
+      </mesh>
+      <mesh position={[0.13, 0.96, -0.286]} rotation-z={Math.PI / 4}>
+        <boxGeometry args={[0.055, 0.055, 0.018]} />
+        <meshBasicMaterial color="#f3dfaa" />
+      </mesh>
+    </group>
+  );
+}
+
 function DetailedWandererCharacter({
   outerRef,
   scale = 1,
@@ -656,6 +695,7 @@ function DetailedWandererCharacter({
   return (
     <group ref={outerRef} scale={scale}>
       <primitive object={model} scale={CHARACTER_VISUAL_SCALE} />
+      <AutumnWandererBag />
     </group>
   );
 }
@@ -1382,8 +1422,87 @@ export function IntroCamera({ active = true }: { active?: boolean }) {
   return null;
 }
 
+function AutumnLightRig({
+  exploring,
+  lowTier,
+}: {
+  exploring: boolean;
+  lowTier: boolean;
+}) {
+  const { camera } = useThree();
+  const light = useRef<DirectionalLight>(null);
+  const focus = useRef(SHADOW_CENTER.clone());
+  const desiredFocus = useMemo(() => new Vector3(), []);
+  const target = useMemo(() => {
+    const result = new Object3D();
+    result.position.copy(SHADOW_CENTER);
+    return result;
+  }, []);
+  const [sunX, sunY, sunZ] = XINHUA_AUTUMN_ATMOSPHERE.sunOffset;
+
+  useFrame((_, delta) => {
+    desiredFocus.set(
+      exploring ? camera.position.x : SHADOW_CENTER.x,
+      exploring ? Math.max(1.8, camera.position.y * 0.18) : SHADOW_CENTER.y,
+      exploring ? camera.position.z : SHADOW_CENTER.z,
+    );
+    focus.current.lerp(
+      desiredFocus,
+      exploring ? dampingFactor(4.8, delta) : dampingFactor(2.4, delta),
+    );
+    target.position.copy(focus.current);
+    target.updateMatrixWorld();
+    light.current?.position.set(
+      focus.current.x + sunX,
+      focus.current.y + sunY,
+      focus.current.z + sunZ,
+    );
+  });
+
+  return (
+    <>
+      <ambientLight
+        intensity={exploring
+          ? XINHUA_AUTUMN_ATMOSPHERE.ambientIntensity.explore
+          : XINHUA_AUTUMN_ATMOSPHERE.ambientIntensity.overview}
+      />
+      <hemisphereLight
+        args={[
+          XINHUA_AUTUMN_ATMOSPHERE.hemisphereSky,
+          XINHUA_AUTUMN_ATMOSPHERE.hemisphereGround,
+          exploring
+            ? XINHUA_AUTUMN_ATMOSPHERE.hemisphereIntensity.explore
+            : XINHUA_AUTUMN_ATMOSPHERE.hemisphereIntensity.overview,
+        ]}
+      />
+      <primitive object={target} />
+      <directionalLight
+        ref={light}
+        position={[SHADOW_CENTER.x + sunX, sunY, SHADOW_CENTER.z + sunZ]}
+        target={target}
+        intensity={exploring
+          ? XINHUA_AUTUMN_ATMOSPHERE.sunIntensity.explore
+          : XINHUA_AUTUMN_ATMOSPHERE.sunIntensity.overview}
+        color={XINHUA_AUTUMN_ATMOSPHERE.sunColor}
+        castShadow
+        shadow-mapSize-width={exploring && !lowTier ? 2048 : 1024}
+        shadow-mapSize-height={exploring && !lowTier ? 2048 : 1024}
+        shadow-camera-near={0.5}
+        shadow-camera-far={320}
+        shadow-camera-left={exploring ? -72 : -240}
+        shadow-camera-right={exploring ? 72 : 240}
+        shadow-camera-top={exploring ? 72 : 240}
+        shadow-camera-bottom={exploring ? -72 : -240}
+        shadow-bias={-0.00018}
+        shadow-normalBias={0.018}
+      />
+    </>
+  );
+}
+
 export function XinhuaWorld({
   mode,
+  lowTier,
   onNearAction,
   onOpenAction,
   nearPoiId,
@@ -1393,6 +1512,7 @@ export function XinhuaWorld({
   onPositionChange,
 }: {
   mode: "intro" | "overview" | "explore";
+  lowTier: boolean;
   onNearAction: (near: boolean) => void;
   onOpenAction: () => void;
   nearPoiId: string | null;
@@ -1408,11 +1528,6 @@ export function XinhuaWorld({
     terrainHeightAt(overviewStartPosition[0], overviewStartPosition[1]) + 0.33,
     overviewStartPosition[1],
   ));
-  const shadowTarget = useMemo(() => {
-    const target = new Object3D();
-    target.position.copy(SHADOW_CENTER);
-    return target;
-  }, []);
 
   useLayoutEffect(() => {
     if (!overview) return;
@@ -1427,30 +1542,16 @@ export function XinhuaWorld({
     <>
       {exploring && (
         <fog attach="fog" args={[
-          "#73aaa6",
-          78 * DETAIL_WORLD_SCALE,
-          190 * DETAIL_WORLD_SCALE,
+          XINHUA_AUTUMN_ATMOSPHERE.fog,
+          92 * DETAIL_WORLD_SCALE,
+          235 * DETAIL_WORLD_SCALE,
         ]} />
       )}
-      <color attach="background" args={[new Color("#69bab6")]} />
-      <ambientLight intensity={exploring ? 0.58 : 1.15} />
-      <hemisphereLight args={["#eff8e9", "#536056", exploring ? 0.72 : 1.45]} />
-      <primitive object={shadowTarget} />
-      <directionalLight
-        position={[SHADOW_CENTER.x + 70, 120, SHADOW_CENTER.z + 90]}
-        target={shadowTarget}
-        intensity={exploring ? 2.65 : 2.1}
-        color="#fff2ce"
-        castShadow
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-        shadow-camera-far={520}
-        shadow-camera-left={-240}
-        shadow-camera-right={240}
-        shadow-camera-top={240}
-        shadow-camera-bottom={-240}
-        shadow-bias={-0.00025}
+      <color
+        attach="background"
+        args={[new Color(XINHUA_AUTUMN_ATMOSPHERE.background)]}
       />
+      <AutumnLightRig exploring={exploring} lowTier={lowTier} />
       <FlatNeighborhood
         onOpenAction={onOpenAction}
         detailScale={exploring ? DETAIL_WORLD_SCALE : 1}

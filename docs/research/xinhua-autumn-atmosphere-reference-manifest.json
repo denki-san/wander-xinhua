@@ -1,0 +1,44 @@
+{
+  "topic": "xinhua-autumn-storybook-atmosphere",
+  "retrievedAt": "2026-07-23",
+  "canonicalComparisonView": {
+    "path": "docs/research/assets/style-references/xinhua-autumn-plane-trees-canonical.jpg",
+    "subject": "上海新华路秋日悬铃木街景",
+    "viewDirection": "沿人行道纵深观察，树冠形成拱廊",
+    "sourceUrl": "https://www.shcn.gov.cn/col6991/20221125/1226260.html",
+    "usage": "研究证据，不作为运行时贴图"
+  },
+  "references": [
+    {
+      "path": "docs/research/assets/style-references/kenney-skybox-day.png",
+      "subject": "Kenney Skyboxes day equirectangular texture",
+      "viewDirection": "360-degree equirectangular sky",
+      "sourceUrl": "https://kenney.nl/assets/skyboxes",
+      "license": "Creative Commons CC0 1.0",
+      "usage": "运行时天空的原始来源"
+    },
+    {
+      "path": "docs/research/assets/style-references/synty-simple-sky-preview.jpg",
+      "subject": "Synty SIMPLE Sky product preview",
+      "viewDirection": "产品页天空与几何云示例",
+      "sourceUrl": "https://syntystore.com/products/simple-sky-cartoon-assets",
+      "license": "Synty One Time Purchase Licence",
+      "usage": "只用于风格比较，不进入运行时或可复用资产"
+    },
+    {
+      "path": "docs/research/assets/style-references/xinhua-autumn-brick-wall.jpg",
+      "subject": "上海新华路红砖、悬铃木与落叶",
+      "viewDirection": "沿红砖墙和人行道纵深观察",
+      "sourceUrl": "https://www.shcn.gov.cn/col6991/20221125/1226260.html",
+      "usage": "研究证据，不作为运行时贴图"
+    }
+  ],
+  "runtimeDerivative": {
+    "path": "public/textures/sky/kenney-day-2048.jpg",
+    "sourcePath": "docs/research/assets/style-references/kenney-skybox-day.png",
+    "sha256": "6562e776856e0846d70769b35d51ffaf195c4314825ff54b92453153bd00218b",
+    "dimensions": [2048, 1024],
+    "format": "JPEG",
+    "colorSpace": "sRGB"
+  }
+}

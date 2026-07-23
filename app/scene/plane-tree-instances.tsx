@@ -1,8 +1,22 @@
 "use client";
 
 import { useGLTF } from "@react-three/drei";
-import { Suspense, useLayoutEffect, useMemo, useRef } from "react";
-import { InstancedMesh, Matrix4, Mesh, Quaternion, Vector3 } from "three";
+import {
+  Suspense,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from "react";
+import {
+  Color,
+  InstancedMesh,
+  Material,
+  Matrix4,
+  Mesh,
+  Quaternion,
+  Vector3,
+} from "three";
 
 export type PlaneTreeVariant = 0 | 1 | 2;
 
@@ -22,6 +36,29 @@ export const PLANE_TREE_MODELS = [
 
 export const PLANE_TREE_GROUND_INSET = 0.04;
 
+type ColorMaterial = Material & {
+  color?: Color;
+};
+
+export function cloneAutumnPlaneTreeMaterial(source: Material) {
+  const material = source.clone() as ColorMaterial;
+  const name = source.name.toLowerCase();
+  if (!material.color) return material;
+
+  if (/叶|leaf/.test(name)) {
+    const target = /深|dark/.test(name)
+      ? "#526547"
+      : /浅|light/.test(name)
+        ? "#c49b55"
+        : "#9a7a42";
+    material.color.set(target);
+  } else if (/干|枝|bark|trunk|branch/.test(name)) {
+    material.color.lerp(new Color("#806e55"), 0.2);
+  }
+  material.needsUpdate = true;
+  return material;
+}
+
 function InstancedPlaneTreePart({
   sourceMesh,
   placements,
@@ -34,6 +71,16 @@ function InstancedPlaneTreePart({
   part: number;
 }) {
   const instanceRef = useRef<InstancedMesh>(null);
+  const material = useMemo(() => (
+    Array.isArray(sourceMesh.material)
+      ? sourceMesh.material.map(cloneAutumnPlaneTreeMaterial)
+      : cloneAutumnPlaneTreeMaterial(sourceMesh.material)
+  ), [sourceMesh.material]);
+
+  useEffect(() => () => {
+    if (Array.isArray(material)) material.forEach((item) => item.dispose());
+    else material.dispose();
+  }, [material]);
 
   useLayoutEffect(() => {
     const instances = instanceRef.current;
@@ -64,11 +111,17 @@ function InstancedPlaneTreePart({
   return (
     <instancedMesh
       ref={instanceRef}
-      args={[sourceMesh.geometry, sourceMesh.material, placements.length]}
+      args={[sourceMesh.geometry, material, placements.length]}
       castShadow
       receiveShadow
       frustumCulled
-      userData={{ vegetation: "xinhua-plane-tree", variant, part, instanced: true }}
+      userData={{
+        vegetation: "xinhua-plane-tree",
+        season: "late-autumn",
+        variant,
+        part,
+        instanced: true,
+      }}
     />
   );
 }
