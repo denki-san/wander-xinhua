@@ -510,6 +510,13 @@ export function XinhuaExperience() {
               <li>闲逛时拖拽转动镜头，滚轮拉近或拉远</li>
               <li>点击“查看全览”可随时返回固定比例的新华街道全景</li>
               <li>手机下半屏任意处拖动移动；闲逛时上半屏可拖动镜头</li>
+              <li>
+                成品角色：
+                <a href="https://www.blenderstudio.cn/zh-hans/characters/rain/v1/" target="_blank" rel="noreferrer">
+                  Rain Rig © Blender Foundation | cloud.blender.org
+                </a>
+                {" · CC-BY · 已优化适配"}
+              </li>
             </ul>
           </article>
         </div>
@@ -518,6 +525,7 @@ export function XinhuaExperience() {
       <footer className="study-note">
         非官方独立重建 · 体验参考 <a href="https://messenger.abeto.co/" target="_blank" rel="noreferrer">Messenger by abeto</a>
         <span> · 地图数据 <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a></span>
+        <span> · 角色 <a href="https://www.blenderstudio.cn/zh-hans/characters/rain/v1/" target="_blank" rel="noreferrer">Rain Rig © Blender Foundation | cloud.blender.org</a></span>
         <span> · <a href="/building-evidence-lab">建筑证据实验室</a></span>
       </footer>
     </main>

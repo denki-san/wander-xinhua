@@ -1,0 +1,41 @@
+{
+  "asset": "rain-summer-wanderer",
+  "retrievedAt": "2026-07-23",
+  "canonicalComparisonView": {
+    "localPath": "docs/research/assets/character-references/rain-v1-rig-preview.png",
+    "direction": "front three-quarter full body, with a separate face-rig close-up in the same source image",
+    "purpose": "verify silhouette, hand scale, facial proportions, summer outfit, and source rig identity"
+  },
+  "references": [
+    {
+      "localPath": "docs/research/assets/character-references/rain-v1-rig-preview.png",
+      "sourceUrl": "https://www.blenderstudio.cn/zh-hans/characters/rain/v1/",
+      "subject": "Rain v1 character rig by Blender Animation Studio",
+      "view": "front three-quarter full body and close-up rig view",
+      "retrievedAt": "2026-07-23",
+      "sha256": "3295061cfa6c4634d3246c31b188d8be0023a9e5ed5e858b375130167d305267",
+      "usageBoundary": "research and comparison evidence; source character use requires CC-BY attribution"
+    },
+    {
+      "localPath": "docs/research/assets/character-references/rain-animation-showcase.jpg",
+      "sourceUrl": "https://www.blenderstudio.cn/zh-hans/characters/rain/showcase/1/",
+      "subject": "Rain animation-test authoring view",
+      "view": "face performance, upper body, and animation timeline",
+      "retrievedAt": "2026-07-23",
+      "sha256": "375262d78a10e1de3d0757e2324a622a2476d77420018a0c3ea64171ae08f59e",
+      "usageBoundary": "research evidence only; not embedded in the runtime model"
+    }
+  ],
+  "sourceArchive": {
+    "url": "https://media.blenderstudio.cn/blender-studio-cn-folder/rain.zip",
+    "downloadedPath": "/tmp/test_rain.zip",
+    "bytes": 220274076,
+    "sha256": "e216ce06621bb4ba34b226119ff437b24cf27a0efc80bbdea2c6f8f918a17c2c",
+    "note": "temporary inspection copy; the optimized editable Blend and license evidence are the project deliverables"
+  },
+  "license": {
+    "name": "CC-BY",
+    "requiredCredit": "Rain Rig © Blender Foundation | cloud.blender.org",
+    "evidenceUrl": "https://www.blenderstudio.cn/zh-hans/characters/rain/v1/"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "asset": "rain-summer-wanderer",
+  "source": {
+    "title": "Rain v1 character rig",
+    "creator": "Blender Animation Studio",
+    "license": "CC-BY",
+    "requiredCredit": "Rain Rig © Blender Foundation | cloud.blender.org",
+    "archiveSha256": "e216ce06621bb4ba34b226119ff437b24cf27a0efc80bbdea2c6f8f918a17c2c"
+  },
+  "generator": "scripts/create_rain_summer_character.py",
+  "blender": "5.2.0 LTS",
+  "output": {
+    "blend": "assets/models/source/character/rain-summer-wanderer.blend",
+    "glb": "public/models/character/rain-summer-wanderer.glb",
+    "sha256": "151816b1fe827275133cc2ce3db348619c2c39d672094e3ad41094b3294e86c0",
+    "cacheVersion": "151816b1fe82",
+    "bytes": 2923744,
+    "triangles": 57864,
+    "nodes": 76,
+    "meshes": 13,
+    "materials": 11,
+    "images": 0,
+    "skins": 1,
+    "animations": [
+      "Idle_Neutral",
+      "Run",
+      "Walk"
+    ],
+    "bounds": {
+      "min": [
+        -0.20652669668197632,
+        -0.19387850165367126,
+        0.0011525843292474747
+      ],
+      "max": [
+        0.2062128484249115,
+        0.49633949995040894,
+        1.641681432723999
+      ]
+    }
+  },
+  "status": "production-ready",
+  "runtimeGate": "style lab passed at 1920x851 desktop and 390x844 mobile; formal map passed at 1440x900 desktop and 390x844 mobile; touch move, follow camera, attribution and console gate passed",
+  "validation": {
+    "date": "2026-07-23",
+    "viewports": {
+      "desktop": {
+        "width": 1920,
+        "height": 851
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    "canonical": "test_artifacts/test_rain_summer_character_canonical.png",
+    "side": "test_artifacts/test_rain_summer_character_side.png",
+    "threeWayComparison": "test_artifacts/test_rain_summer_three-way-comparison.png",
+    "animationGrid": "test_artifacts/test_rain_summer_animation_grid.png",
+    "weightAudit": "test_artifacts/test_rain_summer_weight_audit.json",
+    "desktopRuntime": "test_artifacts/test_rain_summer_runtime_preview.jpg",
+    "mobileRuntime": "test_artifacts/test_rain_summer_mobile_runtime.jpg",
+    "mobileMoved": "test_artifacts/test_rain_summer_mobile_moved.jpg",
+    "runtimeMotionGrid": "test_artifacts/test_rain_summer_runtime_motion_grid.jpg",
+    "runtimeMotionVideo": "test_artifacts/test_rain_summer_runtime_motion.mp4",
+    "walkQaUrl": "/style-lab?style=summer&character=rain&qaMotion=walk",
+    "runQaUrl": "/style-lab?style=summer&character=rain&qaMotion=run",
+    "consoleErrors": 0,
+    "knownWarnings": [
+      "THREE.Clock deprecation",
+      "THREE.WebGLShadowMap PCFSoftShadowMap deprecation"
+    ]
+  },
+  "productionIntegration": {
+    "modelPath": "/models/character/rain-summer-wanderer.glb?v=151816b1fe82",
+    "visualScale": 1.3,
+    "fallback": "ProceduralWandererCharacter",
+    "preservedRuntimeSystems": [
+      "PLAYER_RADIUS collision",
+      "WASD and continuous mobile joystick movement",
+      "Shift run",
+      "Space jump",
+      "follow camera"
+    ],
+    "desktopRuntime": "test_artifacts/test_rain_production_local_desktop.jpg",
+    "mobileRuntime": "test_artifacts/test_rain_production_local_mobile.jpg",
+    "formalMapConsoleErrors": 0,
+    "attributionSurfaces": [
+      "desktop footer",
+      "desktop and mobile help panel"
+    ]
+  },
+  "independentReview": {
+    "status": "passed-after-fixes",
+    "importantResolved": [
+      "clear deferred nudge once sustained movement has consumed the press",
+      "show the exact required Rain credit on the public style-lab page"
+    ],
+    "minorResolved": [
+      "record cacheVersion beside the GLB SHA",
+      "align the Style Lab scale contract with the actual 1.69-unit runtime height"
+    ]
+  }
+}

@@ -92,7 +92,9 @@ const CAMERA_POSITION_DAMPING = 10;
 const CAMERA_ROTATION_SPEED_X = 0.005;
 const CAMERA_ROTATION_SPEED_Y = 0.004;
 const CHARACTER_TURN_DAMPING = 9;
-const CHARACTER_MODEL_PATH = "/models/character/urban-wanderer.glb";
+const CHARACTER_MODEL_PATH = "/models/character/rain-summer-wanderer.glb?v=151816b1fe82";
+// Rain 的原始身高比旧角色低约 11%；1.3 倍可保持正式地图中的既有屏幕占比。
+const CHARACTER_VISUAL_SCALE = 1.3;
 const CHARACTER_MAX_TURN_SPEED = 8;
 const CAMERA_FALLBACK_HEIGHT = 1.9;
 const CAMERA_FALLBACK_YAWS = [
@@ -614,7 +616,7 @@ function DetailedWandererCharacter({
 
   return (
     <group ref={outerRef} scale={scale}>
-      <primitive object={model} scale={1.15} />
+      <primitive object={model} scale={CHARACTER_VISUAL_SCALE} />
     </group>
   );
 }

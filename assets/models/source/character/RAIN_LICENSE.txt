@@ -1,0 +1,18 @@
+Rain character rig source
+=========================
+
+Source page:
+https://www.blenderstudio.cn/zh-hans/characters/rain/v1/
+
+Original Blender Studio training page:
+https://studio.blender.org/training/stylized-character-workflow/5d28b0a4e774c2173c3ccecb/
+
+License stated by the source page: CC-BY
+
+Required credit stated by the source page:
+Rain Rig © Blender Foundation | cloud.blender.org
+
+Retrieved: 2026-07-23
+
+The source archive and reference images must not be presented as original work by
+this project. Any redistributed adapted runtime asset must retain the attribution.

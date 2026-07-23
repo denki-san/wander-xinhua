@@ -1,0 +1,362 @@
+{
+  "Rain_body": [
+    {
+      "name": "UpperArm.L",
+      "weight": 404.165
+    },
+    {
+      "name": "UpperArm.R",
+      "weight": 404.165
+    },
+    {
+      "name": "LowerArm.L",
+      "weight": 384.75
+    },
+    {
+      "name": "LowerArm.R",
+      "weight": 384.75
+    },
+    {
+      "name": "Chest",
+      "weight": 304.903
+    },
+    {
+      "name": "LowerLeg.L",
+      "weight": 203.937
+    },
+    {
+      "name": "LowerLeg.R",
+      "weight": 203.937
+    },
+    {
+      "name": "Shoulder.L",
+      "weight": 171.81
+    },
+    {
+      "name": "Shoulder.R",
+      "weight": 169.87
+    },
+    {
+      "name": "Thumb3.L",
+      "weight": 137.991
+    },
+    {
+      "name": "Thumb3.R",
+      "weight": 137.991
+    },
+    {
+      "name": "Pinky4.L",
+      "weight": 123.442
+    },
+    {
+      "name": "Pinky4.R",
+      "weight": 123.442
+    },
+    {
+      "name": "Index4.L",
+      "weight": 122.304
+    },
+    {
+      "name": "Index4.R",
+      "weight": 122.304
+    },
+    {
+      "name": "Ring4.L",
+      "weight": 120.95
+    },
+    {
+      "name": "Ring4.R",
+      "weight": 120.95
+    },
+    {
+      "name": "Middle4.L",
+      "weight": 120.896
+    },
+    {
+      "name": "Middle4.R",
+      "weight": 120.896
+    },
+    {
+      "name": "Pinky2.L",
+      "weight": 98.95
+    },
+    {
+      "name": "Pinky2.R",
+      "weight": 98.95
+    },
+    {
+      "name": "Index2.L",
+      "weight": 96.551
+    },
+    {
+      "name": "Index2.R",
+      "weight": 96.551
+    },
+    {
+      "name": "Thumb1.L",
+      "weight": 92.098
+    },
+    {
+      "name": "Thumb1.R",
+      "weight": 92.098
+    },
+    {
+      "name": "Middle2.L",
+      "weight": 83.299
+    },
+    {
+      "name": "Middle2.R",
+      "weight": 83.299
+    },
+    {
+      "name": "Wrist.L",
+      "weight": 81.485
+    },
+    {
+      "name": "Wrist.R",
+      "weight": 81.485
+    },
+    {
+      "name": "Ring2.L",
+      "weight": 79.869
+    },
+    {
+      "name": "Ring2.R",
+      "weight": 79.869
+    },
+    {
+      "name": "Foot.L",
+      "weight": 77.063
+    },
+    {
+      "name": "Foot.R",
+      "weight": 77.063
+    },
+    {
+      "name": "Thumb2.L",
+      "weight": 71.621
+    },
+    {
+      "name": "Thumb2.R",
+      "weight": 71.621
+    },
+    {
+      "name": "Pinky1.L",
+      "weight": 64.613
+    },
+    {
+      "name": "Pinky1.R",
+      "weight": 64.613
+    },
+    {
+      "name": "Index3.L",
+      "weight": 59.934
+    },
+    {
+      "name": "Index3.R",
+      "weight": 59.934
+    },
+    {
+      "name": "Ring3.L",
+      "weight": 58.463
+    },
+    {
+      "name": "Ring3.R",
+      "weight": 58.463
+    },
+    {
+      "name": "Middle3.L",
+      "weight": 54.737
+    },
+    {
+      "name": "Middle3.R",
+      "weight": 54.737
+    },
+    {
+      "name": "Pinky3.L",
+      "weight": 54.295
+    },
+    {
+      "name": "Pinky3.R",
+      "weight": 54.295
+    },
+    {
+      "name": "Middle1.L",
+      "weight": 49.943
+    },
+    {
+      "name": "Middle1.R",
+      "weight": 49.943
+    },
+    {
+      "name": "Index1.L",
+      "weight": 43.924
+    },
+    {
+      "name": "Index1.R",
+      "weight": 43.924
+    },
+    {
+      "name": "Ring1.L",
+      "weight": 40.049
+    },
+    {
+      "name": "Ring1.R",
+      "weight": 40.049
+    },
+    {
+      "name": "Torso",
+      "weight": 29.142
+    },
+    {
+      "name": "Neck",
+      "weight": 1.616
+    }
+  ],
+  "Rain_eye": [
+    {
+      "name": "Head",
+      "weight": 1803.0
+    }
+  ],
+  "Rain_hair_main": [
+    {
+      "name": "Head",
+      "weight": 2204.0
+    }
+  ],
+  "Rain_hair_ponytail": [
+    {
+      "name": "Head",
+      "weight": 579.0
+    }
+  ],
+  "Rain_hair_strand": [
+    {
+      "name": "Head",
+      "weight": 400.0
+    }
+  ],
+  "Rain_head": [
+    {
+      "name": "Head",
+      "weight": 4916.322
+    },
+    {
+      "name": "Neck",
+      "weight": 551.695
+    },
+    {
+      "name": "Chest",
+      "weight": 135.572
+    },
+    {
+      "name": "Shoulder.R",
+      "weight": 15.769
+    },
+    {
+      "name": "Shoulder.L",
+      "weight": 15.642
+    }
+  ],
+  "Rain_jeans": [
+    {
+      "name": "LowerLeg.L",
+      "weight": 929.136
+    },
+    {
+      "name": "LowerLeg.R",
+      "weight": 927.223
+    },
+    {
+      "name": "UpperLeg.R",
+      "weight": 838.362
+    },
+    {
+      "name": "UpperLeg.L",
+      "weight": 789.454
+    },
+    {
+      "name": "Hips",
+      "weight": 338.726
+    },
+    {
+      "name": "Torso",
+      "weight": 0.096
+    }
+  ],
+  "Rain_scarf": [
+    {
+      "name": "Neck",
+      "weight": 1017.515
+    },
+    {
+      "name": "Chest",
+      "weight": 136.055
+    },
+    {
+      "name": "Shoulder.L",
+      "weight": 66.972
+    },
+    {
+      "name": "Shoulder.R",
+      "weight": 64.458
+    }
+  ],
+  "Rain_shoes": [
+    {
+      "name": "Foot.L",
+      "weight": 2735.0
+    },
+    {
+      "name": "Foot.R",
+      "weight": 2735.0
+    }
+  ],
+  "Rain_top": [
+    {
+      "name": "Torso",
+      "weight": 419.739
+    },
+    {
+      "name": "Abdomen",
+      "weight": 381.11
+    },
+    {
+      "name": "Chest",
+      "weight": 273.417
+    },
+    {
+      "name": "Hips",
+      "weight": 233.501
+    },
+    {
+      "name": "Shoulder.L",
+      "weight": 151.797
+    },
+    {
+      "name": "Shoulder.R",
+      "weight": 151.171
+    },
+    {
+      "name": "UpperLeg.L",
+      "weight": 90.408
+    },
+    {
+      "name": "UpperLeg.R",
+      "weight": 52.544
+    },
+    {
+      "name": "UpperArm.R",
+      "weight": 16.47
+    },
+    {
+      "name": "UpperArm.L",
+      "weight": 16.46
+    },
+    {
+      "name": "Neck",
+      "weight": 1.381
+    }
+  ]
+}

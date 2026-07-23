@@ -88,10 +88,14 @@ test("三个 Quaternius CC0 源模块及授权证据均可复核", async () => {
   assert.doesNotMatch(generator, /MessengerBackpack|ShoulderStrap/);
 });
 
-test("运行时只加载单个角色 GLB 并混合待机、行走和奔跑动作", async () => {
+test("正式运行时加载 Rain 单文件角色并混合待机、行走和奔跑动作", async () => {
   const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
 
-  assert.match(world, /const CHARACTER_MODEL_PATH = "\/models\/character\/urban-wanderer\.glb"/);
+  assert.match(
+    world,
+    /const CHARACTER_MODEL_PATH = "\/models\/character\/rain-summer-wanderer\.glb\?v=151816b1fe82"/,
+  );
+  assert.match(world, /const CHARACTER_VISUAL_SCALE = 1\.3/);
   assert.doesNotMatch(world, /CHARACTER_ANIMATION_PATH|universal-animation-standard\.glb/);
   assert.match(world, /const \{ scene, animations \} = useGLTF\(CHARACTER_MODEL_PATH\)/);
   assert.match(world, /<Suspense fallback=\{<ProceduralWandererCharacter \{\.\.\.props\} \/>\}>/);
@@ -99,7 +103,7 @@ test("运行时只加载单个角色 GLB 并混合待机、行走和奔跑动作
   assert.match(world, /actions\.Idle_Neutral/);
   assert.match(world, /"Walk"/);
   assert.match(world, /"Run"/);
-  assert.match(world, /<primitive object=\{model\} scale=\{1\.15\} \/>/);
+  assert.match(world, /<primitive object=\{model\} scale=\{CHARACTER_VISUAL_SCALE\} \/>/);
   assert.match(world, /function FallbackWandererHead/);
   assert.match(world, /function FallbackWandererTorso/);
   assert.match(world, /function FallbackWandererArm/);
