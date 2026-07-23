@@ -121,6 +121,13 @@ export function terrainHeightAt(x: number, z: number) {
   return height;
 }
 
+// 贴地绘本影只比低频地形高出一个极小余量，避免缓坡上的闪烁、悬空和穿地。
+export const AUTUMN_SHADOW_SURFACE_OFFSET = 0.024;
+
+export function autumnShadowSurfaceHeightAt(x: number, z: number) {
+  return terrainHeightAt(x, z) + AUTUMN_SHADOW_SURFACE_OFFSET;
+}
+
 export type TerrainCell = readonly [number, number, number, number];
 
 function pointInCell(point: TerrainPoint, cell: TerrainCell) {

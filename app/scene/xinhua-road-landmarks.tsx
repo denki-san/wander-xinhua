@@ -19,7 +19,10 @@ import {
   useRef,
   useState,
 } from "react";
-import { terrainHeightAt } from "./terrain";
+import {
+  autumnShadowSurfaceHeightAt,
+  terrainHeightAt,
+} from "./terrain";
 import {
   PLANE_TREE_GROUND_INSET,
   PlaneTreeInstances,
@@ -190,11 +193,15 @@ function AutumnPlaneTreeShadows() {
         const distance = 1.05 + lobeIndex * 2.05;
         const sideOffset = Math.sin(treeIndex * 1.77 + lobeIndex * 2.13)
           * (0.42 + lobeIndex * 0.16);
+        const positionX = tree.position[0] + directionX * distance
+          + directionZ * sideOffset;
+        const positionZ = tree.position[2] + directionZ * distance
+          - directionX * sideOffset;
         return {
           position: [
-            tree.position[0] + directionX * distance + directionZ * sideOffset,
-            tree.position[1] + 0.19,
-            tree.position[2] + directionZ * distance - directionX * sideOffset,
+            positionX,
+            autumnShadowSurfaceHeightAt(positionX, positionZ),
+            positionZ,
           ] as const,
           yaw,
           scale: [
@@ -237,10 +244,12 @@ function AutumnPlaneTreeShadows() {
     const directionZ = -sunZ / shadowLength;
     const yaw = Math.atan2(directionX, directionZ);
     XINHUA_PLANE_TREE_INSTANCES.forEach((tree, index) => {
+      const positionX = tree.position[0] + directionX * 3.3;
+      const positionZ = tree.position[2] + directionZ * 3.3;
       position.set(
-        tree.position[0] + directionX * 3.3,
-        tree.position[1] + 0.192,
-        tree.position[2] + directionZ * 3.3,
+        positionX,
+        autumnShadowSurfaceHeightAt(positionX, positionZ),
+        positionZ,
       );
       yawQuaternion.setFromAxisAngle(up, yaw);
       quaternion.multiplyQuaternions(yawQuaternion, groundQuaternion);
