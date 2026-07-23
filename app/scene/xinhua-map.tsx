@@ -31,17 +31,23 @@ type Road = {
   points: [number, number][];
 };
 
-type RoadStyleName = "arterial" | "collector" | "neighborhood" | "lane" | "service";
+type RoadStyleName = "arterial" | "collector" | "xinhua" | "neighborhood" | "lane" | "service";
 
 export const XINHUA_ENVIRONMENT_SCALE = mapData.meta.environmentScale;
 
 const ROAD_STYLES: Record<RoadStyleName, { width: number; color: string; y: number }> = {
   arterial: { width: 2.18 * XINHUA_ENVIRONMENT_SCALE, color: "#454847", y: 0.13 },
   collector: { width: 1.45 * XINHUA_ENVIRONMENT_SCALE, color: "#585955", y: 0.12 },
+  xinhua: { width: 0.98 * XINHUA_ENVIRONMENT_SCALE, color: "#4a4e4d", y: 0.121 },
   neighborhood: { width: 0.9 * XINHUA_ENVIRONMENT_SCALE, color: "#696760", y: 0.11 },
   lane: { width: 0.68 * XINHUA_ENVIRONMENT_SCALE, color: "#777268", y: 0.1 },
   service: { width: 0.5 * XINHUA_ENVIRONMENT_SCALE, color: "#898174", y: 0.09 },
 };
+
+const XINHUA_ROAD_ASPHALT_WIDTH = 0.98 * XINHUA_ENVIRONMENT_SCALE;
+const XINHUA_ROAD_CURB_WIDTH = 0.055 * XINHUA_ENVIRONMENT_SCALE;
+const XINHUA_ROAD_SIDEWALK_WIDTH = 0.16 * XINHUA_ENVIRONMENT_SCALE;
+const XINHUA_ROAD_VERGE_WIDTH = 0.08 * XINHUA_ENVIRONMENT_SCALE;
 
 const LABELLED_ROADS = [
   "延安西路",
@@ -65,7 +71,9 @@ export const XINHUA_BOUNDARY: MapPolygonPoint[] = mapData.boundary.map(([x, z]) 
 export const XINHUA_BOUNDS = mapData.bounds;
 export const XINGFULI_PLACEMENT = mapData.landmarks.xingfuli;
 
-function roadStyle(highway: string): RoadStyleName {
+function roadStyle(road: Pick<Road, "highway" | "name">): RoadStyleName {
+  const { highway } = road;
+  if (road.name === "新华路" && highway.startsWith("tertiary")) return "xinhua";
   if (/^(trunk|primary|secondary)/.test(highway)) return "arterial";
   if (/^tertiary/.test(highway)) return "collector";
   if (highway === "residential") return "neighborhood";
@@ -73,7 +81,11 @@ function roadStyle(highway: string): RoadStyleName {
   return "service";
 }
 
-function roadWidth(highway: string) {
+function roadWidth(road: Pick<Road, "highway" | "name">) {
+  const { highway } = road;
+  if (road.name === "新华路" && highway.startsWith("tertiary")) {
+    return XINHUA_ROAD_ASPHALT_WIDTH;
+  }
   if (highway.startsWith("trunk")) return 2.62 * XINHUA_ENVIRONMENT_SCALE;
   if (highway.startsWith("primary")) return 2.18 * XINHUA_ENVIRONMENT_SCALE;
   if (highway.startsWith("secondary")) return 1.82 * XINHUA_ENVIRONMENT_SCALE;
@@ -112,7 +124,7 @@ function roadLabelPlacements(name: string, roads: Road[]): RoadLabelPlacement[] 
         const dz = segment.end[1] - segment.start[1];
         return [{
           key: `${name}-${labelIndex}`,
-          name,
+    name,
           position: [
             segment.start[0] + dx * t,
             segment.start[1] + dz * t,
@@ -140,8 +152,8 @@ function slopedSegmentMatrix(start: readonly [number, number], end: readonly [nu
 function mergeRoadMeshes(roads: Road[], styleName: RoadStyleName) {
   const style = ROAD_STYLES[styleName];
   const pieces: BufferGeometry[] = [];
-  for (const road of roads.filter((candidate) => isSurfaceRoad(candidate) && roadStyle(candidate.highway) === styleName)) {
-    const width = roadWidth(road.highway) * (road.highway.endsWith("_link") ? 0.78 : 1);
+  for (const road of roads.filter((candidate) => isSurfaceRoad(candidate) && roadStyle(candidate) === styleName)) {
+    const width = roadWidth(road) * (road.highway.endsWith("_link") ? 0.78 : 1);
     const y = style.y + (road.bridge ? 0.17 + Math.max(0, road.layer) * 0.035 : 0);
     for (let index = 0; index < road.points.length - 1; index += 1) {
       const start = road.points[index];
@@ -169,10 +181,101 @@ function mergeRoadMeshes(roads: Road[], styleName: RoadStyleName) {
   return merged;
 }
 
+function offsetSegment(
+  start: readonly [number, number],
+  end: readonly [number, number],
+  offset: number,
+): [[number, number], [number, number]] {
+  const dx = end[0] - start[0];
+  const dz = end[1] - start[1];
+  const length = Math.hypot(dx, dz);
+  if (length < 0.001) return [[...start], [...end]];
+  const normalX = dz / length;
+  const normalZ = -dx / length;
+  return [
+    [start[0] + normalX * offset, start[1] + normalZ * offset],
+    [end[0] + normalX * offset, end[1] + normalZ * offset],
+  ];
+}
+
+function mergeXinhuaRoadEdgeMeshes() {
+  const geometries = {
+    curb: [] as BufferGeometry[],
+    sidewalk: [] as BufferGeometry[],
+    verge: [] as BufferGeometry[],
+  };
+  const specifications = [
+    {
+      key: "curb" as const,
+      width: XINHUA_ROAD_CURB_WIDTH,
+      offset: XINHUA_ROAD_ASPHALT_WIDTH / 2 + XINHUA_ROAD_CURB_WIDTH / 2,
+      height: 0.18,
+      y: 0.135,
+    },
+    {
+      key: "sidewalk" as const,
+      width: XINHUA_ROAD_SIDEWALK_WIDTH,
+      offset: XINHUA_ROAD_ASPHALT_WIDTH / 2
+        + XINHUA_ROAD_CURB_WIDTH
+        + XINHUA_ROAD_SIDEWALK_WIDTH / 2,
+      height: 0.12,
+      y: 0.14,
+    },
+    {
+      key: "verge" as const,
+      width: XINHUA_ROAD_VERGE_WIDTH,
+      offset: XINHUA_ROAD_ASPHALT_WIDTH / 2
+        + XINHUA_ROAD_CURB_WIDTH
+        + XINHUA_ROAD_SIDEWALK_WIDTH
+        + XINHUA_ROAD_VERGE_WIDTH / 2,
+      height: 0.055,
+      y: 0.015,
+    },
+  ];
+
+  for (const road of ROADS.filter((candidate) => candidate.name === "新华路" && isSurfaceRoad(candidate))) {
+    for (let index = 0; index < road.points.length - 1; index += 1) {
+      const start = road.points[index];
+      const end = road.points[index + 1];
+      for (const side of [-1, 1]) {
+        for (const specification of specifications) {
+          const [offsetStart, offsetEnd] = offsetSegment(
+            start,
+            end,
+            specification.offset * side,
+          );
+          const length = Math.hypot(
+            offsetEnd[0] - offsetStart[0],
+            terrainHeightAt(offsetEnd[0], offsetEnd[1])
+              - terrainHeightAt(offsetStart[0], offsetStart[1]),
+            offsetEnd[1] - offsetStart[1],
+          );
+          if (length < 0.02) continue;
+          const geometry = new BoxGeometry(
+            specification.width,
+            specification.height,
+            length + 0.12 * XINHUA_ENVIRONMENT_SCALE,
+          );
+          geometry.applyMatrix4(slopedSegmentMatrix(offsetStart, offsetEnd, specification.y));
+          geometries[specification.key].push(geometry);
+        }
+      }
+    }
+  }
+
+  const merged = {
+    curb: mergeGeometries(geometries.curb, false),
+    sidewalk: mergeGeometries(geometries.sidewalk, false),
+    verge: mergeGeometries(geometries.verge, false),
+  };
+  Object.values(geometries).flat().forEach((geometry) => geometry.dispose());
+  return merged;
+}
+
 function mergeCenterLines(roads: Road[]) {
   const pieces: BufferGeometry[] = [];
   for (const road of roads.filter((candidate) => isSurfaceRoad(candidate)
-    && (roadStyle(candidate.highway) === "arterial" || roadStyle(candidate.highway) === "collector"))) {
+    && ["arterial", "collector", "xinhua"].includes(roadStyle(candidate)))) {
     if (road.highway.endsWith("_link")) continue;
     const y = 0.185 + (road.bridge ? 0.17 + Math.max(0, road.layer) * 0.035 : 0);
     for (let index = 0; index < road.points.length - 1; index += 1) {
@@ -184,7 +287,10 @@ function mergeCenterLines(roads: Road[]) {
       const endY = terrainHeightAt(end[0], end[1]);
       const length = Math.hypot(dx, endY - startY, dz);
       if (length < 0.12) continue;
-      const line = new BoxGeometry(0.055 * XINHUA_ENVIRONMENT_SCALE, 0.018, length * 0.86);
+      const lineWidth = road.name === "新华路"
+        ? 0.018 * XINHUA_ENVIRONMENT_SCALE
+        : 0.055 * XINHUA_ENVIRONMENT_SCALE;
+      const line = new BoxGeometry(lineWidth, 0.018, length * 0.86);
       const matrix = slopedSegmentMatrix(start, end, y);
       line.applyMatrix4(matrix);
       pieces.push(line);
@@ -229,13 +335,23 @@ function MapGround() {
     const ground = new BufferGeometry();
     const positions: number[] = [];
     const colors: number[] = [];
-    const low = new Color("#78815d");
-    const high = new Color("#a49766");
+    const low = new Color("#65714b");
+    const high = new Color("#8d8f57");
+    const dry = new Color("#b29a5d");
     const color = new Color();
     const addVertex = (x: number, z: number) => {
       const y = terrainHeightAt(x, z) - 0.06;
       positions.push(x, y, z);
-      color.lerpColors(low, high, Math.min(1, Math.max(0, (y - 0.4) / 5.4)));
+      const heightMix = Math.min(1, Math.max(0, (y - 0.4) / 5.4));
+      const broadVariation = (
+        Math.sin(x * 0.057 + z * 0.041)
+        + Math.sin(x * 0.021 - z * 0.073) * 0.55
+        + 1.55
+      ) / 3.1;
+      color.lerpColors(low, high, Math.min(1, heightMix * 0.48 + broadVariation * 0.52));
+      if (broadVariation > 0.64) {
+        color.lerp(dry, (broadVariation - 0.64) * 0.52);
+      }
       colors.push(color.r, color.g, color.b);
     };
     for (const [x, z, x1, z1] of buildTerrainCells(XINHUA_BOUNDS, XINHUA_BOUNDARY)) {
@@ -267,12 +383,20 @@ function AsphaltRoadNetwork() {
   const geometries = useMemo(() => ({
     arterial: mergeRoadMeshes(roads, "arterial"),
     collector: mergeRoadMeshes(roads, "collector"),
+    xinhua: mergeRoadMeshes(roads, "xinhua"),
     neighborhood: mergeRoadMeshes(roads, "neighborhood"),
     lane: mergeRoadMeshes(roads, "lane"),
     service: mergeRoadMeshes(roads, "service"),
     centerLines: mergeCenterLines(roads),
+    xinhuaEdges: mergeXinhuaRoadEdgeMeshes(),
   }), [roads]);
-  useEffect(() => () => Object.values(geometries).forEach((geometry) => geometry?.dispose()), [geometries]);
+  useEffect(() => () => {
+    (Object.keys(ROAD_STYLES) as RoadStyleName[]).forEach(
+      (styleName) => geometries[styleName]?.dispose(),
+    );
+    geometries.centerLines?.dispose();
+    Object.values(geometries.xinhuaEdges).forEach((geometry) => geometry.dispose());
+  }, [geometries]);
 
   return (
     <group data-road-network="osm-13469094">
@@ -290,6 +414,20 @@ function AsphaltRoadNetwork() {
           <meshBasicMaterial color="#e7d6a2" />
         </mesh>
       )}
+      <group
+        name="xinhua-road-sidewalk-system"
+        userData={{ roadName: "新华路", treatment: "curb-sidewalk-verge" }}
+      >
+        <mesh geometry={geometries.xinhuaEdges.verge} receiveShadow>
+          <meshStandardMaterial color="#74794a" roughness={0.96} />
+        </mesh>
+        <mesh geometry={geometries.xinhuaEdges.sidewalk} receiveShadow castShadow>
+          <meshStandardMaterial color="#b8ad91" roughness={0.94} />
+        </mesh>
+        <mesh geometry={geometries.xinhuaEdges.curb} receiveShadow castShadow>
+          <meshStandardMaterial color="#77726a" roughness={0.9} />
+        </mesh>
+      </group>
     </group>
   );
 }
@@ -404,13 +542,13 @@ function RoadLabels() {
   );
 }
 
-export function XinhuaStreetMap() {
+export function XinhuaStreetMap({ showRoadLabels = true }: { showRoadLabels?: boolean }) {
   return (
     <group data-map-scale={`${mapData.meta.metersPerSceneUnit}-metres-per-unit`}>
       <MapGround />
       <AsphaltRoadNetwork />
       <DistrictBoundary />
-      <RoadLabels />
+      {showRoadLabels && <RoadLabels />}
     </group>
   );
 }

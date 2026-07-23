@@ -20,7 +20,9 @@ import {
   AutumnStorybookSky,
   InkOutline,
   PaperWash,
+  StorybookCloudLayer,
 } from "./scene/visual-effects";
+import { XINHUA_AUTUMN_ATMOSPHERE } from "./scene/atmosphere-contract";
 import { MAP_POIS, mapPoiById } from "./scene/poi-data";
 import { XinhuaWorld } from "./scene/xinhua-world";
 import mapData from "./scene/xinhua-map-data.json";
@@ -359,11 +361,15 @@ export function XinhuaExperience() {
           outputColorSpace: SRGBColorSpace,
           powerPreference: "high-performance",
         }}
-        onCreated={() => setReady(true)}
+        onCreated={({ gl }) => {
+          gl.toneMappingExposure = XINHUA_AUTUMN_ATMOSPHERE.toneMappingExposure;
+          setReady(true);
+        }}
       >
         <Suspense fallback={null}>
           <AutumnStorybookSky />
         </Suspense>
+        <StorybookCloudLayer />
         <XinhuaWorld
           mode={mode}
           lowTier={lowTier}

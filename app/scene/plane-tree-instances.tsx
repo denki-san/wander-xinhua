@@ -29,9 +29,9 @@ export type PlaneTreeInstancePlacement = {
 };
 
 export const PLANE_TREE_MODELS = [
-  "/models/xinhua-road/plane-tree-a.glb?v=2",
-  "/models/xinhua-road/plane-tree-b.glb?v=2",
-  "/models/xinhua-road/plane-tree-c.glb?v=2",
+  "/models/xinhua-road/plane-tree-a.glb?v=36ffe252c43b",
+  "/models/xinhua-road/plane-tree-b.glb?v=7c2e06d0794f",
+  "/models/xinhua-road/plane-tree-c.glb?v=c4c14bd84d9c",
 ] as const;
 
 export const PLANE_TREE_GROUND_INSET = 0.04;
@@ -47,10 +47,10 @@ export function cloneAutumnPlaneTreeMaterial(source: Material) {
 
   if (/叶|leaf/.test(name)) {
     const target = /深|dark/.test(name)
-      ? "#526547"
+      ? "#67734b"
       : /浅|light/.test(name)
-        ? "#c49b55"
-        : "#9a7a42";
+        ? "#d0a35a"
+        : "#a78549";
     material.color.set(target);
   } else if (/干|枝|bark|trunk|branch/.test(name)) {
     material.color.lerp(new Color("#806e55"), 0.2);

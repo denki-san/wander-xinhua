@@ -115,6 +115,14 @@ type TreePlacement = {
   scale: [number, number, number];
 };
 
+type AutumnLandmarkMaterial = Material & {
+  color?: Color;
+  emissive?: Color;
+  emissiveIntensity?: number;
+  metalness?: number;
+  roughness?: number;
+};
+
 export const XINHUA_HERO_PLANE_TREE_ID = "plane-tree-0-12";
 export const XINHUA_HERO_PLANE_TREE_MODEL =
   "/models/building-evidence-lab/xinhua-plane-tree-hero.glb?v=3";
@@ -223,14 +231,67 @@ function AutumnLeafCarpet() {
   );
 }
 
+function cloneAutumnLandmarkMaterial(source: Material) {
+  const material = source.clone() as AutumnLandmarkMaterial;
+  const name = source.name.toLowerCase();
+  const color = material.color;
+  if (!color) return material;
+
+  if (/灯|光|light|emissive/.test(name)) {
+    color.lerp(new Color("#ffc273"), 0.42);
+    if (material.emissive) {
+      material.emissive.set("#ff9f47");
+      material.emissiveIntensity = 1.28;
+    }
+    if (typeof material.roughness === "number") material.roughness = 0.62;
+  } else if (/玻璃|glass/.test(name)) {
+    color.lerp(new Color("#405b56"), 0.46);
+    if (material.emissive) {
+      material.emissive.set("#4a3925");
+      material.emissiveIntensity = 0.16;
+    }
+    if (typeof material.roughness === "number") material.roughness = 0.34;
+    if (typeof material.metalness === "number") material.metalness = 0.04;
+  } else if (/窗框|深框|铁艺|金属|屋脊|瓦垄|板缝|铺装缝|frame/.test(name)) {
+    color.lerp(new Color("#1d3330"), 0.42);
+    if (typeof material.roughness === "number") material.roughness = 0.74;
+  } else if (/红砖|砖墙|红瓦|屋顶|屋瓦|木|铜|brick|roof|wood/.test(name)) {
+    color.lerp(new Color("#87503d"), 0.26);
+    if (typeof material.roughness === "number") material.roughness = 0.88;
+  } else if (/白|墙|灰泥|石材|浅石|曲面|门楼|象牙|cream|plaster|stone/.test(name)) {
+    color.lerp(new Color("#c6b493"), 0.28);
+    color.multiplyScalar(0.89);
+    if (typeof material.roughness === "number") material.roughness = 0.84;
+  } else if (/绿植|草坪|绿篱|灌木|garden|hedge|lawn/.test(name)) {
+    color.lerp(new Color("#747548"), 0.32);
+    if (typeof material.roughness === "number") material.roughness = 0.96;
+  } else {
+    color.lerp(new Color("#b79d78"), 0.045);
+  }
+
+  material.needsUpdate = true;
+  return material;
+}
+
+function disposeModelMaterials(model: Object3D) {
+  const materials = new Set<Material>();
+  model.traverse((child) => {
+    if (!(child instanceof Mesh)) return;
+    const childMaterials = Array.isArray(child.material) ? child.material : [child.material];
+    childMaterials.forEach((material) => materials.add(material));
+  });
+  materials.forEach((material) => material.dispose());
+}
+
 function configureModel(model: Object3D, autumnTree = false) {
   model.traverse((child) => {
     if (!(child instanceof Mesh)) return;
-    if (autumnTree) {
-      child.material = Array.isArray(child.material)
-        ? child.material.map(cloneAutumnPlaneTreeMaterial)
-        : cloneAutumnPlaneTreeMaterial(child.material);
-    }
+    const cloneMaterial = autumnTree
+      ? cloneAutumnPlaneTreeMaterial
+      : cloneAutumnLandmarkMaterial;
+    child.material = Array.isArray(child.material)
+      ? child.material.map(cloneMaterial)
+      : cloneMaterial(child.material);
     child.castShadow = true;
     child.receiveShadow = true;
   });
@@ -240,21 +301,14 @@ function configureModel(model: Object3D, autumnTree = false) {
 function GlbModel({ path }: { path: string }) {
   const { scene } = useGLTF(path);
   const model = useMemo(() => configureModel(scene.clone(true)), [scene]);
+  useEffect(() => () => disposeModelMaterials(model), [model]);
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
 function HeroPlaneTree() {
   const { scene } = useGLTF(XINHUA_HERO_PLANE_TREE_MODEL);
   const model = useMemo(() => configureModel(scene.clone(true), true), [scene]);
-  useEffect(() => () => {
-    const materials = new Set<Material>();
-    model.traverse((child) => {
-      if (!(child instanceof Mesh)) return;
-      const childMaterials = Array.isArray(child.material) ? child.material : [child.material];
-      childMaterials.forEach((material) => materials.add(material));
-    });
-    materials.forEach((material) => material.dispose());
-  }, [model]);
+  useEffect(() => () => disposeModelMaterials(model), [model]);
   const [x, y, z] = XINHUA_HERO_PLANE_TREE_PLACEMENT.position;
   return (
     <group

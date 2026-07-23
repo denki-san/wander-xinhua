@@ -1,21 +1,22 @@
 export const XINHUA_AUTUMN_ATMOSPHERE = {
   skyTexture: "/textures/sky/kenney-day-2048.jpg?v=6562e776856e",
   background: "#91bce3",
-  fog: "#b8c8d7",
-  sunColor: "#ffd09b",
-  sunOffset: [-110, 50, 52] as const,
-  hemisphereSky: "#dceaf5",
-  hemisphereGround: "#80644e",
+  fog: "#c6d1da",
+  sunColor: "#ffc27d",
+  sunOffset: [-108, 39, 50] as const,
+  hemisphereSky: "#cedfeb",
+  hemisphereGround: "#705a43",
+  toneMappingExposure: 1.03,
   ambientIntensity: {
-    explore: 0.34,
-    overview: 0.74,
+    explore: 0.2,
+    overview: 0.56,
   },
   hemisphereIntensity: {
-    explore: 0.82,
-    overview: 1.08,
+    explore: 0.58,
+    overview: 0.82,
   },
   sunIntensity: {
-    explore: 3.05,
-    overview: 2.35,
+    explore: 3.0,
+    overview: 2.3,
   },
 } as const;

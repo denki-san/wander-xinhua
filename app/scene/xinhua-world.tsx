@@ -94,7 +94,7 @@ const CAMERA_POSITION_DAMPING = 10;
 const CAMERA_ROTATION_SPEED_X = 0.005;
 const CAMERA_ROTATION_SPEED_Y = 0.004;
 const CHARACTER_TURN_DAMPING = 9;
-const CHARACTER_MODEL_PATH = "/models/character/rain-summer-wanderer.glb?v=151816b1fe82";
+const CHARACTER_MODEL_PATH = "/models/character/rain-summer-wanderer.glb?v=f9721e54f034";
 // Rain 的原始身高比旧角色低约 11%；1.3 倍可保持正式地图中的既有屏幕占比。
 const CHARACTER_VISUAL_SCALE = 1.3;
 const CHARACTER_MAX_TURN_SPEED = 8;
@@ -417,6 +417,7 @@ function FlatNeighborhood({
   detailScale = 1,
   showDetailModels = false,
   showDetailLabels = true,
+  showRoadLabels = true,
   showHeroTree = false,
   priorityPreset,
   landmarkLoadMode = "overview",
@@ -425,13 +426,14 @@ function FlatNeighborhood({
   detailScale?: number;
   showDetailModels?: boolean;
   showDetailLabels?: boolean;
+  showRoadLabels?: boolean;
   showHeroTree?: boolean;
   priorityPreset?: string;
   landmarkLoadMode?: "overview" | "explore";
 }) {
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
-      <XinhuaStreetMap />
+      <XinhuaStreetMap showRoadLabels={showRoadLabels} />
       <group
         position={[XINGFULI_POSITION[0], XINGFULI_BASE_Y, XINGFULI_POSITION[1]]}
         rotation-y={XINGFULI_PLACEMENT.rotationY}
@@ -606,43 +608,6 @@ type WandererCharacterProps = {
   scale?: number;
 };
 
-function AutumnWandererBag() {
-  return (
-    <group
-      name="xinhua-autumn-messenger-bag"
-      scale={CHARACTER_VISUAL_SCALE}
-      userData={{ characterDetail: "xinhua-postcard-bag" }}
-    >
-      <mesh
-        position={[-0.015, 1.18, -0.155]}
-        rotation-z={-0.5}
-        castShadow
-      >
-        <capsuleGeometry args={[0.023, 0.68, 5, 10]} />
-        <meshToonMaterial color="#6e4334" />
-      </mesh>
-      <RoundedBox
-        args={[0.36, 0.3, 0.12]}
-        radius={0.055}
-        smoothness={3}
-        position={[0.13, 0.91, -0.205]}
-        rotation-z={0.035}
-        castShadow
-      >
-        <meshToonMaterial color="#a7543f" />
-      </RoundedBox>
-      <mesh position={[0.13, 1.01, -0.27]} rotation-x={-0.08} castShadow>
-        <boxGeometry args={[0.31, 0.105, 0.025]} />
-        <meshToonMaterial color="#d19a52" />
-      </mesh>
-      <mesh position={[0.13, 0.96, -0.286]} rotation-z={Math.PI / 4}>
-        <boxGeometry args={[0.055, 0.055, 0.018]} />
-        <meshBasicMaterial color="#f3dfaa" />
-      </mesh>
-    </group>
-  );
-}
-
 function DetailedWandererCharacter({
   outerRef,
   scale = 1,
@@ -695,7 +660,6 @@ function DetailedWandererCharacter({
   return (
     <group ref={outerRef} scale={scale}>
       <primitive object={model} scale={CHARACTER_VISUAL_SCALE} />
-      <AutumnWandererBag />
     </group>
   );
 }
@@ -1557,6 +1521,7 @@ export function XinhuaWorld({
         detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
         showDetailModels={mode !== "intro"}
         showDetailLabels={false}
+        showRoadLabels={!exploring}
         showHeroTree={exploring}
         priorityPreset={destinationPreset}
         landmarkLoadMode={exploring ? "explore" : "overview"}

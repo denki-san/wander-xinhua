@@ -10,6 +10,14 @@
   },
   "references": [
     {
+      "path": "docs/research/assets/style-references/xinhua-autumn-storybook-target.png",
+      "subject": "用户确认的新华秋日绘本 AI 目标渲染",
+      "viewDirection": "沿新华路道路中心向纵深观察，人物位于画面右侧",
+      "sourceUrl": "user-provided attachment",
+      "sha256": "c76ca39af39f195524d2100a5a27d10efa0cd73065c91ea309a0d8475750e308",
+      "usage": "只用于风格、构图和质量目标；不是实际渲染或真实建筑证据"
+    },
+    {
       "path": "docs/research/assets/style-references/kenney-skybox-day.png",
       "subject": "Kenney Skyboxes day equirectangular texture",
       "viewDirection": "360-degree equirectangular sky",

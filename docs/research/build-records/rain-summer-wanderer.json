@@ -12,10 +12,10 @@
   "output": {
     "blend": "assets/models/source/character/rain-summer-wanderer.blend",
     "glb": "public/models/character/rain-summer-wanderer.glb",
-    "sha256": "151816b1fe827275133cc2ce3db348619c2c39d672094e3ad41094b3294e86c0",
-    "cacheVersion": "151816b1fe82",
-    "bytes": 2923744,
-    "triangles": 57864,
+    "sha256": "f9721e54f0348b7139bc36ca9db6fe1deffd2cb09f868b7dcf7c64c25ea4b011",
+    "cacheVersion": "f9721e54f034",
+    "bytes": 2873640,
+    "triangles": 56094,
     "nodes": 76,
     "meshes": 13,
     "materials": 11,
@@ -34,46 +34,52 @@
       ],
       "max": [
         0.2062128484249115,
-        0.49633949995040894,
+        0.10645365715026855,
         1.641681432723999
       ]
     }
   },
   "status": "production-ready",
-  "runtimeGate": "style lab passed at 1920x851 desktop and 390x844 mobile; formal map passed at 1440x900 desktop and 390x844 mobile; touch move, follow camera, attribution and console gate passed",
+  "runtimeGate": "passed in the actual /?start=garden179 scene at 1440x900 desktop and 390x844 mobile",
   "validation": {
     "date": "2026-07-23",
     "viewports": {
       "desktop": {
-        "width": 1920,
-        "height": 851
+        "width": 1440,
+        "height": 900
       },
       "mobile": {
         "width": 390,
         "height": 844
       }
     },
-    "canonical": "test_artifacts/test_rain_summer_character_canonical.png",
-    "side": "test_artifacts/test_rain_summer_character_side.png",
-    "threeWayComparison": "test_artifacts/test_rain_summer_three-way-comparison.png",
-    "animationGrid": "test_artifacts/test_rain_summer_animation_grid.png",
-    "weightAudit": "test_artifacts/test_rain_summer_weight_audit.json",
-    "desktopRuntime": "test_artifacts/test_rain_summer_runtime_preview.jpg",
-    "mobileRuntime": "test_artifacts/test_rain_summer_mobile_runtime.jpg",
-    "mobileMoved": "test_artifacts/test_rain_summer_mobile_moved.jpg",
-    "runtimeMotionGrid": "test_artifacts/test_rain_summer_runtime_motion_grid.jpg",
-    "runtimeMotionVideo": "test_artifacts/test_rain_summer_runtime_motion.mp4",
-    "walkQaUrl": "/style-lab?style=summer&character=rain&qaMotion=walk",
-    "runQaUrl": "/style-lab?style=summer&character=rain&qaMotion=run",
+    "evidence": {
+      "blenderCanonical": "test_artifacts/test_rain_summer_character_canonical.png",
+      "blenderSide": "test_artifacts/test_rain_summer_character_side.png",
+      "runtimeDesktop": "test_artifacts/test_xinhua_autumn_storybook_v2_character_desktop.png",
+      "runtimeMobile": "test_artifacts/test_xinhua_autumn_storybook_v2_character_mobile.png"
+    },
     "consoleErrors": 0,
     "knownWarnings": [
-      "THREE.Clock deprecation",
-      "THREE.WebGLShadowMap PCFSoftShadowMap deprecation"
-    ]
+      "THREE.Clock is deprecated",
+      "THREE.WebGLShadowMap PCFSoftShadowMap is deprecated"
+    ],
+    "visualChecks": {
+      "originalHorizontalPonytailRemoved": true,
+      "originalHairbandRemoved": true,
+      "compactLowPonytailHeadBound": true,
+      "runtimeMessengerBagRemoved": true,
+      "desktopGroundContact": true,
+      "mobileGroundContact": true
+    }
   },
   "productionIntegration": {
-    "modelPath": "/models/character/rain-summer-wanderer.glb?v=151816b1fe82",
+    "formalMapPath": "app/scene/xinhua-world.tsx",
+    "modelPath": "/models/character/rain-summer-wanderer.glb?v=f9721e54f034",
     "visualScale": 1.3,
+    "cacheVersion": "f9721e54f034",
+    "formalMapConsoleErrors": 0,
+    "collisionAndControlsChanged": false,
     "fallback": "ProceduralWandererCharacter",
     "preservedRuntimeSystems": [
       "PLAYER_RADIUS collision",
@@ -82,16 +88,26 @@
       "Space jump",
       "follow camera"
     ],
-    "desktopRuntime": "test_artifacts/test_rain_production_local_desktop.jpg",
-    "mobileRuntime": "test_artifacts/test_rain_production_local_mobile.jpg",
-    "formalMapConsoleErrors": 0,
     "attributionSurfaces": [
       "desktop footer",
       "desktop and mobile help panel"
     ]
   },
+  "baseAssetValidation": {
+    "sha256": "151816b1fe827275133cc2ce3db348619c2c39d672094e3ad41094b3294e86c0",
+    "scope": "Rain body, deform rig, animations, shoe weights, runtime movement and attribution before the hairstyle-only rebuild",
+    "threeWayComparison": "test_artifacts/test_rain_summer_three-way-comparison.png",
+    "animationGrid": "test_artifacts/test_rain_summer_animation_grid.png",
+    "weightAudit": "test_artifacts/test_rain_summer_weight_audit.json",
+    "runtimeMotionGrid": "test_artifacts/test_rain_summer_runtime_motion_grid.jpg",
+    "runtimeMotionVideo": "test_artifacts/test_rain_summer_runtime_motion.mp4",
+    "walkQaUrl": "/style-lab?style=summer&character=rain&qaMotion=walk",
+    "runQaUrl": "/style-lab?style=summer&character=rain&qaMotion=run",
+    "consoleErrors": 0
+  },
   "independentReview": {
     "status": "passed-after-fixes",
+    "scope": "base Rain body, animation, input and attribution integration",
     "importantResolved": [
       "clear deferred nudge once sustained movement has consumed the press",
       "show the exact required Rain credit on the public style-lab page"
@@ -100,5 +116,11 @@
       "record cacheVersion beside the GLB SHA",
       "align the Style Lab scale contract with the actual 1.69-unit runtime height"
     ]
+  },
+  "reviewBoundary": {
+    "baseCharacter": "inherits the previously passed Rain body, rig, skin, animation and attribution review",
+    "currentChange": "deterministic removal of the old ponytail and hairband plus a compact rigid Head-bound low ponytail",
+    "currentEvidence": "Blender canonical/side and actual desktop/mobile runtime screenshots",
+    "status": "passed for the scoped hairstyle and bag-removal change"
   }
 }

@@ -460,9 +460,9 @@ test("地图与房屋使用既定统一比例，退界修复只能调整位置",
 });
 
 test("梧桐树按 3 个模型变体沿新华路双侧交错排列，并为地标入口留空", () => {
-  assert.match(planeTreeInstancesSource, /plane-tree-a\.glb\?v=2/);
-  assert.match(planeTreeInstancesSource, /plane-tree-b\.glb\?v=2/);
-  assert.match(planeTreeInstancesSource, /plane-tree-c\.glb\?v=2/);
+  assert.match(planeTreeInstancesSource, /plane-tree-a\.glb\?v=36ffe252c43b/);
+  assert.match(planeTreeInstancesSource, /plane-tree-b\.glb\?v=7c2e06d0794f/);
+  assert.match(planeTreeInstancesSource, /plane-tree-c\.glb\?v=c4c14bd84d9c/);
   assert.match(planeTreeInstancesSource, /InstancedPlaneTreeVariant/);
   assert.match(planeTreeInstancesSource, /InstancedPlaneTreePart/);
   assert.match(planeTreeInstancesSource, /sourceMeshes\.map/);

@@ -1,0 +1,75 @@
+{
+  "asset": "xinhua-plane-tree-family-autumn-v3",
+  "generator": "scripts/create_xinhua_road_models.py",
+  "blender": "5.2.0 LTS",
+  "sourceContract": {
+    "realReferences": [
+      "research/references/plane-tree/plane-tree-canonical.jpg",
+      "research/references/plane-tree/plane-tree-avenue.jpg",
+      "research/references/plane-tree/plane-tree-bark.jpg"
+    ],
+    "styleTarget": "docs/research/assets/style-references/xinhua-autumn-storybook-target.png",
+    "styleTargetBoundary": "composition, crown gaps and leaf-cluster density only"
+  },
+  "outputs": [
+    {
+      "slug": "plane-tree-a",
+      "blend": "assets/models/source/xinhua-road/plane-tree-a.blend",
+      "glb": "public/models/xinhua-road/plane-tree-a.glb",
+      "sha256": "36ffe252c43bf65352eb571661115d422d06282354448a2c9438933654984bc8",
+      "cacheVersion": "36ffe252c43b",
+      "sourceObjects": 96,
+      "bytes": 310052,
+      "triangles": 5644,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 6,
+      "images": 0,
+      "textures": 0
+    },
+    {
+      "slug": "plane-tree-b",
+      "blend": "assets/models/source/xinhua-road/plane-tree-b.blend",
+      "glb": "public/models/xinhua-road/plane-tree-b.glb",
+      "sha256": "7c2e06d0794f3bcbd9bb545c99138a633476c5ba8c201fa6200d23d222af4f77",
+      "cacheVersion": "7c2e06d0794f",
+      "sourceObjects": 97,
+      "bytes": 305140,
+      "triangles": 5512,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 6,
+      "images": 0,
+      "textures": 0
+    },
+    {
+      "slug": "plane-tree-c",
+      "blend": "assets/models/source/xinhua-road/plane-tree-c.blend",
+      "glb": "public/models/xinhua-road/plane-tree-c.glb",
+      "sha256": "c4c14bd84d9caa3670b9d42ef3cf332c470d793b7820d348a5949bb0da5aa25c",
+      "cacheVersion": "c4c14bd84d9c",
+      "sourceObjects": 117,
+      "bytes": 348572,
+      "triangles": 6004,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 6,
+      "images": 0,
+      "textures": 0
+    }
+  ],
+  "totals": {
+    "bytes": 963764,
+    "budgetBytes": 1400000,
+    "triangles": 17160
+  },
+  "runtime": {
+    "component": "app/scene/plane-tree-instances.tsx",
+    "strategy": "three GLBs loaded once and reused through InstancedMesh",
+    "heroReplacementCount": 1,
+    "ordinaryTreeCount": 28,
+    "evidence": "test_artifacts/test_xinhua_autumn_storybook_v2_plane_tree_street_desktop.png",
+    "consoleErrors": 0
+  },
+  "status": "runtime-validated"
+}

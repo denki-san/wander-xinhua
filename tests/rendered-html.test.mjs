@@ -140,7 +140,7 @@ test("幸福里按 OSM 中心线置于真实相对位置并保持统一横向比
   assert.match(world, /transformMapObstacle/);
 });
 
-test("主角保留城市漫游者配色并叠加秋日邮差包身份构件", async () => {
+test("主角保留城市漫游者配色并移除秋日邮差包", async () => {
   const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
   const head = world.slice(
     world.indexOf("function FallbackWandererHead"),
@@ -155,10 +155,8 @@ test("主角保留城市漫游者配色并叠加秋日邮差包身份构件", as
   assert.match(head, /sphereGeometry/);
   assert.match(world, /#657772/);
   assert.match(world, /#202b2f/);
-  assert.match(world, /function AutumnWandererBag/);
-  assert.match(world, /name="xinhua-autumn-messenger-bag"/);
-  assert.match(world, /characterDetail: "xinhua-postcard-bag"/);
-  assert.match(world, /#a7543f/);
-  assert.match(world, /#d19a52/);
+  assert.doesNotMatch(world, /function AutumnWandererBag/);
+  assert.doesNotMatch(world, /xinhua-autumn-messenger-bag/);
+  assert.doesNotMatch(world, /xinhua-postcard-bag/);
   assert.doesNotMatch(world, /capsuleGeometry args=\{\[0\.39, 0\.72/);
 });

@@ -63,9 +63,11 @@ test("Rain 盛夏候选保留完整成品造型并满足网页预算", async () 
   assert.equal(json.images, undefined);
   assert.equal(json.skins.length, 1);
   assert.deepEqual(animations, ["Idle_Neutral", "Run", "Walk"]);
-  for (const name of ["Rain_body", "Rain_head", "Rain_eye", "Rain_hair_ponytail", "Rain_Summer_Rig"]) {
+  for (const name of ["Rain_body", "Rain_head", "Rain_eye", "Rain_hair_low_ponytail", "Rain_hairband_low", "Rain_Summer_Rig"]) {
     assert.ok(names.has(name), `缺少节点 ${name}`);
   }
+  assert.ok(!names.has("Rain_hair_ponytail"));
+  assert.ok(!names.has("Rain_hairband"));
 });
 
 test("Rain 候选的生成器、来源哈希与 CC-BY 署名可追溯", async () => {
@@ -97,29 +99,23 @@ test("Rain 候选的生成器、来源哈希与 CC-BY 署名可追溯", async ()
   );
 });
 
-test("Rain 最终动作、镜头和桌面手机证据对应同一 GLB", async () => {
+test("Rain 短束低马尾和桌面手机证据对应同一 GLB", async () => {
   const [
     source,
+    world,
     recordText,
     canonical,
-    threeWay,
-    animationGrid,
+    side,
     desktop,
     mobile,
-    mobileMoved,
-    motionGrid,
-    motionVideo,
   ] = await Promise.all([
     readFile(new URL("../app/style-lab/StyleLab.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
     readFile(new URL("../docs/research/build-records/rain-summer-wanderer.json", import.meta.url), "utf8"),
     readFile(new URL("../test_artifacts/test_rain_summer_character_canonical.png", import.meta.url)),
-    readFile(new URL("../test_artifacts/test_rain_summer_three-way-comparison.png", import.meta.url)),
-    readFile(new URL("../test_artifacts/test_rain_summer_animation_grid.png", import.meta.url)),
-    readFile(new URL("../test_artifacts/test_rain_summer_runtime_preview.jpg", import.meta.url)),
-    readFile(new URL("../test_artifacts/test_rain_summer_mobile_runtime.jpg", import.meta.url)),
-    readFile(new URL("../test_artifacts/test_rain_summer_mobile_moved.jpg", import.meta.url)),
-    readFile(new URL("../test_artifacts/test_rain_summer_runtime_motion_grid.jpg", import.meta.url)),
-    readFile(new URL("../test_artifacts/test_rain_summer_runtime_motion.mp4", import.meta.url)),
+    readFile(new URL("../test_artifacts/test_rain_summer_character_side.png", import.meta.url)),
+    readFile(new URL("../test_artifacts/test_xinhua_autumn_storybook_v2_character_desktop.png", import.meta.url)),
+    readFile(new URL("../test_artifacts/test_xinhua_autumn_storybook_v2_character_mobile.png", import.meta.url)),
   ]);
   const record = JSON.parse(recordText);
 
@@ -130,25 +126,19 @@ test("Rain 最终动作、镜头和桌面手机证据对应同一 GLB", async ()
   assert.match(source, /get\("qaMotion"\)/);
   assert.match(source, /new Vector3\(-31, 0\.025, -7\)/);
   assert.match(source, new RegExp(`rain-summer-wanderer\\.glb\\?v=${record.output.sha256.slice(0, 12)}`));
+  assert.match(world, new RegExp(`rain-summer-wanderer\\.glb\\?v=${record.output.sha256.slice(0, 12)}`));
   assert.match(source, /Rain Rig © Blender Foundation \| cloud\.blender\.org/);
   assert.equal(record.output.cacheVersion, record.output.sha256.slice(0, 12));
   assert.equal(record.status, "production-ready");
-  assert.match(record.runtimeGate, /1920x851 desktop/);
+  assert.match(record.runtimeGate, /1440x900 desktop/);
   assert.deepEqual(imageDimensions(canonical), { width: 720, height: 900 });
-  assert.deepEqual(imageDimensions(threeWay), { width: 1800, height: 900 });
-  assert.deepEqual(imageDimensions(animationGrid), { width: 1080, height: 1440 });
+  assert.deepEqual(imageDimensions(side), { width: 720, height: 900 });
   assert.deepEqual(imageDimensions(desktop), record.validation.viewports.desktop);
   assert.deepEqual(imageDimensions(mobile), record.validation.viewports.mobile);
-  assert.deepEqual(imageDimensions(mobileMoved), record.validation.viewports.mobile);
-  assert.deepEqual(imageDimensions(motionGrid), { width: 1920, height: 720 });
-  assert.equal(motionVideo.toString("ascii", 4, 8), "ftyp");
-  assert.ok(motionVideo.length > 100_000);
   assert.equal(record.validation.consoleErrors, 0);
-  assert.equal(record.independentReview.status, "passed-after-fixes");
-  assert.notEqual(
-    createHash("sha256").update(mobile).digest("hex"),
-    createHash("sha256").update(mobileMoved).digest("hex"),
-  );
+  assert.equal(record.validation.visualChecks.originalHorizontalPonytailRemoved, true);
+  assert.equal(record.validation.visualChecks.compactLowPonytailHeadBound, true);
+  assert.equal(record.validation.visualChecks.runtimeMessengerBagRemoved, true);
 });
 
 test("Rain 已进入正式地图并在桌面与手机可访问位置展示署名", async () => {
@@ -156,8 +146,8 @@ test("Rain 已进入正式地图并在桌面与手机可访问位置展示署名
     readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8"),
     readFile(new URL("../docs/research/build-records/rain-summer-wanderer.json", import.meta.url), "utf8"),
-    readFile(new URL("../test_artifacts/test_rain_production_local_desktop.jpg", import.meta.url)),
-    readFile(new URL("../test_artifacts/test_rain_production_local_mobile.jpg", import.meta.url)),
+    readFile(new URL("../test_artifacts/test_xinhua_autumn_storybook_v2_character_desktop.png", import.meta.url)),
+    readFile(new URL("../test_artifacts/test_xinhua_autumn_storybook_v2_character_mobile.png", import.meta.url)),
   ]);
   const record = JSON.parse(recordText);
 

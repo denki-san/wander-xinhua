@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 from pathlib import Path
 
 import bpy
@@ -25,9 +26,7 @@ SOURCE_MESH_NAMES = {
     "GEO-rain_eyebrows",
     "GEO-rain_eyelashes",
     "GEO-rain_hair_main",
-    "GEO-rain_hair_ponytail",
     "GEO-rain_hair_strand",
-    "GEO-rain_hairband",
     "GEO-rain_head",
     "GEO-rain_jeans",
     "GEO-rain_scarf",
@@ -114,6 +113,67 @@ def palette():
         "eye_iris": make_material("Rain_Eye_Iris", "#5a9d9c", 0.7),
         "eye_dark": make_material("Rain_Eye_Dark", "#172525", 0.8),
     }
+
+
+def move_to_collection(obj, collection) -> None:
+    for source_collection in list(obj.users_collection):
+        source_collection.objects.unlink(obj)
+    collection.objects.link(obj)
+
+
+def apply_object_transform(obj) -> None:
+    bpy.ops.object.select_all(action="DESELECT")
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
+
+
+def create_low_ponytail(collection, materials):
+    """用贴近后颈的短束低马尾替换水平高马尾，并保持 Head 刚性绑定。"""
+    lobes = []
+    lobe_specs = (
+        ((0.0, 0.084, 1.443), (0.034, 0.041, 0.055), -0.07),
+        ((0.004, 0.089, 1.385), (0.026, 0.032, 0.043), 0.05),
+    )
+    for index, (location, scale, rotation_z) in enumerate(lobe_specs):
+        bpy.ops.mesh.primitive_ico_sphere_add(
+            subdivisions=2,
+            radius=1.0,
+            location=location,
+            rotation=(math.radians(-8), 0, rotation_z),
+        )
+        lobe = bpy.context.active_object
+        lobe.name = f"Rain_hair_low_ponytail_lobe_{index}"
+        lobe.scale = scale
+        move_to_collection(lobe, collection)
+        apply_object_transform(lobe)
+        lobe.data.materials.append(materials["hair"])
+        lobes.append(lobe)
+
+    bpy.ops.object.select_all(action="DESELECT")
+    for lobe in lobes:
+        lobe.select_set(True)
+    bpy.context.view_layer.objects.active = lobes[0]
+    bpy.ops.object.join()
+    ponytail = bpy.context.active_object
+    ponytail.name = "Rain_hair_low_ponytail"
+    ponytail.data.name = "Rain_hair_low_ponytail_Mesh"
+
+    bpy.ops.mesh.primitive_torus_add(
+        major_radius=0.024,
+        minor_radius=0.007,
+        major_segments=14,
+        minor_segments=6,
+        location=(0.0, 0.076, 1.486),
+        rotation=(math.radians(78), 0, 0),
+    )
+    hairband = bpy.context.active_object
+    hairband.name = "Rain_hairband_low"
+    hairband.data.name = "Rain_hairband_low_Mesh"
+    move_to_collection(hairband, collection)
+    apply_object_transform(hairband)
+    hairband.data.materials.append(materials["hairband"])
+    return [ponytail, hairband]
 
 
 def apply_modifier(obj, modifier) -> None:
@@ -498,6 +558,7 @@ def main() -> None:
         assign_materials(clone, materials)
         decimate_for_runtime(clone)
         meshes.append(clone)
+    meshes.extend(create_low_ponytail(candidate_collection, materials))
 
     animation_rig = import_animation_rig()
     align_animation_rig(animation_rig, source_rig)
