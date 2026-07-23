@@ -3268,3 +3268,36 @@ Failed to create unified exec process: Too many open files (os error 24)
 ### Resolution
 - **Resolved**: 2026-07-21T00:00:00+08:00
 - **Notes**: 已切换为串行执行，后续命令恢复正常。
+
+---
+## [ERR-20260723-082] lighting_v3_effect_children_typecheck
+
+**Logged**: 2026-07-23T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+为低配设备条件关闭 SSAO 和描边时，短路表达式产生的 `false | Element`
+不满足当前 EffectComposer 的严格子节点类型。
+
+### Error
+```text
+Type 'false | Element' is not assignable to type 'Element'.
+```
+
+### Context
+- `npm test` 的 TypeScript 场景检查发现该问题。
+- 同轮一条源码断言错误转义了正则字面量中的自闭合标签。
+
+### Suggested Fix
+EffectComposer 内的条件 effect 使用空 Fragment 分支，测试正则直接匹配
+合法的 `/>` 源码文本。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/xinhua-experience.tsx, tests/test_controls.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-23T00:00:00+08:00
+- **Notes**: 已替换条件子节点表达式并修正测试正则，随后重新执行完整测试。

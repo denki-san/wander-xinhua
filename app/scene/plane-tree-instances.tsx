@@ -38,6 +38,10 @@ export const PLANE_TREE_GROUND_INSET = 0.04;
 
 type ColorMaterial = Material & {
   color?: Color;
+  emissive?: Color;
+  emissiveIntensity?: number;
+  metalness?: number;
+  roughness?: number;
 };
 
 export function cloneAutumnPlaneTreeMaterial(source: Material) {
@@ -47,13 +51,21 @@ export function cloneAutumnPlaneTreeMaterial(source: Material) {
 
   if (/叶|leaf/.test(name)) {
     const target = /深|dark/.test(name)
-      ? "#67734b"
+      ? "#74834f"
       : /浅|light/.test(name)
-        ? "#d0a35a"
-        : "#a78549";
+        ? "#d7ad58"
+        : "#ad8140";
     material.color.set(target);
+    if (material.emissive) {
+      material.emissive.set("#3c3420");
+      material.emissiveIntensity = 0.055;
+    }
+    if (typeof material.roughness === "number") material.roughness = 0.96;
+    if (typeof material.metalness === "number") material.metalness = 0;
   } else if (/干|枝|bark|trunk|branch/.test(name)) {
-    material.color.lerp(new Color("#806e55"), 0.2);
+    material.color.lerp(new Color("#756654"), 0.38);
+    if (typeof material.roughness === "number") material.roughness = 0.92;
+    if (typeof material.metalness === "number") material.metalness = 0;
   }
   material.needsUpdate = true;
   return material;

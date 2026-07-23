@@ -4,6 +4,7 @@ import {
   Float,
   Html,
   RoundedBox,
+  Shadow,
   useAnimations,
   useGLTF,
 } from "@react-three/drei";
@@ -715,6 +716,7 @@ function PlayableWanderer({
 }) {
   const { camera, gl } = useThree();
   const outer = useRef<Group>(null);
+  const groundShadow = useRef<Group>(null);
   const initialStart = useMemo(() => requestedStartPreset(startPreset), [startPreset]);
   const initialForward = useMemo(() => initialStart.forward.clone(), [initialStart]);
   const cameraTargetHeight = initialStart.cameraTargetHeight ?? CAMERA_TARGET_HEIGHT;
@@ -1019,6 +1021,18 @@ function PlayableWanderer({
       s.basis.makeBasis(s.right, WORLD_UP, currentForward);
       outer.current.quaternion.setFromRotationMatrix(s.basis);
     }
+    if (groundShadow.current) {
+      const [sunX, , sunZ] = XINHUA_AUTUMN_ATMOSPHERE.sunOffset;
+      const shadowLength = Math.hypot(sunX, sunZ);
+      const shadowX = -sunX / shadowLength;
+      const shadowZ = -sunZ / shadowLength;
+      groundShadow.current.position.set(
+        currentPosition.x * DETAIL_WORLD_SCALE + shadowX * 1.15,
+        scaledSurfaceHeight + 0.39,
+        currentPosition.z * DETAIL_WORLD_SCALE + shadowZ * 1.15,
+      );
+      groundShadow.current.rotation.y = Math.atan2(shadowX, shadowZ);
+    }
 
     s.cameraTarget.set(
       currentPosition.x * DETAIL_WORLD_SCALE,
@@ -1152,7 +1166,21 @@ function PlayableWanderer({
     }
   });
 
-  return <WandererCharacter outerRef={outer} />;
+  return (
+    <>
+      <group ref={groundShadow}>
+        <Shadow
+          scale={[1.05, 4.4, 1]}
+          color="#050807"
+          colorStop={0.1}
+          opacity={0.38}
+          depthWrite={false}
+          renderOrder={3}
+        />
+      </group>
+      <WandererCharacter outerRef={outer} />
+    </>
+  );
 }
 
 type OverviewLabelStyle = CSSProperties & {
@@ -1395,6 +1423,7 @@ function AutumnLightRig({
 }) {
   const { camera } = useThree();
   const light = useRef<DirectionalLight>(null);
+  const skyFill = useRef<DirectionalLight>(null);
   const focus = useRef(SHADOW_CENTER.clone());
   const desiredFocus = useMemo(() => new Vector3(), []);
   const target = useMemo(() => {
@@ -1403,6 +1432,7 @@ function AutumnLightRig({
     return result;
   }, []);
   const [sunX, sunY, sunZ] = XINHUA_AUTUMN_ATMOSPHERE.sunOffset;
+  const [fillX, fillY, fillZ] = XINHUA_AUTUMN_ATMOSPHERE.skyFillOffset;
 
   useFrame((_, delta) => {
     desiredFocus.set(
@@ -1421,11 +1451,17 @@ function AutumnLightRig({
       focus.current.y + sunY,
       focus.current.z + sunZ,
     );
+    skyFill.current?.position.set(
+      focus.current.x + fillX,
+      focus.current.y + fillY,
+      focus.current.z + fillZ,
+    );
   });
 
   return (
     <>
       <ambientLight
+        color={XINHUA_AUTUMN_ATMOSPHERE.ambientColor}
         intensity={exploring
           ? XINHUA_AUTUMN_ATMOSPHERE.ambientIntensity.explore
           : XINHUA_AUTUMN_ATMOSPHERE.ambientIntensity.overview}
@@ -1451,14 +1487,28 @@ function AutumnLightRig({
         castShadow
         shadow-mapSize-width={exploring && !lowTier ? 2048 : 1024}
         shadow-mapSize-height={exploring && !lowTier ? 2048 : 1024}
-        shadow-camera-near={0.5}
-        shadow-camera-far={320}
-        shadow-camera-left={exploring ? -72 : -240}
-        shadow-camera-right={exploring ? 72 : 240}
-        shadow-camera-top={exploring ? 72 : 240}
-        shadow-camera-bottom={exploring ? -72 : -240}
-        shadow-bias={-0.00018}
-        shadow-normalBias={0.018}
+        shadow-camera-near={1}
+        shadow-camera-far={280}
+        shadow-camera-left={exploring ? -48 : -240}
+        shadow-camera-right={exploring ? 48 : 240}
+        shadow-camera-top={exploring ? 48 : 240}
+        shadow-camera-bottom={exploring ? -48 : -240}
+        shadow-bias={-0.00012}
+        shadow-normalBias={0.012}
+        shadow-radius={1.65}
+      />
+      <directionalLight
+        ref={skyFill}
+        position={[
+          SHADOW_CENTER.x + fillX,
+          fillY,
+          SHADOW_CENTER.z + fillZ,
+        ]}
+        target={target}
+        color={XINHUA_AUTUMN_ATMOSPHERE.skyFillColor}
+        intensity={exploring
+          ? XINHUA_AUTUMN_ATMOSPHERE.skyFillIntensity.explore
+          : XINHUA_AUTUMN_ATMOSPHERE.skyFillIntensity.overview}
       />
     </>
   );

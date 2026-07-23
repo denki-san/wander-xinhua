@@ -58,7 +58,7 @@ class InkOutlineEffect extends Effect {
       attributes: EffectAttribute.DEPTH,
       uniforms: new Map<string, Uniform>([
         ["uColor", new Uniform(new Color("#31423f"))],
-        ["uStrength", new Uniform(0.48)],
+        ["uStrength", new Uniform(0.32)],
         ["uThreshold", new Uniform(0.052)],
         ["uColorThreshold", new Uniform(0.086)],
         ["uTexel", new Uniform(new Vector2(1, 1))],
@@ -96,18 +96,19 @@ float noise(vec2 p) {
 void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
   vec3 color = inputColor.rgb;
   float luminance = dot(color, vec3(0.299, 0.587, 0.114));
-  color = mix(vec3(luminance), color, 1.015);
-  color = (color - 0.5) * 1.035 + 0.5;
-  color *= vec3(1.028, 1.008, 0.97);
+  color = mix(vec3(luminance), color, 1.035);
+  color = (color - 0.5) * 1.04 + 0.5;
+  float warmHighlight = smoothstep(0.44, 0.9, luminance);
+  color *= mix(vec3(0.978, 0.996, 1.022), vec3(1.038, 1.01, 0.96), warmHighlight);
   float grain = noise(uv * uResolution * 0.28 + uTime * 0.03) * 0.55
               + noise(uv * uResolution * 0.065) * 0.45;
-  color *= 0.988 + grain * 0.024;
-  color.r *= 1.0 + (grain - 0.5) * 0.009;
-  color.b *= 1.0 - (grain - 0.5) * 0.009;
+  color *= 0.991 + grain * 0.018;
+  color.r *= 1.0 + (grain - 0.5) * 0.007;
+  color.b *= 1.0 - (grain - 0.5) * 0.007;
   // 沿真实视口边缘做纸张晕染，避免圆形暗角在宽屏或窄屏上被裁成残缺光圈。
   vec2 edge = abs(uv * 2.0 - 1.0);
   float edgeWash = smoothstep(0.64, 1.0, max(edge.x, edge.y));
-  color *= 1.0 - edgeWash * 0.012;
+  color *= 1.0 - edgeWash * 0.009;
   outputColor = vec4(color, inputColor.a);
 }
 `;
@@ -238,7 +239,8 @@ void main() {
   color = mix(color, vec3(1.0, 0.92, 0.79), cloudHighlight * 0.34);
   float warmHorizon = 1.0 - smoothstep(0.02, 0.48, upperHeight);
   color = mix(color, vec3(1.0, 0.86, 0.67), warmHorizon * 0.22);
-  color *= 1.075;
+  color = mix(vec3(sourceLuminance), color, 1.16);
+  color *= vec3(0.92, 0.98, 1.08);
 
   float sunFacing = dot(normalize(vWorldDirection), normalize(uSunDirection));
   float sunHalo = smoothstep(0.945, 0.9985, sunFacing);
@@ -325,8 +327,10 @@ function StorybookCloudCluster({
           renderOrder={-5}
         >
           <icosahedronGeometry args={[1, 2]} />
-          <meshBasicMaterial
-            color={index % 2 === 0 ? tint : "#fff7e5"}
+          <meshToonMaterial
+            color={index >= 3 ? "#fff7e6" : index % 2 === 0 ? tint : "#ead8bd"}
+            emissive={index >= 3 ? "#8b5d31" : "#3f5361"}
+            emissiveIntensity={index >= 3 ? 0.12 : 0.045}
             fog={false}
             depthWrite={false}
           />

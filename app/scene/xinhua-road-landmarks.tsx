@@ -32,6 +32,7 @@ import {
   buildPlaneTreePlacements,
   XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
 } from "./xinhua-road-placement.mjs";
+import { XINHUA_AUTUMN_ATMOSPHERE } from "./atmosphere-contract";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
 
 type LandmarkPlacement = {
@@ -177,6 +178,126 @@ const XINHUA_LIGHTWEIGHT_PLANE_TREE_INSTANCES = XINHUA_PLANE_TREE_INSTANCES.filt
   (placement) => placement.id !== XINHUA_HERO_PLANE_TREE_PLACEMENT.id,
 );
 
+function AutumnPlaneTreeShadows() {
+  const shadowLobes = useMemo(() => {
+    const [sunX, , sunZ] = XINHUA_AUTUMN_ATMOSPHERE.sunOffset;
+    const shadowLength = Math.hypot(sunX, sunZ);
+    const directionX = -sunX / shadowLength;
+    const directionZ = -sunZ / shadowLength;
+    const yaw = Math.atan2(directionX, directionZ);
+    return XINHUA_PLANE_TREE_INSTANCES.flatMap((tree, treeIndex) => (
+      Array.from({ length: 5 }, (_, lobeIndex) => {
+        const distance = 1.05 + lobeIndex * 2.05;
+        const sideOffset = Math.sin(treeIndex * 1.77 + lobeIndex * 2.13)
+          * (0.42 + lobeIndex * 0.16);
+        return {
+          position: [
+            tree.position[0] + directionX * distance + directionZ * sideOffset,
+            tree.position[1] + 0.19,
+            tree.position[2] + directionZ * distance - directionX * sideOffset,
+          ] as const,
+          yaw,
+          scale: [
+            1.15 + lobeIndex * 0.34 + treeIndex % 3 * 0.14,
+            1.5 + lobeIndex * 0.62,
+          ] as const,
+        };
+      })
+    ));
+  }, []);
+  const mesh = useRef<InstancedMesh>(null);
+  const trunks = useRef<InstancedMesh>(null);
+
+  useLayoutEffect(() => {
+    if (!mesh.current || !trunks.current) return;
+    const matrix = new Matrix4();
+    const quaternion = new Quaternion();
+    const groundQuaternion = new Quaternion();
+    const yawQuaternion = new Quaternion();
+    const position = new Vector3();
+    const scale = new Vector3();
+    const up = new Vector3(0, 1, 0);
+    const xAxis = new Vector3(1, 0, 0);
+    groundQuaternion.setFromAxisAngle(xAxis, -Math.PI / 2);
+
+    shadowLobes.forEach((shadow, index) => {
+      position.set(...shadow.position);
+      yawQuaternion.setFromAxisAngle(up, shadow.yaw);
+      quaternion.multiplyQuaternions(yawQuaternion, groundQuaternion);
+      scale.set(shadow.scale[0], shadow.scale[1], 1);
+      matrix.compose(position, quaternion, scale);
+      mesh.current?.setMatrixAt(index, matrix);
+    });
+    mesh.current.instanceMatrix.needsUpdate = true;
+    mesh.current.computeBoundingSphere();
+
+    const [sunX, , sunZ] = XINHUA_AUTUMN_ATMOSPHERE.sunOffset;
+    const shadowLength = Math.hypot(sunX, sunZ);
+    const directionX = -sunX / shadowLength;
+    const directionZ = -sunZ / shadowLength;
+    const yaw = Math.atan2(directionX, directionZ);
+    XINHUA_PLANE_TREE_INSTANCES.forEach((tree, index) => {
+      position.set(
+        tree.position[0] + directionX * 3.3,
+        tree.position[1] + 0.192,
+        tree.position[2] + directionZ * 3.3,
+      );
+      yawQuaternion.setFromAxisAngle(up, yaw);
+      quaternion.multiplyQuaternions(yawQuaternion, groundQuaternion);
+      scale.set(0.2 + index % 3 * 0.035, 6.8, 1);
+      matrix.compose(position, quaternion, scale);
+      trunks.current?.setMatrixAt(index, matrix);
+    });
+    trunks.current.instanceMatrix.needsUpdate = true;
+    trunks.current.computeBoundingSphere();
+  }, [shadowLobes]);
+
+  return (
+    <>
+      <instancedMesh
+        ref={mesh}
+        args={[undefined, undefined, shadowLobes.length]}
+        renderOrder={1}
+        userData={{
+          atmosphere: "storybook-plane-tree-shadows",
+          direction: "shared-autumn-sun",
+          instanced: true,
+        }}
+      >
+        <circleGeometry args={[1, 12]} />
+        <meshBasicMaterial
+          color="#1d3540"
+          transparent
+          opacity={0.22}
+          depthWrite={false}
+          polygonOffset
+          polygonOffsetFactor={-2}
+        />
+      </instancedMesh>
+      <instancedMesh
+        ref={trunks}
+        args={[undefined, undefined, XINHUA_PLANE_TREE_INSTANCES.length]}
+        renderOrder={1}
+        userData={{
+          atmosphere: "storybook-plane-tree-trunk-shadows",
+          direction: "shared-autumn-sun",
+          instanced: true,
+        }}
+      >
+        <planeGeometry args={[1, 1]} />
+        <meshBasicMaterial
+          color="#1a2c33"
+          transparent
+          opacity={0.24}
+          depthWrite={false}
+          polygonOffset
+          polygonOffsetFactor={-2}
+        />
+      </instancedMesh>
+    </>
+  );
+}
+
 function AutumnLeafCarpet() {
   const leaves = useMemo(() => XINHUA_PLANE_TREE_INSTANCES.flatMap((tree, treeIndex) => (
     Array.from({ length: 4 }, (_, leafIndex) => {
@@ -226,7 +347,7 @@ function AutumnLeafCarpet() {
       userData={{ vegetation: "xinhua-autumn-leaf-carpet", instanced: true }}
     >
       <boxGeometry args={[0.17, 0.012, 0.075]} />
-      <meshToonMaterial vertexColors />
+      <meshStandardMaterial vertexColors roughness={0.98} metalness={0} />
     </instancedMesh>
   );
 }
@@ -259,8 +380,8 @@ function cloneAutumnLandmarkMaterial(source: Material) {
     color.lerp(new Color("#87503d"), 0.26);
     if (typeof material.roughness === "number") material.roughness = 0.88;
   } else if (/白|墙|灰泥|石材|浅石|曲面|门楼|象牙|cream|plaster|stone/.test(name)) {
-    color.lerp(new Color("#c6b493"), 0.28);
-    color.multiplyScalar(0.89);
+    color.lerp(new Color("#cfbd9b"), 0.32);
+    color.multiplyScalar(0.94);
     if (typeof material.roughness === "number") material.roughness = 0.84;
   } else if (/绿植|草坪|绿篱|灌木|garden|hedge|lawn/.test(name)) {
     color.lerp(new Color("#747548"), 0.32);
@@ -336,6 +457,7 @@ export function XinhuaRoadPlaneTrees({ showHero = false }: { showHero?: boolean 
       name="xinhua-road-plane-trees"
       userData={{ variants: 3, arrangement: "deterministic-id-hash" }}
     >
+      <AutumnPlaneTreeShadows />
       <PlaneTreeInstances
         name="xinhua-road-plane-tree-batches"
         placements={lightweightPlacements}

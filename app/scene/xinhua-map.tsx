@@ -38,7 +38,7 @@ export const XINHUA_ENVIRONMENT_SCALE = mapData.meta.environmentScale;
 const ROAD_STYLES: Record<RoadStyleName, { width: number; color: string; y: number }> = {
   arterial: { width: 2.18 * XINHUA_ENVIRONMENT_SCALE, color: "#454847", y: 0.13 },
   collector: { width: 1.45 * XINHUA_ENVIRONMENT_SCALE, color: "#585955", y: 0.12 },
-  xinhua: { width: 0.98 * XINHUA_ENVIRONMENT_SCALE, color: "#4a4e4d", y: 0.121 },
+  xinhua: { width: 0.98 * XINHUA_ENVIRONMENT_SCALE, color: "#696d69", y: 0.121 },
   neighborhood: { width: 0.9 * XINHUA_ENVIRONMENT_SCALE, color: "#696760", y: 0.11 },
   lane: { width: 0.68 * XINHUA_ENVIRONMENT_SCALE, color: "#777268", y: 0.1 },
   service: { width: 0.5 * XINHUA_ENVIRONMENT_SCALE, color: "#898174", y: 0.09 },
@@ -372,7 +372,12 @@ function MapGround() {
   return (
     <>
       <mesh geometry={geometry} receiveShadow>
-        <meshToonMaterial vertexColors side={DoubleSide} />
+        <meshStandardMaterial
+          vertexColors
+          roughness={1}
+          metalness={0}
+          side={DoubleSide}
+        />
       </mesh>
     </>
   );
@@ -405,13 +410,17 @@ function AsphaltRoadNetwork() {
         if (!geometry) return null;
         return (
           <mesh key={styleName} geometry={geometry} receiveShadow>
-            <meshToonMaterial color={ROAD_STYLES[styleName].color} />
+            <meshStandardMaterial
+              color={ROAD_STYLES[styleName].color}
+              roughness={0.97}
+              metalness={0}
+            />
           </mesh>
         );
       })}
       {geometries.centerLines && (
-        <mesh geometry={geometries.centerLines}>
-          <meshBasicMaterial color="#e7d6a2" />
+        <mesh geometry={geometries.centerLines} receiveShadow>
+          <meshStandardMaterial color="#d8c996" roughness={0.92} metalness={0} />
         </mesh>
       )}
       <group

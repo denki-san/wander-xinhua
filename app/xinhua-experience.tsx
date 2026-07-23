@@ -2,10 +2,17 @@
 
 /* eslint-disable @next/next/no-img-element -- POI 实景图由动态数据提供，并需要保留对应的外部图源链接。 */
 
-import { EffectComposer } from "@react-three/postprocessing";
+import {
+  EffectComposer,
+  SSAO,
+  ToneMapping,
+} from "@react-three/postprocessing";
 import { Canvas } from "@react-three/fiber";
-import { ACESFilmicToneMapping, SRGBColorSpace } from "three";
-import type { EffectComposer as PostprocessingEffectComposer } from "postprocessing";
+import { SRGBColorSpace } from "three";
+import {
+  ToneMappingMode,
+  type EffectComposer as PostprocessingEffectComposer,
+} from "postprocessing";
 import {
   memo,
   Suspense,
@@ -22,7 +29,6 @@ import {
   PaperWash,
   StorybookCloudLayer,
 } from "./scene/visual-effects";
-import { XINHUA_AUTUMN_ATMOSPHERE } from "./scene/atmosphere-contract";
 import { MAP_POIS, mapPoiById } from "./scene/poi-data";
 import { XinhuaWorld } from "./scene/xinhua-world";
 import mapData from "./scene/xinhua-map-data.json";
@@ -53,10 +59,26 @@ const VisualEffectComposer = memo(function VisualEffectComposer({
     <EffectComposer
       ref={composerRef}
       multisampling={lowTier ? 0 : 2}
+      enableNormalPass={!lowTier}
+      resolutionScale={lowTier ? undefined : 0.5}
     >
-      {lowTier
-        ? <PaperWash />
-        : [<InkOutline key="ink-outline" />, <PaperWash key="paper-wash" />]}
+      {lowTier ? <></> : (
+        <SSAO
+          samples={16}
+          rings={3}
+          radius={1.45}
+          intensity={0.28}
+          luminanceInfluence={0.82}
+          distanceThreshold={0.92}
+          distanceFalloff={0.08}
+          rangeThreshold={0.66}
+          rangeFalloff={0.14}
+          bias={0.045}
+        />
+      )}
+      <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
+      {lowTier ? <></> : <InkOutline />}
+      <PaperWash />
     </EffectComposer>
   );
 });
@@ -347,7 +369,7 @@ export function XinhuaExperience() {
   return (
     <main className={`xinhua-stage is-${mode}${playing ? " is-playing" : ""}${touchCapable ? " is-touch" : ""}`}>
       <Canvas
-        shadows
+        shadows="percentage"
         dpr={lowTier ? 1.25 : [1, 1.75]}
         camera={{
           fov: 50,
@@ -357,12 +379,10 @@ export function XinhuaExperience() {
         }}
         gl={{
           antialias: true,
-          toneMapping: ACESFilmicToneMapping,
           outputColorSpace: SRGBColorSpace,
           powerPreference: "high-performance",
         }}
-        onCreated={({ gl }) => {
-          gl.toneMappingExposure = XINHUA_AUTUMN_ATMOSPHERE.toneMappingExposure;
+        onCreated={() => {
           setReady(true);
         }}
       >
