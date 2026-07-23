@@ -3369,3 +3369,39 @@ zsh: command not found: agent-browser
 ### Resolution
 - **Resolved**: 2026-07-23T00:00:00+08:00
 - **Notes**: 未安装新软件；新增道路顶面测试并在交付说明中保留截图边界。
+
+---
+## [ERR-20260724-085] sites_default_build_missing_dist
+
+**Logged**: 2026-07-24T00:20:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: infra
+
+### Summary
+Codex Sites 从源码发布时运行默认 `npm run build`，但项目默认构建只生成
+`dist-static`，导致发布收尾找不到 Sites 所需的 `dist`。
+
+### Error
+```text
+cp: cannot stat 'dist': No such file or directory
+```
+
+### Context
+- Vite 静态构建成功，失败发生在 Codex Sites 复制部署产物阶段。
+- 项目已经提供可生成 `dist/server/index.js` 的 `build:sites`，但默认
+  `build` 没有调用它。
+- 发布目标仅为 Codex Sites，不涉及 Denkisan。
+
+### Suggested Fix
+让默认 `build` 依次执行 `build:static` 与 `build:sites`，同时保留
+`dist-static` 的本地/VPS预览兼容性和 Codex Sites 所需的 `dist`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json, vite.static.config.ts
+
+### Resolution
+- **Resolved**: 2026-07-24T00:25:00+08:00
+- **Notes**: 默认构建已同时生成 `dist-static` 与 `dist`；部署契约测试已更新，
+  完整测试 120/120 和 lint 通过。
