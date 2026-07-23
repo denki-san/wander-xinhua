@@ -6,6 +6,10 @@ import {
   autumnShadowSurfaceHeightAt,
   terrainHeightAt,
 } from "../app/scene/terrain.ts";
+import {
+  ROADS,
+  visibleRoadSurfaceOffsetAt,
+} from "../app/scene/road-surface-contract.ts";
 
 test("探索态建立可读的秋日下午方向光与局部阴影", async () => {
   const [atmosphere, world, experience] = await Promise.all([
@@ -54,6 +58,7 @@ test("梧桐绘本影按每个延伸坐标重新贴合真实缓坡", () => {
     assert.ok(Math.abs(
       autumnShadowSurfaceHeightAt(x, z)
       - terrainHeightAt(x, z)
+      - visibleRoadSurfaceOffsetAt(x, z)
       - AUTUMN_SHADOW_SURFACE_OFFSET
     ) < 1e-9);
   }
@@ -64,5 +69,30 @@ test("梧桐绘本影按每个延伸坐标重新贴合真实缓坡", () => {
     autumnShadowSurfaceHeightAt(...treeRoot),
     autumnShadowSurfaceHeightAt(...extendedShadow),
     "延伸影不能继续复用树根处的固定高度",
+  );
+});
+
+test("梧桐绘本影在新华路上贴到柏油顶面而不是埋在道路下", () => {
+  const xinhuaRoad = ROADS.find((road) => (
+    road.name === "新华路" && !road.bridge && !road.tunnel
+  ));
+  assert.ok(xinhuaRoad);
+
+  const roadSamples = xinhuaRoad.points.slice(1).map((end, index) => {
+    const start = xinhuaRoad.points[index];
+    return [
+      (start[0] + end[0]) / 2,
+      (start[1] + end[1]) / 2,
+    ];
+  });
+  const sample = roadSamples.find(([x, z]) => (
+    visibleRoadSurfaceOffsetAt(x, z) >= 0.1585
+  ));
+  assert.ok(sample, "应找到新华路柏油中心的可见表面样本");
+  const [x, z] = sample;
+  assert.ok(
+    autumnShadowSurfaceHeightAt(x, z)
+      > terrainHeightAt(x, z) + 0.1585,
+    "道路树影必须位于柏油顶面之上",
   );
 });

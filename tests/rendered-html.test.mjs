@@ -94,7 +94,10 @@ test("幸福里使用七栋固定建筑和可识别的核心街具", async () =>
 });
 
 test("地图使用真实行政边界、完整道路骨架和柏油主干道", async () => {
-  const mapSource = await readFile(new URL("../app/scene/xinhua-map.tsx", import.meta.url), "utf8");
+  const [mapSource, surfaceContract] = await Promise.all([
+    readFile(new URL("../app/scene/xinhua-map.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/scene/road-surface-contract.ts", import.meta.url), "utf8"),
+  ]);
   const map = JSON.parse(await readFile(new URL("../app/scene/xinhua-map-data.json", import.meta.url), "utf8"));
 
   assert.equal(map.meta.osmRelationId, 13469094);
@@ -111,9 +114,9 @@ test("地图使用真实行政边界、完整道路骨架和柏油主干道", as
   }
   assert.match(mapSource, /data-administrative-boundary="osm-13469094"/);
   assert.match(mapSource, /data-road-network="osm-13469094"/);
-  assert.match(mapSource, /2\.18 \* XINHUA_ENVIRONMENT_SCALE/);
-  assert.match(mapSource, /2\.62 \* XINHUA_ENVIRONMENT_SCALE/);
-  assert.match(mapSource, /1\.82 \* XINHUA_ENVIRONMENT_SCALE/);
+  assert.match(surfaceContract, /2\.18 \* XINHUA_ENVIRONMENT_SCALE/);
+  assert.match(surfaceContract, /2\.62 \* XINHUA_ENVIRONMENT_SCALE/);
+  assert.match(surfaceContract, /1\.82 \* XINHUA_ENVIRONMENT_SCALE/);
   assert.match(mapSource, /const curbCenterY = 0\.07 \+ curbHeight \/ 2/);
   assert.doesNotMatch(mapSource, /#e8dcc0|#efe5cb/);
 });

@@ -3324,9 +3324,9 @@ ERR_MODULE_NOT_FOUND: Cannot find module 'app/scene/terrain'
 - 项目测试直接由 Node 25 加载 `.ts`，相对导入需要显式 `.ts` 扩展名。
 
 ### Suggested Fix
-供浏览器源码与 Node 测试共同使用的 helper 直接与既有 `terrain.ts` 导出
-放在一起；应用源码继续使用 bundler 兼容的无扩展名导入，Node 测试从
-`terrain.ts` 直接导入。
+只在当前 `noEmit` + `moduleResolution: bundler` 项目中启用
+`allowImportingTsExtensions`，让供浏览器源码与 Node 测试共同使用的纯
+TypeScript 合同可以显式导入 `.ts`。
 
 ### Metadata
 - Reproducible: yes
@@ -3334,5 +3334,38 @@ ERR_MODULE_NOT_FOUND: Cannot find module 'app/scene/terrain'
 
 ### Resolution
 - **Resolved**: 2026-07-23T00:00:00+08:00
-- **Notes**: 已把 helper 合并到 `terrain.ts`，避免应用源码的扩展名冲突，
-  并重新执行目标测试和完整构建。
+- **Notes**: helper 已合并到 `terrain.ts`；新增道路表面合同时启用显式
+  `.ts` 导入，由 Node、Vite 和完整 TypeScript 检查共同验证。
+
+---
+## [ERR-20260723-084] agent_browser_cli_unavailable
+
+**Logged**: 2026-07-23T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+独立复核最终树影贴面时，本机没有 `agent-browser` CLI，临时下载执行被安全
+策略拒绝。
+
+### Error
+```text
+zsh: command not found: agent-browser
+```
+
+### Context
+- 既有真实 Chrome 截图和 0 error 证据已覆盖同一光照与材质系统。
+- 最终改动只调整树影 Y 表面采样；未绕过策略安装第三方软件。
+
+### Suggested Fix
+使用已连接浏览器完成视觉批次后再清理会话；工具不可用时以共享道路顶面合同、
+数学测试和既有真实运行证据明确区分自动验证与截图范围。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_autumn_lighting_v3.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-23T00:00:00+08:00
+- **Notes**: 未安装新软件；新增道路顶面测试并在交付说明中保留截图边界。

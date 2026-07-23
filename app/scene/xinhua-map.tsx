@@ -17,37 +17,23 @@ import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js
 import mapData from "./xinhua-map-data.json";
 import { buildTerrainCells, terrainHeightAt } from "./terrain";
 import type { MapPolygonPoint } from "./world-math";
+import {
+  isSurfaceRoad,
+  ROAD_MESH_HEIGHT,
+  ROADS,
+  ROAD_STYLES,
+  roadStyle,
+  roadWidth,
+  XINHUA_ENVIRONMENT_SCALE,
+  XINHUA_ROAD_ASPHALT_WIDTH,
+  XINHUA_ROAD_CURB_WIDTH,
+  XINHUA_ROAD_SIDEWALK_WIDTH,
+  XINHUA_ROAD_VERGE_WIDTH,
+  type Road,
+  type RoadStyleName,
+} from "./road-surface-contract.ts";
 
-type Road = {
-  id: string;
-  osmWayId: number;
-  name: string;
-  nameEn: string;
-  highway: string;
-  lanes: number | null;
-  bridge: boolean;
-  layer: number;
-  tunnel: boolean;
-  points: [number, number][];
-};
-
-type RoadStyleName = "arterial" | "collector" | "xinhua" | "neighborhood" | "lane" | "service";
-
-export const XINHUA_ENVIRONMENT_SCALE = mapData.meta.environmentScale;
-
-const ROAD_STYLES: Record<RoadStyleName, { width: number; color: string; y: number }> = {
-  arterial: { width: 2.18 * XINHUA_ENVIRONMENT_SCALE, color: "#454847", y: 0.13 },
-  collector: { width: 1.45 * XINHUA_ENVIRONMENT_SCALE, color: "#585955", y: 0.12 },
-  xinhua: { width: 0.98 * XINHUA_ENVIRONMENT_SCALE, color: "#696d69", y: 0.121 },
-  neighborhood: { width: 0.9 * XINHUA_ENVIRONMENT_SCALE, color: "#696760", y: 0.11 },
-  lane: { width: 0.68 * XINHUA_ENVIRONMENT_SCALE, color: "#777268", y: 0.1 },
-  service: { width: 0.5 * XINHUA_ENVIRONMENT_SCALE, color: "#898174", y: 0.09 },
-};
-
-const XINHUA_ROAD_ASPHALT_WIDTH = 0.98 * XINHUA_ENVIRONMENT_SCALE;
-const XINHUA_ROAD_CURB_WIDTH = 0.055 * XINHUA_ENVIRONMENT_SCALE;
-const XINHUA_ROAD_SIDEWALK_WIDTH = 0.16 * XINHUA_ENVIRONMENT_SCALE;
-const XINHUA_ROAD_VERGE_WIDTH = 0.08 * XINHUA_ENVIRONMENT_SCALE;
+export { XINHUA_ENVIRONMENT_SCALE };
 
 const LABELLED_ROADS = [
   "延安西路",
@@ -62,42 +48,9 @@ const LABELLED_ROADS = [
   "安顺路",
 ] as const;
 
-const ROADS: Road[] = mapData.roads.map((road) => ({
-  ...road,
-  points: road.points.map(([x, z]) => [x, z]),
-}));
-
 export const XINHUA_BOUNDARY: MapPolygonPoint[] = mapData.boundary.map(([x, z]) => [x, z]);
 export const XINHUA_BOUNDS = mapData.bounds;
 export const XINGFULI_PLACEMENT = mapData.landmarks.xingfuli;
-
-function roadStyle(road: Pick<Road, "highway" | "name">): RoadStyleName {
-  const { highway } = road;
-  if (road.name === "新华路" && highway.startsWith("tertiary")) return "xinhua";
-  if (/^(trunk|primary|secondary)/.test(highway)) return "arterial";
-  if (/^tertiary/.test(highway)) return "collector";
-  if (highway === "residential") return "neighborhood";
-  if (highway === "living_street" || highway === "unclassified") return "lane";
-  return "service";
-}
-
-function roadWidth(road: Pick<Road, "highway" | "name">) {
-  const { highway } = road;
-  if (road.name === "新华路" && highway.startsWith("tertiary")) {
-    return XINHUA_ROAD_ASPHALT_WIDTH;
-  }
-  if (highway.startsWith("trunk")) return 2.62 * XINHUA_ENVIRONMENT_SCALE;
-  if (highway.startsWith("primary")) return 2.18 * XINHUA_ENVIRONMENT_SCALE;
-  if (highway.startsWith("secondary")) return 1.82 * XINHUA_ENVIRONMENT_SCALE;
-  if (highway.startsWith("tertiary")) return 1.45 * XINHUA_ENVIRONMENT_SCALE;
-  if (highway === "residential") return 0.9 * XINHUA_ENVIRONMENT_SCALE;
-  if (highway === "living_street" || highway === "unclassified") return 0.68 * XINHUA_ENVIRONMENT_SCALE;
-  return 0.5 * XINHUA_ENVIRONMENT_SCALE;
-}
-
-function isSurfaceRoad(road: Road) {
-  return !road.tunnel && road.layer >= 0;
-}
 
 type RoadLabelPlacement = {
   key: string;
@@ -164,13 +117,18 @@ function mergeRoadMeshes(roads: Road[], styleName: RoadStyleName) {
       const endY = terrainHeightAt(end[0], end[1]);
       const length = Math.hypot(dx, endY - startY, dz);
       if (length < 0.02) continue;
-      const segment = new BoxGeometry(width, 0.075, length);
+      const segment = new BoxGeometry(width, ROAD_MESH_HEIGHT, length);
       const matrix = slopedSegmentMatrix(start, end, y);
       segment.applyMatrix4(matrix);
       pieces.push(segment);
     }
     for (const [x, z] of road.points) {
-      const join = new CylinderGeometry(width / 2, width / 2, 0.075, 10);
+      const join = new CylinderGeometry(
+        width / 2,
+        width / 2,
+        ROAD_MESH_HEIGHT,
+        10,
+      );
       join.translate(x, terrainHeightAt(x, z) + y, z);
       pieces.push(join);
     }

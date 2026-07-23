@@ -1,6 +1,7 @@
 import landmarks from "./xinhua-landmarks-data.json" with { type: "json" };
 import elevationData from "./xinhua-elevation-model.json" with { type: "json" };
 import mapData from "./xinhua-map-data.json" with { type: "json" };
+import { visibleRoadSurfaceOffsetAt } from "./road-surface-contract.ts";
 type TerrainPoint = readonly [number, number];
 type TerrainBounds = { minX: number; maxX: number; minZ: number; maxZ: number };
 
@@ -122,10 +123,12 @@ export function terrainHeightAt(x: number, z: number) {
 }
 
 // 贴地绘本影只比低频地形高出一个极小余量，避免缓坡上的闪烁、悬空和穿地。
-export const AUTUMN_SHADOW_SURFACE_OFFSET = 0.024;
+export const AUTUMN_SHADOW_SURFACE_OFFSET = 0.006;
 
 export function autumnShadowSurfaceHeightAt(x: number, z: number) {
-  return terrainHeightAt(x, z) + AUTUMN_SHADOW_SURFACE_OFFSET;
+  return terrainHeightAt(x, z)
+    + visibleRoadSurfaceOffsetAt(x, z)
+    + AUTUMN_SHADOW_SURFACE_OFFSET;
 }
 
 export type TerrainCell = readonly [number, number, number, number];
