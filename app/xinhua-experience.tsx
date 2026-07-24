@@ -2,42 +2,52 @@
 
 /* eslint-disable @next/next/no-img-element -- POI 实景图由动态数据提供，并需要保留对应的外部图源链接。 */
 
-import {
-  EffectComposer,
-  SSAO,
-  ToneMapping,
-} from "@react-three/postprocessing";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { NoToneMapping, SRGBColorSpace } from "three";
 import {
-  ToneMappingMode,
-  type EffectComposer as PostprocessingEffectComposer,
-} from "postprocessing";
-import {
-  memo,
+  lazy,
   Suspense,
   useCallback,
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
 } from "react";
-import { inputState, resetInput, setMoveVector } from "./scene/input";
+import {
+  isTouchJumpRegionActive,
+  isTouchTapGesture,
+  resetInput,
+  setMoveVector,
+  TOUCH_TAP_MAX_TRAVEL,
+  triggerJumpPulse,
+} from "./scene/input";
+import { ProgressiveFeatureBoundary } from "./progressive-feature-boundary";
 import {
   AutumnStorybookSky,
-  InkOutline,
-  PaperWash,
   StorybookCloudLayer,
 } from "./scene/visual-effects";
 import {
   DEFAULT_XINHUA_ATMOSPHERE_STYLE,
   type XinhuaAtmosphereStyle,
 } from "./scene/atmosphere-contract";
+import { useProgressiveNetworkProfile } from "./scene/progressive-loading";
 import { MAP_POIS, mapPoiById } from "./scene/poi-data";
 import { XinhuaWorld } from "./scene/xinhua-world";
 import mapData from "./scene/xinhua-map-data.json";
+import { cameraQaState } from "./scene/camera-qa";
+
+const ProgressiveVisualEffectComposer = lazy(
+  () => import("./scene/visual-effect-composer"),
+);
 
 const TOUCH_STICK_TRAVEL = 42;
+type TouchTapCandidate = {
+  startedAtMs: number;
+  startX: number;
+  startY: number;
+  maxTravel: number;
+  startedInStickZone: boolean;
+  startedWhileMoving: boolean;
+};
 const POI_PHOTO_NEARBY_PREFETCH_COUNT = 4;
 const POI_PHOTO_NEARBY_PREFETCH_INTERVAL_MS = 90;
 const POI_PHOTO_BACKGROUND_PREFETCH_DELAY_MS = 1_800;
@@ -52,48 +62,24 @@ const ATMOSPHERE_LABELS: Record<XinhuaAtmosphereStyle, string> = {
   "lighting-v3": "当前光照",
 };
 
-const VisualEffectComposer = memo(function VisualEffectComposer({
-  lowTier,
-  atmosphereStyle,
-}: {
-  lowTier: boolean;
-  atmosphereStyle: XinhuaAtmosphereStyle;
-}) {
-  const composerRef = useRef<PostprocessingEffectComposer>(null);
-  const lightingV3 = atmosphereStyle === "lighting-v3";
+function FirstPlayableFrame({ onReady }: { onReady: () => void }) {
+  const signaled = useRef(false);
+  const nextFrame = useRef<number | null>(null);
 
-  useLayoutEffect(() => {
-    const composer = composerRef.current;
-    return () => composer?.dispose();
+  useFrame(() => {
+    if (signaled.current) return;
+    signaled.current = true;
+    // useFrame 返回后 R3F 才提交当前世界；下一帧再解除遮罩并打点，
+    // 保证 Massing 已至少绘制过一次。
+    nextFrame.current = window.requestAnimationFrame(onReady);
+  });
+
+  useEffect(() => () => {
+    if (nextFrame.current !== null) window.cancelAnimationFrame(nextFrame.current);
   }, []);
 
-  return (
-    <EffectComposer
-      ref={composerRef}
-      multisampling={lowTier ? 0 : 2}
-      enableNormalPass={!lowTier}
-      resolutionScale={lowTier ? undefined : 0.5}
-    >
-      {lightingV3 && !lowTier ? (
-        <SSAO
-          samples={16}
-          rings={3}
-          radius={1.45}
-          intensity={0.28}
-          luminanceInfluence={0.82}
-          distanceThreshold={0.92}
-          distanceFalloff={0.08}
-          rangeThreshold={0.66}
-          rangeFalloff={0.14}
-          bias={0.045}
-        />
-      ) : <></>}
-      <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
-      {lowTier && lightingV3 ? <></> : <InkOutline atmosphereStyle={atmosphereStyle} />}
-      {lowTier && lightingV3 ? <></> : <PaperWash atmosphereStyle={atmosphereStyle} />}
-    </EffectComposer>
-  );
-});
+  return null;
+}
 
 function detectLowTier() {
   if (typeof window === "undefined") return false;
@@ -104,83 +90,193 @@ function detectLowTier() {
   return touch || narrow || limited;
 }
 
-function TouchControls({ showJump }: { showJump: boolean }) {
+function detectRenderDpr(lowTier: boolean) {
+  if (lowTier) return 1.25;
+  if (typeof window === "undefined") return 1;
+  return Math.min(Math.max(window.devicePixelRatio || 1, 1), 1.75);
+}
+
+function TouchControls({ showPace }: { showPace: boolean }) {
   const zone = useRef<HTMLDivElement>(null);
   const pointerId = useRef<number | null>(null);
   const center = useRef({ x: 0, y: 0 });
+  const currentMove = useRef({ x: 0, y: 0 });
+  const runEnabled = useRef(true);
+  const gestureStartedAtMs = useRef(0);
+  const gestureMaxTravel = useRef(0);
+  const moveActivated = useRef(false);
+  const secondaryTapCandidates = useRef(new Map<number, TouchTapCandidate>());
   const [knob, setKnob] = useState({ x: 0, y: 0 });
   const [origin, setOrigin] = useState<{ x: number; y: number } | null>(null);
-  const [jumping, setJumping] = useState(false);
+  const [pace, setPace] = useState<"walk" | "run">("run");
 
   useEffect(() => {
     const element = zone.current;
     if (!element) return;
+    const secondaryTapCandidateMap = secondaryTapCandidates.current;
 
     const clearMove = () => {
       pointerId.current = null;
+      currentMove.current = { x: 0, y: 0 };
+      gestureStartedAtMs.current = 0;
+      gestureMaxTravel.current = 0;
+      moveActivated.current = false;
       setKnob({ x: 0, y: 0 });
       setOrigin(null);
-      setMoveVector(0, 0);
+      setMoveVector(0, 0, runEnabled.current);
+    };
+    const clearAllTouches = () => {
+      clearMove();
+      secondaryTapCandidateMap.clear();
     };
     const beginMove = (event: PointerEvent) => {
-      if (event.pointerType !== "touch" || pointerId.current !== null) return;
+      if (event.pointerType !== "touch") return;
       if (!(event.target instanceof HTMLCanvasElement)) return;
       const bounds = element.getBoundingClientRect();
-      if (
-        event.clientX < bounds.left
-        || event.clientX > bounds.right
-        || event.clientY < bounds.top
-        || event.clientY > bounds.bottom
-      ) return;
+      const insideStickZone = (
+        event.clientX >= bounds.left
+        && event.clientX <= bounds.right
+        && event.clientY >= bounds.top
+        && event.clientY <= bounds.bottom
+      );
+      if (pointerId.current !== null) {
+        secondaryTapCandidateMap.set(event.pointerId, {
+          startedAtMs: performance.now(),
+          startX: event.clientX,
+          startY: event.clientY,
+          maxTravel: 0,
+          startedInStickZone: insideStickZone,
+          startedWhileMoving: moveActivated.current,
+        });
+        // 第二根手指不拦截 Canvas：拖动继续交给镜头，短按则在松手时判定跳跃。
+        return;
+      }
+      if (!insideStickZone) return;
 
-      // 在捕获阶段仅接管下半屏触摸；鼠标和触控板仍会直达 Canvas 控制镜头。
+      // 静止时下三分之一用同一手势区分轻点跳跃与拖动移动。
       event.preventDefault();
       event.stopPropagation();
       pointerId.current = event.pointerId;
       center.current = { x: event.clientX, y: event.clientY };
-      setOrigin({
-        x: event.clientX - bounds.left,
-        y: event.clientY - bounds.top,
-      });
+      gestureStartedAtMs.current = performance.now();
+      gestureMaxTravel.current = 0;
+      moveActivated.current = false;
       setKnob({ x: 0, y: 0 });
-      setMoveVector(0, 0);
+      setOrigin(null);
+      currentMove.current = { x: 0, y: 0 };
+      setMoveVector(0, 0, runEnabled.current);
       event.target.setPointerCapture(event.pointerId);
     };
     const updateMove = (event: PointerEvent) => {
+      const secondaryTap = secondaryTapCandidateMap.get(event.pointerId);
+      if (secondaryTap) {
+        secondaryTap.maxTravel = Math.max(
+          secondaryTap.maxTravel,
+          Math.hypot(
+            event.clientX - secondaryTap.startX,
+            event.clientY - secondaryTap.startY,
+          ),
+        );
+        return;
+      }
       if (pointerId.current !== event.pointerId) return;
       event.preventDefault();
       event.stopPropagation();
       let x = event.clientX - center.current.x;
       let y = event.clientY - center.current.y;
       const length = Math.hypot(x, y);
+      gestureMaxTravel.current = Math.max(gestureMaxTravel.current, length);
+      if (!moveActivated.current && length <= TOUCH_TAP_MAX_TRAVEL) return;
+      if (!moveActivated.current) {
+        moveActivated.current = true;
+        const bounds = element.getBoundingClientRect();
+        setOrigin({
+          x: center.current.x - bounds.left,
+          y: center.current.y - bounds.top,
+        });
+      }
       if (length > TOUCH_STICK_TRAVEL) {
         x = x / length * TOUCH_STICK_TRAVEL;
         y = y / length * TOUCH_STICK_TRAVEL;
       }
       setKnob({ x, y });
-      setMoveVector(x / TOUCH_STICK_TRAVEL, y / TOUCH_STICK_TRAVEL);
+      currentMove.current = {
+        x: x / TOUCH_STICK_TRAVEL,
+        y: y / TOUCH_STICK_TRAVEL,
+      };
+      setMoveVector(
+        currentMove.current.x,
+        currentMove.current.y,
+        runEnabled.current,
+      );
     };
-    const endMove = (event: PointerEvent) => {
+    const endMove = (event: PointerEvent, allowTap: boolean) => {
+      const secondaryTap = secondaryTapCandidateMap.get(event.pointerId);
+      if (secondaryTap) {
+        if (
+          allowTap
+          && isTouchJumpRegionActive(
+            secondaryTap.startedInStickZone,
+            secondaryTap.startedWhileMoving,
+            moveActivated.current,
+          )
+          && isTouchTapGesture(
+            event.pointerType,
+            secondaryTap.maxTravel,
+            performance.now() - secondaryTap.startedAtMs,
+          )
+        ) {
+          triggerJumpPulse();
+        }
+        secondaryTapCandidateMap.delete(event.pointerId);
+        return;
+      }
       if (pointerId.current !== event.pointerId) return;
       event.preventDefault();
       event.stopPropagation();
+      if (
+        allowTap
+        && !moveActivated.current
+        && isTouchTapGesture(
+          event.pointerType,
+          gestureMaxTravel.current,
+          performance.now() - gestureStartedAtMs.current,
+        )
+      ) {
+        triggerJumpPulse();
+      }
       clearMove();
     };
+    const pointerUp = (event: PointerEvent) => endMove(event, true);
+    const pointerCancel = (event: PointerEvent) => endMove(event, false);
 
     window.addEventListener("pointerdown", beginMove, { capture: true, passive: false });
     window.addEventListener("pointermove", updateMove, { capture: true, passive: false });
-    window.addEventListener("pointerup", endMove, { capture: true, passive: false });
-    window.addEventListener("pointercancel", endMove, { capture: true, passive: false });
-    window.addEventListener("blur", clearMove);
+    window.addEventListener("pointerup", pointerUp, { capture: true, passive: false });
+    window.addEventListener("pointercancel", pointerCancel, { capture: true, passive: false });
+    window.addEventListener("blur", clearAllTouches);
     return () => {
       window.removeEventListener("pointerdown", beginMove, true);
       window.removeEventListener("pointermove", updateMove, true);
-      window.removeEventListener("pointerup", endMove, true);
-      window.removeEventListener("pointercancel", endMove, true);
-      window.removeEventListener("blur", clearMove);
+      window.removeEventListener("pointerup", pointerUp, true);
+      window.removeEventListener("pointercancel", pointerCancel, true);
+      window.removeEventListener("blur", clearAllTouches);
+      secondaryTapCandidateMap.clear();
       resetInput();
     };
   }, []);
+
+  const selectPace = (nextPace: "walk" | "run") => {
+    const nextRunEnabled = nextPace === "run";
+    runEnabled.current = nextRunEnabled;
+    setPace(nextPace);
+    // 双指操作时允许在摇杆仍推着的情况下即时切换速度上限。
+    setMoveVector(
+      currentMove.current.x,
+      currentMove.current.y,
+      nextRunEnabled,
+    );
+  };
 
   return (
     <div className="touch-controls">
@@ -193,29 +289,87 @@ function TouchControls({ showJump }: { showJump: boolean }) {
           <span style={{ transform: `translate(${knob.x}px, ${knob.y}px)` }} />
         </div>
       </div>
-      {showJump && (
-        <button
-          type="button"
-          className={`touch-jump${jumping ? " is-pressed" : ""}`}
-          onPointerDown={(event) => {
-            event.preventDefault();
-            inputState.jump = true;
-            setJumping(true);
-          }}
-          onPointerUp={() => {
-            inputState.jump = false;
-            setJumping(false);
-          }}
-          onPointerCancel={() => {
-            inputState.jump = false;
-            setJumping(false);
-          }}
-          aria-label="跳跃"
-        >
-          跳
-        </button>
+      {showPace && (
+        <div className="touch-pace-toggle" role="group" aria-label="移动速度模式">
+          <button
+            type="button"
+            className={pace === "walk" ? "is-active" : ""}
+            aria-pressed={pace === "walk"}
+            onPointerDown={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              selectPace("walk");
+            }}
+            onClick={() => selectPace("walk")}
+          >
+            走路
+          </button>
+          <button
+            type="button"
+            className={pace === "run" ? "is-active" : ""}
+            aria-pressed={pace === "run"}
+            onPointerDown={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              selectPace("run");
+            }}
+            onClick={() => selectPace("run")}
+          >
+            跑步
+          </button>
+        </div>
       )}
     </div>
+  );
+}
+
+function CameraQaPanel({ visible }: { visible: boolean }) {
+  const output = useRef<HTMLOutputElement>(null);
+
+  useEffect(() => {
+    if (!visible) return;
+    let frame = 0;
+    let lastPaint = 0;
+    const paint = (time: number) => {
+      const element = output.current;
+      if (element && time - lastPaint >= 100) {
+        lastPaint = time;
+        const state = cameraQaState;
+        element.dataset.cameraMode = state.cameraMode;
+        element.dataset.blockerId = state.blockerId ?? "none";
+        element.dataset.modeChanges = String(state.modeChangeCount);
+        element.dataset.desiredArm = state.desiredArmLength.toFixed(3);
+        element.dataset.resolvedArm = state.resolvedArmLength.toFixed(3);
+        element.dataset.fov = state.fov.toFixed(1);
+        element.dataset.manualGraceMs = state.manualGraceMs.toFixed(0);
+        element.dataset.goalYaw = state.goalYawDegrees.toFixed(2);
+        element.dataset.desiredArmYaw = state.desiredArmYawDegrees.toFixed(2);
+        element.dataset.actualArmYaw = state.actualArmYawDegrees.toFixed(2);
+        element.textContent = [
+          `mode ${state.cameraMode}`,
+          `blocker ${state.blockerId ?? "none"}`,
+          `arm ${state.resolvedArmLength.toFixed(2)} / ${state.desiredArmLength.toFixed(2)}`,
+          `arm yaw ${state.actualArmYawDegrees.toFixed(1)}° / ${state.desiredArmYawDegrees.toFixed(1)}°`,
+          `goal yaw ${state.goalYawDegrees.toFixed(1)}°`,
+          `input ${state.inputX.toFixed(2)}, ${state.inputY.toFixed(2)}`,
+          `FOV ${state.fov.toFixed(1)}° · grace ${state.manualGraceMs.toFixed(0)}ms`,
+          `changes ${state.modeChangeCount} · ${state.modeHistory.join(" → ")}`,
+        ].join("\n");
+      }
+      frame = window.requestAnimationFrame(paint);
+    };
+    frame = window.requestAnimationFrame(paint);
+    return () => window.cancelAnimationFrame(frame);
+  }, [visible]);
+
+  if (!visible) return null;
+  return (
+    <output
+      ref={output}
+      className="camera-qa-panel"
+      data-testid="camera-qa"
+      aria-label="相机控制验收遥测"
+    />
   );
 }
 
@@ -233,7 +387,14 @@ export function XinhuaExperience() {
   const [fullscreen, setFullscreen] = useState(false);
   // 在 Canvas 首次创建前确定渲染档位，避免低配置设备先分配一套高配后处理资源。
   const [lowTier] = useState(detectLowTier);
+  // 固定本次会话的 drawing buffer 比例，避免浏览器 DPR 短暂变化时重建成低分辨率画布。
+  const [renderDpr] = useState(() => detectRenderDpr(lowTier));
   const [touchCapable, setTouchCapable] = useState(false);
+  const [cameraQaVisible] = useState(() => (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("cameraQa") === "1"
+  ));
+  const networkProfile = useProgressiveNetworkProfile();
   const playerPosition = useRef<readonly [number, number]>(INITIAL_OVERVIEW_POSITION);
   const overviewPhotoCache = useRef(new Map<string, HTMLImageElement>());
   const [loadedOverviewPhoto, setLoadedOverviewPhoto] = useState<string | null>(null);
@@ -247,7 +408,8 @@ export function XinhuaExperience() {
 
   useEffect(() => {
     const coarse = window.matchMedia("(any-pointer: coarse)").matches;
-    const touch = coarse || (navigator.maxTouchPoints ?? 0) > 0;
+    const touchQa = new URLSearchParams(window.location.search).get("touchQa") === "1";
+    const touch = touchQa || coarse || (navigator.maxTouchPoints ?? 0) > 0;
     const frame = window.requestAnimationFrame(() => {
       setTouchCapable(touch);
     });
@@ -316,18 +478,17 @@ export function XinhuaExperience() {
   }, []);
 
   useEffect(() => {
-    if (ready) return;
+    document.documentElement.dataset.xinhuaNetworkProfile = networkProfile;
+  }, [networkProfile]);
 
-    // 部分 SSR 生产环境会完成 Canvas 水合，却漏掉 react-three-fiber 的 onCreated 回调。
-    // 仅在画布已有实际尺寸时解除遮罩，避免功能已可用但入口一直被加载层挡住。
-    const fallback = window.setTimeout(() => {
-      const canvas = document.querySelector<HTMLCanvasElement>(".xinhua-stage canvas");
-      if (canvas && canvas.width > 0 && canvas.height > 0) {
-        setReady(true);
-      }
-    }, 2_500);
-
-    return () => window.clearTimeout(fallback);
+  useEffect(() => {
+    if (!ready) return;
+    document.documentElement.dataset.xinhuaPlayable = "true";
+    performance.mark("xinhua-world-playable");
+    return () => {
+      delete document.documentElement.dataset.xinhuaPlayable;
+      performance.clearMarks("xinhua-world-playable");
+    };
   }, [ready]);
 
   useEffect(() => {
@@ -362,6 +523,7 @@ export function XinhuaExperience() {
     setActionOpen(false);
     setNearPoiId(null);
     setOverviewStartPosition(playerPosition.current);
+    setDestinationPreset(undefined);
     setMode("overview");
   }, []);
 
@@ -382,10 +544,14 @@ export function XinhuaExperience() {
   }, []);
 
   return (
-    <main className={`xinhua-stage is-${mode}${playing ? " is-playing" : ""}${touchCapable ? " is-touch" : ""}`}>
+    <main
+      className={`xinhua-stage is-${mode}${playing ? " is-playing" : ""}${touchCapable ? " is-touch" : ""}`}
+      data-progressive-network={networkProfile}
+      data-progressive-stage={ready ? "playable" : "booting"}
+    >
       <Canvas
         shadows="percentage"
-        dpr={lowTier ? 1.25 : [1, 1.75]}
+        dpr={renderDpr}
         camera={{
           fov: 50,
           near: 0.1,
@@ -398,14 +564,16 @@ export function XinhuaExperience() {
           outputColorSpace: SRGBColorSpace,
           powerPreference: "high-performance",
         }}
-        onCreated={() => {
-          setReady(true);
-        }}
       >
-        <Suspense fallback={null}>
-          <AutumnStorybookSky atmosphereStyle={atmosphereStyle} />
-        </Suspense>
-        {atmosphereStyle === "lighting-v3" && <StorybookCloudLayer />}
+        <FirstPlayableFrame onReady={() => setReady(true)} />
+        {exploring && (
+          <>
+            <Suspense fallback={null}>
+              <AutumnStorybookSky atmosphereStyle={atmosphereStyle} />
+            </Suspense>
+            {atmosphereStyle === "lighting-v3" && <StorybookCloudLayer />}
+          </>
+        )}
         <XinhuaWorld
           mode={mode}
           lowTier={lowTier}
@@ -415,13 +583,27 @@ export function XinhuaExperience() {
           nearPoiId={nearPoiId}
           overviewStartPosition={overviewStartPosition}
           destinationPreset={destinationPreset}
+          cameraQaEnabled={cameraQaVisible}
           onNearPoi={setNearPoiId}
           onPositionChange={(position) => {
             playerPosition.current = position;
           }}
+          networkProfile={networkProfile}
         />
-        {/* 合成器在模式切换时保持挂载，避免重新创建时清空颜色缓冲；各效果按档位单独启停。 */}
-          <VisualEffectComposer lowTier={lowTier} atmosphereStyle={atmosphereStyle} />
+        {/* 首帧先交出控制权，再装载后处理；挂载后不随模式切换重建。 */}
+        {ready && networkProfile === "standard" && (
+          <ProgressiveFeatureBoundary
+            resetKey={atmosphereStyle}
+            fallback={null}
+          >
+            <Suspense fallback={null}>
+              <ProgressiveVisualEffectComposer
+                lowTier={lowTier}
+                atmosphereStyle={atmosphereStyle}
+              />
+            </Suspense>
+          </ProgressiveFeatureBoundary>
+        )}
       </Canvas>
 
       {!ready && (
@@ -430,6 +612,8 @@ export function XinhuaExperience() {
           <b>LOADING XINHUA</b>
         </div>
       )}
+
+      <CameraQaPanel visible={cameraQaVisible && exploring} />
 
       <header className={`world-header${playing ? "" : " is-intro"}`}>
         <button
@@ -488,7 +672,7 @@ export function XinhuaExperience() {
             {exploring && <span><kbd>拖拽</kbd> 转动视角</span>}
             {overview && <span>靠近地标以查看并进入</span>}
           </div>
-          <TouchControls showJump={exploring} />
+          <TouchControls showPace={exploring} />
 
           {exploring && nearAction && !actionOpen && (
             <button type="button" className="action-prompt" onClick={() => setActionOpen(true)}>
@@ -580,7 +764,7 @@ export function XinhuaExperience() {
               <li>闲逛状态中按 <kbd>Shift</kbd> 奔跑，按 <kbd>Space</kbd> 跳跃</li>
               <li>闲逛时拖拽转动镜头，滚轮拉近或拉远</li>
               <li>点击“查看全览”可随时返回固定比例的新华街道全景</li>
-              <li>手机下半屏任意处拖动移动；闲逛时上半屏可拖动镜头</li>
+              <li>手机下方三分之一区域轻点跳跃、拖动移动；移动中第二指可在全屏轻点跳跃或拖动视角</li>
               <li>
                 成品角色：
                 <a href="https://www.blenderstudio.cn/zh-hans/characters/rain/v1/" target="_blank" rel="noreferrer">

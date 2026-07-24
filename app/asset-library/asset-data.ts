@@ -269,12 +269,12 @@ export const DECOR_ASSETS = [
   {
     id: "trash-bin",
     category: "decor",
-    name: "垃圾桶",
-    subtitle: "待接入生产场景",
-    status: "pending",
-    preview: "missing",
-    variants: [],
-    note: "当前运行时代码与线上模型注册表中未发现可用垃圾桶资产",
+    name: "上海双分类垃圾桶",
+    subtitle: "新华路批量街具",
+    status: "online",
+    preview: "trash-bin",
+    variants: ["干净状态", "风化状态"],
+    note: "共享低模结构，以 InstancedMesh 按街道路缘布置",
   },
 ] satisfies AssetRecord[];
 
@@ -307,4 +307,3 @@ export const CATEGORY_META: Record<AssetCategory, { label: string; short: string
   decor: { label: "装饰物", short: "类" },
   characters: { label: "人物", short: "个" },
 };
-

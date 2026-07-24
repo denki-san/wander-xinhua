@@ -1,6 +1,6 @@
 "use client";
 
-import { Bounds, Center, ContactShadows, PerspectiveCamera, View, useGLTF } from "@react-three/drei";
+import { Bounds, Center, PerspectiveCamera, useGLTF } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import Link from "next/link";
 import {
@@ -19,6 +19,7 @@ import {
   IrregularStoneBollard,
   OutdoorDiningSet,
   SlattedBench,
+  StreetBinInstances,
   StreetPlanter,
 } from "../scene/shared-street-assets";
 import {
@@ -34,6 +35,19 @@ import styles from "./asset-library.module.css";
 
 const CATEGORY_ORDER: AssetCategory[] = ["buildings", "lighting", "trees", "decor", "characters"];
 
+function detectPreviewQuality() {
+  if (typeof window === "undefined") return { animate: false, dpr: 1 };
+  const coarse = window.matchMedia("(any-pointer: coarse)").matches;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const lowTier = coarse
+    || window.innerWidth < 900
+    || (navigator.hardwareConcurrency ?? 8) <= 4;
+  return {
+    animate: !lowTier && !reducedMotion,
+    dpr: lowTier ? 1 : Math.min(Math.max(window.devicePixelRatio || 1, 1), 1.25),
+  };
+}
+
 const STATUS_META: Record<AssetStatus, { label: string; className: string }> = {
   online: { label: "线上", className: styles.statusOnline },
   ready: { label: "已就绪", className: styles.statusReady },
@@ -48,17 +62,14 @@ function StatusBadge({ status }: { status: AssetStatus }) {
   return <span className={`${styles.statusBadge} ${meta.className}`}>{meta.label}</span>;
 }
 
-function useIsVisible(rootMargin = "240px") {
+function useIsVisible(rootMargin = "80px") {
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setVisible(true);
-        observer.disconnect();
-      }
+      setVisible(entry.isIntersecting);
     }, { rootMargin });
     observer.observe(node);
     return () => observer.disconnect();
@@ -66,10 +77,18 @@ function useIsVisible(rootMargin = "240px") {
   return { ref, visible };
 }
 
-function AutoTurn({ children, speed = 0.12 }: { children: ReactNode; speed?: number }) {
+function AutoTurn({
+  active,
+  children,
+  speed = 0.12,
+}: {
+  active: boolean;
+  children: ReactNode;
+  speed?: number;
+}) {
   const group = useRef<Group>(null);
   useFrame((_, delta) => {
-    if (group.current) group.current.rotation.y += delta * speed;
+    if (active && group.current) group.current.rotation.y += delta * speed;
   });
   return <group ref={group}>{children}</group>;
 }
@@ -79,10 +98,7 @@ function RuntimeModel({ path }: { path: string }) {
   const model = useMemo(() => {
     const result = clone(scene) as Object3D;
     result.traverse((child) => {
-      if (child instanceof Mesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
+      if (child instanceof Mesh) child.receiveShadow = false;
     });
     const bounds = new Box3().setFromObject(result);
     const size = bounds.getSize(new Vector3());
@@ -92,13 +108,28 @@ function RuntimeModel({ path }: { path: string }) {
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
-function ProceduralPreview({ kind }: { kind: string }) {
+function ProceduralPreview({ kind, variant = 0 }: { kind: string; variant?: number }) {
   if (kind === "lane-lamp") return <HeritageLaneLamp seed={2} evidenceRef="asset-library" />;
   if (kind === "umbrella") return <CantileverCafeUmbrella seed={7} evidenceRef="asset-library" />;
   if (kind === "dining") return <OutdoorDiningSet variant="colorful-folding" seed={9} evidenceRef="asset-library" />;
   if (kind === "bench") return <SlattedBench seed={4} evidenceRef="asset-library" />;
   if (kind === "planter") return <StreetPlanter variant="long" seed={6} evidenceRef="asset-library" />;
   if (kind === "bollard") return <IrregularStoneBollard variant={1} seed={3} evidenceRef="asset-library" />;
+  if (kind === "trash-bin") {
+    return (
+      <StreetBinInstances
+        name="asset-library-bin"
+        placements={[{
+          id: "asset-library-bin",
+          position: [0, 0, 0],
+          yaw: 0,
+          variant: 0,
+        }]}
+        evidenceRef="asset-library"
+        condition={variant === 1 ? "weathered" : "clean"}
+      />
+    );
+  }
   if (kind === "paving") {
     return (
       <group>
@@ -189,7 +220,17 @@ function ProceduralPreview({ kind }: { kind: string }) {
   );
 }
 
-function AssetScene({ model, preview }: { model?: string; preview?: string }) {
+function AssetScene({
+  animate,
+  model,
+  preview,
+  variant,
+}: {
+  animate: boolean;
+  model?: string;
+  preview?: string;
+  variant?: number;
+}) {
   return (
     <>
       <color attach="background" args={["#cfd9de"]} />
@@ -201,38 +242,61 @@ function AssetScene({ model, preview }: { model?: string; preview?: string }) {
         position={[-8, 11, -14]}
         color="#ffc47f"
         intensity={4.6}
-        castShadow
-        shadow-mapSize={[1024, 1024]}
       />
       <directionalLight position={[8, 7, 10]} color="#a8c6d8" intensity={1.8} />
       <Bounds fit clip observe margin={1.3}>
         <Center top>
-          <AutoTurn speed={model?.includes("character") ? 0.04 : 0.1}>
-            {model ? <RuntimeModel path={model} /> : <ProceduralPreview kind={preview ?? "missing"} />}
+          <AutoTurn active={animate} speed={model?.includes("character") ? 0.04 : 0.1}>
+            {model
+              ? <RuntimeModel path={model} />
+              : <ProceduralPreview kind={preview ?? "missing"} variant={variant} />}
           </AutoTurn>
         </Center>
       </Bounds>
-      <ContactShadows position={[0, -0.02, 0]} opacity={0.4} scale={18} blur={2.5} far={12} color="#354544" />
     </>
   );
 }
 
-function LivePreview({ model, preview, label }: { model?: string; preview?: string; label: string }) {
+function LivePreview({
+  animate,
+  dpr,
+  label,
+  model,
+  preview,
+  variant,
+}: {
+  animate: boolean;
+  dpr: number;
+  label: string;
+  model?: string;
+  preview?: string;
+  variant?: number;
+}) {
   const { ref, visible } = useIsVisible();
   return (
     <div className={styles.preview}>
-      <View
+      <div
         ref={ref}
         className={styles.previewViewport}
         aria-label={`${label} 的实时三维预览`}
-        frames={visible ? Infinity : 1}
       >
         {visible && (
-          <Suspense fallback={null}>
-            <AssetScene model={model} preview={preview} />
-          </Suspense>
+          <Canvas
+            dpr={dpr}
+            frameloop={animate ? "always" : "demand"}
+            gl={{ antialias: true, alpha: true }}
+          >
+            <Suspense fallback={null}>
+              <AssetScene
+                animate={animate}
+                model={model}
+                preview={preview}
+                variant={variant}
+              />
+            </Suspense>
+          </Canvas>
         )}
-      </View>
+      </div>
       <div className={styles.previewChrome}>
         <span className={styles.liveDot} />
         实时 3D
@@ -241,7 +305,7 @@ function LivePreview({ model, preview, label }: { model?: string; preview?: stri
   );
 }
 
-function BuildingCard({ asset }: { asset: AssetRecord }) {
+function BuildingCard({ animate, asset, dpr }: { animate: boolean; asset: AssetRecord; dpr: number }) {
   const [selectedLevel, setSelectedLevel] = useState<QualityLevel>(
     asset.qualityLevels?.[0] ?? {
       id: "hero",
@@ -254,7 +318,7 @@ function BuildingCard({ asset }: { asset: AssetRecord }) {
   const displayModel = selectedLevel.model ?? asset.model;
   return (
     <article className={`${styles.assetCard} ${styles.buildingCard}`}>
-      <LivePreview model={displayModel} label={`${asset.name} ${selectedLevel.name}`} />
+      <LivePreview animate={animate} dpr={dpr} model={displayModel} label={`${asset.name} ${selectedLevel.name}`} />
       <div className={styles.cardBody}>
         <div className={styles.cardTopline}>
           <span className={styles.assetCode}>{asset.id}</span>
@@ -283,8 +347,9 @@ function BuildingCard({ asset }: { asset: AssetRecord }) {
   );
 }
 
-function StandardCard({ asset }: { asset: AssetRecord }) {
+function StandardCard({ animate, asset, dpr }: { animate: boolean; asset: AssetRecord; dpr: number }) {
   const [variant, setVariant] = useState(0);
+  const interactiveVariants = asset.id === "plane-tree" || asset.id === "trash-bin";
   let model = asset.model;
   if (asset.id === "plane-tree") {
     model = [
@@ -296,7 +361,14 @@ function StandardCard({ asset }: { asset: AssetRecord }) {
   }
   return (
     <article className={styles.assetCard}>
-      <LivePreview model={model} preview={asset.preview} label={asset.name} />
+      <LivePreview
+        animate={animate}
+        dpr={dpr}
+        model={model}
+        preview={asset.preview}
+        label={asset.name}
+        variant={variant}
+      />
       <div className={styles.cardBody}>
         <div className={styles.cardTopline}>
           <span className={styles.assetCode}>{asset.id}</span>
@@ -307,14 +379,18 @@ function StandardCard({ asset }: { asset: AssetRecord }) {
         {asset.variants && asset.variants.length > 0 && (
           <div className={styles.variantRow}>
             {asset.variants.map((item, index) => (
-              <button
-                key={item}
-                type="button"
-                className={`${styles.variantChip} ${variant === index ? styles.variantChipActive : ""}`}
-                onClick={() => setVariant(index)}
-              >
-                {item}
-              </button>
+              interactiveVariants ? (
+                <button
+                  key={item}
+                  type="button"
+                  className={`${styles.variantChip} ${variant === index ? styles.variantChipActive : ""}`}
+                  onClick={() => setVariant(index)}
+                >
+                  {item}
+                </button>
+              ) : (
+                <span key={item} className={styles.variantChip}>{item}</span>
+              )
             ))}
           </div>
         )}
@@ -325,7 +401,7 @@ function StandardCard({ asset }: { asset: AssetRecord }) {
 }
 
 export function AssetLibrary() {
-  const container = useRef<HTMLDivElement>(null);
+  const [previewQuality] = useState(detectPreviewQuality);
   const [activeCategory, setActiveCategory] = useState<AssetCategory | "all">("all");
   const [query, setQuery] = useState("");
 
@@ -350,17 +426,7 @@ export function AssetLibrary() {
   const onlineTotal = ALL_ASSETS.filter((asset) => asset.status === "online").length;
 
   return (
-    <div ref={container} className={styles.shell}>
-      <Canvas
-        className={styles.canvas}
-        eventSource={container}
-        shadows
-        dpr={[1, 1.5]}
-        gl={{ antialias: true, alpha: true }}
-      >
-        <View.Port />
-      </Canvas>
-
+    <div className={styles.shell}>
       <header className={styles.header}>
         <Link href="/" className={styles.brand} aria-label="返回新华漫游志">
           <span className={styles.brandMark}>新</span>
@@ -378,7 +444,7 @@ export function AssetLibrary() {
       <main className={styles.main}>
         <section className={styles.hero}>
           <div>
-            <p className={styles.eyebrow}>资产管理后台 / 一页总览</p>
+            <p className={styles.eyebrow}>生产资产总览 / 一页看清</p>
             <h1>现在拥有什么，<br /><em>一眼看清。</em></h1>
             <p className={styles.heroCopy}>
               只统计真实接入场景的生产资产。建筑三档完整列出，实验、内部占位与待制作状态不会混入线上总数。
@@ -447,8 +513,8 @@ export function AssetLibrary() {
               <div className={`${styles.assetGrid} ${category === "buildings" ? styles.buildingGrid : ""}`}>
                 {assets.map((asset) => (
                   category === "buildings"
-                    ? <BuildingCard key={asset.id} asset={asset} />
-                    : <StandardCard key={asset.id} asset={asset} />
+                    ? <BuildingCard key={asset.id} asset={asset} animate={previewQuality.animate} dpr={previewQuality.dpr} />
+                    : <StandardCard key={asset.id} asset={asset} animate={previewQuality.animate} dpr={previewQuality.dpr} />
                 ))}
               </div>
               {category === "lighting" && (
@@ -471,7 +537,7 @@ export function AssetLibrary() {
       </main>
 
       <footer className={styles.footer}>
-        <span>WANDER XINHUA · INTERNAL ASSET LIBRARY</span>
+        <span>WANDER XINHUA · PRODUCTION ASSET LIBRARY</span>
         <span>数据来源：生产注册表与运行时代码</span>
       </footer>
     </div>

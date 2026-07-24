@@ -1,7 +1,20 @@
 "use client";
 
-import { useLayoutEffect, useMemo, useRef, type ReactNode } from "react";
-import { InstancedMesh, Object3D } from "three";
+import {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  type ReactNode,
+} from "react";
+import {
+  BufferGeometry,
+  Color,
+  IcosahedronGeometry,
+  InstancedMesh,
+  Object3D,
+} from "three";
+import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
 const DEFAULT_EVIDENCE_REF = "docs/knowledge-sources/xinhua-scene-dressing-kit.md";
 
@@ -17,6 +30,29 @@ export type StoneBollardPlacement = {
   position: [number, number, number];
   scale: [number, number, number];
   yaw: number;
+};
+
+export type StreetPlanterInstancePlacement = {
+  id: string;
+  position: [number, number, number];
+  yaw: number;
+  scale: number;
+  variant: number;
+};
+
+export type StreetBinInstancePlacement = {
+  id: string;
+  position: [number, number, number];
+  yaw: number;
+  variant: number;
+};
+
+export type StreetShrubInstancePlacement = {
+  id: string;
+  position: [number, number, number];
+  yaw: number;
+  scale: [number, number, number];
+  variant: number;
 };
 
 export type StreetAssetAnchor =
@@ -139,15 +175,18 @@ export function StreetLampInstances({
   name,
   placements,
   evidenceRef = DEFAULT_EVIDENCE_REF,
+  lightMode = "point-lights",
 }: {
   name: string;
   placements: StreetLampPlacement[];
   evidenceRef?: string;
+  lightMode?: "emissive-only" | "point-lights";
 }) {
   const poleInstances = useRef<InstancedMesh>(null);
   const armInstances = useRef<InstancedMesh>(null);
   const shadeInstances = useRef<InstancedMesh>(null);
   const glassInstances = useRef<InstancedMesh>(null);
+  const anyLit = placements.some(({ lit }) => lit);
   useLayoutEffect(() => {
     writeLampPartMatrices(poleInstances.current, placements, [0, 1.68, 0], [1, 1, 1]);
     writeLampPartMatrices(armInstances.current, placements, [0.24, 3.18, 0], [1, 1, 1], Math.PI / 2);
@@ -182,9 +221,14 @@ export function StreetLampInstances({
       </instancedMesh>
       <instancedMesh ref={glassInstances} args={[undefined, undefined, placements.length]}>
         <cylinderGeometry args={[0.13, 0.13, 0.035, 8]} />
-        <meshBasicMaterial color="#ffe9ad" />
+        <meshStandardMaterial
+          color={anyLit ? "#ffe9ad" : "#b8ae94"}
+          emissive={anyLit ? "#ffd991" : "#000000"}
+          emissiveIntensity={anyLit ? 1.1 : 0}
+          roughness={0.72}
+        />
       </instancedMesh>
-      {placements.filter(({ lit }) => lit).map((placement) => (
+      {lightMode === "point-lights" && placements.filter(({ lit }) => lit).map((placement) => (
         <pointLight
           key={placement.id}
           position={[
@@ -494,6 +538,282 @@ export function StreetPlanter({
         </mesh>
       ))}
     </StreetAssetGroup>
+  );
+}
+
+function writeColoredInstanceMatrices<T extends {
+  position: [number, number, number];
+  yaw: number;
+  variant: number;
+}>(
+  instances: InstancedMesh | null,
+  placements: T[],
+  colors: readonly string[],
+  localPosition: [number, number, number],
+  localScale: [number, number, number],
+) {
+  if (!instances) return;
+  const helper = new Object3D();
+  const color = new Color();
+  placements.forEach((placement, index) => {
+    const placementScale = "scale" in placement && typeof placement.scale === "number"
+      ? placement.scale
+      : 1;
+    const cosine = Math.cos(placement.yaw);
+    const sine = Math.sin(placement.yaw);
+    helper.position.set(
+      placement.position[0] + cosine * localPosition[0] + sine * localPosition[2],
+      placement.position[1] + localPosition[1] * placementScale,
+      placement.position[2] - sine * localPosition[0] + cosine * localPosition[2],
+    );
+    helper.rotation.set(0, placement.yaw, 0);
+    helper.scale.set(
+      localScale[0] * placementScale,
+      localScale[1] * placementScale,
+      localScale[2] * placementScale,
+    );
+    helper.updateMatrix();
+    instances.setMatrixAt(index, helper.matrix);
+    instances.setColorAt(index, color.set(colors[placement.variant % colors.length]));
+  });
+  instances.instanceMatrix.needsUpdate = true;
+  if (instances.instanceColor) instances.instanceColor.needsUpdate = true;
+  instances.computeBoundingSphere();
+}
+
+export function StreetPlanterInstances({
+  name,
+  placements,
+  evidenceRef = DEFAULT_EVIDENCE_REF,
+  season = "summer",
+}: {
+  name: string;
+  placements: StreetPlanterInstancePlacement[];
+  evidenceRef?: string;
+  season?: "summer" | "autumn";
+}) {
+  const bases = useRef<InstancedMesh>(null);
+  const foliage = useRef<InstancedMesh>(null);
+  useLayoutEffect(() => {
+    writeColoredInstanceMatrices(
+      bases.current,
+      placements,
+      ["#3d4844", "#514a42", "#46504b"],
+      [0, 0.28, 0],
+      [1, 1, 1],
+    );
+    writeColoredInstanceMatrices(
+      foliage.current,
+      placements,
+      season === "autumn"
+        ? ["#8b7548", "#9a8450", "#6f7245"]
+        : ["#607b53", "#71865a", "#4f7358"],
+      [0, 0.82, 0],
+      [0.78, 0.62, 0.78],
+    );
+  }, [placements, season]);
+  return (
+    <group
+      name={name}
+      userData={{
+        assetId: "rectangular-planter",
+        variant: "instanced-street-family",
+        anchor: "road-edge",
+        collision: "none",
+        mobileTier: "reduced",
+        evidenceRef,
+      }}
+    >
+      <instancedMesh ref={bases} args={[undefined, undefined, placements.length]} castShadow receiveShadow>
+        <boxGeometry args={[0.78, 0.56, 0.72]} />
+        <meshToonMaterial color="#ffffff" />
+      </instancedMesh>
+      <instancedMesh ref={foliage} args={[undefined, undefined, placements.length]} castShadow>
+        <icosahedronGeometry args={[0.62, 1]} />
+        <meshToonMaterial color="#ffffff" />
+      </instancedMesh>
+    </group>
+  );
+}
+
+export function StreetBinInstances({
+  name,
+  placements,
+  evidenceRef = DEFAULT_EVIDENCE_REF,
+  condition = "clean",
+}: {
+  name: string;
+  placements: StreetBinInstancePlacement[];
+  evidenceRef?: string;
+  condition?: "clean" | "weathered";
+}) {
+  const bodies = useRef<InstancedMesh>(null);
+  const caps = useRef<InstancedMesh>(null);
+  const residualPanels = useRef<InstancedMesh>(null);
+  const recyclablePanels = useRef<InstancedMesh>(null);
+  const residualOpenings = useRef<InstancedMesh>(null);
+  const recyclableOpenings = useRef<InstancedMesh>(null);
+  useLayoutEffect(() => {
+    writeColoredInstanceMatrices(
+      bodies.current,
+      placements,
+      condition === "weathered"
+        ? ["#58716b", "#4d6863"]
+        : ["#5f8179", "#52776f"],
+      [0, 0.43, 0],
+      [1, 1, 1],
+    );
+    writeColoredInstanceMatrices(
+      caps.current,
+      placements,
+      condition === "weathered"
+        ? ["#777970", "#686d68"]
+        : ["#b6b9b2", "#9fa6a0"],
+      [0, 0.87, 0],
+      [1, 1, 1],
+    );
+    writeColoredInstanceMatrices(
+      residualPanels.current,
+      placements,
+      ["#293332", "#333a37"],
+      [-0.205, 0.45, 0.213],
+      [1, 1, 1],
+    );
+    writeColoredInstanceMatrices(
+      recyclablePanels.current,
+      placements,
+      ["#157f9f", "#247893"],
+      [0.205, 0.45, 0.213],
+      [1, 1, 1],
+    );
+    writeColoredInstanceMatrices(
+      residualOpenings.current,
+      placements,
+      ["#151a19", "#1c201f"],
+      [-0.205, 0.73, 0.226],
+      [1, 1, 1],
+    );
+    writeColoredInstanceMatrices(
+      recyclableOpenings.current,
+      placements,
+      ["#17201f", "#1a2321"],
+      [0.205, 0.73, 0.226],
+      [1, 1, 1],
+    );
+  }, [condition, placements]);
+  return (
+    <group
+      name={name}
+      userData={{
+        assetId: "shanghai-dual-classification-bin",
+        variant: "stainless-black-blue-instanced",
+        anchor: "road-edge",
+        collision: "none",
+        mobileTier: "reduced",
+        evidenceRef,
+      }}
+    >
+      <instancedMesh ref={bodies} args={[undefined, undefined, placements.length]} castShadow receiveShadow>
+        <boxGeometry args={[0.82, 0.82, 0.4]} />
+        <meshStandardMaterial color="#ffffff" metalness={0.22} roughness={0.62} />
+      </instancedMesh>
+      <instancedMesh ref={caps} args={[undefined, undefined, placements.length]} castShadow>
+        <boxGeometry args={[0.9, 0.08, 0.46]} />
+        <meshStandardMaterial color="#ffffff" metalness={0.24} roughness={0.58} />
+      </instancedMesh>
+      <instancedMesh ref={residualPanels} args={[undefined, undefined, placements.length]}>
+        <boxGeometry args={[0.33, 0.5, 0.025]} />
+        <meshToonMaterial color="#ffffff" />
+      </instancedMesh>
+      <instancedMesh ref={recyclablePanels} args={[undefined, undefined, placements.length]}>
+        <boxGeometry args={[0.33, 0.5, 0.025]} />
+        <meshToonMaterial color="#ffffff" />
+      </instancedMesh>
+      <instancedMesh ref={residualOpenings} args={[undefined, undefined, placements.length]}>
+        <boxGeometry args={[0.25, 0.11, 0.03]} />
+        <meshToonMaterial color="#ffffff" />
+      </instancedMesh>
+      <instancedMesh ref={recyclableOpenings} args={[undefined, undefined, placements.length]}>
+        <boxGeometry args={[0.25, 0.11, 0.03]} />
+        <meshToonMaterial color="#ffffff" />
+      </instancedMesh>
+    </group>
+  );
+}
+
+function createFacetedShrubGeometry(): BufferGeometry {
+  const pieces = [
+    { position: [-0.3, 0.33, 0.05], scale: [0.66, 0.46, 0.56], yaw: -0.24 },
+    { position: [0.3, 0.36, -0.08], scale: [0.58, 0.52, 0.52], yaw: 0.41 },
+    { position: [0.02, 0.62, 0.11], scale: [0.46, 0.42, 0.44], yaw: 0.12 },
+  ] as const;
+  const geometries = pieces.map(({ position, scale, yaw }) => {
+    const geometry = new IcosahedronGeometry(1, 0);
+    const transform = new Object3D();
+    transform.position.set(...position);
+    transform.scale.set(...scale);
+    transform.rotation.y = yaw;
+    transform.updateMatrix();
+    geometry.applyMatrix4(transform.matrix);
+    return geometry;
+  });
+  const merged = mergeGeometries(geometries, false);
+  geometries.forEach((geometry) => geometry.dispose());
+  merged.computeVertexNormals();
+  return merged;
+}
+
+export function StreetShrubInstances({
+  name,
+  placements,
+  evidenceRef = DEFAULT_EVIDENCE_REF,
+  season = "summer",
+}: {
+  name: string;
+  placements: StreetShrubInstancePlacement[];
+  evidenceRef?: string;
+  season?: "summer" | "autumn";
+}) {
+  const shrubs = useRef<InstancedMesh>(null);
+  const geometry = useMemo(() => createFacetedShrubGeometry(), []);
+  useEffect(() => () => geometry.dispose(), [geometry]);
+  useLayoutEffect(() => {
+    if (!shrubs.current) return;
+    const helper = new Object3D();
+    const color = new Color();
+    const colors = season === "autumn"
+      ? ["#7d7248", "#907b4b", "#65704a"]
+      : ["#526f4e", "#678052", "#486957"];
+    placements.forEach((placement, index) => {
+      helper.position.set(...placement.position);
+      helper.rotation.set(0, placement.yaw, 0);
+      helper.scale.set(...placement.scale);
+      helper.updateMatrix();
+      shrubs.current?.setMatrixAt(index, helper.matrix);
+      shrubs.current?.setColorAt(index, color.set(colors[placement.variant % colors.length]));
+    });
+    shrubs.current.instanceMatrix.needsUpdate = true;
+    if (shrubs.current.instanceColor) shrubs.current.instanceColor.needsUpdate = true;
+    shrubs.current.computeBoundingSphere();
+  }, [placements, season]);
+  return (
+    <instancedMesh
+      ref={shrubs}
+      geometry={geometry}
+      args={[undefined, undefined, placements.length]}
+      castShadow
+      name={name}
+      userData={{
+        assetId: "road-edge-shrub",
+        variant: "three-lobe-faceted-low-poly",
+        anchor: "road-edge",
+        collision: "none",
+        mobileTier: "reduced",
+        evidenceRef,
+      }}
+    >
+      <meshToonMaterial color="#ffffff" flatShading />
+    </instancedMesh>
   );
 }
 

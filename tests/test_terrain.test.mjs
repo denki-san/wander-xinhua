@@ -46,7 +46,8 @@ test("地形、道路、角色和地标共用同一高程基准", async () => {
   assert.match(mapSource, /road-surface-labels/);
   assert.match(mapSource, /CanvasTexture/);
   assert.match(worldSource, /const surfaceHeight = terrainHeightAt/);
-  assert.match(worldSource, /inputState\.sprint \? 9\.2 : 3\.6/);
+  assert.match(worldSource, /const EXPLORE_WALK_SPEED = 3\.1/);
+  assert.match(worldSource, /EXPLORE_WALK_SPEED \* \(usingAnalog \? analogMagnitude : 1\)/);
   assert.doesNotMatch(huashanSource, /PARK_MOUNDS|function ParkRelief/);
   assert.match(huashanSource, /terrainHeightAt\(PARK_POSITION\[0\], PARK_POSITION\[1\]\)/);
   assert.match(shangshengSource, /terrainHeightAt\(SITE_POSITION\[0\], SITE_POSITION\[1\]\)/);

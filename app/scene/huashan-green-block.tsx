@@ -15,6 +15,7 @@ import {
 } from "three";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import landmarks from "./xinhua-landmarks-data.json";
+import type { ProgressiveBuildingTier } from "./progressive-loading";
 import { terrainHeightAt } from "./terrain";
 import { isPointInsidePolygon, type MapObstacle, type MapPolygonPoint } from "./world-math";
 
@@ -57,8 +58,12 @@ function offsetObstacle(obstacle: MapObstacle): MapObstacle {
   };
 }
 
-const HUASHAN_FIXED_OBSTACLES: MapObstacle[] = [
+export const HUASHAN_BUILDING_FOOTPRINTS: MapObstacle[] = [
   offsetObstacle(PARK.serviceBuilding.collision),
+];
+
+const HUASHAN_FIXED_OBSTACLES: MapObstacle[] = [
+  ...HUASHAN_BUILDING_FOOTPRINTS,
   // 水面分成栈桥两侧，给旋转后的桥面和角色半径留出完整通行廊道。
   offsetObstacle({
     minX: POND.x - POND_COLLISION_RADIUS_X,
@@ -285,7 +290,7 @@ export const HUASHAN_GREEN_OBSTACLES: MapObstacle[] = [
   })),
 ];
 
-function ForestInstances() {
+function ForestInstances({ detailed }: { detailed: boolean }) {
   const trunks = useRef<InstancedMesh>(null);
   const crowns = useRef<InstancedMesh>(null);
   const secondaryCrowns = useRef<InstancedMesh>(null);
@@ -329,23 +334,30 @@ function ForestInstances() {
     if (rootCollars.current) rootCollars.current.instanceMatrix.needsUpdate = true;
   }, []);
   return (
-    <group name="huashan-greenland-forest" userData={{ feature: "urban-forest" }}>
-      <instancedMesh ref={trunks} args={[undefined, undefined, FOREST_TREES.length]} castShadow>
+    <group
+      name="huashan-greenland-forest"
+      userData={{ feature: "urban-forest", vegetation: detailed ? "detailed" : "programmatic-lightweight" }}
+    >
+      <instancedMesh ref={trunks} args={[undefined, undefined, FOREST_TREES.length]} castShadow={detailed}>
         <cylinderGeometry args={[0.13, 0.2, 1, 7]} />
         <meshToonMaterial color="#655848" />
       </instancedMesh>
-      <instancedMesh ref={crowns} args={[undefined, undefined, FOREST_TREES.length]} castShadow receiveShadow>
-        <icosahedronGeometry args={[1, 1]} />
+      <instancedMesh ref={crowns} args={[undefined, undefined, FOREST_TREES.length]} castShadow={detailed} receiveShadow={detailed}>
+        <icosahedronGeometry args={[1, detailed ? 1 : 0]} />
         <meshToonMaterial color="#3f6d49" />
       </instancedMesh>
-      <instancedMesh ref={secondaryCrowns} args={[undefined, undefined, FOREST_TREES.length]} castShadow receiveShadow>
-        <icosahedronGeometry args={[1, 1]} />
-        <meshToonMaterial color="#527e51" />
-      </instancedMesh>
-      <instancedMesh ref={rootCollars} args={[undefined, undefined, FOREST_TREES.length]} castShadow receiveShadow>
-        <cylinderGeometry args={[0.32, 0.48, 1, 9]} />
-        <meshToonMaterial color="#75624c" />
-      </instancedMesh>
+      {detailed && (
+        <>
+          <instancedMesh ref={secondaryCrowns} args={[undefined, undefined, FOREST_TREES.length]} castShadow receiveShadow>
+            <icosahedronGeometry args={[1, 1]} />
+            <meshToonMaterial color="#527e51" />
+          </instancedMesh>
+          <instancedMesh ref={rootCollars} args={[undefined, undefined, FOREST_TREES.length]} castShadow receiveShadow>
+            <cylinderGeometry args={[0.32, 0.48, 1, 9]} />
+            <meshToonMaterial color="#75624c" />
+          </instancedMesh>
+        </>
+      )}
     </group>
   );
 }
@@ -490,11 +502,12 @@ function BasketballCourt() {
   );
 }
 
-function ParkFacilities() {
+function ParkFacilities({ showServiceBuilding }: { showServiceBuilding: boolean }) {
   const service = PARK.serviceBuilding;
   return (
     <group>
-      <group position={[service.position[0], 0.72, service.position[1]]} rotation-y={service.rotationY}>
+      {showServiceBuilding && (
+        <group position={[service.position[0], 0.72, service.position[1]]} rotation-y={service.rotationY}>
         <mesh castShadow>
           <boxGeometry args={[service.width, 1.35, service.depth]} />
           <meshToonMaterial color="#d8cfbb" />
@@ -527,7 +540,8 @@ function ParkFacilities() {
           <cylinderGeometry args={[0.045, 0.06, 1.25, 8]} />
           <meshToonMaterial color="#46564f" />
         </mesh>
-      </group>
+        </group>
+      )}
       <group name="huashan-bird-pergola" position={[-25, 0.22, 17.5]} userData={{ landscape: "bird-pergola" }}>
         {Array.from({ length: 9 }, (_, index) => {
           const angle = index / 8 * Math.PI;
@@ -595,7 +609,63 @@ function ParkFacilities() {
   );
 }
 
-export function HuashanGreenBlock() {
+function ParkServiceBuildingProxy({ identity }: { identity: boolean }) {
+  const service = PARK.serviceBuilding;
+  return (
+    <group
+      name="huashan-service-building-progressive-proxy"
+      position={[service.position[0], 0, service.position[1]]}
+      rotation-y={service.rotationY}
+      userData={{ building: "huashan-service-building", stage: identity ? "identity" : "massing" }}
+    >
+      <mesh position={[0, 0.72, 0]} castShadow receiveShadow>
+        <boxGeometry args={[service.width, 1.35, service.depth]} />
+        <meshToonMaterial color={identity ? "#d8cfbb" : "#aaa99f"} />
+      </mesh>
+      <mesh position={[0, 1.5, 0]} rotation-y={Math.PI / 4} castShadow>
+        <coneGeometry args={[0.86, 0.48, 4]} />
+        <meshToonMaterial color={identity ? "#4d6854" : "#77756e"} />
+      </mesh>
+      {identity && (
+        <>
+          <mesh position={[0, 0.64, service.depth / 2 + 0.04]} castShadow>
+            <boxGeometry args={[0.82, 1.05, 0.08]} />
+            <meshToonMaterial color="#536961" />
+          </mesh>
+          {[-service.width * 0.28, service.width * 0.28].map((x) => (
+            <mesh key={x} position={[x, 0.82, service.depth / 2 + 0.05]}>
+              <boxGeometry args={[0.72, 0.62, 0.08]} />
+              <meshToonMaterial color="#668a84" />
+            </mesh>
+          ))}
+        </>
+      )}
+    </group>
+  );
+}
+
+function HuashanGreenMassing() {
+  const ground = useMemo(() => polygonGeometry(PARK_BOUNDARY), []);
+  useEffect(() => () => ground.dispose(), [ground]);
+  return (
+    <>
+      <mesh geometry={ground} position={[0, 0.08, 0]} receiveShadow>
+        <meshToonMaterial color="#7f8b73" side={DoubleSide} />
+      </mesh>
+      <ParkServiceBuildingProxy identity={false} />
+    </>
+  );
+}
+
+export function HuashanGreenBlock({
+  showEnvironmentDetails,
+  stage = "full",
+}: {
+  showEnvironmentDetails?: boolean;
+  stage?: ProgressiveBuildingTier;
+}) {
+  const identityReady = stage === "identity" || stage === "full";
+  const environmentDetailed = showEnvironmentDetails ?? stage === "full";
   return (
     <group
       name="huashan-greenland"
@@ -604,17 +674,35 @@ export function HuashanGreenBlock() {
         terrainHeightAt(PARK_POSITION[0], PARK_POSITION[1]) + 0.16,
         PARK_POSITION[1],
       ]}
-      userData={{ landmark: "huashan-greenland", osmWayId: 444342095 }}
+      userData={{
+        landmark: "huashan-greenland",
+        osmWayId: 444342095,
+        stage,
+        progressive: true,
+      }}
     >
-      <ParkGroundAndPaths />
-      <ForestInstances />
-      <UnderstoryInstances />
-      <PondGarden />
-      <BasketballCourt />
-      <ParkFacilities />
-      <Html center transform sprite position={[0, 8.8, -3]} distanceFactor={34} style={{ pointerEvents: "none" }}>
-        <span className="map-road-label map-landmark-label">华山绿地</span>
-      </Html>
+      {stage === "massing" ? (
+        <HuashanGreenMassing />
+      ) : (
+        <>
+          <ParkGroundAndPaths />
+          <ForestInstances detailed={environmentDetailed} />
+          <PondGarden />
+          <BasketballCourt />
+          {environmentDetailed && (
+            <>
+              <UnderstoryInstances />
+              <ParkFacilities showServiceBuilding={stage === "full"} />
+            </>
+          )}
+          {stage !== "full" && <ParkServiceBuildingProxy identity />}
+        </>
+      )}
+      {identityReady && (
+        <Html center transform sprite position={[0, 8.8, -3]} distanceFactor={34} style={{ pointerEvents: "none" }}>
+          <span className="map-road-label map-landmark-label">华山绿地</span>
+        </Html>
+      )}
     </group>
   );
 }

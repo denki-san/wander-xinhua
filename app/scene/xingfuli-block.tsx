@@ -1,10 +1,10 @@
 "use client";
 
-import { RoundedBox, useGLTF } from "@react-three/drei";
+import { RoundedBox } from "@react-three/drei";
 import {
   Component,
+  lazy,
   Suspense,
-  useEffect,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -12,17 +12,11 @@ import {
 } from "react";
 import {
   InstancedMesh,
-  Material,
-  Mesh,
-  MeshBasicMaterial,
-  MeshStandardMaterial,
-  MeshToonMaterial,
   Object3D,
 } from "three";
-import {
-  PlaneTreeInstances,
-  type PlaneTreeInstancePlacement,
-} from "./plane-tree-instances";
+import { ProgressiveFeatureBoundary } from "../progressive-feature-boundary";
+import type { PlaneTreeInstancePlacement } from "./plane-tree-instances";
+import type { ProgressiveBuildingTier } from "./progressive-loading";
 import { MixedStonePaving } from "./mixed-stone-paving";
 import {
   CantileverCafeUmbrella,
@@ -36,6 +30,7 @@ import {
 } from "./shared-street-assets";
 import {
   XINGFULI_BUILDINGS,
+  XINGFULI_BUILDING_OBSTACLES,
   XINGFULI_OBSTACLES,
   XINGFULI_QA_PATHS,
   type XingfuliBuilding,
@@ -44,6 +39,13 @@ import {
 const FLOOR_HEIGHT = 2.08;
 const LANE_CENTER_Z = -7;
 const XINGFULI_STREET_EVIDENCE = "docs/research/xingfuli-reference-manifest.json";
+const ProgressiveXingfuliArchitecture = lazy(
+  () => import("./xingfuli-architecture-model"),
+);
+const ProgressivePlaneTreeInstances = lazy(async () => {
+  const importedTrees = await import("./plane-tree-instances");
+  return { default: importedTrees.PlaneTreeInstances };
+});
 const GARDEN_CELLS = Array.from({ length: 72 }, (_, index) => ({
   y: 0.7 + Math.floor(index / 8) * 0.78,
   z: -3.1 + (index % 8) * 0.88,
@@ -83,7 +85,6 @@ const XINGFULI_LAMP_PLACEMENTS: StreetLampPlacement[] = [
   { id: "east-south", position: [30, 0.26, -11.7], yaw: Math.PI, lit: true },
   { id: "east-north", position: [39, 0.26, -2.1] },
 ];
-// 公开照片只证明番禺路入口存在一排膝高石桩；不把未知的幸福路入口补成对称造景。
 const XINGFULI_ENTRY_BOLLARDS: StoneBollardPlacement[] = [
   -11.8,
   -9,
@@ -91,15 +92,15 @@ const XINGFULI_ENTRY_BOLLARDS: StoneBollardPlacement[] = [
   -3.4,
   -0.6,
 ].map((z, index) => ({
-    id: `east-entry-bollard-${index}`,
-    position: [44.6, 0.3, z] as [number, number, number],
-    scale: [
-      0.34 + (index % 2) * 0.045,
-      0.26 + (index % 3) * 0.035,
-      0.32 + ((index + 1) % 2) * 0.04,
-    ] as [number, number, number],
-    yaw: index * 0.37,
-  }));
+  id: `east-entry-bollard-${index}`,
+  position: [44.6, 0.3, z] as [number, number, number],
+  scale: [
+    0.34 + (index % 2) * 0.045,
+    0.26 + (index % 3) * 0.035,
+    0.32 + ((index + 1) % 2) * 0.04,
+  ] as [number, number, number],
+  yaw: index * 0.37,
+}));
 export const XINGFULI_DETAIL_UPGRADE = {
   windowLayersBefore: 3,
   windowLayersAfter: 6,
@@ -112,67 +113,12 @@ export const XINGFULI_DETAIL_UPGRADE = {
 type Building = XingfuliBuilding;
 
 // JSON 是可直接回归测试的结构化事实表；ID 只表示方位，不冒充真实座号。
-export { XINGFULI_BUILDINGS, XINGFULI_OBSTACLES, XINGFULI_QA_PATHS };
-
-const XINGFULI_ARCHITECTURE_MODELS = [
-  "/models/xingfuli/xingfuli-west.glb?v=20260723-final-1",
-  "/models/xingfuli/xingfuli-center.glb?v=20260723-final-1",
-  "/models/xingfuli/xingfuli-east.glb?v=20260723-final-1",
-] as const;
-
-function configureArchitectureModel(source: Object3D) {
-  const clone = source.clone(true);
-  const materialCache = new Map<string, MeshToonMaterial | MeshStandardMaterial>();
-  clone.traverse((child) => {
-    if (!(child instanceof Mesh)) return;
-    const sourceWasArray = Array.isArray(child.material);
-    const sourceMaterials: Material[] = sourceWasArray ? child.material : [child.material];
-    const replacements = sourceMaterials.map((sourceMaterial) => {
-      const name = sourceMaterial.name || "幸福里灰模材质";
-      let replacement = materialCache.get(name);
-      if (replacement) return replacement;
-      const color = sourceMaterial instanceof MeshStandardMaterial
-        || sourceMaterial instanceof MeshToonMaterial
-        || sourceMaterial instanceof MeshBasicMaterial
-        ? sourceMaterial.color.clone()
-        : undefined;
-      if (name.includes("玻璃")) {
-        replacement = new MeshStandardMaterial({
-          color: color ?? "#739b9e",
-          transparent: true,
-          opacity: 0.78,
-          roughness: 0.34,
-          metalness: 0,
-          depthWrite: false,
-        });
-      } else {
-        replacement = new MeshToonMaterial({ color: color ?? "#e9e7de" });
-      }
-      replacement.name = name;
-      materialCache.set(name, replacement);
-      return replacement;
-    });
-    child.material = sourceWasArray ? replacements : replacements[0];
-    child.castShadow = !sourceMaterials.every(({ name }) => name.includes("玻璃"));
-    child.receiveShadow = true;
-  });
-  return clone;
-}
-
-function XingfuliArchitectureSegment({ path }: { path: string }) {
-  const { scene } = useGLTF(path);
-  const model = useMemo(() => configureArchitectureModel(scene), [scene]);
-  useEffect(() => () => {
-    const materials = new Set<Material>();
-    model.traverse((child) => {
-      if (!(child instanceof Mesh)) return;
-      const childMaterials = Array.isArray(child.material) ? child.material : [child.material];
-      childMaterials.forEach((childMaterial) => materials.add(childMaterial));
-    });
-    materials.forEach((childMaterial) => childMaterial.dispose());
-  }, [model]);
-  return <primitive object={model} scale={[1, 1, -1]} />;
-}
+export {
+  XINGFULI_BUILDINGS,
+  XINGFULI_BUILDING_OBSTACLES,
+  XINGFULI_OBSTACLES,
+  XINGFULI_QA_PATHS,
+};
 
 class XingfuliArchitectureBoundary extends Component<{
   children: ReactNode;
@@ -204,23 +150,46 @@ function XingfuliProceduralArchitectureFallback() {
   );
 }
 
+function XingfuliMassingArchitecture() {
+  return (
+    <>
+      <mesh position={[0, 0.17, LANE_CENTER_Z]} receiveShadow>
+        <boxGeometry args={[94, 0.18, 14]} />
+        <meshToonMaterial color="#aaa9a1" />
+      </mesh>
+      {XINGFULI_BUILDINGS.map((building) => {
+        const height = building.floors * FLOOR_HEIGHT + 0.42;
+        return (
+          <group
+            key={building.id}
+            position={[building.x, 0.22, building.z]}
+            userData={{ building: building.id, stage: "massing" }}
+          >
+            <mesh position={[0, height / 2, 0]} castShadow receiveShadow>
+              <boxGeometry args={[building.width, height, building.depth]} />
+              <meshToonMaterial color="#c9c3b5" />
+            </mesh>
+            <mesh position={[0, height + 0.16, 0]} castShadow>
+              <boxGeometry args={[building.width * 0.96, 0.32, building.depth * 0.96]} />
+              <meshToonMaterial color="#81766a" />
+            </mesh>
+          </group>
+        );
+      })}
+    </>
+  );
+}
+
 function XingfuliArchitecture() {
   const fallback = <XingfuliProceduralArchitectureFallback />;
   return (
     <XingfuliArchitectureBoundary fallback={fallback}>
       <Suspense fallback={fallback}>
         <group
-          name="xingfuli-final-architecture"
-          userData={{
-            asset: "xingfuli",
-            stage: "final",
-            segments: 3,
-            referenceManifest: "docs/research/xingfuli-reference-manifest.json",
-          }}
+          name="xingfuli-progressive-full-boundary"
+          userData={{ stage: "full", progressive: true }}
         >
-          {XINGFULI_ARCHITECTURE_MODELS.map((path) => (
-            <XingfuliArchitectureSegment key={path} path={path} />
-          ))}
+          <ProgressiveXingfuliArchitecture />
         </group>
       </Suspense>
     </XingfuliArchitectureBoundary>
@@ -616,7 +585,6 @@ function ReflectingPoolHardscapeFallback() {
 function ReflectingPoolDynamicDetails() {
   return (
     <group position={[REFLECTING_POOL.x, 0, REFLECTING_POOL.z]}>
-      {/* 池壳、池沿和木桥已经进入 site GLB；这里只保留动态水面、喷泉和树基座。 */}
       <mesh position={[0, 0.505, 0]} receiveShadow>
         <boxGeometry args={[REFLECTING_POOL.width - 0.58, 0.05, REFLECTING_POOL.depth - 0.56]} />
         <meshToonMaterial color="#5d9da0" transparent opacity={0.86} />
@@ -777,28 +745,96 @@ function LaneFurniture() {
   );
 }
 
+function LightweightXingfuliTrees() {
+  const trunks = useRef<InstancedMesh>(null);
+  const crowns = useRef<InstancedMesh>(null);
+  const helper = useMemo(() => new Object3D(), []);
+
+  useLayoutEffect(() => {
+    XINGFULI_PLANE_TREE_PLACEMENTS.forEach((tree, index) => {
+      const [x, y, z] = tree.position;
+      const height = 6.8 * tree.scale[1];
+
+      helper.position.set(x, y + height * 0.5, z);
+      helper.rotation.set(0, tree.yaw, 0);
+      helper.scale.set(0.25 * tree.scale[0], height, 0.25 * tree.scale[2]);
+      helper.updateMatrix();
+      trunks.current?.setMatrixAt(index, helper.matrix);
+
+      helper.position.set(x, y + height * 0.92, z);
+      helper.scale.set(1.8 * tree.scale[0], 1.75 * tree.scale[1], 1.8 * tree.scale[2]);
+      helper.updateMatrix();
+      crowns.current?.setMatrixAt(index, helper.matrix);
+    });
+    if (trunks.current) trunks.current.instanceMatrix.needsUpdate = true;
+    if (crowns.current) crowns.current.instanceMatrix.needsUpdate = true;
+  }, [helper]);
+
+  return (
+    <group
+      name="xingfuli-lightweight-trees"
+      userData={{ vegetation: "programmatic-lightweight", decorations: "omitted" }}
+    >
+      <instancedMesh ref={trunks} args={[undefined, undefined, XINGFULI_PLANE_TREE_PLACEMENTS.length]}>
+        <cylinderGeometry args={[1, 1, 1, 5]} />
+        <meshToonMaterial color="#665747" />
+      </instancedMesh>
+      <instancedMesh ref={crowns} args={[undefined, undefined, XINGFULI_PLANE_TREE_PLACEMENTS.length]}>
+        <icosahedronGeometry args={[1, 0]} />
+        <meshToonMaterial color="#56734c" />
+      </instancedMesh>
+    </group>
+  );
+}
+
 /**
  * 幸福里采用公开地图拓扑与多角度公开照片重建；不包含门牌、店名或参考照片贴图。
  */
 export function XingfuliBlock({
   loadDetailedArchitecture = true,
+  showEnvironmentDetails,
+  stage,
 }: {
   loadDetailedArchitecture?: boolean;
+  showEnvironmentDetails?: boolean;
+  stage?: ProgressiveBuildingTier;
 }) {
+  const resolvedStage = stage ?? (loadDetailedArchitecture ? "full" : "identity");
+  const identityReady = resolvedStage === "identity" || resolvedStage === "full";
+  const fullReady = resolvedStage === "full";
+  const environmentDetailed = showEnvironmentDetails ?? fullReady;
   return (
-    <group data-neighborhood="xingfuli">
-      {loadDetailedArchitecture
-        ? <XingfuliArchitecture />
-        : <XingfuliProceduralArchitectureFallback />}
-      <MixedStonePaving name="xingfuli-mixed-stone-paving" />
-      <ReflectingPoolDynamicDetails />
-      <VerticalGarden />
-      <EntranceMural />
-      <LaneFurniture />
-      <PlaneTreeInstances
-        name="xingfuli-plane-tree-batches"
-        placements={XINGFULI_PLANE_TREE_PLACEMENTS}
-      />
+    <group
+      data-neighborhood="xingfuli"
+      userData={{ stage: resolvedStage, progressive: true }}
+    >
+      {resolvedStage === "massing"
+        ? <XingfuliMassingArchitecture />
+        : fullReady
+          ? <XingfuliArchitecture />
+          : <XingfuliProceduralArchitectureFallback />}
+      {identityReady && (
+        <>
+          <MixedStonePaving name="xingfuli-mixed-stone-paving" />
+          <VerticalGarden />
+          <EntranceMural />
+          {!environmentDetailed && <LightweightXingfuliTrees />}
+        </>
+      )}
+      {identityReady && environmentDetailed && (
+        <>
+          <ReflectingPoolDynamicDetails />
+          <LaneFurniture />
+          <ProgressiveFeatureBoundary fallback={null}>
+            <Suspense fallback={null}>
+              <ProgressivePlaneTreeInstances
+                name="xingfuli-plane-tree-batches"
+                placements={XINGFULI_PLANE_TREE_PLACEMENTS}
+              />
+            </Suspense>
+          </ProgressiveFeatureBoundary>
+        </>
+      )}
     </group>
   );
 }

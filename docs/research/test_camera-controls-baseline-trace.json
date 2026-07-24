@@ -1,0 +1,249 @@
+{
+  "viewport": [
+    1440,
+    1024
+  ],
+  "start": "xingfuli-canonical",
+  "samples": [
+    {
+      "degrees": 15,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 1,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.13,
+      "actualYaw": 109.5,
+      "desiredYaw": 111.6
+    },
+    {
+      "degrees": 30,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 1,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.09,
+      "actualYaw": 125.9,
+      "desiredYaw": 126.4
+    },
+    {
+      "degrees": 45,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 1,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.09,
+      "actualYaw": 142.9,
+      "desiredYaw": 141.3
+    },
+    {
+      "degrees": 60,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 1,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.08,
+      "actualYaw": 154,
+      "desiredYaw": 156.2
+    },
+    {
+      "degrees": 75,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 1,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.09,
+      "actualYaw": 173.6,
+      "desiredYaw": 171.1
+    },
+    {
+      "degrees": 90,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 1,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.08,
+      "actualYaw": -174.9,
+      "desiredYaw": -174
+    },
+    {
+      "degrees": 105,
+      "mode": "legacy-compressed-1",
+      "blocker": "legacy-sightline",
+      "modeChanges": 2,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.08,
+      "actualYaw": -159.9,
+      "desiredYaw": -159.1
+    },
+    {
+      "degrees": 120,
+      "mode": "legacy-compressed-7",
+      "blocker": "legacy-sightline",
+      "modeChanges": 7,
+      "desiredArm": 5.13,
+      "resolvedArm": 3.5,
+      "actualYaw": -142.4,
+      "desiredYaw": -144.2
+    },
+    {
+      "degrees": 135,
+      "mode": "legacy-compressed-3",
+      "blocker": "legacy-sightline",
+      "modeChanges": 11,
+      "desiredArm": 5.13,
+      "resolvedArm": 3.88,
+      "actualYaw": -121.8,
+      "desiredYaw": -129.3
+    },
+    {
+      "degrees": 150,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 13,
+      "desiredArm": 5.13,
+      "resolvedArm": 4.64,
+      "actualYaw": -114.2,
+      "desiredYaw": -114.4
+    },
+    {
+      "degrees": 165,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 13,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.04,
+      "actualYaw": -97.5,
+      "desiredYaw": -99.5
+    },
+    {
+      "degrees": 180,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 13,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.07,
+      "actualYaw": -88.1,
+      "desiredYaw": -84.6
+    },
+    {
+      "degrees": 195,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 13,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.12,
+      "actualYaw": -70.7,
+      "desiredYaw": -69.7
+    },
+    {
+      "degrees": 210,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 13,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.09,
+      "actualYaw": -53,
+      "desiredYaw": -54.8
+    },
+    {
+      "degrees": 225,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 13,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.08,
+      "actualYaw": -43.5,
+      "desiredYaw": -39.9
+    },
+    {
+      "degrees": 240,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 13,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.08,
+      "actualYaw": -24.5,
+      "desiredYaw": -25
+    },
+    {
+      "degrees": 255,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 13,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.08,
+      "actualYaw": -15.6,
+      "desiredYaw": -10.1
+    },
+    {
+      "degrees": 270,
+      "mode": "legacy-compressed-3",
+      "blocker": "legacy-sightline",
+      "modeChanges": 15,
+      "desiredArm": 5.13,
+      "resolvedArm": 4.2,
+      "actualYaw": 12.7,
+      "desiredYaw": 4.8
+    },
+    {
+      "degrees": 285,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 17,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.12,
+      "actualYaw": 18.7,
+      "desiredYaw": 19.7
+    },
+    {
+      "degrees": 300,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 17,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.09,
+      "actualYaw": 35.3,
+      "desiredYaw": 34.6
+    },
+    {
+      "degrees": 315,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 17,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.09,
+      "actualYaw": 44.6,
+      "desiredYaw": 49.5
+    },
+    {
+      "degrees": 330,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 17,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.08,
+      "actualYaw": 63.6,
+      "desiredYaw": 64.4
+    },
+    {
+      "degrees": 345,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 17,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.08,
+      "actualYaw": 73.7,
+      "desiredYaw": 79.3
+    },
+    {
+      "degrees": 360,
+      "mode": "legacy-clear",
+      "blocker": "none",
+      "modeChanges": 17,
+      "desiredArm": 5.13,
+      "resolvedArm": 5.08,
+      "actualYaw": 94.6,
+      "desiredYaw": 94.2
+    }
+  ]
+}

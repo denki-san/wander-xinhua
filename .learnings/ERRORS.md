@@ -1,5 +1,234 @@
 # Errors
 
+## [ERR-20260724-091] vite_preview_sandbox_listen_permission
+
+**Logged**: 2026-07-24T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+独立 worktree 的 Vite 静态预览首次在文件沙箱中监听本机端口时被系统拒绝。
+
+### Error
+```text
+Error: listen EPERM: operation not permitted 127.0.0.1:4317
+```
+
+### Context
+- 命令为 `npm run preview:static -- --host 127.0.0.1 --port 4317`。
+- 构建产物正常，失败只发生在沙箱内创建监听端口。
+
+### Suggested Fix
+真实浏览器验收需要本地端口时，按权限流程在宿主环境启动同一条预览命令，不要改用未构建的开发服务冒充生产构建。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `package.json`, `.learnings/ERRORS.md`
+
+### Resolution
+- **Resolved**: 2026-07-24T00:00:00+08:00
+- **Notes**: 经批准后同一命令已在 `127.0.0.1:4317` 正常监听。
+
+---
+
+## [ERR-20260725-093] browser_readonly_evaluate_hides_animation_frame
+
+**Logged**: 2026-07-25T00:55:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+in-app Browser 的只读 `playwright.evaluate` 环境不暴露页面 `requestAnimationFrame`。
+
+### Error
+```text
+TypeError: window.requestAnimationFrame is not a function
+```
+
+### Context
+- 目标是在 `/?start=cinema` 的真实 WebGL 页面采集 120 帧间隔；
+- DOM 只读脚本环境与真实页面 JavaScript realm 不完全相同。
+
+### Suggested Fix
+WebGL 帧采样使用 tab 的 CDP capability 执行 `Runtime.evaluate`，并用 `Performance.getMetrics` 读取 heap、DOM 和事件监听器指标；不要把只读 DOM evaluate 当成完整页面运行环境。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `docs/research/test_street_surface_refinement_runtime_metrics.json`
+- See Also: ERR-20260724-092
+
+### Resolution
+- **Resolved**: 2026-07-25T00:55:00+08:00
+- **Notes**: 已通过 CDP 完成 120 帧采样和 Performance metrics 读取。
+
+---
+
+## [ERR-20260725-001] github_main_non_fast_forward
+
+**Logged**: 2026-07-25T01:23:04+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: infra
+
+### Summary
+资产后台提交推送到 GitHub main 时，远端已包含并行的第三人称控制提交，普通推送被拒绝。
+
+### Error
+```text
+! [rejected] main -> main (non-fast-forward)
+```
+
+### Context
+- 当前工作树同时保留用户未提交的第三人称控制修改，不能直接 pull 或 rebase。
+- 没有使用 force push，也没有覆盖远端或用户本地修改。
+
+### Suggested Fix
+发布时使用独立的干净 worktree 或 Sites 专用源码仓库；GitHub 侧将功能提交推送到独立分支，待并行工作收敛后再合并。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/asset-library/AssetLibrary.tsx, .openai/hosting.json
+- See Also: ERR-20260717-039
+
+### Resolution
+- **Resolved**: 2026-07-25T01:23:04+08:00
+- **Notes**: 停止向旧 main 推送，改用基于最新 origin/main 的隔离集成分支，保留远端主干与本地未提交改动。
+
+---
+
+## [ERR-20260725-002] asset_visibility_test_matched_effect_cleanup
+
+**Logged**: 2026-07-25T01:35:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+资产后台离屏暂停测试把正常的 IntersectionObserver effect 清理误判成一次性可见逻辑。
+
+### Error
+```text
+Expected source not to match /entry\.isIntersecting[\s\S]{0,120}observer\.disconnect\(\)/
+```
+
+### Context
+- 实现已改为每次交叉状态变化都执行 `setVisible(entry.isIntersecting)`；
+- effect 仍必须在组件卸载时通过 `return () => observer.disconnect()` 清理 observer；
+- 原正则跨过 callback 边界匹配到了正常 cleanup。
+
+### Suggested Fix
+源码合同只禁止 `if (entry.isIntersecting) { ... observer.disconnect() }` 的一次性断连模式，不禁止 effect 卸载清理。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_asset_library.test.mjs, app/asset-library/AssetLibrary.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T01:35:00+08:00
+- **Notes**: 将负向断言收窄到 callback 内的条件断连模式，保留真实卸载清理。
+
+---
+
+## [ERR-20260725-003] asset_library_preview_wrong_worktree_path
+
+**Logged**: 2026-07-25T01:38:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+资产后台生产预览首次启动时使用了不存在的 worktree 路径。
+
+### Error
+```text
+CreateProcess: No such file or directory
+```
+
+### Context
+- 实际集成目录是 `.worktrees/release-third-person-controls`；
+- 命令误写为 `.worktrees/release-third-person-camera-controls`；
+- 更换 shell 不会修复工作目录不存在的问题。
+
+### Suggested Fix
+进程启动失败时先核对精确 worktree 路径，再判断 shell、权限或端口问题。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+- See Also: ERR193
+
+### Resolution
+- **Resolved**: 2026-07-25T01:38:00+08:00
+- **Notes**: 使用正确的 `.worktrees/release-third-person-controls` 路径重新启动本地生产预览。
+
+---
+
+## [ERR-20260725-004] asset_library_plain_anchor_failed_next_lint
+
+**Logged**: 2026-07-25T01:42:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+为兼容静态入口把资产页首页链接改成普通 `<a>` 后，Next lint 拒绝内部页面导航。
+
+### Error
+```text
+Do not use an <a> element to navigate to /. Use <Link /> from next/link instead.
+```
+
+### Context
+- `/asset-library` 同时进入 Vinext 和 Vite 静态构建；
+- 普通锚点不是必要的静态兼容回退，`next/link` 可以由静态 lazy chunk 实际构建验证。
+
+### Suggested Fix
+保留 Next `Link` 语义，并通过 `npm run build:static` 验证跨构建兼容性，不用降低 lint 规则绕过。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/asset-library/AssetLibrary.tsx, static-entry.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T01:42:00+08:00
+- **Notes**: 恢复 `next/link`，随后重新运行 lint 与静态构建。
+
+---
+
+## [ERR-20260724-092] in_app_browser_networkidle_unsupported
+
+**Logged**: 2026-07-24T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+in-app Browser 文档列出了 `networkidle`，但当前后端的 `waitForLoadState` 不支持该状态。
+
+### Error
+```text
+playwright_wait_for_load_state does not support networkidle
+```
+
+### Context
+- 目标是本地生产构建中的持续 WebGL 页面，网络空闲本来也不是最可靠的场景稳定信号。
+- 页面 `load` 状态、显式预热、截图、console 和 CDP 指标均可继续使用。
+
+### Suggested Fix
+本项目 3D 页面验收使用 `load` 加固定预热时间，并用页面实际可见状态和资源/性能指标验证，不依赖 `networkidle`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `.learnings/ERRORS.md`
+
+### Resolution
+- **Resolved**: 2026-07-24T00:00:00+08:00
+- **Notes**: 改用 `load`、7 秒预热、实页截图、console error 和 120 帧 CDP 采样完成验收。
+
+---
+
 ## [ERR-20260719-079] map_test_locked_old_fallback_scale
 
 **Logged**: 2026-07-19T14:02:00+08:00
@@ -4018,6 +4247,9 @@ Error: listen EPERM: operation not permitted 127.0.0.1:3002
 - **Resolved**: 2026-07-22T11:08:00+08:00
 - **Notes**: 经授权在沙箱外运行 `npm run preview:static -- --host 127.0.0.1 --port 3002`，端口正常监听。
 - **Recurrence**: 2026-07-22T21:05:00+08:00 建筑发布验收时 `127.0.0.1:4173` 再次触发同一限制；继续使用已验证的沙箱外静态预览路径。
+- **Recurrence**: 2026-07-24T21:10:00+08:00 全览 Identity 建筑缩影验收时
+  `127.0.0.1:4173` 再次被 managed sandbox 拒绝；同一限定命令获准后正常启动，
+  页面构建本身无监听错误。
 
 ---
 ## [ERR-20260722-106] cdp_raf_sample_hits_default_timeout
@@ -5165,7 +5397,7 @@ TypeError: requestAnimationFrame is not a function
 - Symptom: Python `socket.bind` 返回 `PermissionError: [Errno 1] Operation not permitted`。
 - Cause: managed sandbox 禁止当前进程绑定本机预览端口；Vite 构建、封面专项测试和 lint 已独立通过。
 - Resolution: 对同一个仅绑定 `127.0.0.1:3002` 的静态预览命令申请沙箱外执行，再使用真实浏览器完成桌面与手机封面截图。
-- Recurrence: 2026-07-24 上海影城渐进 LOD 实验中，`vinext start` 绑定 `0.0.0.0:3017` 同样返回 `listen EPERM`；生产构建已通过，应直接对限定端口的启动命令申请沙箱外执行。
+- Recurrence: 2026-07-24 上海影城渐进 LOD 实验中，`vinext start` 绑定 `0.0.0.0:3017` 同样返回 `listen EPERM`；同日第三人称相机方案基线与 A/B 验收中，Python 静态服务绑定 `127.0.0.1:3013`、`127.0.0.1:3014` 再次返回同一错误。生产构建通过时，应直接对限定 loopback 端口的启动命令申请沙箱外执行。
 - See Also: ERR153
 ## [ERR162] Git staging blocked by sandbox index lock restriction
 
@@ -5207,3 +5439,829 @@ TypeError: requestAnimationFrame is not a function
 **Error:** `agent-browser open ...` 返回 `command not found: agent-browser`。
 **Cause:** 当前会话提供了 agent-browser 工作流说明，但本机没有对应可执行文件。
 **Resolution:** 不为一次实验临时安装全局依赖，回退到仓库已有且已验证的 Headless Chrome CDP 测试脚本；继续固定浏览器版本、视口、网络、缓存与页面错误采集。
+
+## [ERR167] Browser CUA 滚轮字段名误用
+
+**Date:** 2026-07-24
+**Context:** 验证第三人称相机首次滚轮缩放是否连续。
+**Error:** `cua.scroll` 返回 `requires x, y, scrollX, and scrollY`。
+**Cause:** 误用了 CDP 风格的 `deltaX/deltaY`，而 Browser CUA 接口要求 `scrollX/scrollY`。
+**Resolution:** 保留截图确认的画布坐标，改用 `{ x, y, scrollX, scrollY }`；向内、向外和最近边界三条真实页面缩放路径均随后通过。
+
+## [ERR168] React lint 拒绝 effect 内的相机变更与同步 setState
+
+**Date:** 2026-07-24
+**Context:** 第三人称相机 V1 收口运行 `npm run lint`。
+**Error:** `react-hooks/immutability` 拒绝在 `useLayoutEffect` 修改 `useThree()` 返回的 camera；`react-hooks/set-state-in-effect` 拒绝 effect 内同步设置 QA 查询参数状态。
+**Cause:** 相机投影更新没有放进 R3F 的帧生命周期；只读 URL 初值被不必要地建模成 effect 同步。
+**Resolution:** 用 `useFrame(({ camera, size }) => ...)` 更新 FOV，只在值变化时刷新投影矩阵；QA 开关改为带 `window` 守卫的惰性 `useState` 初值。修正后重新运行 lint。
+
+## [ERR169] 多个二进制验收产物不能用文本补丁批量整理
+
+**Date:** 2026-07-24
+**Context:** 把第三人称相机 A/B 轨迹和截图整理进 `docs/research`。
+**Error:** 一条 `mv source target source target` 被解释成多源到单目录；随后 `apply_patch` 删除 PNG 时因非 UTF-8 二进制内容失败。
+**Cause:** `mv` 不支持在一条多源命令中表达多个不同目标名；文本补丁工具也不适合读取 PNG。
+**Resolution:** 不同目标名的轨迹拆成独立 `mv`；保留的 PNG 只做机械移动，明确由本轮生成且不纳入证据的临时 PNG 用精确文件名删除，不使用递归或通配符。
+
+## [ERR170] 直接用 Node 导入 TSX 只为统计边界长度
+
+**Date:** 2026-07-24
+**Context:** 复核 spring-arm 每帧边界采样规模。
+**Error:** 先把实际的 `xinhua-map.tsx` 猜成 `.ts`，随后原生 Node 又因不识别 `.tsx` 扩展名而失败。
+**Cause:** 对只需读取 JSON 数组长度的诊断使用了不必要的模块导入路径。
+**Resolution:** 先用 `rg --files` 确认文件，再直接执行 `jq '.boundary | length' app/scene/xinhua-map-data.json`；确认边界为 59 个点，不再引入 TSX loader。
+
+## [ERR171] 全量测试仍把已淘汰的相机兜底循环当作合同
+
+**Date:** 2026-07-24
+**Context:** spring-arm V1 通过生产构建后运行 `npm test`。
+**Error:** 133 项中 3 项失败，均要求源码继续包含 `isPlanarCameraCandidateClearInPolygon`、`CAMERA_FALLBACK_YAWS`、16 档缩臂循环或第三个兜底目标高度分支。
+**Cause:** 专项测试已覆盖新架构，但三个较早的仓库级源码合同测试仍锁定被本轮明确淘汰的实现细节。
+**Resolution:** 不删除测试；把合同更新为独立 `WORLD_CAMERA_OBSTACLES`、连续 `resolvePlanarSpringArm`、blocker 遥测以及初始化/逐帧目标高度，并明确断言旧 16 档循环不存在。随后重跑完整测试。
+
+## [ERR172] Browser 高层接口不能直接覆盖持续输入与控制台采集
+
+**Date:** 2026-07-24
+**Context:** 第三人称相机 V1 的真实页面交互与运行时异常验收。
+**Error:** 页面刚进入时按按钮文本查询短暂返回 0 个结果；`tab.console` 不存在；原始 CDP 键盘接口也不支持可信的持续按住输入。
+**Cause:** UI 可交互状态晚于首个短等待窗口，高层 Browser 封装没有暴露所假设的 console helper，且一次性键盘事件不能替代跨多帧的真实摇杆或长按。
+**Resolution:** 等待实际 DOM 进入可交互态后再定位按钮；通过 CDP `Runtime` / `Log` 事件采集异常与控制台；持续左摇杆加右手拖拽明确保留为真机触控验收，不用合成短按冒充证据。
+
+## [ERR173] Wiki 原始来源可回读但增量索引没有生成目标 source 页面
+
+**Date:** 2026-07-24
+**Context:** 将第三人称相机 V1 的独立验证结论增量同步到 `Threejs-3d-research`。
+**Error:** 首次扫描后 `llm_wiki_status` / `llm_wiki_search` 曾短暂返回 `fetch failed`；API 恢复后能从 `raw/sources` 回读目标文件，但混合搜索和 `wiki/` 文件列表仍没有目标 source 页面。
+**Cause:** Desktop API 短暂不可达；随后 source snapshot 已记录目标文件，但 ingest 队列没有该目标任务，第二次 rescan 又返回无变更，无法证明索引生成完成。
+**Resolution:** 保留三份同哈希原始来源并完成 API 原文回读；把“已进入 raw source”与“已形成可检索 Wiki 页面”分开报告，不把 rescan 成功当作知识库吸收完成。另有一项旧来源 pending，与本目标区分处理。
+
+## [ERR174] Browser 标签交接需要显式状态对象
+
+**Date:** 2026-07-24
+**Context:** 把本地相机 QA 页面留给用户继续验收。
+**Error:** `browser.tabs.finalize({ keep: [tab] })` 返回 keep 项必须是 `{ tab, status }`；随后使用 `status: "keep"` 又被拒绝。
+**Cause:** finalize 接口的保留项不是 Tab 数组，合法状态只接受 `handoff` 或 `deliverable`。
+**Resolution:** 使用 `browser.tabs.finalize({ keep: [{ tab, status: "handoff" }] })`，成功交接可继续操作的本地验收标签。
+
+## [ERR175] 地形测试把旧人物速度数值当作高程合同
+
+**Date:** 2026-07-24
+**Context:** 用户要求人物稍微减速后运行完整 `npm test`。
+**Error:** 140 项中 1 项失败；`tests/test_terrain.test.mjs` 仍要求源码包含 `inputState.sprint ? 9.2 : 3.6`。
+**Cause:** 地形基准测试硬编码了与高程无关的旧移动速度；新增控制专项测试已覆盖新的探索、奔跑和全览速度合同。
+**Resolution:** 保留地形测试并将旧数值断言更新为命名的 `EXPLORE_WALK_SPEED` 及其模拟输入缩放路径；随后重跑完整测试。
+**See Also:** ERR171
+
+## [ERR176] Browser 手机验收环境不能直接注入原始 TouchEvent
+
+**Date:** 2026-07-24
+**Context:** 复核左下角摇杆区域与文字禁止选中的 390×844 生产构建。
+**Error:** 受限页面求值环境不暴露 `HTMLElement`、`navigator` 或 selection helper；`Input.dispatchTouchEvent` 也提示 in-app Browser 不支持原始触控 CDP 注入。
+**Cause:** Browser 为保持焦点和安全边界，对页面全局对象及原始输入 CDP 命令进行了限制。
+**Resolution:** 不用 `instanceof` 或原始 TouchEvent 冒充真机证据；改为读取真实 DOM、计算样式和区域 bounds，确认游玩态 `user-select: none`、摇杆盒为左下 `195×320px`、右侧保留 `195px` 镜头区域。持续双指体感仍以用户手机验收为准。
+**See Also:** ERR172
+
+## [ERR177] 转向速度专项测试残留旧的重复源码断言
+
+**Date:** 2026-07-24
+**Context:** 按用户反馈降低人物转身和跑步速度后运行控制专项测试。
+**Error:** 10 项中 1 项失败；同一测试文件的后续入口合同仍要求 `CHARACTER_MAX_TURN_SPEED = 12`。
+**Cause:** 数学手感测试和主要源码合同已经更新为新值，但另一处重复的源码断言没有同步。
+**Resolution:** 将残留断言更新为 `8.5`，并在完整测试前搜索全部旧速度常量，避免重复合同再次漏改。
+**See Also:** ERR171, ERR175
+
+## [ERR178] 受限沙箱不能写入主仓库的 worktree Git 索引
+
+**Date:** 2026-07-24
+**Context:** 完成角色转向与跑步速度微调后，准备提交隔离 worktree 的三个精确文件。
+**Error:** `git add` 无法创建主仓库 `.git/worktrees/third-person-camera-controls/index.lock`，返回 `Operation not permitted`。
+**Cause:** 当前沙箱允许写入 worktree 文件，但主仓库 `.git` 目录只有读取权限。
+**Resolution:** 保持提交范围为三个已审阅文件，使用受控的 Git 权限升级完成暂存和提交，不扩大文件系统写入范围。
+
+## [ERR179] 局域网预览在最终复查时短暂拒绝连接
+
+**Date:** 2026-07-24
+**Context:** 提交角色速度微调后，再次检查手机使用的 `192.168.50.12:3013`。
+**Error:** 首次构建后曾返回 200，提交后的首次复查变为 `connection refused`；沙箱内直接执行 `ps` 又被系统拒绝。
+**Cause:** 精确检查确认原 Python 服务仍在 `*:3013` 监听，随后本机与局域网请求都恢复 200；只能确认是瞬时连接失败，不能据此声称进程退出。
+**Resolution:** 使用 `lsof` 精确确认监听者，再分别请求 localhost 与局域网 URL；关闭临时启用的 3014 备用服务，保留原 3013 服务和手机地址。
+**See Also:** ERR178
+
+## [ERR180] 隔离 worktree 内没有独立的 Vite 可执行文件
+
+**Date:** 2026-07-24
+**Context:** 从隔离 worktree 重启局域网静态预览。
+**Error:** `./node_modules/.bin/vite preview ...` 返回 `no such file or directory`。
+**Cause:** 依赖安装在主仓库根目录，隔离 worktree 没有自己的 `node_modules`；npm scripts 会自动补充父级依赖路径，但直接相对调用不会。
+**Resolution:** 使用主仓库已安装的 `../../node_modules/.bin/vite` 启动预览，不重新安装或复制依赖。
+**See Also:** ERR179
+
+## [ERR181] Browser 标签页集合没有 open 方法
+
+**Date:** 2026-07-24
+**Context:** 验收移动端走路/跑步切换按钮的生产构建。
+**Error:** `browser.tabs.open(...)` 返回 `browser.tabs.open is not a function`。
+**Cause:** 把其他浏览器控制接口的命名误套到当前 Browser client；当前接口使用 `browser.tabs.new(...)` 创建标签页。
+**Resolution:** 保留既有 Browser 绑定，改用 `browser.tabs.new(...)` 创建本地验收页，不重置浏览器或切换控制工具。
+**See Also:** ERR174
+
+## [ERR182] Browser 页面求值环境再次屏蔽 navigator
+
+**Date:** 2026-07-24
+**Context:** 读取走路/跑步切换按钮验收页的视口和触控能力。
+**Error:** 读取 `navigator.maxTouchPoints` 时返回 `Cannot read properties of undefined`。
+**Cause:** Browser 的受限页面求值环境不暴露 `navigator`，与既有移动端验收限制一致。
+**Resolution:** 不用 `navigator` 判断验收页；改读真实 DOM 的 viewport 尺寸、计算样式、控件 bounds 和 ARIA 状态，并用 Browser 点击验证切换。
+**See Also:** ERR176
+
+## [ERR183] Browser 受限 DOM 代理不支持 classList
+
+**Date:** 2026-07-24
+**Context:** 在桌面 Browser 标签中临时模拟 390×844 的手机舞台以检查触控按钮布局。
+**Error:** `stage.classList.add("is-touch")` 返回 `stage?.classList.add is not a function`。
+**Cause:** Browser 页面求值返回的是受限 DOM 代理，不提供完整的 `DOMTokenList` 接口。
+**Resolution:** 使用元素的 `getAttribute` / `setAttribute` 临时设置验收 class 与内联尺寸，再读取 `getBoundingClientRect` 和计算样式；不修改生产源码。
+**See Also:** ERR176, ERR182
+
+## [ERR184] Browser 受限 DOM 代理也禁止 setAttribute
+
+**Date:** 2026-07-24
+**Context:** 继续尝试只在验收标签页临时显示触控控件。
+**Error:** `stage.setAttribute(...)` 返回 `stage?.setAttribute is not a function`。
+**Cause:** 当前 Browser 页面求值不仅省略 `classList`，也不暴露通用 DOM 写入方法。
+**Resolution:** 停止依赖页面注入，新增只在显式 `touchQa=1` 查询参数下启用的触控控件 QA 入口，再用真实生产构建完成读取和点击验收。
+**See Also:** ERR176, ERR182, ERR183
+
+## [ERR185] 手机真实体验前局域网预览服务已停止
+
+**Date:** 2026-07-24
+**Context:** 用户要求不带监控数据的真实体验入口，交付前复查 `192.168.50.12:3013`。
+**Error:** `curl` 返回 `Failed to connect` 和 HTTP `000`。
+**Cause:** 之前的临时 Python 静态预览进程已不再监听 3013；构建产物本身仍在。
+**Resolution:** 从当前 worktree 的已验证 `dist-static` 重新绑定 `0.0.0.0:3013`，并在给出无查询参数入口前同时验证 localhost 与局域网地址返回 200。
+**See Also:** ERR179
+
+## [ERR186] 内置浏览器无法向 Messenger 注入原始触摸事件
+
+**Date:** 2026-07-24
+**Context:** 以 390×844 手机视口实际体验 `messenger.abeto.co` 的摇杆、人物转身和镜头回位。
+**Error:** `Input.dispatchTouchEvent` 返回当前 in-app Browser 不支持该命令；普通鼠标点击也不能触发只响应触摸的游戏入口。
+**Cause:** Browser 会把输入 CDP 命令转换为 JavaScript以保持焦点，因此不开放原始触摸注入；Messenger 的入口依赖触摸事件。
+**Resolution:** 不把鼠标合成冒充真机触控。保留可确认的移动端构图、DOM 热区和公开前端资产证据，并将持续摇杆手感明确建立在用户真机反馈与本项目可重复 QA 上。
+**See Also:** ERR176, ERR172
+
+## [ERR187] Chrome Browser 禁止原始持续键盘 CDP 输入
+
+**Date:** 2026-07-24
+**Context:** 在用户 Chrome 中进入 Messenger 场景后，准备按住 W/S/D 记录移动中与停止后的镜头轨迹。
+**Error:** `Input.dispatchKeyEvent` 返回该方法不支持，要求使用 `tab.cua.type` 或 `tab.cua.keypress`。
+**Cause:** Chrome Browser 对原始输入 CDP 命令设有限制，不能直接维持跨多帧 keyDown 状态。
+**Resolution:** 使用允许的短按序列观察朝向、构图和停止回位，并把无法精确测量的持续输入阻尼明确标为定性结论，不伪装成按住测试。
+**See Also:** ERR172, ERR186
+
+## [ERR188] 根据旧记录猜测了不存在的测试文件名
+
+**Date:** 2026-07-24
+**Context:** 定位第三人称镜头与移动测试入口，准备实现反向转身和构图优化。
+**Error:** `rg` 报告 `tests/test_camera_collision.test.mjs` 与 `tests/test_world_movement.test.mjs` 不存在。
+**Cause:** 使用了旧记录中的概括性文件名，没有先以当前仓库文件清单为准。
+**Resolution:** 先用 `rg --files tests` 获取真实入口，后续使用 `tests/test_camera_spring_arm.test.mjs`、`tests/test_controls.test.mjs` 和 `tests/world-math.test.mjs`。
+**See Also:** ERR187
+
+## [ERR189] 提交前审查任务名与已结束任务冲突
+
+**Date:** 2026-07-24
+**Context:** 按提交前审查流程启动第三人称镜头控制的只读复核。
+**Error:** 协作工具返回 `agent path /root/camera_controls_review already exists`，但活动任务列表中只有主任务。
+**Cause:** 当前线程树保留了同名已结束任务路径，不能复用同一任务名。
+**Resolution:** 不重试同名任务，改用带版本后缀的唯一任务名继续只读审查。
+**See Also:** ERR188
+
+## [ERR190] 协作审查等待时间低于接口下限
+
+**Date:** 2026-07-24
+**Context:** 等待第三人称镜头控制的只读审查结果。
+**Error:** 协作工具返回 `timeout_ms must be at least 10000`。
+**Cause:** 将通用的一秒短轮询习惯误用于最短等待时间为十秒的协作接口。
+**Resolution:** 后续使用接口允许的 `10000ms` 以上等待时间，不重复无效参数。
+**See Also:** ERR189
+
+## [ERR191] Chrome 验收标签在最终刷新前失去绑定
+
+**Date:** 2026-07-24
+**Context:** 完成碰撞安全修正后，准备刷新用户 Chrome 中的局域网验收页。
+**Error:** Chrome Browser 返回 `Tab not found`，当前控制会话中没有可用标签。
+**Cause:** 已认领的用户标签在长时间测试与代码审查期间释放了控制绑定；浏览器本身没有断开。
+**Resolution:** 不重建浏览器连接，按 Chrome 规则重新读取当前用户标签并认领同一局域网页。
+**See Also:** ERR187
+
+## [ERR192] 墙钟一致性测试正好卡在浮点阈值边界
+
+**Date:** 2026-07-24
+**Context:** 为停步构图包络补充 10/30/60fps 墙钟一致性测试。
+**Error:** 在名义 `2.2s` 断言严格等于零时，某帧累计为略小于 2.2 的浮点数，返回约 `0.0983`。
+**Cause:** 测试把离散帧累计的浮点边界误当作帧率相关行为；实际差异最多一帧。
+**Resolution:** 改在 1.5 秒比较三种帧率的包络数值，在 2.3 秒验证全部归零，避开阈值的单帧离散歧义。
+**See Also:** ERR190
+
+## [ERR193] 触控控件初次检索误读主工作区
+
+**Date:** 2026-07-25
+**Context:** 延续 `third-person-camera-controls` 分支修改摇杆与跳跃交互。
+**Error:** 第一轮 `rg` 使用了仓库根目录作为工作目录，读到主工作区源码而不是功能 worktree。
+**Cause:** Git 状态命令显式使用了 worktree 路径，但同一命令中的相对源码路径仍由当前根目录解析。
+**Resolution:** 后续所有源码、测试、构建和 Git 操作统一以 `.worktrees/third-person-camera-controls` 为工作目录；修改前重新读取正确分支文件。
+**See Also:** ERR188
+
+## [ERR194] 假设功能需求日志文件已经存在
+
+**Date:** 2026-07-25
+**Context:** 按 self-improvement 规则记录默认隐藏摇杆和轻点跳跃需求。
+**Error:** `tail .learnings/FEATURE_REQUESTS.md` 返回 `No such file or directory`。
+**Cause:** 项目已有错误和学习日志，但尚未创建功能需求日志。
+**Resolution:** 使用规定格式新建 `.learnings/FEATURE_REQUESTS.md`，写入本次触控交互需求。
+**See Also:** ERR193
+
+## [ERR195] 手机预览服务在最终可达性检查前退出
+
+**Date:** 2026-07-25
+**Context:** 完成触控交互构建与手机尺寸浏览器验收后，检查本机和局域网 `3013` 端口。
+**Error:** `curl` 返回 `Failed to connect to 127.0.0.1 port 3013`。
+**Cause:** 先前启动的静态预览进程已经结束，浏览器仍显示已加载页面，不能代表端口当前可达。
+**Resolution:** 用主机侧检查确认已有 `3013` 预览进程仍在运行，并分别验证回环与局域网地址及最新构建指纹。
+**See Also:** ERR191
+
+## [ERR196] 沙箱阻止静态预览监听局域网端口
+
+**Date:** 2026-07-25
+**Context:** 重新启动绑定 `0.0.0.0:3013` 的手机静态预览。
+**Error:** Vite 返回 `listen EPERM: operation not permitted 0.0.0.0:3013`。
+**Cause:** 当前沙箱不允许进程直接监听局域网接口。
+**Resolution:** 使用获批的受控权限核查监听状态；确认已有 `3013` 进程正在提供最新构建后，停止额外启动的 `3016` 临时预览，避免留下重复进程。
+**See Also:** ERR195
+
+## [ERR197] 深链镜头验收错误等待入口按钮
+
+**Date:** 2026-07-25
+**Context:** 使用 `?start=xingfuli-canonical&touchQa=1` 在手机视口验收默认第三人称构图。
+**Error:** Browser 等待“出发”按钮三秒后超时，报告没有匹配元素。
+**Cause:** 直达 `start` 参数在当前运行状态已经进入游玩态，验收脚本仍按入口页流程无条件点击按钮。
+**Resolution:** 先读取当前 DOM；只有存在“出发”按钮时才点击，否则直接验收游玩画面。深链状态不能由旧截图或上一次加载流程推断。
+**See Also:** ERR191
+
+## [ERR198] 功能 worktree 无权写入 FETCH_HEAD
+
+**Date:** 2026-07-25
+**Context:** 发布前在 `third-person-camera-controls` worktree 刷新 `origin/main`。
+**Error:** `cannot open '.git/worktrees/third-person-camera-controls/FETCH_HEAD': Operation not permitted`。
+**Cause:** 当前沙箱可读取 Git worktree 元数据，但普通权限不能写入该 worktree 的 `FETCH_HEAD`。
+**Resolution:** 使用受控权限只执行 `git fetch origin`，随后重新核对远端主干 SHA 和祖先关系；不通过修改文件权限或删除锁文件绕过。
+**See Also:** ERR193
+
+## [ERR199] 功能 worktree 无权创建 index.lock
+
+**Date:** 2026-07-25
+**Context:** 发布前按明确文件清单暂存第三人称镜头与移动触控改动。
+**Error:** `Unable to create '.git/worktrees/third-person-camera-controls/index.lock': Operation not permitted`。
+**Cause:** 普通沙箱权限不能写入该 worktree 的 Git 索引元数据。
+**Resolution:** 使用受控权限执行同一条精确 `git add`，随后用 cached diff 和状态复核暂存范围；不使用 `git add -A`，也不触碰主工作区。
+**See Also:** ERR198
+
+## [ERR200] Sites 官方打包脚本缺少可执行位
+
+**Date:** 2026-07-25
+**Context:** 为已推送的第三人称镜头与移动触控版本生成 Codex Sites 发布归档。
+**Error:** 直接运行 `package-site.sh` 返回 `permission denied`，退出码为 `126`。
+**Cause:** 当前安装的 Sites 插件脚本没有可执行位，不能作为程序直接启动。
+**Resolution:** 不修改插件文件权限，改用 `bash package-site.sh` 调用同一官方脚本；发布前继续核对归档对应的完整 Git SHA。
+**See Also:** ERR198
+
+## [ERR201] Sites 打包包装脚本仍以 exec 调用不可执行内层脚本
+
+**Date:** 2026-07-25
+**Context:** 使用 `bash` 回退调用 Sites 顶层 `package-site.sh`。
+**Error:** 顶层脚本在第 4 行继续以 `exec` 调用内层打包脚本，内层文件同样返回 `Permission denied`。
+**Cause:** 顶层脚本只是包装器，没有把 `bash` 传递给缺少可执行位的内层脚本；同时内层脚本的真实参数是项目目录和归档路径。
+**Resolution:** 只读核对两层脚本后，使用 `bash` 直接调用 `skills/sites-hosting/scripts/package-site.sh PROJECT_DIR ARCHIVE_PATH`，不修改插件权限或脚本内容。
+**See Also:** ERR200
+
+## [ERR-20260725-005] asset_library_dependencies_not_inside_worktree
+
+**Date**: 2026-07-25
+**Category**: ENVIRONMENT
+**Command/Action**: 在隔离 worktree 内检索 `node_modules/@react-three/drei` 的 `Bounds` 实现。
+**What Happened**:
+- 隔离 worktree 没有独立的 `node_modules`，首次检索找不到依赖源码；
+- 项目依赖实际安装在主仓库根目录。
+**Root Cause**:
+- 错误地假设每个 Git worktree 都有独立依赖目录。
+**Prevention**:
+- 隔离 worktree 缺少依赖目录时，先核对主仓库根目录的只读依赖；
+- 构建和测试继续在 worktree 执行，依赖源码检查使用已安装依赖的绝对路径。
+**Resolution**:
+- 从主仓库根目录读取 Drei `Bounds` 实现，确认默认拟合时长为 1 秒；
+- 静态预览改为 90 帧预算，并在模型或变体切换时重建 `View`。
+
+## [ERR-20260725-006] static_preview_port_blocked_in_sandbox
+
+**Date**: 2026-07-25
+**Category**: ENVIRONMENT
+**Command/Action**: 在隔离 worktree 启动 `127.0.0.1:4320` 静态预览。
+**What Happened**:
+- 沙箱返回 `listen EPERM`，本地端口无法直接监听。
+**Root Cause**:
+- 当前受限环境禁止普通权限创建监听端口。
+**Prevention**:
+- 本地浏览器验收需要临时监听时，直接使用受控权限启动明确的预览脚本和端口；
+- 验收完成后停止该临时服务。
+**Resolution**:
+- 使用受控权限启动同一静态预览命令，未更改项目或系统权限。
+
+## [ERR-20260725-007] browser_networkidle_not_supported
+
+**Date**: 2026-07-25
+**Category**: TOOLING
+**Command/Action**: 等待本地资产库页面进入 `networkidle`。
+**What Happened**:
+- 当前浏览器控制接口不支持 `networkidle` 状态。
+**Root Cause**:
+- 沿用了通用 Playwright 的等待状态，但当前受控接口只支持其文档列出的状态子集。
+**Prevention**:
+- 本地页面使用受支持的 `load` 或 `domcontentloaded`，再通过目标 DOM 或短时渲染等待确认完成。
+**Resolution**:
+- 改用 `load`，随后读取页面状态并检查实际资产卡片和 Canvas。
+
+## [ERR-20260725-008] browser_canvas_context_read_not_supported
+
+**Date**: 2026-07-25
+**Category**: TOOLING
+**Command/Action**: 在受控浏览器只读检查中调用 Canvas `getContext`。
+**What Happened**:
+- 页面侧只读求值返回 `getContext is not a function`，未能用该方式确认 WebGL 状态。
+**Root Cause**:
+- 受控只读求值环境不保证 DOM 方法完整可调用。
+**Prevention**:
+- WebGL 验收优先结合页面截图、DOM 结构和控制台错误；
+- 不依赖未在浏览器接口文档中承诺的 DOM 方法。
+**Resolution**:
+- 改用截图确认实际渲染结果，并单独检查 error 级控制台日志。
+
+## [ERR-20260725-009] zsh_unmatched_model_glob
+
+**Date**: 2026-07-25
+**Category**: SHELL
+**Command/Action**: 用多个通配符查找上海影城模型。
+**What Happened**:
+- zsh 因其中一个通配符没有匹配结果而直接报错。
+**Root Cause**:
+- 使用了会被 shell 预展开的可选路径通配符。
+**Prevention**:
+- 不确定目录层级时使用 `find -name` 或 `rg --files`，避免依赖 zsh 的空匹配行为。
+**Resolution**:
+- 改用 `find public/models -name '*shanghai*'`，确认模型文件存在。
+
+## [ERR-20260725-010] cdp_touch_disable_rejected_zero_points
+
+**Date**: 2026-07-25
+**Category**: TOOLING
+**Command/Action**: 关闭触屏模拟时同时传入 `maxTouchPoints: 0`。
+**What Happened**:
+- CDP 拒绝参数，要求触点数量位于 1 到 16。
+**Root Cause**:
+- 关闭模拟不需要也不接受零触点参数。
+**Prevention**:
+- `enabled: false` 时省略 `maxTouchPoints`；仅启用时传入合法正整数。
+**Resolution**:
+- 改为只传 `{ enabled: false }`，桌面模式恢复正常。
+
+## [ERR-20260725-011] shared_view_port_rendered_empty_asset_cards
+
+**Date**: 2026-07-25
+**Category**: RUNTIME
+**Command/Action**: 在桌面与 390px 低配触屏条件下验收共享 Canvas 的资产预览。
+**What Happened**:
+- 页面和筛选交互正常，但所有资产卡片只显示 CSS 背景，没有实际 3D 模型；
+- 单纯增加静态帧数或在进入视口时重建 `View` 仍不能恢复渲染。
+**Root Cause**:
+- 当前页面结构中的共享 `View.Port` 没有把各卡片场景稳定合成到主 Canvas。
+**Prevention**:
+- 资产库变更必须至少实际查看一个 GLB 和一个程序化资产，不能只检查 DOM、测试或无 error 控制台；
+- 同时覆盖桌面动态模式和 390px 低配触屏静态模式。
+**Resolution**:
+- 改为只给可见卡片挂载独立 Canvas；
+- 动态模式持续渲染，静态模式使用 `frameloop="demand"`，相机拟合与模型加载完成后自动停帧；
+- 390px 低配触屏下确认垃圾桶模型可见、页面可滚动、变体可切换且无 error 日志。
+## [ERR-20260724-086] npm_ci_exit_handler_failure
+
+**Logged**: 2026-07-24T19:38:31+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: config
+
+### Summary
+在新 Git worktree 中运行 `npm ci` 时，npm 在约 62 秒后以自身退出处理器错误
+终止，并且沙箱不允许向用户级 npm 日志目录写入。
+
+### Error
+```text
+npm error Exit handler never called!
+npm error Log files were not written due to an error writing to the directory:
+/Users/lei/.npm/_logs
+```
+
+### Context
+- 命令：`npm ci`
+- 工作树：`.worktrees/progressive-world-loading`
+- 失败后留下约 23MB 的不完整 `node_modules`，没有生成
+  `node_modules/.package-lock.json`。
+
+### Suggested Fix
+将 npm cache 与日志目录显式放进任务工作树或 `/private/tmp` 后重跑
+`npm ci`；成功后用 `npm ls --depth=0` 和基线构建确认依赖完整。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: package-lock.json
+
+### Resolution
+- **Resolved**: 2026-07-24T19:40:00+08:00
+- **Notes**: 调试日志确认真实原因是沙箱内访问 npm registry 持续
+  `ENOTFOUND`，npm 11.13.0 最终以误导性的退出处理器错误收尾；在受权联网环境
+  使用项目内 cache/log 目录后，562 个依赖于 10 秒内安装完成。
+
+---
+## [ERR-20260724-087] progressive_split_source_contract_failures
+
+**Logged**: 2026-07-24T20:05:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+将 GLTF、人物精模、建筑 Full 层和后处理拆入动态模块后，15 个源码合同测试仍只
+扫描原始聚合文件，因而把已迁移的真实实现误判为缺失。
+
+### Error
+```text
+tests 123
+pass 108
+fail 15
+```
+
+### Context
+- 失败集中在角色、幸福里、孙科别墅、道路地标和控制合同。
+- 运行实现没有删除这些能力，而是将其移动到明确的延后分块。
+
+### Suggested Fix
+源码合同测试应扫描新的权威模块，并验证动态导入、分层边界与距离防抖语义，
+而不是继续依赖旧文件中的单个正则位置。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_progressive_world_loading.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-24T20:12:00+08:00
+- **Notes**: 测试已改为检查拆分后的权威模块；新增生产分层与包体门禁，完整
+  `npm test` 为 126/126，`npm run lint` 通过。
+
+---
+## [ERR-20260724-088] browser_raw_cdp_input_not_supported
+
+**Logged**: 2026-07-24T20:15:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+本地生产预览验收时，浏览器控制层不允许通过 raw CDP
+`Input.dispatchKeyEvent` 注入按住移动键。
+
+### Error
+```text
+This method is not supported through raw CDP.
+Use tab.cua.type(...) or tab.cua.keypress(...) instead.
+```
+
+### Context
+- raw CDP 继续用于只读的网络节流、performance mark 和资源请求采样。
+- 目标是验证真实输入通路，不能用页面内直接改状态替代。
+
+### Suggested Fix
+使用浏览器原生交互通道发送 `W` 键，并以输入前后画面变化和游玩态 UI 共同验收。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/progressive-world-loading-acceptance-2026-07-24.md
+
+### Resolution
+- **Resolved**: 2026-07-24T20:17:00+08:00
+- **Notes**: 改用浏览器交互通道连续发送真实 `W` 键；近景角色与相机画面发生
+  可见位移，且控制台无 error。
+
+---
+## [ERR-20260724-089] lazy_retry_component_created_during_render
+
+**Logged**: 2026-07-24T20:40:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: code
+
+### Summary
+首路由增加动态分块失败重试时，在 `useMemo` 内创建 `React.lazy` 组件，
+触发 React 静态组件 lint 门禁。
+
+### Error
+```text
+Error: Cannot create components during render
+react-hooks/static-components
+```
+
+### Context
+- 目标是让瞬时 chunk 下载失败后创建新的 lazy 容器。
+- 在 render 期间生成组件会导致组件身份变化和状态重置，不能作为重试机制。
+
+### Suggested Fix
+在模块作用域预先声明有限的 lazy 重试容器；render 只根据 attempt 选择既有组件，
+最终失败时允许整页重新加载。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/xinhua-experience-loader.tsx
+
+### Resolution
+- **Resolved**: 2026-07-24T20:43:00+08:00
+- **Notes**: 三个重试容器已改为模块级静态声明；`npm run lint` 与完整
+  `npm test` 均通过。
+
+---
+## [ERR-20260724-090] worktree_git_index_sandbox_denied
+
+**Logged**: 2026-07-24T20:36:03+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+独立 worktree 提交时，受限沙箱无法在主仓库 `.git/worktrees/` 中创建
+`index.lock`。
+
+### Error
+```text
+fatal: Unable to create '.git/worktrees/progressive-world-loading/index.lock':
+Operation not permitted
+```
+
+### Context
+- 源文件位于可写 worktree，但 Git 元数据位于主仓库受限的 `.git` 目录。
+- 失败发生在暂存前，未产生部分提交。
+
+### Suggested Fix
+仅对已确认的 `git add` 与 `git commit` 命令请求 Git 元数据写入权限，
+不扩大到其他仓库或破坏性操作。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git/worktrees/progressive-world-loading
+
+### Resolution
+- **Resolved**: 2026-07-24T20:36:03+08:00
+- **Notes**: 使用受控的 Git 元数据写入权限继续暂存与提交。
+
+---
+## [ERR-20260724-091] sites_source_non_fast_forward
+
+**Logged**: 2026-07-24T20:40:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: infra
+
+### Summary
+向 Codex Sites 源码仓库推送已验证提交时，远端 `main` 已包含并行产生的两项
+研究提交，因此安全地拒绝了非快进更新。
+
+### Error
+```text
+! [rejected] HEAD -> main (non-fast-forward)
+```
+
+### Context
+- 当前任务 worktree 建立后，主分支新增了研究文档、预览图和构建记录。
+- 直接强推会覆盖 Sites 源码历史及并行成果，不符合发布边界。
+- 远端代码改动与本次渐进加载主体不重叠，唯一冲突是共享错误日志。
+
+### Suggested Fix
+读取 Sites 当前源分支，先把任务提交重放到远端最新提交之上；冲突解决必须保留
+双方日志，并在重跑测试后使用新的完整 HEAD SHA 发布。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-24T20:42:00+08:00
+- **Notes**: 未使用强推；保留远端全部研究成果，将渐进加载提交重放到最新
+  Sites 源分支，并合并双方错误记录。
+
+---
+## [ERR-20260724-092] sites_packager_not_executable
+
+**Logged**: 2026-07-24T20:44:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+Sites 插件的归档辅助脚本存在但没有 executable 权限，直接执行时被 shell 拒绝。
+
+### Error
+```text
+permission denied: sites/0.1.31/scripts/package-site.sh
+```
+
+### Context
+- 已验证的 `dist` 与 `.openai/hosting.json` 均已生成。
+- 失败发生在脚本启动前，没有产生半成品版本或部署。
+
+### Suggested Fix
+通过明确的 shell 解释器运行同一受信任插件脚本，不修改插件目录权限，也不手工
+重写其打包逻辑。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .openai/hosting.json
+
+### Resolution
+- **Resolved**: 2026-07-24T20:44:00+08:00
+- **Notes**: 顶层包装脚本即使用 `bash` 仍会直接 `exec` 无执行权限的内层脚本；
+  最终改为通过 `bash` 直接调用插件内层 `skills/sites-hosting/scripts/package-site.sh`，
+  未修改插件文件或手工重写打包逻辑。
+
+---
+## [ERR-20260724-093] amended_pushed_sites_commit_lost_ancestry
+
+**Logged**: 2026-07-24T20:47:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+在 Sites 源提交已推送后，为补充错误记录执行 amend，导致新提交与远端已推送
+提交成为兄弟节点，第二次推送被非快进保护拒绝。
+
+### Error
+```text
+! [rejected] HEAD -> main (non-fast-forward)
+```
+
+### Context
+- 两棵源码树经 `git diff` 确认只有新增的 32 行错误记录不同。
+- 运行时代码、测试、构建产物及此前整合的并行研究成果完全相同。
+- 仍然禁止用 force push 覆盖 Sites 源历史。
+
+### Suggested Fix
+任何补充记录都应在已推送提交之上创建新提交，不再 amend 已发布节点。若已发生，
+先核对树差异，再用保留远端父节点的合并提交恢复快进关系。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-24T20:48:00+08:00
+- **Notes**: 保留远端已推送父提交并创建合并节点；新增记录改为独立后续提交。
+
+---
+## [ERR-20260724-094] unquoted_query_url_in_zsh
+
+**Logged**: 2026-07-24T22:36:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+使用 zsh 执行生产站点只读核对时，未给含 `?` 的 URL 加引号，命令在发起网络请求前被 glob 解析拦截。
+
+### Error
+```text
+zsh:1: no matches found: https://xinhua-messenger.berry-fig-9187.chatgpt.site/?qa=version35
+```
+
+### Context
+- 目的是只读获取现有 Codex Sites 生产页面，核对新版本是否已经生效。
+- 失败发生在 shell 参数展开阶段，没有访问线上，也没有修改站点状态。
+
+### Suggested Fix
+在 shell 命令中始终为包含 `?`、`&` 或其他 glob 字符的 URL 使用单引号。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-24T22:36:00+08:00
+- **Notes**: 改用单引号包裹完整 URL 后重新执行只读核对。
+
+---
+## [ERR-20260724-095] production_browser_navigation_timeouts
+
+**Logged**: 2026-07-24T22:53:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Codex Sites 生产验收中，独立标签页导航与整页刷新多次在控制连接层超时并重置会话。
+
+### Error
+```text
+Timed out running CDP command "Page.navigate"
+js execution timed out; kernel reset, rerun your request
+```
+
+### Context
+- 原生产标签页已经完成弱网 Identity 画面截图，确认空白方盒已消失。
+- 新标签页的 URL 最终出现，但一度只返回空 document；整页刷新后只读 DOM 状态也无法稳定回传。
+- Sites v35 状态为 succeeded，生产 HTML 已引用 v35 新 bundle，页面日志没有 error。
+- 本地同一生产构建已完成标准档 Full 模型切换验收。
+
+### Suggested Fix
+导航或 reload 超时后先读取现有标签页状态，不重复导航；若控制会话持续重置，保留已获得的
+生产证据，并清楚区分“线上已确认”和“本地同构建已确认”的验收边界。
+
+### Metadata
+- Reproducible: intermittent
+- Related Files: docs/research/progressive-world-loading-acceptance-2026-07-24.md
+
+### Resolution
+- **Resolved**: 2026-07-24T22:53:00+08:00
+- **Notes**: 停止继续操作不稳定标签页，保留生产弱网截图、生产新 bundle 哈希、
+  零 error 日志和本地标准档 Full 截图作为分层证据。
+
+---
+## [ERR-20260724-096] isolated_worktree_index_lock_denied
+
+**Logged**: 2026-07-24T23:57:46+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+建筑质量合同独立 worktree 的最后一次提交被主仓库 Git 元数据权限拦截。
+
+### Error
+```text
+fatal: Unable to create '.git/worktrees/building-quality-contract/index.lock':
+Operation not permitted
+```
+
+### Context
+- 源文件与测试均已完成并通过，失败发生在 `git add` 创建 index lock 时。
+- 当前 worktree 源目录可写，但其 Git 元数据仍位于主仓库 `.git/worktrees/`。
+
+### Suggested Fix
+只对已审查文件的 `git add` 与当前 worktree 的 `git commit` 请求受控元数据写入权限。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git/worktrees/building-quality-contract
+- See Also: ERR-20260724-090
+
+### Resolution
+- **Resolved**: 2026-07-24T23:57:46+08:00
+- **Notes**: 复用已验证的限定 Git 权限路径重试，不扩大操作范围。
+
+---
+## [ERR-20260725-012] zsh_path_special_parameter_shadowed
+
+**Logged**: 2026-07-25T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+合并追加式记录时使用了 zsh 特殊数组变量 `path`，临时清空了命令搜索路径。
+
+### Error
+```text
+zsh: command not found: git
+zsh: command not found: cp
+zsh: command not found: rg
+```
+
+### Context
+- 命令在 `for path in ...` 中把 `path` 当作普通循环变量。
+- zsh 会将 `path` 与 `PATH` 绑定，赋值后当前 shell 无法找到外部命令。
+- 失败发生在读取和临时文件准备阶段，没有覆盖工作区文件。
+
+### Suggested Fix
+shell 循环使用 `file_path` 等任务专用变量名，避免 `path`、`status` 等 zsh 特殊参数。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-25T00:00:00+08:00
+- **Notes**: 改用 `file_path` 后重新执行，成功保留两侧追加记录并移除冲突标记。
