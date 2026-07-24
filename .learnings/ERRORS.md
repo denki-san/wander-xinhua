@@ -261,6 +261,39 @@ Expected /<group ref={body} scale={0.9}>/
 
 ---
 
+## [ERR-20260725-001] github_main_non_fast_forward
+
+**Logged**: 2026-07-25T01:23:04+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: infra
+
+### Summary
+资产后台提交推送到 GitHub main 时，远端已包含并行的第三人称控制提交，普通推送被拒绝。
+
+### Error
+```
+! [rejected] main -> main (non-fast-forward)
+```
+
+### Context
+- 当前工作树同时保留用户未提交的第三人称控制修改，不能直接 pull 或 rebase。
+- 没有使用 force push，也没有覆盖远端或用户本地修改。
+
+### Suggested Fix
+发布时使用独立的干净 worktree 或 Sites 专用源码仓库；GitHub 侧将功能提交推送到独立分支，待并行工作收敛后再合并。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/asset-library/AssetLibrary.tsx, .openai/hosting.json
+- See Also: ERR-20260717-039
+
+### Resolution
+- **Resolved**: 2026-07-25T01:23:04+08:00
+- **Notes**: 停止向 main 推送，改用隔离发布路径，保留远端 main 与本地未提交改动。
+
+---
+
 ## [ERR-20260721-081] create_goal_existing_active_goal_recurrence
 
 **Logged**: 2026-07-21T00:00:00+08:00
@@ -6033,6 +6066,9 @@ Operation not permitted
 ## [ERR-20260724-091] sites_source_non_fast_forward
 
 **Logged**: 2026-07-24T20:40:00+08:00
+## [ERR167] Sites 新版本发布缺少针对本次版本的明确确认
+
+**Logged**: 2026-07-25T01:48:00+08:00
 **Priority**: medium
 **Status**: resolved
 **Area**: infra
@@ -6087,6 +6123,19 @@ permission denied: sites/0.1.31/scripts/package-site.sh
 ### Suggested Fix
 通过明确的 shell 解释器运行同一受信任插件脚本，不修改插件目录权限，也不手工
 重写其打包逻辑。
+用户此前要求发布不等于自动批准后续新修正版的公开生产部署。
+
+### Error
+```
+This action was rejected due to unacceptable risk.
+```
+
+### Context
+- 已保存资产后台 Sites v38，随后尝试部署到公开生产站点。
+- 用户此前发布的是上一版；本轮只反馈线上问题，没有在得知 v38 已准备好后再次明确批准。
+
+### Suggested Fix
+每个新的公开 Sites 版本在部署前都要说明版本和变更范围，并取得针对该版本的明确“发布”确认。
 
 ### Metadata
 - Reproducible: yes
@@ -6265,3 +6314,38 @@ shell 循环使用 `file_path` 等任务专用变量名，避免 `path`、`statu
 ### Resolution
 - **Resolved**: 2026-07-25T00:00:00+08:00
 - **Notes**: 改用 `file_path` 后重新执行，成功保留两侧追加记录并移除冲突标记。
+- **Resolved**: 2026-07-25T01:48:00+08:00
+- **Notes**: v38 保持已保存未部署状态，等待用户明确确认。
+
+---
+## [ERR-20260725-013] browser_isolated_evaluate_performance_unavailable
+
+**Logged**: 2026-07-25T02:24:36+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+应用内浏览器的只读隔离脚本环境不提供 `window.performance`，资源清单读取失败。
+
+### Error
+```text
+TypeError: Cannot read properties of undefined (reading 'getEntriesByType')
+```
+
+### Context
+- 页面本身已经正常进入探索态，错误只发生在自动化验收的证据读取脚本。
+- 浏览器说明已经提示不要假定隔离环境存在 `performance` 全局对象。
+
+### Suggested Fix
+页面资源和 Performance Mark 证据改用只读 CDP `Runtime.evaluate` 获取。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-25T02:24:36+08:00
+- **Notes**: 改用 CDP 后确认上海影城 Identity、Hero、梧桐 Hero 和 Rain 角色资源均已加载。
+
+---

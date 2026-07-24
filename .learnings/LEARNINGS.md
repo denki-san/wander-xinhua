@@ -1,5 +1,32 @@
 # Learnings
 
+## [LRN-20260725-002] correction
+
+**Logged**: 2026-07-25T01:36:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+资产后台是仅供用户个人管理的独立产品界面，不属于新华漫游志主页面的信息架构。
+
+### Details
+资产后台可以读取同一仓库中的生产资产与渲染组件，但不得给主页面增加入口，不使用返回主站的品牌链接，也不得让后台滚动、样式或页面状态影响主漫游页。两者只共享被管理的资产事实，不共享产品表达和页面行为。
+
+### Suggested Action
+后续资产后台改动限定在 `app/asset-library/` 及其专用测试；进入后台时临时设置页面级滚动类，卸载时清理。若需要登录或访问控制，必须作为独立需求确认，不能通过修改整个主站的公开访问策略实现。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/asset-library/AssetLibrary.tsx, app/asset-library/asset-library.module.css
+- Tags: asset-library, product-boundary, route-isolation
+
+### Resolution
+- **Resolved**: 2026-07-25T01:36:00+08:00
+- **Notes**: 已移除返回主站入口，后台使用独立身份，并保持滚动类只在后台路由挂载期间生效。
+
+---
+
 ## [LRN-20260724-001] correction
 
 **Logged**: 2026-07-24T20:15:00+08:00
@@ -821,6 +848,37 @@ GLB 审计通过不代表网页运行时完整渲染；植被实例化必须保�
 
 **Logged**: 2026-07-25T01:05:00+08:00
 **Priority**: medium
+## [LRN-20260725-003] correction
+
+**Logged**: 2026-07-25T02:02:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+资产管理后台不应让已浏览过的全部 3D 卡片持续旋转和渲染。
+
+### Details
+原实现的 IntersectionObserver 在卡片首次进入视口后立即断开，`visible` 永远保持为 true；同时每个已激活 View 使用无限帧并由 AutoTurn 持续更新。用户越往下浏览，同时运行的模型越多，页面会明显卡顿。
+
+### Suggested Action
+管理后台默认使用静态 3D 预览；观察器持续跟踪卡片是否位于视口附近，离开后卸载对应场景；共享 Canvas 使用 demand 模式，只在内容或视口变化时渲染。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/asset-library/AssetLibrary.tsx
+- Tags: asset-library, webgl, performance, intersection-observer, render-loop
+
+### Resolution
+- **Resolved**: 2026-07-25T02:02:00+08:00
+- **Notes**: 预览改为静态姿态、视口附近按需挂载、单帧阴影和 demand 渲染，并降低像素倍率上限。
+
+---
+
+## [LRN-20260725-004] correction
+
+**Logged**: 2026-07-25T02:14:00+08:00
+**Priority**: critical
 **Status**: resolved
 **Area**: frontend
 
@@ -889,5 +947,50 @@ Messenger 式移动触控不是“永久隐藏摇杆、移动时显示跳跃按�
 - Source: user_feedback
 - Related Files: app/scene/xinhua-road-landmarks.tsx, app/scene/xinhua-world.tsx
 - Tags: performance, character, fog, trees, decorations, correction
+固定 Canvas 配合多 View 和 demand 渲染时，必须在实际滚动中同步刷新各 View 的屏幕坐标。
+
+### Details
+性能优化把共享 Canvas 改为 demand，并把 View 的坐标计算限制为一帧，却没有在后台自身滚动容器滚动时触发重绘。结果是旧的 3D 画面停留在 Canvas 原位置并覆盖 Hero，新进入视口的卡片只有背景。只跑构建和首屏检查无法发现此问题。
+
+### Suggested Action
+固定 Canvas、多 View 和自定义滚动容器的改动必须执行真实滚动验收；demand 模式需要监听滚动并 invalidate，View 必须在每次被请求的帧重新计算边界。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/asset-library/AssetLibrary.tsx
+- Tags: asset-library, drei-view, canvas, demand-rendering, scroll-qa
+- See Also: LRN-20260725-003
+
+### Resolution
+- **Resolved**: 2026-07-25T02:14:00+08:00
+- **Notes**: 新增滚动和视口变化同步刷新，恢复 View 动态边界计算，并把连续滚动截图加入本次发布验收。
+
+---
+
+## [LRN-20260725-005] correction
+
+**Logged**: 2026-07-25T02:28:00+08:00
+**Priority**: critical
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+个人资产后台应优先保证信息密度和模型可读性，不需要摄影棚背景、动画或展示型大留白。
+
+### Details
+连续在浅灰蓝摄影棚背景上调整灯光，没有解决浅灰建筑材质与背景同色的问题，同时 Hero、统计卡、圆角、阴影和大预览让一屏展示的资产过少。用户明确这是个人管理后台，应简单、紧凑、直接。
+
+### Suggested Action
+使用纯中性页面和预览底色，通过克隆预览材质主动压低高亮材质的明度来建立对比；取消进入感、悬浮动画和装饰性效果；压缩 Hero、间距、预览高度并提高桌面列数。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/asset-library/AssetLibrary.tsx, app/asset-library/asset-library.module.css
+- Tags: asset-library, density, contrast, admin-ui, correction
+- See Also: LRN-20260725-003, LRN-20260725-004
+
+### Resolution
+- **Resolved**: 2026-07-25T02:28:00+08:00
+- **Notes**: 后台改为无渐变中性界面、静态按需预览、加深预览材质、紧凑 Hero 与卡片，并增加宽屏列数。
 
 ---
