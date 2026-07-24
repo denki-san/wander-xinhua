@@ -65,6 +65,39 @@ WebGL 帧采样使用 tab 的 CDP capability 执行 `Runtime.evaluate`，并用 
 
 ---
 
+## [ERR-20260725-001] github_main_non_fast_forward
+
+**Logged**: 2026-07-25T01:23:04+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: infra
+
+### Summary
+资产后台提交推送到 GitHub main 时，远端已包含并行的第三人称控制提交，普通推送被拒绝。
+
+### Error
+```text
+! [rejected] main -> main (non-fast-forward)
+```
+
+### Context
+- 当前工作树同时保留用户未提交的第三人称控制修改，不能直接 pull 或 rebase。
+- 没有使用 force push，也没有覆盖远端或用户本地修改。
+
+### Suggested Fix
+发布时使用独立的干净 worktree 或 Sites 专用源码仓库；GitHub 侧将功能提交推送到独立分支，待并行工作收敛后再合并。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/asset-library/AssetLibrary.tsx, .openai/hosting.json
+- See Also: ERR-20260717-039
+
+### Resolution
+- **Resolved**: 2026-07-25T01:23:04+08:00
+- **Notes**: 停止向旧 main 推送，改用基于最新 origin/main 的隔离集成分支，保留远端主干与本地未提交改动。
+
+---
+
 ## [ERR-20260724-092] in_app_browser_networkidle_unsupported
 
 **Logged**: 2026-07-24T00:00:00+08:00
