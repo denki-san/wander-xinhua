@@ -1,7 +1,7 @@
 "use client";
 
 import { Bounds, Center, ContactShadows, PerspectiveCamera, View, useGLTF } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import {
   Suspense,
   useEffect,
@@ -10,7 +10,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { Box3, Group, Mesh, Object3D, Vector3 } from "three";
+import { Box3, Mesh, Object3D, Vector3 } from "three";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 import {
   CantileverCafeUmbrella,
@@ -47,17 +47,14 @@ function StatusBadge({ status }: { status: AssetStatus }) {
   return <span className={`${styles.statusBadge} ${meta.className}`}>{meta.label}</span>;
 }
 
-function useIsVisible(rootMargin = "240px") {
+function useIsVisible(rootMargin = "120px") {
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setVisible(true);
-        observer.disconnect();
-      }
+      setVisible(entry.isIntersecting);
     }, { rootMargin });
     observer.observe(node);
     return () => observer.disconnect();
@@ -65,12 +62,8 @@ function useIsVisible(rootMargin = "240px") {
   return { ref, visible };
 }
 
-function AutoTurn({ children, speed = 0.12 }: { children: ReactNode; speed?: number }) {
-  const group = useRef<Group>(null);
-  useFrame((_, delta) => {
-    if (group.current) group.current.rotation.y += delta * speed;
-  });
-  return <group ref={group}>{children}</group>;
+function PreviewPose({ children }: { children: ReactNode }) {
+  return <group rotation-y={-0.22}>{children}</group>;
 }
 
 function RuntimeModel({ path }: { path: string }) {
@@ -206,12 +199,20 @@ function AssetScene({ model, preview }: { model?: string; preview?: string }) {
       <directionalLight position={[8, 7, 10]} color="#a8c6d8" intensity={0.7} />
       <Bounds fit clip observe margin={1.3}>
         <Center top>
-          <AutoTurn speed={model?.includes("character") ? 0.04 : 0.1}>
+          <PreviewPose>
             {model ? <RuntimeModel path={model} /> : <ProceduralPreview kind={preview ?? "missing"} />}
-          </AutoTurn>
+          </PreviewPose>
         </Center>
       </Bounds>
-      <ContactShadows position={[0, -0.02, 0]} opacity={0.68} scale={18} blur={2.1} far={12} color="#243431" />
+      <ContactShadows
+        position={[0, -0.02, 0]}
+        opacity={0.68}
+        scale={18}
+        blur={2.1}
+        far={12}
+        color="#243431"
+        frames={1}
+      />
     </>
   );
 }
@@ -224,7 +225,7 @@ function LivePreview({ model, preview, label }: { model?: string; preview?: stri
         ref={ref}
         className={styles.previewViewport}
         aria-label={`${label} 的实时三维预览`}
-        frames={visible ? Infinity : 1}
+        frames={1}
       >
         {visible && (
           <Suspense fallback={null}>
@@ -353,8 +354,9 @@ export function AssetLibrary() {
       <Canvas
         className={styles.canvas}
         eventSource={container}
+        frameloop="demand"
         shadows
-        dpr={[1, 1.5]}
+        dpr={[1, 1.25]}
         gl={{ antialias: true, alpha: true }}
       >
         <View.Port />

@@ -19,6 +19,10 @@ test("资产后台完整覆盖五类生产资产与建筑三档", async () => {
   }
   assert.match(client, /View\.Port/);
   assert.match(client, /IntersectionObserver/);
+  assert.match(client, /setVisible\(entry\.isIntersecting\)/);
+  assert.doesNotMatch(client, /frames=\{visible \? Infinity : 1\}/);
+  assert.match(client, /frameloop="demand"/);
+  assert.match(client, /frames=\{1\}/);
   assert.doesNotMatch(client, /document\.body\.classList\.add\("asset-library-page"\)/);
   assert.match(client, /#8fa3ac/);
   assert.match(client, /intensity=\{2\.15\}/);
