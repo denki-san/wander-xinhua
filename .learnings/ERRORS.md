@@ -5495,3 +5495,12 @@ TypeError: requestAnimationFrame is not a function
 **Cause:** 普通沙箱权限不能写入该 worktree 的 Git 索引元数据。
 **Resolution:** 使用受控权限执行同一条精确 `git add`，随后用 cached diff 和状态复核暂存范围；不使用 `git add -A`，也不触碰主工作区。
 **See Also:** ERR198
+
+## [ERR200] Sites 官方打包脚本缺少可执行位
+
+**Date:** 2026-07-25
+**Context:** 为已推送的第三人称镜头与移动触控版本生成 Codex Sites 发布归档。
+**Error:** 直接运行 `package-site.sh` 返回 `permission denied`，退出码为 `126`。
+**Cause:** 当前安装的 Sites 插件脚本没有可执行位，不能作为程序直接启动。
+**Resolution:** 不修改插件文件权限，改用 `bash package-site.sh` 调用同一官方脚本；发布前继续核对归档对应的完整 Git SHA。
+**See Also:** ERR198
