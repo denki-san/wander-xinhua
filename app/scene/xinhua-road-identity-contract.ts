@@ -306,14 +306,15 @@ const CORE_PRODUCTION_QUALITY_MANIFEST = {
       visibility: "cover-only",
     },
     shared: {
-      transformSource: "app/scene/xinhua-map.tsx#XINGFULI_PLACEMENT",
-      collisionSource: "app/scene/xingfuli-collision.ts",
+      transformSource:
+        "app/scene/xinhua-world.tsx#XINGFULI_POSITION,XINGFULI_LONGITUDINAL_SCALE,xingfuliLocalToWorld",
+      collisionSource: "app/scene/xinhua-world.tsx#XINGFULI_WORLD_OBSTACLES",
     },
     evidence: {
-      status: "accepted-with-followup",
+      status: "migration-required",
       heroBuildRecords: ["docs/research/build-records/xingfuli.json"],
-      identityBuildRecords: ["docs/research/build-records/xingfuli-identity.json"],
-      massingBuildRecords: ["docs/research/build-records/xingfuli-massing.json"],
+      identityBuildRecords: [],
+      massingBuildRecords: [],
       canonicalScreenshots: [
         "test_artifacts/test_xingfuli_final_canonical_runtime_preview.png",
       ],
@@ -326,8 +327,12 @@ const CORE_PRODUCTION_QUALITY_MANIFEST = {
         "test_artifacts/test_xingfuli_final_mobile_runtime_preview.png",
       ],
       resourceMetrics: ["test_artifacts/test_xingfuli_final_runtime_metrics.json"],
-      drawCallMetrics: ["test_artifacts/test_xingfuli_final_runtime_metrics.json"],
-      gaps: ["让生产 Identity 直接复用已审计 identity GLB，或为当前程序化 recipe 单独建档"],
+      drawCallMetrics: [],
+      gaps: [
+        "为生产使用的 XingfuliProceduralArchitectureFallback Identity recipe 建立独立 build record",
+        "为生产使用的 XingfuliMassingArchitecture recipe 建立独立 build record",
+        "补录程序化 Identity/Massing 的三向运行时截图与 draw-call 指标",
+      ],
     },
   },
   shangsheng: {

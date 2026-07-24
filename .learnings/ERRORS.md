@@ -5556,3 +5556,36 @@ js execution timed out; kernel reset, rerun your request
 - **Resolved**: 2026-07-24T22:53:00+08:00
 - **Notes**: 停止继续操作不稳定标签页，保留生产弱网截图、生产新 bundle 哈希、
   零 error 日志和本地标准档 Full 截图作为分层证据。
+
+---
+## [ERR-20260724-096] isolated_worktree_index_lock_denied
+
+**Logged**: 2026-07-24T23:57:46+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+建筑质量合同独立 worktree 的最后一次提交被主仓库 Git 元数据权限拦截。
+
+### Error
+```text
+fatal: Unable to create '.git/worktrees/building-quality-contract/index.lock':
+Operation not permitted
+```
+
+### Context
+- 源文件与测试均已完成并通过，失败发生在 `git add` 创建 index lock 时。
+- 当前 worktree 源目录可写，但其 Git 元数据仍位于主仓库 `.git/worktrees/`。
+
+### Suggested Fix
+只对已审查文件的 `git add` 与当前 worktree 的 `git commit` 请求受控元数据写入权限。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git/worktrees/building-quality-contract
+- See Also: ERR-20260724-090
+
+### Resolution
+- **Resolved**: 2026-07-24T23:57:46+08:00
+- **Notes**: 复用已验证的限定 Git 权限路径重试，不扩大操作范围。
