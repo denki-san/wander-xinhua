@@ -355,23 +355,27 @@ test("幸福里 final 三段资产、运行时证据与性能记录保持一致"
 
 test("运行时使用三段 final 模型并保留程序化 fallback 与三组 QA 入口", async () => {
   const scene = await readFile(new URL("app/scene/xingfuli-block.tsx", root), "utf8");
+  const fullArchitecture = await readFile(
+    new URL("app/scene/xingfuli-architecture-model.tsx", root),
+    "utf8",
+  );
   const world = await readFile(new URL("app/scene/xinhua-world.tsx", root), "utf8");
   const generator = await readFile(new URL("scripts/create_xingfuli_models.py", root), "utf8");
   const streetAssets = await readFile(new URL("app/scene/shared-street-assets.tsx", root), "utf8");
   const paving = await readFile(new URL("app/scene/mixed-stone-paving.tsx", root), "utf8");
   for (const segment of segmentIds) {
-    assert.match(scene, new RegExp(`xingfuli-${segment}\\.glb\\?v=20260723-final-1`));
+    assert.match(fullArchitecture, new RegExp(`xingfuli-${segment}\\.glb\\?v=20260723-final-1`));
   }
   assert.match(scene, /XingfuliArchitectureBoundary/);
   assert.match(scene, /XingfuliProceduralArchitectureFallback/);
-  assert.match(scene, /scale=\{\[1, 1, -1\]\}/);
-  assert.match(scene, /loadDetailedArchitecture\s*\? <XingfuliArchitecture \/>/);
-  assert.match(scene, /stage: "final"/);
-  assert.match(scene, /name="xingfuli-final-architecture"/);
+  assert.match(fullArchitecture, /scale=\{\[1, 1, -1\]\}/);
+  assert.match(scene, /resolvedStage === "massing"/);
+  assert.match(fullArchitecture, /stage: "full"/);
+  assert.match(fullArchitecture, /name="xingfuli-final-architecture"/);
   assert.match(scene, /id: `east-entry-bollard-\$\{index\}`/);
   assert.doesNotMatch(scene, /\[-44\.6, 44\.6\]/);
-  assert.match(world, /<XingfuliBlock loadDetailedArchitecture=\{showDetailModels\} \/>/);
-  assert.doesNotMatch(scene, /useGLTF\.preload\(/);
+  assert.match(world, /<XingfuliBlock[\s\S]*?stage=\{xingfuliTier\}/);
+  assert.doesNotMatch(fullArchitecture, /useGLTF\.preload\(/);
   assert.match(world, /name === "xingfuli-canonical"/);
   assert.match(world, /name === "xingfuli-pool-detail"/);
   assert.match(world, /name === "xingfuli-entrance-detail"/);

@@ -5207,3 +5207,214 @@ TypeError: requestAnimationFrame is not a function
 **Error:** `agent-browser open ...` 返回 `command not found: agent-browser`。
 **Cause:** 当前会话提供了 agent-browser 工作流说明，但本机没有对应可执行文件。
 **Resolution:** 不为一次实验临时安装全局依赖，回退到仓库已有且已验证的 Headless Chrome CDP 测试脚本；继续固定浏览器版本、视口、网络、缓存与页面错误采集。
+## [ERR-20260724-086] npm_ci_exit_handler_failure
+
+**Logged**: 2026-07-24T19:38:31+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: config
+
+### Summary
+在新 Git worktree 中运行 `npm ci` 时，npm 在约 62 秒后以自身退出处理器错误
+终止，并且沙箱不允许向用户级 npm 日志目录写入。
+
+### Error
+```text
+npm error Exit handler never called!
+npm error Log files were not written due to an error writing to the directory:
+/Users/lei/.npm/_logs
+```
+
+### Context
+- 命令：`npm ci`
+- 工作树：`.worktrees/progressive-world-loading`
+- 失败后留下约 23MB 的不完整 `node_modules`，没有生成
+  `node_modules/.package-lock.json`。
+
+### Suggested Fix
+将 npm cache 与日志目录显式放进任务工作树或 `/private/tmp` 后重跑
+`npm ci`；成功后用 `npm ls --depth=0` 和基线构建确认依赖完整。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: package-lock.json
+
+### Resolution
+- **Resolved**: 2026-07-24T19:40:00+08:00
+- **Notes**: 调试日志确认真实原因是沙箱内访问 npm registry 持续
+  `ENOTFOUND`，npm 11.13.0 最终以误导性的退出处理器错误收尾；在受权联网环境
+  使用项目内 cache/log 目录后，562 个依赖于 10 秒内安装完成。
+
+---
+## [ERR-20260724-087] progressive_split_source_contract_failures
+
+**Logged**: 2026-07-24T20:05:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+将 GLTF、人物精模、建筑 Full 层和后处理拆入动态模块后，15 个源码合同测试仍只
+扫描原始聚合文件，因而把已迁移的真实实现误判为缺失。
+
+### Error
+```text
+tests 123
+pass 108
+fail 15
+```
+
+### Context
+- 失败集中在角色、幸福里、孙科别墅、道路地标和控制合同。
+- 运行实现没有删除这些能力，而是将其移动到明确的延后分块。
+
+### Suggested Fix
+源码合同测试应扫描新的权威模块，并验证动态导入、分层边界与距离防抖语义，
+而不是继续依赖旧文件中的单个正则位置。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_progressive_world_loading.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-24T20:12:00+08:00
+- **Notes**: 测试已改为检查拆分后的权威模块；新增生产分层与包体门禁，完整
+  `npm test` 为 126/126，`npm run lint` 通过。
+
+---
+## [ERR-20260724-088] browser_raw_cdp_input_not_supported
+
+**Logged**: 2026-07-24T20:15:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+本地生产预览验收时，浏览器控制层不允许通过 raw CDP
+`Input.dispatchKeyEvent` 注入按住移动键。
+
+### Error
+```text
+This method is not supported through raw CDP.
+Use tab.cua.type(...) or tab.cua.keypress(...) instead.
+```
+
+### Context
+- raw CDP 继续用于只读的网络节流、performance mark 和资源请求采样。
+- 目标是验证真实输入通路，不能用页面内直接改状态替代。
+
+### Suggested Fix
+使用浏览器原生交互通道发送 `W` 键，并以输入前后画面变化和游玩态 UI 共同验收。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/progressive-world-loading-acceptance-2026-07-24.md
+
+### Resolution
+- **Resolved**: 2026-07-24T20:17:00+08:00
+- **Notes**: 改用浏览器交互通道连续发送真实 `W` 键；近景角色与相机画面发生
+  可见位移，且控制台无 error。
+
+---
+## [ERR-20260724-089] lazy_retry_component_created_during_render
+
+**Logged**: 2026-07-24T20:40:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: code
+
+### Summary
+首路由增加动态分块失败重试时，在 `useMemo` 内创建 `React.lazy` 组件，
+触发 React 静态组件 lint 门禁。
+
+### Error
+```text
+Error: Cannot create components during render
+react-hooks/static-components
+```
+
+### Context
+- 目标是让瞬时 chunk 下载失败后创建新的 lazy 容器。
+- 在 render 期间生成组件会导致组件身份变化和状态重置，不能作为重试机制。
+
+### Suggested Fix
+在模块作用域预先声明有限的 lazy 重试容器；render 只根据 attempt 选择既有组件，
+最终失败时允许整页重新加载。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/xinhua-experience-loader.tsx
+
+### Resolution
+- **Resolved**: 2026-07-24T20:43:00+08:00
+- **Notes**: 三个重试容器已改为模块级静态声明；`npm run lint` 与完整
+  `npm test` 均通过。
+
+---
+## [ERR-20260724-090] worktree_git_index_sandbox_denied
+
+**Logged**: 2026-07-24T20:36:03+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+独立 worktree 提交时，受限沙箱无法在主仓库 `.git/worktrees/` 中创建
+`index.lock`。
+
+### Error
+```text
+fatal: Unable to create '.git/worktrees/progressive-world-loading/index.lock':
+Operation not permitted
+```
+
+### Context
+- 源文件位于可写 worktree，但 Git 元数据位于主仓库受限的 `.git` 目录。
+- 失败发生在暂存前，未产生部分提交。
+
+### Suggested Fix
+仅对已确认的 `git add` 与 `git commit` 命令请求 Git 元数据写入权限，
+不扩大到其他仓库或破坏性操作。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git/worktrees/progressive-world-loading
+
+### Resolution
+- **Resolved**: 2026-07-24T20:36:03+08:00
+- **Notes**: 使用受控的 Git 元数据写入权限继续暂存与提交。
+
+---
+## [ERR-20260724-091] sites_source_non_fast_forward
+
+**Logged**: 2026-07-24T20:40:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: infra
+
+### Summary
+向 Codex Sites 源码仓库推送已验证提交时，远端 `main` 已包含并行产生的两项
+研究提交，因此安全地拒绝了非快进更新。
+
+### Error
+```text
+! [rejected] HEAD -> main (non-fast-forward)
+```
+
+### Context
+- 当前任务 worktree 建立后，主分支新增了研究文档、预览图和构建记录。
+- 直接强推会覆盖 Sites 源码历史及并行成果，不符合发布边界。
+- 远端代码改动与本次渐进加载主体不重叠，唯一冲突是共享错误日志。
+
+### Suggested Fix
+读取 Sites 当前源分支，先把任务提交重放到远端最新提交之上；冲突解决必须保留
+双方日志，并在重跑测试后使用新的完整 HEAD SHA 发布。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-24T20:42:00+08:00
+- **Notes**: 未使用强推；保留远端全部研究成果，将渐进加载提交重放到最新
+  Sites 源分支，并合并双方错误记录。

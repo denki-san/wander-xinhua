@@ -2,40 +2,34 @@
 
 /* eslint-disable @next/next/no-img-element -- POI 实景图由动态数据提供，并需要保留对应的外部图源链接。 */
 
-import {
-  EffectComposer,
-  SSAO,
-  ToneMapping,
-} from "@react-three/postprocessing";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { NoToneMapping, SRGBColorSpace } from "three";
 import {
-  ToneMappingMode,
-  type EffectComposer as PostprocessingEffectComposer,
-} from "postprocessing";
-import {
-  memo,
+  lazy,
   Suspense,
   useCallback,
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
 } from "react";
 import { inputState, resetInput, setMoveVector } from "./scene/input";
+import { ProgressiveFeatureBoundary } from "./progressive-feature-boundary";
 import {
   AutumnStorybookSky,
-  InkOutline,
-  PaperWash,
   StorybookCloudLayer,
 } from "./scene/visual-effects";
 import {
   DEFAULT_XINHUA_ATMOSPHERE_STYLE,
   type XinhuaAtmosphereStyle,
 } from "./scene/atmosphere-contract";
+import { useProgressiveNetworkProfile } from "./scene/progressive-loading";
 import { MAP_POIS, mapPoiById } from "./scene/poi-data";
 import { XinhuaWorld } from "./scene/xinhua-world";
 import mapData from "./scene/xinhua-map-data.json";
+
+const ProgressiveVisualEffectComposer = lazy(
+  () => import("./scene/visual-effect-composer"),
+);
 
 const TOUCH_STICK_TRAVEL = 42;
 const POI_PHOTO_NEARBY_PREFETCH_COUNT = 4;
@@ -52,48 +46,24 @@ const ATMOSPHERE_LABELS: Record<XinhuaAtmosphereStyle, string> = {
   "lighting-v3": "当前光照",
 };
 
-const VisualEffectComposer = memo(function VisualEffectComposer({
-  lowTier,
-  atmosphereStyle,
-}: {
-  lowTier: boolean;
-  atmosphereStyle: XinhuaAtmosphereStyle;
-}) {
-  const composerRef = useRef<PostprocessingEffectComposer>(null);
-  const lightingV3 = atmosphereStyle === "lighting-v3";
+function FirstPlayableFrame({ onReady }: { onReady: () => void }) {
+  const signaled = useRef(false);
+  const nextFrame = useRef<number | null>(null);
 
-  useLayoutEffect(() => {
-    const composer = composerRef.current;
-    return () => composer?.dispose();
+  useFrame(() => {
+    if (signaled.current) return;
+    signaled.current = true;
+    // useFrame 返回后 R3F 才提交当前世界；下一帧再解除遮罩并打点，
+    // 保证 Massing 已至少绘制过一次。
+    nextFrame.current = window.requestAnimationFrame(onReady);
+  });
+
+  useEffect(() => () => {
+    if (nextFrame.current !== null) window.cancelAnimationFrame(nextFrame.current);
   }, []);
 
-  return (
-    <EffectComposer
-      ref={composerRef}
-      multisampling={lowTier ? 0 : 2}
-      enableNormalPass={!lowTier}
-      resolutionScale={lowTier ? undefined : 0.5}
-    >
-      {lightingV3 && !lowTier ? (
-        <SSAO
-          samples={16}
-          rings={3}
-          radius={1.45}
-          intensity={0.28}
-          luminanceInfluence={0.82}
-          distanceThreshold={0.92}
-          distanceFalloff={0.08}
-          rangeThreshold={0.66}
-          rangeFalloff={0.14}
-          bias={0.045}
-        />
-      ) : <></>}
-      <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
-      {lowTier && lightingV3 ? <></> : <InkOutline atmosphereStyle={atmosphereStyle} />}
-      {lowTier && lightingV3 ? <></> : <PaperWash atmosphereStyle={atmosphereStyle} />}
-    </EffectComposer>
-  );
-});
+  return null;
+}
 
 function detectLowTier() {
   if (typeof window === "undefined") return false;
@@ -234,6 +204,7 @@ export function XinhuaExperience() {
   // 在 Canvas 首次创建前确定渲染档位，避免低配置设备先分配一套高配后处理资源。
   const [lowTier] = useState(detectLowTier);
   const [touchCapable, setTouchCapable] = useState(false);
+  const networkProfile = useProgressiveNetworkProfile();
   const playerPosition = useRef<readonly [number, number]>(INITIAL_OVERVIEW_POSITION);
   const overviewPhotoCache = useRef(new Map<string, HTMLImageElement>());
   const [loadedOverviewPhoto, setLoadedOverviewPhoto] = useState<string | null>(null);
@@ -316,18 +287,17 @@ export function XinhuaExperience() {
   }, []);
 
   useEffect(() => {
-    if (ready) return;
+    document.documentElement.dataset.xinhuaNetworkProfile = networkProfile;
+  }, [networkProfile]);
 
-    // 部分 SSR 生产环境会完成 Canvas 水合，却漏掉 react-three-fiber 的 onCreated 回调。
-    // 仅在画布已有实际尺寸时解除遮罩，避免功能已可用但入口一直被加载层挡住。
-    const fallback = window.setTimeout(() => {
-      const canvas = document.querySelector<HTMLCanvasElement>(".xinhua-stage canvas");
-      if (canvas && canvas.width > 0 && canvas.height > 0) {
-        setReady(true);
-      }
-    }, 2_500);
-
-    return () => window.clearTimeout(fallback);
+  useEffect(() => {
+    if (!ready) return;
+    document.documentElement.dataset.xinhuaPlayable = "true";
+    performance.mark("xinhua-world-playable");
+    return () => {
+      delete document.documentElement.dataset.xinhuaPlayable;
+      performance.clearMarks("xinhua-world-playable");
+    };
   }, [ready]);
 
   useEffect(() => {
@@ -362,6 +332,7 @@ export function XinhuaExperience() {
     setActionOpen(false);
     setNearPoiId(null);
     setOverviewStartPosition(playerPosition.current);
+    setDestinationPreset(undefined);
     setMode("overview");
   }, []);
 
@@ -382,7 +353,11 @@ export function XinhuaExperience() {
   }, []);
 
   return (
-    <main className={`xinhua-stage is-${mode}${playing ? " is-playing" : ""}${touchCapable ? " is-touch" : ""}`}>
+    <main
+      className={`xinhua-stage is-${mode}${playing ? " is-playing" : ""}${touchCapable ? " is-touch" : ""}`}
+      data-progressive-network={networkProfile}
+      data-progressive-stage={ready ? "playable" : "booting"}
+    >
       <Canvas
         shadows="percentage"
         dpr={lowTier ? 1.25 : [1, 1.75]}
@@ -398,10 +373,8 @@ export function XinhuaExperience() {
           outputColorSpace: SRGBColorSpace,
           powerPreference: "high-performance",
         }}
-        onCreated={() => {
-          setReady(true);
-        }}
       >
+        <FirstPlayableFrame onReady={() => setReady(true)} />
         <Suspense fallback={null}>
           <AutumnStorybookSky atmosphereStyle={atmosphereStyle} />
         </Suspense>
@@ -419,9 +392,22 @@ export function XinhuaExperience() {
           onPositionChange={(position) => {
             playerPosition.current = position;
           }}
+          networkProfile={networkProfile}
         />
-        {/* 合成器在模式切换时保持挂载，避免重新创建时清空颜色缓冲；各效果按档位单独启停。 */}
-          <VisualEffectComposer lowTier={lowTier} atmosphereStyle={atmosphereStyle} />
+        {/* 首帧先交出控制权，再装载后处理；挂载后不随模式切换重建。 */}
+        {ready && networkProfile === "standard" && (
+          <ProgressiveFeatureBoundary
+            resetKey={atmosphereStyle}
+            fallback={null}
+          >
+            <Suspense fallback={null}>
+              <ProgressiveVisualEffectComposer
+                lowTier={lowTier}
+                atmosphereStyle={atmosphereStyle}
+              />
+            </Suspense>
+          </ProgressiveFeatureBoundary>
+        )}
       </Canvas>
 
       {!ready && (

@@ -102,7 +102,7 @@ test("Rain 候选的生成器、来源哈希与 CC-BY 署名可追溯", async ()
 test("Rain 短束低马尾和桌面手机证据对应同一 GLB", async () => {
   const [
     source,
-    world,
+    detailedCharacter,
     recordText,
     canonical,
     side,
@@ -110,7 +110,7 @@ test("Rain 短束低马尾和桌面手机证据对应同一 GLB", async () => {
     mobile,
   ] = await Promise.all([
     readFile(new URL("../app/style-lab/StyleLab.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/scene/detailed-wanderer-character.tsx", import.meta.url), "utf8"),
     readFile(new URL("../docs/research/build-records/rain-summer-wanderer.json", import.meta.url), "utf8"),
     readFile(new URL("../test_artifacts/test_rain_summer_character_canonical.png", import.meta.url)),
     readFile(new URL("../test_artifacts/test_rain_summer_character_side.png", import.meta.url)),
@@ -126,7 +126,10 @@ test("Rain 短束低马尾和桌面手机证据对应同一 GLB", async () => {
   assert.match(source, /get\("qaMotion"\)/);
   assert.match(source, /new Vector3\(-31, 0\.025, -7\)/);
   assert.match(source, new RegExp(`rain-summer-wanderer\\.glb\\?v=${record.output.sha256.slice(0, 12)}`));
-  assert.match(world, new RegExp(`rain-summer-wanderer\\.glb\\?v=${record.output.sha256.slice(0, 12)}`));
+  assert.match(
+    detailedCharacter,
+    new RegExp(`rain-summer-wanderer\\.glb\\?v=${record.output.sha256.slice(0, 12)}`),
+  );
   assert.match(source, /Rain Rig © Blender Foundation \| cloud\.blender\.org/);
   assert.equal(record.output.cacheVersion, record.output.sha256.slice(0, 12));
   assert.equal(record.status, "production-ready");
@@ -142,8 +145,9 @@ test("Rain 短束低马尾和桌面手机证据对应同一 GLB", async () => {
 });
 
 test("Rain 已进入正式地图并在桌面与手机可访问位置展示署名", async () => {
-  const [world, experience, recordText, desktop, mobile] = await Promise.all([
+  const [world, detailedCharacter, experience, recordText, desktop, mobile] = await Promise.all([
     readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/scene/detailed-wanderer-character.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8"),
     readFile(new URL("../docs/research/build-records/rain-summer-wanderer.json", import.meta.url), "utf8"),
     readFile(new URL("../test_artifacts/test_xinhua_autumn_storybook_v2_character_desktop.png", import.meta.url)),
@@ -152,9 +156,10 @@ test("Rain 已进入正式地图并在桌面与手机可访问位置展示署名
   const record = JSON.parse(recordText);
 
   assert.match(
-    world,
+    detailedCharacter,
     new RegExp(`rain-summer-wanderer\\.glb\\?v=${record.output.sha256.slice(0, 12)}`),
   );
+  assert.match(world, /ProgressiveDetailedWandererCharacter/);
   assert.match(experience, /Rain Rig © Blender Foundation \| cloud\.blender\.org/g);
   assert.ok(
     experience.match(/Rain Rig © Blender Foundation \| cloud\.blender\.org/g)?.length >= 2,

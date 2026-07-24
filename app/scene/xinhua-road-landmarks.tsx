@@ -1,6 +1,7 @@
 "use client";
 
 import { Html, useGLTF } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 import {
   Color,
   InstancedMesh,
@@ -18,6 +19,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type RefObject,
 } from "react";
 import {
   autumnShadowSurfaceHeightAt,
@@ -36,6 +38,11 @@ import {
   XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
 } from "./xinhua-road-placement.mjs";
 import type { XinhuaAtmosphere } from "./atmosphere-contract";
+import { ProgressiveFeatureBoundary } from "../progressive-feature-boundary";
+import {
+  LandmarkProgressiveProxy,
+  XinhuaRoadMassing,
+} from "./xinhua-road-massing";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
 
 type LandmarkPlacement = {
@@ -131,13 +138,10 @@ export const XINHUA_HERO_PLANE_TREE_ID = "plane-tree-0-12";
 export const XINHUA_HERO_PLANE_TREE_MODEL =
   "/models/building-evidence-lab/xinhua-plane-tree-hero.glb?v=3";
 const XINHUA_HERO_PLANE_TREE_TARGET = [20.75, 95.57] as const;
-// 上海影城和新华两佰是全览中的主识别建筑，首帧直接挂载，不能让地图只剩 POI 标签。
-// 其余模型给附近卡片图片保留一个很短的高优先级窗口，再快速分批挂载，避免 35 MB
-// 地标资源同时争抢连接，也避免旧版十余秒的空场。
-const LANDMARK_IMMEDIATE_MODEL_IDS = new Set(["shanghai-cinema", "film-art-center"]);
-const LANDMARK_OVERVIEW_LOAD_DELAY_MS = 320;
-const LANDMARK_EXPLORE_LOAD_DELAY_MS = 240;
-const LANDMARK_STAGGER_INTERVAL_MS = 180;
+const LANDMARK_FULL_ENTER_OVERVIEW = 48;
+const LANDMARK_FULL_ENTER_EXPLORE = 58;
+const LANDMARK_FULL_EXIT_OFFSET = 10;
+const LANDMARK_DISTANCE_SAMPLE_SECONDS = 0.2;
 
 export const XINHUA_PLANE_TREE_PLACEMENTS = buildPlaneTreePlacements(
   XINHUA_ROAD_LANDMARKS,
@@ -502,41 +506,68 @@ function landmarkMatchesPreset(landmark: LandmarkPlacement, preset?: string) {
   ));
 }
 
+function useRoadFullLandmarkIds({
+  priorityPreset,
+  loadMode = "overview",
+  focusPosition,
+}: {
+  priorityPreset?: string;
+  loadMode?: "overview" | "explore";
+  focusPosition: RefObject<readonly [number, number]>;
+}) {
+  const [mountedModelIds, setMountedModelIds] = useState<ReadonlySet<string>>(
+    () => new Set(),
+  );
+  const sampleElapsed = useRef(LANDMARK_DISTANCE_SAMPLE_SECONDS);
+
+  useFrame((_, delta) => {
+    sampleElapsed.current += delta;
+    if (sampleElapsed.current < LANDMARK_DISTANCE_SAMPLE_SECONDS) return;
+    sampleElapsed.current = 0;
+    const [focusX, focusZ] = focusPosition.current;
+    const enterDistance = loadMode === "explore"
+      ? LANDMARK_FULL_ENTER_EXPLORE
+      : LANDMARK_FULL_ENTER_OVERVIEW;
+    const exitDistance = enterDistance + LANDMARK_FULL_EXIT_OFFSET;
+
+    setMountedModelIds((current) => {
+      const next = new Set<string>();
+      for (const landmark of XINHUA_ROAD_LANDMARKS) {
+        const distance = Math.hypot(
+          focusX - landmark.position[0],
+          focusZ - landmark.position[1],
+        );
+        const threshold = current.has(landmark.id) ? exitDistance : enterDistance;
+        if (
+          distance <= threshold
+          || landmarkMatchesPreset(landmark, priorityPreset)
+        ) next.add(landmark.id);
+      }
+      if (
+        next.size === current.size
+        && [...next].every((landmarkId) => current.has(landmarkId))
+      ) return current;
+      return next;
+    });
+  });
+
+  return mountedModelIds;
+}
+
 export function XinhuaRoadLandmarks({
   showLabels = true,
   priorityPreset,
-  loadMode = "overview",
+  mountedModelIds,
 }: {
   showLabels?: boolean;
   priorityPreset?: string;
-  loadMode?: "overview" | "explore";
+  mountedModelIds: ReadonlySet<string>;
 }) {
-  const [mountedModelIds, setMountedModelIds] = useState<ReadonlySet<string>>(
-    () => new Set(LANDMARK_IMMEDIATE_MODEL_IDS),
-  );
-
-  useEffect(() => {
-    const priorityLandmark = XINHUA_ROAD_LANDMARKS.find((landmark) => (
-      landmarkMatchesPreset(landmark, priorityPreset)
-    ));
-    const deferredLandmarks = XINHUA_ROAD_LANDMARKS.filter(
-      (landmark) => (
-        landmark.id !== priorityLandmark?.id
-        && !LANDMARK_IMMEDIATE_MODEL_IDS.has(landmark.id)
-      ),
-    );
-    const initialDelay = loadMode === "explore"
-      ? LANDMARK_EXPLORE_LOAD_DELAY_MS
-      : LANDMARK_OVERVIEW_LOAD_DELAY_MS;
-    const timers = deferredLandmarks.map((landmark, index) => window.setTimeout(() => {
-      setMountedModelIds((current) => new Set([...current, landmark.id]));
-    }, initialDelay + index * LANDMARK_STAGGER_INTERVAL_MS));
-
-    return () => timers.forEach((timer) => window.clearTimeout(timer));
-  }, [loadMode, priorityPreset]);
-
   return (
-    <group name="xinhua-road-photo-reference-landmarks">
+    <group
+      name="xinhua-road-photo-reference-landmarks"
+      userData={{ stage: "full", loading: "distance-hysteresis" }}
+    >
       {XINHUA_ROAD_LANDMARKS.map((landmark) => {
         const [x, z] = landmark.position;
         const [labelOffsetX, labelOffsetZ] = landmark.labelOffset ?? [0, 0];
@@ -559,9 +590,18 @@ export function XinhuaRoadLandmarks({
           >
             <group position={[x, y, z]} rotation-y={landmark.yaw} scale={landmark.scale}>
               {shouldMountModel && (
-                <Suspense fallback={null}>
-                  <GlbModel path={modelPath} />
-                </Suspense>
+                <ProgressiveFeatureBoundary
+                  resetKey={modelPath}
+                  fallback={<LandmarkProgressiveProxy landmark={landmark} identity />}
+                >
+                  <Suspense
+                    fallback={(
+                      <LandmarkProgressiveProxy landmark={landmark} identity />
+                    )}
+                  >
+                    <GlbModel path={modelPath} />
+                  </Suspense>
+                </ProgressiveFeatureBoundary>
               )}
             </group>
             {showLabels && landmark.poi && (
@@ -587,5 +627,47 @@ export function XinhuaRoadLandmarks({
         );
       })}
     </group>
+  );
+}
+
+export default function XinhuaRoadFullLayer({
+  showLabels = true,
+  showHero = false,
+  atmosphere,
+  priorityPreset,
+  loadMode = "overview",
+  focusPosition,
+}: {
+  showLabels?: boolean;
+  showHero?: boolean;
+  atmosphere: XinhuaAtmosphere;
+  priorityPreset?: string;
+  loadMode?: "overview" | "explore";
+  focusPosition: RefObject<readonly [number, number]>;
+}) {
+  const mountedModelIds = useRoadFullLandmarkIds({
+    priorityPreset,
+    loadMode,
+    focusPosition,
+  });
+  const hiddenIdentityIds = useMemo(() => {
+    const next = new Set(mountedModelIds);
+    const priorityLandmark = XINHUA_ROAD_LANDMARKS.find((landmark) => (
+      landmarkMatchesPreset(landmark, priorityPreset)
+    ));
+    if (priorityLandmark) next.add(priorityLandmark.id);
+    return next;
+  }, [mountedModelIds, priorityPreset]);
+
+  return (
+    <>
+      <XinhuaRoadMassing identity hiddenLandmarkIds={hiddenIdentityIds} />
+      <XinhuaRoadPlaneTrees showHero={showHero} atmosphere={atmosphere} />
+      <XinhuaRoadLandmarks
+        showLabels={showLabels}
+        priorityPreset={priorityPreset}
+        mountedModelIds={mountedModelIds}
+      />
+    </>
   );
 }
