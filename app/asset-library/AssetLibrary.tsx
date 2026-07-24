@@ -1,17 +1,26 @@
 "use client";
 
-import { Bounds, Center, ContactShadows, OrbitControls, PerspectiveCamera, View, useGLTF } from "@react-three/drei";
+import {
+  Bounds,
+  Center,
+  ContactShadows,
+  OrbitControls,
+  PerspectiveCamera as DreiPerspectiveCamera,
+  View,
+  useGLTF,
+} from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import {
   Suspense,
   useEffect,
+  useCallback,
   useMemo,
   useRef,
   useState,
   type RefObject,
   type ReactNode,
 } from "react";
-import { Box3, Color, Material, Mesh, Object3D, Vector3 } from "three";
+import { Box3, Color, MathUtils, Material, Mesh, Object3D, Vector3 } from "three";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 import {
   CantileverCafeUmbrella,
@@ -253,19 +262,11 @@ function ProceduralPreview({ kind }: { kind: string }) {
   );
 }
 
-function AssetScene({
-  model,
-  preview,
-  centered = false,
-}: {
-  model?: string;
-  preview?: string;
-  centered?: boolean;
-}) {
+function AssetScene({ model, preview }: { model?: string; preview?: string }) {
   return (
     <>
       <color attach="background" args={["#e7e8e4"]} />
-      <PerspectiveCamera makeDefault position={[8.8, 6.4, 11]} fov={32} />
+      <DreiPerspectiveCamera makeDefault position={[8.8, 6.4, 11]} fov={32} />
       <ambientLight color="#fff4df" intensity={0.38} />
       <hemisphereLight args={["#eef3f4", "#5b5046", 0.65]} />
       <directionalLight
@@ -277,24 +278,73 @@ function AssetScene({
       />
       <directionalLight position={[8, 7, 10]} color="#b7d0da" intensity={0.55} />
       <Bounds fit clip observe margin={1.3}>
-        <Center top={!centered}>
+        <Center top>
           <PreviewPose>
             {model ? <RuntimeModel path={model} /> : <ProceduralPreview kind={preview ?? "missing"} />}
           </PreviewPose>
         </Center>
       </Bounds>
-      {!centered && (
-        <ContactShadows
-          position={[0, -0.02, 0]}
-          opacity={0.68}
-          scale={18}
-          blur={2.1}
-          far={12}
-          color="#243431"
-          frames={1}
-        />
-      )}
+      <ContactShadows
+        position={[0, -0.02, 0]}
+        opacity={0.68}
+        scale={18}
+        blur={2.1}
+        far={12}
+        color="#243431"
+        frames={1}
+      />
     </>
+  );
+}
+
+type OrbitControlHandle = {
+  target: Vector3;
+  minDistance: number;
+  maxDistance: number;
+  update: () => void;
+};
+
+function ModalAssetContent({ model, preview }: { model?: string; preview?: string }) {
+  const getThreeState = useThree((state) => state.get);
+  const invalidate = useThree((state) => state.invalidate);
+  const frameAsset = useCallback(
+    ({ boundingSphere }: { boundingSphere: { radius: number } }) => {
+      const { camera, controls: rawControls } = getThreeState();
+      const controls = rawControls as OrbitControlHandle | undefined;
+      if (!("fov" in camera) || !("aspect" in camera)) return;
+      const radius = Math.max(boundingSphere.radius, 0.5);
+      const verticalFov = MathUtils.degToRad(camera.fov as number);
+      const horizontalFov = 2 * Math.atan(Math.tan(verticalFov / 2) * (camera.aspect as number));
+      const limitingFov = Math.min(verticalFov, horizontalFov);
+      const distance = radius / Math.sin(limitingFov / 2) * 1.18;
+      const direction = new Vector3(0.78, 0.52, 1).normalize();
+
+      camera.position.copy(direction.multiplyScalar(distance));
+      camera.near = Math.max(distance / 100, 0.01);
+      camera.far = Math.max(distance * 100, 100);
+      camera.lookAt(0, 0, 0);
+      camera.updateProjectionMatrix();
+
+      if (controls) {
+        controls.target.set(0, 0, 0);
+        controls.minDistance = radius * 0.65;
+        controls.maxDistance = distance * 6;
+        controls.update();
+      }
+      invalidate();
+    },
+    [getThreeState, invalidate],
+  );
+
+  return (
+    <Center
+      cacheKey={`${model ?? "procedural"}:${preview ?? "asset"}`}
+      onCentered={frameAsset}
+    >
+      <PreviewPose>
+        {model ? <RuntimeModel path={model} /> : <ProceduralPreview kind={preview ?? "missing"} />}
+      </PreviewPose>
+    </Center>
   );
 }
 
@@ -468,6 +518,12 @@ function AssetPreviewModal({
         <div className={styles.modalStage}>
           <Canvas shadows dpr={[1, 1.5]} gl={{ antialias: true }}>
             <Suspense fallback={null}>
+              <color attach="background" args={["#e7e8e4"]} />
+              <DreiPerspectiveCamera makeDefault position={[8.8, 6.4, 11]} fov={32} />
+              <ambientLight color="#fff4df" intensity={0.38} />
+              <hemisphereLight args={["#eef3f4", "#5b5046", 0.65]} />
+              <directionalLight position={[-8, 11, -14]} color="#ffc47f" intensity={1.8} />
+              <directionalLight position={[8, 7, 10]} color="#b7d0da" intensity={0.55} />
               <OrbitControls
                 makeDefault
                 target={[0, 0, 0]}
@@ -477,7 +533,7 @@ function AssetPreviewModal({
                 minPolarAngle={0.35}
                 maxPolarAngle={Math.PI / 2.05}
               />
-              <AssetScene model={selection.model} preview={selection.preview} centered />
+              <ModalAssetContent model={selection.model} preview={selection.preview} />
             </Suspense>
           </Canvas>
         </div>

@@ -54,6 +54,34 @@
 
 ---
 
+## [LRN-20260725-007] correction
+
+**Logged**: 2026-07-25T03:12:00+08:00
+**Priority**: critical
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+大图查看器不能继续复用 `Bounds` 自动取景；显式 OrbitControls target 仍会被异步包围盒取景覆盖。
+
+### Details
+v43 虽然把模型中心和 OrbitControls target 都设为世界原点，但大图仍嵌套了卡片预览使用的 `Bounds`。`Bounds` 与 `Center` 的 layout effect 时序会先记录模型旧位置，再重新设置相机与 controls target，最终覆盖显式 target，线上仍出现模型贴在右下角的问题。
+
+### Suggested Action
+大图查看器使用独立场景：`Center` 完成最终变换后，在 `onCentered` 中读取 bounding sphere，手动计算适配横纵视场的相机距离，随后同步设置相机位置和 OrbitControls target。必须实际打开页面并拖动验证初始、旋转后和缩放后的取景。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/asset-library/AssetLibrary.tsx, tests/test_asset_library.test.mjs
+- Tags: asset-library, bounds, center, orbit-controls, camera-framing, runtime-qa
+- See Also: LRN-20260725-006
+
+### Resolution
+- **Resolved**: 2026-07-25T03:29:00+08:00
+- **Notes**: 大图场景不再复用 Bounds；Center 完成后按 bounding sphere 手动定距并同步 controls target。已在本地实际打开上海影城大图，验证初始居中、拖动旋转后居中、滚轮放大后居中。
+
+---
+
 ## [LRN-20260719-016] correction
 
 **Logged**: 2026-07-19T13:35:00+08:00

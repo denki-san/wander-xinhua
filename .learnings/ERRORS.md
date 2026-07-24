@@ -1,5 +1,40 @@
 # Errors
 
+## [ERR-20260725-A8C] asset_modal_camera_hook_mutation_lint
+
+**Logged**: 2026-07-25T03:15:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+直接修改 `useThree` selector 返回的 camera 和 controls 被 React Hooks immutability 规则拒绝。
+
+### Error
+```text
+Error: This value cannot be modified
+camera.near = ...
+controls.minDistance = ...
+react-hooks/immutability
+```
+
+### Context
+- 大图查看器需要在模型完成居中后手动设置相机取景和 OrbitControls 距离。
+- camera 与 controls 是 Three.js 的可变对象，但直接从 hook selector 取出后被 ESLint 视为不可变 hook 返回值。
+
+### Suggested Fix
+从 `useThree` 获取稳定的 store `get` 函数，在取景回调内部调用 `get()` 取得当前 camera 与 controls，再执行 Three.js 命令式更新。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/asset-library/AssetLibrary.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T03:16:00+08:00
+- **Notes**: 改用 `getThreeState()` 在回调内部获取可变对象，避免直接修改 hook selector 返回值。
+
+---
+
 ## [ERR-20260719-079] map_test_locked_old_fallback_scale
 
 **Logged**: 2026-07-19T14:02:00+08:00
