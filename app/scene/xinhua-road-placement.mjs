@@ -8,6 +8,24 @@ export const XINHUA_ROAD_AXIS = Object.freeze([
 export const TREE_BUILDING_CLEARANCE = 1.4;
 export const XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES = Object.freeze([]);
 
+/**
+ * 先把世界坐标逆变换回建筑局部坐标，再计算到建筑旋转矩形轮廓的距离。
+ * @param {readonly [number, number]} focusPosition
+ */
+export function planarDistanceToLandmarkFootprint([focusX, focusZ], landmark) {
+  const [positionX, positionZ] = landmark.position;
+  const localWorldX = (focusX - positionX) / landmark.scale;
+  const localWorldZ = (focusZ - positionZ) / landmark.scale;
+  const cosine = Math.cos(landmark.yaw);
+  const sine = Math.sin(landmark.yaw);
+  const localX = cosine * localWorldX - sine * localWorldZ;
+  const sourceZ = -sine * localWorldX - cosine * localWorldZ;
+  const bounds = landmark.localBounds;
+  const outsideX = Math.max(bounds.minX - localX, 0, localX - bounds.maxX);
+  const outsideZ = Math.max(bounds.minZ - sourceZ, 0, sourceZ - bounds.maxZ);
+  return Math.hypot(outsideX, outsideZ) * landmark.scale;
+}
+
 function polylineLength(points) {
   let length = 0;
   for (let index = 1; index < points.length; index += 1) {

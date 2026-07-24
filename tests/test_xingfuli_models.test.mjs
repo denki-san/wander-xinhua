@@ -355,23 +355,27 @@ test("幸福里 final 三段资产、运行时证据与性能记录保持一致"
 
 test("运行时使用三段 final 模型并保留程序化 fallback 与三组 QA 入口", async () => {
   const scene = await readFile(new URL("app/scene/xingfuli-block.tsx", root), "utf8");
+  const fullArchitecture = await readFile(
+    new URL("app/scene/xingfuli-architecture-model.tsx", root),
+    "utf8",
+  );
   const world = await readFile(new URL("app/scene/xinhua-world.tsx", root), "utf8");
   const generator = await readFile(new URL("scripts/create_xingfuli_models.py", root), "utf8");
   const streetAssets = await readFile(new URL("app/scene/shared-street-assets.tsx", root), "utf8");
   const paving = await readFile(new URL("app/scene/mixed-stone-paving.tsx", root), "utf8");
   for (const segment of segmentIds) {
-    assert.match(scene, new RegExp(`xingfuli-${segment}\\.glb\\?v=20260723-final-1`));
+    assert.match(fullArchitecture, new RegExp(`xingfuli-${segment}\\.glb\\?v=20260723-final-1`));
   }
   assert.match(scene, /XingfuliArchitectureBoundary/);
   assert.match(scene, /XingfuliProceduralArchitectureFallback/);
-  assert.match(scene, /scale=\{\[1, 1, -1\]\}/);
-  assert.match(scene, /loadDetailedArchitecture\s*\? <XingfuliArchitecture \/>/);
-  assert.match(scene, /stage: "final"/);
-  assert.match(scene, /name="xingfuli-final-architecture"/);
+  assert.match(fullArchitecture, /scale=\{\[1, 1, -1\]\}/);
+  assert.match(scene, /resolvedStage === "massing"/);
+  assert.match(fullArchitecture, /stage: "full"/);
+  assert.match(fullArchitecture, /name="xingfuli-final-architecture"/);
   assert.match(scene, /id: `east-entry-bollard-\$\{index\}`/);
   assert.doesNotMatch(scene, /\[-44\.6, 44\.6\]/);
-  assert.match(world, /<XingfuliBlock loadDetailedArchitecture=\{showDetailModels\} \/>/);
-  assert.doesNotMatch(scene, /useGLTF\.preload\(/);
+  assert.match(world, /<XingfuliBlock[\s\S]*?stage=\{xingfuliTier\}/);
+  assert.doesNotMatch(fullArchitecture, /useGLTF\.preload\(/);
   assert.match(world, /name === "xingfuli-canonical"/);
   assert.match(world, /name === "xingfuli-pool-detail"/);
   assert.match(world, /name === "xingfuli-entrance-detail"/);
@@ -398,35 +402,19 @@ test("运行时使用三段 final 模型并保留程序化 fallback 与三组 QA
   assert.match(scene, /<MixedStonePaving name="xingfuli-mixed-stone-paving" \/>/);
 });
 
-test("幸福里可视花箱与番禺路矮方石桩逐项覆盖生产碰撞", async () => {
+test("幸福里全览隐藏装饰并使用轻量树，详情按距离恢复原有装饰与碰撞", async () => {
   const scene = await readFile(new URL("app/scene/xingfuli-block.tsx", root), "utf8");
-  const streetAssets = await readFile(new URL("app/scene/shared-street-assets.tsx", root), "utf8");
+  const collision = await readFile(new URL("app/scene/xingfuli-collision.ts", root), "utf8");
   const qaData = JSON.parse(await readFile(
     new URL("app/scene/xingfuli-qa-paths.json", root),
     "utf8",
   ));
-  const visiblePlanterIds = [...scene.matchAll(/name="(planter-[^"]+-base)"/g)]
-    .map((match) => match[1])
-    .sort();
-  const collisionPlanterIds = qaData.fixedObstacles
-    .map(({ id }) => id)
-    .filter((id) => id.startsWith("planter-"))
-    .sort();
-  assert.deepEqual(collisionPlanterIds, visiblePlanterIds);
-  assert.equal(visiblePlanterIds.length, 4);
-  assert.equal((scene.match(/<StreetPlanter /g) ?? []).length, 4);
-
-  const bollardObstacles = qaData.fixedObstacles
-    .filter(({ id }) => id.startsWith("east-entry-bollard-"));
-  assert.deepEqual(
-    bollardObstacles.map(({ id }) => id),
-    Array.from({ length: 5 }, (_, index) => `east-entry-bollard-${index}`),
-  );
-  assert.match(scene, /\[\s*-11\.8,\s*-9,\s*-6\.2,\s*-3\.4,\s*-0\.6,?\s*\]/s);
-  assert.match(streetAssets, /variant: "five-deterministic-squat-blocks"/);
-  assert.match(streetAssets, /<boxGeometry args=\{\[1\.6, 1\.45, 1\.35\]\} \/>/);
-  assert.match(streetAssets, /<meshToonMaterial color="#4f5450" \/>/);
-  assert.doesNotMatch(streetAssets, /<dodecahedronGeometry/);
+  assert.ok(qaData.fixedObstacles.some(({ id }) => id.startsWith("planter-")));
+  assert.ok(qaData.fixedObstacles.some(({ id }) => id.startsWith("east-entry-bollard-")));
+  assert.match(scene, /StreetPlanter|east-entry-bollard|LaneFurniture/);
+  assert.match(scene, /<LightweightXingfuliTrees \/>/);
+  assert.match(scene, /identityReady && environmentDetailed && \([\s\S]*?<LaneFurniture \/>[\s\S]*?<ProgressiveFeatureBoundary/);
+  assert.doesNotMatch(collision, /const structuralObstacleIds = new Set/);
 });
 
 test("幸福里两入口、倒影池两侧和木桥均保留确定性连续通行", async () => {

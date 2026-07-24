@@ -1,7 +1,7 @@
 import { lazy, StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "./app/globals.css";
-import { XinhuaExperience } from "./app/xinhua-experience";
+import { XinhuaExperienceLoader } from "./app/xinhua-experience-loader";
 
 const AssetLibrary = lazy(() => import("./app/asset-library/AssetLibrary").then((module) => ({
   default: module.AssetLibrary,
@@ -20,6 +20,6 @@ createRoot(root).render(
       <Suspense fallback={<div role="status">正在装载资产总览…</div>}>
         <AssetLibrary />
       </Suspense>
-    ) : <XinhuaExperience />}
+    ) : <XinhuaExperienceLoader />}
   </StrictMode>,
 );

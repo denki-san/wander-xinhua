@@ -44,10 +44,17 @@ test("最终运行时代码不引用参考站资产", async () => {
   const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
   const xingfuli = await readFile(new URL("../app/scene/xingfuli-block.tsx", import.meta.url), "utf8");
   const shangsheng = await readFile(new URL("../app/scene/shangsheng-xinsuo-block.tsx", import.meta.url), "utf8");
+  const shangshengFull = await readFile(
+    new URL("../app/scene/shangsheng-full-models.tsx", import.meta.url),
+    "utf8",
+  );
   assert.doesNotMatch(world, /messenger\.abeto\.co|promptwhisper\/messenger/);
   assert.match(experience, /href="https:\/\/messenger\.abeto\.co\/"/);
-  assert.doesNotMatch(experience + world + xingfuli + shangsheng, /\/assets\/|\.drc|\.ktx2|\.ogg|bdimg|bcebos/);
-  assert.match(shangsheng, /"\/models\/shangsheng\/navy-club-pool\.glb"/);
+  assert.doesNotMatch(
+    experience + world + xingfuli + shangsheng + shangshengFull,
+    /\/assets\/|\.drc|\.ktx2|\.ogg|bdimg|bcebos/,
+  );
+  assert.match(shangshengFull, /"\/models\/shangsheng\/navy-club-pool\.glb"/);
   assert.match(experience, /openstreetmap\.org\/copyright/);
 
   const assets = await readdir(new URL("../dist-static/assets/", import.meta.url));
@@ -59,12 +66,15 @@ test("最终运行时代码不引用参考站资产", async () => {
   assert.doesNotMatch(javascript.join("\n"), /bdimg|bcebos|poi-pic|messenger\.abeto\.co\/assets/i);
 });
 
-test("幸福里使用七栋固定建筑和可识别的核心街具", async () => {
+test("幸福里全览隐藏小装饰，详情恢复七栋建筑和原有核心街具", async () => {
   const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
   const xingfuli = await readFile(new URL("../app/scene/xingfuli-block.tsx", import.meta.url), "utf8");
   const layout = JSON.parse(await readFile(new URL("../app/scene/xingfuli-layout.json", import.meta.url), "utf8"));
 
-  assert.match(world, /<XingfuliBlock loadDetailedArchitecture=\{showDetailModels\} \/>/);
+  assert.match(
+    world,
+    /<XingfuliBlock[\s\S]*?loadDetailedArchitecture=\{showDetailModels\}[\s\S]*?stage=\{xingfuliTier\}/,
+  );
   assert.match(world, /const XINGFULI_WORLD_OBSTACLES = XINGFULI_OBSTACLES\.map/);
   assert.match(world, /\.\.\.XINGFULI_WORLD_OBSTACLES/);
   assert.equal(layout.buildings.length, 7);
@@ -86,6 +96,8 @@ test("幸福里使用七栋固定建筑和可识别的核心街具", async () =>
   assert.match(xingfuli, /StreetLampInstances/);
   assert.match(xingfuli, /SlattedBench/);
   assert.match(xingfuli, /CantileverCafeUmbrella/);
+  assert.match(xingfuli, /identityReady && environmentDetailed && \([\s\S]*?<ReflectingPoolDynamicDetails \/>[\s\S]*?<LaneFurniture \/>/);
+  assert.match(xingfuli, /!environmentDetailed && <LightweightXingfuliTrees \/>/);
   assert.match(xingfuli, /OutdoorDiningSet/);
   assert.match(xingfuli, /番禺路入口右侧的白色玻璃转角体量/);
   assert.match(xingfuli, /sign \* 0\.082/);

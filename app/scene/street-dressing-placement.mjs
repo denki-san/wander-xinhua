@@ -154,7 +154,7 @@ export function buildXinhuaStreetDressingPlacements(
     }
   }
 
-  const clusterSpacing = 44;
+  const clusterSpacing = 40;
   for (
     let distance = 38, index = 0;
     distance < total - 24;

@@ -4247,6 +4247,9 @@ Error: listen EPERM: operation not permitted 127.0.0.1:3002
 - **Resolved**: 2026-07-22T11:08:00+08:00
 - **Notes**: 经授权在沙箱外运行 `npm run preview:static -- --host 127.0.0.1 --port 3002`，端口正常监听。
 - **Recurrence**: 2026-07-22T21:05:00+08:00 建筑发布验收时 `127.0.0.1:4173` 再次触发同一限制；继续使用已验证的沙箱外静态预览路径。
+- **Recurrence**: 2026-07-24T21:10:00+08:00 全览 Identity 建筑缩影验收时
+  `127.0.0.1:4173` 再次被 managed sandbox 拒绝；同一限定命令获准后正常启动，
+  页面构建本身无监听错误。
 
 ---
 ## [ERR-20260722-106] cdp_raf_sample_hits_default_timeout
@@ -5849,3 +5852,416 @@ TypeError: requestAnimationFrame is not a function
 - 改为只给可见卡片挂载独立 Canvas；
 - 动态模式持续渲染，静态模式使用 `frameloop="demand"`，相机拟合与模型加载完成后自动停帧；
 - 390px 低配触屏下确认垃圾桶模型可见、页面可滚动、变体可切换且无 error 日志。
+## [ERR-20260724-086] npm_ci_exit_handler_failure
+
+**Logged**: 2026-07-24T19:38:31+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: config
+
+### Summary
+在新 Git worktree 中运行 `npm ci` 时，npm 在约 62 秒后以自身退出处理器错误
+终止，并且沙箱不允许向用户级 npm 日志目录写入。
+
+### Error
+```text
+npm error Exit handler never called!
+npm error Log files were not written due to an error writing to the directory:
+/Users/lei/.npm/_logs
+```
+
+### Context
+- 命令：`npm ci`
+- 工作树：`.worktrees/progressive-world-loading`
+- 失败后留下约 23MB 的不完整 `node_modules`，没有生成
+  `node_modules/.package-lock.json`。
+
+### Suggested Fix
+将 npm cache 与日志目录显式放进任务工作树或 `/private/tmp` 后重跑
+`npm ci`；成功后用 `npm ls --depth=0` 和基线构建确认依赖完整。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: package-lock.json
+
+### Resolution
+- **Resolved**: 2026-07-24T19:40:00+08:00
+- **Notes**: 调试日志确认真实原因是沙箱内访问 npm registry 持续
+  `ENOTFOUND`，npm 11.13.0 最终以误导性的退出处理器错误收尾；在受权联网环境
+  使用项目内 cache/log 目录后，562 个依赖于 10 秒内安装完成。
+
+---
+## [ERR-20260724-087] progressive_split_source_contract_failures
+
+**Logged**: 2026-07-24T20:05:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+将 GLTF、人物精模、建筑 Full 层和后处理拆入动态模块后，15 个源码合同测试仍只
+扫描原始聚合文件，因而把已迁移的真实实现误判为缺失。
+
+### Error
+```text
+tests 123
+pass 108
+fail 15
+```
+
+### Context
+- 失败集中在角色、幸福里、孙科别墅、道路地标和控制合同。
+- 运行实现没有删除这些能力，而是将其移动到明确的延后分块。
+
+### Suggested Fix
+源码合同测试应扫描新的权威模块，并验证动态导入、分层边界与距离防抖语义，
+而不是继续依赖旧文件中的单个正则位置。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_progressive_world_loading.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-24T20:12:00+08:00
+- **Notes**: 测试已改为检查拆分后的权威模块；新增生产分层与包体门禁，完整
+  `npm test` 为 126/126，`npm run lint` 通过。
+
+---
+## [ERR-20260724-088] browser_raw_cdp_input_not_supported
+
+**Logged**: 2026-07-24T20:15:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+本地生产预览验收时，浏览器控制层不允许通过 raw CDP
+`Input.dispatchKeyEvent` 注入按住移动键。
+
+### Error
+```text
+This method is not supported through raw CDP.
+Use tab.cua.type(...) or tab.cua.keypress(...) instead.
+```
+
+### Context
+- raw CDP 继续用于只读的网络节流、performance mark 和资源请求采样。
+- 目标是验证真实输入通路，不能用页面内直接改状态替代。
+
+### Suggested Fix
+使用浏览器原生交互通道发送 `W` 键，并以输入前后画面变化和游玩态 UI 共同验收。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/progressive-world-loading-acceptance-2026-07-24.md
+
+### Resolution
+- **Resolved**: 2026-07-24T20:17:00+08:00
+- **Notes**: 改用浏览器交互通道连续发送真实 `W` 键；近景角色与相机画面发生
+  可见位移，且控制台无 error。
+
+---
+## [ERR-20260724-089] lazy_retry_component_created_during_render
+
+**Logged**: 2026-07-24T20:40:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: code
+
+### Summary
+首路由增加动态分块失败重试时，在 `useMemo` 内创建 `React.lazy` 组件，
+触发 React 静态组件 lint 门禁。
+
+### Error
+```text
+Error: Cannot create components during render
+react-hooks/static-components
+```
+
+### Context
+- 目标是让瞬时 chunk 下载失败后创建新的 lazy 容器。
+- 在 render 期间生成组件会导致组件身份变化和状态重置，不能作为重试机制。
+
+### Suggested Fix
+在模块作用域预先声明有限的 lazy 重试容器；render 只根据 attempt 选择既有组件，
+最终失败时允许整页重新加载。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/xinhua-experience-loader.tsx
+
+### Resolution
+- **Resolved**: 2026-07-24T20:43:00+08:00
+- **Notes**: 三个重试容器已改为模块级静态声明；`npm run lint` 与完整
+  `npm test` 均通过。
+
+---
+## [ERR-20260724-090] worktree_git_index_sandbox_denied
+
+**Logged**: 2026-07-24T20:36:03+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+独立 worktree 提交时，受限沙箱无法在主仓库 `.git/worktrees/` 中创建
+`index.lock`。
+
+### Error
+```text
+fatal: Unable to create '.git/worktrees/progressive-world-loading/index.lock':
+Operation not permitted
+```
+
+### Context
+- 源文件位于可写 worktree，但 Git 元数据位于主仓库受限的 `.git` 目录。
+- 失败发生在暂存前，未产生部分提交。
+
+### Suggested Fix
+仅对已确认的 `git add` 与 `git commit` 命令请求 Git 元数据写入权限，
+不扩大到其他仓库或破坏性操作。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git/worktrees/progressive-world-loading
+
+### Resolution
+- **Resolved**: 2026-07-24T20:36:03+08:00
+- **Notes**: 使用受控的 Git 元数据写入权限继续暂存与提交。
+
+---
+## [ERR-20260724-091] sites_source_non_fast_forward
+
+**Logged**: 2026-07-24T20:40:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: infra
+
+### Summary
+向 Codex Sites 源码仓库推送已验证提交时，远端 `main` 已包含并行产生的两项
+研究提交，因此安全地拒绝了非快进更新。
+
+### Error
+```text
+! [rejected] HEAD -> main (non-fast-forward)
+```
+
+### Context
+- 当前任务 worktree 建立后，主分支新增了研究文档、预览图和构建记录。
+- 直接强推会覆盖 Sites 源码历史及并行成果，不符合发布边界。
+- 远端代码改动与本次渐进加载主体不重叠，唯一冲突是共享错误日志。
+
+### Suggested Fix
+读取 Sites 当前源分支，先把任务提交重放到远端最新提交之上；冲突解决必须保留
+双方日志，并在重跑测试后使用新的完整 HEAD SHA 发布。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-24T20:42:00+08:00
+- **Notes**: 未使用强推；保留远端全部研究成果，将渐进加载提交重放到最新
+  Sites 源分支，并合并双方错误记录。
+
+---
+## [ERR-20260724-092] sites_packager_not_executable
+
+**Logged**: 2026-07-24T20:44:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+Sites 插件的归档辅助脚本存在但没有 executable 权限，直接执行时被 shell 拒绝。
+
+### Error
+```text
+permission denied: sites/0.1.31/scripts/package-site.sh
+```
+
+### Context
+- 已验证的 `dist` 与 `.openai/hosting.json` 均已生成。
+- 失败发生在脚本启动前，没有产生半成品版本或部署。
+
+### Suggested Fix
+通过明确的 shell 解释器运行同一受信任插件脚本，不修改插件目录权限，也不手工
+重写其打包逻辑。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .openai/hosting.json
+
+### Resolution
+- **Resolved**: 2026-07-24T20:44:00+08:00
+- **Notes**: 顶层包装脚本即使用 `bash` 仍会直接 `exec` 无执行权限的内层脚本；
+  最终改为通过 `bash` 直接调用插件内层 `skills/sites-hosting/scripts/package-site.sh`，
+  未修改插件文件或手工重写打包逻辑。
+
+---
+## [ERR-20260724-093] amended_pushed_sites_commit_lost_ancestry
+
+**Logged**: 2026-07-24T20:47:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+在 Sites 源提交已推送后，为补充错误记录执行 amend，导致新提交与远端已推送
+提交成为兄弟节点，第二次推送被非快进保护拒绝。
+
+### Error
+```text
+! [rejected] HEAD -> main (non-fast-forward)
+```
+
+### Context
+- 两棵源码树经 `git diff` 确认只有新增的 32 行错误记录不同。
+- 运行时代码、测试、构建产物及此前整合的并行研究成果完全相同。
+- 仍然禁止用 force push 覆盖 Sites 源历史。
+
+### Suggested Fix
+任何补充记录都应在已推送提交之上创建新提交，不再 amend 已发布节点。若已发生，
+先核对树差异，再用保留远端父节点的合并提交恢复快进关系。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-24T20:48:00+08:00
+- **Notes**: 保留远端已推送父提交并创建合并节点；新增记录改为独立后续提交。
+
+---
+## [ERR-20260724-094] unquoted_query_url_in_zsh
+
+**Logged**: 2026-07-24T22:36:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+使用 zsh 执行生产站点只读核对时，未给含 `?` 的 URL 加引号，命令在发起网络请求前被 glob 解析拦截。
+
+### Error
+```text
+zsh:1: no matches found: https://xinhua-messenger.berry-fig-9187.chatgpt.site/?qa=version35
+```
+
+### Context
+- 目的是只读获取现有 Codex Sites 生产页面，核对新版本是否已经生效。
+- 失败发生在 shell 参数展开阶段，没有访问线上，也没有修改站点状态。
+
+### Suggested Fix
+在 shell 命令中始终为包含 `?`、`&` 或其他 glob 字符的 URL 使用单引号。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-24T22:36:00+08:00
+- **Notes**: 改用单引号包裹完整 URL 后重新执行只读核对。
+
+---
+## [ERR-20260724-095] production_browser_navigation_timeouts
+
+**Logged**: 2026-07-24T22:53:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Codex Sites 生产验收中，独立标签页导航与整页刷新多次在控制连接层超时并重置会话。
+
+### Error
+```text
+Timed out running CDP command "Page.navigate"
+js execution timed out; kernel reset, rerun your request
+```
+
+### Context
+- 原生产标签页已经完成弱网 Identity 画面截图，确认空白方盒已消失。
+- 新标签页的 URL 最终出现，但一度只返回空 document；整页刷新后只读 DOM 状态也无法稳定回传。
+- Sites v35 状态为 succeeded，生产 HTML 已引用 v35 新 bundle，页面日志没有 error。
+- 本地同一生产构建已完成标准档 Full 模型切换验收。
+
+### Suggested Fix
+导航或 reload 超时后先读取现有标签页状态，不重复导航；若控制会话持续重置，保留已获得的
+生产证据，并清楚区分“线上已确认”和“本地同构建已确认”的验收边界。
+
+### Metadata
+- Reproducible: intermittent
+- Related Files: docs/research/progressive-world-loading-acceptance-2026-07-24.md
+
+### Resolution
+- **Resolved**: 2026-07-24T22:53:00+08:00
+- **Notes**: 停止继续操作不稳定标签页，保留生产弱网截图、生产新 bundle 哈希、
+  零 error 日志和本地标准档 Full 截图作为分层证据。
+
+---
+## [ERR-20260724-096] isolated_worktree_index_lock_denied
+
+**Logged**: 2026-07-24T23:57:46+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+建筑质量合同独立 worktree 的最后一次提交被主仓库 Git 元数据权限拦截。
+
+### Error
+```text
+fatal: Unable to create '.git/worktrees/building-quality-contract/index.lock':
+Operation not permitted
+```
+
+### Context
+- 源文件与测试均已完成并通过，失败发生在 `git add` 创建 index lock 时。
+- 当前 worktree 源目录可写，但其 Git 元数据仍位于主仓库 `.git/worktrees/`。
+
+### Suggested Fix
+只对已审查文件的 `git add` 与当前 worktree 的 `git commit` 请求受控元数据写入权限。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git/worktrees/building-quality-contract
+- See Also: ERR-20260724-090
+
+### Resolution
+- **Resolved**: 2026-07-24T23:57:46+08:00
+- **Notes**: 复用已验证的限定 Git 权限路径重试，不扩大操作范围。
+
+---
+## [ERR-20260725-012] zsh_path_special_parameter_shadowed
+
+**Logged**: 2026-07-25T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+合并追加式记录时使用了 zsh 特殊数组变量 `path`，临时清空了命令搜索路径。
+
+### Error
+```text
+zsh: command not found: git
+zsh: command not found: cp
+zsh: command not found: rg
+```
+
+### Context
+- 命令在 `for path in ...` 中把 `path` 当作普通循环变量。
+- zsh 会将 `path` 与 `PATH` 绑定，赋值后当前 shell 无法找到外部命令。
+- 失败发生在读取和临时文件准备阶段，没有覆盖工作区文件。
+
+### Suggested Fix
+shell 循环使用 `file_path` 等任务专用变量名，避免 `path`、`status` 等 zsh 特殊参数。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-25T00:00:00+08:00
+- **Notes**: 改用 `file_path` 后重新执行，成功保留两侧追加记录并移除冲突标记。

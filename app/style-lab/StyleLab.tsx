@@ -22,7 +22,8 @@ import {
   Mesh,
   Vector3,
 } from "three";
-import { InkOutline, PaperWash, WatercolourSky } from "../scene/visual-effects";
+import { WatercolourSky } from "../scene/visual-effects";
+import { InkOutline, PaperWash } from "../scene/postprocessing-effects";
 import { XingfuliBlock } from "../scene/xingfuli-block";
 import styles from "./style-lab.module.css";
 

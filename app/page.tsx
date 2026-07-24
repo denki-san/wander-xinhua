@@ -1,5 +1,5 @@
-import { XinhuaExperience } from "./xinhua-experience";
+import { XinhuaExperienceLoader } from "./xinhua-experience-loader";
 
 export default function Home() {
-  return <XinhuaExperience />;
+  return <XinhuaExperienceLoader />;
 }
