@@ -11,7 +11,7 @@ import {
   type RefObject,
   type ReactNode,
 } from "react";
-import { Box3, Mesh, Object3D, Vector3 } from "three";
+import { Box3, Color, Material, Mesh, Object3D, Vector3 } from "three";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 import {
   CantileverCafeUmbrella,
@@ -83,12 +83,49 @@ function ScrollSync({ target }: { target: RefObject<HTMLDivElement | null> }) {
   return null;
 }
 
+type PreviewMaterial = Material & {
+  color?: Color;
+  emissive?: Color;
+  emissiveIntensity?: number;
+  metalness?: number;
+  opacity?: number;
+  roughness?: number;
+  transparent?: boolean;
+};
+
+function clonePreviewMaterial(source: Material) {
+  const material = source.clone() as PreviewMaterial;
+  if (material.color) {
+    const hsl = { h: 0, s: 0, l: 0 };
+    material.color.getHSL(hsl);
+    material.color.setHSL(
+      hsl.h,
+      Math.max(hsl.s, 0.08),
+      Math.min(0.68, Math.max(0.2, hsl.l * 0.7)),
+    );
+  }
+  if (material.emissive) {
+    material.emissive.multiplyScalar(0.35);
+    material.emissiveIntensity = Math.min(material.emissiveIntensity ?? 0, 0.45);
+  }
+  if (typeof material.metalness === "number") material.metalness = Math.min(material.metalness, 0.12);
+  if (typeof material.roughness === "number") material.roughness = Math.max(material.roughness, 0.72);
+  if (material.transparent && typeof material.opacity === "number") {
+    material.opacity = Math.max(material.opacity, 0.78);
+  }
+  material.needsUpdate = true;
+  return material;
+}
+
 function RuntimeModel({ path }: { path: string }) {
   const { scene } = useGLTF(path);
   const model = useMemo(() => {
     const result = clone(scene) as Object3D;
     result.traverse((child) => {
       if (child instanceof Mesh) {
+        child.material = Array.isArray(child.material)
+          ? child.material.map(clonePreviewMaterial)
+          : clonePreviewMaterial(child.material);
         child.castShadow = true;
         child.receiveShadow = true;
       }
@@ -98,6 +135,13 @@ function RuntimeModel({ path }: { path: string }) {
     if (size.z > size.x * 0.96) result.rotation.y = -0.42;
     return result;
   }, [scene]);
+  useEffect(() => () => {
+    model.traverse((child) => {
+      if (!(child instanceof Mesh)) return;
+      const materials = Array.isArray(child.material) ? child.material : [child.material];
+      materials.forEach((material) => material.dispose());
+    });
+  }, [model]);
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
@@ -201,19 +245,18 @@ function ProceduralPreview({ kind }: { kind: string }) {
 function AssetScene({ model, preview }: { model?: string; preview?: string }) {
   return (
     <>
-      <color attach="background" args={["#8fa3ac"]} />
-      <fog attach="fog" args={["#8fa3ac", 34, 72]} />
+      <color attach="background" args={["#e7e8e4"]} />
       <PerspectiveCamera makeDefault position={[8.8, 6.4, 11]} fov={32} />
-      <ambientLight color="#fff0da" intensity={0.28} />
-      <hemisphereLight args={["#c9dbe3", "#4e463d", 0.58]} />
+      <ambientLight color="#fff4df" intensity={0.38} />
+      <hemisphereLight args={["#eef3f4", "#5b5046", 0.65]} />
       <directionalLight
         position={[-8, 11, -14]}
         color="#ffc47f"
-        intensity={2.15}
+        intensity={1.8}
         castShadow
         shadow-mapSize={[1024, 1024]}
       />
-      <directionalLight position={[8, 7, 10]} color="#a8c6d8" intensity={0.7} />
+      <directionalLight position={[8, 7, 10]} color="#b7d0da" intensity={0.55} />
       <Bounds fit clip observe margin={1.3}>
         <Center top>
           <PreviewPose>
@@ -250,10 +293,6 @@ function LivePreview({ model, preview, label }: { model?: string; preview?: stri
           </Suspense>
         )}
       </View>
-      <div className={styles.previewChrome}>
-        <span className={styles.liveDot} />
-        实时 3D
-      </div>
     </div>
   );
 }

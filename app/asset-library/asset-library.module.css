@@ -2,8 +2,8 @@
   --ink: #172721;
   --muted: #68756f;
   --line: rgba(23, 39, 33, 0.13);
-  --paper: #f4f2ea;
-  --cream: #ebe7dc;
+  --paper: #f5f5f2;
+  --cream: #ecece8;
   --accent: #de744c;
   width: 100%;
   height: 100svh;
@@ -12,9 +12,7 @@
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   color: var(--ink);
-  background:
-    radial-gradient(circle at 82% 8%, rgba(226, 162, 102, 0.18), transparent 28rem),
-    linear-gradient(180deg, #f7f5ee, var(--paper));
+  background: var(--paper);
   font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
@@ -33,14 +31,13 @@
 }
 
 .header {
-  height: 76px;
-  padding: 0 clamp(20px, 4vw, 64px);
+  height: 58px;
+  padding: 0 clamp(16px, 2vw, 32px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--line);
-  background: rgba(247, 245, 238, 0.78);
-  backdrop-filter: blur(18px);
+  background: #fff;
 }
 
 .brand {
@@ -53,14 +50,14 @@
 
 .brandMark {
   display: grid;
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   place-items: center;
   color: #f8f4e9;
   background: var(--ink);
-  border-radius: 13px 13px 13px 4px;
+  border-radius: 8px;
   font-family: Georgia, serif;
-  font-size: 20px;
+  font-size: 17px;
 }
 
 .brand strong,
@@ -99,44 +96,42 @@
 }
 
 .main {
-  width: min(1560px, calc(100% - 40px));
+  width: min(1680px, calc(100% - 24px));
   margin: 0 auto;
 }
 
 .hero {
-  min-height: 300px;
-  padding: 56px 0 42px;
+  min-height: 0;
+  padding: 22px 0 18px;
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(340px, 0.8fr);
-  gap: 56px;
-  align-items: end;
+  grid-template-columns: minmax(220px, 1fr) auto;
+  gap: 24px;
+  align-items: center;
 }
 
 .hero h1 {
   margin: 0;
   font-family: Georgia, "Songti SC", serif;
-  font-size: clamp(48px, 5vw, 76px);
+  font-size: 38px;
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.035em;
 }
 
 .heroCopy {
-  margin: 18px 0 0;
+  margin: 7px 0 0;
   color: var(--muted);
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 12px;
+  line-height: 1.4;
 }
 
 .heroStats {
-  padding: 30px;
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 28px;
+  padding: 0;
+  display: flex;
+  gap: 0;
   border: 1px solid var(--line);
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.46);
-  box-shadow: 0 22px 60px rgba(50, 55, 44, 0.08);
+  border-radius: 8px;
+  background: #fff;
 }
 
 .primaryStat span,
@@ -150,20 +145,21 @@
 
 .primaryStat strong {
   display: block;
-  margin: 8px 0 5px;
+  margin: 2px 0 0;
   font-family: Georgia, serif;
-  font-size: 76px;
+  font-size: 32px;
   font-weight: 400;
   line-height: 1;
 }
 
 .miniStats {
-  display: grid;
-  gap: 12px;
+  display: flex;
+  gap: 0;
 }
 
 .miniStats div {
-  padding: 11px 0 11px 16px;
+  min-width: 116px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -172,24 +168,22 @@
 
 .miniStats strong {
   font-family: Georgia, serif;
-  font-size: 27px;
+  font-size: 22px;
   font-weight: 400;
 }
 
 .toolbar {
   position: sticky;
-  top: 12px;
+  top: 6px;
   z-index: 10;
-  padding: 10px;
+  padding: 6px;
   display: flex;
   gap: 16px;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 20px;
-  background: rgba(233, 230, 220, 0.82);
-  box-shadow: 0 16px 38px rgba(47, 53, 45, 0.1);
-  backdrop-filter: blur(18px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
 }
 
 .categoryTabs {
@@ -207,12 +201,12 @@
 }
 
 .categoryTabs button {
-  padding: 11px 15px;
+  padding: 9px 12px;
   flex: 0 0 auto;
   color: #5c6862;
   background: transparent;
-  border-radius: 13px;
-  font-size: 13px;
+  border-radius: 6px;
+  font-size: 12px;
 }
 
 .categoryTabs button span {
@@ -236,8 +230,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.72);
-  border-radius: 13px;
+  background: #f3f3f0;
+  border-radius: 6px;
 }
 
 .search span {
@@ -247,7 +241,7 @@
 
 .search input {
   width: 100%;
-  height: 42px;
+  height: 36px;
   border: 0;
   outline: none;
   color: var(--ink);
@@ -256,12 +250,12 @@
 }
 
 .categorySection {
-  padding: 88px 0 12px;
+  padding: 38px 0 8px;
 }
 
 .sectionHeading {
-  margin-bottom: 26px;
-  padding-bottom: 18px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
   display: flex;
   align-items: end;
   justify-content: space-between;
@@ -283,7 +277,7 @@
 .sectionHeading h2 {
   margin: 0;
   font-family: Georgia, "Songti SC", serif;
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 500;
 }
 
@@ -295,37 +289,28 @@
 
 .assetGrid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
 }
 
 .buildingGrid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .assetCard {
   min-width: 0;
   overflow: hidden;
   border: 1px solid rgba(23, 39, 33, 0.12);
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.64);
-  box-shadow: 0 14px 44px rgba(46, 51, 43, 0.075);
-  transition: transform 180ms ease, box-shadow 180ms ease;
-}
-
-.assetCard:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 20px 50px rgba(46, 51, 43, 0.12);
+  border-radius: 10px;
+  background: #fff;
 }
 
 .preview {
   position: relative;
   z-index: 1;
-  height: 290px;
+  height: 190px;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 72%, rgba(232, 226, 207, 0.42), transparent 44%),
-    linear-gradient(150deg, #9eb0b7, #8499a2);
+  background: #e7e8e4;
   pointer-events: none;
 }
 
@@ -335,7 +320,7 @@
 }
 
 .buildingCard .preview {
-  height: 340px;
+  height: 230px;
 }
 
 .previewChrome {
@@ -365,7 +350,7 @@
 }
 
 .cardBody {
-  padding: 20px;
+  padding: 14px;
 }
 
 .cardTopline {
@@ -421,9 +406,9 @@
 }
 
 .cardBody h3 {
-  margin: 14px 0 4px;
+  margin: 9px 0 3px;
   font-family: Georgia, "Songti SC", serif;
-  font-size: 21px;
+  font-size: 18px;
   font-weight: 500;
   line-height: 1.25;
 }
@@ -436,20 +421,20 @@
 }
 
 .levels {
-  margin-top: 18px;
+  margin-top: 11px;
   display: grid;
-  gap: 6px;
+  gap: 4px;
 }
 
 .levelButton {
-  padding: 9px 10px;
+  padding: 7px 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: #59645f;
   background: #efede6;
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: 6px;
   font-size: 10px;
   text-align: left;
 }
@@ -467,14 +452,14 @@
 
 .levelNote,
 .note {
-  margin: 12px 0 0;
+  margin: 8px 0 0;
   color: #7b8680;
   font-size: 10px;
   line-height: 1.6;
 }
 
 .variantRow {
-  margin-top: 16px;
+  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
@@ -537,8 +522,8 @@
 }
 
 .footer {
-  width: min(1560px, calc(100% - 40px));
-  margin: 110px auto 0;
+  width: min(1680px, calc(100% - 24px));
+  margin: 48px auto 0;
   padding: 28px 0 36px;
   display: flex;
   justify-content: space-between;
@@ -546,6 +531,16 @@
   border-top: 1px solid var(--line);
   font-size: 9px;
   letter-spacing: 0.09em;
+}
+
+@media (max-width: 1480px) {
+  .assetGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .buildingGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 1180px) {
@@ -556,7 +551,7 @@
 
   .hero {
     grid-template-columns: 1fr;
-    gap: 42px;
+    gap: 16px;
   }
 
   .heroStats {
@@ -566,7 +561,7 @@
 
 @media (max-width: 760px) {
   .header {
-    height: 66px;
+    height: 58px;
     padding: 0 18px;
   }
 
@@ -580,15 +575,15 @@
 
   .hero {
     min-height: auto;
-    padding: 42px 6px 32px;
+    padding: 18px 6px 14px;
   }
 
   .hero h1 {
-    font-size: 48px;
+    font-size: 34px;
   }
 
   .heroStats {
-    padding: 22px;
+    padding: 0;
     grid-template-columns: 1fr;
   }
 
@@ -619,7 +614,7 @@
   }
 
   .categorySection {
-    padding-top: 64px;
+    padding-top: 38px;
   }
 
   .assetGrid,
@@ -629,7 +624,7 @@
 
   .buildingCard .preview,
   .preview {
-    height: 310px;
+    height: 230px;
   }
 
   .roadmap {
@@ -642,15 +637,5 @@
     margin-top: 70px;
     gap: 12px;
     flex-direction: column;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .assetCard {
-    transition: none;
-  }
-
-  .assetCard:hover {
-    transform: none;
   }
 }
