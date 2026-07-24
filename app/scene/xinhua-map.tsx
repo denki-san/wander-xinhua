@@ -719,6 +719,7 @@ function XinhuaStreetDressing({ lowTier }: { lowTier: boolean }) {
           name="xinhua-road-instanced-lamps"
           placements={lamps}
           evidenceRef={evidenceRef}
+          lightMode="emissive-only"
         />
       )}
       {XINHUA_STREET_DRESSING_STATE.planters.visible && (

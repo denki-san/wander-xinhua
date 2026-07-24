@@ -55,6 +55,11 @@ function lampYawTowardRoad(tangent, sideSign) {
   return Math.atan2(tangent[0] * sideSign, tangent[1] * sideSign);
 }
 
+function binYawTowardSidewalk(tangent, sideSign) {
+  // 垃圾桶分类面板位于 local +Z，让它统一朝路缘外侧的人行区域。
+  return Math.atan2(-tangent[1] * sideSign, tangent[0] * sideSign);
+}
+
 function transformedFootprint(landmark) {
   const [positionX, positionZ] = landmark.position;
   const cosine = Math.cos(landmark.yaw);
@@ -174,7 +179,7 @@ export function buildXinhuaStreetDressingPlacements(
     const bin = {
       id: `street-bin-${index}`,
       position: offsetSample(binSample, 3.18, sideSign),
-      yaw: -Math.atan2(binSample.tangent[1], binSample.tangent[0]),
+      yaw: binYawTowardSidewalk(binSample.tangent, sideSign),
       variant: index % 2,
     };
     if (placementIsClear(bin.position, "bin", constraints)) {

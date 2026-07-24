@@ -24,3 +24,18 @@
 - `npm run lint` 通过，`npm test` 通过 `130/130`；
 - 没有同条件改动前基线，不声明性能提升；
 - 移动端 lowTier、draw calls 和 triangles 仍是正式合并前待办，不阻塞当前分支视觉预览。
+
+## 2026-07-25 — Wiki sync boundary
+
+- 唯一事实源已写入独立 `3D_Modeling_ThreeJS_Knowledge_Base`；
+- `Threejs-3d-research/raw/sources/` 使用相同 inode 的 hard link，没有再存一份普通副本；
+- Source Rescan 已完成，源文件可由 Wiki API 读取；
+- 摄取队列前方存在无关资料的长期 `processing`，本条仍为 `pending`，所以暂不声称 Wiki 已生成页面或可检索。
+
+## 2026-07-25 — Independent review corrections
+
+- 双分类面板位于垃圾桶 local `+Z`，旧的道路 tangent yaw 会让两侧实例正反不一；
+- 新 yaw 使用道路切线和 `sideSign`，让所有垃圾桶正面统一朝路缘外侧的人行区域；
+- 新增向量级测试，逐个断言分类面板正面与“道路中心到垃圾桶”的外向向量同向；
+- 新华路批量亮灯改为 `emissive-only`，`lit` 打开时只改变共享灯罩材质，不为约 11 盏灯各建一个动态 `PointLight`；
+- 其他确实需要近景动态灯的场景仍可显式使用原有 `point-lights` 模式。

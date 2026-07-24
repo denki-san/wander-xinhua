@@ -29,6 +29,25 @@ function distanceToAxis(point) {
   )));
 }
 
+function nearestPointOnAxis(point) {
+  let nearest = null;
+  for (let index = 1; index < XINHUA_ROAD_AXIS.length; index += 1) {
+    const start = XINHUA_ROAD_AXIS[index - 1];
+    const end = XINHUA_ROAD_AXIS[index];
+    const dx = end[0] - start[0];
+    const dz = end[1] - start[1];
+    const lengthSquared = dx * dx + dz * dz;
+    const ratio = lengthSquared === 0 ? 0 : Math.max(0, Math.min(
+      1,
+      ((point[0] - start[0]) * dx + (point[1] - start[1]) * dz) / lengthSquared,
+    ));
+    const candidate = [start[0] + ratio * dx, start[1] + ratio * dz];
+    const distance = Math.hypot(point[0] - candidate[0], point[1] - candidate[1]);
+    if (!nearest || distance < nearest.distance) nearest = { point: candidate, distance };
+  }
+  return nearest.point;
+}
+
 function pointIntersectsObstacle([x, z], obstacle, radius) {
   return x >= obstacle.minX - radius
     && x <= obstacle.maxX + radius
@@ -81,6 +100,19 @@ test("街具确定性放在新华路 furnishing zone，低配档位会减量", (
   for (const placement of full.planters) {
     const distance = distanceToAxis(placement.position);
     assert.ok(distance > 3.4 && distance < 3.56, `花箱偏离 furnishing zone：${distance}`);
+  }
+  for (const placement of full.bins) {
+    const roadPoint = nearestPointOnAxis(placement.position);
+    const outward = [
+      placement.position[0] - roadPoint[0],
+      placement.position[1] - roadPoint[1],
+    ];
+    const outwardLength = Math.hypot(...outward);
+    const front = [Math.sin(placement.yaw), Math.cos(placement.yaw)];
+    const alignment = (
+      front[0] * outward[0] + front[1] * outward[1]
+    ) / outwardLength;
+    assert.ok(alignment > 0.99, `${placement.id} 的分类面板没有朝向人行区域`);
   }
 });
 
@@ -156,6 +188,7 @@ test("街具具备集中批量状态，垃圾桶和灌木使用新的共享低�
   ]);
   assert.match(mapSource, /XINHUA_STREET_DRESSING_STATE/);
   assert.match(mapSource, /lit: XINHUA_STREET_DRESSING_STATE\.lamps\.lit/);
+  assert.match(mapSource, /lightMode="emissive-only"/);
   assert.match(mapSource, /season=\{XINHUA_STREET_DRESSING_STATE\.planters\.season\}/);
   assert.match(mapSource, /condition=\{XINHUA_STREET_DRESSING_STATE\.bins\.condition\}/);
 

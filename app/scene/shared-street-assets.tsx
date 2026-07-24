@@ -175,15 +175,18 @@ export function StreetLampInstances({
   name,
   placements,
   evidenceRef = DEFAULT_EVIDENCE_REF,
+  lightMode = "point-lights",
 }: {
   name: string;
   placements: StreetLampPlacement[];
   evidenceRef?: string;
+  lightMode?: "emissive-only" | "point-lights";
 }) {
   const poleInstances = useRef<InstancedMesh>(null);
   const armInstances = useRef<InstancedMesh>(null);
   const shadeInstances = useRef<InstancedMesh>(null);
   const glassInstances = useRef<InstancedMesh>(null);
+  const anyLit = placements.some(({ lit }) => lit);
   useLayoutEffect(() => {
     writeLampPartMatrices(poleInstances.current, placements, [0, 1.68, 0], [1, 1, 1]);
     writeLampPartMatrices(armInstances.current, placements, [0.24, 3.18, 0], [1, 1, 1], Math.PI / 2);
@@ -218,9 +221,14 @@ export function StreetLampInstances({
       </instancedMesh>
       <instancedMesh ref={glassInstances} args={[undefined, undefined, placements.length]}>
         <cylinderGeometry args={[0.13, 0.13, 0.035, 8]} />
-        <meshBasicMaterial color="#ffe9ad" />
+        <meshStandardMaterial
+          color={anyLit ? "#ffe9ad" : "#b8ae94"}
+          emissive={anyLit ? "#ffd991" : "#000000"}
+          emissiveIntensity={anyLit ? 1.1 : 0}
+          roughness={0.72}
+        />
       </instancedMesh>
-      {placements.filter(({ lit }) => lit).map((placement) => (
+      {lightMode === "point-lights" && placements.filter(({ lit }) => lit).map((placement) => (
         <pointLight
           key={placement.id}
           position={[
