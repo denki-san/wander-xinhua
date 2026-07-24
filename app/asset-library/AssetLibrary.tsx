@@ -2,7 +2,6 @@
 
 import { Bounds, Center, ContactShadows, PerspectiveCamera, View, useGLTF } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
-import Link from "next/link";
 import {
   Suspense,
   useEffect,
@@ -329,6 +328,15 @@ export function AssetLibrary() {
   const [activeCategory, setActiveCategory] = useState<AssetCategory | "all">("all");
   const [query, setQuery] = useState("");
 
+  useEffect(() => {
+    document.documentElement.classList.add("asset-library-page");
+    document.body.classList.add("asset-library-page");
+    return () => {
+      document.documentElement.classList.remove("asset-library-page");
+      document.body.classList.remove("asset-library-page");
+    };
+  }, []);
+
   const onlineCounts = useMemo(() => Object.fromEntries(
     CATEGORY_ORDER.map((category) => [
       category,
@@ -362,13 +370,13 @@ export function AssetLibrary() {
       </Canvas>
 
       <header className={styles.header}>
-        <Link href="/" className={styles.brand} aria-label="返回新华漫游志">
-          <span className={styles.brandMark}>新</span>
+        <div className={styles.brand} aria-label="个人资产后台">
+          <span className={styles.brandMark}>资</span>
           <span>
-            <strong>新华漫游志</strong>
+            <strong>资产后台</strong>
             <small>Asset Library</small>
           </span>
-        </Link>
+        </div>
         <div className={styles.headerMeta}>
           <span className={styles.syncDot} />
           生产资产快照 · 2026.07.25
@@ -378,11 +386,8 @@ export function AssetLibrary() {
       <main className={styles.main}>
         <section className={styles.hero}>
           <div>
-            <p className={styles.eyebrow}>资产管理后台 / 一页总览</p>
-            <h1>现在拥有什么，<br /><em>一眼看清。</em></h1>
-            <p className={styles.heroCopy}>
-              只统计真实接入场景的生产资产。建筑三档完整列出，实验、内部占位与待制作状态不会混入线上总数。
-            </p>
+            <h1>资产总览</h1>
+            <p className={styles.heroCopy}>建筑、光线、树木、装饰物与人物。</p>
           </div>
           <div className={styles.heroStats}>
             <div className={styles.primaryStat}>
