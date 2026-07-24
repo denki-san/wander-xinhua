@@ -12,8 +12,11 @@ import {
   visibleProgressiveBuildingTier,
 } from "../app/scene/progressive-building-stage.ts";
 import {
+  detailPresetTargetsBuilding,
+  PRODUCTION_BUILDING_QUALITY_MANIFEST,
   XINHUA_ROAD_BUILDING_QUALITY_MANIFEST,
   XINHUA_ROAD_IDENTITY_KIND_BY_ID,
+  xinhuaRoadDetailHeroId,
 } from "../app/scene/xinhua-road-identity-contract.ts";
 
 const root = new URL("../", import.meta.url);
@@ -88,6 +91,45 @@ test("网络策略在 5Mbps 保留 Hero 能力，并让地图与弱网固定 Ide
     networkProfile: "standard",
     detailActive: false,
   }), "identity", "进入其他地点时仍应保持本建筑 Identity");
+
+  assert.equal(
+    xinhuaRoadDetailHeroId({ loadMode: "overview", priorityPreset: "cinema" }),
+    undefined,
+    "全览即使保留详情 preset，也不得请求道路 Hero",
+  );
+  assert.equal(
+    xinhuaRoadDetailHeroId({ loadMode: "explore", priorityPreset: "cinema" }),
+    "shanghai-cinema",
+  );
+  assert.equal(
+    xinhuaRoadDetailHeroId({ loadMode: "explore", priorityPreset: "xinhua365" }),
+    "fics-xinhua-365",
+    "道路详情入口必须兼容已有 alias",
+  );
+  assert.equal(
+    xinhuaRoadDetailHeroId({ loadMode: "explore", priorityPreset: "unknown" }),
+    undefined,
+  );
+
+  const coreAliases = {
+    xingfuli: [
+      "xingfuli",
+      "hero",
+      "xingfuli-canonical",
+      "xingfuli-pool-detail",
+      "xingfuli-entrance-detail",
+    ],
+    shangsheng: ["shangsheng", "pool", "sunke"],
+    huashan: ["huashan", "court", "bridge"],
+  };
+  for (const [buildingId, aliases] of Object.entries(coreAliases)) {
+    for (const alias of aliases) {
+      assert.equal(detailPresetTargetsBuilding(alias, buildingId), true);
+      for (const otherId of Object.keys(coreAliases).filter((id) => id !== buildingId)) {
+        assert.equal(detailPresetTargetsBuilding(alias, otherId), false);
+      }
+    }
+  }
 });
 
 test("生产主世界让全部建筑遵守 Massing、Identity、Hero 三层和两场景合同", async () => {
@@ -136,9 +178,9 @@ test("生产主世界让全部建筑遵守 Massing、Identity、Hero 三层和�
   assert.match(world, /<XinhuaRoadMassing identity=\{showDetailModels\} \/>/);
   assert.match(world, /networkProfile === "standard"/);
   assert.match(world, /useProgressiveBuildingTier/);
-  assert.match(world, /detailActive: priorityPreset === "xingfuli"/);
-  assert.match(world, /detailActive: priorityPreset === "shangsheng"/);
-  assert.match(world, /detailActive: priorityPreset === "huashan"/);
+  assert.match(world, /detailActive: detailPresetTargetsBuilding\(priorityPreset, "xingfuli"\)/);
+  assert.match(world, /detailActive: detailPresetTargetsBuilding\(priorityPreset, "shangsheng"\)/);
+  assert.match(world, /detailActive: detailPresetTargetsBuilding\(priorityPreset, "huashan"\)/);
   assert.match(world, /<HuashanGreenBlock stage=\{huashanTier\} \/>/);
   assert.match(
     world,
@@ -182,10 +224,13 @@ test("生产主世界让全部建筑遵守 Massing、Identity、Hero 三层和�
     "全览缩影不能退化成所有地标共用一种方盒轮廓",
   );
   assert.match(roadFull, /function useDetailHeroLandmarkIds/);
-  assert.match(roadFull, /loadMode !== "explore" \|\| !priorityPreset/);
-  assert.match(roadFull, /target \? new Set\(\[target\.id\]\) : new Set\(\)/);
+  assert.match(roadFull, /xinhuaRoadDetailHeroId\(\{ loadMode, priorityPreset \}\)/);
+  assert.match(roadFull, /heroId \? new Set\(\[heroId\]\) : new Set\(\)/);
+  assert.match(roadFull, /const shouldMountModel = mountedModelIds\.has\(landmark\.id\)/);
+  assert.match(roadFull, /hiddenLandmarkIds=\{mountedModelIds\}/);
+  assert.doesNotMatch(roadFull, /landmarkMatchesPreset/);
   assert.doesNotMatch(roadFull, /LANDMARK_FULL_ENTER|LANDMARK_DISTANCE_SAMPLE|distance <= threshold/);
-  assert.match(roadFull, /<XinhuaRoadMassing identity hiddenLandmarkIds=\{hiddenIdentityIds\} \/>/);
+  assert.match(roadFull, /<XinhuaRoadMassing identity hiddenLandmarkIds=\{mountedModelIds\} \/>/);
   assert.match(xingfuli, /resolvedStage === "massing"/);
   assert.match(xingfuli, /resolvedStage === "identity" \|\| resolvedStage === "full"/);
   assert.match(xingfuli, /fullReady &&/);
@@ -202,7 +247,7 @@ test("生产主世界让全部建筑遵守 Massing、Identity、Hero 三层和�
   assert.match(huashan, /stage === "full"/);
 });
 
-test("生产 manifest 为每个新华路地标映射 Hero、Identity、Massing 和共享空间参数", () => {
+test("全世界生产 manifest 覆盖三档资产、共享空间参数和证据状态", async () => {
   const ids = Object.keys(XINHUA_ROAD_BUILDING_QUALITY_MANIFEST).sort();
   assert.deepEqual(
     ids,
@@ -227,6 +272,64 @@ test("生产 manifest 为每个新华路地标映射 Hero、Identity、Massing �
   );
   assert.equal(cinema.identity.cacheVersion, "20260722-hybrid-1");
   assert.equal(cinema.hero.model, "/models/xinhua-road/shanghai-cinema.glb");
+
+  const productionIds = Object.keys(PRODUCTION_BUILDING_QUALITY_MANIFEST).sort();
+  assert.deepEqual(
+    productionIds,
+    [...ids, "xingfuli", "shangsheng", "huashan"].sort(),
+    "全世界生产清单必须覆盖新华路 14 个地标与三个核心片区",
+  );
+  for (const entry of Object.values(PRODUCTION_BUILDING_QUALITY_MANIFEST)) {
+    assert.ok(entry.hero.assets.length > 0);
+    assert.ok(entry.identity.assets.length > 0);
+    assert.equal(entry.identity.requiredBeforeMapVisible, true);
+    assert.equal(entry.massing.visibility, "cover-only");
+    assert.ok(entry.massing.parametersSource.length > 0);
+    assert.ok(entry.shared.transformSource.length > 0);
+    assert.ok(entry.shared.collisionSource.length > 0);
+    assert.ok(["complete", "accepted-with-followup", "migration-required"]
+      .includes(entry.evidence.status));
+    for (const field of [
+      "heroBuildRecords",
+      "identityBuildRecords",
+      "massingBuildRecords",
+      "canonicalScreenshots",
+      "sideScreenshots",
+      "rearScreenshots",
+      "runtimeScreenshots",
+      "resourceMetrics",
+      "drawCallMetrics",
+      "gaps",
+    ]) {
+      assert.ok(Array.isArray(entry.evidence[field]), `${entry.buildingId}.${field} 必须是数组`);
+    }
+    if (entry.evidence.status !== "migration-required") {
+      const evidencePaths = [
+        ...entry.evidence.heroBuildRecords,
+        ...entry.evidence.identityBuildRecords,
+        ...entry.evidence.massingBuildRecords,
+        ...entry.evidence.canonicalScreenshots,
+        ...entry.evidence.sideScreenshots,
+        ...entry.evidence.rearScreenshots,
+        ...entry.evidence.runtimeScreenshots,
+        ...entry.evidence.resourceMetrics,
+        ...entry.evidence.drawCallMetrics,
+      ];
+      for (const evidencePath of evidencePaths) {
+        await stat(new URL(evidencePath, root));
+      }
+    }
+  }
+  const productionCinema = PRODUCTION_BUILDING_QUALITY_MANIFEST["shanghai-cinema"];
+  assert.equal(productionCinema.identity.strategy, "custom-landmark-hybrid");
+  assert.ok(productionCinema.evidence.identityBuildRecords
+    .includes("docs/research/build-records/shanghai-cinema-hybrid-identity.json"));
+  assert.ok(productionCinema.evidence.resourceMetrics
+    .includes("test_artifacts/test_shanghai-cinema_hybrid_metrics.json"));
+  assert.equal(PRODUCTION_BUILDING_QUALITY_MANIFEST.shangsheng.evidence.status, "migration-required");
+  assert.equal(PRODUCTION_BUILDING_QUALITY_MANIFEST.huashan.evidence.status, "migration-required");
+  assert.ok(PRODUCTION_BUILDING_QUALITY_MANIFEST.shangsheng.evidence.gaps.length > 0);
+  assert.ok(PRODUCTION_BUILDING_QUALITY_MANIFEST.huashan.evidence.gaps.length > 0);
 });
 
 test("首个可操作路径排除 GLTF、人物精模和后处理，并满足 5Mbps 传输预算", async () => {

@@ -40,6 +40,7 @@ import {
   LandmarkProgressiveProxy,
   XinhuaRoadMassing,
 } from "./xinhua-road-massing";
+import { xinhuaRoadDetailHeroId } from "./xinhua-road-identity-contract";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
 
 type LandmarkPlacement = {
@@ -490,14 +491,6 @@ export function XinhuaRoadPlaneTrees({
   );
 }
 
-function landmarkMatchesPreset(landmark: LandmarkPlacement, preset?: string) {
-  return Boolean(preset && (
-    landmark.id === preset
-    || landmark.query === preset
-    || landmark.aliases?.includes(preset)
-  ));
-}
-
 function useDetailHeroLandmarkIds({
   priorityPreset,
   loadMode = "overview",
@@ -506,21 +499,16 @@ function useDetailHeroLandmarkIds({
   loadMode?: "overview" | "explore";
 }) {
   return useMemo<ReadonlySet<string>>(() => {
-    if (loadMode !== "explore" || !priorityPreset) return new Set();
-    const target = XINHUA_ROAD_LANDMARKS.find((landmark) => (
-      landmarkMatchesPreset(landmark, priorityPreset)
-    ));
-    return target ? new Set([target.id]) : new Set();
+    const heroId = xinhuaRoadDetailHeroId({ loadMode, priorityPreset });
+    return heroId ? new Set([heroId]) : new Set();
   }, [loadMode, priorityPreset]);
 }
 
 export function XinhuaRoadLandmarks({
   showLabels = true,
-  priorityPreset,
   mountedModelIds,
 }: {
   showLabels?: boolean;
-  priorityPreset?: string;
   mountedModelIds: ReadonlySet<string>;
 }) {
   return (
@@ -535,8 +523,7 @@ export function XinhuaRoadLandmarks({
         const modelPath = landmark.cacheVersion
           ? `${landmark.model}?v=${landmark.cacheVersion}`
           : landmark.model;
-        const shouldMountModel = mountedModelIds.has(landmark.id)
-          || landmarkMatchesPreset(landmark, priorityPreset);
+        const shouldMountModel = mountedModelIds.has(landmark.id);
         return (
           <group
             key={landmark.id}
@@ -607,22 +594,13 @@ export default function XinhuaRoadFullLayer({
     priorityPreset,
     loadMode,
   });
-  const hiddenIdentityIds = useMemo(() => {
-    const next = new Set(mountedModelIds);
-    const priorityLandmark = XINHUA_ROAD_LANDMARKS.find((landmark) => (
-      landmarkMatchesPreset(landmark, priorityPreset)
-    ));
-    if (priorityLandmark) next.add(priorityLandmark.id);
-    return next;
-  }, [mountedModelIds, priorityPreset]);
 
   return (
     <>
-      <XinhuaRoadMassing identity hiddenLandmarkIds={hiddenIdentityIds} />
+      <XinhuaRoadMassing identity hiddenLandmarkIds={mountedModelIds} />
       <XinhuaRoadPlaneTrees showHero={showHero} atmosphere={atmosphere} />
       <XinhuaRoadLandmarks
         showLabels={showLabels}
-        priorityPreset={priorityPreset}
         mountedModelIds={mountedModelIds}
       />
     </>

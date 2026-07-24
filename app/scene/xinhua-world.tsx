@@ -82,6 +82,7 @@ import {
 } from "./atmosphere-contract";
 import type { ProgressiveNetworkProfile } from "./progressive-loading";
 import { useProgressiveBuildingTier } from "./progressive-building-stage";
+import { detailPresetTargetsBuilding } from "./xinhua-road-identity-contract";
 
 const ProgressiveXinhuaRoadFullLayer = lazy(
   () => import("./xinhua-road-landmarks"),
@@ -461,17 +462,17 @@ function FlatNeighborhood({
   const xingfuliTier = useProgressiveBuildingTier({
     mode,
     networkProfile,
-    detailActive: priorityPreset === "xingfuli",
+    detailActive: detailPresetTargetsBuilding(priorityPreset, "xingfuli"),
   });
   const shangshengTier = useProgressiveBuildingTier({
     mode,
     networkProfile,
-    detailActive: priorityPreset === "shangsheng",
+    detailActive: detailPresetTargetsBuilding(priorityPreset, "shangsheng"),
   });
   const huashanTier = useProgressiveBuildingTier({
     mode,
     networkProfile,
-    detailActive: priorityPreset === "huashan",
+    detailActive: detailPresetTargetsBuilding(priorityPreset, "huashan"),
   });
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
