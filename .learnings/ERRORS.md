@@ -32,6 +32,39 @@ Error: listen EPERM: operation not permitted 127.0.0.1:4317
 
 ---
 
+## [ERR-20260725-093] browser_readonly_evaluate_hides_animation_frame
+
+**Logged**: 2026-07-25T00:55:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+in-app Browser 的只读 `playwright.evaluate` 环境不暴露页面 `requestAnimationFrame`。
+
+### Error
+```text
+TypeError: window.requestAnimationFrame is not a function
+```
+
+### Context
+- 目标是在 `/?start=cinema` 的真实 WebGL 页面采集 120 帧间隔；
+- DOM 只读脚本环境与真实页面 JavaScript realm 不完全相同。
+
+### Suggested Fix
+WebGL 帧采样使用 tab 的 CDP capability 执行 `Runtime.evaluate`，并用 `Performance.getMetrics` 读取 heap、DOM 和事件监听器指标；不要把只读 DOM evaluate 当成完整页面运行环境。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `docs/research/test_street_surface_refinement_runtime_metrics.json`
+- See Also: ERR-20260724-092
+
+### Resolution
+- **Resolved**: 2026-07-25T00:55:00+08:00
+- **Notes**: 已通过 CDP 完成 120 帧采样和 Performance metrics 读取。
+
+---
+
 ## [ERR-20260724-092] in_app_browser_networkidle_unsupported
 
 **Logged**: 2026-07-24T00:00:00+08:00

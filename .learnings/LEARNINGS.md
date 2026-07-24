@@ -27,6 +27,60 @@
 
 ---
 
+## [LRN-20260725-001] correction
+
+**Logged**: 2026-07-25T00:48:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+通用低模街具不能只以“已实例化、三角面少”为完成标准，必须在真实路段检查轮廓是否仍像馒头、圆桶或错误标线。
+
+### Details
+用户指出首版新华路中心线是一根贯穿路段的长斜线，单个扁平 icosahedron 灌木像馒头，圆柱垃圾桶也不符合上海公共废物箱结构。真实参考显示新华路近番禺路使用黄色短虚线、红色非机动车带和白色连续分隔线；上海公共废物箱常见银灰框体、青灰侧板、黑蓝双分类面板和两个独立投口。
+
+### Suggested Action
+重复小资产也应先完成本地参考 manifest、canonical view 与 Observed/Inferred/Unknown；运行时验收必须同时看批次预算和轮廓语义。低模植被优先使用不对称多块 faceted crown，共享垃圾桶应保留真实分类结构，不以圆柱占位。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/xinhua-map.tsx, app/scene/shared-street-assets.tsx, docs/research/street-surface-refinement-model-brief.md
+- Tags: street-marking, shrub, bin, runtime-qa, correction
+
+### Resolution
+- **Resolved**: 2026-07-25T00:48:00+08:00
+- **Notes**: 已改为短虚线与非机动车带、三冠体 faceted shrub、双分类矩形废物箱，并保留实例化。
+
+---
+
+## [LRN-20260725-002] knowledge_gap
+
+**Logged**: 2026-07-25T00:48:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: tests
+
+### Summary
+新华路地标深链使用 `landmark.query`，不是内部 `landmark.id`。
+
+### Details
+旧验收记录使用 `?start=shanghai-cinema` 和 `?start=film-art-center`，但生产 preset 实际是 `?start=cinema` 和 `?start=film-art`。无效参数不会报错，而是静默回退默认起点，导致截图看似成功却不是目标地点。
+
+### Suggested Action
+生成或记录运行时深链时从 `xinhua-road-landmarks-data.json` 的 `query` 字段读取，并增加测试禁止文档继续使用内部 id 作为 `start`。
+
+### Metadata
+- Source: error
+- Related Files: app/scene/xinhua-road-landmarks-data.json, docs/research/test_street_surface_runtime_metrics.json
+- Tags: deep-link, runtime-qa, preset, evidence
+
+### Resolution
+- **Resolved**: 2026-07-25T00:48:00+08:00
+- **Notes**: 文档入口已更正，旧运行时证据明确标记为默认起点回退。
+
+---
+
 ## [LRN-20260719-016] correction
 
 **Logged**: 2026-07-19T13:35:00+08:00

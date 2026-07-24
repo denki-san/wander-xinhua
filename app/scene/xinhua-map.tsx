@@ -370,10 +370,44 @@ function mergeCenterLines(roads: Road[]) {
       const endY = terrainHeightAt(end[0], end[1]);
       const length = Math.hypot(dx, endY - startY, dz);
       if (length < 0.12) continue;
-      const lineWidth = road.name === "新华路"
-        ? 0.018 * XINHUA_ENVIRONMENT_SCALE
-        : 0.055 * XINHUA_ENVIRONMENT_SCALE;
-      const line = new BoxGeometry(lineWidth, 0.018, length * 0.86);
+      if (road.name === "新华路") {
+        const planarLength = Math.hypot(dx, dz);
+        const dashLength = 0.3 * XINHUA_ENVIRONMENT_SCALE;
+        const dashGap = 0.42 * XINHUA_ENVIRONMENT_SCALE;
+        for (
+          let distance = 0.18 * XINHUA_ENVIRONMENT_SCALE;
+          distance < planarLength - 0.1;
+          distance += dashLength + dashGap
+        ) {
+          const endDistance = Math.min(planarLength, distance + dashLength);
+          const dashStart: [number, number] = [
+            start[0] + dx * distance / planarLength,
+            start[1] + dz * distance / planarLength,
+          ];
+          const dashEnd: [number, number] = [
+            start[0] + dx * endDistance / planarLength,
+            start[1] + dz * endDistance / planarLength,
+          ];
+          const dash = new BoxGeometry(
+            0.018 * XINHUA_ENVIRONMENT_SCALE,
+            0.018,
+            Math.hypot(
+              dashEnd[0] - dashStart[0],
+              terrainHeightAt(dashEnd[0], dashEnd[1])
+                - terrainHeightAt(dashStart[0], dashStart[1]),
+              dashEnd[1] - dashStart[1],
+            ),
+          );
+          dash.applyMatrix4(slopedSegmentMatrix(dashStart, dashEnd, y));
+          pieces.push(dash);
+        }
+        continue;
+      }
+      const line = new BoxGeometry(
+        0.055 * XINHUA_ENVIRONMENT_SCALE,
+        0.018,
+        length * 0.86,
+      );
       const matrix = slopedSegmentMatrix(start, end, y);
       line.applyMatrix4(matrix);
       pieces.push(line);
@@ -382,6 +416,65 @@ function mergeCenterLines(roads: Road[]) {
   if (pieces.length === 0) return null;
   const merged = mergeGeometries(pieces, false);
   pieces.forEach((piece) => piece.dispose());
+  return merged;
+}
+
+function mergeXinhuaRoadLaneMeshes() {
+  const cycleLanePieces: BufferGeometry[] = [];
+  const separatorPieces: BufferGeometry[] = [];
+  const cycleLaneWidth = 0.12 * XINHUA_ENVIRONMENT_SCALE;
+  const edgeInset = 0.025 * XINHUA_ENVIRONMENT_SCALE;
+  const laneOffset = XINHUA_ROAD_ASPHALT_WIDTH / 2 - edgeInset - cycleLaneWidth / 2;
+  const separatorOffset = XINHUA_ROAD_ASPHALT_WIDTH / 2 - edgeInset - cycleLaneWidth;
+
+  for (const road of ROADS.filter((candidate) => (
+    candidate.name === "新华路" && isSurfaceRoad(candidate)
+  ))) {
+    for (let index = 0; index < road.points.length - 1; index += 1) {
+      const start = road.points[index];
+      const end = road.points[index + 1];
+      for (const side of [-1, 1]) {
+        const [laneStart, laneEnd] = offsetSegment(start, end, laneOffset * side);
+        const lane = new BoxGeometry(
+          cycleLaneWidth,
+          0.012,
+          Math.hypot(
+            laneEnd[0] - laneStart[0],
+            terrainHeightAt(laneEnd[0], laneEnd[1])
+              - terrainHeightAt(laneStart[0], laneStart[1]),
+            laneEnd[1] - laneStart[1],
+          ) + 0.04,
+        );
+        lane.applyMatrix4(slopedSegmentMatrix(laneStart, laneEnd, 0.168));
+        cycleLanePieces.push(lane);
+
+        const [separatorStart, separatorEnd] = offsetSegment(
+          start,
+          end,
+          separatorOffset * side,
+        );
+        const separator = new BoxGeometry(
+          0.014 * XINHUA_ENVIRONMENT_SCALE,
+          0.016,
+          Math.hypot(
+            separatorEnd[0] - separatorStart[0],
+            terrainHeightAt(separatorEnd[0], separatorEnd[1])
+              - terrainHeightAt(separatorStart[0], separatorStart[1]),
+            separatorEnd[1] - separatorStart[1],
+          ) + 0.04,
+        );
+        separator.applyMatrix4(slopedSegmentMatrix(separatorStart, separatorEnd, 0.181));
+        separatorPieces.push(separator);
+      }
+    }
+  }
+
+  const merged = {
+    cycleLanes: mergeGeometries(cycleLanePieces, false),
+    separators: mergeGeometries(separatorPieces, false),
+  };
+  cycleLanePieces.forEach((geometry) => geometry.dispose());
+  separatorPieces.forEach((geometry) => geometry.dispose());
   return merged;
 }
 
@@ -487,6 +580,7 @@ function AsphaltRoadNetwork() {
     service: mergeRoadMeshes(roads, "service"),
     minorRoadShoulders: mergeMinorRoadShoulders(roads),
     centerLines: mergeCenterLines(roads),
+    xinhuaLanes: mergeXinhuaRoadLaneMeshes(),
     xinhuaEdges: mergeXinhuaRoadEdgeMeshes(),
   }), [roads]);
   useEffect(() => () => {
@@ -495,6 +589,7 @@ function AsphaltRoadNetwork() {
     );
     geometries.minorRoadShoulders?.dispose();
     geometries.centerLines?.dispose();
+    Object.values(geometries.xinhuaLanes).forEach((geometry) => geometry.dispose());
     Object.values(geometries.xinhuaEdges).forEach((geometry) => geometry.dispose());
     asphaltTexture?.dispose();
     pathTexture?.dispose();
@@ -529,9 +624,20 @@ function AsphaltRoadNetwork() {
       })}
       {geometries.centerLines && (
         <mesh geometry={geometries.centerLines} receiveShadow>
-          <meshStandardMaterial color="#d8c996" roughness={0.92} metalness={0} />
+          <meshStandardMaterial color="#c7a744" roughness={0.92} metalness={0} />
         </mesh>
       )}
+      <group
+        name="xinhua-road-realistic-lane-treatment"
+        userData={{ evidence: "2023-xinhua-road-near-panyu", collision: "none" }}
+      >
+        <mesh geometry={geometries.xinhuaLanes.cycleLanes} receiveShadow>
+          <meshStandardMaterial color="#8d4c45" roughness={0.96} metalness={0} />
+        </mesh>
+        <mesh geometry={geometries.xinhuaLanes.separators} receiveShadow>
+          <meshStandardMaterial color="#d7d4c8" roughness={0.92} metalness={0} />
+        </mesh>
+      </group>
       <group
         name="xinhua-road-sidewalk-system"
         userData={{ roadName: "新华路", treatment: "curb-sidewalk-verge" }}
@@ -550,6 +656,13 @@ function AsphaltRoadNetwork() {
   );
 }
 
+export const XINHUA_STREET_DRESSING_STATE = Object.freeze({
+  lamps: Object.freeze({ visible: true, lit: false }),
+  planters: Object.freeze({ visible: true, season: "summer" as const }),
+  bins: Object.freeze({ visible: true, condition: "clean" as const }),
+  shrubs: Object.freeze({ visible: true, season: "summer" as const }),
+});
+
 function XinhuaStreetDressing({ lowTier }: { lowTier: boolean }) {
   const placements = useMemo(
     () => buildXinhuaStreetDressingPlacements(lowTier),
@@ -557,6 +670,7 @@ function XinhuaStreetDressing({ lowTier }: { lowTier: boolean }) {
   );
   const lamps: StreetLampPlacement[] = placements.lamps.map((placement) => ({
     ...placement,
+    lit: XINHUA_STREET_DRESSING_STATE.lamps.lit,
     position: [
       placement.position[0],
       terrainHeightAt(placement.position[0], placement.position[1]) + 0.18,
@@ -588,7 +702,7 @@ function XinhuaStreetDressing({ lowTier }: { lowTier: boolean }) {
       placement.position[1],
     ],
   }));
-  const evidenceRef = "docs/knowledge-sources/wander-xinhua-street-surface-and-dressing-research-2026-07-24.md";
+  const evidenceRef = "docs/research/street-surface-refinement-model-brief.md";
 
   return (
     <group
@@ -600,10 +714,37 @@ function XinhuaStreetDressing({ lowTier }: { lowTier: boolean }) {
         evidenceRef,
       }}
     >
-      <StreetLampInstances name="xinhua-road-instanced-lamps" placements={lamps} evidenceRef={evidenceRef} />
-      <StreetPlanterInstances name="xinhua-road-instanced-planters" placements={planters} evidenceRef={evidenceRef} />
-      <StreetBinInstances name="xinhua-road-instanced-bins" placements={bins} evidenceRef={evidenceRef} />
-      <StreetShrubInstances name="xinhua-road-instanced-shrubs" placements={shrubs} evidenceRef={evidenceRef} />
+      {XINHUA_STREET_DRESSING_STATE.lamps.visible && (
+        <StreetLampInstances
+          name="xinhua-road-instanced-lamps"
+          placements={lamps}
+          evidenceRef={evidenceRef}
+        />
+      )}
+      {XINHUA_STREET_DRESSING_STATE.planters.visible && (
+        <StreetPlanterInstances
+          name="xinhua-road-instanced-planters"
+          placements={planters}
+          evidenceRef={evidenceRef}
+          season={XINHUA_STREET_DRESSING_STATE.planters.season}
+        />
+      )}
+      {XINHUA_STREET_DRESSING_STATE.bins.visible && (
+        <StreetBinInstances
+          name="xinhua-road-instanced-bins"
+          placements={bins}
+          evidenceRef={evidenceRef}
+          condition={XINHUA_STREET_DRESSING_STATE.bins.condition}
+        />
+      )}
+      {XINHUA_STREET_DRESSING_STATE.shrubs.visible && (
+        <StreetShrubInstances
+          name="xinhua-road-instanced-shrubs"
+          placements={shrubs}
+          evidenceRef={evidenceRef}
+          season={XINHUA_STREET_DRESSING_STATE.shrubs.season}
+        />
+      )}
     </group>
   );
 }

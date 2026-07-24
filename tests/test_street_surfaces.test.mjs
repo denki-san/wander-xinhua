@@ -49,6 +49,16 @@ test("道路与默认绿地使用共享小纹理、世界坐标 UV 和顶点色"
   assert.doesNotMatch(source, /Math\.random\(\)/);
 });
 
+test("新华路使用黄色短虚线、红色非机动车带与白色连续分隔线", async () => {
+  const source = await readFile(new URL("app/scene/xinhua-map.tsx", root), "utf8");
+  assert.match(source, /dashLength = 0\.3 \* XINHUA_ENVIRONMENT_SCALE/);
+  assert.match(source, /dashGap = 0\.42 \* XINHUA_ENVIRONMENT_SCALE/);
+  assert.match(source, /mergeXinhuaRoadLaneMeshes/);
+  assert.match(source, /xinhua-road-realistic-lane-treatment/);
+  assert.match(source, /color="#8d4c45"/);
+  assert.match(source, /color="#d7d4c8"/);
+});
+
 test("街具确定性放在新华路 furnishing zone，低配档位会减量", () => {
   const full = buildXinhuaStreetDressingPlacements(false);
   const reduced = buildXinhuaStreetDressingPlacements(true);
@@ -137,4 +147,52 @@ test("街具复用 InstancedMesh，不为每个重复对象建立独立 draw cal
   assert.match(assetSource, /args=\{\[undefined, undefined, placements\.length\]\}/);
   assert.match(worldSource, /showStreetDressing=\{showDetailModels\}/);
   assert.match(mapSource, /lowTier/);
+});
+
+test("街具具备集中批量状态，垃圾桶和灌木使用新的共享低模结构", async () => {
+  const [mapSource, assetSource] = await Promise.all([
+    readFile(new URL("app/scene/xinhua-map.tsx", root), "utf8"),
+    readFile(new URL("app/scene/shared-street-assets.tsx", root), "utf8"),
+  ]);
+  assert.match(mapSource, /XINHUA_STREET_DRESSING_STATE/);
+  assert.match(mapSource, /lit: XINHUA_STREET_DRESSING_STATE\.lamps\.lit/);
+  assert.match(mapSource, /season=\{XINHUA_STREET_DRESSING_STATE\.planters\.season\}/);
+  assert.match(mapSource, /condition=\{XINHUA_STREET_DRESSING_STATE\.bins\.condition\}/);
+
+  const binSection = assetSource.slice(
+    assetSource.indexOf("export function StreetBinInstances"),
+    assetSource.indexOf("function createFacetedShrubGeometry"),
+  );
+  assert.match(binSection, /shanghai-dual-classification-bin/);
+  assert.match(binSection, /boxGeometry args=\{\[0\.82, 0\.82, 0\.4\]\}/);
+  assert.match(binSection, /residualPanels/);
+  assert.match(binSection, /recyclablePanels/);
+  assert.doesNotMatch(binSection, /cylinderGeometry/);
+
+  const shrubSection = assetSource.slice(
+    assetSource.indexOf("function createFacetedShrubGeometry"),
+    assetSource.indexOf("export function IrregularStoneBollard"),
+  );
+  assert.match(shrubSection, /new IcosahedronGeometry\(1, 0\)/);
+  assert.match(shrubSection, /mergeGeometries\(geometries, false\)/);
+  assert.match(shrubSection, /three-lobe-faceted-low-poly/);
+  assert.match(shrubSection, /flatShading/);
+});
+
+test("运行时验收深链使用地标 query 而不是内部 id", async () => {
+  const [landmarkSource, brief] = await Promise.all([
+    readFile(new URL("app/scene/xinhua-road-landmarks-data.json", root), "utf8"),
+    readFile(new URL("docs/research/street-surface-refinement-model-brief.md", root), "utf8"),
+  ]);
+  const landmarkData = JSON.parse(landmarkSource);
+  assert.equal(
+    landmarkData.landmarks.find(({ id }) => id === "shanghai-cinema")?.query,
+    "cinema",
+  );
+  assert.equal(
+    landmarkData.landmarks.find(({ id }) => id === "film-art-center")?.query,
+    "film-art",
+  );
+  assert.match(brief, /\/\?start=cinema/);
+  assert.match(brief, /\/\?start=film-art/);
 });

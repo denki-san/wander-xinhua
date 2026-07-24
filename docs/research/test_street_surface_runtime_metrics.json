@@ -2,6 +2,7 @@
   "capturedAt": "2026-07-24",
   "sourceCommit": "4aee14d",
   "url": "http://127.0.0.1:4317/?start=shanghai-cinema",
+  "routeResolution": "该参数不是生产 preset query，页面实际回退到默认起点；正确上海影城入口是 ?start=cinema。",
   "buildMode": "vite preview of npm run build:static",
   "viewport": {
     "width": 1280,
@@ -33,5 +34,5 @@
     "test_artifacts/test_street_surface_shanghai_cinema_runtime_preview.png",
     "test_artifacts/test_street_surface_ground_detail_runtime_preview.png"
   ],
-  "comparisonBoundary": "本轮没有在同一视口、同一设备和同一构建模式下采集基线，因此不声明性能提升。截图与性能采样对应 4aee14d；75094b7 只调整街具净空与确定性抽稀，需要在合并 main 前补采移动端和最终位置运行时证据。"
+  "comparisonBoundary": "本轮没有在同一视口、同一设备和同一构建模式下采集基线，因此不声明性能提升。截图与性能采样对应 4aee14d 且使用了无效的 start preset，只能证明默认场景渲染状态；需要使用 ?start=cinema 补采正确地点和移动端证据。"
 }
