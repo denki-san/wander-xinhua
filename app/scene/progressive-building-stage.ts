@@ -11,9 +11,12 @@ export const PROGRESSIVE_STAGE_SAMPLE_SECONDS = 0.2;
 
 export function visibleProgressiveBuildingTier(
   mode: "intro" | "overview" | "explore",
+  networkProfile: ProgressiveNetworkProfile,
   tier: ProgressiveBuildingTier,
 ): ProgressiveBuildingTier {
-  if (mode !== "intro" && tier === "massing") return "identity";
+  if (mode === "intro") return "massing";
+  if (mode === "overview" || networkProfile === "weak") return "identity";
+  if (tier === "massing") return "identity";
   return tier;
 }
 
@@ -102,5 +105,5 @@ export function useProgressiveBuildingTier({
 
   // 模式切换先于 effect 提交。离开封面后立即把残留 Massing 钳制为 Identity，
   // 避免概览或游玩态闪出一帧方盒。
-  return visibleProgressiveBuildingTier(mode, tier);
+  return visibleProgressiveBuildingTier(mode, networkProfile, tier);
 }

@@ -43,7 +43,10 @@ import {
   LandmarkProgressiveProxy,
   XinhuaRoadMassing,
 } from "./xinhua-road-massing";
-import { xinhuaRoadDistanceHeroIds } from "./xinhua-road-identity-contract";
+import {
+  XINHUA_ROAD_HERO_SAMPLE_SECONDS,
+  xinhuaRoadDistanceHeroIds,
+} from "./xinhua-road-identity-contract";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
 
 type LandmarkPlacement = {
@@ -139,7 +142,6 @@ export const XINHUA_HERO_PLANE_TREE_ID = "plane-tree-0-12";
 export const XINHUA_HERO_PLANE_TREE_MODEL =
   "/models/building-evidence-lab/xinhua-plane-tree-hero.glb?v=3";
 const XINHUA_HERO_PLANE_TREE_TARGET = [20.75, 95.57] as const;
-const LANDMARK_DISTANCE_SAMPLE_SECONDS = 0.2;
 export const XINHUA_PLANE_TREE_PLACEMENTS = buildPlaneTreePlacements(
   XINHUA_ROAD_LANDMARKS,
   XINHUA_ROAD_MODEL_FOOTPRINTS,
@@ -505,11 +507,11 @@ function useDistanceHeroLandmarkIds({
   const [mountedModelIds, setMountedModelIds] = useState<ReadonlySet<string>>(
     () => new Set(),
   );
-  const sampleElapsed = useRef(LANDMARK_DISTANCE_SAMPLE_SECONDS);
+  const sampleElapsed = useRef(XINHUA_ROAD_HERO_SAMPLE_SECONDS);
 
   useFrame((_, delta) => {
     sampleElapsed.current += delta;
-    if (sampleElapsed.current < LANDMARK_DISTANCE_SAMPLE_SECONDS) return;
+    if (sampleElapsed.current < XINHUA_ROAD_HERO_SAMPLE_SECONDS) return;
     sampleElapsed.current = 0;
     setMountedModelIds((current) => {
       const next = xinhuaRoadDistanceHeroIds({
@@ -525,7 +527,11 @@ function useDistanceHeroLandmarkIds({
     });
   });
 
-  return mountedModelIds;
+  return xinhuaRoadDistanceHeroIds({
+    loadMode,
+    focusPosition: focusPosition.current,
+    mountedModelIds,
+  });
 }
 
 export function XinhuaRoadLandmarks({

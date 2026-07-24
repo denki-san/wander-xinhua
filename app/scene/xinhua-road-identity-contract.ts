@@ -48,6 +48,25 @@ export function xinhuaRoadIdentityKind(landmarkId: string): XinhuaRoadIdentityKi
 
 export const XINHUA_ROAD_HERO_ENTER_DISTANCE = 58;
 export const XINHUA_ROAD_HERO_EXIT_DISTANCE = 68;
+export const XINHUA_ROAD_HERO_SAMPLE_SECONDS = 0.2;
+
+export const CORE_BUILDING_HERO_DISTANCE = {
+  xingfuli: {
+    enterDistance: 72,
+    exitDistance: 88,
+    sampleSeconds: 0.2,
+  },
+  shangsheng: {
+    enterDistance: 92,
+    exitDistance: 112,
+    sampleSeconds: 0.2,
+  },
+  huashan: {
+    enterDistance: 76,
+    exitDistance: 94,
+    sampleSeconds: 0.2,
+  },
+} as const;
 
 export function xinhuaRoadDistanceHeroIds({
   loadMode,
@@ -84,6 +103,11 @@ export type XinhuaRoadBuildingQualityEntry = {
     strategy: "distance-state-glb";
     model: string;
     cacheVersion?: string;
+    loading: {
+      enterDistance: number;
+      exitDistance: number;
+      sampleSeconds: number;
+    };
   };
   identity: {
     strategy: "programmatic-miniature" | "custom-landmark-hybrid";
@@ -111,6 +135,11 @@ function buildingQualityEntry(
       strategy: "distance-state-glb",
       model: landmark.model,
       cacheVersion: landmark.cacheVersion,
+      loading: {
+        enterDistance: XINHUA_ROAD_HERO_ENTER_DISTANCE,
+        exitDistance: XINHUA_ROAD_HERO_EXIT_DISTANCE,
+        sampleSeconds: XINHUA_ROAD_HERO_SAMPLE_SECONDS,
+      },
     },
     identity: {
       strategy: shanghaiCinema
@@ -171,6 +200,11 @@ export type ProductionBuildingQualityEntry = {
   hero: {
     strategy: "distance-state-glb" | "distance-state-component";
     assets: readonly string[];
+    loading: {
+      enterDistance: number;
+      exitDistance: number;
+      sampleSeconds: number;
+    };
   };
   identity: {
     strategy: "programmatic-miniature" | "custom-landmark-hybrid" | "programmatic-site";
@@ -266,6 +300,7 @@ const XINHUA_ROAD_PRODUCTION_QUALITY_MANIFEST = Object.fromEntries(
             ? `${entry.hero.model}?v=${entry.hero.cacheVersion}`
             : entry.hero.model,
         ],
+        loading: entry.hero.loading,
       },
       identity: {
         strategy: entry.identity.strategy,
@@ -306,6 +341,7 @@ const CORE_PRODUCTION_QUALITY_MANIFEST = {
         "/models/xingfuli/xingfuli-center.glb?v=20260723-final-1",
         "/models/xingfuli/xingfuli-east.glb?v=20260723-final-1",
       ],
+      loading: CORE_BUILDING_HERO_DISTANCE.xingfuli,
     },
     identity: {
       strategy: "programmatic-site",
@@ -357,6 +393,7 @@ const CORE_PRODUCTION_QUALITY_MANIFEST = {
         "/models/shangsheng/sun-ke-villa.glb",
         "/models/shangsheng/navy-club-pool.glb",
       ],
+      loading: CORE_BUILDING_HERO_DISTANCE.shangsheng,
     },
     identity: {
       strategy: "programmatic-site",
@@ -383,6 +420,7 @@ const CORE_PRODUCTION_QUALITY_MANIFEST = {
     hero: {
       strategy: "distance-state-component",
       assets: ["recipe:HuashanGreenBlock(full)"],
+      loading: CORE_BUILDING_HERO_DISTANCE.huashan,
     },
     identity: {
       strategy: "programmatic-site",

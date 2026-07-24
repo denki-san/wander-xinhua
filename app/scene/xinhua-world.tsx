@@ -82,6 +82,7 @@ import {
 } from "./atmosphere-contract";
 import type { ProgressiveNetworkProfile } from "./progressive-loading";
 import { useProgressiveBuildingTier } from "./progressive-building-stage";
+import { CORE_BUILDING_HERO_DISTANCE } from "./xinhua-road-identity-contract";
 
 const ProgressiveXinhuaRoadFullLayer = lazy(
   () => import("./xinhua-road-landmarks"),
@@ -463,24 +464,24 @@ function FlatNeighborhood({
     networkProfile,
     focusPosition: progressiveFocus,
     center: XINGFULI_POSITION,
-    fullEnterDistance: 72,
-    fullExitDistance: 88,
+    fullEnterDistance: CORE_BUILDING_HERO_DISTANCE.xingfuli.enterDistance,
+    fullExitDistance: CORE_BUILDING_HERO_DISTANCE.xingfuli.exitDistance,
   });
   const shangshengTier = useProgressiveBuildingTier({
     mode,
     networkProfile,
     focusPosition: progressiveFocus,
     center: SHANGSHENG_XINSUO_POSITION,
-    fullEnterDistance: 92,
-    fullExitDistance: 112,
+    fullEnterDistance: CORE_BUILDING_HERO_DISTANCE.shangsheng.enterDistance,
+    fullExitDistance: CORE_BUILDING_HERO_DISTANCE.shangsheng.exitDistance,
   });
   const huashanTier = useProgressiveBuildingTier({
     mode,
     networkProfile,
     focusPosition: progressiveFocus,
     center: HUASHAN_GREEN_POSITION,
-    fullEnterDistance: 76,
-    fullExitDistance: 94,
+    fullEnterDistance: CORE_BUILDING_HERO_DISTANCE.huashan.enterDistance,
+    fullExitDistance: CORE_BUILDING_HERO_DISTANCE.huashan.exitDistance,
   });
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
