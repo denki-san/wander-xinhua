@@ -7,7 +7,10 @@ import {
   estimateProgressiveDownlinkMbps,
   WEAK_NETWORK_DOWNLINK_Mbps,
 } from "../app/scene/progressive-loading.ts";
-import { resolveProgressiveBuildingTier } from "../app/scene/progressive-building-stage.ts";
+import {
+  resolveProgressiveBuildingTier,
+  visibleProgressiveBuildingTier,
+} from "../app/scene/progressive-building-stage.ts";
 import { XINHUA_ROAD_IDENTITY_KIND_BY_ID } from "../app/scene/xinhua-road-identity-contract.ts";
 
 const root = new URL("../", import.meta.url);
@@ -64,6 +67,17 @@ test("网络策略在 5Mbps 保留 Full 能力，并让省流与弱网封顶 Ide
     distance: 0,
     previousTier: "full",
   }), "identity");
+  assert.equal(
+    visibleProgressiveBuildingTier("overview", "massing"),
+    "identity",
+    "封面切到全览的首帧不得暴露 Massing 方盒",
+  );
+  assert.equal(
+    visibleProgressiveBuildingTier("explore", "massing"),
+    "identity",
+    "封面切到游玩态的首帧不得暴露 Massing 方盒",
+  );
+  assert.equal(visibleProgressiveBuildingTier("intro", "massing"), "massing");
   assert.equal(resolveProgressiveBuildingTier({
     ...base,
     mode: "overview",
@@ -159,6 +173,19 @@ test("生产主世界让全部建筑遵守 Massing、Identity、Full 三层合�
   assert.match(roadMassing, /kind === "villa-row"/);
   assert.match(roadMassing, /kind === "orchestra-hall"/);
   assert.match(roadMassing, /kind === "pocket-park"/);
+  assert.match(roadMassing, /name="identity-four-sided-facade"/);
+  assert.match(roadMassing, /visibleDirections: 4/);
+  assert.match(roadMassing, /mergedFacadeDrawCalls: 1/);
+  assert.match(roadMassing, /mergeGeometries\(pieces, false\)/);
+  assert.match(roadMassing, /IDENTITY_VISUAL_SCALE = \[0\.68, 0\.78, 0\.68\]/);
+  assert.match(roadMassing, /compact-architectural-identity/);
+  assert.match(roadMassing, /<torusGeometry/);
+  assert.match(roadMassing, /landmark\.id === "film-art-center"\) return 14\.4/);
+  assert.doesNotMatch(
+    roadMassing,
+    /landmark\.id === "film-art-center"\) return 22/,
+    "电影艺术中心 Identity 不得继续以高于 Full 的巨型体块占据街道视野",
+  );
   assert.ok(roadData.landmarks.length >= 14);
   assert.deepEqual(
     Object.keys(XINHUA_ROAD_IDENTITY_KIND_BY_ID).sort(),

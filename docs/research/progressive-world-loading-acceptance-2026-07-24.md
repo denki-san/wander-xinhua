@@ -43,13 +43,19 @@ player near the boundary does not repeatedly mount and unmount models.
 
 ### Overview thumbnail contract
 
-- Intro may use the cheapest Massing boxes while the world starts.
+- Massing is an internal startup skeleton beneath the opaque intro cover. A
+  plain Massing box must never remain visible after the user enters overview or
+  explore.
 - Overview always renders Identity or Full. While Full is pending, fails, or is
   prohibited by the weak-network policy, the Identity miniature remains visible.
 - Xinhua Road Identity maps every landmark to a recognizable architectural
   family such as cinema, gabled arts halls, villa row, garden house, modern
   villa, pocket park, heritage gate or creative campus. It never falls back to
   one shared plain box in overview.
+- The same Identity can temporarily appear in street view while Full downloads.
+  It uses a compact `0.68 × 0.78 × 0.68` presentation, four-sided neutral facade
+  articulation and landmark-specific identity cues. A blank rear wall is not a
+  valid extra LOD level.
 - These miniatures derive from the accepted landmark identity and footprint
   bounds. This change does not alter Blender generators, GLB binaries or the
   photographic evidence boundary.
@@ -63,15 +69,15 @@ The production build now emits:
 
 | Path | Minified | Gzip | Loading phase |
 | --- | ---: | ---: | --- |
-| entry | 194.80 kB | 61.92 kB | initial |
-| experience | 138.30 kB | 39.38 kB | initial |
-| road Massing / Identity data | 104.19 kB | 30.31 kB | initial |
+| entry | 194.80 kB | 61.93 kB | initial |
+| experience | 134.65 kB | 38.39 kB | initial |
+| road Massing / Identity data | 110.02 kB | 31.95 kB | initial |
 | React Three Fiber / Three core | 882.68 kB | 234.64 kB | initial |
-| input + geometry helpers | 2.96 kB | 1.35 kB | initial |
+| input + geometry helpers | 2.96 kB | 1.36 kB | initial |
 | GLTF runtime | 70.42 kB | 20.69 kB | deferred |
 | post-processing | 174.19 kB | 88.83 kB | deferred |
 
-The complete initial JavaScript path is about `367.60 kB` gzip, a `22.3%`
+The complete initial JavaScript path is about `368.27 kB` gzip, a `22.2%`
 reduction from the baseline. The entry chunk itself fell from `1,560.64 kB` to
 `194.80 kB`.
 
@@ -160,6 +166,14 @@ The weak-network overview was also inspected at 1280 × 720 with the location ca
 cleared from the viewport. All 14 Xinhua Road labels remained backed by
 architectural miniatures with distinct roofs, wings, courtyards, trees or gates;
 the former shared plain-box representation was absent.
+
+The direct Shanghai Cinema street entry was then checked under both deterministic
+network profiles. Weak mode retained a compact cinema silhouette with a central
+tower, four-sided facade bands and the oval/ribbon identity cue instead of a
+blank wall. Standard mode replaced it with the existing Full cinema without a
+console error. The Film Art Center Identity height was corrected from `22` to
+`14.4`, matching the accepted Full-model visible height rather than towering
+above it during fallback.
 
 ### Console
 

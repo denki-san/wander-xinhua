@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useMemo } from "react";
+import { BoxGeometry } from "three";
+import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { terrainHeightAt } from "./terrain";
 import {
   XINHUA_ROAD_LANDMARKS,
@@ -15,9 +18,12 @@ const IDENTITY_COLORS = [
   "#d9c99f",
 ] as const;
 
+const IDENTITY_VISUAL_SCALE = [0.68, 0.78, 0.68] as const;
+
 function landmarkHeight(landmark: LandmarkPlacement) {
   if (landmark.id === "shanghai-cinema") return 18;
-  if (landmark.id === "film-art-center") return 22;
+  // 电影艺术中心当前 Full 模型的可见高度约 14.4，Identity 不应比详情模型更高。
+  if (landmark.id === "film-art-center") return 14.4;
   if (landmark.id.includes("villas")) return 13;
   if (landmark.id.includes("park")) return 4.8;
   return Math.max(7.2, (landmark.labelHeight ?? 6.2) * 1.72);
@@ -60,16 +66,78 @@ function MiniatureFacadeBand({
   position,
   size,
   color = "#789494",
+  rotationY = 0,
 }: {
   position: [number, number, number];
   size: [number, number, number];
   color?: string;
+  rotationY?: number;
 }) {
   return (
-    <mesh position={position}>
+    <mesh position={position} rotation-y={rotationY}>
       <boxGeometry args={size} />
       <meshToonMaterial color={color} />
     </mesh>
+  );
+}
+
+/**
+ * Identity 会在 Full 下载期间进入街道近景，因此四个方向都必须保持建筑读感。
+ * 这里使用中性的玻璃/阴影带，不把未知侧立面冒充成照片可证实的细节。
+ */
+function MiniatureFacadeWrap({
+  width,
+  depth,
+  height,
+  glass = "#789494",
+}: {
+  width: number;
+  depth: number;
+  height: number;
+  glass?: string;
+}) {
+  const geometry = useMemo(() => {
+    const bandHeight = Math.max(0.52, height * 0.16);
+    const levels = height > 8 ? [0.3, 0.62] : [0.46];
+    const pieces: BoxGeometry[] = [];
+    for (const side of [-1, 1]) {
+      for (const ratio of levels) {
+        const longBand = new BoxGeometry(width * 0.66, bandHeight, 0.14);
+        longBand.translate(0, height * ratio, side * depth * 0.505);
+        pieces.push(longBand);
+
+        const shortBand = new BoxGeometry(depth * 0.54, bandHeight * 0.82, 0.14);
+        shortBand.rotateY(Math.PI / 2);
+        shortBand.translate(side * width * 0.505, height * ratio, 0);
+        pieces.push(shortBand);
+      }
+    }
+    const merged = mergeGeometries(pieces, false);
+    pieces.forEach((piece) => piece.dispose());
+    return merged;
+  }, [depth, height, width]);
+  useEffect(() => () => geometry?.dispose(), [geometry]);
+
+  return (
+    <group
+      name="identity-four-sided-facade"
+      userData={{
+        visibleDirections: 4,
+        evidence: "neutral-inferred-articulation",
+        mergedFacadeDrawCalls: 1,
+      }}
+    >
+      {geometry && (
+        <mesh geometry={geometry}>
+          <meshToonMaterial color={glass} />
+        </mesh>
+      )}
+      <MiniatureBlock
+        position={[0, height - 0.18, 0]}
+        size={[width * 1.04, 0.3, depth * 1.04]}
+        color="#8a6e58"
+      />
+    </group>
   );
 }
 
@@ -96,6 +164,12 @@ function MiniatureGabledBuilding({
   return (
     <group position={position}>
       <MiniatureBlock size={[width, height, depth]} color={wall} />
+      <MiniatureFacadeWrap
+        width={width}
+        depth={depth}
+        height={height}
+        glass={glass}
+      />
       {[-1, 1].map((side) => (
         <mesh
           key={side}
@@ -111,11 +185,6 @@ function MiniatureGabledBuilding({
           <meshToonMaterial color={roof} />
         </mesh>
       ))}
-      <MiniatureFacadeBand
-        position={[0, height * 0.54, depth * 0.505]}
-        size={[width * 0.62, height * 0.33, 0.12]}
-        color={glass}
-      />
     </group>
   );
 }
@@ -165,36 +234,80 @@ function LandmarkIdentityMiniature({
   const visualDepth = Math.max(depth * 0.82, 4.6);
 
   if (kind === "cinema") {
+    const podiumWidth = visualWidth * 0.88;
+    const podiumDepth = visualDepth * 0.76;
+    const podiumHeight = height * 0.5;
     return (
       <>
         <MiniatureBlock
           position={[0, 0, -visualDepth * 0.04]}
-          size={[visualWidth * 0.88, height * 0.5, visualDepth * 0.76]}
+          size={[podiumWidth, podiumHeight, podiumDepth]}
           color={cream}
         />
+        <group position={[0, 0, -visualDepth * 0.04]}>
+          <MiniatureFacadeWrap
+            width={podiumWidth}
+            depth={podiumDepth}
+            height={podiumHeight}
+            glass={darkGlass}
+          />
+        </group>
         {[-1, 1].map((side) => (
-          <MiniatureBlock
+          <group
             key={side}
             position={[side * visualWidth * 0.36, 0, visualDepth * 0.04]}
-            size={[visualWidth * 0.24, height * 0.42, visualDepth * 0.72]}
-            color={wall}
-          />
+          >
+            <MiniatureBlock
+              size={[visualWidth * 0.24, height * 0.42, visualDepth * 0.72]}
+              color={wall}
+            />
+            <MiniatureFacadeWrap
+              width={visualWidth * 0.24}
+              depth={visualDepth * 0.72}
+              height={height * 0.42}
+              glass={glass}
+            />
+          </group>
         ))}
-        <MiniatureBlock
-          position={[0, 0, visualDepth * 0.05]}
-          size={[visualWidth * 0.32, height * 0.92, visualDepth * 0.72]}
-          color="#d8d4c9"
-        />
+        <group position={[0, 0, visualDepth * 0.05]}>
+          <MiniatureBlock
+            size={[visualWidth * 0.32, height * 0.92, visualDepth * 0.72]}
+            color="#d8d4c9"
+          />
+          <MiniatureFacadeWrap
+            width={visualWidth * 0.32}
+            depth={visualDepth * 0.72}
+            height={height * 0.92}
+            glass={darkGlass}
+          />
+        </group>
         <MiniatureFacadeBand
-          position={[0, height * 0.49, visualDepth * 0.42]}
+          position={[0, height * 0.49, -visualDepth * 0.42]}
           size={[visualWidth * 0.25, height * 0.62, 0.18]}
           color={darkGlass}
         />
         <MiniatureFacadeBand
-          position={[0, height * 0.21, visualDepth * 0.54]}
+          position={[0, height * 0.21, -visualDepth * 0.54]}
           size={[visualWidth * 0.52, 0.72, 0.32]}
           color={accent}
         />
+        <mesh
+          position={[0, height * 0.55, -visualDepth * 0.57]}
+          scale={[1.65, 0.8, 1]}
+          rotation-z={-0.18}
+          castShadow
+        >
+          <torusGeometry args={[visualWidth * 0.12, 0.24, 6, 20, Math.PI * 1.82]} />
+          <meshToonMaterial color="#d7ded8" />
+        </mesh>
+        {[-0.34, -0.17, 0, 0.17, 0.34].map((ratio) => (
+          <MiniatureFacadeBand
+            key={ratio}
+            position={[visualWidth * ratio, height * 0.43, -visualDepth * 0.565]}
+            size={[0.16, height * 0.54, 0.15]}
+            color="#d7ded8"
+          />
+        ))}
       </>
     );
   }
@@ -283,18 +396,32 @@ function LandmarkIdentityMiniature({
   if (kind === "modern-villa") {
     return (
       <>
-        <MiniatureBlock
-          position={[-visualWidth * 0.13, 0, 0]}
-          size={[visualWidth * 0.62, height * 0.46, visualDepth * 0.74]}
-          color={cream}
-        />
-        <MiniatureBlock
-          position={[visualWidth * 0.13, height * 0.42, -visualDepth * 0.05]}
-          size={[visualWidth * 0.58, height * 0.42, visualDepth * 0.62]}
-          color="#d9ddd6"
-        />
+        <group position={[-visualWidth * 0.13, 0, 0]}>
+          <MiniatureBlock
+            size={[visualWidth * 0.62, height * 0.46, visualDepth * 0.74]}
+            color={cream}
+          />
+          <MiniatureFacadeWrap
+            width={visualWidth * 0.62}
+            depth={visualDepth * 0.74}
+            height={height * 0.46}
+            glass={darkGlass}
+          />
+        </group>
+        <group position={[visualWidth * 0.13, height * 0.42, -visualDepth * 0.05]}>
+          <MiniatureBlock
+            size={[visualWidth * 0.58, height * 0.42, visualDepth * 0.62]}
+            color="#d9ddd6"
+          />
+          <MiniatureFacadeWrap
+            width={visualWidth * 0.58}
+            depth={visualDepth * 0.62}
+            height={height * 0.42}
+            glass={glass}
+          />
+        </group>
         <MiniatureFacadeBand
-          position={[-visualWidth * 0.08, height * 0.27, visualDepth * 0.39]}
+          position={[-visualWidth * 0.08, height * 0.27, -visualDepth * 0.39]}
           size={[visualWidth * 0.42, height * 0.28, 0.14]}
           color={darkGlass}
         />
@@ -370,16 +497,30 @@ function LandmarkIdentityMiniature({
   if (kind === "heritage-gate") {
     return (
       <>
-        <MiniatureBlock
-          position={[0, 0, 0]}
-          size={[visualWidth * 0.92, height * 0.38, visualDepth * 0.42]}
-          color={cream}
-        />
-        <MiniatureBlock
-          position={[0, 0, visualDepth * 0.08]}
-          size={[visualWidth * 0.24, height * 0.82, visualDepth * 0.5]}
-          color={brick}
-        />
+        <group>
+          <MiniatureBlock
+            size={[visualWidth * 0.92, height * 0.38, visualDepth * 0.42]}
+            color={cream}
+          />
+          <MiniatureFacadeWrap
+            width={visualWidth * 0.92}
+            depth={visualDepth * 0.42}
+            height={height * 0.38}
+            glass="#667a72"
+          />
+        </group>
+        <group position={[0, 0, visualDepth * 0.08]}>
+          <MiniatureBlock
+            size={[visualWidth * 0.24, height * 0.82, visualDepth * 0.5]}
+            color={brick}
+          />
+          <MiniatureFacadeWrap
+            width={visualWidth * 0.24}
+            depth={visualDepth * 0.5}
+            height={height * 0.82}
+            glass="#3f4e4a"
+          />
+        </group>
         <mesh position={[0, height * 0.88, visualDepth * 0.08]} castShadow>
           <coneGeometry args={[visualWidth * 0.22, height * 0.24, 4]} />
           <meshToonMaterial color={roof} />
@@ -409,16 +550,30 @@ function LandmarkIdentityMiniature({
           wall={campusWall}
           roof={roof}
         />
-        <MiniatureBlock
-          position={[visualWidth * 0.25, 0, visualDepth * 0.09]}
-          size={[visualWidth * 0.38, height * 0.68, visualDepth * 0.56]}
-          color={kind === "creative-campus" ? "#b67a58" : wall}
-        />
-        <MiniatureBlock
-          position={[visualWidth * 0.39, 0, -visualDepth * 0.27]}
-          size={[visualWidth * 0.16, height * 0.84, visualDepth * 0.2]}
-          color={kind === "community-center" ? accent : "#8c5b45"}
-        />
+        <group position={[visualWidth * 0.25, 0, visualDepth * 0.09]}>
+          <MiniatureBlock
+            size={[visualWidth * 0.38, height * 0.68, visualDepth * 0.56]}
+            color={kind === "creative-campus" ? "#b67a58" : wall}
+          />
+          <MiniatureFacadeWrap
+            width={visualWidth * 0.38}
+            depth={visualDepth * 0.56}
+            height={height * 0.68}
+            glass={darkGlass}
+          />
+        </group>
+        <group position={[visualWidth * 0.39, 0, -visualDepth * 0.27]}>
+          <MiniatureBlock
+            size={[visualWidth * 0.16, height * 0.84, visualDepth * 0.2]}
+            color={kind === "community-center" ? accent : "#8c5b45"}
+          />
+          <MiniatureFacadeWrap
+            width={visualWidth * 0.16}
+            depth={visualDepth * 0.2}
+            height={height * 0.84}
+            glass={glass}
+          />
+        </group>
         <MiniatureFacadeBand
           position={[visualWidth * 0.25, height * 0.4, visualDepth * 0.375]}
           size={[visualWidth * 0.25, height * 0.25, 0.13]}
@@ -466,13 +621,18 @@ export function LandmarkProgressiveProxy({
       }}
     >
       {identity ? (
-        <LandmarkIdentityMiniature
-          landmark={landmark}
-          width={width}
-          depth={depth}
-          height={height}
-          wall={wall}
-        />
+        <group
+          scale={IDENTITY_VISUAL_SCALE}
+          userData={{ presentation: "compact-architectural-identity" }}
+        >
+          <LandmarkIdentityMiniature
+            landmark={landmark}
+            width={width}
+            depth={depth}
+            height={height}
+            wall={wall}
+          />
+        </group>
       ) : (
         <mesh position={[0, height / 2, 0]} castShadow receiveShadow>
           <boxGeometry args={[width * 0.9, height, depth * 0.86]} />

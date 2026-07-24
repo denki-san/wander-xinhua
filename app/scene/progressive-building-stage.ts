@@ -9,6 +9,14 @@ import type {
 
 export const PROGRESSIVE_STAGE_SAMPLE_SECONDS = 0.2;
 
+export function visibleProgressiveBuildingTier(
+  mode: "intro" | "overview" | "explore",
+  tier: ProgressiveBuildingTier,
+): ProgressiveBuildingTier {
+  if (mode !== "intro" && tier === "massing") return "identity";
+  return tier;
+}
+
 export function resolveProgressiveBuildingTier({
   mode,
   networkProfile,
@@ -92,5 +100,7 @@ export function useProgressiveBuildingTier({
     setTier(next);
   });
 
-  return tier;
+  // 模式切换先于 effect 提交。离开封面后立即把残留 Massing 钳制为 Identity，
+  // 避免概览或游玩态闪出一帧方盒。
+  return visibleProgressiveBuildingTier(mode, tier);
 }
