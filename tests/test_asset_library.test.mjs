@@ -35,6 +35,9 @@ test("资产后台完整覆盖五类生产资产与建筑三档", async () => {
   assert.match(client, /const displayModel = selectedLevel\?\.model/);
   assert.doesNotMatch(client, /selectedLevel\?\.model \?\? asset\.model/);
   assert.match(client, /OrbitControls/);
+  assert.match(client, /target=\{\[0, 0, 0\]\}/);
+  assert.match(client, /<AssetScene model=\{selection\.model\} preview=\{selection\.preview\} centered \/>/);
+  assert.match(client, /<Center top=\{!centered\}>/);
   assert.match(client, /拖动旋转 · 滚轮缩放 · Esc 关闭/);
   assert.match(client, /个人资产后台/);
   assert.doesNotMatch(client, /href="\/"/);

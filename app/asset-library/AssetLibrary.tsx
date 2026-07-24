@@ -253,7 +253,15 @@ function ProceduralPreview({ kind }: { kind: string }) {
   );
 }
 
-function AssetScene({ model, preview }: { model?: string; preview?: string }) {
+function AssetScene({
+  model,
+  preview,
+  centered = false,
+}: {
+  model?: string;
+  preview?: string;
+  centered?: boolean;
+}) {
   return (
     <>
       <color attach="background" args={["#e7e8e4"]} />
@@ -269,21 +277,23 @@ function AssetScene({ model, preview }: { model?: string; preview?: string }) {
       />
       <directionalLight position={[8, 7, 10]} color="#b7d0da" intensity={0.55} />
       <Bounds fit clip observe margin={1.3}>
-        <Center top>
+        <Center top={!centered}>
           <PreviewPose>
             {model ? <RuntimeModel path={model} /> : <ProceduralPreview kind={preview ?? "missing"} />}
           </PreviewPose>
         </Center>
       </Bounds>
-      <ContactShadows
-        position={[0, -0.02, 0]}
-        opacity={0.68}
-        scale={18}
-        blur={2.1}
-        far={12}
-        color="#243431"
-        frames={1}
-      />
+      {!centered && (
+        <ContactShadows
+          position={[0, -0.02, 0]}
+          opacity={0.68}
+          scale={18}
+          blur={2.1}
+          far={12}
+          color="#243431"
+          frames={1}
+        />
+      )}
     </>
   );
 }
@@ -458,15 +468,16 @@ function AssetPreviewModal({
         <div className={styles.modalStage}>
           <Canvas shadows dpr={[1, 1.5]} gl={{ antialias: true }}>
             <Suspense fallback={null}>
-              <AssetScene model={selection.model} preview={selection.preview} />
               <OrbitControls
                 makeDefault
+                target={[0, 0, 0]}
                 enablePan={false}
                 enableDamping
                 dampingFactor={0.08}
                 minPolarAngle={0.35}
                 maxPolarAngle={Math.PI / 2.05}
               />
+              <AssetScene model={selection.model} preview={selection.preview} centered />
             </Suspense>
           </Canvas>
         </div>

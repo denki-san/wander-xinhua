@@ -27,6 +27,33 @@
 
 ---
 
+## [LRN-20260725-006] correction
+
+**Logged**: 2026-07-25T02:52:00+08:00
+**Priority**: critical
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+资产大图的旋转中心必须是资产包围盒中心，不能沿用卡片预览的落地对齐原点。
+
+### Details
+卡片预览为了让模型落在阴影平面上，使用 `Center top` 把模型底部对齐到世界原点。大图直接复用同一场景后，`OrbitControls` 默认围绕世界原点旋转，实际变成绕建筑底部而不是建筑中心旋转，拖动后建筑会跑到画面边缘甚至消失。
+
+### Suggested Action
+卡片预览继续保持落地对齐；大图单独把模型包围盒中心对齐到 `[0, 0, 0]`，显式设置 OrbitControls target，并用源码回归测试锁定两种不同对齐方式。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/asset-library/AssetLibrary.tsx, tests/test_asset_library.test.mjs
+- Tags: asset-library, orbit-controls, bounding-box, model-viewer, correction
+
+### Resolution
+- **Resolved**: 2026-07-25T02:56:00+08:00
+- **Notes**: 卡片预览保留落地对齐；大图改为包围盒中心对齐世界原点，OrbitControls 显式围绕 `[0, 0, 0]` 旋转，并补充回归断言。
+
+---
+
 ## [LRN-20260719-016] correction
 
 **Logged**: 2026-07-19T13:35:00+08:00
