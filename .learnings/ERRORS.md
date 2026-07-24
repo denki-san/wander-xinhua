@@ -5432,3 +5432,66 @@ TypeError: requestAnimationFrame is not a function
 **Cause:** 测试把离散帧累计的浮点边界误当作帧率相关行为；实际差异最多一帧。
 **Resolution:** 改在 1.5 秒比较三种帧率的包络数值，在 2.3 秒验证全部归零，避开阈值的单帧离散歧义。
 **See Also:** ERR190
+
+## [ERR193] 触控控件初次检索误读主工作区
+
+**Date:** 2026-07-25
+**Context:** 延续 `third-person-camera-controls` 分支修改摇杆与跳跃交互。
+**Error:** 第一轮 `rg` 使用了仓库根目录作为工作目录，读到主工作区源码而不是功能 worktree。
+**Cause:** Git 状态命令显式使用了 worktree 路径，但同一命令中的相对源码路径仍由当前根目录解析。
+**Resolution:** 后续所有源码、测试、构建和 Git 操作统一以 `.worktrees/third-person-camera-controls` 为工作目录；修改前重新读取正确分支文件。
+**See Also:** ERR188
+
+## [ERR194] 假设功能需求日志文件已经存在
+
+**Date:** 2026-07-25
+**Context:** 按 self-improvement 规则记录默认隐藏摇杆和轻点跳跃需求。
+**Error:** `tail .learnings/FEATURE_REQUESTS.md` 返回 `No such file or directory`。
+**Cause:** 项目已有错误和学习日志，但尚未创建功能需求日志。
+**Resolution:** 使用规定格式新建 `.learnings/FEATURE_REQUESTS.md`，写入本次触控交互需求。
+**See Also:** ERR193
+
+## [ERR195] 手机预览服务在最终可达性检查前退出
+
+**Date:** 2026-07-25
+**Context:** 完成触控交互构建与手机尺寸浏览器验收后，检查本机和局域网 `3013` 端口。
+**Error:** `curl` 返回 `Failed to connect to 127.0.0.1 port 3013`。
+**Cause:** 先前启动的静态预览进程已经结束，浏览器仍显示已加载页面，不能代表端口当前可达。
+**Resolution:** 用主机侧检查确认已有 `3013` 预览进程仍在运行，并分别验证回环与局域网地址及最新构建指纹。
+**See Also:** ERR191
+
+## [ERR196] 沙箱阻止静态预览监听局域网端口
+
+**Date:** 2026-07-25
+**Context:** 重新启动绑定 `0.0.0.0:3013` 的手机静态预览。
+**Error:** Vite 返回 `listen EPERM: operation not permitted 0.0.0.0:3013`。
+**Cause:** 当前沙箱不允许进程直接监听局域网接口。
+**Resolution:** 使用获批的受控权限核查监听状态；确认已有 `3013` 进程正在提供最新构建后，停止额外启动的 `3016` 临时预览，避免留下重复进程。
+**See Also:** ERR195
+
+## [ERR197] 深链镜头验收错误等待入口按钮
+
+**Date:** 2026-07-25
+**Context:** 使用 `?start=xingfuli-canonical&touchQa=1` 在手机视口验收默认第三人称构图。
+**Error:** Browser 等待“出发”按钮三秒后超时，报告没有匹配元素。
+**Cause:** 直达 `start` 参数在当前运行状态已经进入游玩态，验收脚本仍按入口页流程无条件点击按钮。
+**Resolution:** 先读取当前 DOM；只有存在“出发”按钮时才点击，否则直接验收游玩画面。深链状态不能由旧截图或上一次加载流程推断。
+**See Also:** ERR191
+
+## [ERR198] 功能 worktree 无权写入 FETCH_HEAD
+
+**Date:** 2026-07-25
+**Context:** 发布前在 `third-person-camera-controls` worktree 刷新 `origin/main`。
+**Error:** `cannot open '.git/worktrees/third-person-camera-controls/FETCH_HEAD': Operation not permitted`。
+**Cause:** 当前沙箱可读取 Git worktree 元数据，但普通权限不能写入该 worktree 的 `FETCH_HEAD`。
+**Resolution:** 使用受控权限只执行 `git fetch origin`，随后重新核对远端主干 SHA 和祖先关系；不通过修改文件权限或删除锁文件绕过。
+**See Also:** ERR193
+
+## [ERR199] 功能 worktree 无权创建 index.lock
+
+**Date:** 2026-07-25
+**Context:** 发布前按明确文件清单暂存第三人称镜头与移动触控改动。
+**Error:** `Unable to create '.git/worktrees/third-person-camera-controls/index.lock': Operation not permitted`。
+**Cause:** 普通沙箱权限不能写入该 worktree 的 Git 索引元数据。
+**Resolution:** 使用受控权限执行同一条精确 `git add`，随后用 cached diff 和状态复核暂存范围；不使用 `git add -A`，也不触碰主工作区。
+**See Also:** ERR198

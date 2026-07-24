@@ -104,7 +104,9 @@ const INTRO_MAP_RADIUS = Math.hypot(
 ) * 1.08;
 const CAMERA_DISTANCE = 5.35;
 const CAMERA_HEIGHT = 1.95;
-const CAMERA_TARGET_HEIGHT = 1.45;
+const CAMERA_FORWARD_FOLLOW_HEIGHT = 2.25;
+// 观察点略高于角色胸口，让人物落在画面中线下方，减少脚下空地并展示更多街景。
+const CAMERA_TARGET_HEIGHT = 1.72;
 const CAMERA_SHOULDER_OFFSET = 0.9;
 const CAMERA_TARGET_SHOULDER_OFFSET = 0.12;
 const CAMERA_FOLLOW_DAMPING = 3.2;
@@ -129,7 +131,9 @@ const CHARACTER_VISUAL_SCALE = 1.3;
 const CHARACTER_MAX_TURN_SPEED = 8.5;
 const EXPLORE_WALK_SPEED = 3.1;
 const EXPLORE_RUN_SPEED = 6.8;
-const CAMERA_DEFAULT_PITCH = CAMERA_HEIGHT / Math.hypot(CAMERA_DISTANCE, CAMERA_HEIGHT);
+// 前进自动回正时比静止初始镜头略微俯视，手动轨道俯仰仍保持用户设定。
+const CAMERA_DEFAULT_PITCH = CAMERA_FORWARD_FOLLOW_HEIGHT
+  / Math.hypot(CAMERA_DISTANCE, CAMERA_FORWARD_FOLLOW_HEIGHT);
 const PLAYER_RADIUS = 0.48;
 export const DETAIL_WORLD_SCALE = 1.65;
 const OVERVIEW_CHARACTER_SCALE = 22;
@@ -915,6 +919,11 @@ function PlayableWanderer({
     window.addEventListener("blur", cancelDrag);
     canvas.addEventListener("wheel", wheel, { passive: true });
     return () => {
+      const activePointerId = dragPointerId.current;
+      if (activePointerId !== null && canvas.hasPointerCapture(activePointerId)) {
+        canvas.releasePointerCapture(activePointerId);
+      }
+      cancelDrag();
       canvas.removeEventListener("pointerdown", pointerDown);
       window.removeEventListener("pointerup", pointerUp);
       window.removeEventListener("pointercancel", pointerUp);

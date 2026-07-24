@@ -4,10 +4,13 @@ import test from "node:test";
 import { Vector3 } from "three";
 import {
   inputState,
+  isTouchJumpRegionActive,
+  isTouchTapGesture,
   normalizeMoveVector,
   resetInput,
   setMoveVector,
   shouldSprintFromAnalog,
+  triggerJumpPulse,
 } from "../app/scene/input.ts";
 import {
   dampTangentTowards,
@@ -44,7 +47,7 @@ test("模拟摇杆使用径向死区并向共享状态写入连续分量", () =>
   assert.equal(inputState.moveY, 0);
 });
 
-test("走路模式封顶为走速，跑步模式只在摇杆推满时奔跑", () => {
+test("走路和跑步可在保持摇杆方向时即时切换", () => {
   assert.equal(shouldSprintFromAnalog(1, 0, false), false);
   assert.equal(shouldSprintFromAnalog(0.7, 0, true), false);
   assert.equal(shouldSprintFromAnalog(1, 0, true), true);
@@ -55,7 +58,43 @@ test("走路模式封顶为走速，跑步模式只在摇杆推满时奔跑", ()
   assert.equal(inputState.sprint, false);
   setMoveVector(1, 0, true);
   assert.equal(inputState.sprint, true);
+  const heldMove = { x: inputState.moveX, y: inputState.moveY };
+  setMoveVector(heldMove.x, heldMove.y, false);
+  assert.equal(inputState.sprint, false);
+  assert.deepEqual(
+    { x: inputState.moveX, y: inputState.moveY },
+    heldMove,
+  );
+  setMoveVector(heldMove.x, heldMove.y, true);
+  assert.equal(inputState.sprint, true);
   resetInput();
+});
+
+test("只有触屏轻点触发跳跃，镜头拖动和鼠标点击不会误触", () => {
+  assert.equal(isTouchTapGesture("touch", 0, 120), true);
+  assert.equal(isTouchTapGesture("touch", 10, 240), true);
+  assert.equal(isTouchTapGesture("touch", 10.1, 120), false);
+  assert.equal(isTouchTapGesture("touch", 2, 241), false);
+  assert.equal(isTouchTapGesture("mouse", 0, 80), false);
+  assert.equal(isTouchTapGesture("touch", Number.NaN, 80), false);
+});
+
+test("静止时仅下三分之一可跳，移动时全屏轻点都可跳", () => {
+  assert.equal(isTouchJumpRegionActive(false, false, false), false);
+  assert.equal(isTouchJumpRegionActive(true, false, false), true);
+  assert.equal(isTouchJumpRegionActive(false, true, false), true);
+  assert.equal(isTouchJumpRegionActive(false, false, true), true);
+});
+
+test("多指跳跃脉冲可以续期且会自动复位", async () => {
+  triggerJumpPulse(12);
+  assert.equal(inputState.jump, true);
+  await new Promise((resolve) => setTimeout(resolve, 6));
+  triggerJumpPulse(12);
+  await new Promise((resolve) => setTimeout(resolve, 8));
+  assert.equal(inputState.jump, true);
+  await new Promise((resolve) => setTimeout(resolve, 8));
+  assert.equal(inputState.jump, false);
 });
 
 test("转向阻尼不随 30fps 或 60fps 改变结果", () => {
@@ -92,13 +131,15 @@ test("满幅 180° 转向以更舒缓的速度达到九成", () => {
   assert.ok(elapsed <= 0.5, `转向过慢：${elapsed.toFixed(3)}s`);
 });
 
-test("移动端摇杆只接管左下角触发区", async () => {
-  const [experience, styles] = await Promise.all([
+test("移动端下三分之一共享轻点跳跃和拖动摇杆，且永不显示跳跃按钮", async () => {
+  const [experience, styles, world] = await Promise.all([
     readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
   ]);
 
   assert.match(experience, /className="touch-stick-zone"/);
+  assert.match(experience, /className=\{`touch-stick\$\{origin \? " is-active" : ""\}`\}/);
   assert.match(experience, /setPointerCapture\(event\.pointerId\)/);
   assert.match(experience, /event\.pointerType !== "touch"/);
   assert.match(experience, /event\.target instanceof HTMLCanvasElement/);
@@ -111,20 +152,50 @@ test("移动端摇杆只接管左下角触发区", async () => {
   assert.match(experience, /setMode\(requestedPreset \? "explore" : "overview"\)/);
   assert.match(experience, /useState<"walk" \| "run">\("run"\)/);
   assert.match(experience, /aria-label="移动速度模式"/);
+  assert.match(experience, /onPointerDown=\{\(event\) => \{[\s\S]*?selectPace\("walk"\)/);
+  assert.match(experience, /onPointerDown=\{\(event\) => \{[\s\S]*?selectPace\("run"\)/);
   assert.match(experience, /onClick=\{\(\) => selectPace\("walk"\)\}/);
   assert.match(experience, /onClick=\{\(\) => selectPace\("run"\)\}/);
-  assert.match(experience, /手机左下角拖动摇杆移动；右侧可切换走路\/跑步并跳跃/);
+  assert.match(experience, /<TouchControls showPace=\{exploring\} \/>/);
+  assert.match(experience, /手机下方三分之一区域轻点跳跃、拖动移动；移动中第二指可在全屏轻点跳跃或拖动视角/);
+  assert.match(experience, /if \(!moveActivated\.current && length <= TOUCH_TAP_MAX_TRAVEL\) return/);
+  assert.match(experience, /secondaryTapCandidates/);
+  assert.match(experience, /startedInStickZone: insideStickZone/);
+  assert.match(experience, /startedWhileMoving: moveActivated\.current/);
+  assert.match(experience, /第二根手指不拦截 Canvas/);
+  assert.match(experience, /isTouchJumpRegionActive\(/);
+  const secondaryPointerBranchStart = experience.indexOf("if (pointerId.current !== null)");
+  const idleZoneGuardStart = experience.indexOf("if (!insideStickZone) return");
+  assert.ok(secondaryPointerBranchStart >= 0);
+  assert.ok(idleZoneGuardStart > secondaryPointerBranchStart);
+  assert.doesNotMatch(
+    experience.slice(secondaryPointerBranchStart, idleZoneGuardStart),
+    /preventDefault|stopPropagation|setPointerCapture/,
+  );
+  assert.match(experience, /isTouchTapGesture\(/);
+  assert.match(experience, /triggerJumpPulse\(\)/);
+  assert.doesNotMatch(experience, /touch-jump/);
+  assert.doesNotMatch(experience, /aria-label="跳跃"/);
+  assert.doesNotMatch(world, /isTouchTapGesture\(/);
+  assert.doesNotMatch(world, /triggerJumpPulse\(\)/);
+  assert.match(world, /canvas\.hasPointerCapture\(activePointerId\)/);
+  assert.match(world, /canvas\.releasePointerCapture\(activePointerId\)/);
+  assert.match(world, /cancelDrag\(\);\s*canvas\.removeEventListener\("pointerdown"/);
   assert.match(styles, /\.touch-stick-zone\s*\{/);
   assert.match(styles, /\.touch-stick-zone\s*\{[^}]*bottom:\s*0/s);
   assert.match(styles, /\.touch-stick-zone\s*\{[^}]*left:\s*0/s);
-  assert.match(styles, /\.touch-stick-zone\s*\{[^}]*width:\s*min\(50vw,\s*280px\)/s);
-  assert.match(styles, /\.touch-stick-zone\s*\{[^}]*height:\s*min\(46svh,\s*320px\)/s);
-  assert.doesNotMatch(styles, /\.touch-stick-zone\s*\{[^}]*right:\s*0/s);
+  assert.match(styles, /\.touch-stick-zone\s*\{[^}]*width:\s*100%/s);
+  assert.match(styles, /\.touch-stick-zone\s*\{[^}]*height:\s*calc\(100% \/ 3\)/s);
   assert.match(styles, /\.touch-stick-zone\s*\{[^}]*pointer-events:\s*none/s);
   assert.match(styles, /\.xinhua-stage\.is-touch\s*\{\s*min-height:\s*0/);
   assert.match(styles, /\.xinhua-stage\.is-touch \.touch-controls\s*\{\s*display:\s*block/);
+  assert.match(styles, /\.touch-stick\s*\{[^}]*visibility:\s*hidden/s);
+  assert.match(styles, /\.touch-stick\s*\{[^}]*opacity:\s*0/s);
+  assert.match(styles, /\.touch-stick\.is-active\s*\{[^}]*visibility:\s*visible/s);
+  assert.match(styles, /\.touch-stick\.is-active\s*\{[^}]*opacity:\s*1/s);
+  assert.doesNotMatch(styles, /\.touch-jump\s*\{/);
   assert.match(styles, /\.touch-pace-toggle\s*\{[^}]*right:\s*14px/s);
-  assert.match(styles, /\.touch-pace-toggle\s*\{[^}]*bottom:\s*104px/s);
+  assert.match(styles, /\.touch-pace-toggle\s*\{[^}]*bottom:\s*22px/s);
   assert.match(styles, /\.touch-pace-toggle button\.is-active\s*\{/);
 });
 
@@ -160,9 +231,18 @@ test("反向转身与状态化构图不会被相机反馈环改写", async () =>
   );
 
   assert.match(world, /const CAMERA_DISTANCE = 5\.35/);
+  assert.match(world, /const CAMERA_FORWARD_FOLLOW_HEIGHT = 2\.25/);
+  assert.match(
+    world,
+    /const CAMERA_DEFAULT_PITCH = CAMERA_FORWARD_FOLLOW_HEIGHT\s*\/ Math\.hypot\(CAMERA_DISTANCE, CAMERA_FORWARD_FOLLOW_HEIGHT\)/,
+  );
   assert.match(world, /const reverseTurnActive = useRef\(false\)/);
   assert.match(world, /reverseMoveDirection\.current\.copy\(s\.inputMove\)/);
   assert.match(world, /movementCameraFollowWeight\(\s*x,\s*z,\s*reverseTurnActive\.current/s);
+  assert.match(
+    world,
+    /CAMERA_DEFAULT_PITCH - currentPitch\) \* dampingFactor\(followDamping, delta\)/,
+  );
   assert.match(world, /s\.move\.copy\(reverseMoveDirection\.current\)/);
   assert.match(world, /reverseTurnTranslationScale\(/);
   assert.match(world, /CAMERA_FORWARD_FRAMING_RIGHT_OFFSET \* forwardFramingWeight\(x, z\)/);

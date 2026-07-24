@@ -16,6 +16,9 @@ export interface AnalogMoveVector {
 }
 
 const MOVE_DEAD_ZONE = 0.18;
+export const TOUCH_TAP_MAX_TRAVEL = 10;
+export const TOUCH_TAP_MAX_DURATION_MS = 240;
+export const TOUCH_JUMP_PULSE_MS = 80;
 
 // 键盘和触屏摇杆共用同一份即时状态，避免每帧移动触发 React 重渲染。
 export const inputState: InputState = {
@@ -29,6 +32,24 @@ export const inputState: InputState = {
   jump: false,
 };
 
+let jumpReleaseTimer: ReturnType<typeof setTimeout> | null = null;
+
+/** 触屏轻点与移动时跳跃按钮共用同一个可续期脉冲，避免多指输入互相提前复位。 */
+export function triggerJumpPulse(durationMs = TOUCH_JUMP_PULSE_MS) {
+  inputState.jump = true;
+  if (jumpReleaseTimer !== null) clearTimeout(jumpReleaseTimer);
+  jumpReleaseTimer = setTimeout(() => {
+    inputState.jump = false;
+    jumpReleaseTimer = null;
+  }, Math.max(0, durationMs));
+}
+
+export function cancelJumpPulse() {
+  if (jumpReleaseTimer !== null) clearTimeout(jumpReleaseTimer);
+  jumpReleaseTimer = null;
+  inputState.jump = false;
+}
+
 export function resetInput() {
   inputState.forward = false;
   inputState.back = false;
@@ -37,7 +58,7 @@ export function resetInput() {
   inputState.moveX = 0;
   inputState.moveY = 0;
   inputState.sprint = false;
-  inputState.jump = false;
+  cancelJumpPulse();
 }
 
 /**
@@ -73,6 +94,30 @@ export function shouldSprintFromAnalog(
   runEnabled = true,
 ) {
   return runEnabled && Math.hypot(x, y) > 0.88;
+}
+
+/** 只把触屏上的短距离轻点识别为跳跃，鼠标点击和镜头拖动都不触发。 */
+export function isTouchTapGesture(
+  pointerType: string,
+  travelPixels: number,
+  durationMs: number,
+) {
+  return pointerType === "touch"
+    && Number.isFinite(travelPixels)
+    && Number.isFinite(durationMs)
+    && travelPixels >= 0
+    && durationMs >= 0
+    && travelPixels <= TOUCH_TAP_MAX_TRAVEL
+    && durationMs <= TOUCH_TAP_MAX_DURATION_MS;
+}
+
+/** 未移动时只有下三分之一可轻点跳跃；摇杆移动期间，第二根手指可在全屏轻点跳跃。 */
+export function isTouchJumpRegionActive(
+  startedInStickZone: boolean,
+  startedWhileMoving: boolean,
+  currentlyMoving: boolean,
+) {
+  return startedInStickZone || startedWhileMoving || currentlyMoving;
 }
 
 export function setMoveVector(x: number, y: number, runEnabled = true) {
