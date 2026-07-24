@@ -1,5 +1,32 @@
 # Learnings
 
+## [LRN-20260724-001] correction
+
+**Logged**: 2026-07-24T20:15:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: research
+
+### Summary
+用户要求“在 OpenThree 网站里面找可用项目”时，研究对象应是站内列出的项目卡片及其源码，不能把目录站自身当成唯一被评审对象。
+
+### Details
+第一次记录只核验了 OpenThree 目录仓库的定位和 Apache-2.0 许可证边界，虽然该信息仍可作为入口证据，但没有完成用户要的项目筛选。用户明确纠正后，改从目录配置中抽取 `three-player-controller`、`THREE-CustomShaderMaterial`、`threepipe` 三个与当前 R3F 场景最相关的卡片，逐一检查上游源码、版本、许可证、依赖和与现有相机/碰撞/渲染架构的兼容性。
+
+### Suggested Action
+对于目录、导航站、市场或案例集合，先确认用户要研究“站本身”还是“站内条目”。后者必须建立候选池，逐项以其原始仓库为证据源，并将目录的许可证与各子项目的许可证严格分开。
+
+### Metadata
+- Source: user_feedback
+- Related Files: docs/knowledge-sources/openthree-source-and-wander-xinhua-assessment-2026-07-24.md, docs/knowledge-sources/openthree-candidate-projects-and-wander-xinhua-selection-2026-07-24.md
+- Tags: research-scope, openthree, project-selection, source-audit
+
+### Resolution
+- **Resolved**: 2026-07-24T20:15:00+08:00
+- **Notes**: 已完成三项站内项目的源码级筛选并明确运行时、资产和许可证边界。
+
+---
+
 ## [LRN-20260719-016] correction
 
 **Logged**: 2026-07-19T13:35:00+08:00
