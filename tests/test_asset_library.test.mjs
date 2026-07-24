@@ -29,6 +29,13 @@ test("资产后台完整覆盖五类生产资产与建筑三档", async () => {
   assert.match(client, /#e7e8e4/);
   assert.match(client, /clonePreviewMaterial/);
   assert.doesNotMatch(client, /previewChrome/);
+  assert.match(client, /QUALITY_LEVEL_OPTIONS/);
+  assert.match(client, /setSelectedLevelId\(level\.id\)/);
+  assert.match(client, /function MissingPreview/);
+  assert.match(client, /const displayModel = selectedLevel\?\.model/);
+  assert.doesNotMatch(client, /selectedLevel\?\.model \?\? asset\.model/);
+  assert.match(client, /OrbitControls/);
+  assert.match(client, /拖动旋转 · 滚轮缩放 · Esc 关闭/);
   assert.match(client, /个人资产后台/);
   assert.doesNotMatch(client, /href="\/"/);
   assert.match(client, /搜索名称、门牌号或资产 ID/);

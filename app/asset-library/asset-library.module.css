@@ -194,7 +194,7 @@
 
 .categoryTabs button,
 .variantChip,
-.levelButton {
+.qualitySwitcher button {
   border: 0;
   font: inherit;
   cursor: pointer;
@@ -247,6 +247,41 @@
   color: var(--ink);
   background: transparent;
   font-size: 12px;
+}
+
+.qualitySwitcher {
+  margin-top: 8px;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.qualitySwitcher > span {
+  padding-left: 8px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.qualitySwitcher > div {
+  display: flex;
+  gap: 4px;
+}
+
+.qualitySwitcher button {
+  padding: 8px 12px;
+  color: #59645f;
+  border-radius: 6px;
+  background: #f1f1ed;
+  font-size: 11px;
+}
+
+.qualitySwitcher .qualityActive {
+  color: #fff;
+  background: var(--ink);
 }
 
 .categorySection {
@@ -319,34 +354,42 @@
   inset: 0;
 }
 
+.previewOpen {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  pointer-events: auto;
+}
+
+.previewOpen:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
+}
+
 .buildingCard .preview {
   height: 230px;
 }
 
-.previewChrome {
-  position: absolute;
-  z-index: 5;
-  top: 14px;
-  left: 14px;
-  padding: 7px 10px;
+.missingPreview {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  color: #3c5248;
-  background: rgba(244, 246, 240, 0.74);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  border-radius: 999px;
-  backdrop-filter: blur(8px);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  justify-content: center;
+  gap: 5px;
+  color: var(--muted);
+  background: #efefec;
 }
 
-.previewChrome .liveDot {
-  width: 5px;
-  height: 5px;
-  box-shadow: none;
+.missingPreview strong {
+  color: #4f5b56;
+  font-size: 13px;
+}
+
+.missingPreview span {
+  font-size: 10px;
 }
 
 .cardBody {
@@ -418,36 +461,6 @@
   margin: 0;
   color: var(--muted);
   font-size: 12px;
-}
-
-.levels {
-  margin-top: 11px;
-  display: grid;
-  gap: 4px;
-}
-
-.levelButton {
-  padding: 7px 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #59645f;
-  background: #efede6;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  font-size: 10px;
-  text-align: left;
-}
-
-.levelButton:disabled {
-  cursor: default;
-  opacity: 0.72;
-}
-
-.levelButtonActive {
-  color: var(--ink);
-  background: #faf8f2;
-  border-color: rgba(23, 39, 33, 0.23);
 }
 
 .levelNote,
@@ -533,6 +546,73 @@
   letter-spacing: 0.09em;
 }
 
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  padding: 24px;
+  display: grid;
+  place-items: center;
+  background: rgba(12, 18, 16, 0.72);
+}
+
+.modalPanel {
+  width: min(1120px, 100%);
+  overflow: hidden;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+}
+
+.modalHeader {
+  min-height: 64px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+
+.modalHeader span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.modalHeader h2 {
+  margin: 3px 0 0;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.modalHeader button {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--ink);
+  background: #f3f3f0;
+  cursor: pointer;
+}
+
+.modalStage {
+  height: min(72vh, 760px);
+  min-height: 420px;
+  background: #e7e8e4;
+}
+
+.modalStage canvas {
+  display: block;
+}
+
+.modalHint {
+  margin: 0;
+  padding: 10px 16px;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  text-align: center;
+}
+
 @media (max-width: 1480px) {
   .assetGrid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -608,6 +688,24 @@
     display: block;
   }
 
+  .qualitySwitcher {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .qualitySwitcher > span {
+    padding-top: 3px;
+  }
+
+  .qualitySwitcher > div {
+    width: 100%;
+  }
+
+  .qualitySwitcher button {
+    flex: 1;
+  }
+
   .search {
     min-width: 0;
     margin-top: 8px;
@@ -637,5 +735,14 @@
     margin-top: 70px;
     gap: 12px;
     flex-direction: column;
+  }
+
+  .modalBackdrop {
+    padding: 10px;
+  }
+
+  .modalStage {
+    height: 68vh;
+    min-height: 320px;
   }
 }

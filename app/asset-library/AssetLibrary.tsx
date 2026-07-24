@@ -1,6 +1,6 @@
 "use client";
 
-import { Bounds, Center, ContactShadows, PerspectiveCamera, View, useGLTF } from "@react-three/drei";
+import { Bounds, Center, ContactShadows, OrbitControls, PerspectiveCamera, View, useGLTF } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import {
   Suspense,
@@ -33,6 +33,17 @@ import {
 import styles from "./asset-library.module.css";
 
 const CATEGORY_ORDER: AssetCategory[] = ["buildings", "lighting", "trees", "decor", "characters"];
+const QUALITY_LEVEL_OPTIONS: Array<{ id: QualityLevel["id"]; label: string }> = [
+  { id: "hero", label: "Hero / Full" },
+  { id: "identity", label: "Hybrid Identity" },
+  { id: "massing", label: "Massing" },
+];
+
+type PreviewSelection = {
+  label: string;
+  model?: string;
+  preview?: string;
+};
 
 const STATUS_META: Record<AssetStatus, { label: string; className: string }> = {
   online: { label: "线上", className: styles.statusOnline },
@@ -277,7 +288,17 @@ function AssetScene({ model, preview }: { model?: string; preview?: string }) {
   );
 }
 
-function LivePreview({ model, preview, label }: { model?: string; preview?: string; label: string }) {
+function LivePreview({
+  model,
+  preview,
+  label,
+  onOpen,
+}: {
+  model?: string;
+  preview?: string;
+  label: string;
+  onOpen: () => void;
+}) {
   const { ref, visible } = useIsVisible();
   return (
     <div className={styles.preview}>
@@ -293,53 +314,71 @@ function LivePreview({ model, preview, label }: { model?: string; preview?: stri
           </Suspense>
         )}
       </View>
+      <button
+        type="button"
+        className={styles.previewOpen}
+        onClick={onOpen}
+        aria-label={`打开 ${label} 大图`}
+        title="点击查看大图"
+      />
     </div>
   );
 }
 
-function BuildingCard({ asset }: { asset: AssetRecord }) {
-  const [selectedLevel, setSelectedLevel] = useState<QualityLevel>(
-    asset.qualityLevels?.[0] ?? {
-      id: "hero",
-      name: "Hero / Full",
-      status: asset.status,
-      model: asset.model,
-      note: "",
-    },
+function MissingPreview({ levelName }: { levelName: string }) {
+  return (
+    <div className={`${styles.preview} ${styles.missingPreview}`}>
+      <strong>暂无 {levelName}</strong>
+      <span>该资产尚未制作此质量等级</span>
+    </div>
   );
-  const displayModel = selectedLevel.model ?? asset.model;
+}
+
+function BuildingCard({
+  asset,
+  selectedLevelId,
+  onOpen,
+}: {
+  asset: AssetRecord;
+  selectedLevelId: QualityLevel["id"];
+  onOpen: (selection: PreviewSelection) => void;
+}) {
+  const selectedLevel = asset.qualityLevels?.find((level) => level.id === selectedLevelId);
+  const displayModel = selectedLevel?.model;
+  const levelName = selectedLevel?.name
+    ?? QUALITY_LEVEL_OPTIONS.find((level) => level.id === selectedLevelId)?.label
+    ?? selectedLevelId;
   return (
     <article className={`${styles.assetCard} ${styles.buildingCard}`}>
-      <LivePreview model={displayModel} label={`${asset.name} ${selectedLevel.name}`} />
+      {displayModel ? (
+        <LivePreview
+          model={displayModel}
+          label={`${asset.name} ${levelName}`}
+          onOpen={() => onOpen({ model: displayModel, label: `${asset.name} · ${levelName}` })}
+        />
+      ) : (
+        <MissingPreview levelName={levelName} />
+      )}
       <div className={styles.cardBody}>
         <div className={styles.cardTopline}>
           <span className={styles.assetCode}>{asset.id}</span>
-          <StatusBadge status={asset.status} />
+          <StatusBadge status={selectedLevel?.status ?? "pending"} />
         </div>
         <h3>{asset.name}</h3>
         <p className={styles.subtitle}>{asset.subtitle}</p>
-        <div className={styles.levels} aria-label={`${asset.name} 质量等级`}>
-          {asset.qualityLevels?.map((level) => (
-            <button
-              key={level.id}
-              type="button"
-              className={`${styles.levelButton} ${selectedLevel.id === level.id ? styles.levelButtonActive : ""}`}
-              onClick={() => setSelectedLevel(level)}
-              disabled={!level.model && level.status === "pending"}
-              title={level.note}
-            >
-              <span>{level.name}</span>
-              <StatusBadge status={level.status} />
-            </button>
-          ))}
-        </div>
-        <p className={styles.levelNote}>{selectedLevel.note}</p>
+        <p className={styles.levelNote}>{selectedLevel?.note ?? `暂无 ${levelName}`}</p>
       </div>
     </article>
   );
 }
 
-function StandardCard({ asset }: { asset: AssetRecord }) {
+function StandardCard({
+  asset,
+  onOpen,
+}: {
+  asset: AssetRecord;
+  onOpen: (selection: PreviewSelection) => void;
+}) {
   const [variant, setVariant] = useState(0);
   let model = asset.model;
   if (asset.id === "plane-tree") {
@@ -352,7 +391,12 @@ function StandardCard({ asset }: { asset: AssetRecord }) {
   }
   return (
     <article className={styles.assetCard}>
-      <LivePreview model={model} preview={asset.preview} label={asset.name} />
+      <LivePreview
+        model={model}
+        preview={asset.preview}
+        label={asset.name}
+        onOpen={() => onOpen({ model, preview: asset.preview, label: asset.name })}
+      />
       <div className={styles.cardBody}>
         <div className={styles.cardTopline}>
           <span className={styles.assetCode}>{asset.id}</span>
@@ -380,10 +424,64 @@ function StandardCard({ asset }: { asset: AssetRecord }) {
   );
 }
 
+function AssetPreviewModal({
+  selection,
+  onClose,
+}: {
+  selection: PreviewSelection;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [onClose]);
+
+  return (
+    <div
+      className={styles.modalBackdrop}
+      role="presentation"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <section className={styles.modalPanel} role="dialog" aria-modal="true" aria-label={`${selection.label} 大图`}>
+        <div className={styles.modalHeader}>
+          <div>
+            <span>资产大图</span>
+            <h2>{selection.label}</h2>
+          </div>
+          <button type="button" onClick={onClose} aria-label="关闭大图">关闭</button>
+        </div>
+        <div className={styles.modalStage}>
+          <Canvas shadows dpr={[1, 1.5]} gl={{ antialias: true }}>
+            <Suspense fallback={null}>
+              <AssetScene model={selection.model} preview={selection.preview} />
+              <OrbitControls
+                makeDefault
+                enablePan={false}
+                enableDamping
+                dampingFactor={0.08}
+                minPolarAngle={0.35}
+                maxPolarAngle={Math.PI / 2.05}
+              />
+            </Suspense>
+          </Canvas>
+        </div>
+        <p className={styles.modalHint}>拖动旋转 · 滚轮缩放 · Esc 关闭</p>
+      </section>
+    </div>
+  );
+}
+
 export function AssetLibrary() {
   const container = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState<AssetCategory | "all">("all");
   const [query, setQuery] = useState("");
+  const [selectedLevelId, setSelectedLevelId] = useState<QualityLevel["id"]>("hero");
+  const [previewSelection, setPreviewSelection] = useState<PreviewSelection | null>(null);
 
   const onlineCounts = useMemo(() => Object.fromEntries(
     CATEGORY_ORDER.map((category) => [
@@ -483,6 +581,22 @@ export function AssetLibrary() {
           </label>
         </section>
 
+        <section className={styles.qualitySwitcher} aria-label="建筑质量等级">
+          <span>建筑质量等级</span>
+          <div>
+            {QUALITY_LEVEL_OPTIONS.map((level) => (
+              <button
+                key={level.id}
+                type="button"
+                className={selectedLevelId === level.id ? styles.qualityActive : ""}
+                onClick={() => setSelectedLevelId(level.id)}
+              >
+                {level.label}
+              </button>
+            ))}
+          </div>
+        </section>
+
         {CATEGORY_ORDER.map((category) => {
           const assets = filtered.filter((asset) => asset.category === category);
           if (assets.length === 0) return null;
@@ -502,8 +616,15 @@ export function AssetLibrary() {
               <div className={`${styles.assetGrid} ${category === "buildings" ? styles.buildingGrid : ""}`}>
                 {assets.map((asset) => (
                   category === "buildings"
-                    ? <BuildingCard key={asset.id} asset={asset} />
-                    : <StandardCard key={asset.id} asset={asset} />
+                    ? (
+                      <BuildingCard
+                        key={asset.id}
+                        asset={asset}
+                        selectedLevelId={selectedLevelId}
+                        onOpen={setPreviewSelection}
+                      />
+                    )
+                    : <StandardCard key={asset.id} asset={asset} onOpen={setPreviewSelection} />
                 ))}
               </div>
               {category === "lighting" && (
@@ -529,6 +650,13 @@ export function AssetLibrary() {
         <span>WANDER XINHUA · INTERNAL ASSET LIBRARY</span>
         <span>数据来源：生产注册表与运行时代码</span>
       </footer>
+
+      {previewSelection && (
+        <AssetPreviewModal
+          selection={previewSelection}
+          onClose={() => setPreviewSelection(null)}
+        />
+      )}
     </div>
   );
 }
