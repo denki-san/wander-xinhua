@@ -7,6 +7,7 @@ import { Effect, EffectAttribute } from "postprocessing";
 import {
   BackSide,
   Color,
+  Group,
   RepeatWrapping,
   ShaderMaterial,
   SRGBColorSpace,
@@ -16,7 +17,13 @@ import {
   type Mesh,
 } from "three";
 import mapData from "./xinhua-map-data.json";
-import { XINHUA_AUTUMN_ATMOSPHERE } from "./atmosphere-contract";
+import {
+  XINHUA_ATMOSPHERES,
+  type XinhuaAtmosphereStyle,
+} from "./atmosphere-contract";
+
+const AUTUMN_AFTERNOON_OUTLINE_STRENGTH = 0.56;
+const LIGHTING_V3_OUTLINE_STRENGTH = 0.32;
 
 // 这两个 shader 的组织方式参考 promptwhisper/messenger 的 MIT 实现；
 // 参数与颜色为“新华漫游志”重新标定，不使用原站的模型、贴图或媒体资产。
@@ -52,12 +59,12 @@ void mainImage(const in vec4 inputColor, const in vec2 uv, const in float depth,
 `;
 
 class InkOutlineEffect extends Effect {
-  constructor() {
+  constructor(strength: number) {
     super("XinhuaInkOutline", outlineFragment, {
       attributes: EffectAttribute.DEPTH,
       uniforms: new Map<string, Uniform>([
         ["uColor", new Uniform(new Color("#31423f"))],
-        ["uStrength", new Uniform(0.56)],
+        ["uStrength", new Uniform(strength)],
         ["uThreshold", new Uniform(0.052)],
         ["uColorThreshold", new Uniform(0.086)],
         ["uTexel", new Uniform(new Vector2(1, 1))],
@@ -70,8 +77,11 @@ class InkOutlineEffect extends Effect {
   }
 }
 
-export function InkOutline() {
-  const effect = useMemo(() => new InkOutlineEffect(), []);
+export function InkOutline({ atmosphereStyle }: { atmosphereStyle: XinhuaAtmosphereStyle }) {
+  const strength = atmosphereStyle === "lighting-v3"
+    ? LIGHTING_V3_OUTLINE_STRENGTH
+    : AUTUMN_AFTERNOON_OUTLINE_STRENGTH;
+  const effect = useMemo(() => new InkOutlineEffect(strength), [strength]);
   useEffect(() => () => effect.dispose(), [effect]);
   return <primitive object={effect} dispose={null} />;
 }
@@ -79,6 +89,7 @@ export function InkOutline() {
 const paperFragment = /* glsl */ `
 uniform vec2 uResolution;
 uniform float uTime;
+uniform float uLightingV3;
 
 float hash(vec2 p) {
   return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
@@ -95,27 +106,31 @@ float noise(vec2 p) {
 void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
   vec3 color = inputColor.rgb;
   float luminance = dot(color, vec3(0.299, 0.587, 0.114));
-  color = mix(vec3(luminance), color, 0.93);
-  color = (color - 0.5) * 1.018 + 0.5;
+  color = mix(vec3(luminance), color, mix(0.93, 1.035, uLightingV3));
+  color = (color - 0.5) * mix(1.018, 1.04, uLightingV3) + 0.5;
+  float warmHighlight = smoothstep(0.44, 0.9, luminance);
+  vec3 lightingV3Highlight = mix(vec3(0.978, 0.996, 1.022), vec3(1.038, 1.01, 0.96), warmHighlight);
+  color *= mix(vec3(1.0), lightingV3Highlight, uLightingV3);
   float grain = noise(uv * uResolution * 0.28 + uTime * 0.03) * 0.55
               + noise(uv * uResolution * 0.065) * 0.45;
-  color *= 0.972 + grain * 0.055;
-  color.r *= 1.0 + (grain - 0.5) * 0.016;
-  color.b *= 1.0 - (grain - 0.5) * 0.016;
+  color *= mix(0.972 + grain * 0.055, 0.991 + grain * 0.018, uLightingV3);
+  color.r *= 1.0 + (grain - 0.5) * mix(0.016, 0.007, uLightingV3);
+  color.b *= 1.0 - (grain - 0.5) * mix(0.016, 0.007, uLightingV3);
   // 沿真实视口边缘做纸张晕染，避免圆形暗角在宽屏或窄屏上被裁成残缺光圈。
   vec2 edge = abs(uv * 2.0 - 1.0);
   float edgeWash = smoothstep(0.64, 1.0, max(edge.x, edge.y));
-  color *= 1.0 - edgeWash * 0.03;
+  color *= 1.0 - edgeWash * mix(0.03, 0.009, uLightingV3);
   outputColor = vec4(color, inputColor.a);
 }
 `;
 
 class PaperWashEffect extends Effect {
-  constructor() {
+  constructor(atmosphereStyle: XinhuaAtmosphereStyle) {
     super("XinhuaPaperWash", paperFragment, {
       uniforms: new Map<string, Uniform>([
         ["uResolution", new Uniform(new Vector2(1, 1))],
         ["uTime", new Uniform(0)],
+        ["uLightingV3", new Uniform(atmosphereStyle === "lighting-v3" ? 1 : 0)],
       ]),
     });
   }
@@ -130,8 +145,8 @@ class PaperWashEffect extends Effect {
   }
 }
 
-export function PaperWash() {
-  const effect = useMemo(() => new PaperWashEffect(), []);
+export function PaperWash({ atmosphereStyle }: { atmosphereStyle: XinhuaAtmosphereStyle }) {
+  const effect = useMemo(() => new PaperWashEffect(atmosphereStyle), [atmosphereStyle]);
   useEffect(() => () => effect.dispose(), [effect]);
   return <primitive object={effect} dispose={null} />;
 }
@@ -206,6 +221,7 @@ void main() {
 const autumnSkyFragment = /* glsl */ `
 uniform sampler2D uSky;
 uniform vec3 uSunDirection;
+uniform float uLightingV3;
 varying vec2 vUv;
 varying vec3 vWorldDirection;
 
@@ -231,28 +247,34 @@ void main() {
   color = mix(color, sourceSunRepair, sourceSunMask * 0.96);
 
   float upperHeight = clamp(vWorldDirection.y, 0.0, 1.0);
+  float sourceLuminance = dot(color, vec3(0.299, 0.587, 0.114));
+  float cloudHighlight = smoothstep(0.69, 0.94, sourceLuminance);
+  color = mix(color, vec3(1.0, 0.92, 0.79), cloudHighlight * 0.34 * uLightingV3);
   float warmHorizon = 1.0 - smoothstep(0.02, 0.48, upperHeight);
-  color = mix(color, vec3(1.0, 0.87, 0.70), warmHorizon * 0.14);
+  color = mix(color, vec3(1.0, 0.86, 0.67), warmHorizon * mix(0.14, 0.22, uLightingV3));
+  vec3 lightingV3Color = mix(vec3(sourceLuminance), color, 1.16) * vec3(0.92, 0.98, 1.08);
+  color = mix(color, lightingV3Color, uLightingV3);
 
   float sunFacing = dot(normalize(vWorldDirection), normalize(uSunDirection));
-  float sunHalo = smoothstep(0.965, 0.9985, sunFacing);
+  float sunHalo = smoothstep(mix(0.965, 0.945, uLightingV3), 0.9985, sunFacing);
   float sunDisc = smoothstep(0.9984, 0.99965, sunFacing);
-  color += vec3(1.0, 0.67, 0.34) * sunHalo * 0.12;
+  color += vec3(1.0, 0.67, 0.34) * sunHalo * mix(0.12, 0.17, uLightingV3);
   color = mix(color, vec3(1.0, 0.82, 0.50), sunDisc * 0.92);
 
   gl_FragColor = vec4(color, 1.0);
 }
 `;
 
-export function AutumnStorybookSky() {
-  const sky = useTexture(XINHUA_AUTUMN_ATMOSPHERE.skyTexture, (texture) => {
+export function AutumnStorybookSky({ atmosphereStyle }: { atmosphereStyle: XinhuaAtmosphereStyle }) {
+  const atmosphere = XINHUA_ATMOSPHERES[atmosphereStyle];
+  const sky = useTexture(atmosphere.skyTexture, (texture) => {
     texture.colorSpace = SRGBColorSpace;
     texture.wrapS = RepeatWrapping;
     texture.needsUpdate = true;
   });
   const mesh = useRef<Mesh>(null);
   const material = useMemo(() => {
-    const [sunX, sunY, sunZ] = XINHUA_AUTUMN_ATMOSPHERE.sunOffset;
+    const [sunX, sunY, sunZ] = atmosphere.sunOffset;
     return new ShaderMaterial({
       vertexShader: autumnSkyVertex,
       fragmentShader: autumnSkyFragment,
@@ -262,9 +284,10 @@ export function AutumnStorybookSky() {
       uniforms: {
         uSky: new Uniform(sky),
         uSunDirection: new Uniform(new Vector3(sunX, sunY, sunZ).normalize()),
+        uLightingV3: new Uniform(atmosphereStyle === "lighting-v3" ? 1 : 0),
       },
     });
-  }, [sky]);
+  }, [atmosphere, atmosphereStyle, sky]);
 
   useFrame(({ camera }) => {
     mesh.current?.position.copy(camera.position);
@@ -283,4 +306,73 @@ export function AutumnStorybookSky() {
   );
 }
 
-useTexture.preload(XINHUA_AUTUMN_ATMOSPHERE.skyTexture);
+const STORYBOOK_CLOUD_CLUSTERS = [
+  { position: [-64, 58, -188], scale: 5.8, tint: "#fff1d7", yaw: 0.14 },
+  { position: [70, 64, -205], scale: 6.8, tint: "#fae9cd", yaw: -0.22 },
+  { position: [4, 88, -250], scale: 5.2, tint: "#fff7e6", yaw: 0.48 },
+  { position: [-112, 42, -252], scale: 4.4, tint: "#f5e4c8", yaw: -0.56 },
+] as const;
+
+const STORYBOOK_CLOUD_PARTS = [
+  [0, 0, 0, 1.7, 0.66, 0.72],
+  [-1.34, -0.08, 0.1, 1.08, 0.52, 0.58],
+  [1.38, -0.05, -0.12, 1.18, 0.55, 0.62],
+  [-0.48, 0.42, -0.05, 1.02, 0.76, 0.64],
+  [0.54, 0.34, 0.08, 0.92, 0.69, 0.6],
+] as const;
+
+function StorybookCloudCluster({
+  position,
+  scale,
+  tint,
+  yaw,
+}: {
+  position: readonly [number, number, number];
+  scale: number;
+  tint: string;
+  yaw: number;
+}) {
+  return (
+    <group position={position} scale={scale} rotation-y={yaw}>
+      {STORYBOOK_CLOUD_PARTS.map(([x, y, z, scaleX, scaleY, scaleZ], index) => (
+        <mesh
+          key={`${x}-${y}-${index}`}
+          position={[x, y, z]}
+          scale={[scaleX, scaleY, scaleZ]}
+          renderOrder={-5}
+        >
+          <icosahedronGeometry args={[1, 2]} />
+          <meshToonMaterial
+            color={index >= 3 ? "#fff7e6" : index % 2 === 0 ? tint : "#ead8bd"}
+            emissive={index >= 3 ? "#8b5d31" : "#3f5361"}
+            emissiveIntensity={index >= 3 ? 0.12 : 0.045}
+            fog={false}
+            depthWrite={false}
+          />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+export function StorybookCloudLayer() {
+  const group = useRef<Group>(null);
+  useFrame(({ camera }) => {
+    if (!group.current) return;
+    group.current.position.copy(camera.position);
+    group.current.quaternion.copy(camera.quaternion);
+  });
+  return (
+    <group
+      ref={group}
+      name="xinhua-storybook-cloud-layer"
+      userData={{ atmosphere: "camera-relative-low-poly-clouds", clusters: 4 }}
+    >
+      {STORYBOOK_CLOUD_CLUSTERS.map((cluster) => (
+        <StorybookCloudCluster key={cluster.position.join("-")} {...cluster} />
+      ))}
+    </group>
+  );
+}
+
+useTexture.preload(XINHUA_ATMOSPHERES["lighting-v3"].skyTexture);

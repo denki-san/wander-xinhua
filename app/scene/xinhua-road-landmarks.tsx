@@ -19,7 +19,10 @@ import {
   useRef,
   useState,
 } from "react";
-import { terrainHeightAt } from "./terrain";
+import {
+  autumnShadowSurfaceHeightAt,
+  terrainHeightAt,
+} from "./terrain";
 import {
   PLANE_TREE_GROUND_INSET,
   PlaneTreeInstances,
@@ -32,6 +35,7 @@ import {
   buildPlaneTreePlacements,
   XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
 } from "./xinhua-road-placement.mjs";
+import type { XinhuaAtmosphere } from "./atmosphere-contract";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
 
 type LandmarkPlacement = {
@@ -115,6 +119,14 @@ type TreePlacement = {
   scale: [number, number, number];
 };
 
+type AutumnLandmarkMaterial = Material & {
+  color?: Color;
+  emissive?: Color;
+  emissiveIntensity?: number;
+  metalness?: number;
+  roughness?: number;
+};
+
 export const XINHUA_HERO_PLANE_TREE_ID = "plane-tree-0-12";
 export const XINHUA_HERO_PLANE_TREE_MODEL =
   "/models/building-evidence-lab/xinhua-plane-tree-hero.glb?v=3";
@@ -169,6 +181,132 @@ const XINHUA_LIGHTWEIGHT_PLANE_TREE_INSTANCES = XINHUA_PLANE_TREE_INSTANCES.filt
   (placement) => placement.id !== XINHUA_HERO_PLANE_TREE_PLACEMENT.id,
 );
 
+function AutumnPlaneTreeShadows({ atmosphere }: { atmosphere: XinhuaAtmosphere }) {
+  const shadowLobes = useMemo(() => {
+    const [sunX, , sunZ] = atmosphere.sunOffset;
+    const shadowLength = Math.hypot(sunX, sunZ);
+    const directionX = -sunX / shadowLength;
+    const directionZ = -sunZ / shadowLength;
+    const yaw = Math.atan2(directionX, directionZ);
+    return XINHUA_PLANE_TREE_INSTANCES.flatMap((tree, treeIndex) => (
+      Array.from({ length: 5 }, (_, lobeIndex) => {
+        const distance = 1.05 + lobeIndex * 2.05;
+        const sideOffset = Math.sin(treeIndex * 1.77 + lobeIndex * 2.13)
+          * (0.42 + lobeIndex * 0.16);
+        const positionX = tree.position[0] + directionX * distance
+          + directionZ * sideOffset;
+        const positionZ = tree.position[2] + directionZ * distance
+          - directionX * sideOffset;
+        return {
+          position: [
+            positionX,
+            autumnShadowSurfaceHeightAt(positionX, positionZ),
+            positionZ,
+          ] as const,
+          yaw,
+          scale: [
+            1.15 + lobeIndex * 0.34 + treeIndex % 3 * 0.14,
+            1.5 + lobeIndex * 0.62,
+          ] as const,
+        };
+      })
+    ));
+  }, [atmosphere]);
+  const mesh = useRef<InstancedMesh>(null);
+  const trunks = useRef<InstancedMesh>(null);
+
+  useLayoutEffect(() => {
+    if (!mesh.current || !trunks.current) return;
+    const matrix = new Matrix4();
+    const quaternion = new Quaternion();
+    const groundQuaternion = new Quaternion();
+    const yawQuaternion = new Quaternion();
+    const position = new Vector3();
+    const scale = new Vector3();
+    const up = new Vector3(0, 1, 0);
+    const xAxis = new Vector3(1, 0, 0);
+    groundQuaternion.setFromAxisAngle(xAxis, -Math.PI / 2);
+
+    shadowLobes.forEach((shadow, index) => {
+      position.set(...shadow.position);
+      yawQuaternion.setFromAxisAngle(up, shadow.yaw);
+      quaternion.multiplyQuaternions(yawQuaternion, groundQuaternion);
+      scale.set(shadow.scale[0], shadow.scale[1], 1);
+      matrix.compose(position, quaternion, scale);
+      mesh.current?.setMatrixAt(index, matrix);
+    });
+    mesh.current.instanceMatrix.needsUpdate = true;
+    mesh.current.computeBoundingSphere();
+
+    const [sunX, , sunZ] = atmosphere.sunOffset;
+    const shadowLength = Math.hypot(sunX, sunZ);
+    const directionX = -sunX / shadowLength;
+    const directionZ = -sunZ / shadowLength;
+    const yaw = Math.atan2(directionX, directionZ);
+    XINHUA_PLANE_TREE_INSTANCES.forEach((tree, index) => {
+      const positionX = tree.position[0] + directionX * 3.3;
+      const positionZ = tree.position[2] + directionZ * 3.3;
+      position.set(
+        positionX,
+        autumnShadowSurfaceHeightAt(positionX, positionZ),
+        positionZ,
+      );
+      yawQuaternion.setFromAxisAngle(up, yaw);
+      quaternion.multiplyQuaternions(yawQuaternion, groundQuaternion);
+      scale.set(0.2 + index % 3 * 0.035, 6.8, 1);
+      matrix.compose(position, quaternion, scale);
+      trunks.current?.setMatrixAt(index, matrix);
+    });
+    trunks.current.instanceMatrix.needsUpdate = true;
+    trunks.current.computeBoundingSphere();
+  }, [atmosphere, shadowLobes]);
+
+  return (
+    <>
+      <instancedMesh
+        ref={mesh}
+        args={[undefined, undefined, shadowLobes.length]}
+        renderOrder={1}
+        userData={{
+          atmosphere: "storybook-plane-tree-shadows",
+          direction: "shared-autumn-sun",
+          instanced: true,
+        }}
+      >
+        <circleGeometry args={[1, 12]} />
+        <meshBasicMaterial
+          color="#1d3540"
+          transparent
+          opacity={0.22}
+          depthWrite={false}
+          polygonOffset
+          polygonOffsetFactor={-2}
+        />
+      </instancedMesh>
+      <instancedMesh
+        ref={trunks}
+        args={[undefined, undefined, XINHUA_PLANE_TREE_INSTANCES.length]}
+        renderOrder={1}
+        userData={{
+          atmosphere: "storybook-plane-tree-trunk-shadows",
+          direction: "shared-autumn-sun",
+          instanced: true,
+        }}
+      >
+        <planeGeometry args={[1, 1]} />
+        <meshBasicMaterial
+          color="#1a2c33"
+          transparent
+          opacity={0.24}
+          depthWrite={false}
+          polygonOffset
+          polygonOffsetFactor={-2}
+        />
+      </instancedMesh>
+    </>
+  );
+}
+
 function AutumnLeafCarpet() {
   const leaves = useMemo(() => XINHUA_PLANE_TREE_INSTANCES.flatMap((tree, treeIndex) => (
     Array.from({ length: 4 }, (_, leafIndex) => {
@@ -218,19 +356,72 @@ function AutumnLeafCarpet() {
       userData={{ vegetation: "xinhua-autumn-leaf-carpet", instanced: true }}
     >
       <boxGeometry args={[0.17, 0.012, 0.075]} />
-      <meshToonMaterial vertexColors />
+      <meshStandardMaterial vertexColors roughness={0.98} metalness={0} />
     </instancedMesh>
   );
+}
+
+function cloneAutumnLandmarkMaterial(source: Material) {
+  const material = source.clone() as AutumnLandmarkMaterial;
+  const name = source.name.toLowerCase();
+  const color = material.color;
+  if (!color) return material;
+
+  if (/灯|光|light|emissive/.test(name)) {
+    color.lerp(new Color("#ffc273"), 0.42);
+    if (material.emissive) {
+      material.emissive.set("#ff9f47");
+      material.emissiveIntensity = 1.28;
+    }
+    if (typeof material.roughness === "number") material.roughness = 0.62;
+  } else if (/玻璃|glass/.test(name)) {
+    color.lerp(new Color("#405b56"), 0.46);
+    if (material.emissive) {
+      material.emissive.set("#4a3925");
+      material.emissiveIntensity = 0.16;
+    }
+    if (typeof material.roughness === "number") material.roughness = 0.34;
+    if (typeof material.metalness === "number") material.metalness = 0.04;
+  } else if (/窗框|深框|铁艺|金属|屋脊|瓦垄|板缝|铺装缝|frame/.test(name)) {
+    color.lerp(new Color("#1d3330"), 0.42);
+    if (typeof material.roughness === "number") material.roughness = 0.74;
+  } else if (/红砖|砖墙|红瓦|屋顶|屋瓦|木|铜|brick|roof|wood/.test(name)) {
+    color.lerp(new Color("#87503d"), 0.26);
+    if (typeof material.roughness === "number") material.roughness = 0.88;
+  } else if (/白|墙|灰泥|石材|浅石|曲面|门楼|象牙|cream|plaster|stone/.test(name)) {
+    color.lerp(new Color("#cfbd9b"), 0.32);
+    color.multiplyScalar(0.94);
+    if (typeof material.roughness === "number") material.roughness = 0.84;
+  } else if (/绿植|草坪|绿篱|灌木|garden|hedge|lawn/.test(name)) {
+    color.lerp(new Color("#747548"), 0.32);
+    if (typeof material.roughness === "number") material.roughness = 0.96;
+  } else {
+    color.lerp(new Color("#b79d78"), 0.045);
+  }
+
+  material.needsUpdate = true;
+  return material;
+}
+
+function disposeModelMaterials(model: Object3D) {
+  const materials = new Set<Material>();
+  model.traverse((child) => {
+    if (!(child instanceof Mesh)) return;
+    const childMaterials = Array.isArray(child.material) ? child.material : [child.material];
+    childMaterials.forEach((material) => materials.add(material));
+  });
+  materials.forEach((material) => material.dispose());
 }
 
 function configureModel(model: Object3D, autumnTree = false) {
   model.traverse((child) => {
     if (!(child instanceof Mesh)) return;
-    if (autumnTree) {
-      child.material = Array.isArray(child.material)
-        ? child.material.map(cloneAutumnPlaneTreeMaterial)
-        : cloneAutumnPlaneTreeMaterial(child.material);
-    }
+    const cloneMaterial = autumnTree
+      ? cloneAutumnPlaneTreeMaterial
+      : cloneAutumnLandmarkMaterial;
+    child.material = Array.isArray(child.material)
+      ? child.material.map(cloneMaterial)
+      : cloneMaterial(child.material);
     child.castShadow = true;
     child.receiveShadow = true;
   });
@@ -240,21 +431,14 @@ function configureModel(model: Object3D, autumnTree = false) {
 function GlbModel({ path }: { path: string }) {
   const { scene } = useGLTF(path);
   const model = useMemo(() => configureModel(scene.clone(true)), [scene]);
+  useEffect(() => () => disposeModelMaterials(model), [model]);
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
 function HeroPlaneTree() {
   const { scene } = useGLTF(XINHUA_HERO_PLANE_TREE_MODEL);
   const model = useMemo(() => configureModel(scene.clone(true), true), [scene]);
-  useEffect(() => () => {
-    const materials = new Set<Material>();
-    model.traverse((child) => {
-      if (!(child instanceof Mesh)) return;
-      const childMaterials = Array.isArray(child.material) ? child.material : [child.material];
-      childMaterials.forEach((material) => materials.add(material));
-    });
-    materials.forEach((material) => material.dispose());
-  }, [model]);
+  useEffect(() => () => disposeModelMaterials(model), [model]);
   const [x, y, z] = XINHUA_HERO_PLANE_TREE_PLACEMENT.position;
   return (
     <group
@@ -273,7 +457,13 @@ function HeroPlaneTree() {
   );
 }
 
-export function XinhuaRoadPlaneTrees({ showHero = false }: { showHero?: boolean }) {
+export function XinhuaRoadPlaneTrees({
+  showHero = false,
+  atmosphere,
+}: {
+  showHero?: boolean;
+  atmosphere: XinhuaAtmosphere;
+}) {
   const lightweightPlacements = showHero
     ? XINHUA_LIGHTWEIGHT_PLANE_TREE_INSTANCES
     : XINHUA_PLANE_TREE_INSTANCES;
@@ -282,6 +472,7 @@ export function XinhuaRoadPlaneTrees({ showHero = false }: { showHero?: boolean 
       name="xinhua-road-plane-trees"
       userData={{ variants: 3, arrangement: "deterministic-id-hash" }}
     >
+      <AutumnPlaneTreeShadows atmosphere={atmosphere} />
       <PlaneTreeInstances
         name="xinhua-road-plane-tree-batches"
         placements={lightweightPlacements}

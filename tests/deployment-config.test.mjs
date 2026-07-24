@@ -4,12 +4,16 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 
-test("生产发布使用本地静态构建产物", async () => {
+test("默认构建同时保留静态产物与 Codex Sites 产物", async () => {
   const packageJson = JSON.parse(await readFile(new URL("package.json", root), "utf8"));
   const staticConfig = await readFile(new URL("vite.static.config.ts", root), "utf8");
 
-  assert.equal(packageJson.scripts.build, "vite build --config vite.static.config.ts");
-  assert.equal(packageJson.scripts["build:static"], "npm run build");
+  assert.equal(packageJson.scripts.build, "npm run build:static && npm run build:sites");
+  assert.equal(
+    packageJson.scripts["build:static"],
+    "vite build --config vite.static.config.ts",
+  );
+  assert.match(packageJson.scripts["build:sites"], /\bvinext build\b/);
   assert.equal(packageJson.scripts.start, "npm run preview:static");
   assert.match(staticConfig, /outDir:\s*["']dist-static["']/);
 });

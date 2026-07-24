@@ -29,15 +29,19 @@ export type PlaneTreeInstancePlacement = {
 };
 
 export const PLANE_TREE_MODELS = [
-  "/models/xinhua-road/plane-tree-a.glb?v=2",
-  "/models/xinhua-road/plane-tree-b.glb?v=2",
-  "/models/xinhua-road/plane-tree-c.glb?v=2",
+  "/models/xinhua-road/plane-tree-a.glb?v=36ffe252c43b",
+  "/models/xinhua-road/plane-tree-b.glb?v=7c2e06d0794f",
+  "/models/xinhua-road/plane-tree-c.glb?v=c4c14bd84d9c",
 ] as const;
 
 export const PLANE_TREE_GROUND_INSET = 0.04;
 
 type ColorMaterial = Material & {
   color?: Color;
+  emissive?: Color;
+  emissiveIntensity?: number;
+  metalness?: number;
+  roughness?: number;
 };
 
 export function cloneAutumnPlaneTreeMaterial(source: Material) {
@@ -47,13 +51,21 @@ export function cloneAutumnPlaneTreeMaterial(source: Material) {
 
   if (/叶|leaf/.test(name)) {
     const target = /深|dark/.test(name)
-      ? "#526547"
+      ? "#74834f"
       : /浅|light/.test(name)
-        ? "#c49b55"
-        : "#9a7a42";
+        ? "#d7ad58"
+        : "#ad8140";
     material.color.set(target);
+    if (material.emissive) {
+      material.emissive.set("#3c3420");
+      material.emissiveIntensity = 0.055;
+    }
+    if (typeof material.roughness === "number") material.roughness = 0.96;
+    if (typeof material.metalness === "number") material.metalness = 0;
   } else if (/干|枝|bark|trunk|branch/.test(name)) {
-    material.color.lerp(new Color("#806e55"), 0.2);
+    material.color.lerp(new Color("#756654"), 0.38);
+    if (typeof material.roughness === "number") material.roughness = 0.92;
+    if (typeof material.metalness === "number") material.metalness = 0;
   }
   material.needsUpdate = true;
   return material;

@@ -7,8 +7,8 @@
   },
   "scripts": {
     "dev": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext dev",
-    "build": "vite build --config vite.static.config.ts",
-    "build:static": "npm run build",
+    "build": "npm run build:static && npm run build:sites",
+    "build:static": "vite build --config vite.static.config.ts",
     "build:sites": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext build",
     "preview:static": "vite preview --config vite.static.config.ts",
     "start": "npm run preview:static",

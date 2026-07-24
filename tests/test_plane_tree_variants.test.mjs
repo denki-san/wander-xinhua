@@ -45,6 +45,9 @@ test("街景梧桐生成器继承连续根颈并保留三种结构变体", async
   assert.match(generator, /root_rng = random\.Random\(12011 \+ variant \* 137\)/);
   assert.match(generator, /trunk_lean = \(\(0\.0, 0\.0\), \(0\.24, -0\.09\), \(-0\.2, 0\.12\)\)\[variant\]/);
   assert.match(generator, /plane_tree_family.*root-collar-v2/);
+  assert.match(generator, /tree-leaf-cluster-/);
+  assert.match(generator, /subdivisions=1/);
+  assert.match(generator, /保留中央和侧面的天空冠隙/);
 });
 
 test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async () => {
@@ -93,7 +96,8 @@ test("三个街景 GLB 共享轻量预算并保持无图片策略", async () => 
       assert.ok((await stat(preview)).size > 10_000);
     }
   }
-  assert.ok(totalBytes <= 700_000);
+  assert.ok(totalBytes > 700_000, "开放枝架和小叶簇应比旧圆球树冠包含更多可读几何");
+  assert.ok(totalBytes <= 1_400_000);
 });
 
 test("主地图近景使用已验收 Hero 梧桐且不与轻量实例重叠", async () => {

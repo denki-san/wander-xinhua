@@ -94,7 +94,10 @@ test("幸福里使用七栋固定建筑和可识别的核心街具", async () =>
 });
 
 test("地图使用真实行政边界、完整道路骨架和柏油主干道", async () => {
-  const mapSource = await readFile(new URL("../app/scene/xinhua-map.tsx", import.meta.url), "utf8");
+  const [mapSource, surfaceContract] = await Promise.all([
+    readFile(new URL("../app/scene/xinhua-map.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/scene/road-surface-contract.ts", import.meta.url), "utf8"),
+  ]);
   const map = JSON.parse(await readFile(new URL("../app/scene/xinhua-map-data.json", import.meta.url), "utf8"));
 
   assert.equal(map.meta.osmRelationId, 13469094);
@@ -111,9 +114,9 @@ test("地图使用真实行政边界、完整道路骨架和柏油主干道", as
   }
   assert.match(mapSource, /data-administrative-boundary="osm-13469094"/);
   assert.match(mapSource, /data-road-network="osm-13469094"/);
-  assert.match(mapSource, /2\.18 \* XINHUA_ENVIRONMENT_SCALE/);
-  assert.match(mapSource, /2\.62 \* XINHUA_ENVIRONMENT_SCALE/);
-  assert.match(mapSource, /1\.82 \* XINHUA_ENVIRONMENT_SCALE/);
+  assert.match(surfaceContract, /2\.18 \* XINHUA_ENVIRONMENT_SCALE/);
+  assert.match(surfaceContract, /2\.62 \* XINHUA_ENVIRONMENT_SCALE/);
+  assert.match(surfaceContract, /1\.82 \* XINHUA_ENVIRONMENT_SCALE/);
   assert.match(mapSource, /const curbCenterY = 0\.07 \+ curbHeight \/ 2/);
   assert.doesNotMatch(mapSource, /#e8dcc0|#efe5cb/);
 });
@@ -140,7 +143,7 @@ test("幸福里按 OSM 中心线置于真实相对位置并保持统一横向比
   assert.match(world, /transformMapObstacle/);
 });
 
-test("主角保留城市漫游者配色并叠加秋日邮差包身份构件", async () => {
+test("主角保留城市漫游者配色并移除秋日邮差包", async () => {
   const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
   const head = world.slice(
     world.indexOf("function FallbackWandererHead"),
@@ -155,10 +158,8 @@ test("主角保留城市漫游者配色并叠加秋日邮差包身份构件", as
   assert.match(head, /sphereGeometry/);
   assert.match(world, /#657772/);
   assert.match(world, /#202b2f/);
-  assert.match(world, /function AutumnWandererBag/);
-  assert.match(world, /name="xinhua-autumn-messenger-bag"/);
-  assert.match(world, /characterDetail: "xinhua-postcard-bag"/);
-  assert.match(world, /#a7543f/);
-  assert.match(world, /#d19a52/);
+  assert.doesNotMatch(world, /function AutumnWandererBag/);
+  assert.doesNotMatch(world, /xinhua-autumn-messenger-bag/);
+  assert.doesNotMatch(world, /xinhua-postcard-bag/);
   assert.doesNotMatch(world, /capsuleGeometry args=\{\[0\.39, 0\.72/);
 });

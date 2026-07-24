@@ -2406,6 +2406,7 @@ def build_plane_tree(variant: int) -> None:
     else:
         branch_ends = [(-2.5, 0.0, 7.0), (2.4, 0.1, 7.1), (-1.7, 1.5, 7.8), (1.6, -1.45, 7.7), (0.0, 0.3, 8.3)]
     fork = (trunk_lean[0] * 0.94, trunk_lean[1] * 0.94, trunk_height - 0.2)
+    leaf_cluster_centers = []
     for index, end in enumerate(branch_ends):
         mid = (
             fork[0] + (end[0] - fork[0]) * 0.48,
@@ -2418,19 +2419,67 @@ def build_plane_tree(variant: int) -> None:
         twig_b = (end[0] + 0.65 - rng.random() * 0.3, end[1] - 0.5, end[2] + 0.5)
         add_beam(f"tree-twig-{index}-a", end, twig_a, 0.105, bark_dark, round_beam=True)
         add_beam(f"tree-twig-{index}-b", end, twig_b, 0.1, bark_dark, round_beam=True)
-    crown_centers = list(branch_ends)
-    crown_centers.extend([
-        (-1.35 + variant * 0.25, 0.95, 8.15),
-        (1.25 + variant * 0.35, 0.8, 8.3),
-        (0.1 + variant * 0.2, -0.75, 8.6),
-    ])
-    for index, center in enumerate(crown_centers):
-        scale = (
-            1.35 + rng.random() * 0.55,
-            1.05 + rng.random() * 0.45,
-            0.85 + rng.random() * 0.4,
+
+        # 普通行道树也要保留可读的枝架。每条主枝再分出多根细枝，叶簇沿细枝
+        # 分布而不是用一个大球盖住枝条。
+        for sprig_index, sprig in enumerate((twig_a, twig_b)):
+            outward = Vector((
+                sprig[0] - end[0],
+                sprig[1] - end[1],
+                max(0.35, sprig[2] - end[2]),
+            )).normalized()
+            side = Vector((-outward.y, outward.x, 0.0)).normalized()
+            for cluster_index in range(5):
+                distance = 0.14 + cluster_index * 0.22
+                lateral = (cluster_index - 2) * (0.12 + rng.random() * 0.075)
+                center = Vector(sprig) + outward * distance + side * lateral
+                center.z += 0.035 + rng.random() * 0.24
+                leaf_cluster_centers.append(tuple(center))
+                if cluster_index == 4:
+                    twig_tip = tuple(center - outward * 0.16)
+                    add_beam(
+                        f"tree-sprig-{index}-{sprig_index}-{cluster_index}",
+                        sprig,
+                        twig_tip,
+                        0.052,
+                        bark_dark,
+                        round_beam=True,
+                    )
+
+        # 主枝端部补两簇较低叶片，避免所有叶子都堆在同一水平线上。
+        for lower_index in range(3):
+            angle = index * 1.73 + lower_index * 2.21 + variant * 0.41
+            leaf_cluster_centers.append((
+                end[0] + math.cos(angle) * (0.34 + rng.random() * 0.26),
+                end[1] + math.sin(angle) * (0.28 + rng.random() * 0.24),
+                end[2] - 0.24 + lower_index * 0.28 + rng.random() * 0.16,
+            ))
+
+    # 顶部只用一圈小叶簇连接各主枝，保留中央和侧面的天空冠隙。
+    top_cluster_count = 9 + variant
+    for index in range(top_cluster_count):
+        angle = index * math.tau / top_cluster_count + variant * 0.37
+        radial = 0.62 + (index % 2) * 0.28
+        center = (
+            trunk_lean[0] + math.cos(angle) * radial,
+            trunk_lean[1] + math.sin(angle) * radial * 0.78,
+            8.05 + (index % 3) * 0.25 + rng.random() * 0.16,
         )
-        add_icosphere(f"tree-crown-{index}", center, scale, leaves[index % len(leaves)], subdivisions=2)
+        leaf_cluster_centers.append(center)
+
+    for index, center in enumerate(leaf_cluster_centers):
+        scale = (
+            0.34 + rng.random() * 0.24,
+            0.28 + rng.random() * 0.18,
+            0.24 + rng.random() * 0.16,
+        )
+        add_icosphere(
+            f"tree-leaf-cluster-{index}",
+            center,
+            scale,
+            leaves[(index + variant) % len(leaves)],
+            subdivisions=1,
+        )
 
 
 BUILDERS: list[tuple[str, Callable[[], None]]] = [

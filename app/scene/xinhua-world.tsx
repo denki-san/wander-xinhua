@@ -4,6 +4,7 @@ import {
   Float,
   Html,
   RoundedBox,
+  Shadow,
   useAnimations,
   useGLTF,
 } from "@react-three/drei";
@@ -74,7 +75,11 @@ import {
   transformMapObstacle,
   transformMapPoint,
 } from "./world-math";
-import { XINHUA_AUTUMN_ATMOSPHERE } from "./atmosphere-contract";
+import {
+  XINHUA_ATMOSPHERES,
+  type XinhuaAtmosphere,
+  type XinhuaAtmosphereStyle,
+} from "./atmosphere-contract";
 
 const WORLD_UP = new Vector3(0, 1, 0);
 const INTRO_CAMERA_DIRECTION = new Vector3(126, 142, 138).normalize();
@@ -94,7 +99,7 @@ const CAMERA_POSITION_DAMPING = 10;
 const CAMERA_ROTATION_SPEED_X = 0.005;
 const CAMERA_ROTATION_SPEED_Y = 0.004;
 const CHARACTER_TURN_DAMPING = 9;
-const CHARACTER_MODEL_PATH = "/models/character/rain-summer-wanderer.glb?v=151816b1fe82";
+const CHARACTER_MODEL_PATH = "/models/character/rain-summer-wanderer.glb?v=f9721e54f034";
 // Rain 的原始身高比旧角色低约 11%；1.3 倍可保持正式地图中的既有屏幕占比。
 const CHARACTER_VISUAL_SCALE = 1.3;
 const CHARACTER_MAX_TURN_SPEED = 8;
@@ -414,24 +419,28 @@ function ActionInstallation({ onOpenAction }: { onOpenAction: () => void }) {
 
 function FlatNeighborhood({
   onOpenAction,
+  atmosphere,
   detailScale = 1,
   showDetailModels = false,
   showDetailLabels = true,
+  showRoadLabels = true,
   showHeroTree = false,
   priorityPreset,
   landmarkLoadMode = "overview",
 }: {
   onOpenAction: () => void;
+  atmosphere: XinhuaAtmosphere;
   detailScale?: number;
   showDetailModels?: boolean;
   showDetailLabels?: boolean;
+  showRoadLabels?: boolean;
   showHeroTree?: boolean;
   priorityPreset?: string;
   landmarkLoadMode?: "overview" | "explore";
 }) {
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
-      <XinhuaStreetMap />
+      <XinhuaStreetMap showRoadLabels={showRoadLabels} />
       <group
         position={[XINGFULI_POSITION[0], XINGFULI_BASE_Y, XINGFULI_POSITION[1]]}
         rotation-y={XINGFULI_PLACEMENT.rotationY}
@@ -451,7 +460,7 @@ function FlatNeighborhood({
       {showDetailModels && (
         <>
           <ShangshengXinsuoBlock />
-          <XinhuaRoadPlaneTrees showHero={showHeroTree} />
+          <XinhuaRoadPlaneTrees showHero={showHeroTree} atmosphere={atmosphere} />
           <XinhuaRoadLandmarks
             showLabels={showDetailLabels}
             priorityPreset={priorityPreset}
@@ -606,43 +615,6 @@ type WandererCharacterProps = {
   scale?: number;
 };
 
-function AutumnWandererBag() {
-  return (
-    <group
-      name="xinhua-autumn-messenger-bag"
-      scale={CHARACTER_VISUAL_SCALE}
-      userData={{ characterDetail: "xinhua-postcard-bag" }}
-    >
-      <mesh
-        position={[-0.015, 1.18, -0.155]}
-        rotation-z={-0.5}
-        castShadow
-      >
-        <capsuleGeometry args={[0.023, 0.68, 5, 10]} />
-        <meshToonMaterial color="#6e4334" />
-      </mesh>
-      <RoundedBox
-        args={[0.36, 0.3, 0.12]}
-        radius={0.055}
-        smoothness={3}
-        position={[0.13, 0.91, -0.205]}
-        rotation-z={0.035}
-        castShadow
-      >
-        <meshToonMaterial color="#a7543f" />
-      </RoundedBox>
-      <mesh position={[0.13, 1.01, -0.27]} rotation-x={-0.08} castShadow>
-        <boxGeometry args={[0.31, 0.105, 0.025]} />
-        <meshToonMaterial color="#d19a52" />
-      </mesh>
-      <mesh position={[0.13, 0.96, -0.286]} rotation-z={Math.PI / 4}>
-        <boxGeometry args={[0.055, 0.055, 0.018]} />
-        <meshBasicMaterial color="#f3dfaa" />
-      </mesh>
-    </group>
-  );
-}
-
 function DetailedWandererCharacter({
   outerRef,
   scale = 1,
@@ -695,7 +667,6 @@ function DetailedWandererCharacter({
   return (
     <group ref={outerRef} scale={scale}>
       <primitive object={model} scale={CHARACTER_VISUAL_SCALE} />
-      <AutumnWandererBag />
     </group>
   );
 }
@@ -744,13 +715,16 @@ function PlayableWanderer({
   onNearAction,
   startPreset,
   onPositionChange,
+  atmosphere,
 }: {
   onNearAction: (near: boolean) => void;
   startPreset?: string;
   onPositionChange: (position: readonly [number, number]) => void;
+  atmosphere: XinhuaAtmosphere;
 }) {
   const { camera, gl } = useThree();
   const outer = useRef<Group>(null);
+  const groundShadow = useRef<Group>(null);
   const initialStart = useMemo(() => requestedStartPreset(startPreset), [startPreset]);
   const initialForward = useMemo(() => initialStart.forward.clone(), [initialStart]);
   const cameraTargetHeight = initialStart.cameraTargetHeight ?? CAMERA_TARGET_HEIGHT;
@@ -1055,6 +1029,18 @@ function PlayableWanderer({
       s.basis.makeBasis(s.right, WORLD_UP, currentForward);
       outer.current.quaternion.setFromRotationMatrix(s.basis);
     }
+    if (groundShadow.current) {
+      const [sunX, , sunZ] = atmosphere.sunOffset;
+      const shadowLength = Math.hypot(sunX, sunZ);
+      const shadowX = -sunX / shadowLength;
+      const shadowZ = -sunZ / shadowLength;
+      groundShadow.current.position.set(
+        currentPosition.x * DETAIL_WORLD_SCALE + shadowX * 1.15,
+        scaledSurfaceHeight + 0.39,
+        currentPosition.z * DETAIL_WORLD_SCALE + shadowZ * 1.15,
+      );
+      groundShadow.current.rotation.y = Math.atan2(shadowX, shadowZ);
+    }
 
     s.cameraTarget.set(
       currentPosition.x * DETAIL_WORLD_SCALE,
@@ -1188,7 +1174,21 @@ function PlayableWanderer({
     }
   });
 
-  return <WandererCharacter outerRef={outer} />;
+  return (
+    <>
+      <group ref={groundShadow}>
+        <Shadow
+          scale={[1.05, 4.4, 1]}
+          color="#050807"
+          colorStop={0.1}
+          opacity={0.38}
+          depthWrite={false}
+          renderOrder={3}
+        />
+      </group>
+      <WandererCharacter outerRef={outer} />
+    </>
+  );
 }
 
 type OverviewLabelStyle = CSSProperties & {
@@ -1425,12 +1425,17 @@ export function IntroCamera({ active = true }: { active?: boolean }) {
 function AutumnLightRig({
   exploring,
   lowTier,
+  atmosphereStyle,
+  atmosphere,
 }: {
   exploring: boolean;
   lowTier: boolean;
+  atmosphereStyle: XinhuaAtmosphereStyle;
+  atmosphere: XinhuaAtmosphere;
 }) {
   const { camera } = useThree();
   const light = useRef<DirectionalLight>(null);
+  const skyFill = useRef<DirectionalLight>(null);
   const focus = useRef(SHADOW_CENTER.clone());
   const desiredFocus = useMemo(() => new Vector3(), []);
   const target = useMemo(() => {
@@ -1438,7 +1443,9 @@ function AutumnLightRig({
     result.position.copy(SHADOW_CENTER);
     return result;
   }, []);
-  const [sunX, sunY, sunZ] = XINHUA_AUTUMN_ATMOSPHERE.sunOffset;
+  const [sunX, sunY, sunZ] = atmosphere.sunOffset;
+  const [fillX, fillY, fillZ] = atmosphere.skyFillOffset;
+  const lightingV3 = atmosphereStyle === "lighting-v3";
 
   useFrame((_, delta) => {
     desiredFocus.set(
@@ -1457,22 +1464,28 @@ function AutumnLightRig({
       focus.current.y + sunY,
       focus.current.z + sunZ,
     );
+    skyFill.current?.position.set(
+      focus.current.x + fillX,
+      focus.current.y + fillY,
+      focus.current.z + fillZ,
+    );
   });
 
   return (
     <>
       <ambientLight
+        color={atmosphere.ambientColor}
         intensity={exploring
-          ? XINHUA_AUTUMN_ATMOSPHERE.ambientIntensity.explore
-          : XINHUA_AUTUMN_ATMOSPHERE.ambientIntensity.overview}
+          ? atmosphere.ambientIntensity.explore
+          : atmosphere.ambientIntensity.overview}
       />
       <hemisphereLight
         args={[
-          XINHUA_AUTUMN_ATMOSPHERE.hemisphereSky,
-          XINHUA_AUTUMN_ATMOSPHERE.hemisphereGround,
+          atmosphere.hemisphereSky,
+          atmosphere.hemisphereGround,
           exploring
-            ? XINHUA_AUTUMN_ATMOSPHERE.hemisphereIntensity.explore
-            : XINHUA_AUTUMN_ATMOSPHERE.hemisphereIntensity.overview,
+            ? atmosphere.hemisphereIntensity.explore
+            : atmosphere.hemisphereIntensity.overview,
         ]}
       />
       <primitive object={target} />
@@ -1481,20 +1494,34 @@ function AutumnLightRig({
         position={[SHADOW_CENTER.x + sunX, sunY, SHADOW_CENTER.z + sunZ]}
         target={target}
         intensity={exploring
-          ? XINHUA_AUTUMN_ATMOSPHERE.sunIntensity.explore
-          : XINHUA_AUTUMN_ATMOSPHERE.sunIntensity.overview}
-        color={XINHUA_AUTUMN_ATMOSPHERE.sunColor}
+          ? atmosphere.sunIntensity.explore
+          : atmosphere.sunIntensity.overview}
+        color={atmosphere.sunColor}
         castShadow
         shadow-mapSize-width={exploring && !lowTier ? 2048 : 1024}
         shadow-mapSize-height={exploring && !lowTier ? 2048 : 1024}
-        shadow-camera-near={0.5}
-        shadow-camera-far={320}
-        shadow-camera-left={exploring ? -72 : -240}
-        shadow-camera-right={exploring ? 72 : 240}
-        shadow-camera-top={exploring ? 72 : 240}
-        shadow-camera-bottom={exploring ? -72 : -240}
-        shadow-bias={-0.00018}
-        shadow-normalBias={0.018}
+        shadow-camera-near={lightingV3 ? 1 : 0.5}
+        shadow-camera-far={lightingV3 ? 280 : 320}
+        shadow-camera-left={exploring ? (lightingV3 ? -48 : -72) : -240}
+        shadow-camera-right={exploring ? (lightingV3 ? 48 : 72) : 240}
+        shadow-camera-top={exploring ? (lightingV3 ? 48 : 72) : 240}
+        shadow-camera-bottom={exploring ? (lightingV3 ? -48 : -72) : -240}
+        shadow-bias={lightingV3 ? -0.00012 : -0.00018}
+        shadow-normalBias={lightingV3 ? 0.012 : 0.018}
+        shadow-radius={lightingV3 ? 1.65 : 1}
+      />
+      <directionalLight
+        ref={skyFill}
+        position={[
+          SHADOW_CENTER.x + fillX,
+          fillY,
+          SHADOW_CENTER.z + fillZ,
+        ]}
+        target={target}
+        color={atmosphere.skyFillColor}
+        intensity={exploring
+          ? atmosphere.skyFillIntensity.explore
+          : atmosphere.skyFillIntensity.overview}
       />
     </>
   );
@@ -1503,6 +1530,7 @@ function AutumnLightRig({
 export function XinhuaWorld({
   mode,
   lowTier,
+  atmosphereStyle,
   onNearAction,
   onOpenAction,
   nearPoiId,
@@ -1513,6 +1541,7 @@ export function XinhuaWorld({
 }: {
   mode: "intro" | "overview" | "explore";
   lowTier: boolean;
+  atmosphereStyle: XinhuaAtmosphereStyle;
   onNearAction: (near: boolean) => void;
   onOpenAction: () => void;
   nearPoiId: string | null;
@@ -1523,6 +1552,7 @@ export function XinhuaWorld({
 }) {
   const exploring = mode === "explore";
   const overview = mode === "overview";
+  const atmosphere = XINHUA_ATMOSPHERES[atmosphereStyle];
   const overviewCameraFocus = useRef(new Vector3(
     overviewStartPosition[0],
     terrainHeightAt(overviewStartPosition[0], overviewStartPosition[1]) + 0.33,
@@ -1542,21 +1572,28 @@ export function XinhuaWorld({
     <>
       {exploring && (
         <fog attach="fog" args={[
-          XINHUA_AUTUMN_ATMOSPHERE.fog,
+          atmosphere.fog,
           92 * DETAIL_WORLD_SCALE,
           235 * DETAIL_WORLD_SCALE,
         ]} />
       )}
       <color
         attach="background"
-        args={[new Color(XINHUA_AUTUMN_ATMOSPHERE.background)]}
+        args={[new Color(atmosphere.background)]}
       />
-      <AutumnLightRig exploring={exploring} lowTier={lowTier} />
+      <AutumnLightRig
+        exploring={exploring}
+        lowTier={lowTier}
+        atmosphereStyle={atmosphereStyle}
+        atmosphere={atmosphere}
+      />
       <FlatNeighborhood
         onOpenAction={onOpenAction}
+        atmosphere={atmosphere}
         detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
         showDetailModels={mode !== "intro"}
         showDetailLabels={false}
+        showRoadLabels={!exploring}
         showHeroTree={exploring}
         priorityPreset={destinationPreset}
         landmarkLoadMode={exploring ? "explore" : "overview"}
@@ -1579,6 +1616,7 @@ export function XinhuaWorld({
           onNearAction={onNearAction}
           startPreset={destinationPreset}
           onPositionChange={onPositionChange}
+          atmosphere={atmosphere}
         />
       )}
     </>

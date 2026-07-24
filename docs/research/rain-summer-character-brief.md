@@ -196,3 +196,21 @@ The current procedural summer character is rejected. Its capsule limbs, oversize
 - Formal runtime evidence: `test_rain_production_local_desktop.jpg` at 1440×900 and `test_rain_production_local_mobile.jpg` at 390×844 show the same GLB in the real `?start=xingfuli-canonical` route with zero console errors.
 - Attribution: the exact credit remains in the Style Lab and is also available from the formal map footer/help panel, including mobile.
 - Rollback point: switch `CHARACTER_MODEL_PATH` and `CHARACTER_VISUAL_SCALE` back to the retained `urban-wanderer.glb` contract.
+
+### Iteration 6
+
+- User decision: remove the runtime messenger bag and replace the horizontal high
+  ponytail rather than covering it with a hat.
+- Asset change: exclude `GEO-rain_hair_ponytail` and `GEO-rain_hairband`; generate
+  `Rain_hair_low_ponytail` and `Rain_hairband_low` as a compact two-lobe bundle
+  rigidly weighted to `Head`.
+- Final GLB: SHA
+  `f9721e54f0348b7139bc36ca9db6fe1deffd2cb09f868b7dcf7c64c25ea4b011`,
+  `2,873,640` bytes, `56,094` triangles, `76` nodes, `13` meshes,
+  `11` materials, `0` images, `1` skin and the unchanged
+  `Idle_Neutral` / `Walk` / `Run` clips.
+- Runtime evidence: actual `?start=garden179` at 1440×900 and 390×844 shows the
+  same SHA-versioned asset with no bag, compact rear silhouette and correct ground
+  contact. Console application errors: `0`.
+- Scope boundary: collision, movement, jump, follow camera, body rig and animation
+  logic were not changed.
