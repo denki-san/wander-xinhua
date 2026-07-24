@@ -1,0 +1,1011 @@
+{
+  "generatedAt": "2026-07-24T11:16:40.047Z",
+  "browser": {
+    "Browser": "Chrome/150.0.7871.184",
+    "Protocol-Version": "1.3",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/150.0.0.0 Safari/537.36",
+    "V8-Version": "15.0.245.21",
+    "WebKit-Version": "537.36 (@b00ca14462515db4f5accb9f5b328ffaa65da7ff)",
+    "webSocketDebuggerUrl": "ws://127.0.0.1:9227/devtools/browser/3dfeefd0-393a-46be-b113-248f741427a0"
+  },
+  "buildMode": "vinext production",
+  "results": [
+    {
+      "id": "progressive-standard",
+      "url": "http://127.0.0.1:3017/hybrid-model-test?mode=progressive&policy=auto",
+      "network": {
+        "id": "standard-4g",
+        "latencyMs": 80,
+        "downloadMbps": 5,
+        "uploadMbps": 2
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "playableWallMs": 2482,
+      "requestsAtPlayable": [],
+      "boundaryProbe": {
+        "distances": [
+          61,
+          59,
+          62,
+          60,
+          55
+        ],
+        "transitionsBefore": 1,
+        "transitionsAfter": 1,
+        "stable": true
+      },
+      "snapshot": {
+        "ready": true,
+        "policy": "auto",
+        "allowFull": true,
+        "distance": 39,
+        "tier": "detail",
+        "activeVisual": "full",
+        "stageTimes": {
+          "playableMs": 91.7,
+          "identityRequestedMs": 662.6,
+          "identityVisibleMs": 1390.8,
+          "fullRequestedMs": 2334.4,
+          "fullVisibleMs": 11378.4
+        },
+        "transitions": [
+          {
+            "from": "massing",
+            "to": "identity",
+            "distance": 55,
+            "atMs": 662.6
+          },
+          {
+            "from": "identity",
+            "to": "detail",
+            "distance": 34,
+            "atMs": 2334.4
+          }
+        ],
+        "controls": [
+          {
+            "sequence": 1,
+            "fromDistance": 82,
+            "toDistance": 55,
+            "issuedMs": 662.1,
+            "appliedMs": 662.8,
+            "responseMs": 0.7
+          },
+          {
+            "sequence": 2,
+            "fromDistance": 55,
+            "toDistance": 61,
+            "issuedMs": 1917.3,
+            "appliedMs": 1918,
+            "responseMs": 0.7
+          },
+          {
+            "sequence": 3,
+            "fromDistance": 61,
+            "toDistance": 59,
+            "issuedMs": 2020.6,
+            "appliedMs": 2021.2,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 4,
+            "fromDistance": 59,
+            "toDistance": 62,
+            "issuedMs": 2124.2,
+            "appliedMs": 2124.8,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 5,
+            "fromDistance": 62,
+            "toDistance": 60,
+            "issuedMs": 2125.8,
+            "appliedMs": 2126,
+            "responseMs": 0.2
+          },
+          {
+            "sequence": 6,
+            "fromDistance": 60,
+            "toDistance": 55,
+            "issuedMs": 2227.6,
+            "appliedMs": 2228,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 7,
+            "fromDistance": 55,
+            "toDistance": 34,
+            "issuedMs": 2334.1,
+            "appliedMs": 2334.6,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 8,
+            "fromDistance": 34,
+            "toDistance": 34,
+            "issuedMs": 2337,
+            "appliedMs": 2337.7,
+            "responseMs": 0.7
+          },
+          {
+            "sequence": 9,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 2560.9,
+            "appliedMs": 2561.4,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 10,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 2783.6,
+            "appliedMs": 2784.2,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 11,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 3006.9,
+            "appliedMs": 3007.5,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 12,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 3229.7,
+            "appliedMs": 3230.2,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 13,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 3452.9,
+            "appliedMs": 3453.4,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 14,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 3675.2,
+            "appliedMs": 3675.7,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 15,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 3898.3,
+            "appliedMs": 3898.9,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 16,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 4020.5,
+            "appliedMs": 4020.9,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 17,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 4241.7,
+            "appliedMs": 4242.2,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 18,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 4466,
+            "appliedMs": 4466.4,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 19,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 4591.9,
+            "appliedMs": 4592.4,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 20,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 4813.9,
+            "appliedMs": 4814.5,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 21,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 5035.3,
+            "appliedMs": 5035.9,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 22,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 5258.3,
+            "appliedMs": 5258.8,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 23,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 5380,
+            "appliedMs": 5380.4,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 24,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 5602.9,
+            "appliedMs": 5603.4,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 25,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 5825.1,
+            "appliedMs": 5825.8,
+            "responseMs": 0.7
+          },
+          {
+            "sequence": 26,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 6045.9,
+            "appliedMs": 6046.5,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 27,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 6269.1,
+            "appliedMs": 6269.5,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 28,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 6492.8,
+            "appliedMs": 6493.3,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 29,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 6717.6,
+            "appliedMs": 6718.1,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 30,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 6939.2,
+            "appliedMs": 6939.6,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 31,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 7162.3,
+            "appliedMs": 7162.8,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 32,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 7383.9,
+            "appliedMs": 7384.3,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 33,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 7608.5,
+            "appliedMs": 7608.9,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 34,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 7829.8,
+            "appliedMs": 7830.3,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 35,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 8052.2,
+            "appliedMs": 8052.7,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 36,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 8276.5,
+            "appliedMs": 8277.1,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 37,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 8497.5,
+            "appliedMs": 8497.9,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 38,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 8619.1,
+            "appliedMs": 8619.6,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 39,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 8842.6,
+            "appliedMs": 8843,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 40,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 8965.1,
+            "appliedMs": 8965.6,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 41,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 9189.4,
+            "appliedMs": 9189.9,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 42,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 9312.6,
+            "appliedMs": 9313.1,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 43,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 9535.9,
+            "appliedMs": 9536.4,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 44,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 9756.8,
+            "appliedMs": 9757.4,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 45,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 9982.9,
+            "appliedMs": 9983.3,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 46,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 10109,
+            "appliedMs": 10109.4,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 47,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 10331.7,
+            "appliedMs": 10332.2,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 48,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 10556.9,
+            "appliedMs": 10557.4,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 49,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 10778.9,
+            "appliedMs": 10779.4,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 50,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 11000.4,
+            "appliedMs": 11000.8,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 51,
+            "fromDistance": 34,
+            "toDistance": 39,
+            "issuedMs": 11222.7,
+            "appliedMs": 11223.4,
+            "responseMs": 0.7
+          }
+        ]
+      },
+      "controls": {
+        "inPage": {
+          "count": 51,
+          "medianMs": 0.5,
+          "maxMs": 0.7
+        },
+        "cdpWall": {
+          "count": 51,
+          "medianMs": 101.7,
+          "maxMs": 103.8
+        }
+      },
+      "resources": {
+        "count": 11,
+        "transferBytes": 7597474,
+        "decodedBytes": 7594174,
+        "largest": [
+          {
+            "file": "shanghai-cinema.glb",
+            "type": "fetch",
+            "durationMs": 9036.2,
+            "transferBytes": 5862960,
+            "decodedBytes": 5862660
+          },
+          {
+            "file": "three.module-DXsm2a6T.js",
+            "type": "other",
+            "durationMs": 2102.4,
+            "transferBytes": 725592,
+            "decodedBytes": 725292
+          },
+          {
+            "file": "shanghai-cinema-hybrid-identity.glb",
+            "type": "fetch",
+            "durationMs": 723.3,
+            "transferBytes": 418920,
+            "decodedBytes": 418620
+          },
+          {
+            "file": "Gltf-BA3r2azd.js",
+            "type": "other",
+            "durationMs": 1340.6,
+            "transferBytes": 229258,
+            "decodedBytes": 228958
+          },
+          {
+            "file": "framework-BXvfDgrn.js",
+            "type": "other",
+            "durationMs": 1168.9,
+            "transferBytes": 190523,
+            "decodedBytes": 190223
+          },
+          {
+            "file": "index-D3tCPfIP.js",
+            "type": "other",
+            "durationMs": 672.2,
+            "transferBytes": 82367,
+            "decodedBytes": 82067
+          },
+          {
+            "file": "index-Dd7jQUnx.css",
+            "type": "link",
+            "durationMs": 588.2,
+            "transferBytes": 68274,
+            "decodedBytes": 67974
+          },
+          {
+            "file": "HybridModelComparison-DEc5mMuC.js",
+            "type": "other",
+            "durationMs": 317.5,
+            "transferBytes": 16098,
+            "decodedBytes": 15798
+          }
+        ]
+      },
+      "glbResponses": [
+        {
+          "file": "shanghai-cinema-hybrid-identity.glb",
+          "status": 200,
+          "mimeType": "application/octet-stream",
+          "encodedBytes": 418853
+        },
+        {
+          "file": "shanghai-cinema.glb",
+          "status": 200,
+          "mimeType": "application/octet-stream",
+          "encodedBytes": 5862895
+        }
+      ],
+      "consoleMessages": [
+        {
+          "type": "warning",
+          "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+        }
+      ],
+      "pageErrors": []
+    },
+    {
+      "id": "progressive-weak-save-data",
+      "url": "http://127.0.0.1:3017/hybrid-model-test?mode=progressive&policy=save-data",
+      "network": {
+        "id": "weak-network",
+        "latencyMs": 160,
+        "downloadMbps": 1,
+        "uploadMbps": 0.5
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "playableWallMs": 10732,
+      "requestsAtPlayable": [],
+      "snapshot": {
+        "ready": true,
+        "policy": "save-data",
+        "allowFull": false,
+        "distance": 34,
+        "tier": "detail",
+        "activeVisual": "identity",
+        "stageTimes": {
+          "playableMs": 96.3,
+          "identityRequestedMs": 265.3,
+          "identityVisibleMs": 3636,
+          "fullRequestedMs": null,
+          "fullVisibleMs": null
+        },
+        "transitions": [
+          {
+            "from": "massing",
+            "to": "identity",
+            "distance": 55,
+            "atMs": 265.3
+          },
+          {
+            "from": "identity",
+            "to": "detail",
+            "distance": 34,
+            "atMs": 3730
+          }
+        ],
+        "controls": [
+          {
+            "sequence": 1,
+            "fromDistance": 82,
+            "toDistance": 55,
+            "issuedMs": 264.7,
+            "appliedMs": 265.5,
+            "responseMs": 0.8
+          },
+          {
+            "sequence": 2,
+            "fromDistance": 55,
+            "toDistance": 55,
+            "issuedMs": 367.8,
+            "appliedMs": 368.6,
+            "responseMs": 0.8
+          },
+          {
+            "sequence": 3,
+            "fromDistance": 55,
+            "toDistance": 57,
+            "issuedMs": 591.8,
+            "appliedMs": 592.4,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 4,
+            "fromDistance": 57,
+            "toDistance": 55,
+            "issuedMs": 814.8,
+            "appliedMs": 815.4,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 5,
+            "fromDistance": 55,
+            "toDistance": 57,
+            "issuedMs": 1038.3,
+            "appliedMs": 1038.9,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 6,
+            "fromDistance": 57,
+            "toDistance": 55,
+            "issuedMs": 1263.5,
+            "appliedMs": 1264,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 7,
+            "fromDistance": 55,
+            "toDistance": 57,
+            "issuedMs": 1387.6,
+            "appliedMs": 1388.1,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 8,
+            "fromDistance": 57,
+            "toDistance": 55,
+            "issuedMs": 1611.4,
+            "appliedMs": 1611.9,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 9,
+            "fromDistance": 55,
+            "toDistance": 57,
+            "issuedMs": 1834,
+            "appliedMs": 1834.5,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 10,
+            "fromDistance": 57,
+            "toDistance": 55,
+            "issuedMs": 2058.9,
+            "appliedMs": 2059.3,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 11,
+            "fromDistance": 55,
+            "toDistance": 57,
+            "issuedMs": 2284,
+            "appliedMs": 2284.4,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 12,
+            "fromDistance": 57,
+            "toDistance": 55,
+            "issuedMs": 2408.6,
+            "appliedMs": 2409.2,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 13,
+            "fromDistance": 55,
+            "toDistance": 57,
+            "issuedMs": 2635.4,
+            "appliedMs": 2635.9,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 14,
+            "fromDistance": 57,
+            "toDistance": 55,
+            "issuedMs": 2860.5,
+            "appliedMs": 2861.2,
+            "responseMs": 0.7
+          },
+          {
+            "sequence": 15,
+            "fromDistance": 55,
+            "toDistance": 57,
+            "issuedMs": 3083.5,
+            "appliedMs": 3084.1,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 16,
+            "fromDistance": 57,
+            "toDistance": 55,
+            "issuedMs": 3308,
+            "appliedMs": 3308.5,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 17,
+            "fromDistance": 55,
+            "toDistance": 57,
+            "issuedMs": 3532.9,
+            "appliedMs": 3533.4,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 18,
+            "fromDistance": 57,
+            "toDistance": 34,
+            "issuedMs": 3729.7,
+            "appliedMs": 3730.1,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 19,
+            "fromDistance": 34,
+            "toDistance": 33,
+            "issuedMs": 3832.9,
+            "appliedMs": 3833.5,
+            "responseMs": 0.6
+          },
+          {
+            "sequence": 20,
+            "fromDistance": 33,
+            "toDistance": 35,
+            "issuedMs": 3934.8,
+            "appliedMs": 3935.2,
+            "responseMs": 0.4
+          },
+          {
+            "sequence": 21,
+            "fromDistance": 35,
+            "toDistance": 39,
+            "issuedMs": 4038.5,
+            "appliedMs": 4039,
+            "responseMs": 0.5
+          },
+          {
+            "sequence": 22,
+            "fromDistance": 39,
+            "toDistance": 34,
+            "issuedMs": 4144.4,
+            "appliedMs": 4145,
+            "responseMs": 0.6
+          }
+        ]
+      },
+      "controls": {
+        "inPage": {
+          "count": 22,
+          "medianMs": 0.5,
+          "maxMs": 0.8
+        },
+        "cdpWall": {
+          "count": 22,
+          "medianMs": 102.5,
+          "maxMs": 105.9
+        }
+      },
+      "resources": {
+        "count": 10,
+        "transferBytes": 1734514,
+        "decodedBytes": 1731514,
+        "largest": [
+          {
+            "file": "three.module-DXsm2a6T.js",
+            "type": "other",
+            "durationMs": 10245.2,
+            "transferBytes": 725592,
+            "decodedBytes": 725292
+          },
+          {
+            "file": "shanghai-cinema-hybrid-identity.glb",
+            "type": "fetch",
+            "durationMs": 3365.8,
+            "transferBytes": 418920,
+            "decodedBytes": 418620
+          },
+          {
+            "file": "Gltf-BA3r2azd.js",
+            "type": "other",
+            "durationMs": 6446.2,
+            "transferBytes": 229258,
+            "decodedBytes": 228958
+          },
+          {
+            "file": "framework-BXvfDgrn.js",
+            "type": "other",
+            "durationMs": 5735.8,
+            "transferBytes": 190523,
+            "decodedBytes": 190223
+          },
+          {
+            "file": "index-D3tCPfIP.js",
+            "type": "other",
+            "durationMs": 3252.5,
+            "transferBytes": 82367,
+            "decodedBytes": 82067
+          },
+          {
+            "file": "index-Dd7jQUnx.css",
+            "type": "link",
+            "durationMs": 2803.7,
+            "transferBytes": 68274,
+            "decodedBytes": 67974
+          },
+          {
+            "file": "HybridModelComparison-DEc5mMuC.js",
+            "type": "other",
+            "durationMs": 1075.8,
+            "transferBytes": 16098,
+            "decodedBytes": 15798
+          },
+          {
+            "file": "HybridModelComparison-cc_5lfrg.css",
+            "type": "link",
+            "durationMs": 254.6,
+            "transferBytes": 1900,
+            "decodedBytes": 1600
+          }
+        ]
+      },
+      "glbResponses": [
+        {
+          "file": "shanghai-cinema-hybrid-identity.glb",
+          "status": 200,
+          "mimeType": "application/octet-stream",
+          "encodedBytes": 418853
+        }
+      ],
+      "consoleMessages": [
+        {
+          "type": "warning",
+          "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+        }
+      ],
+      "pageErrors": []
+    },
+    {
+      "id": "full-first-baseline",
+      "url": "http://127.0.0.1:3017/hybrid-model-test?mode=baseline&distance=near&view=front",
+      "network": {
+        "id": "standard-4g",
+        "latencyMs": 80,
+        "downloadMbps": 5,
+        "uploadMbps": 2
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "readyWallMs": 11419,
+      "metrics": {
+        "mode": "baseline",
+        "distancePreset": "near",
+        "tier": "detail",
+        "ready": true,
+        "readyMs": 9141,
+        "sampleMs": 621,
+        "fps": null,
+        "p95FrameMs": null,
+        "drawCalls": 15,
+        "triangles": 94164,
+        "geometries": 13,
+        "textures": 1,
+        "glbRequests": [
+          {
+            "file": "shanghai-cinema.glb",
+            "durationMs": 9033.8,
+            "transferBytes": 5862960,
+            "decodedBytes": 5862660
+          }
+        ]
+      },
+      "resources": {
+        "count": 10,
+        "transferBytes": 7178554,
+        "decodedBytes": 7175554,
+        "largest": [
+          {
+            "file": "shanghai-cinema.glb",
+            "type": "fetch",
+            "durationMs": 9033.8,
+            "transferBytes": 5862960,
+            "decodedBytes": 5862660
+          },
+          {
+            "file": "three.module-DXsm2a6T.js",
+            "type": "other",
+            "durationMs": 2097.3,
+            "transferBytes": 725592,
+            "decodedBytes": 725292
+          },
+          {
+            "file": "Gltf-BA3r2azd.js",
+            "type": "other",
+            "durationMs": 1338,
+            "transferBytes": 229258,
+            "decodedBytes": 228958
+          },
+          {
+            "file": "framework-BXvfDgrn.js",
+            "type": "other",
+            "durationMs": 1165,
+            "transferBytes": 190523,
+            "decodedBytes": 190223
+          },
+          {
+            "file": "index-D3tCPfIP.js",
+            "type": "other",
+            "durationMs": 665.8,
+            "transferBytes": 82367,
+            "decodedBytes": 82067
+          },
+          {
+            "file": "index-Dd7jQUnx.css",
+            "type": "link",
+            "durationMs": 581.4,
+            "transferBytes": 68274,
+            "decodedBytes": 67974
+          },
+          {
+            "file": "HybridModelComparison-DEc5mMuC.js",
+            "type": "other",
+            "durationMs": 313.4,
+            "transferBytes": 16098,
+            "decodedBytes": 15798
+          },
+          {
+            "file": "HybridModelComparison-cc_5lfrg.css",
+            "type": "link",
+            "durationMs": 100.6,
+            "transferBytes": 1900,
+            "decodedBytes": 1600
+          }
+        ]
+      },
+      "glbResponses": [
+        {
+          "file": "shanghai-cinema.glb",
+          "status": 200,
+          "mimeType": "application/octet-stream",
+          "encodedBytes": 5862895
+        }
+      ],
+      "consoleMessages": [
+        {
+          "type": "warning",
+          "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+        }
+      ],
+      "pageErrors": []
+    }
+  ]
+}

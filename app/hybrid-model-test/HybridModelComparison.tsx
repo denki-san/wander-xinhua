@@ -25,10 +25,12 @@ import {
   Quaternion,
   Vector3,
 } from "three";
+import { ProgressiveLodExperiment } from "./ProgressiveLodExperiment";
 import styles from "./hybrid-model-test.module.css";
 
-type TestMode = "baseline" | "hybrid";
+type TestMode = "baseline" | "hybrid" | "progressive";
 type DistancePreset = "far" | "medium" | "near";
+type ViewPreset = "default" | "front";
 type LoadTier = "massing" | "identity" | "detail";
 
 type Transform = {
@@ -73,6 +75,11 @@ const CAMERA_POSITIONS: Record<DistancePreset, [number, number, number]> = {
   medium: [8, 17, 49],
   near: [10, 12.5, 32],
 };
+const FRONT_CAMERA_POSITIONS: Record<DistancePreset, [number, number, number]> = {
+  far: [0, 22, -82],
+  medium: [0, 17, -58],
+  near: [0, 10, -45],
+};
 
 function cinemaFrontZ(x: number) {
   const radiusX = 15.2;
@@ -96,21 +103,21 @@ function cloneConfiguredScene(source: Group) {
   return clone;
 }
 
-function FullCinema({ onReady }: { onReady: () => void }) {
+export function FullCinema({ onReady }: { onReady: () => void }) {
   const { scene } = useGLTF(FULL_MODEL);
   const model = useMemo(() => cloneConfiguredScene(scene), [scene]);
   useEffect(onReady, [onReady]);
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
-function IdentityCinema({ onReady }: { onReady: () => void }) {
+export function IdentityCinema({ onReady }: { onReady: () => void }) {
   const { scene } = useGLTF(IDENTITY_MODEL);
   const model = useMemo(() => cloneConfiguredScene(scene), [scene]);
   useEffect(onReady, [onReady]);
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
-class ModelBoundary extends Component<
+export class ModelBoundary extends Component<
   { children: ReactNode; fallback: ReactNode },
   { failed: boolean }
 > {
@@ -194,7 +201,7 @@ function CylinderInstances({ transforms, color, radialSegments = 10 }: {
   );
 }
 
-function ProgrammaticMassing() {
+export function ProgrammaticMassing() {
   const glassMaterial = useMemo(() => new MeshStandardMaterial({
     color: new Color("#4f7478"),
     roughness: 0.25,
@@ -258,7 +265,7 @@ function ProgrammaticMassing() {
   );
 }
 
-function RepeatedDetails() {
+export function RepeatedDetails() {
   const silver = "#929f9d";
   const shadowWhite = "#cfd0ca";
   const lobbyMullions = useMemo<Transform[]>(() => Array.from({ length: 31 }, (_, index) => {
@@ -340,19 +347,24 @@ function tierForPreset(preset: DistancePreset): LoadTier {
   return "massing";
 }
 
-function CameraAndTier({ preset, onTier }: {
+function CameraAndTier({ preset, viewPreset, onTier }: {
   preset: DistancePreset;
+  viewPreset: ViewPreset;
   onTier: (tier: LoadTier) => void;
 }) {
   const { camera } = useThree();
   const lastTier = useRef<LoadTier | null>(null);
   useLayoutEffect(() => {
-    camera.position.set(...CAMERA_POSITIONS[preset]);
+    camera.position.set(...(
+      viewPreset === "front" ? FRONT_CAMERA_POSITIONS[preset] : CAMERA_POSITIONS[preset]
+    ));
     camera.lookAt(0, 6, 0);
     camera.updateProjectionMatrix();
-  }, [camera, preset]);
+  }, [camera, preset, viewPreset]);
   useFrame(() => {
-    const tier = tierForDistance(camera.position.distanceTo(new Vector3(0, 6, 0)));
+    const tier = viewPreset === "front"
+      ? tierForPreset(preset)
+      : tierForDistance(camera.position.distanceTo(new Vector3(0, 6, 0)));
     if (tier === lastTier.current) return;
     lastTier.current = tier;
     onTier(tier);
@@ -415,9 +427,19 @@ function RuntimeSampler({ mode, distancePreset, tier, ready, readyMs, onMetrics 
   return null;
 }
 
-function TestScene({ mode, distancePreset, tier, setTier, setReady, metrics, setMetrics }: {
+function TestScene({
+  mode,
+  distancePreset,
+  viewPreset,
+  tier,
+  setTier,
+  setReady,
+  metrics,
+  setMetrics,
+}: {
   mode: TestMode;
   distancePreset: DistancePreset;
+  viewPreset: ViewPreset;
   tier: LoadTier;
   setTier: (tier: LoadTier) => void;
   setReady: (readyMs: number) => void;
@@ -439,7 +461,7 @@ function TestScene({ mode, distancePreset, tier, setTier, setReady, metrics, set
       <ambientLight intensity={1.35} />
       <directionalLight position={[-18, 28, 20]} intensity={2.4} castShadow />
       <directionalLight position={[22, 12, -14]} intensity={0.8} />
-      <CameraAndTier preset={distancePreset} onTier={setTier} />
+      <CameraAndTier preset={distancePreset} viewPreset={viewPreset} onTier={setTier} />
       {mode === "baseline" ? (
         <ModelBoundary fallback={<ProgrammaticMassing />}>
           <Suspense fallback={null}>
@@ -471,17 +493,26 @@ function TestScene({ mode, distancePreset, tier, setTier, setReady, metrics, set
   );
 }
 
-function readTestParams(search: string): { mode: TestMode; distancePreset: DistancePreset } {
-  const params = new URLSearchParams(search);
-  const mode = params.get("mode") === "baseline" ? "baseline" : "hybrid";
-  const distance = params.get("distance");
-  const distancePreset = distance === "far" || distance === "medium" ? distance : "near";
-  return { mode, distancePreset };
-}
-
-function HydratedComparison({ mode, distancePreset }: {
+function readTestParams(search: string): {
   mode: TestMode;
   distancePreset: DistancePreset;
+  viewPreset: ViewPreset;
+} {
+  const params = new URLSearchParams(search);
+  const requestedMode = params.get("mode");
+  const mode = requestedMode === "baseline" || requestedMode === "progressive"
+    ? requestedMode
+    : "hybrid";
+  const distance = params.get("distance");
+  const distancePreset = distance === "far" || distance === "medium" ? distance : "near";
+  const viewPreset = params.get("view") === "front" ? "front" : "default";
+  return { mode, distancePreset, viewPreset };
+}
+
+function HydratedComparison({ mode, distancePreset, viewPreset }: {
+  mode: TestMode;
+  distancePreset: DistancePreset;
+  viewPreset: ViewPreset;
 }) {
   const [tier, setTier] = useState<LoadTier>(() => tierForPreset(distancePreset));
   const [metrics, setMetrics] = useState<RuntimeMetrics | null>(null);
@@ -537,6 +568,7 @@ function HydratedComparison({ mode, distancePreset }: {
           <TestScene
             mode={mode}
             distancePreset={distancePreset}
+            viewPreset={viewPreset}
             tier={tier}
             setTier={setTier}
             setReady={setReady}
@@ -592,12 +624,19 @@ export function HybridModelComparison() {
   if (!hydrated) {
     return <section className={styles.shell} data-test-ready="false" />;
   }
-  const { mode, distancePreset } = readTestParams(search);
+  const { mode, distancePreset, viewPreset } = readTestParams(search);
+  if (mode === "progressive") {
+    const policy = new URLSearchParams(search).get("policy") === "save-data"
+      ? "save-data"
+      : "auto";
+    return <ProgressiveLodExperiment key={policy} policy={policy} />;
+  }
   return (
     <HydratedComparison
-      key={`${mode}-${distancePreset}`}
+      key={`${mode}-${distancePreset}-${viewPreset}`}
       mode={mode}
       distancePreset={distancePreset}
+      viewPreset={viewPreset}
     />
   );
 }
