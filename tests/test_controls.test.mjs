@@ -276,7 +276,9 @@ test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", as
   assert.match(experience, /far: 800 \* mapData\.meta\.environmentScale/);
   assert.match(experience, /fov:\s*50/);
   assert.match(experience, /const \[lowTier\] = useState\(detectLowTier\)/);
-  assert.match(experience, /dpr=\{lowTier \? 1\.25 : \[1, 1\.75\]\}/);
+  assert.match(experience, /const \[renderDpr\] = useState\(\(\) => detectRenderDpr\(lowTier\)\)/);
+  assert.match(experience, /dpr=\{renderDpr\}/);
+  assert.doesNotMatch(experience, /dpr=\{\[[^\]]+\]\}/);
   assert.match(experience, /antialias: true/);
   assert.equal((experience.match(/<EffectComposer/g) ?? []).length, 1);
   assert.match(experience, /multisampling=\{lowTier \? 0 : 2\}/);
@@ -300,6 +302,8 @@ test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", as
   assert.doesNotMatch(effects, /setEnabled|activeStrength/);
   assert.match(effects, /texture2D\(inputBuffer, uv \+ offset\)\.rgb/);
   assert.doesNotMatch(effects, /uNormalBuffer/);
+  assert.doesNotMatch(experience, /StorybookCloudLayer/);
+  assert.doesNotMatch(effects, /xinhua-storybook-cloud-layer|camera-relative-low-poly-clouds/);
   assert.doesNotMatch(effects, /setAnimated|private animated/);
   assert.doesNotMatch(effects, /length\(uv - 0\.5\)/);
   assert.match(effects, /max\(edge\.x, edge\.y\)/);

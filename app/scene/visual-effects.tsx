@@ -7,7 +7,6 @@ import { Effect, EffectAttribute } from "postprocessing";
 import {
   BackSide,
   Color,
-  Group,
   RepeatWrapping,
   ShaderMaterial,
   SRGBColorSpace,
@@ -303,75 +302,6 @@ export function AutumnStorybookSky({ atmosphereStyle }: { atmosphereStyle: Xinhu
     >
       <sphereGeometry args={[420 * mapData.meta.environmentScale, 48, 28]} />
     </mesh>
-  );
-}
-
-const STORYBOOK_CLOUD_CLUSTERS = [
-  { position: [-64, 58, -188], scale: 5.8, tint: "#fff1d7", yaw: 0.14 },
-  { position: [70, 64, -205], scale: 6.8, tint: "#fae9cd", yaw: -0.22 },
-  { position: [4, 88, -250], scale: 5.2, tint: "#fff7e6", yaw: 0.48 },
-  { position: [-112, 42, -252], scale: 4.4, tint: "#f5e4c8", yaw: -0.56 },
-] as const;
-
-const STORYBOOK_CLOUD_PARTS = [
-  [0, 0, 0, 1.7, 0.66, 0.72],
-  [-1.34, -0.08, 0.1, 1.08, 0.52, 0.58],
-  [1.38, -0.05, -0.12, 1.18, 0.55, 0.62],
-  [-0.48, 0.42, -0.05, 1.02, 0.76, 0.64],
-  [0.54, 0.34, 0.08, 0.92, 0.69, 0.6],
-] as const;
-
-function StorybookCloudCluster({
-  position,
-  scale,
-  tint,
-  yaw,
-}: {
-  position: readonly [number, number, number];
-  scale: number;
-  tint: string;
-  yaw: number;
-}) {
-  return (
-    <group position={position} scale={scale} rotation-y={yaw}>
-      {STORYBOOK_CLOUD_PARTS.map(([x, y, z, scaleX, scaleY, scaleZ], index) => (
-        <mesh
-          key={`${x}-${y}-${index}`}
-          position={[x, y, z]}
-          scale={[scaleX, scaleY, scaleZ]}
-          renderOrder={-5}
-        >
-          <icosahedronGeometry args={[1, 2]} />
-          <meshToonMaterial
-            color={index >= 3 ? "#fff7e6" : index % 2 === 0 ? tint : "#ead8bd"}
-            emissive={index >= 3 ? "#8b5d31" : "#3f5361"}
-            emissiveIntensity={index >= 3 ? 0.12 : 0.045}
-            fog={false}
-            depthWrite={false}
-          />
-        </mesh>
-      ))}
-    </group>
-  );
-}
-
-export function StorybookCloudLayer() {
-  const group = useRef<Group>(null);
-  useFrame(({ camera }) => {
-    if (!group.current) return;
-    group.current.position.copy(camera.position);
-    group.current.quaternion.copy(camera.quaternion);
-  });
-  return (
-    <group
-      ref={group}
-      name="xinhua-storybook-cloud-layer"
-      userData={{ atmosphere: "camera-relative-low-poly-clouds", clusters: 4 }}
-    >
-      {STORYBOOK_CLOUD_CLUSTERS.map((cluster) => (
-        <StorybookCloudCluster key={cluster.position.join("-")} {...cluster} />
-      ))}
-    </group>
   );
 }
 

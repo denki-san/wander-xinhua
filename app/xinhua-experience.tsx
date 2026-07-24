@@ -34,7 +34,6 @@ import {
   AutumnStorybookSky,
   InkOutline,
   PaperWash,
-  StorybookCloudLayer,
 } from "./scene/visual-effects";
 import {
   DEFAULT_XINHUA_ATMOSPHERE_STYLE,
@@ -118,6 +117,12 @@ function detectLowTier() {
   const narrow = window.innerWidth < 720;
   const limited = (navigator.hardwareConcurrency ?? 8) <= 4;
   return touch || narrow || limited;
+}
+
+function detectRenderDpr(lowTier: boolean) {
+  if (lowTier) return 1.25;
+  if (typeof window === "undefined") return 1;
+  return Math.min(Math.max(window.devicePixelRatio || 1, 1), 1.75);
 }
 
 function TouchControls({ showPace }: { showPace: boolean }) {
@@ -411,6 +416,8 @@ export function XinhuaExperience() {
   const [fullscreen, setFullscreen] = useState(false);
   // 在 Canvas 首次创建前确定渲染档位，避免低配置设备先分配一套高配后处理资源。
   const [lowTier] = useState(detectLowTier);
+  // 固定本次会话的 drawing buffer 比例，避免浏览器 DPR 短暂变化时重建成低分辨率画布。
+  const [renderDpr] = useState(() => detectRenderDpr(lowTier));
   const [touchCapable, setTouchCapable] = useState(false);
   const [cameraQaVisible] = useState(() => (
     typeof window !== "undefined"
@@ -568,7 +575,7 @@ export function XinhuaExperience() {
     <main className={`xinhua-stage is-${mode}${playing ? " is-playing" : ""}${touchCapable ? " is-touch" : ""}`}>
       <Canvas
         shadows="percentage"
-        dpr={lowTier ? 1.25 : [1, 1.75]}
+        dpr={renderDpr}
         camera={{
           fov: 50,
           near: 0.1,
@@ -588,7 +595,6 @@ export function XinhuaExperience() {
         <Suspense fallback={null}>
           <AutumnStorybookSky atmosphereStyle={atmosphereStyle} />
         </Suspense>
-        {atmosphereStyle === "lighting-v3" && <StorybookCloudLayer />}
         <XinhuaWorld
           mode={mode}
           lowTier={lowTier}
