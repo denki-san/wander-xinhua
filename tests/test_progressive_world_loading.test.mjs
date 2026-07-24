@@ -8,6 +8,7 @@ import {
   WEAK_NETWORK_DOWNLINK_Mbps,
 } from "../app/scene/progressive-loading.ts";
 import { resolveProgressiveBuildingTier } from "../app/scene/progressive-building-stage.ts";
+import { XINHUA_ROAD_IDENTITY_KIND_BY_ID } from "../app/scene/xinhua-road-identity-contract.ts";
 
 const root = new URL("../", import.meta.url);
 
@@ -63,6 +64,13 @@ test("网络策略在 5Mbps 保留 Full 能力，并让省流与弱网封顶 Ide
     distance: 0,
     previousTier: "full",
   }), "identity");
+  assert.equal(resolveProgressiveBuildingTier({
+    ...base,
+    mode: "overview",
+    networkProfile: "weak",
+    distance: 0,
+    previousTier: "massing",
+  }), "identity", "弱网全览必须直接显示 Identity 建筑缩影");
   assert.equal(resolveProgressiveBuildingTier({
     ...base,
     mode: "explore",
@@ -145,7 +153,22 @@ test("生产主世界让全部建筑遵守 Massing、Identity、Full 三层合�
   assert.match(roadMassing, /XINHUA_ROAD_LANDMARKS\.map/);
   assert.match(roadMassing, /hiddenLandmarkIds\?\.has\(landmark\.id\)/);
   assert.match(roadMassing, /stage: identity \? "identity" : "massing"/);
+  assert.match(roadMassing, /<LandmarkIdentityMiniature/);
+  assert.match(roadMassing, /architectural-miniature/);
+  assert.match(roadMassing, /kind === "cinema"/);
+  assert.match(roadMassing, /kind === "villa-row"/);
+  assert.match(roadMassing, /kind === "orchestra-hall"/);
+  assert.match(roadMassing, /kind === "pocket-park"/);
   assert.ok(roadData.landmarks.length >= 14);
+  assert.deepEqual(
+    Object.keys(XINHUA_ROAD_IDENTITY_KIND_BY_ID).sort(),
+    roadData.landmarks.map(({ id }) => id).sort(),
+    "全览 Identity 建筑缩影必须覆盖每一个新华路地标",
+  );
+  assert.ok(
+    new Set(Object.values(XINHUA_ROAD_IDENTITY_KIND_BY_ID)).size >= 12,
+    "全览缩影不能退化成所有地标共用一种方盒轮廓",
+  );
   assert.match(roadFull, /distance <= threshold/);
   assert.match(roadFull, /current\.has\(landmark\.id\) \? exitDistance : enterDistance/);
   assert.match(roadFull, /<XinhuaRoadMassing identity hiddenLandmarkIds=\{hiddenIdentityIds\} \/>/);

@@ -4018,6 +4018,9 @@ Error: listen EPERM: operation not permitted 127.0.0.1:3002
 - **Resolved**: 2026-07-22T11:08:00+08:00
 - **Notes**: 经授权在沙箱外运行 `npm run preview:static -- --host 127.0.0.1 --port 3002`，端口正常监听。
 - **Recurrence**: 2026-07-22T21:05:00+08:00 建筑发布验收时 `127.0.0.1:4173` 再次触发同一限制；继续使用已验证的沙箱外静态预览路径。
+- **Recurrence**: 2026-07-24T21:10:00+08:00 全览 Identity 建筑缩影验收时
+  `127.0.0.1:4173` 再次被 managed sandbox 拒绝；同一限定命令获准后正常启动，
+  页面构建本身无监听错误。
 
 ---
 ## [ERR-20260722-106] cdp_raf_sample_hits_default_timeout

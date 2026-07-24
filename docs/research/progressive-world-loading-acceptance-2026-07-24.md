@@ -33,13 +33,26 @@ upgrading an unknown network from local-cache read speed.
 
 | Group | Massing | Identity | Full |
 | --- | --- | --- | --- |
-| 14 Xinhua Road landmarks | local footprint proxies | recognizable programmatic proxies | distance-gated landmark GLBs |
+| 14 Xinhua Road landmarks | local footprint proxies | 14 landmark-specific architectural miniatures across 13 silhouette families | distance-gated landmark GLBs |
 | Xingfuli | simple block volumes | programmatic facades and site details | three final building GLBs and detailed trees |
 | Shangsheng Xinsuo | footprint volumes | programmatic historic-building forms | Sun Ke Villa and Navy Club GLBs |
 | Huashan Greenland | park footprint and service-building volume | paths, forest, pond, court and recognizable service building | understory and complete park facilities |
 
 Full uses enter/exit hysteresis rather than a single distance threshold so a
 player near the boundary does not repeatedly mount and unmount models.
+
+### Overview thumbnail contract
+
+- Intro may use the cheapest Massing boxes while the world starts.
+- Overview always renders Identity or Full. While Full is pending, fails, or is
+  prohibited by the weak-network policy, the Identity miniature remains visible.
+- Xinhua Road Identity maps every landmark to a recognizable architectural
+  family such as cinema, gabled arts halls, villa row, garden house, modern
+  villa, pocket park, heritage gate or creative campus. It never falls back to
+  one shared plain box in overview.
+- These miniatures derive from the accepted landmark identity and footprint
+  bounds. This change does not alter Blender generators, GLB binaries or the
+  photographic evidence boundary.
 
 ## Bundle evidence
 
@@ -51,14 +64,14 @@ The production build now emits:
 | Path | Minified | Gzip | Loading phase |
 | --- | ---: | ---: | --- |
 | entry | 194.80 kB | 61.92 kB | initial |
-| experience | 138.24 kB | 39.37 kB | initial |
-| road Massing / Identity data | 99.00 kB | 28.83 kB | initial |
+| experience | 138.30 kB | 39.38 kB | initial |
+| road Massing / Identity data | 104.19 kB | 30.31 kB | initial |
 | React Three Fiber / Three core | 882.68 kB | 234.64 kB | initial |
 | input + geometry helpers | 2.96 kB | 1.35 kB | initial |
 | GLTF runtime | 70.42 kB | 20.69 kB | deferred |
 | post-processing | 174.19 kB | 88.83 kB | deferred |
 
-The complete initial JavaScript path is about `366.11 kB` gzip, a `22.7%`
+The complete initial JavaScript path is about `367.60 kB` gzip, a `22.3%`
 reduction from the baseline. The entry chunk itself fell from `1,560.64 kB` to
 `194.80 kB`.
 
@@ -142,6 +155,11 @@ override, and reached the conservative `weak` profile from measured startup
 throughput. After entering Shanghai Cinema, GLB requests and forbidden Full
 chunks both remained zero. The policy unit test also covers a warm-cache startup:
 cached scripts provide no upgrade evidence, so uncached GLBs remain blocked.
+
+The weak-network overview was also inspected at 1280 × 720 with the location card
+cleared from the viewport. All 14 Xinhua Road labels remained backed by
+architectural miniatures with distinct roofs, wings, courtyards, trees or gates;
+the former shared plain-box representation was absent.
 
 ### Console
 
