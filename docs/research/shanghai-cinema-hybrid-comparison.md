@@ -1,5 +1,14 @@
 # 上海影城完整 GLB 与混合渲染真实案例对比
 
+> **2026-07-24 生产规则更新**
+>
+> 本文的几何分工、Identity 预算和上海影城四项身份构件继续有效；下文
+> `Massing > 60 / Identity 38–60 / Detail ≤ 38` 仅是历史实验条件，不再是生产加载规则。
+> `docs/research/building-quality-tiers-and-loading-contract.md` 已覆盖距离 LOD 结论：
+> 地图始终展示 Hybrid Identity，Massing 只允许在启动封面遮挡期间存在，
+> Hero 只在明确进入建筑详情或近景游览时按需加载。上海影城 Hybrid Identity
+> 已按该合同恢复到生产地图。
+
 ## 结论
 
 本轮以真实 POI“上海影城（新华路 160 号）”验证以下运行时架构：
@@ -157,3 +166,13 @@
 - 身份 GLB 只保留 6 个 Blender 源构件，合并为 1 个运行时节点；
 - 第一轮近景 `21 draw calls`，确认程序化拆 Mesh 会抵消收益；第二轮把相同材质的玻璃体块和白色结构分别改为实例批次，桌面近景降到 `15`；移动补测仍比完整基线多 1 个 draw call，最终再把塔楼格线与楼梯并入同材质实例批次，桌面/移动近景均降到 `13`；
 - 性能与加载门通过，近景视觉等价门未完全通过；结论为架构 Go、上海影城生产替换 No-Go。
+
+### 2026-07-24 — 新合同覆盖旧距离实验
+
+- 保留程序化主体、实例化重复构件和 `418,620 bytes` 独特轮廓 GLB，作为上海影城正式 Hybrid Identity；
+- 废止生产地图中的距离阈值、距离采样和 Massing / Identity / Full 往返切换；
+- 地图阶段固定显示 Identity，标准网络进入 `?start=cinema` 后才请求 Hero；
+- 弱网进入 `?start=cinema` 时长期保留 Identity，不请求 Hero；
+- 真实静态构建验收中，封面模型请求为 0，地图请求 Identity 但不请求上海影城 Hero，
+  标准近景请求 Identity + Hero，弱网近景只请求 Identity；应用 error 为 0；
+- 此处“恢复生产”是按三档合同接受 Identity 的可见质量，不把它声明为 Hero 的近景视觉等价物。

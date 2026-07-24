@@ -9,6 +9,7 @@ import {
   type LandmarkPlacement,
 } from "./xinhua-road-contract";
 import { xinhuaRoadIdentityKind } from "./xinhua-road-identity-contract";
+import { ShanghaiCinemaHybridIdentity } from "./shanghai-cinema-hybrid-identity";
 
 const IDENTITY_COLORS = [
   "#e8dfcf",
@@ -601,6 +602,23 @@ export function LandmarkProgressiveProxy({
   landmark: LandmarkPlacement;
   identity: boolean;
 }) {
+  if (identity && landmark.id === "shanghai-cinema") {
+    return (
+      <group
+        name="shanghai-cinema-progressive-proxy"
+        userData={{
+          building: landmark.id,
+          stage: "identity",
+          overviewRepresentation: "custom-landmark-hybrid",
+          progressive: true,
+          fullScaleIdentity: true,
+        }}
+      >
+        <ShanghaiCinemaHybridIdentity />
+      </group>
+    );
+  }
+
   const bounds = landmark.localBounds;
   const width = bounds.maxX - bounds.minX;
   const depth = bounds.maxZ - bounds.minZ;

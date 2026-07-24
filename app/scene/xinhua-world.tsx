@@ -445,7 +445,6 @@ function FlatNeighborhood({
   landmarkLoadMode = "overview",
   networkProfile,
   mode,
-  progressiveFocus,
 }: {
   onOpenAction: () => void;
   atmosphere: XinhuaAtmosphere;
@@ -458,31 +457,21 @@ function FlatNeighborhood({
   landmarkLoadMode?: "overview" | "explore";
   networkProfile: ProgressiveNetworkProfile;
   mode: "intro" | "overview" | "explore";
-  progressiveFocus: RefObject<readonly [number, number]>;
 }) {
   const xingfuliTier = useProgressiveBuildingTier({
     mode,
     networkProfile,
-    focusPosition: progressiveFocus,
-    center: XINGFULI_POSITION,
-    fullEnterDistance: 72,
-    fullExitDistance: 88,
+    detailActive: priorityPreset === "xingfuli",
   });
   const shangshengTier = useProgressiveBuildingTier({
     mode,
     networkProfile,
-    focusPosition: progressiveFocus,
-    center: SHANGSHENG_XINSUO_POSITION,
-    fullEnterDistance: 92,
-    fullExitDistance: 112,
+    detailActive: priorityPreset === "shangsheng",
   });
   const huashanTier = useProgressiveBuildingTier({
     mode,
     networkProfile,
-    focusPosition: progressiveFocus,
-    center: HUASHAN_GREEN_POSITION,
-    fullEnterDistance: 76,
-    fullExitDistance: 94,
+    detailActive: priorityPreset === "huashan",
   });
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
@@ -521,7 +510,6 @@ function FlatNeighborhood({
               atmosphere={atmosphere}
               priorityPreset={priorityPreset}
               loadMode={landmarkLoadMode}
-              focusPosition={progressiveFocus}
             />
           </Suspense>
         </ProgressiveFeatureBoundary>
@@ -1581,7 +1569,6 @@ export function XinhuaWorld({
   const exploring = mode === "explore";
   const overview = mode === "overview";
   const atmosphere = XINHUA_ATMOSPHERES[atmosphereStyle];
-  const progressiveFocus = useRef<readonly [number, number]>(overviewStartPosition);
   const overviewCameraFocus = useRef(new Vector3(
     overviewStartPosition[0],
     terrainHeightAt(overviewStartPosition[0], overviewStartPosition[1]) + 0.33,
@@ -1599,7 +1586,6 @@ export function XinhuaWorld({
 
   const reportProgressivePosition = useCallback(
     (position: readonly [number, number]) => {
-      progressiveFocus.current = position;
       onPositionChange(position);
     },
     [onPositionChange],
@@ -1636,7 +1622,6 @@ export function XinhuaWorld({
         landmarkLoadMode={exploring ? "explore" : "overview"}
         networkProfile={networkProfile}
         mode={mode}
-        progressiveFocus={progressiveFocus}
       />
       <IntroCamera active={mode === "intro"} />
       {overview && (

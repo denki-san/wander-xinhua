@@ -1,7 +1,8 @@
 {
   "asset": "shanghai-cinema-hybrid-identity",
   "generatedAt": "2026-07-22T23:45:49+08:00",
-  "role": "experimental-unique-silhouette",
+  "role": "production-hybrid-identity",
+  "productionContract": "docs/research/building-quality-tiers-and-loading-contract.md",
   "generator": {
     "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_shanghai_cinema_hybrid_identity.py",
     "path": "scripts/create_shanghai_cinema_hybrid_identity.py",
@@ -50,7 +51,23 @@
     "glbAudit": "passed",
     "forbidImages": "passed",
     "maxNodes": "passed",
-    "runtimeQa": "passed-with-visual-gap",
-    "productionReplacement": "not-approved"
+    "runtimeQa": "passed-production-contract",
+    "productionReplacement": "approved-2026-07-24",
+    "mapStandard": {
+      "identityRequested": true,
+      "heroRequested": false
+    },
+    "detailStandard": {
+      "identityRequested": true,
+      "heroRequested": true
+    },
+    "detailWeak": {
+      "identityRequested": true,
+      "heroRequested": false
+    },
+    "applicationErrors": 0,
+    "knownWarnings": [
+      "Three.js Clock deprecation warning"
+    ]
   }
 }
