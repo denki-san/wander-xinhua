@@ -1,0 +1,36 @@
+{
+  "capturedAt": "2026-07-24",
+  "url": "http://127.0.0.1:4317/?start=shanghai-cinema",
+  "buildMode": "vite preview of npm run build:static",
+  "viewport": {
+    "width": 1280,
+    "height": 720,
+    "visibility": "visible"
+  },
+  "warmupSeconds": 7,
+  "frameSample": {
+    "frames": 120,
+    "durationMs": 2336,
+    "averageFrameMs": 19.466666666666665,
+    "averageFps": 51.36986301369863,
+    "p95FrameMs": 25
+  },
+  "cdpMetricsAfterSample": {
+    "jsHeapUsedBytes": 44811652,
+    "jsHeapTotalBytes": 109953024,
+    "documents": 1,
+    "domNodes": 142,
+    "jsEventListeners": 926
+  },
+  "console": {
+    "errors": 0,
+    "knownWarnings": [
+      "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    ]
+  },
+  "screenshots": [
+    "test_artifacts/test_street_surface_shanghai_cinema_runtime_preview.png",
+    "test_artifacts/test_street_surface_ground_detail_runtime_preview.png"
+  ],
+  "comparisonBoundary": "本轮没有在同一视口、同一设备和同一构建模式下采集基线，因此不声明性能提升。"
+}

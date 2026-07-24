@@ -420,6 +420,7 @@ function ActionInstallation({ onOpenAction }: { onOpenAction: () => void }) {
 function FlatNeighborhood({
   onOpenAction,
   atmosphere,
+  lowTier,
   detailScale = 1,
   showDetailModels = false,
   showDetailLabels = true,
@@ -430,6 +431,7 @@ function FlatNeighborhood({
 }: {
   onOpenAction: () => void;
   atmosphere: XinhuaAtmosphere;
+  lowTier: boolean;
   detailScale?: number;
   showDetailModels?: boolean;
   showDetailLabels?: boolean;
@@ -440,7 +442,11 @@ function FlatNeighborhood({
 }) {
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
-      <XinhuaStreetMap showRoadLabels={showRoadLabels} />
+      <XinhuaStreetMap
+        showRoadLabels={showRoadLabels}
+        showStreetDressing={showDetailModels}
+        lowTier={lowTier}
+      />
       <group
         position={[XINGFULI_POSITION[0], XINGFULI_BASE_Y, XINGFULI_POSITION[1]]}
         rotation-y={XINGFULI_PLACEMENT.rotationY}
@@ -1590,6 +1596,7 @@ export function XinhuaWorld({
       <FlatNeighborhood
         onOpenAction={onOpenAction}
         atmosphere={atmosphere}
+        lowTier={lowTier}
         detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
         showDetailModels={mode !== "intro"}
         showDetailLabels={false}

@@ -1,5 +1,69 @@
 # Errors
 
+## [ERR-20260724-091] vite_preview_sandbox_listen_permission
+
+**Logged**: 2026-07-24T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+独立 worktree 的 Vite 静态预览首次在文件沙箱中监听本机端口时被系统拒绝。
+
+### Error
+```text
+Error: listen EPERM: operation not permitted 127.0.0.1:4317
+```
+
+### Context
+- 命令为 `npm run preview:static -- --host 127.0.0.1 --port 4317`。
+- 构建产物正常，失败只发生在沙箱内创建监听端口。
+
+### Suggested Fix
+真实浏览器验收需要本地端口时，按权限流程在宿主环境启动同一条预览命令，不要改用未构建的开发服务冒充生产构建。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `package.json`, `.learnings/ERRORS.md`
+
+### Resolution
+- **Resolved**: 2026-07-24T00:00:00+08:00
+- **Notes**: 经批准后同一命令已在 `127.0.0.1:4317` 正常监听。
+
+---
+
+## [ERR-20260724-092] in_app_browser_networkidle_unsupported
+
+**Logged**: 2026-07-24T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+in-app Browser 文档列出了 `networkidle`，但当前后端的 `waitForLoadState` 不支持该状态。
+
+### Error
+```text
+playwright_wait_for_load_state does not support networkidle
+```
+
+### Context
+- 目标是本地生产构建中的持续 WebGL 页面，网络空闲本来也不是最可靠的场景稳定信号。
+- 页面 `load` 状态、显式预热、截图、console 和 CDP 指标均可继续使用。
+
+### Suggested Fix
+本项目 3D 页面验收使用 `load` 加固定预热时间，并用页面实际可见状态和资源/性能指标验证，不依赖 `networkidle`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `.learnings/ERRORS.md`
+
+### Resolution
+- **Resolved**: 2026-07-24T00:00:00+08:00
+- **Notes**: 改用 `load`、7 秒预热、实页截图、console error 和 120 帧 CDP 采样完成验收。
+
+---
+
 ## [ERR-20260719-079] map_test_locked_old_fallback_scale
 
 **Logged**: 2026-07-19T14:02:00+08:00
