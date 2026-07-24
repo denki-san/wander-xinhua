@@ -7,6 +7,7 @@ import {
   normalizeMoveVector,
   resetInput,
   setMoveVector,
+  shouldSprintFromAnalog,
 } from "../app/scene/input.ts";
 import {
   dampTangentTowards,
@@ -41,6 +42,20 @@ test("模拟摇杆使用径向死区并向共享状态写入连续分量", () =>
   resetInput();
   assert.equal(inputState.moveX, 0);
   assert.equal(inputState.moveY, 0);
+});
+
+test("走路模式封顶为走速，跑步模式只在摇杆推满时奔跑", () => {
+  assert.equal(shouldSprintFromAnalog(1, 0, false), false);
+  assert.equal(shouldSprintFromAnalog(0.7, 0, true), false);
+  assert.equal(shouldSprintFromAnalog(1, 0, true), true);
+
+  setMoveVector(1, 0, false);
+  assert.equal(inputState.sprint, false);
+  setMoveVector(0.7, 0, true);
+  assert.equal(inputState.sprint, false);
+  setMoveVector(1, 0, true);
+  assert.equal(inputState.sprint, true);
+  resetInput();
 });
 
 test("转向阻尼不随 30fps 或 60fps 改变结果", () => {
@@ -90,10 +105,15 @@ test("移动端摇杆只接管左下角触发区", async () => {
   assert.match(experience, /addEventListener\("pointerdown", beginMove, \{ capture: true/);
   assert.match(experience, /matchMedia\("\(any-pointer: coarse\)"\)/);
   assert.match(experience, /navigator\.maxTouchPoints/);
+  assert.match(experience, /get\("touchQa"\) === "1"/);
   assert.match(experience, /touchCapable \? " is-touch" : ""/);
   assert.match(experience, /new URLSearchParams\(window\.location\.search\)\.get\("start"\)/);
   assert.match(experience, /setMode\(requestedPreset \? "explore" : "overview"\)/);
-  assert.match(experience, /手机左下角拖动摇杆移动；其余画面可拖动镜头/);
+  assert.match(experience, /useState<"walk" \| "run">\("run"\)/);
+  assert.match(experience, /aria-label="移动速度模式"/);
+  assert.match(experience, /onClick=\{\(\) => selectPace\("walk"\)\}/);
+  assert.match(experience, /onClick=\{\(\) => selectPace\("run"\)\}/);
+  assert.match(experience, /手机左下角拖动摇杆移动；右侧可切换走路\/跑步并跳跃/);
   assert.match(styles, /\.touch-stick-zone\s*\{/);
   assert.match(styles, /\.touch-stick-zone\s*\{[^}]*bottom:\s*0/s);
   assert.match(styles, /\.touch-stick-zone\s*\{[^}]*left:\s*0/s);
@@ -103,6 +123,9 @@ test("移动端摇杆只接管左下角触发区", async () => {
   assert.match(styles, /\.touch-stick-zone\s*\{[^}]*pointer-events:\s*none/s);
   assert.match(styles, /\.xinhua-stage\.is-touch\s*\{\s*min-height:\s*0/);
   assert.match(styles, /\.xinhua-stage\.is-touch \.touch-controls\s*\{\s*display:\s*block/);
+  assert.match(styles, /\.touch-pace-toggle\s*\{[^}]*right:\s*14px/s);
+  assert.match(styles, /\.touch-pace-toggle\s*\{[^}]*bottom:\s*104px/s);
+  assert.match(styles, /\.touch-pace-toggle button\.is-active\s*\{/);
 });
 
 test("游玩舞台禁止文字选择和 iOS 长按菜单", async () => {

@@ -5324,3 +5324,48 @@ TypeError: requestAnimationFrame is not a function
 **Cause:** 依赖安装在主仓库根目录，隔离 worktree 没有自己的 `node_modules`；npm scripts 会自动补充父级依赖路径，但直接相对调用不会。
 **Resolution:** 使用主仓库已安装的 `../../node_modules/.bin/vite` 启动预览，不重新安装或复制依赖。
 **See Also:** ERR179
+
+## [ERR181] Browser 标签页集合没有 open 方法
+
+**Date:** 2026-07-24
+**Context:** 验收移动端走路/跑步切换按钮的生产构建。
+**Error:** `browser.tabs.open(...)` 返回 `browser.tabs.open is not a function`。
+**Cause:** 把其他浏览器控制接口的命名误套到当前 Browser client；当前接口使用 `browser.tabs.new(...)` 创建标签页。
+**Resolution:** 保留既有 Browser 绑定，改用 `browser.tabs.new(...)` 创建本地验收页，不重置浏览器或切换控制工具。
+**See Also:** ERR174
+
+## [ERR182] Browser 页面求值环境再次屏蔽 navigator
+
+**Date:** 2026-07-24
+**Context:** 读取走路/跑步切换按钮验收页的视口和触控能力。
+**Error:** 读取 `navigator.maxTouchPoints` 时返回 `Cannot read properties of undefined`。
+**Cause:** Browser 的受限页面求值环境不暴露 `navigator`，与既有移动端验收限制一致。
+**Resolution:** 不用 `navigator` 判断验收页；改读真实 DOM 的 viewport 尺寸、计算样式、控件 bounds 和 ARIA 状态，并用 Browser 点击验证切换。
+**See Also:** ERR176
+
+## [ERR183] Browser 受限 DOM 代理不支持 classList
+
+**Date:** 2026-07-24
+**Context:** 在桌面 Browser 标签中临时模拟 390×844 的手机舞台以检查触控按钮布局。
+**Error:** `stage.classList.add("is-touch")` 返回 `stage?.classList.add is not a function`。
+**Cause:** Browser 页面求值返回的是受限 DOM 代理，不提供完整的 `DOMTokenList` 接口。
+**Resolution:** 使用元素的 `getAttribute` / `setAttribute` 临时设置验收 class 与内联尺寸，再读取 `getBoundingClientRect` 和计算样式；不修改生产源码。
+**See Also:** ERR176, ERR182
+
+## [ERR184] Browser 受限 DOM 代理也禁止 setAttribute
+
+**Date:** 2026-07-24
+**Context:** 继续尝试只在验收标签页临时显示触控控件。
+**Error:** `stage.setAttribute(...)` 返回 `stage?.setAttribute is not a function`。
+**Cause:** 当前 Browser 页面求值不仅省略 `classList`，也不暴露通用 DOM 写入方法。
+**Resolution:** 停止依赖页面注入，新增只在显式 `touchQa=1` 查询参数下启用的触控控件 QA 入口，再用真实生产构建完成读取和点击验收。
+**See Also:** ERR176, ERR182, ERR183
+
+## [ERR185] 手机真实体验前局域网预览服务已停止
+
+**Date:** 2026-07-24
+**Context:** 用户要求不带监控数据的真实体验入口，交付前复查 `192.168.50.12:3013`。
+**Error:** `curl` 返回 `Failed to connect` 和 HTTP `000`。
+**Cause:** 之前的临时 Python 静态预览进程已不再监听 3013；构建产物本身仍在。
+**Resolution:** 从当前 worktree 的已验证 `dist-static` 重新绑定 `0.0.0.0:3013`，并在给出无查询参数入口前同时验证 localhost 与局域网地址返回 200。
+**See Also:** ERR179

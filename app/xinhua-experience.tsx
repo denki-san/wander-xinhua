@@ -109,9 +109,12 @@ function TouchControls({ showJump }: { showJump: boolean }) {
   const zone = useRef<HTMLDivElement>(null);
   const pointerId = useRef<number | null>(null);
   const center = useRef({ x: 0, y: 0 });
+  const currentMove = useRef({ x: 0, y: 0 });
+  const runEnabled = useRef(true);
   const [knob, setKnob] = useState({ x: 0, y: 0 });
   const [origin, setOrigin] = useState<{ x: number; y: number } | null>(null);
   const [jumping, setJumping] = useState(false);
+  const [pace, setPace] = useState<"walk" | "run">("run");
 
   useEffect(() => {
     const element = zone.current;
@@ -119,9 +122,10 @@ function TouchControls({ showJump }: { showJump: boolean }) {
 
     const clearMove = () => {
       pointerId.current = null;
+      currentMove.current = { x: 0, y: 0 };
       setKnob({ x: 0, y: 0 });
       setOrigin(null);
-      setMoveVector(0, 0);
+      setMoveVector(0, 0, runEnabled.current);
     };
     const beginMove = (event: PointerEvent) => {
       if (event.pointerType !== "touch" || pointerId.current !== null) return;
@@ -144,7 +148,8 @@ function TouchControls({ showJump }: { showJump: boolean }) {
         y: event.clientY - bounds.top,
       });
       setKnob({ x: 0, y: 0 });
-      setMoveVector(0, 0);
+      currentMove.current = { x: 0, y: 0 };
+      setMoveVector(0, 0, runEnabled.current);
       event.target.setPointerCapture(event.pointerId);
     };
     const updateMove = (event: PointerEvent) => {
@@ -159,7 +164,15 @@ function TouchControls({ showJump }: { showJump: boolean }) {
         y = y / length * TOUCH_STICK_TRAVEL;
       }
       setKnob({ x, y });
-      setMoveVector(x / TOUCH_STICK_TRAVEL, y / TOUCH_STICK_TRAVEL);
+      currentMove.current = {
+        x: x / TOUCH_STICK_TRAVEL,
+        y: y / TOUCH_STICK_TRAVEL,
+      };
+      setMoveVector(
+        currentMove.current.x,
+        currentMove.current.y,
+        runEnabled.current,
+      );
     };
     const endMove = (event: PointerEvent) => {
       if (pointerId.current !== event.pointerId) return;
@@ -183,6 +196,18 @@ function TouchControls({ showJump }: { showJump: boolean }) {
     };
   }, []);
 
+  const selectPace = (nextPace: "walk" | "run") => {
+    const nextRunEnabled = nextPace === "run";
+    runEnabled.current = nextRunEnabled;
+    setPace(nextPace);
+    // 双指操作时允许在摇杆仍推着的情况下即时切换速度上限。
+    setMoveVector(
+      currentMove.current.x,
+      currentMove.current.y,
+      nextRunEnabled,
+    );
+  };
+
   return (
     <div className="touch-controls">
       <div ref={zone} className="touch-stick-zone" aria-hidden="true">
@@ -195,26 +220,46 @@ function TouchControls({ showJump }: { showJump: boolean }) {
         </div>
       </div>
       {showJump && (
-        <button
-          type="button"
-          className={`touch-jump${jumping ? " is-pressed" : ""}`}
-          onPointerDown={(event) => {
-            event.preventDefault();
-            inputState.jump = true;
-            setJumping(true);
-          }}
-          onPointerUp={() => {
-            inputState.jump = false;
-            setJumping(false);
-          }}
-          onPointerCancel={() => {
-            inputState.jump = false;
-            setJumping(false);
-          }}
-          aria-label="跳跃"
-        >
-          跳
-        </button>
+        <>
+          <div className="touch-pace-toggle" role="group" aria-label="移动速度模式">
+            <button
+              type="button"
+              className={pace === "walk" ? "is-active" : ""}
+              aria-pressed={pace === "walk"}
+              onClick={() => selectPace("walk")}
+            >
+              走路
+            </button>
+            <button
+              type="button"
+              className={pace === "run" ? "is-active" : ""}
+              aria-pressed={pace === "run"}
+              onClick={() => selectPace("run")}
+            >
+              跑步
+            </button>
+          </div>
+          <button
+            type="button"
+            className={`touch-jump${jumping ? " is-pressed" : ""}`}
+            onPointerDown={(event) => {
+              event.preventDefault();
+              inputState.jump = true;
+              setJumping(true);
+            }}
+            onPointerUp={() => {
+              inputState.jump = false;
+              setJumping(false);
+            }}
+            onPointerCancel={() => {
+              inputState.jump = false;
+              setJumping(false);
+            }}
+            aria-label="跳跃"
+          >
+            跳
+          </button>
+        </>
       )}
     </div>
   );
@@ -302,7 +347,8 @@ export function XinhuaExperience() {
 
   useEffect(() => {
     const coarse = window.matchMedia("(any-pointer: coarse)").matches;
-    const touch = coarse || (navigator.maxTouchPoints ?? 0) > 0;
+    const touchQa = new URLSearchParams(window.location.search).get("touchQa") === "1";
+    const touch = touchQa || coarse || (navigator.maxTouchPoints ?? 0) > 0;
     const frame = window.requestAnimationFrame(() => {
       setTouchCapable(touch);
     });
@@ -638,7 +684,7 @@ export function XinhuaExperience() {
               <li>闲逛状态中按 <kbd>Shift</kbd> 奔跑，按 <kbd>Space</kbd> 跳跃</li>
               <li>闲逛时拖拽转动镜头，滚轮拉近或拉远</li>
               <li>点击“查看全览”可随时返回固定比例的新华街道全景</li>
-              <li>手机左下角拖动摇杆移动；其余画面可拖动镜头</li>
+              <li>手机左下角拖动摇杆移动；右侧可切换走路/跑步并跳跃</li>
               <li>
                 成品角色：
                 <a href="https://www.blenderstudio.cn/zh-hans/characters/rain/v1/" target="_blank" rel="noreferrer">

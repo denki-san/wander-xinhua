@@ -683,7 +683,9 @@ kbd {
   display: none;
 }
 
-.touch-jump {
+.touch-jump,
+.touch-pace-toggle,
+.touch-pace-toggle button {
   pointer-events: auto;
   touch-action: none;
 }
@@ -763,6 +765,38 @@ kbd {
   box-shadow: 4px 5px 0 rgba(39, 62, 57, 0.78);
   font-size: 16px;
   font-weight: 1000;
+}
+
+.touch-pace-toggle {
+  position: absolute;
+  z-index: 2;
+  right: 14px;
+  bottom: 104px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 112px;
+  padding: 3px;
+  border: 2px solid #2e4742;
+  border-radius: 18px;
+  background: rgba(239, 231, 207, 0.9);
+  box-shadow: 3px 4px 0 rgba(39, 62, 57, 0.68);
+}
+
+.touch-pace-toggle button {
+  min-height: 36px;
+  padding: 0 7px;
+  border: 0;
+  border-radius: 13px;
+  color: #38504b;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.touch-pace-toggle button.is-active {
+  color: #fff3d1;
+  background: var(--red);
+  box-shadow: 0 2px 0 rgba(39, 62, 57, 0.28);
 }
 
 .touch-jump.is-pressed {

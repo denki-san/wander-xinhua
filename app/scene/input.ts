@@ -67,7 +67,15 @@ export function normalizeMoveVector(
   };
 }
 
-export function setMoveVector(x: number, y: number) {
+export function shouldSprintFromAnalog(
+  x: number,
+  y: number,
+  runEnabled = true,
+) {
+  return runEnabled && Math.hypot(x, y) > 0.88;
+}
+
+export function setMoveVector(x: number, y: number, runEnabled = true) {
   const move = normalizeMoveVector(x, y);
   inputState.moveX = move.x;
   inputState.moveY = move.y;
@@ -77,5 +85,5 @@ export function setMoveVector(x: number, y: number) {
   inputState.back = move.magnitude > 0 && move.y > 0;
   inputState.left = move.magnitude > 0 && move.x < 0;
   inputState.right = move.magnitude > 0 && move.x > 0;
-  inputState.sprint = move.magnitude > 0 && Math.hypot(x, y) > 0.88;
+  inputState.sprint = move.magnitude > 0 && shouldSprintFromAnalog(x, y, runEnabled);
 }
