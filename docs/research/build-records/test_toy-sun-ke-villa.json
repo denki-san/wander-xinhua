@@ -1,0 +1,40 @@
+{
+  "asset": "test-toy-sun-ke-villa",
+  "generatedAt": "2026-07-23T13:33:26Z",
+  "generator": {
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_toy_building_style_previews.py",
+    "path": "scripts/create_toy_building_style_previews.py",
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "outputs": {
+    "blend": "test_artifacts/models/test_toy_sun-ke-villa.blend",
+    "glb": "test_artifacts/models/test_toy_sun-ke-villa.glb",
+    "sha256": "74762d91bb2552ef7a22da48fe4b499bf602be85ad85a1086de8e76bbac4fa02",
+    "cacheVersion": "style-study-only"
+  },
+  "metrics": {
+    "bytes": 1599808,
+    "nodes": 1,
+    "meshes": 1,
+    "triangles": 23256,
+    "materials": 8,
+    "images": 0,
+    "textures": 0,
+    "bounds": {
+      "min": [-4.044589519500732, 0, -2.7750000953674316],
+      "max": [3.553187370300293, 5.050000190734863, 2.75]
+    }
+  },
+  "evidence": {
+    "brief": "docs/research/toy-building-style-study-brief.md",
+    "comparison": "test_artifacts/test_toy_sun-ke-villa_canonical_preview.png",
+    "runtimeScreenshot": null
+  },
+  "validation": {
+    "grayboxRuntimeGate": "not-run-style-study",
+    "glbAudit": "passed",
+    "automatedTests": "python-compile-and-structural-audit-passed",
+    "runtimeQa": "pending-user-style-selection",
+    "independentReview": "visual-review-passed"
+  }
+}

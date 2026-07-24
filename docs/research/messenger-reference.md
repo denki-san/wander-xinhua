@@ -3,7 +3,7 @@
 ## 产品边界
 
 - 唯一视觉与交互参考：<https://messenger.abeto.co/>。
-- 技术参考：<https://github.com/promptwhisper/messenger>。
+- 技术参考：<https://github.com/promptwhisper/messenger>；这是第三方反推重建，并非 Abeto 原始源码。其可复用的 MIT 仅覆盖该仓库自有代码，不覆盖从原站加载或镜像的任何资产。源码级证据与边界见 `docs/knowledge-sources/messenger-official-runtime-and-source-audit-2026-07-24.md`。
 - 微信长图只用于理解“新华路街区 / 一平米行动”的项目背景，不作为配色、版式、模型或交互参考。
 - 产品是自由闲逛，不设置故事线、连续任务、打卡列表或地图看板。
 - 全场只有一个可触发的行动点：“一平米行动”。
@@ -40,7 +40,7 @@
 
 ## 授权边界
 
-`promptwhisper/messenger` 的源码采用 MIT License，可以作为实现参考；其 `public/` 下来自或基于 abeto 原站的模型、贴图、字体、图标和音频不受 MIT 授权覆盖，本项目不复制这些文件。最终运行时不得请求 `messenger.abeto.co` 的任何资源。
+`promptwhisper/messenger` 是第三方 React/Three.js 重建，只有其自有源码采用 MIT License，可以作为实现参考；其 `public/` 下来自或基于 abeto 原站的模型、贴图、字体、图标和音频不受 MIT 授权覆盖，本项目不复制这些文件。官方站公开下发 Draco 人物数据只说明浏览器可加载，不能推定再使用或再分发授权。最终运行时不得请求 `messenger.abeto.co` 的任何资源。
 
 ## 验收条件
 

@@ -1,0 +1,40 @@
+{
+  "asset": "test-toy-shanghai-cinema",
+  "generatedAt": "2026-07-23T13:33:26Z",
+  "generator": {
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_toy_building_style_previews.py -- --asset=shanghai-cinema",
+    "path": "scripts/create_toy_building_style_previews.py",
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "outputs": {
+    "blend": "test_artifacts/models/test_toy_shanghai-cinema.blend",
+    "glb": "test_artifacts/models/test_toy_shanghai-cinema.glb",
+    "sha256": "7fc123afef6b13f60e3da50a29409fa5688a3a84954dee0050ec0836ed3a22d3",
+    "cacheVersion": "style-study-only"
+  },
+  "metrics": {
+    "bytes": 5875928,
+    "nodes": 1,
+    "meshes": 1,
+    "triangles": 83820,
+    "materials": 13,
+    "images": 0,
+    "textures": 0,
+    "bounds": {
+      "min": [-19, -0.06000000983476639, -11.800000190734863],
+      "max": [19, 17.225000381469727, 14.199999809265137]
+    }
+  },
+  "evidence": {
+    "brief": "docs/research/toy-building-style-study-brief.md",
+    "comparison": "test_artifacts/test_toy_shanghai-cinema_canonical_preview.png",
+    "runtimeScreenshot": null
+  },
+  "validation": {
+    "grayboxRuntimeGate": "not-run-style-study",
+    "glbAudit": "passed",
+    "automatedTests": "python-compile-and-structural-audit-passed",
+    "runtimeQa": "pending-user-style-selection",
+    "independentReview": "visual-review-passed-after-color-space-fix"
+  }
+}
