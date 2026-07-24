@@ -5165,7 +5165,7 @@ TypeError: requestAnimationFrame is not a function
 - Symptom: Python `socket.bind` 返回 `PermissionError: [Errno 1] Operation not permitted`。
 - Cause: managed sandbox 禁止当前进程绑定本机预览端口；Vite 构建、封面专项测试和 lint 已独立通过。
 - Resolution: 对同一个仅绑定 `127.0.0.1:3002` 的静态预览命令申请沙箱外执行，再使用真实浏览器完成桌面与手机封面截图。
-- Recurrence: 2026-07-24 上海影城渐进 LOD 实验中，`vinext start` 绑定 `0.0.0.0:3017` 同样返回 `listen EPERM`；生产构建已通过，应直接对限定端口的启动命令申请沙箱外执行。
+- Recurrence: 2026-07-24 上海影城渐进 LOD 实验中，`vinext start` 绑定 `0.0.0.0:3017` 同样返回 `listen EPERM`；同日第三人称相机方案基线与 A/B 验收中，Python 静态服务绑定 `127.0.0.1:3013`、`127.0.0.1:3014` 再次返回同一错误。生产构建通过时，应直接对限定 loopback 端口的启动命令申请沙箱外执行。
 - See Also: ERR153
 ## [ERR162] Git staging blocked by sandbox index lock restriction
 
@@ -5207,3 +5207,67 @@ TypeError: requestAnimationFrame is not a function
 **Error:** `agent-browser open ...` 返回 `command not found: agent-browser`。
 **Cause:** 当前会话提供了 agent-browser 工作流说明，但本机没有对应可执行文件。
 **Resolution:** 不为一次实验临时安装全局依赖，回退到仓库已有且已验证的 Headless Chrome CDP 测试脚本；继续固定浏览器版本、视口、网络、缓存与页面错误采集。
+
+## [ERR167] Browser CUA 滚轮字段名误用
+
+**Date:** 2026-07-24
+**Context:** 验证第三人称相机首次滚轮缩放是否连续。
+**Error:** `cua.scroll` 返回 `requires x, y, scrollX, and scrollY`。
+**Cause:** 误用了 CDP 风格的 `deltaX/deltaY`，而 Browser CUA 接口要求 `scrollX/scrollY`。
+**Resolution:** 保留截图确认的画布坐标，改用 `{ x, y, scrollX, scrollY }`；向内、向外和最近边界三条真实页面缩放路径均随后通过。
+
+## [ERR168] React lint 拒绝 effect 内的相机变更与同步 setState
+
+**Date:** 2026-07-24
+**Context:** 第三人称相机 V1 收口运行 `npm run lint`。
+**Error:** `react-hooks/immutability` 拒绝在 `useLayoutEffect` 修改 `useThree()` 返回的 camera；`react-hooks/set-state-in-effect` 拒绝 effect 内同步设置 QA 查询参数状态。
+**Cause:** 相机投影更新没有放进 R3F 的帧生命周期；只读 URL 初值被不必要地建模成 effect 同步。
+**Resolution:** 用 `useFrame(({ camera, size }) => ...)` 更新 FOV，只在值变化时刷新投影矩阵；QA 开关改为带 `window` 守卫的惰性 `useState` 初值。修正后重新运行 lint。
+
+## [ERR169] 多个二进制验收产物不能用文本补丁批量整理
+
+**Date:** 2026-07-24
+**Context:** 把第三人称相机 A/B 轨迹和截图整理进 `docs/research`。
+**Error:** 一条 `mv source target source target` 被解释成多源到单目录；随后 `apply_patch` 删除 PNG 时因非 UTF-8 二进制内容失败。
+**Cause:** `mv` 不支持在一条多源命令中表达多个不同目标名；文本补丁工具也不适合读取 PNG。
+**Resolution:** 不同目标名的轨迹拆成独立 `mv`；保留的 PNG 只做机械移动，明确由本轮生成且不纳入证据的临时 PNG 用精确文件名删除，不使用递归或通配符。
+
+## [ERR170] 直接用 Node 导入 TSX 只为统计边界长度
+
+**Date:** 2026-07-24
+**Context:** 复核 spring-arm 每帧边界采样规模。
+**Error:** 先把实际的 `xinhua-map.tsx` 猜成 `.ts`，随后原生 Node 又因不识别 `.tsx` 扩展名而失败。
+**Cause:** 对只需读取 JSON 数组长度的诊断使用了不必要的模块导入路径。
+**Resolution:** 先用 `rg --files` 确认文件，再直接执行 `jq '.boundary | length' app/scene/xinhua-map-data.json`；确认边界为 59 个点，不再引入 TSX loader。
+
+## [ERR171] 全量测试仍把已淘汰的相机兜底循环当作合同
+
+**Date:** 2026-07-24
+**Context:** spring-arm V1 通过生产构建后运行 `npm test`。
+**Error:** 133 项中 3 项失败，均要求源码继续包含 `isPlanarCameraCandidateClearInPolygon`、`CAMERA_FALLBACK_YAWS`、16 档缩臂循环或第三个兜底目标高度分支。
+**Cause:** 专项测试已覆盖新架构，但三个较早的仓库级源码合同测试仍锁定被本轮明确淘汰的实现细节。
+**Resolution:** 不删除测试；把合同更新为独立 `WORLD_CAMERA_OBSTACLES`、连续 `resolvePlanarSpringArm`、blocker 遥测以及初始化/逐帧目标高度，并明确断言旧 16 档循环不存在。随后重跑完整测试。
+
+## [ERR172] Browser 高层接口不能直接覆盖持续输入与控制台采集
+
+**Date:** 2026-07-24
+**Context:** 第三人称相机 V1 的真实页面交互与运行时异常验收。
+**Error:** 页面刚进入时按按钮文本查询短暂返回 0 个结果；`tab.console` 不存在；原始 CDP 键盘接口也不支持可信的持续按住输入。
+**Cause:** UI 可交互状态晚于首个短等待窗口，高层 Browser 封装没有暴露所假设的 console helper，且一次性键盘事件不能替代跨多帧的真实摇杆或长按。
+**Resolution:** 等待实际 DOM 进入可交互态后再定位按钮；通过 CDP `Runtime` / `Log` 事件采集异常与控制台；持续左摇杆加右手拖拽明确保留为真机触控验收，不用合成短按冒充证据。
+
+## [ERR173] Wiki 原始来源可回读但增量索引没有生成目标 source 页面
+
+**Date:** 2026-07-24
+**Context:** 将第三人称相机 V1 的独立验证结论增量同步到 `Threejs-3d-research`。
+**Error:** 首次扫描后 `llm_wiki_status` / `llm_wiki_search` 曾短暂返回 `fetch failed`；API 恢复后能从 `raw/sources` 回读目标文件，但混合搜索和 `wiki/` 文件列表仍没有目标 source 页面。
+**Cause:** Desktop API 短暂不可达；随后 source snapshot 已记录目标文件，但 ingest 队列没有该目标任务，第二次 rescan 又返回无变更，无法证明索引生成完成。
+**Resolution:** 保留三份同哈希原始来源并完成 API 原文回读；把“已进入 raw source”与“已形成可检索 Wiki 页面”分开报告，不把 rescan 成功当作知识库吸收完成。另有一项旧来源 pending，与本目标区分处理。
+
+## [ERR174] Browser 标签交接需要显式状态对象
+
+**Date:** 2026-07-24
+**Context:** 把本地相机 QA 页面留给用户继续验收。
+**Error:** `browser.tabs.finalize({ keep: [tab] })` 返回 keep 项必须是 `{ tab, status }`；随后使用 `status: "keep"` 又被拒绝。
+**Cause:** finalize 接口的保留项不是 Tab 数组，合法状态只接受 `handoff` 或 `deliverable`。
+**Resolution:** 使用 `browser.tabs.finalize({ keep: [{ tab, status: "handoff" }] })`，成功交接可继续操作的本地验收标签。

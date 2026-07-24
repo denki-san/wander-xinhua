@@ -931,6 +931,24 @@ kbd {
   white-space: nowrap;
 }
 
+.camera-qa-panel {
+  position: fixed;
+  z-index: 40;
+  top: 5.6rem;
+  left: 1rem;
+  width: min(28rem, calc(100vw - 2rem));
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgb(255 255 255 / 32%);
+  border-radius: 0.65rem;
+  background: rgb(16 25 29 / 82%);
+  color: #f4f0df;
+  font: 600 0.72rem/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre-wrap;
+  pointer-events: none;
+  box-shadow: 0 0.65rem 1.6rem rgb(0 0 0 / 20%);
+  backdrop-filter: blur(10px);
+}
+
 .study-note a {
   color: inherit;
 }

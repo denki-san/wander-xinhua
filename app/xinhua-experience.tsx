@@ -36,6 +36,7 @@ import {
 import { MAP_POIS, mapPoiById } from "./scene/poi-data";
 import { XinhuaWorld } from "./scene/xinhua-world";
 import mapData from "./scene/xinhua-map-data.json";
+import { cameraQaState } from "./scene/camera-qa";
 
 const TOUCH_STICK_TRAVEL = 42;
 const POI_PHOTO_NEARBY_PREFETCH_COUNT = 4;
@@ -219,6 +220,56 @@ function TouchControls({ showJump }: { showJump: boolean }) {
   );
 }
 
+function CameraQaPanel({ visible }: { visible: boolean }) {
+  const output = useRef<HTMLOutputElement>(null);
+
+  useEffect(() => {
+    if (!visible) return;
+    let frame = 0;
+    let lastPaint = 0;
+    const paint = (time: number) => {
+      const element = output.current;
+      if (element && time - lastPaint >= 100) {
+        lastPaint = time;
+        const state = cameraQaState;
+        element.dataset.cameraMode = state.cameraMode;
+        element.dataset.blockerId = state.blockerId ?? "none";
+        element.dataset.modeChanges = String(state.modeChangeCount);
+        element.dataset.desiredArm = state.desiredArmLength.toFixed(3);
+        element.dataset.resolvedArm = state.resolvedArmLength.toFixed(3);
+        element.dataset.fov = state.fov.toFixed(1);
+        element.dataset.manualGraceMs = state.manualGraceMs.toFixed(0);
+        element.dataset.goalYaw = state.goalYawDegrees.toFixed(2);
+        element.dataset.desiredArmYaw = state.desiredArmYawDegrees.toFixed(2);
+        element.dataset.actualArmYaw = state.actualArmYawDegrees.toFixed(2);
+        element.textContent = [
+          `mode ${state.cameraMode}`,
+          `blocker ${state.blockerId ?? "none"}`,
+          `arm ${state.resolvedArmLength.toFixed(2)} / ${state.desiredArmLength.toFixed(2)}`,
+          `arm yaw ${state.actualArmYawDegrees.toFixed(1)}° / ${state.desiredArmYawDegrees.toFixed(1)}°`,
+          `goal yaw ${state.goalYawDegrees.toFixed(1)}°`,
+          `input ${state.inputX.toFixed(2)}, ${state.inputY.toFixed(2)}`,
+          `FOV ${state.fov.toFixed(1)}° · grace ${state.manualGraceMs.toFixed(0)}ms`,
+          `changes ${state.modeChangeCount} · ${state.modeHistory.join(" → ")}`,
+        ].join("\n");
+      }
+      frame = window.requestAnimationFrame(paint);
+    };
+    frame = window.requestAnimationFrame(paint);
+    return () => window.cancelAnimationFrame(frame);
+  }, [visible]);
+
+  if (!visible) return null;
+  return (
+    <output
+      ref={output}
+      className="camera-qa-panel"
+      data-testid="camera-qa"
+      aria-label="相机控制验收遥测"
+    />
+  );
+}
+
 export function XinhuaExperience() {
   const [mode, setMode] = useState<"intro" | "overview" | "explore">("intro");
   const [ready, setReady] = useState(false);
@@ -234,6 +285,10 @@ export function XinhuaExperience() {
   // 在 Canvas 首次创建前确定渲染档位，避免低配置设备先分配一套高配后处理资源。
   const [lowTier] = useState(detectLowTier);
   const [touchCapable, setTouchCapable] = useState(false);
+  const [cameraQaVisible] = useState(() => (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("cameraQa") === "1"
+  ));
   const playerPosition = useRef<readonly [number, number]>(INITIAL_OVERVIEW_POSITION);
   const overviewPhotoCache = useRef(new Map<string, HTMLImageElement>());
   const [loadedOverviewPhoto, setLoadedOverviewPhoto] = useState<string | null>(null);
@@ -415,6 +470,7 @@ export function XinhuaExperience() {
           nearPoiId={nearPoiId}
           overviewStartPosition={overviewStartPosition}
           destinationPreset={destinationPreset}
+          cameraQaEnabled={cameraQaVisible}
           onNearPoi={setNearPoiId}
           onPositionChange={(position) => {
             playerPosition.current = position;
@@ -430,6 +486,8 @@ export function XinhuaExperience() {
           <b>LOADING XINHUA</b>
         </div>
       )}
+
+      <CameraQaPanel visible={cameraQaVisible && exploring} />
 
       <header className={`world-header${playing ? "" : " is-intro"}`}>
         <button

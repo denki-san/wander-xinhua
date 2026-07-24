@@ -64,14 +64,20 @@ import {
 } from "./xinhua-map";
 import { terrainHeightAt } from "./terrain";
 import {
+  cameraRelativeInputToPlanarMove,
   composeCameraOffset,
   dampingFactor,
   dampTangentTowards,
-  isPlanarCameraCandidateClearInPolygon,
+  explorationVerticalFov,
+  nextCameraZoomDistance,
+  normalizeWheelDeltaY,
+  remainingDeadlineMs,
+  resolvePlanarSpringArm,
   type MapObstacle,
   type MapPolygonPoint,
   resolvePolygonMovement,
   screenInputToPlanarMove,
+  stepSpringArmLength,
   transformMapObstacle,
   transformMapPoint,
 } from "./world-math";
@@ -80,6 +86,7 @@ import {
   type XinhuaAtmosphere,
   type XinhuaAtmosphereStyle,
 } from "./atmosphere-contract";
+import { resetCameraQa, updateCameraQa } from "./camera-qa";
 
 const WORLD_UP = new Vector3(0, 1, 0);
 const INTRO_CAMERA_DIRECTION = new Vector3(126, 142, 138).normalize();
@@ -95,23 +102,19 @@ const CAMERA_SHOULDER_OFFSET = 0.9;
 const CAMERA_TARGET_SHOULDER_OFFSET = 0.12;
 const CAMERA_FOLLOW_DAMPING = 3.2;
 const CAMERA_ORBIT_DAMPING = 18;
-const CAMERA_POSITION_DAMPING = 10;
+const CAMERA_ARM_RECOVERY_DAMPING = 6;
+const CAMERA_COLLISION_RADIUS = 0.26;
+const CAMERA_COLLISION_MARGIN = 0.08;
+const CAMERA_MANUAL_FOLLOW_GRACE_SECONDS = 0.35;
+const CAMERA_MIN_ZOOM_DISTANCE = 4.6;
+const CAMERA_MAX_ZOOM_DISTANCE = 12.5;
 const CAMERA_ROTATION_SPEED_X = 0.005;
 const CAMERA_ROTATION_SPEED_Y = 0.004;
 const CHARACTER_TURN_DAMPING = 9;
 const CHARACTER_MODEL_PATH = "/models/character/rain-summer-wanderer.glb?v=f9721e54f034";
 // Rain 的原始身高比旧角色低约 11%；1.3 倍可保持正式地图中的既有屏幕占比。
 const CHARACTER_VISUAL_SCALE = 1.3;
-const CHARACTER_MAX_TURN_SPEED = 8;
-const CAMERA_FALLBACK_HEIGHT = 1.9;
-const CAMERA_FALLBACK_YAWS = [
-  Math.PI / 4,
-  -Math.PI / 4,
-  Math.PI / 2,
-  -Math.PI / 2,
-  Math.PI,
-];
-const CAMERA_FALLBACK_RADII = [3.8, 3.0, 2.2, 1.45, 0.82, 0.42];
+const CHARACTER_MAX_TURN_SPEED = 12;
 const CAMERA_DEFAULT_PITCH = CAMERA_HEIGHT / Math.hypot(CAMERA_DISTANCE, CAMERA_HEIGHT);
 const PLAYER_RADIUS = 0.48;
 export const DETAIL_WORLD_SCALE = 1.65;
@@ -716,11 +719,13 @@ function PlayableWanderer({
   startPreset,
   onPositionChange,
   atmosphere,
+  cameraQaEnabled,
 }: {
   onNearAction: (near: boolean) => void;
   startPreset?: string;
   onPositionChange: (position: readonly [number, number]) => void;
   atmosphere: XinhuaAtmosphere;
+  cameraQaEnabled: boolean;
 }) {
   const { camera, gl } = useThree();
   const outer = useRef<Group>(null);
@@ -736,14 +741,12 @@ function PlayableWanderer({
   const forward = useRef(initialForward.clone());
   const cameraOffset = useRef(initialCameraOffset.clone());
   const cameraGoalOffset = useRef(initialCameraOffset.clone());
-  const lastSafeCameraPosition = useRef<Vector3 | null>(null);
-  const moveCameraForward = useRef(initialForward.clone());
-  const moveCameraRight = useRef(initialForward.clone().cross(WORLD_UP).normalize());
-  const driveSignature = useRef("");
+  const resolvedArmLength = useRef<number | null>(null);
   const jumpHeight = useRef(0);
   const jumpVelocity = useRef(0);
   const jumpHeld = useRef(false);
   const dragging = useRef(false);
+  const manualFollowGraceUntilMs = useRef(0);
   const dragPointerId = useRef<number | null>(null);
   const lastDragPointer = useRef({ x: 0, y: 0 });
   const dragDelta = useRef({ x: 0, y: 0 });
@@ -771,23 +774,27 @@ function PlayableWanderer({
       currentPosition.z * DETAIL_WORLD_SCALE,
     );
     cameraTarget.addScaledVector(cameraRight, CAMERA_TARGET_SHOULDER_OFFSET);
-    // 首页相机离街区很远。进入游玩态时先同步切到角色身后，保证新建的游戏
-    // 后处理合成器从正确视角绘制首帧，不把首页全景缓存带进游戏画面。
-    camera.position.copy(cameraBase).add(cameraOffset.current);
-    camera.up.copy(WORLD_UP);
-    camera.lookAt(cameraTarget);
-    if (isPlanarCameraCandidateClearInPolygon(
-      currentPosition.x,
-      currentPosition.z,
-      camera.position.x / DETAIL_WORLD_SCALE,
-      camera.position.z / DETAIL_WORLD_SCALE,
+    const desiredCamera = cameraBase.clone().add(cameraOffset.current);
+    const armDirection = desiredCamera.clone().sub(cameraTarget);
+    const desiredArmLength = armDirection.length();
+    const initialArm = resolvePlanarSpringArm(
+      cameraTarget.x / DETAIL_WORLD_SCALE,
+      cameraTarget.z / DETAIL_WORLD_SCALE,
+      desiredCamera.x / DETAIL_WORLD_SCALE,
+      desiredCamera.z / DETAIL_WORLD_SCALE,
       XINHUA_BOUNDARY,
       WORLD_CAMERA_OBSTACLES,
-      0.25,
-      0.18,
-    )) {
-      lastSafeCameraPosition.current = camera.position.clone();
-    }
+      CAMERA_COLLISION_RADIUS,
+      CAMERA_COLLISION_MARGIN,
+    );
+    resolvedArmLength.current = desiredArmLength * initialArm.fraction;
+    // 首页相机离街区很远。进入游玩态时先同步切到角色身后，保证新建的游戏
+    // 后处理合成器从正确视角绘制首帧，不把首页全景缓存带进游戏画面。
+    camera.position
+      .copy(cameraTarget)
+      .addScaledVector(armDirection.normalize(), resolvedArmLength.current);
+    camera.up.copy(WORLD_UP);
+    camera.lookAt(cameraTarget);
     onPositionRef.current([currentPosition.x, currentPosition.z]);
   }, [camera, cameraTargetHeight, initialForward]);
 
@@ -801,25 +808,31 @@ function PlayableWanderer({
 
   useEffect(() => () => {
     onPositionRef.current([characterPosition.current.x, characterPosition.current.z]);
-  }, []);
+    if (cameraQaEnabled) resetCameraQa();
+  }, [cameraQaEnabled]);
 
   const scratch = useMemo(() => ({
     quaternion: new Quaternion(),
     basis: new Matrix4(),
     right: new Vector3(),
     move: new Vector3(),
-    cameraForward: new Vector3(),
-    cameraRight: new Vector3(),
+    rigForward: new Vector3(),
+    rigRight: new Vector3(),
+    viewForward: new Vector3(),
+    viewRight: new Vector3(),
     cameraHorizontal: new Vector3(),
     desiredHorizontal: new Vector3(),
     displacement: new Vector3(),
-    cameraPosition: new Vector3(),
-    cameraLerp: new Vector3(),
+    desiredCamera: new Vector3(),
+    armDirection: new Vector3(),
     cameraBase: new Vector3(),
     cameraTarget: new Vector3(),
     revertedOffset: new Vector3(),
-    fallbackBase: new Vector3(),
-    fallbackDirection: new Vector3(),
+    springArm: {
+      fraction: 1,
+      planarDistance: 0,
+      blockerId: null as string | null,
+    },
   }), []);
 
   useEffect(() => {
@@ -830,12 +843,16 @@ function PlayableWanderer({
       dragPointerId.current = event.pointerId;
       lastDragPointer.current = { x: event.clientX, y: event.clientY };
       dragging.current = true;
+      manualFollowGraceUntilMs.current = performance.now()
+        + CAMERA_MANUAL_FOLLOW_GRACE_SECONDS * 1_000;
       canvas.setPointerCapture(event.pointerId);
     };
     const pointerUp = (event: PointerEvent) => {
       if (dragPointerId.current !== event.pointerId) return;
       dragPointerId.current = null;
       dragging.current = false;
+      manualFollowGraceUntilMs.current = performance.now()
+        + CAMERA_MANUAL_FOLLOW_GRACE_SECONDS * 1_000;
     };
     const pointerMove = (event: PointerEvent) => {
       if (!dragging.current || dragPointerId.current !== event.pointerId) return;
@@ -844,16 +861,29 @@ function PlayableWanderer({
       // 切回页面或系统手势可能产生异常大跳变，限制单次增量避免镜头瞬移。
       dragDelta.current.x += Math.max(-120, Math.min(120, x));
       dragDelta.current.y += Math.max(-120, Math.min(120, y));
+      manualFollowGraceUntilMs.current = performance.now()
+        + CAMERA_MANUAL_FOLLOW_GRACE_SECONDS * 1_000;
       lastDragPointer.current = { x: event.clientX, y: event.clientY };
     };
     const cancelDrag = () => {
       dragPointerId.current = null;
       dragging.current = false;
+      manualFollowGraceUntilMs.current = 0;
       dragDelta.current.x = 0;
       dragDelta.current.y = 0;
     };
     const wheel = (event: WheelEvent) => {
-      zoom.current = Math.min(12.5, Math.max(6.4, zoom.current * (1 + event.deltaY * 0.0012)));
+      const deltaY = normalizeWheelDeltaY(
+        event.deltaY,
+        event.deltaMode,
+        canvas.clientHeight,
+      );
+      zoom.current = nextCameraZoomDistance(
+        zoom.current,
+        deltaY,
+        CAMERA_MIN_ZOOM_DISTANCE,
+        CAMERA_MAX_ZOOM_DISTANCE,
+      );
     };
     canvas.addEventListener("pointerdown", pointerDown);
     window.addEventListener("pointerup", pointerUp);
@@ -886,6 +916,9 @@ function PlayableWanderer({
       ? inputState.moveX
       : (inputState.right ? 1 : 0) - (inputState.left ? 1 : 0);
     const moving = Math.hypot(x, z) > 1e-4;
+    const manualGraceMs = dragging.current
+      ? CAMERA_MANUAL_FOLLOW_GRACE_SECONDS * 1_000
+      : remainingDeadlineMs(manualFollowGraceUntilMs.current, performance.now());
 
     if (dragDelta.current.x !== 0) {
       s.quaternion.setFromAxisAngle(
@@ -909,7 +942,7 @@ function PlayableWanderer({
     dragDelta.current.y = 0;
     cameraGoalOffset.current.setLength(zoom.current);
 
-    if (!dragging.current && moving) {
+    if (!dragging.current && manualGraceMs <= 0 && moving) {
       // 手动旋转在静止时会停留在任意圆周角；移动时再柔和回到角色身后。
       s.cameraHorizontal.copy(cameraGoalOffset.current).projectOnPlane(WORLD_UP);
       s.desiredHorizontal.copy(currentForward).multiplyScalar(-1);
@@ -965,22 +998,24 @@ function PlayableWanderer({
       cameraOffset.current,
     );
 
-    s.cameraForward.copy(cameraOffset.current).multiplyScalar(-1).projectOnPlane(WORLD_UP);
-    if (s.cameraForward.lengthSq() < 0.001) s.cameraForward.copy(currentForward);
-    s.cameraForward.normalize();
-    s.cameraRight.copy(s.cameraForward).cross(WORLD_UP).normalize();
+    // rig 方向决定肩位；移动方向必须取最终真实镜头的屏幕前方，不能忽略肩位偏移。
+    s.rigForward.copy(cameraOffset.current).multiplyScalar(-1).projectOnPlane(WORLD_UP);
+    if (s.rigForward.lengthSq() < 0.001) s.rigForward.copy(currentForward);
+    s.rigForward.normalize();
+    s.rigRight.copy(s.rigForward).cross(WORLD_UP).normalize();
+    camera.getWorldDirection(s.viewForward).projectOnPlane(WORLD_UP);
+    if (s.viewForward.lengthSq() < 0.001) s.viewForward.copy(s.rigForward);
+    s.viewForward.normalize();
+    s.viewRight.copy(s.viewForward).cross(WORLD_UP).normalize();
 
     if (moving) {
-      const signature = usingAnalog ? "analog" : `${x}:${z}`;
-      if (signature !== driveSignature.current) {
-        moveCameraForward.current.copy(s.cameraForward);
-        moveCameraRight.current.copy(s.cameraRight);
-        driveSignature.current = signature;
-      }
-      s.move.set(0, 0, 0)
-        .addScaledVector(moveCameraForward.current, z)
-        .addScaledVector(moveCameraRight.current, x)
-        .normalize();
+      cameraRelativeInputToPlanarMove(
+        s.viewForward,
+        s.viewRight,
+        x,
+        z,
+        s.move,
+      ).normalize();
       const speed = inputState.sprint ? 9.2 : 3.6 * (usingAnalog ? analogMagnitude : 1);
       s.displacement.copy(s.move).multiplyScalar(speed * delta);
       resolvePolygonMovement(
@@ -1000,8 +1035,6 @@ function PlayableWanderer({
         currentForward,
         CHARACTER_MAX_TURN_SPEED,
       );
-    } else {
-      driveSignature.current = "";
     }
 
     if (inputState.jump && !jumpHeld.current && jumpHeight.current <= 0.001) {
@@ -1046,118 +1079,76 @@ function PlayableWanderer({
       currentPosition.x * DETAIL_WORLD_SCALE,
       scaledSurfaceHeight + cameraTargetHeight + jumpHeight.current,
       currentPosition.z * DETAIL_WORLD_SCALE,
-    ).addScaledVector(s.cameraRight, CAMERA_TARGET_SHOULDER_OFFSET);
+    ).addScaledVector(s.rigRight, CAMERA_TARGET_SHOULDER_OFFSET);
     s.cameraBase.set(
       currentPosition.x * DETAIL_WORLD_SCALE,
       scaledSurfaceHeight + 0.33 + jumpHeight.current,
       currentPosition.z * DETAIL_WORLD_SCALE,
-    ).addScaledVector(s.cameraRight, CAMERA_SHOULDER_OFFSET);
-    s.cameraPosition.copy(s.cameraBase).add(cameraOffset.current);
-    // 相机绕转经过硬碰撞层或地图边缘时沿视线向角色收近；街景地标使用
-    // 独立透明层，人物仍受建筑阻挡，但镜头不会被整栋模型的外包络卡死。
-    let cameraClear = false;
-    for (let step = 0; step <= 16; step += 1) {
-      const scale = Math.max(0.06, 1 - step * 0.06);
-      s.cameraPosition.copy(s.cameraBase).addScaledVector(cameraOffset.current, scale);
-      if (isPlanarCameraCandidateClearInPolygon(
-        currentPosition.x,
-        currentPosition.z,
-        s.cameraPosition.x / DETAIL_WORLD_SCALE,
-        s.cameraPosition.z / DETAIL_WORLD_SCALE,
-        XINHUA_BOUNDARY,
-        WORLD_CAMERA_OBSTACLES,
-        0.25,
-        0.18,
-      )) {
-        cameraClear = true;
-        break;
-      }
-    }
-    if (!cameraClear) {
-      s.fallbackBase.copy(cameraOffset.current).projectOnPlane(WORLD_UP);
-      if (s.fallbackBase.lengthSq() < 0.001) s.fallbackBase.copy(currentForward).multiplyScalar(-1);
-      s.fallbackBase.normalize();
-      fallbackSearch: for (const radius of CAMERA_FALLBACK_RADII) {
-        for (const yaw of CAMERA_FALLBACK_YAWS) {
-          s.fallbackDirection.copy(s.fallbackBase).applyAxisAngle(WORLD_UP, yaw);
-          s.cameraPosition.copy(s.cameraBase)
-            .addScaledVector(s.fallbackDirection, radius)
-            .addScaledVector(WORLD_UP, CAMERA_FALLBACK_HEIGHT);
-          if (isPlanarCameraCandidateClearInPolygon(
-            currentPosition.x,
-            currentPosition.z,
-            s.cameraPosition.x / DETAIL_WORLD_SCALE,
-            s.cameraPosition.z / DETAIL_WORLD_SCALE,
-            XINHUA_BOUNDARY,
-            WORLD_CAMERA_OBSTACLES,
-            0.18,
-            0.12,
-          )) {
-            cameraClear = true;
-            break fallbackSearch;
-          }
-        }
-      }
-    }
-    // 极端夹角优先保留上一帧合法位置；若角色移动后视线也失效，再验证一个
-    // 位于角色安全半径内的紧凑低位候选，绝不把未经检查的位置交给相机。
-    if (!cameraClear) {
-      const lastSafe = lastSafeCameraPosition.current;
-      if (lastSafe && isPlanarCameraCandidateClearInPolygon(
-        currentPosition.x,
-        currentPosition.z,
-        lastSafe.x / DETAIL_WORLD_SCALE,
-        lastSafe.z / DETAIL_WORLD_SCALE,
-        XINHUA_BOUNDARY,
-        WORLD_CAMERA_OBSTACLES,
-        0.18,
-        0.12,
-      )) {
-        s.cameraPosition.copy(lastSafe);
-        cameraClear = true;
-      }
-    }
-    if (!cameraClear) {
-      s.cameraPosition.set(
-        currentPosition.x * DETAIL_WORLD_SCALE,
-        scaledSurfaceHeight + cameraTargetHeight + 0.45 + jumpHeight.current,
-        currentPosition.z * DETAIL_WORLD_SCALE,
-      ).addScaledVector(currentForward, -0.16);
-      cameraClear = isPlanarCameraCandidateClearInPolygon(
-        currentPosition.x,
-        currentPosition.z,
-        s.cameraPosition.x / DETAIL_WORLD_SCALE,
-        s.cameraPosition.z / DETAIL_WORLD_SCALE,
-        XINHUA_BOUNDARY,
-        WORLD_CAMERA_OBSTACLES,
-        0.12,
-        0.08,
-      );
-    }
-    if (cameraClear) {
-      s.cameraLerp.copy(camera.position).lerp(
-        s.cameraPosition,
-        dampingFactor(CAMERA_POSITION_DAMPING, delta),
-      );
-      if (isPlanarCameraCandidateClearInPolygon(
-        currentPosition.x,
-        currentPosition.z,
-        s.cameraLerp.x / DETAIL_WORLD_SCALE,
-        s.cameraLerp.z / DETAIL_WORLD_SCALE,
-        XINHUA_BOUNDARY,
-        WORLD_CAMERA_OBSTACLES,
-        0.25,
-        0.12,
-      )) {
-        camera.position.copy(s.cameraLerp);
-      } else {
-        camera.position.copy(s.cameraPosition);
-      }
-      lastSafeCameraPosition.current?.copy(camera.position);
-      if (!lastSafeCameraPosition.current) lastSafeCameraPosition.current = camera.position.clone();
+    ).addScaledVector(s.rigRight, CAMERA_SHOULDER_OFFSET);
+    s.desiredCamera.copy(s.cameraBase).add(cameraOffset.current);
+    s.armDirection.subVectors(s.desiredCamera, s.cameraTarget);
+    const desiredArmLength = s.armDirection.length();
+    const springArm = resolvePlanarSpringArm(
+      s.cameraTarget.x / DETAIL_WORLD_SCALE,
+      s.cameraTarget.z / DETAIL_WORLD_SCALE,
+      s.desiredCamera.x / DETAIL_WORLD_SCALE,
+      s.desiredCamera.z / DETAIL_WORLD_SCALE,
+      XINHUA_BOUNDARY,
+      WORLD_CAMERA_OBSTACLES,
+      CAMERA_COLLISION_RADIUS,
+      CAMERA_COLLISION_MARGIN,
+      s.springArm,
+    );
+    const collisionArmLength = desiredArmLength * springArm.fraction;
+    const previousArmLength = resolvedArmLength.current ?? collisionArmLength;
+    const currentResolvedArmLength = stepSpringArmLength(
+      previousArmLength,
+      collisionArmLength,
+      CAMERA_ARM_RECOVERY_DAMPING,
+      delta,
+    );
+    resolvedArmLength.current = currentResolvedArmLength;
+    const cameraMode = springArm.blockerId
+      ? "spring-compressed"
+      : Math.abs(currentResolvedArmLength - desiredArmLength) > 0.02
+        ? "spring-recovering"
+        : "spring-clear";
+    if (desiredArmLength > 1e-6) {
+      s.armDirection.multiplyScalar(1 / desiredArmLength);
+      camera.position
+        .copy(s.cameraTarget)
+        .addScaledVector(s.armDirection, currentResolvedArmLength);
+    } else {
+      camera.position.copy(s.cameraTarget);
     }
     camera.up.copy(WORLD_UP);
     camera.lookAt(s.cameraTarget);
+    if (cameraQaEnabled) {
+      updateCameraQa({
+        active: true,
+        inputX: x,
+        inputY: z,
+        moving,
+        fov: (camera as PerspectiveCamera).fov,
+        goalYawDegrees: MathUtils.radToDeg(Math.atan2(
+          cameraGoalOffset.current.x,
+          cameraGoalOffset.current.z,
+        )),
+        desiredArmYawDegrees: MathUtils.radToDeg(Math.atan2(
+          s.desiredCamera.x - s.cameraTarget.x,
+          s.desiredCamera.z - s.cameraTarget.z,
+        )),
+        actualArmYawDegrees: MathUtils.radToDeg(Math.atan2(
+          camera.position.x - s.cameraTarget.x,
+          camera.position.z - s.cameraTarget.z,
+        )),
+        desiredArmLength,
+        resolvedArmLength: currentResolvedArmLength,
+        blockerId: springArm.blockerId,
+        cameraMode,
+        manualGraceMs,
+      });
+    }
 
     const near = Math.hypot(
       currentPosition.x - ACTION_POSITION.x,
@@ -1350,6 +1341,20 @@ function OverviewWanderer({
   return <WandererCharacter outerRef={outer} scale={OVERVIEW_CHARACTER_SCALE} />;
 }
 
+function ResponsiveCameraProjection({ exploring }: { exploring: boolean }) {
+  useFrame(({ camera, size }) => {
+    const perspective = camera as PerspectiveCamera;
+    const nextFov = exploring
+      ? explorationVerticalFov(size.width, size.height)
+      : 50;
+    if (Math.abs(perspective.fov - nextFov) < 0.01) return;
+    perspective.fov = nextFov;
+    perspective.updateProjectionMatrix();
+  });
+
+  return null;
+}
+
 function OverviewCamera({
   active,
   focus,
@@ -1536,6 +1541,7 @@ export function XinhuaWorld({
   nearPoiId,
   overviewStartPosition,
   destinationPreset,
+  cameraQaEnabled = false,
   onNearPoi,
   onPositionChange,
 }: {
@@ -1547,6 +1553,7 @@ export function XinhuaWorld({
   nearPoiId: string | null;
   overviewStartPosition: readonly [number, number];
   destinationPreset?: string;
+  cameraQaEnabled?: boolean;
   onNearPoi: (poiId: string | null) => void;
   onPositionChange: (position: readonly [number, number]) => void;
 }) {
@@ -1598,6 +1605,7 @@ export function XinhuaWorld({
         priorityPreset={destinationPreset}
         landmarkLoadMode={exploring ? "explore" : "overview"}
       />
+      <ResponsiveCameraProjection exploring={exploring} />
       <IntroCamera active={mode === "intro"} />
       {overview && (
         <>
@@ -1617,6 +1625,7 @@ export function XinhuaWorld({
           startPreset={destinationPreset}
           onPositionChange={onPositionChange}
           atmosphere={atmosphere}
+          cameraQaEnabled={cameraQaEnabled}
         />
       )}
     </>

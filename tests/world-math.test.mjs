@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { PerspectiveCamera, Vector3 } from "three";
 import {
+  cameraRelativeInputToPlanarMove,
   composeCameraOffset,
   isPlanarCameraCandidateClearInPolygon,
   isPlanarPositionBlockedInPolygon,
@@ -39,6 +40,48 @@ test("全览地图方向始终对应屏幕上下左右而不是人物朝向", ()
 
   assert.ok(upMove.clone().project(camera).y > originOnScreen.y);
   assert.ok(rightMove.clone().project(camera).x > originOnScreen.x);
+});
+
+test("持续移动时每帧使用当前相机平面而不是首次按下时的旧方向", () => {
+  const currentCameraForward = new Vector3(1, 0, 0);
+  const currentCameraRight = new Vector3(0, 0, -1);
+  const staleCameraForward = new Vector3(0, 0, 1);
+
+  const currentMove = cameraRelativeInputToPlanarMove(
+    currentCameraForward,
+    currentCameraRight,
+    0,
+    1,
+  );
+
+  assert.ok(currentMove.distanceTo(currentCameraForward) < EPSILON);
+  assert.ok(Math.abs(staleCameraForward.dot(currentCameraForward)) < EPSILON);
+  assert.ok(Math.abs(staleCameraForward.angleTo(currentMove) - Math.PI / 2) < EPSILON);
+});
+
+test("开启肩位后前推仍严格沿真实镜头的屏幕前方", () => {
+  const up = new Vector3(0, 1, 0);
+  const target = new Vector3(0, 1.45, 0);
+  const camera = new PerspectiveCamera();
+  camera.position.set(0.78, 1.95, -5);
+  camera.lookAt(target);
+  camera.updateMatrixWorld(true);
+
+  const viewForward = camera.getWorldDirection(new Vector3()).projectOnPlane(up).normalize();
+  const viewRight = viewForward.clone().cross(up).normalize();
+  const move = cameraRelativeInputToPlanarMove(
+    viewForward,
+    viewRight,
+    0,
+    1,
+  ).normalize();
+  const rigForwardWithoutShoulder = new Vector3(0, 0, 1);
+
+  assert.ok(move.distanceTo(viewForward) < EPSILON);
+  assert.ok(
+    rigForwardWithoutShoulder.angleTo(viewForward) > 8 * Math.PI / 180,
+    "测试必须覆盖肩位造成的可见方向差异",
+  );
 });
 
 test("相反方向的相机跟随只做水平转向并保持俯仰", () => {
