@@ -8,7 +8,7 @@ import {
   ToneMapping,
 } from "@react-three/postprocessing";
 import { Canvas } from "@react-three/fiber";
-import { SRGBColorSpace } from "three";
+import { NoToneMapping, SRGBColorSpace } from "three";
 import {
   ToneMappingMode,
   type EffectComposer as PostprocessingEffectComposer,
@@ -29,6 +29,10 @@ import {
   PaperWash,
   StorybookCloudLayer,
 } from "./scene/visual-effects";
+import {
+  DEFAULT_XINHUA_ATMOSPHERE_STYLE,
+  type XinhuaAtmosphereStyle,
+} from "./scene/atmosphere-contract";
 import { MAP_POIS, mapPoiById } from "./scene/poi-data";
 import { XinhuaWorld } from "./scene/xinhua-world";
 import mapData from "./scene/xinhua-map-data.json";
@@ -43,12 +47,20 @@ const INITIAL_OVERVIEW_POSITION = [
   mapData.landmarks.xingfuli.position[1],
 ] as const;
 
+const ATMOSPHERE_LABELS: Record<XinhuaAtmosphereStyle, string> = {
+  "autumn-afternoon": "秋日下午",
+  "lighting-v3": "当前光照",
+};
+
 const VisualEffectComposer = memo(function VisualEffectComposer({
   lowTier,
+  atmosphereStyle,
 }: {
   lowTier: boolean;
+  atmosphereStyle: XinhuaAtmosphereStyle;
 }) {
   const composerRef = useRef<PostprocessingEffectComposer>(null);
+  const lightingV3 = atmosphereStyle === "lighting-v3";
 
   useLayoutEffect(() => {
     const composer = composerRef.current;
@@ -62,7 +74,7 @@ const VisualEffectComposer = memo(function VisualEffectComposer({
       enableNormalPass={!lowTier}
       resolutionScale={lowTier ? undefined : 0.5}
     >
-      {lowTier ? <></> : (
+      {lightingV3 && !lowTier ? (
         <SSAO
           samples={16}
           rings={3}
@@ -75,10 +87,10 @@ const VisualEffectComposer = memo(function VisualEffectComposer({
           rangeFalloff={0.14}
           bias={0.045}
         />
-      )}
+      ) : <></>}
       <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
-      {lowTier ? <></> : <InkOutline />}
-      <PaperWash />
+      {lowTier && lightingV3 ? <></> : <InkOutline atmosphereStyle={atmosphereStyle} />}
+      {lowTier && lightingV3 ? <></> : <PaperWash atmosphereStyle={atmosphereStyle} />}
     </EffectComposer>
   );
 });
@@ -215,6 +227,9 @@ export function XinhuaExperience() {
   const [destinationPreset, setDestinationPreset] = useState<string>();
   const [actionOpen, setActionOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
+  const [atmosphereStyle, setAtmosphereStyle] = useState<XinhuaAtmosphereStyle>(
+    DEFAULT_XINHUA_ATMOSPHERE_STYLE,
+  );
   const [fullscreen, setFullscreen] = useState(false);
   // 在 Canvas 首次创建前确定渲染档位，避免低配置设备先分配一套高配后处理资源。
   const [lowTier] = useState(detectLowTier);
@@ -379,6 +394,7 @@ export function XinhuaExperience() {
         }}
         gl={{
           antialias: true,
+          toneMapping: NoToneMapping,
           outputColorSpace: SRGBColorSpace,
           powerPreference: "high-performance",
         }}
@@ -387,12 +403,13 @@ export function XinhuaExperience() {
         }}
       >
         <Suspense fallback={null}>
-          <AutumnStorybookSky />
+          <AutumnStorybookSky atmosphereStyle={atmosphereStyle} />
         </Suspense>
-        <StorybookCloudLayer />
+        {atmosphereStyle === "lighting-v3" && <StorybookCloudLayer />}
         <XinhuaWorld
           mode={mode}
           lowTier={lowTier}
+          atmosphereStyle={atmosphereStyle}
           onNearAction={setNearAction}
           onOpenAction={() => setActionOpen(true)}
           nearPoiId={nearPoiId}
@@ -404,7 +421,7 @@ export function XinhuaExperience() {
           }}
         />
         {/* 合成器在模式切换时保持挂载，避免重新创建时清空颜色缓冲；各效果按档位单独启停。 */}
-          <VisualEffectComposer lowTier={lowTier} />
+          <VisualEffectComposer lowTier={lowTier} atmosphereStyle={atmosphereStyle} />
       </Canvas>
 
       {!ready && (
@@ -542,6 +559,23 @@ export function XinhuaExperience() {
             <p>HOW TO ROAM</p>
             <h2 id="help-title">随便走走就好</h2>
             <ul>
+              <li className="atmosphere-switcher">
+                <span>画面氛围</span>
+                <div className="atmosphere-buttons" role="group" aria-label="切换画面氛围">
+                  {(Object.keys(ATMOSPHERE_LABELS) as XinhuaAtmosphereStyle[]).map((style) => (
+                    <button
+                      key={style}
+                      type="button"
+                      className={atmosphereStyle === style ? "is-active" : ""}
+                      aria-pressed={atmosphereStyle === style}
+                      onClick={() => setAtmosphereStyle(style)}
+                    >
+                      {ATMOSPHERE_LABELS[style]}
+                    </button>
+                  ))}
+                </div>
+                <small aria-live="polite">当前：{ATMOSPHERE_LABELS[atmosphereStyle]}</small>
+              </li>
               <li>全览地图中用 <kbd>WASD</kbd> 或摇杆移动，靠近 POI 后选择“进入”</li>
               <li>闲逛状态中按 <kbd>Shift</kbd> 奔跑，按 <kbd>Space</kbd> 跳跃</li>
               <li>闲逛时拖拽转动镜头，滚轮拉近或拉远</li>

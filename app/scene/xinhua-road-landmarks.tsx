@@ -35,7 +35,7 @@ import {
   buildPlaneTreePlacements,
   XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
 } from "./xinhua-road-placement.mjs";
-import { XINHUA_AUTUMN_ATMOSPHERE } from "./atmosphere-contract";
+import type { XinhuaAtmosphere } from "./atmosphere-contract";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
 
 type LandmarkPlacement = {
@@ -181,9 +181,9 @@ const XINHUA_LIGHTWEIGHT_PLANE_TREE_INSTANCES = XINHUA_PLANE_TREE_INSTANCES.filt
   (placement) => placement.id !== XINHUA_HERO_PLANE_TREE_PLACEMENT.id,
 );
 
-function AutumnPlaneTreeShadows() {
+function AutumnPlaneTreeShadows({ atmosphere }: { atmosphere: XinhuaAtmosphere }) {
   const shadowLobes = useMemo(() => {
-    const [sunX, , sunZ] = XINHUA_AUTUMN_ATMOSPHERE.sunOffset;
+    const [sunX, , sunZ] = atmosphere.sunOffset;
     const shadowLength = Math.hypot(sunX, sunZ);
     const directionX = -sunX / shadowLength;
     const directionZ = -sunZ / shadowLength;
@@ -211,7 +211,7 @@ function AutumnPlaneTreeShadows() {
         };
       })
     ));
-  }, []);
+  }, [atmosphere]);
   const mesh = useRef<InstancedMesh>(null);
   const trunks = useRef<InstancedMesh>(null);
 
@@ -238,7 +238,7 @@ function AutumnPlaneTreeShadows() {
     mesh.current.instanceMatrix.needsUpdate = true;
     mesh.current.computeBoundingSphere();
 
-    const [sunX, , sunZ] = XINHUA_AUTUMN_ATMOSPHERE.sunOffset;
+    const [sunX, , sunZ] = atmosphere.sunOffset;
     const shadowLength = Math.hypot(sunX, sunZ);
     const directionX = -sunX / shadowLength;
     const directionZ = -sunZ / shadowLength;
@@ -259,7 +259,7 @@ function AutumnPlaneTreeShadows() {
     });
     trunks.current.instanceMatrix.needsUpdate = true;
     trunks.current.computeBoundingSphere();
-  }, [shadowLobes]);
+  }, [atmosphere, shadowLobes]);
 
   return (
     <>
@@ -457,7 +457,13 @@ function HeroPlaneTree() {
   );
 }
 
-export function XinhuaRoadPlaneTrees({ showHero = false }: { showHero?: boolean }) {
+export function XinhuaRoadPlaneTrees({
+  showHero = false,
+  atmosphere,
+}: {
+  showHero?: boolean;
+  atmosphere: XinhuaAtmosphere;
+}) {
   const lightweightPlacements = showHero
     ? XINHUA_LIGHTWEIGHT_PLANE_TREE_INSTANCES
     : XINHUA_PLANE_TREE_INSTANCES;
@@ -466,7 +472,7 @@ export function XinhuaRoadPlaneTrees({ showHero = false }: { showHero?: boolean 
       name="xinhua-road-plane-trees"
       userData={{ variants: 3, arrangement: "deterministic-id-hash" }}
     >
-      <AutumnPlaneTreeShadows />
+      <AutumnPlaneTreeShadows atmosphere={atmosphere} />
       <PlaneTreeInstances
         name="xinhua-road-plane-tree-batches"
         placements={lightweightPlacements}

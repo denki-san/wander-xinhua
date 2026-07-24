@@ -880,6 +880,45 @@ kbd {
   border-bottom: 1px dashed rgba(44, 68, 63, 0.24);
 }
 
+.help-panel .atmosphere-switcher {
+  display: grid;
+  gap: 9px;
+}
+
+.atmosphere-switcher > span {
+  color: #304642;
+  font-weight: 900;
+}
+
+.atmosphere-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.atmosphere-buttons button {
+  min-height: 38px;
+  border: 1px solid #79918a;
+  border-radius: 5px;
+  color: #426058;
+  background: #fbf5e5;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.atmosphere-buttons button.is-active {
+  border-color: #2d4540;
+  color: #fff7dc;
+  background: #4f7569;
+  box-shadow: 2px 3px 0 #2d4540;
+}
+
+.atmosphere-switcher small {
+  color: #8a5d3c;
+  font-size: 11px;
+}
+
 .study-note {
   position: absolute;
   z-index: 8;
