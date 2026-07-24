@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const root = new URL("../", import.meta.url);
@@ -50,6 +50,34 @@ test("当前资产口径保留真实数量与缺口提示", async () => {
   assert.match(data, /instanceCount: 44/);
   assert.match(data, /instanceCount: 112/);
   assert.match(data, /雨季夏日漫游者/);
-  assert.match(data, /当前运行时代码与线上模型注册表中未发现可用垃圾桶资产/);
+  assert.match(data, /上海双分类垃圾桶/);
+  assert.match(data, /preview: "trash-bin"/);
+  assert.match(data, /共享低模结构，以 InstancedMesh 按街道路缘布置/);
+  assert.match(client, /<StreetBinInstances/);
   assert.match(client, /正午/);
+});
+
+test("资产后台引用的生产 GLB 均存在", async () => {
+  const [data, landmarksText] = await Promise.all([
+    readFile(new URL("app/asset-library/asset-data.ts", root), "utf8"),
+    readFile(new URL("app/scene/xinhua-road-landmarks-data.json", root), "utf8"),
+  ]);
+  const landmarks = JSON.parse(landmarksText);
+  const literalPaths = [...data.matchAll(/model:\s*"([^"]+\.glb(?:\?[^"]*)?)"/g)]
+    .map((match) => match[1]);
+  const generatedPaths = ["west", "center", "east"].flatMap((zone) => [
+    `/models/xingfuli/xingfuli-${zone}.glb`,
+    `/models/xingfuli/xingfuli-${zone}-identity.glb`,
+    `/models/xingfuli/xingfuli-${zone}-massing.glb`,
+  ]);
+  const modelPaths = new Set([
+    ...literalPaths,
+    ...generatedPaths,
+    ...landmarks.landmarks.map((landmark) => landmark.model),
+  ]);
+
+  await Promise.all([...modelPaths].map((modelPath) => {
+    const cleanPath = modelPath.split("?")[0].replace(/^\//, "");
+    return access(new URL(`public/${cleanPath}`, root));
+  }));
 });
