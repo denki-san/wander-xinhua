@@ -5450,3 +5450,37 @@ permission denied: sites/0.1.31/scripts/package-site.sh
 ### Resolution
 - **Resolved**: 2026-07-24T20:44:00+08:00
 - **Notes**: 改用 `bash package-site.sh` 调用同一插件辅助脚本。
+
+---
+## [ERR-20260724-093] amended_pushed_sites_commit_lost_ancestry
+
+**Logged**: 2026-07-24T20:47:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+在 Sites 源提交已推送后，为补充错误记录执行 amend，导致新提交与远端已推送
+提交成为兄弟节点，第二次推送被非快进保护拒绝。
+
+### Error
+```text
+! [rejected] HEAD -> main (non-fast-forward)
+```
+
+### Context
+- 两棵源码树经 `git diff` 确认只有新增的 32 行错误记录不同。
+- 运行时代码、测试、构建产物及此前整合的并行研究成果完全相同。
+- 仍然禁止用 force push 覆盖 Sites 源历史。
+
+### Suggested Fix
+任何补充记录都应在已推送提交之上创建新提交，不再 amend 已发布节点。若已发生，
+先核对树差异，再用保留远端父节点的合并提交恢复快进关系。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-24T20:48:00+08:00
+- **Notes**: 保留远端已推送父提交并创建合并节点；新增记录改为独立后续提交。
