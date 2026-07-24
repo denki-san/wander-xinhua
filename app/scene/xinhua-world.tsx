@@ -5,8 +5,6 @@ import {
   Html,
   RoundedBox,
   Shadow,
-  useAnimations,
-  useGLTF,
 } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import {
@@ -21,16 +19,19 @@ import {
   Vector3,
 } from "three";
 import {
+  lazy,
   Suspense,
   type CSSProperties,
   type ReactNode,
   type RefObject,
+  useCallback,
   useEffect,
   useLayoutEffect,
   useMemo,
   useRef,
 } from "react";
 import { inputState, resetInput } from "./input";
+import { ProgressiveFeatureBoundary } from "../progressive-feature-boundary";
 import {
   MAP_POIS,
   nearestMapPoi,
@@ -50,12 +51,11 @@ import {
 } from "./shangsheng-xinsuo-block";
 import { XingfuliBlock, XINGFULI_OBSTACLES } from "./xingfuli-block";
 import {
-  XinhuaRoadLandmarks,
-  XinhuaRoadPlaneTrees,
   XINHUA_ROAD_CAMERA_OBSTACLES,
   XINHUA_ROAD_OBSTACLES,
   XINHUA_ROAD_START_PRESETS,
-} from "./xinhua-road-landmarks";
+} from "./xinhua-road-contract";
+import { XinhuaRoadMassing } from "./xinhua-road-massing";
 import {
   XINGFULI_PLACEMENT,
   XINHUA_BOUNDARY,
@@ -80,6 +80,15 @@ import {
   type XinhuaAtmosphere,
   type XinhuaAtmosphereStyle,
 } from "./atmosphere-contract";
+import type { ProgressiveNetworkProfile } from "./progressive-loading";
+import { useProgressiveBuildingTier } from "./progressive-building-stage";
+
+const ProgressiveXinhuaRoadFullLayer = lazy(
+  () => import("./xinhua-road-landmarks"),
+);
+const ProgressiveDetailedWandererCharacter = lazy(
+  () => import("./detailed-wanderer-character"),
+);
 
 const WORLD_UP = new Vector3(0, 1, 0);
 const INTRO_CAMERA_DIRECTION = new Vector3(126, 142, 138).normalize();
@@ -99,9 +108,6 @@ const CAMERA_POSITION_DAMPING = 10;
 const CAMERA_ROTATION_SPEED_X = 0.005;
 const CAMERA_ROTATION_SPEED_Y = 0.004;
 const CHARACTER_TURN_DAMPING = 9;
-const CHARACTER_MODEL_PATH = "/models/character/rain-summer-wanderer.glb?v=f9721e54f034";
-// Rain 的原始身高比旧角色低约 11%；1.3 倍可保持正式地图中的既有屏幕占比。
-const CHARACTER_VISUAL_SCALE = 1.3;
 const CHARACTER_MAX_TURN_SPEED = 8;
 const CAMERA_FALLBACK_HEIGHT = 1.9;
 const CAMERA_FALLBACK_YAWS = [
@@ -114,6 +120,16 @@ const CAMERA_FALLBACK_YAWS = [
 const CAMERA_FALLBACK_RADII = [3.8, 3.0, 2.2, 1.45, 0.82, 0.42];
 const CAMERA_DEFAULT_PITCH = CAMERA_HEIGHT / Math.hypot(CAMERA_DISTANCE, CAMERA_HEIGHT);
 const PLAYER_RADIUS = 0.48;
+
+function markFirstProgressiveControlResponse() {
+  if (
+    typeof performance !== "undefined"
+    && performance.getEntriesByName("xinhua-first-control-response").length === 0
+  ) {
+    performance.mark("xinhua-first-control-response");
+  }
+}
+
 export const DETAIL_WORLD_SCALE = 1.65;
 const OVERVIEW_CHARACTER_SCALE = 22;
 const OVERVIEW_MOVE_SPEED = 108;
@@ -427,6 +443,9 @@ function FlatNeighborhood({
   showHeroTree = false,
   priorityPreset,
   landmarkLoadMode = "overview",
+  networkProfile,
+  mode,
+  progressiveFocus,
 }: {
   onOpenAction: () => void;
   atmosphere: XinhuaAtmosphere;
@@ -437,7 +456,34 @@ function FlatNeighborhood({
   showHeroTree?: boolean;
   priorityPreset?: string;
   landmarkLoadMode?: "overview" | "explore";
+  networkProfile: ProgressiveNetworkProfile;
+  mode: "intro" | "overview" | "explore";
+  progressiveFocus: RefObject<readonly [number, number]>;
 }) {
+  const xingfuliTier = useProgressiveBuildingTier({
+    mode,
+    networkProfile,
+    focusPosition: progressiveFocus,
+    center: XINGFULI_POSITION,
+    fullEnterDistance: 72,
+    fullExitDistance: 88,
+  });
+  const shangshengTier = useProgressiveBuildingTier({
+    mode,
+    networkProfile,
+    focusPosition: progressiveFocus,
+    center: SHANGSHENG_XINSUO_POSITION,
+    fullEnterDistance: 92,
+    fullExitDistance: 112,
+  });
+  const huashanTier = useProgressiveBuildingTier({
+    mode,
+    networkProfile,
+    focusPosition: progressiveFocus,
+    center: HUASHAN_GREEN_POSITION,
+    fullEnterDistance: 76,
+    fullExitDistance: 94,
+  });
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
       <XinhuaStreetMap showRoadLabels={showRoadLabels} />
@@ -452,21 +498,35 @@ function FlatNeighborhood({
           XINGFULI_PLACEMENT.horizontalScale,
         ]}>
           <group position={[0, 0, -XINGFULI_PLACEMENT.localLaneCenterZ]}>
-            <XingfuliBlock loadDetailedArchitecture={showDetailModels} />
+            <XingfuliBlock
+              loadDetailedArchitecture={showDetailModels}
+              stage={xingfuliTier}
+            />
           </group>
         </group>
       </group>
-      <HuashanGreenBlock />
-      {showDetailModels && (
-        <>
-          <ShangshengXinsuoBlock />
-          <XinhuaRoadPlaneTrees showHero={showHeroTree} atmosphere={atmosphere} />
-          <XinhuaRoadLandmarks
-            showLabels={showDetailLabels}
-            priorityPreset={priorityPreset}
-            loadMode={landmarkLoadMode}
-          />
-        </>
+      <HuashanGreenBlock stage={huashanTier} />
+      <ShangshengXinsuoBlock
+        stage={shangshengTier}
+      />
+      {showDetailModels && networkProfile === "standard" ? (
+        <ProgressiveFeatureBoundary
+          resetKey={`${landmarkLoadMode}-${priorityPreset ?? "nearby"}`}
+          fallback={<XinhuaRoadMassing identity />}
+        >
+          <Suspense fallback={<XinhuaRoadMassing identity />}>
+            <ProgressiveXinhuaRoadFullLayer
+              showLabels={showDetailLabels}
+              showHero={showHeroTree}
+              atmosphere={atmosphere}
+              priorityPreset={priorityPreset}
+              loadMode={landmarkLoadMode}
+              focusPosition={progressiveFocus}
+            />
+          </Suspense>
+        </ProgressiveFeatureBoundary>
+      ) : (
+        <XinhuaRoadMassing identity={showDetailModels} />
       )}
       <ActionInstallation onOpenAction={onOpenAction} />
     </group>
@@ -615,68 +675,18 @@ type WandererCharacterProps = {
   scale?: number;
 };
 
-function DetailedWandererCharacter({
-  outerRef,
-  scale = 1,
-}: WandererCharacterProps) {
-  const { scene, animations } = useGLTF(CHARACTER_MODEL_PATH);
-  const model = useMemo(() => {
-    scene.traverse((object) => {
-      const mesh = object as Object3D & {
-        isMesh?: boolean;
-        castShadow?: boolean;
-        receiveShadow?: boolean;
-        frustumCulled?: boolean;
-      };
-      if (mesh.isMesh) {
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-        // 绑定姿势之外的动作可能超出静态包围盒；关闭单体裁剪可避免腿或头在屏幕边缘闪失。
-        mesh.frustumCulled = false;
-      }
-    });
-    return scene;
-  }, [scene]);
-  const { actions } = useAnimations(animations, model);
-  const activeAction = useRef<string | null>(null);
-
-  useEffect(() => {
-    const idle = actions.Idle_Neutral;
-    const idleName = "Idle_Neutral";
-    idle?.reset().fadeIn(0.12).play();
-    activeAction.current = idle ? idleName : null;
-    return () => {
-      activeAction.current = null;
-    };
-  }, [actions]);
-
-  useFrame(() => {
-    const analogStrength = Math.min(1, Math.hypot(inputState.moveX, inputState.moveY));
-    const keyboardMoving = inputState.forward || inputState.back || inputState.left || inputState.right;
-    const moveStrength = analogStrength > 0 ? analogStrength : (keyboardMoving ? 1 : 0);
-    const nextAction = moveStrength <= 0.02
-      ? "Idle_Neutral"
-      : (inputState.sprint ? "Run" : "Walk");
-
-    if (activeAction.current === nextAction) return;
-    if (activeAction.current) actions[activeAction.current]?.fadeOut(0.16);
-    actions[nextAction]?.reset().fadeIn(0.16).play();
-    activeAction.current = nextAction;
-  });
-
-  return (
-    <group ref={outerRef} scale={scale}>
-      <primitive object={model} scale={CHARACTER_VISUAL_SCALE} />
-    </group>
-  );
-}
-
-function WandererCharacter(props: WandererCharacterProps) {
+function WandererCharacter({
+  detailed = true,
+  ...props
+}: WandererCharacterProps & { detailed?: boolean }) {
+  if (!detailed) return <ProceduralWandererCharacter {...props} />;
   // 角色模型单独进入 Suspense，避免首次载入 GLB 时把地面、建筑与相机一起挂起。
   return (
-    <Suspense fallback={<ProceduralWandererCharacter {...props} />}>
-      <DetailedWandererCharacter {...props} />
-    </Suspense>
+    <ProgressiveFeatureBoundary fallback={<ProceduralWandererCharacter {...props} />}>
+      <Suspense fallback={<ProceduralWandererCharacter {...props} />}>
+        <ProgressiveDetailedWandererCharacter {...props} />
+      </Suspense>
+    </ProgressiveFeatureBoundary>
   );
 }
 
@@ -716,11 +726,13 @@ function PlayableWanderer({
   startPreset,
   onPositionChange,
   atmosphere,
+  networkProfile,
 }: {
   onNearAction: (near: boolean) => void;
   startPreset?: string;
   onPositionChange: (position: readonly [number, number]) => void;
   atmosphere: XinhuaAtmosphere;
+  networkProfile: ProgressiveNetworkProfile;
 }) {
   const { camera, gl } = useThree();
   const outer = useRef<Group>(null);
@@ -971,6 +983,7 @@ function PlayableWanderer({
     s.cameraRight.copy(s.cameraForward).cross(WORLD_UP).normalize();
 
     if (moving) {
+      markFirstProgressiveControlResponse();
       const signature = usingAnalog ? "analog" : `${x}:${z}`;
       if (signature !== driveSignature.current) {
         moveCameraForward.current.copy(s.cameraForward);
@@ -1186,7 +1199,10 @@ function PlayableWanderer({
           renderOrder={3}
         />
       </group>
-      <WandererCharacter outerRef={outer} />
+      <WandererCharacter
+        outerRef={outer}
+        detailed={networkProfile === "standard"}
+      />
     </>
   );
 }
@@ -1258,11 +1274,13 @@ function OverviewWanderer({
   cameraFocus,
   onNearPoi,
   onPositionChange,
+  networkProfile,
 }: {
   initialPosition: readonly [number, number];
   cameraFocus: RefObject<Vector3>;
   onNearPoi: (poiId: string | null) => void;
   onPositionChange: (position: readonly [number, number]) => void;
+  networkProfile: ProgressiveNetworkProfile;
 }) {
   const { camera } = useThree();
   const outer = useRef<Group>(null);
@@ -1305,6 +1323,7 @@ function OverviewWanderer({
       ? inputState.moveX
       : (inputState.right ? 1 : 0) - (inputState.left ? 1 : 0);
     if (Math.hypot(x, z) > 1e-4) {
+      markFirstProgressiveControlResponse();
       screenInputToPlanarMove(camera.matrixWorld, x, z, WORLD_UP, scratchMove);
       const speed = OVERVIEW_MOVE_SPEED * (inputState.sprint ? 1.45 : 1)
         * (usingAnalog ? analogMagnitude : 1);
@@ -1330,6 +1349,7 @@ function OverviewWanderer({
 
     position.current.y = terrainHeightAt(position.current.x, position.current.z) + 0.33;
     cameraFocus.current.copy(position.current);
+    onPositionRef.current([position.current.x, position.current.z]);
     if (outer.current) {
       outer.current.position.copy(position.current);
       scratchRight.copy(WORLD_UP).cross(forward.current).normalize();
@@ -1347,7 +1367,13 @@ function OverviewWanderer({
     }
   });
 
-  return <WandererCharacter outerRef={outer} scale={OVERVIEW_CHARACTER_SCALE} />;
+  return (
+    <WandererCharacter
+      outerRef={outer}
+      scale={OVERVIEW_CHARACTER_SCALE}
+      detailed={networkProfile === "standard"}
+    />
+  );
 }
 
 function OverviewCamera({
@@ -1538,6 +1564,7 @@ export function XinhuaWorld({
   destinationPreset,
   onNearPoi,
   onPositionChange,
+  networkProfile,
 }: {
   mode: "intro" | "overview" | "explore";
   lowTier: boolean;
@@ -1549,10 +1576,12 @@ export function XinhuaWorld({
   destinationPreset?: string;
   onNearPoi: (poiId: string | null) => void;
   onPositionChange: (position: readonly [number, number]) => void;
+  networkProfile: ProgressiveNetworkProfile;
 }) {
   const exploring = mode === "explore";
   const overview = mode === "overview";
   const atmosphere = XINHUA_ATMOSPHERES[atmosphereStyle];
+  const progressiveFocus = useRef<readonly [number, number]>(overviewStartPosition);
   const overviewCameraFocus = useRef(new Vector3(
     overviewStartPosition[0],
     terrainHeightAt(overviewStartPosition[0], overviewStartPosition[1]) + 0.33,
@@ -1567,6 +1596,14 @@ export function XinhuaWorld({
       overviewStartPosition[1],
     );
   }, [overview, overviewStartPosition]);
+
+  const reportProgressivePosition = useCallback(
+    (position: readonly [number, number]) => {
+      progressiveFocus.current = position;
+      onPositionChange(position);
+    },
+    [onPositionChange],
+  );
 
   return (
     <>
@@ -1597,6 +1634,9 @@ export function XinhuaWorld({
         showHeroTree={exploring}
         priorityPreset={destinationPreset}
         landmarkLoadMode={exploring ? "explore" : "overview"}
+        networkProfile={networkProfile}
+        mode={mode}
+        progressiveFocus={progressiveFocus}
       />
       <IntroCamera active={mode === "intro"} />
       {overview && (
@@ -1606,7 +1646,8 @@ export function XinhuaWorld({
             initialPosition={overviewStartPosition}
             cameraFocus={overviewCameraFocus}
             onNearPoi={onNearPoi}
-            onPositionChange={onPositionChange}
+            onPositionChange={reportProgressivePosition}
+            networkProfile={networkProfile}
           />
         </>
       )}
@@ -1615,8 +1656,9 @@ export function XinhuaWorld({
         <PlayableWanderer
           onNearAction={onNearAction}
           startPreset={destinationPreset}
-          onPositionChange={onPositionChange}
+          onPositionChange={reportProgressivePosition}
           atmosphere={atmosphere}
+          networkProfile={networkProfile}
         />
       )}
     </>

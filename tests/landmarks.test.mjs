@@ -144,7 +144,10 @@ test("华山绿地具备真实园路与可识别的核心环境", async () => {
 
 test("上生新所保留三处历史建筑与泳池庭院结构", async () => {
   const landmarks = await loadJson("app/scene/xinhua-landmarks-data.json");
-  const source = await readFile(new URL("app/scene/shangsheng-xinsuo-block.tsx", root), "utf8");
+  const [source, fullModels] = await Promise.all([
+    readFile(new URL("app/scene/shangsheng-xinsuo-block.tsx", root), "utf8"),
+    readFile(new URL("app/scene/shangsheng-full-models.tsx", root), "utf8"),
+  ]);
   const site = landmarks.shangshengXinsuo;
   const features = new Set(site.buildings.map((building) => building.feature));
 
@@ -153,10 +156,10 @@ test("上生新所保留三处历史建筑与泳池庭院结构", async () => {
   assert.ok(features.has("navy-club"));
   assert.ok(features.has("industrial"));
   assert.ok(features.has("new-campus"));
-  assert.match(source, /function SunKeVilla/);
+  assert.match(fullModels, /function SunKeVillaModel/);
   assert.match(source, /function CountryClub/);
-  assert.match(source, /function NavyClub/);
-  assert.match(source, /useGLTF\("\/models\/shangsheng\/navy-club-pool\.glb"\)/);
+  assert.match(fullModels, /function NavyClubModel/);
+  assert.match(fullModels, /useGLTF\("\/models\/shangsheng\/navy-club-pool\.glb"\)/);
   const navyGlbUrl = new URL("public/models/shangsheng/navy-club-pool.glb", root);
   await access(navyGlbUrl);
   const navyGlb = await readFile(navyGlbUrl);
@@ -164,7 +167,9 @@ test("上生新所保留三处历史建筑与泳池庭院结构", async () => {
   const navyData = JSON.parse(navyGlb.toString("utf8", 20, 20 + navyJsonLength).trim());
   assert.equal(navyData.nodes?.length, 1, "海军俱乐部运行时资产应合并为单节点");
   assert.equal(navyData.meshes?.length, 1, "海军俱乐部运行时资产应合并为单网格");
-  assert.match(source, /sources\.map\(\(source\) =>/);
+  assert.match(fullModels, /sources\.map\(\(source\) =>/);
+  assert.match(source, /stage === "massing"/);
+  assert.match(source, /const loadFullModels = stage === "full"/);
   assert.match(source, /function CampusLandscape/);
   assert.match(source, /function CafePavilion/);
   assert.match(source, /function BicycleParking/);
@@ -174,7 +179,7 @@ test("上生新所保留三处历史建筑与泳池庭院结构", async () => {
   assert.match(source, /sawtooth-/);
   assert.match(source, /facade-fin-/);
   assert.match(source, /\.\.\.CAMPUS_TREES\.map/);
-  assert.match(source, /name="shangsheng-navy-club-and-pool"/);
+  assert.match(fullModels, /name="shangsheng-navy-club-and-pool"/);
   assert.match(source, /name="shangsheng-xinsuo"/);
   assert.match(source, /osmWayId: 765939973/);
 

@@ -189,17 +189,21 @@ test("孙科别墅 GLB 通过结构、尺寸、材质和性能预算", async () 
 
 test("孙科别墅 GLB 已接入上生新所并保留延迟加载 fallback", async () => {
   const source = await readFile(path.join(root, "app/scene/shangsheng-xinsuo-block.tsx"), "utf8");
+  const fullModels = await readFile(
+    path.join(root, "app/scene/shangsheng-full-models.tsx"),
+    "utf8",
+  );
   assert.match(source, /function SunKeVillaFallback/);
   assert.match(source, /class SunKeVillaErrorBoundary/);
   assert.match(source, /static getDerivedStateFromError/);
-  assert.match(source, /function SunKeVilla/);
-  assert.match(source, /useGLTF\("\/models\/shangsheng\/sun-ke-villa\.glb"\)/);
-  assert.match(source, /child\.material = sourceWasArray \? replacements : replacements\[0\]/);
+  assert.match(fullModels, /function SunKeVillaModel/);
+  assert.match(fullModels, /useGLTF\("\/models\/shangsheng\/sun-ke-villa\.glb"\)/);
+  assert.match(fullModels, /child\.material = sourceWasArray \? replacements : replacements\[0\]/);
   assert.match(source, /<SunKeVillaErrorBoundary key=\{building\.id\} building=\{building\}>/);
   assert.match(source, /fallback=\{<SunKeVillaFallback building=\{building\} \/>\}/);
-  assert.match(source, /name="shangsheng-sun-ke-villa"/);
-  assert.match(source, /referenceView: "garden-front"/);
-  assert.doesNotMatch(source, /useGLTF\.preload\("\/models\/shangsheng\/sun-ke-villa\.glb"\)/);
+  assert.match(fullModels, /name="shangsheng-sun-ke-villa"/);
+  assert.match(fullModels, /referenceView: "garden-front"/);
+  assert.doesNotMatch(fullModels, /useGLTF\.preload\("\/models\/shangsheng\/sun-ke-villa\.glb"\)/);
 
   const worldSource = await readFile(path.join(root, "app/scene/xinhua-world.tsx"), "utf8");
   assert.match(worldSource, /SHANGSHENG_XINSUO_POSITION\[0\] \+ 50/);

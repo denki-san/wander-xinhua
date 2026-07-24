@@ -1,19 +1,14 @@
 "use client";
 
-import { Html, RoundedBox, useGLTF } from "@react-three/drei";
-import { Component, Suspense, useEffect, useLayoutEffect, useMemo, useRef, type ReactNode } from "react";
+import { Html, RoundedBox } from "@react-three/drei";
+import { Component, lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, type ReactNode } from "react";
 import {
   DoubleSide,
   ExtrudeGeometry,
   InstancedMesh,
-  Mesh,
-  MeshBasicMaterial,
-  MeshStandardMaterial,
-  MeshToonMaterial,
   Object3D,
   Shape,
   ShapeGeometry,
-  type Material,
 } from "three";
 import landmarks from "./xinhua-landmarks-data.json";
 import {
@@ -23,10 +18,20 @@ import {
 } from "./shangsheng-facilities";
 import { terrainHeightAt } from "./terrain";
 import { isPointInsidePolygon, type MapObstacle, type MapPolygonPoint } from "./world-math";
+import type { ProgressiveBuildingTier } from "./progressive-loading";
+import { ProgressiveFeatureBoundary } from "../progressive-feature-boundary";
 
 type Building = (typeof landmarks.shangshengXinsuo.buildings)[number];
 
 const SITE = landmarks.shangshengXinsuo;
+const ProgressiveSunKeVilla = lazy(async () => {
+  const importedModels = await import("./shangsheng-full-models");
+  return { default: importedModels.SunKeVillaModel };
+});
+const ProgressiveNavyClub = lazy(async () => {
+  const importedModels = await import("./shangsheng-full-models");
+  return { default: importedModels.NavyClubModel };
+});
 export const SHANGSHENG_XINSUO_POSITION = SITE.position as [number, number];
 const SITE_POSITION = SHANGSHENG_XINSUO_POSITION;
 const SITE_BOUNDARY: MapPolygonPoint[] = SITE.boundary.map(([x, z]) => [x, z]);
@@ -273,144 +278,6 @@ class SunKeVillaErrorBoundary extends Component<
   }
 }
 
-function SunKeVilla({ building }: { building: Building }) {
-  const { scene } = useGLTF("/models/shangsheng/sun-ke-villa.glb");
-  const model = useMemo(() => {
-    const clone = scene.clone(true);
-    const materialCache = new Map<string, MeshToonMaterial | MeshStandardMaterial>();
-    clone.traverse((child) => {
-      if (!(child instanceof Mesh)) return;
-      const sourceWasArray = Array.isArray(child.material);
-      const sources: Material[] = Array.isArray(child.material) ? child.material : [child.material];
-      const replacements = sources.map((source) => {
-        const materialName = source?.name ?? "SunKe_StuccoWarm";
-        let material = materialCache.get(materialName);
-        if (!material) {
-          const sourceColor = source instanceof MeshStandardMaterial
-            || source instanceof MeshToonMaterial
-            || source instanceof MeshBasicMaterial
-            ? source.color.clone()
-            : undefined;
-          if (materialName === "SunKe_DeepTealGlass") {
-            material = new MeshStandardMaterial({
-              color: sourceColor ?? "#334847",
-              transparent: true,
-              opacity: 0.82,
-              roughness: 0.24,
-              metalness: 0,
-              depthWrite: false,
-            });
-          } else {
-            material = new MeshToonMaterial({ color: sourceColor ?? "#b7a48d" });
-          }
-          material.name = materialName;
-          materialCache.set(materialName, material);
-        }
-        return material;
-      });
-      // GLTFLoader 会把无 geometry groups 的 glTF primitives 拆成单材质 Mesh；
-      // 此时必须继续赋单个 Material，否则长度为 1 的材质数组不会被渲染。
-      child.material = sourceWasArray ? replacements : replacements[0];
-      child.castShadow = !sources.every((source) => source.name === "SunKe_DeepTealGlass");
-      child.receiveShadow = true;
-    });
-    return clone;
-  }, [scene]);
-
-  useEffect(() => () => {
-    const materials = new Set<MeshToonMaterial | MeshStandardMaterial>();
-    model.traverse((child) => {
-      if (!(child instanceof Mesh)) return;
-      const childMaterials = Array.isArray(child.material) ? child.material : [child.material];
-      for (const material of childMaterials) {
-        if (material instanceof MeshToonMaterial || material instanceof MeshStandardMaterial) {
-          materials.add(material);
-        }
-      }
-    });
-    materials.forEach((material) => material.dispose());
-  }, [model]);
-
-  return (
-    <group
-      name="shangsheng-sun-ke-villa"
-      position={[building.position[0], 0.1, building.position[1]]}
-      rotation-y={building.rotationY}
-      userData={{ building: "sun-ke-villa", osmWayId: building.id, referenceView: "garden-front" }}
-    >
-      {/* Blender 本地 -Y 正面经 glTF Y-up 转换后朝 Three.js +Z，与既有场地正面一致。 */}
-      <primitive object={model} />
-    </group>
-  );
-}
-
-function NavyClub({ building }: { building: Building }) {
-  const { scene } = useGLTF("/models/shangsheng/navy-club-pool.glb");
-  const model = useMemo(() => {
-    const clone = scene.clone(true);
-    const materialCache = new Map<string, MeshToonMaterial | MeshStandardMaterial | MeshBasicMaterial>();
-    clone.traverse((child) => {
-      if (!(child instanceof Mesh)) return;
-      const sources = Array.isArray(child.material) ? child.material : [child.material];
-      child.material = sources.map((source) => {
-        const materialName = source?.name ?? "PlasterWhite";
-        let material = materialCache.get(materialName);
-        if (!material) {
-          const sourceColor = source && "color" in source && source.color
-            ? source.color.clone()
-            : undefined;
-          if (materialName === "PoolWater") {
-            material = new MeshStandardMaterial({
-              color: sourceColor ?? "#58bfc4",
-              transparent: true,
-              opacity: 0.76,
-              roughness: 0.16,
-              metalness: 0.08,
-              depthWrite: false,
-            });
-          } else if (materialName === "WarmArcadeLight") {
-            material = new MeshBasicMaterial({ color: sourceColor ?? "#f1c67a" });
-          } else {
-            material = new MeshToonMaterial({
-              color: sourceColor ?? "#e9e4d9",
-              transparent: materialName === "DeepTealGlass",
-              opacity: materialName === "DeepTealGlass" ? 0.86 : 1,
-            });
-          }
-          materialCache.set(materialName, material);
-        }
-        return material;
-      });
-      child.castShadow = !sources.every(({ name }) => name === "PoolWater" || name === "DeepTealGlass");
-      child.receiveShadow = true;
-    });
-    return clone;
-  }, [scene]);
-
-  useEffect(() => () => {
-    const materials = new Set<MeshToonMaterial | MeshStandardMaterial | MeshBasicMaterial>();
-    model.traverse((child) => {
-      if (!(child instanceof Mesh)) return;
-      const childMaterials = Array.isArray(child.material) ? child.material : [child.material];
-      for (const material of childMaterials) {
-        if (material instanceof MeshToonMaterial || material instanceof MeshStandardMaterial || material instanceof MeshBasicMaterial) {
-          materials.add(material);
-        }
-      }
-    });
-    materials.forEach((material) => material.dispose());
-  }, [model]);
-
-  return (
-    <group name="shangsheng-navy-club-and-pool" userData={{ building: "navy-club-and-pool", osmWayId: building.id }}>
-      {/* 公开照片只用于人工判断结构与配色；部署产物是原创网格，不包含照片贴图。 */}
-      {/* glTF 将 Blender 的 +Y 映射为 WebGL 的 -Z；翻转 Z 后与场景的本地坐标约定一致。 */}
-      <primitive object={model} scale={[1, 1, -1]} />
-    </group>
-  );
-}
-
-
 function GenericCampusBuilding({ building }: { building: Building }) {
   const floorHeight = building.feature === "new-campus" ? 2.35 : 2.05;
   const height = building.floors * floorHeight;
@@ -529,28 +396,55 @@ function GenericCampusBuilding({ building }: { building: Building }) {
   );
 }
 
-function CampusBuildings() {
+function CampusMassingBuildings() {
+  return (
+    <group name="shangsheng-campus-massing" userData={{ stage: "massing" }}>
+      {SITE.buildings.map((building) => {
+        const floorHeight = building.feature === "new-campus" ? 2.35 : 2.05;
+        return (
+          <FootprintVolume
+            key={building.id}
+            building={building}
+            height={building.floors * floorHeight}
+          />
+        );
+      })}
+    </group>
+  );
+}
+
+function CampusBuildings({ stage }: { stage: ProgressiveBuildingTier }) {
+  if (stage === "massing") return <CampusMassingBuildings />;
+  const loadFullModels = stage === "full";
   return (
     <group>
       {SITE.buildings.map((building) => {
         if (building.feature === "sun-ke-villa") {
+          if (!loadFullModels) {
+            return <SunKeVillaFallback key={building.id} building={building} />;
+          }
           return (
             <SunKeVillaErrorBoundary key={building.id} building={building}>
               <Suspense fallback={<SunKeVillaFallback building={building} />}>
-                <SunKeVilla building={building} />
+                <ProgressiveSunKeVilla building={building} />
               </Suspense>
             </SunKeVillaErrorBoundary>
           );
         }
         if (building.feature === "country-club") return <CountryClub key={building.id} building={building} />;
         if (building.feature === "navy-club") {
+          if (!loadFullModels) {
+            return <GenericCampusBuilding key={building.id} building={building} />;
+          }
           return (
-            <Suspense
+            <ProgressiveFeatureBoundary
               key={building.id}
               fallback={<GenericCampusBuilding building={building} />}
             >
-              <NavyClub building={building} />
-            </Suspense>
+              <Suspense fallback={<GenericCampusBuilding building={building} />}>
+                <ProgressiveNavyClub building={building} />
+              </Suspense>
+            </ProgressiveFeatureBoundary>
           );
         }
         return <GenericCampusBuilding key={building.id} building={building} />;
@@ -851,7 +745,12 @@ function CampusLandscape() {
   );
 }
 
-export function ShangshengXinsuoBlock() {
+export function ShangshengXinsuoBlock({
+  stage = "full",
+}: {
+  stage?: ProgressiveBuildingTier;
+}) {
+  const identityReady = stage === "identity" || stage === "full";
   return (
     <group
       name="shangsheng-xinsuo"
@@ -860,14 +759,21 @@ export function ShangshengXinsuoBlock() {
         terrainHeightAt(SITE_POSITION[0], SITE_POSITION[1]) + 0.16,
         SITE_POSITION[1],
       ]}
-      userData={{ landmark: "shangsheng-xinsuo", osmWayId: 765939973 }}
+      userData={{
+        landmark: "shangsheng-xinsuo",
+        osmWayId: 765939973,
+        stage,
+        progressive: true,
+      }}
     >
       <SiteGround />
-      <CampusBuildings />
-      <CampusLandscape />
-      <Html center transform sprite position={[5, 12, -5]} distanceFactor={38} style={{ pointerEvents: "none" }}>
-        <span className="map-road-label map-landmark-label">上生·新所</span>
-      </Html>
+      <CampusBuildings stage={stage} />
+      {identityReady && <CampusLandscape />}
+      {identityReady && (
+        <Html center transform sprite position={[5, 12, -5]} distanceFactor={38} style={{ pointerEvents: "none" }}>
+          <span className="map-road-label map-landmark-label">上生·新所</span>
+        </Html>
+      )}
     </group>
   );
 }

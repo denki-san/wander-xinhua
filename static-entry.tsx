@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./app/globals.css";
-import { XinhuaExperience } from "./app/xinhua-experience";
+import { XinhuaExperienceLoader } from "./app/xinhua-experience-loader";
 
 const root = document.getElementById("root");
 
@@ -11,6 +11,6 @@ if (!root) {
 
 createRoot(root).render(
   <StrictMode>
-    <XinhuaExperience />
+    <XinhuaExperienceLoader />
   </StrictMode>,
 );
