@@ -71,6 +71,90 @@ export function cameraRelativeInputToPlanarMove(
   return result;
 }
 
+/** 只把明确位于摇杆后方扇区的输入视为直后拉，避免侧移误触发转身锁定。 */
+export function isDirectReverseInput(
+  rightInput: number,
+  forwardInput: number,
+) {
+  const magnitude = Math.hypot(rightInput, forwardInput);
+  if (magnitude < 1e-4) return false;
+  const normalizedRight = rightInput / magnitude;
+  const normalizedForward = forwardInput / magnitude;
+  return normalizedForward <= -0.72 && Math.abs(normalizedRight) <= 0.58;
+}
+
+/** 直后拉且目标方向明显落在角色后方时，开始一次稳定的反向转身。 */
+export function shouldStartReverseTurn(
+  rightInput: number,
+  forwardInput: number,
+  characterMoveAlignment: number,
+) {
+  return isDirectReverseInput(rightInput, forwardInput)
+    && characterMoveAlignment <= 0.2;
+}
+
+/**
+ * 自动跟随只在前进时完整生效；纯横移暂停跟随，后移几乎不跟随。
+ * 该权重与走路/跑步速度无关，保证两种步态的镜头角速度一致。
+ */
+export function movementCameraFollowWeight(
+  rightInput: number,
+  forwardInput: number,
+  reverseTurning: boolean,
+) {
+  if (reverseTurning) return 0;
+  const magnitude = Math.hypot(rightInput, forwardInput);
+  if (magnitude < 1e-4) return 0;
+  const normalizedForward = forwardInput / magnitude;
+  if (normalizedForward <= -0.25) return 0.08;
+  const forwardWeight = Math.max(0, normalizedForward);
+  return forwardWeight * forwardWeight;
+}
+
+/** 反向转身初段先少量位移，朝向基本完成后再平滑恢复正常步速。 */
+export function reverseTurnTranslationScale(
+  characterMoveAlignment: number,
+  reverseTurning: boolean,
+) {
+  if (!reverseTurning) return 1;
+  if (characterMoveAlignment <= 0.35) return 0.16;
+  if (characterMoveAlignment >= 0.85) return 1;
+  return 0.16 + (characterMoveAlignment - 0.35) / 0.5 * 0.84;
+}
+
+/** 直行时把构图中心轻微移向角色右侧；横移时保持居中。 */
+export function forwardFramingWeight(
+  rightInput: number,
+  forwardInput: number,
+) {
+  const magnitude = Math.hypot(rightInput, forwardInput);
+  if (magnitude < 1e-4) return 0;
+  const normalizedRight = Math.abs(rightInput / magnitude);
+  const normalizedForward = forwardInput / magnitude;
+  const forwardWeight = Math.min(1, Math.max(0, (normalizedForward - 0.35) / 0.55));
+  const lateralGuard = Math.min(1, Math.max(0, 1 - normalizedRight / 0.75));
+  return forwardWeight * lateralGuard;
+}
+
+/** 记录最近一次移动有多接近纯横移，供停步后的短暂前探使用。 */
+export function lateralMovementWeight(
+  rightInput: number,
+  forwardInput: number,
+) {
+  const magnitude = Math.hypot(rightInput, forwardInput);
+  if (magnitude < 1e-4) return 0;
+  const normalizedRight = Math.abs(rightInput / magnitude);
+  return normalizedRight * normalizedRight;
+}
+
+/** 横移停步后先保持短暂前探，再在约两秒内自然回中。 */
+export function stopFramingEnvelope(idleSeconds: number) {
+  const elapsed = Math.max(0, idleSeconds);
+  if (elapsed <= 0.75) return 1;
+  if (elapsed >= 2.2) return 0;
+  return Math.exp(-(elapsed - 0.75) * 1.6);
+}
+
 /** 只绕地面法线旋转方向，180 度转向时也不会穿过镜头顶部。 */
 export function rotateTangentTowards(
   current: Vector3,

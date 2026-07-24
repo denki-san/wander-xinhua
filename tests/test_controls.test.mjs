@@ -153,6 +153,30 @@ test("探索和全览人物速度均小幅降低", async () => {
   assert.match(world, /EXPLORE_WALK_SPEED \* \(usingAnalog \? analogMagnitude : 1\)/);
 });
 
+test("反向转身与状态化构图不会被相机反馈环改写", async () => {
+  const world = await readFile(
+    new URL("../app/scene/xinhua-world.tsx", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(world, /const CAMERA_DISTANCE = 5\.35/);
+  assert.match(world, /const reverseTurnActive = useRef\(false\)/);
+  assert.match(world, /reverseMoveDirection\.current\.copy\(s\.inputMove\)/);
+  assert.match(world, /movementCameraFollowWeight\(\s*x,\s*z,\s*reverseTurnActive\.current/s);
+  assert.match(world, /s\.move\.copy\(reverseMoveDirection\.current\)/);
+  assert.match(world, /reverseTurnTranslationScale\(/);
+  assert.match(world, /CAMERA_FORWARD_FRAMING_RIGHT_OFFSET \* forwardFramingWeight\(x, z\)/);
+  assert.match(world, /CAMERA_STOP_FRAMING_DISTANCE \* lastLateralMoveWeight\.current \* settleEnvelope/);
+  assert.match(world, /idleFramingElapsed\.current \+= Math\.max\(0, rawDelta\)/);
+  assert.match(world, /cameraLookTarget\.copy\(s\.cameraTarget\)\.add\(cameraFramingOffset\.current\)/);
+  assert.match(world, /camera\.lookAt\(s\.cameraLookTarget\)/);
+  assert.doesNotMatch(
+    world,
+    /\.addScaledVector\(s\.rigRight, CAMERA_TARGET_SHOULDER_OFFSET\)\s*\.add\(cameraFramingOffset\.current\)/,
+  );
+  assert.doesNotMatch(world, /inputState\.sprint[\s\S]{0,120}movementCameraFollowWeight/);
+});
+
 test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", async () => {
   const [world, effects, experience, roadLandmarks] = await Promise.all([
     readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),

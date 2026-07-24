@@ -5387,3 +5387,48 @@ TypeError: requestAnimationFrame is not a function
 **Cause:** Chrome Browser 对原始输入 CDP 命令设有限制，不能直接维持跨多帧 keyDown 状态。
 **Resolution:** 使用允许的短按序列观察朝向、构图和停止回位，并把无法精确测量的持续输入阻尼明确标为定性结论，不伪装成按住测试。
 **See Also:** ERR172, ERR186
+
+## [ERR188] 根据旧记录猜测了不存在的测试文件名
+
+**Date:** 2026-07-24
+**Context:** 定位第三人称镜头与移动测试入口，准备实现反向转身和构图优化。
+**Error:** `rg` 报告 `tests/test_camera_collision.test.mjs` 与 `tests/test_world_movement.test.mjs` 不存在。
+**Cause:** 使用了旧记录中的概括性文件名，没有先以当前仓库文件清单为准。
+**Resolution:** 先用 `rg --files tests` 获取真实入口，后续使用 `tests/test_camera_spring_arm.test.mjs`、`tests/test_controls.test.mjs` 和 `tests/world-math.test.mjs`。
+**See Also:** ERR187
+
+## [ERR189] 提交前审查任务名与已结束任务冲突
+
+**Date:** 2026-07-24
+**Context:** 按提交前审查流程启动第三人称镜头控制的只读复核。
+**Error:** 协作工具返回 `agent path /root/camera_controls_review already exists`，但活动任务列表中只有主任务。
+**Cause:** 当前线程树保留了同名已结束任务路径，不能复用同一任务名。
+**Resolution:** 不重试同名任务，改用带版本后缀的唯一任务名继续只读审查。
+**See Also:** ERR188
+
+## [ERR190] 协作审查等待时间低于接口下限
+
+**Date:** 2026-07-24
+**Context:** 等待第三人称镜头控制的只读审查结果。
+**Error:** 协作工具返回 `timeout_ms must be at least 10000`。
+**Cause:** 将通用的一秒短轮询习惯误用于最短等待时间为十秒的协作接口。
+**Resolution:** 后续使用接口允许的 `10000ms` 以上等待时间，不重复无效参数。
+**See Also:** ERR189
+
+## [ERR191] Chrome 验收标签在最终刷新前失去绑定
+
+**Date:** 2026-07-24
+**Context:** 完成碰撞安全修正后，准备刷新用户 Chrome 中的局域网验收页。
+**Error:** Chrome Browser 返回 `Tab not found`，当前控制会话中没有可用标签。
+**Cause:** 已认领的用户标签在长时间测试与代码审查期间释放了控制绑定；浏览器本身没有断开。
+**Resolution:** 不重建浏览器连接，按 Chrome 规则重新读取当前用户标签并认领同一局域网页。
+**See Also:** ERR187
+
+## [ERR192] 墙钟一致性测试正好卡在浮点阈值边界
+
+**Date:** 2026-07-24
+**Context:** 为停步构图包络补充 10/30/60fps 墙钟一致性测试。
+**Error:** 在名义 `2.2s` 断言严格等于零时，某帧累计为略小于 2.2 的浮点数，返回约 `0.0983`。
+**Cause:** 测试把离散帧累计的浮点边界误当作帧率相关行为；实际差异最多一帧。
+**Resolution:** 改在 1.5 秒比较三种帧率的包络数值，在 2.3 秒验证全部归零，避开阈值的单帧离散歧义。
+**See Also:** ERR190

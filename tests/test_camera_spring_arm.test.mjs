@@ -144,6 +144,34 @@ test("spring arm 从合法零臂长恢复时不会单帧跳到完整长度", () 
   assert.ok(firstFrame < 0.5);
 });
 
+test("贴墙时构图偏移不移动 spring arm 的安全 pivot", () => {
+  const wall = [{ minX: 0.48, maxX: 2, minZ: -0.5, maxZ: 0.5 }];
+  const safePivot = resolvePlanarSpringArm(
+    0,
+    0,
+    0.327,
+    -5,
+    SQUARE,
+    wall,
+    0.26,
+    0.08,
+  );
+  const shiftedPivot = resolvePlanarSpringArm(
+    0.327,
+    0,
+    0.327,
+    -5,
+    SQUARE,
+    wall,
+    0.26,
+    0.08,
+  );
+
+  assert.equal(safePivot.fraction, 1);
+  assert.equal(shiftedPivot.fraction, 0);
+  assert.equal(shiftedPivot.blockerId, "obstacle-0");
+});
+
 test("探索态 FOV 保持在经验证前的保守产品区间", () => {
   assert.equal(explorationVerticalFov(1440, 1024), 58);
   assert.equal(explorationVerticalFov(844, 390), 58);
@@ -153,7 +181,7 @@ test("探索态 FOV 保持在经验证前的保守产品区间", () => {
 });
 
 test("第一次滚轮输入围绕初始距离连续变化，不被高于初始值的下限顶远", () => {
-  const initialDistance = Math.hypot(5, 1.95);
+  const initialDistance = Math.hypot(5.35, 1.95);
   const zoomedIn = nextCameraZoomDistance(initialDistance, -100, 4.6, 12.5);
   const zoomedOut = nextCameraZoomDistance(initialDistance, 100, 4.6, 12.5);
 

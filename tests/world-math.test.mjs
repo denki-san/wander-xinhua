@@ -4,15 +4,22 @@ import { PerspectiveCamera, Vector3 } from "three";
 import {
   cameraRelativeInputToPlanarMove,
   composeCameraOffset,
+  forwardFramingWeight,
   isPlanarCameraCandidateClearInPolygon,
+  isDirectReverseInput,
   isPlanarPositionBlockedInPolygon,
   isPlanarSightLineBlockedInPolygon,
   isPointInsidePolygon,
   isPlanarPositionBlocked,
+  lateralMovementWeight,
+  movementCameraFollowWeight,
+  reverseTurnTranslationScale,
   resolvePolygonMovement,
   resolvePlanarMovement,
   rotateTangentTowards,
   screenInputToPlanarMove,
+  shouldStartReverseTurn,
+  stopFramingEnvelope,
   transformMapObstacle,
 } from "../app/scene/world-math.ts";
 
@@ -82,6 +89,58 @@ test("开启肩位后前推仍严格沿真实镜头的屏幕前方", () => {
     rigForwardWithoutShoulder.angleTo(viewForward) > 8 * Math.PI / 180,
     "测试必须覆盖肩位造成的可见方向差异",
   );
+});
+
+test("直后拉锁定反向目标并暂停镜头自动跟随", () => {
+  const cameraForward = new Vector3(0, 0, 1);
+  const cameraRight = new Vector3(-1, 0, 0);
+  const characterForward = new Vector3(0, 0, 1);
+  const reverseMove = cameraRelativeInputToPlanarMove(
+    cameraForward,
+    cameraRight,
+    0,
+    -1,
+  ).normalize();
+
+  assert.equal(isDirectReverseInput(0, -1), true);
+  assert.equal(isDirectReverseInput(0.8, -0.6), false);
+  assert.equal(shouldStartReverseTurn(0, -1, characterForward.dot(reverseMove)), true);
+  assert.equal(movementCameraFollowWeight(0, -1, true), 0);
+  assert.equal(movementCameraFollowWeight(0, 1, false), 1);
+  assert.equal(movementCameraFollowWeight(1, 0, false), 0);
+  assert.equal(reverseTurnTranslationScale(-1, true), 0.16);
+  assert.equal(reverseTurnTranslationScale(0.85, true), 1);
+  assert.equal(reverseTurnTranslationScale(-1, false), 1);
+});
+
+test("前进构图右偏，横移停步后短暂向最近移动方向前探", () => {
+  assert.equal(forwardFramingWeight(0, 1), 1);
+  assert.equal(forwardFramingWeight(1, 0), 0);
+  assert.equal(forwardFramingWeight(0, -1), 0);
+  assert.equal(lateralMovementWeight(1, 0), 1);
+  assert.equal(lateralMovementWeight(0, 1), 0);
+  assert.equal(stopFramingEnvelope(0), 1);
+  assert.equal(stopFramingEnvelope(0.75), 1);
+  assert.ok(stopFramingEnvelope(1.5) > 0);
+  assert.ok(stopFramingEnvelope(1.5) < 1);
+  assert.equal(stopFramingEnvelope(2.2), 0);
+});
+
+test("停步构图包络按墙钟在 10/30/60fps 得到相同结果", () => {
+  const envelopeAfter = (fps, duration) => {
+    let elapsed = 0;
+    const frame = 1 / fps;
+    const frameCount = Math.round(fps * duration);
+    for (let index = 0; index < frameCount; index += 1) elapsed += frame;
+    return stopFramingEnvelope(elapsed);
+  };
+
+  const at10fps = envelopeAfter(10, 1.5);
+  const at30fps = envelopeAfter(30, 1.5);
+  const at60fps = envelopeAfter(60, 1.5);
+  assert.ok(Math.abs(at10fps - at30fps) < EPSILON);
+  assert.ok(Math.abs(at30fps - at60fps) < EPSILON);
+  for (const fps of [10, 30, 60]) assert.equal(envelopeAfter(fps, 2.3), 0);
 });
 
 test("相反方向的相机跟随只做水平转向并保持俯仰", () => {

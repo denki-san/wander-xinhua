@@ -69,10 +69,17 @@ import {
   dampingFactor,
   dampTangentTowards,
   explorationVerticalFov,
+  forwardFramingWeight,
+  isDirectReverseInput,
+  lateralMovementWeight,
+  movementCameraFollowWeight,
   nextCameraZoomDistance,
   normalizeWheelDeltaY,
   remainingDeadlineMs,
+  reverseTurnTranslationScale,
   resolvePlanarSpringArm,
+  shouldStartReverseTurn,
+  stopFramingEnvelope,
   type MapObstacle,
   type MapPolygonPoint,
   resolvePolygonMovement,
@@ -95,12 +102,17 @@ const INTRO_MAP_RADIUS = Math.hypot(
   (XINHUA_BOUNDS.maxX - XINHUA_BOUNDS.minX) / 2,
   (XINHUA_BOUNDS.maxZ - XINHUA_BOUNDS.minZ) / 2,
 ) * 1.08;
-const CAMERA_DISTANCE = 5;
+const CAMERA_DISTANCE = 5.35;
 const CAMERA_HEIGHT = 1.95;
 const CAMERA_TARGET_HEIGHT = 1.45;
 const CAMERA_SHOULDER_OFFSET = 0.9;
 const CAMERA_TARGET_SHOULDER_OFFSET = 0.12;
 const CAMERA_FOLLOW_DAMPING = 3.2;
+const CAMERA_FORWARD_FRAMING_RIGHT_OFFSET = 0.24;
+const CAMERA_STOP_FRAMING_DISTANCE = 0.42;
+const CAMERA_FRAMING_MOVE_DAMPING = 4.2;
+const CAMERA_FRAMING_SETTLE_DAMPING = 2.4;
+const CAMERA_FRAMING_RETURN_DAMPING = 1.6;
 const CAMERA_ORBIT_DAMPING = 18;
 const CAMERA_ARM_RECOVERY_DAMPING = 6;
 const CAMERA_COLLISION_RADIUS = 0.26;
@@ -743,7 +755,13 @@ function PlayableWanderer({
   const forward = useRef(initialForward.clone());
   const cameraOffset = useRef(initialCameraOffset.clone());
   const cameraGoalOffset = useRef(initialCameraOffset.clone());
+  const cameraFramingOffset = useRef(new Vector3());
   const resolvedArmLength = useRef<number | null>(null);
+  const reverseTurnActive = useRef(false);
+  const reverseMoveDirection = useRef(initialForward.clone());
+  const lastMoveDirection = useRef(initialForward.clone());
+  const lastLateralMoveWeight = useRef(0);
+  const idleFramingElapsed = useRef(0);
   const jumpHeight = useRef(0);
   const jumpVelocity = useRef(0);
   const jumpHeld = useRef(false);
@@ -818,6 +836,7 @@ function PlayableWanderer({
     basis: new Matrix4(),
     right: new Vector3(),
     move: new Vector3(),
+    inputMove: new Vector3(),
     rigForward: new Vector3(),
     rigRight: new Vector3(),
     viewForward: new Vector3(),
@@ -829,6 +848,8 @@ function PlayableWanderer({
     armDirection: new Vector3(),
     cameraBase: new Vector3(),
     cameraTarget: new Vector3(),
+    cameraLookTarget: new Vector3(),
+    framingTarget: new Vector3(),
     revertedOffset: new Vector3(),
     springArm: {
       fraction: 1,
@@ -922,6 +943,33 @@ function PlayableWanderer({
       ? CAMERA_MANUAL_FOLLOW_GRACE_SECONDS * 1_000
       : remainingDeadlineMs(manualFollowGraceUntilMs.current, performance.now());
 
+    // 反向转身必须先用“本帧开始时”的真实镜头解析，并锁住这一次世界方向。
+    // 否则角色转身带动镜头、镜头又改写输入目标，会形成直后拉时的快速旋屏反馈环。
+    camera.getWorldDirection(s.viewForward).projectOnPlane(WORLD_UP);
+    if (s.viewForward.lengthSq() < 0.001) s.viewForward.copy(currentForward);
+    s.viewForward.normalize();
+    s.viewRight.copy(s.viewForward).cross(WORLD_UP).normalize();
+    if (moving) {
+      cameraRelativeInputToPlanarMove(
+        s.viewForward,
+        s.viewRight,
+        x,
+        z,
+        s.inputMove,
+      ).normalize();
+      if (!isDirectReverseInput(x, z)) {
+        reverseTurnActive.current = false;
+      } else if (
+        !reverseTurnActive.current
+        && shouldStartReverseTurn(x, z, currentForward.dot(s.inputMove))
+      ) {
+        reverseTurnActive.current = true;
+        reverseMoveDirection.current.copy(s.inputMove);
+      }
+    } else {
+      reverseTurnActive.current = false;
+    }
+
     if (dragDelta.current.x !== 0) {
       s.quaternion.setFromAxisAngle(
         WORLD_UP,
@@ -944,15 +992,26 @@ function PlayableWanderer({
     dragDelta.current.y = 0;
     cameraGoalOffset.current.setLength(zoom.current);
 
-    if (!dragging.current && manualGraceMs <= 0 && moving) {
-      // 手动旋转在静止时会停留在任意圆周角；移动时再柔和回到角色身后。
+    const cameraFollowWeight = movementCameraFollowWeight(
+      x,
+      z,
+      reverseTurnActive.current,
+    );
+    if (
+      !dragging.current
+      && manualGraceMs <= 0
+      && moving
+      && cameraFollowWeight > 0
+    ) {
+      // 前进柔和回到角色身后；纯横移和直后拉暂停跟随，避免镜头抢转。
+      const followDamping = CAMERA_FOLLOW_DAMPING * cameraFollowWeight;
       s.cameraHorizontal.copy(cameraGoalOffset.current).projectOnPlane(WORLD_UP);
       s.desiredHorizontal.copy(currentForward).multiplyScalar(-1);
       dampTangentTowards(
         s.cameraHorizontal,
         s.desiredHorizontal,
         WORLD_UP,
-        CAMERA_FOLLOW_DAMPING,
+        followDamping,
         delta,
         s.cameraHorizontal,
       );
@@ -961,7 +1020,7 @@ function PlayableWanderer({
         cameraGoalOffset.current.dot(WORLD_UP) / cameraGoalOffset.current.length(),
       ));
       const pitch = currentPitch
-        + (CAMERA_DEFAULT_PITCH - currentPitch) * dampingFactor(CAMERA_FOLLOW_DAMPING, delta);
+        + (CAMERA_DEFAULT_PITCH - currentPitch) * dampingFactor(followDamping, delta);
       composeCameraOffset(
         s.cameraHorizontal,
         WORLD_UP,
@@ -1011,17 +1070,25 @@ function PlayableWanderer({
     s.viewRight.copy(s.viewForward).cross(WORLD_UP).normalize();
 
     if (moving) {
-      cameraRelativeInputToPlanarMove(
-        s.viewForward,
-        s.viewRight,
-        x,
-        z,
-        s.move,
-      ).normalize();
+      if (reverseTurnActive.current) {
+        s.move.copy(reverseMoveDirection.current);
+      } else {
+        cameraRelativeInputToPlanarMove(
+          s.viewForward,
+          s.viewRight,
+          x,
+          z,
+          s.move,
+        ).normalize();
+      }
+      const translationScale = reverseTurnTranslationScale(
+        currentForward.dot(s.move),
+        reverseTurnActive.current,
+      );
       const speed = inputState.sprint
         ? EXPLORE_RUN_SPEED
         : EXPLORE_WALK_SPEED * (usingAnalog ? analogMagnitude : 1);
-      s.displacement.copy(s.move).multiplyScalar(speed * delta);
+      s.displacement.copy(s.move).multiplyScalar(speed * translationScale * delta);
       resolvePolygonMovement(
         currentPosition,
         s.displacement,
@@ -1040,6 +1107,34 @@ function PlayableWanderer({
         CHARACTER_MAX_TURN_SPEED,
       );
     }
+
+    s.framingTarget.set(0, 0, 0);
+    let framingDamping = CAMERA_FRAMING_MOVE_DAMPING;
+    if (moving) {
+      idleFramingElapsed.current = 0;
+      lastMoveDirection.current.copy(s.move);
+      lastLateralMoveWeight.current = lateralMovementWeight(x, z);
+      s.framingTarget.addScaledVector(
+        s.rigRight,
+        CAMERA_FORWARD_FRAMING_RIGHT_OFFSET * forwardFramingWeight(x, z),
+      );
+    } else {
+      // 包络使用真实墙钟帧间隔；物理和阻尼仍用上方限幅 delta，避免低帧率时
+      // 0.75 秒保持期与 2.2 秒回中被成倍拉长。
+      idleFramingElapsed.current += Math.max(0, rawDelta);
+      const settleEnvelope = stopFramingEnvelope(idleFramingElapsed.current);
+      s.framingTarget.addScaledVector(
+        lastMoveDirection.current,
+        CAMERA_STOP_FRAMING_DISTANCE * lastLateralMoveWeight.current * settleEnvelope,
+      );
+      framingDamping = idleFramingElapsed.current <= 0.75
+        ? CAMERA_FRAMING_SETTLE_DAMPING
+        : CAMERA_FRAMING_RETURN_DAMPING;
+    }
+    cameraFramingOffset.current.lerp(
+      s.framingTarget,
+      dampingFactor(framingDamping, delta),
+    );
 
     if (inputState.jump && !jumpHeld.current && jumpHeight.current <= 0.001) {
       jumpVelocity.current = 5.2;
@@ -1083,12 +1178,18 @@ function PlayableWanderer({
       currentPosition.x * DETAIL_WORLD_SCALE,
       scaledSurfaceHeight + cameraTargetHeight + jumpHeight.current,
       currentPosition.z * DETAIL_WORLD_SCALE,
-    ).addScaledVector(s.rigRight, CAMERA_TARGET_SHOULDER_OFFSET);
+    )
+      .addScaledVector(s.rigRight, CAMERA_TARGET_SHOULDER_OFFSET);
+    // 碰撞 sweep 仍从角色肩部安全 pivot 出发；构图偏移只作用于镜头与观察点，
+    // 避免角色贴墙时把 spring arm 起点推入扩张后的障碍区并瞬间压成零臂长。
+    s.cameraLookTarget.copy(s.cameraTarget).add(cameraFramingOffset.current);
     s.cameraBase.set(
       currentPosition.x * DETAIL_WORLD_SCALE,
       scaledSurfaceHeight + 0.33 + jumpHeight.current,
       currentPosition.z * DETAIL_WORLD_SCALE,
-    ).addScaledVector(s.rigRight, CAMERA_SHOULDER_OFFSET);
+    )
+      .addScaledVector(s.rigRight, CAMERA_SHOULDER_OFFSET)
+      .add(cameraFramingOffset.current);
     s.desiredCamera.copy(s.cameraBase).add(cameraOffset.current);
     s.armDirection.subVectors(s.desiredCamera, s.cameraTarget);
     const desiredArmLength = s.armDirection.length();
@@ -1126,7 +1227,7 @@ function PlayableWanderer({
       camera.position.copy(s.cameraTarget);
     }
     camera.up.copy(WORLD_UP);
-    camera.lookAt(s.cameraTarget);
+    camera.lookAt(s.cameraLookTarget);
     if (cameraQaEnabled) {
       updateCameraQa({
         active: true,
