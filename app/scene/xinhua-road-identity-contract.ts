@@ -47,8 +47,8 @@ export function xinhuaRoadIdentityKind(landmarkId: string): XinhuaRoadIdentityKi
   ] ?? "townhouse";
 }
 
-export const XINHUA_ROAD_HERO_ENTER_DISTANCE = 20;
-export const XINHUA_ROAD_HERO_EXIT_DISTANCE = 26;
+export const XINHUA_ROAD_HERO_ENTER_DISTANCE = 40;
+export const XINHUA_ROAD_HERO_EXIT_DISTANCE = 55;
 export const XINHUA_ROAD_HERO_SAMPLE_SECONDS = 0.2;
 
 export const CORE_BUILDING_HERO_DISTANCE = {
