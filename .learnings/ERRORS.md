@@ -5504,3 +5504,12 @@ TypeError: requestAnimationFrame is not a function
 **Cause:** 当前安装的 Sites 插件脚本没有可执行位，不能作为程序直接启动。
 **Resolution:** 不修改插件文件权限，改用 `bash package-site.sh` 调用同一官方脚本；发布前继续核对归档对应的完整 Git SHA。
 **See Also:** ERR198
+
+## [ERR201] Sites 打包包装脚本仍以 exec 调用不可执行内层脚本
+
+**Date:** 2026-07-25
+**Context:** 使用 `bash` 回退调用 Sites 顶层 `package-site.sh`。
+**Error:** 顶层脚本在第 4 行继续以 `exec` 调用内层打包脚本，内层文件同样返回 `Permission denied`。
+**Cause:** 顶层脚本只是包装器，没有把 `bash` 传递给缺少可执行位的内层脚本；同时内层脚本的真实参数是项目目录和归档路径。
+**Resolution:** 只读核对两层脚本后，使用 `bash` 直接调用 `skills/sites-hosting/scripts/package-site.sh PROJECT_DIR ARCHIVE_PATH`，不修改插件权限或脚本内容。
+**See Also:** ERR200
