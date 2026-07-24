@@ -191,19 +191,19 @@ function ProceduralPreview({ kind }: { kind: string }) {
 function AssetScene({ model, preview }: { model?: string; preview?: string }) {
   return (
     <>
-      <color attach="background" args={["#cfd9de"]} />
-      <fog attach="fog" args={["#cfd9de", 24, 55]} />
+      <color attach="background" args={["#8fa3ac"]} />
+      <fog attach="fog" args={["#8fa3ac", 34, 72]} />
       <PerspectiveCamera makeDefault position={[8.8, 6.4, 11]} fov={32} />
-      <ambientLight color="#fff0da" intensity={0.55} />
-      <hemisphereLight args={["#bfd7e7", "#615342", 1.15]} />
+      <ambientLight color="#fff0da" intensity={0.28} />
+      <hemisphereLight args={["#c9dbe3", "#4e463d", 0.58]} />
       <directionalLight
         position={[-8, 11, -14]}
         color="#ffc47f"
-        intensity={4.6}
+        intensity={2.15}
         castShadow
         shadow-mapSize={[1024, 1024]}
       />
-      <directionalLight position={[8, 7, 10]} color="#a8c6d8" intensity={1.8} />
+      <directionalLight position={[8, 7, 10]} color="#a8c6d8" intensity={0.7} />
       <Bounds fit clip observe margin={1.3}>
         <Center top>
           <AutoTurn speed={model?.includes("character") ? 0.04 : 0.1}>
@@ -211,7 +211,7 @@ function AssetScene({ model, preview }: { model?: string; preview?: string }) {
           </AutoTurn>
         </Center>
       </Bounds>
-      <ContactShadows position={[0, -0.02, 0]} opacity={0.4} scale={18} blur={2.5} far={12} color="#354544" />
+      <ContactShadows position={[0, -0.02, 0]} opacity={0.68} scale={18} blur={2.1} far={12} color="#243431" />
     </>
   );
 }
@@ -327,15 +327,6 @@ export function AssetLibrary() {
   const container = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState<AssetCategory | "all">("all");
   const [query, setQuery] = useState("");
-
-  useEffect(() => {
-    document.documentElement.classList.add("asset-library-page");
-    document.body.classList.add("asset-library-page");
-    return () => {
-      document.documentElement.classList.remove("asset-library-page");
-      document.body.classList.remove("asset-library-page");
-    };
-  }, []);
 
   const onlineCounts = useMemo(() => Object.fromEntries(
     CATEGORY_ORDER.map((category) => [

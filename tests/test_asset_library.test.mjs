@@ -19,7 +19,9 @@ test("资产后台完整覆盖五类生产资产与建筑三档", async () => {
   }
   assert.match(client, /View\.Port/);
   assert.match(client, /IntersectionObserver/);
-  assert.match(client, /document\.body\.classList\.add\("asset-library-page"\)/);
+  assert.doesNotMatch(client, /document\.body\.classList\.add\("asset-library-page"\)/);
+  assert.match(client, /#8fa3ac/);
+  assert.match(client, /intensity=\{2\.15\}/);
   assert.match(client, /个人资产后台/);
   assert.doesNotMatch(client, /href="\/"/);
   assert.match(client, /搜索名称、门牌号或资产 ID/);
