@@ -19,6 +19,8 @@ test("资产后台完整覆盖五类生产资产与建筑三档", async () => {
   }
   assert.match(client, /View\.Port/);
   assert.match(client, /IntersectionObserver/);
+  assert.match(client, /setVisible\(entry\.isIntersecting\)/);
+  assert.doesNotMatch(client, /if \(entry\.isIntersecting\)[\s\S]{0,120}observer\.disconnect\(\)/);
   assert.match(client, /搜索名称、门牌号或资产 ID/);
 });
 
@@ -31,6 +33,9 @@ test("当前资产口径保留真实数量与缺口提示", async () => {
   assert.match(data, /instanceCount: 44/);
   assert.match(data, /instanceCount: 112/);
   assert.match(data, /雨季夏日漫游者/);
-  assert.match(data, /当前运行时代码与线上模型注册表中未发现可用垃圾桶资产/);
+  assert.match(data, /上海双分类垃圾桶/);
+  assert.match(data, /preview: "trash-bin"/);
+  assert.match(data, /共享低模结构，以 InstancedMesh 按街道路缘布置/);
+  assert.match(client, /<StreetBinInstances/);
   assert.match(client, /正午/);
 });

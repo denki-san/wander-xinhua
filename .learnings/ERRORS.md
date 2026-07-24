@@ -98,6 +98,39 @@ WebGL 帧采样使用 tab 的 CDP capability 执行 `Runtime.evaluate`，并用 
 
 ---
 
+## [ERR-20260725-002] asset_visibility_test_matched_effect_cleanup
+
+**Logged**: 2026-07-25T01:35:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+资产后台离屏暂停测试把正常的 IntersectionObserver effect 清理误判成一次性可见逻辑。
+
+### Error
+```text
+Expected source not to match /entry\.isIntersecting[\s\S]{0,120}observer\.disconnect\(\)/
+```
+
+### Context
+- 实现已改为每次交叉状态变化都执行 `setVisible(entry.isIntersecting)`；
+- effect 仍必须在组件卸载时通过 `return () => observer.disconnect()` 清理 observer；
+- 原正则跨过 callback 边界匹配到了正常 cleanup。
+
+### Suggested Fix
+源码合同只禁止 `if (entry.isIntersecting) { ... observer.disconnect() }` 的一次性断连模式，不禁止 effect 卸载清理。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_asset_library.test.mjs, app/asset-library/AssetLibrary.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T01:35:00+08:00
+- **Notes**: 将负向断言收窄到 callback 内的条件断连模式，保留真实卸载清理。
+
+---
+
 ## [ERR-20260724-092] in_app_browser_networkidle_unsupported
 
 **Logged**: 2026-07-24T00:00:00+08:00

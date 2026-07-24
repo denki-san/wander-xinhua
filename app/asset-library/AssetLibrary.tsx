@@ -19,6 +19,7 @@ import {
   IrregularStoneBollard,
   OutdoorDiningSet,
   SlattedBench,
+  StreetBinInstances,
   StreetPlanter,
 } from "../scene/shared-street-assets";
 import {
@@ -55,10 +56,7 @@ function useIsVisible(rootMargin = "240px") {
     const node = ref.current;
     if (!node) return;
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setVisible(true);
-        observer.disconnect();
-      }
+      setVisible(entry.isIntersecting);
     }, { rootMargin });
     observer.observe(node);
     return () => observer.disconnect();
@@ -99,6 +97,20 @@ function ProceduralPreview({ kind }: { kind: string }) {
   if (kind === "bench") return <SlattedBench seed={4} evidenceRef="asset-library" />;
   if (kind === "planter") return <StreetPlanter variant="long" seed={6} evidenceRef="asset-library" />;
   if (kind === "bollard") return <IrregularStoneBollard variant={1} seed={3} evidenceRef="asset-library" />;
+  if (kind === "trash-bin") {
+    return (
+      <StreetBinInstances
+        name="asset-library-bin"
+        placements={[{
+          id: "asset-library-bin",
+          position: [0, 0, 0],
+          yaw: 0,
+          variant: 0,
+        }]}
+        evidenceRef="asset-library"
+      />
+    );
+  }
   if (kind === "paving") {
     return (
       <group>
