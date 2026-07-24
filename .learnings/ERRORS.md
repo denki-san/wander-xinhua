@@ -5489,3 +5489,70 @@ permission denied: sites/0.1.31/scripts/package-site.sh
 ### Resolution
 - **Resolved**: 2026-07-24T20:48:00+08:00
 - **Notes**: 保留远端已推送父提交并创建合并节点；新增记录改为独立后续提交。
+
+---
+## [ERR-20260724-094] unquoted_query_url_in_zsh
+
+**Logged**: 2026-07-24T22:36:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+使用 zsh 执行生产站点只读核对时，未给含 `?` 的 URL 加引号，命令在发起网络请求前被 glob 解析拦截。
+
+### Error
+```text
+zsh:1: no matches found: https://xinhua-messenger.berry-fig-9187.chatgpt.site/?qa=version35
+```
+
+### Context
+- 目的是只读获取现有 Codex Sites 生产页面，核对新版本是否已经生效。
+- 失败发生在 shell 参数展开阶段，没有访问线上，也没有修改站点状态。
+
+### Suggested Fix
+在 shell 命令中始终为包含 `?`、`&` 或其他 glob 字符的 URL 使用单引号。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-24T22:36:00+08:00
+- **Notes**: 改用单引号包裹完整 URL 后重新执行只读核对。
+
+---
+## [ERR-20260724-095] production_browser_navigation_timeouts
+
+**Logged**: 2026-07-24T22:53:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Codex Sites 生产验收中，独立标签页导航与整页刷新多次在控制连接层超时并重置会话。
+
+### Error
+```text
+Timed out running CDP command "Page.navigate"
+js execution timed out; kernel reset, rerun your request
+```
+
+### Context
+- 原生产标签页已经完成弱网 Identity 画面截图，确认空白方盒已消失。
+- 新标签页的 URL 最终出现，但一度只返回空 document；整页刷新后只读 DOM 状态也无法稳定回传。
+- Sites v35 状态为 succeeded，生产 HTML 已引用 v35 新 bundle，页面日志没有 error。
+- 本地同一生产构建已完成标准档 Full 模型切换验收。
+
+### Suggested Fix
+导航或 reload 超时后先读取现有标签页状态，不重复导航；若控制会话持续重置，保留已获得的
+生产证据，并清楚区分“线上已确认”和“本地同构建已确认”的验收边界。
+
+### Metadata
+- Reproducible: intermittent
+- Related Files: docs/research/progressive-world-loading-acceptance-2026-07-24.md
+
+### Resolution
+- **Resolved**: 2026-07-24T22:53:00+08:00
+- **Notes**: 停止继续操作不稳定标签页，保留生产弱网截图、生产新 bundle 哈希、
+  零 error 日志和本地标准档 Full 截图作为分层证据。
