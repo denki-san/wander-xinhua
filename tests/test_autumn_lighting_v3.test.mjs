@@ -30,21 +30,22 @@ test("探索态建立可读的秋日下午方向光与局部阴影", async () =>
   assert.doesNotMatch(world, /xinhua-lighting-qa|__xinhuaLightingQA/);
 });
 
-test("新华路梧桐阴影与主太阳方向共享同一份气氛契约", async () => {
+test("全览关闭天空与树木装饰，详情恢复原有天空、树影和落叶", async () => {
   const landmarks = await readFile(
     new URL("../app/scene/xinhua-road-landmarks.tsx", import.meta.url),
     "utf8",
   );
+  const [experience, world] = await Promise.all([
+    readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
+  ]);
 
-  assert.match(landmarks, /function AutumnPlaneTreeShadows\(\{ atmosphere \}/);
-  assert.match(landmarks, /atmosphere\.sunOffset/);
-  assert.match(
-    landmarks,
-    /autumnShadowSurfaceHeightAt\(positionX, positionZ\)/,
-  );
-  assert.match(landmarks, /atmosphere: "storybook-plane-tree-shadows"/);
-  assert.match(landmarks, /atmosphere: "storybook-plane-tree-trunk-shadows"/);
+  assert.match(experience, /exploring && \([\s\S]*?<AutumnStorybookSky[\s\S]*?<StorybookCloudLayer \/>/);
+  assert.match(world, /<fog attach="fog"/);
+  assert.match(landmarks, /<LightweightPlaneTreeInstances \/>/);
+  assert.match(landmarks, /if \(!showHero\)/);
   assert.match(landmarks, /<AutumnPlaneTreeShadows atmosphere=\{atmosphere\} \/>/);
+  assert.match(landmarks, /<AutumnLeafCarpet \/>/);
 });
 
 test("问号帮助面板可在秋日下午和当前光照之间即时切换", async () => {

@@ -93,10 +93,12 @@ test("华山绿地具备真实园路与可识别的核心环境", async () => {
   const huashan = landmarks.huashanGreenland;
 
   assert.match(source, /function ForestInstances/);
+  assert.match(source, /vegetation: detailed \? "detailed" : "programmatic-lightweight"/);
   assert.match(source, /function UnderstoryInstances/);
   assert.match(source, /function PondGarden/);
   assert.match(source, /function BasketballCourt/);
   assert.match(source, /function ParkFacilities/);
+  assert.match(source, /<ForestInstances detailed=\{environmentDetailed\} \/>/);
   assert.match(source, /isNearParkPath/);
   assert.match(source, /function clippedPathSegments/);
   assert.match(source, /\.\.\.FOREST_TREES\.map/);
@@ -171,10 +173,12 @@ test("上生新所保留三处历史建筑与泳池庭院结构", async () => {
   assert.match(source, /stage === "massing"/);
   assert.match(source, /const loadFullModels = stage === "full"/);
   assert.match(source, /function CampusLandscape/);
+  assert.match(source, /vegetation: detailed \? "detailed" : "programmatic-lightweight"/);
   assert.match(source, /function CafePavilion/);
   assert.match(source, /function BicycleParking/);
   assert.match(source, /function ReadingTerrace/);
   assert.match(source, /function WayfindingTotem/);
+  assert.match(source, /<CampusLandscape detailed=\{environmentDetailed\} \/>/);
   assert.match(source, /industrial-window-/);
   assert.match(source, /sawtooth-/);
   assert.match(source, /facade-fin-/);

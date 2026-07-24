@@ -6,8 +6,20 @@ import type {
   ProgressiveBuildingTier,
   ProgressiveNetworkProfile,
 } from "./progressive-loading";
+import type { MapObstacle } from "./world-math";
 
 export const PROGRESSIVE_STAGE_SAMPLE_SECONDS = 0.2;
+
+export function planarDistanceToBuildingFootprints(
+  [focusX, focusZ]: readonly [number, number],
+  footprints: readonly MapObstacle[],
+) {
+  return footprints.reduce((nearest, footprint) => {
+    const outsideX = Math.max(footprint.minX - focusX, 0, focusX - footprint.maxX);
+    const outsideZ = Math.max(footprint.minZ - focusZ, 0, focusZ - footprint.maxZ);
+    return Math.min(nearest, Math.hypot(outsideX, outsideZ));
+  }, Number.POSITIVE_INFINITY);
+}
 
 export function visibleProgressiveBuildingTier(
   mode: "intro" | "overview" | "explore",
@@ -47,14 +59,14 @@ export function useProgressiveBuildingTier({
   mode,
   networkProfile,
   focusPosition,
-  center,
+  footprints,
   fullEnterDistance,
   fullExitDistance,
 }: {
   mode: "intro" | "overview" | "explore";
   networkProfile: ProgressiveNetworkProfile;
   focusPosition: RefObject<readonly [number, number]>;
-  center: readonly [number, number];
+  footprints: readonly MapObstacle[];
   fullEnterDistance: number;
   fullExitDistance: number;
 }) {
@@ -65,11 +77,10 @@ export function useProgressiveBuildingTier({
   const elapsed = useRef(PROGRESSIVE_STAGE_SAMPLE_SECONDS);
 
   useEffect(() => {
-    const [focusX, focusZ] = focusPosition.current;
     const next = resolveProgressiveBuildingTier({
       mode,
       networkProfile,
-      distance: Math.hypot(focusX - center[0], focusZ - center[1]),
+      distance: planarDistanceToBuildingFootprints(focusPosition.current, footprints),
       previousTier: tierRef.current,
       fullEnterDistance,
       fullExitDistance,
@@ -77,8 +88,8 @@ export function useProgressiveBuildingTier({
     tierRef.current = next;
     setTier(next);
   }, [
-    center,
     focusPosition,
+    footprints,
     fullEnterDistance,
     fullExitDistance,
     mode,
@@ -89,11 +100,10 @@ export function useProgressiveBuildingTier({
     elapsed.current += delta;
     if (elapsed.current < PROGRESSIVE_STAGE_SAMPLE_SECONDS) return;
     elapsed.current = 0;
-    const [focusX, focusZ] = focusPosition.current;
     const next = resolveProgressiveBuildingTier({
       mode,
       networkProfile,
-      distance: Math.hypot(focusX - center[0], focusZ - center[1]),
+      distance: planarDistanceToBuildingFootprints(focusPosition.current, footprints),
       previousTier: tierRef.current,
       fullEnterDistance,
       fullExitDistance,

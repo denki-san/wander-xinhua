@@ -762,3 +762,31 @@ TypeScript 全量测试，不能用局部 lint 通过代替类型验证。
 - **Notes**: 已恢复共享 import，并安排重新执行 `npm test` 与 `npm run lint`。
 
 ---
+
+## [LRN-20260725-003] correction
+
+**Logged**: 2026-07-25T02:00:00+08:00
+**Priority**: high
+**Status**: in_progress
+**Area**: frontend
+
+### Summary
+性能优化不得降低人物质量；树木和小装饰只在全览轻量化，详情原内容必须保留。
+
+### Details
+用户批准优化建筑距离和全览性能，并明确纠正：人物必须保持当前精细版本；树木可以在全览使用
+轻量表现；小装饰物只在全览中不渲染，进入本地游览并达到距离条件后必须恢复原有详情内容。
+“云雾”是输入错误，不构成保留约束；天空背景如果影响全览性能可以仅在详情阶段渲染。此前把
+“轻量人物”列入建议、随后又把装饰物全局删除，都超出了用户授权。
+
+### Suggested Action
+保持 `DetailedWandererCharacter` 不变。用明确的 overview/explore 与 Identity/Hero 条件：全览使用
+轻量树并隐藏小装饰和可选天空背景；本地游览达到实际距离后恢复原有树木、树影、落叶和场地装饰。
+测试必须同时证明“全览不渲染”与“详情仍渲染”，不能只验证源码中存在或不存在组件。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/xinhua-road-landmarks.tsx, app/scene/xinhua-world.tsx
+- Tags: performance, character, fog, trees, decorations, correction
+
+---

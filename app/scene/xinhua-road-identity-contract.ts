@@ -1,4 +1,5 @@
 import type { LandmarkPlacement } from "./xinhua-road-contract";
+import { planarDistanceToLandmarkFootprint } from "./xinhua-road-placement.mjs";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
 
 const XINHUA_ROAD_QUALITY_LANDMARKS =
@@ -46,8 +47,8 @@ export function xinhuaRoadIdentityKind(landmarkId: string): XinhuaRoadIdentityKi
   ] ?? "townhouse";
 }
 
-export const XINHUA_ROAD_HERO_ENTER_DISTANCE = 58;
-export const XINHUA_ROAD_HERO_EXIT_DISTANCE = 68;
+export const XINHUA_ROAD_HERO_ENTER_DISTANCE = 20;
+export const XINHUA_ROAD_HERO_EXIT_DISTANCE = 26;
 export const XINHUA_ROAD_HERO_SAMPLE_SECONDS = 0.2;
 
 export const CORE_BUILDING_HERO_DISTANCE = {
@@ -78,15 +79,14 @@ export function xinhuaRoadDistanceHeroIds({
   mountedModelIds: ReadonlySet<string>;
 }) {
   if (loadMode !== "explore") return new Set<string>();
-  const [focusX, focusZ] = focusPosition;
   const next = new Set<string>();
   for (const landmark of XINHUA_ROAD_QUALITY_LANDMARKS) {
     const threshold = mountedModelIds.has(landmark.id)
       ? XINHUA_ROAD_HERO_EXIT_DISTANCE
       : XINHUA_ROAD_HERO_ENTER_DISTANCE;
-    const distance = Math.hypot(
-      focusX - landmark.position[0],
-      focusZ - landmark.position[1],
+    const distance = planarDistanceToLandmarkFootprint(
+      focusPosition,
+      landmark,
     );
     if (distance <= threshold) next.add(landmark.id);
   }

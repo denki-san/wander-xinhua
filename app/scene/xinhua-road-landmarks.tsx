@@ -155,6 +155,7 @@ const XINHUA_PLANE_TREE_INSTANCES: PlaneTreeInstancePlacement[] =
       position: [x, terrainHeightAt(x, z) + 0.08, z],
     };
   });
+
 function selectHeroPlaneTreePlacement(preferredId: string) {
   const preferred = XINHUA_PLANE_TREE_INSTANCES.find(
     (candidate) => candidate.id === preferredId,
@@ -177,10 +178,11 @@ function selectHeroPlaneTreePlacement(preferredId: string) {
     return candidateDistance < closestDistance ? candidate : closest;
   });
 }
+
 const XINHUA_HERO_PLANE_TREE_PLACEMENT = selectHeroPlaneTreePlacement(
   XINHUA_HERO_PLANE_TREE_ID,
 );
-const XINHUA_LIGHTWEIGHT_PLANE_TREE_INSTANCES = XINHUA_PLANE_TREE_INSTANCES.filter(
+const XINHUA_DETAIL_PLANE_TREE_INSTANCES = XINHUA_PLANE_TREE_INSTANCES.filter(
   (placement) => placement.id !== XINHUA_HERO_PLANE_TREE_PLACEMENT.id,
 );
 
@@ -364,6 +366,74 @@ function AutumnLeafCarpet() {
   );
 }
 
+function LightweightPlaneTreeInstances() {
+  const trunks = useRef<InstancedMesh>(null);
+  const crowns = useRef<InstancedMesh>(null);
+
+  useLayoutEffect(() => {
+    const matrix = new Matrix4();
+    const quaternion = new Quaternion();
+    const position = new Vector3();
+    const scale = new Vector3();
+    const up = new Vector3(0, 1, 0);
+
+    XINHUA_PLANE_TREE_INSTANCES.forEach((tree, index) => {
+      const [x, y, z] = tree.position;
+      const height = 6.4 * tree.scale[1];
+      quaternion.setFromAxisAngle(up, tree.yaw);
+
+      position.set(x, y + height * 0.5, z);
+      scale.set(0.26 * tree.scale[0], height, 0.26 * tree.scale[2]);
+      matrix.compose(position, quaternion, scale);
+      trunks.current?.setMatrixAt(index, matrix);
+
+      position.set(x, y + height * 0.92, z);
+      scale.set(
+        1.8 * tree.scale[0],
+        1.75 * tree.scale[1],
+        1.8 * tree.scale[2],
+      );
+      matrix.compose(position, quaternion, scale);
+      crowns.current?.setMatrixAt(index, matrix);
+    });
+
+    if (trunks.current) {
+      trunks.current.instanceMatrix.needsUpdate = true;
+      trunks.current.computeBoundingSphere();
+    }
+    if (crowns.current) {
+      crowns.current.instanceMatrix.needsUpdate = true;
+      crowns.current.computeBoundingSphere();
+    }
+  }, []);
+
+  return (
+    <group
+      name="xinhua-road-lightweight-plane-trees"
+      userData={{
+        vegetation: "programmatic-lightweight",
+        instanced: true,
+        decorations: "omitted",
+      }}
+    >
+      <instancedMesh
+        ref={trunks}
+        args={[undefined, undefined, XINHUA_PLANE_TREE_INSTANCES.length]}
+      >
+        <cylinderGeometry args={[1, 1, 1, 5]} />
+        <meshToonMaterial color="#665747" />
+      </instancedMesh>
+      <instancedMesh
+        ref={crowns}
+        args={[undefined, undefined, XINHUA_PLANE_TREE_INSTANCES.length]}
+      >
+        <icosahedronGeometry args={[1, 0]} />
+        <meshToonMaterial color="#56734c" />
+      </instancedMesh>
+    </group>
+  );
+}
+
 function cloneAutumnLandmarkMaterial(source: Material) {
   const material = source.clone() as AutumnLandmarkMaterial;
   const name = source.name.toLowerCase();
@@ -467,32 +537,45 @@ export function XinhuaRoadPlaneTrees({
   showHero?: boolean;
   atmosphere: XinhuaAtmosphere;
 }) {
-  const lightweightPlacements = showHero
-    ? XINHUA_LIGHTWEIGHT_PLANE_TREE_INSTANCES
-    : XINHUA_PLANE_TREE_INSTANCES;
+  if (!showHero) {
+    return (
+      <group
+        name="xinhua-road-plane-trees"
+        userData={{
+          variants: 1,
+          arrangement: "deterministic-id-hash",
+          quality: "overview-lightweight",
+        }}
+      >
+        <LightweightPlaneTreeInstances />
+      </group>
+    );
+  }
   return (
     <group
       name="xinhua-road-plane-trees"
-      userData={{ variants: 3, arrangement: "deterministic-id-hash" }}
+      userData={{
+        variants: 3,
+        arrangement: "deterministic-id-hash",
+        quality: "detail-original",
+      }}
     >
       <AutumnPlaneTreeShadows atmosphere={atmosphere} />
       <PlaneTreeInstances
         name="xinhua-road-plane-tree-batches"
-        placements={lightweightPlacements}
+        placements={XINHUA_DETAIL_PLANE_TREE_INSTANCES}
       />
       <AutumnLeafCarpet />
-      {showHero && (
-        <Suspense
-          fallback={(
-            <PlaneTreeInstances
-              name="xinhua-road-hero-plane-tree-loading-fallback"
-              placements={[XINHUA_HERO_PLANE_TREE_PLACEMENT]}
-            />
-          )}
-        >
-          <HeroPlaneTree />
-        </Suspense>
-      )}
+      <Suspense
+        fallback={(
+          <PlaneTreeInstances
+            name="xinhua-road-hero-plane-tree-loading-fallback"
+            placements={[XINHUA_HERO_PLANE_TREE_PLACEMENT]}
+          />
+        )}
+      >
+        <HeroPlaneTree />
+      </Suspense>
     </group>
   );
 }

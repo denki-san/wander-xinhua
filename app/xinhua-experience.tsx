@@ -375,10 +375,14 @@ export function XinhuaExperience() {
         }}
       >
         <FirstPlayableFrame onReady={() => setReady(true)} />
-        <Suspense fallback={null}>
-          <AutumnStorybookSky atmosphereStyle={atmosphereStyle} />
-        </Suspense>
-        {atmosphereStyle === "lighting-v3" && <StorybookCloudLayer />}
+        {exploring && (
+          <>
+            <Suspense fallback={null}>
+              <AutumnStorybookSky atmosphereStyle={atmosphereStyle} />
+            </Suspense>
+            {atmosphereStyle === "lighting-v3" && <StorybookCloudLayer />}
+          </>
+        )}
         <XinhuaWorld
           mode={mode}
           lowTier={lowTier}

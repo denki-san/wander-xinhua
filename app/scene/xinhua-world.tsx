@@ -39,17 +39,23 @@ import {
 } from "./poi-data";
 import {
   HuashanGreenBlock,
+  HUASHAN_BUILDING_FOOTPRINTS,
   HUASHAN_GREEN_CAMERA_OBSTACLES,
   HUASHAN_GREEN_OBSTACLES,
   HUASHAN_GREEN_POSITION,
 } from "./huashan-green-block";
 import {
   ShangshengXinsuoBlock,
+  SHANGSHENG_BUILDING_FOOTPRINTS,
   SHANGSHENG_XINSUO_CAMERA_OBSTACLES,
   SHANGSHENG_XINSUO_OBSTACLES,
   SHANGSHENG_XINSUO_POSITION,
 } from "./shangsheng-xinsuo-block";
-import { XingfuliBlock, XINGFULI_OBSTACLES } from "./xingfuli-block";
+import {
+  XingfuliBlock,
+  XINGFULI_BUILDING_OBSTACLES,
+  XINGFULI_OBSTACLES,
+} from "./xingfuli-block";
 import {
   XINHUA_ROAD_CAMERA_OBSTACLES,
   XINHUA_ROAD_OBSTACLES,
@@ -336,6 +342,17 @@ const XINGFULI_WORLD_OBSTACLES = XINGFULI_OBSTACLES.map((obstacle) => transformM
   XINGFULI_LONGITUDINAL_SCALE,
 ));
 
+const XINGFULI_WORLD_BUILDING_FOOTPRINTS = XINGFULI_BUILDING_OBSTACLES.map(
+  (obstacle) => transformMapObstacle(
+    obstacle,
+    XINGFULI_POSITION,
+    XINGFULI_PLACEMENT.rotationY,
+    XINGFULI_PLACEMENT.horizontalScale,
+    XINGFULI_PLACEMENT.localLaneCenterZ,
+    XINGFULI_LONGITUDINAL_SCALE,
+  ),
+);
+
 const WORLD_OBSTACLES: MapObstacle[] = [
   ...XINGFULI_WORLD_OBSTACLES,
   ...HUASHAN_GREEN_OBSTACLES,
@@ -463,7 +480,7 @@ function FlatNeighborhood({
     mode,
     networkProfile,
     focusPosition: progressiveFocus,
-    center: XINGFULI_POSITION,
+    footprints: XINGFULI_WORLD_BUILDING_FOOTPRINTS,
     fullEnterDistance: CORE_BUILDING_HERO_DISTANCE.xingfuli.enterDistance,
     fullExitDistance: CORE_BUILDING_HERO_DISTANCE.xingfuli.exitDistance,
   });
@@ -471,7 +488,7 @@ function FlatNeighborhood({
     mode,
     networkProfile,
     focusPosition: progressiveFocus,
-    center: SHANGSHENG_XINSUO_POSITION,
+    footprints: SHANGSHENG_BUILDING_FOOTPRINTS,
     fullEnterDistance: CORE_BUILDING_HERO_DISTANCE.shangsheng.enterDistance,
     fullExitDistance: CORE_BUILDING_HERO_DISTANCE.shangsheng.exitDistance,
   });
@@ -479,7 +496,7 @@ function FlatNeighborhood({
     mode,
     networkProfile,
     focusPosition: progressiveFocus,
-    center: HUASHAN_GREEN_POSITION,
+    footprints: HUASHAN_BUILDING_FOOTPRINTS,
     fullEnterDistance: CORE_BUILDING_HERO_DISTANCE.huashan.enterDistance,
     fullExitDistance: CORE_BUILDING_HERO_DISTANCE.huashan.exitDistance,
   });
@@ -499,13 +516,18 @@ function FlatNeighborhood({
           <group position={[0, 0, -XINGFULI_PLACEMENT.localLaneCenterZ]}>
             <XingfuliBlock
               loadDetailedArchitecture={showDetailModels}
+              showEnvironmentDetails={mode === "explore"}
               stage={xingfuliTier}
             />
           </group>
         </group>
       </group>
-      <HuashanGreenBlock stage={huashanTier} />
+      <HuashanGreenBlock
+        showEnvironmentDetails={mode === "explore"}
+        stage={huashanTier}
+      />
       <ShangshengXinsuoBlock
+        showEnvironmentDetails={mode === "explore"}
         stage={shangshengTier}
       />
       {showDetailModels && networkProfile === "standard" ? (
