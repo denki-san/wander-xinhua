@@ -115,11 +115,13 @@ const CHARACTER_MODEL_PATH = "/models/character/rain-summer-wanderer.glb?v=f9721
 // Rain 的原始身高比旧角色低约 11%；1.3 倍可保持正式地图中的既有屏幕占比。
 const CHARACTER_VISUAL_SCALE = 1.3;
 const CHARACTER_MAX_TURN_SPEED = 12;
+const EXPLORE_WALK_SPEED = 3.1;
+const EXPLORE_RUN_SPEED = 8;
 const CAMERA_DEFAULT_PITCH = CAMERA_HEIGHT / Math.hypot(CAMERA_DISTANCE, CAMERA_HEIGHT);
 const PLAYER_RADIUS = 0.48;
 export const DETAIL_WORLD_SCALE = 1.65;
 const OVERVIEW_CHARACTER_SCALE = 22;
-const OVERVIEW_MOVE_SPEED = 108;
+const OVERVIEW_MOVE_SPEED = 94;
 const OVERVIEW_POI_DISTANCE = 42;
 const OVERVIEW_CAMERA_FILL = 0.24;
 const BASE_XINGFULI_VERTICAL_SCALE = 0.3;
@@ -1016,7 +1018,9 @@ function PlayableWanderer({
         z,
         s.move,
       ).normalize();
-      const speed = inputState.sprint ? 9.2 : 3.6 * (usingAnalog ? analogMagnitude : 1);
+      const speed = inputState.sprint
+        ? EXPLORE_RUN_SPEED
+        : EXPLORE_WALK_SPEED * (usingAnalog ? analogMagnitude : 1);
       s.displacement.copy(s.move).multiplyScalar(speed * delta);
       resolvePolygonMovement(
         currentPosition,

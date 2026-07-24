@@ -5271,3 +5271,21 @@ TypeError: requestAnimationFrame is not a function
 **Error:** `browser.tabs.finalize({ keep: [tab] })` 返回 keep 项必须是 `{ tab, status }`；随后使用 `status: "keep"` 又被拒绝。
 **Cause:** finalize 接口的保留项不是 Tab 数组，合法状态只接受 `handoff` 或 `deliverable`。
 **Resolution:** 使用 `browser.tabs.finalize({ keep: [{ tab, status: "handoff" }] })`，成功交接可继续操作的本地验收标签。
+
+## [ERR175] 地形测试把旧人物速度数值当作高程合同
+
+**Date:** 2026-07-24
+**Context:** 用户要求人物稍微减速后运行完整 `npm test`。
+**Error:** 140 项中 1 项失败；`tests/test_terrain.test.mjs` 仍要求源码包含 `inputState.sprint ? 9.2 : 3.6`。
+**Cause:** 地形基准测试硬编码了与高程无关的旧移动速度；新增控制专项测试已覆盖新的探索、奔跑和全览速度合同。
+**Resolution:** 保留地形测试并将旧数值断言更新为命名的 `EXPLORE_WALK_SPEED` 及其模拟输入缩放路径；随后重跑完整测试。
+**See Also:** ERR171
+
+## [ERR176] Browser 手机验收环境不能直接注入原始 TouchEvent
+
+**Date:** 2026-07-24
+**Context:** 复核左下角摇杆区域与文字禁止选中的 390×844 生产构建。
+**Error:** 受限页面求值环境不暴露 `HTMLElement`、`navigator` 或 selection helper；`Input.dispatchTouchEvent` 也提示 in-app Browser 不支持原始触控 CDP 注入。
+**Cause:** Browser 为保持焦点和安全边界，对页面全局对象及原始输入 CDP 命令进行了限制。
+**Resolution:** 不用 `instanceof` 或原始 TouchEvent 冒充真机证据；改为读取真实 DOM、计算样式和区域 bounds，确认游玩态 `user-select: none`、摇杆盒为左下 `195×320px`、右侧保留 `195px` 镜头区域。持续双指体感仍以用户手机验收为准。
+**See Also:** ERR172

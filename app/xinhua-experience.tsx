@@ -134,7 +134,7 @@ function TouchControls({ showJump }: { showJump: boolean }) {
         || event.clientY > bounds.bottom
       ) return;
 
-      // 在捕获阶段仅接管下半屏触摸；鼠标和触控板仍会直达 Canvas 控制镜头。
+      // 在捕获阶段仅接管左下角触摸；其余区域继续用于双指镜头和页面操作。
       event.preventDefault();
       event.stopPropagation();
       pointerId.current = event.pointerId;
@@ -638,7 +638,7 @@ export function XinhuaExperience() {
               <li>闲逛状态中按 <kbd>Shift</kbd> 奔跑，按 <kbd>Space</kbd> 跳跃</li>
               <li>闲逛时拖拽转动镜头，滚轮拉近或拉远</li>
               <li>点击“查看全览”可随时返回固定比例的新华街道全景</li>
-              <li>手机下半屏任意处拖动移动；闲逛时上半屏可拖动镜头</li>
+              <li>手机左下角拖动摇杆移动；其余画面可拖动镜头</li>
               <li>
                 成品角色：
                 <a href="https://www.blenderstudio.cn/zh-hans/characters/rain/v1/" target="_blank" rel="noreferrer">

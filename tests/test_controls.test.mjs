@@ -77,7 +77,7 @@ test("满幅 180° 转向在目标手感窗口内达到九成", () => {
   assert.ok(elapsed <= 0.35, `转向过慢：${elapsed.toFixed(3)}s`);
 });
 
-test("移动端下方触发区与浮动摇杆结构已接入", async () => {
+test("移动端摇杆只接管左下角触发区", async () => {
   const [experience, styles] = await Promise.all([
     readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
@@ -93,12 +93,39 @@ test("移动端下方触发区与浮动摇杆结构已接入", async () => {
   assert.match(experience, /touchCapable \? " is-touch" : ""/);
   assert.match(experience, /new URLSearchParams\(window\.location\.search\)\.get\("start"\)/);
   assert.match(experience, /setMode\(requestedPreset \? "explore" : "overview"\)/);
+  assert.match(experience, /手机左下角拖动摇杆移动；其余画面可拖动镜头/);
   assert.match(styles, /\.touch-stick-zone\s*\{/);
-  assert.match(styles, /height:\s*50svh/);
-  assert.doesNotMatch(styles, /\.touch-stick-zone\s*\{[^}]*max-height:/s);
+  assert.match(styles, /\.touch-stick-zone\s*\{[^}]*bottom:\s*0/s);
+  assert.match(styles, /\.touch-stick-zone\s*\{[^}]*left:\s*0/s);
+  assert.match(styles, /\.touch-stick-zone\s*\{[^}]*width:\s*min\(50vw,\s*280px\)/s);
+  assert.match(styles, /\.touch-stick-zone\s*\{[^}]*height:\s*min\(46svh,\s*320px\)/s);
+  assert.doesNotMatch(styles, /\.touch-stick-zone\s*\{[^}]*right:\s*0/s);
   assert.match(styles, /\.touch-stick-zone\s*\{[^}]*pointer-events:\s*none/s);
   assert.match(styles, /\.xinhua-stage\.is-touch\s*\{\s*min-height:\s*0/);
   assert.match(styles, /\.xinhua-stage\.is-touch \.touch-controls\s*\{\s*display:\s*block/);
+});
+
+test("游玩舞台禁止文字选择和 iOS 长按菜单", async () => {
+  const styles = await readFile(
+    new URL("../app/globals.css", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(styles, /\.xinhua-stage\s*\{[^}]*-webkit-touch-callout:\s*none/s);
+  assert.match(styles, /\.xinhua-stage\s*\{[^}]*-webkit-user-select:\s*none/s);
+  assert.match(styles, /\.xinhua-stage\s*\{[^}]*user-select:\s*none/s);
+});
+
+test("探索和全览人物速度均小幅降低", async () => {
+  const world = await readFile(
+    new URL("../app/scene/xinhua-world.tsx", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(world, /const EXPLORE_WALK_SPEED = 3\.1/);
+  assert.match(world, /const EXPLORE_RUN_SPEED = 8/);
+  assert.match(world, /const OVERVIEW_MOVE_SPEED = 94/);
+  assert.match(world, /EXPLORE_WALK_SPEED \* \(usingAnalog \? analogMagnitude : 1\)/);
 });
 
 test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", async () => {

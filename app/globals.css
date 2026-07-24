@@ -45,6 +45,9 @@ button {
   color: var(--ink);
   background: var(--sky);
   isolation: isolate;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* 触屏短边设备应严格贴合真实 viewport，避免横屏控件落到可视区外。 */
@@ -688,10 +691,10 @@ kbd {
 .touch-stick-zone {
   position: absolute;
   z-index: 1;
-  right: 0;
   bottom: 0;
   left: 0;
-  height: 50svh;
+  width: min(50vw, 280px);
+  height: min(46svh, 320px);
   pointer-events: none;
   touch-action: none;
 }
