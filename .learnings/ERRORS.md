@@ -131,6 +131,72 @@ Expected source not to match /entry\.isIntersecting[\s\S]{0,120}observer\.discon
 
 ---
 
+## [ERR-20260725-003] asset_library_preview_wrong_worktree_path
+
+**Logged**: 2026-07-25T01:38:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+资产后台生产预览首次启动时使用了不存在的 worktree 路径。
+
+### Error
+```text
+CreateProcess: No such file or directory
+```
+
+### Context
+- 实际集成目录是 `.worktrees/release-third-person-controls`；
+- 命令误写为 `.worktrees/release-third-person-camera-controls`；
+- 更换 shell 不会修复工作目录不存在的问题。
+
+### Suggested Fix
+进程启动失败时先核对精确 worktree 路径，再判断 shell、权限或端口问题。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+- See Also: ERR193
+
+### Resolution
+- **Resolved**: 2026-07-25T01:38:00+08:00
+- **Notes**: 使用正确的 `.worktrees/release-third-person-controls` 路径重新启动本地生产预览。
+
+---
+
+## [ERR-20260725-004] asset_library_plain_anchor_failed_next_lint
+
+**Logged**: 2026-07-25T01:42:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+为兼容静态入口把资产页首页链接改成普通 `<a>` 后，Next lint 拒绝内部页面导航。
+
+### Error
+```text
+Do not use an <a> element to navigate to /. Use <Link /> from next/link instead.
+```
+
+### Context
+- `/asset-library` 同时进入 Vinext 和 Vite 静态构建；
+- 普通锚点不是必要的静态兼容回退，`next/link` 可以由静态 lazy chunk 实际构建验证。
+
+### Suggested Fix
+保留 Next `Link` 语义，并通过 `npm run build:static` 验证跨构建兼容性，不用降低 lint 规则绕过。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/asset-library/AssetLibrary.tsx, static-entry.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T01:42:00+08:00
+- **Notes**: 恢复 `next/link`，随后重新运行 lint 与静态构建。
+
+---
+
 ## [ERR-20260724-092] in_app_browser_networkidle_unsupported
 
 **Logged**: 2026-07-24T00:00:00+08:00
@@ -5676,3 +5742,110 @@ TypeError: requestAnimationFrame is not a function
 **Cause:** 顶层脚本只是包装器，没有把 `bash` 传递给缺少可执行位的内层脚本；同时内层脚本的真实参数是项目目录和归档路径。
 **Resolution:** 只读核对两层脚本后，使用 `bash` 直接调用 `skills/sites-hosting/scripts/package-site.sh PROJECT_DIR ARCHIVE_PATH`，不修改插件权限或脚本内容。
 **See Also:** ERR200
+
+## [ERR-20260725-005] asset_library_dependencies_not_inside_worktree
+
+**Date**: 2026-07-25
+**Category**: ENVIRONMENT
+**Command/Action**: 在隔离 worktree 内检索 `node_modules/@react-three/drei` 的 `Bounds` 实现。
+**What Happened**:
+- 隔离 worktree 没有独立的 `node_modules`，首次检索找不到依赖源码；
+- 项目依赖实际安装在主仓库根目录。
+**Root Cause**:
+- 错误地假设每个 Git worktree 都有独立依赖目录。
+**Prevention**:
+- 隔离 worktree 缺少依赖目录时，先核对主仓库根目录的只读依赖；
+- 构建和测试继续在 worktree 执行，依赖源码检查使用已安装依赖的绝对路径。
+**Resolution**:
+- 从主仓库根目录读取 Drei `Bounds` 实现，确认默认拟合时长为 1 秒；
+- 静态预览改为 90 帧预算，并在模型或变体切换时重建 `View`。
+
+## [ERR-20260725-006] static_preview_port_blocked_in_sandbox
+
+**Date**: 2026-07-25
+**Category**: ENVIRONMENT
+**Command/Action**: 在隔离 worktree 启动 `127.0.0.1:4320` 静态预览。
+**What Happened**:
+- 沙箱返回 `listen EPERM`，本地端口无法直接监听。
+**Root Cause**:
+- 当前受限环境禁止普通权限创建监听端口。
+**Prevention**:
+- 本地浏览器验收需要临时监听时，直接使用受控权限启动明确的预览脚本和端口；
+- 验收完成后停止该临时服务。
+**Resolution**:
+- 使用受控权限启动同一静态预览命令，未更改项目或系统权限。
+
+## [ERR-20260725-007] browser_networkidle_not_supported
+
+**Date**: 2026-07-25
+**Category**: TOOLING
+**Command/Action**: 等待本地资产库页面进入 `networkidle`。
+**What Happened**:
+- 当前浏览器控制接口不支持 `networkidle` 状态。
+**Root Cause**:
+- 沿用了通用 Playwright 的等待状态，但当前受控接口只支持其文档列出的状态子集。
+**Prevention**:
+- 本地页面使用受支持的 `load` 或 `domcontentloaded`，再通过目标 DOM 或短时渲染等待确认完成。
+**Resolution**:
+- 改用 `load`，随后读取页面状态并检查实际资产卡片和 Canvas。
+
+## [ERR-20260725-008] browser_canvas_context_read_not_supported
+
+**Date**: 2026-07-25
+**Category**: TOOLING
+**Command/Action**: 在受控浏览器只读检查中调用 Canvas `getContext`。
+**What Happened**:
+- 页面侧只读求值返回 `getContext is not a function`，未能用该方式确认 WebGL 状态。
+**Root Cause**:
+- 受控只读求值环境不保证 DOM 方法完整可调用。
+**Prevention**:
+- WebGL 验收优先结合页面截图、DOM 结构和控制台错误；
+- 不依赖未在浏览器接口文档中承诺的 DOM 方法。
+**Resolution**:
+- 改用截图确认实际渲染结果，并单独检查 error 级控制台日志。
+
+## [ERR-20260725-009] zsh_unmatched_model_glob
+
+**Date**: 2026-07-25
+**Category**: SHELL
+**Command/Action**: 用多个通配符查找上海影城模型。
+**What Happened**:
+- zsh 因其中一个通配符没有匹配结果而直接报错。
+**Root Cause**:
+- 使用了会被 shell 预展开的可选路径通配符。
+**Prevention**:
+- 不确定目录层级时使用 `find -name` 或 `rg --files`，避免依赖 zsh 的空匹配行为。
+**Resolution**:
+- 改用 `find public/models -name '*shanghai*'`，确认模型文件存在。
+
+## [ERR-20260725-010] cdp_touch_disable_rejected_zero_points
+
+**Date**: 2026-07-25
+**Category**: TOOLING
+**Command/Action**: 关闭触屏模拟时同时传入 `maxTouchPoints: 0`。
+**What Happened**:
+- CDP 拒绝参数，要求触点数量位于 1 到 16。
+**Root Cause**:
+- 关闭模拟不需要也不接受零触点参数。
+**Prevention**:
+- `enabled: false` 时省略 `maxTouchPoints`；仅启用时传入合法正整数。
+**Resolution**:
+- 改为只传 `{ enabled: false }`，桌面模式恢复正常。
+
+## [ERR-20260725-011] shared_view_port_rendered_empty_asset_cards
+
+**Date**: 2026-07-25
+**Category**: RUNTIME
+**Command/Action**: 在桌面与 390px 低配触屏条件下验收共享 Canvas 的资产预览。
+**What Happened**:
+- 页面和筛选交互正常，但所有资产卡片只显示 CSS 背景，没有实际 3D 模型；
+- 单纯增加静态帧数或在进入视口时重建 `View` 仍不能恢复渲染。
+**Root Cause**:
+- 当前页面结构中的共享 `View.Port` 没有把各卡片场景稳定合成到主 Canvas。
+**Prevention**:
+- 资产库变更必须至少实际查看一个 GLB 和一个程序化资产，不能只检查 DOM、测试或无 error 控制台；
+- 同时覆盖桌面动态模式和 390px 低配触屏静态模式。
+**Resolution**:
+- 改为只给可见卡片挂载独立 Canvas；
+- 动态模式持续渲染，静态模式使用 `frameloop="demand"`，相机拟合与模型加载完成后自动停帧；
+- 390px 低配触屏下确认垃圾桶模型可见、页面可滚动、变体可切换且无 error 日志。
