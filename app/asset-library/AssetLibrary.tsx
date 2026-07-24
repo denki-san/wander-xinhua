@@ -1,13 +1,14 @@
 "use client";
 
 import { Bounds, Center, ContactShadows, PerspectiveCamera, View, useGLTF } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import {
   Suspense,
   useEffect,
   useMemo,
   useRef,
   useState,
+  type RefObject,
   type ReactNode,
 } from "react";
 import { Box3, Mesh, Object3D, Vector3 } from "three";
@@ -64,6 +65,22 @@ function useIsVisible(rootMargin = "120px") {
 
 function PreviewPose({ children }: { children: ReactNode }) {
   return <group rotation-y={-0.22}>{children}</group>;
+}
+
+function ScrollSync({ target }: { target: RefObject<HTMLDivElement | null> }) {
+  const invalidate = useThree((state) => state.invalidate);
+  useEffect(() => {
+    const node = target.current;
+    if (!node) return;
+    const refresh = () => invalidate();
+    node.addEventListener("scroll", refresh, { passive: true });
+    window.addEventListener("resize", refresh);
+    return () => {
+      node.removeEventListener("scroll", refresh);
+      window.removeEventListener("resize", refresh);
+    };
+  }, [invalidate, target]);
+  return null;
 }
 
 function RuntimeModel({ path }: { path: string }) {
@@ -225,7 +242,7 @@ function LivePreview({ model, preview, label }: { model?: string; preview?: stri
         ref={ref}
         className={styles.previewViewport}
         aria-label={`${label} 的实时三维预览`}
-        frames={1}
+        frames={Infinity}
       >
         {visible && (
           <Suspense fallback={null}>
@@ -359,6 +376,7 @@ export function AssetLibrary() {
         dpr={[1, 1.25]}
         gl={{ antialias: true, alpha: true }}
       >
+        <ScrollSync target={container} />
         <View.Port />
       </Canvas>
 
