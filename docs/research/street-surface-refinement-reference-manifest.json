@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "subject": "新华路道路标线、路缘绿化与上海公共废物箱",
+  "canonicalComparisonView": {
+    "path": "docs/research/assets/xinhua-road-panyu-2023-reference.jpg",
+    "view": "新华路番禺路附近，沿道路向东观察",
+    "headingDegrees": 89.351532033426,
+    "reason": "同一画面同时清晰覆盖黄色短虚线、红色非机动车带、白色连续分隔线、路缘与梧桐街景"
+  },
+  "viewCoverage": [
+    {
+      "role": "canonical-road-marking",
+      "path": "docs/research/assets/xinhua-road-panyu-2023-reference.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:202309_Xinhua_Road_near_Panyu_Road,_Changning_District.jpg",
+      "sourceAssetUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/202309_Xinhua_Road_near_Panyu_Road%2C_Changning_District.jpg/1280px-202309_Xinhua_Road_near_Panyu_Road%2C_Changning_District.jpg",
+      "author": "MNXANL",
+      "captureDate": "2023-09-03",
+      "location": "新华路近番禺路，长宁区",
+      "view": "eastbound-road-depth",
+      "license": "CC BY-SA 4.0",
+      "sha256": "37aca8d620a056867572ad033b2465078ad33ce0bfe31ae51cf474c2f33704ee"
+    },
+    {
+      "role": "road-edge-and-sidewalk",
+      "path": "docs/research/assets/xinhua-road-house-198-reference.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_picture_from_China_every_day_198.jpg",
+      "sourceAssetUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/A_picture_from_China_every_day_198.jpg/1280px-A_picture_from_China_every_day_198.jpg",
+      "author": "Carsten Ullrich",
+      "captureDate": "2009-12-06",
+      "location": "新华路历史街段",
+      "view": "sidewalk-and-curb-lateral",
+      "license": "CC BY-SA 2.0",
+      "sha256": "c07d5f3fd20c1c33ffed910ae8bdd54bc6ca016bbbeec2ea9b1124c5d4a0f267"
+    },
+    {
+      "role": "entrance-and-road-edge",
+      "path": "docs/research/assets/xinhua-road-house-199-reference.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_picture_from_China_every_day_199.jpg",
+      "sourceAssetUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/A_picture_from_China_every_day_199.jpg/1280px-A_picture_from_China_every_day_199.jpg",
+      "author": "Carsten Ullrich",
+      "captureDate": "2009-12-06",
+      "location": "新华路315号附近",
+      "view": "entrance-and-road-edge-oblique",
+      "license": "CC BY-SA 2.0",
+      "sha256": "a35ba40820fd0adf77e1db8046fb52389e46f6a43733902b3db4e0145af7de0d"
+    },
+    {
+      "role": "municipal-bin-detail",
+      "path": "docs/research/assets/shanghai-street-bin-weihai-2023-reference.jpg",
+      "sourceUrl": "https://www.sohu.com/a/670365517_260616",
+      "sourceAssetUrl": "https://p8.itc.cn/q_70/images03/20230426/bc932e161e664bae9b761ea7ebde3420.jpeg",
+      "author": "澎湃新闻记者 陈悦",
+      "publishDate": "2023-04-26",
+      "location": "上海威海路与茂名北路交叉口",
+      "view": "dual-compartment-bin-front-right-detail",
+      "license": "reference-only",
+      "sha256": "8e968059bc9b61f892d0b9b0d959e9fc826f97d125a26a5db6747a1763f1ae4e"
+    }
+  ],
+  "coverageAssessment": {
+    "canonical": "covered",
+    "roadDepth": "covered",
+    "roadEdge": "covered",
+    "entranceDetail": "covered",
+    "binDetail": "covered-city-type-not-xinhua-specific",
+    "oppositeDirectionCurrentMarkings": "unknown",
+    "xinhuaSpecificBinModel": "unknown",
+    "nightLightingState": "unknown"
+  },
+  "policy": {
+    "referencePhotosAreRuntimeTextures": false,
+    "protectedLogosWillBeCopied": false,
+    "originalEvidenceIsReadOnly": true
+  }
+}

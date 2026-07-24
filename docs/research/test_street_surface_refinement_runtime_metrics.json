@@ -1,0 +1,55 @@
+{
+  "capturedAt": "2026-07-25",
+  "sourceCommit": "ccbebde",
+  "url": "http://127.0.0.1:4317/?start=cinema",
+  "routeResolution": {
+    "requestedPreset": "cinema",
+    "resolvedLandmarkId": "shanghai-cinema",
+    "status": "confirmed"
+  },
+  "buildMode": "vite static production preview",
+  "viewport": {
+    "width": 1280,
+    "height": 720,
+    "deviceScaleFactor": 1,
+    "visibilityState": "visible"
+  },
+  "device": {
+    "deviceMemoryGiB": 16,
+    "hardwareConcurrency": 10
+  },
+  "sampling": {
+    "warmupSecondsApprox": 6,
+    "frameCount": 120,
+    "averageFrameMs": 25.061666666666678,
+    "averageFps": 39.901576112256414,
+    "p95FrameMs": 33.69999999999709
+  },
+  "runtimeMetrics": {
+    "jsHeapUsedBytes": 52692184,
+    "jsHeapTotalBytes": 128565248,
+    "documents": 1,
+    "nodes": 142,
+    "jsEventListeners": 926
+  },
+  "console": {
+    "errors": 0,
+    "warnings": [
+      "既有 THREE.Clock deprecated 警告"
+    ]
+  },
+  "screenshots": [
+    "test_artifacts/test_street_refinement_cinema_road_runtime.png",
+    "test_artifacts/test_street_refinement_faceted_shrub_runtime.png"
+  ],
+  "acceptance": {
+    "yellowShortCenterDashes": "pass",
+    "redCurbsideCycleLanes": "pass",
+    "whiteContinuousSeparators": "pass",
+    "facetedShrubSilhouette": "pass",
+    "rectangularDualClassificationBin": "source-structure-pass-runtime-front-detail-not-canonical",
+    "desktopConsole": "pass",
+    "mobileLowTier": "not-sampled"
+  },
+  "comparisonBoundary": "没有在同一视口、同一设备、同一入口和同一构建模式下采集改动前基线，因此不声明 FPS 或性能提升。此次数据只证明桌面正确深链上的当前运行状态；移动端 lowTier、draw calls 和 triangles 仍是合并 main 前待办。"
+}
