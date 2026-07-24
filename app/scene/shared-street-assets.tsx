@@ -12,6 +12,7 @@ import {
   Color,
   IcosahedronGeometry,
   InstancedMesh,
+  MeshToonMaterial,
   Object3D,
 } from "three";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
@@ -750,8 +751,8 @@ function createFacetedShrubGeometry(): BufferGeometry {
   const geometries = pieces.map(({ position, scale, yaw }) => {
     const geometry = new IcosahedronGeometry(1, 0);
     const transform = new Object3D();
-    transform.position.set(...position);
-    transform.scale.set(...scale);
+    transform.position.set(position[0], position[1], position[2]);
+    transform.scale.set(scale[0], scale[1], scale[2]);
     transform.rotation.y = yaw;
     transform.updateMatrix();
     geometry.applyMatrix4(transform.matrix);
@@ -759,8 +760,10 @@ function createFacetedShrubGeometry(): BufferGeometry {
   });
   const merged = mergeGeometries(geometries, false);
   geometries.forEach((geometry) => geometry.dispose());
-  merged.computeVertexNormals();
-  return merged;
+  const faceted = merged.index ? merged.toNonIndexed() : merged;
+  if (faceted !== merged) merged.dispose();
+  faceted.computeVertexNormals();
+  return faceted;
 }
 
 export function StreetShrubInstances({
@@ -776,7 +779,11 @@ export function StreetShrubInstances({
 }) {
   const shrubs = useRef<InstancedMesh>(null);
   const geometry = useMemo(() => createFacetedShrubGeometry(), []);
-  useEffect(() => () => geometry.dispose(), [geometry]);
+  const material = useMemo(() => new MeshToonMaterial({ color: "#ffffff" }), []);
+  useEffect(() => () => {
+    geometry.dispose();
+    material.dispose();
+  }, [geometry, material]);
   useLayoutEffect(() => {
     if (!shrubs.current) return;
     const helper = new Object3D();
@@ -800,6 +807,7 @@ export function StreetShrubInstances({
     <instancedMesh
       ref={shrubs}
       geometry={geometry}
+      material={material}
       args={[undefined, undefined, placements.length]}
       castShadow
       name={name}
@@ -811,9 +819,7 @@ export function StreetShrubInstances({
         mobileTier: "reduced",
         evidenceRef,
       }}
-    >
-      <meshToonMaterial color="#ffffff" flatShading />
-    </instancedMesh>
+    />
   );
 }
 
