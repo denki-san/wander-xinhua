@@ -5449,7 +5449,9 @@ permission denied: sites/0.1.31/scripts/package-site.sh
 
 ### Resolution
 - **Resolved**: 2026-07-24T20:44:00+08:00
-- **Notes**: 改用 `bash package-site.sh` 调用同一插件辅助脚本。
+- **Notes**: 顶层包装脚本即使用 `bash` 仍会直接 `exec` 无执行权限的内层脚本；
+  最终改为通过 `bash` 直接调用插件内层 `skills/sites-hosting/scripts/package-site.sh`，
+  未修改插件文件或手工重写打包逻辑。
 
 ---
 ## [ERR-20260724-093] amended_pushed_sites_commit_lost_ancestry
