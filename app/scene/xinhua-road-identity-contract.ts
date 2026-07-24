@@ -46,19 +46,32 @@ export function xinhuaRoadIdentityKind(landmarkId: string): XinhuaRoadIdentityKi
   ] ?? "townhouse";
 }
 
-export function xinhuaRoadDetailHeroId({
+export const XINHUA_ROAD_HERO_ENTER_DISTANCE = 58;
+export const XINHUA_ROAD_HERO_EXIT_DISTANCE = 68;
+
+export function xinhuaRoadDistanceHeroIds({
   loadMode,
-  priorityPreset,
+  focusPosition,
+  mountedModelIds,
 }: {
   loadMode: "overview" | "explore";
-  priorityPreset?: string;
+  focusPosition: readonly [number, number];
+  mountedModelIds: ReadonlySet<string>;
 }) {
-  if (loadMode !== "explore" || !priorityPreset) return undefined;
-  return XINHUA_ROAD_QUALITY_LANDMARKS.find((landmark) => (
-    landmark.id === priorityPreset
-    || landmark.query === priorityPreset
-    || landmark.aliases?.includes(priorityPreset)
-  ))?.id;
+  if (loadMode !== "explore") return new Set<string>();
+  const [focusX, focusZ] = focusPosition;
+  const next = new Set<string>();
+  for (const landmark of XINHUA_ROAD_QUALITY_LANDMARKS) {
+    const threshold = mountedModelIds.has(landmark.id)
+      ? XINHUA_ROAD_HERO_EXIT_DISTANCE
+      : XINHUA_ROAD_HERO_ENTER_DISTANCE;
+    const distance = Math.hypot(
+      focusX - landmark.position[0],
+      focusZ - landmark.position[1],
+    );
+    if (distance <= threshold) next.add(landmark.id);
+  }
+  return next;
 }
 
 export const SHANGHAI_CINEMA_IDENTITY_MODEL_PATH =
@@ -68,7 +81,7 @@ export const SHANGHAI_CINEMA_IDENTITY_CACHE_VERSION = "20260722-hybrid-1";
 export type XinhuaRoadBuildingQualityEntry = {
   buildingId: string;
   hero: {
-    strategy: "detail-state-glb";
+    strategy: "distance-state-glb";
     model: string;
     cacheVersion?: string;
   };
@@ -95,7 +108,7 @@ function buildingQualityEntry(
   return {
     buildingId: landmark.id,
     hero: {
-      strategy: "detail-state-glb",
+      strategy: "distance-state-glb",
       model: landmark.model,
       cacheVersion: landmark.cacheVersion,
     },
@@ -129,7 +142,7 @@ function buildingQualityEntry(
 
 /**
  * 生产资产合同以建筑 ID 统一 Hero、Hybrid Identity、Massing 与共享空间参数。
- * 地图只读取 Identity；Hero 仅由明确的详情/近景状态按需请求。
+ * 地图只读取 Identity；本地游览的 Hero 仅由玩家与建筑的实际距离按需请求。
  */
 export const XINHUA_ROAD_BUILDING_QUALITY_MANIFEST = Object.fromEntries(
   XINHUA_ROAD_QUALITY_LANDMARKS.map((landmark) => [
@@ -156,7 +169,7 @@ export type ProductionBuildingQualityEntry = {
   buildingId: string;
   scope: "xinhua-road" | "core-landmark";
   hero: {
-    strategy: "detail-state-glb" | "detail-state-component";
+    strategy: "distance-state-glb" | "distance-state-component";
     assets: readonly string[];
   };
   identity: {
@@ -287,7 +300,7 @@ const CORE_PRODUCTION_QUALITY_MANIFEST = {
     buildingId: "xingfuli",
     scope: "core-landmark",
     hero: {
-      strategy: "detail-state-glb",
+      strategy: "distance-state-glb",
       assets: [
         "/models/xingfuli/xingfuli-west.glb?v=20260723-final-1",
         "/models/xingfuli/xingfuli-center.glb?v=20260723-final-1",
@@ -339,7 +352,7 @@ const CORE_PRODUCTION_QUALITY_MANIFEST = {
     buildingId: "shangsheng",
     scope: "core-landmark",
     hero: {
-      strategy: "detail-state-glb",
+      strategy: "distance-state-glb",
       assets: [
         "/models/shangsheng/sun-ke-villa.glb",
         "/models/shangsheng/navy-club-pool.glb",
@@ -368,7 +381,7 @@ const CORE_PRODUCTION_QUALITY_MANIFEST = {
     buildingId: "huashan",
     scope: "core-landmark",
     hero: {
-      strategy: "detail-state-component",
+      strategy: "distance-state-component",
       assets: ["recipe:HuashanGreenBlock(full)"],
     },
     identity: {
@@ -400,24 +413,3 @@ export const PRODUCTION_BUILDING_QUALITY_MANIFEST = {
   ...XINHUA_ROAD_PRODUCTION_QUALITY_MANIFEST,
   ...CORE_PRODUCTION_QUALITY_MANIFEST,
 } as const satisfies Readonly<Record<string, ProductionBuildingQualityEntry>>;
-
-const DETAIL_PRESETS_BY_BUILDING = {
-  xingfuli: [
-    "xingfuli",
-    "hero",
-    "xingfuli-canonical",
-    "xingfuli-pool-detail",
-    "xingfuli-entrance-detail",
-  ],
-  shangsheng: ["shangsheng", "pool", "sunke"],
-  huashan: ["huashan", "court", "bridge"],
-} as const;
-
-export function detailPresetTargetsBuilding(
-  priorityPreset: string | undefined,
-  buildingId: keyof typeof DETAIL_PRESETS_BY_BUILDING,
-) {
-  if (!priorityPreset) return false;
-  return (DETAIL_PRESETS_BY_BUILDING[buildingId] as readonly string[])
-    .includes(priorityPreset);
-}

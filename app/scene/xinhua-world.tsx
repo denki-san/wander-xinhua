@@ -82,7 +82,6 @@ import {
 } from "./atmosphere-contract";
 import type { ProgressiveNetworkProfile } from "./progressive-loading";
 import { useProgressiveBuildingTier } from "./progressive-building-stage";
-import { detailPresetTargetsBuilding } from "./xinhua-road-identity-contract";
 
 const ProgressiveXinhuaRoadFullLayer = lazy(
   () => import("./xinhua-road-landmarks"),
@@ -442,7 +441,7 @@ function FlatNeighborhood({
   showDetailLabels = true,
   showRoadLabels = true,
   showHeroTree = false,
-  priorityPreset,
+  progressiveFocus,
   landmarkLoadMode = "overview",
   networkProfile,
   mode,
@@ -454,7 +453,7 @@ function FlatNeighborhood({
   showDetailLabels?: boolean;
   showRoadLabels?: boolean;
   showHeroTree?: boolean;
-  priorityPreset?: string;
+  progressiveFocus: RefObject<readonly [number, number]>;
   landmarkLoadMode?: "overview" | "explore";
   networkProfile: ProgressiveNetworkProfile;
   mode: "intro" | "overview" | "explore";
@@ -462,17 +461,26 @@ function FlatNeighborhood({
   const xingfuliTier = useProgressiveBuildingTier({
     mode,
     networkProfile,
-    detailActive: detailPresetTargetsBuilding(priorityPreset, "xingfuli"),
+    focusPosition: progressiveFocus,
+    center: XINGFULI_POSITION,
+    fullEnterDistance: 72,
+    fullExitDistance: 88,
   });
   const shangshengTier = useProgressiveBuildingTier({
     mode,
     networkProfile,
-    detailActive: detailPresetTargetsBuilding(priorityPreset, "shangsheng"),
+    focusPosition: progressiveFocus,
+    center: SHANGSHENG_XINSUO_POSITION,
+    fullEnterDistance: 92,
+    fullExitDistance: 112,
   });
   const huashanTier = useProgressiveBuildingTier({
     mode,
     networkProfile,
-    detailActive: detailPresetTargetsBuilding(priorityPreset, "huashan"),
+    focusPosition: progressiveFocus,
+    center: HUASHAN_GREEN_POSITION,
+    fullEnterDistance: 76,
+    fullExitDistance: 94,
   });
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
@@ -501,7 +509,7 @@ function FlatNeighborhood({
       />
       {showDetailModels && networkProfile === "standard" ? (
         <ProgressiveFeatureBoundary
-          resetKey={`${landmarkLoadMode}-${priorityPreset ?? "nearby"}`}
+          resetKey={landmarkLoadMode}
           fallback={<XinhuaRoadMassing identity />}
         >
           <Suspense fallback={<XinhuaRoadMassing identity />}>
@@ -509,8 +517,8 @@ function FlatNeighborhood({
               showLabels={showDetailLabels}
               showHero={showHeroTree}
               atmosphere={atmosphere}
-              priorityPreset={priorityPreset}
               loadMode={landmarkLoadMode}
+              focusPosition={progressiveFocus}
             />
           </Suspense>
         </ProgressiveFeatureBoundary>
@@ -1575,6 +1583,9 @@ export function XinhuaWorld({
     terrainHeightAt(overviewStartPosition[0], overviewStartPosition[1]) + 0.33,
     overviewStartPosition[1],
   ));
+  const progressiveFocus = useRef<readonly [number, number]>(
+    overviewStartPosition,
+  );
 
   useLayoutEffect(() => {
     if (!overview) return;
@@ -1587,6 +1598,7 @@ export function XinhuaWorld({
 
   const reportProgressivePosition = useCallback(
     (position: readonly [number, number]) => {
+      progressiveFocus.current = position;
       onPositionChange(position);
     },
     [onPositionChange],
@@ -1619,7 +1631,7 @@ export function XinhuaWorld({
         showDetailLabels={false}
         showRoadLabels={!exploring}
         showHeroTree={exploring}
-        priorityPreset={destinationPreset}
+        progressiveFocus={progressiveFocus}
         landmarkLoadMode={exploring ? "explore" : "overview"}
         networkProfile={networkProfile}
         mode={mode}

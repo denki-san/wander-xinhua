@@ -57,11 +57,11 @@
       "identityRequested": true,
       "heroRequested": false
     },
-    "detailStandard": {
+    "localNearStandard": {
       "identityRequested": true,
       "heroRequested": true
     },
-    "detailWeak": {
+    "localNearWeak": {
       "identityRequested": true,
       "heroRequested": false
     },

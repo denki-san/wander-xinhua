@@ -1,6 +1,7 @@
 "use client";
 
 import { Html, useGLTF } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 import {
   Color,
   InstancedMesh,
@@ -17,6 +18,8 @@ import {
   useLayoutEffect,
   useMemo,
   useRef,
+  useState,
+  type RefObject,
 } from "react";
 import {
   autumnShadowSurfaceHeightAt,
@@ -40,7 +43,7 @@ import {
   LandmarkProgressiveProxy,
   XinhuaRoadMassing,
 } from "./xinhua-road-massing";
-import { xinhuaRoadDetailHeroId } from "./xinhua-road-identity-contract";
+import { xinhuaRoadDistanceHeroIds } from "./xinhua-road-identity-contract";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
 
 type LandmarkPlacement = {
@@ -136,6 +139,7 @@ export const XINHUA_HERO_PLANE_TREE_ID = "plane-tree-0-12";
 export const XINHUA_HERO_PLANE_TREE_MODEL =
   "/models/building-evidence-lab/xinhua-plane-tree-hero.glb?v=3";
 const XINHUA_HERO_PLANE_TREE_TARGET = [20.75, 95.57] as const;
+const LANDMARK_DISTANCE_SAMPLE_SECONDS = 0.2;
 export const XINHUA_PLANE_TREE_PLACEMENTS = buildPlaneTreePlacements(
   XINHUA_ROAD_LANDMARKS,
   XINHUA_ROAD_MODEL_FOOTPRINTS,
@@ -491,17 +495,37 @@ export function XinhuaRoadPlaneTrees({
   );
 }
 
-function useDetailHeroLandmarkIds({
-  priorityPreset,
+function useDistanceHeroLandmarkIds({
   loadMode = "overview",
+  focusPosition,
 }: {
-  priorityPreset?: string;
   loadMode?: "overview" | "explore";
+  focusPosition: RefObject<readonly [number, number]>;
 }) {
-  return useMemo<ReadonlySet<string>>(() => {
-    const heroId = xinhuaRoadDetailHeroId({ loadMode, priorityPreset });
-    return heroId ? new Set([heroId]) : new Set();
-  }, [loadMode, priorityPreset]);
+  const [mountedModelIds, setMountedModelIds] = useState<ReadonlySet<string>>(
+    () => new Set(),
+  );
+  const sampleElapsed = useRef(LANDMARK_DISTANCE_SAMPLE_SECONDS);
+
+  useFrame((_, delta) => {
+    sampleElapsed.current += delta;
+    if (sampleElapsed.current < LANDMARK_DISTANCE_SAMPLE_SECONDS) return;
+    sampleElapsed.current = 0;
+    setMountedModelIds((current) => {
+      const next = xinhuaRoadDistanceHeroIds({
+        loadMode,
+        focusPosition: focusPosition.current,
+        mountedModelIds: current,
+      });
+      if (
+        next.size === current.size
+        && [...next].every((landmarkId) => current.has(landmarkId))
+      ) return current;
+      return next;
+    });
+  });
+
+  return mountedModelIds;
 }
 
 export function XinhuaRoadLandmarks({
@@ -514,7 +538,7 @@ export function XinhuaRoadLandmarks({
   return (
     <group
       name="xinhua-road-photo-reference-landmarks"
-      userData={{ stage: "full", loading: "detail-state-on-demand" }}
+      userData={{ stage: "full", loading: "distance-state-on-demand" }}
     >
       {XINHUA_ROAD_LANDMARKS.map((landmark) => {
         const [x, z] = landmark.position;
@@ -581,18 +605,18 @@ export default function XinhuaRoadFullLayer({
   showLabels = true,
   showHero = false,
   atmosphere,
-  priorityPreset,
   loadMode = "overview",
+  focusPosition,
 }: {
   showLabels?: boolean;
   showHero?: boolean;
   atmosphere: XinhuaAtmosphere;
-  priorityPreset?: string;
   loadMode?: "overview" | "explore";
+  focusPosition: RefObject<readonly [number, number]>;
 }) {
-  const mountedModelIds = useDetailHeroLandmarkIds({
-    priorityPreset,
+  const mountedModelIds = useDistanceHeroLandmarkIds({
     loadMode,
+    focusPosition,
   });
 
   return (
