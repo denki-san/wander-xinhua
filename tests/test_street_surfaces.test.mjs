@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { buildXinhuaStreetDressingPlacements } from "../app/scene/street-dressing-placement.mjs";
+import {
+  buildXinhuaStreetDressingPlacements,
+  XINHUA_STREET_DRESSING_CONSTRAINTS,
+} from "../app/scene/street-dressing-placement.mjs";
 import { XINHUA_ROAD_AXIS } from "../app/scene/xinhua-road-placement.mjs";
 
 const root = new URL("../", import.meta.url);
@@ -24,6 +27,13 @@ function distanceToAxis(point) {
   return Math.min(...XINHUA_ROAD_AXIS.slice(1).map((end, index) => (
     pointToSegmentDistance(point, XINHUA_ROAD_AXIS[index], end)
   )));
+}
+
+function pointIntersectsObstacle([x, z], obstacle, radius) {
+  return x >= obstacle.minX - radius
+    && x <= obstacle.maxX + radius
+    && z >= obstacle.minZ - radius
+    && z <= obstacle.maxZ + radius;
 }
 
 test("道路与默认绿地使用共享小纹理、世界坐标 UV 和顶点色", async () => {
@@ -61,6 +71,52 @@ test("街具确定性放在新华路 furnishing zone，低配档位会减量", (
   for (const placement of full.planters) {
     const distance = distanceToAxis(placement.position);
     assert.ok(distance > 3.4 && distance < 3.56, `花箱偏离 furnishing zone：${distance}`);
+  }
+});
+
+test("两档街具都避开建筑、入口出生点与既有梧桐", () => {
+  const footprintRadius = {
+    lamps: 0.28,
+    planters: 0.75,
+    bins: 0.45,
+    shrubs: 0.9,
+  };
+  const treeClearance = {
+    lamps: 1.8,
+    planters: 1.6,
+    bins: 1.3,
+    shrubs: 1.8,
+  };
+
+  for (const lowTier of [false, true]) {
+    const placements = buildXinhuaStreetDressingPlacements(lowTier);
+    for (const [kind, items] of Object.entries(placements)) {
+      for (const placement of items) {
+        assert.ok(
+          XINHUA_STREET_DRESSING_CONSTRAINTS.entrances.every(
+            ([x, z]) => Math.hypot(placement.position[0] - x, placement.position[1] - z) >= 9.2,
+          ),
+          `${placement.id} 进入地标入口净空`,
+        );
+        assert.ok(
+          XINHUA_STREET_DRESSING_CONSTRAINTS.obstacles.every(
+            (obstacle) => !pointIntersectsObstacle(
+              placement.position,
+              obstacle,
+              footprintRadius[kind],
+            ),
+          ),
+          `${placement.id} 进入建筑包络`,
+        );
+        assert.ok(
+          XINHUA_STREET_DRESSING_CONSTRAINTS.treePositions.every(
+            ([x, z]) => Math.hypot(placement.position[0] - x, placement.position[1] - z)
+              >= treeClearance[kind],
+          ),
+          `${placement.id} 与既有梧桐重叠`,
+        );
+      }
+    }
   }
 });
 

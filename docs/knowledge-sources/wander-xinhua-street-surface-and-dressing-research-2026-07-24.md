@@ -103,8 +103,8 @@
 ## 预算合同
 
 - 新增程序纹理：3 张，每张 `128 × 128`，运行时生成，不增加网络请求；
-- 新增道路 draw call：小路合并边肩约 1 个；原 6 类道路 draw call 数不变；
-- 新增街具 draw call：路灯 4、花箱 2、垃圾桶 2、灌木 1，数量增长不增加同类 draw call；
+- 设计预算中的新增道路 draw call：小路合并边肩约 1 个；原 6 类道路 draw call 数不变；
+- 设计预算中的新增街具 draw call：路灯 4、花箱 2、垃圾桶 2、灌木 1；这些是根据实例化网格结构推导的上限，不替代浏览器 `renderer.info` 实测；
 - 街具总三角面保持在低数千级，低配档位减少实例数量；
 - 不新增 GLB、图片贴图、透明草海、实时风动画或真实灯光。
 
@@ -131,9 +131,9 @@
 
 ## 验收入口
 
-- 全览：`/xinhua`
-- 新华路近景：`/xinhua?start=shanghai-cinema`
-- 另一段主路：`/xinhua?start=film-art-center`
+- 全览：`/`
+- 新华路近景：`/?start=shanghai-cinema`
+- 另一段主路：`/?start=film-art-center`
 
 验收必须检查：
 
