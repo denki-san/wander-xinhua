@@ -5369,3 +5369,21 @@ TypeError: requestAnimationFrame is not a function
 **Cause:** 之前的临时 Python 静态预览进程已不再监听 3013；构建产物本身仍在。
 **Resolution:** 从当前 worktree 的已验证 `dist-static` 重新绑定 `0.0.0.0:3013`，并在给出无查询参数入口前同时验证 localhost 与局域网地址返回 200。
 **See Also:** ERR179
+
+## [ERR186] 内置浏览器无法向 Messenger 注入原始触摸事件
+
+**Date:** 2026-07-24
+**Context:** 以 390×844 手机视口实际体验 `messenger.abeto.co` 的摇杆、人物转身和镜头回位。
+**Error:** `Input.dispatchTouchEvent` 返回当前 in-app Browser 不支持该命令；普通鼠标点击也不能触发只响应触摸的游戏入口。
+**Cause:** Browser 会把输入 CDP 命令转换为 JavaScript以保持焦点，因此不开放原始触摸注入；Messenger 的入口依赖触摸事件。
+**Resolution:** 不把鼠标合成冒充真机触控。保留可确认的移动端构图、DOM 热区和公开前端资产证据，并将持续摇杆手感明确建立在用户真机反馈与本项目可重复 QA 上。
+**See Also:** ERR176, ERR172
+
+## [ERR187] Chrome Browser 禁止原始持续键盘 CDP 输入
+
+**Date:** 2026-07-24
+**Context:** 在用户 Chrome 中进入 Messenger 场景后，准备按住 W/S/D 记录移动中与停止后的镜头轨迹。
+**Error:** `Input.dispatchKeyEvent` 返回该方法不支持，要求使用 `tab.cua.type` 或 `tab.cua.keypress`。
+**Cause:** Chrome Browser 对原始输入 CDP 命令设有限制，不能直接维持跨多帧 keyDown 状态。
+**Resolution:** 使用允许的短按序列观察朝向、构图和停止回位，并把无法精确测量的持续输入阻尼明确标为定性结论，不伪装成按住测试。
+**See Also:** ERR172, ERR186
