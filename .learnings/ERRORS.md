@@ -5289,3 +5289,38 @@ TypeError: requestAnimationFrame is not a function
 **Cause:** Browser 为保持焦点和安全边界，对页面全局对象及原始输入 CDP 命令进行了限制。
 **Resolution:** 不用 `instanceof` 或原始 TouchEvent 冒充真机证据；改为读取真实 DOM、计算样式和区域 bounds，确认游玩态 `user-select: none`、摇杆盒为左下 `195×320px`、右侧保留 `195px` 镜头区域。持续双指体感仍以用户手机验收为准。
 **See Also:** ERR172
+
+## [ERR177] 转向速度专项测试残留旧的重复源码断言
+
+**Date:** 2026-07-24
+**Context:** 按用户反馈降低人物转身和跑步速度后运行控制专项测试。
+**Error:** 10 项中 1 项失败；同一测试文件的后续入口合同仍要求 `CHARACTER_MAX_TURN_SPEED = 12`。
+**Cause:** 数学手感测试和主要源码合同已经更新为新值，但另一处重复的源码断言没有同步。
+**Resolution:** 将残留断言更新为 `8.5`，并在完整测试前搜索全部旧速度常量，避免重复合同再次漏改。
+**See Also:** ERR171, ERR175
+
+## [ERR178] 受限沙箱不能写入主仓库的 worktree Git 索引
+
+**Date:** 2026-07-24
+**Context:** 完成角色转向与跑步速度微调后，准备提交隔离 worktree 的三个精确文件。
+**Error:** `git add` 无法创建主仓库 `.git/worktrees/third-person-camera-controls/index.lock`，返回 `Operation not permitted`。
+**Cause:** 当前沙箱允许写入 worktree 文件，但主仓库 `.git` 目录只有读取权限。
+**Resolution:** 保持提交范围为三个已审阅文件，使用受控的 Git 权限升级完成暂存和提交，不扩大文件系统写入范围。
+
+## [ERR179] 局域网预览在最终复查时短暂拒绝连接
+
+**Date:** 2026-07-24
+**Context:** 提交角色速度微调后，再次检查手机使用的 `192.168.50.12:3013`。
+**Error:** 首次构建后曾返回 200，提交后的首次复查变为 `connection refused`；沙箱内直接执行 `ps` 又被系统拒绝。
+**Cause:** 精确检查确认原 Python 服务仍在 `*:3013` 监听，随后本机与局域网请求都恢复 200；只能确认是瞬时连接失败，不能据此声称进程退出。
+**Resolution:** 使用 `lsof` 精确确认监听者，再分别请求 localhost 与局域网 URL；关闭临时启用的 3014 备用服务，保留原 3013 服务和手机地址。
+**See Also:** ERR178
+
+## [ERR180] 隔离 worktree 内没有独立的 Vite 可执行文件
+
+**Date:** 2026-07-24
+**Context:** 从隔离 worktree 重启局域网静态预览。
+**Error:** `./node_modules/.bin/vite preview ...` 返回 `no such file or directory`。
+**Cause:** 依赖安装在主仓库根目录，隔离 worktree 没有自己的 `node_modules`；npm scripts 会自动补充父级依赖路径，但直接相对调用不会。
+**Resolution:** 使用主仓库已安装的 `../../node_modules/.bin/vite` 启动预览，不重新安装或复制依赖。
+**See Also:** ERR179
