@@ -3,7 +3,7 @@
 - 审计日期：2026-07-25
 - 主窗口 Git 基线：`main` / `origin/main` /
   `fc96800edb39cf2745ea328237aedb3a86e1f7f5`
-- 18 栋集成分支：`codex/integrate-18-buildings` / through `c25696b`
+- 18 栋集成分支：`codex/integrate-18-buildings` / through `577ceaf`
 - 范围权威：
   - `app/asset-library/asset-data.ts`
   - `app/scene/xinhua-road-landmarks-data.json`
@@ -26,11 +26,11 @@
 | # | Stable asset ID | 建筑资产 | 当前可保留成果 | 新目标状态 | 下一项缺口 |
 | ---: | --- | --- | --- | --- | --- |
 | 1 | `shanghai-cinema` | 上海影城 | Hero、Hybrid Identity composite、正式 Massing；MCP 1/2/3、实际地图门、三档与双 fallback Three.js 终验均有当前证据；主窗口保留 Overview Hold 后选择性整合至 `129ea56` | `done` / source `633a0de` / integrated `129ea56` | 无；Identity 必须继续按 ProgrammaticBody + Identity GLB + RepeatedDetails composite 解释，不能把 standalone GLB 误称完整 Identity |
-| 2 | `film-art-center` | 上海电影艺术中心 | 冻结 Hero、确定性 Massing、主窗口 MCP 1 与正式地图门已通过；recovery generic box 只留作反例 | `blocked-mcp2-topology` / active Worktree through `d3b9cda` | Hero 视觉通过但 joined mesh 有 76 个零面积面，其中 4 个在主/次屋顶端帽；必须由确定性生成器清理、重建并重跑 MCP 2，Identity 继续锁定 |
-| 3 | `one-step-garden` | 一尺花园 | Evidence Gate、分体 Massing、主窗口 MCP 1 与实际 Three.js 地图门已通过并整合至 `c25696b`；公共 registry 仍保留旧 Hero | `in-scope` / source `2029a17` | 主窗口审计旧 Hero master 后执行 MCP 2；在 Hero 通过和 Identity 派生前，不以 Massing 替换生产默认资产 |
+| 2 | `film-art-center` | 上海电影艺术中心 | 确定性 Massing、MCP 1、地图门与修复后 Hero MCP 2 已整合；Hero 清除 76 个退化面并可逐字节复现，recovery generic box 只留反例 | `in-scope` / source `0c1f644` / integrated `577ceaf` | 从冻结 Hero `33daaaf0…` 派生独立 Identity，完成 MCP 3 同机位三档与真实运行时终验 |
+| 3 | `one-step-garden` | 一尺花园 | Evidence Gate、分体 Massing、MCP 1 与实际地图门已通过；旧 Hero 因主体误绑、范围污染、696 退化三角面及法线异常冻结为只读 Hold | `in-scope` / source `11c61a4` / integrated `9ebdda1` | 使用独立 `hero-v2` 路径从已验收 Massing 重建主体，不删除/覆盖旧 Hero；通过 MCP 2 后才允许 Identity |
 | 4 | `xinhua-villas-211` | 新华别墅·211弄 | 旧 Hero 仅作保留基线；三张 Recovery 官方证据与边界审计已整合至 `b785fc2` | `blocked-evidence` / source `f53e39b` | 当前只能证明复合院落入口与局部 1号/2号建筑，缺同一 compound 的侧向纵深和成员空间绑定；不得采用旧四栋排布或制作正式 Massing |
 | 5 | `xinhua-villas-329` | 新华别墅·329弄 | 两张官方成员证据与误绑审计已整合至 `2e185c6`；旧 Hero/voxel Massing 实为211弄2号污染基线，clean-v2 是五个未绑定 OSM 盒 | `blocked-evidence` / source `fb652cf` | 缺 compound canonical、入口、成员布局和位置绑定；不得恢复旧 Hero/Massing，先补329弄整体证据 |
-| 6 | `house-315` | 新华路315号住宅 | 旧 Hero、Recovery 两图与 provisional Massing 仅作审计基线；独立 Worktree 正在刷新同源官方证据 | `in-scope` / active Worktree from `2e185c6` | 先闭合 canonical、俯瞰纵深、入口与门牌主体绑定；年代冲突保持 Unknown，再决定 Massing |
+| 6 | `house-315` | 新华路315号住宅 | 官方 canonical、俯瞰纵深、入口/门牌证据已闭合；新 subject-specific Massing `ca0c413` 由主窗口通过 MCP 1，旧 Hero/Recovery voxel/OSM 未复用 | `in-scope` / active Worktree `ca0c413` | 固化 MCP 1 记录并进入 Three.js Massing 地图门；1930/1949 年代冲突继续保持 Unknown，Identity/Hero 关闭 |
 | 7 | `villa-le-bec` | Villa Le Bec | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/六张候选证据及 clean-v2 Massing | `in-scope` / legacy Hero baseline | 核验候选证据、场地平面和 footprint，完成全部门禁 |
 | 8 | `shanghai-orchestra` | 上海民族乐团 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/三张证据及 clean-v2 Massing | `in-scope` / legacy Hero baseline | 拆分并绑定 compound 子建筑，完成全部门禁 |
 | 9 | `hudec-memorial` | 邬达克纪念馆 | 旧 Hero；新官方证据、V2 Brief、结构化 Massing 与 MCP 1；地图门证据已整合至 `8edac99` | `blocked-map` / source `ee3fcad` | 真实门廊净宽 `1.2672`，小于碰撞所需 `1.36`；必须回 Massing 加宽入口并重跑 MCP 1/地图门，禁止缩碰撞盒造假，Hero/Identity 继续关闭 |
