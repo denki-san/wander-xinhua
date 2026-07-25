@@ -15,6 +15,7 @@ import {
   ShanghaiCinemaHybridIdentity,
   ShanghaiCinemaMassingGlb,
 } from "./shanghai-cinema-hybrid-identity";
+import { OneStepGardenRuntimeAsset } from "./one-step-garden-runtime";
 
 const IDENTITY_COLORS = [
   "#e8dfcf",
@@ -607,6 +608,26 @@ export function LandmarkProgressiveProxy({
   landmark: LandmarkPlacement;
   identity: boolean;
 }) {
+  if (landmark.id === "one-step-garden") {
+    return (
+      <group
+        name="one-step-garden-progressive-proxy"
+        userData={{
+          building: landmark.id,
+          stage: identity ? "identity" : "massing",
+          overviewRepresentation: identity
+            ? "derived-identity-glb"
+            : "derived-massing-glb",
+          progressive: true,
+          sharedOrigin: true,
+        }}
+      >
+        <OneStepGardenRuntimeAsset
+          requestedTier={identity ? "identity" : "massing"}
+        />
+      </group>
+    );
+  }
   if (!identity && landmark.id === "shanghai-cinema") {
     return (
       <group

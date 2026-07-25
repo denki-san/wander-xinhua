@@ -385,11 +385,11 @@
       "buildingOnly": true,
       "rangePollution": false,
       "legacyHeroOverwritten": false,
-      "publicRegistryModified": false
+      "publicRegistryModified": true
     },
     "identityAuthorized": true,
     "identityLineage": {
-      "status": "identity-v1-mcp3-pass-runtime-paused-for-main-window-gate-integration",
+      "status": "identity-v1-mcp3-pass-runtime-candidate-implemented-browser-final-pending",
       "authorizationAuthority": "docs/research/one-step-garden-blender-mcp-gates.json#heroGate.mcp2Rereview",
       "postBuildGateAuthorization": true,
       "sourceRootIdentityAllowedAtBuild": false,
@@ -422,9 +422,11 @@
       "identityFormalPass": true,
       "mcp3GateRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/one-step-garden-identity.json#mcp3",
       "runtimeAuthorized": true,
-      "runtimeExecutionPausedForMainWindowGateIntegration": true,
-      "runtimeIntegrated": false,
-      "publicRegistryModified": false
+      "runtimeCandidateImplemented": true,
+      "runtimeIntegrated": true,
+      "publicRegistryModified": true,
+      "mainWindowIntegrated": false,
+      "mainWindowBrowserFinal": "pending"
     }
   }
 }

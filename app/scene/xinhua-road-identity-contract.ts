@@ -1,6 +1,7 @@
 import type { LandmarkPlacement } from "./xinhua-road-contract";
 import { planarDistanceToLandmarkFootprint } from "./xinhua-road-placement.mjs";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
+import { ONE_STEP_GARDEN_TIERS } from "./one-step-garden-tier-contract.mjs";
 
 const XINHUA_ROAD_QUALITY_LANDMARKS =
   landmarkData.landmarks as unknown as readonly LandmarkPlacement[];
@@ -113,14 +114,17 @@ export type XinhuaRoadBuildingQualityEntry = {
     };
   };
   identity: {
-    strategy: "programmatic-miniature" | "custom-landmark-hybrid";
+    strategy:
+      | "programmatic-miniature"
+      | "custom-landmark-hybrid"
+      | "derived-glb";
     recipe: XinhuaRoadIdentityKind;
     model?: string;
     cacheVersion?: string;
     requiredBeforeMapVisible: true;
   };
   massing: {
-    strategy: "bounds-proxy" | "formal-glb";
+    strategy: "bounds-proxy" | "formal-glb" | "derived-glb";
     visibility: "cover-only";
     localBounds: LandmarkPlacement["localBounds"];
     model?: string;
@@ -134,6 +138,7 @@ function buildingQualityEntry(
   landmark: LandmarkPlacement,
 ): XinhuaRoadBuildingQualityEntry {
   const shanghaiCinema = landmark.id === "shanghai-cinema";
+  const oneStepGarden = landmark.id === "one-step-garden";
   return {
     buildingId: landmark.id,
     hero: {
@@ -147,28 +152,42 @@ function buildingQualityEntry(
       },
     },
     identity: {
-      strategy: shanghaiCinema
-        ? "custom-landmark-hybrid"
-        : "programmatic-miniature",
+      strategy: oneStepGarden
+        ? "derived-glb"
+        : shanghaiCinema
+          ? "custom-landmark-hybrid"
+          : "programmatic-miniature",
       recipe: xinhuaRoadIdentityKind(landmark.id),
-      model: shanghaiCinema
-        ? SHANGHAI_CINEMA_IDENTITY_MODEL_PATH
-        : undefined,
-      cacheVersion: shanghaiCinema
-        ? SHANGHAI_CINEMA_IDENTITY_CACHE_VERSION
-        : undefined,
+      model: oneStepGarden
+        ? ONE_STEP_GARDEN_TIERS.identity.path
+        : shanghaiCinema
+          ? SHANGHAI_CINEMA_IDENTITY_MODEL_PATH
+          : undefined,
+      cacheVersion: oneStepGarden
+        ? ONE_STEP_GARDEN_TIERS.identity.cacheVersion
+        : shanghaiCinema
+          ? SHANGHAI_CINEMA_IDENTITY_CACHE_VERSION
+          : undefined,
       requiredBeforeMapVisible: true,
     },
     massing: {
-      strategy: shanghaiCinema ? "formal-glb" : "bounds-proxy",
+      strategy: oneStepGarden
+        ? "derived-glb"
+        : shanghaiCinema
+          ? "formal-glb"
+          : "bounds-proxy",
       visibility: "cover-only",
       localBounds: landmark.localBounds,
-      model: shanghaiCinema
-        ? SHANGHAI_CINEMA_MASSING_MODEL_PATH
-        : undefined,
-      cacheVersion: shanghaiCinema
-        ? SHANGHAI_CINEMA_MASSING_CACHE_VERSION
-        : undefined,
+      model: oneStepGarden
+        ? ONE_STEP_GARDEN_TIERS.massing.path
+        : shanghaiCinema
+          ? SHANGHAI_CINEMA_MASSING_MODEL_PATH
+          : undefined,
+      cacheVersion: oneStepGarden
+        ? ONE_STEP_GARDEN_TIERS.massing.cacheVersion
+        : shanghaiCinema
+          ? SHANGHAI_CINEMA_MASSING_CACHE_VERSION
+          : undefined,
     },
     shared: {
       position: landmark.position,
@@ -262,6 +281,35 @@ function emptyEvidence(
 }
 
 function roadEvidence(landmarkId: string): ProductionQualityEvidence {
+  if (landmarkId === "one-step-garden") {
+    return {
+      status: "accepted-with-followup",
+      heroBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/hero-v2/one-step-garden-hero.json",
+      ],
+      identityBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/identity-v1/one-step-garden-identity.json",
+      ],
+      massingBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/massing-v2/one-step-garden-massing.json",
+      ],
+      canonicalScreenshots: [
+        "test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1_mcp3_recheck_canonical.png",
+      ],
+      sideScreenshots: [
+        "test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1_mcp3_recheck_side.png",
+      ],
+      rearScreenshots: [],
+      runtimeScreenshots: [],
+      resourceMetrics: [
+        "test_artifacts/test_one-step-garden-three-tier-runtime-qa.json",
+      ],
+      drawCallMetrics: [],
+      gaps: [
+        "主窗口整合后补做三档、ResourceTiming、截图、console、FPS、碰撞与 deterministic fallback 真实浏览器终验",
+      ],
+    };
+  }
   if (landmarkId === "shanghai-cinema") {
     return {
       status: "accepted-with-followup",

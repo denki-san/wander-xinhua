@@ -172,7 +172,7 @@ test("一号花园 Identity v1 只从冻结且已通过 MCP2 的 Hero v2 派生"
 
   assert.equal(
     record.status,
-    "identity-v1-mcp3-pass-runtime-paused-for-main-window-gate-integration",
+    "identity-v1-mcp3-pass-runtime-candidate-implemented-browser-final-pending",
   );
   assert.equal(record.tier, "identity");
   assert.equal(record.versionName, "identity-v1");
@@ -432,7 +432,7 @@ test("一号花园 Identity v1 保留身份构件并严格排除范围外生成�
   ]);
 });
 
-test("一号花园 Identity v1 MCP3 通过但仍未修改公共运行时", async () => {
+test("一号花园 Identity v1 MCP3 通过并只授权正式三档运行时", async () => {
   const record = await readJson(recordPath);
   const lineage = await readJson(lineagePath);
   const gates = await readJson("docs/research/one-step-garden-blender-mcp-gates.json");
@@ -468,10 +468,19 @@ test("一号花园 Identity v1 MCP3 通过但仍未修改公共运行时", async
   assert.equal(record.mcp3.qaRigExported, false);
   assert.equal(record.mcp3.runtimeAuthorized, true);
   assert.equal(record.mcp3.runtimeExecutionPausedForMainWindowGateIntegration, true);
-  assert.equal(record.runtime.status, "not-started-by-worktree");
-  assert.equal(record.runtime.publicRegistryModified, false);
-  assert.equal(record.runtime.runtimeIntegrated, false);
-  assert.equal(lineage.status, "mcp3-pass-runtime-paused-for-main-window-gate-integration");
+  assert.equal(
+    record.runtime.status,
+    "runtime-candidate-implemented-main-window-browser-final-pending",
+  );
+  assert.equal(record.runtime.runtimeCandidateImplemented, true);
+  assert.equal(record.runtime.publicRegistryModified, true);
+  assert.equal(record.runtime.runtimeIntegrated, true);
+  assert.equal(record.runtime.mainWindowIntegrated, false);
+  assert.equal(record.runtime.mainWindowBrowserFinal, "pending");
+  assert.equal(
+    lineage.status,
+    "mcp3-pass-runtime-candidate-implemented-browser-final-pending",
+  );
   assert.equal(lineage.threeTierGate.formalPass, true);
   assert.equal(lineage.tiers.identity.gates.mcp3, "pass");
   assert.equal(lineage.terminalBlenderGate.status, "pass");
@@ -490,6 +499,9 @@ test("一号花园 Identity v1 MCP3 通过但仍未修改公共运行时", async
   assert.equal(disposition.replacementCandidate.identityLineage.identityFormalPass, true);
   assert.equal(disposition.replacementCandidate.identityLineage.runtimeAuthorized, true);
   assert.equal(disposition.legacyHero.atomicLineage.binaryAssetsUnchangedSinceProducingCommit, true);
-  assert.equal(landmark.model, "/models/xinhua-road/one-step-garden.glb");
-  assert.equal(landmark.cacheVersion, "20260718-detail-1");
+  assert.equal(
+    landmark.model,
+    "/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb",
+  );
+  assert.equal(landmark.cacheVersion, "20260725-hero-026565ba");
 });

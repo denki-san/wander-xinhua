@@ -140,7 +140,7 @@ function auditTriangles(json, binary) {
   };
 }
 
-test("一号花园旧 Hero 冻结为 Hold，Identity 候选不改变公共 registry", async () => {
+test("一号花园旧 Hero 冻结为 Hold，运行时只接入已授权 Hero v2", async () => {
   const disposition = await readJson(dispositionPath);
   const gates = await readJson("docs/research/one-step-garden-blender-mcp-gates.json");
   const registry = await readJson("app/scene/xinhua-road-landmarks-data.json");
@@ -174,12 +174,23 @@ test("一号花园旧 Hero 冻结为 Hold，Identity 候选不改变公共 regis
   assert.equal(disposition.replacementCandidate.identityLineage.identityFormalPass, true);
   assert.equal(disposition.replacementCandidate.identityLineage.runtimeAuthorized, true);
   assert.equal(
-    disposition.replacementCandidate.identityLineage.runtimeExecutionPausedForMainWindowGateIntegration,
+    disposition.replacementCandidate.identityLineage.runtimeCandidateImplemented,
     true,
   );
-  assert.equal(disposition.replacementCandidate.identityLineage.runtimeIntegrated, false);
-  assert.equal(landmark.model, "/models/xinhua-road/one-step-garden.glb");
-  assert.equal(landmark.cacheVersion, "20260718-detail-1");
+  assert.equal(disposition.replacementCandidate.identityLineage.runtimeIntegrated, true);
+  assert.equal(
+    disposition.replacementCandidate.identityLineage.publicRegistryModified,
+    true,
+  );
+  assert.equal(
+    disposition.replacementCandidate.identityLineage.mainWindowIntegrated,
+    false,
+  );
+  assert.equal(
+    landmark.model,
+    "/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb",
+  );
+  assert.equal(landmark.cacheVersion, "20260725-hero-026565ba");
 });
 
 test("一号花园旧 Hero 二进制与生产 lineage SHA 被精确冻结", async () => {
