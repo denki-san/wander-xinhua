@@ -343,7 +343,7 @@ Three.js 最终 canonical 仍需主窗口在真实地图中校准。
 | `864485664` | 36号 | Medium | 正文、四张同组画面 + 纵深排序；非地籍 |
 | `864493174` | 40号 | Medium-high | 两张可见40门牌 + 42号之前的较大中段 footprint |
 | `864493173` | 42号 | Medium-high | 可见42门牌 + 40之后最深 retained footprint |
-| `864493245` | Excluded | High | 世界中心 `[-33.577, 88.793]` 距独立 Villa Le Bec 锚点 `0.523` |
+| `864493245` | Excluded | Unknown | 原始 OSM 世界中心约 `[-42.347, 92.123]`；现有证据无法绑定329弄门牌 |
 
 这套绑定适用于保守 Massing，不可升级为测绘事实。17、32乙、38和沿街231号继续
 只作为 evidence-only，不强行塞入四个 footprint。
@@ -358,9 +358,15 @@ Three.js 最终 canonical 仍需主窗口在真实地图中校准。
 - Member 42 cues: 正面三角山墙、浅瓦门廊。
 - Member 15 boundary: 只使用 OSM body、可见二层包络和门牌入口证据。
 - Unknown faces: 不加窗门节奏、附楼、背坡或未经照片支持的装饰。
-- Excluded: Villa Le Bec、树木、绿篱、灯、花箱、街具、普通全地图体块。
+- Excluded: 证据未绑定的相邻 `way/864493245`、树木、绿篱、灯、花箱、街具、
+  普通全地图体块。
 - Runtime placement frozen:
   `position [-42.13, 79.48] / yaw -0.38 / scale 0.62`。
+- Coordinate contract: 原始 OSM WGS84 按
+  `app/scene/xinhua-map-data.json.meta.centerWgs84` 与
+  `metersPerSceneUnit=2.7` 投影；再逆变换为
+  `glb-source-xz-before-runtime-z-flip`。四个 footprint 的逐顶点 world
+  回投影最大偏差必须 `<= 0.05 scene unit`。
 - Budget: `8 nodes / 2,000 triangles / 4 materials / 0 images /
   220,000 bytes`。
 - Collision intent: 四个成员分别使用 footprint AABB；成员间路径保持开放。
@@ -371,13 +377,13 @@ Three.js 最终 canonical 仍需主窗口在真实地图中校准。
 - Blend:
   `assets/models/source/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.blend`
   SHA-256
-  `da82a1e3a4c7379e69a2a099a66f10dadcaef084cf45bf2a59b6344ebfbf97a5`。
+  `68004686207183ee7276c52b6c4805dc3233c7fd76d19fb9ba11d254444709c1`。
 - GLB:
   `public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb`
   SHA-256
-  `b5f8c3fa56cc83ca43b850995da4440cac6639ec353789fc746aac1f45532c25`。
+  `f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704`。
 - Structure:
-  `22,004 bytes / 4 nodes / 4 meshes / 204 triangles / 4 materials /
+  `21,632 bytes / 4 nodes / 4 meshes / 204 triangles / 4 materials /
   0 images / 0 textures`；root transforms normalized。
 - Explicit audit:
   `python3 scripts/audit_glb.py public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb --forbid-images --max-nodes 8`
@@ -389,7 +395,7 @@ Three.js 最终 canonical 仍需主窗口在真实地图中校准。
   `test_xinhua-villas-329-massing-v3-reference-blender-threejs-pending.png`
   将 XHS 参考、Blender canonical 和明确标记为 pending 的 Three.js 面板并列；
   它不是 runtime 通过证据，SHA-256 为
-  `5432399ef5e1502a6e86d183f11e230ed111b60635dd715db4b70aa6cae1cdbb`。
+  `2c07b54893ea2ee293282109cda6e0c82cee2842d477eec39ef6ba45a24f6e47`。
 - Build record:
   `docs/research/build-records/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.json`。
 

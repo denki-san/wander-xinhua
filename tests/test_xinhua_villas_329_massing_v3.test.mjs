@@ -33,6 +33,7 @@ const OSM_PATH = resolve(
   ROOT,
   "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
 );
+const MAP_PATH = resolve(ROOT, "app/scene/xinhua-map-data.json");
 const INTEGRATION_CANDIDATE_PATH = resolve(
   ROOT,
   "docs/research/xinhua-villas-329-massing-v3-integration-candidate.json",
@@ -69,6 +70,7 @@ test("329弄 XHS 证据只授权四成员保守 Massing v3", async () => {
     registry,
     fastManifest,
     osm,
+    map,
     integrationCandidate,
   ] =
     await Promise.all([
@@ -79,6 +81,7 @@ test("329弄 XHS 证据只授权四成员保守 Massing v3", async () => {
       readFile(REGISTRY_PATH, "utf8").then(JSON.parse),
       readFile(FAST_MANIFEST_PATH, "utf8").then(JSON.parse),
       readFile(OSM_PATH, "utf8").then(JSON.parse),
+      readFile(MAP_PATH, "utf8").then(JSON.parse),
       readFile(INTEGRATION_CANDIDATE_PATH, "utf8").then(JSON.parse),
     ]);
 
@@ -92,6 +95,13 @@ test("329弄 XHS 证据只授权四成员保守 Massing v3", async () => {
   assert.equal(record.gates.mapAcceptance, "pending-main-window-scoped-qa");
   assert.equal(record.gates.identityAuthorized, false);
   assert.equal(record.gates.heroAuthorized, false);
+  assert.equal(binding.worldProjectionValidation.status, "pass");
+  assert.ok(
+    binding.worldProjectionValidation.maximumErrorSceneUnits
+      <= binding.worldProjectionValidation.toleranceSceneUnits,
+  );
+  assert.equal(record.coordinateValidation.status, "pass");
+  assert.equal(integrationCandidate.coordinateValidation.status, "pass");
 
   assert.deepEqual(
     binding.members.map(({ sourceWayId, houseNumber }) => [sourceWayId, houseNumber]),
@@ -106,7 +116,11 @@ test("329弄 XHS 证据只授权四成员保守 Massing v3", async () => {
   assert.deepEqual(record.scope.excludedWayIds, [864493245]);
   assert.equal(binding.excludedCandidates.length, 1);
   assert.equal(binding.excludedCandidates[0].sourceWayId, 864493245);
-  assert(binding.excludedCandidates[0].worldCenterDistance < 0.53);
+  assert.equal(
+    binding.excludedCandidates[0].status,
+    "excluded-evidence-unbound-unknown-adjacent",
+  );
+  assert(!JSON.stringify(binding.excludedCandidates[0]).includes("Villa Le Bec"));
   assert.equal(record.children.length, 4);
   assert(!record.children.some(({ sourceWayId }) => sourceWayId === 864493245));
 
@@ -122,10 +136,63 @@ test("329弄 XHS 证据只授权四成员保守 Massing v3", async () => {
     assert(osmWayIds.has(sourceWayId), `OSM 缺少 way/${sourceWayId}`);
   }
 
+  const [centerLongitude, centerLatitude] = map.meta.centerWgs84;
+  const metersPerLongitudeDegree =
+    111_320 * Math.cos(centerLatitude * Math.PI / 180);
+  const projectWorld = ({ lon, lat }) => [
+    (lon - centerLongitude) * metersPerLongitudeDegree
+      / map.meta.metersPerSceneUnit,
+    -(lat - centerLatitude) * 110_540 / map.meta.metersPerSceneUnit,
+  ];
+  const authoredToWorld = ([localX, sourceZ]) => {
+    const { position, yaw, scale } = binding.registryPlacement;
+    const cosine = Math.cos(yaw);
+    const sine = Math.sin(yaw);
+    const localZ = -sourceZ;
+    return [
+      position[0] + scale * (cosine * localX + sine * localZ),
+      position[1] + scale * (-sine * localX + cosine * localZ),
+    ];
+  };
+  for (const member of binding.members) {
+    const way = osm.elements.find(
+      ({ type, id }) => type === "way" && id === member.sourceWayId,
+    );
+    assert(way);
+    const osmVertices = way.geometry.slice(0, -1).map(projectWorld);
+    assert.equal(member.localFootprint.length, osmVertices.length);
+    const worldErrors = member.localFootprint.map((localVertex, index) => {
+      const actual = authoredToWorld(localVertex);
+      const expected = osmVertices[index];
+      return Math.hypot(actual[0] - expected[0], actual[1] - expected[1]);
+    });
+    assert.ok(
+      Math.max(...worldErrors) <= 0.05,
+      `way/${member.sourceWayId} 最大 world 顶点偏差超过 0.05 scene unit`,
+    );
+  }
+  const excludedWay = osm.elements.find(
+    ({ type, id }) => type === "way" && id === 864493245,
+  );
+  const excludedWorldVertices = excludedWay.geometry.slice(0, -1).map(projectWorld);
+  const excludedWorldCenter = excludedWorldVertices.reduce(
+    (center, point) => [
+      center[0] + point[0] / excludedWorldVertices.length,
+      center[1] + point[1] / excludedWorldVertices.length,
+    ],
+    [0, 0],
+  );
+  assert.ok(Math.hypot(
+    excludedWorldCenter[0]
+      - binding.excludedCandidates[0].projectedWorldCenter[0],
+    excludedWorldCenter[1]
+      - binding.excludedCandidates[0].projectedWorldCenter[1],
+  ) <= 0.00001);
+
   const glbPath = resolve(ROOT, record.outputs.glb);
   assert.equal(await sha256(glbPath), record.glb.sha256);
-  assert.equal(record.glb.sha256, "b5f8c3fa56cc83ca43b850995da4440cac6639ec353789fc746aac1f45532c25");
-  assert.equal(record.glb.bytes, 22004);
+  assert.equal(record.glb.sha256, "f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704");
+  assert.equal(record.glb.bytes, 21632);
   assert.equal(record.glb.nodes, 4);
   assert.equal(record.glb.meshes, 4);
   assert.equal(record.glb.materials, 4);
@@ -187,7 +254,7 @@ test("329弄 XHS 证据只授权四成员保守 Massing v3", async () => {
     await sha256(resolve(ROOT, record.outputs.comparisonCheckpoint.path)),
     record.outputs.comparisonCheckpoint.sha256,
   );
-  assert.equal(record.outputs.comparisonCheckpoint.bytes, 604883);
+  assert.equal(record.outputs.comparisonCheckpoint.bytes, 606051);
   assert.equal(
     await sha256(
       resolve(ROOT, record.outputs.comparisonCheckpoint.runtimePanel.path),

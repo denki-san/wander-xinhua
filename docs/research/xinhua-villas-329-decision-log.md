@@ -193,18 +193,18 @@ compound canonical、入口、空间布局或候选 footprint 对应关系。即
 
 ### Member binding decision
 
-使用 Recovery footprint、当前 registry transform 和 XHS 顺序建立 Massing 级
-绑定：
+使用原始 OSM WGS84 footprint、当前 registry transform 和 XHS 顺序建立
+Massing 级绑定：
 
 - `way/864493244 → 15`
 - `way/864485664 → 36`
 - `way/864493174 → 40`
 - `way/864493173 → 42`
 
-这四项是可审计的 sequence-and-spatial binding，不是地籍确认。第五个 Recovery
-候选 `way/864493245` 换算中心为 `[-33.577, 88.793]`，距独立
-Villa Le Bec registry 锚点 `[-34.1, 88.8]` 只有约 `0.523` 场景单位，并同时
-出现在 Recovery Villa Le Bec candidate pool，因此从329弄排除。
+这四项是可审计的 sequence-and-spatial binding，不是地籍确认。第五个候选
+`way/864493245` 的原始 OSM 世界中心约为 `[-42.347, 92.123]`；现有照片与
+门牌证据无法把它绑定到329弄成员，因此只按
+`excluded-evidence-unbound-unknown-adjacent` 排除，不归属其他资产。
 
 ### Modeling decision
 
@@ -227,17 +227,32 @@ Villa Le Bec registry 锚点 `[-34.1, 88.8]` 只有约 `0.523` 场景单位，�
 ### Results and gates
 
 - Blend SHA:
-  `da82a1e3a4c7379e69a2a099a66f10dadcaef084cf45bf2a59b6344ebfbf97a5`
+  `68004686207183ee7276c52b6c4805dc3233c7fd76d19fb9ba11d254444709c1`
 - GLB SHA:
-  `b5f8c3fa56cc83ca43b850995da4440cac6639ec353789fc746aac1f45532c25`
+  `f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704`
 - GLB:
-  `22,004 bytes / 4 nodes / 4 meshes / 204 triangles / 4 materials /
+  `21,632 bytes / 4 nodes / 4 meshes / 204 triangles / 4 materials /
   0 images / 0 textures`。
 - Explicit audit: pass with `--forbid-images --max-nodes 8`。
 - Evidence: `pass-conservative-massing-only`。
 - MCP1: `pending-main-window-batch`，本轮没有执行 Blender MCP。
 - Runtime / map: `pending-main-window-scoped-qa`，没有修改共享接线。
 - Identity / Hero: 未授权；不越过 MCP1 与地图门。
+
+## Iteration 3 — Raw OSM projection and authored-coordinate correction
+
+- Date: 2026-07-26
+- Trigger: 主窗口地图审计发现 binding 的第二坐标被错误解释为 Blender Y，
+  而不是 GLB source Z；直接套 registry transform 会造成 `5.670–16.930`
+  scene unit 的中心偏差。
+- Correction: 逐顶点读取原始 OSM WGS84，使用地图中心与 `2.7 m/unit` 投影到
+  world，再逆变换为 `glb-source-xz-before-runtime-z-flip`；生成器显式执行
+  `BlenderY = -sourceZ`。
+- Verification contract: 专项测试从原始 OSM 重算四个 footprint，逐顶点 world
+  回投影最大误差必须 `<= 0.05 scene unit`。
+- Gate reset: 新 GLB SHA 已生成；旧 MCP1 截图只保留历史上下文，正式 MCP1 与
+  map gate 均等待主窗口基于新 SHA 重验。
+- Scope: 未修改 shared registry、runtime、Fast manifest、Hold 或其他建筑。
 
 ### Wiki and shared boundary
 

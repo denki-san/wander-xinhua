@@ -267,7 +267,12 @@ def build_member(
     surfaces: dict[str, bpy.types.Material],
 ) -> bpy.types.Object:
     number = member["houseNumber"]
-    footprint = member["localFootprint"]
+    # binding 保存 GLB source XZ；Blender 导出时会把 Blender Y 写成 -Z。
+    # 因此这里显式转换，避免把 sourceZ 误当作 Blender Y 后在地图中镜像漂移。
+    footprint = [
+        [float(source_x), -float(source_z)]
+        for source_x, source_z in member["localFootprint"]
+    ]
     contract = member["modelContract"]
     center, u_axis, v_axis, length, width = rectangle_basis(footprint)
     eave_height = float(contract["eaveHeight"])
@@ -635,7 +640,7 @@ def main() -> None:
     child_records = []
     for member in binding["members"]:
         x_values = [point[0] for point in member["localFootprint"]]
-        z_values = [point[1] for point in member["localFootprint"]]
+        source_z_values = [point[1] for point in member["localFootprint"]]
         child_records.append(
             {
                 "name": f"xinhua-villas-329-member-{member['houseNumber']}",
@@ -643,12 +648,15 @@ def main() -> None:
                 "houseNumber": member["houseNumber"],
                 "bindingStatus": member["bindingStatus"],
                 "geometryEvidence": "observed-osm-footprint-plus-local-photo-silhouette",
+                "localFootprintCoordinateSpace": binding["coordinateContract"][
+                    "authoredCoordinateSpace"
+                ],
                 "localFootprint": member["localFootprint"],
                 "sourceFootprintAabb": {
                     "minX": round(min(x_values), 6),
                     "maxX": round(max(x_values), 6),
-                    "minZ": round(-max(z_values), 6),
-                    "maxZ": round(-min(z_values), 6),
+                    "minZ": round(min(source_z_values), 6),
+                    "maxZ": round(max(source_z_values), 6),
                 },
                 "observedCues": member["modelContract"]["observedCues"],
                 "omittedUnknowns": member["modelContract"]["omittedUnknowns"],
@@ -675,6 +683,20 @@ def main() -> None:
             **binding["registryPlacement"],
             "authoredFront": "compound-member-specific-facing-unknown",
         },
+        "coordinateValidation": {
+            "source": binding["coordinateContract"]["source"],
+            "mapMetadata": binding["coordinateContract"]["mapMetadata"],
+            "authoredCoordinateSpace": binding["coordinateContract"][
+                "authoredCoordinateSpace"
+            ],
+            "maximumWorldVertexErrorSceneUnits": binding[
+                "worldProjectionValidation"
+            ]["maximumErrorSceneUnits"],
+            "toleranceSceneUnits": binding["worldProjectionValidation"][
+                "toleranceSceneUnits"
+            ],
+            "status": binding["worldProjectionValidation"]["status"],
+        },
         "scope": {
             "includedHouseNumbers": [
                 member["houseNumber"] for member in binding["members"]
@@ -684,7 +706,7 @@ def main() -> None:
                 for candidate in binding["excludedCandidates"]
             ],
             "excludedContent": [
-                "Villa Le Bec way/864493245",
+                "evidence-unbound adjacent way/864493245",
                 "trees and vegetation",
                 "street furniture and decoration",
                 "unmapped members 17, 32乙, 38 and 231",
@@ -741,7 +763,7 @@ def main() -> None:
         "lineage": {
             "recoveryCheckpointCommit": "bdc038d4685ab94e4c78af1dfd83adb3ee8460b0",
             "recoveryMassingSha256": "f7ade44ba879dead433abd006603a613520af730d9a2a35dada412b99a0c3819",
-            "change": "Replaced five unbound boxes with four evidence-bound members and excluded the Villa Le Bec footprint.",
+            "change": "Rebuilt four evidence-bound members from raw OSM WGS84 projection and retained way/864493245 as evidence-unbound adjacent.",
         },
     }
     RECORD_PATH.write_text(

@@ -26,6 +26,14 @@
     "movementAuthorized": false,
     "authoredFront": "compound-member-specific-facing-unknown"
   },
+  "coordinateValidation": {
+    "source": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "mapMetadata": "app/scene/xinhua-map-data.json",
+    "authoredCoordinateSpace": "glb-source-xz-before-runtime-z-flip",
+    "maximumWorldVertexErrorSceneUnits": 0.000000367,
+    "toleranceSceneUnits": 0.05,
+    "status": "pass"
+  },
   "scope": {
     "includedHouseNumbers": [
       "15",
@@ -37,7 +45,7 @@
       864493245
     ],
     "excludedContent": [
-      "Villa Le Bec way/864493245",
+      "evidence-unbound adjacent way/864493245",
       "trees and vegetation",
       "street furniture and decoration",
       "unmapped members 17, 32乙, 38 and 231",
@@ -51,29 +59,30 @@
       "houseNumber": "15",
       "bindingStatus": "bound-medium",
       "geometryEvidence": "observed-osm-footprint-plus-local-photo-silhouette",
+      "localFootprintCoordinateSpace": "glb-source-xz-before-runtime-z-flip",
       "localFootprint": [
         [
-          -19.995742,
-          2.501276
+          -19.995744,
+          -2.501275
         ],
         [
-          -6.481978,
-          2.40108
+          -6.481968,
+          -2.401083
         ],
         [
-          -6.465884,
-          9.341689
+          -6.46588,
+          -9.341696
         ],
         [
           -19.974375,
-          9.439779
+          -9.439777
         ]
       ],
       "sourceFootprintAabb": {
-        "minX": -19.995742,
-        "maxX": -6.465884,
-        "minZ": -9.439779,
-        "maxZ": -2.40108
+        "minX": -19.995744,
+        "maxX": -6.46588,
+        "minZ": -9.439777,
+        "maxZ": -2.401083
       },
       "observedCues": [
         "narrow lane gate and number 15 pier",
@@ -92,28 +101,29 @@
       "houseNumber": "36",
       "bindingStatus": "bound-medium",
       "geometryEvidence": "observed-osm-footprint-plus-local-photo-silhouette",
+      "localFootprintCoordinateSpace": "glb-source-xz-before-runtime-z-flip",
       "localFootprint": [
         [
-          -17.891877,
-          -4.37592
+          -17.89188,
+          4.375919
         ],
         [
           -19.143251,
-          -11.143113
+          11.14312
         ],
         [
-          -10.283151,
-          -12.804766
+          -10.283142,
+          12.804766
         ],
         [
-          -9.031771,
-          -6.037558
+          -9.031772,
+          6.037565
         ]
       ],
       "sourceFootprintAabb": {
         "minX": -19.143251,
-        "maxX": -9.031771,
-        "minZ": 4.37592,
+        "maxX": -9.031772,
+        "minZ": 4.375919,
         "maxZ": 12.804766
       },
       "observedCues": [
@@ -134,29 +144,30 @@
       "houseNumber": "40",
       "bindingStatus": "bound-medium-high",
       "geometryEvidence": "observed-osm-footprint-plus-local-photo-silhouette",
+      "localFootprintCoordinateSpace": "glb-source-xz-before-runtime-z-flip",
       "localFootprint": [
         [
           0.372955,
-          -8.81979
+          8.819783
         ],
         [
-          8.337511,
-          -8.644728
+          8.337512,
+          8.644735
         ],
         [
-          8.118382,
-          -0.330269
+          8.118383,
+          0.330269
         ],
         [
-          0.150991,
-          -0.497078
+          0.150992,
+          0.497076
         ]
       ],
       "sourceFootprintAabb": {
-        "minX": 0.150991,
-        "maxX": 8.337511,
+        "minX": 0.150992,
+        "maxX": 8.337512,
         "minZ": 0.330269,
-        "maxZ": 8.81979
+        "maxZ": 8.819783
       },
       "observedCues": [
         "number 40 entrance",
@@ -177,29 +188,30 @@
       "houseNumber": "42",
       "bindingStatus": "bound-medium-high",
       "geometryEvidence": "observed-osm-footprint-plus-local-photo-silhouette",
+      "localFootprintCoordinateSpace": "glb-source-xz-before-runtime-z-flip",
       "localFootprint": [
         [
-          7.91194,
-          -16.886568
+          7.911941,
+          16.886574
         ],
         [
-          13.539449,
-          -16.766455
+          13.539453,
+          16.76645
         ],
         [
-          13.367564,
-          -10.419154
+          13.367561,
+          10.419151
         ],
         [
           7.740049,
-          -10.539282
+          10.539275
         ]
       ],
       "sourceFootprintAabb": {
         "minX": 7.740049,
-        "maxX": 13.539449,
-        "minZ": 10.419154,
-        "maxZ": 16.886568
+        "maxX": 13.539453,
+        "minZ": 10.419151,
+        "maxZ": 16.886574
       },
       "observedCues": [
         "number 42 entrance",
@@ -221,24 +233,24 @@
     "previews": {
       "canonical": {
         "path": "test_artifacts/all-models/massing-v3/xinhua-villas-329/test_xinhua-villas-329-massing-v3-canonical.png",
-        "sha256": "0785ebd43385e1167bc90a515a2fdb66809daf3959474df345d88960d12547d9",
-        "bytes": 568157
+        "sha256": "75ee7de6637fb836cd44090661dd1668b4a23adce2ec7b15f3c0af1f8e388d43",
+        "bytes": 571035
       },
       "sideDepth": {
         "path": "test_artifacts/all-models/massing-v3/xinhua-villas-329/test_xinhua-villas-329-massing-v3-side-depth.png",
-        "sha256": "37d04b6b1299d25ed34713043898141b1bb68c7e558144d912158c3c0336a854",
-        "bytes": 610849
+        "sha256": "a0d01e028085ad8524087a323069dc45a54b029e8eff87160e28f381597d39d1",
+        "bytes": 608949
       },
       "entrance": {
         "path": "test_artifacts/all-models/massing-v3/xinhua-villas-329/test_xinhua-villas-329-massing-v3-entrance.png",
-        "sha256": "3f65dca03f6df9df1d2007f748e001ad8d745de46094f9904ce53ac1983e3867",
-        "bytes": 594638
+        "sha256": "3dbe1a28a8d4722ed2e2da3fcf50d743e6139248fb554a5e200911620912e3b4",
+        "bytes": 597707
       }
     },
     "comparisonCheckpoint": {
       "path": "test_artifacts/all-models/massing-v3/xinhua-villas-329/test_xinhua-villas-329-massing-v3-reference-blender-threejs-pending.png",
-      "sha256": "5432399ef5e1502a6e86d183f11e230ed111b60635dd715db4b70aa6cae1cdbb",
-      "bytes": 604883,
+      "sha256": "2c07b54893ea2ee293282109cda6e0c82cee2842d477eec39ef6ba45a24f6e47",
+      "bytes": 606051,
       "runtimePanel": {
         "path": "test_artifacts/all-models/massing-v3/xinhua-villas-329/test_xinhua-villas-329-massing-v3-threejs-pending.svg",
         "sha256": "0258b3b7262cb7a5617d0503af75ade41d8dfac35c73bb3cad3c4ca57f3cd70f",
@@ -248,15 +260,15 @@
     }
   },
   "blend": {
-    "sha256": "da82a1e3a4c7379e69a2a099a66f10dadcaef084cf45bf2a59b6344ebfbf97a5",
-    "bytes": 100537,
+    "sha256": "68004686207183ee7276c52b6c4805dc3233c7fd76d19fb9ba11d254444709c1",
+    "bytes": 100538,
     "blenderVersion": "5.2.0 LTS",
     "editable": true,
     "savedQaHelpers": false
   },
   "glb": {
-    "sha256": "b5f8c3fa56cc83ca43b850995da4440cac6639ec353789fc746aac1f45532c25",
-    "bytes": 22004,
+    "sha256": "f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704",
+    "bytes": 21632,
     "nodes": 4,
     "meshes": 4,
     "materials": 4,
@@ -267,12 +279,12 @@
       "min": [
         -19.746794,
         0.0,
-        -9.257434
+        -9.257435
       ],
       "max": [
-        13.415168,
+        13.41517,
         6.35,
-        16.814095
+        16.8141
       ]
     },
     "rootTransformsNormalized": true
@@ -297,7 +309,7 @@
   "explicitAudit": {
     "command": "python3 scripts/audit_glb.py public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb --forbid-images --max-nodes 8",
     "result": {
-      "bytes": 22004,
+      "bytes": 21632,
       "nodes": 4,
       "meshes": 4,
       "materials": 4,
@@ -309,6 +321,6 @@
   "lineage": {
     "recoveryCheckpointCommit": "bdc038d4685ab94e4c78af1dfd83adb3ee8460b0",
     "recoveryMassingSha256": "f7ade44ba879dead433abd006603a613520af730d9a2a35dada412b99a0c3819",
-    "change": "Replaced five unbound boxes with four evidence-bound members and excluded the Villa Le Bec footprint."
+    "change": "Rebuilt four evidence-bound members from raw OSM WGS84 projection and retained way/864493245 as evidence-unbound adjacent."
   }
 }

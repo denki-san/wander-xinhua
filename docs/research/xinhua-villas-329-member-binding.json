@@ -10,6 +10,25 @@
     "source": "app/scene/xinhua-road-landmarks-data.json",
     "movementAuthorized": false
   },
+  "coordinateContract": {
+    "source": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "mapMetadata": "app/scene/xinhua-map-data.json",
+    "centerWgs84": [121.4227819, 31.2066376],
+    "metersPerSceneUnit": 2.7,
+    "metersPerLongitudeDegree": 95212.468224,
+    "metersPerLatitudeDegree": 110540,
+    "worldProjection": [
+      "worldX = (longitude - centerLongitude) * metersPerLongitudeDegree / metersPerSceneUnit",
+      "worldZ = -(latitude - centerLatitude) * metersPerLatitudeDegree / metersPerSceneUnit"
+    ],
+    "authoredCoordinateSpace": "glb-source-xz-before-runtime-z-flip",
+    "inverseRegistryTransform": [
+      "localX = cos(yaw) * ((worldX - positionX) / scale) - sin(yaw) * ((worldZ - positionZ) / scale)",
+      "sourceZ = -sin(yaw) * ((worldX - positionX) / scale) - cos(yaw) * ((worldZ - positionZ) / scale)"
+    ],
+    "generatorBlenderConversion": "blenderY = -sourceZ",
+    "maxAllowedWorldVertexErrorSceneUnits": 0.05
+  },
   "sources": {
     "osm": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
     "recoveryRecord": "docs/research/build-records/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.json",
@@ -23,7 +42,7 @@
   "bindingMethod": {
     "status": "auditable-sequence-and-spatial-binding-not-survey",
     "observedInputs": [
-      "OSM supplies four rectangular footprints within the 329 compound candidate cluster and one overlapping footprint at the Villa Le Bec anchor.",
+      "OSM supplies four rectangular footprints used by the conservative member sequence and one additional adjacent candidate that lacks a doorplate-to-footprint binding.",
       "XHS images 5 and 7 visibly show the 40 doorplate.",
       "XHS image 6 visibly shows the 42 doorplate.",
       "XHS image 8 visibly shows the 15 doorplate.",
@@ -42,6 +61,18 @@
       "Whether small annexes absent from OSM are original or later additions."
     ]
   },
+  "worldProjectionValidation": {
+    "method": "raw-osm-wgs84-to-world-then-authored-local-round-trip-per-vertex",
+    "toleranceSceneUnits": 0.05,
+    "maximumErrorSceneUnits": 0.000000367,
+    "perWayMaximumErrorSceneUnits": {
+      "864493244": 0.000000367,
+      "864485664": 0.000000343,
+      "864493174": 0.000000313,
+      "864493173": 0.000000253
+    },
+    "status": "pass"
+  },
   "members": [
     {
       "sourceWayId": 864493244,
@@ -49,13 +80,13 @@
       "bindingStatus": "bound-medium",
       "bindingEvidence": [
         "visible doorplate in test_xhs_xinhua_villas_329_08.jpg",
-        "nearest retained OSM footprint to the registry-side entrance ordering after excluding Villa Le Bec"
+        "nearest retained OSM footprint to the registry-side entrance ordering after excluding the evidence-unbound adjacent candidate"
       ],
       "localFootprint": [
-        [-19.995742, 2.501276],
-        [-6.481978, 2.40108],
-        [-6.465884, 9.341689],
-        [-19.974375, 9.439779]
+        [-19.995744, -2.501275],
+        [-6.481968, -2.401083],
+        [-6.46588, -9.341696],
+        [-19.974375, -9.439777]
       ],
       "footprintAreaSqMeters": 262.8,
       "modelContract": {
@@ -84,10 +115,10 @@
         "second retained OSM footprint in the entrance-to-depth sequence"
       ],
       "localFootprint": [
-        [-17.891877, -4.37592],
-        [-19.143251, -11.143113],
-        [-10.283151, -12.804766],
-        [-9.031771, -6.037558]
+        [-17.89188, 4.375919],
+        [-19.143251, 11.14312],
+        [-10.283142, 12.804766],
+        [-9.031772, 6.037565]
       ],
       "footprintAreaSqMeters": 173.8,
       "modelContract": {
@@ -116,10 +147,10 @@
         "the larger mid-depth OSM footprint matches the visibly taller multi-volume member before number 42"
       ],
       "localFootprint": [
-        [0.372955, -8.81979],
-        [8.337511, -8.644728],
-        [8.118382, -0.330269],
-        [0.150991, -0.497078]
+        [0.372955, 8.819783],
+        [8.337512, 8.644735],
+        [8.118383, 0.330269],
+        [0.150992, 0.497076]
       ],
       "footprintAreaSqMeters": 185.8,
       "modelContract": {
@@ -149,10 +180,10 @@
         "the deepest retained OSM footprint follows number 40 in both number and post sequence"
       ],
       "localFootprint": [
-        [7.91194, -16.886568],
-        [13.539449, -16.766455],
-        [13.367564, -10.419154],
-        [7.740049, -10.539282]
+        [7.911941, 16.886574],
+        [13.539453, 16.76645],
+        [13.367561, 10.419151],
+        [7.740049, 10.539275]
       ],
       "footprintAreaSqMeters": 100.2,
       "modelContract": {
@@ -177,12 +208,10 @@
   "excludedCandidates": [
     {
       "sourceWayId": 864493245,
-      "status": "excluded-cross-asset",
-      "recoveryLocalCenter": [7.239194, 19.066586],
-      "calculatedWorldCenter": [-33.577118, 88.793205],
-      "villaLeBecRegistryPosition": [-34.1, 88.8],
-      "worldCenterDistance": 0.5229,
-      "reason": "The footprint center nearly coincides with the separate Villa Le Bec stable asset at Xinhua Road 321 and is also present in the Recovery Villa Le Bec candidate pool."
+      "status": "excluded-evidence-unbound-unknown-adjacent",
+      "projectedWorldCenter": [-42.346627, 92.122808],
+      "authoredLocalCenter": [7.239198, -19.06658],
+      "reason": "The raw OSM footprint is adjacent to the four retained candidates, but the available XHS and official evidence does not bind it to a 329-lane house number. It remains excluded from this conservative four-member Massing without any cross-asset attribution."
     }
   ],
   "evidenceOnlyNotMapped": [

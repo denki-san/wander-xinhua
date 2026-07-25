@@ -138,7 +138,7 @@
     "The clean-v2 Massing contains five flat-roof boxes marked as unbound-member-candidate.",
     "XHS images 5 and 7 visibly show number 40, image 6 shows number 42, and image 8 shows number 15.",
     "XHS images 1, 3, 4 and 18 show the low tiled wings, rounded volume and tall chimney associated by the post body with number 36.",
-    "Recovery way 864493245 converts to world center [-33.577118, 88.793205], about 0.523 scene unit from the separate Villa Le Bec registry anchor [-34.1, 88.8]."
+    "Raw OSM way 864493245 projects to world center [-42.346627, 92.122808]; available evidence does not bind it to a 329-lane house number."
   ],
   "inferred": [
     "The legacy 329 representative image and Hero are high-confidence cross-asset contamination from member 211-2.",
@@ -303,9 +303,16 @@
     "blend": "assets/models/source/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.blend",
     "glb": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
     "buildRecord": "docs/research/build-records/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.json",
+    "modelSha256": "f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704",
+    "coordinateValidation": {
+      "authoredCoordinateSpace": "glb-source-xz-before-runtime-z-flip",
+      "maximumWorldVertexErrorSceneUnits": 0.000000367,
+      "toleranceSceneUnits": 0.05,
+      "status": "pass"
+    },
     "includedMembers": ["15", "36", "40", "42"],
     "excludedWayId": 864493245,
-    "excludedWayVerdict": "Villa Le Bec cross-asset footprint",
+    "excludedWayVerdict": "evidence-unbound unknown-adjacent footprint",
     "evidenceStatus": "pass-conservative-massing-only",
     "mcp1": "pending-main-window-batch",
     "runtimeGate": "pending-main-window-scoped-qa",
@@ -321,7 +328,7 @@
     "closedBlockers": [
       "XHS local screenshots now provide compound context and visible member doorplates.",
       "Four retained OSM footprints have auditable 15, 36, 40 and 42 sequence bindings.",
-      "way/864493245 is excluded as a Villa Le Bec cross-asset footprint."
+      "way/864493245 remains excluded because no available address evidence binds it to a 329-lane member."
     ],
     "remainingBlockers": [
       "The bindings are not cadastral or surveyed and cannot authorize a Hero.",
