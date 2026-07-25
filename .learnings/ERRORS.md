@@ -6533,3 +6533,134 @@ ENOENT: no such file or directory, scandir
 ### Resolution
 - **Resolved**: 2026-07-25T19:12:00+08:00
 - **Notes**: 构建完成后串行重跑全仓 Node 测试和范围专项测试。
+
+---
+## [ERR-20260725-021] vite_preview_listen_sandbox_eperm
+
+**Logged**: 2026-07-25T19:20:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+集成 Worktree 的本地 Vite preview 首次启动被沙箱拒绝监听 loopback 端口。
+
+### Error
+```text
+Error: listen EPERM: operation not permitted 127.0.0.1:4191
+```
+
+### Context
+- 静态构建与全仓测试已经通过。
+- 该服务仅用于集成后二次 Three.js 页面验收。
+
+### Suggested Fix
+对明确绑定 `127.0.0.1` 的项目 preview 命令使用受控提权，不改为公网监听。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json, vite.static.config.ts
+
+### Resolution
+- **Resolved**: 2026-07-25T19:20:00+08:00
+- **Notes**: 保持同一 loopback 地址与端口，改用受控提权启动。
+
+---
+## [ERR-20260725-022] in_app_browser_networkidle_unsupported
+
+**Logged**: 2026-07-25T19:23:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+集成浏览器后端不支持 `waitForLoadState({ state: "networkidle" })`。
+
+### Error
+```text
+playwright_wait_for_load_state does not support networkidle
+```
+
+### Context
+- 目标页面是持续渲染并延迟加载 GLB 的 Three.js 应用。
+- Browser 文档列出该枚举，但当前后端只接受普通 load 状态。
+
+### Suggested Fix
+先等待 `load`，再等待页面自己的 `data-xinhua-playable` 或可交互“出发”状态；
+资源是否完成用 CDP Network 事件验证。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/xinhua-experience.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T19:23:00+08:00
+- **Notes**: 改为 load + 页面就绪信号 + CDP Network 三层检查。
+
+---
+## [ERR-20260725-023] sun_ke_programmatic_fallback_false_positive
+
+**Logged**: 2026-07-25T19:31:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+孙科分支的 Identity→programmatic fallback 被记录为“开放门廊可玩”，但实际
+截图和集成后二次验收显示它是 7.45 场景单位高的封闭大体块。
+
+### Error
+```text
+QA record: pass-programmatic-fallback-retains-forward-canopy-and-open-center
+Actual: giant closed body obscures the north entrance and open lane
+```
+
+### Context
+- Hero→Identity、Hero、Identity、Massing 均正确。
+- 问题只在第二级 GLB 故障后的纯程序化兜底。
+- 原分支截图已经暴露问题，但自动记录与人工结论没有对照画面内容。
+
+### Suggested Fix
+程序化兜底必须复用正式 Massing 的结构尺寸：中央体、低翼、圆塔、错层屋顶、
+北侧前后柱和梁；门廊中央禁止闭合网格。故障注入后必须重新看真实页面。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/shangsheng-xinsuo-block.tsx,
+  docs/research/sun-ke-villa-three-tier-runtime-qa-v2.json
+
+### Resolution
+- **Resolved**: 2026-07-25T19:31:00+08:00
+- **Notes**: 用与 Massing 同尺寸的结构化程序化 fallback 替换旧大体块，并重新
+  执行集成页面两条故障注入。
+
+---
+## [ERR-20260725-024] ps_process_check_sandbox_denied
+
+**Logged**: 2026-07-25T19:33:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+等待较慢的 lint 时尝试用 `ps` 检查进程，沙箱拒绝读取系统进程表。
+
+### Error
+```text
+zsh:1: operation not permitted: ps
+```
+
+### Context
+- lint 会话仍可通过原有 session 正常轮询。
+- 不需要系统进程表即可判断命令完成状态。
+
+### Suggested Fix
+持续命令优先保留并轮询原 `session_id`；不要为普通等待升级到系统级 `ps`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: none
+
+### Resolution
+- **Resolved**: 2026-07-25T19:33:00+08:00
+- **Notes**: 继续轮询原 lint 会话，最终 exit 0。
