@@ -1,0 +1,141 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "site:street-furniture:xingfuli:xingfuli-water-edge-stone-seat-round",
+  "slug": "xingfuli-water-edge-stone-seat-round",
+  "family": "street-furniture",
+  "siteBinding": "xingfuli",
+  "status": "blender-glb-and-isolated-runtime-qa-passed",
+  "sourceTier": "editable-hero-master",
+  "runtimeTier": "visible-low",
+  "runtimeStates": [
+    "visible-low",
+    "hidden"
+  ],
+  "buildingTierCompatibility": {
+    "hero": "editable-master-only",
+    "identity": "not-applicable-by-nonbuilding-two-state-contract",
+    "massing": "not-applicable-by-nonbuilding-two-state-contract"
+  },
+  "modelBrief": "docs/research/xingfuli-current-street-furniture-model-brief.md",
+  "referenceManifest": "docs/research/xingfuli-current-street-furniture-reference-manifest.json",
+  "decisionLog": "docs/research/xingfuli-current-street-furniture-decision-log.md",
+  "generator": "scripts/create_xingfuli_current_street_furniture_models.py",
+  "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_xingfuli_current_street_furniture_models.py -- --asset xingfuli-water-edge-stone-seat-round",
+  "evidence": "observed-current-xingfuli-water-edge",
+  "recognizers": [
+    "near-spherical silhouette",
+    "flattened ground contact",
+    "subtle low-frequency asymmetry"
+  ],
+  "qualityBoundary": {
+    "observed": [
+      "The water-edge images show low, dark, near-spherical furniture.",
+      "A close instance supports a subtly flattened ground contact."
+    ],
+    "inferred": [
+      "Dimensions are visually estimated from people and paving modules.",
+      "Unseen rear and underside construction remain conservative.",
+      "Material family is inferred from colour and reflectance only."
+    ],
+    "unknown": [
+      "manufacturer and product model",
+      "surveyed dimensions and exact material",
+      "hidden fasteners, underside and drainage",
+      "field condition after the 2025 post"
+    ],
+    "sources": [
+      "docs/research/xingfuli-current-street-furniture-reference-manifest.json",
+      "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-water-edge-furniture-2026.webp",
+      "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-stone-seat-family-2026.webp"
+    ]
+  },
+  "originContract": {
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "meaning": "asset-ground-center",
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "blenderFront": "-Y",
+    "worldPlacementBaked": false,
+    "authoredMetersPerSceneUnit": 2.7,
+    "surveyedMeters": false
+  },
+  "targetDimensionsSceneUnits": [
+    0.23,
+    0.23,
+    0.21
+  ],
+  "budget": {
+    "maxTriangles": 600,
+    "maxNodes": 4,
+    "maxMaterials": 4,
+    "maxImages": 0,
+    "maxBinaryBytes": 131072
+  },
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/xingfuli-current-street-furniture/xingfuli-water-edge-stone-seat-round.blend",
+    "blendSha256": "35372ef65127f644cea8b24bf44af5b6e2c24a05165369922f2c9af057b8984a",
+    "glb": "public/models/nonbuilding/xingfuli-current-street-furniture/xingfuli-water-edge-stone-seat-round-visible-low.glb",
+    "previews": {
+      "canonical": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-round-canonical.png",
+      "side": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-round-side.png",
+      "detail": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-round-detail.png"
+    }
+  },
+  "glb": {
+    "sha256": "fad32116f26b77066ec13bedf8875cca91529492bb7215269f0ead8d7abb76e4",
+    "bytes": 10648,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "materialBaseColors": {
+      "xingfuli-water-edge-stone-seat-round-dark-stone-material": [
+        0.07500000298023224,
+        0.08500000089406967,
+        0.0820000022649765,
+        1
+      ]
+    },
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 320,
+    "bounds": {
+      "min": [
+        -0.113059,
+        0,
+        -0.113754
+      ],
+      "max": [
+        0.117067,
+        0.209361,
+        0.113554
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": {
+    "status": "passed-isolated-qa",
+    "qaRoute": "/nonbuilding-evidence-qa?asset=xingfuli-water-edge-stone-seat-round",
+    "productionRegistry": "intentionally-not-integrated",
+    "productionManifest": "intentionally-not-modified",
+    "mapPlacement": "not-performed",
+    "collision": "not-performed",
+    "twoStateDistanceCheck": "shared route contract passed; individual 4m visible-low render passed",
+    "performance": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-current-street-furniture-runtime-metrics.json",
+    "runtimeScreenshot": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-round-webgl.png",
+    "consoleErrors": 0
+  },
+  "mcpGate": {
+    "status": "passed",
+    "masterSceneRead": true,
+    "viewportReview": true,
+    "generatorWritebackRequired": false,
+    "savedQaObjectsInMaster": false
+  }
+}
