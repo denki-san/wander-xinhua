@@ -1,7 +1,7 @@
 {
   "assetId": "film-art-center",
-  "capturedAt": "2026-07-25T15:15:00Z",
-  "status": "local-candidate-main-browser-pending",
+  "capturedAt": "2026-07-25T16:41:40Z",
+  "status": "pass-main-window-real-browser",
   "scope": {
     "included": [
       "Film Art Center Hero, Identity and Massing GLB runtime routes",
@@ -138,6 +138,89 @@
     "screenshot": "test_artifacts/test_film-art-center_runtime_identity_fallback_scoped_1280x800.png",
     "note": "建筑级 fallback token 避免触发其他建筑的全局 tier QA 路径。"
   },
+  "mainWindowBrowserAcceptance": {
+    "status": "pass",
+    "surface": "in-app-browser-single-tab",
+    "buildMode": "production-preview",
+    "pageVisibility": "visible",
+    "networkProfile": "standard",
+    "viewport": [727, 1145],
+    "warmupMs": 7500,
+    "frameSample": {
+      "framesPerRoute": 120,
+      "hero": {
+        "elapsedMs": 1893.5,
+        "fps": 63.3747,
+        "drawCalls": 1458,
+        "rendererTriangles": 1105649,
+        "requestedTierUrlCount": 1,
+        "loadedSource": "/models/xinhua-road/film-art-center.glb?v=20260725-film-art-5"
+      },
+      "identity": {
+        "elapsedMs": 1998.1,
+        "fps": 60.0571,
+        "drawCalls": 1445,
+        "rendererTriangles": 1027277,
+        "requestedTierUrlCount": 1,
+        "loadedSource": "/models/tiers/xinhua-road/identity/film-art-center-identity.glb?v=20260725-film-art-identity-1"
+      },
+      "massing": {
+        "elapsedMs": 2909.4,
+        "fps": 41.2456,
+        "drawCalls": 1441,
+        "rendererTriangles": 985533,
+        "requestedTierUrlCount": 1,
+        "loadedSource": "/models/tiers/xinhua-road/massing/film-art-center-massing.glb?v=c89791dc3978"
+      },
+      "scopedIdentityFallback": {
+        "elapsedMs": 2717.6,
+        "fps": 44.1566,
+        "status": "fallback",
+        "source": "/models/tiers/xinhua-road/identity/test_missing-film-art-center-identity.glb?v=a4d37446e272-fallback",
+        "pagePlayable": true
+      },
+      "productionIdentityFallback": {
+        "elapsedMs": 2283.1,
+        "fps": 52.5601,
+        "status": "fallback",
+        "position": [0, 0, -2.25],
+        "pagePlayable": true
+      }
+    },
+    "screenshots": {
+      "hero": {
+        "path": "test_artifacts/test_film-art-center_runtime_main_hero_1280x720.jpg",
+        "sha256": "c6c1ff4acb31a26a8eae98f12998d63389a0bc1b5d02081e1f40b4b34ea88c4d"
+      },
+      "identity": {
+        "path": "test_artifacts/test_film-art-center_runtime_main_identity_1280x720.jpg",
+        "sha256": "0a2142cec86d0e032a4b24a5e87255749a615ef04ed7dffa8cda11f2b1b45399"
+      },
+      "massing": {
+        "path": "test_artifacts/test_film-art-center_runtime_main_massing_1280x720.jpg",
+        "sha256": "ede13a70f49d1d2b5c0a0f29c37633c3e23602b3c19aaffae2187f58f17fb332"
+      },
+      "scopedIdentityFallback": {
+        "path": "test_artifacts/test_film-art-center_runtime_main_identity_fallback_1280x720.jpg",
+        "sha256": "3b430cd9c57dc00c96612257e397a20179703fc9086b5bd7411bb27a868be98f"
+      },
+      "productionIdentityFallback": {
+        "path": "test_artifacts/test_film-art-center_runtime_main_production_fallback_1280x720.jpg",
+        "sha256": "3479439d7c9ea12058efd20285e1ce521af6da205c8e6699e6bbfddb9ecea526"
+      }
+    },
+    "console": {
+      "unexpectedErrors": 0,
+      "expectedFaultInjectionErrors": 2,
+      "nonBlockingWarnings": ["THREE.Clock deprecation warning"]
+    },
+    "collisionEvidence": {
+      "status": "pass-inherited-current-map-gate",
+      "record": "docs/research/film-art-center-massing-map-qa.json",
+      "repeated": false,
+      "reason": "快速模式继承已通过的当前地图碰撞门，不重复执行已合格阶段。"
+    }
+  },
   "gates": {
     "mcp1Massing": "pass",
     "mapAcceptance": "pass",
@@ -145,10 +228,10 @@
     "mcp3ThreeTier": "pass",
     "localThreeTierRuntimeCandidate": "pass",
     "productionIdentityFailureFallback": "pass",
-    "mainWindowRealBrowserAcceptance": "pending"
+    "mainWindowRealBrowserAcceptance": "pass"
   },
   "verdict": {
-    "status": "local-candidate-main-browser-pending",
-    "reason": "三档同机位加载、正式 Identity placement、资源与渲染采样、异常回退均已在隔离本地会话通过；按调度边界仍需主窗口执行真实浏览器终验。"
+    "status": "pass-main-window-real-browser",
+    "reason": "主窗口已在同一真实浏览器页完成 Hero、Identity、Massing、建筑级 fallback、生产 Identity fallback、120 帧性能与资源请求采集；当前地图碰撞门按快速模式继承，不重复已通过阶段。"
   }
 }

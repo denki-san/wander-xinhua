@@ -286,7 +286,10 @@ test("Film Art Center Hero MCP2 Pass 可追溯并解锁独立 Identity 派生", 
     "pass",
   );
   assert.equal(lineage.identity.identityAllowed, true);
-  assert.equal(lineage.nextGate, "main-window-real-browser-acceptance");
+  assert.equal(
+    lineage.nextGate,
+    "complete-no-rework-unless-binary-or-public-contract-changes",
+  );
   assert.deepEqual(
     gate.heroGate.recheckCandidate.acceptedInteractiveChanges,
     [],
@@ -363,7 +366,7 @@ test("Film Art Center Identity 独立派生、MCP3 与本地运行时候选可�
   assert.equal(record.tier, "identity");
   assert.equal(
     record.status,
-    "mcp3-and-local-runtime-pass-main-browser-pending",
+    "mcp3-and-main-browser-runtime-pass",
   );
   assert.equal(sha256(Buffer.from(generator)), record.generator.sha256);
   assert.equal(sha256(glbBuffer), record.glb.sha256);
@@ -418,7 +421,7 @@ test("Film Art Center Identity 独立派生、MCP3 与本地运行时候选可�
   );
   assert.equal(
     lineage.identity.status,
-    "mcp3-and-local-runtime-pass-main-browser-pending",
+    "mcp3-and-main-browser-runtime-pass",
   );
   assert.equal(lineage.identity.mcp3, "pass");
   assert.equal(
@@ -427,14 +430,19 @@ test("Film Art Center Identity 独立派生、MCP3 与本地运行时候选可�
   );
   assert.equal(
     gate.threeTierGate.status,
-    "blender-and-local-runtime-pass-main-browser-pending",
+    "pass-blender-and-main-browser-runtime",
   );
   assert.equal(
     record.gates.threeTierRuntime,
-    "pass-local-candidate-main-browser-pending",
+    "pass-main-window-real-browser",
   );
   assert.equal(runtimeQa.gates.localThreeTierRuntimeCandidate, "pass");
-  assert.equal(runtimeQa.gates.mainWindowRealBrowserAcceptance, "pending");
+  assert.equal(runtimeQa.gates.mainWindowRealBrowserAcceptance, "pass");
+  assert.equal(runtimeQa.mainWindowBrowserAcceptance.status, "pass");
+  assert.equal(runtimeQa.mainWindowBrowserAcceptance.frameSample.hero.requestedTierUrlCount, 1);
+  assert.equal(runtimeQa.mainWindowBrowserAcceptance.frameSample.identity.requestedTierUrlCount, 1);
+  assert.equal(runtimeQa.mainWindowBrowserAcceptance.frameSample.massing.requestedTierUrlCount, 1);
+  assert.equal(runtimeQa.mainWindowBrowserAcceptance.console.unexpectedErrors, 0);
   assert.equal(runtimeQa.productionIdentity.localPosition[0], 0);
   assert.deepEqual(
     runtimeQa.productionIdentity.localPosition,

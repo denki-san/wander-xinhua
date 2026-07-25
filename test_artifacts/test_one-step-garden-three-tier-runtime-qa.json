@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "one-step-garden",
   "recordedAt": "2026-07-25",
-  "status": "partial-main-window-browser-pending",
+  "status": "pass-main-window-real-browser",
   "scope": {
     "included": [
       "one-step-garden-three-tier-runtime-contract",
@@ -97,7 +97,7 @@
     "extraPreload": false,
     "missingUrlFaultInjection": false,
     "expectedSuccessfulGlbRequestCountPerRenderedTier": 1,
-    "resourceTimingVerification": "main-window-browser-pending"
+    "resourceTimingVerification": "pass-one-request-per-requested-tier-url"
   },
   "fallbackContract": {
     "hero": {
@@ -169,6 +169,142 @@
       "implementationChangeMadeToWorkAroundConnector": false
     }
   },
+  "mainWindowBrowserAcceptance": {
+    "status": "pass",
+    "surface": "in-app-browser-single-tab",
+    "buildMode": "production-preview",
+    "pageVisibility": "visible",
+    "networkProfile": "standard",
+    "viewport": [1280, 720],
+    "warmupMs": 7500,
+    "tiers": {
+      "hero": {
+        "requestedTier": "hero",
+        "renderedTier": "hero",
+        "loadedUrl": "/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb?v=20260725-hero-026565ba",
+        "sha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+        "bytes": 259772,
+        "frames": 120,
+        "elapsedMs": 2653.5,
+        "fps": 45.22,
+        "drawCalls": 271,
+        "rendererTriangles": 856316,
+        "requestedTierUrlCount": 1,
+        "fallback": "none"
+      },
+      "identity": {
+        "requestedTier": "identity",
+        "renderedTier": "identity",
+        "loadedUrl": "/models/tiers/xinhua-road/identity-v1/one-step-garden-identity.glb?v=20260725-identity-928ecfca",
+        "sha256": "928ecfcace4a35e88ad68d34a2369fa673457275393ea65d8649d9de433b0497",
+        "bytes": 112456,
+        "frames": 120,
+        "elapsedMs": 3407.6,
+        "fps": 35.22,
+        "drawCalls": 269,
+        "rendererTriangles": 852116,
+        "requestedTierUrlCount": 1,
+        "fallback": "none"
+      },
+      "massing": {
+        "requestedTier": "massing",
+        "renderedTier": "massing",
+        "loadedUrl": "/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb?v=20260725-massing-a87caeba",
+        "sha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+        "bytes": 18316,
+        "frames": 120,
+        "elapsedMs": 1598.3,
+        "fps": 75.08,
+        "drawCalls": 263,
+        "rendererTriangles": 849556,
+        "requestedTierUrlCount": 1,
+        "fallback": "none"
+      }
+    },
+    "fallbacks": {
+      "heroToIdentity": {
+        "requestedTier": "hero",
+        "renderedTier": "identity",
+        "reason": "forced-deterministic-hero-to-identity",
+        "fps": 74.6,
+        "status": "pass"
+      },
+      "identityToMassing": {
+        "requestedTier": "identity",
+        "renderedTier": "massing",
+        "reason": "forced-deterministic-identity-to-massing",
+        "fps": 67.15,
+        "status": "pass"
+      },
+      "massingFloor": {
+        "requestedTier": "massing",
+        "renderedTier": "massing",
+        "reason": "no-lower-tier-render-massing",
+        "fps": 77.75,
+        "status": "pass-no-false-fallback"
+      }
+    },
+    "resourceTiming": {
+      "status": "pass",
+      "requestedTierUrlCount": 1,
+      "note": "每次导航中每个档位 URL 最多一次；Hero 路径因既有 progressive cover/transition 会依次出现 Massing、Identity、Hero，但同一 URL 无重复。"
+    },
+    "collisionReplay": {
+      "status": "pass-wall-block",
+      "inputChannel": "native-browser-cua-keypress",
+      "qaPositionDataset": "xinhuaPlayerPosition",
+      "startPosition": [73, 109],
+      "wallPlateauPosition": [72.41194401357794, 109.3597892135276],
+      "plateauVerification": {
+        "extraPulses": 20,
+        "positionsUnchanged": true
+      },
+      "entranceTraversal": {
+        "status": "pass-inherited-current-map-gate",
+        "record": "docs/research/one-step-garden-massing-map-qa.json#collisionAndWalkable.scriptedPaths.entranceTraversal",
+        "repeated": false,
+        "reason": "快速模式不重复已通过的当前地图入口穿行门；本次主窗口补采墙面阻挡。"
+      }
+    },
+    "screenshots": {
+      "hero": {
+        "path": "test_artifacts/test_one-step-garden_runtime_main_hero_1280x720.jpg",
+        "sha256": "c395a00588f28dba9a737378bcdb816f6e1f3716ca08044eb7b0c9f6d4c81338"
+      },
+      "identity": {
+        "path": "test_artifacts/test_one-step-garden_runtime_main_identity_1280x720.jpg",
+        "sha256": "9718db36a26a1bbaf25ee8f5a897ca4ec415f5d032e0ab05ddd66ec39d8290f7"
+      },
+      "massing": {
+        "path": "test_artifacts/test_one-step-garden_runtime_main_massing_1280x720.jpg",
+        "sha256": "551800b409b7273a11cadf75a7e7882841c780949f3fe085a69501f45dabe5c3"
+      },
+      "heroFallback": {
+        "path": "test_artifacts/test_one-step-garden_runtime_main_hero-fallback_1280x720.jpg",
+        "sha256": "1a8a7b0bdfbe73841f455c22d2102871770b754bae3946ec2876e1827688b25b"
+      },
+      "identityFallback": {
+        "path": "test_artifacts/test_one-step-garden_runtime_main_identity-fallback_1280x720.jpg",
+        "sha256": "2e65fb6a2aa911282fbbe114514d6224bad710f86cd961c5094be85ca0889d22"
+      },
+      "massingFloor": {
+        "path": "test_artifacts/test_one-step-garden_runtime_main_massing-floor_1280x720.jpg",
+        "sha256": "16560fe33d54dc27ccf5f2c345cf4ffc448320660e4afc7d83aaceb3a2d02890"
+      },
+      "collisionStart": {
+        "path": "test_artifacts/test_one-step-garden_runtime_main_collision-start_1280x720.jpg",
+        "sha256": "4ae405f9cf504005e1f7a91d32de492d032e462b4a862c917e864d61cd3aaac9"
+      },
+      "collisionWall": {
+        "path": "test_artifacts/test_one-step-garden_runtime_main_collision-wall_1280x720.jpg",
+        "sha256": "4fd65c717d00332f8986a6077b39afb15d7b9dcf4158f02a9b6d2ed43f9dfa5f"
+      }
+    },
+    "console": {
+      "unexpectedErrors": 0,
+      "nonBlockingWarnings": ["THREE.Clock deprecation warning"]
+    }
+  },
   "collision": {
     "priorMapGate": "pass",
     "candidateAxisAlignment": "source GLTF bounds and all eight source obstacles are passed unchanged to the registry; the render path and shared collision transform each mirror Z exactly once",
@@ -177,7 +313,7 @@
     "playerDiameter": 0.96,
     "entrancePass": true,
     "frontRearPass": true,
-    "finalRuntimeReplay": "main-window-browser-pending"
+    "finalRuntimeReplay": "pass-wall-block-plus-inherited-entrance-map-gate"
   },
   "validation": {
     "oneStepTargetedTests": "26-of-26-pass",
@@ -185,14 +321,14 @@
     "lint": "pass",
     "build": "pass",
     "fullNpmTest": "237-of-237-pass-after-final-axis-contract-fix",
-    "mainWindowBrowser": "pending"
+    "mainWindowBrowser": "pass"
   },
   "completionBoundary": {
     "runtimeCandidateReadyForCommit": true,
     "runtimeIntegrated": true,
     "publicRegistryModified": true,
-    "mainWindowIntegrated": false,
-    "threeTierRuntimeFinalPass": false,
-    "nextAuthority": "main-window-integrate-candidate-then-real-browser-cdp-revalidation"
+    "mainWindowIntegrated": true,
+    "threeTierRuntimeFinalPass": true,
+    "nextAuthority": "complete-no-rework-unless-binary-or-public-contract-changes"
   }
 }

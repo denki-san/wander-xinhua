@@ -4,7 +4,7 @@
   "assetId": "one-step-garden",
   "tier": "identity",
   "versionName": "identity-v1",
-  "status": "identity-v1-mcp3-pass-runtime-candidate-implemented-browser-final-pending",
+  "status": "identity-v1-mcp3-and-main-browser-runtime-pass",
   "generator": {
     "path": "scripts/create_one_step_garden_identity_model.py",
     "sha256": "d336d31efd4608d015643b5227a2bcf5d075ff2889a5b15fec1f4480212249b4",

@@ -3,7 +3,7 @@
   "auditedAt": "2026-07-25",
   "assetId": "building:xinhua-road:film-art-center",
   "tier": "identity",
-  "status": "mcp3-and-local-runtime-pass-main-browser-pending",
+  "status": "mcp3-and-main-browser-runtime-pass",
   "generator": {
     "path": "scripts/create_film_art_center_identity_model.py",
     "sha256": "af0fbd64e9aa1cd2b9c3595ce51d4c792ac14a1afccb012df8aabf55c96d2f47",
@@ -203,7 +203,7 @@
     "maxBytes": 1600000
   },
   "runtime": {
-    "status": "local-candidate-main-browser-pending",
+    "status": "pass-main-window-real-browser",
     "qaRecord": "docs/research/film-art-center-three-tier-runtime-qa.json",
     "metrics": "test_artifacts/test_film-art-center_three-tier_runtime_metrics.json",
     "productionStrategy": "derived-glb",
@@ -229,6 +229,6 @@
     },
     "fixedViewCandidateReview": "pass",
     "mcp3": "pass",
-    "threeTierRuntime": "pass-local-candidate-main-browser-pending"
+    "threeTierRuntime": "pass-main-window-real-browser"
   }
 }

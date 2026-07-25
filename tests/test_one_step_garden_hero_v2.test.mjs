@@ -171,7 +171,7 @@ test("一号花园 Hero v2 使用独立路径并保留旧 Hero Hold", async () =
 
   assert.equal(
     record.status,
-    "hero-v2-mcp2-pass-identity-v1-mcp3-pass-runtime-candidate-implemented-browser-final-pending",
+    "hero-v2-mcp2-identity-v1-mcp3-and-main-browser-runtime-pass",
   );
   assert.equal(record.tier, "hero");
   assert.equal(record.versionName, "hero-v2");

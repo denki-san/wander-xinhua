@@ -3,7 +3,7 @@
   "assetId": "one-step-garden",
   "activeScope": "exact-18-building-program-one-step-garden-only",
   "recordedAt": "2026-07-25",
-  "status": "mcp3-pass-runtime-candidate-implemented-browser-final-pending",
+  "status": "complete-three-tier-runtime-main-browser-pass",
   "sourceGate": {
     "gate": "mcp2-hero-visual-review",
     "status": "pass",
@@ -230,14 +230,15 @@
     "legacyHeroOverwritten": false
   },
   "runtime": {
-    "status": "runtime-candidate-implemented-main-window-browser-final-pending",
+    "status": "pass-main-window-real-browser",
     "runtimeAuthorized": true,
     "runtimeExecutionStarted": true,
     "runtimeCandidateImplemented": true,
     "publicRegistryModified": true,
     "runtimeIntegrated": true,
-    "mainWindowIntegrated": false,
-    "mainWindowBrowserFinal": "pending",
-    "nextAuthority": "main-window-integrate-candidate-then-real-browser-cdp-revalidation"
+    "mainWindowIntegrated": true,
+    "mainWindowBrowserFinal": "pass",
+    "runtimeQaRecord": "test_artifacts/test_one-step-garden-three-tier-runtime-qa.json",
+    "nextAuthority": "complete-no-rework-unless-binary-or-public-contract-changes"
   }
 }

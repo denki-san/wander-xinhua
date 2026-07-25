@@ -441,6 +441,15 @@ export function XinhuaExperience() {
   const networkProfile = useProgressiveNetworkProfile();
   const [initialOverviewPosition] = useState(requestedOverviewStartPosition);
   const playerPosition = useRef<readonly [number, number]>(initialOverviewPosition);
+  useEffect(() => {
+    if (!cameraQaVisible) {
+      delete document.documentElement.dataset.xinhuaPlayerPosition;
+      return;
+    }
+    return () => {
+      delete document.documentElement.dataset.xinhuaPlayerPosition;
+    };
+  }, [cameraQaVisible]);
   const overviewPhotoCache = useRef(new Map<string, HTMLImageElement>());
   const [loadedOverviewPhoto, setLoadedOverviewPhoto] = useState<string | null>(null);
   const [overviewStartPosition, setOverviewStartPosition] = useState<readonly [number, number]>(
@@ -631,6 +640,10 @@ export function XinhuaExperience() {
           onNearPoi={setNearPoiId}
           onPositionChange={(position) => {
             playerPosition.current = position;
+            if (cameraQaVisible) {
+              document.documentElement.dataset.xinhuaPlayerPosition =
+                JSON.stringify(position);
+            }
           }}
           networkProfile={networkProfile}
           cinemaTierQa={cinemaTierQa}

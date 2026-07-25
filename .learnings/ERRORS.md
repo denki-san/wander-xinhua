@@ -7916,3 +7916,33 @@ Type 'string | null' is not assignable to type 'string'
   `string | null`；对象级收窄后同两处类型错误仍存在。
 - 增加 `filmArtTier = filmArtQaActive?.tier ?? "identity"`。resolver 只在三档键
   命中时返回对象，因此默认值只修补静态推断，不改变任何有效路由。
+
+---
+## [ERR-20260726-066] film_art_next_gate_test_stale_after_main_browser_pass
+
+**Logged**: 2026-07-26T00:43:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Film Art Center 主窗口真实浏览器门通过后，Hero 上游测试仍要求 lineage 的
+`nextGate` 保持 `main-window-real-browser-acceptance`，导致本批专项 28 项中 1 项失败。
+
+### Error
+```text
+actual: complete-no-rework-unless-binary-or-public-contract-changes
+expected: main-window-real-browser-acceptance
+```
+
+### Context
+- Hero、Identity、Massing 二进制及 Blender 三门均未变化。
+- 主窗口已完成三档、双 fallback、120 帧性能和资源采集，旧断言只冻结了已关闭的门。
+
+### Suggested Fix
+保留上游 Hero 合同断言，只把 lineage 终态更新为
+`complete-no-rework-unless-binary-or-public-contract-changes`。
+
+### Resolution
+- **Resolved**: 2026-07-26T00:43:00+08:00
+- **Notes**: 更新唯一 stale nextGate 断言；没有修改任何建筑二进制或地图合同。

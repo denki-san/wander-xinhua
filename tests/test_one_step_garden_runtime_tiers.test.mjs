@@ -292,6 +292,65 @@ test("One Step Garden 八段碰撞保持入口与前后间隙开放", async () =
   );
 });
 
+test("单页 cameraQa 暴露只读人物位置用于确定性碰撞采集", async () => {
+  const experience = await readFile(
+    new URL("app/xinhua-experience.tsx", root),
+    "utf8",
+  );
+  assert.match(
+    experience,
+    /dataset\.xinhuaPlayerPosition\s*=\s*JSON\.stringify\(position\)/,
+  );
+  assert.match(
+    experience,
+    /delete document\.documentElement\.dataset\.xinhuaPlayerPosition/,
+  );
+  assert.match(experience, /if \(cameraQaVisible\)/);
+});
+
+test("One Step Garden 主窗口单页三档、回退、性能与碰撞终验可追溯", async () => {
+  const qa = JSON.parse(await readFile(
+    new URL(
+      "test_artifacts/test_one-step-garden-three-tier-runtime-qa.json",
+      root,
+    ),
+    "utf8",
+  ));
+  assert.equal(qa.status, "pass-main-window-real-browser");
+  assert.equal(qa.mainWindowBrowserAcceptance.status, "pass");
+  for (const tierName of ["hero", "identity", "massing"]) {
+    const tier = qa.mainWindowBrowserAcceptance.tiers[tierName];
+    assert.equal(tier.requestedTier, tierName);
+    assert.equal(tier.renderedTier, tierName);
+    assert.equal(tier.requestedTierUrlCount, 1);
+    assert.equal(tier.frames, 120);
+    assert.ok(tier.fps > 0);
+  }
+  assert.equal(
+    qa.mainWindowBrowserAcceptance.fallbacks.heroToIdentity.renderedTier,
+    "identity",
+  );
+  assert.equal(
+    qa.mainWindowBrowserAcceptance.fallbacks.identityToMassing.renderedTier,
+    "massing",
+  );
+  assert.equal(
+    qa.mainWindowBrowserAcceptance.fallbacks.massingFloor.status,
+    "pass-no-false-fallback",
+  );
+  assert.equal(
+    qa.mainWindowBrowserAcceptance.collisionReplay.status,
+    "pass-wall-block",
+  );
+  assert.equal(
+    qa.mainWindowBrowserAcceptance.collisionReplay.plateauVerification
+      .positionsUnchanged,
+    true,
+  );
+  assert.equal(qa.mainWindowBrowserAcceptance.console.unexpectedErrors, 0);
+  assert.equal(qa.completionBoundary.threeTierRuntimeFinalPass, true);
+});
+
 test("One Step Garden 旧错误 Hero 只读 Hold，未被生产 registry 继续引用", async () => {
   const [legacy, disposition] = await Promise.all([
     readFile(new URL("public/models/xinhua-road/one-step-garden.glb", root)),

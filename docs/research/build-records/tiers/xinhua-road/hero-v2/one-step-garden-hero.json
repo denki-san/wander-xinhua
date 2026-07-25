@@ -4,7 +4,7 @@
   "assetId": "one-step-garden",
   "tier": "hero",
   "versionName": "hero-v2",
-  "status": "hero-v2-mcp2-pass-identity-v1-mcp3-pass-runtime-candidate-implemented-browser-final-pending",
+  "status": "hero-v2-mcp2-identity-v1-mcp3-and-main-browser-runtime-pass",
   "generator": "scripts/create_one_step_garden_hero_model.py",
   "generatorSha256": "b536e1d32630b0ee3262d98029ba384bfa610f392316dad7dd658141124b30b8",
   "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_one_step_garden_hero_model.py",
@@ -484,7 +484,7 @@
     "maxBytes": 4800000
   },
   "identityLineage": {
-    "status": "identity-v1-mcp3-pass-runtime-candidate-implemented-browser-final-pending",
+    "status": "identity-v1-mcp3-and-main-browser-runtime-pass",
     "authorizationAuthority": "docs/research/one-step-garden-blender-mcp-gates.json#heroGate.mcp2Rereview",
     "postBuildGateAuthorization": true,
     "sourceRootIdentityAllowedAtBuild": false,

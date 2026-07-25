@@ -172,7 +172,7 @@ test("一号花园 Identity v1 只从冻结且已通过 MCP2 的 Hero v2 派生"
 
   assert.equal(
     record.status,
-    "identity-v1-mcp3-pass-runtime-candidate-implemented-browser-final-pending",
+    "identity-v1-mcp3-and-main-browser-runtime-pass",
   );
   assert.equal(record.tier, "identity");
   assert.equal(record.versionName, "identity-v1");
@@ -479,7 +479,7 @@ test("一号花园 Identity v1 MCP3 通过并只授权正式三档运行时", as
   assert.equal(record.runtime.mainWindowBrowserFinal, "pending");
   assert.equal(
     lineage.status,
-    "mcp3-pass-runtime-candidate-implemented-browser-final-pending",
+    "complete-three-tier-runtime-main-browser-pass",
   );
   assert.equal(lineage.threeTierGate.formalPass, true);
   assert.equal(lineage.tiers.identity.gates.mcp3, "pass");
