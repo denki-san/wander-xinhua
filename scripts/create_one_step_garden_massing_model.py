@@ -586,7 +586,7 @@ def write_record(audit: dict[str, Any]) -> None:
         "auditedAt": AUDITED_AT,
         "assetId": "one-step-garden",
         "tier": "massing",
-        "status": "mcp1-pass-awaiting-map-gate",
+        "status": "mcp1-and-map-pass-awaiting-main-window-runtime-integration",
         "recoveryCommitReadOnly": RECOVERY_COMMIT,
         "recoveryDecision": {
             "evidenceExtracted": True,
@@ -651,7 +651,7 @@ def write_record(audit: dict[str, Any]) -> None:
             "yaw": RUNTIME_YAW,
             "runtimeScale": RUNTIME_SCALE,
             "movementAuthorized": False,
-            "mapGate": "pending",
+            "mapGate": "pass",
         },
         "scale": {
             "sceneUnitMeters": SCENE_UNIT_METERS,
@@ -676,8 +676,14 @@ def write_record(audit: dict[str, Any]) -> None:
             "record": "docs/research/one-step-garden-blender-mcp-gates.json",
             "nextGate": "three-js-massing-map-calibration",
         },
-        "mapAcceptance": "pending",
-        "runtimeGate": "pending",
+        "mapAcceptance": "pass",
+        "runtimeGate": "pass-temporary-qa-assembly",
+        "runtimeQa": {
+            "status": "pass",
+            "record": "docs/research/one-step-garden-massing-map-qa.json",
+            "sharedRegistryIntegration": "pending-main-window",
+            "sourceRegistryCommitted": False,
+        },
         "blendSceneAudit": {
             "objectCount": 1,
             "objects": ["one-step-garden-massing"],

@@ -3,7 +3,7 @@
 ## Scope
 
 - Asset slug: `one-step-garden`
-- POI / environment / character: 新华路179号一尺花园安和花园店，多体量商业花园场地
+- POI / environment / character: 新华路179号一尺花园安和花园店，前后分体建筑
 - Runtime component: `app/scene/xinhua-road-landmarks.tsx`
 - Generator: `scripts/create_xinhua_road_models.py`
 - Massing generator: `scripts/create_one_step_garden_massing_model.py`
@@ -23,7 +23,7 @@
 - Generator dry run / affected assets: Massing 使用独立单资产生成器；Hero 必须使用 `--asset=one-step-garden`，均不得覆盖其他 POI
 - GLB audit command: 使用上述 `audit_glb.py`
 - Local preview command and port: `npm run dev` 或静态构建预览；端口以实际输出为准
-- Browser/runtime validation path: `/?start=garden179`；Massing 门使用 `/?start=garden179&qaModelTier=massing`
+- Browser/runtime validation path: `/?start=garden179`；当前 production runtime 没有通用 `qaModelTier`，Massing 地图门采用临时、可回滚的单建筑 registry QA assembly，验收后恢复原 registry
 - Existing asset, screenshot, collision and performance baseline: 现有 GLB、Blend、`localBounds`、`localObstacles`、start preset 和旧对照图均保留
 - Fallback path for unavailable tools: Headless Blender 为确定性生产入口；受限沙箱内 Blender 5.2.0 启动会 `Segmentation fault: 11`，使用获批的沙箱外同命令运行；Blender MCP 只读场景和做局部视觉校验
 
@@ -61,7 +61,7 @@
 
 - 同一场地至少包含沿街白色半木构体量和后院红砖爬山虎体量，两者不可拼成单栋建筑。
 - 沿街建筑为假三层砖木结构，白色水泥拉毛墙，机制瓦双坡屋面，并有棚屋形老虎窗。
-- 后方存在草坪、水杉和室外活动空间。
+- 后方照片可见草坪、水杉和室外活动空间；它们只作两栋建筑空间关系证据，不进入本建筑资产。
 
 #### Inferred
 
@@ -73,7 +73,7 @@
 
 - 两栋建筑的精确边界、间距、真实高度、后立面和入口罗盘方向。
 - OSM way `864485599` 的最终门牌归属。
-- 商业家具、店招和植物配置的长期稳定状态。
+- 商业家具、店招和植物配置的长期稳定状态；本轮也不处理这些范围外元素。
 
 ## Quality Contract
 
@@ -82,8 +82,8 @@
 - Silhouette: 沿街陡坡双坡屋面前体量、院落间隙和独立后院红砖体量
 - Signature cue 1: 暖白拉毛墙与深色半木构山墙
 - Signature cue 2: 机制瓦陡坡屋面、棚屋形老虎窗和明显出檐
-- Signature cue 3: 后院红砖爬山虎建筑与水杉草坪的分体场地关系
-- Details intentionally omitted: 不可见后立面、室内、临时店招、桌椅、伞具和不可读门窗五金
+- Signature cue 3: 后院独立红砖长屋、双山墙和两根烟囱，与前体量保持可步行间隙
+- Details intentionally omitted: 不可见后立面、室内、树木、灌木、草坪、临时店招、桌椅、伞具、装饰物和不可读门窗五金
 
 ### Position
 
@@ -93,7 +93,7 @@
 
 ### Scale
 
-- Known dimensions: 无可信公开测绘尺寸；当前包络 `20 × 16` authored units
+- Known dimensions: 无可信公开测绘尺寸；Massing 当前水平包络约 `14.5 × 16.225` authored units
 - `1 scene unit = 2.7 m` conversion: 地图绑定后以 footprint 约束水平尺度；垂直尺度由假三层和照片人物/门窗比例推断
 - Allowed visual multiplier: `0.96–1.04`，不得用整体缩放掩盖分体和进深问题
 
@@ -109,7 +109,7 @@
 - Maximum canonical direction deviation: `15°`
 - Required visible edges / roof extents: 前体量两侧檐口、主屋脊、至少一处老虎窗与院落入口完整可见
 - Player-to-door and player-to-storey scale check: 人物高度约为首层高度 `45%–60%`
-- Camera target height and clearance: 相机不得穿入树冠、檐口或前场围墙
+- Camera target height and clearance: 相机不得穿入檐口或建筑实体
 
 ### Materials
 
@@ -117,14 +117,14 @@
 - Glass: 深灰低反射
 - Metal: 深灰门窗五金
 - Emissive: 无
-- Project palette mapping: 使用新华路暖灰、暗红砖和低饱和绿
+- Project palette mapping: 使用新华路暖灰、暗红砖和深灰屋面
 
 ### Collision and access
 
-- Solid obstacles: 两栋主体分别设碰撞；围墙和附属体只覆盖可见实体
-- Walkable areas: 沿街入口、两栋之间、草坪边缘与室外活动路径
+- Solid obstacles: 两栋主体和可见承重柱分别设碰撞，不使用覆盖整院的大盒
+- Walkable areas: 沿街入口、前院和两栋之间的建筑间隙
 - Camera clearance: canonical 起点与相机轨迹在实体碰撞外
-- Road clearance: 沿街体量、围墙和树木不得侵入新华路车行区
+- Road clearance: 沿街建筑体量不得侵入新华路车行区
 
 ### Runtime budget
 
@@ -146,21 +146,21 @@
 
 | Batch | Deliverable | Blender check | Runtime check | Status |
 | --- | --- | --- | --- | --- |
-| Massing | 前体量、后体量、院落间隙与坡屋顶 | canonical 分体轮廓 | 真实 `?start=` 灰模门 | MCP1 passed; map gate pending |
-| Runtime calibration | 位置、比例、朝向、机位和道路退界 | N/A | footprint 绑定前不移动 | Pending |
+| Massing | 前体量、后体量、院落间隙与坡屋顶 | canonical 分体轮廓 | 真实 `?start=` 灰模门 | MCP1 + map gate passed; shared integration pending |
+| Runtime calibration | 位置、比例、朝向、机位和道路退界 | N/A | 冻结旧落点完成地图门；公共 registry 由主窗口整合 | Map gate passed |
 | Identity | 半木构、老虎窗、红砖后体量和场地层次 | 三项构件可读 | Identity 距离可辨认 | Pending |
 | Materials | 白墙、红砖、深木构和灰褐瓦 | 固定机位无黑面 | 项目色盘一致 | Pending |
-| Site | 草坪、水杉、入口和开放院落 | 分体接地 | 公共路径开放 | Pending |
+| Site | 树木、草坪、家具、店招与装饰物 | N/A | N/A | Hold：严格排除在18栋建筑范围外 |
 | Collision | 两栋分体、围墙和可达路径 | 无整院大盒 | 人物/相机可达 | Pending |
 | Optimization | 静态合并与共享材质 | 轮廓不丢失 | 预算通过 | Pending |
 
 ## Validation
 
-- [ ] Massing 在真实 `/?start=garden179&qaModelTier=massing` 中通过
+- [x] Massing 通过临时 registry QA assembly 在真实 `/?start=garden179&network=standard&cameraQa=1&effects=off&district=off` 中验收，随后原 registry 逐字节恢复
 - [x] 两栋不同体量没有被合并，未知背面没有虚构细节
 - [ ] 可编辑 `.blend`、GLB、canonical、侧向、街景和三联对照齐全
 - [x] GLB SHA、bounds、节点、三角面、材质、图片和体积进入 build record
-- [ ] 人物/相机碰撞、院落可达、道路退界、控制台和首屏资源通过
+- [x] 人物/相机碰撞、院落可达、道路退界、控制台和精确 GLB 资源请求通过
 - [ ] 灰模与终审两个独立检查点无 blocker
 
 ## Decision Log
@@ -215,4 +215,15 @@
   - `test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_street-scale.png`
 - Interactive boundary: `acceptedInteractiveChanges=[]`；所有相机、灯光、地面和人物代理均为临时 QA rig，没有保存到 master 或导出到 GLB。
 - Detailed record: `docs/research/one-step-garden-blender-mcp-gates.json`。
-- Next gate: `/?start=garden179&qaModelTier=massing` Three.js map calibration；公共运行时未获本工作树直接整合授权。
+- At-this-checkpoint next gate: Three.js Massing map calibration；production runtime 没有通用 `qaModelTier`，因此实际采用 Iteration 4 所述临时 QA assembly；公共运行时未获本工作树直接整合授权。
+
+### Iteration 4 — 2026-07-25 Three.js Massing map gate
+
+- QA assembly: 只在静态 production preview 构建前临时把一号花园的 model、cache、bounds 和 8 个分体碰撞盒替换为 Massing 候选；验收后 `app/scene/xinhua-road-landmarks-data.json` 已恢复到 SHA-256 `eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6`，与改动前逐字节一致。
+- Frozen placement: 保持 position `[60.86, 120.73]`、yaw `-0.38`、scale `0.88`，没有使用移动授权；local `-Y` 面向新华路，建筑落地且与起点车道最近碰撞边界保留 `3.524676` scene units。
+- Resource result: 精确 Massing GLB 返回 HTTP `200`、`model/gltf-binary`、`18,316` bytes；source 与 dist SHA-256 均为 `a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761`。
+- Runtime result: `1440×900`、DPR `1`、页面可见、effects/district 关闭；控制台 `0` logs、`0` page errors。10.014 秒采样为 `601` frames、约 `60.02 FPS`、p95 `17.9ms`，仅报告绝对样本，不声明性能提升。
+- Collision result: 默认前进路径被左前翼墙体阻挡；`KeyD 1700ms` 后 `KeyW 2400ms` 可从开放入口棚进入前院；入口净宽 `3.4016`、前后建筑间隙净宽 `1.404`，均大于人物直径 `0.96`。
+- Scope boundary: 未新增树木、草坪、家具、雨伞、店招、装饰物、其他建筑或全地图资产；公共 registry、Hero 和范围外 Hold 成果均未覆盖。
+- Detailed record: `docs/research/one-step-garden-massing-map-qa.json`。
+- Gate result: Massing map gate Passed；公共 runtime integration 仍由主窗口统一执行。Hero master disposition 可进入主窗口审查，Identity 继续锁定。

@@ -3,7 +3,7 @@
   "auditedAt": "2026-07-25",
   "assetId": "one-step-garden",
   "tier": "massing",
-  "status": "mcp1-pass-awaiting-map-gate",
+  "status": "mcp1-and-map-pass-awaiting-main-window-runtime-integration",
   "recoveryCommitReadOnly": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
   "recoveryDecision": {
     "evidenceExtracted": true,
@@ -11,7 +11,7 @@
     "reason": "恢复 GLB 是 membershipConfidence=low 的五个未绑定 OSM 平顶盒，不具备一号花园主体身份轮廓。"
   },
   "generator": "scripts/create_one_step_garden_massing_model.py",
-  "generatorSha256": "41a6e2190730ad54cb7dd269d3109049092f12b1f450559a55829b6b59e3f0e3",
+  "generatorSha256": "3927893071e5de2434e1d47a677f5dcddb0573f66c511933b0717c82e4e8f796",
   "modelBrief": "docs/research/one-step-garden-model-brief.md",
   "referenceManifest": "docs/research/one-step-garden-reference-manifest.json",
   "evidenceSha256": [
@@ -62,7 +62,7 @@
     "yaw": -0.38,
     "runtimeScale": 0.88,
     "movementAuthorized": false,
-    "mapGate": "pending"
+    "mapGate": "pass"
   },
   "scale": {
     "sceneUnitMeters": 2.7,
@@ -83,8 +83,14 @@
     "record": "docs/research/one-step-garden-blender-mcp-gates.json",
     "nextGate": "three-js-massing-map-calibration"
   },
-  "mapAcceptance": "pending",
-  "runtimeGate": "pending",
+  "mapAcceptance": "pass",
+  "runtimeGate": "pass-temporary-qa-assembly",
+  "runtimeQa": {
+    "status": "pass",
+    "record": "docs/research/one-step-garden-massing-map-qa.json",
+    "sharedRegistryIntegration": "pending-main-window",
+    "sourceRegistryCommitted": false
+  },
   "blendSceneAudit": {
     "objectCount": 1,
     "objects": [
