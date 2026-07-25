@@ -125,12 +125,15 @@ const ProgressiveShanghaiCinemaRuntimeQaAsset = lazy(
     default: module.ShanghaiCinemaRuntimeQaAsset,
   })),
 );
-const SHANGHAI_CINEMA_QA_PLACEMENT = XINHUA_ROAD_LANDMARKS.find(
-  ({ id }) => id === "shanghai-cinema",
-);
-if (!SHANGHAI_CINEMA_QA_PLACEMENT) {
-  throw new Error("上海影城运行时 QA 缺少正式地图 placement");
-}
+const SHANGHAI_CINEMA_QA_PLACEMENT = (() => {
+  const placement = XINHUA_ROAD_LANDMARKS.find(
+    ({ id }) => id === "shanghai-cinema",
+  );
+  if (!placement) {
+    throw new Error("上海影城运行时 QA 缺少正式地图 placement");
+  }
+  return placement;
+})();
 
 const WORLD_UP = new Vector3(0, 1, 0);
 const INTRO_CAMERA_DIRECTION = new Vector3(126, 142, 138).normalize();
@@ -568,11 +571,19 @@ function FlatNeighborhood({
   );
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
-      <XinhuaStreetMap
-        showRoadLabels={showRoadLabels}
-        showStreetDressing={mode === "explore" && !cinemaTierQa}
-        lowTier={lowTier}
-      />
+      {cinemaTierQa ? (
+        <XinhuaStreetMap
+          showRoadLabels={showRoadLabels}
+          showStreetDressing={mode === "explore" && !cinemaTierQa}
+          lowTier={lowTier}
+        />
+      ) : (
+        <XinhuaStreetMap
+          showRoadLabels={showRoadLabels}
+          showStreetDressing={mode === "explore"}
+          lowTier={lowTier}
+        />
+      )}
       {mode === "overview" && !districtDisabledForQa && (
         <OverviewDistrictMassingGate networkProfile={networkProfile} />
       )}
@@ -1958,22 +1969,39 @@ export function XinhuaWorld({
         atmosphereStyle={atmosphereStyle}
         atmosphere={atmosphere}
       />
-      <FlatNeighborhood
-        onOpenAction={onOpenAction}
-        atmosphere={atmosphere}
-        lowTier={lowTier}
-        detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
-        showDetailModels={mode !== "intro"}
-        showDetailLabels={false}
-        showRoadLabels={!exploring}
-        showHeroTree={exploring && !cinemaTierQa}
-        progressiveFocus={progressiveFocus}
-        landmarkLoadMode={exploring ? "explore" : "overview"}
-        networkProfile={networkProfile}
-        mode={mode}
-        cinemaTierQa={cinemaTierQa}
-        cinemaFaultQa={cinemaFaultQa}
-      />
+      {cinemaTierQa ? (
+        <FlatNeighborhood
+          onOpenAction={onOpenAction}
+          atmosphere={atmosphere}
+          lowTier={lowTier}
+          detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
+          showDetailModels={mode !== "intro"}
+          showDetailLabels={false}
+          showRoadLabels={!exploring}
+          showHeroTree={exploring && !cinemaTierQa}
+          progressiveFocus={progressiveFocus}
+          landmarkLoadMode={exploring ? "explore" : "overview"}
+          networkProfile={networkProfile}
+          mode={mode}
+          cinemaTierQa={cinemaTierQa}
+          cinemaFaultQa={cinemaFaultQa}
+        />
+      ) : (
+        <FlatNeighborhood
+          onOpenAction={onOpenAction}
+          atmosphere={atmosphere}
+          lowTier={lowTier}
+          detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
+          showDetailModels={mode !== "intro"}
+          showDetailLabels={false}
+          showRoadLabels={!exploring}
+          showHeroTree={exploring}
+          progressiveFocus={progressiveFocus}
+          landmarkLoadMode={exploring ? "explore" : "overview"}
+          networkProfile={networkProfile}
+          mode={mode}
+        />
+      )}
       <ResponsiveCameraProjection exploring={exploring} />
       <IntroCamera active={mode === "intro"} />
       {overview && (

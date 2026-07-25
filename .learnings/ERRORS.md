@@ -6883,3 +6883,80 @@ bounded Headless command with approved unsandboxed execution before changing mod
 - **Resolved**: 2026-07-25T18:26:00+08:00
 - **Notes**: 在受控授权下于 sandbox 外重跑同一限定 Headless 命令后成功；生成
   Massing Blend、GLB 和三张固定机位图。模型代码无需为该启动崩溃修改。
+
+---
+## [ERR-20260725-040] shanghai_cinema_qa_integration_regressions
+
+**Logged**: 2026-07-25T20:00:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+上海影城三档 QA 补丁在独立分支专项测试中通过，但整合到最新公共场景后，全仓回归
+暴露一个 TypeScript 收窄失败和两个既有树木/街具源码合同回归。
+
+### Error
+```text
+TS18048: 'SHANGHAI_CINEMA_QA_PLACEMENT' is possibly 'undefined'
+expected /showHeroTree=\{exploring\}/
+expected /showStreetDressing=\{mode === "explore"\}/
+```
+
+### Context
+- 顶层 `find` 后的独立 `if` 没有跨组件闭包保持 TypeScript 非空收窄。
+- 为隔离 QA 而直接改写既有 prop 表达式，破坏了树木和街具的仓库级合同测试。
+- 静态构建、lint 和上海影城专项测试均不能覆盖这三个公共整合问题。
+
+### Suggested Fix
+用返回非空 placement 的 IIFE 固定类型；保留生产路径原有 prop 形式，仅在
+`cinemaTierQa` 分支单独渲染关闭街具的地图。Hero 树 prop 保持生产合同，QA 分支本身
+不会挂载完整道路 Hero layer。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-world.tsx,
+  tests/test_plane_tree_variants.test.mjs, tests/test_street_surfaces.test.mjs,
+  tests/typecheck-scene.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T20:00:00+08:00
+- **Notes**: 修复非空收窄并把 QA 隔离移到独立渲染分支；随后重跑失败三项和全仓回归。
+
+---
+## [ERR-20260725-041] browser_readonly_evaluate_is_frozen
+
+**Logged**: 2026-07-25T20:14:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+浏览器只读 `evaluate` 环境冻结了 `window` 和 `documentElement.dataset`，无法用页面脚本
+新增错误收集字段；浏览器 CDP 包装器也不暴露事件订阅方法。
+
+### Error
+```text
+TypeError: Cannot add property __integrationErrors, object is not extensible
+TypeError: Cannot add property integrationErrors, object is not extensible
+sunCdp.on is not a function
+```
+
+### Context
+- 目标是为上海影城五个真实运行时场景收集页面 `error` 与 `unhandledrejection`。
+- 常规只读 `evaluate` 适合查询页面状态，但不允许给冻结对象添加自定义属性。
+- 当前 CDP 包装器支持 `send`，不支持 Node 风格的 `on` 事件监听。
+
+### Suggested Fix
+需要在真实页面注入临时监听器时，使用
+`Runtime.evaluate` 执行受限、可回收的页面表达式，再用同一 CDP 通道读取结果；
+不要假定只读 `evaluate` 或 CDP 包装器支持可变全局对象与事件订阅。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/shanghai-cinema-integration-runtime-qa.json
+
+### Resolution
+- **Resolved**: 2026-07-25T20:14:00+08:00
+- **Notes**: 改用 `sunCdp.send("Runtime.evaluate", ...)` 注入并读取页面级错误监听器；
+  五个场景均记录为 runtime errors 0、console errors 0。
