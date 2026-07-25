@@ -253,3 +253,12 @@
 - Placement contract: 继续锁定 position `[74.1, 80.9]`、yaw `2.761592653589793`、scale `1`、local bounds `[-19, 19] × [-11.8, 14.2]` 与三块独立碰撞；入口广场和侧向通道不由广场薄片参与碰撞。
 - Evidence correction: checkpoint 的 MCP1/2 橙色圆柱高 `1.8 scene units`，按 `1 unit = 2.7m` 不能作为 1.8m 人体证据。现有图只证明构图与局部比例；MCP3 必须使用 `1.8 / 2.7 = 0.666667 scene units` 的代理重新验证。
 - Current gate: Evidence、正式 Massing 生成、三档二进制结构审计、Identity lineage 与 Three.js Massing 地图校准草案已闭合；运行时使用 `terrainHeightAt(74.1, 80.9) + 0.1 = 1.009780347` 的既有贴地合同。MCP3 同机位三档仍须等待主窗口串行占用共享 Blender MCP。
+
+### Iteration 4 — MCP3 and three-tier runtime acceptance — 2026-07-25
+
+- MCP3: 主窗口通过 Blender MCP 在 canonical、side、entrance 三个固定机位审查 Hero、完整 runtime Identity composite 与 Massing；三档共享 origin、scale、front、ground datum，修正人物代理为 `1.8 / 2.7 = 0.666667 scene units`。`acceptedInteractiveChanges=[]`，因此没有需要回写生成器的临时修改。
+- Identity boundary: MCP3 使用 `ShanghaiCinemaProgrammaticBody + ShanghaiCinemaIdentityGlb + ShanghaiCinemaRepeatedDetails` 组装完整 Identity；独立 `shanghai-cinema-hybrid-identity.glb` 仍只是 identity increment，不得单独宣称完整 Identity tier。
+- Runtime: 静态生产构建在 `?start=cinema&qaCinemaTier={hero|identity|massing}&cameraQa=1` 下逐档通过相同 position、yaw、ground 和 camera telemetry 验收；隔离浏览器会话均为 `spring-clear / blocker none`，无页面错误。
+- Fallback/cache: `hero-unavailable` 确定性注入不请求 Hero，回落完整 Identity composite 并复用带版本号的 300-byte HTTP revalidation cache；`identity-unavailable` 不请求 Identity GLB，回落受版本控制的程序化主体与重复构件。
+- Performance boundary: 1280 × 577、DPR 1、visible、3 秒采样下三档约 60 FPS；没有同条件基线，因此不声称性能提升。
+- Scope: 本轮只增加上海影城显式 QA 路由与证据；树木、装饰、ordinary OSM、其他建筑、公共 registry/manifest 均未修改，范围外成果继续 Hold。

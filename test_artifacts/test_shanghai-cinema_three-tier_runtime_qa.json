@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "status": "passed",
+  "capturedAt": "2026-07-25T19:20:46+08:00",
+  "environment": {
+    "buildMode": "vite-static-production-preview",
+    "origin": "http://127.0.0.1:4173",
+    "browser": "agent-browser isolated session shanghai-cinema",
+    "viewport": {
+      "width": 1280,
+      "height": 577,
+      "devicePixelRatio": 1
+    },
+    "pageVisibility": "visible",
+    "warmupSecondsPerCase": 8,
+    "frameSampleSeconds": 3,
+    "reportedNetworkProfile": "weak",
+    "note": "QA tier is selected by an explicit route and is not downgraded by the reported network profile."
+  },
+  "sharedSpatialContract": {
+    "position": [74.1, 80.9],
+    "yaw": 2.761592653589793,
+    "scale": 1,
+    "terrainY": 0.909780347,
+    "terrainClearance": 0.1,
+    "runtimePlacementY": 1.009780347,
+    "front": "local -Y with runtime X mirror",
+    "groundResult": "passed-same-placement-and-visible-contact",
+    "transformPopping": "none-observed-across-five-fixed-start-captures"
+  },
+  "camera": {
+    "startPreset": "cinema",
+    "mode": "spring-clear",
+    "blocker": "none",
+    "arm": "5.43 / 5.43",
+    "armYawDegrees": "49.2 / 49.2",
+    "goalYawDegrees": 40.9,
+    "input": [0, 0],
+    "fovDegrees": 58,
+    "graceMs": 0,
+    "result": "passed-same-telemetry-all-cases"
+  },
+  "cases": {
+    "hero": {
+      "route": "/?start=cinema&qaCinemaTier=hero&cameraQa=1",
+      "requestedTier": "hero",
+      "renderedTier": "hero",
+      "status": "loaded",
+      "asset": "/models/xinhua-road/shanghai-cinema.glb?v=20260721-cinema-7",
+      "fallback": "none",
+      "readyMarkMs": 1358.1000000005588,
+      "resources": [
+        {
+          "role": "hero",
+          "url": "/models/xinhua-road/shanghai-cinema.glb?v=20260721-cinema-7",
+          "startTimeMs": 1020.3000000007451,
+          "durationMs": 229.19999999925494,
+          "transferSize": 5862960,
+          "encodedBodySize": 5862660,
+          "cache": "network-transfer"
+        },
+        {
+          "role": "loading-fallback-identity",
+          "url": "/models/xinhua-road/shanghai-cinema-hybrid-identity.glb?v=20260722-hybrid-1",
+          "startTimeMs": 1023,
+          "durationMs": 25.300000000745058,
+          "transferSize": 418920,
+          "encodedBodySize": 418620,
+          "cache": "network-transfer"
+        },
+        {
+          "role": "delayed-character-scale-reference",
+          "url": "/models/character/rain-summer-wanderer.glb?v=f9721e54f034",
+          "startTimeMs": 20839.60000000056,
+          "durationMs": 175.59999999962747,
+          "transferSize": 2873940,
+          "encodedBodySize": 2873640,
+          "firstScreen": false
+        }
+      ],
+      "frameSample": {
+        "durationMs": 3012.300000000745,
+        "frames": 181,
+        "fps": 60.08697672873062
+      },
+      "browserErrors": [],
+      "screenshot": {
+        "path": "test_artifacts/test_shanghai-cinema_runtime_hero.png",
+        "sha256": "ca80919b15d22ce117f05d388bd4660a2139350ec64c6e40177d4dc2211ed7af",
+        "bytes": 323486,
+        "dimensions": [1280, 577]
+      }
+    },
+    "identity": {
+      "route": "/?start=cinema&qaCinemaTier=identity&cameraQa=1",
+      "requestedTier": "identity",
+      "renderedTier": "identity",
+      "status": "loaded",
+      "representation": [
+        "ShanghaiCinemaProgrammaticBody",
+        "ShanghaiCinemaIdentityGlb",
+        "ShanghaiCinemaRepeatedDetails"
+      ],
+      "asset": "/models/xinhua-road/shanghai-cinema-hybrid-identity.glb?v=20260722-hybrid-1",
+      "fallback": "none",
+      "readyMarkMs": 815,
+      "resources": [
+        {
+          "role": "identity-increment",
+          "url": "/models/xinhua-road/shanghai-cinema-hybrid-identity.glb?v=20260722-hybrid-1",
+          "startTimeMs": 675.9000000003725,
+          "durationMs": 4.7000000001862645,
+          "transferSize": 300,
+          "encodedBodySize": 418620,
+          "cache": "http-revalidation-cache-hit"
+        },
+        {
+          "role": "delayed-character-scale-reference",
+          "url": "/models/character/rain-summer-wanderer.glb?v=f9721e54f034",
+          "startTimeMs": 11767.700000000186,
+          "durationMs": 60.09999999962747,
+          "transferSize": 300,
+          "encodedBodySize": 2873640,
+          "firstScreen": false
+        }
+      ],
+      "frameSample": {
+        "durationMs": 3014,
+        "frames": 181,
+        "fps": 60.05308560053086
+      },
+      "browserErrors": [],
+      "screenshot": {
+        "path": "test_artifacts/test_shanghai-cinema_runtime_identity.png",
+        "sha256": "d77ffd2def7de16b6565ae5f17d6c5e95d569bf4eaf7d221a79638ca96c114b6",
+        "bytes": 306427,
+        "dimensions": [1280, 577]
+      }
+    },
+    "massing": {
+      "route": "/?start=cinema&qaCinemaTier=massing&cameraQa=1",
+      "requestedTier": "massing",
+      "renderedTier": "massing",
+      "status": "loaded",
+      "asset": "/models/xinhua-road/shanghai-cinema-massing.glb?v=20260725-massing-1",
+      "fallback": "none",
+      "readyMarkMs": 1276.4000000003725,
+      "resources": [
+        {
+          "role": "massing",
+          "url": "/models/xinhua-road/shanghai-cinema-massing.glb?v=20260725-massing-1",
+          "startTimeMs": 690.5,
+          "durationMs": 11.900000000372529,
+          "transferSize": 714528,
+          "encodedBodySize": 714228,
+          "cache": "network-transfer"
+        },
+        {
+          "role": "delayed-character-scale-reference",
+          "url": "/models/character/rain-summer-wanderer.glb?v=f9721e54f034",
+          "startTimeMs": 10651.600000000559,
+          "durationMs": 35.200000000186265,
+          "transferSize": 300,
+          "encodedBodySize": 2873640,
+          "firstScreen": false
+        }
+      ],
+      "frameSample": {
+        "durationMs": 3014.7999999998137,
+        "frames": 181,
+        "fps": 60.03715005970916
+      },
+      "browserErrors": [],
+      "screenshot": {
+        "path": "test_artifacts/test_shanghai-cinema_runtime_massing.png",
+        "sha256": "b8ad860e22ace28b769326ec060b2d673ecc1c35462c8789a9333d7c5074e380",
+        "bytes": 299907,
+        "dimensions": [1280, 577]
+      }
+    },
+    "heroUnavailable": {
+      "route": "/?start=cinema&qaCinemaTier=hero&qaCinemaFault=hero-unavailable&cameraQa=1",
+      "requestedTier": "hero",
+      "renderedTier": "identity",
+      "status": "fault-injected",
+      "fallback": "hero-unavailable-to-identity",
+      "asset": "/models/xinhua-road/shanghai-cinema-hybrid-identity.glb?v=20260722-hybrid-1",
+      "readyMarkMs": 1615.5,
+      "assertions": {
+        "heroRequestPresent": false,
+        "completeIdentityCompositeVisible": true,
+        "identityCacheReused": true
+      },
+      "resources": [
+        {
+          "role": "identity-fallback",
+          "url": "/models/xinhua-road/shanghai-cinema-hybrid-identity.glb?v=20260722-hybrid-1",
+          "startTimeMs": 1326.5,
+          "durationMs": 110.70000000018626,
+          "transferSize": 300,
+          "encodedBodySize": 418620,
+          "cache": "http-revalidation-cache-hit"
+        },
+        {
+          "role": "delayed-character-scale-reference",
+          "url": "/models/character/rain-summer-wanderer.glb?v=f9721e54f034",
+          "startTimeMs": 21392.700000000186,
+          "durationMs": 62.40000000037253,
+          "transferSize": 300,
+          "encodedBodySize": 2873640,
+          "firstScreen": false
+        }
+      ],
+      "browserErrors": [],
+      "screenshot": {
+        "path": "test_artifacts/test_shanghai-cinema_runtime_fault_hero-to-identity.png",
+        "sha256": "2d4a72a577746d56e4112a89b1d45a60dee82029ae3ec0628c3da844180e6b0c",
+        "bytes": 306554,
+        "dimensions": [1280, 577]
+      }
+    },
+    "identityUnavailable": {
+      "route": "/?start=cinema&qaCinemaTier=identity&qaCinemaFault=identity-unavailable&cameraQa=1",
+      "requestedTier": "identity",
+      "renderedTier": "programmatic",
+      "status": "fault-injected",
+      "fallback": "identity-unavailable-to-programmatic",
+      "asset": "programmatic-runtime-recipe",
+      "readyMarkMs": 1132.7000000001863,
+      "assertions": {
+        "identityGlbRequestPresent": false,
+        "programmaticBodyVisible": true,
+        "repeatedDetailsVisible": true
+      },
+      "resources": [
+        {
+          "role": "delayed-character-scale-reference",
+          "url": "/models/character/rain-summer-wanderer.glb?v=f9721e54f034",
+          "startTimeMs": 15869.200000000186,
+          "durationMs": 59.299999999813735,
+          "transferSize": 300,
+          "encodedBodySize": 2873640,
+          "firstScreen": false
+        }
+      ],
+      "browserErrors": [],
+      "screenshot": {
+        "path": "test_artifacts/test_shanghai-cinema_runtime_fault_identity-to-programmatic.png",
+        "sha256": "f5ccf98a0f92a152012fa69a4fda8c9c7160547f430955e1344d79da8865098d",
+        "bytes": 307175,
+        "dimensions": [1280, 577]
+      }
+    }
+  },
+  "firstScreenSummary": {
+    "hero": [
+      "shanghai-cinema.glb?v=20260721-cinema-7",
+      "shanghai-cinema-hybrid-identity.glb?v=20260722-hybrid-1"
+    ],
+    "identity": [
+      "shanghai-cinema-hybrid-identity.glb?v=20260722-hybrid-1"
+    ],
+    "massing": [
+      "shanghai-cinema-massing.glb?v=20260725-massing-1"
+    ],
+    "identityProgrammaticFallback": [],
+    "excludedFromFirstScreen": [
+      "rain-summer-wanderer.glb delayed until after 10 seconds",
+      "tree and decor GLBs",
+      "unrelated building GLBs"
+    ]
+  },
+  "conclusions": {
+    "threeTierLoad": "passed",
+    "sameMapPlacementYawScale": "passed",
+    "groundContact": "passed",
+    "cameraSafety": "passed-spring-clear-blocker-none",
+    "browserConsole": "passed-zero-errors-in-isolated-session",
+    "cacheVersionAndReuse": "passed",
+    "heroToIdentityFault": "passed",
+    "identityToProgrammaticFault": "passed",
+    "performanceClaim": "no-improvement-claimed-without-same-condition-baseline"
+  },
+  "finalBuildSmoke": {
+    "capturedAt": "2026-07-25T19:20:46+08:00",
+    "qaChunk": "dist-static/assets/shanghai-cinema-runtime-qa-g3OTI74s.js",
+    "qaChunkBytes": 2983,
+    "casesReplayed": [
+      "hero",
+      "identity",
+      "massing",
+      "hero-unavailable-to-identity",
+      "identity-unavailable-to-programmatic"
+    ],
+    "screenshotsRecaptured": true,
+    "cumulativeIsolatedSessionErrors": [],
+    "finalIdentityFaultState": {
+      "requestedTier": "identity",
+      "renderedTier": "programmatic",
+      "status": "fault-injected",
+      "fallback": "identity-unavailable-to-programmatic",
+      "shanghaiCinemaGlbRequests": []
+    }
+  },
+  "scopeBoundary": {
+    "modifiedAssets": ["shanghai-cinema runtime QA route only"],
+    "held": [
+      "all trees and decor",
+      "ordinary OSM and global map assets",
+      "all unrelated buildings and shared registries"
+    ],
+    "deletedOrOverwritten": []
+  }
+}

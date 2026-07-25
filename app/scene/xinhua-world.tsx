@@ -56,10 +56,15 @@ import {
 } from "./xingfuli-block";
 import {
   XINHUA_ROAD_CAMERA_OBSTACLES,
+  XINHUA_ROAD_LANDMARKS,
   XINHUA_ROAD_OBSTACLES,
   XINHUA_ROAD_START_PRESETS,
 } from "./xinhua-road-contract";
 import { XinhuaRoadMassing } from "./xinhua-road-massing";
+import type {
+  ShanghaiCinemaRuntimeQaFault,
+  ShanghaiCinemaRuntimeQaTier,
+} from "./shanghai-cinema-runtime-qa";
 import {
   XINGFULI_PLACEMENT,
   XINHUA_BOUNDARY,
@@ -108,6 +113,17 @@ const ProgressiveXinhuaRoadFullLayer = lazy(
 const ProgressiveDetailedWandererCharacter = lazy(
   () => import("./detailed-wanderer-character"),
 );
+const ProgressiveShanghaiCinemaRuntimeQaAsset = lazy(
+  () => import("./shanghai-cinema-runtime-qa").then((module) => ({
+    default: module.ShanghaiCinemaRuntimeQaAsset,
+  })),
+);
+const SHANGHAI_CINEMA_QA_PLACEMENT = XINHUA_ROAD_LANDMARKS.find(
+  ({ id }) => id === "shanghai-cinema",
+);
+if (!SHANGHAI_CINEMA_QA_PLACEMENT) {
+  throw new Error("上海影城运行时 QA 缺少正式地图 placement");
+}
 
 const WORLD_UP = new Vector3(0, 1, 0);
 const INTRO_CAMERA_DIRECTION = new Vector3(126, 142, 138).normalize();
@@ -484,7 +500,8 @@ function FlatNeighborhood({
   landmarkLoadMode = "overview",
   networkProfile,
   mode,
-  cinemaMassingQa = false,
+  cinemaTierQa = null,
+  cinemaFaultQa = null,
 }: {
   onOpenAction: () => void;
   atmosphere: XinhuaAtmosphere;
@@ -498,7 +515,8 @@ function FlatNeighborhood({
   landmarkLoadMode?: "overview" | "explore";
   networkProfile: ProgressiveNetworkProfile;
   mode: "intro" | "overview" | "explore";
-  cinemaMassingQa?: boolean;
+  cinemaTierQa?: ShanghaiCinemaRuntimeQaTier | null;
+  cinemaFaultQa?: ShanghaiCinemaRuntimeQaFault | null;
 }) {
   const xingfuliTier = useProgressiveBuildingTier({
     mode,
@@ -528,7 +546,7 @@ function FlatNeighborhood({
     <group scale={[detailScale, detailScale, detailScale]}>
       <XinhuaStreetMap
         showRoadLabels={showRoadLabels}
-        showStreetDressing={mode === "explore" && !cinemaMassingQa}
+        showStreetDressing={mode === "explore" && !cinemaTierQa}
         lowTier={lowTier}
       />
       <group
@@ -558,19 +576,37 @@ function FlatNeighborhood({
         showEnvironmentDetails={mode === "explore"}
         stage={shangshengTier}
       />
-      {cinemaMassingQa ? (
+      {cinemaTierQa ? (
         <group
-          name="shanghai-cinema-massing-map-qa"
+          name="shanghai-cinema-tier-map-qa"
+          position={[
+            SHANGHAI_CINEMA_QA_PLACEMENT.position[0],
+            terrainHeightAt(
+              SHANGHAI_CINEMA_QA_PLACEMENT.position[0],
+              SHANGHAI_CINEMA_QA_PLACEMENT.position[1],
+            ) + 0.1,
+            SHANGHAI_CINEMA_QA_PLACEMENT.position[1],
+          ]}
+          rotation-y={SHANGHAI_CINEMA_QA_PLACEMENT.yaw}
+          scale={SHANGHAI_CINEMA_QA_PLACEMENT.scale}
           userData={{
             assetId: "shanghai-cinema",
-            tier: "massing",
+            tier: cinemaTierQa,
+            fault: cinemaFaultQa ?? "none",
             mapContext: "production-placement",
           }}
         >
-          <XinhuaRoadMassing
-            identity={false}
-            onlyLandmarkId="shanghai-cinema"
-          />
+          <ProgressiveFeatureBoundary
+            resetKey={`${cinemaTierQa}:${cinemaFaultQa ?? "none"}`}
+            fallback={null}
+          >
+            <Suspense fallback={null}>
+              <ProgressiveShanghaiCinemaRuntimeQaAsset
+                tier={cinemaTierQa}
+                fault={cinemaFaultQa}
+              />
+            </Suspense>
+          </ProgressiveFeatureBoundary>
         </group>
       ) : showDetailModels ? (
         <ProgressiveFeatureBoundary
@@ -1680,7 +1716,8 @@ export function XinhuaWorld({
   onNearPoi,
   onPositionChange,
   networkProfile,
-  cinemaMassingQa = false,
+  cinemaTierQa = null,
+  cinemaFaultQa = null,
 }: {
   mode: "intro" | "overview" | "explore";
   lowTier: boolean;
@@ -1694,7 +1731,8 @@ export function XinhuaWorld({
   onNearPoi: (poiId: string | null) => void;
   onPositionChange: (position: readonly [number, number]) => void;
   networkProfile: ProgressiveNetworkProfile;
-  cinemaMassingQa?: boolean;
+  cinemaTierQa?: ShanghaiCinemaRuntimeQaTier | null;
+  cinemaFaultQa?: ShanghaiCinemaRuntimeQaFault | null;
 }) {
   const exploring = mode === "explore";
   const overview = mode === "overview";
@@ -1752,12 +1790,13 @@ export function XinhuaWorld({
         showDetailModels={mode !== "intro"}
         showDetailLabels={false}
         showRoadLabels={!exploring}
-        showHeroTree={exploring && !cinemaMassingQa}
+        showHeroTree={exploring && !cinemaTierQa}
         progressiveFocus={progressiveFocus}
         landmarkLoadMode={exploring ? "explore" : "overview"}
         networkProfile={networkProfile}
         mode={mode}
-        cinemaMassingQa={cinemaMassingQa}
+        cinemaTierQa={cinemaTierQa}
+        cinemaFaultQa={cinemaFaultQa}
       />
       <ResponsiveCameraProjection exploring={exploring} />
       <IntroCamera active={mode === "intro"} />

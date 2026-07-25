@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-25T18:48:46+08:00",
+  "reviewedBy": "main-coordinator",
+  "sourceCheckpoint": "faba744",
+  "status": "mcp1-mcp2-mcp3-and-three-tier-runtime-pass",
+  "candidateRecord": "test_artifacts/test_shanghai-cinema_mcp3_candidate.json",
+  "pipelineOrder": [
+    "evidence-and-brief",
+    "massing-generation",
+    "blender-mcp-massing-review",
+    "three-js-map-calibration",
+    "hero-master-review",
+    "identity-lineage-review",
+    "blender-mcp-three-tier-review",
+    "three-js-three-tier-runtime-acceptance"
+  ],
+  "massingGate": {
+    "gate": "mcp1-massing",
+    "status": "pass",
+    "reviewDisposition": "retained-current-binary",
+    "runtimeAsset": {
+      "path": "public/models/xinhua-road/shanghai-cinema-massing.glb",
+      "sha256": "e1635a7796ad9ca4f7699e5559c73c4a02591b601e9d300f8a874c73a7a513ab",
+      "bytes": 714228
+    },
+    "editableSource": {
+      "path": "assets/models/source/xinhua-road/shanghai-cinema-massing.blend",
+      "sha256": "f827a26ee131a35503d93153fa23e4ce5df7a4b969b63906ced4919d4bf7f9dd"
+    },
+    "mapCalibration": "pass",
+    "mapRecord": "docs/research/build-records/shanghai-cinema-massing.json",
+    "note": "早期MCP1人物代理高度错误；几何结论保留，人物尺度由MCP3的0.666667单位代理取代。"
+  },
+  "heroGate": {
+    "gate": "mcp2-hero",
+    "status": "pass",
+    "reviewDisposition": "retained-existing-hero",
+    "runtimeAsset": {
+      "path": "public/models/xinhua-road/shanghai-cinema.glb",
+      "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+      "bytes": 5862660
+    },
+    "editableSource": {
+      "path": "assets/models/source/xinhua-road/shanghai-cinema.blend",
+      "sha256": "fbb13fdb89169101c97bda0f3e5ba9644c70743aa85bd810368b365969db8fd8"
+    },
+    "sceneInspection": {
+      "rootObject": "shanghai-cinema",
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1],
+      "boundsBlender": {
+        "min": [-19, -14.199999809265137, -0.06000000983476639],
+        "max": [19, 11.800000190734863, 17.225000381469727]
+      },
+      "vertices": 45613,
+      "triangles": 83820,
+      "materials": 13
+    },
+    "note": "Hero最小Z=-0.06来自场地薄构件；主体和三档共享地面基准为Z=0。"
+  },
+  "threeTierGate": {
+    "gate": "mcp3-same-camera-three-tier",
+    "status": "pass",
+    "interactiveReview": "Blender MCP",
+    "identityRepresentation": {
+      "status": "pass-complete-runtime-composite",
+      "source": "app/scene/shanghai-cinema-hybrid-identity.tsx",
+      "sourceSha256": "c36bdf9450bfa23d266f2ba1e878360031ea54001f7b984955e7899c814e4c31",
+      "components": [
+        "ShanghaiCinemaProgrammaticBody",
+        "ShanghaiCinemaIdentityGlb",
+        "ShanghaiCinemaRepeatedDetails"
+      ],
+      "temporaryProgrammaticAndRepeatedObjectCount": 126,
+      "identityGlbObjectCount": 1,
+      "identityGlb": {
+        "path": "public/models/xinhua-road/shanghai-cinema-hybrid-identity.glb",
+        "sha256": "66ea8425313f9024d0b707b87be27549504ec9dddab3a8fdb30961aaf2d48d9c",
+        "bytes": 418620,
+        "role": "identity-increment-not-standalone-tier"
+      },
+      "identityBlend": {
+        "path": "assets/models/source/xinhua-road/shanghai-cinema-hybrid-identity.blend",
+        "sha256": "d087771e0547df66085c831f6befad1af9dd2b003e097d8af372187ddd2889ef"
+      },
+      "compositeBoundsBlender": {
+        "min": [-19, -14.199999809265137, 0],
+        "max": [19, 11.800000190734863, 17.225000381469727]
+      },
+      "savedAsMasterAsset": false,
+      "note": "MCP临时scene严格按受版本控制的Three.js runtime recipe组装完整Identity；未把临时组合误报为新增GLB或Blend。"
+    },
+    "massingInspection": {
+      "boundsBlender": {
+        "min": [-19, -14.199999809265137, 0],
+        "max": [19, 11.800000190734863, 17.225000381469727]
+      },
+      "vertices": 6417,
+      "triangles": 10544,
+      "materials": 7,
+      "images": 0,
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1]
+    },
+    "sharedTransform": {
+      "origin": [0, 0, 0],
+      "scale": 1,
+      "canonicalFront": "Blender local -Y",
+      "groundDatum": "Blender Z=0",
+      "runtimeXMirrored": true,
+      "mapYawAppliedOutsideAsset": true
+    },
+    "humanScale": {
+      "heightMeters": 1.8,
+      "metersPerSceneUnit": 2.7,
+      "heightSceneUnits": 0.6666667,
+      "radiusSceneUnits": 0.13,
+      "locationBlender": [0, -14.6, 0.3333333],
+      "bottomAtGroundDatum": true,
+      "temporaryProxyOnly": true,
+      "savedToMaster": false
+    },
+    "fixedViews": {
+      "canonical": {
+        "camera": [12, -50, 7],
+        "target": [0, -0.6, 6.2],
+        "lensMm": 48,
+        "hero": {
+          "path": "test_artifacts/test_shanghai-cinema_mcp3_hero_canonical.png",
+          "sha256": "ce41c0ca84f35ab4df39c3c087cf1576d554b67e1676561156ac256aa4066114",
+          "bytes": 783207
+        },
+        "identity": {
+          "path": "test_artifacts/test_shanghai-cinema_mcp3_identity_canonical.png",
+          "sha256": "7e002256c939d736cc43f1f8f6670fddd92f683afeffe8f05cd0d61288e10384",
+          "bytes": 732766
+        },
+        "massing": {
+          "path": "test_artifacts/test_shanghai-cinema_mcp3_massing_canonical.png",
+          "sha256": "d9aa128bdaf5b695741570581308fadf9b9155671833851ed2753b909a9d2de5",
+          "bytes": 733924
+        },
+        "triptych": {
+          "path": "test_artifacts/test_shanghai-cinema_mcp3_canonical_triptych.png",
+          "sha256": "8729c6126c618b68c4124e005fb8d6a13b58092438900d422bdad94aee31c3e4",
+          "bytes": 1289062,
+          "order": ["hero", "identity", "massing"]
+        }
+      },
+      "side": {
+        "camera": [39, -34, 8.5],
+        "target": [4, -0.2, 6.5],
+        "lensMm": 52,
+        "hero": {
+          "path": "test_artifacts/test_shanghai-cinema_mcp3_hero_side.png",
+          "sha256": "5422c1ff1dc4b37b3df9ec1b9b255399d3f99c17200bbf9caa1fc1f68d0ef63f",
+          "bytes": 840011
+        },
+        "identity": {
+          "path": "test_artifacts/test_shanghai-cinema_mcp3_identity_side.png",
+          "sha256": "761b37e29b1b8fe0bec97c76d4e6ca2de653dea011a115fce3306074fb6ead37",
+          "bytes": 762606
+        },
+        "massing": {
+          "path": "test_artifacts/test_shanghai-cinema_mcp3_massing_side.png",
+          "sha256": "d0d561b8ab4516c0872e2d0dc3c1f0acaacdc1ad64d93397a81c22af87dd435f",
+          "bytes": 766279
+        },
+        "triptych": {
+          "path": "test_artifacts/test_shanghai-cinema_mcp3_side_triptych.png",
+          "sha256": "b08501804e7176bc903d27b760afbd18107a9835302e2cf8141aecb67f6cbdf6",
+          "bytes": 1490749,
+          "order": ["hero", "identity", "massing"]
+        }
+      },
+      "entrance": {
+        "camera": [10, -45, 5.5],
+        "target": [0, -1, 6],
+        "lensMm": 48,
+        "hero": {
+          "path": "test_artifacts/test_shanghai-cinema_mcp3_hero_entrance.png",
+          "sha256": "96d7a483d717db6927593aebba34d28ce27564c28105cc72aab3970f4dac83a1",
+          "bytes": 797450
+        },
+        "identity": {
+          "path": "test_artifacts/test_shanghai-cinema_mcp3_identity_entrance.png",
+          "sha256": "92dc11e2f3b3e11b9fe1ca0ee9b32432b98b8baf9c42e84cce0750389e671070",
+          "bytes": 746358
+        },
+        "massing": {
+          "path": "test_artifacts/test_shanghai-cinema_mcp3_massing_entrance.png",
+          "sha256": "c0d74bf32f46257dcfe1141786c2afc76ecf00192eb6fc836c13d0fc9c11685d",
+          "bytes": 747061
+        },
+        "triptych": {
+          "path": "test_artifacts/test_shanghai-cinema_mcp3_entrance_triptych.png",
+          "sha256": "abacda9f4258fc3a019947fb973da967239084f415d60e19fe389dfb7149ba54",
+          "bytes": 1380685,
+          "order": ["hero", "identity", "massing"]
+        }
+      }
+    },
+    "checks": {
+      "sameOriginScaleCameraTargetLens": "pass",
+      "groundContact": "pass",
+      "correctedHumanScale": "pass",
+      "identityCompleteRuntimeComposite": "pass",
+      "ovalOpeningContinuity": "pass",
+      "asymmetricRibbonContinuity": "pass",
+      "glassDrumContinuity": "pass",
+      "sideWingContinuity": "pass",
+      "setbackTowerContinuity": "pass",
+      "stairContinuityHeroToIdentity": "pass",
+      "transformPopping": "none-observed",
+      "scopeBoundary": "pass-no-tree-decor-osm-or-other-building-loaded"
+    },
+    "acceptedInteractiveChanges": [],
+    "generatorRoundTrip": {
+      "status": "not-required",
+      "note": "MCP3只创建临时Identity composite、固定相机、灯光和人物代理；没有接受任何正式几何、材质或transform修改。"
+    }
+  },
+  "threeJsRuntimeGate": {
+    "massingMapCalibration": "pass",
+    "threeTierRuntime": "pass",
+    "runtimeQaRecord": "test_artifacts/test_shanghai-cinema_three-tier_runtime_qa.json",
+    "heroIdentityMassingLoad": "pass",
+    "heroToIdentityFallback": "pass",
+    "identityToProgrammaticFallback": "pass",
+    "cacheVersionAndReuse": "pass",
+    "browserErrors": [],
+    "nextGate": null
+  }
+}

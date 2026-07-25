@@ -2,7 +2,7 @@
   "schemaVersion": 3,
   "assetId": "shanghai-cinema",
   "tier": "massing",
-  "status": "massing-map-calibration-passed-mcp3-pending",
+  "status": "massing-map-calibration-mcp3-and-three-tier-runtime-passed",
   "generatedAt": "2026-07-25T18:09:16+08:00",
   "lineageId": "shanghai-cinema-massing-e1635a7796ad",
   "generator": {
@@ -160,20 +160,70 @@
       "test_artifacts/test_shanghai-cinema_mcp2_hero_entrance.png"
     ],
     "runtimeQaDraft": "test_artifacts/test_shanghai-cinema_massing_runtime_qa.json",
-    "mcp3Candidate": "test_artifacts/test_shanghai-cinema_mcp3_candidate.json"
+    "threeTierRuntimeQa": "test_artifacts/test_shanghai-cinema_three-tier_runtime_qa.json",
+    "mcp3Candidate": "test_artifacts/test_shanghai-cinema_mcp3_candidate.json",
+    "mcpGateRecord": "docs/research/shanghai-cinema-blender-mcp-gates.json",
+    "mcp3Triptychs": [
+      "test_artifacts/test_shanghai-cinema_mcp3_canonical_triptych.png",
+      "test_artifacts/test_shanghai-cinema_mcp3_side_triptych.png",
+      "test_artifacts/test_shanghai-cinema_mcp3_entrance_triptych.png"
+    ]
+  },
+  "mcp3": {
+    "status": "passed",
+    "review": "interactive-Blender-MCP",
+    "sameCameraViews": ["canonical", "side", "entrance"],
+    "identityRepresentation": {
+      "kind": "complete-runtime-composite",
+      "recipe": "app/scene/shanghai-cinema-hybrid-identity.tsx",
+      "recipeSha256": "c36bdf9450bfa23d266f2ba1e878360031ea54001f7b984955e7899c814e4c31",
+      "components": [
+        "ShanghaiCinemaProgrammaticBody",
+        "ShanghaiCinemaIdentityGlb",
+        "ShanghaiCinemaRepeatedDetails"
+      ],
+      "standaloneIdentityGlbIsCompleteTier": false
+    },
+    "humanScale": {
+      "heightMeters": 1.8,
+      "metersPerSceneUnit": 2.7,
+      "heightSceneUnits": 0.6666667,
+      "bottomAtGroundDatum": true
+    },
+    "acceptedInteractiveChanges": [],
+    "generatorRoundTripRequired": false
+  },
+  "threeTierRuntime": {
+    "status": "passed",
+    "routeContract": "/?start=cinema&qaCinemaTier={hero|identity|massing}&cameraQa=1",
+    "faultContract": "qaCinemaFault={hero-unavailable|identity-unavailable}",
+    "cases": [
+      "hero",
+      "identity",
+      "massing",
+      "hero-unavailable-to-identity",
+      "identity-unavailable-to-programmatic"
+    ],
+    "mapPlacementYawScaleGround": "passed",
+    "camera": "spring-clear-blocker-none",
+    "browserErrors": [],
+    "cache": "identity exact cache-version revalidated with 300-byte transfer",
+    "firstScreen": "only requested Shanghai Cinema tier assets; detailed character remained delayed",
+    "evidence": "test_artifacts/test_shanghai-cinema_three-tier_runtime_qa.json",
+    "performanceClaim": "none-without-same-condition-baseline"
   },
   "gates": {
     "evidenceAndBrief": "passed-existing",
     "deterministicGeneration": "passed",
     "glbStructuralAudit": "passed",
-    "mcp1MassingGeometry": "captured-candidate-for-main-window-review",
-    "mcp2HeroGeometry": "captured-candidate-for-main-window-review",
-    "mcpHumanScale": "requires-corrected-proxy-at-mcp3",
+    "mcp1MassingGeometry": "passed",
+    "mcp2HeroGeometry": "passed",
+    "mcpHumanScale": "passed-mcp3-corrected-proxy",
     "mcpHumanScaleNote": "现有 MCP1/2 圆柱高 1.8 scene units；按 1 unit = 2.7m 不能作为 1.8m 人体证据。MCP3 必须使用 0.666667 scene units。",
     "identityLineage": "passed-composite-runtime-boundary-recorded",
     "threeJsMapCalibration": "passed-runtime-draft",
-    "mcp3SameCameraThreeTier": "pending-main-window-serial-mcp",
-    "threeTierRuntime": "pending"
+    "mcp3SameCameraThreeTier": "passed",
+    "threeTierRuntime": "passed-static-runtime-with-fault-injection"
   },
   "scopeBoundary": {
     "activeAsset": "shanghai-cinema",

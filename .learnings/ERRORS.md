@@ -6301,3 +6301,106 @@ Error: listen EPERM: operation not permitted
 - **Resolved**: 2026-07-25T18:42:00+08:00
 - **Notes**: 对限定的项目本地 `tsx -e` 只读命令请求额外权限后复核成功；
   `terrainHeightAt(74.1, 80.9) = 0.909780347`，未改写工具链。
+
+---
+## [ERR-20260725-014] agent_browser_qa_session_timing_and_stale_errors
+
+**Logged**: 2026-07-25T19:06:30+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+本地 Three.js QA 中，页面导航后立即查找 intro 按钮会早于 React 挂载；默认
+agent-browser 会话还保留了其他端口的历史错误。
+
+### Error
+```text
+Element not found. Verify the selector is correct and the element exists in the DOM.
+errors --json returned prior http://127.0.0.1:4177 Sun Ke Villa fault-injection errors
+```
+
+### Context
+- 当前上海影城预览运行在 `127.0.0.1:4173`，历史错误来自无关的 `4177` 会话。
+- `errors --clear` 没有可靠隔离默认会话的历史错误。
+- 两个问题都发生在自动化控制层，没有修改页面数据或资产。
+
+### Suggested Fix
+为每栋建筑运行时验收使用命名 agent-browser session；导航后等待 intro DOM 可交互，
+再点击“出发”。控制台结论只读取该命名会话。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/test_shanghai-cinema_three-tier_runtime_qa.json
+
+### Resolution
+- **Resolved**: 2026-07-25T19:06:30+08:00
+- **Notes**: 改用隔离会话 `shanghai-cinema`，五个验收场景的错误列表均为空。
+
+---
+## [ERR-20260725-015] building_qa_changed_unrelated_core_props
+
+**Logged**: 2026-07-25T19:09:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+上海影城 QA 分支曾为减少背景资源而条件化其他核心建筑 props，破坏了既有生产合同测试。
+
+### Error
+```text
+test_progressive_world_loading.test.mjs
+The input did not match:
+/<HuashanGreenBlock...showEnvironmentDetails={mode === "explore"}.../
+```
+
+### Context
+- 任务明确禁止修改其他建筑。
+- 实际 Resource Timing 已证明 QA 页没有请求其他建筑 GLB，无需改变华山绿地、上生·新所或幸福里调用。
+- 上海影城显式 QA 分支本身可以完成隔离验收。
+
+### Suggested Fix
+建筑 QA 只新增目标建筑分支和目标查询参数，不条件化其他建筑既有 props；是否加载背景资源
+以实际 Resource Timing 证明。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-world.tsx, tests/test_progressive_world_loading.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T19:09:00+08:00
+- **Notes**: 已恢复三个核心建筑的原始调用，仅保留上海影城 QA 分支。
+
+---
+## [ERR-20260725-016] final_build_and_browser_batch_resource_contention
+
+**Logged**: 2026-07-25T19:20:46+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+最终静态构建在旧预览与两个浏览器会话并存时长时间停在 transform；五路浏览器批处理也未回传最终汇总。
+
+### Error
+```text
+vite build ... transforming...
+functions.exec browser batch kept running without returning the accumulated result
+```
+
+### Context
+- 关闭已完成的浏览器会话和旧预览后，同一 `npm run build:static` 在 1.13 秒完成。
+- 浏览器批处理实际依次更新了前四张截图并导航到第五个场景，但编排层未返回汇总。
+- 第五个场景随后通过单条命令确认状态、截图和零错误。
+
+### Suggested Fix
+构建前关闭不再需要的预览和浏览器；多页面 QA 使用可观察的短批次，关键最后状态用单条命令复核。
+
+### Metadata
+- Reproducible: intermittent
+- Related Files: test_artifacts/test_shanghai-cinema_three-tier_runtime_qa.json
+
+### Resolution
+- **Resolved**: 2026-07-25T19:20:46+08:00
+- **Notes**: 释放资源后最终 build 通过，五张截图均对应最终构建，隔离会话累计错误为空。
