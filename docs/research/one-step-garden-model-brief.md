@@ -5,22 +5,25 @@
 - Asset slug: `one-step-garden`
 - POI / environment / character: 新华路179号一尺花园安和花园店，前后分体建筑
 - Runtime component: `app/scene/xinhua-road-landmarks.tsx`
-- Generator: `scripts/create_xinhua_road_models.py`
+- Legacy Hero generator (Hold): `scripts/create_xinhua_road_models.py`
 - Massing generator: `scripts/create_one_step_garden_massing_model.py`
-- Editable source: `assets/models/source/xinhua-road/one-step-garden.blend`
-- Runtime GLB: `public/models/xinhua-road/one-step-garden.glb`
+- Hero v2 generator: `scripts/create_one_step_garden_hero_model.py`
+- Legacy editable source (Hold): `assets/models/source/xinhua-road/one-step-garden.blend`
+- Legacy runtime GLB (Hold): `public/models/xinhua-road/one-step-garden.glb`
+- Hero v2 source: `assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend`
+- Hero v2 GLB: `public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb`
 - Massing source: `assets/models/source/tiers/xinhua-road/massing-v2/one-step-garden-massing.blend`
 - Massing GLB: `public/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb`
 - Start preset: `/?start=garden179`
-- Single-asset build command: `/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xinhua_road_models.py -- --asset=one-step-garden`
+- Hero v2 build command: `/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_one_step_garden_hero_model.py`
 - Massing build command: `blender --background --python-exit-code 1 --python scripts/create_one_step_garden_massing_model.py`
-- Validation command: `python3 /Users/lei/.codex/skills/photo-reference-webgl-modeling/scripts/audit_glb.py public/models/xinhua-road/one-step-garden.glb`
+- Hero v2 validation command: `python3 /Users/lei/.codex/skills/photo-reference-webgl-modeling/scripts/audit_glb.py public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb --forbid-images --max-nodes 9`
 - Massing validation command: `python3 /Users/lei/.codex/skills/photo-reference-webgl-modeling/scripts/audit_glb.py public/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb --forbid-images --max-nodes 1`
 
 ## Preflight Gate
 
 - Blender binary and version: `/Applications/Blender.app/Contents/MacOS/Blender`，`5.2.0 LTS`
-- Generator dry run / affected assets: Massing 使用独立单资产生成器；Hero 必须使用 `--asset=one-step-garden`，均不得覆盖其他 POI
+- Generator dry run / affected assets: Massing 与 Hero v2 均使用独立单资产生成器；旧共享 generator 与旧 Hero Hold 不运行、不覆盖
 - GLB audit command: 使用上述 `audit_glb.py`
 - Local preview command and port: `npm run dev` 或静态构建预览；端口以实际输出为准
 - Browser/runtime validation path: `/?start=garden179`；当前 production runtime 没有通用 `qaModelTier`，Massing 地图门采用临时、可回滚的单建筑 registry QA assembly，验收后恢复原 registry
@@ -138,8 +141,8 @@
 ### Build provenance
 
 - Baseline GLB SHA / bounds / metrics: 在 Iteration 1 动工前写入 build record
-- Expected output paths: `assets/models/source/xinhua-road/one-step-garden.blend`、`public/models/xinhua-road/one-step-garden.glb`
-- Build record path: `docs/research/build-records/one-step-garden.json`
+- Expected Hero v2 output paths: `assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend`、`public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb`
+- Hero v2 build record path: `docs/research/build-records/tiers/xinhua-road/hero-v2/one-step-garden-hero.json`
 - Cache version rule: GLB SHA 变化时同步更新 `cacheVersion` 和 build record
 
 ## Batch Plan
@@ -148,7 +151,7 @@
 | --- | --- | --- | --- | --- |
 | Massing | 前体量、后体量、院落间隙与坡屋顶 | canonical 分体轮廓 | 真实 `?start=` 灰模门 | MCP1 + map gate passed; shared integration pending |
 | Runtime calibration | 位置、比例、朝向、机位和道路退界 | N/A | 冻结旧落点完成地图门；公共 registry 由主窗口整合 | Map gate passed |
-| Hero master disposition | 只读审计旧 `.blend` / GLB / generator / lineage | MCP2 前必须具备正确主体和三固定机位 | N/A | Blocked：旧 Hero 误绑且含范围外内容，须新建 Hero v2 |
+| Hero master disposition | 只读审计旧 `.blend` / GLB / generator / lineage | MCP2 前必须具备正确主体和三固定机位 | N/A | Hero v2 Headless candidate ready；等待主窗口串行 MCP2 |
 | Identity | 半木构、老虎窗、红砖后体量和场地层次 | 三项构件可读 | Identity 距离可辨认 | Blocked：新 Hero master 通过 MCP2 前不得派生 |
 | Materials | 白墙、红砖、深木构和灰褐瓦 | 固定机位无黑面 | 项目色盘一致 | Pending |
 | Site | 树木、草坪、家具、店招与装饰物 | N/A | N/A | Hold：严格排除在18栋建筑范围外 |
@@ -241,3 +244,21 @@
 - Disposition: 旧 Hero 仅作为 `Hold / read-only rollback` 保留，不删除、不覆盖，不送 MCP2，也不得作为 Identity 来源；公共 registry 按主窗口要求继续保留旧 Hero。
 - Rebuild plan: 新建独立 `scripts/create_one_step_garden_hero_model.py`、`assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend`、`public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb` 和对应 build record；从已通过的 Massing contract 延伸正确建筑，严格排除树木、外摆和装饰，关闭 topology/normal/fixed-view blocker 后再申请主窗口串行 MCP2。
 - Detailed record: `docs/research/one-step-garden-hero-disposition.json`。
+
+### Iteration 6 — 2026-07-25 evidence-backed Hero v2 candidate
+
+- Changes: 新建独立 `scripts/create_one_step_garden_hero_model.py`，从已通过 MCP1 与地图门的 Massing 骨架延伸 Hero v2；新增独立 `.blend`、GLB、三张固定机位与 build record。旧 Hero Hold、共享 generator 和公共 registry 均未删除、覆盖或修改。
+- Evidence-supported geometry: 保持前部白色 U 形建筑群、左右陡坡瓦屋顶、横向后体量和棚屋形老虎窗；加入深色半木构、老虎窗连续窄窗、稳定门窗节奏；后院保持独立红砖长屋、双花园向山墙与两根烟囱。
+- Scope kept out: 未生成树木、灌木、草坪、咖啡外摆、雨伞、花盆、灯、围栏、店招、装饰铺装、其他建筑或全地图资产。
+- Lineage: Hero v2 root extras 与 build record 均锁定 Massing GLB SHA-256 `a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761` 和 MCP1-reviewed Blend SHA-256 `a4c0e0fba996f139a88344b6f39a8a2509326ba7018206dc888231fab6474388`；local `-Y`、ground `0`、位置、yaw、scale、8 个分体碰撞语义和前后开放间隙不变。
+- Blender result: Headless Blender 5.2.0 保存仅含 `one-step-garden-hero` 单一 mesh 的可编辑 `.blend`，SHA-256 `23bae78ed7447227118c97d572866ba3e3f3a71158cfb56f12444c374510d5f5`；1.8m 人物、地面、前向标记和三相机只用于预览，未保存到 master、未导出 GLB。
+- GLB result: SHA-256 `1174a96c713bcce1b63512fd5c4e7c5405a7c5c5bb11800787943d5551df5094`；`259,632` bytes、`1` node、`1` mesh、`7` materials、`3,584` triangles、`0` images/textures/animations；bounds `[-7.25,0,-9.325]` 到 `[7.25,6.25,6.9]` 与 Massing 完全一致，root transform 归一。
+- Topology and normals: 两套独立解析器均确认 `0` zero-area triangles、`0` non-finite positions、`0` invalid indices、`0` missing/zero/non-unit normals 和 `0` face-normal orientation mismatches。
+- Determinism: 完整相同 Headless 命令连续两次得到相同 GLB SHA-256 `1174a96c713bcce1b63512fd5c4e7c5405a7c5c5bb11800787943d5551df5094`。
+- Fixed evidence:
+  - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2-canonical.png`
+  - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2-side-depth.png`
+  - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2-entrance-detail.png`
+- Visual result: canonical 可读前部 U 形白墙深木结构、老虎窗和后方红砖长屋；side/depth 可读两栋分离与开放间隙；entrance/detail 可读门窗节奏、入口棚和 1.8m 尺标。未知背面保持低细节，没有虚构装饰。
+- Gate result: Headless candidate Passed；已向主窗口申请串行 Blender MCP2。MCP2 通过前 Identity 继续锁定，公共 registry 继续旧 Hero。
+- Detailed record: `docs/research/build-records/tiers/xinhua-road/hero-v2/one-step-garden-hero.json`。

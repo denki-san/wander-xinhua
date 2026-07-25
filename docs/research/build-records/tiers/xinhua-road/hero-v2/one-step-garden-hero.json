@@ -1,0 +1,326 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "one-step-garden",
+  "tier": "hero",
+  "versionName": "hero-v2",
+  "status": "headless-candidate-awaiting-main-window-mcp2",
+  "generator": "scripts/create_one_step_garden_hero_model.py",
+  "generatorSha256": "b9fc81f1eaa9d1aea6086ebe9d961d1deb35dd5ba2bb7a489d7bc4c1d8131128",
+  "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_one_step_garden_hero_model.py",
+  "blenderVersion": "5.2.0 LTS",
+  "derivedFrom": {
+    "tier": "massing",
+    "generator": "scripts/create_one_step_garden_massing_model.py",
+    "editableSource": "assets/models/source/tiers/xinhua-road/massing-v2/one-step-garden-massing.blend",
+    "editableSourceSha256": "a4c0e0fba996f139a88344b6f39a8a2509326ba7018206dc888231fab6474388",
+    "runtimeAsset": "public/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb",
+    "runtimeAssetSha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+    "buildRecord": "docs/research/build-records/tiers/xinhua-road/massing-v2/one-step-garden-massing.json",
+    "mcp1": "pass",
+    "mapGate": "pass"
+  },
+  "modelBrief": "docs/research/one-step-garden-model-brief.md",
+  "referenceManifest": "docs/research/one-step-garden-reference-manifest.json",
+  "heroDisposition": "docs/research/one-step-garden-hero-disposition.json",
+  "evidenceSha256": [
+    "006c5722562b8be2316f975d6e06e14c35cf507f875d474ea4696f527c25d3ff",
+    "058998a95691b90af3562f2e3ef33092446f571fe8d63d7ac6b48b135a3587b0",
+    "171889a9a41a5c9d9ecb2b04d3abb70a306f7a2ec143fdb9511ffc75b44334f9"
+  ],
+  "legacyHeroHold": {
+    "editableSource": "assets/models/source/xinhua-road/one-step-garden.blend",
+    "editableSourceSha256": "5893234badecb648979adfc27de681b579ff3344ffe44ec5dbe3815751f8ffed",
+    "runtimeAsset": "public/models/xinhua-road/one-step-garden.glb",
+    "runtimeAssetSha256": "a68b4e25a44e922af8d98cd4f2e0ee00486b93d94d08b005816e5ceea5b86627",
+    "overwritten": false,
+    "deleted": false
+  },
+  "scope": {
+    "included": [
+      "front-white-u-shaped-half-timber-compound",
+      "front-steep-tile-roofs",
+      "front-shed-dormer-and-window-bank",
+      "stable-building-window-and-door-rhythm",
+      "separate-rear-red-brick-long-house",
+      "rear-twin-gables-and-two-chimneys",
+      "open-front-courtyard-and-front-rear-gap"
+    ],
+    "excluded": [
+      "trees",
+      "shrubs",
+      "grass",
+      "commercial-furniture",
+      "umbrellas",
+      "planters",
+      "lamps",
+      "fences",
+      "signage",
+      "decorative-paving",
+      "other-buildings",
+      "full-map-assets"
+    ]
+  },
+  "evidenceBoundary": {
+    "observed": [
+      "front white U-shaped courtyard relation",
+      "front steep tiled gables",
+      "front shed dormer",
+      "separate rear red-brick volume",
+      "rear long roof and two front gables",
+      "rear central tall and left secondary chimneys",
+      "front stable dark window rhythm"
+    ],
+    "inferred": [
+      "exact depth and spacing",
+      "unseen rear sides",
+      "absolute height",
+      "unseen window placement simplified from visible rhythm"
+    ],
+    "unknown": [
+      "surveyed footprints",
+      "OSM membership",
+      "compass orientation",
+      "rear facade and inter-building connection"
+    ]
+  },
+  "placement": {
+    "position": [
+      60.86,
+      120.73
+    ],
+    "yaw": -0.38,
+    "runtimeScale": 0.88,
+    "movementAuthorized": false,
+    "mapGate": "pass"
+  },
+  "scale": {
+    "sceneUnitMeters": 2.7,
+    "previewHumanMeters": 1.8,
+    "previewHumanSceneUnits": 0.666667,
+    "heightStatus": "photo-and-legacy-envelope-inference-not-survey"
+  },
+  "canonicalFront": "local-negative-y",
+  "identityAllowed": false,
+  "mcp2": {
+    "status": "pending-main-window-serial-review",
+    "requestedAfterCommit": true,
+    "acceptedInteractiveChanges": [],
+    "qaRigSaved": false,
+    "qaRigExported": false,
+    "gateRecord": "docs/research/one-step-garden-blender-mcp-gates.json",
+    "identityRemainsBlocked": true
+  },
+  "blendSceneAudit": {
+    "objectCount": 1,
+    "objects": [
+      "one-step-garden-hero"
+    ],
+    "types": [
+      "MESH"
+    ],
+    "rootLocation": [
+      0,
+      0,
+      0
+    ],
+    "rootRotation": [
+      0,
+      0,
+      0
+    ],
+    "rootScale": [
+      1,
+      1,
+      1
+    ],
+    "previewHelpersSaved": false
+  },
+  "determinism": {
+    "sameCommandRuns": 2,
+    "sameGlbSha256": true,
+    "verification": "external-two-command-runs-on-2026-07-25"
+  },
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend",
+      "sha256": "23bae78ed7447227118c97d572866ba3e3f3a71158cfb56f12444c374510d5f5",
+      "bytes": 139552
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb",
+      "sha256": "1174a96c713bcce1b63512fd5c4e7c5405a7c5c5bb11800787943d5551df5094",
+      "bytes": 259632,
+      "cacheVersion": "20260725-hero-1174a96c"
+    },
+    "previews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2-canonical.png",
+        "sha256": "28839835dfc65b3d5513e968048876fe1e27292f6ed75ddd6b2d7919f2329d72",
+        "bytes": 827073
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2-side-depth.png",
+        "sha256": "c26daa41ba4f990f4bc04539357a38f8b698552001ee9a72d351aa5a7189103d",
+        "bytes": 803251
+      },
+      "entranceDetail": {
+        "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2-entrance-detail.png",
+        "sha256": "c784b01fb556a741b40b98ab17e80a6027e440358c68fe039d0134e32b0e8a4d",
+        "bytes": 862741
+      }
+    }
+  },
+  "fixedCameras": {
+    "canonical": {
+      "location": [
+        13.5,
+        -23.5,
+        14.0
+      ],
+      "target": [
+        0.0,
+        0.0,
+        2.8
+      ],
+      "orthoScale": 22.0,
+      "direction": "street local-negative-y toward front volume"
+    },
+    "sideDepth": {
+      "location": [
+        -22.0,
+        -4.0,
+        15.5
+      ],
+      "target": [
+        0.0,
+        2.0,
+        2.8
+      ],
+      "orthoScale": 22.0,
+      "direction": "west oblique showing front-rear separation"
+    },
+    "entrance": {
+      "location": [
+        7.0,
+        -18.5,
+        8.5
+      ],
+      "target": [
+        0.0,
+        -2.5,
+        2.2
+      ],
+      "orthoScale": 14.5,
+      "direction": "street oblique toward open entrance canopy"
+    }
+  },
+  "collisionContract": {
+    "source": "docs/research/one-step-garden-massing-map-qa.json",
+    "localBounds": {
+      "minX": -7.25,
+      "maxX": 7.25,
+      "minZ": -9.325,
+      "maxZ": 6.9
+    },
+    "localObstacles": [
+      {
+        "minX": -4.2,
+        "maxX": 4.2,
+        "minZ": -1.8,
+        "maxZ": 1.8
+      },
+      {
+        "minX": -6.7,
+        "maxX": -3.3,
+        "minZ": -0.5,
+        "maxZ": 6.7
+      },
+      {
+        "minX": 3.4,
+        "maxX": 6.6,
+        "minZ": -0.5,
+        "maxZ": 6.6
+      },
+      {
+        "minX": -1.24,
+        "maxX": -1.06,
+        "minZ": 6.16,
+        "maxZ": 6.34
+      },
+      {
+        "minX": 3.26,
+        "maxX": 3.44,
+        "minZ": 6.16,
+        "maxZ": 6.34
+      },
+      {
+        "minX": -7,
+        "maxX": 7,
+        "minZ": -9.1,
+        "maxZ": -4.9
+      },
+      {
+        "minX": -6.775,
+        "maxX": -3.525,
+        "minZ": -7.05,
+        "maxZ": -3.85
+      },
+      {
+        "minX": 3.525,
+        "maxX": 6.775,
+        "minZ": -7.05,
+        "maxZ": -3.85
+      }
+    ],
+    "entranceAndFrontRearGapRemainOpen": true
+  },
+  "budget": {
+    "maxTriangles": 62000,
+    "maxNodes": 9,
+    "maxMaterials": 12,
+    "maxImages": 0,
+    "maxBytes": 4800000
+  },
+  "publicRegistry": {
+    "modified": false,
+    "integration": "pending-main-window-after-mcp2"
+  },
+  "glb": {
+    "sha256": "1174a96c713bcce1b63512fd5c4e7c5405a7c5c5bb11800787943d5551df5094",
+    "bytes": 259632,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 7,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "triangles": 3584,
+    "topology": {
+      "zeroAreaTriangles": 0,
+      "nonFinitePositions": 0,
+      "invalidIndices": 0,
+      "zeroAreaByMaterial": {}
+    },
+    "normals": {
+      "primitivesWithoutNormals": 0,
+      "zeroLengthNormals": 0,
+      "nonUnitNormals": 0,
+      "orientationMismatches": 0,
+      "mismatchByMaterial": {}
+    },
+    "bounds": {
+      "min": [
+        -7.25,
+        0,
+        -9.325
+      ],
+      "max": [
+        7.25,
+        6.25,
+        6.9
+      ]
+    },
+    "transformedNodes": []
+  }
+}

@@ -167,24 +167,41 @@
     "identityAuthorized": false
   },
   "heroGate": {
-    "status": "blocked-rebuild-required-before-mcp2",
+    "status": "candidate-awaiting-main-window-mcp2",
     "disposition": "docs/research/one-step-garden-hero-disposition.json",
     "legacyHeroMcp2Candidate": false,
     "legacyHeroDisposition": "hold-read-only-rollback-only",
-    "mcp2Requested": false,
-    "blockers": [
+    "mcp2Requested": true,
+    "candidate": {
+      "version": "hero-v2",
+      "generator": "scripts/create_one_step_garden_hero_model.py",
+      "generatorSha256": "b9fc81f1eaa9d1aea6086ebe9d961d1deb35dd5ba2bb7a489d7bc4c1d8131128",
+      "editableSource": "assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend",
+      "editableSourceSha256": "23bae78ed7447227118c97d572866ba3e3f3a71158cfb56f12444c374510d5f5",
+      "runtimeAsset": "public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb",
+      "buildRecord": "docs/research/build-records/tiers/xinhua-road/hero-v2/one-step-garden-hero.json",
+      "derivedFromMassingGlbSha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+      "glbSha256": "1174a96c713bcce1b63512fd5c4e7c5405a7c5c5bb11800787943d5551df5094",
+      "cacheVersion": "20260725-hero-1174a96c",
+      "headlessStatus": "pass",
+      "topologyStatus": "pass-zero-degenerate-zero-normal-mismatch",
+      "fixedViewCount": 3,
+      "scopePollution": false,
+      "publicRegistryModified": false
+    },
+    "legacyBlockersClosedByCandidate": [
       "subject-mismatch",
       "misbound-evidence",
       "scope-pollution",
-      "696-zero-area-triangles",
-      "19-normal-orientation-mismatches",
+      "zero-area-triangles",
+      "normal-orientation-mismatches",
       "hero-massing-tier-contract-mismatch",
       "missing-build-record-and-fixed-view-set"
     ],
-    "nextGate": "evidence-backed-hero-v2-build-before-main-window-mcp2"
+    "nextGate": "main-window-serial-blender-mcp2"
   },
   "identityGate": {
-    "status": "blocked-until-new-hero-master-passes-mcp2",
+    "status": "blocked-until-hero-v2-passes-mcp2",
     "legacyHeroMayBeIdentitySource": false
   },
   "threeTierGate": {
