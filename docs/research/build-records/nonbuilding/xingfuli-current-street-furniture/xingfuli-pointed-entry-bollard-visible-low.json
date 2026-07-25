@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "site:street-furniture:xingfuli:xingfuli-pointed-entry-bollard",
+  "slug": "xingfuli-pointed-entry-bollard",
+  "family": "street-furniture",
+  "siteBinding": "xingfuli",
+  "status": "blender-glb-and-isolated-runtime-qa-passed",
+  "sourceTier": "editable-hero-master",
+  "runtimeTier": "visible-low",
+  "runtimeStates": [
+    "visible-low",
+    "hidden"
+  ],
+  "buildingTierCompatibility": {
+    "hero": "editable-master-only",
+    "identity": "not-applicable-by-nonbuilding-two-state-contract",
+    "massing": "not-applicable-by-nonbuilding-two-state-contract"
+  },
+  "modelBrief": "docs/research/xingfuli-current-street-furniture-model-brief.md",
+  "referenceManifest": "docs/research/xingfuli-current-street-furniture-reference-manifest.json",
+  "decisionLog": "docs/research/xingfuli-current-street-furniture-decision-log.md",
+  "generator": "scripts/create_xingfuli_current_street_furniture_models.py",
+  "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_xingfuli_current_street_furniture_models.py -- --asset xingfuli-pointed-entry-bollard",
+  "evidence": "observed-current-xingfuli-entry",
+  "recognizers": [
+    "dark square shaft",
+    "four-slope pointed cap",
+    "slightly wider low plinth"
+  ],
+  "qualityBoundary": {
+    "observed": [
+      "The current entrance image repeatedly shows a dark square shaft with a four-slope pointed cap.",
+      "People and repeated instances support a knee-to-thigh-height scale range and separated placement."
+    ],
+    "inferred": [
+      "Dimensions are visually estimated from people and paving modules.",
+      "Unseen rear and underside construction remain conservative.",
+      "Material family is inferred from colour and reflectance only."
+    ],
+    "unknown": [
+      "manufacturer and product model",
+      "surveyed dimensions and exact material",
+      "hidden fasteners, underside and drainage",
+      "field condition after the 2025 post"
+    ],
+    "sources": [
+      "docs/research/xingfuli-current-street-furniture-reference-manifest.json",
+      "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-entry-bollards-2026.webp"
+    ]
+  },
+  "originContract": {
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "meaning": "asset-ground-center",
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "blenderFront": "-Y",
+    "worldPlacementBaked": false,
+    "authoredMetersPerSceneUnit": 2.7,
+    "surveyedMeters": false
+  },
+  "targetDimensionsSceneUnits": [
+    0.16,
+    0.16,
+    0.3
+  ],
+  "budget": {
+    "maxTriangles": 200,
+    "maxNodes": 4,
+    "maxMaterials": 4,
+    "maxImages": 0,
+    "maxBinaryBytes": 131072
+  },
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/xingfuli-current-street-furniture/xingfuli-pointed-entry-bollard.blend",
+    "blendSha256": "19404871248b791d021bb6362e1eda026ebb482f34f159c8c6d71c1a403c0398",
+    "glb": "public/models/nonbuilding/xingfuli-current-street-furniture/xingfuli-pointed-entry-bollard-visible-low.glb",
+    "previews": {
+      "canonical": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-pointed-entry-bollard-canonical.png",
+      "side": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-pointed-entry-bollard-side.png",
+      "detail": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-pointed-entry-bollard-detail.png"
+    }
+  },
+  "glb": {
+    "sha256": "b91f86a7cfb4bc61562e047edfe41bc7ab2006b2d9f5a4dc3581ab94b914d91e",
+    "bytes": 9352,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "materialBaseColors": {
+      "xingfuli-pointed-entry-bollard-dark-stone-material": [
+        0.07500000298023224,
+        0.08500000089406967,
+        0.0820000022649765,
+        1
+      ]
+    },
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 94,
+    "bounds": {
+      "min": [
+        -0.085,
+        0,
+        -0.085
+      ],
+      "max": [
+        0.085,
+        0.3,
+        0.085
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": {
+    "status": "passed-isolated-qa",
+    "qaRoute": "/nonbuilding-evidence-qa?asset=xingfuli-pointed-entry-bollard",
+    "productionRegistry": "intentionally-not-integrated",
+    "productionManifest": "intentionally-not-modified",
+    "mapPlacement": "not-performed",
+    "collision": "not-performed",
+    "twoStateDistanceCheck": "passed: 4m and 10m use the same visible-low GLB; fresh 22m tab is hidden with zero GLB requests",
+    "performance": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-current-street-furniture-runtime-metrics.json",
+    "runtimeScreenshot": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-pointed-entry-bollard-webgl.png",
+    "consoleErrors": 0
+  },
+  "mcpGate": {
+    "status": "passed",
+    "masterSceneRead": true,
+    "viewportReview": true,
+    "generatorWritebackRequired": false,
+    "savedQaObjectsInMaster": false
+  }
+}

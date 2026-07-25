@@ -8080,3 +8080,339 @@ EPERM: operation not permitted, open
 - **Notes**: 精确宿主重跑与 `/tmp` 中转均成功，未覆盖 Hold 资产。
 
 ---
+
+## [ERR-20260725-057] modeling_skill_reference_filename_mismatch
+
+**Logged**: 2026-07-25T22:35:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+
+读取照片参考建模 Skill 的补充清单时，先按推测访问了不存在的文件名。
+
+### Error
+
+```text
+No such file or directory:
+references/quality-gate-checklist.md
+```
+
+### Context
+
+- Skill 主文件实际链接的是 `references/modeling-checklist.md`；
+- 错误发生在建模动工前，没有产生资产或证据文件的部分写入。
+
+### Suggested Fix
+
+先从 `SKILL.md` 读取准确的相对引用，再按原样解析；不要根据标题猜测文件名。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: /Users/lei/.codex/skills/photo-reference-webgl-modeling/SKILL.md
+
+### Resolution
+
+- **Resolved**: 2026-07-25T22:36:00+08:00
+- **Notes**: 已改读正确的 `references/modeling-checklist.md` 并完整执行清单。
+
+---
+
+## [ERR-20260725-058] blender_mcp_review_scene_defaults
+
+**Logged**: 2026-07-25T22:54:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+
+Blender MCP 新建临时审查 Scene 时，不能假定 Scene 自带 World，也不能把
+`MATERIAL` 赋给当前 Blender 5.2 视口的 `shading.type`。
+
+### Error
+
+```text
+'NoneType' object has no attribute 'color'
+bpy_struct: item.attr = val: enum "MATERIAL" not found in
+('WIREFRAME', 'SOLID', 'RENDERED')
+```
+
+### Context
+
+- 只影响未保存的 `test_xingfuli_current_furniture_mcp_review` 临时 Scene；
+- 四份冻结 `.blend` 已先通过 library 只读检查，没有测试相机、灯光或地面；
+- 原用户 Scene 没有被保存或覆盖。
+
+### Suggested Fix
+
+新 Scene 显式创建并绑定 `bpy.data.worlds.new(...)`；视口用
+`shading.type = "SOLID"` 与 `shading.color_type = "MATERIAL"` 的组合。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: scripts/create_xingfuli_current_street_furniture_models.py
+
+### Resolution
+
+- **Resolved**: 2026-07-25T22:56:00+08:00
+- **Notes**: 临时审查完成后已恢复原 `Scene`，重新读取确认仍为原 8 个对象。
+
+---
+
+## [ERR-20260725-059] nonbuilding_worktree_dependencies_missing
+
+**Logged**: 2026-07-25T23:03:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+
+新的非建筑 Worktree 没有独立 `node_modules`，首次 `npm run lint` 无法找到
+ESLint。
+
+### Error
+
+```text
+sh: eslint: command not found
+```
+
+### Context
+
+- 主项目 `/Users/lei/App_developing/wander-xinhua/node_modules` 完整存在；
+- 不需要为同一锁文件重复安装依赖或修改 lockfile。
+
+### Suggested Fix
+
+在 Worktree 中使用被 Git 忽略的 `node_modules` 符号链接复用主项目依赖，再运行
+lint、build 与本地 QA。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: package.json, .gitignore
+
+### Resolution
+
+- **Resolved**: 2026-07-25T23:04:00+08:00
+- **Notes**: 已创建指向主项目依赖目录的忽略 symlink；未安装新依赖。
+
+---
+
+## [ERR-20260725-060] qa_query_state_initialized_in_effect
+
+**Logged**: 2026-07-25T23:06:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+
+隔离 QA 页面最初在挂载 effect 中同步写入查询参数对应的 state，触发 React 19
+`set-state-in-effect` 规则。
+
+### Error
+
+```text
+Calling setState synchronously within an effect can trigger cascading renders
+react-hooks/set-state-in-effect
+```
+
+### Context
+
+- 只影响新路由 `app/nonbuilding-evidence-qa/`；
+- 资产生成、GLB 和生产 world 不受影响。
+
+### Suggested Fix
+
+用 Next `useSearchParams` 与 `useState` lazy initializer 读取初始查询参数，并由
+页面级 `Suspense` 提供静态构建边界；effect 只负责同步外部 URL。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: app/nonbuilding-evidence-qa/NonbuildingEvidenceQa.tsx
+
+### Resolution
+
+- **Resolved**: 2026-07-25T23:07:00+08:00
+- **Notes**: 已移除同步 setState effect，并增加页面级 Suspense fallback。
+
+---
+
+## [ERR-20260725-061] vinext_dev_ipv6_localhost_only
+
+**Logged**: 2026-07-25T23:12:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+
+Vinext 开发服务只监听 `[::1]:3017`，因此 `127.0.0.1:3017` 首次浏览器连接被拒绝。
+
+### Error
+
+```text
+net::ERR_CONNECTION_REFUSED
+lsof: node ... TCP [::1]:3017 (LISTEN)
+```
+
+### Context
+
+- `curl http://localhost:3017/...` 返回 HTTP 200；
+- 页面、GLB 与构建本身没有失败。
+
+### Suggested Fix
+
+本次预览使用 `http://localhost:3017`；如果必须使用 IPv4，应显式配置 host/bind，
+不能根据启动输出假定同时监听 127.0.0.1。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: package.json
+
+### Resolution
+
+- **Resolved**: 2026-07-25T23:13:00+08:00
+- **Notes**: 浏览器切换到 `localhost` 后，页面与 GLB 均可访问。
+
+---
+
+## [ERR-20260725-062] browser_load_signal_not_runtime_ready
+
+**Logged**: 2026-07-25T23:18:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: testing
+
+### Summary
+
+当前 Browser 后端不支持 `networkidle`，开发模式的通用 `load` 等待也可能超时；
+而 DOM ready 早于 GLB Suspense 完成，曾截到黑色首帧。
+
+### Error
+
+```text
+playwright_wait_for_load_state does not support networkidle
+Timed out waiting for load
+```
+
+### Context
+
+- 页面标题和 DOM 已存在，但最初没有模型级 ready 信号；
+- 黑色首帧来自整个 QA Scene 被模型 Suspense 一起挂起，不是 GLB 空白。
+
+### Suggested Fix
+
+把背景、灯光和地面放在模型 Suspense 外；模型加载完成后设置
+`data-qa-render-ready=true`，浏览器截图只等待该确定性信号。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: app/nonbuilding-evidence-qa/NonbuildingEvidenceQa.tsx
+
+### Resolution
+
+- **Resolved**: 2026-07-25T23:20:00+08:00
+- **Notes**: 四件模型均以模型级 ready 信号完成截图；远景 hidden 也立即 ready。
+
+---
+
+## [ERR-20260725-063] blender_master_sha_changes_on_rebuild
+
+**Logged**: 2026-07-25T23:45:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: modeling
+
+### Summary
+
+相同生成器与参数重建单个路桩时，GLB SHA 保持不变，但 Blender master 的文件
+SHA 发生变化。
+
+### Error
+
+```text
+previous Blend SHA: 1864bb7587a3...
+current Blend SHA:  19404871248b...
+GLB SHA unchanged:  b91f86a7cfb4...
+```
+
+### Context
+
+- 几何、固定机位图和运行时 GLB 没有视觉或结构漂移；
+- `.blend` 保存包含不能保证字节稳定的 Blender 序列化信息。
+
+### Suggested Fix
+
+每次重建都记录当前 Blend SHA，但把确定性验收放在生成输入、对象结构、几何
+metrics、GLB SHA 和视觉对照；不要要求 `.blend` 字节 SHA 跨保存不变。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: scripts/create_xingfuli_current_street_furniture_models.py
+
+### Resolution
+
+- **Resolved**: 2026-07-25T23:46:00+08:00
+- **Notes**: build record 和批次 manifest 已更新到当前 master SHA；GLB 不变，
+  无需重做浏览器二进制验收。
+
+---
+
+## [ERR-20260725-064] full_test_blocked_by_existing_world_type_error
+
+**Logged**: 2026-07-25T23:58:00+08:00
+**Priority**: medium
+**Status**: unresolved
+**Area**: testing
+
+### Summary
+
+全仓 `npm test` 的 219 项中 218 项通过，唯一失败来自本批未修改的共享
+`app/scene/xinhua-world.tsx` 既有 tuple 类型错误。
+
+### Error
+
+```text
+app/scene/xinhua-world.tsx(1827,62): error TS2345:
+Argument of type 'number[]' is not assignable to parameter of type
+'readonly [number, number, number]'.
+
+app/scene/xinhua-world.tsx(1828,66): error TS2345:
+Argument of type 'number[]' is not assignable to parameter of type
+'readonly [number, number, number]'.
+```
+
+### Context
+
+- 本分类没有修改 `app/scene/xinhua-world.tsx`；
+- 静态构建和 Sites 构建均成功；
+- 新增街具专项测试 4/4 通过；
+- 用户要求本分支避免修改公共 registry、production manifest 和 18 栋运行时入口。
+
+### Suggested Fix
+
+在拥有共享世界运行时边界的任务中单独修正 tuple 推导并回归全仓测试；当前
+街具分类提交只记录该基线失败，不跨范围修改公共入口。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: app/scene/xinhua-world.tsx, tests/typecheck-scene.test.mjs
+
+### Resolution
+
+- **Unresolved**: 2026-07-25T23:58:00+08:00
+- **Notes**: 当前分类继续以专项测试、lint、两种构建和独立运行时验收作为
+  完成证据；不把全仓 `npm test` 误报为通过。
+
+---
