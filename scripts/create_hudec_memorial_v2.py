@@ -40,11 +40,112 @@ def scale_asset_geometry(factor: float) -> None:
 def massing_materials() -> dict[str, bpy.types.Material]:
     return {
         "plaster": base.material("邬达克体块暖白灰泥", "#d6d0c1"),
-        "timber": base.material("邬达克体块深木构", "#3a3733"),
-        "roof": base.material("邬达克体块红褐瓦", "#73564b"),
-        "brick": base.material("邬达克体块红砖", "#8a5547"),
-        "glass": base.material("邬达克体块深玻璃", "#4f625f", roughness=0.45),
+        "timber": base.material("邬达克体块深木构", "#292724"),
+        "roof": base.material("邬达克体块红褐瓦", "#5d4037"),
+        "brick": base.material("邬达克体块红砖", "#7a4035"),
+        "glass": base.material("邬达克体块深玻璃", "#3f5554", roughness=0.42),
     }
+
+
+def add_shed_roof(
+    name: str,
+    *,
+    center_x: float,
+    inner_y: float,
+    outer_y: float,
+    width: float,
+    inner_z: float,
+    outer_z: float,
+    thickness: float,
+    mat: bpy.types.Material,
+) -> None:
+    """生成从主屋向庭院下降的单坡屋面，避免低翼退化成独立小房子。"""
+    half_width = width / 2
+    vertices = [
+        (center_x - half_width, inner_y, inner_z),
+        (center_x + half_width, inner_y, inner_z),
+        (center_x - half_width, outer_y, outer_z),
+        (center_x + half_width, outer_y, outer_z),
+        (center_x - half_width, inner_y, inner_z - thickness),
+        (center_x + half_width, inner_y, inner_z - thickness),
+        (center_x - half_width, outer_y, outer_z - thickness),
+        (center_x + half_width, outer_y, outer_z - thickness),
+    ]
+    faces = [
+        (0, 2, 3, 1),
+        (4, 5, 7, 6),
+        (0, 1, 5, 4),
+        (2, 6, 7, 3),
+        (0, 4, 6, 2),
+        (1, 3, 7, 5),
+    ]
+    mesh = bpy.data.meshes.new(f"{name}Mesh")
+    mesh.from_pydata(vertices, [], faces)
+    mesh.update()
+    obj = bpy.data.objects.new(name, mesh)
+    bpy.context.collection.objects.link(obj)
+    base.register(obj, mat)
+
+
+def add_massing_half_timber(
+    prefix: str,
+    *,
+    center_x: float,
+    face_y: float,
+    width: float,
+    height: float,
+    mat: bpy.types.Material,
+) -> None:
+    """在官方照片可见的端山墙上保留最小但可识别的半木构骨架。"""
+    bottom = 0.35
+    top = height - 0.2
+    left = center_x - width / 2 + 0.22
+    right = center_x + width / 2 - 0.22
+    middle = center_x
+    for name, x in (("left", left), ("middle", middle), ("right", right)):
+        base.add_beam(
+            f"{prefix}-vertical-{name}",
+            (x, face_y, bottom),
+            (x, face_y, top),
+            0.16,
+            mat,
+        )
+    for index, z in enumerate((2.0, 3.75, top)):
+        base.add_beam(
+            f"{prefix}-horizontal-{index}",
+            (left, face_y, z),
+            (right, face_y, z),
+            0.16,
+            mat,
+        )
+    base.add_beam(
+        f"{prefix}-lower-diagonal-left",
+        (left, face_y, bottom),
+        (middle, face_y, 2.0),
+        0.15,
+        mat,
+    )
+    base.add_beam(
+        f"{prefix}-lower-diagonal-right",
+        (right, face_y, bottom),
+        (middle, face_y, 2.0),
+        0.15,
+        mat,
+    )
+    base.add_beam(
+        f"{prefix}-upper-diagonal-left",
+        (left, face_y, 3.75),
+        (middle, face_y, top),
+        0.15,
+        mat,
+    )
+    base.add_beam(
+        f"{prefix}-upper-diagonal-right",
+        (right, face_y, 3.75),
+        (middle, face_y, top),
+        0.15,
+        mat,
+    )
 
 
 def add_open_entrance_porch(
@@ -115,7 +216,7 @@ def build_massing() -> None:
         (-0.35, 0.65, 5.8),
         13.1,
         8.2,
-        4.0,
+        4.5,
         mat["roof"],
         ridge_axis="X",
     )
@@ -135,41 +236,84 @@ def build_massing() -> None:
         mat["roof"],
         ridge_axis="Y",
     )
+    base.add_box(
+        "hudec-v2-rear-dormer",
+        (0.65, 2.35, 7.25),
+        (2.15, 1.05, 1.55),
+        mat["plaster"],
+        bevel=0.045,
+    )
+    add_shed_roof(
+        "hudec-v2-rear-dormer-roof",
+        center_x=0.65,
+        inner_y=1.72,
+        outer_y=2.98,
+        width=2.55,
+        inner_z=8.22,
+        outer_z=7.98,
+        thickness=0.2,
+        mat=mat["roof"],
+    )
 
     # 官方西后侧照片证明一段与主屋垂直的全高半木构端翼。
     base.add_box(
         "hudec-v2-end-wing",
-        (4.75, 1.35, 2.65),
-        (3.3, 6.7, 5.3),
+        (4.7, 1.25, 2.7),
+        (3.8, 7.0, 5.4),
         mat["plaster"],
         bevel=0.075,
     )
     base.add_gable_roof(
         "hudec-v2-end-wing-roof",
-        (4.75, 1.35, 5.3),
-        4.2,
-        7.4,
-        3.1,
+        (4.7, 1.25, 5.4),
+        4.7,
+        7.8,
+        3.6,
         mat["roof"],
         ridge_axis="Y",
+    )
+    add_massing_half_timber(
+        "hudec-v2-end-gable-timber",
+        center_x=4.7,
+        face_y=4.79,
+        width=3.8,
+        height=5.4,
+        mat=mat["timber"],
     )
 
     # 西后侧的低玻璃翼和坡顶是建筑纵深身份，而不是庭院装饰。
     base.add_box(
         "hudec-v2-low-glass-wing",
-        (-4.7, 3.25, 1.15),
-        (4.2, 3.1, 2.3),
+        (-3.75, 3.55, 1.25),
+        (5.0, 3.35, 2.5),
         mat["glass"],
         bevel=0.055,
     )
-    base.add_gable_roof(
+    add_shed_roof(
         "hudec-v2-low-glass-wing-roof",
-        (-4.7, 3.25, 2.3),
-        4.8,
-        3.7,
-        1.45,
-        mat["roof"],
-        ridge_axis="X",
+        center_x=-3.75,
+        inner_y=1.82,
+        outer_y=5.3,
+        width=5.6,
+        inner_z=4.25,
+        outer_z=2.72,
+        thickness=0.26,
+        mat=mat["roof"],
+    )
+    for index, x in enumerate((-5.45, -4.3, -3.15, -2.0)):
+        base.add_beam(
+            f"hudec-v2-low-wing-frame-{index}",
+            (x, 5.24, 0.25),
+            (x, 5.24, 2.48),
+            0.13,
+            mat["timber"],
+        )
+    base.add_beam(
+        "hudec-v2-low-wing-frame-top",
+        (-6.0, 5.24, 2.42),
+        (-1.5, 5.24, 2.42),
+        0.13,
+        mat["timber"],
     )
 
     add_open_entrance_porch(
@@ -181,21 +325,30 @@ def build_massing() -> None:
         mat["roof"],
     )
 
-    # Massing 将三联烟囱合并为可读体块；Hero 再表达分缝和冠部。
+    # 官方照片直接证明白色烟囱塔和三支独立高砖烟道；即使在 Massing
+    # 也不能退化成单一通用方柱。
     base.add_box(
-        "hudec-v2-chimney-mass",
-        (-4.35, 2.15, 8.1),
-        (2.0, 1.65, 5.0),
-        mat["brick"],
+        "hudec-v2-chimney-tower",
+        (-3.95, 2.85, 4.75),
+        (2.85, 2.5, 9.3),
+        mat["plaster"],
         bevel=0.055,
     )
-    base.add_box(
-        "hudec-v2-chimney-crown",
-        (-4.35, 2.15, 10.65),
-        (2.35, 2.0, 0.38),
-        mat["brick"],
-        bevel=0.04,
-    )
+    for index, x in enumerate((-4.72, -3.95, -3.18)):
+        base.add_box(
+            f"hudec-v2-chimney-flue-{index}",
+            (x, 2.85, 10.75),
+            (0.56, 1.12, 3.1),
+            mat["brick"],
+            bevel=0.035,
+        )
+        base.add_box(
+            f"hudec-v2-chimney-flue-cap-{index}",
+            (x, 2.85, 12.38),
+            (0.68, 1.3, 0.18),
+            mat["brick"],
+            bevel=0.025,
+        )
 
     # 入口街墙分段保留中央通路，不使用场地级大碰撞盒。
     for side, x in (("left", -5.9), ("right", 5.9)):
@@ -246,8 +399,30 @@ def add_preview_environment() -> tuple[bpy.types.Object, bpy.types.Object]:
     key.data.size = 9.0
     bpy.ops.object.light_add(type="AREA", location=(10.0, 4.0, 9.0))
     fill = bpy.context.active_object
-    fill.data.energy = 900
+    fill.data.energy = 650
     fill.data.size = 7.0
+
+    # 1.8 m / 2.7 m = 0.667 场景单位。代理只参与固定机位比例检查，
+    # asset=False 保证不会进入 Blend 的资产列表或导出的 GLB。
+    proxy = base.material("测试1.8米人物代理", "#c77847")
+    base.add_cylinder(
+        "test-human-1_8m-body",
+        (5.2, 3.5, minimum.z + 0.25),
+        0.075,
+        0.5,
+        proxy,
+        vertices=12,
+        asset=False,
+    )
+    bpy.ops.mesh.primitive_uv_sphere_add(
+        segments=16,
+        ring_count=8,
+        radius=0.083,
+        location=(5.2, 3.5, minimum.z + 0.583),
+    )
+    head = bpy.context.active_object
+    head.name = "test-human-1_8m-head"
+    base.register(head, proxy, asset=False)
     return camera, key
 
 
@@ -272,14 +447,14 @@ def render_fixed_views(slug: str) -> None:
     views = (
         (
             "canonical",
-            (14.5, -25.0, 9.5),
-            (0.0, 0.25, 3.9),
-            54,
+            (-15.5, 23.0, 12.0),
+            (-0.1, 1.0, 4.45),
+            56,
         ),
         (
             "side",
-            (-20.0, 16.0, 10.5),
-            (-0.5, 0.8, 4.2),
+            (21.0, 17.0, 10.8),
+            (-0.8, 1.2, 4.35),
             54,
         ),
         (

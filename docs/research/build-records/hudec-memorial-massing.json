@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "stableAssetId": "hudec-memorial",
+  "qualityTier": "massing",
+  "status": "mcp1-candidate",
+  "generatedAt": "2026-07-25T18:28:53+08:00",
+  "generator": {
+    "path": "scripts/create_hudec_memorial_v2.py",
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_hudec_memorial_v2.py -- --stage=massing",
+    "blenderVersion": "5.2.0 LTS",
+    "sourceParts": 39,
+    "singleAssetSafe": true,
+    "writesOnly": [
+      "assets/models/source/requested-pois/hudec-memorial-massing.blend",
+      "public/models/requested-pois/hudec-memorial-massing.glb",
+      "test_artifacts/test_hudec-memorial-massing_canonical_preview.png",
+      "test_artifacts/test_hudec-memorial-massing_side_preview.png",
+      "test_artifacts/test_hudec-memorial-massing_entrance_preview.png"
+    ]
+  },
+  "derivedFrom": {
+    "tier": "hero",
+    "artifact": "public/models/requested-pois/hudec-memorial.glb",
+    "sha256": "42159678fb720c963a82921ed827aceb7825b164da321d67345891732f622984",
+    "status": "legacy-hero-baseline",
+    "reverifyAfterV2Hero": true
+  },
+  "artifacts": {
+    "blend": {
+      "path": "assets/models/source/requested-pois/hudec-memorial-massing.blend",
+      "bytes": 130113,
+      "sha256": "45357c1cef713d5ed10bc0f7de41da6819cdd2eaec0e5def04091d76e37d8d2c"
+    },
+    "glb": {
+      "path": "public/models/requested-pois/hudec-memorial-massing.glb",
+      "bytes": 158312,
+      "sha256": "c38302eb136dbb4dfb9b882f725957d26260bc0cb10929459e44aeb4e96d14a5",
+      "cacheVersion": "20260725-hudec-massing-c38302eb136d"
+    }
+  },
+  "structure": {
+    "nodes": 1,
+    "meshes": 1,
+    "triangles": 2180,
+    "materials": 5,
+    "images": 0,
+    "textures": 0,
+    "drawCalls": 5,
+    "glbPositionBounds": {
+      "min": [-6.300000190734863, -1.4901161193847656e-8, -5.148000240325928],
+      "max": [6.300000190734863, 8.978400230407715, 5.6519999504089355]
+    },
+    "rootTranslation": [0, 0, 0],
+    "rootRotation": [0, 0, 0, 1],
+    "rootScale": [1, 1, 1]
+  },
+  "budget": {
+    "maxNodes": 2,
+    "maxTriangles": 2500,
+    "maxMaterials": 5,
+    "maxImages": 0,
+    "maxBytes": 220000,
+    "result": "passed"
+  },
+  "sharedContract": {
+    "authoredUnitMeters": 2.7,
+    "origin": [0, 0, 0],
+    "frontDirection": "-Y",
+    "groundDatum": 0,
+    "runtimePosition": [91.34, -131.74],
+    "runtimeYawRadians": 1.5707963267948966,
+    "runtimeScaleTarget": 1,
+    "passageSemantics": "shared-split-obstacles-entrance-clear",
+    "collisionSource": "app/scene/xinhua-road-landmarks-data.json#hudec-memorial.localObstacles",
+    "collisionStatus": "pending-map-calibration"
+  },
+  "evidence": {
+    "manifest": "docs/research/hudec-memorial-v2-reference-manifest.json",
+    "brief": "docs/research/hudec-memorial-v2-model-brief.md",
+    "canonicalReference": "HUDEC-V2-REF-C",
+    "observedCuesRepresented": [
+      "white chimney tower with three independent tall brick flues",
+      "steep elongated main roof",
+      "layered intersecting roof and cross gable",
+      "half-timber end gable",
+      "low glazed wing with a descending shed roof"
+    ],
+    "inferred": [
+      "net authored dimensions calibrated from the OSM compound envelope and legacy world footprint",
+      "hidden east and rear wall continuity kept at low detail"
+    ],
+    "unknown": [
+      "exact east facade and complete rear elevation",
+      "survey roof pitch and chimney dimensions",
+      "obscured current-condition openings"
+    ]
+  },
+  "previews": {
+    "canonical": {
+      "path": "test_artifacts/test_hudec-memorial-massing_canonical_preview.png",
+      "sha256": "1a95f2668e8364b7fb445469e9627145e6f2f3dc63049d69cb700848b688818c",
+      "camera": [-15.5, 23, 12],
+      "target": [-0.1, 1, 4.45],
+      "lensMm": 56
+    },
+    "side": {
+      "path": "test_artifacts/test_hudec-memorial-massing_side_preview.png",
+      "sha256": "c532b107d06ad2cacd5f743028ce419adbadc8a981a04c958bcc66f84e5831f8",
+      "camera": [21, 17, 10.8],
+      "target": [-0.8, 1.2, 4.35],
+      "lensMm": 54
+    },
+    "entrance": {
+      "path": "test_artifacts/test_hudec-memorial-massing_entrance_preview.png",
+      "sha256": "4be81987f5e7f0f5af024dad1a15870de5d036706b60164149469448387f0729",
+      "camera": [8.2, -17, 6.2],
+      "target": [1.3, -1.35, 2.55],
+      "lensMm": 58
+    },
+    "scaleProxy": {
+      "heightMeters": 1.8,
+      "heightSceneUnits": 0.6666666667,
+      "previewOnly": true,
+      "exportedToGlb": false
+    }
+  },
+  "validation": {
+    "headlessFixedViews": "passed-as-mcp1-candidate",
+    "glbAudit": {
+      "command": "python3 scripts/audit_glb.py public/models/requested-pois/hudec-memorial-massing.glb --forbid-images --max-nodes 2",
+      "result": "passed"
+    },
+    "mcp1": "pending-shared-scene-release",
+    "mapCalibration": "pending-mcp1",
+    "runtimeQa": "pending-mcp1",
+    "independentReview": "passed-main-window-mcp1-candidate"
+  },
+  "holdBoundary": {
+    "trees": "untouched",
+    "decor": "untouched",
+    "characters": "no runtime character asset; preview-only scale proxy",
+    "otherBuildings": "untouched",
+    "globalMassing": "untouched"
+  }
+}
