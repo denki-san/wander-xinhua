@@ -40,13 +40,15 @@
 | 15 | `xingfuli-west` | 幸福里·西区 | Hero / Identity / Massing `.blend/.glb`、共享 Brief/build records、地图与运行时证据 | `in-scope` / retained three-tier | 不重建；补可追溯 MCP 1/2/3 和当前版本同机位三级复核 |
 | 16 | `xingfuli-center` | 幸福里·中区 | Hero / Identity / Massing `.blend/.glb`、共享 Brief/build records、地图与运行时证据 | `in-scope` / retained three-tier | 不重建；补可追溯 MCP 1/2/3 和当前版本同机位三级复核 |
 | 17 | `xingfuli-east` | 幸福里·东区 | Hero / Identity / Massing `.blend/.glb`、共享 Brief/build records、地图与运行时证据 | `in-scope` / retained three-tier | 不重建；补可追溯 MCP 1/2/3 和当前版本同机位三级复核 |
-| 18 | `sun-ke-villa` | 孙科别墅 | Recovery Hero / Identity / Massing 已选择性恢复；单资产 Massing generator 可逐字节复现；MCP 三门、地图、Three.js 三档、双 fallback、碰撞和开放车道均有当前证据 | `done` / source `d29097d` + `177447a` / integrated `80f622b` + `9cb3bc8` | 无；保留分支与提交，后续只参加项目级回归 |
+| 18 | `sun-ke-villa` | 孙科别墅 | Recovery Hero / Identity / Massing 已选择性恢复；单资产 Massing generator 可逐字节复现；MCP 三门、地图、Three.js 三档、双 fallback、碰撞和开放车道均有当前证据；集成复核发现并修复旧程序化 fallback 大体块误判 | `done` / source `d29097d` + `177447a` / integrated through `5e67688` | 无；保留失败与修复截图、分支和提交，后续只参加项目级回归 |
 
 ## 恢复后的数量结论
 
 - 主窗口集成分支已整合 `done`：1 / 18（孙科别墅）；其 Recovery 二进制、
   三门、地图和 Three.js 证据已按单建筑选择性提取，并在当前集成基线上通过
-  `build:static`、lint、178 / 178 全仓 Node 测试与 3 个 GLB audit。
+  `build:static`、lint、178 / 178 全仓 Node 测试与 3 个 GLB audit。集成后
+  浏览器 v3 复核覆盖 Hero / Identity / Massing、Hero→Identity 和
+  Identity→结构化程序化 fallback；v2 的封闭大体块误判作为失败证据保留。
 - 三档产物可直接保留：3 / 18（幸福里西/中/东）。
 - Hero + Identity 可直接保留：1 / 18（上海影城）。
 - 具备专项 V2 证据和可保留 Hero：2 / 18（电影艺术中心、孙科别墅）。
