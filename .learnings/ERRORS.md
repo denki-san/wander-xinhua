@@ -32,6 +32,172 @@ Error: listen EPERM: operation not permitted 127.0.0.1:4317
 
 ---
 
+## [ERR-20260725-053] llm_wiki_desktop_api_unreachable
+
+**Logged**: 2026-07-25T19:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+
+独立 `Threejs-3d-research` Wiki 的 MCP 进程可调用，但本机 LLM Wiki Desktop
+API 未运行，项目状态与项目列表查询均失败。
+
+### Error
+
+```text
+LLM Wiki API request failed. Is the desktop app running? fetch failed
+```
+
+### Context
+
+- 操作：`llm_wiki_status`、`llm_wiki_projects`；
+- 目标项目：`Threejs-3d-research`；
+- 外置知识库源目录和生成后的 `wiki/` 文件仍可只读访问；
+- 本轮以仓库 symlink、外置知识库源文件和已有 Wiki 页面作为降级证据，不将其
+  表述为当前 MCP 搜索验证。
+
+### Suggested Fix
+
+启动 LLM Wiki Desktop 后，重新执行项目绑定、关键词搜索、页面读取和关系图查询；
+若 Desktop 不可用，应明确区分“读取已有 Wiki 文件”与“当前 MCP 检索已验证”。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: docs/knowledge-sources/threejs-modeling-knowledge-base, /Volumes/plugin/Threejs-3d-research
+
+### Resolution
+
+- **Resolved**: 2026-07-25T19:20:00+08:00
+- **Notes**: LLM Wiki Desktop API 已恢复，已重新绑定
+  `Threejs-3d-research`，并完成关键词搜索、页面读取和关系图查询。
+
+---
+
+## [ERR-20260725-054] imagemagick_cli_missing
+
+**Logged**: 2026-07-25T19:24:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+
+用于快速审阅小红书参考图的 ImageMagick `magick` CLI 在当前环境中不可用。
+
+### Error
+
+```text
+zsh:1: command not found: magick
+```
+
+### Context
+
+- 操作：把 18 张只读下载的 WebP 参考图拼成 `test_` 联系表；
+- 原始图片均已成功下载到 `/private/tmp/test_xhs_6a241e4e/`；
+- 本轮不为一次性审阅安装新的全局依赖。
+
+### Suggested Fix
+
+优先使用工作区已提供的 Pillow 或浏览器截图能力生成联系表；如果后续长期需要批量
+图片拼图，再单独评估安装 ImageMagick。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: /private/tmp/test_xhs_6a241e4e
+
+### Resolution
+
+- **Resolved**: 2026-07-25T19:24:00+08:00
+- **Notes**: 改用工作区已提供的 Pillow 运行时生成联系表，不修改原始证据图。
+
+---
+
+## [ERR-20260725-055] external_evidence_usb_write_requires_host_permission
+
+**Logged**: 2026-07-25T20:05:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+
+外接 U 盘证据目录可读，但受限文件沙箱不能直接创建 README 和逐图清单。
+
+### Error
+
+```text
+cp: .../README.md: Operation not permitted
+cp: .../evidence-manifest.json: Operation not permitted
+```
+
+### Context
+
+- 原始 88 张小红书图片已经在目标 U 盘目录中；
+- 本次仅新增说明和结构化清单，不覆盖或删除任何原始图片；
+- 仓库内同一清单已经先用 `apply_patch` 创建。
+
+### Suggested Fix
+
+先在允许写入的位置用 `apply_patch` 生成文件，再按权限流程用精确 `cp` 目标复制到
+U 盘；不要请求整个外接盘的宽泛写权限。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: docs/research/nonbuilding-xhs-reference-manifest.json
+
+### Resolution
+
+- **Resolved**: 2026-07-25T20:06:00+08:00
+- **Notes**: 经受控宿主权限将 `README.md` 和 `evidence-manifest.json` 精确复制到证据根目录，原图未修改。
+
+---
+
+## [ERR-20260725-056] sibling_worktree_git_index_permission
+
+**Logged**: 2026-07-25T20:12:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+
+非建筑 sibling Worktree 的文件可写，但 Git 暂存需要在主仓库 `.git/worktrees/`
+内创建 `index.lock`，受限沙箱首次执行被拒绝。
+
+### Error
+
+```text
+fatal: Unable to create '.../.git/worktrees/wander-xinhua-nonbuilding-models-v3/index.lock': Operation not permitted
+```
+
+### Context
+
+- 目标分支：`codex/deferred-nonbuilding-models-v3`；
+- 仅暂存本轮四个文档/学习记录文件；
+- 原始主 Worktree 的并行修改不在暂存范围。
+
+### Suggested Fix
+
+继续使用精确文件清单，并按权限流程在宿主环境运行同一条 `git add`；提交前复核
+`git diff --cached --name-only`，不得扩大到 `git add -A`。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: docs/research/nonbuilding-modeling-and-ordinary-district-plan.md
+
+### Resolution
+
+- **Resolved**: 2026-07-25T20:13:00+08:00
+- **Notes**: 使用精确文件列表完成暂存，并在提交前复核范围。
+
+---
+
 ## [ERR-20260725-052] 固定机位 QA 改动触发旧 JSX 结构测试并伴随定时测试抖动
 
 **Logged**: 2026-07-25T17:05:00+08:00

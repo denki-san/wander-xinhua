@@ -1,0 +1,728 @@
+{
+  "schemaVersion": 1,
+  "status": "research-evidence-only",
+  "capturedAt": "2026-07-25",
+  "evidencePolicy": {
+    "rawImages": "只读保存在外接 U 盘，不进入 Git，不作为运行时贴图",
+    "externalRoot": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25",
+    "rawImageCount": 88,
+    "rawImageSizeApprox": "24 MB",
+    "locationRule": "位置优先采用正文、路线、作者回复和画面内可读标识；仅由图片推断的位置必须降级标记，不能写成确定事实",
+    "modelingRule": "照片只证明某类物品或空间组织在该地点/路线出现，不自动证明精确尺寸、材质、朝向或长期固定状态",
+    "commentsInspected": true,
+    "wikiTarget": "Threejs-3d-research"
+  },
+  "sources": [
+    {
+      "postId": "6a241e4e00000000220246d6",
+      "url": "https://www.xiaohongshu.com/explore/6a241e4e00000000220246d6",
+      "title": "只有新华路是想住的街道吗？",
+      "author": "DZeer",
+      "publishedLabel": "编辑于 06-07",
+      "locationEvidence": {
+        "article": "正文把活动范围写为番禺路、新华路、法华镇路、香花桥路，并提到上生新所与 Sunday Park。",
+        "comments": [
+          "作者回复确认一张道路树影图拍摄点为 Are 附近。",
+          "作者回复确认一张餐食图来自法华汤包。",
+          "关于一面墙，作者只给出“从番禺路往定西路方向、新华路左侧”的近似描述，并明确不知道精确门牌。",
+          "评论补充香花桥路旁牛桥浜与幸福里，但这些评论不能自动定位整组图片。"
+        ],
+        "defaultStatus": "route-area-inferred"
+      },
+      "images": {
+        "image-01.webp": {
+          "scene": "梧桐树冠覆盖的街道、自行车道、路缘与行人",
+          "possibleLocation": "新华路—番禺路—法华镇路—香花桥路街区范围，精确路段未知",
+          "locationBasis": "正文路线范围；画面不含可核门牌",
+          "confidence": "medium",
+          "modelEvidence": ["成熟行道树", "自行车道标线", "行人", "路缘"]
+        },
+        "image-02.webp": {
+          "scene": "草坪、老建筑立面、户外座椅与访客",
+          "possibleLocation": "正文提及的街区公共/商业空间之一，精确地点未知",
+          "locationBasis": "正文范围与画面空间类型，不能仅凭建筑外观认定具体 POI",
+          "confidence": "low",
+          "modelEvidence": ["草坪", "户外桌椅", "慢行访客", "树荫"]
+        },
+        "image-03.webp": {
+          "scene": "墙面小型装饰画/装置近景",
+          "possibleLocation": "新华路街区沿线墙面，精确位置未知",
+          "locationBasis": "正文路线范围；缺少门牌",
+          "confidence": "low",
+          "modelEvidence": ["墙面微装饰", "小型互动打卡物"]
+        },
+        "image-04.webp": {
+          "scene": "树下老洋房、坡屋顶、绿植",
+          "possibleLocation": "正文所述新华路街区历史住宅环境，精确建筑未知",
+          "locationBasis": "正文范围；图片没有可靠名称",
+          "confidence": "low",
+          "modelEvidence": ["成熟乔木", "院落绿植", "低层历史街墙"]
+        },
+        "image-05.webp": {
+          "scene": "自行车道、梧桐树影、路缘和道路隔离边界",
+          "possibleLocation": "Are 附近",
+          "locationBasis": "作者在评论中对该图作出回复确认",
+          "confidence": "high",
+          "modelEvidence": ["自行车道", "行道树", "树池/路缘", "路侧隔离"]
+        },
+        "image-06.webp": {
+          "scene": "面向绿地的二层白色露台与就坐人群",
+          "possibleLocation": "正文提到的咖啡/公共空间之一，精确地点未知",
+          "locationBasis": "正文范围；没有可核名称",
+          "confidence": "low",
+          "modelEvidence": ["露台栏杆", "户外就坐", "树冠背景", "轻型遮棚"]
+        },
+        "image-07.webp": {
+          "scene": "咖啡店室内、吧台、高脚椅和灯具",
+          "possibleLocation": "正文列举的咖啡店之一，精确店名未知",
+          "locationBasis": "正文商户范围；图片文字不足以稳定定位",
+          "confidence": "low",
+          "modelEvidence": ["室内活动密度参考", "吧台与高脚椅，不建议直接进入街景资产"]
+        },
+        "image-08.webp": {
+          "scene": "高墙、爬藤、树冠与围墙灯",
+          "possibleLocation": "从番禺路往定西路方向的新华路左侧附近",
+          "locationBasis": "作者评论给出近似方向，同时明确不知道精确位置",
+          "confidence": "medium-low",
+          "modelEvidence": ["爬藤围墙", "墙灯", "树冠遮阴", "院墙"]
+        },
+        "image-09.webp": {
+          "scene": "Abendbrot Bakery 沿街店面、梧桐树与自行车",
+          "possibleLocation": "Abendbrot Bakery 临街面",
+          "locationBasis": "画面可读店招；正文列举该店",
+          "confidence": "high",
+          "modelEvidence": ["沿街店招", "店面雨棚/门窗", "行道树", "停放自行车"]
+        },
+        "image-10.webp": {
+          "scene": "M2F 沿街店面、梧桐树、自行车与树下坐凳",
+          "possibleLocation": "M2F 咖啡馆临街面",
+          "locationBasis": "画面可读店招；正文列举该店",
+          "confidence": "high",
+          "modelEvidence": ["店招", "停放自行车", "树下座椅", "行道树"]
+        },
+        "image-11.webp": {
+          "scene": "低层沿街店面、成熟乔木、共享单车与橱窗",
+          "possibleLocation": "新华路街区沿线，精确店名未知",
+          "locationBasis": "正文路线范围；画面店招不足以稳定识别",
+          "confidence": "medium-low",
+          "modelEvidence": ["共享单车", "橱窗", "沿街树", "店面遮阳"]
+        },
+        "image-12.webp": {
+          "scene": "牛肉面餐食",
+          "possibleLocation": "正文列举的餐饮店之一，精确位置未知",
+          "locationBasis": "正文商户范围；仅凭餐食不能定位",
+          "confidence": "low",
+          "modelEvidence": ["不直接作为街景建模证据"]
+        },
+        "image-13.webp": {
+          "scene": "汤包与汤品",
+          "possibleLocation": "法华汤包",
+          "locationBasis": "作者评论回复确认",
+          "confidence": "high",
+          "modelEvidence": ["餐饮活动锚点，可用于决定店前人流而非复制食物模型"]
+        },
+        "image-14.webp": {
+          "scene": "面食餐品",
+          "possibleLocation": "新华路街区餐饮路线内，精确店铺未知",
+          "locationBasis": "正文商户范围；仅凭餐食不能定位",
+          "confidence": "low",
+          "modelEvidence": ["不直接作为街景建模证据"]
+        },
+        "image-15.webp": {
+          "scene": "鲜果店橱窗、条纹雨棚与水果陈列",
+          "possibleLocation": "新华路街区沿线鲜果店，精确门牌未知",
+          "locationBasis": "正文街区范围与画面店面类型",
+          "confidence": "medium-low",
+          "modelEvidence": ["条纹雨棚", "临街陈列架", "水果筐/箱", "店招"]
+        },
+        "image-16.webp": {
+          "scene": "Rumor's 店面、外摆座椅与顾客",
+          "possibleLocation": "Rumor's 临街面",
+          "locationBasis": "画面可读店招；正文列举该店",
+          "confidence": "high",
+          "modelEvidence": ["外摆桌椅", "店招", "橱窗", "候客/就坐行人"]
+        },
+        "image-17.webp": {
+          "scene": "从高处观察新华街区的密集住宅、红屋顶与树冠",
+          "possibleLocation": "新华路街区高处视角，具体拍摄点未知",
+          "locationBasis": "正文范围；画面只能确认街区尺度",
+          "confidence": "medium-low",
+          "modelEvidence": ["树冠密度", "低层红屋顶与高层背景的层次关系"]
+        },
+        "image-18.webp": {
+          "scene": "老店面、行道树、共享单车、骑行者与行人",
+          "possibleLocation": "新华路街区沿线，精确店面未知",
+          "locationBasis": "正文路线范围；没有可核门牌",
+          "confidence": "medium",
+          "modelEvidence": ["共享单车停放带", "骑行者", "行人", "行道树", "临街店面"]
+        }
+      }
+    },
+    {
+      "postId": "6a23c16b000000002202cbe3",
+      "url": "https://www.xiaohongshu.com/explore/6a23c16b000000002202cbe3",
+      "title": "永不拓宽的街道 walk·新华路 01·绿意",
+      "author": "尤尼酱Juni",
+      "publishedLabel": "06-06",
+      "locationEvidence": {
+        "article": "路线为交通大学站出发，沿新华路步行至延安西路站；正文把定西路—番禺路之间约 700 米描述为重点保护段，并记录梧桐、落羽杉、香樟等树种。",
+        "comments": [
+          "评论对全程长度有不同理解；作者补充常走路段约 1.3 公里，直到下穿区域。"
+        ],
+        "defaultStatus": "route-confirmed-segment-unknown"
+      },
+      "images": {
+        "image-01.webp": {
+          "scene": "地铁站玻璃窗、楼梯和导向牌",
+          "possibleLocation": "路线两端地铁站之一，无法仅按本地文件顺序确认是哪一站",
+          "locationBasis": "正文明确交通大学站—延安西路站路线；图片导向字样未完整可读",
+          "confidence": "medium-low",
+          "modelEvidence": ["公共交通入口氛围参考，不进入街道原型首批"]
+        },
+        "image-02.webp": {
+          "scene": "新华路路牌、梧桐林荫道、自行车与道路标线",
+          "possibleLocation": "新华路",
+          "locationBasis": "画面可读新华路路牌，正文路线一致",
+          "confidence": "high",
+          "modelEvidence": ["路牌", "成熟梧桐", "自行车", "道路标线"]
+        },
+        "image-03.webp": {
+          "scene": "连续梧桐树冠覆盖的双向道路",
+          "possibleLocation": "新华路，精确路段未知",
+          "locationBasis": "正文与图组主题一致；无具体路口标识",
+          "confidence": "high",
+          "modelEvidence": ["连续行道树阵列", "树冠拱廊", "低交通密度"]
+        },
+        "image-04.webp": {
+          "scene": "两种新华路林荫道路截面",
+          "possibleLocation": "新华路沿线，可能包含定西路—番禺路保护段",
+          "locationBasis": "正文重点描述该保护段，但图片没有独立路口证据",
+          "confidence": "medium",
+          "modelEvidence": ["树距与道路比例", "院墙", "路灯/标线", "行人尺度"]
+        },
+        "image-05.webp": {
+          "scene": "手绘/地图路线图",
+          "possibleLocation": "交通大学站—新华路—延安西路站步行路线",
+          "locationBasis": "正文明确路线，图片为路线图",
+          "confidence": "high",
+          "modelEvidence": ["用于活动区与行人生成器的路线证据，不作为几何尺寸来源"]
+        },
+        "image-06.webp": {
+          "scene": "行道树、宽人行道、绿篱与机动车道",
+          "possibleLocation": "新华路沿线，精确路段未知",
+          "locationBasis": "正文路线范围",
+          "confidence": "high",
+          "modelEvidence": ["人行道铺装", "绿篱带", "树池/土壤带", "慢行空间"]
+        },
+        "image-07.webp": {
+          "scene": "仰视浓密树冠",
+          "possibleLocation": "新华路沿线",
+          "locationBasis": "正文专门记录梧桐、落羽杉、香樟及树冠高度",
+          "confidence": "high",
+          "modelEvidence": ["高树冠覆盖率", "枝干随机性", "树叶遮光密度"]
+        },
+        "image-08.webp": {
+          "scene": "绿荫中的低层老住宅与坡屋顶",
+          "possibleLocation": "新华路沿线历史住宅段，精确建筑未知",
+          "locationBasis": "正文路线范围；不能据外观认定具体保护建筑",
+          "confidence": "medium-low",
+          "modelEvidence": ["院落乔木", "灌木前景", "低层街墙背景"]
+        }
+      }
+    },
+    {
+      "postId": "690b429000000000040023b7",
+      "url": "https://www.xiaohongshu.com/explore/690b429000000000040023b7",
+      "title": "新华社区营造中心·考察笔记",
+      "author": "燥燥小卷",
+      "publishedLabel": "2025-11-05",
+      "locationEvidence": {
+        "article": "标题和正文明确主体为新华社区营造中心，内容涉及社区共创、青年与老年友好、女性友好、可持续生活、零废弃种植与展览。",
+        "comments": [
+          "评论确认文中含垃圾/零废弃相关展览。"
+        ],
+        "defaultStatus": "venue-confirmed-subzone-visual"
+      },
+      "images": {
+        "image-01.webp": {
+          "scene": "宠物友好提示、社区小花园、墙面布置",
+          "possibleLocation": "新华社区营造中心入口/户外花园区域",
+          "locationBasis": "文章主体明确；室外子区域由画面判断",
+          "confidence": "high",
+          "modelEvidence": ["宠物友好标识", "社区花园", "墙面告示", "草坪"]
+        },
+        "image-02.webp": {
+          "scene": "街角入口、成熟乔木、行人和醒目标识",
+          "possibleLocation": "新华社区营造中心临街入口",
+          "locationBasis": "文章主体明确；画面为外部入口",
+          "confidence": "high",
+          "modelEvidence": ["入口立牌", "行道树", "行人", "转角铺装"]
+        },
+        "image-03.webp": {
+          "scene": "无障碍坡道、开放门面、门口展架",
+          "possibleLocation": "新华社区营造中心入口",
+          "locationBasis": "文章主体明确；画面可见入口功能",
+          "confidence": "high",
+          "modelEvidence": ["无障碍坡道", "门口立牌", "开放式入口"]
+        },
+        "image-04.webp": {
+          "scene": "合作社/零售展示与可移动陈列",
+          "possibleLocation": "新华社区营造中心室内",
+          "locationBasis": "文章主体明确；画面为室内",
+          "confidence": "high",
+          "modelEvidence": ["可移动陈列架", "社区品牌牌，不进入街景首批"]
+        },
+        "image-05.webp": {
+          "scene": "来坐会儿共享座位、饮水和公告",
+          "possibleLocation": "新华社区营造中心室内共享区",
+          "locationBasis": "文章主体明确；画面可读功能标识",
+          "confidence": "high",
+          "modelEvidence": ["共享座位标识", "饮水设施", "公告架"]
+        },
+        "image-06.webp": {
+          "scene": "社区青年创作展示、货架与海报",
+          "possibleLocation": "新华社区营造中心室内",
+          "locationBasis": "文章主体明确",
+          "confidence": "high",
+          "modelEvidence": ["社区展架", "海报墙，适合作为室内未来扩展证据"]
+        },
+        "image-07.webp": {
+          "scene": "社区花园、种植容器、工具与公告板",
+          "possibleLocation": "新华社区营造中心户外花园",
+          "locationBasis": "文章主体明确；画面显示户外种植区",
+          "confidence": "high",
+          "modelEvidence": ["高低种植箱", "园艺工具", "公告板", "回收/堆肥容器"]
+        },
+        "image-08.webp": {
+          "scene": "缝纫工作台、工具墙与储物架",
+          "possibleLocation": "新华社区营造中心室内工作坊",
+          "locationBasis": "文章主体明确",
+          "confidence": "high",
+          "modelEvidence": ["社区工坊功能证据，不属于街景首批"]
+        },
+        "image-09.webp": {
+          "scene": "修理工作台、自行车、工具墙与货架",
+          "possibleLocation": "新华社区营造中心室内修理/工作坊区域",
+          "locationBasis": "文章主体明确；画面功能可见",
+          "confidence": "high",
+          "modelEvidence": ["自行车修理点", "工具墙", "工作台"]
+        },
+        "image-10.webp": {
+          "scene": "邻里康养行动展板与开放格柜",
+          "possibleLocation": "新华社区营造中心室内",
+          "locationBasis": "文章主体明确",
+          "confidence": "high",
+          "modelEvidence": ["活动展板", "开放格柜，不属于街景首批"]
+        },
+        "image-11.webp": {
+          "scene": "零废弃任务榜纸板立牌",
+          "possibleLocation": "新华社区营造中心室内",
+          "locationBasis": "文章与评论均支持零废弃主题",
+          "confidence": "high",
+          "modelEvidence": ["纸板任务牌", "可持续活动道具"]
+        },
+        "image-12.webp": {
+          "scene": "共享/公益零售空间、吊牌和顾客",
+          "possibleLocation": "新华社区营造中心室内",
+          "locationBasis": "文章主体明确",
+          "confidence": "high",
+          "modelEvidence": ["顾客活动密度", "吊牌与货架，不属于街景首批"]
+        },
+        "image-13.webp": {
+          "scene": "工具和小型维修材料分类陈列",
+          "possibleLocation": "新华社区营造中心室内工作坊",
+          "locationBasis": "文章主体明确",
+          "confidence": "high",
+          "modelEvidence": ["零件箱", "工具板，不属于街景首批"]
+        },
+        "image-14.webp": {
+          "scene": "社区互助、旧物利用和活动资料展示",
+          "possibleLocation": "新华社区营造中心室内",
+          "locationBasis": "文章主体明确",
+          "confidence": "high",
+          "modelEvidence": ["社区活动台", "旧物再利用展陈"]
+        },
+        "image-15.webp": {
+          "scene": "可持续生活手册与资料",
+          "possibleLocation": "新华社区营造中心室内",
+          "locationBasis": "文章主体明确",
+          "confidence": "high",
+          "modelEvidence": ["内容证据，不直接转成三维资产"]
+        },
+        "image-16.webp": {
+          "scene": "桌面活动展陈、布袋与小型道具",
+          "possibleLocation": "新华社区营造中心室内",
+          "locationBasis": "文章主体明确",
+          "confidence": "high",
+          "modelEvidence": ["临时活动桌", "布袋陈列"]
+        },
+        "image-17.webp": {
+          "scene": "垃圾/零废弃展览图文板",
+          "possibleLocation": "新华社区营造中心室内展览区",
+          "locationBasis": "文章与评论共同支持",
+          "confidence": "high",
+          "modelEvidence": ["临时展板", "活动海报"]
+        },
+        "image-18.webp": {
+          "scene": "社区参与地图与室内活动空间",
+          "possibleLocation": "新华社区营造中心室内",
+          "locationBasis": "文章主体明确；画面可见地图",
+          "confidence": "high",
+          "modelEvidence": ["参与式地图", "社区活动锚点，不直接作为精确地图数据"]
+        }
+      }
+    },
+    {
+      "postId": "682071e0000000000303e0ba",
+      "url": "https://www.xiaohongshu.com/explore/682071e0000000000303e0ba",
+      "title": "幸福里｜开放社区 城市客厅",
+      "author": "曼耶呦",
+      "publishedLabel": "2025-05-11",
+      "locationEvidence": {
+        "article": "正文明确幸福里位于番禺路和幸福路之间、法华镇路北侧，地址为番禺路 381 号，约 130 米长，2015 年开放。",
+        "comments": [],
+        "defaultStatus": "venue-and-address-confirmed"
+      },
+      "images": {
+        "image-01.webp": {
+          "scene": "入口街角、导视牌墙、树下坐凳、阻车柱与人群",
+          "possibleLocation": "幸福里番禺路 381 号入口附近",
+          "locationBasis": "正文地址；画面为入口",
+          "confidence": "high",
+          "modelEvidence": ["入口导视牌墙", "阻车柱", "树下坐凳", "行人聚集"]
+        },
+        "image-02.webp": {
+          "scene": "线性水景、临水外摆、盆栽和店面",
+          "possibleLocation": "幸福里内部线性公共空间",
+          "locationBasis": "正文场地确认；内部子位置由画面判断",
+          "confidence": "high",
+          "modelEvidence": ["浅水景", "餐饮外摆", "盆栽", "水边护栏/边界"]
+        },
+        "image-03.webp": {
+          "scene": "线性水景、密集盆栽、小乔木支撑",
+          "possibleLocation": "幸福里内部线性公共空间",
+          "locationBasis": "正文场地确认",
+          "confidence": "high",
+          "modelEvidence": ["水景", "盆栽组合", "树木支撑", "窄巷尺度"]
+        },
+        "image-04.webp": {
+          "scene": "傍晚水景、餐饮外摆、绿植和人群",
+          "possibleLocation": "幸福里内部餐饮段",
+          "locationBasis": "正文场地确认；内部功能由画面判断",
+          "confidence": "high",
+          "modelEvidence": ["外摆桌椅", "暖色灯光", "盆栽", "动态人群"]
+        },
+        "image-05.webp": {
+          "scene": "夜间线性水景、嵌入灯、临水桌椅与行人",
+          "possibleLocation": "幸福里内部水景段",
+          "locationBasis": "正文场地确认",
+          "confidence": "high",
+          "modelEvidence": ["水下/嵌入灯", "外摆桌椅", "夜间行人"]
+        },
+        "image-06.webp": {
+          "scene": "浅水景、球形装饰/阻车构件、店前外摆和人群",
+          "possibleLocation": "幸福里内部公共活动段",
+          "locationBasis": "正文场地确认",
+          "confidence": "high",
+          "modelEvidence": ["球形街具", "浅水景", "花箱", "人群聚集"]
+        },
+        "image-07.webp": {
+          "scene": "步行巷道、餐牌、外摆与傍晚人流",
+          "possibleLocation": "幸福里内部步行商业段",
+          "locationBasis": "正文场地确认",
+          "confidence": "high",
+          "modelEvidence": ["落地餐牌", "外摆", "窄巷人流", "店面照明"]
+        },
+        "image-08.webp": {
+          "scene": "新旧建筑立面之间的窄缝视角",
+          "possibleLocation": "幸福里内部建筑间隙",
+          "locationBasis": "正文场地确认",
+          "confidence": "medium",
+          "modelEvidence": ["新旧材质并置", "窄巷比例；不作为精确建筑复原依据"]
+        },
+        "image-09.webp": {
+          "scene": "临水人物雕塑、球形街具、餐牌与店面",
+          "possibleLocation": "幸福里内部水景段",
+          "locationBasis": "正文场地确认",
+          "confidence": "high",
+          "modelEvidence": ["人物雕塑", "球形街具", "水景", "餐牌"]
+        },
+        "image-10.webp": {
+          "scene": "店前折叠躺椅与墙面涂绘",
+          "possibleLocation": "幸福里内部店前休息区",
+          "locationBasis": "正文场地确认",
+          "confidence": "high",
+          "modelEvidence": ["折叠躺椅", "墙面图形", "轻量可移动外摆"]
+        },
+        "image-11.webp": {
+          "scene": "彩虹拱廊、吊牌与绿植",
+          "possibleLocation": "幸福里内部通道/店铺入口",
+          "locationBasis": "正文场地确认；精确店铺不作为项目事实",
+          "confidence": "medium",
+          "modelEvidence": ["彩色门洞装饰", "吊牌", "盆栽"]
+        },
+        "image-12.webp": {
+          "scene": "线性水景、店前花箱、餐牌与窄巷",
+          "possibleLocation": "幸福里内部水景商业段",
+          "locationBasis": "正文场地确认",
+          "confidence": "high",
+          "modelEvidence": ["花箱", "餐牌", "水景", "店前外摆边界"]
+        }
+      }
+    },
+    {
+      "postId": "69ddeafb00000000230205ee",
+      "url": "https://www.xiaohongshu.com/explore/69ddeafb00000000230205ee",
+      "title": "上生新所｜藏在街区里的小森林",
+      "author": "远行与归来",
+      "publishedLabel": "编辑于 04-14",
+      "locationEvidence": {
+        "article": "正文明确地点为上生新所，并概括小尺度巷道、成熟树木、老建筑、艺术装置与咖啡店。",
+        "comments": [],
+        "defaultStatus": "venue-confirmed-subzone-visual"
+      },
+      "images": {
+        "image-01.webp": {
+          "scene": "大树、覆土树池、弧形路缘与行人",
+          "possibleLocation": "上生新所园区内林下开放空间",
+          "locationBasis": "正文场地确认；子区域由画面判断",
+          "confidence": "high",
+          "modelEvidence": ["成熟大树", "覆土树池", "弧形路缘", "稀疏行人"]
+        },
+        "image-02.webp": {
+          "scene": "林下餐厅玻璃面、木质花箱与暖色灯光",
+          "possibleLocation": "上生新所园区内餐饮/咖啡区域",
+          "locationBasis": "正文提到咖啡店；图片未确认店名",
+          "confidence": "medium-high",
+          "modelEvidence": ["木质花箱", "小乔木", "暖色壁灯", "玻璃店面"]
+        },
+        "image-03.webp": {
+          "scene": "绿植遮挡的玻璃餐厅与林下步道",
+          "possibleLocation": "上生新所园区内餐饮/咖啡区域",
+          "locationBasis": "正文场地确认；子区域由画面判断",
+          "confidence": "medium-high",
+          "modelEvidence": ["分层绿植", "林下步道", "玻璃店面"]
+        },
+        "image-04.webp": {
+          "scene": "条形格栅遮棚、吊布装置、共享桌、巨石和人物",
+          "possibleLocation": "上生新所园区内临时/艺术活动空间",
+          "locationBasis": "正文提到艺术装置；精确活动点未知",
+          "confidence": "medium",
+          "modelEvidence": ["格栅遮棚", "吊布装置", "共享桌凳", "景石"]
+        },
+        "image-05.webp": {
+          "scene": "长桌、餐椅、线性顶灯与就坐人群",
+          "possibleLocation": "上生新所园区内半室外餐饮区",
+          "locationBasis": "正文场地确认；子区域由画面判断",
+          "confidence": "medium-high",
+          "modelEvidence": ["共享长桌", "线性灯", "餐椅", "人群"]
+        },
+        "image-06.webp": {
+          "scene": "砖铺场地、长凳、餐椅、下照灯和行人",
+          "possibleLocation": "上生新所园区内餐饮建筑外侧",
+          "locationBasis": "正文场地确认",
+          "confidence": "high",
+          "modelEvidence": ["砖铺地面", "长凳", "独立餐椅", "下照灯", "行人"]
+        },
+        "image-07.webp": {
+          "scene": "夜间巷道、店前餐椅、树木与路人",
+          "possibleLocation": "上生新所园区内商业巷道",
+          "locationBasis": "正文所述小尺度巷道与咖啡店",
+          "confidence": "high",
+          "modelEvidence": ["夜间店面照明", "外摆餐椅", "行人"]
+        },
+        "image-08.webp": {
+          "scene": "拱廊、临水店面与室内外照明",
+          "possibleLocation": "上生新所园区内商业/水景区域",
+          "locationBasis": "正文场地确认；精确建筑未知",
+          "confidence": "medium",
+          "modelEvidence": ["拱廊灯", "水面反射", "店面活动"]
+        },
+        "image-09.webp": {
+          "scene": "玻璃暖房/餐厅、架空连廊、夜间行人",
+          "possibleLocation": "上生新所园区内商业公共空间",
+          "locationBasis": "正文场地确认",
+          "confidence": "medium-high",
+          "modelEvidence": ["连廊", "玻璃暖房", "夜间行人", "暖色室内光"]
+        },
+        "image-10.webp": {
+          "scene": "玻璃屋顶、空中连廊与广场人流",
+          "possibleLocation": "上生新所园区内公共空间",
+          "locationBasis": "正文场地确认",
+          "confidence": "medium-high",
+          "modelEvidence": ["玻璃屋顶", "连廊", "广场人流"]
+        },
+        "image-11.webp": {
+          "scene": "STATUE ROOM 门头、室外人物和树影",
+          "possibleLocation": "上生新所 STATUE ROOM 入口",
+          "locationBasis": "画面可读门头；位于文章确认的园区内",
+          "confidence": "high",
+          "modelEvidence": ["门头灯箱", "入口聚集人物", "树影"]
+        },
+        "image-12.webp": {
+          "scene": "STATUE ROOM 砖墙拱窗、绿篱和成熟乔木",
+          "possibleLocation": "上生新所 STATUE ROOM 外侧",
+          "locationBasis": "画面可读门头；位于文章确认的园区内",
+          "confidence": "high",
+          "modelEvidence": ["连续绿篱", "大树", "建筑入口标识"]
+        },
+        "image-13.webp": {
+          "scene": "林下步道、低位草坪灯、绿篱和行人",
+          "possibleLocation": "上生新所园区内花园路径",
+          "locationBasis": "正文强调成熟树木与小尺度路径",
+          "confidence": "high",
+          "modelEvidence": ["低位草坪灯", "绿篱", "林下行人", "湿润路面"]
+        },
+        "image-14.webp": {
+          "scene": "树下木平台、餐桌椅、灌木与咖啡空间",
+          "possibleLocation": "上生新所园区内林下餐饮区",
+          "locationBasis": "正文提到咖啡店；子区域由画面判断",
+          "confidence": "high",
+          "modelEvidence": ["木平台", "餐桌椅", "分层种植", "小乔木"]
+        },
+        "image-15.webp": {
+          "scene": "橙色挑檐、户外餐桌、弯曲园路和小乔木",
+          "possibleLocation": "上生新所园区内林下餐饮/花园区域",
+          "locationBasis": "正文场地确认",
+          "confidence": "high",
+          "modelEvidence": ["挑檐", "户外桌椅", "弯曲园路", "树池"]
+        },
+        "image-16.webp": {
+          "scene": "弯曲园路、下照灯柱、密集小乔木和木平台",
+          "possibleLocation": "上生新所园区内花园路径",
+          "locationBasis": "正文所述小森林与小尺度巷道",
+          "confidence": "high",
+          "modelEvidence": ["弯曲园路", "低位灯柱", "小乔木阵列", "木平台"]
+        },
+        "image-17.webp": {
+          "scene": "白色拱廊、吊扇、餐桌椅和就餐人群",
+          "possibleLocation": "上生新所园区内餐饮拱廊",
+          "locationBasis": "正文场地确认；精确店名未知",
+          "confidence": "medium-high",
+          "modelEvidence": ["拱廊", "吊扇", "餐桌椅", "就坐人群"]
+        },
+        "image-18.webp": {
+          "scene": "艺术装置边缘取景的林下路径、绿篱和行人",
+          "possibleLocation": "上生新所园区内花园/艺术装置附近",
+          "locationBasis": "正文提到艺术装置；精确装置未知",
+          "confidence": "medium",
+          "modelEvidence": ["艺术装置色彩", "绿篱", "树下行人", "低位灯"]
+        }
+      }
+    },
+    {
+      "postId": "67fcf03c000000000b02d804",
+      "url": "https://www.xiaohongshu.com/explore/67fcf03c000000000b02d804",
+      "title": "新华路夜神扫街 + citywalk 路线",
+      "author": "返璞归真神探",
+      "publishedLabel": "2025-04-14",
+      "locationEvidence": {
+        "article": "正文给出顺序路线：新华路 345 弄社区营造中心、新华 365、M2F 咖啡馆、上海影城、幸福里、孙科别墅、上生新所、定西路美食街。",
+        "comments": [
+          "评论主要为泛化交流；FICS 账号表示被拍到，但不增加其它图片的精确定位。"
+        ],
+        "defaultStatus": "ordered-route-inferred"
+      },
+      "images": {
+        "image-01.webp": {
+          "scene": "FICS/新华 365 建筑外观与街边行人",
+          "possibleLocation": "新华 365 / FICS 临街面",
+          "locationBasis": "画面大字标识与正文路线一致",
+          "confidence": "high",
+          "modelEvidence": ["沿街行人", "入口前停留", "大型墙面标识"]
+        },
+        "image-02.webp": {
+          "scene": "扫街照片拼图：桌面小物、金属雕塑、自行车",
+          "possibleLocation": "正文路线多个点位的合辑，不能对应单一地点",
+          "locationBasis": "封面式拼图",
+          "confidence": "low",
+          "modelEvidence": ["自行车", "金属艺术装置；需以分图作具体证据"]
+        },
+        "image-03.webp": {
+          "scene": "咖啡店外坐姿人物",
+          "possibleLocation": "正文路线中的咖啡/商业空间，精确店名未知",
+          "locationBasis": "路线范围；画面无稳定门牌",
+          "confidence": "low",
+          "modelEvidence": ["店外坐凳", "停留人物", "咖啡杯"]
+        },
+        "image-04.webp": {
+          "scene": "金属抽象艺术装置与绿植",
+          "possibleLocation": "正文路线中的幸福里或上生新所等公共空间，精确地点未知",
+          "locationBasis": "路线提到公共空间；仅凭图片不能二选一",
+          "confidence": "low",
+          "modelEvidence": ["小型金属艺术装置", "景观绿植"]
+        },
+        "image-05.webp": {
+          "scene": "复古自行车车把、眼镜和临街背景",
+          "possibleLocation": "正文 citywalk 路线沿线，精确地点未知",
+          "locationBasis": "路线范围；无门牌",
+          "confidence": "low",
+          "modelEvidence": ["停放自行车", "生活化小道具"]
+        },
+        "image-06.webp": {
+          "scene": "桌面摆件与小型玩具",
+          "possibleLocation": "正文路线中的室内/店面空间，精确地点未知",
+          "locationBasis": "路线范围；无位置证据",
+          "confidence": "low",
+          "modelEvidence": ["不直接作为街景建模证据"]
+        },
+        "image-07.webp": {
+          "scene": "玻璃蘑菇状小型摆件",
+          "possibleLocation": "正文路线中的店面空间，精确地点未知",
+          "locationBasis": "路线范围；无位置证据",
+          "confidence": "low",
+          "modelEvidence": ["不直接作为街景建模证据"]
+        },
+        "image-08.webp": {
+          "scene": "手绘 citywalk 路线图",
+          "possibleLocation": "新华路 345 弄—新华 365—M2F—上海影城—幸福里—孙科别墅—上生新所—定西路",
+          "locationBasis": "正文路线与画面路线图",
+          "confidence": "high",
+          "modelEvidence": ["活动区、步行路线与人流生成锚点证据，不作为精确几何数据"]
+        },
+        "image-09.webp": {
+          "scene": "M2F 沿街店面、梧桐树与共享单车",
+          "possibleLocation": "M2F 咖啡馆临街面",
+          "locationBasis": "画面可读 M2F 标识；正文路线点名",
+          "confidence": "high",
+          "modelEvidence": ["共享单车带", "树下店面", "店招", "路缘"]
+        },
+        "image-10.webp": {
+          "scene": "新华 365 / FICS 院内建筑、彩色孔洞立面与旗帜",
+          "possibleLocation": "新华 365 / FICS",
+          "locationBasis": "画面可读 FICS/365 标识；正文路线点名",
+          "confidence": "high",
+          "modelEvidence": ["院内旗帜", "彩色墙面装饰", "窄巷入口"]
+        },
+        "image-11.webp": {
+          "scene": "圆形街钟、方向牌、绿篱与低层建筑背景",
+          "possibleLocation": "新华路 citywalk 路线沿线，具体节点待二次现场/地图核验",
+          "locationBasis": "正文路线；方向牌文字在证据图中不足以稳定读取",
+          "confidence": "medium-low",
+          "modelEvidence": ["独立街钟", "方向指示牌", "绿篱"]
+        },
+        "image-12.webp": {
+          "scene": "低层老住宅、坡屋顶、外挂窗体与围墙",
+          "possibleLocation": "幸福里—孙科别墅—上生新所路线段之一，精确建筑未知",
+          "locationBasis": "正文顺序路线；不能仅凭外观认定具体建筑",
+          "confidence": "low",
+          "modelEvidence": ["街墙背景", "院墙", "坡屋顶；不作为真实建筑复原证据"]
+        },
+        "image-13.webp": {
+          "scene": "SHANGHAI CINEMA 入口",
+          "possibleLocation": "上海影城入口",
+          "locationBasis": "画面可读 SHANGHAI CINEMA；正文路线点名",
+          "confidence": "high",
+          "modelEvidence": ["入口标识", "前场铺装", "人物生成锚点"]
+        },
+        "image-14.webp": {
+          "scene": "庭院式历史建筑、围栏花箱、树木与临街人行道",
+          "possibleLocation": "孙科别墅—上生新所路线段，精确主体未知",
+          "locationBasis": "正文顺序路线；画面缺少可核门牌",
+          "confidence": "low",
+          "modelEvidence": ["围栏花箱", "庭院树木", "人行道边界；不作为建筑身份复原证据"]
+        }
+      }
+    }
+  ]
+}
