@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "film-art-center",
   "activeScope": "active-18-buildings",
-  "reviewedAt": "2026-07-25T20:43:40+08:00",
+  "reviewedAt": "2026-07-25T21:02:28+08:00",
   "reviewedBy": "main-coordinator",
   "sourceCheckpoint": "6d0206d",
   "pipelineOrder": [
@@ -156,7 +156,7 @@
   },
   "heroGate": {
     "gate": "mcp2-hero-master-review",
-    "status": "blocked-topology-repair-built-recheck-pending",
+    "status": "pass",
     "interactiveReview": "Blender MCP",
     "fallbackUsed": false,
     "preRepairCandidate": {
@@ -227,7 +227,7 @@
       "acceptedInteractiveChanges": []
     },
     "generatorRoundTrip": {
-      "status": "completed-recheck-pending",
+      "status": "completed-mcp2-pass",
       "generator": {
         "path": "scripts/create_xinhua_road_models.py",
         "sha256": "324be84a32ed3d43ff0bc1ceaca040e8e46f68aff21151b1bafa4ae524f6f3c6"
@@ -265,12 +265,68 @@
         "side": "test_artifacts/test_film-art-center_side_preview.png",
         "entrance": "test_artifacts/test_film-art-center_street_preview.png"
       },
-      "status": "pending-main-coordinator-blender-mcp-recheck"
+      "sceneInspection": {
+        "rootObject": "film-art-center",
+        "rootType": "MESH",
+        "rootLocation": [0, 0, 0],
+        "rootRotation": [0, 0, 0],
+        "rootScale": [1, 1, 1],
+        "vertices": 34226,
+        "polygons": 31351,
+        "materials": 14,
+        "facesBelowAreaEpsilon": 0,
+        "areaEpsilon": 1e-10,
+        "minimumValidFaceArea": 0.0000013669633744939347,
+        "nonfinitePolygonNormals": 0,
+        "degenerateFacesRemovedProperty": 76,
+        "boundsBlender": {
+          "min": [-11.555, -11.225, -1.1920928955078125e-7],
+          "max": [11.555, 6.725, 14.4]
+        }
+      },
+      "visualChecks": {
+        "canonical": "pass-main-and-secondary-red-eaves-double-veranda-central-loggia-sign-lights-lions-and-low-wings-readable",
+        "side": "pass-eave-depth-and-glass-wing-with-no-black-faces-or-visible-intersections",
+        "entrance": "pass-chinese-sign-order-lights-lions-columns-railing-and-entry-path-preserved"
+      },
+      "fixedMcpRecheckViews": {
+        "canonical": {
+          "camera": [3, -43, 8],
+          "target": [0, -0.5, 6.3],
+          "lensMm": 54,
+          "screenshot": "test_artifacts/test_film-art-center-hero_mcp2_recheck_canonical.png",
+          "sha256": "962baf1ac9d47aca442b3dca88b1af77e2dae3db05f9ab46fde8ce856ff0f419",
+          "bytes": 1109770
+        },
+        "side": {
+          "camera": [34, -28, 9],
+          "target": [1, 0, 6.1],
+          "lensMm": 52,
+          "screenshot": "test_artifacts/test_film-art-center-hero_mcp2_recheck_side.png",
+          "sha256": "ad23464bb8f7d7611fcedb5d577e1b9cfb222d463955d591f617c49fc79e1bcd",
+          "bytes": 1086127
+        },
+        "entrance": {
+          "camera": [10, -48, 4.8],
+          "target": [0, -0.8, 5.7],
+          "lensMm": 56,
+          "screenshot": "test_artifacts/test_film-art-center-hero_mcp2_recheck_entrance-street.png",
+          "sha256": "84d7ce3d88da26809c15e54f492d690427493ac2bf23204d050a894dde3b7b9e",
+          "bytes": 1061319
+        }
+      },
+      "acceptedInteractiveChanges": [],
+      "qaRigSaved": false,
+      "qaRigExported": false,
+      "status": "pass"
     },
-    "nextGate": "mcp2-recheck-before-identity"
+    "decision": "pass-identity-derivation-unlocked",
+    "nextGate": "derive-independent-identity-from-frozen-hero"
   },
   "identityGate": {
-    "status": "blocked-until-hero-mcp2"
+    "status": "unlocked-pending-independent-derivation",
+    "derivedFromHeroSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+    "forbiddenSubstitute": "arts-cluster-generic-proxy"
   },
   "threeTierGate": {
     "status": "pending"

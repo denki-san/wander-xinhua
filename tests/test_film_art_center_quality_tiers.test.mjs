@@ -92,7 +92,7 @@ test("Film Art Center Massing 保持单建筑与 Hold 边界", async () => {
   assert.equal(lineage.activeScope, "active-18-buildings");
   assert.equal(lineage.massing.mcp1, "pass");
   assert.equal(lineage.massing.mapAcceptance, "pass");
-  assert.equal(lineage.identity.identityAllowed, false);
+  assert.equal(lineage.identity.identityAllowed, true);
   assert.doesNotMatch(
     generator,
     /create_xinhua_road_clean_massing_models|BUILDERS|build_plane_tree/,
@@ -204,7 +204,7 @@ test("Recovery generic box 被保留为反例且不得进入正式 tier", async 
   assert.notEqual(lineage.massing.glb.sha256, decision.sha256);
 });
 
-test("Film Art Center Hero 拓扑修复可追溯且 Identity 仍保持锁定", async () => {
+test("Film Art Center Hero MCP2 Pass 可追溯并解锁独立 Identity 派生", async () => {
   const [record, lineage, gate, generator, glbBuffer, blendBuffer, landmarkData] =
     await Promise.all([
       readFile(heroRecordUrl, "utf8").then(JSON.parse),
@@ -262,15 +262,24 @@ test("Film Art Center Hero 拓扑修复可追溯且 Identity 仍保持锁定", a
   assert.equal(record.determinism.sha256, record.outputs.sha256);
   assert.equal(
     gate.heroGate.status,
-    "blocked-topology-repair-built-recheck-pending",
+    "pass",
   );
   assert.equal(
     gate.heroGate.recheckCandidate.status,
-    "pending-main-coordinator-blender-mcp-recheck",
+    "pass",
   );
-  assert.equal(gate.identityGate.status, "blocked-until-hero-mcp2");
-  assert.equal(lineage.identity.identityAllowed, false);
-  assert.equal(lineage.nextGate, "blender-mcp2-hero-master-recheck");
+  assert.equal(
+    gate.identityGate.status,
+    "unlocked-pending-independent-derivation",
+  );
+  assert.equal(lineage.identity.identityAllowed, true);
+  assert.equal(lineage.nextGate, "identity-deterministic-candidate-build");
+  assert.deepEqual(
+    gate.heroGate.recheckCandidate.acceptedInteractiveChanges,
+    [],
+  );
+  assert.equal(gate.heroGate.recheckCandidate.qaRigSaved, false);
+  assert.equal(gate.heroGate.recheckCandidate.qaRigExported, false);
   assert.match(generator, /MeshPolygon\.area/);
   assert.match(generator, /context="FACES_ONLY"/);
   assert.match(generator, /export_texcoords=export_texcoords/);
@@ -280,6 +289,12 @@ test("Film Art Center Hero 拓扑修复可追溯且 Identity 仍保持锁定", a
     const buffer = await readFile(new URL(preview.path, root));
     assert.equal(buffer.length, preview.bytes);
     assert.equal(sha256(buffer), preview.sha256);
+
+    const recheck =
+      gate.heroGate.recheckCandidate.fixedMcpRecheckViews[view];
+    const recheckBuffer = await readFile(new URL(recheck.screenshot, root));
+    assert.equal(recheckBuffer.length, recheck.bytes);
+    assert.equal(sha256(recheckBuffer), recheck.sha256);
   }
 });
 

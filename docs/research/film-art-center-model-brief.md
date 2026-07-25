@@ -133,12 +133,12 @@
 ### Runtime tier lineage and budgets — 2026-07-25
 
 Hero 在主窗口首次 MCP2 中通过视觉层，但因 76 个近零面积面被拓扑门阻断；当前
-生成器、Blend 与 GLB 已完成确定性修复，等待同一 MCP2 固定机位复核。正式 lineage 见
+生成器、Blend 与 GLB 已完成确定性修复，并通过同一 MCP2 固定机位复核。正式 lineage 见
 `docs/research/film-art-center-tier-lineage.json`。
 
 | Field | Hero | Identity | Massing |
 | --- | --- | --- | --- |
-| Status | topology repaired, MCP2 recheck pending | blocked until Hero MCP2 pass | MCP1 pass, map pass |
+| Status | MCP2 pass, frozen Identity source | unlocked, deterministic candidate pending | MCP1 pass, map pass |
 | Output | `public/models/xinhua-road/film-art-center.glb` | pending | `public/models/tiers/xinhua-road/massing/film-art-center-massing.glb` |
 | Source | frozen Hero `.blend` + `build_film_art_center()` | must derive from frozen Hero | deterministic simplification of frozen Hero parameters |
 | SHA-256 | `33daaaf0…b8e1b` | pending | `c89791dc…584a6` |
@@ -160,7 +160,7 @@ height，且原记录明确 `mapAcceptance=blocked`。它保留为 recovery 对�
 | Batch | Deliverable | Blender check | Runtime check | Status |
 | --- | --- | --- | --- | --- |
 | Massing | Hero 主模型施工中的三层横向体块、中层檐、全宽主屋顶和真实廊深 | canonical 轮廓与照片宽高比 | 主体不再像窄高盒子 | Complete（Hero construction checkpoint；不等于 standalone Massing tier） |
-| Identity | 从 MCP2 通过后的 Hero 派生独立轻量 tier | 三处以上主体独有构件清晰 | 三档运行时切换仍可辨识 | Blocked（等待 Hero MCP2 recheck） |
+| Identity | 从 MCP2 通过后的 Hero 派生独立轻量 tier | 三处以上主体独有构件清晰 | 三档运行时切换仍可辨识 | Unlocked（候选尚未生成） |
 | Materials | 暖白墙柱、朱红屋瓦、深窗与暖入口 | 阴影层次与红瓦不过饱和 | 无黑面、透明排序或过曝 | Complete |
 | Site | 草坪、路径、灌木和低玻璃连接体 | canonical 场地关系 | 入口路径开放 | Complete |
 | Collision | 主体实体与开放院落分离 | 无大盒封场 | 人物与相机可达 | Complete（实际首屏 + 数据与自动测试） |
@@ -367,7 +367,15 @@ Identity/MCP3 完成后重新执行三档运行时验收，不能沿用旧截图
 - Fixed views: canonical、side、street 三张 Headless 固定机位已重跑并人工检查，
   牌匾、白色栏杆、入口灯、红瓦和低翼未因拓扑清理丢失。首次 MCP2 的三张主窗口
   截图保留为 blocker 证据；修复候选仍必须由主窗口用 Blender MCP 同机位复核。
-- Gate state: `mcp2-topology-repaired-recheck-pending`；不得自行标 Pass，
-  不得开始 formal Identity。回退点为首次 MCP2 前旧 Hero
-  `e4887f6d…b0de6` 与当前生成器差异；Hold、树木、装饰、ordinary OSM、全地图及
-  其他建筑均未触碰。
+- MCP2 recheck: 主窗口实际打开新 Blend，确认 34,226 vertices、31,351 polygons、
+  area `<1e-10` 为 0、非有限法线为 0、最小有效面积
+  `1.3669633744939347e-6`、root transform 归一、清理属性为 76。canonical、
+  side、entrance 三机位中主/次红檐连续，双层柱廊/栏杆、中央凉廊、中文牌匾、
+  灯、卧狮和低玻璃侧翼均未丢；无黑面或可见穿插。
+- Recheck provenance: `acceptedInteractiveChanges=[]`，QA rig 未保存、未导出；
+  三张新截图为
+  `test_film-art-center-hero_mcp2_recheck_{canonical,side,entrance-street}.png`。
+- Gate state: MCP2 Pass；Hero `33daaaf0…b8e1b` 正式冻结为 Identity 派生源。
+  formal Identity 现已解锁，但只能做独立主体特定的确定性派生，不得把现有
+  `arts-cluster` generic proxy 冒充为本建筑 Identity。Hold、树木、装饰、
+  ordinary OSM、全地图及其他建筑均未触碰。
