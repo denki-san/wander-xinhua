@@ -16,6 +16,10 @@ const generatorUrl = new URL(
   "scripts/create_film_art_center_massing_model.py",
   root,
 );
+const mcpGateUrl = new URL(
+  "docs/research/film-art-center-blender-mcp-gates.json",
+  root,
+);
 
 function sha256(buffer) {
   return createHash("sha256").update(buffer).digest("hex");
@@ -49,7 +53,7 @@ test("Film Art Center Massing 保持单建筑与 Hold 边界", async () => {
 
   assert.equal(record.assetId, "building:xinhua-road:film-art-center");
   assert.equal(record.tier, "massing");
-  assert.equal(record.status, "headless-and-structure-pass-mcp1-pending");
+  assert.equal(record.status, "mcp1-pass-map-calibration-pending");
   assert.deepEqual(record.holdBoundary, {
     trees: "untouched",
     decor: "untouched",
@@ -59,8 +63,8 @@ test("Film Art Center Massing 保持单建筑与 Hold 边界", async () => {
     otherBuildings: "untouched",
   });
   assert.equal(lineage.activeScope, "active-18-buildings");
-  assert.equal(lineage.massing.mcp1, "pending");
-  assert.equal(lineage.massing.mapAcceptance, "blocked-until-mcp1");
+  assert.equal(lineage.massing.mcp1, "pass");
+  assert.equal(lineage.massing.mapAcceptance, "pending");
   assert.equal(lineage.identity.identityAllowed, false);
   assert.doesNotMatch(
     generator,
@@ -149,4 +153,58 @@ test("Recovery generic box 被保留为反例且不得进入正式 tier", async 
   assert.equal(lineage.recoveryDecision.structure.bytes, 2316);
   assert.equal(lineage.recoveryDecision.decision, "rejected-as-formal-massing");
   assert.notEqual(lineage.massing.glb.sha256, decision.sha256);
+});
+
+test("Film Art Center MCP1 场景、固定机位与尺度边界精确封存", async () => {
+  const [gate, record, glb, blend, generator] = await Promise.all([
+    readFile(mcpGateUrl, "utf8").then(JSON.parse),
+    readFile(recordUrl, "utf8").then(JSON.parse),
+    readFile(
+      new URL(
+        "public/models/tiers/xinhua-road/massing/film-art-center-massing.glb",
+        root,
+      ),
+    ),
+    readFile(
+      new URL(
+        "assets/models/source/tiers/xinhua-road/massing/film-art-center-massing.blend",
+        root,
+      ),
+    ),
+    readFile(generatorUrl),
+  ]);
+
+  assert.equal(gate.assetId, "film-art-center");
+  assert.equal(gate.massingGate.status, "pass");
+  assert.equal(gate.massingGate.runtimeAsset.sha256, sha256(glb));
+  assert.equal(gate.massingGate.editableSource.sha256, sha256(blend));
+  assert.equal(gate.massingGate.generator.sha256, sha256(generator));
+  assert.equal(gate.massingGate.sceneInspection.meshCount, 1);
+  assert.equal(gate.massingGate.sceneInspection.triangles, 3376);
+  assert.equal(gate.massingGate.sceneInspection.materials, 6);
+  assert.equal(gate.massingGate.sceneInspection.images, 0);
+  assert.equal(gate.massingGate.humanScale.heightMeters, 1.8);
+  assert.equal(gate.massingGate.humanScale.exportedToGlb, false);
+  assert.equal(
+    gate.massingGate.checks.runtimePlayerScale,
+    "pending-three-js-map-gate",
+  );
+  assert.equal(
+    gate.massingGate.checks.physicalSurveyScale,
+    "unknown-not-claimed",
+  );
+  assert.deepEqual(gate.massingGate.acceptedInteractiveChanges, []);
+  assert.equal(gate.massingGate.generatorRoundTrip.status, "not-required");
+  assert.equal(record.gates.mcp1, "pass");
+  assert.equal(record.gates.mapAcceptance, "pending");
+  assert.equal(record.gates.identityAllowed, false);
+  assert.equal(record.outputs.blendSha256, sha256(blend));
+  assert.equal(record.outputs.blendBytes, blend.length);
+
+  for (const view of ["canonical", "side", "entrance", "scale"]) {
+    const screenshot = gate.massingGate.fixedViews[view];
+    const buffer = await readFile(new URL(screenshot.screenshot, root));
+    assert.equal(buffer.length, screenshot.bytes);
+    assert.equal(sha256(buffer), screenshot.sha256);
+  }
 });

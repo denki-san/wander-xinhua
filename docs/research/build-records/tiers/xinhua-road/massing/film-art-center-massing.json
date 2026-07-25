@@ -3,7 +3,7 @@
   "auditedAt": "2026-07-25",
   "assetId": "building:xinhua-road:film-art-center",
   "tier": "massing",
-  "status": "headless-and-structure-pass-mcp1-pending",
+  "status": "mcp1-pass-map-calibration-pending",
   "generator": {
     "path": "scripts/create_film_art_center_massing_model.py",
     "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --factory-startup --python-exit-code 1 --python scripts/create_film_art_center_massing_model.py",
@@ -67,6 +67,8 @@
   },
   "outputs": {
     "blend": "assets/models/source/tiers/xinhua-road/massing/film-art-center-massing.blend",
+    "blendSha256": "3b461d8307a0d1f53d90cd529fb39298a6ecbbbee356f63adca7f54c4c3314e6",
+    "blendBytes": 142503,
     "glb": "public/models/tiers/xinhua-road/massing/film-art-center-massing.glb",
     "cacheVersion": "20260725-film-art-massing-1",
     "previews": {
@@ -163,8 +165,9 @@
       "sha256": "c89791dc3978b317cc2f8807a77f7a84b5c596f8d4cd01c1cffd05090e9584a6",
       "comparison": "byte-identical"
     },
-    "mcp1": "pending",
-    "mapAcceptance": "blocked-until-mcp1",
+    "mcp1": "pass",
+    "mcpRecord": "docs/research/film-art-center-blender-mcp-gates.json",
+    "mapAcceptance": "pending",
     "identityAllowed": false
   }
 }
