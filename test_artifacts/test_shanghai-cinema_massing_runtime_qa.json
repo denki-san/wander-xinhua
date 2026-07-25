@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "tier": "massing",
+  "capturedAt": "2026-07-25T18:36:09+08:00",
+  "route": "http://127.0.0.1:4173/?start=cinema&qaCinemaTier=massing&cameraQa=1",
+  "buildMode": "vite-static-production-preview",
+  "viewport": {
+    "width": 1280,
+    "height": 577,
+    "devicePixelRatio": 1
+  },
+  "sampling": {
+    "pageVisibility": "visible",
+    "warmupSeconds": 8,
+    "interaction": "clicked 出发, then held camera and character stationary",
+    "performanceBaseline": null
+  },
+  "runtimeContract": {
+    "mainDataShanghaiCinemaQaTier": "massing",
+    "documentDataShanghaiCinemaMassingRuntime": "loaded",
+    "canvasCount": 1,
+    "resourceUrl": "http://127.0.0.1:4173/models/xinhua-road/shanghai-cinema-massing.glb?v=20260725-massing-1",
+    "loadMark": {
+      "name": "shanghai-cinema-massing-loaded",
+      "startTimeMs": 752.1000000005588
+    }
+  },
+  "resourceTiming": {
+    "initiatorType": "fetch",
+    "startTimeMs": 671.8000000007451,
+    "durationMs": 6.8999999994412065,
+    "transferSize": 714528,
+    "encodedBodySize": 714228,
+    "decodedBodySize": 714228
+  },
+  "mapCalibration": {
+    "position": [74.1, 80.9],
+    "yaw": 2.761592653589793,
+    "scale": 1,
+    "groundDatum": {
+      "glbMinY": 0,
+      "terrainY": 0.909780347,
+      "terrainClearance": 0.1,
+      "runtimePlacementY": 1.009780347,
+      "result": "passed-contract-and-visible-contact"
+    },
+    "roadSetback": {
+      "result": "passed-static-contract-and-runtime-view",
+      "note": "实际地图截图同时包含新华路道路边界、入口前场与建筑基座；未修改全局道路或 OSM 数据。"
+    },
+    "personScale": {
+      "heightMeters": 1.8,
+      "metersPerSceneUnit": 2.7,
+      "heightSceneUnits": 0.6666666666666666,
+      "result": "passed-runtime-visible-comparison",
+      "note": "截图中的正式角色与建筑入口、首层玻璃鼓体同框；MCP 标尺仍须在 MCP3 使用修正后的 0.666667 场景单位代理。"
+    },
+    "localObstacles": [
+      { "minX": -10.5, "maxX": 10.5, "minZ": -7.3, "maxZ": 6.2 },
+      { "minX": -14.4, "maxX": -10.5, "minZ": -10, "maxZ": 4.5 },
+      { "minX": 10.5, "maxX": 14.4, "minZ": -10, "maxZ": 4.5 }
+    ],
+    "collisionResult": "contract-passed-runtime-walk-not-yet-scripted",
+    "collisionNote": "三块碰撞体保持入口广场与侧向通行区开放；本轮未把浏览器合成长按当作碰撞证据。"
+  },
+  "cameraTelemetry": {
+    "mode": "spring-clear",
+    "blocker": "none",
+    "arm": "5.43 / 5.43",
+    "armYawDegrees": "49.2 / 49.2",
+    "goalYawDegrees": 40.9,
+    "input": [0, 0],
+    "fovDegrees": 58,
+    "graceMs": 0,
+    "changes": 1
+  },
+  "browserErrors": [],
+  "visualEvidence": {
+    "screenshot": "test_artifacts/test_shanghai-cinema_massing_runtime_map.png",
+    "sha256": "9a8658c9a355a912cc575c27549effcb483ba2bc5a1278ef775aceef159a7bd8",
+    "dimensions": [1280, 577],
+    "observed": [
+      "Massing 在上海影城真实地图 position/yaw/scale 下可见。",
+      "道路边界、建筑入口前场、基座与正式角色在同一运行时画面中。",
+      "建筑底部未见明显悬空，入口前场未被单一大碰撞盒封死。",
+      "页面相机遥测为 spring-clear，当前 blocker 为 none。"
+    ]
+  },
+  "verification": {
+    "targetedTests": {
+      "command": "node --test tests/test_shanghai_cinema_quality_tiers.test.mjs tests/test_hybrid_model_comparison.test.mjs tests/test_xinhua_road_models.test.mjs tests/test_progressive_world_loading.test.mjs tests/test_audit_glb.test.mjs",
+      "passed": 37,
+      "failed": 0
+    },
+    "lint": {
+      "command": "npm run lint",
+      "result": "passed"
+    },
+    "staticBuild": {
+      "command": "npm run build:static",
+      "result": "passed",
+      "warning": "Vite reported the existing Gltf chunk above 500 kB; no performance improvement is claimed."
+    }
+  },
+  "remaining": [
+    "主窗口串行完成 MCP3 同机位三档检查，并使用 0.666667 场景单位人物代理。",
+    "Identity 必须按运行时 composite 边界审查，不能把独立 Identity GLB 误认为完整 Identity tier。",
+    "如需把碰撞从合同通过提升为运行时通过，另行使用确定性移动脚本记录三块实体碰撞与入口开放。"
+  ]
+}

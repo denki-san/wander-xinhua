@@ -84,6 +84,12 @@ export function ShanghaiCinemaMassingGlb({
   const model = useMemo(() => cloneConfiguredScene(scene), [scene]);
   useEffect(() => {
     onReady?.();
+    document.documentElement.dataset.shanghaiCinemaMassingRuntime = "loaded";
+    performance.mark("shanghai-cinema-massing-loaded");
+    return () => {
+      delete document.documentElement.dataset.shanghaiCinemaMassingRuntime;
+      performance.clearMarks("shanghai-cinema-massing-loaded");
+    };
   }, [onReady]);
   return (
     <group

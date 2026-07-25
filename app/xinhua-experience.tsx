@@ -401,6 +401,10 @@ export function XinhuaExperience() {
     typeof window !== "undefined"
     && new URLSearchParams(window.location.search).get("cameraQa") === "1"
   ));
+  const [cinemaMassingQa] = useState(() => (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("qaCinemaTier") === "massing"
+  ));
   const networkProfile = useProgressiveNetworkProfile();
   const playerPosition = useRef<readonly [number, number]>(INITIAL_OVERVIEW_POSITION);
   const overviewPhotoCache = useRef(new Map<string, HTMLImageElement>());
@@ -555,6 +559,7 @@ export function XinhuaExperience() {
       className={`xinhua-stage is-${mode}${playing ? " is-playing" : ""}${touchCapable ? " is-touch" : ""}`}
       data-progressive-network={networkProfile}
       data-progressive-stage={ready ? "playable" : "booting"}
+      data-shanghai-cinema-qa-tier={cinemaMassingQa ? "massing" : undefined}
     >
       <Canvas
         shadows="percentage"
@@ -593,6 +598,7 @@ export function XinhuaExperience() {
             playerPosition.current = position;
           }}
           networkProfile={networkProfile}
+          cinemaMassingQa={cinemaMassingQa}
         />
         {/* 首帧先交出控制权，再装载后处理；挂载后不随模式切换重建。 */}
         {ready && (

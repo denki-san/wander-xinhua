@@ -6265,3 +6265,39 @@ shell 循环使用 `file_path` 等任务专用变量名，避免 `path`、`statu
 ### Resolution
 - **Resolved**: 2026-07-25T00:00:00+08:00
 - **Notes**: 改用 `file_path` 后重新执行，成功保留两侧追加记录并移除冲突标记。
+
+---
+## [ERR-20260725-013] tsx_ipc_denied_in_workspace_sandbox
+
+**Logged**: 2026-07-25T18:42:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+使用 `tsx -e` 只读导入 TypeScript 地形函数时，tsx 尝试创建本地 IPC socket，被 workspace 沙箱拒绝。
+
+### Error
+```text
+Error: listen EPERM: operation not permitted
+/var/folders/.../T/tsx-501/34169.pipe
+```
+
+### Context
+- 命令只用于读取 `terrainHeightAt(74.1, 80.9)` 的确定性结果。
+- 失败发生在 tsx CLI 初始化 IPC 阶段，没有修改工作区或运行时。
+- 同一计算可由源码合同、JSON 参数与实际 Three.js 截图交叉验证。
+
+### Suggested Fix
+在受限 workspace 中不要依赖 `tsx -e` 的 IPC 启动路径；优先使用现有 Node
+测试、已编译 bundle 或直接复算只读 JSON 合同。确需导入 TypeScript 时，仅对限定命令
+请求额外权限。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/terrain.ts, app/scene/xinhua-road-massing.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T18:42:00+08:00
+- **Notes**: 对限定的项目本地 `tsx -e` 只读命令请求额外权限后复核成功；
+  `terrainHeightAt(74.1, 80.9) = 0.909780347`，未改写工具链。

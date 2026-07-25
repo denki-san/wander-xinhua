@@ -484,6 +484,7 @@ function FlatNeighborhood({
   landmarkLoadMode = "overview",
   networkProfile,
   mode,
+  cinemaMassingQa = false,
 }: {
   onOpenAction: () => void;
   atmosphere: XinhuaAtmosphere;
@@ -497,6 +498,7 @@ function FlatNeighborhood({
   landmarkLoadMode?: "overview" | "explore";
   networkProfile: ProgressiveNetworkProfile;
   mode: "intro" | "overview" | "explore";
+  cinemaMassingQa?: boolean;
 }) {
   const xingfuliTier = useProgressiveBuildingTier({
     mode,
@@ -526,7 +528,7 @@ function FlatNeighborhood({
     <group scale={[detailScale, detailScale, detailScale]}>
       <XinhuaStreetMap
         showRoadLabels={showRoadLabels}
-        showStreetDressing={mode === "explore"}
+        showStreetDressing={mode === "explore" && !cinemaMassingQa}
         lowTier={lowTier}
       />
       <group
@@ -556,7 +558,21 @@ function FlatNeighborhood({
         showEnvironmentDetails={mode === "explore"}
         stage={shangshengTier}
       />
-      {showDetailModels ? (
+      {cinemaMassingQa ? (
+        <group
+          name="shanghai-cinema-massing-map-qa"
+          userData={{
+            assetId: "shanghai-cinema",
+            tier: "massing",
+            mapContext: "production-placement",
+          }}
+        >
+          <XinhuaRoadMassing
+            identity={false}
+            onlyLandmarkId="shanghai-cinema"
+          />
+        </group>
+      ) : showDetailModels ? (
         <ProgressiveFeatureBoundary
           resetKey={landmarkLoadMode}
           fallback={<XinhuaRoadMassing identity />}
@@ -1664,6 +1680,7 @@ export function XinhuaWorld({
   onNearPoi,
   onPositionChange,
   networkProfile,
+  cinemaMassingQa = false,
 }: {
   mode: "intro" | "overview" | "explore";
   lowTier: boolean;
@@ -1677,6 +1694,7 @@ export function XinhuaWorld({
   onNearPoi: (poiId: string | null) => void;
   onPositionChange: (position: readonly [number, number]) => void;
   networkProfile: ProgressiveNetworkProfile;
+  cinemaMassingQa?: boolean;
 }) {
   const exploring = mode === "explore";
   const overview = mode === "overview";
@@ -1734,11 +1752,12 @@ export function XinhuaWorld({
         showDetailModels={mode !== "intro"}
         showDetailLabels={false}
         showRoadLabels={!exploring}
-        showHeroTree={exploring}
+        showHeroTree={exploring && !cinemaMassingQa}
         progressiveFocus={progressiveFocus}
         landmarkLoadMode={exploring ? "explore" : "overview"}
         networkProfile={networkProfile}
         mode={mode}
+        cinemaMassingQa={cinemaMassingQa}
       />
       <ResponsiveCameraProjection exploring={exploring} />
       <IntroCamera active={mode === "intro"} />

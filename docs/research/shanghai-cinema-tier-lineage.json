@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "reviewedAt": "2026-07-25T18:30:00+08:00",
+  "status": "passed-with-composite-identity-boundary",
+  "hero": {
+    "role": "editable-master",
+    "generator": "scripts/create_xinhua_road_models.py",
+    "generatorSha256": "6ea5fc19f98f6339d83063bafea9c0edd66ca07d2bb171be08f61d63fed3488d",
+    "blend": "assets/models/source/xinhua-road/shanghai-cinema.blend",
+    "blendSha256": "fbb13fdb89169101c97bda0f3e5ba9644c70743aa85bd810368b365969db8fd8",
+    "glb": "public/models/xinhua-road/shanghai-cinema.glb",
+    "glbSha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+    "cacheVersion": "20260721-cinema-7"
+  },
+  "identity": {
+    "role": "production-hybrid-identity",
+    "generator": "scripts/create_shanghai_cinema_hybrid_identity.py",
+    "generatorSha256": "09ce0a491038d3c008c8edb4dcfe70562308e46c71c9a55bf760ec6514af89a0",
+    "blend": "assets/models/source/xinhua-road/shanghai-cinema-hybrid-identity.blend",
+    "blendSha256": "d087771e0547df66085c831f6befad1af9dd2b003e097d8af372187ddd2889ef",
+    "glb": "public/models/xinhua-road/shanghai-cinema-hybrid-identity.glb",
+    "glbSha256": "66ea8425313f9024d0b707b87be27549504ec9dddab3a8fdb30961aaf2d48d9c",
+    "cacheVersion": "20260722-hybrid-1",
+    "derivedFromHero": {
+      "generatorImport": "create_xinhua_road_models",
+      "reusedFunctions": [
+        "add_cinema_ribbon_surface",
+        "add_elliptical_wall_band",
+        "add_vertical_ellipse_disc",
+        "add_vertical_ellipse_reveal",
+        "cinema_front_y",
+        "merge_asset_objects"
+      ],
+      "recordedHeroGlbSha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+      "review": "matches-current-hero"
+    },
+    "runtimeComposition": [
+      "ShanghaiCinemaProgrammaticBody",
+      "ShanghaiCinemaIdentityGlb",
+      "ShanghaiCinemaRepeatedDetails"
+    ],
+    "boundary": "Standalone Identity GLB intentionally contains unique silhouette geometry only. Ground, side volumes and repeated facade rhythm are supplied by the versioned runtime composition; the GLB alone is not the complete Identity tier."
+  },
+  "massing": {
+    "role": "formal-runtime-massing",
+    "generator": "scripts/create_shanghai_cinema_massing.py",
+    "generatorSha256": "5ea4ada18900bec14f337f28b661b78ad0420df059caaec508f0f543009186ae",
+    "blend": "assets/models/source/xinhua-road/shanghai-cinema-massing.blend",
+    "blendSha256": "f827a26ee131a35503d93153fa23e4ce5df7a4b969b63906ced4919d4bf7f9dd",
+    "glb": "public/models/xinhua-road/shanghai-cinema-massing.glb",
+    "glbSha256": "e1635a7796ad9ca4f7699e5559c73c4a02591b601e9d300f8a874c73a7a513ab",
+    "cacheVersion": "20260725-massing-1",
+    "derivedFrom": {
+      "heroGlbSha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+      "identityGlbSha256": "66ea8425313f9024d0b707b87be27549504ec9dddab3a8fdb30961aaf2d48d9c",
+      "review": "GLB extras match current source binaries"
+    }
+  },
+  "sharedContract": {
+    "stableAssetId": "shanghai-cinema",
+    "origin": [0, 0, 0],
+    "pivot": "Hero local origin",
+    "canonicalFront": "local -Y",
+    "runtimeXMirrored": true,
+    "metersPerSceneUnit": 2.7,
+    "position": [74.1, 80.9],
+    "yaw": 2.761592653589793,
+    "runtimeScale": 1,
+    "collisionSource": "app/scene/xinhua-road-landmarks-data.json#shanghai-cinema.localObstacles"
+  },
+  "reviewChecks": {
+    "currentBinaryHashesMatchRecords": true,
+    "identityGeneratorReusesHeroGeometryHelpers": true,
+    "identityGeneratedAfterCurrentHero": true,
+    "massingExtrasReferenceCurrentHeroAndIdentity": true,
+    "allGlbRootNodesUntransformed": true,
+    "referenceImagesEmbedded": false
+  }
+}
