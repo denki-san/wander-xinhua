@@ -7878,3 +7878,41 @@ Hero 测试继续冻结 MCP2 与旧 Hero Hold，同时允许 Identity 的 MCP3�
 ### Resolution
 - **Resolved**: 2026-07-25T23:40:00+08:00
 - **Notes**: 更新两项下游状态断言，保留 Hero 和公共 registry 的全部原冻结合同。
+
+---
+## [ERR-20260725-065] combined_runtime_qa_boolean_did_not_narrow_nullable_object
+
+**Logged**: 2026-07-25T23:44:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: integration
+
+### Summary
+Film 与 One-Step runtime 冲突合并后，代码先计算 `filmArtQaActive` 布尔值，再在
+JSX 中读取原始可空 `filmArtQa`。专项行为测试 44/44 通过，但全量 TypeScript
+门发现两处 `string | null` 不可赋给 `string`。
+
+### Error
+```text
+app/scene/xinhua-road-landmarks.tsx:
+Type 'string | null' is not assignable to type 'string'
+```
+
+### Context
+- static 与 Sites build 均成功。
+- 242/243 测试通过；唯一失败是 TypeScript 场景门。
+- 运行逻辑已通过专项测试，但布尔别名不能保证 TypeScript 对另一变量完成收窄。
+
+### Suggested Fix
+把 `filmArtQaActive` / `oneStepQaActive` 定义为“匹配当前建筑的 QA 对象或 null”，
+后续只从该收窄对象读取 modelPath、tier 与 fallback。
+
+### Resolution
+- **Resolved**: 2026-07-25T23:45:00+08:00
+- **Notes**: 改为对象级收窄；Film 专用 fallback 与 One-Step 三档链保持不变。
+
+### Attempt 2
+- `.mjs` resolver 没有显式返回类型，TypeScript 仍把已命中对象的 `tier` 推断为
+  `string | null`；对象级收窄后同两处类型错误仍存在。
+- 增加 `filmArtTier = filmArtQaActive?.tier ?? "identity"`。resolver 只在三档键
+  命中时返回对象，因此默认值只修补静态推断，不改变任何有效路由。

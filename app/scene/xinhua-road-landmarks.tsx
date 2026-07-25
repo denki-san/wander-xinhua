@@ -741,15 +741,22 @@ export function XinhuaRoadLandmarks({
         const [x, z] = landmark.position;
         const [labelOffsetX, labelOffsetZ] = landmark.labelOffset ?? [0, 0];
         const y = terrainHeightAt(x, z) + 0.1;
-        const filmArtQaActive = filmArtQa?.assetId === landmark.id;
-        const oneStepQaActive = oneStepQa?.assetId === landmark.id;
+        const filmArtQaActive = filmArtQa?.assetId === landmark.id
+          ? filmArtQa
+          : null;
+        const oneStepQaActive = oneStepQa?.assetId === landmark.id
+          ? oneStepQa
+          : null;
+        // resolver 只会在 tier 命中 Hero / Identity / Massing 时返回对象；
+        // 默认值仅用于弥补无 JSDoc 的 .mjs 推断，不会改变有效 QA 路由。
+        const filmArtTier = filmArtQaActive?.tier ?? "identity";
         const modelPath = filmArtQaActive
-          ? filmArtQa.modelPath
+          ? filmArtQaActive.modelPath
           : oneStepQaActive
-            ? oneStepQa.modelPath
-          : landmark.cacheVersion
-            ? `${landmark.model}?v=${landmark.cacheVersion}`
-            : landmark.model;
+            ? oneStepQaActive.modelPath
+            : landmark.cacheVersion
+              ? `${landmark.model}?v=${landmark.cacheVersion}`
+              : landmark.model;
         const shouldMountModel = mountedModelIds.has(landmark.id);
         const shouldMountActiveModel = (
           filmArtQaActive
@@ -759,7 +766,7 @@ export function XinhuaRoadLandmarks({
         const filmArtFallback = filmArtQaActive ? (
           <FilmArtCenterQaFallback
             assetId={landmark.id}
-            tier={filmArtQa.tier}
+            tier={filmArtTier}
             source={modelPath}
           >
             <LandmarkProgressiveProxy
@@ -770,18 +777,18 @@ export function XinhuaRoadLandmarks({
           </FilmArtCenterQaFallback>
         ) : null;
         const oneStepRequestedTier = (
-          oneStepQaActive ? oneStepQa.requestedTier : "hero"
+          oneStepQaActive?.requestedTier ?? "hero"
         ) as OneStepGardenTier;
         const oneStepFallback = (
           oneStepQaActive
-          && oneStepQa.forcedFallback
-          && oneStepQa.requestedTier !== "massing"
-            ? oneStepQa.requestedTier
+          && oneStepQaActive.forcedFallback
+          && oneStepQaActive.requestedTier !== "massing"
+            ? oneStepQaActive.requestedTier
             : null
         ) as OneStepGardenFallback;
         const oneStepNoLowerTierFallback = Boolean(
           oneStepQaActive
-          && oneStepQa.fallbackMode === "no-lower-tier",
+          && oneStepQaActive.fallbackMode === "no-lower-tier",
         );
         return (
           <group
@@ -793,9 +800,9 @@ export function XinhuaRoadLandmarks({
               positioning: landmark.positioning,
               modeling: "photo-reference-blender-glb",
               qaTier: filmArtQaActive
-                ? filmArtQa.tier
+                ? filmArtTier
                 : oneStepQaActive
-                  ? oneStepQa.requestedTier
+                  ? oneStepQaActive.requestedTier
                   : undefined,
               qaOnly: filmArtQaActive || oneStepQaActive || undefined,
             }}
@@ -811,7 +818,7 @@ export function XinhuaRoadLandmarks({
                       <GlbModel
                         path={modelPath}
                         qaAssetId={landmark.id}
-                        qaTier={filmArtQa.tier}
+                        qaTier={filmArtTier}
                       />
                     </Suspense>
                   </ProgressiveFeatureBoundary>
