@@ -422,6 +422,11 @@ export function XinhuaExperience() {
     typeof window !== "undefined"
     && new URLSearchParams(window.location.search).get("cameraQa") === "1"
   ));
+  const [qaAutoStart] = useState(() => (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("qaAutoStart") === "1"
+  ));
+  const qaAutoStarted = useRef(false);
   const [cinemaTierQa] = useState<"hero" | "identity" | "massing" | null>(() => {
     if (typeof window === "undefined") return null;
     const tier = new URLSearchParams(window.location.search).get("qaCinemaTier");
@@ -571,6 +576,12 @@ export function XinhuaExperience() {
     setMode(requestedPreset ? "explore" : "overview");
   }, []);
 
+  useEffect(() => {
+    if (!qaAutoStart || !ready || mode !== "intro" || qaAutoStarted.current) return;
+    qaAutoStarted.current = true;
+    begin();
+  }, [begin, mode, qaAutoStart, ready]);
+
   const showOverview = useCallback(() => {
     resetInput();
     setNearAction(false);
@@ -602,6 +613,7 @@ export function XinhuaExperience() {
       className={`xinhua-stage is-${mode}${playing ? " is-playing" : ""}${touchCapable ? " is-touch" : ""}`}
       data-progressive-network={networkProfile}
       data-progressive-stage={ready ? "playable" : "booting"}
+      data-qa-auto-start={qaAutoStart ? (mode === "intro" ? "pending" : "complete") : undefined}
       data-shanghai-cinema-qa-tier={cinemaTierQa ?? undefined}
       data-shanghai-cinema-qa-fault={cinemaFaultQa ?? undefined}
     >
