@@ -2,7 +2,7 @@
   "version": 2,
   "auditedAt": "2026-07-25",
   "sourceRecoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
-  "status": "blocked-evidence-spatial-layout-and-same-subject-depth",
+  "status": "pass-conservative-massing-footprints-hero-identity-blocked",
   "subject": {
     "id": "xinhua-villas-211",
     "name": "新华别墅211弄",
@@ -27,7 +27,7 @@
       "unbound compound members",
       "trees and vegetation",
       "lamps, planters, benches, signs and other decor",
-      "ordinary OSM and full-map massing",
+      "all ordinary OSM and full-map massing outside the nine explicitly bound 211 ways",
       "shared registry and runtime",
       "all other building assets"
     ]
@@ -111,7 +111,7 @@
     "compoundCanonicalFront": "supported-as-entrance-axis-only",
     "compoundSideOrDepth": "missing",
     "compoundEntranceDetail": "partial",
-    "compoundSpatialLayout": "missing",
+    "compoundSpatialLayout": "supported-as-nine-unbound-osm-footprints",
     "member211_1Front": "supported",
     "member211_1SideOrRear": "missing",
     "member211_1Placement": "missing",
@@ -125,12 +125,14 @@
     "Only a partial light-colored building and wall edge are visible on the left side.",
     "Member 211-1 and member 211-2 are visually distinct buildings.",
     "The three photos do not show where members 211-1 and 211-2 sit relative to the entrance.",
-    "The legacy runtime screenshot shows a four-villa package that cannot be verified from the compound canonical."
+    "The legacy runtime screenshot shows a four-villa package that cannot be verified from the compound canonical.",
+    "The project replacement inventory binds nine raw OSM ways to the xinhua-villas-211 compound."
   ],
   "inferred": [
     "The right entrance volume may function as a gatehouse, but its full plan and use are unconfirmed.",
     "Left and right entrance masses require separate collision while the central lane remains open.",
-    "The current runtime position, yaw and scale are migration baselines rather than measured evidence."
+    "The current runtime position, yaw and scale are migration baselines rather than measured evidence.",
+    "The nine OSM footprints may be used as a conservative compound Massing while their house-number identities remain unknown."
   ],
   "unknown": [
     "The member count and exact boundary of 211 Lane alone.",
@@ -181,17 +183,35 @@
     "currentVerdict": "rejected-as-subject-specific-massing-candidate",
     "reason": "It inherits the unverified four-villa spatial package from the legacy Hero."
   },
+  "osmMassingBinding": {
+    "path": "docs/research/xinhua-villas-211-osm-binding.json",
+    "sourceSnapshot": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "includedWayIds": [
+      864485593,
+      864485594,
+      864485595,
+      864485596,
+      864485597,
+      864485598,
+      864485674,
+      864485675,
+      864485676
+    ],
+    "bindingStatus": "bound-to-compound-not-house-number",
+    "maximumVertexRoundTripErrorSceneUnits": 0.000001,
+    "currentMassingSha256": "ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c"
+  },
   "evidenceGate": {
-    "status": "blocked-evidence",
-    "massingAuthorized": false,
+    "status": "pass-conservative-massing-footprints-only",
+    "massingAuthorized": true,
     "heroAuthorized": false,
     "identityAuthorized": false,
     "blockers": [
       "No same-subject compound side or depth view.",
-      "No authorized spatial plan or member-to-entrance binding.",
-      "Member photos cannot be merged or placed by invention.",
-      "Ordinary OSM and full-map inference are forbidden for this task.",
-      "An entrance-only asset would change the existing stable asset contract."
+      "No cadastral member-to-house-number or member-to-entrance binding.",
+      "Member 211-1 and 211-2 photos cannot be assigned to an OSM footprint by invention.",
+      "The uniform Massing heights and shallow roofs are inferred rather than surveyed.",
+      "Hero and Identity cannot be derived from generic footprint prisms."
     ],
     "requiredToUnblock": [
       "An authorized 211 Lane site plan, survey or user-confirmed member layout.",

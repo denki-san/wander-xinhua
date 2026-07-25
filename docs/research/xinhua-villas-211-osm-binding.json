@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-211",
+  "auditedAt": "2026-07-26",
+  "status": "pass-conservative-massing-footprints-only",
+  "stableBoundary": "compound-entrance-and-lane-anchor",
+  "registryPlacement": {
+    "position": [38.32, 110.67],
+    "yaw": -0.38,
+    "scale": 0.62,
+    "source": "app/scene/xinhua-road-landmarks-data.json",
+    "movementAuthorized": false
+  },
+  "coordinateContract": {
+    "mapMetadata": "app/scene/xinhua-map-data.json",
+    "sourceSnapshot": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "sourceSnapshotSha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c",
+    "centerWgs84": [121.4227819, 31.2066376],
+    "metersPerSceneUnit": 2.7,
+    "metersPerLongitudeDegreeFormula": "111320 * cos(centerLatitude)",
+    "metersPerLatitudeDegree": 110540,
+    "worldFormula": {
+      "x": "(longitude - centerLongitude) * metersPerLongitudeDegree / metersPerSceneUnit",
+      "z": "-(latitude - centerLatitude) * metersPerLatitudeDegree / metersPerSceneUnit"
+    },
+    "registryInverseFormula": {
+      "dx": "(worldX - positionX) / scale",
+      "dz": "(worldZ - positionZ) / scale",
+      "localX": "cos(yaw) * dx - sin(yaw) * dz",
+      "localZ": "sin(yaw) * dx + cos(yaw) * dz"
+    },
+    "runtimeAxisNote": "Blender XY uses registry local XZ directly; GLTF Y-up conversion is cancelled by the runtime primitive scale [1,1,-1].",
+    "maximumRoundTripErrorSceneUnits": 0.00005
+  },
+  "bindingMethod": {
+    "status": "spatial-replacement-binding-not-cadastral-member-binding",
+    "observedInputs": [
+      "The project replacement inventory already assigns exactly nine raw OSM ways to xinhua-villas-211.",
+      "The nine raw WGS84 footprints form a continuous compound from the Xinhua Road frontage toward the interior.",
+      "The official entrance image requires an open lane void rather than one merged collision box."
+    ],
+    "inferredInputs": [
+      "The nine footprints belong to the runtime compound package, but their house-number identities remain unknown.",
+      "A uniform two-storey height band and shallow pitched roof are conservative Massing proxies rather than surveyed geometry."
+    ],
+    "unknown": [
+      "The house-number mapping for all nine footprints.",
+      "Which footprints correspond to members 211-1 and 211-2.",
+      "Surveyed heights, roof backs, annex chronology and cadastral boundary.",
+      "The exact photographed camera coordinates."
+    ]
+  },
+  "members": [
+    {
+      "sourceWayId": 864485593,
+      "osmBuildingTag": "yes",
+      "role": "unbound-compound-member",
+      "bindingStatus": "bound-to-compound-not-house-number"
+    },
+    {
+      "sourceWayId": 864485594,
+      "osmBuildingTag": "yes",
+      "role": "unbound-compound-member",
+      "bindingStatus": "bound-to-compound-not-house-number"
+    },
+    {
+      "sourceWayId": 864485595,
+      "osmBuildingTag": "house",
+      "role": "unbound-compound-member",
+      "bindingStatus": "bound-to-compound-not-house-number"
+    },
+    {
+      "sourceWayId": 864485596,
+      "osmBuildingTag": "house",
+      "role": "unbound-compound-member",
+      "bindingStatus": "bound-to-compound-not-house-number"
+    },
+    {
+      "sourceWayId": 864485597,
+      "osmBuildingTag": "yes",
+      "role": "unbound-compound-member",
+      "bindingStatus": "bound-to-compound-not-house-number"
+    },
+    {
+      "sourceWayId": 864485598,
+      "osmBuildingTag": "yes",
+      "role": "unbound-compound-member",
+      "bindingStatus": "bound-to-compound-not-house-number"
+    },
+    {
+      "sourceWayId": 864485674,
+      "osmBuildingTag": "house",
+      "role": "frontage-member-left",
+      "bindingStatus": "bound-to-compound-not-house-number"
+    },
+    {
+      "sourceWayId": 864485675,
+      "osmBuildingTag": "house",
+      "role": "frontage-member-center",
+      "bindingStatus": "bound-to-compound-not-house-number"
+    },
+    {
+      "sourceWayId": 864485676,
+      "osmBuildingTag": "house",
+      "role": "frontage-member-right",
+      "bindingStatus": "bound-to-compound-not-house-number"
+    }
+  ],
+  "mapCalibration": {
+    "maximumVertexRoundTripErrorSceneUnits": 0.000001,
+    "minimumRoadCenterlineDistanceSceneUnits": 5.4896,
+    "xinhuaRoadAsphaltHalfWidthSceneUnits": 2.45,
+    "minimumAsphaltEdgeClearanceSceneUnits": 3.0396,
+    "xinhuaRoadOuterVergeHalfWidthSceneUnits": 3.925,
+    "minimumOuterVergeClearanceSceneUnits": 1.5646,
+    "entranceGap": {
+      "betweenWayIds": [864485674, 864485675],
+      "clearanceSceneUnits": 3.6682,
+      "playerDiameterSceneUnits": 0.96,
+      "status": "pass"
+    },
+    "minimumInternalMemberGap": {
+      "betweenWayIds": [864485595, 864485596],
+      "clearanceSceneUnits": 1.1667,
+      "status": "pass-no-overlap"
+    },
+    "nearestExternalNeighbor": {
+      "compoundWayId": 864485597,
+      "neighborWayId": 864485677,
+      "clearanceSceneUnits": 0.6684,
+      "status": "no-overlap-not-a-designated-walkable-route"
+    },
+    "polygonOverlapCount": 0,
+    "localObstacleAabbOverlapCount": 0
+  },
+  "recoveryCandidate": {
+    "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "path": "public/models/tiers/xinhua-road/massing/xinhua-villas-211-massing.glb",
+    "sha256": "407cde33aa13dfad09b29f6ae23711aa5f86ea046a06adebe116eac2218d667d",
+    "bytes": 91400,
+    "triangles": 898,
+    "method": "voxel-remesh-current-hero",
+    "verdict": "rejected-lineage-and-map-binding",
+    "reason": "It preserves the unverified legacy four-villa package and has no per-way WGS84-to-runtime vertex binding."
+  },
+  "scope": {
+    "included": [
+      "nine xinhua-villas-211 OSM footprints",
+      "conservative footprint prisms and inferred shallow roofs",
+      "per-footprint collision candidates"
+    ],
+    "excluded": [
+      "member house-number invention",
+      "trees and vegetation",
+      "street furniture and decoration",
+      "all OSM footprints outside the nine listed ways",
+      "shared registry, runtime and fast manifest",
+      "all other building assets"
+    ]
+  },
+  "gates": {
+    "evidence": "pass-conservative-massing-footprints-only",
+    "headlessBuild": "pass",
+    "glbAudit": "pass",
+    "mcp1": "pending-main-window-batch",
+    "mapGeometry": "pass-analytic-candidate",
+    "runtimeMap": "pending-main-window-scoped-qa",
+    "hero": "blocked-evidence",
+    "identity": "blocked-evidence"
+  }
+}
