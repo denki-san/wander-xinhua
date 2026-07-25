@@ -1,5 +1,29 @@
 # Errors
 
+## [ERR-20260725-094] sites_packaging_script_not_executable
+
+**Logged**: 2026-07-25T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Sites 插件的打包入口与内部脚本在当前安装中都没有可执行权限。
+
+### Error
+```text
+permission denied: package-site.sh
+```
+
+### Context
+- 直接执行根级包装脚本失败。
+- 用 `bash` 调用包装脚本后，包装脚本内部仍通过 `exec` 直接执行无权限的内部脚本。
+
+### Resolution
+改用 `bash` 直接调用 `skills/sites-hosting/scripts/package-site.sh`，归档成功并通过脚本自带结构校验。
+
+---
+
 ## [ERR-20260724-091] vite_preview_sandbox_listen_permission
 
 **Logged**: 2026-07-24T00:00:00+08:00
