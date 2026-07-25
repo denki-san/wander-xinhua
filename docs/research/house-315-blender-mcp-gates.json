@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "assetId": "house-315",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-25T21:08:48+08:00",
+  "reviewedBy": "main-coordinator",
+  "sourceCheckpoint": "ca0c413",
+  "pipelineOrder": [
+    "evidence-and-brief",
+    "massing-generation",
+    "blender-mcp-massing-review",
+    "three-js-map-calibration",
+    "hero-master-review",
+    "identity-derivation",
+    "three-tier-review",
+    "three-js-runtime-acceptance"
+  ],
+  "massingGate": {
+    "gate": "mcp1-massing-pre-map-calibration",
+    "status": "pass",
+    "interactiveReview": "Blender MCP",
+    "fallbackUsed": false,
+    "editableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/house-315-massing.blend",
+      "sha256": "dccd5ad4a5b47e56c08e19be53446a6cb3eb43dc17dc5e10231018a5206b532b"
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/house-315-massing.glb",
+      "sha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+      "bytes": 17352
+    },
+    "generator": {
+      "path": "scripts/create_house_315_massing_model.py",
+      "sha256": "45c69f7f20d412de3f8f6dd1afef679d4dff81db2e4c0675089f4f6c6af492cf"
+    },
+    "buildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/house-315-massing.json"
+    },
+    "sceneInspection": {
+      "rootObject": "house-315-massing",
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1],
+      "meshObjects": 1,
+      "materials": 4,
+      "images": 0,
+      "vertices": 120,
+      "polygons": 92,
+      "degenerateAreaBelow1e10": 0,
+      "nonFiniteNormals": 0,
+      "boundsBlender": {
+        "min": [-7.675, -4.84, 0],
+        "max": [7.225, 4.575, 6.982892]
+      },
+      "frontDirection": "-Y",
+      "groundDatum": 0,
+      "authoredMetersPerSceneUnit": 2.7
+    },
+    "humanScale": {
+      "heightMeters": 1.8,
+      "heightSceneUnits": 0.666667,
+      "temporaryProxyOnly": true,
+      "savedToMaster": false,
+      "relationship": "pass-proxy-relation-readable-in-canonical-side-and-entrance-scale-views"
+    },
+    "qaRig": {
+      "savedToMaster": false,
+      "exportedToGlb": false
+    },
+    "fixedViews": {
+      "canonical": {
+        "direction": "local-negative-y canonical",
+        "screenshot": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing_mcp1_canonical.png",
+        "sha256": "f7c1994c578c11dc0d43ae9de68d48b5a1de3e2981fa471a12e6e64147f80e26",
+        "bytes": 687279
+      },
+      "sideDepth": {
+        "direction": "oblique side-depth",
+        "screenshot": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing_mcp1_side-depth.png",
+        "sha256": "18126ed42648b06d6e9198174494bb4fc16bcd4d6693ffaf35f06cc91988c002",
+        "bytes": 723140
+      },
+      "entranceScale": {
+        "direction": "street-facing gable and human-scale",
+        "screenshot": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing_mcp1_entrance-scale.png",
+        "sha256": "1681cf5da649acc901522ad581230468426e69bf9d80b7a9c959e983e1a74d6b",
+        "bytes": 670935
+      }
+    },
+    "checks": {
+      "groundContact": "pass-z-zero-datum",
+      "rootTransform": "pass-normalized",
+      "meshIntegrity": "pass-zero-degenerate-area-and-zero-nonfinite-normals",
+      "humanScale": "pass",
+      "centralHalfTimberGable": "pass-readable",
+      "transverseMainRidge": "pass-readable",
+      "asymmetricWings": "pass-right-long-wing-and-left-rear-short-wing-readable",
+      "facadeDivision": "pass-white-upper-wall-and-red-brick-base-readable",
+      "scopeBoundary": "pass-no-trees-walls-gates-lamps-or-paving",
+      "texturePolicy": "pass-zero-images"
+    },
+    "acceptedInteractiveChanges": [],
+    "generatorRoundTrip": {
+      "status": "not-required",
+      "note": "MCP1 只读取正式场景并使用临时 QA rig；没有接受几何、材质或 transform 修改，QA rig 未保存、未导出，Blend 与 GLB SHA 均保持不变。"
+    },
+    "nextGate": "three-js-massing-map-calibration"
+  },
+  "mapGate": {
+    "gate": "three-js-massing-map-calibration",
+    "status": "pending",
+    "fixedEntry": "/?start=house315&cameraQa=1",
+    "movementAuthorized": false,
+    "frozenPlacement": {
+      "position": [-23.03, 85.67],
+      "yaw": -0.38,
+      "scale": 0.9
+    },
+    "temporaryQaAssemblyRequired": true,
+    "sharedRegistryMustBeRestoredByteForByte": true
+  },
+  "heroGate": {
+    "status": "blocked-until-map-gate-pass-and-new-authorization"
+  },
+  "identityGate": {
+    "status": "blocked-until-reviewed-hero-master"
+  },
+  "threeTierGate": {
+    "status": "pending"
+  }
+}

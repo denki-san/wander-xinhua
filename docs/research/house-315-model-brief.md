@@ -157,7 +157,7 @@ subject-specific Massing provenance 通过。
   `public/models/tiers/xinhua-road/massing-v2/house-315-massing.glb`
 - Build record:
   `docs/research/build-records/tiers/xinhua-road/massing-v2/house-315-massing.json`
-- Current status: `candidate-awaiting-blender-mcp-1`
+- Current status: `mcp1-pass-awaiting-threejs-map-gate`
 
 该候选从 canonical、Image 242 俯瞰和 Image 244 入口独立重建。没有读取旧 Hero
 mesh，也没有摘取 Recovery voxel 或 ordinary OSM。生成器在一次命令中重置
@@ -183,8 +183,28 @@ mesh，也没有摘取 Recovery voxel 或 ordinary OSM。生成器在一次命�
 预览中的橙色人物为 `1.8 m = 0.666667 scene unit` 尺标，蓝色条标记
 local `-Y`；两者以及地面均未保存到 `.blend`、未导出到 GLB。
 
-当前只完成候选生成和静态视觉检查。尚未打开 Blender GUI、尚未进入 MCP 1、
-尚未集成公共 registry / runtime，也未进行 Three.js 地图校准。
+当前已完成候选生成、静态视觉检查和主窗口 Blender MCP 1。尚未集成公共
+registry / runtime，也未进行 Three.js 地图校准。
+
+### Blender MCP 1
+
+- Result: `PASS`
+- Reviewed source checkpoint: `ca0c413`
+- Gate record:
+  `docs/research/house-315-blender-mcp-gates.json`
+- Scene: 1 mesh、4 materials、120 vertices、92 polygons
+- Geometry integrity: area `< 1e-10` 为0，non-finite normals 为0
+- Blender bounds:
+  `[-7.675, -4.84, 0] .. [7.225, 4.575, 6.982892]`
+- Root: location / rotation 为0，scale为1
+- Visual: 中央高半木构山墙、横向主脊、右长翼、左后短翼和上白下红分区可读
+- Human scale: `1.8m` 临时 proxy 关系合理
+- Scope: 无树木、围墙、门、灯、铺装
+- Accepted interactive changes: none
+- QA rig: 未保存、未导出
+- Binary stability: Blend / GLB SHA 保持
+  `dccd5ad4... / e9d62cfc...`
+- Next gate: `three-js-massing-map-calibration`
 
 ## Quality Contract
 
@@ -264,7 +284,7 @@ local `-Y`；两者以及地面均未保存到 `.blend`、未导出到 GLB。
 | --- | --- | --- |
 | Evidence | subject、canonical、俯瞰纵深、入口和三项以上 cue 闭合 | Passed for Massing |
 | Deterministic Massing | 新建 `.blend` / `.glb`，双构建 SHA 一致 | Candidate complete |
-| Blender MCP 1 | 读取场景、固定机位和轮廓审查 | Pending main-window authorization |
+| Blender MCP 1 | 场景、固定机位、轮廓、尺标和网格完整性通过 | Passed |
 | Three.js Massing | 真实 `?start=house315` 地图、比例、朝向、接地 | Pending after MCP 1 |
 | Identity / Hero | 需要更高层证据门和后续 MCP 门 | Closed |
 

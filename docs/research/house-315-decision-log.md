@@ -225,3 +225,54 @@ Metal 探测阶段崩溃；没有输出二进制。该问题与项目已有
 - 是否存在俯瞰证据未支持的突起或错误屋顶连接。
 
 MCP 1 通过后才允许主窗口准备 Three.js Massing 地图校准。
+
+## Iteration 2 — Blender MCP 1
+
+- Date: 2026-07-25
+- Source checkpoint: `ca0c413`
+- Reviewed by: main coordinator
+- Result: `PASS`
+- Next gate: `three-js-massing-map-calibration`
+
+### Scene inspection
+
+- 正式场景只有 `house-315-massing` 1个 mesh、4个 materials；
+- 120 vertices、92 polygons；
+- 面积 `< 1e-10` 的 polygon 为0；
+- non-finite normals 为0；
+- root location / rotation 为0，scale为1；
+- Blender bounds 为
+  `[-7.675, -4.84, 0] .. [7.225, 4.575, 6.982892]`。
+
+### Visual decision
+
+主窗口从 canonical、side-depth、entrance-scale 三个方向确认：
+
+- 中央高半木构山墙可读；
+- 横向主脊可读；
+- 非对称右长翼和左后短翼可读；
+- 白色上墙与红砖基座分层可读；
+- `1.8m` 临时人物 proxy 的尺度关系合理；
+- 正式资产没有树木、围墙、门、灯或铺装。
+
+### Provenance decision
+
+- Accepted interactive changes: none
+- QA rig saved: false
+- QA rig exported: false
+- Blend SHA 保持
+  `dccd5ad4a5b47e56c08e19be53446a6cb3eb43dc17dc5e10231018a5206b532b`
+- GLB SHA 保持
+  `e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832`
+
+因此无需回写 generator 或重做 Headless 双构建。
+
+### Gate boundary
+
+MCP 1 只放行 Massing map gate。Identity 和 Hero 继续锁定。Three.js 地图门必须：
+
+- 冻结 `position [-23.03, 85.67]`、`yaw -0.38`、`scale 0.9`；
+- 只临时替换本建筑的 QA model / bounds / obstacles；
+- 验收后把公共 registry 逐字节恢复；
+- 只提交建筑专属 QA、截图和集成建议；
+- 不直接提交 shared registry 变化。
