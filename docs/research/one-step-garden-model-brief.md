@@ -6,21 +6,26 @@
 - POI / environment / character: 新华路179号一尺花园安和花园店，多体量商业花园场地
 - Runtime component: `app/scene/xinhua-road-landmarks.tsx`
 - Generator: `scripts/create_xinhua_road_models.py`
+- Massing generator: `scripts/create_one_step_garden_massing_model.py`
 - Editable source: `assets/models/source/xinhua-road/one-step-garden.blend`
 - Runtime GLB: `public/models/xinhua-road/one-step-garden.glb`
+- Massing source: `assets/models/source/tiers/xinhua-road/massing-v2/one-step-garden-massing.blend`
+- Massing GLB: `public/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb`
 - Start preset: `/?start=garden179`
 - Single-asset build command: `/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xinhua_road_models.py -- --asset=one-step-garden`
+- Massing build command: `blender --background --python-exit-code 1 --python scripts/create_one_step_garden_massing_model.py`
 - Validation command: `python3 /Users/lei/.codex/skills/photo-reference-webgl-modeling/scripts/audit_glb.py public/models/xinhua-road/one-step-garden.glb`
+- Massing validation command: `python3 /Users/lei/.codex/skills/photo-reference-webgl-modeling/scripts/audit_glb.py public/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb --forbid-images --max-nodes 1`
 
 ## Preflight Gate
 
 - Blender binary and version: `/Applications/Blender.app/Contents/MacOS/Blender`，`5.2.0 LTS`
-- Generator dry run / affected assets: 必须使用 `--asset=one-step-garden`；不得覆盖其他 POI
+- Generator dry run / affected assets: Massing 使用独立单资产生成器；Hero 必须使用 `--asset=one-step-garden`，均不得覆盖其他 POI
 - GLB audit command: 使用上述 `audit_glb.py`
 - Local preview command and port: `npm run dev` 或静态构建预览；端口以实际输出为准
 - Browser/runtime validation path: `/?start=garden179`；Massing 门使用 `/?start=garden179&qaModelTier=massing`
 - Existing asset, screenshot, collision and performance baseline: 现有 GLB、Blend、`localBounds`、`localObstacles`、start preset 和旧对照图均保留
-- Fallback path for unavailable tools: Headless Blender 为确定性生产入口；Blender MCP 只读场景和做局部视觉校验
+- Fallback path for unavailable tools: Headless Blender 为确定性生产入口；受限沙箱内 Blender 5.2.0 启动会 `Segmentation fault: 11`，使用获批的沙箱外同命令运行；Blender MCP 只读场景和做局部视觉校验
 
 ## Evidence
 
@@ -141,7 +146,7 @@
 
 | Batch | Deliverable | Blender check | Runtime check | Status |
 | --- | --- | --- | --- | --- |
-| Massing | 前体量、后体量、院落间隙与坡屋顶 | canonical 分体轮廓 | 真实 `?start=` 灰模门 | Pending |
+| Massing | 前体量、后体量、院落间隙与坡屋顶 | canonical 分体轮廓 | 真实 `?start=` 灰模门 | Headless candidate; MCP1 pending |
 | Runtime calibration | 位置、比例、朝向、机位和道路退界 | N/A | footprint 绑定前不移动 | Pending |
 | Identity | 半木构、老虎窗、红砖后体量和场地层次 | 三项构件可读 | Identity 距离可辨认 | Pending |
 | Materials | 白墙、红砖、深木构和灰褐瓦 | 固定机位无黑面 | 项目色盘一致 | Pending |
@@ -183,3 +188,15 @@
 - Modeling decision: Massing 必须从照片直接可见轮廓与冻结的旧 Hero 包络参数重建；不得把五个未绑定 OSM 候选假定为一号花园建筑群。
 - Runtime result: Pending；地图门通过前不移动 `[60.86, 120.73]`，不修改公共运行时清单。
 - Independent review result: 恢复证据可保留；恢复 GLB 仅保留为审计背景，不进入当前分支。
+
+### Iteration 2 — 2026-07-25 subject-specific Massing candidate
+
+- Changes: 新建独立单资产 Headless 生成器，按三张正式照片重建临街 U 形白色建筑、陡坡左右翼、棚屋形老虎窗、开放入口棚，以及后园独立红砖长屋、双山墙和两根烟囱。
+- Scope kept out: 未建树木、灌木、草坪、桌椅、雨伞、店招、装饰物或其他地图资产；未修改公共 runtime/registry/manifest。
+- Scale: `1 Blender unit = 2.7m`；预览人物为 `0.666667` unit，即 `1.8m`。前体量按假三层推断，后体量按照片约两层推断，不声明测绘高度。
+- Blender result: Headless Blender 5.2.0 生成 `.blend` 及 canonical、side/depth、entrance 三张固定机位 PNG；三图显示前后体量分开、local `-Y` 正面和人物尺度。
+- GLB result: SHA-256 `a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761`；`18,316` bytes、`1` node、`1` mesh、`3` materials、`204` triangles、`0` images/textures/animations，bounds `[-7.25, 0, -9.325]` 到 `[7.25, 6.25, 6.9]`，节点变换已烘焙。
+- Determinism: 同一命令连续两次生成相同 GLB SHA-256。
+- Three-way comparison result: 参考与 Blender 两层已具备；Three.js 层在 MCP1 和地图门前保持 Pending。
+- Runtime result: Pending；候选未接入公共运行时。
+- Independent review result: 等待主窗口通过共享 Blender MCP 执行 MCP1；未通过前不得开始 Identity/Hero。
