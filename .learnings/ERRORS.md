@@ -6738,7 +6738,7 @@ Error: listen EPERM: operation not permitted
   `terrainHeightAt(74.1, 80.9) = 0.909780347`，未改写工具链。
 
 ---
-## [ERR-20260725-014] agent_browser_qa_session_timing_and_stale_errors
+## [ERR-20260725-028] agent_browser_qa_session_timing_and_stale_errors
 
 **Logged**: 2026-07-25T19:06:30+08:00
 **Priority**: low
@@ -6773,7 +6773,7 @@ errors --json returned prior http://127.0.0.1:4177 Sun Ke Villa fault-injection 
 - **Notes**: 改用隔离会话 `shanghai-cinema`，五个验收场景的错误列表均为空。
 
 ---
-## [ERR-20260725-015] building_qa_changed_unrelated_core_props
+## [ERR-20260725-029] building_qa_changed_unrelated_core_props
 
 **Logged**: 2026-07-25T19:09:00+08:00
 **Priority**: medium
@@ -6808,7 +6808,7 @@ The input did not match:
 - **Notes**: 已恢复三个核心建筑的原始调用，仅保留上海影城 QA 分支。
 
 ---
-## [ERR-20260725-016] final_build_and_browser_batch_resource_contention
+## [ERR-20260725-030] final_build_and_browser_batch_resource_contention
 
 **Logged**: 2026-07-25T19:20:46+08:00
 **Priority**: low
@@ -6839,3 +6839,47 @@ functions.exec browser batch kept running without returning the accumulated resu
 ### Resolution
 - **Resolved**: 2026-07-25T19:20:46+08:00
 - **Notes**: 释放资源后最终 build 通过，五张截图均对应最终构建，隔离会话累计错误为空。
+
+---
+## [ERR-20260725-031] blender_5_2_headless_metal_startup_crash_in_sandbox
+
+**Logged**: 2026-07-25T18:22:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Blender 5.2.0 LTS 在受限 sandbox 内执行 Headless 生成命令时，于 Python 脚本运行前
+在 Metal 后端探测阶段原生崩溃。
+
+### Error
+```text
+Blender 5.2.0 LTS (hash fbe6228777e7 built 2026-07-14 01:31:22)
+Writing: .../T/blender.crash.txt
+backtrace:
+blender::gpu::supports_barycentric_whitelist
+blender::gpu::MTLBackend::metal_is_supported
+GPU_backend_type_selection_detect
+```
+
+### Context
+- Command: `/Applications/Blender.app/Contents/MacOS/Blender --background
+  --python-exit-code 1 --python scripts/create_hudec_memorial_v2.py -- --stage=massing`
+- Blender `--version` succeeded in the same shell, but the full application startup crashed
+  before any Python backtrace or output file.
+- No new GLB, Blend, or preview was written.
+
+### Suggested Fix
+Blender needs macOS GPU/device access not available in the default sandbox. Retry the exact
+bounded Headless command with approved unsandboxed execution before changing model code.
+
+### Metadata
+- Reproducible: unknown
+- Related Files: scripts/create_hudec_memorial_v2.py,
+  /var/folders/9m/y4r0hmv54wg70vv7xm95n2bh0000gn/T/blender.crash.txt
+- See Also: ERR-20260724-096
+
+### Resolution
+- **Resolved**: 2026-07-25T18:26:00+08:00
+- **Notes**: 在受控授权下于 sandbox 外重跑同一限定 Headless 命令后成功；生成
+  Massing Blend、GLB 和三张固定机位图。模型代码无需为该启动崩溃修改。

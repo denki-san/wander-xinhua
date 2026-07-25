@@ -1,0 +1,171 @@
+# Hudec Memorial V2 Model Brief
+
+## Scope contract
+
+- Stable asset ID: `hudec-memorial`
+- Subject: 邬达克纪念馆（邬达克旧居），上海市长宁区番禺路129号
+- Global catalog authority: 调度主窗口冻结的 18 栋建筑；本 Worktree 只处理其中 1 栋
+- In-scope model assets: 1 个建筑母版，派生 Hero / Identity / Massing 三档
+- Runtime instances: 1 个，沿用 `app/scene/xinhua-road-landmarks-data.json` 的既有落点
+- Retained baseline: legacy Hero `public/models/requested-pois/hudec-memorial.glb`
+- Held backlog: legacy 庭院树、绿篱及其他装饰物；保持现状，不新增、不升级、不删除
+- Explicitly out of scope: 树木、装饰物、角色、全地图体块、其他建筑、部署
+- Scope expansion authorized: no
+
+## Preflight gate
+
+| Item | Result | Evidence / fallback |
+| --- | --- | --- |
+| Blender | Passed | `/Applications/Blender.app/Contents/MacOS/Blender`, 5.2.0 LTS |
+| Deterministic generator | Passed | legacy `scripts/create_requested_poi_models.py --asset=hudec-memorial` 已支持单资产；V2 使用独立生成器，禁止写入其他资产 |
+| GLB audit | Passed after shared-tool sync | `scripts/audit_glb.py`; legacy Hero 1 node, 1 mesh, 14 materials, 0 images |
+| Static preview | Passed | `npm run build:static` + `npm run preview:static -- --host 127.0.0.1 --port <port>` |
+| Browser acceptance | Passed | `agent-browser`/Chrome，实际入口 `/?start=hudec` |
+| Blender MCP | Pending gate execution | MCP 只作视觉审查；任何接受的修改必须回写 V2 生成器再 Headless 重建 |
+| LLM Wiki | Pending completion gate | 本地证据和 Brief 完成后可继续灰模；完成前须同步、rescan 队列归零并检索回读 |
+
+Legacy baseline:
+
+- Hero GLB SHA-256: `42159678fb720c963a82921ed827aceb7825b164da321d67345891732f622984`
+- Editable Blend SHA-256: `eba701d3290ea3f3a197bd36e4248c7ee665b34af71c012170e494bb3d2455ba`
+- GLB bytes: `1,154,820`
+- Runtime transform: position `[91.34, -131.74]`, yaw `π/2`, scale `0.72`
+- Visual audit: legacy Hero has a recognizable generic Tudor villa but understates facade width, west/rear roof hierarchy, three-part chimney, end-wall timbering and glass low wing. It also depends on runtime scale `0.72` instead of authored-unit scale.
+
+## Evidence gate
+
+Reference manifest: `docs/research/hudec-memorial-v2-reference-manifest.json`
+
+| Coverage slot | Local evidence | Status | Use |
+| --- | --- | --- | --- |
+| Canonical | `hudec-memorial-front-wikimedia.jpg` | Covered | Main facade, entrance porch, timber rhythm, brick gate |
+| Side / depth | `hudec-memorial-street-official-2026.jpg`, west-elevation sketches | Covered | Roof hierarchy, three-part chimney, low glass wing, end facade |
+| Entrance / identity | canonical photo | Covered | Gabled porch, wood door, narrow mullioned windows |
+| Rear / east | none | Unknown | Only coherent low-detail completion; no invented ornament |
+| Site relationship | canonical and official oblique | Covered with Hold | Ground, wall and entrance clearance only; vegetation retained unchanged |
+
+Canonical comparison:
+
+- Photo: `HUDEC-V2-REF-A`
+- Observation direction: courtyard-facing facade, camera slightly right of facade normal
+- Blender front: local `-Y`
+- Target Blender camera: `(10.8, -18.5, 8.0)` looking at `(0, 0.3, 4.1)`, 52 mm equivalent
+- Target screen width: building architecture 66%–78%; no roof or chimney crop
+- Human scale: 1.75 m person = `0.648` scene unit; entrance clear height target `0.95`–`1.10` scene unit
+
+## Observed / inferred / unknown
+
+### Observed
+
+- OSM way `494633921` records address, three levels, heritage status and a compound-scale footprint.
+- The canonical facade is much wider than it is tall below the roof; dark timber framing forms large rectangular and diagonal bays.
+- A steep main roof with deep eaves sits above the facade; the roof contains a rectangular dormer.
+- The entrance has a steep triangular porch, dark timber frame, wood door and short steps.
+- The west/rear oblique shows multiple connected roof levels, a low glazed wing and a tall three-part red-brick chimney.
+- The end facade has full-height timber framing and dense narrow window grids.
+- A three-bird weathervane is visible at the roof ridge.
+
+### Inferred
+
+- Net building dimensions are calibrated from the OSM compound envelope, legacy world footprint and human-scale doors; they are not survey measurements.
+- East/rear openings are arranged coherently from the observed facade rhythm but receive lower detail.
+- The three-bird weathervane is simplified as original silhouette geometry without copying a logo or sculptural artwork.
+- Collision remains an independent split structure; roof, awnings and non-ground ornament do not enlarge player collision.
+
+### Unknown
+
+- Exact east facade, complete rear elevation, hidden wall openings and interior plan.
+- Exact roof pitch, floor-to-floor heights, chimney flue dimensions and material weathering.
+- Current condition of obscured landscaping and small signage.
+- Precise cadastral boundary versus the OSM compound footprint.
+
+## Shared spatial contract
+
+- Authored unit: `1 Blender unit = 1 scene unit = 2.7 m`
+- Origin / pivot: compound center at `[0, 0, 0]`, ground datum `Z=0`
+- Front direction: local `-Y`
+- Runtime axis conversion: existing GLB loader mirrors local source depth with `scale={[1,1,-1]}`
+- Placement: `[91.34, -131.74]`, OSM way `494633921`
+- Runtime yaw: `π/2`
+- V2 scale target: `1.0`; generator dimensions absorb legacy `0.72` scale so world placement does not jump
+- Canonical player start: existing `[73, -132]`, forward `[1, 0]`
+- Ground contact tolerance: `±0.04` scene unit
+- World footprint continuity: V2 Hero/Identity/Massing remain inside legacy world envelope after replacing scale `0.72` with authored scale `1.0`
+
+## Subject-specific identifying cues
+
+1. Wide black-and-white Tudor facade with large diagonal half-timber bays.
+2. Steep layered roof silhouette with deep eaves and dormer.
+3. Three-part tall red-brick chimney with articulated crown.
+4. Gabled timber entrance porch and narrow mullioned window rhythm.
+5. West/rear low glass wing and end-wall full-height timber grid.
+6. Small three-bird roof-ridge weathervane silhouette.
+
+Identity must preserve cues 1–5. Massing must preserve the wide facade, layered roofs, chimney, porch opening and low wing, but may omit window subdivision and the weathervane.
+
+## Geometry and material contract
+
+- Massing first: main body, west/end wing, low glass wing, roof layers, chimney, porch and entrance void.
+- Hero: refine half timber, window grids, eaves, chimney crown, low wing frames and restrained weathervane.
+- Identity: derive from Hero parameters; use fewer window subdivisions, roof ribs and trim pieces while preserving five required cues.
+- Material palette: warm off-white plaster, near-black timber, muted red-brown roof tile, red brick, dark desaturated glass, warm stone.
+- No embedded images or runtime photo textures.
+- Site: retain a shallow ground datum and existing wall relationship only. Existing generated tree and hedges remain Hold and are not upgraded.
+
+## Tier lineage and budgets
+
+| Field | Hero | Identity | Massing |
+| --- | --- | --- | --- |
+| Output | `public/models/requested-pois/hudec-memorial.glb` | `public/models/requested-pois/hudec-memorial-identity.glb` | `public/models/requested-pois/hudec-memorial-massing.glb` |
+| Editable source | `assets/models/source/requested-pois/hudec-memorial.blend` | `assets/models/source/requested-pois/hudec-memorial-identity.blend` | `assets/models/source/requested-pois/hudec-memorial-massing.blend` |
+| Source | V2 generator master | Same V2 parameters, `derivedFrom` Hero build SHA | Same V2 parameters, early massing checkpoint reverified after Hero |
+| Max nodes | 2 | 2 | 2 |
+| Max triangles | 45,000 | 12,000 | 2,500 |
+| Max materials | 16 | 9 | 5 |
+| Max images | 0 | 0 | 0 |
+| Max bytes | 2,800,000 | 700,000 | 220,000 |
+| Viewing distance | 0–55 world units | map and local fallback | cover-only internal |
+| Collision | independent shared split obstacles | same | same |
+
+## Collision and camera-clearance plan
+
+- Blocking volumes: main body, west/rear wing, entrance porch solids and street wall remain split.
+- Walkable voids: entrance approach, courtyard circulation and gate opening remain clear.
+- Hold vegetation does not gain new collision.
+- Player start and a camera point 7.4 units behind it must stay outside all transformed obstacles.
+- No single compound-sized collision box is allowed.
+
+## Runtime acceptance contract
+
+- Deep link: `/?start=hudec`
+- QA tier override: `/?start=hudec&buildingTier=hero|identity|massing` if the main runtime supports it; otherwise use an asset-specific temporary QA override and record it explicitly.
+- Massing gate before Hero detail: request success, visible material, scale `1.0`, ground contact, OSM setback, entrance clearance and camera safety.
+- Same-camera tier gate: no origin, scale, yaw, ground or collision popping; deliberate detail loss recorded.
+- Three.js: canonical, side/map-context and deterministic approach evidence for all tiers.
+- Performance record: fixed viewport, static build, visible tab, 8 s warm-up, 10 s sample, GLB Resource Timing and frame metric.
+- No performance improvement claim without same-condition legacy baseline.
+
+## Build provenance
+
+- Deterministic V2 generator: `scripts/create_hudec_memorial_v2.py`
+- Single-asset command:
+  `/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_hudec_memorial_v2.py -- --stage=<massing|hero|identity|all>`
+- Audit:
+  `python3 scripts/audit_glb.py <glb> --forbid-images --max-nodes 2`
+- Build records:
+  `docs/research/build-records/hudec-memorial-{massing,hero,identity}.json`
+- Cache version must change with each binary SHA.
+
+## Gate status and decision log
+
+### Iteration 0 — 2026-07-25 research and legacy audit
+
+- Scope gate: Passed; one building only, vegetation/decor Hold.
+- Preflight: Passed after syncing the shared repository GLB auditor.
+- Evidence: Passed for canonical, depth/side and entrance; rear/east remains explicitly Unknown.
+- Legacy decision: Retain as rollback baseline but upgrade structurally because official depth evidence contradicts its generic roof/chimney/wing treatment.
+- Massing MCP / runtime: Pending.
+- Hero MCP: Pending.
+- Same-camera three-tier MCP: Pending.
+- Wiki completion gate: Pending.
+- Deployment: Not authorized.
