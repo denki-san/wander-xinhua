@@ -1,0 +1,224 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25T13:20:00+08:00",
+  "scope": "active-31-minimal-vertical-pilot",
+  "assetId": "sun-ke-villa",
+  "pipelineGate": "hero-identity-massing-threejs-runtime-and-fallback",
+  "prerequisites": {
+    "massingMapQa": "docs/research/sun-ke-villa-massing-map-qa-v2.json",
+    "blenderMcpGates": "docs/research/sun-ke-villa-blender-mcp-gates.json",
+    "status": "pass"
+  },
+  "environment": {
+    "buildMode": "production-static",
+    "primaryPreviewOrigin": "http://127.0.0.1:4182",
+    "fallbackPreviewOrigin": "http://127.0.0.1:4183",
+    "viewportCssPixels": [1280, 720],
+    "canvasBufferPixels": [2240, 1260],
+    "devicePixelRatio": 2,
+    "rendererPixelRatio": 1.75,
+    "pageVisibility": "visible",
+    "introWarmupMs": 1800,
+    "playableWarmupMs": 4200,
+    "firstScreenTargetGlbRequests": 0
+  },
+  "tierAssets": {
+    "hero": {
+      "glb": "public/models/shangsheng/sun-ke-villa.glb",
+      "sha256": "830564a6cdbd035cea87cffccd56a908c808b9418f8922484742dab84b8eaebc",
+      "runtimeUrl": "/models/shangsheng/sun-ke-villa.glb?v=830564a6cdbd"
+    },
+    "identity": {
+      "glb": "public/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity.glb",
+      "sha256": "0e582398fa615cfd9866407f8911fd22015de489d14894481e3780a3888ac6a2",
+      "runtimeUrl": "/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity.glb?v=0e582398fa61"
+    },
+    "massing": {
+      "glb": "public/models/tiers/sun-ke-villa/massing/sun-ke-villa-massing.glb",
+      "sha256": "f233f9defd2196025dcb104fcccd8147df8327ccd638cff803ef8f9a7e3e50d0",
+      "runtimeUrl": "/models/tiers/sun-ke-villa/massing/sun-ke-villa-massing.glb?v=f233f9defd21"
+    }
+  },
+  "coldTierRuns": {
+    "hero": {
+      "qaUrl": "/?start=sunke-north&qaActiveAsset=sun-ke-villa&qaActiveTier=hero",
+      "introTargetGlbCount": 0,
+      "targetResponses": [
+        {
+          "tier": "identity-fallback",
+          "status": 200,
+          "mimeType": "model/gltf-binary",
+          "encodedDataLength": 345473
+        },
+        {
+          "tier": "hero",
+          "status": 200,
+          "mimeType": "model/gltf-binary",
+          "encodedDataLength": 1028203
+        }
+      ],
+      "targetEncodedDataLength": 1373676,
+      "allGlbRequestCount": 10,
+      "allGlbEncodedDataLength": 17062690,
+      "unexpectedProblems": 0,
+      "progressiveStage": "playable",
+      "performance": {
+        "documents": 1,
+        "frames": 1,
+        "nodes": 162,
+        "jsEventListeners": 926,
+        "jsHeapUsedSize": 71199076,
+        "jsHeapTotalSize": 118489088,
+        "layoutCount": 9,
+        "recalcStyleCount": 20,
+        "taskDuration": 6.506109
+      },
+      "screenshot": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-threejs-north.png",
+        "sha256": "3d647249836a666a50fc2fda4b50af4492af401ee21e91b856dfcd944c08cdf4",
+        "bytes": 1014031
+      }
+    },
+    "identity": {
+      "qaUrl": "/?start=sunke-north&qaActiveAsset=sun-ke-villa&qaActiveTier=identity",
+      "introTargetGlbCount": 0,
+      "targetResponses": [
+        {
+          "tier": "identity",
+          "status": 200,
+          "mimeType": "model/gltf-binary",
+          "encodedDataLength": 345473
+        }
+      ],
+      "targetEncodedDataLength": 345473,
+      "allGlbRequestCount": 9,
+      "allGlbEncodedDataLength": 16034487,
+      "unexpectedProblems": 0,
+      "progressiveStage": "playable",
+      "performance": {
+        "documents": 1,
+        "frames": 1,
+        "nodes": 162,
+        "jsEventListeners": 926,
+        "jsHeapUsedSize": 55680204,
+        "jsHeapTotalSize": 117964800,
+        "layoutCount": 10,
+        "recalcStyleCount": 19,
+        "taskDuration": 6.672906
+      },
+      "screenshot": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-threejs-north.png",
+        "sha256": "2b47d64cf9d928708f14ef73d71b5030c1d17f5bcf5d642f889dc9311ad7a4fa",
+        "bytes": 991045
+      }
+    },
+    "massing": {
+      "qaUrl": "/?start=sunke-north&qaActiveAsset=sun-ke-villa&qaActiveTier=massing",
+      "introTargetGlbCount": 0,
+      "targetResponses": [
+        {
+          "tier": "massing",
+          "status": 200,
+          "mimeType": "model/gltf-binary",
+          "encodedDataLength": 20263
+        }
+      ],
+      "targetEncodedDataLength": 20263,
+      "allGlbRequestCount": 9,
+      "allGlbEncodedDataLength": 15709277,
+      "unexpectedProblems": 0,
+      "progressiveStage": "playable",
+      "performance": {
+        "documents": 1,
+        "frames": 1,
+        "nodes": 162,
+        "jsEventListeners": 926,
+        "jsHeapUsedSize": 48382572,
+        "jsHeapTotalSize": 116391936,
+        "layoutCount": 11,
+        "recalcStyleCount": 22,
+        "taskDuration": 6.84821
+      },
+      "screenshot": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-massing-threejs-north.png",
+        "sha256": "44f92895ba8becda405e8a7fa83bd2a699359d1952f75934415ed5dd8e3acc3e",
+        "bytes": 946040
+      }
+    }
+  },
+  "loadingPolicyEvidence": {
+    "firstScreen": "pass-zero-sun-ke-villa-target-glb-before-departure",
+    "mapEntry": "pass-target-tier-loads-after-departure",
+    "nearHero": "pass-hero-loads-with-identity-as-resilient-fallback",
+    "midIdentity": "pass-identity-only",
+    "farMassing": "pass-massing-only",
+    "all31HeroSimultaneous": false,
+    "note": "Hero 路径额外加载 345473 bytes Identity 作为同资产 fallback；未同时加载 active 31 的 Hero。"
+  },
+  "cacheEvidence": {
+    "asset": "massing",
+    "coldEncodedDataLength": 20263,
+    "revalidatedEncodedDataLength": 127,
+    "fromDiskCache": false,
+    "fromServiceWorker": false,
+    "status": "pass-http-revalidation-not-disk-cache",
+    "limitation": "本地 Vite preview 使用条件重验证；不把 127-byte revalidation 误报成 disk cache hit。"
+  },
+  "fallbackEvidence": {
+    "heroToIdentity": {
+      "qaUrl": "/?start=sunke-north&qaActiveAsset=sun-ke-villa&qaActiveTier=hero&qaActiveFallback=hero",
+      "invalidHeroResponse": {
+        "status": 200,
+        "mimeType": "text/html",
+        "encodedDataLength": 909,
+        "interpretation": "Vite SPA fallback shell intentionally triggers GLB parse failure"
+      },
+      "identityResponse": {
+        "status": 200,
+        "mimeType": "model/gltf-binary",
+        "encodedDataLength": 345473
+      },
+      "expectedRuntimeExceptions": 1,
+      "unexpectedRuntimeExceptions": 0,
+      "playable": true,
+      "visual": "pass-identity-visible-with-protruding-north-porte-cochere",
+      "screenshot": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-fallback-to-identity-threejs.png",
+        "sha256": "ecc922020426d4ad063aa143c0eb03d2cabd8944f434f8b496d954fbd4f45f4e",
+        "bytes": 990226
+      }
+    },
+    "identityToProgrammatic": {
+      "qaUrl": "/?start=sunke-north&qaActiveAsset=sun-ke-villa&qaActiveTier=identity&qaActiveFallback=identity",
+      "invalidIdentityResponse": {
+        "status": 200,
+        "mimeType": "text/html",
+        "encodedDataLength": 909,
+        "interpretation": "Vite SPA fallback shell intentionally triggers GLB parse failure"
+      },
+      "expectedRuntimeExceptions": 1,
+      "unexpectedRuntimeExceptions": 0,
+      "playable": true,
+      "visual": "pass-programmatic-fallback-height-origin-and-protruding-porte-cochere-aligned",
+      "screenshot": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-fallback-programmatic-threejs.png",
+        "sha256": "b885947d4c6a7e9e3288d9c52be2c92e598e05f1b802d77bf42410df35232c5d",
+        "bytes": 977324
+      }
+    }
+  },
+  "acceptance": {
+    "hero": "pass",
+    "identity": "pass",
+    "massing": "pass",
+    "positionScaleOrientationGround": "pass",
+    "northPorteCochereContinuity": "pass",
+    "collisionAndCoveredLane": "pass",
+    "firstScreenAndDelayedLoading": "pass",
+    "cache": "pass-with-http-revalidation",
+    "fallback": "pass",
+    "formalIdentityPass": true,
+    "final": "pass"
+  },
+  "nextGate": "minimal-vertical-pilot-complete-select-next-active31-asset"
+}

@@ -20,6 +20,7 @@ import { terrainHeightAt } from "./terrain";
 import { isPointInsidePolygon, type MapObstacle, type MapPolygonPoint } from "./world-math";
 import type { ProgressiveBuildingTier } from "./progressive-loading";
 import { ProgressiveFeatureBoundary } from "../progressive-feature-boundary";
+import { SUN_KE_PORTE_COCHERE_COLUMN_OBSTACLES } from "./sun-ke-villa-tier-contract.mjs";
 
 type Building = (typeof landmarks.shangshengXinsuo.buildings)[number];
 
@@ -78,6 +79,7 @@ export const SHANGSHENG_BUILDING_FOOTPRINTS: MapObstacle[] = SITE.buildings.flat
 
 const SHANGSHENG_FIXED_OBSTACLES: MapObstacle[] = [
   ...SHANGSHENG_BUILDING_FOOTPRINTS,
+  ...SUN_KE_PORTE_COCHERE_COLUMN_OBSTACLES.map(localToWorldObstacle),
   // 海军俱乐部泳池保留为不可穿越水面，南侧窄廊仍可通行。
   localToWorldObstacle({ minX: -23.05, maxX: -18.25, minZ: -5.7, maxZ: 5.2 }),
   ...SITE.fountains.map((fountain) => localToWorldObstacle(boundaryBounds(fountain.boundary))),
@@ -267,7 +269,7 @@ function SunKeVillaFallback({ building }: { building: Building }) {
 }
 
 class SunKeVillaErrorBoundary extends Component<
-  { building: Building; children: ReactNode },
+  { building: Building; children: ReactNode; fallback?: ReactNode },
   { failed: boolean }
 > {
   state = { failed: false };
@@ -277,7 +279,10 @@ class SunKeVillaErrorBoundary extends Component<
   }
 
   render() {
-    if (this.state.failed) return <SunKeVillaFallback building={this.props.building} />;
+    if (this.state.failed) {
+      return this.props.fallback
+        ?? <SunKeVillaFallback building={this.props.building} />;
+    }
     return this.props.children;
   }
 }
@@ -419,9 +424,21 @@ function SunKeVillaAsset({
   stage: SunKeVillaStage;
 }) {
   const tier = stage === "full" ? "hero" : stage;
+  const programmaticFallback = <SunKeVillaFallback building={building} />;
+  const identityFallback = (
+    <SunKeVillaErrorBoundary
+      building={building}
+      fallback={programmaticFallback}
+    >
+      <Suspense fallback={programmaticFallback}>
+        <ProgressiveSunKeVilla building={building} tier="identity" />
+      </Suspense>
+    </SunKeVillaErrorBoundary>
+  );
+  const fallback = tier === "hero" ? identityFallback : programmaticFallback;
   return (
-    <SunKeVillaErrorBoundary building={building}>
-      <Suspense fallback={<SunKeVillaFallback building={building} />}>
+    <SunKeVillaErrorBoundary building={building} fallback={fallback}>
+      <Suspense fallback={fallback}>
         <ProgressiveSunKeVilla building={building} tier={tier} />
       </Suspense>
     </SunKeVillaErrorBoundary>

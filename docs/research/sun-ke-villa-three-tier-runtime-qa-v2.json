@@ -1,0 +1,260 @@
+{
+  "version": 2,
+  "assetId": "sun-ke-villa",
+  "auditedAt": "2026-07-25T15:00:00+08:00",
+  "status": "pass",
+  "supersedesWithoutDeleting": "docs/research/sun-ke-villa-three-tier-runtime-qa.json",
+  "reason": "Hero master 在 MCP 审查后被测试场景覆盖，已用确定性生成器恢复并重新冻结；Hero 与 Identity 二进制和 cacheVersion 更新，因此补跑当前二进制的真实页面与 fallback 验收。",
+  "linkedRecords": {
+    "massingMapQa": "docs/research/sun-ke-villa-massing-map-qa-v2.json",
+    "blenderMcpGates": "docs/research/sun-ke-villa-blender-mcp-gates-v2.json",
+    "heroBuildRecord": "docs/research/build-records/tiers/sun-ke-villa/hero/sun-ke-villa-hero.json",
+    "identityBuildRecord": "docs/research/build-records/tiers/sun-ke-villa/identity/sun-ke-villa-identity.json",
+    "previousFullPerformanceRun": "docs/research/sun-ke-villa-three-tier-runtime-qa.json"
+  },
+  "environment": {
+    "buildMode": "production-static",
+    "previewOrigin": "http://127.0.0.1:4175",
+    "browserControl": "in-app-browser-cdp",
+    "viewportCssPixels": [
+      1280,
+      720
+    ],
+    "devicePixelRatio": 2,
+    "pageVisibility": "visible",
+    "introWarmupMs": 2000,
+    "playableWarmupMs": 7000,
+    "firstScreenTargetGlbRequests": 0,
+    "firstScreenStageAtSample": "booting",
+    "performanceClaim": "no-fps-improvement-claim-current-run-records-resource-traffic-and-playable-state"
+  },
+  "tierArtifacts": {
+    "hero": {
+      "glb": "public/models/shangsheng/sun-ke-villa.glb",
+      "sha256": "6d16423155304063606a3cd7d9be3878cfa11469ddd2463077e8961bbe3812b9",
+      "bytes": 1027924,
+      "runtimeUrl": "/models/shangsheng/sun-ke-villa.glb?v=6d1642315530"
+    },
+    "identity": {
+      "glb": "public/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity.glb",
+      "sha256": "6b541e8ffab4c298ee6366083a3f236c6e3dd6d85020ab1cf12ac12cdc42b478",
+      "bytes": 345196,
+      "runtimeUrl": "/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity.glb?v=6b541e8ffab4"
+    },
+    "massing": {
+      "glb": "public/models/tiers/sun-ke-villa/massing/sun-ke-villa-massing.glb",
+      "sha256": "f233f9defd2196025dcb104fcccd8147df8327ccd638cff803ef8f9a7e3e50d0",
+      "bytes": 19988,
+      "runtimeUrl": "/models/tiers/sun-ke-villa/massing/sun-ke-villa-massing.glb?v=f233f9defd21",
+      "validation": "retained-current-binary-and-previous-full-runtime-run"
+    }
+  },
+  "currentRuntimeRuns": {
+    "hero": {
+      "qaUrl": "/?start=sunke-north&qaActiveAsset=sun-ke-villa&qaActiveTier=hero",
+      "progressiveStage": "playable",
+      "activeAsset": "sun-ke-villa",
+      "activeTier": "hero",
+      "targetResources": [
+        {
+          "tier": "identity-fallback",
+          "transferSize": 345496,
+          "encodedBodySize": 345196,
+          "decodedBodySize": 345196,
+          "durationMs": 56.1
+        },
+        {
+          "tier": "hero",
+          "transferSize": 1028224,
+          "encodedBodySize": 1027924,
+          "decodedBodySize": 1027924,
+          "durationMs": 57
+        }
+      ],
+      "unexpectedConsoleErrors": 0,
+      "nonBlockingWarnings": [
+        "THREE.Clock deprecated; use THREE.Timer"
+      ],
+      "screenshot": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-threejs-north-rebuild-6d1642315530.png",
+        "sha256": "80e84a95f7157948105c0599ac24cdc78e7b8c177f7b2f12da38978ebd60f522",
+        "bytes": 49938
+      }
+    },
+    "identity": {
+      "qaUrl": "/?start=sunke-north&qaActiveAsset=sun-ke-villa&qaActiveTier=identity",
+      "progressiveStage": "playable",
+      "activeAsset": "sun-ke-villa",
+      "activeTier": "identity",
+      "targetResources": [
+        {
+          "tier": "identity",
+          "transferSize": 300,
+          "encodedBodySize": 345196,
+          "decodedBodySize": 345196,
+          "durationMs": 10.6,
+          "cacheInterpretation": "HTTP revalidation; not reported as disk cache"
+        }
+      ],
+      "unexpectedConsoleErrors": 0,
+      "nonBlockingWarnings": [
+        "THREE.Clock deprecated; use THREE.Timer"
+      ],
+      "screenshot": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-threejs-north-rebuild-6b541e8ffab4.png",
+        "sha256": "df07396c88afa5521e97ff7e0942f82f0161a846a94f2da916c1756e0a8f3ede",
+        "bytes": 48288
+      }
+    },
+    "massing": {
+      "qaUrl": "/?start=sunke-north&qaActiveAsset=sun-ke-villa&qaActiveTier=massing",
+      "status": "pass-retained-from-unchanged-current-binary",
+      "evidence": "docs/research/sun-ke-villa-three-tier-runtime-qa.json"
+    }
+  },
+  "loadingPolicyEvidence": {
+    "firstScreen": "pass-zero-target-glb-before-departure",
+    "mapEntry": "pass-target-assets-start-after-departure",
+    "delayedHero": "pass-identity-fallback-loads-with-hero-and-remains-valid-on-hero-failure",
+    "all31HeroSimultaneous": false,
+    "nearMidFarPolicy": "sun-ke-villa-qa-forces-one-tier; production-progressive-wrapper-retains-near-hero-mid-identity-far-massing-contract"
+  },
+  "cacheEvidence": {
+    "asset": "identity",
+    "coldTransferSize": 345496,
+    "revalidatedTransferSize": 300,
+    "encodedBodySize": 345196,
+    "status": "pass-http-revalidation-not-disk-cache"
+  },
+  "fallbackEvidence": {
+    "heroToIdentity": {
+      "qaUrl": "/?start=sunke-north&qaActiveAsset=sun-ke-villa&qaActiveTier=hero&qaActiveFallback=hero",
+      "invalidHeroResource": {
+        "transferSize": 930,
+        "encodedBodySize": 630,
+        "interpretation": "Vite SPA shell intentionally triggers GLB parse failure"
+      },
+      "identityResource": {
+        "transferSize": 300,
+        "encodedBodySize": 345196
+      },
+      "expectedRuntimeExceptions": 1,
+      "unexpectedRuntimeExceptions": 0,
+      "playable": true,
+      "visual": "pass-current-identity-visible-with-protruding-north-porte-cochere",
+      "screenshot": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-fallback-to-identity-threejs-rebuild-6b541e8ffab4.png",
+        "sha256": "9f5131977eef69f4fc47992925abd875bec6bb13444d9cd30aa03aab06df6e47",
+        "bytes": 48446
+      }
+    },
+    "identityToProgrammatic": {
+      "qaUrl": "/?start=sunke-north&qaActiveAsset=sun-ke-villa&qaActiveTier=identity&qaActiveFallback=identity",
+      "invalidIdentityResource": {
+        "transferSize": 930,
+        "encodedBodySize": 630,
+        "interpretation": "Vite SPA shell intentionally triggers GLB parse failure"
+      },
+      "expectedRuntimeExceptions": 1,
+      "unexpectedRuntimeExceptions": 0,
+      "playable": true,
+      "visual": "pass-programmatic-fallback-retains-forward-canopy-and-open-center",
+      "screenshot": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-fallback-programmatic-threejs-rebuild.png",
+        "sha256": "0cefa3b1adf0a481c64cac7ba66ff3e5d5cb3fd119098e84175bfec9240ba24a",
+        "bytes": 50089
+      }
+    }
+  },
+  "reconciliationVerification": {
+    "verifiedAt": "2026-07-25T18:40:00+08:00",
+    "recoveredFromCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "buildMode": "production-static",
+    "previewOrigin": "http://127.0.0.1:4177",
+    "viewportCssPixels": [1280, 577],
+    "entryContract": "sun-ke-tier-only-minimal-runtime-patch",
+    "note": "未导入 recovery 的公共 qaActiveAsset、31 栋 registry、树木、装饰或其他建筑 runtime 改动。",
+    "normalTierRuns": {
+      "hero": {
+        "url": "/?start=sunke-north&sun-ke-tier=hero",
+        "resources": [
+          "/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity.glb?v=6b541e8ffab4",
+          "/models/shangsheng/sun-ke-villa.glb?v=6d1642315530"
+        ],
+        "visual": "pass-north-porte-cochere-protrudes-with-independent-front-columns-and-open-center",
+        "screenshot": {
+          "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-threejs-north-reconciled-20260725.png",
+          "sha256": "22767e82134df6f19a75b848123c49626d99970b264e6b9e0eae9f0f7b521719",
+          "bytes": 319755
+        }
+      },
+      "identity": {
+        "url": "/?start=sunke-north&sun-ke-tier=identity",
+        "resources": [
+          "/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity.glb?v=6b541e8ffab4"
+        ],
+        "unexpectedPageErrors": 0,
+        "visual": "pass-recognizable-porte-cochere-and-open-center",
+        "screenshot": {
+          "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-threejs-north-reconciled-20260725.png",
+          "sha256": "104c16fb95643b4c0e216116811cc31709909b741e6dd8a5f32ee575f9aa713b",
+          "bytes": 312246
+        }
+      },
+      "massing": {
+        "url": "/?start=sunke-north&sun-ke-tier=massing",
+        "resources": [
+          "/models/tiers/sun-ke-villa/massing/sun-ke-villa-massing.glb?v=f233f9defd21"
+        ],
+        "unexpectedPageErrors": 0,
+        "visual": "pass-structured-envelope-retains-open-covered-lane",
+        "screenshot": {
+          "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-massing-threejs-north-reconciled-20260725.png",
+          "sha256": "31c3e9e78e686decca1309215e650eed383b587d3aa69f7d16399365965e878b",
+          "bytes": 307766
+        }
+      }
+    },
+    "fallbackRuns": {
+      "heroToIdentity": {
+        "url": "/?start=sunke-north&sun-ke-tier=hero&qaActiveFallback=hero",
+        "requestedResources": [
+          "/models/shangsheng/sun-ke-villa-qa-missing.glb?v=6d1642315530",
+          "/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity.glb?v=6b541e8ffab4"
+        ],
+        "visual": "pass-identity-remains-visible-and-playable",
+        "screenshot": {
+          "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-fallback-identity-reconciled-20260725.png",
+          "sha256": "e1e877c03bf9293dd2217337392ed0d18f89aadf188a5141c8cd7e658fa320c2",
+          "bytes": 312642
+        }
+      },
+      "identityToProgrammatic": {
+        "url": "/?start=sunke-north&sun-ke-tier=identity&qaActiveFallback=identity",
+        "requestedResources": [
+          "/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity-qa-missing.glb?v=6b541e8ffab4"
+        ],
+        "visual": "pass-programmatic-fallback-remains-playable",
+        "screenshot": {
+          "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-fallback-programmatic-reconciled-20260725.png",
+          "sha256": "a3c350e123f29c5f31a4d06143c1f7345721ec60a6c16b50e56c898028554190",
+          "bytes": 268803
+        }
+      }
+    },
+    "status": "pass"
+  },
+  "acceptance": {
+    "hero": "pass",
+    "identity": "pass",
+    "massing": "pass-retained-current-binary",
+    "positionScaleOrientationGround": "pass",
+    "northPorteCochereContinuity": "pass",
+    "collisionAndCoveredLane": "pass",
+    "firstScreenAndDelayedLoading": "pass",
+    "cache": "pass-with-http-revalidation",
+    "fallback": "pass",
+    "formalIdentityPass": true,
+    "final": "pass"
+  }
+}

@@ -16,10 +16,20 @@ type Building = (typeof landmarks.shangshengXinsuo.buildings)[number];
 export type SunKeVillaRuntimeTier = "hero" | "identity" | "massing";
 
 export const SUN_KE_VILLA_TIER_MODELS = {
-  hero: "/models/shangsheng/sun-ke-villa.glb?v=8309b5b76ebd",
-  identity: "/models/shangsheng/sun-ke-villa-identity.glb?v=036a2b754cfb",
-  massing: "/models/shangsheng/sun-ke-villa-massing.glb?v=406cf9a32541",
+  hero: "/models/shangsheng/sun-ke-villa.glb?v=6d1642315530",
+  identity: "/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity.glb?v=6b541e8ffab4",
+  massing: "/models/tiers/sun-ke-villa/massing/sun-ke-villa-massing.glb?v=f233f9defd21",
 } as const satisfies Record<SunKeVillaRuntimeTier, string>;
+
+function qaAssetPath(path: string, tier: SunKeVillaRuntimeTier) {
+  if (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("qaActiveFallback") === tier
+  ) {
+    return path.replace(".glb", "-qa-missing.glb");
+  }
+  return path;
+}
 
 export function SunKeVillaTierModel({
   building,
@@ -28,7 +38,7 @@ export function SunKeVillaTierModel({
   building: Building;
   tier: SunKeVillaRuntimeTier;
 }) {
-  const modelUrl = SUN_KE_VILLA_TIER_MODELS[tier];
+  const modelUrl = qaAssetPath(SUN_KE_VILLA_TIER_MODELS[tier], tier);
   const { scene } = useGLTF(modelUrl);
   const model = useMemo(() => {
     const clone = scene.clone(true);
