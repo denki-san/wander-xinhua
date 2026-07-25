@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "film-art-center",
   "activeScope": "active-18-buildings",
-  "reviewedAt": "2026-07-25T19:42:00+08:00",
+  "reviewedAt": "2026-07-25T20:07:03+08:00",
   "reviewedBy": "main-coordinator",
   "sourceCheckpoint": "6d0206d",
   "pipelineOrder": [
@@ -147,11 +147,18 @@
     },
     "nextGate": "three-js-massing-map-calibration"
   },
+  "mapGate": {
+    "status": "pass",
+    "record": "docs/research/film-art-center-massing-map-qa.json",
+    "route": "/?start=film-art&qaModelTier=massing&qaModelId=film-art-center&cameraQa=1",
+    "productionDefaultChanged": false,
+    "scope": "film-art-center-only"
+  },
   "heroGate": {
-    "status": "retained-formal-but-mcp2-pending-after-map-calibration"
+    "status": "retained-formal-mcp2-unblocked-pending"
   },
   "identityGate": {
-    "status": "blocked-until-massing-map-and-hero-mcp2"
+    "status": "blocked-until-hero-mcp2"
   },
   "threeTierGate": {
     "status": "pending"

@@ -3,6 +3,7 @@
 import { Html, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import {
+  Box3,
   Color,
   InstancedMesh,
   Material,
@@ -21,6 +22,10 @@ import {
   useState,
   type RefObject,
 } from "react";
+import {
+  FILM_ART_CENTER_ASSET_ID,
+  resolveFilmArtCenterQaTier,
+} from "./film-art-center-tier-contract.mjs";
 import {
   autumnShadowSurfaceHeightAt,
   terrainHeightAt,
@@ -501,10 +506,48 @@ function configureModel(model: Object3D, autumnTree = false) {
   return model;
 }
 
-function GlbModel({ path }: { path: string }) {
+function GlbModel({
+  path,
+  qaAssetId,
+  qaTier,
+}: {
+  path: string;
+  qaAssetId?: string;
+  qaTier?: string;
+}) {
   const { scene } = useGLTF(path);
   const model = useMemo(() => configureModel(scene.clone(true)), [scene]);
   useEffect(() => () => disposeModelMaterials(model), [model]);
+  useEffect(() => {
+    if (!qaAssetId || !qaTier) return;
+    model.updateMatrixWorld(true);
+    const bounds = new Box3().setFromObject(model);
+    const root = document.documentElement;
+    root.dataset.xinhuaRoadQaAsset = qaAssetId;
+    root.dataset.xinhuaRoadQaTier = qaTier;
+    root.dataset.xinhuaRoadQaStatus = "loaded";
+    root.dataset.xinhuaRoadQaSource = path;
+    root.dataset.xinhuaRoadQaBounds = JSON.stringify({
+      min: bounds.min.toArray(),
+      max: bounds.max.toArray(),
+    });
+    window.dispatchEvent(new CustomEvent("xinhua:active-asset-runtime", {
+      detail: {
+        assetId: qaAssetId,
+        tier: qaTier,
+        status: "loaded",
+        source: path,
+      },
+    }));
+    return () => {
+      if (root.dataset.xinhuaRoadQaSource !== path) return;
+      delete root.dataset.xinhuaRoadQaAsset;
+      delete root.dataset.xinhuaRoadQaTier;
+      delete root.dataset.xinhuaRoadQaStatus;
+      delete root.dataset.xinhuaRoadQaSource;
+      delete root.dataset.xinhuaRoadQaBounds;
+    };
+  }, [model, path, qaAssetId, qaTier]);
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
@@ -624,6 +667,9 @@ export function XinhuaRoadLandmarks({
   showLabels?: boolean;
   mountedModelIds: ReadonlySet<string>;
 }) {
+  const filmArtQa = resolveFilmArtCenterQaTier(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
   return (
     <group
       name="xinhua-road-photo-reference-landmarks"
@@ -633,10 +679,14 @@ export function XinhuaRoadLandmarks({
         const [x, z] = landmark.position;
         const [labelOffsetX, labelOffsetZ] = landmark.labelOffset ?? [0, 0];
         const y = terrainHeightAt(x, z) + 0.1;
-        const modelPath = landmark.cacheVersion
-          ? `${landmark.model}?v=${landmark.cacheVersion}`
-          : landmark.model;
+        const qaMassing = filmArtQa?.assetId === landmark.id;
+        const modelPath = qaMassing
+          ? filmArtQa.modelPath
+          : landmark.cacheVersion
+            ? `${landmark.model}?v=${landmark.cacheVersion}`
+            : landmark.model;
         const shouldMountModel = mountedModelIds.has(landmark.id);
+        const shouldMountActiveModel = qaMassing || shouldMountModel;
         return (
           <group
             key={landmark.id}
@@ -646,10 +696,12 @@ export function XinhuaRoadLandmarks({
               address: landmark.address,
               positioning: landmark.positioning,
               modeling: "photo-reference-blender-glb",
+              qaTier: qaMassing ? filmArtQa.tier : undefined,
+              qaOnly: qaMassing || undefined,
             }}
           >
             <group position={[x, y, z]} rotation-y={landmark.yaw} scale={landmark.scale}>
-              {shouldMountModel && (
+              {shouldMountActiveModel && (
                 <ProgressiveFeatureBoundary
                   resetKey={modelPath}
                   fallback={<LandmarkProgressiveProxy landmark={landmark} identity />}
@@ -659,7 +711,15 @@ export function XinhuaRoadLandmarks({
                       <LandmarkProgressiveProxy landmark={landmark} identity />
                     )}
                   >
-                    <GlbModel path={modelPath} />
+                    {qaMassing ? (
+                      <GlbModel
+                        path={modelPath}
+                        qaAssetId={landmark.id}
+                        qaTier={filmArtQa.tier}
+                      />
+                    ) : (
+                      <GlbModel path={modelPath} />
+                    )}
                   </Suspense>
                 </ProgressiveFeatureBoundary>
               )}
@@ -707,14 +767,32 @@ export default function XinhuaRoadFullLayer({
     loadMode,
     focusPosition,
   });
+  const filmArtQa = resolveFilmArtCenterQaTier(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
+  if (!filmArtQa) {
+    return (
+      <>
+        <XinhuaRoadMassing identity hiddenLandmarkIds={mountedModelIds} />
+        <XinhuaRoadPlaneTrees showHero={showHero} atmosphere={atmosphere} />
+        <XinhuaRoadLandmarks
+          showLabels={showLabels}
+          mountedModelIds={mountedModelIds}
+        />
+      </>
+    );
+  }
+  const activeMountedModelIds = filmArtQa
+    ? new Set([...mountedModelIds, FILM_ART_CENTER_ASSET_ID])
+    : mountedModelIds;
 
   return (
     <>
-      <XinhuaRoadMassing identity hiddenLandmarkIds={mountedModelIds} />
+      <XinhuaRoadMassing identity hiddenLandmarkIds={activeMountedModelIds} />
       <XinhuaRoadPlaneTrees showHero={showHero} atmosphere={atmosphere} />
       <XinhuaRoadLandmarks
         showLabels={showLabels}
-        mountedModelIds={mountedModelIds}
+        mountedModelIds={activeMountedModelIds}
       />
     </>
   );

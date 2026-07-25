@@ -2,6 +2,17 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile, stat } from "node:fs/promises";
 import test from "node:test";
+import { Vector3 } from "three";
+import {
+  isPlanarPositionBlockedInPolygon,
+  resolvePolygonMovement,
+} from "../app/scene/world-math.ts";
+import { terrainHeightAt } from "../app/scene/terrain.ts";
+import {
+  FILM_ART_CENTER_MASSING_MODEL_PATH,
+  FILM_ART_CENTER_MASSING_SHA256,
+  resolveFilmArtCenterQaTier,
+} from "../app/scene/film-art-center-tier-contract.mjs";
 
 const root = new URL("../", import.meta.url);
 const recordUrl = new URL(
@@ -18,6 +29,10 @@ const generatorUrl = new URL(
 );
 const mcpGateUrl = new URL(
   "docs/research/film-art-center-blender-mcp-gates.json",
+  root,
+);
+const mapQaUrl = new URL(
+  "docs/research/film-art-center-massing-map-qa.json",
   root,
 );
 
@@ -53,7 +68,7 @@ test("Film Art Center Massing 保持单建筑与 Hold 边界", async () => {
 
   assert.equal(record.assetId, "building:xinhua-road:film-art-center");
   assert.equal(record.tier, "massing");
-  assert.equal(record.status, "mcp1-pass-map-calibration-pending");
+  assert.equal(record.status, "mcp1-and-map-pass-hero-mcp2-pending");
   assert.deepEqual(record.holdBoundary, {
     trees: "untouched",
     decor: "untouched",
@@ -64,7 +79,7 @@ test("Film Art Center Massing 保持单建筑与 Hold 边界", async () => {
   });
   assert.equal(lineage.activeScope, "active-18-buildings");
   assert.equal(lineage.massing.mcp1, "pass");
-  assert.equal(lineage.massing.mapAcceptance, "pending");
+  assert.equal(lineage.massing.mapAcceptance, "pass");
   assert.equal(lineage.identity.identityAllowed, false);
   assert.doesNotMatch(
     generator,
@@ -196,7 +211,7 @@ test("Film Art Center MCP1 场景、固定机位与尺度边界精确封存", as
   assert.deepEqual(gate.massingGate.acceptedInteractiveChanges, []);
   assert.equal(gate.massingGate.generatorRoundTrip.status, "not-required");
   assert.equal(record.gates.mcp1, "pass");
-  assert.equal(record.gates.mapAcceptance, "pending");
+  assert.equal(record.gates.mapAcceptance, "pass");
   assert.equal(record.gates.identityAllowed, false);
   assert.equal(record.outputs.blendSha256, sha256(blend));
   assert.equal(record.outputs.blendBytes, blend.length);
@@ -207,4 +222,173 @@ test("Film Art Center MCP1 场景、固定机位与尺度边界精确封存", as
     assert.equal(buffer.length, screenshot.bytes);
     assert.equal(sha256(buffer), screenshot.sha256);
   }
+});
+
+test("Film Art Center Massing 地图 QA 深链不改变生产默认 tier", async () => {
+  const runtimeSource = await readFile(
+    new URL("app/scene/xinhua-road-landmarks.tsx", root),
+    "utf8",
+  );
+  const contractSource = await readFile(
+    new URL("app/scene/film-art-center-tier-contract.mjs", root),
+    "utf8",
+  );
+  const active = resolveFilmArtCenterQaTier(
+    "?start=film-art&qaModelTier=massing&qaModelId=film-art-center&cameraQa=1",
+  );
+  assert.equal(active.assetId, "film-art-center");
+  assert.equal(active.tier, "massing");
+  assert.equal(active.sha256, FILM_ART_CENTER_MASSING_SHA256);
+  assert.equal(active.modelPath, FILM_ART_CENTER_MASSING_MODEL_PATH);
+  assert.equal(active.forcedFallback, false);
+  assert.equal(active.productionDefaultChanged, false);
+  assert.equal(resolveFilmArtCenterQaTier("?start=film-art"), null);
+  assert.equal(
+    resolveFilmArtCenterQaTier(
+      "?qaModelTier=massing&qaModelId=shanghai-cinema",
+    ),
+    null,
+  );
+
+  const fallback = resolveFilmArtCenterQaTier(
+    "?qaModelTier=massing&qaModelId=film-art-center&qaActiveFallback=massing",
+  );
+  assert.equal(fallback.forcedFallback, true);
+  assert.match(fallback.modelPath, /test_missing-film-art-center-massing\.glb/);
+  assert.match(runtimeSource, /xinhua:active-asset-runtime/);
+  assert.match(runtimeSource, /xinhuaRoadQaStatus = "loaded"/);
+  assert.match(runtimeSource, /hiddenLandmarkIds=\{activeMountedModelIds\}/);
+  assert.match(contractSource, /productionDefaultChanged: false/);
+});
+
+test("Film Art Center Massing 地图位置、落地与碰撞门可重复", async () => {
+  const [qa, landmarkData] = await Promise.all([
+    readFile(mapQaUrl, "utf8").then(JSON.parse),
+    readFile(
+      new URL("app/scene/xinhua-road-landmarks-data.json", root),
+      "utf8",
+    ).then(JSON.parse),
+  ]);
+  const landmark = landmarkData.landmarks.find(
+    (candidate) => candidate.id === "film-art-center",
+  );
+  assert.ok(landmark);
+  assert.equal(qa.status, "pass");
+  assert.equal(qa.productionDefaultChanged, false);
+  assert.equal(qa.asset.sha256, FILM_ART_CENTER_MASSING_SHA256);
+  assert.equal(qa.asset.network.status, 200);
+  assert.equal(qa.asset.network.contentLength, 240572);
+  assert.equal(qa.runtime.pagePlayable, true);
+  assert.equal(qa.runtime.console.errors, 0);
+  assert.deepEqual(qa.placement.position, landmark.position);
+  assert.equal(qa.placement.yaw, landmark.yaw);
+  assert.equal(qa.placement.scale, landmark.scale);
+  assert.deepEqual(qa.placement.start, landmark.start);
+  assert.deepEqual(qa.placement.forward, landmark.forward);
+  assert.equal(qa.placement.cameraTargetHeight, landmark.cameraTargetHeight);
+
+  const expectedWorldBase = (
+    terrainHeightAt(...landmark.position) + 0.1
+  ) * qa.runtime.groundContact.detailWorldScale;
+  assert.ok(
+    Math.abs(
+      qa.runtime.worldBounds.min[1] - expectedWorldBase
+    ) < 1e-5,
+  );
+  assert.equal(qa.runtime.groundContact.status, "pass");
+
+  const cosine = Math.cos(landmark.yaw);
+  const sine = Math.sin(landmark.yaw);
+  const obstacles = landmark.localObstacles.map((local) => {
+    const worldX = [];
+    const worldZ = [];
+    for (const localX of [local.minX, local.maxX]) {
+      for (const sourceZ of [local.minZ, local.maxZ]) {
+        const localZ = -sourceZ;
+        worldX.push(
+          landmark.position[0]
+          + landmark.scale * (cosine * localX + sine * localZ),
+        );
+        worldZ.push(
+          landmark.position[1]
+          + landmark.scale * (-sine * localX + cosine * localZ),
+        );
+      }
+    }
+    return {
+      minX: Math.min(...worldX) - landmarkData.collisionMargin,
+      maxX: Math.max(...worldX) + landmarkData.collisionMargin,
+      minZ: Math.min(...worldZ) - landmarkData.collisionMargin,
+      maxZ: Math.max(...worldZ) + landmarkData.collisionMargin,
+    };
+  });
+  assert.deepEqual(obstacles, qa.collision.worldObstacles);
+
+  const boundary = [
+    [-100, -100],
+    [200, -100],
+    [200, 250],
+    [-100, 250],
+  ];
+  const player = new Vector3(landmark.start[0], 0, landmark.start[1]);
+  assert.equal(
+    isPlanarPositionBlockedInPolygon(
+      player.x,
+      player.z,
+      boundary,
+      obstacles,
+      qa.collision.playerRadius,
+    ),
+    false,
+  );
+  const step = new Vector3(
+    landmark.forward[0],
+    0,
+    landmark.forward[1],
+  ).normalize().multiplyScalar(
+    qa.collision.deterministicApproach.stepSceneUnits,
+  );
+  for (
+    let index = 0;
+    index < qa.collision.deterministicApproach.steps;
+    index += 1
+  ) {
+    resolvePolygonMovement(
+      player,
+      step,
+      boundary,
+      obstacles,
+      qa.collision.playerRadius,
+      player,
+    );
+  }
+  assert.ok(
+    Math.abs(player.x - qa.collision.deterministicApproach.result[0]) < 1e-9,
+  );
+  assert.ok(
+    Math.abs(player.z - qa.collision.deterministicApproach.result[1]) < 1e-9,
+  );
+  assert.equal(
+    isPlanarPositionBlockedInPolygon(
+      player.x,
+      player.z,
+      boundary,
+      obstacles,
+      qa.collision.playerRadius,
+    ),
+    false,
+  );
+
+  for (const screenshot of Object.values(qa.screenshots)) {
+    const buffer = await readFile(new URL(screenshot.path, root));
+    assert.equal(buffer.length, screenshot.bytes);
+    assert.equal(sha256(buffer), screenshot.sha256);
+  }
+  assert.equal(qa.forcedFallback.pagePlayable, true);
+  assert.equal(qa.forcedFallback.blankOrBlack, false);
+  assert.equal(qa.scope.trees, "untouched");
+  assert.equal(qa.scope.decor, "untouched");
+  assert.equal(qa.scope.globalMassing, "untouched");
+  assert.equal(qa.nextGate, "blender-mcp2-hero-master-review");
+  assert.equal(qa.identityAllowed, false);
 });

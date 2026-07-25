@@ -6745,3 +6745,312 @@ try/fallback 兼容不同 LTS 枚举。
 ### Resolution
 - **Resolved**: 2026-07-25T19:40:00+08:00
 - **Notes**: 临时 QA rig 改用 `BLENDER_EEVEE` 后完成四张 MCP1 证据图。
+
+---
+
+## [ERR-20260725-027] film_art_map_contract_test_wrong_source
+
+**Logged**: 2026-07-25T20:12:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+Film Art Center 地图 QA 测试把 contract 字段错误地断言在 React 运行时源文件中。
+
+### Error
+```text
+AssertionError: The input did not match the regular expression
+/productionDefaultChanged: false/
+```
+
+### Context
+- `productionDefaultChanged` 由专用
+  `film-art-center-tier-contract.mjs` 返回，不定义在
+  `xinhua-road-landmarks.tsx`。
+- 同一测试中的纯函数结果已经确认该字段为 `false`，运行逻辑未失败。
+
+### Suggested Fix
+读取专用 contract 源文件，并只在该文件断言字段；React 文件继续断言事件、
+DOM dataset 与 Identity proxy 隐藏接线。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_film_art_center_quality_tiers.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T20:12:00+08:00
+- **Notes**: 测试已改为按字段实际所有权读取正确源文件。
+
+---
+
+## [ERR-20260725-028] unused_port_probe_exit_one
+
+**Logged**: 2026-07-25T20:15:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+`lsof` 在目标端口没有监听器时以状态 1 退出，组合探测因此显示失败。
+
+### Error
+```text
+lsof -nP -iTCP:4178 -sTCP:LISTEN
+exit 1
+```
+
+### Context
+- 输出为空正是“4178 未被占用”的预期结果。
+- 静态构建已经成功，未发生预览服务或资产失败。
+
+### Suggested Fix
+把 `lsof` 的空结果作为端口可用，不重复执行；随后直接以 4178 启动预览。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json
+
+### Resolution
+- **Resolved**: 2026-07-25T20:15:00+08:00
+- **Notes**: 已确认 4178 可用于本次 Film Art Center 地图验收。
+
+---
+
+## [ERR-20260725-029] sandbox_blocks_static_preview_listener
+
+**Logged**: 2026-07-25T20:16:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+受控沙箱禁止 Vite preview 在本机 4178 端口监听。
+
+### Error
+```text
+Error: listen EPERM: operation not permitted 127.0.0.1:4178
+```
+
+### Context
+- `npm run build:static` 已成功。
+- 失败发生在监听 socket，尚未进入页面运行时。
+
+### Suggested Fix
+使用审批过的非沙箱本地预览启动命令，仅监听
+`127.0.0.1:4178`，不开放外部网络。
+
+### Metadata
+- Reproducible: yes
+- Related Files: vite.static.config.ts
+
+### Resolution
+- **Resolved**: 2026-07-25T20:16:00+08:00
+- **Notes**: 已改用受控提权启动同一静态产物的本机预览。
+
+---
+
+## [ERR-20260725-030] browser_evaluate_performance_unavailable
+
+**Logged**: 2026-07-25T20:19:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+受限浏览器的只读 Playwright evaluate 未暴露 `performance` 全局。
+
+### Error
+```text
+TypeError: Cannot read properties of undefined (reading 'getEntriesByType')
+```
+
+### Context
+- 页面已进入可玩的第三人称场景。
+- 错误仅发生在读取 Resource Timing，不影响 GLB 请求或 WebGL 渲染。
+
+### Suggested Fix
+DOM dataset 继续通过只读 evaluate 读取；资源请求、状态与字节改用浏览器支持的
+CDP Network 能力采集。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-road-landmarks.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T20:19:00+08:00
+- **Notes**: 已切换到 DOM 加载回调证据与 CDP 网络事件的组合口径。
+
+---
+
+## [ERR-20260725-031] chrome_raw_cdp_key_hold_unsupported
+
+**Logged**: 2026-07-25T20:23:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Chrome 扩展浏览器禁止通过 raw CDP 注入持续按键。
+
+### Error
+```text
+This method is not supported through raw CDP.
+Use tab.cua.type(...) or tab.cua.keypress(...) instead.
+```
+
+### Context
+- 原计划以固定 2.8 秒 `W` 保持补充门前接近截图。
+- 按键在 `keyDown` 阶段即被拒绝，页面状态没有被修改。
+- 项目验收规则本来也禁止把浏览器合成长按作为唯一碰撞证据。
+
+### Suggested Fix
+不使用瞬时 `keypress` 冒充持续移动；改用项目实际
+`resolvePolygonMovement`、正式 placement/localObstacles/player radius 的确定性步进回归，
+并与真实起始机位截图、相机遥测共同封存。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/world-math.ts
+
+### Resolution
+- **Resolved**: 2026-07-25T20:23:00+08:00
+- **Notes**: 已采用内部移动解析器的可重复几何验收，不声明未取得的浏览器长按证据。
+
+---
+
+## [ERR-20260725-032] film_art_map_pass_stale_pending_assertions
+
+**Logged**: 2026-07-25T20:07:03+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+地图门转为 Pass 后，两条既有测试仍保留旧的 `pending` 期望。
+
+### Error
+```text
+AssertionError: 'pass' !== 'pending'
+```
+
+### Context
+- 新增地图 QA 专项测试本身已通过。
+- 失败只来自 Massing 总状态和 MCP1 封存测试中的历史状态断言。
+
+### Suggested Fix
+把 lineage 与 build record 的 map acceptance 期望更新为 `pass`；MCP1 当时的
+`runtimePlayerScale=pending-three-js-map-gate` 保留为历史现场，不改写。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_film_art_center_quality_tiers.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T20:07:03+08:00
+- **Notes**: 只更新跨门状态断言，未篡改 MCP1 当时的观察结论。
+
+---
+
+## [ERR-20260725-033] qa_branch_broke_source_contract_assertions
+
+**Logged**: 2026-07-25T20:08:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: testing
+
+### Summary
+Film Art Center QA 分支把生产默认挂载表达式改写，触发三条源码合同回归。
+
+### Error
+```text
+84 pass, 3 fail
+Expected:
+const shouldMountModel = mountedModelIds.has(landmark.id)
+hiddenLandmarkIds={mountedModelIds}
+```
+
+### Context
+- QA 语义和专项运行时均通过，失败来自公共渐进加载测试对生产默认源码的精确约束。
+- 原写法把 QA id 合并进 `mountedModelIds`，虽然只在 query 生效，但让默认合同不再以
+  原表达式显式存在。
+
+### Suggested Fix
+完整保留生产分支原语句和 JSX；QA 使用独立 `shouldMountActiveModel` 与独立返回分支，
+不让 QA 特例改写默认挂载合同。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-road-landmarks.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T20:08:00+08:00
+- **Notes**: 生产默认分支恢复原样，Film Art QA 仍只在明确深链启用。
+
+---
+
+## [ERR-20260725-034] qa_props_broke_glb_source_contract
+
+**Logged**: 2026-07-25T20:09:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+第一次恢复默认分支后，公共测试仍要求生产节点精确保留
+`<GlbModel path={modelPath} />`。
+
+### Error
+```text
+Expected <GlbModel path={modelPath} />
+34 pass, 1 fail
+```
+
+### Context
+- QA 所需 dataset props 被直接加在公共 `GlbModel` 调用上。
+- 功能正确，但默认生产调用的源码合同不再显式存在。
+
+### Suggested Fix
+在 `qaMassing` 条件中单独传 QA props；默认分支继续使用原始无额外 props 的
+`<GlbModel path={modelPath} />`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-road-landmarks.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T20:09:00+08:00
+- **Notes**: QA 与生产调用已显式分离。
+
+---
+
+## [ERR-20260725-035] preview_shutdown_sigint_exit_one
+
+**Logged**: 2026-07-25T20:10:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+验收完成后用 `Ctrl-C` 主动关闭 Vite preview，进程按 SIGINT 返回状态 1。
+
+### Error
+```text
+^C
+exit 1
+```
+
+### Context
+- 这是预期的受控关闭，不是构建或页面失败。
+- 浏览器正式路由、故障回退、相关测试、lint 与静态构建均已完成。
+
+### Suggested Fix
+把 SIGINT 状态视为本地预览已停止；以端口无监听作为清理完成口径。
+
+### Metadata
+- Reproducible: yes
+- Related Files: vite.static.config.ts
+
+### Resolution
+- **Resolved**: 2026-07-25T20:10:00+08:00
+- **Notes**: 4178 预览进程已退出，不保留后台服务。

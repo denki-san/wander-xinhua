@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "assetId": "film-art-center",
+  "tier": "massing",
+  "status": "pass",
+  "reviewedAt": "2026-07-25T20:07:03+08:00",
+  "buildMode": "vite-static-production-preview",
+  "route": "/?start=film-art&qaModelTier=massing&qaModelId=film-art-center&cameraQa=1",
+  "productionDefaultChanged": false,
+  "asset": {
+    "path": "/models/tiers/xinhua-road/massing/film-art-center-massing.glb?v=c89791dc3978",
+    "sha256": "c89791dc3978b317cc2f8807a77f7a84b5c596f8d4cd01c1cffd05090e9584a6",
+    "bytes": 240572,
+    "network": {
+      "method": "GET",
+      "status": 200,
+      "mimeType": "model/gltf-binary",
+      "contentLength": 240572,
+      "fromDiskCache": false
+    }
+  },
+  "runtime": {
+    "viewport": {
+      "width": 1581,
+      "height": 907,
+      "devicePixelRatio": 1
+    },
+    "warmupSeconds": 8,
+    "sampleDurationSeconds": 8,
+    "pagePlayable": true,
+    "canvasCount": 1,
+    "domLoadContract": {
+      "xinhuaRoadQaAsset": "film-art-center",
+      "xinhuaRoadQaTier": "massing",
+      "xinhuaRoadQaStatus": "loaded",
+      "xinhuaRoadQaSource": "/models/tiers/xinhua-road/massing/film-art-center-massing.glb?v=c89791dc3978"
+    },
+    "worldBounds": {
+      "min": [
+        57.99195517382441,
+        1.642815975554672,
+        118.23678335130651
+      ],
+      "max": [
+        98.14602605164417,
+        24.247815857537475,
+        151.08096822432287
+      ]
+    },
+    "groundContact": {
+      "terrainHeightAtPlacement": 0.895646165,
+      "detailWorldScale": 1.65,
+      "expectedWorldBaseY": 1.6428161722499999,
+      "observedWorldMinY": 1.642815975554672,
+      "absoluteError": 1.966953279586292e-7,
+      "status": "pass"
+    },
+    "cameraTelemetry": {
+      "mode": "spring-clear",
+      "blocker": "none",
+      "desiredArm": 5.57,
+      "resolvedArm": 5.57,
+      "fovDegrees": 58,
+      "status": "pass"
+    },
+    "visualObservation": {
+      "canonicalFrontReadable": true,
+      "approximateBuildingWidthPercent": 59,
+      "targetWidthPercent": [
+        55,
+        70
+      ],
+      "mainRoofCornersInFrame": true,
+      "playerScaleReadable": true,
+      "roadSetbackReadable": true,
+      "unintendedFloatingOrClipping": false,
+      "status": "pass",
+      "measurementBoundary": "screen percentage is a screenshot observation, not a surveyed physical dimension"
+    },
+    "console": {
+      "errors": 0,
+      "newWarnings": 0,
+      "retainedWarnings": [
+        "THREE.Clock is deprecated; use THREE.Timer instead"
+      ]
+    },
+    "performanceClaim": {
+      "claimedImprovement": false,
+      "fpsClaimed": false,
+      "reason": "map gate records visibility, exact asset loading and collision geometry; no matched performance baseline was sampled"
+    }
+  },
+  "placement": {
+    "position": [
+      47.5,
+      81.5
+    ],
+    "yaw": 2.761592653589793,
+    "scale": 1,
+    "start": [
+      35,
+      99
+    ],
+    "forward": [
+      0.581,
+      -0.814
+    ],
+    "cameraTargetHeight": 3.6,
+    "headingToBuildingCenterErrorDegrees": 0.019979929285354976,
+    "status": "pass-no-public-placement-change"
+  },
+  "collision": {
+    "source": "app/scene/xinhua-road-landmarks-data.json",
+    "resolver": "resolvePolygonMovement",
+    "playerRadius": 0.48,
+    "collisionMargin": 0.2,
+    "worldObstacles": [
+      {
+        "minX": 38.312816943853385,
+        "maxX": 57.058103525559595,
+        "minZ": 73.50358013969829,
+        "maxZ": 88.56775522472522
+      },
+      {
+        "minX": 53.10482177478762,
+        "maxX": 59.68893802767594,
+        "minZ": 80.93340317510243,
+        "maxZ": 90.25046584219203
+      },
+      {
+        "minX": 34.940141502911075,
+        "maxX": 41.5242577557994,
+        "minZ": 73.67819879338448,
+        "maxZ": 82.99526146047408
+      }
+    ],
+    "deterministicApproach": {
+      "steps": 600,
+      "stepSceneUnits": 0.05,
+      "result": [
+        52.42863190608972,
+        89.06997947601911
+      ],
+      "distanceFromBuildingCenter": 9.03305052200397,
+      "insideObstacle": false,
+      "status": "pass"
+    },
+    "browserKeyHoldEvidence": "not-claimed-browser-disallows-raw-cdp-key-hold"
+  },
+  "screenshots": {
+    "runtime": {
+      "path": "test_artifacts/test_film-art-center-massing_map_runtime.png",
+      "sha256": "7a8a753994ae241093edf5aa654b4f58e74628d662c4512bbf1f6f0290b2da07",
+      "bytes": 131995
+    },
+    "forcedFallback": {
+      "path": "test_artifacts/test_film-art-center-massing_map_fallback.png",
+      "sha256": "fa9640e389ac076d7a954a0e49d04c0f3b0a8950780f4a3c13003a052c04fa75",
+      "bytes": 126198
+    }
+  },
+  "forcedFallback": {
+    "route": "/?start=film-art&qaModelTier=massing&qaModelId=film-art-center&qaActiveFallback=massing&cameraQa=1",
+    "missingAsset": "/models/tiers/xinhua-road/massing/test_missing-film-art-center-massing.glb?v=c89791dc3978-fallback",
+    "pagePlayable": true,
+    "canvasCount": 1,
+    "formalMassingDatasetAbsent": true,
+    "visibleFallback": "existing LandmarkProgressiveProxy identity geometry",
+    "blankOrBlack": false,
+    "status": "pass"
+  },
+  "scope": {
+    "trees": "untouched",
+    "decor": "untouched",
+    "ordinaryOsm": "not-imported",
+    "globalMassing": "untouched",
+    "otherBuildings": "untouched",
+    "publicPlacementChanged": false
+  },
+  "nextGate": "blender-mcp2-hero-master-review",
+  "identityAllowed": false
+}
