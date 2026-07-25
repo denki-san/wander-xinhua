@@ -171,7 +171,7 @@ test("一号花园 Hero v2 使用独立路径并保留旧 Hero Hold 与公共 re
 
   assert.equal(
     record.status,
-    "headless-material-fix-pass-awaiting-main-window-mcp2-rereview",
+    "hero-v2-mcp2-pass-identity-authorized-execution-paused",
   );
   assert.equal(record.tier, "hero");
   assert.equal(record.versionName, "hero-v2");
@@ -204,7 +204,13 @@ test("一号花园 Hero v2 精确继承 Massing origin、bounds、前向与碰�
   assert.deepEqual(record.glb.bounds, massing.glb.bounds);
   assert.equal(record.collisionContract.localObstacles.length, 8);
   assert.equal(record.collisionContract.entranceAndFrontRearGapRemainOpen, true);
-  assert.equal(record.identityAllowed, false);
+  assert.equal(record.identityAllowed, true);
+  assert.equal(record.identityLineage.sourceMcp2, "pass");
+  assert.equal(record.identityLineage.postBuildGateAuthorization, true);
+  assert.equal(record.identityLineage.sourceRootIdentityAllowedAtBuild, false);
+  assert.equal(record.identityLineage.identityDerivationAuthorized, true);
+  assert.equal(record.identityLineage.identityDerivationStarted, false);
+  assert.equal(record.identityLineage.executionPausedForMainWindowIntegration, true);
 });
 
 test("一号花园 Hero v2 GLB 结构、退化面、法线和预算通过独立复算", async () => {
@@ -410,19 +416,55 @@ test("一号花园 Hero v2 三固定机位与 MCP2/Identity 门状态可追溯",
     assert.deepEqual([buffer.readUInt32BE(16), buffer.readUInt32BE(20)], [1024, 768]);
     assert.doesNotMatch(failed.path, /_mcp2_recheck_fixed_/);
   }
+  for (const passed of Object.values(record.mcp2.rereview.fixedEvidence)) {
+    const buffer = await readFile(path.join(root, passed.path));
+    assert.equal(buffer.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
+    assert.equal(await sha256(passed.path), passed.sha256);
+    assert.equal((await stat(path.join(root, passed.path))).size, passed.bytes);
+    assert.deepEqual([buffer.readUInt32BE(16), buffer.readUInt32BE(20)], [1024, 768]);
+    assert.match(passed.path, /_mcp2_rereview_/);
+  }
   assert.deepEqual(record.fixedCameras.canonical.location, [13.5, -23.5, 14]);
   assert.deepEqual(record.fixedCameras.sideDepth.location, [-22, -4, 15.5]);
   assert.deepEqual(record.fixedCameras.entrance.location, [7, -18.5, 8.5]);
   assert.equal(record.determinism.sameCommandRuns, 2);
   assert.equal(record.determinism.sameGlbSha256, true);
+  assert.equal(record.mcp2.status, "pass");
+  assert.equal(record.mcp2.rereview.status, "pass");
   assert.equal(
-    record.mcp2.status,
-    "material-fix-complete-awaiting-main-window-rereview",
+    record.mcp2.rereview.reviewedSource.editableSourceSha256,
+    record.outputs.blend.sha256,
   );
+  assert.equal(
+    record.mcp2.rereview.reviewedSource.runtimeAssetSha256,
+    record.outputs.glb.sha256,
+  );
+  assert.equal(record.mcp2.rereview.sceneInspection.vertices, 2396);
+  assert.equal(record.mcp2.rereview.sceneInspection.polygons, 1802);
+  assert.equal(record.mcp2.rereview.materials.useNodesCount, 7);
+  assert.equal(record.mcp2.rereview.geometryChecks.areaBelow1eMinus10, 0);
+  assert.equal(record.mcp2.rereview.geometryChecks.nonFiniteNormals, 0);
+  assert.deepEqual(record.mcp2.rereview.acceptedInteractiveChanges, []);
+  assert.equal(record.mcp2.rereview.qaRigSaved, false);
+  assert.equal(record.mcp2.rereview.qaRigExported, false);
   assert.equal(record.mcp2.firstAttempt.status, "blocked");
   assert.deepEqual(record.mcp2.firstAttempt.acceptedInteractiveChanges, []);
   assert.equal(record.mcp2.firstAttempt.qaRigSaved, false);
-  assert.equal(gates.heroGate.status, "candidate-awaiting-main-window-mcp2-rereview");
+  assert.equal(gates.heroGate.status, "pass");
+  assert.equal(gates.heroGate.mcp2Rereview.status, "pass");
+  assert.equal(
+    gates.heroGate.mcp2Rereview.editableSource.sha256,
+    record.outputs.blend.sha256,
+  );
+  assert.equal(
+    gates.heroGate.mcp2Rereview.runtimeAsset.sha256,
+    record.outputs.glb.sha256,
+  );
   assert.equal(gates.heroGate.candidate.glbSha256, record.glb.sha256);
-  assert.equal(gates.identityGate.status, "blocked-until-hero-v2-passes-mcp2");
+  assert.equal(
+    gates.identityGate.status,
+    "authorized-but-paused-for-main-window-gate-checkpoint-integration",
+  );
+  assert.equal(gates.identityGate.identityDerivationAuthorized, true);
+  assert.equal(gates.identityGate.identityDerivationStarted, false);
 });

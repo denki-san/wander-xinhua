@@ -167,11 +167,12 @@
     "identityAuthorized": false
   },
   "heroGate": {
-    "status": "candidate-awaiting-main-window-mcp2-rereview",
+    "status": "pass",
     "disposition": "docs/research/one-step-garden-hero-disposition.json",
     "legacyHeroMcp2Candidate": false,
     "legacyHeroDisposition": "hold-read-only-rollback-only",
     "mcp2Requested": true,
+    "mcp2RereviewCompleted": true,
     "mcp2FirstAttempt": {
       "status": "blocked",
       "finding": "all-seven-Principled-Base-Color-values-were-default-gray",
@@ -213,8 +214,82 @@
       "glbMaterialStatus": "pass-seven-distinct-baseColorFactor-groups",
       "formalPreviewEngine": "EEVEE",
       "fixedViewCount": 3,
+      "mcp2Status": "pass",
       "scopePollution": false,
       "publicRegistryModified": false
+    },
+    "mcp2Rereview": {
+      "gate": "mcp2-hero-visual-review",
+      "status": "pass",
+      "recordedAt": "2026-07-25T21:55:16+08:00",
+      "reviewedBy": "main-coordinator",
+      "interactiveReview": "Blender MCP",
+      "sourceCommit": "a17cfe4",
+      "editableSource": {
+        "path": "assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend",
+        "sha256": "8f5c3984abef50239f1ece5e5360887d8615786cb6283bf60d85f80bd12f21bd"
+      },
+      "runtimeAsset": {
+        "path": "public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb",
+        "sha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+        "bytes": 259772
+      },
+      "sceneInspection": {
+        "meshObjects": 1,
+        "vertices": 2396,
+        "polygons": 1802,
+        "rootLocation": [0, 0, 0],
+        "rootRotation": [0, 0, 0],
+        "rootScale": [1, 1, 1],
+        "rootNormalized": true
+      },
+      "materialInspection": {
+        "materials": 7,
+        "useNodes": "pass-7-of-7",
+        "principledBaseColor": "pass-matches-seven-diffuse-layers",
+        "glassRoughness": 0.38,
+        "otherRoughness": 0.88,
+        "texturePolicy": "pass-zero-images-zero-textures"
+      },
+      "geometryInspection": {
+        "areaBelow1eMinus10": 0,
+        "nonFiniteNormals": 0,
+        "visibleUnintendedIntersections": 0
+      },
+      "fixedViews": {
+        "canonical": {
+          "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_rereview_canonical.png",
+          "sha256": "8d6483ef61b9dbcfb026687c8a11b9b8e3d3bc34781c76cd4112197e812565f4",
+          "bytes": 920601,
+          "dimensions": [1024, 768],
+          "result": "pass-front-white-u-compound-half-timber-narrow-windows-steep-roofs-and-rear-brick-readable"
+        },
+        "sideDepth": {
+          "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_rereview_side.png",
+          "sha256": "188a195e6fef6fbe790308a24c4a45b48bacc330c5c5bb313cb523f7b54576e8",
+          "bytes": 860709,
+          "dimensions": [1024, 768],
+          "result": "pass-front-rear-separation-open-gap-twin-gables-two-chimneys-readable"
+        },
+        "entrance": {
+          "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_rereview_entrance.png",
+          "sha256": "213bfe8ad01af3582600da78f05ce89f1943c018ba0620bf5773e28f29ae16ac",
+          "bytes": 994183,
+          "dimensions": [1024, 768],
+          "result": "pass-canopy-door-window-rhythm-and-1p8m-human-scale"
+        }
+      },
+      "checks": {
+        "subjectIdentity": "pass",
+        "materialSeparation": "pass",
+        "normals": "pass",
+        "unknownSides": "pass-held-at-low-detail",
+        "scope": "pass-building-only-no-trees-decoration-or-site"
+      },
+      "acceptedInteractiveChanges": [],
+      "qaRigSaved": false,
+      "qaRigExported": false,
+      "identityDerivationAuthorized": true
     },
     "legacyBlockersClosedByCandidate": [
       "subject-mismatch",
@@ -225,14 +300,20 @@
       "hero-massing-tier-contract-mismatch",
       "missing-build-record-and-fixed-view-set"
     ],
-    "nextGate": "main-window-serial-blender-mcp2-rereview"
+    "nextGate": "main-window-integrate-mcp2-pass-checkpoint-then-identity-derivation"
   },
   "identityGate": {
-    "status": "blocked-until-hero-v2-passes-mcp2",
-    "legacyHeroMayBeIdentitySource": false
+    "status": "authorized-but-paused-for-main-window-gate-checkpoint-integration",
+    "legacyHeroMayBeIdentitySource": false,
+    "sourceHeroVersion": "hero-v2",
+    "sourceHeroGlbSha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+    "sourceHeroMcp2": "pass",
+    "identityDerivationAuthorized": true,
+    "identityDerivationStarted": false,
+    "executionPausedForMainWindowIntegration": true
   },
   "threeTierGate": {
-    "status": "pending"
+    "status": "pending-identity-derivation"
   },
   "runtimeIntegration": {
     "status": "pending-main-window-shared-registry-integration",
