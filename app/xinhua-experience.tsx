@@ -26,6 +26,8 @@ import {
 } from "./scene/visual-effects";
 import {
   DEFAULT_XINHUA_ATMOSPHERE_STYLE,
+  resolveXinhuaAtmosphereStyle,
+  XINHUA_ATMOSPHERES,
   type XinhuaAtmosphereStyle,
 } from "./scene/atmosphere-contract";
 import { useProgressiveNetworkProfile } from "./scene/progressive-loading";
@@ -73,10 +75,14 @@ function requestedOverviewStartPosition(): readonly [number, number] {
     : INITIAL_OVERVIEW_POSITION;
 }
 
-const ATMOSPHERE_LABELS: Record<XinhuaAtmosphereStyle, string> = {
-  "autumn-afternoon": "秋日下午",
-  "lighting-v3": "当前光照",
-};
+const ATMOSPHERE_STYLES = ["noon", "golden-hour"] as const;
+
+function requestedAtmosphereStyle(): XinhuaAtmosphereStyle {
+  if (typeof window === "undefined") return DEFAULT_XINHUA_ATMOSPHERE_STYLE;
+  return resolveXinhuaAtmosphereStyle(
+    new URLSearchParams(window.location.search).get("light"),
+  );
+}
 
 function FirstPlayableFrame({ onReady }: { onReady: () => void }) {
   const signaled = useRef(false);
@@ -397,6 +403,40 @@ function CameraQaPanel({ visible }: { visible: boolean }) {
   );
 }
 
+function LightingSwitcher({
+  atmosphereStyle,
+  className = "",
+  onChange,
+}: {
+  atmosphereStyle: XinhuaAtmosphereStyle;
+  className?: string;
+  onChange: (style: XinhuaAtmosphereStyle) => void;
+}) {
+  return (
+    <div
+      className={`lighting-switcher ${className}`.trim()}
+      role="group"
+      aria-label="切换光线"
+    >
+      {ATMOSPHERE_STYLES.map((style) => {
+        const atmosphere = XINHUA_ATMOSPHERES[style];
+        return (
+          <button
+            key={style}
+            type="button"
+            className={atmosphereStyle === style ? "is-active" : ""}
+            aria-pressed={atmosphereStyle === style}
+            onClick={() => onChange(style)}
+          >
+            <span aria-hidden="true">{atmosphere.icon}</span>
+            <strong>{atmosphere.label}</strong>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 export function XinhuaExperience() {
   const [mode, setMode] = useState<"intro" | "overview" | "explore">("intro");
   const [effectsDisabledForQa] = useState(() => (
@@ -410,7 +450,7 @@ export function XinhuaExperience() {
   const [actionOpen, setActionOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [atmosphereStyle, setAtmosphereStyle] = useState<XinhuaAtmosphereStyle>(
-    DEFAULT_XINHUA_ATMOSPHERE_STYLE,
+    requestedAtmosphereStyle,
   );
   const [fullscreen, setFullscreen] = useState(false);
   // 在 Canvas 首次创建前确定渲染档位，避免低配置设备先分配一套高配后处理资源。
@@ -572,11 +612,23 @@ export function XinhuaExperience() {
     }
   }, []);
 
+  const selectAtmosphereStyle = useCallback((style: XinhuaAtmosphereStyle) => {
+    setAtmosphereStyle(style);
+    const url = new URL(window.location.href);
+    url.searchParams.set("light", style);
+    window.history.replaceState(
+      window.history.state,
+      "",
+      `${url.pathname}${url.search}${url.hash}`,
+    );
+  }, []);
+
   return (
     <main
       className={`xinhua-stage is-${mode}${playing ? " is-playing" : ""}${touchCapable ? " is-touch" : ""}`}
       data-progressive-network={networkProfile}
       data-progressive-stage={ready ? "playable" : "booting"}
+      data-lighting-state={atmosphereStyle}
     >
       <Canvas
         shadows="percentage"
@@ -657,23 +709,32 @@ export function XinhuaExperience() {
           <strong>新华漫游志</strong>
         </button>
         {playing && (
-          <nav className="world-tools" aria-label="体验工具">
-            {exploring && (
-              <button
-                type="button"
-                className="overview-toggle"
-                onClick={showOverview}
-                aria-label="查看新华街道全览"
-              >
-                <span aria-hidden="true">⌁</span>
-                查看全览
+          <div className="world-tool-stack">
+            <nav className="world-tools" aria-label="体验工具">
+              {exploring && (
+                <button
+                  type="button"
+                  className="overview-toggle"
+                  onClick={showOverview}
+                  aria-label="查看新华街道全览"
+                >
+                  <span aria-hidden="true">⌁</span>
+                  查看全览
+                </button>
+              )}
+              <button type="button" onClick={() => setHelpOpen(true)} aria-label="查看操作说明">?</button>
+              <button type="button" onClick={toggleFullscreen} aria-label={fullscreen ? "退出全屏" : "进入全屏"}>
+                {fullscreen ? "↙" : "↗"}
               </button>
+            </nav>
+            {overview && (
+              <LightingSwitcher
+                className="lighting-hud-switcher"
+                atmosphereStyle={atmosphereStyle}
+                onChange={selectAtmosphereStyle}
+              />
             )}
-            <button type="button" onClick={() => setHelpOpen(true)} aria-label="查看操作说明">?</button>
-            <button type="button" onClick={toggleFullscreen} aria-label={fullscreen ? "退出全屏" : "进入全屏"}>
-              {fullscreen ? "↙" : "↗"}
-            </button>
-          </nav>
+          </div>
         )}
       </header>
 
@@ -775,21 +836,14 @@ export function XinhuaExperience() {
             <h2 id="help-title">随便走走就好</h2>
             <ul>
               <li className="atmosphere-switcher">
-                <span>画面氛围</span>
-                <div className="atmosphere-buttons" role="group" aria-label="切换画面氛围">
-                  {(Object.keys(ATMOSPHERE_LABELS) as XinhuaAtmosphereStyle[]).map((style) => (
-                    <button
-                      key={style}
-                      type="button"
-                      className={atmosphereStyle === style ? "is-active" : ""}
-                      aria-pressed={atmosphereStyle === style}
-                      onClick={() => setAtmosphereStyle(style)}
-                    >
-                      {ATMOSPHERE_LABELS[style]}
-                    </button>
-                  ))}
-                </div>
-                <small aria-live="polite">当前：{ATMOSPHERE_LABELS[atmosphereStyle]}</small>
+                <span>光线</span>
+                <LightingSwitcher
+                  atmosphereStyle={atmosphereStyle}
+                  onChange={selectAtmosphereStyle}
+                />
+                <small aria-live="polite">
+                  当前：{XINHUA_ATMOSPHERES[atmosphereStyle].label}
+                </small>
               </li>
               <li>全览地图中用 <kbd>WASD</kbd> 或摇杆移动，靠近 POI 后选择“进入”</li>
               <li>闲逛状态中按 <kbd>Shift</kbd> 奔跑，按 <kbd>Space</kbd> 跳跃</li>

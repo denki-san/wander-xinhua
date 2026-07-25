@@ -88,7 +88,16 @@ void main() {
 const autumnSkyFragment = /* glsl */ `
 uniform sampler2D uSky;
 uniform vec3 uSunDirection;
-uniform float uLightingV3;
+uniform vec3 uCloudTint;
+uniform float uCloudTintStrength;
+uniform vec3 uHorizonTint;
+uniform float uHorizonTintStrength;
+uniform vec3 uColorBalance;
+uniform float uColorBalanceStrength;
+uniform vec3 uSunColor;
+uniform float uSunHaloEdge;
+uniform float uSunHaloStrength;
+uniform float uSunDiscStrength;
 varying vec2 vUv;
 varying vec3 vWorldDirection;
 
@@ -101,7 +110,7 @@ void main() {
   vec2 skyUv = vec2(fract(vUv.x), clamp(vUv.y, 0.002, 0.998));
   vec3 color = texture2D(uSky, skyUv).rgb;
 
-  // Kenney day 原图的太阳偏高。先用邻近天空修补，再绘制与真实方向光一致的低太阳。
+  // Kenney day 原图的太阳偏高。先用邻近天空修补，再绘制与主方向光一致的太阳。
   vec2 sourceSunDelta = vec2(
     wrappedDistance(skyUv.x, 0.916),
     abs(skyUv.y - 0.78)
@@ -116,17 +125,17 @@ void main() {
   float upperHeight = clamp(vWorldDirection.y, 0.0, 1.0);
   float sourceLuminance = dot(color, vec3(0.299, 0.587, 0.114));
   float cloudHighlight = smoothstep(0.69, 0.94, sourceLuminance);
-  color = mix(color, vec3(1.0, 0.92, 0.79), cloudHighlight * 0.34 * uLightingV3);
+  color = mix(color, uCloudTint, cloudHighlight * uCloudTintStrength);
   float warmHorizon = 1.0 - smoothstep(0.02, 0.48, upperHeight);
-  color = mix(color, vec3(1.0, 0.86, 0.67), warmHorizon * mix(0.14, 0.22, uLightingV3));
-  vec3 lightingV3Color = mix(vec3(sourceLuminance), color, 1.16) * vec3(0.92, 0.98, 1.08);
-  color = mix(color, lightingV3Color, uLightingV3);
+  color = mix(color, uHorizonTint, warmHorizon * uHorizonTintStrength);
+  vec3 balancedColor = mix(vec3(sourceLuminance), color, 1.16) * uColorBalance;
+  color = mix(color, balancedColor, uColorBalanceStrength);
 
   float sunFacing = dot(normalize(vWorldDirection), normalize(uSunDirection));
-  float sunHalo = smoothstep(mix(0.965, 0.945, uLightingV3), 0.9985, sunFacing);
+  float sunHalo = smoothstep(uSunHaloEdge, 0.9985, sunFacing);
   float sunDisc = smoothstep(0.9984, 0.99965, sunFacing);
-  color += vec3(1.0, 0.67, 0.34) * sunHalo * mix(0.12, 0.17, uLightingV3);
-  color = mix(color, vec3(1.0, 0.82, 0.50), sunDisc * 0.92);
+  color += uSunColor * sunHalo * uSunHaloStrength;
+  color = mix(color, uSunColor, sunDisc * uSunDiscStrength);
 
   gl_FragColor = vec4(color, 1.0);
 }
@@ -141,7 +150,11 @@ export function AutumnStorybookSky({ atmosphereStyle }: { atmosphereStyle: Xinhu
   });
   const mesh = useRef<Mesh>(null);
   const material = useMemo(() => {
-    const [sunX, sunY, sunZ] = atmosphere.sunOffset;
+    const [sunX, sunY, sunZ] = atmosphere.sun.offset;
+    const [cloudR, cloudG, cloudB] = atmosphere.sky.cloudTint;
+    const [horizonR, horizonG, horizonB] = atmosphere.sky.horizonTint;
+    const [balanceR, balanceG, balanceB] = atmosphere.sky.colorBalance;
+    const [skySunR, skySunG, skySunB] = atmosphere.sky.sunColor;
     return new ShaderMaterial({
       vertexShader: autumnSkyVertex,
       fragmentShader: autumnSkyFragment,
@@ -151,10 +164,19 @@ export function AutumnStorybookSky({ atmosphereStyle }: { atmosphereStyle: Xinhu
       uniforms: {
         uSky: new Uniform(sky),
         uSunDirection: new Uniform(new Vector3(sunX, sunY, sunZ).normalize()),
-        uLightingV3: new Uniform(atmosphereStyle === "lighting-v3" ? 1 : 0),
+        uCloudTint: new Uniform(new Vector3(cloudR, cloudG, cloudB)),
+        uCloudTintStrength: new Uniform(atmosphere.sky.cloudTintStrength),
+        uHorizonTint: new Uniform(new Vector3(horizonR, horizonG, horizonB)),
+        uHorizonTintStrength: new Uniform(atmosphere.sky.horizonTintStrength),
+        uColorBalance: new Uniform(new Vector3(balanceR, balanceG, balanceB)),
+        uColorBalanceStrength: new Uniform(atmosphere.sky.colorBalanceStrength),
+        uSunColor: new Uniform(new Vector3(skySunR, skySunG, skySunB)),
+        uSunHaloEdge: new Uniform(atmosphere.sky.haloEdge),
+        uSunHaloStrength: new Uniform(atmosphere.sky.haloStrength),
+        uSunDiscStrength: new Uniform(atmosphere.sky.discStrength),
       },
     });
-  }, [atmosphere, atmosphereStyle, sky]);
+  }, [atmosphere, sky]);
 
   useFrame(({ camera }) => {
     mesh.current?.position.copy(camera.position);

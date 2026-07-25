@@ -188,7 +188,7 @@ const XINHUA_DETAIL_PLANE_TREE_INSTANCES = XINHUA_PLANE_TREE_INSTANCES.filter(
 
 function AutumnPlaneTreeShadows({ atmosphere }: { atmosphere: XinhuaAtmosphere }) {
   const shadowLobes = useMemo(() => {
-    const [sunX, , sunZ] = atmosphere.sunOffset;
+    const [sunX, , sunZ] = atmosphere.sun.offset;
     const shadowLength = Math.hypot(sunX, sunZ);
     const directionX = -sunX / shadowLength;
     const directionZ = -sunZ / shadowLength;
@@ -243,7 +243,7 @@ function AutumnPlaneTreeShadows({ atmosphere }: { atmosphere: XinhuaAtmosphere }
     mesh.current.instanceMatrix.needsUpdate = true;
     mesh.current.computeBoundingSphere();
 
-    const [sunX, , sunZ] = atmosphere.sunOffset;
+    const [sunX, , sunZ] = atmosphere.sun.offset;
     const shadowLength = Math.hypot(sunX, sunZ);
     const directionX = -sunX / shadowLength;
     const directionZ = -sunZ / shadowLength;

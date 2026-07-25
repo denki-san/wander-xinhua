@@ -1254,7 +1254,7 @@ function PlayableWanderer({
       outer.current.quaternion.setFromRotationMatrix(s.basis);
     }
     if (groundShadow.current) {
-      const [sunX, , sunZ] = atmosphere.sunOffset;
+      const [sunX, , sunZ] = atmosphere.sun.offset;
       const shadowLength = Math.hypot(sunX, sunZ);
       const shadowX = -sunX / shadowLength;
       const shadowZ = -sunZ / shadowLength;
@@ -1725,12 +1725,10 @@ export function IntroCamera({ active = true }: { active?: boolean }) {
 function AutumnLightRig({
   exploring,
   lowTier,
-  atmosphereStyle,
   atmosphere,
 }: {
   exploring: boolean;
   lowTier: boolean;
-  atmosphereStyle: XinhuaAtmosphereStyle;
   atmosphere: XinhuaAtmosphere;
 }) {
   const { camera } = useThree();
@@ -1743,9 +1741,15 @@ function AutumnLightRig({
     result.position.copy(SHADOW_CENTER);
     return result;
   }, []);
-  const [sunX, sunY, sunZ] = atmosphere.sunOffset;
-  const [fillX, fillY, fillZ] = atmosphere.skyFillOffset;
-  const lightingV3 = atmosphereStyle === "lighting-v3";
+  const [sunX, sunY, sunZ] = atmosphere.sun.offset;
+  const [fillX, fillY, fillZ] = atmosphere.fill.directional.offset;
+  const shadow = atmosphere.sun.shadow;
+  const shadowHalfExtent = exploring
+    ? shadow.camera.exploreHalfExtent
+    : shadow.camera.overviewHalfExtent;
+  const shadowMapSize = exploring
+    ? (lowTier ? shadow.mapSize.low : shadow.mapSize.standard)
+    : shadow.mapSize.overview;
 
   useFrame((_, delta) => {
     desiredFocus.set(
@@ -1774,18 +1778,18 @@ function AutumnLightRig({
   return (
     <>
       <ambientLight
-        color={atmosphere.ambientColor}
+        color={atmosphere.fill.ambient.color}
         intensity={exploring
-          ? atmosphere.ambientIntensity.explore
-          : atmosphere.ambientIntensity.overview}
+          ? atmosphere.fill.ambient.intensity.explore
+          : atmosphere.fill.ambient.intensity.overview}
       />
       <hemisphereLight
         args={[
-          atmosphere.hemisphereSky,
-          atmosphere.hemisphereGround,
+          atmosphere.fill.hemisphere.sky,
+          atmosphere.fill.hemisphere.ground,
           exploring
-            ? atmosphere.hemisphereIntensity.explore
-            : atmosphere.hemisphereIntensity.overview,
+            ? atmosphere.fill.hemisphere.intensity.explore
+            : atmosphere.fill.hemisphere.intensity.overview,
         ]}
       />
       <primitive object={target} />
@@ -1794,21 +1798,21 @@ function AutumnLightRig({
         position={[SHADOW_CENTER.x + sunX, sunY, SHADOW_CENTER.z + sunZ]}
         target={target}
         intensity={exploring
-          ? atmosphere.sunIntensity.explore
-          : atmosphere.sunIntensity.overview}
-        color={atmosphere.sunColor}
+          ? atmosphere.sun.intensity.explore
+          : atmosphere.sun.intensity.overview}
+        color={atmosphere.sun.color}
         castShadow={exploring}
-        shadow-mapSize-width={exploring && !lowTier ? 2048 : 1024}
-        shadow-mapSize-height={exploring && !lowTier ? 2048 : 1024}
-        shadow-camera-near={lightingV3 ? 1 : 0.5}
-        shadow-camera-far={lightingV3 ? 280 : 320}
-        shadow-camera-left={exploring ? (lightingV3 ? -48 : -72) : -240}
-        shadow-camera-right={exploring ? (lightingV3 ? 48 : 72) : 240}
-        shadow-camera-top={exploring ? (lightingV3 ? 48 : 72) : 240}
-        shadow-camera-bottom={exploring ? (lightingV3 ? -48 : -72) : -240}
-        shadow-bias={lightingV3 ? -0.00012 : -0.00018}
-        shadow-normalBias={lightingV3 ? 0.012 : 0.018}
-        shadow-radius={lightingV3 ? 1.65 : 1}
+        shadow-mapSize-width={shadowMapSize}
+        shadow-mapSize-height={shadowMapSize}
+        shadow-camera-near={shadow.camera.near}
+        shadow-camera-far={shadow.camera.far}
+        shadow-camera-left={-shadowHalfExtent}
+        shadow-camera-right={shadowHalfExtent}
+        shadow-camera-top={shadowHalfExtent}
+        shadow-camera-bottom={-shadowHalfExtent}
+        shadow-bias={shadow.bias}
+        shadow-normalBias={shadow.normalBias}
+        shadow-radius={shadow.radius}
       />
       <directionalLight
         ref={skyFill}
@@ -1818,10 +1822,10 @@ function AutumnLightRig({
           SHADOW_CENTER.z + fillZ,
         ]}
         target={target}
-        color={atmosphere.skyFillColor}
+        color={atmosphere.fill.directional.color}
         intensity={exploring
-          ? atmosphere.skyFillIntensity.explore
-          : atmosphere.skyFillIntensity.overview}
+          ? atmosphere.fill.directional.intensity.explore
+          : atmosphere.fill.directional.intensity.overview}
       />
     </>
   );
@@ -1899,7 +1903,6 @@ export function XinhuaWorld({
       <AutumnLightRig
         exploring={exploring}
         lowTier={lowTier}
-        atmosphereStyle={atmosphereStyle}
         atmosphere={atmosphere}
       />
       <FlatNeighborhood

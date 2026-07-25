@@ -10,7 +10,10 @@ import {
   type EffectComposer as PostprocessingEffectComposer,
 } from "postprocessing";
 import { memo, useLayoutEffect, useRef } from "react";
-import type { XinhuaAtmosphereStyle } from "./atmosphere-contract";
+import {
+  XINHUA_ATMOSPHERES,
+  type XinhuaAtmosphereStyle,
+} from "./atmosphere-contract";
 import { InkOutline, PaperWash } from "./postprocessing-effects";
 
 const VisualEffectComposer = memo(function VisualEffectComposer({
@@ -21,7 +24,7 @@ const VisualEffectComposer = memo(function VisualEffectComposer({
   atmosphereStyle: XinhuaAtmosphereStyle;
 }) {
   const composerRef = useRef<PostprocessingEffectComposer>(null);
-  const lightingV3 = atmosphereStyle === "lighting-v3";
+  const quality = XINHUA_ATMOSPHERES[atmosphereStyle].effects.quality;
 
   useLayoutEffect(() => {
     const composer = composerRef.current;
@@ -35,7 +38,7 @@ const VisualEffectComposer = memo(function VisualEffectComposer({
       enableNormalPass={!lowTier}
       resolutionScale={lowTier ? undefined : 0.5}
     >
-      {lightingV3 && !lowTier ? (
+      {quality.ssaoStandard && !lowTier ? (
         <SSAO
           samples={16}
           rings={3}
@@ -50,8 +53,12 @@ const VisualEffectComposer = memo(function VisualEffectComposer({
         />
       ) : <></>}
       <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
-      {lowTier && lightingV3 ? <></> : <InkOutline atmosphereStyle={atmosphereStyle} />}
-      {lowTier && lightingV3 ? <></> : <PaperWash atmosphereStyle={atmosphereStyle} />}
+      {!lowTier || quality.outlineLowTier
+        ? <InkOutline atmosphereStyle={atmosphereStyle} />
+        : <></>}
+      {!lowTier || quality.paperLowTier
+        ? <PaperWash atmosphereStyle={atmosphereStyle} />
+        : <></>}
     </EffectComposer>
   );
 });

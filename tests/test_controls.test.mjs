@@ -305,10 +305,12 @@ test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", as
   assert.doesNotMatch(roadLandmarks, /LandmarkLoadingVolume/);
   assert.match(roadLandmarks, /<ProgressiveFeatureBoundary/);
   assert.match(roadLandmarks, /<LandmarkProgressiveProxy landmark=\{landmark\} identity \/>/);
-  assert.match(postEffects, /const LIGHTING_V3_OUTLINE_STRENGTH = 0\.32/);
-  assert.match(postEffects, /const AUTUMN_AFTERNOON_OUTLINE_STRENGTH = 0\.56/);
+  assert.match(postEffects, /XINHUA_ATMOSPHERES\[atmosphereStyle\]\.effects\.outlineStrength/);
   assert.match(postEffects, /\["uStrength", new Uniform\(strength\)\]/);
   assert.match(postEffects, /\["uColor", new Uniform\(new Color\("#31423f"\)\)\]/);
+  assert.match(postEffects, /\["uSaturation", new Uniform\(paper\.saturation\)\]/);
+  assert.match(postEffects, /\["uEdgeWash", new Uniform\(paper\.edgeWash\)\]/);
+  assert.doesNotMatch(postEffects, /uLightingV3|lightingV3/);
   assert.doesNotMatch(postEffects, /setEnabled|activeStrength/);
   assert.match(postEffects, /texture2D\(inputBuffer, uv \+ offset\)\.rgb/);
   assert.doesNotMatch(postEffects, /uNormalBuffer/);

@@ -3,10 +3,10 @@
 import { useEffect, useMemo } from "react";
 import { Effect, EffectAttribute } from "postprocessing";
 import { Color, Uniform, Vector2 } from "three";
-import type { XinhuaAtmosphereStyle } from "./atmosphere-contract";
-
-const AUTUMN_AFTERNOON_OUTLINE_STRENGTH = 0.56;
-const LIGHTING_V3_OUTLINE_STRENGTH = 0.32;
+import {
+  XINHUA_ATMOSPHERES,
+  type XinhuaAtmosphereStyle,
+} from "./atmosphere-contract";
 
 const outlineFragment = /* glsl */ `
 uniform vec3 uColor;
@@ -59,9 +59,7 @@ class InkOutlineEffect extends Effect {
 }
 
 export function InkOutline({ atmosphereStyle }: { atmosphereStyle: XinhuaAtmosphereStyle }) {
-  const strength = atmosphereStyle === "lighting-v3"
-    ? LIGHTING_V3_OUTLINE_STRENGTH
-    : AUTUMN_AFTERNOON_OUTLINE_STRENGTH;
+  const strength = XINHUA_ATMOSPHERES[atmosphereStyle].effects.outlineStrength;
   const effect = useMemo(() => new InkOutlineEffect(strength), [strength]);
   useEffect(() => () => effect.dispose(), [effect]);
   return <primitive object={effect} dispose={null} />;
@@ -70,7 +68,14 @@ export function InkOutline({ atmosphereStyle }: { atmosphereStyle: XinhuaAtmosph
 const paperFragment = /* glsl */ `
 uniform vec2 uResolution;
 uniform float uTime;
-uniform float uLightingV3;
+uniform float uSaturation;
+uniform float uContrast;
+uniform vec3 uHighlightColor;
+uniform float uHighlightStrength;
+uniform float uGrainBase;
+uniform float uGrainRange;
+uniform float uGrainChromatic;
+uniform float uEdgeWash;
 
 float hash(vec2 p) {
   return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
@@ -87,30 +92,37 @@ float noise(vec2 p) {
 void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
   vec3 color = inputColor.rgb;
   float luminance = dot(color, vec3(0.299, 0.587, 0.114));
-  color = mix(vec3(luminance), color, mix(0.93, 1.035, uLightingV3));
-  color = (color - 0.5) * mix(1.018, 1.04, uLightingV3) + 0.5;
-  float warmHighlight = smoothstep(0.44, 0.9, luminance);
-  vec3 lightingV3Highlight = mix(vec3(0.978, 0.996, 1.022), vec3(1.038, 1.01, 0.96), warmHighlight);
-  color *= mix(vec3(1.0), lightingV3Highlight, uLightingV3);
+  color = mix(vec3(luminance), color, uSaturation);
+  color = (color - 0.5) * uContrast + 0.5;
+  float highlightMask = smoothstep(0.44, 0.9, luminance);
+  color *= mix(vec3(1.0), uHighlightColor, highlightMask * uHighlightStrength);
   float grain = noise(uv * uResolution * 0.28 + uTime * 0.03) * 0.55
               + noise(uv * uResolution * 0.065) * 0.45;
-  color *= mix(0.972 + grain * 0.055, 0.991 + grain * 0.018, uLightingV3);
-  color.r *= 1.0 + (grain - 0.5) * mix(0.016, 0.007, uLightingV3);
-  color.b *= 1.0 - (grain - 0.5) * mix(0.016, 0.007, uLightingV3);
+  color *= uGrainBase + grain * uGrainRange;
+  color.r *= 1.0 + (grain - 0.5) * uGrainChromatic;
+  color.b *= 1.0 - (grain - 0.5) * uGrainChromatic;
   vec2 edge = abs(uv * 2.0 - 1.0);
   float edgeWash = smoothstep(0.64, 1.0, max(edge.x, edge.y));
-  color *= 1.0 - edgeWash * mix(0.03, 0.009, uLightingV3);
+  color *= 1.0 - edgeWash * uEdgeWash;
   outputColor = vec4(color, inputColor.a);
 }
 `;
 
 class PaperWashEffect extends Effect {
   constructor(atmosphereStyle: XinhuaAtmosphereStyle) {
+    const paper = XINHUA_ATMOSPHERES[atmosphereStyle].effects.paper;
     super("XinhuaPaperWash", paperFragment, {
       uniforms: new Map<string, Uniform>([
         ["uResolution", new Uniform(new Vector2(1, 1))],
         ["uTime", new Uniform(0)],
-        ["uLightingV3", new Uniform(atmosphereStyle === "lighting-v3" ? 1 : 0)],
+        ["uSaturation", new Uniform(paper.saturation)],
+        ["uContrast", new Uniform(paper.contrast)],
+        ["uHighlightColor", new Uniform(new Color(paper.highlightColor))],
+        ["uHighlightStrength", new Uniform(paper.highlightStrength)],
+        ["uGrainBase", new Uniform(paper.grainBase)],
+        ["uGrainRange", new Uniform(paper.grainRange)],
+        ["uGrainChromatic", new Uniform(paper.grainChromatic)],
+        ["uEdgeWash", new Uniform(paper.edgeWash)],
       ]),
     });
   }

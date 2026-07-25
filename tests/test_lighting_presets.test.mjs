@@ -7,27 +7,60 @@ import {
   terrainHeightAt,
 } from "../app/scene/terrain.ts";
 import {
+  DEFAULT_XINHUA_ATMOSPHERE_STYLE,
+  resolveXinhuaAtmosphereStyle,
+  XINHUA_ATMOSPHERES,
+} from "../app/scene/atmosphere-contract.ts";
+import {
   ROADS,
   visibleRoadSurfaceOffsetAt,
 } from "../app/scene/road-surface-contract.ts";
 
-test("探索态建立可读的秋日下午方向光与局部阴影", async () => {
-  const [atmosphere, world, experience] = await Promise.all([
-    readFile(new URL("../app/scene/atmosphere-contract.ts", import.meta.url), "utf8"),
+test("正午与夕阳使用完整命名合同并保持移动端预算一致", () => {
+  assert.deepEqual(Object.keys(XINHUA_ATMOSPHERES), ["noon", "golden-hour"]);
+  assert.equal(XINHUA_ATMOSPHERES.noon.label, "正午");
+  assert.equal(XINHUA_ATMOSPHERES["golden-hour"].label, "夕阳");
+  assert.equal(DEFAULT_XINHUA_ATMOSPHERE_STYLE, "golden-hour");
+  assert.equal(resolveXinhuaAtmosphereStyle("noon"), "noon");
+  assert.equal(resolveXinhuaAtmosphereStyle("golden-hour"), "golden-hour");
+  assert.equal(resolveXinhuaAtmosphereStyle("invalid"), "golden-hour");
+  assert.equal(resolveXinhuaAtmosphereStyle(null), "golden-hour");
+
+  const [noonX, noonY, noonZ] = XINHUA_ATMOSPHERES.noon.sun.offset;
+  const [goldenX, goldenY, goldenZ] = XINHUA_ATMOSPHERES["golden-hour"].sun.offset;
+  const noonElevation = Math.atan2(noonY, Math.hypot(noonX, noonZ)) * 180 / Math.PI;
+  const goldenElevation = Math.atan2(goldenY, Math.hypot(goldenX, goldenZ)) * 180 / Math.PI;
+  assert.ok(noonElevation >= 40 && noonElevation <= 50);
+  assert.ok(goldenElevation < 25);
+  assert.equal(
+    XINHUA_ATMOSPHERES.noon.skyTexture,
+    XINHUA_ATMOSPHERES["golden-hour"].skyTexture,
+  );
+
+  for (const atmosphere of Object.values(XINHUA_ATMOSPHERES)) {
+    assert.equal(atmosphere.sun.shadow.mapSize.standard, 2048);
+    assert.equal(atmosphere.sun.shadow.mapSize.low, 1024);
+    assert.equal(atmosphere.sun.shadow.camera.exploreHalfExtent, 48);
+    assert.equal(atmosphere.effects.quality.outlineLowTier, false);
+    assert.equal(atmosphere.effects.quality.paperLowTier, false);
+  }
+});
+
+test("探索态从光照合同建立单一投影太阳与跟随视角的局部阴影", async () => {
+  const [world, experience] = await Promise.all([
     readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8"),
   ]);
 
-  assert.match(atmosphere, /sunOffset:\s*\[-62,\s*60,\s*-150\]/);
-  assert.match(atmosphere, /sunIntensity:\s*\{[\s\S]*?explore:\s*5\.0/);
-  assert.match(atmosphere, /skyFillIntensity:\s*\{[\s\S]*?explore:\s*2\.15/);
-  assert.match(world, /const lightingV3 = atmosphereStyle === "lighting-v3"/);
-  assert.match(world, /shadow-camera-left=\{exploring \? \(lightingV3 \? -48 : -72\) : -240\}/);
-  assert.match(world, /shadow-camera-right=\{exploring \? \(lightingV3 \? 48 : 72\) : 240\}/);
-  assert.match(world, /shadow-mapSize-width=\{exploring && !lowTier \? 2048 : 1024\}/);
+  assert.match(world, /const shadow = atmosphere\.sun\.shadow/);
+  assert.match(world, /shadow-camera-left=\{-shadowHalfExtent\}/);
+  assert.match(world, /shadow-camera-right=\{shadowHalfExtent\}/);
+  assert.match(world, /shadow-mapSize-width=\{shadowMapSize\}/);
   assert.match(world, /castShadow=\{exploring\}/);
+  assert.equal((world.match(/castShadow=\{exploring\}/g) ?? []).length, 1);
   assert.match(world, /<Shadow[\s\S]*?scale=\{\[1\.05, 4\.4, 1\]\}/);
   assert.match(experience, /shadows="percentage"/);
+  assert.doesNotMatch(world, /lightingV3|autumn-afternoon/);
   assert.doesNotMatch(world, /xinhua-lighting-qa|__xinhuaLightingQA/);
 });
 
@@ -54,26 +87,34 @@ test("全览关闭天空与树木装饰，详情恢复原有天空、树影和�
   assert.match(landmarks, /<AutumnLeafCarpet \/>/);
 });
 
-test("问号帮助面板可在秋日下午和当前光照之间即时切换", async () => {
-  const [atmosphere, experience, world, effects] = await Promise.all([
+test("地图预览直接切换正午与夕阳，并把选择同步到可分享 URL", async () => {
+  const [atmosphere, experience, world, effects, postEffects, composer] = await Promise.all([
     readFile(new URL("../app/scene/atmosphere-contract.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/scene/visual-effects.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/scene/postprocessing-effects.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/scene/visual-effect-composer.tsx", import.meta.url), "utf8"),
   ]);
 
-  assert.match(atmosphere, /"autumn-afternoon"/);
-  assert.match(atmosphere, /"lighting-v3"/);
-  assert.match(atmosphere, /DEFAULT_XINHUA_ATMOSPHERE_STYLE[\s\S]*"lighting-v3"/);
-  assert.match(experience, /aria-label="切换画面氛围"/);
-  assert.match(experience, /秋日下午/);
-  assert.match(experience, /当前光照/);
-  assert.match(experience, /setAtmosphereStyle\(style\)/);
+  assert.match(atmosphere, /XinhuaAtmosphereStyle = "noon" \| "golden-hour"/);
+  assert.match(atmosphere, /DEFAULT_XINHUA_ATMOSPHERE_STYLE[\s\S]*"golden-hour"/);
+  assert.match(experience, /aria-label="切换光线"/);
+  assert.match(experience, /const ATMOSPHERE_STYLES = \["noon", "golden-hour"\]/);
+  assert.match(experience, /searchParams\.set\("light", style\)/);
+  assert.match(experience, /window\.history\.replaceState/);
+  assert.match(experience, /data-lighting-state=\{atmosphereStyle\}/);
+  assert.match(experience, /\{overview && \(\s*<LightingSwitcher/);
+  assert.match(experience, /aria-pressed=\{atmosphereStyle === style\}/);
   assert.match(experience, /<XinhuaWorld[\s\S]*?atmosphereStyle=\{atmosphereStyle\}/);
   assert.match(world, /const atmosphere = XINHUA_ATMOSPHERES\[atmosphereStyle\]/);
   assert.match(world, /<AutumnLightRig[\s\S]*?atmosphere=\{atmosphere\}/);
-  assert.match(effects, /uniform float uLightingV3/);
+  assert.match(effects, /uniform float uSunHaloStrength/);
+  assert.match(effects, /uSunDirection: new Uniform\(new Vector3\(sunX, sunY, sunZ\)\.normalize\(\)\)/);
   assert.match(effects, /AutumnStorybookSky\(\{ atmosphereStyle \}/);
+  assert.match(postEffects, /XINHUA_ATMOSPHERES\[atmosphereStyle\]\.effects\.paper/);
+  assert.match(composer, /XINHUA_ATMOSPHERES\[atmosphereStyle\]\.effects\.quality/);
+  assert.doesNotMatch(`${effects}\n${postEffects}\n${composer}`, /uLightingV3|lightingV3/);
 });
 
 test("梧桐绘本影按每个延伸坐标重新贴合真实缓坡", () => {

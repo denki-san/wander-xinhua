@@ -5301,6 +5301,8 @@ TypeError: requestAnimationFrame is not a function
 - Symptom: `performance.getEntriesByType` 报 `Cannot read properties of undefined`。
 - Cause: Browser 的受限只读 evaluate 不保证暴露 `performance`，其文档已明确要求不要假设该全局存在。
 - Resolution: 视觉和 DOM 验收只读取 `document`；资源完整性改由静态文件 HTTP 状态与 SHA-256 核对。
+- Recurrence: 2026-07-25 正午/夕阳切换验收再次证明 `window.performance` 不可用；改由
+  DOM/URL、console 与开发服务器请求日志确认切换不重载页面或重新请求 GLB/天空贴图。
 - See Also: ERR129
 
 # ERR152: 角色替换后旧比例断言阻断全量回归
@@ -6774,3 +6776,34 @@ cause: UND_ERR_SOCKET
 ### Resolution
 - **Resolved**: 2026-07-25T22:56:00+08:00
 - **Notes**: 已增加正文重试与稀疏文件断点扫描，并从 234 MB 继续下载。
+
+---
+## [ERR-20260725-028] mobile_poi_offset_contract_stale
+
+**Logged**: 2026-07-25T23:57:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+手机地图新增光线切换器后，旧测试仍锁定 POI 卡片的原顶距。
+
+### Error
+```text
+Expected /safe-area-inset-top ... + 72px/ but CSS uses + 124px.
+```
+
+### Context
+- 完整 static/Sites 构建成功，179/180 测试通过。
+- 390×844 浏览器截图证明旧顶距会让 POI 卡片与新切换器重叠。
+
+### Suggested Fix
+布局测试同时锁定切换器存在与新的安全顶距，让交互合同和防遮挡合同一起更新。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/globals.css, app/xinhua-experience.tsx, tests/test_dual_scale_navigation.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T23:57:00+08:00
+- **Notes**: 测试改为要求地图光线切换器和 124px 手机安全顶距。

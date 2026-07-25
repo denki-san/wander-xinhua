@@ -187,8 +187,9 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(styles, /\.overview-poi-photo\.is-loaded img/);
   assert.match(styles, /@keyframes poi-photo-loading/);
   assert.match(styles, /\.world-tools\s*\{[^}]*flex-direction: row;/);
+  assert.match(experience, /className="lighting-hud-switcher"/);
   assert.match(styles, /\.overview-poi-card\s*\{[^}]*top: 82px;/);
-  assert.match(styles, /top: calc\(env\(safe-area-inset-top, 0px\) \+ 72px\)/);
+  assert.match(styles, /top: calc\(env\(safe-area-inset-top, 0px\) \+ 124px\)/);
   assert.match(styles, /height: 148px/);
   assert.match(styles, /object-position: 50% 50%/);
   assert.doesNotMatch(styles, /\.overview-poi-card\s*\{[^}]*bottom:/);
