@@ -324,9 +324,70 @@
     "nextGate": "derive-independent-identity-from-frozen-hero"
   },
   "identityGate": {
-    "status": "unlocked-pending-independent-derivation",
+    "status": "deterministic-candidate-mcp3-pending",
     "derivedFromHeroSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
-    "forbiddenSubstitute": "arts-cluster-generic-proxy"
+    "forbiddenSubstitute": "arts-cluster-generic-proxy",
+    "generator": {
+      "path": "scripts/create_film_art_center_identity_model.py",
+      "sha256": "af0fbd64e9aa1cd2b9c3595ce51d4c792ac14a1afccb012df8aabf55c96d2f47"
+    },
+    "editableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/identity/film-art-center-identity.blend",
+      "sha256": "72ebda621ee6e93703e9085cb8df0cf44ffb19849a1ea84ac9d26f531cd6984a",
+      "bytes": 415072
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/xinhua-road/identity/film-art-center-identity.glb",
+      "sha256": "a4d37446e27225815624e6382048ed1dc341f1e079f089755ed5fb68e520e869",
+      "bytes": 1130852,
+      "triangles": 23816,
+      "materials": 8,
+      "images": 0,
+      "textures": 0,
+      "cacheVersion": "20260725-film-art-identity-1"
+    },
+    "headlessSceneInspection": {
+      "vertices": 13100,
+      "polygons": 11952,
+      "materials": 8,
+      "facesBelowAreaEpsilon": 0,
+      "areaEpsilon": 1e-10,
+      "minimumValidFaceArea": 0.000001981060677280766,
+      "nonfinitePolygonNormals": 0,
+      "degenerateFacesRemovedProperty": 4,
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1]
+    },
+    "fixedHeadlessViews": {
+      "canonical": {
+        "camera": [3, -43, 8],
+        "target": [0, -0.5, 6.3],
+        "lensMm": 54,
+        "screenshot": "test_artifacts/test_film-art-center-identity_canonical_preview.png",
+        "sha256": "cdc4b30e36575522e5eae56afed012eb97880d13cabfbde82aacb578ec5ebcd5",
+        "bytes": 725168
+      },
+      "side": {
+        "camera": [34, -28, 9],
+        "target": [1, 0, 6.1],
+        "lensMm": 52,
+        "screenshot": "test_artifacts/test_film-art-center-identity_side_preview.png",
+        "sha256": "9429e8a9b10ee51ff9203c060311dc2ec42fe900f76fbd7580029e47186fbfce",
+        "bytes": 738762
+      },
+      "entrance": {
+        "camera": [10, -48, 4.8],
+        "target": [0, -0.8, 5.7],
+        "lensMm": 56,
+        "screenshot": "test_artifacts/test_film-art-center-identity_entrance_preview.png",
+        "sha256": "b805661728211cc93294e6b89011389ef9c0dea3d33256716e62aa126d8b57bd",
+        "bytes": 711412
+      }
+    },
+    "deterministicGlb": "pass-two-clean-builds-cmp",
+    "acceptedInteractiveChanges": [],
+    "nextGate": "main-coordinator-blender-mcp3-three-tier-review"
   },
   "threeTierGate": {
     "status": "pending"

@@ -47,6 +47,14 @@ const landmarkDataUrl = new URL(
   "app/scene/xinhua-road-landmarks-data.json",
   root,
 );
+const identityRecordUrl = new URL(
+  "docs/research/build-records/tiers/xinhua-road/identity/film-art-center-identity.json",
+  root,
+);
+const identityGeneratorUrl = new URL(
+  "scripts/create_film_art_center_identity_model.py",
+  root,
+);
 
 function sha256(buffer) {
   return createHash("sha256").update(buffer).digest("hex");
@@ -270,10 +278,10 @@ test("Film Art Center Hero MCP2 Pass 可追溯并解锁独立 Identity 派生", 
   );
   assert.equal(
     gate.identityGate.status,
-    "unlocked-pending-independent-derivation",
+    "deterministic-candidate-mcp3-pending",
   );
   assert.equal(lineage.identity.identityAllowed, true);
-  assert.equal(lineage.nextGate, "identity-deterministic-candidate-build");
+  assert.equal(lineage.nextGate, "blender-mcp3-three-tier-review");
   assert.deepEqual(
     gate.heroGate.recheckCandidate.acceptedInteractiveChanges,
     [],
@@ -295,6 +303,118 @@ test("Film Art Center Hero MCP2 Pass 可追溯并解锁独立 Identity 派生", 
     const recheckBuffer = await readFile(new URL(recheck.screenshot, root));
     assert.equal(recheckBuffer.length, recheck.bytes);
     assert.equal(sha256(recheckBuffer), recheck.sha256);
+  }
+});
+
+test("Film Art Center Identity 独立派生、预算与固定机位候选可追溯", async () => {
+  const [record, lineage, gate, generator, glbBuffer, blendBuffer, heroRecord] =
+    await Promise.all([
+      readFile(identityRecordUrl, "utf8").then(JSON.parse),
+      readFile(lineageUrl, "utf8").then(JSON.parse),
+      readFile(mcpGateUrl, "utf8").then(JSON.parse),
+      readFile(identityGeneratorUrl, "utf8"),
+      readFile(
+        new URL(
+          "public/models/tiers/xinhua-road/identity/film-art-center-identity.glb",
+          root,
+        ),
+      ),
+      readFile(
+        new URL(
+          "assets/models/source/tiers/xinhua-road/identity/film-art-center-identity.blend",
+          root,
+        ),
+      ),
+      readFile(heroRecordUrl),
+    ]);
+  const glb = parseGlb(glbBuffer);
+  const rootNode = glb.nodes[0];
+
+  assert.equal(record.assetId, "building:xinhua-road:film-art-center");
+  assert.equal(record.tier, "identity");
+  assert.equal(
+    record.status,
+    "headless-and-glb-audit-pass-mcp3-pending",
+  );
+  assert.equal(sha256(Buffer.from(generator)), record.generator.sha256);
+  assert.equal(sha256(glbBuffer), record.glb.sha256);
+  assert.equal(glbBuffer.length, record.glb.bytes);
+  assert.equal(sha256(blendBuffer), record.outputs.blendSha256);
+  assert.equal(blendBuffer.length, record.outputs.blendBytes);
+  assert.equal(
+    sha256(heroRecord),
+    record.derivedFrom.heroBuildRecordSha256,
+  );
+  assert.equal(
+    record.derivedFrom.heroGlbSha256,
+    lineage.hero.glb.sha256,
+  );
+  assert.equal(record.derivedFrom.heroGate, "mcp2-pass");
+  assert.equal(triangleCount(glb), 23816);
+  assert.ok(record.glb.triangles <= record.budgets.maxTriangles);
+  assert.ok(record.glb.bytes <= record.budgets.maxBytes);
+  assert.equal(glb.nodes.length, 1);
+  assert.equal(glb.meshes.length, 1);
+  assert.equal(glb.materials.length, 8);
+  assert.equal(glb.images, undefined);
+  assert.equal(glb.textures, undefined);
+  assert.equal(
+    glb.meshes.some((mesh) =>
+      mesh.primitives.some(
+        (primitive) => primitive.attributes.TEXCOORD_0 !== undefined,
+      ),
+    ),
+    false,
+  );
+  assert.equal(rootNode.translation, undefined);
+  assert.equal(rootNode.rotation, undefined);
+  assert.equal(rootNode.scale, undefined);
+  assert.equal(rootNode.extras.tier, "identity");
+  assert.equal(
+    rootNode.extras.derived_from_hero_glb_sha256,
+    lineage.hero.glb.sha256,
+  );
+  assert.equal(
+    rootNode.extras.forbidden_substitute,
+    "arts-cluster-generic-proxy",
+  );
+  assert.equal(rootNode.extras.degenerate_faces_removed, 4);
+  assert.equal(record.blendTopology.facesBelowEpsilon, 0);
+  assert.equal(record.blendTopology.nonfinitePolygonNormals, 0);
+  assert.equal(record.gates.glbAudit, "pass");
+  assert.equal(record.gates.deterministicGlb.status, "pass");
+  assert.equal(
+    record.gates.deterministicGlb.sha256,
+    record.glb.sha256,
+  );
+  assert.equal(
+    lineage.identity.status,
+    "deterministic-candidate-mcp3-pending",
+  );
+  assert.equal(lineage.identity.mcp3, "pending");
+  assert.equal(
+    gate.identityGate.status,
+    "deterministic-candidate-mcp3-pending",
+  );
+  assert.equal(gate.threeTierGate.status, "pending");
+  assert.doesNotMatch(generator, /build_arts_cluster|MiniatureGabledBuilding/);
+  for (const cue of [
+    "film-art-identity-main-roof",
+    "film-art-identity-gallery-roof",
+    "film-art-identity-balustrade",
+    "film-art-identity-upper-loggia",
+    "film-art-identity-name",
+    "film-art-identity-lion",
+    "film-art-identity-glass-wing",
+  ]) {
+    assert.match(generator, new RegExp(cue));
+  }
+
+  for (const view of ["canonical", "side", "entrance"]) {
+    const preview = record.outputs.previews[view];
+    const buffer = await readFile(new URL(preview.path, root));
+    assert.equal(buffer.length, preview.bytes);
+    assert.equal(sha256(buffer), preview.sha256);
   }
 });
 
