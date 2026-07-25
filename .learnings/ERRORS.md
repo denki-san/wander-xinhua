@@ -6265,3 +6265,35 @@ shell 循环使用 `file_path` 等任务专用变量名，避免 `path`、`statu
 ### Resolution
 - **Resolved**: 2026-07-25T00:00:00+08:00
 - **Notes**: 改用 `file_path` 后重新执行，成功保留两侧追加记录并移除冲突标记。
+
+---
+## [ERR-20260725-013] javascript_template_literal_backtick_escape
+
+**Logged**: 2026-07-25T16:25:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Hold 范围测试在模板字符串内错误转义 Markdown 反引号，导致 Node.js 语法解析失败。
+
+### Error
+```text
+SyntaxError: missing ) after argument list
+```
+
+### Context
+- 失败代码试图在模板字符串中用反斜杠转义 Markdown 反引号。
+- 错误只存在于新测试文件，项目运行代码未受影响。
+
+### Suggested Fix
+正则表达式包含 Markdown 反引号时，使用普通双引号字符串拼接 asset ID，
+避免模板字符串定界符与目标字符冲突。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_building_scope_hold.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T16:25:00+08:00
+- **Notes**: 改为普通字符串拼接后重新运行专项测试。
