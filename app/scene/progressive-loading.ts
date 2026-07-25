@@ -74,13 +74,10 @@ export function classifyProgressiveNetwork(
     typeof measuredDownlinkMbps === "number"
     && measuredDownlinkMbps >= WEAK_NETWORK_DOWNLINK_Mbps
   ) return "standard";
-  if (
-    typeof measuredDownlinkMbps === "number"
-    && measuredDownlinkMbps > 0
-    && measuredDownlinkMbps < WEAK_NETWORK_DOWNLINK_Mbps
-  ) return "weak";
+  // 启动脚本的 PerformanceResourceTiming 会混入缓存、主线程阻塞和连接复用，
+  // 只能作为升级证据，不能据此把已进入近景的 Hero 永久撤回 Identity。
   // Safari 等浏览器没有 Network Information API；缺少证据不等于弱网。
-  // 默认允许标准档，仅在 Save-Data、明确的慢速网络或有效实测低速时降级。
+  // 默认允许标准档，仅在 Save-Data 或 Network Information 明确报告慢网时降级。
   return "standard";
 }
 

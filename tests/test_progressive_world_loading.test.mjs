@@ -46,7 +46,11 @@ test("网络策略在 5Mbps 保留近景 Hero 能力，并让地图与弱网固�
     "standard",
     "缺少 Network Information API 不能把 Safari 永久锁为弱网",
   );
-  assert.equal(classifyProgressiveNetwork({}, 1), "weak");
+  assert.equal(
+    classifyProgressiveNetwork({}, 1),
+    "standard",
+    "启动脚本测速偏低不能让 Safari 在进入后把 Hero 撤回 Identity",
+  );
   assert.equal(classifyProgressiveNetwork({}, 5), "standard");
   assert.equal(classifyProgressiveNetwork({ downlink: 5, effectiveType: "4g" }), "standard");
   assert.equal(classifyProgressiveNetwork({ saveData: true, downlink: 8 }), "weak");
