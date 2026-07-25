@@ -183,7 +183,7 @@ test("House315 Hero v2 使用独立路径并保留旧 Hero Hold 与公共 regist
 
   assert.equal(
     record.status,
-    "candidate-awaiting-main-window-blender-mcp2",
+    "hero-mcp2-pass-awaiting-main-window-integration",
   );
   assert.equal(record.tier, "hero");
   assert.equal(record.versionName, "hero-v2");
@@ -202,8 +202,50 @@ test("House315 Hero v2 使用独立路径并保留旧 Hero Hold 与公共 regist
   assert.equal(record.publicRegistry.modified, false);
   assert.equal(landmark.model, "/models/xinhua-road/house-315.glb");
   assert.equal(landmark.cacheVersion, "20260718-detail-1");
-  assert.equal(record.identityAllowed, false);
-  assert.equal(record.mcp2.passed, false);
+  assert.equal(record.identityAllowed, true);
+  assert.equal(record.mcp2.status, "pass");
+  assert.equal(record.mcp2.passed, true);
+  assert.equal(record.mcp2.acceptedInteractiveChanges.length, 0);
+  assert.equal(record.mcp2.qaRigSaved, false);
+  assert.equal(record.mcp2.qaRigExported, false);
+  assert.equal(record.identityLineage.identityDerivationAuthorized, true);
+  assert.equal(record.identityLineage.identityDerivationStarted, false);
+  assert.equal(record.publicRegistry.modified, false);
+});
+
+test("House315 Hero v2 MCP2 主窗口证据和门禁状态闭合", async () => {
+  const record = await readJson(recordPath);
+  const gates = await readJson("docs/research/house-315-blender-mcp-gates.json");
+  const disposition = await readJson("docs/research/house-315-hero-disposition.json");
+
+  assert.equal(record.mcp2.sourceCommit, "e258a02a9ace4dbc34ce2978dcadcb4112370939");
+  assert.equal(record.mcp2.sceneInspection.meshObjects, 1);
+  assert.equal(record.mcp2.sceneInspection.vertices, 1960);
+  assert.equal(record.mcp2.sceneInspection.polygons, 1472);
+  assert.equal(record.mcp2.sceneInspection.principledNodeMaterials, 6);
+  assert.equal(record.mcp2.sceneInspection.zeroAreaPolygonsBelow1e10, 0);
+  assert.equal(record.mcp2.sceneInspection.nonFiniteNormals, 0);
+  assert.equal(record.mcp2.sceneInspection.minimumFaceArea, 0.001224979);
+  assert.equal(record.mcp2.lineageInspection.legacyHeroGeometryUsed, false);
+  assert.equal(record.mcp2.lineageInspection.recoveryGeometryUsed, false);
+  assert.equal(record.mcp2.lineageInspection.ordinaryOsmGeometryUsed, false);
+
+  for (const preview of Object.values(record.mcp2.fixedViews)) {
+    assert.equal(await sha256(preview.path), preview.sha256);
+    assert.equal((await stat(path.join(root, preview.path))).size, preview.bytes);
+    assert.deepEqual(preview.dimensions, [1024, 768]);
+  }
+
+  assert.equal(gates.heroGate.status, "pass");
+  assert.equal(gates.heroGate.identityDerivationAuthorized, true);
+  assert.equal(gates.identityGate.identityDerivationAuthorized, true);
+  assert.equal(gates.identityGate.identityDerivationStarted, false);
+  assert.equal(disposition.activeReplacementStatus, "hero-v2-mcp2-pass-awaiting-main-window-integration");
+  assert.equal(disposition.replacementCandidate.mcp2.status, "pass");
+  assert.equal(disposition.replacementCandidate.legacyHeroOverwritten, false);
+  assert.equal(disposition.replacementCandidate.identityLineage.identityDerivationStarted, false);
+  assert.equal(disposition.replacementCandidate.publicRegistryModified, false);
+  assert.equal(disposition.replacementCandidate.runtimeIntegrated, false);
 });
 
 test("House315 Hero v2 精确继承 Massing origin、bounds、碰撞与固定机位", async () => {
