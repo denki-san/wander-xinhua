@@ -1,0 +1,234 @@
+{
+  "schemaVersion": 1,
+  "assetId": "house-315",
+  "activeScope": "exact-18-building-program-house-315-only",
+  "recordedAt": "2026-07-25",
+  "status": "candidate-awaiting-main-window-mcp3",
+  "sourceGate": {
+    "gate": "mcp2-hero-visual-review",
+    "status": "pass",
+    "authority": "docs/research/house-315-blender-mcp-gates.json#heroGate",
+    "reviewedHeroGlbSha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+    "identityDerivationAuthorized": true
+  },
+  "continuityContract": {
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "authoredFront": "local-negative-y",
+    "groundDatum": 0,
+    "sceneUnitMeters": 2.7,
+    "runtimePlacement": {
+      "position": [
+        -23.03,
+        85.67
+      ],
+      "yaw": -0.38,
+      "scale": 0.9,
+      "movementAuthorized": false
+    },
+    "glbBounds": {
+      "min": [
+        -7.675,
+        0.0,
+        -4.575
+      ],
+      "max": [
+        7.225,
+        6.982892,
+        4.84
+      ]
+    },
+    "collision": {
+      "localBounds": {
+        "minX": -7.675,
+        "maxX": 7.225,
+        "minZ": -4.575,
+        "maxZ": 4.84
+      },
+      "localObstacles": [
+        {
+          "minX": -6.7,
+          "maxX": 6.7,
+          "minZ": -3.5,
+          "maxZ": 2.4
+        },
+        {
+          "minX": -4.475,
+          "maxX": 0.675,
+          "minZ": -2.65,
+          "maxZ": 4.55
+        },
+        {
+          "minX": 3.275,
+          "maxX": 7.025,
+          "minZ": -4.375,
+          "maxZ": 3.075
+        },
+        {
+          "minX": -7.475,
+          "maxX": -3.225,
+          "minZ": -4.35,
+          "maxZ": -0.15
+        }
+      ]
+    }
+  },
+  "tiers": {
+    "massing": {
+      "version": "massing-v2",
+      "runtimeAsset": {
+        "path": "public/models/tiers/xinhua-road/massing-v2/house-315-massing.glb",
+        "sha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832"
+      },
+      "gates": {
+        "mcp1": "pass",
+        "threeJsMapCalibration": "pass"
+      }
+    },
+    "hero": {
+      "version": "hero-v2",
+      "generator": {
+        "path": "scripts/create_house_315_hero_model.py",
+        "sha256": "61e3aa5188e6aba14e0eabf58aa1cd19ba0980b812b62b79dc894d52cccd068f",
+        "bytes": 48577
+      },
+      "editableSource": {
+        "path": "assets/models/source/tiers/xinhua-road/hero-v2/house-315-hero.blend",
+        "sha256": "2750b3c876fa651ce1fd0ed09f8e9a5557804b8e2783839f6ed63a740cd756b6",
+        "bytes": 132712
+      },
+      "runtimeAsset": {
+        "path": "public/models/tiers/xinhua-road/hero-v2/house-315-hero.glb",
+        "sha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+        "bytes": 212908
+      },
+      "gates": {
+        "mcp2": "pass"
+      }
+    },
+    "identity": {
+      "version": "identity-v1",
+      "derivedFromHeroGlbSha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+      "generator": {
+        "path": "scripts/create_house_315_identity_model.py",
+        "sha256": "19fe2646b02767fb5495b19ecf979a07d2eed35acf009476e33172160dd72e51",
+        "bytes": 34769
+      },
+      "editableSource": {
+        "path": "assets/models/source/tiers/xinhua-road/identity-v1/house-315-identity.blend",
+        "sha256": "79cc36080e835af913864fcfddca2763f0173df5bb7c107a54a662d241506a60",
+        "bytes": 109984
+      },
+      "runtimeAsset": {
+        "path": "public/models/tiers/xinhua-road/identity-v1/house-315-identity.glb",
+        "sha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+        "bytes": 62288,
+        "cacheVersion": "20260725-identity-425e21b9",
+        "triangles": 776,
+        "materials": 6,
+        "images": 0,
+        "textures": 0,
+        "animations": 0
+      },
+      "buildRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json",
+      "preservedCues": [
+        "central-tall-half-timber-gable-and-upper-window",
+        "transverse-main-ridge",
+        "asymmetric-long-right-and-short-left-rear-wings",
+        "white-over-red-facade-division",
+        "tall-central-entrance-and-major-window-groups",
+        "front-shed-dormer-and-visible-chimney"
+      ],
+      "deliberateLosses": [
+        "dense-roof-ribs",
+        "fine-window-mullions-and-horizontal-divisions",
+        "one-of-three-visible-right-side-windows",
+        "minor-facade-and-eave-divisions"
+      ],
+      "budget": {
+        "contract": {
+          "maxNodes": 1,
+          "maxMeshes": 1,
+          "maxTriangles": 1600,
+          "maxMaterials": 6,
+          "maxImages": 0,
+          "maxTextures": 0,
+          "maxAnimations": 0,
+          "maxBytes": 165000
+        },
+        "heroBaseline": {
+          "triangles": 2936,
+          "bytes": 212908,
+          "materials": 6
+        },
+        "identityToHeroTriangleRatio": 0.264305,
+        "identityToHeroByteRatio": 0.292558,
+        "triangleReductionRatio": 0.735695,
+        "byteReductionRatio": 0.707442,
+        "status": "pass"
+      },
+      "determinism": {
+        "independentCleanSceneBuilds": 2,
+        "firstGlbSha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+        "secondGlbSha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+        "sameGlbSha256": true
+      },
+      "gates": {
+        "mcp3": "pending-main-window",
+        "identityFormalPass": false
+      }
+    }
+  },
+  "threeTierGate": {
+    "status": "candidate-awaiting-main-window-mcp3",
+    "sameOrigin": true,
+    "sameBounds": true,
+    "sameAuthoredFront": true,
+    "sameRuntimePlacement": true,
+    "sameCollisionSemantics": true,
+    "sameCameraViewSet": true,
+    "identityBudgetPass": true,
+    "independentReview": {
+      "reviewer": "shanghai-cinema-peer",
+      "status": "ready",
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "formalPass": false
+  },
+  "scope": {
+    "buildingOnly": true,
+    "excluded": [
+      "legacy Hero geometry",
+      "Recovery geometry",
+      "ordinary OSM",
+      "full-map assets",
+      "garden slab",
+      "walls",
+      "fences",
+      "street gate",
+      "lamps",
+      "planters",
+      "decorative paving",
+      "trees",
+      "shrubs",
+      "grass",
+      "outdoor furniture",
+      "commercial signage",
+      "other buildings"
+    ],
+    "legacyHeroDisposition": "hold-read-only-rollback-only",
+    "legacyHeroOverwritten": false
+  },
+  "runtime": {
+    "status": "not-started-by-worktree",
+    "runtimeAuthorized": false,
+    "runtimeExecutionStarted": false,
+    "publicRegistryModified": false,
+    "runtimeIntegrated": false
+  }
+}

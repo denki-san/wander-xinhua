@@ -5,7 +5,7 @@
   "auditedAt": "2026-07-25",
   "auditMode": "read-only-no-rebuild-no-blender-mcp",
   "status": "blocked-not-mcp2-candidate-rebuild-required",
-  "activeReplacementStatus": "hero-v2-mcp2-pass-awaiting-main-window-integration",
+  "activeReplacementStatus": "hero-v2-mcp2-pass-identity-v1-candidate-awaiting-mcp3",
   "decision": {
     "sameIntendedSubjectAsApprovedMassing": true,
     "sameGeometryContractAsApprovedMassing": false,
@@ -46,9 +46,33 @@
     "legacyHeroDisposition": "hold-read-only-rollback-only",
     "legacyHeroOverwritten": false,
     "identityLineage": {
-      "status": "post-mcp2-unlocked-awaiting-main-window-integration",
+      "status": "identity-v1-candidate-awaiting-main-window-mcp3",
       "identityDerivationAuthorized": true,
-      "identityDerivationStarted": false
+      "identityDerivationStarted": true,
+      "identityCandidateCompleted": true,
+      "generator": {
+        "path": "scripts/create_house_315_identity_model.py",
+        "sha256": "19fe2646b02767fb5495b19ecf979a07d2eed35acf009476e33172160dd72e51"
+      },
+      "editableSource": {
+        "path": "assets/models/source/tiers/xinhua-road/identity-v1/house-315-identity.blend",
+        "sha256": "79cc36080e835af913864fcfddca2763f0173df5bb7c107a54a662d241506a60",
+        "bytes": 109984
+      },
+      "runtimeAsset": {
+        "path": "public/models/tiers/xinhua-road/identity-v1/house-315-identity.glb",
+        "sha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+        "bytes": 62288,
+        "triangles": 776,
+        "materials": 6,
+        "images": 0
+      },
+      "buildRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json",
+      "tierLineage": "docs/research/house-315-tier-lineage.json",
+      "mcp3": "pending-main-window",
+      "identityFormalPass": false,
+      "runtimeAuthorized": false,
+      "runtimeExecutionStarted": false
     },
     "publicRegistryModified": false,
     "runtimeIntegrated": false
