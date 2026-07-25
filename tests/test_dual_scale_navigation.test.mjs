@@ -5,7 +5,6 @@ import {
   MAP_POIS,
   mapPoiById,
   nearestMapPoi,
-  OVERVIEW_POI_LABEL_OFFSETS,
 } from "../app/scene/poi-data.ts";
 
 test("全览地图包含三处核心片区、全部新华路地标和轻量实景缩略图", async () => {
@@ -23,7 +22,6 @@ test("全览地图包含三处核心片区、全部新华路地标和轻量实�
     && poi.photo.sourceUrl
   )));
   assert.equal(new Set(MAP_POIS.map((poi) => poi.id)).size, MAP_POIS.length);
-  assert.ok(MAP_POIS.every((poi) => OVERVIEW_POI_LABEL_OFFSETS[poi.id]));
   assert.ok(MAP_POIS.every((poi) => poi.photo.src.startsWith("/images/poi-thumbnails/")));
   for (const poi of MAP_POIS) {
     const thumbnail = await stat(new URL(`../public${poi.photo.src}`, import.meta.url));
@@ -60,7 +58,7 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(world, /const OVERVIEW_CHARACTER_SCALE = 22/);
   assert.match(
     world,
-    /const OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET = OVERVIEW_CHARACTER_SCALE \* 0\.18/,
+    /const OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET = OVERVIEW_CHARACTER_SCALE \* 0\.26/,
   );
   assert.match(world, /const OVERVIEW_MOVE_SPEED = 94/);
   assert.match(world, /const OVERVIEW_CAMERA_FILL = 0\.24/);
@@ -109,8 +107,11 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
     /<Suspense[\s\S]*?<LandmarkProgressiveProxy landmark=\{landmark\} identity \/>[\s\S]*?<GlbModel path=\{modelPath\} \/>/,
   );
   assert.match(shangsheng, /fallback=\{<GenericCampusBuilding building=\{building\} \/>\}/);
-  assert.match(world, /className="overview-poi-label-anchor"/);
-  assert.match(world, /zIndexRange=\{\[12, 0\]\}/);
+  assert.doesNotMatch(world, /overview-poi-label|OVERVIEW_POI_LABEL_OFFSETS/);
+  assert.match(
+    world,
+    /\{near && \(\s*<mesh rotation-x=\{Math\.PI \/ 2\}>[\s\S]*?<torusGeometry args=\{\[8\.8, 1\.25, 10, 42\]\}/,
+  );
   assert.doesNotMatch(shangsheng, /useGLTF\.preload/);
   assert.match(world, /scale=\{OVERVIEW_CHARACTER_SCALE\}/);
   assert.match(
@@ -143,9 +144,11 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(experience, /aria-busy=\{loadedOverviewPhoto !== nearPoi\.photo\.src\}/);
   assert.match(styles, /\.overview-poi-photo\.is-loaded img/);
   assert.match(styles, /@keyframes poi-photo-loading/);
-  assert.match(styles, /\.overview-poi-card\s*\{[^}]*top: 88px;/);
-  assert.match(styles, /top: calc\(env\(safe-area-inset-top, 0px\) \+ 118px\)/);
-  assert.match(styles, /min-height: 148px/);
+  assert.match(styles, /\.world-tools\s*\{[^}]*flex-direction: row;/);
+  assert.match(styles, /\.overview-poi-card\s*\{[^}]*top: 82px;/);
+  assert.match(styles, /top: calc\(env\(safe-area-inset-top, 0px\) \+ 72px\)/);
+  assert.match(styles, /height: 148px/);
+  assert.match(styles, /object-position: 50% 50%/);
   assert.doesNotMatch(styles, /\.overview-poi-card\s*\{[^}]*bottom:/);
   assert.match(experience, /function FirstPlayableFrame/);
   assert.match(experience, /nextFrame\.current = window\.requestAnimationFrame\(onReady\)/);

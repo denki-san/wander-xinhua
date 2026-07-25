@@ -204,7 +204,8 @@ button {
 
 .world-tools {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: flex-start;
   gap: 10px;
 }
 
@@ -425,58 +426,15 @@ button {
   color: #f1d5a2;
 }
 
-.overview-poi-label {
-  display: block;
-  padding: 5px 8px 4px;
-  border: 1px solid rgba(45, 71, 66, 0.78);
-  border-radius: 4px 4px 4px 1px;
-  color: #f8efd3;
-  background: rgba(43, 65, 60, 0.88);
-  box-shadow: 2px 3px 0 rgba(36, 55, 51, 0.52);
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-  transition: color 150ms ease, background-color 150ms ease, transform 150ms ease;
-}
-
-.overview-poi-label-anchor {
-  position: relative;
-  display: block;
-  pointer-events: none;
-  transform: translate(var(--overview-label-x), var(--overview-label-y));
-}
-
-.overview-poi-label-anchor::before {
-  position: absolute;
-  z-index: -1;
-  top: 50%;
-  left: 50%;
-  width: var(--overview-leader-length);
-  height: 1px;
-  content: "";
-  background: rgba(239, 224, 181, 0.68);
-  box-shadow: 0 1px 0 rgba(42, 65, 60, 0.48);
-  opacity: var(--overview-leader-opacity);
-  transform: rotate(var(--overview-leader-angle));
-  transform-origin: 0 50%;
-}
-
-.overview-poi-label.is-near {
-  color: #2d4641;
-  background: #fff0b2;
-  transform: translateY(-3px) scale(1.08);
-}
-
 .overview-poi-card {
   position: absolute;
   z-index: 24;
-  top: 88px;
+  top: 82px;
   left: 50%;
   display: grid;
   grid-template-columns: minmax(190px, 0.92fr) minmax(0, 1.28fr);
   width: min(700px, calc(100vw - 176px));
-  min-height: 244px;
+  height: 244px;
   overflow: hidden;
   border: 3px solid #2d4641;
   border-radius: 8px 8px 18px 3px;
@@ -574,8 +532,12 @@ button {
 }
 
 .overview-poi-card-body {
+  display: grid;
+  height: 100%;
   min-width: 0;
+  overflow: hidden;
   padding: 20px 22px 19px;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
 }
 
 .overview-poi-card-body p {
@@ -1026,6 +988,10 @@ kbd {
     height: 42px;
   }
 
+  .world-tools {
+    gap: 8px;
+  }
+
   .world-tools .overview-toggle {
     width: auto;
     min-width: 98px;
@@ -1067,17 +1033,23 @@ kbd {
   }
 
   .overview-poi-card {
-    top: calc(env(safe-area-inset-top, 0px) + 118px);
+    top: calc(env(safe-area-inset-top, 0px) + 72px);
     right: 15px;
     left: 15px;
     grid-template-columns: minmax(116px, 0.82fr) minmax(0, 1.18fr);
     width: auto;
-    min-height: 148px;
+    height: 148px;
     transform: rotate(-0.35deg);
   }
 
+  .overview-poi-photo {
+    height: 148px;
+  }
+
   .overview-poi-photo img {
-    min-height: 148px;
+    height: 148px;
+    min-height: 0;
+    object-position: 50% 50%;
   }
 
   .overview-poi-photo a {

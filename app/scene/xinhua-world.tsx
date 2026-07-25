@@ -21,7 +21,6 @@ import {
 import {
   lazy,
   Suspense,
-  type CSSProperties,
   type ReactNode,
   type RefObject,
   useCallback,
@@ -35,7 +34,6 @@ import { ProgressiveFeatureBoundary } from "../progressive-feature-boundary";
 import {
   MAP_POIS,
   nearestMapPoi,
-  OVERVIEW_POI_LABEL_OFFSETS,
 } from "./poi-data";
 import {
   HuashanGreenBlock,
@@ -160,7 +158,7 @@ function markFirstProgressiveControlResponse() {
 
 export const DETAIL_WORLD_SCALE = 1.65;
 const OVERVIEW_CHARACTER_SCALE = 22;
-const OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET = OVERVIEW_CHARACTER_SCALE * 0.18;
+const OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET = OVERVIEW_CHARACTER_SCALE * 0.26;
 const OVERVIEW_MOVE_SPEED = 94;
 const OVERVIEW_POI_DISTANCE = 42;
 const OVERVIEW_CAMERA_FILL = 0.24;
@@ -1330,26 +1328,6 @@ function PlayableWanderer({
   );
 }
 
-type OverviewLabelStyle = CSSProperties & {
-  "--overview-label-x": string;
-  "--overview-label-y": string;
-  "--overview-leader-length": string;
-  "--overview-leader-angle": string;
-  "--overview-leader-opacity": string;
-};
-
-function overviewLabelStyle(offset: readonly [number, number]): OverviewLabelStyle {
-  const [x, y] = offset;
-  const length = Math.hypot(x, y);
-  return {
-    "--overview-label-x": `${x}px`,
-    "--overview-label-y": `${y}px`,
-    "--overview-leader-length": `${length}px`,
-    "--overview-leader-angle": `${Math.atan2(-y, -x)}rad`,
-    "--overview-leader-opacity": length >= 14 ? "1" : "0",
-  };
-}
-
 function OverviewPoiMarkers({ nearPoiId }: { nearPoiId: string | null }) {
   return (
     <group data-overview-poi-count={MAP_POIS.length}>
@@ -1359,32 +1337,16 @@ function OverviewPoiMarkers({ nearPoiId }: { nearPoiId: string | null }) {
         const y = terrainHeightAt(x, z) + 1.1;
         return (
           <group key={poi.id} position={[x, y, z]} scale={near ? 1.18 : 1}>
-            <mesh rotation-x={Math.PI / 2}>
-              <torusGeometry args={[near ? 8.8 : 6.6, near ? 1.25 : 0.75, 10, 42]} />
-              <meshBasicMaterial color={near ? "#fff2a8" : "#c85f4c"} />
-            </mesh>
+            {near && (
+              <mesh rotation-x={Math.PI / 2}>
+                <torusGeometry args={[8.8, 1.25, 10, 42]} />
+                <meshBasicMaterial color="#fff8df" />
+              </mesh>
+            )}
             <mesh position={[0, 4.8, 0]}>
               <coneGeometry args={[2.8, 7.2, 8]} />
               <meshToonMaterial color={near ? "#efbd49" : "#c85f4c"} />
             </mesh>
-            <Html
-              center
-              position={[0, 12.5, 0]}
-              distanceFactor={180}
-              transform
-              sprite
-              zIndexRange={[12, 0]}
-            >
-              <span
-                className="overview-poi-label-anchor"
-                data-overview-poi={poi.id}
-                style={overviewLabelStyle(OVERVIEW_POI_LABEL_OFFSETS[poi.id] ?? [0, 0])}
-              >
-                <span className={`overview-poi-label${near ? " is-near" : ""}`}>
-                  {poi.name}
-                </span>
-              </span>
-            </Html>
           </group>
         );
       })}
@@ -1659,7 +1621,7 @@ function AutumnLightRig({
           ? atmosphere.sunIntensity.explore
           : atmosphere.sunIntensity.overview}
         color={atmosphere.sunColor}
-        castShadow
+        castShadow={exploring}
         shadow-mapSize-width={exploring && !lowTier ? 2048 : 1024}
         shadow-mapSize-height={exploring && !lowTier ? 2048 : 1024}
         shadow-camera-near={lightingV3 ? 1 : 0.5}

@@ -25,6 +25,7 @@ test("探索态建立可读的秋日下午方向光与局部阴影", async () =>
   assert.match(world, /shadow-camera-left=\{exploring \? \(lightingV3 \? -48 : -72\) : -240\}/);
   assert.match(world, /shadow-camera-right=\{exploring \? \(lightingV3 \? 48 : 72\) : 240\}/);
   assert.match(world, /shadow-mapSize-width=\{exploring && !lowTier \? 2048 : 1024\}/);
+  assert.match(world, /castShadow=\{exploring\}/);
   assert.match(world, /<Shadow[\s\S]*?scale=\{\[1\.05, 4\.4, 1\]\}/);
   assert.match(experience, /shadows="percentage"/);
   assert.doesNotMatch(world, /xinhua-lighting-qa|__xinhuaLightingQA/);
