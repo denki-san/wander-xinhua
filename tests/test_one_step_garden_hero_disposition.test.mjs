@@ -140,7 +140,7 @@ function auditTriangles(json, binary) {
   };
 }
 
-test("一号花园旧 Hero 冻结为 Hold，公共 registry 与 Identity 授权保持不变", async () => {
+test("一号花园旧 Hero 冻结为 Hold，Identity 候选不改变公共 registry", async () => {
   const disposition = await readJson(dispositionPath);
   const gates = await readJson("docs/research/one-step-garden-blender-mcp-gates.json");
   const registry = await readJson("app/scene/xinhua-road-landmarks-data.json");
@@ -158,14 +158,21 @@ test("一号花园旧 Hero 冻结为 Hold，公共 registry 与 Identity 授权�
   assert.equal(gates.identityGate.legacyHeroMayBeIdentitySource, false);
   assert.equal(
     gates.identityGate.status,
-    "authorized-but-paused-for-main-window-gate-checkpoint-integration",
+    "candidate-awaiting-main-window-mcp3",
   );
   assert.equal(disposition.replacementCandidate.identityAuthorized, true);
   assert.equal(disposition.replacementCandidate.identityLineage.sourceMcp2, "pass");
   assert.equal(
     disposition.replacementCandidate.identityLineage.identityDerivationStarted,
-    false,
+    true,
   );
+  assert.equal(
+    disposition.replacementCandidate.identityLineage.identityCandidateCompleted,
+    true,
+  );
+  assert.equal(disposition.replacementCandidate.identityLineage.mcp3, "pending-main-window");
+  assert.equal(disposition.replacementCandidate.identityLineage.identityFormalPass, false);
+  assert.equal(disposition.replacementCandidate.identityLineage.runtimeIntegrated, false);
   assert.equal(landmark.model, "/models/xinhua-road/one-step-garden.glb");
   assert.equal(landmark.cacheVersion, "20260718-detail-1");
 });

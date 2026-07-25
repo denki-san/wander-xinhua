@@ -1,0 +1,425 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "one-step-garden",
+  "tier": "identity",
+  "versionName": "identity-v1",
+  "status": "headless-candidate-awaiting-main-window-mcp3",
+  "generator": {
+    "path": "scripts/create_one_step_garden_identity_model.py",
+    "sha256": "d336d31efd4608d015643b5227a2bcf5d075ff2889a5b15fec1f4480212249b4",
+    "bytes": 35901
+  },
+  "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_one_step_garden_identity_model.py",
+  "blenderVersion": "5.2.0 LTS",
+  "derivedFrom": {
+    "tier": "hero",
+    "heroMcp2": "pass",
+    "heroBuildRecord": "docs/research/build-records/tiers/xinhua-road/hero-v2/one-step-garden-hero.json",
+    "heroGenerator": {
+      "path": "scripts/create_one_step_garden_hero_model.py",
+      "sha256": "b536e1d32630b0ee3262d98029ba384bfa610f392316dad7dd658141124b30b8",
+      "bytes": 62104
+    },
+    "heroEditableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend",
+      "sha256": "8f5c3984abef50239f1ece5e5360887d8615786cb6283bf60d85f80bd12f21bd",
+      "bytes": 139526
+    },
+    "heroRuntimeAsset": {
+      "path": "public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb",
+      "sha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+      "bytes": 259772
+    },
+    "heroGlbSha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+    "heroBlendSha256": "8f5c3984abef50239f1ece5e5360887d8615786cb6283bf60d85f80bd12f21bd",
+    "heroGeneratorSha256": "b536e1d32630b0ee3262d98029ba384bfa610f392316dad7dd658141124b30b8",
+    "massingGlbSha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+    "massingBlendSha256": "a4c0e0fba996f139a88344b6f39a8a2509326ba7018206dc888231fab6474388"
+  },
+  "derivation": {
+    "method": "sha-pinned-hero-generator-subset-reconstruction-with-simplified-window-panels",
+    "manualRemodeling": false,
+    "newSubjectFeaturesInvented": false,
+    "preservedCues": [
+      "front-white-u-shaped-compound",
+      "front-half-timber-street-gables",
+      "front-five-narrow-shed-dormer-windows",
+      "front-open-entry-canopy",
+      "separate-rear-red-brick-long-house",
+      "rear-twin-gables-and-two-chimneys",
+      "open-front-rear-building-gap"
+    ],
+    "deliberateLosses": [
+      "full-window-frame-mullions-and-midrails",
+      "two-of-four-upper-courtyard-windows",
+      "half-of-side-courtyard-window-rhythm",
+      "fine-rear-window-divisions"
+    ],
+    "unknownSides": "kept-low-detail"
+  },
+  "scope": {
+    "included": "one-step-garden-building-identity-only",
+    "excluded": [
+      "trees",
+      "shrubs",
+      "grass",
+      "commercial-furniture",
+      "umbrellas",
+      "planters",
+      "lamps",
+      "fences",
+      "signage",
+      "decorative-paving",
+      "other-buildings",
+      "full-map-assets"
+    ]
+  },
+  "continuity": {
+    "origin": "pass-shared-zero-origin",
+    "bounds": "pass-exact-hero-and-massing-bounds",
+    "authoredFront": "local-negative-y",
+    "groundDatum": 0,
+    "sceneUnitMeters": 2.7,
+    "runtimePosition": [
+      60.86,
+      120.73
+    ],
+    "runtimeYaw": -0.38,
+    "runtimeScale": 0.88,
+    "collision": "reuse-eight-part-massing-collision-with-open-entry-and-gap"
+  },
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/identity-v1/one-step-garden-identity.blend",
+      "sha256": "9ecc551a8e9ff1c950949ca1bbf9ea1fdf13c81ab48acf876d5bbd2ad6687022",
+      "bytes": 117906
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/identity-v1/one-step-garden-identity.glb",
+      "sha256": "928ecfcace4a35e88ad68d34a2369fa673457275393ea65d8649d9de433b0497",
+      "bytes": 112456,
+      "cacheVersion": "20260725-identity-928ecfca"
+    },
+    "previews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1-canonical.png",
+        "sha256": "56f6594fa9c7ca13b5c45477101471192e375c4e68b52466902236b20cc8418b",
+        "bytes": 895147
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1-side-depth.png",
+        "sha256": "b321ff8e692d3dc45e5e3a7d624b74c937b8e64f6f4124642e4e64e4604ec8c7",
+        "bytes": 872630
+      },
+      "entranceDetail": {
+        "path": "test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1-entrance-detail.png",
+        "sha256": "a550f5abdf2159a251f22954037716372fb1e1e8bae7e1d2de6d7d804b2e189b",
+        "bytes": 937522
+      }
+    }
+  },
+  "fixedCameras": {
+    "canonical": {
+      "location": [
+        13.5,
+        -23.5,
+        14.0
+      ],
+      "target": [
+        0.0,
+        0.0,
+        2.8
+      ],
+      "orthoScale": 22.0
+    },
+    "sideDepth": {
+      "location": [
+        -22.0,
+        -4.0,
+        15.5
+      ],
+      "target": [
+        0.0,
+        2.0,
+        2.8
+      ],
+      "orthoScale": 22.0
+    },
+    "entrance": {
+      "location": [
+        7.0,
+        -18.5,
+        8.5
+      ],
+      "target": [
+        0.0,
+        -2.5,
+        2.2
+      ],
+      "orthoScale": 14.5
+    }
+  },
+  "blendSceneAudit": {
+    "objectCount": 1,
+    "objects": [
+      "one-step-garden-identity"
+    ],
+    "types": [
+      "MESH"
+    ],
+    "vertices": 996,
+    "polygons": 752,
+    "materialCount": 6,
+    "rootLocation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rootRotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rootScale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "materials": [
+      {
+        "name": "one-step-garden-identity-dark-tile-roof",
+        "useNodes": true,
+        "baseColor": [
+          0.12,
+          0.15,
+          0.15,
+          1.0
+        ],
+        "roughness": 0.88,
+        "metallic": 0.0
+      },
+      {
+        "name": "one-step-garden-identity-deep-half-timber",
+        "useNodes": true,
+        "baseColor": [
+          0.045,
+          0.065,
+          0.06,
+          1.0
+        ],
+        "roughness": 0.88,
+        "metallic": 0.0
+      },
+      {
+        "name": "one-step-garden-identity-muted-brick",
+        "useNodes": true,
+        "baseColor": [
+          0.4,
+          0.16,
+          0.11,
+          1.0
+        ],
+        "roughness": 0.88,
+        "metallic": 0.0
+      },
+      {
+        "name": "one-step-garden-identity-muted-glass",
+        "useNodes": true,
+        "baseColor": [
+          0.09,
+          0.19,
+          0.18,
+          1.0
+        ],
+        "roughness": 0.38,
+        "metallic": 0.0
+      },
+      {
+        "name": "one-step-garden-identity-warm-plaster",
+        "useNodes": true,
+        "baseColor": [
+          0.82,
+          0.78,
+          0.69,
+          1.0
+        ],
+        "roughness": 0.88,
+        "metallic": 0.0
+      },
+      {
+        "name": "one-step-garden-identity-window-frame",
+        "useNodes": true,
+        "baseColor": [
+          0.035,
+          0.085,
+          0.075,
+          1.0
+        ],
+        "roughness": 0.88,
+        "metallic": 0.0
+      }
+    ],
+    "allMaterialsUseNodes": true,
+    "previewHelpersSaved": false,
+    "previewHelpersExported": false
+  },
+  "rootExtras": {
+    "asset_id": "one-step-garden",
+    "tier": "identity",
+    "version": "identity-v1",
+    "authored_front": "local-negative-y",
+    "scene_unit_meters": 2.7,
+    "derived_from_hero_glb_sha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+    "derived_from_hero_blend_sha256": "8f5c3984abef50239f1ece5e5360887d8615786cb6283bf60d85f80bd12f21bd",
+    "derived_from_hero_generator_sha256": "b536e1d32630b0ee3262d98029ba384bfa610f392316dad7dd658141124b30b8",
+    "derived_from_massing_glb_sha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+    "preserved_identity_cues": "front-white-u-compound;half-timber-gables;five-narrow-dormer-windows;open-entry-canopy;separate-rear-brick-long-house;rear-twin-gables-and-two-chimneys;open-front-rear-gap",
+    "deliberate_losses": "dense-window-mullions;two-upper-courtyard-windows;half-of-side-courtyard-windows;minor-rear-window-divisions",
+    "scope_exclusions": "trees;shrubs;grass;furniture;umbrellas;planters;lamps;fences;signage;decorative-paving;other-buildings",
+    "mcp3_status": "pending-main-window",
+    "runtime_integrated": false
+  },
+  "glb": {
+    "sha256": "928ecfcace4a35e88ad68d34a2369fa673457275393ea65d8649d9de433b0497",
+    "bytes": 112456,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 6,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "triangles": 1484,
+    "topology": {
+      "zeroAreaTriangles": 0,
+      "nonFinitePositions": 0,
+      "invalidIndices": 0,
+      "zeroAreaByMaterial": {}
+    },
+    "normals": {
+      "primitivesWithoutNormals": 0,
+      "zeroLengthNormals": 0,
+      "nonUnitNormals": 0,
+      "orientationMismatches": 0,
+      "mismatchByMaterial": {}
+    },
+    "bounds": {
+      "min": [
+        -7.25,
+        0,
+        -9.325
+      ],
+      "max": [
+        7.25,
+        6.25,
+        6.9
+      ]
+    },
+    "materialFactors": [
+      {
+        "name": "one-step-garden-identity-muted-glass",
+        "baseColorFactor": [
+          0.09,
+          0.19,
+          0.18,
+          1.0
+        ],
+        "roughnessFactor": 0.38,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "one-step-garden-identity-warm-plaster",
+        "baseColorFactor": [
+          0.82,
+          0.78,
+          0.69,
+          1.0
+        ],
+        "roughnessFactor": 0.88,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "one-step-garden-identity-dark-tile-roof",
+        "baseColorFactor": [
+          0.12,
+          0.15,
+          0.15,
+          1.0
+        ],
+        "roughnessFactor": 0.88,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "one-step-garden-identity-muted-brick",
+        "baseColorFactor": [
+          0.4,
+          0.16,
+          0.11,
+          1.0
+        ],
+        "roughnessFactor": 0.88,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "one-step-garden-identity-deep-half-timber",
+        "baseColorFactor": [
+          0.045,
+          0.065,
+          0.06,
+          1.0
+        ],
+        "roughnessFactor": 0.88,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "one-step-garden-identity-window-frame",
+        "baseColorFactor": [
+          0.035,
+          0.085,
+          0.075,
+          1.0
+        ],
+        "roughnessFactor": 0.88,
+        "metallicFactor": 0.0
+      }
+    ],
+    "transformedNodes": []
+  },
+  "budgets": {
+    "contract": {
+      "maxTriangles": 1800,
+      "maxNodes": 1,
+      "maxMeshes": 1,
+      "maxMaterials": 6,
+      "maxImages": 0,
+      "maxTextures": 0,
+      "maxAnimations": 0,
+      "maxBytes": 205000
+    },
+    "heroBaseline": {
+      "triangles": 3584,
+      "bytes": 259772,
+      "materials": 7
+    },
+    "triangleReductionRatio": 0.585938,
+    "byteReductionRatio": 0.567097,
+    "status": "pass"
+  },
+  "determinism": {
+    "sameCommandRuns": 2,
+    "sameGlbSha256": true,
+    "verification": "external-two-clean-command-runs-on-2026-07-25"
+  },
+  "mcp3": {
+    "status": "pending-main-window-same-camera-three-tier-review",
+    "identityFormalPass": false,
+    "acceptedInteractiveChanges": [],
+    "qaRigSaved": false,
+    "qaRigExported": false
+  },
+  "runtime": {
+    "status": "not-started-by-worktree",
+    "publicRegistryModified": false,
+    "runtimeIntegrated": false
+  }
+}
