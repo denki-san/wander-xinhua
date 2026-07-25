@@ -6953,7 +6953,7 @@ bounded Headless command with approved unsandboxed execution before changing mod
   Massing Blend、GLB 和三张固定机位图。模型代码无需为该启动崩溃修改。
 
 ---
-## [ERR-20260725-043] house315_hero_detail_exceeded_frozen_massing_bounds
+## [ERR-20260725-049] house315_hero_detail_exceeded_frozen_massing_bounds
 
 **Logged**: 2026-07-25T22:19:21+08:00
 **Priority**: high
