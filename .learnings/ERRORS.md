@@ -6533,3 +6533,147 @@ ENOENT: no such file or directory, scandir
 ### Resolution
 - **Resolved**: 2026-07-25T19:12:00+08:00
 - **Notes**: 构建完成后串行重跑全仓 Node 测试和范围专项测试。
+
+---
+
+## [ERR-20260725-021] recovery_worktree_missing_public_glb_auditor
+
+**Logged**: 2026-07-25T19:40:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+在 recovery/Hold Worktree 内直接调用公共 GLB 审计脚本失败，因为该恢复快照的
+基线早于 `scripts/audit_glb.py` 的公开提交。
+
+### Error
+```text
+/Applications/Xcode.app/Contents/Developer/usr/bin/python3: can't open file
+'/Users/lei/App_developing/wander-xinhua-all-models-v3/scripts/audit_glb.py':
+[Errno 2] No such file or directory
+```
+
+### Context
+- 只读审计 recovery commit `3044cd89` 中的 `film-art-center` Massing V2。
+- 目标 GLB 存在；缺少的是 recovery Worktree 内的审计工具，不是资产本身。
+
+### Suggested Fix
+从含公共审计脚本的当前建筑 Worktree 运行绝对脚本路径，并把 recovery GLB 作为
+绝对目标参数；不要因此复制、修改或提交 Hold Worktree。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/audit_glb.py
+
+### Resolution
+- **Resolved**: 2026-07-25T19:40:00+08:00
+- **Notes**: 改用当前建筑 Worktree 的公共审计脚本读取 recovery GLB。
+
+---
+
+## [ERR-20260725-022] blender_5_2_metal_detection_crash_before_script
+
+**Logged**: 2026-07-25T19:48:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Blender 5.2 Headless 在执行单建筑脚本前，于 Metal 后端探测阶段崩溃。
+
+### Error
+```text
+Blender 5.2.0
+supports_barycentric_whitelist
+MTLBackend::metal_is_supported
+GPU_backend_type_selection_detect
+wm_homefile_read_ex
+WM_init
+```
+
+### Context
+- 命令包含 `--background --python-exit-code 1 --python`。
+- crash 发生在 `WM_init`，Python backtrace 为空；生成器尚未创建任何产物。
+- 同轮 `Blender --version` 正常，因此不是二进制缺失。
+
+### Suggested Fix
+下一次用 `--factory-startup` 绕过用户 homefile，并确认是否存在并发 Blender
+初始化；若仍崩溃，再等待共享 Blender/MCP 空闲或切换已验证的 Headless 启动参数。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: scripts/create_film_art_center_massing_model.py
+
+### Resolution
+- **Resolved**: 2026-07-25T19:52:00+08:00
+- **Notes**: 同一命令在受控沙箱外成功进入 Python 脚本，确认沙箱内 Metal 探测是
+  启动阻断；后续 Headless 生成使用已授权的 Blender 前缀。
+
+---
+
+## [ERR-20260725-023] blender_python_script_directory_not_on_sys_path
+
+**Logged**: 2026-07-25T19:53:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Blender `--python` 执行独立生成器时未自动把 `scripts/` 目录加入模块搜索路径。
+
+### Error
+```text
+ModuleNotFoundError: No module named 'create_xinhua_road_models'
+```
+
+### Context
+- 新生成器只复用同目录 Hero 生成器的确定性几何 helper。
+- 沙箱外 Blender 已成功执行到 Python import，说明 Metal 启动问题已分离。
+
+### Suggested Fix
+在独立生成器导入同目录模块前，将 `Path(__file__).resolve().parent` 显式加入
+`sys.path`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_film_art_center_massing_model.py
+
+### Resolution
+- **Resolved**: 2026-07-25T19:53:00+08:00
+- **Notes**: 生成器已显式固定同目录模块搜索路径。
+
+---
+
+## [ERR-20260725-024] film_art_massing_initial_budget_too_low
+
+**Logged**: 2026-07-25T19:56:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: config
+
+### Summary
+上海电影艺术中心 Massing 首次结构产物略超预设预算，生成器按门禁主动失败。
+
+### Error
+```text
+RuntimeError: Massing 超出预算：
+225448 bytes, 3160 triangles, 1 node, 6 materials, 0 images
+```
+
+### Context
+- 初始预算为 2,500 triangles / 220,000 bytes。
+- 候选需保留双层前廊、双重起翘屋顶、中央凉廊和两侧低翼，不能压回 generic box。
+- 当前三角面约为冻结 Hero 的 4.97%，二进制约为 5.52%。
+
+### Suggested Fix
+将 Massing 预算校准为 4,000 triangles / 300,000 bytes；保持 1–2 nodes、
+6 materials、0 images 的硬约束，不删除证据支持的身份轮廓。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_film_art_center_massing_model.py
+
+### Resolution
+- **Resolved**: 2026-07-25T19:56:00+08:00
+- **Notes**: 预算已按实际复杂度与 Hero 比例校准；待重建验证。
