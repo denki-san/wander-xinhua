@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "assetId": "xinhua-community-center",
+  "candidateStatus": "building-complete-main-window-gates-pending",
+  "modelSha256": "ebe89d49194b14ca5a5d65303403dd73502e6b11dce362368199d95a85e74eca",
+  "registryCandidate": {
+    "model": "/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb",
+    "cacheVersion": "20260726-massing-ebe89d49",
+    "position": [
+      -74.78057782060566,
+      112.5501903703319
+    ],
+    "yaw": 1.1800125527954972,
+    "scale": 1,
+    "localBounds": {
+      "minX": -6.2328073354853455,
+      "maxX": 6.3375736373407205,
+      "minZ": -2.6093047586433475,
+      "maxZ": 2.2995
+    },
+    "localObstacles": [
+      {
+        "minX": -6.2328073354853455,
+        "maxX": 6.3375736373407205,
+        "minZ": -2.6093047586433475,
+        "maxZ": 2.0344502538968166
+      }
+    ],
+    "start": [
+      -71.98492826590126,
+      113.6132895446705
+    ],
+    "forward": [
+      -0.9310421906207795,
+      -0.3649115499460933
+    ],
+    "positioning": "osm-node-13765678129-containing-way-864493234-front-road-577252269"
+  },
+  "fastManifestCandidate": {
+    "tests": [
+      "tests/test_requested_poi_models.test.mjs",
+      "tests/test_xinhua_community_center_massing_v2.test.mjs"
+    ],
+    "glbs": [
+      "public/models/requested-pois/xinhua-community-center.glb",
+      "public/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb"
+    ],
+    "runtimeRoutes": [
+      "/?start=community-center&qaModelId=xinhua-community-center&qaModelTier=massing&cameraQa=1&qaAutoStart=1"
+    ]
+  },
+  "mainWindowGates": [
+    "Blender MCP 1 canonical/side/entrance review",
+    "scoped Three.js visibility and exact resource SHA",
+    "road-surface-width and ground-contact review",
+    "deterministic collision approach and walkaround"
+  ]
+}
