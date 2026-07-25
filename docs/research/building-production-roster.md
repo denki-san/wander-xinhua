@@ -3,7 +3,7 @@
 - 审计日期：2026-07-25
 - 主窗口 Git 基线：`main` / `origin/main` /
   `fc96800edb39cf2745ea328237aedb3a86e1f7f5`
-- 18 栋集成分支：`codex/integrate-18-buildings` / `8edac99`
+- 18 栋集成分支：`codex/integrate-18-buildings` / through `b785fc2`
 - 范围权威：
   - `app/asset-library/asset-data.ts`
   - `app/scene/xinhua-road-landmarks-data.json`
@@ -14,7 +14,8 @@
 
 - `in-scope`：属于本轮 18 栋，尚未满足新目标的全部门禁。
 - `done`：证据、Hero / Identity / Massing、Blender MCP 三道门、地图校准和 Three.js 运行时均有当前证据。
-- `blocked-evidence`：证据不足，允许继续 Massing，但不得把 Hero 或 Identity 标为完成。
+- `blocked-evidence`：证据不足，只能继续补证；没有主体边界和纵深约束时不得制作
+  正式 Massing，更不得把 Hero 或 Identity 标为完成。
 - `hold`：不属于 18 栋；只读保留，不删除、不覆盖、不纳入完成数量。
 
 历史成果默认先审计、再保留，不因新流程自动重建。旧 Brief 中的
@@ -25,9 +26,9 @@
 | # | Stable asset ID | 建筑资产 | 当前可保留成果 | 新目标状态 | 下一项缺口 |
 | ---: | --- | --- | --- | --- | --- |
 | 1 | `shanghai-cinema` | 上海影城 | Hero、Hybrid Identity composite、正式 Massing；MCP 1/2/3、实际地图门、三档与双 fallback Three.js 终验均有当前证据；主窗口保留 Overview Hold 后选择性整合至 `129ea56` | `done` / source `633a0de` / integrated `129ea56` | 无；Identity 必须继续按 ProgrammaticBody + Identity GLB + RepeatedDetails composite 解释，不能把 standalone GLB 误称完整 Identity |
-| 2 | `film-art-center` | 上海电影艺术中心 | 冻结 Hero `.blend/.glb` 与既有 canonical 运行时验收；新确定性 Massing 候选 `6d0206d` 已通过主窗口 MCP 1，recovery generic box 只留作反例 | `in-scope` / active Worktree `6d0206d` | 先完成实际人物尺度与位置/朝向的地图门；通过前不得进入 Identity，MCP 2/3 与三级运行时仍待完成 |
-| 3 | `one-step-garden` | 一尺花园 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/三张证据及 clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 审计证据与多体量 footprint，完成三档和全部门禁 |
-| 4 | `xinhua-villas-211` | 新华别墅·211弄 | 旧 Hero `.blend/.glb`、单张建筑群证据、旧运行时截图 | `in-scope` / legacy Hero baseline | 明确代表建筑/群组边界，补视角证据、三档和全部门禁 |
+| 2 | `film-art-center` | 上海电影艺术中心 | 冻结 Hero、确定性 Massing、主窗口 MCP 1 与正式地图门已通过；recovery generic box 只留作反例 | `blocked-mcp2-topology` / active Worktree through `d3b9cda` | Hero 视觉通过但 joined mesh 有 76 个零面积面，其中 4 个在主/次屋顶端帽；必须由确定性生成器清理、重建并重跑 MCP 2，Identity 继续锁定 |
+| 3 | `one-step-garden` | 一尺花园 | Evidence Gate 已通过；拒绝五个未绑定 OSM 平顶盒，新的分体 Massing 候选 `bf07d51` 已由主窗口通过 MCP 1 | `in-scope` / active Worktree `bf07d51` | 固化 MCP 1 记录后进入正式地图门；Identity/Hero 在地图门前继续锁定 |
+| 4 | `xinhua-villas-211` | 新华别墅·211弄 | 旧 Hero 仅作保留基线；三张 Recovery 官方证据与边界审计已整合至 `b785fc2` | `blocked-evidence` / source `f53e39b` | 当前只能证明复合院落入口与局部 1号/2号建筑，缺同一 compound 的侧向纵深和成员空间绑定；不得采用旧四栋排布或制作正式 Massing |
 | 5 | `xinhua-villas-329` | 新华别墅·329弄 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/两张证据及 clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 明确代表建筑/群组边界，审计候选 Massing，完成全部门禁 |
 | 6 | `house-315` | 新华路315号住宅 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/两张证据及 provisional Massing | `in-scope` / legacy Hero baseline | 补侧向/纵深 unknown，重验 Massing 与全部门禁 |
 | 7 | `villa-le-bec` | Villa Le Bec | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/六张候选证据及 clean-v2 Massing | `in-scope` / legacy Hero baseline | 核验候选证据、场地平面和 footprint，完成全部门禁 |
