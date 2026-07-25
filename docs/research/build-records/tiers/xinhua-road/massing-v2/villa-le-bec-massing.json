@@ -1,0 +1,241 @@
+{
+  "version": 2,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:villa-le-bec",
+  "tier": "massing",
+  "batch": "clean-footprint-v2",
+  "status": "runtime-pass-formal-map-gate-blocked-evidence",
+  "generator": "scripts/create_xinhua_road_clean_massing_models.py",
+  "generatorSha256": "596ce3f3abf8134bbf43f0fb70075984be84739e03f416c52865e3bcbc13d8d9",
+  "sourceCheckpoint": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+  "worktreeBase": "222e7eb",
+  "generationRepeated": false,
+  "geometrySpec": "docs/research/xinhua-road-clean-massing-geometry-spec.json",
+  "modelBrief": "docs/research/xinhua-road-massing-model-brief.md",
+  "placement": {
+    "position": [
+      -34.1,
+      88.8
+    ],
+    "yaw": -0.38,
+    "scale": 0.82,
+    "movementAuthorized": false
+  },
+  "candidateStatus": "audit-only-role-pools",
+  "membershipConfidence": "low",
+  "heightEvidence": {
+    "previewMeters": 10.5,
+    "localSceneUnits": 4.742547,
+    "status": "unknown-runtime-fallback-not-evidence"
+  },
+  "unknown": [
+    "main villa and former garage way mapping",
+    "garden boundary",
+    "surveyed heights and roofs",
+    "historic versus restaurant entrance"
+  ],
+  "children": [
+    {
+      "name": "osm-way-864493176",
+      "sourceWayId": 864493176,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 137.2,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          -0.968515,
+          -9.832885
+        ],
+        [
+          4.996285,
+          -9.704577
+        ],
+        [
+          4.869218,
+          -5.014079
+        ],
+        [
+          -1.095583,
+          -5.142387
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-864493175",
+      "sourceWayId": 864493175,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 85.2,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          6.53115,
+          -6.290767
+        ],
+        [
+          9.996342,
+          -6.217839
+        ],
+        [
+          9.866713,
+          -1.209116
+        ],
+        [
+          6.395668,
+          -1.285091
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-864493245",
+      "sourceWayId": 864493245,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 157.3,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          -10.968247,
+          10.069592
+        ],
+        [
+          -10.967911,
+          4.945841
+        ],
+        [
+          -4.704571,
+          4.917286
+        ],
+        [
+          -4.704901,
+          10.041021
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-864493246",
+      "sourceWayId": 864493246,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 230.7,
+      "triangles": 28,
+      "localFootprint": [
+        [
+          -2.967159,
+          7.551265
+        ],
+        [
+          1.02201,
+          7.533189
+        ],
+        [
+          1.022966,
+          13.645662
+        ],
+        [
+          3.587632,
+          13.632037
+        ],
+        [
+          3.589409,
+          18.158166
+        ],
+        [
+          -1.970598,
+          18.185379
+        ],
+        [
+          -1.971458,
+          11.18041
+        ],
+        [
+          -2.96529,
+          11.184887
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-864493247",
+      "sourceWayId": 864493247,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 186.8,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          6.523578,
+          11.104566
+        ],
+        [
+          6.520847,
+          5.799244
+        ],
+        [
+          13.708862,
+          5.766954
+        ],
+        [
+          13.709733,
+          11.067622
+        ]
+      ]
+    }
+  ],
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v2/villa-le-bec-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v2-canonical.png",
+      "side": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v2-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "8eabb87a0208294c226ecea5077f9833eceb885c2796ea00af88cab9172e96ec",
+    "bytes": 8832,
+    "nodes": 5,
+    "meshes": 5,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 76,
+    "bounds": {
+      "min": [
+        -10.968247,
+        0,
+        -18.185379
+      ],
+      "max": [
+        13.709733,
+        4.742548,
+        9.832885
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": "pass",
+  "mcp1": "pending-main-window-batch",
+  "mapAcceptance": "blocked",
+  "mapGateRecord": "docs/research/villa-le-bec-massing-map-gate.json",
+  "mapBlocker": "five-osm-footprints-remain-unbound-to-main-villa-former-garage-and-entry",
+  "identityAllowed": false,
+  "runtimeGeometryVisual": "pass",
+  "runtimeQa": {
+    "file": "docs/research/xinhua-road-clean-massing-runtime-qa.json",
+    "contextScreenshot": {
+      "file": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v2-threejs.png",
+      "sha256": "d6d9490b4fa19dcde5f9f794c0e17d5e0fe127d07f15c9f0a2bfca81301ebe64",
+      "bytes": 54737
+    },
+    "isolatedScreenshot": {
+      "file": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v2-threejs-isolated.png",
+      "sha256": "5bc54b96f99edaeb006bd1c6991aee281e79ecddfb254a257232d541613db850",
+      "bytes": 58084
+    }
+  }
+}
