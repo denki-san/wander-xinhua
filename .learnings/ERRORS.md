@@ -6499,3 +6499,37 @@ Worktree 元数据或手工复制整棵提交。
 ### Resolution
 - **Resolved**: 2026-07-25T19:05:00+08:00
 - **Notes**: 保留失败现场无冲突状态，改用同一条明确提交的受控提权重试。
+
+---
+## [ERR-20260725-020] build_and_rendered_tests_parallel_race
+
+**Logged**: 2026-07-25T19:12:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+将 `build:static` 与读取 `dist-static` 的全仓 Node 测试并行执行，测试在构建
+完成前访问产物，产生 3 个 `ENOENT` 假失败。
+
+### Error
+```text
+ENOENT: no such file or directory, scandir
+'.../.worktrees/integration-18-buildings/dist-static/assets/'
+```
+
+### Context
+- `build:static` 自身成功，lint、孙科专项测试和 GLB audit 均成功。
+- 失败测试只依赖构建产物，不是源码或资产回归。
+
+### Suggested Fix
+任何读取 `dist-static` 的测试必须排在 `npm run build:static` 完成之后；lint 和
+不读取构建产物的审计可以并行。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/rendered-html.test.mjs, tests/test_progressive_world_loading.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T19:12:00+08:00
+- **Notes**: 构建完成后串行重跑全仓 Node 测试和范围专项测试。
