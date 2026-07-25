@@ -6533,3 +6533,45 @@ ENOENT: no such file or directory, scandir
 ### Resolution
 - **Resolved**: 2026-07-25T19:12:00+08:00
 - **Notes**: 构建完成后串行重跑全仓 Node 测试和范围专项测试。
+## [ERR-20260725-065] category_cherry_pick_shared_log_conflict
+
+**Logged**: 2026-07-25T23:59:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: config
+
+### Summary
+
+把幸福里街具类别提交移植到当前 `main` 基线时，提交内的共享
+`.learnings/ERRORS.md` 与主线发生内容冲突。
+
+### Error
+
+```text
+CONFLICT (content): Merge conflict in .learnings/ERRORS.md
+error: could not apply f9ed4dd... feat: add evidence-backed xingfuli street furniture
+```
+
+### Context
+
+- 模型、GLB、证据、独立 QA 与测试文件均正常套用；
+- 冲突文件只是内部错误日志，不是类别运行时依赖；
+- 主工作树还有用户的并行未提交修改，不能直接覆盖或暂存。
+
+### Suggested Fix
+
+类别集成提交保留当前主线日志并排除该共享文件；模型源分支继续保留完整原始
+日志。以后可将任务日志拆成类别独立文件，避免跨基线 cherry-pick 冲突。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+
+- **Resolved**: 2026-07-25T23:59:00+08:00
+- **Notes**: 已恢复主线版本并退出 cherry-pick sequencer；其余类别文件保持
+  staged，等待独立集成提交。
+
+---
