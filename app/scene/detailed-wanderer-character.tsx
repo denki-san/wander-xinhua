@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, type RefObject } from "react";
 import { Group, type Object3D } from "three";
 import { inputState } from "./input";
 
-const CHARACTER_MODEL_PATH = "/models/character/rain-summer-wanderer.glb?v=f9721e54f034";
+const CHARACTER_MODEL_PATH = "/models/character/rain-summer-wanderer.glb?v=bb6bb96b2376";
 const CHARACTER_VISUAL_SCALE = 1.3;
 
 export default function DetailedWandererCharacter({
@@ -35,6 +35,11 @@ export default function DetailedWandererCharacter({
   }, [scene]);
   const { actions } = useAnimations(animations, model);
   const activeAction = useRef<string | null>(null);
+  const qaMotion = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    const value = new URLSearchParams(window.location.search).get("qaMotion");
+    return value === "walk" || value === "run" ? value : null;
+  }, []);
 
   useEffect(() => {
     const idle = actions.Idle_Neutral;
@@ -50,9 +55,13 @@ export default function DetailedWandererCharacter({
     const keyboardMoving =
       inputState.forward || inputState.back || inputState.left || inputState.right;
     const moveStrength = analogStrength > 0 ? analogStrength : (keyboardMoving ? 1 : 0);
-    const nextAction = moveStrength <= 0.02
-      ? "Idle_Neutral"
-      : (inputState.sprint ? "Run" : "Walk");
+    const nextAction = qaMotion === "run"
+      ? "Run"
+      : qaMotion === "walk"
+        ? "Walk"
+        : moveStrength <= 0.02
+          ? "Idle_Neutral"
+          : (inputState.sprint ? "Run" : "Walk");
 
     if (activeAction.current === nextAction) return;
     if (activeAction.current) actions[activeAction.current]?.fadeOut(0.16);

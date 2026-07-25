@@ -92,7 +92,7 @@ const STYLE_BY_ID = Object.fromEntries(
 ) as Record<StyleId, StyleContract>;
 
 const STYLE_URL_EVENT = "style-lab-url-change";
-const RAIN_CHARACTER_PATH = "/models/character/rain-summer-wanderer.glb?v=f9721e54f034";
+const RAIN_CHARACTER_PATH = "/models/character/rain-summer-wanderer.glb?v=bb6bb96b2376";
 
 function requestedStyle(): StyleId {
   if (typeof window === "undefined") return "atlas";

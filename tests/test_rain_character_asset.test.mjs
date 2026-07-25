@@ -95,8 +95,11 @@ test("Rain 候选的生成器、来源哈希与 CC-BY 署名可追溯", async ()
   assert.equal(parsedRecord.output.sha256, createHash("sha256").update(bytes).digest("hex"));
   assert.deepEqual(
     parsedWeightAudit.Rain_shoes.map(({ name }) => name).sort(),
-    ["Foot.L", "Foot.R"],
+    ["LowerLeg.L", "LowerLeg.R"],
   );
+  assert.equal(parsedWeightAudit._constraints.bodyFeetAndShoesRigidToLowerLeg, true);
+  assert.equal(parsedWeightAudit._constraints.rigidFootViolationCount, 0);
+  assert.match(generator, /rigid_body_foot_weight/);
 });
 
 test("Rain 短束低马尾和桌面手机证据对应同一 GLB", async () => {
@@ -130,6 +133,8 @@ test("Rain 短束低马尾和桌面手机证据对应同一 GLB", async () => {
     detailedCharacter,
     new RegExp(`rain-summer-wanderer\\.glb\\?v=${record.output.sha256.slice(0, 12)}`),
   );
+  assert.match(detailedCharacter, /get\("qaMotion"\)/);
+  assert.match(detailedCharacter, /qaMotion === "run"/);
   assert.match(source, /Rain Rig © Blender Foundation \| cloud\.blender\.org/);
   assert.equal(record.output.cacheVersion, record.output.sha256.slice(0, 12));
   assert.equal(record.status, "production-ready");

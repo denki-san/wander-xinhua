@@ -285,7 +285,7 @@ export const CHARACTER_ASSETS = [
     name: "雨季夏日漫游者",
     subtitle: "当前线上主角",
     status: "online",
-    model: "/models/character/rain-summer-wanderer.glb?v=f9721e54f034",
+    model: "/models/character/rain-summer-wanderer.glb?v=bb6bb96b2376",
     variants: ["第三人称角色", "内置移动动画"],
     instanceCount: 1,
     note: "仓库中另有 2 个历史角色文件，不计入线上资产数",

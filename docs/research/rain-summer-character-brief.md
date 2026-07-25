@@ -150,7 +150,7 @@ The current procedural summer character is rejected. Its capsule limbs, oversize
 - [x] Canonical, side, animation-grid and runtime `test_rain_` screenshots saved.
 - [x] Source / Blender / Three.js three-way comparison saved as `test_rain_summer_three-way-comparison.png`, ordered left to right.
 - [x] GLB nodes, bounds, triangles, materials, images, skin and animations audited.
-- [x] Final shoe weights locked to `Foot.L` and `Foot.R`; all vertex groups resolve to real bones.
+- [x] Final foot-skin and shoe weights locked to `LowerLeg.L` and `LowerLeg.R`; all vertex groups resolve to real bones.
 - [x] Actual style-lab desktop and mobile pages pass; mobile direction control moves the character and follow camera.
 - [x] Deterministic `qaMotion=walk|run` paths captured 12 real browser frames per action; the motion grid and MP4 show movement, cross-fades and follow-camera continuity without shoe stretching.
 - [x] Formal map now loads the same SHA-versioned Rain GLB at visual scale `1.3`; 1440×900 desktop and 390×844 mobile views pass with zero console errors.
@@ -214,3 +214,27 @@ The current procedural summer character is rejected. Its capsule limbs, oversize
   contact. Console application errors: `0`.
 - Scope boundary: collision, movement, jump, follow camera, body rig and animation
   logic were not changed.
+
+### Iteration 7
+
+- User finding: a lifted foot in the formal Run animation showed a long pointed
+  artifact below the shoe.
+- Root cause: `Rain_body` contains two disconnected bare-foot components. They
+  retained mixed `LowerLeg` / `Foot` weights, while the retargeted `Foot`
+  translation tracks do not match Rain's lower-leg length. The skin therefore
+  rotated away from the rigid shoe and crossed the sole.
+- Rejected fix: blending the jeans and ankle weights toward `Foot` created a
+  longer bridge between the incompatible bones and did not pass visual review.
+- Accepted fix: keep the jeans unchanged; bind each disconnected bare-foot
+  component and its shoe rigidly to the corresponding `LowerLeg`. This removes
+  the spike and preserves a continuous third-person silhouette, with reduced
+  independent ankle articulation as the explicit tradeoff.
+- Evidence: `test_rain_run_cycle_grid.png` covers 12 evenly spaced samples from
+  Run frames 0–47. The weight audit reports zero violations. The actual
+  `/?start=garden179&qaMotion=run` production build passes at 1440×900 and
+  390×844; side runtime captures show no shoe-bottom spike and no new console
+  errors.
+- Final GLB: SHA
+  `bb6bb96b2376afcbe1cdcee3ba9e92ad682dbaf362c0d6eb3b05c354b86dabed`;
+  size, triangles, nodes, meshes, materials, images, skin and animation names are
+  unchanged from Iteration 6.

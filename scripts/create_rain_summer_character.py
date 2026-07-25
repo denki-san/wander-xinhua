@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import sys
 from pathlib import Path
 
 import bpy
@@ -267,6 +268,14 @@ def mapped_weight_group(obj_name: str, source_group: str) -> str | None:
     return None
 
 
+def rigid_body_foot_weight(vertex) -> dict[str, float] | None:
+    """Rain_body 的脚是独立组件，应与鞋子刚性跟随同一小腿骨。"""
+    if vertex.co.z >= 0.35:
+        return None
+    side = "L" if vertex.co.x >= 0 else "R"
+    return {f"LowerLeg.{side}": 1.0}
+
+
 def rebuild_vertex_groups(obj) -> None:
     source_names = {group.index: group.name for group in obj.vertex_groups}
     mapped_by_vertex = []
@@ -274,7 +283,7 @@ def rebuild_vertex_groups(obj) -> None:
         if obj.name == "Rain_shoes":
             # 鞋面是刚性构件。电影级源骨架把鞋分散绑定到脚踝、脚掌和脚趾，
             # 直接压缩到游戏骨架会在抬腿时把鞋拉成长条；按原权重左右归属后，
-            # 整只鞋刚性跟随对应脚掌，保留造型并避免跨关节剪切。
+            # 整只鞋与独立脚皮一起跟随对应小腿，避开不兼容的 Foot 平移轨道。
             side_weights = {"L": 0.0, "R": 0.0}
             for membership in vertex.groups:
                 source_name = source_names[membership.group]
@@ -286,7 +295,7 @@ def rebuild_vertex_groups(obj) -> None:
                 side = "L" if vertex.co.x >= 0 else "R"
             else:
                 side = max(side_weights, key=side_weights.get)
-            mapped_by_vertex.append({f"Foot.{side}": 1.0})
+            mapped_by_vertex.append({f"LowerLeg.{side}": 1.0})
             continue
 
         weights: dict[str, float] = {}
@@ -297,6 +306,14 @@ def rebuild_vertex_groups(obj) -> None:
         if not weights:
             fallback = "Head" if any(token in obj.name for token in ("head", "hair", "eye")) else "Hips"
             weights[fallback] = 1.0
+
+        if obj.name == "Rain_body":
+            # 电影级 Rain 的裸脚与手臂共用一个对象，但脚部拓扑本身是独立组件。
+            # 旧动画的 Foot 平移轨道与 Rain 小腿长度不兼容；脚皮和鞋若跟随 Foot
+            # 会脱离裤脚，混合权重又会在 Run 抬脚相位穿出鞋底形成尖刺。
+            # 因此两个独立脚部组件与刚性鞋面统一跟随对应 LowerLeg。
+            weights = rigid_body_foot_weight(vertex) or weights
+
         total = sum(weights.values())
         mapped_by_vertex.append({name: value / total for name, value in weights.items()})
 
@@ -308,6 +325,45 @@ def rebuild_vertex_groups(obj) -> None:
     for vertex, weights in zip(obj.data.vertices, mapped_by_vertex):
         for name, weight in weights.items():
             groups[name].add([vertex.index], weight, "REPLACE")
+    if obj.name == "Rain_body":
+        obj["rain_body_foot_fix_version"] = 2
+
+
+def rigidify_vertices(obj, vertices, bone_for_vertex) -> None:
+    """把给定顶点重绑为单骨刚性权重。"""
+    indices = [vertex.index for vertex in vertices]
+    for group in obj.vertex_groups:
+        group.remove(indices)
+    groups = {}
+    for vertex in vertices:
+        bone = bone_for_vertex(vertex)
+        group = groups.get(bone) or obj.vertex_groups.get(bone)
+        if group is None:
+            group = obj.vertex_groups.new(name=bone)
+        groups[bone] = group
+        group.add([vertex.index], 1.0, "REPLACE")
+
+
+def repair_existing_body_and_shoe_weights() -> None:
+    """对现有可编辑 Blend 的独立脚皮和鞋执行刚性小腿权重修复。"""
+    body = bpy.data.objects["Rain_body"]
+    shoes = bpy.data.objects["Rain_shoes"]
+    if (
+        body.get("rain_body_foot_fix_version") == 2
+        and shoes.get("rain_shoe_fix_version") == 2
+    ):
+        return
+    lower_leg_for_vertex = lambda vertex: (
+        "LowerLeg.L" if vertex.co.x >= 0 else "LowerLeg.R"
+    )
+    rigidify_vertices(
+        body,
+        [vertex for vertex in body.data.vertices if vertex.co.z < 0.35],
+        lower_leg_for_vertex,
+    )
+    rigidify_vertices(shoes, list(shoes.data.vertices), lower_leg_for_vertex)
+    body["rain_body_foot_fix_version"] = 2
+    shoes["rain_shoe_fix_version"] = 2
 
 
 def assign_materials(obj, materials) -> None:
@@ -537,6 +593,26 @@ def write_build_record(meshes) -> None:
 
 
 def main() -> None:
+    if "--repair-existing" in sys.argv:
+        if not OUTPUT_BLEND.exists():
+            raise FileNotFoundError(f"缺少可局部修复的现有 Blend：{OUTPUT_BLEND}")
+        bpy.ops.wm.open_mainfile(filepath=str(OUTPUT_BLEND))
+        rig = bpy.data.objects["Rain_Summer_Rig"]
+        meshes = [
+            obj
+            for obj in bpy.data.objects
+            if obj.type == "MESH" and obj.parent == rig
+        ]
+        repair_existing_body_and_shoe_weights()
+        validate_vertex_groups(meshes, rig)
+        render_preview(meshes, "canonical", PREVIEW_DIR / "test_rain_summer_character_canonical.png")
+        render_preview(meshes, "side", PREVIEW_DIR / "test_rain_summer_character_side.png")
+        bpy.ops.wm.save_as_mainfile(filepath=str(OUTPUT_BLEND))
+        export_glb(meshes, rig)
+        write_build_record(meshes)
+        print(f"RAIN_SUMMER_CHARACTER_REPAIRED={OUTPUT_GLB}")
+        return
+
     ensure_source_loaded()
     OUTPUT_BLEND.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_GLB.parent.mkdir(parents=True, exist_ok=True)

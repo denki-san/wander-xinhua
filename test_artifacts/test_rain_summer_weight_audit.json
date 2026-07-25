@@ -22,11 +22,11 @@
     },
     {
       "name": "LowerLeg.L",
-      "weight": 203.937
+      "weight": 281.0
     },
     {
       "name": "LowerLeg.R",
-      "weight": 203.937
+      "weight": 281.0
     },
     {
       "name": "Shoulder.L",
@@ -125,14 +125,6 @@
       "weight": 79.869
     },
     {
-      "name": "Foot.L",
-      "weight": 77.063
-    },
-    {
-      "name": "Foot.R",
-      "weight": 77.063
-    },
-    {
       "name": "Thumb2.L",
       "weight": 71.621
     },
@@ -225,12 +217,6 @@
       "weight": 2204.0
     }
   ],
-  "Rain_hair_ponytail": [
-    {
-      "name": "Head",
-      "weight": 579.0
-    }
-  ],
   "Rain_hair_strand": [
     {
       "name": "Head",
@@ -305,11 +291,11 @@
   ],
   "Rain_shoes": [
     {
-      "name": "Foot.L",
+      "name": "LowerLeg.L",
       "weight": 2735.0
     },
     {
-      "name": "Foot.R",
+      "name": "LowerLeg.R",
       "weight": 2735.0
     }
   ],
@@ -358,5 +344,10 @@
       "name": "Neck",
       "weight": 1.381
     }
-  ]
+  ],
+  "_constraints": {
+    "bodyFeetAndShoesRigidToLowerLeg": true,
+    "rigidFootViolationCount": 0,
+    "rigidFootViolationVertices": []
+  }
 }
