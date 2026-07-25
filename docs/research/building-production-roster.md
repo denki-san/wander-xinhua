@@ -1,7 +1,8 @@
 # 18 栋建筑生产调度清单
 
 - 审计日期：2026-07-25
-- 主窗口基线：`main` / `aa5ef3bfc19ab2620aaf4473e22e1e15f31d10a7`
+- 主窗口 Git 基线：`main` / `46c58a8175c4050eba4aac03e92c48448a569bab`
+- 18 栋集成分支：`codex/integrate-18-buildings` / `af76226`
 - 范围权威：
   - `app/asset-library/asset-data.ts`
   - `app/scene/xinhua-road-landmarks-data.json`
@@ -22,15 +23,15 @@
 
 | # | Stable asset ID | 建筑资产 | 当前可保留成果 | 新目标状态 | 下一项缺口 |
 | ---: | --- | --- | --- | --- | --- |
-| 1 | `shanghai-cinema` | 上海影城 | Hero `.blend/.glb`、专项证据/Brief/build record、Hybrid Identity、当前 Worktree Massing、MCP 1/2 截图 | `in-scope` / active Worktree `a24a7f9` | 地图校准、MCP 3、正式 build record 和同机位三级终验 |
-| 2 | `film-art-center` | 上海电影艺术中心 | Hero `.blend/.glb`、专项证据/Brief/build record、canonical 运行时验收；recovery 有 clean-v2 Massing 候选 | `in-scope` / Hero 保留 | 审计 recovery Massing、地图校准、Identity、MCP 1/2/3、三级运行时 |
+| 1 | `shanghai-cinema` | 上海影城 | Hero `.blend/.glb`、Hybrid Identity、Massing、MCP 1/2、实际 Massing 地图门；主窗口已生成 MCP 3 三档同机位正式候选 | `in-scope` / active Worktree `faba744` | 封存 MCP 3 build record，并完成 Hero / Identity / Massing 与双 fallback 的实际 Three.js 终验 |
+| 2 | `film-art-center` | 上海电影艺术中心 | Hero `.blend/.glb`、专项证据/Brief/build record、canonical 运行时验收；recovery 有 clean-v2 Massing 候选 | `in-scope` / active Worktree from `af76226` | 审计 recovery Massing、先过 MCP 1 与地图门，再进入 Identity、MCP 2/3 和三级运行时 |
 | 3 | `one-step-garden` | 一尺花园 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/三张证据及 clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 审计证据与多体量 footprint，完成三档和全部门禁 |
 | 4 | `xinhua-villas-211` | 新华别墅·211弄 | 旧 Hero `.blend/.glb`、单张建筑群证据、旧运行时截图 | `in-scope` / legacy Hero baseline | 明确代表建筑/群组边界，补视角证据、三档和全部门禁 |
 | 5 | `xinhua-villas-329` | 新华别墅·329弄 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/两张证据及 clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 明确代表建筑/群组边界，审计候选 Massing，完成全部门禁 |
 | 6 | `house-315` | 新华路315号住宅 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/两张证据及 provisional Massing | `in-scope` / legacy Hero baseline | 补侧向/纵深 unknown，重验 Massing 与全部门禁 |
 | 7 | `villa-le-bec` | Villa Le Bec | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/六张候选证据及 clean-v2 Massing | `in-scope` / legacy Hero baseline | 核验候选证据、场地平面和 footprint，完成全部门禁 |
 | 8 | `shanghai-orchestra` | 上海民族乐团 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/三张证据及 clean-v2 Massing | `in-scope` / legacy Hero baseline | 拆分并绑定 compound 子建筑，完成全部门禁 |
-| 9 | `hudec-memorial` | 邬达克纪念馆 | 旧 Hero；当前 Worktree 新官方证据、V2 Brief 与 Massing WIP | `in-scope` / active Worktree `7c98906` | 修正多联烟囱/错层坡屋面/山墙/低翼轮廓后进入 MCP 1 |
+| 9 | `hudec-memorial` | 邬达克纪念馆 | 旧 Hero；新官方证据、V2 Brief、结构化 Massing；MCP 1 已由主窗口按固定三机位验收 | `in-scope` / active Worktree `f509c60` | 完成实际 Three.js Massing 地图门；未通过前不得进入 Identity / Hero |
 | 10 | `xinhua-pocket-park` | 新华路口袋公园 | 旧场地 GLB、两张同地点证据、recovery clean-v2 Massing 候选 | `in-scope` / legacy scoped asset | 固定“场地型建筑资产”语义，校准 footprint/朝向并完成全部门禁 |
 | 11 | `xinhua-community-center` | 新华·社区营造中心 | 旧 Hero `.blend/.glb`、两张同地点证据、旧预览/运行时截图 | `in-scope` / legacy Hero baseline | 确认建筑本体证据、独立 Brief、三档和全部门禁 |
 | 12 | `debi-fahua-525` | 德必法华525 | 旧 Hero、三张建筑群证据、recovery clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 明确代表建筑与开放庭院，审计候选 Massing 并完成全部门禁 |
@@ -39,13 +40,13 @@
 | 15 | `xingfuli-west` | 幸福里·西区 | Hero / Identity / Massing `.blend/.glb`、共享 Brief/build records、地图与运行时证据 | `in-scope` / retained three-tier | 不重建；补可追溯 MCP 1/2/3 和当前版本同机位三级复核 |
 | 16 | `xingfuli-center` | 幸福里·中区 | Hero / Identity / Massing `.blend/.glb`、共享 Brief/build records、地图与运行时证据 | `in-scope` / retained three-tier | 不重建；补可追溯 MCP 1/2/3 和当前版本同机位三级复核 |
 | 17 | `xingfuli-east` | 幸福里·东区 | Hero / Identity / Massing `.blend/.glb`、共享 Brief/build records、地图与运行时证据 | `in-scope` / retained three-tier | 不重建；补可追溯 MCP 1/2/3 和当前版本同机位三级复核 |
-| 18 | `sun-ke-villa` | 孙科别墅 | recovery 有完整 Hero/Identity/Massing、MCP 三门、地图、build record、Three.js/fallback 证据；当前 Worktree checkpoint 可回退 | `in-scope` / recovery-complete candidate | 选择性导入 recovery、拆出单建筑 Massing generator、专项回归后升级 `done` |
+| 18 | `sun-ke-villa` | 孙科别墅 | Recovery Hero / Identity / Massing 已选择性恢复；单资产 Massing generator 可逐字节复现；MCP 三门、地图、Three.js 三档、双 fallback、碰撞和开放车道均有当前证据 | `done` / source `d29097d` + `177447a` / integrated `80f622b` + `9cb3bc8` | 无；保留分支与提交，后续只参加项目级回归 |
 
 ## 恢复后的数量结论
 
-- 主窗口已整合 `done`：0 / 18；recovery 完整候选：1 / 18（孙科别墅）。
-  孙科候选的 MCP、地图和运行时记录及其 SHA 已核对，但尚未从 Hold
-  recovery 选择性导入建筑 Worktree，因此不能提前计入主窗口完成数。
+- 主窗口集成分支已整合 `done`：1 / 18（孙科别墅）；其 Recovery 二进制、
+  三门、地图和 Three.js 证据已按单建筑选择性提取，并在当前集成基线上通过
+  `build:static`、lint、178 / 178 全仓 Node 测试与 3 个 GLB audit。
 - 三档产物可直接保留：3 / 18（幸福里西/中/东）。
 - Hero + Identity 可直接保留：1 / 18（上海影城）。
 - 具备专项 V2 证据和可保留 Hero：2 / 18（电影艺术中心、孙科别墅）。
@@ -82,6 +83,9 @@
 - 所有树木、街灯、外摆、花箱、铺装、垃圾桶、角色和其他装饰资产。
 - `codex/overview-district-massing` Worktree 的全地图新增体块成果：保持 Hold，
   主窗口不得合入本轮 18 栋建筑生产线。
+- `main` 在本轮调度期间由外部任务前进到 merge commit `46c58a8`，其中包含
+  overview district massing。调度窗口不删除或覆盖该现存成果，也不把它计入
+  18 栋；后续建筑提交不得修改其 GLB、数据、运行时模块、QA 或生成器。
 
 ## 调度约束
 
