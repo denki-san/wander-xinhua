@@ -130,22 +130,63 @@
   },
   "mapGate": {
     "gate": "three-js-massing-map-calibration",
-    "status": "pending",
-    "fixedEntry": "/?start=garden179&qaModelTier=massing",
-    "movementAuthorized": false,
+    "status": "pass",
+    "reviewedAt": "2026-07-25T20:38:45+08:00",
+    "reviewedBy": "one-step-garden-worktree-agent",
+    "runtimeQa": "docs/research/one-step-garden-massing-map-qa.json",
+    "fixedEntry": "/?start=garden179&network=standard&cameraQa=1&effects=off&district=off",
+    "qaAssembly": {
+      "temporary": true,
+      "sourceRegistryCommitted": false,
+      "sourceRegistryRestoredSha256": "eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6",
+      "heroAssetOverwritten": false,
+      "sharedRuntimeFilesCommitted": false
+    },
     "frozenPlacement": {
       "position": [60.86, 120.73],
       "yaw": -0.38,
       "scale": 0.88
-    }
+    },
+    "movementAuthorized": false,
+    "checks": {
+      "positioning": "pass-frozen-placement",
+      "orientation": "pass-local-negative-y-to-xinhua-road",
+      "groundContact": "pass",
+      "roadSetback": "pass",
+      "humanScale": "pass",
+      "camera": "pass-spring-clear-blocker-none",
+      "wallCollision": "pass",
+      "entranceWalkable": "pass-scripted-path",
+      "frontRearGap": "pass-1.404-scene-unit-clear-width-after-margins",
+      "resource": "pass-http-200-exact-18316-byte-glb",
+      "console": "pass-zero-logs-and-zero-page-errors",
+      "performance": "pass-10.014-second-visible-sample"
+    },
+    "nextGate": "main-window-hero-master-disposition",
+    "heroMasterReviewAuthorized": true,
+    "identityAuthorized": false
   },
   "heroGate": {
-    "status": "blocked-until-map-gate-pass"
+    "status": "ready-for-main-window-review-after-map-gate-pass"
   },
   "identityGate": {
     "status": "blocked-until-reviewed-hero-master"
   },
   "threeTierGate": {
     "status": "pending"
+  },
+  "runtimeIntegration": {
+    "status": "pending-main-window-shared-registry-integration",
+    "proposedValues": {
+      "model": "/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb",
+      "cacheVersion": "20260725-massing-a87caeba",
+      "localBounds": {
+        "minX": -7.25,
+        "maxX": 7.25,
+        "minZ": -9.325,
+        "maxZ": 6.9
+      },
+      "localObstacleCount": 8
+    }
   }
 }
