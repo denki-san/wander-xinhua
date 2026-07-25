@@ -692,9 +692,11 @@ export function LandmarkProgressiveProxy({
 export function XinhuaRoadMassing({
   identity,
   hiddenLandmarkIds,
+  onlyLandmarkId,
 }: {
   identity: boolean;
   hiddenLandmarkIds?: ReadonlySet<string>;
+  onlyLandmarkId?: string;
 }) {
   return (
     <group
@@ -706,6 +708,7 @@ export function XinhuaRoadMassing({
       }}
     >
       {XINHUA_ROAD_LANDMARKS.map((landmark) => {
+        if (onlyLandmarkId && landmark.id !== onlyLandmarkId) return null;
         if (hiddenLandmarkIds?.has(landmark.id)) return null;
         const [x, z] = landmark.position;
         return (

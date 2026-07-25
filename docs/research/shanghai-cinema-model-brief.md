@@ -143,6 +143,10 @@
 
 ## Batch Plan
 
+> 本节原始 Massing / Identity 表格描述的是 Hero master 的制作批次，不等同于
+> Hero / Identity / Massing 三档运行时资产通过状态。正式三档以各自 build
+> record、Blender MCP gate、地图校准与 Three.js 运行时证据为准。
+
 | Batch | Deliverable | Blender check | Runtime check | Status |
 | --- | --- | --- | --- | --- |
 | Massing | 非对称丝带、椭圆开洞、左鼓体、后塔楼层级 | canonical 轮廓 | 入口街景可识别 | Passed |
@@ -240,3 +244,12 @@
 - Remaining inference: 真正后立面、屋顶、楼梯背面和夜景仍无可信公开实拍，因此只保留低细节后勤体量，不把推断包装成测绘事实。
 - Performance impact: 相对 Iteration 1 增加 450,340 bytes（约 8.3%）和 5,856 triangles（约 7.5%），仍低于 6.3 MB、90,000 triangles、14 materials 和 8 nodes 的运行时合同。
 - Rollback point: 所有修改均在确定性生成器与版本化数据中；前一轮 GLB SHA-256 为 `bfab43bec90ffb6facd7a50954dc2f592fe460ce7affac8d5d30a090624b93d7`。
+
+### Iteration 3 — Formal runtime tiers recovery — 2026-07-25
+
+- Scope: 本轮只处理 active 18 buildings 中的 stable asset ID `shanghai-cinema`；树木、装饰、ordinary OSM 与范围外成果全部 Hold，不删除、不覆盖。
+- Retained sources: 完整 Hero `c4d557038677...` 与 Hybrid Identity `66ea8425313f...` 原样保留。Identity 不是独立近似，而是复用 Hero 生成器丝带、开洞和鼓体函数；生产层由 `ShanghaiCinemaProgrammaticBody + ShanghaiCinemaIdentityGlb + ShanghaiCinemaRepeatedDetails` 组合。
+- Formal Massing: `scripts/create_shanghai_cinema_massing.py` 复用冻结的 Hero / Hybrid Identity 参数，输出当前 Massing `e1635a7796ad...`。结构为 1 node、10,544 triangles、7 materials、0 images、714,228 bytes；不采用 recovery `3044cd8` 中旧的 `be696387...` 二进制，也不覆盖其历史证据。
+- Placement contract: 继续锁定 position `[74.1, 80.9]`、yaw `2.761592653589793`、scale `1`、local bounds `[-19, 19] × [-11.8, 14.2]` 与三块独立碰撞；入口广场和侧向通道不由广场薄片参与碰撞。
+- Evidence correction: checkpoint 的 MCP1/2 橙色圆柱高 `1.8 scene units`，按 `1 unit = 2.7m` 不能作为 1.8m 人体证据。现有图只证明构图与局部比例；MCP3 必须使用 `1.8 / 2.7 = 0.666667 scene units` 的代理重新验证。
+- Current gate: Evidence、正式 Massing 生成、三档二进制结构审计、Identity lineage 与 Three.js Massing 地图校准草案已闭合；运行时使用 `terrainHeightAt(74.1, 80.9) + 0.1 = 1.009780347` 的既有贴地合同。MCP3 同机位三档仍须等待主窗口串行占用共享 Blender MCP。

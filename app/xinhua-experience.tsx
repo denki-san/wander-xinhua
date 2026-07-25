@@ -422,6 +422,10 @@ export function XinhuaExperience() {
     typeof window !== "undefined"
     && new URLSearchParams(window.location.search).get("cameraQa") === "1"
   ));
+  const [cinemaMassingQa] = useState(() => (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("qaCinemaTier") === "massing"
+  ));
   const networkProfile = useProgressiveNetworkProfile();
   const [initialOverviewPosition] = useState(requestedOverviewStartPosition);
   const playerPosition = useRef<readonly [number, number]>(initialOverviewPosition);
@@ -577,6 +581,7 @@ export function XinhuaExperience() {
       className={`xinhua-stage is-${mode}${playing ? " is-playing" : ""}${touchCapable ? " is-touch" : ""}`}
       data-progressive-network={networkProfile}
       data-progressive-stage={ready ? "playable" : "booting"}
+      data-shanghai-cinema-qa-tier={cinemaMassingQa ? "massing" : undefined}
     >
       <Canvas
         shadows="percentage"
@@ -615,6 +620,7 @@ export function XinhuaExperience() {
             playerPosition.current = position;
           }}
           networkProfile={networkProfile}
+          cinemaMassingQa={cinemaMassingQa}
         />
         {/*
           当前后处理链在可玩相机接管后只输出全屏 pass，导致 overview / explore 空白。
