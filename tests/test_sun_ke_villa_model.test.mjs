@@ -36,6 +36,17 @@ async function parseGlb(relativePath) {
   return { buffer, json };
 }
 
+function triangleCount(json) {
+  return json.meshes.reduce((meshTotal, mesh) => (
+    meshTotal + mesh.primitives.reduce((primitiveTotal, primitive) => {
+      const accessor = primitive.indices === undefined
+        ? json.accessors[primitive.attributes.POSITION]
+        : json.accessors[primitive.indices];
+      return primitiveTotal + accessor.count / 3;
+    }, 0)
+  ), 0);
+}
+
 function mergedPositionBounds(json) {
   const positionAccessors = json.meshes.flatMap((mesh) => mesh.primitives.map((primitive) => (
     json.accessors[primitive.attributes.POSITION]
@@ -112,6 +123,79 @@ test("孙科别墅保留确定性生成器、可编辑源和三机位预览", as
   await assertPng("test_artifacts/test_sun_ke_villa_runtime_overview_preview.png", 80_000, [1767, 851]);
 });
 
+test("孙科别墅 Identity 与 Massing 从保留 Hero 同源派生并通过预算", async () => {
+  const hero = await parseGlb("public/models/shangsheng/sun-ke-villa.glb");
+  const heroSha256 = "8309b5b76ebdd42f2ec4cb433bf4586f54fbd29c15d57318cb61a3dada752ea2";
+  const tiers = [
+    {
+      tier: "identity",
+      relativePath: "public/models/shangsheng/sun-ke-villa-identity.glb",
+      maxBytes: 800_000,
+      maxTriangles: 22_000,
+    },
+    {
+      tier: "massing",
+      relativePath: "public/models/shangsheng/sun-ke-villa-massing.glb",
+      maxBytes: 240_000,
+      maxTriangles: 8_000,
+    },
+  ];
+  const derivedTriangles = [];
+
+  for (const { tier, relativePath, maxBytes, maxTriangles } of tiers) {
+    const { buffer, json } = await parseGlb(relativePath);
+    const rootNode = json.nodes[0];
+    const bounds = mergedPositionBounds(json);
+    const triangles = triangleCount(json);
+    derivedTriangles.push(triangles);
+    assert.ok(buffer.length <= maxBytes, `${tier} 超出字节预算`);
+    assert.ok(triangles <= maxTriangles, `${tier} 超出三角面预算`);
+    assert.equal(json.nodes.length, 1);
+    assert.equal(json.meshes.length, 1);
+    assert.ok(json.materials.length <= 7);
+    assert.equal(json.images?.length ?? 0, 0);
+    assert.equal(json.textures?.length ?? 0, 0);
+    assert.deepEqual(rootNode.translation ?? [0, 0, 0], [0, 0, 0]);
+    assert.deepEqual(rootNode.rotation ?? [0, 0, 0, 1], [0, 0, 0, 1]);
+    assert.deepEqual(rootNode.scale ?? [1, 1, 1], [1, 1, 1]);
+    assert.equal(rootNode.extras?.asset_id, "sun-ke-villa");
+    assert.equal(rootNode.extras?.runtime_tier, tier);
+    assert.equal(rootNode.extras?.derived_from, "sun-ke-villa-hero");
+    assert.equal(rootNode.extras?.derived_from_sha256, heroSha256);
+    assert.equal(rootNode.extras?.canonical_front, "local -Y");
+    assert.equal(rootNode.extras?.ground_datum, 0);
+    assert.equal(bounds.min[1], 0);
+    assert.equal(bounds.max[1], mergedPositionBounds(hero.json).max[1]);
+  }
+  assert.ok(triangleCount(hero.json) > derivedTriangles[0]);
+  assert.ok(derivedTriangles[0] > derivedTriangles[1]);
+
+  const derivation = await readFile(
+    path.join(root, "scripts/create_sun_ke_villa_runtime_tiers.py"),
+    "utf8",
+  );
+  assert.match(derivation, /HERO_BLEND/);
+  assert.match(derivation, /derived_from_sha256/);
+  assert.match(derivation, /keep_identity/);
+  assert.match(derivation, /keep_massing/);
+  assert.doesNotMatch(derivation, /bpy\.data\.images\.load/);
+
+  for (const tier of ["identity", "massing"]) {
+    for (const view of ["canonical", "side", "entrance"]) {
+      await assertPng(
+        `test_artifacts/test_sun_ke_villa_${tier}_${view}_preview.png`,
+        300_000,
+        [1080, 760],
+      );
+    }
+  }
+  await assertPng(
+    "test_artifacts/test_sun_ke_villa_three_tier_comparison.png",
+    500_000,
+    [3240, 760],
+  );
+});
+
 test("孙科别墅 GLB 通过结构、尺寸、材质和性能预算", async () => {
   const relativePath = "public/models/shangsheng/sun-ke-villa.glb";
   const { buffer, json } = await parseGlb(relativePath);
@@ -135,13 +219,7 @@ test("孙科别墅 GLB 通过结构、尺寸、材质和性能预算", async () 
 
   const primitives = json.meshes[0].primitives;
   assert.equal(primitives.length, 8, "每个材质应对应一个合并后的 primitive");
-  let triangles = 0;
-  for (const primitive of primitives) {
-    const accessor = primitive.indices === undefined
-      ? json.accessors[primitive.attributes.POSITION]
-      : json.accessors[primitive.indices];
-    triangles += accessor.count / 3;
-  }
+  const triangles = triangleCount(json);
   assert.ok(triangles > 3_000, `三角面数量过低，可能丢失身份构件：${triangles}`);
   assert.ok(triangles <= 35_000, `三角面超出预算：${triangles}`);
 
@@ -197,13 +275,19 @@ test("孙科别墅 GLB 已接入上生新所并保留延迟加载 fallback", asy
   assert.match(source, /class SunKeVillaErrorBoundary/);
   assert.match(source, /static getDerivedStateFromError/);
   assert.match(fullModels, /function SunKeVillaModel/);
-  assert.match(fullModels, /useGLTF\("\/models\/shangsheng\/sun-ke-villa\.glb"\)/);
+  assert.match(fullModels, /function SunKeVillaTierModel/);
+  assert.match(fullModels, /useGLTF\(modelUrl\)/);
+  assert.match(fullModels, /sun-ke-villa\.glb\?v=8309b5b76ebd/);
+  assert.match(fullModels, /sun-ke-villa-identity\.glb\?v=036a2b754cfb/);
+  assert.match(fullModels, /sun-ke-villa-massing\.glb\?v=406cf9a32541/);
   assert.match(fullModels, /child\.material = sourceWasArray \? replacements : replacements\[0\]/);
-  assert.match(source, /<SunKeVillaErrorBoundary key=\{building\.id\} building=\{building\}>/);
+  assert.match(source, /function SunKeVillaAsset/);
   assert.match(source, /fallback=\{<SunKeVillaFallback building=\{building\} \/>\}/);
-  assert.match(fullModels, /name="shangsheng-sun-ke-villa"/);
+  assert.match(fullModels, /"shangsheng-sun-ke-villa"/);
   assert.match(fullModels, /referenceView: "garden-front"/);
-  assert.doesNotMatch(fullModels, /useGLTF\.preload\("\/models\/shangsheng\/sun-ke-villa\.glb"\)/);
+  assert.match(source, /sun-ke-tier/);
+  assert.match(source, /stage=\{sunKeVillaStage\}/);
+  assert.doesNotMatch(fullModels, /useGLTF\.preload/);
 
   const worldSource = await readFile(path.join(root, "app/scene/xinhua-world.tsx"), "utf8");
   assert.match(worldSource, /SHANGSHENG_XINSUO_POSITION\[0\] \+ 50/);

@@ -26,7 +26,7 @@ type Building = (typeof landmarks.shangshengXinsuo.buildings)[number];
 const SITE = landmarks.shangshengXinsuo;
 const ProgressiveSunKeVilla = lazy(async () => {
   const importedModels = await import("./shangsheng-full-models");
-  return { default: importedModels.SunKeVillaModel };
+  return { default: importedModels.SunKeVillaTierModel };
 });
 const ProgressiveNavyClub = lazy(async () => {
   const importedModels = await import("./shangsheng-full-models");
@@ -400,10 +400,51 @@ function GenericCampusBuilding({ building }: { building: Building }) {
   );
 }
 
-function CampusMassingBuildings() {
+type SunKeVillaStage = ProgressiveBuildingTier | "hero";
+
+function requestedSunKeVillaStage(): SunKeVillaStage | undefined {
+  if (typeof window === "undefined") return undefined;
+  const requested = new URLSearchParams(window.location.search).get("sun-ke-tier");
+  if (requested === "hero" || requested === "identity" || requested === "massing") {
+    return requested;
+  }
+  return undefined;
+}
+
+function SunKeVillaAsset({
+  building,
+  stage,
+}: {
+  building: Building;
+  stage: SunKeVillaStage;
+}) {
+  const tier = stage === "full" ? "hero" : stage;
+  return (
+    <SunKeVillaErrorBoundary building={building}>
+      <Suspense fallback={<SunKeVillaFallback building={building} />}>
+        <ProgressiveSunKeVilla building={building} tier={tier} />
+      </Suspense>
+    </SunKeVillaErrorBoundary>
+  );
+}
+
+function CampusMassingBuildings({
+  sunKeVillaStage,
+}: {
+  sunKeVillaStage: SunKeVillaStage;
+}) {
   return (
     <group name="shangsheng-campus-massing" userData={{ stage: "massing" }}>
       {SITE.buildings.map((building) => {
+        if (building.feature === "sun-ke-villa") {
+          return (
+            <SunKeVillaAsset
+              key={building.id}
+              building={building}
+              stage={sunKeVillaStage}
+            />
+          );
+        }
         const floorHeight = building.feature === "new-campus" ? 2.35 : 2.05;
         return (
           <FootprintVolume
@@ -417,22 +458,27 @@ function CampusMassingBuildings() {
   );
 }
 
-function CampusBuildings({ stage }: { stage: ProgressiveBuildingTier }) {
-  if (stage === "massing") return <CampusMassingBuildings />;
+function CampusBuildings({
+  stage,
+  sunKeVillaStage,
+}: {
+  stage: ProgressiveBuildingTier;
+  sunKeVillaStage: SunKeVillaStage;
+}) {
+  if (stage === "massing") {
+    return <CampusMassingBuildings sunKeVillaStage={sunKeVillaStage} />;
+  }
   const loadFullModels = stage === "full";
   return (
     <group>
       {SITE.buildings.map((building) => {
         if (building.feature === "sun-ke-villa") {
-          if (!loadFullModels) {
-            return <SunKeVillaFallback key={building.id} building={building} />;
-          }
           return (
-            <SunKeVillaErrorBoundary key={building.id} building={building}>
-              <Suspense fallback={<SunKeVillaFallback building={building} />}>
-                <ProgressiveSunKeVilla building={building} />
-              </Suspense>
-            </SunKeVillaErrorBoundary>
+            <SunKeVillaAsset
+              key={building.id}
+              building={building}
+              stage={sunKeVillaStage}
+            />
           );
         }
         if (building.feature === "country-club") return <CountryClub key={building.id} building={building} />;
@@ -772,6 +818,7 @@ export function ShangshengXinsuoBlock({
 }) {
   const identityReady = stage === "identity" || stage === "full";
   const environmentDetailed = showEnvironmentDetails ?? stage === "full";
+  const sunKeVillaStage = requestedSunKeVillaStage() ?? stage;
   return (
     <group
       name="shangsheng-xinsuo"
@@ -788,7 +835,7 @@ export function ShangshengXinsuoBlock({
       }}
     >
       <SiteGround />
-      <CampusBuildings stage={stage} />
+      <CampusBuildings stage={stage} sunKeVillaStage={sunKeVillaStage} />
       {identityReady && <CampusLandscape detailed={environmentDetailed} />}
       {identityReady && (
         <Html center transform sprite position={[5, 12, -5]} distanceFactor={38} style={{ pointerEvents: "none" }}>

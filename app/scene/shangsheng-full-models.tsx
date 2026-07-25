@@ -13,8 +13,23 @@ import landmarks from "./xinhua-landmarks-data.json";
 
 type Building = (typeof landmarks.shangshengXinsuo.buildings)[number];
 
-export function SunKeVillaModel({ building }: { building: Building }) {
-  const { scene } = useGLTF("/models/shangsheng/sun-ke-villa.glb");
+export type SunKeVillaRuntimeTier = "hero" | "identity" | "massing";
+
+export const SUN_KE_VILLA_TIER_MODELS = {
+  hero: "/models/shangsheng/sun-ke-villa.glb?v=8309b5b76ebd",
+  identity: "/models/shangsheng/sun-ke-villa-identity.glb?v=036a2b754cfb",
+  massing: "/models/shangsheng/sun-ke-villa-massing.glb?v=406cf9a32541",
+} as const satisfies Record<SunKeVillaRuntimeTier, string>;
+
+export function SunKeVillaTierModel({
+  building,
+  tier,
+}: {
+  building: Building;
+  tier: SunKeVillaRuntimeTier;
+}) {
+  const modelUrl = SUN_KE_VILLA_TIER_MODELS[tier];
+  const { scene } = useGLTF(modelUrl);
   const model = useMemo(() => {
     const clone = scene.clone(true);
     const materialCache = new Map<string, MeshToonMaterial | MeshStandardMaterial>();
@@ -74,19 +89,25 @@ export function SunKeVillaModel({ building }: { building: Building }) {
 
   return (
     <group
-      name="shangsheng-sun-ke-villa"
+      name={tier === "hero" ? "shangsheng-sun-ke-villa" : `shangsheng-sun-ke-villa-${tier}`}
       position={[building.position[0], 0.1, building.position[1]]}
       rotation-y={building.rotationY}
       userData={{
         building: "sun-ke-villa",
         osmWayId: building.id,
         referenceView: "garden-front",
-        stage: "full",
+        stage: tier === "hero" ? "full" : tier,
+        assetTier: tier,
+        sharedOrigin: true,
       }}
     >
       <primitive object={model} />
     </group>
   );
+}
+
+export function SunKeVillaModel({ building }: { building: Building }) {
+  return <SunKeVillaTierModel building={building} tier="hero" />;
 }
 
 export function NavyClubModel({ building }: { building: Building }) {
