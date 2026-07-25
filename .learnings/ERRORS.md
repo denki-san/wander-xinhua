@@ -1,5 +1,39 @@
 # Errors
 
+## [ERR-20260726-067] house_315_fast_mode_baseline_merge_add_add_conflicts
+
+**Logged**: 2026-07-26T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+House315 旧建筑分支直接合入当前 Fast Mode 整合基线时，同一建筑的等价成果提交产生多处 add/add 冲突。
+
+### Error
+```text
+CONFLICT (add/add): Merge conflict in House315 build records, gates, briefs and tests
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+### Context
+- House315 分支保留了独立构建提交，主窗口整合分支已用不同提交 SHA 接入同一成果并追加 MCP3 通过状态。
+- 冲突仅涉及 House315 文档、测试和通用学习日志；Blender、GLB 二进制没有冲突。
+- Fast Mode runner 只存在于较新的整合基线，不能在旧分支直接运行。
+
+### Suggested Fix
+进入 Fast Mode 前先确认建筑分支是否包含当前整合基线。若已出现等价 add/add 冲突，按主窗口正式门禁状态选择整合分支版本，不手工混合二进制；把后续建筑专属候选保持为独立提交。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `docs/research/house-315-blender-mcp-gates.json`, `scripts/run_building_fast_mode.mjs`
+
+### Resolution
+- **Resolved**: 2026-07-26T00:00:00+08:00
+- **Notes**: 已精确采用 `codex/integrate-18-buildings` 的 House315 MCP3 正式版本完成合并，未改动任何 Blender 或 GLB 二进制。
+
+---
+
 ## [ERR-20260724-091] vite_preview_sandbox_listen_permission
 
 **Logged**: 2026-07-24T00:00:00+08:00
