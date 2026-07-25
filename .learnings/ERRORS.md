@@ -6265,3 +6265,41 @@ shell 循环使用 `file_path` 等任务专用变量名，避免 `path`、`statu
 ### Resolution
 - **Resolved**: 2026-07-25T00:00:00+08:00
 - **Notes**: 改用 `file_path` 后重新执行，成功保留两侧追加记录并移除冲突标记。
+
+---
+## [ERR-20260725-013] blender_5_2_headless_metal_startup_crash_in_sandbox
+
+**Logged**: 2026-07-25T18:22:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Blender 5.2.0 LTS 在受限 sandbox 内执行 Headless 生成命令时，于 Python 脚本运行前在 Metal 后端探测阶段原生崩溃。
+
+### Error
+```text
+Blender 5.2.0 LTS (hash fbe6228777e7 built 2026-07-14 01:31:22)
+Writing: .../T/blender.crash.txt
+backtrace:
+blender::gpu::supports_barycentric_whitelist
+blender::gpu::MTLBackend::metal_is_supported
+GPU_backend_type_selection_detect
+```
+
+### Context
+- Command: `/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_hudec_memorial_v2.py -- --stage=massing`
+- Blender `--version` succeeded in the same shell, but the full application startup crashed before any Python backtrace or output file.
+- No new GLB, Blend, or preview was written.
+
+### Suggested Fix
+Blender needs macOS GPU/device access not available in the default sandbox. Retry the exact bounded Headless command with approved unsandboxed execution before changing model code.
+
+### Metadata
+- Reproducible: unknown
+- Related Files: scripts/create_hudec_memorial_v2.py, /var/folders/9m/y4r0hmv54wg70vv7xm95n2bh0000gn/T/blender.crash.txt
+- See Also: ERR-20260724-096
+
+### Resolution
+- **Resolved**: 2026-07-25T18:26:00+08:00
+- **Notes**: 在受控授权下于 sandbox 外重跑同一限定 Headless 命令后成功；生成 Massing Blend、GLB 和三张固定机位图。模型代码无需为该启动崩溃修改。

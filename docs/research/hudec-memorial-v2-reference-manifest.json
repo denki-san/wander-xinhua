@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "subject": "邬达克纪念馆（邬达克旧居）",
+  "address": "上海市长宁区番禺路129号",
+  "retrievedAt": "2026-07-25",
+  "runtimeUse": false,
+  "rightsBoundary": "参考图仅作为人工建模、结构核验和固定机位对照证据；不嵌入 GLB，不作为运行时贴图，不复制照片、馆名牌匾或受保护标志。",
+  "canonicalReference": "HUDEC-V2-REF-A",
+  "canonicalViewDirection": "courtyard-facing-front, camera slightly right of facade normal",
+  "placementEvidence": {
+    "source": "docs/research/data/requested-pois-osm-20260717-103840.json",
+    "osmWay": 494633921,
+    "confidence": "A-",
+    "observed": [
+      "OSM way 标注番禺路129号、三层、历史建筑和邬达克纪念馆名称",
+      "OSM 外包络约 32.6 m × 28.5 m，包含建筑及紧邻场地，不能直接等同净建筑尺寸"
+    ]
+  },
+  "references": [
+    {
+      "id": "HUDEC-V2-REF-A",
+      "localPath": "docs/research/assets/requested-poi-references/hudec-memorial-front-wikimedia.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hudec_House.jpeg",
+      "sourceName": "Wikimedia Commons",
+      "view": "courtyard-front-right-three-quarter",
+      "captureDate": "2018-06-09",
+      "retrievedAt": "2026-07-17",
+      "sha256": "d2284eaec967e7414ad5873d2c63795b051b112a30dd9f39f3f7641a690a8f86",
+      "supports": [
+        "正立面横向比例与两层半木构节奏",
+        "深出檐陡坡屋顶和正面屋顶窗",
+        "入口三角门廊、木门和台阶",
+        "左侧砖拱门、弯曲铁艺栏杆与圆形树池"
+      ]
+    },
+    {
+      "id": "HUDEC-V2-REF-B",
+      "localPath": "docs/research/assets/requested-poi-references/hudec-memorial-west-elevations.jpg",
+      "sourceUrl": "https://www.shcn.gov.cn/col6991/20260405/1307940.html",
+      "sourceName": "上海长宁",
+      "view": "three-west-elevation-sketches",
+      "captureDate": "unknown",
+      "retrievedAt": "2026-07-17",
+      "sha256": "a23e28ef2cd1b985b5217654cca797b20f83048945d4fe57e9abac4fd8bf6a4b",
+      "supports": [
+        "西侧体块存在前后错落和高烟囱",
+        "侧翼屋顶层级与侧向开窗关系",
+        "遮挡面的细节只能作为历史草图证据，不能冒充现状照片"
+      ]
+    },
+    {
+      "id": "HUDEC-V2-REF-C",
+      "localPath": "docs/research/assets/requested-poi-references/hudec-memorial-street-official-2026.jpg",
+      "sourceUrl": "https://english.shanghai.gov.cn/cmsres/2e/2e2ab4d3c23841b4b5c739d3d4016998/5be3e8a5f855d9b773bf9f4e24bc99f3.jpg",
+      "pageUrl": "https://www.citynewsservice.cn/articles/cns/city-news/beyond-the-screen-a-cinematic-trail-through-changning-okwvr3yn",
+      "sourceName": "Shanghai Government English Portal / City News Service",
+      "credit": "Changning district government",
+      "view": "west-rear-oblique-depth",
+      "captureDate": "unknown",
+      "retrievedAt": "2026-07-25",
+      "sha256": "5d1775a76aa341431ff03c7f04efd2b74fe143f230a1205f128ec53262c1d28f",
+      "supports": [
+        "高低错落的连续坡屋顶与低玻璃翼",
+        "三联高红砖烟囱及烟囱冠部",
+        "端部全高半木构与密集分格窗",
+        "主屋脊三只飞鸟形风向标"
+      ]
+    }
+  ],
+  "coverageMatrix": [
+    {
+      "slot": "canonical",
+      "referenceIds": ["HUDEC-V2-REF-A"],
+      "status": "covered",
+      "decision": "以正立面略偏右视角核对横向比例、入口和半木构。"
+    },
+    {
+      "slot": "side-or-depth",
+      "referenceIds": ["HUDEC-V2-REF-B", "HUDEC-V2-REF-C"],
+      "status": "covered",
+      "decision": "以官方西后侧照片为主要纵深证据，历史草图仅补充体块关系。"
+    },
+    {
+      "slot": "entrance-or-identity-detail",
+      "referenceIds": ["HUDEC-V2-REF-A"],
+      "status": "covered",
+      "decision": "入口门廊、木门、砖拱门和窗格可直接观察；不可读牌匾不建模。"
+    },
+    {
+      "slot": "rear-and-east",
+      "referenceIds": [],
+      "status": "unknown",
+      "decision": "东侧与完整背立面不作照片级承诺，仅维持与 OSM 外包络、屋顶连续性和建筑逻辑一致的低细节立面。"
+    },
+    {
+      "slot": "site-context",
+      "referenceIds": ["HUDEC-V2-REF-A", "HUDEC-V2-REF-C"],
+      "status": "covered-with-hold",
+      "decision": "地面、围墙和入口净空参与建筑校准；既有树木、绿篱和装饰物列为 Hold，不新增、不升级。"
+    }
+  ]
+}
