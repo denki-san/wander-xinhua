@@ -1,0 +1,161 @@
+{
+  "assetId": "xinhua-district-massing",
+  "generatedAt": "2026-07-25T07:51:28.343Z",
+  "command": "node scripts/generate_overview_district_massing.mjs --raw xinhua-buildings-osm-20260725-074802.json",
+  "generator": {
+    "path": "scripts/generate_overview_district_massing.mjs",
+    "sha256": "33c461eb437d13ccd98207573ba403d7bc5990b73e234c2aa567866d42385e7e"
+  },
+  "source": {
+    "rawSnapshot": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "rawSnapshotSha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c",
+    "overpassEndpoint": null,
+    "overpassQuery": "[out:json][timeout:180];\narea(3613469094)->.searchArea;\n(\n  way[\"building\"](area.searchArea);\n  relation[\"building\"](area.searchArea);\n  way[\"building:part\"](area.searchArea);\n  relation[\"building:part\"](area.searchArea);\n);\nout body geom;",
+    "overpassErrors": [],
+    "osmGenerator": "Overpass API 0.7.62.11 87bfad18",
+    "osmTimestamp": "2026-07-25T07:46:51Z",
+    "osmCopyright": "https://www.openstreetmap.org/copyright",
+    "osmLicence": "ODbL-1.0",
+    "relationId": 13469094
+  },
+  "output": {
+    "sourceRecord": "app/scene/xinhua-district-massing-data.json",
+    "runtimeManifest": "app/scene/xinhua-district-massing-runtime.json",
+    "glb": "public/models/overview/xinhua-district-massing.glb",
+    "sha256": "3c8b19a242bd1b6070bd31f6259f6e742298c749a72dfdece32e7900c63a4415",
+    "bytes": 720496,
+    "meshes": 10,
+    "nodes": 11,
+    "triangles": 12483,
+    "materials": 3,
+    "images": 0,
+    "textures": 0,
+    "bounds": {
+      "minX": -369.8211,
+      "maxX": 369.8211,
+      "minZ": -385.2094,
+      "maxZ": 385.2094
+    },
+    "chunks": [
+      {
+        "id": "east-north-low",
+        "buildingCount": 15,
+        "vertices": 330,
+        "triangles": 168
+      },
+      {
+        "id": "east-north-mid",
+        "buildingCount": 124,
+        "vertices": 4315,
+        "triangles": 2341
+      },
+      {
+        "id": "east-south-high",
+        "buildingCount": 1,
+        "vertices": 50,
+        "triangles": 28
+      },
+      {
+        "id": "east-south-low",
+        "buildingCount": 60,
+        "vertices": 1385,
+        "triangles": 711
+      },
+      {
+        "id": "east-south-mid",
+        "buildingCount": 159,
+        "vertices": 5180,
+        "triangles": 2790
+      },
+      {
+        "id": "west-north-low",
+        "buildingCount": 8,
+        "vertices": 170,
+        "triangles": 86
+      },
+      {
+        "id": "west-north-mid",
+        "buildingCount": 230,
+        "vertices": 6870,
+        "triangles": 3662
+      },
+      {
+        "id": "west-south-high",
+        "buildingCount": 3,
+        "vertices": 60,
+        "triangles": 30
+      },
+      {
+        "id": "west-south-low",
+        "buildingCount": 7,
+        "vertices": 150,
+        "triangles": 76
+      },
+      {
+        "id": "west-south-mid",
+        "buildingCount": 167,
+        "vertices": 4875,
+        "triangles": 2591
+      }
+    ]
+  },
+  "counts": {
+    "totalElements": 878,
+    "buildingWays": 878,
+    "buildingRelations": 0,
+    "buildingParts": 0,
+    "acceptedBuildings": 774,
+    "excludedBuildings": 104,
+    "rejectedBuildings": 0,
+    "heldBuildingParts": 0,
+    "heightProvenance": {
+      "heuristic": 763,
+      "osm-levels": 11
+    },
+    "heightBands": {
+      "mid": 680,
+      "low": 90,
+      "high": 4
+    },
+    "replacementExclusions": {
+      "debi-fahua-525": 9,
+      "shanghai-cinema": 4,
+      "film-art-center": 2,
+      "hudec-memorial": 2,
+      "huashan": 2,
+      "xinhua-villas-211": 9,
+      "one-step-garden": 7,
+      "fics-xinhua-365": 24,
+      "xinhua-pocket-park": 2,
+      "xinhua-villas-329": 5,
+      "house-315": 5,
+      "xinhua-community-center": 4,
+      "villa-le-bec": 3,
+      "shanghai-orchestra": 7,
+      "xingfuli": 7,
+      "shangsheng": 12
+    }
+  },
+  "budgets": {
+    "maxBytes": 3000000,
+    "maxMeshes": 12,
+    "maxMaterials": 3,
+    "maxTriangles": 100000,
+    "maxImages": 0
+  },
+  "deterministicReplay": {
+    "passed": true,
+    "firstSha256": "3c8b19a242bd1b6070bd31f6259f6e742298c749a72dfdece32e7900c63a4415",
+    "secondSha256": "3c8b19a242bd1b6070bd31f6259f6e742298c749a72dfdece32e7900c63a4415"
+  },
+  "runtimeContract": {
+    "modes": [
+      "overview"
+    ],
+    "weakNetworkRequests": 0,
+    "collisionObjects": 0,
+    "raycastObjects": 0,
+    "castShadow": false,
+    "fallback": "existing-overview"
+  }
+}

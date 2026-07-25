@@ -16,7 +16,8 @@
 
 地图数据：
 
-- 新华路街道行政边界、道路拓扑、幸福里中心线、华山绿地和上生·新所的公开场地与要素轮廓来自 OpenStreetMap contributors。
+- 新华路街道行政边界、道路拓扑、幸福里中心线、华山绿地、上生·新所的公开场地与要素轮廓，以及全览中的通用建筑外轮廓来自 OpenStreetMap contributors。
+- 全览建筑高度优先使用 OSM `height` / `building:levels`；缺失时采用可追溯的确定性分档近似，不构成测绘级三维城市模型。
 - 数据许可：Open Data Commons Open Database License (ODbL) 1.0。
 - 版权与许可说明：<https://www.openstreetmap.org/copyright>
 - 使用的行政边界关系：<https://www.openstreetmap.org/relation/13469094>

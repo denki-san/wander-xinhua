@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "acceptedAt": "2026-07-25",
+  "scope": "local-production-static",
+  "localUrl": "http://127.0.0.1:3002/?network=standard&quality=high&overview-qa=1",
+  "browser": {
+    "engine": "Chromium",
+    "version": "146.0.0.0",
+    "headlessErrorCount": 0,
+    "headlessConsoleMessageCount": 0
+  },
+  "asset": {
+    "path": "public/models/overview/xinhua-district-massing.glb",
+    "sha256": "3c8b19a242bd1b6070bd31f6259f6e742298c749a72dfdece32e7900c63a4415",
+    "bytes": 720496,
+    "meshes": 10,
+    "materials": 3,
+    "images": 0,
+    "textures": 0,
+    "triangles": 12483
+  },
+  "sameCameraComparison": {
+    "desktop": {
+      "viewport": "1440x1024",
+      "camera": "284.483,216.761,190.721",
+      "districtOff": {
+        "drawCalls": 1836,
+        "pageTriangles": 268729,
+        "screenshot": "docs/research/assets/overview-district-massing/test_baseline_overview_desktop_1440x1024.png"
+      },
+      "districtOn": {
+        "drawCalls": 1846,
+        "pageTriangles": 281212,
+        "screenshot": "docs/research/assets/overview-district-massing/test_after_overview_desktop_1440x1024.png"
+      }
+    },
+    "mobile": {
+      "viewport": "390x844",
+      "camera": "463.430,427.919,369.669",
+      "districtOff": {
+        "drawCalls": 1797,
+        "pageTriangles": 267805,
+        "screenshot": "docs/research/assets/overview-district-massing/test_baseline_overview_mobile_390x844.png"
+      },
+      "districtOn": {
+        "drawCalls": 1806,
+        "pageTriangles": 280260,
+        "screenshot": "docs/research/assets/overview-district-massing/test_after_overview_mobile_390x844.png"
+      }
+    }
+  },
+  "frameSamples": {
+    "desktop": {
+      "viewport": "1440x1024",
+      "buildMode": "production",
+      "pageVisible": true,
+      "warmupFrames": 30,
+      "sampleFrames": 120,
+      "averageMs": 17.34,
+      "p95Ms": 21.9
+    },
+    "mobile": {
+      "viewport": "390x844",
+      "buildMode": "production",
+      "pageVisible": true,
+      "warmupFrames": 30,
+      "sampleFrames": 120,
+      "averageMs": 14.92,
+      "p95Ms": 19.6
+    },
+    "interpretation": "Local-machine observations only; no same-condition timing baseline, so no performance-improvement claim."
+  },
+  "requests": {
+    "standard": {
+      "districtGlbRequests": 1,
+      "status": 200,
+      "contentLength": 720496,
+      "durationMs": 110.13,
+      "runtimeOverpassOrNominatimRequests": 0
+    },
+    "weak": {
+      "progressiveStage": "playable",
+      "districtState": "missing",
+      "districtGlbRequests": 0
+    }
+  },
+  "interaction": {
+    "overviewDistrictState": "mounted",
+    "enterXingfuliDistrictState": "inactive",
+    "returnToOverviewDistrictState": "mounted",
+    "exploreScreenshot": "docs/research/assets/overview-district-massing/test_after_explore_mobile_390x844.png"
+  },
+  "disclosure": {
+    "osmAttributionVisible": true,
+    "nonSurveyApproximationVisible": true
+  }
+}

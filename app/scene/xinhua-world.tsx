@@ -8,6 +8,7 @@ import {
 } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import {
+  Box3,
   Color,
   DirectionalLight,
   Group,
@@ -107,6 +108,9 @@ const ProgressiveXinhuaRoadFullLayer = lazy(
 );
 const ProgressiveDetailedWandererCharacter = lazy(
   () => import("./detailed-wanderer-character"),
+);
+const ProgressiveOverviewDistrictMassing = lazy(
+  () => import("./overview-district-massing"),
 );
 
 const WORLD_UP = new Vector3(0, 1, 0);
@@ -522,6 +526,10 @@ function FlatNeighborhood({
     fullEnterDistance: CORE_BUILDING_HERO_DISTANCE.huashan.enterDistance,
     fullExitDistance: CORE_BUILDING_HERO_DISTANCE.huashan.exitDistance,
   });
+  const districtDisabledForQa = (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("district") === "off"
+  );
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
       <XinhuaStreetMap
@@ -529,6 +537,16 @@ function FlatNeighborhood({
         showStreetDressing={mode === "explore"}
         lowTier={lowTier}
       />
+      {mode === "overview" && networkProfile === "standard" && !districtDisabledForQa && (
+        <ProgressiveFeatureBoundary
+          resetKey={`district-massing-${mode}-${networkProfile}`}
+          fallback={null}
+        >
+          <Suspense fallback={null}>
+            <ProgressiveOverviewDistrictMassing />
+          </Suspense>
+        </ProgressiveFeatureBoundary>
+      )}
       <group
         position={[XINGFULI_POSITION[0], XINGFULI_BASE_Y, XINGFULI_POSITION[1]]}
         rotation-y={XINGFULI_PLACEMENT.rotationY}
@@ -1502,6 +1520,92 @@ function OverviewCamera({
   return null;
 }
 
+function OverviewRuntimeQa({ active }: { active: boolean }) {
+  const { camera, gl, scene, size } = useThree();
+  const bounds = useMemo(() => new Box3(), []);
+  const frameSample = useRef({
+    viewport: "",
+    warmupFrames: 0,
+    deltas: [] as number[],
+  });
+
+  useFrame((_, delta) => {
+    if (
+      typeof window === "undefined"
+      || new URLSearchParams(window.location.search).get("overview-qa") !== "1"
+    ) return;
+    const root = document.documentElement;
+    const district = scene.getObjectByName("overview-district-massing");
+    if (!active) {
+      root.dataset.overviewQaDistrict = district ? "unexpected-mounted" : "inactive";
+      delete root.dataset.overviewQaDistrictBounds;
+      delete root.dataset.overviewQaFrameSample;
+      frameSample.current = { viewport: "", warmupFrames: 0, deltas: [] };
+      return;
+    }
+    const viewport = `${size.width}x${size.height}`;
+    if (frameSample.current.viewport !== viewport) {
+      frameSample.current = { viewport, warmupFrames: 0, deltas: [] };
+      delete root.dataset.overviewQaFrameSample;
+    }
+    if (frameSample.current.warmupFrames < 30) {
+      frameSample.current.warmupFrames += 1;
+    } else if (frameSample.current.deltas.length < 120) {
+      frameSample.current.deltas.push(delta * 1_000);
+      if (frameSample.current.deltas.length === 120) {
+        const values = frameSample.current.deltas;
+        const sorted = [...values].sort((left, right) => left - right);
+        root.dataset.overviewQaFrameSample = JSON.stringify({
+          viewport,
+          buildMode: process.env.NODE_ENV === "production"
+            ? "production"
+            : "development",
+          pageVisible: document.visibilityState === "visible",
+          warmupFrames: 30,
+          sampleFrames: values.length,
+          averageMs: Number(
+            (values.reduce((sum, value) => sum + value, 0) / values.length).toFixed(2),
+          ),
+          p95Ms: Number(sorted[Math.floor(sorted.length * 0.95)].toFixed(2)),
+        });
+      }
+    }
+    const visibleMeshes = scene.children.reduce((total, child) => {
+      let childMeshes = 0;
+      child.traverse((object) => {
+        if (object.type === "Mesh" && object.visible) childMeshes += 1;
+      });
+      return total + childMeshes;
+    }, 0);
+    root.dataset.overviewQaCamera = [
+      camera.position.x,
+      camera.position.y,
+      camera.position.z,
+    ].map((value) => value.toFixed(3)).join(",");
+    root.dataset.overviewQaViewport = viewport;
+    root.dataset.overviewQaCanvas = `${gl.domElement.width}x${gl.domElement.height}`;
+    root.dataset.overviewQaCalls = String(gl.info.render.calls);
+    root.dataset.overviewQaTriangles = String(gl.info.render.triangles);
+    root.dataset.overviewQaVisibleMeshes = String(visibleMeshes);
+    root.dataset.overviewQaDistrict = district ? "mounted" : "missing";
+    if (district) {
+      bounds.setFromObject(district);
+      root.dataset.overviewQaDistrictBounds = [
+        bounds.min.x,
+        bounds.min.y,
+        bounds.min.z,
+        bounds.max.x,
+        bounds.max.y,
+        bounds.max.z,
+      ].map((value) => value.toFixed(3)).join(",");
+    } else {
+      delete root.dataset.overviewQaDistrictBounds;
+    }
+  });
+
+  return null;
+}
+
 export function IntroCamera({ active = true }: { active?: boolean }) {
   const { camera } = useThree();
   const target = useMemo(() => new Vector3(0, 0, 0), []);
@@ -1754,6 +1858,7 @@ export function XinhuaWorld({
         </>
       )}
       <OverviewCamera active={overview} focus={overviewCameraFocus} />
+      <OverviewRuntimeQa active={overview} />
       {exploring && (
         <PlayableWanderer
           onNearAction={onNearAction}

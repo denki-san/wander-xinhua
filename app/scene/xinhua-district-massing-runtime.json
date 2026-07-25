@@ -1,0 +1,14 @@
+{
+  "assetId": "xinhua-district-massing",
+  "url": "/models/overview/xinhua-district-massing.glb?v=3c8b19a242bd",
+  "sha256": "3c8b19a242bd1b6070bd31f6259f6e742298c749a72dfdece32e7900c63a4415",
+  "bytes": 720496,
+  "meshes": 10,
+  "triangles": 12483,
+  "modes": [
+    "overview"
+  ],
+  "weakNetworkPolicy": "skip",
+  "castShadow": false,
+  "collision": false
+}

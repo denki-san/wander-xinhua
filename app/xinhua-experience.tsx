@@ -382,6 +382,10 @@ function CameraQaPanel({ visible }: { visible: boolean }) {
 
 export function XinhuaExperience() {
   const [mode, setMode] = useState<"intro" | "overview" | "explore">("intro");
+  const [effectsDisabledForQa] = useState(() => (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("effects") === "off"
+  ));
   const [ready, setReady] = useState(false);
   const [nearAction, setNearAction] = useState(false);
   const [nearPoiId, setNearPoiId] = useState<string | null>(null);
@@ -594,18 +598,23 @@ export function XinhuaExperience() {
           }}
           networkProfile={networkProfile}
         />
-        {/* 首帧先交出控制权，再装载后处理；挂载后不随模式切换重建。 */}
+        {/*
+          当前后处理链在可玩相机接管后只输出全屏 pass，导致 overview / explore 空白。
+          可玩模式优先使用 R3F 直接渲染；封面阶段保留 Composer 以便后续独立修复。
+        */}
         {ready && (
           <ProgressiveFeatureBoundary
             resetKey={atmosphereStyle}
             fallback={null}
           >
-            <Suspense fallback={null}>
-              <ProgressiveVisualEffectComposer
-                lowTier={lowTier}
-                atmosphereStyle={atmosphereStyle}
-              />
-            </Suspense>
+            {mode === "intro" && !effectsDisabledForQa ? (
+              <Suspense fallback={null}>
+                <ProgressiveVisualEffectComposer
+                  lowTier={lowTier}
+                  atmosphereStyle={atmosphereStyle}
+                />
+              </Suspense>
+            ) : null}
           </ProgressiveFeatureBoundary>
         )}
       </Canvas>
@@ -784,6 +793,7 @@ export function XinhuaExperience() {
       <footer className="study-note">
         非官方独立重建 · 体验参考 <a href="https://messenger.abeto.co/" target="_blank" rel="noreferrer">Messenger by abeto</a>
         <span> · 地图数据 <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a></span>
+        <span> · 全览街区体块为非测绘级近似</span>
         <span> · 角色 <a href="https://www.blenderstudio.cn/zh-hans/characters/rain/v1/" target="_blank" rel="noreferrer">Rain Rig © Blender Foundation | cloud.blender.org</a></span>
         <span> · <a href="/building-evidence-lab">建筑证据实验室</a></span>
       </footer>
