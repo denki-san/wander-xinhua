@@ -1,7 +1,7 @@
 # 18 栋建筑生产调度清单
 
 - 审计日期：2026-07-25
-- 主窗口基线：`main` / `76ffb457f584761fb77e28a422b51b45326b228d`
+- 主窗口基线：`main` / `aa5ef3bfc19ab2620aaf4473e22e1e15f31d10a7`
 - 范围权威：
   - `app/asset-library/asset-data.ts`
   - `app/scene/xinhua-road-landmarks-data.json`
@@ -22,29 +22,30 @@
 
 | # | Stable asset ID | 建筑资产 | 当前可保留成果 | 新目标状态 | 下一项缺口 |
 | ---: | --- | --- | --- | --- | --- |
-| 1 | `shanghai-cinema` | 上海影城 | Hero `.blend/.glb`、专项证据/Brief/build record、Hybrid Identity、地图与近景运行时证据 | `in-scope` / Hero+Identity 保留 | 正式 Massing lineage、MCP 1/2/3 可追溯记录、同机位三级终验 |
-| 2 | `film-art-center` | 上海电影艺术中心 | Hero `.blend/.glb`、专项证据/Brief/build record、canonical 运行时验收 | `in-scope` / Hero 保留 | 独立 Identity/Massing、MCP 1/2/3、三级运行时 |
-| 3 | `one-step-garden` | 一尺花园 | 旧 Hero `.blend/.glb`、单张本地证据、旧运行时截图 | `in-scope` / legacy Hero baseline | 补视角证据与独立 Brief，完成三档和全部门禁 |
+| 1 | `shanghai-cinema` | 上海影城 | Hero `.blend/.glb`、专项证据/Brief/build record、Hybrid Identity、当前 Worktree Massing、MCP 1/2 截图 | `in-scope` / active Worktree `a24a7f9` | 地图校准、MCP 3、正式 build record 和同机位三级终验 |
+| 2 | `film-art-center` | 上海电影艺术中心 | Hero `.blend/.glb`、专项证据/Brief/build record、canonical 运行时验收；recovery 有 clean-v2 Massing 候选 | `in-scope` / Hero 保留 | 审计 recovery Massing、地图校准、Identity、MCP 1/2/3、三级运行时 |
+| 3 | `one-step-garden` | 一尺花园 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/三张证据及 clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 审计证据与多体量 footprint，完成三档和全部门禁 |
 | 4 | `xinhua-villas-211` | 新华别墅·211弄 | 旧 Hero `.blend/.glb`、单张建筑群证据、旧运行时截图 | `in-scope` / legacy Hero baseline | 明确代表建筑/群组边界，补视角证据、三档和全部门禁 |
-| 5 | `xinhua-villas-329` | 新华别墅·329弄 | 旧 Hero `.blend/.glb`、单张建筑群证据、旧运行时截图 | `in-scope` / legacy Hero baseline | 明确代表建筑/群组边界，补视角证据、三档和全部门禁 |
-| 6 | `house-315` | 新华路315号住宅 | 旧 Hero `.blend/.glb`、单张本地证据、旧预览/运行时截图 | `in-scope` / legacy Hero baseline | 补 V2 证据覆盖、三档和全部门禁 |
-| 7 | `villa-le-bec` | Villa Le Bec | 旧 Hero `.blend/.glb`、单张本地证据、旧预览/运行时截图 | `in-scope` / legacy Hero baseline | 补侧向/入口证据、三档和全部门禁 |
-| 8 | `shanghai-orchestra` | 上海民族乐团 | 旧 Hero `.blend/.glb`、单张本地证据、旧预览/运行时截图 | `in-scope` / legacy Hero baseline | 补 V2 证据覆盖、三档和全部门禁 |
-| 9 | `hudec-memorial` | 邬达克纪念馆 | 旧 Hero `.blend/.glb`、两张本地证据、旧预览/运行时截图 | `in-scope` / legacy Hero baseline | 独立 Brief/build record、三档和全部门禁 |
-| 10 | `xinhua-pocket-park` | 新华路口袋公园 | 旧场地 GLB、两张同地点证据、旧预览/运行时截图 | `in-scope` / legacy scoped asset | 固定其“场地型建筑资产”语义，补三档与全部门禁 |
+| 5 | `xinhua-villas-329` | 新华别墅·329弄 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/两张证据及 clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 明确代表建筑/群组边界，审计候选 Massing，完成全部门禁 |
+| 6 | `house-315` | 新华路315号住宅 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/两张证据及 provisional Massing | `in-scope` / legacy Hero baseline | 补侧向/纵深 unknown，重验 Massing 与全部门禁 |
+| 7 | `villa-le-bec` | Villa Le Bec | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/六张候选证据及 clean-v2 Massing | `in-scope` / legacy Hero baseline | 核验候选证据、场地平面和 footprint，完成全部门禁 |
+| 8 | `shanghai-orchestra` | 上海民族乐团 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/三张证据及 clean-v2 Massing | `in-scope` / legacy Hero baseline | 拆分并绑定 compound 子建筑，完成全部门禁 |
+| 9 | `hudec-memorial` | 邬达克纪念馆 | 旧 Hero；当前 Worktree 新官方证据、V2 Brief 与 Massing WIP | `in-scope` / active Worktree `7c98906` | 修正多联烟囱/错层坡屋面/山墙/低翼轮廓后进入 MCP 1 |
+| 10 | `xinhua-pocket-park` | 新华路口袋公园 | 旧场地 GLB、两张同地点证据、recovery clean-v2 Massing 候选 | `in-scope` / legacy scoped asset | 固定“场地型建筑资产”语义，校准 footprint/朝向并完成全部门禁 |
 | 11 | `xinhua-community-center` | 新华·社区营造中心 | 旧 Hero `.blend/.glb`、两张同地点证据、旧预览/运行时截图 | `in-scope` / legacy Hero baseline | 确认建筑本体证据、独立 Brief、三档和全部门禁 |
-| 12 | `debi-fahua-525` | 德必法华525 | 旧 Hero `.blend/.glb`、三张建筑群证据、旧预览/运行时截图 | `in-scope` / legacy Hero baseline | 明确代表建筑与开放庭院，补三档和全部门禁 |
+| 12 | `debi-fahua-525` | 德必法华525 | 旧 Hero、三张建筑群证据、recovery clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 明确代表建筑与开放庭院，审计候选 Massing 并完成全部门禁 |
 | 13 | `fahua-heritage` | 法华遗韵 | 旧牌坊 `.blend/.glb`、单张同构筑物证据、旧预览/运行时截图 | `in-scope` / legacy scoped asset | 固定其“构筑物资产”语义，补三档与全部门禁 |
-| 14 | `fics-xinhua-365` | FICS新华365 | 旧 Hero `.blend/.glb`、三张建筑群证据、旧预览/运行时截图 | `in-scope` / legacy Hero baseline | 明确代表建筑与场地边界，补三档和全部门禁 |
+| 14 | `fics-xinhua-365` | FICS新华365 | 旧 Hero、三张建筑群证据、recovery clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 拆分子建筑、消除 alias 漂移并完成全部门禁 |
 | 15 | `xingfuli-west` | 幸福里·西区 | Hero / Identity / Massing `.blend/.glb`、共享 Brief/build records、地图与运行时证据 | `in-scope` / retained three-tier | 不重建；补可追溯 MCP 1/2/3 和当前版本同机位三级复核 |
 | 16 | `xingfuli-center` | 幸福里·中区 | Hero / Identity / Massing `.blend/.glb`、共享 Brief/build records、地图与运行时证据 | `in-scope` / retained three-tier | 不重建；补可追溯 MCP 1/2/3 和当前版本同机位三级复核 |
 | 17 | `xingfuli-east` | 幸福里·东区 | Hero / Identity / Massing `.blend/.glb`、共享 Brief/build records、地图与运行时证据 | `in-scope` / retained three-tier | 不重建；补可追溯 MCP 1/2/3 和当前版本同机位三级复核 |
-| 18 | `sun-ke-villa` | 孙科别墅 | Hero `.blend/.glb`、专项证据/Brief、多角度 Blender 与运行时截图 | `in-scope` / Hero baseline retained | 正式 Hero build record、独立 Identity/Massing、MCP 1/2/3、三级运行时 |
+| 18 | `sun-ke-villa` | 孙科别墅 | recovery 有完整 Hero/Identity/Massing、MCP 三门、地图、build record、Three.js/fallback 证据；当前 Worktree checkpoint 可回退 | `in-scope` / recovery-complete candidate | 选择性导入 recovery、拆出单建筑 Massing generator、专项回归后升级 `done` |
 
 ## 恢复后的数量结论
 
-- `done`：0 / 18。原因不是已有成果无效，而是新目标新增了可追溯的 Blender
-  MCP 三道门和三级运行时闭环，现有记录没有任何单体完整证明这组新门禁。
+- 主窗口已整合 `done`：0 / 18；recovery 完整候选：1 / 18（孙科别墅）。
+  孙科候选的 MCP、地图和运行时记录及其 SHA 已核对，但尚未从 Hold
+  recovery 选择性导入建筑 Worktree，因此不能提前计入主窗口完成数。
 - 三档产物可直接保留：3 / 18（幸福里西/中/东）。
 - Hero + Identity 可直接保留：1 / 18（上海影城）。
 - 具备专项 V2 证据和可保留 Hero：2 / 18（电影艺术中心、孙科别墅）。
@@ -52,6 +53,22 @@
 
 这组统计用于调度优先级，不允许将“0 / 18 严格关闭”解释为重做 18 栋。
 主窗口应先给已有成熟资产补证，再把独立 Worktree 投向真正缺少三档的建筑。
+
+## 丢失会话 Recovery / Hold 快照
+
+- Worktree：`/Users/lei/App_developing/wander-xinhua-all-models-v3`
+- 分支：`codex/hold-all-models-v3-recovery-20260725`
+- 提交：`3044cd89f801250afcd477dfbcbc7da358bf4b11`
+- Tree：`147b8e8fd94805df4da8d569635894a6884e1b4b`
+- Parent：`c0f525ae142d3f70b576bfbcdb90350d7e645007`
+- 完整性：882 个提交文件，其中 40 个修改、842 个新增；另有 389 个
+  `test_artifacts/all-models` 验收证据被强制纳入；nonignored status 为空。
+- 未提交 ignored：65 个 Blender `.blend1` 自动备份，以及
+  `node_modules`、`dist`、`dist-static`、`.wrangler`、`__pycache__`。
+  它们不是唯一正式成果，不参与后续选择性提取。
+- 使用规则：该提交永久保持 Hold，不整体 merge；只允许按单栋建筑审计后，
+  将证据、生成器、`.blend/.glb`、build record、测试和验收记录摘入对应
+  Worktree。公共 registry/runtime 文件必须由主窗口手工整合。
 
 ## Hold：保留但不计入 18 栋
 
