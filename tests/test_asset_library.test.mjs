@@ -5,10 +5,11 @@ import test from "node:test";
 const root = new URL("../", import.meta.url);
 
 test("资产后台完整覆盖五类生产资产与建筑三档", async () => {
-  const [page, data, client] = await Promise.all([
+  const [page, data, client, header] = await Promise.all([
     readFile(new URL("app/asset-library/page.tsx", root), "utf8"),
     readFile(new URL("app/asset-library/asset-data.ts", root), "utf8"),
     readFile(new URL("app/asset-library/AssetLibrary.tsx", root), "utf8"),
+    readFile(new URL("app/asset-library/AssetAdminHeader.tsx", root), "utf8"),
   ]);
   assert.match(page, /AssetLibrary/);
   for (const category of ["buildings", "lighting", "trees", "decor", "characters"]) {
@@ -42,8 +43,8 @@ test("资产后台完整覆盖五类生产资产与建筑三档", async () => {
   assert.match(client, /<ModalAssetContent model=\{selection\.model\} preview=\{selection\.preview\} \/>/);
   assert.doesNotMatch(client, /<AssetScene model=\{selection\.model\} preview=\{selection\.preview\}/);
   assert.match(client, /拖动旋转 · 滚轮缩放 · Esc 关闭/);
-  assert.match(client, /个人资产后台/);
-  assert.doesNotMatch(client, /href="\/"/);
+  assert.match(header, /个人资产后台/);
+  assert.doesNotMatch(header, /href="\/"/);
   assert.match(client, /搜索名称、门牌号或资产 ID/);
 });
 

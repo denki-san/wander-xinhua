@@ -10,6 +10,7 @@ import {
   useGLTF,
 } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
+import Image from "next/image";
 import {
   Suspense,
   useEffect,
@@ -39,6 +40,12 @@ import {
   type AssetStatus,
   type QualityLevel,
 } from "./asset-data";
+import { AssetAdminHeader } from "./AssetAdminHeader";
+import {
+  BUILDING_MANAGEMENT_RECORDS,
+  STATUS_LABELS,
+  type BuildingManagementRecord,
+} from "./building-management-data";
 import styles from "./asset-library.module.css";
 
 const CATEGORY_ORDER: AssetCategory[] = ["buildings", "lighting", "trees", "decor", "characters"];
@@ -398,10 +405,12 @@ function BuildingCard({
   asset,
   selectedLevelId,
   onOpen,
+  onOpenDetail,
 }: {
   asset: AssetRecord;
   selectedLevelId: QualityLevel["id"];
   onOpen: (selection: PreviewSelection) => void;
+  onOpenDetail: (assetId: string) => void;
 }) {
   const selectedLevel = asset.qualityLevels?.find((level) => level.id === selectedLevelId);
   const displayModel = selectedLevel?.model;
@@ -427,6 +436,13 @@ function BuildingCard({
         <h3>{asset.name}</h3>
         <p className={styles.subtitle}>{asset.subtitle}</p>
         <p className={styles.levelNote}>{selectedLevel?.note ?? `暂无 ${levelName}`}</p>
+        <button
+          type="button"
+          className={styles.detailButton}
+          onClick={() => onOpenDetail(asset.id)}
+        >
+          查看建筑详情
+        </button>
       </div>
     </article>
   );
@@ -543,12 +559,132 @@ function AssetPreviewModal({
   );
 }
 
+function BuildingDetailModal({
+  record,
+  onClose,
+}: {
+  record: BuildingManagementRecord;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [onClose]);
+
+  return (
+    <div
+      className={styles.detailBackdrop}
+      role="presentation"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <section className={styles.detailPanel} role="dialog" aria-modal="true" aria-label={`${record.name} 资产详情`}>
+        <div className={styles.detailHeader}>
+          <div>
+            <span className={styles.assetCode}>{record.id}</span>
+            <h2>{record.name}</h2>
+            <p>{record.address}</p>
+          </div>
+          <button type="button" onClick={onClose}>关闭</button>
+        </div>
+
+        <div className={styles.detailScroll}>
+          <section className={styles.detailSection}>
+            <div className={styles.detailSectionHead}>
+              <div>
+                <span>QUALITY LEVELS</span>
+                <h3>资产质量等级</h3>
+              </div>
+              <span className={`${styles.workflowBadge} ${styles[record.workflowState]}`}>
+                {STATUS_LABELS[record.workflowState]}
+              </span>
+            </div>
+            <p className={styles.workflowNote}>{record.workflowNote}</p>
+            <div className={styles.detailLevels}>
+              {QUALITY_LEVEL_OPTIONS.map((option) => {
+                const level = record.qualityLevels.find((item) => item.id === option.id);
+                const available = Boolean(level?.model);
+                return (
+                  <article key={option.id} className={!available ? styles.levelMissing : ""}>
+                    <div>
+                      <strong>{option.label}</strong>
+                      <StatusBadge status={available ? (level?.status ?? "pending") : "pending"} />
+                    </div>
+                    <p>{available ? level?.note : "暂无该等级资产"}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className={styles.detailSection}>
+            <div className={styles.detailSectionHead}>
+              <div>
+                <span>PHOTO COMPARISON</span>
+                <h3>照片与运行时对比</h3>
+              </div>
+              <span>{record.photos.length} 张</span>
+            </div>
+            <div className={styles.photoGrid}>
+              {record.photos.map((photo) => (
+                <figure key={`${photo.kind}-${photo.src}`}>
+                  <div>
+                    <Image src={photo.src} alt={`${record.name} ${photo.label}`} fill sizes="(max-width: 760px) 100vw, 45vw" />
+                  </div>
+                  <figcaption><span>{photo.kind}</span><strong>{photo.label}</strong></figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+
+          <section className={styles.detailSection}>
+            <div className={styles.detailSectionHead}>
+              <div>
+                <span>PROJECT DOCUMENTS</span>
+                <h3>相关文档</h3>
+              </div>
+              <span>{record.documents.length} 份</span>
+            </div>
+            <div className={styles.documentList}>
+              {record.documents.map((document) => (
+                <article key={document.path}>
+                  <span>{document.type}</span>
+                  <strong>{document.title}</strong>
+                  <code>{document.path}</code>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className={styles.gameEntry}>
+            <Image src={record.thumbnail} alt={`${record.name} 游戏入口`} fill sizes="(max-width: 760px) 100vw, 70vw" />
+            <div className={styles.gameEntryOverlay} />
+            <div className={styles.gameEntryContent}>
+              <span>GAME POI</span>
+              <h3>{record.name}</h3>
+              <p>从对应 POI 入口直接进入游戏，检查建筑位置、朝向、相机、碰撞与遮挡。</p>
+              <a href={`/?start=${record.gameStart}`} target="_blank" rel="noreferrer">
+                进入 {record.name}
+              </a>
+            </div>
+          </section>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 export function AssetLibrary() {
   const container = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState<AssetCategory | "all">("all");
   const [query, setQuery] = useState("");
   const [selectedLevelId, setSelectedLevelId] = useState<QualityLevel["id"]>("hero");
   const [previewSelection, setPreviewSelection] = useState<PreviewSelection | null>(null);
+  const [detailRecord, setDetailRecord] = useState<BuildingManagementRecord | null>(null);
 
   const onlineCounts = useMemo(() => Object.fromEntries(
     CATEGORY_ORDER.map((category) => [
@@ -584,19 +720,7 @@ export function AssetLibrary() {
         <View.Port />
       </Canvas>
 
-      <header className={styles.header}>
-        <div className={styles.brand} aria-label="个人资产后台">
-          <span className={styles.brandMark}>资</span>
-          <span>
-            <strong>资产后台</strong>
-            <small>Asset Library</small>
-          </span>
-        </div>
-        <div className={styles.headerMeta}>
-          <span className={styles.syncDot} />
-          生产资产快照 · 2026.07.25
-        </div>
-      </header>
+      <AssetAdminHeader active="overview" />
 
       <main className={styles.main}>
         <section className={styles.hero}>
@@ -689,6 +813,9 @@ export function AssetLibrary() {
                         asset={asset}
                         selectedLevelId={selectedLevelId}
                         onOpen={setPreviewSelection}
+                        onOpenDetail={(assetId) => {
+                          setDetailRecord(BUILDING_MANAGEMENT_RECORDS.find((item) => item.id === assetId) ?? null);
+                        }}
                       />
                     )
                     : <StandardCard key={asset.id} asset={asset} onOpen={setPreviewSelection} />
@@ -723,6 +850,9 @@ export function AssetLibrary() {
           selection={previewSelection}
           onClose={() => setPreviewSelection(null)}
         />
+      )}
+      {detailRecord && (
+        <BuildingDetailModal record={detailRecord} onClose={() => setDetailRecord(null)} />
       )}
     </div>
   );

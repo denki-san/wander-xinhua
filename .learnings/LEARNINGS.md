@@ -1,5 +1,32 @@
 # Learnings
 
+## [LRN-20260725-001] correction
+
+**Logged**: 2026-07-25T00:00:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: asset-admin
+
+### Summary
+流程页与建筑资产详情是两个不同的信息层级。
+
+### Details
+用户明确要求新页面只做流程可视化；建筑文档、照片对比、质量等级和游戏入口属于现有资产页面里的建筑详情，不能混入流程页。
+
+### Suggested Action
+后台新增页面前先锁定页面职责：流程页回答“怎么做、做到哪一步”，资产详情回答“这一栋拥有什么资料和入口”。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/asset-library/workflow, app/asset-library/AssetLibrary.tsx
+- Tags: asset-library, information-architecture, workflow, correction
+
+### Resolution
+- **Resolved**: 2026-07-25T00:00:00+08:00
+- **Notes**: 已拆成独立工作流程页和资产总览建筑详情。
+
+---
+
 ## [LRN-20260724-001] correction
 
 **Logged**: 2026-07-24T20:15:00+08:00
