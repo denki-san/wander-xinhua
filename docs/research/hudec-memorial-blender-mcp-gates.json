@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-25T16:50:00+08:00",
+  "reviewedBy": "main-coordinator",
+  "sourceCheckpoint": "ac4d595",
+  "pipelineOrder": [
+    "evidence-and-brief",
+    "massing-generation",
+    "blender-mcp-massing-review",
+    "three-js-map-calibration",
+    "hero-master-review",
+    "identity-derivation",
+    "three-tier-review",
+    "three-js-runtime-acceptance"
+  ],
+  "massingGate": {
+    "gate": "mcp1-massing-pre-map-calibration",
+    "status": "pass",
+    "interactiveReview": "Blender MCP",
+    "fallbackUsed": false,
+    "editableSource": {
+      "path": "assets/models/source/requested-pois/hudec-memorial-massing.blend",
+      "sha256": "45357c1cef713d5ed10bc0f7de41da6819cdd2eaec0e5def04091d76e37d8d2c"
+    },
+    "runtimeAsset": {
+      "path": "public/models/requested-pois/hudec-memorial-massing.glb",
+      "sha256": "c38302eb136dbb4dfb9b882f725957d26260bc0cb10929459e44aeb4e96d14a5",
+      "bytes": 158312
+    },
+    "generator": {
+      "path": "scripts/create_hudec_memorial_v2.py",
+      "sha256": "5890fe9444008880544e6fb0fdb57331963d8491513f13eb162753f5b946144b"
+    },
+    "buildRecord": {
+      "path": "docs/research/build-records/hudec-memorial-massing.json",
+      "sha256": "8c051e190699a3542d6fda01de8e9a372a95b4cbd3d8384d1593ec0830c3782d"
+    },
+    "sceneInspection": {
+      "rootObject": "hudec-memorial-massing",
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1],
+      "boundsBlender": {
+        "min": [-6.300000190734863, -5.6519999504089355, 0],
+        "max": [6.300000190734863, 5.148000240325928, 8.978400230407715]
+      },
+      "dimensionsBlender": [
+        12.600000381469727,
+        10.800000190734863,
+        8.978400230407715
+      ],
+      "vertices": 1168,
+      "polygons": 1094,
+      "triangles": 2180,
+      "materials": 5,
+      "images": 0,
+      "draws": 5,
+      "frontDirection": "-Y",
+      "groundDatum": 0,
+      "authoredMetersPerSceneUnit": 2.7
+    },
+    "humanScale": {
+      "heightMeters": 1.8,
+      "heightSceneUnits": 0.666,
+      "temporaryProxyOnly": true,
+      "savedToMaster": false
+    },
+    "fixedViews": {
+      "canonical": {
+        "camera": [-15.5, 23, 12],
+        "target": [-0.1, 1, 4.45],
+        "lensMm": 56,
+        "screenshot": "test_artifacts/test_hudec-memorial_mcp1_massing_canonical.png",
+        "sha256": "159f03a7e70dcf2b6ccdc1e0365d4d1d6ea0216136f9d885cb4765b8ed540b9c",
+        "bytes": 756575
+      },
+      "side": {
+        "camera": [21, 17, 10.8],
+        "target": [-0.8, 1.2, 4.35],
+        "lensMm": 54,
+        "screenshot": "test_artifacts/test_hudec-memorial_mcp1_massing_side.png",
+        "sha256": "98329c85c3e02d8b5cb911f26dbce735cd4046ae8d0e7550a1523a7542dd449c",
+        "bytes": 746549
+      },
+      "entrance": {
+        "camera": [8.2, -17, 6.2],
+        "target": [1.3, -1.35, 2.55],
+        "lensMm": 58,
+        "screenshot": "test_artifacts/test_hudec-memorial_mcp1_massing_entrance.png",
+        "sha256": "09854c743d335dd84b488267496617ed7c7b2799bafaa29f43ea8c039b4db640",
+        "bytes": 728659
+      }
+    },
+    "checks": {
+      "groundContact": "pass-z-zero-datum",
+      "rootTransform": "pass-normalized",
+      "humanScale": "pass",
+      "volumeHierarchy": "pass-steep-main-roof-cross-gables-and-lower-wing",
+      "signatureChimney": "pass-white-stack-base-plus-three-brick-flues",
+      "halfTimberGable": "pass-readable-in-canonical-and-side",
+      "lowGlazedWing": "pass-readable-in-canonical-and-side",
+      "entrance": "pass-for-massing-simplified-porch",
+      "visibleIntersections": "pass-no-unintended-clipping-in-fixed-views",
+      "texturePolicy": "pass-zero-images"
+    },
+    "acceptedInteractiveChanges": [],
+    "generatorRoundTrip": {
+      "status": "not-required",
+      "note": "MCP1 仅增加临时相机、灯光、地面和1.8米人物代理；未接受几何、材质或 transform 修改，正式 Blend 未保存。"
+    },
+    "nextGate": "three-js-massing-map-calibration"
+  },
+  "heroGate": {
+    "status": "pending-after-map-calibration"
+  },
+  "identityGate": {
+    "status": "blocked-until-reviewed-hero-master"
+  },
+  "threeTierGate": {
+    "status": "pending"
+  }
+}

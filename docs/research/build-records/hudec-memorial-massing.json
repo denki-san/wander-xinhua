@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "stableAssetId": "hudec-memorial",
   "qualityTier": "massing",
-  "status": "mcp1-candidate",
+  "status": "mcp1-pass-map-calibration-pending",
   "generatedAt": "2026-07-25T18:28:53+08:00",
   "generator": {
     "path": "scripts/create_hudec_memorial_v2.py",
@@ -125,15 +125,16 @@
     }
   },
   "validation": {
-    "headlessFixedViews": "passed-as-mcp1-candidate",
+    "headlessFixedViews": "passed",
     "glbAudit": {
       "command": "python3 scripts/audit_glb.py public/models/requested-pois/hudec-memorial-massing.glb --forbid-images --max-nodes 2",
       "result": "passed"
     },
-    "mcp1": "pending-shared-scene-release",
-    "mapCalibration": "pending-mcp1",
-    "runtimeQa": "pending-mcp1",
-    "independentReview": "passed-main-window-mcp1-candidate"
+    "mcp1": "passed-main-coordinator-blender-mcp",
+    "mcpRecord": "docs/research/hudec-memorial-blender-mcp-gates.json",
+    "mapCalibration": "pending-after-mcp1",
+    "runtimeQa": "pending-map-calibration",
+    "independentReview": "passed-main-window"
   },
   "holdBoundary": {
     "trees": "untouched",

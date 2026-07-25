@@ -17,6 +17,10 @@ const blendUrl = new URL(
   root,
 );
 const generatorUrl = new URL("scripts/create_hudec_memorial_v2.py", root);
+const mcpGateUrl = new URL(
+  "docs/research/hudec-memorial-blender-mcp-gates.json",
+  root,
+);
 
 function parseGlb(buffer) {
   assert.equal(buffer.toString("utf8", 0, 4), "glTF");
@@ -37,7 +41,7 @@ test("Hudec Massing 保持单资产安全并记录证据边界", async () => {
 
   assert.equal(record.stableAssetId, "hudec-memorial");
   assert.equal(record.qualityTier, "massing");
-  assert.equal(record.status, "mcp1-candidate");
+  assert.equal(record.status, "mcp1-pass-map-calibration-pending");
   assert.equal(record.generator.singleAssetSafe, true);
   assert.deepEqual(record.holdBoundary, {
     trees: "untouched",
@@ -104,4 +108,32 @@ test("三张 Headless 固定机位与 1.8 m 代理合同齐全", async () => {
   assert.match(generator, /test-human-1_8m-body/);
   assert.match(generator, /test-human-1_8m-head/);
   assert.match(generator, /asset=False/);
+});
+
+test("Hudec Massing MCP1 固定机位、结构检查与正式二进制一致", async () => {
+  const [gate, record, glb] = await Promise.all([
+    readFile(mcpGateUrl, "utf8").then(JSON.parse),
+    readFile(recordUrl, "utf8").then(JSON.parse),
+    readFile(glbUrl),
+  ]);
+
+  assert.equal(gate.assetId, "hudec-memorial");
+  assert.equal(gate.massingGate.status, "pass");
+  assert.equal(gate.massingGate.runtimeAsset.sha256, sha256(glb));
+  assert.equal(gate.massingGate.sceneInspection.triangles, 2180);
+  assert.equal(gate.massingGate.sceneInspection.materials, 5);
+  assert.equal(gate.massingGate.sceneInspection.images, 0);
+  assert.deepEqual(gate.massingGate.acceptedInteractiveChanges, []);
+  assert.equal(gate.massingGate.generatorRoundTrip.status, "not-required");
+  assert.equal(
+    record.validation.mcpRecord,
+    "docs/research/hudec-memorial-blender-mcp-gates.json",
+  );
+
+  for (const view of ["canonical", "side", "entrance"]) {
+    const screenshot = gate.massingGate.fixedViews[view];
+    const buffer = await readFile(new URL(screenshot.screenshot, root));
+    assert.equal(buffer.length, screenshot.bytes);
+    assert.equal(sha256(buffer), screenshot.sha256);
+  }
 });
