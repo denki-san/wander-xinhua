@@ -124,3 +124,53 @@ canonical、入口或布局；两个有图成员没有空间绑定；两个 Reco
 删除本提交新增的329弄研究文件即可回到
 `69db0b421fc1ba7795e8af9fc14fd440b704b547`；本轮没有二进制资产或公共运行时
 改动。
+
+## Iteration 1 — Fast Mode Recovery lineage checkpoint
+
+- Date: 2026-07-26
+- Baseline: `222e7ebd7ef556f7f3f6edd2c0561a6e6c36111f`
+- Recovery commit:
+  `3044cd89f801250afcd477dfbcbc7da358bf4b11`
+- Result: `blocked-with-sufficient-evidence-and-reproducible-recovery-lineage`
+
+### Recovery continuation
+
+只选择性接续329弄 Massing-v2 的 `.blend`、GLB、原 build record，以及 canonical、
+side、runtime context、runtime isolated 四张建筑专属 QA 图。三个正式产物均与
+Recovery blob 逐字节一致，GLB SHA-256 为 `f7ade44b…c3819`。
+
+显式结构审计通过：`8244 bytes / 5 nodes / 5 meshes / 1 material /
+0 images / 0 textures`。这只证明容器和无图片策略，不证明五个 footprint
+属于329弄。
+
+### Gate inheritance
+
+- `runtimeGate=pass`：仅继承 Recovery runtime visual evidence。
+- `mapAcceptance=blocked`：保持原结论；没有新 runtime 执行。
+- `mcp1=pending-main-window-batch`：Recovery 没有正式 MCP1 字段，本轮也没有
+  打开 Blender 或执行 MCP。
+- Evidence Gate：复核五个既有建筑专属证据文件后仍为 `blocked-evidence`。
+
+正式地图门不能开始：五个节点全部是未绑定 OSM 候选，官方17号和38号照片没有
+compound canonical、入口、空间布局或候选 footprint 对应关系。即便既有截图
+显示这些盒子可以加载，也无法验证真实道路退界、成员间开放路径、入口净空和
+碰撞语义。
+
+### Shared boundary and main-window handoff
+
+本分支未修改共享 registry、runtime 或 Fast manifest。精确候选接线记录在
+`docs/research/xinhua-villas-329-massing-recovery-checkpoint.json`：
+
+- tests：新增329 recovery checkpoint 专项测试；
+- glbs：保留旧 Hero 审计，并追加 Massing-v2 结构审计路径；
+- routes：保留既有 `villas329`，候选增加资产级
+  `qaModelId=xinhua-villas-329&qaModelTier=massing`；
+- runtime：候选 route 必须等待主窗口添加 scoped resolver，且证据 blocker
+  解除前不得进入 production quality manifest；
+- MCP1：由主窗口在2～3栋批量终审时首次执行。
+
+### Rollback
+
+删除本 iteration 新增的 checkpoint JSON、专项测试、Recovery Massing-v2 三个
+正式产物和四张忽略规则内 QA 图，并回退 Brief / decision log 的本节即可。本轮
+没有共享文件改动。

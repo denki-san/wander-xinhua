@@ -269,3 +269,27 @@
 ## Decision Log
 
 详细审计决策见 `docs/research/xinhua-villas-329-decision-log.md`。
+
+## Fast Mode Recovery checkpoint — 2026-07-26
+
+- 基线：`222e7ebd7ef556f7f3f6edd2c0561a6e6c36111f`。
+- 从 Recovery commit
+  `3044cd89f801250afcd477dfbcbc7da358bf4b11`
+  逐字节恢复 Massing-v2 `.blend`、build record、GLB 与四张建筑专属预览 /
+  runtime 截图；没有恢复 ordinary OSM generator、共享 runtime、registry 或其他资产。
+- GLB SHA-256 继续为
+  `f7ade44ba879dead433abd006603a613520af730d9a2a35dada412b99a0c3819`；
+  显式运行 `python3 scripts/audit_glb.py <glb>` 通过
+  `8244 bytes / 5 nodes / 5 meshes / 1 material / 0 images`。
+- Recovery 的 `runtimeGate=pass` 仅作为既有 runtime visual evidence 接续；
+  `mapAcceptance=blocked` 保持不变。
+- Recovery 没有正式 Blender MCP1 字段，因此本 checkpoint 明确记录
+  `mcp1=pending-main-window-batch`，未重建、未打开 Blender、未重复 runtime。
+- 五个节点仍全部是 `unbound-member-candidate`；当前两张官方图仍不能证明
+  compound canonical、入口或成员布局，因此正式地图门结果是
+  `formal-blocked-evidence`，不是 pass。
+- 可复核 checkpoint：
+  `docs/research/xinhua-villas-329-massing-recovery-checkpoint.json`。
+- 主窗口若解除主体绑定 blocker，应先添加资产级 scoped tier resolver，再把候选
+  Massing GLB、专项测试和 `qaModelTier=massing` route 接入 Fast manifest；在此之前
+  不得把候选提升为 production Massing。
