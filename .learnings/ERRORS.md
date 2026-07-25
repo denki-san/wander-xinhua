@@ -31,6 +31,74 @@ Error: listen EPERM: operation not permitted 127.0.0.1:4317
 - **Notes**: 经批准后同一命令已在 `127.0.0.1:4317` 正常监听。
 
 ---
+## [ERR-20260725-032] gltf_float32_material_factor_exact_assertion
+
+**Logged**: 2026-07-25T21:37:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+一号花园 Hero v2 材质定向测试把 glTF Float32 数值与十进制字面量做
+`deepStrictEqual`，导致正确的 `baseColorFactor` 和 roughness 被误判失败。
+
+### Error
+```text
+Expected 0.18 but received 0.18000000715255737
+Expected 0.88 but received 0.8799999952316284
+```
+
+### Context
+- GLB 的 7 个 PBR 材质已正确分层，独立 `audit_glb.py` 同时通过。
+- glTF JSON 来自 Blender 的 Float32 材质属性，序列化后保留 IEEE-754 表示差。
+- 测试应先统一到审计记录采用的 6 位精度，再比较预期语义值。
+
+### Suggested Fix
+对 glTF 材质标量和向量逐项 `Number(value.toFixed(6))` 后再进行严格深比较；
+继续保留 7 个唯一 `baseColorFactor` 和禁止默认灰的独立断言。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_one_step_garden_hero_v2.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T21:38:00+08:00
+- **Notes**: 增加统一 6 位精度的归一函数并重新运行专属测试。
+
+---
+## [ERR-20260725-033] blender_python_expr_material_audit_syntax
+
+**Logged**: 2026-07-25T21:41:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+用 `--python-expr` 拼接一号花园 `.blend` 材质审计时，过长列表推导式的括号不匹配，
+导致只读审计脚本在文件打开后未执行。
+
+### Error
+```text
+SyntaxError: closing parenthesis ']' does not match opening parenthesis '('
+```
+
+### Context
+- Blender 已成功只读打开目标 `.blend`，错误发生在 Python 表达式解析阶段。
+- 命令没有保存或修改任何文件。
+- 复杂审计逻辑不适合压缩成一行 `--python-expr`。
+
+### Suggested Fix
+使用 `/tmp/test_*.py` 临时脚本承载多行审计逻辑，再通过 `--python` 执行。
+
+### Metadata
+- Reproducible: yes
+- Related Files: assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend
+
+### Resolution
+- **Resolved**: 2026-07-25T21:42:00+08:00
+- **Notes**: 改为 `test_` 前缀的临时多行审计脚本。
+
+---
 
 ## [ERR-20260725-093] browser_readonly_evaluate_hides_animation_frame
 

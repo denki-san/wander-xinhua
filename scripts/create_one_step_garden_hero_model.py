@@ -32,9 +32,32 @@ GLB_PATH = (
     / "one-step-garden-hero.glb"
 )
 PREVIEW_DIR = ROOT / "test_artifacts/all-models/hero-v2/one-step-garden"
-CANONICAL_PATH = PREVIEW_DIR / "test_one-step-garden-hero-v2-canonical.png"
-SIDE_PATH = PREVIEW_DIR / "test_one-step-garden-hero-v2-side-depth.png"
-ENTRANCE_PATH = PREVIEW_DIR / "test_one-step-garden-hero-v2-entrance-detail.png"
+CANONICAL_PATH = (
+    PREVIEW_DIR
+    / "test_one-step-garden-hero-v2_mcp2_recheck_fixed_canonical.png"
+)
+SIDE_PATH = (
+    PREVIEW_DIR
+    / "test_one-step-garden-hero-v2_mcp2_recheck_fixed_side.png"
+)
+ENTRANCE_PATH = (
+    PREVIEW_DIR
+    / "test_one-step-garden-hero-v2_mcp2_recheck_fixed_entrance.png"
+)
+FAILED_MCP2_PREVIEW_PATHS = {
+    "canonical": (
+        PREVIEW_DIR
+        / "test_one-step-garden-hero-v2_mcp2_recheck_canonical.png"
+    ),
+    "side": (
+        PREVIEW_DIR
+        / "test_one-step-garden-hero-v2_mcp2_recheck_side.png"
+    ),
+    "entrance": (
+        PREVIEW_DIR
+        / "test_one-step-garden-hero-v2_mcp2_recheck_entrance.png"
+    ),
+}
 RECORD_PATH = (
     ROOT
     / "docs/research/build-records/tiers/xinhua-road/hero-v2"
@@ -47,6 +70,15 @@ RUNTIME_YAW = -0.38
 RUNTIME_SCALE = 0.88
 AUTHORED_FRONT = "local-negative-y"
 SCENE_UNIT_METERS = 2.7
+EXPECTED_HERO_MATERIAL_NAMES = {
+    "one-step-garden-hero-warm-plaster",
+    "one-step-garden-hero-muted-brick",
+    "one-step-garden-hero-dark-tile-roof",
+    "one-step-garden-hero-deep-half-timber",
+    "one-step-garden-hero-window-frame",
+    "one-step-garden-hero-muted-glass",
+    "one-step-garden-hero-dark-door",
+}
 
 
 def file_sha256(path: Path) -> str:
@@ -79,9 +111,23 @@ def material(
     metallic: float = 0.0,
 ) -> bpy.types.Material:
     value = bpy.data.materials.new(name)
+    value.use_nodes = True
     value.diffuse_color = color
     value.roughness = roughness
     value.metallic = metallic
+    principled = next(
+        (
+            node
+            for node in value.node_tree.nodes
+            if node.type == "BSDF_PRINCIPLED"
+        ),
+        None,
+    )
+    if principled is None:
+        raise RuntimeError(f"{name} 缺少 Principled BSDF")
+    principled.inputs["Base Color"].default_value = color
+    principled.inputs["Roughness"].default_value = roughness
+    principled.inputs["Metallic"].default_value = metallic
     return value
 
 
@@ -1081,18 +1127,27 @@ def scene_bounds(
 
 def configure_scene() -> None:
     scene = bpy.context.scene
-    scene.render.engine = "BLENDER_WORKBENCH"
-    scene.display.shading.light = "STUDIO"
-    scene.display.shading.color_type = "MATERIAL"
-    scene.display.shading.show_shadows = True
-    scene.display.shading.show_cavity = True
-    scene.display.shading.cavity_type = "WORLD"
-    scene.display.shading.background_type = "WORLD"
-    scene.render.resolution_x = 960
-    scene.render.resolution_y = 720
+    for engine in ("BLENDER_EEVEE_NEXT", "BLENDER_EEVEE"):
+        try:
+            scene.render.engine = engine
+            break
+        except TypeError:
+            continue
+    else:
+        raise RuntimeError("当前 Blender 不支持 Eevee 正式预览")
+    scene.render.resolution_x = 1024
+    scene.render.resolution_y = 768
     scene.render.resolution_percentage = 100
     scene.render.image_settings.file_format = "PNG"
-    scene.world.color = (0.025, 0.03, 0.035)
+    scene.render.film_transparent = False
+    scene.world.use_nodes = True
+    background = scene.world.node_tree.nodes.get("Background")
+    if background is None:
+        raise RuntimeError("Eevee 预览世界缺少 Background 节点")
+    background.inputs["Color"].default_value = (0.055, 0.07, 0.08, 1.0)
+    background.inputs["Strength"].default_value = 0.34
+    scene.view_settings.view_transform = "AgX"
+    scene.view_settings.exposure = 0.75
     scene["asset_id"] = "one-step-garden"
     scene["tier"] = "hero"
     scene["version"] = "hero-v2"
@@ -1123,8 +1178,33 @@ def export_glb(path: Path, obj: bpy.types.Object) -> None:
     )
 
 
+def add_preview_light(
+    name: str,
+    light_type: str,
+    location: tuple[float, float, float],
+    target: tuple[float, float, float],
+    energy: float,
+    *,
+    size: float = 5.0,
+) -> bpy.types.Object:
+    """加入不保存、不导出的固定 Eevee 灯光。"""
+
+    data = bpy.data.lights.new(name=f"{name}-data", type=light_type)
+    data.energy = energy
+    if light_type == "AREA":
+        data.shape = "DISK"
+        data.size = size
+    obj = bpy.data.objects.new(name, data)
+    bpy.context.collection.objects.link(obj)
+    obj.location = location
+    obj.rotation_euler = (
+        Vector(target) - obj.location
+    ).to_track_quat("-Z", "Y").to_euler()
+    return obj
+
+
 def add_preview_context() -> list[bpy.types.Object]:
-    """加入不导出的地面、人物比例尺和前向标记。"""
+    """加入不保存、不导出的地面、人物、前向标记和 Eevee 灯光。"""
 
     helpers: list[bpy.types.Object] = []
     ground_surface = material(
@@ -1176,6 +1256,34 @@ def add_preview_context() -> list[bpy.types.Object]:
         marker_surface,
     )
     helpers.append(marker)
+    helpers.extend(
+        [
+            add_preview_light(
+                "test-preview-key-light",
+                "AREA",
+                (10.0, -14.0, 18.0),
+                (0.0, 0.0, 2.6),
+                1250.0,
+                size=8.0,
+            ),
+            add_preview_light(
+                "test-preview-fill-light",
+                "AREA",
+                (-14.0, -1.0, 10.0),
+                (0.0, 1.0, 2.4),
+                850.0,
+                size=10.0,
+            ),
+            add_preview_light(
+                "test-preview-rim-light",
+                "AREA",
+                (6.0, 13.0, 15.0),
+                (0.0, 3.0, 3.0),
+                1100.0,
+                size=7.0,
+            ),
+        ]
+    )
     return helpers
 
 
@@ -1264,6 +1372,45 @@ def vector_cross(
 
 def vector_length(value: tuple[float, float, float]) -> float:
     return math.sqrt(sum(component * component for component in value))
+
+
+def inspect_blend_materials() -> list[dict[str, Any]]:
+    """读取正式 master 内七个节点材质；排除未保存的预览 helper 材质。"""
+
+    results = []
+    for name in sorted(EXPECTED_HERO_MATERIAL_NAMES):
+        value = bpy.data.materials.get(name)
+        if value is None or value.node_tree is None:
+            raise RuntimeError(f"Hero v2 .blend 缺少节点材质：{name}")
+        principled = next(
+            (
+                node
+                for node in value.node_tree.nodes
+                if node.type == "BSDF_PRINCIPLED"
+            ),
+            None,
+        )
+        if principled is None:
+            raise RuntimeError(f"Hero v2 .blend 缺少 Principled BSDF：{name}")
+        results.append(
+            {
+                "name": name,
+                "useNodes": bool(value.use_nodes),
+                "baseColor": [
+                    round(float(component), 6)
+                    for component in principled.inputs["Base Color"].default_value
+                ],
+                "roughness": round(
+                    float(principled.inputs["Roughness"].default_value),
+                    6,
+                ),
+                "metallic": round(
+                    float(principled.inputs["Metallic"].default_value),
+                    6,
+                ),
+            }
+        )
+    return results
 
 
 def parse_glb(path: Path) -> dict[str, Any]:
@@ -1376,6 +1523,29 @@ def parse_glb(path: Path) -> dict[str, Any]:
         for node in gltf.get("nodes", [])
         if any(key in node for key in ("translation", "rotation", "scale", "matrix"))
     ]
+    material_factors = []
+    for value in gltf.get("materials", []):
+        pbr = value.get("pbrMetallicRoughness", {})
+        material_factors.append(
+            {
+                "name": value.get("name", "(unnamed)"),
+                "baseColorFactor": [
+                    round(float(component), 6)
+                    for component in pbr.get(
+                        "baseColorFactor",
+                        [1.0, 1.0, 1.0, 1.0],
+                    )
+                ],
+                "roughnessFactor": round(
+                    float(pbr.get("roughnessFactor", 1.0)),
+                    6,
+                ),
+                "metallicFactor": round(
+                    float(pbr.get("metallicFactor", 1.0)),
+                    6,
+                ),
+            }
+        )
     return {
         "sha256": file_sha256(path),
         "bytes": len(contents),
@@ -1411,18 +1581,22 @@ def parse_glb(path: Path) -> dict[str, Any]:
             "min": [round(value, 6) for value in bounds_min],
             "max": [round(value, 6) for value in bounds_max],
         },
+        "materialFactors": material_factors,
         "transformedNodes": transformed_nodes,
     }
 
 
 def write_record(audit: dict[str, Any]) -> None:
+    blend_materials = inspect_blend_materials()
     record = {
         "version": 1,
         "auditedAt": AUDITED_AT,
         "assetId": "one-step-garden",
         "tier": "hero",
         "versionName": "hero-v2",
-        "status": "headless-candidate-awaiting-main-window-mcp2",
+        "status": (
+            "headless-material-fix-pass-awaiting-main-window-mcp2-rereview"
+        ),
         "generator": "scripts/create_one_step_garden_hero_model.py",
         "generatorSha256": file_sha256(Path(__file__).resolve()),
         "buildCommand": (
@@ -1535,11 +1709,42 @@ def write_record(audit: dict[str, Any]) -> None:
         "canonicalFront": AUTHORED_FRONT,
         "identityAllowed": False,
         "mcp2": {
-            "status": "pending-main-window-serial-review",
+            "status": "material-fix-complete-awaiting-main-window-rereview",
             "requestedAfterCommit": True,
             "acceptedInteractiveChanges": [],
             "qaRigSaved": False,
             "qaRigExported": False,
+            "firstAttempt": {
+                "status": "blocked",
+                "finding": (
+                    "all-seven-Principled-Base-Color-values-were-default-gray"
+                ),
+                "cause": (
+                    "generator-only-set-viewport-diffuse-color-and-workbench-"
+                    "previews-did-not-prove-node-or-glb-materials"
+                ),
+                "failedEvidence": {
+                    name: {
+                        "path": str(path.relative_to(ROOT)),
+                        "sha256": file_sha256(path),
+                        "bytes": path.stat().st_size,
+                        "dimensions": [1024, 768],
+                    }
+                    for name, path in FAILED_MCP2_PREVIEW_PATHS.items()
+                },
+                "acceptedInteractiveChanges": [],
+                "qaRigSaved": False,
+            },
+            "fix": {
+                "nodeMaterials": (
+                    "use_nodes-plus-Principled-Base-Color-Roughness-Metallic"
+                ),
+                "formalPreviewEngine": "EEVEE",
+                "glassPolicy": (
+                    "opaque-muted-color-and-roughness-no-texture-no-invented-"
+                    "transmission"
+                ),
+            },
             "gateRecord": "docs/research/one-step-garden-blender-mcp-gates.json",
             "identityRemainsBlocked": True,
         },
@@ -1551,6 +1756,15 @@ def write_record(audit: dict[str, Any]) -> None:
             "rootRotation": [0, 0, 0],
             "rootScale": [1, 1, 1],
             "previewHelpersSaved": False,
+            "previewEngine": "EEVEE",
+        },
+        "blendMaterialAudit": {
+            "materialCount": len(blend_materials),
+            "allUseNodes": all(
+                value["useNodes"]
+                for value in blend_materials
+            ),
+            "materials": blend_materials,
         },
         "determinism": {
             "sameCommandRuns": 2,
@@ -1664,6 +1878,39 @@ def main() -> None:
         raise RuntimeError(f"Hero v2 必须保持单节点单网格：{audit}")
     if audit["materials"] != 7:
         raise RuntimeError(f"Hero v2 材质语义分组异常：{audit}")
+    material_by_name = {
+        value["name"]: value
+        for value in audit["materialFactors"]
+    }
+    if set(material_by_name) != EXPECTED_HERO_MATERIAL_NAMES:
+        raise RuntimeError(
+            f"Hero v2 GLB 材质名称或数量异常：{sorted(material_by_name)}"
+        )
+    unique_base_colors = {
+        tuple(value["baseColorFactor"])
+        for value in material_by_name.values()
+    }
+    if len(unique_base_colors) != len(EXPECTED_HERO_MATERIAL_NAMES):
+        raise RuntimeError(f"Hero v2 GLB Base Color 未保持七层分组：{audit}")
+    default_gray = (0.8, 0.8, 0.8, 1.0)
+    if any(
+        all(
+            abs(actual - expected) <= 1e-6
+            for actual, expected in zip(
+                value["baseColorFactor"],
+                default_gray,
+                strict=True,
+            )
+        )
+        for value in material_by_name.values()
+    ):
+        raise RuntimeError(f"Hero v2 GLB 仍含默认灰 Base Color：{audit}")
+    if any(
+        value["metallicFactor"] != 0.0
+        or not 0.25 <= value["roughnessFactor"] <= 1.0
+        for value in material_by_name.values()
+    ):
+        raise RuntimeError(f"Hero v2 GLB PBR 参数越出证据边界：{audit}")
     if audit["images"] or audit["textures"] or audit["animations"]:
         raise RuntimeError(f"Hero v2 不允许图片、贴图或动画：{audit}")
     if audit["transformedNodes"]:

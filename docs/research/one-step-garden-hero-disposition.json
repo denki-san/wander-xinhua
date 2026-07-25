@@ -13,7 +13,7 @@
     "identityAuthorized": false,
     "legacyHeroDisposition": "hold-read-only-rollback-only",
     "publicRegistryAction": "retain-existing-hero-no-worktree-change",
-    "nextGate": "main-window-serial-blender-mcp2-for-hero-v2"
+    "nextGate": "main-window-serial-blender-mcp2-rereview-for-hero-v2"
   },
   "formalSubjectContract": {
     "referenceManifest": "docs/research/one-step-garden-reference-manifest.json",
@@ -286,7 +286,7 @@
     }
   ],
   "rebuildPlan": {
-    "status": "headless-candidate-complete-awaiting-main-window-mcp2",
+    "status": "material-fix-complete-awaiting-main-window-mcp2-rereview",
     "preserveLegacyWithoutOverwrite": [
       "assets/models/source/xinhua-road/one-step-garden.blend",
       "public/models/xinhua-road/one-step-garden.glb",
@@ -309,22 +309,46 @@
       "MCP2 通过后才从新 Hero master 派生 Identity，并由主窗口统一决定公共 registry 切换。"
     ]
   },
+  "mcp2ReviewHistory": {
+    "firstAttempt": {
+      "status": "blocked",
+      "finding": "seven-materials-had-correct-diffuse-color-but-default-gray-Principled-Base-Color",
+      "acceptedInteractiveChanges": [],
+      "qaRigSaved": false,
+      "failedEvidence": [
+        "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_canonical.png",
+        "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_side.png",
+        "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_entrance.png"
+      ]
+    },
+    "fix": {
+      "status": "headless-pass-awaiting-rereview",
+      "nodeMaterials": "pass-seven-use_nodes-Principled-materials",
+      "glbMaterials": "pass-seven-distinct-baseColorFactor-groups",
+      "formalPreviewEngine": "EEVEE",
+      "fixedEvidence": [
+        "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_fixed_canonical.png",
+        "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_fixed_side.png",
+        "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_fixed_entrance.png"
+      ]
+    }
+  },
   "replacementCandidate": {
     "version": "hero-v2",
-    "status": "headless-pass-awaiting-main-window-mcp2",
+    "status": "headless-material-fix-pass-awaiting-main-window-mcp2-rereview",
     "generator": {
       "path": "scripts/create_one_step_garden_hero_model.py",
-      "sha256": "b9fc81f1eaa9d1aea6086ebe9d961d1deb35dd5ba2bb7a489d7bc4c1d8131128"
+      "sha256": "b536e1d32630b0ee3262d98029ba384bfa610f392316dad7dd658141124b30b8"
     },
     "editableSource": {
       "path": "assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend",
-      "sha256": "23bae78ed7447227118c97d572866ba3e3f3a71158cfb56f12444c374510d5f5",
-      "bytes": 139552
+      "sha256": "8f5c3984abef50239f1ece5e5360887d8615786cb6283bf60d85f80bd12f21bd",
+      "bytes": 139526
     },
     "runtimeAsset": {
       "path": "public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb",
-      "sha256": "1174a96c713bcce1b63512fd5c4e7c5405a7c5c5bb11800787943d5551df5094",
-      "bytes": 259632
+      "sha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+      "bytes": 259772
     },
     "buildRecord": "docs/research/build-records/tiers/xinhua-road/hero-v2/one-step-garden-hero.json",
     "derivedFromMassingGlbSha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
@@ -339,7 +363,9 @@
       "normalOrientationMismatches": 0,
       "rootTransform": "normalized",
       "boundsMatchMassing": true,
-      "deterministicDoubleBuild": true
+      "deterministicDoubleBuild": true,
+      "blendNodeMaterials": "pass-seven-distinct-Principled-Base-Color-values",
+      "glbBaseColorFactors": "pass-seven-distinct-groups-no-default-gray"
     },
     "scope": {
       "buildingOnly": true,

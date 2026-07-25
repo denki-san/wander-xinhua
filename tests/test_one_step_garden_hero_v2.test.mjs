@@ -87,6 +87,10 @@ function length(vector) {
   return Math.hypot(...vector);
 }
 
+function round6(value) {
+  return Number(value.toFixed(6));
+}
+
 function auditGeometry(json, binary) {
   let triangles = 0;
   let zeroAreaTriangles = 0;
@@ -165,7 +169,10 @@ test("一号花园 Hero v2 使用独立路径并保留旧 Hero Hold 与公共 re
   const registry = await readJson("app/scene/xinhua-road-landmarks-data.json");
   const landmark = registry.landmarks.find(({ id }) => id === "one-step-garden");
 
-  assert.equal(record.status, "headless-candidate-awaiting-main-window-mcp2");
+  assert.equal(
+    record.status,
+    "headless-material-fix-pass-awaiting-main-window-mcp2-rereview",
+  );
   assert.equal(record.tier, "hero");
   assert.equal(record.versionName, "hero-v2");
   assert.equal(record.generatorSha256, await sha256(record.generator));
@@ -216,6 +223,95 @@ test("一号花园 Hero v2 GLB 结构、退化面、法线和预算通过独立�
   assert.equal(json.materials.length, 7);
   assert.equal(json.images?.length ?? 0, 0);
   assert.equal(json.textures?.length ?? 0, 0);
+  const expectedMaterials = {
+    "one-step-garden-hero-warm-plaster": {
+      baseColorFactor: [0.82, 0.78, 0.69, 1],
+      roughnessFactor: 0.88,
+      metallicFactor: 0,
+    },
+    "one-step-garden-hero-muted-brick": {
+      baseColorFactor: [0.4, 0.16, 0.11, 1],
+      roughnessFactor: 0.88,
+      metallicFactor: 0,
+    },
+    "one-step-garden-hero-dark-tile-roof": {
+      baseColorFactor: [0.12, 0.15, 0.15, 1],
+      roughnessFactor: 0.88,
+      metallicFactor: 0,
+    },
+    "one-step-garden-hero-deep-half-timber": {
+      baseColorFactor: [0.045, 0.065, 0.06, 1],
+      roughnessFactor: 0.88,
+      metallicFactor: 0,
+    },
+    "one-step-garden-hero-window-frame": {
+      baseColorFactor: [0.035, 0.085, 0.075, 1],
+      roughnessFactor: 0.88,
+      metallicFactor: 0,
+    },
+    "one-step-garden-hero-muted-glass": {
+      baseColorFactor: [0.09, 0.19, 0.18, 1],
+      roughnessFactor: 0.38,
+      metallicFactor: 0,
+    },
+    "one-step-garden-hero-dark-door": {
+      baseColorFactor: [0.18, 0.105, 0.065, 1],
+      roughnessFactor: 0.88,
+      metallicFactor: 0,
+    },
+  };
+  const actualMaterials = Object.fromEntries(
+    json.materials.map(({ name, pbrMetallicRoughness }) => [
+      name,
+      {
+        baseColorFactor: pbrMetallicRoughness.baseColorFactor.map(round6),
+        roughnessFactor: round6(pbrMetallicRoughness.roughnessFactor),
+        metallicFactor: round6(pbrMetallicRoughness.metallicFactor),
+      },
+    ]),
+  );
+  assert.deepEqual(actualMaterials, expectedMaterials);
+  assert.equal(
+    new Set(
+      Object.values(actualMaterials).map(
+        ({ baseColorFactor }) => JSON.stringify(baseColorFactor),
+      ),
+    ).size,
+    7,
+  );
+  assert.ok(
+    Object.values(actualMaterials).every(
+      ({ baseColorFactor }) => JSON.stringify(baseColorFactor) !== "[0.8,0.8,0.8,1]",
+    ),
+  );
+  assert.deepEqual(
+    Object.fromEntries(
+      record.glb.materialFactors.map((value) => [
+        value.name,
+        {
+          baseColorFactor: value.baseColorFactor,
+          roughnessFactor: value.roughnessFactor,
+          metallicFactor: value.metallicFactor,
+        },
+      ]),
+    ),
+    expectedMaterials,
+  );
+  assert.equal(record.blendMaterialAudit.materialCount, 7);
+  assert.equal(record.blendMaterialAudit.allUseNodes, true);
+  assert.deepEqual(
+    Object.fromEntries(
+      record.blendMaterialAudit.materials.map((value) => [
+        value.name,
+        {
+          baseColorFactor: value.baseColor,
+          roughnessFactor: value.roughness,
+          metallicFactor: value.metallic,
+        },
+      ]),
+    ),
+    expectedMaterials,
+  );
   assert.equal(rootNode.translation, undefined);
   assert.equal(rootNode.rotation, undefined);
   assert.equal(rootNode.scale, undefined);
@@ -286,6 +382,12 @@ test("一号花园 Hero v2 generator 只包含建筑证据构件", async () => {
     "other-buildings",
     "full-map-assets",
   ]);
+  assert.match(source, /value\.use_nodes = True/);
+  assert.match(source, /principled\.inputs\["Base Color"\]\.default_value = color/);
+  assert.match(source, /principled\.inputs\["Roughness"\]\.default_value = roughness/);
+  assert.match(source, /principled\.inputs\["Metallic"\]\.default_value = metallic/);
+  assert.match(source, /scene\.render\.engine = engine/);
+  assert.doesNotMatch(source, /scene\.render\.engine = "BLENDER_WORKBENCH"/);
 });
 
 test("一号花园 Hero v2 三固定机位与 MCP2/Identity 门状态可追溯", async () => {
@@ -297,14 +399,30 @@ test("一号花园 Hero v2 三固定机位与 MCP2/Identity 门状态可追溯",
     assert.equal(buffer.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
     assert.equal(await sha256(preview.path), preview.sha256);
     assert.equal((await stat(path.join(root, preview.path))).size, preview.bytes);
-    assert.deepEqual([buffer.readUInt32BE(16), buffer.readUInt32BE(20)], [960, 720]);
+    assert.deepEqual([buffer.readUInt32BE(16), buffer.readUInt32BE(20)], [1024, 768]);
+    assert.match(preview.path, /_mcp2_recheck_fixed_/);
+  }
+  for (const failed of Object.values(record.mcp2.firstAttempt.failedEvidence)) {
+    const buffer = await readFile(path.join(root, failed.path));
+    assert.equal(buffer.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
+    assert.equal(await sha256(failed.path), failed.sha256);
+    assert.equal((await stat(path.join(root, failed.path))).size, failed.bytes);
+    assert.deepEqual([buffer.readUInt32BE(16), buffer.readUInt32BE(20)], [1024, 768]);
+    assert.doesNotMatch(failed.path, /_mcp2_recheck_fixed_/);
   }
   assert.deepEqual(record.fixedCameras.canonical.location, [13.5, -23.5, 14]);
   assert.deepEqual(record.fixedCameras.sideDepth.location, [-22, -4, 15.5]);
   assert.deepEqual(record.fixedCameras.entrance.location, [7, -18.5, 8.5]);
   assert.equal(record.determinism.sameCommandRuns, 2);
   assert.equal(record.determinism.sameGlbSha256, true);
-  assert.equal(gates.heroGate.status, "candidate-awaiting-main-window-mcp2");
+  assert.equal(
+    record.mcp2.status,
+    "material-fix-complete-awaiting-main-window-rereview",
+  );
+  assert.equal(record.mcp2.firstAttempt.status, "blocked");
+  assert.deepEqual(record.mcp2.firstAttempt.acceptedInteractiveChanges, []);
+  assert.equal(record.mcp2.firstAttempt.qaRigSaved, false);
+  assert.equal(gates.heroGate.status, "candidate-awaiting-main-window-mcp2-rereview");
   assert.equal(gates.heroGate.candidate.glbSha256, record.glb.sha256);
   assert.equal(gates.identityGate.status, "blocked-until-hero-v2-passes-mcp2");
 });
