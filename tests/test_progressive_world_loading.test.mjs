@@ -408,9 +408,19 @@ test("全世界生产 manifest 覆盖三档资产、共享空间参数和证据�
   const productionIds = Object.keys(PRODUCTION_BUILDING_QUALITY_MANIFEST).sort();
   assert.deepEqual(
     productionIds,
-    [...ids, "xingfuli", "shangsheng", "huashan"].sort(),
-    "全世界生产清单必须覆盖新华路 14 个地标与三个核心片区",
+    [
+      ...ids,
+      "xingfuli-west",
+      "xingfuli-center",
+      "xingfuli-east",
+      "sun-ke-villa",
+    ].sort(),
+    "18 栋生产清单必须覆盖新华路 14 个地标、幸福里三分区与孙科别墅",
   );
+  assert.equal(productionIds.length, 18);
+  assert.equal(productionIds.includes("huashan"), false);
+  assert.equal(productionIds.includes("shangsheng"), false);
+  assert.equal(productionIds.includes("xingfuli"), false);
   for (const entry of Object.values(PRODUCTION_BUILDING_QUALITY_MANIFEST)) {
     assert.ok(entry.hero.assets.length > 0);
     assert.match(entry.hero.strategy, /^distance-state-/);
@@ -469,21 +479,32 @@ test("全世界生产 manifest 覆盖三档资产、共享空间参数和证据�
     .includes("docs/research/build-records/shanghai-cinema-hybrid-identity.json"));
   assert.ok(productionCinema.evidence.resourceMetrics
     .includes("test_artifacts/test_shanghai-cinema_hybrid_metrics.json"));
-  const productionXingfuli = PRODUCTION_BUILDING_QUALITY_MANIFEST.xingfuli;
-  assert.equal(productionXingfuli.evidence.status, "migration-required");
-  assert.deepEqual(productionXingfuli.evidence.identityBuildRecords, []);
-  assert.deepEqual(productionXingfuli.evidence.massingBuildRecords, []);
-  assert.deepEqual(productionXingfuli.evidence.drawCallMetrics, []);
-  assert.ok(productionXingfuli.shared.transformSource.includes("XINGFULI_POSITION"));
-  assert.ok(productionXingfuli.shared.transformSource.includes("XINGFULI_LONGITUDINAL_SCALE"));
-  assert.ok(productionXingfuli.shared.collisionSource.includes("XINGFULI_WORLD_OBSTACLES"));
-  assert.ok(productionXingfuli.evidence.gaps.some((gap) => gap.includes("Identity recipe")));
-  assert.ok(productionXingfuli.evidence.gaps.some((gap) => gap.includes("MassingArchitecture")));
-  assert.ok(productionXingfuli.evidence.gaps.some((gap) => gap.includes("draw-call")));
-  assert.equal(PRODUCTION_BUILDING_QUALITY_MANIFEST.shangsheng.evidence.status, "migration-required");
-  assert.equal(PRODUCTION_BUILDING_QUALITY_MANIFEST.huashan.evidence.status, "migration-required");
-  assert.ok(PRODUCTION_BUILDING_QUALITY_MANIFEST.shangsheng.evidence.gaps.length > 0);
-  assert.ok(PRODUCTION_BUILDING_QUALITY_MANIFEST.huashan.evidence.gaps.length > 0);
+  for (const segment of ["west", "center", "east"]) {
+    const productionXingfuli =
+      PRODUCTION_BUILDING_QUALITY_MANIFEST[`xingfuli-${segment}`];
+    assert.equal(productionXingfuli.evidence.status, "accepted-with-followup");
+    assert.deepEqual(
+      productionXingfuli.evidence.identityBuildRecords,
+      ["docs/research/build-records/xingfuli-identity.json"],
+    );
+    assert.deepEqual(
+      productionXingfuli.evidence.massingBuildRecords,
+      ["docs/research/build-records/xingfuli-massing.json"],
+    );
+    assert.deepEqual(productionXingfuli.evidence.drawCallMetrics, []);
+    assert.ok(productionXingfuli.shared.transformSource.includes("XINGFULI_POSITION"));
+    assert.ok(productionXingfuli.shared.transformSource
+      .includes("XINGFULI_LONGITUDINAL_SCALE"));
+    assert.ok(productionXingfuli.shared.collisionSource
+      .includes("XINGFULI_WORLD_OBSTACLES"));
+    assert.ok(productionXingfuli.evidence.gaps.some((gap) => gap.includes("MCP")));
+    assert.ok(productionXingfuli.evidence.gaps.some((gap) => gap.includes("draw-call")));
+  }
+  const sunKeVilla = PRODUCTION_BUILDING_QUALITY_MANIFEST["sun-ke-villa"];
+  assert.equal(sunKeVilla.evidence.status, "migration-required");
+  assert.deepEqual(sunKeVilla.hero.assets, ["/models/shangsheng/sun-ke-villa.glb"]);
+  assert.deepEqual(sunKeVilla.identity.assets, ["recipe:SunKeVillaFallback"]);
+  assert.ok(sunKeVilla.evidence.gaps.some((gap) => gap.includes("MCP")));
 });
 
 test("最高优先级合同明确全览固定 Identity、进入仅定位、本地游览只按距离切换", async () => {

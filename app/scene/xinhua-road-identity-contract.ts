@@ -207,12 +207,16 @@ export type ProductionBuildingQualityEntry = {
     };
   };
   identity: {
-    strategy: "programmatic-miniature" | "custom-landmark-hybrid" | "programmatic-site";
+    strategy:
+      | "programmatic-miniature"
+      | "custom-landmark-hybrid"
+      | "programmatic-site"
+      | "derived-glb";
     assets: readonly string[];
     requiredBeforeMapVisible: true;
   };
   massing: {
-    strategy: "bounds-proxy" | "programmatic-site";
+    strategy: "bounds-proxy" | "programmatic-site" | "derived-glb";
     assets: readonly string[];
     parametersSource: string;
     visibility: "cover-only";
@@ -330,27 +334,30 @@ const XINHUA_ROAD_PRODUCTION_QUALITY_MANIFEST = Object.fromEntries(
   ]),
 ) as Readonly<Record<string, ProductionBuildingQualityEntry>>;
 
-const CORE_PRODUCTION_QUALITY_MANIFEST = {
-  xingfuli: {
-    buildingId: "xingfuli",
+const XINGFULI_SEGMENT_IDS = ["west", "center", "east"] as const;
+
+function xingfuliSegmentProductionEntry(
+  segment: typeof XINGFULI_SEGMENT_IDS[number],
+): ProductionBuildingQualityEntry {
+  const buildingId = `xingfuli-${segment}`;
+  return {
+    buildingId,
     scope: "core-landmark",
     hero: {
       strategy: "distance-state-glb",
       assets: [
-        "/models/xingfuli/xingfuli-west.glb?v=20260723-final-1",
-        "/models/xingfuli/xingfuli-center.glb?v=20260723-final-1",
-        "/models/xingfuli/xingfuli-east.glb?v=20260723-final-1",
+        `/models/xingfuli/${buildingId}.glb?v=20260723-final-1`,
       ],
       loading: CORE_BUILDING_HERO_DISTANCE.xingfuli,
     },
     identity: {
-      strategy: "programmatic-site",
-      assets: ["recipe:XingfuliProceduralArchitectureFallback"],
+      strategy: "derived-glb",
+      assets: [`/models/xingfuli/${buildingId}-identity.glb`],
       requiredBeforeMapVisible: true,
     },
     massing: {
-      strategy: "programmatic-site",
-      assets: ["recipe:XingfuliMassingArchitecture"],
+      strategy: "derived-glb",
+      assets: [`/models/xingfuli/${buildingId}-massing.glb`],
       parametersSource: "app/scene/xingfuli-collision.ts",
       visibility: "cover-only",
     },
@@ -360,94 +367,91 @@ const CORE_PRODUCTION_QUALITY_MANIFEST = {
       collisionSource: "app/scene/xinhua-world.tsx#XINGFULI_WORLD_OBSTACLES",
     },
     evidence: {
-      status: "migration-required",
+      status: "accepted-with-followup",
       heroBuildRecords: ["docs/research/build-records/xingfuli.json"],
-      identityBuildRecords: [],
-      massingBuildRecords: [],
+      identityBuildRecords: ["docs/research/build-records/xingfuli-identity.json"],
+      massingBuildRecords: ["docs/research/build-records/xingfuli-massing.json"],
       canonicalScreenshots: [
-        "test_artifacts/test_xingfuli_final_canonical_runtime_preview.png",
+        `test_artifacts/test_${buildingId}_canonical_preview.png`,
       ],
       sideScreenshots: [
-        "test_artifacts/test_xingfuli_final_runtime_views_preview.png",
+        `test_artifacts/test_${buildingId}_side_preview.png`,
       ],
       rearScreenshots: [],
       runtimeScreenshots: [
         "test_artifacts/test_xingfuli_final_runtime_views_preview.png",
-        "test_artifacts/test_xingfuli_final_mobile_runtime_preview.png",
+        "test_artifacts/test_xingfuli_identity_canonical_runtime_preview.png",
+        "test_artifacts/test_xingfuli_massing_canonical_runtime_preview.png",
       ],
       resourceMetrics: ["test_artifacts/test_xingfuli_final_runtime_metrics.json"],
       drawCallMetrics: [],
       gaps: [
-        "为生产使用的 XingfuliProceduralArchitectureFallback Identity recipe 建立独立 build record",
-        "为生产使用的 XingfuliMassingArchitecture recipe 建立独立 build record",
-        "补录程序化 Identity/Massing 的三向运行时截图与 draw-call 指标",
+        "补录 Blender MCP Massing、Hero 与三级同机位三道门",
+        "补录当前三档同机位背向运行时截图与 draw-call 指标",
       ],
     },
-  },
-  shangsheng: {
-    buildingId: "shangsheng",
+  };
+}
+
+const XINGFULI_BUILDING_PRODUCTION_QUALITY_MANIFEST = Object.fromEntries(
+  XINGFULI_SEGMENT_IDS.map((segment) => {
+    const entry = xingfuliSegmentProductionEntry(segment);
+    return [entry.buildingId, entry];
+  }),
+) as Readonly<Record<string, ProductionBuildingQualityEntry>>;
+
+const SUN_KE_VILLA_PRODUCTION_QUALITY_MANIFEST = {
+  "sun-ke-villa": {
+    buildingId: "sun-ke-villa",
     scope: "core-landmark",
     hero: {
       strategy: "distance-state-glb",
-      assets: [
-        "/models/shangsheng/sun-ke-villa.glb",
-        "/models/shangsheng/navy-club-pool.glb",
-      ],
+      assets: ["/models/shangsheng/sun-ke-villa.glb"],
       loading: CORE_BUILDING_HERO_DISTANCE.shangsheng,
     },
     identity: {
       strategy: "programmatic-site",
-      assets: ["recipe:CampusBuildings(identity)"],
+      assets: ["recipe:SunKeVillaFallback"],
       requiredBeforeMapVisible: true,
     },
     massing: {
       strategy: "programmatic-site",
-      assets: ["recipe:CampusMassingBuildings"],
-      parametersSource: "app/scene/xinhua-landmarks-data.json#shangshengXinsuo",
+      assets: ["recipe:CampusMassingBuildings#sun-ke-villa"],
+      parametersSource:
+        "app/scene/xinhua-landmarks-data.json#shangshengXinsuo.buildings[feature=sun-ke-villa]",
       visibility: "cover-only",
     },
     shared: {
-      transformSource: "app/scene/xinhua-landmarks-data.json#shangshengXinsuo.position",
-      collisionSource: "app/scene/shangsheng-xinsuo-block.tsx",
+      transformSource:
+        "app/scene/xinhua-landmarks-data.json#shangshengXinsuo.buildings[feature=sun-ke-villa]",
+      collisionSource: "app/scene/shangsheng-xinsuo-block.tsx#SunKeVillaFallback",
     },
-    evidence: emptyEvidence([
-      "补齐片区 Hero、Identity、Massing build record 与三向运行时证据",
-    ]),
-  },
-  huashan: {
-    buildingId: "huashan",
-    scope: "core-landmark",
-    hero: {
-      strategy: "distance-state-component",
-      assets: ["recipe:HuashanGreenBlock(full)"],
-      loading: CORE_BUILDING_HERO_DISTANCE.huashan,
+    evidence: {
+      ...emptyEvidence([
+        "补齐正式 Hero、Identity、Massing build record",
+        "补录 Blender MCP Massing、Hero 与三级同机位三道门",
+        "补录当前三档同机位运行时与资源/draw-call 指标",
+      ]),
+      canonicalScreenshots: [
+        "test_artifacts/test_sun_ke_villa_canonical_preview.png",
+      ],
+      sideScreenshots: [
+        "test_artifacts/test_sun_ke_villa_right_front_preview.png",
+      ],
+      runtimeScreenshots: [
+        "test_artifacts/test_sun_ke_villa_runtime_preview.png",
+      ],
     },
-    identity: {
-      strategy: "programmatic-site",
-      assets: ["recipe:HuashanGreenBlock(identity)"],
-      requiredBeforeMapVisible: true,
-    },
-    massing: {
-      strategy: "programmatic-site",
-      assets: ["recipe:HuashanGreenMassing"],
-      parametersSource: "app/scene/xinhua-landmarks-data.json#huashanGreenland",
-      visibility: "cover-only",
-    },
-    shared: {
-      transformSource: "app/scene/xinhua-landmarks-data.json#huashanGreenland.position",
-      collisionSource: "app/scene/huashan-green-block.tsx",
-    },
-    evidence: emptyEvidence([
-      "补齐片区三档 build record、背向截图与资源/draw-call 指标",
-    ]),
   },
 } as const satisfies Readonly<Record<string, ProductionBuildingQualityEntry>>;
 
 /**
- * 全世界生产 manifest 明确覆盖 14 个新华路地标与 3 个核心片区。
+ * 18 栋生产 manifest 明确覆盖 14 个新华路地标、幸福里三分区和孙科别墅。
+ * 华山绿地、上生·新所父级容器及范围外资产继续运行，但不进入本轮建筑完成计数。
  * 未完成证据迁移的旧资产必须显式标记 migration-required，不能被误报为已验收。
  */
 export const PRODUCTION_BUILDING_QUALITY_MANIFEST = {
   ...XINHUA_ROAD_PRODUCTION_QUALITY_MANIFEST,
-  ...CORE_PRODUCTION_QUALITY_MANIFEST,
+  ...XINGFULI_BUILDING_PRODUCTION_QUALITY_MANIFEST,
+  ...SUN_KE_VILLA_PRODUCTION_QUALITY_MANIFEST,
 } as const satisfies Readonly<Record<string, ProductionBuildingQualityEntry>>;
