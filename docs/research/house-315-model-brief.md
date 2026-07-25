@@ -246,9 +246,69 @@ registry / runtime，也未进行 Three.js 地图校准。
 - Shared integration: 未在本 Worktree 提交；建议值写入专项 QA，等待主窗口。
 - Identity / Hero: 继续锁定。
 
+## Independent Hero v2 Candidate
+
+主窗口在 legacy Hero disposition `518211e` 后，授权以已过地图门的 Massing
+合同构建一个独立 Hero v2 候选。该授权不改变旧 Hero Hold，也不开放 Identity。
+
+- Generator:
+  `scripts/create_house_315_hero_model.py`
+- Editable source:
+  `assets/models/source/tiers/xinhua-road/hero-v2/house-315-hero.blend`
+- Candidate GLB:
+  `public/models/tiers/xinhua-road/hero-v2/house-315-hero.glb`
+- Build record:
+  `docs/research/build-records/tiers/xinhua-road/hero-v2/house-315-hero.json`
+- Current status: `candidate-awaiting-main-window-blender-mcp2`
+
+Hero v2 直接调用并冻结已通过 MCP1 / map gate 的 Massing source；没有读取旧 Hero
+mesh、Recovery voxel、ordinary OSM 或其他建筑。它逐字继承：
+
+- Massing GLB SHA `e9d62cfc...`；
+- local `-Y` 正面、ground `0` 和 `2.7 m / scene unit`；
+- Blender bounds
+  `[-7.675, -4.84, 0] .. [7.225, 4.575, 6.982892]`；
+- runtime `position [-23.03, 85.67]`、yaw `-0.38`、scale `0.9`；
+- 地图门四个分体 obstacles；
+- canonical / side-depth / entrance 三套 fixed cameras。
+
+新增内容只表达当前照片直接支持或在 Brief 中明确降级的建筑构件：
+
+1. 中央高、前出的半木构山墙与上层小窗；
+2. 横向主脊、中央纵向陡坡屋顶、右长翼与左后短翼；
+3. 上白下红墙体分区和低饱和暗红瓦；
+4. 中央高玻璃入口、两侧窗和一个无文字中性门牌 proxy；
+5. 俯瞰可见的长条老虎窗、屋面瓦垄和一处烟囱；
+6. 右侧可见开口节奏；隐藏背面仍为低细节 `Unknown`。
+
+未生成街道门、独立门扇、文字 / logo、庭院整块、围墙、围栏、灯、花箱、铺装、
+树木、灌木、草坪、外摆、ordinary OSM 或其他建筑。旧 Hero `.blend/.glb` SHA
+保持 `2e3a30f7... / 9d407a35...`，公共 registry/runtime 未修改。
+
+确定性和结构结果：
+
+- 两次 clean scene GLB SHA 均为
+  `ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964`；
+- `.blend` SHA `2750b3c876fa651ce1fd0ed09f8e9a5557804b8e2783839f6ed63a740cd756b6`；
+- 212,908 bytes、1 node、1 mesh、6 materials、2,936 triangles；
+- 0 images / textures / animations / skins；
+- root normalized，GLB / Blend bounds 与 Massing exact match；
+- zero-area、non-finite、invalid indices、missing / zero / non-unit normals
+  与 orientation mismatches 均为0。
+
+固定机位候选预览：
+
+- `test_house-315-hero-v2-canonical.png`
+- `test_house-315-hero-v2-side-depth.png`
+- `test_house-315-hero-v2-entrance.png`
+
+三张图只用于 Headless 候选自检；正式 Blender MCP2 必须由主窗口串行执行。当前
+没有 MCP2 Pass、Three.js Hero runtime 或公共集成，Identity 继续锁定。
+
 ## Quality Contract
 
-以下合同只授权 subject-specific Massing；Identity 和 Hero 仍关闭。
+Massing 合同保持冻结。主窗口已在 legacy Hero disposition 后授权独立 Hero v2
+候选，但 Identity 仍关闭；Hero v2 只有通过主窗口 MCP2 才能成为 Identity 来源。
 
 ### Massing cues
 
@@ -298,6 +358,20 @@ registry / runtime，也未进行 Three.js 地图校准。
 - Maximum GLB bytes: 350,000
 - Animation / skin: none
 
+### Hero v2 quality contract
+
+- Maximum nodes: 1
+- Maximum triangles: 45,000
+- Maximum materials: 6
+- Maximum images: 0
+- Maximum GLB bytes: 3,500,000
+- Origin / front / ground / bounds / fixed cameras: exact Massing inheritance
+- Collision: exact four-obstacle Massing map contract
+- Geometry integrity: zero-area / non-finite / invalid index / normal mismatch
+  必须全部为0
+- Scope: building-only；禁止任何树木、装饰或场地资产
+- Runtime / Identity: MCP2 前关闭
+
 ## Evidence Gate
 
 **Result: `passed-for-subject-specific-massing-only`**
@@ -318,6 +392,17 @@ registry / runtime，也未进行 Three.js 地图校准。
 - 不得触碰树木、装饰、ordinary OSM、全地图或公共 runtime；
 - 完成确定性双构建和结构审计后，Blender MCP 前必须停下申请主窗口。
 
+### Hero reopen decision
+
+Legacy disposition 已确认旧 Hero 与当前主体意图一致但不可修复为 MCP2 候选。
+主窗口随后明确授权新建独立 Hero v2，但隐藏背面继续降级为 `Unknown`，且必须：
+
+- 从已过地图门 Massing 继承 exact tier contract；
+- 使用独立路径，不覆盖旧 Hero；
+- building-only，不接公共 runtime；
+- Headless 候选完成后停在主窗口 MCP2 前；
+- MCP2 通过前不得启动 Identity。
+
 ## Batch Status
 
 | Batch | Result | Status |
@@ -327,7 +412,8 @@ registry / runtime，也未进行 Three.js 地图校准。
 | Blender MCP 1 | 场景、固定机位、轮廓、尺标和网格完整性通过 | Passed |
 | Three.js Massing | 真实 `?start=house315` 资源、地图、比例、朝向、接地、碰撞和性能通过 | Passed |
 | Legacy Hero disposition | 同主体意图，但结构、范围、拓扑、lineage 和固定视图不满足 MCP2 | Hold / rebuild required |
-| Identity / new Hero | 需要主窗口重新开放 Hero evidence contract；Identity 仍锁定 | Closed |
+| Independent Hero v2 | exact Massing contract、双构建、结构审计和三固定机位完成 | Awaiting main-window MCP2 |
+| Identity | 只允许从 MCP2 通过后的 Hero master 派生 | Locked |
 
 ## Decision Log
 

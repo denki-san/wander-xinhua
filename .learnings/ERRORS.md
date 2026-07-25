@@ -6953,6 +6953,44 @@ bounded Headless command with approved unsandboxed execution before changing mod
   Massing Blend、GLB 和三张固定机位图。模型代码无需为该启动崩溃修改。
 
 ---
+## [ERR-20260725-043] house315_hero_detail_exceeded_frozen_massing_bounds
+
+**Logged**: 2026-07-25T22:19:21+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: assets
+
+### Summary
+House315 Hero v2 首轮双 clean build 可重复且拓扑通过，但新增上山墙窗框和斜撑
+向 local `-Y` 越出已过地图门的 Massing bounds。
+
+### Error
+```text
+RuntimeError: Hero v2 不得改变 Massing bounds：
+{'min': [-7.675, 0, -4.575], 'max': [7.225, 6.982892, 4.8675]}
+expected max Z: 4.84
+```
+
+### Context
+- Hero 必须 exact 继承 Massing bounds，不能用扩大包络掩盖细节越界。
+- 上山墙窗框多层 frame 深度把 Blender local `-Y` 推到 `-4.8675`。
+- 生成器在写 `.blend`、预览和 build record 前主动失败；旧 Hero 和公共文件未改。
+
+### Suggested Fix
+对附着在冻结外表面的窗框、斜撑和檐口预留半厚度，按最终顶点 bounds 而不是对象
+中心坐标判断；门禁继续使用 exact accessor bounds。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_house_315_hero_model.py
+- See Also: docs/research/house-315-massing-map-qa.json
+
+### Resolution
+- **Resolved**: 2026-07-25T22:20:30+08:00
+- **Notes**: 仅将新增上山墙窗框和斜撑退回冻结包络内；第二轮双构建 SHA 一致，
+  bounds exact match，zero-area / normals / indices 全部通过。
+
+---
 ## [ERR-20260725-040] shanghai_cinema_qa_integration_regressions
 
 **Logged**: 2026-07-25T20:00:00+08:00

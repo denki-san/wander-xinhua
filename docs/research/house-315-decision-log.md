@@ -480,3 +480,130 @@ ground / envelope 与已批准 Massing 都不同，而且场地污染已 baked�
 4. 不生成树木、灌木、草坪、围栏、门、灯、花箱、铺装、ordinary OSM 或其他建筑；
 5. 关闭 zero-area、固定视图和 lineage blocker 后才向主窗口申请串行 MCP2；
 6. MCP2 通过前 Identity 继续锁定。
+
+## Iteration 5 — Independent Hero v2 candidate
+
+- Date: 2026-07-25
+- Source checkpoint: `518211e`
+- Main-window authorization: explicit Hero v2 build, stop before MCP2
+- Result: `candidate-awaiting-main-window-blender-mcp2`
+- Public registry / runtime modified: no
+- Identity authorized: no
+
+### Lineage and source
+
+新 Hero 使用独立路径：
+
+- generator:
+  `scripts/create_house_315_hero_model.py`
+- editable source:
+  `assets/models/source/tiers/xinhua-road/hero-v2/house-315-hero.blend`
+- GLB:
+  `public/models/tiers/xinhua-road/hero-v2/house-315-hero.glb`
+- build record:
+  `docs/research/build-records/tiers/xinhua-road/hero-v2/house-315-hero.json`
+
+生成器调用已通过 MCP1 和 Three.js map gate 的
+`scripts/create_house_315_massing_model.py` 作为结构 source，并在启动时校验：
+
+- Massing generator SHA `45c69f7f...`；
+- Massing Blend SHA `dccd5ad4...`；
+- Massing GLB SHA `e9d62cfc...`；
+- legacy Hero Blend / GLB SHA `2e3a30f7... / 9d407a35...`。
+
+没有读取旧 Hero geometry、Recovery voxel、ordinary OSM、全地图或其他建筑。
+旧 Hero 没有删除、覆盖或重新导出。
+
+### Hero construction decision
+
+Hero v2 保留已验收 Massing 四个主体体量，再增加：
+
+1. 中央高半木构山墙的二级横梁、立柱、斜撑和上层小窗；
+2. 中央高玻璃入口、两侧窗与无文字中性门牌 proxy；
+3. 主屋、右长翼和可见侧面的开口节奏；
+4. 俯瞰可见的长条老虎窗和一处烟囱；
+5. 四组屋面的低密度瓦垄和附着檐口。
+
+街道门 / 独立门扇、文字 / logo、隐藏背面开口和所有场地资产均未制作。右侧
+可见面只使用俯瞰可支持的低细节节奏；隐藏背面维持 `Unknown / low-detail`。
+
+### Frozen tier contract
+
+Hero 与 Massing 完全共享：
+
+- authored front: local `-Y`
+- scene unit: `2.7 m`
+- ground datum: `0`
+- Blender bounds:
+  `[-7.675, -4.84, 0] .. [7.225, 4.575, 6.982892]`
+- glTF bounds:
+  `[-7.675, 0, -4.575] .. [7.225, 6.982892, 4.84]`
+- runtime position / yaw / scale:
+  `[-23.03, 85.67] / -0.38 / 0.9`
+- four local obstacles from
+  `docs/research/house-315-massing-map-qa.json`
+- canonical / side-depth / entrance fixed cameras。
+
+Hero GLB 不内置 collision geometry，公共 registry 继续指向旧 Hero；后续只能由
+主窗口在 MCP2 后决定集成。
+
+### Determinism and structural result
+
+两个独立 clean scene build 的 GLB SHA 完全一致：
+
+`ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964`
+
+最终产物：
+
+- Blend SHA:
+  `2750b3c876fa651ce1fd0ed09f8e9a5557804b8e2783839f6ed63a740cd756b6`
+- GLB bytes: 212,908
+- 1 node、1 mesh、6 primitives / materials
+- 2,936 triangles
+- 0 images / textures / animations / skins
+- root location / rotation 为0，scale为1
+- Blend: 1,960 vertices、1,472 polygons、2,936 loop triangles
+- Blend / GLB zero-area: 0
+- non-finite positions / normals: 0
+- invalid indices: 0
+- missing / zero / non-unit normals: 0
+- face-vertex / triangle-polygon orientation mismatches: 0
+
+Bundled GLB audit `--forbid-images --max-nodes 1` 通过。
+
+### First-build guard correction
+
+首轮双构建本身 SHA 一致，但上山墙窗框和两根新斜撑向 local `-Y` 多伸出
+`0.0275`，使 glTF max Z 从冻结值 `4.84` 变为 `4.8675`。生成器按 exact-bounds
+门禁主动失败，没有放宽 contract。随后只将新窗框 / 斜撑退回 Massing 包络内，
+第二轮 exact bounds、拓扑和法线全部通过。
+
+### Fixed-view candidate review
+
+Headless fixed views：
+
+- canonical：
+  `test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2-canonical.png`
+- side-depth：
+  `test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2-side-depth.png`
+- entrance：
+  `test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2-entrance.png`
+
+候选自检可读：
+
+- 中央高半木构山墙与横向主脊；
+- 右长翼和左后短翼的体量层级；
+- 上白下红材质分区；
+- 高入口、门牌 proxy、老虎窗、烟囱和右侧可见开口；
+- 1.8m proxy 与 local `-Y` marker。
+
+这些截图不等于 Blender MCP2 Pass。正式场景、材质、穿插、入口和碰撞 intent
+仍必须由主窗口通过共享 Blender MCP 串行复核。
+
+### Gate boundary
+
+- MCP2: `requested / pending-main-window-serial-review`
+- Three.js Hero runtime: not run
+- Identity: locked
+- Shared registry/runtime: unchanged
+- Next action: 提交本候选 checkpoint，停下申请主窗口 Blender MCP2。
