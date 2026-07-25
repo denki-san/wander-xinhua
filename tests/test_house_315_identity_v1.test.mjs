@@ -4,6 +4,18 @@ import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
+import {
+  HOUSE_315_ASSET_ID,
+  HOUSE_315_FALLBACK_CHAIN,
+  HOUSE_315_PLACEMENT,
+  HOUSE_315_SOURCE_GLTF_BOUNDS,
+  HOUSE_315_SOURCE_GLTF_OBSTACLES,
+  HOUSE_315_TIERS,
+  resolveHouse315Qa,
+} from "../app/scene/house-315-tier-contract.mjs";
+import {
+  transformedLandmarkFootprint,
+} from "../app/scene/xinhua-road-contract.ts";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const recordPath =
@@ -175,6 +187,14 @@ function auditGeometry(json, binary) {
     nonUnitNormals,
     orientationMismatches,
   };
+}
+
+function roundedFootprint(footprint) {
+  return Object.fromEntries(
+    Object.entries(footprint).map(
+      ([key, value]) => [key, Number(value.toFixed(6))],
+    ),
+  );
 }
 
 test("House315 Identity v1 只从冻结且已通过 MCP2 的 Hero v2 派生", async () => {
@@ -504,4 +524,234 @@ test("House315 Identity v1 已通过主窗口 MCP3 且公共 runtime 仍未修�
   assert.equal(disposition.replacementCandidate.runtimeIntegrated, false);
   assert.equal(landmark.model, "/models/xinhua-road/house-315.glb");
   assert.equal(landmark.cacheVersion, "20260718-detail-1");
+});
+
+test("House315 runtime contract 精确冻结三档二进制、共同 origin 和预算", async () => {
+  const records = {
+    hero:
+      "docs/research/build-records/tiers/xinhua-road/hero-v2/house-315-hero.json",
+    identity:
+      "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json",
+    massing:
+      "docs/research/build-records/tiers/xinhua-road/massing-v2/house-315-massing.json",
+  };
+
+  for (const tierName of ["hero", "identity", "massing"]) {
+    const descriptor = HOUSE_315_TIERS[tierName];
+    const [buffer, record] = await Promise.all([
+      readFile(path.join(root, `public${descriptor.path}`)),
+      readJson(records[tierName]),
+    ]);
+    const { json, binary } = parseGlb(buffer);
+    const geometry = auditGeometry(json, binary);
+    assert.equal(buffer.length, descriptor.bytes);
+    assert.equal(await sha256(`public${descriptor.path}`), descriptor.sha256);
+    assert.equal(geometry.triangles, descriptor.triangles);
+    assert.equal(json.materials.length, descriptor.materials);
+    assert.deepEqual(descriptor.bounds, HOUSE_315_SOURCE_GLTF_BOUNDS);
+    assert.deepEqual(
+      descriptor.runtimeLocalBounds,
+      HOUSE_315_PLACEMENT.renderedLocalBounds,
+    );
+    assert.deepEqual(descriptor.origin, [0, 0, 0]);
+    assert.equal(descriptor.frontDirection, "blender-local-negative-y");
+    assert.equal(descriptor.runtimeFrontDirection, "three-local-negative-z");
+    assert.equal(descriptor.groundDatum, 0);
+    assert.equal(record.glb.sha256, descriptor.sha256);
+    assert.equal(record.glb.bytes, descriptor.bytes);
+  }
+});
+
+test("House315 QA resolver 使用同一 tier URL 和建筑限定的确定性 fallback", () => {
+  for (const tierName of ["hero", "identity", "massing"]) {
+    const resolved = resolveHouse315Qa(
+      `?start=house315&qaModelId=house-315&qaModelTier=${tierName}`,
+    );
+    assert.equal(resolved.requestedTier, tierName);
+    assert.equal(resolved.renderedTier, tierName);
+    assert.equal(resolved.modelPath, HOUSE_315_TIERS[tierName].url);
+    assert.equal(resolved.renderedModelPath, HOUSE_315_TIERS[tierName].url);
+    assert.equal(resolved.forcedFallback, false);
+  }
+
+  const heroFallback = resolveHouse315Qa(
+    "?qaModelId=house-315&qaModelTier=hero&qaActiveFallback=house-315:hero",
+  );
+  assert.equal(heroFallback.renderedTier, "identity");
+  assert.equal(
+    heroFallback.renderedModelPath,
+    HOUSE_315_TIERS.identity.url,
+  );
+  assert.equal(heroFallback.fallbackMode, "forced-deterministic-fallback");
+  assert.equal(
+    heroFallback.fallbackReason,
+    "forced-deterministic-hero-to-identity",
+  );
+
+  const identityFallback = resolveHouse315Qa(
+    "?qaModelId=house-315&qaModelTier=identity&qaActiveFallback=house-315:identity",
+  );
+  assert.equal(identityFallback.renderedTier, "massing");
+  assert.equal(
+    identityFallback.renderedModelPath,
+    HOUSE_315_TIERS.massing.url,
+  );
+  assert.equal(
+    identityFallback.fallbackReason,
+    "forced-deterministic-identity-to-massing",
+  );
+
+  const massingFloor = resolveHouse315Qa(
+    "?qaModelId=house-315&qaModelTier=massing&qaActiveFallback=house-315:massing",
+  );
+  assert.equal(massingFloor.renderedTier, "massing");
+  assert.equal(massingFloor.forcedFallback, false);
+  assert.equal(massingFloor.fallbackMode, "no-lower-tier");
+  assert.equal(massingFloor.fallbackReason, "no-lower-tier-render-massing");
+  assert.deepEqual(HOUSE_315_FALLBACK_CHAIN, {
+    hero: "identity",
+    identity: "massing",
+    massing: null,
+  });
+
+  const unscopedFallback = resolveHouse315Qa(
+    "?qaModelId=house-315&qaModelTier=identity&qaActiveFallback=identity",
+  );
+  assert.equal(unscopedFallback.forcedFallback, false);
+  assert.equal(unscopedFallback.fallbackMode, "none");
+  assert.equal(
+    resolveHouse315Qa("?qaModelId=one-step-garden&qaModelTier=hero"),
+    null,
+  );
+});
+
+test("House315 source bounds 和四段碰撞只在 render/shared transform 各镜像一次", async () => {
+  const mapQa = await readJson("docs/research/house-315-massing-map-qa.json");
+  assert.deepEqual(
+    HOUSE_315_PLACEMENT.localBounds,
+    mapQa.integrationRecommendation.localBounds,
+  );
+  assert.deepEqual(
+    HOUSE_315_PLACEMENT.localObstacles,
+    mapQa.integrationRecommendation.localObstacles,
+  );
+  assert.deepEqual(HOUSE_315_PLACEMENT.localBounds, HOUSE_315_SOURCE_GLTF_BOUNDS);
+  assert.deepEqual(
+    HOUSE_315_PLACEMENT.localObstacles,
+    HOUSE_315_SOURCE_GLTF_OBSTACLES,
+  );
+  assert.deepEqual(HOUSE_315_PLACEMENT.renderedLocalBounds, {
+    minX: -7.675,
+    maxX: 7.225,
+    minZ: -4.84,
+    maxZ: 4.575,
+  });
+  assert.deepEqual(
+    roundedFootprint(
+      transformedLandmarkFootprint(
+        HOUSE_315_PLACEMENT,
+        HOUSE_315_PLACEMENT.localBounds,
+      ),
+    ),
+    {
+      minX: -31.172016,
+      maxX: -15.175629,
+      minZ: 78.862604,
+      maxZ: 92.105687,
+    },
+  );
+  assert.deepEqual(
+    HOUSE_315_PLACEMENT.localObstacles.map(
+      (obstacle) => roundedFootprint(
+        transformedLandmarkFootprint(HOUSE_315_PLACEMENT, obstacle),
+      ),
+    ),
+    [
+      {
+        minX: -29.998247,
+        maxX: -16.428964,
+        minZ: 81.227434,
+        maxZ: 91.031944,
+      },
+      {
+        minX: -27.854842,
+        maxX: -20.746917,
+        minZ: 80.173236,
+        maxZ: 88.310199,
+      },
+      {
+        minX: -21.95326,
+        maxX: -15.931995,
+        minZ: 83.993209,
+        maxZ: 91.871762,
+      },
+      {
+        minX: -30.929745,
+        maxX: -25.575523,
+        minZ: 83.100002,
+        maxZ: 88.429125,
+      },
+    ],
+  );
+});
+
+test("House315 runtime 候选保持专属所有权且等待主窗口公共接线", async () => {
+  const candidate = await readJson(
+    "docs/research/house-315-three-tier-runtime-qa.json",
+  );
+  const [contractSource, runtimeSource] = await Promise.all([
+    readFile(path.join(root, candidate.source.contract.path), "utf8"),
+    readFile(path.join(root, candidate.source.runtimeModule.path), "utf8"),
+  ]);
+
+  assert.equal(candidate.assetId, HOUSE_315_ASSET_ID);
+  assert.equal(
+    candidate.status,
+    "runtime-candidate-ready-main-window-wiring-and-browser-pending",
+  );
+  assert.equal(
+    await sha256(candidate.source.contract.path),
+    candidate.source.contract.sha256,
+  );
+  assert.equal(
+    await sha256(candidate.source.runtimeModule.path),
+    candidate.source.runtimeModule.sha256,
+  );
+  assert.equal(
+    (await stat(path.join(root, candidate.source.contract.path))).size,
+    candidate.source.contract.bytes,
+  );
+  assert.equal(
+    (await stat(path.join(root, candidate.source.runtimeModule.path))).size,
+    candidate.source.runtimeModule.bytes,
+  );
+  assert.match(runtimeSource, /useGLTF\(descriptor\.url\)/);
+  assert.match(
+    runtimeSource,
+    /<primitive object=\{model\} scale=\{\[1, 1, -1\]\} \/>/,
+  );
+  assert.match(runtimeSource, /window\.__house315QA\?\.instanceId === instanceId/);
+  assert.doesNotMatch(runtimeSource, /useGLTF\.preload|test_missing|centerOffset/);
+  assert.doesNotMatch(runtimeSource, /oneStepGarden|filmArt|shanghaiCinema|sunKe/i);
+  assert.doesNotMatch(contractSource, /plane-tree|lamp|planter|osm/i);
+  assert.equal(candidate.sharedBaseline.publicRegistryModified, false);
+  assert.equal(candidate.sharedBaseline.sharedRuntimeModified, false);
+  assert.equal(candidate.sharedBaseline.xinhuaExperienceModified, false);
+  for (const [relativePath, expectedSha] of Object.entries(
+    candidate.sharedBaseline.files,
+  )) {
+    assert.equal(await sha256(relativePath), expectedSha);
+  }
+  assert.equal(
+    await sha256(candidate.legacyHold.runtimeAsset.path),
+    candidate.legacyHold.runtimeAsset.sha256,
+  );
+  assert.equal(candidate.legacyHold.overwritten, false);
+  assert.equal(candidate.legacyHold.deleted, false);
+  assert.equal(candidate.mainWindowIntegration.buildingWorktreeMustNotApply, true);
+  assert.ok(candidate.mainWindowIntegration.requiredPatches.length >= 5);
+  assert.equal(candidate.completionBoundary.runtimeModuleImplemented, true);
+  assert.equal(candidate.completionBoundary.mainWindowIntegrated, false);
+  assert.equal(candidate.completionBoundary.threeTierRuntimeFinalPass, false);
+  assert.equal(candidate.validation.mainWindowBrowser, "pending");
 });

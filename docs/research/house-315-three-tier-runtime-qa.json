@@ -1,0 +1,244 @@
+{
+  "schemaVersion": 1,
+  "assetId": "house-315",
+  "recordedAt": "2026-07-26",
+  "status": "runtime-candidate-ready-main-window-wiring-and-browser-pending",
+  "mode": "building-fast",
+  "scope": {
+    "included": [
+      "house-315-three-tier-runtime-contract",
+      "house-315-runtime-module",
+      "house-315-deterministic-fallback-contract",
+      "house-315-runtime-telemetry",
+      "house-315-specialized-tests"
+    ],
+    "excludedAndHeld": [
+      "legacy-house-315-hero",
+      "recovery-geometry",
+      "trees",
+      "shrubs",
+      "grass",
+      "furniture",
+      "lamps",
+      "planters",
+      "signage",
+      "decorative-paving",
+      "ordinary-osm",
+      "other-buildings",
+      "full-map-assets"
+    ],
+    "legacyHeroDisposition": "hold-read-only-rollback-only",
+    "legacyHeroOverwritten": false,
+    "legacyHeroDeleted": false
+  },
+  "source": {
+    "baseCommit": "3044488",
+    "branch": "codex/building-house-315",
+    "contract": {
+      "path": "app/scene/house-315-tier-contract.mjs",
+      "sha256": "2ec00e5eaf2f116cc516a7bc681f01acde5dcfb36e9186b9553679585e527a49",
+      "bytes": 4255
+    },
+    "runtimeModule": {
+      "path": "app/scene/house-315-runtime.tsx",
+      "sha256": "ff58ae88cc5bda3be8f54791fec53fcaed9d5b75f91e5195b185d859b4f00d40",
+      "bytes": 9084
+    },
+    "mcp3Gate": "docs/research/house-315-blender-mcp-gates.json#threeTierGate",
+    "tierLineage": "docs/research/house-315-tier-lineage.json",
+    "mapGate": "docs/research/house-315-massing-map-qa.json",
+    "specializedTest": "tests/test_house_315_identity_v1.test.mjs"
+  },
+  "placement": {
+    "position": [
+      -23.03,
+      85.67
+    ],
+    "yaw": -0.38,
+    "scale": 0.9,
+    "start": [
+      -21.8,
+      67.6
+    ],
+    "forward": [
+      -0.05,
+      1
+    ],
+    "sourceGltfBounds": {
+      "minX": -7.675,
+      "maxX": 7.225,
+      "minZ": -4.575,
+      "maxZ": 4.84
+    },
+    "renderedLocalBounds": {
+      "minX": -7.675,
+      "maxX": 7.225,
+      "minZ": -4.84,
+      "maxZ": 4.575
+    },
+    "sourceLocalObstacleCount": 4,
+    "axisConversion": "registry retains source GLTF coordinates; primitive scale-z=-1 and shared transformedFootprint each apply the same single conversion on their separate render/collision paths",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "frontDirection": "blender-local-negative-y",
+    "runtimeFrontDirection": "three-local-negative-z",
+    "groundDatum": 0,
+    "allTiersUseExactContract": true,
+    "extraCenterOffset": false
+  },
+  "tiers": {
+    "hero": {
+      "url": "/models/tiers/xinhua-road/hero-v2/house-315-hero.glb?v=20260725-hero-ad414549",
+      "sha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+      "bytes": 212908,
+      "triangles": 2936,
+      "materials": 6,
+      "mcpGate": "mcp2-pass"
+    },
+    "identity": {
+      "url": "/models/tiers/xinhua-road/identity-v1/house-315-identity.glb?v=20260725-identity-425e21b9",
+      "sha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+      "bytes": 62288,
+      "triangles": 776,
+      "materials": 6,
+      "mcpGate": "mcp3-pass"
+    },
+    "massing": {
+      "url": "/models/tiers/xinhua-road/massing-v2/house-315-massing.glb?v=20260725-massing-e9d62cfc",
+      "sha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+      "bytes": 17352,
+      "triangles": 176,
+      "materials": 4,
+      "mcpGate": "mcp1-and-map-pass"
+    }
+  },
+  "urlContract": {
+    "productionAndQaResolveIdenticalTierUrl": true,
+    "modelPathUseAfterMainWindowWiring": "outer-reset-key-and-requested-url-metadata-only",
+    "runtimeLoader": "useGLTF-descriptor-url-only",
+    "extraPreload": false,
+    "missingUrlFaultInjection": false,
+    "expectedSuccessfulGlbRequestCountPerRenderedTier": 1,
+    "resourceTimingVerification": "main-window-browser-pending"
+  },
+  "fallbackContract": {
+    "hero": {
+      "query": "qaActiveFallback=house-315:hero",
+      "mode": "forced-deterministic-fallback",
+      "renderedTier": "identity",
+      "networkFailureClaimed": false
+    },
+    "identity": {
+      "query": "qaActiveFallback=house-315:identity",
+      "mode": "forced-deterministic-fallback",
+      "renderedTier": "massing",
+      "networkFailureClaimed": false
+    },
+    "massing": {
+      "query": "qaActiveFallback=house-315:massing",
+      "mode": "no-lower-tier",
+      "renderedTier": "massing",
+      "successfulFallbackClaimed": false
+    },
+    "scopeIsolation": "asset-qualified-token-prevents-cross-building-fallback-injection"
+  },
+  "deepLinks": {
+    "hero": "/?start=house315&network=standard&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaModelId=house-315&qaModelTier=hero",
+    "identity": "/?start=house315&network=standard&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaModelId=house-315&qaModelTier=identity",
+    "massing": "/?start=house315&network=standard&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaModelId=house-315&qaModelTier=massing",
+    "heroFallback": "/?start=house315&network=standard&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaModelId=house-315&qaModelTier=hero&qaActiveFallback=house-315:hero",
+    "identityFallback": "/?start=house315&network=standard&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaModelId=house-315&qaModelTier=identity&qaActiveFallback=house-315:identity",
+    "massingFloor": "/?start=house315&network=standard&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaModelId=house-315&qaModelTier=massing&qaActiveFallback=house-315:massing"
+  },
+  "sharedBaseline": {
+    "mustRemainUnmodifiedByBuildingWorktree": true,
+    "files": {
+      "app/scene/xinhua-road-landmarks-data.json": "d862b8fd0341505a2fc68b4bbc2537c63a4c87c3fc42623f4a5e16e40317fc55",
+      "app/scene/xinhua-road-landmarks.tsx": "6ae8255d443e672df4456877813f3ba01e6f07e144064adf84fc0fb91869c107",
+      "app/scene/xinhua-road-massing.tsx": "bc550cd884f969d68f169af55573968fb6b4d414d053eb6bac5d2379c36faeb6",
+      "app/scene/xinhua-road-identity-contract.ts": "048585ecaa7f55c4cdb82edfa0998155774e9069cc98fcc4f8d580179003deee",
+      "app/xinhua-experience.tsx": "b4e0f41079f6bd5e58a956610f4e83f4419895de03a7b4a0f7b10fc8e81b890d"
+    },
+    "publicRegistryModified": false,
+    "sharedRuntimeModified": false,
+    "xinhuaExperienceModified": false
+  },
+  "legacyHold": {
+    "runtimeAsset": {
+      "path": "public/models/xinhua-road/house-315.glb",
+      "sha256": "9d407a35c10bfa232d2a5a91ecae4886a9b146cdabec801319c7dc5530b67b07",
+      "bytes": 1603468
+    },
+    "productionRegistryStillReferencesLegacyUntilMainWindowWiring": true,
+    "overwritten": false,
+    "deleted": false
+  },
+  "mainWindowIntegration": {
+    "owner": "main-window",
+    "buildingWorktreeMustNotApply": true,
+    "requiredPatches": [
+      {
+        "file": "app/scene/xinhua-road-landmarks-data.json",
+        "change": "For house-315 only, bind production Hero path/cache and replace legacy envelope with the map-gate source bounds and four source local obstacles; keep position/yaw/scale/start/forward exact."
+      },
+      {
+        "file": "app/scene/xinhua-road-landmarks.tsx",
+        "change": "Import resolveHouse315Qa and House315RuntimeAsset; mount House315RuntimeAsset for house-315 in both production Hero and QA tiers, force active mount for qaModelId=house-315, and use resolved modelPath only as outer resetKey/metadata so no second GLB request is created."
+      },
+      {
+        "file": "app/scene/xinhua-road-massing.tsx",
+        "change": "For house-315 only, replace the generic LandmarkProgressiveProxy with House315RuntimeAsset requestedTier identity or massing; do not add center offset."
+      },
+      {
+        "file": "app/scene/xinhua-road-identity-contract.ts",
+        "change": "Declare House315 Identity and Massing as derived GLB tiers and point runtime evidence to this QA record."
+      },
+      {
+        "file": "docs/research/building-pipeline-fast-mode.json",
+        "change": "Replace the single generic house315 route with the six exact tier/fallback deep links from this record; existing House315 specialized test ownership remains unchanged."
+      }
+    ],
+    "postWiringAcceptance": [
+      "three-tier-fixed-placement-screenshots",
+      "resource-timing-exact-request-count",
+      "console-and-page-error-check",
+      "120-visible-frame-sample",
+      "hero-and-identity-deterministic-fallback",
+      "massing-no-lower-tier",
+      "four-part-collision-replay",
+      "camera-and-ground-contact"
+    ]
+  },
+  "validation": {
+    "allowedCommand": "npm run building:fast -- --building house-315",
+    "buildingFast": "pass-42-of-42-specialized-and-scope-tests",
+    "glbAudit": "pass-hero-identity-massing",
+    "independentReview": {
+      "status": "pass",
+      "critical": 0,
+      "important": 0,
+      "minor": 0,
+      "reviewedScope": [
+        "house-315-tier-contract",
+        "house-315-runtime-module",
+        "house-315-runtime-record",
+        "house-315-specialized-tests",
+        "shared-file-scope-guard"
+      ],
+      "reviewConclusion": "runtime-candidate-ready-for-main-window-integration"
+    },
+    "mainWindowBrowser": "pending"
+  },
+  "completionBoundary": {
+    "runtimeCandidateReadyForCommit": true,
+    "runtimeModuleImplemented": true,
+    "publicRegistryModified": false,
+    "sharedRuntimeModified": false,
+    "mainWindowIntegrated": false,
+    "threeTierRuntimeFinalPass": false,
+    "nextAuthority": "main-window-integrate-candidate-then-real-browser-cdp-revalidation"
+  }
+}
