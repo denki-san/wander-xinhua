@@ -6951,3 +6951,35 @@ bounded Headless command with approved unsandboxed execution before changing mod
 - **Resolved**: 2026-07-25T18:26:00+08:00
 - **Notes**: 在受控授权下于 sandbox 外重跑同一限定 Headless 命令后成功；生成
   Massing Blend、GLB 和三张固定机位图。模型代码无需为该启动崩溃修改。
+
+---
+## [ERR-20260725-032] identity_contract_asserted_non_contract_metadata
+
+**Logged**: 2026-07-25T22:21:11+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+一号花园 Identity 首次回归把 Hero 相机的描述元数据当作结构合同，并使用了不精确的烟囱 token。
+
+### Error
+```text
+Expected values to be strictly deep-equal: Hero fixed camera entries contain an additional direction field.
+The input did not match /identity-rear-central-tall-chimney/ because the generated token is identity-rear-brick-central-tall-chimney.
+```
+
+### Context
+- Identity 与 Hero 的 location、target、orthoScale 完全一致；Hero 额外保存的 direction 不是固定机位连续性所必需。
+- GLB 与 Blender 审计已确认两根烟囱存在，失败来自测试 token 少写 `brick`。
+
+### Suggested Fix
+固定机位测试只比较 location、target、orthoScale 三个合同字段；身份 token 使用生成器中的完整稳定名称。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_one_step_garden_identity_v1.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T22:21:11+08:00
+- **Notes**: 修正断言边界后复跑建筑级回归。
