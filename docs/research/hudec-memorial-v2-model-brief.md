@@ -193,3 +193,58 @@ Identity must preserve cues 1–5. Massing must preserve the wide facade, layere
   plausible scale. The entrance porch remains simplified but is not a Massing
   blocker.
 - MCP 1 / map / runtime: Pending; this checkpoint is only a candidate and does not authorize Hero detail.
+
+### Iteration 3 — MCP 1 pass and Three.js Massing map gate
+
+- MCP 1: Passed by the main coordinator in Blender MCP at source checkpoint
+  `f509c60`; no interactive geometry or transform change was accepted, so no
+  generator round trip was required.
+- Runtime assembly: Built a temporary static QA bundle that changed only the
+  `hudec-memorial` entry to the exact Massing GLB, then restored
+  `app/scene/xinhua-road-landmarks-data.json` byte-for-byte to SHA
+  `eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6`.
+  The public registry change is not committed and the legacy Hero binary was
+  not overwritten.
+- Fixed entry: `/?start=hudec&network=standard`, 1440×900, DPR 1, visible tab,
+  15 s warm-up. The exact GLB returned HTTP 200 with an encoded body of
+  158,312 bytes and cache key `20260725-hudec-massing-c38302eb136d`.
+- Network boundary: The automation browser reported `4g` but only
+  `1.65 Mbps`; automatic classification therefore selected `weak` and
+  intentionally retained the Identity proxy. The existing `network=standard`
+  QA override was used to test the exact GLB; this weak-network behavior is not
+  classified as an asset failure.
+- Map checks: Existing OSM way `494633921` placement, `front=-Y` plus runtime
+  yaw `π/2`, scale `1.0`, visible ground contact, road/front-yard setback,
+  person scale and camera framing passed. Start `[73,-132]` and the Brief's
+  7.4-unit rear camera probe remain outside the split transformed obstacles.
+  Collision/walkability did not pass.
+- Runtime checks: Canvas filled the fixed viewport; console logs and page
+  errors were empty. A 180-frame visible-tab sample averaged 16.62 ms/frame
+  (about 60.18 fps), but its 2.9911 s duration is shorter than the Brief's
+  required 10 s and is diagnostic only; no relative performance improvement is
+  claimed.
+- Browser long-press exploration is explicitly non-authoritative because
+  third-person camera-relative input changes heading. Browser views support
+  visible runtime, ground, scale and context only.
+- Independent review: Not Ready. The generator's visible porch walls resolve
+  after `AUTHORED_SCALE=0.72` to `x=0.90..1.2744` and
+  `x=2.5416..2.916`, leaving a real gap of `1.2672`. The production
+  `PLAYER_RADIUS=0.48` plus the shared `0.2` collision margin on both sides
+  requires `1.36`, a `0.0928` deficit. The attempted temporary QA source
+  `609aea7cb90695413504a6aac6c3e084f05c778bf67a8c006cd975b9ea553b05`
+  narrowed the collision cores and moved the right street-wall collision; it
+  would allow the avatar to enter visible wall geometry and is retained only
+  as a rejected experiment.
+- QA provenance limitation: The temporary compiled data module and a HAR/trace
+  were not retained. The screenshots and Resource Timing observation prove the
+  Massing GLB rendered and returned HTTP 200, but do not independently prove
+  the collision configuration. A future rerun must preserve a reproducible
+  temporary patch/build manifest and browser network evidence.
+- Evidence:
+  `test_artifacts/test_hudec-memorial_massing_runtime_{preview,entrance_preview,side_preview}.png`
+  and
+  `test_artifacts/test_hudec-memorial_massing_runtime_metrics.json`.
+- Decision: Massing map gate is Blocked. Return to the Massing batch to widen
+  the real entrance geometry, regenerate the artifacts, repeat MCP 1, preserve
+  auditable runtime inputs, and collect the full 10 s performance sample.
+  Hero and Identity remain unauthorized.
