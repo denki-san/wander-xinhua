@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:xinhua-villas-329",
+  "tier": "massing",
+  "status": "massing-rebuild-required-independent-review",
+  "generator": "scripts/create_xinhua_road_massing_models.py",
+  "sourceHero": {
+    "path": "public/models/xinhua-road/xinhua-villas-329.glb",
+    "sha256": "81b2d79bb502cb42c187169f339f0ac9428ea8ae855e43e8b0756768ced0210b",
+    "importedBounds": {
+      "min": [
+        -11.24861,
+        -11.5,
+        -0.105
+      ],
+      "max": [
+        11.415185,
+        7.825001,
+        9.650001
+      ]
+    },
+    "heightProxySceneUnits": 9.755001,
+    "evidenceBoundary": "legacy-or-v2-hero-derived-height-not-real-measurement"
+  },
+  "sourcePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "position": [
+    -42.13,
+    79.48
+  ],
+  "yaw": -0.38,
+  "runtimeScale": 0.62,
+  "localBounds": {
+    "minX": -11.24861,
+    "maxX": 11.415185,
+    "minZ": -7.825001,
+    "maxZ": 11.5
+  },
+  "localObstacles": [
+    {
+      "minX": -8.6,
+      "maxX": 9.6,
+      "minZ": -7.2,
+      "maxZ": 5
+    }
+  ],
+  "roofProfile": "gable",
+  "proxyMethod": "voxel-remesh-current-hero",
+  "pruning": {
+    "removedFaces": 8208,
+    "removedMaterials": [
+      "329庭院灯",
+      "329庭院石材",
+      "329树干",
+      "329浅绿",
+      "329瓦垄",
+      "329绿篱",
+      "329草坪",
+      "329铁艺"
+    ],
+    "rule": "material-name-denylist-before-voxel-remesh"
+  },
+  "voxelSizeSceneUnits": 0.440476,
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/xinhua-villas-329-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing/xinhua-villas-329-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/test_xinhua-villas-329-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/test_xinhua-villas-329-massing-side.png",
+      "threejs": "test_artifacts/all-models/massing/test_xinhua-villas-329-massing-threejs.png"
+    }
+  },
+  "glb": {
+    "sha256": "24259a39e96e580bdc58252723d9d92804385918786371fcd3bd93d63a68f1db",
+    "bytes": 91476,
+    "nodes": 1,
+    "meshes": 1,
+    "images": 0,
+    "textures": 0,
+    "materials": 1,
+    "triangles": 900,
+    "expectedMaximumTriangles": 1200,
+    "bounds": {
+      "min": [
+        -8.4911,
+        -0.012699,
+        -7.626426
+      ],
+      "max": [
+        9.745191,
+        9.493437,
+        5.216592
+      ]
+    },
+    "auditStatus": "ok"
+  },
+  "editableSourceBounds": {
+    "min": [
+      -8.4911,
+      -5.216592,
+      -0.012699
+    ],
+    "max": [
+      9.745191,
+      7.626426,
+      9.493437
+    ]
+  },
+  "qualityBoundary": {
+    "observed": [
+      "runtime local bounds",
+      "runtime split obstacles",
+      "current hero imported bounds"
+    ],
+    "inferred": [
+      "per-block height proxy"
+    ],
+    "unknown": [
+      "surveyed height",
+      "entrance direction",
+      "unseen facade and roof"
+    ]
+  },
+  "runtimeGate": {
+    "status": "blocked-rebuild-required",
+    "validatedAt": "2026-07-25",
+    "route": "/?start=villas329&qaModelTier=massing&cameraQa=1",
+    "screenshot": "test_artifacts/all-models/massing/test_xinhua-villas-329-massing-threejs.png",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "buildMode": "vite-static-production-preview",
+    "pageVisibility": "visible",
+    "playable": true,
+    "canvasCount": 1,
+    "cameraMode": "spring-clear",
+    "blockerId": "none",
+    "visualStatus": "pass",
+    "independentReviewStatus": "rebuild-required",
+    "requiredActions": [
+      "按候选五个成员 footprint 分体重建",
+      "隔离相邻楼体避免运行时混杂",
+      "保持 17 号和 38 号证据边界"
+    ],
+    "mapAcceptance": "required-before-formal-pass"
+  }
+}

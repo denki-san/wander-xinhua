@@ -16,6 +16,7 @@ export type LandmarkPlacement = {
   localBounds: MapObstacle;
   localObstacles?: MapObstacle[];
   start: MapPolygonPoint;
+  streetClearancePoint?: MapPolygonPoint;
   forward: MapPolygonPoint;
   cameraTargetHeight?: number;
   poi?: boolean;
@@ -54,11 +55,18 @@ export function transformedLandmarkFootprint(
   };
 }
 
-export const XINHUA_ROAD_OBSTACLES: MapObstacle[] = XINHUA_ROAD_LANDMARKS.flatMap(
-  (landmark) => (landmark.localObstacles ?? [landmark.localBounds]).map(
-    (localObstacle) => transformedLandmarkFootprint(landmark, localObstacle),
-  ),
-);
+export const XINHUA_ROAD_OBSTACLES_BY_LANDMARK_ID = Object.fromEntries(
+  XINHUA_ROAD_LANDMARKS.map((landmark) => [
+    landmark.id,
+    (landmark.localObstacles ?? [landmark.localBounds]).map(
+      (localObstacle) => transformedLandmarkFootprint(landmark, localObstacle),
+    ),
+  ]),
+) as Readonly<Record<string, readonly MapObstacle[]>>;
+
+export const XINHUA_ROAD_OBSTACLES: MapObstacle[] = Object.values(
+  XINHUA_ROAD_OBSTACLES_BY_LANDMARK_ID,
+).flat();
 
 export const XINHUA_ROAD_MODEL_FOOTPRINTS: MapObstacle[] = XINHUA_ROAD_LANDMARKS.map(
   (landmark) => transformedLandmarkFootprint(landmark, landmark.localBounds),

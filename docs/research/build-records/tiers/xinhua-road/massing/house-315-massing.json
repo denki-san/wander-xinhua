@@ -1,0 +1,146 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:house-315",
+  "tier": "massing",
+  "status": "massing-generated-runtime-gate-blocked-evidence-and-walkaround",
+  "generator": "scripts/create_xinhua_road_massing_models.py",
+  "sourceHero": {
+    "path": "public/models/xinhua-road/house-315.glb",
+    "sha256": "9d407a35c10bfa232d2a5a91ecae4886a9b146cdabec801319c7dc5530b67b07",
+    "importedBounds": {
+      "min": [
+        -9.25,
+        -9.5,
+        -0.055
+      ],
+      "max": [
+        9.25,
+        6.7,
+        9.99
+      ]
+    },
+    "heightProxySceneUnits": 10.045,
+    "evidenceBoundary": "legacy-or-v2-hero-derived-height-not-real-measurement"
+  },
+  "sourcePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "position": [
+    -23.03,
+    85.67
+  ],
+  "yaw": -0.38,
+  "runtimeScale": 0.9,
+  "localBounds": {
+    "minX": -9.25,
+    "maxX": 9.25,
+    "minZ": -6.7,
+    "maxZ": 9.5
+  },
+  "localObstacles": [
+    {
+      "minX": -7.3,
+      "maxX": 5.4,
+      "minZ": -5,
+      "maxZ": 5.6
+    }
+  ],
+  "roofProfile": "gable",
+  "proxyMethod": "voxel-remesh-current-hero",
+  "pruning": {
+    "removedFaces": 11268,
+    "removedMaterials": [
+      "315入口灯",
+      "315深瓦垄",
+      "315深砖缝",
+      "315花园绿植",
+      "315铁艺",
+      "315铺装缝"
+    ],
+    "rule": "material-name-denylist-before-voxel-remesh"
+  },
+  "voxelSizeSceneUnits": 0.440476,
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/house-315-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing/house-315-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/test_house-315-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/test_house-315-massing-side.png",
+      "threejs": "test_artifacts/all-models/massing/test_house-315-massing-threejs.png"
+    }
+  },
+  "glb": {
+    "sha256": "89533d982f19fc9a6a2f2ef1bb301373afe8c20b1b95fd9cf663d39072fdcf44",
+    "bytes": 92708,
+    "nodes": 1,
+    "meshes": 1,
+    "images": 0,
+    "textures": 0,
+    "materials": 1,
+    "triangles": 900,
+    "expectedMaximumTriangles": 1200,
+    "bounds": {
+      "min": [
+        -9.260826,
+        -0.000006,
+        -6.733302
+      ],
+      "max": [
+        9.223746,
+        9.200838,
+        9.502406
+      ]
+    },
+    "auditStatus": "ok"
+  },
+  "editableSourceBounds": {
+    "min": [
+      -9.260826,
+      -9.502406,
+      -0.000006
+    ],
+    "max": [
+      9.223746,
+      6.733302,
+      9.200838
+    ]
+  },
+  "qualityBoundary": {
+    "observed": [
+      "runtime local bounds",
+      "runtime split obstacles",
+      "current hero imported bounds"
+    ],
+    "inferred": [
+      "per-block height proxy"
+    ],
+    "unknown": [
+      "surveyed height",
+      "entrance direction",
+      "unseen facade and roof"
+    ]
+  },
+  "runtimeGate": {
+    "status": "blocked-evidence-map-and-walkaround-required",
+    "validatedAt": "2026-07-25",
+    "route": "/?start=house315&qaModelTier=massing&cameraQa=1",
+    "screenshot": "test_artifacts/all-models/massing/test_house-315-massing-threejs.png",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "buildMode": "vite-static-production-preview",
+    "pageVisibility": "visible",
+    "playable": true,
+    "canvasCount": 1,
+    "cameraMode": "spring-clear",
+    "blockerId": "none",
+    "visualStatus": "pass",
+    "independentReviewStatus": "conditional-geometry-usable-gate-blocked",
+    "requiredActions": [
+      "隔离 canonical 主体视角",
+      "闭合 315 门牌与 footprint",
+      "补侧后 unknown 边界和绕行证据"
+    ],
+    "mapAcceptance": "required-before-formal-pass"
+  }
+}

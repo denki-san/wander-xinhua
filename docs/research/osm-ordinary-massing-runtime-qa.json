@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25T04:38:55+08:00",
+  "status": "overview-runtime-pass-formal-massing-gate-blocked",
+  "scope": {
+    "assetPackage": "osm-ordinary-buildings",
+    "tier": "massing",
+    "buildingCount": 864,
+    "chunkCount": 14,
+    "manifest": "docs/research/osm-ordinary-massing-manifest.json",
+    "runtimeEntry": "?qaOsmBuildings=massing",
+    "buildMode": "static-production",
+    "viewport": [
+      1280,
+      720
+    ]
+  },
+  "network": {
+    "glbRequests": 14,
+    "glbResponses": 14,
+    "glbFailures": 0,
+    "httpStatus": {
+      "200": 14
+    }
+  },
+  "runtime": {
+    "canvasCount": 1,
+    "stage": "playable",
+    "mode": "overview",
+    "poiCardCount": 0,
+    "htmlNetworkStatus": "weak",
+    "qaDataset": {
+      "xinhuaOsmBuildingsTier": "massing",
+      "osmOrdinaryMassingQa": true
+    },
+    "consoleErrors": 0,
+    "knownWarnings": [
+      "THREE.Clock deprecated warning"
+    ]
+  },
+  "visualReview": {
+    "overview": "pass-clean-footprint-extrusions-visible-across-map",
+    "spikesOrFloatingFragments": "not-observed-in-overview",
+    "mapLabelsVisible": true,
+    "screenshot": "test_artifacts/all-models/massing/osm-ordinary/test_osm-ordinary-massing-threejs-overview.jpg",
+    "screenshotSha256": "9b53b4763256b34def39d2f206990cb56475db2936b31502212d001d370ef89e",
+    "screenshotBytes": 186994
+  },
+  "formalGate": {
+    "overviewLoadAndRender": "pass",
+    "streetFixedCameraSamples": "pending",
+    "deterministicApproachAndWalkaround": "pending",
+    "groundContactAndCollisionSamples": "pending",
+    "namedAndCoreOverlapDeduplication": "pending",
+    "surveyedHeightOrExplicitPrototypeClassification": "pending",
+    "photoEvidenceForIdentityOrHero": "required-before-identity-or-hero",
+    "overall": "blocked",
+    "identityAllowed": false
+  },
+  "claimBoundary": "本记录只证明 14 个分块和 864 个 footprint 灰模在静态生产构建的地图总览中全部成功加载且无总览可见尖刺；不证明逐栋位置、真实高度、入口方向、碰撞或 Identity 质量。"
+}

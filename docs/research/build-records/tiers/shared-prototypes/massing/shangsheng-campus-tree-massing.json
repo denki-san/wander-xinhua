@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "prototype:vegetation:shangsheng-campus-tree",
+  "slug": "shangsheng-campus-tree",
+  "family": "vegetation",
+  "tier": "massing",
+  "status": "formal-massing-pass",
+  "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+  "generator": "scripts/create_shared_prototype_massing_models.py",
+  "evidence": "species-unknown-runtime-envelope",
+  "instanceCount": 29,
+  "outputs": {
+    "blend": "assets/models/source/tiers/shared-prototypes/massing/shangsheng-campus-tree-massing.blend",
+    "glb": "public/models/tiers/shared-prototypes/massing/shangsheng-campus-tree-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_shangsheng-campus-tree-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/shared-prototypes/test_shangsheng-campus-tree-massing-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "d43e6e5144f44c88b2fbe3add443733638c885934e5502b17cc57c67156de09c",
+    "bytes": 9512,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 88,
+    "bounds": {
+      "min": [
+        -1.439146,
+        0,
+        -1.19064
+      ],
+      "max": [
+        1.481756,
+        5.23,
+        1.028108
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": "formal-massing-pass",
+  "identityAllowed": false,
+  "qualityBoundary": {
+    "observed": [
+      "prototype envelope and current runtime scale language"
+    ],
+    "inferred": [
+      "simplified massing component dimensions"
+    ],
+    "unknown": [
+      "manufacturer or species where not explicitly confirmed",
+      "surveyed dimensions",
+      "current per-instance field condition"
+    ]
+  },
+  "runtimeQa": {
+    "file": "docs/research/shared-prototypes-massing-runtime-qa.json",
+    "screenshots": {
+      "vegetation": {
+        "file": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs-vegetation.png",
+        "sha256": "1abc72220336918b1c43afa01e531cb2858de07ba83e5162f6fff3fe6821fa01",
+        "bytes": 50266
+      },
+      "streetFurniture": {
+        "file": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs-street-furniture.png",
+        "sha256": "3d2f3cfd406f2d72ced72175097942369a21dbf5e46dd27543f5cc52e20c1413",
+        "bytes": 39301
+      }
+    },
+    "galleryLoadAndRender": "pass",
+    "independentReview": "pass"
+  }
+}

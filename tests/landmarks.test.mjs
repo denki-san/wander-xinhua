@@ -178,7 +178,10 @@ test("上生新所保留三处历史建筑与泳池庭院结构", async () => {
   assert.match(source, /function BicycleParking/);
   assert.match(source, /function ReadingTerrace/);
   assert.match(source, /function WayfindingTotem/);
-  assert.match(source, /<CampusLandscape detailed=\{environmentDetailed\} \/>/);
+  assert.match(
+    source,
+    /<CampusLandscape[\s\S]*?detailed=\{environmentDetailed\}[\s\S]*?facilityMassingMapQaId=\{facilityMassingMapQaId\}/,
+  );
   assert.match(source, /industrial-window-/);
   assert.match(source, /sawtooth-/);
   assert.match(source, /facade-fin-/);

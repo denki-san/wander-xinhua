@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-25T15:40:00+08:00",
+  "pipelineOrder": [
+    "evidence-and-brief",
+    "massing-generation",
+    "blender-mcp-massing-review",
+    "three-js-map-calibration",
+    "hero-master-review",
+    "identity-derivation",
+    "three-tier-review",
+    "three-js-runtime-acceptance"
+  ],
+  "massingGate": {
+    "gate": "massing-pre-map-calibration",
+    "status": "passed",
+    "interactiveReview": "Blender MCP",
+    "fallbackUsed": false,
+    "editableSource": {
+      "path": "assets/models/source/tiers/shanghai-cinema/massing/shanghai-cinema-massing.blend",
+      "sha256": "74b38b463cf3d08b6e042e0e5a5c34f9327795da6c681a260758f23a6a1488d4"
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/shanghai-cinema/massing/shanghai-cinema-massing.glb",
+      "sha256": "be69638759187a16e23e563009a487bd480ff9c37f9cf74e557ede9553691d70"
+    },
+    "generator": {
+      "path": "scripts/create_shanghai_cinema_tier_models.py",
+      "sha256": "d81ddd1856f6d659cea51bfc8d27d48c28fc7ebb04f00abaeb5f3735704f0135"
+    },
+    "sceneInspection": {
+      "semanticMeshObjects": 31,
+      "triangles": 7461,
+      "materials": 3,
+      "images": 0,
+      "boundsBlender": {
+        "min": [-15.2002, -11.224, 0.0],
+        "max": [17.0255, 9.9762, 17.225]
+      },
+      "groundDatumObject": "cinema-entry-step-0",
+      "humanScale": {
+        "heightMeters": 1.75,
+        "metersPerSceneUnit": 2.7,
+        "heightSceneUnits": 0.648148
+      }
+    },
+    "fixedViews": {
+      "canonical": {
+        "camera": [12, -50, 7],
+        "target": [0, -0.6, 6.2],
+        "lensMm": 48,
+        "screenshot": "test_artifacts/all-models/massing/shanghai-cinema/test_shanghai-cinema-massing-mcp-canonical.png",
+        "sha256": "b0f4eaf9a1de71f839da39e54cdc3a595355f7004b17822a80cd79eb0dd73081"
+      },
+      "side": {
+        "camera": [39, -34, 8.5],
+        "target": [4, -0.2, 6.5],
+        "lensMm": 52,
+        "screenshot": "test_artifacts/all-models/massing/shanghai-cinema/test_shanghai-cinema-massing-mcp-side.png",
+        "sha256": "046e1de9b7e29c4a22f0375cb6dc31a78acceda64358eaa486a97cd7632fea49"
+      },
+      "entrance": {
+        "camera": [14, -57, 5.5],
+        "target": [0, -0.8, 5.8],
+        "lensMm": 52,
+        "screenshot": "test_artifacts/all-models/massing/shanghai-cinema/test_shanghai-cinema-massing-mcp-entrance.png",
+        "sha256": "39daaf2ca0ca9d359d628a380c7811145190f81e08c6cbf99d4864186570f7b5"
+      }
+    },
+    "checks": {
+      "footprintAndOccupancy": {
+        "status": "passed-for-map-calibration",
+        "note": "建筑 Massing 已排除 38 x 26 的非碰撞广场；正式比例、位置与道路退界仍由下一道 Three.js 地图门冻结。"
+      },
+      "volumeHierarchy": {
+        "status": "passed",
+        "note": "前景丝带最高 9.384、左鼓体冠部 11.03、退后塔楼 17.225，前中后层级可读。"
+      },
+      "roofAndTopSilhouette": {
+        "status": "passed",
+        "note": "左鼓体外挑冠部和后塔楼顶框在 canonical 与侧向机位均保持清晰，未被体素化。"
+      },
+      "canonicalFacade": {
+        "status": "passed",
+        "note": "local -Y 正面、非对称丝带与右侧椭圆真开洞保持可读；洞口未用玻璃圆片封死。"
+      },
+      "groundDatum": {
+        "status": "passed",
+        "note": "统一 Blender Z=0，GLB Y-up 最低点为 0，未出现负高度或整体漂浮。"
+      },
+      "humanScale": {
+        "status": "passed",
+        "note": "MCP 固定机位使用 1.75 米人物，即 0.648148 scene units；人物仅为审查对象，不写入 Blend 或 GLB。"
+      },
+      "signatureCues": {
+        "status": "passed",
+        "items": [
+          "右侧横向椭圆真开洞",
+          "八段聚合的右侧宽缓室外楼梯",
+          "左侧玻璃鼓体与外挑冠部",
+          "退后的高塔楼"
+        ]
+      }
+    },
+    "acceptedInteractiveChanges": [],
+    "generatorRoundTrip": {
+      "status": "not-required",
+      "note": "MCP 未接受任何几何、材质或 transform 修改；所有被审查几何已由当前 generator Headless 重建。临时相机、灯光、地面和人物未保存回 editable master。"
+    },
+    "nextGate": "three-js-massing-map-calibration"
+  },
+  "heroGate": {
+    "status": "pending-retain-existing-hero"
+  },
+  "threeTierGate": {
+    "status": "pending-identity"
+  }
+}

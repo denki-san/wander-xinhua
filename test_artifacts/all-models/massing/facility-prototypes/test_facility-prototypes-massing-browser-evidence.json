@@ -1,0 +1,405 @@
+{
+  "version": 2,
+  "capturedAt": "2026-07-24T23:18:02.191Z",
+  "baseUrl": "http://127.0.0.1:4173/",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "browserMode": "in-app Browser Plugin with CDP",
+  "cacheDisabled": true,
+  "buildMode": "vite-static-preview",
+  "purpose": "isolated authored-scale runtime load verification; not map or collision acceptance",
+  "results": [
+    {
+      "assetId": "shangsheng-wayfinding-totem",
+      "state": {
+        "bodyLabel": "shangsheng-wayfinding-totem · authored scale 1:1",
+        "canvas": [
+          {
+            "clientHeight": 720,
+            "clientWidth": 1280,
+            "height": 720,
+            "width": 1280
+          }
+        ],
+        "facilityId": "shangsheng-wayfinding-totem",
+        "htmlId": "shangsheng-wayfinding-totem",
+        "mainClass": "xinhua-stage is-explore is-playing",
+        "stage": "playable"
+      },
+      "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-wayfinding-totem-massing-threejs-isolated.png",
+      "pngBytes": 42138,
+      "targetStatus": 200,
+      "targetUrl": "http://127.0.0.1:4173/models/tiers/facility-prototypes/massing/shangsheng-wayfinding-totem-massing.glb?v=4cc3ad0346db",
+      "targetFromDiskCache": false,
+      "targetFailures": 0,
+      "exceptions": 0,
+      "logErrors": 0
+    },
+    {
+      "assetId": "shangsheng-cafe-pavilion",
+      "state": {
+        "bodyLabel": "shangsheng-cafe-pavilion · authored scale 1:1",
+        "canvas": [
+          {
+            "clientHeight": 720,
+            "clientWidth": 1280,
+            "height": 720,
+            "width": 1280
+          }
+        ],
+        "facilityId": "shangsheng-cafe-pavilion",
+        "htmlId": "shangsheng-cafe-pavilion",
+        "mainClass": "xinhua-stage is-explore is-playing",
+        "stage": "playable"
+      },
+      "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-cafe-pavilion-massing-threejs-isolated.png",
+      "pngBytes": 40293,
+      "targetStatus": 200,
+      "targetUrl": "http://127.0.0.1:4173/models/tiers/facility-prototypes/massing/shangsheng-cafe-pavilion-massing.glb?v=ce5124832b5f",
+      "targetFromDiskCache": false,
+      "targetFailures": 0,
+      "exceptions": 0,
+      "logErrors": 0
+    },
+    {
+      "assetId": "shangsheng-bicycle-parking",
+      "state": {
+        "bodyLabel": "shangsheng-bicycle-parking · authored scale 1:1",
+        "canvas": [
+          {
+            "clientHeight": 720,
+            "clientWidth": 1280,
+            "height": 720,
+            "width": 1280
+          }
+        ],
+        "facilityId": "shangsheng-bicycle-parking",
+        "htmlId": "shangsheng-bicycle-parking",
+        "mainClass": "xinhua-stage is-explore is-playing",
+        "stage": "playable"
+      },
+      "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-bicycle-parking-massing-threejs-isolated.png",
+      "pngBytes": 44295,
+      "targetStatus": 200,
+      "targetUrl": "http://127.0.0.1:4173/models/tiers/facility-prototypes/massing/shangsheng-bicycle-parking-massing.glb?v=ed1bb3c6ea0e",
+      "targetFromDiskCache": false,
+      "targetFailures": 0,
+      "exceptions": 0,
+      "logErrors": 0
+    },
+    {
+      "assetId": "shangsheng-reading-terrace",
+      "state": {
+        "bodyLabel": "shangsheng-reading-terrace · authored scale 1:1",
+        "canvas": [
+          {
+            "clientHeight": 720,
+            "clientWidth": 1280,
+            "height": 720,
+            "width": 1280
+          }
+        ],
+        "facilityId": "shangsheng-reading-terrace",
+        "htmlId": "shangsheng-reading-terrace",
+        "mainClass": "xinhua-stage is-explore is-playing",
+        "stage": "playable"
+      },
+      "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-reading-terrace-massing-threejs-isolated.png",
+      "pngBytes": 41063,
+      "targetStatus": 200,
+      "targetUrl": "http://127.0.0.1:4173/models/tiers/facility-prototypes/massing/shangsheng-reading-terrace-massing.glb?v=a13ec1266623",
+      "targetFromDiskCache": false,
+      "targetFailures": 0,
+      "exceptions": 0,
+      "logErrors": 0
+    },
+    {
+      "assetId": "shangsheng-fountain-osm-1364679202",
+      "state": {
+        "bodyLabel": "shangsheng-fountain-osm-1364679202 · authored scale 1:1",
+        "canvas": [
+          {
+            "clientHeight": 720,
+            "clientWidth": 1280,
+            "height": 720,
+            "width": 1280
+          }
+        ],
+        "facilityId": "shangsheng-fountain-osm-1364679202",
+        "htmlId": "shangsheng-fountain-osm-1364679202",
+        "mainClass": "xinhua-stage is-explore is-playing",
+        "stage": "playable"
+      },
+      "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-fountain-osm-1364679202-massing-threejs-isolated.png",
+      "pngBytes": 42633,
+      "targetStatus": 200,
+      "targetUrl": "http://127.0.0.1:4173/models/tiers/facility-prototypes/massing/shangsheng-fountain-osm-1364679202-massing.glb?v=41e63ffbc9ae",
+      "targetFromDiskCache": false,
+      "targetFailures": 0,
+      "exceptions": 0,
+      "logErrors": 0
+    },
+    {
+      "assetId": "shangsheng-fountain-osm-1364679203",
+      "state": {
+        "bodyLabel": "shangsheng-fountain-osm-1364679203 · authored scale 1:1",
+        "canvas": [
+          {
+            "clientHeight": 720,
+            "clientWidth": 1280,
+            "height": 720,
+            "width": 1280
+          }
+        ],
+        "facilityId": "shangsheng-fountain-osm-1364679203",
+        "htmlId": "shangsheng-fountain-osm-1364679203",
+        "mainClass": "xinhua-stage is-explore is-playing",
+        "stage": "playable"
+      },
+      "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-fountain-osm-1364679203-massing-threejs-isolated.png",
+      "pngBytes": 41744,
+      "targetStatus": 200,
+      "targetUrl": "http://127.0.0.1:4173/models/tiers/facility-prototypes/massing/shangsheng-fountain-osm-1364679203-massing.glb?v=22fdc5ea110b",
+      "targetFromDiskCache": false,
+      "targetFailures": 0,
+      "exceptions": 0,
+      "logErrors": 0
+    },
+    {
+      "assetId": "shangsheng-main-entry",
+      "state": {
+        "bodyLabel": "shangsheng-main-entry · authored scale 1:1",
+        "canvas": [
+          {
+            "clientHeight": 720,
+            "clientWidth": 1280,
+            "height": 720,
+            "width": 1280
+          }
+        ],
+        "facilityId": "shangsheng-main-entry",
+        "htmlId": "shangsheng-main-entry",
+        "mainClass": "xinhua-stage is-explore is-playing",
+        "stage": "playable"
+      },
+      "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-main-entry-massing-threejs-isolated.png",
+      "pngBytes": 39599,
+      "targetStatus": 200,
+      "targetUrl": "http://127.0.0.1:4173/models/tiers/facility-prototypes/massing/shangsheng-main-entry-massing.glb?v=f16cee5ff4ca",
+      "targetFromDiskCache": false,
+      "targetFailures": 0,
+      "exceptions": 0,
+      "logErrors": 0
+    },
+    {
+      "assetId": "huashan-pond-boardwalk",
+      "state": {
+        "bodyLabel": "huashan-pond-boardwalk · authored scale 1:1",
+        "canvas": [
+          {
+            "clientHeight": 720,
+            "clientWidth": 1280,
+            "height": 720,
+            "width": 1280
+          }
+        ],
+        "facilityId": "huashan-pond-boardwalk",
+        "htmlId": "huashan-pond-boardwalk",
+        "mainClass": "xinhua-stage is-explore is-playing",
+        "stage": "playable"
+      },
+      "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-pond-boardwalk-massing-threejs-isolated.png",
+      "pngBytes": 40963,
+      "targetStatus": 200,
+      "targetUrl": "http://127.0.0.1:4173/models/tiers/facility-prototypes/massing/huashan-pond-boardwalk-massing.glb?v=99bb83f3d7c0",
+      "targetFromDiskCache": false,
+      "targetFailures": 0,
+      "exceptions": 0,
+      "logErrors": 0
+    },
+    {
+      "assetId": "huashan-basketball-court",
+      "state": {
+        "bodyLabel": "huashan-basketball-court · authored scale 1:1",
+        "canvas": [
+          {
+            "clientHeight": 720,
+            "clientWidth": 1280,
+            "height": 720,
+            "width": 1280
+          }
+        ],
+        "facilityId": "huashan-basketball-court",
+        "htmlId": "huashan-basketball-court",
+        "mainClass": "xinhua-stage is-explore is-playing",
+        "stage": "playable"
+      },
+      "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-basketball-court-massing-threejs-isolated.png",
+      "pngBytes": 41586,
+      "targetStatus": 200,
+      "targetUrl": "http://127.0.0.1:4173/models/tiers/facility-prototypes/massing/huashan-basketball-court-massing.glb?v=06583b6b8360",
+      "targetFromDiskCache": false,
+      "targetFailures": 0,
+      "exceptions": 0,
+      "logErrors": 0
+    },
+    {
+      "assetId": "huashan-bird-pergola",
+      "state": {
+        "bodyLabel": "huashan-bird-pergola · authored scale 1:1",
+        "canvas": [
+          {
+            "clientHeight": 720,
+            "clientWidth": 1280,
+            "height": 720,
+            "width": 1280
+          }
+        ],
+        "facilityId": "huashan-bird-pergola",
+        "htmlId": "huashan-bird-pergola",
+        "mainClass": "xinhua-stage is-explore is-playing",
+        "stage": "playable"
+      },
+      "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-bird-pergola-massing-threejs-isolated.png",
+      "pngBytes": 41315,
+      "targetStatus": 200,
+      "targetUrl": "http://127.0.0.1:4173/models/tiers/facility-prototypes/massing/huashan-bird-pergola-massing.glb?v=d60b7fdf0da2",
+      "targetFromDiskCache": false,
+      "targetFailures": 0,
+      "exceptions": 0,
+      "logErrors": 0
+    },
+    {
+      "assetId": "huashan-happiness-corner",
+      "state": {
+        "bodyLabel": "huashan-happiness-corner · authored scale 1:1",
+        "canvas": [
+          {
+            "clientHeight": 720,
+            "clientWidth": 1280,
+            "height": 720,
+            "width": 1280
+          }
+        ],
+        "facilityId": "huashan-happiness-corner",
+        "htmlId": "huashan-happiness-corner",
+        "mainClass": "xinhua-stage is-explore is-playing",
+        "stage": "playable"
+      },
+      "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-happiness-corner-massing-threejs-isolated.png",
+      "pngBytes": 43779,
+      "targetStatus": 200,
+      "targetUrl": "http://127.0.0.1:4173/models/tiers/facility-prototypes/massing/huashan-happiness-corner-massing.glb?v=9252dec47ed3",
+      "targetFromDiskCache": false,
+      "targetFailures": 0,
+      "exceptions": 0,
+      "logErrors": 0
+    },
+    {
+      "assetId": "xingfuli-reflecting-pool-hardscape",
+      "state": {
+        "bodyLabel": "xingfuli-reflecting-pool-hardscape · authored scale 1:1",
+        "canvas": [
+          {
+            "clientHeight": 720,
+            "clientWidth": 1280,
+            "height": 720,
+            "width": 1280
+          }
+        ],
+        "facilityId": "xingfuli-reflecting-pool-hardscape",
+        "htmlId": "xingfuli-reflecting-pool-hardscape",
+        "mainClass": "xinhua-stage is-explore is-playing",
+        "stage": "playable"
+      },
+      "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_xingfuli-reflecting-pool-hardscape-massing-threejs-isolated.png",
+      "pngBytes": 38483,
+      "targetStatus": 200,
+      "targetUrl": "http://127.0.0.1:4173/models/tiers/facility-prototypes/massing/xingfuli-reflecting-pool-hardscape-massing.glb?v=282daf48b670",
+      "targetFromDiskCache": false,
+      "targetFailures": 0,
+      "exceptions": 0,
+      "logErrors": 0
+    },
+    {
+      "assetId": "xingfuli-mixed-paving",
+      "state": {
+        "bodyLabel": "xingfuli-mixed-paving · authored scale 1:1",
+        "canvas": [
+          {
+            "clientHeight": 720,
+            "clientWidth": 1280,
+            "height": 720,
+            "width": 1280
+          }
+        ],
+        "facilityId": "xingfuli-mixed-paving",
+        "htmlId": "xingfuli-mixed-paving",
+        "mainClass": "xinhua-stage is-explore is-playing",
+        "stage": "playable"
+      },
+      "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_xingfuli-mixed-paving-massing-threejs-isolated.png",
+      "pngBytes": 38928,
+      "targetStatus": 200,
+      "targetUrl": "http://127.0.0.1:4173/models/tiers/facility-prototypes/massing/xingfuli-mixed-paving-massing.glb?v=ab8763859099",
+      "targetFromDiskCache": false,
+      "targetFailures": 0,
+      "exceptions": 0,
+      "logErrors": 0
+    },
+    {
+      "assetId": "xingfuli-vertical-garden",
+      "state": {
+        "bodyLabel": "xingfuli-vertical-garden · authored scale 1:1",
+        "canvas": [
+          {
+            "clientHeight": 720,
+            "clientWidth": 1280,
+            "height": 720,
+            "width": 1280
+          }
+        ],
+        "facilityId": "xingfuli-vertical-garden",
+        "htmlId": "xingfuli-vertical-garden",
+        "mainClass": "xinhua-stage is-explore is-playing",
+        "stage": "playable"
+      },
+      "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_xingfuli-vertical-garden-massing-threejs-isolated.png",
+      "pngBytes": 38778,
+      "targetStatus": 200,
+      "targetUrl": "http://127.0.0.1:4173/models/tiers/facility-prototypes/massing/xingfuli-vertical-garden-massing.glb?v=97a31a1a436f",
+      "targetFromDiskCache": false,
+      "targetFailures": 0,
+      "exceptions": 0,
+      "logErrors": 0
+    },
+    {
+      "assetId": "one-square-metre-action",
+      "state": {
+        "bodyLabel": "one-square-metre-action · authored scale 1:1",
+        "canvas": [
+          {
+            "clientHeight": 720,
+            "clientWidth": 1280,
+            "height": 720,
+            "width": 1280
+          }
+        ],
+        "facilityId": "one-square-metre-action",
+        "htmlId": "one-square-metre-action",
+        "mainClass": "xinhua-stage is-explore is-playing",
+        "stage": "playable"
+      },
+      "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_one-square-metre-action-massing-threejs-isolated.png",
+      "pngBytes": 45570,
+      "targetStatus": 200,
+      "targetUrl": "http://127.0.0.1:4173/models/tiers/facility-prototypes/massing/one-square-metre-action-massing.glb?v=bfe80905009b",
+      "targetFromDiskCache": false,
+      "targetFailures": 0,
+      "exceptions": 0,
+      "logErrors": 0
+    }
+  ]
+}

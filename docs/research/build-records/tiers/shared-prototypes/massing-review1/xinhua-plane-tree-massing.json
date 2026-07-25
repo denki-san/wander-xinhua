@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "prototype:vegetation:xinhua-plane-tree",
+  "slug": "xinhua-plane-tree",
+  "family": "vegetation",
+  "tier": "massing",
+  "status": "gallery-runtime-pass-independent-review-pending",
+  "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+  "generator": "scripts/create_shared_prototype_massing_models.py",
+  "evidence": "confirmed-plane-tree",
+  "instanceCount": 31,
+  "outputs": {
+    "blend": "assets/models/source/tiers/shared-prototypes/massing/xinhua-plane-tree-massing.blend",
+    "glb": "public/models/tiers/shared-prototypes/massing/xinhua-plane-tree-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_xinhua-plane-tree-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/shared-prototypes/test_xinhua-plane-tree-massing-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "5e1899e7aa69df32d1389ade9c1237999ad6e61b86e4ab08bf30f79fb4348d9b",
+    "bytes": 9460,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 88,
+    "bounds": {
+      "min": [
+        -1.798031,
+        0,
+        -1.417781
+      ],
+      "max": [
+        1.854306,
+        6.25,
+        1.098691
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": "gallery-runtime-pass-independent-review-pending",
+  "identityAllowed": false,
+  "qualityBoundary": {
+    "observed": [
+      "prototype envelope and current runtime scale language"
+    ],
+    "inferred": [
+      "simplified massing component dimensions"
+    ],
+    "unknown": [
+      "manufacturer or species where not explicitly confirmed",
+      "surveyed dimensions",
+      "current per-instance field condition"
+    ]
+  },
+  "runtimeQa": {
+    "file": "docs/research/shared-prototypes-massing-runtime-qa.json",
+    "screenshot": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs.png",
+    "galleryLoadAndRender": "pass",
+    "independentReview": "pending"
+  }
+}

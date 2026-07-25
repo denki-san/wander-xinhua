@@ -32,6 +32,8 @@ import {
 import { useProgressiveNetworkProfile } from "./scene/progressive-loading";
 import { MAP_POIS, mapPoiById } from "./scene/poi-data";
 import { XinhuaWorld } from "./scene/xinhua-world";
+import type { SharedPrototypeQaGroup } from "./scene/shared-prototype-massing";
+import { isFacilityPrototypeMassingId } from "./scene/facility-prototype-massing";
 import mapData from "./scene/xinhua-map-data.json";
 import { cameraQaState } from "./scene/camera-qa";
 
@@ -56,6 +58,14 @@ const INITIAL_OVERVIEW_POSITION = [
   mapData.landmarks.xingfuli.position[0],
   mapData.landmarks.xingfuli.position[1],
 ] as const;
+const ACTIVE_ASSET_RUNTIME_EVENT = "xinhua:active-asset-runtime";
+
+type ActiveAssetRuntimeEvidence = {
+  error: string | null;
+  source: string | null;
+  status: "inactive" | "loading" | "loaded" | "blocked";
+  version: string | null;
+};
 
 const ATMOSPHERE_LABELS: Record<XinhuaAtmosphereStyle, string> = {
   "autumn-afternoon": "秋日下午",
@@ -394,6 +404,157 @@ export function XinhuaExperience() {
     typeof window !== "undefined"
     && new URLSearchParams(window.location.search).get("cameraQa") === "1"
   ));
+  const [namedActiveAssetQaRequested] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const params = new URLSearchParams(window.location.search);
+    const assetId = params.get("qaActiveAsset");
+    const tier = params.get("qaActiveTier");
+    return (
+      assetId === "shanghai-cinema" && tier === "massing"
+    ) || (
+      assetId === "sun-ke-villa"
+      && (tier === "massing" || tier === "identity" || tier === "hero")
+    );
+  });
+  const [cinemaMassingActiveQa] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const params = new URLSearchParams(window.location.search);
+    return params.get("qaActiveAsset") === "shanghai-cinema"
+      && params.get("qaActiveTier") === "massing";
+  });
+  const [roadModelTierQa] = useState<"massing" | undefined>(() => (
+    cinemaMassingActiveQa
+      || (
+        typeof window !== "undefined"
+        && !namedActiveAssetQaRequested
+        && new URLSearchParams(window.location.search).get("qaModelTier") === "massing"
+        && !new URLSearchParams(window.location.search)
+          .get("qaModelId")
+          ?.startsWith("osm-way-")
+      )
+        ? "massing"
+        : undefined
+  ));
+  const [roadModelQaId] = useState<string | undefined>(() => {
+    if (cinemaMassingActiveQa) return "shanghai-cinema";
+    if (
+      typeof window === "undefined"
+      || namedActiveAssetQaRequested
+      || new URLSearchParams(window.location.search).get("qaModelTier") !== "massing"
+    ) {
+      return undefined;
+    }
+    const modelId = new URLSearchParams(window.location.search).get("qaModelId");
+    return modelId && !modelId.startsWith("osm-way-")
+      ? modelId
+      : undefined;
+  });
+  const [roadModelQaView] = useState<
+    "isolated" | "canonical" | "side" | "entrance" | "map"
+  >(() => {
+    if (!cinemaMassingActiveQa || typeof window === "undefined") {
+      return "isolated";
+    }
+    const view = new URLSearchParams(window.location.search).get("qaActiveView");
+    return view === "side"
+      || view === "entrance"
+      || view === "map"
+      || view === "canonical"
+      ? view
+      : "canonical";
+  });
+  const [coreMassingQaId] = useState<string | undefined>(() => {
+    if (
+      typeof window === "undefined"
+      || namedActiveAssetQaRequested
+      || new URLSearchParams(window.location.search).get("qaModelTier") !== "massing"
+    ) {
+      return undefined;
+    }
+    const modelId = new URLSearchParams(window.location.search).get("qaModelId");
+    return modelId?.startsWith("osm-way-") ? modelId : undefined;
+  });
+  const [coreMassingQaView] = useState<"isolated" | "map">(() => (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("qaModelView") === "map"
+      ? "map"
+      : "isolated"
+  ));
+  const [sunKeTierQa] = useState<"massing" | "identity" | "full" | undefined>(
+    () => {
+      if (typeof window === "undefined") return undefined;
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("qaActiveAsset") !== "sun-ke-villa") return undefined;
+      const tier = params.get("qaActiveTier");
+      if (tier === "massing" || tier === "identity") return tier;
+      return tier === "hero" ? "full" : undefined;
+    },
+  );
+  const sunKeTierQaLabel = sunKeTierQa === "full" ? "hero" : sunKeTierQa;
+  const activeAssetQaId = sunKeTierQa
+    ? "sun-ke-villa"
+    : cinemaMassingActiveQa
+      ? "shanghai-cinema"
+      : undefined;
+  const activeAssetTierQaLabel = sunKeTierQaLabel
+    ?? (cinemaMassingActiveQa ? "massing" : undefined);
+  const activeAssetViewQa = cinemaMassingActiveQa
+    ? roadModelQaView
+    : undefined;
+  const [osmOrdinaryMassingQa] = useState(() => (
+    typeof window !== "undefined"
+    && !namedActiveAssetQaRequested
+    && new URLSearchParams(window.location.search).get("qaOsmBuildings") === "massing"
+  ));
+  const [sharedPrototypeMassingQa] = useState(() => (
+    typeof window !== "undefined"
+    && !namedActiveAssetQaRequested
+    && new URLSearchParams(window.location.search).get("qaSharedPrototypeTier") === "massing"
+  ));
+  const [sharedPrototypeIdentityQa] = useState(() => (
+    typeof window !== "undefined"
+    && !namedActiveAssetQaRequested
+    && new URLSearchParams(window.location.search).get("qaSharedPrototypeTier") === "identity"
+  ));
+  const [sharedPrototypeQaGroup] = useState<SharedPrototypeQaGroup>(() => {
+    if (typeof window === "undefined") return "all";
+    const group = new URLSearchParams(window.location.search).get(
+      "qaSharedPrototypeGroup",
+    );
+    return group === "vegetation" || group === "street-furniture"
+      ? group
+      : "all";
+  });
+  const [facilityPrototypeMassingQaId] = useState<string | undefined>(() => {
+    if (
+      typeof window === "undefined"
+      || namedActiveAssetQaRequested
+      || new URLSearchParams(window.location.search).get(
+        "qaFacilityPrototypeTier",
+      ) !== "massing"
+    ) {
+      return undefined;
+    }
+    const assetId = new URLSearchParams(window.location.search).get(
+      "qaFacilityPrototypeId",
+    );
+    return isFacilityPrototypeMassingId(assetId) ? assetId : undefined;
+  });
+  const [facilityPrototypeMapQaId] = useState<string | undefined>(() => {
+    if (
+      typeof window === "undefined"
+      || namedActiveAssetQaRequested
+      || new URLSearchParams(window.location.search).get(
+        "qaFacilityPrototypeMapTier",
+      ) !== "massing"
+    ) {
+      return undefined;
+    }
+    const assetId = new URLSearchParams(window.location.search).get(
+      "qaFacilityPrototypeMapId",
+    );
+    return isFacilityPrototypeMassingId(assetId) ? assetId : undefined;
+  });
   const networkProfile = useProgressiveNetworkProfile();
   const playerPosition = useRef<readonly [number, number]>(INITIAL_OVERVIEW_POSITION);
   const overviewPhotoCache = useRef(new Map<string, HTMLImageElement>());
@@ -401,10 +562,61 @@ export function XinhuaExperience() {
   const [overviewStartPosition, setOverviewStartPosition] = useState<readonly [number, number]>(
     INITIAL_OVERVIEW_POSITION,
   );
+  const [activeAssetRuntime, setActiveAssetRuntime] =
+    useState<ActiveAssetRuntimeEvidence>(() => ({
+      error: null,
+      source: null,
+      status: cinemaMassingActiveQa ? "loading" : "inactive",
+      version: null,
+    }));
   const playing = mode !== "intro";
   const exploring = mode === "explore";
   const overview = mode === "overview";
   const nearPoi = mapPoiById(nearPoiId);
+
+  useEffect(() => {
+    if (!cinemaMassingActiveQa) return;
+    const enterActiveAssetQa = window.requestAnimationFrame(() => {
+      resetInput();
+      setNearPoiId(null);
+      const requestedPreset = new URLSearchParams(window.location.search)
+        .get("start") ?? "cinema";
+      setDestinationPreset(requestedPreset);
+      setMode("explore");
+    });
+    return () => window.cancelAnimationFrame(enterActiveAssetQa);
+  }, [cinemaMassingActiveQa]);
+
+  useEffect(() => {
+    if (!cinemaMassingActiveQa) return;
+    const onRuntimeEvidence = (event: Event) => {
+      const detail = (event as CustomEvent<{
+        assetId?: string;
+        error?: string | null;
+        source?: string;
+        status?: "loaded" | "blocked";
+        tier?: string;
+        version?: string;
+      }>).detail;
+      if (
+        detail?.assetId !== "shanghai-cinema"
+        || detail.tier !== "massing"
+        || (detail.status !== "loaded" && detail.status !== "blocked")
+      ) {
+        return;
+      }
+      setActiveAssetRuntime({
+        error: detail.error ?? null,
+        source: detail.source ?? null,
+        status: detail.status,
+        version: detail.version ?? null,
+      });
+    };
+    window.addEventListener(ACTIVE_ASSET_RUNTIME_EVENT, onRuntimeEvidence);
+    return () => {
+      window.removeEventListener(ACTIVE_ASSET_RUNTIME_EVENT, onRuntimeEvidence);
+    };
+  }, [cinemaMassingActiveQa]);
 
   useEffect(() => {
     const coarse = window.matchMedia("(any-pointer: coarse)").matches;
@@ -482,6 +694,87 @@ export function XinhuaExperience() {
   }, [networkProfile]);
 
   useEffect(() => {
+    if (roadModelTierQa) {
+      document.documentElement.dataset.xinhuaRoadModelTier = roadModelTierQa;
+      if (roadModelQaId) {
+        document.documentElement.dataset.xinhuaRoadModelId = roadModelQaId;
+      }
+    } else {
+      delete document.documentElement.dataset.xinhuaRoadModelTier;
+      delete document.documentElement.dataset.xinhuaRoadModelId;
+    }
+    return () => {
+      delete document.documentElement.dataset.xinhuaRoadModelTier;
+      delete document.documentElement.dataset.xinhuaRoadModelId;
+    };
+  }, [roadModelQaId, roadModelTierQa]);
+
+  useEffect(() => {
+    if (osmOrdinaryMassingQa) {
+      document.documentElement.dataset.xinhuaOsmBuildingsTier = "massing";
+    } else {
+      delete document.documentElement.dataset.xinhuaOsmBuildingsTier;
+    }
+    return () => {
+      delete document.documentElement.dataset.xinhuaOsmBuildingsTier;
+    };
+  }, [osmOrdinaryMassingQa]);
+
+  useEffect(() => {
+    if (sharedPrototypeMassingQa || sharedPrototypeIdentityQa) {
+      document.documentElement.dataset.xinhuaSharedPrototypeTier = (
+        sharedPrototypeIdentityQa ? "identity" : "massing"
+      );
+      document.documentElement.dataset.xinhuaSharedPrototypeGroup = (
+        sharedPrototypeQaGroup
+      );
+    } else {
+      delete document.documentElement.dataset.xinhuaSharedPrototypeTier;
+      delete document.documentElement.dataset.xinhuaSharedPrototypeGroup;
+    }
+    return () => {
+      delete document.documentElement.dataset.xinhuaSharedPrototypeTier;
+      delete document.documentElement.dataset.xinhuaSharedPrototypeGroup;
+    };
+  }, [
+    sharedPrototypeIdentityQa,
+    sharedPrototypeMassingQa,
+    sharedPrototypeQaGroup,
+  ]);
+
+  useEffect(() => {
+    if (facilityPrototypeMassingQaId) {
+      document.documentElement.dataset.xinhuaFacilityPrototypeTier = "massing";
+      document.documentElement.dataset.xinhuaFacilityPrototypeId = (
+        facilityPrototypeMassingQaId
+      );
+    } else {
+      delete document.documentElement.dataset.xinhuaFacilityPrototypeTier;
+      delete document.documentElement.dataset.xinhuaFacilityPrototypeId;
+    }
+    return () => {
+      delete document.documentElement.dataset.xinhuaFacilityPrototypeTier;
+      delete document.documentElement.dataset.xinhuaFacilityPrototypeId;
+    };
+  }, [facilityPrototypeMassingQaId]);
+
+  useEffect(() => {
+    if (facilityPrototypeMapQaId) {
+      document.documentElement.dataset.xinhuaFacilityPrototypeMapTier = "massing";
+      document.documentElement.dataset.xinhuaFacilityPrototypeMapId = (
+        facilityPrototypeMapQaId
+      );
+    } else {
+      delete document.documentElement.dataset.xinhuaFacilityPrototypeMapTier;
+      delete document.documentElement.dataset.xinhuaFacilityPrototypeMapId;
+    }
+    return () => {
+      delete document.documentElement.dataset.xinhuaFacilityPrototypeMapTier;
+      delete document.documentElement.dataset.xinhuaFacilityPrototypeMapId;
+    };
+  }, [facilityPrototypeMapQaId]);
+
+  useEffect(() => {
     if (!ready) return;
     document.documentElement.dataset.xinhuaPlayable = "true";
     performance.mark("xinhua-world-playable");
@@ -548,6 +841,46 @@ export function XinhuaExperience() {
       className={`xinhua-stage is-${mode}${playing ? " is-playing" : ""}${touchCapable ? " is-touch" : ""}`}
       data-progressive-network={networkProfile}
       data-progressive-stage={ready ? "playable" : "booting"}
+      data-road-model-tier-qa={roadModelTierQa}
+      data-road-model-id-qa={roadModelQaId}
+      data-road-model-camera-qa={
+        roadModelQaId ? roadModelQaView : undefined
+      }
+      data-core-massing-model-id-qa={coreMassingQaId}
+      data-core-massing-model-camera-qa={
+        coreMassingQaId
+          ? coreMassingQaView === "map"
+            ? "playable-map-entry"
+            : "isolated-three-quarter"
+          : undefined
+      }
+      data-active-asset-qa={activeAssetQaId}
+      data-active-asset-tier-qa={activeAssetTierQaLabel}
+      data-active-asset-view-qa={activeAssetViewQa}
+      data-active-asset-runtime-status={
+        activeAssetQaId ? activeAssetRuntime.status : undefined
+      }
+      data-active-asset-runtime-source={
+        activeAssetQaId ? activeAssetRuntime.source ?? undefined : undefined
+      }
+      data-active-asset-runtime-version={
+        activeAssetQaId ? activeAssetRuntime.version ?? undefined : undefined
+      }
+      data-active-asset-runtime-error={
+        activeAssetQaId ? activeAssetRuntime.error ?? undefined : undefined
+      }
+      data-osm-ordinary-massing-qa={osmOrdinaryMassingQa || undefined}
+      data-shared-prototype-massing-qa={sharedPrototypeMassingQa || undefined}
+      data-shared-prototype-identity-qa={sharedPrototypeIdentityQa || undefined}
+      data-shared-prototype-qa-group={
+        sharedPrototypeMassingQa || sharedPrototypeIdentityQa
+          ? sharedPrototypeQaGroup
+          : undefined
+      }
+      data-facility-prototype-massing-qa={
+        facilityPrototypeMassingQaId || undefined
+      }
+      data-facility-prototype-map-qa={facilityPrototypeMapQaId || undefined}
     >
       <Canvas
         shadows="percentage"
@@ -584,6 +917,18 @@ export function XinhuaExperience() {
           overviewStartPosition={overviewStartPosition}
           destinationPreset={destinationPreset}
           cameraQaEnabled={cameraQaVisible}
+          roadModelTierQa={roadModelTierQa}
+          roadModelQaId={roadModelQaId}
+          roadModelQaView={roadModelQaView}
+          coreMassingQaId={coreMassingQaId}
+          coreMassingQaView={coreMassingQaView}
+          sunKeTierQa={sunKeTierQa}
+          osmOrdinaryMassingQa={osmOrdinaryMassingQa}
+          sharedPrototypeMassingQa={sharedPrototypeMassingQa}
+          sharedPrototypeIdentityQa={sharedPrototypeIdentityQa}
+          sharedPrototypeQaGroup={sharedPrototypeQaGroup}
+          facilityPrototypeMassingQaId={facilityPrototypeMassingQaId}
+          facilityPrototypeMapQaId={facilityPrototypeMapQaId}
           onNearPoi={setNearPoiId}
           onPositionChange={(position) => {
             playerPosition.current = position;

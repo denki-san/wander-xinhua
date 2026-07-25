@@ -1,0 +1,175 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:hudec-memorial",
+  "tier": "massing",
+  "status": "massing-generated-runtime-gate-blocked-evidence-and-walkaround",
+  "generator": "scripts/create_xinhua_road_massing_models.py",
+  "sourceHero": {
+    "path": "public/models/requested-pois/hudec-memorial.glb",
+    "sha256": "42159678fb720c963a82921ed827aceb7825b164da321d67345891732f622984",
+    "importedBounds": {
+      "min": [
+        -8.75,
+        -8.55,
+        -0.025
+      ],
+      "max": [
+        8.75,
+        6.95,
+        10.735001
+      ]
+    },
+    "heightProxySceneUnits": 10.760001,
+    "evidenceBoundary": "legacy-or-v2-hero-derived-height-not-real-measurement"
+  },
+  "sourcePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "position": [
+    91.34,
+    -131.74
+  ],
+  "yaw": 1.5707963267948966,
+  "runtimeScale": 0.72,
+  "localBounds": {
+    "minX": -8.75,
+    "maxX": 8.75,
+    "minZ": -6.95,
+    "maxZ": 8.55
+  },
+  "localObstacles": [
+    {
+      "minX": -6.4,
+      "maxX": 4.4,
+      "minZ": -5.1,
+      "maxZ": 2.1
+    },
+    {
+      "minX": 2.65,
+      "maxX": 6.95,
+      "minZ": -5.15,
+      "maxZ": 0.35
+    },
+    {
+      "minX": -1.3,
+      "maxX": 1.7,
+      "minZ": 2.28,
+      "maxZ": 3.95
+    },
+    {
+      "minX": -8.45,
+      "maxX": -2.95,
+      "minZ": 6.35,
+      "maxZ": 7.05
+    },
+    {
+      "minX": 2.95,
+      "maxX": 8.45,
+      "minZ": 6.35,
+      "maxZ": 7.05
+    },
+    {
+      "minX": -6.9,
+      "maxX": -2.9,
+      "minZ": 2.15,
+      "maxZ": 5.25
+    }
+  ],
+  "roofProfile": "gable",
+  "proxyMethod": "voxel-remesh-current-hero",
+  "pruning": {
+    "removedFaces": 5420,
+    "removedMaterials": [
+      "邬达克庭院树干",
+      "邬达克庭院石",
+      "邬达克浅绿",
+      "邬达克绿篱",
+      "邬达克铁艺"
+    ],
+    "rule": "material-name-denylist-before-voxel-remesh"
+  },
+  "voxelSizeSceneUnits": 0.402381,
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/hudec-memorial-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing/hudec-memorial-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/test_hudec-memorial-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/test_hudec-memorial-massing-side.png",
+      "threejs": "test_artifacts/all-models/massing/test_hudec-memorial-massing-threejs.png"
+    }
+  },
+  "glb": {
+    "sha256": "0f5de6a2c3e287a2e9ba13ef4cdb194b5228b4a533c412d975a99fd6c13a604e",
+    "bytes": 92812,
+    "nodes": 1,
+    "meshes": 1,
+    "images": 0,
+    "textures": 0,
+    "materials": 1,
+    "triangles": 900,
+    "expectedMaximumTriangles": 1200,
+    "bounds": {
+      "min": [
+        -8.437569,
+        -0.028427,
+        -5.751319
+      ],
+      "max": [
+        8.437347,
+        10.638474,
+        7.136293
+      ]
+    },
+    "auditStatus": "ok"
+  },
+  "editableSourceBounds": {
+    "min": [
+      -8.437569,
+      -7.136293,
+      -0.028427
+    ],
+    "max": [
+      8.437347,
+      5.751319,
+      10.638474
+    ]
+  },
+  "qualityBoundary": {
+    "observed": [
+      "runtime local bounds",
+      "runtime split obstacles",
+      "current hero imported bounds"
+    ],
+    "inferred": [
+      "per-block height proxy"
+    ],
+    "unknown": [
+      "surveyed height",
+      "entrance direction",
+      "unseen facade and roof"
+    ]
+  },
+  "runtimeGate": {
+    "status": "blocked-evidence-map-and-walkaround-required",
+    "validatedAt": "2026-07-25",
+    "route": "/?start=hudec&qaModelTier=massing&cameraQa=1",
+    "screenshot": "test_artifacts/all-models/massing/test_hudec-memorial-massing-threejs.png",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "buildMode": "vite-static-production-preview",
+    "pageVisibility": "visible",
+    "playable": true,
+    "canvasCount": 1,
+    "cameraMode": "spring-clear",
+    "blockerId": "none",
+    "visualStatus": "pass",
+    "independentReviewStatus": "conditional-geometry-usable-gate-blocked",
+    "requiredActions": [
+      "校准 pivot 与 OSM way 494633921",
+      "闭合入口 yaw 和尺度",
+      "补确定性绕行证据"
+    ],
+    "mapAcceptance": "required-before-formal-pass"
+  }
+}

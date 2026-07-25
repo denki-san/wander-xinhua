@@ -1,0 +1,4495 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "status": "placement-inventory-not-map-acceptance",
+  "coordinateContract": {
+    "authoredMetersPerSceneUnit": 2.7,
+    "worldAxis": "X east, Z south",
+    "collectionLocalCoordinatesRequireParentTransform": true
+  },
+  "sourceFiles": [
+    "app/scene/xinhua-road-placement.mjs",
+    "app/scene/street-dressing-placement.mjs",
+    "app/scene/xinhua-road-landmarks-data.json",
+    "app/scene/xinhua-landmarks-data.json",
+    "app/scene/shangsheng-xinsuo-block.tsx",
+    "app/scene/huashan-green-block.tsx",
+    "app/scene/xingfuli-block.tsx",
+    "app/scene/xingfuli-layout.json",
+    "app/scene/xinhua-world.tsx"
+  ],
+  "collectionTransforms": {
+    "shangsheng": {
+      "worldPosition": [
+        8.3149,
+        -147.5366
+      ],
+      "rotationY": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "huashan": {
+      "worldPosition": [
+        176.5313,
+        -83.3055
+      ],
+      "rotationY": 0,
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "xingfuli": {
+      "status": "read-from-app/scene/xinhua-map-data.json-at-runtime",
+      "note": "非均匀水平与纵向缩放必须在地图校验阶段单独核验。"
+    }
+  },
+  "vegetation": {
+    "xinhuaRoadPlaneTrees": [
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-0-0",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -140.7840312729262,
+          0,
+          31.123641072265865
+        ],
+        "variant": 2,
+        "yaw": 4.719080373166758,
+        "scale": [
+          1.042334163403682,
+          1.0858656802624151,
+          1.0181244538626923
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-0-1",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -127.26143173986455,
+          0,
+          36.35712045833835
+        ],
+        "variant": 1,
+        "yaw": 4.694536090998888,
+        "scale": [
+          1.0417091483906167,
+          1.0851234749344,
+          1.0176556926028932
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-0-2",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -113.73883220680285,
+          0,
+          41.59059984441084
+        ],
+        "variant": 2,
+        "yaw": 4.768168937502501,
+        "scale": [
+          1.0410841333775511,
+          1.0843812696063848,
+          1.0190619763822903
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-0-3",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -100.21623267374119,
+          0,
+          46.82407923048332
+        ],
+        "variant": 1,
+        "yaw": 4.74362465533463,
+        "scale": [
+          1.0404591183644858,
+          1.0836390642783695,
+          1.0185932151224915
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-0-4",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -86.79233483040332,
+          0,
+          52.08035444762914
+        ],
+        "variant": 2,
+        "yaw": 4.817257501838242,
+        "scale": [
+          1.0398341033514202,
+          1.0828968589503543,
+          1.016249408823496
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-0-10",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -6.161848570007669,
+          0,
+          84.75744235563317
+        ],
+        "variant": 0,
+        "yaw": 4.193549074373519,
+        "scale": [
+          1.01003606939922,
+          0.9253081119352272,
+          0.9808685712238933
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-0-11",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          7.291895487588466,
+          0,
+          90.1654711507398
+        ],
+        "variant": 2,
+        "yaw": 4.21809335654139,
+        "scale": [
+          1.0106610844122854,
+          0.9260503172632424,
+          0.9813373324836924
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-0-12",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          20.74884363008636,
+          0,
+          95.56552561659207
+        ],
+        "variant": 0,
+        "yaw": 4.242637638709261,
+        "scale": [
+          1.0087860393730892,
+          0.9238237012791969,
+          0.9818060937434914
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-0-17",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          87.6216689134975,
+          0,
+          123.22017709459047
+        ],
+        "variant": 2,
+        "yaw": 4.365359049548615,
+        "scale": [
+          1.0119111144384163,
+          0.9275347279192728,
+          0.9803998099640943
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-0-18",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          100.97954756674505,
+          0,
+          128.86088949833626
+        ],
+        "variant": 0,
+        "yaw": 4.389903331716486,
+        "scale": [
+          1.0150361895037434,
+          0.9193704693111057,
+          0.9771184811455007
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-0-19",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          114.32735801026469,
+          0,
+          134.52533660108813
+        ],
+        "variant": 2,
+        "yaw": 4.414447613884356,
+        "scale": [
+          1.0156612045168087,
+          0.9201126746391208,
+          0.9775872424052998
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-0-20",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          127.67517580973129,
+          0,
+          140.1897663630026
+        ],
+        "variant": 1,
+        "yaw": 1.4944745260449204,
+        "scale": [
+          1.0262809800231554,
+          1.0158460908629574,
+          1.0343196842014601
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-0-21",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          141.02466428820557,
+          0,
+          145.8502576825868
+        ],
+        "variant": 2,
+        "yaw": 1.4699302438770494,
+        "scale": [
+          1.0256559650100898,
+          1.0151038855349421,
+          1.033850922941661
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-0-22",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          154.37415276667988,
+          0,
+          151.51074900217097
+        ],
+        "variant": 1,
+        "yaw": 1.543563090380662,
+        "scale": [
+          1.0250309499970245,
+          1.0143616802069269,
+          1.0352572067210584
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-1-0",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -129.18708999306747,
+          0,
+          21.251238272664757
+        ],
+        "variant": 2,
+        "yaw": 1.6462795821701823,
+        "scale": [
+          1.0341352962968255,
+          0.9573812370182437,
+          1.004439362600548
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-1-1",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -115.6644904600058,
+          0,
+          26.484717658737242
+        ],
+        "variant": 0,
+        "yaw": 1.6708238643380535,
+        "scale": [
+          1.0347603113098909,
+          0.9581234423462589,
+          1.004908123860347
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-1-2",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -102.14499392778896,
+          0,
+          31.72621124925381
+        ],
+        "variant": 2,
+        "yaw": 1.6953681465059243,
+        "scale": [
+          1.0328852662706947,
+          0.9558968263622133,
+          1.0053768851201461
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-1-3",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -88.6223943947273,
+          0,
+          36.959690635326304
+        ],
+        "variant": 0,
+        "yaw": 1.7199124286737952,
+        "scale": [
+          1.03351028128376,
+          0.9566390316902286,
+          1.0058456463799452
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-1-5",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -61.616147216000506,
+          0,
+          47.75941493255273
+        ],
+        "variant": 2,
+        "yaw": 1.5726467356665699,
+        "scale": [
+          1.0372603713621527,
+          0.9610922636583197,
+          1.0067831688995432
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-1-9",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -7.794762815812447,
+          0,
+          69.37558145447056
+        ],
+        "variant": 0,
+        "yaw": 1.4744696069950864,
+        "scale": [
+          1.0297601912053675,
+          0.9640610849703805,
+          1.0086582139387397
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-1-10",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          5.606893787793833,
+          0,
+          74.91324554978556
+        ],
+        "variant": 1,
+        "yaw": 1.2129668530834268,
+        "scale": [
+          1.0690306873594018,
+          0.9960528033473652,
+          0.9693796191712327
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-1-11",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          19.06063784538994,
+          0,
+          80.32127434489217
+        ],
+        "variant": 0,
+        "yaw": 1.1884225709155558,
+        "scale": [
+          1.0684056723463362,
+          0.99531059801935,
+          0.9689108579114337
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-1-16",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          86.23550608402729,
+          0,
+          107.92268141502089
+        ],
+        "variant": 1,
+        "yaw": 1.0657011600762016,
+        "scale": [
+          1.0727807774377942,
+          1.0005060353154565,
+          0.9703171416908309
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-1-18",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          112.92105876133861,
+          0,
+          119.2753103195306
+        ],
+        "variant": 0,
+        "yaw": 1.4093211104263936,
+        "scale": [
+          1.074030807463925,
+          0.9901151607232437,
+          0.9731297092496253
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-1-19",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          126.26886920485823,
+          0,
+          124.93975742228244
+        ],
+        "variant": 1,
+        "yaw": 1.3847768282585229,
+        "scale": [
+          1.0734057924508598,
+          0.9893729553952285,
+          0.9726609479898263
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-1-20",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          139.6099454407183,
+          0,
+          130.6200796802171
+        ],
+        "variant": 0,
+        "yaw": 4.502115851513043,
+        "scale": [
+          0.9977625367226458,
+          1.0776713040139692,
+          1.0321977377711324
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-1-21",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          152.95943391919258,
+          0,
+          136.28057099980123
+        ],
+        "variant": 1,
+        "yaw": 4.526660133680913,
+        "scale": [
+          0.9983875517357113,
+          1.0784135093419844,
+          1.0326664990309316
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:plane-tree-1-22",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "authored-world",
+        "position": [
+          166.3089223976669,
+          0,
+          141.94106231938542
+        ],
+        "variant": 0,
+        "yaw": 4.4530272871773,
+        "scale": [
+          0.9990125667487766,
+          1.0791557146699997,
+          1.0312602152515342
+        ],
+        "evidence": "deterministic-xinhua-road-placement"
+      }
+    ],
+    "xingfuliPlaneTrees": [
+      {
+        "id": "vegetation-instance:xingfuli:panyu-entrance-plane-tree",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          40.1,
+          0.25,
+          -3.15
+        ],
+        "variant": 0,
+        "yaw": 1.08,
+        "scale": [
+          0.66,
+          0.7,
+          0.68
+        ],
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "vegetation-instance:xingfuli:pool-plane-tree",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          22.1,
+          0.48,
+          -3.95
+        ],
+        "variant": 1,
+        "yaw": 0.42,
+        "scale": [
+          0.82,
+          0.86,
+          0.88
+        ],
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "vegetation-instance:xingfuli:lane-plane-tree",
+        "prototype": "prototype:vegetation:xinhua-plane-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -5,
+          0.25,
+          -2.6
+        ],
+        "variant": 2,
+        "yaw": 2.18,
+        "scale": [
+          0.72,
+          0.76,
+          0.8
+        ],
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      }
+    ],
+    "shangshengCampusTrees": [
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-000",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -19.4,
+          0,
+          -40.8
+        ],
+        "sourceIndex": 6,
+        "variant": 0,
+        "heightSceneUnits": 7.2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-001",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -16.3,
+          0,
+          -36.1
+        ],
+        "sourceIndex": 7,
+        "variant": 1,
+        "heightSceneUnits": 7.720000000000001,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-002",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -13.2,
+          0,
+          -31.4
+        ],
+        "sourceIndex": 8,
+        "variant": 2,
+        "heightSceneUnits": 8.24,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-003",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -0.7999999999999972,
+          0,
+          -12.600000000000001
+        ],
+        "sourceIndex": 12,
+        "variant": 0,
+        "heightSceneUnits": 7.2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-004",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          14.700000000000003,
+          0,
+          10.900000000000006
+        ],
+        "sourceIndex": 17,
+        "variant": 2,
+        "heightSceneUnits": 9.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-005",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          17.799999999999997,
+          0,
+          15.599999999999994
+        ],
+        "sourceIndex": 18,
+        "variant": 0,
+        "heightSceneUnits": 7.2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-006",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          20.9,
+          0,
+          20.299999999999997
+        ],
+        "sourceIndex": 19,
+        "variant": 1,
+        "heightSceneUnits": 7.720000000000001,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-007",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          24,
+          0,
+          25
+        ],
+        "sourceIndex": 20,
+        "variant": 2,
+        "heightSceneUnits": 8.24,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-008",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          27.099999999999994,
+          0,
+          29.700000000000003
+        ],
+        "sourceIndex": 21,
+        "variant": 0,
+        "heightSceneUnits": 8.76,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-009",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          30.200000000000003,
+          0,
+          34.400000000000006
+        ],
+        "sourceIndex": 22,
+        "variant": 1,
+        "heightSceneUnits": 9.280000000000001,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-010",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          33.3,
+          0,
+          39.099999999999994
+        ],
+        "sourceIndex": 23,
+        "variant": 2,
+        "heightSceneUnits": 9.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-011",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -26.3,
+          0,
+          -31.1
+        ],
+        "sourceIndex": 37,
+        "variant": 1,
+        "heightSceneUnits": 7.720000000000001,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-012",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -23.2,
+          0,
+          -26.4
+        ],
+        "sourceIndex": 38,
+        "variant": 2,
+        "heightSceneUnits": 8.24,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-013",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -20.1,
+          0,
+          -21.700000000000003
+        ],
+        "sourceIndex": 39,
+        "variant": 0,
+        "heightSceneUnits": 8.76,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-014",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -13.899999999999999,
+          0,
+          -12.299999999999997
+        ],
+        "sourceIndex": 41,
+        "variant": 2,
+        "heightSceneUnits": 9.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-015",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          10.899999999999999,
+          0,
+          25.299999999999997
+        ],
+        "sourceIndex": 49,
+        "variant": 1,
+        "heightSceneUnits": 7.720000000000001,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-016",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          14,
+          0,
+          30
+        ],
+        "sourceIndex": 50,
+        "variant": 2,
+        "heightSceneUnits": 8.24,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-017",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          17.1,
+          0,
+          34.7
+        ],
+        "sourceIndex": 51,
+        "variant": 0,
+        "heightSceneUnits": 8.76,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-018",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          20.200000000000003,
+          0,
+          39.400000000000006
+        ],
+        "sourceIndex": 52,
+        "variant": 1,
+        "heightSceneUnits": 9.280000000000001,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-019",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -36.3,
+          0,
+          -26.1
+        ],
+        "sourceIndex": 67,
+        "variant": 1,
+        "heightSceneUnits": 7.720000000000001,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-020",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -33.2,
+          0,
+          -21.4
+        ],
+        "sourceIndex": 68,
+        "variant": 2,
+        "heightSceneUnits": 8.24,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-021",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -27,
+          0,
+          -12
+        ],
+        "sourceIndex": 70,
+        "variant": 1,
+        "heightSceneUnits": 9.280000000000001,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-022",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -20.8,
+          0,
+          -2.5999999999999943
+        ],
+        "sourceIndex": 72,
+        "variant": 0,
+        "heightSceneUnits": 7.2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-023",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -2.200000000000003,
+          0,
+          25.599999999999994
+        ],
+        "sourceIndex": 78,
+        "variant": 0,
+        "heightSceneUnits": 7.2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-024",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          0.8999999999999986,
+          0,
+          30.299999999999997
+        ],
+        "sourceIndex": 79,
+        "variant": 1,
+        "heightSceneUnits": 7.720000000000001,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-025",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          4,
+          0,
+          35
+        ],
+        "sourceIndex": 80,
+        "variant": 2,
+        "heightSceneUnits": 8.24,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-026",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          7.100000000000001,
+          0,
+          39.7
+        ],
+        "sourceIndex": 81,
+        "variant": 0,
+        "heightSceneUnits": 8.76,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-027",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          10.200000000000003,
+          0,
+          44.400000000000006
+        ],
+        "sourceIndex": 82,
+        "variant": 1,
+        "heightSceneUnits": 9.280000000000001,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:shangsheng:campus-tree-028",
+        "prototype": "prototype:vegetation:shangsheng-campus-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          13.299999999999997,
+          0,
+          49.099999999999994
+        ],
+        "sourceIndex": 83,
+        "variant": 2,
+        "heightSceneUnits": 9.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      }
+    ],
+    "huashanCanopyTrees": [
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-000",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -9.399999999999999,
+          0,
+          -12.600000000000001
+        ],
+        "sourceIndex": 8,
+        "variant": 2,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-001",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          1.7000000000000028,
+          0,
+          3.299999999999997
+        ],
+        "sourceIndex": 11,
+        "variant": 2,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-002",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          9.100000000000001,
+          0,
+          13.900000000000006
+        ],
+        "sourceIndex": 13,
+        "variant": 1,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-003",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          12.799999999999997,
+          0,
+          19.200000000000003
+        ],
+        "sourceIndex": 14,
+        "variant": 2,
+        "heightSceneUnits": 7.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-004",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          16.5,
+          0,
+          24.5
+        ],
+        "sourceIndex": 15,
+        "variant": 0,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-005",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          23.9,
+          0,
+          35.099999999999994
+        ],
+        "sourceIndex": 17,
+        "variant": 2,
+        "heightSceneUnits": 9.54,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-006",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          27.599999999999994,
+          0,
+          40.400000000000006
+        ],
+        "sourceIndex": 18,
+        "variant": 0,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-007",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          31.299999999999997,
+          0,
+          45.7
+        ],
+        "sourceIndex": 19,
+        "variant": 1,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-008",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          35,
+          0,
+          51
+        ],
+        "sourceIndex": 20,
+        "variant": 2,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-009",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          38.7,
+          0,
+          56.3
+        ],
+        "sourceIndex": 21,
+        "variant": 0,
+        "heightSceneUnits": 7.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-010",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -7,
+          0,
+          -14
+        ],
+        "sourceIndex": 30,
+        "variant": 0,
+        "heightSceneUnits": 8.959999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-011",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          0.3999999999999986,
+          0,
+          -3.3999999999999986
+        ],
+        "sourceIndex": 32,
+        "variant": 2,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-012",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          15.200000000000003,
+          0,
+          17.799999999999997
+        ],
+        "sourceIndex": 36,
+        "variant": 0,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-013",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          22.6,
+          0,
+          28.400000000000006
+        ],
+        "sourceIndex": 38,
+        "variant": 2,
+        "heightSceneUnits": 9.54,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-014",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          26.299999999999997,
+          0,
+          33.7
+        ],
+        "sourceIndex": 39,
+        "variant": 0,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-015",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          30,
+          0,
+          39
+        ],
+        "sourceIndex": 40,
+        "variant": 1,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-016",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          33.7,
+          0,
+          44.3
+        ],
+        "sourceIndex": 41,
+        "variant": 2,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-017",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          37.400000000000006,
+          0,
+          49.599999999999994
+        ],
+        "sourceIndex": 42,
+        "variant": 0,
+        "heightSceneUnits": 7.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-018",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -8.3,
+          0,
+          -20.700000000000003
+        ],
+        "sourceIndex": 51,
+        "variant": 0,
+        "heightSceneUnits": 8.959999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-019",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -0.8999999999999986,
+          0,
+          -10.100000000000001
+        ],
+        "sourceIndex": 53,
+        "variant": 2,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-020",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          2.799999999999997,
+          0,
+          -4.799999999999997
+        ],
+        "sourceIndex": 54,
+        "variant": 0,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-021",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          10.200000000000003,
+          0,
+          5.799999999999997
+        ],
+        "sourceIndex": 56,
+        "variant": 2,
+        "heightSceneUnits": 7.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-022",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          25,
+          0,
+          27
+        ],
+        "sourceIndex": 60,
+        "variant": 0,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-023",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          28.700000000000003,
+          0,
+          32.3
+        ],
+        "sourceIndex": 61,
+        "variant": 1,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-024",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          32.400000000000006,
+          0,
+          37.599999999999994
+        ],
+        "sourceIndex": 62,
+        "variant": 2,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-025",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          36.099999999999994,
+          0,
+          42.900000000000006
+        ],
+        "sourceIndex": 63,
+        "variant": 0,
+        "heightSceneUnits": 7.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-026",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -35.5,
+          0,
+          53.5
+        ],
+        "sourceIndex": 65,
+        "variant": 2,
+        "heightSceneUnits": 8.959999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-027",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -31.8,
+          0,
+          58.8
+        ],
+        "sourceIndex": 66,
+        "variant": 0,
+        "heightSceneUnits": 9.54,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-028",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -9.600000000000001,
+          0,
+          -27.4
+        ],
+        "sourceIndex": 72,
+        "variant": 0,
+        "heightSceneUnits": 8.959999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-029",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -5.899999999999999,
+          0,
+          -22.1
+        ],
+        "sourceIndex": 73,
+        "variant": 1,
+        "heightSceneUnits": 9.54,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-030",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          5.200000000000003,
+          0,
+          -6.200000000000003
+        ],
+        "sourceIndex": 76,
+        "variant": 1,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-031",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          12.600000000000001,
+          0,
+          4.399999999999999
+        ],
+        "sourceIndex": 78,
+        "variant": 0,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-032",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          16.299999999999997,
+          0,
+          9.700000000000003
+        ],
+        "sourceIndex": 79,
+        "variant": 1,
+        "heightSceneUnits": 8.959999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-033",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          27.400000000000006,
+          0,
+          25.599999999999994
+        ],
+        "sourceIndex": 82,
+        "variant": 1,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-034",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          31.099999999999994,
+          0,
+          30.900000000000006
+        ],
+        "sourceIndex": 83,
+        "variant": 2,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-035",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          34.8,
+          0,
+          36.2
+        ],
+        "sourceIndex": 84,
+        "variant": 0,
+        "heightSceneUnits": 7.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-036",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -33.1,
+          0,
+          52.099999999999994
+        ],
+        "sourceIndex": 87,
+        "variant": 0,
+        "heightSceneUnits": 9.54,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-037",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -29.4,
+          0,
+          57.400000000000006
+        ],
+        "sourceIndex": 88,
+        "variant": 1,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-038",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -7.199999999999999,
+          0,
+          -28.8
+        ],
+        "sourceIndex": 94,
+        "variant": 1,
+        "heightSceneUnits": 9.54,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-039",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          0.20000000000000284,
+          0,
+          -18.200000000000003
+        ],
+        "sourceIndex": 96,
+        "variant": 0,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-040",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          3.8999999999999986,
+          0,
+          -12.899999999999999
+        ],
+        "sourceIndex": 97,
+        "variant": 1,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-041",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          29.799999999999997,
+          0,
+          24.200000000000003
+        ],
+        "sourceIndex": 104,
+        "variant": 2,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-042",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -34.4,
+          0,
+          45.400000000000006
+        ],
+        "sourceIndex": 108,
+        "variant": 0,
+        "heightSceneUnits": 9.54,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-043",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -27,
+          0,
+          56
+        ],
+        "sourceIndex": 110,
+        "variant": 2,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-044",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -8.5,
+          0,
+          -35.5
+        ],
+        "sourceIndex": 115,
+        "variant": 1,
+        "heightSceneUnits": 9.54,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-045",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          2.6000000000000014,
+          0,
+          -19.6
+        ],
+        "sourceIndex": 118,
+        "variant": 1,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-046",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          6.299999999999997,
+          0,
+          -14.299999999999997
+        ],
+        "sourceIndex": 119,
+        "variant": 2,
+        "heightSceneUnits": 7.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-047",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          10,
+          0,
+          -9
+        ],
+        "sourceIndex": 120,
+        "variant": 0,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-048",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -32,
+          0,
+          44
+        ],
+        "sourceIndex": 130,
+        "variant": 1,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-049",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -28.3,
+          0,
+          49.3
+        ],
+        "sourceIndex": 131,
+        "variant": 2,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-050",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -9.8,
+          0,
+          -42.2
+        ],
+        "sourceIndex": 136,
+        "variant": 1,
+        "heightSceneUnits": 9.54,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-051",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -6.100000000000001,
+          0,
+          -36.9
+        ],
+        "sourceIndex": 137,
+        "variant": 2,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-052",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -2.3999999999999986,
+          0,
+          -31.6
+        ],
+        "sourceIndex": 138,
+        "variant": 0,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-053",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          5,
+          0,
+          -21
+        ],
+        "sourceIndex": 140,
+        "variant": 2,
+        "heightSceneUnits": 7.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-054",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          8.700000000000003,
+          0,
+          -15.700000000000003
+        ],
+        "sourceIndex": 141,
+        "variant": 0,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-055",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          12.399999999999999,
+          0,
+          -10.399999999999999
+        ],
+        "sourceIndex": 142,
+        "variant": 1,
+        "heightSceneUnits": 8.959999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-056",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -33.3,
+          0,
+          37.3
+        ],
+        "sourceIndex": 151,
+        "variant": 1,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-057",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -25.9,
+          0,
+          47.900000000000006
+        ],
+        "sourceIndex": 153,
+        "variant": 0,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-058",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -18.5,
+          0,
+          58.5
+        ],
+        "sourceIndex": 155,
+        "variant": 2,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-059",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -7.399999999999999,
+          0,
+          -43.6
+        ],
+        "sourceIndex": 158,
+        "variant": 2,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-060",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          0,
+          0,
+          -33
+        ],
+        "sourceIndex": 160,
+        "variant": 1,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-061",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          7.399999999999999,
+          0,
+          -22.4
+        ],
+        "sourceIndex": 162,
+        "variant": 0,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-062",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          11.100000000000001,
+          0,
+          -17.1
+        ],
+        "sourceIndex": 163,
+        "variant": 1,
+        "heightSceneUnits": 8.959999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-063",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          18.5,
+          0,
+          -6.5
+        ],
+        "sourceIndex": 165,
+        "variant": 0,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-064",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -34.6,
+          0,
+          30.599999999999994
+        ],
+        "sourceIndex": 172,
+        "variant": 1,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-065",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -30.9,
+          0,
+          35.900000000000006
+        ],
+        "sourceIndex": 173,
+        "variant": 2,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-066",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -27.2,
+          0,
+          41.2
+        ],
+        "sourceIndex": 174,
+        "variant": 0,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-067",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -23.5,
+          0,
+          46.5
+        ],
+        "sourceIndex": 175,
+        "variant": 1,
+        "heightSceneUnits": 7.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-068",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -16.1,
+          0,
+          57.099999999999994
+        ],
+        "sourceIndex": 177,
+        "variant": 0,
+        "heightSceneUnits": 8.959999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-069",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -8.7,
+          0,
+          -50.3
+        ],
+        "sourceIndex": 179,
+        "variant": 2,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-070",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -1.2999999999999972,
+          0,
+          -39.7
+        ],
+        "sourceIndex": 181,
+        "variant": 1,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-071",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          2.3999999999999986,
+          0,
+          -34.4
+        ],
+        "sourceIndex": 182,
+        "variant": 2,
+        "heightSceneUnits": 7.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-072",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          6.100000000000001,
+          0,
+          -29.1
+        ],
+        "sourceIndex": 183,
+        "variant": 0,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-073",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          9.799999999999997,
+          0,
+          -23.8
+        ],
+        "sourceIndex": 184,
+        "variant": 1,
+        "heightSceneUnits": 8.959999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-074",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          17.200000000000003,
+          0,
+          -13.200000000000003
+        ],
+        "sourceIndex": 186,
+        "variant": 0,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-075",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          20.9,
+          0,
+          -7.899999999999999
+        ],
+        "sourceIndex": 187,
+        "variant": 1,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-076",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -32.2,
+          0,
+          29.200000000000003
+        ],
+        "sourceIndex": 194,
+        "variant": 2,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-077",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -24.8,
+          0,
+          39.8
+        ],
+        "sourceIndex": 196,
+        "variant": 1,
+        "heightSceneUnits": 7.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-078",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -21.1,
+          0,
+          45.099999999999994
+        ],
+        "sourceIndex": 197,
+        "variant": 2,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-079",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -13.7,
+          0,
+          55.7
+        ],
+        "sourceIndex": 199,
+        "variant": 1,
+        "heightSceneUnits": 9.54,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-080",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -6.299999999999997,
+          0,
+          -51.7
+        ],
+        "sourceIndex": 201,
+        "variant": 0,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-081",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          1.1000000000000014,
+          0,
+          -41.1
+        ],
+        "sourceIndex": 203,
+        "variant": 2,
+        "heightSceneUnits": 7.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-082",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          4.799999999999997,
+          0,
+          -35.8
+        ],
+        "sourceIndex": 204,
+        "variant": 0,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-083",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          8.5,
+          0,
+          -30.5
+        ],
+        "sourceIndex": 205,
+        "variant": 1,
+        "heightSceneUnits": 8.959999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-084",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          15.899999999999999,
+          0,
+          -19.9
+        ],
+        "sourceIndex": 207,
+        "variant": 0,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-085",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          19.6,
+          0,
+          -14.600000000000001
+        ],
+        "sourceIndex": 208,
+        "variant": 1,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-086",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          23.299999999999997,
+          0,
+          -9.299999999999997
+        ],
+        "sourceIndex": 209,
+        "variant": 2,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-087",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -33.5,
+          0,
+          22.5
+        ],
+        "sourceIndex": 215,
+        "variant": 2,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-088",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -29.8,
+          0,
+          27.799999999999997
+        ],
+        "sourceIndex": 216,
+        "variant": 0,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-089",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -22.4,
+          0,
+          38.400000000000006
+        ],
+        "sourceIndex": 218,
+        "variant": 2,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-090",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -15,
+          0,
+          49
+        ],
+        "sourceIndex": 220,
+        "variant": 1,
+        "heightSceneUnits": 9.54,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-091",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -11.3,
+          0,
+          54.3
+        ],
+        "sourceIndex": 221,
+        "variant": 2,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-092",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          3.5,
+          0,
+          -42.5
+        ],
+        "sourceIndex": 225,
+        "variant": 0,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-093",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          7.200000000000003,
+          0,
+          -37.2
+        ],
+        "sourceIndex": 226,
+        "variant": 1,
+        "heightSceneUnits": 8.959999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-094",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          10.899999999999999,
+          0,
+          -31.9
+        ],
+        "sourceIndex": 227,
+        "variant": 2,
+        "heightSceneUnits": 9.54,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-095",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          18.299999999999997,
+          0,
+          -21.299999999999997
+        ],
+        "sourceIndex": 229,
+        "variant": 1,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-096",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          22,
+          0,
+          -16
+        ],
+        "sourceIndex": 230,
+        "variant": 2,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-097",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -31.1,
+          0,
+          21.099999999999994
+        ],
+        "sourceIndex": 237,
+        "variant": 0,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-098",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -23.7,
+          0,
+          31.700000000000003
+        ],
+        "sourceIndex": 239,
+        "variant": 2,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-099",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -12.600000000000001,
+          0,
+          47.599999999999994
+        ],
+        "sourceIndex": 242,
+        "variant": 2,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-100",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -5.200000000000003,
+          0,
+          58.2
+        ],
+        "sourceIndex": 244,
+        "variant": 1,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-101",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          2.200000000000003,
+          0,
+          -49.2
+        ],
+        "sourceIndex": 246,
+        "variant": 0,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-102",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          5.899999999999999,
+          0,
+          -43.9
+        ],
+        "sourceIndex": 247,
+        "variant": 1,
+        "heightSceneUnits": 8.959999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-103",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          17,
+          0,
+          -28
+        ],
+        "sourceIndex": 250,
+        "variant": 1,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-104",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          20.700000000000003,
+          0,
+          -22.700000000000003
+        ],
+        "sourceIndex": 251,
+        "variant": 2,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-105",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -25,
+          0,
+          25
+        ],
+        "sourceIndex": 260,
+        "variant": 2,
+        "heightSceneUnits": 8.379999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-106",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -21.3,
+          0,
+          30.299999999999997
+        ],
+        "sourceIndex": 261,
+        "variant": 0,
+        "heightSceneUnits": 8.959999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-107",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -2.799999999999997,
+          0,
+          56.8
+        ],
+        "sourceIndex": 266,
+        "variant": 2,
+        "heightSceneUnits": 7.8,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-108",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          4.600000000000001,
+          0,
+          -50.6
+        ],
+        "sourceIndex": 268,
+        "variant": 1,
+        "heightSceneUnits": 8.959999999999999,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-109",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          12,
+          0,
+          -40
+        ],
+        "sourceIndex": 270,
+        "variant": 0,
+        "heightSceneUnits": 10.12,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-110",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          15.700000000000003,
+          0,
+          -34.7
+        ],
+        "sourceIndex": 271,
+        "variant": 1,
+        "heightSceneUnits": 10.7,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:canopy-tree-111",
+        "prototype": "prototype:vegetation:huashan-canopy-tree",
+        "coordinateSpace": "collection-local",
+        "position": [
+          19.4,
+          0,
+          -29.4
+        ],
+        "sourceIndex": 272,
+        "variant": 2,
+        "heightSceneUnits": 11.28,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      }
+    ],
+    "huashanUnderstory": [
+      {
+        "id": "vegetation-instance:huashan:understory-000",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -8.349999999999998,
+          0,
+          -12.120000000000001
+        ],
+        "sourceIndex": 8,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-001",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          2.7500000000000027,
+          0,
+          2.819999999999997
+        ],
+        "sourceIndex": 11,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-002",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          9.100000000000001,
+          0,
+          14.380000000000006
+        ],
+        "sourceIndex": 13,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-003",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          13.849999999999998,
+          0,
+          20.160000000000004
+        ],
+        "sourceIndex": 14,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-004",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          24.95,
+          0,
+          35.099999999999994
+        ],
+        "sourceIndex": 17,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-005",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          31.299999999999997,
+          0,
+          46.660000000000004
+        ],
+        "sourceIndex": 19,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-006",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          36.05,
+          0,
+          50.04
+        ],
+        "sourceIndex": 20,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-007",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          37.650000000000006,
+          0,
+          55.82
+        ],
+        "sourceIndex": 21,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-008",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -8.05,
+          0,
+          -14.96
+        ],
+        "sourceIndex": 30,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-009",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          1.4499999999999986,
+          0,
+          -3.3999999999999986
+        ],
+        "sourceIndex": 32,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-010",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          14.150000000000002,
+          0,
+          17.319999999999997
+        ],
+        "sourceIndex": 36,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-011",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          23.650000000000002,
+          0,
+          28.880000000000006
+        ],
+        "sourceIndex": 38,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-012",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          25.249999999999996,
+          0,
+          34.660000000000004
+        ],
+        "sourceIndex": 39,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-013",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          30,
+          0,
+          38.04
+        ],
+        "sourceIndex": 40,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-014",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          34.75,
+          0,
+          43.82
+        ],
+        "sourceIndex": 41,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-015",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          36.35000000000001,
+          0,
+          49.599999999999994
+        ],
+        "sourceIndex": 42,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-016",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -9.350000000000001,
+          0,
+          -21.180000000000003
+        ],
+        "sourceIndex": 51,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-017",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          0.15000000000000147,
+          0,
+          -9.620000000000001
+        ],
+        "sourceIndex": 53,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-018",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          1.7499999999999971,
+          0,
+          -3.839999999999997
+        ],
+        "sourceIndex": 54,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-019",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          11.250000000000004,
+          0,
+          5.319999999999997
+        ],
+        "sourceIndex": 56,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-020",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          23.95,
+          0,
+          26.04
+        ],
+        "sourceIndex": 60,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-021",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          28.700000000000003,
+          0,
+          31.819999999999997
+        ],
+        "sourceIndex": 61,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-022",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          33.45,
+          0,
+          37.599999999999994
+        ],
+        "sourceIndex": 62,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-023",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          35.05,
+          0,
+          43.38
+        ],
+        "sourceIndex": 63,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-024",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -34.45,
+          0,
+          52.54
+        ],
+        "sourceIndex": 65,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-025",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -5.899999999999999,
+          0,
+          -21.62
+        ],
+        "sourceIndex": 73,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-026",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          5.200000000000003,
+          0,
+          -6.680000000000003
+        ],
+        "sourceIndex": 76,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-027",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          11.55,
+          0,
+          4.879999999999999
+        ],
+        "sourceIndex": 78,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-028",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          16.299999999999997,
+          0,
+          10.660000000000004
+        ],
+        "sourceIndex": 79,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-029",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          27.400000000000006,
+          0,
+          25.599999999999994
+        ],
+        "sourceIndex": 82,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-030",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          32.14999999999999,
+          0,
+          31.380000000000006
+        ],
+        "sourceIndex": 83,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-031",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          33.75,
+          0,
+          37.160000000000004
+        ],
+        "sourceIndex": 84,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-032",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -34.15,
+          0,
+          52.099999999999994
+        ],
+        "sourceIndex": 87,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-033",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -29.4,
+          0,
+          57.88
+        ],
+        "sourceIndex": 88,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-034",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -7.199999999999999,
+          0,
+          -27.84
+        ],
+        "sourceIndex": 94,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-035",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -0.8499999999999972,
+          0,
+          -18.680000000000003
+        ],
+        "sourceIndex": 96,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-036",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          3.8999999999999986,
+          0,
+          -12.899999999999999
+        ],
+        "sourceIndex": 97,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-037",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          30.849999999999998,
+          0,
+          25.160000000000004
+        ],
+        "sourceIndex": 104,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-038",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -35.449999999999996,
+          0,
+          45.88
+        ],
+        "sourceIndex": 108,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-039",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -8.5,
+          0,
+          -36.46
+        ],
+        "sourceIndex": 115,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-040",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          2.6000000000000014,
+          0,
+          -19.12
+        ],
+        "sourceIndex": 118,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-041",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          7.349999999999997,
+          0,
+          -13.339999999999996
+        ],
+        "sourceIndex": 119,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-042",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          8.95,
+          0,
+          -9.96
+        ],
+        "sourceIndex": 120,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-043",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -32,
+          0,
+          43.04
+        ],
+        "sourceIndex": 130,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-044",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -27.25,
+          0,
+          48.82
+        ],
+        "sourceIndex": 131,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-045",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -9.8,
+          0,
+          -42.68
+        ],
+        "sourceIndex": 136,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-046",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          6.05,
+          0,
+          -21.96
+        ],
+        "sourceIndex": 140,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-047",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          7.650000000000003,
+          0,
+          -16.180000000000003
+        ],
+        "sourceIndex": 141,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-048",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          12.399999999999999,
+          0,
+          -10.399999999999999
+        ],
+        "sourceIndex": 142,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-049",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -33.3,
+          0,
+          36.82
+        ],
+        "sourceIndex": 151,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-050",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -26.95,
+          0,
+          48.38
+        ],
+        "sourceIndex": 153,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-051",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -17.45,
+          0,
+          57.54
+        ],
+        "sourceIndex": 155,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-052",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -6.349999999999999,
+          0,
+          -43.120000000000005
+        ],
+        "sourceIndex": 158,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-053",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          0,
+          0,
+          -33.96
+        ],
+        "sourceIndex": 160,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-054",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          6.349999999999999,
+          0,
+          -22.4
+        ],
+        "sourceIndex": 162,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-055",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          11.100000000000001,
+          0,
+          -16.62
+        ],
+        "sourceIndex": 163,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-056",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -34.6,
+          0,
+          30.599999999999994
+        ],
+        "sourceIndex": 172,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-057",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -23.5,
+          0,
+          45.54
+        ],
+        "sourceIndex": 175,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-058",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -17.150000000000002,
+          0,
+          57.099999999999994
+        ],
+        "sourceIndex": 177,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-059",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -7.6499999999999995,
+          0,
+          -49.339999999999996
+        ],
+        "sourceIndex": 179,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-060",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -1.2999999999999972,
+          0,
+          -40.18
+        ],
+        "sourceIndex": 181,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-061",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          3.4499999999999984,
+          0,
+          -34.4
+        ],
+        "sourceIndex": 182,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-062",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          5.050000000000002,
+          0,
+          -28.62
+        ],
+        "sourceIndex": 183,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-063",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          9.799999999999997,
+          0,
+          -22.84
+        ],
+        "sourceIndex": 184,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-064",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          16.150000000000002,
+          0,
+          -13.680000000000003
+        ],
+        "sourceIndex": 186,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-065",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          20.9,
+          0,
+          -7.899999999999999
+        ],
+        "sourceIndex": 187,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-066",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -31.150000000000002,
+          0,
+          30.160000000000004
+        ],
+        "sourceIndex": 194,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-067",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -24.8,
+          0,
+          39.32
+        ],
+        "sourceIndex": 196,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-068",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -13.7,
+          0,
+          56.660000000000004
+        ],
+        "sourceIndex": 199,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-069",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -7.349999999999997,
+          0,
+          -52.18
+        ],
+        "sourceIndex": 201,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-070",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          2.1500000000000012,
+          0,
+          -40.620000000000005
+        ],
+        "sourceIndex": 203,
+        "variant": 2,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-071",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          3.7499999999999973,
+          0,
+          -34.839999999999996
+        ],
+        "sourceIndex": 204,
+        "variant": 0,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      },
+      {
+        "id": "vegetation-instance:huashan:understory-072",
+        "prototype": "prototype:vegetation:huashan-understory",
+        "coordinateSpace": "collection-local",
+        "position": [
+          8.5,
+          0,
+          -31.46
+        ],
+        "sourceIndex": 205,
+        "variant": 1,
+        "evidence": "deterministic-runtime-placement-species-unknown"
+      }
+    ],
+    "xinhuaRoadShrubs": [
+      {
+        "id": "vegetation-instance:xinhua-road:street-shrub-0",
+        "prototype": "prototype:vegetation:road-edge-shrub",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -135.30587002638228,
+          0,
+          30.822860600110452
+        ],
+        "yaw": 0,
+        "scale": [
+          0.72,
+          0.62,
+          0.8200000000000001
+        ],
+        "variant": 0,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:street-shrub-1",
+        "prototype": "prototype:vegetation:road-edge-shrub",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -117.17895492239626,
+          0,
+          28.31899382791901
+        ],
+        "yaw": 1.17,
+        "scale": [
+          0.7999999999999999,
+          0.71,
+          0.8900000000000001
+        ],
+        "variant": 1,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:street-shrub-2",
+        "prototype": "prototype:vegetation:road-edge-shrub",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -105.59458815094581,
+          0,
+          42.71274408643448
+        ],
+        "yaw": 2.34,
+        "scale": [
+          0.88,
+          0.8,
+          0.68
+        ],
+        "variant": 2,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:street-shrub-3",
+        "prototype": "prototype:vegetation:road-edge-shrub",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -87.40268084498098,
+          0,
+          40.041020191421445
+        ],
+        "yaw": 3.51,
+        "scale": [
+          0.96,
+          0.62,
+          0.75
+        ],
+        "variant": 0,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:street-shrub-4",
+        "prototype": "prototype:vegetation:road-edge-shrub",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -75.8137239411302,
+          0,
+          54.26084059384185
+        ],
+        "yaw": 4.68,
+        "scale": [
+          0.72,
+          0.71,
+          0.8200000000000001
+        ],
+        "variant": 1,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:street-shrub-9",
+        "prototype": "prototype:vegetation:road-edge-shrub",
+        "coordinateSpace": "authored-world",
+        "position": [
+          1.7289794378579184,
+          0,
+          75.84749278167
+        ],
+        "yaw": 10.53,
+        "scale": [
+          0.7999999999999999,
+          0.62,
+          0.8900000000000001
+        ],
+        "variant": 0,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:street-shrub-10",
+        "prototype": "prototype:vegetation:road-edge-shrub",
+        "coordinateSpace": "authored-world",
+        "position": [
+          13.264643477274653,
+          0,
+          90.05252200267859
+        ],
+        "yaw": 11.7,
+        "scale": [
+          0.88,
+          0.71,
+          0.68
+        ],
+        "variant": 1,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:street-shrub-15",
+        "prototype": "prototype:vegetation:road-edge-shrub",
+        "coordinateSpace": "authored-world",
+        "position": [
+          90.62076131345455,
+          0,
+          112.30906555577424
+        ],
+        "yaw": 17.549999999999997,
+        "scale": [
+          0.96,
+          0.62,
+          0.75
+        ],
+        "variant": 0,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:street-shrub-16",
+        "prototype": "prototype:vegetation:road-edge-shrub",
+        "coordinateSpace": "authored-world",
+        "position": [
+          101.88253129833589,
+          0,
+          126.73220449317708
+        ],
+        "yaw": 18.72,
+        "scale": [
+          0.72,
+          0.71,
+          0.8200000000000001
+        ],
+        "variant": 1,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:street-shrub-17",
+        "prototype": "prototype:vegetation:road-edge-shrub",
+        "coordinateSpace": "authored-world",
+        "position": [
+          120.22043522158717,
+          0,
+          124.47413458690649
+        ],
+        "yaw": 19.89,
+        "scale": [
+          0.7999999999999999,
+          0.8,
+          0.8900000000000001
+        ],
+        "variant": 2,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:street-shrub-18",
+        "prototype": "prototype:vegetation:road-edge-shrub",
+        "coordinateSpace": "authored-world",
+        "position": [
+          131.41191248522645,
+          0,
+          139.06298089692856
+        ],
+        "yaw": 21.06,
+        "scale": [
+          0.88,
+          0.62,
+          0.68
+        ],
+        "variant": 0,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "vegetation-instance:xinhua-road:street-shrub-19",
+        "prototype": "prototype:vegetation:road-edge-shrub",
+        "coordinateSpace": "authored-world",
+        "position": [
+          149.60923096599353,
+          0,
+          137.13632573589655
+        ],
+        "yaw": 22.229999999999997,
+        "scale": [
+          0.96,
+          0.71,
+          0.75
+        ],
+        "variant": 1,
+        "evidence": "deterministic-curb-furnishing-zone"
+      }
+    ]
+  },
+  "streetFurniture": {
+    "xinhuaRoad": [
+      {
+        "id": "facility-instance:xinhua-road:street-lamp-0-0",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -127.43754685522218,
+          0,
+          32.65763319478956
+        ],
+        "yaw": 1.2013836536148412,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-lamp-0-1",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -93.86612229090379,
+          0,
+          45.656073590555515
+        ],
+        "yaw": 1.2013836536148412,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-lamp-0-4",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "authored-world",
+        "position": [
+          6.329853511632331,
+          0,
+          85.85433332987853
+        ],
+        "yaw": 1.1887392533146381,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-lamp-0-7",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "authored-world",
+        "position": [
+          106.07649216113712,
+          0,
+          127.08828353116094
+        ],
+        "yaw": 1.1696052523761413,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-lamp-0-8",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "authored-world",
+        "position": [
+          139.21796668499164,
+          0,
+          141.14682777957808
+        ],
+        "yaw": 1.1696052523761413,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-lamp-1-0",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -108.32655801337599,
+          0,
+          33.151298553944464
+        ],
+        "yaw": -1.940208999974952,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-lamp-1-2",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -41.37570286671094,
+          0,
+          59.74583872308988
+        ],
+        "yaw": -1.9528534002751552,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-lamp-1-3",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -7.971315084809101,
+          0,
+          73.16771925140367
+        ],
+        "yaw": -1.9528534002751552,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-lamp-1-4",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "authored-world",
+        "position": [
+          25.433072697092705,
+          0,
+          86.58959977971742
+        ],
+        "yaw": -1.9528534002751552,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-lamp-1-6",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "authored-world",
+        "position": [
+          92.0206722592045,
+          0,
+          114.13036985324064
+        ],
+        "yaw": -1.971987401213652,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-lamp-1-7",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "authored-world",
+        "position": [
+          125.16214678305901,
+          0,
+          128.18891410165773
+        ],
+        "yaw": -1.971987401213652,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-planter-0",
+        "prototype": "prototype:street-furniture:rectangular-planter",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -110.74571219814354,
+          0,
+          39.39931368119261
+        ],
+        "yaw": -0.3694126731800553,
+        "scale": 0.92,
+        "variant": 0,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-planter-2",
+        "prototype": "prototype:street-furniture:rectangular-planter",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -36.45046668016892,
+          0,
+          68.9454065665691
+        ],
+        "yaw": -0.38205707348025836,
+        "scale": 1.08,
+        "variant": 2,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-planter-3",
+        "prototype": "prototype:street-furniture:rectangular-planter",
+        "coordinateSpace": "authored-world",
+        "position": [
+          3.2604166463071005,
+          0,
+          77.40042551575007
+        ],
+        "yaw": -0.38205707348025836,
+        "scale": 0.92,
+        "variant": 0,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-planter-6",
+        "prototype": "prototype:street-furniture:rectangular-planter",
+        "coordinateSpace": "authored-world",
+        "position": [
+          111.4985373177632,
+          0,
+          129.67072933301387
+        ],
+        "yaw": -0.40119107441875523,
+        "scale": 0.92,
+        "variant": 0,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-bin-0",
+        "prototype": "prototype:street-furniture:shanghai-dual-classification-bin",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -106.53421774809547,
+          0,
+          40.70825008041691
+        ],
+        "yaw": -0.3694126731800553,
+        "variant": 0,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-bin-2",
+        "prototype": "prototype:street-furniture:shanghai-dual-classification-bin",
+        "coordinateSpace": "authored-world",
+        "position": [
+          -32.25585916908942,
+          0,
+          70.30748873295829
+        ],
+        "yaw": -0.38205707348025836,
+        "variant": 0,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-bin-3",
+        "prototype": "prototype:street-furniture:shanghai-dual-classification-bin",
+        "coordinateSpace": "authored-world",
+        "position": [
+          7.231326148581381,
+          0,
+          79.31924747850428
+        ],
+        "yaw": 2.7595355801095347,
+        "variant": 1,
+        "evidence": "deterministic-curb-furnishing-zone"
+      },
+      {
+        "id": "facility-instance:xinhua-road:street-bin-6",
+        "prototype": "prototype:street-furniture:shanghai-dual-classification-bin",
+        "coordinateSpace": "authored-world",
+        "position": [
+          115.66631651719332,
+          0,
+          131.11281689789936
+        ],
+        "yaw": -0.40119107441875523,
+        "variant": 0,
+        "evidence": "deterministic-curb-furnishing-zone"
+      }
+    ],
+    "xingfuli": [
+      {
+        "id": "facility-instance:xingfuli:street-lamp-west-north",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -35,
+          0.26,
+          -2.1
+        ],
+        "yaw": 0,
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:street-lamp-west-south",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -20,
+          0.26,
+          -11.7
+        ],
+        "yaw": 3.141592653589793,
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:street-lamp-center-north",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -6.5,
+          0.26,
+          -2.1
+        ],
+        "yaw": 0,
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:street-lamp-center-south",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "collection-local",
+        "position": [
+          2.5,
+          0.26,
+          -11.7
+        ],
+        "yaw": 3.141592653589793,
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:street-lamp-east-south",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "collection-local",
+        "position": [
+          30,
+          0.26,
+          -11.7
+        ],
+        "yaw": 3.141592653589793,
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:street-lamp-east-north",
+        "prototype": "prototype:street-furniture:lane-lamp-short-arm",
+        "coordinateSpace": "collection-local",
+        "position": [
+          39,
+          0.26,
+          -2.1
+        ],
+        "yaw": 0,
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:bench-west",
+        "prototype": "prototype:street-furniture:slatted-bench",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -27.5,
+          0.25,
+          -2.7
+        ],
+        "yaw": 0,
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:bench-east",
+        "prototype": "prototype:street-furniture:slatted-bench",
+        "coordinateSpace": "collection-local",
+        "position": [
+          29,
+          0.25,
+          -10.9
+        ],
+        "yaw": 3.141592653589793,
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:umbrella-west",
+        "prototype": "prototype:street-furniture:cantilever-umbrella",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -18.5,
+          0.29,
+          -8.4
+        ],
+        "yaw": 0.1,
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:umbrella-east",
+        "prototype": "prototype:street-furniture:cantilever-umbrella",
+        "coordinateSpace": "collection-local",
+        "position": [
+          34,
+          0.29,
+          -8.6
+        ],
+        "yaw": -0.08,
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:dining-west",
+        "prototype": "prototype:street-furniture:outdoor-table-set",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -18.5,
+          0.29,
+          -8.4
+        ],
+        "yaw": 0.1,
+        "variant": "dark-wood-metal",
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:dining-east",
+        "prototype": "prototype:street-furniture:outdoor-table-set",
+        "coordinateSpace": "collection-local",
+        "position": [
+          34,
+          0.29,
+          -8.6
+        ],
+        "yaw": -0.08,
+        "variant": "white-molded",
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:dining-center",
+        "prototype": "prototype:street-furniture:outdoor-table-set",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -6.8,
+          0.29,
+          -10.7
+        ],
+        "yaw": 0.12,
+        "variant": "colorful-folding",
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:planter-west-square",
+        "prototype": "prototype:street-furniture:rectangular-planter",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -40,
+          0.28,
+          -3
+        ],
+        "scale": 0.9,
+        "variant": "square",
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:planter-center-tall",
+        "prototype": "prototype:street-furniture:rectangular-planter",
+        "coordinateSpace": "collection-local",
+        "position": [
+          -11.2,
+          0.28,
+          -11.4
+        ],
+        "scale": 0.8,
+        "variant": "tall",
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:planter-east-long",
+        "prototype": "prototype:street-furniture:rectangular-planter",
+        "coordinateSpace": "collection-local",
+        "position": [
+          28.8,
+          0.28,
+          -2.4
+        ],
+        "scale": 0.78,
+        "variant": "long",
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:planter-east-square",
+        "prototype": "prototype:street-furniture:rectangular-planter",
+        "coordinateSpace": "collection-local",
+        "position": [
+          40.3,
+          0.28,
+          -10.7
+        ],
+        "scale": 0.9,
+        "variant": "square",
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:east-entry-bollard-0",
+        "prototype": "prototype:street-furniture:irregular-stone-bollard",
+        "coordinateSpace": "collection-local",
+        "position": [
+          44.6,
+          0.3,
+          -11.8
+        ],
+        "yaw": 0,
+        "scale": [
+          0.34,
+          0.26,
+          0.36
+        ],
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:east-entry-bollard-1",
+        "prototype": "prototype:street-furniture:irregular-stone-bollard",
+        "coordinateSpace": "collection-local",
+        "position": [
+          44.6,
+          0.3,
+          -9
+        ],
+        "yaw": 0.37,
+        "scale": [
+          0.385,
+          0.29500000000000004,
+          0.32
+        ],
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:east-entry-bollard-2",
+        "prototype": "prototype:street-furniture:irregular-stone-bollard",
+        "coordinateSpace": "collection-local",
+        "position": [
+          44.6,
+          0.3,
+          -6.2
+        ],
+        "yaw": 0.74,
+        "scale": [
+          0.34,
+          0.33,
+          0.36
+        ],
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:east-entry-bollard-3",
+        "prototype": "prototype:street-furniture:irregular-stone-bollard",
+        "coordinateSpace": "collection-local",
+        "position": [
+          44.6,
+          0.3,
+          -3.4
+        ],
+        "yaw": 1.1099999999999999,
+        "scale": [
+          0.385,
+          0.26,
+          0.32
+        ],
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      },
+      {
+        "id": "facility-instance:xingfuli:east-entry-bollard-4",
+        "prototype": "prototype:street-furniture:irregular-stone-bollard",
+        "coordinateSpace": "collection-local",
+        "position": [
+          44.6,
+          0.3,
+          -0.6
+        ],
+        "yaw": 1.48,
+        "scale": [
+          0.34,
+          0.29500000000000004,
+          0.36
+        ],
+        "evidence": "docs/research/xingfuli-reference-manifest.json"
+      }
+    ]
+  },
+  "facilities": [
+    {
+      "id": "facility-instance:shangsheng:cafe-pavilion",
+      "prototype": "prototype:facility:shangsheng-cafe-pavilion",
+      "coordinateSpace": "collection-local",
+      "position": [
+        7,
+        0.2,
+        7
+      ],
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    },
+    {
+      "id": "facility-instance:shangsheng:bicycle-parking",
+      "prototype": "prototype:facility:shangsheng-bicycle-parking",
+      "coordinateSpace": "collection-local",
+      "position": [
+        43,
+        0.18,
+        -3
+      ],
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    },
+    {
+      "id": "facility-instance:shangsheng:reading-terrace",
+      "prototype": "prototype:facility:shangsheng-reading-terrace",
+      "coordinateSpace": "collection-local",
+      "position": [
+        -15,
+        0.18,
+        30
+      ],
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    },
+    {
+      "id": "facility-instance:shangsheng:wayfinding-0",
+      "prototype": "prototype:facility:shangsheng-wayfinding-totem",
+      "coordinateSpace": "collection-local",
+      "position": [
+        54,
+        0.18,
+        -11
+      ],
+      "yaw": -0.18,
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    },
+    {
+      "id": "facility-instance:shangsheng:wayfinding-1",
+      "prototype": "prototype:facility:shangsheng-wayfinding-totem",
+      "coordinateSpace": "collection-local",
+      "position": [
+        18,
+        0.18,
+        9
+      ],
+      "yaw": 0.7,
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    },
+    {
+      "id": "facility-instance:shangsheng:fountain-osm-1364679202",
+      "prototype": "prototype:facility:shangsheng-fountain",
+      "coordinateSpace": "collection-local",
+      "position": [
+        -16.94395,
+        0.18,
+        -24.00305
+      ],
+      "osmWayId": 1364679202,
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    },
+    {
+      "id": "facility-instance:shangsheng:fountain-osm-1364679203",
+      "prototype": "prototype:facility:shangsheng-fountain",
+      "coordinateSpace": "collection-local",
+      "position": [
+        -23.68645,
+        0.18,
+        -23.5609
+      ],
+      "osmWayId": 1364679203,
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    },
+    {
+      "id": "facility-instance:shangsheng:main-entry",
+      "prototype": "prototype:facility:shangsheng-main-entry",
+      "coordinateSpace": "collection-local",
+      "position": [
+        58,
+        0.18,
+        -14
+      ],
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    },
+    {
+      "id": "facility-instance:huashan:pond-boardwalk",
+      "prototype": "prototype:facility:huashan-pond-boardwalk",
+      "coordinateSpace": "collection-local",
+      "position": [
+        -7.8,
+        0.18,
+        39.2
+      ],
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    },
+    {
+      "id": "facility-instance:huashan:basketball-court",
+      "prototype": "prototype:facility:huashan-basketball-court",
+      "coordinateSpace": "collection-local",
+      "position": [
+        15.4248,
+        0.18,
+        40.5921
+      ],
+      "yaw": 1.301342,
+      "osmWayId": 743778425,
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    },
+    {
+      "id": "facility-instance:huashan:bird-pergola",
+      "prototype": "prototype:facility:huashan-bird-pergola",
+      "coordinateSpace": "collection-local",
+      "position": [
+        -25,
+        0.22,
+        17.5
+      ],
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    },
+    {
+      "id": "facility-instance:huashan:happiness-corner",
+      "prototype": "prototype:facility:huashan-happiness-corner",
+      "coordinateSpace": "collection-local",
+      "position": [
+        25,
+        0.16,
+        10
+      ],
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    },
+    {
+      "id": "facility-instance:xingfuli:reflecting-pool",
+      "prototype": "prototype:facility:xingfuli-reflecting-pool-hardscape",
+      "coordinateSpace": "collection-local",
+      "position": [
+        16.5,
+        0,
+        -3.95
+      ],
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    },
+    {
+      "id": "facility-instance:xingfuli:mixed-paving",
+      "prototype": "prototype:facility:xingfuli-mixed-paving",
+      "coordinateSpace": "collection-local",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    },
+    {
+      "id": "facility-instance:xingfuli:vertical-garden",
+      "prototype": "prototype:facility:xingfuli-vertical-garden",
+      "coordinateSpace": "collection-local",
+      "position": [
+        42.45,
+        0.2,
+        -17.2
+      ],
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    },
+    {
+      "id": "facility-instance:xingfuli:one-square-metre-action",
+      "prototype": "prototype:facility:one-square-metre-action",
+      "coordinateSpace": "collection-local",
+      "position": [
+        -48,
+        0.34,
+        -7
+      ],
+      "placementTransform": "xingfuli-local-to-world",
+      "evidence": "runtime-authored-placement-needs-photo-validation"
+    }
+  ],
+  "validationBoundary": {
+    "observed": "代码中的确定性实例、局部位置和变换来源",
+    "inferred": "树木/灌木种类与部分装饰物实际款式",
+    "unknown": "多数实例的现场测绘位置、朝向和具体物种",
+    "mapAcceptanceRequired": true
+  }
+}

@@ -1,0 +1,318 @@
+{
+  "version": 1,
+  "validatedAt": "2026-07-25",
+  "scope": "14 xinhua-road landmark massing assets",
+  "status": "independent-review-blocked-identity",
+  "build": {
+    "mode": "vite-static-production-preview",
+    "url": "http://127.0.0.1:4173/",
+    "queryContract": "?start=<preset>&qaModelTier=massing&cameraQa=1",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "pageVisibility": "visible",
+    "preStartWarmupMs": 4200,
+    "postStartSamplingMs": 2200,
+    "networkProfileObserved": "weak",
+    "qaTierOverride": "massing"
+  },
+  "networkEvidence": {
+    "method": "Chrome DevTools Protocol request/response/failure listeners",
+    "requestPattern": "/models/tiers/xinhua-road/massing/*-massing.glb",
+    "requests": 14,
+    "responses": 14,
+    "failures": 0
+  },
+  "consoleEvidence": {
+    "errors": 0,
+    "knownWarnings": [
+      "THREE.Clock is deprecated"
+    ]
+  },
+  "acceptanceBoundary": {
+    "passed": [
+      "all 14 tier GLBs loaded in the real Three.js page",
+      "all 14 pages reached playable state with one canvas",
+      "all 14 camera samples reported spring-clear and blocker none",
+      "all 14 assets were visually checked for silhouette, scale, ground contact and canonical readability"
+    ],
+    "separatePendingWork": [
+      "nine unresolved OSM building bindings remain pending",
+      "two non-building POIs require site-feature rather than building binding",
+      "Identity and Hero evidence gates remain separate",
+      "no performance-improvement claim is made without a same-condition baseline"
+    ]
+  },
+  "independentReview": {
+    "status": "blocked",
+    "reviewer": "independent-agent-massing-runtime-review",
+    "reviewedAt": "2026-07-25",
+    "formalMassingPassCount": 0,
+    "conditionalGeometryCount": 6,
+    "rebuildRequiredCount": 8,
+    "identityAuthorizedCount": 0,
+    "systemicFinding": "voxel-remesh-current-hero produces spikes, cracks and floating fragments on several assets and is not a clean footprint-driven graybox",
+    "missingBatchEvidence": [
+      "current-tier reference-Blender-Three.js triptych",
+      "street fixed camera",
+      "deterministic approach-to-entrance and walk-around collision evidence",
+      "map placement, scale and yaw closure"
+    ]
+  },
+  "assets": [
+    {
+      "slug": "shanghai-cinema",
+      "start": "cinema",
+      "route": "/?start=cinema&qaModelTier=massing&cameraQa=1",
+      "screenshot": "test_artifacts/all-models/massing/test_shanghai-cinema-massing-threejs.png",
+      "cameraMode": "spring-clear",
+      "blockerId": "none",
+      "playable": true,
+      "canvasCount": 1,
+      "primaryVisualStatus": "pass",
+      "note": "主轮廓、塔楼和左右体量完整入画；影城 Hero 已按新版标准保留，不在本轮重做范围。",
+      "independentReviewStatus": "conditional-geometry-usable-gate-blocked",
+      "requiredActions": [
+        "闭合真实 footprint 和 scale",
+        "补当前 tier 三联对照",
+        "补确定性走近与绕行验证"
+      ]
+    },
+    {
+      "slug": "film-art-center",
+      "start": "film-art",
+      "route": "/?start=film-art&qaModelTier=massing&cameraQa=1",
+      "screenshot": "test_artifacts/all-models/massing/test_film-art-center-massing-threejs.png",
+      "cameraMode": "spring-clear",
+      "blockerId": "none",
+      "playable": true,
+      "canvasCount": 1,
+      "primaryVisualStatus": "pass",
+      "note": "三层主楼、坡屋顶与两侧连接体可读；地图 footprint 仍待正式绑定。",
+      "independentReviewStatus": "rebuild-required",
+      "requiredActions": [
+        "用核验 footprint 重建干净分体灰模",
+        "消除屋檐和立面尖刺、裂片",
+        "闭合面积比和约 88.6 度 yaw 风险",
+        "重新校准不裁切的 canonical 机位"
+      ]
+    },
+    {
+      "slug": "one-step-garden",
+      "start": "garden179",
+      "route": "/?start=garden179&qaModelTier=massing&cameraQa=1",
+      "screenshot": "test_artifacts/all-models/massing/test_one-step-garden-massing-threejs.png",
+      "cameraMode": "spring-clear",
+      "blockerId": "none",
+      "playable": true,
+      "canvasCount": 1,
+      "primaryVisualStatus": "pass",
+      "note": "主屋和纵深体量可读；沿街白色体量与后部红砖体量按同一场地分层记录。",
+      "independentReviewStatus": "rebuild-required",
+      "requiredActions": [
+        "按两体量 compound footprint 重建",
+        "把角色起点移出道路",
+        "重新校准完整主体入画的 canonical 机位"
+      ]
+    },
+    {
+      "slug": "xinhua-villas-211",
+      "start": "villas",
+      "route": "/?start=villas&qaModelTier=massing&cameraQa=1",
+      "screenshot": "test_artifacts/all-models/massing/test_xinhua-villas-211-massing-threejs.png",
+      "cameraMode": "spring-clear",
+      "blockerId": "none",
+      "playable": true,
+      "canvasCount": 1,
+      "primaryVisualStatus": "pass",
+      "note": "代表性住宅体量和院落关系可读；具体 1/2 号 footprint 仍待拆分绑定。",
+      "independentReviewStatus": "conditional-geometry-usable-gate-blocked",
+      "requiredActions": [
+        "拉远 canonical 机位",
+        "逐栋绑定 compound 成员 footprint",
+        "补走近和绕行碰撞证据"
+      ]
+    },
+    {
+      "slug": "xinhua-villas-329",
+      "start": "villas329",
+      "route": "/?start=villas329&qaModelTier=massing&cameraQa=1",
+      "screenshot": "test_artifacts/all-models/massing/test_xinhua-villas-329-massing-threejs.png",
+      "cameraMode": "spring-clear",
+      "blockerId": "none",
+      "playable": true,
+      "canvasCount": 1,
+      "primaryVisualStatus": "pass",
+      "note": "代表建筑轮廓可读；17 号与 38 号证据不得误合并为同一栋。",
+      "independentReviewStatus": "rebuild-required",
+      "requiredActions": [
+        "按候选五个成员 footprint 分体重建",
+        "隔离相邻楼体避免运行时混杂",
+        "保持 17 号和 38 号证据边界"
+      ]
+    },
+    {
+      "slug": "house-315",
+      "start": "house315",
+      "route": "/?start=house315&qaModelTier=massing&cameraQa=1",
+      "screenshot": "test_artifacts/all-models/massing/test_house-315-massing-threejs.png",
+      "cameraMode": "spring-clear",
+      "blockerId": "none",
+      "playable": true,
+      "canvasCount": 1,
+      "primaryVisualStatus": "pass",
+      "note": "沿街正面、山墙和屋顶轮廓清晰；背面继续标记 unknown。",
+      "independentReviewStatus": "conditional-geometry-usable-gate-blocked",
+      "requiredActions": [
+        "隔离 canonical 主体视角",
+        "闭合 315 门牌与 footprint",
+        "补侧后 unknown 边界和绕行证据"
+      ]
+    },
+    {
+      "slug": "villa-le-bec",
+      "start": "villa-le-bec",
+      "route": "/?start=villa-le-bec&qaModelTier=massing&cameraQa=1",
+      "screenshot": "test_artifacts/all-models/massing/test_villa-le-bec-massing-threejs.png",
+      "cameraMode": "spring-clear",
+      "blockerId": "none",
+      "playable": true,
+      "canvasCount": 1,
+      "primaryVisualStatus": "pass",
+      "note": "主住宅与附属体量可辨；主别墅、原车库和花园的精确平面关系仍待 footprint 闭合。",
+      "independentReviewStatus": "rebuild-required",
+      "requiredActions": [
+        "按主别墅、原车库和花园分体重建",
+        "闭合三者 footprint 关系",
+        "改为可读 canonical 正面而非空白背侧墙"
+      ]
+    },
+    {
+      "slug": "shanghai-orchestra",
+      "start": "orchestra",
+      "route": "/?start=orchestra&qaModelTier=massing&cameraQa=1",
+      "screenshot": "test_artifacts/all-models/massing/test_shanghai-orchestra-massing-threejs.png",
+      "cameraMode": "spring-clear",
+      "blockerId": "none",
+      "playable": true,
+      "canvasCount": 1,
+      "primaryVisualStatus": "pass-with-context-occlusion",
+      "note": "主组团正面、屋顶和入口体量居中可读；左侧口袋公园构筑物进入前景，6/7/8 号楼 footprint 拆分仍待地图闭合。",
+      "independentReviewStatus": "rebuild-required",
+      "requiredActions": [
+        "按 6/7/8 号楼 compound footprint 重建",
+        "消除碎裂屋面和旧单体假合并",
+        "移除口袋公园前景遮挡并重做 canonical"
+      ]
+    },
+    {
+      "slug": "hudec-memorial",
+      "start": "hudec",
+      "route": "/?start=hudec&qaModelTier=massing&cameraQa=1",
+      "screenshot": "test_artifacts/all-models/massing/test_hudec-memorial-massing-threejs.png",
+      "cameraMode": "spring-clear",
+      "blockerId": "none",
+      "playable": true,
+      "canvasCount": 1,
+      "primaryVisualStatus": "pass",
+      "note": "主体住宅轮廓、屋顶和附属体量完整可读；已绑定 OSM way 494633921。",
+      "independentReviewStatus": "conditional-geometry-usable-gate-blocked",
+      "requiredActions": [
+        "校准 pivot 与 OSM way 494633921",
+        "闭合入口 yaw 和尺度",
+        "补确定性绕行证据"
+      ]
+    },
+    {
+      "slug": "xinhua-pocket-park",
+      "start": "pocket-park",
+      "route": "/?start=pocket-park&qaModelTier=massing&cameraQa=1",
+      "screenshot": "test_artifacts/all-models/massing/test_xinhua-pocket-park-massing-threejs.png",
+      "cameraMode": "spring-clear",
+      "blockerId": "none",
+      "playable": true,
+      "canvasCount": 1,
+      "primaryVisualStatus": "pass",
+      "note": "入口构筑物完整入画且不封堵路径；该对象按非建筑 site feature 管理。",
+      "independentReviewStatus": "rebuild-required",
+      "requiredActions": [
+        "按 site feature 而非建筑重建入口、墙、花池和路径",
+        "消除相邻巨大体量遮挡",
+        "验证开放路径边界"
+      ]
+    },
+    {
+      "slug": "xinhua-community-center",
+      "start": "community-center",
+      "route": "/?start=community-center&qaModelTier=massing&cameraQa=1",
+      "screenshot": "test_artifacts/all-models/massing/test_xinhua-community-center-massing-threejs.png",
+      "cameraMode": "spring-clear",
+      "blockerId": "none",
+      "playable": true,
+      "canvasCount": 1,
+      "primaryVisualStatus": "pass",
+      "note": "主体轮廓和屋顶完整可读；way 864493234 与 named node 13765678129 共同支持绑定。",
+      "independentReviewStatus": "conditional-geometry-usable-gate-blocked",
+      "requiredActions": [
+        "补 4 号楼入口方向与侧向证据",
+        "补确定性绕行验收",
+        "复核 way 和 named node 的 pivot 一致性"
+      ]
+    },
+    {
+      "slug": "debi-fahua-525",
+      "start": "fahua525",
+      "route": "/?start=fahua525&qaModelTier=massing&cameraQa=1",
+      "screenshot": "test_artifacts/all-models/massing/test_debi-fahua-525-massing-threejs.png",
+      "cameraMode": "spring-clear",
+      "blockerId": "none",
+      "playable": true,
+      "canvasCount": 1,
+      "primaryVisualStatus": "pass",
+      "note": "高层与低层组团在同一画面内完整可读；compound footprint 仍待正式绑定。",
+      "independentReviewStatus": "rebuild-required",
+      "requiredActions": [
+        "按五个子 footprint、庭院和通路分体重建",
+        "消除立面 voxel 噪声",
+        "重做能读出组团关系的 canonical 机位"
+      ]
+    },
+    {
+      "slug": "fahua-heritage",
+      "start": "fahua-heritage",
+      "route": "/?start=fahua-heritage&qaModelTier=massing&cameraQa=1",
+      "screenshot": "test_artifacts/all-models/massing/test_fahua-heritage-massing-threejs.png",
+      "cameraMode": "spring-clear",
+      "blockerId": "none",
+      "playable": true,
+      "canvasCount": 1,
+      "primaryVisualStatus": "pass",
+      "note": "线性文化装置和开放路径可读；该对象按非建筑 site feature 管理。",
+      "independentReviewStatus": "conditional-geometry-usable-gate-blocked",
+      "requiredActions": [
+        "避免角色遮挡中央开口",
+        "按场地边界验证开放路径",
+        "补固定街道机位"
+      ]
+    },
+    {
+      "slug": "fics-xinhua-365",
+      "start": "fics365",
+      "route": "/?start=fics365&qaModelTier=massing&cameraQa=1",
+      "screenshot": "test_artifacts/all-models/massing/test_fics-xinhua-365-massing-threejs.png",
+      "cameraMode": "spring-clear",
+      "blockerId": "none",
+      "playable": true,
+      "canvasCount": 1,
+      "primaryVisualStatus": "pass",
+      "note": "主要园区体量在远景中完整可读；compound 子楼 footprint 和入口朝向仍待绑定。",
+      "independentReviewStatus": "rebuild-required",
+      "requiredActions": [
+        "按五个子楼、入口和庭院分体重建",
+        "消除巨大空白背墙主导和左侧裁切",
+        "闭合 compound footprint 与入口朝向"
+      ]
+    }
+  ]
+}

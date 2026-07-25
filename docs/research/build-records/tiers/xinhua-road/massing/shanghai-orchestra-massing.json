@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:shanghai-orchestra",
+  "tier": "massing",
+  "status": "massing-rebuild-required-independent-review",
+  "generator": "scripts/create_xinhua_road_massing_models.py",
+  "sourceHero": {
+    "path": "public/models/xinhua-road/shanghai-orchestra.glb",
+    "sha256": "8f86e7e1c9b9e7c30c760e9e1ff80bd4cebee243e3fe0a964ffbe47bb280ee6c",
+    "importedBounds": {
+      "min": [
+        -13.5,
+        -12.5,
+        -0.075
+      ],
+      "max": [
+        13.5,
+        9.208925,
+        10.41
+      ]
+    },
+    "heightProxySceneUnits": 10.485,
+    "evidenceBoundary": "legacy-or-v2-hero-derived-height-not-real-measurement"
+  },
+  "sourcePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "position": [
+    -44.4,
+    44
+  ],
+  "yaw": 2.761592653589793,
+  "runtimeScale": 0.88,
+  "localBounds": {
+    "minX": -13.5,
+    "maxX": 13.5,
+    "minZ": -9.208925,
+    "maxZ": 12.5
+  },
+  "localObstacles": [
+    {
+      "minX": -12.3,
+      "maxX": 12.3,
+      "minZ": -9.2,
+      "maxZ": 8.4
+    }
+  ],
+  "roofProfile": "hip",
+  "proxyMethod": "voxel-remesh-current-hero",
+  "pruning": {
+    "removedFaces": 11644,
+    "removedMaterials": [
+      "民族乐团广场",
+      "民族乐团座椅木",
+      "民族乐团弦杆",
+      "民族乐团线性灯",
+      "民族乐团绿植",
+      "民族乐团金属",
+      "民族乐团铺装缝"
+    ],
+    "rule": "material-name-denylist-before-voxel-remesh"
+  },
+  "voxelSizeSceneUnits": 0.584254,
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/shanghai-orchestra-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing/shanghai-orchestra-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/test_shanghai-orchestra-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/test_shanghai-orchestra-massing-side.png",
+      "threejs": "test_artifacts/all-models/massing/test_shanghai-orchestra-massing-threejs.png"
+    }
+  },
+  "glb": {
+    "sha256": "b27e590ad3749c8a56b56a5c3e3bb0d7483cb44c93e4549c0983908691a30ab0",
+    "bytes": 92408,
+    "nodes": 1,
+    "meshes": 1,
+    "images": 0,
+    "textures": 0,
+    "materials": 1,
+    "triangles": 900,
+    "expectedMaximumTriangles": 1200,
+    "bounds": {
+      "min": [
+        -12.260167,
+        -0.031334,
+        -9.150047
+      ],
+      "max": [
+        12.251325,
+        10.449163,
+        10.001805
+      ]
+    },
+    "auditStatus": "ok"
+  },
+  "editableSourceBounds": {
+    "min": [
+      -12.260167,
+      -10.001805,
+      -0.031334
+    ],
+    "max": [
+      12.251325,
+      9.150047,
+      10.449163
+    ]
+  },
+  "qualityBoundary": {
+    "observed": [
+      "runtime local bounds",
+      "runtime split obstacles",
+      "current hero imported bounds"
+    ],
+    "inferred": [
+      "per-block height proxy"
+    ],
+    "unknown": [
+      "surveyed height",
+      "entrance direction",
+      "unseen facade and roof"
+    ]
+  },
+  "runtimeGate": {
+    "status": "blocked-rebuild-required",
+    "validatedAt": "2026-07-25",
+    "route": "/?start=orchestra&qaModelTier=massing&cameraQa=1",
+    "screenshot": "test_artifacts/all-models/massing/test_shanghai-orchestra-massing-threejs.png",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "buildMode": "vite-static-production-preview",
+    "pageVisibility": "visible",
+    "playable": true,
+    "canvasCount": 1,
+    "cameraMode": "spring-clear",
+    "blockerId": "none",
+    "visualStatus": "pass-with-context-occlusion",
+    "independentReviewStatus": "rebuild-required",
+    "requiredActions": [
+      "按 6/7/8 号楼 compound footprint 重建",
+      "消除碎裂屋面和旧单体假合并",
+      "移除口袋公园前景遮挡并重做 canonical"
+    ],
+    "mapAcceptance": "required-before-formal-pass"
+  }
+}

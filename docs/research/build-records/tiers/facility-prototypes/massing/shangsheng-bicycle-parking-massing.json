@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "prototype:facility:shangsheng-bicycle-parking",
+  "semanticSlug": "shangsheng-bicycle-parking",
+  "outputSlug": "shangsheng-bicycle-parking",
+  "tier": "massing",
+  "status": "isolated-and-map-load-pass-placement-and-collision-blocked",
+  "formalMassingPass": false,
+  "modelBrief": "docs/research/facility-prototypes-massing-model-brief.md",
+  "geometrySpec": "docs/research/facility-prototypes-massing-geometry-spec.json",
+  "referenceManifest": "docs/research/facility-prototypes-reference-manifest.json",
+  "generator": "scripts/create_facility_prototype_massing_models.py",
+  "instance": {
+    "id": "facility-instance:shangsheng:bicycle-parking",
+    "position": [
+      43,
+      0.18,
+      -3
+    ],
+    "yaw": 0.15,
+    "coordinateSpace": "collection-local"
+  },
+  "osmWayId": null,
+  "originContract": {
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "meaning": "prototype-ground-center",
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "worldPlacementBaked": false,
+    "authoredMetersPerSceneUnit": 2.7,
+    "surveyedMeters": false
+  },
+  "budget": {
+    "kind": "massing-target",
+    "maxTriangles": 256,
+    "maxNodes": 2,
+    "maxMaterials": 1,
+    "maxImages": 0,
+    "maxBinaryBytes": 65536,
+    "animation": "none"
+  },
+  "outputs": {
+    "blend": "assets/models/source/tiers/facility-prototypes/massing/shangsheng-bicycle-parking-massing.blend",
+    "glb": "public/models/tiers/facility-prototypes/massing/shangsheng-bicycle-parking-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-bicycle-parking-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-bicycle-parking-massing-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "ed1bb3c6ea0eb4c2dbb084e4132ec71e6ee932660e6fded0be66d0e749b1808b",
+    "bytes": 19704,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "materialBaseColors": {
+      "shangsheng-bicycle-parking-neutral-massing-material": [
+        0.5799999833106995,
+        0.6100000143051147,
+        0.5699999928474426,
+        1
+      ]
+    },
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "triangles": 252,
+    "bounds": {
+      "min": [
+        -2.385,
+        0,
+        -0.515
+      ],
+      "max": [
+        2.385,
+        1.065,
+        0.515
+      ]
+    },
+    "transformedNodes": []
+  },
+  "qualityBoundary": {
+    "classification": "runtime-authored-only",
+    "observed": [],
+    "inferred": [
+      "Massing component dimensions are simplified from the documented runtime envelope.",
+      "No world placement, yaw, collision proxy or site terrain is baked into this GLB."
+    ],
+    "unknown": [
+      "surveyed dimensions",
+      "2026-later field changes"
+    ],
+    "sources": [
+      "app/scene/shangsheng-xinsuo-block.tsx#BicycleParking",
+      "app/scene/shangsheng-facilities.ts"
+    ]
+  },
+  "identityGate": {
+    "mayEnterIdentity": false,
+    "status": "blocked-missing-facility-specific-evidence",
+    "required": [
+      "取得车架正侧面与场地关系照片。",
+      "确认真实车位数量、结构与朝向。",
+      "把可移动自行车与固定车架分开建模。"
+    ]
+  },
+  "runtimeGate": {
+    "status": "isolated-and-map-load-passed-placement-and-collision-blocked",
+    "gallery": "passed",
+    "mapContextObservation": "captured-load-passed",
+    "mapPlacement": "blocked-pending-position-scale-yaw-review",
+    "collisionAndPassage": "pending",
+    "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-bicycle-parking-massing-threejs-isolated.png",
+    "screenshotSha256": "8af0a752913723c61d9e5ce7129a8709b4cf9767a49143109349073291420b5a",
+    "mapScreenshot": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-bicycle-parking-massing-threejs-map.png",
+    "mapScreenshotSha256": "2512b384656d2f49a7091b94cfd93073d615760ab837a3f51b8e1cf6939c6f1e",
+    "httpStatus": 200,
+    "fromDiskCache": false,
+    "runtimeExceptions": 0,
+    "consoleErrors": 0
+  }
+}

@@ -6,6 +6,7 @@ export class ProgressiveFeatureBoundary extends Component<
   {
     children: ReactNode;
     fallback: ReactNode;
+    onFailure?: (error: unknown) => void;
     resetKey?: string | number;
   },
   { failed: boolean }
@@ -14,6 +15,10 @@ export class ProgressiveFeatureBoundary extends Component<
 
   static getDerivedStateFromError() {
     return { failed: true };
+  }
+
+  componentDidCatch(error: unknown) {
+    this.props.onFailure?.(error);
   }
 
   componentDidUpdate(previous: Readonly<{ resetKey?: string | number }>) {

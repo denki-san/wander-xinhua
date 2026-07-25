@@ -750,8 +750,8 @@ function createFacetedShrubGeometry(): BufferGeometry {
   const geometries = pieces.map(({ position, scale, yaw }) => {
     const geometry = new IcosahedronGeometry(1, 0);
     const transform = new Object3D();
-    transform.position.set(...position);
-    transform.scale.set(...scale);
+    transform.position.set(position[0], position[1], position[2]);
+    transform.scale.set(scale[0], scale[1], scale[2]);
     transform.rotation.y = yaw;
     transform.updateMatrix();
     geometry.applyMatrix4(transform.matrix);
@@ -812,7 +812,7 @@ export function StreetShrubInstances({
         evidenceRef,
       }}
     >
-      <meshToonMaterial color="#ffffff" flatShading />
+      <meshStandardMaterial color="#ffffff" flatShading roughness={0.9} />
     </instancedMesh>
   );
 }

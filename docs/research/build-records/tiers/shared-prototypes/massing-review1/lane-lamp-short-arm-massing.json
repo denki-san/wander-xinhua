@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "prototype:street-furniture:lane-lamp-short-arm",
+  "slug": "lane-lamp-short-arm",
+  "family": "street-furniture",
+  "tier": "massing",
+  "status": "gallery-runtime-pass-independent-review-pending",
+  "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+  "generator": "scripts/create_shared_prototype_massing_models.py",
+  "evidence": "observed-xingfuli-and-street-context",
+  "instanceCount": null,
+  "outputs": {
+    "blend": "assets/models/source/tiers/shared-prototypes/massing/lane-lamp-short-arm-massing.blend",
+    "glb": "public/models/tiers/shared-prototypes/massing/lane-lamp-short-arm-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_lane-lamp-short-arm-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/shared-prototypes/test_lane-lamp-short-arm-massing-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "f5e5cc6464e9f40217dab88545964c293a4ba704e9d8b8f345f5cf2cc008bcba",
+    "bytes": 6808,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 84,
+    "bounds": {
+      "min": [
+        -0.07,
+        0,
+        -0.19
+      ],
+      "max": [
+        0.69,
+        3.36,
+        0.19
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": "gallery-runtime-pass-independent-review-pending",
+  "identityAllowed": false,
+  "qualityBoundary": {
+    "observed": [
+      "prototype envelope and current runtime scale language"
+    ],
+    "inferred": [
+      "simplified massing component dimensions"
+    ],
+    "unknown": [
+      "manufacturer or species where not explicitly confirmed",
+      "surveyed dimensions",
+      "current per-instance field condition"
+    ]
+  },
+  "runtimeQa": {
+    "file": "docs/research/shared-prototypes-massing-runtime-qa.json",
+    "screenshot": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs.png",
+    "galleryLoadAndRender": "pass",
+    "independentReview": "pending"
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "version": 2,
+  "auditedAt": "2026-07-25",
+  "status": "runtime-pass-formal-map-gate-blocked",
+  "scope": {
+    "tier": "massing",
+    "batch": "clean-footprint-v2",
+    "assetCount": 8,
+    "manifest": "docs/research/xinhua-road-clean-massing-manifest.json",
+    "buildMode": "static-production",
+    "viewport": [
+      1280,
+      720
+    ],
+    "contextRoute": "?start=<preset>&qaModelTier=massing&qaModelId=<asset>&cameraQa=1",
+    "isolatedRoute": "?start=<preset>&qaModelTier=massing&qaModelId=<asset>"
+  },
+  "axisContract": {
+    "authoredFootprintAxis": "BlenderY",
+    "exportedFootprintAxis": "-ThreeZ",
+    "runtimeCorrectionScaleZ": -1,
+    "reason": "恢复生成器 world_to_local 的 localZ；此批 OSM footprint 不得套用共享 gallery 的正面规则。",
+    "roundTripTest": {
+      "sourceWayCount": 31,
+      "status": "pass",
+      "toleranceWorldUnits": 0.0002
+    }
+  },
+  "networkEvidence": {
+    "targetRequestsPerAsset": 1,
+    "targetResponsesPerAsset": 1,
+    "targetFailuresPerAsset": 0,
+    "httpStatus": {
+      "200": 8
+    }
+  },
+  "runtime": {
+    "canvasCountPerAsset": 1,
+    "stagePerAsset": "playable",
+    "contextCamera": "spring-clear-blocker-none",
+    "isolatedCamera": "deterministic-elevated-three-quarter",
+    "dataset": {
+      "roadModelTierQa": "massing",
+      "roadModelIdQa": "per-asset",
+      "roadModelCameraQa": "isolated-three-quarter"
+    }
+  },
+  "assets": [
+    {
+      "id": "film-art-center",
+      "start": "film-art",
+      "contextScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_film-art-center-massing-v2-threejs.png",
+        "sha256": "57db6f6be5070de4777b509a0d03d22d93b226335ae2425688e5ff39e5a618ed",
+        "bytes": 69871
+      },
+      "isolatedScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_film-art-center-massing-v2-threejs-isolated.png",
+        "sha256": "7da63ac60966e6c40033686f52b3e176fd6c2e8fdb9d0a5436583587168a25d3",
+        "bytes": 49074
+      },
+      "runtimeGeometryVisual": "pass",
+      "formalMassing": "blocked-map-binding",
+      "identityAllowed": false
+    },
+    {
+      "id": "one-step-garden",
+      "start": "garden179",
+      "contextScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_one-step-garden-massing-v2-threejs.png",
+        "sha256": "b7a240644d7b6b8601f8524977c0e53b1bbe3e14ce18c0ccbb7a9008654adf3b",
+        "bytes": 69446
+      },
+      "isolatedScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_one-step-garden-massing-v2-threejs-isolated.png",
+        "sha256": "68ca8ad785e534320a1b454ac47505e031b4e212d5c2dd4ced0389e5abc9fd19",
+        "bytes": 60680
+      },
+      "runtimeGeometryVisual": "pass",
+      "formalMassing": "blocked-member-binding",
+      "identityAllowed": false
+    },
+    {
+      "id": "xinhua-villas-329",
+      "start": "villas329",
+      "contextScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_xinhua-villas-329-massing-v2-threejs.png",
+        "sha256": "e9a2b1eea5d6558fad74da51f6402461abf40df8f27971d98ff7e8d461d70d12",
+        "bytes": 64850
+      },
+      "isolatedScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_xinhua-villas-329-massing-v2-threejs-isolated.png",
+        "sha256": "d987ed68268a74043f4bdcfb4edae89daeb89751dbf9bf2e5bac3b4de3a34c49",
+        "bytes": 57679
+      },
+      "runtimeGeometryVisual": "pass",
+      "formalMassing": "blocked-compound-binding",
+      "identityAllowed": false
+    },
+    {
+      "id": "villa-le-bec",
+      "start": "villa-le-bec",
+      "contextScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v2-threejs.png",
+        "sha256": "d6d9490b4fa19dcde5f9f794c0e17d5e0fe127d07f15c9f0a2bfca81301ebe64",
+        "bytes": 54737
+      },
+      "isolatedScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v2-threejs-isolated.png",
+        "sha256": "5bc54b96f99edaeb006bd1c6991aee281e79ecddfb254a257232d541613db850",
+        "bytes": 58084
+      },
+      "runtimeGeometryVisual": "pass",
+      "formalMassing": "blocked-role-and-entry-binding",
+      "identityAllowed": false
+    },
+    {
+      "id": "shanghai-orchestra",
+      "start": "orchestra",
+      "contextScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_shanghai-orchestra-massing-v2-threejs.png",
+        "sha256": "c1f5bae938f7489f37070c05f2f770cadaf5157631c361159f2507c190665147",
+        "bytes": 67056
+      },
+      "isolatedScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_shanghai-orchestra-massing-v2-threejs-isolated.png",
+        "sha256": "2103fecd56bb64f88cb5d690d2a2e85de7088b7d93b05b0261076d69fef704fb",
+        "bytes": 50341
+      },
+      "runtimeGeometryVisual": "pass",
+      "formalMassing": "blocked-building-role-binding",
+      "identityAllowed": false
+    },
+    {
+      "id": "xinhua-pocket-park",
+      "start": "pocket-park",
+      "contextScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_xinhua-pocket-park-massing-v2-threejs.png",
+        "sha256": "0b61dd364892d555fac8bad397fafecd13f1914e76f5fb9e97361b721545dd15",
+        "bytes": 63392
+      },
+      "isolatedScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_xinhua-pocket-park-massing-v2-threejs-isolated.png",
+        "sha256": "c0b69e4b8c8da67b3ef0177d28f83df7259cb268b8937fc696d4ceb38c9748a5",
+        "bytes": 64434
+      },
+      "runtimeGeometryVisual": "pass",
+      "formalMassing": "blocked-site-boundary-and-dimension-evidence",
+      "identityAllowed": false
+    },
+    {
+      "id": "debi-fahua-525",
+      "start": "fahua525",
+      "contextScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_debi-fahua-525-massing-v2-threejs.png",
+        "sha256": "c3b6919139b8aa37a274863227eb37cad5f4ebd5431a8756a63cd6a12868ff8b",
+        "bytes": 52575
+      },
+      "isolatedScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_debi-fahua-525-massing-v2-threejs-isolated.png",
+        "sha256": "b01e562a90f7c6b7af55626dc033b3b5e0924eb4bd4d23d61549deeeff684609",
+        "bytes": 60480
+      },
+      "runtimeGeometryVisual": "pass",
+      "formalMassing": "blocked-height-courtyard-and-entry-evidence",
+      "identityAllowed": false
+    },
+    {
+      "id": "fics-xinhua-365",
+      "start": "fics365",
+      "contextScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_fics-xinhua-365-massing-v2-threejs.png",
+        "sha256": "f1051f0f7c2730a35582202c14d50dc9387fa65036ff426e947796694bc00aad",
+        "bytes": 54505
+      },
+      "isolatedScreenshot": {
+        "file": "test_artifacts/all-models/massing-v2/test_fics-xinhua-365-massing-v2-threejs-isolated.png",
+        "sha256": "2e150d12d1305b245a15479b43900e8f7ba083945af52c934b73588492ea4fa2",
+        "bytes": 54138
+      },
+      "runtimeGeometryVisual": "pass",
+      "formalMassing": "blocked-building-role-and-campus-binding",
+      "identityAllowed": false
+    }
+  ],
+  "independentReview": {
+    "status": "pass-with-formal-map-gate-blocked",
+    "file": "docs/research/xinhua-road-clean-massing-independent-review.md",
+    "firstReviewRuntimeGeometryVisualPassCount": 3,
+    "finalRuntimeGeometryVisualPassCount": 8,
+    "formalMassingPassCount": 0,
+    "identityAllowedCount": 0,
+    "formalBlockers": [
+      "candidate/member building bindings",
+      "surveyed or building-specific heights",
+      "entrance directions and safe approach",
+      "compound and site boundaries",
+      "mapAcceptance remains pending in all 8 build records"
+    ]
+  },
+  "formalGate": {
+    "glbLoadAndRender": "pass",
+    "isolatedThreeQuarterVisual": "pass",
+    "mapAcceptance": "blocked",
+    "overall": "blocked",
+    "identityAllowed": false
+  },
+  "claimBoundary": "本记录证明 8 个 clean v2 GLB 在真实静态构建中逐资产加载，并提供街道上下文与确定性斜高隔离视图；它不证明候选 way 就是目标建筑，也不把 fallback height、入口或 compound 成员关系写成已确认事实。"
+}

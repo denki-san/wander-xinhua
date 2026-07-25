@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "subject": {
+    "id": "one-step-garden",
+    "name": "一尺花园安和花园店",
+    "addressVariants": ["新华路179号", "新华路179弄"],
+    "scope": "commercial-venue-with-multiple-distinct-building-volumes"
+  },
+  "canonicalComparison": {
+    "localPath": "docs/research/assets/poi-references/one-step-garden/one-step-garden-candidate-01-2023.jpg",
+    "view": "street-facing-white-half-timber-volume",
+    "direction": "from-xinhua-road-toward-venue",
+    "reason": "主体名称、沿街关系、半木构山墙、屋面与成熟树木同时可读。"
+  },
+  "referencePhotos": [
+    {
+      "localPath": "docs/research/assets/poi-references/one-step-garden/one-step-garden-candidate-01-2023.jpg",
+      "sourcePage": "https://sghexport.shobserver.com/html/baijiahao/2023/09/24/1133838.html",
+      "sourceAsset": "https://sghimages.shobserver.com/img/catch/2023/09/24/73a7e15a-620c-4a87-a737-09d020fee6e5.jpg",
+      "view": "street-facing-white-half-timber-volume",
+      "subjectMatch": "verified-same-venue-front-volume",
+      "publishedAt": "2023-09-24",
+      "captureDate": "unknown",
+      "sha256": "006c5722562b8be2316f975d6e06e14c35cf507f875d474ea4696f527c25d3ff"
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/one-step-garden/one-step-garden-candidate-02-2023.jpg",
+      "sourcePage": "https://sghexport.shobserver.com/html/baijiahao/2023/09/24/1133838.html",
+      "sourceAsset": "https://sghimages.shobserver.com/img/catch/2023/09/24/c6d453c5-4b2b-47ce-b0a8-907a50e9da3e.jpg",
+      "view": "interior-courtyard-and-roof-connection",
+      "subjectMatch": "verified-same-venue-front-volume",
+      "publishedAt": "2023-09-24",
+      "captureDate": "unknown",
+      "sha256": "058998a95691b90af3562f2e3ef33092446f571fe8d63d7ac6b48b135a3587b0"
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/one-step-garden/one-step-garden-candidate-08-2023.jpg",
+      "sourcePage": "https://sghexport.shobserver.com/html/baijiahao/2023/09/24/1133838.html",
+      "sourceAsset": "https://sghimages.shobserver.com/img/catch/2023/09/24/dd760255-a7c1-475a-b372-dd74df5a4caa.jpg",
+      "view": "rear-garden-and-separate-red-brick-volume",
+      "subjectMatch": "verified-same-venue-different-rear-volume",
+      "publishedAt": "2023-09-24",
+      "captureDate": "unknown",
+      "sha256": "171889a9a41a5c9d9ecb2b04d3abb70a306f7a2ec143fdb9511ffc75b44334f9"
+    },
+    {
+      "localPath": "docs/research/assets/landmark-comparison/one-step-garden-real.jpg",
+      "sourcePage": "https://www.jfdaily.com/sgh/detail?id=1697461",
+      "view": "legacy-candidate",
+      "subjectMatch": "rejected-source-subject-mismatch",
+      "captureDate": "unknown"
+    }
+  ],
+  "textSources": [
+    {
+      "url": "https://www.shcn.gov.cn/col6991/20260615/1312612.html",
+      "authority": "上海市长宁区人民政府",
+      "facts": ["主体写作新华路179号住宅"]
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col6421/20240529/1260464.html",
+      "authority": "上海市长宁区人民政府",
+      "facts": ["店铺地址写作新华路179弄"]
+    },
+    {
+      "url": "https://sghexport.shobserver.com/html/baijiahao/2023/09/24/1133838.html",
+      "authority": "上海长宁发布 / 上观导出",
+      "facts": [
+        "沿街德式建筑",
+        "假三层砖木结构",
+        "白色水泥拉毛墙",
+        "机制瓦双坡屋面",
+        "棚屋形老虎窗",
+        "后方有草坪、水杉和室外活动空间"
+      ]
+    }
+  ],
+  "coverageMatrix": {
+    "canonicalFrontVolume": "supported",
+    "frontVolumeDepth": "partial-courtyard",
+    "frontVolumeRear": "missing-unknown",
+    "rearRedBrickVolume": "garden-facing-supported",
+    "venueEntranceDirection": "partial",
+    "siteRelationship": "supported"
+  },
+  "modelingBoundary": {
+    "frontAndRearPhotosAreDifferentVolumes": true,
+    "commercialFurnitureIsTimeVariant": true,
+    "oldJfdailyImageRejected": true
+  },
+  "usageBoundary": {
+    "referenceOnly": true,
+    "embedInGlb": false,
+    "runtimeTexture": false
+  }
+}

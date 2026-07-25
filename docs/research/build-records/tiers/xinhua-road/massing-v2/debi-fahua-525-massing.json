@@ -1,0 +1,218 @@
+{
+  "version": 2,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:debi-fahua-525",
+  "tier": "massing",
+  "batch": "clean-footprint-v2",
+  "status": "runtime-pass-formal-map-gate-blocked",
+  "generator": "scripts/create_xinhua_road_clean_massing_models.py",
+  "geometrySpec": "docs/research/xinhua-road-clean-massing-geometry-spec.json",
+  "modelBrief": "docs/research/xinhua-road-massing-model-brief.md",
+  "placement": {
+    "position": [
+      -102,
+      -49
+    ],
+    "yaw": -2.6,
+    "scale": 0.92,
+    "movementAuthorized": false
+  },
+  "candidateStatus": "five-member-candidates-pending",
+  "membershipConfidence": "medium",
+  "heightEvidence": {
+    "previewMeters": 10.5,
+    "localSceneUnits": 4.227053,
+    "status": "unknown-runtime-fallback-not-evidence"
+  },
+  "unknown": [
+    "six-storey main building way mapping",
+    "building heights and levels",
+    "four courtyard boundaries",
+    "entrance and heritage tree positions"
+  ],
+  "children": [
+    {
+      "name": "osm-way-864847921",
+      "sourceWayId": 864847921,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 586.2,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          14.481698,
+          4.206863
+        ],
+        [
+          10.34896,
+          8.518648
+        ],
+        [
+          -1.163846,
+          -2.458194
+        ],
+        [
+          2.968892,
+          -6.769979
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-864847920",
+      "sourceWayId": 864847920,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 585.9,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          7.741205,
+          11.410877
+        ],
+        [
+          3.60748,
+          15.71688
+        ],
+        [
+          -7.905326,
+          4.740038
+        ],
+        [
+          -3.771602,
+          0.434034
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-228966550",
+      "sourceWayId": 228966550,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 508.2,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          -4.258854,
+          -5.031625
+        ],
+        [
+          -13.840552,
+          -14.675333
+        ],
+        [
+          -18.153878,
+          -10.420257
+        ],
+        [
+          -8.572186,
+          -0.77654
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-864847917",
+      "sourceWayId": 864847917,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 517.6,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          5.739161,
+          -12.966053
+        ],
+        [
+          1.651071,
+          -9.650485
+        ],
+        [
+          -8.44895,
+          -21.979351
+        ],
+        [
+          -4.36086,
+          -25.294919
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-228966551",
+      "sourceWayId": 228966551,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 537.4,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          -15.410898,
+          6.025626
+        ],
+        [
+          -11.050532,
+          1.5288
+        ],
+        [
+          -21.066514,
+          -8.121712
+        ],
+        [
+          -25.424579,
+          -3.62869
+        ]
+      ]
+    }
+  ],
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v2/debi-fahua-525-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing-v2/debi-fahua-525-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing-v2/test_debi-fahua-525-massing-v2-canonical.png",
+      "side": "test_artifacts/all-models/massing-v2/test_debi-fahua-525-massing-v2-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "b9093a059417e15e722b836a38276fecabe769f6bbc9c63dfea4a08c9d95d63e",
+    "bytes": 8420,
+    "nodes": 5,
+    "meshes": 5,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 60,
+    "bounds": {
+      "min": [
+        -25.42458,
+        0,
+        -15.71688
+      ],
+      "max": [
+        14.481698,
+        4.227053,
+        25.294918
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": "pass",
+  "mapAcceptance": "blocked",
+  "identityAllowed": false,
+  "runtimeGeometryVisual": "pass",
+  "runtimeQa": {
+    "file": "docs/research/xinhua-road-clean-massing-runtime-qa.json",
+    "contextScreenshot": {
+      "file": "test_artifacts/all-models/massing-v2/test_debi-fahua-525-massing-v2-threejs.png",
+      "sha256": "c3b6919139b8aa37a274863227eb37cad5f4ebd5431a8756a63cd6a12868ff8b",
+      "bytes": 52575
+    },
+    "isolatedScreenshot": {
+      "file": "test_artifacts/all-models/massing-v2/test_debi-fahua-525-massing-v2-threejs-isolated.png",
+      "sha256": "b01e562a90f7c6b7af55626dc033b3b5e0924eb4bd4d23d61549deeeff684609",
+      "bytes": 60480
+    }
+  }
+}

@@ -38,7 +38,10 @@ test("上生新所详情始终恢复原有设施和碰撞，全览通过环境�
   const source = await readFile(new URL("app/scene/shangsheng-xinsuo-block.tsx", root), "utf8");
   assert.match(source, /SHANGSHENG_LOCAL_FACILITY_OBSTACLES\.map\(localToWorldObstacle\)/);
   assert.match(source, /const environmentDetailed = showEnvironmentDetails \?\? stage === "full"/);
-  assert.match(source, /<CampusLandscape detailed=\{environmentDetailed\} \/>/);
+  assert.match(
+    source,
+    /<CampusLandscape[\s\S]*?detailed=\{environmentDetailed\}[\s\S]*?facilityMassingMapQaId=\{facilityMassingMapQaId\}/,
+  );
   assert.match(source, /detailed && \([\s\S]*?<CafePavilion \/>[\s\S]*?<BicycleParking \/>[\s\S]*?<ReadingTerrace \/>/);
   assert.equal(SHANGSHENG_LOCAL_FACILITY_OBSTACLES.length, 5);
 });

@@ -1,0 +1,189 @@
+{
+  "version": 1,
+  "fetchedAt": "2026-07-25",
+  "subject": "Shangsheng Xinsuo Phase II",
+  "evidencePolicy": {
+    "projectLevelPhotosDoNotBindToIndividualOsmWays": true,
+    "n1PhotosRequireMasterplanOverlayBeforeOsmBinding": true,
+    "rawFilesAreReadOnly": true
+  },
+  "sources": [
+    {
+      "title": "上生·新所二期N1号楼今年对外开放",
+      "publisher": "上海市规划和自然资源局",
+      "url": "https://ghzyj.sh.gov.cn/cn/20230111/dd4065f7bf46488aa38efd20154b4159.html",
+      "observed": "二期在园区南半侧，以新建为主，包含5栋新建筑；N1约6500平方米。"
+    },
+    {
+      "title": "上生·新所二期",
+      "publisher": "OVAL Partnership",
+      "url": "https://www.ovalpartnership.com/zh/project/Columbia-Circle-Phase-II",
+      "observed": "项目级总平与建成照片；未标注N1-N5与OSM way对应。"
+    },
+    {
+      "title": "上生·新所开放新空间",
+      "publisher": "上海市长宁区人民政府",
+      "url": "https://www.shcn.gov.cn/col7344/20230504/1235631.html",
+      "observed": "N1与香樟广场的开放信息；页面图片混有活动横幅、一期泳池与项目鸟瞰，不可把整页图片都归为N1单栋证据。"
+    },
+    {
+      "title": "上生新所中心广场项目环境影响报告表",
+      "publisher": "上海市长宁区人民政府",
+      "url": "https://static.shcn.gov.cn/cncms/2021/0426/9cc3cf48-4b9d-4668-9aa7-71833130b8ea.pdf",
+      "observed": "PDF page 78（文档印刷页74）的图7《项目平面布置图》直接标注N1–N5和保留30#的位置、层数与一期参照建筑。"
+    }
+  ],
+  "assets": [
+    {
+      "path": "docs/research/assets/poi-references/shangsheng-xinsuo/phase-two-official-view-1.png",
+      "sourceUrl": "https://ghzyj.sh.gov.cn/cmsres/9e/9e70780c882e4945a63a4eefa35c7b97/a87ff679a2f3e71d9181a67b7542122c.png",
+      "sha256": "e48399a27b4ee534fcc0d5bec2070dd033a5ff80b12b428cf113d15191f5f859",
+      "subject": "Phase II facade detail",
+      "view": "project-level detail",
+      "evidenceScope": "project family only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shangsheng-xinsuo/phase-two-official-view-2.png",
+      "sourceUrl": "https://ghzyj.sh.gov.cn/cmsres/3b/3bd26cbf52a847c48981adc36608582c/e4da3b7fbbce2345d7772b0674a318d5.png",
+      "sha256": "f981aab7ba52c56717643c44e5affd9419d513c20ea480e2e5f92d9d32cc2ed0",
+      "subject": "Phase II pedestrian lane",
+      "view": "project-level depth view",
+      "evidenceScope": "project family only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shangsheng-xinsuo/phase-two-official-view-3.png",
+      "sourceUrl": "https://ghzyj.sh.gov.cn/cmsres/59/59f7fe0fd0194d2f98ed840b78690fac/1679091c5a880faf6fb5e6087eb1b2dc.png",
+      "sha256": "9b423111e10bf585a6533794c9a9687bf6724f45f5e0f02cb201f5969a85c98e",
+      "subject": "Phase II project view",
+      "view": "project-level context",
+      "evidenceScope": "project family only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shangsheng-xinsuo/phase-two-oval-masterplan.jpg",
+      "sourceUrl": "https://imagepphcloud.thepaper.cn/pph/image/313/325/416.jpg",
+      "sha256": "63a21b6a90ec8abe6dd74790ceacc36d362ba5e563e6297f5de4eff33201f076",
+      "subject": "Phase II masterplan",
+      "view": "top-down plan",
+      "evidenceScope": "overlay input; labels are not legible enough to bind N numbers alone"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shangsheng-xinsuo/phase-two-eia-2021.pdf",
+      "sourceUrl": "https://static.shcn.gov.cn/cncms/2021/0426/9cc3cf48-4b9d-4668-9aa7-71833130b8ea.pdf",
+      "sha256": "9eaf6959a3ebc21870e678b064d2736fef886c00d51c183a91f559043240b033",
+      "subject": "Official Phase II environmental impact report",
+      "view": "85-page source PDF",
+      "evidenceScope": "authoritative source for N1–N5, retained 30#, floor areas, storeys and project plan; source file is read-only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shangsheng-xinsuo/phase-two-eia-project-plan-page-78.png",
+      "sourceUrl": "https://static.shcn.gov.cn/cncms/2021/0426/9cc3cf48-4b9d-4668-9aa7-71833130b8ea.pdf",
+      "sourcePage": 78,
+      "printedPage": 74,
+      "sourceFigure": "图7 项目平面布置图",
+      "render": "pdftoppm 300dpi PNG",
+      "sha256": "1090c5d66f620ee6f3caa994bf22356b3a1c1b2ad089ce9914678b36eb859e6e",
+      "subject": "Official Phase II numbered project plan",
+      "view": "full PDF page",
+      "evidenceScope": "directly binds the project-plan zones for N1–N5 and retained 30#; requires geographic overlay for an OSM-way binding"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shangsheng-xinsuo/phase-two-eia-project-plan-detail.png",
+      "sourceUrl": "https://static.shcn.gov.cn/cncms/2021/0426/9cc3cf48-4b9d-4668-9aa7-71833130b8ea.pdf",
+      "sourcePage": 78,
+      "printedPage": 74,
+      "sourceFigure": "图7 项目平面布置图",
+      "derivedFrom": "phase-two-eia-project-plan-page-78.png",
+      "cropPixels": [
+        900,
+        2100,
+        2300,
+        4150
+      ],
+      "sha256": "456de9e52b276183274247e9ed04a8e5ad5bd11d61e3fc255f5a3a84f465e58b",
+      "subject": "Official Phase II numbered project-plan detail",
+      "view": "N1–N5 and retained 30# crop",
+      "evidenceScope": "direct numbered-plan evidence; preserves roads, project boundary, N1–N5 and 30# needed for overlay review"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shangsheng-xinsuo/phase-two-oval-project-1.jpg",
+      "sourceUrl": "https://www.ovalpartnership.com/upload/projects/Columbia%20Circle%20Phrase%202/Zhu%20Yumeng-37-small.jpg",
+      "sha256": "17c6ff777dfb0ff96a41363082f8ce46889760c12a79266cb8c628efa78712d0",
+      "subject": "Phase II built project",
+      "view": "project-level view 1",
+      "evidenceScope": "project family only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shangsheng-xinsuo/phase-two-oval-project-2.jpg",
+      "sourceUrl": "https://www.ovalpartnership.com/upload/projects/Columbia%20Circle%20Phrase%202/Zhu%20Yumeng-12-small.jpg",
+      "sha256": "52ccfb012d6f7d3a24c3aec0f53e1f4971519f7b4c5ad338baa43e46242ab460",
+      "subject": "Phase II built project",
+      "view": "project-level view 2",
+      "evidenceScope": "project family only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shangsheng-xinsuo/phase-two-oval-project-3.jpg",
+      "sourceUrl": "https://www.ovalpartnership.com/upload/projects/Columbia%20Circle%20Phrase%202/Zhu%20Yumeng-13-small.jpg",
+      "sha256": "1ee5c1ddf56dd7b6cafd7bf5329025ebace80e188c39056fa054349e93aee3d2",
+      "subject": "Phase II built project",
+      "view": "project-level view 3",
+      "evidenceScope": "project family only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shangsheng-xinsuo/phase-two-oval-project-4.jpg",
+      "sourceUrl": "https://www.ovalpartnership.com/upload/projects/Columbia%20Circle%20Phrase%202/Zhu%20Yumeng-43-small.jpg",
+      "sha256": "5a76655151562b969235e79e23c444a5453ef91ee804e214ff6cef028f426b48",
+      "subject": "Phase II built project",
+      "view": "project-level view 4",
+      "evidenceScope": "project family only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shangsheng-xinsuo/phase-two-n1-official-1.jpg",
+      "sourceUrl": "https://cn.storage.shmedia.tech/4e73d06c16f346cd9e8e753d77ad1b51.jpg",
+      "sha256": "50976b19a9d9892c4f2cc73054054a34ce725f7a5bcd0e0657b3f9a30cc994b4",
+      "subject": "2023 art-season campaign banner",
+      "view": "event graphic",
+      "evidenceScope": "event and project context only; not evidence of N1 architecture or location"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shangsheng-xinsuo/phase-two-n1-official-2.png",
+      "sourceUrl": "https://cn.storage.shmedia.tech/b7888e1b002c4096947f10c635f5f2c8.png",
+      "sha256": "a5f7cab5c5f4f339c46f688b585f5c58b1cc9a93a1c5dc5501aed6ee8b201849",
+      "subject": "Navy Club swimming-pool context",
+      "view": "historic pool interior",
+      "evidenceScope": "Navy Club and project context only; explicitly not N1 evidence"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shangsheng-xinsuo/phase-two-n1-official-3.png",
+      "sourceUrl": "https://cn.storage.shmedia.tech/ec9b77c3b80b4ab4a1a1a0b7f02d6471.png",
+      "sha256": "f144ecbcdc067df359a7a45f8cc8ba6fff4198ced7d31fd30d0d4407b27371e5",
+      "subject": "Current building 17 facade with red exterior stair",
+      "view": "single-building vertical context",
+      "evidenceScope": "directly shows current number 17 and facade cues; the current source-page-to-image relationship is insufficient by itself to assert N1 or an OSM way"
+    }
+  ],
+  "bindingStatus": {
+    "n1ToN5OsmWays": "not one-to-one in the current OSM extract; way 1364679204 is an N2-zone candidate and way 1364679205 is an N4-zone partial/candidate, while N1, N3 and N5 have no corresponding way",
+    "retainedBuilding30OsmWay": "864847892; high confidence from official numbered-plan location, east-west footprint, 626m2 OSM area versus 663m2 official area",
+    "candidateWayBindings": [
+      {
+        "subject": "N2 zone",
+        "wayId": 1364679204,
+        "confidence": "medium",
+        "boundary": "spatial candidate only; floor-plate mismatch and incomplete OSM coverage block an exact building identity"
+      },
+      {
+        "subject": "N4 zone or sub-volume",
+        "wayId": 1364679205,
+        "confidence": "low",
+        "boundary": "475m2 footprint cannot represent the complete 4974m2 four-storey N4; do not name the way N4"
+      }
+    ],
+    "missingOsmCoverage": [
+      "N1",
+      "N3",
+      "N5"
+    ],
+    "identityModelingAllowed": false,
+    "massingFromFootprintsAllowed": true
+  }
+}

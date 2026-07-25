@@ -39,9 +39,10 @@ test("当前资产口径保留真实数量与缺口提示", async () => {
     readFile(new URL("app/asset-library/asset-data.ts", root), "utf8"),
     readFile(new URL("app/asset-library/AssetLibrary.tsx", root), "utf8"),
   ]);
-  assert.match(data, /instanceCount: 32/);
-  assert.match(data, /instanceCount: 44/);
+  assert.match(data, /instanceCount: 31/);
+  assert.match(data, /instanceCount: 29/);
   assert.match(data, /instanceCount: 112/);
+  assert.match(data, /实际 73 个林下灌木实例/);
   assert.match(data, /雨季夏日漫游者/);
   assert.match(data, /上海双分类垃圾桶/);
   assert.match(data, /preview: "trash-bin"/);

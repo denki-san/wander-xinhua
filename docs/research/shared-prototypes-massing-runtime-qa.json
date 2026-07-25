@@ -1,0 +1,131 @@
+{
+  "version": 2,
+  "auditedAt": "2026-07-25",
+  "status": "formal-massing-pass",
+  "scope": {
+    "tier": "massing",
+    "prototypeCount": 12,
+    "vegetationCount": 5,
+    "streetFurnitureCount": 7,
+    "manifest": "docs/research/shared-prototypes-massing-manifest.json",
+    "runtimeEntries": {
+      "vegetation": "?qaSharedPrototypeTier=massing&qaSharedPrototypeGroup=vegetation",
+      "streetFurniture": "?qaSharedPrototypeTier=massing&qaSharedPrototypeGroup=street-furniture"
+    },
+    "buildMode": "static-production",
+    "viewport": [
+      1280,
+      720
+    ],
+    "displayScale": 1
+  },
+  "networkEvidence": {
+    "requests": 12,
+    "responses": 12,
+    "failures": 0,
+    "httpStatus": {
+      "200": 12
+    },
+    "fromDiskCache": 0,
+    "fromServiceWorker": 0,
+    "decodedGlbBytes": 100328,
+    "note": "每个分组页面均保持 12 个 GLB 挂载以验证完整批次；分组仅改变可见对象和验收机位。"
+  },
+  "runtime": {
+    "canvasCount": 1,
+    "stage": "playable",
+    "mode": "overview",
+    "qaDataset": {
+      "sharedPrototypeMassingQa": "true"
+    },
+    "groupEvidence": {
+      "vegetation": {
+        "xinhuaSharedPrototypeQaGroup": "vegetation",
+        "labelCount": 6,
+        "assetLabels": 5,
+        "scaleReferenceLabels": 1
+      },
+      "streetFurniture": {
+        "xinhuaSharedPrototypeQaGroup": "street-furniture",
+        "labelCount": 8,
+        "assetLabels": 7,
+        "scaleReferenceLabels": 1
+      }
+    },
+    "consoleErrors": 0,
+    "knownWarnings": [
+      "THREE.Clock deprecated warning"
+    ]
+  },
+  "visualReview": {
+    "canonicalContactSheet": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-canonical-contact-sheet.png",
+    "sideContactSheet": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-side-contact-sheet.png",
+    "threejsScreenshots": {
+      "vegetation": {
+        "file": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs-vegetation.png",
+        "sha256": "1abc72220336918b1c43afa01e531cb2858de07ba83e5162f6fff3fe6821fa01",
+        "bytes": 50266
+      },
+      "streetFurniture": {
+        "file": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs-street-furniture.png",
+        "sha256": "3d2f3cfd406f2d72ced72175097942369a21dbf5e46dd27543f5cc52e20c1413",
+        "bytes": 39301
+      }
+    },
+    "prototypeCountVisible": {
+      "vegetation": 5,
+      "streetFurniture": 7
+    },
+    "scaleReference": {
+      "authoredMetersPerSceneUnit": 2.7,
+      "personHeightMeters": 1.75,
+      "rulerMeters": 1,
+      "visibleInBothGroups": true
+    },
+    "groundContact": "all-12-glb-bounds-min-y-zero-and-visually-observed-on-own-pedestal",
+    "spikesOrFloatingFragments": "not-observed",
+    "displayScaleUnmodified": true,
+    "rejectedEvidencePreserved": [
+      "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs-vegetation-review2-label-overlap.png",
+      "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs-vegetation-review3-scale-crowded.png",
+      "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs-street-furniture-review2-label-occlusion.png",
+      "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs-vegetation-review4-z-mirrored.png",
+      "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs-street-furniture-review4-z-mirrored.png"
+    ]
+  },
+  "independentReview": {
+    "status": "pass",
+    "firstReview": "docs/research/shared-prototypes-massing-independent-review-1.md",
+    "secondReviewRequestedAt": "2026-07-25",
+    "finalReview": "docs/research/shared-prototypes-massing-independent-review-final.md",
+    "formalMassingPassCount": 12,
+    "identityAllowedAssetIds": [
+      "prototype:vegetation:xinhua-plane-tree",
+      "prototype:street-furniture:lane-lamp-short-arm",
+      "prototype:street-furniture:cantilever-umbrella",
+      "prototype:street-furniture:outdoor-table-set",
+      "prototype:street-furniture:slatted-bench",
+      "prototype:street-furniture:rectangular-planter",
+      "prototype:street-furniture:shanghai-dual-classification-bin",
+      "prototype:street-furniture:irregular-stone-bollard"
+    ],
+    "identityBlockedSpeciesUnknownAssetIds": [
+      "prototype:vegetation:shangsheng-campus-tree",
+      "prototype:vegetation:huashan-canopy-tree",
+      "prototype:vegetation:huashan-understory",
+      "prototype:vegetation:road-edge-shrub"
+    ]
+  },
+  "formalGate": {
+    "blenderCanonicalAndSide": "pass",
+    "glbStructureAndBudget": "pass",
+    "threejsGalleryLoadAndRender": "pass-after-grouped-scale-reference-rebuild",
+    "canonicalFrontDirection": "pass-after-removing-extra-z-reflection",
+    "independentReview": "pass",
+    "overall": "pass",
+    "identityPolicy": "per-asset",
+    "identityAllowedAssetCount": 8,
+    "identityBlockedSpeciesUnknownAssetCount": 4
+  },
+  "claimBoundary": "本记录证明最终版 12 个共享 Massing 原型在真实静态生产构建中以 authored scale、正确 canonical 正面全部加载并通过独立审查。Identity 仅按逐资产清单放行 8 项；4 个物种 unknown 植被只通过 generic envelope Massing，不证明每个地图实例的现场物种、树龄、密度或当前状态。"
+}

@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "prototype:vegetation:huashan-understory",
+  "slug": "huashan-understory",
+  "family": "vegetation",
+  "tier": "massing",
+  "status": "formal-massing-pass",
+  "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+  "generator": "scripts/create_shared_prototype_massing_models.py",
+  "evidence": "species-unknown-runtime-envelope",
+  "instanceCount": 73,
+  "outputs": {
+    "blend": "assets/models/source/tiers/shared-prototypes/massing/huashan-understory-massing.blend",
+    "glb": "public/models/tiers/shared-prototypes/massing/huashan-understory-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_huashan-understory-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/shared-prototypes/test_huashan-understory-massing-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "2a18baa8bb9c0719b38b084f72c551c7d52e1fc646608c67077819c05552ee10",
+    "bytes": 7788,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 60,
+    "bounds": {
+      "min": [
+        -0.780878,
+        0,
+        -0.44623
+      ],
+      "max": [
+        0.747213,
+        0.61,
+        0.454282
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": "formal-massing-pass",
+  "identityAllowed": false,
+  "qualityBoundary": {
+    "observed": [
+      "prototype envelope and current runtime scale language"
+    ],
+    "inferred": [
+      "simplified massing component dimensions"
+    ],
+    "unknown": [
+      "manufacturer or species where not explicitly confirmed",
+      "surveyed dimensions",
+      "current per-instance field condition"
+    ]
+  },
+  "runtimeQa": {
+    "file": "docs/research/shared-prototypes-massing-runtime-qa.json",
+    "screenshots": {
+      "vegetation": {
+        "file": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs-vegetation.png",
+        "sha256": "1abc72220336918b1c43afa01e531cb2858de07ba83e5162f6fff3fe6821fa01",
+        "bytes": 50266
+      },
+      "streetFurniture": {
+        "file": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs-street-furniture.png",
+        "sha256": "3d2f3cfd406f2d72ced72175097942369a21dbf5e46dd27543f5cc52e20c1413",
+        "bytes": 39301
+      }
+    },
+    "galleryLoadAndRender": "pass",
+    "independentReview": "pass"
+  }
+}

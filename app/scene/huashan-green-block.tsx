@@ -1,7 +1,13 @@
 "use client";
 
-import { Html } from "@react-three/drei";
-import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import { Html, useGLTF } from "@react-three/drei";
+import {
+  Suspense,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from "react";
 import {
   BoxGeometry,
   BufferGeometry,
@@ -9,6 +15,7 @@ import {
   DoubleSide,
   InstancedMesh,
   Matrix4,
+  Mesh,
   Object3D,
   Shape,
   ShapeGeometry,
@@ -18,12 +25,15 @@ import landmarks from "./xinhua-landmarks-data.json";
 import type { ProgressiveBuildingTier } from "./progressive-loading";
 import { terrainHeightAt } from "./terrain";
 import { isPointInsidePolygon, type MapObstacle, type MapPolygonPoint } from "./world-math";
+import { FacilityPrototypeMassingMapAssets } from "./facility-prototype-massing";
 
 type Path = { id: number; points: [number, number][] };
 
 const PARK = landmarks.huashanGreenland;
 export const HUASHAN_GREEN_POSITION = PARK.position as [number, number];
 const PARK_POSITION = HUASHAN_GREEN_POSITION;
+const HUASHAN_SERVICE_MASSING_PATH =
+  "/models/tiers/shangsheng-huashan/massing/osm-way-743778426-massing.glb?v=62fe2e4959b8";
 const PARK_BOUNDARY: MapPolygonPoint[] = PARK.boundary.map(([x, z]) => [x, z]);
 const PARK_PATHS = PARK.paths as Path[];
 const RUNNING_TRACK_PATH_IDS = new Set([
@@ -502,7 +512,13 @@ function BasketballCourt() {
   );
 }
 
-function ParkFacilities({ showServiceBuilding }: { showServiceBuilding: boolean }) {
+function ParkFacilities({
+  showServiceBuilding,
+  facilityMassingMapQaId,
+}: {
+  showServiceBuilding: boolean;
+  facilityMassingMapQaId?: string;
+}) {
   const service = PARK.serviceBuilding;
   return (
     <group>
@@ -542,6 +558,7 @@ function ParkFacilities({ showServiceBuilding }: { showServiceBuilding: boolean 
         </mesh>
         </group>
       )}
+      {facilityMassingMapQaId !== "huashan-bird-pergola" && (
       <group name="huashan-bird-pergola" position={[-25, 0.22, 17.5]} userData={{ landscape: "bird-pergola" }}>
         {Array.from({ length: 9 }, (_, index) => {
           const angle = index / 8 * Math.PI;
@@ -557,6 +574,8 @@ function ParkFacilities({ showServiceBuilding }: { showServiceBuilding: boolean 
           <meshToonMaterial color="#94836a" />
         </mesh>
       </group>
+      )}
+      {facilityMassingMapQaId !== "huashan-happiness-corner" && (
       <group name="huashan-happiness-corner" position={[25, 0.16, 10]} userData={{ landscape: "happiness-corner" }}>
         {[-2.4, 0, 2.4].map((x) => (
           <group key={x} position={[x, 0, 0]}>
@@ -579,6 +598,7 @@ function ParkFacilities({ showServiceBuilding }: { showServiceBuilding: boolean 
           </mesh>
         ))}
       </group>
+      )}
       {[[6, 52], [-18, 30], [13, -12], [-4, -28], [-31, 51]].map(([x, z], index) => (
         <group key={`${x}-${z}`} position={[x, 0.2, z]} rotation-y={index * 0.7}>
           <mesh position={[0, 0.4, 0]} castShadow>
@@ -644,15 +664,55 @@ function ParkServiceBuildingProxy({ identity }: { identity: boolean }) {
   );
 }
 
-function HuashanGreenMassing() {
+function HuashanServiceMassingTierAsset() {
+  const service = PARK.serviceBuilding;
+  const { scene } = useGLTF(HUASHAN_SERVICE_MASSING_PATH);
+  const model = useMemo(() => {
+    const clone = scene.clone(true);
+    clone.traverse((child) => {
+      if (!(child instanceof Mesh)) return;
+      child.castShadow = true;
+      child.receiveShadow = true;
+    });
+    return clone;
+  }, [scene]);
+  return (
+    <group
+      position={[service.position[0], 0.1, service.position[1]]}
+      rotation-y={service.rotationY}
+      userData={{
+        modelTier: "massing",
+        sourceWayId: service.osmWayId,
+        source: HUASHAN_SERVICE_MASSING_PATH,
+        geometryEvidence: "observed-osm-footprint",
+        functionEvidence: "unknown",
+        authoredFootprintAxis: "-BlenderY",
+        exportedFootprintAxis: "ThreeZ",
+        runtimeScale: [1, 1, 1],
+      }}
+    >
+      <primitive object={model} />
+    </group>
+  );
+}
+
+function HuashanGreenMassing({ onlyModelId }: { onlyModelId?: string }) {
   const ground = useMemo(() => polygonGeometry(PARK_BOUNDARY), []);
   useEffect(() => () => ground.dispose(), [ground]);
+  const showServiceBuilding = (
+    !onlyModelId
+    || onlyModelId === `osm-way-${PARK.serviceBuilding.osmWayId}`
+  );
   return (
     <>
       <mesh geometry={ground} position={[0, 0.08, 0]} receiveShadow>
         <meshToonMaterial color="#7f8b73" side={DoubleSide} />
       </mesh>
-      <ParkServiceBuildingProxy identity={false} />
+      {showServiceBuilding && (
+        <Suspense fallback={<ParkServiceBuildingProxy identity={false} />}>
+          <HuashanServiceMassingTierAsset />
+        </Suspense>
+      )}
     </>
   );
 }
@@ -660,9 +720,13 @@ function HuashanGreenMassing() {
 export function HuashanGreenBlock({
   showEnvironmentDetails,
   stage = "full",
+  qaModelId,
+  facilityMassingMapQaId,
 }: {
   showEnvironmentDetails?: boolean;
   stage?: ProgressiveBuildingTier;
+  qaModelId?: string;
+  facilityMassingMapQaId?: string;
 }) {
   const identityReady = stage === "identity" || stage === "full";
   const environmentDetailed = showEnvironmentDetails ?? stage === "full";
@@ -682,20 +746,31 @@ export function HuashanGreenBlock({
       }}
     >
       {stage === "massing" ? (
-        <HuashanGreenMassing />
+        <HuashanGreenMassing onlyModelId={qaModelId} />
       ) : (
         <>
           <ParkGroundAndPaths />
           <ForestInstances detailed={environmentDetailed} />
-          <PondGarden />
-          <BasketballCourt />
+          {facilityMassingMapQaId !== "huashan-pond-boardwalk"
+            && <PondGarden />}
+          {facilityMassingMapQaId !== "huashan-basketball-court"
+            && <BasketballCourt />}
           {environmentDetailed && (
             <>
               <UnderstoryInstances />
-              <ParkFacilities showServiceBuilding={stage === "full"} />
+              <ParkFacilities
+                showServiceBuilding={stage === "full"}
+                facilityMassingMapQaId={facilityMassingMapQaId}
+              />
             </>
           )}
           {stage !== "full" && <ParkServiceBuildingProxy identity />}
+          {facilityMassingMapQaId?.startsWith("huashan-") && (
+            <FacilityPrototypeMassingMapAssets
+              site="huashan"
+              onlyAssetId={facilityMassingMapQaId}
+            />
+          )}
         </>
       )}
       {identityReady && (
@@ -705,4 +780,20 @@ export function HuashanGreenBlock({
       )}
     </group>
   );
+}
+
+export function huashanMassingQaFrame(modelId: string) {
+  const service = PARK.serviceBuilding;
+  if (modelId !== `osm-way-${service.osmWayId}`) return null;
+  return {
+    wayId: service.osmWayId,
+    worldPosition: [
+      PARK_POSITION[0] + service.position[0],
+      PARK_POSITION[1] + service.position[1],
+    ] as const,
+    width: service.width,
+    depth: service.depth,
+    height: 1.4444,
+    yaw: service.rotationY,
+  };
 }

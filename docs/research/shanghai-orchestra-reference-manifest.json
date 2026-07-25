@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "subject": {
+    "id": "shanghai-orchestra",
+    "name": "上海民族乐团新华路336号修缮工程一期",
+    "address": "上海市长宁区新华路336号",
+    "scope": "compound-with-buildings-6-7-8-retained-volumes-and-courtyards"
+  },
+  "canonicalComparison": {
+    "localPath": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-exterior-tjad-2019.jpg",
+    "view": "project-exterior-courtyard-canonical",
+    "direction": "from-courtyard-toward-rehearsal-buildings",
+    "reason": "同时证明多栋体量、连续院落、浅色外墙和竖向琴弦构件。"
+  },
+  "referencePhotos": [
+    {
+      "localPath": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-exterior-tjad-2019.jpg",
+      "sourcePage": "https://www.gooood.cn/renovation-project-of-shanghai-chinese-orchestra-located-at-no-336-xinhua-road-phase-i-china-by-tjad.htm",
+      "sourceAsset": "https://oss.gooood.cn/uploads/2019/07/018-renovation-project-of-shanghai-chinese-orchestra-located-at-no-336-xinhua-road-phase-i-china-by-tjad-960x640.jpg",
+      "view": "project-exterior-courtyard-canonical",
+      "subjectMatch": "verified-same-project",
+      "publishedAt": "2019-07",
+      "captureDate": "unknown",
+      "sha256": "cd65d10e36a5d26fc54e20469551a09fb18572abc5f47a6e0ece6b32b09d4ece"
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-fahua-facade-tjad-2019.jpg",
+      "sourcePage": "https://www.gooood.cn/renovation-project-of-shanghai-chinese-orchestra-located-at-no-336-xinhua-road-phase-i-china-by-tjad.htm",
+      "sourceAsset": "https://oss.gooood.cn/uploads/2019/07/025-renovation-project-of-shanghai-chinese-orchestra-located-at-no-336-xinhua-road-phase-i-china-by-tjad-960x640.jpg",
+      "view": "fahua-road-curved-facade",
+      "subjectMatch": "verified-same-project",
+      "publishedAt": "2019-07",
+      "captureDate": "unknown",
+      "sha256": "3b141114cde1d09da5612ddab59ee6fd36287ad755b3a5cd7cb7965bd18ddbac"
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-entrance-canopy-tjad-2019.jpg",
+      "sourcePage": "https://www.gooood.cn/renovation-project-of-shanghai-chinese-orchestra-located-at-no-336-xinhua-road-phase-i-china-by-tjad.htm",
+      "sourceAsset": "https://oss.gooood.cn/uploads/2019/07/038-renovation-project-of-shanghai-chinese-orchestra-located-at-no-336-xinhua-road-phase-i-china-by-tjad-960x640.jpg",
+      "view": "entrance-canopy-string-shadow-detail",
+      "subjectMatch": "verified-same-project-detail",
+      "publishedAt": "2019-07",
+      "captureDate": "unknown",
+      "sha256": "04cfc8cea5ec550b6a39d907009fe981d3b3745468fe726d4bab3f3b6e5883dd"
+    }
+  ],
+  "textSources": [
+    {
+      "url": "https://www.gooood.cn/renovation-project-of-shanghai-chinese-orchestra-located-at-no-336-xinhua-road-phase-i-china-by-tjad.htm",
+      "authority": "TJAD 项目发布",
+      "facts": [
+        "6号楼为声部排练室、7号楼为大排演厅、8号楼为交流门厅",
+        "改造面积2205平方米，2018年6月投入使用",
+        "沿法华镇路为曲线立面",
+        "陶土管表达竹笛和琴弦意向",
+        "狭长室外空间采用连续院落组织并保留高大树木"
+      ]
+    }
+  ],
+  "coverageMatrix": {
+    "compoundCanonical": "supported",
+    "fahuaRoadFacade": "supported",
+    "entranceCanopyDetail": "supported",
+    "courtyardRelationship": "supported",
+    "buildings6_7_8FootprintBinding": "missing-unknown",
+    "roofAndRear": "missing-unknown"
+  },
+  "modelingBoundary": {
+    "compoundIsNotOneHall": true,
+    "childrenRequired": ["building-6", "building-7", "building-8", "retained-volumes", "courtyard-site"],
+    "currentLegacyHeroPlanNeedsRecheck": true
+  },
+  "usageBoundary": {
+    "referenceOnly": true,
+    "embedInGlb": false,
+    "runtimeTexture": false
+  }
+}

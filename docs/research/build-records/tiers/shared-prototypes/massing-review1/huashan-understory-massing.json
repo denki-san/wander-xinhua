@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "prototype:vegetation:huashan-understory",
+  "slug": "huashan-understory",
+  "family": "vegetation",
+  "tier": "massing",
+  "status": "gallery-runtime-pass-independent-review-pending",
+  "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+  "generator": "scripts/create_shared_prototype_massing_models.py",
+  "evidence": "species-unknown-runtime-envelope",
+  "instanceCount": 73,
+  "outputs": {
+    "blend": "assets/models/source/tiers/shared-prototypes/massing/huashan-understory-massing.blend",
+    "glb": "public/models/tiers/shared-prototypes/massing/huashan-understory-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_huashan-understory-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/shared-prototypes/test_huashan-understory-massing-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "391d8c7267a01b98716f8e362f4e6a022f5856257a14fcc33bfc22e52d1e6ab9",
+    "bytes": 7808,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 60,
+    "bounds": {
+      "min": [
+        -0.910321,
+        -0.06,
+        -0.517852
+      ],
+      "max": [
+        0.858766,
+        1.08,
+        0.522333
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": "gallery-runtime-pass-independent-review-pending",
+  "identityAllowed": false,
+  "qualityBoundary": {
+    "observed": [
+      "prototype envelope and current runtime scale language"
+    ],
+    "inferred": [
+      "simplified massing component dimensions"
+    ],
+    "unknown": [
+      "manufacturer or species where not explicitly confirmed",
+      "surveyed dimensions",
+      "current per-instance field condition"
+    ]
+  },
+  "runtimeQa": {
+    "file": "docs/research/shared-prototypes-massing-runtime-qa.json",
+    "screenshot": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs.png",
+    "galleryLoadAndRender": "pass",
+    "independentReview": "pending"
+  }
+}

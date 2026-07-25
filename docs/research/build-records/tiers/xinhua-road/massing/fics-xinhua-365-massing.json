@@ -1,0 +1,187 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:fics-xinhua-365",
+  "tier": "massing",
+  "status": "massing-rebuild-required-independent-review",
+  "generator": "scripts/create_xinhua_road_massing_models.py",
+  "sourceHero": {
+    "path": "public/models/requested-pois/fics-xinhua-365.glb",
+    "sha256": "ad02c2461b5633514713f3376d308d5478888ed03a701bc79b5c98bd95639c19",
+    "importedBounds": {
+      "min": [
+        -21.25,
+        -13.242599,
+        -0.025
+      ],
+      "max": [
+        23.5,
+        22.200001,
+        12.4
+      ]
+    },
+    "heightProxySceneUnits": 12.425,
+    "evidenceBoundary": "legacy-or-v2-hero-derived-height-not-real-measurement"
+  },
+  "sourcePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "position": [
+    -76.1,
+    75.2
+  ],
+  "yaw": -0.38,
+  "runtimeScale": 0.9,
+  "localBounds": {
+    "minX": -21.25,
+    "maxX": 23.5,
+    "minZ": -22.200001,
+    "maxZ": 13.242599
+  },
+  "localObstacles": [
+    {
+      "minX": 4.1,
+      "maxX": 19.9,
+      "minZ": -5,
+      "maxZ": 5
+    },
+    {
+      "minX": 1.6,
+      "maxX": 7,
+      "minZ": -5.3,
+      "maxZ": 1.9
+    },
+    {
+      "minX": 0.5,
+      "maxX": 23.5,
+      "minZ": 9.2,
+      "maxZ": 10.4
+    },
+    {
+      "minX": -21.25,
+      "maxX": -5.5,
+      "minZ": -13.8,
+      "maxZ": -2.6
+    },
+    {
+      "minX": -21.1,
+      "maxX": -4.9,
+      "minZ": 4.9,
+      "maxZ": 13.1
+    },
+    {
+      "minX": -19.2,
+      "maxX": 10.2,
+      "minZ": -21.7,
+      "maxZ": -14.3
+    }
+  ],
+  "roofProfile": "mixed",
+  "proxyMethod": "voxel-remesh-current-hero",
+  "pruning": {
+    "removedFaces": 13224,
+    "removedMaterials": [
+      "FICS六边形紫",
+      "FICS六边形红",
+      "FICS六边形黄",
+      "FICS广场铺地",
+      "FICS标识暖白",
+      "FICS树干",
+      "FICS树阵",
+      "FICS浅绿",
+      "FICS铺装缝",
+      "FICS黑钢",
+      "新华公馆庭院",
+      "新华公馆浅绿",
+      "新华公馆砖缝",
+      "新华公馆绿篱",
+      "新华公馆铁艺",
+      "新华公馆铺装缝",
+      "新华公馆门灯"
+    ],
+    "rule": "material-name-denylist-before-voxel-remesh"
+  },
+  "voxelSizeSceneUnits": 1.063095,
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/fics-xinhua-365-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing/fics-xinhua-365-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/test_fics-xinhua-365-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/test_fics-xinhua-365-massing-side.png",
+      "threejs": "test_artifacts/all-models/massing/test_fics-xinhua-365-massing-threejs.png"
+    }
+  },
+  "glb": {
+    "sha256": "315f744053cf5fd4a8e056930fec13dc4774eedad44e5613f7831e69d4f03640",
+    "bytes": 92372,
+    "nodes": 1,
+    "meshes": 1,
+    "images": 0,
+    "textures": 0,
+    "materials": 1,
+    "triangles": 900,
+    "expectedMaximumTriangles": 1200,
+    "bounds": {
+      "min": [
+        -21.26347,
+        -0.199681,
+        -21.98502
+      ],
+      "max": [
+        23.264612,
+        12.401379,
+        13.204624
+      ]
+    },
+    "auditStatus": "ok"
+  },
+  "editableSourceBounds": {
+    "min": [
+      -21.26347,
+      -13.204624,
+      -0.199681
+    ],
+    "max": [
+      23.264612,
+      21.98502,
+      12.401379
+    ]
+  },
+  "qualityBoundary": {
+    "observed": [
+      "runtime local bounds",
+      "runtime split obstacles",
+      "current hero imported bounds"
+    ],
+    "inferred": [
+      "per-block height proxy"
+    ],
+    "unknown": [
+      "surveyed height",
+      "entrance direction",
+      "unseen facade and roof"
+    ]
+  },
+  "runtimeGate": {
+    "status": "blocked-rebuild-required",
+    "validatedAt": "2026-07-25",
+    "route": "/?start=fics365&qaModelTier=massing&cameraQa=1",
+    "screenshot": "test_artifacts/all-models/massing/test_fics-xinhua-365-massing-threejs.png",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "buildMode": "vite-static-production-preview",
+    "pageVisibility": "visible",
+    "playable": true,
+    "canvasCount": 1,
+    "cameraMode": "spring-clear",
+    "blockerId": "none",
+    "visualStatus": "pass",
+    "independentReviewStatus": "rebuild-required",
+    "requiredActions": [
+      "按五个子楼、入口和庭院分体重建",
+      "消除巨大空白背墙主导和左侧裁切",
+      "闭合 compound footprint 与入口朝向"
+    ],
+    "mapAcceptance": "required-before-formal-pass"
+  }
+}

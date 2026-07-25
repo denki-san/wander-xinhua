@@ -63,9 +63,12 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(world, /function OverviewCamera/);
   assert.match(world, /target\.copy\(focus\.current\)/);
   assert.match(world, /cameraFocus\.current\.copy\(position\.current\)/);
-  assert.match(world, /<OverviewCamera active=\{overview\} focus=\{overviewCameraFocus\} \/>/);
+  assert.match(
+    world,
+    /<OverviewCamera[\s\S]*?active=\{overview && !isolatedPrototypeQa\}[\s\S]*?focus=\{overviewCameraFocus\}/,
+  );
   assert.ok(
-    world.indexOf("<OverviewWanderer") < world.indexOf("<OverviewCamera active={overview}"),
+    world.indexOf("<OverviewWanderer") < world.indexOf("<OverviewCamera"),
     "全览人物必须先更新位置，镜头再在同一帧跟随，避免人物偏离中心一帧",
   );
   assert.match(world, /camera\.position\.copy\(desired\)/);
@@ -75,7 +78,10 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(world, /showDetailModels=\{mode !== "intro"\}/);
   assert.match(world, /showDetailLabels=\{false\}/);
   assert.match(world, /showDetailModels && networkProfile === "standard" \? \(/);
-  assert.match(world, /<ShangshengXinsuoBlock[\s\S]*?stage=\{shangshengTier\}/);
+  assert.match(
+    world,
+    /<ShangshengXinsuoBlock[\s\S]*?facilityPrototypeMapQaId\?\.startsWith\("shangsheng-"\)[\s\S]*?\? "full"[\s\S]*?: shangshengTier/,
+  );
   assert.match(world, /<ProgressiveXinhuaRoadFullLayer/);
   assert.match(world, /progressiveFocus=\{progressiveFocus\}/);
   assert.match(world, /landmarkLoadMode=\{exploring \? "explore" : "overview"\}/);

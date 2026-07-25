@@ -1,0 +1,207 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "status": "isolated-gallery-runtime-load-and-material-visual-pass-map-gates-pending",
+  "buildMode": "vite-static-production-preview",
+  "previewOrigin": "http://127.0.0.1:4174",
+  "cacheDisabled": true,
+  "warmupMs": 1500,
+  "samplingDurationMs": 0,
+  "visibilityState": "visible",
+  "formalIdentityPassCount": 0,
+  "mapPlacement": "not-tested",
+  "collisionAndPassage": "not-tested",
+  "performance": "isolated-resource-timing-only-no-map-baseline",
+  "consoleEvidenceBoundary": "DevTools logs were queried after both routes and filtered to the 4174 preview origin; no error entries were present.",
+  "networkLoadingBoundary": "Both visual groups preload all 8 Identity GLBs; these timings are not evidence of group-isolated loading or an optimization.",
+  "groups": {
+    "vegetation": {
+      "state": {
+        "canvasCount": 1,
+        "devicePixelRatio": 2,
+        "group": "vegetation",
+        "mode": "xinhua-stage is-overview is-playing",
+        "qa": "true",
+        "stage": "playable",
+        "tier": "identity",
+        "url": "http://127.0.0.1:4174/?qaSharedPrototypeTier=identity&qaSharedPrototypeGroup=vegetation",
+        "viewport": [
+          1280,
+          720
+        ],
+        "visibilityState": "visible"
+      },
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/xinhua-plane-tree-identity.glb?v=8f8707bd9310",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 68384,
+          "encodedBodySize": 68084,
+          "decodedBodySize": 68084,
+          "duration": 11.399999976158142
+        },
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/lane-lamp-short-arm-identity.glb?v=f848fe9a86f7",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 13164,
+          "encodedBodySize": 12864,
+          "decodedBodySize": 12864,
+          "duration": 10.199999988079071
+        },
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/cantilever-umbrella-identity.glb?v=92e0484fa923",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 13488,
+          "encodedBodySize": 13188,
+          "decodedBodySize": 13188,
+          "duration": 10.199999988079071
+        },
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/outdoor-table-set-identity.glb?v=73fb2d36d73b",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 24096,
+          "encodedBodySize": 23796,
+          "decodedBodySize": 23796,
+          "duration": 10.199999988079071
+        },
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/slatted-bench-identity.glb?v=e537d541c410",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 13340,
+          "encodedBodySize": 13040,
+          "decodedBodySize": 13040,
+          "duration": 10.399999976158142
+        },
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/rectangular-planter-identity.glb?v=1f7dfd72af3b",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 14488,
+          "encodedBodySize": 14188,
+          "decodedBodySize": 14188,
+          "duration": 11.600000023841858
+        },
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/shanghai-dual-classification-bin-identity.glb?v=fe65c61f54ca",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 12596,
+          "encodedBodySize": 12296,
+          "decodedBodySize": 12296,
+          "duration": 12.699999988079071
+        },
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/irregular-stone-bollard-identity.glb?v=5233bf658e2b",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 2592,
+          "encodedBodySize": 2292,
+          "decodedBodySize": 2292,
+          "duration": 12.400000035762787
+        }
+      ],
+      "runtimeErrors": [],
+      "consoleErrors": [],
+      "screenshot": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-threejs-vegetation.jpg"
+    },
+    "streetFurniture": {
+      "state": {
+        "canvasCount": 1,
+        "devicePixelRatio": 2,
+        "group": "street-furniture",
+        "mode": "xinhua-stage is-overview is-playing",
+        "qa": "true",
+        "stage": "playable",
+        "tier": "identity",
+        "url": "http://127.0.0.1:4174/?qaSharedPrototypeTier=identity&qaSharedPrototypeGroup=street-furniture",
+        "viewport": [
+          1280,
+          720
+        ],
+        "visibilityState": "visible"
+      },
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/xinhua-plane-tree-identity.glb?v=8f8707bd9310",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 68384,
+          "encodedBodySize": 68084,
+          "decodedBodySize": 68084,
+          "duration": 11.299999952316284
+        },
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/lane-lamp-short-arm-identity.glb?v=f848fe9a86f7",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 13164,
+          "encodedBodySize": 12864,
+          "decodedBodySize": 12864,
+          "duration": 11.399999976158142
+        },
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/cantilever-umbrella-identity.glb?v=92e0484fa923",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 13488,
+          "encodedBodySize": 13188,
+          "decodedBodySize": 13188,
+          "duration": 12.5
+        },
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/outdoor-table-set-identity.glb?v=73fb2d36d73b",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 24096,
+          "encodedBodySize": 23796,
+          "decodedBodySize": 23796,
+          "duration": 11.899999976158142
+        },
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/slatted-bench-identity.glb?v=e537d541c410",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 13340,
+          "encodedBodySize": 13040,
+          "decodedBodySize": 13040,
+          "duration": 12.5
+        },
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/rectangular-planter-identity.glb?v=1f7dfd72af3b",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 14488,
+          "encodedBodySize": 14188,
+          "decodedBodySize": 14188,
+          "duration": 12.5
+        },
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/shanghai-dual-classification-bin-identity.glb?v=fe65c61f54ca",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 12596,
+          "encodedBodySize": 12296,
+          "decodedBodySize": 12296,
+          "duration": 13.800000011920929
+        },
+        {
+          "name": "http://127.0.0.1:4174/models/tiers/shared-prototypes/identity/irregular-stone-bollard-identity.glb?v=5233bf658e2b",
+          "responseStatus": 200,
+          "deliveryType": "",
+          "transferSize": 2592,
+          "encodedBodySize": 2292,
+          "decodedBodySize": 2292,
+          "duration": 13.5
+        }
+      ],
+      "runtimeErrors": [],
+      "consoleErrors": [],
+      "screenshot": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-threejs-street-furniture.jpg"
+    }
+  }
+}

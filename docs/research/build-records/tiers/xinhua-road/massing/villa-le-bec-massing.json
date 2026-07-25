@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:villa-le-bec",
+  "tier": "massing",
+  "status": "massing-rebuild-required-independent-review",
+  "generator": "scripts/create_xinhua_road_massing_models.py",
+  "sourceHero": {
+    "path": "public/models/xinhua-road/villa-le-bec.glb",
+    "sha256": "620dd38a364140574565aeaaa971148d124e9171698c53c6322b13f967a0b600",
+    "importedBounds": {
+      "min": [
+        -9.5,
+        -10.4,
+        -0.15
+      ],
+      "max": [
+        9.5,
+        6.3,
+        10.360001
+      ]
+    },
+    "heightProxySceneUnits": 10.510001,
+    "evidenceBoundary": "legacy-or-v2-hero-derived-height-not-real-measurement"
+  },
+  "sourcePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "position": [
+    -34.1,
+    88.8
+  ],
+  "yaw": -0.38,
+  "runtimeScale": 0.82,
+  "localBounds": {
+    "minX": -9.5,
+    "maxX": 9.5,
+    "minZ": -6.3,
+    "maxZ": 10.4
+  },
+  "localObstacles": [
+    {
+      "minX": -7.8,
+      "maxX": 7.8,
+      "minZ": -6.2,
+      "maxZ": 5.4
+    }
+  ],
+  "roofProfile": "gable",
+  "proxyMethod": "voxel-remesh-current-hero",
+  "pruning": {
+    "removedFaces": 20728,
+    "removedMaterials": [
+      "LeBec庭院绿植",
+      "LeBec户外木",
+      "LeBec暖光",
+      "LeBec浅绿植",
+      "LeBec深瓦垄",
+      "LeBec遮阳伞",
+      "LeBec铁艺",
+      "LeBec铺装缝"
+    ],
+    "rule": "material-name-denylist-before-voxel-remesh"
+  },
+  "voxelSizeSceneUnits": 0.452381,
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/villa-le-bec-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing/villa-le-bec-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/test_villa-le-bec-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/test_villa-le-bec-massing-side.png",
+      "threejs": "test_artifacts/all-models/massing/test_villa-le-bec-massing-threejs.png"
+    }
+  },
+  "glb": {
+    "sha256": "4535eac7dc9a8c3416cbee4ef8df34c4bb6807dc5c6e79ee451d6df97cfcf239",
+    "bytes": 92548,
+    "nodes": 1,
+    "meshes": 1,
+    "images": 0,
+    "textures": 0,
+    "materials": 1,
+    "triangles": 900,
+    "expectedMaximumTriangles": 1200,
+    "bounds": {
+      "min": [
+        -9.47644,
+        -0.005543,
+        -6.109837
+      ],
+      "max": [
+        9.501203,
+        9.608361,
+        10.189404
+      ]
+    },
+    "auditStatus": "ok"
+  },
+  "editableSourceBounds": {
+    "min": [
+      -9.47644,
+      -10.189404,
+      -0.005543
+    ],
+    "max": [
+      9.501203,
+      6.109837,
+      9.608361
+    ]
+  },
+  "qualityBoundary": {
+    "observed": [
+      "runtime local bounds",
+      "runtime split obstacles",
+      "current hero imported bounds"
+    ],
+    "inferred": [
+      "per-block height proxy"
+    ],
+    "unknown": [
+      "surveyed height",
+      "entrance direction",
+      "unseen facade and roof"
+    ]
+  },
+  "runtimeGate": {
+    "status": "blocked-rebuild-required",
+    "validatedAt": "2026-07-25",
+    "route": "/?start=villa-le-bec&qaModelTier=massing&cameraQa=1",
+    "screenshot": "test_artifacts/all-models/massing/test_villa-le-bec-massing-threejs.png",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "buildMode": "vite-static-production-preview",
+    "pageVisibility": "visible",
+    "playable": true,
+    "canvasCount": 1,
+    "cameraMode": "spring-clear",
+    "blockerId": "none",
+    "visualStatus": "pass",
+    "independentReviewStatus": "rebuild-required",
+    "requiredActions": [
+      "按主别墅、原车库和花园分体重建",
+      "闭合三者 footprint 关系",
+      "改为可读 canonical 正面而非空白背侧墙"
+    ],
+    "mapAcceptance": "required-before-formal-pass"
+  }
+}

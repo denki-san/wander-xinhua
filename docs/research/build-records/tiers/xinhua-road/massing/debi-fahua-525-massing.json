@@ -1,0 +1,174 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:debi-fahua-525",
+  "tier": "massing",
+  "status": "massing-rebuild-required-independent-review",
+  "generator": "scripts/create_xinhua_road_massing_models.py",
+  "sourceHero": {
+    "path": "public/models/requested-pois/debi-fahua-525.glb",
+    "sha256": "1f5af3879410bec374b33183d2a89c01f01b1994b72327b344bb6d792b0a6a56",
+    "importedBounds": {
+      "min": [
+        -14,
+        -12,
+        -0.14
+      ],
+      "max": [
+        14,
+        12,
+        14.05
+      ]
+    },
+    "heightProxySceneUnits": 14.19,
+    "evidenceBoundary": "legacy-or-v2-hero-derived-height-not-real-measurement"
+  },
+  "sourcePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "position": [
+    -102,
+    -49
+  ],
+  "yaw": -2.6,
+  "runtimeScale": 0.92,
+  "localBounds": {
+    "minX": -14,
+    "maxX": 14,
+    "minZ": -12,
+    "maxZ": 12
+  },
+  "localObstacles": [
+    {
+      "minX": -1.8,
+      "maxX": 10.85,
+      "minZ": -9.1,
+      "maxZ": 0
+    },
+    {
+      "minX": -12.4,
+      "maxX": -3.6,
+      "minZ": -7.3,
+      "maxZ": 0.2
+    },
+    {
+      "minX": -11.5,
+      "maxX": 5.5,
+      "minZ": -11.4,
+      "maxZ": -7.4
+    },
+    {
+      "minX": -4.6,
+      "maxX": 1.4,
+      "minZ": 1.45,
+      "maxZ": 5.2
+    },
+    {
+      "minX": -9.1,
+      "maxX": -6.2,
+      "minZ": 7.2,
+      "maxZ": 8.7
+    }
+  ],
+  "roofProfile": "flat",
+  "proxyMethod": "voxel-remesh-current-hero",
+  "pruning": {
+    "removedFaces": 9608,
+    "removedMaterials": [
+      "德必525古树干",
+      "德必525导视橙",
+      "德必525庭院木",
+      "德必525条石",
+      "德必525竹叶",
+      "德必525竹秆",
+      "德必525缘石",
+      "德必525银杏叶",
+      "德必525鱼池",
+      "德必525黑钢"
+    ],
+    "rule": "material-name-denylist-before-voxel-remesh"
+  },
+  "voxelSizeSceneUnits": 0.538287,
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/debi-fahua-525-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing/debi-fahua-525-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/test_debi-fahua-525-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/test_debi-fahua-525-massing-side.png",
+      "threejs": "test_artifacts/all-models/massing/test_debi-fahua-525-massing-threejs.png"
+    }
+  },
+  "glb": {
+    "sha256": "fd9c0ef3c32eff09f2de2082ef1002e229c9a50c4aa5aa69df89850c991a50d0",
+    "bytes": 92616,
+    "nodes": 1,
+    "meshes": 1,
+    "images": 0,
+    "textures": 0,
+    "materials": 1,
+    "triangles": 899,
+    "expectedMaximumTriangles": 1200,
+    "bounds": {
+      "min": [
+        -12.40242,
+        -0.138419,
+        -11.398862
+      ],
+      "max": [
+        10.208042,
+        14.012624,
+        0.341032
+      ]
+    },
+    "auditStatus": "ok"
+  },
+  "editableSourceBounds": {
+    "min": [
+      -12.40242,
+      -0.341032,
+      -0.138419
+    ],
+    "max": [
+      10.208042,
+      11.398862,
+      14.012624
+    ]
+  },
+  "qualityBoundary": {
+    "observed": [
+      "runtime local bounds",
+      "runtime split obstacles",
+      "current hero imported bounds"
+    ],
+    "inferred": [
+      "per-block height proxy"
+    ],
+    "unknown": [
+      "surveyed height",
+      "entrance direction",
+      "unseen facade and roof"
+    ]
+  },
+  "runtimeGate": {
+    "status": "blocked-rebuild-required",
+    "validatedAt": "2026-07-25",
+    "route": "/?start=fahua525&qaModelTier=massing&cameraQa=1",
+    "screenshot": "test_artifacts/all-models/massing/test_debi-fahua-525-massing-threejs.png",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "buildMode": "vite-static-production-preview",
+    "pageVisibility": "visible",
+    "playable": true,
+    "canvasCount": 1,
+    "cameraMode": "spring-clear",
+    "blockerId": "none",
+    "visualStatus": "pass",
+    "independentReviewStatus": "rebuild-required",
+    "requiredActions": [
+      "按五个子 footprint、庭院和通路分体重建",
+      "消除立面 voxel 噪声",
+      "重做能读出组团关系的 canonical 机位"
+    ],
+    "mapAcceptance": "required-before-formal-pass"
+  }
+}

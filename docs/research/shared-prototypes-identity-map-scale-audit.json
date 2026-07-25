@@ -1,0 +1,550 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "status": "all-72-instance-map-scale-and-collision-gates-blocked",
+  "scope": {
+    "prototypeCount": 8,
+    "instanceCount": 72,
+    "xinhuaRoadPlaneTrees": 28,
+    "xingfuliPlaneTrees": 3,
+    "xinhuaRoadStreetFurniture": 19,
+    "xingfuliStreetFurniture": 22
+  },
+  "coordinateContract": {
+    "authoredMetersPerSceneUnit": 2.7,
+    "placementTransformsMustRemainTierStable": true,
+    "xingfuliNonUniformSiteTransformRequiresRuntimeValidation": true
+  },
+  "sources": {
+    "placements": "docs/research/model-placement-registry-20260725.json",
+    "identityManifest": "docs/research/shared-prototypes-identity-manifest.json",
+    "massingManifest": "docs/research/shared-prototypes-massing-manifest.json",
+    "runtimeProcedural": "app/scene/shared-street-assets.tsx",
+    "runtimePlaneTrees": "app/scene/plane-tree-instances.tsx"
+  },
+  "countsByPrototype": {
+    "xinhua-plane-tree": {
+      "total": 31,
+      "sites": {
+        "xinhua-road": 28,
+        "xingfuli": 3
+      },
+      "coordinateSpaces": [
+        "authored-world",
+        "collection-local"
+      ]
+    },
+    "lane-lamp-short-arm": {
+      "total": 17,
+      "sites": {
+        "xinhuaRoad": 11,
+        "xingfuli": 6
+      },
+      "coordinateSpaces": [
+        "authored-world",
+        "collection-local"
+      ]
+    },
+    "rectangular-planter": {
+      "total": 8,
+      "sites": {
+        "xinhuaRoad": 4,
+        "xingfuli": 4
+      },
+      "coordinateSpaces": [
+        "authored-world",
+        "collection-local"
+      ]
+    },
+    "shanghai-dual-classification-bin": {
+      "total": 4,
+      "sites": {
+        "xinhuaRoad": 4
+      },
+      "coordinateSpaces": [
+        "authored-world"
+      ]
+    },
+    "slatted-bench": {
+      "total": 2,
+      "sites": {
+        "xingfuli": 2
+      },
+      "coordinateSpaces": [
+        "collection-local"
+      ]
+    },
+    "cantilever-umbrella": {
+      "total": 2,
+      "sites": {
+        "xingfuli": 2
+      },
+      "coordinateSpaces": [
+        "collection-local"
+      ]
+    },
+    "outdoor-table-set": {
+      "total": 3,
+      "sites": {
+        "xingfuli": 3
+      },
+      "coordinateSpaces": [
+        "collection-local"
+      ]
+    },
+    "irregular-stone-bollard": {
+      "total": 5,
+      "sites": {
+        "xingfuli": 5
+      },
+      "coordinateSpaces": [
+        "collection-local"
+      ]
+    }
+  },
+  "assets": [
+    {
+      "slug": "xinhua-plane-tree",
+      "assetId": "prototype:vegetation:xinhua-plane-tree",
+      "instances": {
+        "total": 31,
+        "sites": {
+          "xinhua-road": 28,
+          "xingfuli": 3
+        },
+        "coordinateSpaces": [
+          "authored-world",
+          "collection-local"
+        ]
+      },
+      "massingEnvelope": [
+        3.6523,
+        6.25,
+        2.5165
+      ],
+      "identityEnvelope": [
+        5.2361,
+        7.0479,
+        4.1301
+      ],
+      "currentRuntimeHeroEnvelopes": [
+        {
+          "variant": "a",
+          "file": "public/models/xinhua-road/plane-tree-a.glb",
+          "bounds": [
+            7.7974,
+            9.6607,
+            5.7525
+          ],
+          "ratioToIdentity": [
+            1.489,
+            1.371,
+            1.393
+          ]
+        },
+        {
+          "variant": "b",
+          "file": "public/models/xinhua-road/plane-tree-b.glb",
+          "bounds": [
+            7.93,
+            9.9087,
+            4.9143
+          ],
+          "ratioToIdentity": [
+            1.514,
+            1.406,
+            1.19
+          ]
+        },
+        {
+          "variant": "c",
+          "file": "public/models/xinhua-road/plane-tree-c.glb",
+          "bounds": [
+            8.2792,
+            10.2469,
+            5.3988
+          ],
+          "ratioToIdentity": [
+            1.581,
+            1.454,
+            1.307
+          ]
+        }
+      ],
+      "transformAudit": {
+        "stableAcrossCurrentIdentityAndHero": false,
+        "heroToIdentityHeightRatioRange": [
+          1.371,
+          1.454
+        ],
+        "mapScaleGate": "blocked",
+        "reason": "The same per-instance scale produces materially different crown and height envelopes across current Identity and legacy Hero."
+      },
+      "collisionAudit": {
+        "passCount": 0,
+        "status": "pending-common-tier-collision-proxy-and-map-walkaround"
+      }
+    },
+    {
+      "slug": "lane-lamp-short-arm",
+      "assetId": "prototype:street-furniture:lane-lamp-short-arm",
+      "instances": {
+        "total": 17,
+        "sites": {
+          "xinhuaRoad": 11,
+          "xingfuli": 6
+        },
+        "coordinateSpaces": [
+          "authored-world",
+          "collection-local"
+        ]
+      },
+      "massingEnvelope": [
+        0.2815,
+        1.2444,
+        0.1407
+      ],
+      "identityEnvelope": [
+        0.3468,
+        1.24,
+        0.17
+      ],
+      "currentRuntimeProcedural": {
+        "envelope": [
+          0.78,
+          3.36,
+          0.38
+        ],
+        "source": "app/scene/shared-street-assets.tsx#HeritageLaneLamp",
+        "collision": "base-only",
+        "basis": "procedural mesh extrema, rounded to 0.01 scene unit"
+      },
+      "currentRuntimeToIdentityRatio": [
+        2.249,
+        2.71,
+        2.235
+      ],
+      "transformAudit": {
+        "stableAcrossCurrentIdentityAndRuntimeProcedural": false,
+        "mapScaleGate": "blocked",
+        "reason": "The current procedural prototype and the new Identity GLB do not share one authored envelope under the same placement transform."
+      },
+      "collisionAudit": {
+        "passCount": 0,
+        "status": "blocked-missing-or-base-only-proxy"
+      }
+    },
+    {
+      "slug": "cantilever-umbrella",
+      "assetId": "prototype:street-furniture:cantilever-umbrella",
+      "instances": {
+        "total": 2,
+        "sites": {
+          "xingfuli": 2
+        },
+        "coordinateSpaces": [
+          "collection-local"
+        ]
+      },
+      "massingEnvelope": [
+        1.3296,
+        0.9519,
+        1.3185
+      ],
+      "identityEnvelope": [
+        1.2503,
+        1,
+        0.9334
+      ],
+      "currentRuntimeProcedural": {
+        "envelope": [
+          3.56,
+          2.57,
+          3.56
+        ],
+        "source": "app/scene/shared-street-assets.tsx#CantileverCafeUmbrella",
+        "collision": "none",
+        "basis": "procedural canopy radius and vertical extrema"
+      },
+      "currentRuntimeToIdentityRatio": [
+        2.847,
+        2.57,
+        3.814
+      ],
+      "transformAudit": {
+        "stableAcrossCurrentIdentityAndRuntimeProcedural": false,
+        "mapScaleGate": "blocked",
+        "reason": "The current procedural prototype and the new Identity GLB do not share one authored envelope under the same placement transform."
+      },
+      "collisionAudit": {
+        "passCount": 0,
+        "status": "blocked-missing-or-base-only-proxy"
+      }
+    },
+    {
+      "slug": "outdoor-table-set",
+      "assetId": "prototype:street-furniture:outdoor-table-set",
+      "instances": {
+        "total": 3,
+        "sites": {
+          "xingfuli": 3
+        },
+        "coordinateSpaces": [
+          "collection-local"
+        ]
+      },
+      "massingEnvelope": [
+        0.8889,
+        0.3963,
+        0.8444
+      ],
+      "identityEnvelope": [
+        0.86,
+        0.41,
+        0.86
+      ],
+      "currentRuntimeProcedural": {
+        "envelope": [
+          2.4,
+          1.07,
+          2.2
+        ],
+        "source": "app/scene/shared-street-assets.tsx#OutdoorDiningSet",
+        "collision": "explicit-box",
+        "basis": "declared footprint and tallest chair extrema"
+      },
+      "currentRuntimeToIdentityRatio": [
+        2.791,
+        2.61,
+        2.558
+      ],
+      "transformAudit": {
+        "stableAcrossCurrentIdentityAndRuntimeProcedural": false,
+        "mapScaleGate": "blocked",
+        "reason": "The current procedural prototype and the new Identity GLB do not share one authored envelope under the same placement transform."
+      },
+      "collisionAudit": {
+        "passCount": 0,
+        "status": "pending-proxy-reconciliation-and-map-walkaround"
+      }
+    },
+    {
+      "slug": "slatted-bench",
+      "assetId": "prototype:street-furniture:slatted-bench",
+      "instances": {
+        "total": 2,
+        "sites": {
+          "xingfuli": 2
+        },
+        "coordinateSpaces": [
+          "collection-local"
+        ]
+      },
+      "massingEnvelope": [
+        0.7704,
+        0.3778,
+        0.2407
+      ],
+      "identityEnvelope": [
+        0.77,
+        0.4675,
+        0.3
+      ],
+      "currentRuntimeProcedural": {
+        "envelope": [
+          2.35,
+          0.93,
+          0.82
+        ],
+        "source": "app/scene/shared-street-assets.tsx#SlattedBench",
+        "collision": "explicit-box",
+        "basis": "declared footprint and highest back slat"
+      },
+      "currentRuntimeToIdentityRatio": [
+        3.052,
+        1.989,
+        2.733
+      ],
+      "transformAudit": {
+        "stableAcrossCurrentIdentityAndRuntimeProcedural": false,
+        "mapScaleGate": "blocked",
+        "reason": "The current procedural prototype and the new Identity GLB do not share one authored envelope under the same placement transform."
+      },
+      "collisionAudit": {
+        "passCount": 0,
+        "status": "pending-proxy-reconciliation-and-map-walkaround"
+      }
+    },
+    {
+      "slug": "rectangular-planter",
+      "assetId": "prototype:street-furniture:rectangular-planter",
+      "instances": {
+        "total": 8,
+        "sites": {
+          "xinhuaRoad": 4,
+          "xingfuli": 4
+        },
+        "coordinateSpaces": [
+          "authored-world",
+          "collection-local"
+        ]
+      },
+      "massingEnvelope": [
+        0.6402,
+        0.5333,
+        0.2772
+      ],
+      "identityEnvelope": [
+        0.6899,
+        0.72,
+        0.2786
+      ],
+      "currentRuntimeProcedural": {
+        "envelopeRange": {
+          "min": [
+            0.62,
+            1.36,
+            0.54
+          ],
+          "max": [
+            1.4,
+            1.53,
+            0.72
+          ]
+        },
+        "source": "app/scene/shared-street-assets.tsx#StreetPlanter/StreetPlanterInstances",
+        "collision": "base-only-or-none",
+        "basis": "square, tall, long and instanced procedural variants"
+      },
+      "currentRuntimeToIdentityRatio": [
+        2.029,
+        2.125,
+        2.584
+      ],
+      "transformAudit": {
+        "stableAcrossCurrentIdentityAndRuntimeProcedural": false,
+        "mapScaleGate": "blocked",
+        "reason": "The current procedural prototype and the new Identity GLB do not share one authored envelope under the same placement transform."
+      },
+      "collisionAudit": {
+        "passCount": 0,
+        "status": "blocked-missing-or-base-only-proxy"
+      }
+    },
+    {
+      "slug": "shanghai-dual-classification-bin",
+      "assetId": "prototype:street-furniture:shanghai-dual-classification-bin",
+      "instances": {
+        "total": 4,
+        "sites": {
+          "xinhuaRoad": 4
+        },
+        "coordinateSpaces": [
+          "authored-world"
+        ]
+      },
+      "massingEnvelope": [
+        0.3333,
+        0.3407,
+        0.1704
+      ],
+      "identityEnvelope": [
+        0.37,
+        0.3725,
+        0.223
+      ],
+      "currentRuntimeProcedural": {
+        "envelope": [
+          0.9,
+          0.91,
+          0.46
+        ],
+        "source": "app/scene/shared-street-assets.tsx#StreetBinInstances",
+        "collision": "none",
+        "basis": "instanced body and cap extrema"
+      },
+      "currentRuntimeToIdentityRatio": [
+        2.432,
+        2.443,
+        2.063
+      ],
+      "transformAudit": {
+        "stableAcrossCurrentIdentityAndRuntimeProcedural": false,
+        "mapScaleGate": "blocked",
+        "reason": "The current procedural prototype and the new Identity GLB do not share one authored envelope under the same placement transform."
+      },
+      "collisionAudit": {
+        "passCount": 0,
+        "status": "blocked-missing-or-base-only-proxy"
+      }
+    },
+    {
+      "slug": "irregular-stone-bollard",
+      "assetId": "prototype:street-furniture:irregular-stone-bollard",
+      "instances": {
+        "total": 5,
+        "sites": {
+          "xingfuli": 5
+        },
+        "coordinateSpaces": [
+          "collection-local"
+        ]
+      },
+      "massingEnvelope": [
+        0.2821,
+        0.2148,
+        0.2363
+      ],
+      "identityEnvelope": [
+        0.71,
+        0.56,
+        0.61
+      ],
+      "currentRuntimeProcedural": {
+        "envelope": [
+          1.6,
+          1.45,
+          1.35
+        ],
+        "source": "app/scene/shared-street-assets.tsx#IrregularStoneBollards",
+        "collision": "base-only",
+        "basis": "unscaled base geometry before per-instance scale"
+      },
+      "currentRuntimeToIdentityRatio": [
+        2.254,
+        2.589,
+        2.213
+      ],
+      "transformAudit": {
+        "stableAcrossCurrentIdentityAndRuntimeProcedural": false,
+        "mapScaleGate": "blocked",
+        "reason": "The current procedural prototype and the new Identity GLB do not share one authored envelope under the same placement transform."
+      },
+      "collisionAudit": {
+        "passCount": 0,
+        "status": "blocked-missing-or-base-only-proxy"
+      }
+    }
+  ],
+  "decisions": {
+    "runtimePlacementsChanged": 0,
+    "identityPromotedToProductionMap": 0,
+    "mapScalePassCount": 0,
+    "yawPassCount": 0,
+    "collisionAndPassagePassCount": 0,
+    "formalIdentityPassCount": 0
+  },
+  "blockers": [
+    "Legacy runtime procedural envelopes are not transform-compatible with the new Identity GLBs.",
+    "The three legacy plane-tree Hero variants are 1.371–1.454 times the Identity height under the same instance scale.",
+    "Xingfuli applies non-uniform site scaling, so local screenshots cannot prove world scale or clearance.",
+    "No per-instance field measurement or map walkaround currently authorizes a global rescale.",
+    "Collision proxies are missing, base-only, or not reconciled to the new Identity bounds."
+  ],
+  "nextGate": [
+    "Render the Identity GLBs at all 72 registered transforms in real map QA pages without changing production placements.",
+    "Capture site/group and representative close views with deterministic cameras.",
+    "Choose one common authored envelope per prototype from evidence, then migrate legacy fallback/Hero or placement scale once.",
+    "Regenerate collision proxies from the selected common envelope and run deterministic walkaround paths."
+  ]
+}

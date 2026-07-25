@@ -1,0 +1,169 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:shangsheng:osm-way-864847877",
+  "tier": "massing",
+  "batch": "sun-ke-villa-structured-named-landmark",
+  "status": "formal-pass-mcp-and-map-calibrated",
+  "generator": "scripts/create_shangsheng_huashan_massing_models.py",
+  "modelBrief": "docs/research/shangsheng-huashan-massing-model-brief.md",
+  "geometrySpec": "docs/research/shangsheng-huashan-clean-massing-geometry-spec.json",
+  "sourceWayId": 864847877,
+  "sourceFootprint": [
+    [
+      47.62739,
+      -160.1479
+    ],
+    [
+      55.45597,
+      -160.22159
+    ],
+    [
+      55.50534,
+      -154.69049
+    ],
+    [
+      47.67676,
+      -154.6209
+    ]
+  ],
+  "localFootprint": [
+    [
+      -3.91582,
+      -2.762559
+    ],
+    [
+      3.913068,
+      -2.76667
+    ],
+    [
+      3.91577,
+      2.76465
+    ],
+    [
+      -3.913157,
+      2.76466
+    ]
+  ],
+  "footprintAreaSqMeters": 315.6,
+  "trianglesFromPolygon": 12,
+  "trianglesTotal": 252,
+  "massingGeometry": {
+    "type": "structured-named-landmark",
+    "majorVolumes": [
+      "exact-osm-main-footprint-socle",
+      "central-residence",
+      "lower-west-wing",
+      "rounded-east-tower",
+      "staggered-gable-roofs",
+      "front-dormer",
+      "chimney",
+      "north-protruding-porte-cochere"
+    ],
+    "walkableVoid": "porte-cochere-center-lane-open-between-local-columns",
+    "projectionEvidence": "user-provided-north-porte-cochere-reference-20260725"
+  },
+  "placement": {
+    "sitePosition": [
+      8.3149,
+      -147.5366
+    ],
+    "localPosition": [
+      43.2515,
+      -9.8836
+    ],
+    "worldPivot": [
+      51.5664,
+      -157.4202
+    ],
+    "sourceCentroid": [
+      51.56685,
+      -157.42023
+    ],
+    "maximumVertexRoundtripErrorSceneUnits": 0.0,
+    "yaw": 0.009414,
+    "runtimeScale": [
+      1,
+      1,
+      1
+    ],
+    "movementAuthorized": false
+  },
+  "heightEvidence": {
+    "meters": 13.635,
+    "sceneUnits": 5.05,
+    "measuredHeightMeters": null,
+    "source": "sun-ke-villa-three-view-visual-inference-plus-existing-v2-envelope",
+    "isEvidence": false,
+    "status": "inferred-not-surveyed"
+  },
+  "canonicalFront": "garden-facade-local-three-plus-z-world-south-facing",
+  "evidenceGate": {
+    "massing": "required-structured-major-volumes-plus-exact-main-footprint-and-open-north-porte-cochere",
+    "identity": "allowed-only-after-map-pass-and-hero-master-sha-freeze",
+    "hero": "existing-v2-may-be-retained-after-graybox-runtime-gate-and-build-record",
+    "canonicalFront": "garden-facade-local-three-plus-z-world-south-facing",
+    "canonicalFrontEvidence": "official-garden-front-photo-opposite-official-north-entrance",
+    "entranceDirection": "north-entrance-local-three-minus-z-world-north-facing",
+    "directionStatus": "closed-from-opposing-official-facade-views-and-runtime-axis-contract"
+  },
+  "identityAllowed": true,
+  "blenderMcpGate": {
+    "status": "pass",
+    "record": "docs/research/sun-ke-villa-blender-mcp-gates-v2.json",
+    "interactiveReview": "blender-mcp",
+    "acceptedInteractiveChanges": []
+  },
+  "mapAcceptance": "pass-with-inferred-height",
+  "runtimeGate": "pass",
+  "outputs": {
+    "blend": "assets/models/source/tiers/shangsheng-huashan/massing/osm-way-864847877-massing.blend",
+    "glb": "public/models/tiers/shangsheng-huashan/massing/osm-way-864847877-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/shangsheng-huashan/test_osm-way-864847877-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/shangsheng-huashan/test_osm-way-864847877-massing-side.png",
+      "mcpCanonical": "test_artifacts/all-models/massing/sun-ke-villa/test_sun-ke-villa-massing-mcp-canonical.png",
+      "mcpSideDepth": "test_artifacts/all-models/massing/sun-ke-villa/test_sun-ke-villa-massing-mcp-side-depth.png",
+      "mcpNorthEntrance": "test_artifacts/all-models/massing/sun-ke-villa/test_sun-ke-villa-massing-mcp-north-entrance.png",
+      "mapSouth": "test_artifacts/all-models/massing/sun-ke-villa/test_sun-ke-villa-massing-map-south-mcp.png",
+      "mapNorth": "test_artifacts/all-models/massing/sun-ke-villa/test_sun-ke-villa-massing-map-north-mcp.png",
+      "threeJsNorth": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-massing-threejs-north.png"
+    },
+    "mapQa": "docs/research/sun-ke-villa-massing-map-qa-v2.json",
+    "threeTierRuntimeQa": "docs/research/sun-ke-villa-three-tier-runtime-qa-v2.json"
+  },
+  "glb": {
+    "sha256": "f233f9defd2196025dcb104fcccd8147df8327ccd638cff803ef8f9a7e3e50d0",
+    "bytes": 19988,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 2,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "triangles": 252,
+    "bounds": {
+      "min": [
+        -3.94,
+        0,
+        -4.93
+      ],
+      "max": [
+        3.91577,
+        5.05,
+        2.76667
+      ]
+    },
+    "transformedNodes": []
+  },
+  "mapQa": {
+    "mapPosition": "pass",
+    "mapScale": "pass-with-inferred-height",
+    "mapOrientation": "pass",
+    "groundContact": "pass",
+    "collision": "pass",
+    "runtimeLoad": "pass",
+    "final": "pass"
+  },
+  "nextGate": "minimal-vertical-pilot-complete-select-next-active31-asset"
+}

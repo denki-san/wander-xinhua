@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:house-315",
+  "tier": "massing",
+  "status": "blender-and-glb-generated-runtime-gate-pending",
+  "generator": "scripts/create_xinhua_road_massing_models.py",
+  "sourceHero": {
+    "path": "public/models/xinhua-road/house-315.glb",
+    "sha256": "9d407a35c10bfa232d2a5a91ecae4886a9b146cdabec801319c7dc5530b67b07",
+    "importedBounds": {
+      "min": [
+        -9.25,
+        -9.5,
+        -0.055
+      ],
+      "max": [
+        9.25,
+        6.7,
+        9.99
+      ]
+    },
+    "heightProxySceneUnits": 10.045,
+    "evidenceBoundary": "legacy-or-v2-hero-derived-height-not-real-measurement"
+  },
+  "sourcePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "position": [
+    -23.03,
+    85.67
+  ],
+  "yaw": -0.38,
+  "runtimeScale": 0.9,
+  "localBounds": {
+    "minX": -9.25,
+    "maxX": 9.25,
+    "minZ": -6.7,
+    "maxZ": 9.5
+  },
+  "localObstacles": [
+    {
+      "minX": -7.3,
+      "maxX": 5.4,
+      "minZ": -5.0,
+      "maxZ": 5.6
+    }
+  ],
+  "roofProfile": "gable",
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/house-315-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing/house-315-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/test_house-315-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/test_house-315-massing-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "c8397af1c821cec62806d3a3b613b2ee4057ca0c91311e9ee294e19059ee44b0",
+    "bytes": 3360,
+    "images": 0,
+    "materials": 1,
+    "expectedMaximumTriangles": 1200
+  },
+  "qualityBoundary": {
+    "observed": [
+      "runtime local bounds",
+      "runtime split obstacles",
+      "current hero imported bounds"
+    ],
+    "inferred": [
+      "per-block height proxy"
+    ],
+    "unknown": [
+      "surveyed height",
+      "entrance direction",
+      "unseen facade and roof"
+    ]
+  },
+  "runtimeGate": "pending-real-start-page-with-qaModelTier=massing"
+}

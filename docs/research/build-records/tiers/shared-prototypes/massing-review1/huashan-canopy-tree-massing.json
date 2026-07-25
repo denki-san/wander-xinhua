@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "prototype:vegetation:huashan-canopy-tree",
+  "slug": "huashan-canopy-tree",
+  "family": "vegetation",
+  "tier": "massing",
+  "status": "gallery-runtime-pass-independent-review-pending",
+  "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+  "generator": "scripts/create_shared_prototype_massing_models.py",
+  "evidence": "species-unknown-runtime-envelope",
+  "instanceCount": 112,
+  "outputs": {
+    "blend": "assets/models/source/tiers/shared-prototypes/massing/huashan-canopy-tree-massing.blend",
+    "glb": "public/models/tiers/shared-prototypes/massing/huashan-canopy-tree-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_huashan-canopy-tree-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/shared-prototypes/test_huashan-canopy-tree-massing-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "9d5fca57ec81ed6f95919425f2b3bce3539a4d2b617a0565650d0dc4a371d1c0",
+    "bytes": 9496,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 88,
+    "bounds": {
+      "min": [
+        -2.306359,
+        0,
+        -1.598364
+      ],
+      "max": [
+        2.313191,
+        5.58,
+        1.120768
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": "gallery-runtime-pass-independent-review-pending",
+  "identityAllowed": false,
+  "qualityBoundary": {
+    "observed": [
+      "prototype envelope and current runtime scale language"
+    ],
+    "inferred": [
+      "simplified massing component dimensions"
+    ],
+    "unknown": [
+      "manufacturer or species where not explicitly confirmed",
+      "surveyed dimensions",
+      "current per-instance field condition"
+    ]
+  },
+  "runtimeQa": {
+    "file": "docs/research/shared-prototypes-massing-runtime-qa.json",
+    "screenshot": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs.png",
+    "galleryLoadAndRender": "pass",
+    "independentReview": "pending"
+  }
+}

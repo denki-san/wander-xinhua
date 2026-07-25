@@ -43,6 +43,7 @@ import {
   HUASHAN_GREEN_CAMERA_OBSTACLES,
   HUASHAN_GREEN_OBSTACLES,
   HUASHAN_GREEN_POSITION,
+  huashanMassingQaFrame,
 } from "./huashan-green-block";
 import {
   ShangshengXinsuoBlock,
@@ -50,6 +51,7 @@ import {
   SHANGSHENG_XINSUO_CAMERA_OBSTACLES,
   SHANGSHENG_XINSUO_OBSTACLES,
   SHANGSHENG_XINSUO_POSITION,
+  shangshengMassingQaFrame,
 } from "./shangsheng-xinsuo-block";
 import {
   XingfuliBlock,
@@ -58,10 +60,28 @@ import {
 } from "./xingfuli-block";
 import {
   XINHUA_ROAD_CAMERA_OBSTACLES,
+  XINHUA_ROAD_LANDMARKS,
   XINHUA_ROAD_OBSTACLES,
+  XINHUA_ROAD_OBSTACLES_BY_LANDMARK_ID,
   XINHUA_ROAD_START_PRESETS,
 } from "./xinhua-road-contract";
 import { XinhuaRoadMassing } from "./xinhua-road-massing";
+import { OsmOrdinaryMassingQaLayer } from "./osm-ordinary-massing";
+import {
+  SharedPrototypeMassingQaCamera,
+  SharedPrototypeMassingQaScene,
+  type SharedPrototypeQaGroup,
+} from "./shared-prototype-massing";
+import {
+  SharedPrototypeIdentityQaCamera,
+  SharedPrototypeIdentityQaScene,
+} from "./shared-prototype-identity";
+import {
+  FacilityPrototypeMassingMapAsset,
+  FacilityPrototypeMassingQaCamera,
+  FacilityPrototypeMassingQaScene,
+  facilityPrototypeMassingMapFrame,
+} from "./facility-prototype-massing";
 import {
   XINGFULI_PLACEMENT,
   XINHUA_BOUNDARY,
@@ -103,6 +123,12 @@ import { resetCameraQa, updateCameraQa } from "./camera-qa";
 import type { ProgressiveNetworkProfile } from "./progressive-loading";
 import { useProgressiveBuildingTier } from "./progressive-building-stage";
 import { CORE_BUILDING_HERO_DISTANCE } from "./xinhua-road-identity-contract";
+import {
+  SHANGHAI_CINEMA_MASSING_GLB_BOUNDS,
+  SHANGHAI_CINEMA_MASSING_QA_VIEWS,
+  SHANGHAI_CINEMA_MASSING_REVIEW_RENDER_SIZE,
+  shanghaiCinemaBlenderPointToWorld,
+} from "./shanghai-cinema-massing-contract.mjs";
 
 const ProgressiveXinhuaRoadFullLayer = lazy(
   () => import("./xinhua-road-landmarks"),
@@ -114,6 +140,23 @@ const ProgressiveDetailedWandererCharacter = lazy(
 const WORLD_UP = new Vector3(0, 1, 0);
 const INTRO_CAMERA_DIRECTION = new Vector3(126, 142, 138).normalize();
 const OVERVIEW_CAMERA_DIRECTION = new Vector3(1, 1.18, 1).normalize();
+const ROAD_MASSING_V2_BOUNDS = {
+  "shanghai-cinema": SHANGHAI_CINEMA_MASSING_GLB_BOUNDS,
+  "film-art-center": { minX: -2.72561, maxX: 6.593207, minZ: -5.488808, maxZ: 1.800887, height: 3.888889 },
+  "one-step-garden": { minX: -10.658429, maxX: 16.044519, minZ: -12.344211, maxZ: 10.877584, height: 4.419192 },
+  "xinhua-villas-329": { minX: -19.995743, maxX: 13.539449, minZ: -22.473757, maxZ: 16.886568, height: 6.272401 },
+  "villa-le-bec": { minX: -10.968247, maxX: 13.709733, minZ: -18.185379, maxZ: 9.832885, height: 4.742548 },
+  "shanghai-orchestra": { minX: -16.367495, maxX: 25.8515, minZ: -16.782837, maxZ: 10.66821, height: 4.419192 },
+  "xinhua-pocket-park": { minX: -0.84, maxX: 0.84, minZ: -4.6, maxZ: 4.6, height: 1.66 },
+  "debi-fahua-525": { minX: -25.42458, maxX: 14.481698, minZ: -15.71688, maxZ: 25.294918, height: 4.227053 },
+  "fics-xinhua-365": { minX: -21.485395, maxX: 15.707629, minZ: -4.772031, maxZ: 12.356972, height: 4.320988 },
+} as const;
+type RoadMassingQaView =
+  | "isolated"
+  | "canonical"
+  | "side"
+  | "entrance"
+  | "map";
 const INTRO_MAP_RADIUS = Math.hypot(
   (XINHUA_BOUNDS.maxX - XINHUA_BOUNDS.minX) / 2,
   (XINHUA_BOUNDS.maxZ - XINHUA_BOUNDS.minZ) / 2,
@@ -266,6 +309,14 @@ const SUNKE_START_POSITION = groundedPosition(
   SHANGSHENG_XINSUO_POSITION[0] + 50,
   SHANGSHENG_XINSUO_POSITION[1],
 );
+const SUNKE_TIER_START_POSITION = groundedPosition(
+  SHANGSHENG_XINSUO_POSITION[0] + 35.5,
+  SHANGSHENG_XINSUO_POSITION[1] - 5.5,
+);
+const SUNKE_NORTH_START_POSITION = groundedPosition(
+  SHANGSHENG_XINSUO_POSITION[0] + 43.25,
+  SHANGSHENG_XINSUO_POSITION[1] - 20,
+);
 
 type StartPreset = {
   position: Vector3;
@@ -336,6 +387,19 @@ function requestedStartPreset(requestedName?: string): StartPreset {
       position: SUNKE_START_POSITION.clone(),
       // 从花园右前侧斜看正立面，避开自行车架与入口导视对三联尖券的遮挡。
       forward: new Vector3(-0.56, 0, -0.83).normalize(),
+    };
+  }
+  if (name === "sunke-tier") {
+    return {
+      position: SUNKE_TIER_START_POSITION.clone(),
+      // 绕开南侧自行车停车位，从花园左前侧复现三档同机位比较。
+      forward: new Vector3(0.87, 0, -0.49).normalize(),
+    };
+  }
+  if (name === "sunke-north") {
+    return {
+      position: SUNKE_NORTH_START_POSITION.clone(),
+      forward: new Vector3(0, 0, 1),
     };
   }
   const xinhuaRoadPreset = name ? XINHUA_ROAD_START_PRESETS[name] : undefined;
@@ -483,6 +547,12 @@ function FlatNeighborhood({
   showHeroTree = false,
   progressiveFocus,
   landmarkLoadMode = "overview",
+  roadModelTierQa,
+  roadModelQaId,
+  coreMassingQaId,
+  sunKeTierQa,
+  facilityPrototypeMapQaId,
+  osmOrdinaryMassingQa = false,
   networkProfile,
   mode,
 }: {
@@ -496,6 +566,12 @@ function FlatNeighborhood({
   showHeroTree?: boolean;
   progressiveFocus: RefObject<readonly [number, number]>;
   landmarkLoadMode?: "overview" | "explore";
+  roadModelTierQa?: "massing";
+  roadModelQaId?: string;
+  coreMassingQaId?: string;
+  sunKeTierQa?: "massing" | "identity" | "full";
+  facilityPrototypeMapQaId?: string;
+  osmOrdinaryMassingQa?: boolean;
   networkProfile: ProgressiveNetworkProfile;
   mode: "intro" | "overview" | "explore";
 }) {
@@ -523,6 +599,31 @@ function FlatNeighborhood({
     fullEnterDistance: CORE_BUILDING_HERO_DISTANCE.huashan.enterDistance,
     fullExitDistance: CORE_BUILDING_HERO_DISTANCE.huashan.exitDistance,
   });
+  const shangshengMassingQa = Boolean(
+    coreMassingQaId && shangshengMassingQaFrame(coreMassingQaId),
+  );
+  const huashanMassingQa = Boolean(
+    coreMassingQaId && huashanMassingQaFrame(coreMassingQaId),
+  );
+  if (roadModelTierQa === "massing" && roadModelQaId) {
+    return (
+      <group
+        scale={[detailScale, detailScale, detailScale]}
+        name="xinhua-road-single-asset-massing-map-qa"
+      >
+        <XinhuaStreetMap
+          showRoadLabels={showRoadLabels}
+          showStreetDressing={false}
+          lowTier={lowTier}
+        />
+        <XinhuaRoadMassing
+          identity={false}
+          useTierAssets
+          onlyLandmarkId={roadModelQaId}
+        />
+      </group>
+    );
+  }
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
       <XinhuaStreetMap
@@ -544,20 +645,48 @@ function FlatNeighborhood({
             <XingfuliBlock
               loadDetailedArchitecture={showDetailModels}
               showEnvironmentDetails={mode === "explore"}
-              stage={xingfuliTier}
+              stage={
+                facilityPrototypeMapQaId?.startsWith("xingfuli-")
+                  ? "identity"
+                  : xingfuliTier
+              }
+              facilityMassingMapQaId={facilityPrototypeMapQaId}
             />
           </group>
         </group>
       </group>
       <HuashanGreenBlock
         showEnvironmentDetails={mode === "explore"}
-        stage={huashanTier}
+        stage={
+          huashanMassingQa
+            ? "massing"
+            : facilityPrototypeMapQaId?.startsWith("huashan-")
+              ? "full"
+              : huashanTier
+        }
+        qaModelId={huashanMassingQa ? coreMassingQaId : undefined}
+        facilityMassingMapQaId={facilityPrototypeMapQaId}
       />
       <ShangshengXinsuoBlock
         showEnvironmentDetails={mode === "explore"}
-        stage={shangshengTier}
+        stage={
+          shangshengMassingQa
+            ? "massing"
+            : facilityPrototypeMapQaId?.startsWith("shangsheng-")
+              ? "full"
+              : shangshengTier
+        }
+        qaModelId={shangshengMassingQa ? coreMassingQaId : undefined}
+        sunKeTierQa={sunKeTierQa}
+        facilityMassingMapQaId={facilityPrototypeMapQaId}
       />
-      {showDetailModels && networkProfile === "standard" ? (
+      {roadModelTierQa === "massing" ? (
+        <XinhuaRoadMassing
+          identity={false}
+          useTierAssets
+          onlyLandmarkId={roadModelQaId}
+        />
+      ) : showDetailModels && networkProfile === "standard" ? (
         <ProgressiveFeatureBoundary
           resetKey={landmarkLoadMode}
           fallback={<XinhuaRoadMassing identity />}
@@ -575,7 +704,22 @@ function FlatNeighborhood({
       ) : (
         <XinhuaRoadMassing identity={showDetailModels} />
       )}
-      <ActionInstallation onOpenAction={onOpenAction} />
+      {osmOrdinaryMassingQa && <OsmOrdinaryMassingQaLayer />}
+      {facilityPrototypeMapQaId === "one-square-metre-action" ? (
+        <GroundAnchor
+          x={ACTION_POSITION.x}
+          z={ACTION_POSITION.z}
+          y={ACTION_POSITION.y}
+          yaw={XINGFULI_PLACEMENT.rotationY}
+        >
+          <FacilityPrototypeMassingMapAsset
+            assetId="one-square-metre-action"
+            scale={0.7}
+          />
+        </GroundAnchor>
+      ) : (
+        <ActionInstallation onOpenAction={onOpenAction} />
+      )}
     </group>
   );
 }
@@ -737,8 +881,9 @@ function WandererCharacter({
   );
 }
 
-function useKeyboardControls() {
+function useKeyboardControls(active = true) {
   useEffect(() => {
+    if (!active) return;
     type KeyboardInputKey = "forward" | "back" | "left" | "right" | "sprint" | "jump";
     const mapping: Record<string, KeyboardInputKey> = {
       KeyW: "forward", ArrowUp: "forward",
@@ -765,23 +910,33 @@ function useKeyboardControls() {
       window.removeEventListener("blur", resetInput);
       resetInput();
     };
-  }, []);
+  }, [active]);
 }
 
 function PlayableWanderer({
+  active = true,
   onNearAction,
   startPreset,
   onPositionChange,
   atmosphere,
   cameraQaEnabled,
   networkProfile,
+  worldObstacles = WORLD_OBSTACLES,
+  cameraObstacles = WORLD_CAMERA_OBSTACLES,
+  proceduralCharacterOnly = false,
+  showCharacter = true,
 }: {
+  active?: boolean;
   onNearAction: (near: boolean) => void;
   startPreset?: string;
   onPositionChange: (position: readonly [number, number]) => void;
   atmosphere: XinhuaAtmosphere;
   cameraQaEnabled: boolean;
   networkProfile: ProgressiveNetworkProfile;
+  worldObstacles?: MapObstacle[];
+  cameraObstacles?: MapObstacle[];
+  proceduralCharacterOnly?: boolean;
+  showCharacter?: boolean;
 }) {
   const { camera, gl } = useThree();
   const outer = useRef<Group>(null);
@@ -817,9 +972,16 @@ function PlayableWanderer({
   const onNearRef = useRef(onNearAction);
   const onPositionRef = useRef(onPositionChange);
   const positionReportElapsed = useRef(0);
-  useKeyboardControls();
+  const collisionQaCount = useRef(0);
+  const collisionQaCompleted = useRef(false);
+  const collisionQaAutoRun = useMemo(() => (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("qaCollisionRun") === "1"
+  ), []);
+  useKeyboardControls(active);
 
   useLayoutEffect(() => {
+    if (!active) return;
     const currentPosition = characterPosition.current;
     const surfaceHeight = terrainHeightAt(currentPosition.x, currentPosition.z);
     const scaledSurfaceHeight = surfaceHeight * DETAIL_WORLD_SCALE;
@@ -845,7 +1007,7 @@ function PlayableWanderer({
       desiredCamera.x / DETAIL_WORLD_SCALE,
       desiredCamera.z / DETAIL_WORLD_SCALE,
       XINHUA_BOUNDARY,
-      WORLD_CAMERA_OBSTACLES,
+      cameraObstacles,
       CAMERA_COLLISION_RADIUS,
       CAMERA_COLLISION_MARGIN,
     );
@@ -858,7 +1020,20 @@ function PlayableWanderer({
     camera.up.copy(WORLD_UP);
     camera.lookAt(cameraTarget);
     onPositionRef.current([currentPosition.x, currentPosition.z]);
-  }, [camera, cameraTargetHeight, initialForward]);
+    if (cameraQaEnabled) {
+      document.documentElement.dataset.xinhuaQaPlayerX = currentPosition.x.toFixed(4);
+      document.documentElement.dataset.xinhuaQaPlayerZ = currentPosition.z.toFixed(4);
+      document.documentElement.dataset.xinhuaQaCollisionCount = "0";
+      document.documentElement.dataset.xinhuaQaCollisionLast = "clear";
+    }
+  }, [
+    active,
+    camera,
+    cameraObstacles,
+    cameraQaEnabled,
+    cameraTargetHeight,
+    initialForward,
+  ]);
 
   useEffect(() => {
     onNearRef.current = onNearAction;
@@ -868,10 +1043,36 @@ function PlayableWanderer({
     onPositionRef.current = onPositionChange;
   }, [onPositionChange]);
 
+  useEffect(() => {
+    if (!active || !cameraQaEnabled || !collisionQaAutoRun) return;
+    collisionQaCompleted.current = false;
+    collisionQaCount.current = 0;
+    document.documentElement.dataset.xinhuaQaCollisionRun = "running";
+    inputState.forward = true;
+    inputState.sprint = true;
+    const timeout = window.setTimeout(() => {
+      if (collisionQaCompleted.current) return;
+      resetInput();
+      document.documentElement.dataset.xinhuaQaCollisionRun = "timeout";
+    }, 12_000);
+    return () => {
+      window.clearTimeout(timeout);
+      resetInput();
+      delete document.documentElement.dataset.xinhuaQaCollisionRun;
+    };
+  }, [active, cameraQaEnabled, collisionQaAutoRun]);
+
   useEffect(() => () => {
+    if (!active) return;
     onPositionRef.current([characterPosition.current.x, characterPosition.current.z]);
-    if (cameraQaEnabled) resetCameraQa();
-  }, [cameraQaEnabled]);
+    if (cameraQaEnabled) {
+      resetCameraQa();
+      delete document.documentElement.dataset.xinhuaQaPlayerX;
+      delete document.documentElement.dataset.xinhuaQaPlayerZ;
+      delete document.documentElement.dataset.xinhuaQaCollisionCount;
+      delete document.documentElement.dataset.xinhuaQaCollisionLast;
+    }
+  }, [active, cameraQaEnabled]);
 
   const scratch = useMemo(() => ({
     quaternion: new Quaternion(),
@@ -901,6 +1102,7 @@ function PlayableWanderer({
   }), []);
 
   useEffect(() => {
+    if (!active) return;
     const canvas = gl.domElement;
     const pointerDown = (event: PointerEvent) => {
       if (dragPointerId.current !== null) return;
@@ -969,9 +1171,10 @@ function PlayableWanderer({
       window.removeEventListener("blur", cancelDrag);
       canvas.removeEventListener("wheel", wheel);
     };
-  }, [gl]);
+  }, [active, gl]);
 
   useFrame((_, rawDelta) => {
+    if (!active) return;
     const delta = Math.min(rawDelta, 0.05);
     const currentForward = forward.current;
     const currentPosition = characterPosition.current;
@@ -1137,14 +1340,39 @@ function PlayableWanderer({
         ? EXPLORE_RUN_SPEED
         : EXPLORE_WALK_SPEED * (usingAnalog ? analogMagnitude : 1);
       s.displacement.copy(s.move).multiplyScalar(speed * translationScale * delta);
+      const requestedX = currentPosition.x + s.displacement.x;
+      const requestedZ = currentPosition.z + s.displacement.z;
       resolvePolygonMovement(
         currentPosition,
         s.displacement,
         XINHUA_BOUNDARY,
-        WORLD_OBSTACLES,
+        worldObstacles,
         PLAYER_RADIUS,
         currentPosition,
       );
+      if (cameraQaEnabled) {
+        const blockedX = Math.abs(currentPosition.x - requestedX) > 1e-5;
+        const blockedZ = Math.abs(currentPosition.z - requestedZ) > 1e-5;
+        if (blockedX || blockedZ) collisionQaCount.current += 1;
+        document.documentElement.dataset.xinhuaQaPlayerX =
+          currentPosition.x.toFixed(4);
+        document.documentElement.dataset.xinhuaQaPlayerZ =
+          currentPosition.z.toFixed(4);
+        document.documentElement.dataset.xinhuaQaCollisionCount =
+          String(collisionQaCount.current);
+        document.documentElement.dataset.xinhuaQaCollisionLast = blockedX
+          ? blockedZ ? "blocked-xz" : "blocked-x"
+          : blockedZ ? "blocked-z" : "clear";
+        if (
+          collisionQaAutoRun
+          && (blockedX || blockedZ)
+          && !collisionQaCompleted.current
+        ) {
+          collisionQaCompleted.current = true;
+          resetInput();
+          document.documentElement.dataset.xinhuaQaCollisionRun = "complete";
+        }
+      }
       dampTangentTowards(
         currentForward,
         s.move,
@@ -1247,7 +1475,7 @@ function PlayableWanderer({
       s.desiredCamera.x / DETAIL_WORLD_SCALE,
       s.desiredCamera.z / DETAIL_WORLD_SCALE,
       XINHUA_BOUNDARY,
-      WORLD_CAMERA_OBSTACLES,
+      cameraObstacles,
       CAMERA_COLLISION_RADIUS,
       CAMERA_COLLISION_MARGIN,
       s.springArm,
@@ -1320,20 +1548,26 @@ function PlayableWanderer({
 
   return (
     <>
-      <group ref={groundShadow}>
-        <Shadow
-          scale={[1.05, 4.4, 1]}
-          color="#050807"
-          colorStop={0.1}
-          opacity={0.38}
-          depthWrite={false}
-          renderOrder={3}
-        />
-      </group>
-      <WandererCharacter
-        outerRef={outer}
-        detailed={networkProfile === "standard"}
-      />
+      {active && showCharacter && (
+        <>
+          <group ref={groundShadow}>
+            <Shadow
+              scale={[1.05, 4.4, 1]}
+              color="#050807"
+              colorStop={0.1}
+              opacity={0.38}
+              depthWrite={false}
+              renderOrder={3}
+            />
+          </group>
+          <WandererCharacter
+            outerRef={outer}
+            detailed={
+              !proceduralCharacterOnly && networkProfile === "standard"
+            }
+          />
+        </>
+      )}
     </>
   );
 }
@@ -1549,6 +1783,296 @@ function OverviewCamera({
   return null;
 }
 
+function RoadMassingIsolationQaCamera({
+  cameraQaEnabled = false,
+  landmarkId,
+  view = "isolated",
+}: {
+  cameraQaEnabled?: boolean;
+  landmarkId: string;
+  view?: RoadMassingQaView;
+}) {
+  const frame = useMemo(() => {
+    const landmark = XINHUA_ROAD_LANDMARKS.find(
+      ({ id }) => id === landmarkId,
+    );
+    const bounds = ROAD_MASSING_V2_BOUNDS[
+      landmarkId as keyof typeof ROAD_MASSING_V2_BOUNDS
+    ];
+    if (!landmark || !bounds) return null;
+
+    const fixedView = landmarkId === "shanghai-cinema"
+      && view !== "isolated"
+      && view !== "map"
+      ? SHANGHAI_CINEMA_MASSING_QA_VIEWS[view]
+      : undefined;
+    if (fixedView) {
+      const [positionX, positionZ] = landmark.position;
+      const baseY = terrainHeightAt(positionX, positionZ) + 0.1;
+      const blenderPointToWorld = (
+        [blenderX, blenderY, blenderZ]: readonly [number, number, number],
+      ) => {
+        const [worldX, worldY, worldZ] =
+          shanghaiCinemaBlenderPointToWorld({
+            point: [blenderX, blenderY, blenderZ],
+            position: landmark.position,
+            yaw: landmark.yaw,
+            scale: landmark.scale,
+            baseY,
+            detailScale: DETAIL_WORLD_SCALE,
+          });
+        return new Vector3(worldX, worldY, worldZ);
+      };
+      return {
+        target: blenderPointToWorld(fixedView.targetBlender),
+        position: blenderPointToWorld(fixedView.cameraBlender),
+        lensMm: fixedView.lensMm,
+      };
+    }
+
+    // GLB 的 Z 在运行时会反射一次以还原 OSM localZ；这里用相同规则求中心。
+    const localX = (bounds.minX + bounds.maxX) * 0.5;
+    const localZ = -(bounds.minZ + bounds.maxZ) * 0.5;
+    const cosine = Math.cos(landmark.yaw);
+    const sine = Math.sin(landmark.yaw);
+    const centerX = (
+      landmark.position[0]
+      + landmark.scale * (cosine * localX + sine * localZ)
+    ) * DETAIL_WORLD_SCALE;
+    const centerZ = (
+      landmark.position[1]
+      + landmark.scale * (-sine * localX + cosine * localZ)
+    ) * DETAIL_WORLD_SCALE;
+    const baseY = (
+      terrainHeightAt(landmark.position[0], landmark.position[1]) + 0.1
+    ) * DETAIL_WORLD_SCALE;
+    const width = (bounds.maxX - bounds.minX)
+      * landmark.scale
+      * DETAIL_WORLD_SCALE;
+    const depth = (bounds.maxZ - bounds.minZ)
+      * landmark.scale
+      * DETAIL_WORLD_SCALE;
+    const height = bounds.height * landmark.scale * DETAIL_WORLD_SCALE;
+    const radius = Math.max(width, depth) * 0.5;
+    const distance = Math.max(11, radius * 1.8 + height * 0.35);
+    const elevation = Math.max(7, height * 1.1 + radius * 0.62);
+    const cameraAngle = landmark.yaw + Math.PI * 0.72;
+    return {
+      target: new Vector3(centerX, baseY + height * 0.34, centerZ),
+      position: new Vector3(
+        centerX + Math.cos(cameraAngle) * distance,
+        baseY + elevation,
+        centerZ + Math.sin(cameraAngle) * distance,
+      ),
+      lensMm: undefined,
+    };
+  }, [landmarkId, view]);
+
+  useFrame(({ camera, gl, scene }) => {
+    if (!frame) return;
+    if (frame.lensMm) {
+      const perspective = camera as PerspectiveCamera;
+      const referenceAspect = (
+        SHANGHAI_CINEMA_MASSING_REVIEW_RENDER_SIZE[0]
+        / SHANGHAI_CINEMA_MASSING_REVIEW_RENDER_SIZE[1]
+      );
+      const horizontalHalfFov = Math.atan(36 / (2 * frame.lensMm));
+      perspective.fov = MathUtils.radToDeg(
+        2 * Math.atan(Math.tan(horizontalHalfFov) / referenceAspect),
+      );
+    }
+    camera.position.copy(frame.position);
+    camera.up.copy(WORLD_UP);
+    camera.lookAt(frame.target);
+    camera.updateProjectionMatrix();
+    if (cameraQaEnabled) {
+      const armX = frame.position.x - frame.target.x;
+      const armZ = frame.position.z - frame.target.z;
+      const armLength = frame.position.distanceTo(frame.target);
+      const armYaw = MathUtils.radToDeg(Math.atan2(armX, armZ));
+      updateCameraQa({
+        active: true,
+        inputX: 0,
+        inputY: 0,
+        moving: false,
+        fov: (camera as PerspectiveCamera).fov,
+        goalYawDegrees: armYaw,
+        desiredArmYawDegrees: armYaw,
+        actualArmYawDegrees: armYaw,
+        desiredArmLength: armLength,
+        resolvedArmLength: armLength,
+        blockerId: null,
+        cameraMode: `qa-fixed-${view}`,
+        manualGraceMs: 0,
+      });
+    }
+    // 正优先级由该 QA 机位负责单次渲染，避免可玩相机在同一帧覆盖验收构图。
+    gl.render(scene, camera);
+  }, 100);
+
+  return null;
+}
+
+function CoreMassingIsolationQaCamera({ modelId }: { modelId: string }) {
+  const frame = useMemo(() => {
+    const model = (
+      shangshengMassingQaFrame(modelId)
+      ?? huashanMassingQaFrame(modelId)
+    );
+    if (!model) return null;
+    const [worldX, worldZ] = model.worldPosition;
+    const centerX = worldX * DETAIL_WORLD_SCALE;
+    const centerZ = worldZ * DETAIL_WORLD_SCALE;
+    const baseY = (
+      terrainHeightAt(worldX, worldZ) + 0.16
+    ) * DETAIL_WORLD_SCALE;
+    const width = model.width * DETAIL_WORLD_SCALE;
+    const depth = model.depth * DETAIL_WORLD_SCALE;
+    const height = model.height * DETAIL_WORLD_SCALE;
+    const radius = Math.max(width, depth) * 0.5;
+    const framingScale = model.wayId === 864847856
+      ? 0.76
+      : model.wayId === 743778426
+        ? 0.85
+        : 1;
+    const distance = Math.max(4, radius * 2.45 + height * 0.55)
+      * framingScale;
+    const elevation = Math.max(3.5, height * 1.25 + radius * 0.85)
+      * framingScale;
+    const cameraAngle = (
+      model.yaw
+      + Math.PI * 0.72
+      + (model.wayId === 743778426 ? -0.1 : 0)
+    );
+    return {
+      target: new Vector3(centerX, baseY + height * 0.36, centerZ),
+      position: new Vector3(
+        centerX + Math.cos(cameraAngle) * distance,
+        baseY + elevation,
+        centerZ + Math.sin(cameraAngle) * distance,
+      ),
+    };
+  }, [modelId]);
+
+  useFrame(({ camera, gl, scene }) => {
+    if (!frame) return;
+    camera.position.copy(frame.position);
+    camera.up.copy(WORLD_UP);
+    camera.lookAt(frame.target);
+    camera.updateProjectionMatrix();
+    gl.render(scene, camera);
+  }, 100);
+
+  return null;
+}
+
+function FacilityPrototypeMapQaCamera({ assetId }: { assetId: string }) {
+  const frame = useMemo(() => {
+    const model = facilityPrototypeMassingMapFrame(assetId);
+    if (!model) return null;
+    const [localX, localY, localZ] = model.instance.position;
+    const [minX, minY, minZ] = model.bounds.min;
+    const [maxX, maxY, maxZ] = model.bounds.max;
+    let worldX = 0;
+    let worldZ = 0;
+    let baseY = 0;
+    let scaleX = DETAIL_WORLD_SCALE;
+    let scaleY = DETAIL_WORLD_SCALE;
+    let scaleZ = DETAIL_WORLD_SCALE;
+    let worldYaw = model.instance.yaw ?? 0;
+
+    if (assetId === "one-square-metre-action") {
+      worldX = ACTION_POSITION.x * DETAIL_WORLD_SCALE;
+      worldZ = ACTION_POSITION.z * DETAIL_WORLD_SCALE;
+      baseY = ACTION_POSITION.y * DETAIL_WORLD_SCALE;
+      scaleX = 0.7 * DETAIL_WORLD_SCALE;
+      scaleY = 0.7 * DETAIL_WORLD_SCALE;
+      scaleZ = 0.7 * DETAIL_WORLD_SCALE;
+      worldYaw = XINGFULI_PLACEMENT.rotationY;
+    } else if (model.site === "shangsheng") {
+      worldX = (
+        SHANGSHENG_XINSUO_POSITION[0] + localX
+      ) * DETAIL_WORLD_SCALE;
+      worldZ = (
+        SHANGSHENG_XINSUO_POSITION[1] + localZ
+      ) * DETAIL_WORLD_SCALE;
+      baseY = (
+        terrainHeightAt(
+          SHANGSHENG_XINSUO_POSITION[0],
+          SHANGSHENG_XINSUO_POSITION[1],
+        ) + 0.16 + localY
+      ) * DETAIL_WORLD_SCALE;
+    } else if (model.site === "huashan") {
+      worldX = (HUASHAN_GREEN_POSITION[0] + localX) * DETAIL_WORLD_SCALE;
+      worldZ = (HUASHAN_GREEN_POSITION[1] + localZ) * DETAIL_WORLD_SCALE;
+      baseY = (
+        terrainHeightAt(
+          HUASHAN_GREEN_POSITION[0],
+          HUASHAN_GREEN_POSITION[1],
+        ) + 0.16 + localY
+      ) * DETAIL_WORLD_SCALE;
+    } else {
+      const worldPosition = xingfuliLocalToWorld(localX, localZ);
+      worldX = worldPosition[0] * DETAIL_WORLD_SCALE;
+      worldZ = worldPosition[1] * DETAIL_WORLD_SCALE;
+      baseY = (
+        XINGFULI_BASE_Y + localY * XINGFULI_PLACEMENT.verticalScale
+      ) * DETAIL_WORLD_SCALE;
+      scaleX = XINGFULI_LONGITUDINAL_SCALE * DETAIL_WORLD_SCALE;
+      scaleY = XINGFULI_PLACEMENT.verticalScale * DETAIL_WORLD_SCALE;
+      scaleZ = XINGFULI_PLACEMENT.horizontalScale * DETAIL_WORLD_SCALE;
+      worldYaw += XINGFULI_PLACEMENT.rotationY;
+    }
+
+    const width = (maxX - minX) * scaleX;
+    const height = (maxY - minY) * scaleY;
+    const depth = (maxZ - minZ) * scaleZ;
+    const radius = Math.max(width, depth, 1.5) * 0.5;
+    const needsWideContext = (
+      assetId === "xingfuli-reflecting-pool-hardscape"
+      || assetId === "xingfuli-mixed-paving"
+    );
+    const distance = Math.max(
+      needsWideContext ? 16 : 4.5,
+      radius * (needsWideContext ? 3.4 : 2.65) + height * 0.45,
+    );
+    const elevation = Math.max(
+      needsWideContext ? 12 : 3.2,
+      height * 1.12 + radius * (needsWideContext ? 1.3 : 0.72),
+    );
+    const cameraAngleOffset = assetId === "xingfuli-reflecting-pool-hardscape"
+      ? Math.PI * 1.28
+      : assetId === "xingfuli-mixed-paving"
+        ? Math.PI * 0.2
+        : Math.PI * 0.72;
+    const cameraAngle = worldYaw + cameraAngleOffset;
+    const target = new Vector3(
+      worldX,
+      baseY + (minY + maxY) * 0.5 * scaleY,
+      worldZ,
+    );
+    return {
+      target,
+      position: new Vector3(
+        worldX + Math.cos(cameraAngle) * distance,
+        baseY + elevation,
+        worldZ + Math.sin(cameraAngle) * distance,
+      ),
+    };
+  }, [assetId]);
+
+  useFrame(({ camera, gl, scene }) => {
+    if (!frame) return;
+    camera.position.copy(frame.position);
+    camera.up.copy(WORLD_UP);
+    camera.lookAt(frame.target);
+    camera.updateProjectionMatrix();
+    gl.render(scene, camera);
+  }, 100);
+
+  return null;
+}
+
 export function IntroCamera({ active = true }: { active?: boolean }) {
   const { camera } = useThree();
   const target = useMemo(() => new Vector3(0, 0, 0), []);
@@ -1708,6 +2232,18 @@ export function XinhuaWorld({
   overviewStartPosition,
   destinationPreset,
   cameraQaEnabled = false,
+  roadModelTierQa,
+  roadModelQaId,
+  roadModelQaView = "isolated",
+  coreMassingQaId,
+  coreMassingQaView = "isolated",
+  sunKeTierQa,
+  osmOrdinaryMassingQa = false,
+  sharedPrototypeMassingQa = false,
+  sharedPrototypeIdentityQa = false,
+  sharedPrototypeQaGroup = "all",
+  facilityPrototypeMassingQaId,
+  facilityPrototypeMapQaId,
   onNearPoi,
   onPositionChange,
   networkProfile,
@@ -1721,12 +2257,34 @@ export function XinhuaWorld({
   overviewStartPosition: readonly [number, number];
   destinationPreset?: string;
   cameraQaEnabled?: boolean;
+  roadModelTierQa?: "massing";
+  roadModelQaId?: string;
+  roadModelQaView?: RoadMassingQaView;
+  coreMassingQaId?: string;
+  coreMassingQaView?: "isolated" | "map";
+  sunKeTierQa?: "massing" | "identity" | "full";
+  osmOrdinaryMassingQa?: boolean;
+  sharedPrototypeMassingQa?: boolean;
+  sharedPrototypeIdentityQa?: boolean;
+  sharedPrototypeQaGroup?: SharedPrototypeQaGroup;
+  facilityPrototypeMassingQaId?: string;
+  facilityPrototypeMapQaId?: string;
   onNearPoi: (poiId: string | null) => void;
   onPositionChange: (position: readonly [number, number]) => void;
   networkProfile: ProgressiveNetworkProfile;
 }) {
   const exploring = mode === "explore";
   const overview = mode === "overview";
+  const isolatedPrototypeQa = Boolean(
+    sharedPrototypeMassingQa
+      || sharedPrototypeIdentityQa
+      || facilityPrototypeMassingQaId,
+  );
+  const fixedRoadMassingQa = Boolean(
+    roadModelTierQa === "massing"
+      && roadModelQaId
+      && roadModelQaView !== "map",
+  );
   const atmosphere = XINHUA_ATMOSPHERES[atmosphereStyle];
   const overviewCameraFocus = useRef(new Vector3(
     overviewStartPosition[0],
@@ -1736,6 +2294,19 @@ export function XinhuaWorld({
   const progressiveFocus = useRef<readonly [number, number]>(
     overviewStartPosition,
   );
+  const roadQaWorldObstacles = useMemo(
+    () => (
+      roadModelTierQa === "massing" && roadModelQaId
+        ? [
+          ...(XINHUA_ROAD_OBSTACLES_BY_LANDMARK_ID[roadModelQaId] ?? []),
+        ]
+        : WORLD_OBSTACLES
+    ),
+    [roadModelQaId, roadModelTierQa],
+  );
+  const roadQaCameraObstacles = roadModelTierQa === "massing"
+    ? XINHUA_ROAD_CAMERA_OBSTACLES
+    : WORLD_CAMERA_OBSTACLES;
 
   useLayoutEffect(() => {
     if (!overview) return;
@@ -1753,6 +2324,12 @@ export function XinhuaWorld({
     },
     [onPositionChange],
   );
+  const reportOverviewNearPoi = useCallback(
+    (poiId: string | null) => {
+      if (!osmOrdinaryMassingQa) onNearPoi(poiId);
+    },
+    [onNearPoi, osmOrdinaryMassingQa],
+  );
 
   return (
     <>
@@ -1767,50 +2344,106 @@ export function XinhuaWorld({
         attach="background"
         args={[new Color(atmosphere.background)]}
       />
-      <AutumnLightRig
-        exploring={exploring}
-        lowTier={lowTier}
-        atmosphereStyle={atmosphereStyle}
-        atmosphere={atmosphere}
-      />
-      <FlatNeighborhood
-        onOpenAction={onOpenAction}
-        atmosphere={atmosphere}
-        lowTier={lowTier}
-        detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
-        showDetailModels={mode !== "intro"}
-        showDetailLabels={false}
-        showRoadLabels={!exploring}
-        showHeroTree={exploring}
-        progressiveFocus={progressiveFocus}
-        landmarkLoadMode={exploring ? "explore" : "overview"}
-        networkProfile={networkProfile}
-        mode={mode}
-      />
+      {facilityPrototypeMassingQaId && !roadModelQaId ? (
+        <FacilityPrototypeMassingQaScene
+          assetId={facilityPrototypeMassingQaId}
+        />
+      ) : sharedPrototypeIdentityQa && !roadModelQaId ? (
+        <SharedPrototypeIdentityQaScene group={sharedPrototypeQaGroup} />
+      ) : sharedPrototypeMassingQa && !roadModelQaId ? (
+        <SharedPrototypeMassingQaScene group={sharedPrototypeQaGroup} />
+      ) : (
+        <>
+          <AutumnLightRig
+            exploring={exploring}
+            lowTier={lowTier}
+            atmosphereStyle={atmosphereStyle}
+            atmosphere={atmosphere}
+          />
+          <FlatNeighborhood
+            onOpenAction={onOpenAction}
+            atmosphere={atmosphere}
+            lowTier={lowTier}
+            detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
+            showDetailModels={mode !== "intro"}
+            showDetailLabels={false}
+            showRoadLabels={!exploring}
+            showHeroTree={exploring}
+            progressiveFocus={progressiveFocus}
+            landmarkLoadMode={exploring ? "explore" : "overview"}
+            roadModelTierQa={roadModelTierQa}
+            roadModelQaId={roadModelQaId}
+            coreMassingQaId={coreMassingQaId}
+            sunKeTierQa={sunKeTierQa}
+            facilityPrototypeMapQaId={facilityPrototypeMapQaId}
+            osmOrdinaryMassingQa={osmOrdinaryMassingQa}
+            networkProfile={networkProfile}
+            mode={mode}
+          />
+        </>
+      )}
       <ResponsiveCameraProjection exploring={exploring} />
-      <IntroCamera active={mode === "intro"} />
-      {overview && (
+      <IntroCamera active={mode === "intro" && !isolatedPrototypeQa} />
+      {overview && !isolatedPrototypeQa && (
         <>
           <OverviewPoiMarkers nearPoiId={nearPoiId} />
           <OverviewWanderer
             initialPosition={overviewStartPosition}
             cameraFocus={overviewCameraFocus}
-            onNearPoi={onNearPoi}
+            onNearPoi={reportOverviewNearPoi}
             onPositionChange={reportProgressivePosition}
             networkProfile={networkProfile}
           />
         </>
       )}
-      <OverviewCamera active={overview} focus={overviewCameraFocus} />
-      {exploring && (
+      <OverviewCamera
+        active={overview && !isolatedPrototypeQa}
+        focus={overviewCameraFocus}
+      />
+      <SharedPrototypeMassingQaCamera
+        active={sharedPrototypeMassingQa && mode !== "intro"}
+        group={sharedPrototypeQaGroup}
+      />
+      <SharedPrototypeIdentityQaCamera
+        active={sharedPrototypeIdentityQa && mode !== "intro"}
+        group={sharedPrototypeQaGroup}
+      />
+      <FacilityPrototypeMassingQaCamera
+        active={Boolean(facilityPrototypeMassingQaId) && mode !== "intro"}
+        assetId={facilityPrototypeMassingQaId}
+      />
+      {exploring && !isolatedPrototypeQa && (
         <PlayableWanderer
+          active={!fixedRoadMassingQa}
           onNearAction={onNearAction}
           startPreset={destinationPreset}
           onPositionChange={reportProgressivePosition}
           atmosphere={atmosphere}
           cameraQaEnabled={cameraQaEnabled}
           networkProfile={networkProfile}
+          worldObstacles={roadQaWorldObstacles}
+          cameraObstacles={roadQaCameraObstacles}
+          proceduralCharacterOnly={roadModelTierQa === "massing"}
+          showCharacter={
+            roadModelTierQa !== "massing" || roadModelQaView === "map"
+          }
         />
+      )}
+      {exploring
+        && roadModelTierQa === "massing"
+        && roadModelQaId
+        && roadModelQaView !== "map" && (
+        <RoadMassingIsolationQaCamera
+          cameraQaEnabled={cameraQaEnabled}
+          landmarkId={roadModelQaId}
+          view={roadModelQaView}
+        />
+      )}
+      {exploring && coreMassingQaId && coreMassingQaView === "isolated" && (
+        <CoreMassingIsolationQaCamera modelId={coreMassingQaId} />
+      )}
+      {exploring && facilityPrototypeMapQaId && (
+        <FacilityPrototypeMapQaCamera assetId={facilityPrototypeMapQaId} />
       )}
     </>
   );

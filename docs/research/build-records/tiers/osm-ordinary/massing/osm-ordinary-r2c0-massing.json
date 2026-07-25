@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetPackage": "osm-ordinary-buildings",
+  "chunkId": "r2c0",
+  "tier": "massing",
+  "status": "blender-glb-overview-runtime-pass-formal-gate-blocked",
+  "generator": "scripts/create_osm_ordinary_massing_models.py",
+  "sourceInventory": "docs/research/data/xinhua-building-inventory-20260724-185400.json",
+  "sourceInventorySha256": "0ecf0f8f12cdbed992d8625de0b542ce331d33ab250679add6e59968d463d9fd",
+  "buildingCount": 69,
+  "chunkOrigin": [
+    -270,
+    0,
+    90
+  ],
+  "absoluteFootprintBounds": {
+    "minX": -311.6022,
+    "maxX": -171.16381,
+    "minZ": -4.99477,
+    "maxZ": 185.03987
+  },
+  "heightEvidence": {
+    "levelsDerived": 0,
+    "runtimeFallbackUnknown": 69
+  },
+  "outputs": {
+    "blend": "assets/models/source/tiers/osm-ordinary/massing/osm-ordinary-r2c0-massing.blend",
+    "glb": "public/models/tiers/osm-ordinary/massing/osm-ordinary-r2c0-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/osm-ordinary/test_osm-ordinary-r2c0-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/osm-ordinary/test_osm-ordinary-r2c0-massing-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "a27dd1e352285bff4a591adc4a323d18e49b35411d62483999c0c26b561d03a6",
+    "bytes": 117204,
+    "nodes": 69,
+    "meshes": 69,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 1264,
+    "bounds": {
+      "min": [
+        -41.6022,
+        0,
+        -95.039871
+      ],
+      "max": [
+        98.836189,
+        7.2222,
+        94.994766
+      ]
+    }
+  },
+  "rootTransforms": {
+    "transformedNodeCount": 0,
+    "status": "ok"
+  },
+  "qualityBoundary": {
+    "observed": [
+      "OSM footprint"
+    ],
+    "inferred": [
+      "levels-derived or runtime fallback height"
+    ],
+    "unknown": [
+      "facade",
+      "rear",
+      "roof",
+      "entrance",
+      "surveyed height"
+    ]
+  },
+  "runtimeGate": "overview-runtime-pass-formal-sampling-blocked",
+  "runtimeQa": {
+    "file": "docs/research/osm-ordinary-massing-runtime-qa.json",
+    "screenshot": "test_artifacts/all-models/massing/osm-ordinary/test_osm-ordinary-massing-threejs-overview.jpg",
+    "overviewLoadAndRender": "pass",
+    "formalGate": "blocked",
+    "identityAllowed": false
+  }
+}

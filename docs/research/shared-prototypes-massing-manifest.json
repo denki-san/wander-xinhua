@@ -1,0 +1,742 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-25",
+  "status": "formal-massing-pass",
+  "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+  "generator": "scripts/create_shared_prototype_massing_models.py",
+  "prototypeCount": 12,
+  "familyCounts": {
+    "vegetation": 5,
+    "streetFurniture": 7
+  },
+  "totalGlbBytes": 100328,
+  "totalTriangles": 1038,
+  "runtimeGate": "formal-massing-pass",
+  "identityAllowed": false,
+  "assets": [
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:vegetation:xinhua-plane-tree",
+      "slug": "xinhua-plane-tree",
+      "family": "vegetation",
+      "tier": "massing",
+      "status": "formal-massing-pass",
+      "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+      "generator": "scripts/create_shared_prototype_massing_models.py",
+      "evidence": "confirmed-plane-tree",
+      "instanceCount": 31,
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/massing/xinhua-plane-tree-massing.blend",
+        "glb": "public/models/tiers/shared-prototypes/massing/xinhua-plane-tree-massing.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_xinhua-plane-tree-massing-canonical.png",
+          "side": "test_artifacts/all-models/massing/shared-prototypes/test_xinhua-plane-tree-massing-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "c0e90c130e1fecef84e037b5a5d622d478a57cec4f482462382d540386855e67",
+        "bytes": 12872,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 1,
+        "images": 0,
+        "textures": 0,
+        "triangles": 144,
+        "bounds": {
+          "min": [
+            -1.798031,
+            0,
+            -1.417781
+          ],
+          "max": [
+            1.854306,
+            6.25,
+            1.098691
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": "formal-massing-pass",
+      "identityAllowed": true,
+      "qualityBoundary": {
+        "observed": [
+          "prototype envelope and current runtime scale language"
+        ],
+        "inferred": [
+          "simplified massing component dimensions"
+        ],
+        "unknown": [
+          "manufacturer or species where not explicitly confirmed",
+          "surveyed dimensions",
+          "current per-instance field condition"
+        ]
+      },
+      "runtimeQa": "docs/research/shared-prototypes-massing-runtime-qa.json"
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:vegetation:shangsheng-campus-tree",
+      "slug": "shangsheng-campus-tree",
+      "family": "vegetation",
+      "tier": "massing",
+      "status": "formal-massing-pass",
+      "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+      "generator": "scripts/create_shared_prototype_massing_models.py",
+      "evidence": "species-unknown-runtime-envelope",
+      "instanceCount": 29,
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/massing/shangsheng-campus-tree-massing.blend",
+        "glb": "public/models/tiers/shared-prototypes/massing/shangsheng-campus-tree-massing.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_shangsheng-campus-tree-massing-canonical.png",
+          "side": "test_artifacts/all-models/massing/shared-prototypes/test_shangsheng-campus-tree-massing-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "d43e6e5144f44c88b2fbe3add443733638c885934e5502b17cc57c67156de09c",
+        "bytes": 9512,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 1,
+        "images": 0,
+        "textures": 0,
+        "triangles": 88,
+        "bounds": {
+          "min": [
+            -1.439146,
+            0,
+            -1.19064
+          ],
+          "max": [
+            1.481756,
+            5.23,
+            1.028108
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": "formal-massing-pass",
+      "identityAllowed": false,
+      "qualityBoundary": {
+        "observed": [
+          "prototype envelope and current runtime scale language"
+        ],
+        "inferred": [
+          "simplified massing component dimensions"
+        ],
+        "unknown": [
+          "manufacturer or species where not explicitly confirmed",
+          "surveyed dimensions",
+          "current per-instance field condition"
+        ]
+      },
+      "runtimeQa": "docs/research/shared-prototypes-massing-runtime-qa.json"
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:vegetation:huashan-canopy-tree",
+      "slug": "huashan-canopy-tree",
+      "family": "vegetation",
+      "tier": "massing",
+      "status": "formal-massing-pass",
+      "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+      "generator": "scripts/create_shared_prototype_massing_models.py",
+      "evidence": "species-unknown-runtime-envelope",
+      "instanceCount": 112,
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/massing/huashan-canopy-tree-massing.blend",
+        "glb": "public/models/tiers/shared-prototypes/massing/huashan-canopy-tree-massing.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_huashan-canopy-tree-massing-canonical.png",
+          "side": "test_artifacts/all-models/massing/shared-prototypes/test_huashan-canopy-tree-massing-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "9d5fca57ec81ed6f95919425f2b3bce3539a4d2b617a0565650d0dc4a371d1c0",
+        "bytes": 9496,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 1,
+        "images": 0,
+        "textures": 0,
+        "triangles": 88,
+        "bounds": {
+          "min": [
+            -2.306359,
+            0,
+            -1.598364
+          ],
+          "max": [
+            2.313191,
+            5.58,
+            1.120768
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": "formal-massing-pass",
+      "identityAllowed": false,
+      "qualityBoundary": {
+        "observed": [
+          "prototype envelope and current runtime scale language"
+        ],
+        "inferred": [
+          "simplified massing component dimensions"
+        ],
+        "unknown": [
+          "manufacturer or species where not explicitly confirmed",
+          "surveyed dimensions",
+          "current per-instance field condition"
+        ]
+      },
+      "runtimeQa": "docs/research/shared-prototypes-massing-runtime-qa.json"
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:vegetation:huashan-understory",
+      "slug": "huashan-understory",
+      "family": "vegetation",
+      "tier": "massing",
+      "status": "formal-massing-pass",
+      "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+      "generator": "scripts/create_shared_prototype_massing_models.py",
+      "evidence": "species-unknown-runtime-envelope",
+      "instanceCount": 73,
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/massing/huashan-understory-massing.blend",
+        "glb": "public/models/tiers/shared-prototypes/massing/huashan-understory-massing.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_huashan-understory-massing-canonical.png",
+          "side": "test_artifacts/all-models/massing/shared-prototypes/test_huashan-understory-massing-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "2a18baa8bb9c0719b38b084f72c551c7d52e1fc646608c67077819c05552ee10",
+        "bytes": 7788,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 1,
+        "images": 0,
+        "textures": 0,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.780878,
+            0,
+            -0.44623
+          ],
+          "max": [
+            0.747213,
+            0.61,
+            0.454282
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": "formal-massing-pass",
+      "identityAllowed": false,
+      "qualityBoundary": {
+        "observed": [
+          "prototype envelope and current runtime scale language"
+        ],
+        "inferred": [
+          "simplified massing component dimensions"
+        ],
+        "unknown": [
+          "manufacturer or species where not explicitly confirmed",
+          "surveyed dimensions",
+          "current per-instance field condition"
+        ]
+      },
+      "runtimeQa": "docs/research/shared-prototypes-massing-runtime-qa.json"
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:vegetation:road-edge-shrub",
+      "slug": "road-edge-shrub",
+      "family": "vegetation",
+      "tier": "massing",
+      "status": "formal-massing-pass",
+      "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+      "generator": "scripts/create_shared_prototype_massing_models.py",
+      "evidence": "species-unknown-observed-road-edge-envelope",
+      "instanceCount": 12,
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/massing/road-edge-shrub-massing.blend",
+        "glb": "public/models/tiers/shared-prototypes/massing/road-edge-shrub-massing.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_road-edge-shrub-massing-canonical.png",
+          "side": "test_artifacts/all-models/massing/shared-prototypes/test_road-edge-shrub-massing-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "f46f832e6a0c2890f6dc574b0696652a6902f3031f7e0fe34fff6dadaca31110",
+        "bytes": 9828,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 1,
+        "images": 0,
+        "textures": 0,
+        "triangles": 80,
+        "bounds": {
+          "min": [
+            -0.474662,
+            0,
+            -0.14909
+          ],
+          "max": [
+            0.467829,
+            0.28,
+            0.167596
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": "formal-massing-pass",
+      "identityAllowed": false,
+      "qualityBoundary": {
+        "observed": [
+          "prototype envelope and current runtime scale language"
+        ],
+        "inferred": [
+          "simplified massing component dimensions"
+        ],
+        "unknown": [
+          "manufacturer or species where not explicitly confirmed",
+          "surveyed dimensions",
+          "current per-instance field condition"
+        ]
+      },
+      "runtimeQa": "docs/research/shared-prototypes-massing-runtime-qa.json"
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:street-furniture:lane-lamp-short-arm",
+      "slug": "lane-lamp-short-arm",
+      "family": "street-furniture",
+      "tier": "massing",
+      "status": "formal-massing-pass",
+      "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+      "generator": "scripts/create_shared_prototype_massing_models.py",
+      "evidence": "observed-xingfuli-and-street-context",
+      "instanceCount": null,
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/massing/lane-lamp-short-arm-massing.blend",
+        "glb": "public/models/tiers/shared-prototypes/massing/lane-lamp-short-arm-massing.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_lane-lamp-short-arm-massing-canonical.png",
+          "side": "test_artifacts/all-models/massing/shared-prototypes/test_lane-lamp-short-arm-massing-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "815cbceb975b240ca5d29f01a080e2fb0435145e53fcd19a57b0badaeea5715f",
+        "bytes": 6812,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 1,
+        "images": 0,
+        "textures": 0,
+        "triangles": 84,
+        "bounds": {
+          "min": [
+            -0.025926,
+            0,
+            -0.07037
+          ],
+          "max": [
+            0.255556,
+            1.244444,
+            0.07037
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": "formal-massing-pass",
+      "identityAllowed": true,
+      "qualityBoundary": {
+        "observed": [
+          "prototype envelope and current runtime scale language"
+        ],
+        "inferred": [
+          "simplified massing component dimensions"
+        ],
+        "unknown": [
+          "manufacturer or species where not explicitly confirmed",
+          "surveyed dimensions",
+          "current per-instance field condition"
+        ]
+      },
+      "runtimeQa": "docs/research/shared-prototypes-massing-runtime-qa.json"
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:street-furniture:cantilever-umbrella",
+      "slug": "cantilever-umbrella",
+      "family": "street-furniture",
+      "tier": "massing",
+      "status": "formal-massing-pass",
+      "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+      "generator": "scripts/create_shared_prototype_massing_models.py",
+      "evidence": "observed-xingfuli",
+      "instanceCount": null,
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/massing/cantilever-umbrella-massing.blend",
+        "glb": "public/models/tiers/shared-prototypes/massing/cantilever-umbrella-massing.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_cantilever-umbrella-massing-canonical.png",
+          "side": "test_artifacts/all-models/massing/shared-prototypes/test_cantilever-umbrella-massing-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "bb9f7ae3ac1c2aa3ef39c3862376875cc02a4ad1ca2666d531425d872c7911f8",
+        "bytes": 9040,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 1,
+        "images": 0,
+        "textures": 0,
+        "triangles": 118,
+        "bounds": {
+          "min": [
+            -0.551852,
+            0,
+            -0.659259
+          ],
+          "max": [
+            0.777778,
+            0.951852,
+            0.659259
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": "formal-massing-pass",
+      "identityAllowed": true,
+      "qualityBoundary": {
+        "observed": [
+          "prototype envelope and current runtime scale language"
+        ],
+        "inferred": [
+          "simplified massing component dimensions"
+        ],
+        "unknown": [
+          "manufacturer or species where not explicitly confirmed",
+          "surveyed dimensions",
+          "current per-instance field condition"
+        ]
+      },
+      "runtimeQa": "docs/research/shared-prototypes-massing-runtime-qa.json"
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:street-furniture:outdoor-table-set",
+      "slug": "outdoor-table-set",
+      "family": "street-furniture",
+      "tier": "massing",
+      "status": "formal-massing-pass",
+      "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+      "generator": "scripts/create_shared_prototype_massing_models.py",
+      "evidence": "observed-xingfuli",
+      "instanceCount": null,
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/massing/outdoor-table-set-massing.blend",
+        "glb": "public/models/tiers/shared-prototypes/massing/outdoor-table-set-massing.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_outdoor-table-set-massing-canonical.png",
+          "side": "test_artifacts/all-models/massing/shared-prototypes/test_outdoor-table-set-massing-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "5600a2de04ffbe68e6b54b9225f4acb341545e5fc8c00908fd42e8dbcbab900f",
+        "bytes": 16024,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 1,
+        "images": 0,
+        "textures": 0,
+        "triangles": 216,
+        "bounds": {
+          "min": [
+            -0.444444,
+            0,
+            -0.422222
+          ],
+          "max": [
+            0.444444,
+            0.396296,
+            0.422222
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": "formal-massing-pass",
+      "identityAllowed": true,
+      "qualityBoundary": {
+        "observed": [
+          "prototype envelope and current runtime scale language"
+        ],
+        "inferred": [
+          "simplified massing component dimensions"
+        ],
+        "unknown": [
+          "manufacturer or species where not explicitly confirmed",
+          "surveyed dimensions",
+          "current per-instance field condition"
+        ]
+      },
+      "runtimeQa": "docs/research/shared-prototypes-massing-runtime-qa.json"
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:street-furniture:slatted-bench",
+      "slug": "slatted-bench",
+      "family": "street-furniture",
+      "tier": "massing",
+      "status": "formal-massing-pass",
+      "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+      "generator": "scripts/create_shared_prototype_massing_models.py",
+      "evidence": "observed-xingfuli",
+      "instanceCount": null,
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/massing/slatted-bench-massing.blend",
+        "glb": "public/models/tiers/shared-prototypes/massing/slatted-bench-massing.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_slatted-bench-massing-canonical.png",
+          "side": "test_artifacts/all-models/massing/shared-prototypes/test_slatted-bench-massing-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "0a02128b8d0631f5fae92ee133a04a817ce89fd2a7eae5eed3314279e23aebf9",
+        "bytes": 5004,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 1,
+        "images": 0,
+        "textures": 0,
+        "triangles": 48,
+        "bounds": {
+          "min": [
+            -0.385185,
+            0,
+            -0.125926
+          ],
+          "max": [
+            0.385185,
+            0.377778,
+            0.114815
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": "formal-massing-pass",
+      "identityAllowed": true,
+      "qualityBoundary": {
+        "observed": [
+          "prototype envelope and current runtime scale language"
+        ],
+        "inferred": [
+          "simplified massing component dimensions"
+        ],
+        "unknown": [
+          "manufacturer or species where not explicitly confirmed",
+          "surveyed dimensions",
+          "current per-instance field condition"
+        ]
+      },
+      "runtimeQa": "docs/research/shared-prototypes-massing-runtime-qa.json"
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:street-furniture:rectangular-planter",
+      "slug": "rectangular-planter",
+      "family": "street-furniture",
+      "tier": "massing",
+      "status": "formal-massing-pass",
+      "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+      "generator": "scripts/create_shared_prototype_massing_models.py",
+      "evidence": "observed-xingfuli-and-road-edge",
+      "instanceCount": null,
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/massing/rectangular-planter-massing.blend",
+        "glb": "public/models/tiers/shared-prototypes/massing/rectangular-planter-massing.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_rectangular-planter-massing-canonical.png",
+          "side": "test_artifacts/all-models/massing/shared-prototypes/test_rectangular-planter-massing-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "0ecdb359f37a1de083d06701dfd613493b19521014eb47b38070c6cc477ee03c",
+        "bytes": 6616,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 1,
+        "images": 0,
+        "textures": 0,
+        "triangles": 52,
+        "bounds": {
+          "min": [
+            -0.311827,
+            0,
+            -0.138623
+          ],
+          "max": [
+            0.328391,
+            0.533333,
+            0.138623
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": "formal-massing-pass",
+      "identityAllowed": true,
+      "qualityBoundary": {
+        "observed": [
+          "prototype envelope and current runtime scale language"
+        ],
+        "inferred": [
+          "simplified massing component dimensions"
+        ],
+        "unknown": [
+          "manufacturer or species where not explicitly confirmed",
+          "surveyed dimensions",
+          "current per-instance field condition"
+        ]
+      },
+      "runtimeQa": "docs/research/shared-prototypes-massing-runtime-qa.json"
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:street-furniture:shanghai-dual-classification-bin",
+      "slug": "shanghai-dual-classification-bin",
+      "family": "street-furniture",
+      "tier": "massing",
+      "status": "formal-massing-pass",
+      "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+      "generator": "scripts/create_shared_prototype_massing_models.py",
+      "evidence": "observed-shanghai-public-bin-reference",
+      "instanceCount": null,
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/massing/shanghai-dual-classification-bin-massing.blend",
+        "glb": "public/models/tiers/shared-prototypes/massing/shanghai-dual-classification-bin-massing.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_shanghai-dual-classification-bin-massing-canonical.png",
+          "side": "test_artifacts/all-models/massing/shared-prototypes/test_shanghai-dual-classification-bin-massing-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "1cf3d579308c929fb9d69a731aff9bc5f53ba0ec2b11474efcbf87209d96f2df",
+        "bytes": 5124,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 1,
+        "images": 0,
+        "textures": 0,
+        "triangles": 48,
+        "bounds": {
+          "min": [
+            -0.166667,
+            0,
+            -0.085185
+          ],
+          "max": [
+            0.166667,
+            0.340741,
+            0.085185
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": "formal-massing-pass",
+      "identityAllowed": true,
+      "qualityBoundary": {
+        "observed": [
+          "prototype envelope and current runtime scale language"
+        ],
+        "inferred": [
+          "simplified massing component dimensions"
+        ],
+        "unknown": [
+          "manufacturer or species where not explicitly confirmed",
+          "surveyed dimensions",
+          "current per-instance field condition"
+        ]
+      },
+      "runtimeQa": "docs/research/shared-prototypes-massing-runtime-qa.json"
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:street-furniture:irregular-stone-bollard",
+      "slug": "irregular-stone-bollard",
+      "family": "street-furniture",
+      "tier": "massing",
+      "status": "formal-massing-pass",
+      "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+      "generator": "scripts/create_shared_prototype_massing_models.py",
+      "evidence": "observed-xingfuli-panyu-entrance",
+      "instanceCount": null,
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/massing/irregular-stone-bollard-massing.blend",
+        "glb": "public/models/tiers/shared-prototypes/massing/irregular-stone-bollard-massing.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_irregular-stone-bollard-massing-canonical.png",
+          "side": "test_artifacts/all-models/massing/shared-prototypes/test_irregular-stone-bollard-massing-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "510047ea7b67f23f3b31e50757c668407605a27e9f6c35931892cad0ab58ab86",
+        "bytes": 2212,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 1,
+        "images": 0,
+        "textures": 0,
+        "triangles": 12,
+        "bounds": {
+          "min": [
+            -0.138519,
+            0,
+            -0.118148
+          ],
+          "max": [
+            0.143556,
+            0.214815,
+            0.118148
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": "formal-massing-pass",
+      "identityAllowed": true,
+      "qualityBoundary": {
+        "observed": [
+          "prototype envelope and current runtime scale language"
+        ],
+        "inferred": [
+          "simplified massing component dimensions"
+        ],
+        "unknown": [
+          "manufacturer or species where not explicitly confirmed",
+          "surveyed dimensions",
+          "current per-instance field condition"
+        ]
+      },
+      "runtimeQa": "docs/research/shared-prototypes-massing-runtime-qa.json"
+    }
+  ],
+  "runtimeQa": "docs/research/shared-prototypes-massing-runtime-qa.json",
+  "identityPolicy": "per-asset",
+  "identityAllowedAssetCount": 8,
+  "identityBlockedAssetCount": 4
+}

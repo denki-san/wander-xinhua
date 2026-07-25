@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "prototype:street-furniture:cantilever-umbrella",
+  "slug": "cantilever-umbrella",
+  "family": "street-furniture",
+  "tier": "massing",
+  "status": "gallery-runtime-pass-independent-review-pending",
+  "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+  "generator": "scripts/create_shared_prototype_massing_models.py",
+  "evidence": "observed-xingfuli",
+  "instanceCount": null,
+  "outputs": {
+    "blend": "assets/models/source/tiers/shared-prototypes/massing/cantilever-umbrella-massing.blend",
+    "glb": "public/models/tiers/shared-prototypes/massing/cantilever-umbrella-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_cantilever-umbrella-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/shared-prototypes/test_cantilever-umbrella-massing-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "f63452c0a0dad3d66f6d92309dcab3f9320091a797edc8612c6a1aaef2a2d763",
+    "bytes": 9040,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 118,
+    "bounds": {
+      "min": [
+        -1.49,
+        0,
+        -1.78
+      ],
+      "max": [
+        2.1,
+        2.57,
+        1.78
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": "gallery-runtime-pass-independent-review-pending",
+  "identityAllowed": false,
+  "qualityBoundary": {
+    "observed": [
+      "prototype envelope and current runtime scale language"
+    ],
+    "inferred": [
+      "simplified massing component dimensions"
+    ],
+    "unknown": [
+      "manufacturer or species where not explicitly confirmed",
+      "surveyed dimensions",
+      "current per-instance field condition"
+    ]
+  },
+  "runtimeQa": {
+    "file": "docs/research/shared-prototypes-massing-runtime-qa.json",
+    "screenshot": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs.png",
+    "galleryLoadAndRender": "pass",
+    "independentReview": "pending"
+  }
+}

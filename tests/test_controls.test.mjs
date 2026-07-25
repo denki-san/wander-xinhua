@@ -339,8 +339,14 @@ test("进入游玩态时立即切到低位后肩镜头且视觉合成器不重�
   assert.match(world, /camera\.lookAt\(cameraTarget\)/);
   assert.match(world, /addScaledVector\(s\.rigRight, CAMERA_SHOULDER_OFFSET\)/);
   assert.match(world, /addScaledVector\(s\.rigRight, CAMERA_TARGET_SHOULDER_OFFSET\)/);
-  assert.match(world, /<IntroCamera active=\{mode === "intro"\} \/>/);
-  assert.match(world, /\{exploring && \(\s*<PlayableWanderer/s);
+  assert.match(
+    world,
+    /<IntroCamera active=\{mode === "intro" && !isolatedPrototypeQa\} \/>/,
+  );
+  assert.match(
+    world,
+    /\{exploring && !isolatedPrototypeQa && \(\s*<PlayableWanderer/s,
+  );
   assert.match(world, /if \(!activeRef\.current\) return/);
   assert.match(composer, /const composer = composerRef\.current/);
   assert.match(composer, /return \(\) => composer\?\.dispose\(\)/);

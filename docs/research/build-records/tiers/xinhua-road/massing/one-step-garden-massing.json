@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:one-step-garden",
+  "tier": "massing",
+  "status": "massing-rebuild-required-independent-review",
+  "generator": "scripts/create_xinhua_road_massing_models.py",
+  "sourceHero": {
+    "path": "public/models/xinhua-road/one-step-garden.glb",
+    "sha256": "a68b4e25a44e922af8d98cd4f2e0ee00486b93d94d08b005816e5ceea5b86627",
+    "importedBounds": {
+      "min": [
+        -10,
+        -9.2,
+        -0.1
+      ],
+      "max": [
+        10,
+        6.8,
+        10.035
+      ]
+    },
+    "heightProxySceneUnits": 10.135,
+    "evidenceBoundary": "legacy-or-v2-hero-derived-height-not-real-measurement"
+  },
+  "sourcePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "position": [
+    60.86,
+    120.73
+  ],
+  "yaw": -0.38,
+  "runtimeScale": 0.88,
+  "localBounds": {
+    "minX": -10,
+    "maxX": 10,
+    "minZ": -6.8,
+    "maxZ": 9.2
+  },
+  "localObstacles": [
+    {
+      "minX": -8.8,
+      "maxX": 8.8,
+      "minZ": -6.1,
+      "maxZ": 4.7
+    }
+  ],
+  "roofProfile": "gable",
+  "proxyMethod": "voxel-remesh-current-hero",
+  "pruning": {
+    "removedFaces": 17996,
+    "removedMaterials": [
+      "一尺花园店招",
+      "一尺花园庭院",
+      "一尺花园庭院灯",
+      "一尺花园户外木",
+      "一尺花园浅绿",
+      "一尺花园灌木",
+      "一尺花园瓦垄",
+      "一尺花园金属",
+      "一尺花园铺装缝"
+    ],
+    "rule": "material-name-denylist-before-voxel-remesh"
+  },
+  "voxelSizeSceneUnits": 0.459524,
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/one-step-garden-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing/one-step-garden-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/test_one-step-garden-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/test_one-step-garden-massing-side.png",
+      "threejs": "test_artifacts/all-models/massing/test_one-step-garden-massing-threejs.png"
+    }
+  },
+  "glb": {
+    "sha256": "7db78a6a03f6735853dd7b80830e48a31d9b9f00b6caba470d89620b0269aa4a",
+    "bytes": 92844,
+    "nodes": 1,
+    "meshes": 1,
+    "images": 0,
+    "textures": 0,
+    "materials": 1,
+    "triangles": 900,
+    "expectedMaximumTriangles": 1200,
+    "bounds": {
+      "min": [
+        -9.59868,
+        -0.050864,
+        -6.050554
+      ],
+      "max": [
+        9.688699,
+        9.898659,
+        7.70594
+      ]
+    },
+    "auditStatus": "ok"
+  },
+  "editableSourceBounds": {
+    "min": [
+      -9.59868,
+      -7.70594,
+      -0.050864
+    ],
+    "max": [
+      9.688699,
+      6.050554,
+      9.898659
+    ]
+  },
+  "qualityBoundary": {
+    "observed": [
+      "runtime local bounds",
+      "runtime split obstacles",
+      "current hero imported bounds"
+    ],
+    "inferred": [
+      "per-block height proxy"
+    ],
+    "unknown": [
+      "surveyed height",
+      "entrance direction",
+      "unseen facade and roof"
+    ]
+  },
+  "runtimeGate": {
+    "status": "blocked-rebuild-required",
+    "validatedAt": "2026-07-25",
+    "route": "/?start=garden179&qaModelTier=massing&cameraQa=1",
+    "screenshot": "test_artifacts/all-models/massing/test_one-step-garden-massing-threejs.png",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "buildMode": "vite-static-production-preview",
+    "pageVisibility": "visible",
+    "playable": true,
+    "canvasCount": 1,
+    "cameraMode": "spring-clear",
+    "blockerId": "none",
+    "visualStatus": "pass",
+    "independentReviewStatus": "rebuild-required",
+    "requiredActions": [
+      "按两体量 compound footprint 重建",
+      "把角色起点移出道路",
+      "重新校准完整主体入画的 canonical 机位"
+    ],
+    "mapAcceptance": "required-before-formal-pass"
+  }
+}

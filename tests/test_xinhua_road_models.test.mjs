@@ -6,10 +6,15 @@ import { Mesh } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import {
   buildPlaneTreePlacements,
+  resolveStreetClearancePoint,
   TREE_BUILDING_CLEARANCE,
   XINHUA_ROAD_AXIS,
   XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
 } from "../app/scene/xinhua-road-placement.mjs";
+import {
+  buildXinhuaStreetDressingConstraints,
+  buildXinhuaStreetDressingPlacements,
+} from "../app/scene/street-dressing-placement.mjs";
 
 const root = new URL("../", import.meta.url);
 const sceneSource = await readFile(new URL("app/scene/xinhua-road-landmarks.tsx", root), "utf8");
@@ -490,12 +495,52 @@ test("梧桐位置沿新华路双侧交错避让，全览轻量且详情恢复�
       );
     }
     for (const landmark of landmarkData.landmarks) {
+      const clearancePoint = resolveStreetClearancePoint(landmark);
       assert.ok(
-        Math.hypot(placement.position[0] - landmark.start[0], placement.position[1] - landmark.start[1]) >= 9.2,
+        Math.hypot(
+          placement.position[0] - clearancePoint[0],
+          placement.position[1] - clearancePoint[1],
+        ) >= 9.2,
         `${placement.id} 不得堵住 ${landmark.query} 入口`,
       );
     }
   }
+});
+
+test("canonical 快速定位机位调整不得改变树木和街具实体布点", () => {
+  const cameraAdjustedQueries = new Set([
+    "orchestra",
+    "pocket-park",
+    "fahua525",
+    "fics365",
+  ]);
+  const baselineConstraints = buildXinhuaStreetDressingConstraints(
+    landmarkData.landmarks,
+  );
+  const cameraAdjustedLandmarks = landmarkData.landmarks.map((landmark) => (
+    cameraAdjustedQueries.has(landmark.query)
+      ? { ...landmark, start: [landmark.start[0] + 500, landmark.start[1] - 500] }
+      : landmark
+  ));
+  const adjustedConstraints = buildXinhuaStreetDressingConstraints(
+    cameraAdjustedLandmarks,
+  );
+
+  assert.equal(
+    landmarkData.landmarks.filter(({ streetClearancePoint }) => streetClearancePoint).length,
+    4,
+    "所有改过 canonical 机位的地标都必须冻结独立街道净空锚点",
+  );
+  assert.deepEqual(
+    adjustedConstraints.treePositions,
+    baselineConstraints.treePositions,
+    "相机机位不得改变梧桐布点",
+  );
+  assert.deepEqual(
+    buildXinhuaStreetDressingPlacements(false, adjustedConstraints),
+    buildXinhuaStreetDressingPlacements(false, baselineConstraints),
+    "相机机位不得改变路灯、花箱、垃圾桶和灌木布点",
+  );
 });
 
 test("梧桐 GLB 资产仍可审计，并只在详情运行时恢复", async () => {

@@ -1,0 +1,1087 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-25",
+  "status": "identity-isolated-runtime-pass-map-placement-collision-performance-pending",
+  "formalIdentityPassCount": 0,
+  "assetCount": 8,
+  "vegetationAssetCount": 1,
+  "streetFurnitureAssetCount": 7,
+  "excludedGenericVegetation": [
+    "shangsheng-campus-tree",
+    "huashan-canopy-tree",
+    "huashan-understory",
+    "road-edge-shrub"
+  ],
+  "modelBrief": "docs/research/shared-prototypes-identity-model-brief.md",
+  "massingManifest": "docs/research/shared-prototypes-massing-manifest.json",
+  "independentReview": "docs/research/shared-prototypes-massing-independent-review-final.md",
+  "identityIndependentReview": "docs/research/shared-prototypes-identity-independent-review.md",
+  "contactSheets": {
+    "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-canonical-contact-sheet.png",
+    "side": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-side-contact-sheet.png"
+  },
+  "generator": "scripts/create_shared_prototype_identity_models.py",
+  "totalGlbBytes": 159748,
+  "totalTriangles": 1916,
+  "zeroImageTextureAssetCount": 8,
+  "rootTransformCleanAssetCount": 8,
+  "runtimeIntegration": {
+    "isolatedGallery": "passed-8-of-8",
+    "materialVisual": "passed-8-of-8",
+    "realMapPlacement": "pending-0-of-8",
+    "collisionAndPassage": "pending-0-of-8",
+    "performance": "isolated-resource-timing-only-no-map-baseline"
+  },
+  "assets": [
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:vegetation:xinhua-plane-tree",
+      "slug": "xinhua-plane-tree",
+      "family": "vegetation",
+      "tier": "identity",
+      "status": "isolated-gallery-passed-map-gates-pending",
+      "formalIdentityPass": false,
+      "modelBrief": "docs/research/shared-prototypes-identity-model-brief.md",
+      "massingManifest": "docs/research/shared-prototypes-massing-manifest.json",
+      "independentReview": "docs/research/shared-prototypes-massing-independent-review-final.md",
+      "identityIndependentReview": "docs/research/shared-prototypes-identity-independent-review.md",
+      "contactSheets": {
+        "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-canonical-contact-sheet.png",
+        "side": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-side-contact-sheet.png"
+      },
+      "generator": "scripts/create_shared_prototype_identity_models.py",
+      "evidence": "confirmed-plane-tree",
+      "recognizers": [
+        "continuous tapered trunk",
+        "high five-way primary fork",
+        "asymmetric crown gaps",
+        "pale exfoliating bark patches",
+        "sparse hanging seed balls"
+      ],
+      "qualityBoundary": {
+        "observed": [
+          "Pale mottled trunk, raised multi-way fork and broad asymmetric crown are directly supported.",
+          "Avenue evidence supports raised street crowns and visible scaffold branches."
+        ],
+        "inferred": [
+          "Branch layout is an original deterministic species archetype, not one surveyed individual.",
+          "Crown gaps and foliage clusters are simplified for Identity distance."
+        ],
+        "unknown": [
+          "individual age, DBH and measured height",
+          "per-instance pruning history and health",
+          "2026-later field condition"
+        ],
+        "sources": [
+          "research/references/plane-tree/plane-tree-canonical.jpg",
+          "research/references/plane-tree/plane-tree-avenue.jpg",
+          "research/references/plane-tree/plane-tree-bark.jpg",
+          "research/plane-tree-reference-metadata.json"
+        ]
+      },
+      "originContract": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "meaning": "prototype-ground-center",
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false,
+        "authoredMetersPerSceneUnit": 2.7,
+        "surveyedMeters": false
+      },
+      "budget": {
+        "maxTriangles": 6000,
+        "maxNodes": 4,
+        "maxMaterials": 4,
+        "maxImages": 0,
+        "maxBinaryBytes": 786432
+      },
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/identity/xinhua-plane-tree-identity.blend",
+        "glb": "public/models/tiers/shared-prototypes/identity/xinhua-plane-tree-identity.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_xinhua-plane-tree-identity-canonical.png",
+          "side": "test_artifacts/all-models/identity/shared-prototypes/test_xinhua-plane-tree-identity-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "8f8707bd9310bef77ebe7c209f8a67e1550ad51cfaddb6a60b5bbd158f5eac37",
+        "bytes": 68084,
+        "nodes": 4,
+        "meshes": 4,
+        "materials": 4,
+        "materialBaseColors": {
+          "xinhua-plane-tree-bark-identity-material": [
+            0.36000001430511475,
+            0.3100000023841858,
+            0.23999999463558197,
+            1
+          ],
+          "xinhua-plane-tree-bark-pale-identity-material": [
+            0.6700000166893005,
+            0.6499999761581421,
+            0.5,
+            1
+          ],
+          "xinhua-plane-tree-foliage-identity-material": [
+            0.25,
+            0.4000000059604645,
+            0.23000000417232513,
+            1
+          ],
+          "xinhua-plane-tree-fruit-identity-material": [
+            0.23999999463558197,
+            0.17000000178813934,
+            0.11999999731779099,
+            1
+          ]
+        },
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "triangles": 872,
+        "bounds": {
+          "min": [
+            -2.641198,
+            -0.027901,
+            -2.048563
+          ],
+          "max": [
+            2.594864,
+            7.02,
+            2.08155
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": {
+        "status": "isolated-gallery-passed-map-gates-pending",
+        "gallery": "passed",
+        "shapeVisual": "passed",
+        "materialVisual": "passed-after-principled-bsdf-export-fix",
+        "group": "vegetation",
+        "screenshot": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-threejs-vegetation.jpg",
+        "screenshotSha256": "440438b27ab40521e2921fa558a0a1f9789f32fc0ae650b422204e357cad6418",
+        "httpStatus": 200,
+        "cacheDisabled": true,
+        "runtimeErrors": 0,
+        "consoleErrors": 0,
+        "mapPlacement": "not-validated",
+        "collision": "not-validated",
+        "performance": "isolated-resource-timing-only-no-map-baseline"
+      },
+      "speciesBoundary": {
+        "confirmed": "plane tree archetype",
+        "notClaimed": "exact individual identity, age, DBH or measured height"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:street-furniture:lane-lamp-short-arm",
+      "slug": "lane-lamp-short-arm",
+      "family": "street-furniture",
+      "tier": "identity",
+      "status": "isolated-gallery-passed-map-gates-pending",
+      "formalIdentityPass": false,
+      "modelBrief": "docs/research/shared-prototypes-identity-model-brief.md",
+      "massingManifest": "docs/research/shared-prototypes-massing-manifest.json",
+      "independentReview": "docs/research/shared-prototypes-massing-independent-review-final.md",
+      "identityIndependentReview": "docs/research/shared-prototypes-identity-independent-review.md",
+      "contactSheets": {
+        "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-canonical-contact-sheet.png",
+        "side": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-side-contact-sheet.png"
+      },
+      "generator": "scripts/create_shared_prototype_identity_models.py",
+      "evidence": "observed-xingfuli-and-street-context",
+      "recognizers": [
+        "slim pole",
+        "single short arm",
+        "downward head with warm lens"
+      ],
+      "qualityBoundary": {
+        "observed": [
+          "A slim dark pole, one short side arm and one downward lamp head are visible."
+        ],
+        "inferred": [
+          "Identity dimensions refine the formally accepted Massing envelope.",
+          "Hidden fasteners and rear construction remain conservative."
+        ],
+        "unknown": [
+          "manufacturer and product model",
+          "surveyed dimensions",
+          "2026-later per-instance field condition"
+        ],
+        "sources": [
+          "docs/research/assets/poi-references/xingfuli/courtyard-canonical.jpg",
+          "docs/research/assets/poi-references/xingfuli/water-lane.jpg",
+          "docs/research/xingfuli-reference-manifest.json"
+        ]
+      },
+      "originContract": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "meaning": "prototype-ground-center",
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false,
+        "authoredMetersPerSceneUnit": 2.7,
+        "surveyedMeters": false
+      },
+      "budget": {
+        "maxTriangles": 2500,
+        "maxNodes": 4,
+        "maxMaterials": 4,
+        "maxImages": 0,
+        "maxBinaryBytes": 262144
+      },
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/identity/lane-lamp-short-arm-identity.blend",
+        "glb": "public/models/tiers/shared-prototypes/identity/lane-lamp-short-arm-identity.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_lane-lamp-short-arm-identity-canonical.png",
+          "side": "test_artifacts/all-models/identity/shared-prototypes/test_lane-lamp-short-arm-identity-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "f848fe9a86f774c7779f35717ed23214fb443b66c173489bc47eb4c44e2cdea3",
+        "bytes": 12864,
+        "nodes": 2,
+        "meshes": 2,
+        "materials": 2,
+        "materialBaseColors": {
+          "lane-lamp-short-arm-metal-identity-material": [
+            0.12999999523162842,
+            0.17000000178813934,
+            0.1599999964237213,
+            1
+          ],
+          "lane-lamp-short-arm-warm-identity-material": [
+            0.949999988079071,
+            0.6800000071525574,
+            0.30000001192092896,
+            1
+          ]
+        },
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "triangles": 164,
+        "bounds": {
+          "min": [
+            -0.061819,
+            0,
+            -0.085
+          ],
+          "max": [
+            0.285,
+            1.24,
+            0.085
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": {
+        "status": "isolated-gallery-passed-map-gates-pending",
+        "gallery": "passed",
+        "shapeVisual": "passed",
+        "materialVisual": "passed-after-principled-bsdf-export-fix",
+        "group": "street-furniture",
+        "screenshot": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-threejs-street-furniture.jpg",
+        "screenshotSha256": "a87efaebb12563144c56ddc446b1e2b0caca6c8b040e9e92f8b190f7a024e90e",
+        "httpStatus": 200,
+        "cacheDisabled": true,
+        "runtimeErrors": 0,
+        "consoleErrors": 0,
+        "mapPlacement": "not-validated",
+        "collision": "not-validated",
+        "performance": "isolated-resource-timing-only-no-map-baseline"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:street-furniture:cantilever-umbrella",
+      "slug": "cantilever-umbrella",
+      "family": "street-furniture",
+      "tier": "identity",
+      "status": "isolated-gallery-passed-map-gates-pending",
+      "formalIdentityPass": false,
+      "modelBrief": "docs/research/shared-prototypes-identity-model-brief.md",
+      "massingManifest": "docs/research/shared-prototypes-massing-manifest.json",
+      "independentReview": "docs/research/shared-prototypes-massing-independent-review-final.md",
+      "identityIndependentReview": "docs/research/shared-prototypes-identity-independent-review.md",
+      "contactSheets": {
+        "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-canonical-contact-sheet.png",
+        "side": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-side-contact-sheet.png"
+      },
+      "generator": "scripts/create_shared_prototype_identity_models.py",
+      "evidence": "observed-xingfuli",
+      "recognizers": [
+        "offset side pole",
+        "horizontal cantilever and diagonal brace",
+        "red four-slope square canopy"
+      ],
+      "qualityBoundary": {
+        "observed": [
+          "Xingfuli photos show red square cafe umbrellas carried from an offset side pole."
+        ],
+        "inferred": [
+          "Identity dimensions refine the formally accepted Massing envelope.",
+          "Hidden fasteners and rear construction remain conservative."
+        ],
+        "unknown": [
+          "manufacturer and product model",
+          "surveyed dimensions",
+          "2026-later per-instance field condition"
+        ],
+        "sources": [
+          "docs/research/assets/poi-references/xingfuli/courtyard-canonical.jpg",
+          "docs/research/assets/poi-references/xingfuli/water-lane.jpg",
+          "docs/research/xingfuli-reference-manifest.json"
+        ]
+      },
+      "originContract": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "meaning": "prototype-ground-center",
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false,
+        "authoredMetersPerSceneUnit": 2.7,
+        "surveyedMeters": false
+      },
+      "budget": {
+        "maxTriangles": 2500,
+        "maxNodes": 4,
+        "maxMaterials": 4,
+        "maxImages": 0,
+        "maxBinaryBytes": 262144
+      },
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/identity/cantilever-umbrella-identity.blend",
+        "glb": "public/models/tiers/shared-prototypes/identity/cantilever-umbrella-identity.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_cantilever-umbrella-identity-canonical.png",
+          "side": "test_artifacts/all-models/identity/shared-prototypes/test_cantilever-umbrella-identity-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "92e0484fa92312a2650de81d04cc783dc902fd99da549c6112894a46dbba9d8c",
+        "bytes": 13188,
+        "nodes": 2,
+        "meshes": 2,
+        "materials": 2,
+        "materialBaseColors": {
+          "cantilever-umbrella-metal-identity-material": [
+            0.12999999523162842,
+            0.17000000178813934,
+            0.1599999964237213,
+            1
+          ],
+          "cantilever-umbrella-red-identity-material": [
+            0.6200000047683716,
+            0.1599999964237213,
+            0.20000000298023224,
+            1
+          ]
+        },
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "triangles": 164,
+        "bounds": {
+          "min": [
+            -0.563637,
+            0,
+            -0.46669
+          ],
+          "max": [
+            0.68669,
+            1,
+            0.46669
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": {
+        "status": "isolated-gallery-passed-map-gates-pending",
+        "gallery": "passed",
+        "shapeVisual": "passed",
+        "materialVisual": "passed-after-principled-bsdf-export-fix",
+        "group": "street-furniture",
+        "screenshot": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-threejs-street-furniture.jpg",
+        "screenshotSha256": "a87efaebb12563144c56ddc446b1e2b0caca6c8b040e9e92f8b190f7a024e90e",
+        "httpStatus": 200,
+        "cacheDisabled": true,
+        "runtimeErrors": 0,
+        "consoleErrors": 0,
+        "mapPlacement": "not-validated",
+        "collision": "not-validated",
+        "performance": "isolated-resource-timing-only-no-map-baseline"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:street-furniture:outdoor-table-set",
+      "slug": "outdoor-table-set",
+      "family": "street-furniture",
+      "tier": "identity",
+      "status": "isolated-gallery-passed-map-gates-pending",
+      "formalIdentityPass": false,
+      "modelBrief": "docs/research/shared-prototypes-identity-model-brief.md",
+      "massingManifest": "docs/research/shared-prototypes-massing-manifest.json",
+      "independentReview": "docs/research/shared-prototypes-massing-independent-review-final.md",
+      "identityIndependentReview": "docs/research/shared-prototypes-identity-independent-review.md",
+      "contactSheets": {
+        "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-canonical-contact-sheet.png",
+        "side": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-side-contact-sheet.png"
+      },
+      "generator": "scripts/create_shared_prototype_identity_models.py",
+      "evidence": "observed-xingfuli",
+      "recognizers": [
+        "round tabletop",
+        "central pedestal",
+        "four independent chairs with readable backs"
+      ],
+      "qualityBoundary": {
+        "observed": [
+          "Xingfuli photos support a round table with seats distributed around it."
+        ],
+        "inferred": [
+          "Identity dimensions refine the formally accepted Massing envelope.",
+          "Hidden fasteners and rear construction remain conservative."
+        ],
+        "unknown": [
+          "manufacturer and product model",
+          "surveyed dimensions",
+          "2026-later per-instance field condition"
+        ],
+        "sources": [
+          "docs/research/assets/poi-references/xingfuli/courtyard-canonical.jpg",
+          "docs/research/assets/poi-references/xingfuli/water-lane.jpg",
+          "docs/research/xingfuli-reference-manifest.json"
+        ]
+      },
+      "originContract": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "meaning": "prototype-ground-center",
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false,
+        "authoredMetersPerSceneUnit": 2.7,
+        "surveyedMeters": false
+      },
+      "budget": {
+        "maxTriangles": 2500,
+        "maxNodes": 4,
+        "maxMaterials": 4,
+        "maxImages": 0,
+        "maxBinaryBytes": 262144
+      },
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/identity/outdoor-table-set-identity.blend",
+        "glb": "public/models/tiers/shared-prototypes/identity/outdoor-table-set-identity.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_outdoor-table-set-identity-canonical.png",
+          "side": "test_artifacts/all-models/identity/shared-prototypes/test_outdoor-table-set-identity-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "73fb2d36d73b153c729017b2c5cd11d6ffa65251e6734c5640331bfbd8c3643a",
+        "bytes": 23796,
+        "nodes": 2,
+        "meshes": 2,
+        "materials": 2,
+        "materialBaseColors": {
+          "outdoor-table-set-metal-identity-material": [
+            0.12999999523162842,
+            0.17000000178813934,
+            0.1599999964237213,
+            1
+          ],
+          "outdoor-table-set-wood-identity-material": [
+            0.44999998807907104,
+            0.28999999165534973,
+            0.18000000715255737,
+            1
+          ]
+        },
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "triangles": 332,
+        "bounds": {
+          "min": [
+            -0.43,
+            0,
+            -0.43
+          ],
+          "max": [
+            0.43,
+            0.41,
+            0.43
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": {
+        "status": "isolated-gallery-passed-map-gates-pending",
+        "gallery": "passed",
+        "shapeVisual": "passed",
+        "materialVisual": "passed-after-principled-bsdf-export-fix",
+        "group": "street-furniture",
+        "screenshot": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-threejs-street-furniture.jpg",
+        "screenshotSha256": "a87efaebb12563144c56ddc446b1e2b0caca6c8b040e9e92f8b190f7a024e90e",
+        "httpStatus": 200,
+        "cacheDisabled": true,
+        "runtimeErrors": 0,
+        "consoleErrors": 0,
+        "mapPlacement": "not-validated",
+        "collision": "not-validated",
+        "performance": "isolated-resource-timing-only-no-map-baseline"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:street-furniture:slatted-bench",
+      "slug": "slatted-bench",
+      "family": "street-furniture",
+      "tier": "identity",
+      "status": "isolated-gallery-passed-map-gates-pending",
+      "formalIdentityPass": false,
+      "modelBrief": "docs/research/shared-prototypes-identity-model-brief.md",
+      "massingManifest": "docs/research/shared-prototypes-massing-manifest.json",
+      "independentReview": "docs/research/shared-prototypes-massing-independent-review-final.md",
+      "identityIndependentReview": "docs/research/shared-prototypes-identity-independent-review.md",
+      "contactSheets": {
+        "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-canonical-contact-sheet.png",
+        "side": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-side-contact-sheet.png"
+      },
+      "generator": "scripts/create_shared_prototype_identity_models.py",
+      "evidence": "observed-xingfuli",
+      "recognizers": [
+        "multiple seat slats",
+        "separated back slats",
+        "two dark metal support frames"
+      ],
+      "qualityBoundary": {
+        "observed": [
+          "Xingfuli site evidence supports a backed outdoor bench within the shared palette."
+        ],
+        "inferred": [
+          "Identity dimensions refine the formally accepted Massing envelope.",
+          "Hidden fasteners and rear construction remain conservative."
+        ],
+        "unknown": [
+          "manufacturer and product model",
+          "surveyed dimensions",
+          "2026-later per-instance field condition"
+        ],
+        "sources": [
+          "docs/research/assets/poi-references/xingfuli/courtyard-canonical.jpg",
+          "docs/research/assets/poi-references/xingfuli/water-lane.jpg",
+          "docs/research/xingfuli-reference-manifest.json"
+        ]
+      },
+      "originContract": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "meaning": "prototype-ground-center",
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false,
+        "authoredMetersPerSceneUnit": 2.7,
+        "surveyedMeters": false
+      },
+      "budget": {
+        "maxTriangles": 2500,
+        "maxNodes": 4,
+        "maxMaterials": 4,
+        "maxImages": 0,
+        "maxBinaryBytes": 262144
+      },
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/identity/slatted-bench-identity.blend",
+        "glb": "public/models/tiers/shared-prototypes/identity/slatted-bench-identity.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_slatted-bench-identity-canonical.png",
+          "side": "test_artifacts/all-models/identity/shared-prototypes/test_slatted-bench-identity-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "e537d541c410bf5f1515356b7290f0abe8cbb1b6e5800e2d3cbcfa5314647784",
+        "bytes": 13040,
+        "nodes": 2,
+        "meshes": 2,
+        "materials": 2,
+        "materialBaseColors": {
+          "slatted-bench-metal-identity-material": [
+            0.12999999523162842,
+            0.17000000178813934,
+            0.1599999964237213,
+            1
+          ],
+          "slatted-bench-wood-identity-material": [
+            0.44999998807907104,
+            0.28999999165534973,
+            0.18000000715255737,
+            1
+          ]
+        },
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "triangles": 144,
+        "bounds": {
+          "min": [
+            -0.385,
+            0,
+            -0.15
+          ],
+          "max": [
+            0.385,
+            0.4675,
+            0.15
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": {
+        "status": "isolated-gallery-passed-map-gates-pending",
+        "gallery": "passed",
+        "shapeVisual": "passed",
+        "materialVisual": "passed-after-principled-bsdf-export-fix",
+        "group": "street-furniture",
+        "screenshot": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-threejs-street-furniture.jpg",
+        "screenshotSha256": "a87efaebb12563144c56ddc446b1e2b0caca6c8b040e9e92f8b190f7a024e90e",
+        "httpStatus": 200,
+        "cacheDisabled": true,
+        "runtimeErrors": 0,
+        "consoleErrors": 0,
+        "mapPlacement": "not-validated",
+        "collision": "not-validated",
+        "performance": "isolated-resource-timing-only-no-map-baseline"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:street-furniture:rectangular-planter",
+      "slug": "rectangular-planter",
+      "family": "street-furniture",
+      "tier": "identity",
+      "status": "isolated-gallery-passed-map-gates-pending",
+      "formalIdentityPass": false,
+      "modelBrief": "docs/research/shared-prototypes-identity-model-brief.md",
+      "massingManifest": "docs/research/shared-prototypes-massing-manifest.json",
+      "independentReview": "docs/research/shared-prototypes-massing-independent-review-final.md",
+      "identityIndependentReview": "docs/research/shared-prototypes-identity-independent-review.md",
+      "contactSheets": {
+        "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-canonical-contact-sheet.png",
+        "side": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-side-contact-sheet.png"
+      },
+      "generator": "scripts/create_shared_prototype_identity_models.py",
+      "evidence": "observed-xingfuli-and-road-edge",
+      "recognizers": [
+        "rectangular container",
+        "raised rim and recessed soil",
+        "three unequal foliage clusters"
+      ],
+      "qualityBoundary": {
+        "observed": [
+          "Xingfuli and road-edge photos support dark containers with raised planting silhouettes."
+        ],
+        "inferred": [
+          "Identity dimensions refine the formally accepted Massing envelope.",
+          "Hidden fasteners and rear construction remain conservative."
+        ],
+        "unknown": [
+          "manufacturer and product model",
+          "surveyed dimensions",
+          "2026-later per-instance field condition"
+        ],
+        "sources": [
+          "docs/research/assets/poi-references/xingfuli/courtyard-canonical.jpg",
+          "docs/research/assets/poi-references/xingfuli/water-lane.jpg",
+          "docs/research/xingfuli-reference-manifest.json"
+        ]
+      },
+      "originContract": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "meaning": "prototype-ground-center",
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false,
+        "authoredMetersPerSceneUnit": 2.7,
+        "surveyedMeters": false
+      },
+      "budget": {
+        "maxTriangles": 2500,
+        "maxNodes": 4,
+        "maxMaterials": 4,
+        "maxImages": 0,
+        "maxBinaryBytes": 262144
+      },
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/identity/rectangular-planter-identity.blend",
+        "glb": "public/models/tiers/shared-prototypes/identity/rectangular-planter-identity.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_rectangular-planter-identity-canonical.png",
+          "side": "test_artifacts/all-models/identity/shared-prototypes/test_rectangular-planter-identity-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "1f7dfd72af3b7668ee532cc4c44cb5c67be355a5765e73eb5bef2acc7b6d44de",
+        "bytes": 14188,
+        "nodes": 2,
+        "meshes": 2,
+        "materials": 2,
+        "materialBaseColors": {
+          "rectangular-planter-foliage-identity-material": [
+            0.25,
+            0.4000000059604645,
+            0.23000000417232513,
+            1
+          ],
+          "rectangular-planter-planter-identity-material": [
+            0.20000000298023224,
+            0.23999999463558197,
+            0.2199999988079071,
+            1
+          ]
+        },
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "triangles": 132,
+        "bounds": {
+          "min": [
+            -0.348885,
+            0,
+            -0.146102
+          ],
+          "max": [
+            0.340997,
+            0.72,
+            0.1325
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": {
+        "status": "isolated-gallery-passed-map-gates-pending",
+        "gallery": "passed",
+        "shapeVisual": "passed",
+        "materialVisual": "passed-after-principled-bsdf-export-fix",
+        "group": "street-furniture",
+        "screenshot": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-threejs-street-furniture.jpg",
+        "screenshotSha256": "a87efaebb12563144c56ddc446b1e2b0caca6c8b040e9e92f8b190f7a024e90e",
+        "httpStatus": 200,
+        "cacheDisabled": true,
+        "runtimeErrors": 0,
+        "consoleErrors": 0,
+        "mapPlacement": "not-validated",
+        "collision": "not-validated",
+        "performance": "isolated-resource-timing-only-no-map-baseline"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:street-furniture:shanghai-dual-classification-bin",
+      "slug": "shanghai-dual-classification-bin",
+      "family": "street-furniture",
+      "tier": "identity",
+      "status": "isolated-gallery-passed-map-gates-pending",
+      "formalIdentityPass": false,
+      "modelBrief": "docs/research/shared-prototypes-identity-model-brief.md",
+      "massingManifest": "docs/research/shared-prototypes-massing-manifest.json",
+      "independentReview": "docs/research/shared-prototypes-massing-independent-review-final.md",
+      "identityIndependentReview": "docs/research/shared-prototypes-identity-independent-review.md",
+      "contactSheets": {
+        "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-canonical-contact-sheet.png",
+        "side": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-side-contact-sheet.png"
+      },
+      "generator": "scripts/create_shared_prototype_identity_models.py",
+      "evidence": "observed-shanghai-public-bin-reference",
+      "recognizers": [
+        "stainless perimeter frame",
+        "two dark top openings",
+        "two differently coloured front compartments"
+      ],
+      "qualityBoundary": {
+        "observed": [
+          "The Shanghai reference shows a stainless frame, two top openings and two front classification zones."
+        ],
+        "inferred": [
+          "Identity dimensions refine the formally accepted Massing envelope.",
+          "Hidden fasteners and rear construction remain conservative."
+        ],
+        "unknown": [
+          "manufacturer and product model",
+          "surveyed dimensions",
+          "2026-later per-instance field condition"
+        ],
+        "sources": [
+          "docs/research/assets/shanghai-street-bin-weihai-2023-reference.jpg",
+          "docs/research/street-surface-refinement-reference-manifest.json"
+        ]
+      },
+      "originContract": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "meaning": "prototype-ground-center",
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false,
+        "authoredMetersPerSceneUnit": 2.7,
+        "surveyedMeters": false
+      },
+      "budget": {
+        "maxTriangles": 2500,
+        "maxNodes": 4,
+        "maxMaterials": 4,
+        "maxImages": 0,
+        "maxBinaryBytes": 262144
+      },
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/identity/shanghai-dual-classification-bin-identity.blend",
+        "glb": "public/models/tiers/shared-prototypes/identity/shanghai-dual-classification-bin-identity.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_shanghai-dual-classification-bin-identity-canonical.png",
+          "side": "test_artifacts/all-models/identity/shared-prototypes/test_shanghai-dual-classification-bin-identity-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "fe65c61f54ca7002d771cd7b0dc46fa2c84d67c83503f877f39024e277d948d9",
+        "bytes": 12296,
+        "nodes": 4,
+        "meshes": 4,
+        "materials": 4,
+        "materialBaseColors": {
+          "shanghai-dual-classification-bin-black-identity-material": [
+            0.03999999910593033,
+            0.05999999865889549,
+            0.05999999865889549,
+            1
+          ],
+          "shanghai-dual-classification-bin-blue-identity-material": [
+            0.05999999865889549,
+            0.3400000035762787,
+            0.6399999856948853,
+            1
+          ],
+          "shanghai-dual-classification-bin-stainless-identity-material": [
+            0.44999998807907104,
+            0.47999998927116394,
+            0.46000000834465027,
+            1
+          ],
+          "shanghai-dual-classification-bin-teal-identity-material": [
+            0.05000000074505806,
+            0.46000000834465027,
+            0.5,
+            1
+          ]
+        },
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "triangles": 96,
+        "bounds": {
+          "min": [
+            -0.185,
+            0,
+            -0.105
+          ],
+          "max": [
+            0.185,
+            0.3725,
+            0.118
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": {
+        "status": "isolated-gallery-passed-map-gates-pending",
+        "gallery": "passed",
+        "shapeVisual": "passed",
+        "materialVisual": "passed-after-principled-bsdf-export-fix",
+        "group": "street-furniture",
+        "screenshot": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-threejs-street-furniture.jpg",
+        "screenshotSha256": "a87efaebb12563144c56ddc446b1e2b0caca6c8b040e9e92f8b190f7a024e90e",
+        "httpStatus": 200,
+        "cacheDisabled": true,
+        "runtimeErrors": 0,
+        "consoleErrors": 0,
+        "mapPlacement": "not-validated",
+        "collision": "not-validated",
+        "performance": "isolated-resource-timing-only-no-map-baseline"
+      },
+      "brandingBoundary": {
+        "copiedTextOrLogo": false,
+        "siteBinding": "Shanghai city-type reference, not Xinhua per-instance proof"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-25",
+      "assetId": "prototype:street-furniture:irregular-stone-bollard",
+      "slug": "irregular-stone-bollard",
+      "family": "street-furniture",
+      "tier": "identity",
+      "status": "isolated-gallery-passed-map-gates-pending",
+      "formalIdentityPass": false,
+      "modelBrief": "docs/research/shared-prototypes-identity-model-brief.md",
+      "massingManifest": "docs/research/shared-prototypes-massing-manifest.json",
+      "independentReview": "docs/research/shared-prototypes-massing-independent-review-final.md",
+      "identityIndependentReview": "docs/research/shared-prototypes-identity-independent-review.md",
+      "contactSheets": {
+        "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-canonical-contact-sheet.png",
+        "side": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-side-contact-sheet.png"
+      },
+      "generator": "scripts/create_shared_prototype_identity_models.py",
+      "evidence": "observed-xingfuli-panyu-entrance",
+      "recognizers": [
+        "broad knee-height body",
+        "unequal faceted sides",
+        "slightly sloped irregular top"
+      ],
+      "qualityBoundary": {
+        "observed": [
+          "The Panyu entrance photo shows a row of dark, broad, knee-height, slightly irregular stone blocks."
+        ],
+        "inferred": [
+          "Identity dimensions refine the formally accepted Massing envelope.",
+          "Hidden fasteners and rear construction remain conservative."
+        ],
+        "unknown": [
+          "manufacturer and product model",
+          "surveyed dimensions",
+          "2026-later per-instance field condition"
+        ],
+        "sources": [
+          "docs/research/assets/poi-references/xingfuli/xingfuli-panyu-entrance-shanghai-changning-2018.jpeg",
+          "docs/research/xingfuli-reference-manifest.json"
+        ]
+      },
+      "originContract": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "meaning": "prototype-ground-center",
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false,
+        "authoredMetersPerSceneUnit": 2.7,
+        "surveyedMeters": false
+      },
+      "budget": {
+        "maxTriangles": 2500,
+        "maxNodes": 4,
+        "maxMaterials": 4,
+        "maxImages": 0,
+        "maxBinaryBytes": 262144
+      },
+      "outputs": {
+        "blend": "assets/models/source/tiers/shared-prototypes/identity/irregular-stone-bollard-identity.blend",
+        "glb": "public/models/tiers/shared-prototypes/identity/irregular-stone-bollard-identity.glb",
+        "previews": {
+          "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_irregular-stone-bollard-identity-canonical.png",
+          "side": "test_artifacts/all-models/identity/shared-prototypes/test_irregular-stone-bollard-identity-side.png"
+        }
+      },
+      "glb": {
+        "sha256": "5233bf658e2b86c1e1db8d2bb0edddbef855ae029d427286a2804f8fdd48e8c3",
+        "bytes": 2292,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 1,
+        "materialBaseColors": {
+          "irregular-stone-bollard-stone-identity-material": [
+            0.2199999988079071,
+            0.23000000417232513,
+            0.2199999988079071,
+            1
+          ]
+        },
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "triangles": 12,
+        "bounds": {
+          "min": [
+            -0.34,
+            0,
+            -0.3
+          ],
+          "max": [
+            0.37,
+            0.56,
+            0.31
+          ]
+        },
+        "transformedNodes": []
+      },
+      "runtimeGate": {
+        "status": "isolated-gallery-passed-map-gates-pending",
+        "gallery": "passed",
+        "shapeVisual": "passed",
+        "materialVisual": "passed-after-principled-bsdf-export-fix",
+        "group": "street-furniture",
+        "screenshot": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-threejs-street-furniture.jpg",
+        "screenshotSha256": "a87efaebb12563144c56ddc446b1e2b0caca6c8b040e9e92f8b190f7a024e90e",
+        "httpStatus": 200,
+        "cacheDisabled": true,
+        "runtimeErrors": 0,
+        "consoleErrors": 0,
+        "mapPlacement": "not-validated",
+        "collision": "not-validated",
+        "performance": "isolated-resource-timing-only-no-map-baseline"
+      }
+    }
+  ],
+  "runtimeQa": "docs/research/shared-prototypes-identity-runtime-qa.json",
+  "isolatedRuntimePassCount": 8,
+  "shapeVisualPassCount": 8,
+  "materialVisualPassCount": 8,
+  "mapPlacementPassCount": 0,
+  "collisionAndPassagePassCount": 0
+}

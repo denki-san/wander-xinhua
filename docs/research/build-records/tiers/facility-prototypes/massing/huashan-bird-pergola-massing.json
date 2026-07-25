@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "prototype:facility:huashan-bird-pergola",
+  "semanticSlug": "huashan-bird-pergola",
+  "outputSlug": "huashan-bird-pergola",
+  "tier": "massing",
+  "status": "isolated-and-map-load-pass-placement-and-collision-blocked",
+  "formalMassingPass": false,
+  "modelBrief": "docs/research/facility-prototypes-massing-model-brief.md",
+  "geometrySpec": "docs/research/facility-prototypes-massing-geometry-spec.json",
+  "referenceManifest": "docs/research/facility-prototypes-reference-manifest.json",
+  "generator": "scripts/create_facility_prototype_massing_models.py",
+  "instance": {
+    "id": "facility-instance:huashan:bird-pergola",
+    "position": [
+      -25,
+      0.22,
+      17.5
+    ],
+    "coordinateSpace": "collection-local"
+  },
+  "osmWayId": null,
+  "originContract": {
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "meaning": "prototype-ground-center",
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "worldPlacementBaked": false,
+    "authoredMetersPerSceneUnit": 2.7,
+    "surveyedMeters": false
+  },
+  "budget": {
+    "kind": "massing-target",
+    "maxTriangles": 192,
+    "maxNodes": 2,
+    "maxMaterials": 1,
+    "maxImages": 0,
+    "maxBinaryBytes": 65536,
+    "animation": "none"
+  },
+  "outputs": {
+    "blend": "assets/models/source/tiers/facility-prototypes/massing/huashan-bird-pergola-massing.blend",
+    "glb": "public/models/tiers/facility-prototypes/massing/huashan-bird-pergola-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-bird-pergola-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-bird-pergola-massing-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "d60b7fdf0da23b02c208f19b8e4ed65f6e1552d6d4b66b42ad2f3ecdba942f7f",
+    "bytes": 14332,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "materialBaseColors": {
+      "huashan-bird-pergola-green-massing-material": [
+        0.1599999964237213,
+        0.3400000035762787,
+        0.27000001072883606,
+        1
+      ]
+    },
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "triangles": 192,
+    "bounds": {
+      "min": [
+        -3.736282,
+        0,
+        -1.1
+      ],
+      "max": [
+        3.736282,
+        4.35,
+        1.1
+      ]
+    },
+    "transformedNodes": []
+  },
+  "qualityBoundary": {
+    "classification": "public-text-concept-plus-runtime-authored-geometry",
+    "observed": [
+      "公开参考把鸟笼架/观鸟架列为“林森鸟啼”小型地标，但现有本地照片没有直接覆盖该设施。"
+    ],
+    "inferred": [
+      "Massing component dimensions are simplified from the documented runtime envelope.",
+      "No world placement, yaw, collision proxy or site terrain is baked into this GLB."
+    ],
+    "unknown": [
+      "surveyed dimensions",
+      "2026-later field changes"
+    ],
+    "sources": [
+      "docs/research/huashan-green-reference.md",
+      "app/scene/huashan-green-block.tsx#huashan-bird-pergola"
+    ]
+  },
+  "identityGate": {
+    "mayEnterIdentity": false,
+    "status": "blocked-text-only-no-geometry-proof",
+    "required": [
+      "取得设施全景、侧向与连接节点照片。",
+      "确认它是鸟笼架、观鸟架还是普通廊架。",
+      "复核位置、开口方向和与园路的关系。"
+    ]
+  },
+  "runtimeGate": {
+    "status": "isolated-and-map-load-passed-placement-and-collision-blocked",
+    "gallery": "passed",
+    "mapContextObservation": "captured-load-passed",
+    "mapPlacement": "blocked-pending-position-scale-yaw-review",
+    "collisionAndPassage": "pending",
+    "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-bird-pergola-massing-threejs-isolated.png",
+    "screenshotSha256": "84439936cd753d3d0e70236fac31d1c4ba5f2d7cbf038335c38c85d4cf393992",
+    "mapScreenshot": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-bird-pergola-massing-threejs-map.png",
+    "mapScreenshotSha256": "2633f041d9077160830615ce5bbbf85b4fd22891aabefcee4707c10d526c1300",
+    "httpStatus": 200,
+    "fromDiskCache": false,
+    "runtimeExceptions": 0,
+    "consoleErrors": 0
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:xinhua-pocket-park",
+  "tier": "massing",
+  "status": "massing-rebuild-required-independent-review",
+  "generator": "scripts/create_xinhua_road_massing_models.py",
+  "sourceHero": {
+    "path": "public/models/requested-pois/xinhua-pocket-park.glb",
+    "sha256": "cae947e10c876a65a24341ebd4a10c6596bf64e012f59c2173100903f1b57768",
+    "importedBounds": {
+      "min": [
+        -0.852365,
+        -4.64,
+        0
+      ],
+      "max": [
+        0.852365,
+        4.6,
+        3.78046
+      ]
+    },
+    "heightProxySceneUnits": 3.78046,
+    "evidenceBoundary": "legacy-or-v2-hero-derived-height-not-real-measurement"
+  },
+  "sourcePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "position": [
+    -56.9,
+    66.3
+  ],
+  "yaw": -0.38,
+  "runtimeScale": 0.88,
+  "localBounds": {
+    "minX": -0.8524,
+    "maxX": 0.8524,
+    "minZ": -4.6,
+    "maxZ": 4.64
+  },
+  "localObstacles": [
+    {
+      "minX": -0.84,
+      "maxX": -0.68,
+      "minZ": -4.6,
+      "maxZ": 4.6
+    },
+    {
+      "minX": 0.68,
+      "maxX": 0.84,
+      "minZ": -4.6,
+      "maxZ": 4.6
+    }
+  ],
+  "roofProfile": "flat",
+  "proxyMethod": "voxel-remesh-current-hero",
+  "pruning": {
+    "removedFaces": 3496,
+    "removedMaterials": [
+      "口袋公园座椅木",
+      "口袋公园洗石路",
+      "口袋公园深色金属",
+      "口袋公园粉黛草",
+      "口袋公园铺装缝"
+    ],
+    "rule": "material-name-denylist-before-voxel-remesh"
+  },
+  "voxelSizeSceneUnits": 0.215836,
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/xinhua-pocket-park-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing/xinhua-pocket-park-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/test_xinhua-pocket-park-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/test_xinhua-pocket-park-massing-side.png",
+      "threejs": "test_artifacts/all-models/massing/test_xinhua-pocket-park-massing-threejs.png"
+    }
+  },
+  "glb": {
+    "sha256": "fbbb26c9a74c8084334b7616dcb0ff2a1371d4444e5d730a9d781f5e254f52ea",
+    "bytes": 92212,
+    "nodes": 1,
+    "meshes": 1,
+    "images": 0,
+    "textures": 0,
+    "materials": 1,
+    "triangles": 900,
+    "expectedMaximumTriangles": 1200,
+    "bounds": {
+      "min": [
+        -0.916551,
+        -0.013719,
+        -4.430357
+      ],
+      "max": [
+        0.85819,
+        3.755216,
+        4.63974
+      ]
+    },
+    "auditStatus": "ok"
+  },
+  "editableSourceBounds": {
+    "min": [
+      -0.916551,
+      -4.63974,
+      -0.013719
+    ],
+    "max": [
+      0.85819,
+      4.430357,
+      3.755216
+    ]
+  },
+  "qualityBoundary": {
+    "observed": [
+      "runtime local bounds",
+      "runtime split obstacles",
+      "current hero imported bounds"
+    ],
+    "inferred": [
+      "per-block height proxy"
+    ],
+    "unknown": [
+      "surveyed height",
+      "entrance direction",
+      "unseen facade and roof"
+    ]
+  },
+  "runtimeGate": {
+    "status": "blocked-rebuild-required",
+    "validatedAt": "2026-07-25",
+    "route": "/?start=pocket-park&qaModelTier=massing&cameraQa=1",
+    "screenshot": "test_artifacts/all-models/massing/test_xinhua-pocket-park-massing-threejs.png",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "buildMode": "vite-static-production-preview",
+    "pageVisibility": "visible",
+    "playable": true,
+    "canvasCount": 1,
+    "cameraMode": "spring-clear",
+    "blockerId": "none",
+    "visualStatus": "pass",
+    "independentReviewStatus": "rebuild-required",
+    "requiredActions": [
+      "按 site feature 而非建筑重建入口、墙、花池和路径",
+      "消除相邻巨大体量遮挡",
+      "验证开放路径边界"
+    ],
+    "mapAcceptance": "required-before-formal-pass"
+  }
+}

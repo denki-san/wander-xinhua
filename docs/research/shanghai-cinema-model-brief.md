@@ -143,6 +143,11 @@
 
 ## Batch Plan
 
+> 以下原始表格描述的是完整 Hero 制作过程中的批次，不等同于
+> Hero / Identity / Massing 三档运行时资产通过状态。新版三档管线以本 Brief
+> 后续 Iteration 3 Decision Log、独立 build record、Blender MCP gate 和
+> Three.js gate 为准。
+
 | Batch | Deliverable | Blender check | Runtime check | Status |
 | --- | --- | --- | --- | --- |
 | Massing | 非对称丝带、椭圆开洞、左鼓体、后塔楼层级 | canonical 轮廓 | 入口街景可识别 | Passed |
@@ -240,3 +245,14 @@
 - Remaining inference: 真正后立面、屋顶、楼梯背面和夜景仍无可信公开实拍，因此只保留低细节后勤体量，不把推断包装成测绘事实。
 - Performance impact: 相对 Iteration 1 增加 450,340 bytes（约 8.3%）和 5,856 triangles（约 7.5%），仍低于 6.3 MB、90,000 triangles、14 materials 和 8 nodes 的运行时合同。
 - Rollback point: 所有修改均在确定性生成器与版本化数据中；前一轮 GLB SHA-256 为 `bfab43bec90ffb6facd7a50954dc2f592fe460ce7affac8d5d30a090624b93d7`。
+
+### Iteration 3 — Runtime Massing and Blender MCP gate — 2026-07-25
+
+- Scope: 当前 active scope 已从 31 个目录资产收缩为 18 栋建筑。树木和装饰物转入 Hold/deferred；上海影城仍为本轮第二个纵向批次。
+- Changes: 保留现有完整 Hero，不自动重做；新增 `scripts/create_shanghai_cinema_tier_models.py`，从冻结 Hero recipe 的 856 个语义构件中选择 31 个主要体块。正式 Massing 排除广场、铺装线、花池、灯、座椅、文字、窗格和夹具；32 级 Hero 楼梯按四级一组派生为 8 级结构化体块，并对连续曲面做受控 decimate。
+- Lineage: 派生前锁定 Hero generator SHA `6ea5fc19f98f...`、Blend SHA `fbb13fdb891...`、GLB SHA `c4d557038677...`；任何一项漂移都拒绝生成。旧 voxel-remesh Massing 保留为 migration input，没有删除或覆盖。
+- Headless result: 正式 Massing GLB SHA `be69638759187a16e23e563009a487bd480ff9c37f9cf74e557ede9553691d70`，1 node、1 mesh、3 primitives/materials、7,461 triangles、0 images、552,544 bytes；根变换为空，GLB Y-up 最低点为 `0`。
+- Blender MCP result: 以 canonical `(12,-50,7)`、side `(39,-34,8.5)`、entrance `(14,-57,5.5)` 三个固定机位完成正式互动审查。非对称丝带、右侧椭圆真开洞、八段宽缓楼梯、左鼓体外挑冠部和退后塔楼均通过；1.75 米人物按 `1.75 / 2.7 = 0.648148` scene units 校验。MCP 没有接受临时几何修改，因此无需回写；临时相机、灯光、地面和人物没有保存回 editable master。
+- Evidence: `docs/research/shanghai-cinema-blender-mcp-gates.json` 与 `test_artifacts/all-models/massing/shanghai-cinema/test_shanghai-cinema-massing-mcp-*.png`。
+- Gate status: Evidence/Brief、deterministic generation、GLB audit、Massing Blender MCP 已通过；地图位置、比例、朝向、道路退界和三段碰撞尚未冻结。Hero MCP、正式 Hero-derived Identity 与三级同机位/Three.js 验收必须在地图门之后继续。
+- Remaining inference: OSM way `292250766` 覆盖的是不规则综合体，不能把现有 OSM 外包面积直接当作前景丝带体量；真正后立面和屋顶仍为 unknown。

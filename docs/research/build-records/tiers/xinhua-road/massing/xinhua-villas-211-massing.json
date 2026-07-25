@@ -1,0 +1,182 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:xinhua-villas-211",
+  "tier": "massing",
+  "status": "massing-generated-runtime-gate-blocked-evidence-and-walkaround",
+  "generator": "scripts/create_xinhua_road_massing_models.py",
+  "sourceHero": {
+    "path": "public/models/xinhua-road/xinhua-villas-211.glb",
+    "sha256": "0a7168e6104d39b808c096a390a14d1eb1690e49bef165193829517b022cb295",
+    "importedBounds": {
+      "min": [
+        -15.44861,
+        -15.725,
+        -0.05
+      ],
+      "max": [
+        15.25,
+        13.949999,
+        8.14
+      ]
+    },
+    "heightProxySceneUnits": 8.19,
+    "evidenceBoundary": "legacy-or-v2-hero-derived-height-not-real-measurement"
+  },
+  "sourcePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "position": [
+    38.32,
+    110.67
+  ],
+  "yaw": -0.38,
+  "runtimeScale": 0.62,
+  "localBounds": {
+    "minX": -15.44861,
+    "maxX": 15.25,
+    "minZ": -13.949999,
+    "maxZ": 15.725
+  },
+  "localObstacles": [
+    {
+      "minX": -12.4,
+      "maxX": -4.6,
+      "minZ": 0.6,
+      "maxZ": 7.4
+    },
+    {
+      "minX": 4.6,
+      "maxX": 12.4,
+      "minZ": 0.1,
+      "maxZ": 6.9
+    },
+    {
+      "minX": -11.4,
+      "maxX": -3.6,
+      "minZ": -13.4,
+      "maxZ": -6.6
+    },
+    {
+      "minX": 3.3,
+      "maxX": 11.1,
+      "minZ": -13.6,
+      "maxZ": -6.7
+    },
+    {
+      "minX": 4.1,
+      "maxX": 7.3,
+      "minZ": 11.1,
+      "maxZ": 14.5
+    },
+    {
+      "minX": -3.7,
+      "maxX": -2.3,
+      "minZ": 14.4,
+      "maxZ": 15.7
+    },
+    {
+      "minX": 2.3,
+      "maxX": 3.7,
+      "minZ": 14.4,
+      "maxZ": 15.7
+    }
+  ],
+  "roofProfile": "gable",
+  "proxyMethod": "voxel-remesh-current-hero",
+  "pruning": {
+    "removedFaces": 17248,
+    "removedMaterials": [
+      "外国弄堂庭院木",
+      "外国弄堂浅绿",
+      "外国弄堂绿篱",
+      "外国弄堂路面",
+      "外国弄堂铁艺",
+      "外国弄堂铺装缝"
+    ],
+    "rule": "material-name-denylist-before-voxel-remesh"
+  },
+  "voxelSizeSceneUnits": 0.706548,
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/xinhua-villas-211-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing/xinhua-villas-211-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/test_xinhua-villas-211-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/test_xinhua-villas-211-massing-side.png",
+      "threejs": "test_artifacts/all-models/massing/test_xinhua-villas-211-massing-threejs.png"
+    }
+  },
+  "glb": {
+    "sha256": "407cde33aa13dfad09b29f6ae23711aa5f86ea046a06adebe116eac2218d667d",
+    "bytes": 91400,
+    "nodes": 1,
+    "meshes": 1,
+    "images": 0,
+    "textures": 0,
+    "materials": 1,
+    "triangles": 898,
+    "expectedMaximumTriangles": 1200,
+    "bounds": {
+      "min": [
+        -12.70615,
+        -0.046544,
+        -13.763997
+      ],
+      "max": [
+        12.675748,
+        8.033978,
+        15.759137
+      ]
+    },
+    "auditStatus": "ok"
+  },
+  "editableSourceBounds": {
+    "min": [
+      -12.70615,
+      -15.759137,
+      -0.046544
+    ],
+    "max": [
+      12.675748,
+      13.763997,
+      8.033978
+    ]
+  },
+  "qualityBoundary": {
+    "observed": [
+      "runtime local bounds",
+      "runtime split obstacles",
+      "current hero imported bounds"
+    ],
+    "inferred": [
+      "per-block height proxy"
+    ],
+    "unknown": [
+      "surveyed height",
+      "entrance direction",
+      "unseen facade and roof"
+    ]
+  },
+  "runtimeGate": {
+    "status": "blocked-evidence-map-and-walkaround-required",
+    "validatedAt": "2026-07-25",
+    "route": "/?start=villas&qaModelTier=massing&cameraQa=1",
+    "screenshot": "test_artifacts/all-models/massing/test_xinhua-villas-211-massing-threejs.png",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "buildMode": "vite-static-production-preview",
+    "pageVisibility": "visible",
+    "playable": true,
+    "canvasCount": 1,
+    "cameraMode": "spring-clear",
+    "blockerId": "none",
+    "visualStatus": "pass",
+    "independentReviewStatus": "conditional-geometry-usable-gate-blocked",
+    "requiredActions": [
+      "拉远 canonical 机位",
+      "逐栋绑定 compound 成员 footprint",
+      "补走近和绕行碰撞证据"
+    ],
+    "mapAcceptance": "required-before-formal-pass"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "subject": {
+    "id": "villa-le-bec",
+    "name": "新华路321号花园住宅 / Villa Le Bec 旧经营场地",
+    "address": "上海市长宁区新华路321号",
+    "scope": "protected-garden-villa-with-former-garage-and-garden-terrace"
+  },
+  "canonicalComparison": {
+    "localPath": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-timeout-street-candidate-2022.jpg",
+    "view": "garden-axis-to-main-villa",
+    "direction": "from-garden-toward-main-villa",
+    "reason": "主住宅、坡屋顶、老虎窗、花园轴线和一侧低矮商业体量同时可读。"
+  },
+  "referencePhotos": [
+    {
+      "localPath": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-timeout-street-candidate-2022.jpg",
+      "sourcePage": "https://www.timeoutshanghai.cn/features/6714.html",
+      "sourceAsset": "https://img.timeoutshanghai.cn/20220815055712875.jpg",
+      "view": "garden-axis-to-main-villa",
+      "subjectMatch": "verified-same-site-main-villa",
+      "publishedAt": "2022",
+      "captureDate": "unknown",
+      "sha256": "9d5bbdb02b8d492889cf044a205098baf771bb02c28c957ec5f11b9c0c4abd7c"
+    },
+    {
+      "localPath": "docs/research/assets/landmark-comparison/villa-le-bec-real.jpg",
+      "sourcePage": "https://shanghai-zine.com/listings/16308/",
+      "view": "courtyard-front",
+      "subjectMatch": "verified-same-site-main-villa",
+      "captureDate": "unknown"
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-official-overview-2024.jpg",
+      "sourcePage": "https://english.shanghai.gov.cn/en-Restaurants/20240522/2e50ad81c68e4b378ac12e2851217dd3.html",
+      "sourceAsset": "https://english.shanghai.gov.cn/cmsres/58/581c7cba90f34d39a72c3146ac93c48f/45c48cce2e2d7fbdea1afc51c7c6ad26.jpg",
+      "view": "garden-terrace-site-relationship",
+      "subjectMatch": "verified-same-site-building-mostly-obscured",
+      "publishedAt": "2024-05-22",
+      "captureDate": "unknown",
+      "sha256": "374e4ab43309aec6ad30d5ff0ef973323d6d9541e185fd0e542f5f9f5c49b3ed"
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-entry-2024.jpg",
+      "sourcePage": "https://rachelgouk.com/listings/villa-le-bec-bistro-321-le-bec/",
+      "view": "interior-dining-room",
+      "subjectMatch": "rejected-for-exterior-modeling",
+      "sha256": "d8165c7ce231bd3fdc16e2d5541b50378121227ebd32f4a2fbded637ed80c2ec"
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-candidate-02.jpg",
+      "sourcePage": "https://www.theworlds50best.com/discovery/filestore/jpg/VillaleBec-Shanghai-China-02.jpg",
+      "view": "interior-wine-room",
+      "subjectMatch": "rejected-for-exterior-modeling",
+      "sha256": "cb8adc51d6bfe998c64e546b1f412990a2012c28a228d8085a2a8ff4bd845c21"
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-candidate-01.jpg",
+      "sourcePage": "https://www.theworlds50best.com/discovery/filestore/jpg/VillaleBec-Shanghai-China-01.jpg",
+      "view": "food",
+      "subjectMatch": "rejected-not-architecture",
+      "sha256": "a3a1fc1e6223a25fc2f7f0595ac41ead66ec69ddd3cb8a46a618850d1afc20e4"
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-candidate-03.jpg",
+      "sourcePage": "https://www.theworlds50best.com/discovery/filestore/jpg/VillaleBec-Shanghai-China-03.jpg",
+      "view": "portrait",
+      "subjectMatch": "rejected-not-architecture",
+      "sha256": "460ef702a86171fab84417429922d1cf8da74acce57f96ee19c3e8cdc7b5f9a8"
+    }
+  ],
+  "textSources": [
+    {
+      "url": "https://www.shcn.gov.cn/col5934/20211207/1158151.html",
+      "authority": "上海市长宁区人民政府",
+      "facts": ["保护主体位于新华路321号", "页面记录建造年份1912"]
+    },
+    {
+      "url": "https://english.shanghai.gov.cn/en-Restaurants/20240522/2e50ad81c68e4b378ac12e2851217dd3.html",
+      "authority": "上海市人民政府英文站",
+      "facts": ["新华路321号", "约800平方米法式花园"]
+    },
+    {
+      "url": "https://guide.michelin.com/ee/en/shanghai-municipality/shanghai/restaurant/villa-le-bec-bistro-321",
+      "authority": "Michelin Guide",
+      "facts": ["场地包含主住宅、原车库改造空间、多个房间和花园露台"]
+    }
+  ],
+  "coverageMatrix": {
+    "canonicalMainVilla": "supported",
+    "gardenRelationship": "supported",
+    "formerGarageRelationship": "partial",
+    "sameBuildingLateral": "missing-unknown",
+    "sameBuildingRear": "missing-unknown",
+    "historicEntranceDirection": "unknown"
+  },
+  "conflicts": [
+    "长宁政府保护页写1912年，餐饮资料常写1924年；未找到原始档案闭合。",
+    "商业经营状态和店招会变化，不作为历史建筑永久身份。"
+  ],
+  "usageBoundary": {
+    "referenceOnly": true,
+    "embedInGlb": false,
+    "runtimeTexture": false
+  }
+}

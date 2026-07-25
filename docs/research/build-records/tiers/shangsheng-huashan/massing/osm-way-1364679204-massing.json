@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:shangsheng:osm-way-1364679204",
+  "tier": "massing",
+  "batch": "shangsheng-huashan-exact-footprint",
+  "status": "runtime-pass-independent-review-pending",
+  "generator": "scripts/create_shangsheng_huashan_massing_models.py",
+  "modelBrief": "docs/research/shangsheng-huashan-massing-model-brief.md",
+  "geometrySpec": "docs/research/shangsheng-huashan-clean-massing-geometry-spec.json",
+  "sourceWayId": 1364679204,
+  "sourceFootprint": [
+    [
+      21.10543,
+      -134.8588
+    ],
+    [
+      21.64849,
+      -129.02474
+    ],
+    [
+      1.80551,
+      -127.20288
+    ],
+    [
+      1.26245,
+      -133.04103
+    ]
+  ],
+  "localFootprint": [
+    [
+      9.966659,
+      -2.932673
+    ],
+    [
+      9.959661,
+      2.930676
+    ],
+    [
+      -9.96678,
+      2.930706
+    ],
+    [
+      -9.959407,
+      -2.92857
+    ]
+  ],
+  "footprintAreaSqMeters": 851.4,
+  "trianglesFromPolygon": 12,
+  "placement": {
+    "sitePosition": [
+      8.3149,
+      -147.5366
+    ],
+    "localPosition": [
+      3.1406,
+      16.5047
+    ],
+    "worldPivot": [
+      11.4555,
+      -131.0319
+    ],
+    "sourceCentroid": [
+      11.45432,
+      -131.03175
+    ],
+    "maximumVertexRoundtripErrorSceneUnits": 0,
+    "yaw": -3.050034,
+    "runtimeScale": [
+      1,
+      1,
+      1
+    ],
+    "movementAuthorized": false
+  },
+  "heightEvidence": {
+    "meters": 10.5,
+    "sceneUnits": 3.8889,
+    "measuredHeightMeters": null,
+    "source": "inventory-runtime-type-fallback",
+    "isEvidence": false,
+    "status": "unknown"
+  },
+  "canonicalFront": "unknown-plan-only",
+  "evidenceGate": {
+    "massing": "allowed-exact-footprint-only",
+    "identity": "blocked-until-numbered-plan-overlay",
+    "hero": "blocked-until-numbered-plan-overlay",
+    "canonicalFront": "unknown",
+    "entranceDirection": "unknown",
+    "forbiddenBindings": [
+      "N1",
+      "N2",
+      "N3",
+      "N4",
+      "N5"
+    ]
+  },
+  "identityAllowed": false,
+  "mapAcceptance": "pending-independent-review-and-evidence-binding",
+  "runtimeGate": "pass",
+  "outputs": {
+    "blend": "assets/models/source/tiers/shangsheng-huashan/massing/osm-way-1364679204-massing.blend",
+    "glb": "public/models/tiers/shangsheng-huashan/massing/osm-way-1364679204-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/shangsheng-huashan/test_osm-way-1364679204-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/shangsheng-huashan/test_osm-way-1364679204-massing-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "43f406f3db2b14ae7c9e16d68f156eaed18e231cecb9e7b3e330743484c4de6a",
+    "bytes": 2480,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "triangles": 12,
+    "bounds": {
+      "min": [
+        -9.96678,
+        0,
+        -2.930706
+      ],
+      "max": [
+        9.966659,
+        3.8889,
+        2.932673
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeQa": {
+    "assetId": "building:shangsheng:osm-way-1364679204",
+    "sourceWayId": 1364679204,
+    "url": "http://127.0.0.1:4173/?start=shangsheng&qaModelTier=massing&qaModelId=osm-way-1364679204",
+    "state": {
+      "progressiveStage": "playable",
+      "mainClass": "xinhua-stage is-explore is-playing",
+      "coreMassingModelIdQa": "osm-way-1364679204",
+      "coreMassingModelCameraQa": "isolated-three-quarter",
+      "canvasCount": 1
+    },
+    "network": {
+      "targetPath": "/models/tiers/shangsheng-huashan/massing/osm-way-1364679204-massing.glb?v=43f406f3db2b",
+      "responseStatus": 200,
+      "mimeType": "model/gltf-binary",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "loadingFailures": 0
+    },
+    "console": {
+      "runtimeExceptions": 0,
+      "logErrors": 0
+    },
+    "screenshot": {
+      "path": "test_artifacts/all-models/massing/shangsheng-huashan/test_osm-way-1364679204-massing-threejs-isolated.png",
+      "sha256": "1b060d1c746e52d50beabcde91e5069885429ea76d9e007fb94fd94be3d81b29",
+      "bytes": 44142,
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    "visualReview": {
+      "status": "pass",
+      "checks": [
+        "完整轮廓可见",
+        "接地",
+        "既有 pivot 与 yaw 保持",
+        "固定三分之四机位可重复"
+      ],
+      "evidenceBoundary": "仅证明 OSM footprint 的运行时体块；不证明真实高度、入口、立面或楼号"
+    }
+  }
+}

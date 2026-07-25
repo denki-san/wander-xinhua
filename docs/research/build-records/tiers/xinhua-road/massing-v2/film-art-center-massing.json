@@ -1,0 +1,110 @@
+{
+  "version": 2,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:film-art-center",
+  "tier": "massing",
+  "batch": "clean-footprint-v2",
+  "status": "runtime-pass-formal-map-gate-blocked",
+  "generator": "scripts/create_xinhua_road_clean_massing_models.py",
+  "geometrySpec": "docs/research/xinhua-road-clean-massing-geometry-spec.json",
+  "modelBrief": "docs/research/xinhua-road-massing-model-brief.md",
+  "placement": {
+    "position": [
+      47.5,
+      81.5
+    ],
+    "yaw": 2.761592653589793,
+    "scale": 1,
+    "movementAuthorized": false
+  },
+  "candidateStatus": "primary-candidate-pending",
+  "membershipConfidence": "medium",
+  "heightEvidence": {
+    "previewMeters": 10.5,
+    "localSceneUnits": 3.888889,
+    "status": "unknown-runtime-fallback-not-evidence"
+  },
+  "unknown": [
+    "surveyed height",
+    "roof pitch and eave",
+    "side glass links footprint",
+    "entrance point"
+  ],
+  "children": [
+    {
+      "name": "osm-way-864505138",
+      "sourceWayId": 864505138,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 472.7,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          6.449469,
+          -1.800887
+        ],
+        [
+          6.593207,
+          5.261528
+        ],
+        [
+          -2.585141,
+          5.488808
+        ],
+        [
+          -2.72561,
+          -1.574913
+        ]
+      ]
+    }
+  ],
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v2/film-art-center-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing-v2/film-art-center-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing-v2/test_film-art-center-massing-v2-canonical.png",
+      "side": "test_artifacts/all-models/massing-v2/test_film-art-center-massing-v2-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "4b925b2dad96894e7feda2b925962781fcd532d675657a9f17a96467458b0941",
+    "bytes": 2316,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 12,
+    "bounds": {
+      "min": [
+        -2.72561,
+        0,
+        -5.488808
+      ],
+      "max": [
+        6.593207,
+        3.888889,
+        1.800887
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": "pass",
+  "mapAcceptance": "blocked",
+  "identityAllowed": false,
+  "runtimeGeometryVisual": "pass",
+  "runtimeQa": {
+    "file": "docs/research/xinhua-road-clean-massing-runtime-qa.json",
+    "contextScreenshot": {
+      "file": "test_artifacts/all-models/massing-v2/test_film-art-center-massing-v2-threejs.png",
+      "sha256": "57db6f6be5070de4777b509a0d03d22d93b226335ae2425688e5ff39e5a618ed",
+      "bytes": 69871
+    },
+    "isolatedScreenshot": {
+      "file": "test_artifacts/all-models/massing-v2/test_film-art-center-massing-v2-threejs-isolated.png",
+      "sha256": "7da63ac60966e6c40033686f52b3e176fd6c2e8fdb9d0a5436583587168a25d3",
+      "bytes": 49074
+    }
+  }
+}

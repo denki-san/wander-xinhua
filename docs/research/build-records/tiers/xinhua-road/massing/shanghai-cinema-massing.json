@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:shanghai-cinema",
+  "tier": "massing",
+  "status": "massing-generated-runtime-gate-blocked-evidence-and-walkaround",
+  "generator": "scripts/create_xinhua_road_massing_models.py",
+  "sourceHero": {
+    "path": "public/models/xinhua-road/shanghai-cinema.glb",
+    "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+    "importedBounds": {
+      "min": [
+        -19,
+        -14.2,
+        -0.06
+      ],
+      "max": [
+        19,
+        11.8,
+        17.225
+      ]
+    },
+    "heightProxySceneUnits": 17.285,
+    "evidenceBoundary": "legacy-or-v2-hero-derived-height-not-real-measurement"
+  },
+  "sourcePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "position": [
+    74.1,
+    80.9
+  ],
+  "yaw": 2.761592653589793,
+  "runtimeScale": 1,
+  "localBounds": {
+    "minX": -19,
+    "maxX": 19,
+    "minZ": -11.8,
+    "maxZ": 14.2
+  },
+  "localObstacles": [
+    {
+      "minX": -10.5,
+      "maxX": 10.5,
+      "minZ": -7.3,
+      "maxZ": 6.2
+    },
+    {
+      "minX": -14.4,
+      "maxX": -10.5,
+      "minZ": -10,
+      "maxZ": 4.5
+    },
+    {
+      "minX": 10.5,
+      "maxX": 14.4,
+      "minZ": -10,
+      "maxZ": 4.5
+    }
+  ],
+  "roofProfile": "flat",
+  "proxyMethod": "voxel-remesh-current-hero",
+  "pruning": {
+    "removedFaces": 43696,
+    "removedMaterials": [
+      "影城广场",
+      "影城座椅木",
+      "影城板缝",
+      "影城绿植",
+      "影城花池",
+      "影城金属",
+      "影城铺装缝"
+    ],
+    "rule": "material-name-denylist-before-voxel-remesh"
+  },
+  "voxelSizeSceneUnits": 0.78654,
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/shanghai-cinema-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing/shanghai-cinema-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/test_shanghai-cinema-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/test_shanghai-cinema-massing-side.png",
+      "threejs": "test_artifacts/all-models/massing/test_shanghai-cinema-massing-threejs.png"
+    }
+  },
+  "glb": {
+    "sha256": "f8ed57fe3d49ee3ee217fe0dc1eb8412f8be3132c3840ad5da719b0384de990d",
+    "bytes": 91788,
+    "nodes": 1,
+    "meshes": 1,
+    "images": 0,
+    "textures": 0,
+    "materials": 1,
+    "triangles": 900,
+    "expectedMaximumTriangles": 1200,
+    "bounds": {
+      "min": [
+        -17.090271,
+        -0.135912,
+        -9.934062
+      ],
+      "max": [
+        15.652288,
+        17.239088,
+        10.858915
+      ]
+    },
+    "auditStatus": "ok"
+  },
+  "editableSourceBounds": {
+    "min": [
+      -17.090271,
+      -10.858915,
+      -0.135912
+    ],
+    "max": [
+      15.652288,
+      9.934062,
+      17.239088
+    ]
+  },
+  "qualityBoundary": {
+    "observed": [
+      "runtime local bounds",
+      "runtime split obstacles",
+      "current hero imported bounds"
+    ],
+    "inferred": [
+      "per-block height proxy"
+    ],
+    "unknown": [
+      "surveyed height",
+      "entrance direction",
+      "unseen facade and roof"
+    ]
+  },
+  "runtimeGate": {
+    "status": "blocked-evidence-map-and-walkaround-required",
+    "validatedAt": "2026-07-25",
+    "route": "/?start=cinema&qaModelTier=massing&cameraQa=1",
+    "screenshot": "test_artifacts/all-models/massing/test_shanghai-cinema-massing-threejs.png",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "buildMode": "vite-static-production-preview",
+    "pageVisibility": "visible",
+    "playable": true,
+    "canvasCount": 1,
+    "cameraMode": "spring-clear",
+    "blockerId": "none",
+    "visualStatus": "pass",
+    "independentReviewStatus": "conditional-geometry-usable-gate-blocked",
+    "requiredActions": [
+      "闭合真实 footprint 和 scale",
+      "补当前 tier 三联对照",
+      "补确定性走近与绕行验证"
+    ],
+    "mapAcceptance": "required-before-formal-pass"
+  }
+}

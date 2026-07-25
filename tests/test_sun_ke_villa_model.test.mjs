@@ -74,7 +74,7 @@ test("孙科别墅研究 Gate 具备三张不同方向的本地真实照片", as
   assert.match(brief, /#### Unknown/);
   assert.match(brief, /三联尖券门廊/);
   assert.match(brief, /圆角塔楼/);
-  assert.match(brief, /北侧山墙门廊/);
+  assert.match(brief, /明显向北外挑/);
   assert.match(brief, /Maximum triangles: `35,000`/);
   assert.match(brief, /Maximum nodes: `2`/);
   assert.match(brief, /Maximum images: `0`/);
@@ -151,7 +151,7 @@ test("孙科别墅 GLB 通过结构、尺寸、材质和性能预算", async () 
   const depth = bounds.max[2] - bounds.min[2];
   assert.ok(width <= 7.8316 + 0.36, `模型宽度越出 OSM 檐口预算：${width}`);
   assert.ok(width >= 7.8316 * 0.97, `模型宽度低于 Brief 比例下限：${width}`);
-  assert.ok(depth <= 5.5313 + 0.36, `模型进深越出 OSM 檐口预算：${depth}`);
+  assert.ok(depth > 7.5 && depth <= 8.0, `外挑门廊后的模型进深不在 Brief 预算：${depth}`);
   assert.ok(height > 4.5 && height <= 5.2, `模型高度不在 Brief 预算：${height}`);
   assert.ok(bounds.min[1] >= -0.08, `模型低于地面：${bounds.min[1]}`);
 
@@ -183,7 +183,14 @@ test("孙科别墅 GLB 通过结构、尺寸、材质和性能预算", async () 
   const collision = building.collision[0];
   assert.ok(rotatedBounds.minX >= collision.minX, "模型左侧越出 OSM 碰撞盒");
   assert.ok(rotatedBounds.maxX <= collision.maxX, "模型右侧越出 OSM 碰撞盒");
-  assert.ok(rotatedBounds.minZ >= collision.minZ, "模型后侧越出 OSM 碰撞盒");
+  assert.ok(
+    rotatedBounds.minZ < collision.minZ - 1.8,
+    "北侧 porte-cochère 没有按照片证据越出 OSM 主体碰撞盒",
+  );
+  assert.ok(
+    rotatedBounds.minZ >= collision.minZ - 2.2,
+    "北侧 porte-cochère 外挑超过 Brief 允许范围",
+  );
   assert.ok(rotatedBounds.maxZ <= collision.maxZ, "模型前侧越出 OSM 碰撞盒");
 });
 
@@ -197,10 +204,20 @@ test("孙科别墅 GLB 已接入上生新所并保留延迟加载 fallback", asy
   assert.match(source, /class SunKeVillaErrorBoundary/);
   assert.match(source, /static getDerivedStateFromError/);
   assert.match(fullModels, /function SunKeVillaModel/);
-  assert.match(fullModels, /useGLTF\("\/models\/shangsheng\/sun-ke-villa\.glb"\)/);
+  assert.match(
+    fullModels,
+    /\/models\/shangsheng\/sun-ke-villa\.glb\?v=6d1642315530/,
+  );
   assert.match(fullModels, /child\.material = sourceWasArray \? replacements : replacements\[0\]/);
-  assert.match(source, /<SunKeVillaErrorBoundary key=\{building\.id\} building=\{building\}>/);
-  assert.match(source, /fallback=\{<SunKeVillaFallback building=\{building\} \/>\}/);
+  assert.match(
+    source,
+    /<SunKeVillaErrorBoundary[\s\S]*?key=\{building\.id\}[\s\S]*?building=\{building\}[\s\S]*?fallback=\{identity\}/,
+  );
+  assert.match(
+    source,
+    /const identityFallback = <SunKeVillaFallback building=\{building\} \/>/,
+  );
+  assert.match(source, /fallback=\{identityFallback\}/);
   assert.match(fullModels, /name="shangsheng-sun-ke-villa"/);
   assert.match(fullModels, /referenceView: "garden-front"/);
   assert.doesNotMatch(fullModels, /useGLTF\.preload\("\/models\/shangsheng\/sun-ke-villa\.glb"\)/);

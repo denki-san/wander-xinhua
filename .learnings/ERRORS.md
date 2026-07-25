@@ -32,6 +32,916 @@ Error: listen EPERM: operation not permitted 127.0.0.1:4317
 
 ---
 
+## [ERR-20260725-052] 固定机位 QA 改动触发旧 JSX 结构测试并伴随定时测试抖动
+
+**Logged**: 2026-07-25T17:05:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+
+上海影城固定机位需要停用可玩相机，但直接把条件写到父级 JSX 后，旧控制测试的源码合同失配；
+同批次一个 100ms 跳跃脉冲测试也在并行负载下偶发提前复位。
+
+### Error
+
+```text
+41 passed, 2 failed
+- 多指跳跃脉冲可以续期且会自动复位：100ms 定时边界抖动
+- 进入游玩态时立即切到低位后肩镜头：父级 JSX 正则合同失配
+```
+
+### Resolution
+
+- 保留既有 `exploring && !isolatedPrototypeQa` 挂载结构；
+- 为 `PlayableWanderer` 增加显式 `active` 开关，固定审查机位时停用输入、相机和人物；
+- 不放宽行为断言，分别重跑定时测试与相关回归测试。
+
+### Metadata
+
+- Reproducible: partial
+- Related Files: app/scene/xinhua-world.tsx, tests/test_controls.test.mjs
+
+---
+
+## [ERR-20260725-047] fallback_component_replacement_left_stale_jsx_tail
+
+**Logged**: 2026-07-25T13:05:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+
+整体替换孙科别墅程序化 fallback 时，补丁边界没有覆盖旧函数最后六行 JSX，
+导致静态构建在新函数结束后遇到孤立 `</mesh>`。
+
+### Error
+
+```text
+[builtin:vite-transform] Unexpected token
+app/scene/shangsheng-xinsuo-block.tsx:346:12
+</mesh>
+```
+
+### Context
+
+- 操作：把旧 `7.45` 高度 fallback 改为与三档 `5.05` 包络一致的多体块兜底；
+- 失败发生在 Vite transform，未生成或发布错误构建；
+- 新函数本身语法完整，错误来自紧随其后的旧尾部残片。
+
+### Suggested Fix
+
+大段 JSX 函数替换后，立即检查从函数声明前到下一个声明后的完整区间，再运行
+静态构建；补丁上下文必须包含旧函数最终闭合行，避免留下孤立 JSX。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: app/scene/shangsheng-xinsuo-block.tsx
+
+### Resolution
+
+- **Resolved**: 2026-07-25T13:07:00+08:00
+- **Notes**: 删除孤立旧尾部，随后重新运行静态构建验证。
+
+---
+
+## [ERR-20260725-049] sun_ke_direction_qa_test_wrong_binding
+
+**Logged**: 2026-07-25T12:10:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+
+孙科别墅方向标签测试引用了不存在的 `shangsheng` 变量，导致功能代码未进入
+静态构建。
+
+### Error
+
+```text
+ReferenceError: shangsheng is not defined
+```
+
+### Context
+
+- 该文件内容在测试中命名为 `source`；
+- 失败只发生在新断言，模型与运行时文件没有被覆盖。
+
+### Suggested Fix
+
+复用已经读取的 `source` 绑定，并在每次新增断言后先跑单文件测试再构建。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: tests/test_sun_ke_villa_tier_pipeline.test.mjs
+
+### Resolution
+
+- **Resolved**: 2026-07-25T12:11:00+08:00
+- **Notes**: 断言已改为读取 `source`。
+
+---
+
+## [ERR-20260725-048] core_massing_map_qa_prop_scope
+
+**Logged**: 2026-07-25T11:35:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+
+新增 `qaModelView=map` 后，`coreMassingQaView` 被误加到
+`FlatNeighborhood` 的 props，而使用点位于 `XinhuaWorld`，生产构建可生成
+但浏览器运行时报 `ReferenceError`。
+
+### Error
+
+```text
+ReferenceError: coreMassingQaView is not defined
+at xinhua-experience-*.js
+```
+
+### Context
+
+- 静态构建成功，错误只在真实 `?start=sunke&qaModelView=map` 运行时出现；
+- CDP `Runtime.exceptionThrown` 给出变量名和 bundle 调用栈；
+- 模型 GLB 请求本身返回 HTTP 200。
+
+### Suggested Fix
+
+将该 prop 的 destructuring 与类型声明放到 `XinhuaWorld`，由
+`XinhuaExperience` 传入；`FlatNeighborhood` 不需要该 prop。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: app/scene/xinhua-world.tsx, app/xinhua-experience.tsx
+
+### Resolution
+
+- **Resolved**: 2026-07-25T11:36:00+08:00
+- **Notes**: 已把 prop 移到正确组件作用域，等待生产静态重建与同 URL 复验。
+
+---
+
+## [ERR-20260725-047] sun_ke_massing_blender_sandbox_segfault
+
+**Logged**: 2026-07-25T11:25:44+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+
+孙科别墅单资产 Massing 在受限沙箱内启动 Blender 5.2 headless 时再次于 USD
+架构假设检查阶段崩溃，生成器尚未执行。
+
+### Error
+
+```text
+ArchWarn: ARCH_CACHE_LINE_SIZE != Arch_ObtainCacheLineSize()
+Segmentation fault: 11
+```
+
+### Context
+
+- 命令：`blender -b --python scripts/create_shangsheng_huashan_massing_models.py -- --way 864847877`；
+- 只选择 active-31 的孙科别墅，没有遍历或重建其余 hold 资产；
+- 崩溃发生在脚本输出前，未生成或覆盖目标模型。
+
+### Suggested Fix
+
+按已解决的 `ERR-20260725-046` 使用获批宿主环境执行同一精确单资产命令；
+成功后核对只改动 way `864847877` 的 GLB、Blend、预览、build record 和
+混合 manifest 中的对应记录。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: scripts/create_shangsheng_huashan_massing_models.py
+- See Also: ERR-20260725-046
+
+### Resolution
+
+- **Resolved**: 2026-07-25T11:26:09+08:00
+- **Notes**: 在获批宿主环境运行同一 `--way 864847877` 命令成功；Blender
+  只导出孙科别墅 Massing，并生成对应 canonical / side 预览和 Blend。
+
+---
+
+## [ERR-20260725-044] identity_gallery_test_regex_overescaped
+
+**Logged**: 2026-07-25T08:18:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+
+共享 Identity gallery 的资源哈希测试对 `RegExp` 构造字符串进行了双重转义，
+导致源文件已经包含正确 URL 时仍然误报失败。
+
+### Error
+
+```text
+The input did not match the regular expression
+/xinhua-plane-tree-identity\\.glb\\?v=855046dd7b38/
+```
+
+### Context
+
+- gallery URL 本身为
+  `xinhua-plane-tree-identity.glb?v=855046dd7b38`，内容正确；
+- `npm run lint` 同时通过；
+- 失败仅来自新测试的匹配方式，不涉及 GLB 或运行时代码。
+
+### Suggested Fix
+
+校验由清单拼出的固定 URL 时直接使用 `String.includes`；只有确实需要模式匹配时
+才构造正则，并避免再次转义已经转义的字符。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: tests/test_shared_prototype_identity_models.test.mjs
+
+### Resolution
+
+- **Resolved**: 2026-07-25T08:19:00+08:00
+- **Notes**: 改为直接比较完整 URL 字符串，并保留缺失资产时的明确错误消息。
+
+---
+## [ERR-20260725-036] identity_review_regex_line_wrap
+
+**Logged**: 2026-07-25T23:38:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+Identity 审查测试用单行精确 regex 匹配 Markdown，文档在逗号后换行导致断言失败，
+实际阻断语义和全部结构断言均正确。
+
+### Error
+```text
+The input did not match /runtime, map placement, collision and performance/
+```
+
+### Suggested Fix
+文档语义断言允许 `\s+` 跨行，不把排版换行当成内容错误。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_shared_prototype_identity_models.test.mjs
+- See Also: ERR-20260725-032
+
+### Resolution
+- **Resolved**: 2026-07-25T23:38:00+08:00
+- **Notes**: regex 改为跨空白匹配。
+
+---
+## [ERR-20260725-035] sibling_worktree_contact_sheet_write_denied
+
+**Logged**: 2026-07-25T23:35:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+Identity 联系表脚本能读取 16 张预览，但 sandbox 不允许向 sibling worktree 的
+`test_artifacts` 新建联系表。
+
+### Error
+```text
+PermissionError: [Errno 1] Operation not permitted:
+test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-canonical-contact-sheet.png
+```
+
+### Context
+- Blender 通过宿主权限已在同一目录写入逐资产预览；
+- Pillow 读取和合成已完成，失败只发生在输出文件打开；
+- 不涉及运行时代码。
+
+### Suggested Fix
+对该确定性测试产物使用获批的宿主权限执行，或先输出 `/tmp/test_*` 再复制。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/test_make_shared_prototype_identity_contact_sheets.py
+
+### Resolution
+- **Resolved**: 2026-07-25T23:35:00+08:00
+- **Notes**: 改用宿主权限执行联系表脚本。
+
+---
+## [ERR-20260725-043] node_finalize_sibling_worktree_create_denied
+
+**Logged**: 2026-07-25T07:34:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+
+Node 收口脚本可读取兄弟 Worktree，但第一次创建新的 runtime QA JSON 时被
+文件沙箱拒绝。
+
+### Error
+
+```text
+Error: EPERM: operation not permitted, open
+docs/research/facility-prototypes-massing-runtime-qa.json
+```
+
+### Context
+
+- 数据断言已通过，失败发生在首次 `writeFile`；
+- 目标文件位于明确的任务 Worktree 内；
+- 不是模型、manifest 或浏览器证据错误。
+
+### Suggested Fix
+
+在兄弟 Worktree 生成新记录文件时，先预期文件沙箱可能只允许读取和修改已有
+文件；用同一条受限、可审计的脚本申请宿主执行，不改写输出路径绕过权限。
+
+### Resolution
+
+- **Resolved**: 2026-07-25T07:35:00+08:00
+- **Notes**: 宿主重跑成功，写入 QA JSON 并同步 15 份 build record 与 manifest。
+
+---
+## [ERR-20260725-042] blender_headless_sandbox_startup_segfault
+
+**Logged**: 2026-07-25T07:11:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: assets
+
+### Summary
+Blender 5.2 headless 在文件沙箱内初始化 USD/CPU 架构假设时 `SIGSEGV`，
+生成器尚未开始执行。
+
+### Error
+```text
+ArchWarn: ARCH_CACHE_LINE_SIZE != Arch_ObtainCacheLineSize()
+Blender 5.2.0 LTS
+Segmentation fault: 11
+```
+
+### Context
+- 命令为 `/opt/homebrew/bin/blender --background --python
+  scripts/create_facility_prototype_massing_models.py`；
+- 失败发生在 Blender 启动阶段，未覆盖任何设施输出；
+- 目标是修复 15 个 GLB 的 PBR baseColor 导出。
+
+### Suggested Fix
+按权限流程在宿主环境运行同一确定性 headless Blender 命令。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_facility_prototype_massing_models.py
+
+### Resolution
+- **Resolved**: 2026-07-25T07:13:00+08:00
+- **Notes**: 宿主环境 Headless Blender 2.14 秒完成 15 项全批重生成。
+  GLB 已从默认 0.8 灰修正为 Principled BSDF 的目标 PBR baseColor，
+  例如幸福角 pink=`[0.82,0.31,0.40,1]`、球场 court=
+  `[0.18,0.40,0.54,1]`。
+
+---
+## [ERR-20260725-041] external_output_relative_path_print
+
+**Logged**: 2026-07-25T07:06:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+联系表改为输出到 `/tmp` 后，脚本仍把输出路径强制 `relative_to(ROOT)`，
+导致生成首张图后在打印阶段退出。
+
+### Error
+```text
+ValueError: '/private/tmp/test_facility_contact_sheets...png'
+is not in the subpath of worktree
+```
+
+### Context
+- 首张联系表已经成功写入 `/tmp`；
+- 问题只在日志输出，不涉及图像内容。
+
+### Suggested Fix
+打印绝对输出路径，不假设输出目录一定位于仓库内。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/test_make_facility_prototype_massing_contact_sheets.py
+
+### Resolution
+- **Resolved**: 2026-07-25T07:06:00+08:00
+- **Notes**: 已移除 `relative_to(ROOT)` 假设。
+
+---
+## [ERR-20260725-040] python_sibling_worktree_artifact_write_denied
+
+**Logged**: 2026-07-25T07:05:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+联系表脚本能读取 sibling Worktree 的 45 张源图，但 Python 进程不能在同一
+`test_artifacts` 目录创建新的 PNG。
+
+### Error
+```text
+PermissionError: [Errno 1] Operation not permitted:
+'.../test_facility-prototypes-massing-canonical-contact-sheet.png'
+```
+
+### Context
+- 主线程 shell 已能把精确截图列表复制到该目录；
+- 失败只发生在 Python 新建联系表文件时。
+
+### Suggested Fix
+脚本支持 `--output-dir`；先生成到 `/tmp/test_*`，再由宿主层精确复制。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/test_make_facility_prototype_massing_contact_sheets.py
+
+### Resolution
+- **Resolved**: 2026-07-25T07:05:00+08:00
+- **Notes**: 已增加显式输出目录参数，源图目录与产物目录分离。
+
+---
+## [ERR-20260725-039] node_repl_sibling_worktree_copy_denied
+
+**Logged**: 2026-07-25T07:01:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+Browser Plugin 的 Node REPL 能把截图写入 `/tmp`，但不能直接复制到 sibling
+Worktree 的 `test_artifacts`。
+
+### Error
+```text
+EPERM: operation not permitted, copyfile '/tmp/test_*.png' ->
+'/Users/lei/App_developing/wander-xinhua-all-models-v3/test_artifacts/...'
+```
+
+### Context
+- 15 张 PNG 已在 Node REPL 的 `/tmp` 成功生成；
+- 目标 Worktree 对主线程 shell 可写，但不在 Browser Plugin 子进程的写沙箱内。
+
+### Suggested Fix
+Browser Plugin 只负责显式写 `/tmp/test_*`；再由宿主层对明确文件列表执行 `cp`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/all-models/massing/facility-prototypes
+
+### Resolution
+- **Resolved**: 2026-07-25T07:01:00+08:00
+- **Notes**: 改用 15 个明确源文件的宿主层复制，不使用宽泛通配符。
+
+---
+## [ERR-20260725-038] react_hook_camera_clipping_assignment
+
+**Logged**: 2026-07-25T06:55:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+设施隔离相机直接给 `useThree()` 返回相机的 `near` / `far` 赋值，
+触发 `react-hooks/immutability`。
+
+### Error
+```text
+Error: This value cannot be modified
+perspective.near = ...
+```
+
+### Context
+- 相机位置、朝向和投影更新通过 Three.js 方法调用；
+- QA 资产最大跨度仍远小于现有相机裁剪范围，不需要为逐项取景重写裁剪面。
+
+### Suggested Fix
+保留自动取景的位置与 `lookAt`，移除不必要的 `near` / `far` 直接赋值。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/facility-prototype-massing.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T06:55:00+08:00
+- **Notes**: 已移除两个属性赋值，取景距离算法保持不变。
+
+---
+## [ERR-20260725-036] facility_budget_summary_field_assumption
+
+**Logged**: 2026-07-25T06:53:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+设施产物测试错误假设 batch manifest 存在顶层 `budgetViolations` 数组，
+导致 15 个有效输出中的追溯测试失败。
+
+### Error
+```text
+AssertionError: undefined !== []
+```
+
+### Context
+- manifest 为每个资产保存 `budget` 与实际 `glb` 指标；
+- 15 个资产的外部审计已通过，失败来自测试字段假设。
+
+### Suggested Fix
+逐资产比较 triangles、nodes、materials、images 与 bytes 的实际值和预算上限。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_facility_prototype_modeling_inputs.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T06:53:00+08:00
+- **Notes**: 已改为逐资产预算断言，不再依赖不存在的汇总字段。
+
+---
+## [ERR-20260725-037] sandbox_ps_process_probe_denied
+
+**Logged**: 2026-07-25T06:53:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+用 `ps` 探测并行 lint 进程时被当前文件沙箱拒绝。
+
+### Error
+```text
+zsh: operation not permitted: ps
+```
+
+### Context
+- lint 已经输出，无需进程枚举即可重新运行并取得退出码；
+- 不影响代码、模型或测试文件。
+
+### Suggested Fix
+对短时 lint 直接用单独命令等待终态，不依赖 `ps`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json
+
+### Resolution
+- **Resolved**: 2026-07-25T06:53:00+08:00
+- **Notes**: 后续改用单独的 `npm run lint` 调用等待完成。
+
+---
+## [ERR-20260725-035] vite_config_temp_permission_in_worktree
+
+**Logged**: 2026-07-25T06:48:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+独立 Worktree 的静态构建在 Vite 默认 bundled config loader 写入
+`node_modules/.vite-temp` 时收到 `EPERM`，尚未进入项目代码编译。
+
+### Error
+```text
+Error: EPERM: operation not permitted, open
+'node_modules/.vite-temp/vite.static.config.ts.timestamp-*.mjs'
+```
+
+### Context
+- 命令为 `npm run build:static`；
+- `node_modules/.vite-temp` 目录存在且 Unix 权限显示为当前用户可写；
+- 失败点是 Vite 配置临时文件，不是 TypeScript 或模型产物。
+
+### Suggested Fix
+使用 Vite `--configLoader runner` 绕过 bundled config 临时文件，再确认静态构建；
+若 runner 也失败，再核查 Worktree 依赖目录的沙箱/ACL。
+
+### Metadata
+- Reproducible: yes
+- Related Files: vite.static.config.ts
+
+### Resolution
+- **Resolved**: 2026-07-25T06:50:00+08:00
+- **Notes**: `--configLoader runner` 绕过 `.vite-temp`；已有 `dist-static`
+  同样被沙箱禁止清空，因此改用新建的 `/tmp/test_wander_facility_build.*`
+  输出目录，686 modules 成功编译。环境写权限与代码编译结果已分开记录。
+
+---
+## [ERR-20260725-034] one_square_metre_massing_triangle_budget
+
+**Logged**: 2026-07-25T23:22:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: assets
+
+### Summary
+“一平米行动”首版 Massing 为四角花盆使用八边圆柱，导出后总计 300 triangles，
+超过该资产 256 triangles 合同。
+
+### Error
+```text
+RuntimeError: one-square-metre-action 超出 Massing 合同：triangles=300>256
+```
+
+### Context
+- 前 14 个输出均已通过各自生成器预算门；
+- 超预算资产未写 build record，也未写全批 manifest；
+- 外环、信息板和悬浮标志等产品语义必须保留。
+
+### Suggested Fix
+Massing 阶段把四角花盆容器降为方形盒，保留四角布局与植被轮廓。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_facility_prototype_massing_models.py
+
+### Resolution
+- **Resolved**: 2026-07-25T23:22:00+08:00
+- **Notes**: 四个圆柱花盆替换为方形低模容器；单项与全批审计均通过，最终为 236 triangles。
+
+---
+## [ERR-20260725-031] sandbox_python_cache_and_blender_headless_crash
+
+**Logged**: 2026-07-25T23:18:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: testing
+
+### Summary
+系统 Python 的默认 bytecode 缓存目录被 sandbox 拒绝，随后 Blender 5.2 Headless
+在 sandbox 内启动后段错误退出，尚未进入资产生成逻辑。
+
+### Error
+```text
+PermissionError: [Errno 1] Operation not permitted: '/Users/lei/Library/Caches/com.apple.python/...'
+Segmentation fault: 11
+```
+
+### Context
+- 运行 `py_compile` 与确定性 Blender generator 首次全批生成；
+- worktree 本身可写；
+- Blender crash 文件位于系统临时目录。
+
+### Suggested Fix
+把 Python bytecode 缓存显式指向 `/tmp/test_*`；Blender Headless 若仍在 sandbox
+内崩溃，则使用获批的 unsandboxed Headless 执行。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_facility_prototype_massing_models.py
+
+### Resolution
+- **Resolved**: 2026-07-25T23:44:00+08:00
+- **Notes**: Python bytecode 缓存改到 `/tmp/test_facility_pycache`；获批的 sandbox 外 Headless Blender 已完成全批生成。
+
+---
+## [ERR-20260725-032] evidence_test_exact_phrase_drift
+
+**Logged**: 2026-07-25T06:45:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+设施证据测试用自拟精确中文短语匹配子智能体更新后的 JSON，连续两次因同义表达
+不同而失败，数据边界本身并未错误。
+
+### Context
+- 喷泉实际记录为“不能逐一绑定”，测试写成“禁止逐一绑定”；
+- 一平米行动的活动证据位于 `programContextObserved`，不是现实装置
+  `observed`；
+- 失败只暴露测试断言过度依赖措辞，没有改变模型资产。
+
+### Suggested Fix
+先读取结构化字段，再断言稳定状态字段和关键语义片段；不要把自然语言整句当作
+唯一 schema。
+
+### Resolution
+- **Resolved**: 2026-07-25T06:47:00+08:00
+- **Notes**: 改为断言 `identityGate`、`classification` 和稳定的短语片段，
+  5/5 输入测试通过。
+
+---
+## [ERR-20260725-033] shmedia_image_partial_transfer
+
+**Logged**: 2026-07-25T06:39:00+08:00
+**Priority**: low
+**Status**: unresolved
+**Area**: evidence-download
+
+### Summary
+下载长宁区政府幸福里文章最后一张图片时先遇到 HTTP/2 stream error，
+切换 HTTP/1.1 后又遇到 DNS/partial transfer；该图片不是当前主体证据的必需项。
+
+### Error
+```text
+curl: (92) HTTP/2 stream 1 was not closed cleanly: INTERNAL_ERROR
+curl: (18) transfer closed with 863639 bytes remaining to read
+```
+
+### Context
+- 同页主巷垂直绿墙与入口种植两张关键图已完整下载并校验；
+- 未用损坏文件进入 manifest；
+- 不删除或覆盖任何既有证据。
+
+### Suggested Fix
+后续若该末图成为必要证据，使用可续传下载、浏览器响应 bytes 或来源方缓存链接；
+不要把部分文件当作完成素材。
+
+---
+## [ERR-20260725-030] jq_geometry_spec_wrong_collection_assumption
+
+**Logged**: 2026-07-25T23:10:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+把 facility geometry spec 的顶层 `prototypes` 数组误判为 `collections[].prototypes`，
+导致只读 `jq` 查询对字符串执行对象索引。
+
+### Error
+```text
+jq: error: Cannot index string with string "id"
+```
+
+### Context
+- 只读提取 facility prototype 的几何与预算；
+- 文件实际顶层键已通过 `jq 'type, keys'` 确认；
+- 没有修改模型、证据或运行时代码。
+
+### Suggested Fix
+复杂 JSON 首次查询前先确认 `type` 与 `keys`，再按实际 schema 构造过滤器。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/facility-prototypes-massing-geometry-spec.json
+
+### Resolution
+- **Resolved**: 2026-07-25T23:10:00+08:00
+- **Notes**: 已改为从顶层 `.prototypes[]` 读取。
+
+---
+## [ERR-20260725-026] python_pycompile_cache_permission
+
+**Logged**: 2026-07-25T22:12:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+系统 Python 的 `py_compile` 尝试在受限的用户 Library 缓存目录创建
+`.pyc`，导致语法预检在读取源码前因 `PermissionError` 退出。
+
+### Context
+- 目标源码位于独立 sibling worktree；
+- 当前 sandbox 允许写 worktree 和 `/tmp`，不允许写
+  `/Users/lei/Library/Caches/com.apple.python/...`；
+- 失败不表示生成器存在语法错误。
+
+### Suggested Fix
+在受限环境中运行 Python 语法预检时，把
+`PYTHONPYCACHEPREFIX` 指向 `/tmp/test_*` 专用目录。
+
+### Resolution
+- **Resolved**: 2026-07-25T22:12:00+08:00
+- **Notes**: 后续预检使用 `/tmp/test_wander_xinhua_pycache`，不改用户缓存。
+
+---
+
+## [ERR-20260725-P2A] python_inline_newline_escaping
+
+**Logged**: 2026-07-25T22:10:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: research
+
+### Summary
+用 `python3 -c` 传入包含字面量 `\n` 的多行面积计算代码，Python 将反斜杠识别为非法行连接字符。
+
+### Error
+```text
+SyntaxError: unexpected character after line continuation character
+```
+
+### Context
+- 任务为只读计算 OSM 建筑 footprint 面积；
+- shell 单引号不会把 `\n` 展开成真实换行。
+
+### Suggested Fix
+复杂临时分析改用以 `test_` 开头、可审阅的脚本，不在 shell 参数中嵌套多行 Python。
+
+### Resolution
+- **Resolved**: 2026-07-25T22:10:00+08:00
+- **Notes**: 后续叠图与面积计算统一使用临时 `test_` 脚本。
+
+---
+
+## [ERR-20260725-P2B] exiftool_unavailable
+
+**Logged**: 2026-07-25T22:25:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: research
+
+### Summary
+复核本地证据图片来源元数据时，当前环境没有安装 `exiftool`。
+
+### Error
+```text
+zsh: command not found: exiftool
+```
+
+### Context
+- 该检查仅用于补充来源复核，不是几何叠合硬依赖；
+- 图片尺寸、SHA 与视觉内容仍可用 Pillow 和系统工具读取。
+
+### Suggested Fix
+先用 `command -v` 预检可选工具；缺失时直接采用 Pillow、`file` 或 `sips`。
+
+### Resolution
+- **Resolved**: 2026-07-25T22:25:00+08:00
+- **Notes**: 跳过非必要 EXIF 检查，不安装新依赖。
+
+---
+
+## [ERR-20260725-P2C] temporary_overlay_copy_denied
+
+**Logged**: 2026-07-25T22:48:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: research
+
+### Summary
+把临时 OSM 叠图复制到证据目录时，首次目标文件创建返回 `Operation not permitted`。
+
+### Error
+```text
+cp: .../test_phase-two-osm-overlay.png: Operation not permitted
+```
+
+### Context
+- 同目录的正式 PDF 与 PNG 证据此前已成功复制；
+- 目标文件不存在，原始证据未被覆盖；
+- 临时叠图不是正式证据硬依赖。
+
+### Suggested Fix
+保留 `/private/tmp` 分析产物；如需入库则使用新的 `test_` 名称重试，不修改正式证据。
+
+### Resolution
+- **Resolved**: 2026-07-25T22:48:00+08:00
+- **Notes**: 正式证据和审计不受影响，叠图可继续从 `/private/tmp` 访问。
+
+---
+
+## [ERR-20260725-P2D] jq_mixed_stream_precedence
+
+**Logged**: 2026-07-25T22:55:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: research
+
+### Summary
+用一个 `jq` 表达式同时抽取 sources、assets 和 bindingStatus 时，管道优先级把后续对象字段应用到了数组结果。
+
+### Error
+```text
+jq: Cannot index array with string "bindingStatus"
+```
+
+### Context
+- `jq empty` 已先证明 manifest JSON 语法有效；
+- 错误只发生在只读摘要命令。
+
+### Suggested Fix
+将独立顶层字段用数组或对象显式分组，或拆为多个 `jq` 调用。
+
+### Resolution
+- **Resolved**: 2026-07-25T22:55:00+08:00
+- **Notes**: 后续分别读取 `.bindingStatus` 和筛选后的 `.assets[]`。
+
+---
+
 ## [ERR-20260725-093] browser_readonly_evaluate_hides_animation_frame
 
 **Logged**: 2026-07-25T00:55:00+08:00
@@ -6265,3 +7175,742 @@ shell 循环使用 `file_path` 等任务专用变量名，避免 `path`、`statu
 ### Resolution
 - **Resolved**: 2026-07-25T00:00:00+08:00
 - **Notes**: 改用 `file_path` 后重新执行，成功保留两侧追加记录并移除冲突标记。
+
+---
+## [ERR-20260725-013] campus_tree_target_mistaken_for_runtime_count
+
+**Logged**: 2026-07-25T00:30:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+把 `CAMPUS_TREES.slice(0, 44)` 的上限误当成实际实例数，位置快照断言错误地要求 44 棵树。
+
+### Error
+```text
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+29 !== 44
+```
+
+### Context
+- `scripts/test_generate_model_placement_registry.mjs` 首次复刻上生·新所的确定性树位。
+- 当前场地边界、11 栋建筑、设施净空和额外排除区共同过滤后只有 29 个候选通过。
+- 运行时代码的 `.slice(0, 44)` 只是最多取 44 个，并不保证产生 44 个。
+- 资产库和旧测试中的 `instanceCount: 44` 只检查声明文本，未回放实际几何筛选。
+
+### Suggested Fix
+所有程序生成实例都应回放完整筛选逻辑并保存逐实例快照；不要从 `slice` 上限、数组初始长度或文档声明推断实际数量。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/test_generate_model_placement_registry.mjs, app/scene/shangsheng-xinsuo-block.tsx, app/asset-library/asset-data.ts
+
+### Resolution
+- **Resolved**: 2026-07-25T00:30:00+08:00
+- **Notes**: 以同源算法复算并把快照断言改为实际 29；后续同步更正总注册表与资产库声明。
+
+---
+## [ERR-20260725-014] sibling_worktree_generated_file_write_denied
+
+**Logged**: 2026-07-25T00:34:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+生成器读取新 worktree 正常，但首次写入新位置快照时被沙箱拒绝。
+
+### Error
+```text
+Error: EPERM: operation not permitted, open
+'/Users/lei/App_developing/wander-xinhua-all-models-v3/docs/research/model-placement-registry-20260725.json'
+```
+
+### Context
+- 当前桌面线程的默认 workspace root 仍是主 worktree。
+- 新 worktree 是本任务明确创建的兄弟目录，`apply_patch` 可以维护文件，但普通 shell 进程首次创建生成物需要受控权限。
+
+### Suggested Fix
+对明确的单个生成器入口请求限定权限；不要扩大为整个 Node 运行时或任意兄弟目录写入。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/test_generate_model_placement_registry.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T00:34:00+08:00
+- **Notes**: 获得仅限该生成器命令的许可后成功写入；随后用 `--check` 在只读模式验证确定性。
+
+---
+## [ERR-20260725-015] blender_52_eevee_enum_name
+
+**Logged**: 2026-07-25T03:17:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Blender 5.2 LTS 拒绝旧脚本常用的 `BLENDER_EEVEE_NEXT` 渲染引擎枚举。
+
+### Error
+```text
+TypeError: enum "BLENDER_EEVEE_NEXT" not found in
+('BLENDER_EEVEE', 'BLENDER_WORKBENCH', 'CYCLES')
+```
+
+### Context
+- 首个 `house-315` Massing 单资产试制在配置渲染引擎时停止。
+- 失败发生在保存 Blend、GLB、预览和 build record 之前，没有留下半成品。
+
+### Suggested Fix
+Blender 5.2 LTS 的当前入口使用 `scene.render.engine = "BLENDER_EEVEE"`；生成器应以实际枚举为准，而不是从旧版本名称推断。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_xinhua_road_massing_models.py
+
+### Resolution
+- **Resolved**: 2026-07-25T03:18:00+08:00
+- **Notes**: 改用 Blender 5.2 实际支持的 `BLENDER_EEVEE`，重新执行单资产试制。
+
+---
+## [ERR-20260725-016] sandboxed_blender_metal_startup_crash
+
+**Logged**: 2026-07-25T03:18:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Headless Blender 在默认沙箱内启动时崩溃于 Metal 后端能力检测，Python 尚未执行。
+
+### Error
+```text
+blender::gpu::supports_barycentric_whitelist
+blender::gpu::MTLBackend::metal_is_supported
+GPU_backend_type_selection_detect
+```
+
+### Context
+- 同一生成器在受控非沙箱 Headless Blender 中可正常导入 GLB、保存 Blend、导出 GLB 并渲染。
+- 崩溃文件位于系统临时目录 `blender.crash.txt`，Python backtrace 为空。
+
+### Suggested Fix
+涉及 Blender Metal 初始化和离屏渲染时使用限定的 Blender 命令权限；如果 Python backtrace 为空，先区分进程启动崩溃与脚本错误。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_xinhua_road_massing_models.py
+
+### Resolution
+- **Resolved**: 2026-07-25T03:19:00+08:00
+- **Notes**: 在已授权的非沙箱 Headless Blender 环境重跑成功。
+
+---
+## [ERR-20260725-017] missing_typecheck_npm_script
+
+**Logged**: 2026-07-25T03:40:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+误把先前执行过的 TypeScript 命令记成仓库内的 `npm run typecheck` 脚本。
+
+### Error
+```text
+npm error Missing script: "typecheck"
+```
+
+### Context
+- `package.json` 只有 `dev`、`build`、`test`、`lint` 等脚本，没有 `typecheck`。
+- 先前的定向类型校验实际应直接调用仓库依赖 `npx tsc --noEmit`，或通过正式 `npm run build` 覆盖。
+
+### Suggested Fix
+执行命令前先读取 `package.json#scripts`；仓库未定义脚本时使用项目已有的直接工具入口，不凭记忆补脚本名。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json, app/scene/xinhua-road-massing.tsx, app/scene/xinhua-world.tsx, app/xinhua-experience.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T04:35:00+08:00
+- **Notes**: `npx tsc --noEmit` 还会因 sibling worktree 的 `tsconfig.tsbuildinfo` 写权限和仓库既有无关类型错误失败；本批改用正式 `npm run build:static`、定向 Node tests 与 `npm run lint` 验证，最终仍执行项目规定的全量测试。
+
+---
+## [ERR-20260725-018] massing_material_token_matched_asset_prefix
+
+**Logged**: 2026-07-25T03:46:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: modeling
+
+### Summary
+Massing 材质排除词 `花园` 误匹配“一尺花园”全部材质名，导致建筑网格被整体删除。
+
+### Error
+```text
+RuntimeError: 删除场地细节后没有剩余 Massing 建筑/构筑物网格
+```
+
+### Context
+- 所有一尺花园材质都以资产品牌“一尺花园”开头。
+- 排除规则使用材质名子串匹配，过于宽泛的业务词会同时命中资产前缀和场地语义。
+- 批处理在第三个资产停止；前两个已生成产物可安全由完整重跑覆盖，未删除旧证据。
+
+### Suggested Fix
+排除词只使用明确的几何语义，如 `绿植`、`草坪`、`铺装`；避免品牌或场地名称级的宽泛 token。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_xinhua_road_massing_models.py
+
+### Resolution
+- **Resolved**: 2026-07-25T03:46:00+08:00
+- **Notes**: 移除 `花园` token，保留 `花园绿植` 由更精确的 `绿植` 命中，再从头重跑 14 资产。
+
+---
+## [ERR-20260725-019] canonical_start_mutated_street_dressing
+
+**Logged**: 2026-07-25T04:35:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: runtime-placement
+
+### Summary
+调整 4 个 Massing canonical 快速定位机位后，新华路梧桐、路灯、花箱和垃圾桶实例数随之漂移。
+
+### Context
+- `start` 同时承担角色/相机快速定位和街道实体净空锚点两种职责。
+- 仅为改善模型取景而移动 `start`，布点算法却把它解释成入口位置变化。
+
+### Suggested Fix
+把相机起点和实体净空锚点建模成独立字段，并以回归测试证明 canonical 取景变化不影响实体布点。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-road-landmarks-data.json, app/scene/xinhua-road-placement.mjs, app/scene/street-dressing-placement.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T04:35:00+08:00
+- **Notes**: 新增 `streetClearancePoint` 和统一解析函数；4 个已改机位的地标冻结原净空锚点，恢复稳定实例数量。
+
+---
+## [ERR-20260725-020] browser_screenshot_bytes_not_written_by_path_option
+
+**Logged**: 2026-07-25T05:10:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+误以为 `tab.screenshot({ path })` 会写入本地文件，导致后续读取到同名旧截图；首次导航后也过早查找“出发”按钮。
+
+### Context
+- Browser Plugin 的 `tab.screenshot()` 返回截图字节，不负责把 `path` 参数落盘。
+- 静态生产页在资源准备阶段按钮文案为“正在准备”，必须等到 DOM 中出现唯一“出发”按钮再点击。
+
+### Suggested Fix
+截图时显式接收返回字节并写入系统临时目录，再复制到测试证据路径；每次导航后先等待准备完成、取 DOM snapshot、确认唯一 locator 后行动。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/all-models/massing/, docs/research/xinhua-road-massing-runtime-qa.json
+
+### Resolution
+- **Resolved**: 2026-07-25T05:10:00+08:00
+- **Notes**: 4 个调整机位均以新文件名重新截图并人工复核，最终复制到固定证据路径并重生成联系表。
+
+---
+## [ERR-20260725-021] py_compile_cache_outside_sibling_worktree
+
+**Logged**: 2026-07-25T05:35:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+在 sibling worktree 执行 `python3 -m py_compile` 时，系统 Python 尝试向用户 Library cache 写入，触发沙箱 `PermissionError`。
+
+### Context
+- 源文件可读且 worktree 可由授权命令写入；
+- 失败目标是系统派生 cache，不是项目文件。
+
+### Suggested Fix
+对只需语法检查的 Python 命令设置任务专属 `PYTHONPYCACHEPREFIX` 到 `/tmp`。
+
+### Resolution
+- **Resolved**: 2026-07-25T05:35:00+08:00
+- **Notes**: 使用 `PYTHONPYCACHEPREFIX=/tmp/wander-xinhua-pycache` 后语法检查通过。
+
+---
+## [ERR-20260725-022] browser_cdp_event_api_mismatch
+
+**Logged**: 2026-07-25T04:38:55+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+误按常见 CDP 客户端习惯调用不存在的 `cdp.on`，并给 `readEvents` 传入超过上限的 `limit=5000`。
+
+### Context
+- Browser Plugin 的 CDP session 使用 `send` 和 `readEvents`，不提供事件监听器 API。
+- `readEvents` 的单次 `limit` 上限为 1000，需要通过 cursor 分页。
+
+### Suggested Fix
+采集请求/响应/失败事件前先记录 cursor，操作后用 `readEvents({ afterSequence, methods, limit: 1000 })` 拉取并按 cursor 继续。
+
+### Resolution
+- **Resolved**: 2026-07-25T04:38:55+08:00
+- **Notes**: 改用 `readEvents` 后记录到 14 请求、14 响应、0 失败。
+
+---
+## [ERR-20260725-023] browser_console_api_mismatch
+
+**Logged**: 2026-07-25T04:38:55+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+误调用不存在的 `tab.getConsoleMessages` 检查运行时控制台。
+
+### Context
+Browser Plugin 将页面日志暴露在 `tab.dev.logs({ limit })`，不是 tab 顶层方法。
+
+### Suggested Fix
+运行时验收统一使用 `tab.dev.logs`，并把 warning 与 error 分开记录。
+
+### Resolution
+- **Resolved**: 2026-07-25T04:38:55+08:00
+- **Notes**: 正确日志入口显示只有已知 THREE.Clock deprecated warning，没有 console error。
+
+---
+## [ERR-20260725-024] browser_evaluate_performance_shadowed
+
+**Logged**: 2026-07-25T04:55:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+在 Browser Plugin 的 `playwright.evaluate` 中读取 `performance.getEntriesByType` 时，执行上下文里的 `performance` / `window.performance` 未按预期提供。
+
+### Context
+- DOM、dataset 和 canvas 查询均可正常执行；
+- 同一页通过 CDP `Runtime.evaluate` 可读取完整 Resource Timing；
+- 资源状态仍需 CDP Network events 才能证明 HTTP 200 和 failure 数。
+
+### Suggested Fix
+DOM 状态继续使用 `playwright.evaluate`；Resource Timing 使用 `cdp.send("Runtime.evaluate")`；HTTP 状态使用 `Network.*` events。
+
+### Resolution
+- **Resolved**: 2026-07-25T04:55:00+08:00
+- **Notes**: CDP 记录到共享原型 12 请求、12 响应、12 个 HTTP 200、0 failure，且均非 disk cache / service worker。
+
+---
+## [ERR-20260725-025] geometry_round_trip_string_rounding
+
+**Logged**: 2026-07-25T21:55:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+OSM 顶点往返测试把浮点坐标格式化到四位小数后做字符串全等，局部点六位小数量化造成约 `0.00005` 的回算差并跨过四舍五入边界。
+
+### Context
+- 原始世界点为 `43.32873, 74.16825`；
+- 生成器 build record 的局部点只保留六位小数；
+- 方向回算正确，但字符串结果分别落在 `74.1682` 与 `74.1683`。
+
+### Suggested Fix
+几何 round-trip 使用明确的数值误差上限，不用格式化字符串等价代替浮点容差。
+
+### Resolution
+- **Resolved**: 2026-07-25T21:55:00+08:00
+- **Notes**: 改为逐坐标 `<= 0.0002` 的容差，同时继续覆盖 Blender Y → Three -Z → runtime scaleZ=-1 → world 的完整方向链。
+
+---
+## [ERR-20260725-027] cdp_read_events_limit_exceeded
+
+**Logged**: 2026-07-25T22:28:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+Browser Plugin 的 CDP `readEvents` 将 `limit` 设为 `1200`，超过工具允许的
+最大值 `1000`，首个四栋遍历批次在读取事件时退出。
+
+### Context
+- 页面导航、GLB 加载和首张截图已经执行；
+- 错误只发生在事件读取参数校验；
+- 没有修改模型或证据文件。
+
+### Suggested Fix
+CDP 批次验收固定使用 `limit: 1000`，并按 4 个目标拆批。
+
+### Resolution
+- **Resolved**: 2026-07-25T22:29:00+08:00
+- **Notes**: 改为三批各四栋后，12 个目标均取得 HTTP 200、0 failure、0 exception。
+
+---
+## [ERR-20260725-028] browser_screenshot_path_not_host_file
+
+**Logged**: 2026-07-25T22:34:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+把 `path` 传给 Browser Plugin 的 `tab.screenshot` 后，返回了 PNG bytes，
+但 Node REPL 所在主机的同名 `/tmp` 文件不存在。
+
+### Context
+- 截图 bytes 有效并能直接显示；
+- Browser Plugin 的 `path` 不应被当作主机文件落盘证明；
+- 后续正式产物需要主机 `/tmp` 文件再复制到 worktree。
+
+### Suggested Fix
+始终接收 `tab.screenshot()` 返回的 bytes，再用 Node REPL 的
+`fsPromises.writeFile` 显式写入 `/tmp/test_*`。
+
+### Resolution
+- **Resolved**: 2026-07-25T22:35:00+08:00
+- **Notes**: 12 张运行时截图均用显式 bytes 写入、复制、SHA 校验并生成联系表。
+
+---
+## [ERR-20260725-029] jq_multiple_outputs_need_parentheses
+
+**Logged**: 2026-07-25T06:27:28+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+用分号在一个 `jq` filter 中拼接两个顶层输出，导致语法错误。
+
+### Error
+```text
+jq: error: syntax error, unexpected ';', expecting end of file
+```
+
+### Context
+- 只读核对运行时 QA 中单项截图与总 contact sheet；
+- 错误仅来自 `jq` filter 语法，没有改动模型或审查数据。
+
+### Suggested Fix
+多个顶层输出使用逗号并加括号，例如
+`(.results[] | select(...)), .contactSheet`，或拆成两次查询。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/shangsheng-huashan-massing-runtime-qa.json
+
+### Resolution
+- **Resolved**: 2026-07-25T06:27:28+08:00
+- **Notes**: 改用括号和逗号后继续只读校验。
+
+---
+
+## [ERR-20260725-A7F] review_file_destructive_rewrite_rejected
+
+**Logged**: 2026-07-25T07:31:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: docs
+
+### Summary
+
+设施 Massing 最终复审时试图先删除再重建同名审查文件，因项目要求保留旧分析
+证据而被安全规则拒绝。
+
+### Error
+
+```text
+This action was rejected due to unacceptable risk.
+该操作会删除已生成的独立审查记录文件，而项目规则明确要求新增分析生成新文件且不覆盖或删除旧证据。
+```
+
+### Context
+
+- 目标文件：`docs/research/facility-prototypes-massing-independent-review.md`；
+- 任务要求直接更新同一文件，但不要求删除初审历史；
+- 文件没有被删除或改写，拒绝发生在补丁应用前。
+
+### Suggested Fix
+
+复审同一证据文件时保留初审原文，在文件顶部追加带日期的最终复审，并明确旧
+结论已被取代；不要用 delete + add 方式整体重建。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: docs/research/facility-prototypes-massing-independent-review.md
+
+### Resolution
+
+- **Resolved**: 2026-07-25T07:33:00+08:00
+- **Notes**: 改为非破坏性顶部追加，保留初审历史并写入最终严格计数。
+
+---
+
+## [ERR-20260725-045] browser_wrapper_performance_global_unavailable
+
+**Logged**: 2026-07-25T10:50:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+
+在 in-app Browser 的受限 Playwright `evaluate` 中直接读取
+`window.performance` 并向 `window` 写探针字段失败。
+
+### Error
+
+```text
+TypeError: Cannot read properties of undefined (reading 'getEntriesByType')
+TypeError: Cannot add property __identityQaErrors, object is not extensible
+```
+
+### Context
+
+- 页面本身已进入 `playable`，错误来自自动化 wrapper 的隔离执行环境；
+- 资源时间和错误探针需要读取页面主执行上下文。
+
+### Suggested Fix
+
+保留 DOM 状态读取在 Playwright wrapper 中；需要 Resource Timing 或主上下文
+探针时，使用该页已绑定的 raw CDP `Runtime.evaluate`，不要假设 wrapper 暴露
+完整浏览器全局对象。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-browser-evidence.json
+
+### Resolution
+
+- **Resolved**: 2026-07-25T10:53:00+08:00
+- **Notes**: 改用 CDP Runtime.evaluate，取得 8/8 HTTP 200、非缓存 bytes 和零 runtime error。
+
+---
+
+## [ERR-20260725-046] blender_headless_sandbox_segfault
+
+**Logged**: 2026-07-25T10:56:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+
+Blender 5.2 headless 在受限沙箱中启动后于 USD 架构假设检查阶段崩溃，未执行
+Identity 生成器。
+
+### Error
+
+```text
+ArchWarn: ARCH_CACHE_LINE_SIZE != Arch_ObtainCacheLineSize()
+Segmentation fault: 11
+```
+
+### Context
+
+- 命令：`blender --background --python scripts/create_shared_prototype_identity_models.py`；
+- 崩溃发生在生成器输出之前，没有覆盖模型；
+- 同一命令在获批的宿主环境正常完成 8 个资产。
+
+### Suggested Fix
+
+该项目的 Blender headless 批处理直接使用获批宿主执行；不要把沙箱内启动崩溃
+误判成生成器或模型脚本错误。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: scripts/create_shared_prototype_identity_models.py
+
+### Resolution
+
+- **Resolved**: 2026-07-25T10:57:00+08:00
+- **Notes**: 宿主环境全量重建成功，后续 GLB 结构与浏览器运行时验收均通过。
+
+---
+
+## [ERR-20260725-048] vite_temp_worktree_sandbox_eperm
+
+**Logged**: 2026-07-25T13:42:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+
+在受限沙箱内从 sibling Worktree 运行 `npm test` 时，Vite 无法写入
+`node_modules/.vite-temp`，完整测试在载入配置前停止。
+
+### Error
+
+```text
+Error: EPERM: operation not permitted, open
+node_modules/.vite-temp/vite.static.config.ts.timestamp-*.mjs
+```
+
+### Context
+
+- 定向 Node 测试和 ESLint 已通过；
+- 失败发生在 Vite 临时配置写入，不是源代码编译或断言失败；
+- 当前实现 Worktree 位于主 workspace root 的 sibling 路径。
+
+### Suggested Fix
+
+Sibling Worktree 的 Vite 构建与完整 `npm test` 使用获批宿主执行；仍需保留原命令
+输出，并在宿主执行结果通过后才关闭项目级回归门。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: vite.static.config.ts, node_modules/.vite-temp
+
+### Resolution
+
+- **Resolved**: 2026-07-25T13:43:00+08:00
+- **Notes**: 使用同一 `npm test` 命令在获批宿主环境重跑。
+
+---
+
+## [ERR-20260725-049] sun_ke_villa_hero_blend_sha_drift
+
+**Logged**: 2026-07-25T14:32:42+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: assets
+
+### Summary
+
+孙科别墅 Hero GLB 保持冻结 SHA，但 MCP 审查后的可编辑 Hero Blend 被再次保存，
+文件 SHA 与 Hero build record 和 Identity 派生合同不一致。
+
+### Error
+
+```text
+actual Blend SHA:
+229fe0f8b14fef3ba533d7114c79d8d600ffed9bb14b03dc3bd450ee77a852e5
+
+expected frozen Blend SHA:
+80db7cbbb0e84f734f25af6bd9228cb704318a6bf50bba9b0fccb5330dc63ccd
+```
+
+### Context
+
+- 命令：`node --test tests/test_sun_ke_villa_tier_pipeline.test.mjs ...`；
+- Hero GLB SHA 仍为
+  `830564a6cdbd035cea87cffccd56a908c808b9418f8922484742dab84b8eaebc`；
+- Hero Blend 的 mtime 晚于 GLB，初步怀疑 MCP 固定机位审查保存了测试相机、
+  灯光或审查状态；
+- Identity build record 仍引用旧 Hero Blend SHA，当前无法重放正式派生。
+
+### Suggested Fix
+
+只读审计当前 Blend 的资产对象和测试对象差异；若几何未漂移，重新用确定性 Hero
+生成器构建并冻结，再从该冻结 Blend 重建 Identity，更新 build record、MCP
+记录与回归测试。MCP 审查场景不得覆盖冻结 master。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: assets/models/source/sun-ke-villa.blend, docs/research/build-records/tiers/sun-ke-villa/hero/sun-ke-villa-hero.json, scripts/create_sun_ke_villa_identity_model.py
+
+### Resolution
+
+- **Resolved**: 2026-07-25T15:00:00+08:00
+- **Notes**: 只读审计确认正式 Blend 被三档 MCP 测试场景覆盖；从确定性生成器恢复 254 个可编辑资产网格，重新冻结 Hero `6d1642315530…`，从该 master 重派生 Identity `6b541e8ffab4…`，并用当前 MCP 与 CDP v2 证据复验。MCP 临时相机和灯光未再保存回 master。
+
+---
+
+## [ERR-20260725-050] agent_browser_cli_missing
+
+**Logged**: 2026-07-25T14:42:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+
+仓库环境提供了 `agent-browser` skill，但 PATH 中没有对应 CLI，可执行的 CDP 验收
+不能直接使用该命令。
+
+### Error
+
+```text
+zsh:1: command not found: agent-browser
+```
+
+### Context
+
+- 尝试打开孙科别墅 Hero 固定 QA URL；
+- 本轮不应为单次验收安装新的全局依赖。
+
+### Suggested Fix
+
+使用已安装的 in-app Browser/CDP 工具完成同一固定 URL、截图、console、network
+和 Resource Timing 验收；仅在用户明确要求 CLI 时再安装。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: test_artifacts/all-models/tier-review/sun-ke-villa
+
+### Resolution
+
+- **Resolved**: 2026-07-25T14:42:00+08:00
+- **Notes**: 切换到 in-app Browser/CDP，不改变 QA 路由与验收合同。
+
+---
+
+## [ERR-20260725-051] sibling_worktree_node_write_eperm
+
+**Logged**: 2026-07-25T14:36:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+
+Sibling Worktree 内不仅 Vite 临时目录，普通 Node build-record 脚本和 CDP
+截图写入也可能被受限沙箱拒绝。
+
+### Error
+
+```text
+EPERM: operation not permitted, open
+/Users/lei/App_developing/wander-xinhua-all-models-v3/docs/research/active-asset-scope-31.json
+```
+
+### Context
+
+- `node scripts/test_audit_sun_ke_villa_hero.mjs` 读取成功、写入 scope 时失败；
+- Browser/CDP 截图写入 Worktree 时也失败，但写入 `/tmp` 成功。
+
+### Suggested Fix
+
+资产审计脚本在获批宿主环境重跑；Browser 二进制截图先写入 `/tmp/test_*`，
+再用精确 `cp` 目标保存到 Worktree。不得扩大成宽泛写权限。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: scripts/test_audit_sun_ke_villa_hero.mjs, docs/research/active-asset-scope-31.json, test_artifacts/all-models/tier-review/sun-ke-villa
+- See Also: ERR-20260725-048
+
+### Resolution
+
+- **Resolved**: 2026-07-25T14:50:00+08:00
+- **Notes**: 精确宿主重跑与 `/tmp` 中转均成功，未覆盖 Hold 资产。
+
+---

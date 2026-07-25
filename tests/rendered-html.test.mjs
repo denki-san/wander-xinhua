@@ -73,7 +73,7 @@ test("幸福里全览隐藏小装饰，详情恢复七栋建筑和原有核心�
 
   assert.match(
     world,
-    /<XingfuliBlock[\s\S]*?loadDetailedArchitecture=\{showDetailModels\}[\s\S]*?stage=\{xingfuliTier\}/,
+    /<XingfuliBlock[\s\S]*?loadDetailedArchitecture=\{showDetailModels\}[\s\S]*?facilityPrototypeMapQaId\?\.startsWith\("xingfuli-"\)[\s\S]*?\? "identity"[\s\S]*?: xingfuliTier/,
   );
   assert.match(world, /const XINGFULI_WORLD_OBSTACLES = XINGFULI_OBSTACLES\.map/);
   assert.match(world, /\.\.\.XINGFULI_WORLD_OBSTACLES/);

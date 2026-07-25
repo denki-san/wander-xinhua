@@ -27,6 +27,42 @@
 
 ---
 
+## [LRN-20260725-004] correction
+
+**Logged**: 2026-07-25T12:15:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: 3d-modeling
+
+### Summary
+
+孙科别墅北门廊不是贴墙短雨棚，而是明显向北外挑、可穿行的 porte-cochère。
+
+### Details
+
+校正前 Hero/Identity 只保留了靠墙柱、短屋顶和圆拱券边，虽然“有门廊”，
+但错失了最重要的纵深关系。用户提供的近景明确显示：前端独立山墙圆拱和
+厚立柱离主楼有显著距离，长坡屋顶向后连接主楼，覆盖车道保持开放。
+
+### Suggested Action
+
+北入口质量门必须同时检查正面身份构件和纵深/侧向轮廓；只看正立面或对象
+名称不能证明 porte-cochère 外挑。Hero 改动后必须作废旧 SHA，Identity
+必须从新冻结 Hero 重新派生，并补跑真实地图三档验收。
+
+### Metadata
+
+- Source: user_feedback
+- Related Files: scripts/create_sun_ke_villa_model.py, scripts/create_sun_ke_villa_identity_model.py, docs/research/sun-ke-villa-model-brief.md
+- Tags: sun-ke-villa, porte-cochere, hero, identity, lineage, correction
+
+### Resolution
+
+- **Resolved**: 2026-07-25T12:20:00+08:00
+- **Notes**: 已把用户证据纳入 manifest，并将 Hero 生成器改为外挑结构。
+
+---
+
 ## [LRN-20260725-001] correction
 
 **Logged**: 2026-07-25T00:48:00+08:00

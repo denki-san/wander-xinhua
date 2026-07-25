@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "prototype:street-furniture:cantilever-umbrella",
+  "slug": "cantilever-umbrella",
+  "family": "street-furniture",
+  "tier": "identity",
+  "status": "isolated-gallery-passed-map-gates-pending",
+  "formalIdentityPass": false,
+  "modelBrief": "docs/research/shared-prototypes-identity-model-brief.md",
+  "massingManifest": "docs/research/shared-prototypes-massing-manifest.json",
+  "independentReview": "docs/research/shared-prototypes-massing-independent-review-final.md",
+  "identityIndependentReview": "docs/research/shared-prototypes-identity-independent-review.md",
+  "contactSheets": {
+    "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-canonical-contact-sheet.png",
+    "side": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-side-contact-sheet.png"
+  },
+  "generator": "scripts/create_shared_prototype_identity_models.py",
+  "evidence": "observed-xingfuli",
+  "recognizers": [
+    "offset side pole",
+    "horizontal cantilever and diagonal brace",
+    "red four-slope square canopy"
+  ],
+  "qualityBoundary": {
+    "observed": [
+      "Xingfuli photos show red square cafe umbrellas carried from an offset side pole."
+    ],
+    "inferred": [
+      "Identity dimensions refine the formally accepted Massing envelope.",
+      "Hidden fasteners and rear construction remain conservative."
+    ],
+    "unknown": [
+      "manufacturer and product model",
+      "surveyed dimensions",
+      "2026-later per-instance field condition"
+    ],
+    "sources": [
+      "docs/research/assets/poi-references/xingfuli/courtyard-canonical.jpg",
+      "docs/research/assets/poi-references/xingfuli/water-lane.jpg",
+      "docs/research/xingfuli-reference-manifest.json"
+    ]
+  },
+  "originContract": {
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "meaning": "prototype-ground-center",
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "blenderFront": "-Y",
+    "worldPlacementBaked": false,
+    "authoredMetersPerSceneUnit": 2.7,
+    "surveyedMeters": false
+  },
+  "budget": {
+    "maxTriangles": 2500,
+    "maxNodes": 4,
+    "maxMaterials": 4,
+    "maxImages": 0,
+    "maxBinaryBytes": 262144
+  },
+  "outputs": {
+    "blend": "assets/models/source/tiers/shared-prototypes/identity/cantilever-umbrella-identity.blend",
+    "glb": "public/models/tiers/shared-prototypes/identity/cantilever-umbrella-identity.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/identity/shared-prototypes/test_cantilever-umbrella-identity-canonical.png",
+      "side": "test_artifacts/all-models/identity/shared-prototypes/test_cantilever-umbrella-identity-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "92e0484fa92312a2650de81d04cc783dc902fd99da549c6112894a46dbba9d8c",
+    "bytes": 13188,
+    "nodes": 2,
+    "meshes": 2,
+    "materials": 2,
+    "materialBaseColors": {
+      "cantilever-umbrella-metal-identity-material": [
+        0.12999999523162842,
+        0.17000000178813934,
+        0.1599999964237213,
+        1
+      ],
+      "cantilever-umbrella-red-identity-material": [
+        0.6200000047683716,
+        0.1599999964237213,
+        0.20000000298023224,
+        1
+      ]
+    },
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "triangles": 164,
+    "bounds": {
+      "min": [
+        -0.563637,
+        0,
+        -0.46669
+      ],
+      "max": [
+        0.68669,
+        1,
+        0.46669
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": {
+    "status": "isolated-gallery-passed-map-gates-pending",
+    "gallery": "passed",
+    "shapeVisual": "passed",
+    "materialVisual": "passed-after-principled-bsdf-export-fix",
+    "group": "street-furniture",
+    "screenshot": "test_artifacts/all-models/identity/shared-prototypes/test_shared-prototypes-identity-threejs-street-furniture.jpg",
+    "screenshotSha256": "a87efaebb12563144c56ddc446b1e2b0caca6c8b040e9e92f8b190f7a024e90e",
+    "httpStatus": 200,
+    "cacheDisabled": true,
+    "runtimeErrors": 0,
+    "consoleErrors": 0,
+    "mapPlacement": "not-validated",
+    "collision": "not-validated",
+    "performance": "isolated-resource-timing-only-no-map-baseline"
+  }
+}

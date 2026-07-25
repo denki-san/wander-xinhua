@@ -1,5 +1,6 @@
 import {
   buildPlaneTreePlacements,
+  resolveStreetClearancePoint,
   XINHUA_ROAD_AXIS,
 } from "./xinhua-road-placement.mjs";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
@@ -84,14 +85,16 @@ function transformedFootprint(landmark) {
   };
 }
 
-export function buildXinhuaStreetDressingConstraints() {
-  const obstacles = landmarkData.landmarks.map(transformedFootprint);
+export function buildXinhuaStreetDressingConstraints(
+  landmarks = landmarkData.landmarks,
+) {
+  const obstacles = landmarks.map(transformedFootprint);
   const treePositions = buildPlaneTreePlacements(
-    landmarkData.landmarks,
+    landmarks,
     obstacles,
   ).map(({ position }) => position);
   return {
-    entrances: landmarkData.landmarks.map(({ start }) => start),
+    entrances: landmarks.map(resolveStreetClearancePoint),
     obstacles,
     treePositions,
   };

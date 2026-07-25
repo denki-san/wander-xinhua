@@ -1,0 +1,217 @@
+{
+  "version": 1,
+  "recordedAt": "2026-07-25",
+  "status": "clean-geometry-spec-map-binding-pending",
+  "sourceInventory": "docs/research/data/xinhua-building-inventory-20260724-185400.json",
+  "sourceMapAudit": "docs/research/xinhua-road-map-binding-audit.json",
+  "sourceRuntimePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "placementContract": {
+    "movementAuthorized": false,
+    "positionYawScaleLocked": true,
+    "localFromWorld": {
+      "dx": "worldX - pivotX",
+      "dz": "worldZ - pivotZ",
+      "localX": "(cos(yaw) * dx - sin(yaw) * dz) / scale",
+      "localZ": "(sin(yaw) * dx + cos(yaw) * dz) / scale"
+    },
+    "footprintRule": "read exact polygon from source inventory; OBB is QA only",
+    "compoundRule": "one child mesh per candidate way; courtyard and path remain negative space",
+    "heightRule": "10.5m inventory fallback is preview-only unknown, never surveyed evidence",
+    "roofRule": "flat cap until roof is bound to a specific footprint"
+  },
+  "assets": [
+    {
+      "id": "film-art-center",
+      "kind": "building-candidate",
+      "candidateWayIds": [
+        864505138
+      ],
+      "disabledAdjacentWayIds": [
+        864505137,
+        864505141
+      ],
+      "candidateStatus": "primary-candidate-pending",
+      "membershipConfidence": "medium",
+      "unknown": [
+        "surveyed height",
+        "roof pitch and eave",
+        "side glass links footprint",
+        "entrance point"
+      ]
+    },
+    {
+      "id": "one-step-garden",
+      "kind": "candidate-compound",
+      "candidateWayIds": [
+        864485599,
+        864485679,
+        864485678,
+        864485603,
+        864485680
+      ],
+      "candidateVariants": {
+        "nearestOnly": [
+          864485599
+        ],
+        "frontPool": [
+          864485678,
+          864485679
+        ],
+        "rearPool": [
+          864485599,
+          864485603
+        ],
+        "adjacentOverlay": [
+          864485680
+        ]
+      },
+      "candidateStatus": "audit-only-all-candidates",
+      "membershipConfidence": "low",
+      "unknown": [
+        "actual two-building way pair",
+        "surveyed height and roof",
+        "courtyard boundary",
+        "entrance point"
+      ]
+    },
+    {
+      "id": "xinhua-villas-329",
+      "kind": "candidate-compound",
+      "candidateWayIds": [
+        864493174,
+        864493244,
+        864485664,
+        864493173,
+        864493245
+      ],
+      "candidateStatus": "five-member-candidates-pending",
+      "membershipConfidence": "medium",
+      "unknown": [
+        "17 36 38 house-number mapping",
+        "complete 29-building compound boundary",
+        "surveyed heights and roofs",
+        "member entrances"
+      ]
+    },
+    {
+      "id": "villa-le-bec",
+      "kind": "candidate-compound",
+      "candidateWayIds": [
+        864493176,
+        864493175,
+        864493245,
+        864493246,
+        864493247
+      ],
+      "candidateVariants": {
+        "mainVillaPool": [
+          864493246,
+          864493247,
+          864493245
+        ],
+        "formerGaragePool": [
+          864493175,
+          864493176
+        ]
+      },
+      "candidateStatus": "audit-only-role-pools",
+      "membershipConfidence": "low",
+      "unknown": [
+        "main villa and former garage way mapping",
+        "garden boundary",
+        "surveyed heights and roofs",
+        "historic versus restaurant entrance"
+      ]
+    },
+    {
+      "id": "shanghai-orchestra",
+      "kind": "candidate-compound",
+      "candidateWayIds": [
+        864505166,
+        864505168,
+        864505165,
+        864505169,
+        864505163
+      ],
+      "candidateStatus": "five-member-candidates-pending",
+      "membershipConfidence": "low",
+      "unknown": [
+        "building 6 7 8 way mapping",
+        "retained historic volume mapping",
+        "curved roof and link footprint",
+        "surveyed heights and entrance"
+      ]
+    },
+    {
+      "id": "xinhua-pocket-park",
+      "kind": "site-feature",
+      "candidateWayIds": [],
+      "siteEvidence": {
+        "lengthMetersApprox": 22,
+        "maxWidthMeters": 4.2,
+        "areaSqMetersApprox": 106,
+        "runtimeEnvelopeLocal": {
+          "minX": -0.8524,
+          "maxX": 0.8524,
+          "minZ": -4.6,
+          "maxZ": 4.64
+        }
+      },
+      "children": [
+        "path-slab",
+        "left-mirror-wall",
+        "right-mirror-wall",
+        "entrance-frame",
+        "planting-strips",
+        "bench"
+      ],
+      "candidateStatus": "site-envelope-preview-not-surveyed-polygon",
+      "membershipConfidence": "medium",
+      "unknown": [
+        "true irregular boundary and width profile",
+        "mirror wall dimensions",
+        "path width",
+        "entrance end and dimensions",
+        "planting and bench exact positions"
+      ]
+    },
+    {
+      "id": "debi-fahua-525",
+      "kind": "candidate-compound",
+      "candidateWayIds": [
+        864847921,
+        864847920,
+        228966550,
+        864847917,
+        228966551
+      ],
+      "candidateStatus": "five-member-candidates-pending",
+      "membershipConfidence": "medium",
+      "unknown": [
+        "six-storey main building way mapping",
+        "building heights and levels",
+        "four courtyard boundaries",
+        "entrance and heritage tree positions"
+      ]
+    },
+    {
+      "id": "fics-xinhua-365",
+      "kind": "candidate-compound",
+      "candidateWayIds": [
+        864493178,
+        864493177,
+        864493179,
+        864493181,
+        864493230
+      ],
+      "candidateStatus": "five-member-candidates-pending",
+      "membershipConfidence": "medium",
+      "unknown": [
+        "villa industrial dormitory and main-building way mapping",
+        "building heights and roofs",
+        "complete campus boundary",
+        "courtyard and entrance"
+      ]
+    }
+  ]
+}

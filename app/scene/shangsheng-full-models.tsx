@@ -13,8 +13,22 @@ import landmarks from "./xinhua-landmarks-data.json";
 
 type Building = (typeof landmarks.shangshengXinsuo.buildings)[number];
 
+function qaAssetPath(path: string, tier: "hero" | "identity") {
+  if (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("qaActiveFallback") === tier
+  ) {
+    return path.replace(".glb", "-qa-missing.glb");
+  }
+  return path;
+}
+
 export function SunKeVillaModel({ building }: { building: Building }) {
-  const { scene } = useGLTF("/models/shangsheng/sun-ke-villa.glb");
+  const path = qaAssetPath(
+    "/models/shangsheng/sun-ke-villa.glb?v=6d1642315530",
+    "hero",
+  );
+  const { scene } = useGLTF(path);
   const model = useMemo(() => {
     const clone = scene.clone(true);
     const materialCache = new Map<string, MeshToonMaterial | MeshStandardMaterial>();
@@ -82,6 +96,93 @@ export function SunKeVillaModel({ building }: { building: Building }) {
         osmWayId: building.id,
         referenceView: "garden-front",
         stage: "full",
+      }}
+    >
+      <primitive object={model} />
+    </group>
+  );
+}
+
+export function SunKeVillaIdentityModel({ building }: { building: Building }) {
+  const path = qaAssetPath(
+    "/models/tiers/sun-ke-villa/identity/"
+    + "sun-ke-villa-identity.glb?v=6b541e8ffab4",
+    "identity",
+  );
+  const { scene } = useGLTF(path);
+  const model = useMemo(() => {
+    const clone = scene.clone(true);
+    const materialCache = new Map<string, MeshToonMaterial | MeshStandardMaterial>();
+    clone.traverse((child) => {
+      if (!(child instanceof Mesh)) return;
+      const sourceWasArray = Array.isArray(child.material);
+      const sources: Material[] = Array.isArray(child.material)
+        ? child.material
+        : [child.material];
+      const replacements = sources.map((source) => {
+        const materialName = source?.name ?? "SunKe_StuccoWarm";
+        let material = materialCache.get(materialName);
+        if (!material) {
+          const sourceColor = source instanceof MeshStandardMaterial
+            || source instanceof MeshToonMaterial
+            || source instanceof MeshBasicMaterial
+            ? source.color.clone()
+            : undefined;
+          if (materialName === "SunKe_DeepTealGlass") {
+            material = new MeshStandardMaterial({
+              color: sourceColor ?? "#334847",
+              transparent: true,
+              opacity: 0.82,
+              roughness: 0.24,
+              metalness: 0,
+              depthWrite: false,
+            });
+          } else {
+            material = new MeshToonMaterial({
+              color: sourceColor ?? "#b7a48d",
+            });
+          }
+          material.name = materialName;
+          materialCache.set(materialName, material);
+        }
+        return material;
+      });
+      child.material = sourceWasArray ? replacements : replacements[0];
+      child.castShadow = !sources.every(
+        (source) => source.name === "SunKe_DeepTealGlass",
+      );
+      child.receiveShadow = true;
+    });
+    return clone;
+  }, [scene]);
+
+  useEffect(() => () => {
+    const materials = new Set<MeshToonMaterial | MeshStandardMaterial>();
+    model.traverse((child) => {
+      if (!(child instanceof Mesh)) return;
+      const childMaterials = Array.isArray(child.material)
+        ? child.material
+        : [child.material];
+      for (const material of childMaterials) {
+        if (
+          material instanceof MeshToonMaterial
+          || material instanceof MeshStandardMaterial
+        ) materials.add(material);
+      }
+    });
+    materials.forEach((material) => material.dispose());
+  }, [model]);
+
+  return (
+    <group
+      name="shangsheng-sun-ke-villa-identity"
+      position={[building.position[0], 0.1, building.position[1]]}
+      rotation-y={building.rotationY}
+      userData={{
+        building: "sun-ke-villa",
+        osmWayId: building.id,
+        tier: "identity",
+        sourceLineageId: "sun-ke-villa-hero-6d1642315530",
       }}
     >
       <primitive object={model} />

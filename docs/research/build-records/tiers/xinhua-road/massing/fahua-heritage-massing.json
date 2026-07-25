@@ -1,0 +1,178 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:fahua-heritage",
+  "tier": "massing",
+  "status": "massing-generated-runtime-gate-blocked-evidence-and-walkaround",
+  "generator": "scripts/create_xinhua_road_massing_models.py",
+  "sourceHero": {
+    "path": "public/models/requested-pois/fahua-heritage.glb",
+    "sha256": "f23d8b701a338838c60645e4460a5dccca904e62a58053f7066d29dff54bf7b3",
+    "importedBounds": {
+      "min": [
+        -7.75,
+        -2.1,
+        0
+      ],
+      "max": [
+        7.75,
+        2.1,
+        5.76
+      ]
+    },
+    "heightProxySceneUnits": 5.76,
+    "evidenceBoundary": "legacy-or-v2-hero-derived-height-not-real-measurement"
+  },
+  "sourcePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "position": [
+    -63.4,
+    -2.6
+  ],
+  "yaw": -0.5,
+  "runtimeScale": 0.27,
+  "localBounds": {
+    "minX": -7.75,
+    "maxX": 7.75,
+    "minZ": -2.1,
+    "maxZ": 2.1
+  },
+  "localObstacles": [
+    {
+      "minX": -5.95,
+      "maxX": -5.05,
+      "minZ": -0.6,
+      "maxZ": 0.6
+    },
+    {
+      "minX": -2.8,
+      "maxX": -1.9,
+      "minZ": -0.6,
+      "maxZ": 0.6
+    },
+    {
+      "minX": 1.9,
+      "maxX": 2.8,
+      "minZ": -0.6,
+      "maxZ": 0.6
+    },
+    {
+      "minX": 5.05,
+      "maxX": 5.95,
+      "minZ": -0.6,
+      "maxZ": 0.6
+    },
+    {
+      "minX": -5.3,
+      "maxX": -2.7,
+      "minZ": -0.75,
+      "maxZ": -0.3
+    },
+    {
+      "minX": -2.05,
+      "maxX": 2.05,
+      "minZ": -0.75,
+      "maxZ": -0.3
+    },
+    {
+      "minX": 2.7,
+      "maxX": 5.3,
+      "minZ": -0.75,
+      "maxZ": -0.3
+    }
+  ],
+  "roofProfile": "hip",
+  "proxyMethod": "voxel-remesh-current-hero",
+  "pruning": {
+    "removedFaces": 7480,
+    "removedMaterials": [
+      "法华遗韵金字",
+      "法华遗韵铺地"
+    ],
+    "rule": "material-name-denylist-before-voxel-remesh"
+  },
+  "voxelSizeSceneUnits": 0.357143,
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/fahua-heritage-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing/fahua-heritage-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/test_fahua-heritage-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/test_fahua-heritage-massing-side.png",
+      "threejs": "test_artifacts/all-models/massing/test_fahua-heritage-massing-threejs.png"
+    }
+  },
+  "glb": {
+    "sha256": "41f6a49bc20197ef6058fdd5190ab2e80bd547b47a5a56d4725b653bec57d42f",
+    "bytes": 92624,
+    "nodes": 1,
+    "meshes": 1,
+    "images": 0,
+    "textures": 0,
+    "materials": 1,
+    "triangles": 900,
+    "expectedMaximumTriangles": 1200,
+    "bounds": {
+      "min": [
+        -6.060133,
+        0,
+        -0.899501
+      ],
+      "max": [
+        6.059117,
+        5.760682,
+        0.900232
+      ]
+    },
+    "auditStatus": "ok"
+  },
+  "editableSourceBounds": {
+    "min": [
+      -6.060133,
+      -0.900232,
+      0
+    ],
+    "max": [
+      6.059117,
+      0.899501,
+      5.760682
+    ]
+  },
+  "qualityBoundary": {
+    "observed": [
+      "runtime local bounds",
+      "runtime split obstacles",
+      "current hero imported bounds"
+    ],
+    "inferred": [
+      "per-block height proxy"
+    ],
+    "unknown": [
+      "surveyed height",
+      "entrance direction",
+      "unseen facade and roof"
+    ]
+  },
+  "runtimeGate": {
+    "status": "blocked-evidence-map-and-walkaround-required",
+    "validatedAt": "2026-07-25",
+    "route": "/?start=fahua-heritage&qaModelTier=massing&cameraQa=1",
+    "screenshot": "test_artifacts/all-models/massing/test_fahua-heritage-massing-threejs.png",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "buildMode": "vite-static-production-preview",
+    "pageVisibility": "visible",
+    "playable": true,
+    "canvasCount": 1,
+    "cameraMode": "spring-clear",
+    "blockerId": "none",
+    "visualStatus": "pass",
+    "independentReviewStatus": "conditional-geometry-usable-gate-blocked",
+    "requiredActions": [
+      "避免角色遮挡中央开口",
+      "按场地边界验证开放路径",
+      "补固定街道机位"
+    ],
+    "mapAcceptance": "required-before-formal-pass"
+  }
+}

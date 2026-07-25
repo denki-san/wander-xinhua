@@ -1,11 +1,12 @@
 "use client";
 
-import { Html, RoundedBox } from "@react-three/drei";
+import { Html, RoundedBox, useGLTF } from "@react-three/drei";
 import { Component, lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, type ReactNode } from "react";
 import {
   DoubleSide,
   ExtrudeGeometry,
   InstancedMesh,
+  Mesh,
   Object3D,
   Shape,
   ShapeGeometry,
@@ -20,6 +21,8 @@ import { terrainHeightAt } from "./terrain";
 import { isPointInsidePolygon, type MapObstacle, type MapPolygonPoint } from "./world-math";
 import type { ProgressiveBuildingTier } from "./progressive-loading";
 import { ProgressiveFeatureBoundary } from "../progressive-feature-boundary";
+import { FacilityPrototypeMassingMapAssets } from "./facility-prototype-massing";
+import { SUN_KE_PORTE_COCHERE_COLUMN_OBSTACLES } from "./sun-ke-villa-tier-contract.mjs";
 
 type Building = (typeof landmarks.shangshengXinsuo.buildings)[number];
 
@@ -28,6 +31,10 @@ const ProgressiveSunKeVilla = lazy(async () => {
   const importedModels = await import("./shangsheng-full-models");
   return { default: importedModels.SunKeVillaModel };
 });
+const ProgressiveSunKeVillaIdentity = lazy(async () => {
+  const importedModels = await import("./shangsheng-full-models");
+  return { default: importedModels.SunKeVillaIdentityModel };
+});
 const ProgressiveNavyClub = lazy(async () => {
   const importedModels = await import("./shangsheng-full-models");
   return { default: importedModels.NavyClubModel };
@@ -35,6 +42,19 @@ const ProgressiveNavyClub = lazy(async () => {
 export const SHANGSHENG_XINSUO_POSITION = SITE.position as [number, number];
 const SITE_POSITION = SHANGSHENG_XINSUO_POSITION;
 const SITE_BOUNDARY: MapPolygonPoint[] = SITE.boundary.map(([x, z]) => [x, z]);
+const SHANGSHENG_MASSING_PATHS: Readonly<Record<number, string>> = {
+  864847856: "/models/tiers/shangsheng-huashan/massing/osm-way-864847856-massing.glb?v=e1faaf0720cb",
+  864847877: "/models/tiers/shangsheng-huashan/massing/osm-way-864847877-massing.glb?v=f233f9defd21",
+  864847881: "/models/tiers/shangsheng-huashan/massing/osm-way-864847881-massing.glb?v=a25504b8d2d8",
+  864847883: "/models/tiers/shangsheng-huashan/massing/osm-way-864847883-massing.glb?v=a9e117c239fd",
+  864847892: "/models/tiers/shangsheng-huashan/massing/osm-way-864847892-massing.glb?v=6ccbc8d18fb3",
+  1364679201: "/models/tiers/shangsheng-huashan/massing/osm-way-1364679201-massing.glb?v=92c691c02296",
+  1364679204: "/models/tiers/shangsheng-huashan/massing/osm-way-1364679204-massing.glb?v=43f406f3db2b",
+  1364679205: "/models/tiers/shangsheng-huashan/massing/osm-way-1364679205-massing.glb?v=26c29406ddac",
+  1368808689: "/models/tiers/shangsheng-huashan/massing/osm-way-1368808689-massing.glb?v=f0b6944700af",
+  1368808690: "/models/tiers/shangsheng-huashan/massing/osm-way-1368808690-massing.glb?v=40566f2abe43",
+  1537478450: "/models/tiers/shangsheng-huashan/massing/osm-way-1537478450-massing.glb?v=96b5e87bbaaf",
+};
 export const SHANGSHENG_DETAIL_UPGRADE = {
   archWindowLayersBefore: 2,
   archWindowLayersAfter: 7,
@@ -78,6 +98,7 @@ export const SHANGSHENG_BUILDING_FOOTPRINTS: MapObstacle[] = SITE.buildings.flat
 
 const SHANGSHENG_FIXED_OBSTACLES: MapObstacle[] = [
   ...SHANGSHENG_BUILDING_FOOTPRINTS,
+  ...SUN_KE_PORTE_COCHERE_COLUMN_OBSTACLES.map(localToWorldObstacle),
   // 海军俱乐部泳池保留为不可穿越水面，南侧窄廊仍可通行。
   localToWorldObstacle({ minX: -23.05, maxX: -18.25, minZ: -5.7, maxZ: 5.2 }),
   ...SITE.fountains.map((fountain) => localToWorldObstacle(boundaryBounds(fountain.boundary))),
@@ -222,52 +243,109 @@ function CountryClub({ building }: { building: Building }) {
 }
 
 function SunKeVillaFallback({ building }: { building: Building }) {
-  const height = 7.45;
-  const frontZ = building.depth / 2 + 0.12;
+  const wall = building.wall;
+  const roof = building.roof;
   return (
     <group
       name="shangsheng-sun-ke-villa"
       position={[building.position[0], 0.1, building.position[1]]}
       rotation-y={building.rotationY}
-      userData={{ building: "sun-ke-villa", osmWayId: building.id }}
+      userData={{
+        building: "sun-ke-villa",
+        osmWayId: building.id,
+        tier: "programmatic-fallback",
+        canonicalFront: "local +Z",
+      }}
     >
-      <RoundedBox args={[building.width * 0.74, height, building.depth]} radius={0.16} smoothness={2} position={[-building.width * 0.08, height / 2, 0]} castShadow receiveShadow>
-        <meshToonMaterial color={building.wall} />
+      <RoundedBox
+        args={[4.95, 3.68, 4.08]}
+        radius={0.08}
+        smoothness={2}
+        position={[-0.42, 1.84, 0]}
+        castShadow
+        receiveShadow
+      >
+        <meshToonMaterial color={wall} />
       </RoundedBox>
-      <mesh position={[building.width * 0.37, height * 0.45, 0]} castShadow>
-        <cylinderGeometry args={[building.depth * 0.42, building.depth * 0.46, height * 0.9, 12]} />
+      <RoundedBox
+        args={[1.82, 2.68, 3.72]}
+        radius={0.06}
+        smoothness={2}
+        position={[-2.92, 1.34, -0.08]}
+        castShadow
+        receiveShadow
+      >
+        <meshToonMaterial color="#aa957f" />
+      </RoundedBox>
+      <mesh position={[2.18, 1.82, -0.58]} castShadow receiveShadow>
+        <cylinderGeometry args={[1.23, 1.23, 3.64, 12]} />
         <meshToonMaterial color="#aa957f" />
       </mesh>
-      <mesh position={[building.width * 0.37, height * 0.94, 0]} castShadow>
-        <coneGeometry args={[building.depth * 0.48, 1.55, 12]} />
-        <meshToonMaterial color={building.roof} />
+      <TiledRoof width={5.18} depth={4.34} y={4.05} color={roof} />
+      <group position={[-2.92, 0, -0.08]}>
+        <TiledRoof width={2.04} depth={3.92} y={2.9} color={roof} />
+      </group>
+      <mesh position={[2.18, 3.83, -0.58]} castShadow>
+        <coneGeometry args={[1.29, 0.34, 12]} />
+        <meshToonMaterial color={roof} />
       </mesh>
-      {[-1.35, 0, 1.35].map((x) => (
-        <ArchWindow key={x} x={x - building.width * 0.14} y={1.75} z={frontZ} pointed />
-      ))}
-      {[-1.9, -0.65, 0.65, 1.9].map((x) => (
-        <ArchWindow key={x} x={x - building.width * 0.14} y={4.55} z={frontZ} />
-      ))}
-      <TiledRoof width={building.width * 0.72} depth={building.depth} y={height + 0.28} color={building.roof} />
-      <mesh position={[-building.width * 0.05, 0.16, frontZ + 2.1]} receiveShadow>
-        <boxGeometry args={[building.width * 1.08, 0.14, 3.4]} />
-        <meshToonMaterial color="#7e684f" />
+      <mesh position={[1.04, 4.39, 0.58]} castShadow>
+        <boxGeometry args={[0.45, 1.32, 0.4]} />
+        <meshToonMaterial color="#9f8e7a" />
       </mesh>
-      {Array.from({ length: 22 }, (_, index) => {
-        const side = index < 11 ? -1 : 1;
-        return (
-          <mesh key={index} position={[(index % 11 - 5) * 0.72, 0.48, frontZ + 3.5 + side * 1.35]} castShadow>
-            <icosahedronGeometry args={[0.4 + index % 3 * 0.06, 1]} />
-            <meshToonMaterial color={index % 3 ? "#4e7049" : "#d2c27e"} />
+      {[-1.62, -0.42, 0.78].map((x) => (
+        <ArchWindow key={`south-${x}`} x={x} y={1.16} z={2.12} pointed />
+      ))}
+      {[-1.78, -0.88, 0.02, 0.92].map((x) => (
+        <ArchWindow key={`south-upper-${x}`} x={x} y={2.82} z={2.12} />
+      ))}
+      {[-0.25, 0.48, 1.21].map((x) => (
+        <ArchWindow
+          key={`north-upper-${x}`}
+          x={x}
+          y={2.68}
+          z={-2.12}
+          facing={-1}
+          pointed
+        />
+      ))}
+      <ArchWindow x={-1.25} y={1.16} z={-2.13} facing={-1} />
+
+      <group position={[-1.22, 0, -3.36]}>
+        <mesh position={[0, 0.1, 0]} receiveShadow>
+          <boxGeometry args={[2.56, 0.2, 2.92]} />
+          <meshToonMaterial color="#8a6048" />
+        </mesh>
+        {[-0.88, 0.88].flatMap((x) => (
+          [-1.22, 0.88].map((z) => (
+            <mesh key={`${x}-${z}`} position={[x, 1.08, z]} castShadow>
+              <boxGeometry args={[
+                Math.abs(z + 1.22) < 0.01 ? 0.4 : 0.32,
+                2.16,
+                Math.abs(z + 1.22) < 0.01 ? 0.4 : 0.32,
+              ]} />
+              <meshToonMaterial color={wall} />
+            </mesh>
+          ))
+        ))}
+        {[-0.88, 0.88].map((x) => (
+          <mesh key={`beam-${x}`} position={[x, 2.2, 0]} castShadow>
+            <boxGeometry args={[0.24, 0.24, 2.92]} />
+            <meshToonMaterial color={wall} />
           </mesh>
-        );
-      })}
+        ))}
+        <TiledRoof width={2.74} depth={3.14} y={2.72} color={roof} />
+        <mesh position={[0, 2.02, -1.47]} rotation-z={0}>
+          <torusGeometry args={[0.88, 0.1, 6, 18, Math.PI]} />
+          <meshToonMaterial color="#d1be9e" />
+        </mesh>
+      </group>
     </group>
   );
 }
 
 class SunKeVillaErrorBoundary extends Component<
-  { building: Building; children: ReactNode },
+  { building: Building; children: ReactNode; fallback?: ReactNode },
   { failed: boolean }
 > {
   state = { failed: false };
@@ -277,7 +355,10 @@ class SunKeVillaErrorBoundary extends Component<
   }
 
   render() {
-    if (this.state.failed) return <SunKeVillaFallback building={this.props.building} />;
+    if (this.state.failed) {
+      return this.props.fallback
+        ?? <SunKeVillaFallback building={this.props.building} />;
+    }
     return this.props.children;
   }
 }
@@ -400,36 +481,182 @@ function GenericCampusBuilding({ building }: { building: Building }) {
   );
 }
 
-function CampusMassingBuildings() {
+function ShangshengMassingTierAsset({
+  building,
+  showDirectionQa = false,
+}: {
+  building: Building;
+  showDirectionQa?: boolean;
+}) {
+  const path = SHANGSHENG_MASSING_PATHS[building.id];
+  const { scene } = useGLTF(path);
+  const model = useMemo(() => {
+    const clone = scene.clone(true);
+    clone.traverse((child) => {
+      if (!(child instanceof Mesh)) return;
+      child.castShadow = true;
+      child.receiveShadow = true;
+    });
+    return clone;
+  }, [scene]);
+  const qaDirection = showDirectionQa && typeof window !== "undefined"
+    ? new URLSearchParams(window.location.search).get("qaModelDirection")
+    : undefined;
+  const showSouthLabel = showDirectionQa && qaDirection !== "north";
+  const showNorthLabel = showDirectionQa && qaDirection === "north";
   return (
-    <group name="shangsheng-campus-massing" userData={{ stage: "massing" }}>
+    <group
+      position={[building.position[0], 0.1, building.position[1]]}
+      rotation-y={building.rotationY}
+      userData={{
+        modelTier: "massing",
+        sourceWayId: building.id,
+        source: path,
+        geometryEvidence: "observed-osm-footprint",
+        authoredFootprintAxis: "-BlenderY",
+        exportedFootprintAxis: "ThreeZ",
+        runtimeScale: [1, 1, 1],
+      }}
+    >
+      <primitive object={model} />
+      {showDirectionQa && building.id === 864847877 && (
+        <>
+          <mesh
+            name="test-sun-ke-garden-south-facade-marker"
+            position={[0, 0.08, building.depth / 2 + 0.18]}
+          >
+            <boxGeometry args={[building.width * 0.72, 0.12, 0.16]} />
+            <meshBasicMaterial color="#4f9f72" />
+          </mesh>
+          {showSouthLabel && (
+            <Html
+              center
+              transform
+              sprite
+              occlude
+              position={[0, 3.2, building.depth / 2 + 0.32]}
+              distanceFactor={4}
+              style={{ pointerEvents: "none" }}
+            >
+              <span className="map-road-label map-landmark-label">
+                花园南立面 · canonical
+              </span>
+            </Html>
+          )}
+          <mesh
+            name="test-sun-ke-north-entrance-marker"
+            position={[0, 0.08, -building.depth / 2 - 0.18]}
+          >
+            <boxGeometry args={[building.width * 0.48, 0.12, 0.16]} />
+            <meshBasicMaterial color="#a76855" />
+          </mesh>
+          {showNorthLabel && (
+            <Html
+              center
+              transform
+              sprite
+              occlude
+              position={[0, 3.2, -building.depth / 2 - 0.32]}
+              distanceFactor={4}
+              style={{ pointerEvents: "none" }}
+            >
+              <span className="map-road-label map-landmark-label">
+                北侧入口
+              </span>
+            </Html>
+          )}
+        </>
+      )}
+    </group>
+  );
+}
+
+function CampusMassingBuildings({ onlyModelId }: { onlyModelId?: string }) {
+  return (
+    <group
+      name="shangsheng-campus-massing"
+      userData={{ stage: "massing", qaModelId: onlyModelId }}
+    >
       {SITE.buildings.map((building) => {
+        if (onlyModelId && onlyModelId !== `osm-way-${building.id}`) {
+          return null;
+        }
         const floorHeight = building.feature === "new-campus" ? 2.35 : 2.05;
         return (
-          <FootprintVolume
+          <Suspense
             key={building.id}
-            building={building}
-            height={building.floors * floorHeight}
-          />
+            fallback={(
+              <FootprintVolume
+                building={building}
+                height={building.floors * floorHeight}
+              />
+            )}
+          >
+            <ShangshengMassingTierAsset
+              building={building}
+              showDirectionQa={Boolean(onlyModelId)}
+            />
+          </Suspense>
         );
       })}
     </group>
   );
 }
 
-function CampusBuildings({ stage }: { stage: ProgressiveBuildingTier }) {
-  if (stage === "massing") return <CampusMassingBuildings />;
+function CampusBuildings({
+  stage,
+  qaModelId,
+  sunKeTierQa,
+}: {
+  stage: ProgressiveBuildingTier;
+  qaModelId?: string;
+  sunKeTierQa?: ProgressiveBuildingTier;
+}) {
+  if (stage === "massing" && !sunKeTierQa) {
+    return <CampusMassingBuildings onlyModelId={qaModelId} />;
+  }
   const loadFullModels = stage === "full";
   return (
     <group>
       {SITE.buildings.map((building) => {
         if (building.feature === "sun-ke-villa") {
-          if (!loadFullModels) {
-            return <SunKeVillaFallback key={building.id} building={building} />;
+          const sunKeTier = sunKeTierQa ?? stage;
+          if (sunKeTier === "massing") {
+            return (
+              <Suspense
+                key={building.id}
+                fallback={(
+                  <FootprintVolume
+                    building={building}
+                    height={5.05}
+                  />
+                )}
+              >
+                <ShangshengMassingTierAsset building={building} />
+              </Suspense>
+            );
+          }
+          const identityFallback = <SunKeVillaFallback building={building} />;
+          const identity = (
+            <SunKeVillaErrorBoundary
+              building={building}
+              fallback={identityFallback}
+            >
+              <Suspense fallback={identityFallback}>
+                <ProgressiveSunKeVillaIdentity building={building} />
+              </Suspense>
+            </SunKeVillaErrorBoundary>
+          );
+          if (sunKeTier === "identity") {
+            return <group key={building.id}>{identity}</group>;
           }
           return (
-            <SunKeVillaErrorBoundary key={building.id} building={building}>
-              <Suspense fallback={<SunKeVillaFallback building={building} />}>
+            <SunKeVillaErrorBoundary
+              key={building.id}
+              building={building}
+              fallback={identity}
+            >
+              <Suspense fallback={identity}>
                 <ProgressiveSunKeVilla building={building} />
               </Suspense>
             </SunKeVillaErrorBoundary>
@@ -675,10 +902,22 @@ function ReadingTerrace() {
   );
 }
 
-function CampusLandscape({ detailed }: { detailed: boolean }) {
+function CampusLandscape({
+  detailed,
+  facilityMassingMapQaId,
+}: {
+  detailed: boolean;
+  facilityMassingMapQaId?: string;
+}) {
   return (
     <group>
       {SITE.fountains.map((fountain) => {
+        if (
+          facilityMassingMapQaId
+          === `shangsheng-fountain-osm-${fountain.id}`
+        ) {
+          return null;
+        }
         const bounds = boundaryBounds(fountain.boundary);
         return (
           <group key={fountain.id} position={[(bounds.minX + bounds.maxX) / 2, 0.18, (bounds.minZ + bounds.maxZ) / 2]}>
@@ -695,6 +934,7 @@ function CampusLandscape({ detailed }: { detailed: boolean }) {
           </group>
         );
       })}
+      {facilityMassingMapQaId !== "shangsheng-main-entry" && (
       <group name="shangsheng-main-entry" position={[58, 0.18, -14]} userData={{ landscape: "columbia-circle-entry" }}>
         <mesh position={[0, 1.75, 0]} castShadow>
           <boxGeometry args={[8.4, 0.38, 3.2]} />
@@ -736,6 +976,7 @@ function CampusLandscape({ detailed }: { detailed: boolean }) {
           <span className="map-road-label map-landmark-label map-landmark-label-dark">上生·新所</span>
         </Html>
       </group>
+      )}
       {detailed && (
         <>
           {[[8, 5], [13, 6.5], [-9, -14], [34, 8]].map(([x, z], index) => (
@@ -750,13 +991,23 @@ function CampusLandscape({ detailed }: { detailed: boolean }) {
               </mesh>
             </group>
           ))}
-          <CafePavilion />
-          <BicycleParking />
-          <ReadingTerrace />
-          {SHANGSHENG_FACILITIES.wayfinding.map(([x, z, yaw]) => (
+          {facilityMassingMapQaId !== "shangsheng-cafe-pavilion"
+            && <CafePavilion />}
+          {facilityMassingMapQaId !== "shangsheng-bicycle-parking"
+            && <BicycleParking />}
+          {facilityMassingMapQaId !== "shangsheng-reading-terrace"
+            && <ReadingTerrace />}
+          {facilityMassingMapQaId !== "shangsheng-wayfinding-totem"
+            && SHANGSHENG_FACILITIES.wayfinding.map(([x, z, yaw]) => (
             <WayfindingTotem key={`${x}-${z}`} x={x} z={z} yaw={yaw} />
           ))}
         </>
+      )}
+      {facilityMassingMapQaId?.startsWith("shangsheng-") && (
+        <FacilityPrototypeMassingMapAssets
+          site="shangsheng"
+          onlyAssetId={facilityMassingMapQaId}
+        />
       )}
       <CampusTrees detailed={detailed} />
     </group>
@@ -766,9 +1017,15 @@ function CampusLandscape({ detailed }: { detailed: boolean }) {
 export function ShangshengXinsuoBlock({
   showEnvironmentDetails,
   stage = "full",
+  qaModelId,
+  sunKeTierQa,
+  facilityMassingMapQaId,
 }: {
   showEnvironmentDetails?: boolean;
   stage?: ProgressiveBuildingTier;
+  qaModelId?: string;
+  sunKeTierQa?: ProgressiveBuildingTier;
+  facilityMassingMapQaId?: string;
 }) {
   const identityReady = stage === "identity" || stage === "full";
   const environmentDetailed = showEnvironmentDetails ?? stage === "full";
@@ -788,8 +1045,17 @@ export function ShangshengXinsuoBlock({
       }}
     >
       <SiteGround />
-      <CampusBuildings stage={stage} />
-      {identityReady && <CampusLandscape detailed={environmentDetailed} />}
+      <CampusBuildings
+        stage={stage}
+        qaModelId={qaModelId}
+        sunKeTierQa={sunKeTierQa}
+      />
+      {identityReady && (
+        <CampusLandscape
+          detailed={environmentDetailed}
+          facilityMassingMapQaId={facilityMassingMapQaId}
+        />
+      )}
       {identityReady && (
         <Html center transform sprite position={[5, 12, -5]} distanceFactor={38} style={{ pointerEvents: "none" }}>
           <span className="map-road-label map-landmark-label">上生·新所</span>
@@ -797,4 +1063,29 @@ export function ShangshengXinsuoBlock({
       )}
     </group>
   );
+}
+
+export function shangshengMassingQaFrame(modelId: string) {
+  const wayId = Number(modelId.replace("osm-way-", ""));
+  const building = SITE.buildings.find(({ id }) => id === wayId);
+  if (!building) return null;
+  const xs = building.boundary.map(([x]) => x);
+  const zs = building.boundary.map(([, z]) => z);
+  const centerLocalX = (Math.min(...xs) + Math.max(...xs)) * 0.5;
+  const centerLocalZ = (Math.min(...zs) + Math.max(...zs)) * 0.5;
+  return {
+    wayId,
+    worldPosition: [
+      SITE_POSITION[0] + centerLocalX,
+      SITE_POSITION[1] + centerLocalZ,
+    ] as const,
+    width: building.width,
+    depth: building.depth,
+    height: wayId === 864847877
+      ? 5.05
+      : wayId === 864847892
+        ? 1.4444
+        : 3.8889,
+    yaw: building.rotationY,
+  };
 }

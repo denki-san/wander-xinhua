@@ -1,0 +1,1061 @@
+{
+  "version": 2,
+  "auditedAt": "2026-07-24T23:18:02.191Z",
+  "status": "isolated-and-map-load-pass-map-placement-and-collision-blocked",
+  "scope": {
+    "semanticPrototypeCount": 14,
+    "assetCount": 15,
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "buildMode": "vite-static-preview",
+    "cacheDisabled": true
+  },
+  "inputs": {
+    "manifest": "docs/research/facility-prototypes-massing-manifest.json",
+    "browserEvidence": "test_artifacts/all-models/massing/facility-prototypes/test_facility-prototypes-massing-browser-evidence.json",
+    "mapBrowserEvidence": "test_artifacts/all-models/massing/facility-prototypes/test_facility-prototypes-massing-map-browser-evidence.json",
+    "independentReview": "docs/research/facility-prototypes-massing-independent-review.md"
+  },
+  "summary": {
+    "blenderGlbAuditPassCount": 15,
+    "isolatedRuntimePassCount": 15,
+    "mapRuntimeLoadPassCount": 15,
+    "http200Count": 15,
+    "diskCacheCount": 0,
+    "loadingFailureCount": 0,
+    "runtimeExceptionCount": 0,
+    "consoleErrorCount": 0,
+    "materialDefaultGrayCount": 0,
+    "mapContextObservationCount": 15,
+    "mapPlacementPassCount": 0,
+    "collisionAndPassagePassCount": 0,
+    "formalMassingPassCount": 0
+  },
+  "visualEvidence": {
+    "contactSheets": {
+      "canonical": "test_artifacts/all-models/massing/facility-prototypes/test_facility-prototypes-massing-canonical-contact-sheet.png",
+      "side": "test_artifacts/all-models/massing/facility-prototypes/test_facility-prototypes-massing-side-contact-sheet.png",
+      "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_facility-prototypes-massing-threejs-contact-sheet.png",
+      "map": "test_artifacts/all-models/massing/facility-prototypes/test_facility-prototypes-massing-map-contact-sheet.png"
+    },
+    "contactSheetHashes": {
+      "canonical": "313b97477987e01146731bc22e2addf5b66c97889793c855e1e37ed1c94b2378",
+      "side": "2736e58e5c17b48a9bf64b0891ffa5b3160efa9a9b03b8a9116c0d7c2573899d",
+      "threejs": "7dc9ddde020725e1f1bb8eabf6128bf6e6c4ce3c41094c8b9b48c87e0bf7fd0b",
+      "map": "9a8c5e4a7d10ae80dd14b28bb00c6fde89f2121719c2eeb2be55382178943b65"
+    },
+    "triptychCount": 15
+  },
+  "results": [
+    {
+      "assetId": "shangsheng-wayfinding-totem",
+      "semanticPrototype": "shangsheng-wayfinding-totem",
+      "glb": {
+        "file": "public/models/tiers/facility-prototypes/massing/shangsheng-wayfinding-totem-massing.glb",
+        "sha256": "4cc3ad0346dbe279dfaef589bba03e3c0a195c440267f9a7c8f6b0c5c6fd5405",
+        "materialBaseColors": {
+          "shangsheng-wayfinding-totem-neutral-massing-material": [
+            0.5799999833106995,
+            0.6100000143051147,
+            0.5699999928474426,
+            1
+          ]
+        }
+      },
+      "runtime": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeTier=massing&qaFacilityPrototypeId=shangsheng-wayfinding-totem",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0
+      },
+      "mapObservation": {
+        "route": "/?start=shangsheng&qaFacilityPrototypeMapTier=massing&qaFacilityPrototypeMapId=shangsheng-wayfinding-totem",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0,
+        "qaOverlay": "yellow bounds and label only; asset transform unchanged",
+        "placementAccepted": false
+      },
+      "screenshots": {
+        "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-wayfinding-totem-massing-threejs-isolated.png",
+        "threejsSha256": "ade43fac12994d68eb29ded4e1461119addd14653642613e2edbadede4fda18b",
+        "map": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-wayfinding-totem-massing-threejs-map.png",
+        "mapSha256": "e35e813a214d4627a293d0a7aaf9a9dfba153db281c290c9501d01557fd76d6c",
+        "triptych": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-wayfinding-totem-massing-reference-blender-threejs-triptych.png",
+        "triptychSha256": "d8becf2582d67cfd076540456d934a7f180bdf895c6dabf5da8e9f9702013e82"
+      },
+      "isolatedRuntimePass": true,
+      "mapRuntimeLoadPass": true,
+      "mapPlacementPass": false,
+      "formalMassingPass": false,
+      "pending": [
+        "真实地图位置、比例与朝向逐项叠加",
+        "碰撞、绕行与入口通行"
+      ]
+    },
+    {
+      "assetId": "shangsheng-cafe-pavilion",
+      "semanticPrototype": "shangsheng-cafe-pavilion",
+      "glb": {
+        "file": "public/models/tiers/facility-prototypes/massing/shangsheng-cafe-pavilion-massing.glb",
+        "sha256": "ce5124832b5f358606bb73d097e8c77482e5f11792c5939b0e05da4fab8168c5",
+        "materialBaseColors": {
+          "shangsheng-cafe-pavilion-dark-massing-material": [
+            0.17000000178813934,
+            0.23000000417232513,
+            0.20999999344348907,
+            1
+          ],
+          "shangsheng-cafe-pavilion-neutral-massing-material": [
+            0.5799999833106995,
+            0.6100000143051147,
+            0.5699999928474426,
+            1
+          ]
+        }
+      },
+      "runtime": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeTier=massing&qaFacilityPrototypeId=shangsheng-cafe-pavilion",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0
+      },
+      "mapObservation": {
+        "route": "/?start=shangsheng&qaFacilityPrototypeMapTier=massing&qaFacilityPrototypeMapId=shangsheng-cafe-pavilion",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0,
+        "qaOverlay": "yellow bounds and label only; asset transform unchanged",
+        "placementAccepted": false
+      },
+      "screenshots": {
+        "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-cafe-pavilion-massing-threejs-isolated.png",
+        "threejsSha256": "f26a4880844b5f1aadc5cb9bd13a3317476125b8240efb2dc75b925064bac666",
+        "map": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-cafe-pavilion-massing-threejs-map.png",
+        "mapSha256": "fba2ad8514a18ba67907371f6a3ceb4c73e8a2426c1d69f547f640b5a4795cd4",
+        "triptych": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-cafe-pavilion-massing-reference-blender-threejs-triptych.png",
+        "triptychSha256": "f02b63c2c7ab2caa062d202ff557fb2dbcdf5bac062cb76a222f0560b0ffa351"
+      },
+      "isolatedRuntimePass": true,
+      "mapRuntimeLoadPass": true,
+      "mapPlacementPass": false,
+      "formalMassingPass": false,
+      "pending": [
+        "真实地图位置、比例与朝向逐项叠加",
+        "碰撞、绕行与入口通行"
+      ]
+    },
+    {
+      "assetId": "shangsheng-bicycle-parking",
+      "semanticPrototype": "shangsheng-bicycle-parking",
+      "glb": {
+        "file": "public/models/tiers/facility-prototypes/massing/shangsheng-bicycle-parking-massing.glb",
+        "sha256": "ed1bb3c6ea0eb4c2dbb084e4132ec71e6ee932660e6fded0be66d0e749b1808b",
+        "materialBaseColors": {
+          "shangsheng-bicycle-parking-neutral-massing-material": [
+            0.5799999833106995,
+            0.6100000143051147,
+            0.5699999928474426,
+            1
+          ]
+        }
+      },
+      "runtime": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeTier=massing&qaFacilityPrototypeId=shangsheng-bicycle-parking",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0
+      },
+      "mapObservation": {
+        "route": "/?start=shangsheng&qaFacilityPrototypeMapTier=massing&qaFacilityPrototypeMapId=shangsheng-bicycle-parking",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0,
+        "qaOverlay": "yellow bounds and label only; asset transform unchanged",
+        "placementAccepted": false
+      },
+      "screenshots": {
+        "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-bicycle-parking-massing-threejs-isolated.png",
+        "threejsSha256": "8af0a752913723c61d9e5ce7129a8709b4cf9767a49143109349073291420b5a",
+        "map": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-bicycle-parking-massing-threejs-map.png",
+        "mapSha256": "2512b384656d2f49a7091b94cfd93073d615760ab837a3f51b8e1cf6939c6f1e",
+        "triptych": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-bicycle-parking-massing-reference-blender-threejs-triptych.png",
+        "triptychSha256": "4f8aafdea4de78352bb5e8f02a9e47f6edda67569e501d74433785e03dfaa882"
+      },
+      "isolatedRuntimePass": true,
+      "mapRuntimeLoadPass": true,
+      "mapPlacementPass": false,
+      "formalMassingPass": false,
+      "pending": [
+        "真实地图位置、比例与朝向逐项叠加",
+        "碰撞、绕行与入口通行"
+      ]
+    },
+    {
+      "assetId": "shangsheng-reading-terrace",
+      "semanticPrototype": "shangsheng-reading-terrace",
+      "glb": {
+        "file": "public/models/tiers/facility-prototypes/massing/shangsheng-reading-terrace-massing.glb",
+        "sha256": "a13ec1266623c9fc3e49805bca562396ff1ae844a7cff4b214f04f6fa0ea96f7",
+        "materialBaseColors": {
+          "shangsheng-reading-terrace-dark-massing-material": [
+            0.17000000178813934,
+            0.23000000417232513,
+            0.20999999344348907,
+            1
+          ],
+          "shangsheng-reading-terrace-neutral-massing-material": [
+            0.5799999833106995,
+            0.6100000143051147,
+            0.5699999928474426,
+            1
+          ]
+        }
+      },
+      "runtime": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeTier=massing&qaFacilityPrototypeId=shangsheng-reading-terrace",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0
+      },
+      "mapObservation": {
+        "route": "/?start=shangsheng&qaFacilityPrototypeMapTier=massing&qaFacilityPrototypeMapId=shangsheng-reading-terrace",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0,
+        "qaOverlay": "yellow bounds and label only; asset transform unchanged",
+        "placementAccepted": false
+      },
+      "screenshots": {
+        "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-reading-terrace-massing-threejs-isolated.png",
+        "threejsSha256": "8f640b3cce190999ea33c080d3100d13e2f6d17c54fffc77d7c27f05ea3223c4",
+        "map": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-reading-terrace-massing-threejs-map.png",
+        "mapSha256": "42f31d47cc7424ba30584bf2e11e366799a8f3c576549b1fdf582dc0c905aba8",
+        "triptych": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-reading-terrace-massing-reference-blender-threejs-triptych.png",
+        "triptychSha256": "2663f4fa3f9f9de5e423c931f9253971d397cc4d2a72638682c3ac8e5f400b74"
+      },
+      "isolatedRuntimePass": true,
+      "mapRuntimeLoadPass": true,
+      "mapPlacementPass": false,
+      "formalMassingPass": false,
+      "pending": [
+        "真实地图位置、比例与朝向逐项叠加",
+        "碰撞、绕行与入口通行"
+      ]
+    },
+    {
+      "assetId": "shangsheng-fountain-osm-1364679202",
+      "semanticPrototype": "shangsheng-fountain",
+      "glb": {
+        "file": "public/models/tiers/facility-prototypes/massing/shangsheng-fountain-osm-1364679202-massing.glb",
+        "sha256": "41e63ffbc9aea215862c7f26819238cfcea2ec5679a70fddc2bb3695e58cdf28",
+        "materialBaseColors": {
+          "shangsheng-fountain-osm-1364679202-neutral-massing-material": [
+            0.5799999833106995,
+            0.6100000143051147,
+            0.5699999928474426,
+            1
+          ]
+        }
+      },
+      "runtime": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeTier=massing&qaFacilityPrototypeId=shangsheng-fountain-osm-1364679202",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0
+      },
+      "mapObservation": {
+        "route": "/?start=shangsheng&qaFacilityPrototypeMapTier=massing&qaFacilityPrototypeMapId=shangsheng-fountain-osm-1364679202",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0,
+        "qaOverlay": "yellow bounds and label only; asset transform unchanged",
+        "placementAccepted": false
+      },
+      "screenshots": {
+        "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-fountain-osm-1364679202-massing-threejs-isolated.png",
+        "threejsSha256": "ac582c13127ba3745756dbd8f039b41b345c900fe946412140f36d307488fd32",
+        "map": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-fountain-osm-1364679202-massing-threejs-map.png",
+        "mapSha256": "a9cabd32ed979af3455269f01f4e8b00017d86bc5a7ffff88a57a7dd308586bc",
+        "triptych": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-fountain-osm-1364679202-massing-reference-blender-threejs-triptych.png",
+        "triptychSha256": "060b9069b71f17938d0acf687ee63dea77ddc630db253eecf1a593616790cde2"
+      },
+      "isolatedRuntimePass": true,
+      "mapRuntimeLoadPass": true,
+      "mapPlacementPass": false,
+      "formalMassingPass": false,
+      "pending": [
+        "真实地图位置、比例与朝向逐项叠加",
+        "碰撞、绕行与入口通行"
+      ]
+    },
+    {
+      "assetId": "shangsheng-fountain-osm-1364679203",
+      "semanticPrototype": "shangsheng-fountain",
+      "glb": {
+        "file": "public/models/tiers/facility-prototypes/massing/shangsheng-fountain-osm-1364679203-massing.glb",
+        "sha256": "22fdc5ea110b2dcc118b2014e5c8cc1a0f178a6ecc82ade948c61f885cf40936",
+        "materialBaseColors": {
+          "shangsheng-fountain-osm-1364679203-neutral-massing-material": [
+            0.5799999833106995,
+            0.6100000143051147,
+            0.5699999928474426,
+            1
+          ]
+        }
+      },
+      "runtime": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeTier=massing&qaFacilityPrototypeId=shangsheng-fountain-osm-1364679203",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0
+      },
+      "mapObservation": {
+        "route": "/?start=shangsheng&qaFacilityPrototypeMapTier=massing&qaFacilityPrototypeMapId=shangsheng-fountain-osm-1364679203",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0,
+        "qaOverlay": "yellow bounds and label only; asset transform unchanged",
+        "placementAccepted": false
+      },
+      "screenshots": {
+        "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-fountain-osm-1364679203-massing-threejs-isolated.png",
+        "threejsSha256": "70567c6da448e235539bcdf452bbd523612d65f764f818e96b2deee754a6f7ce",
+        "map": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-fountain-osm-1364679203-massing-threejs-map.png",
+        "mapSha256": "1e4c30e24f5ab75349d73703708aaf3977c06a8138595d31a6ab88c5484f6972",
+        "triptych": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-fountain-osm-1364679203-massing-reference-blender-threejs-triptych.png",
+        "triptychSha256": "ebd8dbb08d6e299076a2a3ff0915053065347794632bd47facbf01c58cb6cd7d"
+      },
+      "isolatedRuntimePass": true,
+      "mapRuntimeLoadPass": true,
+      "mapPlacementPass": false,
+      "formalMassingPass": false,
+      "pending": [
+        "真实地图位置、比例与朝向逐项叠加",
+        "碰撞、绕行与入口通行"
+      ]
+    },
+    {
+      "assetId": "shangsheng-main-entry",
+      "semanticPrototype": "shangsheng-main-entry",
+      "glb": {
+        "file": "public/models/tiers/facility-prototypes/massing/shangsheng-main-entry-massing.glb",
+        "sha256": "f16cee5ff4ca4445dbad77460a9e13a81aa60e2798720db31129c9749d328bf0",
+        "materialBaseColors": {
+          "shangsheng-main-entry-dark-massing-material": [
+            0.17000000178813934,
+            0.23000000417232513,
+            0.20999999344348907,
+            1
+          ]
+        }
+      },
+      "runtime": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeTier=massing&qaFacilityPrototypeId=shangsheng-main-entry",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0
+      },
+      "mapObservation": {
+        "route": "/?start=shangsheng&qaFacilityPrototypeMapTier=massing&qaFacilityPrototypeMapId=shangsheng-main-entry",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0,
+        "qaOverlay": "yellow bounds and label only; asset transform unchanged",
+        "placementAccepted": false
+      },
+      "screenshots": {
+        "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-main-entry-massing-threejs-isolated.png",
+        "threejsSha256": "b9951796c54af68000b03b3bf27b7a2ae286ca561a446916566022a0c3f67039",
+        "map": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-main-entry-massing-threejs-map.png",
+        "mapSha256": "d8e7075d990276b1bda035536ac6a3cecc90ae67eaf61586fb70c8935ecf2993",
+        "triptych": "test_artifacts/all-models/massing/facility-prototypes/test_shangsheng-main-entry-massing-reference-blender-threejs-triptych.png",
+        "triptychSha256": "39b25983b41333ddfb99e7ba336495caedff5c4587975e0205e2bf09a3303bd1"
+      },
+      "isolatedRuntimePass": true,
+      "mapRuntimeLoadPass": true,
+      "mapPlacementPass": false,
+      "formalMassingPass": false,
+      "pending": [
+        "真实地图位置、比例与朝向逐项叠加",
+        "碰撞、绕行与入口通行"
+      ]
+    },
+    {
+      "assetId": "huashan-pond-boardwalk",
+      "semanticPrototype": "huashan-pond-boardwalk",
+      "glb": {
+        "file": "public/models/tiers/facility-prototypes/massing/huashan-pond-boardwalk-massing.glb",
+        "sha256": "99bb83f3d7c0836aeba78f53d6029092d3b22807bd7f61bc56736ab5d272eaee",
+        "materialBaseColors": {
+          "huashan-pond-boardwalk-water-massing-material": [
+            0.23999999463558197,
+            0.5400000214576721,
+            0.5699999928474426,
+            1
+          ],
+          "huashan-pond-boardwalk-wood-massing-material": [
+            0.46000000834465027,
+            0.30000001192092896,
+            0.20000000298023224,
+            1
+          ]
+        }
+      },
+      "runtime": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeTier=massing&qaFacilityPrototypeId=huashan-pond-boardwalk",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0
+      },
+      "mapObservation": {
+        "route": "/?start=huashan&qaFacilityPrototypeMapTier=massing&qaFacilityPrototypeMapId=huashan-pond-boardwalk",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0,
+        "qaOverlay": "yellow bounds and label only; asset transform unchanged",
+        "placementAccepted": false
+      },
+      "screenshots": {
+        "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-pond-boardwalk-massing-threejs-isolated.png",
+        "threejsSha256": "1c13ddacd6fa821ea469b7d0660c600fc99028261c7fff27b72ec7b7097f476c",
+        "map": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-pond-boardwalk-massing-threejs-map.png",
+        "mapSha256": "73b761fa88189bd4b3a5c17223c9ad88e9b6d1e6b25fc040fd4a8948aea095bf",
+        "triptych": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-pond-boardwalk-massing-reference-blender-threejs-triptych.png",
+        "triptychSha256": "338806e66d782f37135bdac25ad26dddee6d1c53f9a117aef9fa8ba98560d13a"
+      },
+      "isolatedRuntimePass": true,
+      "mapRuntimeLoadPass": true,
+      "mapPlacementPass": false,
+      "formalMassingPass": false,
+      "pending": [
+        "真实地图位置、比例与朝向逐项叠加",
+        "碰撞、绕行与入口通行"
+      ]
+    },
+    {
+      "assetId": "huashan-basketball-court",
+      "semanticPrototype": "huashan-basketball-court",
+      "glb": {
+        "file": "public/models/tiers/facility-prototypes/massing/huashan-basketball-court-massing.glb",
+        "sha256": "06583b6b83603f9af27960f1aa8d1ec5e13cd799c428c2783008e587fd9689f2",
+        "materialBaseColors": {
+          "huashan-basketball-court-court-massing-material": [
+            0.18000000715255737,
+            0.4000000059604645,
+            0.5400000214576721,
+            1
+          ],
+          "huashan-basketball-court-green-massing-material": [
+            0.1599999964237213,
+            0.3400000035762787,
+            0.27000001072883606,
+            1
+          ]
+        }
+      },
+      "runtime": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeTier=massing&qaFacilityPrototypeId=huashan-basketball-court",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0
+      },
+      "mapObservation": {
+        "route": "/?start=huashan&qaFacilityPrototypeMapTier=massing&qaFacilityPrototypeMapId=huashan-basketball-court",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0,
+        "qaOverlay": "yellow bounds and label only; asset transform unchanged",
+        "placementAccepted": false
+      },
+      "screenshots": {
+        "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-basketball-court-massing-threejs-isolated.png",
+        "threejsSha256": "532489f86c8d7131dc7a133f91161c7635f953646f3d2a1125eac5d6389a3453",
+        "map": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-basketball-court-massing-threejs-map.png",
+        "mapSha256": "71f096b0a46285071a647542bcdb45f3519899cfca1382e31f96e9e394a53fcb",
+        "triptych": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-basketball-court-massing-reference-blender-threejs-triptych.png",
+        "triptychSha256": "337f0454b20e332bf41fd045bb530271127564e349c55747c474f131946333fb"
+      },
+      "isolatedRuntimePass": true,
+      "mapRuntimeLoadPass": true,
+      "mapPlacementPass": false,
+      "formalMassingPass": false,
+      "pending": [
+        "真实地图位置、比例与朝向逐项叠加",
+        "碰撞、绕行与入口通行"
+      ]
+    },
+    {
+      "assetId": "huashan-bird-pergola",
+      "semanticPrototype": "huashan-bird-pergola",
+      "glb": {
+        "file": "public/models/tiers/facility-prototypes/massing/huashan-bird-pergola-massing.glb",
+        "sha256": "d60b7fdf0da23b02c208f19b8e4ed65f6e1552d6d4b66b42ad2f3ecdba942f7f",
+        "materialBaseColors": {
+          "huashan-bird-pergola-green-massing-material": [
+            0.1599999964237213,
+            0.3400000035762787,
+            0.27000001072883606,
+            1
+          ]
+        }
+      },
+      "runtime": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeTier=massing&qaFacilityPrototypeId=huashan-bird-pergola",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0
+      },
+      "mapObservation": {
+        "route": "/?start=huashan&qaFacilityPrototypeMapTier=massing&qaFacilityPrototypeMapId=huashan-bird-pergola",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0,
+        "qaOverlay": "yellow bounds and label only; asset transform unchanged",
+        "placementAccepted": false
+      },
+      "screenshots": {
+        "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-bird-pergola-massing-threejs-isolated.png",
+        "threejsSha256": "84439936cd753d3d0e70236fac31d1c4ba5f2d7cbf038335c38c85d4cf393992",
+        "map": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-bird-pergola-massing-threejs-map.png",
+        "mapSha256": "2633f041d9077160830615ce5bbbf85b4fd22891aabefcee4707c10d526c1300",
+        "triptych": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-bird-pergola-massing-reference-blender-threejs-triptych.png",
+        "triptychSha256": "a0cb53d5e85f9ea6fb49d079e83e52dae925cd460bca8d042ad25109a87bf62f"
+      },
+      "isolatedRuntimePass": true,
+      "mapRuntimeLoadPass": true,
+      "mapPlacementPass": false,
+      "formalMassingPass": false,
+      "pending": [
+        "真实地图位置、比例与朝向逐项叠加",
+        "碰撞、绕行与入口通行"
+      ]
+    },
+    {
+      "assetId": "huashan-happiness-corner",
+      "semanticPrototype": "huashan-happiness-corner",
+      "glb": {
+        "file": "public/models/tiers/facility-prototypes/massing/huashan-happiness-corner-massing.glb",
+        "sha256": "9252dec47ed34316173c7f0f1497df91e73becd553d2a794cc105f85c4fbe2e8",
+        "materialBaseColors": {
+          "huashan-happiness-corner-light-massing-material": [
+            0.7599999904632568,
+            0.75,
+            0.6800000071525574,
+            1
+          ],
+          "huashan-happiness-corner-pink-massing-material": [
+            0.8199999928474426,
+            0.3100000023841858,
+            0.4000000059604645,
+            1
+          ]
+        }
+      },
+      "runtime": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeTier=massing&qaFacilityPrototypeId=huashan-happiness-corner",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0
+      },
+      "mapObservation": {
+        "route": "/?start=huashan&qaFacilityPrototypeMapTier=massing&qaFacilityPrototypeMapId=huashan-happiness-corner",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0,
+        "qaOverlay": "yellow bounds and label only; asset transform unchanged",
+        "placementAccepted": false
+      },
+      "screenshots": {
+        "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-happiness-corner-massing-threejs-isolated.png",
+        "threejsSha256": "b4badfe20c80777c36ddb8aa95634d67551a16364b6a8cd64bf7561286f8e143",
+        "map": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-happiness-corner-massing-threejs-map.png",
+        "mapSha256": "4be0fbbf4d869fd7ade6508292c31fa73328d78e3b24e6f9d0ceb1fec1ab3585",
+        "triptych": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-happiness-corner-massing-reference-blender-threejs-triptych.png",
+        "triptychSha256": "34404a61d4914cfced055e948c97146a5d877702d4e1417828a6a7d831c79944"
+      },
+      "isolatedRuntimePass": true,
+      "mapRuntimeLoadPass": true,
+      "mapPlacementPass": false,
+      "formalMassingPass": false,
+      "pending": [
+        "真实地图位置、比例与朝向逐项叠加",
+        "碰撞、绕行与入口通行"
+      ]
+    },
+    {
+      "assetId": "xingfuli-reflecting-pool-hardscape",
+      "semanticPrototype": "xingfuli-reflecting-pool-hardscape",
+      "glb": {
+        "file": "public/models/tiers/facility-prototypes/massing/xingfuli-reflecting-pool-hardscape-massing.glb",
+        "sha256": "282daf48b670f0dba2ffeacd64b138ddd031ec65b545998ffa3d026d0f657e56",
+        "materialBaseColors": {
+          "xingfuli-reflecting-pool-hardscape-dark-massing-material": [
+            0.17000000178813934,
+            0.23000000417232513,
+            0.20999999344348907,
+            1
+          ],
+          "xingfuli-reflecting-pool-hardscape-wood-massing-material": [
+            0.46000000834465027,
+            0.30000001192092896,
+            0.20000000298023224,
+            1
+          ]
+        }
+      },
+      "runtime": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeTier=massing&qaFacilityPrototypeId=xingfuli-reflecting-pool-hardscape",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0
+      },
+      "mapObservation": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeMapTier=massing&qaFacilityPrototypeMapId=xingfuli-reflecting-pool-hardscape",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0,
+        "qaOverlay": "yellow bounds and label only; asset transform unchanged",
+        "placementAccepted": false
+      },
+      "screenshots": {
+        "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_xingfuli-reflecting-pool-hardscape-massing-threejs-isolated.png",
+        "threejsSha256": "dc5e49dab82f57243f60cf9769d7ee11b2c0d601d331c5c0970588c9a54b3be5",
+        "map": "test_artifacts/all-models/massing/facility-prototypes/test_xingfuli-reflecting-pool-hardscape-massing-threejs-map.png",
+        "mapSha256": "61fb7c25beb8d4bb8e4624f545a3295d6eb739da8c7ba10f0fee31fa08f77844",
+        "triptych": "test_artifacts/all-models/massing/facility-prototypes/test_xingfuli-reflecting-pool-hardscape-massing-reference-blender-threejs-triptych.png",
+        "triptychSha256": "38a321467157bfe19af01eca107c975632b2691aa73f023d0ff12aa48c6cda1f"
+      },
+      "isolatedRuntimePass": true,
+      "mapRuntimeLoadPass": true,
+      "mapPlacementPass": false,
+      "formalMassingPass": false,
+      "pending": [
+        "真实地图位置、比例与朝向逐项叠加",
+        "碰撞、绕行与入口通行"
+      ]
+    },
+    {
+      "assetId": "xingfuli-mixed-paving",
+      "semanticPrototype": "xingfuli-mixed-paving",
+      "glb": {
+        "file": "public/models/tiers/facility-prototypes/massing/xingfuli-mixed-paving-massing.glb",
+        "sha256": "ab876385909932fd289137ac87f4ac2a99e12567a2ceed1eaa639fa79cf954ba",
+        "materialBaseColors": {
+          "xingfuli-mixed-paving-neutral-massing-material": [
+            0.5799999833106995,
+            0.6100000143051147,
+            0.5699999928474426,
+            1
+          ]
+        }
+      },
+      "runtime": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeTier=massing&qaFacilityPrototypeId=xingfuli-mixed-paving",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0
+      },
+      "mapObservation": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeMapTier=massing&qaFacilityPrototypeMapId=xingfuli-mixed-paving",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0,
+        "qaOverlay": "yellow bounds and label only; asset transform unchanged",
+        "placementAccepted": false
+      },
+      "screenshots": {
+        "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_xingfuli-mixed-paving-massing-threejs-isolated.png",
+        "threejsSha256": "3a1e0b438860801e529161d358eb3271152a073b3509d8ca4d59e90fd35aaf02",
+        "map": "test_artifacts/all-models/massing/facility-prototypes/test_xingfuli-mixed-paving-massing-threejs-map.png",
+        "mapSha256": "5065bfa3b5765f9c6e67fdfc2ca1daaeeab7d25383ee08fd3d94e403fcadb1a3",
+        "triptych": "test_artifacts/all-models/massing/facility-prototypes/test_xingfuli-mixed-paving-massing-reference-blender-threejs-triptych.png",
+        "triptychSha256": "e2b536a2042aec3da71ab13e5efd78368f7cf657d09f4cd59e8dc2e3e48e40c6"
+      },
+      "isolatedRuntimePass": true,
+      "mapRuntimeLoadPass": true,
+      "mapPlacementPass": false,
+      "formalMassingPass": false,
+      "pending": [
+        "真实地图位置、比例与朝向逐项叠加",
+        "碰撞、绕行与入口通行"
+      ]
+    },
+    {
+      "assetId": "xingfuli-vertical-garden",
+      "semanticPrototype": "xingfuli-vertical-garden",
+      "glb": {
+        "file": "public/models/tiers/facility-prototypes/massing/xingfuli-vertical-garden-massing.glb",
+        "sha256": "97a31a1a436f786cca05399b98e489e1deb225fdffb855489175451bd63ab14c",
+        "materialBaseColors": {
+          "xingfuli-vertical-garden-green-massing-material": [
+            0.1599999964237213,
+            0.3400000035762787,
+            0.27000001072883606,
+            1
+          ]
+        }
+      },
+      "runtime": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeTier=massing&qaFacilityPrototypeId=xingfuli-vertical-garden",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0
+      },
+      "mapObservation": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeMapTier=massing&qaFacilityPrototypeMapId=xingfuli-vertical-garden",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0,
+        "qaOverlay": "yellow bounds and label only; asset transform unchanged",
+        "placementAccepted": false
+      },
+      "screenshots": {
+        "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_xingfuli-vertical-garden-massing-threejs-isolated.png",
+        "threejsSha256": "3fbf24ec4c6c574a8ebd4fbaace2ba2a7b431c8b0fb407c18d4da731fd71fab7",
+        "map": "test_artifacts/all-models/massing/facility-prototypes/test_xingfuli-vertical-garden-massing-threejs-map.png",
+        "mapSha256": "573c06d8ac508a8cdadec0f0b2d319853dbca3712d2ab79b499d2ee5fa8d9150",
+        "triptych": "test_artifacts/all-models/massing/facility-prototypes/test_xingfuli-vertical-garden-massing-reference-blender-threejs-triptych.png",
+        "triptychSha256": "09b617afff08b757742b40a0b0c5d1f4655fda48a71707c23a47b1396a9fdf0c"
+      },
+      "isolatedRuntimePass": true,
+      "mapRuntimeLoadPass": true,
+      "mapPlacementPass": false,
+      "formalMassingPass": false,
+      "pending": [
+        "真实地图位置、比例与朝向逐项叠加",
+        "碰撞、绕行与入口通行"
+      ]
+    },
+    {
+      "assetId": "one-square-metre-action",
+      "semanticPrototype": "one-square-metre-action",
+      "glb": {
+        "file": "public/models/tiers/facility-prototypes/massing/one-square-metre-action-massing.glb",
+        "sha256": "bfe80905009b9f2de7363bc93b4e44583871bab51964dc83d1f43dfa6ad8f02e",
+        "materialBaseColors": {
+          "one-square-metre-action-gold-massing-material": [
+            0.8399999737739563,
+            0.5699999928474426,
+            0.1599999964237213,
+            1
+          ],
+          "one-square-metre-action-green-massing-material": [
+            0.1599999964237213,
+            0.3400000035762787,
+            0.27000001072883606,
+            1
+          ]
+        }
+      },
+      "runtime": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeTier=massing&qaFacilityPrototypeId=one-square-metre-action",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0
+      },
+      "mapObservation": {
+        "route": "/?start=xingfuli&qaFacilityPrototypeMapTier=massing&qaFacilityPrototypeMapId=one-square-metre-action",
+        "stage": "playable",
+        "canvas": {
+          "clientHeight": 720,
+          "clientWidth": 1280,
+          "height": 720,
+          "width": 1280
+        },
+        "targetStatus": 200,
+        "targetFromDiskCache": false,
+        "targetFailures": 0,
+        "exceptions": 0,
+        "logErrors": 0,
+        "qaOverlay": "yellow bounds and label only; asset transform unchanged",
+        "placementAccepted": false
+      },
+      "screenshots": {
+        "threejs": "test_artifacts/all-models/massing/facility-prototypes/test_one-square-metre-action-massing-threejs-isolated.png",
+        "threejsSha256": "fe8bb1289167f2c18506984e78dfdca379907e502e08b7830dbcfbfab05bfa49",
+        "map": "test_artifacts/all-models/massing/facility-prototypes/test_one-square-metre-action-massing-threejs-map.png",
+        "mapSha256": "d79ae156d420174a7e3cb46d664f2b159f887b370fefb3341f1937bcf1a5c624",
+        "triptych": "test_artifacts/all-models/massing/facility-prototypes/test_one-square-metre-action-massing-reference-blender-threejs-triptych.png",
+        "triptychSha256": "9fe59dfab8a6a4b199e80ce41a607f3e548a69abe6315e220095df949d3fe973"
+      },
+      "isolatedRuntimePass": true,
+      "mapRuntimeLoadPass": true,
+      "mapPlacementPass": false,
+      "formalMassingPass": false,
+      "pending": [
+        "真实地图位置、比例与朝向逐项叠加",
+        "碰撞、绕行与入口通行"
+      ]
+    }
+  ],
+  "formalGateBlockers": [
+    "15 个资产虽已生成真实地图上下文截图，但位置、比例和朝向均未获得正式通过；接触表已暴露若干相交、遮挡和范围异常。",
+    "设施碰撞、绕行和入口通行尚未完成确定性验收。",
+    "喷泉照片仅为园区设施家族证据，不能逐一绑定两个 OSM way。",
+    "6 个无主体专用照片的设施只允许保持回退 Massing。"
+  ]
+}

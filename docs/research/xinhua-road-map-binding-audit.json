@@ -1,0 +1,1595 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "status": "map-audit-recorded-placement-changes-not-authorized",
+  "coordinateContract": {
+    "authoredMetersPerSceneUnit": 2.7,
+    "axis": "X east, Y up, Z south",
+    "yawRule": "footprint 最长边只证明体块轴线，不证明入口或 canonical 正向；yaw 必须由照片、入口和道路关系共同闭合。",
+    "scaleRule": "runtime bounds 是模型包络，OSM area 是 footprint；二者只用于风险比较，不直接按面积比缩放。"
+  },
+  "sourceSnapshots": {
+    "runtime": "app/scene/xinhua-road-landmarks-data.json",
+    "osmBuildings": "docs/research/data/xinhua-building-inventory-20260724-185400.json",
+    "namedNodeEvidence": "docs/research/data/requested-pois-osm-20260717-103840.json"
+  },
+  "summary": {
+    "entries": 14,
+    "bound": 3,
+    "pending": 9,
+    "notBuildings": 2,
+    "runtimePlacementsChanged": 0
+  },
+  "entries": [
+    {
+      "runtimeId": "shanghai-cinema",
+      "query": "cinema",
+      "name": "上海影城",
+      "address": "新华路160号",
+      "geometryRole": "building",
+      "decision": {
+        "status": "bound",
+        "confidence": "high",
+        "evidence": "OSM 名称虽写 Shanghai Film Art Center，但门牌明确为新华路160号，位置和大体量轮廓与上海影城场地闭合。",
+        "recommendedAction": "保留绑定；下一轮按真实 footprint 校准分体和 scale。",
+        "movementAuthorized": false,
+        "reason": "本轮先记录和核验；只有高置信绑定完成照片、门牌、footprint、尺度与入口方向闭环后才允许改运行时 placement。"
+      },
+      "runtimeBaseline": {
+        "position": [
+          74.1,
+          80.9
+        ],
+        "yawRadians": 2.761592653589793,
+        "scale": 1,
+        "localBounds": {
+          "minX": -19,
+          "maxX": 19,
+          "minZ": -11.8,
+          "maxZ": 14.2
+        },
+        "localObstacles": [
+          {
+            "minX": -10.5,
+            "maxX": 10.5,
+            "minZ": -7.3,
+            "maxZ": 6.2
+          },
+          {
+            "minX": -14.4,
+            "maxX": -10.5,
+            "minZ": -10,
+            "maxZ": 4.5
+          },
+          {
+            "minX": 10.5,
+            "maxX": 14.4,
+            "minZ": -10,
+            "maxZ": 4.5
+          }
+        ],
+        "boundsMetrics": {
+          "widthSceneUnits": 38,
+          "depthSceneUnits": 26,
+          "widthMeters": 102.6,
+          "depthMeters": 70.2,
+          "envelopeAreaSqMeters": 7202.5,
+          "note": "包络面积包含退界与场地，不等于建筑 footprint 面积。"
+        }
+      },
+      "osmWayCandidates": [
+        {
+          "id": "building:xinhua:osm-way-292250766",
+          "osmType": "way",
+          "osmId": 292250766,
+          "name": "Shanghai Film Art Center",
+          "address": {
+            "street": "新华路",
+            "houseNumber": "160"
+          },
+          "authoredPosition": [
+            74.42985,
+            81.67707
+          ],
+          "distanceFromRuntimeSceneUnits": 0.8442,
+          "distanceFromRuntimeMeters": 2.28,
+          "footprintAreaSqMeters": 9251.6,
+          "runtimeEnvelopeToFootprintAreaRatio": 0.779,
+          "footprintAxisYawRadians": -0.346264,
+          "runtimeYawRadians": 2.761592653589793,
+          "axisDeltaModuloPiRadians": 0.0337,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        }
+      ],
+      "corroboratingOsmNodes": []
+    },
+    {
+      "runtimeId": "film-art-center",
+      "query": "film-art",
+      "name": "上海电影艺术中心",
+      "address": "新华路200号",
+      "geometryRole": "building",
+      "decision": {
+        "status": "candidate-pending",
+        "confidence": "medium",
+        "evidence": "候选位置和体量相近，但 OSM 缺少名称与门牌字段。",
+        "recommendedAction": "补门牌或现场总平证据后再移动、缩放或改朝向。",
+        "movementAuthorized": false,
+        "reason": "本轮先记录和核验；只有高置信绑定完成照片、门牌、footprint、尺度与入口方向闭环后才允许改运行时 placement。"
+      },
+      "runtimeBaseline": {
+        "position": [
+          47.5,
+          81.5
+        ],
+        "yawRadians": 2.761592653589793,
+        "scale": 1,
+        "localBounds": {
+          "minX": -11.554999,
+          "maxX": 11.554999,
+          "minZ": -6.725,
+          "maxZ": 11.225
+        },
+        "localObstacles": [
+          {
+            "minX": -8,
+            "maxX": 8,
+            "minZ": -5.2,
+            "maxZ": 4.2
+          },
+          {
+            "minX": -11.46,
+            "maxX": -8.1,
+            "minZ": -3.63,
+            "maxZ": 4.63
+          },
+          {
+            "minX": 8.1,
+            "maxX": 11.46,
+            "minZ": -3.63,
+            "maxZ": 4.63
+          }
+        ],
+        "boundsMetrics": {
+          "widthSceneUnits": 23.11,
+          "depthSceneUnits": 17.95,
+          "widthMeters": 62.4,
+          "depthMeters": 48.47,
+          "envelopeAreaSqMeters": 3024.1,
+          "note": "包络面积包含退界与场地，不等于建筑 footprint 面积。"
+        }
+      },
+      "osmWayCandidates": [
+        {
+          "id": "building:xinhua:osm-way-864505138",
+          "osmType": "way",
+          "osmId": 864505138,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            46.38895,
+            79.07075
+          ],
+          "distanceFromRuntimeSceneUnits": 2.6713,
+          "distanceFromRuntimeMeters": 7.21,
+          "footprintAreaSqMeters": 472.7,
+          "runtimeEnvelopeToFootprintAreaRatio": 6.398,
+          "footprintAxisYawRadians": 1.215553,
+          "runtimeYawRadians": 2.761592653589793,
+          "axisDeltaModuloPiRadians": 1.546,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        }
+      ],
+      "corroboratingOsmNodes": []
+    },
+    {
+      "runtimeId": "one-step-garden",
+      "query": "garden179",
+      "name": "一尺花园",
+      "address": "新华路179弄",
+      "geometryRole": "compound",
+      "decision": {
+        "status": "candidate-pending",
+        "confidence": "low",
+        "evidence": "候选靠近179号手工落点，但无门牌；照片已证明沿街白楼和后院红砖楼是不同体量。",
+        "recommendedAction": "先保留现有落点；补齐第二体量 footprint 后再做 compound 绑定。",
+        "movementAuthorized": false,
+        "reason": "本轮先记录和核验；只有高置信绑定完成照片、门牌、footprint、尺度与入口方向闭环后才允许改运行时 placement。"
+      },
+      "runtimeBaseline": {
+        "position": [
+          60.86,
+          120.73
+        ],
+        "yawRadians": -0.38,
+        "scale": 0.88,
+        "localBounds": {
+          "minX": -10,
+          "maxX": 10,
+          "minZ": -6.8,
+          "maxZ": 9.2
+        },
+        "localObstacles": [
+          {
+            "minX": -8.8,
+            "maxX": 8.8,
+            "minZ": -6.1,
+            "maxZ": 4.7
+          }
+        ],
+        "boundsMetrics": {
+          "widthSceneUnits": 17.6,
+          "depthSceneUnits": 14.08,
+          "widthMeters": 47.52,
+          "depthMeters": 38.02,
+          "envelopeAreaSqMeters": 1806.5,
+          "note": "包络面积包含退界与场地，不等于建筑 footprint 面积。"
+        }
+      },
+      "osmWayCandidates": [
+        {
+          "id": "building:xinhua:osm-way-864485599",
+          "osmType": "way",
+          "osmId": 864485599,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            55.24379,
+            120.84546
+          ],
+          "distanceFromRuntimeSceneUnits": 5.6174,
+          "distanceFromRuntimeMeters": 15.17,
+          "footprintAreaSqMeters": 221,
+          "runtimeEnvelopeToFootprintAreaRatio": 8.174,
+          "footprintAxisYawRadians": 1.140373,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 1.5204,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        }
+      ],
+      "corroboratingOsmNodes": []
+    },
+    {
+      "runtimeId": "xinhua-villas-211",
+      "query": "villas",
+      "name": "新华别墅 · 211弄",
+      "address": "新华路211弄（外国弄堂）",
+      "geometryRole": "compound",
+      "decision": {
+        "status": "compound-candidates-pending",
+        "confidence": "medium",
+        "evidence": "五个相邻 footprint 与弄堂组团吻合，但各成员门牌和照片尚未一一闭合。",
+        "recommendedAction": "按成员建立子建筑记录；禁止把五栋合并为单一大盒。",
+        "movementAuthorized": false,
+        "reason": "本轮先记录和核验；只有高置信绑定完成照片、门牌、footprint、尺度与入口方向闭环后才允许改运行时 placement。"
+      },
+      "runtimeBaseline": {
+        "position": [
+          38.32,
+          110.67
+        ],
+        "yawRadians": -0.38,
+        "scale": 0.62,
+        "localBounds": {
+          "minX": -15.44861,
+          "maxX": 15.25,
+          "minZ": -13.949999,
+          "maxZ": 15.725
+        },
+        "localObstacles": [
+          {
+            "minX": -12.4,
+            "maxX": -4.6,
+            "minZ": 0.6,
+            "maxZ": 7.4
+          },
+          {
+            "minX": 4.6,
+            "maxX": 12.4,
+            "minZ": 0.1,
+            "maxZ": 6.9
+          },
+          {
+            "minX": -11.4,
+            "maxX": -3.6,
+            "minZ": -13.4,
+            "maxZ": -6.6
+          },
+          {
+            "minX": 3.3,
+            "maxX": 11.1,
+            "minZ": -13.6,
+            "maxZ": -6.7
+          },
+          {
+            "minX": 4.1,
+            "maxX": 7.3,
+            "minZ": 11.1,
+            "maxZ": 14.5
+          },
+          {
+            "minX": -3.7,
+            "maxX": -2.3,
+            "minZ": 14.4,
+            "maxZ": 15.7
+          },
+          {
+            "minX": 2.3,
+            "maxX": 3.7,
+            "minZ": 14.4,
+            "maxZ": 15.7
+          }
+        ],
+        "boundsMetrics": {
+          "widthSceneUnits": 19.0331,
+          "depthSceneUnits": 18.3985,
+          "widthMeters": 51.39,
+          "depthMeters": 49.68,
+          "envelopeAreaSqMeters": 2552.8,
+          "note": "包络面积包含退界与场地，不等于建筑 footprint 面积。"
+        }
+      },
+      "osmWayCandidates": [
+        {
+          "id": "building:xinhua:osm-way-864485596",
+          "osmType": "way",
+          "osmId": 864485596,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            35.86713,
+            112.49533
+          ],
+          "distanceFromRuntimeSceneUnits": 3.0575,
+          "distanceFromRuntimeMeters": 8.26,
+          "footprintAreaSqMeters": 230.6,
+          "runtimeEnvelopeToFootprintAreaRatio": 11.07,
+          "footprintAxisYawRadians": 1.191524,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 1.5701,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-864485676",
+          "osmType": "way",
+          "osmId": 864485676,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            39.91871,
+            105.13173
+          ],
+          "distanceFromRuntimeSceneUnits": 5.7644,
+          "distanceFromRuntimeMeters": 15.56,
+          "footprintAreaSqMeters": 203.8,
+          "runtimeEnvelopeToFootprintAreaRatio": 12.526,
+          "footprintAxisYawRadians": 1.169021,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 1.549,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-864485597",
+          "osmType": "way",
+          "osmId": 864485597,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            43.73568,
+            111.74035
+          ],
+          "distanceFromRuntimeSceneUnits": 5.5204,
+          "distanceFromRuntimeMeters": 14.91,
+          "footprintAreaSqMeters": 315.5,
+          "runtimeEnvelopeToFootprintAreaRatio": 8.091,
+          "footprintAxisYawRadians": -0.390665,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 0.0107,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-864485675",
+          "osmType": "way",
+          "osmId": 864485675,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            32.96644,
+            102.19832
+          ],
+          "distanceFromRuntimeSceneUnits": 10.0215,
+          "distanceFromRuntimeMeters": 27.06,
+          "footprintAreaSqMeters": 219.5,
+          "runtimeEnvelopeToFootprintAreaRatio": 11.63,
+          "footprintAxisYawRadians": 1.169151,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 1.5492,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-864485593",
+          "osmType": "way",
+          "osmId": 864485593,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            29.20731,
+            115.67397
+          ],
+          "distanceFromRuntimeSceneUnits": 10.3962,
+          "distanceFromRuntimeMeters": 28.07,
+          "footprintAreaSqMeters": 189.4,
+          "runtimeEnvelopeToFootprintAreaRatio": 13.478,
+          "footprintAxisYawRadians": 1.192054,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 1.5695,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        }
+      ],
+      "corroboratingOsmNodes": []
+    },
+    {
+      "runtimeId": "xinhua-villas-329",
+      "query": "villas329",
+      "name": "新华别墅 · 329弄",
+      "address": "新华路329弄",
+      "geometryRole": "compound",
+      "decision": {
+        "status": "compound-candidates-pending",
+        "confidence": "medium",
+        "evidence": "候选组成相邻花园住宅组团，但代表建筑与各门牌尚未闭合。",
+        "recommendedAction": "保留组团候选；逐栋匹配照片和门牌后再确定 Hero 主体。",
+        "movementAuthorized": false,
+        "reason": "本轮先记录和核验；只有高置信绑定完成照片、门牌、footprint、尺度与入口方向闭环后才允许改运行时 placement。"
+      },
+      "runtimeBaseline": {
+        "position": [
+          -42.13,
+          79.48
+        ],
+        "yawRadians": -0.38,
+        "scale": 0.62,
+        "localBounds": {
+          "minX": -11.24861,
+          "maxX": 11.415185,
+          "minZ": -7.825001,
+          "maxZ": 11.5
+        },
+        "localObstacles": [
+          {
+            "minX": -8.6,
+            "maxX": 9.6,
+            "minZ": -7.2,
+            "maxZ": 5
+          }
+        ],
+        "boundsMetrics": {
+          "widthSceneUnits": 14.0516,
+          "depthSceneUnits": 11.9815,
+          "widthMeters": 37.94,
+          "depthMeters": 32.35,
+          "envelopeAreaSqMeters": 1227.3,
+          "note": "包络面积包含退界与场地，不等于建筑 footprint 面积。"
+        }
+      },
+      "osmWayCandidates": [
+        {
+          "id": "building:xinhua:osm-way-864493174",
+          "osmType": "way",
+          "osmId": 864493174,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -38.63466,
+            77.8232
+          ],
+          "distanceFromRuntimeSceneUnits": 3.8681,
+          "distanceFromRuntimeMeters": 10.44,
+          "footprintAreaSqMeters": 185.8,
+          "runtimeEnvelopeToFootprintAreaRatio": 6.605,
+          "footprintAxisYawRadians": -0.406663,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 0.0267,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-864493244",
+          "osmType": "way",
+          "osmId": 864493244,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -51.10857,
+            79.84667
+          ],
+          "distanceFromRuntimeSceneUnits": 8.9861,
+          "distanceFromRuntimeMeters": 24.26,
+          "footprintAreaSqMeters": 262.8,
+          "runtimeEnvelopeToFootprintAreaRatio": 4.67,
+          "footprintAxisYawRadians": 1.19821,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 1.5634,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-864485664",
+          "osmType": "way",
+          "osmId": 864485664,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -48.26567,
+            71.29421
+          ],
+          "distanceFromRuntimeSceneUnits": 10.23,
+          "distanceFromRuntimeMeters": 27.62,
+          "footprintAreaSqMeters": 173.8,
+          "runtimeEnvelopeToFootprintAreaRatio": 7.062,
+          "footprintAxisYawRadians": 1.376185,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 1.3854,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-864493173",
+          "osmType": "way",
+          "osmId": 864493173,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -32.86417,
+            74.06589
+          ],
+          "distanceFromRuntimeSceneUnits": 10.7316,
+          "distanceFromRuntimeMeters": 28.98,
+          "footprintAreaSqMeters": 100.2,
+          "runtimeEnvelopeToFootprintAreaRatio": 12.249,
+          "footprintAxisYawRadians": -0.407075,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 0.0271,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-864493245",
+          "osmType": "way",
+          "osmId": 864493245,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -42.34663,
+            92.12281
+          ],
+          "distanceFromRuntimeSceneUnits": 12.6447,
+          "distanceFromRuntimeMeters": 34.14,
+          "footprintAreaSqMeters": 157.3,
+          "runtimeEnvelopeToFootprintAreaRatio": 7.802,
+          "footprintAxisYawRadians": 1.195357,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 1.5662,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        }
+      ],
+      "corroboratingOsmNodes": []
+    },
+    {
+      "runtimeId": "house-315",
+      "query": "house315",
+      "name": "新华路315号住宅",
+      "address": "新华路315号",
+      "geometryRole": "building",
+      "decision": {
+        "status": "candidate-pending",
+        "confidence": "medium",
+        "evidence": "候选距离手工落点近且轮廓规模合理，但 OSM 缺少315号门牌。",
+        "recommendedAction": "以候选约束 Massing；未闭合门牌前不直接替换运行时落点和 yaw。",
+        "movementAuthorized": false,
+        "reason": "本轮先记录和核验；只有高置信绑定完成照片、门牌、footprint、尺度与入口方向闭环后才允许改运行时 placement。"
+      },
+      "runtimeBaseline": {
+        "position": [
+          -23.03,
+          85.67
+        ],
+        "yawRadians": -0.38,
+        "scale": 0.9,
+        "localBounds": {
+          "minX": -9.25,
+          "maxX": 9.25,
+          "minZ": -6.7,
+          "maxZ": 9.5
+        },
+        "localObstacles": [
+          {
+            "minX": -7.3,
+            "maxX": 5.4,
+            "minZ": -5,
+            "maxZ": 5.6
+          }
+        ],
+        "boundsMetrics": {
+          "widthSceneUnits": 16.65,
+          "depthSceneUnits": 14.58,
+          "widthMeters": 44.96,
+          "depthMeters": 39.37,
+          "envelopeAreaSqMeters": 1769.7,
+          "note": "包络面积包含退界与场地，不等于建筑 footprint 面积。"
+        }
+      },
+      "osmWayCandidates": [
+        {
+          "id": "building:xinhua:osm-way-864485667",
+          "osmType": "way",
+          "osmId": 864485667,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -20.991,
+            82.75397
+          ],
+          "distanceFromRuntimeSceneUnits": 3.5582,
+          "distanceFromRuntimeMeters": 9.61,
+          "footprintAreaSqMeters": 434.4,
+          "runtimeEnvelopeToFootprintAreaRatio": 4.074,
+          "footprintAxisYawRadians": 1.169425,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 1.5494,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        }
+      ],
+      "corroboratingOsmNodes": []
+    },
+    {
+      "runtimeId": "villa-le-bec",
+      "query": "villa-le-bec",
+      "name": "Villa Le Bec",
+      "address": "新华路321号",
+      "geometryRole": "compound",
+      "decision": {
+        "status": "candidate-pending",
+        "confidence": "low",
+        "evidence": "候选接近321号手工落点，但面积只可能覆盖组团中的单体，且无门牌字段。",
+        "recommendedAction": "继续找主住宅与原车库 footprint；未闭合前不合并场地。",
+        "movementAuthorized": false,
+        "reason": "本轮先记录和核验；只有高置信绑定完成照片、门牌、footprint、尺度与入口方向闭环后才允许改运行时 placement。"
+      },
+      "runtimeBaseline": {
+        "position": [
+          -34.1,
+          88.8
+        ],
+        "yawRadians": -0.38,
+        "scale": 0.82,
+        "localBounds": {
+          "minX": -9.5,
+          "maxX": 9.5,
+          "minZ": -6.3,
+          "maxZ": 10.4
+        },
+        "localObstacles": [
+          {
+            "minX": -7.8,
+            "maxX": 7.8,
+            "minZ": -6.2,
+            "maxZ": 5.4
+          }
+        ],
+        "boundsMetrics": {
+          "widthSceneUnits": 15.58,
+          "depthSceneUnits": 13.694,
+          "widthMeters": 42.07,
+          "depthMeters": 36.97,
+          "envelopeAreaSqMeters": 1555.3,
+          "note": "包络面积包含退界与场地，不等于建筑 footprint 面积。"
+        }
+      },
+      "osmWayCandidates": [
+        {
+          "id": "building:xinhua:osm-way-864493176",
+          "osmType": "way",
+          "osmId": 864493176,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -30.35691,
+            83.74019
+          ],
+          "distanceFromRuntimeSceneUnits": 6.2938,
+          "distanceFromRuntimeMeters": 16.99,
+          "footprintAreaSqMeters": 137.2,
+          "runtimeEnvelopeToFootprintAreaRatio": 11.336,
+          "footprintAxisYawRadians": 1.169288,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 1.5493,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        }
+      ],
+      "corroboratingOsmNodes": []
+    },
+    {
+      "runtimeId": "shanghai-orchestra",
+      "query": "orchestra",
+      "name": "上海民族乐团",
+      "address": "新华路336号",
+      "geometryRole": "compound",
+      "decision": {
+        "status": "candidate-pending",
+        "confidence": "low",
+        "evidence": "候选位于336号组团附近，但不能代表6、7、8号楼和保留体量的完整 compound。",
+        "recommendedAction": "按 TJAD 总平/子楼资料绑定各 footprint 后再重构 Hero。",
+        "movementAuthorized": false,
+        "reason": "本轮先记录和核验；只有高置信绑定完成照片、门牌、footprint、尺度与入口方向闭环后才允许改运行时 placement。"
+      },
+      "runtimeBaseline": {
+        "position": [
+          -44.4,
+          44
+        ],
+        "yawRadians": 2.761592653589793,
+        "scale": 0.88,
+        "localBounds": {
+          "minX": -13.5,
+          "maxX": 13.5,
+          "minZ": -9.208925,
+          "maxZ": 12.5
+        },
+        "localObstacles": [
+          {
+            "minX": -12.3,
+            "maxX": 12.3,
+            "minZ": -9.2,
+            "maxZ": 8.4
+          }
+        ],
+        "boundsMetrics": {
+          "widthSceneUnits": 23.76,
+          "depthSceneUnits": 19.1039,
+          "widthMeters": 64.15,
+          "depthMeters": 51.58,
+          "envelopeAreaSqMeters": 3309,
+          "note": "包络面积包含退界与场地，不等于建筑 footprint 面积。"
+        }
+      },
+      "osmWayCandidates": [
+        {
+          "id": "building:xinhua:osm-way-864505166",
+          "osmType": "way",
+          "osmId": 864505166,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -35.44196,
+            39.31539
+          ],
+          "distanceFromRuntimeSceneUnits": 10.109,
+          "distanceFromRuntimeMeters": 27.29,
+          "footprintAreaSqMeters": 445.9,
+          "runtimeEnvelopeToFootprintAreaRatio": 7.421,
+          "footprintAxisYawRadians": 1.247469,
+          "runtimeYawRadians": 2.761592653589793,
+          "axisDeltaModuloPiRadians": 1.5141,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        }
+      ],
+      "corroboratingOsmNodes": []
+    },
+    {
+      "runtimeId": "hudec-memorial",
+      "query": "hudec",
+      "name": "邬达克纪念馆",
+      "address": "番禺路129号",
+      "geometryRole": "building",
+      "decision": {
+        "status": "bound",
+        "confidence": "high",
+        "evidence": "OSM 同时具备邬达克纪念馆中英文名称、番禺路129号、三层和完整 footprint。",
+        "recommendedAction": "将 pivot 校准到 footprint；轴线 yaw 不能直接当入口朝向。",
+        "movementAuthorized": false,
+        "reason": "本轮先记录和核验；只有高置信绑定完成照片、门牌、footprint、尺度与入口方向闭环后才允许改运行时 placement。"
+      },
+      "runtimeBaseline": {
+        "position": [
+          91.34,
+          -131.74
+        ],
+        "yawRadians": 1.5707963267948966,
+        "scale": 0.72,
+        "localBounds": {
+          "minX": -8.75,
+          "maxX": 8.75,
+          "minZ": -6.95,
+          "maxZ": 8.55
+        },
+        "localObstacles": [
+          {
+            "minX": -6.4,
+            "maxX": 4.4,
+            "minZ": -5.1,
+            "maxZ": 2.1
+          },
+          {
+            "minX": 2.65,
+            "maxX": 6.95,
+            "minZ": -5.15,
+            "maxZ": 0.35
+          },
+          {
+            "minX": -1.3,
+            "maxX": 1.7,
+            "minZ": 2.28,
+            "maxZ": 3.95
+          },
+          {
+            "minX": -8.45,
+            "maxX": -2.95,
+            "minZ": 6.35,
+            "maxZ": 7.05
+          },
+          {
+            "minX": 2.95,
+            "maxX": 8.45,
+            "minZ": 6.35,
+            "maxZ": 7.05
+          },
+          {
+            "minX": -6.9,
+            "maxX": -2.9,
+            "minZ": 2.15,
+            "maxZ": 5.25
+          }
+        ],
+        "boundsMetrics": {
+          "widthSceneUnits": 12.6,
+          "depthSceneUnits": 11.16,
+          "widthMeters": 34.02,
+          "depthMeters": 30.13,
+          "envelopeAreaSqMeters": 1025.1,
+          "note": "包络面积包含退界与场地，不等于建筑 footprint 面积。"
+        }
+      },
+      "osmWayCandidates": [
+        {
+          "id": "building:xinhua:osm-way-494633921",
+          "osmType": "way",
+          "osmId": 494633921,
+          "name": "邬达克纪念馆",
+          "address": {
+            "street": "番禺路",
+            "houseNumber": "129"
+          },
+          "authoredPosition": [
+            92.908,
+            -132.44335
+          ],
+          "distanceFromRuntimeSceneUnits": 1.7185,
+          "distanceFromRuntimeMeters": 4.64,
+          "footprintAreaSqMeters": 711.1,
+          "runtimeEnvelopeToFootprintAreaRatio": 1.442,
+          "footprintAxisYawRadians": -1.41731,
+          "runtimeYawRadians": 1.5707963267948966,
+          "axisDeltaModuloPiRadians": 0.1535,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "inferred-from-osm-building-levels"
+        }
+      ],
+      "corroboratingOsmNodes": []
+    },
+    {
+      "runtimeId": "xinhua-pocket-park",
+      "query": "pocket-park",
+      "name": "新华路口袋公园",
+      "address": "新华路359号旁",
+      "geometryRole": "site-feature",
+      "decision": {
+        "status": "not-a-building",
+        "confidence": "high",
+        "evidence": "口袋公园是入口、墙、花池、路径和植被场地，不应绑定最近建筑 footprint。",
+        "recommendedAction": "使用场地边界和道路关系核验位置、尺度与朝向。",
+        "movementAuthorized": false,
+        "reason": "本轮先记录和核验；只有高置信绑定完成照片、门牌、footprint、尺度与入口方向闭环后才允许改运行时 placement。"
+      },
+      "runtimeBaseline": {
+        "position": [
+          -56.9,
+          66.3
+        ],
+        "yawRadians": -0.38,
+        "scale": 0.88,
+        "localBounds": {
+          "minX": -0.8524,
+          "maxX": 0.8524,
+          "minZ": -4.6,
+          "maxZ": 4.64
+        },
+        "localObstacles": [
+          {
+            "minX": -0.84,
+            "maxX": -0.68,
+            "minZ": -4.6,
+            "maxZ": 4.6
+          },
+          {
+            "minX": 0.68,
+            "maxX": 0.84,
+            "minZ": -4.6,
+            "maxZ": 4.6
+          }
+        ],
+        "boundsMetrics": {
+          "widthSceneUnits": 1.5002,
+          "depthSceneUnits": 8.1312,
+          "widthMeters": 4.05,
+          "depthMeters": 21.95,
+          "envelopeAreaSqMeters": 88.9,
+          "note": "包络面积包含退界与场地，不等于建筑 footprint 面积。"
+        }
+      },
+      "osmWayCandidates": [],
+      "corroboratingOsmNodes": []
+    },
+    {
+      "runtimeId": "xinhua-community-center",
+      "query": "community-center",
+      "name": "新华·社区营造中心",
+      "address": "新华路345弄4号楼",
+      "geometryRole": "building",
+      "decision": {
+        "status": "bound-with-node-corroboration",
+        "confidence": "medium",
+        "evidence": "way 提供 footprint，命名 OSM node 提供新华·社区营造中心主体语义，二者位置闭合。",
+        "recommendedAction": "保留组合绑定；下一轮校验4号楼入口与 footprint 正向。",
+        "movementAuthorized": false,
+        "reason": "本轮先记录和核验；只有高置信绑定完成照片、门牌、footprint、尺度与入口方向闭环后才允许改运行时 placement。"
+      },
+      "runtimeBaseline": {
+        "position": [
+          -74.78,
+          112.55
+        ],
+        "yawRadians": -0.38,
+        "scale": 0.6,
+        "localBounds": {
+          "minX": -10,
+          "maxX": 10,
+          "minZ": -8.5,
+          "maxZ": 7.6
+        },
+        "localObstacles": [
+          {
+            "minX": -6.9,
+            "maxX": 6.9,
+            "minZ": -5.5,
+            "maxZ": 1.75
+          },
+          {
+            "minX": -1.55,
+            "maxX": 1.55,
+            "minZ": 1.65,
+            "maxZ": 4.3
+          },
+          {
+            "minX": 4.1,
+            "maxX": 8.5,
+            "minZ": -6.75,
+            "maxZ": -3.2
+          }
+        ],
+        "boundsMetrics": {
+          "widthSceneUnits": 12,
+          "depthSceneUnits": 9.66,
+          "widthMeters": 32.4,
+          "depthMeters": 26.08,
+          "envelopeAreaSqMeters": 845.1,
+          "note": "包络面积包含退界与场地，不等于建筑 footprint 面积。"
+        }
+      },
+      "osmWayCandidates": [
+        {
+          "id": "building:xinhua:osm-way-864493234",
+          "osmType": "way",
+          "osmId": 864493234,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -75.02564,
+            112.39118
+          ],
+          "distanceFromRuntimeSceneUnits": 0.2925,
+          "distanceFromRuntimeMeters": 0.79,
+          "footprintAreaSqMeters": 424.7,
+          "runtimeEnvelopeToFootprintAreaRatio": 1.99,
+          "footprintAxisYawRadians": -0.390659,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 0.0107,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        }
+      ],
+      "corroboratingOsmNodes": [
+        13765678129
+      ]
+    },
+    {
+      "runtimeId": "debi-fahua-525",
+      "query": "fahua525",
+      "name": "德必法华525",
+      "address": "法华镇路525号",
+      "geometryRole": "compound",
+      "decision": {
+        "status": "compound-candidates-pending",
+        "confidence": "medium",
+        "evidence": "五个相邻 footprint 覆盖园区组团，但子楼名称、入口和改造阶段未逐栋闭合。",
+        "recommendedAction": "逐栋建立子记录，并保留庭院和连通路径。",
+        "movementAuthorized": false,
+        "reason": "本轮先记录和核验；只有高置信绑定完成照片、门牌、footprint、尺度与入口方向闭环后才允许改运行时 placement。"
+      },
+      "runtimeBaseline": {
+        "position": [
+          -102,
+          -49
+        ],
+        "yawRadians": -2.6,
+        "scale": 0.92,
+        "localBounds": {
+          "minX": -14,
+          "maxX": 14,
+          "minZ": -12,
+          "maxZ": 12
+        },
+        "localObstacles": [
+          {
+            "minX": -1.8,
+            "maxX": 10.85,
+            "minZ": -9.1,
+            "maxZ": 0
+          },
+          {
+            "minX": -12.4,
+            "maxX": -3.6,
+            "minZ": -7.3,
+            "maxZ": 0.2
+          },
+          {
+            "minX": -11.5,
+            "maxX": 5.5,
+            "minZ": -11.4,
+            "maxZ": -7.4
+          },
+          {
+            "minX": -4.6,
+            "maxX": 1.4,
+            "minZ": 1.45,
+            "maxZ": 5.2
+          },
+          {
+            "minX": -9.1,
+            "maxX": -6.2,
+            "minZ": 7.2,
+            "maxZ": 8.7
+          }
+        ],
+        "boundsMetrics": {
+          "widthSceneUnits": 25.76,
+          "depthSceneUnits": 22.08,
+          "widthMeters": 69.55,
+          "depthMeters": 59.62,
+          "envelopeAreaSqMeters": 4146.4,
+          "note": "包络面积包含退界与场地，不等于建筑 footprint 面积。"
+        }
+      },
+      "osmWayCandidates": [
+        {
+          "id": "building:xinhua:osm-way-864847921",
+          "osmType": "way",
+          "osmId": 864847921,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -107.66414,
+            -46.5312
+          ],
+          "distanceFromRuntimeSceneUnits": 6.1788,
+          "distanceFromRuntimeMeters": 16.68,
+          "footprintAreaSqMeters": 586.2,
+          "runtimeEnvelopeToFootprintAreaRatio": 7.073,
+          "footprintAxisYawRadians": 1.350818,
+          "runtimeYawRadians": -2.6,
+          "axisDeltaModuloPiRadians": 0.8092,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-864847920",
+          "osmType": "way",
+          "osmId": 864847920,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -105.76518,
+            -55.4051
+          ],
+          "distanceFromRuntimeSceneUnits": 7.4298,
+          "distanceFromRuntimeMeters": 20.06,
+          "footprintAreaSqMeters": 585.9,
+          "runtimeEnvelopeToFootprintAreaRatio": 7.077,
+          "footprintAxisYawRadians": 1.350818,
+          "runtimeYawRadians": -2.6,
+          "axisDeltaModuloPiRadians": 0.8092,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-228966550",
+          "osmType": "way",
+          "osmId": 228966550,
+          "name": "1号楼",
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -89.50148,
+            -48.2241
+          ],
+          "distanceFromRuntimeSceneUnits": 12.5226,
+          "distanceFromRuntimeMeters": 33.81,
+          "footprintAreaSqMeters": 508.2,
+          "runtimeEnvelopeToFootprintAreaRatio": 8.159,
+          "footprintAxisYawRadians": 1.323765,
+          "runtimeYawRadians": -2.6,
+          "axisDeltaModuloPiRadians": 0.7822,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-864847917",
+          "osmType": "way",
+          "osmId": 864847917,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -92.64526,
+            -35.86818
+          ],
+          "distanceFromRuntimeSceneUnits": 16.1231,
+          "distanceFromRuntimeMeters": 43.53,
+          "footprintAreaSqMeters": 517.6,
+          "runtimeEnvelopeToFootprintAreaRatio": 8.011,
+          "footprintAxisYawRadians": 1.227942,
+          "runtimeYawRadians": -2.6,
+          "axisDeltaModuloPiRadians": 0.6863,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-228966551",
+          "osmType": "way",
+          "osmId": 228966551,
+          "name": "2号楼",
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -87.12541,
+            -56.82288
+          ],
+          "distanceFromRuntimeSceneUnits": 16.8063,
+          "distanceFromRuntimeMeters": 45.38,
+          "footprintAreaSqMeters": 537.4,
+          "runtimeEnvelopeToFootprintAreaRatio": 7.716,
+          "footprintAxisYawRadians": 1.345261,
+          "runtimeYawRadians": -2.6,
+          "axisDeltaModuloPiRadians": 0.8037,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        }
+      ],
+      "corroboratingOsmNodes": []
+    },
+    {
+      "runtimeId": "fahua-heritage",
+      "query": "fahua-heritage",
+      "name": "法华遗韵",
+      "address": "法华镇路与香花桥路交会处",
+      "geometryRole": "site-feature",
+      "decision": {
+        "status": "not-a-building",
+        "confidence": "high",
+        "evidence": "法华遗韵是三间景观构筑物与展陈场地，最近建筑不能作为其 footprint。",
+        "recommendedAction": "按构筑物、展板和道路交会关系做场地校验。",
+        "movementAuthorized": false,
+        "reason": "本轮先记录和核验；只有高置信绑定完成照片、门牌、footprint、尺度与入口方向闭环后才允许改运行时 placement。"
+      },
+      "runtimeBaseline": {
+        "position": [
+          -63.4,
+          -2.6
+        ],
+        "yawRadians": -0.5,
+        "scale": 0.27,
+        "localBounds": {
+          "minX": -7.75,
+          "maxX": 7.75,
+          "minZ": -2.1,
+          "maxZ": 2.1
+        },
+        "localObstacles": [
+          {
+            "minX": -5.95,
+            "maxX": -5.05,
+            "minZ": -0.6,
+            "maxZ": 0.6
+          },
+          {
+            "minX": -2.8,
+            "maxX": -1.9,
+            "minZ": -0.6,
+            "maxZ": 0.6
+          },
+          {
+            "minX": 1.9,
+            "maxX": 2.8,
+            "minZ": -0.6,
+            "maxZ": 0.6
+          },
+          {
+            "minX": 5.05,
+            "maxX": 5.95,
+            "minZ": -0.6,
+            "maxZ": 0.6
+          },
+          {
+            "minX": -5.3,
+            "maxX": -2.7,
+            "minZ": -0.75,
+            "maxZ": -0.3
+          },
+          {
+            "minX": -2.05,
+            "maxX": 2.05,
+            "minZ": -0.75,
+            "maxZ": -0.3
+          },
+          {
+            "minX": 2.7,
+            "maxX": 5.3,
+            "minZ": -0.75,
+            "maxZ": -0.3
+          }
+        ],
+        "boundsMetrics": {
+          "widthSceneUnits": 4.185,
+          "depthSceneUnits": 1.134,
+          "widthMeters": 11.3,
+          "depthMeters": 3.06,
+          "envelopeAreaSqMeters": 34.6,
+          "note": "包络面积包含退界与场地，不等于建筑 footprint 面积。"
+        }
+      },
+      "osmWayCandidates": [],
+      "corroboratingOsmNodes": []
+    },
+    {
+      "runtimeId": "fics-xinhua-365",
+      "query": "fics365",
+      "name": "FICS新华365",
+      "address": "新华路365弄",
+      "geometryRole": "compound",
+      "decision": {
+        "status": "compound-candidates-pending",
+        "confidence": "medium",
+        "evidence": "候选形成新华365园区组团，但主楼、配楼和庭院边界仍需照片/总平逐一闭合。",
+        "recommendedAction": "拆成子建筑记录；禁止用单一 GLB 根碰撞盒封闭园区。",
+        "movementAuthorized": false,
+        "reason": "本轮先记录和核验；只有高置信绑定完成照片、门牌、footprint、尺度与入口方向闭环后才允许改运行时 placement。"
+      },
+      "runtimeBaseline": {
+        "position": [
+          -76.1,
+          75.2
+        ],
+        "yawRadians": -0.38,
+        "scale": 0.9,
+        "localBounds": {
+          "minX": -21.25,
+          "maxX": 23.5,
+          "minZ": -22.200001,
+          "maxZ": 13.242599
+        },
+        "localObstacles": [
+          {
+            "minX": 4.1,
+            "maxX": 19.9,
+            "minZ": -5,
+            "maxZ": 5
+          },
+          {
+            "minX": 1.6,
+            "maxX": 7,
+            "minZ": -5.3,
+            "maxZ": 1.9
+          },
+          {
+            "minX": 0.5,
+            "maxX": 23.5,
+            "minZ": 9.2,
+            "maxZ": 10.4
+          },
+          {
+            "minX": -21.25,
+            "maxX": -5.5,
+            "minZ": -13.8,
+            "maxZ": -2.6
+          },
+          {
+            "minX": -21.1,
+            "maxX": -4.9,
+            "minZ": 4.9,
+            "maxZ": 13.1
+          },
+          {
+            "minX": -19.2,
+            "maxX": 10.2,
+            "minZ": -21.7,
+            "maxZ": -14.3
+          }
+        ],
+        "boundsMetrics": {
+          "widthSceneUnits": 40.275,
+          "depthSceneUnits": 31.8983,
+          "widthMeters": 108.74,
+          "depthMeters": 86.13,
+          "envelopeAreaSqMeters": 9365.5,
+          "note": "包络面积包含退界与场地，不等于建筑 footprint 面积。"
+        }
+      },
+      "osmWayCandidates": [
+        {
+          "id": "building:xinhua:osm-way-864493178",
+          "osmType": "way",
+          "osmId": 864493178,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -76.60901,
+            75.99216
+          ],
+          "distanceFromRuntimeSceneUnits": 0.9416,
+          "distanceFromRuntimeMeters": 2.54,
+          "footprintAreaSqMeters": 135.4,
+          "runtimeEnvelopeToFootprintAreaRatio": 69.169,
+          "footprintAxisYawRadians": 1.177909,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 1.5579,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-864493177",
+          "osmType": "way",
+          "osmId": 864493177,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -71.45781,
+            69.86146
+          ],
+          "distanceFromRuntimeSceneUnits": 7.0746,
+          "distanceFromRuntimeMeters": 19.1,
+          "footprintAreaSqMeters": 302.4,
+          "runtimeEnvelopeToFootprintAreaRatio": 30.971,
+          "footprintAxisYawRadians": -0.398053,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 0.0181,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-864493179",
+          "osmType": "way",
+          "osmId": 864493179,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -83.77463,
+            75.33506
+          ],
+          "distanceFromRuntimeSceneUnits": 7.6758,
+          "distanceFromRuntimeMeters": 20.72,
+          "footprintAreaSqMeters": 95.5,
+          "runtimeEnvelopeToFootprintAreaRatio": 98.068,
+          "footprintAxisYawRadians": 1.177736,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 1.5577,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-864493181",
+          "osmType": "way",
+          "osmId": 864493181,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -83.77463,
+            64.11115
+          ],
+          "distanceFromRuntimeSceneUnits": 13.4856,
+          "distanceFromRuntimeMeters": 36.41,
+          "footprintAreaSqMeters": 403.7,
+          "runtimeEnvelopeToFootprintAreaRatio": 23.199,
+          "footprintAxisYawRadians": 1.177569,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 1.5576,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        },
+        {
+          "id": "building:xinhua:osm-way-864493230",
+          "osmType": "way",
+          "osmId": 864493230,
+          "name": null,
+          "address": {
+            "street": null,
+            "houseNumber": null
+          },
+          "authoredPosition": [
+            -64.7868,
+            78.99721
+          ],
+          "distanceFromRuntimeSceneUnits": 11.9335,
+          "distanceFromRuntimeMeters": 32.22,
+          "footprintAreaSqMeters": 122.6,
+          "runtimeEnvelopeToFootprintAreaRatio": 76.391,
+          "footprintAxisYawRadians": 1.185652,
+          "runtimeYawRadians": -0.38,
+          "axisDeltaModuloPiRadians": 1.5657,
+          "yawEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+          "axisIsNotEntranceDirection": true,
+          "horizontalScaleEvidence": "observed-osm-footprint",
+          "verticalScaleEvidence": "unknown-runtime-type-fallback"
+        }
+      ],
+      "corroboratingOsmNodes": []
+    }
+  ]
+}

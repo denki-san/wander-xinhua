@@ -35,6 +35,7 @@ import {
   XINGFULI_QA_PATHS,
   type XingfuliBuilding,
 } from "./xingfuli-collision";
+import { FacilityPrototypeMassingMapAssets } from "./facility-prototype-massing";
 
 const FLOOR_HEIGHT = 2.08;
 const LANE_CENTER_Z = -7;
@@ -135,7 +136,11 @@ class XingfuliArchitectureBoundary extends Component<{
   }
 }
 
-function XingfuliProceduralArchitectureFallback() {
+function XingfuliProceduralArchitectureFallback({
+  hideReflectingPool = false,
+}: {
+  hideReflectingPool?: boolean;
+}) {
   return (
     <>
       <mesh position={[0, 0.17, LANE_CENTER_Z]} receiveShadow>
@@ -145,7 +150,7 @@ function XingfuliProceduralArchitectureFallback() {
       {XINGFULI_BUILDINGS.map((building) => (
         <XingfuliBuilding key={building.id} building={building} />
       ))}
-      <ReflectingPoolHardscapeFallback />
+      {!hideReflectingPool && <ReflectingPoolHardscapeFallback />}
     </>
   );
 }
@@ -794,10 +799,12 @@ export function XingfuliBlock({
   loadDetailedArchitecture = true,
   showEnvironmentDetails,
   stage,
+  facilityMassingMapQaId,
 }: {
   loadDetailedArchitecture?: boolean;
   showEnvironmentDetails?: boolean;
   stage?: ProgressiveBuildingTier;
+  facilityMassingMapQaId?: string;
 }) {
   const resolvedStage = stage ?? (loadDetailedArchitecture ? "full" : "identity");
   const identityReady = resolvedStage === "identity" || resolvedStage === "full";
@@ -812,18 +819,30 @@ export function XingfuliBlock({
         ? <XingfuliMassingArchitecture />
         : fullReady
           ? <XingfuliArchitecture />
-          : <XingfuliProceduralArchitectureFallback />}
+          : (
+            <XingfuliProceduralArchitectureFallback
+              hideReflectingPool={
+                facilityMassingMapQaId
+                === "xingfuli-reflecting-pool-hardscape"
+              }
+            />
+          )}
       {identityReady && (
         <>
-          <MixedStonePaving name="xingfuli-mixed-stone-paving" />
-          <VerticalGarden />
+          {facilityMassingMapQaId !== "xingfuli-mixed-paving" && (
+            <MixedStonePaving name="xingfuli-mixed-stone-paving" />
+          )}
+          {facilityMassingMapQaId !== "xingfuli-vertical-garden"
+            && <VerticalGarden />}
           <EntranceMural />
           {!environmentDetailed && <LightweightXingfuliTrees />}
         </>
       )}
       {identityReady && environmentDetailed && (
         <>
-          <ReflectingPoolDynamicDetails />
+          {facilityMassingMapQaId
+            !== "xingfuli-reflecting-pool-hardscape"
+            && <ReflectingPoolDynamicDetails />}
           <LaneFurniture />
           <ProgressiveFeatureBoundary fallback={null}>
             <Suspense fallback={null}>
@@ -834,6 +853,12 @@ export function XingfuliBlock({
             </Suspense>
           </ProgressiveFeatureBoundary>
         </>
+      )}
+      {facilityMassingMapQaId?.startsWith("xingfuli-") && (
+        <FacilityPrototypeMassingMapAssets
+          site="xingfuli"
+          onlyAssetId={facilityMassingMapQaId}
+        />
       )}
     </group>
   );

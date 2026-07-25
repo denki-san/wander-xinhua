@@ -64,9 +64,14 @@ function deterministicUnit(id, salt) {
   return hash / 0xffffffff;
 }
 
+/** 快速定位机位可独立调整；实体布点继续使用冻结的街道净空锚点。 */
+export function resolveStreetClearancePoint({ streetClearancePoint, start }) {
+  return streetClearancePoint ?? start;
+}
+
 /** 使用生产道路轴线、入口和建筑碰撞包络生成梧桐树阵。 */
 export function buildPlaneTreePlacements(landmarks, obstacles) {
-  const entrances = landmarks.map(({ start }) => start);
+  const entrances = landmarks.map(resolveStreetClearancePoint);
   const placements = [];
   const spacing = 14.5;
   const total = polylineLength(XINHUA_ROAD_AXIS);

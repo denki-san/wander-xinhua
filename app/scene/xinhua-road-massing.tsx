@@ -1,14 +1,20 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
-import { BoxGeometry } from "three";
+import { useGLTF } from "@react-three/drei";
+import { Suspense, useEffect, useMemo } from "react";
+import { BoxGeometry, Mesh } from "three";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
+import { ProgressiveFeatureBoundary } from "../progressive-feature-boundary";
 import { terrainHeightAt } from "./terrain";
 import {
   XINHUA_ROAD_LANDMARKS,
   type LandmarkPlacement,
 } from "./xinhua-road-contract";
-import { xinhuaRoadIdentityKind } from "./xinhua-road-identity-contract";
+import {
+  SHANGHAI_CINEMA_MASSING_CACHE_VERSION,
+  SHANGHAI_CINEMA_MASSING_MODEL_PATH,
+  xinhuaRoadIdentityKind,
+} from "./xinhua-road-identity-contract";
 import { ShanghaiCinemaHybridIdentity } from "./shanghai-cinema-hybrid-identity";
 
 const IDENTITY_COLORS = [
@@ -20,6 +26,43 @@ const IDENTITY_COLORS = [
 ] as const;
 
 const IDENTITY_VISUAL_SCALE = [0.68, 0.78, 0.68] as const;
+
+const CLEAN_MASSING_V2_PATHS: Readonly<Record<string, string>> = {
+  "film-art-center": "/models/tiers/xinhua-road/massing-v2/film-art-center-massing.glb?v=4b925b2dad96",
+  "one-step-garden": "/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb?v=b92b615b13ba",
+  "xinhua-villas-329": "/models/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.glb?v=f7ade44ba879",
+  "villa-le-bec": "/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb?v=8eabb87a0208",
+  "shanghai-orchestra": "/models/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.glb?v=63eb25ca4abc",
+  "xinhua-pocket-park": "/models/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.glb?v=cc89e36e6839",
+  "debi-fahua-525": "/models/tiers/xinhua-road/massing-v2/debi-fahua-525-massing.glb?v=b9093a059417",
+  "fics-xinhua-365": "/models/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.glb?v=e36f29a3f14e",
+};
+
+const FORMAL_MASSING_PATHS: Readonly<Record<string, string>> = {
+  "shanghai-cinema":
+    `${SHANGHAI_CINEMA_MASSING_MODEL_PATH}?v=${SHANGHAI_CINEMA_MASSING_CACHE_VERSION}`,
+};
+
+const ACTIVE_ASSET_RUNTIME_EVENT = "xinhua:active-asset-runtime";
+
+function reportActiveAssetRuntime(
+  slug: string,
+  path: string,
+  status: "loaded" | "blocked",
+  error?: unknown,
+) {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new CustomEvent(ACTIVE_ASSET_RUNTIME_EVENT, {
+    detail: {
+      assetId: slug,
+      tier: "massing",
+      status,
+      source: path,
+      version: path.includes("?v=") ? path.split("?v=")[1] : "unversioned",
+      error: error instanceof Error ? error.message : error ? String(error) : null,
+    },
+  }));
+}
 
 function landmarkHeight(landmark: LandmarkPlacement) {
   if (landmark.id === "shanghai-cinema") return 18;
@@ -661,25 +704,77 @@ export function LandmarkProgressiveProxy({
   );
 }
 
+function MassingTierAsset({ slug }: { slug: string }) {
+  const path = FORMAL_MASSING_PATHS[slug]
+    ?? CLEAN_MASSING_V2_PATHS[slug]
+    ?? `/models/tiers/xinhua-road/massing/${slug}-massing.glb`;
+  const { scene } = useGLTF(path);
+  const model = useMemo(() => {
+    const clone = scene.clone(true);
+    clone.traverse((child) => {
+      if (!(child instanceof Mesh)) return;
+      child.castShadow = true;
+      child.receiveShadow = true;
+    });
+    return clone;
+  }, [scene]);
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      reportActiveAssetRuntime(slug, path, "loaded");
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [path, slug]);
+  return (
+    <primitive
+      object={model}
+      scale={[1, 1, -1]}
+      userData={{
+        modelTier: "massing",
+        source: path,
+        qaOnly: true,
+        formalStructuredMassing: slug in FORMAL_MASSING_PATHS,
+        cleanFootprintV2: slug in CLEAN_MASSING_V2_PATHS,
+        authoredFootprintAxis: "BlenderY",
+        exportedFootprintAxis: "-ThreeZ",
+        runtimeCorrectionScaleZ: -1,
+      }}
+    />
+  );
+}
+
 export function XinhuaRoadMassing({
   identity,
   hiddenLandmarkIds,
+  useTierAssets = false,
+  onlyLandmarkId,
 }: {
   identity: boolean;
   hiddenLandmarkIds?: ReadonlySet<string>;
+  useTierAssets?: boolean;
+  onlyLandmarkId?: string;
 }) {
   return (
     <group
       name="xinhua-road-progressive-massing"
       userData={{
         stage: identity ? "identity" : "massing",
-        buildings: XINHUA_ROAD_LANDMARKS.length,
-        overviewRepresentation: identity ? "architectural-miniatures" : "massing",
+        buildings: onlyLandmarkId ? 1 : XINHUA_ROAD_LANDMARKS.length,
+        overviewRepresentation: useTierAssets
+          ? "blender-massing-tier-assets"
+          : identity
+            ? "architectural-miniatures"
+            : "massing",
+        qaModelTier: useTierAssets ? "massing" : undefined,
+        qaModelId: onlyLandmarkId,
       }}
     >
       {XINHUA_ROAD_LANDMARKS.map((landmark) => {
+        if (onlyLandmarkId && landmark.id !== onlyLandmarkId) return null;
         if (hiddenLandmarkIds?.has(landmark.id)) return null;
         const [x, z] = landmark.position;
+        const tierPath = FORMAL_MASSING_PATHS[landmark.id]
+          ?? CLEAN_MASSING_V2_PATHS[landmark.id]
+          ?? `/models/tiers/xinhua-road/massing/${landmark.id}-massing.glb`;
         return (
           <group
             key={landmark.id}
@@ -687,7 +782,35 @@ export function XinhuaRoadMassing({
             rotation-y={landmark.yaw}
             scale={landmark.scale}
           >
-            <LandmarkProgressiveProxy landmark={landmark} identity={identity} />
+            {useTierAssets ? (
+              <ProgressiveFeatureBoundary
+                resetKey={tierPath}
+                onFailure={(error) => {
+                  reportActiveAssetRuntime(
+                    landmark.id,
+                    tierPath,
+                    "blocked",
+                    error,
+                  );
+                }}
+                fallback={(
+                  <LandmarkProgressiveProxy
+                    landmark={landmark}
+                    identity={false}
+                  />
+                )}
+              >
+                <Suspense
+                  fallback={(
+                    <LandmarkProgressiveProxy landmark={landmark} identity={false} />
+                  )}
+                >
+                  <MassingTierAsset slug={landmark.id} />
+                </Suspense>
+              </ProgressiveFeatureBoundary>
+            ) : (
+              <LandmarkProgressiveProxy landmark={landmark} identity={identity} />
+            )}
           </group>
         );
       })}

@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "subject": {
+    "id": "house-315",
+    "name": "新华路315号花园住宅",
+    "address": "上海市长宁区新华路315号",
+    "scope": "single-building"
+  },
+  "canonicalComparison": {
+    "localPath": "docs/research/assets/poi-references/house-315/house-315-front-official-2023.jpg",
+    "view": "street-facing-front",
+    "direction": "unknown",
+    "reason": "当前最完整展示主体正立面、双陡坡屋顶、白色拉毛墙、红砖基座和黑色木构架的官方图。"
+  },
+  "referencePhotos": [
+    {
+      "localPath": "docs/research/assets/poi-references/house-315/house-315-front-official-2023.jpg",
+      "sourcePage": "https://www.meet-in-shanghai.net/tc/guide/stroll-xinhua-road-walk-into-the-old-timethe-building-can-be-read-863025/",
+      "sourceAsset": "https://obj.shine.cn/files/2023/06/24/216a573a-fbc8-4020-add5-17eb3323534d_0.png",
+      "view": "street-facing-front",
+      "subjectMatch": "verified-same-building",
+      "captureDate": "unknown",
+      "publishedAt": "2023-06-24",
+      "sha256": "6f479e2d9505f8817457eaa7af8c1033790bfd16c864ab13287086d0c1943c00",
+      "observed": [
+        "双陡坡红瓦屋顶",
+        "上部白色拉毛墙、下部清水红砖墙",
+        "南立面中部前出",
+        "山墙可见黑色木构架"
+      ]
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/house-315/house-315-street-context-official-2023.jpg",
+      "sourcePage": "https://www.meet-in-shanghai.net/tc/guide/stroll-xinhua-road-walk-into-the-old-timethe-building-can-be-read-863025/",
+      "sourceAsset": "https://obj.shine.cn/files/2023/06/24/c4b1947a-e4cf-42e3-9a1a-f9f6881119f3_0.png",
+      "view": "xinhua-road-street-context",
+      "subjectMatch": "context-only-building-not-visible-enough",
+      "captureDate": "unknown",
+      "publishedAt": "2023-06-24",
+      "sha256": "79097515603e706ce1d5390525b4427e6a60644602f89c2b63b176484047aa33",
+      "observed": [
+        "新华路道路、梧桐、人行道和沿街围墙关系",
+        "不可用于证明315号侧立面或背立面"
+      ]
+    },
+    {
+      "localPath": "docs/research/assets/landmark-comparison/house-315-real.jpg",
+      "sourcePage": "https://www.jfdaily.com/sgh/detail?id=1697461",
+      "view": "legacy-front-gable",
+      "subjectMatch": "needs-review",
+      "captureDate": "unknown",
+      "observed": [
+        "旧版模型曾使用此图",
+        "仍需复核正文是否明确标注315号"
+      ]
+    }
+  ],
+  "textSources": [
+    {
+      "url": "https://www.meet-in-shanghai.net/tc/guide/stroll-xinhua-road-walk-into-the-old-timethe-building-can-be-read-863025/",
+      "authority": "上海市文化和旅游行政管理局官方文旅网站",
+      "facts": [
+        "建于1930年",
+        "英国乡村式花园住宅",
+        "假三层砖木结构",
+        "双陡坡红瓦屋顶、出檐较大",
+        "上部白色水泥拉毛墙、下部清水红砖墙",
+        "南立面中部前出并有黑色木构架"
+      ]
+    }
+  ],
+  "coverageMatrix": {
+    "canonical": "supported",
+    "lateralOrDepth": "missing-unknown",
+    "entranceOrIdentityDetail": "partial-from-front",
+    "siteRelationship": "supported-by-context-only",
+    "rear": "missing-unknown",
+    "roof": "partial"
+  },
+  "usageBoundary": {
+    "referenceOnly": true,
+    "embedInGlb": false,
+    "runtimeTexture": false,
+    "copyright": "仅保存作研究证据；运行时不嵌入、不复制商标。"
+  }
+}

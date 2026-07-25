@@ -1,0 +1,649 @@
+{
+  "version": 2,
+  "status": "active-18-buildings-in-progress",
+  "branch": "codex/all-models-v3",
+  "baselineCommit": "c0f525ae142d3f70b576bfbcdb90350d7e645007",
+  "scopeContract": {
+    "effectiveDate": "2026-07-25",
+    "status": "active-18-buildings-frozen-active-31-superseded",
+    "authority": "latest-user-scope-override",
+    "catalogAuthority": "app/asset-library/asset-data.ts",
+    "buildingAuthority": "app/scene/xinhua-road-landmarks-data.json plus xingfuli packages and sun-ke-villa",
+    "activeAssetFile": "docs/research/active-asset-scope-31.json",
+    "migrationMatrix": "docs/research/active-asset-tier-migration-matrix.md",
+    "filenameCompatibility": "active-asset-scope-31.json filename retained to avoid breaking references; version 2 content supersedes Active 31",
+    "counts": {
+      "assets": 18,
+      "buildings": 18,
+      "trees": 0,
+      "decor": 0
+    },
+    "supersededCounts": {
+      "assets": 31,
+      "buildings": 18,
+      "trees": 3,
+      "decor": 10
+    },
+    "holdDeferredCounts": {
+      "assets": 13,
+      "trees": 3,
+      "decor": 10
+    },
+    "activeIds": [
+      "shanghai-cinema",
+      "film-art-center",
+      "one-step-garden",
+      "xinhua-villas-211",
+      "xinhua-villas-329",
+      "house-315",
+      "villa-le-bec",
+      "shanghai-orchestra",
+      "hudec-memorial",
+      "xinhua-pocket-park",
+      "xinhua-community-center",
+      "debi-fahua-525",
+      "fahua-heritage",
+      "fics-xinhua-365",
+      "xingfuli-west",
+      "xingfuli-center",
+      "xingfuli-east",
+      "sun-ke-villa"
+    ],
+    "holdDeferredCatalogIds": [
+      "plane-tree",
+      "campus-tree",
+      "huashan-tree",
+      "lane-lamp",
+      "cantilever-umbrella",
+      "outdoor-dining",
+      "slatted-bench",
+      "street-planter",
+      "stone-bollard",
+      "mixed-paving",
+      "ground-cover",
+      "navy-club-pool",
+      "trash-bin"
+    ],
+    "excludedCatalogIds": [
+      "lighting-v3",
+      "rain-summer-wanderer"
+    ],
+    "countingRule": "asset-types-not-runtime-instances",
+    "pipelineOrder": [
+      "evidence-and-brief",
+      "massing-map-calibration",
+      "complete-hero-master",
+      "derive-identity-from-hero-master",
+      "freeze-and-reverify-massing",
+      "three-tier-runtime-acceptance"
+    ],
+    "identityWithoutCompleteHeroMaster": "provisional",
+    "runtimePolicy": "near-hero-mid-identity-far-massing",
+    "instancingPolicy": "held trees and decor retain existing shared prototypes and InstancedMesh runtime behavior; no new tier work in Active 18",
+    "progress": {
+      "denominator": 18,
+      "completed": 1,
+      "inProgress": 1,
+      "queued": 16,
+      "completedIds": [
+        "sun-ke-villa"
+      ],
+      "inProgressIds": [
+        "shanghai-cinema"
+      ],
+      "queuedRule": "remaining 16 buildings follow after Shanghai Cinema"
+    },
+    "minimalVerticalPilot": "sun-ke-villa",
+    "minimalVerticalPilotStatus": "complete",
+    "minimalVerticalPilotQa": "docs/research/sun-ke-villa-three-tier-runtime-qa-v2.json",
+    "currentActiveAsset": "shanghai-cinema",
+    "remainingAfterCurrent": 16,
+    "deferredWorktreeCreation": "only-at-main-task-closeout"
+  },
+  "coordinateContract": {
+    "authoredMetersPerSceneUnit": 2.7,
+    "axis": "X east, Y up, Z south",
+    "blenderFront": "-Y",
+    "exploreDisplayScale": 1.65,
+    "displayScaleDoesNotChangeAssetUnits": true
+  },
+  "sourceSnapshots": {
+    "osmBuildings": "docs/research/data/xinhua-buildings-overpass-20260724-185147.json",
+    "buildingInventory": "docs/research/data/xinhua-building-inventory-20260724-185400.json",
+    "roadMapBindingAudit": "docs/research/xinhua-road-map-binding-audit.json",
+    "roadLandmarks": "app/scene/xinhua-road-landmarks-data.json",
+    "coreLandmarks": "app/scene/xinhua-landmarks-data.json",
+    "xingfuliLayout": "app/scene/xingfuli-layout.json"
+  },
+  "idContract": {
+    "prototype": "prototype:<scope>:<slug>",
+    "building": "building:<scope>:<stable-id>",
+    "buildingPart": "building-part:<scope>:<stable-id>",
+    "vegetationInstance": "vegetation-instance:<scope>:<stable-id>",
+    "facilityInstance": "facility-instance:<scope>:<stable-id>",
+    "package": "package:<scope>:<slug>",
+    "legacyIdsRemainAliasesOnly": true
+  },
+  "prototypeTierBatches": {
+    "sharedMassing": {
+      "scopeStatus": "hold-deferred-preserved",
+      "manifest": "docs/research/shared-prototypes-massing-manifest.json",
+      "runtimeQa": "docs/research/shared-prototypes-massing-runtime-qa.json",
+      "prototypeCount": 12,
+      "vegetationCount": 5,
+      "streetFurnitureCount": 7,
+      "glbBytes": 100328,
+      "triangles": 1038,
+      "status": "formal-massing-pass",
+      "formalMassingPassCount": 12,
+      "identityPolicy": "per-asset",
+      "identityAllowedAssetCount": 8,
+      "identityBlockedSpeciesUnknownAssetCount": 4,
+      "identityAllowed": false
+    },
+    "facilityMassing": {
+      "scopeStatus": "hold-deferred-preserved",
+      "manifest": "docs/research/facility-prototypes-massing-manifest.json",
+      "runtimeQa": "docs/research/facility-prototypes-massing-runtime-qa.json",
+      "independentReview": "docs/research/facility-prototypes-massing-independent-review.md",
+      "semanticPrototypeCount": 14,
+      "assetCount": 15,
+      "glbBytes": 195392,
+      "triangles": 2436,
+      "isolatedRuntimePassCount": 15,
+      "mapRuntimeLoadPassCount": 15,
+      "mapPlacementPassCount": 0,
+      "collisionAndPassagePassCount": 0,
+      "formalMassingPassCount": 0,
+      "status": "map-placement-and-collision-blocked"
+    },
+    "sharedIdentity": {
+      "scopeStatus": "hold-deferred-preserved",
+      "manifest": "docs/research/shared-prototypes-identity-manifest.json",
+      "independentReview": "docs/research/shared-prototypes-identity-independent-review.md",
+      "mapScaleAudit": "docs/research/shared-prototypes-identity-map-scale-audit.json",
+      "assetCount": 8,
+      "glbBytes": 159748,
+      "triangles": 1916,
+      "blenderVisualPassCount": 8,
+      "glbStructuralPassCount": 8,
+      "formalIdentityPassCount": 0,
+      "isolatedRuntimePassCount": 8,
+      "materialVisualPassCount": 8,
+      "runtimeGallery": "passed-8-of-8",
+      "coveredMapInstanceCount": 72,
+      "mapPlacement": "blocked-authored-envelope-mismatch",
+      "collision": "blocked-common-proxy-not-reconciled",
+      "performance": "pending",
+      "speciesUnknownExcludedCount": 4,
+      "status": "isolated-runtime-pass-map-scale-and-collision-blocked"
+    }
+  },
+  "mapAudit": {
+    "file": "docs/research/xinhua-road-map-binding-audit.json",
+    "status": "recorded-placement-changes-not-authorized",
+    "roadPoiCount": 14,
+    "boundCount": 3,
+    "pendingCount": 9,
+    "notBuildingCount": 2,
+    "runtimePlacementsChanged": 0,
+    "yawRule": "footprint-axis-is-not-entrance-direction"
+  },
+  "roadCleanMassingV2": {
+    "manifest": "docs/research/xinhua-road-clean-massing-manifest.json",
+    "runtimeQa": "docs/research/xinhua-road-clean-massing-runtime-qa.json",
+    "independentReview": "docs/research/xinhua-road-clean-massing-independent-review.md",
+    "assetCount": 8,
+    "runtimeGeometryVisualPassCount": 8,
+    "formalMassingPassCount": 0,
+    "identityAllowedCount": 0,
+    "mapAcceptance": "blocked"
+  },
+  "buildingCollections": {
+    "ordinaryOsm": {
+      "candidateCount": 864,
+      "scopeStatus": "hold-backlog-preserved-no-new-generation",
+      "inventory": "docs/research/data/xinhua-building-inventory-20260724-185400.json",
+      "massingManifest": "docs/research/osm-ordinary-massing-manifest.json",
+      "runtimeQa": "docs/research/osm-ordinary-massing-runtime-qa.json",
+      "massingStatus": "864-generated-overview-runtime-pass-formal-sampling-blocked",
+      "massingChunks": 14,
+      "massingGlbBytes": 1525432,
+      "massingTriangles": 17068,
+      "heightEvidence": {
+        "levelsDerived": 11,
+        "fallbackUnknown": 853
+      },
+      "deduplicationStatus": "pending-named-landmark-spatial-binding",
+      "tiers": {
+        "hero": "shared-validated-prototype-instance-required",
+        "identity": "blocked-until-massing-formal-gate",
+        "massing": "footprint-derived-generated-overview-pass"
+      },
+      "facadeEvidence": "unknown-until-researched-or-prototype-classified"
+    },
+    "roadLandmarks": [
+      {
+        "id": "building:xinhua-road:shanghai-cinema",
+        "runtimeId": "shanghai-cinema",
+        "osmBinding": "building:xinhua:osm-way-292250766",
+        "hero": "keep-v2",
+        "identity": "keep-accepted-with-followup",
+        "massing": "required",
+        "evidence": "complete-except-identity-rear-runtime"
+      },
+      {
+        "id": "building:xinhua-road:film-art-center",
+        "runtimeId": "film-art-center",
+        "hero": "keep-v2",
+        "identity": "required",
+        "massing": "required",
+        "evidence": "rear-unknown"
+      },
+      {
+        "id": "building:xinhua-road:one-step-garden",
+        "runtimeId": "one-step-garden",
+        "hero": "rebuild-v2",
+        "identity": "required",
+        "massing": "required",
+        "evidence": "official-same-venue-multiple-volumes-map-pending"
+      },
+      {
+        "id": "building:xinhua-road:xinhua-villas-211",
+        "runtimeId": "xinhua-villas-211",
+        "hero": "rebuild-v2",
+        "identity": "required",
+        "massing": "required",
+        "evidence": "official-compound-and-building-views-added"
+      },
+      {
+        "id": "building:xinhua-road:xinhua-villas-329",
+        "runtimeId": "xinhua-villas-329",
+        "hero": "rebuild-v2",
+        "identity": "required",
+        "massing": "required",
+        "evidence": "representative-building-binding-needs-decision"
+      },
+      {
+        "id": "building:xinhua-road:house-315",
+        "runtimeId": "house-315",
+        "hero": "rebuild-v2",
+        "identity": "required",
+        "massing": "required",
+        "evidence": "official-front-and-street-context-added-rear-unknown"
+      },
+      {
+        "id": "building:xinhua-road:villa-le-bec",
+        "runtimeId": "villa-le-bec",
+        "hero": "rebuild-v2",
+        "identity": "required",
+        "massing": "required",
+        "evidence": "multi-view-main-villa-garden-and-garage-map-pending"
+      },
+      {
+        "id": "building:xinhua-road:shanghai-orchestra",
+        "runtimeId": "shanghai-orchestra",
+        "hero": "rebuild-v2",
+        "identity": "required",
+        "massing": "required",
+        "evidence": "tjad-multi-view-compound-subbuilding-binding-pending"
+      },
+      {
+        "id": "building:xinhua-road:hudec-memorial",
+        "runtimeId": "hudec-memorial",
+        "osmBinding": "building:xinhua:osm-way-494633921",
+        "hero": "rebuild-v2",
+        "identity": "required",
+        "massing": "required",
+        "evidence": "position-and-front-direction-high-risk"
+      },
+      {
+        "id": "building:xinhua-road:xinhua-pocket-park",
+        "runtimeId": "xinhua-pocket-park",
+        "hero": "rebuild-v2",
+        "identity": "required",
+        "massing": "required",
+        "evidence": "footprint-and-orientation-unknown"
+      },
+      {
+        "id": "building:xinhua-road:xinhua-community-center",
+        "runtimeId": "xinhua-community-center",
+        "osmBinding": "building:xinhua:osm-way-864493234",
+        "osmNodeCorroboration": "node:13765678129",
+        "hero": "rebuild-v2",
+        "identity": "required",
+        "massing": "required",
+        "evidence": "osm-node-only-footprint-unknown"
+      },
+      {
+        "id": "building:xinhua-road:debi-fahua-525",
+        "runtimeId": "debi-fahua-525",
+        "hero": "rebuild-v2",
+        "identity": "required",
+        "massing": "required",
+        "evidence": "compound-subbuilding-records-required"
+      },
+      {
+        "id": "building:xinhua-road:fahua-heritage",
+        "runtimeId": "fahua-heritage",
+        "hero": "rebuild-v2",
+        "identity": "required",
+        "massing": "required",
+        "evidence": "single-view-depth-unknown"
+      },
+      {
+        "id": "building:xinhua-road:fics-xinhua-365",
+        "runtimeId": "fics-xinhua-365",
+        "aliases": [
+          "xinhua365"
+        ],
+        "hero": "rebuild-v2-split-subbuildings",
+        "identity": "required",
+        "massing": "required",
+        "evidence": "compound-subbuilding-records-required"
+      }
+    ],
+    "xingfuli": {
+      "instances": [
+        "building:xingfuli:north-west",
+        "building:xingfuli:north-inner-west",
+        "building:xingfuli:north-inner-east",
+        "building:xingfuli:north-east-entry",
+        "building:xingfuli:south-west",
+        "building:xingfuli:south-inner-west",
+        "building:xingfuli:south-east-entry"
+      ],
+      "packages": [
+        "package:xingfuli:west",
+        "package:xingfuli:center",
+        "package:xingfuli:east"
+      ],
+      "hero": "keep-v2-package-and-bind-seven-instances",
+      "identity": "bind-existing-stage-assets-to-seven-instances",
+      "massing": "bind-existing-stage-assets-to-seven-instances",
+      "positionEvidence": "inferred-layout",
+      "markerPivotOffsetMeters": 5.5
+    },
+    "shangsheng": [
+      {
+        "id": "building:shangsheng:osm-way-864847856",
+        "prototype": "prototype:shangsheng:unclassified-footprint",
+        "hero": "blocked-pending-single-building-evidence",
+        "identity": "blocked-pending-single-building-evidence",
+        "massing": "exact-footprint-allowed"
+      },
+      {
+        "id": "building:shangsheng:osm-way-864847877",
+        "prototype": "prototype:shangsheng:sun-ke-villa",
+        "hero": "complete-master-frozen",
+        "massing": "formal-pass-mcp-and-map-calibrated",
+        "identity": "formal-pass-derived-from-reviewed-hero",
+        "identityBuildRecord": "docs/research/build-records/tiers/sun-ke-villa/identity/sun-ke-villa-identity.json",
+        "identityGlb": "public/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity.glb",
+        "mapQa": "docs/research/sun-ke-villa-massing-map-qa-v2.json",
+        "runtimeQa": "docs/research/sun-ke-villa-three-tier-runtime-qa-v2.json",
+        "heroBuildRecord": "docs/research/build-records/tiers/sun-ke-villa/hero/sun-ke-villa-hero.json",
+        "heroLineageId": "sun-ke-villa-hero-6d1642315530"
+      },
+      {
+        "id": "building:shangsheng:osm-way-864847881",
+        "prototype": "prototype:shangsheng:country-club",
+        "hero": "build-v2"
+      },
+      {
+        "id": "building:shangsheng:osm-way-864847883",
+        "prototype": "prototype:shangsheng:navy-club",
+        "hero": "rebuild-v2"
+      },
+      {
+        "id": "building:shangsheng:osm-way-864847892",
+        "prototype": "prototype:shangsheng:retained-building-30",
+        "confirmedIdentity": "保留30#",
+        "bindingConfidence": "high-official-numbered-plan-overlay",
+        "hero": "blocked-pending-single-building-facade-evidence",
+        "identity": "blocked-pending-single-building-facade-evidence",
+        "massing": "exact-footprint-one-storey-allowed"
+      },
+      {
+        "id": "building:shangsheng:osm-way-1364679201",
+        "prototype": "prototype:shangsheng:historic-conflict-unclassified",
+        "hero": "blocked-historic-tag-conflicts-with-new-campus",
+        "identity": "blocked-historic-tag-conflicts-with-new-campus",
+        "massing": "exact-footprint-allowed"
+      },
+      {
+        "id": "building:shangsheng:osm-way-1364679204",
+        "prototype": "prototype:shangsheng:n2-zone-candidate-incomplete",
+        "hero": "blocked-current-way-not-authoritative-whole-n2",
+        "identity": "blocked-current-way-not-authoritative-whole-n2",
+        "massing": "exact-footprint-allowed"
+      },
+      {
+        "id": "building:shangsheng:osm-way-1364679205",
+        "prototype": "prototype:shangsheng:n4-zone-or-subvolume-candidate-incomplete",
+        "hero": "blocked-current-way-not-authoritative-whole-n4",
+        "identity": "blocked-current-way-not-authoritative-whole-n4",
+        "massing": "exact-footprint-allowed"
+      },
+      {
+        "id": "building:shangsheng:osm-way-1368808689",
+        "prototype": "prototype:shangsheng:existing-campus-unclassified",
+        "hero": "blocked-pending-single-building-evidence",
+        "identity": "blocked-pending-single-building-evidence",
+        "massing": "exact-footprint-allowed"
+      },
+      {
+        "id": "building:shangsheng:osm-way-1368808690",
+        "prototype": "prototype:shangsheng:existing-campus-unclassified",
+        "hero": "blocked-pending-single-building-evidence",
+        "identity": "blocked-pending-single-building-evidence",
+        "massing": "exact-footprint-allowed"
+      },
+      {
+        "id": "building:shangsheng:osm-way-1537478450",
+        "prototype": "prototype:shangsheng:existing-historic-unclassified",
+        "hero": "blocked-pending-single-building-evidence",
+        "identity": "blocked-pending-single-building-evidence",
+        "massing": "exact-footprint-allowed"
+      },
+      {
+        "id": "building:shangsheng:phase-two-n1",
+        "officialLabel": "N1",
+        "osmBinding": null,
+        "footprintStatus": "missing-from-current-osm-extract",
+        "hero": "blocked-pending-single-building-evidence-and-georeferenced-footprint",
+        "identity": "blocked-pending-single-building-evidence-and-georeferenced-footprint",
+        "massing": "required-from-official-plan-georegistration"
+      },
+      {
+        "id": "building:shangsheng:phase-two-n2",
+        "officialLabel": "N2",
+        "osmBinding": "zone-candidate-only:1364679204",
+        "footprintStatus": "coarse-or-partial-way-not-whole-building",
+        "hero": "blocked-pending-authoritative-whole-building-binding",
+        "identity": "blocked-pending-authoritative-whole-building-binding",
+        "massing": "required-from-official-plan-or-cad-not-current-way-alone"
+      },
+      {
+        "id": "building:shangsheng:phase-two-n3",
+        "officialLabel": "N3",
+        "osmBinding": null,
+        "footprintStatus": "missing-from-current-osm-extract",
+        "hero": "blocked-pending-single-building-evidence-and-georeferenced-footprint",
+        "identity": "blocked-pending-single-building-evidence-and-georeferenced-footprint",
+        "massing": "required-from-official-plan-georegistration"
+      },
+      {
+        "id": "building:shangsheng:phase-two-n4",
+        "officialLabel": "N4",
+        "osmBinding": "zone-or-subvolume-candidate-only:1364679205",
+        "footprintStatus": "partial-way-far-smaller-than-whole-building",
+        "hero": "blocked-pending-authoritative-whole-building-binding",
+        "identity": "blocked-pending-authoritative-whole-building-binding",
+        "massing": "required-from-official-plan-or-cad-not-current-way-alone"
+      },
+      {
+        "id": "building:shangsheng:phase-two-n5",
+        "officialLabel": "N5",
+        "osmBinding": null,
+        "footprintStatus": "missing-from-current-osm-extract",
+        "hero": "blocked-pending-single-building-evidence-and-georeferenced-footprint",
+        "identity": "blocked-pending-single-building-evidence-and-georeferenced-footprint",
+        "massing": "required-from-official-plan-georegistration"
+      }
+    ],
+    "huashan": [
+      {
+        "id": "building:huashan:osm-way-743778426",
+        "prototype": "prototype:huashan:service-building",
+        "massing": "required",
+        "rearEvidence": "unknown",
+        "singleBuildingPhotoEvidence": "not-found-2026-07-25",
+        "identity": "blocked-pending-single-building-evidence",
+        "hero": "blocked-pending-single-building-evidence"
+      }
+    ]
+  },
+  "vegetationPrototypes": [
+    {
+      "id": "prototype:vegetation:xinhua-plane-tree",
+      "scopeStatus": "hold-deferred-preserved",
+      "aliases": [
+        "plane-tree",
+        "xinhua-plane-tree-family",
+        "xinhua-plane-tree-hero"
+      ],
+      "instanceCount": 31,
+      "hero": "keep-a-b-c-family-and-formalize",
+      "identity": "required",
+      "massing": "required",
+      "speciesEvidence": "confirmed-plane-tree"
+    },
+    {
+      "id": "prototype:vegetation:shangsheng-campus-tree",
+      "scopeStatus": "hold-deferred-preserved",
+      "instanceCount": 29,
+      "candidateLimit": 44,
+      "hero": "build-three-structural-variants",
+      "identity": "required",
+      "massing": "required",
+      "speciesEvidence": "unknown"
+    },
+    {
+      "id": "prototype:vegetation:huashan-canopy-tree",
+      "scopeStatus": "hold-deferred-preserved",
+      "instanceCount": 112,
+      "hero": "build-three-structural-variants",
+      "identity": "required",
+      "massing": "required",
+      "speciesEvidence": "unknown"
+    },
+    {
+      "id": "prototype:vegetation:huashan-understory",
+      "scopeStatus": "hold-backlog-preserved",
+      "instanceCount": 73,
+      "candidateLimit": 84,
+      "hero": "build-variant-family",
+      "identity": "required",
+      "massing": "required",
+      "speciesEvidence": "unknown"
+    },
+    {
+      "id": "prototype:vegetation:road-edge-shrub",
+      "scopeStatus": "hold-backlog-preserved",
+      "instanceCount": 12,
+      "hero": "build-variant-family",
+      "identity": "required",
+      "massing": "required",
+      "speciesEvidence": "unknown"
+    }
+  ],
+  "streetFurniturePrototypes": [
+    "prototype:street-furniture:lane-lamp-short-arm",
+    "prototype:street-furniture:cantilever-umbrella",
+    "prototype:street-furniture:outdoor-table-set",
+    "prototype:street-furniture:slatted-bench",
+    "prototype:street-furniture:rectangular-planter",
+    "prototype:street-furniture:shanghai-dual-classification-bin",
+    "prototype:street-furniture:irregular-stone-bollard"
+  ],
+  "streetFurniturePrototypeScopeStatus": "hold-deferred-preserved",
+  "facilityPrototypes": [
+    "prototype:facility:shangsheng-wayfinding-totem",
+    "prototype:facility:shangsheng-cafe-pavilion",
+    "prototype:facility:shangsheng-bicycle-parking",
+    "prototype:facility:shangsheng-reading-terrace",
+    "prototype:facility:shangsheng-fountain",
+    "prototype:facility:shangsheng-main-entry",
+    "prototype:facility:huashan-pond-boardwalk",
+    "prototype:facility:huashan-basketball-court",
+    "prototype:facility:huashan-bird-pergola",
+    "prototype:facility:huashan-happiness-corner",
+    "prototype:facility:xingfuli-reflecting-pool-hardscape",
+    "prototype:facility:xingfuli-mixed-paving",
+    "prototype:facility:xingfuli-vertical-garden",
+    "prototype:facility:one-square-metre-action"
+  ],
+  "facilityPrototypeScopeStatus": "hold-backlog-preserved",
+  "holdBacklog": {
+    "status": "preserved-read-only-until-deferred-handoff",
+    "deferredCatalogAssets": {
+      "status": "hold-deferred-preserved-no-new-generation",
+      "count": 13,
+      "trees": [
+        "plane-tree",
+        "campus-tree",
+        "huashan-tree"
+      ],
+      "decor": [
+        "lane-lamp",
+        "cantilever-umbrella",
+        "outdoor-dining",
+        "slatted-bench",
+        "street-planter",
+        "stone-bollard",
+        "mixed-paving",
+        "ground-cover",
+        "navy-club-pool",
+        "trash-bin"
+      ],
+      "artifactInventory": "docs/research/active-asset-scope-31.json",
+      "artifactRule": "preserve every recorded GLB, Blend, generator, evidence, screenshot, manifest, build record, and QA path; do not delete, overwrite, or continue generation"
+    },
+    "ordinaryOsmBuildings": {
+      "count": 864,
+      "manifest": "docs/research/osm-ordinary-massing-manifest.json"
+    },
+    "nonCatalogShangshengHuashan": {
+      "manifest": "docs/research/shangsheng-huashan-massing-manifest.json"
+    },
+    "nonCatalogFacilities": {
+      "manifest": "docs/research/facility-prototypes-massing-manifest.json",
+      "preservedMigrationInputs": [
+        "xingfuli-mixed-paving",
+        "xingfuli-vertical-garden"
+      ]
+    },
+    "preservationRule": "do-not-delete-overwrite-or-publish-held-assets-with-active-18",
+    "deferredBranchSuggestion": "codex/deferred-models-v3",
+    "handoffFile": "docs/research/deferred-models-handoff.md",
+    "creationTiming": "after-active-18-buildings-complete-at-closeout"
+  },
+  "placementSnapshots": {
+    "buildings": "docs/research/data/xinhua-building-inventory-20260724-185400.json",
+    "vegetation": "docs/research/model-placement-registry-20260725.json",
+    "streetFurniture": "docs/research/model-placement-registry-20260725.json",
+    "facilities": "docs/research/model-placement-registry-20260725.json",
+    "status": "inventory-ready-map-acceptance-pending"
+  },
+  "completionRules": {
+    "appliesTo": "active-18-buildings-only",
+    "everyInstanceHasStableId": true,
+    "everyInstanceMapsThreeTiers": true,
+    "namedAssetsRequireLocalReferenceMatrix": true,
+    "unknownsRemainExplicit": true,
+    "massingRuntimeGateBeforeIdentity": true,
+    "blenderGlbThreeJsAcceptanceRequired": true,
+    "wikiCompletionRequiresQueueEmptyAndSearchReadProof": true
+  }
+}

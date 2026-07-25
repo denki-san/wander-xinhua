@@ -1,0 +1,1048 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-25",
+  "status": "geometry-spec-only-runtime-integration-pending",
+  "scope": {
+    "shangshengBuildingCount": 11,
+    "huashanBuildingCount": 1,
+    "purpose": "Deterministic exact-footprint Massing generation without promoting project-level evidence to single-building identity."
+  },
+  "sourceFiles": {
+    "buildingInventory": "docs/research/data/xinhua-building-inventory-20260724-185400.json",
+    "placementRegistry": "docs/research/model-placement-registry-20260725.json",
+    "runtimeLandmarks": "app/scene/xinhua-landmarks-data.json",
+    "shangshengRuntime": "app/scene/shangsheng-xinsuo-block.tsx",
+    "huashanRuntime": "app/scene/huashan-green-block.tsx",
+    "evidenceAudit": "docs/research/shangsheng-huashan-building-evidence-audit.md",
+    "phaseTwoManifest": "docs/research/shangsheng-phase-two-reference-manifest.json",
+    "osmSnapshot": "docs/research/data/xinhua-buildings-overpass-20260724-185147.json"
+  },
+  "coordinateContract": {
+    "authoredMetersPerSceneUnit": 2.7,
+    "authoredAxes": "X east, Y up, Z south",
+    "footprintVertexFormat": "[authored-world-X, authored-world-Z]",
+    "collectionTransform": "world = collectionPosition + collectionLocal; collection rotation is 0 and collection scale is 1",
+    "generatorLocalTransform": {
+      "description": "Keep the existing runtime placement pivot and yaw. Convert every authored-world footprint vertex to generator-local X/Z before extrusion so the existing runtime transform reconstructs the exact OSM polygon.",
+      "formula": [
+        "dx = worldX - collectionWorldX - placementPivotLocalX",
+        "dz = worldZ - collectionWorldZ - placementPivotLocalZ",
+        "localX = cos(runtimeYaw) * dx - sin(runtimeYaw) * dz",
+        "localZ = sin(runtimeYaw) * dx + cos(runtimeYaw) * dz"
+      ],
+      "runtimeScale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "blenderMapping": {
+      "blenderX": "generatorLocalX",
+      "blenderY": "-generatorLocalZ",
+      "blenderZ": "authored vertical Y",
+      "frontConvention": "local -Y",
+      "rootTranslation": [
+        0,
+        0,
+        0
+      ],
+      "rootRotation": [
+        0,
+        0,
+        0
+      ],
+      "rootScale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "yawPolicy": "footprintAxisYawRadians is inferred from the longest OSM edge. It is an axis check only and must not be treated as an entrance or canonical-front direction.",
+    "collisionPolicy": "Use the exact footprint polygon or a deterministic convex decomposition per building. Do not replace a building group, courtyard, pool, path, or park with one site-wide obstacle.",
+    "runtimePlacementChangeAuthorized": false
+  },
+  "heightPolicy": {
+    "explicitOsmHeight": "observed when present",
+    "osmLevels": "level count is observed; derived height uses levels * 3.15 + 0.75 metres and remains inferred",
+    "fallback": "10.5 metres is an inventory runtime preview fallback only, not measured evidence",
+    "unknownRule": "A preview height may make a graybox renderable, but measuredHeightMeters remains null until a per-building source closes it.",
+    "roofRule": "Use a flat neutral cap for exact-footprint Massing unless a roof form is both evidenced and bound to this exact OSM way."
+  },
+  "phaseTwoProjectFacts": {
+    "evidenceScope": "project-level-only-not-assignable-to-an-osm-way",
+    "newBuildingLabels": [
+      "N1",
+      "N2",
+      "N3",
+      "N4",
+      "N5"
+    ],
+    "newBuildingCount": 5,
+    "storeys": "four-to-five",
+    "maximumHeightMeters": 24,
+    "approximateFloorAreasSqMeters": {
+      "N1": 6005,
+      "N2": 3021,
+      "N3": 4289,
+      "N4": 4974,
+      "N5": 5384
+    },
+    "retainedBuilding": {
+      "label": "30#",
+      "storeys": 1,
+      "approximateFloorAreaSqMeters": 663
+    },
+    "bindingStatus": {
+      "n1ToN5OsmWays": "unknown",
+      "retainedBuilding30OsmWay": "864847892-high-confidence-official-numbered-plan-overlay"
+    },
+    "forbiddenUse": "Do not copy a project-level storey count, height, floor area, facade cue, N-number, or 30# label into a way record before a numbered official plan is overlaid against OSM."
+  },
+  "collections": [
+    {
+      "id": "collection:shangsheng-xinsuo",
+      "collectionPositionAuthoredWorld": [
+        8.3149,
+        0,
+        -147.5366
+      ],
+      "collectionRotationY": 0,
+      "collectionScale": [
+        1,
+        1,
+        1
+      ],
+      "runtimeGroundAnchor": "terrainHeightAt(8.3149, -147.5366) + 0.16",
+      "buildings": [
+        {
+          "id": "building:shangsheng:osm-way-864847856",
+          "osmWayId": 864847856,
+          "confirmedIdentity": null,
+          "bindingStatus": "unclassified-osm-building",
+          "legacyRuntimeBaseline": {
+            "feature": "industrial",
+            "floorCount": 2,
+            "semanticUseAllowed": false,
+            "reason": "OSM and current evidence do not prove an industrial identity, date, function, or floor count."
+          },
+          "geometry": {
+            "type": "structured-named-landmark-with-exact-main-footprint",
+            "placementPivotCollectionLocalXZ": [
+              -22.4046,
+              -59.5151
+            ],
+            "runtimeYawRadians": 1.752847,
+            "geometryCentroidAuthoredWorldXZ": [
+              -14.08968,
+              -207.05166
+            ],
+            "geometryCentroidGeneratorLocalXZ": [
+              -0.00004,
+              0.00001
+            ],
+            "footprintAuthoredWorldXZ": [
+              [
+                -13.59422,
+                -211.92156
+              ],
+              [
+                -11.89098,
+                -202.66895
+              ],
+              [
+                -14.58514,
+                -202.18175
+              ],
+              [
+                -16.28838,
+                -211.43436
+              ]
+            ],
+            "footprintAreaSqMeters": 187.8,
+            "footprintAxisYawRadians": 0.182045,
+            "axisEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+            "majorVolumeEvidence": "official-three-view-photos-plus-user-corrected-north-porte-cochere",
+            "northPorteCochere": {
+              "status": "observed-protruding-beyond-osm-main-footprint",
+              "passage": "must-remain-open-between-local-column-obstacles",
+              "source": "sun-ke-villa-north-porte-cochere-user-reference-20260725"
+            }
+          },
+          "height": {
+            "measuredHeightMeters": null,
+            "osmLevels": null,
+            "previewHeightMeters": 10.5,
+            "previewHeightSceneUnits": 3.8889,
+            "source": "inventory-runtime-type-fallback",
+            "isEvidence": false,
+            "status": "unknown"
+          },
+          "evidenceGate": {
+            "massing": "allowed-exact-footprint-only",
+            "identity": "blocked-unclassified",
+            "hero": "blocked-unclassified",
+            "canonicalFront": "unknown",
+            "entranceDirection": "unknown"
+          }
+        },
+        {
+          "id": "building:shangsheng:osm-way-864847877",
+          "osmWayId": 864847877,
+          "confirmedIdentity": "孙科别墅",
+          "bindingStatus": "confirmed-osm-name-and-single-building-evidence",
+          "legacyRuntimeBaseline": {
+            "feature": "sun-ke-villa",
+            "floorCount": 3,
+            "semanticUseAllowed": true,
+            "floorCountEvidence": "legacy-runtime-baseline-not-measured-height"
+          },
+          "geometry": {
+            "type": "exact-footprint-extrusion",
+            "placementPivotCollectionLocalXZ": [
+              43.2515,
+              -9.8836
+            ],
+            "runtimeYawRadians": 0.009414,
+            "geometryCentroidAuthoredWorldXZ": [
+              51.56685,
+              -157.42023
+            ],
+            "geometryCentroidGeneratorLocalXZ": [
+              0.00045,
+              -0.00003
+            ],
+            "footprintAuthoredWorldXZ": [
+              [
+                47.62739,
+                -160.1479
+              ],
+              [
+                55.45597,
+                -160.22159
+              ],
+              [
+                55.50534,
+                -154.69049
+              ],
+              [
+                47.67676,
+                -154.6209
+              ]
+            ],
+            "footprintAreaSqMeters": 315.6,
+            "footprintAxisYawRadians": -1.561383,
+            "axisEvidence": "inferred-longest-footprint-edge-not-entrance-direction"
+          },
+          "height": {
+            "measuredHeightMeters": null,
+            "osmLevels": null,
+            "previewHeightMeters": 13.635,
+            "previewHeightSceneUnits": 5.05,
+            "source": "sun-ke-villa-three-view-visual-inference-plus-existing-v2-envelope",
+            "isEvidence": false,
+            "status": "inferred-not-surveyed"
+          },
+          "evidenceGate": {
+            "massing": "required-structured-major-volumes-plus-exact-main-footprint-and-open-north-porte-cochere",
+            "identity": "allowed-only-after-map-pass-and-hero-master-sha-freeze",
+            "hero": "existing-v2-may-be-retained-after-graybox-runtime-gate-and-build-record",
+            "canonicalFront": "garden-facade-local-three-plus-z-world-south-facing",
+            "canonicalFrontEvidence": "official-garden-front-photo-opposite-official-north-entrance",
+            "entranceDirection": "north-entrance-local-three-minus-z-world-north-facing",
+            "directionStatus": "closed-from-opposing-official-facade-views-and-runtime-axis-contract"
+          }
+        },
+        {
+          "id": "building:shangsheng:osm-way-864847881",
+          "osmWayId": 864847881,
+          "confirmedIdentity": "哥伦比亚乡村俱乐部",
+          "bindingStatus": "confirmed-osm-name-and-single-building-evidence",
+          "legacyRuntimeBaseline": {
+            "feature": "country-club",
+            "floorCount": 2,
+            "semanticUseAllowed": true,
+            "floorCountEvidence": "legacy-runtime-baseline-not-measured-height"
+          },
+          "geometry": {
+            "type": "exact-footprint-extrusion",
+            "placementPivotCollectionLocalXZ": [
+              -1.6553,
+              -5.6166
+            ],
+            "runtimeYawRadians": 0.090674,
+            "geometryCentroidAuthoredWorldXZ": [
+              6.65958,
+              -153.15317
+            ],
+            "geometryCentroidGeneratorLocalXZ": [
+              -0.00002,
+              0.00003
+            ],
+            "footprintAuthoredWorldXZ": [
+              [
+                -2.70474,
+                -155.73448
+              ],
+              [
+                15.39621,
+                -157.3803
+              ],
+              [
+                16.02391,
+                -150.57186
+              ],
+              [
+                -2.07704,
+                -148.92604
+              ]
+            ],
+            "footprintAreaSqMeters": 905.9,
+            "footprintAxisYawRadians": -1.480121,
+            "axisEvidence": "inferred-longest-footprint-edge-not-entrance-direction"
+          },
+          "height": {
+            "measuredHeightMeters": null,
+            "osmLevels": null,
+            "previewHeightMeters": 10.5,
+            "previewHeightSceneUnits": 3.8889,
+            "source": "inventory-runtime-type-fallback",
+            "isEvidence": false,
+            "status": "unknown"
+          },
+          "evidenceGate": {
+            "massing": "allowed-exact-footprint",
+            "identity": "allowed-after-per-building-brief",
+            "hero": "allowed-after-per-building-brief-and-graybox-runtime-gate",
+            "canonicalFront": "requires-photo-to-map-direction-closure",
+            "entranceDirection": "unknown"
+          }
+        },
+        {
+          "id": "building:shangsheng:osm-way-864847883",
+          "osmWayId": 864847883,
+          "confirmedIdentity": "海军俱乐部",
+          "bindingStatus": "confirmed-osm-name-and-single-building-evidence",
+          "legacyRuntimeBaseline": {
+            "feature": "navy-club",
+            "floorCount": 2,
+            "semanticUseAllowed": true,
+            "floorCountEvidence": "legacy-runtime-baseline-not-measured-height"
+          },
+          "geometry": {
+            "type": "exact-footprint-extrusion",
+            "placementPivotCollectionLocalXZ": [
+              -20.9583,
+              0.2707
+            ],
+            "runtimeYawRadians": -1.478811,
+            "geometryCentroidAuthoredWorldXZ": [
+              -13.26092,
+              -146.09434
+            ],
+            "geometryCentroidGeneratorLocalXZ": [
+              1.10988,
+              0.72252
+            ],
+            "footprintAuthoredWorldXZ": [
+              [
+                -19.74072,
+                -152.65983
+              ],
+              [
+                -15.82643,
+                -153.01602
+              ],
+              [
+                -14.81083,
+                -141.98249
+              ],
+              [
+                -8.93234,
+                -142.51472
+              ],
+              [
+                -9.95147,
+                -153.54825
+              ],
+              [
+                -7.26436,
+                -153.79389
+              ],
+              [
+                -6.07244,
+                -140.87299
+              ],
+              [
+                -18.5488,
+                -139.73894
+              ]
+            ],
+            "footprintAreaSqMeters": 708.4,
+            "footprintAxisYawRadians": 0.091987,
+            "axisEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+            "pivotNote": "The existing runtime pivot is not the polygon centroid. Keep the runtime pivot and bake the centroid offset into the exact local polygon; do not move the building in this spec."
+          },
+          "height": {
+            "measuredHeightMeters": null,
+            "osmLevels": null,
+            "previewHeightMeters": 10.5,
+            "previewHeightSceneUnits": 3.8889,
+            "source": "inventory-runtime-type-fallback",
+            "isEvidence": false,
+            "status": "unknown"
+          },
+          "evidenceGate": {
+            "massing": "allowed-exact-footprint",
+            "identity": "allowed-after-per-building-brief-and-pool-exterior-separation",
+            "hero": "rebuild-allowed-after-graybox-runtime-gate",
+            "canonicalFront": "requires-photo-to-map-direction-closure",
+            "entranceDirection": "unknown"
+          }
+        },
+        {
+          "id": "building:shangsheng:osm-way-864847892",
+          "osmWayId": 864847892,
+          "confirmedIdentity": "保留30#",
+          "bindingStatus": "confirmed-high-confidence-official-numbered-plan-overlay",
+          "legacyRuntimeBaseline": {
+            "feature": "industrial",
+            "floorCount": 3,
+            "semanticUseAllowed": false,
+            "reason": "The legacy industrial label and three-floor proxy are superseded by the official numbered plan overlay, which identifies retained one-storey 30#."
+          },
+          "geometry": {
+            "type": "exact-footprint-extrusion",
+            "placementPivotCollectionLocalXZ": [
+              27.9382,
+              44.7508
+            ],
+            "runtimeYawRadians": 0.049466,
+            "geometryCentroidAuthoredWorldXZ": [
+              36.25303,
+              -102.78582
+            ],
+            "geometryCentroidGeneratorLocalXZ": [
+              -0.00007,
+              -0.00002
+            ],
+            "footprintAuthoredWorldXZ": [
+              [
+                27.77736,
+                -99.87084
+              ],
+              [
+                27.52698,
+                -104.84924
+              ],
+              [
+                44.7287,
+                -105.7008
+              ],
+              [
+                44.97908,
+                -100.72241
+              ]
+            ],
+            "footprintAreaSqMeters": 625.8,
+            "footprintAxisYawRadians": -1.521332,
+            "axisEvidence": "inferred-longest-footprint-edge-not-entrance-direction"
+          },
+          "height": {
+            "measuredHeightMeters": null,
+            "osmLevels": null,
+            "previewHeightMeters": 3.9,
+            "previewHeightSceneUnits": 1.4444,
+            "source": "inferred-from-official-plan-one-storey-using-levels-times-3.15-plus-0.75",
+            "isEvidence": false,
+            "status": "one-storey-observed-total-height-inferred"
+          },
+          "evidenceGate": {
+            "massing": "allowed-exact-footprint-and-one-storey-proxy",
+            "identity": "blocked-until-single-building-facade-evidence",
+            "hero": "blocked-until-single-building-facade-evidence",
+            "canonicalFront": "unknown",
+            "entranceDirection": "unknown",
+            "officialFunctionBoundary": "community sport and community education",
+            "bindingEvidence": "official EIA PDF page 78 printed page 74 figure 7 plus registered OSM overlay",
+            "bindingConfidence": "high"
+          }
+        },
+        {
+          "id": "building:shangsheng:osm-way-1364679201",
+          "osmWayId": 1364679201,
+          "confirmedIdentity": null,
+          "bindingStatus": "historic-osm-tag-conflicts-with-legacy-new-campus-label",
+          "legacyRuntimeBaseline": {
+            "feature": "new-campus",
+            "floorCount": 4,
+            "semanticUseAllowed": false,
+            "reason": "OSM historic=building conflicts with promotion to a Phase II new building."
+          },
+          "geometry": {
+            "type": "exact-footprint-extrusion",
+            "placementPivotCollectionLocalXZ": [
+              1.7318,
+              -24.722
+            ],
+            "runtimeYawRadians": -3.031503,
+            "geometryCentroidAuthoredWorldXZ": [
+              10.36109,
+              -171.3639
+            ],
+            "geometryCentroidGeneratorLocalXZ": [
+              -0.21419,
+              -0.92382
+            ],
+            "footprintAuthoredWorldXZ": [
+              [
+                24.55071,
+                -174.65729
+              ],
+              [
+                25.29125,
+                -168.06583
+              ],
+              [
+                4.58783,
+                -165.77725
+              ],
+              [
+                4.41504,
+                -167.32071
+              ],
+              [
+                -1.76672,
+                -166.637
+              ],
+              [
+                -2.96569,
+                -177.33891
+              ],
+              [
+                2.83169,
+                -177.97759
+              ],
+              [
+                3.2337,
+                -174.38709
+              ],
+              [
+                20.02988,
+                -176.23761
+              ],
+              [
+                20.2591,
+                -174.18648
+              ]
+            ],
+            "footprintAreaSqMeters": 1734.4,
+            "footprintAxisYawRadians": -1.460702,
+            "axisEvidence": "inferred-longest-footprint-edge-not-entrance-direction",
+            "pivotNote": "The existing runtime pivot is not the polygon centroid. Keep the runtime pivot and bake the centroid offset into the exact local polygon; do not move the building in this spec."
+          },
+          "height": {
+            "measuredHeightMeters": null,
+            "osmLevels": null,
+            "previewHeightMeters": 10.5,
+            "previewHeightSceneUnits": 3.8889,
+            "source": "inventory-runtime-type-fallback",
+            "isEvidence": false,
+            "status": "unknown"
+          },
+          "evidenceGate": {
+            "massing": "allowed-exact-footprint-only",
+            "identity": "blocked-historic-conflict",
+            "hero": "blocked-historic-conflict",
+            "canonicalFront": "unknown",
+            "entranceDirection": "unknown",
+            "forbiddenBindings": [
+              "N1",
+              "N2",
+              "N3",
+              "N4",
+              "N5",
+              "Phase II new building"
+            ]
+          }
+        },
+        {
+          "id": "building:shangsheng:osm-way-1364679204",
+          "osmWayId": 1364679204,
+          "confirmedIdentity": null,
+          "bindingStatus": "n2-zone-candidate-medium-confidence-not-whole-building-bound",
+          "legacyRuntimeBaseline": {
+            "feature": "new-campus",
+            "floorCount": 4,
+            "semanticUseAllowed": false,
+            "reason": "Project-level Phase II facts do not bind this way to an N-number or floor count."
+          },
+          "geometry": {
+            "type": "exact-footprint-extrusion",
+            "placementPivotCollectionLocalXZ": [
+              3.1406,
+              16.5047
+            ],
+            "runtimeYawRadians": -3.050034,
+            "geometryCentroidAuthoredWorldXZ": [
+              11.45432,
+              -131.03175
+            ],
+            "geometryCentroidGeneratorLocalXZ": [
+              0.00119,
+              -0.00004
+            ],
+            "footprintAuthoredWorldXZ": [
+              [
+                21.10543,
+                -134.8588
+              ],
+              [
+                21.64849,
+                -129.02474
+              ],
+              [
+                1.80551,
+                -127.20288
+              ],
+              [
+                1.26245,
+                -133.04103
+              ]
+            ],
+            "footprintAreaSqMeters": 851.4,
+            "footprintAxisYawRadians": -1.479239,
+            "axisEvidence": "inferred-longest-footprint-edge-not-entrance-direction"
+          },
+          "height": {
+            "measuredHeightMeters": null,
+            "osmLevels": null,
+            "previewHeightMeters": 10.5,
+            "previewHeightSceneUnits": 3.8889,
+            "source": "inventory-runtime-type-fallback",
+            "isEvidence": false,
+            "status": "unknown"
+          },
+          "evidenceGate": {
+            "massing": "allowed-exact-footprint-only",
+            "identity": "blocked-until-numbered-plan-overlay",
+            "hero": "blocked-until-numbered-plan-overlay",
+            "canonicalFront": "unknown",
+            "entranceDirection": "unknown",
+            "forbiddenBindings": [
+              "N1",
+              "N2",
+              "N3",
+              "N4",
+              "N5"
+            ]
+          }
+        },
+        {
+          "id": "building:shangsheng:osm-way-1364679205",
+          "osmWayId": 1364679205,
+          "confirmedIdentity": null,
+          "bindingStatus": "n4-zone-or-subvolume-candidate-low-confidence-not-whole-building-bound",
+          "legacyRuntimeBaseline": {
+            "feature": "new-campus",
+            "floorCount": 4,
+            "semanticUseAllowed": false,
+            "reason": "Project-level Phase II facts do not bind this way to an N-number or floor count."
+          },
+          "geometry": {
+            "type": "exact-footprint-extrusion",
+            "placementPivotCollectionLocalXZ": [
+              -17.6104,
+              12.1323
+            ],
+            "runtimeYawRadians": -3.053413,
+            "geometryCentroidAuthoredWorldXZ": [
+              -9.2965,
+              -135.40424
+            ],
+            "geometryCentroidGeneratorLocalXZ": [
+              0.001,
+              0.00003
+            ],
+            "footprintAuthoredWorldXZ": [
+              [
+                -2.79643,
+                -138.40017
+              ],
+              [
+                -2.36621,
+                -133.59373
+              ],
+              [
+                -15.79469,
+                -132.40645
+              ],
+              [
+                -16.22491,
+                -137.21699
+              ]
+            ],
+            "footprintAreaSqMeters": 474.4,
+            "footprintAxisYawRadians": -1.48261,
+            "axisEvidence": "inferred-longest-footprint-edge-not-entrance-direction"
+          },
+          "height": {
+            "measuredHeightMeters": null,
+            "osmLevels": null,
+            "previewHeightMeters": 10.5,
+            "previewHeightSceneUnits": 3.8889,
+            "source": "inventory-runtime-type-fallback",
+            "isEvidence": false,
+            "status": "unknown"
+          },
+          "evidenceGate": {
+            "massing": "allowed-exact-footprint-only",
+            "identity": "blocked-until-numbered-plan-overlay",
+            "hero": "blocked-until-numbered-plan-overlay",
+            "canonicalFront": "unknown",
+            "entranceDirection": "unknown",
+            "forbiddenBindings": [
+              "N1",
+              "N2",
+              "N3",
+              "N4",
+              "N5"
+            ]
+          }
+        },
+        {
+          "id": "building:shangsheng:osm-way-1368808689",
+          "osmWayId": 1368808689,
+          "confirmedIdentity": null,
+          "bindingStatus": "existing-campus-footprint-outside-phase-two",
+          "legacyRuntimeBaseline": {
+            "feature": "new-campus",
+            "floorCount": 4,
+            "semanticUseAllowed": false,
+            "reason": "Project-level Phase II facts do not bind this way to an N-number or floor count."
+          },
+          "geometry": {
+            "type": "exact-footprint-extrusion",
+            "placementPivotCollectionLocalXZ": [
+              21.1904,
+              -12.3053
+            ],
+            "runtimeYawRadians": 0.104454,
+            "geometryCentroidAuthoredWorldXZ": [
+              29.50433,
+              -159.84175
+            ],
+            "geometryCentroidGeneratorLocalXZ": [
+              -0.00098,
+              0.00005
+            ],
+            "footprintAuthoredWorldXZ": [
+              [
+                20.12509,
+                -155.39058
+              ],
+              [
+                39.61191,
+                -157.43352
+              ],
+              [
+                38.88548,
+                -164.2911
+              ],
+              [
+                19.39866,
+                -162.25225
+              ]
+            ],
+            "footprintAreaSqMeters": 985.3,
+            "footprintAxisYawRadians": -1.466341,
+            "axisEvidence": "inferred-longest-footprint-edge-not-entrance-direction"
+          },
+          "height": {
+            "measuredHeightMeters": null,
+            "osmLevels": null,
+            "previewHeightMeters": 10.5,
+            "previewHeightSceneUnits": 3.8889,
+            "source": "inventory-runtime-type-fallback",
+            "isEvidence": false,
+            "status": "unknown"
+          },
+          "evidenceGate": {
+            "massing": "allowed-exact-footprint-only",
+            "identity": "blocked-until-numbered-plan-overlay",
+            "hero": "blocked-until-numbered-plan-overlay",
+            "canonicalFront": "unknown",
+            "entranceDirection": "unknown",
+            "forbiddenBindings": [
+              "N1",
+              "N2",
+              "N3",
+              "N4",
+              "N5"
+            ]
+          }
+        },
+        {
+          "id": "building:shangsheng:osm-way-1368808690",
+          "osmWayId": 1368808690,
+          "confirmedIdentity": null,
+          "bindingStatus": "existing-campus-footprint-outside-phase-two",
+          "legacyRuntimeBaseline": {
+            "feature": "new-campus",
+            "floorCount": 4,
+            "semanticUseAllowed": false,
+            "reason": "Project-level Phase II facts do not bind this way to an N-number or floor count."
+          },
+          "geometry": {
+            "type": "exact-footprint-extrusion",
+            "placementPivotCollectionLocalXZ": [
+              21.9689,
+              -2.3741
+            ],
+            "runtimeYawRadians": -3.05157,
+            "geometryCentroidAuthoredWorldXZ": [
+              30.28363,
+              -149.91073
+            ],
+            "geometryCentroidGeneratorLocalXZ": [
+              0.00017,
+              0.00005
+            ],
+            "footprintAuthoredWorldXZ": [
+              [
+                19.18355,
+                -151.77551
+              ],
+              [
+                19.70545,
+                -146.08885
+              ],
+              [
+                41.38216,
+                -148.04581
+              ],
+              [
+                40.86378,
+                -153.73248
+              ]
+            ],
+            "footprintAreaSqMeters": 906.1,
+            "footprintAxisYawRadians": -1.480775,
+            "axisEvidence": "inferred-longest-footprint-edge-not-entrance-direction"
+          },
+          "height": {
+            "measuredHeightMeters": null,
+            "osmLevels": null,
+            "previewHeightMeters": 10.5,
+            "previewHeightSceneUnits": 3.8889,
+            "source": "inventory-runtime-type-fallback",
+            "isEvidence": false,
+            "status": "unknown"
+          },
+          "evidenceGate": {
+            "massing": "allowed-exact-footprint-only",
+            "identity": "blocked-until-numbered-plan-overlay",
+            "hero": "blocked-until-numbered-plan-overlay",
+            "canonicalFront": "unknown",
+            "entranceDirection": "unknown",
+            "forbiddenBindings": [
+              "N1",
+              "N2",
+              "N3",
+              "N4",
+              "N5"
+            ]
+          }
+        },
+        {
+          "id": "building:shangsheng:osm-way-1537478450",
+          "osmWayId": 1537478450,
+          "confirmedIdentity": null,
+          "bindingStatus": "existing-historic-building-not-retained-30",
+          "legacyRuntimeBaseline": {
+            "feature": "new-campus",
+            "floorCount": 4,
+            "semanticUseAllowed": false,
+            "reason": "OSM historic=building makes it a retained-building candidate, but does not bind it to retained building 30#."
+          },
+          "geometry": {
+            "type": "exact-footprint-extrusion",
+            "placementPivotCollectionLocalXZ": [
+              -21.2893,
+              -13.7484
+            ],
+            "runtimeYawRadians": 1.631142,
+            "geometryCentroidAuthoredWorldXZ": [
+              -12.9747,
+              -161.28547
+            ],
+            "geometryCentroidGeneratorLocalXZ": [
+              0.00049,
+              -0.00027
+            ],
+            "footprintAuthoredWorldXZ": [
+              [
+                -16.72918,
+                -166.86218
+              ],
+              [
+                -9.9162,
+                -167.2634
+              ],
+              [
+                -9.2215,
+                -155.70992
+              ],
+              [
+                -16.03096,
+                -155.30461
+              ]
+            ],
+            "footprintAreaSqMeters": 575.8,
+            "footprintAxisYawRadians": 0.060339,
+            "axisEvidence": "inferred-longest-footprint-edge-not-entrance-direction"
+          },
+          "height": {
+            "measuredHeightMeters": null,
+            "osmLevels": null,
+            "previewHeightMeters": 10.5,
+            "previewHeightSceneUnits": 3.8889,
+            "source": "inventory-runtime-type-fallback",
+            "isEvidence": false,
+            "status": "unknown"
+          },
+          "evidenceGate": {
+            "massing": "allowed-exact-footprint-only",
+            "identity": "blocked-until-numbered-plan-overlay",
+            "hero": "blocked-until-numbered-plan-overlay",
+            "canonicalFront": "unknown",
+            "entranceDirection": "unknown",
+            "forbiddenBindings": [
+              "30#",
+              "N1",
+              "N2",
+              "N3",
+              "N4",
+              "N5"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "collection:huashan-greenland",
+      "collectionPositionAuthoredWorld": [
+        176.5313,
+        0,
+        -83.3055
+      ],
+      "collectionRotationY": 0,
+      "collectionScale": [
+        1,
+        1,
+        1
+      ],
+      "runtimeGroundAnchor": "terrainHeightAt(176.5313, -83.3055) + 0.16",
+      "buildings": [
+        {
+          "id": "building:huashan:osm-way-743778426",
+          "osmWayId": 743778426,
+          "confirmedIdentity": null,
+          "bindingStatus": "observed-one-storey-footprint-function-unknown",
+          "legacyRuntimeBaseline": {
+            "feature": "service-building",
+            "semanticUseAllowed": false,
+            "reason": "Service building is a neutral runtime label. Current sources do not prove toilet, reading room, management, equipment, or duty-room use."
+          },
+          "geometry": {
+            "type": "exact-footprint-extrusion",
+            "placementPivotCollectionLocalXZ": [
+              18.7195,
+              43.2532
+            ],
+            "runtimeYawRadians": 2.90094,
+            "geometryCentroidAuthoredWorldXZ": [
+              195.2508,
+              -40.05233
+            ],
+            "geometryCentroidGeneratorLocalXZ": [
+              0.00001,
+              0.00003
+            ],
+            "footprintAuthoredWorldXZ": [
+              [
+                194.61429,
+                -39.73708
+              ],
+              [
+                194.83645,
+                -40.6255
+              ],
+              [
+                195.88731,
+                -40.36757
+              ],
+              [
+                195.66515,
+                -39.47916
+              ]
+            ],
+            "footprintAreaSqMeters": 7.2,
+            "footprintAxisYawRadians": 1.330112,
+            "axisEvidence": "inferred-longest-footprint-edge-not-entrance-direction"
+          },
+          "height": {
+            "measuredHeightMeters": null,
+            "osmLevels": 1,
+            "previewHeightMeters": 3.9,
+            "previewHeightSceneUnits": 1.4444,
+            "source": "inferred-from-osm-building-levels-using-levels-times-3.15-plus-0.75",
+            "isEvidence": false,
+            "status": "one-storey-observed-total-height-inferred"
+          },
+          "evidenceGate": {
+            "massing": "allowed-exact-footprint-and-one-storey-proxy",
+            "identity": "blocked-until-single-building-photos-and-function-evidence",
+            "hero": "blocked-until-single-building-photos-and-function-evidence",
+            "canonicalFront": "unknown",
+            "entranceDirection": "unknown",
+            "forbiddenFunctions": [
+              "public toilet",
+              "reading room",
+              "management room",
+              "equipment room",
+              "duty room"
+            ],
+            "unknownDimensions": [
+              "measured total height",
+              "parapet or roof height",
+              "door and window openings",
+              "roof pitch and overhang"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "generatorAcceptance": {
+    "buildingCountMustEqual": 12,
+    "everyWayMustUseInventoryFootprint": true,
+    "everyMeshMustRetainStableWayId": true,
+    "oneMeshOrDeterministicConvexPartSetPerWay": true,
+    "noVoxelRemesh": true,
+    "noSiteWideCollisionBox": true,
+    "noEmbeddedReferenceImages": true,
+    "phaseTwoNBindingsMustRemainUnknown": true,
+    "retainedBuilding30BindingMustRemainUnknown": true,
+    "unknownHeightsMustNotBeReportedAsMeasured": true,
+    "runtimeGrayboxGateRequiredBeforeIdentity": true,
+    "requiredRuntimeChecks": [
+      "ground contact",
+      "map footprint alignment",
+      "road and path clearance",
+      "courtyard and pool access",
+      "start and camera clearance",
+      "console errors",
+      "fixed canonical and side screenshots"
+    ]
+  }
+}

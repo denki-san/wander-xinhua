@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "prototype:vegetation:road-edge-shrub",
+  "slug": "road-edge-shrub",
+  "family": "vegetation",
+  "tier": "massing",
+  "status": "gallery-runtime-pass-independent-review-pending",
+  "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+  "generator": "scripts/create_shared_prototype_massing_models.py",
+  "evidence": "species-unknown-observed-road-edge-envelope",
+  "instanceCount": 12,
+  "outputs": {
+    "blend": "assets/models/source/tiers/shared-prototypes/massing/road-edge-shrub-massing.blend",
+    "glb": "public/models/tiers/shared-prototypes/massing/road-edge-shrub-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_road-edge-shrub-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/shared-prototypes/test_road-edge-shrub-massing-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "94552b4b0407902b50bd60cc8a8b24963382add99e333a4b408c146facfe62f4",
+    "bytes": 7804,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 60,
+    "bounds": {
+      "min": [
+        -0.890321,
+        -0.16,
+        -0.526358
+      ],
+      "max": [
+        0.818766,
+        1.04,
+        0.522333
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": "gallery-runtime-pass-independent-review-pending",
+  "identityAllowed": false,
+  "qualityBoundary": {
+    "observed": [
+      "prototype envelope and current runtime scale language"
+    ],
+    "inferred": [
+      "simplified massing component dimensions"
+    ],
+    "unknown": [
+      "manufacturer or species where not explicitly confirmed",
+      "surveyed dimensions",
+      "current per-instance field condition"
+    ]
+  },
+  "runtimeQa": {
+    "file": "docs/research/shared-prototypes-massing-runtime-qa.json",
+    "screenshot": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs.png",
+    "galleryLoadAndRender": "pass",
+    "independentReview": "pending"
+  }
+}

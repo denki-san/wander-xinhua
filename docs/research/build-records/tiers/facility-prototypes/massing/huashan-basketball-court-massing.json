@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "prototype:facility:huashan-basketball-court",
+  "semanticSlug": "huashan-basketball-court",
+  "outputSlug": "huashan-basketball-court",
+  "tier": "massing",
+  "status": "isolated-and-map-load-pass-placement-and-collision-blocked",
+  "formalMassingPass": false,
+  "modelBrief": "docs/research/facility-prototypes-massing-model-brief.md",
+  "geometrySpec": "docs/research/facility-prototypes-massing-geometry-spec.json",
+  "referenceManifest": "docs/research/facility-prototypes-reference-manifest.json",
+  "generator": "scripts/create_facility_prototype_massing_models.py",
+  "instance": {
+    "id": "facility-instance:huashan:basketball-court",
+    "position": [
+      15.4248,
+      0.18,
+      40.5921
+    ],
+    "yaw": 1.301342,
+    "coordinateSpace": "collection-local",
+    "osmWayId": 743778425,
+    "footprint": [
+      [
+        18.9823,
+        36.3056
+      ],
+      [
+        17.1027,
+        43.1222
+      ],
+      [
+        16.5526,
+        45.116
+      ],
+      [
+        11.0267,
+        43.6135
+      ],
+      [
+        13.4599,
+        34.803
+      ]
+    ],
+    "orientedProxy": [
+      9.162,
+      5.7265
+    ]
+  },
+  "osmWayId": null,
+  "originContract": {
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "meaning": "prototype-ground-center",
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "worldPlacementBaked": false,
+    "authoredMetersPerSceneUnit": 2.7,
+    "surveyedMeters": false
+  },
+  "budget": {
+    "kind": "massing-target",
+    "maxTriangles": 384,
+    "maxNodes": 4,
+    "maxMaterials": 2,
+    "maxImages": 0,
+    "maxBinaryBytes": 98304,
+    "animation": "none"
+  },
+  "outputs": {
+    "blend": "assets/models/source/tiers/facility-prototypes/massing/huashan-basketball-court-massing.blend",
+    "glb": "public/models/tiers/facility-prototypes/massing/huashan-basketball-court-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-basketball-court-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-basketball-court-massing-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "06583b6b83603f9af27960f1aa8d1ec5e13cd799c428c2783008e587fd9689f2",
+    "bytes": 20920,
+    "nodes": 2,
+    "meshes": 2,
+    "materials": 2,
+    "materialBaseColors": {
+      "huashan-basketball-court-court-massing-material": [
+        0.18000000715255737,
+        0.4000000059604645,
+        0.5400000214576721,
+        1
+      ],
+      "huashan-basketball-court-green-massing-material": [
+        0.1599999964237213,
+        0.3400000035762787,
+        0.27000001072883606,
+        1
+      ]
+    },
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "triangles": 260,
+    "bounds": {
+      "min": [
+        -4.436657,
+        0,
+        -4.5739
+      ],
+      "max": [
+        3.6075,
+        3.095,
+        5.8391
+      ]
+    },
+    "transformedNodes": []
+  },
+  "qualityBoundary": {
+    "classification": "osm-type-and-footprint-plus-official-entry-photo-overlay-pending",
+    "observed": [
+      "OSM way 743778425 带 leisure=pitch、sport=basketball，支持位置、轮廓和用途。",
+      "2025 年长宁区政府入口三分之四视角照片确认华山绿地篮球场主体。",
+      "照片直接可见蓝色场面、红橙色边带、绿色刚性网框、绿色悬臂篮架、白色篮板和全高入口闸机。",
+      "照片视线与 OSM way 743778425 的 footprint/方位叠加仍未完成。"
+    ],
+    "inferred": [
+      "Massing component dimensions are simplified from the documented runtime envelope.",
+      "No world placement, yaw, collision proxy or site terrain is baked into this GLB.",
+      "Fence height, entrance width and confirmed-end basket dimensions remain inferred."
+    ],
+    "unknown": [
+      "surveyed dimensions",
+      "2026-later field changes",
+      "second basket",
+      "photo-to-OSM orientation overlay"
+    ],
+    "sources": [
+      "docs/research/facility-prototypes-reference-manifest.json",
+      "docs/research/assets/poi-references/huashan-greenland/huashan-basketball-court-entry-2025.jpg",
+      "docs/research/data/huashan-green-overpass-20260716.json",
+      "app/scene/xinhua-landmarks-data.json",
+      "docs/research/huashan-green-reference.md",
+      "app/scene/huashan-green-block.tsx#BasketballCourt"
+    ]
+  },
+  "identityGate": {
+    "mayEnterIdentity": false,
+    "status": "blocked-partial-subject-photo-footprint-orientation-overlay-pending",
+    "required": [
+      "将官方入口照片视线与 OSM way 743778425 做 footprint/方位叠加。",
+      "补齐完整球场全景、另一端篮架和围网边界视角。",
+      "确认 OSM 边界语义、入口位置和篮架方向。",
+      "现场或可靠资料核验高度；蓝场、边带、绿网与悬臂篮架可作为已确认 Identity cues。"
+    ]
+  },
+  "runtimeGate": {
+    "status": "isolated-and-map-load-passed-placement-and-collision-blocked",
+    "gallery": "passed",
+    "mapContextObservation": "captured-load-passed",
+    "mapPlacement": "blocked-pending-position-scale-yaw-review",
+    "collisionAndPassage": "pending",
+    "screenshot": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-basketball-court-massing-threejs-isolated.png",
+    "screenshotSha256": "532489f86c8d7131dc7a133f91161c7635f953646f3d2a1125eac5d6389a3453",
+    "mapScreenshot": "test_artifacts/all-models/massing/facility-prototypes/test_huashan-basketball-court-massing-threejs-map.png",
+    "mapScreenshotSha256": "71f096b0a46285071a647542bcdb45f3519899cfca1382e31f96e9e394a53fcb",
+    "httpStatus": 200,
+    "fromDiskCache": false,
+    "runtimeExceptions": 0,
+    "consoleErrors": 0
+  },
+  "basketEvidenceBoundary": {
+    "generated": "one photographed green cantilever basket silhouette",
+    "notGeneratedAsConfirmed": "second basket"
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "version": 1,
+  "acquiredAt": "2026-07-25",
+  "status": "evidence-localized-binding-still-required",
+  "policy": {
+    "sourceImagesAreReadOnly": true,
+    "runtimeTextureUse": false,
+    "logoReplication": false,
+    "observedInferredUnknownSeparated": true,
+    "note": "这些图片只作为研究证据，不嵌入 GLB。单张园区级照片不得自动绑定到具体 OSM way 或运行时实例。"
+  },
+  "sources": [
+    {
+      "id": "source:shcn:shangsheng-reopening-2022",
+      "title": "上生新所恢复开放",
+      "publisher": "上海市长宁区人民政府",
+      "publishedAt": "2022-06-03",
+      "url": "https://www.shcn.gov.cn/col7344/20220604/1216190.html",
+      "supports": [
+        "上生·新所园区存在海军俱乐部前地面喷泉广场",
+        "照片不能独立证明 OSM ways 1364679202/1364679203 分别对应何种喷泉"
+      ]
+    },
+    {
+      "id": "source:shcn:huashan-sports-list-2025",
+      "title": "长宁公共体育设施清单大公开，家门口就能实现运动自由",
+      "publisher": "上海市长宁区人民政府",
+      "publishedAt": "2025-08-19",
+      "url": "https://www.shcn.gov.cn/col6991/20250821/1296636.html",
+      "supports": [
+        "华山绿地篮球场地址、开放时间与直接现场照片",
+        "照片可见蓝色场面、绿色围网、入口闸机和一组篮架"
+      ]
+    },
+    {
+      "id": "source:shcn:huashan-happiness-corner-2026",
+      "title": "来长宁这个幸福的转角，收获浪漫吧",
+      "publisher": "上海市长宁区人民政府",
+      "publishedAt": "2026-05-02",
+      "url": "https://www.shcn.gov.cn/col6991/20260502/1309137.html",
+      "supports": [
+        "幸福转角位于幸福路与华山路1520弄转角东北方，属于华山绿地",
+        "直接多视角照片证明粉色心形环架、层级坐阶、浅色曲线花池和林下场地"
+      ]
+    },
+    {
+      "id": "source:shcn:xingfuli-update-2023",
+      "title": "多家新店开业！长宁这一时尚地标有了这些新变化",
+      "publisher": "上海市长宁区人民政府",
+      "publishedAt": "2023-10-28",
+      "url": "https://www.shcn.gov.cn/col7344/20231030/1247114.html",
+      "supports": [
+        "幸福里主巷、垂直绿化与屋顶花园的直接现场照片",
+        "照片支持绿墙作为主巷左侧连续立面，不支持当前运行时精确尺寸"
+      ]
+    },
+    {
+      "id": "source:caa:one-square-metre-action-2025",
+      "title": "一平米行动",
+      "publisher": "中国美术学院美丽中国研究院",
+      "publishedAt": "2025",
+      "url": "https://betterchina.caa.edu.cn/case/c530.html",
+      "supports": [
+        "一平米行动自2021年起是新华路街道社区微更新项目",
+        "公开图片展示工作坊、手作与园艺行动，不证明当前游戏中的固定互动装置外形"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "path": "docs/research/assets/poi-references/shangsheng-xinsuo/shangsheng-navy-club-fountain-plaza-2022.jpeg",
+      "sourceId": "source:shcn:shangsheng-reopening-2022",
+      "subject": "海军俱乐部前地面喷泉广场",
+      "view": "wide-three-quarter",
+      "binding": "site-level-only-not-bound-to-osm-fountain-ways",
+      "observed": [
+        "喷头与铺装齐平",
+        "多股地面喷泉呈阵列",
+        "未见独立高池沿"
+      ],
+      "unknown": [
+        "与 ways 1364679202/1364679203 的逐一对应",
+        "完整喷头数量与边界"
+      ]
+    },
+    {
+      "path": "docs/research/assets/poi-references/huashan-greenland/huashan-basketball-court-entry-2025.jpg",
+      "sourceId": "source:shcn:huashan-sports-list-2025",
+      "subject": "华山绿地篮球场",
+      "view": "entry-three-quarter",
+      "binding": "subject-confirmed-map-overlay-pending",
+      "observed": [
+        "蓝色场面与红橙色边带",
+        "绿色刚性网框",
+        "绿色悬臂篮架与白色篮板",
+        "入口使用全高闸机"
+      ],
+      "unknown": [
+        "完整场地边界与第二组篮架",
+        "照片视线与 OSM way 743778425 的精确方位"
+      ]
+    },
+    {
+      "path": "docs/research/assets/poi-references/huashan-greenland/huashan-happiness-corner-canonical-2026.jpg",
+      "sourceId": "source:shcn:huashan-happiness-corner-2026",
+      "subject": "华山绿地幸福转角",
+      "view": "canonical-wide",
+      "binding": "subject-confirmed-runtime-placement-overlay-pending",
+      "observed": [
+        "大型粉色环形心形装置",
+        "粉色层级坐阶",
+        "浅色曲线花池与成熟林木"
+      ]
+    },
+    {
+      "path": "docs/research/assets/poi-references/huashan-greenland/huashan-happiness-corner-heart-frame-2026.jpg",
+      "sourceId": "source:shcn:huashan-happiness-corner-2026",
+      "subject": "华山绿地幸福转角心形装置",
+      "view": "interior-structure",
+      "binding": "subject-confirmed",
+      "observed": [
+        "多道同心粉色扁钢/杆件形成心形截面",
+        "装置中心开口朝向坐阶"
+      ]
+    },
+    {
+      "path": "docs/research/assets/poi-references/huashan-greenland/huashan-happiness-corner-step-detail-2026.jpg",
+      "sourceId": "source:shcn:huashan-happiness-corner-2026",
+      "subject": "华山绿地幸福十二味坐阶",
+      "view": "identity-detail",
+      "binding": "subject-confirmed",
+      "observed": [
+        "粉色水洗石/颗粒质感坐阶",
+        "浅色花池挡墙",
+        "踏步立面有多语言文字"
+      ]
+    },
+    {
+      "path": "docs/research/assets/poi-references/huashan-greenland/huashan-happiness-corner-planting-terrace-side-2026.jpg",
+      "sourceId": "source:shcn:huashan-happiness-corner-2026",
+      "subject": "华山绿地幸福转角坐阶与花池",
+      "view": "side-depth",
+      "binding": "subject-confirmed",
+      "observed": [
+        "多级粉色坐阶穿过浅色曲线花池",
+        "场地随林下地形逐级抬升"
+      ]
+    },
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-government-entry-planting-2023.jpg",
+      "sourceId": "source:shcn:xingfuli-update-2023",
+      "subject": "幸福里入口店面与悬挂种植",
+      "view": "entry-context",
+      "binding": "site-context-not-vertical-wall-proof",
+      "observed": [
+        "深色雨棚下悬挂绿植",
+        "入口花池和矮石桩"
+      ]
+    },
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-government-main-lane-vertical-garden-2023.jpg",
+      "sourceId": "source:shcn:xingfuli-update-2023",
+      "subject": "幸福里主巷左侧垂直花园",
+      "view": "canonical-lane-depth",
+      "binding": "subject-confirmed-runtime-placement-overlay-pending",
+      "observed": [
+        "连续高绿墙位于主巷左侧",
+        "绿墙下部为深色实体墙面",
+        "植物覆盖具有明显不规则边界"
+      ],
+      "unknown": [
+        "墙体精确高度、长度、厚度与模块",
+        "当前运行时单块墙是否覆盖完整真实主体"
+      ]
+    },
+    {
+      "path": "docs/research/assets/poi-references/one-square-metre-action/one-square-metre-action-workshop-2025.jpg",
+      "sourceId": "source:caa:one-square-metre-action-2025",
+      "subject": "一平米行动社区工作坊",
+      "view": "program-context",
+      "binding": "program-evidence-not-installation-shape",
+      "observed": [
+        "项目包含居民讨论与共同提案活动"
+      ]
+    },
+    {
+      "path": "docs/research/assets/poi-references/one-square-metre-action/one-square-metre-action-craft-session-2025.png",
+      "sourceId": "source:caa:one-square-metre-action-2025",
+      "subject": "一平米行动社区手作活动",
+      "view": "program-context",
+      "binding": "program-evidence-not-installation-shape",
+      "observed": [
+        "项目包含居民共同制作活动"
+      ]
+    },
+    {
+      "path": "docs/research/assets/poi-references/one-square-metre-action/one-square-metre-action-garden-session-2025.png",
+      "sourceId": "source:caa:one-square-metre-action-2025",
+      "subject": "一平米行动社区园艺活动",
+      "view": "program-context",
+      "binding": "program-evidence-not-installation-shape",
+      "observed": [
+        "项目包含一平方米尺度的社区园艺实践"
+      ]
+    }
+  ],
+  "coverage": {
+    "directSubjectPhoto": [
+      "prototype:facility:shangsheng-fountain:site-family-only",
+      "prototype:facility:huashan-basketball-court",
+      "prototype:facility:huashan-happiness-corner",
+      "prototype:facility:xingfuli-vertical-garden"
+    ],
+    "programContextOnly": [
+      "prototype:facility:one-square-metre-action"
+    ],
+    "stillNoDedicatedPhoto": [
+      "prototype:facility:shangsheng-wayfinding-totem",
+      "prototype:facility:shangsheng-cafe-pavilion",
+      "prototype:facility:shangsheng-bicycle-parking",
+      "prototype:facility:shangsheng-reading-terrace",
+      "prototype:facility:huashan-pond-boardwalk",
+      "prototype:facility:huashan-bird-pergola"
+    ]
+  }
+}

@@ -222,14 +222,32 @@
         "positionEvidence": "address-interpolation-and-road-setback"
       },
       "cardPhoto": "/images/poi-thumbnails/one-step-garden.jpg",
-      "canonicalReference": "docs/research/assets/landmark-comparison/one-step-garden-real.jpg",
-      "photoStatus": "verified-same-building",
+      "canonicalReference": "docs/research/assets/poi-references/one-step-garden/one-step-garden-candidate-01-2023.jpg",
+      "referenceManifest": "docs/research/one-step-garden-reference-manifest.json",
+      "modelBrief": "docs/research/one-step-garden-model-brief.md",
+      "photoStatus": "verified-same-venue-multiple-volumes",
+      "evidenceNote": "新证据已闭合新华路179号一尺花园安和花园店；旧 jfdaily 图仍保留在专项清单并标记 rejected。沿街白墙半木构与后院红砖爬山虎建筑是同一经营场地内不同体量，不得合并成一栋。",
       "referencePhotos": [
         {
-          "path": "docs/research/assets/landmark-comparison/one-step-garden-real.jpg",
-          "sourceUrl": "https://www.jfdaily.com/sgh/detail?id=1697461",
-          "view": "front-gable",
-          "captureDate": "unknown"
+          "path": "docs/research/assets/poi-references/one-step-garden/one-step-garden-candidate-01-2023.jpg",
+          "sourceUrl": "https://sghexport.shobserver.com/html/baijiahao/2023/09/24/1133838.html",
+          "view": "street-facing-white-half-timber-volume",
+          "captureDate": "unknown",
+          "publishDate": "2023-09-24"
+        },
+        {
+          "path": "docs/research/assets/poi-references/one-step-garden/one-step-garden-candidate-02-2023.jpg",
+          "sourceUrl": "https://sghexport.shobserver.com/html/baijiahao/2023/09/24/1133838.html",
+          "view": "interior-courtyard-and-roof-connection",
+          "captureDate": "unknown",
+          "publishDate": "2023-09-24"
+        },
+        {
+          "path": "docs/research/assets/poi-references/one-step-garden/one-step-garden-candidate-08-2023.jpg",
+          "sourceUrl": "https://sghexport.shobserver.com/html/baijiahao/2023/09/24/1133838.html",
+          "view": "rear-garden-and-separate-red-brick-volume",
+          "captureDate": "unknown",
+          "publishDate": "2023-09-24"
         }
       ]
     },
@@ -243,14 +261,31 @@
         "positionEvidence": "address-and-osm-lane"
       },
       "cardPhoto": "/images/poi-thumbnails/xinhua-villas-211.jpg",
-      "canonicalReference": "docs/research/assets/landmark-comparison/xinhua-villas-211-real.jpg",
+      "canonicalReference": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-overview-official-2023.jpg",
+      "referenceManifest": "docs/research/xinhua-villas-211-reference-manifest.json",
+      "modelBrief": "docs/research/xinhua-villas-211-model-brief.md",
       "photoStatus": "verified-same-compound",
       "referencePhotos": [
         {
-          "path": "docs/research/assets/landmark-comparison/xinhua-villas-211-real.jpg",
-          "sourceUrl": "https://www.thepaper.cn/newsDetail_forward_28954961",
+          "path": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-overview-official-2023.jpg",
+          "sourceUrl": "https://www.meet-in-shanghai.net/tc/guide/stroll-xinhua-road-walk-into-the-old-timethe-building-can-be-read-863025/",
           "view": "lane-entrance",
-          "captureDate": "unknown"
+          "captureDate": "unknown",
+          "publishDate": "2023-06-24"
+        },
+        {
+          "path": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-1-official-2025.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col6991/20251124/1301891.html",
+          "view": "member-building-211-1-front",
+          "captureDate": "unknown",
+          "publishDate": "2025-11-22"
+        },
+        {
+          "path": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-2-official-2025.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col6991/20251124/1301891.html",
+          "view": "member-building-211-2-front-oblique",
+          "captureDate": "unknown",
+          "publishDate": "2025-11-22"
         }
       ]
     },
@@ -265,12 +300,29 @@
       },
       "cardPhoto": "/images/poi-thumbnails/xinhua-villas-329.jpg",
       "canonicalReference": "docs/research/assets/landmark-comparison/xinhua-villas-329-real.jpg",
+      "referenceManifest": "docs/research/xinhua-villas-329-reference-manifest.json",
+      "modelBrief": "docs/research/xinhua-villas-329-model-brief.md",
       "photoStatus": "verified-same-compound",
       "referencePhotos": [
         {
+          "path": "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-17-official-2024.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col7698/20240208/1254319.html",
+          "view": "member-building-329-17-front",
+          "captureDate": "unknown",
+          "publishDate": "2024-02-08"
+        },
+        {
+          "path": "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-38-official-2025.jpg",
+          "sourceUrl": "https://www.shcn.gov.cn/col6991/20251124/1301891.html",
+          "view": "member-building-329-38-front-oblique",
+          "captureDate": "unknown",
+          "publishDate": "2025-11-22"
+        },
+        {
           "path": "docs/research/assets/landmark-comparison/xinhua-villas-329-real.jpg",
           "sourceUrl": "https://www.thepaper.cn/newsDetail_forward_28954961",
-          "view": "garden-house-front",
+          "view": "legacy-representative-garden-house-front",
+          "subjectMatch": "same-compound-specific-building-unknown",
           "captureDate": "unknown"
         }
       ]
@@ -285,13 +337,30 @@
         "positionEvidence": "address-and-road-setback"
       },
       "cardPhoto": "/images/poi-thumbnails/house-315.jpg",
-      "canonicalReference": "docs/research/assets/landmark-comparison/house-315-real.jpg",
+      "canonicalReference": "docs/research/assets/poi-references/house-315/house-315-front-official-2023.jpg",
+      "referenceManifest": "docs/research/house-315-reference-manifest.json",
+      "modelBrief": "docs/research/house-315-model-brief.md",
       "photoStatus": "verified-same-building",
       "referencePhotos": [
         {
+          "path": "docs/research/assets/poi-references/house-315/house-315-front-official-2023.jpg",
+          "sourceUrl": "https://www.meet-in-shanghai.net/tc/guide/stroll-xinhua-road-walk-into-the-old-timethe-building-can-be-read-863025/",
+          "view": "street-facing-front",
+          "captureDate": "unknown",
+          "publishDate": "2023-06-24"
+        },
+        {
+          "path": "docs/research/assets/poi-references/house-315/house-315-street-context-official-2023.jpg",
+          "sourceUrl": "https://www.meet-in-shanghai.net/tc/guide/stroll-xinhua-road-walk-into-the-old-timethe-building-can-be-read-863025/",
+          "view": "xinhua-road-street-context",
+          "captureDate": "unknown",
+          "publishDate": "2023-06-24"
+        },
+        {
           "path": "docs/research/assets/landmark-comparison/house-315-real.jpg",
           "sourceUrl": "https://www.jfdaily.com/sgh/detail?id=1697461",
-          "view": "front-gable",
+          "view": "legacy-front-gable",
+          "subjectMatch": "needs-review",
           "captureDate": "unknown"
         }
       ]
@@ -306,14 +375,30 @@
         "positionEvidence": "address-and-road-setback"
       },
       "cardPhoto": "/images/poi-thumbnails/villa-le-bec.jpg",
-      "canonicalReference": "docs/research/assets/landmark-comparison/villa-le-bec-real.jpg",
+      "canonicalReference": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-timeout-street-candidate-2022.jpg",
+      "referenceManifest": "docs/research/villa-le-bec-reference-manifest.json",
+      "modelBrief": "docs/research/villa-le-bec-model-brief.md",
       "photoStatus": "verified-same-building",
       "referencePhotos": [
+        {
+          "path": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-timeout-street-candidate-2022.jpg",
+          "sourceUrl": "https://www.timeoutshanghai.cn/features/6714.html",
+          "view": "garden-axis-to-main-villa",
+          "captureDate": "unknown",
+          "publishDate": "2022"
+        },
         {
           "path": "docs/research/assets/landmark-comparison/villa-le-bec-real.jpg",
           "sourceUrl": "https://shanghai-zine.com/listings/16308/",
           "view": "courtyard-front",
           "captureDate": "unknown"
+        },
+        {
+          "path": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-official-overview-2024.jpg",
+          "sourceUrl": "https://english.shanghai.gov.cn/en-Restaurants/20240522/2e50ad81c68e4b378ac12e2851217dd3.html",
+          "view": "garden-terrace-site-relationship",
+          "captureDate": "unknown",
+          "publishDate": "2024-05-22"
         }
       ]
     },
@@ -327,14 +412,31 @@
         "positionEvidence": "address-and-building-compound"
       },
       "cardPhoto": "/images/poi-thumbnails/shanghai-orchestra.jpg",
-      "canonicalReference": "docs/research/assets/landmark-comparison/shanghai-orchestra-real.jpg",
+      "canonicalReference": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-exterior-tjad-2019.jpg",
+      "referenceManifest": "docs/research/shanghai-orchestra-reference-manifest.json",
+      "modelBrief": "docs/research/shanghai-orchestra-model-brief.md",
       "photoStatus": "verified-same-building",
       "referencePhotos": [
         {
-          "path": "docs/research/assets/landmark-comparison/shanghai-orchestra-real.jpg",
+          "path": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-exterior-tjad-2019.jpg",
           "sourceUrl": "https://www.gooood.cn/renovation-project-of-shanghai-chinese-orchestra-located-at-no-336-xinhua-road-phase-i-china-by-tjad.htm",
-          "view": "right-front-three-quarter",
-          "captureDate": "unknown"
+          "view": "project-exterior-courtyard-canonical",
+          "captureDate": "unknown",
+          "publishDate": "2019-07"
+        },
+        {
+          "path": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-fahua-facade-tjad-2019.jpg",
+          "sourceUrl": "https://www.gooood.cn/renovation-project-of-shanghai-chinese-orchestra-located-at-no-336-xinhua-road-phase-i-china-by-tjad.htm",
+          "view": "fahua-road-curved-facade",
+          "captureDate": "unknown",
+          "publishDate": "2019-07"
+        },
+        {
+          "path": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-entrance-canopy-tjad-2019.jpg",
+          "sourceUrl": "https://www.gooood.cn/renovation-project-of-shanghai-chinese-orchestra-located-at-no-336-xinhua-road-phase-i-china-by-tjad.htm",
+          "view": "entrance-canopy-string-shadow-detail",
+          "captureDate": "unknown",
+          "publishDate": "2019-07"
         }
       ]
     },

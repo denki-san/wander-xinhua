@@ -44,6 +44,26 @@
       "sha256": "5d7f815bd751446a0fbb39b02b9dd6ee5fbcaae6c81c68b7433ef7731ed67331"
     }
   ],
+  "correctionEvidence": [
+    {
+      "id": "north-porte-cochere-user-reference",
+      "path": "docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-north-porte-cochere-user-reference-20260725.png",
+      "source": "user-provided-attachment",
+      "viewDirection": "北侧门廊近景，明确显示门廊向北外挑并形成可穿行的 porte-cochere",
+      "retrievedAt": "2026-07-25",
+      "sha256": "6e00c8c3884a14e51382b22db86b0a8660a8b1468661a6efda18b126053d5b62",
+      "usage": "Hero 与 Identity 几何校正"
+    },
+    {
+      "id": "north-porch-model-before-correction",
+      "path": "docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-north-porch-model-correction-20260725.png",
+      "source": "user-provided-attachment",
+      "viewDirection": "校正前 Identity 北门廊截图",
+      "retrievedAt": "2026-07-25",
+      "sha256": "12712f963d99ee88a359914faf976c1a701e11d3a9fc1fb30a4fa3b1561fd14e",
+      "usage": "记录贴墙短雨棚错误，不作为真实建筑证据"
+    }
+  ],
   "textSources": [
     {
       "url": "https://mzj.sh.gov.cn/lnb-xw/20201117/a91886a37b954de283d159a39afca025.html",

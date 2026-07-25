@@ -1,0 +1,848 @@
+{
+  "version": 2,
+  "status": "active-18-buildings-scope-frozen-active-31-superseded",
+  "effectiveDate": "2026-07-25",
+  "authority": "app/asset-library/asset-data.ts",
+  "scopeRule": "当前活动范围只统计 18 栋生产建筑；树木与装饰物保留为 hold/deferred，不计入活动完成数，也不把运行时实例数当作模型数",
+  "totals": {
+    "assets": 18,
+    "buildings": 18,
+    "trees": 0,
+    "decor": 0,
+    "holdDeferredAssets": 13,
+    "holdDeferredTrees": 3,
+    "holdDeferredDecor": 10,
+    "preservedInventoryRecords": 31
+  },
+  "supersededScope": {
+    "name": "active-31",
+    "counts": {
+      "assets": 31,
+      "buildings": 18,
+      "trees": 3,
+      "decor": 10
+    },
+    "status": "superseded-by-active-18-buildings",
+    "preservationRule": "保留全部 31 条记录和既有产物路径；其中 13 个树木与装饰物条目转为 hold/deferred"
+  },
+  "activeProgress": {
+    "denominator": 18,
+    "completed": 1,
+    "inProgress": 1,
+    "queued": 16,
+    "completedIds": [
+      "sun-ke-villa"
+    ],
+    "inProgressIds": [
+      "shanghai-cinema"
+    ],
+    "queuedRule": "其余 16 栋建筑按迁移矩阵依次执行"
+  },
+  "excludedCatalogAssets": [
+    "lighting-v3",
+    "rain-summer-wanderer"
+  ],
+  "pipelineOrder": [
+    "evidence-and-brief",
+    "massing-map-calibration",
+    "complete-hero-master",
+    "derive-identity-from-hero-master",
+    "freeze-and-reverify-massing",
+    "hero-identity-massing-runtime-acceptance"
+  ],
+  "tierRules": {
+    "identityFeaturePhaseIsNotIdentityGlb": true,
+    "identityWithoutCompleteHeroMaster": "provisional",
+    "existingArtifactsArePreserved": true,
+    "outOfScopeArtifacts": "hold-backlog",
+    "runtimePolicy": "near-hero-mid-identity-far-massing",
+    "repeatedAssets": "shared-prototype-plus-instanced-mesh"
+  },
+  "assets": [
+    {
+      "id": "shanghai-cinema",
+      "category": "buildings",
+      "scopeStatus": "active-in-progress",
+      "source": "xinhua-road-landmarks-data.json",
+      "hero": {
+        "state": "existing-v2-audit-required",
+        "decision": "retain",
+        "glb": "public/models/xinhua-road/shanghai-cinema.glb",
+        "blend": "assets/models/source/xinhua-road/shanghai-cinema.blend"
+      },
+      "identity": {
+        "state": "provisional-lineage-unverified",
+        "decision": "derive",
+        "glb": "public/models/xinhua-road/shanghai-cinema-hybrid-identity.glb"
+      },
+      "massing": {
+        "state": "provisional-map-gate-pending",
+        "decision": "reverify",
+        "glb": "public/models/tiers/xinhua-road/massing/shanghai-cinema-massing.glb"
+      },
+      "nextGate": "audit-hero-master-and-bind-massing-to-map"
+    },
+    {
+      "id": "film-art-center",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "xinhua-road-landmarks-data.json",
+      "hero": {
+        "state": "existing-v2-audit-required",
+        "decision": "retain",
+        "glb": "public/models/xinhua-road/film-art-center.glb",
+        "blend": "assets/models/source/xinhua-road/film-art-center.blend"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master-audit",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-clean-v2-map-gate-pending",
+        "decision": "reverify",
+        "glb": "public/models/tiers/xinhua-road/massing-v2/film-art-center-massing.glb"
+      },
+      "nextGate": "close-rear-evidence-unknown-and-map-calibration"
+    },
+    {
+      "id": "one-step-garden",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "xinhua-road-landmarks-data.json",
+      "hero": {
+        "state": "existing-pre-v2",
+        "decision": "rebuild",
+        "glb": "public/models/xinhua-road/one-step-garden.glb",
+        "blend": "assets/models/source/xinhua-road/one-step-garden.blend"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-clean-v2-map-gate-pending",
+        "decision": "reverify",
+        "glb": "public/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb"
+      },
+      "nextGate": "bind-multi-volume-footprint-and-calibrate-massing"
+    },
+    {
+      "id": "xinhua-villas-211",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "xinhua-road-landmarks-data.json",
+      "hero": {
+        "state": "existing-pre-v2",
+        "decision": "rebuild",
+        "glb": "public/models/xinhua-road/xinhua-villas-211.glb",
+        "blend": "assets/models/source/xinhua-road/xinhua-villas-211.blend"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-map-gate-pending",
+        "decision": "rebuild",
+        "glb": "public/models/tiers/xinhua-road/massing/xinhua-villas-211-massing.glb"
+      },
+      "nextGate": "bind-building-or-compound-footprint"
+    },
+    {
+      "id": "xinhua-villas-329",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "xinhua-road-landmarks-data.json",
+      "hero": {
+        "state": "existing-pre-v2",
+        "decision": "rebuild",
+        "glb": "public/models/xinhua-road/xinhua-villas-329.glb",
+        "blend": "assets/models/source/xinhua-road/xinhua-villas-329.blend"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-clean-v2-map-gate-pending",
+        "decision": "reverify",
+        "glb": "public/models/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.glb"
+      },
+      "nextGate": "resolve-representative-building-binding"
+    },
+    {
+      "id": "house-315",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "xinhua-road-landmarks-data.json",
+      "hero": {
+        "state": "existing-pre-v2",
+        "decision": "rebuild",
+        "glb": "public/models/xinhua-road/house-315.glb",
+        "blend": "assets/models/source/xinhua-road/house-315.blend"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-map-gate-pending",
+        "decision": "rebuild",
+        "glb": "public/models/tiers/xinhua-road/massing/house-315-massing.glb"
+      },
+      "nextGate": "close-side-depth-evidence-or-record-unknown"
+    },
+    {
+      "id": "villa-le-bec",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "xinhua-road-landmarks-data.json",
+      "hero": {
+        "state": "existing-pre-v2",
+        "decision": "rebuild",
+        "glb": "public/models/xinhua-road/villa-le-bec.glb",
+        "blend": "assets/models/source/xinhua-road/villa-le-bec.blend"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-clean-v2-map-gate-pending",
+        "decision": "reverify",
+        "glb": "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb"
+      },
+      "nextGate": "resolve-site-plan-and-map-footprint"
+    },
+    {
+      "id": "shanghai-orchestra",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "xinhua-road-landmarks-data.json",
+      "hero": {
+        "state": "existing-pre-v2",
+        "decision": "rebuild",
+        "glb": "public/models/xinhua-road/shanghai-orchestra.glb",
+        "blend": "assets/models/source/xinhua-road/shanghai-orchestra.blend"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-clean-v2-map-gate-pending",
+        "decision": "reverify",
+        "glb": "public/models/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.glb"
+      },
+      "nextGate": "split-and-bind-compound-subbuildings"
+    },
+    {
+      "id": "hudec-memorial",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "xinhua-road-landmarks-data.json",
+      "hero": {
+        "state": "existing-pre-v2",
+        "decision": "rebuild",
+        "glb": "public/models/requested-pois/hudec-memorial.glb",
+        "blend": "assets/models/source/requested-pois/hudec-memorial.blend"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-map-gate-pending",
+        "decision": "rebuild",
+        "glb": "public/models/tiers/xinhua-road/massing/hudec-memorial-massing.glb"
+      },
+      "nextGate": "correct-high-risk-position-and-front-direction"
+    },
+    {
+      "id": "xinhua-pocket-park",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "xinhua-road-landmarks-data.json",
+      "hero": {
+        "state": "existing-pre-v2",
+        "decision": "rebuild",
+        "glb": "public/models/requested-pois/xinhua-pocket-park.glb",
+        "blend": "assets/models/source/requested-pois/xinhua-pocket-park.blend"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-clean-v2-map-gate-pending",
+        "decision": "reverify",
+        "glb": "public/models/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.glb"
+      },
+      "nextGate": "resolve-footprint-and-orientation"
+    },
+    {
+      "id": "xinhua-community-center",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "xinhua-road-landmarks-data.json",
+      "hero": {
+        "state": "existing-pre-v2",
+        "decision": "rebuild",
+        "glb": "public/models/requested-pois/xinhua-community-center.glb",
+        "blend": "assets/models/source/requested-pois/xinhua-community-center.blend"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-map-gate-pending",
+        "decision": "rebuild",
+        "glb": "public/models/tiers/xinhua-road/massing/xinhua-community-center-massing.glb"
+      },
+      "nextGate": "confirm-building-footprint-beyond-osm-node"
+    },
+    {
+      "id": "debi-fahua-525",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "xinhua-road-landmarks-data.json",
+      "hero": {
+        "state": "existing-pre-v2",
+        "decision": "rebuild",
+        "glb": "public/models/requested-pois/debi-fahua-525.glb",
+        "blend": "assets/models/source/requested-pois/debi-fahua-525.blend"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-clean-v2-map-gate-pending",
+        "decision": "reverify",
+        "glb": "public/models/tiers/xinhua-road/massing-v2/debi-fahua-525-massing.glb"
+      },
+      "nextGate": "record-and-bind-compound-subbuildings"
+    },
+    {
+      "id": "fahua-heritage",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "xinhua-road-landmarks-data.json",
+      "hero": {
+        "state": "existing-pre-v2",
+        "decision": "rebuild",
+        "glb": "public/models/requested-pois/fahua-heritage.glb",
+        "blend": "assets/models/source/requested-pois/fahua-heritage.blend"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-map-gate-pending",
+        "decision": "rebuild",
+        "glb": "public/models/tiers/xinhua-road/massing/fahua-heritage-massing.glb"
+      },
+      "nextGate": "close-depth-evidence-or-record-unknown"
+    },
+    {
+      "id": "fics-xinhua-365",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "xinhua-road-landmarks-data.json",
+      "hero": {
+        "state": "existing-pre-v2",
+        "decision": "rebuild",
+        "glb": "public/models/requested-pois/fics-xinhua-365.glb",
+        "blend": "assets/models/source/requested-pois/fics-xinhua-365.blend"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-clean-v2-map-gate-pending",
+        "decision": "reverify",
+        "glb": "public/models/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.glb"
+      },
+      "nextGate": "split-subbuildings-and-resolve-alias"
+    },
+    {
+      "id": "xingfuli-west",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "existing-final-package-audit-required",
+        "decision": "retain",
+        "glb": "public/models/xingfuli/xingfuli-west.glb",
+        "blend": "assets/models/source/xingfuli/xingfuli-west.blend"
+      },
+      "identity": {
+        "state": "provisional-lineage-unverified",
+        "decision": "derive",
+        "glb": "public/models/xingfuli/xingfuli-west-identity.glb"
+      },
+      "massing": {
+        "state": "provisional-map-reverify",
+        "decision": "reverify",
+        "glb": "public/models/xingfuli/xingfuli-west-massing.glb"
+      },
+      "nextGate": "bind-package-to-map-and-record-hero-sha-lineage"
+    },
+    {
+      "id": "xingfuli-center",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "existing-final-package-audit-required",
+        "decision": "retain",
+        "glb": "public/models/xingfuli/xingfuli-center.glb",
+        "blend": "assets/models/source/xingfuli/xingfuli-center.blend"
+      },
+      "identity": {
+        "state": "provisional-lineage-unverified",
+        "decision": "derive",
+        "glb": "public/models/xingfuli/xingfuli-center-identity.glb"
+      },
+      "massing": {
+        "state": "provisional-map-reverify",
+        "decision": "reverify",
+        "glb": "public/models/xingfuli/xingfuli-center-massing.glb"
+      },
+      "nextGate": "bind-package-to-map-and-record-hero-sha-lineage"
+    },
+    {
+      "id": "xingfuli-east",
+      "category": "buildings",
+      "scopeStatus": "active-queued",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "existing-final-package-audit-required",
+        "decision": "retain",
+        "glb": "public/models/xingfuli/xingfuli-east.glb",
+        "blend": "assets/models/source/xingfuli/xingfuli-east.blend"
+      },
+      "identity": {
+        "state": "provisional-lineage-unverified",
+        "decision": "derive",
+        "glb": "public/models/xingfuli/xingfuli-east-identity.glb"
+      },
+      "massing": {
+        "state": "provisional-map-reverify",
+        "decision": "reverify",
+        "glb": "public/models/xingfuli/xingfuli-east-massing.glb"
+      },
+      "nextGate": "bind-package-to-map-and-record-hero-sha-lineage"
+    },
+    {
+      "id": "sun-ke-villa",
+      "category": "buildings",
+      "scopeStatus": "active-complete",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "complete-master-frozen",
+        "decision": "retain",
+        "glb": "public/models/shangsheng/sun-ke-villa.glb",
+        "blend": "assets/models/source/sun-ke-villa.blend",
+        "generator": "scripts/create_sun_ke_villa_model.py",
+        "lineageId": "sun-ke-villa-hero-6d1642315530",
+        "buildRecord": "docs/research/build-records/tiers/sun-ke-villa/hero/sun-ke-villa-hero.json"
+      },
+      "identity": {
+        "state": "formal-pass-derived-from-reviewed-hero",
+        "decision": "retain-current-derived-tier",
+        "glb": "public/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity.glb",
+        "blend": "assets/models/source/tiers/sun-ke-villa/identity/sun-ke-villa-identity.blend",
+        "generator": "scripts/create_sun_ke_villa_identity_model.py",
+        "buildRecord": "docs/research/build-records/tiers/sun-ke-villa/identity/sun-ke-villa-identity.json"
+      },
+      "massing": {
+        "state": "formal-pass-mcp-and-map-calibrated",
+        "decision": "reverify",
+        "glb": "public/models/tiers/shangsheng-huashan/massing/osm-way-864847877-massing.glb",
+        "mapQa": "docs/research/sun-ke-villa-massing-map-qa-v2.json"
+      },
+      "runtimeQa": "docs/research/sun-ke-villa-three-tier-runtime-qa-v2.json",
+      "nextGate": "retain-complete-pilot-continue-shanghai-cinema"
+    },
+    {
+      "id": "plane-tree",
+      "category": "trees",
+      "scopeStatus": "hold-deferred",
+      "activityDecision": "preserve-existing-artifacts-no-new-generation",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "existing-a-b-c-family-envelope-audit-required",
+        "decision": "retain",
+        "glb": "public/models/xinhua-road/plane-tree-a.glb",
+        "blend": "assets/models/source/xinhua-road/plane-tree-a.blend"
+      },
+      "identity": {
+        "state": "provisional-lineage-and-envelope-mismatch",
+        "decision": "derive",
+        "glb": "public/models/tiers/shared-prototypes/identity/xinhua-plane-tree-identity.glb"
+      },
+      "massing": {
+        "state": "provisional-freeze-pending",
+        "decision": "reverify",
+        "glb": "public/models/tiers/shared-prototypes/massing/xinhua-plane-tree-massing.glb"
+      },
+      "nextGate": "hold-deferred-resume-only-after-explicit-scope-expansion"
+    },
+    {
+      "id": "campus-tree",
+      "category": "trees",
+      "scopeStatus": "hold-deferred",
+      "activityDecision": "preserve-existing-artifacts-no-new-generation",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "blocked-evidence-procedural-runtime-only",
+        "decision": "rebuild"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-generic-envelope",
+        "decision": "reverify",
+        "glb": "public/models/tiers/shared-prototypes/massing/shangsheng-campus-tree-massing.glb"
+      },
+      "blockers": [
+        "species-unknown"
+      ],
+      "nextGate": "hold-deferred-resume-only-after-explicit-scope-expansion"
+    },
+    {
+      "id": "huashan-tree",
+      "category": "trees",
+      "scopeStatus": "hold-deferred",
+      "activityDecision": "preserve-existing-artifacts-no-new-generation",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "blocked-evidence-and-family-contract-procedural-runtime-only",
+        "decision": "rebuild"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-generic-canopy-plus-understory-input",
+        "decision": "reverify",
+        "glb": "public/models/tiers/shared-prototypes/massing/huashan-canopy-tree-massing.glb"
+      },
+      "blockers": [
+        "species-unknown",
+        "catalog-family-includes-understory-but-remains-one-asset-type"
+      ],
+      "nextGate": "hold-deferred-resume-only-after-explicit-scope-expansion"
+    },
+    {
+      "id": "lane-lamp",
+      "category": "decor",
+      "scopeStatus": "hold-deferred",
+      "activityDecision": "preserve-existing-artifacts-no-new-generation",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "missing-procedural-runtime-only",
+        "decision": "rebuild"
+      },
+      "identity": {
+        "state": "provisional-no-hero-lineage",
+        "decision": "derive",
+        "glb": "public/models/tiers/shared-prototypes/identity/lane-lamp-short-arm-identity.glb"
+      },
+      "massing": {
+        "state": "provisional-map-envelope-reconcile",
+        "decision": "reverify",
+        "glb": "public/models/tiers/shared-prototypes/massing/lane-lamp-short-arm-massing.glb"
+      },
+      "nextGate": "hold-deferred-resume-only-after-explicit-scope-expansion"
+    },
+    {
+      "id": "cantilever-umbrella",
+      "category": "decor",
+      "scopeStatus": "hold-deferred",
+      "activityDecision": "preserve-existing-artifacts-no-new-generation",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "missing-procedural-runtime-only",
+        "decision": "rebuild"
+      },
+      "identity": {
+        "state": "provisional-no-hero-lineage",
+        "decision": "derive",
+        "glb": "public/models/tiers/shared-prototypes/identity/cantilever-umbrella-identity.glb"
+      },
+      "massing": {
+        "state": "provisional-map-envelope-reconcile",
+        "decision": "reverify",
+        "glb": "public/models/tiers/shared-prototypes/massing/cantilever-umbrella-massing.glb"
+      },
+      "nextGate": "hold-deferred-resume-only-after-explicit-scope-expansion"
+    },
+    {
+      "id": "outdoor-dining",
+      "category": "decor",
+      "scopeStatus": "hold-deferred",
+      "activityDecision": "preserve-existing-artifacts-no-new-generation",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "missing-procedural-runtime-only",
+        "decision": "rebuild"
+      },
+      "identity": {
+        "state": "provisional-no-hero-lineage",
+        "decision": "derive",
+        "glb": "public/models/tiers/shared-prototypes/identity/outdoor-table-set-identity.glb"
+      },
+      "massing": {
+        "state": "provisional-map-envelope-reconcile",
+        "decision": "reverify",
+        "glb": "public/models/tiers/shared-prototypes/massing/outdoor-table-set-massing.glb"
+      },
+      "nextGate": "hold-deferred-resume-only-after-explicit-scope-expansion"
+    },
+    {
+      "id": "slatted-bench",
+      "category": "decor",
+      "scopeStatus": "hold-deferred",
+      "activityDecision": "preserve-existing-artifacts-no-new-generation",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "missing-procedural-runtime-only",
+        "decision": "rebuild"
+      },
+      "identity": {
+        "state": "provisional-no-hero-lineage",
+        "decision": "derive",
+        "glb": "public/models/tiers/shared-prototypes/identity/slatted-bench-identity.glb"
+      },
+      "massing": {
+        "state": "provisional-map-envelope-reconcile",
+        "decision": "reverify",
+        "glb": "public/models/tiers/shared-prototypes/massing/slatted-bench-massing.glb"
+      },
+      "nextGate": "hold-deferred-resume-only-after-explicit-scope-expansion"
+    },
+    {
+      "id": "street-planter",
+      "category": "decor",
+      "scopeStatus": "hold-deferred",
+      "activityDecision": "preserve-existing-artifacts-no-new-generation",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "missing-procedural-runtime-only",
+        "decision": "rebuild"
+      },
+      "identity": {
+        "state": "provisional-no-hero-lineage",
+        "decision": "derive",
+        "glb": "public/models/tiers/shared-prototypes/identity/rectangular-planter-identity.glb"
+      },
+      "massing": {
+        "state": "provisional-map-envelope-reconcile",
+        "decision": "reverify",
+        "glb": "public/models/tiers/shared-prototypes/massing/rectangular-planter-massing.glb"
+      },
+      "nextGate": "hold-deferred-resume-only-after-explicit-scope-expansion"
+    },
+    {
+      "id": "stone-bollard",
+      "category": "decor",
+      "scopeStatus": "hold-deferred",
+      "activityDecision": "preserve-existing-artifacts-no-new-generation",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "missing-procedural-runtime-only",
+        "decision": "rebuild"
+      },
+      "identity": {
+        "state": "provisional-no-hero-lineage",
+        "decision": "derive",
+        "glb": "public/models/tiers/shared-prototypes/identity/irregular-stone-bollard-identity.glb"
+      },
+      "massing": {
+        "state": "provisional-map-envelope-reconcile",
+        "decision": "reverify",
+        "glb": "public/models/tiers/shared-prototypes/massing/irregular-stone-bollard-massing.glb"
+      },
+      "nextGate": "hold-deferred-resume-only-after-explicit-scope-expansion"
+    },
+    {
+      "id": "mixed-paving",
+      "category": "decor",
+      "scopeStatus": "hold-deferred",
+      "activityDecision": "preserve-existing-artifacts-no-new-generation",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "missing-site-procedure-only",
+        "decision": "rebuild"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-facility-migration-input",
+        "decision": "reverify",
+        "glb": "public/models/tiers/facility-prototypes/massing/xingfuli-mixed-paving-massing.glb"
+      },
+      "nextGate": "hold-deferred-resume-only-after-explicit-scope-expansion"
+    },
+    {
+      "id": "ground-cover",
+      "category": "decor",
+      "scopeStatus": "hold-deferred",
+      "activityDecision": "preserve-existing-artifacts-no-new-generation",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "blocked-evidence-and-family-contract-procedural-only",
+        "decision": "rebuild"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "provisional-generic-inputs-not-yet-one-catalog-family",
+        "decision": "reverify",
+        "glb": "public/models/tiers/shared-prototypes/massing/road-edge-shrub-massing.glb"
+      },
+      "migrationInputs": [
+        "public/models/tiers/shared-prototypes/massing/road-edge-shrub-massing.glb",
+        "public/models/tiers/shared-prototypes/massing/huashan-understory-massing.glb",
+        "public/models/tiers/facility-prototypes/massing/xingfuli-vertical-garden-massing.glb"
+      ],
+      "blockers": [
+        "species-and-family-boundaries-unknown"
+      ],
+      "nextGate": "hold-deferred-resume-only-after-explicit-scope-expansion"
+    },
+    {
+      "id": "navy-club-pool",
+      "category": "decor",
+      "scopeStatus": "hold-deferred",
+      "activityDecision": "preserve-existing-artifacts-no-new-generation",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "existing-master-audit-required",
+        "decision": "retain",
+        "glb": "public/models/shangsheng/navy-club-pool.glb",
+        "blend": "assets/models/source/navy-club-pool.blend",
+        "generator": "scripts/create_navy_club_model.py"
+      },
+      "identity": {
+        "state": "missing-blocked-by-hero-master-audit",
+        "decision": "derive"
+      },
+      "massing": {
+        "state": "missing-formal-catalog-tier",
+        "decision": "rebuild"
+      },
+      "nextGate": "hold-deferred-resume-only-after-explicit-scope-expansion"
+    },
+    {
+      "id": "trash-bin",
+      "category": "decor",
+      "scopeStatus": "hold-deferred",
+      "activityDecision": "preserve-existing-artifacts-no-new-generation",
+      "source": "asset-data.ts",
+      "hero": {
+        "state": "missing-procedural-runtime-only",
+        "decision": "rebuild"
+      },
+      "identity": {
+        "state": "provisional-no-hero-lineage",
+        "decision": "derive",
+        "glb": "public/models/tiers/shared-prototypes/identity/shanghai-dual-classification-bin-identity.glb"
+      },
+      "massing": {
+        "state": "provisional-map-envelope-reconcile",
+        "decision": "reverify",
+        "glb": "public/models/tiers/shared-prototypes/massing/shanghai-dual-classification-bin-massing.glb"
+      },
+      "nextGate": "hold-deferred-resume-only-after-explicit-scope-expansion"
+    }
+  ],
+  "holdBacklog": {
+    "deferredCatalogAssets": {
+      "status": "hold-deferred-preserved-no-new-generation",
+      "count": 13,
+      "trees": [
+        "plane-tree",
+        "campus-tree",
+        "huashan-tree"
+      ],
+      "decor": [
+        "lane-lamp",
+        "cantilever-umbrella",
+        "outdoor-dining",
+        "slatted-bench",
+        "street-planter",
+        "stone-bollard",
+        "mixed-paving",
+        "ground-cover",
+        "navy-club-pool",
+        "trash-bin"
+      ],
+      "artifactRule": "保留本文件各条目记录的既有 GLB、Blend、generator、证据和 QA 路径，不删除、不覆盖、不继续生成"
+    },
+    "ordinaryOsmBuildings": {
+      "count": 864,
+      "status": "hold-preserved-no-new-generation",
+      "manifest": "docs/research/osm-ordinary-massing-manifest.json",
+      "glbDirectory": "public/models/tiers/osm-ordinary/massing",
+      "blendDirectory": "assets/models/source/tiers/osm-ordinary/massing"
+    },
+    "nonCatalogShangshengHuashanBuildings": {
+      "status": "hold-preserved-no-new-generation",
+      "manifest": "docs/research/shangsheng-huashan-massing-manifest.json"
+    },
+    "nonCatalogFacilityPrototypes": {
+      "status": "hold-preserved-no-new-generation",
+      "manifest": "docs/research/facility-prototypes-massing-manifest.json",
+      "preservedMigrationInputs": [
+        "xingfuli-mixed-paving",
+        "xingfuli-vertical-garden"
+      ]
+    },
+    "extraSharedPrototypeFamilies": {
+      "status": "hold-or-migration-input",
+      "ids": [
+        "huashan-understory",
+        "road-edge-shrub"
+      ],
+      "rule": "只作为延期目录 family 的迁移输入，不得另计当前活动模型数"
+    },
+    "provisionalRuntimeDrafts": {
+      "status": "hold-until-active-18-building-scope-completes",
+      "files": [
+        "app/scene/shared-prototype-identity-map.tsx"
+      ]
+    }
+  },
+  "minimalClosableBatch": {
+    "assetId": "sun-ke-villa",
+    "status": "complete",
+    "completedAt": "2026-07-25T13:45:00+08:00",
+    "reason": "已有完整参考清单、Brief、确定性生成器、可编辑 Blend 与生产 Hero；只需先闭合现有 OSM Massing 地图门，审计 Hero master，再从其派生 Identity。",
+    "acceptanceRecords": [
+      "docs/research/sun-ke-villa-blender-mcp-gates-v2.json",
+      "docs/research/sun-ke-villa-massing-map-qa-v2.json",
+      "docs/research/sun-ke-villa-three-tier-runtime-qa-v2.json"
+    ],
+    "order": [
+      "audit-existing-evidence-and-brief",
+      "map-calibrate-osm-way-864847877-massing",
+      "audit-and-freeze-hero-master-sha",
+      "derive-identity-from-frozen-hero",
+      "freeze-and-reverify-massing",
+      "run-three-tier-runtime-qa"
+    ]
+  }
+}

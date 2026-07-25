@@ -1,0 +1,150 @@
+{
+  "version": 2,
+  "assetId": "sun-ke-villa",
+  "auditedAt": "2026-07-25T15:00:00+08:00",
+  "status": "pass",
+  "supersedesWithoutDeleting": "docs/research/sun-ke-villa-blender-mcp-gates.json",
+  "reason": "用户指出北门廊必须明显向外突出；重建后发现旧 MCP 三档审查场景曾覆盖正式 Hero Blend，因此重新生成可编辑 master，并对当前 Hero 与 Identity 执行 MCP 固定机位复核。",
+  "sourceOfTruthPolicy": {
+    "heroGenerator": "scripts/create_sun_ke_villa_model.py",
+    "identityGenerator": "scripts/create_sun_ke_villa_identity_model.py",
+    "acceptedInteractiveChanges": [],
+    "generatorRebuildAfterAcceptedChanges": "not-required-current-mcp-review-accepted-no-new-geometry-edit",
+    "mcpSceneSavedToMaster": false,
+    "postMcpHeroBlendSha256": "1c01fddf3624e91dfe5ad4e4bb3e242b28898a4ed55da703806c11e0013b53c9",
+    "postMcpIdentityBlendSha256": "acc713ca204f99fcc200cea080a9cd2532474aab3077e07eeac4407abe5a6725"
+  },
+  "massingGate": {
+    "status": "pass",
+    "reviewDisposition": "retained-and-reverified",
+    "interactiveReview": "blender-mcp-prior-gate-retained",
+    "glb": "public/models/tiers/shangsheng-huashan/massing/osm-way-864847877-massing.glb",
+    "glbSha256": "f233f9defd2196025dcb104fcccd8147df8327ccd638cff803ef8f9a7e3e50d0",
+    "mapQa": "docs/research/sun-ke-villa-massing-map-qa-v2.json",
+    "reasonNotRebuilt": "Massing 已包含外挑北门廊、前柱和开放车道，本轮 Hero/Identity 重建未改变共享落点、尺度、正面或碰撞语义。"
+  },
+  "heroGate": {
+    "status": "pass",
+    "interactiveReview": "blender-mcp",
+    "sourceBlend": "assets/models/source/sun-ke-villa.blend",
+    "sourceBlendSha256": "1c01fddf3624e91dfe5ad4e4bb3e242b28898a4ed55da703806c11e0013b53c9",
+    "glb": "public/models/shangsheng/sun-ke-villa.glb",
+    "glbSha256": "6d16423155304063606a3cd7d9be3878cfa11469ddd2463077e8961bbe3812b9",
+    "lineageId": "sun-ke-villa-hero-6d1642315530",
+    "editableAssetMeshCount": 254,
+    "porteCochereEvidence": {
+      "roofObject": "north-porch-gable-roof",
+      "roofWorldBounds": [
+        [
+          -2.6482748985290527,
+          1.7899999618530273,
+          2.3499999046325684
+        ],
+        [
+          0.15337499976158142,
+          4.929999828338623,
+          3.180000066757202
+        ]
+      ],
+      "frontColumnObject": "north-porch-column-0",
+      "frontColumnWorldBounds": [
+        [
+          -2.351749897003174,
+          4.380000114440918,
+          0
+        ],
+        [
+          -1.9427498579025269,
+          4.779999732971191,
+          2.1600000858306885
+        ]
+      ],
+      "check": "pass-roof-projects-from-main-wall-to-independent-front-columns-and-center-lane-remains-open"
+    },
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/hero/sun-ke-villa/test_sun-ke-villa-hero-mcp-canonical-rebuild-6d1642315530.png",
+        "sha256": "680bbc4a4e977f9bf02c761f79a72a42b3eb89420388f80400b125a65d8b719d"
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/hero/sun-ke-villa/test_sun-ke-villa-hero-mcp-side-depth-rebuild-6d1642315530.png",
+        "sha256": "b1cc5dd19311702bab89d82faf97f59f47347faf6ecd478b0aa69bed04f4b31f"
+      },
+      "northEntrance": {
+        "path": "test_artifacts/all-models/hero/sun-ke-villa/test_sun-ke-villa-hero-mcp-north-entrance-rebuild-6d1642315530.png",
+        "sha256": "ed14bc2f35ddd74b78c011c1746c99457b81347b0cac9e4adcd5448d429b103c"
+      }
+    },
+    "checks": {
+      "structure": "pass-editable-layered-master-restored",
+      "threeOrMoreIdentityCues": "pass-garden-triple-pointed-portals-round-window-balcony-rounded-tower-protruding-north-porte-cochere",
+      "materials": "pass-eight-runtime-materials",
+      "normalsAndTransforms": "pass-zero-non-finite-and-normalized-runtime-root",
+      "visibleIntersections": "pass-no-unintended-visible-clipping-in-fixed-views",
+      "site": "pass-entry-steps-and-low-hedges",
+      "collisionIntent": "pass-main-body-plus-two-front-column-obstacles-and-open-covered-lane"
+    }
+  },
+  "identityGate": {
+    "status": "pass-derived-from-current-frozen-hero",
+    "interactiveReview": "blender-mcp",
+    "sourceBlend": "assets/models/source/tiers/sun-ke-villa/identity/sun-ke-villa-identity.blend",
+    "sourceBlendSha256": "acc713ca204f99fcc200cea080a9cd2532474aab3077e07eeac4407abe5a6725",
+    "glb": "public/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity.glb",
+    "glbSha256": "6b541e8ffab4c298ee6366083a3f236c6e3dd6d85020ab1cf12ac12cdc42b478",
+    "derivedFromHeroLineageId": "sun-ke-villa-hero-6d1642315530",
+    "editableRetainedMeshCount": 85,
+    "porteCochereRoofWorldBoundsMatchHero": true,
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/identity/sun-ke-villa/test_sun-ke-villa-identity-mcp-canonical-rebuild-6b541e8ffab4.png",
+        "sha256": "85950b79d3f3691759368daf6f6078d3c526cd2c4e893877dae6535166b2620f"
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/identity/sun-ke-villa/test_sun-ke-villa-identity-mcp-side-depth-rebuild-6b541e8ffab4.png",
+        "sha256": "b73b0e6c9416de8a15ba7f7109e8bb011e15cd77e62c7f9ff648c0c7b24d1afd"
+      },
+      "northEntrance": {
+        "path": "test_artifacts/all-models/identity/sun-ke-villa/test_sun-ke-villa-identity-mcp-north-entrance-rebuild-6b541e8ffab4.png",
+        "sha256": "01a3101ecca5fc7090ab3152572a5567238e65f81d5bc264c6673787f9a45c38"
+      }
+    },
+    "checks": {
+      "silhouette": "pass",
+      "majorRoofAndEntrance": "pass",
+      "facadeRhythm": "pass",
+      "threeOrMoreIdentityCues": "pass",
+      "originScaleFrontGround": "pass-same-as-hero",
+      "passageSemantics": "pass-covered-center-lane-remains-open"
+    }
+  },
+  "tierComparisonGate": {
+    "status": "pass",
+    "interactiveReview": "blender-mcp-hero-and-identity-plus-retained-current-massing",
+    "sameCameraContactSheets": {
+      "canonical": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-tier-mcp-canonical-rebuild-contact-sheet.png",
+        "sha256": "febe5c5b85cfcba9e3242f5d962aa068c1fbb0777e31147cd08db58dd30c8175"
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-tier-mcp-side-depth-rebuild-contact-sheet.png",
+        "sha256": "71850c07963367a94398272c938cd0ab5f5eb062c61c9af5cc2d959097663860"
+      },
+      "northEntrance": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-tier-mcp-north-entrance-rebuild-contact-sheet.png",
+        "sha256": "4beaf5f3979d804eda1ea612d80c7bfe94f60590fad7757c9daa1fc02bf722b4"
+      }
+    },
+    "checks": {
+      "originScaleFrontGround": "pass",
+      "northPorteCochereProjection": "pass-all-three-tiers",
+      "coveredLane": "pass-open-all-three-tiers",
+      "transformPopping": "none-observed",
+      "collisionSemanticPopping": "none"
+    }
+  },
+  "threeJsRuntimeGate": {
+    "status": "pass",
+    "record": "docs/research/sun-ke-villa-three-tier-runtime-qa-v2.json"
+  }
+}

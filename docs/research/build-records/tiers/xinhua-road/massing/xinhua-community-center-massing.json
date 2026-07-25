@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:xinhua-community-center",
+  "tier": "massing",
+  "status": "massing-generated-runtime-gate-blocked-evidence-and-walkaround",
+  "generator": "scripts/create_xinhua_road_massing_models.py",
+  "sourceHero": {
+    "path": "public/models/requested-pois/xinhua-community-center.glb",
+    "sha256": "cc022632a23b796ab049f6f6fc71e9b8cd5985abf8521a3198c2471c3c41b2cd",
+    "importedBounds": {
+      "min": [
+        -10,
+        -7.6,
+        0
+      ],
+      "max": [
+        10,
+        8.5,
+        6.24
+      ]
+    },
+    "heightProxySceneUnits": 6.24,
+    "evidenceBoundary": "legacy-or-v2-hero-derived-height-not-real-measurement"
+  },
+  "sourcePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "position": [
+    -74.78,
+    112.55
+  ],
+  "yaw": -0.38,
+  "runtimeScale": 0.6,
+  "localBounds": {
+    "minX": -10,
+    "maxX": 10,
+    "minZ": -8.5,
+    "maxZ": 7.6
+  },
+  "localObstacles": [
+    {
+      "minX": -6.9,
+      "maxX": 6.9,
+      "minZ": -5.5,
+      "maxZ": 1.75
+    },
+    {
+      "minX": -1.55,
+      "maxX": 1.55,
+      "minZ": 1.65,
+      "maxZ": 4.3
+    },
+    {
+      "minX": 4.1,
+      "maxX": 8.5,
+      "minZ": -6.75,
+      "maxZ": -3.2
+    }
+  ],
+  "roofProfile": "flat",
+  "proxyMethod": "voxel-remesh-current-hero",
+  "pruning": {
+    "removedFaces": 900,
+    "removedMaterials": [
+      "社区中心室内暖光",
+      "社区中心玩具屋",
+      "社区中心花箱木",
+      "社区中心草坪",
+      "社区中心运动角",
+      "社区中心铺装"
+    ],
+    "rule": "material-name-denylist-before-voxel-remesh"
+  },
+  "voxelSizeSceneUnits": 0.355357,
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/xinhua-community-center-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing/xinhua-community-center-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/test_xinhua-community-center-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/test_xinhua-community-center-massing-side.png",
+      "threejs": "test_artifacts/all-models/massing/test_xinhua-community-center-massing-threejs.png"
+    }
+  },
+  "glb": {
+    "sha256": "5fe5c22031f2108d4bcb5c7cf631fdfeed0cb3617a646ffbc396e88028fee921",
+    "bytes": 91548,
+    "nodes": 1,
+    "meshes": 1,
+    "images": 0,
+    "textures": 0,
+    "materials": 1,
+    "triangles": 900,
+    "expectedMaximumTriangles": 1200,
+    "bounds": {
+      "min": [
+        -6.900001,
+        -0.002274,
+        -5.500024
+      ],
+      "max": [
+        7.985373,
+        6.239939,
+        5.025989
+      ]
+    },
+    "auditStatus": "ok"
+  },
+  "editableSourceBounds": {
+    "min": [
+      -6.900001,
+      -5.025989,
+      -0.002274
+    ],
+    "max": [
+      7.985373,
+      5.500024,
+      6.239939
+    ]
+  },
+  "qualityBoundary": {
+    "observed": [
+      "runtime local bounds",
+      "runtime split obstacles",
+      "current hero imported bounds"
+    ],
+    "inferred": [
+      "per-block height proxy"
+    ],
+    "unknown": [
+      "surveyed height",
+      "entrance direction",
+      "unseen facade and roof"
+    ]
+  },
+  "runtimeGate": {
+    "status": "blocked-evidence-map-and-walkaround-required",
+    "validatedAt": "2026-07-25",
+    "route": "/?start=community-center&qaModelTier=massing&cameraQa=1",
+    "screenshot": "test_artifacts/all-models/massing/test_xinhua-community-center-massing-threejs.png",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "buildMode": "vite-static-production-preview",
+    "pageVisibility": "visible",
+    "playable": true,
+    "canvasCount": 1,
+    "cameraMode": "spring-clear",
+    "blockerId": "none",
+    "visualStatus": "pass",
+    "independentReviewStatus": "conditional-geometry-usable-gate-blocked",
+    "requiredActions": [
+      "补 4 号楼入口方向与侧向证据",
+      "补确定性绕行验收",
+      "复核 way 和 named node 的 pivot 一致性"
+    ],
+    "mapAcceptance": "required-before-formal-pass"
+  }
+}

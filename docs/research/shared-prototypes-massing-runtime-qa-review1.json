@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "status": "gallery-runtime-pass-independent-review-pending",
+  "scope": {
+    "tier": "massing",
+    "prototypeCount": 12,
+    "vegetationCount": 5,
+    "streetFurnitureCount": 7,
+    "manifest": "docs/research/shared-prototypes-massing-manifest.json",
+    "runtimeEntry": "?qaSharedPrototypeTier=massing",
+    "buildMode": "static-production",
+    "viewport": [
+      1280,
+      720
+    ],
+    "displayScale": 1
+  },
+  "networkEvidence": {
+    "requests": 12,
+    "responses": 12,
+    "failures": 0,
+    "httpStatus": {
+      "200": 12
+    },
+    "fromDiskCache": 0,
+    "fromServiceWorker": 0,
+    "decodedGlbBytes": 92732
+  },
+  "runtime": {
+    "canvasCount": 1,
+    "stage": "playable",
+    "mode": "overview",
+    "qaDataset": {
+      "xinhuaSharedPrototypeTier": "massing",
+      "sharedPrototypeMassingQa": true
+    },
+    "labelCount": 12,
+    "consoleErrors": 0,
+    "knownWarnings": [
+      "THREE.Clock deprecated warning"
+    ]
+  },
+  "visualReview": {
+    "canonicalContactSheet": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-canonical-contact-sheet.png",
+    "sideContactSheet": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-side-contact-sheet.png",
+    "threejsScreenshot": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs.png",
+    "threejsScreenshotSha256": "dbfd4a76cb01a6ca2444033c55f0d6d77e6e5176b3161b581cceb4364e05af40",
+    "threejsScreenshotBytes": 51318,
+    "prototypeCountVisible": 12,
+    "groundContact": "visually-observed-for-all-gallery-pedestals",
+    "spikesOrFloatingFragments": "not-observed",
+    "displayScaleUnmodified": true
+  },
+  "independentReview": {
+    "status": "pending",
+    "formalMassingPassCount": 0,
+    "identityAllowed": false,
+    "requiredBeforeIdentity": [
+      "逐项独立轮廓和识别构件复核",
+      "确认 authored scale 和地面原点未被 gallery 隐藏",
+      "确认 unknown 物种没有被误写成悬铃木"
+    ]
+  },
+  "formalGate": {
+    "blenderCanonicalAndSide": "pass",
+    "glbStructureAndBudget": "pass",
+    "threejsGalleryLoadAndRender": "pass",
+    "independentReview": "pending",
+    "overall": "blocked",
+    "identityAllowed": false
+  },
+  "claimBoundary": "本记录证明 12 个共享 Massing 原型在真实静态生产构建中以 authored scale 全部加载并可见；独立审查完成前不放行 Identity，也不证明每个地图实例的现场物种或当前状态。"
+}

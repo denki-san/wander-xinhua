@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "prototype:street-furniture:irregular-stone-bollard",
+  "slug": "irregular-stone-bollard",
+  "family": "street-furniture",
+  "tier": "massing",
+  "status": "formal-massing-pass",
+  "modelBrief": "docs/research/shared-prototypes-massing-model-brief.md",
+  "generator": "scripts/create_shared_prototype_massing_models.py",
+  "evidence": "observed-xingfuli-panyu-entrance",
+  "instanceCount": null,
+  "outputs": {
+    "blend": "assets/models/source/tiers/shared-prototypes/massing/irregular-stone-bollard-massing.blend",
+    "glb": "public/models/tiers/shared-prototypes/massing/irregular-stone-bollard-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/shared-prototypes/test_irregular-stone-bollard-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/shared-prototypes/test_irregular-stone-bollard-massing-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "510047ea7b67f23f3b31e50757c668407605a27e9f6c35931892cad0ab58ab86",
+    "bytes": 2212,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 12,
+    "bounds": {
+      "min": [
+        -0.138519,
+        0,
+        -0.118148
+      ],
+      "max": [
+        0.143556,
+        0.214815,
+        0.118148
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": "formal-massing-pass",
+  "identityAllowed": true,
+  "qualityBoundary": {
+    "observed": [
+      "prototype envelope and current runtime scale language"
+    ],
+    "inferred": [
+      "simplified massing component dimensions"
+    ],
+    "unknown": [
+      "manufacturer or species where not explicitly confirmed",
+      "surveyed dimensions",
+      "current per-instance field condition"
+    ]
+  },
+  "runtimeQa": {
+    "file": "docs/research/shared-prototypes-massing-runtime-qa.json",
+    "screenshots": {
+      "vegetation": {
+        "file": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs-vegetation.png",
+        "sha256": "1abc72220336918b1c43afa01e531cb2858de07ba83e5162f6fff3fe6821fa01",
+        "bytes": 50266
+      },
+      "streetFurniture": {
+        "file": "test_artifacts/all-models/massing/shared-prototypes/test_shared-prototypes-massing-threejs-street-furniture.png",
+        "sha256": "3d2f3cfd406f2d72ced72175097942369a21dbf5e46dd27543f5cc52e20c1413",
+        "bytes": 39301
+      }
+    },
+    "galleryLoadAndRender": "pass",
+    "independentReview": "pass"
+  }
+}

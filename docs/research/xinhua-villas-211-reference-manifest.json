@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "subject": {
+    "id": "xinhua-villas-211",
+    "name": "新华别墅211弄",
+    "address": "上海市长宁区新华路211弄",
+    "scope": "compound-with-multiple-distinct-buildings"
+  },
+  "canonicalComparison": {
+    "localPath": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-overview-official-2023.jpg",
+    "view": "lane-entrance",
+    "direction": "from-xinhua-road-into-lane",
+    "reason": "生产 POI 表达的是211弄复合院落，入口和弄堂关系比任意一栋成员建筑更能代表该 POI。"
+  },
+  "referencePhotos": [
+    {
+      "localPath": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-overview-official-2023.jpg",
+      "sourcePage": "https://www.meet-in-shanghai.net/tc/guide/stroll-xinhua-road-walk-into-the-old-timethe-building-can-be-read-863025/",
+      "sourceAsset": "https://obj.shine.cn/files/2023/06/24/7be0aab8-3f58-41af-909d-f0a274690cba_0.png",
+      "view": "lane-entrance",
+      "subjectMatch": "verified-same-compound",
+      "publishedAt": "2023-06-24",
+      "captureDate": "unknown",
+      "sha256": "9d23cd3c57b492a01911907e8f376dc2bdb37b882b5233fafcaae3384540adf2"
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-1-official-2025.jpg",
+      "sourcePage": "https://www.shcn.gov.cn/col6991/20251124/1301891.html",
+      "sourceAsset": "https://cn.storage.shmedia.tech/d2445b2703da4c43961f188dc142e91d",
+      "view": "member-building-211-1-front",
+      "subjectMatch": "verified-member-not-whole-compound",
+      "publishedAt": "2025-11-22",
+      "captureDate": "unknown",
+      "sha256": "e0146deb4cb9571f39aab3a01c0028f2ab1018c2126a7039f52a0433197f0dc4"
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-2-official-2025.jpg",
+      "sourcePage": "https://www.shcn.gov.cn/col6991/20251124/1301891.html",
+      "sourceAsset": "https://cn.storage.shmedia.tech/061a17223b5747fdb38ef3cbe2753b70",
+      "view": "member-building-211-2-front-oblique",
+      "subjectMatch": "verified-member-not-whole-compound",
+      "publishedAt": "2025-11-22",
+      "captureDate": "unknown",
+      "sha256": "3568005a4e89a6ce95abf4be19fb22ab0dd277d17622fdd16a9ccad20d1496aa"
+    },
+    {
+      "localPath": "docs/research/assets/landmark-comparison/xinhua-villas-211-real.jpg",
+      "sourcePage": "https://www.thepaper.cn/newsDetail_forward_28954961",
+      "view": "legacy-lane-entrance",
+      "subjectMatch": "verified-same-compound",
+      "captureDate": "unknown"
+    }
+  ],
+  "textSources": [
+    {
+      "url": "https://www.shcn.gov.cn/col7698/20230109/1228439.html",
+      "authority": "上海市长宁区人民政府",
+      "facts": [
+        "211弄1号为邬达克典型住宅作品之一",
+        "用地约1240平方米，建筑面积约563平方米",
+        "建于1940年后"
+      ]
+    },
+    {
+      "url": "https://www.meet-in-shanghai.net/en/guide/xinhua-road-a-witness-to-urban-life-development-over-past-century-160847/",
+      "authority": "上海市文化和旅游行政管理局官方文旅网站",
+      "facts": [
+        "211弄1号为西班牙式别墅",
+        "红色筒瓦、室外阳台、带尖拱的砖烟囱和花园是主要识别构件"
+      ]
+    }
+  ],
+  "coverageMatrix": {
+    "compoundCanonical": "supported",
+    "member211_1Front": "supported",
+    "member211_2FrontOblique": "supported",
+    "sameBuildingLateralOrDepth": "missing-unknown",
+    "sameBuildingRear": "missing-unknown",
+    "all29Buildings": "not-covered"
+  },
+  "modelingBoundary": {
+    "compoundPoiIsNotOneBuilding": true,
+    "memberPhotosCannotBeMergedIntoOneImaginaryBuilding": true,
+    "ordinaryOsmInventoryMustTrackEachFootprint": true
+  },
+  "usageBoundary": {
+    "referenceOnly": true,
+    "embedInGlb": false,
+    "runtimeTexture": false
+  }
+}

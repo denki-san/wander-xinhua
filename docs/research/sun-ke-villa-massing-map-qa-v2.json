@@ -1,0 +1,132 @@
+{
+  "version": 2,
+  "auditedAt": "2026-07-25T13:00:00+08:00",
+  "scope": "active-31-minimal-vertical-pilot",
+  "assetId": "sun-ke-villa",
+  "sourceWayId": 864847877,
+  "tier": "massing",
+  "pipelineGate": "structured-massing-blender-mcp-pass-then-real-map-calibration",
+  "supersedesWithoutDeleting": "docs/research/sun-ke-villa-massing-map-qa.json",
+  "sourceAssets": {
+    "blend": {
+      "path": "assets/models/source/tiers/shangsheng-huashan/massing/osm-way-864847877-massing.blend",
+      "sha256": "332200935be244603a6c65e60bdffc96d3aa461458581db41db252594c957487"
+    },
+    "glb": {
+      "path": "public/models/tiers/shangsheng-huashan/massing/osm-way-864847877-massing.glb",
+      "sha256": "f233f9defd2196025dcb104fcccd8147df8327ccd638cff803ef8f9a7e3e50d0",
+      "bytes": 19988,
+      "triangles": 252,
+      "materials": 2
+    }
+  },
+  "blenderMcpPrerequisite": {
+    "status": "pass",
+    "record": "docs/research/sun-ke-villa-blender-mcp-gates.json",
+    "namedLandmarkNotGenericBox": true,
+    "northPorteCochereProjectionSceneUnits": 2.16534,
+    "coveredLaneOpen": true
+  },
+  "mapContract": {
+    "coordinateSource": "app/scene/xinhua-landmarks-data.json",
+    "sitePosition": [8.3149, -147.5366],
+    "localPosition": [43.2515, -9.8836],
+    "worldPivot": [51.5664, -157.4202],
+    "sourceCentroid": [51.56685, -157.42023],
+    "yawRadians": 0.009414,
+    "runtimeScale": [1, 1, 1],
+    "maximumVertexRoundtripErrorSceneUnits": 0,
+    "movementAuthorized": false
+  },
+  "scaleContract": {
+    "footprintAreaSqMeters": 315.6,
+    "heightMeters": 13.635,
+    "heightSceneUnits": 5.05,
+    "measuredHeightMeters": null,
+    "status": "pass-with-inferred-height-not-surveyed",
+    "characterScaleCheck": "pass",
+    "groundContactCheck": "pass",
+    "roadSetbackCheck": "pass-main-body-within-osm-plus-evidence-supported-north-projection"
+  },
+  "orientationContract": {
+    "canonicalFront": "garden-facade-local-three-plus-z-world-south-facing",
+    "entrance": "north-entrance-local-three-minus-z-world-north-facing",
+    "southMarker": "test-sun-ke-garden-south-facade-marker",
+    "northMarker": "test-sun-ke-north-entrance-marker",
+    "status": "pass"
+  },
+  "runtimeEvidence": {
+    "buildMode": "production-static",
+    "previewOrigin": "http://127.0.0.1:4182",
+    "viewportCssPixels": [1280, 720],
+    "canvasBufferPixels": [2240, 1260],
+    "devicePixelRatio": 2,
+    "rendererPixelRatio": 1.75,
+    "pageVisibility": "visible",
+    "cacheDisabled": true,
+    "introTargetGlbCount": 0,
+    "targetResponses": [
+      {
+        "view": "south",
+        "url": "/models/tiers/shangsheng-huashan/massing/osm-way-864847877-massing.glb?v=f233f9defd21",
+        "status": 200,
+        "mimeType": "model/gltf-binary",
+        "protocol": "http/1.1",
+        "fromDiskCache": false,
+        "fromServiceWorker": false,
+        "encodedDataLength": 20263
+      },
+      {
+        "view": "north",
+        "url": "/models/tiers/shangsheng-huashan/massing/osm-way-864847877-massing.glb?v=f233f9defd21",
+        "status": 200,
+        "mimeType": "model/gltf-binary",
+        "protocol": "http/1.1",
+        "fromDiskCache": false,
+        "fromServiceWorker": false,
+        "encodedDataLength": 20263
+      }
+    ],
+    "loadingFailures": 0,
+    "runtimeExceptions": 0,
+    "logErrors": 0,
+    "progressiveStage": "playable",
+    "cameraMode": "playable-map-entry"
+  },
+  "screenshots": {
+    "south": {
+      "path": "test_artifacts/all-models/massing/sun-ke-villa/test_sun-ke-villa-massing-map-south-mcp.png",
+      "sha256": "369eafc3c2ad988acaca0fac2be418265409e9ad6c503074f4fa5ad6057ff53e",
+      "bytes": 895714,
+      "url": "/?start=sunke&qaModelTier=massing&qaModelId=osm-way-864847877&qaModelView=map&qaModelDirection=south"
+    },
+    "north": {
+      "path": "test_artifacts/all-models/massing/sun-ke-villa/test_sun-ke-villa-massing-map-north-mcp.png",
+      "sha256": "038b0d4e043631eca6ada6bb5c7133074841a39384a34db0d63db25f3d266131",
+      "bytes": 583253,
+      "url": "/?start=sunke-north&qaModelTier=massing&qaModelId=osm-way-864847877&qaModelView=map&qaModelDirection=north"
+    }
+  },
+  "collisionEvidence": {
+    "test": "tests/test_sun_ke_villa_tier_pipeline.test.mjs",
+    "mainBodyBlocksCharacter": true,
+    "eastPassageRemainsOpen": true,
+    "porteCochereFrontColumnsBlock": true,
+    "porteCochereCoveredLaneRemainsOpen": true,
+    "status": "pass"
+  },
+  "acceptance": {
+    "mapPosition": "pass",
+    "mapScale": "pass-with-inferred-height",
+    "mapOrientation": "pass",
+    "groundContact": "pass",
+    "collision": "pass",
+    "runtimeLoad": "pass",
+    "final": "pass"
+  },
+  "limitations": [
+    "13.635 米高度来自三视图与既有 Hero envelope 推断，不是现场测量值。",
+    "北门廊投影来自用户与官方照片比例，不声称为测绘尺寸。"
+  ],
+  "nextGate": "three-tier-runtime-acceptance"
+}

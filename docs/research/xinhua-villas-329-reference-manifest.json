@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "subject": {
+    "id": "xinhua-villas-329",
+    "name": "新华别墅329弄",
+    "address": "上海市长宁区新华路329弄",
+    "scope": "compound-with-multiple-distinct-buildings"
+  },
+  "canonicalComparison": {
+    "localPath": "docs/research/assets/landmark-comparison/xinhua-villas-329-real.jpg",
+    "view": "legacy-representative-garden-house-front",
+    "direction": "unknown",
+    "reason": "保留旧模型对照，但该图对应的具体门牌尚未确认，正式重建前必须完成成员建筑绑定。"
+  },
+  "referencePhotos": [
+    {
+      "localPath": "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-17-official-2024.jpg",
+      "sourcePage": "https://www.shcn.gov.cn/col7698/20240208/1254319.html",
+      "sourceAsset": "https://static.shcn.gov.cn/cncms/2024/02/08/961e9125-fe48-4d1b-99fb-e7a61804cbab.jpg",
+      "view": "member-building-329-17-front",
+      "subjectMatch": "verified-member-not-whole-compound",
+      "publishedAt": "2024-02-08",
+      "captureDate": "unknown",
+      "sha256": "c7eba10495aec90b1f56992b419737c1b3ea636acd93ffef66727977662ec627"
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-38-official-2025.jpg",
+      "sourcePage": "https://www.shcn.gov.cn/col6991/20251124/1301891.html",
+      "sourceAsset": "https://cn.storage.shmedia.tech/f7f7c2c657a446a59cbd2b9df6bbddfc",
+      "view": "member-building-329-38-front-oblique",
+      "subjectMatch": "verified-member-not-whole-compound",
+      "publishedAt": "2025-11-22",
+      "captureDate": "unknown",
+      "sha256": "2b961ec0932770886aa7f126c11ed31094558146496543b108920afe6b7a5c26"
+    },
+    {
+      "localPath": "docs/research/assets/landmark-comparison/xinhua-villas-329-real.jpg",
+      "sourcePage": "https://www.thepaper.cn/newsDetail_forward_28954961",
+      "view": "legacy-representative-garden-house-front",
+      "subjectMatch": "same-compound-specific-building-unknown",
+      "captureDate": "unknown"
+    }
+  ],
+  "textSources": [
+    {
+      "url": "https://www.shcn.gov.cn/col7698/20240208/1254319.html",
+      "authority": "上海市长宁区人民政府",
+      "facts": [
+        "329弄17号建筑面积358平方米、用地面积609平方米",
+        "西班牙式建筑，建于1925年"
+      ]
+    },
+    {
+      "url": "https://www.meet-in-shanghai.net/en/guide/xinhua-road-a-witness-to-urban-life-development-over-past-century-160847/",
+      "authority": "上海市文化和旅游行政管理局官方文旅网站",
+      "facts": [
+        "329弄36号蛋糕房为罕见双层圆形砖木住宅",
+        "蓝色屋顶、欧式大理石喷泉、玻璃砖是其识别构件"
+      ]
+    }
+  ],
+  "coverageMatrix": {
+    "compoundCanonical": "partial",
+    "member329_17Front": "supported",
+    "member329_38FrontOblique": "supported",
+    "member329_36CakeHouse": "text-only-no-new-local-photo",
+    "sameBuildingLateralOrDepth": "missing-unknown",
+    "sameBuildingRear": "missing-unknown",
+    "allCompoundBuildings": "not-covered"
+  },
+  "modelingBoundary": {
+    "compoundPoiIsNotOneBuilding": true,
+    "memberPhotosCannotBeMergedIntoOneImaginaryBuilding": true,
+    "representativeBuildingChoice": "pending",
+    "ordinaryOsmInventoryMustTrackEachFootprint": true
+  },
+  "usageBoundary": {
+    "referenceOnly": true,
+    "embedInGlb": false,
+    "runtimeTexture": false
+  }
+}

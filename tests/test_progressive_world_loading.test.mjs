@@ -291,7 +291,10 @@ test("生产主世界让全部建筑遵守 Massing、Identity、Hero 三层和�
   assert.match(world, /fullEnterDistance: CORE_BUILDING_HERO_DISTANCE\.huashan\.enterDistance/);
   assert.match(world, /fullExitDistance: CORE_BUILDING_HERO_DISTANCE\.huashan\.exitDistance/);
   assert.doesNotMatch(world, /detailPresetTargetsBuilding|detailActive|priorityPreset/);
-  assert.match(world, /<HuashanGreenBlock[\s\S]*?showEnvironmentDetails=\{mode === "explore"\}[\s\S]*?stage=\{huashanTier\}/);
+  assert.match(
+    world,
+    /<HuashanGreenBlock[\s\S]*?showEnvironmentDetails=\{mode === "explore"\}[\s\S]*?facilityPrototypeMapQaId\?\.startsWith\("huashan-"\)[\s\S]*?\? "full"[\s\S]*?: huashanTier/,
+  );
   assert.match(
     world,
     /cameraFocus\.current\.copy\(position\.current\);\s+onPositionRef\.current\(\[position\.current\.x, position\.current\.z\]\);/,
@@ -347,15 +350,24 @@ test("生产主世界让全部建筑遵守 Massing、Identity、Hero 三层和�
   assert.match(xingfuli, /<LightweightXingfuliTrees \/>/);
   assert.match(xingfuli, /identityReady && environmentDetailed && \([\s\S]*?<ReflectingPoolDynamicDetails \/>[\s\S]*?<LaneFurniture \/>/);
   assert.match(xingfuli, /<ProgressivePlaneTreeInstances/);
-  assert.match(shangsheng, /if \(stage === "massing"\)/);
+  assert.match(
+    shangsheng,
+    /if \(stage === "massing" && !sunKeTierQa\)/,
+  );
   assert.match(shangsheng, /const loadFullModels = stage === "full"/);
   assert.match(shangsheng, /if \(!loadFullModels\)/);
   assert.match(shangsheng, /ProgressiveFeatureBoundary/);
   assert.match(huashan, /stage === "massing"/);
   assert.match(huashan, /<ParkServiceBuildingProxy identity \/>/);
-  assert.match(huashan, /environmentDetailed && \([\s\S]*?<UnderstoryInstances \/>[\s\S]*?<ParkFacilities showServiceBuilding=\{stage === "full"\} \/>/);
+  assert.match(
+    huashan,
+    /environmentDetailed && \([\s\S]*?<UnderstoryInstances \/>[\s\S]*?<ParkFacilities[\s\S]*?showServiceBuilding=\{stage === "full"\}[\s\S]*?facilityMassingMapQaId=\{facilityMassingMapQaId\}/,
+  );
   assert.match(huashan, /stage !== "full" && <ParkServiceBuildingProxy identity \/>/);
-  assert.match(shangsheng, /<CampusLandscape detailed=\{environmentDetailed\} \/>/);
+  assert.match(
+    shangsheng,
+    /<CampusLandscape[\s\S]*?detailed=\{environmentDetailed\}[\s\S]*?facilityMassingMapQaId=\{facilityMassingMapQaId\}/,
+  );
   assert.match(world, /showEnvironmentDetails=\{mode === "explore"\}/);
   assert.match(world, /footprints: XINGFULI_WORLD_BUILDING_FOOTPRINTS/);
 });
@@ -376,7 +388,12 @@ test("全世界生产 manifest 覆盖三档资产、共享空间参数和证据�
     });
     assert.ok(entry.hero.model.endsWith(".glb"));
     assert.equal(entry.identity.requiredBeforeMapVisible, true);
-    assert.equal(entry.massing.visibility, "cover-only");
+    assert.equal(
+      entry.massing.visibility,
+      entry.buildingId === "shanghai-cinema"
+        ? "qa-only-until-three-tier-acceptance"
+        : "cover-only",
+    );
     assert.equal(entry.collision, "stable-shared-structure");
     assert.ok(entry.shared.position.length === 2);
     assert.equal(typeof entry.shared.yaw, "number");
@@ -390,6 +407,12 @@ test("全世界生产 manifest 覆盖三档资产、共享空间参数和证据�
   );
   assert.equal(cinema.identity.cacheVersion, "20260722-hybrid-1");
   assert.equal(cinema.hero.model, "/models/xinhua-road/shanghai-cinema.glb");
+  assert.equal(cinema.massing.strategy, "glb-tier");
+  assert.equal(
+    cinema.massing.model,
+    "/models/tiers/shanghai-cinema/massing/shanghai-cinema-massing.glb",
+  );
+  assert.equal(cinema.massing.cacheVersion, "be6963875918");
 
   const productionIds = Object.keys(PRODUCTION_BUILDING_QUALITY_MANIFEST).sort();
   assert.deepEqual(
@@ -404,7 +427,12 @@ test("全世界生产 manifest 覆盖三档资产、共享空间参数和证据�
     assert.equal(entry.hero.loading.sampleSeconds, 0.2);
     assert.ok(entry.identity.assets.length > 0);
     assert.equal(entry.identity.requiredBeforeMapVisible, true);
-    assert.equal(entry.massing.visibility, "cover-only");
+    assert.equal(
+      entry.massing.visibility,
+      entry.buildingId === "shanghai-cinema"
+        ? "qa-only-until-three-tier-acceptance"
+        : "cover-only",
+    );
     assert.ok(entry.massing.parametersSource.length > 0);
     assert.ok(entry.shared.transformSource.length > 0);
     assert.ok(entry.shared.collisionSource.length > 0);
@@ -451,6 +479,10 @@ test("全世界生产 manifest 覆盖三档资产、共享空间参数和证据�
   }
   const productionCinema = PRODUCTION_BUILDING_QUALITY_MANIFEST["shanghai-cinema"];
   assert.equal(productionCinema.identity.strategy, "custom-landmark-hybrid");
+  assert.equal(productionCinema.massing.strategy, "glb-tier");
+  assert.deepEqual(productionCinema.massing.assets, [
+    "/models/tiers/shanghai-cinema/massing/shanghai-cinema-massing.glb?v=be6963875918",
+  ]);
   assert.ok(productionCinema.evidence.identityBuildRecords
     .includes("docs/research/build-records/shanghai-cinema-hybrid-identity.json"));
   assert.ok(productionCinema.evidence.resourceMetrics

@@ -374,7 +374,10 @@ test("运行时使用三段 final 模型并保留程序化 fallback 与三组 QA
   assert.match(fullArchitecture, /name="xingfuli-final-architecture"/);
   assert.match(scene, /id: `east-entry-bollard-\$\{index\}`/);
   assert.doesNotMatch(scene, /\[-44\.6, 44\.6\]/);
-  assert.match(world, /<XingfuliBlock[\s\S]*?stage=\{xingfuliTier\}/);
+  assert.match(
+    world,
+    /<XingfuliBlock[\s\S]*?facilityPrototypeMapQaId\?\.startsWith\("xingfuli-"\)[\s\S]*?\? "identity"[\s\S]*?: xingfuliTier/,
+  );
   assert.doesNotMatch(fullArchitecture, /useGLTF\.preload\(/);
   assert.match(world, /name === "xingfuli-canonical"/);
   assert.match(world, /name === "xingfuli-pool-detail"/);

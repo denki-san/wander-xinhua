@@ -1,0 +1,1049 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "scope": {
+    "registry": "docs/research/all-models-production-registry.json#facilityPrototypes",
+    "prototypeCount": 14,
+    "instanceCount": 16,
+    "purpose": "为全部 facility prototype 固化可追溯的 Massing 几何输入、实例数量、证据边界、未知项、预算与 Identity 准入状态。",
+    "runtimeCodeChanged": false
+  },
+  "coordinateContract": {
+    "unit": "scene-unit",
+    "authoredMetersPerSceneUnit": 2.7,
+    "axes": "X east, Y up, Z south",
+    "envelopesAre": "prototype-local runtime authored bounds unless an entry explicitly names OSM footprint evidence",
+    "collectionTransformRule": "collection-local positions must be transformed by the parent collection before world placement",
+    "xingfuliCaveat": "幸福里存在运行时非均匀水平/纵向缩放；本文件中的幸福里尺寸不得直接乘 2.7 后冒充实测米制尺寸。"
+  },
+  "evidencePolicy": {
+    "observed": "本地保存的公开照片、OSM 原始几何/标签或产品所有者明确设计约束直接支持的事实。",
+    "runtimeAuthored": "当前 JSX/JSON 中确定性的程序化位置与尺寸，只是可复现基线，不是现场测绘。",
+    "inferred": "从照片、文字或当前运行时关系推断，必须在进入 Identity 前复核。",
+    "unknown": "现有证据没有回答，禁止用程序化现状填充。",
+    "identityRule": "真实设施至少需要主体对应照片覆盖 canonical、侧向/纵深和身份细节中的必要视角；只有 OSM 平面或园区级文字时不得进入 Identity。产品自定义装置可由产品设计权威替代现场照片。"
+  },
+  "commonSources": [
+    "docs/research/model-placement-registry-20260725.json",
+    "docs/research/facility-prototypes-reference-manifest.json",
+    "app/scene/shangsheng-facilities.ts",
+    "app/scene/shangsheng-xinsuo-block.tsx",
+    "app/scene/huashan-green-block.tsx",
+    "app/scene/xingfuli-block.tsx",
+    "app/scene/mixed-stone-paving.tsx",
+    "app/scene/xingfuli-qa-paths.json",
+    "app/scene/xinhua-world.tsx",
+    "app/scene/xinhua-landmarks-data.json"
+  ],
+  "summary": {
+    "identityReadyPrototypeCount": 6,
+    "identityBlockedPrototypeCount": 8,
+    "identityReady": [
+      "prototype:facility:shangsheng-main-entry",
+      "prototype:facility:huashan-happiness-corner",
+      "prototype:facility:xingfuli-reflecting-pool-hardscape",
+      "prototype:facility:xingfuli-mixed-paving",
+      "prototype:facility:xingfuli-vertical-garden",
+      "prototype:facility:one-square-metre-action"
+    ],
+    "identityBlocked": [
+      "prototype:facility:shangsheng-wayfinding-totem",
+      "prototype:facility:shangsheng-cafe-pavilion",
+      "prototype:facility:shangsheng-bicycle-parking",
+      "prototype:facility:shangsheng-reading-terrace",
+      "prototype:facility:shangsheng-fountain",
+      "prototype:facility:huashan-pond-boardwalk",
+      "prototype:facility:huashan-basketball-court",
+      "prototype:facility:huashan-bird-pergola"
+    ]
+  },
+  "prototypes": [
+    {
+      "id": "prototype:facility:shangsheng-wayfinding-totem",
+      "collection": "shangsheng",
+      "instanceCount": 2,
+      "instances": [
+        {
+          "id": "facility-instance:shangsheng:wayfinding-0",
+          "position": [54, 0.18, -11],
+          "yaw": -0.18,
+          "coordinateSpace": "collection-local"
+        },
+        {
+          "id": "facility-instance:shangsheng:wayfinding-1",
+          "position": [18, 0.18, 9],
+          "yaw": 0.7,
+          "coordinateSpace": "collection-local"
+        }
+      ],
+      "existingEvidence": {
+        "classification": "runtime-authored-only",
+        "runtimeAuthored": [
+          "六边形柱体顶半径 0.48、底半径 0.62、高 3.5。",
+          "三枚三角箭头中心位于 x=±0.62、y=0.92/1.55/2.18；箭头半径 0.34、高 1.22。",
+          "两个实例的碰撞代理均为 1.2 x 1.2，清空半径为 1.4。"
+        ],
+        "observed": [],
+        "sources": [
+          "app/scene/shangsheng-xinsuo-block.tsx#WayfindingTotem",
+          "app/scene/shangsheng-facilities.ts"
+        ]
+      },
+      "massing": {
+        "currentAuthoredBounds": {
+          "min": [-0.96, 0, -0.62],
+          "max": [0.96, 3.5, 0.62],
+          "dimensions": [1.92, 3.5, 1.24],
+          "basis": "由当前确定性几何计算，不是实测"
+        },
+        "recommendedGeometry": [
+          "保留一个六边形主柱体。",
+          "箭头在 Massing 合并成最多三个低面数楔形块，保持左右交替轮廓。",
+          "碰撞继续使用独立 1.2 x 1.2 平面代理，不从箭头网格生成。"
+        ]
+      },
+      "unknown": [
+        "真实导视牌是否存在于这两个位置。",
+        "真实高度、截面、箭头数量、文字、颜色和朝向。",
+        "两个实例是否应共享完全相同的原型。"
+      ],
+      "budget": {
+        "kind": "massing-target",
+        "maxTriangles": 96,
+        "maxNodes": 2,
+        "maxMaterials": 1,
+        "maxImages": 0,
+        "maxBinaryBytes": 65536,
+        "animation": "none"
+      },
+      "identityGate": {
+        "mayEnterIdentity": false,
+        "status": "blocked-missing-facility-specific-evidence",
+        "required": [
+          "保存两个位置的导视牌照片或证明其不存在。",
+          "至少确认正面、侧面、总高和箭头/牌面结构。",
+          "复核牌面朝向与人流方向。"
+        ]
+      }
+    },
+    {
+      "id": "prototype:facility:shangsheng-cafe-pavilion",
+      "collection": "shangsheng",
+      "instanceCount": 1,
+      "instances": [
+        {
+          "id": "facility-instance:shangsheng:cafe-pavilion",
+          "position": [7, 0.2, 7],
+          "coordinateSpace": "collection-local"
+        }
+      ],
+      "existingEvidence": {
+        "classification": "runtime-authored-only",
+        "runtimeAuthored": [
+          "六边形顶棚直径 6.8、高 0.3、顶面高度约 2.87。",
+          "六根柱位于半径 2.65 的圆周；中心八边形售卖亭最大直径 3.24、高 1.12。",
+          "两侧程序化桌椅中心位于 x=±4.2；当前实体碰撞只覆盖中心 3.5 x 3.5，清空半径 5.2。"
+        ],
+        "observed": [
+          "上生·新所园区级资料可见咖啡桌等环境元素，但没有证明该亭体的具体位置与形态。"
+        ],
+        "sources": [
+          "app/scene/shangsheng-xinsuo-block.tsx#CafePavilion",
+          "app/scene/shangsheng-facilities.ts",
+          "docs/research/shangsheng-xinsuo-reference.md"
+        ]
+      },
+      "massing": {
+        "currentAuthoredBounds": {
+          "min": [-4.78, 0, -3.4],
+          "max": [4.78, 2.87, 3.4],
+          "dimensions": [9.56, 2.87, 6.8],
+          "basis": "包含两侧桌椅的当前运行时视觉包络，不是实测"
+        },
+        "solidCoreFootprint": [3.5, 3.5],
+        "recommendedGeometry": [
+          "亭体本身拆为六边形薄顶棚、六柱和八边形中心售卖亭。",
+          "桌椅不并入亭体 GLB 的主碰撞，可作为可选实例附件。",
+          "Massing 必须保留顶棚下通透空间，不能做成实心盒。"
+        ]
+      },
+      "unknown": [
+        "是否存在对应的真实咖啡亭。",
+        "顶棚跨度、柱距、售卖亭尺寸和桌椅数量。",
+        "入口方向、材质、品牌和营业状态。"
+      ],
+      "budget": {
+        "kind": "massing-target",
+        "maxTriangles": 256,
+        "maxNodes": 4,
+        "maxMaterials": 2,
+        "maxImages": 0,
+        "maxBinaryBytes": 98304,
+        "animation": "none"
+      },
+      "identityGate": {
+        "mayEnterIdentity": false,
+        "status": "blocked-missing-facility-specific-evidence",
+        "required": [
+          "取得亭体 canonical、侧向和入口照片。",
+          "验证亭体位置、跨度、柱数与中心售卖空间。",
+          "桌椅作为独立装饰原型另行记录。"
+        ]
+      }
+    },
+    {
+      "id": "prototype:facility:shangsheng-bicycle-parking",
+      "collection": "shangsheng",
+      "instanceCount": 1,
+      "instances": [
+        {
+          "id": "facility-instance:shangsheng:bicycle-parking",
+          "position": [43, 0.18, -3],
+          "yaw": 0.15,
+          "coordinateSpace": "collection-local"
+        }
+      ],
+      "existingEvidence": {
+        "classification": "runtime-authored-only",
+        "runtimeAuthored": [
+          "七个停车环以 0.78 间距排列，中心跨度 4.68。",
+          "停车环半径 0.52、管径 0.055；偶数位附程序化自行车代理。",
+          "当前碰撞代理为 5.6 x 1.5，清空半径 4.2。"
+        ],
+        "observed": [],
+        "sources": [
+          "app/scene/shangsheng-xinsuo-block.tsx#BicycleParking",
+          "app/scene/shangsheng-facilities.ts"
+        ]
+      },
+      "massing": {
+        "currentAuthoredBounds": {
+          "dimensions": [5.6, 1.1, 1.5],
+          "basis": "采用当前碰撞宽深和程序化环架高度的保守包络，不是实测"
+        },
+        "recommendedGeometry": [
+          "保留七个低面数 U 形环架或合并后的七跨轮廓。",
+          "自行车不属于固定设施 Massing，可作为可选装饰实例。",
+          "碰撞使用连续 5.6 x 1.5 代理，待照片证明后再细分。"
+        ]
+      },
+      "unknown": [
+        "停车架真实样式、数量、间距与朝向。",
+        "是否带雨棚、地锁、标识或充电设施。",
+        "该位置是否真实用于自行车停放。"
+      ],
+      "budget": {
+        "kind": "massing-target",
+        "maxTriangles": 256,
+        "maxNodes": 2,
+        "maxMaterials": 1,
+        "maxImages": 0,
+        "maxBinaryBytes": 65536,
+        "animation": "none"
+      },
+      "identityGate": {
+        "mayEnterIdentity": false,
+        "status": "blocked-missing-facility-specific-evidence",
+        "required": [
+          "取得车架正侧面与场地关系照片。",
+          "确认真实车位数量、结构与朝向。",
+          "把可移动自行车与固定车架分开建模。"
+        ]
+      }
+    },
+    {
+      "id": "prototype:facility:shangsheng-reading-terrace",
+      "collection": "shangsheng",
+      "instanceCount": 1,
+      "instances": [
+        {
+          "id": "facility-instance:shangsheng:reading-terrace",
+          "position": [-15, 0.18, 30],
+          "coordinateSpace": "collection-local"
+        }
+      ],
+      "existingEvidence": {
+        "classification": "runtime-authored-only",
+        "runtimeAuthored": [
+          "八边形环形地台内半径 2.7、外半径 4.8。",
+          "八组座椅位于半径 3.65 的圆周。",
+          "中心八边形台体最大直径 2.84、高 1.72，顶部斜板 1.85 x 0.12 x 1.24。",
+          "当前碰撞只覆盖中心 3 x 3，清空半径 6.2。"
+        ],
+        "observed": [],
+        "sources": [
+          "app/scene/shangsheng-xinsuo-block.tsx#ReadingTerrace",
+          "app/scene/shangsheng-facilities.ts"
+        ]
+      },
+      "massing": {
+        "currentAuthoredBounds": {
+          "min": [-4.8, 0, -4.8],
+          "max": [4.8, 1.84, 4.8],
+          "dimensions": [9.6, 1.84, 9.6],
+          "basis": "当前程序化环台与中心构件包络，不是实测"
+        },
+        "recommendedGeometry": [
+          "环形地台、中心台体和顶板为三个主块。",
+          "八组座椅可合并为一个低面数附件节点，但不得把环内可步行区封死。",
+          "中心 3 x 3 碰撞与外圈通行分离。"
+        ]
+      },
+      "unknown": [
+        "真实阅读设施是否存在。",
+        "中心构件用途、座椅数量、环台材质与高差。",
+        "无障碍进入方式、真实通行净宽和朝向。"
+      ],
+      "budget": {
+        "kind": "massing-target",
+        "maxTriangles": 256,
+        "maxNodes": 4,
+        "maxMaterials": 2,
+        "maxImages": 0,
+        "maxBinaryBytes": 98304,
+        "animation": "none"
+      },
+      "identityGate": {
+        "mayEnterIdentity": false,
+        "status": "blocked-missing-facility-specific-evidence",
+        "required": [
+          "取得设施全景、侧向和中心构件照片。",
+          "确认环台是否可步行以及座椅布置。",
+          "确认该设施是否确为阅读用途。"
+        ]
+      }
+    },
+    {
+      "id": "prototype:facility:shangsheng-fountain",
+      "collection": "shangsheng",
+      "instanceCount": 2,
+      "instances": [
+        {
+          "id": "facility-instance:shangsheng:fountain-osm-1364679202",
+          "position": [-16.94395, 0.18, -24.00305],
+          "coordinateSpace": "collection-local",
+          "osmWayId": 1364679202,
+          "footprint": [
+            [-14.0206, -26.7113],
+            [-13.7208, -21.8885],
+            [-19.4724, -21.2948],
+            [-20.1671, -26.22]
+          ],
+          "footprintAabb": [6.4463, 5.4165]
+        },
+        {
+          "id": "facility-instance:shangsheng:fountain-osm-1364679203",
+          "position": [-23.68645, 0.18, -23.5609],
+          "coordinateSpace": "collection-local",
+          "osmWayId": 1364679203,
+          "footprint": [
+            [-22.6426, -26.22],
+            [-21.0593, -21.3931],
+            [-26.1126, -20.9018],
+            [-26.3136, -25.7246]
+          ],
+          "footprintAabb": [5.2543, 5.3182]
+        }
+      ],
+      "existingEvidence": {
+        "classification": "osm-type-and-footprint-plus-unbound-site-family-photo",
+        "observed": [
+          "OSM 原始 ways 1364679202 与 1364679203 均带 amenity=fountain。",
+          "两个多边形的位置、平面轮廓和相对关系来自 OSM 快照。",
+          "2022 年长宁区政府照片直接证明海军俱乐部前存在与铺装齐平的多股地面喷泉阵列，未见独立高池沿。",
+          "该照片只有园区/设施家族级绑定，不能逐一绑定到 ways 1364679202 或 1364679203。"
+        ],
+        "runtimeAuthored": [
+          "当前运行时把多边形退化为 AABB 水池盒，高 0.14。",
+          "detail 模式增加半径 0.06/0.09、高 0.7 的中心水柱代理。"
+        ],
+        "sources": [
+          "docs/research/facility-prototypes-reference-manifest.json",
+          "docs/research/assets/poi-references/shangsheng-xinsuo/shangsheng-navy-club-fountain-plaza-2022.jpeg",
+          "docs/research/data/shangsheng-xinsuo-overpass-20260716.json",
+          "app/scene/xinhua-landmarks-data.json",
+          "app/scene/shangsheng-xinsuo-block.tsx#CampusLandscape"
+        ]
+      },
+      "massing": {
+        "currentAuthoredBounds": {
+          "maximumInstanceDimensions": [6.4463, 0.06, 5.4165],
+          "basis": "平面来自各自 OSM 四边形；0.06 仅作为齐平 footprint 视觉厚度"
+        },
+        "recommendedGeometry": [
+          "每个实例只使用各自 OSM 四边形生成齐平中性 footprint，不再用共同矩形原型覆盖。",
+          "Massing 不生成静水面、高池沿或未经逐实例照片证明的喷头样式。",
+          "园区级地面喷泉照片只作为待匹配的候选设施家族，不得据此把两个 OSM way 都改成齐平喷泉阵列。",
+          "碰撞沿真实四边形或其保守内缩多边形建立。"
+        ]
+      },
+      "unknown": [
+        "池沿高度、池深、材质、喷嘴数量与喷水状态。",
+        "2026 年是否仍作为喷泉运行。",
+        "两个喷泉是否具有相同的立面和水景构造。",
+        "海军俱乐部前地面喷泉与两个 OSM ways 的逐一对应关系。"
+      ],
+      "budget": {
+        "kind": "massing-target-per-instance",
+        "maxTriangles": 96,
+        "maxNodes": 2,
+        "maxMaterials": 2,
+        "maxImages": 0,
+        "maxBinaryBytes": 65536,
+        "animation": "none"
+      },
+      "identityGate": {
+        "mayEnterIdentity": false,
+        "status": "blocked-osm-does-not-prove-vertical-form",
+        "required": [
+          "分别取得两个喷泉的全景和池沿/喷头照片。",
+          "现场或可靠资料确认高度、池深、材质和运行状态。",
+          "完成政府照片、海军俱乐部前广场和两个 OSM ways 的地图/视线绑定。",
+          "验证两者能否共享 Identity 原型。"
+        ]
+      }
+    },
+    {
+      "id": "prototype:facility:shangsheng-main-entry",
+      "collection": "shangsheng",
+      "instanceCount": 1,
+      "instances": [
+        {
+          "id": "facility-instance:shangsheng:main-entry",
+          "position": [58, 0.18, -14],
+          "coordinateSpace": "collection-local"
+        }
+      ],
+      "existingEvidence": {
+        "classification": "direct-photo-plus-runtime-authored-dimensions",
+        "observed": [
+          "本地保存的延安西路主入口照片直接支持黑色入口构架、园区中轴和成熟树阵。",
+          "运行时只显示“上生·新所”，不复制官方 logo。"
+        ],
+        "runtimeAuthored": [
+          "上层主体 8.4 x 0.38 x 3.2，两侧柱 0.28 x 1.76 x 3.2。",
+          "顶盖 8.72 x 0.18 x 3.48，三个斜/竖撑 0.16 x 1.74 x 3.1。",
+          "当前总包络约 8.72 x 2.13 x 3.48。"
+        ],
+        "sources": [
+          "docs/research/assets/poi-references/shangsheng-xinsuo/yanan-road-entrance.jpg",
+          "docs/research/shangsheng-xinsuo-reference.md",
+          "app/scene/shangsheng-xinsuo-block.tsx#shangsheng-main-entry"
+        ]
+      },
+      "massing": {
+        "currentAuthoredBounds": {
+          "min": [-4.36, 0, -1.74],
+          "max": [4.36, 2.13, 1.74],
+          "dimensions": [8.72, 2.13, 3.48],
+          "basis": "当前程序化几何计算；照片只支持构架类型，不支持这些精确数值"
+        },
+        "recommendedGeometry": [
+          "使用顶盖、两侧支柱和三根内部撑件形成通透门架。",
+          "必须保留中央通行开口，禁止实心盒替代。",
+          "文字和灯具留到 Identity/运行时，不进入 Massing 主网格。"
+        ]
+      },
+      "unknown": [
+        "真实总宽、净高、纵深和各构件截面。",
+        "照片机位对应的绝对朝向与当前本地位置精度。",
+        "2026 年标识、灯具和表面状态。"
+      ],
+      "budget": {
+        "kind": "massing-target",
+        "maxTriangles": 128,
+        "maxNodes": 3,
+        "maxMaterials": 1,
+        "maxImages": 0,
+        "maxBinaryBytes": 65536,
+        "animation": "none"
+      },
+      "identityGate": {
+        "mayEnterIdentity": true,
+        "status": "allowed-with-photo-proportion-calibration",
+        "requiredBeforeIdentityCompletion": [
+          "用延安西路入口照片建立 canonical 对照并校正宽高比。",
+          "补一个侧向/纵深视角；缺失背面保持 unknown。",
+          "运行时复核道路退界、净高与角色尺度。"
+        ]
+      }
+    },
+    {
+      "id": "prototype:facility:huashan-pond-boardwalk",
+      "collection": "huashan",
+      "instanceCount": 1,
+      "instances": [
+        {
+          "id": "facility-instance:huashan:pond-boardwalk",
+          "position": [-7.8, 0.18, 39.2],
+          "coordinateSpace": "collection-local"
+        }
+      ],
+      "existingEvidence": {
+        "classification": "public-text-style-reference-plus-runtime-authored-placement",
+        "observed": [
+          "2019 年公开改造文字支持水体清淤、木栈道修复与“栈桥生趣”。",
+          "现有本地照片组只直接覆盖跑道和密林，不直接证明该水池/栈桥几何。"
+        ],
+        "runtimeAuthored": [
+          "水面椭圆半径 9.4 x 4.5，外岸环半径 9.95 x 5.05。",
+          "桥体旋转 0.13 rad、局部偏移 x=0.4；24 块桥板形成约 17.22 x 1.62 的桥面。",
+          "桥两侧各 12 根栏杆柱，顶栏长度 17.2；水面碰撞分成桥两侧以保留通行。"
+        ],
+        "sources": [
+          "docs/research/huashan-green-reference.md",
+          "app/scene/huashan-green-block.tsx#PondGarden"
+        ]
+      },
+      "massing": {
+        "currentAuthoredBounds": {
+          "min": [-9.95, -0.15, -5.05],
+          "max": [9.95, 0.8, 5.05],
+          "dimensions": [19.9, 0.95, 10.1],
+          "basis": "水体、岸环与桥栏当前程序化包络；不含水生植物，不是测绘"
+        },
+        "recommendedGeometry": [
+          "水面椭圆与岸环作为非实体/低矮层。",
+          "桥面使用一个薄板体块，栏杆使用两条连续低面数轮廓。",
+          "碰撞必须继续分割到桥两侧，保留完整跨水通道。"
+        ]
+      },
+      "unknown": [
+        "真实水池轮廓、池深、桥长宽、栏杆形式和精确位置。",
+        "公开文字中的栈桥是否就是当前程序化位置的同一座设施。",
+        "水生植物、岸线材料与无障碍连接方式。"
+      ],
+      "budget": {
+        "kind": "massing-target",
+        "maxTriangles": 512,
+        "maxNodes": 5,
+        "maxMaterials": 2,
+        "maxImages": 0,
+        "maxBinaryBytes": 131072,
+        "animation": "none"
+      },
+      "identityGate": {
+        "mayEnterIdentity": false,
+        "status": "blocked-no-local-facility-specific-photo",
+        "required": [
+          "保存水池与栈桥同主体的 canonical、侧向和接岸细节照片。",
+          "确认公开改造文字与当前设施的同一性。",
+          "核验桥的通行宽度、栏杆和水岸关系。"
+        ]
+      }
+    },
+    {
+      "id": "prototype:facility:huashan-basketball-court",
+      "collection": "huashan",
+      "instanceCount": 1,
+      "instances": [
+        {
+          "id": "facility-instance:huashan:basketball-court",
+          "position": [15.4248, 0.18, 40.5921],
+          "yaw": 1.301342,
+          "coordinateSpace": "collection-local",
+          "osmWayId": 743778425,
+          "footprint": [
+            [18.9823, 36.3056],
+            [17.1027, 43.1222],
+            [16.5526, 45.116],
+            [11.0267, 43.6135],
+            [13.4599, 34.803]
+          ],
+          "orientedProxy": [9.162, 5.7265]
+        }
+      ],
+      "existingEvidence": {
+        "classification": "osm-type-and-footprint-plus-official-entry-photo-overlay-pending",
+        "observed": [
+          "OSM way 743778425 带 leisure=pitch、sport=basketball，支持位置、轮廓和用途。",
+          "2025 年长宁区政府入口三分之四视角照片确认华山绿地篮球场主体。",
+          "照片直接可见蓝色场面、红橙色边带、绿色刚性网框、绿色悬臂篮架、白色篮板和全高入口闸机。",
+          "照片视线与 OSM way 743778425 的 footprint/方位叠加仍未完成。"
+        ],
+        "runtimeAuthored": [
+          "当前内场使用 9.162 x 5.7265 定向矩形，外底座各外扩 0.35。",
+          "两组球架柱高 2.9，围网柱高 2.7；这些不是现场尺寸。",
+          "含围网柱和篮板的当前局部包络约 10.092 x 3.125 x 6.6565。"
+        ],
+        "sources": [
+          "docs/research/facility-prototypes-reference-manifest.json",
+          "docs/research/assets/poi-references/huashan-greenland/huashan-basketball-court-entry-2025.jpg",
+          "docs/research/data/huashan-green-overpass-20260716.json",
+          "app/scene/xinhua-landmarks-data.json",
+          "docs/research/huashan-green-reference.md",
+          "app/scene/huashan-green-block.tsx#BasketballCourt"
+        ]
+      },
+      "massing": {
+        "currentAuthoredBounds": {
+          "dimensions": [10.092, 3.125, 6.6565],
+          "basis": "平面由 OSM 定向代理约束；篮架、围网和高度为运行时设定"
+        },
+        "recommendedGeometry": [
+          "场地底面优先使用 OSM 五边形，不把定向矩形当成实测边界。",
+          "Massing 分离蓝色场面/边带、绿色围网高度带、悬臂篮架和入口闸机代理，不制作围网纹理或品牌牌面。",
+          "照片只证明一组篮架和一个入口；第二组篮架及完整围网不得在 Identity 中按对称关系自动补造。",
+          "地面、篮架、围网和闸机分别保留，以便地图叠加后校正方位。"
+        ]
+      },
+      "unknown": [
+        "第二组篮架是否存在及其样式、朝向。",
+        "完整围网范围、实际高度和其他入口。",
+        "OSM 多边形边界是围网外缘、铺装外缘还是球场使用范围。",
+        "官方照片机位与 OSM way 743778425 的精确方位对应。"
+      ],
+      "budget": {
+        "kind": "massing-target",
+        "maxTriangles": 384,
+        "maxNodes": 4,
+        "maxMaterials": 2,
+        "maxImages": 0,
+        "maxBinaryBytes": 98304,
+        "animation": "none"
+      },
+      "identityGate": {
+        "mayEnterIdentity": false,
+        "status": "blocked-partial-subject-photo-footprint-orientation-overlay-pending",
+        "required": [
+          "将官方入口照片视线与 OSM way 743778425 做 footprint/方位叠加。",
+          "补齐完整球场全景、另一端篮架和围网边界视角。",
+          "确认 OSM 边界语义、入口位置和篮架方向。",
+          "现场或可靠资料核验高度；蓝场、边带、绿网与悬臂篮架可作为已确认 Identity cues。"
+        ]
+      }
+    },
+    {
+      "id": "prototype:facility:huashan-bird-pergola",
+      "collection": "huashan",
+      "instanceCount": 1,
+      "instances": [
+        {
+          "id": "facility-instance:huashan:bird-pergola",
+          "position": [-25, 0.22, 17.5],
+          "coordinateSpace": "collection-local"
+        }
+      ],
+      "existingEvidence": {
+        "classification": "public-text-concept-plus-runtime-authored-geometry",
+        "observed": [
+          "公开参考把鸟笼架/观鸟架列为“林森鸟啼”小型地标，但现有本地照片没有直接覆盖该设施。"
+        ],
+        "runtimeAuthored": [
+          "九根长 3.1、半径 0.045 的杆件沿半圆参数排布。",
+          "底座为 5.2 x 0.16 x 2.2。",
+          "按杆件旋转后的当前视觉包络约 7.9 x 4.5 x 2.2。"
+        ],
+        "sources": [
+          "docs/research/huashan-green-reference.md",
+          "app/scene/huashan-green-block.tsx#huashan-bird-pergola"
+        ]
+      },
+      "massing": {
+        "currentAuthoredBounds": {
+          "min": [-3.95, 0, -1.1],
+          "max": [3.95, 4.5, 1.1],
+          "dimensions": [7.9, 4.5, 2.2],
+          "basis": "由当前九杆旋转几何计算，不是实测"
+        },
+        "recommendedGeometry": [
+          "Massing 使用一个低矮底座和最多九条低面数拱/杆轮廓。",
+          "保持可穿越的开放空间，不使用实心穹顶。",
+          "鸟笼、栖木、标牌等身份细节暂不生成。"
+        ]
+      },
+      "unknown": [
+        "“鸟笼架/观鸟架”的真实结构类型与当前代码是否同一设施。",
+        "真实跨度、高度、杆件数量、材质和开放方向。",
+        "准确位置与周边路径关系。"
+      ],
+      "budget": {
+        "kind": "massing-target",
+        "maxTriangles": 192,
+        "maxNodes": 2,
+        "maxMaterials": 1,
+        "maxImages": 0,
+        "maxBinaryBytes": 65536,
+        "animation": "none"
+      },
+      "identityGate": {
+        "mayEnterIdentity": false,
+        "status": "blocked-text-only-no-geometry-proof",
+        "required": [
+          "取得设施全景、侧向与连接节点照片。",
+          "确认它是鸟笼架、观鸟架还是普通廊架。",
+          "复核位置、开口方向和与园路的关系。"
+        ]
+      }
+    },
+    {
+      "id": "prototype:facility:huashan-happiness-corner",
+      "collection": "huashan",
+      "instanceCount": 1,
+      "instances": [
+        {
+          "id": "facility-instance:huashan:happiness-corner",
+          "position": [25, 0.16, 10],
+          "coordinateSpace": "collection-local"
+        }
+      ],
+      "existingEvidence": {
+        "classification": "official-multi-view-subject-evidence-plus-legacy-inaccurate-runtime",
+        "observed": [
+          "长宁区政府 2026 年资料和四张本地化照片确认幸福转角位于幸福路与华山路 1520 弄转角东北方、属于华山绿地。",
+          "canonical 照片直接可见大型粉色心形环架、粉色多级坐阶、浅色曲线花池与成熟林木。",
+          "心形装置由多道粉色扁钢/杆件心形环沿纵深密排，形成可穿视的心形开口和短隧道轮廓。",
+          "侧向照片直接支持坐阶穿过曲线花池、场地随林下地形逐级抬升；细节照片支持粉色颗粒/水洗石质感坐阶和浅色花池挡墙。"
+        ],
+        "legacyRuntimeAuthored": [
+          "三组门架中心位于 x=-2.4/0/2.4，每组两柱加一条顶梁。",
+          "18 个程序化花团分三排布置。",
+          "旧运行时整体视觉包络约 7.06 x 2.555 x 5.0。",
+          "status=legacy-inaccurate-do-not-carry-forward：三门架加离散花团与官方多视角主体不符，禁止作为新 Massing、Identity 或比例依据。"
+        ],
+        "sources": [
+          "docs/research/facility-prototypes-reference-manifest.json",
+          "docs/research/assets/poi-references/huashan-greenland/huashan-happiness-corner-canonical-2026.jpg",
+          "docs/research/assets/poi-references/huashan-greenland/huashan-happiness-corner-heart-frame-2026.jpg",
+          "docs/research/assets/poi-references/huashan-greenland/huashan-happiness-corner-step-detail-2026.jpg",
+          "docs/research/assets/poi-references/huashan-greenland/huashan-happiness-corner-planting-terrace-side-2026.jpg",
+          "docs/research/huashan-green-reference.md",
+          "app/scene/huashan-green-block.tsx#huashan-happiness-corner"
+        ]
+      },
+      "massing": {
+        "legacyCurrentAuthoredBounds": {
+          "min": [-3.7, 0, -2.5],
+          "max": [3.36, 2.555, 2.5],
+          "dimensions": [7.06, 2.555, 5.0],
+          "basis": "旧程序化门架与花团包络，不是实测",
+          "status": "legacy-inaccurate-do-not-carry-forward"
+        },
+        "evidenceDefinedEnvelope": {
+          "dimensions": null,
+          "status": "pending-runtime-placement-and-photo-scale-overlay",
+          "basis": "官方多视角已确定构件类型和空间层级，但没有测绘尺寸；不得用旧 7.06 x 2.555 x 5.0 包络套用新主体。"
+        },
+        "recommendedGeometry": [
+          "以多道粉色心形环沿纵深密排形成的开放短隧道作为第一识别体块；环数量、间距和截面必须从照片比较中参数化，不得沿用三门架。",
+          "以多级粉色坐阶作为第二主层级，保留中央/偏心上行路径、平台与林下地形逐级抬升关系。",
+          "以浅色连续曲线花池挡墙作为第三主层级；Massing 只表达连续边界和高差，不生成单朵花或离散花团。",
+          "心形环架、坐阶、曲线花池必须分成独立几何与碰撞层；心形开口和阶梯通行不得被实心代理封堵。",
+          "先用 canonical 与侧向照片对运行时位置 [25, 0.16, 10] 做场地/道路叠加，再确定数字包络和朝向。"
+        ]
+      },
+      "unknown": [
+        "心形环架精确总宽、总高、纵深、环数量、间距和杆件截面。",
+        "坐阶级数、单级尺寸、曲线花池平面控制点和整体场地高差。",
+        "当前运行时位置 [25, 0.16, 10]、朝向和官方照片主体的精确地图叠加。",
+        "踏步文字、夜间照明、不可见背面和季节性植物状态。"
+      ],
+      "budget": {
+        "kind": "massing-target",
+        "maxTriangles": 512,
+        "maxNodes": 5,
+        "maxMaterials": 3,
+        "maxImages": 0,
+        "maxBinaryBytes": 131072,
+        "animation": "none"
+      },
+      "identityGate": {
+        "mayEnterIdentity": true,
+        "status": "allowed-official-multi-view-subject-evidence-after-placement-overlay",
+        "requiredBeforeIdentityCompletion": [
+          "完成官方照片主体、转角道路和运行时位置/朝向叠加。",
+          "用人物、踏步和树干作视觉尺度校准，但不宣称测绘精度。",
+          "将心形环架、坐阶、固定花池和季节性植物拆成不同资产/碰撞类别。",
+          "不复制可读文字或品牌；不可见背面保持保守。"
+        ]
+      }
+    },
+    {
+      "id": "prototype:facility:xingfuli-reflecting-pool-hardscape",
+      "collection": "xingfuli",
+      "instanceCount": 1,
+      "instances": [
+        {
+          "id": "facility-instance:xingfuli:reflecting-pool",
+          "position": [16.5, 0, -3.95],
+          "coordinateSpace": "collection-local"
+        }
+      ],
+      "existingEvidence": {
+        "classification": "multi-view-photo-plus-runtime-authored-dimensions",
+        "observed": [
+          "canonical 和中段照片直接支持长条浅水景、池中树、石景、跨水木桥与沿池外摆。",
+          "照片支持水景与主巷/两侧立面的相对关系，但不是施工测量。"
+        ],
+        "runtimeAuthored": [
+          "硬景底座 18 x 0.34 x 2.15，两侧池沿 18.25 x 0.13 x 0.22。",
+          "七块桥板位于局部 x=-3.9，桥板总跨约 2.32、纵深 2.9。",
+          "当前硬景从地面到最高桥板约 0.715；池水碰撞拆成东西两段保留木桥通行。"
+        ],
+        "sources": [
+          "docs/research/xingfuli-reference-manifest.json",
+          "docs/research/xingfuli-model-brief.md",
+          "app/scene/xingfuli-block.tsx#ReflectingPoolHardscapeFallback",
+          "app/scene/xingfuli-qa-paths.json"
+        ]
+      },
+      "massing": {
+        "currentAuthoredBounds": {
+          "min": [-9.125, 0, -1.45],
+          "max": [9.125, 0.715, 1.45],
+          "dimensions": [18.25, 0.715, 2.9],
+          "basis": "当前硬景包络；照片支持类型和比例关系，不支持精确数值"
+        },
+        "recommendedGeometry": [
+          "池壳、两侧池沿和桥面为独立块。",
+          "池水、喷泉和池中树不并入硬景 Massing GLB。",
+          "碰撞继续分为桥两侧，木桥保持可步行。"
+        ]
+      },
+      "unknown": [
+        "施工图级池宽、池深、池沿截面和桥板尺寸。",
+        "2026 年水景、喷泉和外摆是否变化。",
+        "幸福里非均匀缩放后的物理米制尺寸。"
+      ],
+      "budget": {
+        "kind": "massing-target",
+        "maxTriangles": 256,
+        "maxNodes": 4,
+        "maxMaterials": 2,
+        "maxImages": 0,
+        "maxBinaryBytes": 98304,
+        "animation": "none"
+      },
+      "identityGate": {
+        "mayEnterIdentity": true,
+        "status": "allowed-direct-photo-coverage",
+        "requiredBeforeIdentityCompletion": [
+          "用 canonical 和 water-feature-lane 照片校正池宽/桥位画面占比。",
+          "保留池深和精确石材规格为 unknown。",
+          "在 xingfuli-pool-detail 入口验证桥面通行与两侧绕行。"
+        ]
+      }
+    },
+    {
+      "id": "prototype:facility:xingfuli-mixed-paving",
+      "collection": "xingfuli",
+      "instanceCount": 1,
+      "instances": [
+        {
+          "id": "facility-instance:xingfuli:mixed-paving",
+          "position": [0, 0, 0],
+          "coordinateSpace": "collection-local"
+        }
+      ],
+      "existingEvidence": {
+        "classification": "direct-detail-photo-plus-runtime-authored-coverage",
+        "observed": [
+          "SmartShanghai 近景直接支持多尺寸矩形灰石沿长轴错缝组合，不是高对比横向条纹。",
+          "照片支持三档灰色和纵向 running-bond 语言，但不支持单块精确尺寸。"
+        ],
+        "runtimeAuthored": [
+          "底层铺装覆盖 x=-47..47、z=-14..0。",
+          "19 行实例石块，长度 0.82/1.12/1.48/1.92、深度 0.72、行距 0.745。",
+          "当前全部几何边界约 x=-47..47、y=0.1..0.294、z=-14.06..0.12。"
+        ],
+        "sources": [
+          "docs/research/assets/poi-references/xingfuli/xingfuli-smartshanghai-03-2021.jpeg",
+          "docs/research/xingfuli-reference-manifest.json",
+          "docs/research/xingfuli-model-brief.md",
+          "app/scene/mixed-stone-paving.tsx"
+        ]
+      },
+      "massing": {
+        "currentAuthoredBounds": {
+          "min": [-47, 0.1, -14.06],
+          "max": [47, 0.294, 0.12],
+          "dimensions": [94, 0.194, 14.18],
+          "basis": "当前运行时覆盖范围与实例几何计算，不是实测"
+        },
+        "recommendedGeometry": [
+          "Massing 仅使用一个 94 x 14 的薄铺装面确认场地覆盖和道路退界。",
+          "错缝模块属于 Identity/site 层，继续使用 InstancedMesh，不烘焙为高面数 GLB。",
+          "铺装不产生角色碰撞。"
+        ]
+      },
+      "unknown": [
+        "真实单块石材尺寸、厚度、接缝和铺装边界。",
+        "幸福里非均匀缩放后的物理尺寸。",
+        "2026 年修补、更换和局部店前铺装变化。"
+      ],
+      "budget": {
+        "kind": "massing-target",
+        "maxTriangles": 12,
+        "maxNodes": 1,
+        "maxMaterials": 1,
+        "maxImages": 0,
+        "maxBinaryBytes": 32768,
+        "animation": "none"
+      },
+      "identityGate": {
+        "mayEnterIdentity": true,
+        "status": "allowed-direct-material-pattern-photo",
+        "requiredBeforeIdentityCompletion": [
+          "以近景照片校正长短石比例和灰阶，不宣称精确规格。",
+          "保持实例化合批和零碰撞。",
+          "在 canonical 与移动视口检查摩尔纹和过高对比。"
+        ]
+      }
+    },
+    {
+      "id": "prototype:facility:xingfuli-vertical-garden",
+      "collection": "xingfuli",
+      "instanceCount": 1,
+      "instances": [
+        {
+          "id": "facility-instance:xingfuli:vertical-garden",
+          "position": [42.45, 0.2, -17.2],
+          "coordinateSpace": "collection-local"
+        }
+      ],
+      "existingEvidence": {
+        "classification": "official-canonical-subject-photo-plus-runtime-authored-wall-overlay-pending",
+        "observed": [
+          "2023 年长宁区政府主巷照片直接确认幸福里主巷左侧存在连续高绿墙。",
+          "照片直接可见深色实体下部墙面、上部大面积垂直植物覆盖和明显不规则的植物下缘/边界。",
+          "该照片证明主体和 canonical 巷道关系，但不证明当前单块运行时墙的精确尺寸、厚度、完整长度或侧面。"
+        ],
+        "runtimeAuthored": [
+          "主墙 1.15 x 7.5 x 8.2。",
+          "墙两侧共 72 个程序化植被单元，另有侧向标识板。",
+          "当前视觉包络约 1.92 x 7.5 x 8.2；碰撞平面代理约 1.45 x 8.8。"
+        ],
+        "sources": [
+          "docs/research/facility-prototypes-reference-manifest.json",
+          "docs/research/assets/poi-references/xingfuli/xingfuli-government-main-lane-vertical-garden-2023.jpg",
+          "docs/research/xingfuli-reference-manifest.json",
+          "app/scene/xingfuli-block.tsx#VerticalGarden",
+          "app/scene/xingfuli-qa-paths.json"
+        ]
+      },
+      "massing": {
+        "currentAuthoredBounds": {
+          "min": [-0.96, 0, -4.1],
+          "max": [0.96, 7.5, 4.1],
+          "dimensions": [1.92, 7.5, 8.2],
+          "basis": "当前程序化墙体和植被单元包络，不是实测"
+        },
+        "recommendedGeometry": [
+          "Massing 先保留连续墙面和深色下部实体基座两个块，但必须按主巷照片校正墙体沿巷方向、连续长度和下缘高度。",
+          "72 个规则网格植物单元仅是旧运行时表达，不作为照片已证事实；Identity 应改为不规则覆盖边界与少量可复用植被簇。",
+          "碰撞只覆盖墙体，不覆盖植物外轮廓。"
+        ]
+      },
+      "unknown": [
+        "真实墙高、连续长度、厚度、侧面、顶部收口、植物模块和灌溉结构。",
+        "当前运行时 1.15 x 7.5 x 8.2 单块墙是否覆盖完整真实主体。",
+        "政府照片视线、当前实例 [42.45, 0.2, -17.2] 与幸福里非均匀缩放后的精确叠加。"
+      ],
+      "budget": {
+        "kind": "massing-target",
+        "maxTriangles": 24,
+        "maxNodes": 2,
+        "maxMaterials": 1,
+        "maxImages": 0,
+        "maxBinaryBytes": 32768,
+        "animation": "none"
+      },
+      "identityGate": {
+        "mayEnterIdentity": true,
+        "status": "allowed-official-canonical-subject-photo-with-hard-overlay-and-side-gap",
+        "requiredBeforeIdentityCompletion": [
+          "先完成政府照片主巷视线与当前实例位置、朝向、非均匀缩放的叠加。",
+          "补一个侧向/端部视角；未覆盖侧面保持 unknown，不镜像正面细节。",
+          "用楼层、门和人物做视觉尺度校准，不把当前 7.5 x 8.2 写成实测。",
+          "Identity 只采用照片确认的连续高绿墙、深色下墙和不规则植物边界。"
+        ]
+      }
+    },
+    {
+      "id": "prototype:facility:one-square-metre-action",
+      "collection": "xingfuli",
+      "instanceCount": 1,
+      "instances": [
+        {
+          "id": "facility-instance:xingfuli:one-square-metre-action",
+          "position": [-48, 0.34, -7],
+          "coordinateSpace": "xingfuli-local-transform-input",
+          "placementTransform": "xingfuli-local-to-world",
+          "runtimeScale": 0.7,
+          "runtimeYaw": "XINGFULI_PLACEMENT.rotationY"
+        }
+      ],
+      "existingEvidence": {
+        "classification": "product-authored-interactive-installation-plus-program-context-not-shape",
+        "observed": [
+          "该装置是产品内“一平米行动”的交互入口，不是对真实世界固定设施的测绘复原。",
+          "产品运行时代码是当前形态、点击语义、缩放和朝向的权威基线。"
+        ],
+        "programContextObserved": [
+          "中国美术学院美丽中国研究院资料确认“一平米行动”自 2021 年起是新华路街道社区微更新项目。",
+          "三张本地化公开图片只展示居民讨论、共同制作和一平方米社区园艺实践。",
+          "这些活动图片不展示、也不证明当前游戏中的方形平台、外环、四角花盆、信息板或悬浮标志形态。"
+        ],
+        "evidenceBoundary": "项目活动照片只证明计划/活动语境，不能作为游戏装置几何、材质、尺度或位置证据；游戏装置继续按产品自定义资产管理。",
+        "runtimeAuthored": [
+          "原始平台 2.35 x 0.12 x 2.35，环形外径 3.08，四角花盆与植被、后方信息板及悬浮标志。",
+          "整体统一缩放 0.7 后，静态几何包络约 2.156 x 2.091 x 2.156。",
+          "Float 组件带动态竖向漂浮，精确运行时位移边界未在源码中固定为静态包络。"
+        ],
+        "sources": [
+          "docs/research/facility-prototypes-reference-manifest.json",
+          "docs/research/assets/poi-references/one-square-metre-action/one-square-metre-action-workshop-2025.jpg",
+          "docs/research/assets/poi-references/one-square-metre-action/one-square-metre-action-craft-session-2025.png",
+          "docs/research/assets/poi-references/one-square-metre-action/one-square-metre-action-garden-session-2025.png",
+          "app/scene/xinhua-world.tsx#ActionInstallation",
+          "docs/research/model-placement-registry-20260725.json"
+        ]
+      },
+      "massing": {
+        "currentAuthoredBounds": {
+          "dimensions": [2.156, 2.091, 2.156],
+          "basis": "按当前静态几何和 0.7 缩放计算；不含 Float 动态位移余量"
+        },
+        "recommendedGeometry": [
+          "Massing 保留方形平台、外环、信息板和悬浮标志四类轮廓。",
+          "四角花盆可合并为一个附件节点；植物细节留到 Identity。",
+          "交互点击区域与视觉网格分离，动态漂浮需另设安全包络。"
+        ]
+      },
+      "unknown": [
+        "Float 在不同帧率/实现版本下的最大竖向位移。",
+        "最终产品文案、配色和标志是否会调整。",
+        "幸福里地图校验后是否仍使用当前入口位置。",
+        "游戏装置形态与真实社区活动之间是否需要建立新的产品叙事映射；公开活动照片不能回答此问题。"
+      ],
+      "budget": {
+        "kind": "massing-target",
+        "maxTriangles": 256,
+        "maxNodes": 4,
+        "maxMaterials": 2,
+        "maxImages": 0,
+        "maxBinaryBytes": 98304,
+        "animation": "runtime-float-not-baked"
+      },
+      "identityGate": {
+        "mayEnterIdentity": true,
+        "status": "allowed-product-design-authority",
+        "requiredBeforeIdentityCompletion": [
+          "产品所有者确认形态、文案与交互状态。",
+          "不得从三张社区活动图片反推装置几何或把活动道具复制进游戏资产。",
+          "记录 Float 动态包络和点击热区。",
+          "在幸福里世界变换后验证地面接触、道路退界和可点击性。"
+        ]
+      }
+    }
+  ],
+  "completionChecks": {
+    "registryCoverage": "all 14 facilityPrototypes represented exactly once",
+    "instanceCoverage": "all 16 facility entries from model-placement-registry-20260725.json represented",
+    "osmBoundary": "OSM supports only footprint/type for the two fountains and basketball court; no OSM-derived height is claimed",
+    "runtimeBoundary": "all code-derived dimensions are explicitly marked runtime-authored/not measured",
+    "photoBindingBoundary": "the Shangsheng fountain photo remains site-family-only; the one-square-metre-action photos remain program-context-only",
+    "legacyCorrection": "Huashan happiness corner three-gate-plus-flower geometry is legacy-inaccurate-do-not-carry-forward",
+    "identityDecision": "6 allowed with conditions, 8 blocked pending subject-specific evidence or map overlay"
+  }
+}

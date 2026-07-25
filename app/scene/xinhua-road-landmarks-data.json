@@ -146,8 +146,10 @@
       "localObstacles": [
         { "minX": -12.3, "maxX": 12.3, "minZ": -9.2, "maxZ": 8.4 }
       ],
-      "start": [-28.5, 60],
-      "forward": [-0.707, -0.707]
+      "start": [-51.65, 71.05],
+      "streetClearancePoint": [-28.5, 60],
+      "forward": [0.259, -0.966],
+      "cameraTargetHeight": 4
     },
     {
       "id": "hudec-memorial",
@@ -189,7 +191,8 @@
         { "minX": -0.84, "maxX": -0.68, "minZ": -4.6, "maxZ": 4.6 },
         { "minX": 0.68, "maxX": 0.84, "minZ": -4.6, "maxZ": 4.6 }
       ],
-      "start": [-51.5, 67],
+      "start": [-46.98, 67.59],
+      "streetClearancePoint": [-51.5, 67],
       "forward": [-0.992, -0.129],
       "poi": true,
       "labelHeight": 4.2,
@@ -235,7 +238,8 @@
         { "minX": -4.6, "maxX": 1.4, "minZ": 1.45, "maxZ": 5.2 },
         { "minX": -9.1, "maxX": -6.2, "minZ": 7.2, "maxZ": 8.7 }
       ],
-      "start": [-95.8, -38.5],
+      "start": [-84.66, -19.76],
+      "streetClearancePoint": [-95.8, -38.5],
       "forward": [-0.51, -0.86],
       "poi": true,
       "labelHeight": 4.5,
@@ -287,7 +291,8 @@
         { "minX": -21.1, "maxX": -4.9, "minZ": 4.9, "maxZ": 13.1 },
         { "minX": -19.2, "maxX": 10.2, "minZ": -21.7, "maxZ": -14.3 }
       ],
-      "start": [-71.6, 43.8],
+      "start": [-71.3, 25.45],
+      "streetClearancePoint": [-71.6, 43.8],
       "forward": [-0.096, 0.995],
       "poi": true,
       "labelHeight": 4.8,

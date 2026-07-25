@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:film-art-center",
+  "tier": "massing",
+  "status": "massing-rebuild-required-independent-review",
+  "generator": "scripts/create_xinhua_road_massing_models.py",
+  "sourceHero": {
+    "path": "public/models/xinhua-road/film-art-center.glb",
+    "sha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6",
+    "importedBounds": {
+      "min": [
+        -11.554999,
+        -11.225,
+        0
+      ],
+      "max": [
+        11.554999,
+        6.725,
+        14.4
+      ]
+    },
+    "heightProxySceneUnits": 14.4,
+    "evidenceBoundary": "legacy-or-v2-hero-derived-height-not-real-measurement"
+  },
+  "sourcePlacement": "app/scene/xinhua-road-landmarks-data.json",
+  "position": [
+    47.5,
+    81.5
+  ],
+  "yaw": 2.761592653589793,
+  "runtimeScale": 1,
+  "localBounds": {
+    "minX": -11.554999,
+    "maxX": 11.554999,
+    "minZ": -6.725,
+    "maxZ": 11.225
+  },
+  "localObstacles": [
+    {
+      "minX": -8,
+      "maxX": 8,
+      "minZ": -5.2,
+      "maxZ": 4.2
+    },
+    {
+      "minX": -11.46,
+      "maxX": -8.1,
+      "minZ": -3.63,
+      "maxZ": 4.63
+    },
+    {
+      "minX": 8.1,
+      "maxX": 11.46,
+      "minZ": -3.63,
+      "maxZ": 4.63
+    }
+  ],
+  "roofProfile": "hip",
+  "proxyMethod": "voxel-remesh-current-hero",
+  "pruning": {
+    "removedFaces": 10620,
+    "removedMaterials": [
+      "艺术中心修剪灌木",
+      "艺术中心入口暖光",
+      "艺术中心暗铜金属",
+      "艺术中心草坪",
+      "艺术中心铺装缝"
+    ],
+    "rule": "material-name-denylist-before-voxel-remesh"
+  },
+  "voxelSizeSceneUnits": 0.550238,
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/film-art-center-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing/film-art-center-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing/test_film-art-center-massing-canonical.png",
+      "side": "test_artifacts/all-models/massing/test_film-art-center-massing-side.png",
+      "threejs": "test_artifacts/all-models/massing/test_film-art-center-massing-threejs.png"
+    }
+  },
+  "glb": {
+    "sha256": "14db9eb13aaaf0bad62f0fa95c9dc2b8fecfb1ae155f5d0a33a088dba86bbcd4",
+    "bytes": 82104,
+    "nodes": 1,
+    "meshes": 1,
+    "images": 0,
+    "textures": 0,
+    "materials": 1,
+    "triangles": 896,
+    "expectedMaximumTriangles": 1200,
+    "bounds": {
+      "min": [
+        -11.494151,
+        -0.035614,
+        -6.504019
+      ],
+      "max": [
+        11.492491,
+        14.356406,
+        11.017906
+      ]
+    },
+    "auditStatus": "ok"
+  },
+  "editableSourceBounds": {
+    "min": [
+      -11.494151,
+      -11.017906,
+      -0.035614
+    ],
+    "max": [
+      11.492491,
+      6.504019,
+      14.356406
+    ]
+  },
+  "qualityBoundary": {
+    "observed": [
+      "runtime local bounds",
+      "runtime split obstacles",
+      "current hero imported bounds"
+    ],
+    "inferred": [
+      "per-block height proxy"
+    ],
+    "unknown": [
+      "surveyed height",
+      "entrance direction",
+      "unseen facade and roof"
+    ]
+  },
+  "runtimeGate": {
+    "status": "blocked-rebuild-required",
+    "validatedAt": "2026-07-25",
+    "route": "/?start=film-art&qaModelTier=massing&cameraQa=1",
+    "screenshot": "test_artifacts/all-models/massing/test_film-art-center-massing-threejs.png",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "buildMode": "vite-static-production-preview",
+    "pageVisibility": "visible",
+    "playable": true,
+    "canvasCount": 1,
+    "cameraMode": "spring-clear",
+    "blockerId": "none",
+    "visualStatus": "pass",
+    "independentReviewStatus": "rebuild-required",
+    "requiredActions": [
+      "用核验 footprint 重建干净分体灰模",
+      "消除屋檐和立面尖刺、裂片",
+      "闭合面积比和约 88.6 度 yaw 风险",
+      "重新校准不裁切的 canonical 机位"
+    ],
+    "mapAcceptance": "required-before-formal-pass"
+  }
+}
