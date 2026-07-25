@@ -1,0 +1,304 @@
+{
+  "version": 2,
+  "auditedAt": "2026-07-25",
+  "sourceRecoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+  "status": "passed-for-subject-specific-massing-only",
+  "subject": {
+    "id": "house-315",
+    "name": "新华路315号住宅",
+    "address": "上海市长宁区新华路315号",
+    "stableBoundary": "single-building",
+    "runtimeIdentityKind": "townhouse",
+    "runtimeIdentityKindVerdict": "legacy-label-mismatch-hold-for-main-window",
+    "notEquivalentTo": [
+      "xinhua-villas-211",
+      "xinhua-villas-329",
+      "member-building-211-2",
+      "member-building-329-17",
+      "member-building-329-38",
+      "ordinary-osm-building",
+      "full-map-massing"
+    ]
+  },
+  "scope": {
+    "owned": [
+      "house-315 evidence",
+      "house-315 subject boundary",
+      "house-315 subject-specific Massing candidate"
+    ],
+    "hold": [
+      "all other building assets",
+      "trees and vegetation",
+      "walls, gates, lamps, planters, paving and other site decor",
+      "ordinary OSM and full-map massing",
+      "shared registry and runtime"
+    ]
+  },
+  "canonicalComparison": {
+    "status": "supported",
+    "localPath": "docs/research/assets/poi-references/house-315/house-315-front-official-2023.jpg",
+    "view": "street-facing-front",
+    "direction": "from Xinhua Road toward the street-facing facade; compass direction unknown",
+    "reason": "The official image shows the complete public-facing silhouette, roof hierarchy, white-over-red facade division and central half-timber gable.",
+    "runtimeReproduction": "Keep the authored front at local -Y; map-space compass and final runtime camera remain pending main-window calibration."
+  },
+  "referencePhotos": [
+    {
+      "localPath": "docs/research/assets/poi-references/house-315/house-315-front-official-2023.jpg",
+      "sourcePage": "https://www.meet-in-shanghai.net/tc/guide/stroll-xinhua-road-walk-into-the-old-timethe-building-can-be-read-863025/",
+      "sourceAsset": "https://obj.shine.cn/files/2023/06/24/216a573a-fbc8-4020-add5-17eb3323534d_0.png",
+      "pageImageNumber": "not-exposed",
+      "view": "street-facing-front",
+      "subjectMatch": "verified-same-building-by-page-section-and-persistent-cues",
+      "publishedAt": "2023-06-24",
+      "captureDate": "unknown",
+      "acquiredAt": "recovered-2026-07-25",
+      "sha256": "6f479e2d9505f8817457eaa7af8c1033790bfd16c864ab13287086d0c1943c00",
+      "supports": [
+        "broad street-facing silhouette",
+        "interconnected steep red-tile roof hierarchy",
+        "upper white roughcast and lower exposed-red-brick division",
+        "central projecting half-timber gable"
+      ],
+      "doesNotSupport": [
+        "complete depth",
+        "rear facade",
+        "map-space compass",
+        "surveyed dimensions"
+      ]
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/house-315/house-315-street-context-official-2023.jpg",
+      "sourcePage": "https://www.meet-in-shanghai.net/tc/guide/stroll-xinhua-road-walk-into-the-old-timethe-building-can-be-read-863025/",
+      "sourceAsset": "https://obj.shine.cn/files/2023/06/24/c4b1947a-e4cf-42e3-9a1a-f9f6881119f3_0.png",
+      "pageImageNumber": "not-exposed",
+      "view": "xinhua-road-street-context",
+      "subjectMatch": "context-only-building-not-visible-enough",
+      "publishedAt": "2023-06-24",
+      "captureDate": "unknown",
+      "acquiredAt": "recovered-2026-07-25",
+      "sha256": "79097515603e706ce1d5390525b4427e6a60644602f89c2b63b176484047aa33",
+      "supports": [
+        "Xinhua Road street, sidewalk, plane-tree and roadside-wall context"
+      ],
+      "doesNotSupport": [
+        "house-315 side facade",
+        "house-315 rear facade",
+        "house-315 building depth"
+      ]
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/house-315/house-315-aerial-jfdaily-2026.jpg",
+      "sourcePage": "https://www.jfdaily.com/sgh/detail?id=1697461",
+      "sourceAsset": "https://sghimages.shobserver.com/img/catch/2026/01/19/7a93a50a-c959-4f19-ac5a-c600a538a66b.jpg",
+      "pageImageNumber": "Image 242",
+      "pageCaption": "新华路315号俯瞰",
+      "view": "front-right-aerial-oblique",
+      "subjectMatch": "verified-same-building-by-explicit-page-caption-and-persistent-cues",
+      "publishedAt": "2026-01-19",
+      "captureDate": "unknown",
+      "acquiredAt": "2026-07-25",
+      "sha256": "bc3e964ea39c3c47235dac171b438e95e4b7f6c03397229bf44d343d7ac4a095",
+      "supports": [
+        "overall building depth",
+        "interconnected roof topology",
+        "central tall gable and asymmetric side wings",
+        "right-side long roof volume",
+        "relative roof-ridge heights"
+      ],
+      "doesNotSupport": [
+        "surveyed footprint dimensions",
+        "rear opening detail",
+        "map-space compass"
+      ]
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/house-315/house-315-address-sign-jfdaily-2026.jpg",
+      "sourcePage": "https://www.jfdaily.com/sgh/detail?id=1697461",
+      "sourceAsset": "https://sghimages.shobserver.com/img/catch/2026/01/19/f34ea324-8ce3-4366-9b3c-1ec3ceaa1587.jpg",
+      "pageImageNumber": "Image 243",
+      "pageSequenceCaption": "新华路315号门口",
+      "view": "address-and-protection-sign-detail",
+      "subjectMatch": "verified-address-binding",
+      "publishedAt": "2026-01-19",
+      "captureDate": "unknown",
+      "acquiredAt": "2026-07-25",
+      "sha256": "4598dfd65b7a361d1e2643ed602e832516e34284dad49a0ae18cd65dcf929a93",
+      "supports": [
+        "explicit 新华路315号住宅 address binding",
+        "protected-building identity"
+      ],
+      "doesNotSupport": [
+        "building geometry",
+        "entrance dimensions"
+      ]
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/house-315/house-315-entrance-jfdaily-2026.jpg",
+      "sourcePage": "https://www.jfdaily.com/sgh/detail?id=1697461",
+      "sourceAsset": "https://sghimages.shobserver.com/img/catch/2026/01/19/918b77e0-4ecd-4d4b-965a-de15a512f6d1.jpg",
+      "pageImageNumber": "Image 244",
+      "pageSequenceCaption": "新华路315号门口",
+      "view": "street-entrance-and-front-gable",
+      "subjectMatch": "verified-same-address-by-visible-sign-and-page-sequence",
+      "publishedAt": "2026-01-19",
+      "captureDate": "unknown",
+      "acquiredAt": "2026-07-25",
+      "sha256": "f72e564587e32f0dafe1652fbd4f9f803911f661f0235bf5795a9b61e64cc051",
+      "supports": [
+        "street-facing entrance location",
+        "central half-timber gable proportions",
+        "steep roof and front dormer relationship",
+        "address plaques at the entrance"
+      ],
+      "doesNotSupport": [
+        "complete side",
+        "complete rear",
+        "gate or wall as current asset scope"
+      ]
+    },
+    {
+      "localPath": "docs/research/assets/landmark-comparison/house-315-real.jpg",
+      "sourcePage": "https://www.jfdaily.com/sgh/detail?id=1697461",
+      "sourceAsset": "https://sghimages.shobserver.com/img/catch/2026/01/19/399720c6-c5a5-4f63-8467-c9965ee8b5de.jpg",
+      "pageImageNumber": "Image 245",
+      "pageCaption": "新华路315号外立面",
+      "view": "front-gable-exterior-detail",
+      "subjectMatch": "verified-exact-source-byte-match",
+      "publishedAt": "2026-01-19",
+      "captureDate": "unknown",
+      "acquiredAt": "existing-legacy-byte-verified-2026-07-25",
+      "sha256": "78581fafb11ff48f917f186c67370cc6b03d624e208776638f314d885c9da883",
+      "supports": [
+        "front-gable timber pattern",
+        "upper white roughcast and lower exposed-red-brick division",
+        "front opening rhythm"
+      ],
+      "doesNotSupport": [
+        "complete building depth",
+        "rear facade"
+      ]
+    }
+  ],
+  "textSources": [
+    {
+      "url": "https://www.meet-in-shanghai.net/tc/guide/stroll-xinhua-road-walk-into-the-old-timethe-building-can-be-read-863025/",
+      "publisher": "上海市文化和旅游行政管理局文旅推广网站",
+      "publishedAt": "2023-06-24",
+      "facts": [
+        "建于1930年",
+        "英国乡村式花园住宅",
+        "假三层砖木结构",
+        "双陡坡红瓦屋顶、出檐较大",
+        "上部白色水泥拉毛墙、下部清水红砖墙",
+        "南立面中部前出并有黑色木构架"
+      ]
+    },
+    {
+      "url": "https://www.jfdaily.com/sgh/detail?id=1697461",
+      "publisher": "上观新闻；供稿为市历保中心、上海市房屋建筑设计院有限公司",
+      "publishedAt": "2026-01-19",
+      "facts": [
+        "建成于1949年",
+        "王迈士建筑师事务所设计",
+        "建筑面积约1700平方米",
+        "英国乡村式花园住宅",
+        "假三层砖木结构",
+        "双陡坡红瓦屋顶和上白下红墙面"
+      ]
+    }
+  ],
+  "coverageMatrix": {
+    "canonicalFront": "supported-by-official-2023-front",
+    "lateralOrDepth": "supported-for-massing-by-jfdaily-image-242-aerial",
+    "entranceAndAddressBinding": "supported-by-jfdaily-images-243-and-244",
+    "identityDetail": "supported-by-jfdaily-images-244-and-245",
+    "rear": "partial-aerial-only-hero-detail-not-authorized",
+    "roofTopology": "supported-for-massing-by-jfdaily-image-242",
+    "surveyedDimensions": "missing",
+    "mapSpaceCompass": "missing"
+  },
+  "observed": [
+    "The official 2023 front, Jiefang Daily aerial, entrance and exterior images share the same steep connected roofs, central half-timber gable, white-over-red facade division and asymmetric wings.",
+    "Jiefang Daily Image 243 visibly binds the subject to 新华路315号住宅.",
+    "Jiefang Daily Image 242 exposes the building depth, roof connections and asymmetric side volumes required for a subject-specific Massing.",
+    "The existing legacy comparison image is byte-identical to Jiefang Daily Image 245, captioned 新华路315号外立面.",
+    "The subject is a single building and is visually distinct from the audited 211 Lane and 329 Lane residences."
+  ],
+  "inferred": [
+    "The street-facing facade shown in the official image and entrance image is used as authored local -Y.",
+    "The aerial image is sufficient for relative Massing proportions but not surveyed dimensions.",
+    "The historical runtime position, yaw and scale are migration baselines rather than measured evidence."
+  ],
+  "unknown": [
+    "The exact construction year because the 2023 official tourism page states 1930 while the 2026 Jiefang Daily page states 1949.",
+    "Surveyed width, depth, ridge heights and floor heights.",
+    "The exact rear openings and hidden rear facade.",
+    "The map-space compass direction of the street-facing facade.",
+    "The authoritative footprint and final map placement.",
+    "Whether the runtime identity kind townhouse should be changed; this remains a main-window shared-file decision."
+  ],
+  "legacyBaseline": {
+    "heroGlb": {
+      "path": "public/models/xinhua-road/house-315.glb",
+      "sha256": "9d407a35c10bfa232d2a5a91ecae4886a9b146cdabec801319c7dc5530b67b07",
+      "bytes": 1603468,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 14,
+      "images": 0,
+      "textures": 0,
+      "auditStatus": "ok",
+      "evidenceVerdict": "retained-legacy-not-massing-source"
+    },
+    "heroGeneratorFinding": {
+      "path": "scripts/create_xinhua_road_models.py",
+      "function": "build_house_315",
+      "verdict": "front-cue-informed-but-depth-and-rear-extrapolated",
+      "outOfScopeContent": [
+        "fence",
+        "lamps",
+        "planters",
+        "paving"
+      ]
+    }
+  },
+  "recoveryMassingAudit": {
+    "pathInRecovery": "public/models/tiers/xinhua-road/massing/house-315-massing.glb",
+    "sha256": "89533d982f19fc9a6a2f2ef1bb301373afe8c20b1b95fd9cf663d39072fdcf44",
+    "method": "voxel-remesh-current-hero",
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "images": 0,
+    "triangles": 900,
+    "containerAuditStatus": "ok",
+    "evidenceVerdict": "rejected-as-subject-specific-massing-source",
+    "reason": "The voxel version inherits the legacy Hero's extrapolated depth, side and rear instead of reconstructing the now-verified aerial evidence."
+  },
+  "evidenceGate": {
+    "status": "passed-for-subject-specific-massing-only",
+    "massingAuthorized": true,
+    "identityAuthorized": false,
+    "heroAuthorized": false,
+    "basis": [
+      "Stable single-building subject and explicit address binding.",
+      "Supported canonical street-facing view.",
+      "Same-building aerial view supports depth and roof topology.",
+      "Same-building entrance and exterior views support three or more persistent subject cues."
+    ],
+    "constraints": [
+      "Rebuild from the canonical, aerial and entrance evidence; do not reuse the Recovery voxel geometry.",
+      "Keep exact measurements, rear detail, compass and construction year as unknown.",
+      "Do not include trees, gates, walls, paving, lamps, planters or other decor.",
+      "Do not edit shared registry, runtime, ordinary OSM or other buildings.",
+      "Stop before Blender MCP and request main-window authorization."
+    ]
+  },
+  "usageBoundary": {
+    "referenceOnly": true,
+    "embedInGlb": false,
+    "runtimeTexture": false,
+    "sourcePagesRefreshedThisTurn": true
+  }
+}
