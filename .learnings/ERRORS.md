@@ -7126,3 +7126,37 @@ expected: identity-deterministic-candidate-build
 ### Resolution
 - **Resolved**: 2026-07-25T21:22:00+08:00
 - **Notes**: 同步严格状态机下一门。
+
+---
+## [ERR-20260725-046] wrong_glb_audit_entrypoint
+
+**Logged**: 2026-07-25T21:51:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+调度分支复核 Film Art Center Identity 时误调用不存在的
+`scripts/audit_glb.mjs`，专项测试已通过但审计步骤因入口名错误退出。
+
+### Error
+```text
+Error: Cannot find module 'scripts/audit_glb.mjs'
+```
+
+### Context
+- 仓库实际 GLB 审计入口是 Python 脚本 `scripts/audit_glb.py`。
+- 失败发生在读取资产的审计命令，不涉及生成器、GLB 二进制或公共 registry 修改。
+
+### Suggested Fix
+先用 `rg --files` 解析仓库内真实脚本，再执行带 `--forbid-images` 和节点预算的审计。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/audit_glb.py
+
+### Resolution
+- **Resolved**: 2026-07-25T21:52:00+08:00
+- **Notes**: 改用
+  `python3 scripts/audit_glb.py --forbid-images --max-nodes 1 <identity.glb>`；
+  结果为 1 node、1 mesh、8 materials、0 images/textures、status ok。
