@@ -381,14 +381,24 @@ Deliberate losses：
 - `test_house-315-identity-v1-side-depth.png`
 - `test_house-315-identity-v1-entrance.png`
 
-三张 Headless 图只证明候选和预算可读，不等于 MCP3 Pass。Identity 当前停在
-`candidate-awaiting-main-window-mcp3`；主窗口完成 same-camera 三档 MCP3 前，
-不得宣称 Identity formal pass，也不得启动 runtime。
+三张 Headless 图只证明候选和预算可读。主窗口随后通过 Blender MCP 重新打开
+最终 `.blend`，排除临时对象后确认 1 mesh、520 vertices、392 polygons、
+6/6 Principled materials、规范 root、0 退化面与 0 non-finite normals，并使用
+同一 canonical / side-depth / entrance camera set 生成：
+
+- `test_house-315-identity-v1_mcp3_recheck_canonical.png`
+- `test_house-315-identity-v1_mcp3_recheck_side-depth.png`
+- `test_house-315-identity-v1_mcp3_recheck_entrance.png`
+
+三档连续性与 Identity 识别构件均通过 MCP3；临时地面、灯光、相机和 1.8m 人物
+标尺未保存到 `.blend`、未导出 GLB。当前状态为
+`mcp3-pass-runtime-pending`，只解锁 House315 Three.js runtime，不代表运行时完成。
 
 ## Quality Contract
 
-Massing 合同保持冻结。主窗口已在 legacy Hero disposition 后授权独立 Hero v2
-候选，但 Identity 仍关闭；Hero v2 只有通过主窗口 MCP2 才能成为 Identity 来源。
+Massing 合同保持冻结。legacy Hero 继续 Hold；独立 Hero v2 已通过 MCP2，
+Identity v1 已通过 MCP3。下一门是 House315 Three.js 三档、fallback、地图碰撞
+与性能验收；公共运行时尚未接入。
 
 ### Massing cues
 

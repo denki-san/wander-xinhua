@@ -5,7 +5,7 @@
   "auditedAt": "2026-07-25",
   "auditMode": "read-only-no-rebuild-no-blender-mcp",
   "status": "blocked-not-mcp2-candidate-rebuild-required",
-  "activeReplacementStatus": "hero-v2-mcp2-pass-identity-v1-candidate-awaiting-mcp3",
+  "activeReplacementStatus": "hero-v2-mcp2-pass-identity-v1-mcp3-pass-runtime-pending",
   "decision": {
     "sameIntendedSubjectAsApprovedMassing": true,
     "sameGeometryContractAsApprovedMassing": false,
@@ -46,7 +46,7 @@
     "legacyHeroDisposition": "hold-read-only-rollback-only",
     "legacyHeroOverwritten": false,
     "identityLineage": {
-      "status": "identity-v1-candidate-awaiting-main-window-mcp3",
+      "status": "identity-v1-mcp3-pass-runtime-pending",
       "identityDerivationAuthorized": true,
       "identityDerivationStarted": true,
       "identityCandidateCompleted": true,
@@ -69,9 +69,9 @@
       },
       "buildRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json",
       "tierLineage": "docs/research/house-315-tier-lineage.json",
-      "mcp3": "pending-main-window",
-      "identityFormalPass": false,
-      "runtimeAuthorized": false,
+      "mcp3": "pass",
+      "identityFormalPass": true,
+      "runtimeAuthorized": true,
       "runtimeExecutionStarted": false
     },
     "publicRegistryModified": false,
@@ -121,7 +121,8 @@
     },
     "generator": {
       "path": "scripts/create_xinhua_road_models.py",
-      "currentSha256": "6ea5fc19f98f6339d83063bafea9c0edd66ca07d2bb171be08f61d63fed3488d",
+      "auditSnapshotSha256": "6ea5fc19f98f6339d83063bafea9c0edd66ca07d2bb171be08f61d63fed3488d",
+      "shaScope": "historical-disposition-worktree-snapshot-not-current-shared-file-contract",
       "producingCommitSha256": "c731e80854480b68634bf94f640e2c16bac4a759e76e86a72e9acf99132ace11",
       "house315FunctionSha256": "7552dd510b5845cad1ee531e8ec600cdd96d673cb37b17b1429fd7d28c6696cc",
       "house315FunctionByteIdenticalToProducingCommit": true,

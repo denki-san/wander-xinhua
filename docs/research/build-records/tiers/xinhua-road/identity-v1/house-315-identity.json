@@ -4,7 +4,7 @@
   "assetId": "house-315",
   "tier": "identity",
   "versionName": "identity-v1",
-  "status": "candidate-awaiting-main-window-mcp3",
+  "status": "mcp3-pass-runtime-pending",
   "generator": {
     "path": "scripts/create_house_315_identity_model.py",
     "sha256": "19fe2646b02767fb5495b19ecf979a07d2eed35acf009476e33172160dd72e51",
@@ -428,11 +428,58 @@
     "transformedNodes": []
   },
   "mcp3": {
-    "status": "pending-main-window-same-camera-three-tier-review",
-    "identityFormalPass": false,
+    "status": "pass",
+    "reviewedAt": "2026-07-25T23:37:00+08:00",
+    "reviewedBy": "main-coordinator",
+    "interactiveReview": "Blender MCP",
+    "identityFormalPass": true,
+    "sceneInspection": {
+      "meshObjects": 1,
+      "vertices": 520,
+      "polygons": 392,
+      "materials": 6,
+      "principledMaterials": 6,
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1],
+      "rootNormalized": true
+    },
+    "geometryInspection": {
+      "areaBelow1eMinus10": 0,
+      "minimumPolygonArea": 0.002750016748905182,
+      "nonFiniteNormals": 0
+    },
+    "visualChecks": {
+      "canonical": "pass-central-half-timber-gable-transverse-ridge-white-red-facade-and-asymmetric-wings-readable",
+      "sideDepth": "pass-right-long-wing-left-short-rear-depth-dormer-chimney-and-roof-hierarchy-readable",
+      "entranceDetail": "pass-tall-entry-major-window-groups-half-timber-and-1p8m-human-scale-readable",
+      "threeTierContinuity": "pass-shared-origin-bounds-front-camera-silhouette-and-collision-semantics"
+    },
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_canonical.png",
+        "sha256": "ec629bcea2b838ee8fbe1e37164d25c5a59b8593770e509ad77dd1ceee876d80",
+        "bytes": 752578,
+        "dimensions": [960, 720]
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_side-depth.png",
+        "sha256": "3dc7ad0f9d15ea60bdd299c2369184ab25e33103a5bf5e084bbbdc9f1fe27067",
+        "bytes": 771459,
+        "dimensions": [960, 720]
+      },
+      "entranceDetail": {
+        "path": "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_entrance.png",
+        "sha256": "4449238a5e36c302ee9a6b30283e1df0bfffb7082d2f7fa09f6c0d80db71f799",
+        "bytes": 799157,
+        "dimensions": [960, 720]
+      }
+    },
     "acceptedInteractiveChanges": [],
     "qaRigSaved": false,
-    "qaRigExported": false
+    "qaRigExported": false,
+    "decision": "pass-runtime-integration-unlocked",
+    "nextGate": "house-315-three-js-three-tier-runtime-acceptance"
   },
   "independentReview": {
     "reviewer": "shanghai-cinema-peer",
@@ -443,11 +490,12 @@
     "modelOrRuntimeModifiedByReview": false
   },
   "runtime": {
-    "status": "not-started-by-worktree",
-    "runtimeAuthorized": false,
+    "status": "authorized-pending-house-315-runtime-worktree",
+    "runtimeAuthorized": true,
     "runtimeExecutionStarted": false,
     "publicRegistryModified": false,
-    "runtimeIntegrated": false
+    "runtimeIntegrated": false,
+    "nextAuthority": "house-315-runtime-worktree"
   },
   "sourceHeroGate": {
     "status": "pass",

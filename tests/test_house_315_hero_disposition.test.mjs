@@ -197,9 +197,13 @@ test("House315 旧 Hero disposition 冻结旧资产并保持公共 registry 不�
     await sha256(record.legacyHero.runtimeAsset.path),
     record.legacyHero.runtimeAsset.sha256,
   );
+  assert.match(
+    record.legacyHero.generator.auditSnapshotSha256,
+    /^[a-f0-9]{64}$/,
+  );
   assert.equal(
-    await sha256(record.legacyHero.generator.path),
-    record.legacyHero.generator.currentSha256,
+    record.legacyHero.generator.fullGeneratorByteIdenticalToProducingCommit,
+    false,
   );
   assert.equal(landmark.model, "/models/xinhua-road/house-315.glb");
   assert.equal(landmark.cacheVersion, "20260718-detail-1");

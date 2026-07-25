@@ -1,106 +1,5 @@
 # Errors
 
-## [ERR-20260725-046] hero_gate_test_stale_after_identity_progression
-
-**Logged**: 2026-07-25T23:15:00+08:00
-**Priority**: low
-**Status**: resolved
-**Area**: tests
-
-### Summary
-House315 全套回归中，Hero 测试仍固定断言 Identity derivation 未开始，未随合法的 Identity 候选阶段推进。
-
-### Error
-```text
-actual: hero-mcp2-pass-identity-v1-candidate-awaiting-mcp3
-expected: hero-mcp2-pass-awaiting-main-window-integration
-```
-
-### Context
-- 主窗口已整合 Hero candidate 与 MCP2 gate 并授权 Identity 派生；
-- Identity 候选已完成，但 MCP3 formal pass 和 runtime 均仍为 false；
-- Hero 的 MCP2 scene、lineage、截图和 scope 证据没有变化。
-
-### Suggested Fix
-阶段推进后同步更新上游门禁测试：断言 Identity candidate completed，同时继续断言 formal pass/runtime 未越权。
-
-### Metadata
-- Reproducible: yes
-- Related Files: `tests/test_house_315_hero_v2.test.mjs`, `docs/research/build-records/tiers/xinhua-road/hero-v2/house-315-hero.json`
-
-### Resolution
-- **Resolved**: 2026-07-25T23:15:00+08:00
-- **Notes**: Hero 测试已更新为候选 awaiting MCP3 状态，并新增 identityFormalPass=false、runtimeAuthorized/Started=false 断言。
-
----
-
-## [ERR-20260725-045] identity_component_test_fstring_literal
-
-**Logged**: 2026-07-25T23:10:00+08:00
-**Priority**: low
-**Status**: resolved
-**Area**: tests
-
-### Summary
-House315 Identity 范围测试在 Python 源码中查找 f-string 展开后的屋脊字面量，导致正确产物被误判。
-
-### Error
-```text
-AssertionError: input did not match /identity-main-roof-ridge/
-```
-
-### Context
-- generator 使用 `f"house315-identity-{name}-roof-ridge"` 动态生成四个屋脊名称；
-- GLB、Blend 和 build record 都已成功生成，`sourceComponents` 含精确展开名称；
-- 失败只来自源码文本正则无法执行 Python f-string。
-
-### Suggested Fix
-对动态组件名称检查生成后的 build record `sourceComponents`；源码扫描只用于确认禁止内容没有出现在 geometry 函数中。
-
-### Metadata
-- Reproducible: yes
-- Related Files: `tests/test_house_315_identity_v1.test.mjs`, `scripts/create_house_315_identity_model.py`
-
-### Resolution
-- **Resolved**: 2026-07-25T23:10:00+08:00
-- **Notes**: 必需构件断言改为检查 build record 的实际 component names；禁止范围仍扫描 `build_identity` 源码。
-
----
-
-## [ERR-20260725-044] git_worktree_index_lock_sandbox_permission
-
-**Logged**: 2026-07-25T23:00:00+08:00
-**Priority**: low
-**Status**: resolved
-**Area**: tooling
-
-### Summary
-建筑 Worktree 的 gate-only 变更首次暂存时，文件沙箱禁止创建 Git worktree index lock。
-
-### Error
-```text
-fatal: Unable to create '/Users/lei/App_developing/wander-xinhua/.git/worktrees/building-house-315/index.lock': Operation not permitted
-```
-
-### Context
-- 工作文件都在允许写入的建筑 Worktree 内；
-- Git index 位于主仓库 `.git/worktrees/`，不属于普通文件写入范围；
-- 失败发生在写 index 前，没有产生部分暂存或修改模型二进制。
-
-### Suggested Fix
-保持精确文件清单，按既有 Git 暂存权限在宿主环境重试；不要改写 `.git`、复制 index 或绕过 Worktree。
-
-### Metadata
-- Reproducible: yes
-- Related Files: `.git/worktrees/building-house-315/index`, `.learnings/ERRORS.md`
-- See Also: ERR-20260725-042
-
-### Resolution
-- **Resolved**: 2026-07-25T23:00:00+08:00
-- **Notes**: 使用相同精确文件清单，经批准以 Git 暂存权限重试成功；未绕过 Worktree，也未将本错误记录混入 gate-only 暂存。
-
----
-
 ## [ERR-20260724-091] vite_preview_sandbox_listen_permission
 
 **Logged**: 2026-07-24T00:00:00+08:00
@@ -130,6 +29,74 @@ Error: listen EPERM: operation not permitted 127.0.0.1:4317
 ### Resolution
 - **Resolved**: 2026-07-24T00:00:00+08:00
 - **Notes**: 经批准后同一命令已在 `127.0.0.1:4317` 正常监听。
+
+---
+## [ERR-20260725-032] gltf_float32_material_factor_exact_assertion
+
+**Logged**: 2026-07-25T21:37:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+一号花园 Hero v2 材质定向测试把 glTF Float32 数值与十进制字面量做
+`deepStrictEqual`，导致正确的 `baseColorFactor` 和 roughness 被误判失败。
+
+### Error
+```text
+Expected 0.18 but received 0.18000000715255737
+Expected 0.88 but received 0.8799999952316284
+```
+
+### Context
+- GLB 的 7 个 PBR 材质已正确分层，独立 `audit_glb.py` 同时通过。
+- glTF JSON 来自 Blender 的 Float32 材质属性，序列化后保留 IEEE-754 表示差。
+- 测试应先统一到审计记录采用的 6 位精度，再比较预期语义值。
+
+### Suggested Fix
+对 glTF 材质标量和向量逐项 `Number(value.toFixed(6))` 后再进行严格深比较；
+继续保留 7 个唯一 `baseColorFactor` 和禁止默认灰的独立断言。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_one_step_garden_hero_v2.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T21:38:00+08:00
+- **Notes**: 增加统一 6 位精度的归一函数并重新运行专属测试。
+
+---
+## [ERR-20260725-033] blender_python_expr_material_audit_syntax
+
+**Logged**: 2026-07-25T21:41:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+用 `--python-expr` 拼接一号花园 `.blend` 材质审计时，过长列表推导式的括号不匹配，
+导致只读审计脚本在文件打开后未执行。
+
+### Error
+```text
+SyntaxError: closing parenthesis ']' does not match opening parenthesis '('
+```
+
+### Context
+- Blender 已成功只读打开目标 `.blend`，错误发生在 Python 表达式解析阶段。
+- 命令没有保存或修改任何文件。
+- 复杂审计逻辑不适合压缩成一行 `--python-expr`。
+
+### Suggested Fix
+使用 `/tmp/test_*.py` 临时脚本承载多行审计逻辑，再通过 `--python` 执行。
+
+### Metadata
+- Reproducible: yes
+- Related Files: assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend
+
+### Resolution
+- **Resolved**: 2026-07-25T21:42:00+08:00
+- **Notes**: 改为 `test_` 前缀的临时多行审计脚本。
 
 ---
 
@@ -6986,7 +6953,7 @@ bounded Headless command with approved unsandboxed execution before changing mod
   Massing Blend、GLB 和三张固定机位图。模型代码无需为该启动崩溃修改。
 
 ---
-## [ERR-20260725-043] house315_hero_detail_exceeded_frozen_massing_bounds
+## [ERR-20260725-049] house315_hero_detail_exceeded_frozen_massing_bounds
 
 **Logged**: 2026-07-25T22:19:21+08:00
 **Priority**: high
@@ -7022,6 +6989,41 @@ expected max Z: 4.84
 - **Resolved**: 2026-07-25T22:20:30+08:00
 - **Notes**: 仅将新增上山墙窗框和斜撑退回冻结包络内；第二轮双构建 SHA 一致，
   bounds exact match，zero-area / normals / indices 全部通过。
+
+---
+## [ERR-20260725-050] identity_contract_asserted_non_contract_metadata
+
+**Logged**: 2026-07-25T22:21:11+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+一号花园 Identity 首次回归把 Hero 相机的描述元数据当作结构合同，并使用了不精确的
+烟囱 token。
+
+### Error
+```text
+Expected values to be strictly deep-equal: Hero fixed camera entries contain an additional direction field.
+The input did not match /identity-rear-central-tall-chimney/ because the generated token is identity-rear-brick-central-tall-chimney.
+```
+
+### Context
+- Identity 与 Hero 的 location、target、orthoScale 完全一致；Hero 额外保存的
+  direction 不是固定机位连续性所必需。
+- GLB 与 Blender 审计已确认两根烟囱存在，失败来自测试 token 少写 `brick`。
+
+### Suggested Fix
+固定机位测试只比较 location、target、orthoScale 三个合同字段；身份 token 使用
+生成器中的完整稳定名称。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_one_step_garden_identity_v1.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T22:21:11+08:00
+- **Notes**: 修正断言边界后复跑建筑级回归。
 
 ---
 ## [ERR-20260725-040] shanghai_cinema_qa_integration_regressions
@@ -7099,3 +7101,848 @@ sunCdp.on is not a function
 - **Resolved**: 2026-07-25T20:14:00+08:00
 - **Notes**: 改用 `sunCdp.send("Runtime.evaluate", ...)` 注入并读取页面级错误监听器；
   五个场景均记录为 runtime errors 0、console errors 0。
+
+---
+## [ERR-20260725-042] building_gate_tests_assumed_shared_files_never_change
+
+**Logged**: 2026-07-25T21:13:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: tests
+
+### Summary
+电影艺术中心修复合入后，全仓回归有三项失败，因为历史建筑 QA 把共享 registry、
+共享多资产生成器或旧升级摘要误当成永远不变的当前文件。
+
+### Error
+```text
+Hudec sourceAfterRestoreSha256 !== current registry sha256
+film-art-center trianglesAfter 63516 !== current GLB 63368
+one-step-garden generator currentSha256 !== current shared generator sha256
+```
+
+### Context
+- Hudec 临时 QA 已证明修改前后 registry 字节一致，但当前 registry 后续合法更新了
+  电影艺术中心 cacheVersion。
+- 电影艺术中心清理退化面后，正式 GLB 的三角面、体积和 SHA 均已变化。
+- 一号花园只冻结共享生成器中的 `build_one_step_garden()` 函数块；其他建筑的生成器
+  修复不应破坏该 Hold 断言。
+
+### Suggested Fix
+历史 QA 验证同次修改前后快照自洽，并单独检查当前目标建筑仍保持生产路径；共享生成器
+使用建筑函数块 SHA；当前资产指标从最新 build record 同步到项目升级摘要。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_hudec_memorial_v2.test.mjs,
+  tests/test_one_step_garden_hero_disposition.test.mjs,
+  docs/research/model-detail-upgrade.json
+
+### Resolution
+- **Resolved**: 2026-07-25T21:13:00+08:00
+- **Notes**: 三项断言改为历史快照自洽、建筑函数块冻结和当前 Hero 指标；随后重跑
+  失败专项与全仓回归。
+
+---
+## [ERR-20260725-043] film_art_identity_triangle_budget
+
+**Logged**: 2026-07-25T21:11:36+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: assets
+
+### Summary
+Film Art Center 首个独立 Identity Headless 候选超过 24,000 triangles 硬预算，
+生成器主动退出 1。
+
+### Error
+```text
+RuntimeError: Identity 超出预算：
+nodes=1, meshes=1, materials=8, images=0, textures=0,
+triangles=27560, bytes=1237968
+```
+
+### Context
+- Hero lineage 四项 SHA 校验通过后才开始派生。
+- 构建过程中确定性清理 4 个红瓦近零面积面。
+- GLB 已生成用于只读结构诊断，但未写 build record、未接入 registry、未申请 MCP3。
+- 节点、材质、图片、贴图、TEXCOORD 和文件体积均在预算内；仅三角面超限。
+
+### Suggested Fix
+按 GLB primitive/material 统计 triangles，优先降低瓦垄、牌匾文字和重复小构件的
+细分；必须保留双红檐、双层柱廊/栏杆、中央凉廊、入口身份和低玻璃翼。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_film_art_center_identity_model.py
+- Related Files: public/models/tiers/xinhua-road/identity/film-art-center-identity.glb
+
+### Attempt 2
+- **Logged**: 2026-07-25T21:13:28+08:00
+- 将八字 Hero 牌匾简化为证据支持的四字“新华两佰”，并降低文字 bevel/depth。
+- 候选降至 24,464 triangles、1,164,120 bytes，但仍比硬预算高 464 triangles，
+  因此生成器再次主动退出 1。
+- 下一步只降低 Identity 中景瓦垄行数，不继续删减主体身份构件。
+
+### Attempt 3
+- **Logged**: 2026-07-25T21:14:37+08:00
+- 主屋面/次屋面瓦垄从 11/9 行降至 9/8 行后，候选为 24,248 triangles、
+  1,154,184 bytes，仍比硬预算高 248 triangles，生成器第三次主动退出 1。
+- 为维持屋面纹理，不再继续大幅削减瓦垄；将只减少檐下重复 bracket 数量，
+  保留双檐连续性和节奏。
+
+### Resolution
+- **Resolved**: 2026-07-25T21:18:40+08:00
+- **Notes**: 主檐/次檐重复 bracket 从 15/13 组缩为 13/11 组，保留连续双檐与
+  视觉节奏。最终候选为 23,816 triangles、1,130,852 bytes、1 node、
+  8 materials、0 images/textures/TEXCOORD；连续两次 GLB SHA 均为
+  `a4d37446e27225815624e6382048ed1dc341f1e079f089755ed5fb68e520e869`，
+  `cmp` 和公共 GLB audit 通过。
+
+---
+## [ERR-20260725-044] film_art_hero_test_stale_identity_state
+
+**Logged**: 2026-07-25T21:21:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Identity 候选生成后，Hero MCP2 测试仍断言 Identity gate 停留在“已解锁但未派生”
+的中间状态，27 项中 1 项失败。
+
+### Error
+```text
+actual:   deterministic-candidate-mcp3-pending
+expected: unlocked-pending-independent-derivation
+```
+
+### Context
+- Identity 新候选的 lineage、预算、GLB、Blend、固定机位和禁止 generic proxy
+  专项测试已通过。
+- Hero MCP2 仍为 Pass；只是下游状态按工作流推进到 MCP3 pending。
+- 同批其余 26 项测试与公共 GLB audit 通过。
+
+### Suggested Fix
+Hero 测试应验证 MCP2 Pass 仍成立，并接受 Identity 已推进到确定性候选；
+MCP3 和三档 runtime 继续保持 pending。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_film_art_center_quality_tiers.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T21:21:00+08:00
+- **Notes**: 更新下游状态机断言，不降低 MCP2 或 MCP3 门槛。
+
+---
+## [ERR-20260725-045] film_art_hero_test_stale_next_gate
+
+**Logged**: 2026-07-25T21:22:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+修正 Identity 状态断言后，同一 Hero 测试的 `nextGate` 仍期待“构建 Identity”，
+但候选已经完成并合法推进到 Blender MCP3 三档复核。
+
+### Error
+```text
+actual:   blender-mcp3-three-tier-review
+expected: identity-deterministic-candidate-build
+```
+
+### Context
+- Identity GLB/Blend/预算/lineage/固定机位专项测试仍通过。
+- MCP3 和 Three.js 三档运行时尚未通过；状态没有越门。
+
+### Suggested Fix
+更新 `nextGate` 为 `blender-mcp3-three-tier-review`，并继续断言 MCP3 pending。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_film_art_center_quality_tiers.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T21:22:00+08:00
+- **Notes**: 同步严格状态机下一门。
+
+---
+## [ERR-20260725-046] wrong_glb_audit_entrypoint
+
+**Logged**: 2026-07-25T21:51:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+调度分支复核 Film Art Center Identity 时误调用不存在的
+`scripts/audit_glb.mjs`，专项测试已通过但审计步骤因入口名错误退出。
+
+### Error
+```text
+Error: Cannot find module 'scripts/audit_glb.mjs'
+```
+
+### Context
+- 仓库实际 GLB 审计入口是 Python 脚本 `scripts/audit_glb.py`。
+- 失败发生在读取资产的审计命令，不涉及生成器、GLB 二进制或公共 registry 修改。
+
+### Suggested Fix
+先用 `rg --files` 解析仓库内真实脚本，再执行带 `--forbid-images` 和节点预算的审计。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/audit_glb.py
+
+### Resolution
+- **Resolved**: 2026-07-25T21:52:00+08:00
+- **Notes**: 改用
+  `python3 scripts/audit_glb.py --forbid-images --max-nodes 1 <identity.glb>`；
+  结果为 1 node、1 mesh、8 materials、0 images/textures、status ok。
+
+---
+## [ERR-20260725-047] one_step_hero_nodes_left_default_gray
+
+**Logged**: 2026-07-25T21:32:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: assets
+
+### Summary
+一号花园 Hero v2 首个候选只写了 Blender 材质的 `diffuse_color`，没有同步写入
+Principled BSDF `Base Color`；代理 viewport 彩图看似正常，但主窗口直接打开
+`.blend` 用 Eevee 重渲染时 7 个材质几乎全白，MCP2 被拦截。
+
+### Error
+```text
+diffuse_color: subject-specific values
+Principled Base Color: (0.8, 0.8, 0.8, 1.0) for all 7 materials
+```
+
+### Context
+- 候选结构、root、bounds、拓扑和范围边界均通过；阻断只针对真实 Blender/GLB 材质。
+- 原三张发白复核图作为失败证据保留，没有删除或覆盖。
+- 代理 Workbench / viewport diffuse 结果不能替代正式渲染材质门。
+
+### Suggested Fix
+确定性生成器创建材质时同时设置 `use_nodes=True`、Principled `Base Color`、
+`Roughness` 与必要的 `Metallic`；GLB 测试必须断言多个唯一 `baseColorFactor` 且
+禁止全部落入默认灰。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_one_step_garden_hero_model.py
+- Related Files: public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb
+- Related Files: tests/test_one_step_garden_hero_v2.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T21:47:43+08:00
+- **Notes**: 7 个节点材质与 GLB PBR 分层全部写入；双 clean build SHA 一致；
+  主窗口直接重开 `.blend` 并以三固定机位复验后，MCP2 Pass。
+
+---
+## [ERR-20260725-048] house_315_disposition_pinned_shared_generator
+
+**Logged**: 2026-07-25T22:12:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+House315 旧 Hero disposition 在建筑分支通过，但合入调度分支后把审计当时的共享
+多建筑 generator 整文件 SHA 当成当前不变合同，Film 的合法生成器更新使 4 项中
+1 项失败。
+
+### Error
+```text
+actual current shared generator: 324be84a…
+disposition audit snapshot:      6ea5fc19…
+```
+
+### Context
+- House315 的 `build_house_315()` 函数块 SHA 与 producing commit 仍一致。
+- 旧 Hero Blend/GLB SHA、公共 registry、结构审计和 Hold 结论都未变化。
+- 失败属于 ERR-20260725-042 已记录的共享文件误冻结模式在新建筑审计中的复现。
+
+### Suggested Fix
+把整文件 SHA 明确标为 disposition Worktree 的历史审计快照；当前整合只冻结
+House315 函数块和目标二进制，不冻结共享 generator 的其他建筑内容。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/house-315-hero-disposition.json
+- Related Files: tests/test_house_315_hero_disposition.test.mjs
+- See Also: ERR-20260725-042
+
+### Resolution
+- **Resolved**: 2026-07-25T22:14:00+08:00
+- **Notes**: 字段改为 `auditSnapshotSha256` 并标注历史快照 scope；测试继续严格
+  验证 House315 函数块 SHA、旧 Blend/GLB 和 registry，而不锁死共享整文件。
+
+---
+## [ERR-20260725-051] film_art_agent_browser_ipv4_connection_refused
+
+**Logged**: 2026-07-25T22:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+本地 vinext dev 已报告监听 `localhost:3000`，但 agent-browser 首次通过
+`127.0.0.1:3000` 打开 Hero QA 深链时返回连接拒绝。
+
+### Error
+```text
+Navigation failed: net::ERR_CONNECTION_REFUSED
+```
+
+### Context
+- dev server 进程仍存活并输出 `Local: http://localhost:3000/`。
+- 失败发生在任何 Three.js 运行时采样之前。
+- 可能是 dev server 仅绑定 IPv6 localhost，或 agent-browser 的网络命名空间
+  无法访问该 IPv4 地址。
+
+### Suggested Fix
+先分别用 `curl localhost:3000` 与 `curl 127.0.0.1:3000` 只读确认监听地址；
+若仅 localhost 可达，则按 server 输出改用 `http://localhost:3000`。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: app/scene/film-art-center-tier-contract.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T21:48:45+08:00
+- **Notes**: `curl localhost:3000` 返回 200，而 `127.0.0.1:3000` 连接拒绝，
+  确认为 dev server 只绑定 localhost/IPv6。后续浏览器 QA 使用
+  `http://localhost:3000`。
+
+---
+## [ERR-20260725-052] film_art_agent_browser_async_eval_hang
+
+**Logged**: 2026-07-25T21:50:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+agent-browser 用长生命周期 Promise 轮询 DOM dataset 时超过 45 秒仍未返回，
+必须中断该 CLI 进程。
+
+### Error
+```text
+agent-browser eval 'new Promise(...)'
+no output; interrupted with exit 130
+```
+
+### Context
+- 页面导航本身成功。
+- 轮询回调设定 30 秒超时，但 agent-browser CLI 未转发 Promise 结果。
+- 不影响浏览器会话或 dev server。
+
+### Suggested Fix
+改为多次短同步 `agent-browser eval` 读取 dataset；每次命令独立完成，不在浏览器
+表达式内持有长 Promise。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: app/scene/xinhua-road-landmarks.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T21:50:00+08:00
+- **Notes**: 已中断挂起命令，后续全部使用短同步 eval 与外部有限轮询。
+
+---
+## [ERR-20260725-053] film_art_identity_cta_not_present
+
+**Logged**: 2026-07-25T21:53:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+切换到 Identity QA 深链后自动查找并点击“出发”失败，因为同一浏览器会话已保持
+游览态，页面中不再存在封面 CTA。
+
+### Error
+```text
+Element not found. Verify the selector is correct and the element exists in the DOM.
+```
+
+### Context
+- 新 URL 导航成功。
+- 前一 Hero QA 已进入游览态；会话状态被保留。
+- 这不是 Identity GLB 加载失败。
+
+### Suggested Fix
+每次换 tier 后先同步读取 `xinhuaRoadQaStatus` 与正文；只有正文仍含“出发”时
+才点击 CTA。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/xinhua-experience.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T21:53:00+08:00
+- **Notes**: 后续切换 tier 先读取状态，避免把可选 CTA 当成必需步骤。
+
+---
+## [ERR-20260725-054] film_art_agent_browser_console_socket_permission
+
+**Logged**: 2026-07-25T21:58:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+读取 agent-browser Console 时，CLI 因沙箱无权写入用户级 socket 目录而失败。
+
+### Error
+```text
+Socket directory '/Users/lei/.agent-browser' is not writable:
+Operation not permitted (os error 1)
+```
+
+### Context
+- 同一浏览器会话的 open/eval/screenshot 已成功。
+- 失败只发生在读取 Console 命令，不代表页面产生 Console error。
+- Console/Errors 是运行时候选所需的只读证据。
+
+### Suggested Fix
+按沙箱策略对同一 `agent-browser console` 命令请求提升权限，不改变页面或项目文件。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/test_film-art-center_runtime_massing_candidate.png
+
+### Resolution
+- **Resolved**: 2026-07-25T21:58:00+08:00
+- **Notes**: 提升权限后 Console 读取成功且无输出，当前 Massing QA 页面无 Console
+  日志或错误。
+
+---
+## [ERR-20260725-055] film_art_agent_browser_wait_socket_permission
+
+**Logged**: 2026-07-25T22:03:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+agent-browser 内置 wait 命令同样需要写用户级 socket 目录，在当前沙箱中被拒绝。
+
+### Error
+```text
+Socket directory '/Users/lei/.agent-browser' is not writable:
+Operation not permitted (os error 1)
+```
+
+### Context
+- fallback URL 已成功打开。
+- 等待动作不需要修改浏览器状态，只需给页面时间渲染。
+
+### Suggested Fix
+继续使用已批准的本地 `sleep 8` 作为外部有限等待，不为 wait 命令扩大权限。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-road-landmarks.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T22:03:00+08:00
+- **Notes**: 放弃 agent-browser wait，改用短时本地 sleep，不影响页面会话。
+
+---
+## [ERR-20260725-056] film_art_default_browser_session_contamination
+
+**Logged**: 2026-07-25T22:08:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+默认 agent-browser 会话的 error buffer 含有孙科别墅缺失 GLB 记录，证明该浏览器
+会话被并行建筑任务共享，不能作为电影艺术中心独立验收证据。
+
+### Error
+```text
+Could not load /models/tiers/sun-ke-villa/identity/
+sun-ke-villa-identity-qa-missing.glb ... 404
+```
+
+### Context
+- 当前电影艺术中心 fallback 预期产生另一条 404。
+- 孙科路径不属于本 Worktree，本任务从未导航到该 URL。
+- 默认会话的 screenshot/dataset 可见状态虽然对应电影艺术中心，但错误缓冲和
+  Network 缓冲可能被其他任务污染。
+
+### Suggested Fix
+停止使用默认会话；建立命名隔离会话 `film-art-center-runtime`，清空其
+Network/Errors 后重新采集三档与 fallback。保留已生成候选截图，不删除，
+但不把它们作为最终运行时候选证据。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/test_film-art-center_runtime_identity_fallback_candidate.png
+
+### Resolution
+- **Resolved**: 2026-07-25T22:08:00+08:00
+- **Notes**: 后续所有 agent-browser 命令固定使用
+  `--session film-art-center-runtime`；最终 QA 仅引用隔离会话的新证据文件。
+
+---
+## [ERR-20260725-057] film_art_named_browser_session_socket_permission
+
+**Logged**: 2026-07-25T22:10:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+首次创建命名隔离 agent-browser 会话时，沙箱阻止写入用户级 socket 目录。
+
+### Error
+```text
+Socket directory '/Users/lei/.agent-browser' is not writable:
+Operation not permitted (os error 1)
+```
+
+### Context
+- 命名会话是消除跨建筑串台的必要条件。
+- 目标 URL 仍是本地只读 QA 页面。
+
+### Suggested Fix
+按沙箱规则对带固定 session 名的 agent-browser open 请求提升权限；后续仅复用
+同一隔离会话。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/
+
+### Resolution
+- **Resolved**: 2026-07-25T22:10:00+08:00
+- **Notes**: 提升权限后命名会话创建成功；固定会话名限制了授权范围。
+
+---
+## [ERR-20260725-058] film_art_fallback_query_collides_with_sun_ke
+
+**Logged**: 2026-07-25T22:28:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+命名隔离会话的 fallback error buffer 仍出现孙科 Identity 404。只读检索确认不是
+会话串台，而是通用 `qaActiveFallback=identity` 查询参数同时触发了孙科运行时
+的全局 Identity 缺失路径。
+
+### Error
+```text
+Could not load /models/tiers/sun-ke-villa/identity/
+sun-ke-villa-identity-qa-missing.glb ... 404
+```
+
+### Context
+- 当前 URL 的 `qaModelId=film-art-center`，但 `qaActiveFallback=identity`
+  不是建筑级命名空间。
+- `app/scene/shangsheng-full-models.tsx` 也读取该全局 tier 值。
+- 修改孙科运行时超出 Film 文件所有权；Film QA 可以使用 scoped fallback token。
+
+### Suggested Fix
+Film 新运行时证据改用
+`qaActiveFallback=film-art-center-identity`；Film resolver 仅为历史 Massing
+证据兼容旧 `massing` token，新 Identity fallback 必须使用 scoped token。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/film-art-center-tier-contract.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T22:44:58+08:00
+- **Notes**: scoped fallback 的当前页面 Resource Timing 只含 Film 缺失资产，
+  `foreignQaRequestsInCurrentPerformanceBuffer=[]`；孙科条目确认是 agent-browser
+  daemon error buffer 的陈旧记录，不作为当前路由归因证据。
+
+---
+## [ERR-20260725-059] film_art_runtime_tests_stale_gate_state
+
+**Logged**: 2026-07-25T22:47:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+运行时 QA 文档合法推进到主窗口终验 pending 后，两项专项测试仍断言旧的 runtime
+pending/nextGate 状态，15 项中 2 项失败。
+
+### Error
+```text
+actual nextGate: main-window-real-browser-acceptance
+expected: identity-three-js-runtime-candidate
+
+actual identity status: mcp3-and-local-runtime-pass-main-browser-pending
+expected: mcp3-pass-runtime-pending
+```
+
+### Context
+- 同批其余 13 项通过，包括 production/QA placement equality。
+- MCP1/MCP2/MCP3 状态没有降级；只推进了本地运行时候选。
+
+### Suggested Fix
+更新专项状态机断言，并新增 runtime QA 文件、metrics、三档截图与主窗口 pending
+的精确断言。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_film_art_center_quality_tiers.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T22:49:00+08:00
+- **Notes**: 状态机断言推进到主窗口真实浏览器终验，并新增 runtime QA、metrics、
+  三档截图、placement equality 与 scoped fallback 的精确验证。
+
+---
+## [ERR-20260725-060] film_art_named_browser_close_approval_timeout
+
+**Logged**: 2026-07-25T22:52:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+完成采样后关闭本任务命名浏览器会话的权限自动审查超时，close 未执行。
+
+### Error
+```text
+The automatic permission approval review did not finish before its deadline.
+```
+
+### Context
+- vinext dev server 已成功停止。
+- 会话名为 `film-art-center-runtime`，不含用户登录态。
+- close 只是资源清理，不影响验收正确性。
+
+### Suggested Fix
+不为非关键清理重复扩大权限；保留 idle 隔离会话，由 agent-browser daemon 生命周期
+回收。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: none
+
+### Resolution
+- **Resolved**: 2026-07-25T22:52:00+08:00
+- **Notes**: 未重试非关键 close；项目进程已停止，工作成果不受影响。
+
+---
+## [ERR-20260725-061] film_art_full_regression_two_stale_contracts
+
+**Logged**: 2026-07-25T22:54:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+完整 `npm test` 的 static/sites build 均成功，但全量测试有 2 项失败：上海影城
+源码正则未适配新增 fallback 条件的换行格式；电影艺术中心 detail-upgrade 旧统计
+仍记录 Hero 拓扑修复前的 63,516 triangles，而当前冻结 Hero 为 63,368。
+
+### Error
+```text
+Shanghai regex expected:
+identity && landmark.id === "shanghai-cinema" ... <ShanghaiCinemaHybridIdentity />
+
+film-art-center metadata triangles:
+actual 63516 !== current GLB 63368
+```
+
+### Context
+- build:static 与 build:sites 均成功。
+- Film 专项 15/15 通过。
+- 上海影城运行时行为未改；只是 `if` 条件因新增
+  `forceProgrammaticIdentity` 被格式化为多行。
+- Film 63,368 是 MCP2 已通过并冻结的当前 Hero，旧 63,516 来自修复前二进制。
+
+### Suggested Fix
+把上海影城 `if` 保持同一行以满足既有源码合同，不改其行为；更新 Film
+detail-upgrade 统计到当前 Hero 63,368，并保留拓扑修复 provenance。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-road-massing.tsx
+- Related Files: docs/research/xinhua-road-model-detail-upgrades.json
+
+### Resolution
+- **Resolved**: 2026-07-25T22:56:00+08:00
+- **Notes**: 上海影城生产 fallback 保留原直接 JSX 合同且行为不变；Film detail
+  upgrade 已同步当前 63,368 triangles、3,148,572 bytes、SHA 与 76 面拓扑修复。
+  两个相关测试文件 11/11 通过。
+
+---
+## [ERR-20260725-062] film_art_placement_test_wrong_scope_variable
+
+**Logged**: 2026-07-25T23:02:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+新增 QA forced fallback placement 断言误放在 manifest 测试内，引用只在前一源码
+测试中定义的 `roadFull`，21 项中 1 项因 ReferenceError 失败。
+
+### Error
+```text
+ReferenceError: roadFull is not defined
+```
+
+### Context
+- lint 已通过。
+- 同批 20 项通过，包括 production fallback 的源码与数值断言。
+- 前一测试已经断言 `roadFull` 含 `forceProgrammaticIdentity`。
+
+### Suggested Fix
+删除 manifest 测试中的重复越域断言，保留前一源码测试与 pure offset 数值测试。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_progressive_world_loading.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T23:02:00+08:00
+- **Notes**: 删除重复越域断言；QA forced fallback 的 programmatic 分支仍由前一源码
+  测试锁定，-2.25m 由同一 pure helper 数值测试锁定。
+
+---
+## [ERR-20260725-063] blender_mcp_eevee_engine_enum_mismatch
+
+**Logged**: 2026-07-25T23:30:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: blender-mcp
+
+### Summary
+House315 Identity MCP3 临时 QA 渲染首次沿用生成脚本中的
+`BLENDER_EEVEE_NEXT`，但当前 Blender MCP 会话只暴露 `BLENDER_EEVEE` 枚举，
+代码在设置 render engine 时退出。
+
+### Error
+```text
+enum "BLENDER_EEVEE_NEXT" not found in
+('BLENDER_EEVEE', 'BLENDER_WORKBENCH', 'CYCLES')
+```
+
+### Context
+- Identity 源 `.blend` 已打开，但临时 QA rig 尚未保存。
+- 失败不涉及生成器、Blend、GLB、registry 或任何范围外资产。
+- Blender 版本字符串不能代替当前会话对 engine enum 的实际能力查询。
+
+### Suggested Fix
+MCP 临时渲染优先读取 `scene.bl_rna.properties["engine"]` 或使用当前会话实际返回的
+枚举；版本兼容路径允许 `BLENDER_EEVEE_NEXT` / `BLENDER_EEVEE` 二选一。
+
+### Resolution
+- **Resolved**: 2026-07-25T23:31:00+08:00
+- **Notes**: 清理并重建临时 QA collection，改用 `BLENDER_EEVEE` 后三固定机位均
+  成功渲染；随后重新打开源 Blend，确认 `dirty=false` 且只含单一建筑 mesh。
+
+---
+## [ERR-20260725-064] house315_hero_tests_stale_after_identity_mcp3
+
+**Logged**: 2026-07-25T23:39:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+House315 Identity 合法通过 MCP3 后，Hero v2 的两项上游测试仍冻结下游
+`candidate-awaiting-mcp3` 状态，11 项中 2 项失败。
+
+### Error
+```text
+actual: hero-mcp2-identity-v1-mcp3-pass-runtime-pending
+expected: hero-mcp2-pass-identity-v1-candidate-awaiting-mcp3
+
+actual identityFormalPass: true
+expected: false
+```
+
+### Context
+- Hero MCP2 二进制、固定机位和 Hold 边界没有变化。
+- 失败只来自 Identity 下游门禁已由主窗口推进。
+
+### Suggested Fix
+Hero 测试继续冻结 MCP2 与旧 Hero Hold，同时允许 Identity 的 MCP3、formal pass
+和 runtime authorization 合法推进；runtime execution / integration 仍必须为 false。
+
+### Resolution
+- **Resolved**: 2026-07-25T23:40:00+08:00
+- **Notes**: 更新两项下游状态断言，保留 Hero 和公共 registry 的全部原冻结合同。
+
+---
+## [ERR-20260725-065] combined_runtime_qa_boolean_did_not_narrow_nullable_object
+
+**Logged**: 2026-07-25T23:44:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: integration
+
+### Summary
+Film 与 One-Step runtime 冲突合并后，代码先计算 `filmArtQaActive` 布尔值，再在
+JSX 中读取原始可空 `filmArtQa`。专项行为测试 44/44 通过，但全量 TypeScript
+门发现两处 `string | null` 不可赋给 `string`。
+
+### Error
+```text
+app/scene/xinhua-road-landmarks.tsx:
+Type 'string | null' is not assignable to type 'string'
+```
+
+### Context
+- static 与 Sites build 均成功。
+- 242/243 测试通过；唯一失败是 TypeScript 场景门。
+- 运行逻辑已通过专项测试，但布尔别名不能保证 TypeScript 对另一变量完成收窄。
+
+### Suggested Fix
+把 `filmArtQaActive` / `oneStepQaActive` 定义为“匹配当前建筑的 QA 对象或 null”，
+后续只从该收窄对象读取 modelPath、tier 与 fallback。
+
+### Resolution
+- **Resolved**: 2026-07-25T23:45:00+08:00
+- **Notes**: 改为对象级收窄；Film 专用 fallback 与 One-Step 三档链保持不变。
+
+### Attempt 2
+- `.mjs` resolver 没有显式返回类型，TypeScript 仍把已命中对象的 `tier` 推断为
+  `string | null`；对象级收窄后同两处类型错误仍存在。
+- 增加 `filmArtTier = filmArtQaActive?.tier ?? "identity"`。resolver 只在三档键
+  命中时返回对象，因此默认值只修补静态推断，不改变任何有效路由。
+
+---
+## [ERR-20260726-066] film_art_next_gate_test_stale_after_main_browser_pass
+
+**Logged**: 2026-07-26T00:43:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Film Art Center 主窗口真实浏览器门通过后，Hero 上游测试仍要求 lineage 的
+`nextGate` 保持 `main-window-real-browser-acceptance`，导致本批专项 28 项中 1 项失败。
+
+### Error
+```text
+actual: complete-no-rework-unless-binary-or-public-contract-changes
+expected: main-window-real-browser-acceptance
+```
+
+### Context
+- Hero、Identity、Massing 二进制及 Blender 三门均未变化。
+- 主窗口已完成三档、双 fallback、120 帧性能和资源采集，旧断言只冻结了已关闭的门。
+
+### Suggested Fix
+保留上游 Hero 合同断言，只把 lineage 终态更新为
+`complete-no-rework-unless-binary-or-public-contract-changes`。
+
+### Resolution
+- **Resolved**: 2026-07-26T00:43:00+08:00
+- **Notes**: 更新唯一 stale nextGate 断言；没有修改任何建筑二进制或地图合同。

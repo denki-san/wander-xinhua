@@ -1,0 +1,798 @@
+import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { readFile, stat } from "node:fs/promises";
+import test from "node:test";
+import { Vector3 } from "three";
+import {
+  isPlanarPositionBlockedInPolygon,
+  resolvePolygonMovement,
+} from "../app/scene/world-math.ts";
+import { terrainHeightAt } from "../app/scene/terrain.ts";
+import {
+  FILM_ART_CENTER_HERO_MODEL_PATH,
+  FILM_ART_CENTER_HERO_SHA256,
+  FILM_ART_CENTER_IDENTITY_MODEL_PATH,
+  FILM_ART_CENTER_IDENTITY_SHA256,
+  FILM_ART_CENTER_MASSING_MODEL_PATH,
+  FILM_ART_CENTER_MASSING_SHA256,
+  resolveFilmArtCenterProductionIdentitySource,
+  resolveFilmArtCenterQaTier,
+} from "../app/scene/film-art-center-tier-contract.mjs";
+
+const root = new URL("../", import.meta.url);
+const recordUrl = new URL(
+  "docs/research/build-records/tiers/xinhua-road/massing/film-art-center-massing.json",
+  root,
+);
+const lineageUrl = new URL(
+  "docs/research/film-art-center-tier-lineage.json",
+  root,
+);
+const generatorUrl = new URL(
+  "scripts/create_film_art_center_massing_model.py",
+  root,
+);
+const mcpGateUrl = new URL(
+  "docs/research/film-art-center-blender-mcp-gates.json",
+  root,
+);
+const mapQaUrl = new URL(
+  "docs/research/film-art-center-massing-map-qa.json",
+  root,
+);
+const heroRecordUrl = new URL(
+  "docs/research/build-records/film-art-center.json",
+  root,
+);
+const heroGeneratorUrl = new URL(
+  "scripts/create_xinhua_road_models.py",
+  root,
+);
+const landmarkDataUrl = new URL(
+  "app/scene/xinhua-road-landmarks-data.json",
+  root,
+);
+const identityRecordUrl = new URL(
+  "docs/research/build-records/tiers/xinhua-road/identity/film-art-center-identity.json",
+  root,
+);
+const identityGeneratorUrl = new URL(
+  "scripts/create_film_art_center_identity_model.py",
+  root,
+);
+
+function sha256(buffer) {
+  return createHash("sha256").update(buffer).digest("hex");
+}
+
+function parseGlb(buffer) {
+  assert.equal(buffer.toString("utf8", 0, 4), "glTF");
+  assert.equal(buffer.readUInt32LE(4), 2);
+  const jsonLength = buffer.readUInt32LE(12);
+  return JSON.parse(buffer.toString("utf8", 20, 20 + jsonLength).trim());
+}
+
+function triangleCount(glb) {
+  return glb.meshes.reduce(
+    (total, mesh) =>
+      total +
+      mesh.primitives.reduce((meshTotal, primitive) => {
+        const accessor = primitive.indices ?? primitive.attributes.POSITION;
+        return meshTotal + glb.accessors[accessor].count / 3;
+      }, 0),
+    0,
+  );
+}
+
+test("Film Art Center Massing 保持单建筑与 Hold 边界", async () => {
+  const [generator, record, lineage] = await Promise.all([
+    readFile(generatorUrl, "utf8"),
+    readFile(recordUrl, "utf8").then(JSON.parse),
+    readFile(lineageUrl, "utf8").then(JSON.parse),
+  ]);
+
+  assert.equal(record.assetId, "building:xinhua-road:film-art-center");
+  assert.equal(record.tier, "massing");
+  assert.equal(record.status, "mcp1-and-map-pass-hero-mcp2-pending");
+  assert.deepEqual(record.holdBoundary, {
+    trees: "untouched",
+    decor: "untouched",
+    ordinaryOsm: "not-imported",
+    globalMassing: "untouched",
+    facilityAndSharedPrototypes: "not-imported",
+    otherBuildings: "untouched",
+  });
+  assert.equal(lineage.activeScope, "active-18-buildings");
+  assert.equal(lineage.massing.mcp1, "pass");
+  assert.equal(lineage.massing.mapAcceptance, "pass");
+  assert.equal(lineage.identity.identityAllowed, true);
+  assert.doesNotMatch(
+    generator,
+    /create_xinhua_road_clean_massing_models|BUILDERS|build_plane_tree/,
+  );
+  for (const cue of [
+    "film-art-massing-main-roof",
+    "film-art-massing-gallery-roof",
+    "film-art-massing-upper-loggia",
+    "film-art-massing-entry-recess",
+    "film-art-massing-glass-wing",
+  ]) {
+    assert.match(generator, new RegExp(cue));
+  }
+});
+
+test("Film Art Center Massing 保留派生时 Hero 快照并指向当前 Hero", async () => {
+  const [record, lineage] = await Promise.all([
+    readFile(recordUrl, "utf8").then(JSON.parse),
+    readFile(lineageUrl, "utf8").then(JSON.parse),
+  ]);
+  const [buffer, currentHeroBuffer, blendStats] = await Promise.all([
+    readFile(new URL(record.outputs.glb, root)),
+    readFile(new URL(record.lineage.heroGlb, root)),
+    stat(new URL(record.outputs.blend, root)),
+  ]);
+  const glb = parseGlb(buffer);
+  const rootNode = glb.nodes[0];
+
+  assert.equal(sha256(buffer), record.glb.sha256);
+  assert.equal(buffer.length, record.glb.bytes);
+  assert.equal(
+    record.lineage.heroGlbSha256AtDerivation,
+    record.lineage.heroGlbSha256,
+  );
+  assert.equal(
+    record.lineage.heroGlbSha256AtDerivation,
+    lineage.massing.derivedFrom.heroGlbSha256,
+  );
+  assert.equal(
+    sha256(currentHeroBuffer),
+    record.lineage.currentHeroGlbSha256,
+  );
+  assert.equal(
+    record.lineage.currentHeroGlbSha256,
+    lineage.hero.glb.sha256,
+  );
+  assert.notEqual(
+    record.lineage.currentHeroGlbSha256,
+    record.lineage.heroGlbSha256AtDerivation,
+  );
+  assert.ok(blendStats.size > 100_000, "editable Blend 不得是空白占位文件");
+  assert.equal(glb.nodes.length, record.glb.nodes);
+  assert.equal(glb.meshes.length, record.glb.meshes);
+  assert.equal(glb.materials.length, record.glb.materials);
+  assert.equal(glb.images, undefined);
+  assert.equal(glb.textures, undefined);
+  assert.equal(triangleCount(glb), record.glb.triangles);
+  assert.equal(rootNode.translation, undefined, "根节点不得带平移");
+  assert.equal(rootNode.rotation, undefined, "根节点不得带旋转");
+  assert.equal(rootNode.scale, undefined, "根节点不得带缩放");
+  assert.equal(
+    rootNode.extras.asset_id,
+    "building:xinhua-road:film-art-center",
+  );
+  assert.equal(rootNode.extras.tier, "massing");
+  assert.equal(rootNode.extras.front_direction, "-Y");
+  assert.equal(rootNode.extras.ground_datum, 0);
+  assert.equal(
+    record.glb.triangles <= record.budgets.maxTriangles,
+    true,
+  );
+  assert.equal(record.glb.bytes <= record.budgets.maxBytes, true);
+  assert.equal(record.gates.glbAudit, "pass");
+  assert.equal(record.gates.deterministicGlb.status, "pass");
+  assert.equal(record.gates.deterministicGlb.sha256, record.glb.sha256);
+});
+
+test("Film Art Center 固定三视图与 1.8 m 代理合同可追溯", async () => {
+  const record = await readFile(recordUrl, "utf8").then(JSON.parse);
+  for (const view of ["canonical", "side", "entrance"]) {
+    const preview = record.outputs.previews[view];
+    const buffer = await readFile(new URL(preview.path, root));
+    assert.ok(buffer.length > 600_000, `${view} 不得为空白占位图`);
+    assert.equal(buffer.length, preview.bytes);
+    assert.equal(sha256(buffer), preview.sha256);
+    assert.ok(preview.lensMm >= 50 && preview.lensMm <= 60);
+  }
+  assert.equal(record.contract.humanProxy.meters, 1.8);
+  assert.ok(
+    Math.abs(record.contract.humanProxy.sceneUnits - 2 / 3) < 0.000001,
+  );
+  assert.equal(record.contract.humanProxy.exported, false);
+});
+
+test("Recovery generic box 被保留为反例且不得进入正式 tier", async () => {
+  const [record, lineage] = await Promise.all([
+    readFile(recordUrl, "utf8").then(JSON.parse),
+    readFile(lineageUrl, "utf8").then(JSON.parse),
+  ]);
+  const decision = record.lineage.recoveryMassingCandidate;
+  assert.equal(
+    decision.sha256,
+    "4b925b2dad96894e7feda2b925962781fcd532d675657a9f17a96467458b0941",
+  );
+  assert.equal(decision.decision, "rejected-generic-box-map-binding-blocked");
+  assert.equal(lineage.recoveryDecision.structure.triangles, 12);
+  assert.equal(lineage.recoveryDecision.structure.bytes, 2316);
+  assert.equal(lineage.recoveryDecision.decision, "rejected-as-formal-massing");
+  assert.notEqual(lineage.massing.glb.sha256, decision.sha256);
+});
+
+test("Film Art Center Hero MCP2 Pass 可追溯并解锁独立 Identity 派生", async () => {
+  const [record, lineage, gate, generator, glbBuffer, blendBuffer, landmarkData] =
+    await Promise.all([
+      readFile(heroRecordUrl, "utf8").then(JSON.parse),
+      readFile(lineageUrl, "utf8").then(JSON.parse),
+      readFile(mcpGateUrl, "utf8").then(JSON.parse),
+      readFile(heroGeneratorUrl, "utf8"),
+      readFile(
+        new URL("public/models/xinhua-road/film-art-center.glb", root),
+      ),
+      readFile(
+        new URL(
+          "assets/models/source/xinhua-road/film-art-center.blend",
+          root,
+        ),
+      ),
+      readFile(landmarkDataUrl, "utf8").then(JSON.parse),
+    ]);
+  const glb = parseGlb(glbBuffer);
+  const rootNode = glb.nodes[0];
+  const landmark = landmarkData.landmarks.find(
+    (candidate) => candidate.id === "film-art-center",
+  );
+
+  assert.ok(landmark);
+  assert.equal(sha256(glbBuffer), record.outputs.sha256);
+  assert.equal(glbBuffer.length, record.metrics.bytes);
+  assert.equal(sha256(blendBuffer), record.outputs.blendSha256);
+  assert.equal(blendBuffer.length, record.outputs.blendBytes);
+  assert.equal(sha256(Buffer.from(generator)), record.generator.sha256);
+  assert.equal(record.outputs.cacheVersion, landmark.cacheVersion);
+  assert.equal(triangleCount(glb), record.metrics.triangles);
+  assert.equal(glb.nodes.length, 1);
+  assert.equal(glb.meshes.length, 1);
+  assert.equal(glb.materials.length, 14);
+  assert.equal(glb.images, undefined);
+  assert.equal(glb.textures, undefined);
+  assert.equal(
+    glb.meshes.some((mesh) =>
+      mesh.primitives.some(
+        (primitive) => primitive.attributes.TEXCOORD_0 !== undefined,
+      ),
+    ),
+    false,
+    "无图片纹理 Hero 不应导出未使用 TEXCOORD",
+  );
+  assert.equal(rootNode.translation, undefined);
+  assert.equal(rootNode.rotation, undefined);
+  assert.equal(rootNode.scale, undefined);
+  assert.equal(rootNode.extras.degenerate_faces_removed, 76);
+  assert.equal(rootNode.extras.degenerate_face_area_epsilon, 1e-10);
+  assert.equal(record.topologyRepair.removed, 76);
+  assert.equal(record.topologyRepair.postRepair.facesBelowEpsilon, 0);
+  assert.equal(record.topologyRepair.postRepair.nonfinitePolygonNormals, 0);
+  assert.equal(record.determinism.status, "passed");
+  assert.equal(record.determinism.sha256, record.outputs.sha256);
+  assert.equal(
+    gate.heroGate.status,
+    "pass",
+  );
+  assert.equal(
+    gate.heroGate.recheckCandidate.status,
+    "pass",
+  );
+  assert.equal(
+    gate.identityGate.status,
+    "pass",
+  );
+  assert.equal(lineage.identity.identityAllowed, true);
+  assert.equal(
+    lineage.nextGate,
+    "complete-no-rework-unless-binary-or-public-contract-changes",
+  );
+  assert.deepEqual(
+    gate.heroGate.recheckCandidate.acceptedInteractiveChanges,
+    [],
+  );
+  assert.equal(gate.heroGate.recheckCandidate.qaRigSaved, false);
+  assert.equal(gate.heroGate.recheckCandidate.qaRigExported, false);
+  assert.match(generator, /MeshPolygon\.area/);
+  assert.match(generator, /context="FACES_ONLY"/);
+  assert.match(generator, /export_texcoords=export_texcoords/);
+
+  for (const view of ["canonical", "side", "entrance"]) {
+    const preview = record.outputs.previews[view];
+    const buffer = await readFile(new URL(preview.path, root));
+    assert.equal(buffer.length, preview.bytes);
+    assert.equal(sha256(buffer), preview.sha256);
+
+    const recheck =
+      gate.heroGate.recheckCandidate.fixedMcpRecheckViews[view];
+    const recheckBuffer = await readFile(new URL(recheck.screenshot, root));
+    assert.equal(recheckBuffer.length, recheck.bytes);
+    assert.equal(sha256(recheckBuffer), recheck.sha256);
+  }
+});
+
+test("Film Art Center Identity 独立派生、MCP3 与本地运行时候选可追溯", async () => {
+  const [
+    record,
+    lineage,
+    gate,
+    generator,
+    glbBuffer,
+    blendBuffer,
+    heroRecord,
+    runtimeQa,
+    runtimeMetrics,
+  ] =
+    await Promise.all([
+      readFile(identityRecordUrl, "utf8").then(JSON.parse),
+      readFile(lineageUrl, "utf8").then(JSON.parse),
+      readFile(mcpGateUrl, "utf8").then(JSON.parse),
+      readFile(identityGeneratorUrl, "utf8"),
+      readFile(
+        new URL(
+          "public/models/tiers/xinhua-road/identity/film-art-center-identity.glb",
+          root,
+        ),
+      ),
+      readFile(
+        new URL(
+          "assets/models/source/tiers/xinhua-road/identity/film-art-center-identity.blend",
+          root,
+        ),
+      ),
+      readFile(heroRecordUrl),
+      readFile(
+        new URL(
+          "docs/research/film-art-center-three-tier-runtime-qa.json",
+          root,
+        ),
+        "utf8",
+      ).then(JSON.parse),
+      readFile(
+        new URL(
+          "test_artifacts/test_film-art-center_three-tier_runtime_metrics.json",
+          root,
+        ),
+        "utf8",
+      ).then(JSON.parse),
+    ]);
+  const glb = parseGlb(glbBuffer);
+  const rootNode = glb.nodes[0];
+
+  assert.equal(record.assetId, "building:xinhua-road:film-art-center");
+  assert.equal(record.tier, "identity");
+  assert.equal(
+    record.status,
+    "mcp3-and-main-browser-runtime-pass",
+  );
+  assert.equal(sha256(Buffer.from(generator)), record.generator.sha256);
+  assert.equal(sha256(glbBuffer), record.glb.sha256);
+  assert.equal(glbBuffer.length, record.glb.bytes);
+  assert.equal(sha256(blendBuffer), record.outputs.blendSha256);
+  assert.equal(blendBuffer.length, record.outputs.blendBytes);
+  assert.equal(
+    sha256(heroRecord),
+    record.derivedFrom.heroBuildRecordSha256,
+  );
+  assert.equal(
+    record.derivedFrom.heroGlbSha256,
+    lineage.hero.glb.sha256,
+  );
+  assert.equal(record.derivedFrom.heroGate, "mcp2-pass");
+  assert.equal(triangleCount(glb), 23816);
+  assert.ok(record.glb.triangles <= record.budgets.maxTriangles);
+  assert.ok(record.glb.bytes <= record.budgets.maxBytes);
+  assert.equal(glb.nodes.length, 1);
+  assert.equal(glb.meshes.length, 1);
+  assert.equal(glb.materials.length, 8);
+  assert.equal(glb.images, undefined);
+  assert.equal(glb.textures, undefined);
+  assert.equal(
+    glb.meshes.some((mesh) =>
+      mesh.primitives.some(
+        (primitive) => primitive.attributes.TEXCOORD_0 !== undefined,
+      ),
+    ),
+    false,
+  );
+  assert.equal(rootNode.translation, undefined);
+  assert.equal(rootNode.rotation, undefined);
+  assert.equal(rootNode.scale, undefined);
+  assert.equal(rootNode.extras.tier, "identity");
+  assert.equal(
+    rootNode.extras.derived_from_hero_glb_sha256,
+    lineage.hero.glb.sha256,
+  );
+  assert.equal(
+    rootNode.extras.forbidden_substitute,
+    "arts-cluster-generic-proxy",
+  );
+  assert.equal(rootNode.extras.degenerate_faces_removed, 4);
+  assert.equal(record.blendTopology.facesBelowEpsilon, 0);
+  assert.equal(record.blendTopology.nonfinitePolygonNormals, 0);
+  assert.equal(record.gates.glbAudit, "pass");
+  assert.equal(record.gates.deterministicGlb.status, "pass");
+  assert.equal(
+    record.gates.deterministicGlb.sha256,
+    record.glb.sha256,
+  );
+  assert.equal(
+    lineage.identity.status,
+    "mcp3-and-main-browser-runtime-pass",
+  );
+  assert.equal(lineage.identity.mcp3, "pass");
+  assert.equal(
+    gate.identityGate.status,
+    "pass",
+  );
+  assert.equal(
+    gate.threeTierGate.status,
+    "pass-blender-and-main-browser-runtime",
+  );
+  assert.equal(
+    record.gates.threeTierRuntime,
+    "pass-main-window-real-browser",
+  );
+  assert.equal(runtimeQa.gates.localThreeTierRuntimeCandidate, "pass");
+  assert.equal(runtimeQa.gates.mainWindowRealBrowserAcceptance, "pass");
+  assert.equal(runtimeQa.mainWindowBrowserAcceptance.status, "pass");
+  assert.equal(runtimeQa.mainWindowBrowserAcceptance.frameSample.hero.requestedTierUrlCount, 1);
+  assert.equal(runtimeQa.mainWindowBrowserAcceptance.frameSample.identity.requestedTierUrlCount, 1);
+  assert.equal(runtimeQa.mainWindowBrowserAcceptance.frameSample.massing.requestedTierUrlCount, 1);
+  assert.equal(runtimeQa.mainWindowBrowserAcceptance.console.unexpectedErrors, 0);
+  assert.equal(runtimeQa.productionIdentity.localPosition[0], 0);
+  assert.deepEqual(
+    runtimeQa.productionIdentity.localPosition,
+    runtimeQa.productionIdentity.qaLocalPosition,
+  );
+  assert.deepEqual(
+    runtimeMetrics.productionIdentityPlacement.genericFallbackLocalPosition,
+    [0, 0, -2.25],
+  );
+  assert.equal(runtimeMetrics.fallback.pagePlayable, true);
+  assert.deepEqual(
+    runtimeMetrics.fallback.foreignQaRequestsInCurrentPerformanceBuffer,
+    [],
+  );
+  assert.equal(
+    runtimeMetrics.productionIdentityFailureFallback.status,
+    "fallback",
+  );
+  assert.equal(
+    runtimeMetrics.productionIdentityFailureFallback.pagePlayable,
+    true,
+  );
+  assert.deepEqual(
+    runtimeMetrics.productionIdentityFailureFallback.derivedGlbOuterPosition,
+    [0, 0, 0],
+  );
+  assert.deepEqual(
+    runtimeMetrics.productionIdentityFailureFallback
+      .programmaticFallbackInnerPosition,
+    [0, 0, -2.25],
+  );
+  const productionFallbackScreenshot =
+    runtimeMetrics.productionIdentityFailureFallback.screenshot;
+  const productionFallbackBuffer = await readFile(
+    new URL(productionFallbackScreenshot.path, root),
+  );
+  assert.equal(
+    productionFallbackBuffer.length,
+    productionFallbackScreenshot.bytes,
+  );
+  assert.equal(
+    sha256(productionFallbackBuffer),
+    productionFallbackScreenshot.sha256,
+  );
+  for (const tier of ["hero", "identity", "massing"]) {
+    assert.equal(runtimeMetrics.tiers[tier].status, "loaded");
+    assert.ok(runtimeMetrics.tiers[tier].sceneRenderSample.drawCalls > 0);
+    assert.equal(
+      runtimeMetrics.tiers[tier].sceneRenderSample.scope,
+      "whole-scene-not-asset-isolated",
+    );
+    const screenshot = runtimeMetrics.tiers[tier].screenshot;
+    const screenshotBuffer = await readFile(new URL(screenshot.path, root));
+    assert.equal(screenshotBuffer.length, screenshot.bytes);
+    assert.equal(sha256(screenshotBuffer), screenshot.sha256);
+  }
+  assert.deepEqual(record.mcp3.acceptedInteractiveChanges, []);
+  assert.equal(record.mcp3.qaRigSaved, false);
+  assert.equal(record.mcp3.qaRigExported, false);
+  assert.doesNotMatch(generator, /build_arts_cluster|MiniatureGabledBuilding/);
+  for (const cue of [
+    "film-art-identity-main-roof",
+    "film-art-identity-gallery-roof",
+    "film-art-identity-balustrade",
+    "film-art-identity-upper-loggia",
+    "film-art-identity-name",
+    "film-art-identity-lion",
+    "film-art-identity-glass-wing",
+  ]) {
+    assert.match(generator, new RegExp(cue));
+  }
+
+  for (const view of ["canonical", "side", "entrance"]) {
+    const preview = record.outputs.previews[view];
+    const buffer = await readFile(new URL(preview.path, root));
+    assert.equal(buffer.length, preview.bytes);
+    assert.equal(sha256(buffer), preview.sha256);
+
+    const mcp3 = record.mcp3.screenshots[view];
+    const mcp3Buffer = await readFile(new URL(mcp3.path, root));
+    assert.equal(mcp3Buffer.length, mcp3.bytes);
+    assert.equal(sha256(mcp3Buffer), mcp3.sha256);
+  }
+});
+
+test("Film Art Center MCP1 场景、固定机位与尺度边界精确封存", async () => {
+  const [gate, record, glb, blend, generator] = await Promise.all([
+    readFile(mcpGateUrl, "utf8").then(JSON.parse),
+    readFile(recordUrl, "utf8").then(JSON.parse),
+    readFile(
+      new URL(
+        "public/models/tiers/xinhua-road/massing/film-art-center-massing.glb",
+        root,
+      ),
+    ),
+    readFile(
+      new URL(
+        "assets/models/source/tiers/xinhua-road/massing/film-art-center-massing.blend",
+        root,
+      ),
+    ),
+    readFile(generatorUrl),
+  ]);
+
+  assert.equal(gate.assetId, "film-art-center");
+  assert.equal(gate.massingGate.status, "pass");
+  assert.equal(gate.massingGate.runtimeAsset.sha256, sha256(glb));
+  assert.equal(gate.massingGate.editableSource.sha256, sha256(blend));
+  assert.equal(gate.massingGate.generator.sha256, sha256(generator));
+  assert.equal(gate.massingGate.sceneInspection.meshCount, 1);
+  assert.equal(gate.massingGate.sceneInspection.triangles, 3376);
+  assert.equal(gate.massingGate.sceneInspection.materials, 6);
+  assert.equal(gate.massingGate.sceneInspection.images, 0);
+  assert.equal(gate.massingGate.humanScale.heightMeters, 1.8);
+  assert.equal(gate.massingGate.humanScale.exportedToGlb, false);
+  assert.equal(
+    gate.massingGate.checks.runtimePlayerScale,
+    "pending-three-js-map-gate",
+  );
+  assert.equal(
+    gate.massingGate.checks.physicalSurveyScale,
+    "unknown-not-claimed",
+  );
+  assert.deepEqual(gate.massingGate.acceptedInteractiveChanges, []);
+  assert.equal(gate.massingGate.generatorRoundTrip.status, "not-required");
+  assert.equal(record.gates.mcp1, "pass");
+  assert.equal(record.gates.mapAcceptance, "pass");
+  assert.equal(record.gates.identityAllowed, false);
+  assert.equal(record.outputs.blendSha256, sha256(blend));
+  assert.equal(record.outputs.blendBytes, blend.length);
+
+  for (const view of ["canonical", "side", "entrance", "scale"]) {
+    const screenshot = gate.massingGate.fixedViews[view];
+    const buffer = await readFile(new URL(screenshot.screenshot, root));
+    assert.equal(buffer.length, screenshot.bytes);
+    assert.equal(sha256(buffer), screenshot.sha256);
+  }
+});
+
+test("Film Art Center 三档运行时 QA 深链不改变生产默认 tier", async () => {
+  const runtimeSource = await readFile(
+    new URL("app/scene/xinhua-road-landmarks.tsx", root),
+    "utf8",
+  );
+  const contractSource = await readFile(
+    new URL("app/scene/film-art-center-tier-contract.mjs", root),
+    "utf8",
+  );
+  const expectedTiers = {
+    hero: {
+      sha256: FILM_ART_CENTER_HERO_SHA256,
+      modelPath: FILM_ART_CENTER_HERO_MODEL_PATH,
+    },
+    identity: {
+      sha256: FILM_ART_CENTER_IDENTITY_SHA256,
+      modelPath: FILM_ART_CENTER_IDENTITY_MODEL_PATH,
+    },
+    massing: {
+      sha256: FILM_ART_CENTER_MASSING_SHA256,
+      modelPath: FILM_ART_CENTER_MASSING_MODEL_PATH,
+    },
+  };
+  for (const [tier, expected] of Object.entries(expectedTiers)) {
+    const active = resolveFilmArtCenterQaTier(
+      `?start=film-art&qaModelTier=${tier}&qaModelId=film-art-center&cameraQa=1`,
+    );
+    assert.equal(active.assetId, "film-art-center");
+    assert.equal(active.tier, tier);
+    assert.equal(active.sha256, expected.sha256);
+    assert.equal(active.modelPath, expected.modelPath);
+    assert.equal(active.forcedFallback, false);
+    assert.equal(active.productionDefaultChanged, false);
+  }
+  assert.equal(resolveFilmArtCenterQaTier("?start=film-art"), null);
+  assert.equal(
+    resolveFilmArtCenterQaTier(
+      "?qaModelTier=massing&qaModelId=shanghai-cinema",
+    ),
+    null,
+  );
+  assert.equal(
+    resolveFilmArtCenterQaTier(
+      "?qaModelTier=unknown&qaModelId=film-art-center",
+    ),
+    null,
+  );
+
+  const fallback = resolveFilmArtCenterQaTier(
+    "?qaModelTier=identity&qaModelId=film-art-center"
+    + "&qaActiveFallback=film-art-center-identity",
+  );
+  assert.equal(fallback.forcedFallback, true);
+  assert.match(fallback.modelPath, /test_missing-film-art-center-identity\.glb/);
+  assert.equal(
+    resolveFilmArtCenterQaTier(
+      "?qaModelTier=identity&qaModelId=film-art-center"
+      + "&qaActiveFallback=identity",
+    ).forcedFallback,
+    false,
+    "Identity fallback token 必须带建筑 ID，避免触发其他建筑的全局 QA 路径",
+  );
+  const productionIdentity =
+    resolveFilmArtCenterProductionIdentitySource("?start=film-art");
+  assert.equal(productionIdentity.forcedFallback, false);
+  assert.equal(
+    productionIdentity.modelPath,
+    FILM_ART_CENTER_IDENTITY_MODEL_PATH,
+  );
+  const productionFallback = resolveFilmArtCenterProductionIdentitySource(
+    "?start=film-art&qaProductionFallback=film-art-center-identity",
+  );
+  assert.equal(productionFallback.forcedFallback, true);
+  assert.match(
+    productionFallback.modelPath,
+    /test_missing-film-art-center-production-identity\.glb/,
+  );
+  assert.match(runtimeSource, /xinhua:active-asset-runtime/);
+  assert.match(runtimeSource, /xinhuaRoadQaStatus = "loaded"/);
+  assert.match(runtimeSource, /hiddenLandmarkIds=\{activeMountedModelIds\}/);
+  assert.match(contractSource, /productionDefaultChanged: false/);
+});
+
+test("Film Art Center Massing 地图位置、落地与碰撞门可重复", async () => {
+  const [qa, landmarkData] = await Promise.all([
+    readFile(mapQaUrl, "utf8").then(JSON.parse),
+    readFile(
+      new URL("app/scene/xinhua-road-landmarks-data.json", root),
+      "utf8",
+    ).then(JSON.parse),
+  ]);
+  const landmark = landmarkData.landmarks.find(
+    (candidate) => candidate.id === "film-art-center",
+  );
+  assert.ok(landmark);
+  assert.equal(qa.status, "pass");
+  assert.equal(qa.productionDefaultChanged, false);
+  assert.equal(qa.asset.sha256, FILM_ART_CENTER_MASSING_SHA256);
+  assert.equal(qa.asset.network.status, 200);
+  assert.equal(qa.asset.network.contentLength, 240572);
+  assert.equal(qa.runtime.pagePlayable, true);
+  assert.equal(qa.runtime.console.errors, 0);
+  assert.deepEqual(qa.placement.position, landmark.position);
+  assert.equal(qa.placement.yaw, landmark.yaw);
+  assert.equal(qa.placement.scale, landmark.scale);
+  assert.deepEqual(qa.placement.start, landmark.start);
+  assert.deepEqual(qa.placement.forward, landmark.forward);
+  assert.equal(qa.placement.cameraTargetHeight, landmark.cameraTargetHeight);
+
+  const expectedWorldBase = (
+    terrainHeightAt(...landmark.position) + 0.1
+  ) * qa.runtime.groundContact.detailWorldScale;
+  assert.ok(
+    Math.abs(
+      qa.runtime.worldBounds.min[1] - expectedWorldBase
+    ) < 1e-5,
+  );
+  assert.equal(qa.runtime.groundContact.status, "pass");
+
+  const cosine = Math.cos(landmark.yaw);
+  const sine = Math.sin(landmark.yaw);
+  const obstacles = landmark.localObstacles.map((local) => {
+    const worldX = [];
+    const worldZ = [];
+    for (const localX of [local.minX, local.maxX]) {
+      for (const sourceZ of [local.minZ, local.maxZ]) {
+        const localZ = -sourceZ;
+        worldX.push(
+          landmark.position[0]
+          + landmark.scale * (cosine * localX + sine * localZ),
+        );
+        worldZ.push(
+          landmark.position[1]
+          + landmark.scale * (-sine * localX + cosine * localZ),
+        );
+      }
+    }
+    return {
+      minX: Math.min(...worldX) - landmarkData.collisionMargin,
+      maxX: Math.max(...worldX) + landmarkData.collisionMargin,
+      minZ: Math.min(...worldZ) - landmarkData.collisionMargin,
+      maxZ: Math.max(...worldZ) + landmarkData.collisionMargin,
+    };
+  });
+  assert.deepEqual(obstacles, qa.collision.worldObstacles);
+
+  const boundary = [
+    [-100, -100],
+    [200, -100],
+    [200, 250],
+    [-100, 250],
+  ];
+  const player = new Vector3(landmark.start[0], 0, landmark.start[1]);
+  assert.equal(
+    isPlanarPositionBlockedInPolygon(
+      player.x,
+      player.z,
+      boundary,
+      obstacles,
+      qa.collision.playerRadius,
+    ),
+    false,
+  );
+  const step = new Vector3(
+    landmark.forward[0],
+    0,
+    landmark.forward[1],
+  ).normalize().multiplyScalar(
+    qa.collision.deterministicApproach.stepSceneUnits,
+  );
+  for (
+    let index = 0;
+    index < qa.collision.deterministicApproach.steps;
+    index += 1
+  ) {
+    resolvePolygonMovement(
+      player,
+      step,
+      boundary,
+      obstacles,
+      qa.collision.playerRadius,
+      player,
+    );
+  }
+  assert.ok(
+    Math.abs(player.x - qa.collision.deterministicApproach.result[0]) < 1e-9,
+  );
+  assert.ok(
+    Math.abs(player.z - qa.collision.deterministicApproach.result[1]) < 1e-9,
+  );
+  assert.equal(
+    isPlanarPositionBlockedInPolygon(
+      player.x,
+      player.z,
+      boundary,
+      obstacles,
+      qa.collision.playerRadius,
+    ),
+    false,
+  );
+
+  for (const screenshot of Object.values(qa.screenshots)) {
+    const buffer = await readFile(new URL(screenshot.path, root));
+    assert.equal(buffer.length, screenshot.bytes);
+    assert.equal(sha256(buffer), screenshot.sha256);
+  }
+  assert.equal(qa.forcedFallback.pagePlayable, true);
+  assert.equal(qa.forcedFallback.blankOrBlack, false);
+  assert.equal(qa.scope.trees, "untouched");
+  assert.equal(qa.scope.decor, "untouched");
+  assert.equal(qa.scope.globalMassing, "untouched");
+  assert.equal(qa.nextGate, "blender-mcp2-hero-master-review");
+  assert.equal(qa.identityAllowed, false);
+});

@@ -1,0 +1,262 @@
+{
+  "schemaVersion": 1,
+  "assetId": "one-step-garden",
+  "tier": "massing",
+  "status": "pass",
+  "reviewedAt": "2026-07-25T20:38:45+08:00",
+  "reviewedBy": "one-step-garden-worktree-agent",
+  "sourceCheckpoint": "27a1c02-plus-temporary-qa-assembly",
+  "runtime": {
+    "fixedUrl": "http://127.0.0.1:4329/?start=garden179&network=standard&cameraQa=1&effects=off&district=off",
+    "fixedStartQuery": "garden179",
+    "networkProfile": "standard",
+    "pageVisibility": "visible",
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "devicePixelRatio": 1
+    },
+    "canvas": {
+      "width": 1440,
+      "height": 900,
+      "clientWidth": 1440,
+      "clientHeight": 900
+    },
+    "buildMode": "vite-static-production-preview",
+    "effects": "off-for-repeatable-qa",
+    "districtMassing": "off-to-isolate-active-building",
+    "warmupMsBeforeStartScreenshot": 1500
+  },
+  "qaAssembly": {
+    "temporary": true,
+    "sourceRegistry": "app/scene/xinhua-road-landmarks-data.json",
+    "sourceBeforeSha256": "eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6",
+    "temporarySourceSha256": "86d52f5d9b3e2883c460ddeb88e7fc499e2dcda14f074bbc1d26bf326c93da4f",
+    "sourceAfterRestoreSha256": "eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6",
+    "sourceRestoredByteIdentical": true,
+    "sourceRegistryCommitted": false,
+    "heroAssetOverwritten": false,
+    "sharedRuntimeFilesCommitted": false,
+    "temporaryModelOverride": {
+      "model": "/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb",
+      "cacheVersion": "20260725-massing-a87caeba"
+    },
+    "frozenPlacement": {
+      "position": [60.86, 120.73],
+      "yawRadians": -0.38,
+      "scale": 0.88,
+      "movementAuthorized": false
+    },
+    "proposedLocalBounds": {
+      "minX": -7.25,
+      "maxX": 7.25,
+      "minZ": -9.325,
+      "maxZ": 6.9
+    },
+    "proposedLocalObstacles": [
+      { "minX": -4.2, "maxX": 4.2, "minZ": -1.8, "maxZ": 1.8 },
+      { "minX": -6.7, "maxX": -3.3, "minZ": -0.5, "maxZ": 6.7 },
+      { "minX": 3.4, "maxX": 6.6, "minZ": -0.5, "maxZ": 6.6 },
+      { "minX": -1.24, "maxX": -1.06, "minZ": 6.16, "maxZ": 6.34 },
+      { "minX": 3.26, "maxX": 3.44, "minZ": 6.16, "maxZ": 6.34 },
+      { "minX": -7, "maxX": 7, "minZ": -9.1, "maxZ": -4.9 },
+      { "minX": -6.775, "maxX": -3.525, "minZ": -7.05, "maxZ": -3.85 },
+      { "minX": 3.525, "maxX": 6.775, "minZ": -7.05, "maxZ": -3.85 }
+    ],
+    "staticBuildArtifacts": {
+      "landmarkDataChunk": {
+        "pathAtQaBuild": "dist-static/assets/xinhua-road-landmarks-data-Bn3ryeBh.js",
+        "sha256": "c319d888d4d32e3d9387677d35668b2f67424ef2a4b90ed959d5280683e06117",
+        "bytes": 27377
+      },
+      "landmarkRuntimeChunk": {
+        "pathAtQaBuild": "dist-static/assets/xinhua-road-landmarks-CGqqp1kF.js",
+        "sha256": "7b89b71fe9c2776103256635c1a8cc3b233c8ccbec659ddc620706c9fdf311ae",
+        "bytes": 10396
+      }
+    }
+  },
+  "resource": {
+    "sourcePath": "public/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb",
+    "distPath": "dist-static/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb",
+    "requestUrl": "http://127.0.0.1:4329/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb?v=20260725-massing-a87caeba",
+    "responseStatus": 200,
+    "responseContentType": "model/gltf-binary",
+    "responseContentLength": 18316,
+    "sourceBytes": 18316,
+    "distBytes": 18316,
+    "sourceSha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+    "distSha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+    "performanceResource": {
+      "durationMs": 8.7,
+      "transferSize": 300,
+      "encodedBodySize": 18316,
+      "decodedBodySize": 18316,
+      "cacheBoundary": "browser-local-revalidation-on-formal-reload"
+    },
+    "har": {
+      "retained": false,
+      "temporaryPath": "/tmp/test_one_step_garden_massing_runtime.har",
+      "sha256": "9dc0f225c7c5074a470ae9fb2aedf951faf48b000aafe7a7722de510d0939451",
+      "entries": 29,
+      "assetResponseContentLength": 18316
+    }
+  },
+  "mapCalibration": {
+    "placement": {
+      "position": [60.86, 120.73],
+      "yawRadians": -0.38,
+      "scale": 0.88,
+      "status": "pass-frozen-legacy-placement-no-movement"
+    },
+    "worldBoundsWithCollisionMargin": {
+      "minX": 51.691346,
+      "maxX": 69.237109,
+      "minZ": 112.524676,
+      "maxZ": 130.917095
+    },
+    "front": "pass-local-negative-y-faces-xinhua-road",
+    "groundContact": "pass-shared-landmark-ground-anchor-plus-0.1-no-visible-float-or-sink",
+    "roadSetback": {
+      "status": "pass",
+      "closestCollisionBoundZ": 112.524676,
+      "startLanePointZ": 109,
+      "minimumDifferenceSceneUnits": 3.524676,
+      "visualEvidence": "runtime-map-start-and-oblique"
+    },
+    "screenOccupancy": "pass-building-readable-with-complete-street-setback-at-1440x900",
+    "occlusion": "pass-no-unrelated-asset-blocks-front-and-entrance-evidence"
+  },
+  "collisionAndWalkable": {
+    "collisionMargin": 0.2,
+    "playerRadius": 0.48,
+    "playerDiameter": 0.96,
+    "worldObstacles": [
+      { "minX": 56.640117, "maxX": 65.079883, "minZ": 117.688073, "maxZ": 123.771927 },
+      { "minX": 55.021388, "maxX": 60.550105, "minZ": 112.867646, "maxZ": 120.261459 },
+      { "minX": 63.27536, "maxX": 68.60799, "minZ": 116.24611, "maxZ": 123.492919 },
+      { "minX": 61.657327, "maxX": 62.263181, "minZ": 114.944046, "maxZ": 115.5499 },
+      { "minX": 65.334839, "maxX": 65.940693, "minZ": 116.412891, "maxZ": 117.018745 },
+      { "minX": 51.969095, "maxX": 65.181165, "minZ": 122.249532, "maxZ": 130.651616 },
+      { "minX": 52.822111, "maxX": 56.922604, "minZ": 121.464888, "maxZ": 125.54084 },
+      { "minX": 61.239527, "maxX": 65.34002, "minZ": 124.826911, "maxZ": 128.902863 }
+    ],
+    "start": {
+      "position": [73, 109],
+      "clearForPlayerRadius": true
+    },
+    "cameraProbes": [
+      {
+        "distanceBehindStart": 5.35,
+        "position": [77.94875, 106.96165],
+        "clearForCameraRadius0p26": true
+      },
+      {
+        "distanceBehindStart": 7.4,
+        "position": [79.845, 106.1806],
+        "clearForCameraRadius0p26": true
+      }
+    ],
+    "entranceClearWidthAfterScaleAndMargins": 3.4016,
+    "frontRearClearWidthAfterScaleAndMargins": 1.404,
+    "entrancePass": true,
+    "frontRearPass": true,
+    "scriptedPaths": {
+      "wallBlock": {
+        "input": "KeyW 3800ms from default garden179 camera",
+        "result": "pass-character-stopped-at-left-front-wing-wall",
+        "cameraTelemetry": "spring-clear-blocker-none"
+      },
+      "entranceTraversal": {
+        "input": "KeyD 1700ms then KeyW 2400ms",
+        "result": "pass-character-entered-under-open-canopy-into-front-courtyard",
+        "cameraTelemetry": "spring-clear-blocker-none"
+      }
+    }
+  },
+  "camera": {
+    "start": {
+      "mode": "spring-clear",
+      "blockerId": "none",
+      "desiredArm": 5.435,
+      "resolvedArm": 5.435,
+      "fovDegrees": 58
+    },
+    "afterEntranceTraversal": {
+      "mode": "spring-clear",
+      "blockerId": "none",
+      "desiredArm": 5.369,
+      "resolvedArm": 5.369,
+      "modeChanges": 1,
+      "fovDegrees": 58
+    }
+  },
+  "performance": {
+    "sampleDurationMs": 10014,
+    "frames": 601,
+    "averageFrameMs": 16.661897,
+    "fps": 60.017176,
+    "p95FrameMs": 17.9,
+    "p99FrameMs": 18.5,
+    "maxFrameMs": 20.1,
+    "pageVisibility": "visible",
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "devicePixelRatio": 1
+    },
+    "buildMode": "vite-static-production-preview",
+    "baselineAvailable": false,
+    "claim": "absolute-runtime-sample-only-no-performance-improvement-claim",
+    "contractStatus": "pass-sample-at-least-10-seconds"
+  },
+  "console": {
+    "logs": [],
+    "pageErrors": []
+  },
+  "screenshots": {
+    "mapStart": {
+      "path": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden_massing_runtime_map_start.png",
+      "sha256": "2340c11bda1a9af574e772beb23c53d0d6cf91102d5bbcb2158db0f56ca4e55c",
+      "bytes": 673972
+    },
+    "mapOblique": {
+      "path": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden_massing_runtime_map_oblique.png",
+      "sha256": "42e10414ef3e63857cf59cba44bc856c30908d288f7904df4e5056e5effc3770",
+      "bytes": 613701
+    },
+    "wallBlock": {
+      "path": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden_massing_runtime_map_entrance_path.png",
+      "sha256": "c9f952056c3c3dd1f0c5416bfdb6ab58bcd0f322b8518bb443caf151ac450682",
+      "bytes": 856711
+    },
+    "courtyardTraversal": {
+      "path": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden_massing_runtime_map_courtyard_path.png",
+      "sha256": "efc2703d305722de782a09b28be683e688002766624b3ec2aa619acf377c26eb",
+      "bytes": 931034
+    }
+  },
+  "checks": {
+    "exactGlbRequested": "pass",
+    "position": "pass",
+    "orientation": "pass",
+    "groundContact": "pass",
+    "roadSetback": "pass",
+    "humanScale": "pass",
+    "camera": "pass",
+    "wallCollision": "pass",
+    "entranceWalkable": "pass",
+    "frontRearGap": "pass-analytic-clearance",
+    "resource": "pass",
+    "console": "pass",
+    "performance": "pass"
+  },
+  "verdict": {
+    "mapGate": "pass",
+    "massingRuntime": "pass",
+    "sharedRegistryIntegration": "pending-main-window",
+    "heroMasterReviewAuthorized": true,
+    "identityAuthorized": false,
+    "nextGate": "main-window-hero-master-disposition"
+  }
+}

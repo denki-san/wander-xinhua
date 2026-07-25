@@ -1,0 +1,178 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:film-art-center",
+  "tier": "massing",
+  "status": "mcp1-and-map-pass-hero-mcp2-pending",
+  "generator": {
+    "path": "scripts/create_film_art_center_massing_model.py",
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --factory-startup --python-exit-code 1 --python scripts/create_film_art_center_massing_model.py",
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "lineage": {
+    "method": "deterministic-simplification-of-frozen-hero-parameters",
+    "heroGenerator": "scripts/create_xinhua_road_models.py",
+    "heroGeneratorSha256": "6ea5fc19f98f6339d83063bafea9c0edd66ca07d2bb171be08f61d63fed3488d",
+    "heroBlend": "assets/models/source/xinhua-road/film-art-center.blend",
+    "heroBlendSha256": "32e27757001feeb1da31a2ada1fbfafc7c6f6a038d3f85ab408912973a2c8e0c",
+    "heroGlb": "public/models/xinhua-road/film-art-center.glb",
+    "heroGlbSha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6",
+    "heroGlbSha256AtDerivation": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6",
+    "currentHeroGlbSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+    "currentHeroStatus": "mcp2-topology-repaired-recheck-pending",
+    "recoveryMassingCandidate": {
+      "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+      "sha256": "4b925b2dad96894e7feda2b925962781fcd532d675657a9f17a96467458b0941",
+      "decision": "rejected-generic-box-map-binding-blocked"
+    }
+  },
+  "contract": {
+    "authoredMetersPerSceneUnit": 2.7,
+    "frontDirection": "-Y",
+    "groundDatum": 0,
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "position": [
+      47.5,
+      81.5
+    ],
+    "yaw": 2.761592653589793,
+    "scale": 1,
+    "humanProxy": {
+      "meters": 1.8,
+      "sceneUnits": 0.666667,
+      "exported": false
+    },
+    "preservedCues": [
+      "three-storey horizontal main volume",
+      "full-width upturned main roof",
+      "second red gallery roof and double veranda depth",
+      "upper central recessed loggia",
+      "low glass side wings"
+    ],
+    "deliberateLosses": [
+      "roof ribs and ridge ornaments",
+      "window mullions and balustrade rhythm",
+      "sign, lions, lights and fine entrance details",
+      "lawn, shrubs and paving details"
+    ]
+  },
+  "holdBoundary": {
+    "trees": "untouched",
+    "decor": "untouched",
+    "ordinaryOsm": "not-imported",
+    "globalMassing": "untouched",
+    "facilityAndSharedPrototypes": "not-imported",
+    "otherBuildings": "untouched"
+  },
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing/film-art-center-massing.blend",
+    "blendSha256": "3b461d8307a0d1f53d90cd529fb39298a6ecbbbee356f63adca7f54c4c3314e6",
+    "blendBytes": 142503,
+    "glb": "public/models/tiers/xinhua-road/massing/film-art-center-massing.glb",
+    "cacheVersion": "20260725-film-art-massing-1",
+    "previews": {
+      "canonical": {
+        "path": "test_artifacts/test_film-art-center-massing_canonical_preview.png",
+        "sha256": "2e246c2a02e4b2399dd4e2a9c6c9c78e609070a0e9aa6a156a8bee1ed8f8101d",
+        "bytes": 690639,
+        "camera": [
+          3.0,
+          -43.0,
+          8.0
+        ],
+        "target": [
+          0.0,
+          -0.5,
+          6.3
+        ],
+        "lensMm": 54
+      },
+      "side": {
+        "path": "test_artifacts/test_film-art-center-massing_side_preview.png",
+        "sha256": "9cf187c87a7a808d9358b00b8c6ee275a1f62fbe9ec522b9ef08d969b0185138",
+        "bytes": 714142,
+        "camera": [
+          34.0,
+          -28.0,
+          9.0
+        ],
+        "target": [
+          1.0,
+          0.0,
+          6.1
+        ],
+        "lensMm": 52
+      },
+      "entrance": {
+        "path": "test_artifacts/test_film-art-center-massing_entrance_preview.png",
+        "sha256": "8684052b0b9ff6e242d7b999626e5de2121e8e67fe8517c48269c8bf73830562",
+        "bytes": 685294,
+        "camera": [
+          10.0,
+          -48.0,
+          4.8
+        ],
+        "target": [
+          0.0,
+          -0.8,
+          5.7
+        ],
+        "lensMm": 56
+      }
+    }
+  },
+  "glb": {
+    "sha256": "c89791dc3978b317cc2f8807a77f7a84b5c596f8d4cd01c1cffd05090e9584a6",
+    "bytes": 240572,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 6,
+    "images": 0,
+    "textures": 0,
+    "triangles": 3376,
+    "bounds": {
+      "min": [
+        -11.455,
+        -0.0,
+        -6.725
+      ],
+      "max": [
+        11.455,
+        13.7,
+        6.965
+      ]
+    },
+    "transformedNodes": []
+  },
+  "budgets": {
+    "maxNodes": 2,
+    "maxTriangles": 4000,
+    "maxMaterials": 6,
+    "maxImages": 0,
+    "maxBytes": 300000
+  },
+  "gates": {
+    "headlessBuild": "pass",
+    "glbAudit": "pass",
+    "externalAudit": {
+      "command": "python3 scripts/audit_glb.py public/models/tiers/xinhua-road/massing/film-art-center-massing.glb --forbid-images --max-nodes 2",
+      "status": "ok"
+    },
+    "deterministicGlb": {
+      "status": "pass",
+      "runs": 2,
+      "sha256": "c89791dc3978b317cc2f8807a77f7a84b5c596f8d4cd01c1cffd05090e9584a6",
+      "comparison": "byte-identical"
+    },
+    "mcp1": "pass",
+    "mcpRecord": "docs/research/film-art-center-blender-mcp-gates.json",
+    "mapAcceptance": "pass",
+    "mapRecord": "docs/research/film-art-center-massing-map-qa.json",
+    "heroMcp2Allowed": true,
+    "identityAllowed": false
+  }
+}

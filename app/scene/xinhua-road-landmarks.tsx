@@ -3,6 +3,7 @@
 import { Html, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import {
+  Box3,
   Color,
   InstancedMesh,
   Material,
@@ -19,8 +20,22 @@ import {
   useMemo,
   useRef,
   useState,
+  type ReactNode,
   type RefObject,
 } from "react";
+import {
+  FILM_ART_CENTER_ASSET_ID,
+  resolveFilmArtCenterQaTier,
+} from "./film-art-center-tier-contract.mjs";
+import {
+  ONE_STEP_GARDEN_ASSET_ID,
+  resolveOneStepGardenQa,
+} from "./one-step-garden-tier-contract.mjs";
+import {
+  OneStepGardenRuntimeAsset,
+  type OneStepGardenFallback,
+  type OneStepGardenTier,
+} from "./one-step-garden-runtime";
 import {
   autumnShadowSurfaceHeightAt,
   terrainHeightAt,
@@ -501,10 +516,58 @@ function configureModel(model: Object3D, autumnTree = false) {
   return model;
 }
 
-function GlbModel({ path }: { path: string }) {
+function GlbModel({
+  path,
+  qaAssetId,
+  qaTier,
+}: {
+  path: string;
+  qaAssetId?: string;
+  qaTier?: string;
+}) {
   const { scene } = useGLTF(path);
   const model = useMemo(() => configureModel(scene.clone(true)), [scene]);
   useEffect(() => () => disposeModelMaterials(model), [model]);
+  useEffect(() => {
+    if (!qaAssetId || !qaTier) return;
+    model.updateMatrixWorld(true);
+    const bounds = new Box3().setFromObject(model);
+    const root = document.documentElement;
+    root.dataset.xinhuaRoadQaAsset = qaAssetId;
+    root.dataset.xinhuaRoadQaTier = qaTier;
+    root.dataset.xinhuaRoadQaStatus = "loaded";
+    root.dataset.xinhuaRoadQaSource = path;
+    root.dataset.xinhuaRoadQaBounds = JSON.stringify({
+      min: bounds.min.toArray(),
+      max: bounds.max.toArray(),
+    });
+    window.dispatchEvent(new CustomEvent("xinhua:active-asset-runtime", {
+      detail: {
+        assetId: qaAssetId,
+        tier: qaTier,
+        status: "loaded",
+        source: path,
+      },
+    }));
+    return () => {
+      if (root.dataset.xinhuaRoadQaSource !== path) return;
+      delete root.dataset.xinhuaRoadQaAsset;
+      delete root.dataset.xinhuaRoadQaTier;
+      delete root.dataset.xinhuaRoadQaStatus;
+      delete root.dataset.xinhuaRoadQaSource;
+      delete root.dataset.xinhuaRoadQaBounds;
+      delete root.dataset.xinhuaRoadQaRender;
+    };
+  }, [model, path, qaAssetId, qaTier]);
+  useFrame(({ gl }) => {
+    if (!qaAssetId || !qaTier) return;
+    document.documentElement.dataset.xinhuaRoadQaRender = JSON.stringify({
+      drawCalls: gl.info.render.calls,
+      triangles: gl.info.render.triangles,
+      lines: gl.info.render.lines,
+      points: gl.info.render.points,
+    });
+  });
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
@@ -617,6 +680,45 @@ function useDistanceHeroLandmarkIds({
   });
 }
 
+function FilmArtCenterQaFallback({
+  assetId,
+  tier,
+  source,
+  children,
+}: {
+  assetId: string;
+  tier: string;
+  source: string;
+  children: ReactNode;
+}) {
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset.xinhuaRoadQaAsset = assetId;
+    root.dataset.xinhuaRoadQaTier = tier;
+    root.dataset.xinhuaRoadQaStatus = "fallback";
+    root.dataset.xinhuaRoadQaSource = source;
+    window.dispatchEvent(new CustomEvent("xinhua:active-asset-runtime", {
+      detail: {
+        assetId,
+        tier,
+        status: "fallback",
+        source,
+      },
+    }));
+    return () => {
+      if (
+        root.dataset.xinhuaRoadQaSource !== source
+        || root.dataset.xinhuaRoadQaStatus !== "fallback"
+      ) return;
+      delete root.dataset.xinhuaRoadQaAsset;
+      delete root.dataset.xinhuaRoadQaTier;
+      delete root.dataset.xinhuaRoadQaStatus;
+      delete root.dataset.xinhuaRoadQaSource;
+    };
+  }, [assetId, source, tier]);
+  return children;
+}
+
 export function XinhuaRoadLandmarks({
   showLabels = true,
   mountedModelIds,
@@ -624,6 +726,12 @@ export function XinhuaRoadLandmarks({
   showLabels?: boolean;
   mountedModelIds: ReadonlySet<string>;
 }) {
+  const filmArtQa = resolveFilmArtCenterQaTier(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
+  const oneStepQa = resolveOneStepGardenQa(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
   return (
     <group
       name="xinhua-road-photo-reference-landmarks"
@@ -633,10 +741,55 @@ export function XinhuaRoadLandmarks({
         const [x, z] = landmark.position;
         const [labelOffsetX, labelOffsetZ] = landmark.labelOffset ?? [0, 0];
         const y = terrainHeightAt(x, z) + 0.1;
-        const modelPath = landmark.cacheVersion
-          ? `${landmark.model}?v=${landmark.cacheVersion}`
-          : landmark.model;
+        const filmArtQaActive = filmArtQa?.assetId === landmark.id
+          ? filmArtQa
+          : null;
+        const oneStepQaActive = oneStepQa?.assetId === landmark.id
+          ? oneStepQa
+          : null;
+        // resolver 只会在 tier 命中 Hero / Identity / Massing 时返回对象；
+        // 默认值仅用于弥补无 JSDoc 的 .mjs 推断，不会改变有效 QA 路由。
+        const filmArtTier = filmArtQaActive?.tier ?? "identity";
+        const modelPath = filmArtQaActive
+          ? filmArtQaActive.modelPath
+          : oneStepQaActive
+            ? oneStepQaActive.modelPath
+            : landmark.cacheVersion
+              ? `${landmark.model}?v=${landmark.cacheVersion}`
+              : landmark.model;
         const shouldMountModel = mountedModelIds.has(landmark.id);
+        const shouldMountActiveModel = (
+          filmArtQaActive
+          || oneStepQaActive
+          || shouldMountModel
+        );
+        const filmArtFallback = filmArtQaActive ? (
+          <FilmArtCenterQaFallback
+            assetId={landmark.id}
+            tier={filmArtTier}
+            source={modelPath}
+          >
+            <LandmarkProgressiveProxy
+              landmark={landmark}
+              identity
+              forceProgrammaticIdentity
+            />
+          </FilmArtCenterQaFallback>
+        ) : null;
+        const oneStepRequestedTier = (
+          oneStepQaActive?.requestedTier ?? "hero"
+        ) as OneStepGardenTier;
+        const oneStepFallback = (
+          oneStepQaActive
+          && oneStepQaActive.forcedFallback
+          && oneStepQaActive.requestedTier !== "massing"
+            ? oneStepQaActive.requestedTier
+            : null
+        ) as OneStepGardenFallback;
+        const oneStepNoLowerTierFallback = Boolean(
+          oneStepQaActive
+          && oneStepQaActive.fallbackMode === "no-lower-tier",
+        );
         return (
           <group
             key={landmark.id}
@@ -646,22 +799,49 @@ export function XinhuaRoadLandmarks({
               address: landmark.address,
               positioning: landmark.positioning,
               modeling: "photo-reference-blender-glb",
+              qaTier: filmArtQaActive
+                ? filmArtTier
+                : oneStepQaActive
+                  ? oneStepQaActive.requestedTier
+                  : undefined,
+              qaOnly: filmArtQaActive || oneStepQaActive || undefined,
             }}
           >
             <group position={[x, y, z]} rotation-y={landmark.yaw} scale={landmark.scale}>
-              {shouldMountModel && (
-                <ProgressiveFeatureBoundary
-                  resetKey={modelPath}
-                  fallback={<LandmarkProgressiveProxy landmark={landmark} identity />}
-                >
-                  <Suspense
-                    fallback={(
-                      <LandmarkProgressiveProxy landmark={landmark} identity />
-                    )}
+              {shouldMountActiveModel && (
+                filmArtQaActive ? (
+                  <ProgressiveFeatureBoundary
+                    resetKey={modelPath}
+                    fallback={filmArtFallback}
                   >
-                    <GlbModel path={modelPath} />
-                  </Suspense>
-                </ProgressiveFeatureBoundary>
+                    <Suspense fallback={filmArtFallback}>
+                      <GlbModel
+                        path={modelPath}
+                        qaAssetId={landmark.id}
+                        qaTier={filmArtTier}
+                      />
+                    </Suspense>
+                  </ProgressiveFeatureBoundary>
+                ) : (
+                  <ProgressiveFeatureBoundary
+                    resetKey={modelPath}
+                    fallback={<LandmarkProgressiveProxy landmark={landmark} identity />}
+                  >
+                    <Suspense
+                      fallback={<LandmarkProgressiveProxy landmark={landmark} identity />}
+                    >
+                      {landmark.id === ONE_STEP_GARDEN_ASSET_ID ? (
+                        <OneStepGardenRuntimeAsset
+                          requestedTier={oneStepRequestedTier}
+                          forceFallback={oneStepFallback}
+                          noLowerTierFallback={oneStepNoLowerTierFallback}
+                        />
+                      ) : (
+                        <GlbModel path={modelPath} />
+                      )}
+                    </Suspense>
+                  </ProgressiveFeatureBoundary>
+                )
               )}
             </group>
             {showLabels && landmark.poi && (
@@ -707,14 +887,37 @@ export default function XinhuaRoadFullLayer({
     loadMode,
     focusPosition,
   });
+  const filmArtQa = resolveFilmArtCenterQaTier(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
+  const oneStepQa = resolveOneStepGardenQa(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
+  if (!filmArtQa && !oneStepQa) {
+    return (
+      <>
+        <XinhuaRoadMassing identity hiddenLandmarkIds={mountedModelIds} />
+        <XinhuaRoadPlaneTrees showHero={showHero} atmosphere={atmosphere} />
+        <XinhuaRoadLandmarks
+          showLabels={showLabels}
+          mountedModelIds={mountedModelIds}
+        />
+      </>
+    );
+  }
+  const activeMountedModelIds = new Set([
+    ...mountedModelIds,
+    ...(filmArtQa ? [FILM_ART_CENTER_ASSET_ID] : []),
+    ...(oneStepQa ? [ONE_STEP_GARDEN_ASSET_ID] : []),
+  ]);
 
   return (
     <>
-      <XinhuaRoadMassing identity hiddenLandmarkIds={mountedModelIds} />
+      <XinhuaRoadMassing identity hiddenLandmarkIds={activeMountedModelIds} />
       <XinhuaRoadPlaneTrees showHero={showHero} atmosphere={atmosphere} />
       <XinhuaRoadLandmarks
         showLabels={showLabels}
-        mountedModelIds={mountedModelIds}
+        mountedModelIds={activeMountedModelIds}
       />
     </>
   );

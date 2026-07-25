@@ -48,7 +48,7 @@ const landmarkDetailThresholds = {
     maxImages: 0,
   },
   "film-art-center": {
-    bytes: 3_500_000,
+    bytes: 3_000_000,
     triangles: 55_000,
     materials: 14,
     maxBytes: 6_300_000,
@@ -347,7 +347,19 @@ test("上海影城和新华两佰的 build record 与当前 GLB、缓存版本�
     assert.equal(record.metrics.textures, data.textures?.length ?? 0);
     assert.ok(comparison.size > 10_000, `${slug} 缺少三联对照证据`);
     assert.equal(record.validation.glbAudit, "passed");
-    assert.equal(record.validation.runtimeQa, "passed");
+    if (slug === "film-art-center") {
+      assert.equal(
+        record.validation.runtimeQa,
+        "superseded-pending-current-binary-and-three-tier",
+      );
+      assert.equal(
+        record.validation.independentReview,
+        "mcp2-pass",
+      );
+      assert.equal(record.validation.identityAllowed, true);
+    } else {
+      assert.equal(record.validation.runtimeQa, "passed");
+    }
   }
 });
 

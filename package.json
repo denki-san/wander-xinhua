@@ -13,6 +13,7 @@
     "preview:static": "vite preview --config vite.static.config.ts",
     "start": "npm run preview:static",
     "start:sites": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
+    "building:fast": "node scripts/run_building_fast_mode.mjs",
     "test": "npm run build && node --test tests/*.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern dist-static --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"

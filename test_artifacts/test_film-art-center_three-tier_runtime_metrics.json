@@ -1,0 +1,207 @@
+{
+  "assetId": "film-art-center",
+  "capturedAt": "2026-07-25T15:15:00Z",
+  "status": "local-candidate-main-browser-pending",
+  "environment": {
+    "urlOrigin": "http://localhost:3000",
+    "buildMode": "vinext-dev",
+    "browser": "agent-browser isolated session",
+    "session": "film-art-center-runtime",
+    "viewport": {
+      "width": 1280,
+      "height": 800,
+      "devicePixelRatio": 1
+    },
+    "pageVisibility": "visible",
+    "warmupSeconds": 8,
+    "networkProfileDataset": "weak",
+    "cameraQa": {
+      "mode": "spring-clear",
+      "blocker": "none",
+      "arm": 5.57,
+      "armYawDegrees": -27.2,
+      "goalYawDegrees": -35.5,
+      "fovDegrees": 58,
+      "modeChanges": 1
+    }
+  },
+  "tiers": {
+    "hero": {
+      "route": "/?start=film-art&qaModelTier=hero&qaModelId=film-art-center&cameraQa=1",
+      "status": "loaded",
+      "source": "/models/xinhua-road/film-art-center.glb?v=20260725-film-art-5",
+      "sha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+      "assetBytes": 3148572,
+      "assetTriangles": 63368,
+      "resourceTiming": {
+        "durationMs": 111.6,
+        "transferSize": 3148872,
+        "encodedBodySize": 3148572,
+        "decodedBodySize": 3148572
+      },
+      "worldBounds": {
+        "min": [54.20639528575076, 1.642815975554672, 118.23678335130651],
+        "max": [98.5654829716283, 25.40281554282495, 158.1853229439444]
+      },
+      "sceneRenderSample": {
+        "drawCalls": 1993,
+        "triangles": 863509,
+        "lines": 0,
+        "points": 0,
+        "scope": "whole-scene-not-asset-isolated"
+      },
+      "uncaughtErrors": 0,
+      "screenshot": {
+        "path": "test_artifacts/test_film-art-center_runtime_hero_1280x800.png",
+        "sha256": "cee1a8b555e9d895d7a2e6f35c9031c98116102349945af3fe29cd86e992f1cd",
+        "bytes": 415954
+      }
+    },
+    "identity": {
+      "route": "/?start=film-art&qaModelTier=identity&qaModelId=film-art-center&cameraQa=1",
+      "status": "loaded",
+      "source": "/models/tiers/xinhua-road/identity/film-art-center-identity.glb?v=20260725-film-art-identity-1",
+      "sha256": "a4d37446e27225815624e6382048ed1dc341f1e079f089755ed5fb68e520e869",
+      "assetBytes": 1130852,
+      "assetTriangles": 23816,
+      "resourceTiming": {
+        "durationMs": 14.4,
+        "transferSize": 300,
+        "encodedBodySize": 1130852,
+        "decodedBodySize": 1130852,
+        "cacheState": "memory-cache-hit-after-hero-route"
+      },
+      "worldBounds": {
+        "min": [56.95435944331686, 1.642815975554672, 118.23678335130651],
+        "max": [98.3604566588136, 24.478816424020017, 151.8454204146301]
+      },
+      "sceneRenderSample": {
+        "drawCalls": 1981,
+        "triangles": 785149,
+        "lines": 0,
+        "points": 0,
+        "scope": "whole-scene-not-asset-isolated"
+      },
+      "uncaughtErrors": 0,
+      "screenshot": {
+        "path": "test_artifacts/test_film-art-center_runtime_identity_1280x800.png",
+        "sha256": "a398c63aea936b73f20abb0f952905a11de0af3a0c2a27297f4409088fad891d",
+        "bytes": 381241
+      }
+    },
+    "massing": {
+      "route": "/?start=film-art&qaModelTier=massing&qaModelId=film-art-center&cameraQa=1",
+      "status": "loaded",
+      "source": "/models/tiers/xinhua-road/massing/film-art-center-massing.glb?v=c89791dc3978",
+      "sha256": "c89791dc3978b317cc2f8807a77f7a84b5c596f8d4cd01c1cffd05090e9584a6",
+      "assetBytes": 240572,
+      "assetTriangles": 3376,
+      "resourceTiming": {
+        "durationMs": 14.3,
+        "transferSize": 240872,
+        "encodedBodySize": 240572,
+        "decodedBodySize": 240572
+      },
+      "worldBounds": {
+        "min": [57.99195517382441, 1.642815975554672, 118.23678335130651],
+        "max": [98.14602605164417, 24.247815857537475, 151.08096822432287]
+      },
+      "sceneRenderSample": {
+        "drawCalls": 1977,
+        "triangles": 743405,
+        "lines": 0,
+        "points": 0,
+        "scope": "whole-scene-not-asset-isolated"
+      },
+      "uncaughtErrors": 0,
+      "screenshot": {
+        "path": "test_artifacts/test_film-art-center_runtime_massing_1280x800.png",
+        "sha256": "8ecdfa48bbd2e72061991a58d46cc2d6ff80857504f41648dcc94ab0fda90f85",
+        "bytes": 350647
+      }
+    }
+  },
+  "productionIdentityPlacement": {
+    "route": "/?start=film-art&cameraQa=1",
+    "strategy": "derived-glb",
+    "localPosition": [0, 0, 0],
+    "qaDirectGlbLocalPosition": [0, 0, 0],
+    "genericFallbackLocalPosition": [0, 0, -2.25],
+    "identityGlbLocalBounds": {
+      "min": [-11.554999, 0, -6.725],
+      "max": [11.554999, 13.84, 7.90125]
+    },
+    "status": "pass",
+    "proof": [
+      "tests/test_progressive_world_loading.test.mjs",
+      "test_artifacts/test_film-art-center_runtime_identity_1280x800.png",
+      "test_artifacts/test_film-art-center_runtime_production_identity_1280x800.png"
+    ],
+    "productionScreenshot": {
+      "path": "test_artifacts/test_film-art-center_runtime_production_identity_1280x800.png",
+      "sha256": "f54ad2c3b07242fe44fa98e95492542fa6e5a2e80cec32eba1bdfa3fd00153ac",
+      "bytes": 381647
+    }
+  },
+  "productionIdentityFailureFallback": {
+    "route": "/?start=film-art&cameraQa=1&qaProductionFallback=film-art-center-identity",
+    "status": "fallback",
+    "pagePlayable": true,
+    "requestedMissingAsset": "/models/tiers/xinhua-road/identity/test_missing-film-art-center-production-identity.glb?v=a4d37446e272-fallback",
+    "derivedGlbOuterPosition": [0, 0, 0],
+    "programmaticFallbackInnerPosition": [0, 0, -2.25],
+    "dataset": {
+      "xinhuaRoadProductionIdentityStatus": "fallback",
+      "xinhuaRoadProductionIdentityAsset": "film-art-center",
+      "xinhuaRoadProductionIdentityPosition": "[0,0,-2.25]"
+    },
+    "resourceTiming": {
+      "durationMs": 511.9,
+      "transferSize": 309,
+      "encodedBodySize": 9,
+      "expectedHttpStatus": 404
+    },
+    "screenshot": {
+      "path": "test_artifacts/test_film-art-center_runtime_production_identity_fallback_1280x800.png",
+      "sha256": "02123f58a3137e721da7b952ce769b1964135fe7089f08f0345b8ba51530f136",
+      "bytes": 431969
+    }
+  },
+  "fallback": {
+    "route": "/?start=film-art&qaModelTier=identity&qaModelId=film-art-center&qaActiveFallback=film-art-center-identity&cameraQa=1",
+    "status": "fallback",
+    "pagePlayable": true,
+    "requestedMissingAsset": "/models/tiers/xinhua-road/identity/test_missing-film-art-center-identity.glb?v=a4d37446e272-fallback",
+    "foreignQaRequestsInCurrentPerformanceBuffer": [],
+    "resourceTiming": {
+      "durationMs": 282.9,
+      "transferSize": 309,
+      "encodedBodySize": 9,
+      "expectedHttpStatus": 404
+    },
+    "fallbackRepresentation": "programmatic-miniature",
+    "screenshot": {
+      "path": "test_artifacts/test_film-art-center_runtime_identity_fallback_scoped_1280x800.png",
+      "sha256": "50d20764a21c72b49b9130763ba7dbfaa18c96d3a1632bca03dd8654d56e6e14",
+      "bytes": 431891
+    },
+    "errorBufferPolicy": "Agent-browser daemon retains stale cross-route errors; current-route Resource Timing and xinhuaRoadQaStatus are authoritative for scoped fallback isolation."
+  },
+  "console": {
+    "blockingErrors": 0,
+    "warnings": [
+      "THREE.Clock deprecation warning in existing shared runtime"
+    ],
+    "devOnlyEntries": [
+      "Vite connected and HMR messages"
+    ]
+  },
+  "verdict": {
+    "threeTierLoaded": "pass",
+    "sameCameraContinuity": "pass",
+    "productionQaPlacementEquality": "pass",
+    "productionFailureFallbackPlacement": "pass",
+    "fallbackPlayable": "pass",
+    "mainWindowRealBrowserAcceptance": "pending"
+  }
+}
