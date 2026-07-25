@@ -8,6 +8,7 @@ import {
 } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import {
+  Box3,
   Color,
   DirectionalLight,
   Group,
@@ -66,6 +67,7 @@ import {
   XINHUA_BOUNDS,
   XinhuaStreetMap,
 } from "./xinhua-map";
+import { constrainOverviewCameraTarget } from "./xinhua-overview-camera";
 import { terrainHeightAt } from "./terrain";
 import {
   cameraRelativeInputToPlanarMove,
@@ -107,6 +109,9 @@ const ProgressiveXinhuaRoadFullLayer = lazy(
 );
 const ProgressiveDetailedWandererCharacter = lazy(
   () => import("./detailed-wanderer-character"),
+);
+const ProgressiveOverviewDistrictMassing = lazy(
+  () => import("./overview-district-massing"),
 );
 
 const WORLD_UP = new Vector3(0, 1, 0);
@@ -161,7 +166,10 @@ const OVERVIEW_CHARACTER_SCALE = 22;
 const OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET = OVERVIEW_CHARACTER_SCALE * 0.26;
 const OVERVIEW_MOVE_SPEED = 94;
 const OVERVIEW_POI_DISTANCE = 42;
-const OVERVIEW_CAMERA_FILL = 0.24;
+const OVERVIEW_CAMERA_FILL = 0.215;
+const OVERVIEW_CAMERA_PORTRAIT_FILL = 0.16;
+const OVERVIEW_CAMERA_FOCUS_LIMIT = 0.42;
+const OVERVIEW_CAMERA_PLAYER_SAFE_RATIO = 0.72;
 const BASE_XINGFULI_VERTICAL_SCALE = 0.3;
 const XINGFULI_SURFACE_LOCAL_Y = 0.26;
 const XINGFULI_OSM_POSITION: MapPolygonPoint = [
@@ -522,6 +530,10 @@ function FlatNeighborhood({
     fullEnterDistance: CORE_BUILDING_HERO_DISTANCE.huashan.enterDistance,
     fullExitDistance: CORE_BUILDING_HERO_DISTANCE.huashan.exitDistance,
   });
+  const districtDisabledForQa = (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("district") === "off"
+  );
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
       <XinhuaStreetMap
@@ -529,6 +541,16 @@ function FlatNeighborhood({
         showStreetDressing={mode === "explore"}
         lowTier={lowTier}
       />
+      {mode === "overview" && networkProfile === "standard" && !districtDisabledForQa && (
+        <ProgressiveFeatureBoundary
+          resetKey={`district-massing-${mode}-${networkProfile}`}
+          fallback={null}
+        >
+          <Suspense fallback={null}>
+            <ProgressiveOverviewDistrictMassing />
+          </Suspense>
+        </ProgressiveFeatureBoundary>
+      )}
       <group
         position={[XINGFULI_POSITION[0], XINGFULI_BASE_Y, XINGFULI_POSITION[1]]}
         rotation-y={XINGFULI_PLACEMENT.rotationY}
@@ -1336,17 +1358,24 @@ function OverviewPoiMarkers({ nearPoiId }: { nearPoiId: string | null }) {
         const [x, z] = poi.position;
         const y = terrainHeightAt(x, z) + 1.1;
         return (
-          <group key={poi.id} position={[x, y, z]} scale={near ? 1.18 : 1}>
+          <group
+            key={poi.id}
+            name={`overview-poi-${poi.id}`}
+            position={[x, y, z]}
+            scale={near ? 1.18 : 1}
+          >
             {near && (
-              <mesh rotation-x={Math.PI / 2}>
-                <torusGeometry args={[8.8, 1.25, 10, 42]} />
-                <meshBasicMaterial color="#fff8df" />
-              </mesh>
+              <group name={`overview-poi-highlight-${poi.id}`}>
+                <mesh rotation-x={Math.PI / 2}>
+                  <torusGeometry args={[8.8, 1.25, 10, 42]} />
+                  <meshBasicMaterial color="#fff8df" />
+                </mesh>
+                <mesh position={[0, 4.8, 0]}>
+                  <coneGeometry args={[2.8, 7.2, 8]} />
+                  <meshToonMaterial color="#efbd49" />
+                </mesh>
+              </group>
             )}
-            <mesh position={[0, 4.8, 0]}>
-              <coneGeometry args={[2.8, 7.2, 8]} />
-              <meshToonMaterial color={near ? "#efbd49" : "#c85f4c"} />
-            </mesh>
           </group>
         );
       })}
@@ -1448,6 +1477,15 @@ function OverviewWanderer({
       nearPoi.current = closestId;
       onNearPoiRef.current(closestId);
     }
+    if (
+      typeof document !== "undefined"
+      && new URLSearchParams(window.location.search).get("overview-qa") === "1"
+    ) {
+      document.documentElement.dataset.overviewQaPlayer = [
+        position.current.x,
+        position.current.z,
+      ].map((value) => value.toFixed(3)).join(",");
+    }
   });
 
   return (
@@ -1491,12 +1529,121 @@ function OverviewCamera({
     const perspective = camera as PerspectiveCamera;
     const verticalHalfFov = MathUtils.degToRad(perspective.fov / 2);
     const horizontalHalfFov = Math.atan(Math.tan(verticalHalfFov) * perspective.aspect);
-    const fitDistance = INTRO_MAP_RADIUS * OVERVIEW_CAMERA_FILL
-      / Math.sin(Math.min(verticalHalfFov, horizontalHalfFov));
+    const fill = perspective.aspect < 0.7
+      ? OVERVIEW_CAMERA_PORTRAIT_FILL
+      : OVERVIEW_CAMERA_FILL;
+    const limitingHalfFov = Math.min(verticalHalfFov, horizontalHalfFov);
+    const fitDistance = INTRO_MAP_RADIUS * fill / Math.sin(limitingHalfFov);
+    // 先把镜头偏向行政区内容密集区域以减少边缘空白，再依据当前视锥限制
+    // 镜头与人物的最大偏移，避免人物走到外围后长期离开安全构图区。
+    const maxFocusLag = fitDistance
+      * Math.tan(limitingHalfFov)
+      * OVERVIEW_CAMERA_PLAYER_SAFE_RATIO;
+    const [targetX, targetZ] = constrainOverviewCameraTarget({
+      focusX: focus.current.x,
+      focusZ: focus.current.z,
+      bounds: XINHUA_BOUNDS,
+      contentFocusLimit: OVERVIEW_CAMERA_FOCUS_LIMIT,
+      maxFocusLag,
+    });
+    target.set(targetX, target.y, targetZ);
     desired.copy(target).addScaledVector(OVERVIEW_CAMERA_DIRECTION, fitDistance);
     camera.position.copy(desired);
     camera.up.copy(WORLD_UP);
     camera.lookAt(target);
+  });
+
+  return null;
+}
+
+function OverviewRuntimeQa({ active }: { active: boolean }) {
+  const { camera, gl, scene, size } = useThree();
+  const bounds = useMemo(() => new Box3(), []);
+  const frameSample = useRef({
+    viewport: "",
+    warmupFrames: 0,
+    deltas: [] as number[],
+  });
+
+  useFrame((_, delta) => {
+    if (
+      typeof window === "undefined"
+      || new URLSearchParams(window.location.search).get("overview-qa") !== "1"
+    ) return;
+    const root = document.documentElement;
+    const district = scene.getObjectByName("overview-district-massing");
+    if (!active) {
+      root.dataset.overviewQaDistrict = district ? "unexpected-mounted" : "inactive";
+      root.dataset.overviewQaActiveMarkers = "0";
+      delete root.dataset.overviewQaDistrictBounds;
+      delete root.dataset.overviewQaFrameSample;
+      delete root.dataset.overviewQaPlayer;
+      frameSample.current = { viewport: "", warmupFrames: 0, deltas: [] };
+      return;
+    }
+    const viewport = `${size.width}x${size.height}`;
+    if (frameSample.current.viewport !== viewport) {
+      frameSample.current = { viewport, warmupFrames: 0, deltas: [] };
+      delete root.dataset.overviewQaFrameSample;
+    }
+    if (frameSample.current.warmupFrames < 30) {
+      frameSample.current.warmupFrames += 1;
+    } else if (frameSample.current.deltas.length < 120) {
+      frameSample.current.deltas.push(delta * 1_000);
+      if (frameSample.current.deltas.length === 120) {
+        const values = frameSample.current.deltas;
+        const sorted = [...values].sort((left, right) => left - right);
+        root.dataset.overviewQaFrameSample = JSON.stringify({
+          viewport,
+          buildMode: process.env.NODE_ENV === "production"
+            ? "production"
+            : "development",
+          pageVisible: document.visibilityState === "visible",
+          warmupFrames: 30,
+          sampleFrames: values.length,
+          averageMs: Number(
+            (values.reduce((sum, value) => sum + value, 0) / values.length).toFixed(2),
+          ),
+          p95Ms: Number(sorted[Math.floor(sorted.length * 0.95)].toFixed(2)),
+        });
+      }
+    }
+    const visibleMeshes = scene.children.reduce((total, child) => {
+      let childMeshes = 0;
+      child.traverse((object) => {
+        if (object.type === "Mesh" && object.visible) childMeshes += 1;
+      });
+      return total + childMeshes;
+    }, 0);
+    root.dataset.overviewQaCamera = [
+      camera.position.x,
+      camera.position.y,
+      camera.position.z,
+    ].map((value) => value.toFixed(3)).join(",");
+    root.dataset.overviewQaViewport = viewport;
+    root.dataset.overviewQaCanvas = `${gl.domElement.width}x${gl.domElement.height}`;
+    root.dataset.overviewQaCalls = String(gl.info.render.calls);
+    root.dataset.overviewQaTriangles = String(gl.info.render.triangles);
+    root.dataset.overviewQaVisibleMeshes = String(visibleMeshes);
+    root.dataset.overviewQaDistrict = district ? "mounted" : "missing";
+    let activeMarkers = 0;
+    scene.traverse((object) => {
+      if (object.name.startsWith("overview-poi-highlight-")) activeMarkers += 1;
+    });
+    root.dataset.overviewQaActiveMarkers = String(activeMarkers);
+    if (district) {
+      bounds.setFromObject(district);
+      root.dataset.overviewQaDistrictBounds = [
+        bounds.min.x,
+        bounds.min.y,
+        bounds.min.z,
+        bounds.max.x,
+        bounds.max.y,
+        bounds.max.z,
+      ].map((value) => value.toFixed(3)).join(",");
+    } else {
+      delete root.dataset.overviewQaDistrictBounds;
+    }
   });
 
   return null;
@@ -1754,6 +1901,7 @@ export function XinhuaWorld({
         </>
       )}
       <OverviewCamera active={overview} focus={overviewCameraFocus} />
+      <OverviewRuntimeQa active={overview} />
       {exploring && (
         <PlayableWanderer
           onNearAction={onNearAction}

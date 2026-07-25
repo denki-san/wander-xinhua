@@ -6,6 +6,7 @@ import {
   mapPoiById,
   nearestMapPoi,
 } from "../app/scene/poi-data.ts";
+import { constrainOverviewCameraTarget } from "../app/scene/xinhua-overview-camera.ts";
 
 test("全览地图包含三处核心片区、全部新华路地标和轻量实景缩略图", async () => {
   assert.equal(MAP_POIS.length, 17);
@@ -37,6 +38,36 @@ test("人物只有走进 POI 邻近范围才会激活进入卡片", () => {
   assert.equal(nearestMapPoi([1_000, 1_000], 42), null);
 });
 
+test("全览镜头在减少边界空白时仍把外围人物保留在视锥安全范围", () => {
+  const bounds = {
+    minX: -369.8211,
+    maxX: 369.8211,
+    minZ: -385.2094,
+    maxZ: 385.2094,
+  };
+  assert.deepEqual(
+    constrainOverviewCameraTarget({
+      focusX: 40,
+      focusZ: -30,
+      bounds,
+      contentFocusLimit: 0.42,
+      maxFocusLag: 60,
+    }),
+    [40, -30],
+  );
+
+  const focus = [-250, 130];
+  const target = constrainOverviewCameraTarget({
+    focusX: focus[0],
+    focusZ: focus[1],
+    bounds,
+    contentFocusLimit: 0.42,
+    maxFocusLag: 60,
+  });
+  assert.ok(Math.hypot(target[0] - focus[0], target[1] - focus[1]) <= 60 + 1e-9);
+  assert.ok(target[0] < -155, "镜头需要向外围人物回跟，不能停在固定中央矩形边缘");
+});
+
 test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而非人物", async () => {
   const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
   const experience = await readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8");
@@ -61,11 +92,20 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
     /const OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET = OVERVIEW_CHARACTER_SCALE \* 0\.26/,
   );
   assert.match(world, /const OVERVIEW_MOVE_SPEED = 94/);
-  assert.match(world, /const OVERVIEW_CAMERA_FILL = 0\.24/);
+  assert.match(world, /const OVERVIEW_CAMERA_FILL = 0\.215/);
+  assert.match(world, /const OVERVIEW_CAMERA_PORTRAIT_FILL = 0\.16/);
+  assert.match(world, /const OVERVIEW_CAMERA_FOCUS_LIMIT = 0\.42/);
+  assert.match(world, /const OVERVIEW_CAMERA_PLAYER_SAFE_RATIO = 0\.72/);
   assert.match(world, /function OverviewCamera/);
   assert.match(
     world,
     /\.copy\(focus\.current\)\s*\.addScaledVector\(WORLD_UP, OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET\)/,
+  );
+  assert.match(world, /constrainOverviewCameraTarget\(\{/);
+  assert.match(world, /maxFocusLag/);
+  assert.match(
+    world,
+    /perspective\.aspect < 0\.7[\s\S]*?\? OVERVIEW_CAMERA_PORTRAIT_FILL[\s\S]*?: OVERVIEW_CAMERA_FILL/,
   );
   assert.match(world, /cameraFocus\.current\.copy\(position\.current\)/);
   assert.match(world, /<OverviewCamera active=\{overview\} focus=\{overviewCameraFocus\} \/>/);
@@ -110,8 +150,10 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.doesNotMatch(world, /overview-poi-label|OVERVIEW_POI_LABEL_OFFSETS/);
   assert.match(
     world,
-    /\{near && \(\s*<mesh rotation-x=\{Math\.PI \/ 2\}>[\s\S]*?<torusGeometry args=\{\[8\.8, 1\.25, 10, 42\]\}/,
+    /\{near && \(\s*<group name=\{`overview-poi-highlight-\$\{poi\.id\}`\}>[\s\S]*?<mesh rotation-x=\{Math\.PI \/ 2\}>[\s\S]*?<torusGeometry args=\{\[8\.8, 1\.25, 10, 42\]\}[\s\S]*?<coneGeometry args=\{\[2\.8, 7\.2, 8\]\}/,
   );
+  assert.match(world, /dataset\.overviewQaActiveMarkers = String\(activeMarkers\)/);
+  assert.match(world, /dataset\.overviewQaPlayer = \[/);
   assert.doesNotMatch(shangsheng, /useGLTF\.preload/);
   assert.match(world, /scale=\{OVERVIEW_CHARACTER_SCALE\}/);
   assert.match(

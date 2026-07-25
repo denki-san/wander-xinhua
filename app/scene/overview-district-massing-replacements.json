@@ -1,0 +1,171 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "poiId": "xingfuli",
+      "source": "inferred-runtime-placement",
+      "osmRefs": ["way/400066625"],
+      "replacementMasks": [
+        { "minX": 84, "maxX": 134, "minZ": 0, "maxZ": 26 }
+      ],
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "shangsheng",
+      "source": "exact-osm",
+      "osmRefs": ["way/765939973"],
+      "replacementPolygonSource": "xinhua-landmarks-data.shangshengXinsuo.boundary",
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "huashan",
+      "source": "exact-osm",
+      "osmRefs": ["way/444342095"],
+      "replacementPolygonSource": "xinhua-landmarks-data.huashanGreenland.boundary",
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "shanghai-cinema",
+      "source": "inferred-runtime-placement",
+      "osmRefs": ["way/292250766"],
+      "replacementMasks": [
+        { "minX": 50.988, "maxX": 96.321, "minZ": 62.694, "maxZ": 101.335 }
+      ],
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "film-art-center",
+      "source": "inferred-runtime-placement",
+      "osmRefs": [],
+      "replacementMasks": [
+        { "minX": 32.406, "maxX": 60.925, "minZ": 70.769, "maxZ": 96.41 }
+      ],
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "one-step-garden",
+      "source": "inferred-runtime-placement",
+      "osmRefs": [],
+      "replacementMasks": [
+        { "minX": 50.268, "maxX": 72.235, "minZ": 109.747, "maxZ": 129.751 }
+      ],
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "xinhua-villas-211",
+      "source": "inferred-runtime-placement",
+      "osmRefs": [],
+      "replacementMasks": [
+        { "minX": 26.017, "maxX": 50.917, "minZ": 97.863, "maxZ": 122.409 }
+      ],
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "xinhua-villas-329",
+      "source": "inferred-runtime-placement",
+      "osmRefs": [],
+      "replacementMasks": [
+        { "minX": -50.606, "maxX": -32.713, "minZ": 70.072, "maxZ": 86.811 }
+      ],
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "house-315",
+      "source": "inferred-runtime-placement",
+      "osmRefs": [],
+      "replacementMasks": [
+        { "minX": -33.198, "maxX": -11.927, "minZ": 74.442, "maxZ": 94.558 }
+      ],
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "villa-le-bec",
+      "source": "inferred-runtime-placement",
+      "osmRefs": [],
+      "replacementMasks": [
+        { "minX": -43.45, "maxX": -23.502, "minZ": 77.791, "maxZ": 96.687 }
+      ],
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "shanghai-orchestra",
+      "source": "inferred-runtime-placement",
+      "osmRefs": [],
+      "replacementMasks": [
+        { "minX": -59.713, "maxX": -30.162, "minZ": 31.868, "maxZ": 58.822 }
+      ],
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "hudec-memorial",
+      "source": "exact-osm",
+      "osmRefs": ["way/494633921"],
+      "replacementMasks": [
+        { "minX": 84.984, "maxX": 96.544, "minZ": -138.24, "maxZ": -125.24 }
+      ],
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "xinhua-pocket-park",
+      "source": "inferred-runtime-placement",
+      "osmRefs": [],
+      "replacementMasks": [
+        { "minX": -59.298, "maxX": -54.489, "minZ": 62.03, "maxZ": 70.537 }
+      ],
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "xinhua-community-center",
+      "source": "inferred-runtime-placement",
+      "osmRefs": ["node/13765678129"],
+      "replacementMasks": [
+        { "minX": -82.444, "maxX": -67.317, "minZ": 105.89, "maxZ": 119.712 }
+      ],
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "debi-fahua-525",
+      "source": "inferred-runtime-placement",
+      "osmRefs": [],
+      "replacementMasks": [
+        { "minX": -118.928, "maxX": -85.072, "minZ": -65.3, "maxZ": -32.7 }
+      ],
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "fahua-heritage",
+      "source": "inferred-runtime-placement",
+      "osmRefs": [],
+      "replacementMasks": [
+        { "minX": -65.708, "maxX": -61.092, "minZ": -4.301, "maxZ": -0.899 }
+      ],
+      "overviewAssetState": "existing-fallback",
+      "replacementBoundsVerified": true
+    },
+    {
+      "poiId": "fics-xinhua-365",
+      "source": "inferred-runtime-placement",
+      "osmRefs": [],
+      "replacementMasks": [
+        { "minX": -101.472, "maxX": -51.838, "minZ": 56.838, "maxZ": 101.8 }
+      ],
+      "overviewAssetState": "existing-authored",
+      "replacementBoundsVerified": true
+    }
+  ]
+}

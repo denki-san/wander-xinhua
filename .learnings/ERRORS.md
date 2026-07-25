@@ -6364,3 +6364,102 @@ user_prompt
 ### Resolution
 - **Resolved**: 2026-07-25T16:43:00+08:00
 - **Notes**: 读取当前 schema 后补齐 `user_prompt`，成功确认共享 scene 仍为上海影城。
+
+---
+## [ERR-20260725-016] r3f_primitive_data_attribute_rejected
+
+**Logged**: 2026-07-25T16:03:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+R3F `primitive` 不能像 DOM 元素一样接收连字符 `data-*` 属性。
+
+### Error
+```text
+R3F: Cannot set "data-overview-only". Ensure it is an object before setting "overview-only".
+```
+
+### Context
+- 街区 GLB 请求成功，但 `ProgressiveFeatureBoundary` 捕获挂载异常后回退为空。
+- TypeScript 与 ESLint 均未拒绝 `primitive` 上的 `data-*` 属性，只有真实 WebGL 页面暴露问题。
+
+### Suggested Fix
+R3F 场景元数据写入 `Object3D.userData`；不要把 DOM `data-*` 属性传给 `primitive`、
+`mesh` 或其他 Three.js intrinsic。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/overview-district-massing.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T16:03:00+08:00
+- **Notes**: 删除 `primitive` 的 DOM 属性，保留 `userData`，并重新执行真实浏览器验收。
+
+---
+## [ERR-20260725-017] browser_evaluate_has_no_request_animation_frame
+
+**Logged**: 2026-07-25T16:08:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+浏览器只读 evaluate 沙箱不暴露页面的 `requestAnimationFrame`。
+
+### Error
+```text
+TypeError: window.requestAnimationFrame is not a function
+```
+
+### Context
+- 尝试从浏览器自动化脚本采样 120 帧 overview 帧间隔。
+- DOM、截图和页面数据可读，但 evaluate 不是完整页面全局环境。
+
+### Suggested Fix
+需要渲染循环指标时，在 R3F `useFrame` 内建立查询参数控制的 QA 采样器，再由
+浏览器读取稳定的 `data-*` 结果。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-world.tsx
+- See Also: ERR172
+
+### Resolution
+- **Resolved**: 2026-07-25T16:08:00+08:00
+- **Notes**: `overview-qa=1` 现执行 30 帧预热和 120 帧采样，并记录视口、构建模式、
+  页面可见性、average 与 P95。
+
+---
+## [ERR-20260725-018] import_meta_env_not_declared
+
+**Logged**: 2026-07-25T16:16:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+运行时 QA 采样器使用了项目类型环境未声明的 `import.meta.env`。
+
+### Error
+```text
+app/scene/xinhua-world.tsx: error TS2339:
+Property 'env' does not exist on type 'ImportMeta'.
+```
+
+### Context
+- 浏览器开发运行正常，专项逻辑测试与 ESLint 均通过。
+- 项目使用 Next/Vinext 类型入口，TypeScript 未加载 Vite 的 `ImportMetaEnv` 声明。
+
+### Suggested Fix
+构建模式判断使用项目已有 Node 类型支持的 `process.env.NODE_ENV`，不额外引入
+Vite 类型声明。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-world.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T16:16:00+08:00
+- **Notes**: 改用 `process.env.NODE_ENV`，并重跑场景类型检查。

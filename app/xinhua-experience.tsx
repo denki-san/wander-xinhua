@@ -55,6 +55,23 @@ const INITIAL_OVERVIEW_POSITION = [
   mapData.landmarks.xingfuli.position[0],
   mapData.landmarks.xingfuli.position[1],
 ] as const;
+const OVERVIEW_QA_START_POSITIONS = {
+  "xingfu-road": [139.4, -98.5],
+  "fahuazhen-road": [-131, -36],
+  "quiet-southwest": [-250, 130],
+} as const;
+
+function requestedOverviewStartPosition(): readonly [number, number] {
+  if (typeof window === "undefined") return INITIAL_OVERVIEW_POSITION;
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("overview-qa") !== "1") return INITIAL_OVERVIEW_POSITION;
+  const requested = params.get("overview-start");
+  return requested && requested in OVERVIEW_QA_START_POSITIONS
+    ? OVERVIEW_QA_START_POSITIONS[
+      requested as keyof typeof OVERVIEW_QA_START_POSITIONS
+    ]
+    : INITIAL_OVERVIEW_POSITION;
+}
 
 const ATMOSPHERE_LABELS: Record<XinhuaAtmosphereStyle, string> = {
   "autumn-afternoon": "秋日下午",
@@ -382,6 +399,10 @@ function CameraQaPanel({ visible }: { visible: boolean }) {
 
 export function XinhuaExperience() {
   const [mode, setMode] = useState<"intro" | "overview" | "explore">("intro");
+  const [effectsDisabledForQa] = useState(() => (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("effects") === "off"
+  ));
   const [ready, setReady] = useState(false);
   const [nearAction, setNearAction] = useState(false);
   const [nearPoiId, setNearPoiId] = useState<string | null>(null);
@@ -402,11 +423,12 @@ export function XinhuaExperience() {
     && new URLSearchParams(window.location.search).get("cameraQa") === "1"
   ));
   const networkProfile = useProgressiveNetworkProfile();
-  const playerPosition = useRef<readonly [number, number]>(INITIAL_OVERVIEW_POSITION);
+  const [initialOverviewPosition] = useState(requestedOverviewStartPosition);
+  const playerPosition = useRef<readonly [number, number]>(initialOverviewPosition);
   const overviewPhotoCache = useRef(new Map<string, HTMLImageElement>());
   const [loadedOverviewPhoto, setLoadedOverviewPhoto] = useState<string | null>(null);
   const [overviewStartPosition, setOverviewStartPosition] = useState<readonly [number, number]>(
-    INITIAL_OVERVIEW_POSITION,
+    initialOverviewPosition,
   );
   const playing = mode !== "intro";
   const exploring = mode === "explore";
@@ -594,18 +616,23 @@ export function XinhuaExperience() {
           }}
           networkProfile={networkProfile}
         />
-        {/* 首帧先交出控制权，再装载后处理；挂载后不随模式切换重建。 */}
+        {/*
+          当前后处理链在可玩相机接管后只输出全屏 pass，导致 overview / explore 空白。
+          可玩模式优先使用 R3F 直接渲染；封面阶段保留 Composer 以便后续独立修复。
+        */}
         {ready && (
           <ProgressiveFeatureBoundary
             resetKey={atmosphereStyle}
             fallback={null}
           >
-            <Suspense fallback={null}>
-              <ProgressiveVisualEffectComposer
-                lowTier={lowTier}
-                atmosphereStyle={atmosphereStyle}
-              />
-            </Suspense>
+            {mode === "intro" && !effectsDisabledForQa ? (
+              <Suspense fallback={null}>
+                <ProgressiveVisualEffectComposer
+                  lowTier={lowTier}
+                  atmosphereStyle={atmosphereStyle}
+                />
+              </Suspense>
+            ) : null}
           </ProgressiveFeatureBoundary>
         )}
       </Canvas>
@@ -784,6 +811,7 @@ export function XinhuaExperience() {
       <footer className="study-note">
         非官方独立重建 · 体验参考 <a href="https://messenger.abeto.co/" target="_blank" rel="noreferrer">Messenger by abeto</a>
         <span> · 地图数据 <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a></span>
+        <span> · 全览街区体块为非测绘级近似</span>
         <span> · 角色 <a href="https://www.blenderstudio.cn/zh-hans/characters/rain/v1/" target="_blank" rel="noreferrer">Rain Rig © Blender Foundation | cloud.blender.org</a></span>
         <span> · <a href="/building-evidence-lab">建筑证据实验室</a></span>
       </footer>
