@@ -278,10 +278,10 @@ test("Film Art Center Hero MCP2 Pass 可追溯并解锁独立 Identity 派生", 
   );
   assert.equal(
     gate.identityGate.status,
-    "deterministic-candidate-mcp3-pending",
+    "pass",
   );
   assert.equal(lineage.identity.identityAllowed, true);
-  assert.equal(lineage.nextGate, "blender-mcp3-three-tier-review");
+  assert.equal(lineage.nextGate, "identity-three-js-runtime-candidate");
   assert.deepEqual(
     gate.heroGate.recheckCandidate.acceptedInteractiveChanges,
     [],
@@ -334,7 +334,7 @@ test("Film Art Center Identity 独立派生、预算与固定机位候选可追�
   assert.equal(record.tier, "identity");
   assert.equal(
     record.status,
-    "headless-and-glb-audit-pass-mcp3-pending",
+    "mcp3-pass-runtime-pending",
   );
   assert.equal(sha256(Buffer.from(generator)), record.generator.sha256);
   assert.equal(sha256(glbBuffer), record.glb.sha256);
@@ -389,14 +389,20 @@ test("Film Art Center Identity 独立派生、预算与固定机位候选可追�
   );
   assert.equal(
     lineage.identity.status,
-    "deterministic-candidate-mcp3-pending",
+    "mcp3-pass-runtime-pending",
   );
-  assert.equal(lineage.identity.mcp3, "pending");
+  assert.equal(lineage.identity.mcp3, "pass");
   assert.equal(
     gate.identityGate.status,
-    "deterministic-candidate-mcp3-pending",
+    "pass",
   );
-  assert.equal(gate.threeTierGate.status, "pending");
+  assert.equal(
+    gate.threeTierGate.status,
+    "blender-three-tier-pass-runtime-pending",
+  );
+  assert.deepEqual(record.mcp3.acceptedInteractiveChanges, []);
+  assert.equal(record.mcp3.qaRigSaved, false);
+  assert.equal(record.mcp3.qaRigExported, false);
   assert.doesNotMatch(generator, /build_arts_cluster|MiniatureGabledBuilding/);
   for (const cue of [
     "film-art-identity-main-roof",
@@ -415,6 +421,11 @@ test("Film Art Center Identity 独立派生、预算与固定机位候选可追�
     const buffer = await readFile(new URL(preview.path, root));
     assert.equal(buffer.length, preview.bytes);
     assert.equal(sha256(buffer), preview.sha256);
+
+    const mcp3 = record.mcp3.screenshots[view];
+    const mcp3Buffer = await readFile(new URL(mcp3.path, root));
+    assert.equal(mcp3Buffer.length, mcp3.bytes);
+    assert.equal(sha256(mcp3Buffer), mcp3.sha256);
   }
 });
 
