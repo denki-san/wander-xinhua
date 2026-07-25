@@ -1,0 +1,378 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25T12:35:00+08:00",
+  "assetId": "sun-ke-villa",
+  "tier": "hero",
+  "status": "complete-master-frozen",
+  "lineageId": "sun-ke-villa-hero-6d1642315530",
+  "blenderMcpGate": {
+    "status": "pass",
+    "record": "docs/research/sun-ke-villa-blender-mcp-gates-v2.json",
+    "interactiveReview": "blender-mcp",
+    "acceptedInteractiveChanges": [],
+    "masterSavedByMcp": false
+  },
+  "frozenMaster": {
+    "glb": {
+      "path": "public/models/shangsheng/sun-ke-villa.glb",
+      "sha256": "6d16423155304063606a3cd7d9be3878cfa11469ddd2463077e8961bbe3812b9",
+      "bytes": 1027924
+    },
+    "blend": {
+      "path": "assets/models/source/sun-ke-villa.blend",
+      "sha256": "1c01fddf3624e91dfe5ad4e4bb3e242b28898a4ed55da703806c11e0013b53c9",
+      "bytes": 260636
+    },
+    "generator": {
+      "path": "scripts/create_sun_ke_villa_model.py",
+      "sha256": "0d7dcc00db2b81f59d14e2af0746d468ae6718324f91209a36b6fe1d9bc1f17e",
+      "bytes": 33238
+    },
+    "frozenAt": "2026-07-25T12:35:00+08:00",
+    "mayDeriveIdentity": true
+  },
+  "evidence": {
+    "manifest": {
+      "path": "docs/research/sun-ke-villa-reference-manifest.json",
+      "sha256": "c23a573719f9210782ed9ecc04287a7a77c7b6f313f4b5b34c0111677c27e01c",
+      "bytes": 3611
+    },
+    "brief": {
+      "path": "docs/research/sun-ke-villa-model-brief.md",
+      "sha256": "2eb41b0a75285ac1037fa9167b0ffff5761fd7f56a1085d85f4d80982519c909",
+      "bytes": 26930
+    },
+    "massingMapQa": {
+      "path": "docs/research/sun-ke-villa-massing-map-qa.json",
+      "sha256": "8b08afbceded1397594936b48e1ce1d96b02c0d70ff7c25aaf1f66dbf4736244",
+      "bytes": 4751
+    },
+    "referencePhotos": [
+      {
+        "id": "garden-front",
+        "path": "docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-front-canonical.jpg",
+        "sha256": "a745ecb8cd3c9cf49155e059706e45cdfa601b71ea2393abd742ef98922bff5f",
+        "viewDirection": "花园正立面，近正视",
+        "publisher": "上海市长宁区人民政府"
+      },
+      {
+        "id": "right-front",
+        "path": "docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-right-front.jpg",
+        "sha256": "2ce8d886d3b16708a1b81b902946c28103f72ed14ed81909bff9278cfbddc2d6",
+        "viewDirection": "花园右前斜视",
+        "publisher": "上海市民政局／上海老年报"
+      },
+      {
+        "id": "north-entrance",
+        "path": "docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-north-entrance.jpg",
+        "sha256": "5d7f815bd751446a0fbb39b02b9dd6ee5fbcaae6c81c68b7433ef7731ed67331",
+        "viewDirection": "北侧门廊与入口斜视",
+        "publisher": "上海市长宁区人民政府"
+      }
+    ],
+    "observedInCurrentReview": [
+      "花园立面三联尖券门廊",
+      "二层连续拱窗与深色阳台",
+      "右侧圆角塔楼与红瓦屋顶",
+      "向北外挑的 porte-cochère、前端山墙圆拱与成组尖拱窗"
+    ],
+    "inferredOrSimplified": [
+      "精确高度与隐藏立面仍为推断",
+      "北侧门廊纵深与屋面曲线为风格化简化",
+      "逐片瓦、真实拉毛纹理和室内不纳入运行时 Hero"
+    ]
+  },
+  "blender": {
+    "version": 1,
+    "auditedAt": "2026-07-25",
+    "assetId": "sun-ke-villa",
+    "tier": "hero",
+    "source": "assets/models/source/sun-ke-villa.blend",
+    "readOnly": true,
+    "savedByAudit": false,
+    "meshObjects": 255,
+    "vertices": 8284,
+    "polygons": 7265,
+    "trianglesBeforeExportJoin": 15550,
+    "materials": [
+      "PreviewGround",
+      "SunKe_BrickPath",
+      "SunKe_DarkIronAndWood",
+      "SunKe_DeepTealGlass",
+      "SunKe_GardenGreen",
+      "SunKe_StuccoShade",
+      "SunKe_StuccoWarm",
+      "SunKe_TerracottaRoof",
+      "SunKe_WarmStoneTrim"
+    ],
+    "signatureCues": {
+      "gardenTriplePointedPortal": [
+        "garden-pointed-portal-0_deep-recess",
+        "garden-pointed-portal-0_jamb-return-+1",
+        "garden-pointed-portal-0_jamb-return--1",
+        "garden-pointed-portal-0_stone-surround",
+        "garden-pointed-portal-0_threshold",
+        "garden-pointed-portal-1_deep-recess",
+        "garden-pointed-portal-1_jamb-return-+1",
+        "garden-pointed-portal-1_jamb-return--1",
+        "garden-pointed-portal-1_rear-entry-door",
+        "garden-pointed-portal-1_stone-surround",
+        "garden-pointed-portal-1_threshold",
+        "garden-pointed-portal-2_deep-recess",
+        "garden-pointed-portal-2_jamb-return-+1",
+        "garden-pointed-portal-2_jamb-return--1",
+        "garden-pointed-portal-2_stone-surround",
+        "garden-pointed-portal-2_threshold"
+      ],
+      "gardenUpperRoundWindows": [
+        "garden-upper-round-window-0_glass",
+        "garden-upper-round-window-0_mullion",
+        "garden-upper-round-window-0_sill",
+        "garden-upper-round-window-0_stone-surround",
+        "garden-upper-round-window-0_transom",
+        "garden-upper-round-window-1_glass",
+        "garden-upper-round-window-1_mullion",
+        "garden-upper-round-window-1_sill",
+        "garden-upper-round-window-1_stone-surround",
+        "garden-upper-round-window-1_transom",
+        "garden-upper-round-window-2_glass",
+        "garden-upper-round-window-2_mullion",
+        "garden-upper-round-window-2_sill",
+        "garden-upper-round-window-2_stone-surround",
+        "garden-upper-round-window-2_transom",
+        "garden-upper-round-window-3_glass",
+        "garden-upper-round-window-3_mullion",
+        "garden-upper-round-window-3_sill",
+        "garden-upper-round-window-3_stone-surround",
+        "garden-upper-round-window-3_transom"
+      ],
+      "gardenBalcony": [
+        "garden-balcony-baluster-00",
+        "garden-balcony-baluster-01",
+        "garden-balcony-baluster-02",
+        "garden-balcony-baluster-03",
+        "garden-balcony-baluster-04",
+        "garden-balcony-baluster-05",
+        "garden-balcony-baluster-06",
+        "garden-balcony-baluster-07",
+        "garden-balcony-baluster-08",
+        "garden-balcony-baluster-09",
+        "garden-balcony-baluster-10",
+        "garden-balcony-baluster-11",
+        "garden-balcony-baluster-12",
+        "garden-balcony-baluster-13",
+        "garden-balcony-baluster-14",
+        "garden-balcony-bottom-rail",
+        "garden-balcony-slab",
+        "garden-balcony-top-rail"
+      ],
+      "roundedEastTower": [
+        "rounded-east-tower"
+      ],
+      "northPorchAndArches": [
+        "north-porch-column-0",
+        "north-porch-column-1",
+        "north-porch-column-cap-0",
+        "north-porch-column-cap-1",
+        "north-porch-gable-roof",
+        "north-porch-gable-roof_left-tile-rib-00",
+        "north-porch-gable-roof_left-tile-rib-01",
+        "north-porch-gable-roof_left-tile-rib-02",
+        "north-porch-gable-roof_left-tile-rib-03",
+        "north-porch-gable-roof_left-tile-rib-04",
+        "north-porch-gable-roof_left-tile-rib-05",
+        "north-porch-gable-roof_left-tile-rib-06",
+        "north-porch-gable-roof_left-tile-rib-07",
+        "north-porch-gable-roof_left-tile-rib-08",
+        "north-porch-gable-roof_left-tile-rib-09",
+        "north-porch-gable-roof_left-tile-rib-10",
+        "north-porch-gable-roof_ridge-cap",
+        "north-porch-gable-roof_right-tile-rib-00",
+        "north-porch-gable-roof_right-tile-rib-01",
+        "north-porch-gable-roof_right-tile-rib-02",
+        "north-porch-gable-roof_right-tile-rib-03",
+        "north-porch-gable-roof_right-tile-rib-04",
+        "north-porch-gable-roof_right-tile-rib-05",
+        "north-porch-gable-roof_right-tile-rib-06",
+        "north-porch-gable-roof_right-tile-rib-07",
+        "north-porch-gable-roof_right-tile-rib-08",
+        "north-porch-gable-roof_right-tile-rib-09",
+        "north-porch-gable-roof_right-tile-rib-10",
+        "north-porch-gable-wall",
+        "north-porch-round-entry-arch-00",
+        "north-porch-round-entry-arch-01",
+        "north-porch-round-entry-arch-02",
+        "north-porch-round-entry-arch-03",
+        "north-porch-round-entry-arch-04",
+        "north-porch-round-entry-arch-05",
+        "north-porch-round-entry-arch-06",
+        "north-porch-round-entry-arch-07",
+        "north-porch-round-entry-arch-08",
+        "north-porch-slab"
+      ],
+      "northPorteCochereProjection": [
+        "north-porch-gable-roof",
+        "north-porch-gable-roof_left-tile-rib-00",
+        "north-porch-gable-roof_left-tile-rib-01",
+        "north-porch-gable-roof_left-tile-rib-02",
+        "north-porch-gable-roof_left-tile-rib-03",
+        "north-porch-gable-roof_left-tile-rib-04",
+        "north-porch-gable-roof_left-tile-rib-05",
+        "north-porch-gable-roof_left-tile-rib-06",
+        "north-porch-gable-roof_left-tile-rib-07",
+        "north-porch-gable-roof_left-tile-rib-08",
+        "north-porch-gable-roof_left-tile-rib-09",
+        "north-porch-gable-roof_left-tile-rib-10",
+        "north-porch-gable-roof_ridge-cap",
+        "north-porch-gable-roof_right-tile-rib-00",
+        "north-porch-gable-roof_right-tile-rib-01",
+        "north-porch-gable-roof_right-tile-rib-02",
+        "north-porch-gable-roof_right-tile-rib-03",
+        "north-porch-gable-roof_right-tile-rib-04",
+        "north-porch-gable-roof_right-tile-rib-05",
+        "north-porch-gable-roof_right-tile-rib-06",
+        "north-porch-gable-roof_right-tile-rib-07",
+        "north-porch-gable-roof_right-tile-rib-08",
+        "north-porch-gable-roof_right-tile-rib-09",
+        "north-porch-gable-roof_right-tile-rib-10",
+        "north-porte-cochere-rear-column-0",
+        "north-porte-cochere-rear-column-1",
+        "north-porte-cochere-side-beam-left",
+        "north-porte-cochere-side-beam-right"
+      ],
+      "roofAndChimney": [
+        "main-chimney",
+        "main-chimney-cap"
+      ]
+    },
+    "missingSignatureCues": [],
+    "status": "pass",
+    "auditPath": "test_artifacts/all-models/hero/sun-ke-villa/test_sun-ke-villa-hero-blend-audit.json"
+  },
+  "glb": {
+    "sha256": "6d16423155304063606a3cd7d9be3878cfa11469ddd2463077e8961bbe3812b9",
+    "bytes": 1027924,
+    "nodes": 1,
+    "meshes": 1,
+    "primitives": 8,
+    "materials": 8,
+    "materialNames": [
+      "SunKe_StuccoWarm",
+      "SunKe_StuccoShade",
+      "SunKe_TerracottaRoof",
+      "SunKe_WarmStoneTrim",
+      "SunKe_BrickPath",
+      "SunKe_DarkIronAndWood",
+      "SunKe_GardenGreen",
+      "SunKe_DeepTealGlass"
+    ],
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 15548,
+    "bounds": {
+      "min": [
+        -4.044589519500732,
+        0,
+        -4.947999954223633
+      ],
+      "max": [
+        3.553187370300293,
+        5.050000190734863,
+        2.75
+      ],
+      "size": [
+        7.597776889801025,
+        5.050000190734863,
+        7.697999954223633
+      ]
+    },
+    "rootTransformNormalized": true,
+    "nodesWithTransforms": [],
+    "extras": {
+      "asset_id": "sun-ke-villa",
+      "osm_way_id": 864847877,
+      "meters_per_scene_unit": 2.7,
+      "canonical_front": "local -Y",
+      "reference_manifest": "docs/research/sun-ke-villa-reference-manifest.json",
+      "reference_images_embedded": false
+    }
+  },
+  "budgets": {
+    "contract": {
+      "maxTriangles": 35000,
+      "maxNodes": 2,
+      "maxMaterials": 8,
+      "maxImages": 0,
+      "maxBytes": 1500000
+    },
+    "checks": {
+      "triangles": true,
+      "nodes": true,
+      "materials": true,
+      "images": true,
+      "bytes": true
+    },
+    "status": "pass"
+  },
+  "previews": {
+    "canonical": {
+      "path": "test_artifacts/test_sun_ke_villa_canonical_preview.png",
+      "sha256": "15ff3c13bc4eb233a745998f886b0a80d5944679e989615c834069f4808ecb76",
+      "bytes": 997699
+    },
+    "rightFront": {
+      "path": "test_artifacts/test_sun_ke_villa_right_front_preview.png",
+      "sha256": "cd59fec2850da8f144ab7c102ad3a768627907d336cb04412f9f072b092c21d5",
+      "bytes": 961738
+    },
+    "northEntrance": {
+      "path": "test_artifacts/test_sun_ke_villa_north_entrance_preview.png",
+      "sha256": "541f823280e0b35e3eb0fdfe5d71f0f4e950d8a5213632560ae8d6336daf66d9",
+      "bytes": 969135
+    },
+    "batches": {
+      "massing": {
+        "path": "test_artifacts/test_sun_ke_villa_batch_01_massing_preview.png",
+        "sha256": "29bd572a0bf8ba8279e751b1ac0b158289432605379a603eb7ab3de98807fa03",
+        "bytes": 820160
+      },
+      "identityFeaturePhase": {
+        "path": "test_artifacts/test_sun_ke_villa_batch_02_identity_materials_preview.png",
+        "sha256": "cb9b3e6f33057fbfab753af24175db586e0491c773243a4673dc2b2d0084ca40",
+        "bytes": 988893
+      },
+      "site": {
+        "path": "test_artifacts/test_sun_ke_villa_batch_03_site_preview.png",
+        "sha256": "a2001d4e3df69127a6dba6144b945f79cc83321a54d4f19578aa81d7230b21d1",
+        "bytes": 993042
+      }
+    }
+  },
+  "mapContract": {
+    "sourceWayId": 864847877,
+    "mapQa": "docs/research/sun-ke-villa-massing-map-qa-v2.json",
+    "position": "pass",
+    "scale": "pass-with-inferred-height",
+    "orientation": "pass",
+    "collision": "pass"
+  },
+  "runtimeContract": {
+    "cacheUrl": "/models/shangsheng/sun-ke-villa.glb?v=6d1642315530",
+    "currentHistoricRuntimeEvidence": "test_artifacts/test_sun_ke_villa_runtime_preview.png",
+    "allTierRuntimeAcceptance": "pass",
+    "record": "docs/research/sun-ke-villa-three-tier-runtime-qa-v2.json"
+  },
+  "identityDerivationContract": {
+    "requiredHeroGlbSha256": "6d16423155304063606a3cd7d9be3878cfa11469ddd2463077e8961bbe3812b9",
+    "requiredHeroBlendSha256": "1c01fddf3624e91dfe5ad4e4bb3e242b28898a4ed55da703806c11e0013b53c9",
+    "sourceLineageId": "sun-ke-villa-hero-6d1642315530",
+    "status": "allowed"
+  },
+  "limitations": [
+    "精确高度与隐藏立面仍是证据边界内的推断，不升级为现场测绘。",
+    "任何后续 Identity 产物都必须记录这里的 Hero GLB/Blend SHA；SHA 不一致即 provisional。"
+  ],
+  "nextGate": "complete-current-pilot-continue-next-active-31-asset"
+}

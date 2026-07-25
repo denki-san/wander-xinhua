@@ -6463,3 +6463,39 @@ Vite 类型声明。
 ### Resolution
 - **Resolved**: 2026-07-25T16:16:00+08:00
 - **Notes**: 改用 `process.env.NODE_ENV`，并重跑场景类型检查。
+
+---
+## [ERR-20260725-019] git_cherry_pick_worktree_index_lock_sandbox
+
+**Logged**: 2026-07-25T19:05:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+新建集成 Worktree 后，首次 `git cherry-pick` 因沙箱禁止写入共享
+`.git/worktrees/.../index.lock` 而失败。
+
+### Error
+```text
+error: Unable to create
+'/Users/lei/App_developing/wander-xinhua/.git/worktrees/integration-18-buildings/index.lock':
+Operation not permitted
+fatal: cherry-pick failed
+```
+
+### Context
+- 目标是把已审计的孙科别墅独立提交选择性整合到集成分支。
+- 工作区文件可写，但 Git Worktree 元数据位于共享 `.git`，需要受控提权。
+
+### Suggested Fix
+对明确的 `git cherry-pick <reviewed-commit>` 使用受控提权，不绕过 Git
+Worktree 元数据或手工复制整棵提交。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git/worktrees/integration-18-buildings/index.lock
+
+### Resolution
+- **Resolved**: 2026-07-25T19:05:00+08:00
+- **Notes**: 保留失败现场无冲突状态，改用同一条明确提交的受控提权重试。

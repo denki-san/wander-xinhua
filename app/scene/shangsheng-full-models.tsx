@@ -13,8 +13,33 @@ import landmarks from "./xinhua-landmarks-data.json";
 
 type Building = (typeof landmarks.shangshengXinsuo.buildings)[number];
 
-export function SunKeVillaModel({ building }: { building: Building }) {
-  const { scene } = useGLTF("/models/shangsheng/sun-ke-villa.glb");
+export type SunKeVillaRuntimeTier = "hero" | "identity" | "massing";
+
+export const SUN_KE_VILLA_TIER_MODELS = {
+  hero: "/models/shangsheng/sun-ke-villa.glb?v=6d1642315530",
+  identity: "/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity.glb?v=6b541e8ffab4",
+  massing: "/models/tiers/sun-ke-villa/massing/sun-ke-villa-massing.glb?v=f233f9defd21",
+} as const satisfies Record<SunKeVillaRuntimeTier, string>;
+
+function qaAssetPath(path: string, tier: SunKeVillaRuntimeTier) {
+  if (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("qaActiveFallback") === tier
+  ) {
+    return path.replace(".glb", "-qa-missing.glb");
+  }
+  return path;
+}
+
+export function SunKeVillaTierModel({
+  building,
+  tier,
+}: {
+  building: Building;
+  tier: SunKeVillaRuntimeTier;
+}) {
+  const modelUrl = qaAssetPath(SUN_KE_VILLA_TIER_MODELS[tier], tier);
+  const { scene } = useGLTF(modelUrl);
   const model = useMemo(() => {
     const clone = scene.clone(true);
     const materialCache = new Map<string, MeshToonMaterial | MeshStandardMaterial>();
@@ -74,19 +99,25 @@ export function SunKeVillaModel({ building }: { building: Building }) {
 
   return (
     <group
-      name="shangsheng-sun-ke-villa"
+      name={tier === "hero" ? "shangsheng-sun-ke-villa" : `shangsheng-sun-ke-villa-${tier}`}
       position={[building.position[0], 0.1, building.position[1]]}
       rotation-y={building.rotationY}
       userData={{
         building: "sun-ke-villa",
         osmWayId: building.id,
         referenceView: "garden-front",
-        stage: "full",
+        stage: tier === "hero" ? "full" : tier,
+        assetTier: tier,
+        sharedOrigin: true,
       }}
     >
       <primitive object={model} />
     </group>
   );
+}
+
+export function SunKeVillaModel({ building }: { building: Building }) {
+  return <SunKeVillaTierModel building={building} tier="hero" />;
 }
 
 export function NavyClubModel({ building }: { building: Building }) {

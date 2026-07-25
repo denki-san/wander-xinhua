@@ -20,13 +20,14 @@ import { terrainHeightAt } from "./terrain";
 import { isPointInsidePolygon, type MapObstacle, type MapPolygonPoint } from "./world-math";
 import type { ProgressiveBuildingTier } from "./progressive-loading";
 import { ProgressiveFeatureBoundary } from "../progressive-feature-boundary";
+import { SUN_KE_PORTE_COCHERE_COLUMN_OBSTACLES } from "./sun-ke-villa-tier-contract.mjs";
 
 type Building = (typeof landmarks.shangshengXinsuo.buildings)[number];
 
 const SITE = landmarks.shangshengXinsuo;
 const ProgressiveSunKeVilla = lazy(async () => {
   const importedModels = await import("./shangsheng-full-models");
-  return { default: importedModels.SunKeVillaModel };
+  return { default: importedModels.SunKeVillaTierModel };
 });
 const ProgressiveNavyClub = lazy(async () => {
   const importedModels = await import("./shangsheng-full-models");
@@ -78,6 +79,7 @@ export const SHANGSHENG_BUILDING_FOOTPRINTS: MapObstacle[] = SITE.buildings.flat
 
 const SHANGSHENG_FIXED_OBSTACLES: MapObstacle[] = [
   ...SHANGSHENG_BUILDING_FOOTPRINTS,
+  ...SUN_KE_PORTE_COCHERE_COLUMN_OBSTACLES.map(localToWorldObstacle),
   // 海军俱乐部泳池保留为不可穿越水面，南侧窄廊仍可通行。
   localToWorldObstacle({ minX: -23.05, maxX: -18.25, minZ: -5.7, maxZ: 5.2 }),
   ...SITE.fountains.map((fountain) => localToWorldObstacle(boundaryBounds(fountain.boundary))),
@@ -267,7 +269,7 @@ function SunKeVillaFallback({ building }: { building: Building }) {
 }
 
 class SunKeVillaErrorBoundary extends Component<
-  { building: Building; children: ReactNode },
+  { building: Building; children: ReactNode; fallback?: ReactNode },
   { failed: boolean }
 > {
   state = { failed: false };
@@ -277,7 +279,10 @@ class SunKeVillaErrorBoundary extends Component<
   }
 
   render() {
-    if (this.state.failed) return <SunKeVillaFallback building={this.props.building} />;
+    if (this.state.failed) {
+      return this.props.fallback
+        ?? <SunKeVillaFallback building={this.props.building} />;
+    }
     return this.props.children;
   }
 }
@@ -400,10 +405,63 @@ function GenericCampusBuilding({ building }: { building: Building }) {
   );
 }
 
-function CampusMassingBuildings() {
+type SunKeVillaStage = ProgressiveBuildingTier | "hero";
+
+function requestedSunKeVillaStage(): SunKeVillaStage | undefined {
+  if (typeof window === "undefined") return undefined;
+  const requested = new URLSearchParams(window.location.search).get("sun-ke-tier");
+  if (requested === "hero" || requested === "identity" || requested === "massing") {
+    return requested;
+  }
+  return undefined;
+}
+
+function SunKeVillaAsset({
+  building,
+  stage,
+}: {
+  building: Building;
+  stage: SunKeVillaStage;
+}) {
+  const tier = stage === "full" ? "hero" : stage;
+  const programmaticFallback = <SunKeVillaFallback building={building} />;
+  const identityFallback = (
+    <SunKeVillaErrorBoundary
+      building={building}
+      fallback={programmaticFallback}
+    >
+      <Suspense fallback={programmaticFallback}>
+        <ProgressiveSunKeVilla building={building} tier="identity" />
+      </Suspense>
+    </SunKeVillaErrorBoundary>
+  );
+  const fallback = tier === "hero" ? identityFallback : programmaticFallback;
+  return (
+    <SunKeVillaErrorBoundary building={building} fallback={fallback}>
+      <Suspense fallback={fallback}>
+        <ProgressiveSunKeVilla building={building} tier={tier} />
+      </Suspense>
+    </SunKeVillaErrorBoundary>
+  );
+}
+
+function CampusMassingBuildings({
+  sunKeVillaStage,
+}: {
+  sunKeVillaStage: SunKeVillaStage;
+}) {
   return (
     <group name="shangsheng-campus-massing" userData={{ stage: "massing" }}>
       {SITE.buildings.map((building) => {
+        if (building.feature === "sun-ke-villa") {
+          return (
+            <SunKeVillaAsset
+              key={building.id}
+              building={building}
+              stage={sunKeVillaStage}
+            />
+          );
+        }
         const floorHeight = building.feature === "new-campus" ? 2.35 : 2.05;
         return (
           <FootprintVolume
@@ -417,22 +475,27 @@ function CampusMassingBuildings() {
   );
 }
 
-function CampusBuildings({ stage }: { stage: ProgressiveBuildingTier }) {
-  if (stage === "massing") return <CampusMassingBuildings />;
+function CampusBuildings({
+  stage,
+  sunKeVillaStage,
+}: {
+  stage: ProgressiveBuildingTier;
+  sunKeVillaStage: SunKeVillaStage;
+}) {
+  if (stage === "massing") {
+    return <CampusMassingBuildings sunKeVillaStage={sunKeVillaStage} />;
+  }
   const loadFullModels = stage === "full";
   return (
     <group>
       {SITE.buildings.map((building) => {
         if (building.feature === "sun-ke-villa") {
-          if (!loadFullModels) {
-            return <SunKeVillaFallback key={building.id} building={building} />;
-          }
           return (
-            <SunKeVillaErrorBoundary key={building.id} building={building}>
-              <Suspense fallback={<SunKeVillaFallback building={building} />}>
-                <ProgressiveSunKeVilla building={building} />
-              </Suspense>
-            </SunKeVillaErrorBoundary>
+            <SunKeVillaAsset
+              key={building.id}
+              building={building}
+              stage={sunKeVillaStage}
+            />
           );
         }
         if (building.feature === "country-club") return <CountryClub key={building.id} building={building} />;
@@ -772,6 +835,7 @@ export function ShangshengXinsuoBlock({
 }) {
   const identityReady = stage === "identity" || stage === "full";
   const environmentDetailed = showEnvironmentDetails ?? stage === "full";
+  const sunKeVillaStage = requestedSunKeVillaStage() ?? stage;
   return (
     <group
       name="shangsheng-xinsuo"
@@ -788,7 +852,7 @@ export function ShangshengXinsuoBlock({
       }}
     >
       <SiteGround />
-      <CampusBuildings stage={stage} />
+      <CampusBuildings stage={stage} sunKeVillaStage={sunKeVillaStage} />
       {identityReady && <CampusLandscape detailed={environmentDetailed} />}
       {identityReady && (
         <Html center transform sprite position={[5, 12, -5]} distanceFactor={38} style={{ pointerEvents: "none" }}>

@@ -273,6 +273,10 @@ const SUNKE_START_POSITION = groundedPosition(
   SHANGSHENG_XINSUO_POSITION[0] + 50,
   SHANGSHENG_XINSUO_POSITION[1],
 );
+const SUNKE_NORTH_START_POSITION = groundedPosition(
+  SHANGSHENG_XINSUO_POSITION[0] + 43.25,
+  SHANGSHENG_XINSUO_POSITION[1] - 20,
+);
 
 type StartPreset = {
   position: Vector3;
@@ -343,6 +347,12 @@ function requestedStartPreset(requestedName?: string): StartPreset {
       position: SUNKE_START_POSITION.clone(),
       // 从花园右前侧斜看正立面，避开自行车架与入口导视对三联尖券的遮挡。
       forward: new Vector3(-0.56, 0, -0.83).normalize(),
+    };
+  }
+  if (name === "sunke-north") {
+    return {
+      position: SUNKE_NORTH_START_POSITION.clone(),
+      forward: new Vector3(0, 0, 1),
     };
   }
   const xinhuaRoadPreset = name ? XINHUA_ROAD_START_PRESETS[name] : undefined;

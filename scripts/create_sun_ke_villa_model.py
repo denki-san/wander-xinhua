@@ -739,7 +739,9 @@ def build_north_entrance(materials: dict[str, bpy.types.Material]) -> None:
             outside_sign=1.0,
         )
 
-    # 北侧主门与山墙门廊。
+    # 北侧主门与明显向北外挑的 porte-cochère。
+    # 用户校正证据否决了贴墙短雨棚：前端独立山墙圆拱与厚立柱位于主楼外，
+    # 长坡屋顶向后连接主楼，覆盖车道保持开放。
     add_arch_window(
         "north-main-door",
         -1.25,
@@ -752,36 +754,87 @@ def build_north_entrance(materials: dict[str, bpy.types.Material]) -> None:
         frame,
         outside_sign=1.0,
     )
-    add_box("north-porch-slab", (-1.22, 2.33, 0.10), (2.25, 0.86, 0.20), materials["path"], bevel=0.025)
-    for index, x in enumerate((-2.05, -0.40)):
+    porch_center_x = -1.22
+    porch_front_y = 4.58
+    porch_rear_y = 2.14
+    porch_center_y = (porch_front_y + porch_rear_y) * 0.5
+    porch_length = porch_front_y - porch_rear_y + 0.48
+    porch_span = 2.56
+    add_box(
+        "north-porch-slab",
+        (porch_center_x, porch_center_y, 0.10),
+        (porch_span, porch_length, 0.20),
+        materials["path"],
+        bevel=0.025,
+    )
+    for index, x in enumerate((-2.10, -0.34)):
         add_box(
             f"north-porch-column-{index}",
-            (x, 2.48, 1.05),
-            (0.34, 0.34, 2.10),
+            (x, porch_front_y, 1.08),
+            (0.40, 0.40, 2.16),
             wall,
             bevel=0.055,
         )
         add_box(
             f"north-porch-column-cap-{index}",
-            (x, 2.48, 2.07),
-            (0.48, 0.48, 0.14),
+            (x, porch_front_y, 2.14),
+            (0.54, 0.54, 0.15),
             trim,
             bevel=0.025,
         )
-    add_box("north-porch-gable-wall", (-1.22, 2.28, 2.35), (2.18, 0.42, 0.64), wall, bevel=0.035)
+    for index, x in enumerate((-2.10, -0.34)):
+        add_box(
+            f"north-porte-cochere-rear-column-{index}",
+            (x, 2.48, 1.08),
+            (0.32, 0.32, 2.16),
+            wall,
+            bevel=0.045,
+        )
+    add_box(
+        "north-porte-cochere-side-beam-left",
+        (-2.10, porch_center_y, 2.20),
+        (0.24, porch_length, 0.24),
+        wall,
+        bevel=0.025,
+    )
+    add_box(
+        "north-porte-cochere-side-beam-right",
+        (-0.34, porch_center_y, 2.20),
+        (0.24, porch_length, 0.24),
+        wall,
+        bevel=0.025,
+    )
+    add_profile(
+        "north-porch-gable-wall",
+        [
+            (-porch_span * 0.5, 0.0),
+            (porch_span * 0.5, 0.0),
+            (0.0, 0.92),
+        ],
+        0.28,
+        (porch_center_x, porch_front_y, 2.16),
+        wall,
+    )
     add_gable_roof(
         "north-porch-gable-roof",
-        (-1.22, 2.24),
-        1.02,
-        2.44,
-        2.62,
-        3.15,
+        (porch_center_x, porch_center_y),
+        porch_length + 0.22,
+        porch_span + 0.18,
+        2.35,
+        3.18,
         roof,
         ridge_axis="Y",
         rib_material=roof,
         rib_step=0.32,
     )
-    add_round_arch_band("north-porch-round-entry-arch", -1.22, 2.68, 1.42, 0.82, trim)
+    add_round_arch_band(
+        "north-porch-round-entry-arch",
+        porch_center_x,
+        porch_front_y + 0.18,
+        1.40,
+        0.88,
+        trim,
+    )
 
     # 被照片确认的低侧翼与小尖拱窗，增强背面完整性。
     add_box("north-east-low-wing", (2.18, 1.30, 1.15), (1.42, 1.58, 2.30), wall, bevel=0.045)
@@ -985,7 +1038,13 @@ def main() -> None:
 
     render_preview(camera, CANONICAL_PREVIEW, (0.1, -13.8, 3.85), (-0.05, -0.15, 2.08), 55)
     render_preview(camera, RIGHT_PREVIEW, (10.2, -11.6, 4.55), (0.0, -0.05, 2.05), 56)
-    render_preview(camera, NORTH_PREVIEW, (-7.8, 10.2, 4.65), (-0.85, 0.75, 1.95), 58)
+    render_preview(
+        camera,
+        NORTH_PREVIEW,
+        (-9.2, 13.4, 5.1),
+        (-0.90, 2.05, 1.78),
+        56,
+    )
 
     print(f"GLB: {OUTPUT_GLB}")
     print(f"Blend: {SOURCE_BLEND}")
