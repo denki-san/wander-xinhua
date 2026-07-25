@@ -86,12 +86,12 @@ Canonical comparison:
 - Origin / pivot: compound center at `[0, 0, 0]`, ground datum `Z=0`
 - Front direction: local `-Y`
 - Runtime axis conversion: existing GLB loader mirrors local source depth with `scale={[1,1,-1]}`
-- Placement: `[91.34, -131.74]`, OSM way `494633921`
-- Runtime yaw: `π/2`
-- V2 scale target: `1.0`; generator dimensions absorb legacy `0.72` scale so world placement does not jump
-- Canonical player start: existing `[73, -132]`, forward `[1, 0]`
+- Placement recommendation: `[92.535374, -132.52181]`, derived from projected OSM way `494633921` oriented center
+- Runtime yaw recommendation: `0.153486288` rad（约 `8.795°`），沿 OSM 最长边；旧 `π/2` 被拒绝
+- V2 runtime scale recommendation: `0.88`；source bounds 与 OSM oriented envelope 的静态拟合，不冒充测绘尺寸
+- Recommended canonical start for main-window QA: north side `[92.5, -145.0]`, forward `[0, 1]`; the main window must verify against active world obstacles before committing
 - Ground contact tolerance: `±0.04` scene unit
-- World footprint continuity: V2 Hero/Identity/Massing remain inside legacy world envelope after replacing scale `0.72` with authored scale `1.0`
+- World footprint continuity: Massing source bounds are `X=-6.3..6.3`, runtime local `Z=-5.652..5.148`; at recommended scale `0.88` they track the OSM oriented envelope and retain the same origin across later tiers
 
 ## Subject-specific identifying cues
 
@@ -135,6 +135,11 @@ Identity must preserve cues 1–5. Massing must preserve the wide facade, layere
 - Hold vegetation does not gain new collision.
 - Player start and a camera point 7.4 units behind it must stay outside all transformed obstacles.
 - No single compound-sized collision box is allowed.
+- Current Massing porch: local clear gap `1.5912`; at runtime scale `0.88` it becomes `1.400256`, exceeding the required `1.36` by `0.040256`.
+- Main-window wiring must use the seven exact local blockers recorded in
+  `test_artifacts/test_hudec-memorial_map_calibration.json`; the ground datum,
+  roofs, dormers, tree/decor Hold and already-overlapped chimney receive no
+  extra compound collision.
 
 ## Runtime acceptance contract
 
@@ -248,3 +253,28 @@ Identity must preserve cues 1–5. Massing must preserve the wide facade, layere
   the real entrance geometry, regenerate the artifacts, repeat MCP 1, preserve
   auditable runtime inputs, and collect the full 10 s performance sample.
   Hero and Identity remain unauthorized.
+
+### Iteration 4 — Fast Mode entrance correction and static map recalibration
+
+- Ownership: only Hudec-specific generator, Massing binaries, evidence,
+  build record, fixed views, gate record and dedicated tests changed. Public
+  registry/runtime/Fast manifest remain untouched.
+- Entrance correction: widened the real porch from `2.8` to `3.25` generator
+  units while retaining `0.52` side walls. The generated local gap is now
+  `1.5912`; under recommended runtime scale `0.88` the world gap is
+  `1.400256`, passing the shared `1.36` requirement without shrinking collision
+  into visible walls.
+- Map correction: projected OSM way `494633921` and the official west-side
+  evidence reject the legacy `yaw=π/2`. The reproducible recommendation is
+  position `[92.535374, -132.52181]`, yaw `0.153486288`, scale `0.88`.
+- Road gate: the modeled footprint remains off the Panyu Road asphalt and its
+  setback differs from the OSM footprint setback by at most one scene unit;
+  it is neither pushed into the carriageway nor manually displaced farther
+  from the road.
+- Headless result: refreshed editable Blend, exact GLB and canonical/side/
+  entrance previews; GLB remains 158,312 bytes, 1 node, 1 mesh, 2,180
+  triangles, 5 materials and 0 images.
+- Gate boundary: the prior MCP 1 and runtime screenshots remain historical
+  evidence for the superseded binary/transform. The corrected candidate now
+  awaits main-window MCP 1 and temporary runtime wiring; Hero and Identity
+  remain unauthorized.

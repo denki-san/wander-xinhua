@@ -158,7 +158,11 @@ def add_open_entrance_porch(
 ) -> None:
     """以两侧墙肢而非实心方盒表达可进入门廊。"""
     side_width = 0.52
-    porch_width = 2.8
+    # 地图校准建议使用 runtime scale=0.88。入口净宽必须在该缩放下仍满足
+    # 2 × (PLAYER_RADIUS 0.48 + collisionMargin 0.2) = 1.36 scene unit。
+    # 3.25 生成器设计单位经 AUTHORED_SCALE 后的真实墙间隙为 1.5912，
+    # runtime scale=0.88 后为 1.400256，保留约 0.04 的合法中心线余量。
+    porch_width = 3.25
     porch_depth = 1.75
     wall_height = 2.25
     for side, x in (

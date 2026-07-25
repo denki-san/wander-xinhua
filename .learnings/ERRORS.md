@@ -32,6 +32,43 @@ Error: listen EPERM: operation not permitted 127.0.0.1:4317
 
 ---
 
+## [ERR-20260726-001] py_compile_default_cache_denied_in_worktree
+
+**Logged**: 2026-07-26T02:28:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+macOS 系统 Python 在受限 worktree 内执行 `py_compile` 时，默认尝试写入用户
+Cache 路径并被 sandbox 拒绝。
+
+### Error
+```text
+PermissionError: [Errno 1] Operation not permitted:
+'/Users/lei/Library/Caches/com.apple.python/.../building-hudec-memorial-fast'
+```
+
+### Context
+- Command: `python3 -m py_compile scripts/create_hudec_memorial_v2.py`
+- JavaScript 语法检查和 Hudec 专项测试此前已通过。
+- 失败发生在创建 bytecode cache 目录，不是 Python 语法解析错误。
+
+### Suggested Fix
+对只读语法检查设置任务专用
+`PYTHONPYCACHEPREFIX=/tmp/test_<task>_pycache`，不要申请用户 Cache 写权限。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_hudec_memorial_v2.py
+- See Also: ERR-20260725-013
+
+### Resolution
+- **Resolved**: 2026-07-26T02:29:00+08:00
+- **Notes**: 使用 `/tmp/test_hudec_pycache` 重跑后通过；生成器无需修改。
+
+---
+
 ## [ERR-20260725-093] browser_readonly_evaluate_hides_animation_frame
 
 **Logged**: 2026-07-25T00:55:00+08:00
