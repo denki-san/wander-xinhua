@@ -586,7 +586,7 @@ def write_record(audit: dict[str, Any]) -> None:
         "auditedAt": AUDITED_AT,
         "assetId": "one-step-garden",
         "tier": "massing",
-        "status": "headless-candidate-awaiting-blender-mcp1-and-map-gate",
+        "status": "mcp1-pass-awaiting-map-gate",
         "recoveryCommitReadOnly": RECOVERY_COMMIT,
         "recoveryDecision": {
             "evidenceExtracted": True,
@@ -661,7 +661,21 @@ def write_record(audit: dict[str, Any]) -> None:
         },
         "canonicalFront": AUTHORED_FRONT,
         "identityAllowed": False,
-        "mcp1": "pending-shared-blender-mcp-main-window",
+        "mcp1": {
+            "status": "pass",
+            "reviewedBy": "main-coordinator-via-shared-blender-mcp",
+            "reviewedBlendSha256": (
+                "a4c0e0fba996f139a88344b6f39a8a2509326ba7018206dc888231fab6474388"
+            ),
+            "reviewedGlbSha256": (
+                "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761"
+            ),
+            "acceptedInteractiveChanges": [],
+            "qaRigSaved": False,
+            "qaRigExported": False,
+            "record": "docs/research/one-step-garden-blender-mcp-gates.json",
+            "nextGate": "three-js-massing-map-calibration",
+        },
         "mapAcceptance": "pending",
         "runtimeGate": "pending",
         "blendSceneAudit": {

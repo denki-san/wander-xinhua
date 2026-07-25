@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "assetId": "one-step-garden",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-25T20:21:11+08:00",
+  "reviewedBy": "main-coordinator",
+  "sourceCheckpoint": "bf07d51",
+  "pipelineOrder": [
+    "evidence-and-brief",
+    "massing-generation",
+    "blender-mcp-massing-review",
+    "three-js-map-calibration",
+    "hero-master-review",
+    "identity-derivation",
+    "three-tier-review",
+    "three-js-runtime-acceptance"
+  ],
+  "massingGate": {
+    "gate": "mcp1-massing-pre-map-calibration",
+    "status": "pass",
+    "interactiveReview": "Blender MCP",
+    "fallbackUsed": false,
+    "editableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/one-step-garden-massing.blend",
+      "sha256": "a4c0e0fba996f139a88344b6f39a8a2509326ba7018206dc888231fab6474388"
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb",
+      "sha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+      "bytes": 18316
+    },
+    "generator": {
+      "path": "scripts/create_one_step_garden_massing_model.py",
+      "sha256": "41a6e2190730ad54cb7dd269d3109049092f12b1f450559a55829b6b59e3f0e3"
+    },
+    "buildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/one-step-garden-massing.json"
+    },
+    "sceneInspection": {
+      "rootObject": "one-step-garden-massing",
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1],
+      "meshObjects": 1,
+      "materials": 3,
+      "images": 0,
+      "draws": 3,
+      "boundsBlender": {
+        "min": [-7.25, -6.9, 0],
+        "max": [7.25, 9.325, 6.25]
+      },
+      "frontDirection": "-Y",
+      "groundDatum": 0,
+      "authoredMetersPerSceneUnit": 2.7
+    },
+    "humanScale": {
+      "heightMeters": 1.8,
+      "heightSceneUnits": 0.666667,
+      "proxyPosition": [4.6, -7.4],
+      "proxyZRange": [0, 0.666667],
+      "temporaryProxyOnly": true,
+      "savedToMaster": false,
+      "storeyComparison": "pass-proxy-is-about-half-of-one-1.333-unit-storey"
+    },
+    "qaRig": {
+      "renderEngine": "EEVEE",
+      "resolution": [1024, 768],
+      "groundZ": -0.025,
+      "savedToMaster": false,
+      "exportedToGlb": false
+    },
+    "fixedViews": {
+      "canonical": {
+        "cameraType": "ORTHO",
+        "location": [13.5, -23.5, 14],
+        "target": [0, 0, 2.8],
+        "orthoScale": 22,
+        "screenshot": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_canonical.png",
+        "sha256": "7638db186fe140fca82d5efa46778ed6d2395012caa5cb90f954be6243575833",
+        "bytes": 529168
+      },
+      "sideDepth": {
+        "cameraType": "ORTHO",
+        "location": [-22, -4, 15.5],
+        "target": [0, 2, 2.8],
+        "orthoScale": 22,
+        "screenshot": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_side-depth.png",
+        "sha256": "11b1a0af219737a85293c25dfa14ae279a98dead9b2bce7b339a4dee66e135c2",
+        "bytes": 530488
+      },
+      "entranceScale": {
+        "cameraType": "ORTHO",
+        "location": [7, -18.5, 8.5],
+        "target": [0, -2.5, 2.2],
+        "orthoScale": 14.5,
+        "screenshot": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_entrance-scale.png",
+        "sha256": "8ac184b7cb22b49eb5ac437443a8b686fdb6d8d109d4436a55bd29ce954d5059",
+        "bytes": 561350
+      },
+      "streetScale": {
+        "cameraType": "ORTHO",
+        "location": [8.5, -25, 5.4],
+        "target": [0, -0.4, 2.65],
+        "orthoScale": 18,
+        "screenshot": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_street-scale.png",
+        "sha256": "a75bf99b7de1d77374202816c20ebe44ae5600b45249f3fa112428bc0d71af6b",
+        "bytes": 493061
+      }
+    },
+    "checks": {
+      "groundContact": "pass-z-zero-datum",
+      "rootTransform": "pass-normalized",
+      "humanScale": "pass",
+      "volumeHierarchy": "pass-front-u-courtyard-and-separate-rear-volume",
+      "frontSteepGables": "pass-readable",
+      "frontShedDormer": "pass-readable",
+      "rearTwinGables": "pass-readable",
+      "rearChimneys": "pass-two-readable",
+      "frontRearGap": "pass-open-and-readable",
+      "entrance": "pass-open-canopy-and-posts",
+      "visibleIntersections": "pass-no-unintended-clipping-in-fixed-views",
+      "texturePolicy": "pass-zero-images"
+    },
+    "acceptedInteractiveChanges": [],
+    "generatorRoundTrip": {
+      "status": "not-required",
+      "note": "MCP1 仅增加临时正交相机、灯光、地面和1.8米人物代理；没有接受几何、材质或 transform 修改，QA rig 未保存或导出。"
+    },
+    "nextGate": "three-js-massing-map-calibration"
+  },
+  "mapGate": {
+    "gate": "three-js-massing-map-calibration",
+    "status": "pending",
+    "fixedEntry": "/?start=garden179&qaModelTier=massing",
+    "movementAuthorized": false,
+    "frozenPlacement": {
+      "position": [60.86, 120.73],
+      "yaw": -0.38,
+      "scale": 0.88
+    }
+  },
+  "heroGate": {
+    "status": "blocked-until-map-gate-pass"
+  },
+  "identityGate": {
+    "status": "blocked-until-reviewed-hero-master"
+  },
+  "threeTierGate": {
+    "status": "pending"
+  }
+}
