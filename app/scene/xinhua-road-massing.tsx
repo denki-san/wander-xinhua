@@ -1,15 +1,20 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { Suspense, useEffect, useMemo } from "react";
 import { BoxGeometry } from "three";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
+import { ProgressiveFeatureBoundary } from "../progressive-feature-boundary";
 import { terrainHeightAt } from "./terrain";
 import {
   XINHUA_ROAD_LANDMARKS,
   type LandmarkPlacement,
 } from "./xinhua-road-contract";
 import { xinhuaRoadIdentityKind } from "./xinhua-road-identity-contract";
-import { ShanghaiCinemaHybridIdentity } from "./shanghai-cinema-hybrid-identity";
+import {
+  SHANGHAI_CINEMA_MASSING_MODEL,
+  ShanghaiCinemaHybridIdentity,
+  ShanghaiCinemaMassingGlb,
+} from "./shanghai-cinema-hybrid-identity";
 
 const IDENTITY_COLORS = [
   "#e8dfcf",
@@ -602,6 +607,29 @@ export function LandmarkProgressiveProxy({
   landmark: LandmarkPlacement;
   identity: boolean;
 }) {
+  if (!identity && landmark.id === "shanghai-cinema") {
+    return (
+      <group
+        name="shanghai-cinema-progressive-proxy"
+        userData={{
+          building: landmark.id,
+          stage: "massing",
+          overviewRepresentation: "formal-evidence-massing-glb",
+          progressive: true,
+          fullScaleMassing: true,
+        }}
+      >
+        <ProgressiveFeatureBoundary
+          resetKey={SHANGHAI_CINEMA_MASSING_MODEL}
+          fallback={null}
+        >
+          <Suspense fallback={null}>
+            <ShanghaiCinemaMassingGlb />
+          </Suspense>
+        </ProgressiveFeatureBoundary>
+      </group>
+    );
+  }
   if (identity && landmark.id === "shanghai-cinema") {
     return (
       <group
