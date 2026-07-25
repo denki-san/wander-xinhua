@@ -138,6 +138,7 @@
       "id": "villa-le-bec",
       "label": "Villa Le Bec",
       "tests": [
+        "tests/test_building_massing_qa_contract.test.mjs",
         "tests/test_villa_le_bec_massing_checkpoint.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -146,7 +147,8 @@
         "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb"
       ],
       "runtimeRoutes": [
-        "/?start=villa-le-bec&cameraQa=1&qaAutoStart=1"
+        "/?start=villa-le-bec&cameraQa=1&qaAutoStart=1",
+        "/?start=villa-le-bec&qaModelId=villa-le-bec&qaModelTier=massing&cameraQa=1&qaAutoStart=1"
       ]
     },
     {

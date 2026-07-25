@@ -116,7 +116,7 @@ test("Villa Le Bec 本地小红书证据逐图可回溯且不进入 GLB", async 
   assert.equal(record.glb.images, 0);
 });
 
-test("Villa Le Bec 新 GLB 不继承旧 runtime pass，MCP1 与正式地图门留给主窗口", async () => {
+test("Villa Le Bec 当前 GLB 通过主窗口 MCP1/加载门，但地图冲突继续阻止推广", async () => {
   const gate = await readJson("docs/research/villa-le-bec-massing-map-gate.json");
   const record = await readJson(
     "docs/research/build-records/tiers/xinhua-road/massing-v2/villa-le-bec-massing.json",
@@ -124,14 +124,17 @@ test("Villa Le Bec 新 GLB 不继承旧 runtime pass，MCP1 与正式地图门�
 
   assert.equal(gate.massingGate.headlessBuild, "pass");
   assert.equal(gate.massingGate.fixedViewReview, "pass-canonical-side-entrance");
-  assert.equal(gate.massingGate.mcp1, "pending-main-window-batch");
-  assert.equal(gate.massingGate.mcpPerformedInThisCheckpoint, false);
+  assert.equal(gate.massingGate.mcp1, "pass-current-sha-visual-and-structure");
+  assert.equal(gate.massingGate.mcpPerformedInThisCheckpoint, true);
+  assert.equal(gate.massingGate.mcpReview.captures.length, 3);
   assert.equal(gate.massingGate.identityDerived, false);
   assert.equal(gate.verdict.runtimePassInheritedFromRecovery, false);
-  assert.equal(gate.verdict.mapAcceptance, "pending-main-window-runtime");
+  assert.equal(gate.verdict.runtimeAssetVisibility, "pass-current-v3");
+  assert.equal(gate.verdict.mapAcceptance, "blocked");
   assert.equal(gate.verdict.heroOrIdentityAuthorized, false);
-  assert.equal(record.runtimeGate, "pending-new-glb-main-window-integration");
-  assert.equal(record.mapAcceptance, "pending-main-window-runtime");
+  assert.equal(record.mcp1.status, "pass-current-sha-visual-and-structure");
+  assert.equal(record.runtimeGate, "pass-current-v3-load-and-visibility-map-rejected");
+  assert.equal(record.mapAcceptance, "blocked-road-setback-and-house315-overlap");
   assert.equal(record.identityAllowed, false);
   assert.equal(record.collisionCandidate.proposedLocalObstacles.length, 2);
   assert.ok(

@@ -8095,3 +8095,123 @@ Use tab.cua.type(...) or tab.cua.keypress(...) instead.
 - **Resolved**: 2026-07-26T02:05:00+08:00
 - **Notes**: CUA 脉冲回放确认角色在主墙前 Z=80.7343439014611 停止，继续输入只沿墙
   横向滑动，未穿透碰撞体。
+
+---
+## [ERR-20260726-073] blender_mcp_eevee_engine_identifier_differs
+
+**Logged**: 2026-07-26T02:24:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: blender-mcp
+
+### Summary
+Villa Le Bec MCP1 临时固定机位脚本首次使用 `BLENDER_EEVEE_NEXT`，当前 MCP
+连接的 Blender 只接受 `BLENDER_EEVEE`、`BLENDER_WORKBENCH` 或 `CYCLES`。
+
+### Error
+```text
+enum "BLENDER_EEVEE_NEXT" not found in
+('BLENDER_EEVEE', 'BLENDER_WORKBENCH', 'CYCLES')
+```
+
+### Context
+- 错误发生在建立 QA collection 前，没有修改或保存 `.blend` / `.glb`。
+- Headless 固定预览与候选二进制未受影响。
+
+### Suggested Fix
+MCP 渲染脚本先读取或使用当前实例支持的 `BLENDER_EEVEE` 标识，不假定 Blender
+版本对应的 engine enum。
+
+### Resolution
+- **Resolved**: 2026-07-26T02:25:00+08:00
+- **Notes**: 改用 `BLENDER_EEVEE` 后，Villa 与 Xinhua Villas 329 的 MCP1
+  固定机位截图均成功生成。
+
+---
+## [ERR-20260726-074] map_meta_uses_center_wgs84
+
+**Logged**: 2026-07-26T02:32:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: map-calibration
+
+### Summary
+首次投影 OSM footprint 的只读 Node 脚本误读 `map.meta.center`，当前地图契约实际
+使用 `map.meta.centerWgs84`。
+
+### Error
+```text
+TypeError: Cannot read properties of undefined (reading '0')
+```
+
+### Context
+- 脚本只读取本地 JSON，没有写入地图或建筑文件。
+- 失败发生在计算开始前，没有产生错误位置结果。
+
+### Suggested Fix
+所有 WGS84 → scene 投影复用 `centerWgs84`、`metersPerSceneUnit` 和生产生成器中的
+同一公式。
+
+### Resolution
+- **Resolved**: 2026-07-26T02:33:00+08:00
+- **Notes**: 修正字段后，Villa Le Bec v3 两个 footprint 与 OSM `864493176/175`
+  的投影 bounds 在约 0.05 scene unit 内吻合，并暴露了旧 House315 包络的交叉占位。
+
+---
+## [ERR-20260726-075] in_app_browser_tab_has_no_evaluate_method
+
+**Logged**: 2026-07-26T02:39:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-runtime-qa
+
+### Summary
+真实页面验收时尝试调用 `tab.evaluate(...)`，当前 in-app Browser 的 Tab 对象不提供
+该方法。
+
+### Error
+```text
+TypeError: tabHouse.evaluate is not a function
+```
+
+### Context
+- 失败发生在只读查询页面 dataset 前，没有点击、输入或修改页面状态。
+- 浏览器连接和 QA 页面仍保持有效。
+
+### Suggested Fix
+通过 Tab 取得 CDP capability，再用 `Runtime.evaluate` 执行只读页面查询。
+
+### Resolution
+- **Resolved**: 2026-07-26T02:40:00+08:00
+- **Notes**: 改用 `houseCdpCap.send("Runtime.evaluate", ...)` 后取得当前 Villa
+  QA 数据；控制台缓冲复核为 0 条事件。
+
+---
+## [ERR-20260726-076] sibling_worktree_rebase_requires_git_metadata_permission
+
+**Logged**: 2026-07-26T03:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: git-worktree
+
+### Summary
+新华别墅211号独立 Worktree 在 sandbox 内执行 `git rebase` 时，无法写入主仓
+`.git/worktrees/.../rebase-merge` 元数据。
+
+### Error
+```text
+Operation not permitted: .git/worktrees/.../rebase-merge
+```
+
+### Context
+- 建筑文件尚未修改，失败没有造成提交或工作树丢失。
+- 原证据阻断提交随后被 Git 判断为主集成已包含等价 patch 并正常 skip。
+
+### Suggested Fix
+独立 Worktree 的 rebase 若命中 Git 元数据写权限，应使用受控的 `git rebase`
+escalation，不要绕过 `.git/worktrees` 或手工搬动元数据。
+
+### Resolution
+- **Resolved**: 2026-07-26T03:01:00+08:00
+- **Notes**: 受控 rebase 成功，建筑分支已对齐 `codex/integrate-18-buildings`；
+  Recovery/Hold 与其他建筑 Worktree 均未改动。

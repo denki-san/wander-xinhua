@@ -4,7 +4,7 @@
   "assetId": "building:xinhua-road:villa-le-bec",
   "tier": "massing",
   "batch": "evidence-bound-two-building-v3",
-  "status": "headless-built-evidence-pass-awaiting-main-window-mcp1-and-runtime-map",
+  "status": "mcp1-pass-runtime-render-pass-map-blocked",
   "sourceCheckpoint": "468daf12341ebccd44ae6c681c3c46120bc97592",
   "worktreeBase": "222e7eb",
   "supersedesRecoveryGlbSha256": "8eabb87a0208294c226ecea5077f9833eceb885c2796ea00af88cab9172e96ec",
@@ -181,9 +181,32 @@
     "status": "pass"
   },
   "headlessPreviewGate": "pass-three-fixed-views",
-  "mcp1": "pending-main-window-batch",
-  "runtimeGate": "pending-new-glb-main-window-integration",
-  "mapAcceptance": "pending-main-window-runtime",
+  "mcp1": {
+    "status": "pass-current-sha-visual-and-structure",
+    "reviewedAt": "2026-07-26",
+    "reviewedBy": "main-window-xhigh-final-review",
+    "interactiveReview": "Blender MCP",
+    "runtimeGlbSha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f",
+    "captures": [
+      {
+        "view": "canonical",
+        "path": "test_artifacts/all-models/massing-v2/villa-le-bec/test_villa-le-bec-massing_mcp1_canonical.png",
+        "sha256": "c4dafa4c5b59e9ca2a937133dfb08822c14a9f2b31ec042b6014560ff42f40ac"
+      },
+      {
+        "view": "entrance-scale",
+        "path": "test_artifacts/all-models/massing-v2/villa-le-bec/test_villa-le-bec-massing_mcp1_entrance-scale.png",
+        "sha256": "9a0a8152f98956fb1504cbac64af5b5f14e184d4e65903ef29c5e7504a5ae35e"
+      },
+      {
+        "view": "side-depth",
+        "path": "test_artifacts/all-models/massing-v2/villa-le-bec/test_villa-le-bec-massing_mcp1_side-depth.png",
+        "sha256": "8a6bb3a4127ed5d72c46c593424824efd89c04f4b9ec09a1d3025e22b504072e"
+      }
+    ]
+  },
+  "runtimeGate": "pass-current-v3-load-and-visibility-map-rejected",
+  "mapAcceptance": "blocked-road-setback-and-house315-overlap",
   "identityAllowed": false,
   "mapGateRecord": "docs/research/villa-le-bec-massing-map-gate.json"
 }
