@@ -61,11 +61,19 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
     /const OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET = OVERVIEW_CHARACTER_SCALE \* 0\.26/,
   );
   assert.match(world, /const OVERVIEW_MOVE_SPEED = 94/);
-  assert.match(world, /const OVERVIEW_CAMERA_FILL = 0\.24/);
+  assert.match(world, /const OVERVIEW_CAMERA_FILL = 0\.215/);
+  assert.match(world, /const OVERVIEW_CAMERA_PORTRAIT_FILL = 0\.16/);
+  assert.match(world, /const OVERVIEW_CAMERA_FOCUS_LIMIT = 0\.42/);
   assert.match(world, /function OverviewCamera/);
   assert.match(
     world,
     /\.copy\(focus\.current\)\s*\.addScaledVector\(WORLD_UP, OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET\)/,
+  );
+  assert.match(world, /XINHUA_BOUNDS\.minX \* OVERVIEW_CAMERA_FOCUS_LIMIT/);
+  assert.match(world, /XINHUA_BOUNDS\.maxZ \* OVERVIEW_CAMERA_FOCUS_LIMIT/);
+  assert.match(
+    world,
+    /perspective\.aspect < 0\.7[\s\S]*?\? OVERVIEW_CAMERA_PORTRAIT_FILL[\s\S]*?: OVERVIEW_CAMERA_FILL/,
   );
   assert.match(world, /cameraFocus\.current\.copy\(position\.current\)/);
   assert.match(world, /<OverviewCamera active=\{overview\} focus=\{overviewCameraFocus\} \/>/);
@@ -110,8 +118,10 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.doesNotMatch(world, /overview-poi-label|OVERVIEW_POI_LABEL_OFFSETS/);
   assert.match(
     world,
-    /\{near && \(\s*<mesh rotation-x=\{Math\.PI \/ 2\}>[\s\S]*?<torusGeometry args=\{\[8\.8, 1\.25, 10, 42\]\}/,
+    /\{near && \(\s*<group name=\{`overview-poi-highlight-\$\{poi\.id\}`\}>[\s\S]*?<mesh rotation-x=\{Math\.PI \/ 2\}>[\s\S]*?<torusGeometry args=\{\[8\.8, 1\.25, 10, 42\]\}[\s\S]*?<coneGeometry args=\{\[2\.8, 7\.2, 8\]\}/,
   );
+  assert.match(world, /dataset\.overviewQaActiveMarkers = String\(activeMarkers\)/);
+  assert.match(world, /dataset\.overviewQaPlayer = \[/);
   assert.doesNotMatch(shangsheng, /useGLTF\.preload/);
   assert.match(world, /scale=\{OVERVIEW_CHARACTER_SCALE\}/);
   assert.match(

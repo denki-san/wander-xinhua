@@ -9,7 +9,6 @@ import { basename, dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import {
   BufferGeometry,
-  DoubleSide,
   Float32BufferAttribute,
   Mesh,
   MeshStandardMaterial,
@@ -22,6 +21,11 @@ import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js";
 import mapData from "../app/scene/xinhua-map-data.json" with { type: "json" };
 import landmarkData from "../app/scene/xinhua-landmarks-data.json" with { type: "json" };
 import replacementData from "../app/scene/overview-district-massing-replacements.json" with { type: "json" };
+import {
+  isSurfaceRoad,
+  ROADS,
+  roadWidth,
+} from "../app/scene/road-surface-contract.ts";
 import { terrainHeightAt } from "../app/scene/terrain.ts";
 
 const SCRIPT_PATH = fileURLToPath(import.meta.url);
@@ -41,10 +45,14 @@ const RELATION_ID = 13469094;
 const OSM_AREA_ID = 3_600_000_000 + RELATION_ID;
 const HEIGHT_BANDS = ["low", "mid", "high"];
 const MATERIAL_COLORS = {
-  low: "#eee8db",
-  mid: "#e3ded2",
-  high: "#d6d2c8",
+  low: "#c4c1b5",
+  mid: "#bdbbb0",
+  high: "#b6b4aa",
 };
+const MATERIAL_OPACITY = 0.58;
+const ROAD_BUILDING_CLEARANCE = 0.18;
+const ROAD_SETBACK_MIN_SCALE = 0.58;
+const ROAD_SETBACK_HIGHWAYS = /^(trunk|primary|secondary|tertiary|residential)/;
 const RUNTIME_BUDGETS = {
   maxBytes: 3_000_000,
   maxMeshes: 12,
@@ -170,6 +178,185 @@ function orientation(a, b, c) {
 function segmentsIntersect(a, b, c, d) {
   return orientation(a, b, c) !== orientation(a, b, d)
     && orientation(c, d, a) !== orientation(c, d, b);
+}
+
+function pointToSegmentDistance(point, start, end) {
+  const dx = end[0] - start[0];
+  const dz = end[1] - start[1];
+  const lengthSquared = dx * dx + dz * dz;
+  const t = lengthSquared === 0 ? 0 : Math.min(1, Math.max(0, (
+    (point[0] - start[0]) * dx + (point[1] - start[1]) * dz
+  ) / lengthSquared));
+  return Math.hypot(
+    point[0] - (start[0] + dx * t),
+    point[1] - (start[1] + dz * t),
+  );
+}
+
+function segmentDistance(leftStart, leftEnd, rightStart, rightEnd) {
+  if (segmentsIntersect(leftStart, leftEnd, rightStart, rightEnd)) return 0;
+  return Math.min(
+    pointToSegmentDistance(leftStart, rightStart, rightEnd),
+    pointToSegmentDistance(leftEnd, rightStart, rightEnd),
+    pointToSegmentDistance(rightStart, leftStart, leftEnd),
+    pointToSegmentDistance(rightEnd, leftStart, leftEnd),
+  );
+}
+
+const ROAD_SETBACK_SEGMENTS = ROADS
+  .filter((road) => (
+    isSurfaceRoad(road)
+    && !road.bridge
+    && ROAD_SETBACK_HIGHWAYS.test(road.highway)
+  ))
+  .flatMap((road) => {
+    const clearance = roadWidth(road)
+      * (road.highway.endsWith("_link") ? 0.78 : 1)
+      / 2
+      + ROAD_BUILDING_CLEARANCE;
+    return road.points.slice(1).map((end, index) => {
+      const start = road.points[index];
+      return {
+        roadId: road.id,
+        roadName: road.name || null,
+        highway: road.highway,
+        start,
+        end,
+        clearance,
+        minX: Math.min(start[0], end[0]) - clearance,
+        maxX: Math.max(start[0], end[0]) + clearance,
+        minZ: Math.min(start[1], end[1]) - clearance,
+        maxZ: Math.max(start[1], end[1]) + clearance,
+      };
+    });
+  });
+
+function ringBounds(ring) {
+  return ring.reduce((bounds, [x, z]) => ({
+    minX: Math.min(bounds.minX, x),
+    maxX: Math.max(bounds.maxX, x),
+    minZ: Math.min(bounds.minZ, z),
+    maxZ: Math.max(bounds.maxZ, z),
+  }), {
+    minX: Infinity,
+    maxX: -Infinity,
+    minZ: Infinity,
+    maxZ: -Infinity,
+  });
+}
+
+function ringConflictsWithRoadSegment(ring, bounds, segment) {
+  if (
+    bounds.maxX < segment.minX
+    || bounds.minX > segment.maxX
+    || bounds.maxZ < segment.minZ
+    || bounds.minZ > segment.maxZ
+  ) return false;
+  const midpoint = [
+    (segment.start[0] + segment.end[0]) / 2,
+    (segment.start[1] + segment.end[1]) / 2,
+  ];
+  if (
+    pointInPolygon(segment.start, ring)
+    || pointInPolygon(segment.end, ring)
+    || pointInPolygon(midpoint, ring)
+  ) return true;
+  for (let index = 0; index < ring.length; index += 1) {
+    if (segmentDistance(
+      ring[index],
+      ring[(index + 1) % ring.length],
+      segment.start,
+      segment.end,
+    ) < segment.clearance) return true;
+  }
+  return false;
+}
+
+function roadConflicts(ring, candidates = ROAD_SETBACK_SEGMENTS) {
+  const bounds = ringBounds(ring);
+  return candidates.filter((segment) => (
+    ringConflictsWithRoadSegment(ring, bounds, segment)
+  ));
+}
+
+export function auditRoadSetbacks(records) {
+  return records.flatMap((record) => roadConflicts(record.outer).map((segment) => ({
+    buildingId: record.assetId,
+    roadId: segment.roadId,
+    roadName: segment.roadName,
+    highway: segment.highway,
+  })));
+}
+
+function scaleRingFromCentroid(ring, centroid, scale) {
+  return ring.map(([x, z]) => [
+    centroid[0] + (x - centroid[0]) * scale,
+    centroid[1] + (z - centroid[1]) * scale,
+  ]);
+}
+
+function summarizeRoadConflicts(conflicts) {
+  return [...new Map(conflicts.map((segment) => [
+    segment.roadId,
+    {
+      roadId: segment.roadId,
+      name: segment.roadName,
+      highway: segment.highway,
+      clearanceSceneUnits: round(segment.clearance, 3),
+    },
+  ])).values()].sort((left, right) => left.roadId.localeCompare(right.roadId));
+}
+
+function resolveRoadSetback(outer, holes, centroid) {
+  const conflicts = roadConflicts(outer);
+  if (!conflicts.length) {
+    return {
+      outer,
+      holes,
+      applied: false,
+      scale: 1,
+      roads: [],
+    };
+  }
+  const roads = summarizeRoadConflicts(conflicts);
+  if (conflicts.some((segment) => (
+    pointToSegmentDistance(centroid, segment.start, segment.end) <= segment.clearance
+  ))) {
+    return {
+      rejected: true,
+      rejectionReason: "centroid-inside-road-corridor",
+      scale: 0,
+      roads,
+    };
+  }
+
+  let validScale = 0;
+  let invalidScale = 1;
+  for (let iteration = 0; iteration < 20; iteration += 1) {
+    const candidateScale = (validScale + invalidScale) / 2;
+    const candidate = scaleRingFromCentroid(outer, centroid, candidateScale);
+    if (roadConflicts(candidate, conflicts).length) {
+      invalidScale = candidateScale;
+    } else {
+      validScale = candidateScale;
+    }
+  }
+  const scale = Math.max(0, validScale - 0.002);
+  if (scale < ROAD_SETBACK_MIN_SCALE) {
+    return {
+      rejected: true,
+      rejectionReason: "below-minimum-retained-scale",
+      scale,
+      roads,
+    };
+  }
+  return {
+    outer: scaleRingFromCentroid(outer, centroid, scale),
+    holes: holes.map((hole) => scaleRingFromCentroid(hole, centroid, scale)),
+    applied: true,
+    scale,
+    roads,
+  };
 }
 
 function polygonsIntersect(left, right) {
@@ -390,8 +577,8 @@ function appendBuildingGeometry(accumulator, record) {
   for (const face of faces) {
     accumulator.indices.push(
       topVertexOffset + face[0],
-      topVertexOffset + face[1],
       topVertexOffset + face[2],
+      topVertexOffset + face[1],
     );
   }
 
@@ -416,8 +603,8 @@ function appendBuildingGeometry(accumulator, record) {
         accumulator.normals.push(normalX, 0, normalZ);
       }
       accumulator.indices.push(
-        offset, offset + 1, offset + 2,
-        offset, offset + 2, offset + 3,
+        offset, offset + 2, offset + 1,
+        offset, offset + 3, offset + 2,
       );
     }
   }
@@ -471,7 +658,9 @@ async function buildGlb(records) {
       color: MATERIAL_COLORS[band],
       roughness: 0.98,
       metalness: 0,
-      side: DoubleSide,
+      transparent: true,
+      opacity: MATERIAL_OPACITY,
+      depthWrite: true,
     }),
   ]));
   const accumulators = new Map();
@@ -595,10 +784,16 @@ export function compileSourceRecords(raw) {
         rejected.push({ assetId: polygonId, reason: "duplicate-id" });
         continue;
       }
-      const outer = cleanProjectedRing(polygons[polygonIndex].outer);
+      const rawOuter = cleanProjectedRing(polygons[polygonIndex].outer);
+      const outer = rawOuter && polygonSignedArea(rawOuter) < 0
+        ? [...rawOuter].reverse()
+        : rawOuter;
       const holes = polygons[polygonIndex].holes
         .map(cleanProjectedRing)
         .filter(Boolean);
+      for (const hole of holes) {
+        if (polygonSignedArea(hole) > 0) hole.reverse();
+      }
       if (!outer || Math.abs(polygonSignedArea(outer)) < 0.02) {
         rejected.push({ assetId: polygonId, reason: "degenerate-ring" });
         continue;
@@ -619,6 +814,17 @@ export function compileSourceRecords(raw) {
         });
         continue;
       }
+      const roadSetback = resolveRoadSetback(outer, holes, centroid);
+      if (roadSetback.rejected) {
+        rejected.push({
+          assetId: polygonId,
+          reason: "road-setback-unresolvable",
+          roadSetbackReason: roadSetback.rejectionReason,
+          roadSetbackScale: round(roadSetback.scale, 4),
+          roadSetbackRoads: roadSetback.roads,
+        });
+        continue;
+      }
       const footprintArea = Math.max(
         0,
         Math.abs(polygonSignedArea(outer))
@@ -631,10 +837,15 @@ export function compileSourceRecords(raw) {
         osmId: element.id,
         sourceSnapshot: null,
         buildingType: element.tags.building,
-        outer: outer.map(([x, z]) => [round(x), round(z)]),
-        holes: holes.map((hole) => hole.map(([x, z]) => [round(x), round(z)])),
+        outer: roadSetback.outer.map(([x, z]) => [round(x), round(z)]),
+        holes: roadSetback.holes.map((hole) => (
+          hole.map(([x, z]) => [round(x), round(z)])
+        )),
         centroid: centroid.map((value) => round(value)),
         footprintAreaSceneUnits: round(footprintArea, 3),
+        roadSetbackApplied: roadSetback.applied,
+        roadSetbackScale: round(roadSetback.scale, 4),
+        roadSetbackRoads: roadSetback.roads,
         heightMeters: round(height.heightMeters, 2),
         heightSceneUnits: round(height.heightMeters / mapData.meta.metersPerSceneUnit, 4),
         heightSource: height.heightSource,
@@ -847,6 +1058,10 @@ async function run() {
       heightProvenance: countBy(compiled.accepted, "heightSource"),
       heightBands: countBy(compiled.accepted, "heightBand"),
       replacementExclusions: countBy(compiled.excluded, "replacementPoiId"),
+      roadSetbackAdjusted: compiled.accepted
+        .filter((record) => record.roadSetbackApplied).length,
+      roadSetbackRejected: compiled.rejected
+        .filter((record) => record.reason === "road-setback-unresolvable").length,
     },
     budgets: RUNTIME_BUDGETS,
     deterministicReplay: {
@@ -860,6 +1075,7 @@ async function run() {
       collisionObjects: 0,
       raycastObjects: 0,
       castShadow: false,
+      opacity: MATERIAL_OPACITY,
       fallback: "existing-overview",
     },
   };

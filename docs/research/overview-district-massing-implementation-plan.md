@@ -304,44 +304,72 @@ The local version passes only when all conditions hold:
 
 Implementation completed on 2026-07-25 in
 `codex/overview-district-massing`. The preserved source snapshot contains 878
-OSM building ways. The deterministic compiler accepted 774, excluded 104 under
-the authored-area replacement registry, rejected 0 and found no
-`building:part` elements in this exact administrative-area snapshot.
+OSM building ways. After the visual-review correction, the deterministic
+compiler accepts 730, excludes 104 under the authored-area replacement registry
+and rejects 44 footprints that cannot clear a rendered public-road corridor
+without either moving their geolocated centroid or retaining less than 58% of
+their original footprint. There are no `building:part` elements in this exact
+administrative-area snapshot.
 
-The generated GLB is 720,496 bytes with 10 meshes, 3 materials, 0 images, 0
-textures and 12,483 triangles. Its SHA-256 is
-`3c8b19a242bd1b6070bd31f6259f6e742298c749a72dfdece32e7900c63a4415`.
-Height provenance is 11 `osm-levels` and 763 `heuristic`; there are no direct
+The generated GLB is 680,384 bytes with 10 meshes, 3 materials, 0 images, 0
+textures and 11,779 triangles. Its SHA-256 is
+`b61cec4fc93e5326f87845f022abf92008c8254c78bfd95de8ea1e19d4f11dea`.
+Height provenance is 11 `osm-levels` and 719 `heuristic`; there are no direct
 OSM `height` values in the accepted set. These facts are intentionally exposed
 in the build record rather than presented as survey accuracy.
 
-Production static-browser acceptance used the same overview camera with the
-district enabled and `district=off`:
+### Visual-review corrections
+
+- Generic massing uses a muted warm-grey three-band palette at `0.58` opacity.
+  It is a context layer below the authored buildings rather than a competing
+  landmark layer.
+- Roof and wall triangle winding is normalized and audited against exported
+  normals. The material can therefore remain single-sided; this avoids the
+  doubled draw calls and triangle submissions caused by transparent
+  `DoubleSide`.
+- POI ring and triangle are both proximity-only. A quiet southwest QA start
+  reports `0` active highlights; the reviewed POI starts report exactly `1`.
+- Buildings and roads already shared the same WGS84 origin, degree-to-metre
+  conversion and `2.7 m` scene scale. The overlap was caused by the compiler
+  ignoring rendered road width, not by a second coordinate system.
+- The compiler now uses the runtime road-width contract plus a clearance. It
+  preserves each footprint centroid and scales only conflicting generic
+  footprints. Across the district, 110 are adjusted and 44 are rejected. Along
+  幸福路, 16 are adjusted and 5 rejected; along 法华镇路, 11 are adjusted and
+  9 rejected. The accepted dataset has zero remaining public-road-corridor
+  conflicts under the shared runtime contract.
+- The apparent empty lower-left region combines the official relation's
+  diagonal boundary with an overview camera that formerly followed the player
+  beyond that boundary. The implementation does not invent buildings outside
+  the relation. It instead limits edge-following and uses a closer portrait
+  fill (`0.16` versus desktop `0.215`) so mobile does not spend the bottom of
+  the screen on empty background.
+- Deterministic browser QA starts were added for `xingfu-road`,
+  `fahuazhen-road` and `quiet-southwest`, gated behind `overview-qa=1`.
+
+Final desktop same-camera production-static sampling reports:
 
 | Viewport | District | Draw calls | Page triangles | Camera |
 | --- | --- | ---: | ---: | --- |
-| 1440 × 1024 | off | 1,836 | 268,729 | `284.483,216.761,190.721` |
-| 1440 × 1024 | on | 1,846 | 281,212 | `284.483,216.761,190.721` |
-| 390 × 844 | off | 1,797 | 267,805 | `463.430,427.919,369.669` |
-| 390 × 844 | on | 1,806 | 280,260 | `463.430,427.919,369.669` |
+| 1440 × 1024 | off | 1,819 | 268,471 | `265.960,194.905,172.199` |
+| 1440 × 1024 | on | 1,829 | 280,250 | `265.960,194.905,172.199` |
 
-The district therefore adds exactly 12,483 page triangles and at most 10 draw
-calls at the reviewed cameras. Desktop production sampling after 30 warm-up
-frames measured 120 frames at 17.34 ms average / 21.9 ms P95; mobile measured
-14.92 ms average / 19.6 ms P95. These are local-machine observations, not a
-claim of performance improvement.
+The final district therefore adds exactly 11,779 page triangles and 10 draw
+calls at the reviewed desktop camera. After 30 warm-up frames, the 120-frame
+production sample measured 8.89 ms average / 11.9 ms P95. The final desktop
+page reported no console errors. The 390 × 844 portrait composition was also
+reviewed after the material, road and camera corrections; its bottom empty
+area was materially reduced. Timing observations are local-machine evidence,
+not a claim of performance improvement.
 
-The standard-network production request returned HTTP 200 with
-`Content-Length: 720496`. The weak-network production session reached
-`playable`, did not mount the district and recorded zero matching GLB requests.
-Entering Xingfuli set the district QA state to `inactive`; returning to overview
-remounted it. Headless production browser error output was empty, OSM
-attribution and the non-survey disclosure remained visible, and the runtime
-made no Overpass or Nominatim request.
+The weak-network contract remains zero district requests. Entering a POI keeps
+the district inactive and returning to overview remounts it. OSM attribution
+and the non-survey disclosure remain visible, and runtime code makes no
+Overpass or Nominatim request.
 
 Detailed evidence is recorded in
-`docs/research/test_overview_district_massing_runtime_qa.json` and
-`docs/research/assets/overview-district-massing/`.
+`docs/research/test_overview_district_massing_runtime_qa.json` and the
+`test_refined_overview_*.png` files in `docs/research/`.
 
 ## Deferred backlog
 

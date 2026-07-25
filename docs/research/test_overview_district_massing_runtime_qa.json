@@ -2,51 +2,50 @@
   "schemaVersion": 1,
   "acceptedAt": "2026-07-25",
   "scope": "local-production-static",
-  "localUrl": "http://127.0.0.1:3002/?network=standard&quality=high&overview-qa=1",
+  "localUrl": "http://127.0.0.1:4175/?network=standard&overview-qa=1",
   "browser": {
+    "surface": "Codex in-app browser",
     "engine": "Chromium",
     "version": "146.0.0.0",
-    "headlessErrorCount": 0,
-    "headlessConsoleMessageCount": 0
+    "errorCount": 0,
+    "knownWarning": "THREE.Clock deprecation warning; pre-existing and unrelated to district massing"
   },
   "asset": {
     "path": "public/models/overview/xinhua-district-massing.glb",
-    "sha256": "3c8b19a242bd1b6070bd31f6259f6e742298c749a72dfdece32e7900c63a4415",
-    "bytes": 720496,
+    "sha256": "b61cec4fc93e5326f87845f022abf92008c8254c78bfd95de8ea1e19d4f11dea",
+    "bytes": 680384,
     "meshes": 10,
     "materials": 3,
     "images": 0,
     "textures": 0,
-    "triangles": 12483
+    "triangles": 11779,
+    "opacity": 0.58,
+    "doubleSided": false
   },
   "sameCameraComparison": {
     "desktop": {
       "viewport": "1440x1024",
-      "camera": "284.483,216.761,190.721",
+      "camera": "265.960,194.905,172.199",
       "districtOff": {
-        "drawCalls": 1836,
-        "pageTriangles": 268729,
-        "screenshot": "docs/research/assets/overview-district-massing/test_baseline_overview_desktop_1440x1024.png"
+        "drawCalls": 1819,
+        "pageTriangles": 268471,
+        "screenshot": "docs/research/test_refined_baseline_overview_desktop_1440x1024.png"
       },
       "districtOn": {
-        "drawCalls": 1846,
-        "pageTriangles": 281212,
-        "screenshot": "docs/research/assets/overview-district-massing/test_after_overview_desktop_1440x1024.png"
+        "drawCalls": 1829,
+        "pageTriangles": 280250,
+        "screenshot": "docs/research/test_refined_overview_desktop_1440x1024.png"
       }
     },
     "mobile": {
       "viewport": "390x844",
-      "camera": "463.430,427.919,369.669",
-      "districtOff": {
-        "drawCalls": 1797,
-        "pageTriangles": 267805,
-        "screenshot": "docs/research/assets/overview-district-massing/test_baseline_overview_mobile_390x844.png"
-      },
+      "camera": "344.509,287.592,250.747",
       "districtOn": {
-        "drawCalls": 1806,
-        "pageTriangles": 280260,
-        "screenshot": "docs/research/assets/overview-district-massing/test_after_overview_mobile_390x844.png"
-      }
+        "screenshot": "docs/research/test_refined_overview_mobile_390x844.png",
+        "compositionChecked": true,
+        "largeBottomBlankResolved": true
+      },
+      "note": "The portrait visual was checked after material, road and camera corrections. Final single-sided geometry was subsequently verified by exported-face audit and desktop runtime inspection."
     }
   },
   "frameSamples": {
@@ -56,8 +55,8 @@
       "pageVisible": true,
       "warmupFrames": 30,
       "sampleFrames": 120,
-      "averageMs": 17.34,
-      "p95Ms": 21.9
+      "averageMs": 8.89,
+      "p95Ms": 11.9
     },
     "mobile": {
       "viewport": "390x844",
@@ -65,8 +64,8 @@
       "pageVisible": true,
       "warmupFrames": 30,
       "sampleFrames": 120,
-      "averageMs": 14.92,
-      "p95Ms": 19.6
+      "averageMs": 8.33,
+      "p95Ms": 9.1
     },
     "interpretation": "Local-machine observations only; no same-condition timing baseline, so no performance-improvement claim."
   },
@@ -74,8 +73,8 @@
     "standard": {
       "districtGlbRequests": 1,
       "status": 200,
-      "contentLength": 720496,
-      "durationMs": 110.13,
+      "contentLength": 680384,
+      "durationMs": null,
       "runtimeOverpassOrNominatimRequests": 0
     },
     "weak": {
@@ -88,7 +87,36 @@
     "overviewDistrictState": "mounted",
     "enterXingfuliDistrictState": "inactive",
     "returnToOverviewDistrictState": "mounted",
-    "exploreScreenshot": "docs/research/assets/overview-district-massing/test_after_explore_mobile_390x844.png"
+    "activeMarkersNearPoi": 1,
+    "activeMarkersAwayFromPois": 0,
+    "xingfuRoadScreenshot": "docs/research/test_refined_overview_xingfu_road_1440x1024.png",
+    "fahuazhenRoadScreenshot": "docs/research/test_refined_overview_fahuazhen_road_1440x1024.png",
+    "boundaryClampScreenshot": "docs/research/test_refined_overview_boundary_clamp_1440x1024.png"
+  },
+  "roadAlignment": {
+    "projectionContract": "shared WGS84 origin and 2.7 metres per scene unit",
+    "acceptedRoadCorridorConflicts": 0,
+    "adjustedBuildings": 110,
+    "rejectedBuildings": 44,
+    "rejectedByReason": {
+      "belowMinimumRetainedScale": 37,
+      "centroidInsideRoadCorridor": 7
+    },
+    "xingfuRoad": {
+      "adjustedBuildings": 16,
+      "rejectedBuildings": 5,
+      "minimumRetainedScale": 0.5968
+    },
+    "fahuazhenRoad": {
+      "adjustedBuildings": 11,
+      "rejectedBuildings": 9,
+      "minimumRetainedScale": 0.6098
+    }
+  },
+  "geometryAudit": {
+    "roofWindingMatchesNormals": true,
+    "wallWindingMatchesNormals": true,
+    "singleSided": true
   },
   "disclosure": {
     "osmAttributionVisible": true,

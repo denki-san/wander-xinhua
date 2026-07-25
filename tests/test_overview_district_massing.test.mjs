@@ -4,6 +4,7 @@ import { execFile } from "node:child_process";
 import { readFile, stat } from "node:fs/promises";
 import { promisify } from "node:util";
 import test from "node:test";
+import { auditRoadSetbacks } from "../scripts/generate_overview_district_massing.mjs";
 
 const execFileAsync = promisify(execFile);
 
@@ -53,6 +54,28 @@ test("街区体块保留原始 OSM 来源、确定性高度和完整替换追踪
     entry.reason === "authored-replacement"
     && replacements.entries.some((replacement) => replacement.poiId === entry.replacementPoiId)
   )));
+  assert.deepEqual(
+    auditRoadSetbacks(source.acceptedBuildings),
+    [],
+    "通用体块不得进入与运行时同宽的公共道路走廊",
+  );
+  assert.equal(
+    build.counts.roadSetbackAdjusted,
+    source.acceptedBuildings.filter((entry) => entry.roadSetbackApplied).length,
+  );
+  assert.equal(
+    build.counts.roadSetbackRejected,
+    source.rejectedBuildings.filter(
+      (entry) => entry.reason === "road-setback-unresolvable",
+    ).length,
+  );
+  assert.ok(source.rejectedBuildings
+    .filter((entry) => entry.reason === "road-setback-unresolvable")
+    .every((entry) => (
+      ["centroid-inside-road-corridor", "below-minimum-retained-scale"]
+        .includes(entry.roadSetbackReason)
+      && entry.roadSetbackRoads.length > 0
+    )));
 
   for (const building of source.acceptedBuildings) {
     assert.ok(["osm-height", "osm-levels", "heuristic"].includes(building.heightSource));
@@ -92,6 +115,91 @@ test("预编译 GLB 满足移动概览的体积、结构和材质预算", async 
   assert.equal(manifest.weakNetworkPolicy, "skip");
   assert.equal(manifest.collision, false);
   assert.equal(manifest.castShadow, false);
+  assert.equal(build.runtimeContract.opacity, 0.58);
+  assert.ok(json.materials.every((material) => material.alphaMode === "BLEND"));
+  assert.ok(json.materials.every((material) => material.doubleSided !== true));
+  assert.ok(json.materials.every((material) => (
+    material.pbrMetallicRoughness.baseColorFactor[3] === 0.58
+  )));
+
+  let roofTriangles = 0;
+  let wallTriangles = 0;
+  for (const mesh of json.meshes ?? []) {
+    for (const primitive of mesh.primitives ?? []) {
+      const positionAccessor = json.accessors[primitive.attributes.POSITION];
+      const normalAccessor = json.accessors[primitive.attributes.NORMAL];
+      const indexAccessor = json.accessors[primitive.indices];
+      const binaryOffset = 20 + glb.readUInt32LE(12) + 8;
+      const positionView = json.bufferViews[positionAccessor.bufferView];
+      const normalView = json.bufferViews[normalAccessor.bufferView];
+      const indexView = json.bufferViews[indexAccessor.bufferView];
+      const positions = new Float32Array(
+        glb.buffer,
+        glb.byteOffset + binaryOffset + (positionView.byteOffset ?? 0),
+        positionAccessor.count * 3,
+      );
+      const normals = new Float32Array(
+        glb.buffer,
+        glb.byteOffset + binaryOffset + (normalView.byteOffset ?? 0),
+        normalAccessor.count * 3,
+      );
+      const IndexArray = indexAccessor.componentType === 5125 ? Uint32Array : Uint16Array;
+      const indices = new IndexArray(
+        glb.buffer,
+        glb.byteOffset + binaryOffset + (indexView.byteOffset ?? 0),
+        indexAccessor.count,
+      );
+      for (let index = 0; index < indices.length; index += 3) {
+        const ia = indices[index];
+        const ib = indices[index + 1];
+        const ic = indices[index + 2];
+        const isRoof = (
+          normals[ia * 3 + 1] > 0.99
+          && normals[ib * 3 + 1] > 0.99
+          && normals[ic * 3 + 1] > 0.99
+        );
+        const isWall = (
+          Math.abs(normals[ia * 3 + 1]) < 0.01
+          && Math.abs(normals[ib * 3 + 1]) < 0.01
+          && Math.abs(normals[ic * 3 + 1]) < 0.01
+        );
+        assert.ok(isRoof || isWall, "体块只应包含朝上的屋顶或竖直墙面");
+        const ax = positions[ia * 3];
+        const az = positions[ia * 3 + 2];
+        const bx = positions[ib * 3];
+        const bz = positions[ib * 3 + 2];
+        const cx = positions[ic * 3];
+        const cy = positions[ic * 3 + 1];
+        const cz = positions[ic * 3 + 2];
+        const ay = positions[ia * 3 + 1];
+        const by = positions[ib * 3 + 1];
+        const abx = bx - ax;
+        const aby = by - ay;
+        const abz = bz - az;
+        const acx = cx - ax;
+        const acy = cy - ay;
+        const acz = cz - az;
+        const crossX = aby * acz - abz * acy;
+        const crossY = abz * acx - abx * acz;
+        const crossZ = abx * acy - aby * acx;
+        const windingDotNormal = (
+          crossX * normals[ia * 3]
+          + crossY * normals[ia * 3 + 1]
+          + crossZ * normals[ia * 3 + 2]
+        );
+        assert.ok(windingDotNormal > 0, "所有可见面绕序必须与导出的法线一致");
+        if (isRoof) {
+          roofTriangles += 1;
+          const windingY = (bz - az) * (cx - ax) - (bx - ax) * (cz - az);
+          assert.ok(windingY > 0, "屋顶三角面必须朝上，避免背面发黑");
+        } else {
+          wallTriangles += 1;
+        }
+      }
+    }
+  }
+  assert.ok(roofTriangles > 500, "必须审计足够数量的实际屋顶三角面");
+  assert.ok(wallTriangles > 1_000, "必须审计足够数量的实际墙面三角面");
 });
 
 test("同一原始快照离线重放会得到当前 GLB 的相同 SHA", async () => {
@@ -146,6 +254,16 @@ test("运行时只在标准网络 overview 中懒加载且失败不阻断原地�
   assert.match(experience, /全览街区体块为非测绘级近似/);
   assert.match(experience, /\{ready && \(\s*<ProgressiveFeatureBoundary/);
   assert.match(experience, /mode === "intro" && !effectsDisabledForQa/);
+  assert.match(experience, /"xingfu-road": \[139\.4, -98\.5\]/);
+  assert.match(experience, /"fahuazhen-road": \[-131, -36\]/);
+  assert.match(experience, /"quiet-southwest": \[-250, 130\]/);
+  assert.match(experience, /params\.get\("overview-qa"\) !== "1"/);
+  assert.doesNotMatch(world, /#c85f4c/);
+  assert.match(
+    world,
+    /\{near && \([\s\S]*?<torusGeometry[\s\S]*?<coneGeometry[\s\S]*?\)\}/,
+  );
+  assert.match(world, /name=\{`overview-poi-highlight-\$\{poi\.id\}`\}/);
 });
 
 test("需求文档明确冻结首版范围和本地验收边界", async () => {

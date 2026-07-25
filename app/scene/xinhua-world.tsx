@@ -165,7 +165,9 @@ const OVERVIEW_CHARACTER_SCALE = 22;
 const OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET = OVERVIEW_CHARACTER_SCALE * 0.26;
 const OVERVIEW_MOVE_SPEED = 94;
 const OVERVIEW_POI_DISTANCE = 42;
-const OVERVIEW_CAMERA_FILL = 0.24;
+const OVERVIEW_CAMERA_FILL = 0.215;
+const OVERVIEW_CAMERA_PORTRAIT_FILL = 0.16;
+const OVERVIEW_CAMERA_FOCUS_LIMIT = 0.42;
 const BASE_XINGFULI_VERTICAL_SCALE = 0.3;
 const XINGFULI_SURFACE_LOCAL_Y = 0.26;
 const XINGFULI_OSM_POSITION: MapPolygonPoint = [
@@ -1354,17 +1356,24 @@ function OverviewPoiMarkers({ nearPoiId }: { nearPoiId: string | null }) {
         const [x, z] = poi.position;
         const y = terrainHeightAt(x, z) + 1.1;
         return (
-          <group key={poi.id} position={[x, y, z]} scale={near ? 1.18 : 1}>
+          <group
+            key={poi.id}
+            name={`overview-poi-${poi.id}`}
+            position={[x, y, z]}
+            scale={near ? 1.18 : 1}
+          >
             {near && (
-              <mesh rotation-x={Math.PI / 2}>
-                <torusGeometry args={[8.8, 1.25, 10, 42]} />
-                <meshBasicMaterial color="#fff8df" />
-              </mesh>
+              <group name={`overview-poi-highlight-${poi.id}`}>
+                <mesh rotation-x={Math.PI / 2}>
+                  <torusGeometry args={[8.8, 1.25, 10, 42]} />
+                  <meshBasicMaterial color="#fff8df" />
+                </mesh>
+                <mesh position={[0, 4.8, 0]}>
+                  <coneGeometry args={[2.8, 7.2, 8]} />
+                  <meshToonMaterial color="#efbd49" />
+                </mesh>
+              </group>
             )}
-            <mesh position={[0, 4.8, 0]}>
-              <coneGeometry args={[2.8, 7.2, 8]} />
-              <meshToonMaterial color={near ? "#efbd49" : "#c85f4c"} />
-            </mesh>
           </group>
         );
       })}
@@ -1466,6 +1475,15 @@ function OverviewWanderer({
       nearPoi.current = closestId;
       onNearPoiRef.current(closestId);
     }
+    if (
+      typeof document !== "undefined"
+      && new URLSearchParams(window.location.search).get("overview-qa") === "1"
+    ) {
+      document.documentElement.dataset.overviewQaPlayer = [
+        position.current.x,
+        position.current.z,
+      ].map((value) => value.toFixed(3)).join(",");
+    }
   });
 
   return (
@@ -1506,10 +1524,28 @@ function OverviewCamera({
     target
       .copy(focus.current)
       .addScaledVector(WORLD_UP, OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET);
+    // 人物接近不规则行政边界时仍保持在画面内，但限制镜头继续追到边界外，
+    // 避免大半屏只剩没有地图内容的天空背景。
+    target.set(
+      MathUtils.clamp(
+        target.x,
+        XINHUA_BOUNDS.minX * OVERVIEW_CAMERA_FOCUS_LIMIT,
+        XINHUA_BOUNDS.maxX * OVERVIEW_CAMERA_FOCUS_LIMIT,
+      ),
+      target.y,
+      MathUtils.clamp(
+        target.z,
+        XINHUA_BOUNDS.minZ * OVERVIEW_CAMERA_FOCUS_LIMIT,
+        XINHUA_BOUNDS.maxZ * OVERVIEW_CAMERA_FOCUS_LIMIT,
+      ),
+    );
     const perspective = camera as PerspectiveCamera;
     const verticalHalfFov = MathUtils.degToRad(perspective.fov / 2);
     const horizontalHalfFov = Math.atan(Math.tan(verticalHalfFov) * perspective.aspect);
-    const fitDistance = INTRO_MAP_RADIUS * OVERVIEW_CAMERA_FILL
+    const fill = perspective.aspect < 0.7
+      ? OVERVIEW_CAMERA_PORTRAIT_FILL
+      : OVERVIEW_CAMERA_FILL;
+    const fitDistance = INTRO_MAP_RADIUS * fill
       / Math.sin(Math.min(verticalHalfFov, horizontalHalfFov));
     desired.copy(target).addScaledVector(OVERVIEW_CAMERA_DIRECTION, fitDistance);
     camera.position.copy(desired);
@@ -1538,8 +1574,10 @@ function OverviewRuntimeQa({ active }: { active: boolean }) {
     const district = scene.getObjectByName("overview-district-massing");
     if (!active) {
       root.dataset.overviewQaDistrict = district ? "unexpected-mounted" : "inactive";
+      root.dataset.overviewQaActiveMarkers = "0";
       delete root.dataset.overviewQaDistrictBounds;
       delete root.dataset.overviewQaFrameSample;
+      delete root.dataset.overviewQaPlayer;
       frameSample.current = { viewport: "", warmupFrames: 0, deltas: [] };
       return;
     }
@@ -1588,6 +1626,11 @@ function OverviewRuntimeQa({ active }: { active: boolean }) {
     root.dataset.overviewQaTriangles = String(gl.info.render.triangles);
     root.dataset.overviewQaVisibleMeshes = String(visibleMeshes);
     root.dataset.overviewQaDistrict = district ? "mounted" : "missing";
+    let activeMarkers = 0;
+    scene.traverse((object) => {
+      if (object.name.startsWith("overview-poi-highlight-")) activeMarkers += 1;
+    });
+    root.dataset.overviewQaActiveMarkers = String(activeMarkers);
     if (district) {
       bounds.setFromObject(district);
       root.dataset.overviewQaDistrictBounds = [

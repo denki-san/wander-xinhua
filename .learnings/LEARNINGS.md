@@ -1,5 +1,32 @@
 # Learnings
 
+## [LRN-20260725-005] correction
+
+**Logged**: 2026-07-25T15:05:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+全览通用体块不能只以覆盖率、GLB 体积和三角面预算作为验收标准，还必须检查屋顶朝向、主次透明度、POI 标记显隐、道路实际宽度退界和行政边界构图。
+
+### Details
+用户在首版本地验收中指出通用体块屋顶过黑、抢主建筑视觉层级，所有主建筑常驻红色小三角，左下出现大面积空白，并且幸福路、法华镇路附近有通用建筑压到道路。复核发现屋顶顶面索引顺序与向上法线相反，`DoubleSide` 使背面呈现为暗色；POI 圆环受 `near` 控制，但三角原本无条件渲染；OSM 建筑和道路虽然共享同一经纬度投影，生成器却没有按运行时道路 Mesh 宽度留退界；左下空白主要来自不规则行政边界与相机对矩形视口的构图，而非原始数据缺页。
+
+### Suggested Action
+通用城市场景的自动合同增加实际 GLB 屋顶绕序、材质 alpha、所有已接纳建筑与运行时道路走廊零相交审计；浏览器验收必须同时覆盖主建筑近距高亮和远处标记隐藏、指定道路、桌面与手机构图。对边界外空白优先调整相机填充，不伪造行政区外建筑。
+
+### Metadata
+- Source: user_feedback
+- Related Files: scripts/generate_overview_district_massing.mjs, app/scene/xinhua-world.tsx, tests/test_overview_district_massing.test.mjs
+- Tags: district-massing, roof-winding, opacity, poi-marker, road-setback, overview-framing
+
+### Resolution
+- **Resolved**: 2026-07-25T18:15:00+08:00
+- **Notes**: 已完成单面正向几何审计、0.58 透明暖灰材质、道路实际宽度退界、近距标记合同、边界镜头限制和桌面/手机本地页面验收。
+
+---
+
 ## [LRN-20260724-001] correction
 
 **Logged**: 2026-07-24T20:15:00+08:00

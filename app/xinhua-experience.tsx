@@ -55,6 +55,23 @@ const INITIAL_OVERVIEW_POSITION = [
   mapData.landmarks.xingfuli.position[0],
   mapData.landmarks.xingfuli.position[1],
 ] as const;
+const OVERVIEW_QA_START_POSITIONS = {
+  "xingfu-road": [139.4, -98.5],
+  "fahuazhen-road": [-131, -36],
+  "quiet-southwest": [-250, 130],
+} as const;
+
+function requestedOverviewStartPosition(): readonly [number, number] {
+  if (typeof window === "undefined") return INITIAL_OVERVIEW_POSITION;
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("overview-qa") !== "1") return INITIAL_OVERVIEW_POSITION;
+  const requested = params.get("overview-start");
+  return requested && requested in OVERVIEW_QA_START_POSITIONS
+    ? OVERVIEW_QA_START_POSITIONS[
+      requested as keyof typeof OVERVIEW_QA_START_POSITIONS
+    ]
+    : INITIAL_OVERVIEW_POSITION;
+}
 
 const ATMOSPHERE_LABELS: Record<XinhuaAtmosphereStyle, string> = {
   "autumn-afternoon": "秋日下午",
@@ -406,11 +423,12 @@ export function XinhuaExperience() {
     && new URLSearchParams(window.location.search).get("cameraQa") === "1"
   ));
   const networkProfile = useProgressiveNetworkProfile();
-  const playerPosition = useRef<readonly [number, number]>(INITIAL_OVERVIEW_POSITION);
+  const [initialOverviewPosition] = useState(requestedOverviewStartPosition);
+  const playerPosition = useRef<readonly [number, number]>(initialOverviewPosition);
   const overviewPhotoCache = useRef(new Map<string, HTMLImageElement>());
   const [loadedOverviewPhoto, setLoadedOverviewPhoto] = useState<string | null>(null);
   const [overviewStartPosition, setOverviewStartPosition] = useState<readonly [number, number]>(
-    INITIAL_OVERVIEW_POSITION,
+    initialOverviewPosition,
   );
   const playing = mode !== "intro";
   const exploring = mode === "explore";

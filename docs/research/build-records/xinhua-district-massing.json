@@ -1,10 +1,10 @@
 {
   "assetId": "xinhua-district-massing",
-  "generatedAt": "2026-07-25T07:51:28.343Z",
+  "generatedAt": "2026-07-25T10:14:45.613Z",
   "command": "node scripts/generate_overview_district_massing.mjs --raw xinhua-buildings-osm-20260725-074802.json",
   "generator": {
     "path": "scripts/generate_overview_district_massing.mjs",
-    "sha256": "33c461eb437d13ccd98207573ba403d7bc5990b73e234c2aa567866d42385e7e"
+    "sha256": "5749574360c4cfd702cfb588c37d08f045465ad38ea199961f412a15505b2a11"
   },
   "source": {
     "rawSnapshot": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
@@ -22,11 +22,11 @@
     "sourceRecord": "app/scene/xinhua-district-massing-data.json",
     "runtimeManifest": "app/scene/xinhua-district-massing-runtime.json",
     "glb": "public/models/overview/xinhua-district-massing.glb",
-    "sha256": "3c8b19a242bd1b6070bd31f6259f6e742298c749a72dfdece32e7900c63a4415",
-    "bytes": 720496,
+    "sha256": "b61cec4fc93e5326f87845f022abf92008c8254c78bfd95de8ea1e19d4f11dea",
+    "bytes": 680384,
     "meshes": 10,
     "nodes": 11,
-    "triangles": 12483,
+    "triangles": 11779,
     "materials": 3,
     "images": 0,
     "textures": 0,
@@ -39,15 +39,15 @@
     "chunks": [
       {
         "id": "east-north-low",
-        "buildingCount": 15,
-        "vertices": 330,
-        "triangles": 168
+        "buildingCount": 12,
+        "vertices": 270,
+        "triangles": 138
       },
       {
         "id": "east-north-mid",
-        "buildingCount": 124,
-        "vertices": 4315,
-        "triangles": 2341
+        "buildingCount": 113,
+        "vertices": 3940,
+        "triangles": 2138
       },
       {
         "id": "east-south-high",
@@ -57,27 +57,27 @@
       },
       {
         "id": "east-south-low",
-        "buildingCount": 60,
-        "vertices": 1385,
-        "triangles": 711
+        "buildingCount": 57,
+        "vertices": 1300,
+        "triangles": 666
       },
       {
         "id": "east-south-mid",
-        "buildingCount": 159,
-        "vertices": 5180,
-        "triangles": 2790
+        "buildingCount": 144,
+        "vertices": 4740,
+        "triangles": 2556
       },
       {
         "id": "west-north-low",
-        "buildingCount": 8,
-        "vertices": 170,
-        "triangles": 86
+        "buildingCount": 7,
+        "vertices": 150,
+        "triangles": 76
       },
       {
         "id": "west-north-mid",
-        "buildingCount": 230,
-        "vertices": 6870,
-        "triangles": 3662
+        "buildingCount": 224,
+        "vertices": 6670,
+        "triangles": 3554
       },
       {
         "id": "west-south-high",
@@ -93,9 +93,9 @@
       },
       {
         "id": "west-south-mid",
-        "buildingCount": 167,
-        "vertices": 4875,
-        "triangles": 2591
+        "buildingCount": 162,
+        "vertices": 4735,
+        "triangles": 2517
       }
     ]
   },
@@ -104,17 +104,17 @@
     "buildingWays": 878,
     "buildingRelations": 0,
     "buildingParts": 0,
-    "acceptedBuildings": 774,
+    "acceptedBuildings": 730,
     "excludedBuildings": 104,
-    "rejectedBuildings": 0,
+    "rejectedBuildings": 44,
     "heldBuildingParts": 0,
     "heightProvenance": {
-      "heuristic": 763,
+      "heuristic": 719,
       "osm-levels": 11
     },
     "heightBands": {
-      "mid": 680,
-      "low": 90,
+      "mid": 643,
+      "low": 83,
       "high": 4
     },
     "replacementExclusions": {
@@ -134,7 +134,9 @@
       "shanghai-orchestra": 7,
       "xingfuli": 7,
       "shangsheng": 12
-    }
+    },
+    "roadSetbackAdjusted": 110,
+    "roadSetbackRejected": 44
   },
   "budgets": {
     "maxBytes": 3000000,
@@ -145,8 +147,8 @@
   },
   "deterministicReplay": {
     "passed": true,
-    "firstSha256": "3c8b19a242bd1b6070bd31f6259f6e742298c749a72dfdece32e7900c63a4415",
-    "secondSha256": "3c8b19a242bd1b6070bd31f6259f6e742298c749a72dfdece32e7900c63a4415"
+    "firstSha256": "b61cec4fc93e5326f87845f022abf92008c8254c78bfd95de8ea1e19d4f11dea",
+    "secondSha256": "b61cec4fc93e5326f87845f022abf92008c8254c78bfd95de8ea1e19d4f11dea"
   },
   "runtimeContract": {
     "modes": [
@@ -156,6 +158,7 @@
     "collisionObjects": 0,
     "raycastObjects": 0,
     "castShadow": false,
+    "opacity": 0.58,
     "fallback": "existing-overview"
   }
 }
