@@ -6677,3 +6677,71 @@ RuntimeError: Massing 超出预算：
 ### Resolution
 - **Resolved**: 2026-07-25T19:56:00+08:00
 - **Notes**: 预算已按实际复杂度与 Hero 比例校准；待重建验证。
+
+---
+
+## [ERR-20260725-025] code_mode_regex_literal_escape
+
+**Logged**: 2026-07-25T19:34:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+在 Code Mode 过滤 `ps` 输出时写入了无效的 JavaScript 正则字面量。
+
+### Error
+```text
+SyntaxError: Invalid regular expression flags
+```
+
+### Context
+- 只读确认共享 Blender MCP 进程是否仍在执行。
+- Shell 命令本身未失败，错误发生在工具结果的 JavaScript 过滤表达式。
+
+### Suggested Fix
+简单进程名过滤使用 `String.includes("Blender")` 与
+`String.includes("blender-mcp")`，避免跨 JSON/JavaScript 层重复转义正则。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-25T19:34:00+08:00
+- **Notes**: 改用字符串包含判断并成功确认 Blender MCP 进程正在运行。
+
+---
+
+## [ERR-20260725-026] blender_5_2_invalid_eevee_next_enum
+
+**Logged**: 2026-07-25T19:40:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Film Art Center MCP1 临时 QA rig 在 Blender 5.2 使用了无效渲染引擎枚举。
+
+### Error
+```text
+TypeError: bpy_struct: item.attr = val:
+enum "BLENDER_EEVEE_NEXT" not found in
+('BLENDER_EEVEE', 'BLENDER_WORKBENCH', 'BLENDER_WORKBENCH_NEXT', 'BLENDER_OPENGL')
+```
+
+### Context
+- 错误只发生在未保存、未导出的 MCP QA camera/light/ground/proxy rig。
+- 正式 Blend、GLB 和生成器均未被交互式修改。
+
+### Suggested Fix
+Blender 5.2 的临时 MCP 渲染使用 `BLENDER_EEVEE`；Headless 生成器可保留
+try/fallback 兼容不同 LTS 枚举。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/film-art-center-blender-mcp-gates.json
+
+### Resolution
+- **Resolved**: 2026-07-25T19:40:00+08:00
+- **Notes**: 临时 QA rig 改用 `BLENDER_EEVEE` 后完成四张 MCP1 证据图。
