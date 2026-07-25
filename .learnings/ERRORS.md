@@ -6664,3 +6664,38 @@ zsh:1: operation not permitted: ps
 ### Resolution
 - **Resolved**: 2026-07-25T19:33:00+08:00
 - **Notes**: 继续轮询原 lint 会话，最终 exit 0。
+
+---
+## [ERR-20260725-026] integration_merge_git_metadata_sandbox
+
+**Logged**: 2026-07-25T19:44:53+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+独立集成 Worktree 首次合并 `main` 时，沙箱允许读取工作区文件，但拒绝写入
+共享仓库的 Worktree Git 元数据。
+
+### Error
+```text
+fatal: update_ref failed for ref 'ORIG_HEAD': cannot lock ref 'ORIG_HEAD':
+Unable to create '.git/worktrees/integration-18-buildings/ORIG_HEAD.lock':
+Operation not permitted
+```
+
+### Context
+- 合并目标仅为已提交的 Overview district Hold 修复。
+- 失败发生在创建 `ORIG_HEAD.lock` 之前，没有产生部分合并或工作区改动。
+
+### Suggested Fix
+对确认过范围的 `git merge` 使用受控提权，只授权 Git 元数据写入；不要改用文件
+复制绕过提交图。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git/worktrees/integration-18-buildings
+
+### Resolution
+- **Resolved**: 2026-07-25T19:45:00+08:00
+- **Notes**: 同一合并命令在受控提权下成功，`ort` 自动合并且没有内容冲突。
