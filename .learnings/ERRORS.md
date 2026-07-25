@@ -5466,6 +5466,7 @@ TypeError: requestAnimationFrame is not a function
 - Cause: managed sandbox 禁止当前进程绑定本机预览端口；Vite 构建、封面专项测试和 lint 已独立通过。
 - Resolution: 对同一个仅绑定 `127.0.0.1:3002` 的静态预览命令申请沙箱外执行，再使用真实浏览器完成桌面与手机封面截图。
 - Recurrence: 2026-07-24 上海影城渐进 LOD 实验中，`vinext start` 绑定 `0.0.0.0:3017` 同样返回 `listen EPERM`；同日第三人称相机方案基线与 A/B 验收中，Python 静态服务绑定 `127.0.0.1:3013`、`127.0.0.1:3014` 再次返回同一错误。生产构建通过时，应直接对限定 loopback 端口的启动命令申请沙箱外执行。
+- Recurrence: 2026-07-25 One Step Garden runtime 在隔离 Worktree 执行 `vite preview --host 127.0.0.1 --port 4338` 再次返回 `listen EPERM`；构建已通过，继续使用同一 loopback 限定命令的受控沙箱外执行。
 - See Also: ERR153
 ## [ERR162] Git staging blocked by sandbox index lock restriction
 
