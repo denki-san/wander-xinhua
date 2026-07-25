@@ -5,52 +5,60 @@
   "status": "candidate-pending-main-window-mcp1-and-map-gate",
   "model": "/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
   "modelSourcePath": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
-  "modelSha256": "b5f8c3fa56cc83ca43b850995da4440cac6639ec353789fc746aac1f45532c25",
-  "cacheVersion": "b5f8c3fa56cc",
+  "modelSha256": "f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704",
+  "cacheVersion": "f245efd099d0",
   "placement": {
     "position": [-42.13, 79.48],
     "yaw": -0.38,
     "scale": 0.62,
     "keepUnchanged": true
   },
+  "coordinateValidation": {
+    "source": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "mapMetadata": "app/scene/xinhua-map-data.json",
+    "authoredCoordinateSpace": "glb-source-xz-before-runtime-z-flip",
+    "maximumWorldVertexErrorSceneUnits": 0.000000367,
+    "toleranceSceneUnits": 0.05,
+    "status": "pass"
+  },
   "localBounds": {
     "minX": -19.746794,
-    "maxX": 13.415168,
-    "minZ": -9.257434,
-    "maxZ": 16.814095
+    "maxX": 13.41517,
+    "minZ": -9.257435,
+    "maxZ": 16.8141
   },
   "localObstacles": [
     {
       "id": "member-15-way-864493244",
       "minX": -19.746794,
-      "maxX": -6.712196,
-      "minZ": -9.257434,
-      "maxZ": -2.584479
+      "maxX": -6.712191,
+      "minZ": -9.257435,
+      "maxZ": -2.58448
     },
     {
       "id": "member-36-way-864485664",
-      "minX": -18.991856,
-      "maxX": -9.183167,
-      "minZ": 4.548491,
-      "maxZ": 12.632189
+      "minX": -18.991865,
+      "maxX": -9.183159,
+      "minZ": 4.548492,
+      "maxZ": 12.632193
     },
     {
       "id": "member-40-way-864493174",
       "minX": 0.326008,
       "maxX": 8.163913,
-      "minZ": 0.424235,
-      "maxZ": 8.721698
+      "minZ": 0.424231,
+      "maxZ": 8.721702
     },
     {
       "id": "member-42-way-864493173",
-      "minX": 7.864333,
-      "maxX": 13.415168,
-      "minZ": 10.491635,
-      "maxZ": 16.814095
+      "minX": 7.864331,
+      "maxX": 13.41517,
+      "minZ": 10.491626,
+      "maxZ": 16.8141
     }
   ],
   "excludedWayIds": [864493245],
-  "excludedWayReason": "Cross-asset Villa Le Bec footprint.",
+  "excludedWayReason": "Evidence-unbound adjacent footprint with unknown 329-lane membership.",
   "fastManifestCandidate": {
     "tests": [
       "tests/test_xinhua_villas_329_massing_v3.test.mjs",
@@ -68,10 +76,10 @@
   },
   "sharedHookInstructions": [
     "Add an asset-scoped xinhua-villas-329 tier resolver; do not use a global fallback token.",
-    "Point only qaModelTier=massing to the v3 GLB and cacheVersion b5f8c3fa56cc.",
+    "Point only qaModelTier=massing to the v3 GLB and cacheVersion f245efd099d0.",
     "Keep the existing position, yaw, scale, start and forward unchanged for the first map calibration.",
     "Replace the legacy single obstacle only inside the scoped Massing QA assembly with the four member obstacles above; keep member gaps walkable.",
-    "Do not modify or delete the separate Villa Le Bec registry entry.",
+    "Keep way/864493245 excluded unless new address evidence binds it to a 329-lane member; do not assign it to another asset by proximity.",
     "Do not promote v3 to production until the main-window batch completes first MCP1 and formal map acceptance."
   ],
   "gates": {
