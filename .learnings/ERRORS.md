@@ -7228,3 +7228,43 @@ Error: Cannot find module 'scripts/audit_glb.mjs'
 - **Notes**: 改用
   `python3 scripts/audit_glb.py --forbid-images --max-nodes 1 <identity.glb>`；
   结果为 1 node、1 mesh、8 materials、0 images/textures、status ok。
+
+---
+## [ERR-20260725-047] one_step_hero_nodes_left_default_gray
+
+**Logged**: 2026-07-25T21:32:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: assets
+
+### Summary
+一号花园 Hero v2 首个候选只写了 Blender 材质的 `diffuse_color`，没有同步写入
+Principled BSDF `Base Color`；代理 viewport 彩图看似正常，但主窗口直接打开
+`.blend` 用 Eevee 重渲染时 7 个材质几乎全白，MCP2 被拦截。
+
+### Error
+```text
+diffuse_color: subject-specific values
+Principled Base Color: (0.8, 0.8, 0.8, 1.0) for all 7 materials
+```
+
+### Context
+- 候选结构、root、bounds、拓扑和范围边界均通过；阻断只针对真实 Blender/GLB 材质。
+- 原三张发白复核图作为失败证据保留，没有删除或覆盖。
+- 代理 Workbench / viewport diffuse 结果不能替代正式渲染材质门。
+
+### Suggested Fix
+确定性生成器创建材质时同时设置 `use_nodes=True`、Principled `Base Color`、
+`Roughness` 与必要的 `Metallic`；GLB 测试必须断言多个唯一 `baseColorFactor` 且
+禁止全部落入默认灰。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_one_step_garden_hero_model.py
+- Related Files: public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb
+- Related Files: tests/test_one_step_garden_hero_v2.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T21:47:43+08:00
+- **Notes**: 7 个节点材质与 GLB PBR 分层全部写入；双 clean build SHA 一致；
+  主窗口直接重开 `.blend` 并以三固定机位复验后，MCP2 Pass。
