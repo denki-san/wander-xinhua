@@ -207,7 +207,7 @@
     "nextGate": "main-window-mcp3-same-camera-three-tier-review"
   },
   "identityGate": {
-    "status": "candidate-awaiting-main-window-mcp3",
+    "status": "pass",
     "sourceHeroMcp2": "pass",
     "identityDerivationAuthorized": true,
     "identityDerivationStarted": true,
@@ -257,13 +257,19 @@
       "deterministicDoubleBuild": true,
       "publicRegistryModified": false
     },
-    "mcp3Status": "pending-main-window",
-    "identityFormalPass": false,
-    "runtimeAuthorized": false,
+    "mcp3Status": "pass",
+    "identityFormalPass": true,
+    "mcp3Review": "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json#mcp3",
+    "runtimeAuthorized": true,
     "runtimeExecutionStarted": false
   },
   "threeTierGate": {
-    "status": "candidate-awaiting-main-window-mcp3",
+    "gate": "mcp3-same-camera-three-tier-review",
+    "status": "pass",
+    "recordedAt": "2026-07-25T23:37:00+08:00",
+    "reviewedBy": "main-coordinator",
+    "interactiveReview": "Blender MCP",
+    "sourceCommit": "6166d7d75591c5c0f2319ad0b04fa9cd026429a8",
     "tierLineage": "docs/research/house-315-tier-lineage.json",
     "sameOrigin": true,
     "sameBounds": true,
@@ -273,7 +279,78 @@
     "sameCameraViewSet": true,
     "identityBudgetPass": true,
     "mcp3Requested": true,
-    "formalPass": false,
-    "nextGate": "main-window-mcp3-same-camera-three-tier-review"
+    "formalPass": true,
+    "reviewedIdentity": {
+      "editableSource": {
+        "path": "assets/models/source/tiers/xinhua-road/identity-v1/house-315-identity.blend",
+        "sha256": "79cc36080e835af913864fcfddca2763f0173df5bb7c107a54a662d241506a60"
+      },
+      "runtimeAsset": {
+        "path": "public/models/tiers/xinhua-road/identity-v1/house-315-identity.glb",
+        "sha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+        "bytes": 62288
+      },
+      "sceneInspection": {
+        "meshObjects": 1,
+        "vertices": 520,
+        "polygons": 392,
+        "materials": 6,
+        "useNodes": "pass-6-of-6-Principled",
+        "rootLocation": [0, 0, 0],
+        "rootRotation": [0, 0, 0],
+        "rootScale": [1, 1, 1],
+        "rootNormalized": true
+      },
+      "geometryInspection": {
+        "areaBelow1eMinus10": 0,
+        "minimumPolygonArea": 0.002750016748905182,
+        "nonFiniteNormals": 0
+      }
+    },
+    "reviewedLineage": {
+      "heroGlbSha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+      "massingGlbSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+      "heroToIdentity": "pass-deliberate-roof-rib-window-mullion-and-minor-division-reduction",
+      "identityToMassing": "pass-silhouette-origin-front-bounds-and-asymmetric-wing-continuity",
+      "preservedIdentity": "pass-central-half-timber-gable-transverse-ridge-asymmetric-wings-white-red-division-tall-entry-dormer-and-chimney"
+    },
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_canonical.png",
+        "sha256": "ec629bcea2b838ee8fbe1e37164d25c5a59b8593770e509ad77dd1ceee876d80",
+        "bytes": 752578,
+        "dimensions": [960, 720]
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_side-depth.png",
+        "sha256": "3dc7ad0f9d15ea60bdd299c2369184ab25e33103a5bf5e084bbbdc9f1fe27067",
+        "bytes": 771459,
+        "dimensions": [960, 720]
+      },
+      "entranceDetail": {
+        "path": "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_entrance.png",
+        "sha256": "4449238a5e36c302ee9a6b30283e1df0bfffb7082d2f7fa09f6c0d80db71f799",
+        "bytes": 799157,
+        "dimensions": [960, 720]
+      }
+    },
+    "visualChecks": {
+      "canonical": "pass-central-half-timber-gable-transverse-ridge-white-red-facade-and-asymmetric-wings-readable",
+      "sideDepth": "pass-right-long-wing-left-short-rear-depth-dormer-chimney-and-roof-hierarchy-readable",
+      "entranceDetail": "pass-tall-entry-major-window-groups-half-timber-and-1p8m-human-scale-readable",
+      "threeTierContinuity": "pass-shared-origin-bounds-front-camera-silhouette-and-collision-semantics"
+    },
+    "scope": "pass-building-only-no-site-trees-decoration-other-buildings-or-full-map-assets",
+    "acceptedInteractiveChanges": [],
+    "qaRigSaved": false,
+    "qaRigExported": false,
+    "independentReview": {
+      "reviewer": "shanghai-cinema-peer",
+      "status": "ready",
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "nextGate": "house-315-three-js-three-tier-runtime-acceptance"
   }
 }

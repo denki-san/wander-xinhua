@@ -730,3 +730,50 @@ SHA 均保持。
 - Runtime authorized / started: false / false
 - Public registry modified: false
 - Next action: 提交候选并请求主窗口 MCP3；不得自行 Pass 或启动 runtime。
+
+## Iteration 8 — Main-window Blender MCP3 pass
+
+- Date: 2026-07-25
+- Reviewed candidate commit:
+  `6166d7d75591c5c0f2319ad0b04fa9cd026429a8`
+- Result: `mcp3-pass-runtime-pending`
+- Reviewer: main coordinator through Blender MCP
+
+### Direct scene inspection
+
+主窗口直接打开最终 Identity `.blend`，没有读取代理截图代替正式门：
+
+- 1 building mesh，520 vertices，392 polygons；
+- 6 materials，6/6 使用 Principled BSDF；
+- root location / rotation `[0,0,0]`，scale `[1,1,1]`；
+- bounds `[-7.675,-4.84,0] .. [7.225,4.575,6.982892]`；
+- faces below `1e-10`: 0；
+- minimum polygon area `0.002750016748905182`；
+- non-finite normals: 0。
+
+### Same-camera visual decision
+
+- canonical：中央高半木构山墙、横向主脊、白 / 红分层与不对称翼可读；
+- side-depth：右长翼、左后短翼、老虎窗、烟囱和屋面层级连续；
+- entrance：高入口、主要窗组、半木构与 1.8m 人物尺度关系可读；
+- Hero → Identity 的瓦垄、窗棂与次要分割减量明确；
+- Identity → Massing 保持轮廓、原点、front、bounds、placement 与 collision 语义。
+
+正式 MCP3 图：
+
+- `test_house-315-identity-v1_mcp3_recheck_canonical.png`
+  (`ec629bce...`, 752,578 bytes)
+- `test_house-315-identity-v1_mcp3_recheck_side-depth.png`
+  (`3dc7ad0f...`, 771,459 bytes)
+- `test_house-315-identity-v1_mcp3_recheck_entrance.png`
+  (`4449238a...`, 799,157 bytes)
+
+### Boundary
+
+- Accepted interactive changes: none
+- QA rig saved / exported: false / false
+- Source Blend 重新打开后 `dirty=false`，只含 `house-315-identity`
+- Trees / decoration / site / other buildings / full-map assets: none
+- Runtime authorized: true
+- Runtime started / integrated: false / false
+- Next gate: House315 Three.js three-tier runtime acceptance

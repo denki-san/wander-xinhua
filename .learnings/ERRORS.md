@@ -7812,3 +7812,69 @@ ReferenceError: roadFull is not defined
 - **Resolved**: 2026-07-25T23:02:00+08:00
 - **Notes**: 删除重复越域断言；QA forced fallback 的 programmatic 分支仍由前一源码
   测试锁定，-2.25m 由同一 pure helper 数值测试锁定。
+
+---
+## [ERR-20260725-063] blender_mcp_eevee_engine_enum_mismatch
+
+**Logged**: 2026-07-25T23:30:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: blender-mcp
+
+### Summary
+House315 Identity MCP3 临时 QA 渲染首次沿用生成脚本中的
+`BLENDER_EEVEE_NEXT`，但当前 Blender MCP 会话只暴露 `BLENDER_EEVEE` 枚举，
+代码在设置 render engine 时退出。
+
+### Error
+```text
+enum "BLENDER_EEVEE_NEXT" not found in
+('BLENDER_EEVEE', 'BLENDER_WORKBENCH', 'CYCLES')
+```
+
+### Context
+- Identity 源 `.blend` 已打开，但临时 QA rig 尚未保存。
+- 失败不涉及生成器、Blend、GLB、registry 或任何范围外资产。
+- Blender 版本字符串不能代替当前会话对 engine enum 的实际能力查询。
+
+### Suggested Fix
+MCP 临时渲染优先读取 `scene.bl_rna.properties["engine"]` 或使用当前会话实际返回的
+枚举；版本兼容路径允许 `BLENDER_EEVEE_NEXT` / `BLENDER_EEVEE` 二选一。
+
+### Resolution
+- **Resolved**: 2026-07-25T23:31:00+08:00
+- **Notes**: 清理并重建临时 QA collection，改用 `BLENDER_EEVEE` 后三固定机位均
+  成功渲染；随后重新打开源 Blend，确认 `dirty=false` 且只含单一建筑 mesh。
+
+---
+## [ERR-20260725-064] house315_hero_tests_stale_after_identity_mcp3
+
+**Logged**: 2026-07-25T23:39:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+House315 Identity 合法通过 MCP3 后，Hero v2 的两项上游测试仍冻结下游
+`candidate-awaiting-mcp3` 状态，11 项中 2 项失败。
+
+### Error
+```text
+actual: hero-mcp2-identity-v1-mcp3-pass-runtime-pending
+expected: hero-mcp2-pass-identity-v1-candidate-awaiting-mcp3
+
+actual identityFormalPass: true
+expected: false
+```
+
+### Context
+- Hero MCP2 二进制、固定机位和 Hold 边界没有变化。
+- 失败只来自 Identity 下游门禁已由主窗口推进。
+
+### Suggested Fix
+Hero 测试继续冻结 MCP2 与旧 Hero Hold，同时允许 Identity 的 MCP3、formal pass
+和 runtime authorization 合法推进；runtime execution / integration 仍必须为 false。
+
+### Resolution
+- **Resolved**: 2026-07-25T23:40:00+08:00
+- **Notes**: 更新两项下游状态断言，保留 Hero 和公共 registry 的全部原冻结合同。

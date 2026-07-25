@@ -4,7 +4,7 @@
   "assetId": "house-315",
   "tier": "hero",
   "versionName": "hero-v2",
-  "status": "hero-mcp2-pass-identity-v1-candidate-awaiting-mcp3",
+  "status": "hero-mcp2-identity-v1-mcp3-pass-runtime-pending",
   "generator": "scripts/create_house_315_hero_model.py",
   "generatorSha256": "61e3aa5188e6aba14e0eabf58aa1cd19ba0980b812b62b79dc894d52cccd068f",
   "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_house_315_hero_model.py",
@@ -705,7 +705,7 @@
   },
   "identityAllowed": true,
   "identityLineage": {
-    "status": "identity-v1-candidate-awaiting-main-window-mcp3",
+    "status": "identity-v1-mcp3-pass-runtime-pending",
     "identityDerivationAuthorized": true,
     "identityDerivationStarted": true,
     "identityCandidateCompleted": true,
@@ -732,17 +732,17 @@
     },
     "identityBuildRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json",
     "tierLineage": "docs/research/house-315-tier-lineage.json",
-    "mcp3": "pending-main-window",
-    "identityFormalPass": false,
-    "runtimeAuthorized": false,
+    "mcp3": "pass",
+    "identityFormalPass": true,
+    "runtimeAuthorized": true,
     "runtimeExecutionStarted": false,
     "runtimeIntegrated": false,
     "publicRegistryModified": false,
-    "nextAuthority": "main-window-mcp3-same-camera-three-tier-review"
+    "nextAuthority": "house-315-runtime-worktree"
   },
   "threeJsRuntime": "not-run-before-mcp3",
   "publicRegistry": {
     "modified": false,
-    "integration": "pending-main-window-after-mcp3"
+    "integration": "identity-mcp3-integrated-runtime-pending"
   }
 }

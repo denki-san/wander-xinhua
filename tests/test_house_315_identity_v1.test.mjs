@@ -183,7 +183,7 @@ test("House315 Identity v1 只从冻结且已通过 MCP2 的 Hero v2 派生", as
     "docs/research/build-records/tiers/xinhua-road/hero-v2/house-315-hero.json",
   );
 
-  assert.equal(record.status, "candidate-awaiting-main-window-mcp3");
+  assert.equal(record.status, "mcp3-pass-runtime-pending");
   assert.equal(record.tier, "identity");
   assert.equal(record.versionName, "identity-v1");
   assert.equal(record.generator.sha256, await sha256(record.generator.path));
@@ -398,7 +398,7 @@ test("House315 Identity v1 三固定机位和建筑-only 范围证据闭合", as
   }
 });
 
-test("House315 Identity v1 停在 MCP3 前且未修改公共 runtime", async () => {
+test("House315 Identity v1 已通过主窗口 MCP3 且公共 runtime 仍未修改", async () => {
   const record = await readJson(recordPath);
   const lineage = await readJson(lineagePath);
   const hero = await readJson(
@@ -413,41 +413,56 @@ test("House315 Identity v1 停在 MCP3 前且未修改公共 runtime", async () 
 
   assert.equal(
     record.mcp3.status,
-    "pending-main-window-same-camera-three-tier-review",
+    "pass",
   );
-  assert.equal(record.mcp3.identityFormalPass, false);
+  assert.equal(record.mcp3.identityFormalPass, true);
   assert.equal(record.mcp3.acceptedInteractiveChanges.length, 0);
   assert.equal(record.mcp3.qaRigSaved, false);
   assert.equal(record.mcp3.qaRigExported, false);
+  assert.equal(record.mcp3.sceneInspection.meshObjects, 1);
+  assert.equal(record.mcp3.sceneInspection.principledMaterials, 6);
+  assert.equal(record.mcp3.geometryInspection.areaBelow1eMinus10, 0);
+  for (const view of Object.values(record.mcp3.fixedViews)) {
+    const buffer = await readFile(path.join(root, view.path));
+    assert.equal(await sha256(view.path), view.sha256);
+    assert.equal((await stat(path.join(root, view.path))).size, view.bytes);
+    assert.deepEqual(
+      [buffer.readUInt32BE(16), buffer.readUInt32BE(20)],
+      view.dimensions,
+    );
+  }
   assert.equal(record.independentReview.status, "ready");
   assert.equal(record.independentReview.critical, 0);
   assert.equal(record.independentReview.important, 0);
   assert.equal(record.independentReview.minor, 0);
   assert.equal(record.independentReview.modelOrRuntimeModifiedByReview, false);
-  assert.equal(record.runtime.status, "not-started-by-worktree");
-  assert.equal(record.runtime.runtimeAuthorized, false);
+  assert.equal(
+    record.runtime.status,
+    "authorized-pending-house-315-runtime-worktree",
+  );
+  assert.equal(record.runtime.runtimeAuthorized, true);
   assert.equal(record.runtime.runtimeExecutionStarted, false);
   assert.equal(record.runtime.publicRegistryModified, false);
   assert.equal(record.runtime.runtimeIntegrated, false);
-  assert.equal(lineage.status, "candidate-awaiting-main-window-mcp3");
-  assert.equal(lineage.threeTierGate.formalPass, false);
+  assert.equal(lineage.status, "mcp3-pass-runtime-pending");
+  assert.equal(lineage.threeTierGate.formalPass, true);
   assert.equal(lineage.threeTierGate.independentReview.status, "ready");
-  assert.equal(lineage.tiers.identity.gates.mcp3, "pending-main-window");
+  assert.equal(lineage.tiers.identity.gates.mcp3, "pass");
   assert.equal(lineage.runtime.runtimeExecutionStarted, false);
   assert.equal(
     hero.identityLineage.status,
-    "identity-v1-candidate-awaiting-main-window-mcp3",
+    "identity-v1-mcp3-pass-runtime-pending",
   );
   assert.equal(hero.identityLineage.identityDerivationStarted, true);
   assert.equal(hero.identityLineage.identityCandidateCompleted, true);
-  assert.equal(hero.identityLineage.identityFormalPass, false);
-  assert.equal(hero.identityLineage.runtimeAuthorized, false);
+  assert.equal(hero.identityLineage.identityFormalPass, true);
+  assert.equal(hero.identityLineage.runtimeAuthorized, true);
   assert.equal(hero.identityLineage.runtimeExecutionStarted, false);
-  assert.equal(gates.identityGate.status, "candidate-awaiting-main-window-mcp3");
+  assert.equal(gates.identityGate.status, "pass");
   assert.equal(gates.identityGate.identityCandidateCompleted, true);
-  assert.equal(gates.identityGate.mcp3Status, "pending-main-window");
-  assert.equal(gates.identityGate.identityFormalPass, false);
-  assert.equal(gates.identityGate.runtimeAuthorized, false);
+  assert.equal(gates.identityGate.mcp3Status, "pass");
+  assert.equal(gates.identityGate.identityFormalPass, true);
+  assert.equal(gates.identityGate.runtimeAuthorized, true);
   assert.equal(gates.identityGate.runtimeExecutionStarted, false);
   assert.equal(gates.identityGate.candidate.independentReview.status, "ready");
   assert.equal(
@@ -461,19 +476,19 @@ test("House315 Identity v1 停在 MCP3 前且未修改公共 runtime", async () 
     ))).size,
     gates.identityGate.candidate.editableSource.bytes,
   );
-  assert.equal(gates.threeTierGate.status, "candidate-awaiting-main-window-mcp3");
-  assert.equal(gates.threeTierGate.formalPass, false);
+  assert.equal(gates.threeTierGate.status, "pass");
+  assert.equal(gates.threeTierGate.formalPass, true);
   assert.equal(
     disposition.activeReplacementStatus,
-    "hero-v2-mcp2-pass-identity-v1-candidate-awaiting-mcp3",
+    "hero-v2-mcp2-pass-identity-v1-mcp3-pass-runtime-pending",
   );
   assert.equal(
     disposition.replacementCandidate.identityLineage.mcp3,
-    "pending-main-window",
+    "pass",
   );
   assert.equal(
     disposition.replacementCandidate.identityLineage.identityFormalPass,
-    false,
+    true,
   );
   assert.equal(
     disposition.replacementCandidate.identityLineage.runtimeExecutionStarted,

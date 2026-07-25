@@ -3,7 +3,7 @@
   "assetId": "house-315",
   "activeScope": "exact-18-building-program-house-315-only",
   "recordedAt": "2026-07-25",
-  "status": "candidate-awaiting-main-window-mcp3",
+  "status": "mcp3-pass-runtime-pending",
   "sourceGate": {
     "gate": "mcp2-hero-visual-review",
     "status": "pass",
@@ -177,13 +177,13 @@
         "sameGlbSha256": true
       },
       "gates": {
-        "mcp3": "pending-main-window",
-        "identityFormalPass": false
+        "mcp3": "pass",
+        "identityFormalPass": true
       }
     }
   },
   "threeTierGate": {
-    "status": "candidate-awaiting-main-window-mcp3",
+    "status": "pass",
     "sameOrigin": true,
     "sameBounds": true,
     "sameAuthoredFront": true,
@@ -198,7 +198,48 @@
       "important": 0,
       "minor": 0
     },
-    "formalPass": false
+    "formalPass": true,
+    "heroToIdentity": "pass-deliberate-roof-rib-window-mullion-and-minor-division-reduction",
+    "identityPreservedCues": "pass-central-half-timber-gable-transverse-ridge-asymmetric-wings-white-red-division-tall-entry-dormer-and-chimney",
+    "identityToMassing": "pass-silhouette-origin-front-bounds-and-asymmetric-wing-continuity",
+    "identitySceneInspection": {
+      "meshObjects": 1,
+      "vertices": 520,
+      "polygons": 392,
+      "materials": 6,
+      "useNodes": "pass-6-of-6-Principled",
+      "rootNormalized": true,
+      "zeroAreaPolygons": 0,
+      "minimumPolygonArea": 0.002750016748905182,
+      "nonFiniteNormals": 0
+    },
+    "fixedEvidence": {
+      "canonical": {
+        "path": "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_canonical.png",
+        "sha256": "ec629bcea2b838ee8fbe1e37164d25c5a59b8593770e509ad77dd1ceee876d80",
+        "bytes": 752578,
+        "dimensions": [960, 720]
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_side-depth.png",
+        "sha256": "3dc7ad0f9d15ea60bdd299c2369184ab25e33103a5bf5e084bbbdc9f1fe27067",
+        "bytes": 771459,
+        "dimensions": [960, 720]
+      },
+      "entranceDetail": {
+        "path": "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_entrance.png",
+        "sha256": "4449238a5e36c302ee9a6b30283e1df0bfffb7082d2f7fa09f6c0d80db71f799",
+        "bytes": 799157,
+        "dimensions": [960, 720]
+      }
+    },
+    "independentReview": {
+      "reviewer": "shanghai-cinema-peer",
+      "status": "ready",
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    }
   },
   "scope": {
     "buildingOnly": true,
@@ -225,10 +266,11 @@
     "legacyHeroOverwritten": false
   },
   "runtime": {
-    "status": "not-started-by-worktree",
-    "runtimeAuthorized": false,
+    "status": "authorized-pending-house-315-runtime-worktree",
+    "runtimeAuthorized": true,
     "runtimeExecutionStarted": false,
     "publicRegistryModified": false,
-    "runtimeIntegrated": false
+    "runtimeIntegrated": false,
+    "nextAuthority": "house-315-runtime-worktree"
   }
 }
