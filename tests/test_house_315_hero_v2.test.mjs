@@ -183,7 +183,7 @@ test("House315 Hero v2 使用独立路径并保留旧 Hero Hold 与公共 regist
 
   assert.equal(
     record.status,
-    "hero-mcp2-pass-awaiting-main-window-integration",
+    "hero-mcp2-pass-identity-v1-candidate-awaiting-mcp3",
   );
   assert.equal(record.tier, "hero");
   assert.equal(record.versionName, "hero-v2");
@@ -209,7 +209,11 @@ test("House315 Hero v2 使用独立路径并保留旧 Hero Hold 与公共 regist
   assert.equal(record.mcp2.qaRigSaved, false);
   assert.equal(record.mcp2.qaRigExported, false);
   assert.equal(record.identityLineage.identityDerivationAuthorized, true);
-  assert.equal(record.identityLineage.identityDerivationStarted, false);
+  assert.equal(record.identityLineage.identityDerivationStarted, true);
+  assert.equal(record.identityLineage.identityCandidateCompleted, true);
+  assert.equal(record.identityLineage.identityFormalPass, false);
+  assert.equal(record.identityLineage.runtimeAuthorized, false);
+  assert.equal(record.identityLineage.runtimeExecutionStarted, false);
   assert.equal(record.publicRegistry.modified, false);
 });
 
@@ -239,11 +243,20 @@ test("House315 Hero v2 MCP2 主窗口证据和门禁状态闭合", async () => {
   assert.equal(gates.heroGate.status, "pass");
   assert.equal(gates.heroGate.identityDerivationAuthorized, true);
   assert.equal(gates.identityGate.identityDerivationAuthorized, true);
-  assert.equal(gates.identityGate.identityDerivationStarted, false);
-  assert.equal(disposition.activeReplacementStatus, "hero-v2-mcp2-pass-awaiting-main-window-integration");
+  assert.equal(gates.identityGate.identityDerivationStarted, true);
+  assert.equal(gates.identityGate.identityCandidateCompleted, true);
+  assert.equal(gates.identityGate.identityFormalPass, false);
+  assert.equal(gates.identityGate.runtimeExecutionStarted, false);
+  assert.equal(
+    disposition.activeReplacementStatus,
+    "hero-v2-mcp2-pass-identity-v1-candidate-awaiting-mcp3",
+  );
   assert.equal(disposition.replacementCandidate.mcp2.status, "pass");
   assert.equal(disposition.replacementCandidate.legacyHeroOverwritten, false);
-  assert.equal(disposition.replacementCandidate.identityLineage.identityDerivationStarted, false);
+  assert.equal(disposition.replacementCandidate.identityLineage.identityDerivationStarted, true);
+  assert.equal(disposition.replacementCandidate.identityLineage.identityCandidateCompleted, true);
+  assert.equal(disposition.replacementCandidate.identityLineage.identityFormalPass, false);
+  assert.equal(disposition.replacementCandidate.identityLineage.runtimeExecutionStarted, false);
   assert.equal(disposition.replacementCandidate.publicRegistryModified, false);
   assert.equal(disposition.replacementCandidate.runtimeIntegrated, false);
 });

@@ -204,15 +204,76 @@
     "qaRigSaved": false,
     "qaRigExported": false,
     "identityDerivationAuthorized": true,
-    "nextGate": "main-window-integrates-hero-candidate-and-mcp2-gate-before-identity-start"
+    "nextGate": "main-window-mcp3-same-camera-three-tier-review"
   },
   "identityGate": {
-    "status": "post-mcp2-unlocked-awaiting-main-window-integration",
+    "status": "candidate-awaiting-main-window-mcp3",
     "sourceHeroMcp2": "pass",
     "identityDerivationAuthorized": true,
-    "identityDerivationStarted": false
+    "identityDerivationStarted": true,
+    "identityCandidateCompleted": true,
+    "candidate": {
+      "version": "identity-v1",
+      "generator": {
+        "path": "scripts/create_house_315_identity_model.py",
+        "sha256": "19fe2646b02767fb5495b19ecf979a07d2eed35acf009476e33172160dd72e51"
+      },
+      "editableSource": {
+        "path": "assets/models/source/tiers/xinhua-road/identity-v1/house-315-identity.blend",
+        "sha256": "79cc36080e835af913864fcfddca2763f0173df5bb7c107a54a662d241506a60",
+        "bytes": 109984
+      },
+      "runtimeAsset": {
+        "path": "public/models/tiers/xinhua-road/identity-v1/house-315-identity.glb",
+        "sha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+        "bytes": 62288
+      },
+      "buildRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json",
+      "tierLineage": "docs/research/house-315-tier-lineage.json",
+      "metrics": {
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 6,
+        "triangles": 776,
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "boundsMatchHeroAndMassing": true,
+        "rootTransform": "normalized"
+      },
+      "budget": {
+        "identityToHeroTriangleRatio": 0.264305,
+        "identityToHeroByteRatio": 0.292558,
+        "status": "pass"
+      },
+      "independentReview": {
+        "reviewer": "shanghai-cinema-peer",
+        "status": "ready",
+        "critical": 0,
+        "important": 0,
+        "minor": 0
+      },
+      "scopePollution": false,
+      "deterministicDoubleBuild": true,
+      "publicRegistryModified": false
+    },
+    "mcp3Status": "pending-main-window",
+    "identityFormalPass": false,
+    "runtimeAuthorized": false,
+    "runtimeExecutionStarted": false
   },
   "threeTierGate": {
-    "status": "pending"
+    "status": "candidate-awaiting-main-window-mcp3",
+    "tierLineage": "docs/research/house-315-tier-lineage.json",
+    "sameOrigin": true,
+    "sameBounds": true,
+    "sameAuthoredFront": true,
+    "sameRuntimePlacement": true,
+    "sameCollisionSemantics": true,
+    "sameCameraViewSet": true,
+    "identityBudgetPass": true,
+    "mcp3Requested": true,
+    "formalPass": false,
+    "nextGate": "main-window-mcp3-same-camera-three-tier-review"
   }
 }

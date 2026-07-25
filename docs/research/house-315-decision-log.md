@@ -663,3 +663,70 @@ Headless fixed views：
 - 公共 registry / runtime 继续不动；
 - Identity 可从该 Hero v2 派生，但必须等待主窗口先整合 candidate 与 gate commit；
   本 checkpoint 不启动 Identity。
+
+## Iteration 7 — Independent Identity v1 candidate
+
+- Date: 2026-07-25
+- Main-window integrated Hero checkpoints:
+  `608369c / a237231`
+- Frozen Hero source:
+  generator `61e3aa51...` / Blend `2750b3c8...` / GLB `ad414549...`
+- Result: `candidate-awaiting-main-window-mcp3`
+- Runtime / public registry modified: no
+
+### Derivation decision
+
+Identity 没有另造一套形体，也没有读取 legacy Hero、Recovery voxel 或 ordinary
+OSM。生成器导入并 SHA 锁定 Hero v2 generator，通过其确定性 helper 在同一
+accepted Massing shell 上重建 Hero 的证据子集。
+
+保留中央高半木构山墙、横向主脊、右长 / 左短翼、上白下红、高入口、主要窗组、
+老虎窗和烟囱；主动删除密集瓦垄、细窗棂、一组右侧窗和次要立面分割。隐藏后侧
+继续是低细节 `Unknown`。
+
+### Frozen continuity
+
+Identity 与 Hero / Massing 精确共享：
+
+- origin `[0, 0, 0]`
+- authored front local `-Y`
+- ground datum `0`
+- glTF bounds
+  `[-7.675, 0, -4.575] .. [7.225, 6.982892, 4.84]`
+- runtime `[-23.03, 85.67] / -0.38 / 0.9`
+- 四个 local obstacles、入口与前场凹口通行语义
+- canonical / side-depth / entrance fixed cameras
+
+### Determinism and budget
+
+- Identity generator SHA `19fe2646...`
+- 最终 Blend SHA `79cc3608...`，109,984 bytes
+- GLB SHA `425e21b9...`，62,288 bytes
+- 1 node / 1 mesh / 6 materials / 776 triangles
+- 0 images / textures / animations / skins
+- Identity / Hero ratio：triangles `26.4305%`，bytes `29.2558%`
+- 同一命令内两个 clean scene build 及第二次完整命令的 GLB SHA 完全一致
+- `.blend` 跨保存容器 SHA 因 Blender 内部保存元数据变化；最终提交与 build
+  record 冻结 `79cc3608...`，GLB 确定性不受影响
+- Blend / GLB zero-area、non-finite、invalid index、normal mismatch 全0
+- minimum Blend polygon area `0.002750017`
+
+### Scope and fixed-view check
+
+canonical、side-depth、entrance 三张 Headless 预览确认中央高山墙、左右翼、
+白 / 红分层、高入口和窗组在 Identity 预算下仍可读。预览人物和 local `-Y`
+marker 只属于临时 QA context，未保存到 Blend、未导出 GLB。
+
+没有生成庭院 slab、围墙、围栏、街道门、灯、花箱、铺装、树木、灌木、草坪、
+外摆、店招、其他建筑或全地图资产。旧 Hero、Hero v2 与公共 registry/runtime
+SHA 均保持。
+
+### Gate boundary
+
+- Identity candidate: complete
+- Independent peer review: `Ready`，Critical / Important / Minor 均为0
+- MCP3: pending main-window same-camera three-tier review
+- Identity formal pass: false
+- Runtime authorized / started: false / false
+- Public registry modified: false
+- Next action: 提交候选并请求主窗口 MCP3；不得自行 Pass 或启动 runtime。

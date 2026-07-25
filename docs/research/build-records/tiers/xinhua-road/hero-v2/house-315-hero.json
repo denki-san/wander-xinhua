@@ -4,7 +4,7 @@
   "assetId": "house-315",
   "tier": "hero",
   "versionName": "hero-v2",
-  "status": "hero-mcp2-pass-awaiting-main-window-integration",
+  "status": "hero-mcp2-pass-identity-v1-candidate-awaiting-mcp3",
   "generator": "scripts/create_house_315_hero_model.py",
   "generatorSha256": "61e3aa5188e6aba14e0eabf58aa1cd19ba0980b812b62b79dc894d52cccd068f",
   "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_house_315_hero_model.py",
@@ -705,16 +705,44 @@
   },
   "identityAllowed": true,
   "identityLineage": {
-    "status": "post-mcp2-unlocked-awaiting-main-window-integration",
+    "status": "identity-v1-candidate-awaiting-main-window-mcp3",
     "identityDerivationAuthorized": true,
-    "identityDerivationStarted": false,
+    "identityDerivationStarted": true,
+    "identityCandidateCompleted": true,
     "sourceHeroGlbSha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
     "sourceHeroBlendSha256": "2750b3c876fa651ce1fd0ed09f8e9a5557804b8e2783839f6ed63a740cd756b6",
-    "nextAuthority": "main-window-integrates-hero-candidate-and-mcp2-gate-before-identity-start"
+    "identityGenerator": {
+      "path": "scripts/create_house_315_identity_model.py",
+      "sha256": "19fe2646b02767fb5495b19ecf979a07d2eed35acf009476e33172160dd72e51"
+    },
+    "identityEditableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/identity-v1/house-315-identity.blend",
+      "sha256": "79cc36080e835af913864fcfddca2763f0173df5bb7c107a54a662d241506a60",
+      "bytes": 109984
+    },
+    "identityRuntimeAsset": {
+      "path": "public/models/tiers/xinhua-road/identity-v1/house-315-identity.glb",
+      "sha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+      "bytes": 62288,
+      "triangles": 776,
+      "materials": 6,
+      "images": 0,
+      "textures": 0,
+      "animations": 0
+    },
+    "identityBuildRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json",
+    "tierLineage": "docs/research/house-315-tier-lineage.json",
+    "mcp3": "pending-main-window",
+    "identityFormalPass": false,
+    "runtimeAuthorized": false,
+    "runtimeExecutionStarted": false,
+    "runtimeIntegrated": false,
+    "publicRegistryModified": false,
+    "nextAuthority": "main-window-mcp3-same-camera-three-tier-review"
   },
-  "threeJsRuntime": "not-run-awaiting-main-window-integration",
+  "threeJsRuntime": "not-run-before-mcp3",
   "publicRegistry": {
     "modified": false,
-    "integration": "pending-main-window-hero-candidate-and-mcp2-gate"
+    "integration": "pending-main-window-after-mcp3"
   }
 }

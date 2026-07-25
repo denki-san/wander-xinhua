@@ -1,0 +1,457 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "house-315",
+  "tier": "identity",
+  "versionName": "identity-v1",
+  "status": "candidate-awaiting-main-window-mcp3",
+  "generator": {
+    "path": "scripts/create_house_315_identity_model.py",
+    "sha256": "19fe2646b02767fb5495b19ecf979a07d2eed35acf009476e33172160dd72e51",
+    "bytes": 34769
+  },
+  "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_house_315_identity_model.py",
+  "blenderVersion": "5.2.0 LTS",
+  "derivedFrom": {
+    "tier": "hero",
+    "heroMcp2": "pass",
+    "heroBuildRecord": "docs/research/build-records/tiers/xinhua-road/hero-v2/house-315-hero.json",
+    "heroGenerator": {
+      "path": "scripts/create_house_315_hero_model.py",
+      "sha256": "61e3aa5188e6aba14e0eabf58aa1cd19ba0980b812b62b79dc894d52cccd068f",
+      "bytes": 48577
+    },
+    "heroEditableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/hero-v2/house-315-hero.blend",
+      "sha256": "2750b3c876fa651ce1fd0ed09f8e9a5557804b8e2783839f6ed63a740cd756b6",
+      "bytes": 132712
+    },
+    "heroRuntimeAsset": {
+      "path": "public/models/tiers/xinhua-road/hero-v2/house-315-hero.glb",
+      "sha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+      "bytes": 212908
+    },
+    "heroGlbSha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+    "heroBlendSha256": "2750b3c876fa651ce1fd0ed09f8e9a5557804b8e2783839f6ed63a740cd756b6",
+    "heroGeneratorSha256": "61e3aa5188e6aba14e0eabf58aa1cd19ba0980b812b62b79dc894d52cccd068f",
+    "massingGlbSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+    "method": "sha-pinned-hero-generator-subset-reconstruction-over-approved-massing-shell"
+  },
+  "continuity": {
+    "origin": "pass-shared-zero-origin",
+    "bounds": "pass-exact-hero-and-massing-bounds",
+    "authoredFront": "local-negative-y",
+    "groundDatum": 0,
+    "sceneUnitMeters": 2.7,
+    "runtimePosition": [
+      -23.03,
+      85.67
+    ],
+    "runtimeYaw": -0.38,
+    "runtimeScale": 0.9,
+    "localBounds": {
+      "minX": -7.675,
+      "maxX": 7.225,
+      "minZ": -4.575,
+      "maxZ": 4.84
+    },
+    "collision": {
+      "sameAsHeroAndMassing": true,
+      "localObstacles": [
+        {
+          "minX": -6.7,
+          "maxX": 6.7,
+          "minZ": -3.5,
+          "maxZ": 2.4
+        },
+        {
+          "minX": -4.475,
+          "maxX": 0.675,
+          "minZ": -2.65,
+          "maxZ": 4.55
+        },
+        {
+          "minX": 3.275,
+          "maxX": 7.025,
+          "minZ": -4.375,
+          "maxZ": 3.075
+        },
+        {
+          "minX": -7.475,
+          "maxX": -3.225,
+          "minZ": -4.35,
+          "maxZ": -0.15
+        }
+      ],
+      "entranceAndFrontRecessRemainOpen": true
+    }
+  },
+  "identityCues": {
+    "preserved": [
+      "central-tall-half-timber-gable-and-upper-window",
+      "transverse-main-ridge",
+      "asymmetric-long-right-and-short-left-rear-wings",
+      "white-over-red-facade-division",
+      "tall-central-entrance-and-major-window-groups",
+      "front-shed-dormer-and-visible-chimney"
+    ],
+    "deliberateLosses": [
+      "dense-roof-ribs",
+      "fine-window-mullions-and-horizontal-divisions",
+      "one-of-three-visible-right-side-windows",
+      "minor-facade-and-eave-divisions"
+    ],
+    "unknownRear": "held-at-low-detail"
+  },
+  "scope": {
+    "included": "house-315-building-identity-only",
+    "sourceComponentCount": 51,
+    "sourceComponents": [
+      "approved-massing-shell",
+      "house315-identity-central-tall-entry-frame",
+      "house315-identity-central-tall-entry-glass",
+      "house315-identity-central-left-window-frame",
+      "house315-identity-central-left-window-glass",
+      "house315-identity-central-right-window-frame",
+      "house315-identity-central-right-window-glass",
+      "house315-identity-central-upper-window-frame",
+      "house315-identity-central-upper-window-glass",
+      "house315-identity-address-binding-unlettered-plaque",
+      "house315-identity-central-timber-lower-horizontal",
+      "house315-identity-central-timber-upper-horizontal",
+      "house315-identity-central-timber-post-0",
+      "house315-identity-central-timber-post-1",
+      "house315-identity-central-timber-brace-left",
+      "house315-identity-central-timber-brace-right",
+      "house315-identity-main-front-window-0-frame",
+      "house315-identity-main-front-window-0-glass",
+      "house315-identity-main-front-window-1-frame",
+      "house315-identity-main-front-window-1-glass",
+      "house315-identity-main-front-window-2-frame",
+      "house315-identity-main-front-window-2-glass",
+      "house315-identity-main-front-window-3-frame",
+      "house315-identity-main-front-window-3-glass",
+      "house315-identity-right-front-window-0-frame",
+      "house315-identity-right-front-window-0-glass",
+      "house315-identity-right-front-window-1-frame",
+      "house315-identity-right-front-window-1-glass",
+      "house315-identity-right-gable-window-frame",
+      "house315-identity-right-gable-window-glass",
+      "house315-identity-right-side-window-0-frame",
+      "house315-identity-right-side-window-0-glass",
+      "house315-identity-right-side-window-1-frame",
+      "house315-identity-right-side-window-1-glass",
+      "house315-identity-main-shed-dormer-body",
+      "house315-identity-main-shed-dormer-roof",
+      "house315-identity-dormer-window-0-frame",
+      "house315-identity-dormer-window-0-glass",
+      "house315-identity-dormer-window-1-frame",
+      "house315-identity-dormer-window-1-glass",
+      "house315-identity-dormer-window-2-frame",
+      "house315-identity-dormer-window-2-glass",
+      "house315-identity-main-chimney",
+      "house315-identity-main-chimney-cap",
+      "house315-identity-main-roof-ridge",
+      "house315-identity-central-roof-ridge",
+      "house315-identity-right-roof-ridge",
+      "house315-identity-left-roof-ridge",
+      "house315-identity-main-front-eave",
+      "house315-identity-central-front-eave",
+      "house315-identity-right-front-eave"
+    ],
+    "excluded": [
+      "legacy Hero geometry",
+      "Recovery geometry",
+      "ordinary OSM",
+      "full-map assets",
+      "garden slab",
+      "walls",
+      "fences",
+      "street gate",
+      "lamps",
+      "planters",
+      "decorative paving",
+      "trees",
+      "shrubs",
+      "grass",
+      "outdoor furniture",
+      "commercial signage",
+      "other buildings"
+    ]
+  },
+  "budgets": {
+    "contract": {
+      "maxNodes": 1,
+      "maxMeshes": 1,
+      "maxTriangles": 1600,
+      "maxMaterials": 6,
+      "maxImages": 0,
+      "maxTextures": 0,
+      "maxAnimations": 0,
+      "maxBytes": 165000
+    },
+    "heroBaseline": {
+      "triangles": 2936,
+      "bytes": 212908,
+      "materials": 6
+    },
+    "identityToHeroTriangleRatio": 0.264305,
+    "identityToHeroByteRatio": 0.292558,
+    "triangleReductionRatio": 0.735695,
+    "byteReductionRatio": 0.707442,
+    "status": "pass"
+  },
+  "determinism": {
+    "independentCleanSceneBuilds": 2,
+    "firstGlbSha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+    "secondGlbSha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+    "sameGlbSha256": true
+  },
+  "fixedCameras": {
+    "canonical": {
+      "location": [
+        3.5,
+        -26.0,
+        11.0
+      ],
+      "target": [
+        -0.3,
+        0.0,
+        2.8
+      ],
+      "orthoScale": 18.5
+    },
+    "sideDepth": {
+      "location": [
+        21.0,
+        -16.0,
+        14.5
+      ],
+      "target": [
+        0.0,
+        0.5,
+        3.1
+      ],
+      "orthoScale": 18.5
+    },
+    "entrance": {
+      "location": [
+        7.5,
+        -19.0,
+        8.5
+      ],
+      "target": [
+        -1.3,
+        -1.5,
+        3.0
+      ],
+      "orthoScale": 13.5
+    }
+  },
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/identity-v1/house-315-identity.blend",
+      "sha256": "79cc36080e835af913864fcfddca2763f0173df5bb7c107a54a662d241506a60",
+      "bytes": 109984
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/identity-v1/house-315-identity.glb",
+      "sha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+      "bytes": 62288,
+      "cacheVersion": "20260725-identity-425e21b9"
+    },
+    "previews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1-canonical.png",
+        "sha256": "d49624337f1fc174d29bbdd119bc3e41ae3681fc9bc8fda8759641f98e516343",
+        "bytes": 743153
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1-side-depth.png",
+        "sha256": "757762ab02241c741e35f680cd5d51c2ccd0ae4c6143f447c8024c33408c74e6",
+        "bytes": 806073
+      },
+      "entrance": {
+        "path": "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1-entrance.png",
+        "sha256": "c70eabb314921860a0d3981a830f6ac7b84ee0f678801a6ef9c740df8506e9fa",
+        "bytes": 786870
+      }
+    }
+  },
+  "blendSceneAudit": {
+    "objectCount": 1,
+    "meshObjects": 1,
+    "rootName": "house-315-identity",
+    "rootLocation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rootRotationEuler": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rootScale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "vertices": 520,
+    "polygons": 392,
+    "loopTriangles": 776,
+    "materials": 6,
+    "bounds": {
+      "min": [
+        -7.675,
+        -4.84,
+        0.0
+      ],
+      "max": [
+        7.225,
+        4.575,
+        6.982892
+      ]
+    },
+    "zeroAreaPolygonsBelow1e10": 0,
+    "zeroAreaTrianglesBelow1e10": 0,
+    "nonFinitePositions": 0,
+    "nonFinitePolygonNormals": 0,
+    "trianglePolygonOrientationMismatches": 0,
+    "previewHelpersSaved": false,
+    "minimumPolygonArea": 0.002750017,
+    "allMaterialsUseNodes": true
+  },
+  "glb": {
+    "sha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+    "bytes": 62288,
+    "nodes": 1,
+    "meshes": 1,
+    "primitives": 6,
+    "materials": 6,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 776,
+    "topology": {
+      "zeroAreaTriangles": 0,
+      "nonFinitePositions": 0,
+      "invalidIndices": 0
+    },
+    "normals": {
+      "primitivesWithoutNormals": 0,
+      "zeroLengthNormals": 0,
+      "nonUnitNormals": 0,
+      "orientationMismatches": 0
+    },
+    "bounds": {
+      "min": [
+        -7.675,
+        0,
+        -4.575
+      ],
+      "max": [
+        7.225,
+        6.982892,
+        4.84
+      ]
+    },
+    "materialFactors": [
+      {
+        "name": "house-315-identity-deep-half-timber",
+        "baseColorFactor": [
+          0.055,
+          0.045,
+          0.038,
+          1.0
+        ],
+        "roughnessFactor": 0.76,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "house-315-identity-dark-red-tile",
+        "baseColorFactor": [
+          0.3,
+          0.085,
+          0.055,
+          1.0
+        ],
+        "roughnessFactor": 0.78,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "house-315-identity-warm-roughcast",
+        "baseColorFactor": [
+          0.73,
+          0.69,
+          0.6,
+          1.0
+        ],
+        "roughnessFactor": 0.9,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "house-315-identity-muted-red-brick",
+        "baseColorFactor": [
+          0.42,
+          0.18,
+          0.12,
+          1.0
+        ],
+        "roughnessFactor": 0.88,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "house-315-identity-entrance-shadow",
+        "baseColorFactor": [
+          0.025,
+          0.03,
+          0.028,
+          1.0
+        ],
+        "roughnessFactor": 0.82,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "house-315-identity-muted-glass",
+        "baseColorFactor": [
+          0.16,
+          0.24,
+          0.23,
+          1.0
+        ],
+        "roughnessFactor": 0.38,
+        "metallicFactor": 0.0
+      }
+    ],
+    "transformedNodes": []
+  },
+  "mcp3": {
+    "status": "pending-main-window-same-camera-three-tier-review",
+    "identityFormalPass": false,
+    "acceptedInteractiveChanges": [],
+    "qaRigSaved": false,
+    "qaRigExported": false
+  },
+  "independentReview": {
+    "reviewer": "shanghai-cinema-peer",
+    "status": "ready",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "modelOrRuntimeModifiedByReview": false
+  },
+  "runtime": {
+    "status": "not-started-by-worktree",
+    "runtimeAuthorized": false,
+    "runtimeExecutionStarted": false,
+    "publicRegistryModified": false,
+    "runtimeIntegrated": false
+  },
+  "sourceHeroGate": {
+    "status": "pass",
+    "identityDerivationAuthorized": true,
+    "identityDerivationStartedByThisBuild": true
+  }
+}

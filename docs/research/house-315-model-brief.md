@@ -317,8 +317,73 @@ canonical、side-depth 和 entrance 三视图确认中央高半木构山墙、�
 `Unknown`，没有场地、植被或装饰污染。
 
 Accepted interactive changes 为 none，QA rig 未保存、未导出。因此模型二进制和
-生成器无需回写。Identity 已在门禁语义上解锁，但在主窗口整合 Hero candidate 与
-MCP2 gate commit 前不得启动；Three.js Hero runtime 和公共集成仍未开始。
+生成器无需回写。主窗口随后已把 Hero candidate 与 MCP2 gate 整合为
+`608369c / a237231`，因此正式解锁 Identity 派生；Three.js runtime 与公共集成
+仍未开始。
+
+## Independent Identity v1 Candidate
+
+Identity v1 只从冻结 Hero v2 generator / Blend / GLB
+`61e3aa51... / 2750b3c8... / ad414549...` 派生。实现方式为
+`sha-pinned Hero generator subset reconstruction`：沿用同一 accepted Massing
+壳体和 Hero helper，只保留中远景可辨识的构件，不读取 legacy Hero、Recovery
+voxel 或 ordinary OSM geometry。
+
+独立产物：
+
+- generator:
+  `scripts/create_house_315_identity_model.py`
+- editable source:
+  `assets/models/source/tiers/xinhua-road/identity-v1/house-315-identity.blend`
+- GLB:
+  `public/models/tiers/xinhua-road/identity-v1/house-315-identity.glb`
+- build record:
+  `docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json`
+- tier lineage:
+  `docs/research/house-315-tier-lineage.json`
+
+保留：
+
+1. 中央高半木构山墙、斜撑与上层小窗；
+2. 横向主脊和右长 / 左短翼轮廓；
+3. 上白下红墙体分区；
+4. 高入口、主要窗组和无文字门牌关系；
+5. 老虎窗和一处可见烟囱。
+
+Deliberate losses：
+
+- 删除全部密集屋面瓦垄，只保留四条低密度屋脊；
+- 删除细窗棂和横向细分；
+- 右侧三组可见窗减为两组；
+- 删除次要立面 / 檐口分割。
+
+隐藏后侧仍为低细节 `Unknown`。没有庭院、围墙、围栏、街道门、灯、花箱、
+装饰铺装、树木、灌木、草坪、外摆、店招、其他建筑或全地图资产。
+
+结构与预算：
+
+- GLB SHA `425e21b9...`，62,288 bytes；
+- 最终 Blend SHA `79cc3608...`，109,984 bytes；
+- 1 node、1 mesh、6 materials、776 triangles；
+- 0 images / textures / animations / skins；
+- Identity / Hero triangles 比例 `26.4305%`，bytes 比例 `29.2558%`；
+- 同一命令内两次 clean scene 及第二次完整命令的 GLB SHA 完全一致；
+- Blender `.blend` 是可编辑容器，跨保存的容器 SHA 会因内部保存元数据变化；
+  最终 build record 与提交文件冻结 `79cc3608...`，不把跨保存 Blend SHA 相等
+  冒充为 runtime 确定性；
+- root、front、ground、bounds、placement、四分体 collision 与三 fixed cameras
+  均 exact 连续；
+- zero-area、non-finite、invalid index 和 normal mismatch 均为0。
+
+固定机位：
+
+- `test_house-315-identity-v1-canonical.png`
+- `test_house-315-identity-v1-side-depth.png`
+- `test_house-315-identity-v1-entrance.png`
+
+三张 Headless 图只证明候选和预算可读，不等于 MCP3 Pass。Identity 当前停在
+`candidate-awaiting-main-window-mcp3`；主窗口完成 same-camera 三档 MCP3 前，
+不得宣称 Identity formal pass，也不得启动 runtime。
 
 ## Quality Contract
 
@@ -427,8 +492,8 @@ Legacy disposition 已确认旧 Hero 与当前主体意图一致但不可修复�
 | Blender MCP 1 | 场景、固定机位、轮廓、尺标和网格完整性通过 | Passed |
 | Three.js Massing | 真实 `?start=house315` 资源、地图、比例、朝向、接地、碰撞和性能通过 | Passed |
 | Legacy Hero disposition | 同主体意图，但结构、范围、拓扑、lineage 和固定视图不满足 MCP2 | Hold / rebuild required |
-| Independent Hero v2 | exact Massing contract、双构建、结构审计和主窗口 MCP2 完成 | MCP2 Passed / awaiting integration |
-| Identity | 只允许从已通过 MCP2 的 Hero v2 派生 | Post-MCP2 unlocked / not started |
+| Independent Hero v2 | exact Massing contract、双构建、结构审计和主窗口 MCP2 完成 | MCP2 Passed |
+| Identity v1 | 冻结 Hero 子集派生、双构建、显著降预算、三固定机位完成 | Candidate / awaiting main-window MCP3 |
 
 ## Decision Log
 
