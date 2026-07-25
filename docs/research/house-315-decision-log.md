@@ -359,3 +359,124 @@ MCP 1 只放行 Massing map gate。Identity 和 Hero 继续锁定。Three.js 地
 
 本 Worktree 不直接修改 shared registry。下一步是主窗口的共享 Massing
 integration review，而不是 Identity 或 Hero。
+
+## Iteration 4 — Legacy Hero disposition
+
+- Date: 2026-07-25
+- Source checkpoint: `78964c9`
+- Result: `hold-read-only-rollback-only / rebuild-required`
+- Blender MCP 2 requested: no
+- Identity authorized: no
+- Shared registry modified: no
+
+### Lineage freeze
+
+旧 Hero 的四个原始产物保持未改动：
+
+- generator:
+  `scripts/create_xinhua_road_models.py`
+- editable source:
+  `assets/models/source/xinhua-road/house-315.blend`
+- runtime GLB:
+  `public/models/xinhua-road/house-315.glb`
+- generic preview:
+  `test_artifacts/test_house-315_preview.png`
+
+`.blend` / GLB / preview 的 SHA-256 分别为
+`2e3a30f7... / 9d407a35... / 8297d83d...`。三者最后一次修改都来自
+`e292fde194c2704a9eeaf7e4a8faf192a5d0385e`
+（`feat: overhaul POI models and references`，2026-07-18）。
+
+当前完整共享 generator SHA 为 `6ea5fc19...`，producing commit 中完整 generator
+SHA 为 `c731e808...`；两者不同。但 `build_house_315()` 函数块 SHA 均为
+`7552dd51...`，说明315号函数本体未漂移。仓库不存在旧 Hero 的资产级 build
+record；旧 `research/house-315-model-brief.md` 和全局 detail baseline / upgrade
+只能作历史引用，不能替代二进制 lineage record。
+
+### Subject decision
+
+旧 Hero 不是其他建筑误绑。它明确以315号为目标，并保留以下持续 cue：
+
+- 陡坡相连红瓦屋顶；
+- 前立面半木构山墙；
+- 上白下红墙体；
+- 烟囱和大出檐语言。
+
+但它不是当前 House315 subject contract 的 MCP2 候选：
+
+1. 旧函数是单一主块、偏置横山墙和右侧凸窗；
+2. 当前俯瞰证据与已通过地图门的 Massing 要求中央高前出山墙、横向主脊、
+   右长翼与左后短翼；
+3. 旧门廊门与证据中的中央高开口、沿街门和山墙关系不一致；
+4. 隐藏侧后面仍是旧推断，没有以 `Unknown` 边界约束。
+
+Image 243 的门牌只用于闭合 stable subject；它不授权把受保护文字或标牌复制进
+GLB。旧 Hero 没有复制该门牌，也没有记录2026补齐证据的 lineage。
+
+### Structural audit
+
+Bundled GLB audit 只证明容器政策通过。独立 accessor 解析结果：
+
+- 1 scene、1 node、1 mesh、14 primitives / materials；
+- 23,512 triangles；
+- 0 images / textures / animations / skins；
+- 根节点无显式 transform，位置 / 旋转 / 缩放等价于单位变换；
+- glTF bounds：
+  `[-9.25, -0.055, -6.7] .. [9.25, 9.99, 9.5]`；
+- 120个零面积三角面，其中浅石材96、铁艺24；
+- non-finite positions、invalid indices、missing / zero / non-unit normals
+  和 face-vertex orientation mismatches 均为0。
+
+Headless Blender 5.2 通过
+`scripts/test_house_315_hero_blend_audit.py` 在 sandbox 外只读打开旧4.05
+`.blend`，未保存：
+
+- 1 mesh、12,562 vertices、10,943 polygons、23,512 loop triangles；
+- Blender bounds：
+  `[-9.25, -9.5, -0.055] .. [9.25, 6.7, 9.99]`；
+- 60个零面积 polygons / 120个零面积 triangles；
+- non-finite positions / normals 与 triangle-polygon orientation mismatches
+  均为0。
+
+旧 Hero 最低点为 `-0.055`，且 envelope 被整块庭院扩张；已通过地图门的 Massing
+bounds 是 `[-7.675, -4.84, 0] .. [7.225, 4.575, 6.982892]`。两者无法在固定
+placement 下无包络、ground 或 collision popping 地切档。
+
+### Scope audit
+
+旧 generator 明确生成并合并以下范围外内容：
+
+- 1整块庭院 slab；
+- 2段围栏与2段门；
+- 2盏入口灯；
+- 2个带绿植花箱；
+- 装饰铺装网格。
+
+没有显式树木、独立灌木、草坪、外摆或其他建筑，但以上范围外内容已与主体合并
+为单一 runtime mesh，无法安全拆除。本轮没有删除、覆盖或重新导出任何旧资产。
+
+### Fixed-view audit
+
+- 真实 canonical：官方2023沿街正面，Supported；
+- 真实 side / depth：上观 Image 242 俯瞰只支持 Massing，隐藏背面为 Unknown；
+- 真实 entrance / address：Images 243 / 244，Supported；
+- 旧 Hero render：只有 generic oblique `test_house-315_preview.png`；
+- 旧 runtime comparison：仅 front-ish map context，且 `.png` 扩展内实际为 JPEG；
+- 正式 Hero canonical、side-depth、entrance-detail、Hero / Massing 同机位对照：
+  Missing。
+
+### Gate decision
+
+完整 disposition 见
+`docs/research/house-315-hero-disposition.json`。
+
+结论是 `Hold / rebuild required`，不是 `repair-in-place`：旧模型的基础体量、
+ground / envelope 与已批准 Massing 都不同，而且场地污染已 baked。若主窗口决定
+重新开放 Hero evidence contract，应：
+
+1. 新建独立 `hero-v2` generator / `.blend` / GLB / build record 路径；
+2. 从已通过 MCP1 和地图门的 Massing 继承 origin、front、ground、体量与碰撞语义；
+3. 只增加照片直接支持的建筑构件，隐藏背面保持 Unknown；
+4. 不生成树木、灌木、草坪、围栏、门、灯、花箱、铺装、ordinary OSM 或其他建筑；
+5. 关闭 zero-area、固定视图和 lineage blocker 后才向主窗口申请串行 MCP2；
+6. MCP2 通过前 Identity 继续锁定。
