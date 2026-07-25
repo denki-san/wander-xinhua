@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "assetId": "film-art-center",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-25T19:20:00+08:00",
+  "sharedContract": {
+    "origin": [0, 0, 0],
+    "frontDirection": "-Y",
+    "groundDatum": 0,
+    "authoredMetersPerSceneUnit": 2.7,
+    "position": [47.5, 81.5],
+    "yaw": 2.761592653589793,
+    "scale": 1,
+    "collisionSource": "app/scene/xinhua-road-landmarks-data.json",
+    "startPreset": "/?start=film-art"
+  },
+  "hero": {
+    "status": "retained-formal-runtime-accepted",
+    "generator": "scripts/create_xinhua_road_models.py",
+    "blend": {
+      "path": "assets/models/source/xinhua-road/film-art-center.blend",
+      "sha256": "32e27757001feeb1da31a2ada1fbfafc7c6f6a038d3f85ab408912973a2c8e0c"
+    },
+    "glb": {
+      "path": "public/models/xinhua-road/film-art-center.glb",
+      "sha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6",
+      "bytes": 4082744,
+      "triangles": 63516,
+      "materials": 14,
+      "images": 0
+    },
+    "buildRecord": "docs/research/build-records/film-art-center.json"
+  },
+  "identity": {
+    "status": "missing-blocked-until-massing-map-and-hero-mcp2",
+    "derivedFrom": null,
+    "identityAllowed": false
+  },
+  "massing": {
+    "status": "headless-and-structure-pass-mcp1-pending",
+    "derivedFrom": {
+      "method": "deterministic-simplification-of-frozen-hero-parameters",
+      "heroGlbSha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6"
+    },
+    "generator": "scripts/create_film_art_center_massing_model.py",
+    "blend": "assets/models/source/tiers/xinhua-road/massing/film-art-center-massing.blend",
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing/film-art-center-massing.glb",
+      "sha256": "c89791dc3978b317cc2f8807a77f7a84b5c596f8d4cd01c1cffd05090e9584a6",
+      "bytes": 240572,
+      "triangles": 3376,
+      "materials": 6,
+      "images": 0
+    },
+    "buildRecord": "docs/research/build-records/tiers/xinhua-road/massing/film-art-center-massing.json",
+    "mcp1": "pending",
+    "mapAcceptance": "blocked-until-mcp1"
+  },
+  "recoveryDecision": {
+    "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "candidateSha256": "4b925b2dad96894e7feda2b925962781fcd532d675657a9f17a96467458b0941",
+    "structure": {
+      "triangles": 12,
+      "materials": 1,
+      "bytes": 2316
+    },
+    "decision": "rejected-as-formal-massing",
+    "reason": "single generic OSM extrusion with unknown fallback height and blocked map binding; it does not preserve the named subject silhouette"
+  },
+  "holdBoundary": {
+    "trees": "untouched",
+    "decor": "untouched",
+    "ordinaryOsm": "not-imported",
+    "globalMassing": "untouched",
+    "facilityAndSharedPrototypes": "not-imported",
+    "otherBuildings": "untouched"
+  },
+  "nextGate": "blender-mcp1-massing-review"
+}

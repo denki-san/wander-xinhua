@@ -128,11 +128,35 @@
 - Three-way comparison: `test_artifacts/test_film-art-center_three-way-comparison.png`，从左至右为参考照片、Blender canonical、Three.js runtime。
 - Runtime cache version: `20260722-film-art-4`，与 GLB SHA-256 `e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6` 绑定。
 
+### Runtime tier lineage and budgets — 2026-07-25
+
+现有 Hero 已冻结并保留，不因补齐 runtime tiers 而重建。正式 lineage 见
+`docs/research/film-art-center-tier-lineage.json`。
+
+| Field | Hero | Identity | Massing |
+| --- | --- | --- | --- |
+| Status | retained-formal-runtime-accepted | blocked until Massing map gate and Hero MCP2 | Headless/GLB pass, MCP1 pending |
+| Output | `public/models/xinhua-road/film-art-center.glb` | pending | `public/models/tiers/xinhua-road/massing/film-art-center-massing.glb` |
+| Source | frozen Hero `.blend` + `build_film_art_center()` | must derive from frozen Hero | deterministic simplification of frozen Hero parameters |
+| SHA-256 | `e4887f6d…b0de6` | pending | `c89791dc…584a6` |
+| Max nodes | 8 | 4 | 2 |
+| Max triangles | 90,000 | 24,000 | 4,000 |
+| Max materials | 14 | 8 | 6 |
+| Max images | 0 | 0 | 0 |
+| Max bytes | 6,300,000 | 1,600,000 | 300,000 |
+| Preserved cues | all evidence-supported cues | roof, double veranda, loggia, entrance and side wings | three-storey silhouette, double roofs, veranda depth, loggia and side wings |
+
+Recovery commit `3044cd89` 中的 clean-v2 候选
+`4b925b2d…b0941` 仅为 12 triangles 的单一 OSM 拉伸盒，使用未知 fallback
+height，且原记录明确 `mapAcceptance=blocked`。它保留为 recovery 对照，不作为
+正式 Massing，也没有把该批 8 建筑的共享生成器、ordinary OSM 或全地图 runtime
+摘入本分支。
+
 ## Batch Plan
 
 | Batch | Deliverable | Blender check | Runtime check | Status |
 | --- | --- | --- | --- | --- |
-| Massing | 三层横向体块、中层檐、全宽主屋顶和真实廊深 | canonical 轮廓与照片宽高比 | 主体不再像窄高盒子 | Complete |
+| Massing | Hero 主模型施工中的三层横向体块、中层檐、全宽主屋顶和真实廊深 | canonical 轮廓与照片宽高比 | 主体不再像窄高盒子 | Complete（Hero construction checkpoint；不等于 standalone Massing tier） |
 | Identity | 双层柱廊、栏杆、中央凉廊、入口牌匾和卧狮 | 四项身份构件清晰 | 游戏距离仍可辨识 | Complete |
 | Materials | 暖白墙柱、朱红屋瓦、深窗与暖入口 | 阴影层次与红瓦不过饱和 | 无黑面、透明排序或过曝 | Complete |
 | Site | 草坪、路径、灌木和低玻璃连接体 | canonical 场地关系 | 入口路径开放 | Complete |
@@ -234,3 +258,25 @@
 - Runtime result: Chrome 可见标签页以静态发布预览完成最终 canonical 近正视验收；截图已覆盖保存为 `test_artifacts/test_film-art-center_runtime_preview.png`。
 - Loading result: 最终 GLB 实际传输 `4,083,044` bytes，解码 `4,082,744` bytes，加载耗时 `120.3 ms`。
 - Console/performance result: console error 为 `0`；3 秒 `181` 帧，平均 `59.99 FPS`。最终 Three.js gate 关闭。
+
+### Iteration 5 — Recovery audit and standalone Massing candidate — 2026-07-25
+
+- Preflight: Blender 5.2.0 LTS、单资产 Hero 生成器、公共
+  `scripts/audit_glb.py`、`npm run build:static` 与 `/?start=film-art` 验收入口均存在；
+  实际 MCP 与地图验收仍按调度窗口串行执行，未用旧截图替代。
+- Recovery decision: clean-v2 `4b925b2d…b0941` 结构审计虽为 `ok`，但只有
+  1 node、12 triangles、1 material、2,316 bytes；其 OSM member binding、建筑高度
+  和入口均未确认，原 runtime QA 也明确 formal map gate blocked，因此拒绝直接摘取。
+- Changes: 新增只处理本建筑的
+  `scripts/create_film_art_center_massing_model.py`，从冻结 Hero SHA
+  `e4887f6d…b0de6` 的参数确定性派生三层主楼、双层前廊、双重起翘红瓦屋顶、中央
+  凉廊和两侧低翼；未带入草坪、灌木、灯具、普通 OSM、全地图或其他建筑。
+- Headless result: `.blend` 与 `.glb` 已输出；正式 GLB 为 1 node、1 mesh、
+  3,376 triangles、6 materials、0 images、240,572 bytes，SHA-256
+  `c89791dc…584a6`。公共审计通过，根变换归一；两次连续不改脚本重建逐字节相同。
+- Visual result: canonical、side、entrance 三张固定机位均保留横向三层轮廓、双檐、
+  前廊进深、中央开口和两侧低翼；1.8 m 人物代理为 `0.666667` 场景单位，仅用于预览，
+  不进入 GLB。入口初版误做成前凸暗盒，已回写生成器为柱列后方凹口并重建。
+- Gate state: Headless 和 GLB 结构通过；Blender MCP1 尚未执行，地图校准被严格阻断；
+  Identity 仍不得开始。回退点是本 iteration 前冻结 Hero 与 recovery/Hold commit，
+  两者均未覆盖。
