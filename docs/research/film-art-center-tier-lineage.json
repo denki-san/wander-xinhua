@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "film-art-center",
   "activeScope": "active-18-buildings",
-  "reviewedAt": "2026-07-25T21:02:28+08:00",
+  "reviewedAt": "2026-07-25T21:36:41+08:00",
   "sharedContract": {
     "origin": [0, 0, 0],
     "frontDirection": "-Y",
@@ -45,7 +45,7 @@
     "buildRecord": "docs/research/build-records/film-art-center.json"
   },
   "identity": {
-    "status": "deterministic-candidate-mcp3-pending",
+    "status": "mcp3-pass-runtime-pending",
     "derivedFrom": {
       "heroGlbSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
       "method": "deterministic-simplification-preserving-subject-specific-cues"
@@ -72,8 +72,10 @@
       "textures": 0
     },
     "buildRecord": "docs/research/build-records/tiers/xinhua-road/identity/film-art-center-identity.json",
-    "mcp3": "pending",
-    "threeTierRuntime": "blocked-until-mcp3"
+    "mcp3": "pass",
+    "threeTierBlenderContinuity": "pass",
+    "acceptedInteractiveChanges": [],
+    "threeTierRuntime": "pending-local-runtime-candidate"
   },
   "massing": {
     "status": "mcp1-and-map-pass",
@@ -116,5 +118,5 @@
     "facilityAndSharedPrototypes": "not-imported",
     "otherBuildings": "untouched"
   },
-  "nextGate": "blender-mcp3-three-tier-review"
+  "nextGate": "identity-three-js-runtime-candidate"
 }

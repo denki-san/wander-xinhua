@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "film-art-center",
   "activeScope": "active-18-buildings",
-  "reviewedAt": "2026-07-25T21:02:28+08:00",
+  "reviewedAt": "2026-07-25T21:36:41+08:00",
   "reviewedBy": "main-coordinator",
   "sourceCheckpoint": "6d0206d",
   "pipelineOrder": [
@@ -324,7 +324,7 @@
     "nextGate": "derive-independent-identity-from-frozen-hero"
   },
   "identityGate": {
-    "status": "deterministic-candidate-mcp3-pending",
+    "status": "pass",
     "derivedFromHeroSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
     "forbiddenSubstitute": "arts-cluster-generic-proxy",
     "generator": {
@@ -386,10 +386,73 @@
       }
     },
     "deterministicGlb": "pass-two-clean-builds-cmp",
+    "mcp3SceneInspection": {
+      "meshCount": 1,
+      "vertices": 13100,
+      "polygons": 11952,
+      "materials": 8,
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1],
+      "facesBelowAreaEpsilon": 0,
+      "areaEpsilon": 1e-10,
+      "minimumValidFaceArea": 0.000001981060677280766,
+      "nonfinitePolygonNormals": 0,
+      "derivedFromHeroGlbSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+      "frontDirection": "-Y",
+      "forbiddenSubstitute": "arts-cluster-generic-proxy"
+    },
+    "mcp3VisualChecks": {
+      "canonical": "pass-double-red-eaves-double-columns-white-balustrade-central-loggia-window-groups-xinhua-200-sign-lions-lights-and-low-glass-wings-readable",
+      "side": "pass-veranda-depth-eave-silhouette-and-low-glass-wing-readable-with-evidence-limited-side-rear-detail",
+      "entrance": "pass-black-gold-xinhua-200-sign-paired-lions-lights-columns-balustrade-and-entry-axis-readable",
+      "threeTierContinuity": "pass-shared-main-silhouette-origin-front-direction-and-scale-semantics"
+    },
+    "fixedMcp3Views": {
+      "canonical": {
+        "camera": [3, -43, 8],
+        "target": [0, -0.5, 6.3],
+        "lensMm": 54,
+        "screenshot": "test_artifacts/test_film-art-center-identity_mcp3_recheck_canonical.png",
+        "sha256": "837f25b003910721aa128cf6ae9f816b2c9cb0a94ffdc80dde08fba6dd70ef25",
+        "bytes": 768286
+      },
+      "side": {
+        "camera": [34, -28, 9],
+        "target": [1, 0, 6.1],
+        "lensMm": 52,
+        "screenshot": "test_artifacts/test_film-art-center-identity_mcp3_recheck_side.png",
+        "sha256": "08397bb78b4f3504ef7da421dacb6a14a0dd090c6181b106424a6ff27058d9f6",
+        "bytes": 747393
+      },
+      "entrance": {
+        "camera": [10, -48, 4.8],
+        "target": [0, -0.8, 5.7],
+        "lensMm": 56,
+        "screenshot": "test_artifacts/test_film-art-center-identity_mcp3_recheck_entrance.png",
+        "sha256": "fb594df80fd441893891867cc8b32bd3299f5bd81ef63ce899630aa40d0b48d3",
+        "bytes": 725557
+      }
+    },
+    "threeTierComparisonSources": {
+      "hero": {
+        "canonicalSha256": "962baf1ac9d47aca442b3dca88b1af77e2dae3db05f9ab46fde8ce856ff0f419",
+        "sideSha256": "ad23464bb8f7d7611fcedb5d577e1b9cfb222d463955d591f617c49fc79e1bcd",
+        "entranceSha256": "84d7ce3d88da26809c15e54f492d690427493ac2bf23204d050a894dde3b7b9e"
+      },
+      "massing": {
+        "canonicalSha256": "12ef43ad5d8bfbc944ff2177190e7e60ae03915b394bfb6420794aa41ad587e0",
+        "sideSha256": "e5b636866e3a6255940e7494e7b9d350941f33111af629bb9c2725feffc426c8",
+        "entranceSha256": "815038985b490f376c9a423bd2c765ce481623cdb947194cfbf97121f08329e9"
+      }
+    },
     "acceptedInteractiveChanges": [],
-    "nextGate": "main-coordinator-blender-mcp3-three-tier-review"
+    "qaRigSaved": false,
+    "qaRigExported": false,
+    "decision": "pass-runtime-integration-unlocked",
+    "nextGate": "identity-three-js-runtime-candidate"
   },
   "threeTierGate": {
-    "status": "pending"
+    "status": "blender-three-tier-pass-runtime-pending"
   }
 }

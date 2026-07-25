@@ -3,7 +3,7 @@
   "auditedAt": "2026-07-25",
   "assetId": "building:xinhua-road:film-art-center",
   "tier": "identity",
-  "status": "headless-and-glb-audit-pass-mcp3-pending",
+  "status": "mcp3-pass-runtime-pending",
   "generator": {
     "path": "scripts/create_film_art_center_identity_model.py",
     "sha256": "af0fbd64e9aa1cd2b9c3595ce51d4c792ac14a1afccb012df8aabf55c96d2f47",
@@ -162,6 +162,39 @@
     "rootRotation": [0, 0, 0],
     "rootScale": [1, 1, 1]
   },
+  "mcp3": {
+    "status": "pass",
+    "interactiveReview": "Blender MCP",
+    "visualChecks": [
+      "full-width main roof and second red gallery roof",
+      "double veranda columns and white balustrade",
+      "central recessed loggia and symmetric window groups",
+      "black and gold Xinhua 200 sign, paired lions and entrance lights",
+      "low glass side wings",
+      "evidence-limited side and rear remain deliberately low detail",
+      "Hero Identity and Massing preserve silhouette origin front and scale semantics"
+    ],
+    "screenshots": {
+      "canonical": {
+        "path": "test_artifacts/test_film-art-center-identity_mcp3_recheck_canonical.png",
+        "sha256": "837f25b003910721aa128cf6ae9f816b2c9cb0a94ffdc80dde08fba6dd70ef25",
+        "bytes": 768286
+      },
+      "side": {
+        "path": "test_artifacts/test_film-art-center-identity_mcp3_recheck_side.png",
+        "sha256": "08397bb78b4f3504ef7da421dacb6a14a0dd090c6181b106424a6ff27058d9f6",
+        "bytes": 747393
+      },
+      "entrance": {
+        "path": "test_artifacts/test_film-art-center-identity_mcp3_recheck_entrance.png",
+        "sha256": "fb594df80fd441893891867cc8b32bd3299f5bd81ef63ce899630aa40d0b48d3",
+        "bytes": 725557
+      }
+    },
+    "acceptedInteractiveChanges": [],
+    "qaRigSaved": false,
+    "qaRigExported": false
+  },
   "budgets": {
     "maxNodes": 4,
     "maxTriangles": 24000,
@@ -177,8 +210,8 @@
       "method": "two consecutive clean single-asset builds plus cmp",
       "sha256": "a4d37446e27225815624e6382048ed1dc341f1e079f089755ed5fb68e520e869"
     },
-    "fixedViewCandidateReview": "pass-subagent-awaiting-main-mcp3",
-    "mcp3": "pending",
-    "threeTierRuntime": "blocked-until-mcp3"
+    "fixedViewCandidateReview": "pass",
+    "mcp3": "pass",
+    "threeTierRuntime": "pending-local-runtime-candidate"
   }
 }

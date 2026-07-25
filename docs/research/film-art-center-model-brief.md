@@ -138,7 +138,7 @@ Hero 在主窗口首次 MCP2 中通过视觉层，但因 76 个近零面积面�
 
 | Field | Hero | Identity | Massing |
 | --- | --- | --- | --- |
-| Status | MCP2 pass, frozen Identity source | deterministic candidate, MCP3 pending | MCP1 pass, map pass |
+| Status | MCP2 pass, frozen Identity source | MCP3 pass, runtime pending | MCP1 pass, map pass |
 | Output | `public/models/xinhua-road/film-art-center.glb` | `public/models/tiers/xinhua-road/identity/film-art-center-identity.glb` | `public/models/tiers/xinhua-road/massing/film-art-center-massing.glb` |
 | Source | frozen Hero `.blend` + `build_film_art_center()` | deterministic subject-specific simplification of frozen Hero | deterministic simplification of frozen Hero parameters |
 | SHA-256 | `33daaaf0…b8e1b` | `a4d37446…e869` | `c89791dc…584a6` |
@@ -160,7 +160,7 @@ height，且原记录明确 `mapAcceptance=blocked`。它保留为 recovery 对�
 | Batch | Deliverable | Blender check | Runtime check | Status |
 | --- | --- | --- | --- | --- |
 | Massing | Hero 主模型施工中的三层横向体块、中层檐、全宽主屋顶和真实廊深 | canonical 轮廓与照片宽高比 | 主体不再像窄高盒子 | Complete（Hero construction checkpoint；不等于 standalone Massing tier） |
-| Identity | 从 MCP2 通过后的 Hero 派生独立轻量 tier | 三处以上主体独有构件清晰 | 三档运行时切换仍可辨识 | Candidate complete（MCP3 pending） |
+| Identity | 从 MCP2 通过后的 Hero 派生独立轻量 tier | 三处以上主体独有构件清晰 | 三档运行时切换仍可辨识 | MCP3 Pass（runtime pending） |
 | Materials | 暖白墙柱、朱红屋瓦、深窗与暖入口 | 阴影层次与红瓦不过饱和 | 无黑面、透明排序或过曝 | Complete |
 | Site | 草坪、路径、灌木和低玻璃连接体 | canonical 场地关系 | 入口路径开放 | Complete |
 | Collision | 主体实体与开放院落分离 | 无大盒封场 | 人物与相机可达 | Complete（实际首屏 + 数据与自动测试） |
@@ -406,6 +406,27 @@ Identity/MCP3 完成后重新执行三档运行时验收，不能沿用旧截图
 - Fixed views: canonical、side、entrance 三张 Headless 图使用 Hero/Massing
   相同机位；子 Worktree 目检确认双红檐、柱廊/栏杆、中央凉廊、牌匾/灯/卧狮和
   低玻璃翼可读。1.8 m 人物代理仅用于预览，未保存、未导出。
-- Gate state: Headless、预算、拓扑、GLB audit 与确定性通过；MCP3 和 Three.js
-  三档同机位仍 pending。未改公共 placement、yaw、scale、bounds、collision、
+- Gate state: Headless、预算、拓扑、GLB audit 与确定性通过；MCP3 在下一 iteration
+  正式封存，Three.js 三档同机位仍 pending。未改公共 placement、yaw、scale、bounds、collision、
   start 或 forward，也未把 Identity 接入生产默认。
+
+### Iteration 10 — Blender MCP3 and three-tier continuity — 2026-07-25
+
+- Scene inspection: 主窗口只读打开 Identity Blend，确认 1 mesh、13,100 vertices、
+  11,952 polygons、8 materials、area `<1e-10` 为 0、非有限法线为 0、最小有效
+  面积 `1.981060677280766e-6`，root location/rotation/scale 为
+  `[0,0,0] / [0,0,0] / [1,1,1]`。root extras 的 Hero lineage、
+  `front=-Y` 和禁止 `arts-cluster` 替代均正确。
+- Visual result: canonical、side、entrance 三机位均通过；双红檐、双层柱列与白栏杆、
+  中央凉廊、左右窗组、黑金“新华两佰”、卧狮/入口灯和低玻璃翼可读。证据不足的
+  侧后立面保持低细节，没有借 Identity 虚构新构件。
+- Three-tier continuity: 沿用完全相同机位对照冻结 Hero recheck、Identity MCP3
+  与 Massing MCP1；三档主轮廓、原点、正向和比例语义连续。Hero 的草坪、灌木和
+  庭院灯属于既有历史场地内容，本轮按继承 Hold 保留原二进制，不删除、不修改，
+  也不向 Identity 或 Massing 传播。
+- Provenance: MCP3 新截图 SHA 为 canonical `837f25b0…ef25`、side
+  `08397bb7…d9f6`、entrance `fb594df8…48d3`；
+  `acceptedInteractiveChanges=[]`，QA rig 未保存、未导出。
+- Gate state: MCP3 Pass，Blender 三档连续性 Pass；Identity runtime 接入已解锁，
+  但 Three.js 本地三档候选、console、加载、落地、碰撞、fallback 和性能边界仍需
+  单独验证，不能沿用 Blender 结论。
