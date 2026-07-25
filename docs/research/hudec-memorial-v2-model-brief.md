@@ -46,12 +46,13 @@ Reference manifest: `docs/research/hudec-memorial-v2-reference-manifest.json`
 
 Canonical comparison:
 
-- Photo: `HUDEC-V2-REF-A`
-- Observation direction: courtyard-facing facade, camera slightly right of facade normal
+- Photo: `HUDEC-V2-REF-C`
+- Observation direction: west/rear oblique toward the chimney tower, layered roofs, half-timber end gable and low glass wing
 - Blender front: local `-Y`
-- Target Blender camera: `(10.8, -18.5, 8.0)` looking at `(0, 0.3, 4.1)`, 52 mm equivalent
+- Target Blender camera: `(-15.5, 23.0, 12.0)` looking at `(-0.1, 1.0, 4.45)`, 56 mm equivalent
 - Target screen width: building architecture 66%–78%; no roof or chimney crop
 - Human scale: 1.75 m person = `0.648` scene unit; entrance clear height target `0.95`–`1.10` scene unit
+- Headless scale proxy: 1.8 m person = `0.667` scene unit; preview-only and excluded from GLB
 
 ## Observed / inferred / unknown
 
@@ -169,3 +170,26 @@ Identity must preserve cues 1–5. Massing must preserve the wide facade, layere
 - Same-camera three-tier MCP: Pending.
 - Wiki completion gate: Pending.
 - Deployment: Not authorized.
+
+### Iteration 1 — recovery Massing checkpoint
+
+- Recovery baseline: commit `7c98906`; recovery candidate `3044cd8` is retained only as a generic/provisional counterexample and is not copied over this Worktree.
+- Independent review result: Rejected as too generic; it did not make the multi-flue chimney tower, layered steep roofs, cross gable, half-timber end gable and low glass wing readable in one canonical view.
+- Corrective decision: Promote official reference `HUDEC-V2-REF-C` to canonical and rebuild those observed volumes before requesting MCP 1.
+- MCP 1: Pending; shared Blender scene remains reserved by the coordinator.
+
+### Iteration 2 — evidence-silhouette Massing candidate
+
+- Actual modification: Replaced the single chimney mass with a white tower plus three independent brick flues; lengthened and steepened the main roof; kept the perpendicular end-wing gable; added a minimal evidence-readable half-timber frame; connected the lower glazed wing with a descending shed roof; added a rear dormer mass.
+- Evidence boundary: chimney, roof layers, end gable, half timber and low glazed wing are observed in `HUDEC-V2-REF-C`; exact dimensions and hidden wall continuity remain inferred; east/rear openings remain unknown and unmodeled.
+- Scale proof: preview-only 1.8 m proxy uses `1.8 / 2.7 = 0.667` scene unit and is absent from the GLB.
+- Headless result: canonical, side and entrance views saved under `test_artifacts/test_hudec-memorial-massing_*_preview.png`; all required massing cues are readable without Hero facade detail.
+- GLB result: 158,312 bytes, 1 node, 1 mesh, 2,180 triangles, 5 materials, 0 images, 5 draw calls; root transform is identity and audit passes.
+- Build record: `docs/research/build-records/hudec-memorial-massing.json`.
+- Independent review: Passed by the coordinating main window as an MCP 1
+  candidate. Canonical clearly retains the white chimney base, three brick
+  flues, steep long roof, half-timber end gable and low glass wing; side view
+  retains the layered cross-gable relationship and the 1.8 m proxy reads at a
+  plausible scale. The entrance porch remains simplified but is not a Massing
+  blocker.
+- MCP 1 / map / runtime: Pending; this checkpoint is only a candidate and does not authorize Hero detail.

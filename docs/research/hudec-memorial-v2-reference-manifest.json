@@ -6,8 +6,8 @@
   "retrievedAt": "2026-07-25",
   "runtimeUse": false,
   "rightsBoundary": "参考图仅作为人工建模、结构核验和固定机位对照证据；不嵌入 GLB，不作为运行时贴图，不复制照片、馆名牌匾或受保护标志。",
-  "canonicalReference": "HUDEC-V2-REF-A",
-  "canonicalViewDirection": "courtyard-facing-front, camera slightly right of facade normal",
+  "canonicalReference": "HUDEC-V2-REF-C",
+  "canonicalViewDirection": "west-rear oblique toward chimney tower, layered roofs and half-timber end gable",
   "placementEvidence": {
     "source": "docs/research/data/requested-pois-osm-20260717-103840.json",
     "osmWay": 494633921,
@@ -71,9 +71,9 @@
   "coverageMatrix": [
     {
       "slot": "canonical",
-      "referenceIds": ["HUDEC-V2-REF-A"],
+      "referenceIds": ["HUDEC-V2-REF-C"],
       "status": "covered",
-      "decision": "以正立面略偏右视角核对横向比例、入口和半木构。"
+      "decision": "以政府官方西后侧斜向照片核对多联烟囱塔、错层坡屋面、半木构端山墙和低玻璃翼的整体轮廓。"
     },
     {
       "slot": "side-or-depth",
