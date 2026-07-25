@@ -133,8 +133,9 @@ test("Hudec Massing Three.js 地图门保留精确资源、截图与源 registry
   assert.equal(qa.qaAssembly.sourceRegistryCommitted, false);
   assert.equal(qa.qaAssembly.heroAssetOverwritten, false);
   assert.equal(
-    sha256(landmarkSource),
+    qa.qaAssembly.sourceBeforeSha256,
     qa.qaAssembly.sourceAfterRestoreSha256,
+    "历史 QA 必须证明临时 registry 修改已逐字节恢复",
   );
   assert.equal(gate.mapGate.status, "blocked");
   assert.equal(gate.mapGate.heroIdentityAuthorized, false);

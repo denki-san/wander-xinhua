@@ -177,9 +177,22 @@ test("一号花园旧 Hero 二进制与生产 lineage SHA 被精确冻结", asyn
     (await stat(path.join(root, legacyHero.runtimeAsset.path))).size,
     legacyHero.runtimeAsset.bytes,
   );
+  const generatorSource = await readFile(
+    path.join(root, legacyHero.generator.path),
+    "utf8",
+  );
+  const oneStepFunction = generatorSource.match(
+    /def build_one_step_garden\(\) -> None:\n.*?(?=\ndef add_small_villa\()/s,
+  )?.[0];
+  assert.ok(oneStepFunction);
   assert.equal(
-    await sha256(legacyHero.generator.path),
-    legacyHero.generator.currentSha256,
+    createHash("sha256").update(oneStepFunction).digest("hex"),
+    legacyHero.generator.oneStepFunctionSha256,
+    "共享生成器可因其他建筑变化，但一号花园函数块必须冻结",
+  );
+  assert.equal(
+    legacyHero.generator.oneStepFunctionByteIdenticalToProducingCommit,
+    true,
   );
   assert.equal(legacyHero.atomicLineage.producingCommit, "e292fde194c2704a9eeaf7e4a8faf192a5d0385e");
   assert.equal(legacyHero.atomicLineage.binaryAssetsUnchangedSinceProducingCommit, true);

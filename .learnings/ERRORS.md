@@ -6960,3 +6960,44 @@ sunCdp.on is not a function
 - **Resolved**: 2026-07-25T20:14:00+08:00
 - **Notes**: 改用 `sunCdp.send("Runtime.evaluate", ...)` 注入并读取页面级错误监听器；
   五个场景均记录为 runtime errors 0、console errors 0。
+
+---
+## [ERR-20260725-042] building_gate_tests_assumed_shared_files_never_change
+
+**Logged**: 2026-07-25T21:13:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: tests
+
+### Summary
+电影艺术中心修复合入后，全仓回归有三项失败，因为历史建筑 QA 把共享 registry、
+共享多资产生成器或旧升级摘要误当成永远不变的当前文件。
+
+### Error
+```text
+Hudec sourceAfterRestoreSha256 !== current registry sha256
+film-art-center trianglesAfter 63516 !== current GLB 63368
+one-step-garden generator currentSha256 !== current shared generator sha256
+```
+
+### Context
+- Hudec 临时 QA 已证明修改前后 registry 字节一致，但当前 registry 后续合法更新了
+  电影艺术中心 cacheVersion。
+- 电影艺术中心清理退化面后，正式 GLB 的三角面、体积和 SHA 均已变化。
+- 一号花园只冻结共享生成器中的 `build_one_step_garden()` 函数块；其他建筑的生成器
+  修复不应破坏该 Hold 断言。
+
+### Suggested Fix
+历史 QA 验证同次修改前后快照自洽，并单独检查当前目标建筑仍保持生产路径；共享生成器
+使用建筑函数块 SHA；当前资产指标从最新 build record 同步到项目升级摘要。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_hudec_memorial_v2.test.mjs,
+  tests/test_one_step_garden_hero_disposition.test.mjs,
+  docs/research/model-detail-upgrade.json
+
+### Resolution
+- **Resolved**: 2026-07-25T21:13:00+08:00
+- **Notes**: 三项断言改为历史快照自洽、建筑函数块冻结和当前 Hero 指标；随后重跑
+  失败专项与全仓回归。
