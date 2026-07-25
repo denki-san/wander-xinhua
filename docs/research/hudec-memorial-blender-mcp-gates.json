@@ -2,8 +2,9 @@
   "schemaVersion": 1,
   "assetId": "hudec-memorial",
   "activeScope": "active-18-buildings",
-  "reviewedAt": "2026-07-25T16:50:00+08:00",
+  "reviewedAt": "2026-07-26T02:26:03+08:00",
   "reviewedBy": "main-coordinator",
+  "activeCandidate": "fastModeCandidate",
   "sourceCheckpoint": "ac4d595",
   "pipelineOrder": [
     "evidence-and-brief",
@@ -17,7 +18,7 @@
   ],
   "massingGate": {
     "gate": "mcp1-massing-pre-map-calibration",
-    "status": "pass",
+    "status": "historical-pass-superseded-binary-and-transform",
     "interactiveReview": "Blender MCP",
     "fallbackUsed": false,
     "editableSource": {
@@ -110,11 +111,11 @@
       "status": "not-required",
       "note": "MCP1 仅增加临时相机、灯光、地面和1.8米人物代理；未接受几何、材质或 transform 修改，正式 Blend 未保存。"
     },
-    "nextGate": "return-to-massing-entrance-geometry"
+    "nextGate": "superseded-by-fastModeCandidate"
   },
   "mapGate": {
     "gate": "three-js-massing-map-calibration",
-    "status": "blocked",
+    "status": "historical-blocked-superseded-candidate",
     "reviewedAt": "2026-07-25T19:14:34+08:00",
     "reviewedBy": "hudec-memorial-worktree-agent",
     "sourceCheckpoint": "f509c60",
@@ -149,8 +150,79 @@
       "临时 QA bundle 与 HAR 未保留，碰撞配置缺少独立运行时证据。",
       "性能采样未达到 Brief 的 10 秒。"
     ],
-    "nextGate": "return-to-massing-entrance-geometry-then-repeat-mcp1-and-map",
+    "nextGate": "repeat-mcp1-and-map-with-fastModeCandidate",
     "heroIdentityAuthorized": false
+  },
+  "fastModeCandidate": {
+    "status": "headless-and-static-map-pass-mcp1-pending",
+    "generatedAt": "2026-07-26T02:24:06+08:00",
+    "ownership": "hudec-building-only",
+    "generator": {
+      "path": "scripts/create_hudec_memorial_v2.py",
+      "sha256": "be77ff6acbc09278e2cf0af5000fcfdddd69d657a25f41d72567e8f47a6648df"
+    },
+    "editableSource": {
+      "path": "assets/models/source/requested-pois/hudec-memorial-massing.blend",
+      "sha256": "dea695f3434f94889907094c7f4b09ab242c159c94703263e21be3c5438b0891",
+      "bytes": 130123
+    },
+    "runtimeAsset": {
+      "path": "public/models/requested-pois/hudec-memorial-massing.glb",
+      "sha256": "772ce8a8445a2cc9f1496a9876960ecf78964f11d09209578a1a5fbd52864ff0",
+      "bytes": 158312,
+      "cacheVersion": "20260726-hudec-massing-772ce8a8445a"
+    },
+    "buildRecord": {
+      "path": "docs/research/build-records/hudec-memorial-massing.json",
+      "sha256": "fab32457af8d63cbb37fba48eef40a44e8987006d78bcc242e2ee993176235d1"
+    },
+    "mapCalibration": {
+      "path": "test_artifacts/test_hudec-memorial_map_calibration.json",
+      "sha256": "969d4e5e1493fda976b0f319f3f25b941412fbc5d8cf612690e8df19b6f76f2e",
+      "status": "passed-static-map-recommendation-awaiting-main-runtime",
+      "position": [92.535374, -132.52181],
+      "yawRadians": 0.153486288,
+      "scale": 0.88,
+      "sourceBounds": {
+        "min": [-6.300000190734863, -1.4901161193847656e-8, -5.148000240325928],
+        "max": [6.300000190734863, 8.978400230407715, 5.6519999504089355]
+      },
+      "roadGate": "pass-model-asphalt-setback-10.17698-scene-units",
+      "entranceCollision": "pass-world-gap-1.400256-required-1.36",
+      "localObstacleCount": 7
+    },
+    "headless": {
+      "blenderVersion": "5.2.0 LTS",
+      "status": "pass",
+      "triangles": 2180,
+      "materials": 5,
+      "images": 0,
+      "fixedViews": {
+        "canonical": {
+          "path": "test_artifacts/test_hudec-memorial-massing_canonical_preview.png",
+          "sha256": "34356fed5ec71e234bc63bd2392352f38cdd895fff86b7e9f09e13c961508665",
+          "bytes": 754109
+        },
+        "side": {
+          "path": "test_artifacts/test_hudec-memorial-massing_side_preview.png",
+          "sha256": "0c81d25900001c8b8dc046c40df8a08b7e08fa6b53c1db9abd161bb8b5366113",
+          "bytes": 744051
+        },
+        "entrance": {
+          "path": "test_artifacts/test_hudec-memorial-massing_entrance_preview.png",
+          "sha256": "eb3b7b9144bff43b5eb06e7408ddc69049fa064c26f90f298a38f27720809320",
+          "bytes": 729280
+        }
+      }
+    },
+    "supersedes": {
+      "binarySha256": "c38302eb136dbb4dfb9b882f725957d26260bc0cb10929459e44aeb4e96d14a5",
+      "runtimeYawRadians": 1.5707963267948966,
+      "reason": "入口真实净宽不足，且旧 yaw 与 OSM 东西长轴和西侧证据不一致。"
+    },
+    "publicRegistryEdited": false,
+    "runtimeEdited": false,
+    "nextGate": "main-window-blender-mcp1"
   },
   "heroGate": {
     "status": "blocked-until-map-gate-pass"

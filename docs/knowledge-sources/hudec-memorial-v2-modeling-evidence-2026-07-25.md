@@ -24,11 +24,20 @@ trees, decorations, characters, other buildings, or district-wide massing.
   side volume and chimney relationship but are treated as historical design
   evidence, not a complete current-condition survey. Evidence:
   `HUDEC-V2-REF-B`.
+- Projecting OSM way `494633921` with the checked-in map projection produces
+  an east-west major edge at `0.153486288` radians. That edge, together with
+  the west-elevation and west/rear evidence, rejects the legacy runtime
+  `yaw=π/2`, which rotates the evidence-supported long axis by nearly 90
+  degrees. Reproducible record:
+  `test_artifacts/test_hudec-memorial_map_calibration.json`.
 
 ## Inferences
 
 - Net dimensions are calibrated from the OSM compound envelope, existing world
   placement, and human-scale doors. They are not claimed as survey dimensions.
+- The recommended runtime scale `0.88` is a footprint-fit calibration: it
+  preserves the observed proportions while keeping the Massing close to the
+  OSM oriented envelope. It is not a survey-scale claim.
 - The hidden east and rear facades use a coherent low-detail continuation of
   observed opening rhythms.
 - The roof-ridge bird group is represented only as an original simplified
@@ -51,4 +60,6 @@ same deterministic parameters, and verify all tiers with the same origin,
 scale, front direction, ground datum, and collision semantics.
 
 Primary working contract:
-`docs/research/hudec-memorial-v2-model-brief.md`.
+`docs/research/hudec-memorial-v2-model-brief.md`. Existing ordinary evidence
+is sufficient for the Massing placement and orientation decision; no new
+Xiaohongshu search gap is required for this gate.

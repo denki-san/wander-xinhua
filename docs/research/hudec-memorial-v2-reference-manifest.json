@@ -12,9 +12,20 @@
     "source": "docs/research/data/requested-pois-osm-20260717-103840.json",
     "osmWay": 494633921,
     "confidence": "A-",
+    "projectedCalibration": {
+      "mapSource": "app/scene/xinhua-map-data.json",
+      "polygonCentroid": [92.908003, -132.44335],
+      "orientedCenter": [92.50147, -132.740963],
+      "majorEdgeYawRadians": 0.153486288,
+      "recommendedPosition": [92.535374, -132.52181],
+      "recommendedYawRadians": 0.153486288,
+      "recommendedScale": 0.88,
+      "record": "test_artifacts/test_hudec-memorial_map_calibration.json"
+    },
     "observed": [
       "OSM way 标注番禺路129号、三层、历史建筑和邬达克纪念馆名称",
-      "OSM 外包络约 32.6 m × 28.5 m，包含建筑及紧邻场地，不能直接等同净建筑尺寸"
+      "OSM 外包络约 31.9 m × 25.0 m（沿最长边坐标系），包含建筑及紧邻场地，不能直接等同净建筑尺寸",
+      "最长边方向约 0.153486 rad；与西立面、西后侧证据共同排除旧 runtime yaw=π/2"
     ]
   },
   "references": [

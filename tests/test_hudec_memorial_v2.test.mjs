@@ -25,6 +25,10 @@ const runtimeQaUrl = new URL(
   "test_artifacts/test_hudec-memorial_massing_runtime_metrics.json",
   root,
 );
+const mapCalibrationUrl = new URL(
+  "test_artifacts/test_hudec-memorial_map_calibration.json",
+  root,
+);
 const landmarkDataUrl = new URL(
   "app/scene/xinhua-road-landmarks-data.json",
   root,
@@ -49,7 +53,7 @@ test("Hudec Massing 保持单资产安全并记录证据边界", async () => {
 
   assert.equal(record.stableAssetId, "hudec-memorial");
   assert.equal(record.qualityTier, "massing");
-  assert.equal(record.status, "mcp1-pass-map-blocked-entrance-collision");
+  assert.equal(record.status, "fast-massing-static-pass-mcp1-pending");
   assert.equal(record.generator.singleAssetSafe, true);
   assert.deepEqual(record.holdBoundary, {
     trees: "untouched",
@@ -72,41 +76,7 @@ test("Hudec Massing 保持单资产安全并记录证据边界", async () => {
   }
 });
 
-function transformObstacle(placement, obstacle) {
-  const [positionX, positionZ] = placement.position;
-  const cosine = Math.cos(placement.yawRadians);
-  const sine = Math.sin(placement.yawRadians);
-  const worldX = [];
-  const worldZ = [];
-  for (const localX of [obstacle.minX, obstacle.maxX]) {
-    for (const sourceZ of [obstacle.minZ, obstacle.maxZ]) {
-      const localZ = -sourceZ;
-      worldX.push(
-        positionX + placement.scale * (cosine * localX + sine * localZ),
-      );
-      worldZ.push(
-        positionZ + placement.scale * (-sine * localX + cosine * localZ),
-      );
-    }
-  }
-  return {
-    minX: Math.min(...worldX) - placement.collisionMargin,
-    maxX: Math.max(...worldX) + placement.collisionMargin,
-    minZ: Math.min(...worldZ) - placement.collisionMargin,
-    maxZ: Math.max(...worldZ) + placement.collisionMargin,
-  };
-}
-
-function pointInsideObstacle([x, z], obstacle, radius = 0) {
-  return (
-    x >= obstacle.minX - radius
-    && x <= obstacle.maxX + radius
-    && z >= obstacle.minZ - radius
-    && z <= obstacle.maxZ + radius
-  );
-}
-
-test("Hudec Massing Three.js 地图门保留精确资源、截图与源 registry 边界", async () => {
+test("Hudec 历史 Three.js 地图门保留旧二进制证据与源 registry 边界", async () => {
   const [qa, gate, record, glb, landmarkSource] = await Promise.all([
     readFile(runtimeQaUrl, "utf8").then(JSON.parse),
     readFile(mcpGateUrl, "utf8").then(JSON.parse),
@@ -125,8 +95,16 @@ test("Hudec Massing Three.js 地图门保留精确资源、截图与源 registry
     devicePixelRatio: 1,
   });
   assert.equal(qa.resource.responseStatus, 200);
-  assert.equal(qa.resource.encodedBodySize, glb.length);
-  assert.equal(qa.resource.sha256, sha256(glb));
+  assert.equal(qa.resource.encodedBodySize, 158312);
+  assert.equal(
+    qa.resource.sha256,
+    "c38302eb136dbb4dfb9b882f725957d26260bc0cb10929459e44aeb4e96d14a5",
+  );
+  assert.notEqual(
+    qa.resource.sha256,
+    sha256(glb),
+    "旧运行时记录必须保留为 superseded 证据，不得伪装成当前二进制验收",
+  );
   assert.equal(qa.console.logs.length, 0);
   assert.equal(qa.console.pageErrors.length, 0);
   assert.equal(qa.networkBoundary.isAssetFailure, false);
@@ -137,7 +115,7 @@ test("Hudec Massing Three.js 地图门保留精确资源、截图与源 registry
     qa.qaAssembly.sourceAfterRestoreSha256,
     "历史 QA 必须证明临时 registry 修改已逐字节恢复",
   );
-  assert.equal(gate.mapGate.status, "blocked");
+  assert.equal(gate.mapGate.status, "historical-blocked-superseded-candidate");
   assert.equal(gate.mapGate.heroIdentityAuthorized, false);
   assert.equal(gate.heroGate.status, "blocked-until-map-gate-pass");
   assert.equal(qa.verdict.mapGate, "blocked");
@@ -147,7 +125,7 @@ test("Hudec Massing Three.js 地图门保留精确资源、截图与源 registry
     "diagnostic-only-sample-shorter-than-required-10-seconds",
   );
   assert.equal(
-    record.validation.runtimeQaRecord,
+    record.validation.previousRuntimeQaRecord,
     "test_artifacts/test_hudec-memorial_massing_runtime_metrics.json",
   );
 
@@ -174,39 +152,12 @@ function sourceNumber(source, pattern, label) {
   return Number(match[1]);
 }
 
-test("Hudec Massing 起点与相机安全，但真实门廊净宽阻塞地图门", async () => {
-  const [qa, generator] = await Promise.all([
+test("Hudec Fast Massing 真实门廊在建议缩放下通过，旧缩碰撞方案仍保持拒绝", async () => {
+  const [qa, calibration, generator] = await Promise.all([
     readFile(runtimeQaUrl, "utf8").then(JSON.parse),
+    readFile(mapCalibrationUrl, "utf8").then(JSON.parse),
     readFile(generatorUrl, "utf8"),
   ]);
-  const values = qa.qaAssembly.runtimeValues;
-  const placement = {
-    position: values.position,
-    yawRadians: values.yawRadians,
-    scale: values.scale,
-    collisionMargin: values.collisionMargin,
-  };
-  const worldObstacles = values.localObstacles.map((obstacle) => (
-    transformObstacle(placement, obstacle)
-  ));
-  const playerRadius = qa.mapCalibration.collisionAndWalkable.playerRadius;
-
-  assert.equal(values.localObstacles.length, 8);
-  assert.equal(
-    worldObstacles.some((obstacle) => (
-      pointInsideObstacle(values.start, obstacle, playerRadius)
-    )),
-    false,
-  );
-  assert.equal(
-    worldObstacles.some((obstacle) => (
-      pointInsideObstacle(
-        qa.mapCalibration.camera.startCameraClearanceProbe,
-        obstacle,
-      )
-    )),
-    false,
-  );
 
   const authoredScale = sourceNumber(
     generator,
@@ -239,25 +190,35 @@ test("Hudec Massing 起点与相机安全，但真实门廊净宽阻塞地图门
     (rightCenter + sideWidth / 2) * authoredScale,
   ];
   const actualGap = rightWall[0] - leftWall[1];
-  const requiredGap = 2 * (values.collisionMargin + playerRadius);
-  const blocker = qa.mapCalibration.collisionAndWalkable;
+  const requiredGap = calibration.collisionRecommendation.requiredEntranceGap;
+  const worldGap = actualGap * calibration.recommendation.scale;
 
-  assert.deepEqual(
-    leftWall.map((value) => Number(value.toFixed(4))),
-    blocker.actualPorchGeometry.leftWallX,
-  );
-  assert.deepEqual(
-    rightWall.map((value) => Number(value.toFixed(4))),
-    blocker.actualPorchGeometry.rightWallX,
-  );
-  assert.equal(Number(actualGap.toFixed(4)), blocker.actualPorchGeometry.visualGap);
-  assert.equal(Number(requiredGap.toFixed(2)), blocker.requiredGapWithMarginAndPlayerRadius);
-  assert.equal(Number((requiredGap - actualGap).toFixed(4)), blocker.gapDeficit);
+  assert.equal(Number(actualGap.toFixed(4)), 1.5912);
+  assert.equal(Number(worldGap.toFixed(6)), 1.400256);
   assert.ok(
-    actualGap < requiredGap,
-    "真实门廊墙之间没有计入 margin 与玩家半径后的合法中心线",
+    worldGap >= requiredGap,
+    "建议 runtime scale 下必须保留计入 margin 与玩家半径后的合法中心线",
   );
-  assert.equal(blocker.status, "blocked-entrance-width");
+  assert.equal(calibration.collisionRecommendation.status, "pass-static-geometry");
+  assert.equal(calibration.collisionRecommendation.localObstacles.length, 7);
+  assert.equal(
+    qa.mapCalibration.collisionAndWalkable.rejectedCalibration.includes("允许角色穿入可见墙体"),
+    true,
+  );
+});
+
+test("Hudec 静态地图建议由 OSM 长轴导出且不压番禺路机动车道", async () => {
+  const calibration = await readFile(mapCalibrationUrl, "utf8").then(JSON.parse);
+  assert.equal(calibration.status, "passed-static-map-recommendation-awaiting-main-runtime");
+  assert.deepEqual(calibration.recommendation.position, [92.535374, -132.52181]);
+  assert.equal(calibration.recommendation.yawRadians, 0.153486288);
+  assert.equal(calibration.recommendation.scale, 0.88);
+  assert.equal(calibration.orientationGate.rejectedLegacyYawRadians, Math.PI / 2);
+  assert.equal(calibration.roadGate.status, "pass");
+  assert.ok(calibration.roadGate.modelToAsphaltEdgeSceneUnits > 10);
+  assert.ok(Math.abs(calibration.roadGate.setbackDeltaSceneUnits) < 1);
+  assert.equal(calibration.integrationBoundary.publicRegistryEdited, false);
+  assert.equal(calibration.integrationBoundary.runtimeEdited, false);
 });
 
 test("Hudec Massing GLB 与 build record 的结构和哈希一致", async () => {
@@ -306,26 +267,33 @@ test("三张 Headless 固定机位与 1.8 m 代理合同齐全", async () => {
   assert.match(generator, /asset=False/);
 });
 
-test("Hudec Massing MCP1 固定机位、结构检查与正式二进制一致", async () => {
-  const [gate, recordBuffer, glb] = await Promise.all([
+test("Hudec Fast Massing 当前二进制与 gate 候选一致并明确等待主窗口 MCP1", async () => {
+  const [gate, recordBuffer, glb, blend, calibrationBuffer] = await Promise.all([
     readFile(mcpGateUrl, "utf8").then(JSON.parse),
     readFile(recordUrl),
     readFile(glbUrl),
+    readFile(blendUrl),
+    readFile(mapCalibrationUrl),
   ]);
   const record = JSON.parse(recordBuffer);
+  const candidate = gate.fastModeCandidate;
 
   assert.equal(gate.assetId, "hudec-memorial");
-  assert.equal(gate.massingGate.status, "pass");
-  assert.equal(gate.massingGate.runtimeAsset.sha256, sha256(glb));
-  assert.equal(gate.massingGate.sceneInspection.triangles, 2180);
-  assert.equal(gate.massingGate.sceneInspection.materials, 5);
-  assert.equal(gate.massingGate.sceneInspection.images, 0);
-  assert.deepEqual(gate.massingGate.acceptedInteractiveChanges, []);
-  assert.equal(gate.massingGate.generatorRoundTrip.status, "not-required");
+  assert.equal(gate.activeCandidate, "fastModeCandidate");
+  assert.equal(candidate.status, "headless-and-static-map-pass-mcp1-pending");
+  assert.equal(candidate.runtimeAsset.sha256, sha256(glb));
+  assert.equal(candidate.editableSource.sha256, sha256(blend));
+  assert.equal(candidate.mapCalibration.sha256, sha256(calibrationBuffer));
+  assert.equal(candidate.headless.triangles, 2180);
+  assert.equal(candidate.headless.materials, 5);
+  assert.equal(candidate.headless.images, 0);
+  assert.equal(candidate.nextGate, "main-window-blender-mcp1");
+  assert.equal(candidate.publicRegistryEdited, false);
+  assert.equal(candidate.runtimeEdited, false);
   assert.equal(
-    gate.massingGate.buildRecord.sha256,
+    candidate.buildRecord.sha256,
     sha256(recordBuffer),
-    "MCP gate 必须指向当前 build record，而不是更新前的旧哈希",
+    "Fast 候选必须指向当前 build record",
   );
   assert.equal(
     record.validation.mcpRecord,
@@ -333,8 +301,8 @@ test("Hudec Massing MCP1 固定机位、结构检查与正式二进制一致", a
   );
 
   for (const view of ["canonical", "side", "entrance"]) {
-    const screenshot = gate.massingGate.fixedViews[view];
-    const buffer = await readFile(new URL(screenshot.screenshot, root));
+    const screenshot = candidate.headless.fixedViews[view];
+    const buffer = await readFile(new URL(screenshot.path, root));
     assert.equal(buffer.length, screenshot.bytes);
     assert.equal(sha256(buffer), screenshot.sha256);
   }
