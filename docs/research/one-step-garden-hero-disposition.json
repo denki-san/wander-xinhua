@@ -13,7 +13,7 @@
     "identityAuthorized": false,
     "legacyHeroDisposition": "hold-read-only-rollback-only",
     "publicRegistryAction": "retain-existing-hero-no-worktree-change",
-    "nextGate": "build-evidence-backed-hero-v2-then-request-main-window-mcp2"
+    "nextGate": "main-window-serial-blender-mcp2-for-hero-v2"
   },
   "formalSubjectContract": {
     "referenceManifest": "docs/research/one-step-garden-reference-manifest.json",
@@ -286,6 +286,7 @@
     }
   ],
   "rebuildPlan": {
+    "status": "headless-candidate-complete-awaiting-main-window-mcp2",
     "preserveLegacyWithoutOverwrite": [
       "assets/models/source/xinhua-road/one-step-garden.blend",
       "public/models/xinhua-road/one-step-garden.glb",
@@ -307,5 +308,45 @@
       "仅当上述 blocker 全部关闭后，向主窗口申请串行 Blender MCP2；MCP2 通过前 Identity 继续锁定。",
       "MCP2 通过后才从新 Hero master 派生 Identity，并由主窗口统一决定公共 registry 切换。"
     ]
+  },
+  "replacementCandidate": {
+    "version": "hero-v2",
+    "status": "headless-pass-awaiting-main-window-mcp2",
+    "generator": {
+      "path": "scripts/create_one_step_garden_hero_model.py",
+      "sha256": "b9fc81f1eaa9d1aea6086ebe9d961d1deb35dd5ba2bb7a489d7bc4c1d8131128"
+    },
+    "editableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend",
+      "sha256": "23bae78ed7447227118c97d572866ba3e3f3a71158cfb56f12444c374510d5f5",
+      "bytes": 139552
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb",
+      "sha256": "1174a96c713bcce1b63512fd5c4e7c5405a7c5c5bb11800787943d5551df5094",
+      "bytes": 259632
+    },
+    "buildRecord": "docs/research/build-records/tiers/xinhua-road/hero-v2/one-step-garden-hero.json",
+    "derivedFromMassingGlbSha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+    "headlessChecks": {
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 7,
+      "triangles": 3584,
+      "images": 0,
+      "textures": 0,
+      "zeroAreaTriangles": 0,
+      "normalOrientationMismatches": 0,
+      "rootTransform": "normalized",
+      "boundsMatchMassing": true,
+      "deterministicDoubleBuild": true
+    },
+    "scope": {
+      "buildingOnly": true,
+      "rangePollution": false,
+      "legacyHeroOverwritten": false,
+      "publicRegistryModified": false
+    },
+    "identityAuthorized": false
   }
 }

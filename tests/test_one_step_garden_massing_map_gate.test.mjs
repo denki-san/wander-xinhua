@@ -86,9 +86,9 @@ test("一号花园 Massing map gate 保持单建筑边界并锁定后续授权",
   assert.equal(gates.mapGate.status, "pass");
   assert.equal(gates.mapGate.heroMasterReviewAuthorized, true);
   assert.equal(gates.mapGate.identityAuthorized, false);
-  assert.equal(gates.heroGate.status, "blocked-rebuild-required-before-mcp2");
+  assert.equal(gates.heroGate.status, "candidate-awaiting-main-window-mcp2");
   assert.equal(gates.heroGate.disposition, "docs/research/one-step-garden-hero-disposition.json");
-  assert.equal(gates.identityGate.status, "blocked-until-new-hero-master-passes-mcp2");
+  assert.equal(gates.identityGate.status, "blocked-until-hero-v2-passes-mcp2");
   assert.equal(gates.runtimeIntegration.status, "pending-main-window-shared-registry-integration");
 
   assert.equal(record.status, "mcp1-and-map-pass-awaiting-main-window-runtime-integration");

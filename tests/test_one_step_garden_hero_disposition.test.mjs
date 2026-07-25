@@ -152,9 +152,10 @@ test("一号花园旧 Hero 冻结为 Hold，公共 registry 与 Identity 授权�
   assert.equal(disposition.decision.mcp2Requested, false);
   assert.equal(disposition.decision.identityAuthorized, false);
   assert.equal(disposition.decision.legacyHeroDisposition, "hold-read-only-rollback-only");
-  assert.equal(gates.heroGate.status, "blocked-rebuild-required-before-mcp2");
+  assert.equal(gates.heroGate.status, "candidate-awaiting-main-window-mcp2");
   assert.equal(gates.heroGate.legacyHeroMcp2Candidate, false);
   assert.equal(gates.identityGate.legacyHeroMayBeIdentitySource, false);
+  assert.equal(gates.identityGate.status, "blocked-until-hero-v2-passes-mcp2");
   assert.equal(landmark.model, "/models/xinhua-road/one-step-garden.glb");
   assert.equal(landmark.cacheVersion, "20260718-detail-1");
 });
