@@ -111,3 +111,86 @@ Evidence Gate 不允许当前制作 subject-specific Massing。缺少同一 comp
 删除本提交新增的211弄研究文件即可回到
 `9ddf693e28c87a7f2bcdb223bffde42a3f4920e0`；本轮没有二进制资产或公共运行时
 改动。
+
+## Iteration 1 — OSM footprint-bound Massing v3
+
+- Date: 2026-07-26
+- Worktree baseline: `cec073918cf0258de670c041fb48a8cc65d1fc79`
+- Result: `pass-conservative-massing-footprints-only`
+- MCP 1: `pending-main-window-batch`
+- Three.js map gate: `pending-main-window-scoped-qa`
+
+### Why the prior blocker changed
+
+主窗口明确要求本栋执行“原始 OSM WGS84 → world → registry local”地图绑定。
+仓库现有 district replacement inventory 已把九个 raw OSM ways 精确归到
+`xinhua-villas-211`。这足以解除 footprint Massing blocker，但并不提供
+门牌—成员对应关系，因此 Hero 与 Identity blocker 保持。
+
+### Recovery decision
+
+Recovery Massing `407cde33...` 的 GLB 容器审计通过，但其方法是
+`voxel-remesh-current-hero`，继承旧四栋 Hero 的未证明排布，也没有 per-way
+WGS84 绑定。它继续保留在 Recovery/Hold，不删除、不覆盖，也不进入当前候选。
+
+### New candidate
+
+- Generator:
+  `scripts/create_xinhua_villas_211_massing_model.py`
+- Binding:
+  `docs/research/xinhua-villas-211-osm-binding.json`
+- Blend:
+  `assets/models/source/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.blend`
+- GLB:
+  `public/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb`
+- GLB SHA-256:
+  `ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c`
+- Structure:
+  `16,060 bytes / 9 nodes / 9 meshes / 134 triangles / 1 material / 0 images`
+
+九个 OSM footprint 均保留独立节点与 `source_way_id`。高度统一为 eave `2.85`
+和 ridge `3.55` scene units，仅是两层浅坡体块推断。没有加入树木、绿篱、
+路灯、花箱、长椅、铺装、门梁或其他装饰。
+
+### Map calibration
+
+- Current registry placement 保持 `[38.32, 110.67] / yaw -0.38 / scale 0.62`；
+- 原始 OSM 每个顶点投影到 world 后，经 registry 逆变换写入 GLB 本地坐标；
+- local → world round-trip 最大误差 `< 1e-10` scene units；
+- 新华路 asphalt edge 最小净距 `3.0396` scene units；
+- 新华路 outer verge 最小净距 `1.5646` scene units；
+- 入口 ways `864485674` / `864485675` 净距 `3.6682` scene units；
+- 九个 footprint 无 polygon overlap；
+- 九个 local obstacle AABB 无 overlap；
+- 最小内部成员净距 `1.1667` scene units；
+- 最近外部邻接 way `864485677` 净距 `0.6684` scene units，无重叠且非指定通道。
+
+### Visual checkpoint
+
+首轮长轴 ridge quad 在任意 polygon 顶点环向下产生了扭曲暗洞，已拒绝并改为
+封闭浅坡三角扇后重新通过 canonical、side / depth 与 entrance 三张固定机位
+检查。该修复已回写确定性生成器，不依赖临时 Blender 鼠标操作。
+
+### Validation
+
+- `python3 scripts/audit_glb.py ... --forbid-images --max-nodes 12`: pass；
+- `node --test scripts/test_xinhua_villas_211_massing_map_gate.mjs`: `2/2` pass；
+- `npm run building:fast -- --building xinhua-villas-211`: `28/28` pass，
+  legacy Hero audit pass；
+- Full repository regression: 未运行，按 Fast Mode 由主窗口每2～3栋统一执行。
+
+### Gate decision
+
+Massing v3 可提交主窗口做首次正式 Blender MCP1 与 scoped Three.js map gate。
+主窗口接入时必须使用九个分体 obstacle，不能用整体 bounds 封闭弄堂。
+
+Hero / Identity 仍需：
+
+- 211弄1号、2号到具体 OSM way 的可靠门牌绑定；
+- 同一成员的侧向 / 纵深证据；
+- MCP1 和真实地图灰模验收通过后才可进入身份细化。
+
+### Rollback
+
+回退本 iteration 的 building-only commit 即可恢复到集成基线；Recovery/Hold
+和旧 Hero 均未修改。
