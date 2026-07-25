@@ -260,5 +260,23 @@
   - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2-side-depth.png`
   - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2-entrance-detail.png`
 - Visual result: canonical 可读前部 U 形白墙深木结构、老虎窗和后方红砖长屋；side/depth 可读两栋分离与开放间隙；entrance/detail 可读门窗节奏、入口棚和 1.8m 尺标。未知背面保持低细节，没有虚构装饰。
-- Gate result: Headless candidate Passed；已向主窗口申请串行 Blender MCP2。MCP2 通过前 Identity 继续锁定，公共 registry 继续旧 Hero。
+- Gate result: 当时的 Headless candidate Passed 并申请串行 Blender MCP2；随后 MCP2 因节点材质默认灰阻断，本轮产物仅作为失败前历史记录，修复见 Iteration 7。Identity 继续锁定，公共 registry 继续旧 Hero。
 - Detailed record: `docs/research/build-records/tiers/xinhua-road/hero-v2/one-step-garden-hero.json`。
+
+### Iteration 7 — 2026-07-25 MCP2 material blocker correction
+
+- MCP2 first attempt: Blocked。主窗口直接打开 Iteration 6 `.blend` 后确认 7 个材质虽有分层的 viewport `diffuse_color`，但全部 Principled BSDF `Base Color` 仍为默认灰 `(0.8,0.8,0.8,1)`；旧 Headless 图使用 Workbench material color，不能代表正式 Blender Eevee 或 GLB PBR 材质。
+- Failed evidence retained read-only:
+  - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_canonical.png`，SHA-256 `e2ac52f4633c83a739d133613ddd53a356c13e3b60395d4ef142b49cbd75284d`
+  - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_side.png`，SHA-256 `a032a12be3b6f6d1278dd4dc22d598de3a909d8fc4ec774e336311356df18c64`
+  - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_entrance.png`，SHA-256 `1062598e22f46a36a5574787a2d9585bedd779d805fe28f248697ec41b707508`
+- Generator correction: `material()` 现在同步写入 `use_nodes=True`、Principled `Base Color`、`Roughness` 与 `Metallic`；玻璃仅使用无贴图、不透明的低饱和色和 `0.38` roughness，不虚构透明度、透射或背面细节。生成器 SHA-256 为 `b536e1d32630b0ee3262d98029ba384bfa610f392316dad7dd658141124b30b8`。
+- Blender result: 正式 master `.blend` SHA-256 `8f5c3984abef50239f1ece5e5360887d8615786cb6283bf60d85f80bd12f21bd`，`139,526` bytes；build record 逐材质确认 7 个材质均启用节点并具有分层 Principled 值，另一个独立 Blender background 进程直接重开该 `.blend` 后复核同一组值通过。主窗口首次 MCP2 的临时 QA rig 未保存，`acceptedInteractiveChanges=[]`。
+- GLB result: SHA-256 `026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b`，`259,772` bytes；7 个 `baseColorFactor` 彼此不同且无默认灰，roughness 分层为建筑面 `0.88`、玻璃 `0.38`，全部 metallic `0`，仍为 `0` images/textures/animations。
+- Structural result: `1` node、`1` mesh、`7` materials、`3,584` triangles；`0` zero-area、non-finite、invalid-index、missing/zero/non-unit normals 与 orientation mismatches；bounds、origin、local `-Y`、ground `0`、地图 placement 和 8 个碰撞语义未改变。
+- Determinism: 最终生成器在两个独立 Blender 5.2.0 background 进程中 clean rebuild，均得到相同 GLB SHA-256 `026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b`。
+- Formal Eevee evidence:
+  - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_fixed_canonical.png`
+  - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_fixed_side.png`
+  - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_fixed_entrance.png`
+- Gate result: 材质阻断的确定性修复与 Headless Eevee 证据完成，但主窗口 Blender MCP2 尚未复核；状态停在 `main-window-serial-blender-mcp2-rereview`，Identity 继续锁定，旧 Hero、共享 generator 与公共 registry 均未修改。

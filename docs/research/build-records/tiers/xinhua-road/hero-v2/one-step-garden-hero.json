@@ -4,9 +4,9 @@
   "assetId": "one-step-garden",
   "tier": "hero",
   "versionName": "hero-v2",
-  "status": "headless-candidate-awaiting-main-window-mcp2",
+  "status": "headless-material-fix-pass-awaiting-main-window-mcp2-rereview",
   "generator": "scripts/create_one_step_garden_hero_model.py",
-  "generatorSha256": "b9fc81f1eaa9d1aea6086ebe9d961d1deb35dd5ba2bb7a489d7bc4c1d8131128",
+  "generatorSha256": "b536e1d32630b0ee3262d98029ba384bfa610f392316dad7dd658141124b30b8",
   "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_one_step_garden_hero_model.py",
   "blenderVersion": "5.2.0 LTS",
   "derivedFrom": {
@@ -103,11 +103,52 @@
   "canonicalFront": "local-negative-y",
   "identityAllowed": false,
   "mcp2": {
-    "status": "pending-main-window-serial-review",
+    "status": "material-fix-complete-awaiting-main-window-rereview",
     "requestedAfterCommit": true,
     "acceptedInteractiveChanges": [],
     "qaRigSaved": false,
     "qaRigExported": false,
+    "firstAttempt": {
+      "status": "blocked",
+      "finding": "all-seven-Principled-Base-Color-values-were-default-gray",
+      "cause": "generator-only-set-viewport-diffuse-color-and-workbench-previews-did-not-prove-node-or-glb-materials",
+      "failedEvidence": {
+        "canonical": {
+          "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_canonical.png",
+          "sha256": "e2ac52f4633c83a739d133613ddd53a356c13e3b60395d4ef142b49cbd75284d",
+          "bytes": 760817,
+          "dimensions": [
+            1024,
+            768
+          ]
+        },
+        "side": {
+          "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_side.png",
+          "sha256": "a032a12be3b6f6d1278dd4dc22d598de3a909d8fc4ec774e336311356df18c64",
+          "bytes": 726967,
+          "dimensions": [
+            1024,
+            768
+          ]
+        },
+        "entrance": {
+          "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_entrance.png",
+          "sha256": "1062598e22f46a36a5574787a2d9585bedd779d805fe28f248697ec41b707508",
+          "bytes": 720355,
+          "dimensions": [
+            1024,
+            768
+          ]
+        }
+      },
+      "acceptedInteractiveChanges": [],
+      "qaRigSaved": false
+    },
+    "fix": {
+      "nodeMaterials": "use_nodes-plus-Principled-Base-Color-Roughness-Metallic",
+      "formalPreviewEngine": "EEVEE",
+      "glassPolicy": "opaque-muted-color-and-roughness-no-texture-no-invented-transmission"
+    },
     "gateRecord": "docs/research/one-step-garden-blender-mcp-gates.json",
     "identityRemainsBlocked": true
   },
@@ -134,7 +175,98 @@
       1,
       1
     ],
-    "previewHelpersSaved": false
+    "previewHelpersSaved": false,
+    "previewEngine": "EEVEE"
+  },
+  "blendMaterialAudit": {
+    "materialCount": 7,
+    "allUseNodes": true,
+    "materials": [
+      {
+        "name": "one-step-garden-hero-dark-door",
+        "useNodes": true,
+        "baseColor": [
+          0.18,
+          0.105,
+          0.065,
+          1.0
+        ],
+        "roughness": 0.88,
+        "metallic": 0.0
+      },
+      {
+        "name": "one-step-garden-hero-dark-tile-roof",
+        "useNodes": true,
+        "baseColor": [
+          0.12,
+          0.15,
+          0.15,
+          1.0
+        ],
+        "roughness": 0.88,
+        "metallic": 0.0
+      },
+      {
+        "name": "one-step-garden-hero-deep-half-timber",
+        "useNodes": true,
+        "baseColor": [
+          0.045,
+          0.065,
+          0.06,
+          1.0
+        ],
+        "roughness": 0.88,
+        "metallic": 0.0
+      },
+      {
+        "name": "one-step-garden-hero-muted-brick",
+        "useNodes": true,
+        "baseColor": [
+          0.4,
+          0.16,
+          0.11,
+          1.0
+        ],
+        "roughness": 0.88,
+        "metallic": 0.0
+      },
+      {
+        "name": "one-step-garden-hero-muted-glass",
+        "useNodes": true,
+        "baseColor": [
+          0.09,
+          0.19,
+          0.18,
+          1.0
+        ],
+        "roughness": 0.38,
+        "metallic": 0.0
+      },
+      {
+        "name": "one-step-garden-hero-warm-plaster",
+        "useNodes": true,
+        "baseColor": [
+          0.82,
+          0.78,
+          0.69,
+          1.0
+        ],
+        "roughness": 0.88,
+        "metallic": 0.0
+      },
+      {
+        "name": "one-step-garden-hero-window-frame",
+        "useNodes": true,
+        "baseColor": [
+          0.035,
+          0.085,
+          0.075,
+          1.0
+        ],
+        "roughness": 0.88,
+        "metallic": 0.0
+      }
+    ]
   },
   "determinism": {
     "sameCommandRuns": 2,
@@ -144,30 +276,30 @@
   "outputs": {
     "blend": {
       "path": "assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend",
-      "sha256": "23bae78ed7447227118c97d572866ba3e3f3a71158cfb56f12444c374510d5f5",
-      "bytes": 139552
+      "sha256": "8f5c3984abef50239f1ece5e5360887d8615786cb6283bf60d85f80bd12f21bd",
+      "bytes": 139526
     },
     "glb": {
       "path": "public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb",
-      "sha256": "1174a96c713bcce1b63512fd5c4e7c5405a7c5c5bb11800787943d5551df5094",
-      "bytes": 259632,
-      "cacheVersion": "20260725-hero-1174a96c"
+      "sha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+      "bytes": 259772,
+      "cacheVersion": "20260725-hero-026565ba"
     },
     "previews": {
       "canonical": {
-        "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2-canonical.png",
-        "sha256": "28839835dfc65b3d5513e968048876fe1e27292f6ed75ddd6b2d7919f2329d72",
-        "bytes": 827073
+        "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_fixed_canonical.png",
+        "sha256": "06ca9f60601aaa97c5d3647e14ba9403d220f95e0adc2e63dd79776b161a55ba",
+        "bytes": 897293
       },
       "sideDepth": {
-        "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2-side-depth.png",
-        "sha256": "c26daa41ba4f990f4bc04539357a38f8b698552001ee9a72d351aa5a7189103d",
-        "bytes": 803251
+        "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_fixed_side.png",
+        "sha256": "d227ec16187c9d24d05f6093bbe75014d03e878e86258bf7438b77746b09ca41",
+        "bytes": 873350
       },
       "entranceDetail": {
-        "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2-entrance-detail.png",
-        "sha256": "c784b01fb556a741b40b98ab17e80a6027e440358c68fe039d0134e32b0e8a4d",
-        "bytes": 862741
+        "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_fixed_entrance.png",
+        "sha256": "eb267db9dc212591d32399e3ee566d15014a18749347774569c735b646710811",
+        "bytes": 940937
       }
     }
   },
@@ -287,8 +419,8 @@
     "integration": "pending-main-window-after-mcp2"
   },
   "glb": {
-    "sha256": "1174a96c713bcce1b63512fd5c4e7c5405a7c5c5bb11800787943d5551df5094",
-    "bytes": 259632,
+    "sha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+    "bytes": 259772,
     "nodes": 1,
     "meshes": 1,
     "materials": 7,
@@ -321,6 +453,85 @@
         6.9
       ]
     },
+    "materialFactors": [
+      {
+        "name": "one-step-garden-hero-window-frame",
+        "baseColorFactor": [
+          0.035,
+          0.085,
+          0.075,
+          1.0
+        ],
+        "roughnessFactor": 0.88,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "one-step-garden-hero-warm-plaster",
+        "baseColorFactor": [
+          0.82,
+          0.78,
+          0.69,
+          1.0
+        ],
+        "roughnessFactor": 0.88,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "one-step-garden-hero-dark-tile-roof",
+        "baseColorFactor": [
+          0.12,
+          0.15,
+          0.15,
+          1.0
+        ],
+        "roughnessFactor": 0.88,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "one-step-garden-hero-muted-brick",
+        "baseColorFactor": [
+          0.4,
+          0.16,
+          0.11,
+          1.0
+        ],
+        "roughnessFactor": 0.88,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "one-step-garden-hero-deep-half-timber",
+        "baseColorFactor": [
+          0.045,
+          0.065,
+          0.06,
+          1.0
+        ],
+        "roughnessFactor": 0.88,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "one-step-garden-hero-muted-glass",
+        "baseColorFactor": [
+          0.09,
+          0.19,
+          0.18,
+          1.0
+        ],
+        "roughnessFactor": 0.38,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "one-step-garden-hero-dark-door",
+        "baseColorFactor": [
+          0.18,
+          0.105,
+          0.065,
+          1.0
+        ],
+        "roughnessFactor": 0.88,
+        "metallicFactor": 0.0
+      }
+    ],
     "transformedNodes": []
   }
 }
