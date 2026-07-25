@@ -6297,3 +6297,36 @@ SyntaxError: missing ) after argument list
 ### Resolution
 - **Resolved**: 2026-07-25T16:25:00+08:00
 - **Notes**: 改为普通字符串拼接后重新运行专项测试。
+
+---
+## [ERR-20260725-014] hudec_reference_path_assumption
+
+**Logged**: 2026-07-25T16:38:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: docs
+
+### Summary
+视觉终审首次按建筑 ID 推断参考图目录，实际文件位于历史
+`requested-poi-references` 目录，导致只读图片打开失败。
+
+### Error
+```text
+unable to locate image .../poi-references/hudec-memorial/hudec-memorial-street-official-2026.jpg
+```
+
+### Context
+- 参考图存在且未损坏，只是历史目录布局与新建筑目录约定不同。
+- 错误发生在只读视觉审查，没有修改任何资产。
+
+### Suggested Fix
+打开已知文件前先用 `rg --files` 按文件名定位，不根据 stable asset ID
+假设历史证据目录。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/assets/requested-poi-references/hudec-memorial-street-official-2026.jpg
+
+### Resolution
+- **Resolved**: 2026-07-25T16:38:00+08:00
+- **Notes**: 用 `rg --files` 定位真实路径后完成官方照片与三机位 Massing 对照。
