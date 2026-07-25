@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "stableAssetId": "hudec-memorial",
   "qualityTier": "massing",
-  "status": "mcp1-pass-map-calibration-pending",
+  "status": "mcp1-pass-map-blocked-entrance-collision",
   "generatedAt": "2026-07-25T18:28:53+08:00",
   "generator": {
     "path": "scripts/create_hudec_memorial_v2.py",
@@ -70,9 +70,9 @@
     "runtimePosition": [91.34, -131.74],
     "runtimeYawRadians": 1.5707963267948966,
     "runtimeScaleTarget": 1,
-    "passageSemantics": "shared-split-obstacles-entrance-clear",
+    "passageSemantics": "target-entrance-clear-currently-blocked",
     "collisionSource": "app/scene/xinhua-road-landmarks-data.json#hudec-memorial.localObstacles",
-    "collisionStatus": "pending-map-calibration"
+    "collisionStatus": "blocked-porch-gap-1.2672-required-1.36"
   },
   "evidence": {
     "manifest": "docs/research/hudec-memorial-v2-reference-manifest.json",
@@ -132,9 +132,10 @@
     },
     "mcp1": "passed-main-coordinator-blender-mcp",
     "mcpRecord": "docs/research/hudec-memorial-blender-mcp-gates.json",
-    "mapCalibration": "pending-after-mcp1",
-    "runtimeQa": "pending-map-calibration",
-    "independentReview": "passed-main-window"
+    "mapCalibration": "blocked-entrance-collision-and-qa-provenance",
+    "runtimeQa": "partial-visible-runtime-pass-map-gate-blocked",
+    "runtimeQaRecord": "test_artifacts/test_hudec-memorial_massing_runtime_metrics.json",
+    "independentReview": "map-gate-not-ready-important-findings"
   },
   "holdBoundary": {
     "trees": "untouched",

@@ -35,7 +35,7 @@
     },
     "buildRecord": {
       "path": "docs/research/build-records/hudec-memorial-massing.json",
-      "sha256": "8c051e190699a3542d6fda01de8e9a372a95b4cbd3d8384d1593ec0830c3782d"
+      "sha256": "65cc6ea48fcb78296c18d41f6e3e481ee34c42e786a976ca55de502e9f5d45de"
     },
     "sceneInspection": {
       "rootObject": "hudec-memorial-massing",
@@ -110,10 +110,50 @@
       "status": "not-required",
       "note": "MCP1 仅增加临时相机、灯光、地面和1.8米人物代理；未接受几何、材质或 transform 修改，正式 Blend 未保存。"
     },
-    "nextGate": "three-js-massing-map-calibration"
+    "nextGate": "return-to-massing-entrance-geometry"
+  },
+  "mapGate": {
+    "gate": "three-js-massing-map-calibration",
+    "status": "blocked",
+    "reviewedAt": "2026-07-25T19:14:34+08:00",
+    "reviewedBy": "hudec-memorial-worktree-agent",
+    "sourceCheckpoint": "f509c60",
+    "runtimeQa": "test_artifacts/test_hudec-memorial_massing_runtime_metrics.json",
+    "fixedEntry": "/?start=hudec&network=standard",
+    "qaAssembly": {
+      "temporary": true,
+      "sourceRegistryCommitted": false,
+      "sourceRegistryRestoredSha256": "eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6",
+      "heroAssetOverwritten": false
+    },
+    "checks": {
+      "positioning": "pass-osm-way-494633921-existing-anchor",
+      "orientation": "pass-front-minus-y-runtime-yaw-pi-over-2",
+      "groundContact": "pass-no-visible-float-or-sink",
+      "roadSetback": "pass-existing-road-and-front-yard-clearance",
+      "humanScale": "pass-for-massing",
+      "camera": "pass-start-and-7.4-unit-probe-clear",
+      "collision": "blocked-porch-gap-1.2672-required-1.36",
+      "resource": "pass-http-200-exact-158312-byte-glb",
+      "console": "pass-zero-logs-and-zero-page-errors",
+      "performance": "blocked-sample-2.9911s-shorter-than-10s-contract"
+    },
+    "screenshots": [
+      "test_artifacts/test_hudec-memorial_massing_runtime_preview.png",
+      "test_artifacts/test_hudec-memorial_massing_runtime_entrance_preview.png",
+      "test_artifacts/test_hudec-memorial_massing_runtime_side_preview.png"
+    ],
+    "weakNetworkBoundary": "automatic weak profile intentionally keeps Identity proxy and does not request the exact GLB",
+    "blockers": [
+      "真实门廊净宽不足，不能靠缩碰撞盒制造通道。",
+      "临时 QA bundle 与 HAR 未保留，碰撞配置缺少独立运行时证据。",
+      "性能采样未达到 Brief 的 10 秒。"
+    ],
+    "nextGate": "return-to-massing-entrance-geometry-then-repeat-mcp1-and-map",
+    "heroIdentityAuthorized": false
   },
   "heroGate": {
-    "status": "pending-after-map-calibration"
+    "status": "blocked-until-map-gate-pass"
   },
   "identityGate": {
     "status": "blocked-until-reviewed-hero-master"
