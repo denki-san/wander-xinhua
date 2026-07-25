@@ -1,5 +1,37 @@
 # Learnings
 
+## [LRN-20260725-007] best_practice
+
+**Logged**: 2026-07-25T23:20:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Blender `.blend` 的跨保存容器 SHA 不应作为确定性双构建合同；runtime GLB SHA 才是可重复导出门。
+
+### Details
+House315 Identity 用完全相同的生成器、Blender 版本和输入连续运行两次。每次命令
+内部两个 clean scene 导出的 GLB SHA 相同，第二次完整命令的 GLB SHA 也相同；
+但 `.blend` 在再次 `save_as_mainfile` 后因内部保存元数据出现新的 SHA 和1字节
+体积差异，场景对象、网格、材质与 audit 指标未变化。
+
+### Suggested Action
+双构建确定性明确约束 GLB/runtime binary；`.blend` 只要求最终提交文件与 build
+record 的 SHA/bytes 一致。若再次保存 `.blend`，必须刷新所有引用其 SHA 的 gate、
+lineage 和 disposition，不能把第一次保存的临时 SHA 留在文档中。
+
+### Metadata
+- Source: error
+- Related Files: `scripts/create_house_315_identity_model.py`, `docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json`
+- Tags: blender, blend, glb, determinism, build-record
+
+### Resolution
+- **Resolved**: 2026-07-25T23:20:00+08:00
+- **Notes**: 最终 Blend SHA 已在 build record、gate、lineage、disposition 和测试中统一冻结；确定性声明限定为 GLB。
+
+---
+
 ## [LRN-20260725-005] correction
 
 **Logged**: 2026-07-25T15:05:00+08:00

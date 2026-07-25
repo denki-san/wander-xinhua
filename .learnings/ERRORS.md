@@ -1,5 +1,72 @@
 # Errors
 
+## [ERR-20260725-046] hero_gate_test_stale_after_identity_progression
+
+**Logged**: 2026-07-25T23:15:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+House315 全套回归中，Hero 测试仍固定断言 Identity derivation 未开始，未随合法的 Identity 候选阶段推进。
+
+### Error
+```text
+actual: hero-mcp2-pass-identity-v1-candidate-awaiting-mcp3
+expected: hero-mcp2-pass-awaiting-main-window-integration
+```
+
+### Context
+- 主窗口已整合 Hero candidate 与 MCP2 gate 并授权 Identity 派生；
+- Identity 候选已完成，但 MCP3 formal pass 和 runtime 均仍为 false；
+- Hero 的 MCP2 scene、lineage、截图和 scope 证据没有变化。
+
+### Suggested Fix
+阶段推进后同步更新上游门禁测试：断言 Identity candidate completed，同时继续断言 formal pass/runtime 未越权。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `tests/test_house_315_hero_v2.test.mjs`, `docs/research/build-records/tiers/xinhua-road/hero-v2/house-315-hero.json`
+
+### Resolution
+- **Resolved**: 2026-07-25T23:15:00+08:00
+- **Notes**: Hero 测试已更新为候选 awaiting MCP3 状态，并新增 identityFormalPass=false、runtimeAuthorized/Started=false 断言。
+
+---
+
+## [ERR-20260725-045] identity_component_test_fstring_literal
+
+**Logged**: 2026-07-25T23:10:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+House315 Identity 范围测试在 Python 源码中查找 f-string 展开后的屋脊字面量，导致正确产物被误判。
+
+### Error
+```text
+AssertionError: input did not match /identity-main-roof-ridge/
+```
+
+### Context
+- generator 使用 `f"house315-identity-{name}-roof-ridge"` 动态生成四个屋脊名称；
+- GLB、Blend 和 build record 都已成功生成，`sourceComponents` 含精确展开名称；
+- 失败只来自源码文本正则无法执行 Python f-string。
+
+### Suggested Fix
+对动态组件名称检查生成后的 build record `sourceComponents`；源码扫描只用于确认禁止内容没有出现在 geometry 函数中。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `tests/test_house_315_identity_v1.test.mjs`, `scripts/create_house_315_identity_model.py`
+
+### Resolution
+- **Resolved**: 2026-07-25T23:10:00+08:00
+- **Notes**: 必需构件断言改为检查 build record 的实际 component names；禁止范围仍扫描 `build_identity` 源码。
+
+---
+
 ## [ERR-20260725-044] git_worktree_index_lock_sandbox_permission
 
 **Logged**: 2026-07-25T23:00:00+08:00
