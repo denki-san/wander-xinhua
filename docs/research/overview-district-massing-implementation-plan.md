@@ -58,7 +58,10 @@ camera and detail UI remain unchanged.
 5. **Define failure isolation.** A missing or invalid district GLB falls back to
    the existing overview rather than blocking entry, movement or POI cards.
 6. **Define a weak-network policy.** `Save-Data`, `2g` and `3g` profiles may skip
-   this decorative layer. Standard mobile still receives and validates it.
+   this decorative layer when entering overview. Once the layer has been
+   requested and displayed in that overview session, later transient downlink
+   changes must not remove it; unloading downloaded context saves no transfer
+   and creates a visible map discontinuity.
 7. **Set budgets before generation.** The layer must stay within the size,
    triangle, material and draw-call limits below. A visually denser result is
    not accepted if it compromises overview responsiveness.
@@ -223,7 +226,9 @@ Rules:
 - Use warm off-white/very light grey materials with restrained height-band
   variation.
 - Keep road surfaces, parks, water, POI markers and the player visually dominant.
-- On weak-network profiles, skip the district GLB and retain the current map.
+- On weak-network profiles at overview entry, skip the district GLB and retain
+  the current map. Do not revoke an already eligible overview layer when the
+  browser later reports a transient weak profile.
 - On load or parse failure, render nothing for this layer and preserve overview
   interaction.
 - Never make a runtime request to Nominatim or Overpass.
@@ -300,8 +305,10 @@ The local version passes only when all conditions hold:
 4. Overview movement, POI proximity card and “进入” continue to work.
 5. Returning to `overview` remounts safely; entering `explore` produces no
    district GLB node or request and preserves existing collision/camera behavior.
-6. Standard desktop and 390 px mobile load the GLB within budget; weak-network
-   mode makes zero district-GLB requests.
+6. Standard desktop and 390 px mobile load the GLB within budget; an overview
+   entered on weak-network mode makes zero district-GLB requests. A
+   standard-entry session keeps the visible layer mounted if the live network
+   profile later falls below the threshold.
 7. Runtime makes no Overpass/Nominatim request and keeps OSM attribution visible.
 8. Tests, lint, build record, GLB audit and real-browser console checks pass on
    the same commit handed off for local review.

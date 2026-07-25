@@ -27,6 +27,38 @@
 
 ---
 
+## [LRN-20260725-006] correction
+
+**Logged**: 2026-07-25T19:12:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+弱网策略只能决定装饰资产的首次请求，不能在资产已经显示后因瞬时网络降级撤掉整个场景层。
+
+### Details
+线上真实浏览器在 `overview` 中保持运行时，Network Information API 同时报告
+`effectiveType=4g` 与瞬时 `downlink=1.7`。网络状态机因此从 `standard` 降为
+`weak`，原挂载条件直接卸载已经下载并显示的街区白模。卸载不能节省已经发生的
+680KB 传输，却造成明显的地图内容消失。
+
+### Suggested Action
+在进入 overview 时冻结本轮街区白模的首次加载资格：弱网入口保持零请求，标准
+入口一旦挂载就不再受后续瞬时 downlink 波动影响；退出 overview 后再重置资格。
+测试必须覆盖标准入口保持、弱网入口跳过和挂载条件不再直接依赖实时 profile。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/xinhua-world.tsx, app/scene/overview-district-massing-policy.ts
+- Tags: progressive-loading, weak-network, sticky-assets, runtime-qa
+
+### Resolution
+- **Resolved**: 2026-07-25T19:12:00+08:00
+- **Notes**: 新增 overview 入口级 Gate，冻结首次加载资格并移除实时网络档位对已挂载白模的撤回。
+
+---
+
 ## [LRN-20260724-001] correction
 
 **Logged**: 2026-07-24T20:15:00+08:00
