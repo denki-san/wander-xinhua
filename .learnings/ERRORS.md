@@ -6330,3 +6330,37 @@ unable to locate image .../poi-references/hudec-memorial/hudec-memorial-street-o
 ### Resolution
 - **Resolved**: 2026-07-25T16:38:00+08:00
 - **Notes**: 用 `rg --files` 定位真实路径后完成官方照片与三机位 Massing 对照。
+
+---
+## [ERR-20260725-015] blender_mcp_user_prompt_required
+
+**Logged**: 2026-07-25T16:43:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Blender MCP 的 `get_scene_info` schema 新增必填 `user_prompt`，沿用旧的空参数调用被拒绝。
+
+### Error
+```text
+1 validation error for get_scene_infoArguments
+user_prompt
+  Field required
+```
+
+### Context
+- 调用目的只是确认共享 Blender scene 当前属于哪个建筑。
+- 参数校验发生在执行前，没有读取失败以外的副作用，也没有改变 scene。
+
+### Suggested Fix
+首次调用延迟加载的 Blender MCP 工具前，从 `ALL_TOOLS` 读取当前声明；
+所有场景调用传入简短、真实的原始任务摘要作为 `user_prompt`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/blender-ai-workflow.md
+
+### Resolution
+- **Resolved**: 2026-07-25T16:43:00+08:00
+- **Notes**: 读取当前 schema 后补齐 `user_prompt`，成功确认共享 scene 仍为上海影城。
