@@ -303,17 +303,83 @@
     "nextGate": "main-window-integrate-mcp2-pass-checkpoint-then-identity-derivation"
   },
   "identityGate": {
-    "status": "authorized-but-paused-for-main-window-gate-checkpoint-integration",
+    "status": "candidate-awaiting-main-window-mcp3",
     "legacyHeroMayBeIdentitySource": false,
     "sourceHeroVersion": "hero-v2",
+    "sourceHeroGeneratorSha256": "b536e1d32630b0ee3262d98029ba384bfa610f392316dad7dd658141124b30b8",
+    "sourceHeroBlendSha256": "8f5c3984abef50239f1ece5e5360887d8615786cb6283bf60d85f80bd12f21bd",
     "sourceHeroGlbSha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
     "sourceHeroMcp2": "pass",
     "identityDerivationAuthorized": true,
-    "identityDerivationStarted": false,
-    "executionPausedForMainWindowIntegration": true
+    "identityDerivationStarted": true,
+    "identityCandidateCompleted": true,
+    "candidate": {
+      "version": "identity-v1",
+      "generator": {
+        "path": "scripts/create_one_step_garden_identity_model.py",
+        "sha256": "d336d31efd4608d015643b5227a2bcf5d075ff2889a5b15fec1f4480212249b4"
+      },
+      "editableSource": {
+        "path": "assets/models/source/tiers/xinhua-road/identity-v1/one-step-garden-identity.blend",
+        "sha256": "9ecc551a8e9ff1c950949ca1bbf9ea1fdf13c81ab48acf876d5bbd2ad6687022",
+        "bytes": 117906
+      },
+      "runtimeAsset": {
+        "path": "public/models/tiers/xinhua-road/identity-v1/one-step-garden-identity.glb",
+        "sha256": "928ecfcace4a35e88ad68d34a2369fa673457275393ea65d8649d9de433b0497",
+        "bytes": 112456
+      },
+      "buildRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/one-step-garden-identity.json",
+      "tierLineage": "docs/research/one-step-garden-tier-lineage.json",
+      "metrics": {
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 6,
+        "triangles": 1484,
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "zeroAreaTriangles": 0,
+        "normalOrientationMismatches": 0,
+        "boundsMatchHeroAndMassing": true,
+        "rootTransform": "normalized"
+      },
+      "budget": {
+        "maxTriangles": 1800,
+        "maxBytes": 205000,
+        "triangleReductionRatioVsHero": 0.585938,
+        "byteReductionRatioVsHero": 0.567097,
+        "status": "pass"
+      },
+      "preservedCues": [
+        "front-white-u-shaped-compound",
+        "front-half-timber-street-gables",
+        "front-five-narrow-shed-dormer-windows",
+        "front-open-entry-canopy",
+        "separate-rear-red-brick-long-house",
+        "rear-twin-gables-and-two-chimneys",
+        "open-front-rear-building-gap"
+      ],
+      "scopePollution": false,
+      "deterministicDoubleBuild": true,
+      "publicRegistryModified": false
+    },
+    "mcp3Status": "pending-main-window",
+    "identityFormalPass": false,
+    "executionPausedForMainWindowMcp3": true
   },
   "threeTierGate": {
-    "status": "pending-identity-derivation"
+    "status": "candidate-awaiting-main-window-mcp3",
+    "tierLineage": "docs/research/one-step-garden-tier-lineage.json",
+    "sameOrigin": true,
+    "sameBounds": true,
+    "sameAuthoredFront": true,
+    "sameRuntimePlacement": true,
+    "sameCameraViewSet": true,
+    "identityBudgetPass": true,
+    "mcp3Requested": true,
+    "formalPass": false,
+    "nextGate": "main-window-mcp3-same-camera-three-tier-review"
   },
   "runtimeIntegration": {
     "status": "pending-main-window-shared-registry-integration",

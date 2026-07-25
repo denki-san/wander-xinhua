@@ -4,7 +4,7 @@
   "assetId": "one-step-garden",
   "tier": "hero",
   "versionName": "hero-v2",
-  "status": "hero-v2-mcp2-pass-identity-authorized-execution-paused",
+  "status": "hero-v2-mcp2-pass-identity-v1-candidate-awaiting-main-window-mcp3",
   "generator": "scripts/create_one_step_garden_hero_model.py",
   "generatorSha256": "b536e1d32630b0ee3262d98029ba384bfa610f392316dad7dd658141124b30b8",
   "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_one_step_garden_hero_model.py",
@@ -484,7 +484,7 @@
     "maxBytes": 4800000
   },
   "identityLineage": {
-    "status": "authorized-not-started-awaiting-main-window-gate-checkpoint-integration",
+    "status": "identity-v1-candidate-awaiting-main-window-mcp3",
     "authorizationAuthority": "docs/research/one-step-garden-blender-mcp-gates.json#heroGate.mcp2Rereview",
     "postBuildGateAuthorization": true,
     "sourceRootIdentityAllowedAtBuild": false,
@@ -494,8 +494,33 @@
     "sourceGlbSha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
     "sourceMcp2": "pass",
     "identityDerivationAuthorized": true,
-    "identityDerivationStarted": false,
-    "executionPausedForMainWindowIntegration": true
+    "identityDerivationStarted": true,
+    "identityCandidateCompleted": true,
+    "identityGenerator": {
+      "path": "scripts/create_one_step_garden_identity_model.py",
+      "sha256": "d336d31efd4608d015643b5227a2bcf5d075ff2889a5b15fec1f4480212249b4"
+    },
+    "identityEditableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/identity-v1/one-step-garden-identity.blend",
+      "sha256": "9ecc551a8e9ff1c950949ca1bbf9ea1fdf13c81ab48acf876d5bbd2ad6687022",
+      "bytes": 117906
+    },
+    "identityRuntimeAsset": {
+      "path": "public/models/tiers/xinhua-road/identity-v1/one-step-garden-identity.glb",
+      "sha256": "928ecfcace4a35e88ad68d34a2369fa673457275393ea65d8649d9de433b0497",
+      "bytes": 112456,
+      "triangles": 1484,
+      "materials": 6,
+      "images": 0,
+      "textures": 0,
+      "animations": 0
+    },
+    "identityBuildRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/one-step-garden-identity.json",
+    "tierLineage": "docs/research/one-step-garden-tier-lineage.json",
+    "mcp3": "pending-main-window",
+    "identityFormalPass": false,
+    "runtimeIntegrated": false,
+    "publicRegistryModified": false
   },
   "publicRegistry": {
     "modified": false,

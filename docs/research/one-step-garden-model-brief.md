@@ -151,21 +151,21 @@
 | --- | --- | --- | --- | --- |
 | Massing | 前体量、后体量、院落间隙与坡屋顶 | canonical 分体轮廓 | 真实 `?start=` 灰模门 | MCP1 + map gate passed; shared integration pending |
 | Runtime calibration | 位置、比例、朝向、机位和道路退界 | N/A | 冻结旧落点完成地图门；公共 registry 由主窗口整合 | Map gate passed |
-| Hero master disposition | 只读审计旧 `.blend` / GLB / generator / lineage | MCP2 前必须具备正确主体和三固定机位 | N/A | Hero v2 Headless candidate ready；等待主窗口串行 MCP2 |
-| Identity | 半木构、老虎窗、红砖后体量和场地层次 | 三项构件可读 | Identity 距离可辨认 | Blocked：新 Hero master 通过 MCP2 前不得派生 |
-| Materials | 白墙、红砖、深木构和灰褐瓦 | 固定机位无黑面 | 项目色盘一致 | Pending |
+| Hero master disposition | 只读审计旧 `.blend` / GLB / generator / lineage | MCP2 前必须具备正确主体和三固定机位 | N/A | Hero v2 已通过主窗口 MCP2；旧 Hero 继续 Hold |
+| Identity | 半木构、老虎窗、红砖后体量和场地层次 | 三项构件可读 | Identity 距离可辨认 | 独立 Headless candidate 完成；等待主窗口串行 MCP3 |
+| Materials | 白墙、红砖、深木构和灰褐瓦 | 固定机位无黑面 | 项目色盘一致 | Identity 六组 PBR 材质候选通过 Headless 审计；等待 MCP3 |
 | Site | 树木、草坪、家具、店招与装饰物 | N/A | N/A | Hold：严格排除在18栋建筑范围外 |
-| Collision | 两栋分体、围墙和可达路径 | 无整院大盒 | 人物/相机可达 | Pending |
-| Optimization | 静态合并与共享材质 | 轮廓不丢失 | 预算通过 | Pending |
+| Collision | 两栋分体和可达路径 | 无整院大盒 | 人物/相机可达 | 沿用已通过地图门的八分体碰撞语义；Identity 未接入运行时 |
+| Optimization | 静态合并与共享材质 | 轮廓不丢失 | 预算通过 | Identity 为 1,484 triangles / 112,456 bytes，预算通过；等待 MCP3 |
 
 ## Validation
 
 - [x] Massing 通过临时 registry QA assembly 在真实 `/?start=garden179&network=standard&cameraQa=1&effects=off&district=off` 中验收，随后原 registry 逐字节恢复
 - [x] 两栋不同体量没有被合并，未知背面没有虚构细节
-- [ ] 可编辑 `.blend`、GLB、canonical、侧向、街景和三联对照齐全
+- [x] Massing、Hero 与 Identity 的可编辑 `.blend`、GLB 及同机位 canonical、侧向、入口视图齐全；正式三档 MCP3 对照仍待主窗口
 - [x] GLB SHA、bounds、节点、三角面、材质、图片和体积进入 build record
 - [x] 人物/相机碰撞、院落可达、道路退界、控制台和精确 GLB 资源请求通过
-- [ ] 灰模与终审两个独立检查点无 blocker
+- [ ] MCP1 与 MCP2 已通过；MCP3 三档终审仍待主窗口
 
 ## Decision Log
 
@@ -295,3 +295,23 @@
 - Scope result: Passed；没有树木、灌木、草坪、家具、雨伞、花盆、灯、围栏、店招、装饰铺装、其他建筑或全地图资产。
 - Interactive boundary: `acceptedInteractiveChanges=[]`；主窗口临时相机、灯光、地面和人物 QA rig 未保存、未导出，不需要 generator round-trip。
 - Gate result: Blender MCP2 Passed。Hero v2 现为独立 Identity 的获准来源；该授权来自 post-build MCP2 gate record，源 GLB root 中构建时的 `identity_allowed=false` 不做二进制回写，以免改变已审查 SHA。Identity 尚未开始，按主窗口要求暂停在 gate checkpoint 整合前。旧 Hero 继续 Hold，公共 registry 与共享 generator 均未修改。
+
+### Iteration 9 — 2026-07-25 deterministic Identity v1 candidate
+
+- Source lock: 独立 Identity 生成器在动工前逐字节锁定通过 MCP2 的 Hero generator SHA-256 `b536e1d32630b0ee3262d98029ba384bfa610f392316dad7dd658141124b30b8`、Hero `.blend` SHA-256 `8f5c3984abef50239f1ece5e5360887d8615786cb6283bf60d85f80bd12f21bd` 与 Hero GLB SHA-256 `026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b`，并核对 Hero build record 中 MCP2 为 `pass`、Identity 已获授权。旧 Hero Hold 不是派生来源。
+- Derivation method: 新建 `scripts/create_one_step_garden_identity_model.py`，只复用冻结 Hero 的确定性几何 helper 与材质语义，从 Hero 构件子集重建 Identity；窗与门压缩为双层面板，不通过手工 Blender 鼠标调整生成不可追溯差异。
+- Preserved identity: 保留前部白色 U 形建筑群、沿街半木构山墙、棚屋形老虎窗的五扇窄窗、开放入口棚、后院独立红砖长屋、双山墙与两根烟囱，以及前后建筑的开放间隙。local `-Y`、origin、ground `0`、包络、`1 unit = 2.7m`、位置 `[60.86,120.73]`、yaw `-0.38`、scale `0.88` 和八分体碰撞语义不变。
+- Deliberate losses: 删除完整窗框中密集 mullion/midrail、四扇院内上层窗中的两扇、两侧院内窗节奏的一半和后屋细小窗分格；不可见侧后继续低细节。没有新增证据不支持的构件。
+- Scope boundary: 未生成树木、灌木、草坪、外摆、雨伞、花盆、灯、围栏、店招、装饰铺装、其他建筑或全地图资产；旧 Hero、共享 generator、公共 registry 和其他建筑均未删除、覆盖或修改。
+- Blender result: `assets/models/source/tiers/xinhua-road/identity-v1/one-step-garden-identity.blend` SHA-256 `9ecc551a8e9ff1c950949ca1bbf9ea1fdf13c81ab48acf876d5bbd2ad6687022`，`117,906` bytes；独立 Blender background 复开确认仅含 `one-step-garden-identity` 单一 mesh、`996` vertices、`752` polygons、`6/6` node materials、root normalized，Blender bounds 为 `[-7.25,-6.9,0]` 到 `[7.25,9.325,6.25]`，没有保存 QA helper。
+- GLB result: `public/models/tiers/xinhua-road/identity-v1/one-step-garden-identity.glb` SHA-256 `928ecfcace4a35e88ad68d34a2369fa673457275393ea65d8649d9de433b0497`；`112,456` bytes、`1` node、`1` mesh、`6` materials、`1,484` triangles、`0` images/textures/animations，bounds `[-7.25,0,-9.325]` 到 `[7.25,6.25,6.9]`，root transform normalized。
+- Structural result: bundled GLB audit 和独立解析均通过；`0` zero-area triangles、non-finite positions、invalid indices、missing/zero/non-unit normals 与 orientation mismatches。六组 PBR `baseColorFactor` 与 Hero 同语义，玻璃 roughness `0.38`、其余 `0.88`、全部 metallic `0`。
+- Budget result: Identity 合同为最多 `1,800` triangles、`205,000` bytes、`1` node、`1` mesh、`6` materials、`0` images/textures/animations；实际相对 Hero 减少 `58.5938%` triangles 和 `56.7097%` bytes，显著低于 Hero 且全部硬门通过。
+- Determinism: 最终生成器 SHA-256 `d336d31efd4608d015643b5227a2bcf5d075ff2889a5b15fec1f4480212249b4`；同一完整 Headless 命令连续两次 clean build 得到相同 Identity GLB SHA-256 `928ecfcace4a35e88ad68d34a2369fa673457275393ea65d8649d9de433b0497`。
+- Fixed evidence:
+  - `test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1-canonical.png`
+  - `test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1-side-depth.png`
+  - `test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1-entrance-detail.png`
+- Visual result: 三张图沿用 Massing/Hero 的 canonical、side/depth、entrance 固定正交机位；canonical 可读 U 形白墙半木构与五扇窄老虎窗，side/depth 可读前后分体、开放间隙、后屋双山墙和两烟囱，entrance/detail 可读入口棚、门窗节奏和 `1.8m` 人物尺度。
+- Gate result: Identity v1 仅为 Headless candidate，`identityFormalPass=false`。主窗口必须以 Blender MCP 执行同机位 Massing/Hero/Identity MCP3 三档审查后才可放行运行时；本工作树未接入 Three.js、未修改公共 registry，也没有宣称运行时完成。
+- Detailed records: `docs/research/build-records/tiers/xinhua-road/identity-v1/one-step-garden-identity.json`、`docs/research/one-step-garden-tier-lineage.json`、`docs/research/one-step-garden-blender-mcp-gates.json`。
