@@ -7054,3 +7054,41 @@ exit 1
 ### Resolution
 - **Resolved**: 2026-07-25T20:10:00+08:00
 - **Notes**: 4178 预览进程已退出，不保留后台服务。
+
+---
+
+## [ERR-20260725-036] film_art_hero_blend_sandbox_crash
+
+**Logged**: 2026-07-25T20:12:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+在受控沙箱中只读打开 Film Art Center Hero Blend 时 Blender 5.2 启动崩溃。
+
+### Error
+```text
+Blender 5.2.0 LTS
+Writing: .../blender.crash.txt
+exit 139
+```
+
+### Context
+- 命令只要求载入
+  `assets/models/source/xinhua-road/film-art-center.blend` 并打印场景统计。
+- 崩溃发生在执行 Python 统计前；未保存、未渲染、未改写 Blend 或 GLB。
+- 同一 Worktree 的 GLB audit、SHA、Brief、build record 和既有固定机位图均可正常读取。
+
+### Suggested Fix
+不要在当前受控沙箱重复启动 Headless Blender；Hero MCP2 改由主调度窗口串行使用
+Blender MCP 打开同一冻结 Blend，并在交互场景内检查对象、材质、法线与固定机位。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: assets/models/source/xinhua-road/film-art-center.blend
+- See Also: ERR-20260725-023
+
+### Resolution
+- **Resolved**: 2026-07-25T20:12:00+08:00
+- **Notes**: 已切换为主窗口串行 Blender MCP 候选审查，不在子 Worktree重试。
