@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "status": "selected-modeling-evidence",
+  "capturedAt": "2026-07-25",
+  "source": {
+    "postId": "682071e0000000000303e0ba",
+    "url": "https://www.xiaohongshu.com/explore/682071e0000000000303e0ba",
+    "title": "幸福里｜开放社区 城市客厅",
+    "author": "曼耶呦",
+    "publishedLabel": "2025-05-11",
+    "articleLocationEvidence": "正文明确幸福里位于番禺路和幸福路之间、法华镇路北侧，地址为番禺路 381 号，约 130 米长，2015 年开放。",
+    "locationConfidence": "venue-and-address-confirmed"
+  },
+  "evidencePolicy": {
+    "rawArchive": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/raw/xhs/682071e0000000000303e0ba",
+    "repositoryCopies": "只复制本批建模使用的 6 张图片；原始 88 张证据继续在 U 盘只读保留",
+    "runtimeEmbedding": false,
+    "trademarkCopying": false,
+    "temporarySignCopying": false,
+    "materialRule": "画面支持轮廓与颜色家族，不足以确认厂家、精确材质配方或表面老化",
+    "locationRule": "正文确认场地；内部水景段等子位置由连续画面判断，不能提升为测绘坐标"
+  },
+  "selectedImages": [
+    {
+      "localPath": "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-entry-bollards-2026.webp",
+      "rawFile": "image-01.webp",
+      "view": "从番禺路入口街角面向幸福里入口立面",
+      "possibleLocation": "幸福里番禺路 381 号入口附近",
+      "locationBasis": "正文地址与入口导视墙同时可见",
+      "confidence": "high",
+      "modelEvidence": [
+        "重复排列的深色方柱身路桩",
+        "高辨识度的四坡尖顶帽",
+        "人物提供约束高度的比例参照",
+        "路桩沿入口边界排列并保留行人通道"
+      ],
+      "supportsAssets": [
+        "xingfuli-pointed-entry-bollard"
+      ]
+    },
+    {
+      "localPath": "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-water-lane-planters-2026.webp",
+      "rawFile": "image-02.webp",
+      "view": "沿线性水景向内部商业段观察",
+      "possibleLocation": "幸福里内部线性公共空间",
+      "locationBasis": "正文场地确认；子位置由水景与连续商业空间判断",
+      "confidence": "high",
+      "modelEvidence": [
+        "临水矩形花槽和多个独立盆器",
+        "花槽沿水边和店前边界排列",
+        "植物高度、密度与容器宽度明显不等"
+      ],
+      "supportsAssets": [
+        "xingfuli-water-edge-slim-planter"
+      ]
+    },
+    {
+      "localPath": "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-water-lane-planters-depth-2026.webp",
+      "rawFile": "image-03.webp",
+      "view": "沿线性水景纵深观察",
+      "possibleLocation": "幸福里内部线性公共空间",
+      "locationBasis": "正文场地确认；画面证明花槽与水景的纵向重复关系",
+      "confidence": "high",
+      "modelEvidence": [
+        "窄矩形花槽沿水景多次出现",
+        "容器与店前外摆共同形成软边界",
+        "不同植物组合可以作为稳定 seed 变体而非单一复制"
+      ],
+      "supportsAssets": [
+        "xingfuli-water-edge-slim-planter"
+      ]
+    },
+    {
+      "localPath": "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-water-edge-furniture-2026.webp",
+      "rawFile": "image-06.webp",
+      "view": "横向观察浅水景、临水步道和店前外摆",
+      "possibleLocation": "幸福里内部公共活动段",
+      "locationBasis": "正文场地确认；画面同时提供近景街具与人物尺度",
+      "confidence": "high",
+      "modelEvidence": [
+        "近景深色近球形座具，底部与地面接触处略收平",
+        "近景浅灰长椭圆座具，顶部平缓、两端圆钝",
+        "临水窄矩形金属花槽及低矮花灌木",
+        "街具不会形成连续阻挡带"
+      ],
+      "supportsAssets": [
+        "xingfuli-water-edge-stone-seat-round",
+        "xingfuli-water-edge-stone-seat-long",
+        "xingfuli-water-edge-slim-planter"
+      ]
+    },
+    {
+      "localPath": "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-stone-seat-family-2026.webp",
+      "rawFile": "image-09.webp",
+      "view": "沿水景朝入口外侧观察临水座具序列",
+      "possibleLocation": "幸福里内部水景段",
+      "locationBasis": "正文场地确认；同一画面出现多件圆形与长椭圆街具",
+      "confidence": "high",
+      "modelEvidence": [
+        "圆形与长椭圆两种深色座具形成同一家族",
+        "多个实例提供前、侧和纵深轮廓",
+        "座具分散布置并保留水边通道"
+      ],
+      "supportsAssets": [
+        "xingfuli-water-edge-stone-seat-round",
+        "xingfuli-water-edge-stone-seat-long"
+      ],
+      "exclusion": "前景人物雕塑属于独立艺术作品，本批不复制"
+    },
+    {
+      "localPath": "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-water-edge-planters-2026.webp",
+      "rawFile": "image-12.webp",
+      "view": "从水景端部向店前绿植和内部空间观察",
+      "possibleLocation": "幸福里内部水景商业段",
+      "locationBasis": "正文场地确认；画面用于理解容器植物的层次，不锁定单一花槽型号",
+      "confidence": "high",
+      "modelEvidence": [
+        "容器植物作为水景和店前空间的软边界",
+        "植物层次明显高于容器本体",
+        "临时餐牌和店铺文字不应烘焙进永久模型"
+      ],
+      "supportsAssets": [
+        "xingfuli-water-edge-slim-planter"
+      ]
+    }
+  ],
+  "approvedAssets": [
+    "xingfuli-pointed-entry-bollard",
+    "xingfuli-water-edge-stone-seat-round",
+    "xingfuli-water-edge-stone-seat-long",
+    "xingfuli-water-edge-slim-planter"
+  ],
+  "holdAssets": [
+    {
+      "asset": "xingfuli-figure-sculpture",
+      "reason": "独立艺术作品且视角不足，不复制"
+    },
+    {
+      "asset": "xingfuli-wayfinding-wall-and-tenant-signs",
+      "reason": "包含商标、店铺变更与建筑立面关系，本批不建"
+    },
+    {
+      "asset": "xingfuli-temporary-menu-boards",
+      "reason": "时效性强，只能作为可替换活动 dressing"
+    }
+  ]
+}

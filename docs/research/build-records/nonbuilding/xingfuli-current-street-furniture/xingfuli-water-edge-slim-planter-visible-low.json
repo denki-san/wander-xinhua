@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "site:street-furniture:xingfuli:xingfuli-water-edge-slim-planter",
+  "slug": "xingfuli-water-edge-slim-planter",
+  "family": "street-furniture",
+  "siteBinding": "xingfuli",
+  "status": "blender-glb-and-isolated-runtime-qa-passed",
+  "sourceTier": "editable-hero-master",
+  "runtimeTier": "visible-low",
+  "runtimeStates": [
+    "visible-low",
+    "hidden"
+  ],
+  "buildingTierCompatibility": {
+    "hero": "editable-master-only",
+    "identity": "not-applicable-by-nonbuilding-two-state-contract",
+    "massing": "not-applicable-by-nonbuilding-two-state-contract"
+  },
+  "modelBrief": "docs/research/xingfuli-current-street-furniture-model-brief.md",
+  "referenceManifest": "docs/research/xingfuli-current-street-furniture-reference-manifest.json",
+  "decisionLog": "docs/research/xingfuli-current-street-furniture-decision-log.md",
+  "generator": "scripts/create_xingfuli_current_street_furniture_models.py",
+  "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_xingfuli_current_street_furniture_models.py -- --asset xingfuli-water-edge-slim-planter",
+  "evidence": "observed-current-xingfuli-water-edge",
+  "recognizers": [
+    "slim rectangular metal trough",
+    "raised rim and visible soil",
+    "three unequal deterministic plant clusters"
+  ],
+  "qualityBoundary": {
+    "observed": [
+      "Several water-lane views repeatedly show slim rectangular planters.",
+      "The closest view supports a raised rim, visible soil and unequal plant heights."
+    ],
+    "inferred": [
+      "Dimensions are visually estimated from people and paving modules.",
+      "Unseen rear and underside construction remain conservative.",
+      "Material family is inferred from colour and reflectance only."
+    ],
+    "unknown": [
+      "manufacturer and product model",
+      "surveyed dimensions and exact material",
+      "hidden fasteners, underside and drainage",
+      "field condition after the 2025 post"
+    ],
+    "sources": [
+      "docs/research/xingfuli-current-street-furniture-reference-manifest.json",
+      "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-water-lane-planters-2026.webp",
+      "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-water-lane-planters-depth-2026.webp",
+      "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-water-edge-furniture-2026.webp",
+      "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-water-edge-planters-2026.webp"
+    ]
+  },
+  "originContract": {
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "meaning": "asset-ground-center",
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "blenderFront": "-Y",
+    "worldPlacementBaked": false,
+    "authoredMetersPerSceneUnit": 2.7,
+    "surveyedMeters": false
+  },
+  "targetDimensionsSceneUnits": [
+    0.39,
+    0.14,
+    0.32
+  ],
+  "budget": {
+    "maxTriangles": 1200,
+    "maxNodes": 4,
+    "maxMaterials": 4,
+    "maxImages": 0,
+    "maxBinaryBytes": 131072
+  },
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/xingfuli-current-street-furniture/xingfuli-water-edge-slim-planter.blend",
+    "blendSha256": "e01f402f6b9079ee88d962e8b6f6369c18fc0d5e4b8109685c2ce7b29da5dab4",
+    "glb": "public/models/nonbuilding/xingfuli-current-street-furniture/xingfuli-water-edge-slim-planter-visible-low.glb",
+    "previews": {
+      "canonical": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-slim-planter-canonical.png",
+      "side": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-slim-planter-side.png",
+      "detail": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-slim-planter-detail.png"
+    }
+  },
+  "glb": {
+    "sha256": "85f7a3c39adc9446bceec56866923e7f0e6bb3a13da50b6792397fae1ac6f9d5",
+    "bytes": 30044,
+    "nodes": 4,
+    "meshes": 4,
+    "materials": 4,
+    "materialBaseColors": {
+      "xingfuli-water-edge-slim-planter-foliage-dark-material": [
+        0.12999999523162842,
+        0.2800000011920929,
+        0.10999999940395355,
+        1
+      ],
+      "xingfuli-water-edge-slim-planter-foliage-light-material": [
+        0.30000001192092896,
+        0.47999998927116394,
+        0.18000000715255737,
+        1
+      ],
+      "xingfuli-water-edge-slim-planter-planter-metal-material": [
+        0.28999999165534973,
+        0.20000000298023224,
+        0.12999999523162842,
+        1
+      ],
+      "xingfuli-water-edge-slim-planter-soil-material": [
+        0.10000000149011612,
+        0.06499999761581421,
+        0.03999999910593033,
+        1
+      ]
+    },
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 352,
+    "bounds": {
+      "min": [
+        -0.187219,
+        0,
+        -0.067
+      ],
+      "max": [
+        0.187662,
+        0.314151,
+        0.067
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": {
+    "status": "passed-isolated-qa",
+    "qaRoute": "/nonbuilding-evidence-qa?asset=xingfuli-water-edge-slim-planter",
+    "productionRegistry": "intentionally-not-integrated",
+    "productionManifest": "intentionally-not-modified",
+    "mapPlacement": "not-performed",
+    "collision": "not-performed",
+    "twoStateDistanceCheck": "shared route contract passed; individual 4m visible-low render passed",
+    "performance": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-current-street-furniture-runtime-metrics.json",
+    "runtimeScreenshot": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-slim-planter-webgl.png",
+    "consoleErrors": 0
+  },
+  "mcpGate": {
+    "status": "passed",
+    "masterSceneRead": true,
+    "viewportReview": true,
+    "generatorWritebackRequired": false,
+    "savedQaObjectsInMaster": false
+  }
+}

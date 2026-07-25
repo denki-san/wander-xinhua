@@ -1,0 +1,141 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "site:street-furniture:xingfuli:xingfuli-water-edge-stone-seat-long",
+  "slug": "xingfuli-water-edge-stone-seat-long",
+  "family": "street-furniture",
+  "siteBinding": "xingfuli",
+  "status": "blender-glb-and-isolated-runtime-qa-passed",
+  "sourceTier": "editable-hero-master",
+  "runtimeTier": "visible-low",
+  "runtimeStates": [
+    "visible-low",
+    "hidden"
+  ],
+  "buildingTierCompatibility": {
+    "hero": "editable-master-only",
+    "identity": "not-applicable-by-nonbuilding-two-state-contract",
+    "massing": "not-applicable-by-nonbuilding-two-state-contract"
+  },
+  "modelBrief": "docs/research/xingfuli-current-street-furniture-model-brief.md",
+  "referenceManifest": "docs/research/xingfuli-current-street-furniture-reference-manifest.json",
+  "decisionLog": "docs/research/xingfuli-current-street-furniture-decision-log.md",
+  "generator": "scripts/create_xingfuli_current_street_furniture_models.py",
+  "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_xingfuli_current_street_furniture_models.py -- --asset xingfuli-water-edge-stone-seat-long",
+  "evidence": "observed-current-xingfuli-water-edge",
+  "recognizers": [
+    "elongated capsule silhouette",
+    "rounded unequal ends",
+    "low gently flattened sitting surface"
+  ],
+  "qualityBoundary": {
+    "observed": [
+      "Multiple water-edge views show a low elongated rounded seat.",
+      "Repeated instances support rounded ends and a gently flattened top."
+    ],
+    "inferred": [
+      "Dimensions are visually estimated from people and paving modules.",
+      "Unseen rear and underside construction remain conservative.",
+      "Material family is inferred from colour and reflectance only."
+    ],
+    "unknown": [
+      "manufacturer and product model",
+      "surveyed dimensions and exact material",
+      "hidden fasteners, underside and drainage",
+      "field condition after the 2025 post"
+    ],
+    "sources": [
+      "docs/research/xingfuli-current-street-furniture-reference-manifest.json",
+      "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-water-edge-furniture-2026.webp",
+      "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-stone-seat-family-2026.webp"
+    ]
+  },
+  "originContract": {
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "meaning": "asset-ground-center",
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "blenderFront": "-Y",
+    "worldPlacementBaked": false,
+    "authoredMetersPerSceneUnit": 2.7,
+    "surveyedMeters": false
+  },
+  "targetDimensionsSceneUnits": [
+    0.48,
+    0.24,
+    0.17
+  ],
+  "budget": {
+    "maxTriangles": 800,
+    "maxNodes": 4,
+    "maxMaterials": 4,
+    "maxImages": 0,
+    "maxBinaryBytes": 131072
+  },
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/xingfuli-current-street-furniture/xingfuli-water-edge-stone-seat-long.blend",
+    "blendSha256": "27f157eadbe220726ee90d78f28af982cd766082bd6d5bedf92cc42e992d4333",
+    "glb": "public/models/nonbuilding/xingfuli-current-street-furniture/xingfuli-water-edge-stone-seat-long-visible-low.glb",
+    "previews": {
+      "canonical": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-long-canonical.png",
+      "side": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-long-side.png",
+      "detail": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-long-detail.png"
+    }
+  },
+  "glb": {
+    "sha256": "a8b750f081bb0597517d198428f7eecb7ee6d511021b88a0da219b148cb497f2",
+    "bytes": 10644,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "materialBaseColors": {
+      "xingfuli-water-edge-stone-seat-long-dark-stone-material": [
+        0.07500000298023224,
+        0.08500000089406967,
+        0.0820000022649765,
+        1
+      ]
+    },
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 320,
+    "bounds": {
+      "min": [
+        -0.235048,
+        0,
+        -0.11841
+      ],
+      "max": [
+        0.245271,
+        0.165,
+        0.118155
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": {
+    "status": "passed-isolated-qa",
+    "qaRoute": "/nonbuilding-evidence-qa?asset=xingfuli-water-edge-stone-seat-long",
+    "productionRegistry": "intentionally-not-integrated",
+    "productionManifest": "intentionally-not-modified",
+    "mapPlacement": "not-performed",
+    "collision": "not-performed",
+    "twoStateDistanceCheck": "shared route contract passed; individual 4m visible-low render passed",
+    "performance": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-current-street-furniture-runtime-metrics.json",
+    "runtimeScreenshot": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-long-webgl.png",
+    "consoleErrors": 0
+  },
+  "mcpGate": {
+    "status": "passed",
+    "masterSceneRead": true,
+    "viewportReview": true,
+    "generatorWritebackRequired": false,
+    "savedQaObjectsInMaster": false
+  }
+}
