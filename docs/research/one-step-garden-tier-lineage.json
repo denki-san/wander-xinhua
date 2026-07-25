@@ -3,13 +3,30 @@
   "assetId": "one-step-garden",
   "activeScope": "exact-18-building-program-one-step-garden-only",
   "recordedAt": "2026-07-25",
-  "status": "candidate-awaiting-main-window-mcp3",
+  "status": "mcp3-pass-runtime-paused-for-main-window-gate-integration",
   "sourceGate": {
     "gate": "mcp2-hero-visual-review",
     "status": "pass",
     "authority": "docs/research/one-step-garden-blender-mcp-gates.json#heroGate.mcp2Rereview",
     "reviewedHeroGlbSha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
     "identityDerivationAuthorized": true
+  },
+  "terminalBlenderGate": {
+    "gate": "mcp3-same-camera-three-tier-review",
+    "status": "pass",
+    "recordedAt": "2026-07-25T22:34:22+08:00",
+    "reviewedBy": "main-coordinator",
+    "interactiveReview": "Blender MCP",
+    "sourceCommit": "f1029cc4b93565d461a69eceebc7b45207c2b6ad",
+    "identityGlbSha256": "928ecfcace4a35e88ad68d34a2369fa673457275393ea65d8649d9de433b0497",
+    "heroGlbSha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+    "massingGlbSha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+    "rootExtrasMcp3StatusAtBuild": "pending-main-window",
+    "postBuildGateDoesNotRewriteReviewedBinary": true,
+    "identityFormalPass": true,
+    "acceptedInteractiveChanges": [],
+    "qaRigSaved": false,
+    "qaRigExported": false
   },
   "continuityContract": {
     "origin": [0, 0, 0],
@@ -135,20 +152,63 @@
         "sameGlbSha256": true
       },
       "gates": {
-        "mcp3": "pending-main-window",
-        "identityFormalPass": false
+        "mcp3": "pass",
+        "identityFormalPass": true,
+        "runtimeAuthorized": true,
+        "runtimeExecutionPausedForMainWindowGateIntegration": true
       }
     }
   },
   "threeTierGate": {
-    "status": "candidate-awaiting-main-window-mcp3",
+    "status": "pass",
     "sameOrigin": true,
     "sameBounds": true,
     "sameAuthoredFront": true,
     "sameRuntimePlacement": true,
     "sameCameraViewSet": true,
     "identityBudgetPass": true,
-    "formalPass": false
+    "formalPass": true,
+    "heroToIdentity": "pass-deliberate-window-grid-and-fine-division-reduction",
+    "identityPreservedCues": "pass-front-white-u-half-timber-gables-entry-canopy-rear-brick-twin-gables-two-chimneys-open-gap",
+    "identityToMassing": "pass-silhouette-origin-front-bounds-and-passage-continuity",
+    "identitySceneInspection": {
+      "meshObjects": 1,
+      "vertices": 996,
+      "polygons": 752,
+      "materials": 6,
+      "useNodes": "pass-6-of-6-Principled",
+      "rootNormalized": true,
+      "zeroAreaTriangles": 0,
+      "minimumTriangleArea": 0.01209998,
+      "nonFiniteNormals": 0
+    },
+    "fixedEvidence": {
+      "canonical": {
+        "path": "test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1_mcp3_recheck_canonical.png",
+        "sha256": "a62b7c781f9b11364ff83614a48354bdf41bf80df909fb341892219e8909a260",
+        "bytes": 915283,
+        "dimensions": [1024, 768]
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1_mcp3_recheck_side.png",
+        "sha256": "eff462fee37315ebb90ae1a52d27e94bf334696d58eb5c41fee22e3ccf605943",
+        "bytes": 857319,
+        "dimensions": [1024, 768]
+      },
+      "entranceDetail": {
+        "path": "test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1_mcp3_recheck_entrance.png",
+        "sha256": "43845a920ded079a3b47d011de13f8df5d33abb20bfc77e35f8b43240f757895",
+        "bytes": 986082,
+        "dimensions": [1024, 768]
+      }
+    },
+    "independentReview": {
+      "reviewer": "house-315-peer",
+      "status": "ready",
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    }
   },
   "scope": {
     "buildingOnly": true,
@@ -170,9 +230,11 @@
     "legacyHeroOverwritten": false
   },
   "runtime": {
-    "status": "not-started-by-worktree",
+    "status": "authorized-but-paused-for-main-window-candidate-and-gate-integration",
+    "runtimeAuthorized": true,
+    "runtimeExecutionStarted": false,
     "publicRegistryModified": false,
     "runtimeIntegrated": false,
-    "nextAuthority": "main-window-after-mcp3-pass"
+    "nextAuthority": "main-window-integration-then-one-step-garden-runtime-worktree"
   }
 }

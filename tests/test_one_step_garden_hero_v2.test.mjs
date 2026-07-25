@@ -171,7 +171,7 @@ test("一号花园 Hero v2 使用独立路径并保留旧 Hero Hold 与公共 re
 
   assert.equal(
     record.status,
-    "hero-v2-mcp2-pass-identity-v1-candidate-awaiting-main-window-mcp3",
+    "hero-v2-mcp2-pass-identity-v1-mcp3-pass-runtime-paused-for-main-window-gate-integration",
   );
   assert.equal(record.tier, "hero");
   assert.equal(record.versionName, "hero-v2");
@@ -211,8 +211,13 @@ test("一号花园 Hero v2 精确继承 Massing origin、bounds、前向与碰�
   assert.equal(record.identityLineage.identityDerivationAuthorized, true);
   assert.equal(record.identityLineage.identityDerivationStarted, true);
   assert.equal(record.identityLineage.identityCandidateCompleted, true);
-  assert.equal(record.identityLineage.mcp3, "pending-main-window");
-  assert.equal(record.identityLineage.identityFormalPass, false);
+  assert.equal(record.identityLineage.mcp3, "pass");
+  assert.equal(record.identityLineage.identityFormalPass, true);
+  assert.equal(record.identityLineage.runtimeAuthorized, true);
+  assert.equal(
+    record.identityLineage.runtimeExecutionPausedForMainWindowGateIntegration,
+    true,
+  );
   assert.equal(record.identityLineage.runtimeIntegrated, false);
   assert.equal(record.identityLineage.publicRegistryModified, false);
 });
@@ -467,11 +472,12 @@ test("一号花园 Hero v2 三固定机位与 MCP2/Identity 门状态可追溯",
   assert.equal(gates.heroGate.candidate.glbSha256, record.glb.sha256);
   assert.equal(
     gates.identityGate.status,
-    "candidate-awaiting-main-window-mcp3",
+    "pass",
   );
   assert.equal(gates.identityGate.identityDerivationAuthorized, true);
   assert.equal(gates.identityGate.identityDerivationStarted, true);
   assert.equal(gates.identityGate.identityCandidateCompleted, true);
-  assert.equal(gates.identityGate.identityFormalPass, false);
-  assert.equal(gates.threeTierGate.formalPass, false);
+  assert.equal(gates.identityGate.identityFormalPass, true);
+  assert.equal(gates.identityGate.runtimeAuthorized, true);
+  assert.equal(gates.threeTierGate.formalPass, true);
 });

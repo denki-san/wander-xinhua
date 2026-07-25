@@ -158,7 +158,7 @@ test("一号花园旧 Hero 冻结为 Hold，Identity 候选不改变公共 regis
   assert.equal(gates.identityGate.legacyHeroMayBeIdentitySource, false);
   assert.equal(
     gates.identityGate.status,
-    "candidate-awaiting-main-window-mcp3",
+    "pass",
   );
   assert.equal(disposition.replacementCandidate.identityAuthorized, true);
   assert.equal(disposition.replacementCandidate.identityLineage.sourceMcp2, "pass");
@@ -170,8 +170,13 @@ test("一号花园旧 Hero 冻结为 Hold，Identity 候选不改变公共 regis
     disposition.replacementCandidate.identityLineage.identityCandidateCompleted,
     true,
   );
-  assert.equal(disposition.replacementCandidate.identityLineage.mcp3, "pending-main-window");
-  assert.equal(disposition.replacementCandidate.identityLineage.identityFormalPass, false);
+  assert.equal(disposition.replacementCandidate.identityLineage.mcp3, "pass");
+  assert.equal(disposition.replacementCandidate.identityLineage.identityFormalPass, true);
+  assert.equal(disposition.replacementCandidate.identityLineage.runtimeAuthorized, true);
+  assert.equal(
+    disposition.replacementCandidate.identityLineage.runtimeExecutionPausedForMainWindowGateIntegration,
+    true,
+  );
   assert.equal(disposition.replacementCandidate.identityLineage.runtimeIntegrated, false);
   assert.equal(landmark.model, "/models/xinhua-road/one-step-garden.glb");
   assert.equal(landmark.cacheVersion, "20260718-detail-1");

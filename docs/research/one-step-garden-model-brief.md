@@ -152,11 +152,11 @@
 | Massing | 前体量、后体量、院落间隙与坡屋顶 | canonical 分体轮廓 | 真实 `?start=` 灰模门 | MCP1 + map gate passed; shared integration pending |
 | Runtime calibration | 位置、比例、朝向、机位和道路退界 | N/A | 冻结旧落点完成地图门；公共 registry 由主窗口整合 | Map gate passed |
 | Hero master disposition | 只读审计旧 `.blend` / GLB / generator / lineage | MCP2 前必须具备正确主体和三固定机位 | N/A | Hero v2 已通过主窗口 MCP2；旧 Hero 继续 Hold |
-| Identity | 半木构、老虎窗、红砖后体量和场地层次 | 三项构件可读 | Identity 距离可辨认 | 独立 Headless candidate 完成；等待主窗口串行 MCP3 |
-| Materials | 白墙、红砖、深木构和灰褐瓦 | 固定机位无黑面 | 项目色盘一致 | Identity 六组 PBR 材质候选通过 Headless 审计；等待 MCP3 |
+| Identity | 半木构、老虎窗、红砖后体量和场地层次 | 三项构件可读 | Identity 距离可辨认 | 主窗口 MCP3 已通过；等待 candidate+gate 整合后启动运行时 |
+| Materials | 白墙、红砖、深木构和灰褐瓦 | 固定机位无黑面 | 项目色盘一致 | Identity 六组 PBR 材质通过 MCP3，6/6 Principled node materials |
 | Site | 树木、草坪、家具、店招与装饰物 | N/A | N/A | Hold：严格排除在18栋建筑范围外 |
 | Collision | 两栋分体和可达路径 | 无整院大盒 | 人物/相机可达 | 沿用已通过地图门的八分体碰撞语义；Identity 未接入运行时 |
-| Optimization | 静态合并与共享材质 | 轮廓不丢失 | 预算通过 | Identity 为 1,484 triangles / 112,456 bytes，预算通过；等待 MCP3 |
+| Optimization | 静态合并与共享材质 | 轮廓不丢失 | 预算通过 | Identity 为 1,484 triangles / 112,456 bytes，预算与 MCP3 均通过 |
 
 ## Validation
 
@@ -165,7 +165,7 @@
 - [x] Massing、Hero 与 Identity 的可编辑 `.blend`、GLB 及同机位 canonical、侧向、入口视图齐全；正式三档 MCP3 对照仍待主窗口
 - [x] GLB SHA、bounds、节点、三角面、材质、图片和体积进入 build record
 - [x] 人物/相机碰撞、院落可达、道路退界、控制台和精确 GLB 资源请求通过
-- [ ] MCP1 与 MCP2 已通过；MCP3 三档终审仍待主窗口
+- [x] MCP1、MCP2 与 MCP3 三道 Blender 门均通过；Three.js 三档运行时门仍待 candidate+gate 整合后执行
 
 ## Decision Log
 
@@ -315,3 +315,21 @@
 - Visual result: 三张图沿用 Massing/Hero 的 canonical、side/depth、entrance 固定正交机位；canonical 可读 U 形白墙半木构与五扇窄老虎窗，side/depth 可读前后分体、开放间隙、后屋双山墙和两烟囱，entrance/detail 可读入口棚、门窗节奏和 `1.8m` 人物尺度。
 - Gate result: Identity v1 仅为 Headless candidate，`identityFormalPass=false`。主窗口必须以 Blender MCP 执行同机位 Massing/Hero/Identity MCP3 三档审查后才可放行运行时；本工作树未接入 Three.js、未修改公共 registry，也没有宣称运行时完成。
 - Detailed records: `docs/research/build-records/tiers/xinhua-road/identity-v1/one-step-garden-identity.json`、`docs/research/one-step-garden-tier-lineage.json`、`docs/research/one-step-garden-blender-mcp-gates.json`。
+
+### Iteration 10 — 2026-07-25 Blender MCP3 same-camera three-tier pass
+
+- Reviewed source: 主窗口以 Blender MCP 对 commit `f1029cc4b93565d461a69eceebc7b45207c2b6ad` 的 Identity v1 执行只读终审；`.blend` SHA-256 `9ecc551a8e9ff1c950949ca1bbf9ea1fdf13c81ab48acf876d5bbd2ad6687022`、GLB SHA-256 `928ecfcace4a35e88ad68d34a2369fa673457275393ea65d8649d9de433b0497`，没有重建或替换被审查二进制。
+- Scene inspection: `1` mesh、`996` vertices、`752` polygons、`6/6` Principled node materials；root location/rotation `[0,0,0]`、scale `[1,1,1]`，normalized。
+- Geometry inspection: `area < 1e-10` 为 `0`，最小三角形面积 `0.01209998`，non-finite normals 为 `0`。
+- Frozen lineage: Identity 继续锁定 Hero GLB SHA-256 `026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b` 与 Massing GLB SHA-256 `a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761`。
+- Hero → Identity: Passed。合理删除密集窗格、部分院内窗和后屋细小分格，但保留前部白色 U 形建筑群、半木构山墙、五扇窄老虎窗、入口棚、后院独立红砖长屋、双山墙、双烟囱和开放前后间隙。
+- Identity → Massing: Passed。三档的 silhouette、origin、local `-Y` front、ground datum、bounds、位置 `[60.86,120.73]`、yaw `-0.38`、scale `0.88` 与八分体碰撞/开放入口语义连续，没有 transform 或 passage popping。
+- MCP3 evidence:
+  - `test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1_mcp3_recheck_canonical.png`，SHA-256 `a62b7c781f9b11364ff83614a48354bdf41bf80df909fb341892219e8909a260`，`915,283` bytes
+  - `test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1_mcp3_recheck_side.png`，SHA-256 `eff462fee37315ebb90ae1a52d27e94bf334696d58eb5c41fee22e3ccf605943`，`857,319` bytes
+  - `test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1_mcp3_recheck_entrance.png`，SHA-256 `43845a920ded079a3b47d011de13f8df5d33abb20bfc77e35f8b43240f757895`，`986,082` bytes
+- Visual result: canonical 证明前白 U 形、半木构与五窗老虎窗仍清楚；side/depth 证明前后建筑分体、开放间隙、后屋双山墙与双烟囱；entrance 证明入口棚、半木构门窗节奏和人物尺度。
+- Scope result: Passed。没有树木、灌木、草坪、家具、雨伞、花盆、灯、围栏、店招、装饰铺装、其他建筑或全地图资产；旧 Hero 继续 Hold。
+- Interactive boundary: `acceptedInteractiveChanges=[]`；MCP3 的相机、灯光、地面和人物 QA rig 未保存、未导出，因此无需 generator round-trip。
+- Independent review: House315 peer 对 commit `f1029cc` 给出 `Ready`，Critical/Important/Minor 均为 `0`。
+- Gate result: Blender MCP3 Passed，`identityFormalPass=true`，允许进入 One Step Garden 三档 Three.js runtime/QA。但按调度边界，必须先等待主窗口整合 candidate 与本 gate checkpoint；本提交仍不修改公共 registry、共享 runtime、其他建筑或任何范围外资产。
