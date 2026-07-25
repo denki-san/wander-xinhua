@@ -23,6 +23,7 @@ import {
 import {
   planarDistanceToLandmarkFootprint,
 } from "../app/scene/xinhua-road-placement.mjs";
+import { BUILDING_ASSETS } from "../app/asset-library/asset-data.ts";
 import roadData from "../app/scene/xinhua-road-landmarks-data.json" with { type: "json" };
 
 const root = new URL("../", import.meta.url);
@@ -418,6 +419,11 @@ test("全世界生产 manifest 覆盖三档资产、共享空间参数和证据�
     "18 栋生产清单必须覆盖新华路 14 个地标、幸福里三分区与孙科别墅",
   );
   assert.equal(productionIds.length, 18);
+  assert.deepEqual(
+    productionIds,
+    BUILDING_ASSETS.map(({ id }) => id).sort(),
+    "生产质量 manifest 必须与资产后台的 18 栋 stable asset ID 完全一致",
+  );
   assert.equal(productionIds.includes("huashan"), false);
   assert.equal(productionIds.includes("shangsheng"), false);
   assert.equal(productionIds.includes("xingfuli"), false);
