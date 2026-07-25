@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "assetId": "building:xinhua-road:xinhua-villas-329",
+  "tier": "massing",
+  "batch": "evidence-bound-v3",
+  "generatedAt": "2026-07-26",
+  "status": "headless-built-pending-main-window-mcp1-and-map-gate",
+  "generator": "scripts/create_xinhua_villas_329_massing_model.py",
+  "memberBinding": "docs/research/xinhua-villas-329-member-binding.json",
+  "modelBrief": "docs/research/xinhua-villas-329-model-brief.md",
+  "sourceEvidence": {
+    "xhsDirectory": "docs/research/assets/xhs-xinhua-villas-329-20260725",
+    "officialMembers": [
+      "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-17-official-2024.jpg",
+      "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-38-official-2025.jpg"
+    ]
+  },
+  "placement": {
+    "position": [
+      -42.13,
+      79.48
+    ],
+    "yaw": -0.38,
+    "scale": 0.62,
+    "source": "app/scene/xinhua-road-landmarks-data.json",
+    "movementAuthorized": false,
+    "authoredFront": "compound-member-specific-facing-unknown"
+  },
+  "scope": {
+    "includedHouseNumbers": [
+      "15",
+      "36",
+      "40",
+      "42"
+    ],
+    "excludedWayIds": [
+      864493245
+    ],
+    "excludedContent": [
+      "Villa Le Bec way/864493245",
+      "trees and vegetation",
+      "street furniture and decoration",
+      "unmapped members 17, 32乙, 38 and 231",
+      "unknown rear-face detail"
+    ]
+  },
+  "children": [
+    {
+      "name": "xinhua-villas-329-member-15",
+      "sourceWayId": 864493244,
+      "houseNumber": "15",
+      "bindingStatus": "bound-medium",
+      "geometryEvidence": "observed-osm-footprint-plus-local-photo-silhouette",
+      "localFootprint": [
+        [
+          -19.995742,
+          2.501276
+        ],
+        [
+          -6.481978,
+          2.40108
+        ],
+        [
+          -6.465884,
+          9.341689
+        ],
+        [
+          -19.974375,
+          9.439779
+        ]
+      ],
+      "sourceFootprintAabb": {
+        "minX": -19.995742,
+        "maxX": -6.465884,
+        "minZ": -9.439779,
+        "maxZ": -2.40108
+      },
+      "observedCues": [
+        "narrow lane gate and number 15 pier",
+        "two-storey rear mass visible above the gate",
+        "light plaster and dark framed openings"
+      ],
+      "omittedUnknowns": [
+        "complete facade rhythm",
+        "rear elevation",
+        "unseen annex roofs"
+      ]
+    },
+    {
+      "name": "xinhua-villas-329-member-36",
+      "sourceWayId": 864485664,
+      "houseNumber": "36",
+      "bindingStatus": "bound-medium",
+      "geometryEvidence": "observed-osm-footprint-plus-local-photo-silhouette",
+      "localFootprint": [
+        [
+          -17.891877,
+          -4.37592
+        ],
+        [
+          -19.143251,
+          -11.143113
+        ],
+        [
+          -10.283151,
+          -12.804766
+        ],
+        [
+          -9.031771,
+          -6.037558
+        ]
+      ],
+      "sourceFootprintAabb": {
+        "minX": -19.143251,
+        "maxX": -9.031771,
+        "minZ": 4.37592,
+        "maxZ": 12.804766
+      },
+      "observedCues": [
+        "two-storey rounded principal volume",
+        "low red-tile wings",
+        "tall rectangular chimney",
+        "warm light plaster"
+      ],
+      "omittedUnknowns": [
+        "exact circular radius",
+        "unseen rear wing",
+        "window count on hidden faces"
+      ]
+    },
+    {
+      "name": "xinhua-villas-329-member-40",
+      "sourceWayId": 864493174,
+      "houseNumber": "40",
+      "bindingStatus": "bound-medium-high",
+      "geometryEvidence": "observed-osm-footprint-plus-local-photo-silhouette",
+      "localFootprint": [
+        [
+          0.372955,
+          -8.81979
+        ],
+        [
+          8.337511,
+          -8.644728
+        ],
+        [
+          8.118382,
+          -0.330269
+        ],
+        [
+          0.150991,
+          -0.497078
+        ]
+      ],
+      "sourceFootprintAabb": {
+        "minX": 0.150991,
+        "maxX": 8.337511,
+        "minZ": 0.330269,
+        "maxZ": 8.81979
+      },
+      "observedCues": [
+        "number 40 entrance",
+        "warm light plaster",
+        "two-storey main volume",
+        "dark framed upper glazed pavilion",
+        "low tiled entrance canopy"
+      ],
+      "omittedUnknowns": [
+        "rear pavilion depth",
+        "hidden facade openings",
+        "later alteration chronology"
+      ]
+    },
+    {
+      "name": "xinhua-villas-329-member-42",
+      "sourceWayId": 864493173,
+      "houseNumber": "42",
+      "bindingStatus": "bound-medium-high",
+      "geometryEvidence": "observed-osm-footprint-plus-local-photo-silhouette",
+      "localFootprint": [
+        [
+          7.91194,
+          -16.886568
+        ],
+        [
+          13.539449,
+          -16.766455
+        ],
+        [
+          13.367564,
+          -10.419154
+        ],
+        [
+          7.740049,
+          -10.539282
+        ]
+      ],
+      "sourceFootprintAabb": {
+        "minX": 7.740049,
+        "maxX": 13.539449,
+        "minZ": 10.419154,
+        "maxZ": 16.886568
+      },
+      "observedCues": [
+        "number 42 entrance",
+        "front triangular gable",
+        "shallow red-tile entrance canopy",
+        "warm light plaster",
+        "paired upper windows"
+      ],
+      "omittedUnknowns": [
+        "rear roof connection",
+        "hidden side additions",
+        "exact Chinese-style garden layout"
+      ]
+    }
+  ],
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
+    "previews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/massing-v3/xinhua-villas-329/test_xinhua-villas-329-massing-v3-canonical.png",
+        "sha256": "0785ebd43385e1167bc90a515a2fdb66809daf3959474df345d88960d12547d9",
+        "bytes": 568157
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/massing-v3/xinhua-villas-329/test_xinhua-villas-329-massing-v3-side-depth.png",
+        "sha256": "37d04b6b1299d25ed34713043898141b1bb68c7e558144d912158c3c0336a854",
+        "bytes": 610849
+      },
+      "entrance": {
+        "path": "test_artifacts/all-models/massing-v3/xinhua-villas-329/test_xinhua-villas-329-massing-v3-entrance.png",
+        "sha256": "3f65dca03f6df9df1d2007f748e001ad8d745de46094f9904ce53ac1983e3867",
+        "bytes": 594638
+      }
+    },
+    "comparisonCheckpoint": {
+      "path": "test_artifacts/all-models/massing-v3/xinhua-villas-329/test_xinhua-villas-329-massing-v3-reference-blender-threejs-pending.png",
+      "sha256": "5432399ef5e1502a6e86d183f11e230ed111b60635dd715db4b70aa6cae1cdbb",
+      "bytes": 604883,
+      "runtimePanel": {
+        "path": "test_artifacts/all-models/massing-v3/xinhua-villas-329/test_xinhua-villas-329-massing-v3-threejs-pending.svg",
+        "sha256": "0258b3b7262cb7a5617d0503af75ade41d8dfac35c73bb3cad3c4ca57f3cd70f",
+        "bytes": 543,
+        "status": "pending-main-window-scoped-qa"
+      }
+    }
+  },
+  "blend": {
+    "sha256": "da82a1e3a4c7379e69a2a099a66f10dadcaef084cf45bf2a59b6344ebfbf97a5",
+    "bytes": 100537,
+    "blenderVersion": "5.2.0 LTS",
+    "editable": true,
+    "savedQaHelpers": false
+  },
+  "glb": {
+    "sha256": "b5f8c3fa56cc83ca43b850995da4440cac6639ec353789fc746aac1f45532c25",
+    "bytes": 22004,
+    "nodes": 4,
+    "meshes": 4,
+    "materials": 4,
+    "images": 0,
+    "textures": 0,
+    "triangles": 204,
+    "bounds": {
+      "min": [
+        -19.746794,
+        0.0,
+        -9.257434
+      ],
+      "max": [
+        13.415168,
+        6.35,
+        16.814095
+      ]
+    },
+    "rootTransformsNormalized": true
+  },
+  "budgets": {
+    "maxNodes": 8,
+    "maxTriangles": 2000,
+    "maxMaterials": 4,
+    "maxImages": 0,
+    "maxBytes": 220000
+  },
+  "gates": {
+    "evidence": "pass-conservative-massing-only",
+    "headlessBuild": "pass",
+    "glbStructure": "pass-explicit-audit",
+    "mcp1": "pending-main-window-batch",
+    "runtimeGate": "pending-main-window-scoped-qa",
+    "mapAcceptance": "pending-main-window-scoped-qa",
+    "heroAuthorized": false,
+    "identityAuthorized": false
+  },
+  "explicitAudit": {
+    "command": "python3 scripts/audit_glb.py public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb --forbid-images --max-nodes 8",
+    "result": {
+      "bytes": 22004,
+      "nodes": 4,
+      "meshes": 4,
+      "materials": 4,
+      "images": 0,
+      "textures": 0,
+      "status": "ok"
+    }
+  },
+  "lineage": {
+    "recoveryCheckpointCommit": "bdc038d4685ab94e4c78af1dfd83adb3ee8460b0",
+    "recoveryMassingSha256": "f7ade44ba879dead433abd006603a613520af730d9a2a35dada412b99a0c3819",
+    "change": "Replaced five unbound boxes with four evidence-bound members and excluded the Villa Le Bec footprint."
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-329",
+  "tier": "massing",
+  "status": "candidate-pending-main-window-mcp1-and-map-gate",
+  "model": "/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
+  "modelSourcePath": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
+  "modelSha256": "b5f8c3fa56cc83ca43b850995da4440cac6639ec353789fc746aac1f45532c25",
+  "cacheVersion": "b5f8c3fa56cc",
+  "placement": {
+    "position": [-42.13, 79.48],
+    "yaw": -0.38,
+    "scale": 0.62,
+    "keepUnchanged": true
+  },
+  "localBounds": {
+    "minX": -19.746794,
+    "maxX": 13.415168,
+    "minZ": -9.257434,
+    "maxZ": 16.814095
+  },
+  "localObstacles": [
+    {
+      "id": "member-15-way-864493244",
+      "minX": -19.746794,
+      "maxX": -6.712196,
+      "minZ": -9.257434,
+      "maxZ": -2.584479
+    },
+    {
+      "id": "member-36-way-864485664",
+      "minX": -18.991856,
+      "maxX": -9.183167,
+      "minZ": 4.548491,
+      "maxZ": 12.632189
+    },
+    {
+      "id": "member-40-way-864493174",
+      "minX": 0.326008,
+      "maxX": 8.163913,
+      "minZ": 0.424235,
+      "maxZ": 8.721698
+    },
+    {
+      "id": "member-42-way-864493173",
+      "minX": 7.864333,
+      "maxX": 13.415168,
+      "minZ": 10.491635,
+      "maxZ": 16.814095
+    }
+  ],
+  "excludedWayIds": [864493245],
+  "excludedWayReason": "Cross-asset Villa Le Bec footprint.",
+  "fastManifestCandidate": {
+    "tests": [
+      "tests/test_xinhua_villas_329_massing_v3.test.mjs",
+      "tests/test_model_detail_upgrade.test.mjs",
+      "tests/test_xinhua_road_models.test.mjs"
+    ],
+    "glbs": [
+      "public/models/xinhua-road/xinhua-villas-329.glb",
+      "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb"
+    ],
+    "runtimeRoutes": [
+      "/?start=villas329&cameraQa=1&qaAutoStart=1",
+      "/?start=villas329&qaModelId=xinhua-villas-329&qaModelTier=massing&cameraQa=1&qaAutoStart=1"
+    ]
+  },
+  "sharedHookInstructions": [
+    "Add an asset-scoped xinhua-villas-329 tier resolver; do not use a global fallback token.",
+    "Point only qaModelTier=massing to the v3 GLB and cacheVersion b5f8c3fa56cc.",
+    "Keep the existing position, yaw, scale, start and forward unchanged for the first map calibration.",
+    "Replace the legacy single obstacle only inside the scoped Massing QA assembly with the four member obstacles above; keep member gaps walkable.",
+    "Do not modify or delete the separate Villa Le Bec registry entry.",
+    "Do not promote v3 to production until the main-window batch completes first MCP1 and formal map acceptance."
+  ],
+  "gates": {
+    "evidence": "pass-conservative-massing-only",
+    "glbAudit": "pass",
+    "mcp1": "pending-main-window-batch",
+    "runtimeGate": "pending-main-window-scoped-qa",
+    "mapAcceptance": "pending-main-window-scoped-qa",
+    "identity": "not-authorized",
+    "hero": "not-authorized"
+  }
+}

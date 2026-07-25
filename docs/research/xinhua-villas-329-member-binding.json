@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-329",
+  "auditedAt": "2026-07-26",
+  "stableBoundary": "329-lane-compound",
+  "registryPlacement": {
+    "position": [-42.13, 79.48],
+    "yaw": -0.38,
+    "scale": 0.62,
+    "source": "app/scene/xinhua-road-landmarks-data.json",
+    "movementAuthorized": false
+  },
+  "sources": {
+    "osm": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "recoveryRecord": "docs/research/build-records/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.json",
+    "xhsPost": "https://www.xiaohongshu.com/search_result/696d1838000000002102bc99",
+    "xhsEvidenceDirectory": "docs/research/assets/xhs-xinhua-villas-329-20260725",
+    "officialMemberEvidence": [
+      "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-17-official-2024.jpg",
+      "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-38-official-2025.jpg"
+    ]
+  },
+  "bindingMethod": {
+    "status": "auditable-sequence-and-spatial-binding-not-survey",
+    "observedInputs": [
+      "OSM supplies four rectangular footprints within the 329 compound candidate cluster and one overlapping footprint at the Villa Le Bec anchor.",
+      "XHS images 5 and 7 visibly show the 40 doorplate.",
+      "XHS image 6 visibly shows the 42 doorplate.",
+      "XHS image 8 visibly shows the 15 doorplate.",
+      "XHS images 1, 3, 4 and 18 show the low tiled compound with a tall chimney described by the post as the two-storey round number 36 cake villa.",
+      "The post image order walks from the compound overview toward successively numbered members."
+    ],
+    "inferredInputs": [
+      "The remaining four OSM footprints are ordered from the historic registry entrance side toward the deeper lane and paired with the visible 15, 36, 40 and 42 sequence.",
+      "The exact cadastral parcel boundary and rear-face orientation are not proven.",
+      "The binding is suitable for a conservative Massing checkpoint, not for surveyed Hero placement."
+    ],
+    "unknown": [
+      "Exact photographed camera coordinates.",
+      "Cadastral parcel-to-house-number records.",
+      "Complete rear elevations and roof backs.",
+      "Whether small annexes absent from OSM are original or later additions."
+    ]
+  },
+  "members": [
+    {
+      "sourceWayId": 864493244,
+      "houseNumber": "15",
+      "bindingStatus": "bound-medium",
+      "bindingEvidence": [
+        "visible doorplate in test_xhs_xinhua_villas_329_08.jpg",
+        "nearest retained OSM footprint to the registry-side entrance ordering after excluding Villa Le Bec"
+      ],
+      "localFootprint": [
+        [-19.995742, 2.501276],
+        [-6.481978, 2.40108],
+        [-6.465884, 9.341689],
+        [-19.974375, 9.439779]
+      ],
+      "footprintAreaSqMeters": 262.8,
+      "modelContract": {
+        "kind": "evidence-limited-gabled-member",
+        "eaveHeight": 4.25,
+        "ridgeHeight": 5.45,
+        "observedCues": [
+          "narrow lane gate and number 15 pier",
+          "two-storey rear mass visible above the gate",
+          "light plaster and dark framed openings"
+        ],
+        "omittedUnknowns": [
+          "complete facade rhythm",
+          "rear elevation",
+          "unseen annex roofs"
+        ]
+      }
+    },
+    {
+      "sourceWayId": 864485664,
+      "houseNumber": "36",
+      "bindingStatus": "bound-medium",
+      "bindingEvidence": [
+        "post body identifies 36 as the two-storey round cake villa",
+        "images 1, 3, 4 and 18 show its tiled low wings, rounded volume and tall chimney",
+        "second retained OSM footprint in the entrance-to-depth sequence"
+      ],
+      "localFootprint": [
+        [-17.891877, -4.37592],
+        [-19.143251, -11.143113],
+        [-10.283151, -12.804766],
+        [-9.031771, -6.037558]
+      ],
+      "footprintAreaSqMeters": 173.8,
+      "modelContract": {
+        "kind": "round-cake-villa",
+        "eaveHeight": 4.15,
+        "ridgeHeight": 5.35,
+        "observedCues": [
+          "two-storey rounded principal volume",
+          "low red-tile wings",
+          "tall rectangular chimney",
+          "warm light plaster"
+        ],
+        "omittedUnknowns": [
+          "exact circular radius",
+          "unseen rear wing",
+          "window count on hidden faces"
+        ]
+      }
+    },
+    {
+      "sourceWayId": 864493174,
+      "houseNumber": "40",
+      "bindingStatus": "bound-medium-high",
+      "bindingEvidence": [
+        "number 40 doorplate is visible in images 5 and 7",
+        "the larger mid-depth OSM footprint matches the visibly taller multi-volume member before number 42"
+      ],
+      "localFootprint": [
+        [0.372955, -8.81979],
+        [8.337511, -8.644728],
+        [8.118382, -0.330269],
+        [0.150991, -0.497078]
+      ],
+      "footprintAreaSqMeters": 185.8,
+      "modelContract": {
+        "kind": "upper-pavilion-villa",
+        "eaveHeight": 4.2,
+        "ridgeHeight": 5.9,
+        "observedCues": [
+          "number 40 entrance",
+          "warm light plaster",
+          "two-storey main volume",
+          "dark framed upper glazed pavilion",
+          "low tiled entrance canopy"
+        ],
+        "omittedUnknowns": [
+          "rear pavilion depth",
+          "hidden facade openings",
+          "later alteration chronology"
+        ]
+      }
+    },
+    {
+      "sourceWayId": 864493173,
+      "houseNumber": "42",
+      "bindingStatus": "bound-medium-high",
+      "bindingEvidence": [
+        "number 42 doorplate is visible in image 6",
+        "the deepest retained OSM footprint follows number 40 in both number and post sequence"
+      ],
+      "localFootprint": [
+        [7.91194, -16.886568],
+        [13.539449, -16.766455],
+        [13.367564, -10.419154],
+        [7.740049, -10.539282]
+      ],
+      "footprintAreaSqMeters": 100.2,
+      "modelContract": {
+        "kind": "front-gabled-lanting",
+        "eaveHeight": 4.35,
+        "ridgeHeight": 5.75,
+        "observedCues": [
+          "number 42 entrance",
+          "front triangular gable",
+          "shallow red-tile entrance canopy",
+          "warm light plaster",
+          "paired upper windows"
+        ],
+        "omittedUnknowns": [
+          "rear roof connection",
+          "hidden side additions",
+          "exact Chinese-style garden layout"
+        ]
+      }
+    }
+  ],
+  "excludedCandidates": [
+    {
+      "sourceWayId": 864493245,
+      "status": "excluded-cross-asset",
+      "recoveryLocalCenter": [7.239194, 19.066586],
+      "calculatedWorldCenter": [-33.577118, 88.793205],
+      "villaLeBecRegistryPosition": [-34.1, 88.8],
+      "worldCenterDistance": 0.5229,
+      "reason": "The footprint center nearly coincides with the separate Villa Le Bec stable asset at Xinhua Road 321 and is also present in the Recovery Villa Le Bec candidate pool."
+    }
+  ],
+  "evidenceOnlyNotMapped": [
+    {
+      "houseNumber": "17",
+      "reason": "Official front evidence exists, but none of the four retained footprint bindings can be tied to number 17 without contradicting the doorplate sequence."
+    },
+    {
+      "houseNumber": "38",
+      "reason": "Official front-oblique evidence exists, but the supplied XHS sequence does not establish its OSM footprint."
+    },
+    {
+      "houseNumber": "32乙",
+      "reason": "The post body names the English garden villa, but the handed-off screenshots do not include a visible doorplate-to-footprint link."
+    },
+    {
+      "houseNumber": "231",
+      "reason": "The post identifies an along-street English garden villa outside the interior member sequence; it is not assigned to the four retained lane footprints."
+    }
+  ]
+}

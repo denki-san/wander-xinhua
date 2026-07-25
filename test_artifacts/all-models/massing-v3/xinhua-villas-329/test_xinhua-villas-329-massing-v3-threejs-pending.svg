@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480">
+  <rect width="640" height="480" fill="#18202a"/>
+  <text x="320" y="185" fill="#ffffff" font-family="Arial, sans-serif" font-size="34" text-anchor="middle">THREE.JS</text>
+  <text x="320" y="235" fill="#f2b35f" font-family="Arial, sans-serif" font-size="26" text-anchor="middle">PENDING MAIN-WINDOW QA</text>
+  <text x="320" y="280" fill="#b8c2cc" font-family="Arial, sans-serif" font-size="21" text-anchor="middle">MCP1 + MAP GATE NOT RUN</text>
+</svg>
