@@ -7,11 +7,25 @@ export const HOUSE_315_SOURCE_GLTF_BOUNDS = Object.freeze({
   maxZ: 4.84,
 });
 
-export const HOUSE_315_SOURCE_GLTF_OBSTACLES = Object.freeze([
-  Object.freeze({ minX: -6.7, maxX: 6.7, minZ: -3.5, maxZ: 2.4 }),
-  Object.freeze({ minX: -4.475, maxX: 0.675, minZ: -2.65, maxZ: 4.55 }),
-  Object.freeze({ minX: 3.275, maxX: 7.025, minZ: -4.375, maxZ: 3.075 }),
-  Object.freeze({ minX: -7.475, maxX: -3.225, minZ: -4.35, maxZ: -0.15 }),
+export const HOUSE_315_SOURCE_LOCAL_OBSTACLES = Object.freeze([
+  Object.freeze({
+    minX: -7.675,
+    maxX: -2.1254,
+    minZ: -4.575,
+    maxZ: 1.307215,
+  }),
+  Object.freeze({
+    minX: -2.1254,
+    maxX: 7.225,
+    minZ: -4.575,
+    maxZ: 1.307215,
+  }),
+  Object.freeze({
+    minX: -6.432454,
+    maxX: -2.108321,
+    minZ: 1.307215,
+    maxZ: 4.84,
+  }),
 ]);
 
 function mirrorZ({ minX, maxX, minZ, maxZ }) {
@@ -24,19 +38,22 @@ function mirrorZ({ minX, maxX, minZ, maxZ }) {
 }
 
 export const HOUSE_315_PLACEMENT = Object.freeze({
-  position: Object.freeze([-23.03, 85.67]),
-  yaw: -0.38,
-  scale: 0.9,
+  position: Object.freeze([-20.127789, 82.330463]),
+  yaw: -0.401372,
+  scale: 0.754254,
   start: Object.freeze([-21.8, 67.6]),
-  forward: Object.freeze([-0.05, 1]),
+  forward: Object.freeze([0.152032, 0.988376]),
   localBounds: HOUSE_315_SOURCE_GLTF_BOUNDS,
-  localObstacles: HOUSE_315_SOURCE_GLTF_OBSTACLES,
+  localObstacles: HOUSE_315_SOURCE_LOCAL_OBSTACLES,
   sourceGltfBounds: HOUSE_315_SOURCE_GLTF_BOUNDS,
   renderedLocalBounds: mirrorZ(HOUSE_315_SOURCE_GLTF_BOUNDS),
   renderedLocalObstacles: Object.freeze(
-    HOUSE_315_SOURCE_GLTF_OBSTACLES.map(mirrorZ),
+    HOUSE_315_SOURCE_LOCAL_OBSTACLES.map(mirrorZ),
   ),
   axisConversion: "gltf-z-mirrored-once-at-render",
+  mapPositionStatus: "osm-calibrated-candidate-runtime-pending",
+  mapSourceWayId: 864485667,
+  collisionSource: "osm-way-864485667-three-rectangle-decomposition",
 });
 
 function tier({

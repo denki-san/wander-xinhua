@@ -9,13 +9,10 @@ import {
   HOUSE_315_FALLBACK_CHAIN,
   HOUSE_315_PLACEMENT,
   HOUSE_315_SOURCE_GLTF_BOUNDS,
-  HOUSE_315_SOURCE_GLTF_OBSTACLES,
+  HOUSE_315_SOURCE_LOCAL_OBSTACLES,
   HOUSE_315_TIERS,
   resolveHouse315Qa,
 } from "../app/scene/house-315-tier-contract.mjs";
-import {
-  transformedLandmarkFootprint,
-} from "../app/scene/xinhua-road-contract.ts";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const recordPath =
@@ -187,14 +184,6 @@ function auditGeometry(json, binary) {
     nonUnitNormals,
     orientationMismatches,
   };
-}
-
-function roundedFootprint(footprint) {
-  return Object.fromEntries(
-    Object.entries(footprint).map(
-      ([key, value]) => [key, Number(value.toFixed(6))],
-    ),
-  );
 }
 
 test("House315 Identity v1 只从冻结且已通过 MCP2 的 Hero v2 派生", async () => {
@@ -631,20 +620,14 @@ test("House315 QA resolver 使用同一 tier URL 和建筑限定的确定性 fal
   );
 });
 
-test("House315 source bounds 和四段碰撞只在 render/shared transform 各镜像一次", async () => {
-  const mapQa = await readJson("docs/research/house-315-massing-map-qa.json");
-  assert.deepEqual(
-    HOUSE_315_PLACEMENT.localBounds,
-    mapQa.integrationRecommendation.localBounds,
-  );
-  assert.deepEqual(
-    HOUSE_315_PLACEMENT.localObstacles,
-    mapQa.integrationRecommendation.localObstacles,
+test("House315 保持三档 source bounds，并使用 OSM 再校准的专属 placement", async () => {
+  const candidate = await readJson(
+    "docs/research/house-315-map-position-candidate.json",
   );
   assert.deepEqual(HOUSE_315_PLACEMENT.localBounds, HOUSE_315_SOURCE_GLTF_BOUNDS);
   assert.deepEqual(
     HOUSE_315_PLACEMENT.localObstacles,
-    HOUSE_315_SOURCE_GLTF_OBSTACLES,
+    HOUSE_315_SOURCE_LOCAL_OBSTACLES,
   );
   assert.deepEqual(HOUSE_315_PLACEMENT.renderedLocalBounds, {
     minX: -7.675,
@@ -652,53 +635,18 @@ test("House315 source bounds 和四段碰撞只在 render/shared transform 各�
     minZ: -4.84,
     maxZ: 4.575,
   });
-  assert.deepEqual(
-    roundedFootprint(
-      transformedLandmarkFootprint(
-        HOUSE_315_PLACEMENT,
-        HOUSE_315_PLACEMENT.localBounds,
-      ),
-    ),
-    {
-      minX: -31.172016,
-      maxX: -15.175629,
-      minZ: 78.862604,
-      maxZ: 92.105687,
-    },
+  assert.deepEqual(HOUSE_315_PLACEMENT.position, candidate.candidate.placement.position);
+  assert.equal(HOUSE_315_PLACEMENT.yaw, candidate.candidate.placement.yaw);
+  assert.equal(HOUSE_315_PLACEMENT.scale, candidate.candidate.placement.scale);
+  assert.deepEqual(HOUSE_315_PLACEMENT.start, candidate.candidate.placement.start);
+  assert.deepEqual(HOUSE_315_PLACEMENT.forward, candidate.candidate.placement.forward);
+  assert.equal(HOUSE_315_PLACEMENT.mapSourceWayId, 864485667);
+  assert.equal(
+    HOUSE_315_PLACEMENT.mapPositionStatus,
+    "osm-calibrated-candidate-runtime-pending",
   );
-  assert.deepEqual(
-    HOUSE_315_PLACEMENT.localObstacles.map(
-      (obstacle) => roundedFootprint(
-        transformedLandmarkFootprint(HOUSE_315_PLACEMENT, obstacle),
-      ),
-    ),
-    [
-      {
-        minX: -29.998247,
-        maxX: -16.428964,
-        minZ: 81.227434,
-        maxZ: 91.031944,
-      },
-      {
-        minX: -27.854842,
-        maxX: -20.746917,
-        minZ: 80.173236,
-        maxZ: 88.310199,
-      },
-      {
-        minX: -21.95326,
-        maxX: -15.931995,
-        minZ: 83.993209,
-        maxZ: 91.871762,
-      },
-      {
-        minX: -30.929745,
-        maxX: -25.575523,
-        minZ: 83.100002,
-        maxZ: 88.429125,
-      },
-    ],
-  );
+  assert.equal(candidate.verdict.priorPlacementWrong, true);
+  assert.equal(candidate.verdict.binaryRebuildRequired, false);
 });
 
 test("House315 runtime 候选保持专属所有权且等待主窗口公共接线", async () => {
@@ -731,7 +679,7 @@ test("House315 runtime 候选保持专属所有权且等待主窗口公共接线
   assert.equal(candidate.assetId, HOUSE_315_ASSET_ID);
   assert.equal(
     candidate.status,
-    "complete-main-window-runtime-pass",
+    "placement-recalibrated-runtime-map-revalidation-pending",
   );
   assert.equal(
     await sha256(candidate.source.contract.path),
@@ -757,7 +705,8 @@ test("House315 runtime 候选保持专属所有权且等待主窗口公共接线
   assert.match(runtimeSource, /window\.__house315QA\?\.instanceId === instanceId/);
   assert.doesNotMatch(runtimeSource, /useGLTF\.preload|test_missing|centerOffset/);
   assert.doesNotMatch(runtimeSource, /oneStepGarden|filmArt|shanghaiCinema|sunKe/i);
-  assert.doesNotMatch(contractSource, /plane-tree|lamp|planter|osm/i);
+  assert.doesNotMatch(contractSource, /plane-tree|lamp|planter/i);
+  assert.match(contractSource, /mapSourceWayId: 864485667/);
   assert.equal(candidate.sharedBaseline.publicRegistryModified, false);
   assert.equal(candidate.sharedBaseline.sharedRuntimeModified, false);
   assert.equal(candidate.sharedBaseline.xinhuaExperienceModified, false);
@@ -790,16 +739,30 @@ test("House315 runtime 候选保持专属所有权且等待主窗口公共接线
   assert.equal(candidate.legacyHold.overwritten, false);
   assert.equal(candidate.legacyHold.deleted, false);
   assert.equal(candidate.mainWindowIntegration.buildingWorktreeMustNotApply, true);
-  assert.equal(candidate.mainWindowIntegration.status, "complete-runtime-pass");
+  assert.equal(
+    candidate.mainWindowIntegration.status,
+    "placement-wired-runtime-map-revalidation-pending",
+  );
   assert.equal(candidate.mainWindowIntegration.publicRegistryModified, true);
   assert.equal(candidate.mainWindowIntegration.sharedRuntimeModified, true);
-  assert.equal(candidate.mainWindowIntegration.browserAcceptance, "pass");
+  assert.equal(
+    candidate.mainWindowIntegration.browserAcceptance,
+    "pending-new-placement-map-and-collision",
+  );
   assert.ok(candidate.mainWindowIntegration.requiredPatches.length >= 6);
   assert.equal(candidate.completionBoundary.runtimeModuleImplemented, true);
   assert.equal(candidate.completionBoundary.mainWindowIntegrated, true);
-  assert.equal(candidate.completionBoundary.threeTierRuntimeFinalPass, true);
-  assert.match(candidate.validation.mainWindowBrowser, /^pass-/);
-  assert.equal(candidate.runtimeAcceptance.result, "pass");
+  assert.equal(candidate.completionBoundary.mapPositionCandidateReady, true);
+  assert.equal(candidate.completionBoundary.mapPositionFinalRuntimePass, false);
+  assert.equal(candidate.completionBoundary.threeTierRuntimeFinalPass, false);
+  assert.equal(
+    candidate.validation.mainWindowBrowser,
+    "pending-new-placement-map-and-collision",
+  );
+  assert.equal(
+    candidate.runtimeAcceptance.result,
+    "pass-tier-and-fallback-only-map-and-collision-superseded",
+  );
   assert.equal(candidate.runtimeAcceptance.console.errors, 0);
   assert.equal(candidate.runtimeAcceptance.routes.massing.staleIdentityRequest, false);
   assert.equal(

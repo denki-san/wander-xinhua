@@ -112,18 +112,17 @@
       "address": "新华路315号",
       "model": "/models/tiers/xinhua-road/hero-v2/house-315-hero.glb",
       "cacheVersion": "20260725-hero-ad414549",
-      "position": [-23.03, 85.67],
-      "yaw": -0.38,
-      "scale": 0.9,
+      "position": [-20.127789, 82.330463],
+      "yaw": -0.401372,
+      "scale": 0.754254,
       "localBounds": { "minX": -7.675, "maxX": 7.225, "minZ": -4.575, "maxZ": 4.84 },
       "localObstacles": [
-        { "minX": -6.7, "maxX": 6.7, "minZ": -3.5, "maxZ": 2.4 },
-        { "minX": -4.475, "maxX": 0.675, "minZ": -2.65, "maxZ": 4.55 },
-        { "minX": 3.275, "maxX": 7.025, "minZ": -4.375, "maxZ": 3.075 },
-        { "minX": -7.475, "maxX": -3.225, "minZ": -4.35, "maxZ": -0.15 }
+        { "minX": -7.675, "maxX": -2.1254, "minZ": -4.575, "maxZ": 1.307215 },
+        { "minX": -2.1254, "maxX": 7.225, "minZ": -4.575, "maxZ": 1.307215 },
+        { "minX": -6.432454, "maxX": -2.108321, "minZ": 1.307215, "maxZ": 4.84 }
       ],
       "start": [-21.8, 67.6],
-      "forward": [-0.05, 1]
+      "forward": [0.152032, 0.988376]
     },
     {
       "id": "villa-le-bec",

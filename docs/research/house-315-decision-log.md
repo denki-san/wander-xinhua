@@ -777,3 +777,86 @@ SHA 均保持。
 - Runtime authorized: true
 - Runtime started / integrated: false / false
 - Next gate: House315 Three.js three-tier runtime acceptance
+
+## Iteration 9 — OSM map-position recalibration candidate
+
+- Date: 2026-07-26
+- Runtime candidate commit before recalibration: `19e4adf`
+- Result: `placement-candidate-osm-way-864485667-runtime-pending`
+- Binary rebuild: no
+- Public registry / shared runtime / Fast manifest modified: no
+
+### Why the prior map gate is superseded
+
+Brief 和 reference manifest 一直把
+`position [-23.03, 85.67] / yaw -0.38 / scale 0.9`
+定义为历史迁移基线，并把地图罗盘、权威 footprint 和最终落点列为 Unknown。
+Iteration 3 的临时地图门没有新的 WGS84 建筑绑定，只在该 frozen transform 上
+做了画面和碰撞检查，因此不能证明真实位置。
+
+主窗口新增 Villa Le Bec v3 两栋建筑后，两个本地 footprint 在冻结
+`[-34.1, 88.8] / -0.38 / 0.82` 下分别与原始 OSM ways
+`864493176 / 864493175` 对齐，最大顶点误差仅约
+`0.000004 / 0.000006` scene unit。这一强锚点暴露出旧 House315 模型 footprint
+`[-30.972016,-15.375629] × [79.062604,91.905687]`
+同时穿入 Villa 两个实体，旧 position、scale 和单体碰撞结论必须拒绝。
+
+### Evidence-bound OSM binding
+
+原始快照
+`docs/research/data/xinhua-buildings-osm-20260725-074802.json`
+中的 way `864485667` 位于 Villa 两实体东侧、新华路南侧。其长向主体、中央阶梯
+前出和东侧延伸拓扑，与已冻结的 House315 俯瞰证据一致；地址315也应位于321号
+东侧。该 way 无 `addr:housenumber` / `name`，因此主体绑定记录为
+`medium-high candidate`，不冒充 cadastral final pass。
+
+多项独立约束收敛到同一个 footprint，因此本轮不记
+`blocked-map-position`；缺失地址 tag 和测绘边界被保留为 Unknown，正式地图
+Pass 仍等待主窗口真实浏览器验收。
+
+### Placement and collision decision
+
+使用项目正式 WGS84 投影：
+
+- center `[121.4227819, 31.2066376]`
+- `2.7 m / scene unit`
+- scene `+Z` 向南
+
+从 way `864485667` 的主长边得到 yaw `-0.401372`；将三档共同的精确 GLB
+oriented bounds 等比放入 OSM oriented bounds，取宽 / 深比例中的较小值，得到：
+
+- position `[-20.127789, 82.330463]`
+- yaw `-0.401372`
+- scale `0.754254`
+- start 保留 `[-21.8, 67.6]`
+- forward 更新为朝中央入口的 `[0.152032, 0.988376]`
+
+GLB bounds、origin、front、ground 和三个二进制 SHA 全部不变。碰撞不再沿用
+四个照片体块矩形，而按 OSM 阶梯 footprint 分为 west main、east main 和
+central front 三段；拆分长主体是为了避免旋转后单一 world AABB 再次吞入
+Villa 庭院实体。
+
+### Analytic acceptance
+
+- 候选模型到新华路机动车道边缘最小净距：`3.602692` scene unit；
+- 扣除 House runtime collision margin 后保守净距：`3.402692`；
+- 到 Villa way `864493176` 实体：`0.619394`；
+- 到 Villa way `864493175` 实体：`2.690714`；
+- 双方都加 `0.2` runtime margin 后，三段 House collision AABB 与两栋 Villa
+  的最小间距仍分别为 `0.099834 / 0.674188`，没有交叠；
+- 最近其他 OSM 建筑 way `864485666` 的原始 footprint 间距为 `2.937019`；
+- start 到 House 模型 footprint 为 `9.377492`，大于 `5.44` camera arm；
+  建筑继续对 camera spring transparent，解析安全但浏览器实测仍待主窗口。
+
+完整 WGS84、world footprint、邻栋、入口、start/camera 和 Hold SHA 见
+`docs/research/house-315-map-position-candidate.json`。
+
+### Boundary
+
+- Hero / Identity / Massing / MCP2 / MCP3：保留，禁止重做；
+- legacy Hero：继续 Hold，未删除、未覆盖；
+- public registry / shared runtime / Fast manifest：未修改；
+- candidate contract：只修改 `app/scene/house-315-tier-contract.mjs`；
+- final runtime map pass：false；
+- next gate：主窗口接入 House-only contract，真实浏览器复核位置、接地、入口、
+  三段碰撞、camera arm 与 Villa 无交叠。
