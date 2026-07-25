@@ -8,10 +8,10 @@
     "scope": "protected-garden-villa-with-former-garage-and-garden-terrace"
   },
   "canonicalComparison": {
-    "localPath": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-timeout-street-candidate-2022.jpg",
-    "view": "garden-axis-to-main-villa",
-    "direction": "from-garden-toward-main-villa",
-    "reason": "主住宅、坡屋顶、老虎窗、花园轴线和一侧低矮商业体量同时可读。"
+    "localPath": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_01.jpg",
+    "view": "xinhua-road-to-street-villa-and-courtyard-gate",
+    "direction": "from-xinhua-road-toward-courtyard",
+    "reason": "沿街建筑、院门、院内第二栋屋顶与新华路退界同时可读。"
   },
   "referencePhotos": [
     {
@@ -70,6 +70,61 @@
       "sha256": "460ef702a86171fab84417429922d1cf8da74acce57f96ee19c3e8cdc7b5f9a8"
     }
   ],
+  "xhsEvidence": {
+    "postId": "66ba1786000000001e01cb8b",
+    "url": "https://www.xiaohongshu.com/search_result/66ba1786000000001e01cb8b",
+    "title": "魔都法餐探秘：新华路上的Villa Le Bec 321",
+    "author": "Ear耳东尘",
+    "publishedAt": "2024-08-12",
+    "acquisitionBoundary": "copied-from-main-window-local-read-only-evidence-no-platform-revisit",
+    "sourceNote": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/source-note.md",
+    "authorStatement": "餐厅由两栋百年老建筑构成",
+    "authorStatementStatus": "author-stated-not-cadastral-confirmation",
+    "selectedMedia": [
+      {
+        "localPath": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_01.jpg",
+        "sha256": "07339d1c2178efaa0acfd6efac2765e80c113f523ac1497b0d781d32f8c93535",
+        "view": "street-front-and-gate",
+        "modelingRole": "canonical-two-building-and-road-relationship"
+      },
+      {
+        "localPath": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_02.jpg",
+        "sha256": "bbef94ff1e962a96a340ad4b6e37c01e418b7bc93e3df71e0652afe44f356900",
+        "view": "courtyard-entry-and-side",
+        "modelingRole": "entrance-bay-roof-and-side-depth"
+      },
+      {
+        "localPath": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_03.jpg",
+        "sha256": "52e3bd6160e1912331674224ade8aaedc9692f54742691766bd3df8e64f2c298",
+        "view": "courtyard-axis",
+        "modelingRole": "open-walkable-courtyard"
+      },
+      {
+        "localPath": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_04.jpg",
+        "sha256": "cac4aa5e9de39194dc6d89d3e1d6e722f0be554ff8c24b67d3eb26ab669602ab",
+        "view": "entry-and-courtyard",
+        "modelingRole": "entry-clearance-only-no-brand-geometry"
+      },
+      {
+        "localPath": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_05.jpg",
+        "sha256": "93742fba79155710a41e3897de7bfd720bb80464c4eedb4a39897f8d5b0f3e38",
+        "view": "courtyard-side-interfaces",
+        "modelingRole": "site-relationship"
+      },
+      {
+        "localPath": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_11.jpg",
+        "sha256": "7e1b6d3072b7d5b739d107dbb7d7c5d26fae62dcf9ddc3d3fe8ff111f1977690",
+        "view": "rear-side-and-low-annex",
+        "modelingRole": "garden-villa-side-bay-and-unknown-annex"
+      },
+      {
+        "localPath": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_contact_sheet.jpg",
+        "sha256": "0008933b85cbb534fa461ddadd1b07a379753623ad1a5155929fc887701f58ad",
+        "view": "18-image-index",
+        "modelingRole": "selection-index-only"
+      }
+    ]
+  },
   "textSources": [
     {
       "url": "https://www.shcn.gov.cn/col5934/20211207/1158151.html",
@@ -90,15 +145,23 @@
   "coverageMatrix": {
     "canonicalMainVilla": "supported",
     "gardenRelationship": "supported",
-    "formerGarageRelationship": "partial",
+    "twoBuildingCount": "author-stated-and-visually-consistent",
+    "streetFront": "supported-xhs-01",
+    "sideDepth": "supported-xhs-02",
+    "currentEntrance": "supported-xhs-02",
+    "courtyardAxis": "supported-xhs-03-to-05",
+    "rearOrSide": "supported-xhs-11",
+    "formerGarageRelationship": "unknown-not-modeled-as-confirmed",
     "candidateSetReviewed": 6,
     "candidateSetUsableForExteriorOrSite": 2,
     "candidateSetRejectedForExteriorModeling": 4,
     "frontObliqueAndCurrentCommercialEntrance": "supported-by-existing-landmark-comparison-reference",
-    "sameBuildingLateral": "missing-unknown",
-    "sameBuildingRear": "missing-unknown",
+    "sameBuildingLateral": "supported-current-use-xhs-02-and-11",
+    "sameBuildingRear": "partial-current-use-xhs-11",
     "historicEntranceDirection": "unknown",
-    "mainVillaToFormerGarageFootprintBinding": "missing-blocks-formal-map-acceptance"
+    "osmWay864493176": "inferred-street-villa-main-medium-high",
+    "osmWay864493175": "inferred-garden-villa-secondary-medium-high",
+    "osmWays864493245_246_247": "excluded-unknown-neighbor-or-accessory"
   },
   "conflicts": [
     "长宁政府保护页写1912年，餐饮资料常写1924年；未找到原始档案闭合。",
