@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-329",
+  "tier": "massing-v2",
+  "checkpointType": "recovery-lineage-and-evidence-blocker",
+  "checkedAt": "2026-07-26",
+  "worktreeBaseline": "222e7ebd7ef556f7f3f6edd2c0561a6e6c36111f",
+  "sourceRecoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+  "scope": {
+    "owned": [
+      "xinhua-villas-329 Recovery Massing-v2 lineage",
+      "xinhua-villas-329 evidence gate",
+      "xinhua-villas-329 building-specific QA artifacts and test"
+    ],
+    "excluded": [
+      "shared runtime and registry",
+      "building-pipeline-fast-mode manifest",
+      "ordinary OSM generator and full-map data",
+      "trees, vegetation, decoration and street furniture",
+      "all other buildings"
+    ]
+  },
+  "restoredRecoveryFiles": [
+    {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.blend",
+      "sha256": "e492dbe99b500dc01d02ad1774541d7c7b922988bc4e52a50e05d8b2155307c5",
+      "byteIdenticalToRecovery": true
+    },
+    {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.json",
+      "sha256": "b0b6c2f8e8e25a5685b5d6998bbbb24e49f5ce8d796ac42d02f3cef4eb9e794b",
+      "byteIdenticalToRecovery": true
+    },
+    {
+      "path": "public/models/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.glb",
+      "sha256": "f7ade44ba879dead433abd006603a613520af730d9a2a35dada412b99a0c3819",
+      "byteIdenticalToRecovery": true
+    }
+  ],
+  "inheritedEvidenceFiles": [
+    {
+      "path": "docs/research/xinhua-villas-329-model-brief.md",
+      "sha256": "8658483b123bd92cc67ec7012dada85040eda0e15c3e8d33e03377d206519d38"
+    },
+    {
+      "path": "docs/research/xinhua-villas-329-reference-manifest.json",
+      "sha256": "aefa022428814d9d29fa9f4820d0ee962176ed9dcd6b3f22ccada55b79c3d546"
+    },
+    {
+      "path": "docs/research/xinhua-villas-329-decision-log.md",
+      "sha256": "0f82c185e0857754790ce75f1af8345ffa925227d3d84c88df133193bc48aebc"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-17-official-2024.jpg",
+      "sha256": "c7eba10495aec90b1f56992b419737c1b3ea636acd93ffef66727977662ec627"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-38-official-2025.jpg",
+      "sha256": "2b961ec0932770886aa7f126c11ed31094558146496543b108920afe6b7a5c26"
+    }
+  ],
+  "recoveryBuildRecord": {
+    "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.json",
+    "runtimeGate": "pass",
+    "mapAcceptance": "blocked",
+    "candidateStatus": "five-member-candidates-pending",
+    "membershipConfidence": "medium",
+    "heightEvidence": "unknown-runtime-fallback-not-evidence",
+    "childBinding": "all-five-unbound-member-candidate",
+    "runtimeGateInheritance": "accepted-as-recovery-runtime-visual-evidence-only",
+    "mcp1": "pending-main-window-batch",
+    "mcp1ClaimFromRecovery": false
+  },
+  "glbAudit": {
+    "command": "python3 scripts/audit_glb.py public/models/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.glb",
+    "status": "ok",
+    "bytes": 8244,
+    "nodes": 5,
+    "meshes": 5,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "trianglesFromBuildRecord": 60,
+    "policyBoundary": "structure-only-not-subject-binding-or-map-acceptance"
+  },
+  "recoveredQaArtifacts": [
+    {
+      "path": "test_artifacts/all-models/massing-v2/test_xinhua-villas-329-massing-v2-canonical.png",
+      "sha256": "bd7e80ff5b8c85fb720aceb6b5a05a1cb52b974ea3a57760d22c30048f6290db",
+      "bytes": 744893,
+      "meaning": "Recovery fixed-camera preview; not MCP1."
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/test_xinhua-villas-329-massing-v2-side.png",
+      "sha256": "350f57a1a05dafebb24c3e66f94a42ed0eea784e18b0e41686340348433c3da8",
+      "bytes": 750592,
+      "meaning": "Recovery fixed-camera preview; not MCP1."
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/test_xinhua-villas-329-massing-v2-threejs.png",
+      "sha256": "e9a2b1eea5d6558fad74da51f6402461abf40df8f27971d98ff7e8d461d70d12",
+      "bytes": 64850,
+      "meaning": "Inherited runtime context screenshot; runtime visual pass only."
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/test_xinhua-villas-329-massing-v2-threejs-isolated.png",
+      "sha256": "d987ed68268a74043f4bdcfb4edae89daeb89751dbf9bf2e5bac3b4de3a34c49",
+      "bytes": 57679,
+      "meaning": "Inherited isolated runtime screenshot; not formal map acceptance."
+    }
+  ],
+  "evidenceGate": {
+    "status": "blocked-evidence",
+    "verifiedAgainstCurrentFiveEvidenceFiles": true,
+    "compoundCanonical": "missing",
+    "compoundEntrance": "missing",
+    "compoundMemberLayout": "missing",
+    "member329_17": "front-only-no-depth-or-placement",
+    "member329_38": "front-oblique-and-entrance-detail-no-compound-placement",
+    "representativeMemberAuthorized": false,
+    "ordinaryOsmBindingAuthorized": false,
+    "massingAuthorized": false,
+    "heroAuthorized": false,
+    "identityAuthorized": false
+  },
+  "mapGate": {
+    "status": "formal-blocked-evidence",
+    "mapAcceptance": "blocked",
+    "reason": "The recovered five-box candidate has no evidence-backed binding to the 329 Lane compound or to members 17 and 38. Runtime visibility, a valid GLB container and inherited screenshots cannot prove subject identity, entrance clearance, member layout or walkable compound paths.",
+    "newRuntimeRun": false,
+    "newBlenderRun": false,
+    "newMcp1Run": false,
+    "sharedRegistryChanged": false,
+    "sharedRuntimeChanged": false,
+    "nextGate": "main-window-evidence-decision-then-first-mcp1-in-batch"
+  },
+  "currentSharedState": {
+    "registryPath": "app/scene/xinhua-road-landmarks-data.json",
+    "registrySha256": "d862b8fd0341505a2fc68b4bbc2537c63a4c87c3fc42623f4a5e16e40317fc55",
+    "model": "/models/xinhua-road/xinhua-villas-329.glb",
+    "position": [
+      -42.13,
+      79.48
+    ],
+    "yaw": -0.38,
+    "scale": 0.62,
+    "fastManifestPath": "docs/research/building-pipeline-fast-mode.json",
+    "fastManifestSha256": "7eab2ef19404508a42865a94dba932539154bdc4789e1d7cb7f32b48689b82e8",
+    "sharedFilesModifiedInBuildingBranch": false
+  },
+  "mainWindowManifestCandidate": {
+    "tests": [
+      "tests/test_xinhua_villas_329_massing_recovery_checkpoint.test.mjs",
+      "tests/test_model_detail_upgrade.test.mjs",
+      "tests/test_xinhua_road_models.test.mjs"
+    ],
+    "glbs": [
+      "public/models/xinhua-road/xinhua-villas-329.glb",
+      "public/models/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.glb"
+    ],
+    "runtimeRoutes": [
+      "/?start=villas329&cameraQa=1&qaAutoStart=1",
+      "/?start=villas329&qaModelId=xinhua-villas-329&qaModelTier=massing&cameraQa=1&qaAutoStart=1"
+    ],
+    "routeBoundary": "The second route is a candidate interface only. Do not expose it as working until the main window adds a scoped xinhua-villas-329 tier resolver and the evidence blocker is resolved.",
+    "sharedHookRecommendation": [
+      "Keep the existing landmark position, yaw, scale, start and forward unchanged.",
+      "Add an asset-scoped xinhua-villas-329 QA tier resolver; do not use a global fallback token.",
+      "Point only the massing QA tier to /models/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.glb?v=f7ade44ba879.",
+      "Do not promote the recovered candidate into production quality manifests while mapAcceptance remains blocked.",
+      "Schedule the first real Blender MCP1 review in the main-window 2-to-3-building batch only after the subject binding decision."
+    ]
+  },
+  "checkpointResult": "blocked-with-sufficient-evidence-and-reproducible-recovery-lineage"
+}
