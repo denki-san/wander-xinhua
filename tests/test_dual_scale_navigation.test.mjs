@@ -58,10 +58,17 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
 
   assert.match(world, /export const DETAIL_WORLD_SCALE = 1\.65/);
   assert.match(world, /const OVERVIEW_CHARACTER_SCALE = 22/);
+  assert.match(
+    world,
+    /const OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET = OVERVIEW_CHARACTER_SCALE \* 0\.18/,
+  );
   assert.match(world, /const OVERVIEW_MOVE_SPEED = 94/);
   assert.match(world, /const OVERVIEW_CAMERA_FILL = 0\.24/);
   assert.match(world, /function OverviewCamera/);
-  assert.match(world, /target\.copy\(focus\.current\)/);
+  assert.match(
+    world,
+    /\.copy\(focus\.current\)\s*\.addScaledVector\(WORLD_UP, OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET\)/,
+  );
   assert.match(world, /cameraFocus\.current\.copy\(position\.current\)/);
   assert.match(world, /<OverviewCamera active=\{overview\} focus=\{overviewCameraFocus\} \/>/);
   assert.ok(
@@ -74,13 +81,16 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(world, /detailScale=\{exploring \? DETAIL_WORLD_SCALE : 1\}/);
   assert.match(world, /showDetailModels=\{mode !== "intro"\}/);
   assert.match(world, /showDetailLabels=\{false\}/);
-  assert.match(world, /showDetailModels && networkProfile === "standard" \? \(/);
+  assert.match(world, /showDetailModels \? \(/);
   assert.match(world, /<ShangshengXinsuoBlock[\s\S]*?stage=\{shangshengTier\}/);
   assert.match(world, /<ProgressiveXinhuaRoadFullLayer/);
   assert.match(world, /progressiveFocus=\{progressiveFocus\}/);
   assert.match(world, /landmarkLoadMode=\{exploring \? "explore" : "overview"\}/);
   assert.doesNotMatch(world, /priorityPreset|detailPresetTargetsBuilding|detailActive/);
-  assert.match(world, /networkProfile === "standard"[\s\S]*?<Suspense fallback=\{<XinhuaRoadMassing identity \/>\}>/);
+  assert.match(
+    world,
+    /loadMode=\{networkProfile === "standard" \? landmarkLoadMode : "overview"\}/,
+  );
   assert.match(roadLandmarks, /<LightweightPlaneTreeInstances \/>/);
   assert.match(roadLandmarks, /vegetation: "programmatic-lightweight"/);
   assert.match(roadLandmarks, /if \(!showHero\)/);
@@ -134,7 +144,8 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(styles, /\.overview-poi-photo\.is-loaded img/);
   assert.match(styles, /@keyframes poi-photo-loading/);
   assert.match(styles, /\.overview-poi-card\s*\{[^}]*top: 88px;/);
-  assert.match(styles, /top: calc\(env\(safe-area-inset-top, 0px\) \+ 48px\)/);
+  assert.match(styles, /top: calc\(env\(safe-area-inset-top, 0px\) \+ 118px\)/);
+  assert.match(styles, /min-height: 148px/);
   assert.doesNotMatch(styles, /\.overview-poi-card\s*\{[^}]*bottom:/);
   assert.match(experience, /function FirstPlayableFrame/);
   assert.match(experience, /nextFrame\.current = window\.requestAnimationFrame\(onReady\)/);

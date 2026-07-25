@@ -1,5 +1,14 @@
 # Progressive World Loading Acceptance
 
+> Correction, 2026-07-25: this record predates the user-approved quality boundary.
+> Its weak-network screenshots and assertions about a procedural character and
+> disabled post-processing are historical evidence, not current acceptance
+> criteria. Network quality may suppress building Hero requests only; it must not
+> permanently downgrade the character, sky, street environment or global visual
+> treatment. Missing Network Information API data defaults to standard rather
+> than weak, while explicit Save-Data and measured slow-network evidence still
+> keep buildings at Identity.
+
 ## Scope
 
 - Worktree: `.worktrees/progressive-world-loading`

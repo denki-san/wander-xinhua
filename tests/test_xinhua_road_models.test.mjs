@@ -643,7 +643,10 @@ test("所有快速定位的角色和首帧相机都避开全部地标碰撞范�
 
 test("新地标参与渲染、角色硬碰撞和快速定位，但摄像机使用独立透明层", () => {
   assert.match(worldSource, /<XinhuaRoadMassing identity=\{showDetailModels\} \/>/);
-  assert.match(worldSource, /<ProgressiveXinhuaRoadFullLayer[\s\S]*?showLabels=\{showDetailLabels\}[\s\S]*?loadMode=\{landmarkLoadMode\}[\s\S]*?focusPosition=\{progressiveFocus\}/);
+  assert.match(
+    worldSource,
+    /<ProgressiveXinhuaRoadFullLayer[\s\S]*?showLabels=\{showDetailLabels\}[\s\S]*?loadMode=\{networkProfile === "standard" \? landmarkLoadMode : "overview"\}[\s\S]*?focusPosition=\{progressiveFocus\}/,
+  );
   assert.match(worldSource, /\.\.\.XINHUA_ROAD_OBSTACLES/);
   assert.match(worldSource, /\.\.\.XINHUA_ROAD_CAMERA_OBSTACLES/);
   assert.deepEqual(XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES, []);

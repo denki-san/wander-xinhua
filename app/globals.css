@@ -1067,17 +1067,17 @@ kbd {
   }
 
   .overview-poi-card {
-    top: calc(env(safe-area-inset-top, 0px) + 48px);
-    right: 72px;
+    top: calc(env(safe-area-inset-top, 0px) + 118px);
+    right: 15px;
     left: 15px;
-    grid-template-columns: minmax(112px, 0.72fr) minmax(0, 1.28fr);
+    grid-template-columns: minmax(116px, 0.82fr) minmax(0, 1.18fr);
     width: auto;
-    min-height: 218px;
+    min-height: 148px;
     transform: rotate(-0.35deg);
   }
 
   .overview-poi-photo img {
-    min-height: 218px;
+    min-height: 148px;
   }
 
   .overview-poi-photo a {
@@ -1086,17 +1086,26 @@ kbd {
   }
 
   .overview-poi-card-body {
-    padding: 15px 15px 14px;
+    padding: 10px 12px 11px;
   }
 
   .overview-poi-card h2 {
-    font-size: 24px;
+    font-size: 20px;
   }
 
   .overview-poi-card-copy {
-    margin: 8px 0 13px;
-    font-size: 12px;
-    line-height: 1.52;
+    display: -webkit-box;
+    margin: 5px 0 8px;
+    overflow: hidden;
+    font-size: 11px;
+    line-height: 1.38;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .overview-poi-card button {
+    padding: 8px 10px;
+    font-size: 13px;
   }
 
   .action-panel,

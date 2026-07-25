@@ -177,7 +177,7 @@ test("街具复用 InstancedMesh，不为每个重复对象建立独立 draw cal
     assert.match(mapSource, new RegExp(component));
   }
   assert.match(assetSource, /args=\{\[undefined, undefined, placements\.length\]\}/);
-  assert.match(worldSource, /showStreetDressing=\{showDetailModels\}/);
+  assert.match(worldSource, /showStreetDressing=\{mode === "explore"\}/);
   assert.match(mapSource, /lowTier/);
 });
 

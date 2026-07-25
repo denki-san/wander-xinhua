@@ -23,7 +23,6 @@ import {
 import { ProgressiveFeatureBoundary } from "./progressive-feature-boundary";
 import {
   AutumnStorybookSky,
-  StorybookCloudLayer,
 } from "./scene/visual-effects";
 import {
   DEFAULT_XINHUA_ATMOSPHERE_STYLE,
@@ -83,11 +82,19 @@ function FirstPlayableFrame({ onReady }: { onReady: () => void }) {
 
 function detectLowTier() {
   if (typeof window === "undefined") return false;
-  const coarse = window.matchMedia("(any-pointer: coarse)").matches;
-  const touch = coarse || (navigator.maxTouchPoints ?? 0) > 0;
-  const narrow = window.innerWidth < 720;
-  const limited = (navigator.hardwareConcurrency ?? 8) <= 4;
-  return touch || narrow || limited;
+  const requested = new URLSearchParams(window.location.search).get("quality");
+  if (requested === "low") return true;
+  if (requested === "high") return false;
+  const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
+  const concurrency = navigator.hardwareConcurrency;
+  // 触屏和窄屏只说明交互形态，不代表 GPU 性能。仅在两项硬件信号都明确很低时自动降档；
+  // Safari 缺少 deviceMemory 时默认保留标准画质。
+  return (
+    typeof deviceMemory === "number"
+    && deviceMemory <= 2
+    && typeof concurrency === "number"
+    && concurrency <= 2
+  );
 }
 
 function detectRenderDpr(lowTier: boolean) {
@@ -567,12 +574,9 @@ export function XinhuaExperience() {
       >
         <FirstPlayableFrame onReady={() => setReady(true)} />
         {exploring && (
-          <>
-            <Suspense fallback={null}>
-              <AutumnStorybookSky atmosphereStyle={atmosphereStyle} />
-            </Suspense>
-            {atmosphereStyle === "lighting-v3" && <StorybookCloudLayer />}
-          </>
+          <Suspense fallback={null}>
+            <AutumnStorybookSky atmosphereStyle={atmosphereStyle} />
+          </Suspense>
         )}
         <XinhuaWorld
           mode={mode}
@@ -591,7 +595,7 @@ export function XinhuaExperience() {
           networkProfile={networkProfile}
         />
         {/* 首帧先交出控制权，再装载后处理；挂载后不随模式切换重建。 */}
-        {ready && networkProfile === "standard" && (
+        {ready && (
           <ProgressiveFeatureBoundary
             resetKey={atmosphereStyle}
             fallback={null}

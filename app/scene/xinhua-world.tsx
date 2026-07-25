@@ -160,6 +160,7 @@ function markFirstProgressiveControlResponse() {
 
 export const DETAIL_WORLD_SCALE = 1.65;
 const OVERVIEW_CHARACTER_SCALE = 22;
+const OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET = OVERVIEW_CHARACTER_SCALE * 0.18;
 const OVERVIEW_MOVE_SPEED = 94;
 const OVERVIEW_POI_DISTANCE = 42;
 const OVERVIEW_CAMERA_FILL = 0.24;
@@ -527,7 +528,7 @@ function FlatNeighborhood({
     <group scale={[detailScale, detailScale, detailScale]}>
       <XinhuaStreetMap
         showRoadLabels={showRoadLabels}
-        showStreetDressing={showDetailModels}
+        showStreetDressing={mode === "explore"}
         lowTier={lowTier}
       />
       <group
@@ -557,7 +558,7 @@ function FlatNeighborhood({
         showEnvironmentDetails={mode === "explore"}
         stage={shangshengTier}
       />
-      {showDetailModels && networkProfile === "standard" ? (
+      {showDetailModels ? (
         <ProgressiveFeatureBoundary
           resetKey={landmarkLoadMode}
           fallback={<XinhuaRoadMassing identity />}
@@ -567,7 +568,7 @@ function FlatNeighborhood({
               showLabels={showDetailLabels}
               showHero={showHeroTree}
               atmosphere={atmosphere}
-              loadMode={landmarkLoadMode}
+              loadMode={networkProfile === "standard" ? landmarkLoadMode : "overview"}
               focusPosition={progressiveFocus}
             />
           </Suspense>
@@ -722,11 +723,7 @@ type WandererCharacterProps = {
   scale?: number;
 };
 
-function WandererCharacter({
-  detailed = true,
-  ...props
-}: WandererCharacterProps & { detailed?: boolean }) {
-  if (!detailed) return <ProceduralWandererCharacter {...props} />;
+function WandererCharacter(props: WandererCharacterProps) {
   // 角色模型单独进入 Suspense，避免首次载入 GLB 时把地面、建筑与相机一起挂起。
   return (
     <ProgressiveFeatureBoundary fallback={<ProceduralWandererCharacter {...props} />}>
@@ -774,14 +771,12 @@ function PlayableWanderer({
   onPositionChange,
   atmosphere,
   cameraQaEnabled,
-  networkProfile,
 }: {
   onNearAction: (near: boolean) => void;
   startPreset?: string;
   onPositionChange: (position: readonly [number, number]) => void;
   atmosphere: XinhuaAtmosphere;
   cameraQaEnabled: boolean;
-  networkProfile: ProgressiveNetworkProfile;
 }) {
   const { camera, gl } = useThree();
   const outer = useRef<Group>(null);
@@ -1330,10 +1325,7 @@ function PlayableWanderer({
           renderOrder={3}
         />
       </group>
-      <WandererCharacter
-        outerRef={outer}
-        detailed={networkProfile === "standard"}
-      />
+      <WandererCharacter outerRef={outer} />
     </>
   );
 }
@@ -1405,13 +1397,11 @@ function OverviewWanderer({
   cameraFocus,
   onNearPoi,
   onPositionChange,
-  networkProfile,
 }: {
   initialPosition: readonly [number, number];
   cameraFocus: RefObject<Vector3>;
   onNearPoi: (poiId: string | null) => void;
   onPositionChange: (position: readonly [number, number]) => void;
-  networkProfile: ProgressiveNetworkProfile;
 }) {
   const { camera } = useThree();
   const outer = useRef<Group>(null);
@@ -1502,7 +1492,6 @@ function OverviewWanderer({
     <WandererCharacter
       outerRef={outer}
       scale={OVERVIEW_CHARACTER_SCALE}
-      detailed={networkProfile === "standard"}
     />
   );
 }
@@ -1534,7 +1523,9 @@ function OverviewCamera({
 
   useFrame(() => {
     if (!active) return;
-    target.copy(focus.current);
+    target
+      .copy(focus.current)
+      .addScaledVector(WORLD_UP, OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET);
     const perspective = camera as PerspectiveCamera;
     const verticalHalfFov = MathUtils.degToRad(perspective.fov / 2);
     const horizontalHalfFov = Math.atan(Math.tan(verticalHalfFov) * perspective.aspect);
@@ -1797,7 +1788,6 @@ export function XinhuaWorld({
             cameraFocus={overviewCameraFocus}
             onNearPoi={onNearPoi}
             onPositionChange={reportProgressivePosition}
-            networkProfile={networkProfile}
           />
         </>
       )}
@@ -1809,7 +1799,6 @@ export function XinhuaWorld({
           onPositionChange={reportProgressivePosition}
           atmosphere={atmosphere}
           cameraQaEnabled={cameraQaEnabled}
-          networkProfile={networkProfile}
         />
       )}
     </>

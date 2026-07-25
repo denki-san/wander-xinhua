@@ -27,6 +27,49 @@
 
 ---
 
+## [LRN-20260725-004] correction
+
+**Logged**: 2026-07-25T12:25:32+08:00
+**Priority**: high
+**Status**: pending
+**Area**: frontend
+
+### Summary
+VPS 发布验收必须区分服务器当前版本与真机仍驻留的旧 HTML/JS，不能只用服务器 200 和提交一致证明用户实际运行了新交互。
+
+### Details
+用户在 VPS 真机验收时仍看到旧跳跃按钮，并感觉相机与手势没有变化。只读核对确认：
+生产目录和当前入口已经是 `main` 提交 `ed2565b`，当前源码、构建产物和生产目录都不包含
+`touch-jump` 或跳跃按钮；但发布前备份仍包含旧按钮，Cloudflare 也继续以 30 天 immutable
+缓存旧哈希资源 `index-rRBumIoX.js`。因此“仍有跳跃按钮”能直接证明该真机页面仍在运行旧客户端，
+不能据此判断新手势无效。另一方面，当前详情态仍显式渲染 `StorybookCloudLayer`，手机全览卡片
+仍固定占用顶部约 `304 × 226` CSS 像素；这两项是当前实现本身，而不是部署版本错乱。进一步核对
+历史确认：低多边形云层已在 `4826dfb` 完整删除，但建筑质量分支仍基于旧实现保留该组件；合并提交
+`b1b2980` 选择了旧分支版本，导致云层被意外恢复。用户要求删除的是截图中独立的低多边形云朵，
+不是天空背景。进一步真机反馈与源码审计确认，`classifyProgressiveNetwork()` 在缺少 Network
+Information API 或启动脚本命中缓存时默认返回 `weak`，而 hook 只在初始化和下一动画帧复判一次；
+该档位又被错误扩散到人物、建筑 Hero、新华路完整资产层和后处理，导致 iPhone 15 Pro 长期显示
+程序化方块人物与 Identity 兜底。同时 `detectLowTier()` 把所有触屏或窄屏设备都判为低配，导致
+高性能手机也固定使用 1.25 DPR、1024 阴影并关闭 SSAO、墨线和纸张效果。这不是设备性能问题。
+
+### Suggested Action
+真机验收先用带发布标识的新 URL、新标签页或彻底关闭旧页面重开，确认加载当前哈希后再评价手感。
+发布验收应记录入口 HTML 引用的主 bundle 哈希，并将“当前 bundle 不含已删除 UI”加入自动检查。
+卡片改为更宽更矮的顶部横条，同时调整全览相机构图让人物落到屏幕更下方。重新删除
+`StorybookCloudLayer` 组件、调用和对应回归断言；合并时必须保留已验收的删除事实，不能让旧分支
+把已撤回视觉元素带回生产。网络档位只能约束合同明确允许降级的建筑 Hero 请求，不能降低人物
+质量或整套场景画质；API 缺失不能等价于弱网，且必须支持运行中恢复。设备性能档位必须基于实际
+能力或运行时测量，不能用“触屏/窄屏”代替。测试应锁定人物始终升级为精细模型、云彩不存在、
+全览街具为零，并用 iPhone 类环境覆盖 API 缺失、资源缓存和档位恢复。
+
+### Metadata
+- Source: user_feedback
+- Related Files: `app/xinhua-experience.tsx`, `app/globals.css`, `app/scene/xinhua-world.tsx`, `deploy/README.md`
+- Tags: vps, cache, mobile-controls, jump-button, poi-card, clouds, production-acceptance
+- See Also: LRN-20260725-003
+
+---
+
 ## [LRN-20260725-001] correction
 
 **Logged**: 2026-07-25T00:48:00+08:00

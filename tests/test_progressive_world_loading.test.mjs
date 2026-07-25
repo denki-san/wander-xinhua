@@ -41,7 +41,11 @@ test("网络策略在 5Mbps 保留近景 Hero 能力，并让地图与弱网固�
   assert.equal(XINHUA_ROAD_HERO_ENTER_DISTANCE, 40);
   assert.equal(XINHUA_ROAD_HERO_EXIT_DISTANCE, 55);
   assert.equal(WEAK_NETWORK_DOWNLINK_Mbps, 2.5);
-  assert.equal(classifyProgressiveNetwork(), "weak");
+  assert.equal(
+    classifyProgressiveNetwork(),
+    "standard",
+    "缺少 Network Information API 不能把 Safari 永久锁为弱网",
+  );
   assert.equal(classifyProgressiveNetwork({}, 1), "weak");
   assert.equal(classifyProgressiveNetwork({}, 5), "standard");
   assert.equal(classifyProgressiveNetwork({ downlink: 5, effectiveType: "4g" }), "standard");
@@ -71,7 +75,7 @@ test("网络策略在 5Mbps 保留近景 Hero 能力，并让地图与弱网固�
       encodedBodySize: 500_000,
       transferSize: 0,
     },
-  ]), undefined, "缓存命中的启动脚本不能把未知网络升级为标准档");
+  ]), undefined, "缓存命中的启动脚本不应被误当作慢速网络证据");
 
   assert.equal(resolveProgressiveBuildingTier({
     mode: "intro",
@@ -274,7 +278,8 @@ test("生产主世界让全部建筑遵守 Massing、Identity、Hero 三层和�
   assert.match(experience, /performance\.mark\("xinhua-world-playable"\)/);
   assert.match(experience, /<FirstPlayableFrame onReady=\{\(\) => setReady\(true\)\} \/>/);
   assert.doesNotMatch(experience, /onCreated=/);
-  assert.match(experience, /ready && networkProfile === "standard"/);
+  assert.match(experience, /\{ready && \(\s*<ProgressiveFeatureBoundary/);
+  assert.doesNotMatch(experience, /ready && networkProfile === "standard"/);
   assert.match(experience, /ProgressiveFeatureBoundary/);
   assert.match(
     experience,
@@ -282,7 +287,12 @@ test("生产主世界让全部建筑遵守 Massing、Identity、Hero 三层和�
   );
   assert.match(world, /fallback=\{<XinhuaRoadMassing identity \/>\}/);
   assert.match(world, /<XinhuaRoadMassing identity=\{showDetailModels\} \/>/);
-  assert.match(world, /networkProfile === "standard"/);
+  assert.match(
+    world,
+    /loadMode=\{networkProfile === "standard" \? landmarkLoadMode : "overview"\}/,
+  );
+  assert.doesNotMatch(world, /detailed=\{networkProfile === "standard"\}/);
+  assert.match(world, /<WandererCharacter outerRef=\{outer\} \/>/);
   assert.match(world, /useProgressiveBuildingTier/);
   assert.match(world, /fullEnterDistance: CORE_BUILDING_HERO_DISTANCE\.xingfuli\.enterDistance/);
   assert.match(world, /fullExitDistance: CORE_BUILDING_HERO_DISTANCE\.xingfuli\.exitDistance/);

@@ -160,6 +160,7 @@ test("Rain 已进入正式地图并在桌面与手机可访问位置展示署名
     new RegExp(`rain-summer-wanderer\\.glb\\?v=${record.output.sha256.slice(0, 12)}`),
   );
   assert.match(world, /ProgressiveDetailedWandererCharacter/);
+  assert.doesNotMatch(world, /detailed=\{networkProfile === "standard"\}/);
   assert.match(experience, /Rain Rig © Blender Foundation \| cloud\.blender\.org/g);
   assert.ok(
     experience.match(/Rain Rig © Blender Foundation \| cloud\.blender\.org/g)?.length >= 2,

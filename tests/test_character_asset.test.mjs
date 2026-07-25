@@ -103,6 +103,8 @@ test("正式运行时加载 Rain 单文件角色并混合待机、行走和奔�
   assert.match(detailedCharacter, /const \{ scene, animations \} = useGLTF\(CHARACTER_MODEL_PATH\)/);
   assert.match(world, /<Suspense fallback=\{<ProceduralWandererCharacter \{\.\.\.props\} \/>\}>/);
   assert.match(world, /<ProgressiveDetailedWandererCharacter \{\.\.\.props\} \/>/);
+  assert.doesNotMatch(world, /detailed=\{networkProfile === "standard"\}/);
+  assert.doesNotMatch(world, /if \(!detailed\)/);
   assert.match(detailedCharacter, /useAnimations\(animations, model\)/);
   assert.match(detailedCharacter, /actions\.Idle_Neutral/);
   assert.match(detailedCharacter, /"Walk"/);

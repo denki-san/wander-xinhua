@@ -40,7 +40,12 @@ test("全览关闭天空与树木装饰，详情恢复原有天空、树影和�
     readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
   ]);
 
-  assert.match(experience, /exploring && \([\s\S]*?<AutumnStorybookSky[\s\S]*?<StorybookCloudLayer \/>/);
+  assert.match(experience, /exploring && \([\s\S]*?<AutumnStorybookSky/);
+  assert.doesNotMatch(experience, /StorybookCloudLayer/);
+  assert.doesNotMatch(
+    await readFile(new URL("../app/scene/visual-effects.tsx", import.meta.url), "utf8"),
+    /xinhua-storybook-cloud-layer|camera-relative-low-poly-clouds/,
+  );
   assert.match(world, /<fog attach="fog"/);
   assert.match(landmarks, /<LightweightPlaneTreeInstances \/>/);
   assert.match(landmarks, /if \(!showHero\)/);

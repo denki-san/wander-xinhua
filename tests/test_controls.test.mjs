@@ -277,6 +277,13 @@ test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", as
   assert.match(experience, /far: 800 \* mapData\.meta\.environmentScale/);
   assert.match(experience, /fov:\s*50/);
   assert.match(experience, /const \[lowTier\] = useState\(detectLowTier\)/);
+  const lowTierSource = experience.slice(
+    experience.indexOf("function detectLowTier"),
+    experience.indexOf("function detectRenderDpr"),
+  );
+  assert.doesNotMatch(lowTierSource, /any-pointer: coarse|innerWidth < 720/);
+  assert.match(lowTierSource, /deviceMemory <= 2[\s\S]*?concurrency <= 2/);
+  assert.match(lowTierSource, /requested === "high"/);
   assert.match(experience, /const \[renderDpr\] = useState\(\(\) => detectRenderDpr\(lowTier\)\)/);
   assert.match(experience, /dpr=\{renderDpr\}/);
   assert.doesNotMatch(experience, /dpr=\{\[[^\]]+\]\}/);
@@ -291,7 +298,8 @@ test("首页远景按最窄视场适配完整社区并抑制摩尔纹闪烁", as
   assert.match(composer, /<PaperWash atmosphereStyle=\{atmosphereStyle\} \/>/);
   assert.doesNotMatch(composer, /<NormalPassControl/);
   assert.match(experience, /<ProgressiveVisualEffectComposer/);
-  assert.match(experience, /ready && networkProfile === "standard"/);
+  assert.match(experience, /\{ready && \(\s*<ProgressiveFeatureBoundary/);
+  assert.doesNotMatch(experience, /ready && networkProfile === "standard"/);
   assert.doesNotMatch(experience, /key=\{mode\}/);
   assert.match(world, /<ProgressiveXinhuaRoadFullLayer/);
   assert.doesNotMatch(roadLandmarks, /LandmarkLoadingVolume/);

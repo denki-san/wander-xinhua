@@ -74,9 +74,14 @@ export function classifyProgressiveNetwork(
     typeof measuredDownlinkMbps === "number"
     && measuredDownlinkMbps >= WEAK_NETWORK_DOWNLINK_Mbps
   ) return "standard";
-  // Network Information API 缺失或信息不完整时先保守停在 Identity，
-  // 只有同源启动资源提供了足够吞吐证据才升级到标准档。
-  return "weak";
+  if (
+    typeof measuredDownlinkMbps === "number"
+    && measuredDownlinkMbps > 0
+    && measuredDownlinkMbps < WEAK_NETWORK_DOWNLINK_Mbps
+  ) return "weak";
+  // Safari 等浏览器没有 Network Information API；缺少证据不等于弱网。
+  // 默认允许标准档，仅在 Save-Data、明确的慢速网络或有效实测低速时降级。
+  return "standard";
 }
 
 function requestedNetworkProfile(): ProgressiveNetworkProfile | undefined {
@@ -123,10 +128,20 @@ export function useProgressiveNetworkProfile() {
     const sync = () => setProfile(detectProgressiveNetworkProfile());
     sync();
     const frame = window.requestAnimationFrame(sync);
+    const retryTimers = [1_500, 5_000, 15_000].map((delay) => (
+      window.setTimeout(sync, delay)
+    ));
     connection?.addEventListener?.("change", sync);
+    window.addEventListener("online", sync);
+    window.addEventListener("pageshow", sync);
+    document.addEventListener("visibilitychange", sync);
     return () => {
       window.cancelAnimationFrame(frame);
+      retryTimers.forEach((timer) => window.clearTimeout(timer));
       connection?.removeEventListener?.("change", sync);
+      window.removeEventListener("online", sync);
+      window.removeEventListener("pageshow", sync);
+      document.removeEventListener("visibilitychange", sync);
     };
   }, []);
 
