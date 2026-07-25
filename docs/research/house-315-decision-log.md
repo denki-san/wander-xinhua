@@ -276,3 +276,86 @@ MCP 1 只放行 Massing map gate。Identity 和 Hero 继续锁定。Three.js 地
 - 验收后把公共 registry 逐字节恢复；
 - 只提交建筑专属 QA、截图和集成建议；
 - 不直接提交 shared registry 变化。
+
+## Iteration 3 — Three.js Massing map gate
+
+- Date: 2026-07-25
+- Source checkpoint: `d2dca4a`
+- Result: `formal-pass`
+- Shared registry committed: no
+- Identity / Hero authorized: no
+
+### Temporary QA assembly
+
+地图门只在临时静态 bundle 中把315号指向
+`/models/tiers/xinhua-road/massing-v2/house-315-massing.glb`，并临时采用
+候选 local bounds 与四个分体 obstacles。以下公共 placement 完全冻结：
+
+- position `[-23.03, 85.67]`
+- yaw `-0.38`
+- scale `0.9`
+- start `[-21.8, 67.6]`
+- forward `[-0.05, 1]`
+
+构建结束后立即用原始副本恢复
+`app/scene/xinhua-road-landmarks-data.json`。恢复前后 SHA-256 均为
+`eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6`。
+临时 `dist-static` 不提交，旧 Hero GLB 没有覆盖。
+
+### Runtime result
+
+- 目标 GLB 请求 HTTP 200；
+- PerformanceResourceTiming encoded body 为17,352 bytes；
+- source 与 `dist-static` GLB SHA 均为 `e9d62cfc...`；
+- canonical 中中央山墙朝街，位置、比例、接地和道路退界通过；
+- side 视角中与相邻建筑没有 z-fighting 或可见穿插；
+- 起点与近楼视角 camera QA 均为 `spring-clear`，arm 保持完整；
+- Console messages 为0；
+- Page errors 为0。
+
+### Collision result
+
+为避免 browser 命令延迟扩大按键时间，碰撞使用页面内单次异步脚本精确控制
+`keydown → timer → keyup`。同时保持可信 pointer-down 且不产生 pointer delta，
+阻止自动相机跟随改写世界方向。
+
+固定方向输入分段为 `4001.8 + 2001.2 + 2001.8 + 2002 ms`。角色：
+
+1. 从现有 `house315` start 穿过道路退界；
+2. 进入中央前出山墙与右翼之间的开放前场凹口；
+3. 重复输入后仍位于深色主屋体之前，没有穿过后墙。
+
+四个 obstacle 分别约束横向主屋、中央山墙、右长翼和左后短翼，没有用一个
+整院大盒覆盖前场。Camera blocker `none` 是项目“地标对镜头透明”的既有语义，
+不作为人物碰撞证据。
+
+### Performance result
+
+- Build: Vite static production preview
+- Viewport: 1280 × 720
+- DPR: 1
+- Page visibility: visible
+- Prewarm: 12 seconds
+- Sample: 10,007.4ms
+- Frames: 601
+- FPS: 60.0556
+- Maximum frame: 16.8ms
+- Frames over 33.34ms: 0
+- Baseline claim: none
+
+没有同条件旧模型基线，因此只声明当前候选在该协议下通过，不声明性能提升。
+
+### Integration recommendation
+
+主窗口未来整合时仅更新315号：
+
+- model:
+  `/models/tiers/xinhua-road/massing-v2/house-315-massing.glb`
+- cacheVersion: `e9d62cfc7ffb`
+- localBounds:
+  `{ minX: -7.675, maxX: 7.225, minZ: -4.575, maxZ: 4.84 }`
+- localObstacles: 使用专项 QA 中四个分体盒；
+- position / yaw / scale / start / forward 保持不变。
+
+本 Worktree 不直接修改 shared registry。下一步是主窗口的共享 Massing
+integration review，而不是 Identity 或 Hero。
