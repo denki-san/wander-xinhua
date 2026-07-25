@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "assetId": "one-step-garden",
+  "scope": "exact-18-building-program-one-step-garden-only",
+  "auditedAt": "2026-07-25",
+  "auditMode": "read-only-no-rebuild-no-blender-mcp",
+  "status": "blocked-not-mcp2-candidate-rebuild-required",
+  "decision": {
+    "sameSubjectAsApprovedMassing": false,
+    "misboundLegacyEvidence": true,
+    "mcp2Candidate": false,
+    "mcp2Requested": false,
+    "identityAuthorized": false,
+    "legacyHeroDisposition": "hold-read-only-rollback-only",
+    "publicRegistryAction": "retain-existing-hero-no-worktree-change",
+    "nextGate": "build-evidence-backed-hero-v2-then-request-main-window-mcp2"
+  },
+  "formalSubjectContract": {
+    "referenceManifest": "docs/research/one-step-garden-reference-manifest.json",
+    "modelBrief": "docs/research/one-step-garden-model-brief.md",
+    "approvedMassingRecord": "docs/research/build-records/tiers/xinhua-road/massing-v2/one-step-garden-massing.json",
+    "requiredVolumes": [
+      "front-white-u-shaped-half-timber-compound",
+      "front-steep-left-and-right-gables",
+      "front-transverse-roof-and-shed-dormer",
+      "open-front-courtyard-and-building-gap",
+      "separate-rear-red-brick-long-house",
+      "rear-twin-gables-and-two-chimneys"
+    ],
+    "excludedScope": [
+      "trees",
+      "shrubs",
+      "grass",
+      "commercial-furniture",
+      "umbrellas",
+      "planters",
+      "signage",
+      "lamps",
+      "fences",
+      "decorative-paving",
+      "other-buildings",
+      "full-map-assets"
+    ]
+  },
+  "legacyHero": {
+    "editableSource": {
+      "path": "assets/models/source/xinhua-road/one-step-garden.blend",
+      "sha256": "5893234badecb648979adfc27de681b579ff3344ffe44ec5dbe3815751f8ffed",
+      "bytes": 2378548,
+      "fileHeader": "Blender3D-64-bit-little-endian-version-4.05",
+      "modifiedByProducingCommit": true
+    },
+    "runtimeAsset": {
+      "path": "public/models/xinhua-road/one-step-garden.glb",
+      "sha256": "a68b4e25a44e922af8d98cd4f2e0ee00486b93d94d08b005816e5ceea5b86627",
+      "bytes": 2045752,
+      "modifiedByProducingCommit": true
+    },
+    "generator": {
+      "path": "scripts/create_xinhua_road_models.py",
+      "currentSha256": "6ea5fc19f98f6339d83063bafea9c0edd66ca07d2bb171be08f61d63fed3488d",
+      "producingCommitSha256": "c731e80854480b68634bf94f640e2c16bac4a759e76e86a72e9acf99132ace11",
+      "oneStepFunctionSha256": "8bfae7c00246fc21a468d1da5da1e4a6c68c449db0ec133c8c150a8ed0274c08",
+      "oneStepFunctionByteIdenticalToProducingCommit": true,
+      "fullGeneratorByteIdenticalToProducingCommit": false,
+      "note": "一号花园函数本体未漂移，但共享生成器随后因其他地标与梧桐工作发生变化；旧 Hero 没有资产级 build record 锁定完整生成环境。"
+    },
+    "atomicLineage": {
+      "producingCommit": "e292fde194c2704a9eeaf7e4a8faf192a5d0385e",
+      "producingCommitSubject": "feat: overhaul POI models and references",
+      "producingCommitDate": "2026-07-18T07:30:14+08:00",
+      "sameCommitModified": [
+        "assets/models/source/xinhua-road/one-step-garden.blend",
+        "public/models/xinhua-road/one-step-garden.glb",
+        "scripts/create_xinhua_road_models.py",
+        "test_artifacts/test_one-step-garden_preview.png"
+      ],
+      "binaryAssetsUnchangedSinceProducingCommit": true,
+      "legacyBuildRecordExpectedPath": "docs/research/build-records/one-step-garden.json",
+      "legacyBuildRecordExists": false
+    }
+  },
+  "subjectAudit": {
+    "status": "fail",
+    "legacyObserved": [
+      "single-rectangular-main-block",
+      "single-right-side-wing",
+      "one-dominant-roof-and-one-wing-roof",
+      "curved-balcony",
+      "single-chimney",
+      "full-rectangular-courtyard-slab"
+    ],
+    "requiredButMissing": [
+      "front-u-shaped-compound",
+      "left-and-right-longitudinal-gables",
+      "front-transverse-rear-roof",
+      "shed-dormer",
+      "separate-rear-red-brick-long-house",
+      "rear-twin-gables",
+      "rear-two-chimneys",
+      "open-front-rear-building-gap"
+    ],
+    "misboundEvidence": {
+      "legacyCanonical": "docs/research/assets/landmark-comparison/one-step-garden-real.jpg",
+      "legacyManifestStatus": "rejected-source-subject-mismatch",
+      "formalManifestField": "modelingBoundary.oldJfdailyImageRejected",
+      "note": "旧 Hero 与旧 canonical 的单体半木构门面关系更接近，但该照片已被当前专项 manifest 明确拒绝，不能继续作为主体真值。"
+    }
+  },
+  "scopePollution": {
+    "status": "fail-baked-into-single-runtime-mesh",
+    "explicitTrees": 0,
+    "bakedOutOfScopeContent": {
+      "shrubs": 4,
+      "cafeSets": 3,
+      "umbrellas": 2,
+      "planters": 2,
+      "lampPosts": 4,
+      "fenceRuns": 2,
+      "signGeometryAndText": true,
+      "decorativePavingGrid": true,
+      "fullCourtyardSlab": true
+    },
+    "generatorEvidence": [
+      "garden-shrub-*",
+      "garden-cafe-a/b/c",
+      "garden-planter-left/right",
+      "garden-lamp-*",
+      "garden-fence-left/right",
+      "garden-sign",
+      "garden-name",
+      "garden-paving-detail",
+      "garden-courtyard"
+    ],
+    "materialEvidence": [
+      "一尺花园灌木",
+      "一尺花园户外木",
+      "一尺花园浅绿",
+      "一尺花园庭院灯",
+      "一尺花园铺装缝",
+      "一尺花园店招"
+    ],
+    "selectiveRuntimeRemovalPossible": false,
+    "reason": "全部生成对象在导出前合并为单一 one-step-garden mesh，范围外内容不能在运行时安全拆除。"
+  },
+  "glbAudit": {
+    "bundledAuditCommand": "python3 /Users/lei/.codex/skills/photo-reference-webgl-modeling/scripts/audit_glb.py public/models/xinhua-road/one-step-garden.glb --forbid-images --max-nodes 8",
+    "bundledAuditStatus": "pass-container-policy-only",
+    "structure": {
+      "scenes": 1,
+      "nodes": 1,
+      "meshes": 1,
+      "primitives": 14,
+      "materials": 14,
+      "images": 0,
+      "textures": 0,
+      "animations": 0,
+      "skins": 0,
+      "triangles": 31900
+    },
+    "root": {
+      "name": "one-step-garden",
+      "translation": [0, 0, 0],
+      "rotation": [0, 0, 0, 1],
+      "scale": [1, 1, 1],
+      "explicitTransformProperties": [],
+      "status": "pass-normalized"
+    },
+    "bounds": {
+      "min": [-10, -0.1000000461935997, -6.800000190734863],
+      "max": [10, 10.03499984741211, 9.199999809265137],
+      "groundDatumStatus": "fail-hero-min-y-minus-0.1-vs-approved-massing-min-y-zero"
+    },
+    "topology": {
+      "nonFinitePositions": 0,
+      "invalidIndices": 0,
+      "zeroAreaTriangles": 696,
+      "zeroAreaByMaterial": {
+        "一尺花园木构": 96,
+        "一尺花园金属": 24,
+        "一尺花园户外木": 576
+      },
+      "status": "fail-zero-area-triangles"
+    },
+    "normals": {
+      "primitivesWithoutNormals": 0,
+      "zeroLengthNormals": 0,
+      "nonUnitNormals": 0,
+      "faceVertexOrientationMismatches": 19,
+      "mismatchMaterial": "一尺花园庭院灯",
+      "status": "fail-orientation-mismatches"
+    },
+    "briefBudget": {
+      "maxTriangles": 62000,
+      "maxNodes": 9,
+      "maxMaterials": 12,
+      "maxImages": 0,
+      "maxBytes": 4800000,
+      "triangles": "pass",
+      "nodes": "pass",
+      "materials": "fail-14-exceeds-12",
+      "images": "pass",
+      "bytes": "pass"
+    }
+  },
+  "fixedViewAudit": {
+    "status": "fail-missing-required-view-set",
+    "legacyGenericPreview": {
+      "path": "test_artifacts/test_one-step-garden_preview.png",
+      "sha256": "46650043d3456146fa603064ece54885813185b0ad2368c9440ec30acf9675da",
+      "bytes": 730531,
+      "dimensions": [900, 700],
+      "cameraType": "PERSP",
+      "lensMm": 52,
+      "cameraRule": "bounds-center-plus-[1.05,-1.35,0.82]-times-max-extent",
+      "derivedLegacyBlenderCameraApprox": {
+        "location": [21, -28.2, 21.3675],
+        "target": [0, -1.2, 4.9675]
+      },
+      "subjectResult": "fail-single-villa-with-decor-not-formal-compound"
+    },
+    "legacyRuntimeComparison": {
+      "path": "docs/research/assets/landmark-comparison/one-step-garden-runtime.png",
+      "sha256": "0d7919c6f6ca99d0684974d8ff409c1c28fbdc86827aa5eb18d4acb7264267e8",
+      "bytes": 79602,
+      "declaredExtension": "png",
+      "actualEncoding": "jpeg",
+      "dimensions": [1280, 720],
+      "subjectResult": "fail-wrong-single-volume-and-range-pollution"
+    },
+    "missingViews": [
+      "formal-canonical",
+      "formal-side-depth",
+      "formal-entrance-identity-detail",
+      "same-camera-hero-vs-approved-massing"
+    ]
+  },
+  "legacyTestBoundary": {
+    "command": "node --test --test-name-pattern='9 个地标达到海军俱乐部级' tests/test_xinhua_road_models.test.mjs",
+    "status": "pass-but-not-hero-quality-proof",
+    "covered": [
+      "minimum-glb-bytes",
+      "minimum-triangle-count",
+      "minimum-material-count"
+    ],
+    "notCovered": [
+      "subject-identity",
+      "formal-evidence-match",
+      "out-of-scope-content",
+      "zero-area-triangles",
+      "normal-orientation",
+      "fixed-view-coverage",
+      "hero-to-massing-lineage"
+    ]
+  },
+  "blockers": [
+    {
+      "priority": "P0",
+      "id": "subject-mismatch",
+      "detail": "旧 Hero 是单主楼加右侧翼，不是前白色 U 形建筑群加后院独立红砖长屋。"
+    },
+    {
+      "priority": "P0",
+      "id": "misbound-evidence",
+      "detail": "旧 canonical 已由专项 manifest 标记 rejected-source-subject-mismatch。"
+    },
+    {
+      "priority": "P0",
+      "id": "scope-pollution",
+      "detail": "灌木、外摆、雨伞、花盆、灯、围栏、店招和铺装已合并进单一 Hero mesh。"
+    },
+    {
+      "priority": "P1",
+      "id": "topology-and-normals",
+      "detail": "GLB 含 696 个零面积三角面和 19 个面/顶点法线方向不一致三角面。"
+    },
+    {
+      "priority": "P1",
+      "id": "tier-contract",
+      "detail": "旧 Hero 与已通过地图门的 Massing 在体量、包络、地面基准、入口和前后间隙语义上不一致。"
+    },
+    {
+      "priority": "P1",
+      "id": "provenance-and-fixed-views",
+      "detail": "没有资产级 Hero build record，也没有 canonical/side/entrance 固定机位证据组。"
+    }
+  ],
+  "rebuildPlan": {
+    "preserveLegacyWithoutOverwrite": [
+      "assets/models/source/xinhua-road/one-step-garden.blend",
+      "public/models/xinhua-road/one-step-garden.glb",
+      "scripts/create_xinhua_road_models.py",
+      "test_artifacts/test_one-step-garden_preview.png"
+    ],
+    "newPaths": {
+      "generator": "scripts/create_one_step_garden_hero_model.py",
+      "editableSource": "assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend",
+      "runtimeAsset": "public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb",
+      "buildRecord": "docs/research/build-records/tiers/xinhua-road/hero-v2/one-step-garden-hero.json"
+    },
+    "orderedSteps": [
+      "从已通过 MCP1 和地图门的 Massing 生成器复制稳定 origin、pivot、local-negative-y、ground-zero、前后间隙与8个碰撞语义。",
+      "只增加三张正式照片直接支持的白色半木构、陡坡屋面、棚屋形老虎窗、入口构件、后院红砖长屋、双山墙与两烟囱。",
+      "不生成树木、灌木、草坪、外摆、雨伞、花盆、店招、灯、围栏、装饰铺装或其他地图资产。",
+      "在生成器层消除退化面与反向法线，要求 zero-area=0、normal-orientation-mismatch=0、根变换归一、ground datum=0。",
+      "生成独立 canonical、side-depth、entrance-detail 固定机位和参考/Blender/Massing 对照，冻结新 SHA 与 build record。",
+      "仅当上述 blocker 全部关闭后，向主窗口申请串行 Blender MCP2；MCP2 通过前 Identity 继续锁定。",
+      "MCP2 通过后才从新 Hero master 派生 Identity，并由主窗口统一决定公共 registry 切换。"
+    ]
+  }
+}

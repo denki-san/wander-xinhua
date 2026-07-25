@@ -148,7 +148,8 @@
 | --- | --- | --- | --- | --- |
 | Massing | 前体量、后体量、院落间隙与坡屋顶 | canonical 分体轮廓 | 真实 `?start=` 灰模门 | MCP1 + map gate passed; shared integration pending |
 | Runtime calibration | 位置、比例、朝向、机位和道路退界 | N/A | 冻结旧落点完成地图门；公共 registry 由主窗口整合 | Map gate passed |
-| Identity | 半木构、老虎窗、红砖后体量和场地层次 | 三项构件可读 | Identity 距离可辨认 | Pending |
+| Hero master disposition | 只读审计旧 `.blend` / GLB / generator / lineage | MCP2 前必须具备正确主体和三固定机位 | N/A | Blocked：旧 Hero 误绑且含范围外内容，须新建 Hero v2 |
+| Identity | 半木构、老虎窗、红砖后体量和场地层次 | 三项构件可读 | Identity 距离可辨认 | Blocked：新 Hero master 通过 MCP2 前不得派生 |
 | Materials | 白墙、红砖、深木构和灰褐瓦 | 固定机位无黑面 | 项目色盘一致 | Pending |
 | Site | 树木、草坪、家具、店招与装饰物 | N/A | N/A | Hold：严格排除在18栋建筑范围外 |
 | Collision | 两栋分体、围墙和可达路径 | 无整院大盒 | 人物/相机可达 | Pending |
@@ -227,3 +228,16 @@
 - Scope boundary: 未新增树木、草坪、家具、雨伞、店招、装饰物、其他建筑或全地图资产；公共 registry、Hero 和范围外 Hold 成果均未覆盖。
 - Detailed record: `docs/research/one-step-garden-massing-map-qa.json`。
 - Gate result: Massing map gate Passed；公共 runtime integration 仍由主窗口统一执行。Hero master disposition 可进入主窗口审查，Identity 继续锁定。
+
+### Iteration 5 — 2026-07-25 legacy Hero master disposition
+
+- Audit mode: 只读审计 `assets/models/source/xinhua-road/one-step-garden.blend`、`public/models/xinhua-road/one-step-garden.glb`、共享 generator、旧预览和 Git lineage；未重建、未启动 Blender 或共享 MCP、未修改公共 registry。
+- Atomic lineage: 旧 `.blend`、GLB、generator 和单张预览同由提交 `e292fde194c2704a9eeaf7e4a8faf192a5d0385e` 更新；二进制至今未变化。当前共享 generator 已因其他资产工作漂移，但 `build_one_step_garden()` 函数与生产提交逐字节一致；旧 Hero 没有资产级 build record。
+- Subject result: Failed。旧 Hero 是单一矩形主楼、单一右侧翼、弧形露台和单烟囱，不是已确认的前部白色 U 形建筑群与后院独立红砖长屋；棚屋形老虎窗、后院双山墙与两烟囱及前后可步行间隙均缺失。旧 canonical 已由专项 manifest 标记 `rejected-source-subject-mismatch`。
+- Scope result: Failed。旧 generator 把 4 个灌木、3 组咖啡外摆、2 把雨伞、2 个花盆、4 个庭院灯、2 段围栏、店招、装饰铺装和整块庭院板合并进单一 runtime mesh；虽然没有显式树木，仍违反严格建筑范围且不能在运行时安全拆除。
+- GLB result: 容器策略检查通过（1 node、1 mesh、0 images/textures、根 transform 归一），但 Hero gate 失败：`31,900` triangles、`14` materials、`2,045,752` bytes；材质超过 Brief 的 `12` 上限，存在 `696` 个零面积三角面、`19` 个面/顶点法线方向不一致三角面，且 Hero ground min-Y `-0.1` 与 Massing ground `0` 不一致。
+- Fixed-view result: Failed。只有一张 bounds 驱动的通用 900×700 oblique 预览，没有 formal canonical、side/depth、entrance/detail 或 Hero/Massing same-camera 证据；旧 runtime comparison 扩展名为 PNG、实际编码为 JPEG，且展示的仍是错误单体。
+- Legacy test boundary: 旧“9 个地标细节下限”测试仍通过，但只检查 bytes、triangles 和 materials 下限，不检查主体、证据、范围污染、退化面、法线、固定机位或三档 lineage，不能作为 Hero 质量证明。
+- Disposition: 旧 Hero 仅作为 `Hold / read-only rollback` 保留，不删除、不覆盖，不送 MCP2，也不得作为 Identity 来源；公共 registry 按主窗口要求继续保留旧 Hero。
+- Rebuild plan: 新建独立 `scripts/create_one_step_garden_hero_model.py`、`assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend`、`public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb` 和对应 build record；从已通过的 Massing contract 延伸正确建筑，严格排除树木、外摆和装饰，关闭 topology/normal/fixed-view blocker 后再申请主窗口串行 MCP2。
+- Detailed record: `docs/research/one-step-garden-hero-disposition.json`。
