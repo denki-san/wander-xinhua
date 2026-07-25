@@ -1,10 +1,10 @@
 {
   "assetId": "xinhua-district-massing",
-  "generatedAt": "2026-07-25T15:32:00.579Z",
-  "command": "node scripts/generate_overview_district_massing.mjs --raw docs/research/data/xinhua-buildings-osm-20260725-074802.json --height-mode round2 --height-evidence app/scene/xinhua-building-height-runtime.json --activate-round2",
+  "generatedAt": "2026-07-25T12:32:28.489Z",
+  "command": "node scripts/generate_overview_district_massing.mjs --raw docs/research/data/xinhua-buildings-osm-20260725-074802.json --height-mode full",
   "generator": {
     "path": "scripts/generate_overview_district_massing.mjs",
-    "sha256": "fd76a5eb48bfa5f413805d1ebba844de9f5fced79363ac838bc49671ef90cbe1"
+    "sha256": "f77aebd57ca0156fa0c7d4d7f01b9c6719df8a4445f3406d082b6d19342cb595"
   },
   "source": {
     "rawSnapshot": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
@@ -19,16 +19,16 @@
     "relationId": 13469094,
     "heightEvidence": {
       "path": "app/scene/xinhua-building-height-runtime.json",
-      "sha256": "c20ad9fdc3f8f68dc8118b18f6f1e1e7b48a7b18bdf08212925fa02fc7881541",
-      "mode": "round2"
+      "sha256": "c9fabe989787b78ad2e73e9497d46931cc281586d55b86f4340be2b2b0477de4",
+      "mode": "full"
     }
   },
   "output": {
     "sourceRecord": "app/scene/xinhua-district-massing-data.json",
     "runtimeManifest": "app/scene/xinhua-district-massing-runtime.json",
     "glb": "public/models/overview/xinhua-district-massing.glb",
-    "sha256": "e02289e36c2c75e1202b9084732b94e07249bee76f02aa18c3be82319a90e6f9",
-    "bytes": 682104,
+    "sha256": "e4d46d0b59d67e8c4e4a411e1a80333c0ba1310fb353fe1ab6dc881d958d3ee4",
+    "bytes": 682168,
     "meshes": 12,
     "nodes": 13,
     "triangles": 11779,
@@ -44,75 +44,75 @@
     "chunks": [
       {
         "id": "east-north-high",
-        "buildingCount": 15,
-        "vertices": 515,
-        "triangles": 279
+        "buildingCount": 2,
+        "vertices": 120,
+        "triangles": 68
       },
       {
         "id": "east-north-low",
-        "buildingCount": 30,
-        "vertices": 755,
-        "triangles": 393
+        "buildingCount": 12,
+        "vertices": 270,
+        "triangles": 138
       },
       {
         "id": "east-north-mid",
-        "buildingCount": 80,
-        "vertices": 2940,
-        "triangles": 1604
+        "buildingCount": 111,
+        "vertices": 3820,
+        "triangles": 2070
       },
       {
         "id": "east-south-high",
-        "buildingCount": 16,
-        "vertices": 625,
-        "triangles": 343
+        "buildingCount": 6,
+        "vertices": 210,
+        "triangles": 114
       },
       {
         "id": "east-south-low",
-        "buildingCount": 73,
-        "vertices": 1670,
-        "triangles": 856
+        "buildingCount": 58,
+        "vertices": 1330,
+        "triangles": 682
       },
       {
         "id": "east-south-mid",
-        "buildingCount": 113,
-        "vertices": 3795,
-        "triangles": 2051
+        "buildingCount": 138,
+        "vertices": 4550,
+        "triangles": 2454
       },
       {
         "id": "west-north-high",
-        "buildingCount": 20,
-        "vertices": 665,
-        "triangles": 359
+        "buildingCount": 4,
+        "vertices": 115,
+        "triangles": 61
       },
       {
         "id": "west-north-low",
-        "buildingCount": 109,
-        "vertices": 2505,
-        "triangles": 1285
+        "buildingCount": 9,
+        "vertices": 190,
+        "triangles": 96
       },
       {
         "id": "west-north-mid",
-        "buildingCount": 102,
-        "vertices": 3650,
-        "triangles": 1986
+        "buildingCount": 218,
+        "vertices": 6515,
+        "triangles": 3473
       },
       {
         "id": "west-south-high",
-        "buildingCount": 26,
-        "vertices": 580,
-        "triangles": 296
+        "buildingCount": 9,
+        "vertices": 220,
+        "triangles": 114
       },
       {
         "id": "west-south-low",
-        "buildingCount": 48,
-        "vertices": 1170,
-        "triangles": 606
+        "buildingCount": 7,
+        "vertices": 150,
+        "triangles": 76
       },
       {
         "id": "west-south-mid",
-        "buildingCount": 98,
-        "vertices": 3195,
-        "triangles": 1721
+        "buildingCount": 156,
+        "vertices": 4575,
+        "triangles": 2433
       }
     ]
   },
@@ -126,24 +126,22 @@
     "rejectedBuildings": 44,
     "heldBuildingParts": 0,
     "heightProvenance": {
-      "GlobalBuildingAtlas GBA.LoD1": 487,
+      "wander-xinhua-heuristic": 676,
       "3D-GloBFP": 43,
-      "wander-xinhua-heuristic": 187,
-      "3D-GloBFP group reconciliation": 2,
       "OpenStreetMap": 11
     },
     "heightConfidence": {
-      "B": 532,
-      "C": 187,
+      "C": 676,
+      "B": 43,
       "A": 11
     },
     "heightCalibrationStatus": {
-      "round2": 730
+      "full": 730
     },
     "heightBands": {
-      "mid": 393,
-      "low": 260,
-      "high": 77
+      "mid": 623,
+      "high": 21,
+      "low": 86
     },
     "replacementExclusions": {
       "debi-fahua-525": 9,
@@ -175,8 +173,8 @@
   },
   "deterministicReplay": {
     "passed": true,
-    "firstSha256": "e02289e36c2c75e1202b9084732b94e07249bee76f02aa18c3be82319a90e6f9",
-    "secondSha256": "e02289e36c2c75e1202b9084732b94e07249bee76f02aa18c3be82319a90e6f9"
+    "firstSha256": "e4d46d0b59d67e8c4e4a411e1a80333c0ba1310fb353fe1ab6dc881d958d3ee4",
+    "secondSha256": "e4d46d0b59d67e8c4e4a411e1a80333c0ba1310fb353fe1ab6dc881d958d3ee4"
   },
   "runtimeContract": {
     "modes": [

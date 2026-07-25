@@ -1,0 +1,4152 @@
+{
+  "schemaVersion": 1,
+  "dataset": "GlobalBuildingAtlas GBA.LoD1",
+  "release": "v1.0.0",
+  "productImageryYear": "2018-2019",
+  "licence": "CC-BY-NC-4.0",
+  "citation": "https://doi.org/10.14459/2025mp1782307",
+  "source": {
+    "file": "GBA_LoD1_e120_n35_e125_n30_parallel24v2.json",
+    "sourceSha256": "d44d5fc07118fdf0d4131fe0b00bfb2c95bf50e8d7c22c09c0ae5bae5c8349f4",
+    "sourceBytes": 545969287,
+    "officialLfsSha256": "d44d5fc07118fdf0d4131fe0b00bfb2c95bf50e8d7c22c09c0ae5bae5c8349f4",
+    "repositoryCommit": "9da24b3a8dce436a7420d5c3589de718d7ba14d6",
+    "tile": "e120_n35_e125_n30",
+    "readonlyOriginal": true
+  },
+  "targetConfidence": "C",
+  "targetRecordCount": 676,
+  "matchedRecordCount": 590,
+  "records": [
+    {
+      "osmRef": "way/1004806686",
+      "featureId": "osm1004806686CHN",
+      "heightMetres": 22.862876892089844,
+      "uncertaintyVariance": 19.91400146484375,
+      "uncertaintyStandardDeviationMetres": 4.46251066831708
+    },
+    {
+      "osmRef": "way/1090998174",
+      "featureId": "osm1090998174CHN",
+      "heightMetres": 6.162667274475098,
+      "uncertaintyVariance": 3.842060089111328,
+      "uncertaintyStandardDeviationMetres": 1.9601173661572737
+    },
+    {
+      "osmRef": "way/1117538714",
+      "featureId": "osm1117538714CHN",
+      "heightMetres": 49.06033706665039,
+      "uncertaintyVariance": 46.34190368652344,
+      "uncertaintyStandardDeviationMetres": 6.807488794447145
+    },
+    {
+      "osmRef": "way/1216373118",
+      "featureId": "osm1216373118CHN",
+      "heightMetres": 14.441241264343262,
+      "uncertaintyVariance": 9.707962036132812,
+      "uncertaintyStandardDeviationMetres": 3.1157602661521975
+    },
+    {
+      "osmRef": "way/1216373119",
+      "featureId": "osm1216373119CHN",
+      "heightMetres": 17.263477325439453,
+      "uncertaintyVariance": 8.030990600585938,
+      "uncertaintyStandardDeviationMetres": 2.833900245348438
+    },
+    {
+      "osmRef": "way/1216373120",
+      "featureId": "osm1216373120CHN",
+      "heightMetres": 15.110634803771973,
+      "uncertaintyVariance": 8.908889770507812,
+      "uncertaintyStandardDeviationMetres": 2.984776335089082
+    },
+    {
+      "osmRef": "way/1216373122",
+      "featureId": "osm1216373122CHN",
+      "heightMetres": 11.877412796020508,
+      "uncertaintyVariance": 11.686225891113281,
+      "uncertaintyStandardDeviationMetres": 3.4185122335766596
+    },
+    {
+      "osmRef": "way/1228373145",
+      "featureId": "osm1228373145CHN",
+      "heightMetres": 8.157844543457031,
+      "uncertaintyVariance": 8.115650177001953,
+      "uncertaintyStandardDeviationMetres": 2.848798023202409
+    },
+    {
+      "osmRef": "way/228966547",
+      "featureId": "osm228966547CHN",
+      "heightMetres": 21.949617385864258,
+      "uncertaintyVariance": 22.043411254882812,
+      "uncertaintyStandardDeviationMetres": 4.695041134525108
+    },
+    {
+      "osmRef": "way/228966548",
+      "featureId": "osm228966548CHN",
+      "heightMetres": 14.278421401977539,
+      "uncertaintyVariance": 14.633560180664062,
+      "uncertaintyStandardDeviationMetres": 3.8253836645053085
+    },
+    {
+      "osmRef": "way/228966549",
+      "featureId": "osm228966549CHN",
+      "heightMetres": 16.043180465698242,
+      "uncertaintyVariance": 16.545822143554688,
+      "uncertaintyStandardDeviationMetres": 4.067655607786221
+    },
+    {
+      "osmRef": "way/228966553",
+      "featureId": "osm228966553CHN",
+      "heightMetres": 10.711692810058594,
+      "uncertaintyVariance": 5.094734191894531,
+      "uncertaintyStandardDeviationMetres": 2.2571517875177407
+    },
+    {
+      "osmRef": "way/228966554",
+      "featureId": "osm228966554CHN",
+      "heightMetres": 13.676170349121094,
+      "uncertaintyVariance": 6.88409423828125,
+      "uncertaintyStandardDeviationMetres": 2.6237557504998916
+    },
+    {
+      "osmRef": "way/292250767",
+      "featureId": "osm292250767CHN",
+      "heightMetres": 6.977144241333008,
+      "uncertaintyVariance": 2.786825180053711,
+      "uncertaintyStandardDeviationMetres": 1.6693786808431785
+    },
+    {
+      "osmRef": "way/293434149",
+      "featureId": "osm293434149CHN",
+      "heightMetres": 73.93663787841797,
+      "uncertaintyVariance": 74.356689453125,
+      "uncertaintyStandardDeviationMetres": 8.623032497510664
+    },
+    {
+      "osmRef": "way/293434150",
+      "featureId": "osm293434150CHN",
+      "heightMetres": 15.466409683227539,
+      "uncertaintyVariance": 15.225505828857422,
+      "uncertaintyStandardDeviationMetres": 3.901987420386875
+    },
+    {
+      "osmRef": "way/293434190",
+      "featureId": "osm293434190CHN",
+      "heightMetres": 71.57884979248047,
+      "uncertaintyVariance": 75.78656005859375,
+      "uncertaintyStandardDeviationMetres": 8.705547659888708
+    },
+    {
+      "osmRef": "way/293518764",
+      "featureId": "osm293518764CHN",
+      "heightMetres": 19.165491104125977,
+      "uncertaintyVariance": 19.200881958007812,
+      "uncertaintyStandardDeviationMetres": 4.381881098113893
+    },
+    {
+      "osmRef": "way/293518765",
+      "featureId": "osm293518765CHN",
+      "heightMetres": 17.457429885864258,
+      "uncertaintyVariance": 16.638229370117188,
+      "uncertaintyStandardDeviationMetres": 4.078998574419607
+    },
+    {
+      "osmRef": "way/293827638",
+      "featureId": "osm293827638CHN",
+      "heightMetres": 22.483928680419922,
+      "uncertaintyVariance": 22.489837646484375,
+      "uncertaintyStandardDeviationMetres": 4.742345163153392
+    },
+    {
+      "osmRef": "way/293827639",
+      "featureId": "osm293827639CHN",
+      "heightMetres": 16.71978187561035,
+      "uncertaintyVariance": 16.755325317382812,
+      "uncertaintyStandardDeviationMetres": 4.093326925299617
+    },
+    {
+      "osmRef": "way/293827640",
+      "featureId": "osm293827640CHN",
+      "heightMetres": 9.027021408081055,
+      "uncertaintyVariance": 2.6575698852539062,
+      "uncertaintyStandardDeviationMetres": 1.630205473323503
+    },
+    {
+      "osmRef": "way/293827645",
+      "featureId": "osm293827645CHN",
+      "heightMetres": 15.03128433227539,
+      "uncertaintyVariance": 14.901611328125,
+      "uncertaintyStandardDeviationMetres": 3.860260525939279
+    },
+    {
+      "osmRef": "way/293827646",
+      "featureId": "osm293827646CHN",
+      "heightMetres": 10.818696022033691,
+      "uncertaintyVariance": 2.4480743408203125,
+      "uncertaintyStandardDeviationMetres": 1.5646323340709511
+    },
+    {
+      "osmRef": "way/293827647",
+      "featureId": "osm293827647CHN",
+      "heightMetres": 14.079486846923828,
+      "uncertaintyVariance": 5.5323944091796875,
+      "uncertaintyStandardDeviationMetres": 2.3521042513416974
+    },
+    {
+      "osmRef": "way/293827648",
+      "featureId": "osm293827648CHN",
+      "heightMetres": 13.314672470092773,
+      "uncertaintyVariance": 4.873588562011719,
+      "uncertaintyStandardDeviationMetres": 2.2076205656796457
+    },
+    {
+      "osmRef": "way/293827649",
+      "featureId": "osm293827649CHN",
+      "heightMetres": 10.211708068847656,
+      "uncertaintyVariance": 2.833049774169922,
+      "uncertaintyStandardDeviationMetres": 1.68316659133014
+    },
+    {
+      "osmRef": "way/293827651",
+      "featureId": "osm293827651CHN",
+      "heightMetres": 22.716617584228516,
+      "uncertaintyVariance": 23.32574462890625,
+      "uncertaintyStandardDeviationMetres": 4.829673345983789
+    },
+    {
+      "osmRef": "way/293827652",
+      "featureId": "osm293827652CHN",
+      "heightMetres": 4.479687213897705,
+      "uncertaintyVariance": 1.421036720275879,
+      "uncertaintyStandardDeviationMetres": 1.192072447578535
+    },
+    {
+      "osmRef": "way/293827653",
+      "featureId": "osm293827653CHN",
+      "heightMetres": 6.650702953338623,
+      "uncertaintyVariance": 0.5136890411376953,
+      "uncertaintyStandardDeviationMetres": 0.7167210343904351
+    },
+    {
+      "osmRef": "way/293827656",
+      "featureId": "osm293827656CHN",
+      "heightMetres": 9.330252647399902,
+      "uncertaintyVariance": 4.499591827392578,
+      "uncertaintyStandardDeviationMetres": 2.1212241341717237
+    },
+    {
+      "osmRef": "way/296006190",
+      "featureId": "osm296006190CHN",
+      "heightMetres": 20.648378372192383,
+      "uncertaintyVariance": 20.687652587890625,
+      "uncertaintyStandardDeviationMetres": 4.5483681236120965
+    },
+    {
+      "osmRef": "way/296006191",
+      "featureId": "osm296006191CHN",
+      "heightMetres": 20.1085262298584,
+      "uncertaintyVariance": 20.420501708984375,
+      "uncertaintyStandardDeviationMetres": 4.5189049236495755
+    },
+    {
+      "osmRef": "way/296006192",
+      "featureId": "osm296006192CHN",
+      "heightMetres": 14.654973983764648,
+      "uncertaintyVariance": 11.829147338867188,
+      "uncertaintyStandardDeviationMetres": 3.439352749990496
+    },
+    {
+      "osmRef": "way/297850123",
+      "featureId": "osm297850123CHN",
+      "heightMetres": 60.58075714111328,
+      "uncertaintyVariance": 61.7764892578125,
+      "uncertaintyStandardDeviationMetres": 7.859802113145884
+    },
+    {
+      "osmRef": "way/297851397",
+      "featureId": "osm297851397CHN",
+      "heightMetres": 28.59554672241211,
+      "uncertaintyVariance": 27.624069213867188,
+      "uncertaintyStandardDeviationMetres": 5.255860463698326
+    },
+    {
+      "osmRef": "way/297851858",
+      "featureId": "osm297851858CHN",
+      "heightMetres": 18.108211517333984,
+      "uncertaintyVariance": 18.049606323242188,
+      "uncertaintyStandardDeviationMetres": 4.248482826050046
+    },
+    {
+      "osmRef": "way/297853762",
+      "featureId": "osm297853762CHN",
+      "heightMetres": 29.131174087524414,
+      "uncertaintyVariance": 28.421142578125,
+      "uncertaintyStandardDeviationMetres": 5.331148335783295
+    },
+    {
+      "osmRef": "way/297854167",
+      "featureId": "osm297854167CHN",
+      "heightMetres": 29.469837188720703,
+      "uncertaintyVariance": 28.56756591796875,
+      "uncertaintyStandardDeviationMetres": 5.344863507889491
+    },
+    {
+      "osmRef": "way/297854168",
+      "featureId": "osm297854168CHN",
+      "heightMetres": 42.51427459716797,
+      "uncertaintyVariance": 42.223876953125,
+      "uncertaintyStandardDeviationMetres": 6.497990224148156
+    },
+    {
+      "osmRef": "way/297854228",
+      "featureId": "osm297854228CHN",
+      "heightMetres": 64.81194305419922,
+      "uncertaintyVariance": 64.53933715820312,
+      "uncertaintyStandardDeviationMetres": 8.033637853314222
+    },
+    {
+      "osmRef": "way/297854299",
+      "featureId": "osm297854299CHN",
+      "heightMetres": 18.582115173339844,
+      "uncertaintyVariance": 11.127487182617188,
+      "uncertaintyStandardDeviationMetres": 3.335788839632567
+    },
+    {
+      "osmRef": "way/297855001",
+      "featureId": "osm297855001CHN",
+      "heightMetres": 21.54050064086914,
+      "uncertaintyVariance": 22.262985229492188,
+      "uncertaintyStandardDeviationMetres": 4.718366796836824
+    },
+    {
+      "osmRef": "way/297855002",
+      "featureId": "osm297855002CHN",
+      "heightMetres": 19.12165641784668,
+      "uncertaintyVariance": 15.711471557617188,
+      "uncertaintyStandardDeviationMetres": 3.9637698668839474
+    },
+    {
+      "osmRef": "way/297855003",
+      "featureId": "osm297855003CHN",
+      "heightMetres": 15.160399436950684,
+      "uncertaintyVariance": 9.8812255859375,
+      "uncertaintyStandardDeviationMetres": 3.143441678469238
+    },
+    {
+      "osmRef": "way/297874111",
+      "featureId": "osm297874111CHN",
+      "heightMetres": 28.632095336914062,
+      "uncertaintyVariance": 26.672531127929688,
+      "uncertaintyStandardDeviationMetres": 5.164545587748227
+    },
+    {
+      "osmRef": "way/297874112",
+      "featureId": "osm297874112CHN",
+      "heightMetres": 13.785120010375977,
+      "uncertaintyVariance": 6.41265869140625,
+      "uncertaintyStandardDeviationMetres": 2.5323227857850683
+    },
+    {
+      "osmRef": "way/297874113",
+      "featureId": "osm297874113CHN",
+      "heightMetres": 12.058713912963867,
+      "uncertaintyVariance": 11.607780456542969,
+      "uncertaintyStandardDeviationMetres": 3.407019292070852
+    },
+    {
+      "osmRef": "way/297874114",
+      "featureId": "osm297874114CHN",
+      "heightMetres": 21.647354125976562,
+      "uncertaintyVariance": 14.774505615234375,
+      "uncertaintyStandardDeviationMetres": 3.843761909280331
+    },
+    {
+      "osmRef": "way/297874115",
+      "featureId": "osm297874115CHN",
+      "heightMetres": 17.947425842285156,
+      "uncertaintyVariance": 18.112579345703125,
+      "uncertaintyStandardDeviationMetres": 4.255887609618365
+    },
+    {
+      "osmRef": "way/297874116",
+      "featureId": "osm297874116CHN",
+      "heightMetres": 21.10750389099121,
+      "uncertaintyVariance": 12.271697998046875,
+      "uncertaintyStandardDeviationMetres": 3.503098342617129
+    },
+    {
+      "osmRef": "way/297874117",
+      "featureId": "osm297874117CHN",
+      "heightMetres": 15.753034591674805,
+      "uncertaintyVariance": 14.71051025390625,
+      "uncertaintyStandardDeviationMetres": 3.8354283012339376
+    },
+    {
+      "osmRef": "way/297874120",
+      "featureId": "osm297874120CHN",
+      "heightMetres": 21.46744728088379,
+      "uncertaintyVariance": 22.27496337890625,
+      "uncertaintyStandardDeviationMetres": 4.71963593711488
+    },
+    {
+      "osmRef": "way/297874121",
+      "featureId": "osm297874121CHN",
+      "heightMetres": 25.797237396240234,
+      "uncertaintyVariance": 25.753387451171875,
+      "uncertaintyStandardDeviationMetres": 5.074779547051465
+    },
+    {
+      "osmRef": "way/297874124",
+      "featureId": "osm297874124CHN",
+      "heightMetres": 28.798973083496094,
+      "uncertaintyVariance": 29.278228759765625,
+      "uncertaintyStandardDeviationMetres": 5.410936033605057
+    },
+    {
+      "osmRef": "way/297874125",
+      "featureId": "osm297874125CHN",
+      "heightMetres": 22.150421142578125,
+      "uncertaintyVariance": 15.241706848144531,
+      "uncertaintyStandardDeviationMetres": 3.9040628642664723
+    },
+    {
+      "osmRef": "way/297874126",
+      "featureId": "osm297874126CHN",
+      "heightMetres": 17.598676681518555,
+      "uncertaintyVariance": 17.598526000976562,
+      "uncertaintyStandardDeviationMetres": 4.195059713636573
+    },
+    {
+      "osmRef": "way/297874795",
+      "featureId": "osm297874795CHN",
+      "heightMetres": 36.748809814453125,
+      "uncertaintyVariance": 36.80133056640625,
+      "uncertaintyStandardDeviationMetres": 6.066410022938299
+    },
+    {
+      "osmRef": "way/297874796",
+      "featureId": "osm297874796CHN",
+      "heightMetres": 44.740596771240234,
+      "uncertaintyVariance": 44.75701904296875,
+      "uncertaintyStandardDeviationMetres": 6.69006868746269
+    },
+    {
+      "osmRef": "way/297874797",
+      "featureId": "osm297874797CHN",
+      "heightMetres": 94.02384948730469,
+      "uncertaintyVariance": 93.90509033203125,
+      "uncertaintyStandardDeviationMetres": 9.690463886317891
+    },
+    {
+      "osmRef": "way/297874798",
+      "featureId": "osm297874798CHN",
+      "heightMetres": 59.47698211669922,
+      "uncertaintyVariance": 60.2330322265625,
+      "uncertaintyStandardDeviationMetres": 7.76099428079692
+    },
+    {
+      "osmRef": "way/297874799",
+      "featureId": "osm297874799CHN",
+      "heightMetres": 86.96853637695312,
+      "uncertaintyVariance": 88.27593994140625,
+      "uncertaintyStandardDeviationMetres": 9.395527656358968
+    },
+    {
+      "osmRef": "way/343924703",
+      "featureId": "osm343924703CHN",
+      "heightMetres": 12.705875396728516,
+      "uncertaintyVariance": 5.6856231689453125,
+      "uncertaintyStandardDeviationMetres": 2.38445448036764
+    },
+    {
+      "osmRef": "way/426764523",
+      "featureId": "osm426764523CHN",
+      "heightMetres": 53.58333969116211,
+      "uncertaintyVariance": 53.71826171875,
+      "uncertaintyStandardDeviationMetres": 7.32927429686937
+    },
+    {
+      "osmRef": "way/426764524",
+      "featureId": "osm426764524CHN",
+      "heightMetres": 17.5221004486084,
+      "uncertaintyVariance": 13.78021240234375,
+      "uncertaintyStandardDeviationMetres": 3.712170847677104
+    },
+    {
+      "osmRef": "way/426764525",
+      "featureId": "osm426764525CHN",
+      "heightMetres": 14.075538635253906,
+      "uncertaintyVariance": 6.8053131103515625,
+      "uncertaintyStandardDeviationMetres": 2.60869950556816
+    },
+    {
+      "osmRef": "way/428379418",
+      "featureId": "osm428379418CHN",
+      "heightMetres": 51.01966094970703,
+      "uncertaintyVariance": 49.97174072265625,
+      "uncertaintyStandardDeviationMetres": 7.069069296778484
+    },
+    {
+      "osmRef": "way/428379419",
+      "featureId": "osm428379419CHN",
+      "heightMetres": 37.372703552246094,
+      "uncertaintyVariance": 38.62890625,
+      "uncertaintyStandardDeviationMetres": 6.215215704221375
+    },
+    {
+      "osmRef": "way/428379421",
+      "featureId": "osm428379421CHN",
+      "heightMetres": 59.05695343017578,
+      "uncertaintyVariance": 58.855712890625,
+      "uncertaintyStandardDeviationMetres": 7.671747707701616
+    },
+    {
+      "osmRef": "way/428379422",
+      "featureId": "osm428379422CHN",
+      "heightMetres": 56.05768585205078,
+      "uncertaintyVariance": 55.90625,
+      "uncertaintyStandardDeviationMetres": 7.47704821436909
+    },
+    {
+      "osmRef": "way/428379423",
+      "featureId": "osm428379423CHN",
+      "heightMetres": 65.435302734375,
+      "uncertaintyVariance": 66.6513671875,
+      "uncertaintyStandardDeviationMetres": 8.164028857586185
+    },
+    {
+      "osmRef": "way/428379725",
+      "featureId": "osm428379725CHN",
+      "heightMetres": 41.14144515991211,
+      "uncertaintyVariance": 42.54559326171875,
+      "uncertaintyStandardDeviationMetres": 6.522698311413671
+    },
+    {
+      "osmRef": "way/428379726",
+      "featureId": "osm428379726CHN",
+      "heightMetres": 29.867210388183594,
+      "uncertaintyVariance": 30.08587646484375,
+      "uncertaintyStandardDeviationMetres": 5.485059385717146
+    },
+    {
+      "osmRef": "way/428379727",
+      "featureId": "osm428379727CHN",
+      "heightMetres": 38.71352767944336,
+      "uncertaintyVariance": 38.49725341796875,
+      "uncertaintyStandardDeviationMetres": 6.204615493160616
+    },
+    {
+      "osmRef": "way/428379728",
+      "featureId": "osm428379728CHN",
+      "heightMetres": 32.56337356567383,
+      "uncertaintyVariance": 32.300872802734375,
+      "uncertaintyStandardDeviationMetres": 5.683385681328901
+    },
+    {
+      "osmRef": "way/428379729",
+      "featureId": "osm428379729CHN",
+      "heightMetres": 36.42313003540039,
+      "uncertaintyVariance": 36.6195068359375,
+      "uncertaintyStandardDeviationMetres": 6.051405360404928
+    },
+    {
+      "osmRef": "way/428379730",
+      "featureId": "osm428379730CHN",
+      "heightMetres": 30.76888656616211,
+      "uncertaintyVariance": 30.5736083984375,
+      "uncertaintyStandardDeviationMetres": 5.529340683882437
+    },
+    {
+      "osmRef": "way/428379731",
+      "featureId": "osm428379731CHN",
+      "heightMetres": 37.15925216674805,
+      "uncertaintyVariance": 37.479248046875,
+      "uncertaintyStandardDeviationMetres": 6.122029732602987
+    },
+    {
+      "osmRef": "way/474632970",
+      "featureId": "osm474632970CHN",
+      "heightMetres": 3.9363856315612793,
+      "uncertaintyVariance": 0.6870527267456055,
+      "uncertaintyStandardDeviationMetres": 0.8288864377860248
+    },
+    {
+      "osmRef": "way/474875421",
+      "featureId": "osm474875421CHN",
+      "heightMetres": 9.556452751159668,
+      "uncertaintyVariance": 9.245174407958984,
+      "uncertaintyStandardDeviationMetres": 3.040587839211192
+    },
+    {
+      "osmRef": "way/474875423",
+      "featureId": "osm474875423CHN",
+      "heightMetres": 2.277118444442749,
+      "uncertaintyVariance": 0.07800889015197754,
+      "uncertaintyStandardDeviationMetres": 0.27930071634705406
+    },
+    {
+      "osmRef": "way/488970902",
+      "featureId": "osm488970902CHN",
+      "heightMetres": 55.87083435058594,
+      "uncertaintyVariance": 55.397857666015625,
+      "uncertaintyStandardDeviationMetres": 7.44297371122696
+    },
+    {
+      "osmRef": "way/488970903",
+      "featureId": "osm488970903CHN",
+      "heightMetres": 72.1396713256836,
+      "uncertaintyVariance": 71.533203125,
+      "uncertaintyStandardDeviationMetres": 8.457730376702724
+    },
+    {
+      "osmRef": "way/493383435",
+      "featureId": "osm493383435CHN",
+      "heightMetres": 16.403438568115234,
+      "uncertaintyVariance": 16.855072021484375,
+      "uncertaintyStandardDeviationMetres": 4.105492908468406
+    },
+    {
+      "osmRef": "way/493383436",
+      "featureId": "osm493383436CHN",
+      "heightMetres": 15.563671112060547,
+      "uncertaintyVariance": 8.780532836914062,
+      "uncertaintyStandardDeviationMetres": 2.963196388515966
+    },
+    {
+      "osmRef": "way/493383437",
+      "featureId": "osm493383437CHN",
+      "heightMetres": 13.475414276123047,
+      "uncertaintyVariance": 12.1676025390625,
+      "uncertaintyStandardDeviationMetres": 3.4882090733014413
+    },
+    {
+      "osmRef": "way/493383438",
+      "featureId": "osm493383438CHN",
+      "heightMetres": 18.145530700683594,
+      "uncertaintyVariance": 8.656173706054688,
+      "uncertaintyStandardDeviationMetres": 2.942137608279852
+    },
+    {
+      "osmRef": "way/493383439",
+      "featureId": "osm493383439CHN",
+      "heightMetres": 15.797840118408203,
+      "uncertaintyVariance": 9.7550048828125,
+      "uncertaintyStandardDeviationMetres": 3.1233003190235324
+    },
+    {
+      "osmRef": "way/493383440",
+      "featureId": "osm493383440CHN",
+      "heightMetres": 36.81237030029297,
+      "uncertaintyVariance": 34.75848388671875,
+      "uncertaintyStandardDeviationMetres": 5.895632611240184
+    },
+    {
+      "osmRef": "way/493401525",
+      "featureId": "osm493401525CHN",
+      "heightMetres": 40.53716278076172,
+      "uncertaintyVariance": 40.5091552734375,
+      "uncertaintyStandardDeviationMetres": 6.364680296247212
+    },
+    {
+      "osmRef": "way/493402377",
+      "featureId": "osm493402377CHN",
+      "heightMetres": 28.476184844970703,
+      "uncertaintyVariance": 30.592529296875,
+      "uncertaintyStandardDeviationMetres": 5.5310513735523195
+    },
+    {
+      "osmRef": "way/493402378",
+      "featureId": "osm493402378CHN",
+      "heightMetres": 26.36728286743164,
+      "uncertaintyVariance": 27.45220947265625,
+      "uncertaintyStandardDeviationMetres": 5.239485611456171
+    },
+    {
+      "osmRef": "way/493402380",
+      "featureId": "osm493402380CHN",
+      "heightMetres": 34.208091735839844,
+      "uncertaintyVariance": 34.723785400390625,
+      "uncertaintyStandardDeviationMetres": 5.892689148461051
+    },
+    {
+      "osmRef": "way/493420217",
+      "featureId": "osm493420217CHN",
+      "heightMetres": 4.732265949249268,
+      "uncertaintyVariance": 3.117447853088379,
+      "uncertaintyStandardDeviationMetres": 1.7656295911341027
+    },
+    {
+      "osmRef": "way/493420218",
+      "featureId": "osm493420218CHN",
+      "heightMetres": 6.0741801261901855,
+      "uncertaintyVariance": 0.9102630615234375,
+      "uncertaintyStandardDeviationMetres": 0.9540770731567956
+    },
+    {
+      "osmRef": "way/493420219",
+      "featureId": "osm493420219CHN",
+      "heightMetres": 6.406877040863037,
+      "uncertaintyVariance": 4.319240570068359,
+      "uncertaintyStandardDeviationMetres": 2.0782782706048675
+    },
+    {
+      "osmRef": "way/493420296",
+      "featureId": "osm493420296CHN",
+      "heightMetres": 20.992477416992188,
+      "uncertaintyVariance": 19.76959228515625,
+      "uncertaintyStandardDeviationMetres": 4.446300966551438
+    },
+    {
+      "osmRef": "way/493420297",
+      "featureId": "osm493420297CHN",
+      "heightMetres": 15.635506629943848,
+      "uncertaintyVariance": 15.144485473632812,
+      "uncertaintyStandardDeviationMetres": 3.891591637573605
+    },
+    {
+      "osmRef": "way/493421561",
+      "featureId": "osm493421561CHN",
+      "heightMetres": 42.82064437866211,
+      "uncertaintyVariance": 41.8297119140625,
+      "uncertaintyStandardDeviationMetres": 6.4675893433382505
+    },
+    {
+      "osmRef": "way/493421562",
+      "featureId": "osm493421562CHN",
+      "heightMetres": 18.27010726928711,
+      "uncertaintyVariance": 5.425662994384766,
+      "uncertaintyStandardDeviationMetres": 2.3293052600259943
+    },
+    {
+      "osmRef": "way/493421563",
+      "featureId": "osm493421563CHN",
+      "heightMetres": 11.704854011535645,
+      "uncertaintyVariance": 10.345283508300781,
+      "uncertaintyStandardDeviationMetres": 3.2164084797022876
+    },
+    {
+      "osmRef": "way/764542691",
+      "featureId": "osm764542691CHN",
+      "heightMetres": 10.532637596130371,
+      "uncertaintyVariance": 5.127540588378906,
+      "uncertaintyStandardDeviationMetres": 2.2644073371147044
+    },
+    {
+      "osmRef": "way/765274074",
+      "featureId": "osm765274074CHN",
+      "heightMetres": 28.542272567749023,
+      "uncertaintyVariance": 28.760284423828125,
+      "uncertaintyStandardDeviationMetres": 5.362861589098503
+    },
+    {
+      "osmRef": "way/765274075",
+      "featureId": "osm765274075CHN",
+      "heightMetres": 16.37968635559082,
+      "uncertaintyVariance": 16.5426025390625,
+      "uncertaintyStandardDeviationMetres": 4.067259831761735
+    },
+    {
+      "osmRef": "way/765274076",
+      "featureId": "osm765274076CHN",
+      "heightMetres": 11.627952575683594,
+      "uncertaintyVariance": 9.811180114746094,
+      "uncertaintyStandardDeviationMetres": 3.1322803378283517
+    },
+    {
+      "osmRef": "way/765274077",
+      "featureId": "osm765274077CHN",
+      "heightMetres": 16.55827522277832,
+      "uncertaintyVariance": 9.549972534179688,
+      "uncertaintyStandardDeviationMetres": 3.0903029842039254
+    },
+    {
+      "osmRef": "way/864485584",
+      "featureId": "osm864485584CHN",
+      "heightMetres": 47.703922271728516,
+      "uncertaintyVariance": 48.48408508300781,
+      "uncertaintyStandardDeviationMetres": 6.963051420390906
+    },
+    {
+      "osmRef": "way/864485585",
+      "featureId": "osm864485585CHN",
+      "heightMetres": 22.152393341064453,
+      "uncertaintyVariance": 21.680023193359375,
+      "uncertaintyStandardDeviationMetres": 4.656181181328684
+    },
+    {
+      "osmRef": "way/864485586",
+      "featureId": "osm864485586CHN",
+      "heightMetres": 22.887409210205078,
+      "uncertaintyVariance": 26.02294921875,
+      "uncertaintyStandardDeviationMetres": 5.101269373278576
+    },
+    {
+      "osmRef": "way/864485587",
+      "featureId": "osm864485587CHN",
+      "heightMetres": 59.29241180419922,
+      "uncertaintyVariance": 62.39178466796875,
+      "uncertaintyStandardDeviationMetres": 7.898847046751111
+    },
+    {
+      "osmRef": "way/864485588",
+      "featureId": "osm864485588CHN",
+      "heightMetres": 10.2985258102417,
+      "uncertaintyVariance": 2.0267791748046875,
+      "uncertaintyStandardDeviationMetres": 1.4236499481279405
+    },
+    {
+      "osmRef": "way/864485589",
+      "featureId": "osm864485589CHN",
+      "heightMetres": 11.427650451660156,
+      "uncertaintyVariance": 5.5722503662109375,
+      "uncertaintyStandardDeviationMetres": 2.360561451479486
+    },
+    {
+      "osmRef": "way/864485590",
+      "featureId": "osm864485590CHN",
+      "heightMetres": 9.479935646057129,
+      "uncertaintyVariance": 2.141143798828125,
+      "uncertaintyStandardDeviationMetres": 1.4632647739996083
+    },
+    {
+      "osmRef": "way/864485591",
+      "featureId": "osm864485591CHN",
+      "heightMetres": 10.676703453063965,
+      "uncertaintyVariance": 4.0549774169921875,
+      "uncertaintyStandardDeviationMetres": 2.013697449219268
+    },
+    {
+      "osmRef": "way/864485592",
+      "featureId": "osm864485592CHN",
+      "heightMetres": 11.140292167663574,
+      "uncertaintyVariance": 3.3675765991210938,
+      "uncertaintyStandardDeviationMetres": 1.8350958010744545
+    },
+    {
+      "osmRef": "way/864485601",
+      "featureId": "osm864485601CHN",
+      "heightMetres": 11.756945610046387,
+      "uncertaintyVariance": 3.2956771850585938,
+      "uncertaintyStandardDeviationMetres": 1.815400006901673
+    },
+    {
+      "osmRef": "way/864485602",
+      "featureId": "osm864485602CHN",
+      "heightMetres": 10.254609107971191,
+      "uncertaintyVariance": 4.35858154296875,
+      "uncertaintyStandardDeviationMetres": 2.087721615294709
+    },
+    {
+      "osmRef": "way/864485604",
+      "featureId": "osm864485604CHN",
+      "heightMetres": 15.264398574829102,
+      "uncertaintyVariance": 10.272552490234375,
+      "uncertaintyStandardDeviationMetres": 3.2050822907117964
+    },
+    {
+      "osmRef": "way/864485605",
+      "featureId": "osm864485605CHN",
+      "heightMetres": 12.187663078308105,
+      "uncertaintyVariance": 12.027145385742188,
+      "uncertaintyStandardDeviationMetres": 3.468017500783724
+    },
+    {
+      "osmRef": "way/864485609",
+      "featureId": "osm864485609CHN",
+      "heightMetres": 11.547545433044434,
+      "uncertaintyVariance": 7.689422607421875,
+      "uncertaintyStandardDeviationMetres": 2.7729808162736855
+    },
+    {
+      "osmRef": "way/864485610",
+      "featureId": "osm864485610CHN",
+      "heightMetres": 13.752029418945312,
+      "uncertaintyVariance": 10.736862182617188,
+      "uncertaintyStandardDeviationMetres": 3.2767151512783634
+    },
+    {
+      "osmRef": "way/864485611",
+      "featureId": "osm864485611CHN",
+      "heightMetres": 15.049528121948242,
+      "uncertaintyVariance": 15.1876220703125,
+      "uncertaintyStandardDeviationMetres": 3.8971299786268996
+    },
+    {
+      "osmRef": "way/864485612",
+      "featureId": "osm864485612CHN",
+      "heightMetres": 25.19603729248047,
+      "uncertaintyVariance": 25.643463134765625,
+      "uncertaintyStandardDeviationMetres": 5.063937512920714
+    },
+    {
+      "osmRef": "way/864485613",
+      "featureId": "osm864485613CHN",
+      "heightMetres": 17.232582092285156,
+      "uncertaintyVariance": 16.98473358154297,
+      "uncertaintyStandardDeviationMetres": 4.121253884625767
+    },
+    {
+      "osmRef": "way/864485614",
+      "featureId": "osm864485614CHN",
+      "heightMetres": 32.814842224121094,
+      "uncertaintyVariance": 34.040679931640625,
+      "uncertaintyStandardDeviationMetres": 5.8344391274261
+    },
+    {
+      "osmRef": "way/864485615",
+      "featureId": "osm864485615CHN",
+      "heightMetres": 39.307373046875,
+      "uncertaintyVariance": 38.66304016113281,
+      "uncertaintyStandardDeviationMetres": 6.2179610935686
+    },
+    {
+      "osmRef": "way/864485616",
+      "featureId": "osm864485616CHN",
+      "heightMetres": 33.53752899169922,
+      "uncertaintyVariance": 32.321533203125,
+      "uncertaintyStandardDeviationMetres": 5.685203004565888
+    },
+    {
+      "osmRef": "way/864485617",
+      "featureId": "osm864485617CHN",
+      "heightMetres": 57.919654846191406,
+      "uncertaintyVariance": 57.888671875,
+      "uncertaintyStandardDeviationMetres": 7.608460545668881
+    },
+    {
+      "osmRef": "way/864485618",
+      "featureId": "osm864485618CHN",
+      "heightMetres": 37.41676330566406,
+      "uncertaintyVariance": 36.947509765625,
+      "uncertaintyStandardDeviationMetres": 6.0784463282672
+    },
+    {
+      "osmRef": "way/864485619",
+      "featureId": "osm864485619CHN",
+      "heightMetres": 56.25148010253906,
+      "uncertaintyVariance": 56.62432861328125,
+      "uncertaintyStandardDeviationMetres": 7.524913860854571
+    },
+    {
+      "osmRef": "way/864485620",
+      "featureId": "osm864485620CHN",
+      "heightMetres": 37.004310607910156,
+      "uncertaintyVariance": 36.834564208984375,
+      "uncertaintyStandardDeviationMetres": 6.069148557168821
+    },
+    {
+      "osmRef": "way/864485621",
+      "featureId": "osm864485621CHN",
+      "heightMetres": 37.389827728271484,
+      "uncertaintyVariance": 38.28961181640625,
+      "uncertaintyStandardDeviationMetres": 6.187860035295421
+    },
+    {
+      "osmRef": "way/864485623",
+      "featureId": "osm864485623CHN",
+      "heightMetres": 28.15209197998047,
+      "uncertaintyVariance": 22.577484130859375,
+      "uncertaintyStandardDeviationMetres": 4.751577015145537
+    },
+    {
+      "osmRef": "way/864485624",
+      "featureId": "osm864485624CHN",
+      "heightMetres": 40.0856819152832,
+      "uncertaintyVariance": 40.35797119140625,
+      "uncertaintyStandardDeviationMetres": 6.352792393224121
+    },
+    {
+      "osmRef": "way/864485625",
+      "featureId": "osm864485625CHN",
+      "heightMetres": 19.977933883666992,
+      "uncertaintyVariance": 19.704010009765625,
+      "uncertaintyStandardDeviationMetres": 4.438919914772694
+    },
+    {
+      "osmRef": "way/864485626",
+      "featureId": "osm864485626CHN",
+      "heightMetres": 20.288923263549805,
+      "uncertaintyVariance": 18.353897094726562,
+      "uncertaintyStandardDeviationMetres": 4.284144849876876
+    },
+    {
+      "osmRef": "way/864485627",
+      "featureId": "osm864485627CHN",
+      "heightMetres": 11.897767066955566,
+      "uncertaintyVariance": 11.823532104492188,
+      "uncertaintyStandardDeviationMetres": 3.438536331710367
+    },
+    {
+      "osmRef": "way/864485628",
+      "featureId": "osm864485628CHN",
+      "heightMetres": 10.738605499267578,
+      "uncertaintyVariance": 11.702751159667969,
+      "uncertaintyStandardDeviationMetres": 3.420928406100889
+    },
+    {
+      "osmRef": "way/864485629",
+      "featureId": "osm864485629CHN",
+      "heightMetres": 19.763797760009766,
+      "uncertaintyVariance": 19.87005615234375,
+      "uncertaintyStandardDeviationMetres": 4.4575841161265535
+    },
+    {
+      "osmRef": "way/864485630",
+      "featureId": "osm864485630CHN",
+      "heightMetres": 24.83475112915039,
+      "uncertaintyVariance": 24.814422607421875,
+      "uncertaintyStandardDeviationMetres": 4.981407693355552
+    },
+    {
+      "osmRef": "way/864485631",
+      "featureId": "osm864485631CHN",
+      "heightMetres": 38.72592544555664,
+      "uncertaintyVariance": 38.3936767578125,
+      "uncertaintyStandardDeviationMetres": 6.196263128516453
+    },
+    {
+      "osmRef": "way/864485632",
+      "featureId": "osm864485632CHN",
+      "heightMetres": 36.74598693847656,
+      "uncertaintyVariance": 37.291748046875,
+      "uncertaintyStandardDeviationMetres": 6.106696983384308
+    },
+    {
+      "osmRef": "way/864485633",
+      "featureId": "osm864485633CHN",
+      "heightMetres": 47.105308532714844,
+      "uncertaintyVariance": 46.46630859375,
+      "uncertaintyStandardDeviationMetres": 6.816620027091872
+    },
+    {
+      "osmRef": "way/864485634",
+      "featureId": "osm864485634CHN",
+      "heightMetres": 16.12741470336914,
+      "uncertaintyVariance": 13.109832763671875,
+      "uncertaintyStandardDeviationMetres": 3.6207503039662754
+    },
+    {
+      "osmRef": "way/864485635",
+      "featureId": "osm864485635CHN",
+      "heightMetres": 33.069923400878906,
+      "uncertaintyVariance": 27.515350341796875,
+      "uncertaintyStandardDeviationMetres": 5.245507634328338
+    },
+    {
+      "osmRef": "way/864485636",
+      "featureId": "osm864485636CHN",
+      "heightMetres": 37.20692443847656,
+      "uncertaintyVariance": 33.07240295410156,
+      "uncertaintyStandardDeviationMetres": 5.750861061971639
+    },
+    {
+      "osmRef": "way/864485637",
+      "featureId": "osm864485637CHN",
+      "heightMetres": 39.63457489013672,
+      "uncertaintyVariance": 39.32415771484375,
+      "uncertaintyStandardDeviationMetres": 6.270897680144666
+    },
+    {
+      "osmRef": "way/864485638",
+      "featureId": "osm864485638CHN",
+      "heightMetres": 6.397558689117432,
+      "uncertaintyVariance": 6.087329864501953,
+      "uncertaintyStandardDeviationMetres": 2.467251479785138
+    },
+    {
+      "osmRef": "way/864485639",
+      "featureId": "osm864485639CHN",
+      "heightMetres": 6.351902484893799,
+      "uncertaintyVariance": 3.106273651123047,
+      "uncertaintyStandardDeviationMetres": 1.7624623828958865
+    },
+    {
+      "osmRef": "way/864485640",
+      "featureId": "osm864485640CHN",
+      "heightMetres": 7.206610202789307,
+      "uncertaintyVariance": 1.5601387023925781,
+      "uncertaintyStandardDeviationMetres": 1.2490551238406487
+    },
+    {
+      "osmRef": "way/864485641",
+      "featureId": "osm864485641CHN",
+      "heightMetres": 11.12446117401123,
+      "uncertaintyVariance": 11.618392944335938,
+      "uncertaintyStandardDeviationMetres": 3.4085763808862986
+    },
+    {
+      "osmRef": "way/864485642",
+      "featureId": "osm864485642CHN",
+      "heightMetres": 11.311782836914062,
+      "uncertaintyVariance": 8.152473449707031,
+      "uncertaintyStandardDeviationMetres": 2.8552536576821037
+    },
+    {
+      "osmRef": "way/864485643",
+      "featureId": "osm864485643CHN",
+      "heightMetres": 38.52391815185547,
+      "uncertaintyVariance": 38.079010009765625,
+      "uncertaintyStandardDeviationMetres": 6.170819233275727
+    },
+    {
+      "osmRef": "way/864485644",
+      "featureId": "osm864485644CHN",
+      "heightMetres": 8.007050514221191,
+      "uncertaintyVariance": 2.122220993041992,
+      "uncertaintyStandardDeviationMetres": 1.4567844703462458
+    },
+    {
+      "osmRef": "way/864485645",
+      "featureId": "osm864485645CHN",
+      "heightMetres": 10.690169334411621,
+      "uncertaintyVariance": 3.2764739990234375,
+      "uncertaintyStandardDeviationMetres": 1.8101033116989311
+    },
+    {
+      "osmRef": "way/864485646",
+      "featureId": "osm864485646CHN",
+      "heightMetres": 13.164541244506836,
+      "uncertaintyVariance": 3.2220916748046875,
+      "uncertaintyStandardDeviationMetres": 1.795018572272913
+    },
+    {
+      "osmRef": "way/864485647",
+      "featureId": "osm864485647CHN",
+      "heightMetres": 7.286812782287598,
+      "uncertaintyVariance": 1.7883453369140625,
+      "uncertaintyStandardDeviationMetres": 1.3372902964255975
+    },
+    {
+      "osmRef": "way/864485648",
+      "featureId": "osm864485648CHN",
+      "heightMetres": 7.622204780578613,
+      "uncertaintyVariance": 1.185333251953125,
+      "uncertaintyStandardDeviationMetres": 1.0887301097853062
+    },
+    {
+      "osmRef": "way/864485649",
+      "featureId": "osm864485649CHN",
+      "heightMetres": 6.899387836456299,
+      "uncertaintyVariance": 1.1414623260498047,
+      "uncertaintyStandardDeviationMetres": 1.0683924026544764
+    },
+    {
+      "osmRef": "way/864485650",
+      "featureId": "osm864485650CHN",
+      "heightMetres": 5.737616062164307,
+      "uncertaintyVariance": 1.583932876586914,
+      "uncertaintyStandardDeviationMetres": 1.2585439509953213
+    },
+    {
+      "osmRef": "way/864485651",
+      "featureId": "osm864485651CHN",
+      "heightMetres": 6.211498737335205,
+      "uncertaintyVariance": 0.9720382690429688,
+      "uncertaintyStandardDeviationMetres": 0.9859200114831673
+    },
+    {
+      "osmRef": "way/864485652",
+      "featureId": "osm864485652CHN",
+      "heightMetres": 14.533167839050293,
+      "uncertaintyVariance": 14.143646240234375,
+      "uncertaintyStandardDeviationMetres": 3.7608039353620093
+    },
+    {
+      "osmRef": "way/864485653",
+      "featureId": "osm864485653CHN",
+      "heightMetres": 29.234159469604492,
+      "uncertaintyVariance": 29.5572509765625,
+      "uncertaintyStandardDeviationMetres": 5.436658070594701
+    },
+    {
+      "osmRef": "way/864485654",
+      "featureId": "osm864485654CHN",
+      "heightMetres": 37.378875732421875,
+      "uncertaintyVariance": 37.381591796875,
+      "uncertaintyStandardDeviationMetres": 6.114048723789744
+    },
+    {
+      "osmRef": "way/864485655",
+      "featureId": "osm864485655CHN",
+      "heightMetres": 9.132034301757812,
+      "uncertaintyVariance": 2.1307296752929688,
+      "uncertaintyStandardDeviationMetres": 1.459701913163427
+    },
+    {
+      "osmRef": "way/864485656",
+      "featureId": "osm864485656CHN",
+      "heightMetres": 9.521180152893066,
+      "uncertaintyVariance": 1.2970199584960938,
+      "uncertaintyStandardDeviationMetres": 1.1388678406628636
+    },
+    {
+      "osmRef": "way/864485659",
+      "featureId": "osm864485659CHN",
+      "heightMetres": 10.312812805175781,
+      "uncertaintyVariance": 2.6877403259277344,
+      "uncertaintyStandardDeviationMetres": 1.6394329281577011
+    },
+    {
+      "osmRef": "way/864485668",
+      "featureId": "osm864485668CHN",
+      "heightMetres": 11.084638595581055,
+      "uncertaintyVariance": 10.939651489257812,
+      "uncertaintyStandardDeviationMetres": 3.3075143974377212
+    },
+    {
+      "osmRef": "way/864485670",
+      "featureId": "osm864485670CHN",
+      "heightMetres": 12.481719970703125,
+      "uncertaintyVariance": 11.028450012207031,
+      "uncertaintyStandardDeviationMetres": 3.3209110214227406
+    },
+    {
+      "osmRef": "way/864485671",
+      "featureId": "osm864485671CHN",
+      "heightMetres": 11.864656448364258,
+      "uncertaintyVariance": 6.1123046875,
+      "uncertaintyStandardDeviationMetres": 2.4723075632898106
+    },
+    {
+      "osmRef": "way/864485672",
+      "featureId": "osm864485672CHN",
+      "heightMetres": 9.935161590576172,
+      "uncertaintyVariance": 3.5313949584960938,
+      "uncertaintyStandardDeviationMetres": 1.879200616883704
+    },
+    {
+      "osmRef": "way/864485673",
+      "featureId": "osm864485673CHN",
+      "heightMetres": 11.489710807800293,
+      "uncertaintyVariance": 2.944732666015625,
+      "uncertaintyStandardDeviationMetres": 1.7160223384372433
+    },
+    {
+      "osmRef": "way/864485681",
+      "featureId": "osm864485681CHN",
+      "heightMetres": 12.654806137084961,
+      "uncertaintyVariance": 6.30975341796875,
+      "uncertaintyStandardDeviationMetres": 2.511922255558231
+    },
+    {
+      "osmRef": "way/864485682",
+      "featureId": "osm864485682CHN",
+      "heightMetres": 13.625152587890625,
+      "uncertaintyVariance": 3.09173583984375,
+      "uncertaintyStandardDeviationMetres": 1.7583332561956935
+    },
+    {
+      "osmRef": "way/864485683",
+      "featureId": "osm864485683CHN",
+      "heightMetres": 22.598257064819336,
+      "uncertaintyVariance": 15.16912841796875,
+      "uncertaintyStandardDeviationMetres": 3.894756528715081
+    },
+    {
+      "osmRef": "way/864485685",
+      "featureId": "osm864485685CHN",
+      "heightMetres": 27.28447151184082,
+      "uncertaintyVariance": 30.100555419921875,
+      "uncertaintyStandardDeviationMetres": 5.486397307880817
+    },
+    {
+      "osmRef": "way/864485687",
+      "featureId": "osm864485687CHN",
+      "heightMetres": 49.60280227661133,
+      "uncertaintyVariance": 50.09393310546875,
+      "uncertaintyStandardDeviationMetres": 7.077706768824825
+    },
+    {
+      "osmRef": "way/864485688",
+      "featureId": "osm864485688CHN",
+      "heightMetres": 78.33372497558594,
+      "uncertaintyVariance": 77.107421875,
+      "uncertaintyStandardDeviationMetres": 8.781083183468882
+    },
+    {
+      "osmRef": "way/864485689",
+      "featureId": "osm864485689CHN",
+      "heightMetres": 24.87450408935547,
+      "uncertaintyVariance": 24.347869873046875,
+      "uncertaintyStandardDeviationMetres": 4.934356074813295
+    },
+    {
+      "osmRef": "way/864485690",
+      "featureId": "osm864485690CHN",
+      "heightMetres": 29.293766021728516,
+      "uncertaintyVariance": 28.6424560546875,
+      "uncertaintyStandardDeviationMetres": 5.351864726867403
+    },
+    {
+      "osmRef": "way/864485692",
+      "featureId": "osm864485692CHN",
+      "heightMetres": 53.36419677734375,
+      "uncertaintyVariance": 50.9501953125,
+      "uncertaintyStandardDeviationMetres": 7.137940551202426
+    },
+    {
+      "osmRef": "way/864493083",
+      "featureId": "osm864493083CHN",
+      "heightMetres": 44.375343322753906,
+      "uncertaintyVariance": 42.30792236328125,
+      "uncertaintyStandardDeviationMetres": 6.504454040369664
+    },
+    {
+      "osmRef": "way/864493084",
+      "featureId": "osm864493084CHN",
+      "heightMetres": 60.293643951416016,
+      "uncertaintyVariance": 60.37744140625,
+      "uncertaintyStandardDeviationMetres": 7.770292234288875
+    },
+    {
+      "osmRef": "way/864493085",
+      "featureId": "osm864493085CHN",
+      "heightMetres": 6.761261940002441,
+      "uncertaintyVariance": 5.873508453369141,
+      "uncertaintyStandardDeviationMetres": 2.42353222660008
+    },
+    {
+      "osmRef": "way/864493086",
+      "featureId": "osm864493086CHN",
+      "heightMetres": 17.524106979370117,
+      "uncertaintyVariance": 17.936500549316406,
+      "uncertaintyStandardDeviationMetres": 4.235150593463756
+    },
+    {
+      "osmRef": "way/864493088",
+      "featureId": "osm864493088CHN",
+      "heightMetres": 15.443946838378906,
+      "uncertaintyVariance": 8.495712280273438,
+      "uncertaintyStandardDeviationMetres": 2.914740516799641
+    },
+    {
+      "osmRef": "way/864493089",
+      "featureId": "osm864493089CHN",
+      "heightMetres": 10.012615203857422,
+      "uncertaintyVariance": 1.9983634948730469,
+      "uncertaintyStandardDeviationMetres": 1.4136348520297053
+    },
+    {
+      "osmRef": "way/864493090",
+      "featureId": "osm864493090CHN",
+      "heightMetres": 12.386935234069824,
+      "uncertaintyVariance": 7.616432189941406,
+      "uncertaintyStandardDeviationMetres": 2.759788432097904
+    },
+    {
+      "osmRef": "way/864493091",
+      "featureId": "osm864493091CHN",
+      "heightMetres": 12.842933654785156,
+      "uncertaintyVariance": 2.7203826904296875,
+      "uncertaintyStandardDeviationMetres": 1.6493582662446893
+    },
+    {
+      "osmRef": "way/864493092",
+      "featureId": "osm864493092CHN",
+      "heightMetres": 11.062315940856934,
+      "uncertaintyVariance": 2.3238086700439453,
+      "uncertaintyStandardDeviationMetres": 1.5244043656602224
+    },
+    {
+      "osmRef": "way/864493093",
+      "featureId": "osm864493093CHN",
+      "heightMetres": 12.873918533325195,
+      "uncertaintyVariance": 3.497774124145508,
+      "uncertaintyStandardDeviationMetres": 1.8702337084293792
+    },
+    {
+      "osmRef": "way/864493095",
+      "featureId": "osm864493095CHN",
+      "heightMetres": 14.757137298583984,
+      "uncertaintyVariance": 7.8835296630859375,
+      "uncertaintyStandardDeviationMetres": 2.807762394342858
+    },
+    {
+      "osmRef": "way/864493096",
+      "featureId": "osm864493096CHN",
+      "heightMetres": 13.749897956848145,
+      "uncertaintyVariance": 10.961029052734375,
+      "uncertaintyStandardDeviationMetres": 3.3107444861744275
+    },
+    {
+      "osmRef": "way/864493097",
+      "featureId": "osm864493097CHN",
+      "heightMetres": 12.890963554382324,
+      "uncertaintyVariance": 4.224170684814453,
+      "uncertaintyStandardDeviationMetres": 2.0552787365256453
+    },
+    {
+      "osmRef": "way/864493098",
+      "featureId": "osm864493098CHN",
+      "heightMetres": 11.92287826538086,
+      "uncertaintyVariance": 7.5047149658203125,
+      "uncertaintyStandardDeviationMetres": 2.739473483321259
+    },
+    {
+      "osmRef": "way/864493099",
+      "featureId": "osm864493099CHN",
+      "heightMetres": 11.798785209655762,
+      "uncertaintyVariance": 5.593841552734375,
+      "uncertaintyStandardDeviationMetres": 2.365130345823328
+    },
+    {
+      "osmRef": "way/864493100",
+      "featureId": "osm864493100CHN",
+      "heightMetres": 15.831135749816895,
+      "uncertaintyVariance": 9.4605712890625,
+      "uncertaintyStandardDeviationMetres": 3.0758041694916955
+    },
+    {
+      "osmRef": "way/864493101",
+      "featureId": "osm864493101CHN",
+      "heightMetres": 13.647278785705566,
+      "uncertaintyVariance": 10.660614013671875,
+      "uncertaintyStandardDeviationMetres": 3.2650595727600247
+    },
+    {
+      "osmRef": "way/864493102",
+      "featureId": "osm864493102CHN",
+      "heightMetres": 13.62546157836914,
+      "uncertaintyVariance": 11.305877685546875,
+      "uncertaintyStandardDeviationMetres": 3.3624214021366914
+    },
+    {
+      "osmRef": "way/864493103",
+      "featureId": "osm864493103CHN",
+      "heightMetres": 14.63025188446045,
+      "uncertaintyVariance": 3.99652099609375,
+      "uncertaintyStandardDeviationMetres": 1.9991300598244603
+    },
+    {
+      "osmRef": "way/864493104",
+      "featureId": "osm864493104CHN",
+      "heightMetres": 13.839860916137695,
+      "uncertaintyVariance": 3.4707908630371094,
+      "uncertaintyStandardDeviationMetres": 1.8630058676872463
+    },
+    {
+      "osmRef": "way/864493105",
+      "featureId": "osm864493105CHN",
+      "heightMetres": 11.438019752502441,
+      "uncertaintyVariance": 1.47552490234375,
+      "uncertaintyStandardDeviationMetres": 1.2147118598020479
+    },
+    {
+      "osmRef": "way/864493106",
+      "featureId": "osm864493106CHN",
+      "heightMetres": 8.008766174316406,
+      "uncertaintyVariance": 2.324291229248047,
+      "uncertaintyStandardDeviationMetres": 1.5245626353968036
+    },
+    {
+      "osmRef": "way/864493107",
+      "featureId": "osm864493107CHN",
+      "heightMetres": 9.166839599609375,
+      "uncertaintyVariance": 2.15936279296875,
+      "uncertaintyStandardDeviationMetres": 1.4694770474453658
+    },
+    {
+      "osmRef": "way/864493108",
+      "featureId": "osm864493108CHN",
+      "heightMetres": 14.466377258300781,
+      "uncertaintyVariance": 5.456855773925781,
+      "uncertaintyStandardDeviationMetres": 2.3359913899511233
+    },
+    {
+      "osmRef": "way/864493109",
+      "featureId": "osm864493109CHN",
+      "heightMetres": 12.588544845581055,
+      "uncertaintyVariance": 2.385894775390625,
+      "uncertaintyStandardDeviationMetres": 1.5446341882111199
+    },
+    {
+      "osmRef": "way/864493110",
+      "featureId": "osm864493110CHN",
+      "heightMetres": 14.314400672912598,
+      "uncertaintyVariance": 4.440765380859375,
+      "uncertaintyStandardDeviationMetres": 2.107312359584923
+    },
+    {
+      "osmRef": "way/864493111",
+      "featureId": "osm864493111CHN",
+      "heightMetres": 14.043760299682617,
+      "uncertaintyVariance": 4.656280517578125,
+      "uncertaintyStandardDeviationMetres": 2.1578416340357616
+    },
+    {
+      "osmRef": "way/864493112",
+      "featureId": "osm864493112CHN",
+      "heightMetres": 10.153124809265137,
+      "uncertaintyVariance": 5.088077545166016,
+      "uncertaintyStandardDeviationMetres": 2.255676737736597
+    },
+    {
+      "osmRef": "way/864493113",
+      "featureId": "osm864493113CHN",
+      "heightMetres": 18.02276611328125,
+      "uncertaintyVariance": 14.5638427734375,
+      "uncertaintyStandardDeviationMetres": 3.8162603125884247
+    },
+    {
+      "osmRef": "way/864493114",
+      "featureId": "osm864493114CHN",
+      "heightMetres": 11.97091293334961,
+      "uncertaintyVariance": 4.655242919921875,
+      "uncertaintyStandardDeviationMetres": 2.157601195754645
+    },
+    {
+      "osmRef": "way/864493115",
+      "featureId": "osm864493115CHN",
+      "heightMetres": 11.525602340698242,
+      "uncertaintyVariance": 10.360557556152344,
+      "uncertaintyStandardDeviationMetres": 3.2187819988548996
+    },
+    {
+      "osmRef": "way/864493117",
+      "featureId": "osm864493117CHN",
+      "heightMetres": 48.45081329345703,
+      "uncertaintyVariance": 48.302734375,
+      "uncertaintyStandardDeviationMetres": 6.9500168614903375
+    },
+    {
+      "osmRef": "way/864493118",
+      "featureId": "osm864493118CHN",
+      "heightMetres": 61.86239242553711,
+      "uncertaintyVariance": 61.9349365234375,
+      "uncertaintyStandardDeviationMetres": 7.869875254629993
+    },
+    {
+      "osmRef": "way/864493119",
+      "featureId": "osm864493119CHN",
+      "heightMetres": 66.58155059814453,
+      "uncertaintyVariance": 67.13104248046875,
+      "uncertaintyStandardDeviationMetres": 8.193353555197575
+    },
+    {
+      "osmRef": "way/864493120",
+      "featureId": "osm864493120CHN",
+      "heightMetres": 44.92776870727539,
+      "uncertaintyVariance": 44.232322692871094,
+      "uncertaintyStandardDeviationMetres": 6.650738507329175
+    },
+    {
+      "osmRef": "way/864493121",
+      "featureId": "osm864493121CHN",
+      "heightMetres": 32.02147674560547,
+      "uncertaintyVariance": 31.418853759765625,
+      "uncertaintyStandardDeviationMetres": 5.605252336850289
+    },
+    {
+      "osmRef": "way/864493122",
+      "featureId": "osm864493122CHN",
+      "heightMetres": 18.87510108947754,
+      "uncertaintyVariance": 17.372955322265625,
+      "uncertaintyStandardDeviationMetres": 4.1680877296748
+    },
+    {
+      "osmRef": "way/864493123",
+      "featureId": "osm864493123CHN",
+      "heightMetres": 22.515621185302734,
+      "uncertaintyVariance": 22.568511962890625,
+      "uncertaintyStandardDeviationMetres": 4.750632796048398
+    },
+    {
+      "osmRef": "way/864493124",
+      "featureId": "osm864493124CHN",
+      "heightMetres": 22.05791473388672,
+      "uncertaintyVariance": 22.076324462890625,
+      "uncertaintyStandardDeviationMetres": 4.698544930389686
+    },
+    {
+      "osmRef": "way/864493125",
+      "featureId": "osm864493125CHN",
+      "heightMetres": 8.073090553283691,
+      "uncertaintyVariance": 1.0785179138183594,
+      "uncertaintyStandardDeviationMetres": 1.038517170690191
+    },
+    {
+      "osmRef": "way/864493126",
+      "featureId": "osm864493126CHN",
+      "heightMetres": 48.9879150390625,
+      "uncertaintyVariance": 46.442138671875,
+      "uncertaintyStandardDeviationMetres": 6.814846929453001
+    },
+    {
+      "osmRef": "way/864493128",
+      "featureId": "osm864493128CHN",
+      "heightMetres": 10.462312698364258,
+      "uncertaintyVariance": 2.1735153198242188,
+      "uncertaintyStandardDeviationMetres": 1.47428468072629
+    },
+    {
+      "osmRef": "way/864493129",
+      "featureId": "osm864493129CHN",
+      "heightMetres": 9.267389297485352,
+      "uncertaintyVariance": 2.6693954467773438,
+      "uncertaintyStandardDeviationMetres": 1.6338284630821387
+    },
+    {
+      "osmRef": "way/864493130",
+      "featureId": "osm864493130CHN",
+      "heightMetres": 8.795000076293945,
+      "uncertaintyVariance": 2.5697898864746094,
+      "uncertaintyStandardDeviationMetres": 1.6030564202406008
+    },
+    {
+      "osmRef": "way/864493131",
+      "featureId": "osm864493131CHN",
+      "heightMetres": 7.644777774810791,
+      "uncertaintyVariance": 2.04290771484375,
+      "uncertaintyStandardDeviationMetres": 1.4293032270458743
+    },
+    {
+      "osmRef": "way/864493132",
+      "featureId": "osm864493132CHN",
+      "heightMetres": 6.852278709411621,
+      "uncertaintyVariance": 2.1918678283691406,
+      "uncertaintyStandardDeviationMetres": 1.4804958049144012
+    },
+    {
+      "osmRef": "way/864493133",
+      "featureId": "osm864493133CHN",
+      "heightMetres": 6.2634782791137695,
+      "uncertaintyVariance": 2.201580047607422,
+      "uncertaintyStandardDeviationMetres": 1.48377223575838
+    },
+    {
+      "osmRef": "way/864493134",
+      "featureId": "osm864493134CHN",
+      "heightMetres": 7.826750755310059,
+      "uncertaintyVariance": 1.387411117553711,
+      "uncertaintyStandardDeviationMetres": 1.1778841698374722
+    },
+    {
+      "osmRef": "way/864493135",
+      "featureId": "osm864493135CHN",
+      "heightMetres": 8.397172927856445,
+      "uncertaintyVariance": 1.778106689453125,
+      "uncertaintyStandardDeviationMetres": 1.333456669507159
+    },
+    {
+      "osmRef": "way/864493136",
+      "featureId": "osm864493136CHN",
+      "heightMetres": 8.58349609375,
+      "uncertaintyVariance": 1.4425773620605469,
+      "uncertaintyStandardDeviationMetres": 1.2010734207618396
+    },
+    {
+      "osmRef": "way/864493137",
+      "featureId": "osm864493137CHN",
+      "heightMetres": 6.222370147705078,
+      "uncertaintyVariance": 1.7632904052734375,
+      "uncertaintyStandardDeviationMetres": 1.3278894552158464
+    },
+    {
+      "osmRef": "way/864493138",
+      "featureId": "osm864493138CHN",
+      "heightMetres": 6.817466735839844,
+      "uncertaintyVariance": 1.5405807495117188,
+      "uncertaintyStandardDeviationMetres": 1.2412013331896314
+    },
+    {
+      "osmRef": "way/864493139",
+      "featureId": "osm864493139CHN",
+      "heightMetres": 6.618088245391846,
+      "uncertaintyVariance": 1.8341751098632812,
+      "uncertaintyStandardDeviationMetres": 1.3543172116839102
+    },
+    {
+      "osmRef": "way/864493140",
+      "featureId": "osm864493140CHN",
+      "heightMetres": 7.8231916427612305,
+      "uncertaintyVariance": 2.790355682373047,
+      "uncertaintyStandardDeviationMetres": 1.6704357761892694
+    },
+    {
+      "osmRef": "way/864493141",
+      "featureId": "osm864493141CHN",
+      "heightMetres": 6.189984321594238,
+      "uncertaintyVariance": 2.6242103576660156,
+      "uncertaintyStandardDeviationMetres": 1.619941467358008
+    },
+    {
+      "osmRef": "way/864493142",
+      "featureId": "osm864493142CHN",
+      "heightMetres": 7.18023681640625,
+      "uncertaintyVariance": 3.2085647583007812,
+      "uncertaintyStandardDeviationMetres": 1.7912467050355685
+    },
+    {
+      "osmRef": "way/864493144",
+      "featureId": "osm864493144CHN",
+      "heightMetres": 5.524393081665039,
+      "uncertaintyVariance": 1.1461448669433594,
+      "uncertaintyStandardDeviationMetres": 1.0705815554843823
+    },
+    {
+      "osmRef": "way/864493146",
+      "featureId": "osm864493146CHN",
+      "heightMetres": 12.402688026428223,
+      "uncertaintyVariance": 4.3972625732421875,
+      "uncertaintyStandardDeviationMetres": 2.0969650863193188
+    },
+    {
+      "osmRef": "way/864493147",
+      "featureId": "osm864493147CHN",
+      "heightMetres": 11.446391105651855,
+      "uncertaintyVariance": 1.8446197509765625,
+      "uncertaintyStandardDeviationMetres": 1.358167791908114
+    },
+    {
+      "osmRef": "way/864493148",
+      "featureId": "osm864493148CHN",
+      "heightMetres": 11.292963027954102,
+      "uncertaintyVariance": 2.3513755798339844,
+      "uncertaintyStandardDeviationMetres": 1.533419570709199
+    },
+    {
+      "osmRef": "way/864493149",
+      "featureId": "osm864493149CHN",
+      "heightMetres": 8.447213172912598,
+      "uncertaintyVariance": 1.966176986694336,
+      "uncertaintyStandardDeviationMetres": 1.4022043312921038
+    },
+    {
+      "osmRef": "way/864493150",
+      "featureId": "osm864493150CHN",
+      "heightMetres": 7.821997165679932,
+      "uncertaintyVariance": 2.628459930419922,
+      "uncertaintyStandardDeviationMetres": 1.621252580697999
+    },
+    {
+      "osmRef": "way/864493151",
+      "featureId": "osm864493151CHN",
+      "heightMetres": 54.74641418457031,
+      "uncertaintyVariance": 52.884765625,
+      "uncertaintyStandardDeviationMetres": 7.272191253329357
+    },
+    {
+      "osmRef": "way/864493152",
+      "featureId": "osm864493152CHN",
+      "heightMetres": 44.434043884277344,
+      "uncertaintyVariance": 44.5897216796875,
+      "uncertaintyStandardDeviationMetres": 6.677553569960147
+    },
+    {
+      "osmRef": "way/864493153",
+      "featureId": "osm864493153CHN",
+      "heightMetres": 30.597938537597656,
+      "uncertaintyVariance": 30.21942138671875,
+      "uncertaintyStandardDeviationMetres": 5.497219423191942
+    },
+    {
+      "osmRef": "way/864493154",
+      "featureId": "osm864493154CHN",
+      "heightMetres": 15.351500511169434,
+      "uncertaintyVariance": 15.309524536132812,
+      "uncertaintyStandardDeviationMetres": 3.9127387513265965
+    },
+    {
+      "osmRef": "way/864493155",
+      "featureId": "osm864493155CHN",
+      "heightMetres": 28.733610153198242,
+      "uncertaintyVariance": 29.00396728515625,
+      "uncertaintyStandardDeviationMetres": 5.385533147716784
+    },
+    {
+      "osmRef": "way/864493157",
+      "featureId": "osm864493157CHN",
+      "heightMetres": 33.58367919921875,
+      "uncertaintyVariance": 30.063674926757812,
+      "uncertaintyStandardDeviationMetres": 5.48303519291622
+    },
+    {
+      "osmRef": "way/864493160",
+      "featureId": "osm864493160CHN",
+      "heightMetres": 21.650455474853516,
+      "uncertaintyVariance": 15.11346435546875,
+      "uncertaintyStandardDeviationMetres": 3.8876039350053073
+    },
+    {
+      "osmRef": "way/864493161",
+      "featureId": "osm864493161CHN",
+      "heightMetres": 18.046850204467773,
+      "uncertaintyVariance": 3.955768585205078,
+      "uncertaintyStandardDeviationMetres": 1.9889114070780223
+    },
+    {
+      "osmRef": "way/864493162",
+      "featureId": "osm864493162CHN",
+      "heightMetres": 19.66942596435547,
+      "uncertaintyVariance": 7.4415283203125,
+      "uncertaintyStandardDeviationMetres": 2.727916479717167
+    },
+    {
+      "osmRef": "way/864493163",
+      "featureId": "osm864493163CHN",
+      "heightMetres": 18.777183532714844,
+      "uncertaintyVariance": 12.003219604492188,
+      "uncertaintyStandardDeviationMetres": 3.4645662938515387
+    },
+    {
+      "osmRef": "way/864493164",
+      "featureId": "osm864493164CHN",
+      "heightMetres": 17.8337459564209,
+      "uncertaintyVariance": 15.173782348632812,
+      "uncertaintyStandardDeviationMetres": 3.895353943948202
+    },
+    {
+      "osmRef": "way/864493165",
+      "featureId": "osm864493165CHN",
+      "heightMetres": 18.1131649017334,
+      "uncertaintyVariance": 18.628326416015625,
+      "uncertaintyStandardDeviationMetres": 4.316054496414013
+    },
+    {
+      "osmRef": "way/864493166",
+      "featureId": "osm864493166CHN",
+      "heightMetres": 18.091815948486328,
+      "uncertaintyVariance": 9.016357421875,
+      "uncertaintyStandardDeviationMetres": 3.0027249993755674
+    },
+    {
+      "osmRef": "way/864493167",
+      "featureId": "osm864493167CHN",
+      "heightMetres": 19.601329803466797,
+      "uncertaintyVariance": 8.450042724609375,
+      "uncertaintyStandardDeviationMetres": 2.9068957195966587
+    },
+    {
+      "osmRef": "way/864493168",
+      "featureId": "osm864493168CHN",
+      "heightMetres": 16.100547790527344,
+      "uncertaintyVariance": 10.174850463867188,
+      "uncertaintyStandardDeviationMetres": 3.189804141928966
+    },
+    {
+      "osmRef": "way/864493169",
+      "featureId": "osm864493169CHN",
+      "heightMetres": 17.444360733032227,
+      "uncertaintyVariance": 8.229644775390625,
+      "uncertaintyStandardDeviationMetres": 2.8687357451307056
+    },
+    {
+      "osmRef": "way/864493170",
+      "featureId": "osm864493170CHN",
+      "heightMetres": 19.990062713623047,
+      "uncertaintyVariance": 15.891571044921875,
+      "uncertaintyStandardDeviationMetres": 3.98642333990281
+    },
+    {
+      "osmRef": "way/864493171",
+      "featureId": "osm864493171CHN",
+      "heightMetres": 9.307865142822266,
+      "uncertaintyVariance": 4.152549743652344,
+      "uncertaintyStandardDeviationMetres": 2.037780592618436
+    },
+    {
+      "osmRef": "way/864493172",
+      "featureId": "osm864493172CHN",
+      "heightMetres": 15.949568748474121,
+      "uncertaintyVariance": 5.9872894287109375,
+      "uncertaintyStandardDeviationMetres": 2.446893832742021
+    },
+    {
+      "osmRef": "way/864493192",
+      "featureId": "osm864493192CHN",
+      "heightMetres": 11.527345657348633,
+      "uncertaintyVariance": 5.080924987792969,
+      "uncertaintyStandardDeviationMetres": 2.2540907230617337
+    },
+    {
+      "osmRef": "way/864493195",
+      "featureId": "osm864493195CHN",
+      "heightMetres": 11.608023643493652,
+      "uncertaintyVariance": 4.950172424316406,
+      "uncertaintyStandardDeviationMetres": 2.2248982952747314
+    },
+    {
+      "osmRef": "way/864493196",
+      "featureId": "osm864493196CHN",
+      "heightMetres": 10.398886680603027,
+      "uncertaintyVariance": 3.8555908203125,
+      "uncertaintyStandardDeviationMetres": 1.9635658431314444
+    },
+    {
+      "osmRef": "way/864493197",
+      "featureId": "osm864493197CHN",
+      "heightMetres": 9.779683113098145,
+      "uncertaintyVariance": 2.696796417236328,
+      "uncertaintyStandardDeviationMetres": 1.6421925639937383
+    },
+    {
+      "osmRef": "way/864493198",
+      "featureId": "osm864493198CHN",
+      "heightMetres": 8.780562400817871,
+      "uncertaintyVariance": 4.139558792114258,
+      "uncertaintyStandardDeviationMetres": 2.034590571125861
+    },
+    {
+      "osmRef": "way/864493199",
+      "featureId": "osm864493199CHN",
+      "heightMetres": 15.739181518554688,
+      "uncertaintyVariance": 16.870647430419922,
+      "uncertaintyStandardDeviationMetres": 4.107389369224681
+    },
+    {
+      "osmRef": "way/864493200",
+      "featureId": "osm864493200CHN",
+      "heightMetres": 17.22539710998535,
+      "uncertaintyVariance": 11.593429565429688,
+      "uncertaintyStandardDeviationMetres": 3.4049125635513295
+    },
+    {
+      "osmRef": "way/864493201",
+      "featureId": "osm864493201CHN",
+      "heightMetres": 16.777727127075195,
+      "uncertaintyVariance": 11.353546142578125,
+      "uncertaintyStandardDeviationMetres": 3.3695023582983477
+    },
+    {
+      "osmRef": "way/864493202",
+      "featureId": "osm864493202CHN",
+      "heightMetres": 16.229698181152344,
+      "uncertaintyVariance": 15.9442138671875,
+      "uncertaintyStandardDeviationMetres": 3.993020644472991
+    },
+    {
+      "osmRef": "way/864493204",
+      "featureId": "osm864493204CHN",
+      "heightMetres": 17.35295867919922,
+      "uncertaintyVariance": 10.9324951171875,
+      "uncertaintyStandardDeviationMetres": 3.3064323850923523
+    },
+    {
+      "osmRef": "way/864493205",
+      "featureId": "osm864493205CHN",
+      "heightMetres": 18.824871063232422,
+      "uncertaintyVariance": 11.284759521484375,
+      "uncertaintyStandardDeviationMetres": 3.3592796134713727
+    },
+    {
+      "osmRef": "way/864493206",
+      "featureId": "osm864493206CHN",
+      "heightMetres": 14.820836067199707,
+      "uncertaintyVariance": 4.3642120361328125,
+      "uncertaintyStandardDeviationMetres": 2.089069658037475
+    },
+    {
+      "osmRef": "way/864493207",
+      "featureId": "osm864493207CHN",
+      "heightMetres": 13.082531929016113,
+      "uncertaintyVariance": 5.406036376953125,
+      "uncertaintyStandardDeviationMetres": 2.325088466478883
+    },
+    {
+      "osmRef": "way/864493208",
+      "featureId": "osm864493208CHN",
+      "heightMetres": 12.433050155639648,
+      "uncertaintyVariance": 6.820281982421875,
+      "uncertaintyStandardDeviationMetres": 2.611566959207034
+    },
+    {
+      "osmRef": "way/864493209",
+      "featureId": "osm864493209CHN",
+      "heightMetres": 14.861593246459961,
+      "uncertaintyVariance": 5.844696044921875,
+      "uncertaintyStandardDeviationMetres": 2.4175806180811996
+    },
+    {
+      "osmRef": "way/864493211",
+      "featureId": "osm864493211CHN",
+      "heightMetres": 12.803503036499023,
+      "uncertaintyVariance": 5.248752593994141,
+      "uncertaintyStandardDeviationMetres": 2.291015625
+    },
+    {
+      "osmRef": "way/864493213",
+      "featureId": "osm864493213CHN",
+      "heightMetres": 18.868576049804688,
+      "uncertaintyVariance": 8.847076416015625,
+      "uncertaintyStandardDeviationMetres": 2.974403539537906
+    },
+    {
+      "osmRef": "way/864493214",
+      "featureId": "osm864493214CHN",
+      "heightMetres": 10.231147766113281,
+      "uncertaintyVariance": 7.295341491699219,
+      "uncertaintyStandardDeviationMetres": 2.7009889840018264
+    },
+    {
+      "osmRef": "way/864493215",
+      "featureId": "osm864493215CHN",
+      "heightMetres": 10.432418823242188,
+      "uncertaintyVariance": 3.406524658203125,
+      "uncertaintyStandardDeviationMetres": 1.845677289832414
+    },
+    {
+      "osmRef": "way/864493218",
+      "featureId": "osm864493218CHN",
+      "heightMetres": 11.479768753051758,
+      "uncertaintyVariance": 2.2157440185546875,
+      "uncertaintyStandardDeviationMetres": 1.4885375435489316
+    },
+    {
+      "osmRef": "way/864493220",
+      "featureId": "osm864493220CHN",
+      "heightMetres": 10.85963249206543,
+      "uncertaintyVariance": 2.530731201171875,
+      "uncertaintyStandardDeviationMetres": 1.5908272065726923
+    },
+    {
+      "osmRef": "way/864493221",
+      "featureId": "osm864493221CHN",
+      "heightMetres": 10.337448120117188,
+      "uncertaintyVariance": 2.605194091796875,
+      "uncertaintyStandardDeviationMetres": 1.6140613655610727
+    },
+    {
+      "osmRef": "way/864493222",
+      "featureId": "osm864493222CHN",
+      "heightMetres": 8.996301651000977,
+      "uncertaintyVariance": 8.277511596679688,
+      "uncertaintyStandardDeviationMetres": 2.8770664915291215
+    },
+    {
+      "osmRef": "way/864493223",
+      "featureId": "osm864493223CHN",
+      "heightMetres": 11.72465991973877,
+      "uncertaintyVariance": 8.399124145507812,
+      "uncertaintyStandardDeviationMetres": 2.89812424604395
+    },
+    {
+      "osmRef": "way/864493224",
+      "featureId": "osm864493224CHN",
+      "heightMetres": 12.419461250305176,
+      "uncertaintyVariance": 2.6778182983398438,
+      "uncertaintyStandardDeviationMetres": 1.636404075508199
+    },
+    {
+      "osmRef": "way/864493225",
+      "featureId": "osm864493225CHN",
+      "heightMetres": 12.008011817932129,
+      "uncertaintyVariance": 2.5945205688476562,
+      "uncertaintyStandardDeviationMetres": 1.6107515540416704
+    },
+    {
+      "osmRef": "way/864493226",
+      "featureId": "osm864493226CHN",
+      "heightMetres": 10.876932144165039,
+      "uncertaintyVariance": 2.8612213134765625,
+      "uncertaintyStandardDeviationMetres": 1.6915145028868546
+    },
+    {
+      "osmRef": "way/864493227",
+      "featureId": "osm864493227CHN",
+      "heightMetres": 10.455474853515625,
+      "uncertaintyVariance": 3.5083541870117188,
+      "uncertaintyStandardDeviationMetres": 1.8730601130267333
+    },
+    {
+      "osmRef": "way/864493236",
+      "featureId": "osm864493236CHN",
+      "heightMetres": 11.559904098510742,
+      "uncertaintyVariance": 5.674537658691406,
+      "uncertaintyStandardDeviationMetres": 2.3821288081653784
+    },
+    {
+      "osmRef": "way/864493237",
+      "featureId": "osm864493237CHN",
+      "heightMetres": 9.19465160369873,
+      "uncertaintyVariance": 1.9103164672851562,
+      "uncertaintyStandardDeviationMetres": 1.3821419852117784
+    },
+    {
+      "osmRef": "way/864493238",
+      "featureId": "osm864493238CHN",
+      "heightMetres": 11.004678726196289,
+      "uncertaintyVariance": 1.460906982421875,
+      "uncertaintyStandardDeviationMetres": 1.2086798510862482
+    },
+    {
+      "osmRef": "way/864493239",
+      "featureId": "osm864493239CHN",
+      "heightMetres": 8.616064071655273,
+      "uncertaintyVariance": 3.2146339416503906,
+      "uncertaintyStandardDeviationMetres": 1.7929400273434666
+    },
+    {
+      "osmRef": "way/864493240",
+      "featureId": "osm864493240CHN",
+      "heightMetres": 9.22010326385498,
+      "uncertaintyVariance": 1.757598876953125,
+      "uncertaintyStandardDeviationMetres": 1.325744649980955
+    },
+    {
+      "osmRef": "way/864493241",
+      "featureId": "osm864493241CHN",
+      "heightMetres": 10.347628593444824,
+      "uncertaintyVariance": 2.934558868408203,
+      "uncertaintyStandardDeviationMetres": 1.7130554189541571
+    },
+    {
+      "osmRef": "way/864493248",
+      "featureId": "osm864493248CHN",
+      "heightMetres": 11.910022735595703,
+      "uncertaintyVariance": 11.899887084960938,
+      "uncertaintyStandardDeviationMetres": 3.44962129587596
+    },
+    {
+      "osmRef": "way/864493249",
+      "featureId": "osm864493249CHN",
+      "heightMetres": 12.896127700805664,
+      "uncertaintyVariance": 12.776931762695312,
+      "uncertaintyStandardDeviationMetres": 3.5744834259925327
+    },
+    {
+      "osmRef": "way/864493250",
+      "featureId": "osm864493250CHN",
+      "heightMetres": 10.514044761657715,
+      "uncertaintyVariance": 1.3217315673828125,
+      "uncertaintyStandardDeviationMetres": 1.1496658503160004
+    },
+    {
+      "osmRef": "way/864493251",
+      "featureId": "osm864493251CHN",
+      "heightMetres": 9.248934745788574,
+      "uncertaintyVariance": 1.5067291259765625,
+      "uncertaintyStandardDeviationMetres": 1.227488951468225
+    },
+    {
+      "osmRef": "way/864493252",
+      "featureId": "osm864493252CHN",
+      "heightMetres": 9.70390796661377,
+      "uncertaintyVariance": 1.6109542846679688,
+      "uncertaintyStandardDeviationMetres": 1.2692337391780792
+    },
+    {
+      "osmRef": "way/864493253",
+      "featureId": "osm864493253CHN",
+      "heightMetres": 8.751794815063477,
+      "uncertaintyVariance": 3.792522430419922,
+      "uncertaintyStandardDeviationMetres": 1.9474399683738448
+    },
+    {
+      "osmRef": "way/864493254",
+      "featureId": "osm864493254CHN",
+      "heightMetres": 10.452061653137207,
+      "uncertaintyVariance": 2.979156494140625,
+      "uncertaintyStandardDeviationMetres": 1.7260233179597038
+    },
+    {
+      "osmRef": "way/864493255",
+      "featureId": "osm864493255CHN",
+      "heightMetres": 8.70669174194336,
+      "uncertaintyVariance": 7.780628204345703,
+      "uncertaintyStandardDeviationMetres": 2.789377745007962
+    },
+    {
+      "osmRef": "way/864493256",
+      "featureId": "osm864493256CHN",
+      "heightMetres": 9.073513984680176,
+      "uncertaintyVariance": 3.6539230346679688,
+      "uncertaintyStandardDeviationMetres": 1.911523746822929
+    },
+    {
+      "osmRef": "way/864493257",
+      "featureId": "osm864493257CHN",
+      "heightMetres": 9.576803207397461,
+      "uncertaintyVariance": 4.988563537597656,
+      "uncertaintyStandardDeviationMetres": 2.2335092427831267
+    },
+    {
+      "osmRef": "way/864493258",
+      "featureId": "osm864493258CHN",
+      "heightMetres": 8.298873901367188,
+      "uncertaintyVariance": 3.3350448608398438,
+      "uncertaintyStandardDeviationMetres": 1.826210519310368
+    },
+    {
+      "osmRef": "way/864493259",
+      "featureId": "osm864493259CHN",
+      "heightMetres": 8.309782028198242,
+      "uncertaintyVariance": 4.972675323486328,
+      "uncertaintyStandardDeviationMetres": 2.2299496235310627
+    },
+    {
+      "osmRef": "way/864493260",
+      "featureId": "osm864493260CHN",
+      "heightMetres": 10.299419403076172,
+      "uncertaintyVariance": 3.3903121948242188,
+      "uncertaintyStandardDeviationMetres": 1.8412800424770315
+    },
+    {
+      "osmRef": "way/864493261",
+      "featureId": "osm864493261CHN",
+      "heightMetres": 10.254805564880371,
+      "uncertaintyVariance": 4.359428405761719,
+      "uncertaintyStandardDeviationMetres": 2.0879244252993736
+    },
+    {
+      "osmRef": "way/864493262",
+      "featureId": "osm864493262CHN",
+      "heightMetres": 9.597352981567383,
+      "uncertaintyVariance": 2.4449462890625,
+      "uncertaintyStandardDeviationMetres": 1.5636324021529164
+    },
+    {
+      "osmRef": "way/864493263",
+      "featureId": "osm864493263CHN",
+      "heightMetres": 10.135453224182129,
+      "uncertaintyVariance": 2.6821823120117188,
+      "uncertaintyStandardDeviationMetres": 1.6377369483563955
+    },
+    {
+      "osmRef": "way/864493264",
+      "featureId": "osm864493264CHN",
+      "heightMetres": 7.53131103515625,
+      "uncertaintyVariance": 3.81500244140625,
+      "uncertaintyStandardDeviationMetres": 1.9532031234375624
+    },
+    {
+      "osmRef": "way/864493265",
+      "featureId": "osm864493265CHN",
+      "heightMetres": 9.709630966186523,
+      "uncertaintyVariance": 6.713874816894531,
+      "uncertaintyStandardDeviationMetres": 2.5911145896881003
+    },
+    {
+      "osmRef": "way/864493266",
+      "featureId": "osm864493266CHN",
+      "heightMetres": 12.92294692993164,
+      "uncertaintyVariance": 11.980697631835938,
+      "uncertaintyStandardDeviationMetres": 3.461314437007412
+    },
+    {
+      "osmRef": "way/864493267",
+      "featureId": "osm864493267CHN",
+      "heightMetres": 7.947149276733398,
+      "uncertaintyVariance": 1.4078445434570312,
+      "uncertaintyStandardDeviationMetres": 1.1865262506396692
+    },
+    {
+      "osmRef": "way/864493268",
+      "featureId": "osm864493268CHN",
+      "heightMetres": 9.145181655883789,
+      "uncertaintyVariance": 3.0003128051757812,
+      "uncertaintyStandardDeviationMetres": 1.7321411042913857
+    },
+    {
+      "osmRef": "way/864493269",
+      "featureId": "osm864493269CHN",
+      "heightMetres": 9.033211708068848,
+      "uncertaintyVariance": 2.6233482360839844,
+      "uncertaintyStandardDeviationMetres": 1.6196753489770672
+    },
+    {
+      "osmRef": "way/864493270",
+      "featureId": "osm864493270CHN",
+      "heightMetres": 11.166946411132812,
+      "uncertaintyVariance": 11.559219360351562,
+      "uncertaintyStandardDeviationMetres": 3.3998851981135427
+    },
+    {
+      "osmRef": "way/864493271",
+      "featureId": "osm864493271CHN",
+      "heightMetres": 12.690420150756836,
+      "uncertaintyVariance": 11.746284484863281,
+      "uncertaintyStandardDeviationMetres": 3.4272852937657934
+    },
+    {
+      "osmRef": "way/864493272",
+      "featureId": "osm864493272CHN",
+      "heightMetres": 11.408649444580078,
+      "uncertaintyVariance": 10.421981811523438,
+      "uncertaintyStandardDeviationMetres": 3.2283094355286694
+    },
+    {
+      "osmRef": "way/864493273",
+      "featureId": "osm864493273CHN",
+      "heightMetres": 9.677597999572754,
+      "uncertaintyVariance": 1.9041671752929688,
+      "uncertaintyStandardDeviationMetres": 1.3799156406436477
+    },
+    {
+      "osmRef": "way/864493274",
+      "featureId": "osm864493274CHN",
+      "heightMetres": 9.116589546203613,
+      "uncertaintyVariance": 5.911495208740234,
+      "uncertaintyStandardDeviationMetres": 2.431356660126242
+    },
+    {
+      "osmRef": "way/864493275",
+      "featureId": "osm864493275CHN",
+      "heightMetres": 9.972225189208984,
+      "uncertaintyVariance": 6.965087890625,
+      "uncertaintyStandardDeviationMetres": 2.639145295474465
+    },
+    {
+      "osmRef": "way/864493276",
+      "featureId": "osm864493276CHN",
+      "heightMetres": 16.892070770263672,
+      "uncertaintyVariance": 16.954185485839844,
+      "uncertaintyStandardDeviationMetres": 4.117546051453443
+    },
+    {
+      "osmRef": "way/864493277",
+      "featureId": "osm864493277CHN",
+      "heightMetres": 8.412930488586426,
+      "uncertaintyVariance": 4.706855773925781,
+      "uncertaintyStandardDeviationMetres": 2.1695289290363893
+    },
+    {
+      "osmRef": "way/864493278",
+      "featureId": "osm864493278CHN",
+      "heightMetres": 9.618160247802734,
+      "uncertaintyVariance": 4.621345520019531,
+      "uncertaintyStandardDeviationMetres": 2.149731499517912
+    },
+    {
+      "osmRef": "way/864493279",
+      "featureId": "osm864493279CHN",
+      "heightMetres": 17.820701599121094,
+      "uncertaintyVariance": 17.659042358398438,
+      "uncertaintyStandardDeviationMetres": 4.202266335966634
+    },
+    {
+      "osmRef": "way/864493280",
+      "featureId": "osm864493280CHN",
+      "heightMetres": 15.203041076660156,
+      "uncertaintyVariance": 7.8046417236328125,
+      "uncertaintyStandardDeviationMetres": 2.7936788869934235
+    },
+    {
+      "osmRef": "way/864493281",
+      "featureId": "osm864493281CHN",
+      "heightMetres": 16.574832916259766,
+      "uncertaintyVariance": 12.080596923828125,
+      "uncertaintyStandardDeviationMetres": 3.4757153111018924
+    },
+    {
+      "osmRef": "way/864493282",
+      "featureId": "osm864493282CHN",
+      "heightMetres": 15.178232192993164,
+      "uncertaintyVariance": 14.602645874023438,
+      "uncertaintyStandardDeviationMetres": 3.8213408476637407
+    },
+    {
+      "osmRef": "way/864493283",
+      "featureId": "osm864493283CHN",
+      "heightMetres": 15.071462631225586,
+      "uncertaintyVariance": 15.125503540039062,
+      "uncertaintyStandardDeviationMetres": 3.889152033546524
+    },
+    {
+      "osmRef": "way/864493284",
+      "featureId": "osm864493284CHN",
+      "heightMetres": 16.81669044494629,
+      "uncertaintyVariance": 17.030960083007812,
+      "uncertaintyStandardDeviationMetres": 4.126858379325345
+    },
+    {
+      "osmRef": "way/864493285",
+      "featureId": "osm864493285CHN",
+      "heightMetres": 56.225337982177734,
+      "uncertaintyVariance": 54.96942138671875,
+      "uncertaintyStandardDeviationMetres": 7.414136590778373
+    },
+    {
+      "osmRef": "way/864493286",
+      "featureId": "osm864493286CHN",
+      "heightMetres": 48.129276275634766,
+      "uncertaintyVariance": 48.015716552734375,
+      "uncertaintyStandardDeviationMetres": 6.929337381938794
+    },
+    {
+      "osmRef": "way/864493287",
+      "featureId": "osm864493287CHN",
+      "heightMetres": 28.986820220947266,
+      "uncertaintyVariance": 29.40960693359375,
+      "uncertaintyStandardDeviationMetres": 5.4230625050421235
+    },
+    {
+      "osmRef": "way/864493288",
+      "featureId": "osm864493288CHN",
+      "heightMetres": 21.352100372314453,
+      "uncertaintyVariance": 20.79058837890625,
+      "uncertaintyStandardDeviationMetres": 4.559669766431145
+    },
+    {
+      "osmRef": "way/864493289",
+      "featureId": "osm864493289CHN",
+      "heightMetres": 25.455097198486328,
+      "uncertaintyVariance": 25.658477783203125,
+      "uncertaintyStandardDeviationMetres": 5.065419803254526
+    },
+    {
+      "osmRef": "way/864493290",
+      "featureId": "osm864493290CHN",
+      "heightMetres": 30.28380584716797,
+      "uncertaintyVariance": 31.641876220703125,
+      "uncertaintyStandardDeviationMetres": 5.625111218518539
+    },
+    {
+      "osmRef": "way/864493291",
+      "featureId": "osm864493291CHN",
+      "heightMetres": 28.270286560058594,
+      "uncertaintyVariance": 28.55072021484375,
+      "uncertaintyStandardDeviationMetres": 5.343287397739687
+    },
+    {
+      "osmRef": "way/864493292",
+      "featureId": "osm864493292CHN",
+      "heightMetres": 10.916720390319824,
+      "uncertaintyVariance": 2.9778671264648438,
+      "uncertaintyStandardDeviationMetres": 1.7256497693520676
+    },
+    {
+      "osmRef": "way/864493293",
+      "featureId": "osm864493293CHN",
+      "heightMetres": 8.450620651245117,
+      "uncertaintyVariance": 4.164093017578125,
+      "uncertaintyStandardDeviationMetres": 2.0406109422371834
+    },
+    {
+      "osmRef": "way/864493294",
+      "featureId": "osm864493294CHN",
+      "heightMetres": 8.636171340942383,
+      "uncertaintyVariance": 8.66287612915039,
+      "uncertaintyStandardDeviationMetres": 2.9432764275803915
+    },
+    {
+      "osmRef": "way/864493295",
+      "featureId": "osm864493295CHN",
+      "heightMetres": 10.944073677062988,
+      "uncertaintyVariance": 7.408958435058594,
+      "uncertaintyStandardDeviationMetres": 2.721940196818915
+    },
+    {
+      "osmRef": "way/864493296",
+      "featureId": "osm864493296CHN",
+      "heightMetres": 11.809783935546875,
+      "uncertaintyVariance": 10.913887023925781,
+      "uncertaintyStandardDeviationMetres": 3.303617263534894
+    },
+    {
+      "osmRef": "way/864493297",
+      "featureId": "osm864493297CHN",
+      "heightMetres": 12.54159927368164,
+      "uncertaintyVariance": 12.83648681640625,
+      "uncertaintyStandardDeviationMetres": 3.5828043229300492
+    },
+    {
+      "osmRef": "way/864493298",
+      "featureId": "osm864493298CHN",
+      "heightMetres": 10.204345703125,
+      "uncertaintyVariance": 3.454132080078125,
+      "uncertaintyStandardDeviationMetres": 1.8585295478087307
+    },
+    {
+      "osmRef": "way/864493299",
+      "featureId": "osm864493299CHN",
+      "heightMetres": 20.23273468017578,
+      "uncertaintyVariance": 20.007293701171875,
+      "uncertaintyStandardDeviationMetres": 4.4729513412479545
+    },
+    {
+      "osmRef": "way/864493300",
+      "featureId": "osm864493300CHN",
+      "heightMetres": 10.106087684631348,
+      "uncertaintyVariance": 5.536865234375,
+      "uncertaintyStandardDeviationMetres": 2.353054447813522
+    },
+    {
+      "osmRef": "way/864505067",
+      "featureId": "osm864505067CHN",
+      "heightMetres": 17.414615631103516,
+      "uncertaintyVariance": 18.117706298828125,
+      "uncertaintyStandardDeviationMetres": 4.256489903527098
+    },
+    {
+      "osmRef": "way/864505068",
+      "featureId": "osm864505068CHN",
+      "heightMetres": 20.274250030517578,
+      "uncertaintyVariance": 20.2989501953125,
+      "uncertaintyStandardDeviationMetres": 4.505435627696006
+    },
+    {
+      "osmRef": "way/864505069",
+      "featureId": "osm864505069CHN",
+      "heightMetres": 7.538529396057129,
+      "uncertaintyVariance": 3.710695266723633,
+      "uncertaintyStandardDeviationMetres": 1.9263165022196205
+    },
+    {
+      "osmRef": "way/864505070",
+      "featureId": "osm864505070CHN",
+      "heightMetres": 5.123226165771484,
+      "uncertaintyVariance": 5.07666015625,
+      "uncertaintyStandardDeviationMetres": 2.2531445040764697
+    },
+    {
+      "osmRef": "way/864505071",
+      "featureId": "osm864505071CHN",
+      "heightMetres": 6.641366004943848,
+      "uncertaintyVariance": 3.2644100189208984,
+      "uncertaintyStandardDeviationMetres": 1.8067678375820448
+    },
+    {
+      "osmRef": "way/864505072",
+      "featureId": "osm864505072CHN",
+      "heightMetres": 22.958511352539062,
+      "uncertaintyVariance": 22.227188110351562,
+      "uncertaintyStandardDeviationMetres": 4.714571890463816
+    },
+    {
+      "osmRef": "way/864505073",
+      "featureId": "osm864505073CHN",
+      "heightMetres": 43.53048324584961,
+      "uncertaintyVariance": 36.428070068359375,
+      "uncertaintyStandardDeviationMetres": 6.035567087553528
+    },
+    {
+      "osmRef": "way/864505074",
+      "featureId": "osm864505074CHN",
+      "heightMetres": 54.835182189941406,
+      "uncertaintyVariance": 55.408447265625,
+      "uncertaintyStandardDeviationMetres": 7.443685059540402
+    },
+    {
+      "osmRef": "way/864505075",
+      "featureId": "osm864505075CHN",
+      "heightMetres": 53.42877960205078,
+      "uncertaintyVariance": 52.42724609375,
+      "uncertaintyStandardDeviationMetres": 7.2406661360506055
+    },
+    {
+      "osmRef": "way/864505076",
+      "featureId": "osm864505076CHN",
+      "heightMetres": 60.87421417236328,
+      "uncertaintyVariance": 61.948974609375,
+      "uncertaintyStandardDeviationMetres": 7.870767091546732
+    },
+    {
+      "osmRef": "way/864505077",
+      "featureId": "osm864505077CHN",
+      "heightMetres": 50.353851318359375,
+      "uncertaintyVariance": 50.8846435546875,
+      "uncertaintyStandardDeviationMetres": 7.133347289645129
+    },
+    {
+      "osmRef": "way/864505078",
+      "featureId": "osm864505078CHN",
+      "heightMetres": 58.756404876708984,
+      "uncertaintyVariance": 58.1314697265625,
+      "uncertaintyStandardDeviationMetres": 7.624399630565183
+    },
+    {
+      "osmRef": "way/864505079",
+      "featureId": "osm864505079CHN",
+      "heightMetres": 53.20429992675781,
+      "uncertaintyVariance": 51.3006591796875,
+      "uncertaintyStandardDeviationMetres": 7.1624478483049
+    },
+    {
+      "osmRef": "way/864505080",
+      "featureId": "osm864505080CHN",
+      "heightMetres": 39.860206604003906,
+      "uncertaintyVariance": 44.53269958496094,
+      "uncertaintyStandardDeviationMetres": 6.673282519492258
+    },
+    {
+      "osmRef": "way/864505081",
+      "featureId": "osm864505081CHN",
+      "heightMetres": 35.36751937866211,
+      "uncertaintyVariance": 34.074066162109375,
+      "uncertaintyStandardDeviationMetres": 5.837299560765181
+    },
+    {
+      "osmRef": "way/864505082",
+      "featureId": "osm864505082CHN",
+      "heightMetres": 9.124746322631836,
+      "uncertaintyVariance": 1.8666458129882812,
+      "uncertaintyStandardDeviationMetres": 1.3662524704417853
+    },
+    {
+      "osmRef": "way/864505083",
+      "featureId": "osm864505083CHN",
+      "heightMetres": 10.965047836303711,
+      "uncertaintyVariance": 10.306602478027344,
+      "uncertaintyStandardDeviationMetres": 3.2103897704215516
+    },
+    {
+      "osmRef": "way/864505084",
+      "featureId": "osm864505084CHN",
+      "heightMetres": 9.018417358398438,
+      "uncertaintyVariance": 1.9789772033691406,
+      "uncertaintyStandardDeviationMetres": 1.4067612460432442
+    },
+    {
+      "osmRef": "way/864505085",
+      "featureId": "osm864505085CHN",
+      "heightMetres": 11.474278450012207,
+      "uncertaintyVariance": 10.085494995117188,
+      "uncertaintyStandardDeviationMetres": 3.1757668357606463
+    },
+    {
+      "osmRef": "way/864505086",
+      "featureId": "osm864505086CHN",
+      "heightMetres": 12.194375991821289,
+      "uncertaintyVariance": 10.986412048339844,
+      "uncertaintyStandardDeviationMetres": 3.314575696577142
+    },
+    {
+      "osmRef": "way/864505087",
+      "featureId": "osm864505087CHN",
+      "heightMetres": 12.10760498046875,
+      "uncertaintyVariance": 10.513717651367188,
+      "uncertaintyStandardDeviationMetres": 3.2424863378844306
+    },
+    {
+      "osmRef": "way/864505088",
+      "featureId": "osm864505088CHN",
+      "heightMetres": 10.93259334564209,
+      "uncertaintyVariance": 7.1752777099609375,
+      "uncertaintyStandardDeviationMetres": 2.678670884965329
+    },
+    {
+      "osmRef": "way/864505089",
+      "featureId": "osm864505089CHN",
+      "heightMetres": 10.86825180053711,
+      "uncertaintyVariance": 9.647453308105469,
+      "uncertaintyStandardDeviationMetres": 3.1060349817903643
+    },
+    {
+      "osmRef": "way/864505090",
+      "featureId": "osm864505090CHN",
+      "heightMetres": 11.512290954589844,
+      "uncertaintyVariance": 7.79071044921875,
+      "uncertaintyStandardDeviationMetres": 2.791184416913141
+    },
+    {
+      "osmRef": "way/864505091",
+      "featureId": "osm864505091CHN",
+      "heightMetres": 17.328012466430664,
+      "uncertaintyVariance": 16.27532958984375,
+      "uncertaintyStandardDeviationMetres": 4.0342693997604755
+    },
+    {
+      "osmRef": "way/864505092",
+      "featureId": "osm864505092CHN",
+      "heightMetres": 18.695098876953125,
+      "uncertaintyVariance": 17.739761352539062,
+      "uncertaintyStandardDeviationMetres": 4.211859607410848
+    },
+    {
+      "osmRef": "way/864505093",
+      "featureId": "osm864505093CHN",
+      "heightMetres": 16.174104690551758,
+      "uncertaintyVariance": 16.88031005859375,
+      "uncertaintyStandardDeviationMetres": 4.108565450202023
+    },
+    {
+      "osmRef": "way/864505094",
+      "featureId": "osm864505094CHN",
+      "heightMetres": 14.68025016784668,
+      "uncertaintyVariance": 14.615798950195312,
+      "uncertaintyStandardDeviationMetres": 3.8230614630418005
+    },
+    {
+      "osmRef": "way/864505095",
+      "featureId": "osm864505095CHN",
+      "heightMetres": 11.448179244995117,
+      "uncertaintyVariance": 12.861648559570312,
+      "uncertaintyStandardDeviationMetres": 3.5863140631531856
+    },
+    {
+      "osmRef": "way/864505096",
+      "featureId": "osm864505096CHN",
+      "heightMetres": 14.623420715332031,
+      "uncertaintyVariance": 14.190765380859375,
+      "uncertaintyStandardDeviationMetres": 3.767063230270946
+    },
+    {
+      "osmRef": "way/864505097",
+      "featureId": "osm864505097CHN",
+      "heightMetres": 16.999094009399414,
+      "uncertaintyVariance": 16.8165283203125,
+      "uncertaintyStandardDeviationMetres": 4.10079605934171
+    },
+    {
+      "osmRef": "way/864505098",
+      "featureId": "osm864505098CHN",
+      "heightMetres": 27.343856811523438,
+      "uncertaintyVariance": 26.769561767578125,
+      "uncertaintyStandardDeviationMetres": 5.1739309782387055
+    },
+    {
+      "osmRef": "way/864505099",
+      "featureId": "osm864505099CHN",
+      "heightMetres": 25.435894012451172,
+      "uncertaintyVariance": 25.320816040039062,
+      "uncertaintyStandardDeviationMetres": 5.031979336209466
+    },
+    {
+      "osmRef": "way/864505100",
+      "featureId": "osm864505100CHN",
+      "heightMetres": 16.977813720703125,
+      "uncertaintyVariance": 16.585403442382812,
+      "uncertaintyStandardDeviationMetres": 4.072518071461785
+    },
+    {
+      "osmRef": "way/864505101",
+      "featureId": "osm864505101CHN",
+      "heightMetres": 14.78697395324707,
+      "uncertaintyVariance": 13.657936096191406,
+      "uncertaintyStandardDeviationMetres": 3.6956644999500976
+    },
+    {
+      "osmRef": "way/864505103",
+      "featureId": "osm864505103CHN",
+      "heightMetres": 13.877670288085938,
+      "uncertaintyVariance": 8.516132354736328,
+      "uncertaintyStandardDeviationMetres": 2.9182413119439468
+    },
+    {
+      "osmRef": "way/864505105",
+      "featureId": "osm864505105CHN",
+      "heightMetres": 19.92828369140625,
+      "uncertaintyVariance": 20.225234985351562,
+      "uncertaintyStandardDeviationMetres": 4.497247489893297
+    },
+    {
+      "osmRef": "way/864505107",
+      "featureId": "osm864505107CHN",
+      "heightMetres": 48.743202209472656,
+      "uncertaintyVariance": 53.850341796875,
+      "uncertaintyStandardDeviationMetres": 7.3382792122455385
+    },
+    {
+      "osmRef": "way/864505108",
+      "featureId": "osm864505108CHN",
+      "heightMetres": 21.843063354492188,
+      "uncertaintyVariance": 22.194686889648438,
+      "uncertaintyStandardDeviationMetres": 4.711123739581506
+    },
+    {
+      "osmRef": "way/864505109",
+      "featureId": "osm864505109CHN",
+      "heightMetres": 24.349512100219727,
+      "uncertaintyVariance": 24.643539428710938,
+      "uncertaintyStandardDeviationMetres": 4.964225964711008
+    },
+    {
+      "osmRef": "way/864505110",
+      "featureId": "osm864505110CHN",
+      "heightMetres": 28.42300796508789,
+      "uncertaintyVariance": 27.174407958984375,
+      "uncertaintyStandardDeviationMetres": 5.212907821838439
+    },
+    {
+      "osmRef": "way/864505111",
+      "featureId": "osm864505111CHN",
+      "heightMetres": 23.212074279785156,
+      "uncertaintyVariance": 23.2205810546875,
+      "uncertaintyStandardDeviationMetres": 4.818773812360101
+    },
+    {
+      "osmRef": "way/864505115",
+      "featureId": "osm864505115CHN",
+      "heightMetres": 56.90985870361328,
+      "uncertaintyVariance": 57.39892578125,
+      "uncertaintyStandardDeviationMetres": 7.576207876058444
+    },
+    {
+      "osmRef": "way/864505117",
+      "featureId": "osm864505117CHN",
+      "heightMetres": 69.18023681640625,
+      "uncertaintyVariance": 70.5634765625,
+      "uncertaintyStandardDeviationMetres": 8.400206935695095
+    },
+    {
+      "osmRef": "way/864505118",
+      "featureId": "osm864505118CHN",
+      "heightMetres": 50.18482208251953,
+      "uncertaintyVariance": 49.6806640625,
+      "uncertaintyStandardDeviationMetres": 7.048451181820018
+    },
+    {
+      "osmRef": "way/864505119",
+      "featureId": "osm864505119CHN",
+      "heightMetres": 59.329994201660156,
+      "uncertaintyVariance": 56.041259765625,
+      "uncertaintyStandardDeviationMetres": 7.486071049998457
+    },
+    {
+      "osmRef": "way/864505120",
+      "featureId": "osm864505120CHN",
+      "heightMetres": 25.72957992553711,
+      "uncertaintyVariance": 24.9560546875,
+      "uncertaintyStandardDeviationMetres": 4.995603535860307
+    },
+    {
+      "osmRef": "way/864505121",
+      "featureId": "osm864505121CHN",
+      "heightMetres": 23.265846252441406,
+      "uncertaintyVariance": 23.53704833984375,
+      "uncertaintyStandardDeviationMetres": 4.851499597015726
+    },
+    {
+      "osmRef": "way/864505122",
+      "featureId": "osm864505122CHN",
+      "heightMetres": 27.553865432739258,
+      "uncertaintyVariance": 27.409912109375,
+      "uncertaintyStandardDeviationMetres": 5.235447651287806
+    },
+    {
+      "osmRef": "way/864505123",
+      "featureId": "osm864505123CHN",
+      "heightMetres": 16.294921875,
+      "uncertaintyVariance": 9.827682495117188,
+      "uncertaintyStandardDeviationMetres": 3.1349134749012113
+    },
+    {
+      "osmRef": "way/864505124",
+      "featureId": "osm864505124CHN",
+      "heightMetres": 23.332721710205078,
+      "uncertaintyVariance": 21.790802001953125,
+      "uncertaintyStandardDeviationMetres": 4.668061910681255
+    },
+    {
+      "osmRef": "way/864505126",
+      "featureId": "osm864505126CHN",
+      "heightMetres": 15.103208541870117,
+      "uncertaintyVariance": 11.307235717773438,
+      "uncertaintyStandardDeviationMetres": 3.3626233386707822
+    },
+    {
+      "osmRef": "way/864505127",
+      "featureId": "osm864505127CHN",
+      "heightMetres": 27.95979118347168,
+      "uncertaintyVariance": 30.468597412109375,
+      "uncertaintyStandardDeviationMetres": 5.5198367196964595
+    },
+    {
+      "osmRef": "way/864505128",
+      "featureId": "osm864505128CHN",
+      "heightMetres": 21.16981315612793,
+      "uncertaintyVariance": 10.767318725585938,
+      "uncertaintyStandardDeviationMetres": 3.2813592801742906
+    },
+    {
+      "osmRef": "way/864505129",
+      "featureId": "osm864505129CHN",
+      "heightMetres": 20.27271270751953,
+      "uncertaintyVariance": 14.215301513671875,
+      "uncertaintyStandardDeviationMetres": 3.770318489686498
+    },
+    {
+      "osmRef": "way/864505130",
+      "featureId": "osm864505130CHN",
+      "heightMetres": 16.664865493774414,
+      "uncertaintyVariance": 14.13311767578125,
+      "uncertaintyStandardDeviationMetres": 3.7594038989953247
+    },
+    {
+      "osmRef": "way/864505131",
+      "featureId": "osm864505131CHN",
+      "heightMetres": 56.688018798828125,
+      "uncertaintyVariance": 57.5272216796875,
+      "uncertaintyStandardDeviationMetres": 7.584670176064844
+    },
+    {
+      "osmRef": "way/864505132",
+      "featureId": "osm864505132CHN",
+      "heightMetres": 58.04075622558594,
+      "uncertaintyVariance": 54.57489013671875,
+      "uncertaintyStandardDeviationMetres": 7.38748198892686
+    },
+    {
+      "osmRef": "way/864505133",
+      "featureId": "osm864505133CHN",
+      "heightMetres": 48.650238037109375,
+      "uncertaintyVariance": 49.4920654296875,
+      "uncertaintyStandardDeviationMetres": 7.035059731778224
+    },
+    {
+      "osmRef": "way/864505134",
+      "featureId": "osm864505134CHN",
+      "heightMetres": 11.106399536132812,
+      "uncertaintyVariance": 5.920738220214844,
+      "uncertaintyStandardDeviationMetres": 2.433256710709917
+    },
+    {
+      "osmRef": "way/864505135",
+      "featureId": "osm864505135CHN",
+      "heightMetres": 15.419323921203613,
+      "uncertaintyVariance": 5.634674072265625,
+      "uncertaintyStandardDeviationMetres": 2.373746842497242
+    },
+    {
+      "osmRef": "way/864505136",
+      "featureId": "osm864505136CHN",
+      "heightMetres": 57.15858459472656,
+      "uncertaintyVariance": 58.5906982421875,
+      "uncertaintyStandardDeviationMetres": 7.654456103616213
+    },
+    {
+      "osmRef": "way/864505139",
+      "featureId": "osm864505139CHN",
+      "heightMetres": 15.85704517364502,
+      "uncertaintyVariance": 15.98236083984375,
+      "uncertaintyStandardDeviationMetres": 3.997794496950006
+    },
+    {
+      "osmRef": "way/864505140",
+      "featureId": "osm864505140CHN",
+      "heightMetres": 16.51956558227539,
+      "uncertaintyVariance": 16.5517578125,
+      "uncertaintyStandardDeviationMetres": 4.068385160293946
+    },
+    {
+      "osmRef": "way/864505142",
+      "featureId": "osm864505142CHN",
+      "heightMetres": 9.799027442932129,
+      "uncertaintyVariance": 3.8945999145507812,
+      "uncertaintyStandardDeviationMetres": 1.973474072429324
+    },
+    {
+      "osmRef": "way/864505143",
+      "featureId": "osm864505143CHN",
+      "heightMetres": 10.631253242492676,
+      "uncertaintyVariance": 10.473052978515625,
+      "uncertaintyStandardDeviationMetres": 3.2362096623234446
+    },
+    {
+      "osmRef": "way/864505144",
+      "featureId": "osm864505144CHN",
+      "heightMetres": 9.646772384643555,
+      "uncertaintyVariance": 9.161903381347656,
+      "uncertaintyStandardDeviationMetres": 3.026863621200608
+    },
+    {
+      "osmRef": "way/864505145",
+      "featureId": "osm864505145CHN",
+      "heightMetres": 17.384469985961914,
+      "uncertaintyVariance": 17.614547729492188,
+      "uncertaintyStandardDeviationMetres": 4.196968874019938
+    },
+    {
+      "osmRef": "way/864505146",
+      "featureId": "osm864505146CHN",
+      "heightMetres": 15.246283531188965,
+      "uncertaintyVariance": 15.398544311523438,
+      "uncertaintyStandardDeviationMetres": 3.9240978978006447
+    },
+    {
+      "osmRef": "way/864505147",
+      "featureId": "osm864505147CHN",
+      "heightMetres": 12.895939826965332,
+      "uncertaintyVariance": 8.243255615234375,
+      "uncertaintyStandardDeviationMetres": 2.871107036533883
+    },
+    {
+      "osmRef": "way/864505149",
+      "featureId": "osm864505149CHN",
+      "heightMetres": 11.167835235595703,
+      "uncertaintyVariance": 8.887641906738281,
+      "uncertaintyStandardDeviationMetres": 2.9812148374007332
+    },
+    {
+      "osmRef": "way/864505150",
+      "featureId": "osm864505150CHN",
+      "heightMetres": 8.530478477478027,
+      "uncertaintyVariance": 6.551383972167969,
+      "uncertaintyStandardDeviationMetres": 2.5595671454697118
+    },
+    {
+      "osmRef": "way/864505151",
+      "featureId": "osm864505151CHN",
+      "heightMetres": 13.879277229309082,
+      "uncertaintyVariance": 13.867706298828125,
+      "uncertaintyStandardDeviationMetres": 3.7239369353988967
+    },
+    {
+      "osmRef": "way/864505152",
+      "featureId": "osm864505152CHN",
+      "heightMetres": 11.431561470031738,
+      "uncertaintyVariance": 10.952621459960938,
+      "uncertaintyStandardDeviationMetres": 3.30947449906491
+    },
+    {
+      "osmRef": "way/864505153",
+      "featureId": "osm864505153CHN",
+      "heightMetres": 11.313202857971191,
+      "uncertaintyVariance": 5.82159423828125,
+      "uncertaintyStandardDeviationMetres": 2.412798010253086
+    },
+    {
+      "osmRef": "way/864505154",
+      "featureId": "osm864505154CHN",
+      "heightMetres": 8.879899024963379,
+      "uncertaintyVariance": 3.034954071044922,
+      "uncertaintyStandardDeviationMetres": 1.742111957092575
+    },
+    {
+      "osmRef": "way/864505156",
+      "featureId": "osm864505156CHN",
+      "heightMetres": 7.932703971862793,
+      "uncertaintyVariance": 7.926578521728516,
+      "uncertaintyStandardDeviationMetres": 2.8154180012439567
+    },
+    {
+      "osmRef": "way/864505157",
+      "featureId": "osm864505157CHN",
+      "heightMetres": 10.044489860534668,
+      "uncertaintyVariance": 8.3953857421875,
+      "uncertaintyStandardDeviationMetres": 2.8974792047894837
+    },
+    {
+      "osmRef": "way/864505158",
+      "featureId": "osm864505158CHN",
+      "heightMetres": 9.376187324523926,
+      "uncertaintyVariance": 3.8669662475585938,
+      "uncertaintyStandardDeviationMetres": 1.966460334600877
+    },
+    {
+      "osmRef": "way/864505159",
+      "featureId": "osm864505159CHN",
+      "heightMetres": 8.931964874267578,
+      "uncertaintyVariance": 9.096961975097656,
+      "uncertaintyStandardDeviationMetres": 3.016117036041151
+    },
+    {
+      "osmRef": "way/864505160",
+      "featureId": "osm864505160CHN",
+      "heightMetres": 8.421509742736816,
+      "uncertaintyVariance": 5.771018981933594,
+      "uncertaintyStandardDeviationMetres": 2.4022945243940415
+    },
+    {
+      "osmRef": "way/864505161",
+      "featureId": "osm864505161CHN",
+      "heightMetres": 11.845574378967285,
+      "uncertaintyVariance": 4.754791259765625,
+      "uncertaintyStandardDeviationMetres": 2.1805483851007814
+    },
+    {
+      "osmRef": "way/864505162",
+      "featureId": "osm864505162CHN",
+      "heightMetres": 9.875919342041016,
+      "uncertaintyVariance": 8.534912109375,
+      "uncertaintyStandardDeviationMetres": 2.921457189379129
+    },
+    {
+      "osmRef": "way/864505170",
+      "featureId": "osm864505170CHN",
+      "heightMetres": 14.89657211303711,
+      "uncertaintyVariance": 13.057373046875,
+      "uncertaintyStandardDeviationMetres": 3.6134987265633565
+    },
+    {
+      "osmRef": "way/864505171",
+      "featureId": "osm864505171CHN",
+      "heightMetres": 15.301323890686035,
+      "uncertaintyVariance": 15.8349609375,
+      "uncertaintyStandardDeviationMetres": 3.9793166420253616
+    },
+    {
+      "osmRef": "way/864505173",
+      "featureId": "osm864505173CHN",
+      "heightMetres": 12.604331016540527,
+      "uncertaintyVariance": 12.510818481445312,
+      "uncertaintyStandardDeviationMetres": 3.5370635393565255
+    },
+    {
+      "osmRef": "way/864505174",
+      "featureId": "osm864505174CHN",
+      "heightMetres": 10.465027809143066,
+      "uncertaintyVariance": 4.26751708984375,
+      "uncertaintyStandardDeviationMetres": 2.0657969623958086
+    },
+    {
+      "osmRef": "way/864505175",
+      "featureId": "osm864505175CHN",
+      "heightMetres": 10.997231483459473,
+      "uncertaintyVariance": 7.5739898681640625,
+      "uncertaintyStandardDeviationMetres": 2.752088274050101
+    },
+    {
+      "osmRef": "way/864505176",
+      "featureId": "osm864505176CHN",
+      "heightMetres": 9.737527847290039,
+      "uncertaintyVariance": 2.2266311645507812,
+      "uncertaintyStandardDeviationMetres": 1.4921900564441453
+    },
+    {
+      "osmRef": "way/864505177",
+      "featureId": "osm864505177CHN",
+      "heightMetres": 9.279068946838379,
+      "uncertaintyVariance": 0.7753219604492188,
+      "uncertaintyStandardDeviationMetres": 0.8805236853425459
+    },
+    {
+      "osmRef": "way/864505178",
+      "featureId": "osm864505178CHN",
+      "heightMetres": 10.544817924499512,
+      "uncertaintyVariance": 3.3730697631835938,
+      "uncertaintyStandardDeviationMetres": 1.8365918880316316
+    },
+    {
+      "osmRef": "way/864505179",
+      "featureId": "osm864505179CHN",
+      "heightMetres": 11.161197662353516,
+      "uncertaintyVariance": 5.954032897949219,
+      "uncertaintyStandardDeviationMetres": 2.440088706983666
+    },
+    {
+      "osmRef": "way/864505180",
+      "featureId": "osm864505180CHN",
+      "heightMetres": 9.889908790588379,
+      "uncertaintyVariance": 2.1024093627929688,
+      "uncertaintyStandardDeviationMetres": 1.4499687454538353
+    },
+    {
+      "osmRef": "way/864505182",
+      "featureId": "osm864505182CHN",
+      "heightMetres": 14.892255783081055,
+      "uncertaintyVariance": 14.870010375976562,
+      "uncertaintyStandardDeviationMetres": 3.8561652423069948
+    },
+    {
+      "osmRef": "way/864505183",
+      "featureId": "osm864505183CHN",
+      "heightMetres": 9.814730644226074,
+      "uncertaintyVariance": 6.647617340087891,
+      "uncertaintyStandardDeviationMetres": 2.5782973723152827
+    },
+    {
+      "osmRef": "way/864505184",
+      "featureId": "osm864505184CHN",
+      "heightMetres": 19.498701095581055,
+      "uncertaintyVariance": 18.457183837890625,
+      "uncertaintyStandardDeviationMetres": 4.2961824726017666
+    },
+    {
+      "osmRef": "way/864505185",
+      "featureId": "osm864505185CHN",
+      "heightMetres": 16.8234806060791,
+      "uncertaintyVariance": 14.0533447265625,
+      "uncertaintyStandardDeviationMetres": 3.748779098128149
+    },
+    {
+      "osmRef": "way/864505186",
+      "featureId": "osm864505186CHN",
+      "heightMetres": 19.02401351928711,
+      "uncertaintyVariance": 10.607421875,
+      "uncertaintyStandardDeviationMetres": 3.2569037251659743
+    },
+    {
+      "osmRef": "way/864505187",
+      "featureId": "osm864505187CHN",
+      "heightMetres": 12.87941837310791,
+      "uncertaintyVariance": 8.796340942382812,
+      "uncertaintyStandardDeviationMetres": 2.965862596679558
+    },
+    {
+      "osmRef": "way/864505188",
+      "featureId": "osm864505188CHN",
+      "heightMetres": 15.470643043518066,
+      "uncertaintyVariance": 15.588676452636719,
+      "uncertaintyStandardDeviationMetres": 3.94824979612951
+    },
+    {
+      "osmRef": "way/864505189",
+      "featureId": "osm864505189CHN",
+      "heightMetres": 12.340068817138672,
+      "uncertaintyVariance": 10.463691711425781,
+      "uncertaintyStandardDeviationMetres": 3.234763006995378
+    },
+    {
+      "osmRef": "way/864505190",
+      "featureId": "osm864505190CHN",
+      "heightMetres": 13.745217323303223,
+      "uncertaintyVariance": 13.527595520019531,
+      "uncertaintyStandardDeviationMetres": 3.6779879717067496
+    },
+    {
+      "osmRef": "way/864505191",
+      "featureId": "osm864505191CHN",
+      "heightMetres": 13.837332725524902,
+      "uncertaintyVariance": 6.463268280029297,
+      "uncertaintyStandardDeviationMetres": 2.542295867917284
+    },
+    {
+      "osmRef": "way/864505192",
+      "featureId": "osm864505192CHN",
+      "heightMetres": 11.279516220092773,
+      "uncertaintyVariance": 9.931236267089844,
+      "uncertaintyStandardDeviationMetres": 3.1513864039641097
+    },
+    {
+      "osmRef": "way/864505193",
+      "featureId": "osm864505193CHN",
+      "heightMetres": 13.272504806518555,
+      "uncertaintyVariance": 10.813888549804688,
+      "uncertaintyStandardDeviationMetres": 3.2884477416867504
+    },
+    {
+      "osmRef": "way/864505194",
+      "featureId": "osm864505194CHN",
+      "heightMetres": 13.190722465515137,
+      "uncertaintyVariance": 11.013427734375,
+      "uncertaintyStandardDeviationMetres": 3.318648480085681
+    },
+    {
+      "osmRef": "way/864505195",
+      "featureId": "osm864505195CHN",
+      "heightMetres": 13.890250205993652,
+      "uncertaintyVariance": 11.247259140014648,
+      "uncertaintyStandardDeviationMetres": 3.353693358077725
+    },
+    {
+      "osmRef": "way/864505197",
+      "featureId": "osm864505197CHN",
+      "heightMetres": 15.494478225708008,
+      "uncertaintyVariance": 7.668426513671875,
+      "uncertaintyStandardDeviationMetres": 2.769192393762462
+    },
+    {
+      "osmRef": "way/864823790",
+      "featureId": "osm864823790CHN",
+      "heightMetres": 64.94503784179688,
+      "uncertaintyVariance": 63.51904296875,
+      "uncertaintyStandardDeviationMetres": 7.969883497815386
+    },
+    {
+      "osmRef": "way/864823791",
+      "featureId": "osm864823791CHN",
+      "heightMetres": 57.12310791015625,
+      "uncertaintyVariance": 55.263427734375,
+      "uncertaintyStandardDeviationMetres": 7.4339375659454525
+    },
+    {
+      "osmRef": "way/864823792",
+      "featureId": "osm864823792CHN",
+      "heightMetres": 60.261085510253906,
+      "uncertaintyVariance": 59.15899658203125,
+      "uncertaintyStandardDeviationMetres": 7.691488580374494
+    },
+    {
+      "osmRef": "way/864823793",
+      "featureId": "osm864823793CHN",
+      "heightMetres": 65.71513366699219,
+      "uncertaintyVariance": 65.798095703125,
+      "uncertaintyStandardDeviationMetres": 8.11160253606678
+    },
+    {
+      "osmRef": "way/864823794",
+      "featureId": "osm864823794CHN",
+      "heightMetres": 10.764686584472656,
+      "uncertaintyVariance": 10.772747039794922,
+      "uncertaintyStandardDeviationMetres": 3.282186320091369
+    },
+    {
+      "osmRef": "way/864823802",
+      "featureId": "osm864823802CHN",
+      "heightMetres": 81.12739562988281,
+      "uncertaintyVariance": 81.08740234375,
+      "uncertaintyStandardDeviationMetres": 9.004854376598768
+    },
+    {
+      "osmRef": "way/864823803",
+      "featureId": "osm864823803CHN",
+      "heightMetres": 64.058349609375,
+      "uncertaintyVariance": 63.518798828125,
+      "uncertaintyStandardDeviationMetres": 7.969868181351872
+    },
+    {
+      "osmRef": "way/864823804",
+      "featureId": "osm864823804CHN",
+      "heightMetres": 36.56580352783203,
+      "uncertaintyVariance": 36.66656494140625,
+      "uncertaintyStandardDeviationMetres": 6.055292308502229
+    },
+    {
+      "osmRef": "way/864823808",
+      "featureId": "osm864823808CHN",
+      "heightMetres": 37.8934326171875,
+      "uncertaintyVariance": 39.703857421875,
+      "uncertaintyStandardDeviationMetres": 6.301099699407636
+    },
+    {
+      "osmRef": "way/864823814",
+      "featureId": "osm864823814CHN",
+      "heightMetres": 19.574142456054688,
+      "uncertaintyVariance": 19.655960083007812,
+      "uncertaintyStandardDeviationMetres": 4.433504266718124
+    },
+    {
+      "osmRef": "way/864823815",
+      "featureId": "osm864823815CHN",
+      "heightMetres": 20.55768394470215,
+      "uncertaintyVariance": 20.27984619140625,
+      "uncertaintyStandardDeviationMetres": 4.503315022448047
+    },
+    {
+      "osmRef": "way/864823816",
+      "featureId": "osm864823816CHN",
+      "heightMetres": 23.014604568481445,
+      "uncertaintyVariance": 23.42901611328125,
+      "uncertaintyStandardDeviationMetres": 4.8403528913996805
+    },
+    {
+      "osmRef": "way/864823817",
+      "featureId": "osm864823817CHN",
+      "heightMetres": 19.025129318237305,
+      "uncertaintyVariance": 11.907745361328125,
+      "uncertaintyStandardDeviationMetres": 3.4507601135587684
+    },
+    {
+      "osmRef": "way/864823818",
+      "featureId": "osm864823818CHN",
+      "heightMetres": 18.569467544555664,
+      "uncertaintyVariance": 8.784576416015625,
+      "uncertaintyStandardDeviationMetres": 2.9638786102024532
+    },
+    {
+      "osmRef": "way/864823819",
+      "featureId": "osm864823819CHN",
+      "heightMetres": 19.276899337768555,
+      "uncertaintyVariance": 17.988204956054688,
+      "uncertaintyStandardDeviationMetres": 4.241250400065373
+    },
+    {
+      "osmRef": "way/864823820",
+      "featureId": "osm864823820CHN",
+      "heightMetres": 57.43450164794922,
+      "uncertaintyVariance": 57.8968505859375,
+      "uncertaintyStandardDeviationMetres": 7.608998001441287
+    },
+    {
+      "osmRef": "way/864823824",
+      "featureId": "osm864823824CHN",
+      "heightMetres": 23.976680755615234,
+      "uncertaintyVariance": 25.091079711914062,
+      "uncertaintyStandardDeviationMetres": 5.009099690754224
+    },
+    {
+      "osmRef": "way/864823828",
+      "featureId": "osm864823828CHN",
+      "heightMetres": 63.424102783203125,
+      "uncertaintyVariance": 62.5235595703125,
+      "uncertaintyStandardDeviationMetres": 7.90718404808643
+    },
+    {
+      "osmRef": "way/864823829",
+      "featureId": "osm864823829CHN",
+      "heightMetres": 73.31744384765625,
+      "uncertaintyVariance": 75.04296875,
+      "uncertaintyStandardDeviationMetres": 8.662734484560865
+    },
+    {
+      "osmRef": "way/864823830",
+      "featureId": "osm864823830CHN",
+      "heightMetres": 79.317626953125,
+      "uncertaintyVariance": 83.118408203125,
+      "uncertaintyStandardDeviationMetres": 9.11692975749649
+    },
+    {
+      "osmRef": "way/864823831",
+      "featureId": "osm864823831CHN",
+      "heightMetres": 89.77503967285156,
+      "uncertaintyVariance": 90.68701171875,
+      "uncertaintyStandardDeviationMetres": 9.522972840387082
+    },
+    {
+      "osmRef": "way/864823833",
+      "featureId": "osm864823833CHN",
+      "heightMetres": 10.90814208984375,
+      "uncertaintyVariance": 2.180023193359375,
+      "uncertaintyStandardDeviationMetres": 1.4764901602650033
+    },
+    {
+      "osmRef": "way/864823835",
+      "featureId": "osm864823835CHN",
+      "heightMetres": 6.46846866607666,
+      "uncertaintyVariance": 6.485668182373047,
+      "uncertaintyStandardDeviationMetres": 2.546697505078498
+    },
+    {
+      "osmRef": "way/864823836",
+      "featureId": "osm864823836CHN",
+      "heightMetres": 16.271976470947266,
+      "uncertaintyVariance": 14.628814697265625,
+      "uncertaintyStandardDeviationMetres": 3.824763351799118
+    },
+    {
+      "osmRef": "way/864823837",
+      "featureId": "osm864823837CHN",
+      "heightMetres": 17.526498794555664,
+      "uncertaintyVariance": 16.298294067382812,
+      "uncertaintyStandardDeviationMetres": 4.037114571991092
+    },
+    {
+      "osmRef": "way/864823838",
+      "featureId": "osm864823838CHN",
+      "heightMetres": 17.190650939941406,
+      "uncertaintyVariance": 17.154388427734375,
+      "uncertaintyStandardDeviationMetres": 4.14178565690384
+    },
+    {
+      "osmRef": "way/864823839",
+      "featureId": "osm864823839CHN",
+      "heightMetres": 10.886651992797852,
+      "uncertaintyVariance": 10.911979675292969,
+      "uncertaintyStandardDeviationMetres": 3.3033285751334165
+    },
+    {
+      "osmRef": "way/864823840",
+      "featureId": "osm864823840CHN",
+      "heightMetres": 104.9102783203125,
+      "uncertaintyVariance": 106.24424743652344,
+      "uncertaintyStandardDeviationMetres": 10.307485019951445
+    },
+    {
+      "osmRef": "way/864823841",
+      "featureId": "osm864823841CHN",
+      "heightMetres": 15.091825485229492,
+      "uncertaintyVariance": 5.658233642578125,
+      "uncertaintyStandardDeviationMetres": 2.3787041940052416
+    },
+    {
+      "osmRef": "way/864823842",
+      "featureId": "osm864823842CHN",
+      "heightMetres": 5.631766319274902,
+      "uncertaintyVariance": 2.2917308807373047,
+      "uncertaintyStandardDeviationMetres": 1.513846386109669
+    },
+    {
+      "osmRef": "way/864823843",
+      "featureId": "osm864823843CHN",
+      "heightMetres": 10.982662200927734,
+      "uncertaintyVariance": 2.6451797485351562,
+      "uncertaintyStandardDeviationMetres": 1.6264008572720183
+    },
+    {
+      "osmRef": "way/864823844",
+      "featureId": "osm864823844CHN",
+      "heightMetres": 9.170127868652344,
+      "uncertaintyVariance": 1.44097900390625,
+      "uncertaintyStandardDeviationMetres": 1.2004078489856063
+    },
+    {
+      "osmRef": "way/864823845",
+      "featureId": "osm864823845CHN",
+      "heightMetres": 12.45901107788086,
+      "uncertaintyVariance": 6.52471923828125,
+      "uncertaintyStandardDeviationMetres": 2.554352997978402
+    },
+    {
+      "osmRef": "way/864823846",
+      "featureId": "osm864823846CHN",
+      "heightMetres": 94.13587951660156,
+      "uncertaintyVariance": 94.3349609375,
+      "uncertaintyStandardDeviationMetres": 9.712618644706483
+    },
+    {
+      "osmRef": "way/864823847",
+      "featureId": "osm864823847CHN",
+      "heightMetres": 59.2414665222168,
+      "uncertaintyVariance": 59.703125,
+      "uncertaintyStandardDeviationMetres": 7.726779730262796
+    },
+    {
+      "osmRef": "way/864823848",
+      "featureId": "osm864823848CHN",
+      "heightMetres": 10.18580150604248,
+      "uncertaintyVariance": 13.42755126953125,
+      "uncertaintyStandardDeviationMetres": 3.6643623278179316
+    },
+    {
+      "osmRef": "way/864823849",
+      "featureId": "osm864823849CHN",
+      "heightMetres": 10.936813354492188,
+      "uncertaintyVariance": 2.1088714599609375,
+      "uncertaintyStandardDeviationMetres": 1.452195393175773
+    },
+    {
+      "osmRef": "way/864823850",
+      "featureId": "osm864823850CHN",
+      "heightMetres": 10.691827774047852,
+      "uncertaintyVariance": 3.521759033203125,
+      "uncertaintyStandardDeviationMetres": 1.8766350293019485
+    },
+    {
+      "osmRef": "way/864823851",
+      "featureId": "osm864823851CHN",
+      "heightMetres": 14.072352409362793,
+      "uncertaintyVariance": 7.5437164306640625,
+      "uncertaintyStandardDeviationMetres": 2.7465826822915895
+    },
+    {
+      "osmRef": "way/864823852",
+      "featureId": "osm864823852CHN",
+      "heightMetres": 12.114874839782715,
+      "uncertaintyVariance": 6.09478759765625,
+      "uncertaintyStandardDeviationMetres": 2.4687623615196848
+    },
+    {
+      "osmRef": "way/864823853",
+      "featureId": "osm864823853CHN",
+      "heightMetres": 12.710038185119629,
+      "uncertaintyVariance": 6.657440185546875,
+      "uncertaintyStandardDeviationMetres": 2.5802015784715104
+    },
+    {
+      "osmRef": "way/864823854",
+      "featureId": "osm864823854CHN",
+      "heightMetres": 13.588417053222656,
+      "uncertaintyVariance": 12.578933715820312,
+      "uncertaintyStandardDeviationMetres": 3.546679251894695
+    },
+    {
+      "osmRef": "way/864823855",
+      "featureId": "osm864823855CHN",
+      "heightMetres": 14.352806091308594,
+      "uncertaintyVariance": 13.645599365234375,
+      "uncertaintyStandardDeviationMetres": 3.6939950413115574
+    },
+    {
+      "osmRef": "way/864823856",
+      "featureId": "osm864823856CHN",
+      "heightMetres": 16.00641632080078,
+      "uncertaintyVariance": 8.109298706054688,
+      "uncertaintyStandardDeviationMetres": 2.8476830417121017
+    },
+    {
+      "osmRef": "way/864823857",
+      "featureId": "osm864823857CHN",
+      "heightMetres": 14.843491554260254,
+      "uncertaintyVariance": 14.54205322265625,
+      "uncertaintyStandardDeviationMetres": 3.8134044137301055
+    },
+    {
+      "osmRef": "way/864823858",
+      "featureId": "osm864823858CHN",
+      "heightMetres": 14.805219650268555,
+      "uncertaintyVariance": 14.660636901855469,
+      "uncertaintyStandardDeviationMetres": 3.8289211146033644
+    },
+    {
+      "osmRef": "way/864823859",
+      "featureId": "osm864823859CHN",
+      "heightMetres": 15.463202476501465,
+      "uncertaintyVariance": 15.742691040039062,
+      "uncertaintyStandardDeviationMetres": 3.9677060173403804
+    },
+    {
+      "osmRef": "way/864823862",
+      "featureId": "osm864823862CHN",
+      "heightMetres": 14.793856620788574,
+      "uncertaintyVariance": 14.907241821289062,
+      "uncertaintyStandardDeviationMetres": 3.8609897463330647
+    },
+    {
+      "osmRef": "way/864823864",
+      "featureId": "osm864823864CHN",
+      "heightMetres": 14.777883529663086,
+      "uncertaintyVariance": 9.373275756835938,
+      "uncertaintyStandardDeviationMetres": 3.06158059780172
+    },
+    {
+      "osmRef": "way/864823865",
+      "featureId": "osm864823865CHN",
+      "heightMetres": 16.29949378967285,
+      "uncertaintyVariance": 8.380081176757812,
+      "uncertaintyStandardDeviationMetres": 2.894836986214908
+    },
+    {
+      "osmRef": "way/864823866",
+      "featureId": "osm864823866CHN",
+      "heightMetres": 15.90636157989502,
+      "uncertaintyVariance": 15.091415405273438,
+      "uncertaintyStandardDeviationMetres": 3.884767097944668
+    },
+    {
+      "osmRef": "way/864823867",
+      "featureId": "osm864823867CHN",
+      "heightMetres": 15.07631778717041,
+      "uncertaintyVariance": 15.206695556640625,
+      "uncertaintyStandardDeviationMetres": 3.8995763304031663
+    },
+    {
+      "osmRef": "way/864823868",
+      "featureId": "osm864823868CHN",
+      "heightMetres": 14.589120864868164,
+      "uncertaintyVariance": 12.828353881835938,
+      "uncertaintyStandardDeviationMetres": 3.5816691474556857
+    },
+    {
+      "osmRef": "way/864823872",
+      "featureId": "osm864823872CHN",
+      "heightMetres": 20.467580795288086,
+      "uncertaintyVariance": 18.6861572265625,
+      "uncertaintyStandardDeviationMetres": 4.322748804471814
+    },
+    {
+      "osmRef": "way/864823876",
+      "featureId": "osm864823876CHN",
+      "heightMetres": 25.666179656982422,
+      "uncertaintyVariance": 24.682342529296875,
+      "uncertaintyStandardDeviationMetres": 4.968132700451637
+    },
+    {
+      "osmRef": "way/864823877",
+      "featureId": "osm864823877CHN",
+      "heightMetres": 61.87053680419922,
+      "uncertaintyVariance": 62.453369140625,
+      "uncertaintyStandardDeviationMetres": 7.902744405624226
+    },
+    {
+      "osmRef": "way/864823878",
+      "featureId": "osm864823878CHN",
+      "heightMetres": 17.571348190307617,
+      "uncertaintyVariance": 12.70697021484375,
+      "uncertaintyStandardDeviationMetres": 3.564683746820151
+    },
+    {
+      "osmRef": "way/864823879",
+      "featureId": "osm864823879CHN",
+      "heightMetres": 21.461910247802734,
+      "uncertaintyVariance": 19.24102783203125,
+      "uncertaintyStandardDeviationMetres": 4.386459601094173
+    },
+    {
+      "osmRef": "way/864823880",
+      "featureId": "osm864823880CHN",
+      "heightMetres": 52.10552215576172,
+      "uncertaintyVariance": 53.489349365234375,
+      "uncertaintyStandardDeviationMetres": 7.3136413205211515
+    },
+    {
+      "osmRef": "way/864823881",
+      "featureId": "osm864823881CHN",
+      "heightMetres": 53.90340805053711,
+      "uncertaintyVariance": 53.520751953125,
+      "uncertaintyStandardDeviationMetres": 7.315787855940398
+    },
+    {
+      "osmRef": "way/864847854",
+      "featureId": "osm864847854CHN",
+      "heightMetres": 25.632211685180664,
+      "uncertaintyVariance": 20.670654296875,
+      "uncertaintyStandardDeviationMetres": 4.546499125357333
+    },
+    {
+      "osmRef": "way/864847858",
+      "featureId": "osm864847858CHN",
+      "heightMetres": 16.372167587280273,
+      "uncertaintyVariance": 16.157470703125,
+      "uncertaintyStandardDeviationMetres": 4.019635643080726
+    },
+    {
+      "osmRef": "way/864847859",
+      "featureId": "osm864847859CHN",
+      "heightMetres": 10.29893684387207,
+      "uncertaintyVariance": 11.350906372070312,
+      "uncertaintyStandardDeviationMetres": 3.3691106203374077
+    },
+    {
+      "osmRef": "way/864847860",
+      "featureId": "osm864847860CHN",
+      "heightMetres": 13.349360466003418,
+      "uncertaintyVariance": 13.622299194335938,
+      "uncertaintyStandardDeviationMetres": 3.690839903644689
+    },
+    {
+      "osmRef": "way/864847861",
+      "featureId": "osm864847861CHN",
+      "heightMetres": 18.072153091430664,
+      "uncertaintyVariance": 19.05450439453125,
+      "uncertaintyStandardDeviationMetres": 4.365146549032604
+    },
+    {
+      "osmRef": "way/864847863",
+      "featureId": "osm864847863CHN",
+      "heightMetres": 23.692989349365234,
+      "uncertaintyVariance": 23.39544677734375,
+      "uncertaintyStandardDeviationMetres": 4.836883994613035
+    },
+    {
+      "osmRef": "way/864847864",
+      "featureId": "osm864847864CHN",
+      "heightMetres": 15.139245986938477,
+      "uncertaintyVariance": 14.572799682617188,
+      "uncertaintyStandardDeviationMetres": 3.8174336513706675
+    },
+    {
+      "osmRef": "way/864847866",
+      "featureId": "osm864847866CHN",
+      "heightMetres": 20.246383666992188,
+      "uncertaintyVariance": 20.100479125976562,
+      "uncertaintyStandardDeviationMetres": 4.483355788466555
+    },
+    {
+      "osmRef": "way/864847867",
+      "featureId": "osm864847867CHN",
+      "heightMetres": 29.7874813079834,
+      "uncertaintyVariance": 29.7069091796875,
+      "uncertaintyStandardDeviationMetres": 5.450404496887135
+    },
+    {
+      "osmRef": "way/864847871",
+      "featureId": "osm864847871CHN",
+      "heightMetres": 45.65955352783203,
+      "uncertaintyVariance": 43.9293212890625,
+      "uncertaintyStandardDeviationMetres": 6.627919831218729
+    },
+    {
+      "osmRef": "way/864847873",
+      "featureId": "osm864847873CHN",
+      "heightMetres": 10.721935272216797,
+      "uncertaintyVariance": 7.0902862548828125,
+      "uncertaintyStandardDeviationMetres": 2.6627591432352293
+    },
+    {
+      "osmRef": "way/864847874",
+      "featureId": "osm864847874CHN",
+      "heightMetres": 11.337457656860352,
+      "uncertaintyVariance": 11.016845703125,
+      "uncertaintyStandardDeviationMetres": 3.3191634041012503
+    },
+    {
+      "osmRef": "way/864847875",
+      "featureId": "osm864847875CHN",
+      "heightMetres": 15.216747283935547,
+      "uncertaintyVariance": 8.689582824707031,
+      "uncertaintyStandardDeviationMetres": 2.947809835234802
+    },
+    {
+      "osmRef": "way/864847876",
+      "featureId": "osm864847876CHN",
+      "heightMetres": 14.04200553894043,
+      "uncertaintyVariance": 7.7834930419921875,
+      "uncertaintyStandardDeviationMetres": 2.7898912240430067
+    },
+    {
+      "osmRef": "way/864847891",
+      "featureId": "osm864847891CHN",
+      "heightMetres": 20.373878479003906,
+      "uncertaintyVariance": 20.197906494140625,
+      "uncertaintyStandardDeviationMetres": 4.494208105344102
+    },
+    {
+      "osmRef": "way/864847893",
+      "featureId": "osm864847893CHN",
+      "heightMetres": 18.248075485229492,
+      "uncertaintyVariance": 4.5265350341796875,
+      "uncertaintyStandardDeviationMetres": 2.127565518187322
+    },
+    {
+      "osmRef": "way/864847894",
+      "featureId": "osm864847894CHN",
+      "heightMetres": 18.53646469116211,
+      "uncertaintyVariance": 11.246795654296875,
+      "uncertaintyStandardDeviationMetres": 3.3536242565762904
+    },
+    {
+      "osmRef": "way/864847895",
+      "featureId": "osm864847895CHN",
+      "heightMetres": 18.261266708374023,
+      "uncertaintyVariance": 9.011581420898438,
+      "uncertaintyStandardDeviationMetres": 3.0019296162465965
+    },
+    {
+      "osmRef": "way/864847896",
+      "featureId": "osm864847896CHN",
+      "heightMetres": 24.29295539855957,
+      "uncertaintyVariance": 21.713653564453125,
+      "uncertaintyStandardDeviationMetres": 4.659791150304177
+    },
+    {
+      "osmRef": "way/864847897",
+      "featureId": "osm864847897CHN",
+      "heightMetres": 8.802757263183594,
+      "uncertaintyVariance": 2.6606597900390625,
+      "uncertaintyStandardDeviationMetres": 1.6311529021030071
+    },
+    {
+      "osmRef": "way/864847898",
+      "featureId": "osm864847898CHN",
+      "heightMetres": 7.783822059631348,
+      "uncertaintyVariance": 1.241424560546875,
+      "uncertaintyStandardDeviationMetres": 1.1141923355268941
+    },
+    {
+      "osmRef": "way/864847899",
+      "featureId": "osm864847899CHN",
+      "heightMetres": 8.836657524108887,
+      "uncertaintyVariance": 2.5387649536132812,
+      "uncertaintyStandardDeviationMetres": 1.5933502294264377
+    },
+    {
+      "osmRef": "way/864847900",
+      "featureId": "osm864847900CHN",
+      "heightMetres": 8.305742263793945,
+      "uncertaintyVariance": 1.4195976257324219,
+      "uncertaintyStandardDeviationMetres": 1.1914686843272138
+    },
+    {
+      "osmRef": "way/864847901",
+      "featureId": "osm864847901CHN",
+      "heightMetres": 8.05545711517334,
+      "uncertaintyVariance": 1.2924079895019531,
+      "uncertaintyStandardDeviationMetres": 1.136841233199233
+    },
+    {
+      "osmRef": "way/864847903",
+      "featureId": "osm864847903CHN",
+      "heightMetres": 23.65237808227539,
+      "uncertaintyVariance": 24.280364990234375,
+      "uncertaintyStandardDeviationMetres": 4.9275110340043256
+    },
+    {
+      "osmRef": "way/864847904",
+      "featureId": "osm864847904CHN",
+      "heightMetres": 33.21302032470703,
+      "uncertaintyVariance": 20.017364501953125,
+      "uncertaintyStandardDeviationMetres": 4.474076944125249
+    },
+    {
+      "osmRef": "way/864847905",
+      "featureId": "osm864847905CHN",
+      "heightMetres": 39.9937858581543,
+      "uncertaintyVariance": 21.5921630859375,
+      "uncertaintyStandardDeviationMetres": 4.6467368212475195
+    },
+    {
+      "osmRef": "way/864847906",
+      "featureId": "osm864847906CHN",
+      "heightMetres": 42.485618591308594,
+      "uncertaintyVariance": 43.095458984375,
+      "uncertaintyStandardDeviationMetres": 6.564713168476975
+    },
+    {
+      "osmRef": "way/864847911",
+      "featureId": "osm864847911CHN",
+      "heightMetres": 44.100059509277344,
+      "uncertaintyVariance": 44.408447265625,
+      "uncertaintyStandardDeviationMetres": 6.663966331369404
+    },
+    {
+      "osmRef": "way/864847912",
+      "featureId": "osm864847912CHN",
+      "heightMetres": 52.52143859863281,
+      "uncertaintyVariance": 52.51429748535156,
+      "uncertaintyStandardDeviationMetres": 7.246674926154171
+    },
+    {
+      "osmRef": "way/864847913",
+      "featureId": "osm864847913CHN",
+      "heightMetres": 34.338863372802734,
+      "uncertaintyVariance": 36.536773681640625,
+      "uncertaintyStandardDeviationMetres": 6.044565632172475
+    },
+    {
+      "osmRef": "way/864847914",
+      "featureId": "osm864847914CHN",
+      "heightMetres": 40.017513275146484,
+      "uncertaintyVariance": 40.193115234375,
+      "uncertaintyStandardDeviationMetres": 6.339804037537359
+    },
+    {
+      "osmRef": "way/864847916",
+      "featureId": "osm864847916CHN",
+      "heightMetres": 24.67120361328125,
+      "uncertaintyVariance": 25.90924072265625,
+      "uncertaintyStandardDeviationMetres": 5.090112054037342
+    },
+    {
+      "osmRef": "way/864847919",
+      "featureId": "osm864847919CHN",
+      "heightMetres": 32.449642181396484,
+      "uncertaintyVariance": 33.5360107421875,
+      "uncertaintyStandardDeviationMetres": 5.7910284701586034
+    },
+    {
+      "osmRef": "way/864847924",
+      "featureId": "osm864847924CHN",
+      "heightMetres": 23.041152954101562,
+      "uncertaintyVariance": 19.197967529296875,
+      "uncertaintyStandardDeviationMetres": 4.381548530975878
+    },
+    {
+      "osmRef": "way/864847925",
+      "featureId": "osm864847925CHN",
+      "heightMetres": 27.926490783691406,
+      "uncertaintyVariance": 22.9725341796875,
+      "uncertaintyStandardDeviationMetres": 4.7929671582108195
+    },
+    {
+      "osmRef": "way/864847926",
+      "featureId": "osm864847926CHN",
+      "heightMetres": 21.01194190979004,
+      "uncertaintyVariance": 6.4851531982421875,
+      "uncertaintyStandardDeviationMetres": 2.5465963948459103
+    },
+    {
+      "osmRef": "way/864847927",
+      "featureId": "osm864847927CHN",
+      "heightMetres": 60.846466064453125,
+      "uncertaintyVariance": 61.35400390625,
+      "uncertaintyStandardDeviationMetres": 7.832879668822316
+    },
+    {
+      "osmRef": "way/864847928",
+      "featureId": "osm864847928CHN",
+      "heightMetres": 11.585668563842773,
+      "uncertaintyVariance": 1.8941268920898438,
+      "uncertaintyStandardDeviationMetres": 1.3762728261830368
+    },
+    {
+      "osmRef": "way/864847929",
+      "featureId": "osm864847929CHN",
+      "heightMetres": 10.278722763061523,
+      "uncertaintyVariance": 4.7808990478515625,
+      "uncertaintyStandardDeviationMetres": 2.186526708698424
+    },
+    {
+      "osmRef": "way/864847930",
+      "featureId": "osm864847930CHN",
+      "heightMetres": 10.87563705444336,
+      "uncertaintyVariance": 1.0398788452148438,
+      "uncertaintyStandardDeviationMetres": 1.0197444999679302
+    },
+    {
+      "osmRef": "way/864847931",
+      "featureId": "osm864847931CHN",
+      "heightMetres": 12.294759750366211,
+      "uncertaintyVariance": 4.02703857421875,
+      "uncertaintyStandardDeviationMetres": 2.006748258805461
+    },
+    {
+      "osmRef": "way/864847932",
+      "featureId": "osm864847932CHN",
+      "heightMetres": 7.22265625,
+      "uncertaintyVariance": 0.9346809387207031,
+      "uncertaintyStandardDeviationMetres": 0.9667889835536517
+    },
+    {
+      "osmRef": "way/864847933",
+      "featureId": "osm864847933CHN",
+      "heightMetres": 8.617402076721191,
+      "uncertaintyVariance": 2.5397491455078125,
+      "uncertaintyStandardDeviationMetres": 1.5936590430540067
+    },
+    {
+      "osmRef": "way/864847934",
+      "featureId": "osm864847934CHN",
+      "heightMetres": 10.108721733093262,
+      "uncertaintyVariance": 3.06549072265625,
+      "uncertaintyStandardDeviationMetres": 1.7508542836730445
+    },
+    {
+      "osmRef": "way/864847935",
+      "featureId": "osm864847935CHN",
+      "heightMetres": 11.817758560180664,
+      "uncertaintyVariance": 3.1905288696289062,
+      "uncertaintyStandardDeviationMetres": 1.7862051588854249
+    },
+    {
+      "osmRef": "way/864847936",
+      "featureId": "osm864847936CHN",
+      "heightMetres": 12.704805374145508,
+      "uncertaintyVariance": 4.154853820800781,
+      "uncertaintyStandardDeviationMetres": 2.0383458540691226
+    },
+    {
+      "osmRef": "way/864847937",
+      "featureId": "osm864847937CHN",
+      "heightMetres": 10.313311576843262,
+      "uncertaintyVariance": 1.68853759765625,
+      "uncertaintyStandardDeviationMetres": 1.2994374158289617
+    },
+    {
+      "osmRef": "way/864847938",
+      "featureId": "osm864847938CHN",
+      "heightMetres": 14.568147659301758,
+      "uncertaintyVariance": 3.949310302734375,
+      "uncertaintyStandardDeviationMetres": 1.987287171682637
+    },
+    {
+      "osmRef": "way/864847939",
+      "featureId": "osm864847939CHN",
+      "heightMetres": 14.35185718536377,
+      "uncertaintyVariance": 7.7470550537109375,
+      "uncertaintyStandardDeviationMetres": 2.7833532031905217
+    },
+    {
+      "osmRef": "way/864847946",
+      "featureId": "osm864847946CHN",
+      "heightMetres": 15.592852592468262,
+      "uncertaintyVariance": 3.5545196533203125,
+      "uncertaintyStandardDeviationMetres": 1.885343378093315
+    },
+    {
+      "osmRef": "way/864847947",
+      "featureId": "osm864847947CHN",
+      "heightMetres": 41.69926452636719,
+      "uncertaintyVariance": 41.76318359375,
+      "uncertaintyStandardDeviationMetres": 6.46244408824943
+    },
+    {
+      "osmRef": "way/864847948",
+      "featureId": "osm864847948CHN",
+      "heightMetres": 14.288162231445312,
+      "uncertaintyVariance": 20.173446655273438,
+      "uncertaintyStandardDeviationMetres": 4.49148601859935
+    },
+    {
+      "osmRef": "way/864847949",
+      "featureId": "osm864847949CHN",
+      "heightMetres": 35.73735809326172,
+      "uncertaintyVariance": 30.4862060546875,
+      "uncertaintyStandardDeviationMetres": 5.521431522231123
+    },
+    {
+      "osmRef": "way/864847950",
+      "featureId": "osm864847950CHN",
+      "heightMetres": 26.10995864868164,
+      "uncertaintyVariance": 30.719512939453125,
+      "uncertaintyStandardDeviationMetres": 5.542518645837209
+    },
+    {
+      "osmRef": "way/864847951",
+      "featureId": "osm864847951CHN",
+      "heightMetres": 16.824016571044922,
+      "uncertaintyVariance": 18.72039794921875,
+      "uncertaintyStandardDeviationMetres": 4.326707518335247
+    },
+    {
+      "osmRef": "way/864847952",
+      "featureId": "osm864847952CHN",
+      "heightMetres": 5.707432270050049,
+      "uncertaintyVariance": 0.7800674438476562,
+      "uncertaintyStandardDeviationMetres": 0.8832142683673403
+    },
+    {
+      "osmRef": "way/864847953",
+      "featureId": "osm864847953CHN",
+      "heightMetres": 4.748536586761475,
+      "uncertaintyVariance": 0.6524391174316406,
+      "uncertaintyStandardDeviationMetres": 0.8077370348273258
+    },
+    {
+      "osmRef": "way/864847954",
+      "featureId": "osm864847954CHN",
+      "heightMetres": 11.856587409973145,
+      "uncertaintyVariance": 6.5152435302734375,
+      "uncertaintyStandardDeviationMetres": 2.552497508377518
+    },
+    {
+      "osmRef": "way/864847955",
+      "featureId": "osm864847955CHN",
+      "heightMetres": 7.078501224517822,
+      "uncertaintyVariance": 4.965248107910156,
+      "uncertaintyStandardDeviationMetres": 2.228283668636055
+    },
+    {
+      "osmRef": "way/864847956",
+      "featureId": "osm864847956CHN",
+      "heightMetres": 7.739037036895752,
+      "uncertaintyVariance": 3.09173583984375,
+      "uncertaintyStandardDeviationMetres": 1.7583332561956935
+    },
+    {
+      "osmRef": "way/864847957",
+      "featureId": "osm864847957CHN",
+      "heightMetres": 6.890803813934326,
+      "uncertaintyVariance": 4.664867401123047,
+      "uncertaintyStandardDeviationMetres": 2.159830410269067
+    },
+    {
+      "osmRef": "way/864847965",
+      "featureId": "osm864847965CHN",
+      "heightMetres": 22.248117446899414,
+      "uncertaintyVariance": 23.260986328125,
+      "uncertaintyStandardDeviationMetres": 4.822964475105016
+    },
+    {
+      "osmRef": "way/864847966",
+      "featureId": "osm864847966CHN",
+      "heightMetres": 38.36534881591797,
+      "uncertaintyVariance": 38.454833984375,
+      "uncertaintyStandardDeviationMetres": 6.201196173672867
+    },
+    {
+      "osmRef": "way/864847967",
+      "featureId": "osm864847967CHN",
+      "heightMetres": 14.720813751220703,
+      "uncertaintyVariance": 12.11578369140625,
+      "uncertaintyStandardDeviationMetres": 3.480773432932148
+    },
+    {
+      "osmRef": "way/864847968",
+      "featureId": "osm864847968CHN",
+      "heightMetres": 16.84897804260254,
+      "uncertaintyVariance": 6.7133636474609375,
+      "uncertaintyStandardDeviationMetres": 2.5910159489013065
+    },
+    {
+      "osmRef": "way/864847969",
+      "featureId": "osm864847969CHN",
+      "heightMetres": 13.545341491699219,
+      "uncertaintyVariance": 6.8746490478515625,
+      "uncertaintyStandardDeviationMetres": 2.6219551956224505
+    },
+    {
+      "osmRef": "way/864847978",
+      "featureId": "osm864847978CHN",
+      "heightMetres": 7.252603054046631,
+      "uncertaintyVariance": 2.6247787475585938,
+      "uncertaintyStandardDeviationMetres": 1.620116893177339
+    },
+    {
+      "osmRef": "way/864847979",
+      "featureId": "osm864847979CHN",
+      "heightMetres": 46.49266815185547,
+      "uncertaintyVariance": 46.399169921875,
+      "uncertaintyStandardDeviationMetres": 6.811693616265708
+    },
+    {
+      "osmRef": "way/864847980",
+      "featureId": "osm864847980CHN",
+      "heightMetres": 24.016630172729492,
+      "uncertaintyVariance": 22.852691650390625,
+      "uncertaintyStandardDeviationMetres": 4.780448896326644
+    },
+    {
+      "osmRef": "way/864847981",
+      "featureId": "osm864847981CHN",
+      "heightMetres": 25.410797119140625,
+      "uncertaintyVariance": 24.544219970703125,
+      "uncertaintyStandardDeviationMetres": 4.954212346145765
+    },
+    {
+      "osmRef": "way/864847982",
+      "featureId": "osm864847982CHN",
+      "heightMetres": 53.2547607421875,
+      "uncertaintyVariance": 54.34405517578125,
+      "uncertaintyStandardDeviationMetres": 7.371842047669039
+    },
+    {
+      "osmRef": "way/864847983",
+      "featureId": "osm864847983CHN",
+      "heightMetres": 54.970062255859375,
+      "uncertaintyVariance": 55.074951171875,
+      "uncertaintyStandardDeviationMetres": 7.421249973681994
+    }
+  ]
+}

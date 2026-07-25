@@ -2,7 +2,9 @@
 
 ## 文档用途
 
-- 状态：已按 80 栋 PoC 门禁实施，并完成 730 栋 A/B/C 证据与运行时校准；详见
+- 状态：已按 80 栋 PoC 门禁实施；随后把第一轮剩余 676 栋全部进入第二轮队列，
+  完成 GBA exact-ID、GHS-OBAT 辅助检查和 3D-GloBFP group reconciliation。
+  最终 730 栋为 A 11 / B 532 / C 187；详见
   [`building-height-calibration-decision-log.md`](../research/building-height-calibration-decision-log.md)
 - 日期：2026-07-25
 - 当前项目性质：社区公益、非商业
@@ -11,7 +13,8 @@
   2. 为以后真实详情场景里的单栋建筑 Model Brief 提供可复用证据；
   3. 保存来源、许可、年代、匹配质量与未知项，避免把预测值误当实测值。
 
-本文不授权修改当前 GLB，也不代表任何第三方数据已经下载、匹配或通过验收。
+第二轮只在匹配、许可、四视角视觉门和 7 栋显著变化人工复核全部通过后，
+才授权更新正式 GLB；未发布到 Sites 或 VPS。
 
 ## 当前基线
 
@@ -30,12 +33,24 @@
   低层花园住宅、里弄、多层街区与少量高层之间的天际线关系。
 - 占地面积大不等于楼高；大型低层公共建筑和细长高层住宅都会被面积启发式误判。
 
-### 未知
+### 第二轮已确认
 
-- 3D-GloBFP 与当前 730 个 OSM footprint 的实际覆盖率和匹配质量。
-- GlobalBuildingAtlas 在新华路范围内的有效高度覆盖、年份与局部误差。
-- Overture 当前版本在上海提供多少非 OSM 派生的独立高度或层数字段。
-- 2020 年以后新建、拆除或改造建筑的数量。
+- 第一轮 676 栋 C 全部进入队列，没有只抽取 100 栋。
+- GlobalBuildingAtlas exact OSM ID 命中 590 栋；487 栋通过 3–90 米和
+  `uncertainty stddev <= 6 m` 门。
+- GHS-OBAT 通过 centroid/area 一对一空间门 577 栋，但 463 栋与第一轮邻近
+  3D-GloBFP 候选相差超过 6 米。由于其高度源自 100 米 GHSL 栅格整合，它只作
+  辅助证据，不单独升级任何建筑。
+- 3D-GloBFP 的 2–4 footprint union reconciliation 通过 6 栋；在 GBA 优先和
+  显著变化人工复核后，2 栋作为第二轮新增 B 来源。
+- 7 栋高度变化达到 20 米或候选超过 60 米，均完成逐栋人工复核：
+  6 栋接受 B，`way/428379423` 因 81.81 / 65.44 / 47.56 米多源估算分歧保留 C。
+
+### 仍然未知
+
+- 187 栋 C 没有达到足以替代启发式的逐栋证据；其真实高度仍未知。
+- 2018–2020 年以后新建、拆除或改造建筑的数量。
+- 单一高度不能证明屋顶、podium、立面、入口、材质或不可见侧。
 
 ## 数据源评估
 
@@ -103,9 +118,18 @@
 - 不直接用 GlobalBuildingAtlas footprint 替换当前 OSM 地理底座；以空间匹配方式
   生成高度候选，保留 OSM 为 footprint source of record。
 
-#### 未知
+#### 第二轮实测覆盖与选择门
 
-- 当前版本在新华路的 feature 完整度、局部误差和与 OSM 的一对多关系。
+- 官方 bulk tile 为 `LoD1/asiaeast/e120_n35_e125_n30.json`，固定到仓库 commit
+  `9da24b3a8dce436a7420d5c3589de718d7ba14d6`。
+- 原始 545,969,287 bytes 文件通过官方 LFS SHA-256
+  `d44d5fc07118fdf0d4131fe0b00bfb2c95bf50e8d7c22c09c0ae5bae5c8349f4`。
+- 数据记录以 `osm<ID>CHN` 为 key，本轮按 exact OSM source ID 对齐，而不是
+  用 GBA footprint 替换地图底座。
+- 590/676 命中 exact ID，487 栋通过有限高度 3–90 米与内部不确定度标准差
+  `<= 6 m`；GBA 的内部 TTA 方差不是实测误差，因此仍只形成 B，不形成 A。
+- 官方论文报告亚洲高度 RMSE 约 5.9 米，并指出高层低估风险；显著变化仍需
+  视觉门和人工复核。
 
 来源：
 

@@ -39,7 +39,7 @@ test("街区体块保留原始 OSM 来源、确定性高度和完整替换追踪
   assert.equal(source.meta.osmRelationId, 13469094);
   assert.equal(source.meta.metersPerSceneUnit, 2.7);
   assert.equal(source.meta.buildingPartsPolicy, "held");
-  assert.equal(source.meta.heightMode, "full");
+  assert.equal(source.meta.heightMode, "round2");
   assert.match(source.meta.heightEvidence, /xinhua-building-height-runtime\.json/);
   assert.equal(source.meta.sourceSnapshotSha256, sha256(rawBytes));
   assert.equal(build.source.rawSnapshotSha256, sha256(rawBytes));
@@ -86,10 +86,12 @@ test("街区体块保留原始 OSM 来源、确定性高度和完整替换追踪
     assert.ok([
       "OpenStreetMap",
       "3D-GloBFP",
+      "GlobalBuildingAtlas GBA.LoD1",
+      "3D-GloBFP group reconciliation",
       "wander-xinhua-heuristic",
     ].includes(building.heightSource));
     assert.ok(["A", "B", "C"].includes(building.heightConfidence));
-    assert.equal(building.heightCalibrationStatus, "full");
+    assert.equal(building.heightCalibrationStatus, "round2");
     assert.ok(["low", "mid", "high"].includes(building.heightBand));
     assert.ok(Number.isFinite(building.heightMeters) && building.heightMeters >= 3);
     assert.ok(Number.isFinite(building.heightSceneUnits) && building.heightSceneUnits > 0);
@@ -225,7 +227,10 @@ test("同一原始快照离线重放会得到当前 GLB 的相同 SHA", async ()
       "--raw",
       build.source.rawSnapshot,
       "--height-mode",
-      "full",
+      "round2",
+      "--height-evidence",
+      build.source.heightEvidence.path,
+      "--activate-round2",
       "--verify-only",
     ],
     {

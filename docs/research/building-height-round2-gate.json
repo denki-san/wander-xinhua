@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-25T15:31:25.719Z",
+  "decision": "pass",
+  "canonicalRolloutAuthorized": true,
+  "targetCount": 676,
+  "gates": {
+    "matching": "pass",
+    "licence": "pass",
+    "visualQuality": "pass"
+  },
+  "finalConfidence": {
+    "A": 11,
+    "B": 532,
+    "C": 187
+  },
+  "queueDecisions": {
+    "retain-C": 187,
+    "upgrade-B": 489
+  },
+  "manualReview": {
+    "total": 7,
+    "complete": 7,
+    "pending": 0,
+    "decisions": {
+      "way/297854167": {
+        "decision": "upgrade-B",
+        "notes": "接受 GBA exact OSM ID 高度 29.47 m；标准差 5.3449 m 通过 6 m 门。GHS-OBAT 为 100 m GHSL 栅格派生辅助值，不覆盖逐栋 exact-ID 选择；四个真实页面视角未见针状高点。"
+      },
+      "way/428379423": {
+        "decision": "retain-C",
+        "notes": "保留 24 m 启发式基线。3D-GloBFP group 为 81.81 m，GBA 为 65.44 m 且标准差 8.164 m 未过门，GHS-OBAT 为 47.56 m；极端候选之间存在未解决分歧，视觉正常不能把估算冲突提升为 B。"
+      },
+      "way/474632970": {
+        "decision": "upgrade-B",
+        "notes": "接受 GBA exact OSM ID 高度 3.94 m；标准差 0.8289 m 明显通过门。该低层候选仍在 3–90 m 范围内，四个真实页面视角未见洞、漂浮或道路穿插。"
+      },
+      "way/493383440": {
+        "decision": "upgrade-B",
+        "notes": "接受 GBA exact OSM ID 高度 36.81 m；标准差 5.8956 m 在冻结 6 m 门内。GHS-OBAT 仅作街区尺度辅助检查，真实页面未见异常高点。"
+      },
+      "way/864485636": {
+        "decision": "upgrade-B",
+        "notes": "接受 GBA exact OSM ID 高度 37.21 m；标准差 5.7509 m 通过门，且 GHS-OBAT 34.74 m 在 6 m 内提供方向一致的辅助证据。"
+      },
+      "way/864847905": {
+        "decision": "upgrade-B",
+        "notes": "接受 GBA exact OSM ID 高度 39.99 m；标准差 4.6467 m 通过门，GHS-OBAT 45.30 m 在 6 m 内提供辅助一致性，真实页面层级正常。"
+      },
+      "way/864847949": {
+        "decision": "upgrade-B",
+        "notes": "接受 GBA exact OSM ID 高度 35.74 m；标准差 5.5214 m 通过门，GHS-OBAT 35.88 m 提供辅助一致性，真实页面层级正常。"
+      }
+    }
+  },
+  "sourcePolicy": {
+    "gba": "CC BY-NC 4.0; current community non-commercial use only; exact OSM ID; <=6 m internal standard deviation",
+    "ghsObat": "ODbL 1.0; coarse GHSL-derived auxiliary evidence only",
+    "globfp": "CC BY 4.0; frozen spatial gate; group union requires 2-4 unique features and <=6 m spread"
+  },
+  "visualEvidence": [
+    {
+      "path": "docs/research/test_building_height_round2_desktop_1440x1024.png",
+      "result": "pass"
+    },
+    {
+      "path": "docs/research/test_building_height_round2_mobile_390x844.png",
+      "result": "pass"
+    },
+    {
+      "path": "docs/research/test_building_height_round2_xingfu_road_desktop_1440x1024.png",
+      "result": "pass"
+    },
+    {
+      "path": "docs/research/test_building_height_round2_fahuazhen_road_desktop_1440x1024.png",
+      "result": "pass"
+    }
+  ],
+  "finalRuntimeAcceptance": {
+    "result": "pass",
+    "record": "docs/research/test_building_height_round2_final_runtime_qa.json",
+    "desktop": "docs/research/test_building_height_round2_final_desktop_1440x1024.png",
+    "mobile390": "docs/research/test_building_height_round2_final_mobile_390x844.png",
+    "xingfuRoad": "docs/research/test_building_height_round2_final_xingfu_road_desktop_1440x1024.png",
+    "fahuazhenRoad": "docs/research/test_building_height_round2_final_fahuazhen_road_desktop_1440x1024.png",
+    "glbSha256": "e02289e36c2c75e1202b9084732b94e07249bee76f02aa18c3be82319a90e6f9",
+    "httpStatus": 200,
+    "contentType": "model/gltf-binary",
+    "bytes": 682104,
+    "browserErrors": 0
+  },
+  "deployment": {
+    "sites": "not-published",
+    "vps": "not-published"
+  }
+}

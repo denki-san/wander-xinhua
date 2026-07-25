@@ -1,8 +1,8 @@
 {
   "assetId": "xinhua-district-massing",
-  "url": "/models/overview/xinhua-district-massing.glb?v=e4d46d0b59d6",
-  "sha256": "e4d46d0b59d67e8c4e4a411e1a80333c0ba1310fb353fe1ab6dc881d958d3ee4",
-  "bytes": 682168,
+  "url": "/models/overview/xinhua-district-massing.glb?v=e02289e36c2c",
+  "sha256": "e02289e36c2c75e1202b9084732b94e07249bee76f02aa18c3be82319a90e6f9",
+  "bytes": 682104,
   "meshes": 12,
   "triangles": 11779,
   "modes": [
@@ -11,6 +11,6 @@
   "weakNetworkPolicy": "skip",
   "castShadow": false,
   "collision": false,
-  "heightMode": "full",
-  "heightEvidenceSha256": "c9fabe989787b78ad2e73e9497d46931cc281586d55b86f4340be2b2b0477de4"
+  "heightMode": "round2",
+  "heightEvidenceSha256": "c20ad9fdc3f8f68dc8118b18f6f1e1e7b48a7b18bdf08212925fa02fc7881541"
 }

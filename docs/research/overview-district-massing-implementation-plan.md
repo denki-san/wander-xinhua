@@ -447,6 +447,29 @@ schema are frozen in
    official coverage.** Copernicus GLO-30 remains terrain/context evidence, not
    a per-building height source.
 
+### Second-round implementation result
+
+The initial 80-building PoC and first-round 730-building rollout remained the
+hard prerequisite. After that gate passed, all 676 first-round C buildings were
+placed in a second-round queue:
+
+- GlobalBuildingAtlas bulk LoD1 was pinned by official LFS SHA and joined by
+  exact OSM source ID: 590 hits, 487 passing the 3–90 m and `stddev <= 6 m`
+  selection gate;
+- GHS-OBAT produced 577 spatial passes, but its 100 m GHSL-derived height was
+  restricted to auxiliary conflict/plausibility evidence;
+- strict 2–4 footprint 3D-GloBFP union matching produced 6 candidates, with no
+  source reuse;
+- 7 changes at or above 20 m, or above 60 m total height, were reviewed
+  individually: 6 accepted and 1 retained C;
+- the final distribution is `A 11 / B 532 / C 187`.
+
+The source manifest, 676-record final queue and machine gate are:
+
+- `docs/research/data/xinhua-building-height-sources-round2-20260725.json`;
+- `docs/research/building-height-round2-queue-final.json`;
+- `docs/research/building-height-round2-gate.json`.
+
 ### Matching and confidence gates
 
 Run a 50–100 building proof of concept before changing all 730 records. Every

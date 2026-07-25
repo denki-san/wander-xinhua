@@ -106,13 +106,14 @@ test("全量 730 栋都保留 A/B/C、逐栋来源、匹配和未知项", async 
 
   assert.equal(evidence.scope, "full");
   assert.equal(evidence.records.length, 730);
-  assert.equal(report.targetCount, 730);
+  assert.equal(report.targetCount, 676);
+  assert.equal(report.allBuildingCount, 730);
   assert.equal(runtime.records.length, 730);
   assert.equal(district.acceptedBuildings.length, 730);
   assert.equal(new Set(evidence.records.map((record) => record.osmRef)).size, 730);
   assert.deepEqual(
     countBy(evidence.records, "confidence"),
-    report.counts.confidence,
+    report.counts.finalConfidence,
   );
   assert.deepEqual(
     countBy(evidence.records, "confidence"),
@@ -130,12 +131,30 @@ test("全量 730 栋都保留 A/B/C、逐栋来源、匹配和未知项", async 
     assert.ok(record.inferences.length >= 1 || record.confidence === "A");
     assert.ok(record.unknowns.length >= 2);
     assert.ok(record.evidencePaths.length >= 1);
-    assert.notEqual(record.selectedSource, "GlobalBuildingAtlas");
     if (record.confidence === "B") {
-      assert.equal(record.selectedSource, "3D-GloBFP");
-      assert.equal(record.footprintMatch.assignment, "one-to-one");
-      assert.equal(record.footprintMatch.passesSpatialGate, true);
-      assert.ok(record.footprintMatch.iou >= evidence.thresholds.minimumIou);
+      assert.ok([
+        "3D-GloBFP",
+        "GlobalBuildingAtlas GBA.LoD1",
+        "3D-GloBFP group reconciliation",
+      ].includes(record.selectedSource));
+      if (record.selectedSource === "3D-GloBFP") {
+        assert.equal(record.footprintMatch.assignment, "one-to-one");
+        assert.equal(record.footprintMatch.passesSpatialGate, true);
+        assert.ok(record.footprintMatch.iou >= evidence.thresholds.minimumIou);
+      }
+      if (record.selectedSource === "GlobalBuildingAtlas GBA.LoD1") {
+        assert.equal(record.round2Matches.gba.exactOsmSourceId, true);
+        assert.equal(record.round2Matches.gba.passesGate, true);
+        assert.ok(
+          record.round2Matches.gba.uncertaintyStandardDeviationMetres
+            <= evidence.thresholds.gbaMaximumUncertaintyStandardDeviationMetres,
+        );
+      }
+      if (record.selectedSource === "3D-GloBFP group reconciliation") {
+        assert.equal(record.round2Matches.globfpGroup.passesGate, true);
+        assert.ok(record.round2Matches.globfpGroup.sourceFeatureIds.length >= 2);
+        assert.ok(record.round2Matches.globfpGroup.sourceFeatureIds.length <= 4);
+      }
     }
     if (record.confidence === "C") {
       assert.equal(record.selectedSource, "wander-xinhua-heuristic");
@@ -147,7 +166,9 @@ test("原始来源、许可边界与基线回退保持可追溯", async () => {
   const [
     baseline,
     sourceManifest,
-    report,
+    firstRoundReport,
+    round2Report,
+    round2SourceManifest,
     notices,
     generator,
     evidenceGenerator,
@@ -158,7 +179,17 @@ test("原始来源、许可边界与基线回退保持可追溯", async () => {
       new URL("../docs/research/data/xinhua-building-height-sources-20260725.json", import.meta.url),
       "utf8",
     ).then(JSON.parse),
+    readFile(new URL("../docs/research/building-height-match-report-round1.json", import.meta.url), "utf8")
+      .then(JSON.parse),
     readFile(new URL("../docs/research/building-height-match-report.json", import.meta.url), "utf8")
+      .then(JSON.parse),
+    readFile(
+      new URL(
+        "../docs/research/data/xinhua-building-height-sources-round2-20260725.json",
+        import.meta.url,
+      ),
+      "utf8",
+    )
       .then(JSON.parse),
     readFile(new URL("../docs/THIRD_PARTY_NOTICES.md", import.meta.url), "utf8"),
     readFile(new URL("../scripts/generate_overview_district_massing.mjs", import.meta.url), "utf8"),
@@ -175,12 +206,19 @@ test("原始来源、许可边界与基线回退保持可追溯", async () => {
   assert.equal(sourceManifest.sources.overture.release, "2026-07-22.0");
   assert.equal(sourceManifest.sources.gba.imported, false);
   assert.equal(
-    report.sourceAvailability.find((source) => source.dataset === "GlobalBuildingAtlas").status,
+    firstRoundReport.sourceAvailability
+      .find((source) => source.dataset === "GlobalBuildingAtlas").status,
     "unavailable",
   );
+  assert.equal(round2SourceManifest.sources.gba.licence, "CC-BY-NC-4.0");
+  assert.equal(round2SourceManifest.sources.gba.exactIdMatchCount, 590);
+  assert.equal(round2SourceManifest.sources.gba.passingCount, 487);
+  assert.equal(round2SourceManifest.sources.ghsObat.licence, "ODbL-1.0");
+  assert.equal(round2Report.counts.finalConfidence.B, 532);
   assert.match(notices, /3D-GloBFP/);
+  assert.match(notices, /GHS-OBAT/);
+  assert.match(notices, /CC BY-NC 4\.0/);
   assert.match(notices, /2026-07-22\.0/);
-  assert.match(notices, /没有任何 GBA\.Height/);
   assert.match(generator, /PoC 三道质量门尚未全部通过/);
   assert.match(evidenceGenerator, /拒绝生成全量证据/);
 

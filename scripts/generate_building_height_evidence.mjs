@@ -50,7 +50,7 @@ const POC_GATE_OUTPUT = resolve(
   PROJECT_ROOT,
   "docs/research/building-height-poc-gate.json",
 );
-const THRESHOLDS = {
+export const THRESHOLDS = {
   minimumIou: 0.7,
   maximumCentroidDistanceMetres: 5,
   minimumAreaRatio: 0.67,
@@ -144,7 +144,7 @@ function ringSignedArea(ring) {
   return sum / 2;
 }
 
-function multiPolygonArea(multiPolygon) {
+export function multiPolygonArea(multiPolygon) {
   return multiPolygon.reduce((sum, polygon) => {
     if (!polygon.length) return sum;
     const outer = Math.abs(ringSignedArea(polygon[0]));
@@ -154,7 +154,7 @@ function multiPolygonArea(multiPolygon) {
   }, 0);
 }
 
-function multiPolygonBounds(multiPolygon) {
+export function multiPolygonBounds(multiPolygon) {
   const bounds = {
     minX: Infinity,
     minY: Infinity,
@@ -174,7 +174,7 @@ function multiPolygonBounds(multiPolygon) {
   return bounds;
 }
 
-function boundsOverlap(left, right, padding = 0) {
+export function boundsOverlap(left, right, padding = 0) {
   return !(
     left.maxX + padding < right.minX
     || left.minX - padding > right.maxX
@@ -204,7 +204,7 @@ function ringCentroid(ring) {
   return [x / (6 * signedArea), y / (6 * signedArea)];
 }
 
-function multiPolygonCentroid(multiPolygon) {
+export function multiPolygonCentroid(multiPolygon) {
   let weightedX = 0;
   let weightedY = 0;
   let totalArea = 0;
@@ -229,7 +229,7 @@ function safeIntersection(left, right) {
   }
 }
 
-function matchMetrics(target, source) {
+export function matchMetrics(target, source) {
   const intersectionArea = multiPolygonArea(
     safeIntersection(target.geometry, source.geometry),
   );
@@ -292,7 +292,7 @@ function osmAssetId(element) {
   return `${element.type}/${element.id}`;
 }
 
-function buildTargets(districtRecord, rawSnapshot) {
+export function buildTargets(districtRecord, rawSnapshot) {
   const elements = new Map(
     rawSnapshot.elements.map((element) => [osmAssetId(element), element]),
   );
@@ -316,7 +316,7 @@ function buildTargets(districtRecord, rawSnapshot) {
   };
 }
 
-function buildGlobfpSources(extract) {
+export function buildGlobfpSources(extract) {
   return extract.features
     .map((feature, index) => {
       const geometry = geometryToMultiPolygon(feature.geometry);

@@ -58,6 +58,26 @@ const POC_BUILD_RECORD_OUTPUT = resolve(
   POC_OUTPUT_DIR,
   "test_xinhua-district-massing-poc-build-record.json",
 );
+const ROUND2_OUTPUT_DIR = resolve(
+  PROJECT_ROOT,
+  "test_artifacts/test_building_height_round2",
+);
+const ROUND2_SOURCE_OUTPUT = resolve(
+  ROUND2_OUTPUT_DIR,
+  "test_xinhua-district-massing-round2-data.json",
+);
+const ROUND2_RUNTIME_MANIFEST_OUTPUT = resolve(
+  ROUND2_OUTPUT_DIR,
+  "test_xinhua-district-massing-round2-runtime.json",
+);
+const ROUND2_GLB_OUTPUT = resolve(
+  ROUND2_OUTPUT_DIR,
+  "test_xinhua-district-massing-round2.glb",
+);
+const ROUND2_BUILD_RECORD_OUTPUT = resolve(
+  ROUND2_OUTPUT_DIR,
+  "test_xinhua-district-massing-round2-build-record.json",
+);
 const FULL_HEIGHT_EVIDENCE = resolve(
   PROJECT_ROOT,
   "app/scene/xinhua-building-height-runtime.json",
@@ -69,6 +89,10 @@ const POC_HEIGHT_EVIDENCE = resolve(
 const POC_GATE = resolve(
   PROJECT_ROOT,
   "docs/research/building-height-poc-gate.json",
+);
+const ROUND2_GATE = resolve(
+  PROJECT_ROOT,
+  "docs/research/building-height-round2-gate.json",
 );
 const RELATION_ID = 13469094;
 const OSM_AREA_ID = 3_600_000_000 + RELATION_ID;
@@ -557,13 +581,21 @@ function heightBand(heightMeters) {
   return "high";
 }
 
-function outputPaths(heightMode) {
+function outputPaths(heightMode, activateRound2 = false) {
   if (heightMode === "poc") {
     return {
       source: POC_SOURCE_OUTPUT,
       runtimeManifest: POC_RUNTIME_MANIFEST_OUTPUT,
       glb: POC_GLB_OUTPUT,
       buildRecord: POC_BUILD_RECORD_OUTPUT,
+    };
+  }
+  if (heightMode === "round2" && !activateRound2) {
+    return {
+      source: ROUND2_SOURCE_OUTPUT,
+      runtimeManifest: ROUND2_RUNTIME_MANIFEST_OUTPUT,
+      glb: ROUND2_GLB_OUTPUT,
+      buildRecord: ROUND2_BUILD_RECORD_OUTPUT,
     };
   }
   return {
@@ -583,6 +615,9 @@ function projectRelativePath(path) {
 async function readHeightEvidence(heightMode, argumentsList) {
   if (heightMode === "baseline") return null;
   const explicitIndex = argumentsList.indexOf("--height-evidence");
+  if (heightMode === "round2" && explicitIndex < 0) {
+    throw new Error("round2 必须显式提供 --height-evidence");
+  }
   const path = explicitIndex >= 0
     ? resolve(PROJECT_ROOT, argumentsList[explicitIndex + 1])
     : heightMode === "poc"
@@ -615,6 +650,22 @@ async function assertFullRolloutGate() {
   return gate;
 }
 
+async function assertRound2RolloutGate() {
+  const gate = JSON.parse(await readFile(ROUND2_GATE, "utf8"));
+  if (
+    gate?.decision !== "pass"
+    || gate?.canonicalRolloutAuthorized !== true
+    || gate?.targetCount !== 676
+    || gate?.gates?.matching !== "pass"
+    || gate?.gates?.licence !== "pass"
+    || gate?.gates?.visualQuality !== "pass"
+    || gate?.manualReview?.pending !== 0
+  ) {
+    throw new Error("第二轮全量匹配、许可、视觉或人工复核门未通过，拒绝激活正式街区体块");
+  }
+  return gate;
+}
+
 function applyHeightEvidence(records, evidence, heightMode) {
   if (!evidence) {
     records.forEach((record) => {
@@ -631,7 +682,7 @@ function applyHeightEvidence(records, evidence, heightMode) {
   for (const record of records) {
     const calibration = byId.get(record.assetId);
     if (!calibration) {
-      if (heightMode === "full") {
+      if (["full", "round2"].includes(heightMode)) {
         throw new Error(`全量高度证据缺少 ${record.assetId}`);
       }
       record.heightConfidence = record.heightSource === "heuristic" ? "C" : "A";
@@ -660,7 +711,7 @@ function applyHeightEvidence(records, evidence, heightMode) {
   if (heightMode === "poc" && applied < 50) {
     throw new Error(`PoC 实际应用建筑少于 50：${applied}`);
   }
-  if (heightMode === "full" && applied !== records.length) {
+  if (["full", "round2"].includes(heightMode) && applied !== records.length) {
     throw new Error(`全量高度证据应用不完整：${applied}/${records.length}`);
   }
 }
@@ -1081,11 +1132,14 @@ async function run() {
   const heightMode = heightModeIndex >= 0
     ? argumentsList[heightModeIndex + 1]
     : "baseline";
-  if (!["baseline", "poc", "full"].includes(heightMode)) {
-    throw new Error("--height-mode 只能是 baseline、poc 或 full");
+  if (!["baseline", "poc", "full", "round2"].includes(heightMode)) {
+    throw new Error("--height-mode 只能是 baseline、poc、full 或 round2");
   }
   if (heightMode === "full") await assertFullRolloutGate();
-  const outputs = outputPaths(heightMode);
+  const activateRound2 = heightMode === "round2"
+    && argumentsList.includes("--activate-round2");
+  if (activateRound2) await assertRound2RolloutGate();
+  const outputs = outputPaths(heightMode, activateRound2);
   const rawArgumentIndex = argumentsList.indexOf("--raw");
   let snapshot;
   if (argumentsList.includes("--fetch")) {
@@ -1172,9 +1226,17 @@ async function run() {
   const buildRecord = {
     assetId: "xinhua-district-massing",
     generatedAt,
-    command: snapshot.endpoint
-      ? `node scripts/generate_overview_district_massing.mjs --fetch --height-mode ${heightMode}`
-      : `node scripts/generate_overview_district_massing.mjs --raw docs/research/data/${snapshotName} --height-mode ${heightMode}`,
+    command: [
+      "node scripts/generate_overview_district_massing.mjs",
+      snapshot.endpoint
+        ? "--fetch"
+        : `--raw docs/research/data/${snapshotName}`,
+      `--height-mode ${heightMode}`,
+      heightEvidence
+        ? `--height-evidence ${projectRelativePath(heightEvidence.path)}`
+        : null,
+      activateRound2 ? "--activate-round2" : null,
+    ].filter(Boolean).join(" "),
     generator: {
       path: "scripts/generate_overview_district_massing.mjs",
       sha256: sha256(generatorBytes),

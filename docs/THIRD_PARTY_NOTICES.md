@@ -42,8 +42,25 @@
   `© OpenStreetMap contributors, Overture Maps Foundation`。
 - Overture Buildings 说明：<https://docs.overturemaps.org/guides/buildings/>
 - Overture 署名与许可：<https://docs.overturemaps.org/attribution/>
-- GlobalBuildingAtlas 在本轮研究中只做候选源评估。其官方访问端点不可用，
-  因而没有任何 GBA.Height、GBA.LoD1 或派生值进入证据记录、GLB 或运行时。
+- GlobalBuildingAtlas `GBA.LoD1 v1.0.0` 用作第二轮逐栋预测高度源。新华街道目标
+  通过数据中的 `osm<ID>CHN` exact source ID 对齐；只有高度处于 3–90 米且内部
+  预测方差换算的标准差不大于 6 米的记录才能进入 `B — matched estimate`。
+- GBA 高度基于 2018–2019 PlanetScope 影像的机器学习结果，并非实测或测绘高度；
+  官方论文报告亚洲高度 RMSE 约 5.9 米，且高层可能被低估。
+- `GBA.Height` / `GBA.LoD1` 许可：Creative Commons
+  Attribution-NonCommercial 4.0 International（CC BY-NC 4.0）。
+- 当前使用边界是社区公益、非商业。若项目以后加入广告、付费访问、客户交付、
+  商业授权或其他商业分发，必须在继续分发这些派生高度或 LoD1 结果前重新审核许可。
+- 数据仓库与许可：<https://github.com/zhu-xlab/GlobalBuildingAtlas>
+- 论文：<https://essd.copernicus.org/articles/17/6647/2025/>
+- GHS-OBAT R2024A 用作第二轮辅助冲突和合理性证据。它的逐 footprint 高度来自
+  GHS-BUILT-H / GHSL 的粗粒度栅格整合，在上海密集街区不能单独把建筑提升为 B。
+- GHS-OBAT footprint 上游为 Overture Buildings `2024-07-22.0`；本项目只保留
+  OSM footprint 为运行时地图底座，不导入 GHS-OBAT 几何。
+- GHS-OBAT 许可：Open Data Commons Open Database License（ODbL）1.0。
+- 数据集与 DOI：<https://data.jrc.ec.europa.eu/dataset/f41a22f1-5741-4c41-86eb-6384654f6927>
+- 第二轮完整来源版本、原始归档路径、SHA-256、裁剪与匹配数量见
+  `docs/research/data/xinhua-building-height-sources-round2-20260725.json`。
 
 POI 卡片实景图：
 

@@ -6705,3 +6705,72 @@ globfp-readme-zenodo-15459025-20260725.txt: new blank line at EOF
 ### Resolution
 - **Resolved**: 2026-07-25T20:47:00+08:00
 - **Notes**: 精确添加两个 binary 属性；未清洗或覆盖上游文本。
+
+---
+## [ERR-20260725-026] isolated_worktree_write_permission
+
+**Logged**: 2026-07-25T22:42:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+当前沙箱只把主工作区列为可写根目录，普通 Node 进程无法把派生数据写入同仓库的
+独立 worktree。
+
+### Error
+```text
+Error: EPERM: operation not permitted, open
+'/Users/lei/App_developing/wander-xinhua-building-height-calibration/docs/research/data/xinhua-buildings-ghs-obat-2020-20260725.json'
+```
+
+### Context
+- GHS-OBAT 全国 CSV 已经完整读取并完成 bbox 裁剪。
+- 失败只发生在最终新文件写入；没有覆盖现有证据或运行时数据。
+- `apply_patch` 可以编辑该 worktree，但普通命令写入需要单次明确授权。
+
+### Suggested Fix
+在确认目标是隔离 worktree 内的新文件后，以 `require_escalated` 重跑同一确定性命令。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/extract_ghs_obat_height_slice.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T22:42:00+08:00
+- **Notes**: 保留失败记录，并以精确命令和目标路径申请独立 worktree 写权限。
+
+---
+## [ERR-20260725-027] range_download_body_termination
+
+**Logged**: 2026-07-25T22:56:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+GBA 大文件分段下载在 234 MB 时由远端关闭 TLS 连接；初版重试只包住
+`fetch()`，没有覆盖读取响应正文时的中断，也没有断点扫描。
+
+### Error
+```text
+TypeError: terminated
+cause: UND_ERR_SOCKET
+```
+
+### Context
+- 224 个完整的 1 MB 分段已经写入稀疏文件，其余区域仍为零。
+- 分段只在正文完整、长度和 Content-Range 均通过后写入，因此可安全扫描非零分段。
+- 失败没有污染已完成分段，也没有覆盖其他原始数据。
+
+### Suggested Fix
+把响应头、正文读取和长度校验全部放入重试边界；增加 `--resume`，扫描预分配文件中
+已经完整写入的非零分段，只下载缺失范围，最终仍校验官方 SHA-256。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/download_range_file.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T22:56:00+08:00
+- **Notes**: 已增加正文重试与稀疏文件断点扫描，并从 234 MB 继续下载。

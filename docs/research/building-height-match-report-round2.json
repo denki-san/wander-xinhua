@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-25T15:10:40.010Z",
+  "targetCount": 676,
+  "policy": {
+    "gbaMatch": "exact OSM source ID",
+    "gbaMaximumUncertaintyStandardDeviationMetres": 6,
+    "ghsObatRole": "auxiliary-only because height originates from coarse GHSL raster",
+    "globfpGroup": "one target to 2-4 source-footprint union; frozen spatial gate; max 6 m spread",
+    "sourceAgreementMetres": 6,
+    "deployment": "local-only; Sites and VPS excluded"
+  },
+  "counts": {
+    "firstRoundConfidence": {
+      "A": 11,
+      "B": 43,
+      "C": 676
+    },
+    "gbaExactIdCandidates": 590,
+    "gbaPassing": 487,
+    "ghsSpatialPassingAuxiliary": 577,
+    "globfpGroupPassing": 6,
+    "independentSourceConflicts": 0,
+    "proposedUpgrades": 490,
+    "manualReviewRequired": 1,
+    "queueStatus": {
+      "candidate-needs-manual-review": 1,
+      "candidate-ready-for-visual-gate": 489,
+      "retain-C-no-passing-evidence": 186
+    }
+  },
+  "gateStatus": {
+    "evidence": "candidate-generated",
+    "licence": "pending-final-attribution-audit",
+    "visualQuality": "pending-real-page-QA",
+    "canonicalRollout": "blocked"
+  }
+}
