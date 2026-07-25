@@ -9,8 +9,13 @@ import {
 } from "../app/scene/world-math.ts";
 import { terrainHeightAt } from "../app/scene/terrain.ts";
 import {
+  FILM_ART_CENTER_HERO_MODEL_PATH,
+  FILM_ART_CENTER_HERO_SHA256,
+  FILM_ART_CENTER_IDENTITY_MODEL_PATH,
+  FILM_ART_CENTER_IDENTITY_SHA256,
   FILM_ART_CENTER_MASSING_MODEL_PATH,
   FILM_ART_CENTER_MASSING_SHA256,
+  resolveFilmArtCenterProductionIdentitySource,
   resolveFilmArtCenterQaTier,
 } from "../app/scene/film-art-center-tier-contract.mjs";
 
@@ -281,7 +286,7 @@ test("Film Art Center Hero MCP2 Pass 可追溯并解锁独立 Identity 派生", 
     "pass",
   );
   assert.equal(lineage.identity.identityAllowed, true);
-  assert.equal(lineage.nextGate, "identity-three-js-runtime-candidate");
+  assert.equal(lineage.nextGate, "main-window-real-browser-acceptance");
   assert.deepEqual(
     gate.heroGate.recheckCandidate.acceptedInteractiveChanges,
     [],
@@ -306,8 +311,18 @@ test("Film Art Center Hero MCP2 Pass 可追溯并解锁独立 Identity 派生", 
   }
 });
 
-test("Film Art Center Identity 独立派生、预算与固定机位候选可追溯", async () => {
-  const [record, lineage, gate, generator, glbBuffer, blendBuffer, heroRecord] =
+test("Film Art Center Identity 独立派生、MCP3 与本地运行时候选可追溯", async () => {
+  const [
+    record,
+    lineage,
+    gate,
+    generator,
+    glbBuffer,
+    blendBuffer,
+    heroRecord,
+    runtimeQa,
+    runtimeMetrics,
+  ] =
     await Promise.all([
       readFile(identityRecordUrl, "utf8").then(JSON.parse),
       readFile(lineageUrl, "utf8").then(JSON.parse),
@@ -326,6 +341,20 @@ test("Film Art Center Identity 独立派生、预算与固定机位候选可追�
         ),
       ),
       readFile(heroRecordUrl),
+      readFile(
+        new URL(
+          "docs/research/film-art-center-three-tier-runtime-qa.json",
+          root,
+        ),
+        "utf8",
+      ).then(JSON.parse),
+      readFile(
+        new URL(
+          "test_artifacts/test_film-art-center_three-tier_runtime_metrics.json",
+          root,
+        ),
+        "utf8",
+      ).then(JSON.parse),
     ]);
   const glb = parseGlb(glbBuffer);
   const rootNode = glb.nodes[0];
@@ -334,7 +363,7 @@ test("Film Art Center Identity 独立派生、预算与固定机位候选可追�
   assert.equal(record.tier, "identity");
   assert.equal(
     record.status,
-    "mcp3-pass-runtime-pending",
+    "mcp3-and-local-runtime-pass-main-browser-pending",
   );
   assert.equal(sha256(Buffer.from(generator)), record.generator.sha256);
   assert.equal(sha256(glbBuffer), record.glb.sha256);
@@ -389,7 +418,7 @@ test("Film Art Center Identity 独立派生、预算与固定机位候选可追�
   );
   assert.equal(
     lineage.identity.status,
-    "mcp3-pass-runtime-pending",
+    "mcp3-and-local-runtime-pass-main-browser-pending",
   );
   assert.equal(lineage.identity.mcp3, "pass");
   assert.equal(
@@ -398,8 +427,70 @@ test("Film Art Center Identity 独立派生、预算与固定机位候选可追�
   );
   assert.equal(
     gate.threeTierGate.status,
-    "blender-three-tier-pass-runtime-pending",
+    "blender-and-local-runtime-pass-main-browser-pending",
   );
+  assert.equal(
+    record.gates.threeTierRuntime,
+    "pass-local-candidate-main-browser-pending",
+  );
+  assert.equal(runtimeQa.gates.localThreeTierRuntimeCandidate, "pass");
+  assert.equal(runtimeQa.gates.mainWindowRealBrowserAcceptance, "pending");
+  assert.equal(runtimeQa.productionIdentity.localPosition[0], 0);
+  assert.deepEqual(
+    runtimeQa.productionIdentity.localPosition,
+    runtimeQa.productionIdentity.qaLocalPosition,
+  );
+  assert.deepEqual(
+    runtimeMetrics.productionIdentityPlacement.genericFallbackLocalPosition,
+    [0, 0, -2.25],
+  );
+  assert.equal(runtimeMetrics.fallback.pagePlayable, true);
+  assert.deepEqual(
+    runtimeMetrics.fallback.foreignQaRequestsInCurrentPerformanceBuffer,
+    [],
+  );
+  assert.equal(
+    runtimeMetrics.productionIdentityFailureFallback.status,
+    "fallback",
+  );
+  assert.equal(
+    runtimeMetrics.productionIdentityFailureFallback.pagePlayable,
+    true,
+  );
+  assert.deepEqual(
+    runtimeMetrics.productionIdentityFailureFallback.derivedGlbOuterPosition,
+    [0, 0, 0],
+  );
+  assert.deepEqual(
+    runtimeMetrics.productionIdentityFailureFallback
+      .programmaticFallbackInnerPosition,
+    [0, 0, -2.25],
+  );
+  const productionFallbackScreenshot =
+    runtimeMetrics.productionIdentityFailureFallback.screenshot;
+  const productionFallbackBuffer = await readFile(
+    new URL(productionFallbackScreenshot.path, root),
+  );
+  assert.equal(
+    productionFallbackBuffer.length,
+    productionFallbackScreenshot.bytes,
+  );
+  assert.equal(
+    sha256(productionFallbackBuffer),
+    productionFallbackScreenshot.sha256,
+  );
+  for (const tier of ["hero", "identity", "massing"]) {
+    assert.equal(runtimeMetrics.tiers[tier].status, "loaded");
+    assert.ok(runtimeMetrics.tiers[tier].sceneRenderSample.drawCalls > 0);
+    assert.equal(
+      runtimeMetrics.tiers[tier].sceneRenderSample.scope,
+      "whole-scene-not-asset-isolated",
+    );
+    const screenshot = runtimeMetrics.tiers[tier].screenshot;
+    const screenshotBuffer = await readFile(new URL(screenshot.path, root));
+    assert.equal(screenshotBuffer.length, screenshot.bytes);
+    assert.equal(sha256(screenshotBuffer), screenshot.sha256);
+  }
   assert.deepEqual(record.mcp3.acceptedInteractiveChanges, []);
   assert.equal(record.mcp3.qaRigSaved, false);
   assert.equal(record.mcp3.qaRigExported, false);
@@ -483,7 +574,7 @@ test("Film Art Center MCP1 场景、固定机位与尺度边界精确封存", as
   }
 });
 
-test("Film Art Center Massing 地图 QA 深链不改变生产默认 tier", async () => {
+test("Film Art Center 三档运行时 QA 深链不改变生产默认 tier", async () => {
   const runtimeSource = await readFile(
     new URL("app/scene/xinhua-road-landmarks.tsx", root),
     "utf8",
@@ -492,15 +583,31 @@ test("Film Art Center Massing 地图 QA 深链不改变生产默认 tier", async
     new URL("app/scene/film-art-center-tier-contract.mjs", root),
     "utf8",
   );
-  const active = resolveFilmArtCenterQaTier(
-    "?start=film-art&qaModelTier=massing&qaModelId=film-art-center&cameraQa=1",
-  );
-  assert.equal(active.assetId, "film-art-center");
-  assert.equal(active.tier, "massing");
-  assert.equal(active.sha256, FILM_ART_CENTER_MASSING_SHA256);
-  assert.equal(active.modelPath, FILM_ART_CENTER_MASSING_MODEL_PATH);
-  assert.equal(active.forcedFallback, false);
-  assert.equal(active.productionDefaultChanged, false);
+  const expectedTiers = {
+    hero: {
+      sha256: FILM_ART_CENTER_HERO_SHA256,
+      modelPath: FILM_ART_CENTER_HERO_MODEL_PATH,
+    },
+    identity: {
+      sha256: FILM_ART_CENTER_IDENTITY_SHA256,
+      modelPath: FILM_ART_CENTER_IDENTITY_MODEL_PATH,
+    },
+    massing: {
+      sha256: FILM_ART_CENTER_MASSING_SHA256,
+      modelPath: FILM_ART_CENTER_MASSING_MODEL_PATH,
+    },
+  };
+  for (const [tier, expected] of Object.entries(expectedTiers)) {
+    const active = resolveFilmArtCenterQaTier(
+      `?start=film-art&qaModelTier=${tier}&qaModelId=film-art-center&cameraQa=1`,
+    );
+    assert.equal(active.assetId, "film-art-center");
+    assert.equal(active.tier, tier);
+    assert.equal(active.sha256, expected.sha256);
+    assert.equal(active.modelPath, expected.modelPath);
+    assert.equal(active.forcedFallback, false);
+    assert.equal(active.productionDefaultChanged, false);
+  }
   assert.equal(resolveFilmArtCenterQaTier("?start=film-art"), null);
   assert.equal(
     resolveFilmArtCenterQaTier(
@@ -508,12 +615,42 @@ test("Film Art Center Massing 地图 QA 深链不改变生产默认 tier", async
     ),
     null,
   );
+  assert.equal(
+    resolveFilmArtCenterQaTier(
+      "?qaModelTier=unknown&qaModelId=film-art-center",
+    ),
+    null,
+  );
 
   const fallback = resolveFilmArtCenterQaTier(
-    "?qaModelTier=massing&qaModelId=film-art-center&qaActiveFallback=massing",
+    "?qaModelTier=identity&qaModelId=film-art-center"
+    + "&qaActiveFallback=film-art-center-identity",
   );
   assert.equal(fallback.forcedFallback, true);
-  assert.match(fallback.modelPath, /test_missing-film-art-center-massing\.glb/);
+  assert.match(fallback.modelPath, /test_missing-film-art-center-identity\.glb/);
+  assert.equal(
+    resolveFilmArtCenterQaTier(
+      "?qaModelTier=identity&qaModelId=film-art-center"
+      + "&qaActiveFallback=identity",
+    ).forcedFallback,
+    false,
+    "Identity fallback token 必须带建筑 ID，避免触发其他建筑的全局 QA 路径",
+  );
+  const productionIdentity =
+    resolveFilmArtCenterProductionIdentitySource("?start=film-art");
+  assert.equal(productionIdentity.forcedFallback, false);
+  assert.equal(
+    productionIdentity.modelPath,
+    FILM_ART_CENTER_IDENTITY_MODEL_PATH,
+  );
+  const productionFallback = resolveFilmArtCenterProductionIdentitySource(
+    "?start=film-art&qaProductionFallback=film-art-center-identity",
+  );
+  assert.equal(productionFallback.forcedFallback, true);
+  assert.match(
+    productionFallback.modelPath,
+    /test_missing-film-art-center-production-identity\.glb/,
+  );
   assert.match(runtimeSource, /xinhua:active-asset-runtime/);
   assert.match(runtimeSource, /xinhuaRoadQaStatus = "loaded"/);
   assert.match(runtimeSource, /hiddenLandmarkIds=\{activeMountedModelIds\}/);

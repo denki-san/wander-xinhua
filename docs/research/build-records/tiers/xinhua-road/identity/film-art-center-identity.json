@@ -3,7 +3,7 @@
   "auditedAt": "2026-07-25",
   "assetId": "building:xinhua-road:film-art-center",
   "tier": "identity",
-  "status": "mcp3-pass-runtime-pending",
+  "status": "mcp3-and-local-runtime-pass-main-browser-pending",
   "generator": {
     "path": "scripts/create_film_art_center_identity_model.py",
     "sha256": "af0fbd64e9aa1cd2b9c3595ce51d4c792ac14a1afccb012df8aabf55c96d2f47",
@@ -202,6 +202,23 @@
     "maxImages": 0,
     "maxBytes": 1600000
   },
+  "runtime": {
+    "status": "local-candidate-main-browser-pending",
+    "qaRecord": "docs/research/film-art-center-three-tier-runtime-qa.json",
+    "metrics": "test_artifacts/test_film-art-center_three-tier_runtime_metrics.json",
+    "productionStrategy": "derived-glb",
+    "productionLocalPosition": [0, 0, 0],
+    "qaDirectGlbLocalPosition": [0, 0, 0],
+    "fallbackLocalPosition": [0, 0, -2.25],
+    "loadedTierScreenshots": {
+      "hero": "test_artifacts/test_film-art-center_runtime_hero_1280x800.png",
+      "identity": "test_artifacts/test_film-art-center_runtime_identity_1280x800.png",
+      "massing": "test_artifacts/test_film-art-center_runtime_massing_1280x800.png"
+    },
+    "fallbackScreenshot": "test_artifacts/test_film-art-center_runtime_identity_fallback_scoped_1280x800.png",
+    "productionFailureFallbackScreenshot": "test_artifacts/test_film-art-center_runtime_production_identity_fallback_1280x800.png",
+    "productionIdentityScreenshot": "test_artifacts/test_film-art-center_runtime_production_identity_1280x800.png"
+  },
   "gates": {
     "headlessBuild": "pass",
     "glbAudit": "pass",
@@ -212,6 +229,6 @@
     },
     "fixedViewCandidateReview": "pass",
     "mcp3": "pass",
-    "threeTierRuntime": "pending-local-runtime-candidate"
+    "threeTierRuntime": "pass-local-candidate-main-browser-pending"
   }
 }

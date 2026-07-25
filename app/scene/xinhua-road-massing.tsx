@@ -1,15 +1,27 @@
 "use client";
 
-import { Suspense, useEffect, useMemo } from "react";
+import {
+  Suspense,
+  useEffect,
+  useMemo,
+  type ReactNode,
+} from "react";
 import { BoxGeometry } from "three";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { ProgressiveFeatureBoundary } from "../progressive-feature-boundary";
+import { FilmArtCenterIdentity } from "./film-art-center-identity";
+import {
+  resolveFilmArtCenterProductionIdentitySource,
+} from "./film-art-center-tier-contract.mjs";
 import { terrainHeightAt } from "./terrain";
 import {
   XINHUA_ROAD_LANDMARKS,
   type LandmarkPlacement,
 } from "./xinhua-road-contract";
-import { xinhuaRoadIdentityKind } from "./xinhua-road-identity-contract";
+import {
+  xinhuaRoadIdentityKind,
+  xinhuaRoadIdentityLocalPosition,
+} from "./xinhua-road-identity-contract";
 import {
   SHANGHAI_CINEMA_MASSING_MODEL,
   ShanghaiCinemaHybridIdentity,
@@ -600,12 +612,50 @@ function LandmarkIdentityMiniature({
   );
 }
 
+function FilmArtCenterProductionIdentityFallback({
+  qaActive,
+  position,
+  children,
+}: {
+  qaActive: boolean;
+  position: [number, number, number];
+  children: ReactNode;
+}) {
+  useEffect(() => {
+    if (!qaActive) return;
+    const root = document.documentElement;
+    root.dataset.xinhuaRoadProductionIdentityStatus = "fallback";
+    root.dataset.xinhuaRoadProductionIdentityAsset = "film-art-center";
+    root.dataset.xinhuaRoadProductionIdentityPosition = JSON.stringify(position);
+    return () => {
+      delete root.dataset.xinhuaRoadProductionIdentityStatus;
+      delete root.dataset.xinhuaRoadProductionIdentityAsset;
+      delete root.dataset.xinhuaRoadProductionIdentityPosition;
+    };
+  }, [position, qaActive]);
+
+  return (
+    <group
+      position={position}
+      userData={{
+        building: "film-art-center",
+        stage: "identity-fallback",
+        placement: "programmatic-bounds-center",
+      }}
+    >
+      {children}
+    </group>
+  );
+}
+
 export function LandmarkProgressiveProxy({
   landmark,
   identity,
+  forceProgrammaticIdentity = false,
 }: {
   landmark: LandmarkPlacement;
   identity: boolean;
+  forceProgrammaticIdentity?: boolean;
 }) {
   if (!identity && landmark.id === "shanghai-cinema") {
     return (
@@ -630,7 +680,7 @@ export function LandmarkProgressiveProxy({
       </group>
     );
   }
-  if (identity && landmark.id === "shanghai-cinema") {
+  if (identity && landmark.id === "shanghai-cinema" && !forceProgrammaticIdentity) {
     return (
       <group
         name="shanghai-cinema-progressive-proxy"
@@ -650,15 +700,53 @@ export function LandmarkProgressiveProxy({
   const bounds = landmark.localBounds;
   const width = bounds.maxX - bounds.minX;
   const depth = bounds.maxZ - bounds.minZ;
-  const centerX = (bounds.minX + bounds.maxX) / 2;
-  const centerZ = -(bounds.minZ + bounds.maxZ) / 2;
   const height = landmarkHeight(landmark);
   const wall = colorForLandmark(landmark);
+  const usesDerivedIdentity = (
+    identity
+    && landmark.id === "film-art-center"
+    && !forceProgrammaticIdentity
+  );
+  const programmaticLocalPosition = xinhuaRoadIdentityLocalPosition(
+    bounds,
+    "programmatic-miniature",
+  );
+  const localPosition = xinhuaRoadIdentityLocalPosition(
+    bounds,
+    usesDerivedIdentity ? "derived-glb" : "programmatic-miniature",
+  );
+  const productionIdentity = usesDerivedIdentity
+    ? resolveFilmArtCenterProductionIdentitySource(
+      typeof window === "undefined" ? "" : window.location.search,
+    )
+    : null;
+  const genericIdentity = (
+    <group
+      scale={IDENTITY_VISUAL_SCALE}
+      userData={{ presentation: "compact-architectural-identity" }}
+    >
+      <LandmarkIdentityMiniature
+        landmark={landmark}
+        width={width}
+        depth={depth}
+        height={height}
+        wall={wall}
+      />
+    </group>
+  );
+  const productionIdentityFallback = (
+    <FilmArtCenterProductionIdentityFallback
+      qaActive={productionIdentity?.forcedFallback ?? false}
+      position={programmaticLocalPosition}
+    >
+      {genericIdentity}
+    </FilmArtCenterProductionIdentityFallback>
+  );
 
   return (
     <group
       name={`${landmark.id}-progressive-proxy`}
-      position={[centerX, 0, centerZ]}
+      position={localPosition}
       userData={{
         building: landmark.id,
         stage: identity ? "identity" : "massing",
@@ -667,18 +755,16 @@ export function LandmarkProgressiveProxy({
       }}
     >
       {identity ? (
-        <group
-          scale={IDENTITY_VISUAL_SCALE}
-          userData={{ presentation: "compact-architectural-identity" }}
-        >
-          <LandmarkIdentityMiniature
-            landmark={landmark}
-            width={width}
-            depth={depth}
-            height={height}
-            wall={wall}
-          />
-        </group>
+        usesDerivedIdentity ? (
+          <ProgressiveFeatureBoundary
+            resetKey={productionIdentity?.modelPath ?? "film-art-center-identity"}
+            fallback={productionIdentityFallback}
+          >
+            <Suspense fallback={productionIdentityFallback}>
+              <FilmArtCenterIdentity source={productionIdentity?.modelPath} />
+            </Suspense>
+          </ProgressiveFeatureBoundary>
+        ) : genericIdentity
       ) : (
         <mesh position={[0, height / 2, 0]} castShadow receiveShadow>
           <boxGeometry args={[width * 0.9, height, depth * 0.86]} />
