@@ -129,11 +129,28 @@ Image 242/243/244 于 2026-07-25 原字节本地化。旧
 - Size: `1,603,468` bytes
 - Structure: 1 node, 1 mesh, 14 materials, 0 images, 0 textures
 - Audit: container policy passes
-- Verdict: `retained-legacy-not-massing-source`
+- Disposition record:
+  `docs/research/house-315-hero-disposition.json`
+- Verdict: `hold-read-only-rollback-only / rebuild-required / not-mcp2-candidate`
 
-旧 Hero 的正面构件与证据相符，但完整进深、侧后面和许多细节是旧生成器外推；
-同时包含围墙、灯、花箱和铺装等本轮范围外内容。结构审计通过不代表
-subject-specific Massing provenance 通过。
+旧 Hero 不是跨建筑误绑：它确实以315号为目标，并保留陡坡红瓦、半木构山墙、
+上白下红和烟囱等粗粒度 cue。但旧生成器使用单一主块、偏置横山墙和右侧凸窗，
+没有闭合当前俯瞰证据与已通过地图门 Massing 所要求的中央高山墙、横向脊体、
+右长翼和左后短翼层级；旧门廊也不是入口证据中的中央高开口 / 街道门关系。
+
+旧 `.blend` / GLB 和函数 lineage 已冻结。函数本体与 producing commit
+`e292fde` 字节一致，但完整共享生成器随后已变化，且没有资产级 Hero build
+record。Blend / GLB 都复算为23,512 triangles，其中120个零面积三角面；
+non-finite positions / normals 和 normal-orientation mismatches 均为0。
+
+整块庭院、两段围栏、两段门、两盏灯、两个带绿植花箱和装饰铺装在导出前已与
+建筑合并为单一 mesh，无法在运行时选择性移除。旧 Hero 只能作为只读 rollback
+和历史对照，不能申请 MCP2，也不能作为 Identity 来源。
+
+现有视图只有一张 generic oblique Blender preview 和一张无固定机位合同的旧
+runtime 截图；正式 Hero canonical、side-depth、entrance-detail 与
+Hero / Massing 同机位对照均缺失。参考证据本身的 canonical 与入口已支持，
+俯瞰只支持侧向 / 纵深体块，隐藏背面细节继续为 `Unknown`。
 
 ### Recovery provisional Massing
 
@@ -309,7 +326,8 @@ registry / runtime，也未进行 Three.js 地图校准。
 | Deterministic Massing | 新建 `.blend` / `.glb`，双构建 SHA 一致 | Candidate complete |
 | Blender MCP 1 | 场景、固定机位、轮廓、尺标和网格完整性通过 | Passed |
 | Three.js Massing | 真实 `?start=house315` 资源、地图、比例、朝向、接地、碰撞和性能通过 | Passed |
-| Identity / Hero | 需要更高层证据门和后续 MCP 门 | Closed |
+| Legacy Hero disposition | 同主体意图，但结构、范围、拓扑、lineage 和固定视图不满足 MCP2 | Hold / rebuild required |
+| Identity / new Hero | 需要主窗口重新开放 Hero evidence contract；Identity 仍锁定 | Closed |
 
 ## Decision Log
 
