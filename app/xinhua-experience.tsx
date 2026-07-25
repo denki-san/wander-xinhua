@@ -21,6 +21,7 @@ import {
   triggerJumpPulse,
 } from "./scene/input";
 import { ProgressiveFeatureBoundary } from "./progressive-feature-boundary";
+import { XinhuaIntroSurface } from "./xinhua-intro-surface";
 import {
   AutumnStorybookSky,
 } from "./scene/visual-effects";
@@ -689,13 +690,6 @@ export function XinhuaExperience() {
         )}
       </Canvas>
 
-      {!ready && (
-        <div className="loading-screen" role="status" aria-label="正在装载新华路三维街区">
-          <span className="loading-envelope" />
-          <b>LOADING XINHUA</b>
-        </div>
-      )}
-
       <CameraQaPanel visible={cameraQaVisible && exploring} />
 
       <header className={`world-header${playing ? "" : " is-intro"}`}>
@@ -739,20 +733,11 @@ export function XinhuaExperience() {
       </header>
 
       {!playing && (
-        <section className={`intro-ui${ready ? "" : " is-waiting"}`} aria-labelledby="intro-title" aria-hidden={!ready}>
-          <img
-            className="intro-cover-image"
-            src="/images/xinhua-pocket-toy-cover.jpg"
-            alt=""
-            aria-hidden="true"
-            decoding="async"
-            fetchPriority="high"
-          />
-          <h1 id="intro-title" aria-label="漫步新华路">
-            <span>漫</span><span>步</span><span>新</span><span>华</span><span>路</span>
-          </h1>
-          <button type="button" onClick={begin} disabled={!ready}>出发</button>
-        </section>
+        <XinhuaIntroSurface
+          ready={ready}
+          loadingMessage="正在校准街景与光影"
+          onBegin={begin}
+        />
       )}
 
       {playing && (

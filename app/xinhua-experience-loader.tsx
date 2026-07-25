@@ -1,9 +1,8 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element -- 启动壳必须在 Three.js 代码到达前直接显示本地封面。 */
-
 import { lazy, Suspense, useState } from "react";
 import { ProgressiveFeatureBoundary } from "./progressive-feature-boundary";
+import { XinhuaCoverMedia, XinhuaIntroSurface } from "./xinhua-intro-surface";
 
 async function loadXinhuaExperience() {
   const importedExperience = await import("./xinhua-experience");
@@ -21,23 +20,7 @@ function XinhuaBootShell() {
       data-progressive-stage="shell"
       aria-busy="true"
     >
-      <section className="intro-ui" aria-labelledby="intro-title">
-        <img
-          className="intro-cover-image"
-          src="/images/xinhua-pocket-toy-cover.jpg"
-          alt=""
-          aria-hidden="true"
-          decoding="async"
-          fetchPriority="high"
-        />
-        <h1 id="intro-title" aria-label="漫步新华路">
-          <span>漫</span><span>步</span><span>新</span><span>华</span><span>路</span>
-        </h1>
-        <button type="button" disabled>正在准备</button>
-        <p className="progressive-boot-status" role="status">
-          正在搭起可行走的街区骨架…
-        </p>
-      </section>
+      <XinhuaIntroSurface loadingMessage="正在搭起可行走的街区" />
     </main>
   );
 }
@@ -48,7 +31,8 @@ function XinhuaBootError({ onRetry }: { onRetry: () => void }) {
       className="xinhua-stage is-intro progressive-boot-shell"
       data-progressive-stage="error"
     >
-      <section className="intro-ui progressive-boot-error" aria-labelledby="intro-error-title">
+      <XinhuaCoverMedia />
+      <section className="progressive-boot-error" aria-labelledby="intro-error-title">
         <h1 id="intro-error-title">街区组件没有完整到达</h1>
         <p role="alert">当前画面没有丢失存档，可以重新请求轻量街区入口。</p>
         <button type="button" onClick={onRetry}>重新连接</button>

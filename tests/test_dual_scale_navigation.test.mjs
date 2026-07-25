@@ -71,6 +71,10 @@ test("全览镜头在减少边界空白时仍把外围人物保留在视锥安�
 test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而非人物", async () => {
   const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
   const experience = await readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8");
+  const introSurface = await readFile(
+    new URL("../app/xinhua-intro-surface.tsx", import.meta.url),
+    "utf8",
+  );
   const styles = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   const shangsheng = await readFile(
     new URL("../app/scene/shangsheng-xinsuo-block.tsx", import.meta.url),
@@ -161,9 +165,15 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
     /resolvePolygonMovement\(\s*position\.current,\s*scratchDisplacement,\s*XINHUA_BOUNDARY,\s*\[\],\s*PLAYER_RADIUS/s,
   );
   assert.match(experience, /"intro" \| "overview" \| "explore"/);
-  assert.match(experience, /src="\/images\/xinhua-pocket-toy-cover\.jpg"/);
-  assert.match(experience, /aria-label="漫步新华路"/);
-  assert.match(experience, />出发<\/button>/);
+  assert.match(experience, /<XinhuaIntroSurface/);
+  assert.match(experience, /ready=\{ready\}/);
+  assert.match(experience, /onBegin=\{begin\}/);
+  assert.match(introSurface, /xinhua-plane-tree-cover-desktop\.jpg/);
+  assert.match(introSurface, /xinhua-plane-tree-cover-mobile\.jpg/);
+  assert.match(introSurface, /max-width: 760px/);
+  assert.match(introSurface, />漫步新华路<\/h1>/);
+  assert.match(introSurface, />\s*出发\s*<\/button>/);
+  assert.match(introSurface, /正在铺开新华路/);
   assert.doesNotMatch(experience, /从全览出发/);
   assert.match(experience, /<ProgressiveVisualEffectComposer/);
   assert.doesNotMatch(experience, /key=\{mode\}/);
