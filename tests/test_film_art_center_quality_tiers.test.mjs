@@ -35,6 +35,18 @@ const mapQaUrl = new URL(
   "docs/research/film-art-center-massing-map-qa.json",
   root,
 );
+const heroRecordUrl = new URL(
+  "docs/research/build-records/film-art-center.json",
+  root,
+);
+const heroGeneratorUrl = new URL(
+  "scripts/create_xinhua_road_models.py",
+  root,
+);
+const landmarkDataUrl = new URL(
+  "app/scene/xinhua-road-landmarks-data.json",
+  root,
+);
 
 function sha256(buffer) {
   return createHash("sha256").update(buffer).digest("hex");
@@ -96,9 +108,12 @@ test("Film Art Center Massing 保持单建筑与 Hold 边界", async () => {
   }
 });
 
-test("Film Art Center Massing GLB 与冻结 Hero lineage 精确一致", async () => {
-  const record = await readFile(recordUrl, "utf8").then(JSON.parse);
-  const [buffer, heroBuffer, blendStats] = await Promise.all([
+test("Film Art Center Massing 保留派生时 Hero 快照并指向当前 Hero", async () => {
+  const [record, lineage] = await Promise.all([
+    readFile(recordUrl, "utf8").then(JSON.parse),
+    readFile(lineageUrl, "utf8").then(JSON.parse),
+  ]);
+  const [buffer, currentHeroBuffer, blendStats] = await Promise.all([
     readFile(new URL(record.outputs.glb, root)),
     readFile(new URL(record.lineage.heroGlb, root)),
     stat(new URL(record.outputs.blend, root)),
@@ -108,7 +123,26 @@ test("Film Art Center Massing GLB 与冻结 Hero lineage 精确一致", async ()
 
   assert.equal(sha256(buffer), record.glb.sha256);
   assert.equal(buffer.length, record.glb.bytes);
-  assert.equal(sha256(heroBuffer), record.lineage.heroGlbSha256);
+  assert.equal(
+    record.lineage.heroGlbSha256AtDerivation,
+    record.lineage.heroGlbSha256,
+  );
+  assert.equal(
+    record.lineage.heroGlbSha256AtDerivation,
+    lineage.massing.derivedFrom.heroGlbSha256,
+  );
+  assert.equal(
+    sha256(currentHeroBuffer),
+    record.lineage.currentHeroGlbSha256,
+  );
+  assert.equal(
+    record.lineage.currentHeroGlbSha256,
+    lineage.hero.glb.sha256,
+  );
+  assert.notEqual(
+    record.lineage.currentHeroGlbSha256,
+    record.lineage.heroGlbSha256AtDerivation,
+  );
   assert.ok(blendStats.size > 100_000, "editable Blend 不得是空白占位文件");
   assert.equal(glb.nodes.length, record.glb.nodes);
   assert.equal(glb.meshes.length, record.glb.meshes);
@@ -168,6 +202,85 @@ test("Recovery generic box 被保留为反例且不得进入正式 tier", async 
   assert.equal(lineage.recoveryDecision.structure.bytes, 2316);
   assert.equal(lineage.recoveryDecision.decision, "rejected-as-formal-massing");
   assert.notEqual(lineage.massing.glb.sha256, decision.sha256);
+});
+
+test("Film Art Center Hero 拓扑修复可追溯且 Identity 仍保持锁定", async () => {
+  const [record, lineage, gate, generator, glbBuffer, blendBuffer, landmarkData] =
+    await Promise.all([
+      readFile(heroRecordUrl, "utf8").then(JSON.parse),
+      readFile(lineageUrl, "utf8").then(JSON.parse),
+      readFile(mcpGateUrl, "utf8").then(JSON.parse),
+      readFile(heroGeneratorUrl, "utf8"),
+      readFile(
+        new URL("public/models/xinhua-road/film-art-center.glb", root),
+      ),
+      readFile(
+        new URL(
+          "assets/models/source/xinhua-road/film-art-center.blend",
+          root,
+        ),
+      ),
+      readFile(landmarkDataUrl, "utf8").then(JSON.parse),
+    ]);
+  const glb = parseGlb(glbBuffer);
+  const rootNode = glb.nodes[0];
+  const landmark = landmarkData.landmarks.find(
+    (candidate) => candidate.id === "film-art-center",
+  );
+
+  assert.ok(landmark);
+  assert.equal(sha256(glbBuffer), record.outputs.sha256);
+  assert.equal(glbBuffer.length, record.metrics.bytes);
+  assert.equal(sha256(blendBuffer), record.outputs.blendSha256);
+  assert.equal(blendBuffer.length, record.outputs.blendBytes);
+  assert.equal(sha256(Buffer.from(generator)), record.generator.sha256);
+  assert.equal(record.outputs.cacheVersion, landmark.cacheVersion);
+  assert.equal(triangleCount(glb), record.metrics.triangles);
+  assert.equal(glb.nodes.length, 1);
+  assert.equal(glb.meshes.length, 1);
+  assert.equal(glb.materials.length, 14);
+  assert.equal(glb.images, undefined);
+  assert.equal(glb.textures, undefined);
+  assert.equal(
+    glb.meshes.some((mesh) =>
+      mesh.primitives.some(
+        (primitive) => primitive.attributes.TEXCOORD_0 !== undefined,
+      ),
+    ),
+    false,
+    "无图片纹理 Hero 不应导出未使用 TEXCOORD",
+  );
+  assert.equal(rootNode.translation, undefined);
+  assert.equal(rootNode.rotation, undefined);
+  assert.equal(rootNode.scale, undefined);
+  assert.equal(rootNode.extras.degenerate_faces_removed, 76);
+  assert.equal(rootNode.extras.degenerate_face_area_epsilon, 1e-10);
+  assert.equal(record.topologyRepair.removed, 76);
+  assert.equal(record.topologyRepair.postRepair.facesBelowEpsilon, 0);
+  assert.equal(record.topologyRepair.postRepair.nonfinitePolygonNormals, 0);
+  assert.equal(record.determinism.status, "passed");
+  assert.equal(record.determinism.sha256, record.outputs.sha256);
+  assert.equal(
+    gate.heroGate.status,
+    "blocked-topology-repair-built-recheck-pending",
+  );
+  assert.equal(
+    gate.heroGate.recheckCandidate.status,
+    "pending-main-coordinator-blender-mcp-recheck",
+  );
+  assert.equal(gate.identityGate.status, "blocked-until-hero-mcp2");
+  assert.equal(lineage.identity.identityAllowed, false);
+  assert.equal(lineage.nextGate, "blender-mcp2-hero-master-recheck");
+  assert.match(generator, /MeshPolygon\.area/);
+  assert.match(generator, /context="FACES_ONLY"/);
+  assert.match(generator, /export_texcoords=export_texcoords/);
+
+  for (const view of ["canonical", "side", "entrance"]) {
+    const preview = record.outputs.previews[view];
+    const buffer = await readFile(new URL(preview.path, root));
+    assert.equal(buffer.length, preview.bytes);
+    assert.equal(sha256(buffer), preview.sha256);
+  }
 });
 
 test("Film Art Center MCP1 场景、固定机位与尺度边界精确封存", async () => {

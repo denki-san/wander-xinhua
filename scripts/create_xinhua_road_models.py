@@ -13,6 +13,7 @@ import sys
 from pathlib import Path
 from typing import Callable
 
+import bmesh
 import bpy
 from mathutils import Matrix, Vector
 
@@ -32,6 +33,7 @@ MATERIALS: dict[str, bpy.types.Material] = {}
 DETAIL_BASELINE_PARTS: dict[str, int] = {
     "shanghai-cinema": 293,
 }
+DEGENERATE_FACE_AREA_EPSILON = 1e-10
 
 
 def resolve_chinese_font_path() -> Path:
@@ -2498,6 +2500,57 @@ BUILDERS: list[tuple[str, Callable[[], None]]] = [
 ]
 
 
+def remove_degenerate_faces(
+    mesh_object: bpy.types.Object,
+    area_epsilon: float = DEGENERATE_FACE_AREA_EPSILON,
+) -> dict[str, int]:
+    """只删除严格近零面积面，保留文字、细栏杆和薄屋檐的有效拓扑。"""
+    mesh = mesh_object.data
+    # Blender 5.2 的 BMeshFace.calc_area() 对坐标量级较大、三点严格共线的
+    # 三角面会出现约 1e-6 的浮点抵消误差，而 MeshPolygon.area 对同一面为 0。
+    # 先在导出器实际读取的 Mesh 层确定索引，再映射到 BMesh 删除。
+    mesh.update()
+    degenerate_indices = {
+        polygon.index
+        for polygon in mesh.polygons
+        if polygon.area < area_epsilon
+    }
+    editable = bmesh.new()
+    editable.from_mesh(mesh)
+    editable.faces.ensure_lookup_table()
+    degenerate_faces = [
+        face
+        for face in editable.faces
+        if face.index in degenerate_indices
+    ]
+    removed_by_material: dict[str, int] = {}
+    for face in degenerate_faces:
+        material_index = face.material_index
+        material_name = (
+            mesh.materials[material_index].name
+            if material_index < len(mesh.materials)
+            and mesh.materials[material_index] is not None
+            else f"material-{material_index}"
+        )
+        removed_by_material[material_name] = (
+            removed_by_material.get(material_name, 0) + 1
+        )
+    if degenerate_faces:
+        # FACES_ONLY 不溶解相邻有效边，也不按距离合并顶点，避免误伤中文字形、
+        # 灯具、栏杆和上翘屋檐；GLB 不导出清理后遗留的 loose edge/vertex。
+        bmesh.ops.delete(
+            editable,
+            geom=degenerate_faces,
+            context="FACES_ONLY",
+        )
+        editable.to_mesh(mesh)
+        mesh.update()
+    editable.free()
+    mesh_object["degenerate_face_area_epsilon"] = area_epsilon
+    mesh_object["degenerate_faces_removed"] = len(degenerate_faces)
+    return removed_by_material
+
+
 def merge_asset_objects(slug: str) -> None:
     """合并同一资产的网格节点，保留材质槽并显著降低网页端 draw call。"""
     meshes = [obj for obj in ASSET_OBJECTS if obj.type == "MESH"]
@@ -2514,7 +2567,38 @@ def merge_asset_objects(slug: str) -> None:
     # 而碰撞包络读取的是 POSITION accessor，二者会产生“模型与碰撞错位”。
     # 将位置、旋转和缩放全部烘焙到网格，保证运行时根节点为原点且包络可直接复用。
     bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+    removed_by_material = remove_degenerate_faces(merged)
+    if removed_by_material:
+        removed_total = sum(removed_by_material.values())
+        removed_summary = ", ".join(
+            f"{name}={count}"
+            for name, count in sorted(removed_by_material.items())
+        )
+        print(
+            f"{slug}: removed {removed_total} degenerate faces "
+            f"below area {DEGENERATE_FACE_AREA_EPSILON:g} "
+            f"({removed_summary})"
+        )
     ASSET_OBJECTS[:] = [merged]
+
+
+def asset_uses_image_textures() -> bool:
+    """仅在材质实际含图片纹理时导出 TEXCOORD，避免无用 UV 的浮点抖动。"""
+    for obj in ASSET_OBJECTS:
+        for slot in getattr(obj, "material_slots", ()):
+            material_data = slot.material
+            if (
+                material_data is None
+                or not material_data.use_nodes
+                or material_data.node_tree is None
+            ):
+                continue
+            if any(
+                node.type == "TEX_IMAGE" and node.image is not None
+                for node in material_data.node_tree.nodes
+            ):
+                return True
+    return False
 
 
 def render_preview(slug: str) -> None:
@@ -2665,6 +2749,7 @@ def export_asset(slug: str, builder: Callable[[], None]) -> dict[str, int | str]
         obj.select_set(True)
     bpy.context.view_layer.objects.active = ASSET_OBJECTS[0]
     output_glb = OUTPUT_DIR / f"{slug}.glb"
+    export_texcoords = asset_uses_image_textures()
     if runtime_mirrored:
         # 可编辑 Blend 始终保存 canonical 左右关系；仅在导出 GLB 前临时镜像网格，
         # 适配 glTF Y-up 与网页端 Z 翻转后的运行时水平轴。
@@ -2681,6 +2766,7 @@ def export_asset(slug: str, builder: Callable[[], None]) -> dict[str, int | str]
         export_yup=True,
         export_materials="EXPORT",
         export_extras=True,
+        export_texcoords=export_texcoords,
     )
     if runtime_mirrored:
         # GLB 已保存运行时方向；内存恢复 canonical 几何，确保预览与 Blend 一致。

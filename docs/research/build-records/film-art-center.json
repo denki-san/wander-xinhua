@@ -1,40 +1,102 @@
 {
   "asset": "film-art-center",
-  "generatedAt": "2026-07-22T00:43:00+08:00",
+  "generatedAt": "2026-07-25T20:43:40+08:00",
   "generator": {
-    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xinhua_road_models.py -- --asset=film-art-center",
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --factory-startup --python-exit-code 1 --python scripts/create_xinhua_road_models.py -- --asset=film-art-center",
     "path": "scripts/create_xinhua_road_models.py",
+    "sha256": "324be84a32ed3d43ff0bc1ceaca040e8e46f68aff21151b1bafa4ae524f6f3c6",
     "blenderVersion": "5.2.0 LTS"
   },
   "outputs": {
     "blend": "assets/models/source/xinhua-road/film-art-center.blend",
+    "blendSha256": "f58952f3bf4c086fb09afdbda4efdc264a124a74a12e6f63e7a9c70f3d3359b8",
+    "blendBytes": 912286,
     "glb": "public/models/xinhua-road/film-art-center.glb",
-    "sha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6",
-    "cacheVersion": "20260722-film-art-4"
+    "sha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+    "cacheVersion": "20260725-film-art-5",
+    "previews": {
+      "canonical": {
+        "path": "test_artifacts/test_film-art-center_canonical_preview.png",
+        "sha256": "26c0aeca7a767a9636b11d211a157533a552eb8591633ec0f9427c0a099a25e7",
+        "bytes": 738414,
+        "camera": [3, -43, 8],
+        "target": [0, -0.5, 6.3],
+        "lensMm": 54
+      },
+      "side": {
+        "path": "test_artifacts/test_film-art-center_side_preview.png",
+        "sha256": "19d1492a5d91fbe1ca0b9a5dcb9e1402f1cd96b9a5cbca2dbbe91219bb733282",
+        "bytes": 758554,
+        "camera": [34, -28, 9],
+        "target": [1, 0, 6.1],
+        "lensMm": 52
+      },
+      "entrance": {
+        "path": "test_artifacts/test_film-art-center_street_preview.png",
+        "sha256": "996c95b35d02dd2f204589ca40937a5beccb3ecc1714d822d4a812852d0b5988",
+        "bytes": 728688,
+        "camera": [10, -48, 4.8],
+        "target": [0, -0.8, 5.7],
+        "lensMm": 56
+      }
+    }
   },
   "metrics": {
-    "bytes": 4082744,
+    "bytes": 3148572,
     "nodes": 1,
     "meshes": 1,
-    "triangles": 63516,
+    "triangles": 63368,
+    "polygonsInBlend": 31351,
+    "verticesInBlend": 34226,
     "materials": 14,
     "images": 0,
     "textures": 0,
+    "texcoordPrimitives": 0,
     "bounds": {
       "min": [-11.554999351501465, -1.1920928955078125e-7, -6.724999904632568],
       "max": [11.554999351501465, 14.399999618530273, 11.225000381469727]
     }
   },
+  "topologyRepair": {
+    "trigger": "Blender MCP2 found 76 faces with area below 1e-10",
+    "method": "deterministic MeshPolygon.area index selection plus BMesh FACES_ONLY deletion after object join",
+    "areaEpsilon": 1e-10,
+    "removed": 76,
+    "removedByMaterial": {
+      "艺术中心白色构件": 48,
+      "艺术中心暗铜金属": 12,
+      "艺术中心入口暖光": 12,
+      "艺术中心朱红屋瓦": 4
+    },
+    "postRepair": {
+      "facesBelowEpsilon": 0,
+      "nonfinitePolygonNormals": 0,
+      "minimumFaceArea": 0.0000013669633744939347,
+      "rootTransformNormalized": true
+    }
+  },
+  "determinism": {
+    "status": "passed",
+    "method": "two consecutive clean single-asset Blender 5.2 builds compared with cmp",
+    "sha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+    "note": "The asset has no image textures, so unused TEXCOORD data is omitted; this removes exporter 1-ULP UV variance without changing visible geometry or materials."
+  },
   "evidence": {
     "brief": "docs/research/film-art-center-model-brief.md",
     "comparison": "test_artifacts/test_film-art-center_three-way-comparison.png",
-    "runtimeScreenshot": "test_artifacts/test_film-art-center_runtime_preview.png"
+    "runtimeScreenshot": "test_artifacts/test_film-art-center_runtime_preview.png",
+    "mcp2InitialReview": [
+      "test_artifacts/test_film-art-center-hero_mcp2_canonical.png",
+      "test_artifacts/test_film-art-center-hero_mcp2_side.png",
+      "test_artifacts/test_film-art-center-hero_mcp2_entrance-street.png"
+    ]
   },
   "validation": {
     "grayboxRuntimeGate": "passed",
     "glbAudit": "passed",
-    "automatedTests": "passed",
-    "runtimeQa": "passed",
-    "independentReview": "passed"
+    "automatedTests": "passed-26-film-art-center-and-xinhua-road-tests",
+    "runtimeQa": "superseded-pending-current-binary-and-three-tier",
+    "independentReview": "mcp2-topology-repaired-recheck-pending",
+    "identityAllowed": false
   }
 }

@@ -17,6 +17,9 @@
     "heroBlendSha256": "32e27757001feeb1da31a2ada1fbfafc7c6f6a038d3f85ab408912973a2c8e0c",
     "heroGlb": "public/models/xinhua-road/film-art-center.glb",
     "heroGlbSha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6",
+    "heroGlbSha256AtDerivation": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6",
+    "currentHeroGlbSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+    "currentHeroStatus": "mcp2-topology-repaired-recheck-pending",
     "recoveryMassingCandidate": {
       "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
       "sha256": "4b925b2dad96894e7feda2b925962781fcd532d675657a9f17a96467458b0941",
