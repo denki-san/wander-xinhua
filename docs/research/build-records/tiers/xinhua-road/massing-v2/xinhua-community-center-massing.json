@@ -1,0 +1,214 @@
+{
+  "version": 2,
+  "auditedAt": "2026-07-26",
+  "assetId": "building:xinhua-road:xinhua-community-center",
+  "tier": "massing",
+  "status": "headless-pass-map-calibrated-candidate-mcp1-pending",
+  "scope": {
+    "buildingOnly": true,
+    "includedOsmWays": [
+      864493234
+    ],
+    "excludedDecorTreesAndFullMap": true,
+    "sharedFilesModified": false
+  },
+  "evidence": {
+    "manifest": "docs/research/xinhua-community-center-reference-manifest.json",
+    "canonical": "docs/research/assets/requested-poi-references/xinhua-community-center-front.jpg",
+    "sideDepth": "unknown",
+    "entrance": "supported-by-canonical",
+    "massingAuthorized": true,
+    "identityAuthorized": false,
+    "heroAuthorized": false
+  },
+  "sourceData": {
+    "osmBinding": "docs/research/xinhua-community-center-osm-binding.json",
+    "sourcePoiNode": "node/13765678129",
+    "sourceBuildingWay": "way/864493234",
+    "sourceAccessRoad": "way/577252269",
+    "referenceOnly": true,
+    "embeddedInGlb": false
+  },
+  "runtimePlacementCandidate": {
+    "position": [
+      -74.78057782060566,
+      112.5501903703319
+    ],
+    "yaw": 1.1800125527954972,
+    "scale": 1,
+    "authoredFront": "blender-local-negative-y",
+    "gltfFront": "local-positive-z",
+    "frontWorldDirection": [
+      0.9246107940065941,
+      0.3809132179466811
+    ],
+    "localFootprint": [
+      [
+        -6.2328073354853455,
+        -2.6077452716950473
+      ],
+      [
+        6.315187963691822,
+        -2.6093047586433475
+      ],
+      [
+        6.3375736373407205,
+        2.0344502538968157
+      ],
+      [
+        -6.20663623671184,
+        2.0344502538968166
+      ]
+    ],
+    "localBounds": {
+      "minX": -6.2328073354853455,
+      "maxX": 6.3375736373407205,
+      "minZ": -2.6093047586433475,
+      "maxZ": 2.0344502538968166
+    }
+  },
+  "mapCalibration": {
+    "maximumVertexWorldErrorSceneUnits": 0.0001,
+    "measuredMaximumVertexWorldErrorSceneUnits": 0,
+    "roadBoundaryToCenterlineSceneUnits": 0.8473649273117979,
+    "roadBoundaryToCenterlineMeters": 2.2878853037418545,
+    "closestNeighborGapSceneUnits": 1.1517136810103772,
+    "closestNeighborGapMeters": 3.1096269387280184,
+    "overlapCount": 0,
+    "roadSurfaceWidthKnown": false
+  },
+  "massingGeometry": {
+    "heightEvidence": "two-storey-photo-boundary-not-surveyed",
+    "mainHeightSceneUnits": 2.6,
+    "parapetHeightSceneUnits": 0.22,
+    "portalHeightSceneUnits": 2.95,
+    "observed": [
+      "two-storey-low-white-building",
+      "flat-roof-and-parapet",
+      "central-tall-silver-metal-portal",
+      "dark-glass-entrance"
+    ],
+    "unknown": [
+      "surveyed-height",
+      "side-and-rear-facades",
+      "roof-equipment",
+      "toy-house-placement"
+    ],
+    "omitted": [
+      "trees",
+      "garden",
+      "sports-corner",
+      "toy-exchange-house",
+      "signage-text",
+      "decor"
+    ]
+  },
+  "collisionCandidate": {
+    "mainFootprint": [
+      [
+        -6.2328073354853455,
+        -2.6077452716950473
+      ],
+      [
+        6.315187963691822,
+        -2.6093047586433475
+      ],
+      [
+        6.3375736373407205,
+        2.0344502538968157
+      ],
+      [
+        -6.20663623671184,
+        2.0344502538968166
+      ]
+    ],
+    "localBounds": {
+      "minX": -6.2328073354853455,
+      "maxX": 6.3375736373407205,
+      "minZ": -2.6093047586433475,
+      "maxZ": 2.0344502538968166
+    },
+    "frontEntranceCollision": "visual-portal-not-added-to-building-blocker",
+    "sideGapWalkable": false,
+    "formalRuntimeCollisionGate": "pending-main-window"
+  },
+  "outputs": {
+    "generator": "scripts/create_xinhua_community_center_massing_model.py",
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb",
+    "previews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/massing-v2/xinhua-community-center/test_xinhua-community-center-massing-v2-canonical.png",
+        "sha256": "bf03ade01a1597d417990f2ec69bb75fbf3549456d098f6641ca8aa7874cc0f9",
+        "bytes": 722677
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/massing-v2/xinhua-community-center/test_xinhua-community-center-massing-v2-side-depth.png",
+        "sha256": "e84f2e77329bb96b84a43d7fd9ce94fcc5d3ffa1a20f885ebc865a2930582e43",
+        "bytes": 739036
+      },
+      "entrance": {
+        "path": "test_artifacts/all-models/massing-v2/xinhua-community-center/test_xinhua-community-center-massing-v2-entrance.png",
+        "sha256": "1951f38ae065a2a2a72ed86d58d56c8bfd735cbcd19da9265544176279888d42",
+        "bytes": 741799
+      }
+    }
+  },
+  "generator": {
+    "sha256": "d08192deb257c69c18dedc91e2082aa4a72b0d543b249cc2e041775fb7322596",
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xinhua_community_center_massing_model.py",
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "blend": {
+    "sha256": "9ee020e49d2d3236ec5961c9f494d8b8bf6b0df84b57d648804e8a3834c657ea",
+    "bytes": 95745
+  },
+  "glb": {
+    "sha256": "ebe89d49194b14ca5a5d65303403dd73502e6b11dce362368199d95a85e74eca",
+    "bytes": 6500,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 3,
+    "images": 0,
+    "textures": 0,
+    "triangles": 48,
+    "bounds": {
+      "min": [
+        -6.232807,
+        0,
+        -2.609305
+      ],
+      "max": [
+        6.337574,
+        2.95,
+        2.2995
+      ]
+    },
+    "rootTransformsNormalized": true
+  },
+  "budgets": {
+    "maxNodes": 4,
+    "maxTriangles": 200,
+    "maxMaterials": 3,
+    "maxImages": 0,
+    "maxBytes": 80000
+  },
+  "gates": {
+    "evidence": "pass-conservative-massing-only",
+    "headlessBuild": "pass",
+    "fixedViews": "pass",
+    "glbAudit": "pass",
+    "mcp1": "pending-main-window-batch",
+    "mapProjection": "pass-candidate",
+    "roadSurface": "pending-runtime-road-width",
+    "runtimeGate": "pending-main-window-scoped-qa",
+    "identityAuthorized": false,
+    "heroAuthorized": false
+  },
+  "recoveryAsset": {
+    "status": "retained-in-hold-rejected-as-current-candidate",
+    "sha256": "5fe5c22031f2108d4bcb5c7cf631fdfeed0cb3617a646ffbc396e88028fee921",
+    "method": "voxel-remesh-current-hero",
+    "holdCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11"
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "assetId": "xinhua-community-center",
+  "subject": "新华·社区营造中心",
+  "address": "上海市长宁区新华路345弄4号楼",
+  "sourceSnapshot": "docs/research/data/requested-pois-osm-20260717-103840.json",
+  "sourceSnapshotUpdatedAt": "2026-07-17T10:37:11Z",
+  "mapProjection": {
+    "source": "app/scene/xinhua-map-data.json",
+    "centerWgs84": [
+      121.4227819,
+      31.2066376
+    ],
+    "metersPerSceneUnit": 2.7,
+    "longitudeMetersPerDegreeFormula": "111320 * cos(centerLatitude)",
+    "latitudeMetersPerDegree": 110540
+  },
+  "namedPoi": {
+    "osmRef": "node/13765678129",
+    "wgs84": [
+      121.4206613,
+      31.2038885
+    ],
+    "projectedWorld": [
+      -74.78057782060566,
+      112.5501903703319
+    ],
+    "insideBoundFootprint": true
+  },
+  "buildingFootprint": {
+    "osmRef": "way/864493234",
+    "bindingBasis": "nearest-building-containing-named-poi-node",
+    "tags": {
+      "building": "yes"
+    },
+    "wgs84": [
+      [
+        121.4205256,
+        31.203772
+      ],
+      [
+        121.4206611,
+        31.2040554
+      ],
+      [
+        121.4207831,
+        31.2040127
+      ],
+      [
+        121.4206476,
+        31.2037294
+      ]
+    ],
+    "projectedWorld": [
+      [
+        -79.56588594583596,
+        117.31978666665853
+      ],
+      [
+        -74.78763059611207,
+        105.7171807407035
+      ],
+      [
+        -70.4854375878097,
+        107.46535037039932
+      ],
+      [
+        -75.26369293753359,
+        119.06386222223242
+      ]
+    ]
+  },
+  "runtimePlacementCandidate": {
+    "position": [
+      -74.78057782060566,
+      112.5501903703319
+    ],
+    "yaw": 1.1800125527954972,
+    "scale": 1,
+    "authoredFront": "blender-local-negative-y",
+    "gltfFront": "local-positive-z",
+    "frontWorldDirection": [
+      0.9246107940065941,
+      0.3809132179466811
+    ],
+    "localFootprint": [
+      [
+        -6.2328073354853455,
+        -2.6077452716950473
+      ],
+      [
+        6.315187963691822,
+        -2.6093047586433475
+      ],
+      [
+        6.3375736373407205,
+        2.0344502538968157
+      ],
+      [
+        -6.20663623671184,
+        2.0344502538968166
+      ]
+    ],
+    "localBounds": {
+      "minX": -6.2328073354853455,
+      "maxX": 6.3375736373407205,
+      "minZ": -2.6093047586433475,
+      "maxZ": 2.0344502538968166
+    }
+  },
+  "frontAccessRoad": {
+    "osmRef": "way/577252269",
+    "name": "新华路345弄",
+    "highway": "service",
+    "worldPolyline": [
+      [
+        -48.075243677999055,
+        60.43672148144215
+      ],
+      [
+        -67.77011904940902,
+        108.03442666665516
+      ],
+      [
+        -69.57210317000143,
+        107.45716222230094
+      ],
+      [
+        -74.05061556446091,
+        118.8837229630498
+      ]
+    ],
+    "buildingBoundaryToCenterlineSceneUnits": 0.8473649273117979,
+    "buildingBoundaryToCenterlineMeters": 2.2878853037418545,
+    "entranceCenterWorld": [
+      -72.87456526267164,
+      113.26460629631586
+    ],
+    "entranceRoadClosestWorld": [
+      -71.98492826590126,
+      113.6132895446705
+    ],
+    "entranceToCenterlineSceneUnits": 0.9555281229277112,
+    "entranceToCenterlineMeters": 2.5799259319048202
+  },
+  "neighborClearance": {
+    "closestOsmRef": "way/864493232",
+    "minimumBoundaryGapSceneUnits": 1.1517136810103772,
+    "minimumBoundaryGapMeters": 3.1096269387280184,
+    "overlapCount": 0,
+    "walkablePromise": "not-made-for-side-gap",
+    "reason": "间距小于当前候选玩家直径1.36场景单位，入口路径只绑定新华路345弄一侧"
+  },
+  "calibrationContract": {
+    "maximumVertexWorldErrorSceneUnits": 0.0001,
+    "roadSurfaceWidthKnown": false,
+    "formalRuntimeMapAcceptance": "pending-main-window",
+    "sharedRegistryModifiedInBuildingWorktree": false
+  }
+}
