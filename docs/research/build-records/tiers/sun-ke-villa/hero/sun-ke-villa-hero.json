@@ -39,8 +39,8 @@
     },
     "brief": {
       "path": "docs/research/sun-ke-villa-model-brief.md",
-      "sha256": "2eb41b0a75285ac1037fa9167b0ffff5761fd7f56a1085d85f4d80982519c909",
-      "bytes": 26930
+      "sha256": "7d770b4525be71098f2ad7570710af280ee9e1e44de66043ec2887f5c39d6d42",
+      "bytes": 28146
     },
     "massingMapQa": {
       "path": "docs/research/sun-ke-villa-massing-map-qa.json",

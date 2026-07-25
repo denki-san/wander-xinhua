@@ -4,6 +4,7 @@ import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
+import { SUN_KE_PORTE_COCHERE_COLUMN_OBSTACLES } from "../app/scene/sun-ke-villa-tier-contract.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -340,4 +341,74 @@ test("孙科别墅 GLB 已接入上生新所并保留延迟加载 fallback", asy
     "docs/research/sun-ke-villa-reference-manifest.json",
   );
   await access(path.join(root, shangsheng.model.sunKeVillaReferenceManifest));
+});
+
+test("孙科别墅 QA 锁定 exact-18 范围、v2 MCP 门和开放门廊车道", async () => {
+  const mapQa = JSON.parse(await readFile(
+    path.join(root, "docs/research/sun-ke-villa-massing-map-qa-v2.json"),
+    "utf8",
+  ));
+  assert.equal(
+    mapQa.scope,
+    "exact-18-building-program-sun-ke-only-reconciliation",
+  );
+  assert.equal(
+    mapQa.blenderMcpPrerequisite.record,
+    "docs/research/sun-ke-villa-blender-mcp-gates-v2.json",
+  );
+  assert.equal(
+    mapQa.collisionEvidence.test,
+    "tests/test_sun_ke_villa_model.test.mjs",
+  );
+  assert.equal(mapQa.collisionEvidence.porteCochereFrontColumnsBlock, true);
+  assert.equal(mapQa.collisionEvidence.porteCochereCoveredLaneRemainsOpen, true);
+
+  assert.deepEqual(SUN_KE_PORTE_COCHERE_COLUMN_OBSTACLES, [
+    { minX: 40.86, maxX: 41.35, minZ: -14.71, maxZ: -14.22 },
+    { minX: 42.65, maxX: 43.16, minZ: -14.71, maxZ: -14.22 },
+  ]);
+  const [leftColumn, rightColumn] = SUN_KE_PORTE_COCHERE_COLUMN_OBSTACLES;
+  assert.equal(leftColumn.minZ, rightColumn.minZ);
+  assert.equal(leftColumn.maxZ, rightColumn.maxZ);
+  assert.ok(leftColumn.maxX < rightColumn.minX, "两根前柱不得合并成整块碰撞盒");
+  assert.ok(
+    Math.abs((rightColumn.minX - leftColumn.maxX) - 1.3) < 1e-9,
+    "porte-cochère 中央车道净宽必须保持 1.30 场景单位",
+  );
+
+  const runtimeQa = JSON.parse(await readFile(
+    path.join(root, "docs/research/sun-ke-villa-three-tier-runtime-qa-v2.json"),
+    "utf8",
+  ));
+  assert.equal(runtimeQa.loadingPolicyEvidence.exact18HeroSimultaneous, false);
+  assert.ok(!("all31HeroSimultaneous" in runtimeQa.loadingPolicyEvidence));
+  assert.match(runtimeQa.loadingPolicyEvidence.scopePolicy, /exact-18/);
+  assert.match(runtimeQa.reconciliationVerification.note, /exact-18/);
+  assert.doesNotMatch(runtimeQa.reconciliationVerification.note, /31 栋|31栋/);
+
+  const brief = await readFile(
+    path.join(root, "docs/research/sun-ke-villa-model-brief.md"),
+    "utf8",
+  );
+  assert.match(brief, /Active-31 pipeline migration（superseded 历史记录）/);
+  assert.match(brief, /Iteration 12 — Exact-18 SunKe-only recovery reconciliation/);
+  assert.match(brief, /active-31.*不是当前 scope 或运行时合同/s);
+
+  const heroRecordPath = "docs/research/build-records/tiers/sun-ke-villa/hero/sun-ke-villa-hero.json";
+  const identityRecord = JSON.parse(await readFile(
+    path.join(
+      root,
+      "docs/research/build-records/tiers/sun-ke-villa/identity/sun-ke-villa-identity.json",
+    ),
+    "utf8",
+  ));
+  const heroRecord = JSON.parse(await readFile(path.join(root, heroRecordPath), "utf8"));
+  assert.equal(
+    heroRecord.evidence.brief.sha256,
+    await fileSha256("docs/research/sun-ke-villa-model-brief.md"),
+  );
+  assert.equal(
+    identityRecord.derivedFrom.heroBuildRecordSha256,
+    await fileSha256(heroRecordPath),
+  );
 });

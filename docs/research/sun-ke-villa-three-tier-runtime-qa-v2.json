@@ -116,7 +116,8 @@
     "firstScreen": "pass-zero-target-glb-before-departure",
     "mapEntry": "pass-target-assets-start-after-departure",
     "delayedHero": "pass-identity-fallback-loads-with-hero-and-remains-valid-on-hero-failure",
-    "all31HeroSimultaneous": false,
+    "exact18HeroSimultaneous": false,
+    "scopePolicy": "exact-18 公共 manifest 由主调度窗口维护；本记录只验收 sun-ke-villa，不同时加载其余 17 栋 Hero。",
     "nearMidFarPolicy": "sun-ke-villa-qa-forces-one-tier; production-progressive-wrapper-retains-near-hero-mid-identity-far-massing-contract"
   },
   "cacheEvidence": {
@@ -173,7 +174,7 @@
     "previewOrigin": "http://127.0.0.1:4177",
     "viewportCssPixels": [1280, 577],
     "entryContract": "sun-ke-tier-only-minimal-runtime-patch",
-    "note": "未导入 recovery 的公共 qaActiveAsset、31 栋 registry、树木、装饰或其他建筑 runtime 改动。",
+    "note": "严格服从 exact-18 范围；未导入 recovery 的扩大范围 registry、公共 qaActiveAsset、树木、装饰或其他建筑 runtime 改动。",
     "normalTierRuns": {
       "hero": {
         "url": "/?start=sunke-north&sun-ke-tier=hero",

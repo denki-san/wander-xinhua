@@ -1,7 +1,7 @@
 {
   "version": 2,
   "auditedAt": "2026-07-25T13:00:00+08:00",
-  "scope": "active-31-minimal-vertical-pilot",
+  "scope": "exact-18-building-program-sun-ke-only-reconciliation",
   "assetId": "sun-ke-villa",
   "sourceWayId": 864847877,
   "tier": "massing",
@@ -22,7 +22,7 @@
   },
   "blenderMcpPrerequisite": {
     "status": "pass",
-    "record": "docs/research/sun-ke-villa-blender-mcp-gates.json",
+    "record": "docs/research/sun-ke-villa-blender-mcp-gates-v2.json",
     "namedLandmarkNotGenericBox": true,
     "northPorteCochereProjectionSceneUnits": 2.16534,
     "coveredLaneOpen": true
@@ -108,7 +108,7 @@
     }
   },
   "collisionEvidence": {
-    "test": "tests/test_sun_ke_villa_tier_pipeline.test.mjs",
+    "test": "tests/test_sun_ke_villa_model.test.mjs",
     "mainBodyBlocksCharacter": true,
     "eastPassageRemainsOpen": true,
     "porteCochereFrontColumnsBlock": true,

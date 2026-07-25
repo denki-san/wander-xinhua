@@ -235,7 +235,7 @@ Three.js 通过证据：专用 `/?start=sunke` 机位的真实 PNG `test_artifac
 - Performance impact: 最终二进制重建后的浏览器 CDP 单次会话采样为 `JSHeapUsedSize 83,324,148` bytes、`JSHeapTotalSize 131,858,432` bytes、248 DOM nodes、1 frame；GLB 继续延迟加载且未首屏 preload，该数值包含浏览器与验收插件开销。
 - Rollback point: `SunKeVillaErrorBoundary` 与 `SunKeVillaFallback` 可在 GLB 失败时保持园区可用；确定性生成器可复现最终二进制与三机位图。
 
-### Iteration 5 — Active-31 pipeline migration
+### Iteration 5 — Active-31 pipeline migration（superseded 历史记录）
 
 - Changes: 将孙科别墅纳入 active-31 最小纵向试点；纠正旧 Brief 把 Hero
   “身份构件阶段”误记为正式 Identity tier 的语义；把官方花园南立面与
@@ -254,6 +254,9 @@ Three.js 通过证据：专用 `/?start=sunke` 机位的真实 PNG `test_artifac
   Massing，不同时加载 31 个 Hero。
 - Rollback point: 旧 Massing GLB、Blend、截图和 build record 的 Git
   历史可追溯；本轮只允许单资产确定性重建。
+- Scope status: 本节只记录 recovery 来源历史，已被 Iteration 12 的
+  `exact-18-building-program-sun-ke-only-reconciliation` 完全替代；
+  active-31 与“同时加载 31 个 Hero”均不是当前 scope 或运行时合同。
 
 ### Iteration 6 — User-corrected north porte-cochère
 
@@ -327,7 +330,8 @@ Three.js 通过证据：专用 `/?start=sunke` 机位的真实 PNG `test_artifac
 - Fallback result: Hero 故障显示 Identity；Identity 故障显示程序化模型。
   旧程序化模型从 `7.45` 高度改为与三档 `5.05` 包络一致，并补齐外挑北门廊、
   局部柱障碍与开放中心车道，避免故障时缩回主墙或高度突变。
-- Performance impact: 没有同时加载 active 31 的 Hero；Hero 近景路径为
+- Performance impact: 当时 recovery 试验没有同时加载 active 31 的 Hero；
+  此处仅保留历史测量语境，不代表当前 exact-18 scope。Hero 近景路径为
   同一资产额外加载 `345,473` bytes Identity 作为韧性成本。
 - Rollback point: 删除 QA query 参数即可恢复正常距离调度；ErrorBoundary
   与对齐后的程序化 fallback 保留为运行时故障保护。
@@ -357,3 +361,16 @@ Three.js 通过证据：专用 `/?start=sunke` 机位的真实 PNG `test_artifac
   测绘尺寸。
 - Rollback point: v1 MCP/runtime 记录与旧截图原样保留；v2 记录通过
   `supersedesWithoutDeleting` 指向旧证据。
+
+### Iteration 12 — Exact-18 SunKe-only recovery reconciliation
+
+- Changes: 在严格 18 栋总范围下只恢复孙科别墅专属 Hero、Identity、
+  Massing、证据、build records、MCP / 地图 / Three.js QA 和局部 runtime
+  补丁；公共 18 栋 manifest 继续由主调度窗口维护。
+- Scope: 当前唯一有效范围口径为
+  `exact-18-building-program-sun-ke-only-reconciliation`。未导入 recovery
+  的扩大范围 registry、树木、装饰、ordinary OSM、设施原型或其他建筑。
+- Collision result: 主体沿用既有 OSM 碰撞，北侧 porte-cochère 只增加两根
+  前柱局部障碍；两柱之间保留 `1.30` 场景单位中央车道净宽。
+- Validation: `tests/test_sun_ke_villa_model.test.mjs` 锁定 exact-18 scope、
+  v2 MCP gate、真实 QA 文件路径、双前柱障碍与中央车道开放。
