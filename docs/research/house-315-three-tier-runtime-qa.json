@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "house-315",
   "recordedAt": "2026-07-26",
-  "status": "runtime-candidate-ready-main-window-wiring-and-browser-pending",
+  "status": "runtime-candidate-placement-recalibrated-main-window-wiring-and-browser-pending",
   "mode": "building-fast",
   "scope": {
     "included": [
@@ -36,8 +36,8 @@
     "branch": "codex/building-house-315",
     "contract": {
       "path": "app/scene/house-315-tier-contract.mjs",
-      "sha256": "2ec00e5eaf2f116cc516a7bc681f01acde5dcfb36e9186b9553679585e527a49",
-      "bytes": 4255
+      "sha256": "98d52d687566804d9b26a2921e1407bec5548f1445edb5e32761526b1390390d",
+      "bytes": 4459
     },
     "runtimeModule": {
       "path": "app/scene/house-315-runtime.tsx",
@@ -46,23 +46,27 @@
     },
     "mcp3Gate": "docs/research/house-315-blender-mcp-gates.json#threeTierGate",
     "tierLineage": "docs/research/house-315-tier-lineage.json",
-    "mapGate": "docs/research/house-315-massing-map-qa.json",
-    "specializedTest": "tests/test_house_315_identity_v1.test.mjs"
+    "supersededMapGate": "docs/research/house-315-massing-map-qa.json",
+    "mapPositionCandidate": "docs/research/house-315-map-position-candidate.json",
+    "specializedTests": [
+      "tests/test_house_315_identity_v1.test.mjs",
+      "tests/test_house_315_map_position_candidate.test.mjs"
+    ]
   },
   "placement": {
     "position": [
-      -23.03,
-      85.67
+      -20.127789,
+      82.330463
     ],
-    "yaw": -0.38,
-    "scale": 0.9,
+    "yaw": -0.401372,
+    "scale": 0.754254,
     "start": [
       -21.8,
       67.6
     ],
     "forward": [
-      -0.05,
-      1
+      0.152032,
+      0.988376
     ],
     "sourceGltfBounds": {
       "minX": -7.675,
@@ -76,7 +80,9 @@
       "minZ": -4.84,
       "maxZ": 4.575
     },
-    "sourceLocalObstacleCount": 4,
+    "sourceLocalObstacleCount": 3,
+    "mapSourceWayId": 864485667,
+    "mapPositionStatus": "osm-calibrated-candidate-runtime-pending",
     "axisConversion": "registry retains source GLTF coordinates; primitive scale-z=-1 and shared transformedFootprint each apply the same single conversion on their separate render/collision paths",
     "origin": [
       0,
@@ -182,7 +188,7 @@
     "requiredPatches": [
       {
         "file": "app/scene/xinhua-road-landmarks-data.json",
-        "change": "For house-315 only, bind production Hero path/cache and replace legacy envelope with the map-gate source bounds and four source local obstacles; keep position/yaw/scale/start/forward exact."
+        "change": "For house-315 only, bind production Hero path/cache and apply the OSM-calibrated position [-20.127789,82.330463], yaw -0.401372, scale 0.754254, exact source GLTF bounds, three source-local collision rectangles, retained start [-21.8,67.6], and updated entrance-facing forward [0.152032,0.988376]."
       },
       {
         "file": "app/scene/xinhua-road-landmarks.tsx",
@@ -208,13 +214,15 @@
       "120-visible-frame-sample",
       "hero-and-identity-deterministic-fallback",
       "massing-no-lower-tier",
-      "four-part-collision-replay",
+      "three-part-collision-replay",
+      "villa-le-bec-two-entity-no-overlap",
       "camera-and-ground-contact"
     ]
   },
   "validation": {
     "allowedCommand": "npm run building:fast -- --building house-315",
     "buildingFast": "pass-42-of-42-specialized-and-scope-tests",
+    "mapPositionTest": "pass-6-of-6-osm-placement-and-scope-tests",
     "glbAudit": "pass-hero-identity-massing",
     "independentReview": {
       "status": "pass",
@@ -226,15 +234,18 @@
         "house-315-runtime-module",
         "house-315-runtime-record",
         "house-315-specialized-tests",
+        "house-315-map-position-candidate",
         "shared-file-scope-guard"
       ],
-      "reviewConclusion": "runtime-candidate-ready-for-main-window-integration"
+      "reviewConclusion": "runtime-candidate-placement-recalibrated-ready-for-main-window-integration"
     },
     "mainWindowBrowser": "pending"
   },
   "completionBoundary": {
     "runtimeCandidateReadyForCommit": true,
     "runtimeModuleImplemented": true,
+    "mapPositionCandidateReady": true,
+    "mapPositionFinalRuntimePass": false,
     "publicRegistryModified": false,
     "sharedRuntimeModified": false,
     "mainWindowIntegrated": false,
