@@ -164,14 +164,14 @@ function auditGeometry(json, binary) {
   };
 }
 
-test("一号花园 Hero v2 使用独立路径并保留旧 Hero Hold 与公共 registry", async () => {
+test("一号花园 Hero v2 使用独立路径并保留旧 Hero Hold", async () => {
   const record = await readJson(recordPath);
   const registry = await readJson("app/scene/xinhua-road-landmarks-data.json");
   const landmark = registry.landmarks.find(({ id }) => id === "one-step-garden");
 
   assert.equal(
     record.status,
-    "hero-v2-mcp2-pass-identity-v1-mcp3-pass-runtime-paused-for-main-window-gate-integration",
+    "hero-v2-mcp2-pass-identity-v1-mcp3-pass-runtime-candidate-implemented-browser-final-pending",
   );
   assert.equal(record.tier, "hero");
   assert.equal(record.versionName, "hero-v2");
@@ -186,9 +186,13 @@ test("一号花园 Hero v2 使用独立路径并保留旧 Hero Hold 与公共 re
   );
   assert.equal(record.legacyHeroHold.overwritten, false);
   assert.equal(record.legacyHeroHold.deleted, false);
-  assert.equal(record.publicRegistry.modified, false);
-  assert.equal(landmark.model, "/models/xinhua-road/one-step-garden.glb");
-  assert.equal(landmark.cacheVersion, "20260718-detail-1");
+  assert.equal(record.publicRegistry.modified, true);
+  assert.equal(record.publicRegistry.mainWindowIntegrated, false);
+  assert.equal(
+    landmark.model,
+    "/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb",
+  );
+  assert.equal(landmark.cacheVersion, "20260725-hero-026565ba");
 });
 
 test("一号花园 Hero v2 精确继承 Massing origin、bounds、前向与碰撞语义", async () => {
@@ -214,12 +218,11 @@ test("一号花园 Hero v2 精确继承 Massing origin、bounds、前向与碰�
   assert.equal(record.identityLineage.mcp3, "pass");
   assert.equal(record.identityLineage.identityFormalPass, true);
   assert.equal(record.identityLineage.runtimeAuthorized, true);
-  assert.equal(
-    record.identityLineage.runtimeExecutionPausedForMainWindowGateIntegration,
-    true,
-  );
-  assert.equal(record.identityLineage.runtimeIntegrated, false);
-  assert.equal(record.identityLineage.publicRegistryModified, false);
+  assert.equal(record.identityLineage.runtimeCandidateImplemented, true);
+  assert.equal(record.identityLineage.runtimeIntegrated, true);
+  assert.equal(record.identityLineage.publicRegistryModified, true);
+  assert.equal(record.identityLineage.mainWindowIntegrated, false);
+  assert.equal(record.identityLineage.mainWindowBrowserFinal, "pending");
 });
 
 test("一号花园 Hero v2 GLB 结构、退化面、法线和预算通过独立复算", async () => {

@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "assetId": "one-step-garden",
+  "recordedAt": "2026-07-25",
+  "status": "partial-main-window-browser-pending",
+  "scope": {
+    "included": [
+      "one-step-garden-three-tier-runtime-contract",
+      "one-step-garden-production-hero-binding",
+      "one-step-garden-overview-identity-binding",
+      "one-step-garden-cover-massing-binding",
+      "one-step-garden-deterministic-fallback-contract",
+      "one-step-garden-eight-part-collision-contract"
+    ],
+    "excludedAndHeld": [
+      "legacy-wrong-hero",
+      "trees",
+      "shrubs",
+      "grass",
+      "furniture",
+      "umbrellas",
+      "planters",
+      "lamps",
+      "fences",
+      "signage",
+      "decorative-paving",
+      "other-buildings",
+      "ordinary-osm",
+      "full-map-assets"
+    ]
+  },
+  "source": {
+    "baseCommit": "403af3a",
+    "candidateBranch": "codex/building-one-step-garden-runtime",
+    "contract": "app/scene/one-step-garden-tier-contract.mjs",
+    "runtime": "app/scene/one-step-garden-runtime.tsx",
+    "registry": "app/scene/xinhua-road-landmarks-data.json",
+    "test": "tests/test_one_step_garden_runtime_tiers.test.mjs"
+  },
+  "placement": {
+    "position": [
+      60.86,
+      120.73
+    ],
+    "yaw": -0.38,
+    "scale": 0.88,
+    "localBounds": {
+      "minX": -7.25,
+      "maxX": 7.25,
+      "minZ": -9.325,
+      "maxZ": 6.9
+    },
+    "sourceGltfBounds": {
+      "minX": -7.25,
+      "maxX": 7.25,
+      "minZ": -9.325,
+      "maxZ": 6.9
+    },
+    "renderedLocalBounds": {
+      "minX": -7.25,
+      "maxX": 7.25,
+      "minZ": -6.9,
+      "maxZ": 9.325
+    },
+    "axisConversion": "registry retains source GLTF coordinates; primitive scale-z=-1 and transformedFootprint localZ=-sourceZ each apply the same single conversion on their separate render/collision paths",
+    "localObstacleCount": 8,
+    "allTiersUseExactContract": true,
+    "extraCenterOffset": false,
+    "collisionSource": "docs/research/one-step-garden-massing-map-qa.json#qaAssembly-proposedLocalObstacles-source-coordinates"
+  },
+  "tiers": {
+    "hero": {
+      "url": "/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb?v=20260725-hero-026565ba",
+      "sha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+      "bytes": 259772,
+      "triangles": 3584,
+      "materials": 7
+    },
+    "identity": {
+      "url": "/models/tiers/xinhua-road/identity-v1/one-step-garden-identity.glb?v=20260725-identity-928ecfca",
+      "sha256": "928ecfcace4a35e88ad68d34a2369fa673457275393ea65d8649d9de433b0497",
+      "bytes": 112456,
+      "triangles": 1484,
+      "materials": 6
+    },
+    "massing": {
+      "url": "/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb?v=20260725-massing-a87caeba",
+      "sha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+      "bytes": 18316,
+      "triangles": 204,
+      "materials": 3
+    }
+  },
+  "urlContract": {
+    "productionAndQaResolveIdenticalTierUrl": true,
+    "qaModelPathUse": "reset-key-and-requested-url-metadata-only",
+    "extraPreload": false,
+    "missingUrlFaultInjection": false,
+    "expectedSuccessfulGlbRequestCountPerRenderedTier": 1,
+    "resourceTimingVerification": "main-window-browser-pending"
+  },
+  "fallbackContract": {
+    "hero": {
+      "query": "qaActiveFallback=one-step-garden:hero",
+      "mode": "forced-deterministic-fallback",
+      "renderedTier": "identity",
+      "networkFailureClaimed": false
+    },
+    "identity": {
+      "query": "qaActiveFallback=one-step-garden:identity",
+      "mode": "forced-deterministic-fallback",
+      "renderedTier": "massing",
+      "networkFailureClaimed": false
+    },
+    "massing": {
+      "query": "qaActiveFallback=one-step-garden:massing",
+      "mode": "no-lower-tier",
+      "renderedTier": "massing",
+      "successfulFallbackClaimed": false
+    },
+    "scopeIsolation": "asset-qualified-token-prevents-cross-building-fallback-injection"
+  },
+  "deepLinks": {
+    "hero": "/?start=garden179&network=standard&cameraQa=1&effects=off&district=off&qaModelId=one-step-garden&qaModelTier=hero",
+    "identity": "/?start=garden179&network=standard&cameraQa=1&effects=off&district=off&qaModelId=one-step-garden&qaModelTier=identity",
+    "massing": "/?start=garden179&network=standard&cameraQa=1&effects=off&district=off&qaModelId=one-step-garden&qaModelTier=massing",
+    "heroFallback": "/?start=garden179&network=standard&cameraQa=1&effects=off&district=off&qaModelId=one-step-garden&qaModelTier=hero&qaActiveFallback=one-step-garden:hero",
+    "identityFallback": "/?start=garden179&network=standard&cameraQa=1&effects=off&district=off&qaModelId=one-step-garden&qaModelTier=identity&qaActiveFallback=one-step-garden:identity",
+    "massingFloor": "/?start=garden179&network=standard&cameraQa=1&effects=off&district=off&qaModelId=one-step-garden&qaModelTier=massing&qaActiveFallback=one-step-garden:massing"
+  },
+  "isolatedBrowserObservation": {
+    "status": "partial-superseded-probe-main-window-revalidation-required",
+    "surface": "Chrome connector selected by local URL",
+    "viewport": [
+      1440,
+      900
+    ],
+    "buildMode": "static-production-preview",
+    "pageVisible": true,
+    "entry": "hero-deep-link",
+    "observed": {
+      "pagePlayable": true,
+      "requestedTier": "hero",
+      "renderedTier": "hero",
+      "requestedUrl": "/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb?v=20260725-hero-026565ba",
+      "loadedUrl": "/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb?v=20260725-hero-026565ba",
+      "sha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+      "bytes": 259772,
+      "fallback": "none",
+      "consoleErrors": 0,
+      "consoleWarnings": [
+        "THREE.Clock deprecation warning"
+      ]
+    },
+    "notAcceptedFromThisProbe": [
+      "resource-timing-request-count",
+      "frame-sample-after-final-probe-stability-fix",
+      "hero-screenshot",
+      "identity-runtime",
+      "massing-runtime",
+      "hero-deterministic-fallback",
+      "identity-deterministic-fallback",
+      "massing-no-lower-tier",
+      "scripted-collision-replay"
+    ],
+    "interruption": {
+      "classification": "browser-connector-unavailable",
+      "assetFailure": false,
+      "implementationChangeMadeToWorkAroundConnector": false
+    }
+  },
+  "collision": {
+    "priorMapGate": "pass",
+    "candidateAxisAlignment": "source GLTF bounds and all eight source obstacles are passed unchanged to the registry; the render path and shared collision transform each mirror Z exactly once",
+    "entranceClearWidthAfterScaleAndMargins": 3.4016,
+    "frontRearClearWidthAfterScaleAndMargins": 1.404,
+    "playerDiameter": 0.96,
+    "entrancePass": true,
+    "frontRearPass": true,
+    "finalRuntimeReplay": "main-window-browser-pending"
+  },
+  "validation": {
+    "oneStepTargetedTests": "26-of-26-pass",
+    "oneStepPlusSharedTransformTests": "44-of-44-pass",
+    "lint": "pass",
+    "build": "pass",
+    "fullNpmTest": "237-of-237-pass-after-final-axis-contract-fix",
+    "mainWindowBrowser": "pending"
+  },
+  "completionBoundary": {
+    "runtimeCandidateReadyForCommit": true,
+    "runtimeIntegrated": true,
+    "publicRegistryModified": true,
+    "mainWindowIntegrated": false,
+    "threeTierRuntimeFinalPass": false,
+    "nextAuthority": "main-window-integrate-candidate-then-real-browser-cdp-revalidation"
+  }
+}

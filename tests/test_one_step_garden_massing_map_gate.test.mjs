@@ -198,7 +198,7 @@ test("一号花园分体碰撞保留入口、前后间隙、起点和相机净�
   );
 });
 
-test("公共 registry 在建筑分支保持旧 Hero，或由主窗口一次性接入提案值", async () => {
+test("公共 registry 只接正式 Hero v2，并采用地图门冻结的空间合同", async () => {
   const qa = await readJson("docs/research/one-step-garden-massing-map-qa.json");
   const registry = await readJson("app/scene/xinhua-road-landmarks-data.json");
   const landmark = registry.landmarks.find(({ id }) => id === "one-step-garden");
@@ -207,16 +207,11 @@ test("公共 registry 在建筑分支保持旧 Hero，或由主窗口一次性�
   assert.equal(landmark.yaw, -0.38);
   assert.equal(landmark.scale, 0.88);
 
-  if (landmark.model === "/models/xinhua-road/one-step-garden.glb") {
-    assert.equal(landmark.cacheVersion, "20260718-detail-1");
-    assert.deepEqual(landmark.localObstacles, [
-      { minX: -8.8, maxX: 8.8, minZ: -6.1, maxZ: 4.7 },
-    ]);
-    assert.equal(qa.verdict.sharedRegistryIntegration, "pending-main-window");
-  } else {
-    assert.equal(landmark.model, qa.qaAssembly.temporaryModelOverride.model);
-    assert.equal(landmark.cacheVersion, qa.qaAssembly.temporaryModelOverride.cacheVersion);
-    assert.deepEqual(landmark.localBounds, qa.qaAssembly.proposedLocalBounds);
-    assert.deepEqual(landmark.localObstacles, qa.qaAssembly.proposedLocalObstacles);
-  }
+  assert.equal(
+    landmark.model,
+    "/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb",
+  );
+  assert.equal(landmark.cacheVersion, "20260725-hero-026565ba");
+  assert.deepEqual(landmark.localBounds, qa.qaAssembly.proposedLocalBounds);
+  assert.deepEqual(landmark.localObstacles, qa.qaAssembly.proposedLocalObstacles);
 });

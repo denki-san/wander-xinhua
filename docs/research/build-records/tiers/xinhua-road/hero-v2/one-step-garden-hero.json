@@ -4,7 +4,7 @@
   "assetId": "one-step-garden",
   "tier": "hero",
   "versionName": "hero-v2",
-  "status": "hero-v2-mcp2-pass-identity-v1-mcp3-pass-runtime-paused-for-main-window-gate-integration",
+  "status": "hero-v2-mcp2-pass-identity-v1-mcp3-pass-runtime-candidate-implemented-browser-final-pending",
   "generator": "scripts/create_one_step_garden_hero_model.py",
   "generatorSha256": "b536e1d32630b0ee3262d98029ba384bfa610f392316dad7dd658141124b30b8",
   "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_one_step_garden_hero_model.py",
@@ -484,7 +484,7 @@
     "maxBytes": 4800000
   },
   "identityLineage": {
-    "status": "identity-v1-mcp3-pass-runtime-paused-for-main-window-gate-integration",
+    "status": "identity-v1-mcp3-pass-runtime-candidate-implemented-browser-final-pending",
     "authorizationAuthority": "docs/research/one-step-garden-blender-mcp-gates.json#heroGate.mcp2Rereview",
     "postBuildGateAuthorization": true,
     "sourceRootIdentityAllowedAtBuild": false,
@@ -521,13 +521,16 @@
     "identityFormalPass": true,
     "mcp3GateRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/one-step-garden-identity.json#mcp3",
     "runtimeAuthorized": true,
-    "runtimeExecutionPausedForMainWindowGateIntegration": true,
-    "runtimeIntegrated": false,
-    "publicRegistryModified": false
+    "runtimeCandidateImplemented": true,
+    "runtimeIntegrated": true,
+    "publicRegistryModified": true,
+    "mainWindowIntegrated": false,
+    "mainWindowBrowserFinal": "pending"
   },
   "publicRegistry": {
-    "modified": false,
-    "integration": "pending-main-window-after-mcp2"
+    "modified": true,
+    "integration": "runtime-candidate-implemented-main-window-browser-final-pending",
+    "mainWindowIntegrated": false
   },
   "glb": {
     "sha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
