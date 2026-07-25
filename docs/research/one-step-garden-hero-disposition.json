@@ -349,7 +349,7 @@
   },
   "replacementCandidate": {
     "version": "hero-v2",
-    "status": "mcp2-pass",
+    "status": "mcp2-pass-identity-v1-mcp3-pass",
     "generator": {
       "path": "scripts/create_one_step_garden_hero_model.py",
       "sha256": "b536e1d32630b0ee3262d98029ba384bfa610f392316dad7dd658141124b30b8"
@@ -389,7 +389,7 @@
     },
     "identityAuthorized": true,
     "identityLineage": {
-      "status": "identity-v1-candidate-awaiting-main-window-mcp3",
+      "status": "identity-v1-mcp3-pass-runtime-paused-for-main-window-gate-integration",
       "authorizationAuthority": "docs/research/one-step-garden-blender-mcp-gates.json#heroGate.mcp2Rereview",
       "postBuildGateAuthorization": true,
       "sourceRootIdentityAllowedAtBuild": false,
@@ -418,8 +418,11 @@
       },
       "buildRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/one-step-garden-identity.json",
       "tierLineage": "docs/research/one-step-garden-tier-lineage.json",
-      "mcp3": "pending-main-window",
-      "identityFormalPass": false,
+      "mcp3": "pass",
+      "identityFormalPass": true,
+      "mcp3GateRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/one-step-garden-identity.json#mcp3",
+      "runtimeAuthorized": true,
+      "runtimeExecutionPausedForMainWindowGateIntegration": true,
       "runtimeIntegrated": false,
       "publicRegistryModified": false
     }

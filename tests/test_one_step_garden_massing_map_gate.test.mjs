@@ -90,13 +90,21 @@ test("一号花园 Massing map gate 保持单建筑边界并锁定后续授权",
   assert.equal(gates.heroGate.disposition, "docs/research/one-step-garden-hero-disposition.json");
   assert.equal(
     gates.identityGate.status,
-    "candidate-awaiting-main-window-mcp3",
+    "pass",
   );
   assert.equal(gates.identityGate.identityDerivationAuthorized, true);
   assert.equal(gates.identityGate.identityDerivationStarted, true);
   assert.equal(gates.identityGate.identityCandidateCompleted, true);
-  assert.equal(gates.identityGate.identityFormalPass, false);
-  assert.equal(gates.runtimeIntegration.status, "pending-main-window-shared-registry-integration");
+  assert.equal(gates.identityGate.identityFormalPass, true);
+  assert.equal(gates.identityGate.runtimeAuthorized, true);
+  assert.equal(
+    gates.runtimeIntegration.status,
+    "pending-main-window-candidate-and-mcp3-integration-before-building-runtime-qa",
+  );
+  assert.equal(
+    gates.runtimeIntegration.proposedValuesProvenance,
+    "historical-massing-map-gate-only-not-final-three-tier-runtime-selection",
+  );
 
   assert.equal(record.status, "mcp1-and-map-pass-awaiting-main-window-runtime-integration");
   assert.equal(record.placement.mapGate, "pass");

@@ -170,7 +170,10 @@ test("一号花园 Identity v1 只从冻结且已通过 MCP2 的 Hero v2 派生"
     "docs/research/build-records/tiers/xinhua-road/hero-v2/one-step-garden-hero.json",
   );
 
-  assert.equal(record.status, "headless-candidate-awaiting-main-window-mcp3");
+  assert.equal(
+    record.status,
+    "identity-v1-mcp3-pass-runtime-paused-for-main-window-gate-integration",
+  );
   assert.equal(record.tier, "identity");
   assert.equal(record.versionName, "identity-v1");
   assert.equal(record.generator.sha256, await sha256(record.generator.path));
@@ -429,7 +432,7 @@ test("一号花园 Identity v1 保留身份构件并严格排除范围外生成�
   ]);
 });
 
-test("一号花园 Identity v1 仅为 MCP3 候选，未修改公共运行时", async () => {
+test("一号花园 Identity v1 MCP3 通过但仍未修改公共运行时", async () => {
   const record = await readJson(recordPath);
   const lineage = await readJson(lineagePath);
   const gates = await readJson("docs/research/one-step-garden-blender-mcp-gates.json");
@@ -437,25 +440,55 @@ test("一号花园 Identity v1 仅为 MCP3 候选，未修改公共运行时", a
   const registry = await readJson("app/scene/xinhua-road-landmarks-data.json");
   const landmark = registry.landmarks.find(({ id }) => id === "one-step-garden");
 
-  assert.equal(record.mcp3.status, "pending-main-window-same-camera-three-tier-review");
-  assert.equal(record.mcp3.identityFormalPass, false);
+  for (const preview of Object.values(record.outputs.mcp3Previews)) {
+    const buffer = await readFile(path.join(root, preview.path));
+    assert.equal(buffer.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
+    assert.equal(await sha256(preview.path), preview.sha256);
+    assert.equal((await stat(path.join(root, preview.path))).size, preview.bytes);
+    assert.deepEqual(
+      [buffer.readUInt32BE(16), buffer.readUInt32BE(20)],
+      preview.dimensions,
+    );
+    assert.match(preview.path, /_mcp3_recheck_/);
+  }
+  assert.equal(record.mcp3.status, "pass");
+  assert.equal(record.mcp3.identityFormalPass, true);
+  assert.equal(record.mcp3.sourceCommit, "f1029cc4b93565d461a69eceebc7b45207c2b6ad");
+  assert.equal(record.mcp3.reviewedSource.runtimeAssetSha256, record.glb.sha256);
+  assert.equal(record.mcp3.reviewedSource.derivedHeroGlbSha256, record.derivedFrom.heroGlbSha256);
+  assert.equal(record.mcp3.reviewedSource.rootExtrasMcp3StatusAtBuild, "pending-main-window");
+  assert.equal(record.mcp3.reviewedSource.postBuildGateDoesNotRewriteReviewedBinary, true);
+  assert.equal(record.mcp3.sceneInspection.vertices, 996);
+  assert.equal(record.mcp3.sceneInspection.polygons, 752);
+  assert.equal(record.mcp3.sceneInspection.materials, 6);
+  assert.equal(record.mcp3.geometryInspection.areaBelow1eMinus10, 0);
+  assert.equal(record.mcp3.geometryInspection.nonFiniteNormals, 0);
+  assert.deepEqual(record.mcp3.acceptedInteractiveChanges, []);
+  assert.equal(record.mcp3.qaRigSaved, false);
+  assert.equal(record.mcp3.qaRigExported, false);
+  assert.equal(record.mcp3.runtimeAuthorized, true);
+  assert.equal(record.mcp3.runtimeExecutionPausedForMainWindowGateIntegration, true);
   assert.equal(record.runtime.status, "not-started-by-worktree");
   assert.equal(record.runtime.publicRegistryModified, false);
   assert.equal(record.runtime.runtimeIntegrated, false);
-  assert.equal(lineage.status, "candidate-awaiting-main-window-mcp3");
-  assert.equal(lineage.threeTierGate.formalPass, false);
-  assert.equal(lineage.tiers.identity.gates.mcp3, "pending-main-window");
-  assert.equal(gates.identityGate.status, "candidate-awaiting-main-window-mcp3");
+  assert.equal(lineage.status, "mcp3-pass-runtime-paused-for-main-window-gate-integration");
+  assert.equal(lineage.threeTierGate.formalPass, true);
+  assert.equal(lineage.tiers.identity.gates.mcp3, "pass");
+  assert.equal(lineage.terminalBlenderGate.status, "pass");
+  assert.equal(gates.identityGate.status, "pass");
   assert.equal(gates.identityGate.identityDerivationStarted, true);
   assert.equal(gates.identityGate.identityCandidateCompleted, true);
-  assert.equal(gates.identityGate.identityFormalPass, false);
-  assert.equal(gates.threeTierGate.status, "candidate-awaiting-main-window-mcp3");
-  assert.equal(gates.threeTierGate.formalPass, false);
+  assert.equal(gates.identityGate.identityFormalPass, true);
+  assert.equal(gates.identityGate.runtimeAuthorized, true);
+  assert.equal(gates.threeTierGate.status, "pass");
+  assert.equal(gates.threeTierGate.formalPass, true);
   assert.equal(
     disposition.replacementCandidate.identityLineage.runtimeAsset.sha256,
     record.outputs.glb.sha256,
   );
-  assert.equal(disposition.replacementCandidate.identityLineage.mcp3, "pending-main-window");
+  assert.equal(disposition.replacementCandidate.identityLineage.mcp3, "pass");
+  assert.equal(disposition.replacementCandidate.identityLineage.identityFormalPass, true);
+  assert.equal(disposition.replacementCandidate.identityLineage.runtimeAuthorized, true);
   assert.equal(disposition.legacyHero.atomicLineage.binaryAssetsUnchangedSinceProducingCommit, true);
   assert.equal(landmark.model, "/models/xinhua-road/one-step-garden.glb");
   assert.equal(landmark.cacheVersion, "20260718-detail-1");
