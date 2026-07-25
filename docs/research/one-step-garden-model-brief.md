@@ -146,7 +146,7 @@
 
 | Batch | Deliverable | Blender check | Runtime check | Status |
 | --- | --- | --- | --- | --- |
-| Massing | 前体量、后体量、院落间隙与坡屋顶 | canonical 分体轮廓 | 真实 `?start=` 灰模门 | Headless candidate; MCP1 pending |
+| Massing | 前体量、后体量、院落间隙与坡屋顶 | canonical 分体轮廓 | 真实 `?start=` 灰模门 | MCP1 passed; map gate pending |
 | Runtime calibration | 位置、比例、朝向、机位和道路退界 | N/A | footprint 绑定前不移动 | Pending |
 | Identity | 半木构、老虎窗、红砖后体量和场地层次 | 三项构件可读 | Identity 距离可辨认 | Pending |
 | Materials | 白墙、红砖、深木构和灰褐瓦 | 固定机位无黑面 | 项目色盘一致 | Pending |
@@ -157,9 +157,9 @@
 ## Validation
 
 - [ ] Massing 在真实 `/?start=garden179&qaModelTier=massing` 中通过
-- [ ] 两栋不同体量没有被合并，未知背面没有虚构细节
+- [x] 两栋不同体量没有被合并，未知背面没有虚构细节
 - [ ] 可编辑 `.blend`、GLB、canonical、侧向、街景和三联对照齐全
-- [ ] GLB SHA、bounds、节点、三角面、材质、图片和体积进入 build record
+- [x] GLB SHA、bounds、节点、三角面、材质、图片和体积进入 build record
 - [ ] 人物/相机碰撞、院落可达、道路退界、控制台和首屏资源通过
 - [ ] 灰模与终审两个独立检查点无 blocker
 
@@ -200,3 +200,19 @@
 - Three-way comparison result: 参考与 Blender 两层已具备；Three.js 层在 MCP1 和地图门前保持 Pending。
 - Runtime result: Pending；候选未接入公共运行时。
 - Independent review result: 等待主窗口通过共享 Blender MCP 执行 MCP1；未通过前不得开始 Identity/Hero。
+
+### Iteration 3 — 2026-07-25 Blender MCP1
+
+- Gate: `mcp1-massing-pre-map-calibration` Passed；只放行 Three.js Massing map gate，Identity/Hero 继续锁定。
+- Source integrity: 正式 `.blend` SHA-256 为 `a4c0e0fba996f139a88344b6f39a8a2509326ba7018206dc888231fab6474388`；正式 GLB SHA-256 仍为 `a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761`。
+- Scene inspection: `1` mesh、`3` materials，root location/rotation 为 `[0,0,0]`、scale 为 `[1,1,1]`；Blender world bounds 为 `[-7.25,-6.9,0]` 到 `[7.25,9.325,6.25]`。
+- Human scale: 临时人物代理总高 `0.666667` scene unit，即 `1.8m`；相对三层前体量每层约 `1.333` unit，人物约为单层高度 `50%`，通过合同。
+- Visual result: U 形前院、陡坡左右翼、棚屋形老虎窗、后院独立红砖长屋、双山墙、两烟囱及前后开放间隙在 canonical、side/depth、entrance 与街道尺度四个正交机位均可读。
+- Fixed evidence:
+  - `test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_canonical.png`
+  - `test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_side-depth.png`
+  - `test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_entrance-scale.png`
+  - `test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_street-scale.png`
+- Interactive boundary: `acceptedInteractiveChanges=[]`；所有相机、灯光、地面和人物代理均为临时 QA rig，没有保存到 master 或导出到 GLB。
+- Detailed record: `docs/research/one-step-garden-blender-mcp-gates.json`。
+- Next gate: `/?start=garden179&qaModelTier=massing` Three.js map calibration；公共运行时未获本工作树直接整合授权。
