@@ -1,8 +1,9 @@
 # 18 栋建筑生产调度清单
 
 - 审计日期：2026-07-25
-- 主窗口 Git 基线：`main` / `46c58a8175c4050eba4aac03e92c48448a569bab`
-- 18 栋集成分支：`codex/integrate-18-buildings` / `af76226`
+- 主窗口 Git 基线：`main` / `origin/main` /
+  `fc96800edb39cf2745ea328237aedb3a86e1f7f5`
+- 18 栋集成分支：`codex/integrate-18-buildings` / `8edac99`
 - 范围权威：
   - `app/asset-library/asset-data.ts`
   - `app/scene/xinhua-road-landmarks-data.json`
@@ -23,15 +24,15 @@
 
 | # | Stable asset ID | 建筑资产 | 当前可保留成果 | 新目标状态 | 下一项缺口 |
 | ---: | --- | --- | --- | --- | --- |
-| 1 | `shanghai-cinema` | 上海影城 | Hero `.blend/.glb`、Hybrid Identity、Massing、MCP 1/2、实际 Massing 地图门；主窗口已生成 MCP 3 三档同机位正式候选 | `in-scope` / active Worktree `faba744` | 封存 MCP 3 build record，并完成 Hero / Identity / Massing 与双 fallback 的实际 Three.js 终验 |
-| 2 | `film-art-center` | 上海电影艺术中心 | Hero `.blend/.glb`、专项证据/Brief/build record、canonical 运行时验收；recovery 有 clean-v2 Massing 候选 | `in-scope` / active Worktree from `af76226` | 审计 recovery Massing、先过 MCP 1 与地图门，再进入 Identity、MCP 2/3 和三级运行时 |
+| 1 | `shanghai-cinema` | 上海影城 | Hero、Hybrid Identity composite、正式 Massing；MCP 1/2/3、实际地图门、三档与双 fallback Three.js 终验均有当前证据；主窗口保留 Overview Hold 后选择性整合至 `129ea56` | `done` / source `633a0de` / integrated `129ea56` | 无；Identity 必须继续按 ProgrammaticBody + Identity GLB + RepeatedDetails composite 解释，不能把 standalone GLB 误称完整 Identity |
+| 2 | `film-art-center` | 上海电影艺术中心 | 冻结 Hero `.blend/.glb` 与既有 canonical 运行时验收；新确定性 Massing 候选 `6d0206d` 已通过主窗口 MCP 1，recovery generic box 只留作反例 | `in-scope` / active Worktree `6d0206d` | 先完成实际人物尺度与位置/朝向的地图门；通过前不得进入 Identity，MCP 2/3 与三级运行时仍待完成 |
 | 3 | `one-step-garden` | 一尺花园 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/三张证据及 clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 审计证据与多体量 footprint，完成三档和全部门禁 |
 | 4 | `xinhua-villas-211` | 新华别墅·211弄 | 旧 Hero `.blend/.glb`、单张建筑群证据、旧运行时截图 | `in-scope` / legacy Hero baseline | 明确代表建筑/群组边界，补视角证据、三档和全部门禁 |
 | 5 | `xinhua-villas-329` | 新华别墅·329弄 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/两张证据及 clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 明确代表建筑/群组边界，审计候选 Massing，完成全部门禁 |
 | 6 | `house-315` | 新华路315号住宅 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/两张证据及 provisional Massing | `in-scope` / legacy Hero baseline | 补侧向/纵深 unknown，重验 Massing 与全部门禁 |
 | 7 | `villa-le-bec` | Villa Le Bec | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/六张候选证据及 clean-v2 Massing | `in-scope` / legacy Hero baseline | 核验候选证据、场地平面和 footprint，完成全部门禁 |
 | 8 | `shanghai-orchestra` | 上海民族乐团 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/三张证据及 clean-v2 Massing | `in-scope` / legacy Hero baseline | 拆分并绑定 compound 子建筑，完成全部门禁 |
-| 9 | `hudec-memorial` | 邬达克纪念馆 | 旧 Hero；新官方证据、V2 Brief、结构化 Massing；MCP 1 已由主窗口按固定三机位验收 | `in-scope` / active Worktree `f509c60` | 完成实际 Three.js Massing 地图门；未通过前不得进入 Identity / Hero |
+| 9 | `hudec-memorial` | 邬达克纪念馆 | 旧 Hero；新官方证据、V2 Brief、结构化 Massing 与 MCP 1；地图门证据已整合至 `8edac99` | `blocked-map` / source `ee3fcad` | 真实门廊净宽 `1.2672`，小于碰撞所需 `1.36`；必须回 Massing 加宽入口并重跑 MCP 1/地图门，禁止缩碰撞盒造假，Hero/Identity 继续关闭 |
 | 10 | `xinhua-pocket-park` | 新华路口袋公园 | 旧场地 GLB、两张同地点证据、recovery clean-v2 Massing 候选 | `in-scope` / legacy scoped asset | 固定“场地型建筑资产”语义，校准 footprint/朝向并完成全部门禁 |
 | 11 | `xinhua-community-center` | 新华·社区营造中心 | 旧 Hero `.blend/.glb`、两张同地点证据、旧预览/运行时截图 | `in-scope` / legacy Hero baseline | 确认建筑本体证据、独立 Brief、三档和全部门禁 |
 | 12 | `debi-fahua-525` | 德必法华525 | 旧 Hero、三张建筑群证据、recovery clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 明确代表建筑与开放庭院，审计候选 Massing 并完成全部门禁 |
@@ -44,11 +45,12 @@
 
 ## 恢复后的数量结论
 
-- 主窗口集成分支已整合 `done`：1 / 18（孙科别墅）；其 Recovery 二进制、
-  三门、地图和 Three.js 证据已按单建筑选择性提取，并在当前集成基线上通过
-  `build:static`、lint、178 / 178 全仓 Node 测试与 3 个 GLB audit。集成后
-  浏览器 v3 复核覆盖 Hero / Identity / Massing、Hero→Identity 和
-  Identity→结构化程序化 fallback；v2 的封闭大体块误判作为失败证据保留。
+- 主窗口集成分支已整合 `done`：2 / 18（孙科别墅、上海影城）。孙科 Recovery
+  二进制、三门、地图和 Three.js 证据已按单建筑选择性提取；集成后浏览器 v3
+  复核覆盖 Hero / Identity / Massing、Hero→Identity 和 Identity→结构化程序化
+  fallback，v2 的封闭大体块误判作为失败证据保留。上海影城的 MCP 3、三档、
+  双 fallback、隔离会话错误与缓存复用证据已整合，项目级回归将在本轮公共文件
+  合并后重新执行。
 - 三档产物可直接保留：3 / 18（幸福里西/中/东）。
 - Hero + Identity 可直接保留：1 / 18（上海影城）。
 - 具备专项 V2 证据和可保留 Hero：2 / 18（电影艺术中心、孙科别墅）。
@@ -85,9 +87,10 @@
 - 所有树木、街灯、外摆、花箱、铺装、垃圾桶、角色和其他装饰资产。
 - `codex/overview-district-massing` Worktree 的全地图新增体块成果：保持 Hold，
   主窗口不得合入本轮 18 栋建筑生产线。
-- `main` 在本轮调度期间由外部任务前进到 merge commit `46c58a8`，其中包含
-  overview district massing。调度窗口不删除或覆盖该现存成果，也不把它计入
-  18 栋；后续建筑提交不得修改其 GLB、数据、运行时模块、QA 或生成器。
+- `main` 在本轮调度期间由外部任务前进到 merge commit `46c58a8`，随后又以
+  `fc96800` 修复弱网状态下的 district massing 保持策略。调度窗口已把这两个
+  提交作为 Hold 基线合入集成分支，不删除或覆盖，也不把它们计入 18 栋；后续
+  建筑提交不得修改其 GLB、数据、运行时模块、QA 或生成器。
 
 ## 调度约束
 
