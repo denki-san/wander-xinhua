@@ -299,3 +299,34 @@ height，且原记录明确 `mapAcceptance=blocked`。它保留为 recovery 对�
   未保存到主资产，因此无需生成器 round-trip。
 - Gate state: MCP1 Pass；地图校准 Pending；Identity 继续 blocked。正式记录见
   `docs/research/film-art-center-blender-mcp-gates.json`。
+
+### Iteration 7 — Three.js Massing map gate — 2026-07-25
+
+- Runtime route: 静态生产构建以
+  `/?start=film-art&qaModelTier=massing&qaModelId=film-art-center&cameraQa=1`
+  加载单建筑 Massing；默认 `/?start=film-art` 的生产 Hero/Identity 策略未改变，
+  public placement、碰撞数据与缓存版本也未修改。
+- Loading result: Chrome 实际请求精确 SHA 路径
+  `film-art-center-massing.glb?v=c89791dc3978`，响应 `200`、
+  `model/gltf-binary`、`Content-Length=240572` 且非磁盘缓存；DOM 加载回调确认
+  `asset=film-art-center / tier=massing / status=loaded`。正式路由 console error 为
+  `0`，仅保留项目既有 `THREE.Clock` deprecated warning。
+- Visual result: `1581 × 907`、DPR `1`、8 秒预热后的实际首帧中，主体约占宽度
+  `59%`，主屋顶四角、双层廊、上层退进和两侧低翼均在画面内；人物尺度和隔路退界
+  可读，无黑面、空白、悬空或可见穿插。该百分比是截图观察，不升级为实测物理尺寸。
+- Ground and camera: 浏览器 world bounds 的最低点为
+  `1.6428159756`，与 `terrainHeightAt(47.5,81.5) + 0.1` 再乘探索态世界比例
+  `1.65` 的期望值只差 `1.97e-7`；相机遥测为 `spring-clear`、
+  blocker `none`、arm `5.57/5.57`、FOV `58°`。
+- Collision: 正式 start `[35,99]` 安全，forward 与建筑中心方向误差约
+  `0.02°`。专项测试使用运行时同一 `resolvePolygonMovement`、三块 local obstacle、
+  `0.2` margin 和 `0.48` 玩家半径做 600 × 0.05 单位确定性步进，结果保持在碰撞体外。
+  Chrome 禁止 raw CDP 持续 key-down，因此未把瞬时按键或合成长按伪装成证据。
+- Fallback: 强制缺失 Massing 路径时页面仍为 playable、Canvas 继续渲染，并明确
+  显示既有 `LandmarkProgressiveProxy`，没有空白或黑块；该故障路由的预期 loader
+  error 与正式路由 console error 分开记录。
+- Performance boundary: 记录了视口、构建模式、预热与采样时长，但未取得同条件
+  性能基线，因此不声称 FPS 或性能提升。
+- Gate state: Massing map gate Pass；Hero MCP2 现已解锁但尚未执行，Identity
+  在 Hero MCP2 前继续 blocked。正式记录见
+  `docs/research/film-art-center-massing-map-qa.json`。
