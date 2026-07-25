@@ -40,7 +40,7 @@ test("资产后台完整覆盖五类生产资产与建筑三档", async () => {
   assert.match(client, /function ModalAssetContent/);
   assert.match(client, /radius \/ Math\.sin\(limitingFov \/ 2\)/);
   assert.match(client, /controls\.target\.set\(0, 0, 0\)/);
-  assert.match(client, /<ModalAssetContent model=\{selection\.model\} preview=\{selection\.preview\} \/>/);
+  assert.match(client, /<ModalAssetContent model=\{selection\.model\} preview=\{selection\.preview\} variant=\{selection\.variant\} \/>/);
   assert.doesNotMatch(client, /<AssetScene model=\{selection\.model\} preview=\{selection\.preview\}/);
   assert.match(client, /拖动旋转 · 滚轮缩放 · Esc 关闭/);
   assert.match(header, /个人资产后台/);
@@ -48,7 +48,7 @@ test("资产后台完整覆盖五类生产资产与建筑三档", async () => {
   assert.match(client, /搜索名称、门牌号或资产 ID/);
 });
 
-test("当前资产口径保留真实数量与缺口提示", async () => {
+test("当前资产口径保留真实数量与最新街具", async () => {
   const [data, client] = await Promise.all([
     readFile(new URL("app/asset-library/asset-data.ts", root), "utf8"),
     readFile(new URL("app/asset-library/AssetLibrary.tsx", root), "utf8"),
@@ -57,6 +57,7 @@ test("当前资产口径保留真实数量与缺口提示", async () => {
   assert.match(data, /instanceCount: 44/);
   assert.match(data, /instanceCount: 112/);
   assert.match(data, /雨季夏日漫游者/);
-  assert.match(data, /当前运行时代码与线上模型注册表中未发现可用垃圾桶资产/);
+  assert.match(data, /上海双分类垃圾桶/);
+  assert.match(client, /StreetBinInstances/);
   assert.match(client, /正午/);
 });

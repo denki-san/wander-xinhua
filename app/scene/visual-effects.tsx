@@ -242,5 +242,3 @@ export function StorybookCloudLayer() {
     </group>
   );
 }
-
-useTexture.preload(XINHUA_ATMOSPHERES["lighting-v3"].skyTexture);

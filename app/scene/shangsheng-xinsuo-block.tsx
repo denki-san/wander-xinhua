@@ -72,8 +72,12 @@ function boundaryBounds(boundary: readonly (readonly number[])[]): MapObstacle {
   }), { minX: Infinity, maxX: -Infinity, minZ: Infinity, maxZ: -Infinity });
 }
 
+export const SHANGSHENG_BUILDING_FOOTPRINTS: MapObstacle[] = SITE.buildings.flatMap(
+  (building) => building.collision.map(localToWorldObstacle),
+);
+
 const SHANGSHENG_FIXED_OBSTACLES: MapObstacle[] = [
-  ...SITE.buildings.flatMap((building) => building.collision.map(localToWorldObstacle)),
+  ...SHANGSHENG_BUILDING_FOOTPRINTS,
   // 海军俱乐部泳池保留为不可穿越水面，南侧窄廊仍可通行。
   localToWorldObstacle({ minX: -23.05, maxX: -18.25, minZ: -5.7, maxZ: 5.2 }),
   ...SITE.fountains.map((fountain) => localToWorldObstacle(boundaryBounds(fountain.boundary))),
@@ -478,7 +482,7 @@ export const SHANGSHENG_XINSUO_OBSTACLES: MapObstacle[] = [
   })),
 ];
 
-function CampusTrees() {
+function CampusTrees({ detailed }: { detailed: boolean }) {
   const trunks = useRef<InstancedMesh>(null);
   const crowns = useRef<InstancedMesh>(null);
   useLayoutEffect(() => {
@@ -499,13 +503,21 @@ function CampusTrees() {
     if (crowns.current) crowns.current.instanceMatrix.needsUpdate = true;
   }, []);
   return (
-    <group>
-      <instancedMesh ref={trunks} args={[undefined, undefined, CAMPUS_TREES.length]} castShadow>
+    <group userData={{ vegetation: detailed ? "detailed" : "programmatic-lightweight" }}>
+      <instancedMesh
+        ref={trunks}
+        args={[undefined, undefined, CAMPUS_TREES.length]}
+        castShadow={detailed}
+      >
         <cylinderGeometry args={[0.12, 0.18, 1, 7]} />
         <meshToonMaterial color="#655446" />
       </instancedMesh>
-      <instancedMesh ref={crowns} args={[undefined, undefined, CAMPUS_TREES.length]} castShadow>
-        <icosahedronGeometry args={[1, 1]} />
+      <instancedMesh
+        ref={crowns}
+        args={[undefined, undefined, CAMPUS_TREES.length]}
+        castShadow={detailed}
+      >
+        <icosahedronGeometry args={[1, detailed ? 1 : 0]} />
         <meshToonMaterial color="#426c49" />
       </instancedMesh>
     </group>
@@ -663,7 +675,7 @@ function ReadingTerrace() {
   );
 }
 
-function CampusLandscape() {
+function CampusLandscape({ detailed }: { detailed: boolean }) {
   return (
     <group>
       {SITE.fountains.map((fountain) => {
@@ -674,10 +686,12 @@ function CampusLandscape() {
               <boxGeometry args={[bounds.maxX - bounds.minX, 0.14, bounds.maxZ - bounds.minZ]} />
               <meshToonMaterial color="#6eaaa3" />
             </mesh>
-            <mesh position={[0, 0.35, 0]}>
-              <cylinderGeometry args={[0.06, 0.09, 0.7, 8]} />
-              <meshToonMaterial color="#d8e4d6" />
-            </mesh>
+            {detailed && (
+              <mesh position={[0, 0.35, 0]}>
+                <cylinderGeometry args={[0.06, 0.09, 0.7, 8]} />
+                <meshToonMaterial color="#d8e4d6" />
+              </mesh>
+            )}
           </group>
         );
       })}
@@ -702,7 +716,7 @@ function CampusLandscape() {
             <meshToonMaterial color="#39423e" />
           </mesh>
         ))}
-        {[-3.5, -1.2, 1.2, 3.5].map((x) => (
+        {detailed && [-3.5, -1.2, 1.2, 3.5].map((x) => (
           <group key={x} position={[x, 1.62, 1.55]}>
             <mesh castShadow>
               <cylinderGeometry args={[0.11, 0.15, 0.24, 10]} />
@@ -722,35 +736,42 @@ function CampusLandscape() {
           <span className="map-road-label map-landmark-label map-landmark-label-dark">上生·新所</span>
         </Html>
       </group>
-      {[[8, 5], [13, 6.5], [-9, -14], [34, 8]].map(([x, z], index) => (
-        <group key={`${x}-${z}`} position={[x, 0.25, z]} rotation-y={index * 0.63}>
-          <mesh position={[0, 0.4, 0]} castShadow>
-            <boxGeometry args={[2.2, 0.14, 0.62]} />
-            <meshToonMaterial color="#8b6549" />
-          </mesh>
-          <mesh position={[0, 0.04, 0]} receiveShadow>
-            <cylinderGeometry args={[1.15, 1.15, 0.08, 20]} />
-            <meshToonMaterial color="#8f8978" />
-          </mesh>
-        </group>
-      ))}
-      <CafePavilion />
-      <BicycleParking />
-      <ReadingTerrace />
-      {SHANGSHENG_FACILITIES.wayfinding.map(([x, z, yaw]) => (
-        <WayfindingTotem key={`${x}-${z}`} x={x} z={z} yaw={yaw} />
-      ))}
-      <CampusTrees />
+      {detailed && (
+        <>
+          {[[8, 5], [13, 6.5], [-9, -14], [34, 8]].map(([x, z], index) => (
+            <group key={`${x}-${z}`} position={[x, 0.25, z]} rotation-y={index * 0.63}>
+              <mesh position={[0, 0.4, 0]} castShadow>
+                <boxGeometry args={[2.2, 0.14, 0.62]} />
+                <meshToonMaterial color="#8b6549" />
+              </mesh>
+              <mesh position={[0, 0.04, 0]} receiveShadow>
+                <cylinderGeometry args={[1.15, 1.15, 0.08, 20]} />
+                <meshToonMaterial color="#8f8978" />
+              </mesh>
+            </group>
+          ))}
+          <CafePavilion />
+          <BicycleParking />
+          <ReadingTerrace />
+          {SHANGSHENG_FACILITIES.wayfinding.map(([x, z, yaw]) => (
+            <WayfindingTotem key={`${x}-${z}`} x={x} z={z} yaw={yaw} />
+          ))}
+        </>
+      )}
+      <CampusTrees detailed={detailed} />
     </group>
   );
 }
 
 export function ShangshengXinsuoBlock({
+  showEnvironmentDetails,
   stage = "full",
 }: {
+  showEnvironmentDetails?: boolean;
   stage?: ProgressiveBuildingTier;
 }) {
   const identityReady = stage === "identity" || stage === "full";
+  const environmentDetailed = showEnvironmentDetails ?? stage === "full";
   return (
     <group
       name="shangsheng-xinsuo"
@@ -768,7 +789,7 @@ export function ShangshengXinsuoBlock({
     >
       <SiteGround />
       <CampusBuildings stage={stage} />
-      {identityReady && <CampusLandscape />}
+      {identityReady && <CampusLandscape detailed={environmentDetailed} />}
       {identityReady && (
         <Html center transform sprite position={[5, 12, -5]} distanceFactor={38} style={{ pointerEvents: "none" }}>
           <span className="map-road-label map-landmark-label">上生·新所</span>

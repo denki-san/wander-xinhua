@@ -5,7 +5,7 @@ import {
   SHANGSHENG_FACILITIES,
   SHANGSHENG_LOCAL_FACILITY_OBSTACLES,
 } from "../app/scene/shangsheng-facilities.ts";
-import { isPlanarPositionBlocked, isPointInsidePolygon } from "../app/scene/world-math.ts";
+import { isPointInsidePolygon } from "../app/scene/world-math.ts";
 
 const root = new URL("../", import.meta.url);
 
@@ -34,20 +34,11 @@ test("上生新所新增设施位于真实园区边界内", async () => {
   }
 });
 
-test("咖啡亭、车架、阅读台和导视实体均参与碰撞", async () => {
+test("上生新所详情始终恢复原有设施和碰撞，全览通过环境模式隐藏", async () => {
   const source = await readFile(new URL("app/scene/shangsheng-xinsuo-block.tsx", root), "utf8");
-  const bounds = { minX: -100, maxX: 100, minZ: -100, maxZ: 100 };
   assert.match(source, /SHANGSHENG_LOCAL_FACILITY_OBSTACLES\.map\(localToWorldObstacle\)/);
+  assert.match(source, /const environmentDetailed = showEnvironmentDetails \?\? stage === "full"/);
+  assert.match(source, /<CampusLandscape detailed=\{environmentDetailed\} \/>/);
+  assert.match(source, /detailed && \([\s\S]*?<CafePavilion \/>[\s\S]*?<BicycleParking \/>[\s\S]*?<ReadingTerrace \/>/);
   assert.equal(SHANGSHENG_LOCAL_FACILITY_OBSTACLES.length, 5);
-  for (const obstacle of SHANGSHENG_LOCAL_FACILITY_OBSTACLES) {
-    const centerX = (obstacle.minX + obstacle.maxX) / 2;
-    const centerZ = (obstacle.minZ + obstacle.maxZ) / 2;
-    assert.equal(isPlanarPositionBlocked(
-      centerX,
-      centerZ,
-      bounds,
-      SHANGSHENG_LOCAL_FACILITY_OBSTACLES,
-      0.2,
-    ), true);
-  }
 });

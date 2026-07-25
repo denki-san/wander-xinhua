@@ -1,9 +1,14 @@
-import { StrictMode } from "react";
+import { lazy, StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "./app/globals.css";
 import { XinhuaExperienceLoader } from "./app/xinhua-experience-loader";
 
+const AssetLibrary = lazy(() => import("./app/asset-library/AssetLibrary").then((module) => ({
+  default: module.AssetLibrary,
+})));
 const root = document.getElementById("root");
+const routePath = window.location.pathname.replace(/\/+$/, "") || "/";
+const assetLibraryRoute = routePath === "/asset-library";
 
 if (!root) {
   throw new Error("找不到应用挂载节点");
@@ -11,6 +16,10 @@ if (!root) {
 
 createRoot(root).render(
   <StrictMode>
-    <XinhuaExperienceLoader />
+    {assetLibraryRoute ? (
+      <Suspense fallback={<div role="status">正在装载资产总览…</div>}>
+        <AssetLibrary />
+      </Suspense>
+    ) : <XinhuaExperienceLoader />}
   </StrictMode>,
 );

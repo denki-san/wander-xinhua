@@ -58,8 +58,12 @@ function offsetObstacle(obstacle: MapObstacle): MapObstacle {
   };
 }
 
-const HUASHAN_FIXED_OBSTACLES: MapObstacle[] = [
+export const HUASHAN_BUILDING_FOOTPRINTS: MapObstacle[] = [
   offsetObstacle(PARK.serviceBuilding.collision),
+];
+
+const HUASHAN_FIXED_OBSTACLES: MapObstacle[] = [
+  ...HUASHAN_BUILDING_FOOTPRINTS,
   // 水面分成栈桥两侧，给旋转后的桥面和角色半径留出完整通行廊道。
   offsetObstacle({
     minX: POND.x - POND_COLLISION_RADIUS_X,
@@ -286,7 +290,7 @@ export const HUASHAN_GREEN_OBSTACLES: MapObstacle[] = [
   })),
 ];
 
-function ForestInstances() {
+function ForestInstances({ detailed }: { detailed: boolean }) {
   const trunks = useRef<InstancedMesh>(null);
   const crowns = useRef<InstancedMesh>(null);
   const secondaryCrowns = useRef<InstancedMesh>(null);
@@ -330,23 +334,30 @@ function ForestInstances() {
     if (rootCollars.current) rootCollars.current.instanceMatrix.needsUpdate = true;
   }, []);
   return (
-    <group name="huashan-greenland-forest" userData={{ feature: "urban-forest" }}>
-      <instancedMesh ref={trunks} args={[undefined, undefined, FOREST_TREES.length]} castShadow>
+    <group
+      name="huashan-greenland-forest"
+      userData={{ feature: "urban-forest", vegetation: detailed ? "detailed" : "programmatic-lightweight" }}
+    >
+      <instancedMesh ref={trunks} args={[undefined, undefined, FOREST_TREES.length]} castShadow={detailed}>
         <cylinderGeometry args={[0.13, 0.2, 1, 7]} />
         <meshToonMaterial color="#655848" />
       </instancedMesh>
-      <instancedMesh ref={crowns} args={[undefined, undefined, FOREST_TREES.length]} castShadow receiveShadow>
-        <icosahedronGeometry args={[1, 1]} />
+      <instancedMesh ref={crowns} args={[undefined, undefined, FOREST_TREES.length]} castShadow={detailed} receiveShadow={detailed}>
+        <icosahedronGeometry args={[1, detailed ? 1 : 0]} />
         <meshToonMaterial color="#3f6d49" />
       </instancedMesh>
-      <instancedMesh ref={secondaryCrowns} args={[undefined, undefined, FOREST_TREES.length]} castShadow receiveShadow>
-        <icosahedronGeometry args={[1, 1]} />
-        <meshToonMaterial color="#527e51" />
-      </instancedMesh>
-      <instancedMesh ref={rootCollars} args={[undefined, undefined, FOREST_TREES.length]} castShadow receiveShadow>
-        <cylinderGeometry args={[0.32, 0.48, 1, 9]} />
-        <meshToonMaterial color="#75624c" />
-      </instancedMesh>
+      {detailed && (
+        <>
+          <instancedMesh ref={secondaryCrowns} args={[undefined, undefined, FOREST_TREES.length]} castShadow receiveShadow>
+            <icosahedronGeometry args={[1, 1]} />
+            <meshToonMaterial color="#527e51" />
+          </instancedMesh>
+          <instancedMesh ref={rootCollars} args={[undefined, undefined, FOREST_TREES.length]} castShadow receiveShadow>
+            <cylinderGeometry args={[0.32, 0.48, 1, 9]} />
+            <meshToonMaterial color="#75624c" />
+          </instancedMesh>
+        </>
+      )}
     </group>
   );
 }
@@ -491,11 +502,12 @@ function BasketballCourt() {
   );
 }
 
-function ParkFacilities() {
+function ParkFacilities({ showServiceBuilding }: { showServiceBuilding: boolean }) {
   const service = PARK.serviceBuilding;
   return (
     <group>
-      <group position={[service.position[0], 0.72, service.position[1]]} rotation-y={service.rotationY}>
+      {showServiceBuilding && (
+        <group position={[service.position[0], 0.72, service.position[1]]} rotation-y={service.rotationY}>
         <mesh castShadow>
           <boxGeometry args={[service.width, 1.35, service.depth]} />
           <meshToonMaterial color="#d8cfbb" />
@@ -528,7 +540,8 @@ function ParkFacilities() {
           <cylinderGeometry args={[0.045, 0.06, 1.25, 8]} />
           <meshToonMaterial color="#46564f" />
         </mesh>
-      </group>
+        </group>
+      )}
       <group name="huashan-bird-pergola" position={[-25, 0.22, 17.5]} userData={{ landscape: "bird-pergola" }}>
         {Array.from({ length: 9 }, (_, index) => {
           const angle = index / 8 * Math.PI;
@@ -645,11 +658,14 @@ function HuashanGreenMassing() {
 }
 
 export function HuashanGreenBlock({
+  showEnvironmentDetails,
   stage = "full",
 }: {
+  showEnvironmentDetails?: boolean;
   stage?: ProgressiveBuildingTier;
 }) {
   const identityReady = stage === "identity" || stage === "full";
+  const environmentDetailed = showEnvironmentDetails ?? stage === "full";
   return (
     <group
       name="huashan-greenland"
@@ -670,17 +686,16 @@ export function HuashanGreenBlock({
       ) : (
         <>
           <ParkGroundAndPaths />
-          <ForestInstances />
+          <ForestInstances detailed={environmentDetailed} />
           <PondGarden />
           <BasketballCourt />
-          {stage === "full" ? (
+          {environmentDetailed && (
             <>
               <UnderstoryInstances />
-              <ParkFacilities />
+              <ParkFacilities showServiceBuilding={stage === "full"} />
             </>
-          ) : (
-            <ParkServiceBuildingProxy identity />
           )}
+          {stage !== "full" && <ParkServiceBuildingProxy identity />}
         </>
       )}
       {identityReady && (

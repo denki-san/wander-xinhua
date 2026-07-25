@@ -29,6 +29,7 @@ import {
   IrregularStoneBollard,
   OutdoorDiningSet,
   SlattedBench,
+  StreetBinInstances,
   StreetPlanter,
 } from "../scene/shared-street-assets";
 import {
@@ -59,6 +60,7 @@ type PreviewSelection = {
   label: string;
   model?: string;
   preview?: string;
+  variant?: number;
 };
 
 const STATUS_META: Record<AssetStatus, { label: string; className: string }> = {
@@ -172,13 +174,28 @@ function RuntimeModel({ path }: { path: string }) {
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
-function ProceduralPreview({ kind }: { kind: string }) {
+function ProceduralPreview({ kind, variant = 0 }: { kind: string; variant?: number }) {
   if (kind === "lane-lamp") return <HeritageLaneLamp seed={2} evidenceRef="asset-library" />;
   if (kind === "umbrella") return <CantileverCafeUmbrella seed={7} evidenceRef="asset-library" />;
   if (kind === "dining") return <OutdoorDiningSet variant="colorful-folding" seed={9} evidenceRef="asset-library" />;
   if (kind === "bench") return <SlattedBench seed={4} evidenceRef="asset-library" />;
   if (kind === "planter") return <StreetPlanter variant="long" seed={6} evidenceRef="asset-library" />;
   if (kind === "bollard") return <IrregularStoneBollard variant={1} seed={3} evidenceRef="asset-library" />;
+  if (kind === "trash-bin") {
+    return (
+      <StreetBinInstances
+        name="asset-library-bin"
+        placements={[{
+          id: "asset-library-bin",
+          position: [0, 0, 0],
+          yaw: 0,
+          variant: 0,
+        }]}
+        evidenceRef="asset-library"
+        condition={variant === 1 ? "weathered" : "clean"}
+      />
+    );
+  }
   if (kind === "paving") {
     return (
       <group>
@@ -269,7 +286,7 @@ function ProceduralPreview({ kind }: { kind: string }) {
   );
 }
 
-function AssetScene({ model, preview }: { model?: string; preview?: string }) {
+function AssetScene({ model, preview, variant }: { model?: string; preview?: string; variant?: number }) {
   return (
     <>
       <color attach="background" args={["#e7e8e4"]} />
@@ -287,7 +304,7 @@ function AssetScene({ model, preview }: { model?: string; preview?: string }) {
       <Bounds fit clip observe margin={1.3}>
         <Center top>
           <PreviewPose>
-            {model ? <RuntimeModel path={model} /> : <ProceduralPreview kind={preview ?? "missing"} />}
+            {model ? <RuntimeModel path={model} /> : <ProceduralPreview kind={preview ?? "missing"} variant={variant} />}
           </PreviewPose>
         </Center>
       </Bounds>
@@ -311,7 +328,7 @@ type OrbitControlHandle = {
   update: () => void;
 };
 
-function ModalAssetContent({ model, preview }: { model?: string; preview?: string }) {
+function ModalAssetContent({ model, preview, variant }: { model?: string; preview?: string; variant?: number }) {
   const getThreeState = useThree((state) => state.get);
   const invalidate = useThree((state) => state.invalidate);
   const frameAsset = useCallback(
@@ -349,7 +366,7 @@ function ModalAssetContent({ model, preview }: { model?: string; preview?: strin
       onCentered={frameAsset}
     >
       <PreviewPose>
-        {model ? <RuntimeModel path={model} /> : <ProceduralPreview kind={preview ?? "missing"} />}
+        {model ? <RuntimeModel path={model} /> : <ProceduralPreview kind={preview ?? "missing"} variant={variant} />}
       </PreviewPose>
     </Center>
   );
@@ -358,11 +375,13 @@ function ModalAssetContent({ model, preview }: { model?: string; preview?: strin
 function LivePreview({
   model,
   preview,
+  variant,
   label,
   onOpen,
 }: {
   model?: string;
   preview?: string;
+  variant?: number;
   label: string;
   onOpen: () => void;
 }) {
@@ -377,7 +396,7 @@ function LivePreview({
       >
         {visible && (
           <Suspense fallback={null}>
-            <AssetScene model={model} preview={preview} />
+            <AssetScene model={model} preview={preview} variant={variant} />
           </Suspense>
         )}
       </View>
@@ -470,8 +489,9 @@ function StandardCard({
       <LivePreview
         model={model}
         preview={asset.preview}
+        variant={variant}
         label={asset.name}
-        onOpen={() => onOpen({ model, preview: asset.preview, label: asset.name })}
+        onOpen={() => onOpen({ model, preview: asset.preview, variant, label: asset.name })}
       />
       <div className={styles.cardBody}>
         <div className={styles.cardTopline}>
@@ -549,7 +569,7 @@ function AssetPreviewModal({
                 minPolarAngle={0.35}
                 maxPolarAngle={Math.PI / 2.05}
               />
-              <ModalAssetContent model={selection.model} preview={selection.preview} />
+              <ModalAssetContent model={selection.model} preview={selection.preview} variant={selection.variant} />
             </Suspense>
           </Canvas>
         </div>

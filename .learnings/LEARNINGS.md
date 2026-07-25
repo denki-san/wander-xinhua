@@ -1,6 +1,6 @@
 # Learnings
 
-## [LRN-20260725-001] correction
+## [LRN-20260725-004] correction
 
 **Logged**: 2026-07-25T00:00:00+08:00
 **Priority**: high
@@ -54,58 +54,57 @@
 
 ---
 
-## [LRN-20260725-006] correction
+## [LRN-20260725-001] correction
 
-**Logged**: 2026-07-25T02:52:00+08:00
-**Priority**: critical
+**Logged**: 2026-07-25T00:48:00+08:00
+**Priority**: high
 **Status**: resolved
 **Area**: frontend
 
 ### Summary
-资产大图的旋转中心必须是资产包围盒中心，不能沿用卡片预览的落地对齐原点。
+通用低模街具不能只以“已实例化、三角面少”为完成标准，必须在真实路段检查轮廓是否仍像馒头、圆桶或错误标线。
 
 ### Details
-卡片预览为了让模型落在阴影平面上，使用 `Center top` 把模型底部对齐到世界原点。大图直接复用同一场景后，`OrbitControls` 默认围绕世界原点旋转，实际变成绕建筑底部而不是建筑中心旋转，拖动后建筑会跑到画面边缘甚至消失。
+用户指出首版新华路中心线是一根贯穿路段的长斜线，单个扁平 icosahedron 灌木像馒头，圆柱垃圾桶也不符合上海公共废物箱结构。真实参考显示新华路近番禺路使用黄色短虚线、红色非机动车带和白色连续分隔线；上海公共废物箱常见银灰框体、青灰侧板、黑蓝双分类面板和两个独立投口。
 
 ### Suggested Action
-卡片预览继续保持落地对齐；大图单独把模型包围盒中心对齐到 `[0, 0, 0]`，显式设置 OrbitControls target，并用源码回归测试锁定两种不同对齐方式。
+重复小资产也应先完成本地参考 manifest、canonical view 与 Observed/Inferred/Unknown；运行时验收必须同时看批次预算和轮廓语义。低模植被优先使用不对称多块 faceted crown，共享垃圾桶应保留真实分类结构，不以圆柱占位。
 
 ### Metadata
 - Source: user_feedback
-- Related Files: app/asset-library/AssetLibrary.tsx, tests/test_asset_library.test.mjs
-- Tags: asset-library, orbit-controls, bounding-box, model-viewer, correction
+- Related Files: app/scene/xinhua-map.tsx, app/scene/shared-street-assets.tsx, docs/research/street-surface-refinement-model-brief.md
+- Tags: street-marking, shrub, bin, runtime-qa, correction
 
 ### Resolution
-- **Resolved**: 2026-07-25T02:56:00+08:00
-- **Notes**: 卡片预览保留落地对齐；大图改为包围盒中心对齐世界原点，OrbitControls 显式围绕 `[0, 0, 0]` 旋转，并补充回归断言。
+- **Resolved**: 2026-07-25T00:48:00+08:00
+- **Notes**: 已改为短虚线与非机动车带、三冠体 faceted shrub、双分类矩形废物箱，并保留实例化。
 
 ---
 
-## [LRN-20260725-007] correction
+## [LRN-20260725-002] knowledge_gap
 
-**Logged**: 2026-07-25T03:12:00+08:00
-**Priority**: critical
+**Logged**: 2026-07-25T00:48:00+08:00
+**Priority**: high
 **Status**: resolved
-**Area**: frontend
+**Area**: tests
 
 ### Summary
-大图查看器不能继续复用 `Bounds` 自动取景；显式 OrbitControls target 仍会被异步包围盒取景覆盖。
+新华路地标深链使用 `landmark.query`，不是内部 `landmark.id`。
 
 ### Details
-v43 虽然把模型中心和 OrbitControls target 都设为世界原点，但大图仍嵌套了卡片预览使用的 `Bounds`。`Bounds` 与 `Center` 的 layout effect 时序会先记录模型旧位置，再重新设置相机与 controls target，最终覆盖显式 target，线上仍出现模型贴在右下角的问题。
+旧验收记录使用 `?start=shanghai-cinema` 和 `?start=film-art-center`，但生产 preset 实际是 `?start=cinema` 和 `?start=film-art`。无效参数不会报错，而是静默回退默认起点，导致截图看似成功却不是目标地点。
 
 ### Suggested Action
-大图查看器使用独立场景：`Center` 完成最终变换后，在 `onCentered` 中读取 bounding sphere，手动计算适配横纵视场的相机距离，随后同步设置相机位置和 OrbitControls target。必须实际打开页面并拖动验证初始、旋转后和缩放后的取景。
+生成或记录运行时深链时从 `xinhua-road-landmarks-data.json` 的 `query` 字段读取，并增加测试禁止文档继续使用内部 id 作为 `start`。
 
 ### Metadata
-- Source: user_feedback
-- Related Files: app/asset-library/AssetLibrary.tsx, tests/test_asset_library.test.mjs
-- Tags: asset-library, bounds, center, orbit-controls, camera-framing, runtime-qa
-- See Also: LRN-20260725-006
+- Source: error
+- Related Files: app/scene/xinhua-road-landmarks-data.json, docs/research/test_street_surface_runtime_metrics.json
+- Tags: deep-link, runtime-qa, preset, evidence
 
 ### Resolution
-- **Resolved**: 2026-07-25T03:29:00+08:00
-- **Notes**: 大图场景不再复用 Bounds；Center 完成后按 bounding sphere 手动定距并同步 controls target。已在本地实际打开上海影城大图，验证初始居中、拖动旋转后居中、滚轮放大后居中。
+- **Resolved**: 2026-07-25T00:48:00+08:00
+- **Notes**: 文档入口已更正，旧运行时证据明确标记为默认起点回退。
 
 ---
 
@@ -113,7 +112,7 @@ v43 虽然把模型中心和 OrbitControls target 都设为世界原点，但大
 
 **Logged**: 2026-07-19T13:35:00+08:00
 **Priority**: critical
-**Status**: in_progress
+**Status**: resolved
 **Area**: frontend
 
 ### Summary
@@ -193,7 +192,7 @@ Quaternius 模块导入后，上衣 6132 个顶点中有 4606 个同位置重复
 
 **Logged**: 2026-07-18T14:22:00+08:00
 **Priority**: critical
-**Status**: in_progress
+**Status**: resolved
 **Area**: frontend
 
 ### Summary
@@ -783,5 +782,139 @@ GLB 审计通过不代表网页运行时完整渲染；植被实例化必须保�
 ### Resolution
 - **Resolved**: 2026-07-23T19:19:00+08:00
 - **Notes**: 已重做全息城市、流体极光和国际主义海报三案；全部使用现代无衬线中文和国际化按钮，并通过源码检查排除宋体、楷体、竖排、印章与传统装饰。
+
+---
+
+## [LRN-20260724-002] correction
+
+**Logged**: 2026-07-24T20:48:12+08:00
+**Priority**: high
+**Status**: in_progress
+**Area**: frontend
+
+### Summary
+既有调研和 Wiki 结论只能生成候选方案，不能替代当前项目中的独立反证与运行时验证。
+
+### Details
+第三人称相机与操作手感研究包含源码观察、外部范式和待验证参数。用户明确要求先判断方案本身是否好，不能因为研究已写入 Wiki 就直接照搬。尤其是 fallback yaw 是否构成主要体感问题、58–62° FOV、350ms 镜头宽限期、相机半径及恢复阻尼，都必须在当前场景中以基线、确定性轨迹和真实视口验证。
+
+### Suggested Action
+把研究结论改写为可证伪假设；先保存基线证据，再以单元/轨迹测试验证数学不变量，最后在真实 `?start=` 场景按相同视口、DPR、路径和预热条件做前后对照。实测不支持的参数或架构应淘汰或修改，并在交付中区分 observed、inferred、confirmed。
+
+### Metadata
+- Source: user_feedback
+- Related Files: `docs/knowledge-sources/wander-xinhua-third-person-camera-collision-and-mobile-controls-research-2026-07-24.md`, `app/scene/xinhua-world.tsx`, `app/scene/world-math.ts`
+- Tags: research-validation, falsification, camera, controls, runtime-qa
+
+### Resolution
+- **Resolved**: 2026-07-24T22:35:00+08:00
+- **Notes**: 已把既有结论改写成七条可证伪假设。真实 `xingfuli-canonical` 整圈基线推翻了“fallback yaw 是主因”，定位到离散缩臂切换；独立代码审查又用反例推翻固定步长边界采样、rig 方向代替真实视线、physics delta 计宽限期和零臂长初始化。修正后通过 138 项全量测试、lint、四视口、等价整圈 A/B 与长预热性能对照；持续摇杆加双指体感单列为用户真机验收，不作为自动化已确认项。
+
+---
+
+## [LRN-20260725-001] correction
+
+**Logged**: 2026-07-25T00:45:00+08:00
+## [LRN-20260725-001] correction
+
+**Logged**: 2026-07-25T00:30:24+08:00
+**Priority**: critical
+**Status**: pending
+**Area**: frontend
+
+### Summary
+建筑“进入”只负责快速定位；Hero 与 Identity 的运行时切换只由玩家到建筑的距离决定。
+
+### Details
+错误实现把 `destinationPreset` / “进入建筑”状态作为 Hero 加载开关，并删除了距离判断。
+用户明确纠正：完整地图长期显示 Identity；点击进入只是把玩家快速移动到目标位置；进入近景游览后，
+建筑是否升级为 Hero 仍只取决于玩家与该建筑的实际距离。传送入口、地图模式和模型质量切换是三件
+独立的事，不能互相替代。当前最高优先级合同中“切换依据是明确的详情状态，不是地图中的空间距离”
+也与这项产品规则冲突，需要同步修订。
+
+### Suggested Action
+恢复统一的距离驱动 Identity / Hero 切换与迟滞区间；地图全览保持 Identity；快速定位只更新角色和
+相机位置，不直接设置建筑质量档位。更新合同、实现、测试和验收矩阵，分别证明“传送不强制 Hero”
+和“自然步行靠近同样会触发 Hero”。
+
+### Metadata
+- Source: user_feedback
+- Related Files: docs/research/building-quality-tiers-and-loading-contract.md, app/scene/progressive-building-stage.ts, app/scene/xinhua-road-landmarks.tsx
+- Tags: building-quality, distance-loading, hero, identity, teleport, correction
+
+---
+
+## [LRN-20260725-002] error
+
+**Logged**: 2026-07-25T01:05:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+删除局部 Hook 后必须核对同文件的共享 import，不能只看刚修改的代码段。
+
+### Details
+为修复 `react-hooks/set-state-in-effect` 删除一个局部 effect 时，同时移除了
+`useEffect` import，但文件中另外两个既有 effect 仍在使用，导致最终 TypeScript
+全量检查报 `Cannot find name 'useEffect'`。
+
+### Suggested Action
+删除或整理共享 import 后，立即搜索该标识符在整文件中的剩余引用；必须重新执行
+TypeScript 全量测试，不能用局部 lint 通过代替类型验证。
+
+### Metadata
+- Source: tool_failure
+- Related Files: app/scene/xinhua-road-landmarks.tsx
+- Tags: typescript, imports, useEffect, verification
+
+### Resolution
+- **Resolved**: 2026-07-25T01:06:00+08:00
+- **Notes**: 已恢复共享 import，并安排重新执行 `npm test` 与 `npm run lint`。
+
+---
+
+## [LRN-20260725-003] correction
+
+**Logged**: 2026-07-25T02:00:00+08:00
+**Priority**: high
+**Status**: in_progress
+**Area**: frontend
+
+### Summary
+Messenger 式移动触控不是“永久隐藏摇杆、移动时显示跳跃按钮”，而是下三分之一共享轻点跳跃和拖动移动，只有摇杆随移动显现。
+
+### Details
+上一版把“移动时再展示”错误关联到跳跃按钮，导致摇杆永久隐藏、跳跃按钮在移动时出现。正确逻辑是：屏幕下三分之一是统一的隐形触控区；短距离轻点触发跳跃，拖动超过阈值后激活移动并显示摇杆；松手后摇杆隐藏；跳跃按钮任何时候都不渲染。
+
+### Suggested Action
+用同一个 Pointer 手势状态机区分 tap 与 drag，先等待位移阈值再激活移动。触控区覆盖屏幕完整下三分之一，视觉摇杆只由 drag 激活状态控制，跳跃只写入短脉冲状态而不创建按钮。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/xinhua-experience.tsx, app/globals.css, app/scene/xinhua-world.tsx
+- Tags: mobile-controls, gesture-disambiguation, joystick, jump, messenger, correction
+- See Also: FEAT-20260725-001
+
+### Resolution
+- **Resolved**: 2026-07-25T01:05:00+08:00
+- **Notes**: 已改为完整下三分之一共享触控区；轻点和拖动由同一状态机区分，拖动时显示摇杆，主手移动时第二根手指仍可轻点跳跃，运行时不再渲染跳跃按钮。
+性能优化不得降低人物质量；树木和小装饰只在全览轻量化，详情原内容必须保留。
+
+### Details
+用户批准优化建筑距离和全览性能，并明确纠正：人物必须保持当前精细版本；树木可以在全览使用
+轻量表现；小装饰物只在全览中不渲染，进入本地游览并达到距离条件后必须恢复原有详情内容。
+“云雾”是输入错误，不构成保留约束；天空背景如果影响全览性能可以仅在详情阶段渲染。此前把
+“轻量人物”列入建议、随后又把装饰物全局删除，都超出了用户授权。
+
+### Suggested Action
+保持 `DetailedWandererCharacter` 不变。用明确的 overview/explore 与 Identity/Hero 条件：全览使用
+轻量树并隐藏小装饰和可选天空背景；本地游览达到实际距离后恢复原有树木、树影、落叶和场地装饰。
+测试必须同时证明“全览不渲染”与“详情仍渲染”，不能只验证源码中存在或不存在组件。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/xinhua-road-landmarks.tsx, app/scene/xinhua-world.tsx
+- Tags: performance, character, fog, trees, decorations, correction
 
 ---

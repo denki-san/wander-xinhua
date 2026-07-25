@@ -58,7 +58,7 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
 
   assert.match(world, /export const DETAIL_WORLD_SCALE = 1\.65/);
   assert.match(world, /const OVERVIEW_CHARACTER_SCALE = 22/);
-  assert.match(world, /const OVERVIEW_MOVE_SPEED = 108/);
+  assert.match(world, /const OVERVIEW_MOVE_SPEED = 94/);
   assert.match(world, /const OVERVIEW_CAMERA_FILL = 0\.24/);
   assert.match(world, /function OverviewCamera/);
   assert.match(world, /target\.copy\(focus\.current\)/);
@@ -77,17 +77,23 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(world, /showDetailModels && networkProfile === "standard" \? \(/);
   assert.match(world, /<ShangshengXinsuoBlock[\s\S]*?stage=\{shangshengTier\}/);
   assert.match(world, /<ProgressiveXinhuaRoadFullLayer/);
-  assert.match(world, /priorityPreset=\{destinationPreset\}/);
+  assert.match(world, /progressiveFocus=\{progressiveFocus\}/);
   assert.match(world, /landmarkLoadMode=\{exploring \? "explore" : "overview"\}/);
+  assert.doesNotMatch(world, /priorityPreset|detailPresetTargetsBuilding|detailActive/);
   assert.match(world, /networkProfile === "standard"[\s\S]*?<Suspense fallback=\{<XinhuaRoadMassing identity \/>\}>/);
+  assert.match(roadLandmarks, /<LightweightPlaneTreeInstances \/>/);
+  assert.match(roadLandmarks, /vegetation: "programmatic-lightweight"/);
+  assert.match(roadLandmarks, /if \(!showHero\)/);
   assert.match(roadLandmarks, /<PlaneTreeInstances/);
   assert.match(planeTreeInstances, /placementsByVariant\[variant\]\.length > 0/);
   assert.doesNotMatch(roadLandmarks, /LandmarkLoadingVolume/);
   assert.match(roadLandmarks, /mountedModelIds\.has\(landmark\.id\)/);
-  assert.match(roadLandmarks, /landmarkMatchesPreset\(landmark, priorityPreset\)/);
-  assert.match(roadLandmarks, /LANDMARK_DISTANCE_SAMPLE_SECONDS/);
-  assert.match(roadLandmarks, /LANDMARK_FULL_ENTER_EXPLORE/);
-  assert.match(roadLandmarks, /current\.has\(landmark\.id\) \? exitDistance : enterDistance/);
+  assert.match(roadLandmarks, /xinhuaRoadDistanceHeroIds/);
+  assert.match(roadLandmarks, /const shouldMountModel = mountedModelIds\.has\(landmark\.id\)/);
+  assert.match(roadLandmarks, /function useDistanceHeroLandmarkIds/);
+  assert.match(roadLandmarks, /XINHUA_ROAD_HERO_SAMPLE_SECONDS/);
+  assert.match(roadLandmarks, /return xinhuaRoadDistanceHeroIds\(\{/);
+  assert.doesNotMatch(roadLandmarks, /landmarkMatchesPreset|priorityPreset|xinhuaRoadDetailHeroId/);
   assert.match(
     roadLandmarks,
     /<Suspense[\s\S]*?<LandmarkProgressiveProxy landmark=\{landmark\} identity \/>[\s\S]*?<GlbModel path=\{modelPath\} \/>/,

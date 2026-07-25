@@ -32,7 +32,7 @@ function splitObstacleAlongX(obstacle: MapObstacle, maximumWidth: number) {
   }));
 }
 
-const buildingObstacles = XINGFULI_BUILDINGS.flatMap((building) => splitObstacleAlongX({
+export const XINGFULI_BUILDING_OBSTACLES = XINGFULI_BUILDINGS.flatMap((building) => splitObstacleAlongX({
   minX: building.x - building.width / 2 - 0.28,
   maxX: building.x + building.width / 2 + 0.28,
   // 临巷一侧贴合可见墙面，依靠 PLAYER_RADIUS 留距；外墙一侧仍保留 0.28 容差。
@@ -56,6 +56,6 @@ const fixedObstacles = qaData.fixedObstacles.flatMap((obstacle) => splitObstacle
  * 因此在本地按 1 单位切片，再沿用全局 AABB 碰撞器，兼顾通行准确度与现有移动逻辑。
  */
 export const XINGFULI_OBSTACLES: MapObstacle[] = [
-  ...buildingObstacles,
+  ...XINGFULI_BUILDING_OBSTACLES,
   ...fixedObstacles,
 ];

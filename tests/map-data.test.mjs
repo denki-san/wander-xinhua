@@ -107,7 +107,7 @@ test("自然比例人物与五倍环境为幸福里街巷留下充足通行宽�
   assert.match(world, /const PLAYER_RADIUS = 0\.48/);
   assert.match(world, /const CAMERA_DISTANCE = 5/);
   assert.match(world, /const CAMERA_HEIGHT = 1\.95/);
-  assert.match(world, /const CAMERA_TARGET_HEIGHT = 1\.45/);
+  assert.match(world, /const CAMERA_TARGET_HEIGHT = 1\.72/);
   assert.match(world, /const CAMERA_SHOULDER_OFFSET = 0\.9/);
   assert.match(world, /const CAMERA_TARGET_SHOULDER_OFFSET = 0\.12/);
   assert.match(world, /name === "xingfuli" \|\| name === "hero"/);

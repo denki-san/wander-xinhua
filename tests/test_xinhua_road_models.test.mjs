@@ -314,16 +314,14 @@ test("新华两佰保留照片对照机位、运行时截图和正确牌匾朝�
   );
 });
 
-test("道路地标以 Identity 常驻并只在近距离挂载 Full", () => {
-  assert.match(sceneSource, /LANDMARK_FULL_ENTER_OVERVIEW = 48/);
-  assert.match(sceneSource, /LANDMARK_FULL_ENTER_EXPLORE = 58/);
-  assert.match(sceneSource, /LANDMARK_FULL_EXIT_OFFSET = 10/);
-  assert.match(sceneSource, /LANDMARK_DISTANCE_SAMPLE_SECONDS = 0\.2/);
-  assert.match(sceneSource, /const \[mountedModelIds, setMountedModelIds\]/);
-  assert.match(sceneSource, /distance <= threshold/);
-  assert.match(sceneSource, /current\.has\(landmark\.id\) \? exitDistance : enterDistance/);
-  assert.match(sceneSource, /landmarkMatchesPreset\(landmark, priorityPreset\)/);
-  assert.doesNotMatch(sceneSource, /LANDMARK_IMMEDIATE_MODEL_IDS|LANDMARK_STAGGER_INTERVAL_MS/);
+test("道路地标在地图常驻 Identity，并在本地游览按实际距离挂载 Hero", () => {
+  assert.match(sceneSource, /function useDistanceHeroLandmarkIds/);
+  assert.match(sceneSource, /xinhuaRoadDistanceHeroIds/);
+  assert.match(sceneSource, /focusPosition: focusPosition\.current/);
+  assert.match(sceneSource, /XINHUA_ROAD_HERO_SAMPLE_SECONDS/);
+  assert.match(sceneSource, /return xinhuaRoadDistanceHeroIds\(\{/);
+  assert.match(sceneSource, /const shouldMountModel = mountedModelIds\.has\(landmark\.id\)/);
+  assert.doesNotMatch(sceneSource, /landmarkMatchesPreset|priorityPreset|xinhuaRoadDetailHeroId/);
 });
 
 test("上海影城和新华两佰的 build record 与当前 GLB、缓存版本一致", async () => {
@@ -432,7 +430,8 @@ test("地图与房屋使用既定统一比例，退界修复只能调整位置",
 
   const cinema = landmarkData.landmarks.find(({ id }) => id === "shanghai-cinema");
   assert.equal(cinema.scale, 1, "上海影城应保持经 OSM 包络校准的 1:1 场景比例");
-  assert.deepEqual(cinema.start, [57.5, 101], "上海影城首屏应收近，但不能靠整体放大模型制造体量感");
+  assert.deepEqual(cinema.start, [101, 112], "上海影城入口应位于自身东北侧观看位，避开幸福里与周边道路 Hero 的迟滞范围");
+  assert.deepEqual(cinema.forward, [-0.654, -0.756], "上海影城入口应朝向建筑中心");
   assert.equal(cinema.cameraTargetHeight, 2.8, "上海影城入口镜头应抬高目标点，完整展示主丝带与后塔楼");
   assert.equal(cinema.localObstacles.length, 3, "上海影城碰撞应贴合弧形主体，不能用单一大盒封住入口广场");
   assert.ok(Math.max(...cinema.localObstacles.map(({ maxZ }) => maxZ)) <= 6.2, "上海影城台阶和正门接近区必须保持开放");
@@ -450,12 +449,12 @@ test("地图与房屋使用既定统一比例，退界修复只能调整位置",
   assert.match(worldSource, /initialStart\.cameraTargetHeight \?\? CAMERA_TARGET_HEIGHT/);
   assert.equal(
     worldSource.match(/scaledSurfaceHeight \+ cameraTargetHeight/g)?.length,
-    3,
-    "上海影城专属相机目标高度必须覆盖初始化、逐帧和兜底分支",
+    2,
+    "上海影城专属相机目标高度必须覆盖初始化和逐帧 spring-arm 目标点",
   );
 });
 
-test("梧桐树按 3 个模型变体沿新华路双侧交错排列，并为地标入口留空", () => {
+test("梧桐位置沿新华路双侧交错避让，全览轻量且详情恢复三变体", () => {
   assert.match(planeTreeInstancesSource, /plane-tree-a\.glb\?v=36ffe252c43b/);
   assert.match(planeTreeInstancesSource, /plane-tree-b\.glb\?v=7c2e06d0794f/);
   assert.match(planeTreeInstancesSource, /plane-tree-c\.glb\?v=c4c14bd84d9c/);
@@ -468,6 +467,8 @@ test("梧桐树按 3 个模型变体沿新华路双侧交错排列，并为地�
   assert.match(planeTreeInstancesSource, /scale=\{\[1, 1, -1\]\}/);
   assert.match(planeTreeInstancesSource, /placementsByVariant\[variant\]\.length > 0/);
   assert.match(sceneSource, /arrangement: "deterministic-id-hash"/);
+  assert.match(sceneSource, /<LightweightPlaneTreeInstances \/>/);
+  assert.match(sceneSource, /if \(!showHero\)/);
   assert.match(sceneSource, /<PlaneTreeInstances/);
 
   const obstacles = landmarkData.landmarks.map(transformedFootprint);
@@ -497,7 +498,7 @@ test("梧桐树按 3 个模型变体沿新华路双侧交错排列，并为地�
   }
 });
 
-test("梧桐树的树干、深浅树皮斑痕和三层树冠都进入运行时实例", async () => {
+test("梧桐 GLB 资产仍可审计，并只在详情运行时恢复", async () => {
   const expectedMaterials = ["梧桐叶中", "梧桐叶浅", "梧桐叶深", "梧桐树皮", "梧桐树皮浅斑", "梧桐树皮深斑"].sort();
   for (const slug of ["plane-tree-a", "plane-tree-b", "plane-tree-c"]) {
     const buffer = await readFile(new URL(`public/models/xinhua-road/${slug}.glb`, root));
@@ -523,7 +524,9 @@ test("梧桐树的树干、深浅树皮斑痕和三层树冠都进入运行时�
   assert.match(planeTreeInstancesSource, /variant,\s*part,\s*instanced: true,/s);
   assert.doesNotMatch(xingfuliSource, /function PlaneTree/);
   assert.equal((xingfuliSource.match(/id: "xingfuli-[^"]+-plane-tree"/g) ?? []).length, 3);
+  assert.match(xingfuliSource, /<LightweightXingfuliTrees \/>/);
   assert.match(xingfuliSource, /<ProgressivePlaneTreeInstances/);
+  assert.match(xingfuliSource, /identityReady && environmentDetailed && \(/);
 });
 
 test("地标碰撞范围由 GLB 实际边界派生，不再维护会漏穿的手写盒", async () => {
@@ -640,13 +643,15 @@ test("所有快速定位的角色和首帧相机都避开全部地标碰撞范�
 
 test("新地标参与渲染、角色硬碰撞和快速定位，但摄像机使用独立透明层", () => {
   assert.match(worldSource, /<XinhuaRoadMassing identity=\{showDetailModels\} \/>/);
-  assert.match(worldSource, /<ProgressiveXinhuaRoadFullLayer[\s\S]*?showLabels=\{showDetailLabels\}[\s\S]*?priorityPreset=\{priorityPreset\}[\s\S]*?loadMode=\{landmarkLoadMode\}/);
+  assert.match(worldSource, /<ProgressiveXinhuaRoadFullLayer[\s\S]*?showLabels=\{showDetailLabels\}[\s\S]*?loadMode=\{landmarkLoadMode\}[\s\S]*?focusPosition=\{progressiveFocus\}/);
   assert.match(worldSource, /\.\.\.XINHUA_ROAD_OBSTACLES/);
   assert.match(worldSource, /\.\.\.XINHUA_ROAD_CAMERA_OBSTACLES/);
   assert.deepEqual(XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES, []);
   assert.ok(Object.isFrozen(XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES));
-  assert.match(worldSource, /for \(let step = 0; step <= 16; step \+= 1\)/);
-  assert.match(worldSource, /Math\.max\(0\.06, 1 - step \* 0\.06\)/);
+  assert.match(worldSource, /resolvePlanarSpringArm\(/);
+  assert.match(worldSource, /WORLD_CAMERA_OBSTACLES,/);
+  assert.match(worldSource, /springArm\.blockerId/);
+  assert.doesNotMatch(worldSource, /for \(let step = 0; step <= 16; step \+= 1\)/);
   assert.match(worldSource, /XINHUA_ROAD_START_PRESETS\[name\]/);
 });
 

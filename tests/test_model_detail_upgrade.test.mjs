@@ -119,7 +119,7 @@ test("幸福里和上生新所程序化构件的语义层数至少翻倍", async
   assert.match(shangsheng, /entranceStructurePartsAfter:\s*12/);
 });
 
-test("华山绿地的跑道、成熟树和配套建筑细节至少翻倍", async () => {
+test("华山绿地全览树木轻量，详情恢复四部件成熟树与配套建筑", async () => {
   const huashan = await readFile(
     new URL("../app/scene/huashan-green-block.tsx", import.meta.url),
     "utf8",
@@ -134,4 +134,5 @@ test("华山绿地的跑道、成熟树和配套建筑细节至少翻倍", async
   assert.match(huashan, /RUNNING_TRACK_PATH_IDS/);
   assert.match(huashan, /rootCollars/);
   assert.match(huashan, /secondaryCrowns/);
+  assert.match(huashan, /detailed && \([\s\S]*?secondaryCrowns/);
 });

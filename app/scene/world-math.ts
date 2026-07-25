@@ -22,6 +22,12 @@ export type MapObstacle = {
 
 export type MapPolygonPoint = readonly [number, number];
 
+export type PlanarSpringArmResult = {
+  fraction: number;
+  planarDistance: number;
+  blockerId: string | null;
+};
+
 /**
  * 把屏幕上的左右/上下输入换算为相机所见地面的绝对方向。
  * 适用于固定俯视地图：向上输入始终让物体向屏幕上方移动，不受角色朝向影响。
@@ -44,6 +50,109 @@ export function screenInputToPlanarMove(
   result.copy(SCREEN_RIGHT).multiplyScalar(rightInput).addScaledVector(SCREEN_UP, upInput);
   if (result.lengthSq() > 1) result.normalize();
   return result;
+}
+
+/**
+ * 每帧用当前相机的地面 forward/right 解析第三人称移动输入。
+ * 输入参考系由调用方在当前帧提供，不在摇杆开始时缓存旧方向。
+ */
+export function cameraRelativeInputToPlanarMove(
+  cameraForward: Vector3,
+  cameraRight: Vector3,
+  rightInput: number,
+  forwardInput: number,
+  result = new Vector3(),
+) {
+  result
+    .set(0, 0, 0)
+    .addScaledVector(cameraForward, forwardInput)
+    .addScaledVector(cameraRight, rightInput);
+  if (result.lengthSq() > 1) result.normalize();
+  return result;
+}
+
+/** 只把明确位于摇杆后方扇区的输入视为直后拉，避免侧移误触发转身锁定。 */
+export function isDirectReverseInput(
+  rightInput: number,
+  forwardInput: number,
+) {
+  const magnitude = Math.hypot(rightInput, forwardInput);
+  if (magnitude < 1e-4) return false;
+  const normalizedRight = rightInput / magnitude;
+  const normalizedForward = forwardInput / magnitude;
+  return normalizedForward <= -0.72 && Math.abs(normalizedRight) <= 0.58;
+}
+
+/** 直后拉且目标方向明显落在角色后方时，开始一次稳定的反向转身。 */
+export function shouldStartReverseTurn(
+  rightInput: number,
+  forwardInput: number,
+  characterMoveAlignment: number,
+) {
+  return isDirectReverseInput(rightInput, forwardInput)
+    && characterMoveAlignment <= 0.2;
+}
+
+/**
+ * 自动跟随只在前进时完整生效；纯横移暂停跟随，后移几乎不跟随。
+ * 该权重与走路/跑步速度无关，保证两种步态的镜头角速度一致。
+ */
+export function movementCameraFollowWeight(
+  rightInput: number,
+  forwardInput: number,
+  reverseTurning: boolean,
+) {
+  if (reverseTurning) return 0;
+  const magnitude = Math.hypot(rightInput, forwardInput);
+  if (magnitude < 1e-4) return 0;
+  const normalizedForward = forwardInput / magnitude;
+  if (normalizedForward <= -0.25) return 0.08;
+  const forwardWeight = Math.max(0, normalizedForward);
+  return forwardWeight * forwardWeight;
+}
+
+/** 反向转身初段先少量位移，朝向基本完成后再平滑恢复正常步速。 */
+export function reverseTurnTranslationScale(
+  characterMoveAlignment: number,
+  reverseTurning: boolean,
+) {
+  if (!reverseTurning) return 1;
+  if (characterMoveAlignment <= 0.35) return 0.16;
+  if (characterMoveAlignment >= 0.85) return 1;
+  return 0.16 + (characterMoveAlignment - 0.35) / 0.5 * 0.84;
+}
+
+/** 直行时把构图中心轻微移向角色右侧；横移时保持居中。 */
+export function forwardFramingWeight(
+  rightInput: number,
+  forwardInput: number,
+) {
+  const magnitude = Math.hypot(rightInput, forwardInput);
+  if (magnitude < 1e-4) return 0;
+  const normalizedRight = Math.abs(rightInput / magnitude);
+  const normalizedForward = forwardInput / magnitude;
+  const forwardWeight = Math.min(1, Math.max(0, (normalizedForward - 0.35) / 0.55));
+  const lateralGuard = Math.min(1, Math.max(0, 1 - normalizedRight / 0.75));
+  return forwardWeight * lateralGuard;
+}
+
+/** 记录最近一次移动有多接近纯横移，供停步后的短暂前探使用。 */
+export function lateralMovementWeight(
+  rightInput: number,
+  forwardInput: number,
+) {
+  const magnitude = Math.hypot(rightInput, forwardInput);
+  if (magnitude < 1e-4) return 0;
+  const normalizedRight = Math.abs(rightInput / magnitude);
+  return normalizedRight * normalizedRight;
+}
+
+/** 横移停步后先保持短暂前探，再在约两秒内自然回中。 */
+export function stopFramingEnvelope(idleSeconds: number) {
+  const elapsed = Math.max(0, idleSeconds);
+  if (elapsed <= 0.75) return 1;
+  if (elapsed >= 2.2) return 0;
+  return Math.exp(-(elapsed - 0.75) * 1.6);
 }
 
 /** 只绕地面法线旋转方向，180 度转向时也不会穿过镜头顶部。 */
@@ -69,6 +178,37 @@ export function rotateTangentTowards(
 /** 返回与帧率无关的指数阻尼插值比例。 */
 export function dampingFactor(lambda: number, delta: number) {
   return 1 - Math.exp(-Math.max(0, lambda) * Math.max(0, delta));
+}
+
+/** 在当前距离附近连续缩放，再把最终结果限制在产品边界内。 */
+export function nextCameraZoomDistance(
+  current: number,
+  wheelDeltaY: number,
+  minimum: number,
+  maximum: number,
+  sensitivity = 0.0012,
+) {
+  const lower = Math.max(0, Math.min(minimum, maximum));
+  const upper = Math.max(lower, Math.max(minimum, maximum));
+  const scaled = Math.max(0, current) * (1 + wheelDeltaY * sensitivity);
+  return Math.min(upper, Math.max(lower, scaled));
+}
+
+/** 把浏览器的 line/page 模式滚轮统一成近似像素增量。 */
+export function normalizeWheelDeltaY(
+  deltaY: number,
+  deltaMode: number,
+  pageHeight: number,
+  lineHeight = 16,
+) {
+  if (deltaMode === 1) return deltaY * Math.max(1, lineHeight);
+  if (deltaMode === 2) return deltaY * Math.max(1, pageHeight);
+  return deltaY;
+}
+
+/** 用墙钟截止时间计算剩余宽限，不受渲染帧率或物理 delta 上限影响。 */
+export function remainingDeadlineMs(deadlineMs: number, nowMs: number) {
+  return Math.max(0, deadlineMs - nowMs);
 }
 
 /**
@@ -198,7 +338,7 @@ export function isPlanarPositionBlockedInPolygon(
   ));
 }
 
-function segmentIntersectsExpandedObstacle(
+function segmentExpandedObstacleEntryFraction(
   startX: number,
   startZ: number,
   endX: number,
@@ -215,22 +355,37 @@ function segmentIntersectsExpandedObstacle(
   let near = 0;
   let far = 1;
 
-  for (const [start, delta, minimum, maximum] of [
-    [startX, deltaX, minX, maxX],
-    [startZ, deltaZ, minZ, maxZ],
-  ]) {
-    if (Math.abs(delta) < 1e-9) {
-      if (start < minimum || start > maximum) return false;
-      continue;
+  if (Math.abs(deltaX) < 1e-9) {
+    if (startX < minX || startX > maxX) return null;
+  } else {
+    let entry = (minX - startX) / deltaX;
+    let exit = (maxX - startX) / deltaX;
+    if (entry > exit) {
+      const swap = entry;
+      entry = exit;
+      exit = swap;
     }
-    let entry = (minimum - start) / delta;
-    let exit = (maximum - start) / delta;
-    if (entry > exit) [entry, exit] = [exit, entry];
     near = Math.max(near, entry);
     far = Math.min(far, exit);
-    if (near > far) return false;
+    if (near > far) return null;
   }
-  return far >= 0 && near <= 1;
+
+  if (Math.abs(deltaZ) < 1e-9) {
+    if (startZ < minZ || startZ > maxZ) return null;
+  } else {
+    let entry = (minZ - startZ) / deltaZ;
+    let exit = (maxZ - startZ) / deltaZ;
+    if (entry > exit) {
+      const swap = entry;
+      entry = exit;
+      exit = swap;
+    }
+    near = Math.max(near, entry);
+    far = Math.min(far, exit);
+    if (near > far) return null;
+  }
+
+  return far >= 0 && near <= 1 ? Math.max(0, near) : null;
 }
 
 /** 判断角色到候选镜头的整条地面投影视线是否穿过建筑或离开地图。 */
@@ -252,14 +407,14 @@ export function isPlanarSightLineBlockedInPolygon(
       polygon,
     )) return true;
   }
-  return obstacles.some((obstacle) => segmentIntersectsExpandedObstacle(
+  return obstacles.some((obstacle) => segmentExpandedObstacleEntryFraction(
     startX,
     startZ,
     endX,
     endZ,
     obstacle,
     radius,
-  ));
+  ) !== null);
 }
 
 /** 统一验证相机候选点与角色到镜头的投影视线，避免采用只检查一半条件的兜底点。 */
@@ -288,6 +443,252 @@ export function isPlanarCameraCandidateClearInPolygon(
     obstacles,
     sightRadius,
   );
+}
+
+function segmentCircleEntryFraction(
+  startX: number,
+  startZ: number,
+  endX: number,
+  endZ: number,
+  centerX: number,
+  centerZ: number,
+  radius: number,
+) {
+  const relativeX = startX - centerX;
+  const relativeZ = startZ - centerZ;
+  const deltaX = endX - startX;
+  const deltaZ = endZ - startZ;
+  const c = relativeX * relativeX + relativeZ * relativeZ - radius * radius;
+  if (c <= 0) return 0;
+  const a = deltaX * deltaX + deltaZ * deltaZ;
+  if (a < 1e-12) return null;
+  const b = 2 * (relativeX * deltaX + relativeZ * deltaZ);
+  const discriminant = b * b - 4 * a * c;
+  if (discriminant < 0) return null;
+  const entry = (-b - Math.sqrt(discriminant)) / (2 * a);
+  return entry >= 0 && entry <= 1 ? entry : null;
+}
+
+/** 移动点与边界线段 capsule 的解析首碰，覆盖线段主体与两个圆形端帽。 */
+function segmentCapsuleEntryFraction(
+  startX: number,
+  startZ: number,
+  endX: number,
+  endZ: number,
+  edgeStart: MapPolygonPoint,
+  edgeEnd: MapPolygonPoint,
+  radius: number,
+) {
+  const edgeX = edgeEnd[0] - edgeStart[0];
+  const edgeZ = edgeEnd[1] - edgeStart[1];
+  const edgeLength = Math.hypot(edgeX, edgeZ);
+  if (edgeLength < 1e-9) {
+    return segmentCircleEntryFraction(
+      startX,
+      startZ,
+      endX,
+      endZ,
+      edgeStart[0],
+      edgeStart[1],
+      radius,
+    );
+  }
+
+  const axisX = edgeX / edgeLength;
+  const axisZ = edgeZ / edgeLength;
+  const normalX = -axisZ;
+  const normalZ = axisX;
+  const relativeX = startX - edgeStart[0];
+  const relativeZ = startZ - edgeStart[1];
+  const deltaX = endX - startX;
+  const deltaZ = endZ - startZ;
+  const alongStart = relativeX * axisX + relativeZ * axisZ;
+  const alongDelta = deltaX * axisX + deltaZ * axisZ;
+  const normalStart = relativeX * normalX + relativeZ * normalZ;
+  const normalDelta = deltaX * normalX + deltaZ * normalZ;
+  let near = 0;
+  let far = 1;
+
+  if (Math.abs(alongDelta) < 1e-12) {
+    if (alongStart < 0 || alongStart > edgeLength) {
+      near = 1;
+      far = 0;
+    }
+  } else {
+    let entry = -alongStart / alongDelta;
+    let exit = (edgeLength - alongStart) / alongDelta;
+    if (entry > exit) {
+      const swap = entry;
+      entry = exit;
+      exit = swap;
+    }
+    near = Math.max(near, entry);
+    far = Math.min(far, exit);
+  }
+
+  if (near <= far) {
+    if (Math.abs(normalDelta) < 1e-12) {
+      if (normalStart < -radius || normalStart > radius) {
+        near = 1;
+        far = 0;
+      }
+    } else {
+      let entry = (-radius - normalStart) / normalDelta;
+      let exit = (radius - normalStart) / normalDelta;
+      if (entry > exit) {
+        const swap = entry;
+        entry = exit;
+        exit = swap;
+      }
+      near = Math.max(near, entry);
+      far = Math.min(far, exit);
+    }
+  }
+
+  let firstHit = near <= far && far >= 0 && near <= 1
+    ? Math.max(0, near)
+    : null;
+  const startCircleHit = segmentCircleEntryFraction(
+    startX,
+    startZ,
+    endX,
+    endZ,
+    edgeStart[0],
+    edgeStart[1],
+    radius,
+  );
+  if (startCircleHit !== null && (firstHit === null || startCircleHit < firstHit)) {
+    firstHit = startCircleHit;
+  }
+  const endCircleHit = segmentCircleEntryFraction(
+    startX,
+    startZ,
+    endX,
+    endZ,
+    edgeEnd[0],
+    edgeEnd[1],
+    radius,
+  );
+  if (endCircleHit !== null && (firstHit === null || endCircleHit < firstHit)) {
+    firstHit = endCircleHit;
+  }
+  return firstHit;
+}
+
+function firstBoundaryHitFraction(
+  startX: number,
+  startZ: number,
+  endX: number,
+  endZ: number,
+  polygon: readonly MapPolygonPoint[],
+  radius: number,
+) {
+  if (isPlanarPositionBlockedInPolygon(startX, startZ, polygon, [], radius)) return 0;
+  let firstHit: number | null = null;
+  for (let index = 0; index < polygon.length; index += 1) {
+    const hit = segmentCapsuleEntryFraction(
+      startX,
+      startZ,
+      endX,
+      endZ,
+      polygon[index],
+      polygon[(index + 1) % polygon.length],
+      radius,
+    );
+    if (hit !== null && (firstHit === null || hit < firstHit)) firstHit = hit;
+  }
+  return firstHit;
+}
+
+/**
+ * 从角色肩部 pivot 沿理想镜头方向扫掠一个二维圆形相机体，返回首个安全臂长比例。
+ * 建筑使用扩张 AABB 的解析交点；凹多边形边界使用线段 capsule 的解析首碰。
+ */
+export function resolvePlanarSpringArm(
+  startX: number,
+  startZ: number,
+  endX: number,
+  endZ: number,
+  polygon: readonly MapPolygonPoint[],
+  obstacles: MapObstacle[],
+  radius = 0.26,
+  margin = 0.08,
+  result: PlanarSpringArmResult = {
+    fraction: 1,
+    planarDistance: 0,
+    blockerId: null,
+  },
+) {
+  const planarDistance = Math.hypot(endX - startX, endZ - startZ);
+  result.planarDistance = planarDistance;
+  result.blockerId = null;
+
+  if (planarDistance < 1e-8) {
+    result.fraction = isPlanarPositionBlockedInPolygon(
+      endX,
+      endZ,
+      polygon,
+      obstacles,
+      radius,
+    ) ? 0 : 1;
+    if (result.fraction === 0) result.blockerId = "pivot";
+    return result;
+  }
+
+  let firstHit = firstBoundaryHitFraction(
+    startX,
+    startZ,
+    endX,
+    endZ,
+    polygon,
+    radius,
+  );
+  if (firstHit !== null) result.blockerId = "boundary";
+
+  obstacles.forEach((obstacle, index) => {
+    const hit = segmentExpandedObstacleEntryFraction(
+      startX,
+      startZ,
+      endX,
+      endZ,
+      obstacle,
+      radius,
+    );
+    if (hit === null || (firstHit !== null && hit >= firstHit)) return;
+    firstHit = hit;
+    result.blockerId = `obstacle-${index}`;
+  });
+
+  if (firstHit === null) {
+    result.fraction = 1;
+    return result;
+  }
+
+  const safeDistance = Math.max(0, firstHit * planarDistance - Math.max(0, margin));
+  result.fraction = Math.min(1, safeDistance / planarDistance);
+  return result;
+}
+
+/**
+ * 碰撞时立即收短以保证安全，离开遮挡后再按帧率无关阻尼慢速恢复。
+ */
+export function stepSpringArmLength(
+  current: number,
+  target: number,
+  recoveryLambda: number,
+  delta: number,
+) {
+  const safeCurrent = Math.max(0, current);
+  const safeTarget = Math.max(0, target);
+  if (safeTarget <= safeCurrent) return safeTarget;
+  return safeCurrent + (safeTarget - safeCurrent) * dampingFactor(recoveryLambda, delta);
+}
+
+/** 探索态按视口设置垂直 FOV：横屏保持 58°，窄竖屏平滑提升但不超过 62°。 */
+export function explorationVerticalFov(width: number, height: number) {
+  const aspect = Math.max(0.1, width) / Math.max(1, height);
+  if (aspect >= 1) return 58;
+  return Math.min(62, 58 + (1 - aspect) * 7.5);
 }
 
 /** 真实多边形边界内的分轴移动解析，保留沿建筑和边界滑动的手感。 */

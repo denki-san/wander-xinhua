@@ -1,0 +1,34 @@
+{
+  "viewport": [
+    1440,
+    1024
+  ],
+  "start": "xingfuli-canonical",
+  "alignment": "one 15-degree warm-up drag aligned the initial goal yaw with the baseline trace",
+  "samples": [
+    {"degrees": 15, "mode": "spring-clear", "blocker": "none", "modeChanges": 1, "desiredArm": 5.13, "resolvedArm": 5.13, "goalYaw": 111.6, "desiredArmYaw": 118.1, "actualArmYaw": 118.1},
+    {"degrees": 30, "mode": "spring-clear", "blocker": "none", "modeChanges": 1, "desiredArm": 5.13, "resolvedArm": 5.13, "goalYaw": 126.4, "desiredArmYaw": 132.9, "actualArmYaw": 132.9},
+    {"degrees": 45, "mode": "spring-clear", "blocker": "none", "modeChanges": 1, "desiredArm": 5.13, "resolvedArm": 5.13, "goalYaw": 141.3, "desiredArmYaw": 149, "actualArmYaw": 149},
+    {"degrees": 60, "mode": "spring-clear", "blocker": "none", "modeChanges": 1, "desiredArm": 5.13, "resolvedArm": 5.13, "goalYaw": 156.2, "desiredArmYaw": 164.3, "actualArmYaw": 164.3},
+    {"degrees": 75, "mode": "spring-clear", "blocker": "none", "modeChanges": 1, "desiredArm": 5.13, "resolvedArm": 5.13, "goalYaw": 171.1, "desiredArmYaw": 176.6, "actualArmYaw": 176.6},
+    {"degrees": 90, "mode": "spring-clear", "blocker": "none", "modeChanges": 1, "desiredArm": 5.13, "resolvedArm": 5.13, "goalYaw": -174, "desiredArmYaw": -166.8, "actualArmYaw": -166.8},
+    {"degrees": 105, "mode": "spring-compressed", "blocker": "obstacle-142", "modeChanges": 2, "desiredArm": 5.13, "resolvedArm": 4.4, "goalYaw": -159.1, "desiredArmYaw": -151, "actualArmYaw": -151},
+    {"degrees": 120, "mode": "spring-compressed", "blocker": "obstacle-142", "modeChanges": 2, "desiredArm": 5.13, "resolvedArm": 3.06, "goalYaw": -144.2, "desiredArmYaw": -136, "actualArmYaw": -136},
+    {"degrees": 135, "mode": "spring-compressed", "blocker": "obstacle-142", "modeChanges": 2, "desiredArm": 5.13, "resolvedArm": 3.21, "goalYaw": -129.3, "desiredArmYaw": -123.9, "actualArmYaw": -123.9},
+    {"degrees": 150, "mode": "spring-recovering", "blocker": "none", "modeChanges": 3, "desiredArm": 5.13, "resolvedArm": 4.33, "goalYaw": -114.4, "desiredArmYaw": -107.5, "actualArmYaw": -107.5},
+    {"degrees": 165, "mode": "spring-recovering", "blocker": "none", "modeChanges": 3, "desiredArm": 5.13, "resolvedArm": 4.69, "goalYaw": -99.5, "desiredArmYaw": -95.1, "actualArmYaw": -95.1},
+    {"degrees": 180, "mode": "spring-recovering", "blocker": "none", "modeChanges": 3, "desiredArm": 5.13, "resolvedArm": 5.02, "goalYaw": -84.6, "desiredArmYaw": -77.9, "actualArmYaw": -77.9},
+    {"degrees": 195, "mode": "spring-recovering", "blocker": "none", "modeChanges": 3, "desiredArm": 5.13, "resolvedArm": 5.1, "goalYaw": -69.7, "desiredArmYaw": -61.9, "actualArmYaw": -61.9},
+    {"degrees": 210, "mode": "spring-clear", "blocker": "none", "modeChanges": 4, "desiredArm": 5.13, "resolvedArm": 5.12, "goalYaw": -54.8, "desiredArmYaw": -46.1, "actualArmYaw": -46.1},
+    {"degrees": 225, "mode": "spring-clear", "blocker": "none", "modeChanges": 4, "desiredArm": 5.13, "resolvedArm": 5.13, "goalYaw": -39.9, "desiredArmYaw": -32.1, "actualArmYaw": -32.1},
+    {"degrees": 240, "mode": "spring-clear", "blocker": "none", "modeChanges": 4, "desiredArm": 5.13, "resolvedArm": 5.13, "goalYaw": -25, "desiredArmYaw": -18.6, "actualArmYaw": -18.6},
+    {"degrees": 255, "mode": "spring-clear", "blocker": "none", "modeChanges": 4, "desiredArm": 5.13, "resolvedArm": 5.13, "goalYaw": -10.1, "desiredArmYaw": -3.5, "actualArmYaw": -3.5},
+    {"degrees": 270, "mode": "spring-compressed", "blocker": "obstacle-179", "modeChanges": 5, "desiredArm": 5.13, "resolvedArm": 4.04, "goalYaw": 4.8, "desiredArmYaw": 12.8, "actualArmYaw": 12.8},
+    {"degrees": 285, "mode": "spring-recovering", "blocker": "none", "modeChanges": 6, "desiredArm": 5.13, "resolvedArm": 4.41, "goalYaw": 19.7, "desiredArmYaw": 23.9, "actualArmYaw": 23.9},
+    {"degrees": 300, "mode": "spring-recovering", "blocker": "none", "modeChanges": 6, "desiredArm": 5.13, "resolvedArm": 4.94, "goalYaw": 34.6, "desiredArmYaw": 41.2, "actualArmYaw": 41.2},
+    {"degrees": 315, "mode": "spring-recovering", "blocker": "none", "modeChanges": 6, "desiredArm": 5.13, "resolvedArm": 5.08, "goalYaw": 49.5, "desiredArmYaw": 57.3, "actualArmYaw": 57.3},
+    {"degrees": 330, "mode": "spring-clear", "blocker": "none", "modeChanges": 7, "desiredArm": 5.13, "resolvedArm": 5.11, "goalYaw": 64.4, "desiredArmYaw": 72.7, "actualArmYaw": 72.7},
+    {"degrees": 345, "mode": "spring-clear", "blocker": "none", "modeChanges": 7, "desiredArm": 5.13, "resolvedArm": 5.12, "goalYaw": 79.3, "desiredArmYaw": 85.2, "actualArmYaw": 85.2},
+    {"degrees": 360, "mode": "spring-clear", "blocker": "none", "modeChanges": 7, "desiredArm": 5.13, "resolvedArm": 5.13, "goalYaw": 94.2, "desiredArmYaw": 102.8, "actualArmYaw": 102.8}
+  ]
+}

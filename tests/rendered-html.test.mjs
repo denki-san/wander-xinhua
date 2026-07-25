@@ -66,7 +66,7 @@ test("最终运行时代码不引用参考站资产", async () => {
   assert.doesNotMatch(javascript.join("\n"), /bdimg|bcebos|poi-pic|messenger\.abeto\.co\/assets/i);
 });
 
-test("幸福里使用七栋固定建筑和可识别的核心街具", async () => {
+test("幸福里全览隐藏小装饰，详情恢复七栋建筑和原有核心街具", async () => {
   const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
   const xingfuli = await readFile(new URL("../app/scene/xingfuli-block.tsx", import.meta.url), "utf8");
   const layout = JSON.parse(await readFile(new URL("../app/scene/xingfuli-layout.json", import.meta.url), "utf8"));
@@ -96,6 +96,8 @@ test("幸福里使用七栋固定建筑和可识别的核心街具", async () =>
   assert.match(xingfuli, /StreetLampInstances/);
   assert.match(xingfuli, /SlattedBench/);
   assert.match(xingfuli, /CantileverCafeUmbrella/);
+  assert.match(xingfuli, /identityReady && environmentDetailed && \([\s\S]*?<ReflectingPoolDynamicDetails \/>[\s\S]*?<LaneFurniture \/>/);
+  assert.match(xingfuli, /!environmentDetailed && <LightweightXingfuliTrees \/>/);
   assert.match(xingfuli, /OutdoorDiningSet/);
   assert.match(xingfuli, /番禺路入口右侧的白色玻璃转角体量/);
   assert.match(xingfuli, /sign \* 0\.082/);

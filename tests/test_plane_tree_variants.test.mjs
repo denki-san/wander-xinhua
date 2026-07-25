@@ -100,7 +100,7 @@ test("三个街景 GLB 共享轻量预算并保持无图片策略", async () => 
   assert.ok(totalBytes <= 1_400_000);
 });
 
-test("主地图近景使用已验收 Hero 梧桐且不与轻量实例重叠", async () => {
+test("全览使用轻量梧桐，详情恢复已验收 Hero 梧桐且不重叠", async () => {
   const [landmarks, world, rollout, heroStats, heroBuffer] = await Promise.all([
     readFile(new URL("app/scene/xinhua-road-landmarks.tsx", root), "utf8"),
     readFile(new URL("app/scene/xinhua-world.tsx", root), "utf8"),
@@ -116,12 +116,10 @@ test("主地图近景使用已验收 Hero 梧桐且不与轻量实例重叠", as
   assert.equal(hero.textures, undefined);
   assert.match(landmarks, /XINHUA_HERO_PLANE_TREE_ID = "plane-tree-0-12"/);
   assert.match(landmarks, /xinhua-plane-tree-hero\.glb\?v=3/);
+  assert.match(landmarks, /<LightweightPlaneTreeInstances \/>/);
   assert.match(landmarks, /selectHeroPlaneTreePlacement/);
-  assert.match(landmarks, /XINHUA_HERO_PLANE_TREE_TARGET/);
-  assert.match(landmarks, /candidateDistance < closestDistance/);
-  assert.match(landmarks, /placement\.id !== XINHUA_HERO_PLANE_TREE_PLACEMENT\.id/);
-  assert.match(landmarks, /showHero && \(/);
-  assert.match(landmarks, /xinhua-road-hero-plane-tree-loading-fallback/);
+  assert.match(landmarks, /if \(!showHero\)/);
+  assert.match(landmarks, /hero-plane-tree-loading-fallback/);
   assert.match(world, /showHeroTree=\{exploring\}/);
   assert.match(rollout, /近景模式.*Hero/);
 });

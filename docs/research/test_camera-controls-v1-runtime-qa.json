@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-07-24",
+  "baseCommit": "2529b147e139fd6969b2d4641451cc6467f3a9f0",
+  "branch": "feat/third-person-spring-arm-controls",
+  "entry": "xingfuli-canonical",
+  "buildMode": "vite production static",
+  "browser": "Codex in-app Browser",
+  "environment": {
+    "primaryViewport": [1440, 1024],
+    "pageVisible": true,
+    "performanceWarmupMs": 15000,
+    "performanceSampleMs": 5000,
+    "performanceRuns": 3
+  },
+  "orbitComparison": {
+    "operation": "24 identical horizontal drags marked as 15-degree samples; V1 used one identical warm-up drag to align its first desired yaw with baseline",
+    "baseline": {
+      "trace": "docs/research/test_camera-controls-baseline-trace.json",
+      "screenshot": "docs/research/assets/camera-controls-v1/test_camera_baseline_1440x1024.jpg",
+      "counterIncludingInitialState": 17,
+      "transitionsExcludingInitialState": 16,
+      "minimumSampledArm": 3.5,
+      "fallbackYawTriggered": false,
+      "modes": [
+        "legacy-clear",
+        "legacy-compressed-1",
+        "legacy-compressed-3",
+        "legacy-compressed-7"
+      ]
+    },
+    "v1": {
+      "trace": "docs/research/test_camera-controls-v1-trace.json",
+      "counterIncludingInitialState": 7,
+      "transitionsExcludingInitialState": 6,
+      "minimumSampledArm": 3.06,
+      "yawChangedByCollision": false,
+      "desiredAndActualArmYawEqualAtEverySample": true,
+      "blockers": [
+        "obstacle-142",
+        "obstacle-179"
+      ]
+    }
+  },
+  "springArmRecovery": {
+    "desiredArm": 5.13,
+    "samples": [
+      {"elapsedMs": 50, "resolvedArm": 2.955},
+      {"elapsedMs": 150, "resolvedArm": 3.865},
+      {"elapsedMs": 250, "resolvedArm": 4.501},
+      {"elapsedMs": 350, "resolvedArm": 4.817},
+      {"elapsedMs": 450, "resolvedArm": 4.957},
+      {"elapsedMs": 550, "resolvedArm": 5.043}
+    ],
+    "monotonic": true,
+    "singleFramePopObserved": false
+  },
+  "manualFollowGrace": {
+    "configuredMs": 350,
+    "clock": "performance.now deadline",
+    "firstReadingAfterReleaseMs": 312,
+    "readingAfterAbout200Ms": 199,
+    "readingAfterAbout420Ms": 0,
+    "frameRateInvariantTest": "pass"
+  },
+  "reviewCounterexamples": {
+    "shoulderViewBasis": {
+      "rigToViewDifferenceDegrees": 8.9,
+      "movementUsesActualCameraWorldDirection": true,
+      "result": "pass"
+    },
+    "concaveBoundaryNearTangent": {
+      "start": [1.05, 4.5824],
+      "end": [3.5, 2.1324],
+      "radius": 0.26,
+      "fixedSamplingMissed": true,
+      "analyticCapsuleSweepDetected": true,
+      "result": "pass"
+    },
+    "zeroArmRecovery": {
+      "nullableInitialization": true,
+      "singleFrameFullLengthPop": false,
+      "result": "pass"
+    },
+    "qaIsolation": {
+      "panelCountWithoutQuery": 0,
+      "telemetryShortCircuitsBeforeObjectConstruction": true,
+      "result": "pass"
+    }
+  },
+  "zoom": {
+    "initialDesiredArm": 5.128,
+    "firstInwardDesiredArm": 4.508,
+    "firstOutwardDesiredArm": 5.753,
+    "minimumBoundDesiredArm": 4.391,
+    "minimumBoundVisualClippingObserved": false
+  },
+  "framing": [
+    {
+      "viewport": [1440, 1024],
+      "fov": 58,
+      "screenshot": "docs/research/assets/camera-controls-v1/test_camera_v1_1440x1024.jpg",
+      "result": "pass"
+    },
+    {
+      "viewport": [1024, 768],
+      "fov": 58,
+      "screenshot": "docs/research/assets/camera-controls-v1/test_camera_v1_1024x768.jpg",
+      "result": "pass"
+    },
+    {
+      "viewport": [844, 390],
+      "fov": 58,
+      "screenshot": "docs/research/assets/camera-controls-v1/test_camera_v1_844x390.jpg",
+      "result": "pass-with-existing-short-landscape-ui-constraint"
+    },
+    {
+      "viewport": [390, 844],
+      "fov": 62,
+      "screenshot": "docs/research/assets/camera-controls-v1/test_camera_v1_390x844.jpg",
+      "result": "pass"
+    }
+  ],
+  "collisionVisual": {
+    "screenshot": "docs/research/assets/camera-controls-v1/test_camera_v1_compressed_obstacle_deep.jpg",
+    "wallPenetrationObserved": false,
+    "nearPlaneClippingObserved": false
+  },
+  "performance": {
+    "metric": "requestAnimationFrame intervals",
+    "baseline": [
+      {"fps": 60.4, "meanMs": 16.6113, "p95Ms": 24.4, "p99Ms": 25.2},
+      {"fps": 62.1031, "meanMs": 16.1544, "p95Ms": 17.6, "p99Ms": 24.9},
+      {"fps": 57.9959, "meanMs": 17.3021, "p95Ms": 25.1, "p99Ms": 25.9}
+    ],
+    "v1": [
+      {"fps": 56.8057, "meanMs": 17.6661, "p95Ms": 25.1, "p99Ms": 25.7},
+      {"fps": 56.8, "meanMs": 17.6678, "p95Ms": 25.1, "p99Ms": 25.7},
+      {"fps": 54.3077, "meanMs": 18.4815, "p95Ms": 25.2, "p99Ms": 25.9}
+    ],
+    "baselineMedianFps": 60.4,
+    "v1MedianFps": 56.8,
+    "medianFpsDeltaPercent": -6.0,
+    "verdict": "same-tier with a measured small cost; no significant regression demonstrated"
+  },
+  "bundle": {
+    "baselineJsKb": 1560.64,
+    "baselineJsGzipKb": 473.36,
+    "v1JsKb": 1564.82,
+    "v1JsGzipKb": 474.85
+  },
+  "console": {
+    "newErrors": 0,
+    "newWebGlErrors": 0,
+    "runtimeExceptionEvents": 0,
+    "logEntryEvents": 0,
+    "consoleApiEvents": 0
+  },
+  "automatedVerdict": "pass",
+  "userValidationRequired": [
+    "On a real touch device, hold the left virtual stick forward while rotating the camera with the right finger.",
+    "Release only the right finger and judge whether the 350ms grace followed by camera recentering feels natural.",
+    "Repeat beside a building corner and confirm that movement is not interrupted and the camera does not change yaw by itself."
+  ]
+}

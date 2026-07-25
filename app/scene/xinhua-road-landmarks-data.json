@@ -17,8 +17,8 @@
         { "minX": -14.4, "maxX": -10.5, "minZ": -10.0, "maxZ": 4.5 },
         { "minX": 10.5, "maxX": 14.4, "minZ": -10.0, "maxZ": 4.5 }
       ],
-      "start": [57.5, 101.0],
-      "forward": [0.637, -0.771],
+      "start": [101.0, 112.0],
+      "forward": [-0.654, -0.756],
       "cameraTargetHeight": 2.8
     },
     {
