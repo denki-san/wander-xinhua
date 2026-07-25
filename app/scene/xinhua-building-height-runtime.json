@@ -1,0 +1,4388 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-25T15:31:25.719Z",
+  "sourceEvidence": "docs/research/building-height-evidence-round2.json",
+  "provisional": false,
+  "records": [
+    {
+      "overviewAssetId": "way/1004806686",
+      "selectedHeightMetres": 22.86,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1090998174",
+      "selectedHeightMetres": 6.16,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1117538713",
+      "selectedHeightMetres": 73.15,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1117538714",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1216373118",
+      "selectedHeightMetres": 14.44,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1216373119",
+      "selectedHeightMetres": 17.26,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1216373120",
+      "selectedHeightMetres": 15.11,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1216373121",
+      "selectedHeightMetres": 9.17,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1216373122",
+      "selectedHeightMetres": 11.88,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1216373123",
+      "selectedHeightMetres": 13.72,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1228373145",
+      "selectedHeightMetres": 8.16,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1343674545",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674546",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674547",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674548",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674550",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674551",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674552",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674554",
+      "selectedHeightMetres": 22.45,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1343674555",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674556",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674557",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674558",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674559",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674560",
+      "selectedHeightMetres": 31.97,
+      "selectedSource": "3D-GloBFP group reconciliation",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1343674561",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674562",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674563",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674564",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674565",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674566",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674883",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674885",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775658",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775659",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775660",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775661",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775662",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775663",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775664",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775665",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775666",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775667",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775668",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775669",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775670",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775671",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775672",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775673",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775674",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775675",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775676",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775678",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775679",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775680",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775681",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775682",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775683",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775684",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775685",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775686",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775687",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775688",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775689",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775690",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775692",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775693",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775694",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775695",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775696",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775698",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775699",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775700",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775701",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775702",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775703",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775704",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775705",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775706",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775707",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775708",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775709",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775710",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775711",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775713",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775714",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775715",
+      "selectedHeightMetres": 8.49,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1343775716",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775717",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775718",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1361620484",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1469054479",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1469054480",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1469054481",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1518538512",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1518538513",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1518538522",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1518538523",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/228966547",
+      "selectedHeightMetres": 21.95,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/228966548",
+      "selectedHeightMetres": 14.28,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/228966549",
+      "selectedHeightMetres": 16.04,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/228966553",
+      "selectedHeightMetres": 10.71,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/228966554",
+      "selectedHeightMetres": 13.68,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/228966555",
+      "selectedHeightMetres": 19.63,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/292250767",
+      "selectedHeightMetres": 6.98,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293434149",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293434150",
+      "selectedHeightMetres": 15.47,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293434190",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293518764",
+      "selectedHeightMetres": 19.17,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293518765",
+      "selectedHeightMetres": 17.46,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293827638",
+      "selectedHeightMetres": 22.48,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293827639",
+      "selectedHeightMetres": 16.72,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293827640",
+      "selectedHeightMetres": 9.03,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293827645",
+      "selectedHeightMetres": 15.03,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293827646",
+      "selectedHeightMetres": 10.82,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293827647",
+      "selectedHeightMetres": 14.08,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293827648",
+      "selectedHeightMetres": 13.31,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293827649",
+      "selectedHeightMetres": 10.21,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293827651",
+      "selectedHeightMetres": 22.72,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293827652",
+      "selectedHeightMetres": 4.48,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293827653",
+      "selectedHeightMetres": 6.65,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293827654",
+      "selectedHeightMetres": 21.6,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293827656",
+      "selectedHeightMetres": 9.33,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/296006189",
+      "selectedHeightMetres": 40.17,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/296006190",
+      "selectedHeightMetres": 20.65,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/296006191",
+      "selectedHeightMetres": 20.11,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/296006192",
+      "selectedHeightMetres": 14.65,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297850123",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297851397",
+      "selectedHeightMetres": 28.6,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297851858",
+      "selectedHeightMetres": 18.11,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297853762",
+      "selectedHeightMetres": 29.13,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297853840",
+      "selectedHeightMetres": 39.95,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297854167",
+      "selectedHeightMetres": 29.47,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297854168",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297854228",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297854299",
+      "selectedHeightMetres": 18.58,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297855001",
+      "selectedHeightMetres": 21.54,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297855002",
+      "selectedHeightMetres": 19.12,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297855003",
+      "selectedHeightMetres": 15.16,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297855004",
+      "selectedHeightMetres": 19.93,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297874111",
+      "selectedHeightMetres": 28.63,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297874112",
+      "selectedHeightMetres": 13.79,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297874113",
+      "selectedHeightMetres": 12.06,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297874114",
+      "selectedHeightMetres": 21.65,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297874115",
+      "selectedHeightMetres": 17.95,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297874116",
+      "selectedHeightMetres": 21.11,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297874117",
+      "selectedHeightMetres": 15.75,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297874120",
+      "selectedHeightMetres": 21.47,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297874121",
+      "selectedHeightMetres": 25.8,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297874124",
+      "selectedHeightMetres": 28.8,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297874125",
+      "selectedHeightMetres": 22.15,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297874126",
+      "selectedHeightMetres": 17.6,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297874795",
+      "selectedHeightMetres": 31.45,
+      "selectedSource": "3D-GloBFP group reconciliation",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297874796",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874797",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874798",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874799",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/343924703",
+      "selectedHeightMetres": 12.71,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/426764523",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/426764524",
+      "selectedHeightMetres": 17.52,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/426764525",
+      "selectedHeightMetres": 14.08,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/426764527",
+      "selectedHeightMetres": 34.55,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/428379418",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379419",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379420",
+      "selectedHeightMetres": 25.49,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/428379421",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379422",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379423",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379724",
+      "selectedHeightMetres": 49.37,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/428379725",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379726",
+      "selectedHeightMetres": 29.87,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/428379727",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379728",
+      "selectedHeightMetres": 32.56,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/428379729",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379730",
+      "selectedHeightMetres": 30.77,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/428379731",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/438751958",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/474632970",
+      "selectedHeightMetres": 3.94,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/474875421",
+      "selectedHeightMetres": 9.56,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/474875423",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/488970902",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/488970903",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493383434",
+      "selectedHeightMetres": 9,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/493383435",
+      "selectedHeightMetres": 16.4,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493383436",
+      "selectedHeightMetres": 15.56,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493383437",
+      "selectedHeightMetres": 13.48,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493383438",
+      "selectedHeightMetres": 18.15,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493383439",
+      "selectedHeightMetres": 15.8,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493383440",
+      "selectedHeightMetres": 36.81,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493401525",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493401527",
+      "selectedHeightMetres": 48.3,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493402089",
+      "selectedHeightMetres": 33,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/493402377",
+      "selectedHeightMetres": 28.48,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493402378",
+      "selectedHeightMetres": 26.37,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493402379",
+      "selectedHeightMetres": 33,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/493402380",
+      "selectedHeightMetres": 34.21,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493414601",
+      "selectedHeightMetres": 72,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/493420217",
+      "selectedHeightMetres": 4.73,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493420218",
+      "selectedHeightMetres": 6.07,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493420219",
+      "selectedHeightMetres": 6.41,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493420296",
+      "selectedHeightMetres": 20.99,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493420297",
+      "selectedHeightMetres": 15.64,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493421561",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493421562",
+      "selectedHeightMetres": 18.27,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493421563",
+      "selectedHeightMetres": 11.7,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/494634318",
+      "selectedHeightMetres": 21,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/494662056",
+      "selectedHeightMetres": 30,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/494662067",
+      "selectedHeightMetres": 12,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/71799657",
+      "selectedHeightMetres": 17.52,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/764542691",
+      "selectedHeightMetres": 10.53,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/765274074",
+      "selectedHeightMetres": 28.54,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/765274075",
+      "selectedHeightMetres": 16.38,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/765274076",
+      "selectedHeightMetres": 11.63,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/765274077",
+      "selectedHeightMetres": 16.56,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485584",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485585",
+      "selectedHeightMetres": 22.15,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485586",
+      "selectedHeightMetres": 22.89,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485587",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485588",
+      "selectedHeightMetres": 10.3,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485589",
+      "selectedHeightMetres": 11.43,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485590",
+      "selectedHeightMetres": 9.48,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485591",
+      "selectedHeightMetres": 10.68,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485592",
+      "selectedHeightMetres": 11.14,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485601",
+      "selectedHeightMetres": 11.76,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485602",
+      "selectedHeightMetres": 10.25,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485604",
+      "selectedHeightMetres": 15.26,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485605",
+      "selectedHeightMetres": 12.19,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485609",
+      "selectedHeightMetres": 11.55,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485610",
+      "selectedHeightMetres": 13.75,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485611",
+      "selectedHeightMetres": 15.05,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485612",
+      "selectedHeightMetres": 25.2,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485613",
+      "selectedHeightMetres": 17.23,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485614",
+      "selectedHeightMetres": 32.81,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485615",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485616",
+      "selectedHeightMetres": 33.54,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485617",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485618",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485619",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485620",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485621",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485623",
+      "selectedHeightMetres": 28.15,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485624",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485625",
+      "selectedHeightMetres": 19.98,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485626",
+      "selectedHeightMetres": 20.29,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485627",
+      "selectedHeightMetres": 11.9,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485628",
+      "selectedHeightMetres": 10.74,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485629",
+      "selectedHeightMetres": 19.76,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485630",
+      "selectedHeightMetres": 24.83,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485631",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485632",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485633",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485634",
+      "selectedHeightMetres": 16.13,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485635",
+      "selectedHeightMetres": 33.07,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485636",
+      "selectedHeightMetres": 37.21,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485637",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485638",
+      "selectedHeightMetres": 6.4,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485639",
+      "selectedHeightMetres": 6.35,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485640",
+      "selectedHeightMetres": 7.21,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485641",
+      "selectedHeightMetres": 11.12,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485642",
+      "selectedHeightMetres": 11.31,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485643",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485644",
+      "selectedHeightMetres": 8.01,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485645",
+      "selectedHeightMetres": 10.69,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485646",
+      "selectedHeightMetres": 13.16,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485647",
+      "selectedHeightMetres": 7.29,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485648",
+      "selectedHeightMetres": 7.62,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485649",
+      "selectedHeightMetres": 6.9,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485650",
+      "selectedHeightMetres": 5.74,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485651",
+      "selectedHeightMetres": 6.21,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485652",
+      "selectedHeightMetres": 14.53,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485653",
+      "selectedHeightMetres": 29.23,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485654",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485655",
+      "selectedHeightMetres": 9.13,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485656",
+      "selectedHeightMetres": 9.52,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485657",
+      "selectedHeightMetres": 16.67,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485658",
+      "selectedHeightMetres": 17.87,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485659",
+      "selectedHeightMetres": 10.31,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485668",
+      "selectedHeightMetres": 11.08,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485670",
+      "selectedHeightMetres": 12.48,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485671",
+      "selectedHeightMetres": 11.86,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485672",
+      "selectedHeightMetres": 9.94,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485673",
+      "selectedHeightMetres": 11.49,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485681",
+      "selectedHeightMetres": 12.65,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485682",
+      "selectedHeightMetres": 13.63,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485683",
+      "selectedHeightMetres": 22.6,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485685",
+      "selectedHeightMetres": 27.28,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485687",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485688",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485689",
+      "selectedHeightMetres": 24.87,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485690",
+      "selectedHeightMetres": 29.29,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485692",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493083",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493084",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493085",
+      "selectedHeightMetres": 6.76,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493086",
+      "selectedHeightMetres": 17.52,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493087",
+      "selectedHeightMetres": 17.19,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493088",
+      "selectedHeightMetres": 15.44,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493089",
+      "selectedHeightMetres": 10.01,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493090",
+      "selectedHeightMetres": 12.39,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493091",
+      "selectedHeightMetres": 12.84,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493092",
+      "selectedHeightMetres": 11.06,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493093",
+      "selectedHeightMetres": 12.87,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493094",
+      "selectedHeightMetres": 17.4,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493095",
+      "selectedHeightMetres": 14.76,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493096",
+      "selectedHeightMetres": 13.75,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493097",
+      "selectedHeightMetres": 12.89,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493098",
+      "selectedHeightMetres": 11.92,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493099",
+      "selectedHeightMetres": 11.8,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493100",
+      "selectedHeightMetres": 15.83,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493101",
+      "selectedHeightMetres": 13.65,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493102",
+      "selectedHeightMetres": 13.63,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493103",
+      "selectedHeightMetres": 14.63,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493104",
+      "selectedHeightMetres": 13.84,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493105",
+      "selectedHeightMetres": 11.44,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493106",
+      "selectedHeightMetres": 8.01,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493107",
+      "selectedHeightMetres": 9.17,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493108",
+      "selectedHeightMetres": 14.47,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493109",
+      "selectedHeightMetres": 12.59,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493110",
+      "selectedHeightMetres": 14.31,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493111",
+      "selectedHeightMetres": 14.04,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493112",
+      "selectedHeightMetres": 10.15,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493113",
+      "selectedHeightMetres": 18.02,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493114",
+      "selectedHeightMetres": 11.97,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493115",
+      "selectedHeightMetres": 11.53,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493116",
+      "selectedHeightMetres": 33.61,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493117",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493118",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493119",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493120",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493121",
+      "selectedHeightMetres": 32.02,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493122",
+      "selectedHeightMetres": 18.88,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493123",
+      "selectedHeightMetres": 22.52,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493124",
+      "selectedHeightMetres": 22.06,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493125",
+      "selectedHeightMetres": 8.07,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493126",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493127",
+      "selectedHeightMetres": 60,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493128",
+      "selectedHeightMetres": 10.46,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493129",
+      "selectedHeightMetres": 9.27,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493130",
+      "selectedHeightMetres": 8.8,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493131",
+      "selectedHeightMetres": 7.64,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493132",
+      "selectedHeightMetres": 6.85,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493133",
+      "selectedHeightMetres": 6.26,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493134",
+      "selectedHeightMetres": 7.83,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493135",
+      "selectedHeightMetres": 8.4,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493136",
+      "selectedHeightMetres": 8.58,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493137",
+      "selectedHeightMetres": 6.22,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493138",
+      "selectedHeightMetres": 6.82,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493139",
+      "selectedHeightMetres": 6.62,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493140",
+      "selectedHeightMetres": 7.82,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493141",
+      "selectedHeightMetres": 6.19,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493142",
+      "selectedHeightMetres": 7.18,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493143",
+      "selectedHeightMetres": 11.78,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493144",
+      "selectedHeightMetres": 5.52,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493145",
+      "selectedHeightMetres": 24.94,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493146",
+      "selectedHeightMetres": 12.4,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493147",
+      "selectedHeightMetres": 11.45,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493148",
+      "selectedHeightMetres": 11.29,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493149",
+      "selectedHeightMetres": 8.45,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493150",
+      "selectedHeightMetres": 7.82,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493151",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493152",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493153",
+      "selectedHeightMetres": 30.6,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493154",
+      "selectedHeightMetres": 15.35,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493155",
+      "selectedHeightMetres": 28.73,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493157",
+      "selectedHeightMetres": 33.58,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493160",
+      "selectedHeightMetres": 21.65,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493161",
+      "selectedHeightMetres": 18.05,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493162",
+      "selectedHeightMetres": 19.67,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493163",
+      "selectedHeightMetres": 18.78,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493164",
+      "selectedHeightMetres": 17.83,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493165",
+      "selectedHeightMetres": 18.11,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493166",
+      "selectedHeightMetres": 18.09,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493167",
+      "selectedHeightMetres": 19.6,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493168",
+      "selectedHeightMetres": 16.1,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493169",
+      "selectedHeightMetres": 17.44,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493170",
+      "selectedHeightMetres": 19.99,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493171",
+      "selectedHeightMetres": 9.31,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493172",
+      "selectedHeightMetres": 15.95,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493192",
+      "selectedHeightMetres": 11.53,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493194",
+      "selectedHeightMetres": 23.61,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493195",
+      "selectedHeightMetres": 11.61,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493196",
+      "selectedHeightMetres": 10.4,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493197",
+      "selectedHeightMetres": 9.78,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493198",
+      "selectedHeightMetres": 8.78,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493199",
+      "selectedHeightMetres": 15.74,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493200",
+      "selectedHeightMetres": 17.23,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493201",
+      "selectedHeightMetres": 16.78,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493202",
+      "selectedHeightMetres": 16.23,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493203",
+      "selectedHeightMetres": 38.21,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493204",
+      "selectedHeightMetres": 17.35,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493205",
+      "selectedHeightMetres": 18.82,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493206",
+      "selectedHeightMetres": 14.82,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493207",
+      "selectedHeightMetres": 13.08,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493208",
+      "selectedHeightMetres": 12.43,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493209",
+      "selectedHeightMetres": 14.86,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493210",
+      "selectedHeightMetres": 19.79,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493211",
+      "selectedHeightMetres": 12.8,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493212",
+      "selectedHeightMetres": 16.35,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493213",
+      "selectedHeightMetres": 18.87,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493214",
+      "selectedHeightMetres": 10.23,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493215",
+      "selectedHeightMetres": 10.43,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493216",
+      "selectedHeightMetres": 13.61,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493217",
+      "selectedHeightMetres": 16.33,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493218",
+      "selectedHeightMetres": 11.48,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493219",
+      "selectedHeightMetres": 13.86,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493220",
+      "selectedHeightMetres": 10.86,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493221",
+      "selectedHeightMetres": 10.34,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493222",
+      "selectedHeightMetres": 9,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493223",
+      "selectedHeightMetres": 11.72,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493224",
+      "selectedHeightMetres": 12.42,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493225",
+      "selectedHeightMetres": 12.01,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493226",
+      "selectedHeightMetres": 10.88,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493227",
+      "selectedHeightMetres": 10.46,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493236",
+      "selectedHeightMetres": 11.56,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493237",
+      "selectedHeightMetres": 9.19,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493238",
+      "selectedHeightMetres": 11,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493239",
+      "selectedHeightMetres": 8.62,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493240",
+      "selectedHeightMetres": 9.22,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493241",
+      "selectedHeightMetres": 10.35,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493248",
+      "selectedHeightMetres": 11.91,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493249",
+      "selectedHeightMetres": 12.9,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493250",
+      "selectedHeightMetres": 10.51,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493251",
+      "selectedHeightMetres": 9.25,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493252",
+      "selectedHeightMetres": 9.7,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493253",
+      "selectedHeightMetres": 8.75,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493254",
+      "selectedHeightMetres": 10.45,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493255",
+      "selectedHeightMetres": 8.71,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493256",
+      "selectedHeightMetres": 9.07,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493257",
+      "selectedHeightMetres": 9.58,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493258",
+      "selectedHeightMetres": 8.3,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493259",
+      "selectedHeightMetres": 8.31,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493260",
+      "selectedHeightMetres": 10.3,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493261",
+      "selectedHeightMetres": 10.25,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493262",
+      "selectedHeightMetres": 9.6,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493263",
+      "selectedHeightMetres": 10.14,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493264",
+      "selectedHeightMetres": 7.53,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493265",
+      "selectedHeightMetres": 9.71,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493266",
+      "selectedHeightMetres": 12.92,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493267",
+      "selectedHeightMetres": 7.95,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493268",
+      "selectedHeightMetres": 9.15,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493269",
+      "selectedHeightMetres": 9.03,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493270",
+      "selectedHeightMetres": 11.17,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493271",
+      "selectedHeightMetres": 12.69,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493272",
+      "selectedHeightMetres": 11.41,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493273",
+      "selectedHeightMetres": 9.68,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493274",
+      "selectedHeightMetres": 9.12,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493275",
+      "selectedHeightMetres": 9.97,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493276",
+      "selectedHeightMetres": 16.89,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493277",
+      "selectedHeightMetres": 8.41,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493278",
+      "selectedHeightMetres": 9.62,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493279",
+      "selectedHeightMetres": 17.82,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493280",
+      "selectedHeightMetres": 15.2,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493281",
+      "selectedHeightMetres": 16.57,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493282",
+      "selectedHeightMetres": 15.18,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493283",
+      "selectedHeightMetres": 15.07,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493284",
+      "selectedHeightMetres": 16.82,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493285",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493286",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493287",
+      "selectedHeightMetres": 28.99,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493288",
+      "selectedHeightMetres": 21.35,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493289",
+      "selectedHeightMetres": 25.46,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493290",
+      "selectedHeightMetres": 30.28,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493291",
+      "selectedHeightMetres": 28.27,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493292",
+      "selectedHeightMetres": 10.92,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493293",
+      "selectedHeightMetres": 8.45,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493294",
+      "selectedHeightMetres": 8.64,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493295",
+      "selectedHeightMetres": 10.94,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493296",
+      "selectedHeightMetres": 11.81,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493297",
+      "selectedHeightMetres": 12.54,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493298",
+      "selectedHeightMetres": 10.2,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493299",
+      "selectedHeightMetres": 20.23,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493300",
+      "selectedHeightMetres": 10.11,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505067",
+      "selectedHeightMetres": 17.41,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505068",
+      "selectedHeightMetres": 20.27,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505069",
+      "selectedHeightMetres": 7.54,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505070",
+      "selectedHeightMetres": 5.12,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505071",
+      "selectedHeightMetres": 6.64,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505072",
+      "selectedHeightMetres": 22.96,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505073",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505074",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505075",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505076",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505077",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505078",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505079",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505080",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505081",
+      "selectedHeightMetres": 35.37,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505082",
+      "selectedHeightMetres": 9.12,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505083",
+      "selectedHeightMetres": 10.97,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505084",
+      "selectedHeightMetres": 9.02,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505085",
+      "selectedHeightMetres": 11.47,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505086",
+      "selectedHeightMetres": 12.19,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505087",
+      "selectedHeightMetres": 12.11,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505088",
+      "selectedHeightMetres": 10.93,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505089",
+      "selectedHeightMetres": 10.87,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505090",
+      "selectedHeightMetres": 11.51,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505091",
+      "selectedHeightMetres": 17.33,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505092",
+      "selectedHeightMetres": 18.7,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505093",
+      "selectedHeightMetres": 16.17,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505094",
+      "selectedHeightMetres": 14.68,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505095",
+      "selectedHeightMetres": 11.45,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505096",
+      "selectedHeightMetres": 14.62,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505097",
+      "selectedHeightMetres": 17,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505098",
+      "selectedHeightMetres": 27.34,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505099",
+      "selectedHeightMetres": 25.44,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505100",
+      "selectedHeightMetres": 16.98,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505101",
+      "selectedHeightMetres": 14.79,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505103",
+      "selectedHeightMetres": 13.88,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505105",
+      "selectedHeightMetres": 19.93,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505107",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505108",
+      "selectedHeightMetres": 21.84,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505109",
+      "selectedHeightMetres": 24.35,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505110",
+      "selectedHeightMetres": 28.42,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505111",
+      "selectedHeightMetres": 23.21,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505114",
+      "selectedHeightMetres": 58.64,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505115",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505117",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505118",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505119",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505120",
+      "selectedHeightMetres": 25.73,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505121",
+      "selectedHeightMetres": 23.27,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505122",
+      "selectedHeightMetres": 27.55,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505123",
+      "selectedHeightMetres": 16.29,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505124",
+      "selectedHeightMetres": 23.33,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505125",
+      "selectedHeightMetres": 22.49,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505126",
+      "selectedHeightMetres": 15.1,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505127",
+      "selectedHeightMetres": 27.96,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505128",
+      "selectedHeightMetres": 21.17,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505129",
+      "selectedHeightMetres": 20.27,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505130",
+      "selectedHeightMetres": 16.66,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505131",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505132",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505133",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505134",
+      "selectedHeightMetres": 11.11,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505135",
+      "selectedHeightMetres": 15.42,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505136",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505139",
+      "selectedHeightMetres": 15.86,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505140",
+      "selectedHeightMetres": 16.52,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505142",
+      "selectedHeightMetres": 9.8,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505143",
+      "selectedHeightMetres": 10.63,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505144",
+      "selectedHeightMetres": 9.65,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505145",
+      "selectedHeightMetres": 17.38,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505146",
+      "selectedHeightMetres": 15.25,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505147",
+      "selectedHeightMetres": 12.9,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505149",
+      "selectedHeightMetres": 11.17,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505150",
+      "selectedHeightMetres": 8.53,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505151",
+      "selectedHeightMetres": 13.88,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505152",
+      "selectedHeightMetres": 11.43,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505153",
+      "selectedHeightMetres": 11.31,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505154",
+      "selectedHeightMetres": 8.88,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505155",
+      "selectedHeightMetres": 10.15,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505156",
+      "selectedHeightMetres": 7.93,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505157",
+      "selectedHeightMetres": 10.04,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505158",
+      "selectedHeightMetres": 9.38,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505159",
+      "selectedHeightMetres": 8.93,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505160",
+      "selectedHeightMetres": 8.42,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505161",
+      "selectedHeightMetres": 11.85,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505162",
+      "selectedHeightMetres": 9.88,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505170",
+      "selectedHeightMetres": 14.9,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505171",
+      "selectedHeightMetres": 15.3,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505173",
+      "selectedHeightMetres": 12.6,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505174",
+      "selectedHeightMetres": 10.47,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505175",
+      "selectedHeightMetres": 11,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505176",
+      "selectedHeightMetres": 9.74,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505177",
+      "selectedHeightMetres": 9.28,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505178",
+      "selectedHeightMetres": 10.54,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505179",
+      "selectedHeightMetres": 11.16,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505180",
+      "selectedHeightMetres": 9.89,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505182",
+      "selectedHeightMetres": 14.89,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505183",
+      "selectedHeightMetres": 9.81,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505184",
+      "selectedHeightMetres": 19.5,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505185",
+      "selectedHeightMetres": 16.82,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505186",
+      "selectedHeightMetres": 19.02,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505187",
+      "selectedHeightMetres": 12.88,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505188",
+      "selectedHeightMetres": 15.47,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505189",
+      "selectedHeightMetres": 12.34,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505190",
+      "selectedHeightMetres": 13.75,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505191",
+      "selectedHeightMetres": 13.84,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505192",
+      "selectedHeightMetres": 11.28,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505193",
+      "selectedHeightMetres": 13.27,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505194",
+      "selectedHeightMetres": 13.19,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505195",
+      "selectedHeightMetres": 13.89,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505196",
+      "selectedHeightMetres": 16.5,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505197",
+      "selectedHeightMetres": 15.49,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823790",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823791",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823792",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823793",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823794",
+      "selectedHeightMetres": 10.76,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823802",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823803",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823804",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823808",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823814",
+      "selectedHeightMetres": 19.57,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823815",
+      "selectedHeightMetres": 20.56,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823816",
+      "selectedHeightMetres": 23.01,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823817",
+      "selectedHeightMetres": 19.03,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823818",
+      "selectedHeightMetres": 18.57,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823819",
+      "selectedHeightMetres": 19.28,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823820",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823824",
+      "selectedHeightMetres": 23.98,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823825",
+      "selectedHeightMetres": 16.78,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823827",
+      "selectedHeightMetres": 26.71,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823828",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823829",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823830",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823831",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823833",
+      "selectedHeightMetres": 10.91,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823834",
+      "selectedHeightMetres": 26.81,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823835",
+      "selectedHeightMetres": 6.47,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823836",
+      "selectedHeightMetres": 16.27,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823837",
+      "selectedHeightMetres": 17.53,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823838",
+      "selectedHeightMetres": 17.19,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823839",
+      "selectedHeightMetres": 10.89,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823840",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823841",
+      "selectedHeightMetres": 15.09,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823842",
+      "selectedHeightMetres": 5.63,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823843",
+      "selectedHeightMetres": 10.98,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823844",
+      "selectedHeightMetres": 9.17,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823845",
+      "selectedHeightMetres": 12.46,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823846",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823847",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823848",
+      "selectedHeightMetres": 10.19,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823849",
+      "selectedHeightMetres": 10.94,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823850",
+      "selectedHeightMetres": 10.69,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823851",
+      "selectedHeightMetres": 14.07,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823852",
+      "selectedHeightMetres": 12.11,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823853",
+      "selectedHeightMetres": 12.71,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823854",
+      "selectedHeightMetres": 13.59,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823855",
+      "selectedHeightMetres": 14.35,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823856",
+      "selectedHeightMetres": 16.01,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823857",
+      "selectedHeightMetres": 14.84,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823858",
+      "selectedHeightMetres": 14.81,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823859",
+      "selectedHeightMetres": 15.46,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823860",
+      "selectedHeightMetres": 12.1,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823862",
+      "selectedHeightMetres": 14.79,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823864",
+      "selectedHeightMetres": 14.78,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823865",
+      "selectedHeightMetres": 16.3,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823866",
+      "selectedHeightMetres": 15.91,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823867",
+      "selectedHeightMetres": 15.08,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823868",
+      "selectedHeightMetres": 14.59,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823872",
+      "selectedHeightMetres": 20.47,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823876",
+      "selectedHeightMetres": 25.67,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823877",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823878",
+      "selectedHeightMetres": 17.57,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823879",
+      "selectedHeightMetres": 21.46,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823880",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823881",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847854",
+      "selectedHeightMetres": 25.63,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847858",
+      "selectedHeightMetres": 16.37,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847859",
+      "selectedHeightMetres": 10.3,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847860",
+      "selectedHeightMetres": 13.35,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847861",
+      "selectedHeightMetres": 18.07,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847862",
+      "selectedHeightMetres": 15.08,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847863",
+      "selectedHeightMetres": 23.69,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847864",
+      "selectedHeightMetres": 15.14,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847866",
+      "selectedHeightMetres": 20.25,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847867",
+      "selectedHeightMetres": 29.79,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847871",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847872",
+      "selectedHeightMetres": 28.66,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847873",
+      "selectedHeightMetres": 10.72,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847874",
+      "selectedHeightMetres": 11.34,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847875",
+      "selectedHeightMetres": 15.22,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847876",
+      "selectedHeightMetres": 14.04,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847891",
+      "selectedHeightMetres": 20.37,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847893",
+      "selectedHeightMetres": 18.25,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847894",
+      "selectedHeightMetres": 18.54,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847895",
+      "selectedHeightMetres": 18.26,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847896",
+      "selectedHeightMetres": 24.29,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847897",
+      "selectedHeightMetres": 8.8,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847898",
+      "selectedHeightMetres": 7.78,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847899",
+      "selectedHeightMetres": 8.84,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847900",
+      "selectedHeightMetres": 8.31,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847901",
+      "selectedHeightMetres": 8.06,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847903",
+      "selectedHeightMetres": 23.65,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847904",
+      "selectedHeightMetres": 33.21,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847905",
+      "selectedHeightMetres": 39.99,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847906",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847907",
+      "selectedHeightMetres": 24,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/864847908",
+      "selectedHeightMetres": 24,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/864847909",
+      "selectedHeightMetres": 24,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/864847910",
+      "selectedHeightMetres": 24,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/864847911",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847912",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847913",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847914",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847915",
+      "selectedHeightMetres": 25.8,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847916",
+      "selectedHeightMetres": 24.67,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847919",
+      "selectedHeightMetres": 32.45,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847924",
+      "selectedHeightMetres": 23.04,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847925",
+      "selectedHeightMetres": 27.93,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847926",
+      "selectedHeightMetres": 21.01,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847927",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847928",
+      "selectedHeightMetres": 11.59,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847929",
+      "selectedHeightMetres": 10.28,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847930",
+      "selectedHeightMetres": 10.88,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847931",
+      "selectedHeightMetres": 12.29,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847932",
+      "selectedHeightMetres": 7.22,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847933",
+      "selectedHeightMetres": 8.62,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847934",
+      "selectedHeightMetres": 10.11,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847935",
+      "selectedHeightMetres": 11.82,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847936",
+      "selectedHeightMetres": 12.7,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847937",
+      "selectedHeightMetres": 10.31,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847938",
+      "selectedHeightMetres": 14.57,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847939",
+      "selectedHeightMetres": 14.35,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847946",
+      "selectedHeightMetres": 15.59,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847947",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847948",
+      "selectedHeightMetres": 14.29,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847949",
+      "selectedHeightMetres": 35.74,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847950",
+      "selectedHeightMetres": 26.11,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847951",
+      "selectedHeightMetres": 16.82,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847952",
+      "selectedHeightMetres": 5.71,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847953",
+      "selectedHeightMetres": 4.75,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847954",
+      "selectedHeightMetres": 11.86,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847955",
+      "selectedHeightMetres": 7.08,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847956",
+      "selectedHeightMetres": 7.74,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847957",
+      "selectedHeightMetres": 6.89,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847965",
+      "selectedHeightMetres": 22.25,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847966",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847967",
+      "selectedHeightMetres": 14.72,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847968",
+      "selectedHeightMetres": 16.85,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847969",
+      "selectedHeightMetres": 13.55,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847970",
+      "selectedHeightMetres": 30.5,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847971",
+      "selectedHeightMetres": 15.81,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847978",
+      "selectedHeightMetres": 7.25,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847979",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847980",
+      "selectedHeightMetres": 24.02,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847981",
+      "selectedHeightMetres": 25.41,
+      "selectedSource": "GlobalBuildingAtlas GBA.LoD1",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847982",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847983",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    }
+  ]
+}

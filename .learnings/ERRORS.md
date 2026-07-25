@@ -6533,3 +6533,244 @@ ENOENT: no such file or directory, scandir
 ### Resolution
 - **Resolved**: 2026-07-25T19:12:00+08:00
 - **Notes**: 构建完成后串行重跑全仓 Node 测试和范围专项测试。
+
+---
+## [ERR-20260725-021] zsh_unquoted_query_url_glob
+
+**Logged**: 2026-07-25T19:50:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+用 `curl` 探测带查询参数的数据下载 URL 时未给 URL 加引号，zsh 在发出请求前
+把 `?` 当作通配符并中止命令。
+
+### Error
+```text
+zsh:1: no matches found:
+https://zenodo.org/records/12674244/files/China_1.rar?download=1
+```
+
+### Context
+- 目标是读取 3D-GloBFP RAR 文件的前 1 MiB，判断是否能远程列出归档内容。
+- 失败发生在 shell 展开阶段，没有下载完整文件，也没有改动仓库数据。
+
+### Suggested Fix
+所有包含 `?`、`&` 或其他 shell 元字符的 URL 都使用单引号包裹。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/data/
+
+### Resolution
+- **Resolved**: 2026-07-25T19:50:00+08:00
+- **Notes**: 改为单引号 URL 后重试。
+
+---
+## [ERR-20260725-022] building_height_source_access_and_resume
+
+**Logged**: 2026-07-25T19:57:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: data
+
+### Summary
+新版 Figshare API 与 GlobalBuildingAtlas WFS 从当前网络返回 403/502；Zenodo
+旧版 `China_4.rar` 首次传输在约 16% 处断开。
+
+### Error
+```text
+api.figshare.com: HTTP 403
+ndownloader.figshare.com: HTTP 502
+tubvsig-so2sat-vm1.srv.mwn.de/geoserver/ows: HTTP 403
+curl: (18) transfer closed with 2791144153 bytes remaining to read
+```
+
+### Context
+- 3D-GloBFP 官方 `world_grid` 已确认新华路属于 grid 2435。
+- Overture bbox 下载成功；其高度与楼层字段均为 OSM 派生，不能作为独立来源。
+- Zenodo 分卷支持 HTTP Range，可保留部分文件并续传。
+
+### Suggested Fix
+3D-GloBFP 使用旧版官方 Zenodo 分卷并启用 `-C -`、`--retry-all-errors` 续传；
+完整下载后必须比对官方 MD5。GBA 标记为本轮不可用，不导入任何未验证值。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/data/, scripts/extract_globfp_height_slice.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T20:22:00+08:00
+- **Notes**: 续传完成；`China_4.rar` MD5 与官方
+  `8476dc9ee2ff403d9f524faa1627296d` 一致。上海 Shapefile 已只读提取；
+  GBA 本轮保持不可用且未导入。
+
+---
+## [ERR-20260725-023] poc_selection_upper_bound
+
+**Logged**: 2026-07-25T20:25:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: data
+
+### Summary
+PoC 分层选择已经达到 80 栋后，后续类别第一次遇到新记录时又加入 1 栋，
+被数量门禁以 81/80 拒绝。
+
+### Error
+```text
+Error: PoC 选择数量必须为 80，实际 81
+```
+
+### Context
+- 分层函数只在插入后检查全局上限。
+- 新一轮类别中的已有记录会 `continue`，导致上限检查被推迟到下一个新记录。
+- 失败发生在输出文件写入前，没有覆盖 PoC 或运行时产物。
+
+### Suggested Fix
+每轮分层函数入口和每次新增前都检查 `selected.size >= POC_COUNT`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/generate_building_height_evidence.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T20:25:00+08:00
+- **Notes**: 增加入口与新增前的双重上限检查。
+
+---
+## [ERR-20260725-024] zsh_empty_config_glob
+
+**Logged**: 2026-07-25T20:39:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+只读检查 LLM Wiki 配置时直接使用可能为空的 `*.json` shell glob，zsh 在
+`rg` 执行前以 `no matches found` 中止。
+
+### Error
+```text
+zsh:1: no matches found: /Volumes/plugin/Threejs-3d-research/*.json
+```
+
+### Context
+- 目标是诊断 Source Watch 的索引状态。
+- 失败发生在 shell 展开阶段，没有读取错误文件，也没有改动 Wiki。
+
+### Suggested Fix
+未知目录结构使用 `find -name '*.json'` 或先列出精确路径，不向 zsh 传递可能
+为空的裸 glob。
+
+### Metadata
+- Reproducible: yes
+- Related Files: /Volumes/plugin/Threejs-3d-research/.llm-wiki/
+
+### Resolution
+- **Resolved**: 2026-07-25T20:39:00+08:00
+- **Notes**: 改用 `find` 获取精确配置文件路径后继续只读检查。
+
+---
+## [ERR-20260725-025] raw_source_text_diff_whitespace
+
+**Logged**: 2026-07-25T20:47:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: git
+
+### Summary
+两份官方 3D-GloBFP companion 文本保留上游 CRLF 和尾随空格，导致 staged
+`git diff --check` 报错。
+
+### Error
+```text
+globfp-data-links-zenodo-15459025-20260725.txt: trailing whitespace
+globfp-readme-zenodo-15459025-20260725.txt: new blank line at EOF
+```
+
+### Context
+- 文件是只读研究来源的原始 companion 文本，不应为满足代码格式而改写字节。
+- 其他源码和生成结果没有 whitespace 错误。
+
+### Suggested Fix
+在 `.gitattributes` 中只把这两个精确路径标记为 `binary`，保持原始字节，
+同时让差异检查继续覆盖所有实际源码和结构化数据。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .gitattributes, docs/research/data/
+
+### Resolution
+- **Resolved**: 2026-07-25T20:47:00+08:00
+- **Notes**: 精确添加两个 binary 属性；未清洗或覆盖上游文本。
+
+---
+## [ERR-20260725-026] isolated_worktree_write_permission
+
+**Logged**: 2026-07-25T22:42:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+当前沙箱只把主工作区列为可写根目录，普通 Node 进程无法把派生数据写入同仓库的
+独立 worktree。
+
+### Error
+```text
+Error: EPERM: operation not permitted, open
+'/Users/lei/App_developing/wander-xinhua-building-height-calibration/docs/research/data/xinhua-buildings-ghs-obat-2020-20260725.json'
+```
+
+### Context
+- GHS-OBAT 全国 CSV 已经完整读取并完成 bbox 裁剪。
+- 失败只发生在最终新文件写入；没有覆盖现有证据或运行时数据。
+- `apply_patch` 可以编辑该 worktree，但普通命令写入需要单次明确授权。
+
+### Suggested Fix
+在确认目标是隔离 worktree 内的新文件后，以 `require_escalated` 重跑同一确定性命令。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/extract_ghs_obat_height_slice.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T22:42:00+08:00
+- **Notes**: 保留失败记录，并以精确命令和目标路径申请独立 worktree 写权限。
+
+---
+## [ERR-20260725-027] range_download_body_termination
+
+**Logged**: 2026-07-25T22:56:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+GBA 大文件分段下载在 234 MB 时由远端关闭 TLS 连接；初版重试只包住
+`fetch()`，没有覆盖读取响应正文时的中断，也没有断点扫描。
+
+### Error
+```text
+TypeError: terminated
+cause: UND_ERR_SOCKET
+```
+
+### Context
+- 224 个完整的 1 MB 分段已经写入稀疏文件，其余区域仍为零。
+- 分段只在正文完整、长度和 Content-Range 均通过后写入，因此可安全扫描非零分段。
+- 失败没有污染已完成分段，也没有覆盖其他原始数据。
+
+### Suggested Fix
+把响应头、正文读取和长度校验全部放入重试边界；增加 `--resume`，扫描预分配文件中
+已经完整写入的非零分段，只下载缺失范围，最终仍校验官方 SHA-256。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/download_range_file.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T22:56:00+08:00
+- **Notes**: 已增加正文重试与稀疏文件断点扫描，并从 234 MB 继续下载。

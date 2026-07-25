@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "testedAt": "2026-07-25",
+  "runtimeMode": "round2",
+  "browser": {
+    "surface": "agent-browser isolated local Chrome session",
+    "engine": "Chromium",
+    "errorCount": 0,
+    "consoleErrorCount": 0
+  },
+  "sameCameraComparison": {
+    "desktop": {
+      "pass": true,
+      "viewport": "1440x1024",
+      "qaStart": "quiet-southwest",
+      "candidate": "docs/research/test_building_height_round2_desktop_1440x1024.png",
+      "final": "docs/research/test_building_height_round2_final_desktop_1440x1024.png",
+      "playerPosition": "-250.000,130.000",
+      "notes": "正式 GLB 加载后，街区完整、角色落点正确，道路退界、POI 层级和整体天际线均保持。"
+    },
+    "mobile390": {
+      "pass": true,
+      "viewport": "390x844",
+      "canvas": "390x844",
+      "qaStart": "quiet-southwest",
+      "candidate": "docs/research/test_building_height_round2_mobile_390x844.png",
+      "final": "docs/research/test_building_height_round2_final_mobile_390x844.png",
+      "playerPosition": "-250.000,130.000",
+      "notes": "真实 390px 页面完整显示街区和角色，没有异常裁切、针状高点或响应式遮挡。"
+    }
+  },
+  "additionalViews": [
+    {
+      "qaStart": "xingfu-road",
+      "viewport": "1440x1024",
+      "screenshot": "docs/research/test_building_height_round2_final_xingfu_road_desktop_1440x1024.png",
+      "result": "pass",
+      "notes": "华山绿地入口卡片、道路、通用体块和已创作 POI 层级正常。"
+    },
+    {
+      "qaStart": "fahuazhen-road",
+      "viewport": "1440x1024",
+      "screenshot": "docs/research/test_building_height_round2_final_fahuazhen_road_desktop_1440x1024.png",
+      "result": "pass",
+      "notes": "德必法华525入口卡片、道路退界、密集街区和局部高差正常。"
+    }
+  ],
+  "visualQuality": {
+    "roadAndPoiHierarchy": "pass",
+    "noUnreviewedExtremeHeight": "pass",
+    "noOverlapHoleOrZFighting": "pass",
+    "notes": "81.81 m 极端候选已因多源分歧回退到 24 m C 级基线；其余 489 栋第二轮升级均已通过证据和视觉门。"
+  },
+  "requests": {
+    "districtGlb": {
+      "url": "/models/overview/xinhua-district-massing.glb?v=e02289e36c2c",
+      "status": 200,
+      "bytes": 682104,
+      "contentType": "model/gltf-binary",
+      "sha256": "e02289e36c2c75e1202b9084732b94e07249bee76f02aa18c3be82319a90e6f9"
+    }
+  },
+  "verification": {
+    "targetedTests": "12/12 pass",
+    "npmTest": "185/185 pass",
+    "npmLint": "pass",
+    "glbAudit": "pass; 12 nodes, 12 meshes, 3 materials, 0 images, 0 textures",
+    "deterministicReplay": "pass"
+  },
+  "deployment": {
+    "sites": "not-published",
+    "vps": "not-published"
+  }
+}

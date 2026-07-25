@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-25T15:31:25.719Z",
+  "targetCount": 676,
+  "allBuildingCount": 730,
+  "policy": {
+    "matchingThresholdsFrozen": true,
+    "gbaMatch": "exact OSM source ID plus height and <=6 m internal standard-deviation gate",
+    "ghsObatRole": "auxiliary-only; never sufficient alone for B",
+    "globfpGroup": "2-4 unique source union under frozen spatial gate and <=6 m height spread",
+    "significantChangeManualReviewMetres": 20,
+    "deployment": "local-only; Sites and VPS excluded"
+  },
+  "counts": {
+    "firstRoundConfidence": {
+      "A": 11,
+      "B": 43,
+      "C": 676
+    },
+    "round2Queue": 676,
+    "gbaExactIdCandidates": 590,
+    "gbaPassing": 487,
+    "ghsSpatialPassingAuxiliary": 577,
+    "globfpGroupPassing": 6,
+    "manualReview": {
+      "total": 7,
+      "upgradeB": 6,
+      "retainC": 1,
+      "pending": 0
+    },
+    "decisions": {
+      "retain-C": 187,
+      "upgrade-B": 489
+    },
+    "finalConfidence": {
+      "A": 11,
+      "B": 532,
+      "C": 187
+    }
+  },
+  "gates": {
+    "evidence": "pass",
+    "licence": "pass",
+    "candidateVisualQuality": "pass",
+    "canonicalRollout": "authorized"
+  }
+}

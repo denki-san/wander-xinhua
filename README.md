@@ -45,6 +45,21 @@ npm start
 npm test
 ```
 
+全览建筑高度采用逐栋证据记录。第二轮把第一轮剩余 676 栋全部排队处理，
+最终 730 栋为 `A 11 / B 532 / C 187`。证据、最终队列、许可边界与回退资产见：
+
+- `docs/research/building-height-evidence.json`
+- `docs/research/building-height-round2-queue-final.json`
+- `docs/research/building-height-round2-gate.json`
+- `docs/research/data/xinhua-building-height-sources-round2-20260725.json`
+- `docs/research/building-height-calibration-decision-log.md`
+
+确定性重建正式体块使用：
+
+```bash
+npm run height:round2:build
+```
+
 ## AI 辅助建模工作流
 
 真实 POI、建筑、角色和重要环境资产必须遵循
@@ -72,4 +87,9 @@ npm test
 - 行政边界、道路拓扑、幸福里位置，以及华山绿地和上生·新所的公开场地、园路与建筑轮廓来自 OpenStreetMap，并使用统一投影比例；它们不是测绘级成果。
 - 全街道大尺度高低趋势来自 Copernicus DEM GLO-30（约 30 米 DSM），经道路采样、邻域低分位过滤和稳健平面拟合后使用；当前只表达约 1～2 米的街区缓坡，不表达楼顶、树冠、台阶和园内微地形。
 - 当前体验比例为 1 个场景单位对应 2.7 米；这是在 13.5 米/单位地理基线上统一放大 5 倍后的表现尺度。
+- 全览高度优先使用 OSM 直接字段；B 级来自许可允许且通过质量门的
+  3D-GloBFP 或 GlobalBuildingAtlas 逐栋预测。GHS-OBAT 只作粗粒度辅助证据，
+  不能单独升级。所有高度均非测绘级。
+- GlobalBuildingAtlas 派生高度受 CC BY-NC 4.0 约束，只适用于当前社区公益、
+  非商业用途；若项目商业化必须重新审核。
 - 华山绿地、上生·新所、幸福里及新华路沿线地标的建筑高度、立面细节、植被和未标注环境要素均依据公开照片与文字做风格化原创表现；其余全街道建筑尚未填充。

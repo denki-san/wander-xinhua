@@ -1,0 +1,4387 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-25T12:32:22.079Z",
+  "sourceEvidence": "docs/research/building-height-evidence.json",
+  "records": [
+    {
+      "overviewAssetId": "way/1004806686",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1090998174",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1117538713",
+      "selectedHeightMetres": 73.15,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1117538714",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1216373118",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1216373119",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1216373120",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1216373121",
+      "selectedHeightMetres": 9.17,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1216373122",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1216373123",
+      "selectedHeightMetres": 13.72,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1228373145",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674545",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674546",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674547",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674548",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674550",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674551",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674552",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674554",
+      "selectedHeightMetres": 22.45,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1343674555",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674556",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674557",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674558",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674559",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674560",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674561",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674562",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674563",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674564",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674565",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674566",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674883",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343674885",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775658",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775659",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775660",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775661",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775662",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775663",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775664",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775665",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775666",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775667",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775668",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775669",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775670",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775671",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775672",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775673",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775674",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775675",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775676",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775678",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775679",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775680",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775681",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775682",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775683",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775684",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775685",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775686",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775687",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775688",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775689",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775690",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775692",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775693",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775694",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775695",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775696",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775698",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775699",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775700",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775701",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775702",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775703",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775704",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775705",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775706",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775707",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775708",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775709",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775710",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775711",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775713",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775714",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775715",
+      "selectedHeightMetres": 8.49,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/1343775716",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775717",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1343775718",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1361620484",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1469054479",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1469054480",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1469054481",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1518538512",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1518538513",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1518538522",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/1518538523",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/228966547",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/228966548",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/228966549",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/228966553",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/228966554",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/228966555",
+      "selectedHeightMetres": 19.63,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/292250767",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293434149",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293434150",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293434190",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293518764",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293518765",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293827638",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293827639",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293827640",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293827645",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293827646",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293827647",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293827648",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293827649",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293827651",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293827652",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293827653",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/293827654",
+      "selectedHeightMetres": 21.6,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/293827656",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/296006189",
+      "selectedHeightMetres": 40.17,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/296006190",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/296006191",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/296006192",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297850123",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297851397",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297851858",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297853762",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297853840",
+      "selectedHeightMetres": 39.95,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297854167",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297854168",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297854228",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297854299",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297855001",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297855002",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297855003",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297855004",
+      "selectedHeightMetres": 19.93,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/297874111",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874112",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874113",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874114",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874115",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874116",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874117",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874120",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874121",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874124",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874125",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874126",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874795",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874796",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874797",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874798",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/297874799",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/343924703",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/426764523",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/426764524",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/426764525",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/426764527",
+      "selectedHeightMetres": 34.55,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/428379418",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379419",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379420",
+      "selectedHeightMetres": 25.49,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/428379421",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379422",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379423",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379724",
+      "selectedHeightMetres": 49.37,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/428379725",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379726",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379727",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379728",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379729",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379730",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/428379731",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/438751958",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/474632970",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/474875421",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/474875423",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/488970902",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/488970903",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493383434",
+      "selectedHeightMetres": 9,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/493383435",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493383436",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493383437",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493383438",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493383439",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493383440",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493401525",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493401527",
+      "selectedHeightMetres": 48.3,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/493402089",
+      "selectedHeightMetres": 33,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/493402377",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493402378",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493402379",
+      "selectedHeightMetres": 33,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/493402380",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493414601",
+      "selectedHeightMetres": 72,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/493420217",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493420218",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493420219",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493420296",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493420297",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493421561",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493421562",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/493421563",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/494634318",
+      "selectedHeightMetres": 21,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/494662056",
+      "selectedHeightMetres": 30,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/494662067",
+      "selectedHeightMetres": 12,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/71799657",
+      "selectedHeightMetres": 17.52,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/764542691",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/765274074",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/765274075",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/765274076",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/765274077",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485584",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485585",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485586",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485587",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485588",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485589",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485590",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485591",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485592",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485601",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485602",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485604",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485605",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485609",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485610",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485611",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485612",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485613",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485614",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485615",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485616",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485617",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485618",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485619",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485620",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485621",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485623",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485624",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485625",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485626",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485627",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485628",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485629",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485630",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485631",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485632",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485633",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485634",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485635",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485636",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485637",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485638",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485639",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485640",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485641",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485642",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485643",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485644",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485645",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485646",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485647",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485648",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485649",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485650",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485651",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485652",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485653",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485654",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485655",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485656",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485657",
+      "selectedHeightMetres": 16.67,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485658",
+      "selectedHeightMetres": 17.87,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864485659",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485668",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485670",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485671",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485672",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485673",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485681",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485682",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485683",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485685",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485687",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485688",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485689",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485690",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864485692",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493083",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493084",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493085",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493086",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493087",
+      "selectedHeightMetres": 17.19,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493088",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493089",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493090",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493091",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493092",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493093",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493094",
+      "selectedHeightMetres": 17.4,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493095",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493096",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493097",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493098",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493099",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493100",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493101",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493102",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493103",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493104",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493105",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493106",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493107",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493108",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493109",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493110",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493111",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493112",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493113",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493114",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493115",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493116",
+      "selectedHeightMetres": 33.61,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493117",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493118",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493119",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493120",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493121",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493122",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493123",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493124",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493125",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493126",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493127",
+      "selectedHeightMetres": 60,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493128",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493129",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493130",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493131",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493132",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493133",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493134",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493135",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493136",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493137",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493138",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493139",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493140",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493141",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493142",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493143",
+      "selectedHeightMetres": 11.78,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493144",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493145",
+      "selectedHeightMetres": 24.94,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493146",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493147",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493148",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493149",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493150",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493151",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493152",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493153",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493154",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493155",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493157",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493160",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493161",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493162",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493163",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493164",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493165",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493166",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493167",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493168",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493169",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493170",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493171",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493172",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493192",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493194",
+      "selectedHeightMetres": 23.61,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493195",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493196",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493197",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493198",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493199",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493200",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493201",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493202",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493203",
+      "selectedHeightMetres": 38.21,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493204",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493205",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493206",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493207",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493208",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493209",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493210",
+      "selectedHeightMetres": 19.79,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493211",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493212",
+      "selectedHeightMetres": 16.35,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493213",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493214",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493215",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493216",
+      "selectedHeightMetres": 13.61,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493217",
+      "selectedHeightMetres": 16.33,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493218",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493219",
+      "selectedHeightMetres": 13.86,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864493220",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493221",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493222",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493223",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493224",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493225",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493226",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493227",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493236",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493237",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493238",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493239",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493240",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493241",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493248",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493249",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493250",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493251",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493252",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493253",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493254",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493255",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493256",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493257",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493258",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493259",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493260",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493261",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493262",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493263",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493264",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493265",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493266",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493267",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493268",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493269",
+      "selectedHeightMetres": 10.5,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493270",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493271",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493272",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493273",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493274",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493275",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493276",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493277",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493278",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493279",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493280",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493281",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493282",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493283",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493284",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493285",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493286",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493287",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493288",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493289",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493290",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493291",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493292",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493293",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493294",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493295",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493296",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493297",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493298",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493299",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864493300",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505067",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505068",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505069",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505070",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505071",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505072",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505073",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505074",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505075",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505076",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505077",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505078",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505079",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505080",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505081",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505082",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505083",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505084",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505085",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505086",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505087",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505088",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505089",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505090",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505091",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505092",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505093",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505094",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505095",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505096",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505097",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505098",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505099",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505100",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505101",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505103",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505105",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505107",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505108",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505109",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505110",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505111",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505114",
+      "selectedHeightMetres": 58.64,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505115",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505117",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505118",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505119",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505120",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505121",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505122",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505123",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505124",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505125",
+      "selectedHeightMetres": 22.49,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505126",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505127",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505128",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505129",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505130",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505131",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505132",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505133",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505134",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505135",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505136",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505139",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505140",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505142",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505143",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505144",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505145",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505146",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505147",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505149",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505150",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505151",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505152",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505153",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505154",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505155",
+      "selectedHeightMetres": 10.15,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505156",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505157",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505158",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505159",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505160",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505161",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505162",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505170",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505171",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505173",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505174",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505175",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505176",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505177",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505178",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505179",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505180",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505182",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505183",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505184",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505185",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505186",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505187",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505188",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505189",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505190",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505191",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505192",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505193",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505194",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505195",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864505196",
+      "selectedHeightMetres": 16.5,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864505197",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823790",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823791",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823792",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823793",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823794",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823802",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823803",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823804",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823808",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823814",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823815",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823816",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823817",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823818",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823819",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823820",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823824",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823825",
+      "selectedHeightMetres": 16.78,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823827",
+      "selectedHeightMetres": 26.71,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823828",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823829",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823830",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823831",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823833",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823834",
+      "selectedHeightMetres": 26.81,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823835",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823836",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823837",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823838",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823839",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823840",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823841",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823842",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823843",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823844",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823845",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823846",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823847",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823848",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823849",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823850",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823851",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823852",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823853",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823854",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823855",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823856",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823857",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823858",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823859",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823860",
+      "selectedHeightMetres": 12.1,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864823862",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823864",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823865",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823866",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823867",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823868",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823872",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823876",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823877",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823878",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823879",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823880",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864823881",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847854",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847858",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847859",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847860",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847861",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847862",
+      "selectedHeightMetres": 15.08,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847863",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847864",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847866",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847867",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847871",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847872",
+      "selectedHeightMetres": 28.66,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847873",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847874",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847875",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847876",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847891",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847893",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847894",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847895",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847896",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847897",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847898",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847899",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847900",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847901",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847903",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847904",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847905",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847906",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847907",
+      "selectedHeightMetres": 24,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/864847908",
+      "selectedHeightMetres": 24,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/864847909",
+      "selectedHeightMetres": 24,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/864847910",
+      "selectedHeightMetres": 24,
+      "selectedSource": "OpenStreetMap",
+      "confidence": "A"
+    },
+    {
+      "overviewAssetId": "way/864847911",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847912",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847913",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847914",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847915",
+      "selectedHeightMetres": 25.8,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847916",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847919",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847924",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847925",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847926",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847927",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847928",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847929",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847930",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847931",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847932",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847933",
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847934",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847935",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847936",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847937",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847938",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847939",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847946",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847947",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847948",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847949",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847950",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847951",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847952",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847953",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847954",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847955",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847956",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847957",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847965",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847966",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847967",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847968",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847969",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847970",
+      "selectedHeightMetres": 30.5,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847971",
+      "selectedHeightMetres": 15.81,
+      "selectedSource": "3D-GloBFP",
+      "confidence": "B"
+    },
+    {
+      "overviewAssetId": "way/864847978",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847979",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847980",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847981",
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847982",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    },
+    {
+      "overviewAssetId": "way/864847983",
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "confidence": "C"
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "assetId": "xinhua-district-massing",
+  "generatedAt": "2026-07-25T12:28:00.831Z",
+  "command": "node scripts/generate_overview_district_massing.mjs --raw docs/research/data/xinhua-buildings-osm-20260725-074802.json --height-mode poc",
+  "generator": {
+    "path": "scripts/generate_overview_district_massing.mjs",
+    "sha256": "f77aebd57ca0156fa0c7d4d7f01b9c6719df8a4445f3406d082b6d19342cb595"
+  },
+  "source": {
+    "rawSnapshot": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "rawSnapshotSha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c",
+    "overpassEndpoint": null,
+    "overpassQuery": "[out:json][timeout:180];\narea(3613469094)->.searchArea;\n(\n  way[\"building\"](area.searchArea);\n  relation[\"building\"](area.searchArea);\n  way[\"building:part\"](area.searchArea);\n  relation[\"building:part\"](area.searchArea);\n);\nout body geom;",
+    "overpassErrors": [],
+    "osmGenerator": "Overpass API 0.7.62.11 87bfad18",
+    "osmTimestamp": "2026-07-25T07:46:51Z",
+    "osmCopyright": "https://www.openstreetmap.org/copyright",
+    "osmLicence": "ODbL-1.0",
+    "relationId": 13469094,
+    "heightEvidence": {
+      "path": "docs/research/building-height-evidence-poc.json",
+      "sha256": "c1aa3749cd1551a26f4e01ea83f8a14826a19196d44f27cfe61038f88e04346e",
+      "mode": "poc"
+    }
+  },
+  "output": {
+    "sourceRecord": "test_artifacts/test_building_height_poc/test_xinhua-district-massing-poc-data.json",
+    "runtimeManifest": "test_artifacts/test_building_height_poc/test_xinhua-district-massing-poc-runtime.json",
+    "glb": "test_artifacts/test_building_height_poc/test_xinhua-district-massing-poc.glb",
+    "sha256": "e4d46d0b59d67e8c4e4a411e1a80333c0ba1310fb353fe1ab6dc881d958d3ee4",
+    "bytes": 682168,
+    "meshes": 12,
+    "nodes": 13,
+    "triangles": 11779,
+    "materials": 3,
+    "images": 0,
+    "textures": 0,
+    "bounds": {
+      "minX": -369.8211,
+      "maxX": 369.8211,
+      "minZ": -385.2094,
+      "maxZ": 385.2094
+    },
+    "chunks": [
+      {
+        "id": "east-north-high",
+        "buildingCount": 2,
+        "vertices": 120,
+        "triangles": 68
+      },
+      {
+        "id": "east-north-low",
+        "buildingCount": 12,
+        "vertices": 270,
+        "triangles": 138
+      },
+      {
+        "id": "east-north-mid",
+        "buildingCount": 111,
+        "vertices": 3820,
+        "triangles": 2070
+      },
+      {
+        "id": "east-south-high",
+        "buildingCount": 6,
+        "vertices": 210,
+        "triangles": 114
+      },
+      {
+        "id": "east-south-low",
+        "buildingCount": 58,
+        "vertices": 1330,
+        "triangles": 682
+      },
+      {
+        "id": "east-south-mid",
+        "buildingCount": 138,
+        "vertices": 4550,
+        "triangles": 2454
+      },
+      {
+        "id": "west-north-high",
+        "buildingCount": 4,
+        "vertices": 115,
+        "triangles": 61
+      },
+      {
+        "id": "west-north-low",
+        "buildingCount": 9,
+        "vertices": 190,
+        "triangles": 96
+      },
+      {
+        "id": "west-north-mid",
+        "buildingCount": 218,
+        "vertices": 6515,
+        "triangles": 3473
+      },
+      {
+        "id": "west-south-high",
+        "buildingCount": 9,
+        "vertices": 220,
+        "triangles": 114
+      },
+      {
+        "id": "west-south-low",
+        "buildingCount": 7,
+        "vertices": 150,
+        "triangles": 76
+      },
+      {
+        "id": "west-south-mid",
+        "buildingCount": 156,
+        "vertices": 4575,
+        "triangles": 2433
+      }
+    ]
+  },
+  "counts": {
+    "totalElements": 878,
+    "buildingWays": 878,
+    "buildingRelations": 0,
+    "buildingParts": 0,
+    "acceptedBuildings": 730,
+    "excludedBuildings": 104,
+    "rejectedBuildings": 44,
+    "heldBuildingParts": 0,
+    "heightProvenance": {
+      "heuristic": 650,
+      "3D-GloBFP": 43,
+      "wander-xinhua-heuristic": 26,
+      "OpenStreetMap": 11
+    },
+    "heightConfidence": {
+      "C": 676,
+      "B": 43,
+      "A": 11
+    },
+    "heightCalibrationStatus": {
+      "not-in-poc": 650,
+      "poc": 80
+    },
+    "heightBands": {
+      "mid": 623,
+      "high": 21,
+      "low": 86
+    },
+    "replacementExclusions": {
+      "debi-fahua-525": 9,
+      "shanghai-cinema": 4,
+      "film-art-center": 2,
+      "hudec-memorial": 2,
+      "huashan": 2,
+      "xinhua-villas-211": 9,
+      "one-step-garden": 7,
+      "fics-xinhua-365": 24,
+      "xinhua-pocket-park": 2,
+      "xinhua-villas-329": 5,
+      "house-315": 5,
+      "xinhua-community-center": 4,
+      "villa-le-bec": 3,
+      "shanghai-orchestra": 7,
+      "xingfuli": 7,
+      "shangsheng": 12
+    },
+    "roadSetbackAdjusted": 110,
+    "roadSetbackRejected": 44
+  },
+  "budgets": {
+    "maxBytes": 3000000,
+    "maxMeshes": 12,
+    "maxMaterials": 3,
+    "maxTriangles": 100000,
+    "maxImages": 0
+  },
+  "deterministicReplay": {
+    "passed": true,
+    "firstSha256": "e4d46d0b59d67e8c4e4a411e1a80333c0ba1310fb353fe1ab6dc881d958d3ee4",
+    "secondSha256": "e4d46d0b59d67e8c4e4a411e1a80333c0ba1310fb353fe1ab6dc881d958d3ee4"
+  },
+  "runtimeContract": {
+    "modes": [
+      "overview"
+    ],
+    "weakNetworkRequests": 0,
+    "collisionObjects": 0,
+    "raycastObjects": 0,
+    "castShadow": false,
+    "opacity": 0.58,
+    "fallback": "existing-overview"
+  }
+}

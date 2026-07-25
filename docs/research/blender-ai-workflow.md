@@ -25,9 +25,15 @@
         ↓
 体块灰模 + 确定性 Blender Python 生成器
         ↓
+Blender MCP 灰模视觉审查
+        ↓
 Three.js 灰模校准门
         ↓
-.blend + .glb + test_ 固定机位预览
+完整 Hero master + Blender MCP Hero 审查
+        ↓
+从 Hero 派生 Identity + 复核 Massing
+        ↓
+Blender MCP 三级同机位对照
         ↓
 参考 / Blender / Three.js 三联对照
         ↓
@@ -120,7 +126,13 @@ Codex 开始建模前，必须先输出并获得可检查的质量合同：
 
 第一批只建立主体体块、楼层、屋顶、主要开口和大尺度场地边界，不先做栏杆、瓦垄、招牌、桌椅或植物。
 
-灰模必须先导出临时 GLB 并进入真实 Three.js `?start=` 页面，验证：
+灰模必须先经过 Blender MCP 视觉审查，再导出临时 GLB 并进入真实
+Three.js `?start=` 页面。MCP 审查使用 canonical、侧向/纵深、入口三个
+方向，确认占地比例、主体层级、屋顶轮廓、正面方向、地面基准和人物尺度。
+对有证据支持的命名建筑，纯正方体只能作为最初落点探针，不能通过正式
+Massing 门。
+
+随后在真实页面验证：
 
 1. 运行时材质实际可见，不存在“资源加载成功但模型不绘制”；
 2. 模型默认 `scale` 接近 `1.0`，人物、门和楼层关系合理；
@@ -136,11 +148,13 @@ Codex 开始建模前，必须先输出并获得可检查的质量合同：
 推荐批次：
 
 1. **Massing**：真实尺寸、主体轮廓、楼层与屋顶；完成后必须通过灰模运行时门；
-2. **Identity**：入口、窗门节奏、烟囱、塔楼、楼梯、招牌几何等身份构件；
+2. **Hero identity features**：在完整 Hero master 中制作入口、窗门节奏、烟囱、塔楼、楼梯、招牌几何等身份构件；此处不是独立 Identity GLB；
 3. **Material**：项目色盘、玻璃、金属、砖石、透明和发光材质；
 4. **Site**：庭院、围墙、树池、铺装、水体和植被；
 5. **Collision**：按实体拆分，保持入口、道路和开放空间可行走；
 6. **Optimization**：合并静态节点、共享材质、实例化重复资产。
+7. **Identity derivation**：Hero master 完成并通过 MCP Hero 审查后，从 Hero 派生独立 Identity GLB；
+8. **Massing re-verification**：对照 Hero 冻结或修正 Massing，确保三级原点、比例、正面、地面基准和通行语义一致。
 
 每批都执行：
 
@@ -155,6 +169,11 @@ Codex 开始建模前，必须先输出并获得可检查的质量合同：
 ```
 
 三联对照必须记录建筑屏幕宽度、canonical 方向偏角、画面是否裁切、人物尺度和本批身份构件可读性。独立审查至少在 Massing 和最终完成时各执行一次，避免把体块或连续性问题留到收尾。
+
+完成 Hero 和派生 Identity 后，必须通过 MCP 以相同 canonical、侧向和入口
+机位并排检查 Hero、Identity、Massing。Identity 要保留约定的身份构件，
+Massing 要保留可辨识轮廓，三级切换不得出现位移、旋转、缩放、漂浮或
+通行边界突变。
 
 ## MCP 与 Headless Blender 的分工
 
@@ -190,7 +209,18 @@ BLENDER_BIN="/Applications/Blender.app/Contents/MacOS/Blender"
 - 快速定位穿模、漂浮、入口阻挡和视觉层级；
 - 观察骨骼和动画。
 
-MCP 不是资产真值来源。每次有价值的 MCP 修改都必须回写 Python 生成器、manifest 或运行时数据，再用 Headless Blender 重建验证。
+MCP 不是资产真值来源，但在工具可用时是以下三个正式视觉审查点：
+
+1. **Massing MCP Gate**：进入 Three.js 地图校准前；
+2. **Hero MCP Gate**：完整 Hero master 完成、派生 Identity 前；
+3. **Three-tier MCP Gate**：Identity 派生并复核 Massing 后、运行时三级验收前。
+
+每个 Gate 都保存以 `test_` 开头的 canonical、侧向或三级对照截图，并把
+结论写入 Brief 或 Decision log。每次有价值的 MCP 修改都必须回写 Python
+生成器、manifest 或运行时数据，再用 Headless Blender 重建验证。
+
+MCP 不可用时，使用相同固定机位的 Headless Blender 渲染作为降级证据，
+并明确记录“未执行 MCP 交互审查”，不得使用旧截图冒充本轮检查。
 
 ## Build record
 
@@ -256,6 +286,7 @@ MCP 不是资产真值来源。每次有价值的 MCP 修改都必须回写 Pyth
 - 参考证据和 Brief 完整；
 - 生成器、`.blend`、`.glb` 和预览齐全；
 - 灰模运行时门和参考 / Blender / Three.js 三联对照有记录；
+- Massing、Hero、三级同机位三个 MCP Gate 已通过，或已记录 MCP 不可用时的固定机位降级证据；
 - build record 与当前二进制、运行时缓存版本一致；
 - 三层验收通过；
 - manifest 和运行时落点同步；

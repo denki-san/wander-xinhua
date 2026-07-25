@@ -27,6 +27,41 @@
 - 使用的上生·新所场地：<https://www.openstreetmap.org/way/765939973>
 - 使用的孙科别墅、乡村俱乐部与海军俱乐部轮廓：<https://www.openstreetmap.org/way/864847877>、<https://www.openstreetmap.org/way/864847881>、<https://www.openstreetmap.org/way/864847883>
 
+建筑高度校准：
+
+- 3D-GloBFP 用作 2020 年逐栋预测高度的第一独立估算源；这些值不是实测或测绘高度。
+- 数据集：Che et al. (2024), “3D-GloBFP: the first global three-dimensional building footprint dataset”。
+- 亚洲数据 DOI：<https://doi.org/10.5281/zenodo.11397014>
+- 网格与新版数据索引 DOI：<https://doi.org/10.5281/zenodo.11319912>
+- 许可：Creative Commons Attribution 4.0 International (CC BY 4.0)。
+- 本项目保留官方 `China_4.rar` 的 MD5、上海源 Shapefile SHA-256、grid 2435
+  与新华路裁剪记录；运行时只消费通过空间质量门的高度，不复制原数据几何作为地图底座。
+- Overture Buildings `2026-07-22.0` 仅用于检查 `sources[]`、GERS ID 与上游
+  OSM 记录传播；本轮 bbox 内高度和楼层字段均为 OSM 派生，未作为第二个独立来源。
+- Overture Buildings 许可：ODbL 1.0；署名：
+  `© OpenStreetMap contributors, Overture Maps Foundation`。
+- Overture Buildings 说明：<https://docs.overturemaps.org/guides/buildings/>
+- Overture 署名与许可：<https://docs.overturemaps.org/attribution/>
+- GlobalBuildingAtlas `GBA.LoD1 v1.0.0` 用作第二轮逐栋预测高度源。新华街道目标
+  通过数据中的 `osm<ID>CHN` exact source ID 对齐；只有高度处于 3–90 米且内部
+  预测方差换算的标准差不大于 6 米的记录才能进入 `B — matched estimate`。
+- GBA 高度基于 2018–2019 PlanetScope 影像的机器学习结果，并非实测或测绘高度；
+  官方论文报告亚洲高度 RMSE 约 5.9 米，且高层可能被低估。
+- `GBA.Height` / `GBA.LoD1` 许可：Creative Commons
+  Attribution-NonCommercial 4.0 International（CC BY-NC 4.0）。
+- 当前使用边界是社区公益、非商业。若项目以后加入广告、付费访问、客户交付、
+  商业授权或其他商业分发，必须在继续分发这些派生高度或 LoD1 结果前重新审核许可。
+- 数据仓库与许可：<https://github.com/zhu-xlab/GlobalBuildingAtlas>
+- 论文：<https://essd.copernicus.org/articles/17/6647/2025/>
+- GHS-OBAT R2024A 用作第二轮辅助冲突和合理性证据。它的逐 footprint 高度来自
+  GHS-BUILT-H / GHSL 的粗粒度栅格整合，在上海密集街区不能单独把建筑提升为 B。
+- GHS-OBAT footprint 上游为 Overture Buildings `2024-07-22.0`；本项目只保留
+  OSM footprint 为运行时地图底座，不导入 GHS-OBAT 几何。
+- GHS-OBAT 许可：Open Data Commons Open Database License（ODbL）1.0。
+- 数据集与 DOI：<https://data.jrc.ec.europa.eu/dataset/f41a22f1-5741-4c41-86eb-6384654f6927>
+- 第二轮完整来源版本、原始归档路径、SHA-256、裁剪与匹配数量见
+  `docs/research/data/xinhua-building-height-sources-round2-20260725.json`。
+
 POI 卡片实景图：
 
 - 卡片中的照片由原发布页面远程提供，卡片内保留可点击图源；图片权利归各原作者或发布机构所有。

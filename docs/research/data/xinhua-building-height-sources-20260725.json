@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "accessedAt": "2026-07-25",
+  "projectUse": "non-commercial community/public-interest",
+  "boundsWgs84": {
+    "minLon": 121.4123983,
+    "minLat": 31.1974705,
+    "maxLon": 121.4333915,
+    "maxLat": 31.2156161
+  },
+  "sources": {
+    "osm": {
+      "role": "footprint source of record and direct height/floor tags",
+      "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+      "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c",
+      "relationId": 13469094,
+      "licence": "ODbL-1.0",
+      "copyrightUrl": "https://www.openstreetmap.org/copyright"
+    },
+    "globfp": {
+      "role": "primary independent modelled building-height estimate",
+      "productYear": 2020,
+      "gridId": 2435,
+      "gridBoundsWgs84": [
+        121.25,
+        30,
+        122.5,
+        31.25
+      ],
+      "licence": "CC-BY-4.0",
+      "datasetDoi": "https://doi.org/10.5281/zenodo.11397014",
+      "gridIndexDoi": "https://doi.org/10.5281/zenodo.11319912",
+      "archiveUrl": "https://zenodo.org/records/12674244/files/China_4.rar?download=1",
+      "archivePath": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/building-height-calibration/xinhua-20260725/raw/China_4.rar",
+      "archiveMd5": "8476dc9ee2ff403d9f524faa1627296d",
+      "shapefilePath": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/building-height-calibration/xinhua-20260725/extracted/China_4/shanghai.shp",
+      "shapefileSha256": "9f36bd656f5c7802778cf4b6b98545fdc4893de8884ff1a13681133ceef9b648",
+      "dbfSha256": "ff51cdfda2d3ba47d8b13b4d7f3057c320bd05c098bb249a08cbec4dc0d14e65",
+      "sourceFeatureCount": 1570826,
+      "extractPath": "docs/research/data/xinhua-buildings-globfp-grid-2435-2020-20260725.json",
+      "extractSha256": "1703d169cccdd69983ab1dc085357e18e744ac4d41b564e79727ec4fcf245b93",
+      "extractedFeatureCount": 3771,
+      "readonlyOriginal": true
+    },
+    "overture": {
+      "role": "provenance-filtered conditional source",
+      "release": "2026-07-22.0",
+      "licence": "ODbL-1.0 for Buildings theme; preserve per-feature sources",
+      "path": "docs/research/data/xinhua-buildings-overture-2026-07-22.0-20260725.geojson",
+      "sha256": "3ef5d45445ebe9b64c838c3a3bde3aebc2dc0efa122c966520c187385154035a",
+      "featureCount": 2685,
+      "heightFeatureCount": 2,
+      "floorFeatureCount": 34,
+      "independentHeightOrFloorFeatureCount": 0,
+      "command": "uvx overturemaps download --bbox=121.4126483,31.1977205,121.4331415,31.2153661 -f geojson --type=building -o <path>",
+      "note": "All height and floor fields in this extract are OSM-derived and are not counted as a second source."
+    },
+    "gba": {
+      "role": "approved auxiliary source under the current non-commercial use boundary",
+      "licence": "CC-BY-NC-4.0 for GBA.Height and GBA.LoD1",
+      "accessUrl": "https://tubvsig-so2sat-vm1.srv.mwn.de/geoserver/ows",
+      "accessResult": "HTTP 403",
+      "imported": false,
+      "note": "No GlobalBuildingAtlas value or geometry was copied into evidence, GLB or runtime outputs."
+    }
+  }
+}
