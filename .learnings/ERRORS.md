@@ -7268,3 +7268,42 @@ Principled Base Color: (0.8, 0.8, 0.8, 1.0) for all 7 materials
 - **Resolved**: 2026-07-25T21:47:43+08:00
 - **Notes**: 7 个节点材质与 GLB PBR 分层全部写入；双 clean build SHA 一致；
   主窗口直接重开 `.blend` 并以三固定机位复验后，MCP2 Pass。
+
+---
+## [ERR-20260725-048] house_315_disposition_pinned_shared_generator
+
+**Logged**: 2026-07-25T22:12:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+House315 旧 Hero disposition 在建筑分支通过，但合入调度分支后把审计当时的共享
+多建筑 generator 整文件 SHA 当成当前不变合同，Film 的合法生成器更新使 4 项中
+1 项失败。
+
+### Error
+```text
+actual current shared generator: 324be84a…
+disposition audit snapshot:      6ea5fc19…
+```
+
+### Context
+- House315 的 `build_house_315()` 函数块 SHA 与 producing commit 仍一致。
+- 旧 Hero Blend/GLB SHA、公共 registry、结构审计和 Hold 结论都未变化。
+- 失败属于 ERR-20260725-042 已记录的共享文件误冻结模式在新建筑审计中的复现。
+
+### Suggested Fix
+把整文件 SHA 明确标为 disposition Worktree 的历史审计快照；当前整合只冻结
+House315 函数块和目标二进制，不冻结共享 generator 的其他建筑内容。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/house-315-hero-disposition.json
+- Related Files: tests/test_house_315_hero_disposition.test.mjs
+- See Also: ERR-20260725-042
+
+### Resolution
+- **Resolved**: 2026-07-25T22:14:00+08:00
+- **Notes**: 字段改为 `auditSnapshotSha256` 并标注历史快照 scope；测试继续严格
+  验证 House315 函数块 SHA、旧 Blend/GLB 和 registry，而不锁死共享整文件。

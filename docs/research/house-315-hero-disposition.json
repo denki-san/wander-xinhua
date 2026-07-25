@@ -61,7 +61,8 @@
     },
     "generator": {
       "path": "scripts/create_xinhua_road_models.py",
-      "currentSha256": "6ea5fc19f98f6339d83063bafea9c0edd66ca07d2bb171be08f61d63fed3488d",
+      "auditSnapshotSha256": "6ea5fc19f98f6339d83063bafea9c0edd66ca07d2bb171be08f61d63fed3488d",
+      "shaScope": "historical-disposition-worktree-snapshot-not-current-shared-file-contract",
       "producingCommitSha256": "c731e80854480b68634bf94f640e2c16bac4a759e76e86a72e9acf99132ace11",
       "house315FunctionSha256": "7552dd510b5845cad1ee531e8ec600cdd96d673cb37b17b1429fd7d28c6696cc",
       "house315FunctionByteIdenticalToProducingCommit": true,
