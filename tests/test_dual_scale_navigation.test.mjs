@@ -171,8 +171,10 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(introSurface, /xinhua-plane-tree-cover-desktop\.jpg/);
   assert.match(introSurface, /xinhua-plane-tree-cover-mobile\.jpg/);
   assert.match(introSurface, /max-width: 760px/);
-  assert.match(introSurface, />漫步新华路<\/h1>/);
-  assert.match(introSurface, />\s*出发\s*<\/button>/);
+  assert.match(introSurface, /<span>Wander<\/span>\s*<span>Xinhua<\/span>/);
+  assert.match(introSurface, />\s*START\s*<\/button>/);
+  assert.doesNotMatch(introSurface, /沿着梧桐树影/);
+  assert.doesNotMatch(styles, /\.intro-start-button::after/);
   assert.match(introSurface, /正在铺开新华路/);
   assert.doesNotMatch(experience, /从全览出发/);
   assert.match(experience, /<ProgressiveVisualEffectComposer/);
