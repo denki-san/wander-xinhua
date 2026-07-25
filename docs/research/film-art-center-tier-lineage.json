@@ -45,13 +45,35 @@
     "buildRecord": "docs/research/build-records/film-art-center.json"
   },
   "identity": {
-    "status": "missing-unlocked-pending-independent-derivation",
+    "status": "deterministic-candidate-mcp3-pending",
     "derivedFrom": {
       "heroGlbSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
       "method": "deterministic-simplification-preserving-subject-specific-cues"
     },
     "identityAllowed": true,
-    "forbiddenSubstitute": "arts-cluster-generic-proxy"
+    "forbiddenSubstitute": "arts-cluster-generic-proxy",
+    "generator": {
+      "path": "scripts/create_film_art_center_identity_model.py",
+      "sha256": "af0fbd64e9aa1cd2b9c3595ce51d4c792ac14a1afccb012df8aabf55c96d2f47"
+    },
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/identity/film-art-center-identity.blend",
+      "sha256": "72ebda621ee6e93703e9085cb8df0cf44ffb19849a1ea84ac9d26f531cd6984a",
+      "bytes": 415072
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/identity/film-art-center-identity.glb",
+      "sha256": "a4d37446e27225815624e6382048ed1dc341f1e079f089755ed5fb68e520e869",
+      "cacheVersion": "20260725-film-art-identity-1",
+      "bytes": 1130852,
+      "triangles": 23816,
+      "materials": 8,
+      "images": 0,
+      "textures": 0
+    },
+    "buildRecord": "docs/research/build-records/tiers/xinhua-road/identity/film-art-center-identity.json",
+    "mcp3": "pending",
+    "threeTierRuntime": "blocked-until-mcp3"
   },
   "massing": {
     "status": "mcp1-and-map-pass",
@@ -94,5 +116,5 @@
     "facilityAndSharedPrototypes": "not-imported",
     "otherBuildings": "untouched"
   },
-  "nextGate": "identity-deterministic-candidate-build"
+  "nextGate": "blender-mcp3-three-tier-review"
 }

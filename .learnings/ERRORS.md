@@ -7245,3 +7245,131 @@ expected derivation Hero: e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ff
 ### Resolution
 - **Resolved**: 2026-07-25T20:50:00+08:00
 - **Notes**: 测试不再把当前 Hero 文件误当成派生时快照。
+
+---
+
+## [ERR-20260725-041] film_art_identity_triangle_budget
+
+**Logged**: 2026-07-25T21:11:36+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: assets
+
+### Summary
+Film Art Center 首个独立 Identity Headless 候选超过 24,000 triangles 硬预算，
+生成器主动退出 1。
+
+### Error
+```text
+RuntimeError: Identity 超出预算：
+nodes=1, meshes=1, materials=8, images=0, textures=0,
+triangles=27560, bytes=1237968
+```
+
+### Context
+- Hero lineage 四项 SHA 校验通过后才开始派生。
+- 构建过程中确定性清理 4 个红瓦近零面积面。
+- GLB 已生成用于只读结构诊断，但未写 build record、未接入 registry、未申请 MCP3。
+- 节点、材质、图片、贴图、TEXCOORD 和文件体积均在预算内；仅三角面超限。
+
+### Suggested Fix
+按 GLB primitive/material 统计 triangles，优先降低瓦垄、牌匾文字和重复小构件的
+细分；必须保留双红檐、双层柱廊/栏杆、中央凉廊、入口身份和低玻璃翼。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_film_art_center_identity_model.py
+- Related Files: public/models/tiers/xinhua-road/identity/film-art-center-identity.glb
+
+### Attempt 2
+- **Logged**: 2026-07-25T21:13:28+08:00
+- 将八字 Hero 牌匾简化为证据支持的四字“新华两佰”，并降低文字 bevel/depth。
+- 候选降至 24,464 triangles、1,164,120 bytes，但仍比硬预算高 464 triangles，
+  因此生成器再次主动退出 1。
+- 下一步只降低 Identity 中景瓦垄行数，不继续删减主体身份构件。
+
+### Attempt 3
+- **Logged**: 2026-07-25T21:14:37+08:00
+- 主屋面/次屋面瓦垄从 11/9 行降至 9/8 行后，候选为 24,248 triangles、
+  1,154,184 bytes，仍比硬预算高 248 triangles，生成器第三次主动退出 1。
+- 为维持屋面纹理，不再继续大幅削减瓦垄；将只减少檐下重复 bracket 数量，
+  保留双檐连续性和节奏。
+
+### Resolution
+- **Resolved**: 2026-07-25T21:18:40+08:00
+- **Notes**: 主檐/次檐重复 bracket 从 15/13 组缩为 13/11 组，保留连续双檐与
+  视觉节奏。最终候选为 23,816 triangles、1,130,852 bytes、1 node、
+  8 materials、0 images/textures/TEXCOORD；连续两次 GLB SHA 均为
+  `a4d37446e27225815624e6382048ed1dc341f1e079f089755ed5fb68e520e869`，
+  `cmp` 和公共 GLB audit 通过。
+
+---
+
+## [ERR-20260725-042] film_art_hero_test_stale_identity_state
+
+**Logged**: 2026-07-25T21:21:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Identity 候选生成后，Hero MCP2 测试仍断言 Identity gate 停留在“已解锁但未派生”
+的中间状态，27 项中 1 项失败。
+
+### Error
+```text
+actual:   deterministic-candidate-mcp3-pending
+expected: unlocked-pending-independent-derivation
+```
+
+### Context
+- Identity 新候选的 lineage、预算、GLB、Blend、固定机位和禁止 generic proxy
+  专项测试已通过。
+- Hero MCP2 仍为 Pass；只是下游状态按工作流推进到 MCP3 pending。
+- 同批其余 26 项测试与公共 GLB audit 通过。
+
+### Suggested Fix
+Hero 测试应验证 MCP2 Pass 仍成立，并接受 Identity 已推进到确定性候选；
+MCP3 和三档 runtime 继续保持 pending。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_film_art_center_quality_tiers.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T21:21:00+08:00
+- **Notes**: 更新下游状态机断言，不降低 MCP2 或 MCP3 门槛。
+
+---
+
+## [ERR-20260725-043] film_art_hero_test_stale_next_gate
+
+**Logged**: 2026-07-25T21:22:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+修正 Identity 状态断言后，同一 Hero 测试的 `nextGate` 仍期待“构建 Identity”，
+但候选已经完成并合法推进到 Blender MCP3 三档复核。
+
+### Error
+```text
+actual:   blender-mcp3-three-tier-review
+expected: identity-deterministic-candidate-build
+```
+
+### Context
+- Identity GLB/Blend/预算/lineage/固定机位专项测试仍通过。
+- MCP3 和 Three.js 三档运行时尚未通过；状态没有越门。
+
+### Suggested Fix
+更新 `nextGate` 为 `blender-mcp3-three-tier-review`，并继续断言 MCP3 pending。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_film_art_center_quality_tiers.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T21:22:00+08:00
+- **Notes**: 同步严格状态机下一门。

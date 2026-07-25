@@ -138,10 +138,10 @@ Hero 在主窗口首次 MCP2 中通过视觉层，但因 76 个近零面积面�
 
 | Field | Hero | Identity | Massing |
 | --- | --- | --- | --- |
-| Status | MCP2 pass, frozen Identity source | unlocked, deterministic candidate pending | MCP1 pass, map pass |
-| Output | `public/models/xinhua-road/film-art-center.glb` | pending | `public/models/tiers/xinhua-road/massing/film-art-center-massing.glb` |
-| Source | frozen Hero `.blend` + `build_film_art_center()` | must derive from frozen Hero | deterministic simplification of frozen Hero parameters |
-| SHA-256 | `33daaaf0…b8e1b` | pending | `c89791dc…584a6` |
+| Status | MCP2 pass, frozen Identity source | deterministic candidate, MCP3 pending | MCP1 pass, map pass |
+| Output | `public/models/xinhua-road/film-art-center.glb` | `public/models/tiers/xinhua-road/identity/film-art-center-identity.glb` | `public/models/tiers/xinhua-road/massing/film-art-center-massing.glb` |
+| Source | frozen Hero `.blend` + `build_film_art_center()` | deterministic subject-specific simplification of frozen Hero | deterministic simplification of frozen Hero parameters |
+| SHA-256 | `33daaaf0…b8e1b` | `a4d37446…e869` | `c89791dc…584a6` |
 | Max nodes | 8 | 4 | 2 |
 | Max triangles | 90,000 | 24,000 | 4,000 |
 | Max materials | 14 | 8 | 6 |
@@ -160,7 +160,7 @@ height，且原记录明确 `mapAcceptance=blocked`。它保留为 recovery 对�
 | Batch | Deliverable | Blender check | Runtime check | Status |
 | --- | --- | --- | --- | --- |
 | Massing | Hero 主模型施工中的三层横向体块、中层檐、全宽主屋顶和真实廊深 | canonical 轮廓与照片宽高比 | 主体不再像窄高盒子 | Complete（Hero construction checkpoint；不等于 standalone Massing tier） |
-| Identity | 从 MCP2 通过后的 Hero 派生独立轻量 tier | 三处以上主体独有构件清晰 | 三档运行时切换仍可辨识 | Unlocked（候选尚未生成） |
+| Identity | 从 MCP2 通过后的 Hero 派生独立轻量 tier | 三处以上主体独有构件清晰 | 三档运行时切换仍可辨识 | Candidate complete（MCP3 pending） |
 | Materials | 暖白墙柱、朱红屋瓦、深窗与暖入口 | 阴影层次与红瓦不过饱和 | 无黑面、透明排序或过曝 | Complete |
 | Site | 草坪、路径、灌木和低玻璃连接体 | canonical 场地关系 | 入口路径开放 | Complete |
 | Collision | 主体实体与开放院落分离 | 无大盒封场 | 人物与相机可达 | Complete（实际首屏 + 数据与自动测试） |
@@ -379,3 +379,33 @@ Identity/MCP3 完成后重新执行三档运行时验收，不能沿用旧截图
   formal Identity 现已解锁，但只能做独立主体特定的确定性派生，不得把现有
   `arts-cluster` generic proxy 冒充为本建筑 Identity。Hold、树木、装饰、
   ordinary OSM、全地图及其他建筑均未触碰。
+
+### Iteration 9 — Independent Identity candidate — 2026-07-25
+
+- Lineage: 新增单建筑生成器
+  `scripts/create_film_art_center_identity_model.py`；构建前强制校验 Hero generator、
+  Blend、GLB 与 Hero build record 四项 SHA。正式派生源为 MCP2 Pass Hero
+  `33daaaf0…b8e1b`，不是现有 `arts-cluster` 程序化三盒代理。
+- Preserved cues: 保留全宽起翘主屋顶、第二道红色廊檐、双层柱列与白色栏杆、
+  三层中央退进凉廊、左右对称窗组、黑底金字“新华两佰”牌匾、成对卧狮、入口灯和
+  两侧低玻璃翼。侧后立面证据不足处不补造 Hero 级窗饰。
+- Deliberate loss: Identity 降低瓦垄和檐下 bracket 密度；八字 Hero 牌匾缩为证据
+  支持、在中景更可读的四字“新华两佰”；省略精细门五金、排水、草坪、灌木、
+  铺装网格和庭院灯。以上只影响 Identity，不改 Hero。
+- Budget iterations: 首候选 27,560 triangles 被 24k 硬门拦截；缩短牌匾后
+  24,464，降低瓦垄后 24,248，最终只把主/次檐重复 bracket 缩为 13/11 组，
+  得到 23,816 triangles。三次超限均主动退出且未接入 registry。
+- Final GLB: 1 node、1 mesh、8 materials、23,816 triangles、0 images、
+  0 textures、0 TEXCOORD primitives、1,130,852 bytes，SHA-256
+  `a4d37446e27225815624e6382048ed1dc341f1e079f089755ed5fb68e520e869`；
+  连续两次 clean build SHA 相同且 `cmp` 通过，公共 GLB audit 为 `ok`。
+- Blend topology: 13,100 vertices、11,952 polygons、area `<1e-10` 为 0、
+  非有限法线为 0、最小有效面积 `1.981060677280766e-6`，root transform 归一；
+  生成器确定性清理 4 个红瓦零面积面。Hero lineage、tier 与禁止替代信息均写入
+  root extras。
+- Fixed views: canonical、side、entrance 三张 Headless 图使用 Hero/Massing
+  相同机位；子 Worktree 目检确认双红檐、柱廊/栏杆、中央凉廊、牌匾/灯/卧狮和
+  低玻璃翼可读。1.8 m 人物代理仅用于预览，未保存、未导出。
+- Gate state: Headless、预算、拓扑、GLB audit 与确定性通过；MCP3 和 Three.js
+  三档同机位仍 pending。未改公共 placement、yaw、scale、bounds、collision、
+  start 或 forward，也未把 Identity 接入生产默认。
