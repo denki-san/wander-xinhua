@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "film-art-center",
   "activeScope": "active-18-buildings",
-  "reviewedAt": "2026-07-25T20:43:40+08:00",
+  "reviewedAt": "2026-07-25T21:02:28+08:00",
   "sharedContract": {
     "origin": [0, 0, 0],
     "frontDirection": "-Y",
@@ -15,7 +15,7 @@
     "startPreset": "/?start=film-art"
   },
   "hero": {
-    "status": "mcp2-topology-repaired-recheck-pending",
+    "status": "mcp2-pass-frozen-identity-source",
     "generator": "scripts/create_xinhua_road_models.py",
     "generatorSha256": "324be84a32ed3d43ff0bc1ceaca040e8e46f68aff21151b1bafa4ae524f6f3c6",
     "blend": {
@@ -39,14 +39,19 @@
       "removedFaces": 76,
       "remainingFacesBelowEpsilon": 0,
       "nonfinitePolygonNormals": 0,
-      "deterministicGlb": "pass"
+      "deterministicGlb": "pass",
+      "mcp2": "pass"
     },
     "buildRecord": "docs/research/build-records/film-art-center.json"
   },
   "identity": {
-    "status": "missing-blocked-until-hero-mcp2",
-    "derivedFrom": null,
-    "identityAllowed": false
+    "status": "missing-unlocked-pending-independent-derivation",
+    "derivedFrom": {
+      "heroGlbSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+      "method": "deterministic-simplification-preserving-subject-specific-cues"
+    },
+    "identityAllowed": true,
+    "forbiddenSubstitute": "arts-cluster-generic-proxy"
   },
   "massing": {
     "status": "mcp1-and-map-pass",
@@ -89,5 +94,5 @@
     "facilityAndSharedPrototypes": "not-imported",
     "otherBuildings": "untouched"
   },
-  "nextGate": "blender-mcp2-hero-master-recheck"
+  "nextGate": "identity-deterministic-candidate-build"
 }

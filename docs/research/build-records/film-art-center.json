@@ -89,6 +89,11 @@
       "test_artifacts/test_film-art-center-hero_mcp2_canonical.png",
       "test_artifacts/test_film-art-center-hero_mcp2_side.png",
       "test_artifacts/test_film-art-center-hero_mcp2_entrance-street.png"
+    ],
+    "mcp2Recheck": [
+      "test_artifacts/test_film-art-center-hero_mcp2_recheck_canonical.png",
+      "test_artifacts/test_film-art-center-hero_mcp2_recheck_side.png",
+      "test_artifacts/test_film-art-center-hero_mcp2_recheck_entrance-street.png"
     ]
   },
   "validation": {
@@ -96,7 +101,7 @@
     "glbAudit": "passed",
     "automatedTests": "passed-26-film-art-center-and-xinhua-road-tests",
     "runtimeQa": "superseded-pending-current-binary-and-three-tier",
-    "independentReview": "mcp2-topology-repaired-recheck-pending",
-    "identityAllowed": false
+    "independentReview": "mcp2-pass",
+    "identityAllowed": true
   }
 }

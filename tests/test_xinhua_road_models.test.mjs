@@ -354,9 +354,9 @@ test("上海影城和新华两佰的 build record 与当前 GLB、缓存版本�
       );
       assert.equal(
         record.validation.independentReview,
-        "mcp2-topology-repaired-recheck-pending",
+        "mcp2-pass",
       );
-      assert.equal(record.validation.identityAllowed, false);
+      assert.equal(record.validation.identityAllowed, true);
     } else {
       assert.equal(record.validation.runtimeQa, "passed");
     }
