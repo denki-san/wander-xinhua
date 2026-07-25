@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "assetId": "house-315",
+  "tier": "massing-v2",
+  "testedAt": "2026-07-25T21:32:44+08:00",
+  "testedBy": "house-315-worktree-agent",
+  "sourceCheckpoint": "d2dca4a",
+  "url": "http://127.0.0.1:4175/?start=house315&cameraQa=1&qaModelTier=massing&network=standard",
+  "route": "/?start=house315&cameraQa=1&qaModelTier=massing&network=standard",
+  "buildMode": "vite-static-production-preview",
+  "viewport": {
+    "width": 1280,
+    "height": 720,
+    "devicePixelRatio": 1
+  },
+  "pageVisibility": "visible",
+  "prewarmSeconds": 12,
+  "canvasCount": 1,
+  "temporaryQaAssembly": {
+    "temporary": true,
+    "sourceRegistry": "app/scene/xinhua-road-landmarks-data.json",
+    "sourceRegistryOriginalSha256": "eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6",
+    "sourceRegistryRestoredSha256": "eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6",
+    "sourceRegistryRestoredByteForByte": true,
+    "sourceRegistryCommitted": false,
+    "distStaticCommitted": false,
+    "heroAssetOverwritten": false,
+    "queryParameterNote": "The current runtime does not consume qaModelTier for landmark selection; the exact Massing GLB was loaded through a temporary registry replacement in the QA-only static bundle.",
+    "frozenPlacement": {
+      "position": [-23.03, 85.67],
+      "yaw": -0.38,
+      "scale": 0.9
+    }
+  },
+  "modelResource": {
+    "url": "/models/tiers/xinhua-road/massing-v2/house-315-massing.glb?v=test-massing-e9d62cfc7ffb",
+    "sourcePath": "public/models/tiers/xinhua-road/massing-v2/house-315-massing.glb",
+    "distPath": "dist-static/models/tiers/xinhua-road/massing-v2/house-315-massing.glb",
+    "sourceSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+    "distSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+    "sourceAndDistMatch": true,
+    "httpStatus": 200,
+    "encodedBodySize": 17352,
+    "decodedBodySize": 17352,
+    "firstTransferSize": 17652,
+    "firstResourceDurationMs": 2.2,
+    "harRequests": 6,
+    "harStatuses": [200, 200, 200, 200, 200, 200]
+  },
+  "checks": {
+    "resource": "pass-http-200-exact-glb-sha-and-17352-byte-body",
+    "materialVisibility": "pass-four-material-groups-visible-after-runtime-autumn-cloning",
+    "position": "pass-frozen-existing-anchor",
+    "orientation": "pass-local-negative-y-central-gable-faces-street",
+    "scale": "pass-massing-consistent-with-player-and-adjacent-buildings",
+    "groundContact": "pass-no-visible-float-or-sink",
+    "roadSetback": "pass-building-remains-behind-sidewalk-and-does-not-enter-carriageway",
+    "entranceClearance": "pass-front-recess-remains-open-until-main-spine",
+    "cameraSafety": "pass-start-and-close-probe-spring-clear-with-full-arm",
+    "collision": "pass-fixed-heading-probe-enters-front-recess-and-stops-before-main-spine",
+    "walkableVoid": "pass-front-recess-open-no-courtyard-wide-collision-box",
+    "console": "pass-zero-console-messages",
+    "pageErrors": "pass-zero-page-errors",
+    "performance": "pass-visible-10-second-sample"
+  },
+  "cameraQa": {
+    "start": {
+      "mode": "spring-clear",
+      "blocker": "none",
+      "desiredArmLength": 5.44,
+      "resolvedArmLength": 5.44,
+      "fovDegrees": 58,
+      "modeChanges": 1
+    },
+    "closeProbe": {
+      "mode": "spring-clear",
+      "blocker": "none",
+      "desiredArmLength": 5.44,
+      "resolvedArmLength": 5.44,
+      "note": "Landmarks intentionally remain transparent to the camera; camera blocker state is not used as player-collision evidence."
+    }
+  },
+  "collisionProbe": {
+    "method": "deterministic-key-script-with-camera-follow-held",
+    "startPreset": {
+      "position": [-21.8, 67.6],
+      "forward": [-0.05, 1]
+    },
+    "input": "KeyW",
+    "cameraControl": "trusted pointer-down without pointer delta held during each timed segment to suppress automatic orbit follow",
+    "segmentsMs": [4001.8, 2001.2, 2001.8, 2002],
+    "totalInputMs": 10006.8,
+    "observedPath": [
+      "The player crosses the existing road setback without a road collision.",
+      "The player enters the intentional front recess between the projecting central gable and right wing.",
+      "Repeated fixed-heading input leaves the player outside the dark main-spine back wall; no wall penetration is visible."
+    ],
+    "configurationEvidence": {
+      "localObstacles": [
+        { "minX": -6.7, "maxX": 6.7, "minZ": -3.5, "maxZ": 2.4 },
+        { "minX": -4.475, "maxX": 0.675, "minZ": -2.65, "maxZ": 4.55 },
+        { "minX": 3.275, "maxX": 7.025, "minZ": -4.375, "maxZ": 3.075 },
+        { "minX": -7.475, "maxX": -3.225, "minZ": -4.35, "maxZ": -0.15 }
+      ],
+      "worldObstaclesWithCollisionMargin": [
+        { "id": "main-spine", "minX": -29.9982, "maxX": -16.429, "minZ": 81.2274, "maxZ": 91.0319 },
+        { "id": "central-gable", "minX": -27.8548, "maxX": -20.7469, "minZ": 80.1732, "maxZ": 88.3102 },
+        { "id": "right-wing", "minX": -21.9533, "maxX": -15.932, "minZ": 83.9932, "maxZ": 91.8718 },
+        { "id": "left-wing", "minX": -30.9297, "maxX": -25.5755, "minZ": 83.1, "maxZ": 88.4291 }
+      ]
+    }
+  },
+  "performance": {
+    "protocol": "requestAnimationFrame visible-page sample after production-preview prewarm",
+    "sampleMs": 10007.4,
+    "frames": 601,
+    "fps": 60.0556,
+    "maximumFrameMs": 16.8,
+    "framesOver33ms": 0,
+    "memory": {
+      "usedJsHeapBytes": 88175005,
+      "totalJsHeapBytes": 100697473
+    },
+    "baselineClaim": "none-no-same-condition-comparison"
+  },
+  "screenshots": {
+    "canonical": {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-threejs-canonical.png",
+      "sha256": "792632352118ab05542b863b39828ce450be6cf04170ba1f3ceaa12f5417cdac",
+      "bytes": 555856
+    },
+    "side": {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-threejs-side.png",
+      "sha256": "7ed0cd36897c819dd397571fadd55c794d1857c0af68b0bb6e3c1941111db4dd",
+      "bytes": 511381
+    },
+    "approach": {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-threejs-approach-2s.png",
+      "sha256": "b1c38f353a24d860050c1947ef9402cae728bfac4c3c14347716e656b2ac121b",
+      "bytes": 552632
+    },
+    "frontRecess": {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-threejs-collision-fixed-heading-4s.png",
+      "sha256": "09f7a888da1c7f1670501b9c338d4212d0e06b02ecf59633486c581753e60a04",
+      "bytes": 689170
+    },
+    "collisionStop": {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-threejs-collision-final-stop.png",
+      "sha256": "3e678becfe04e036b224b3beaecfb86c1e637cb69698c4cf4b6e5dc6f3844582",
+      "bytes": 610937
+    }
+  },
+  "har": {
+    "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-map-gate.har",
+    "sha256": "58e6848dee07a05027d5940439b670cf72722571ecdd88186fe8d91fa76306c2",
+    "bytes": 557132,
+    "requests": 196
+  },
+  "integrationRecommendation": {
+    "owner": "main-window",
+    "sharedRegistryChangeCommittedHere": false,
+    "model": "/models/tiers/xinhua-road/massing-v2/house-315-massing.glb",
+    "modelSourcePath": "public/models/tiers/xinhua-road/massing-v2/house-315-massing.glb",
+    "modelSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+    "cacheVersion": "e9d62cfc7ffb",
+    "position": [-23.03, 85.67],
+    "yaw": -0.38,
+    "scale": 0.9,
+    "localBounds": {
+      "minX": -7.675,
+      "maxX": 7.225,
+      "minZ": -4.575,
+      "maxZ": 4.84
+    },
+    "localObstacles": [
+      { "minX": -6.7, "maxX": 6.7, "minZ": -3.5, "maxZ": 2.4 },
+      { "minX": -4.475, "maxX": 0.675, "minZ": -2.65, "maxZ": 4.55 },
+      { "minX": 3.275, "maxX": 7.025, "minZ": -4.375, "maxZ": 3.075 },
+      { "minX": -7.475, "maxX": -3.225, "minZ": -4.35, "maxZ": -0.15 }
+    ],
+    "keepUnchanged": [
+      "query",
+      "name",
+      "address",
+      "start",
+      "forward",
+      "position",
+      "yaw",
+      "scale"
+    ]
+  },
+  "automatedQa": {
+    "path": "scripts/test_house_315_massing_map_gate.mjs",
+    "sha256": "592882e6387cbac53ccb8a1ea8dc7a837f4049c76be2ba06a52921b69173c984"
+  },
+  "mapAcceptance": "formal-pass",
+  "heroIdentityAuthorized": false,
+  "nextGate": "main-window-shared-massing-integration-review"
+}

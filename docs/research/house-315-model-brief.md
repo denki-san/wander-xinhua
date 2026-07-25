@@ -206,6 +206,29 @@ registry / runtime，也未进行 Three.js 地图校准。
   `dccd5ad4... / e9d62cfc...`
 - Next gate: `three-js-massing-map-calibration`
 
+### Three.js Massing map gate
+
+- Result: `formal-pass`
+- QA record:
+  `docs/research/house-315-massing-map-qa.json`
+- Build mode: Vite static production preview
+- Viewport: `1280 × 720`，DPR 1，页面可见
+- Frozen placement:
+  `position [-23.03, 85.67]`、`yaw -0.38`、`scale 0.9`
+- Resource: HTTP 200，encoded body 17,352 bytes，source / dist SHA 均为
+  `e9d62cfc...`
+- Visual: local `-Y` 中央山墙朝街；比例、接地和道路退界通过
+- Camera: 起点和近楼探针均为 `spring-clear`，arm 未压缩
+- Collision: 固定方向累计10秒输入进入前场凹口，最终仍停在后部主屋体之外；
+  四个分体 obstacle 未覆盖整个院落
+- Console / page errors: `0 / 0`
+- Performance: 可见页面预热后采样 10.0074 秒，601 frames，
+  60.0556 FPS，最大16.8ms，超过33ms帧为0
+- Shared registry: 临时 QA 构建后逐字节恢复，原/后 SHA 均为
+  `eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6`
+- Shared integration: 未在本 Worktree 提交；建议值写入专项 QA，等待主窗口。
+- Identity / Hero: 继续锁定。
+
 ## Quality Contract
 
 以下合同只授权 subject-specific Massing；Identity 和 Hero 仍关闭。
@@ -285,7 +308,7 @@ registry / runtime，也未进行 Three.js 地图校准。
 | Evidence | subject、canonical、俯瞰纵深、入口和三项以上 cue 闭合 | Passed for Massing |
 | Deterministic Massing | 新建 `.blend` / `.glb`，双构建 SHA 一致 | Candidate complete |
 | Blender MCP 1 | 场景、固定机位、轮廓、尺标和网格完整性通过 | Passed |
-| Three.js Massing | 真实 `?start=house315` 地图、比例、朝向、接地 | Pending after MCP 1 |
+| Three.js Massing | 真实 `?start=house315` 资源、地图、比例、朝向、接地、碰撞和性能通过 | Passed |
 | Identity / Hero | 需要更高层证据门和后续 MCP 门 | Closed |
 
 ## Decision Log

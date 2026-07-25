@@ -3,7 +3,7 @@
   "auditedAt": "2026-07-25",
   "assetId": "building:xinhua-road:house-315",
   "tier": "massing-v2",
-  "status": "mcp1-pass-awaiting-threejs-map-gate",
+  "status": "massing-map-gate-pass-awaiting-main-window-integration",
   "recoveryCommitReadOnly": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
   "generator": "scripts/create_house_315_massing_model.py",
   "generatorSha256": "45c69f7f20d412de3f8f6dd1afef679d4dff81db2e4c0675089f4f6c6af492cf",
@@ -122,8 +122,32 @@
     "qaRigExported": false,
     "nextGate": "three-js-massing-map-calibration"
   },
-  "mapCalibration": "pending-three-js-map-gate",
-  "threeJsRuntime": "not-run-candidate-not-integrated",
+  "mapCalibration": {
+    "status": "formal-pass",
+    "testedAt": "2026-07-25T21:32:44+08:00",
+    "record": "docs/research/house-315-massing-map-qa.json",
+    "frozenPlacement": {
+      "position": [-23.03, 85.67],
+      "yaw": -0.38,
+      "scale": 0.9
+    },
+    "sharedRegistryCommitted": false,
+    "sharedRegistryRestoredSha256": "eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6"
+  },
+  "threeJsRuntime": {
+    "status": "massing-map-gate-pass",
+    "buildMode": "vite-static-production-preview",
+    "viewport": [1280, 720],
+    "pageVisibility": "visible",
+    "resourceStatus": 200,
+    "encodedBodySize": 17352,
+    "consoleMessages": 0,
+    "pageErrors": 0,
+    "performanceSampleMs": 10007.4,
+    "fps": 60.0556,
+    "framesOver33ms": 0,
+    "heroIdentityAuthorized": false
+  },
   "blendSceneAudit": {
     "sha256": "dccd5ad4a5b47e56c08e19be53446a6cb3eb43dc17dc5e10231018a5206b532b",
     "objectCount": 1,

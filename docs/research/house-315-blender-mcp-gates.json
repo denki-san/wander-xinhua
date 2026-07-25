@@ -108,16 +108,30 @@
   },
   "mapGate": {
     "gate": "three-js-massing-map-calibration",
-    "status": "pending",
-    "fixedEntry": "/?start=house315&cameraQa=1",
+    "status": "formal-pass",
+    "reviewedAt": "2026-07-25T21:32:44+08:00",
+    "reviewedBy": "house-315-worktree-agent",
+    "runtimeQa": "docs/research/house-315-massing-map-qa.json",
+    "fixedEntry": "/?start=house315&cameraQa=1&qaModelTier=massing&network=standard",
     "movementAuthorized": false,
     "frozenPlacement": {
       "position": [-23.03, 85.67],
       "yaw": -0.38,
       "scale": 0.9
     },
-    "temporaryQaAssemblyRequired": true,
-    "sharedRegistryMustBeRestoredByteForByte": true
+    "temporaryQaAssembly": true,
+    "sharedRegistryRestoredSha256": "eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6",
+    "sharedRegistryCommitted": false,
+    "checks": {
+      "resource": "pass-http-200-exact-17352-byte-glb",
+      "positionOrientationScale": "pass-frozen-placement",
+      "groundAndRoad": "pass-ground-contact-and-road-setback",
+      "camera": "pass-spring-clear-start-and-close-probe",
+      "collision": "pass-front-recess-and-main-spine-stop",
+      "consoleAndErrors": "pass-zero",
+      "performance": "pass-10-second-visible-sample"
+    },
+    "nextGate": "main-window-shared-massing-integration-review"
   },
   "heroGate": {
     "status": "blocked-until-map-gate-pass-and-new-authorization"
