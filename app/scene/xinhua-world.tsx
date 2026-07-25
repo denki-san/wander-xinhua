@@ -29,6 +29,7 @@ import {
   useLayoutEffect,
   useMemo,
   useRef,
+  useState,
 } from "react";
 import { inputState, resetInput } from "./input";
 import { ProgressiveFeatureBoundary } from "../progressive-feature-boundary";
@@ -36,6 +37,7 @@ import {
   MAP_POIS,
   nearestMapPoi,
 } from "./poi-data";
+import { districtMassingEligibleAtOverviewEntry } from "./overview-district-massing-policy";
 import {
   HuashanGreenBlock,
   HUASHAN_BUILDING_FOOTPRINTS,
@@ -551,15 +553,8 @@ function FlatNeighborhood({
         showStreetDressing={mode === "explore"}
         lowTier={lowTier}
       />
-      {mode === "overview" && networkProfile === "standard" && !districtDisabledForQa && (
-        <ProgressiveFeatureBoundary
-          resetKey={`district-massing-${mode}-${networkProfile}`}
-          fallback={null}
-        >
-          <Suspense fallback={null}>
-            <ProgressiveOverviewDistrictMassing />
-          </Suspense>
-        </ProgressiveFeatureBoundary>
+      {mode === "overview" && !districtDisabledForQa && (
+        <OverviewDistrictMassingGate networkProfile={networkProfile} />
       )}
       <group
         position={[XINGFULI_POSITION[0], XINGFULI_BASE_Y, XINGFULI_POSITION[1]]}
@@ -608,6 +603,30 @@ function FlatNeighborhood({
       )}
       <ActionInstallation onOpenAction={onOpenAction} />
     </group>
+  );
+}
+
+function OverviewDistrictMassingGate({
+  networkProfile,
+}: {
+  networkProfile: ProgressiveNetworkProfile;
+}) {
+  // 弱网策略只在进入全览时决定是否发起首次请求。白模一旦进入本轮全览，
+  // 后续瞬时 downlink 波动不得撤掉已经下载并显示的街区上下文。
+  const [eligibleAtEntry] = useState(() => (
+    districtMassingEligibleAtOverviewEntry(networkProfile)
+  ));
+  if (!eligibleAtEntry) return null;
+
+  return (
+    <ProgressiveFeatureBoundary
+      resetKey="district-massing-overview"
+      fallback={null}
+    >
+      <Suspense fallback={null}>
+        <ProgressiveOverviewDistrictMassing />
+      </Suspense>
+    </ProgressiveFeatureBoundary>
   );
 }
 

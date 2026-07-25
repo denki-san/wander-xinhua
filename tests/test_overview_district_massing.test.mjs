@@ -5,6 +5,9 @@ import { readFile, stat } from "node:fs/promises";
 import { promisify } from "node:util";
 import test from "node:test";
 import { auditRoadSetbacks } from "../scripts/generate_overview_district_massing.mjs";
+import {
+  districtMassingEligibleAtOverviewEntry,
+} from "../app/scene/overview-district-massing-policy.ts";
 
 const execFileAsync = promisify(execFile);
 
@@ -225,7 +228,12 @@ test("同一原始快照离线重放会得到当前 GLB 的相同 SHA", async ()
   assert.equal(replay.sha256, build.output.sha256);
 });
 
-test("运行时只在标准网络 overview 中懒加载且失败不阻断原地图", async () => {
+test("弱网只决定全览首次请求，已显示白模不随瞬时网络降级撤回", () => {
+  assert.equal(districtMassingEligibleAtOverviewEntry("standard"), true);
+  assert.equal(districtMassingEligibleAtOverviewEntry("weak"), false);
+});
+
+test("运行时按全览入口网络档位懒加载且失败不阻断原地图", async () => {
   const [world, component, experience] = await Promise.all([
     readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/scene/overview-district-massing.tsx", import.meta.url), "utf8"),
@@ -233,7 +241,16 @@ test("运行时只在标准网络 overview 中懒加载且失败不阻断原地�
   ]);
 
   assert.match(world, /lazy\(\s*\(\) => import\("\.\/overview-district-massing"\)/);
-  assert.match(world, /mode === "overview" && networkProfile === "standard"/);
+  assert.match(world, /function OverviewDistrictMassingGate/);
+  assert.match(world, /const \[eligibleAtEntry\] = useState/);
+  assert.match(world, /districtMassingEligibleAtOverviewEntry\(networkProfile\)/);
+  assert.match(world, /mode === "overview" && !districtDisabledForQa/);
+  assert.doesNotMatch(
+    world,
+    /mode === "overview" && networkProfile === "standard"/,
+  );
+  assert.doesNotMatch(world, /resetKey=\{`district-massing-\$\{mode\}-\$\{networkProfile\}`\}/);
+  assert.match(world, /resetKey="district-massing-overview"/);
   assert.match(world, /get\("district"\) === "off"/);
   assert.match(
     world,
@@ -244,8 +261,12 @@ test("运行时只在标准网络 overview 中懒加载且失败不阻断原地�
     "街区体块应位于地图基底之后",
   );
   assert.ok(
-    world.indexOf("<ProgressiveOverviewDistrictMassing") < world.indexOf("<XingfuliBlock"),
+    world.indexOf("<OverviewDistrictMassingGate") < world.indexOf("<XingfuliBlock"),
     "街区体块应位于 authored POI 之前",
+  );
+  assert.match(
+    world,
+    /function OverviewDistrictMassingGate[\s\S]*?<ProgressiveOverviewDistrictMassing \/>/,
   );
   assert.match(component, /object\.castShadow = false/);
   assert.match(component, /object\.receiveShadow = false/);
