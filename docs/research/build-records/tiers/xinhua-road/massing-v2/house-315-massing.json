@@ -3,7 +3,7 @@
   "auditedAt": "2026-07-25",
   "assetId": "building:xinhua-road:house-315",
   "tier": "massing-v2",
-  "status": "candidate-awaiting-blender-mcp-1",
+  "status": "mcp1-pass-awaiting-threejs-map-gate",
   "recoveryCommitReadOnly": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
   "generator": "scripts/create_house_315_massing_model.py",
   "generatorSha256": "45c69f7f20d412de3f8f6dd1afef679d4dff81db2e4c0675089f4f6c6af492cf",
@@ -91,11 +91,38 @@
   "identityAllowed": false,
   "heroAllowed": false,
   "mcp1": {
-    "status": "pending-main-window-authorization",
+    "status": "pass",
+    "reviewedAt": "2026-07-25T21:08:48+08:00",
+    "reviewedBy": "main-coordinator-via-blender-mcp",
+    "sourceCheckpoint": "ca0c413",
+    "record": "docs/research/house-315-blender-mcp-gates.json",
+    "sceneInspection": {
+      "meshObjects": 1,
+      "materials": 4,
+      "vertices": 120,
+      "polygons": 92,
+      "degenerateAreaBelow1e10": 0,
+      "nonFiniteNormals": 0,
+      "boundsBlender": {
+        "min": [-7.675, -4.84, 0],
+        "max": [7.225, 4.575, 6.982892]
+      },
+      "rootNormalized": true
+    },
+    "visualChecks": {
+      "centralHalfTimberGable": "pass",
+      "transverseMainRidge": "pass",
+      "asymmetricWings": "pass",
+      "facadeDivision": "pass",
+      "humanScale": "pass",
+      "scopeBoundary": "pass"
+    },
+    "acceptedInteractiveChanges": [],
     "qaRigSaved": false,
-    "qaRigExported": false
+    "qaRigExported": false,
+    "nextGate": "three-js-massing-map-calibration"
   },
-  "mapCalibration": "pending-after-mcp-1",
+  "mapCalibration": "pending-three-js-map-gate",
   "threeJsRuntime": "not-run-candidate-not-integrated",
   "blendSceneAudit": {
     "sha256": "dccd5ad4a5b47e56c08e19be53446a6cb3eb43dc17dc5e10231018a5206b532b",
