@@ -569,6 +569,20 @@ function FlatNeighborhood({
     typeof window !== "undefined"
     && new URLSearchParams(window.location.search).get("district") === "off"
   );
+  const qaScopedLandmarkId = (
+    typeof window === "undefined"
+      ? null
+      : new URLSearchParams(window.location.search).get("qaModelId")
+  );
+  const qaFallbackHiddenIds = useMemo(() => {
+    if (
+      !qaScopedLandmarkId
+      || !XINHUA_ROAD_LANDMARKS.some(({ id }) => id === qaScopedLandmarkId)
+    ) {
+      return undefined;
+    }
+    return new Set([qaScopedLandmarkId]);
+  }, [qaScopedLandmarkId]);
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
       {cinemaTierQa ? (
@@ -649,9 +663,21 @@ function FlatNeighborhood({
       ) : showDetailModels ? (
         <ProgressiveFeatureBoundary
           resetKey={landmarkLoadMode}
-          fallback={<XinhuaRoadMassing identity />}
+          fallback={(
+            <XinhuaRoadMassing
+              identity
+              hiddenLandmarkIds={qaFallbackHiddenIds}
+            />
+          )}
         >
-          <Suspense fallback={<XinhuaRoadMassing identity />}>
+          <Suspense
+            fallback={(
+              <XinhuaRoadMassing
+                identity
+                hiddenLandmarkIds={qaFallbackHiddenIds}
+              />
+            )}
+          >
             <ProgressiveXinhuaRoadFullLayer
               showLabels={showDetailLabels}
               showHero={showHeroTree}

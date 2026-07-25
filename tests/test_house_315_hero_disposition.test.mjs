@@ -176,7 +176,7 @@ function auditGeometry(json, binary) {
   };
 }
 
-test("House315 旧 Hero disposition 冻结旧资产并保持公共 registry 不变", async () => {
+test("House315 旧 Hero disposition 冻结旧资产并让公共 registry 指向验收后的替代资产", async () => {
   const record = await readJson(dispositionPath);
   const registry = await readJson("app/scene/xinhua-road-landmarks-data.json");
   const landmark = registry.landmarks.find(({ id }) => id === "house-315");
@@ -205,8 +205,12 @@ test("House315 旧 Hero disposition 冻结旧资产并保持公共 registry 不�
     record.legacyHero.generator.fullGeneratorByteIdenticalToProducingCommit,
     false,
   );
-  assert.equal(landmark.model, "/models/xinhua-road/house-315.glb");
-  assert.equal(landmark.cacheVersion, "20260718-detail-1");
+  assert.equal(
+    record.activeReplacementStatus,
+    "hero-v2-identity-v1-massing-v2-complete-runtime-pass",
+  );
+  assert.equal(landmark.model, "/models/tiers/xinhua-road/hero-v2/house-315-hero.glb");
+  assert.equal(landmark.cacheVersion, "20260725-hero-ad414549");
 });
 
 test("House315 旧 Hero generator 函数 lineage 未漂移但无资产级 build record", async () => {

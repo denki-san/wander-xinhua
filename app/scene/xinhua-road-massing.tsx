@@ -27,6 +27,7 @@ import {
   ShanghaiCinemaHybridIdentity,
   ShanghaiCinemaMassingGlb,
 } from "./shanghai-cinema-hybrid-identity";
+import { House315RuntimeAsset } from "./house-315-runtime";
 import { OneStepGardenRuntimeAsset } from "./one-step-garden-runtime";
 
 const IDENTITY_COLORS = [
@@ -658,6 +659,26 @@ export function LandmarkProgressiveProxy({
   identity: boolean;
   forceProgrammaticIdentity?: boolean;
 }) {
+  if (landmark.id === "house-315") {
+    return (
+      <group
+        name="house-315-progressive-proxy"
+        userData={{
+          building: landmark.id,
+          stage: identity ? "identity" : "massing",
+          overviewRepresentation: identity
+            ? "derived-identity-glb"
+            : "derived-massing-glb",
+          progressive: true,
+          sharedOrigin: true,
+        }}
+      >
+        <House315RuntimeAsset
+          requestedTier={identity ? "identity" : "massing"}
+        />
+      </group>
+    );
+  }
   if (landmark.id === "one-step-garden") {
     return (
       <group

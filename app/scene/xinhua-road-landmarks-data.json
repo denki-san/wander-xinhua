@@ -110,14 +110,17 @@
       "query": "house315",
       "name": "新华路315号住宅",
       "address": "新华路315号",
-      "model": "/models/xinhua-road/house-315.glb",
-      "cacheVersion": "20260718-detail-1",
+      "model": "/models/tiers/xinhua-road/hero-v2/house-315-hero.glb",
+      "cacheVersion": "20260725-hero-ad414549",
       "position": [-23.03, 85.67],
       "yaw": -0.38,
       "scale": 0.9,
-      "localBounds": { "minX": -9.25, "maxX": 9.25, "minZ": -6.7, "maxZ": 9.5 },
+      "localBounds": { "minX": -7.675, "maxX": 7.225, "minZ": -4.575, "maxZ": 4.84 },
       "localObstacles": [
-        { "minX": -7.3, "maxX": 5.4, "minZ": -5.0, "maxZ": 5.6 }
+        { "minX": -6.7, "maxX": 6.7, "minZ": -3.5, "maxZ": 2.4 },
+        { "minX": -4.475, "maxX": 0.675, "minZ": -2.65, "maxZ": 4.55 },
+        { "minX": 3.275, "maxX": 7.025, "minZ": -4.375, "maxZ": 3.075 },
+        { "minX": -7.475, "maxX": -3.225, "minZ": -4.35, "maxZ": -0.15 }
       ],
       "start": [-21.8, 67.6],
       "forward": [-0.05, 1]

@@ -3,7 +3,7 @@
   "assetId": "house-315",
   "activeScope": "exact-18-building-program-house-315-only",
   "recordedAt": "2026-07-25",
-  "status": "mcp3-pass-runtime-pending",
+  "status": "complete-runtime-pass",
   "sourceGate": {
     "gate": "mcp2-hero-visual-review",
     "status": "pass",
@@ -266,11 +266,12 @@
     "legacyHeroOverwritten": false
   },
   "runtime": {
-    "status": "authorized-pending-house-315-runtime-worktree",
+    "status": "complete-main-window-runtime-pass",
     "runtimeAuthorized": true,
-    "runtimeExecutionStarted": false,
-    "publicRegistryModified": false,
-    "runtimeIntegrated": false,
-    "nextAuthority": "house-315-runtime-worktree"
+    "runtimeExecutionStarted": true,
+    "publicRegistryModified": true,
+    "runtimeIntegrated": true,
+    "runtimeAcceptance": "docs/research/house-315-three-tier-runtime-qa.json#runtimeAcceptance",
+    "nextAuthority": "complete-no-rework-unless-binary-or-public-contract-changes"
   }
 }

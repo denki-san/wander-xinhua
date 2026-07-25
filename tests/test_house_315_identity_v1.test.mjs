@@ -203,7 +203,7 @@ test("House315 Identity v1 只从冻结且已通过 MCP2 的 Hero v2 派生", as
     "docs/research/build-records/tiers/xinhua-road/hero-v2/house-315-hero.json",
   );
 
-  assert.equal(record.status, "mcp3-pass-runtime-pending");
+  assert.equal(record.status, "complete-runtime-pass");
   assert.equal(record.tier, "identity");
   assert.equal(record.versionName, "identity-v1");
   assert.equal(record.generator.sha256, await sha256(record.generator.path));
@@ -418,7 +418,7 @@ test("House315 Identity v1 三固定机位和建筑-only 范围证据闭合", as
   }
 });
 
-test("House315 Identity v1 已通过主窗口 MCP3 且公共 runtime 仍未修改", async () => {
+test("House315 Identity v1 已通过 MCP3 并完成主窗口公共 runtime", async () => {
   const record = await readJson(recordPath);
   const lineage = await readJson(lineagePath);
   const hero = await readJson(
@@ -458,32 +458,38 @@ test("House315 Identity v1 已通过主窗口 MCP3 且公共 runtime 仍未修�
   assert.equal(record.independentReview.modelOrRuntimeModifiedByReview, false);
   assert.equal(
     record.runtime.status,
-    "authorized-pending-house-315-runtime-worktree",
+    "complete-main-window-runtime-pass",
   );
   assert.equal(record.runtime.runtimeAuthorized, true);
-  assert.equal(record.runtime.runtimeExecutionStarted, false);
-  assert.equal(record.runtime.publicRegistryModified, false);
-  assert.equal(record.runtime.runtimeIntegrated, false);
-  assert.equal(lineage.status, "mcp3-pass-runtime-pending");
+  assert.equal(record.runtime.runtimeExecutionStarted, true);
+  assert.equal(record.runtime.publicRegistryModified, true);
+  assert.equal(record.runtime.runtimeIntegrated, true);
+  assert.equal(lineage.status, "complete-runtime-pass");
   assert.equal(lineage.threeTierGate.formalPass, true);
   assert.equal(lineage.threeTierGate.independentReview.status, "ready");
   assert.equal(lineage.tiers.identity.gates.mcp3, "pass");
-  assert.equal(lineage.runtime.runtimeExecutionStarted, false);
+  assert.equal(lineage.runtime.runtimeExecutionStarted, true);
+  assert.equal(lineage.runtime.publicRegistryModified, true);
+  assert.equal(lineage.runtime.runtimeIntegrated, true);
   assert.equal(
     hero.identityLineage.status,
-    "identity-v1-mcp3-pass-runtime-pending",
+    "identity-v1-complete-runtime-pass",
   );
   assert.equal(hero.identityLineage.identityDerivationStarted, true);
   assert.equal(hero.identityLineage.identityCandidateCompleted, true);
   assert.equal(hero.identityLineage.identityFormalPass, true);
   assert.equal(hero.identityLineage.runtimeAuthorized, true);
-  assert.equal(hero.identityLineage.runtimeExecutionStarted, false);
+  assert.equal(hero.identityLineage.runtimeExecutionStarted, true);
+  assert.equal(hero.identityLineage.runtimeIntegrated, true);
+  assert.equal(hero.identityLineage.publicRegistryModified, true);
   assert.equal(gates.identityGate.status, "pass");
   assert.equal(gates.identityGate.identityCandidateCompleted, true);
   assert.equal(gates.identityGate.mcp3Status, "pass");
   assert.equal(gates.identityGate.identityFormalPass, true);
   assert.equal(gates.identityGate.runtimeAuthorized, true);
-  assert.equal(gates.identityGate.runtimeExecutionStarted, false);
+  assert.equal(gates.identityGate.runtimeExecutionStarted, true);
+  assert.equal(gates.identityGate.runtimeIntegrated, true);
+  assert.equal(gates.identityGate.publicRegistryModified, true);
   assert.equal(gates.identityGate.candidate.independentReview.status, "ready");
   assert.equal(
     await sha256(gates.identityGate.candidate.editableSource.path),
@@ -500,7 +506,7 @@ test("House315 Identity v1 已通过主窗口 MCP3 且公共 runtime 仍未修�
   assert.equal(gates.threeTierGate.formalPass, true);
   assert.equal(
     disposition.activeReplacementStatus,
-    "hero-v2-mcp2-pass-identity-v1-mcp3-pass-runtime-pending",
+    "hero-v2-identity-v1-massing-v2-complete-runtime-pass",
   );
   assert.equal(
     disposition.replacementCandidate.identityLineage.mcp3,
@@ -512,7 +518,7 @@ test("House315 Identity v1 已通过主窗口 MCP3 且公共 runtime 仍未修�
   );
   assert.equal(
     disposition.replacementCandidate.identityLineage.runtimeExecutionStarted,
-    false,
+    true,
   );
   assert.equal(
     await sha256(
@@ -520,10 +526,10 @@ test("House315 Identity v1 已通过主窗口 MCP3 且公共 runtime 仍未修�
     ),
     disposition.replacementCandidate.identityLineage.editableSource.sha256,
   );
-  assert.equal(disposition.replacementCandidate.publicRegistryModified, false);
-  assert.equal(disposition.replacementCandidate.runtimeIntegrated, false);
-  assert.equal(landmark.model, "/models/xinhua-road/house-315.glb");
-  assert.equal(landmark.cacheVersion, "20260718-detail-1");
+  assert.equal(disposition.replacementCandidate.publicRegistryModified, true);
+  assert.equal(disposition.replacementCandidate.runtimeIntegrated, true);
+  assert.equal(landmark.model, HOUSE_315_TIERS.hero.path);
+  assert.equal(landmark.cacheVersion, HOUSE_315_TIERS.hero.cacheVersion);
 });
 
 test("House315 runtime contract 精确冻结三档二进制、共同 origin 和预算", async () => {
@@ -699,15 +705,33 @@ test("House315 runtime 候选保持专属所有权且等待主窗口公共接线
   const candidate = await readJson(
     "docs/research/house-315-three-tier-runtime-qa.json",
   );
-  const [contractSource, runtimeSource] = await Promise.all([
+  const [
+    contractSource,
+    runtimeSource,
+    landmarksSource,
+    massingSource,
+    worldSource,
+    identityContractSource,
+    registry,
+    fastManifest,
+  ] = await Promise.all([
     readFile(path.join(root, candidate.source.contract.path), "utf8"),
     readFile(path.join(root, candidate.source.runtimeModule.path), "utf8"),
+    readFile(path.join(root, "app/scene/xinhua-road-landmarks.tsx"), "utf8"),
+    readFile(path.join(root, "app/scene/xinhua-road-massing.tsx"), "utf8"),
+    readFile(path.join(root, "app/scene/xinhua-world.tsx"), "utf8"),
+    readFile(
+      path.join(root, "app/scene/xinhua-road-identity-contract.ts"),
+      "utf8",
+    ),
+    readJson("app/scene/xinhua-road-landmarks-data.json"),
+    readJson("docs/research/building-pipeline-fast-mode.json"),
   ]);
 
   assert.equal(candidate.assetId, HOUSE_315_ASSET_ID);
   assert.equal(
     candidate.status,
-    "runtime-candidate-ready-main-window-wiring-and-browser-pending",
+    "complete-main-window-runtime-pass",
   );
   assert.equal(
     await sha256(candidate.source.contract.path),
@@ -737,11 +761,28 @@ test("House315 runtime 候选保持专属所有权且等待主窗口公共接线
   assert.equal(candidate.sharedBaseline.publicRegistryModified, false);
   assert.equal(candidate.sharedBaseline.sharedRuntimeModified, false);
   assert.equal(candidate.sharedBaseline.xinhuaExperienceModified, false);
-  for (const [relativePath, expectedSha] of Object.entries(
-    candidate.sharedBaseline.files,
-  )) {
-    assert.equal(await sha256(relativePath), expectedSha);
-  }
+  const landmark = registry.landmarks.find(({ id }) => id === HOUSE_315_ASSET_ID);
+  assert.equal(landmark.model, HOUSE_315_TIERS.hero.path);
+  assert.equal(landmark.cacheVersion, HOUSE_315_TIERS.hero.cacheVersion);
+  assert.deepEqual(landmark.localBounds, HOUSE_315_PLACEMENT.localBounds);
+  assert.deepEqual(landmark.localObstacles, HOUSE_315_PLACEMENT.localObstacles);
+  assert.match(landmarksSource, /resolveHouse315Qa/);
+  assert.match(landmarksSource, /<House315RuntimeAsset/);
+  assert.match(massingSource, /landmark\.id === "house-315"/);
+  assert.match(worldSource, /qaFallbackHiddenIds/);
+  assert.match(
+    worldSource,
+    /hiddenLandmarkIds=\{qaFallbackHiddenIds\}/,
+  );
+  assert.match(identityContractSource, /HOUSE_315_TIERS\.identity/);
+  assert.match(identityContractSource, /HOUSE_315_TIERS\.massing/);
+  const fastEntry = fastManifest.buildings.find(
+    ({ id }) => id === HOUSE_315_ASSET_ID,
+  );
+  assert.equal(fastEntry.runtimeRoutes.length, 6);
+  assert.ok(fastEntry.runtimeRoutes.every((route) => (
+    route.includes("qaModelId=house-315")
+  )));
   assert.equal(
     await sha256(candidate.legacyHold.runtimeAsset.path),
     candidate.legacyHold.runtimeAsset.sha256,
@@ -749,9 +790,29 @@ test("House315 runtime 候选保持专属所有权且等待主窗口公共接线
   assert.equal(candidate.legacyHold.overwritten, false);
   assert.equal(candidate.legacyHold.deleted, false);
   assert.equal(candidate.mainWindowIntegration.buildingWorktreeMustNotApply, true);
-  assert.ok(candidate.mainWindowIntegration.requiredPatches.length >= 5);
+  assert.equal(candidate.mainWindowIntegration.status, "complete-runtime-pass");
+  assert.equal(candidate.mainWindowIntegration.publicRegistryModified, true);
+  assert.equal(candidate.mainWindowIntegration.sharedRuntimeModified, true);
+  assert.equal(candidate.mainWindowIntegration.browserAcceptance, "pass");
+  assert.ok(candidate.mainWindowIntegration.requiredPatches.length >= 6);
   assert.equal(candidate.completionBoundary.runtimeModuleImplemented, true);
-  assert.equal(candidate.completionBoundary.mainWindowIntegrated, false);
-  assert.equal(candidate.completionBoundary.threeTierRuntimeFinalPass, false);
-  assert.equal(candidate.validation.mainWindowBrowser, "pending");
+  assert.equal(candidate.completionBoundary.mainWindowIntegrated, true);
+  assert.equal(candidate.completionBoundary.threeTierRuntimeFinalPass, true);
+  assert.match(candidate.validation.mainWindowBrowser, /^pass-/);
+  assert.equal(candidate.runtimeAcceptance.result, "pass");
+  assert.equal(candidate.runtimeAcceptance.console.errors, 0);
+  assert.equal(candidate.runtimeAcceptance.routes.massing.staleIdentityRequest, false);
+  assert.equal(
+    candidate.runtimeAcceptance.collisionReplay.continuedInputZDelta,
+    0,
+  );
+  for (const screenshot of Object.values(
+    candidate.runtimeAcceptance.screenshots,
+  )) {
+    assert.equal(await sha256(screenshot.path), screenshot.sha256);
+    assert.equal(
+      (await stat(path.join(root, screenshot.path))).size,
+      screenshot.bytes,
+    );
+  }
 });

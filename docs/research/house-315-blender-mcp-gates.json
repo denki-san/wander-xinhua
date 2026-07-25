@@ -261,7 +261,10 @@
     "identityFormalPass": true,
     "mcp3Review": "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json#mcp3",
     "runtimeAuthorized": true,
-    "runtimeExecutionStarted": false
+    "runtimeExecutionStarted": true,
+    "runtimeIntegrated": true,
+    "publicRegistryModified": true,
+    "runtimeAcceptance": "docs/research/house-315-three-tier-runtime-qa.json#runtimeAcceptance"
   },
   "threeTierGate": {
     "gate": "mcp3-same-camera-three-tier-review",
@@ -351,6 +354,6 @@
       "important": 0,
       "minor": 0
     },
-    "nextGate": "house-315-three-js-three-tier-runtime-acceptance"
+    "nextGate": "complete-no-rework-unless-binary-or-public-contract-changes"
   }
 }

@@ -5,7 +5,7 @@
   "auditedAt": "2026-07-25",
   "auditMode": "read-only-no-rebuild-no-blender-mcp",
   "status": "blocked-not-mcp2-candidate-rebuild-required",
-  "activeReplacementStatus": "hero-v2-mcp2-pass-identity-v1-mcp3-pass-runtime-pending",
+  "activeReplacementStatus": "hero-v2-identity-v1-massing-v2-complete-runtime-pass",
   "decision": {
     "sameIntendedSubjectAsApprovedMassing": true,
     "sameGeometryContractAsApprovedMassing": false,
@@ -46,7 +46,7 @@
     "legacyHeroDisposition": "hold-read-only-rollback-only",
     "legacyHeroOverwritten": false,
     "identityLineage": {
-      "status": "identity-v1-mcp3-pass-runtime-pending",
+      "status": "identity-v1-complete-runtime-pass",
       "identityDerivationAuthorized": true,
       "identityDerivationStarted": true,
       "identityCandidateCompleted": true,
@@ -72,10 +72,13 @@
       "mcp3": "pass",
       "identityFormalPass": true,
       "runtimeAuthorized": true,
-      "runtimeExecutionStarted": false
+      "runtimeExecutionStarted": true,
+      "runtimeIntegrated": true,
+      "publicRegistryModified": true,
+      "runtimeAcceptance": "docs/research/house-315-three-tier-runtime-qa.json#runtimeAcceptance"
     },
-    "publicRegistryModified": false,
-    "runtimeIntegrated": false
+    "publicRegistryModified": true,
+    "runtimeIntegrated": true
   },
   "formalSubjectContract": {
     "referenceManifest": "docs/research/house-315-reference-manifest.json",

@@ -7946,3 +7946,152 @@ expected: main-window-real-browser-acceptance
 ### Resolution
 - **Resolved**: 2026-07-26T00:43:00+08:00
 - **Notes**: 更新唯一 stale nextGate 断言；没有修改任何建筑二进制或地图合同。
+
+---
+## [ERR-20260726-068] direct_tsc_includes_known_non_scene_environment_errors
+
+**Logged**: 2026-07-26T01:13:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+House315 公共接线后直接运行 `npx tsc --noEmit`，命中 Asset Library、Style Lab 和
+Cloudflare worker 的既有环境类型错误；该命令不是项目冻结的 3D 场景类型门。
+
+### Error
+```text
+app/asset-library/AssetLibrary.tsx: RefObject<HTMLElement> is not assignable
+app/style-lab/StyleLab.tsx: StyleId / atmosphereStyle type errors
+db/index.ts: Cannot find module 'cloudflare:workers'
+worker/index.ts: Cannot find name 'Fetcher' / 'D1Database'
+```
+
+### Context
+- 输出没有 `app/scene/` 或 `app/xinhua-experience.tsx` 错误。
+- 项目正式门 `tests/typecheck-scene.test.mjs` 会运行同一 TypeScript 编译，并只判定
+  地图与 3D 场景范围。
+
+### Suggested Fix
+建筑公共接线使用 `node --test tests/typecheck-scene.test.mjs` 做专项类型判定；项目级
+全量结论仍以 Fast Mode 批次 `--full` 为准。
+
+### Resolution
+- **Resolved**: 2026-07-26T01:14:00+08:00
+- **Notes**: 正式场景类型门 1/1 通过；没有为规避无关错误修改 Asset Library、
+  Style Lab、DB 或 worker。
+
+---
+## [ERR-20260726-069] static_preview_local_bind_blocked_by_sandbox
+
+**Logged**: 2026-07-26T01:18:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+House315 生产静态预览首次在默认 sandbox 中绑定 `127.0.0.1:4192` 被系统拒绝。
+
+### Error
+```text
+Error: listen EPERM: operation not permitted 127.0.0.1:4192
+```
+
+### Context
+- `npm run build:static` 已成功，失败只发生在本地监听端口。
+- 未占用端口，也没有生成新的运行时错误。
+
+### Suggested Fix
+对明确的本地 QA preview 监听使用受控提权，并固定到显式 loopback 地址和单一端口。
+
+### Resolution
+- **Resolved**: 2026-07-26T01:18:00+08:00
+- **Notes**: 同一命令经受控提权后成功监听 `127.0.0.1:4192`。
+
+---
+## [ERR-20260726-070] browser_cdp_read_events_returns_envelope_not_array
+
+**Logged**: 2026-07-26T01:30:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+House315 控制台采集首次把 `houseCdp.readEvents()` 返回值当数组调用 `.slice()`。
+该接口实际返回 `{ cursor, events, hasMore, truncated }` envelope。
+
+### Error
+```text
+initialHouseEvents.slice is not a function
+```
+
+### Context
+- `Log.enable` 和 `Runtime.enable` 已成功。
+- Hero 页面、三档 runtime、GLB 和 120 帧采样未受影响。
+- 调用等待异常偏长，但没有写入浏览器产品状态。
+
+### Suggested Fix
+后续只读取 `result.events`，并保留 `cursor` 做增量控制台采集。
+
+### Resolution
+- **Resolved**: 2026-07-26T01:31:00+08:00
+- **Notes**: 已确认 envelope 结构，初始 `events=[]`。
+
+---
+## [ERR-20260726-071] browser_screenshot_uint8array_requires_buffer_conversion
+
+**Logged**: 2026-07-26T01:55:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+House315 自动截图首次把浏览器返回的 `Uint8Array` 直接传给 `sharp`，被识别为普通
+object 而拒绝解码。
+
+### Error
+```text
+Unsupported input '255,216,...' of type object
+```
+
+### Context
+- 页面三档加载、资源采集和 120 帧采样均已完成；失败只发生在截图格式转换。
+- 返回字节实际是合法 JPEG 数据，没有页面或模型写入。
+
+### Suggested Fix
+先使用 `Buffer.from(rawScreenshot)` 显式转换，再交给 `sharp` 编码和落盘。
+
+### Resolution
+- **Resolved**: 2026-07-26T01:56:00+08:00
+- **Notes**: 自动采集函数已统一转换 Buffer，后续建筑可直接复用。
+
+---
+## [ERR-20260726-072] raw_cdp_input_is_not_supported_by_browser_capability
+
+**Logged**: 2026-07-26T02:02:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+House315 碰撞回放尝试通过 raw CDP 持续按住 `KeyW`，浏览器能力明确拒绝
+`Input.dispatchMouseEvent` / `Input.dispatchKeyEvent`。
+
+### Error
+```text
+This method is not supported through raw CDP.
+Use tab.cua.type(...) or tab.cua.keypress(...) instead.
+```
+
+### Context
+- raw CDP 继续只用于只读 Performance/Runtime 采集。
+- 页面、角色和模型没有被该失败调用修改。
+
+### Suggested Fix
+碰撞回放使用受支持的 `tab.cua.keypress({ keys: ["W"] })` 脉冲，并从
+`data-xinhua-player-position` 记录确定性路径和最终停止坐标。
+
+### Resolution
+- **Resolved**: 2026-07-26T02:05:00+08:00
+- **Notes**: CUA 脉冲回放确认角色在主墙前 Z=80.7343439014611 停止，继续输入只沿墙
+  横向滑动，未穿透碰撞体。

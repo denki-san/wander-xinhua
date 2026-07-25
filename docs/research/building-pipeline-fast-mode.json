@@ -99,11 +99,13 @@
       "id": "xinhua-villas-329",
       "label": "新华别墅·329弄",
       "tests": [
+        "tests/test_xinhua_villas_329_massing_recovery_checkpoint.test.mjs",
         "tests/test_model_detail_upgrade.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
-        "public/models/xinhua-road/xinhua-villas-329.glb"
+        "public/models/xinhua-road/xinhua-villas-329.glb",
+        "public/models/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.glb"
       ],
       "runtimeRoutes": [
         "/?start=villas329&cameraQa=1&qaAutoStart=1"
@@ -124,17 +126,24 @@
         "public/models/tiers/xinhua-road/massing-v2/house-315-massing.glb"
       ],
       "runtimeRoutes": [
-        "/?start=house315&cameraQa=1&qaAutoStart=1"
+        "/?start=house315&network=standard&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaModelId=house-315&qaModelTier=hero",
+        "/?start=house315&network=standard&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaModelId=house-315&qaModelTier=identity",
+        "/?start=house315&network=standard&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaModelId=house-315&qaModelTier=massing",
+        "/?start=house315&network=standard&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaModelId=house-315&qaModelTier=hero&qaActiveFallback=house-315:hero",
+        "/?start=house315&network=standard&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaModelId=house-315&qaModelTier=identity&qaActiveFallback=house-315:identity",
+        "/?start=house315&network=standard&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaModelId=house-315&qaModelTier=massing&qaActiveFallback=house-315:massing"
       ]
     },
     {
       "id": "villa-le-bec",
       "label": "Villa Le Bec",
       "tests": [
+        "tests/test_villa_le_bec_massing_checkpoint.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
-        "public/models/xinhua-road/villa-le-bec.glb"
+        "public/models/xinhua-road/villa-le-bec.glb",
+        "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb"
       ],
       "runtimeRoutes": [
         "/?start=villa-le-bec&cameraQa=1&qaAutoStart=1"

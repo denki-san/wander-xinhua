@@ -176,14 +176,14 @@ function auditGeometry(json, binary) {
   };
 }
 
-test("House315 Hero v2 使用独立路径并保留旧 Hero Hold 与公共 registry", async () => {
+test("House315 Hero v2 使用独立路径、保留旧 Hero Hold 并完成公共 registry 接线", async () => {
   const record = await readJson(recordPath);
   const registry = await readJson("app/scene/xinhua-road-landmarks-data.json");
   const landmark = registry.landmarks.find(({ id }) => id === "house-315");
 
   assert.equal(
     record.status,
-    "hero-mcp2-identity-v1-mcp3-pass-runtime-pending",
+    "hero-mcp2-identity-v1-mcp3-pass-runtime-complete",
   );
   assert.equal(record.tier, "hero");
   assert.equal(record.versionName, "hero-v2");
@@ -199,9 +199,10 @@ test("House315 Hero v2 使用独立路径并保留旧 Hero Hold 与公共 regist
   assert.equal(record.legacyHeroHold.geometryReused, false);
   assert.equal(record.legacyHeroHold.overwritten, false);
   assert.equal(record.legacyHeroHold.deleted, false);
-  assert.equal(record.publicRegistry.modified, false);
-  assert.equal(landmark.model, "/models/xinhua-road/house-315.glb");
-  assert.equal(landmark.cacheVersion, "20260718-detail-1");
+  assert.equal(record.publicRegistry.modified, true);
+  assert.equal(record.publicRegistry.integration, "three-tier-runtime-complete");
+  assert.equal(landmark.model, "/models/tiers/xinhua-road/hero-v2/house-315-hero.glb");
+  assert.equal(landmark.cacheVersion, "20260725-hero-ad414549");
   assert.equal(record.identityAllowed, true);
   assert.equal(record.mcp2.status, "pass");
   assert.equal(record.mcp2.passed, true);
@@ -213,8 +214,9 @@ test("House315 Hero v2 使用独立路径并保留旧 Hero Hold 与公共 regist
   assert.equal(record.identityLineage.identityCandidateCompleted, true);
   assert.equal(record.identityLineage.identityFormalPass, true);
   assert.equal(record.identityLineage.runtimeAuthorized, true);
-  assert.equal(record.identityLineage.runtimeExecutionStarted, false);
-  assert.equal(record.publicRegistry.modified, false);
+  assert.equal(record.identityLineage.runtimeExecutionStarted, true);
+  assert.equal(record.identityLineage.runtimeIntegrated, true);
+  assert.equal(record.publicRegistry.modified, true);
 });
 
 test("House315 Hero v2 MCP2 主窗口证据和门禁状态闭合", async () => {
@@ -246,19 +248,21 @@ test("House315 Hero v2 MCP2 主窗口证据和门禁状态闭合", async () => {
   assert.equal(gates.identityGate.identityDerivationStarted, true);
   assert.equal(gates.identityGate.identityCandidateCompleted, true);
   assert.equal(gates.identityGate.identityFormalPass, true);
-  assert.equal(gates.identityGate.runtimeExecutionStarted, false);
+  assert.equal(gates.identityGate.runtimeExecutionStarted, true);
+  assert.equal(gates.identityGate.runtimeIntegrated, true);
   assert.equal(
     disposition.activeReplacementStatus,
-    "hero-v2-mcp2-pass-identity-v1-mcp3-pass-runtime-pending",
+    "hero-v2-identity-v1-massing-v2-complete-runtime-pass",
   );
   assert.equal(disposition.replacementCandidate.mcp2.status, "pass");
   assert.equal(disposition.replacementCandidate.legacyHeroOverwritten, false);
   assert.equal(disposition.replacementCandidate.identityLineage.identityDerivationStarted, true);
   assert.equal(disposition.replacementCandidate.identityLineage.identityCandidateCompleted, true);
   assert.equal(disposition.replacementCandidate.identityLineage.identityFormalPass, true);
-  assert.equal(disposition.replacementCandidate.identityLineage.runtimeExecutionStarted, false);
-  assert.equal(disposition.replacementCandidate.publicRegistryModified, false);
-  assert.equal(disposition.replacementCandidate.runtimeIntegrated, false);
+  assert.equal(disposition.replacementCandidate.identityLineage.runtimeExecutionStarted, true);
+  assert.equal(disposition.replacementCandidate.identityLineage.runtimeIntegrated, true);
+  assert.equal(disposition.replacementCandidate.publicRegistryModified, true);
+  assert.equal(disposition.replacementCandidate.runtimeIntegrated, true);
 });
 
 test("House315 Hero v2 精确继承 Massing origin、bounds、碰撞与固定机位", async () => {

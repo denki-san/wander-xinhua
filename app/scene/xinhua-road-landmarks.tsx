@@ -28,6 +28,15 @@ import {
   resolveFilmArtCenterQaTier,
 } from "./film-art-center-tier-contract.mjs";
 import {
+  HOUSE_315_ASSET_ID,
+  resolveHouse315Qa,
+} from "./house-315-tier-contract.mjs";
+import {
+  House315RuntimeAsset,
+  type House315Fallback,
+  type House315Tier,
+} from "./house-315-runtime";
+import {
   ONE_STEP_GARDEN_ASSET_ID,
   resolveOneStepGardenQa,
 } from "./one-step-garden-tier-contract.mjs";
@@ -732,6 +741,9 @@ export function XinhuaRoadLandmarks({
   const oneStepQa = resolveOneStepGardenQa(
     typeof window === "undefined" ? "" : window.location.search,
   );
+  const house315Qa = resolveHouse315Qa(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
   return (
     <group
       name="xinhua-road-photo-reference-landmarks"
@@ -747,6 +759,9 @@ export function XinhuaRoadLandmarks({
         const oneStepQaActive = oneStepQa?.assetId === landmark.id
           ? oneStepQa
           : null;
+        const house315QaActive = house315Qa?.assetId === landmark.id
+          ? house315Qa
+          : null;
         // resolver 只会在 tier 命中 Hero / Identity / Massing 时返回对象；
         // 默认值仅用于弥补无 JSDoc 的 .mjs 推断，不会改变有效 QA 路由。
         const filmArtTier = filmArtQaActive?.tier ?? "identity";
@@ -754,6 +769,8 @@ export function XinhuaRoadLandmarks({
           ? filmArtQaActive.modelPath
           : oneStepQaActive
             ? oneStepQaActive.modelPath
+            : house315QaActive
+              ? house315QaActive.modelPath
             : landmark.cacheVersion
               ? `${landmark.model}?v=${landmark.cacheVersion}`
               : landmark.model;
@@ -761,6 +778,7 @@ export function XinhuaRoadLandmarks({
         const shouldMountActiveModel = (
           filmArtQaActive
           || oneStepQaActive
+          || house315QaActive
           || shouldMountModel
         );
         const filmArtFallback = filmArtQaActive ? (
@@ -790,6 +808,20 @@ export function XinhuaRoadLandmarks({
           oneStepQaActive
           && oneStepQaActive.fallbackMode === "no-lower-tier",
         );
+        const house315RequestedTier = (
+          house315QaActive?.requestedTier ?? "hero"
+        ) as House315Tier;
+        const house315Fallback = (
+          house315QaActive
+          && house315QaActive.forcedFallback
+          && house315QaActive.requestedTier !== "massing"
+            ? house315QaActive.requestedTier
+            : null
+        ) as House315Fallback;
+        const house315NoLowerTierFallback = Boolean(
+          house315QaActive
+          && house315QaActive.fallbackMode === "no-lower-tier",
+        );
         return (
           <group
             key={landmark.id}
@@ -803,8 +835,14 @@ export function XinhuaRoadLandmarks({
                 ? filmArtTier
                 : oneStepQaActive
                   ? oneStepQaActive.requestedTier
+                  : house315QaActive
+                    ? house315QaActive.requestedTier
                   : undefined,
-              qaOnly: filmArtQaActive || oneStepQaActive || undefined,
+              qaOnly:
+                filmArtQaActive
+                || oneStepQaActive
+                || house315QaActive
+                || undefined,
             }}
           >
             <group position={[x, y, z]} rotation-y={landmark.yaw} scale={landmark.scale}>
@@ -835,6 +873,12 @@ export function XinhuaRoadLandmarks({
                           requestedTier={oneStepRequestedTier}
                           forceFallback={oneStepFallback}
                           noLowerTierFallback={oneStepNoLowerTierFallback}
+                        />
+                      ) : landmark.id === HOUSE_315_ASSET_ID ? (
+                        <House315RuntimeAsset
+                          requestedTier={house315RequestedTier}
+                          forceFallback={house315Fallback}
+                          noLowerTierFallback={house315NoLowerTierFallback}
                         />
                       ) : (
                         <GlbModel path={modelPath} />
@@ -893,7 +937,10 @@ export default function XinhuaRoadFullLayer({
   const oneStepQa = resolveOneStepGardenQa(
     typeof window === "undefined" ? "" : window.location.search,
   );
-  if (!filmArtQa && !oneStepQa) {
+  const house315Qa = resolveHouse315Qa(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
+  if (!filmArtQa && !oneStepQa && !house315Qa) {
     return (
       <>
         <XinhuaRoadMassing identity hiddenLandmarkIds={mountedModelIds} />
@@ -909,6 +956,7 @@ export default function XinhuaRoadFullLayer({
     ...mountedModelIds,
     ...(filmArtQa ? [FILM_ART_CENTER_ASSET_ID] : []),
     ...(oneStepQa ? [ONE_STEP_GARDEN_ASSET_ID] : []),
+    ...(house315Qa ? [HOUSE_315_ASSET_ID] : []),
   ]);
 
   return (

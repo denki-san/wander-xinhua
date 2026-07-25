@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "house-315",
   "recordedAt": "2026-07-26",
-  "status": "runtime-candidate-ready-main-window-wiring-and-browser-pending",
+  "status": "complete-main-window-runtime-pass",
   "mode": "building-fast",
   "scope": {
     "included": [
@@ -122,7 +122,7 @@
     "extraPreload": false,
     "missingUrlFaultInjection": false,
     "expectedSuccessfulGlbRequestCountPerRenderedTier": 1,
-    "resourceTimingVerification": "main-window-browser-pending"
+    "resourceTimingVerification": "pass-main-window-browser-single-tab"
   },
   "fallbackContract": {
     "hero": {
@@ -179,6 +179,11 @@
   "mainWindowIntegration": {
     "owner": "main-window",
     "buildingWorktreeMustNotApply": true,
+    "status": "complete-runtime-pass",
+    "publicRegistryModified": true,
+    "sharedRuntimeModified": true,
+    "fastManifestModified": true,
+    "browserAcceptance": "pass",
     "requiredPatches": [
       {
         "file": "app/scene/xinhua-road-landmarks-data.json",
@@ -199,6 +204,10 @@
       {
         "file": "docs/research/building-pipeline-fast-mode.json",
         "change": "Replace the single generic house315 route with the six exact tier/fallback deep links from this record; existing House315 specialized test ownership remains unchanged."
+      },
+      {
+        "file": "app/scene/xinhua-world.tsx",
+        "change": "Hide the qaModelId target from the lazy full-layer Identity fallback so a Massing QA route cannot issue a stale House315 Identity request before the scoped runtime mounts."
       }
     ],
     "postWiringAcceptance": [
@@ -211,6 +220,162 @@
       "four-part-collision-replay",
       "camera-and-ground-contact"
     ]
+  },
+  "runtimeAcceptance": {
+    "recordedAt": "2026-07-26T02:05:00+08:00",
+    "owner": "main-window",
+    "buildMode": "vite-static-production-preview",
+    "viewport": [1280, 720],
+    "visibility": "visible",
+    "singleTab": true,
+    "routes": {
+      "hero": {
+        "renderedTier": "hero",
+        "fallback": "none",
+        "resources": ["massing", "identity", "hero"],
+        "resourcesUnique": true,
+        "frameSample": {
+          "frames": 120,
+          "durationMs": 1235.7,
+          "fps": 97.1109,
+          "rendererDrawCalls": 233,
+          "rendererTriangles": 767699
+        }
+      },
+      "identity": {
+        "renderedTier": "identity",
+        "fallback": "none",
+        "resources": ["massing", "identity"],
+        "resourcesUnique": true,
+        "frameSample": {
+          "frames": 120,
+          "durationMs": 1212.6,
+          "fps": 98.9609,
+          "rendererDrawCalls": 233,
+          "rendererTriangles": 763379
+        }
+      },
+      "massing": {
+        "renderedTier": "massing",
+        "fallback": "none",
+        "resources": ["massing"],
+        "resourcesUnique": true,
+        "staleIdentityRequest": false,
+        "frameSample": {
+          "frames": 120,
+          "durationMs": 1255.5,
+          "fps": 95.5795,
+          "rendererDrawCalls": 229,
+          "rendererTriangles": 762179
+        }
+      },
+      "heroFallback": {
+        "requestedTier": "hero",
+        "renderedTier": "identity",
+        "fallback": "forced-deterministic-hero-to-identity",
+        "resources": ["massing", "identity"],
+        "frameSample": {
+          "frames": 120,
+          "durationMs": 1216.7,
+          "fps": 98.6274,
+          "rendererDrawCalls": 233,
+          "rendererTriangles": 763379
+        }
+      },
+      "identityFallback": {
+        "requestedTier": "identity",
+        "renderedTier": "massing",
+        "fallback": "forced-deterministic-identity-to-massing",
+        "resources": ["massing"],
+        "frameSample": {
+          "frames": 120,
+          "durationMs": 1953.6,
+          "fps": 61.4251,
+          "rendererDrawCalls": 229,
+          "rendererTriangles": 762179
+        }
+      },
+      "massingFloor": {
+        "requestedTier": "massing",
+        "renderedTier": "massing",
+        "fallback": "no-lower-tier-render-massing",
+        "resources": ["massing"],
+        "frameSample": {
+          "frames": 120,
+          "durationMs": 1296.9,
+          "fps": 92.5283,
+          "rendererDrawCalls": 229,
+          "rendererTriangles": 762179
+        }
+      }
+    },
+    "collisionReplay": {
+      "method": "supported-cua-keypress-pulses",
+      "start": [-21.8, 67.6],
+      "nearBuilding": [-20.416459022082673, 79.68353502760937],
+      "firstWallContact": [-20.182286935365585, 80.58034871388844],
+      "finalStop": [-19.465157439793693, 80.7343439014611],
+      "continuedInputZDelta": 0,
+      "result": "pass-main-spine-stop-with-lateral-wall-slide-no-penetration"
+    },
+    "map": {
+      "position": "pass",
+      "orientation": "pass",
+      "groundContact": "pass",
+      "roadSetback": "pass",
+      "camera": "pass-spring-clear",
+      "collision": "pass"
+    },
+    "console": {
+      "errors": 0,
+      "houseSpecificWarnings": 0,
+      "knownSharedWarnings": [
+        "THREE.Clock deprecation warning"
+      ]
+    },
+    "screenshots": {
+      "hero": {
+        "path": "test_artifacts/test_house-315_runtime_main_hero_1280x720.jpg",
+        "sha256": "229bd5c1144554e4877067499bd6543c26c82c55f9e99694a8962cd0514b4303",
+        "bytes": 102637
+      },
+      "identity": {
+        "path": "test_artifacts/test_house-315_runtime_main_identity_1280x720.jpg",
+        "sha256": "9ac6fbede570ed28b1ff0a722b9065e5310d3072c083c394929297b2b497922b",
+        "bytes": 101518
+      },
+      "massing": {
+        "path": "test_artifacts/test_house-315_runtime_main_massing_1280x720.jpg",
+        "sha256": "9e3add2dd67b40f9dd93adc71bedf24e25852f8868358973d78d47bfc7f85901",
+        "bytes": 98875
+      },
+      "heroFallback": {
+        "path": "test_artifacts/test_house-315_runtime_main_hero-fallback_1280x720.jpg",
+        "sha256": "5facdbb33a2fbb44c8fc732011f4b83242d86f7f5c94f3b69cf9b7079f2e098d",
+        "bytes": 101535
+      },
+      "identityFallback": {
+        "path": "test_artifacts/test_house-315_runtime_main_identity-fallback_1280x720.jpg",
+        "sha256": "15b9401757f30e436f30bd89508e71e202f9dfa4feabd36730ffa27027459c82",
+        "bytes": 98965
+      },
+      "massingFloor": {
+        "path": "test_artifacts/test_house-315_runtime_main_massing-floor_1280x720.jpg",
+        "sha256": "91b938326c9c838284abd2afe6efd6fed89edebd045e208824d624f9f7be6fa1",
+        "bytes": 98978
+      },
+      "collisionStop": {
+        "path": "test_artifacts/test_house-315_runtime_main_collision_stop_1280x720.jpg",
+        "sha256": "14b87ac10239ef8aaaed8c05f742693312c7fabd1226996a10db79e985b5e5d1",
+        "bytes": 68574
+      },
+      "contactSheet": {
+        "path": "test_artifacts/test_house-315_runtime_main_contact_sheet.jpg",
+        "sha256": "5acfb5cdc8268f952d20489fcddaf5049e983eabdd941d60dde1ad9e2ac59d19",
+        "bytes": 130266
+      }
+    },
+    "result": "pass"
   },
   "validation": {
     "allowedCommand": "npm run building:fast -- --building house-315",
@@ -230,15 +395,15 @@
       ],
       "reviewConclusion": "runtime-candidate-ready-for-main-window-integration"
     },
-    "mainWindowBrowser": "pending"
+    "mainWindowBrowser": "pass-six-routes-performance-fallback-collision-console"
   },
   "completionBoundary": {
     "runtimeCandidateReadyForCommit": true,
     "runtimeModuleImplemented": true,
-    "publicRegistryModified": false,
-    "sharedRuntimeModified": false,
-    "mainWindowIntegrated": false,
-    "threeTierRuntimeFinalPass": false,
-    "nextAuthority": "main-window-integrate-candidate-then-real-browser-cdp-revalidation"
+    "publicRegistryModified": true,
+    "sharedRuntimeModified": true,
+    "mainWindowIntegrated": true,
+    "threeTierRuntimeFinalPass": true,
+    "nextAuthority": "complete-no-rework-unless-binary-or-public-contract-changes"
   }
 }

@@ -4,7 +4,7 @@
   "assetId": "house-315",
   "tier": "identity",
   "versionName": "identity-v1",
-  "status": "mcp3-pass-runtime-pending",
+  "status": "complete-runtime-pass",
   "generator": {
     "path": "scripts/create_house_315_identity_model.py",
     "sha256": "19fe2646b02767fb5495b19ecf979a07d2eed35acf009476e33172160dd72e51",
@@ -490,12 +490,13 @@
     "modelOrRuntimeModifiedByReview": false
   },
   "runtime": {
-    "status": "authorized-pending-house-315-runtime-worktree",
+    "status": "complete-main-window-runtime-pass",
     "runtimeAuthorized": true,
-    "runtimeExecutionStarted": false,
-    "publicRegistryModified": false,
-    "runtimeIntegrated": false,
-    "nextAuthority": "house-315-runtime-worktree"
+    "runtimeExecutionStarted": true,
+    "publicRegistryModified": true,
+    "runtimeIntegrated": true,
+    "runtimeAcceptance": "docs/research/house-315-three-tier-runtime-qa.json#runtimeAcceptance",
+    "nextAuthority": "complete-no-rework-unless-binary-or-public-contract-changes"
   },
   "sourceHeroGate": {
     "status": "pass",

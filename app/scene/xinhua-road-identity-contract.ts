@@ -1,6 +1,7 @@
 import type { LandmarkPlacement } from "./xinhua-road-contract";
 import { planarDistanceToLandmarkFootprint } from "./xinhua-road-placement.mjs";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
+import { HOUSE_315_TIERS } from "./house-315-tier-contract.mjs";
 import { ONE_STEP_GARDEN_TIERS } from "./one-step-garden-tier-contract.mjs";
 
 const XINHUA_ROAD_QUALITY_LANDMARKS =
@@ -162,6 +163,7 @@ function buildingQualityEntry(
   const shanghaiCinema = landmark.id === "shanghai-cinema";
   const filmArtCenter = landmark.id === "film-art-center";
   const oneStepGarden = landmark.id === "one-step-garden";
+  const house315 = landmark.id === "house-315";
   return {
     buildingId: landmark.id,
     hero: {
@@ -175,7 +177,7 @@ function buildingQualityEntry(
       },
     },
     identity: {
-      strategy: oneStepGarden
+      strategy: oneStepGarden || house315
         ? "derived-glb"
         : shanghaiCinema
           ? "custom-landmark-hybrid"
@@ -183,15 +185,23 @@ function buildingQualityEntry(
             ? "derived-glb"
           : "programmatic-miniature",
       recipe: xinhuaRoadIdentityKind(landmark.id),
-      model: oneStepGarden
-        ? ONE_STEP_GARDEN_TIERS.identity.path
+      model: oneStepGarden || house315
+        ? (
+          oneStepGarden
+            ? ONE_STEP_GARDEN_TIERS.identity.path
+            : HOUSE_315_TIERS.identity.path
+        )
         : shanghaiCinema
           ? SHANGHAI_CINEMA_IDENTITY_MODEL_PATH
           : filmArtCenter
             ? FILM_ART_CENTER_IDENTITY_MODEL_PATH
           : undefined,
-      cacheVersion: oneStepGarden
-        ? ONE_STEP_GARDEN_TIERS.identity.cacheVersion
+      cacheVersion: oneStepGarden || house315
+        ? (
+          oneStepGarden
+            ? ONE_STEP_GARDEN_TIERS.identity.cacheVersion
+            : HOUSE_315_TIERS.identity.cacheVersion
+        )
         : shanghaiCinema
           ? SHANGHAI_CINEMA_IDENTITY_CACHE_VERSION
           : filmArtCenter
@@ -200,20 +210,28 @@ function buildingQualityEntry(
       requiredBeforeMapVisible: true,
     },
     massing: {
-      strategy: oneStepGarden
+      strategy: oneStepGarden || house315
         ? "derived-glb"
         : shanghaiCinema
           ? "formal-glb"
           : "bounds-proxy",
       visibility: "cover-only",
       localBounds: landmark.localBounds,
-      model: oneStepGarden
-        ? ONE_STEP_GARDEN_TIERS.massing.path
+      model: oneStepGarden || house315
+        ? (
+          oneStepGarden
+            ? ONE_STEP_GARDEN_TIERS.massing.path
+            : HOUSE_315_TIERS.massing.path
+        )
         : shanghaiCinema
           ? SHANGHAI_CINEMA_MASSING_MODEL_PATH
           : undefined,
-      cacheVersion: oneStepGarden
-        ? ONE_STEP_GARDEN_TIERS.massing.cacheVersion
+      cacheVersion: oneStepGarden || house315
+        ? (
+          oneStepGarden
+            ? ONE_STEP_GARDEN_TIERS.massing.cacheVersion
+            : HOUSE_315_TIERS.massing.cacheVersion
+        )
         : shanghaiCinema
           ? SHANGHAI_CINEMA_MASSING_CACHE_VERSION
           : undefined,
@@ -310,6 +328,35 @@ function emptyEvidence(
 }
 
 function roadEvidence(landmarkId: string): ProductionQualityEvidence {
+  if (landmarkId === "house-315") {
+    return {
+      status: "accepted-with-followup",
+      heroBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/hero-v2/house-315-hero.json",
+      ],
+      identityBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json",
+      ],
+      massingBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/massing-v2/house-315-massing.json",
+      ],
+      canonicalScreenshots: [
+        "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_canonical.png",
+      ],
+      sideScreenshots: [
+        "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_side-depth.png",
+      ],
+      rearScreenshots: [],
+      runtimeScreenshots: [],
+      resourceMetrics: [
+        "docs/research/house-315-three-tier-runtime-qa.json",
+      ],
+      drawCallMetrics: [],
+      gaps: [
+        "主窗口整合后补做三档、ResourceTiming、截图、console、FPS、四段碰撞与 deterministic fallback 真实浏览器终验",
+      ],
+    };
+  }
   if (landmarkId === "one-step-garden") {
     return {
       status: "accepted-with-followup",

@@ -562,13 +562,35 @@ test("地标碰撞只覆盖实体建筑，不再用庭院或广场的完整包�
     assert.ok(landmark.localObstacles?.length > 0, `${landmark.id} 必须声明建筑级碰撞`);
     const boundsArea = (landmark.localBounds.maxX - landmark.localBounds.minX)
       * (landmark.localBounds.maxZ - landmark.localBounds.minZ);
-    const obstacleArea = landmark.localObstacles.reduce((sum, obstacle) => {
+    for (const obstacle of landmark.localObstacles) {
       assert.ok(obstacle.minX >= landmark.localBounds.minX, `${landmark.id} 碰撞 minX 越界`);
       assert.ok(obstacle.maxX <= landmark.localBounds.maxX, `${landmark.id} 碰撞 maxX 越界`);
       assert.ok(obstacle.minZ >= landmark.localBounds.minZ, `${landmark.id} 碰撞 minZ 越界`);
       assert.ok(obstacle.maxZ <= landmark.localBounds.maxZ, `${landmark.id} 碰撞 maxZ 越界`);
-      return sum + (obstacle.maxX - obstacle.minX) * (obstacle.maxZ - obstacle.minZ);
-    }, 0);
+    }
+    const xStops = [...new Set(landmark.localObstacles.flatMap(({ minX, maxX }) => [minX, maxX]))]
+      .sort((left, right) => left - right);
+    let obstacleArea = 0;
+    for (let index = 0; index < xStops.length - 1; index += 1) {
+      const minX = xStops[index];
+      const maxX = xStops[index + 1];
+      const intervals = landmark.localObstacles
+        .filter((obstacle) => obstacle.minX < maxX && obstacle.maxX > minX)
+        .map(({ minZ, maxZ }) => [minZ, maxZ])
+        .sort(([left], [right]) => left - right);
+      let coveredZ = 0;
+      let current;
+      for (const interval of intervals) {
+        if (!current || interval[0] > current[1]) {
+          coveredZ += current ? current[1] - current[0] : 0;
+          current = [...interval];
+        } else {
+          current[1] = Math.max(current[1], interval[1]);
+        }
+      }
+      coveredZ += current ? current[1] - current[0] : 0;
+      obstacleArea += (maxX - minX) * coveredZ;
+    }
     assert.ok(obstacleArea < boundsArea, `${landmark.id} 碰撞面积必须小于模型完整包络`);
   }
 });

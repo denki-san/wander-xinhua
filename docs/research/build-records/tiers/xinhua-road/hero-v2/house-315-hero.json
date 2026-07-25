@@ -4,7 +4,7 @@
   "assetId": "house-315",
   "tier": "hero",
   "versionName": "hero-v2",
-  "status": "hero-mcp2-identity-v1-mcp3-pass-runtime-pending",
+  "status": "hero-mcp2-identity-v1-mcp3-pass-runtime-complete",
   "generator": "scripts/create_house_315_hero_model.py",
   "generatorSha256": "61e3aa5188e6aba14e0eabf58aa1cd19ba0980b812b62b79dc894d52cccd068f",
   "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_house_315_hero_model.py",
@@ -705,7 +705,7 @@
   },
   "identityAllowed": true,
   "identityLineage": {
-    "status": "identity-v1-mcp3-pass-runtime-pending",
+      "status": "identity-v1-complete-runtime-pass",
     "identityDerivationAuthorized": true,
     "identityDerivationStarted": true,
     "identityCandidateCompleted": true,
@@ -735,14 +735,15 @@
     "mcp3": "pass",
     "identityFormalPass": true,
     "runtimeAuthorized": true,
-    "runtimeExecutionStarted": false,
-    "runtimeIntegrated": false,
-    "publicRegistryModified": false,
-    "nextAuthority": "house-315-runtime-worktree"
+      "runtimeExecutionStarted": true,
+      "runtimeIntegrated": true,
+      "publicRegistryModified": true,
+      "runtimeAcceptance": "docs/research/house-315-three-tier-runtime-qa.json#runtimeAcceptance",
+      "nextAuthority": "complete-no-rework-unless-binary-or-public-contract-changes"
   },
-  "threeJsRuntime": "not-run-before-mcp3",
+  "threeJsRuntime": "complete",
   "publicRegistry": {
-    "modified": false,
-    "integration": "identity-mcp3-integrated-runtime-pending"
+    "modified": true,
+    "integration": "three-tier-runtime-complete"
   }
 }
