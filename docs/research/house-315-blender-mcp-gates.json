@@ -134,10 +134,83 @@
     "nextGate": "main-window-shared-massing-integration-review"
   },
   "heroGate": {
-    "status": "blocked-until-map-gate-pass-and-new-authorization"
+    "gate": "mcp2-hero-visual-review",
+    "status": "pass",
+    "reviewedAt": "2026-07-25",
+    "reviewedBy": "main-coordinator",
+    "interactiveReview": "Blender MCP",
+    "sourceCommit": "e258a02a9ace4dbc34ce2978dcadcb4112370939",
+    "candidate": {
+      "version": "hero-v2",
+      "generator": "scripts/create_house_315_hero_model.py",
+      "editableSource": "assets/models/source/tiers/xinhua-road/hero-v2/house-315-hero.blend",
+      "editableSourceSha256": "2750b3c876fa651ce1fd0ed09f8e9a5557804b8e2783839f6ed63a740cd756b6",
+      "runtimeAsset": "public/models/tiers/xinhua-road/hero-v2/house-315-hero.glb",
+      "runtimeAssetSha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+      "derivedMassingGlbSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+      "buildRecord": "docs/research/build-records/tiers/xinhua-road/hero-v2/house-315-hero.json"
+    },
+    "sceneInspection": {
+      "meshObjects": 1,
+      "vertices": 1960,
+      "polygons": 1472,
+      "materials": 6,
+      "principledNodeMaterials": 6,
+      "rootLocation": [
+        0,
+        0,
+        0
+      ],
+      "rootRotation": [
+        0,
+        0,
+        0
+      ],
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "zeroAreaPolygonsBelow1e10": 0,
+      "nonFiniteNormals": 0,
+      "minimumFaceArea": 0.001224979
+    },
+    "checks": {
+      "lineage": "pass-derived-from-accepted-massing-no-legacy-recovery-or-osm-geometry",
+      "canonical": "pass-central-tall-half-timber-gable-and-transverse-red-tile-ridge",
+      "sideDepth": "pass-asymmetric-wing-depth-and-structure-continuity",
+      "entrance": "pass-tall-entry-white-red-layer-and-human-scale",
+      "unknownRear": "pass-held-at-low-detail",
+      "scope": "pass-no-site-vegetation-or-decoration"
+    },
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2_mcp2_recheck_canonical.png",
+        "sha256": "3bb6bf7b7ce11ffa413477c6ecc2ca7ddc473bfec7a19dae858ee2934527ee2e",
+        "bytes": 828549
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2_mcp2_recheck_side.png",
+        "sha256": "d58896674922865424cbb8174606225ec82ed9cfe06c1f4dda939622269f3fc0",
+        "bytes": 893153
+      },
+      "entrance": {
+        "path": "test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2_mcp2_recheck_entrance.png",
+        "sha256": "959e79ca7db88cff40f5b5d4d024a4e328a9e0699eb52f961ef27d8feb6ab38b",
+        "bytes": 933340
+      }
+    },
+    "acceptedInteractiveChanges": [],
+    "qaRigSaved": false,
+    "qaRigExported": false,
+    "identityDerivationAuthorized": true,
+    "nextGate": "main-window-integrates-hero-candidate-and-mcp2-gate-before-identity-start"
   },
   "identityGate": {
-    "status": "blocked-until-reviewed-hero-master"
+    "status": "post-mcp2-unlocked-awaiting-main-window-integration",
+    "sourceHeroMcp2": "pass",
+    "identityDerivationAuthorized": true,
+    "identityDerivationStarted": false
   },
   "threeTierGate": {
     "status": "pending"

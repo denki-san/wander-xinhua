@@ -607,3 +607,59 @@ Headless fixed views：
 - Identity: locked
 - Shared registry/runtime: unchanged
 - Next action: 提交本候选 checkpoint，停下申请主窗口 Blender MCP2。
+
+## Iteration 6 — Blender MCP 2 Hero visual review
+
+- Date: 2026-07-25
+- Source checkpoint:
+  `e258a02a9ace4dbc34ce2978dcadcb4112370939`
+- Reviewed by: main coordinator
+- Result: `PASS`
+- Identity state:
+  `post-mcp2-unlocked-awaiting-main-window-integration / not-started`
+- Public registry / runtime modified: no
+
+### Scene and lineage inspection
+
+- 正式场景只有1个 mesh，1,960 vertices、1,472 polygons；
+- 6 / 6 materials 均使用 Principled node；
+- root location / rotation 为0，scale为1；
+- zero-area polygons 为0，non-finite normals 为0；
+- minimum face area 为 `0.001224979`；
+- 来源仍是已验收 Massing GLB `e9d62cfc...`；
+- 未读取或混用旧 Hero、Recovery voxel、ordinary OSM geometry。
+
+### Fixed-view visual decision
+
+主窗口通过同一 Hero 固定机位确认：
+
+- canonical：中央高半木构山墙和横向红瓦主脊主导，右长 / 左短翼、上白下红、
+  高入口与1.8m尺度关系可读；
+- side-depth：非对称翼、屋顶层级和立面连接连续；
+- entrance：中央高入口、无文字门牌关系、窗与半木构节奏可读；
+- 隐藏后侧保持低细节 `Unknown`；
+- 没有庭院、围栏、门、灯、花箱、铺装、树木、灌木、草坪、外摆或其他建筑。
+
+正式 MCP2 截图：
+
+- canonical:
+  `test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2_mcp2_recheck_canonical.png`
+  (`3bb6bf7b...`, 828,549 bytes)
+- side-depth:
+  `test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2_mcp2_recheck_side.png`
+  (`d5889667...`, 893,153 bytes)
+- entrance:
+  `test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2_mcp2_recheck_entrance.png`
+  (`959e79ca...`, 933,340 bytes)
+
+### Provenance and next boundary
+
+- Accepted interactive changes: none
+- QA rig saved: false
+- QA rig exported: false
+- Hero Blend / GLB SHA 保持
+  `2750b3c8... / ad414549...`
+- Legacy Hero 继续 Hold，未删除、未覆盖；
+- 公共 registry / runtime 继续不动；
+- Identity 可从该 Hero v2 派生，但必须等待主窗口先整合 candidate 与 gate commit；
+  本 checkpoint 不启动 Identity。

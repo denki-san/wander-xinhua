@@ -5,6 +5,7 @@
   "auditedAt": "2026-07-25",
   "auditMode": "read-only-no-rebuild-no-blender-mcp",
   "status": "blocked-not-mcp2-candidate-rebuild-required",
+  "activeReplacementStatus": "hero-v2-mcp2-pass-awaiting-main-window-integration",
   "decision": {
     "sameIntendedSubjectAsApprovedMassing": true,
     "sameGeometryContractAsApprovedMassing": false,
@@ -16,6 +17,41 @@
     "legacyHeroDisposition": "hold-read-only-rollback-only",
     "publicRegistryAction": "retain-existing-legacy-hero-without-worktree-change",
     "nextGate": "main-window-reopens-hero-evidence-contract-then-new-hero-v2-candidate"
+  },
+  "replacementCandidate": {
+    "version": "hero-v2",
+    "status": "mcp2-pass",
+    "sourceCommit": "e258a02a9ace4dbc34ce2978dcadcb4112370939",
+    "generator": {
+      "path": "scripts/create_house_315_hero_model.py",
+      "sha256": "61e3aa5188e6aba14e0eabf58aa1cd19ba0980b812b62b79dc894d52cccd068f"
+    },
+    "editableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/hero-v2/house-315-hero.blend",
+      "sha256": "2750b3c876fa651ce1fd0ed09f8e9a5557804b8e2783839f6ed63a740cd756b6"
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/xinhua-road/hero-v2/house-315-hero.glb",
+      "sha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+      "bytes": 212908
+    },
+    "derivedMassingGlbSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+    "mcp2": {
+      "status": "pass",
+      "gateRecord": "docs/research/house-315-blender-mcp-gates.json#heroGate",
+      "acceptedInteractiveChanges": [],
+      "qaRigSaved": false,
+      "qaRigExported": false
+    },
+    "legacyHeroDisposition": "hold-read-only-rollback-only",
+    "legacyHeroOverwritten": false,
+    "identityLineage": {
+      "status": "post-mcp2-unlocked-awaiting-main-window-integration",
+      "identityDerivationAuthorized": true,
+      "identityDerivationStarted": false
+    },
+    "publicRegistryModified": false,
+    "runtimeIntegrated": false
   },
   "formalSubjectContract": {
     "referenceManifest": "docs/research/house-315-reference-manifest.json",

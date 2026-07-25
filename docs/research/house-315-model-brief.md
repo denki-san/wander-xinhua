@@ -259,7 +259,7 @@ registry / runtime，也未进行 Three.js 地图校准。
   `public/models/tiers/xinhua-road/hero-v2/house-315-hero.glb`
 - Build record:
   `docs/research/build-records/tiers/xinhua-road/hero-v2/house-315-hero.json`
-- Current status: `candidate-awaiting-main-window-blender-mcp2`
+- Current status: `hero-mcp2-pass-awaiting-main-window-integration`
 
 Hero v2 直接调用并冻结已通过 MCP1 / map gate 的 Massing source；没有读取旧 Hero
 mesh、Recovery voxel、ordinary OSM 或其他建筑。它逐字继承：
@@ -302,8 +302,23 @@ mesh、Recovery voxel、ordinary OSM 或其他建筑。它逐字继承：
 - `test_house-315-hero-v2-side-depth.png`
 - `test_house-315-hero-v2-entrance.png`
 
-三张图只用于 Headless 候选自检；正式 Blender MCP2 必须由主窗口串行执行。当前
-没有 MCP2 Pass、Three.js Hero runtime 或公共集成，Identity 继续锁定。
+三张 Headless 图只用于候选自检。主窗口随后以 Blender MCP 串行完成 MCP2，
+正式证据为：
+
+- `test_house-315-hero-v2_mcp2_recheck_canonical.png`
+- `test_house-315-hero-v2_mcp2_recheck_side.png`
+- `test_house-315-hero-v2_mcp2_recheck_entrance.png`
+
+MCP2 结果为 `PASS`：1 mesh，1,960 vertices / 1,472 polygons，6/6
+Principled node materials；root location / rotation 为0、scale为1；zero-area
+和 non-finite normals 均为0，minimum face area 为 `0.001224979`。
+canonical、side-depth 和 entrance 三视图确认中央高半木构山墙、横向红瓦主脊、
+右长 / 左短翼、上白下红、高入口和1.8m尺度关系可读。隐藏背面仍为低细节
+`Unknown`，没有场地、植被或装饰污染。
+
+Accepted interactive changes 为 none，QA rig 未保存、未导出。因此模型二进制和
+生成器无需回写。Identity 已在门禁语义上解锁，但在主窗口整合 Hero candidate 与
+MCP2 gate commit 前不得启动；Three.js Hero runtime 和公共集成仍未开始。
 
 ## Quality Contract
 
@@ -412,8 +427,8 @@ Legacy disposition 已确认旧 Hero 与当前主体意图一致但不可修复�
 | Blender MCP 1 | 场景、固定机位、轮廓、尺标和网格完整性通过 | Passed |
 | Three.js Massing | 真实 `?start=house315` 资源、地图、比例、朝向、接地、碰撞和性能通过 | Passed |
 | Legacy Hero disposition | 同主体意图，但结构、范围、拓扑、lineage 和固定视图不满足 MCP2 | Hold / rebuild required |
-| Independent Hero v2 | exact Massing contract、双构建、结构审计和三固定机位完成 | Awaiting main-window MCP2 |
-| Identity | 只允许从 MCP2 通过后的 Hero master 派生 | Locked |
+| Independent Hero v2 | exact Massing contract、双构建、结构审计和主窗口 MCP2 完成 | MCP2 Passed / awaiting integration |
+| Identity | 只允许从已通过 MCP2 的 Hero v2 派生 | Post-MCP2 unlocked / not started |
 
 ## Decision Log
 

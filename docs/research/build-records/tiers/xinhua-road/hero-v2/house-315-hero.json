@@ -4,7 +4,7 @@
   "assetId": "house-315",
   "tier": "hero",
   "versionName": "hero-v2",
-  "status": "candidate-awaiting-main-window-blender-mcp2",
+  "status": "hero-mcp2-pass-awaiting-main-window-integration",
   "generator": "scripts/create_house_315_hero_model.py",
   "generatorSha256": "61e3aa5188e6aba14e0eabf58aa1cd19ba0980b812b62b79dc894d52cccd068f",
   "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_house_315_hero_model.py",
@@ -621,16 +621,100 @@
     "transformedNodes": []
   },
   "mcp2": {
-    "status": "pending-main-window-serial-review",
+    "status": "pass",
     "requested": true,
-    "passed": false,
+    "passed": true,
+    "reviewedAt": "2026-07-25",
+    "reviewedBy": "main-coordinator",
+    "interactiveReview": "Blender MCP",
+    "sourceCommit": "e258a02a9ace4dbc34ce2978dcadcb4112370939",
+    "sceneInspection": {
+      "meshObjects": 1,
+      "vertices": 1960,
+      "polygons": 1472,
+      "materials": 6,
+      "principledNodeMaterials": 6,
+      "rootLocation": [
+        0,
+        0,
+        0
+      ],
+      "rootRotation": [
+        0,
+        0,
+        0
+      ],
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "zeroAreaPolygonsBelow1e10": 0,
+      "nonFiniteNormals": 0,
+      "minimumFaceArea": 0.001224979
+    },
+    "lineageInspection": {
+      "derivedMassingGlbSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+      "legacyHeroGeometryUsed": false,
+      "recoveryGeometryUsed": false,
+      "ordinaryOsmGeometryUsed": false
+    },
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2_mcp2_recheck_canonical.png",
+        "sha256": "3bb6bf7b7ce11ffa413477c6ecc2ca7ddc473bfec7a19dae858ee2934527ee2e",
+        "bytes": 828549,
+        "dimensions": [
+          1024,
+          768
+        ],
+        "result": "pass-central-tall-half-timber-gable-transverse-red-tile-ridge-and-asymmetric-wings-readable"
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2_mcp2_recheck_side.png",
+        "sha256": "d58896674922865424cbb8174606225ec82ed9cfe06c1f4dda939622269f3fc0",
+        "bytes": 893153,
+        "dimensions": [
+          1024,
+          768
+        ],
+        "result": "pass-right-long-and-left-short-wing-depth-roof-and-facade-continuity-readable"
+      },
+      "entrance": {
+        "path": "test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2_mcp2_recheck_entrance.png",
+        "sha256": "959e79ca7db88cff40f5b5d4d024a4e328a9e0699eb52f961ef27d8feb6ab38b",
+        "bytes": 933340,
+        "dimensions": [
+          1024,
+          768
+        ],
+        "result": "pass-tall-entry-plaque-relation-white-red-layer-and-1p8m-scale-readable"
+      }
+    },
+    "checks": {
+      "subjectIdentity": "pass",
+      "structureAndHierarchy": "pass",
+      "materialSeparation": "pass-six-of-six-principled-node-materials",
+      "normalsAndTopology": "pass",
+      "unknownRear": "pass-held-at-low-detail",
+      "scope": "pass-building-only-no-site-vegetation-or-decoration"
+    },
+    "acceptedInteractiveChanges": [],
     "qaRigSaved": false,
     "qaRigExported": false
   },
-  "identityAllowed": false,
-  "threeJsRuntime": "not-run-before-mcp2",
+  "identityAllowed": true,
+  "identityLineage": {
+    "status": "post-mcp2-unlocked-awaiting-main-window-integration",
+    "identityDerivationAuthorized": true,
+    "identityDerivationStarted": false,
+    "sourceHeroGlbSha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+    "sourceHeroBlendSha256": "2750b3c876fa651ce1fd0ed09f8e9a5557804b8e2783839f6ed63a740cd756b6",
+    "nextAuthority": "main-window-integrates-hero-candidate-and-mcp2-gate-before-identity-start"
+  },
+  "threeJsRuntime": "not-run-awaiting-main-window-integration",
   "publicRegistry": {
     "modified": false,
-    "integration": "pending-main-window-after-mcp2"
+    "integration": "pending-main-window-hero-candidate-and-mcp2-gate"
   }
 }
