@@ -12,9 +12,9 @@
   "output": {
     "blend": "assets/models/source/character/rain-summer-wanderer.blend",
     "glb": "public/models/character/rain-summer-wanderer.glb",
-    "sha256": "bb6bb96b2376afcbe1cdcee3ba9e92ad682dbaf362c0d6eb3b05c354b86dabed",
-    "cacheVersion": "bb6bb96b2376",
-    "bytes": 2873640,
+    "sha256": "45d2d21d231550d3d94a80c805f8e08c2d4b430f6d42d6cdce74f34e5f135805",
+    "cacheVersion": "45d2d21d2315",
+    "bytes": 2873644,
     "triangles": 56094,
     "nodes": 76,
     "meshes": 13,
@@ -42,7 +42,7 @@
   "status": "production-ready",
   "runtimeGate": "passed in the actual /?start=garden179&qaMotion=run scene at 1440x900 desktop and 390x844 mobile",
   "validation": {
-    "date": "2026-07-23",
+    "date": "2026-07-26",
     "viewports": {
       "desktop": {
         "width": 1440,
@@ -56,18 +56,16 @@
     "evidence": {
       "blenderCanonical": "test_artifacts/test_rain_summer_character_canonical.png",
       "blenderSide": "test_artifacts/test_rain_summer_character_side.png",
-      "runtimeDesktop": "test_artifacts/test_xinhua_autumn_storybook_v2_character_desktop.png",
-      "runtimeMobile": "test_artifacts/test_xinhua_autumn_storybook_v2_character_mobile.png",
+    "faceBeforeAfter": "test_artifacts/test_rain_face_refinement_comparison_preview.png",
+    "faceProduction": "test_artifacts/test_rain_face_production_comparison_preview.png",
+      "runtimeDesktop": "test_artifacts/test_rain_brown_eyes_runtime_desktop.png",
+      "runtimeMobile": "test_artifacts/test_rain_brown_eyes_runtime_mobile.png",
       "blenderRunCycle": "test_artifacts/test_rain_run_cycle_grid.png",
-      "runtimeRunDesktopSideA": "test_artifacts/test_rain_run_runtime_side_a.png",
-      "runtimeRunDesktopSideB": "test_artifacts/test_rain_run_runtime_side_b.png",
-      "runtimeRunMobile": "test_artifacts/test_rain_run_runtime_mobile.png",
       "weightAudit": "test_artifacts/test_rain_summer_weight_audit.json"
     },
     "consoleErrors": 0,
     "knownWarnings": [
-      "THREE.Clock is deprecated",
-      "THREE.WebGLShadowMap PCFSoftShadowMap is deprecated"
+      "THREE.Clock is deprecated"
     ],
     "visualChecks": {
       "originalHorizontalPonytailRemoved": true,
@@ -78,15 +76,21 @@
       "mobileGroundContact": true,
       "fullRunCycleFootSpikeRemoved": true,
       "bodyFeetAndShoesRigidToLowerLeg": true,
-      "runtimeDesktopSideFootContinuity": true,
-      "runtimeMobileFootContinuity": true
+      "noseTipReduced": true,
+      "noseWingsNarrowed": true,
+      "lipsThinned": true,
+      "eyesBrowsCheeksJawUnchanged": true,
+      "irisWarmBrown": true,
+      "eyeWhiteAndPupilUnchanged": true,
+      "sharedHairMaterialFurtherDarkened": true,
+      "hairbandColorUnchanged": true
     }
   },
   "productionIntegration": {
     "formalMapPath": "app/scene/xinhua-world.tsx",
-    "modelPath": "/models/character/rain-summer-wanderer.glb?v=bb6bb96b2376",
+    "modelPath": "/models/character/rain-summer-wanderer.glb?v=45d2d21d2315",
     "visualScale": 1.3,
-    "cacheVersion": "bb6bb96b2376",
+    "cacheVersion": "45d2d21d2315",
     "formalMapConsoleErrors": 0,
     "collisionAndControlsChanged": false,
     "fallback": "ProceduralWandererCharacter",
@@ -138,9 +142,9 @@
       47
     ],
     "weightViolationCount": 0,
-    "glbAudit": "ok: 2873640 bytes, 76 nodes, 13 meshes, 11 materials, 0 images",
+    "glbAudit": "ok: 2873644 bytes, 76 nodes, 13 meshes, 11 materials, 0 images",
     "runtimeQaUrl": "/?start=garden179&qaMotion=run",
-    "runtimeAssetUrl": "/models/character/rain-summer-wanderer.glb?v=bb6bb96b2376",
+    "runtimeAssetUrl": "/models/character/rain-summer-wanderer.glb?v=45d2d21d2315",
     "desktopViewport": [
       1440,
       900
@@ -154,10 +158,46 @@
       "THREE.Clock is deprecated"
     ]
   },
+  "faceHairValidation": {
+    "date": "2026-07-26",
+    "requestedScope": [
+      "smaller nose tip",
+      "narrower nose wings",
+      "thinner lips",
+      "warm brown irises",
+      "further darkened shared hair material"
+    ],
+    "lockedUnchanged": [
+      "eye geometry",
+      "eye white and pupil colors",
+      "eyebrow geometry",
+      "cheek width",
+      "jaw shape",
+      "skin tone",
+      "hairband color",
+      "body rig and animation"
+    ],
+    "parameters": {
+      "noseWingWidthReduction": 0.12,
+      "noseTipRecede": 0.007,
+      "lipHeightReduction": 0.22,
+      "lipRecede": 0.0025,
+      "irisColorFrom": "#5a9d9c",
+      "irisColorTo": "#6b4936",
+      "hairColorOriginal": "#2c211f",
+      "hairColorIntermediate": "#211817",
+      "hairColorFinal": "#17100f"
+    },
+    "fixedCameraReview": "passed front three-quarter and side",
+    "runtimeDesktop": "passed 1440x900",
+    "runtimeMobile": "passed 390x844",
+    "runtimeAssetUrl": "/models/character/rain-summer-wanderer.glb?v=45d2d21d2315",
+    "newConsoleErrors": 0
+  },
   "reviewBoundary": {
-    "baseCharacter": "inherits the previously passed Rain body, rig, skin, animation and attribution review",
-    "currentChange": "deterministic rigid LowerLeg binding for the two disconnected bare-foot components and both shoes, plus a formal-map qaMotion route",
-    "currentEvidence": "12-frame Blender Run cycle, weight audit, GLB audit, and actual desktop-side/mobile formal-map runtime screenshots",
-    "status": "passed for the scoped Run foot-spike fix"
+    "baseCharacter": "inherits the previously passed Rain body, rig, skin, animation, attribution and foot-fix review",
+    "currentChange": "warm brown iris material and a further-darkened shared hair material, retaining the accepted scoped nose and lip refinement",
+    "currentEvidence": "fixed-camera Blender face renders, GLB audit, and actual desktop/mobile formal-map runtime screenshots",
+    "status": "passed for the scoped eye and hair material refinement"
   }
 }

@@ -238,3 +238,81 @@ The current procedural summer character is rejected. Its capsule limbs, oversize
   `bb6bb96b2376afcbe1cdcee3ba9e92ad682dbaf362c0d6eb3b05c354b86dabed`;
   size, triangles, nodes, meshes, materials, images, skin and animation names are
   unchanged from Iteration 6.
+
+### Iteration 8 candidate gate
+
+- User direction: retain Rain's recognizable stylized identity while making the
+  face read more clearly as an original East Asian character.
+- Evidence boundary: this is a generalized art-direction request, not a likeness
+  of a named person. The existing Rain canonical and side views are the baseline;
+  skin tone, costume, hair, eye color and ethnic stereotypes are explicitly
+  excluded as identity shortcuts.
+- Frozen scope: head, eye opening, eyelashes and eyebrows only. Hair, outfit,
+  skeleton, animation, materials, body proportions, collision and production GLB
+  are out of scope until a candidate is selected.
+- Candidate A: subtle adjustment with 8% lower eye-opening height, softer brow
+  height, 2.5% cheek widening and a slightly softer nose bridge/profile.
+- Candidate B: medium adjustment with 16% lower eye-opening height, softer brow
+  height, 4.8% cheek widening, 3.5% rounder jaw and a visibly softer nose
+  bridge/profile.
+- Fixed comparison: identical front three-quarter and side cameras for Current,
+  A and B. Candidate Blend files and all renders use `test_` prefixes and live in
+  `test_artifacts/`.
+- Decision gate: do not overwrite
+  `assets/models/source/character/rain-summer-wanderer.blend`, export a new
+  production GLB, or change the runtime cache version before the user selects a
+  candidate.
+- Candidate review result: the first A/B render was rejected because its
+  parameter deltas were not visually readable against Rain's existing oversized
+  eyes and high brows. It remains preserved as `test_rain_face_comparison.png`.
+- Candidate V2 contract: change the eyelid opening itself rather than mainly
+  scaling the eyeball, lower and straighten the brows, and increase cheek, jaw
+  and nose-profile separation. A is now the clearly visible but conservative
+  option; B is deliberately stronger so the user can judge the useful range.
+  V2 outputs use `test_rain_face_v2_` and
+  `test_rain_face_comparison_v2.png`, preserving the rejected comparison.
+- V2 internal visual review: the range became readable, but the strongest eye
+  socket compression produced an unacceptable fold/shading plane near the nose
+  root and made the eyeballs read as protruding. V2 is retained as rejected
+  evidence rather than shown as an accepted option.
+- Candidate V3 correction: use milder socket compression together with visible
+  eye-geometry narrowing and a small rearward eye offset. Keep the stronger
+  cheek, jaw, brow and nose-profile separation. V3 outputs use
+  `test_rain_face_v3_` and `test_rain_face_comparison_v3.png`.
+- User rejection: stop all generalized ethnicity-driven reshaping. V1–V3 are
+  rejected experiments and must never be applied to the production character.
+- Revised exact scope: reduce only the nose tip projection, narrow the nose
+  wings and reduce upper/lower lip height. Eye shape, brows, cheek width, jaw,
+  face height, skin tone, hair, body, rig and animation are locked.
+- Candidate parameters: nose-wing width reduction up to 12% in the local alar
+  region, nose-tip recession up to 0.007 units, lip-height reduction up to 22%
+  around the existing mouth center and lip recession up to 0.0025 units.
+- Acceptance view: Current/Refined from identical front three-quarter and side
+  cameras. Only after this targeted candidate reads naturally may the same
+  deterministic deformation be written into the production generator.
+- Added material direction: darken the shared `Rain_Hair` material from
+  `#2c211f` to `#211817`. This covers the main hair, front strand, low ponytail,
+  eyebrows and eyelashes because they intentionally share one material. Keep the
+  coral hairband unchanged.
+- Accepted implementation: apply only the revised exact scope. The rejected
+  generalized V1–V3 face candidates remain test evidence and are not part of the
+  production asset.
+- Final GLB: SHA
+  `5f73ef992c016b4476236b5081c408666454e0c6ca655b74b4535d50db2d0d5b`,
+  cache version `5f73ef992c01`; file size, triangles, nodes, meshes, materials,
+  images, skin and animation names are unchanged.
+- Validation: fixed front three-quarter and side face renders pass; the 12-frame
+  Run cycle and rigid-foot audit remain clean. The actual
+  `/?start=garden179&qaMotion=run` route loads the new SHA at 1440×900 and
+  390×844 with zero new console errors.
+- Follow-up material adjustment: change only `Rain_Eye_Iris` from turquoise
+  `#5a9d9c` to warm brown `#6b4936`, preserving the eye white and dark pupil.
+  Further darken the shared hair material from `#211817` to `#17100f`; keep the
+  coral hairband unchanged.
+- Final material-only GLB: SHA
+  `45d2d21d231550d3d94a80c805f8e08c2d4b430f6d42d6cdce74f34e5f135805`,
+  cache version `45d2d21d2315`, 2,873,644 bytes. Geometry, bounds, node count,
+  triangle count, material count, skin and animation clips remain unchanged.
+- Runtime validation: the actual `/?start=garden179&qaMotion=run` route loads
+  cache version `45d2d21d2315` at 1440×900 and 390×844 with zero new console
+  errors.

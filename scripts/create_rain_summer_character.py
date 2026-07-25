@@ -103,7 +103,7 @@ def hex_to_rgb(value: str):
 def palette():
     return {
         "skin": make_material("Rain_Skin", "#9b664d", 0.92),
-        "hair": make_material("Rain_Hair", "#2c211f", 0.94),
+        "hair": make_material("Rain_Hair", "#17100f", 0.94),
         "hairband": make_material("Rain_Hairband", "#cf725f", 0.88),
         "top": make_material("Rain_Top", "#fff0cf", 0.96),
         "scarf": make_material("Rain_Scarf", "#65a6a0", 0.9),
@@ -111,7 +111,7 @@ def palette():
         "shoe": make_material("Rain_Shoes", "#a96045", 0.9),
         "cream": make_material("Rain_Cream_Detail", "#f5e1bd", 0.92),
         "eye_white": make_material("Rain_Eye_White", "#fff8e8", 0.74),
-        "eye_iris": make_material("Rain_Eye_Iris", "#5a9d9c", 0.7),
+        "eye_iris": make_material("Rain_Eye_Iris", "#6b4936", 0.7),
         "eye_dark": make_material("Rain_Eye_Dark", "#172525", 0.8),
     }
 
@@ -366,6 +366,69 @@ def repair_existing_body_and_shoe_weights() -> None:
     shoes["rain_shoe_fix_version"] = 2
 
 
+def gaussian_falloff(value: float, center: float, width: float) -> float:
+    return math.exp(-((value - center) / width) ** 2)
+
+
+def refine_rain_face() -> None:
+    """按用户指定范围收窄鼻翼、减小鼻头并压薄嘴唇。"""
+    head = bpy.data.objects["Rain_head"]
+    if head.get("rain_face_refinement_version") == 1:
+        return
+    for vertex in head.data.vertices:
+        co = vertex.co
+        front_weight = max(0.0, min(1.0, (-co.y - 0.06) / 0.11))
+
+        nose_height = gaussian_falloff(co.z, 1.414, 0.042)
+        nose_center = gaussian_falloff(co.x, 0.0, 0.046)
+        nose_wing = (
+            gaussian_falloff(abs(co.x), 0.035, 0.024)
+            * gaussian_falloff(co.z, 1.401, 0.028)
+            * front_weight
+        )
+        co.x *= 1.0 - 0.12 * nose_wing
+        co.y += 0.007 * nose_height * nose_center * front_weight
+
+        lip_weight = (
+            gaussian_falloff(co.z, 1.349, 0.038)
+            * gaussian_falloff(co.x, 0.0, 0.074)
+            * front_weight
+        )
+        lip_scale = 1.0 - 0.22 * lip_weight
+        co.z = 1.349 + (co.z - 1.349) * lip_scale
+        co.y += 0.0025 * lip_weight
+
+    head["rain_face_refinement_version"] = 1
+    head["rain_face_refinement_scope"] = "nose-tip nose-wings lips"
+    head.data.update()
+
+
+def set_material_color(material, color_hex: str) -> None:
+    color = hex_to_rgb(color_hex)
+    material.diffuse_color = (*color, 1.0)
+    principled = next(
+        node
+        for node in material.node_tree.nodes
+        if node.type == "BSDF_PRINCIPLED"
+    )
+    principled.inputs["Base Color"].default_value = (*color, 1.0)
+
+
+def recolor_rain_hair_and_iris() -> None:
+    """进一步压深全部毛发，并把虹膜从青绿色改为暖棕色。"""
+    hair = bpy.data.materials["Rain_Hair"]
+    iris = bpy.data.materials["Rain_Eye_Iris"]
+    if (
+        hair.get("rain_hair_color_version") == 2
+        and iris.get("rain_iris_color_version") == 1
+    ):
+        return
+    set_material_color(hair, "#17100f")
+    set_material_color(iris, "#6b4936")
+    hair["rain_hair_color_version"] = 2
+    iris["rain_iris_color_version"] = 1
+
+
 def assign_materials(obj, materials) -> None:
     material_indices = [polygon.material_index for polygon in obj.data.polygons]
     obj.data.materials.clear()
@@ -604,6 +667,8 @@ def main() -> None:
             if obj.type == "MESH" and obj.parent == rig
         ]
         repair_existing_body_and_shoe_weights()
+        refine_rain_face()
+        recolor_rain_hair_and_iris()
         validate_vertex_groups(meshes, rig)
         render_preview(meshes, "canonical", PREVIEW_DIR / "test_rain_summer_character_canonical.png")
         render_preview(meshes, "side", PREVIEW_DIR / "test_rain_summer_character_side.png")
@@ -639,6 +704,7 @@ def main() -> None:
     animation_rig = import_animation_rig()
     align_animation_rig(animation_rig, source_rig)
     attach_meshes(meshes, animation_rig)
+    refine_rain_face()
     validate_vertex_groups(meshes, animation_rig)
     clean_scene(set(meshes) | {animation_rig})
 

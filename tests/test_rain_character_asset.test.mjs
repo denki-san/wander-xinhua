@@ -100,6 +100,11 @@ test("Rain 候选的生成器、来源哈希与 CC-BY 署名可追溯", async ()
   assert.equal(parsedWeightAudit._constraints.bodyFeetAndShoesRigidToLowerLeg, true);
   assert.equal(parsedWeightAudit._constraints.rigidFootViolationCount, 0);
   assert.match(generator, /rigid_body_foot_weight/);
+  assert.match(generator, /refine_rain_face/);
+  assert.match(generator, /rain_face_refinement_version/);
+  assert.match(generator, /recolor_rain_hair_and_iris/);
+  assert.match(generator, /#17100f/);
+  assert.match(generator, /#6b4936/);
 });
 
 test("Rain 短束低马尾和桌面手机证据对应同一 GLB", async () => {

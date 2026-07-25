@@ -96,7 +96,7 @@ test("正式运行时加载 Rain 单文件角色并混合待机、行走和奔�
 
   assert.match(
     detailedCharacter,
-    /const CHARACTER_MODEL_PATH = "\/models\/character\/rain-summer-wanderer\.glb\?v=bb6bb96b2376"/,
+    /const CHARACTER_MODEL_PATH = "\/models\/character\/rain-summer-wanderer\.glb\?v=45d2d21d2315"/,
   );
   assert.match(detailedCharacter, /const CHARACTER_VISUAL_SCALE = 1\.3/);
   assert.doesNotMatch(detailedCharacter, /CHARACTER_ANIMATION_PATH|universal-animation-standard\.glb/);

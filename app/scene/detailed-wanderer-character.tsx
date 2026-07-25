@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, type RefObject } from "react";
 import { Group, type Object3D } from "three";
 import { inputState } from "./input";
 
-const CHARACTER_MODEL_PATH = "/models/character/rain-summer-wanderer.glb?v=bb6bb96b2376";
+const CHARACTER_MODEL_PATH = "/models/character/rain-summer-wanderer.glb?v=45d2d21d2315";
 const CHARACTER_VISUAL_SCALE = 1.3;
 
 export default function DetailedWandererCharacter({
