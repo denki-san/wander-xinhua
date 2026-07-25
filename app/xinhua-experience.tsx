@@ -422,10 +422,22 @@ export function XinhuaExperience() {
     typeof window !== "undefined"
     && new URLSearchParams(window.location.search).get("cameraQa") === "1"
   ));
-  const [cinemaMassingQa] = useState(() => (
-    typeof window !== "undefined"
-    && new URLSearchParams(window.location.search).get("qaCinemaTier") === "massing"
-  ));
+  const [cinemaTierQa] = useState<"hero" | "identity" | "massing" | null>(() => {
+    if (typeof window === "undefined") return null;
+    const tier = new URLSearchParams(window.location.search).get("qaCinemaTier");
+    return tier === "hero" || tier === "identity" || tier === "massing"
+      ? tier
+      : null;
+  });
+  const [cinemaFaultQa] = useState<
+    "hero-unavailable" | "identity-unavailable" | null
+  >(() => {
+    if (typeof window === "undefined") return null;
+    const fault = new URLSearchParams(window.location.search).get("qaCinemaFault");
+    return fault === "hero-unavailable" || fault === "identity-unavailable"
+      ? fault
+      : null;
+  });
   const networkProfile = useProgressiveNetworkProfile();
   const [initialOverviewPosition] = useState(requestedOverviewStartPosition);
   const playerPosition = useRef<readonly [number, number]>(initialOverviewPosition);
@@ -581,7 +593,8 @@ export function XinhuaExperience() {
       className={`xinhua-stage is-${mode}${playing ? " is-playing" : ""}${touchCapable ? " is-touch" : ""}`}
       data-progressive-network={networkProfile}
       data-progressive-stage={ready ? "playable" : "booting"}
-      data-shanghai-cinema-qa-tier={cinemaMassingQa ? "massing" : undefined}
+      data-shanghai-cinema-qa-tier={cinemaTierQa ?? undefined}
+      data-shanghai-cinema-qa-fault={cinemaFaultQa ?? undefined}
     >
       <Canvas
         shadows="percentage"
@@ -620,7 +633,8 @@ export function XinhuaExperience() {
             playerPosition.current = position;
           }}
           networkProfile={networkProfile}
-          cinemaMassingQa={cinemaMassingQa}
+          cinemaTierQa={cinemaTierQa}
+          cinemaFaultQa={cinemaFaultQa}
         />
         {/*
           当前后处理链在可玩相机接管后只输出全屏 pass，导致 overview / explore 空白。

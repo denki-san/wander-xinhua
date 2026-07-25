@@ -174,21 +174,28 @@ test("上海影城 Massing 地图位置、朝向、地面、退界和人物尺�
   ]);
 });
 
-test("上海影城 Massing QA 查询只在显式请求时复用真实地图 placement", async () => {
-  const [experience, world, massing, identityContract] = await Promise.all([
+test("上海影城三档 QA 查询只在显式请求时复用真实地图 placement", async () => {
+  const [experience, world, runtimeQa, identityContract] = await Promise.all([
     readFile(new URL("app/xinhua-experience.tsx", root), "utf8"),
     readFile(new URL("app/scene/xinhua-world.tsx", root), "utf8"),
-    readFile(new URL("app/scene/xinhua-road-massing.tsx", root), "utf8"),
+    readFile(new URL("app/scene/shanghai-cinema-runtime-qa.tsx", root), "utf8"),
     readFile(new URL("app/scene/xinhua-road-identity-contract.ts", root), "utf8"),
   ]);
-  assert.match(experience, /get\("qaCinemaTier"\) === "massing"/);
+  assert.match(experience, /get\("qaCinemaTier"\)/);
+  assert.match(experience, /tier === "hero" \|\| tier === "identity" \|\| tier === "massing"/);
+  assert.match(experience, /get\("qaCinemaFault"\)/);
+  assert.match(experience, /fault === "hero-unavailable" \|\| fault === "identity-unavailable"/);
   assert.match(experience, /data-shanghai-cinema-qa-tier/);
-  assert.match(world, /name="shanghai-cinema-massing-map-qa"/);
-  assert.match(world, /onlyLandmarkId="shanghai-cinema"/);
-  assert.match(world, /showStreetDressing=\{mode === "explore" && !cinemaMassingQa\}/);
-  assert.match(world, /showHeroTree=\{exploring && !cinemaMassingQa\}/);
-  assert.match(massing, /onlyLandmarkId && landmark\.id !== onlyLandmarkId/);
-  assert.match(massing, /ShanghaiCinemaMassingGlb/);
+  assert.match(experience, /data-shanghai-cinema-qa-fault/);
+  assert.match(world, /name="shanghai-cinema-tier-map-qa"/);
+  assert.match(world, /ShanghaiCinemaRuntimeQaAsset/);
+  assert.match(world, /showStreetDressing=\{mode === "explore" && !cinemaTierQa\}/);
+  assert.match(world, /showHeroTree=\{exploring && !cinemaTierQa\}/);
+  assert.match(runtimeQa, /SHANGHAI_CINEMA_HERO_QA_MODEL/);
+  assert.match(runtimeQa, /ShanghaiCinemaHybridIdentity/);
+  assert.match(runtimeQa, /ShanghaiCinemaProgrammaticBody/);
+  assert.match(runtimeQa, /ShanghaiCinemaRepeatedDetails/);
+  assert.match(runtimeQa, /ShanghaiCinemaMassingGlb/);
   assert.match(
     identityContract,
     new RegExp(SHANGHAI_CINEMA_MASSING_MODEL_PATH.replaceAll("/", "\\/")),
@@ -211,6 +218,128 @@ test("上海影城 Headless 与 MCP1/MCP2 候选证据均已保留", async () =>
   for (const path of paths) {
     assert.ok((await stat(new URL(path, root))).size > 10_000, `${path} 不是有效截图`);
   }
+});
+
+test("上海影城 MCP3 gate 锁定三档同机位、修正人物标尺和完整 Identity recipe", async () => {
+  const [gate, buildRecord, recipeSource] = await Promise.all([
+    readJson("docs/research/shanghai-cinema-blender-mcp-gates.json"),
+    readJson("docs/research/build-records/shanghai-cinema-massing.json"),
+    readFile(new URL("app/scene/shanghai-cinema-hybrid-identity.tsx", root)),
+  ]);
+  assert.equal(gate.threeTierGate.status, "pass");
+  assert.equal(gate.threeTierGate.interactiveReview, "Blender MCP");
+  assert.deepEqual(gate.threeTierGate.acceptedInteractiveChanges, []);
+  assert.deepEqual(buildRecord.mcp3.acceptedInteractiveChanges, []);
+  assert.equal(buildRecord.gates.mcp3SameCameraThreeTier, "passed");
+  assert.equal(
+    buildRecord.gates.threeTierRuntime,
+    "passed-static-runtime-with-fault-injection",
+  );
+  assert.ok(
+    Math.abs(gate.threeTierGate.humanScale.heightSceneUnits - 2 / 3) < 1e-7,
+  );
+  assert.equal(gate.threeTierGate.humanScale.bottomAtGroundDatum, true);
+  const recipeSha = createHash("sha256").update(recipeSource).digest("hex");
+  assert.equal(
+    recipeSha,
+    "c36bdf9450bfa23d266f2ba1e878360031ea54001f7b984955e7899c814e4c31",
+  );
+  assert.equal(
+    gate.threeTierGate.identityRepresentation.sourceSha256,
+    recipeSha,
+  );
+  assert.deepEqual(gate.threeTierGate.identityRepresentation.components, [
+    "ShanghaiCinemaProgrammaticBody",
+    "ShanghaiCinemaIdentityGlb",
+    "ShanghaiCinemaRepeatedDetails",
+  ]);
+  assert.equal(
+    gate.threeTierGate.identityRepresentation.identityGlb.role,
+    "identity-increment-not-standalone-tier",
+  );
+  for (const [viewName, expected] of Object.entries(SHANGHAI_CINEMA_MCP3_QA_VIEWS)) {
+    const actual = gate.threeTierGate.fixedViews[viewName];
+    assert.deepEqual(actual.camera, expected.cameraBlender);
+    assert.deepEqual(actual.target, expected.targetBlender);
+    assert.equal(actual.lensMm, expected.lensMm);
+    assert.deepEqual(actual.triptych.order, ["hero", "identity", "massing"]);
+    for (const tier of ["hero", "identity", "massing", "triptych"]) {
+      const capture = actual[tier];
+      assert.equal(await sha256(capture.path), capture.sha256);
+      assert.equal((await stat(new URL(capture.path, root))).size, capture.bytes);
+    }
+  }
+});
+
+test("上海影城 Three.js 三档与两条故障注入链均有实际页面证据", async () => {
+  const [runtimeQa, buildRecord, gate, runtimeSource] = await Promise.all([
+    readJson("test_artifacts/test_shanghai-cinema_three-tier_runtime_qa.json"),
+    readJson("docs/research/build-records/shanghai-cinema-massing.json"),
+    readJson("docs/research/shanghai-cinema-blender-mcp-gates.json"),
+    readFile(new URL("app/scene/shanghai-cinema-runtime-qa.tsx", root), "utf8"),
+  ]);
+  assert.equal(runtimeQa.status, "passed");
+  assert.equal(runtimeQa.sharedSpatialContract.position[0], 74.1);
+  assert.equal(runtimeQa.sharedSpatialContract.position[1], 80.9);
+  assert.equal(runtimeQa.sharedSpatialContract.yaw, 2.761592653589793);
+  assert.equal(runtimeQa.sharedSpatialContract.runtimePlacementY, 1.009780347);
+  assert.equal(runtimeQa.camera.mode, "spring-clear");
+  assert.equal(runtimeQa.camera.blocker, "none");
+  for (const tier of ["hero", "identity", "massing"]) {
+    const runtimeCase = runtimeQa.cases[tier];
+    assert.equal(runtimeCase.requestedTier, tier);
+    assert.equal(runtimeCase.renderedTier, tier);
+    assert.equal(runtimeCase.status, "loaded");
+    assert.deepEqual(runtimeCase.browserErrors, []);
+    assert.ok(runtimeCase.frameSample.fps >= 55);
+  }
+  assert.equal(runtimeQa.cases.heroUnavailable.requestedTier, "hero");
+  assert.equal(runtimeQa.cases.heroUnavailable.renderedTier, "identity");
+  assert.equal(
+    runtimeQa.cases.heroUnavailable.fallback,
+    "hero-unavailable-to-identity",
+  );
+  assert.equal(runtimeQa.cases.heroUnavailable.assertions.heroRequestPresent, false);
+  assert.ok(
+    runtimeQa.cases.heroUnavailable.resources.every(
+      ({ url }) => !url.includes("/shanghai-cinema.glb"),
+    ),
+  );
+  assert.equal(runtimeQa.cases.identityUnavailable.requestedTier, "identity");
+  assert.equal(runtimeQa.cases.identityUnavailable.renderedTier, "programmatic");
+  assert.equal(
+    runtimeQa.cases.identityUnavailable.fallback,
+    "identity-unavailable-to-programmatic",
+  );
+  assert.equal(
+    runtimeQa.cases.identityUnavailable.assertions.identityGlbRequestPresent,
+    false,
+  );
+  assert.ok(
+    runtimeQa.cases.identityUnavailable.resources.every(
+      ({ url }) => !url.includes("shanghai-cinema-hybrid-identity.glb"),
+    ),
+  );
+  for (const runtimeCase of Object.values(runtimeQa.cases)) {
+    assert.deepEqual(runtimeCase.browserErrors, []);
+    assert.equal(
+      await sha256(runtimeCase.screenshot.path),
+      runtimeCase.screenshot.sha256,
+    );
+    assert.equal(
+      (await stat(new URL(runtimeCase.screenshot.path, root))).size,
+      runtimeCase.screenshot.bytes,
+    );
+  }
+  assert.equal(buildRecord.threeTierRuntime.status, "passed");
+  assert.equal(gate.threeJsRuntimeGate.threeTierRuntime, "pass");
+  assert.deepEqual(gate.threeJsRuntimeGate.browserErrors, []);
+  assert.match(runtimeSource, /hero-unavailable-to-identity/);
+  assert.match(runtimeSource, /identity-unavailable-to-programmatic/);
+  assert.match(runtimeSource, /programmatic-runtime-recipe/);
+  assert.match(runtimeSource, /20260721-cinema-7/);
+  assert.match(runtimeSource, /SHANGHAI_CINEMA_HYBRID_IDENTITY_MODEL/);
+  assert.match(runtimeSource, /SHANGHAI_CINEMA_MASSING_MODEL/);
 });
 
 test("上海影城运行时地图证据与 MCP3 候选锁定当前三档路径和修正人物标尺", async () => {
