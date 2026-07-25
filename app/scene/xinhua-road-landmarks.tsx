@@ -20,6 +20,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type ReactNode,
   type RefObject,
 } from "react";
 import {
@@ -546,8 +547,18 @@ function GlbModel({
       delete root.dataset.xinhuaRoadQaStatus;
       delete root.dataset.xinhuaRoadQaSource;
       delete root.dataset.xinhuaRoadQaBounds;
+      delete root.dataset.xinhuaRoadQaRender;
     };
   }, [model, path, qaAssetId, qaTier]);
+  useFrame(({ gl }) => {
+    if (!qaAssetId || !qaTier) return;
+    document.documentElement.dataset.xinhuaRoadQaRender = JSON.stringify({
+      drawCalls: gl.info.render.calls,
+      triangles: gl.info.render.triangles,
+      lines: gl.info.render.lines,
+      points: gl.info.render.points,
+    });
+  });
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
@@ -660,6 +671,45 @@ function useDistanceHeroLandmarkIds({
   });
 }
 
+function FilmArtCenterQaFallback({
+  assetId,
+  tier,
+  source,
+  children,
+}: {
+  assetId: string;
+  tier: string;
+  source: string;
+  children: ReactNode;
+}) {
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset.xinhuaRoadQaAsset = assetId;
+    root.dataset.xinhuaRoadQaTier = tier;
+    root.dataset.xinhuaRoadQaStatus = "fallback";
+    root.dataset.xinhuaRoadQaSource = source;
+    window.dispatchEvent(new CustomEvent("xinhua:active-asset-runtime", {
+      detail: {
+        assetId,
+        tier,
+        status: "fallback",
+        source,
+      },
+    }));
+    return () => {
+      if (
+        root.dataset.xinhuaRoadQaSource !== source
+        || root.dataset.xinhuaRoadQaStatus !== "fallback"
+      ) return;
+      delete root.dataset.xinhuaRoadQaAsset;
+      delete root.dataset.xinhuaRoadQaTier;
+      delete root.dataset.xinhuaRoadQaStatus;
+      delete root.dataset.xinhuaRoadQaSource;
+    };
+  }, [assetId, source, tier]);
+  return children;
+}
+
 export function XinhuaRoadLandmarks({
   showLabels = true,
   mountedModelIds,
@@ -679,14 +729,27 @@ export function XinhuaRoadLandmarks({
         const [x, z] = landmark.position;
         const [labelOffsetX, labelOffsetZ] = landmark.labelOffset ?? [0, 0];
         const y = terrainHeightAt(x, z) + 0.1;
-        const qaMassing = filmArtQa?.assetId === landmark.id;
-        const modelPath = qaMassing
+        const qaTierOverride = filmArtQa?.assetId === landmark.id;
+        const modelPath = qaTierOverride
           ? filmArtQa.modelPath
           : landmark.cacheVersion
             ? `${landmark.model}?v=${landmark.cacheVersion}`
             : landmark.model;
         const shouldMountModel = mountedModelIds.has(landmark.id);
-        const shouldMountActiveModel = qaMassing || shouldMountModel;
+        const shouldMountActiveModel = qaTierOverride || shouldMountModel;
+        const qaFallback = qaTierOverride ? (
+          <FilmArtCenterQaFallback
+            assetId={landmark.id}
+            tier={filmArtQa.tier}
+            source={modelPath}
+          >
+            <LandmarkProgressiveProxy
+              landmark={landmark}
+              identity
+              forceProgrammaticIdentity
+            />
+          </FilmArtCenterQaFallback>
+        ) : null;
         return (
           <group
             key={landmark.id}
@@ -696,32 +759,37 @@ export function XinhuaRoadLandmarks({
               address: landmark.address,
               positioning: landmark.positioning,
               modeling: "photo-reference-blender-glb",
-              qaTier: qaMassing ? filmArtQa.tier : undefined,
-              qaOnly: qaMassing || undefined,
+              qaTier: qaTierOverride ? filmArtQa.tier : undefined,
+              qaOnly: qaTierOverride || undefined,
             }}
           >
             <group position={[x, y, z]} rotation-y={landmark.yaw} scale={landmark.scale}>
               {shouldMountActiveModel && (
-                <ProgressiveFeatureBoundary
-                  resetKey={modelPath}
-                  fallback={<LandmarkProgressiveProxy landmark={landmark} identity />}
-                >
-                  <Suspense
-                    fallback={(
-                      <LandmarkProgressiveProxy landmark={landmark} identity />
-                    )}
+                qaTierOverride ? (
+                  <ProgressiveFeatureBoundary
+                    resetKey={modelPath}
+                    fallback={qaFallback}
                   >
-                    {qaMassing ? (
+                    <Suspense fallback={qaFallback}>
                       <GlbModel
                         path={modelPath}
                         qaAssetId={landmark.id}
                         qaTier={filmArtQa.tier}
                       />
-                    ) : (
+                    </Suspense>
+                  </ProgressiveFeatureBoundary>
+                ) : (
+                  <ProgressiveFeatureBoundary
+                    resetKey={modelPath}
+                    fallback={<LandmarkProgressiveProxy landmark={landmark} identity />}
+                  >
+                    <Suspense
+                      fallback={<LandmarkProgressiveProxy landmark={landmark} identity />}
+                    >
                       <GlbModel path={modelPath} />
-                    )}
-                  </Suspense>
-                </ProgressiveFeatureBoundary>
+                    </Suspense>
+                  </ProgressiveFeatureBoundary>
+                )
               )}
             </group>
             {showLabels && landmark.poi && (

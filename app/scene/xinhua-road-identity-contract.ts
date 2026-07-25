@@ -96,6 +96,31 @@ export function xinhuaRoadDistanceHeroIds({
 export const SHANGHAI_CINEMA_IDENTITY_MODEL_PATH =
   "/models/xinhua-road/shanghai-cinema-hybrid-identity.glb";
 export const SHANGHAI_CINEMA_IDENTITY_CACHE_VERSION = "20260722-hybrid-1";
+export const FILM_ART_CENTER_IDENTITY_MODEL_PATH =
+  "/models/tiers/xinhua-road/identity/film-art-center-identity.glb";
+export const FILM_ART_CENTER_IDENTITY_CACHE_VERSION =
+  "20260725-film-art-identity-1";
+
+export type XinhuaRoadIdentityStrategy =
+  | "programmatic-miniature"
+  | "custom-landmark-hybrid"
+  | "derived-glb";
+
+/**
+ * 独立 GLB 已按 Hero 原点导出，不能再套用 bounds-center 平移。
+ * 只有以 bounds 构建的程序化缩影需要把几何中心移到共享建筑原点附近。
+ */
+export function xinhuaRoadIdentityLocalPosition(
+  localBounds: LandmarkPlacement["localBounds"],
+  strategy: XinhuaRoadIdentityStrategy,
+): [number, number, number] {
+  if (strategy !== "programmatic-miniature") return [0, 0, 0];
+  return [
+    (localBounds.minX + localBounds.maxX) / 2,
+    0,
+    -(localBounds.minZ + localBounds.maxZ) / 2,
+  ];
+}
 
 export type XinhuaRoadBuildingQualityEntry = {
   buildingId: string;
@@ -110,7 +135,7 @@ export type XinhuaRoadBuildingQualityEntry = {
     };
   };
   identity: {
-    strategy: "programmatic-miniature" | "custom-landmark-hybrid";
+    strategy: XinhuaRoadIdentityStrategy;
     recipe: XinhuaRoadIdentityKind;
     model?: string;
     cacheVersion?: string;
@@ -129,6 +154,7 @@ function buildingQualityEntry(
   landmark: LandmarkPlacement,
 ): XinhuaRoadBuildingQualityEntry {
   const shanghaiCinema = landmark.id === "shanghai-cinema";
+  const filmArtCenter = landmark.id === "film-art-center";
   return {
     buildingId: landmark.id,
     hero: {
@@ -144,13 +170,19 @@ function buildingQualityEntry(
     identity: {
       strategy: shanghaiCinema
         ? "custom-landmark-hybrid"
+        : filmArtCenter
+          ? "derived-glb"
         : "programmatic-miniature",
       recipe: xinhuaRoadIdentityKind(landmark.id),
       model: shanghaiCinema
         ? SHANGHAI_CINEMA_IDENTITY_MODEL_PATH
+        : filmArtCenter
+          ? FILM_ART_CENTER_IDENTITY_MODEL_PATH
         : undefined,
       cacheVersion: shanghaiCinema
         ? SHANGHAI_CINEMA_IDENTITY_CACHE_VERSION
+        : filmArtCenter
+          ? FILM_ART_CENTER_IDENTITY_CACHE_VERSION
         : undefined,
       requiredBeforeMapVisible: true,
     },
@@ -277,12 +309,39 @@ function roadEvidence(landmarkId: string): ProductionQualityEvidence {
   }
   if (landmarkId === "film-art-center") {
     return {
-      ...emptyEvidence([
-        "为程序化 Identity 补录独立 build record、背向截图与 draw-call 指标",
-      ]),
+      status: "accepted-with-followup",
       heroBuildRecords: ["docs/research/build-records/film-art-center.json"],
+      identityBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/identity/film-art-center-identity.json",
+      ],
+      massingBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/massing/film-art-center-massing.json",
+      ],
+      canonicalScreenshots: [
+        "test_artifacts/test_film-art-center-hero_mcp2_recheck_canonical.png",
+        "test_artifacts/test_film-art-center-identity_mcp3_recheck_canonical.png",
+      ],
+      sideScreenshots: [
+        "test_artifacts/test_film-art-center-hero_mcp2_recheck_side.png",
+        "test_artifacts/test_film-art-center-identity_mcp3_recheck_side.png",
+      ],
+      rearScreenshots: [],
       runtimeScreenshots: [
-        "test_artifacts/test_film-art-center_runtime_preview.png",
+        "test_artifacts/test_film-art-center_runtime_hero_1280x800.png",
+        "test_artifacts/test_film-art-center_runtime_identity_1280x800.png",
+        "test_artifacts/test_film-art-center_runtime_massing_1280x800.png",
+        "test_artifacts/test_film-art-center_runtime_production_identity_1280x800.png",
+        "test_artifacts/test_film-art-center_runtime_identity_fallback_scoped_1280x800.png",
+        "test_artifacts/test_film-art-center_runtime_production_identity_fallback_1280x800.png",
+      ],
+      resourceMetrics: [
+        "test_artifacts/test_film-art-center_three-tier_runtime_metrics.json",
+      ],
+      drawCallMetrics: [
+        "test_artifacts/test_film-art-center_three-tier_runtime_metrics.json",
+      ],
+      gaps: [
+        "主窗口真实浏览器终验仍待统一调度执行",
       ],
     };
   }

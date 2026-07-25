@@ -1,0 +1,154 @@
+{
+  "assetId": "film-art-center",
+  "capturedAt": "2026-07-25T15:15:00Z",
+  "status": "local-candidate-main-browser-pending",
+  "scope": {
+    "included": [
+      "Film Art Center Hero, Identity and Massing GLB runtime routes",
+      "Film Art Center production Identity registry and placement",
+      "Film Art Center forced fallback route",
+      "Film Art Center runtime tests and evidence"
+    ],
+    "excludedAndUntouched": [
+      "Hero binary and inherited lawn, shrubs and courtyard lamps",
+      "trees and decorative assets",
+      "ordinary OSM massing",
+      "full-map massing",
+      "other buildings"
+    ]
+  },
+  "frozenSpatialContract": {
+    "source": "app/scene/xinhua-road-landmarks-data.json#film-art-center",
+    "position": [47.5, 81.5],
+    "yaw": 2.761592653589793,
+    "scale": 1,
+    "start": [35, 99],
+    "forward": [0.581, -0.814],
+    "localBounds": {
+      "minX": -11.554999,
+      "maxX": 11.554999,
+      "minZ": -6.725,
+      "maxZ": 11.225
+    },
+    "localBoundsCenter": [0, 0, -2.25],
+    "derivedGlbLocalPosition": [0, 0, 0],
+    "qaDirectGlbLocalPosition": [0, 0, 0],
+    "genericFallbackLocalPosition": [0, 0, -2.25],
+    "status": "pass",
+    "note": "独立 Identity GLB 已按冻结 Hero 原点导出；生产 derived-glb 分支不得再次套用 bounds-center 平移。"
+  },
+  "assets": {
+    "hero": {
+      "path": "public/models/xinhua-road/film-art-center.glb",
+      "runtimePath": "/models/xinhua-road/film-art-center.glb?v=20260725-film-art-5",
+      "sha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+      "bytes": 3148572,
+      "triangles": 63368
+    },
+    "identity": {
+      "path": "public/models/tiers/xinhua-road/identity/film-art-center-identity.glb",
+      "runtimePath": "/models/tiers/xinhua-road/identity/film-art-center-identity.glb?v=20260725-film-art-identity-1",
+      "sha256": "a4d37446e27225815624e6382048ed1dc341f1e079f089755ed5fb68e520e869",
+      "bytes": 1130852,
+      "triangles": 23816,
+      "localBounds": {
+        "min": [-11.554999, 0, -6.725],
+        "max": [11.554999, 13.84, 7.90125]
+      }
+    },
+    "massing": {
+      "path": "public/models/tiers/xinhua-road/massing/film-art-center-massing.glb",
+      "runtimePath": "/models/tiers/xinhua-road/massing/film-art-center-massing.glb?v=c89791dc3978",
+      "sha256": "c89791dc3978b317cc2f8807a77f7a84b5c596f8d4cd01c1cffd05090e9584a6",
+      "bytes": 240572,
+      "triangles": 3376
+    }
+  },
+  "runtime": {
+    "metrics": "test_artifacts/test_film-art-center_three-tier_runtime_metrics.json",
+    "viewport": {
+      "width": 1280,
+      "height": 800,
+      "devicePixelRatio": 1
+    },
+    "warmupSeconds": 8,
+    "buildMode": "vinext-dev",
+    "pageVisibility": "visible",
+    "networkProfileDataset": "weak",
+    "camera": {
+      "mode": "spring-clear",
+      "blocker": "none",
+      "arm": 5.57,
+      "armYawDegrees": -27.2,
+      "goalYawDegrees": -35.5,
+      "fovDegrees": 58
+    },
+    "tiers": {
+      "hero": {
+        "status": "loaded",
+        "drawCalls": 1993,
+        "sceneTriangles": 863509,
+        "screenshot": "test_artifacts/test_film-art-center_runtime_hero_1280x800.png"
+      },
+      "identity": {
+        "status": "loaded",
+        "drawCalls": 1981,
+        "sceneTriangles": 785149,
+        "screenshot": "test_artifacts/test_film-art-center_runtime_identity_1280x800.png"
+      },
+      "massing": {
+        "status": "loaded",
+        "drawCalls": 1977,
+        "sceneTriangles": 743405,
+        "screenshot": "test_artifacts/test_film-art-center_runtime_massing_1280x800.png"
+      }
+    },
+    "drawCallScope": "whole-scene-not-asset-isolated",
+    "uncaughtErrorsForLoadedTiers": 0,
+    "nonBlockingWarning": "THREE.Clock deprecation warning from existing shared runtime"
+  },
+  "productionIdentity": {
+    "strategy": "derived-glb",
+    "model": "/models/tiers/xinhua-road/identity/film-art-center-identity.glb",
+    "cacheVersion": "20260725-film-art-identity-1",
+    "requiredBeforeMapVisible": true,
+    "localPosition": [0, 0, 0],
+    "qaLocalPosition": [0, 0, 0],
+    "screenshot": "test_artifacts/test_film-art-center_runtime_production_identity_1280x800.png",
+    "placementEqualityTest": "tests/test_progressive_world_loading.test.mjs",
+    "status": "pass"
+  },
+  "productionIdentityFailureFallback": {
+    "route": "/?start=film-art&cameraQa=1&qaProductionFallback=film-art-center-identity",
+    "status": "pass",
+    "pagePlayable": true,
+    "derivedGlbOuterPosition": [0, 0, 0],
+    "programmaticFallbackInnerPosition": [0, 0, -2.25],
+    "datasetPosition": [0, 0, -2.25],
+    "representation": "programmatic-miniature",
+    "screenshot": "test_artifacts/test_film-art-center_runtime_production_identity_fallback_1280x800.png",
+    "note": "真实 production Identity Boundary 的加载/错误 fallback 在 derived 外层内显式恢复 bounds-center 平移。"
+  },
+  "fallback": {
+    "route": "/?start=film-art&qaModelTier=identity&qaModelId=film-art-center&qaActiveFallback=film-art-center-identity&cameraQa=1",
+    "status": "pass",
+    "pagePlayable": true,
+    "representation": "programmatic-miniature",
+    "foreignQaRequestsInCurrentPerformanceBuffer": [],
+    "screenshot": "test_artifacts/test_film-art-center_runtime_identity_fallback_scoped_1280x800.png",
+    "note": "建筑级 fallback token 避免触发其他建筑的全局 tier QA 路径。"
+  },
+  "gates": {
+    "mcp1Massing": "pass",
+    "mapAcceptance": "pass",
+    "mcp2Hero": "pass",
+    "mcp3ThreeTier": "pass",
+    "localThreeTierRuntimeCandidate": "pass",
+    "productionIdentityFailureFallback": "pass",
+    "mainWindowRealBrowserAcceptance": "pending"
+  },
+  "verdict": {
+    "status": "local-candidate-main-browser-pending",
+    "reason": "三档同机位加载、正式 Identity placement、资源与渲染采样、异常回退均已在隔离本地会话通过；按调度边界仍需主窗口执行真实浏览器终验。"
+  }
+}

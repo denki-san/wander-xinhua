@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "film-art-center",
   "activeScope": "active-18-buildings",
-  "reviewedAt": "2026-07-25T21:36:41+08:00",
+  "reviewedAt": "2026-07-25T23:15:00+08:00",
   "reviewedBy": "main-coordinator",
   "sourceCheckpoint": "6d0206d",
   "pipelineOrder": [
@@ -450,9 +450,27 @@
     "qaRigSaved": false,
     "qaRigExported": false,
     "decision": "pass-runtime-integration-unlocked",
-    "nextGate": "identity-three-js-runtime-candidate"
+    "nextGate": "main-window-real-browser-acceptance"
   },
   "threeTierGate": {
-    "status": "blender-three-tier-pass-runtime-pending"
+    "status": "blender-and-local-runtime-pass-main-browser-pending",
+    "runtimeQaRecord": "docs/research/film-art-center-three-tier-runtime-qa.json",
+    "runtimeMetrics": "test_artifacts/test_film-art-center_three-tier_runtime_metrics.json",
+    "productionIdentityPlacement": {
+      "strategy": "derived-glb",
+      "localPosition": [0, 0, 0],
+      "qaDirectGlbLocalPosition": [0, 0, 0],
+      "genericFallbackLocalPosition": [0, 0, -2.25],
+      "status": "pass"
+    },
+    "loadedTiers": ["hero", "identity", "massing"],
+    "fallback": "pass-scoped-film-art-center-identity-token",
+    "productionFailureFallback": {
+      "status": "pass",
+      "derivedGlbOuterPosition": [0, 0, 0],
+      "programmaticFallbackInnerPosition": [0, 0, -2.25],
+      "screenshot": "test_artifacts/test_film-art-center_runtime_production_identity_fallback_1280x800.png"
+    },
+    "nextGate": "main-window-real-browser-acceptance"
   }
 }

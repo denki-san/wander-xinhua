@@ -7373,3 +7373,446 @@ expected: identity-deterministic-candidate-build
 ### Resolution
 - **Resolved**: 2026-07-25T21:22:00+08:00
 - **Notes**: 同步严格状态机下一门。
+
+---
+
+## [ERR-20260725-044] film_art_agent_browser_ipv4_connection_refused
+
+**Logged**: 2026-07-25T22:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+本地 vinext dev 已报告监听 `localhost:3000`，但 agent-browser 首次通过
+`127.0.0.1:3000` 打开 Hero QA 深链时返回连接拒绝。
+
+### Error
+```text
+Navigation failed: net::ERR_CONNECTION_REFUSED
+```
+
+### Context
+- dev server 进程仍存活并输出 `Local: http://localhost:3000/`。
+- 失败发生在任何 Three.js 运行时采样之前。
+- 可能是 dev server 仅绑定 IPv6 localhost，或 agent-browser 的网络命名空间
+  无法访问该 IPv4 地址。
+
+### Suggested Fix
+先分别用 `curl localhost:3000` 与 `curl 127.0.0.1:3000` 只读确认监听地址；
+若仅 localhost 可达，则按 server 输出改用 `http://localhost:3000`。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: app/scene/film-art-center-tier-contract.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T21:48:45+08:00
+- **Notes**: `curl localhost:3000` 返回 200，而 `127.0.0.1:3000` 连接拒绝，
+  确认为 dev server 只绑定 localhost/IPv6。后续浏览器 QA 使用
+  `http://localhost:3000`。
+
+---
+
+## [ERR-20260725-045] film_art_agent_browser_async_eval_hang
+
+**Logged**: 2026-07-25T21:50:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+agent-browser 用长生命周期 Promise 轮询 DOM dataset 时超过 45 秒仍未返回，
+必须中断该 CLI 进程。
+
+### Error
+```text
+agent-browser eval 'new Promise(...)'
+no output; interrupted with exit 130
+```
+
+### Context
+- 页面导航本身成功。
+- 轮询回调设定 30 秒超时，但 agent-browser CLI 未转发 Promise 结果。
+- 不影响浏览器会话或 dev server。
+
+### Suggested Fix
+改为多次短同步 `agent-browser eval` 读取 dataset；每次命令独立完成，不在浏览器
+表达式内持有长 Promise。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: app/scene/xinhua-road-landmarks.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T21:50:00+08:00
+- **Notes**: 已中断挂起命令，后续全部使用短同步 eval 与外部有限轮询。
+
+---
+
+## [ERR-20260725-046] film_art_identity_cta_not_present
+
+**Logged**: 2026-07-25T21:53:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+切换到 Identity QA 深链后自动查找并点击“出发”失败，因为同一浏览器会话已保持
+游览态，页面中不再存在封面 CTA。
+
+### Error
+```text
+Element not found. Verify the selector is correct and the element exists in the DOM.
+```
+
+### Context
+- 新 URL 导航成功。
+- 前一 Hero QA 已进入游览态；会话状态被保留。
+- 这不是 Identity GLB 加载失败。
+
+### Suggested Fix
+每次换 tier 后先同步读取 `xinhuaRoadQaStatus` 与正文；只有正文仍含“出发”时
+才点击 CTA。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/xinhua-experience.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T21:53:00+08:00
+- **Notes**: 后续切换 tier 先读取状态，避免把可选 CTA 当成必需步骤。
+
+---
+
+## [ERR-20260725-047] film_art_agent_browser_console_socket_permission
+
+**Logged**: 2026-07-25T21:58:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+读取 agent-browser Console 时，CLI 因沙箱无权写入用户级 socket 目录而失败。
+
+### Error
+```text
+Socket directory '/Users/lei/.agent-browser' is not writable:
+Operation not permitted (os error 1)
+```
+
+### Context
+- 同一浏览器会话的 open/eval/screenshot 已成功。
+- 失败只发生在读取 Console 命令，不代表页面产生 Console error。
+- Console/Errors 是运行时候选所需的只读证据。
+
+### Suggested Fix
+按沙箱策略对同一 `agent-browser console` 命令请求提升权限，不改变页面或项目文件。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/test_film-art-center_runtime_massing_candidate.png
+
+### Resolution
+- **Resolved**: 2026-07-25T21:58:00+08:00
+- **Notes**: 提升权限后 Console 读取成功且无输出，当前 Massing QA 页面无 Console
+  日志或错误。
+
+---
+
+## [ERR-20260725-048] film_art_agent_browser_wait_socket_permission
+
+**Logged**: 2026-07-25T22:03:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+agent-browser 内置 wait 命令同样需要写用户级 socket 目录，在当前沙箱中被拒绝。
+
+### Error
+```text
+Socket directory '/Users/lei/.agent-browser' is not writable:
+Operation not permitted (os error 1)
+```
+
+### Context
+- fallback URL 已成功打开。
+- 等待动作不需要修改浏览器状态，只需给页面时间渲染。
+
+### Suggested Fix
+继续使用已批准的本地 `sleep 8` 作为外部有限等待，不为 wait 命令扩大权限。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-road-landmarks.tsx
+
+### Resolution
+- **Resolved**: 2026-07-25T22:03:00+08:00
+- **Notes**: 放弃 agent-browser wait，改用短时本地 sleep，不影响页面会话。
+
+---
+
+## [ERR-20260725-049] film_art_default_browser_session_contamination
+
+**Logged**: 2026-07-25T22:08:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+默认 agent-browser 会话的 error buffer 含有孙科别墅缺失 GLB 记录，证明该浏览器
+会话被并行建筑任务共享，不能作为电影艺术中心独立验收证据。
+
+### Error
+```text
+Could not load /models/tiers/sun-ke-villa/identity/
+sun-ke-villa-identity-qa-missing.glb ... 404
+```
+
+### Context
+- 当前电影艺术中心 fallback 预期产生另一条 404。
+- 孙科路径不属于本 Worktree，本任务从未导航到该 URL。
+- 默认会话的 screenshot/dataset 可见状态虽然对应电影艺术中心，但错误缓冲和
+  Network 缓冲可能被其他任务污染。
+
+### Suggested Fix
+停止使用默认会话；建立命名隔离会话 `film-art-center-runtime`，清空其
+Network/Errors 后重新采集三档与 fallback。保留已生成候选截图，不删除，
+但不把它们作为最终运行时候选证据。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/test_film-art-center_runtime_identity_fallback_candidate.png
+
+### Resolution
+- **Resolved**: 2026-07-25T22:08:00+08:00
+- **Notes**: 后续所有 agent-browser 命令固定使用
+  `--session film-art-center-runtime`；最终 QA 仅引用隔离会话的新证据文件。
+
+---
+
+## [ERR-20260725-050] film_art_named_browser_session_socket_permission
+
+**Logged**: 2026-07-25T22:10:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+首次创建命名隔离 agent-browser 会话时，沙箱阻止写入用户级 socket 目录。
+
+### Error
+```text
+Socket directory '/Users/lei/.agent-browser' is not writable:
+Operation not permitted (os error 1)
+```
+
+### Context
+- 命名会话是消除跨建筑串台的必要条件。
+- 目标 URL 仍是本地只读 QA 页面。
+
+### Suggested Fix
+按沙箱规则对带固定 session 名的 agent-browser open 请求提升权限；后续仅复用
+同一隔离会话。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/
+
+### Resolution
+- **Resolved**: 2026-07-25T22:10:00+08:00
+- **Notes**: 提升权限后命名会话创建成功；固定会话名限制了授权范围。
+
+---
+
+## [ERR-20260725-051] film_art_fallback_query_collides_with_sun_ke
+
+**Logged**: 2026-07-25T22:28:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+命名隔离会话的 fallback error buffer 仍出现孙科 Identity 404。只读检索确认不是
+会话串台，而是通用 `qaActiveFallback=identity` 查询参数同时触发了孙科运行时
+的全局 Identity 缺失路径。
+
+### Error
+```text
+Could not load /models/tiers/sun-ke-villa/identity/
+sun-ke-villa-identity-qa-missing.glb ... 404
+```
+
+### Context
+- 当前 URL 的 `qaModelId=film-art-center`，但 `qaActiveFallback=identity`
+  不是建筑级命名空间。
+- `app/scene/shangsheng-full-models.tsx` 也读取该全局 tier 值。
+- 修改孙科运行时超出 Film 文件所有权；Film QA 可以使用 scoped fallback token。
+
+### Suggested Fix
+Film 新运行时证据改用
+`qaActiveFallback=film-art-center-identity`；Film resolver 仅为历史 Massing
+证据兼容旧 `massing` token，新 Identity fallback 必须使用 scoped token。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/film-art-center-tier-contract.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T22:44:58+08:00
+- **Notes**: scoped fallback 的当前页面 Resource Timing 只含 Film 缺失资产，
+  `foreignQaRequestsInCurrentPerformanceBuffer=[]`；孙科条目确认是 agent-browser
+  daemon error buffer 的陈旧记录，不作为当前路由归因证据。
+
+---
+
+## [ERR-20260725-052] film_art_runtime_tests_stale_gate_state
+
+**Logged**: 2026-07-25T22:47:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+运行时 QA 文档合法推进到主窗口终验 pending 后，两项专项测试仍断言旧的 runtime
+pending/nextGate 状态，15 项中 2 项失败。
+
+### Error
+```text
+actual nextGate: main-window-real-browser-acceptance
+expected: identity-three-js-runtime-candidate
+
+actual identity status: mcp3-and-local-runtime-pass-main-browser-pending
+expected: mcp3-pass-runtime-pending
+```
+
+### Context
+- 同批其余 13 项通过，包括 production/QA placement equality。
+- MCP1/MCP2/MCP3 状态没有降级；只推进了本地运行时候选。
+
+### Suggested Fix
+更新专项状态机断言，并新增 runtime QA 文件、metrics、三档截图与主窗口 pending
+的精确断言。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_film_art_center_quality_tiers.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T22:49:00+08:00
+- **Notes**: 状态机断言推进到主窗口真实浏览器终验，并新增 runtime QA、metrics、
+  三档截图、placement equality 与 scoped fallback 的精确验证。
+
+---
+
+## [ERR-20260725-053] film_art_named_browser_close_approval_timeout
+
+**Logged**: 2026-07-25T22:52:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+完成采样后关闭本任务命名浏览器会话的权限自动审查超时，close 未执行。
+
+### Error
+```text
+The automatic permission approval review did not finish before its deadline.
+```
+
+### Context
+- vinext dev server 已成功停止。
+- 会话名为 `film-art-center-runtime`，不含用户登录态。
+- close 只是资源清理，不影响验收正确性。
+
+### Suggested Fix
+不为非关键清理重复扩大权限；保留 idle 隔离会话，由 agent-browser daemon 生命周期
+回收。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: none
+
+### Resolution
+- **Resolved**: 2026-07-25T22:52:00+08:00
+- **Notes**: 未重试非关键 close；项目进程已停止，工作成果不受影响。
+
+---
+
+## [ERR-20260725-054] film_art_full_regression_two_stale_contracts
+
+**Logged**: 2026-07-25T22:54:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+完整 `npm test` 的 static/sites build 均成功，但全量测试有 2 项失败：上海影城
+源码正则未适配新增 fallback 条件的换行格式；电影艺术中心 detail-upgrade 旧统计
+仍记录 Hero 拓扑修复前的 63,516 triangles，而当前冻结 Hero 为 63,368。
+
+### Error
+```text
+Shanghai regex expected:
+identity && landmark.id === "shanghai-cinema" ... <ShanghaiCinemaHybridIdentity />
+
+film-art-center metadata triangles:
+actual 63516 !== current GLB 63368
+```
+
+### Context
+- build:static 与 build:sites 均成功。
+- Film 专项 15/15 通过。
+- 上海影城运行时行为未改；只是 `if` 条件因新增
+  `forceProgrammaticIdentity` 被格式化为多行。
+- Film 63,368 是 MCP2 已通过并冻结的当前 Hero，旧 63,516 来自修复前二进制。
+
+### Suggested Fix
+把上海影城 `if` 保持同一行以满足既有源码合同，不改其行为；更新 Film
+detail-upgrade 统计到当前 Hero 63,368，并保留拓扑修复 provenance。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-road-massing.tsx, docs/research/xinhua-road-model-detail-upgrades.json
+
+### Resolution
+- **Resolved**: 2026-07-25T22:56:00+08:00
+- **Notes**: 上海影城生产 fallback 保留原直接 JSX 合同且行为不变；Film detail
+  upgrade 已同步当前 63,368 triangles、3,148,572 bytes、SHA 与 76 面拓扑修复。
+  两个相关测试文件 11/11 通过。
+
+---
+
+## [ERR-20260725-055] film_art_placement_test_wrong_scope_variable
+
+**Logged**: 2026-07-25T23:02:00+08:00
+**Priority**: low
+**Status**: investigating
+**Area**: tests
+
+### Summary
+新增 QA forced fallback placement 断言误放在 manifest 测试内，引用只在前一源码
+测试中定义的 `roadFull`，21 项中 1 项因 ReferenceError 失败。
+
+### Error
+```text
+ReferenceError: roadFull is not defined
+```
+
+### Context
+- lint 已通过。
+- 同批 20 项通过，production fallback 的源码与数值断言均已生效。
+- 前一测试已经断言 `roadFull` 含 `forceProgrammaticIdentity`。
+
+### Suggested Fix
+删除 manifest 测试中的重复越域断言，保留前一源码测试与 pure offset 数值测试。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_progressive_world_loading.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T23:02:00+08:00
+- **Notes**: 删除重复越域断言；QA forced fallback 的 programmatic 分支仍由前一源码
+  测试锁定，-2.25m 由同一 pure helper 数值测试锁定。

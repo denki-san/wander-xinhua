@@ -430,3 +430,31 @@ Identity/MCP3 完成后重新执行三档运行时验收，不能沿用旧截图
 - Gate state: MCP3 Pass，Blender 三档连续性 Pass；Identity runtime 接入已解锁，
   但 Three.js 本地三档候选、console、加载、落地、碰撞、fallback 和性能边界仍需
   单独验证，不能沿用 Blender 结论。
+
+### Iteration 11 — Three.js three-tier local runtime candidate — 2026-07-25
+
+- Runtime registry: 正式全览 Identity 改为独立 `derived-glb`，使用
+  `/models/tiers/xinhua-road/identity/film-art-center-identity.glb`
+  与缓存 `20260725-film-art-identity-1`；Hero 的模型、缓存、位置、yaw、scale、
+  bounds、collision、start 和 forward 均未改。
+- Placement repair: 提交前复核发现旧程序化缩影外层使用
+  `localBounds` 中心 `[0,0,-2.25]`，若直接套在已按 Hero 原点导出的 Identity GLB
+  上会让生产全览额外平移，而 QA direct GLB 不会。现已锁定 derived GLB 与 QA
+  均为 `[0,0,0]`，只有 generic fallback 保留 `[0,0,-2.25]`；专项测试和生产/
+  QA 同机位截图共同封存。
+- Three-tier routes: Hero、Identity、Massing 分别通过独立 QA 深链加载；
+  1280×800、DPR 1、可见页面、8 秒预热、vinext dev 条件下，全场景采样依次为
+  1,993 / 1,981 / 1,977 draw calls 和 863,509 / 785,149 / 743,405 triangles。
+  这些是同条件全场景值，不冒充单资产 draw-call。
+- Fallback: 使用建筑级 token
+  `qaActiveFallback=film-art-center-identity`，避免触发其他建筑的全局 tier QA；
+  缺失 GLB 后 `xinhuaRoadQaStatus=fallback`，程序化缩影可见且页面保持 playable。
+  另以 `qaProductionFallback=film-art-center-identity` 直接触发正式全览 Identity
+  Boundary 失败，实测 derived 外层仍为 `[0,0,0]`，内部 programmatic fallback
+  恢复 `[0,0,-2.25]`，DOM dataset、Resource Timing 和同机位截图均通过。
+- Scope: Hero 二进制及其既有草坪、灌木、庭院灯继续作为继承 Hold 原样保留；
+  Identity/Massing 不传播这些内容。树木、装饰、ordinary OSM、全地图和其他建筑
+  均未改。
+- Gate state: 本地三档运行时候选 Pass；证据见
+  `docs/research/film-art-center-three-tier-runtime-qa.json`。主窗口真实浏览器终验
+  仍 pending，不能把子 Worktree 的 agent-browser 候选冒充项目级最终验收。

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "film-art-center",
   "activeScope": "active-18-buildings",
-  "reviewedAt": "2026-07-25T21:36:41+08:00",
+  "reviewedAt": "2026-07-25T23:15:00+08:00",
   "sharedContract": {
     "origin": [0, 0, 0],
     "frontDirection": "-Y",
@@ -45,7 +45,7 @@
     "buildRecord": "docs/research/build-records/film-art-center.json"
   },
   "identity": {
-    "status": "mcp3-pass-runtime-pending",
+    "status": "mcp3-and-local-runtime-pass-main-browser-pending",
     "derivedFrom": {
       "heroGlbSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
       "method": "deterministic-simplification-preserving-subject-specific-cues"
@@ -75,7 +75,7 @@
     "mcp3": "pass",
     "threeTierBlenderContinuity": "pass",
     "acceptedInteractiveChanges": [],
-    "threeTierRuntime": "pending-local-runtime-candidate"
+    "threeTierRuntime": "pass-local-candidate-main-browser-pending"
   },
   "massing": {
     "status": "mcp1-and-map-pass",
@@ -99,6 +99,24 @@
     "mapAcceptance": "pass",
     "mapRecord": "docs/research/film-art-center-massing-map-qa.json"
   },
+  "threeTierRuntime": {
+    "status": "local-candidate-main-browser-pending",
+    "qaRecord": "docs/research/film-art-center-three-tier-runtime-qa.json",
+    "metrics": "test_artifacts/test_film-art-center_three-tier_runtime_metrics.json",
+    "productionIdentityStrategy": "derived-glb",
+    "productionIdentityLocalPosition": [0, 0, 0],
+    "qaIdentityLocalPosition": [0, 0, 0],
+    "genericFallbackLocalPosition": [0, 0, -2.25],
+    "loadedTiers": ["hero", "identity", "massing"],
+    "fallback": "pass-scoped-film-art-center-identity-token",
+    "productionFailureFallback": {
+      "status": "pass",
+      "derivedGlbOuterPosition": [0, 0, 0],
+      "programmaticFallbackInnerPosition": [0, 0, -2.25],
+      "qaRecord": "docs/research/film-art-center-three-tier-runtime-qa.json"
+    },
+    "nextGate": "main-window-real-browser-acceptance"
+  },
   "recoveryDecision": {
     "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
     "candidateSha256": "4b925b2dad96894e7feda2b925962781fcd532d675657a9f17a96467458b0941",
@@ -118,5 +136,5 @@
     "facilityAndSharedPrototypes": "not-imported",
     "otherBuildings": "untouched"
   },
-  "nextGate": "identity-three-js-runtime-candidate"
+  "nextGate": "main-window-real-browser-acceptance"
 }
