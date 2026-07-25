@@ -147,6 +147,45 @@ subject-specific Massing provenance 通过。
 该候选把旧 Hero 的外推侧后面体素化；视觉上形成噪声轮廓，也没有逐构件对应
 新补齐的俯瞰证据。本轮不摘取、不复用其 geometry。
 
+## Subject-specific Massing Candidate
+
+- Generator:
+  `scripts/create_house_315_massing_model.py`
+- Editable source:
+  `assets/models/source/tiers/xinhua-road/massing-v2/house-315-massing.blend`
+- Candidate GLB:
+  `public/models/tiers/xinhua-road/massing-v2/house-315-massing.glb`
+- Build record:
+  `docs/research/build-records/tiers/xinhua-road/massing-v2/house-315-massing.json`
+- Current status: `candidate-awaiting-blender-mcp-1`
+
+该候选从 canonical、Image 242 俯瞰和 Image 244 入口独立重建。没有读取旧 Hero
+mesh，也没有摘取 Recovery voxel 或 ordinary OSM。生成器在一次命令中重置
+场景并独立构建两次，两个 GLB SHA-256 均为：
+
+`e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832`
+
+结构结果：
+
+- 17,352 bytes；
+- 1 node、1 mesh、4 materials；
+- 176 triangles；
+- 0 images、0 textures、0 animations、0 skins；
+- 根节点无未烘焙 transform；
+- GLB audit `ok`。
+
+三张固定机位预览：
+
+- `test_house-315-massing-canonical.png`
+- `test_house-315-massing-side-depth.png`
+- `test_house-315-massing-entrance.png`
+
+预览中的橙色人物为 `1.8 m = 0.666667 scene unit` 尺标，蓝色条标记
+local `-Y`；两者以及地面均未保存到 `.blend`、未导出到 GLB。
+
+当前只完成候选生成和静态视觉检查。尚未打开 Blender GUI、尚未进入 MCP 1、
+尚未集成公共 registry / runtime，也未进行 Three.js 地图校准。
+
 ## Quality Contract
 
 以下合同只授权 subject-specific Massing；Identity 和 Hero 仍关闭。
@@ -218,6 +257,16 @@ subject-specific Massing provenance 通过。
 - 不得制作 Identity / Hero；
 - 不得触碰树木、装饰、ordinary OSM、全地图或公共 runtime；
 - 完成确定性双构建和结构审计后，Blender MCP 前必须停下申请主窗口。
+
+## Batch Status
+
+| Batch | Result | Status |
+| --- | --- | --- |
+| Evidence | subject、canonical、俯瞰纵深、入口和三项以上 cue 闭合 | Passed for Massing |
+| Deterministic Massing | 新建 `.blend` / `.glb`，双构建 SHA 一致 | Candidate complete |
+| Blender MCP 1 | 读取场景、固定机位和轮廓审查 | Pending main-window authorization |
+| Three.js Massing | 真实 `?start=house315` 地图、比例、朝向、接地 | Pending after MCP 1 |
+| Identity / Hero | 需要更高层证据门和后续 MCP 门 | Closed |
 
 ## Decision Log
 

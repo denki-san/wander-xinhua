@@ -1,0 +1,207 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:house-315",
+  "tier": "massing-v2",
+  "status": "candidate-awaiting-blender-mcp-1",
+  "recoveryCommitReadOnly": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+  "generator": "scripts/create_house_315_massing_model.py",
+  "generatorSha256": "45c69f7f20d412de3f8f6dd1afef679d4dff81db2e4c0675089f4f6c6af492cf",
+  "modelBrief": "docs/research/house-315-model-brief.md",
+  "referenceManifest": "docs/research/house-315-reference-manifest.json",
+  "decisionLog": "docs/research/house-315-decision-log.md",
+  "evidenceGate": "passed-for-subject-specific-massing-only",
+  "evidenceSha256": [
+    "6f479e2d9505f8817457eaa7af8c1033790bfd16c864ab13287086d0c1943c00",
+    "bc3e964ea39c3c47235dac171b438e95e4b7f6c03397229bf44d343d7ac4a095",
+    "4598dfd65b7a361d1e2643ed602e832516e34284dad49a0ae18cd65dcf929a93",
+    "f72e564587e32f0dafe1652fbd4f9f803911f661f0235bf5795a9b61e64cc051",
+    "78581fafb11ff48f917f186c67370cc6b03d624e208776638f314d885c9da883"
+  ],
+  "sourceViews": {
+    "canonical": "official-2023 street-facing front",
+    "sideDepth": "Jiefang Daily Image 242 aerial",
+    "subjectBinding": "Jiefang Daily Image 243 address sign",
+    "entrance": "Jiefang Daily Image 244 entrance",
+    "exteriorDetail": "Jiefang Daily Image 245 exact legacy-byte match"
+  },
+  "recoveryMassingDecision": {
+    "extracted": false,
+    "reusedGeometry": false,
+    "reason": "Recovery candidate was a voxel remesh of the extrapolated legacy Hero and was not checked component-by-component against Image 242."
+  },
+  "massingGeometry": {
+    "mainSpine": "transverse connected steep roof",
+    "centralProjectingGable": "tall front-facing half-timber anchor",
+    "rightLongWing": "lower longitudinal steep-roof wing",
+    "leftRearShortWing": "smaller lower wing visible in aerial",
+    "facadeDivision": "white upper wall over muted red-brick base",
+    "omitted": [
+      "trees",
+      "vegetation",
+      "lawn",
+      "walls",
+      "gate",
+      "lamps",
+      "planters",
+      "paving",
+      "ordinary OSM",
+      "unseen rear openings"
+    ]
+  },
+  "evidenceBoundary": {
+    "observed": [
+      "connected steep roof hierarchy",
+      "central projecting tall gable",
+      "asymmetric right long and left short wings",
+      "white-over-red facade division",
+      "dark half-timber central gable"
+    ],
+    "inferred": [
+      "relative width, depth and ridge heights from image ratios",
+      "closed low-detail rear mass"
+    ],
+    "unknown": [
+      "construction year because sources conflict between 1930 and 1949",
+      "surveyed dimensions",
+      "hidden rear openings",
+      "map-space compass",
+      "authoritative footprint and final placement"
+    ]
+  },
+  "placement": {
+    "positionBaseline": [
+      -23.03,
+      85.67
+    ],
+    "yawBaseline": -0.38,
+    "runtimeScaleBaseline": 0.9,
+    "movementAuthorized": false,
+    "mapCalibration": "pending-main-window"
+  },
+  "scale": {
+    "sceneUnitMeters": 2.7,
+    "previewHumanMeters": 1.8,
+    "previewHumanSceneUnits": 0.666667,
+    "previewProxyExported": false,
+    "heightStatus": "photo-ratio-inference-not-survey"
+  },
+  "canonicalFront": "local-negative-y",
+  "constructionYear": "unknown-source-conflict-1930-vs-1949",
+  "identityAllowed": false,
+  "heroAllowed": false,
+  "mcp1": {
+    "status": "pending-main-window-authorization",
+    "qaRigSaved": false,
+    "qaRigExported": false
+  },
+  "mapCalibration": "pending-after-mcp-1",
+  "threeJsRuntime": "not-run-candidate-not-integrated",
+  "blendSceneAudit": {
+    "sha256": "dccd5ad4a5b47e56c08e19be53446a6cb3eb43dc17dc5e10231018a5206b532b",
+    "objectCount": 1,
+    "objects": [
+      "house-315-massing"
+    ],
+    "types": [
+      "MESH"
+    ],
+    "rootLocation": [
+      0,
+      0,
+      0
+    ],
+    "rootRotation": [
+      0,
+      0,
+      0
+    ],
+    "rootScale": [
+      1,
+      1,
+      1
+    ],
+    "previewHelpersSaved": false
+  },
+  "determinism": {
+    "independentSceneBuilds": 2,
+    "firstGlbSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+    "secondGlbSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+    "sameGlbSha256": true
+  },
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v2/house-315-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing-v2/house-315-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-canonical.png",
+      "sideDepth": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-side-depth.png",
+      "entrance": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-entrance.png"
+    }
+  },
+  "fixedCameras": {
+    "canonical": {
+      "location": [
+        3.5,
+        -26.0,
+        11.0
+      ],
+      "target": [
+        -0.3,
+        0.0,
+        2.8
+      ],
+      "orthoScale": 18.5
+    },
+    "sideDepth": {
+      "location": [
+        21.0,
+        -16.0,
+        14.5
+      ],
+      "target": [
+        0.0,
+        0.5,
+        3.1
+      ],
+      "orthoScale": 18.5
+    },
+    "entrance": {
+      "location": [
+        7.5,
+        -19.0,
+        8.5
+      ],
+      "target": [
+        -1.3,
+        -1.5,
+        3.0
+      ],
+      "orthoScale": 13.5
+    }
+  },
+  "glb": {
+    "sha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+    "bytes": 17352,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 4,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 176,
+    "bounds": {
+      "min": [
+        -7.675,
+        0,
+        -4.575
+      ],
+      "max": [
+        7.225,
+        6.982892,
+        4.84
+      ]
+    },
+    "transformedNodes": []
+  }
+}

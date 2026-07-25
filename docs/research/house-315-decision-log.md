@@ -129,3 +129,99 @@ Massing 必须：
 删除本 checkpoint 新增的315号研究文件即可回到
 `2e185c6d000157f2544c3e0d19435f403ceeb4e2`；旧 Hero、旧 `.blend`、公共运行时
 和其他资产均未改动。
+
+## Iteration 1 — Subject-specific Massing candidate
+
+- Date: 2026-07-25
+- Evidence checkpoint: `c9158b3`
+- Result: `candidate-awaiting-blender-mcp-1`
+
+### Changes
+
+- 新建确定性单资产生成器
+  `scripts/create_house_315_massing_model.py`。
+- 新建独立 `massing-v2` `.blend` 和 `.glb`，没有覆盖旧 Hero 或 Recovery
+  provisional 路径。
+- 新建 canonical、side-depth、entrance 三张固定机位预览。
+- 新建资产级 build record，记录 SHA、bounds、节点、三角面、材质、图片、
+  体积、证据边界、尺标和后续门状态。
+
+### Geometry decision
+
+候选只表达照片持续支持的四组体块：
+
+1. 横向连续的陡坡主屋顶；
+2. 中央高、前出的半木构山墙；
+3. 右侧较长纵向翼；
+4. 左后侧较小低翼。
+
+墙体只保留上白下红分区；中央山墙只保留远景可读的深色木构线。没有加入
+门窗、烟囱、背面开口、室内、围墙、门、树木、草坪、灯、花箱或铺装。
+
+### Deterministic build
+
+同一 Headless 命令内部两次完全重置场景并分别生成 GLB：
+
+- First SHA-256:
+  `e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832`
+- Second SHA-256:
+  `e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832`
+- Match: `true`
+
+最终 `.blend` SHA-256：
+
+`dccd5ad4a5b47e56c08e19be53446a6cb3eb43dc17dc5e10231018a5206b532b`
+
+### GLB audit
+
+- Bytes: `17,352`
+- Nodes / meshes: `1 / 1`
+- Materials: `4`
+- Triangles: `176`
+- Images / textures: `0 / 0`
+- Animations / skins: `0 / 0`
+- Unbaked transformed nodes: none
+- Audit result: `ok`
+
+glTF bounds 为 `min [-7.675, 0, -4.575]`、
+`max [7.225, 6.982892, 4.84]`；其中 glTF `Y min = 0`，候选接地。
+
+### Static visual check
+
+- canonical：local `-Y` 正面、中央高山墙、左右翼和连续屋顶可读；
+- side-depth：中央体量、右长翼、左短翼和屋顶连接关系可读；
+- entrance：中央前出山墙和半木构识别线可读；
+- 三视图使用 `1.8 m = 0.666667 scene unit` 橙色人物尺标；
+- 蓝色正面标记、人物和预览地面均未保存、未导出。
+
+静态预览只证明候选形体可读，不等于 Blender MCP、地图校准或 Three.js 验收。
+
+### Environment note
+
+首次在 managed sandbox 启动 Blender 5.2 时，应用在 Python 生成器执行前的
+Metal 探测阶段崩溃；没有输出二进制。该问题与项目已有
+`.learnings/ERRORS.md` 中 `ERR-20260725-031` 相同。随后用同一限定 Headless
+命令在获准的沙箱外环境成功构建，模型代码无需为环境崩溃修改。
+
+### Gate state
+
+- Evidence Gate: Passed for subject-specific Massing only
+- Blender result: Headless deterministic candidate complete
+- GLB result: structural audit passed
+- MCP 1: Pending main-window authorization
+- Three.js result: Not run
+- Map calibration: Not run
+- Identity / Hero: Closed
+- Shared files: Unmodified
+- Other assets: Unmodified
+
+### Required next
+
+主窗口授权后，通过 Blender MCP 读取：
+
+- 单 mesh、四材质和 root transform；
+- canonical / side-depth / entrance 固定机位轮廓；
+- local `-Y` 正面与 `1.8m` 尺标记录；
+- 是否存在俯瞰证据未支持的突起或错误屋顶连接。
+
+MCP 1 通过后才允许主窗口准备 Three.js Massing 地图校准。
