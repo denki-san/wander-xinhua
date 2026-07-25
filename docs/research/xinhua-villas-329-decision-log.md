@@ -174,3 +174,79 @@ compound canonical、入口、空间布局或候选 footprint 对应关系。即
 删除本 iteration 新增的 checkpoint JSON、专项测试、Recovery Massing-v2 三个
 正式产物和四张忽略规则内 QA 图，并回退 Brief / decision log 的本节即可。本轮
 没有共享文件改动。
+
+## Iteration 2 — XHS evidence-bound Massing v3
+
+- Date: 2026-07-26
+- Parent checkpoint: `bdc038d4685ab94e4c78af1dfd83adb3ee8460b0`
+- Result: `evidence-pass-conservative-massing-v3`
+
+### Evidence intake
+
+主窗口在用户已登录 Chrome 中只读固化小红书帖子
+`696d1838000000002102bc99` 的18张截图和接触表。本分支复制原字节到
+`docs/research/assets/xhs-xinhua-villas-329-20260725/`；没有覆盖旧官方证据。
+
+第1–8、18张媒体区可读；9–17张媒体区黑屏，保留但标记 `needs_review`。
+帖子正文与可见门牌共同支持15、36、40、42号；17和38继续保留官方证据，
+32乙和沿街231号只由正文命名，均不强行映射。
+
+### Member binding decision
+
+使用 Recovery footprint、当前 registry transform 和 XHS 顺序建立 Massing 级
+绑定：
+
+- `way/864493244 → 15`
+- `way/864485664 → 36`
+- `way/864493174 → 40`
+- `way/864493173 → 42`
+
+这四项是可审计的 sequence-and-spatial binding，不是地籍确认。第五个 Recovery
+候选 `way/864493245` 换算中心为 `[-33.577, 88.793]`，距独立
+Villa Le Bec registry 锚点 `[-34.1, 88.8]` 只有约 `0.523` 场景单位，并同时
+出现在 Recovery Villa Le Bec candidate pool，因此从329弄排除。
+
+### Modeling decision
+
+创建单资产确定性生成器与 Massing v3：
+
+- 四个 member mesh 使用 OSM footprint；
+- 36号只表达双层圆形主体、低瓦翼和高烟囱；
+- 40号只表达低瓦主体、入口 canopy 和深色上层围合；
+- 42号只表达正面山墙与浅瓦门廊；
+- 15号只表达可见二层包络，不猜完整立面；
+- 未知背面、窗门节奏、附楼、树木和装饰全部省略。
+
+第一次固定机位预览发现材质未显式写入 Principled Base Color，且36圆形主体被
+矩形基座吞没；两项都回写生成器后重建。最终 side-depth 预览可读圆形体量，
+四类材质也正确分层。
+
+新增参考 / Blender / Three.js 三联 checkpoint；第三栏明确写为
+`PENDING MAIN-WINDOW QA`，避免把旧 runtime 截图冒充 v3 地图验收。
+
+### Results and gates
+
+- Blend SHA:
+  `da82a1e3a4c7379e69a2a099a66f10dadcaef084cf45bf2a59b6344ebfbf97a5`
+- GLB SHA:
+  `b5f8c3fa56cc83ca43b850995da4440cac6639ec353789fc746aac1f45532c25`
+- GLB:
+  `22,004 bytes / 4 nodes / 4 meshes / 204 triangles / 4 materials /
+  0 images / 0 textures`。
+- Explicit audit: pass with `--forbid-images --max-nodes 8`。
+- Evidence: `pass-conservative-massing-only`。
+- MCP1: `pending-main-window-batch`，本轮没有执行 Blender MCP。
+- Runtime / map: `pending-main-window-scoped-qa`，没有修改共享接线。
+- Identity / Hero: 未授权；不越过 MCP1 与地图门。
+
+### Wiki and shared boundary
+
+仓库内新增可回溯 source Markdown；独立 `Threejs-3d-research` Wiki 的外部
+硬链接、rescan、队列清空和搜索回读交由主窗口整合。本分支没有修改共享
+registry、runtime、Fast manifest 或 production quality manifest。
+
+### Rollback
+
+删除 v3 generator、binding spec、Blend、GLB、build record、三张 v3 固定机位图、
+三联 checkpoint、XHS 证据目录与本轮文档增量即可回到 `bdc038d`；旧 Recovery v2
+与原始官方证据均保持不变。

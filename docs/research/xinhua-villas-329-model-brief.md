@@ -237,7 +237,7 @@
 - Maximum GLB bytes: 220,000
 - Animation / skin: none
 
-## Evidence Gate
+## Evidence Gate — 2026-07-25 historical checkpoint
 
 **Result: `blocked-evidence`**
 
@@ -293,3 +293,115 @@
 - 主窗口若解除主体绑定 blocker，应先添加资产级 scoped tier resolver，再把候选
   Massing GLB、专项测试和 `qaModelTier=massing` route 接入 Fast manifest；在此之前
   不得把候选提升为 production Massing。
+
+## Evidence update and Massing v3 — 2026-07-26
+
+本节取代上方历史 `blocked-evidence` 作为当前 Evidence Gate；Recovery 结论仍保留
+用于解释 lineage，不删除或覆盖。
+
+### XHS source and local evidence
+
+- URL:
+  `https://www.xiaohongshu.com/search_result/696d1838000000002102bc99`
+- Title: `走进上海弄堂 新华路329弄 外国弄堂`
+- Author: `ii行摄`
+- Published: `2026-01-20`
+- Local directory:
+  `docs/research/assets/xhs-xinhua-villas-329-20260725/`
+- Capture boundary: 主窗口通过用户已登录 Chrome 只读固化；本 Worktree
+  按原字节选择性复制，未重新访问或编码。
+- Source note:
+  `docs/knowledge-sources/xinhua-villas-329-xhs-evidence.md`
+
+第1–8、18张媒体区域可读；第9–17张媒体区域为黑色，只保留指纹并标为
+`needs_review`，不用于几何结论。评论文本不在交接证据中，也未用于建模。
+
+### Updated coverage matrix
+
+| Subject | Canonical / front | Side / depth | Entrance / identity | Current use |
+| --- | --- | --- | --- | --- |
+| Compound | XHS 01 partial | XHS 04 / 18 partial | XHS 01 context partial | 支持 compound Massing，不支持完整边界 |
+| 15号 | rear mass partial | Unknown | XHS 08 doorplate / gate | 保守 OSM body，未知立面不细化 |
+| 36号 | XHS 01 supported | XHS 03 / 04 / 18 supported | Partial | 圆形主体、低瓦翼、高烟囱 |
+| 40号 | XHS 05 / 07 supported | Partial | 门牌、低瓦门廊 supported | 上层深色玻璃围合 |
+| 42号 | XHS 06 supported | Missing | 门牌、浅瓦门廊 supported | 正面山墙，不细化背面 |
+| 17号 | 官方正面 supported | Missing | Partial | 证据保留，当前无 OSM member binding |
+| 38号 | 官方正面斜视 supported | Partial | Supported | 证据保留，当前无 OSM member binding |
+| 32号乙 / 231号 | 正文命名 | Missing | Missing | 不进入当前几何 |
+
+Canonical comparison 选择 XHS 01 作为 compound context，观察方向记为
+`lane-context-facing-low-tile-compound-camera-coordinate-unknown`。它不是测绘机位，
+Three.js 最终 canonical 仍需主窗口在真实地图中校准。
+
+### Auditable member binding
+
+详细计算见 `docs/research/xinhua-villas-329-member-binding.json`。
+
+| OSM way | Member | Confidence | Evidence boundary |
+| --- | --- | --- | --- |
+| `864493244` | 15号 | Medium | 可见门牌 + 入口到纵深排序；非地籍 |
+| `864485664` | 36号 | Medium | 正文、四张同组画面 + 纵深排序；非地籍 |
+| `864493174` | 40号 | Medium-high | 两张可见40门牌 + 42号之前的较大中段 footprint |
+| `864493173` | 42号 | Medium-high | 可见42门牌 + 40之后最深 retained footprint |
+| `864493245` | Excluded | High | 世界中心 `[-33.577, 88.793]` 距独立 Villa Le Bec 锚点 `0.523` |
+
+这套绑定适用于保守 Massing，不可升级为测绘事实。17、32乙、38和沿街231号继续
+只作为 evidence-only，不强行塞入四个 footprint。
+
+### Massing v3 quality contract
+
+- Generator:
+  `scripts/create_xinhua_villas_329_massing_model.py`
+- Stable compound: 四个独立 member mesh，保留成员间开放路径；不建单一大盒。
+- Member 36 cues: 双层圆形主体、低瓦翼、高烟囱。
+- Member 40 cues: 暖浅抹灰、低瓦门廊、深色上层围合。
+- Member 42 cues: 正面三角山墙、浅瓦门廊。
+- Member 15 boundary: 只使用 OSM body、可见二层包络和门牌入口证据。
+- Unknown faces: 不加窗门节奏、附楼、背坡或未经照片支持的装饰。
+- Excluded: Villa Le Bec、树木、绿篱、灯、花箱、街具、普通全地图体块。
+- Runtime placement frozen:
+  `position [-42.13, 79.48] / yaw -0.38 / scale 0.62`。
+- Budget: `8 nodes / 2,000 triangles / 4 materials / 0 images /
+  220,000 bytes`。
+- Collision intent: 四个成员分别使用 footprint AABB；成员间路径保持开放。
+
+### Headless Blender and GLB result
+
+- Blender: `5.2.0 LTS`。
+- Blend:
+  `assets/models/source/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.blend`
+  SHA-256
+  `da82a1e3a4c7379e69a2a099a66f10dadcaef084cf45bf2a59b6344ebfbf97a5`。
+- GLB:
+  `public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb`
+  SHA-256
+  `b5f8c3fa56cc83ca43b850995da4440cac6639ec353789fc746aac1f45532c25`。
+- Structure:
+  `22,004 bytes / 4 nodes / 4 meshes / 204 triangles / 4 materials /
+  0 images / 0 textures`；root transforms normalized。
+- Explicit audit:
+  `python3 scripts/audit_glb.py public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb --forbid-images --max-nodes 8`
+  通过。
+- Fixed-camera previews:
+  `test_artifacts/all-models/massing-v3/xinhua-villas-329/` 下 canonical、
+  side-depth、entrance 三张 `test_` PNG。
+- Comparison checkpoint:
+  `test_xinhua-villas-329-massing-v3-reference-blender-threejs-pending.png`
+  将 XHS 参考、Blender canonical 和明确标记为 pending 的 Three.js 面板并列；
+  它不是 runtime 通过证据，SHA-256 为
+  `5432399ef5e1502a6e86d183f11e230ed111b60635dd715db4b70aa6cae1cdbb`。
+- Build record:
+  `docs/research/build-records/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.json`。
+
+### Current gates
+
+- Evidence: `pass-conservative-massing-only`。
+- Headless Blender: `pass`。
+- GLB audit: `pass`。
+- MCP1: `pending-main-window-batch`；本 Worktree 没有执行 MCP。
+- Runtime / map acceptance: `pending-main-window-scoped-qa`；共享 runtime、
+  registry 和 Fast manifest 未修改。
+- Identity / Hero: `not-authorized`。按工作流必须等 MCP1 与地图门通过后再决定，
+  本轮不提前派生 Identity。
+- External `Threejs-3d-research` Wiki：仓库内 source Markdown 已写入；外部硬链接、
+  rescan、队列清空与搜索回读由主窗口整合阶段完成，本分支不写外部卷。
