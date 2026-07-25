@@ -1,5 +1,39 @@
 # Errors
 
+## [ERR-20260725-044] git_worktree_index_lock_sandbox_permission
+
+**Logged**: 2026-07-25T23:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+建筑 Worktree 的 gate-only 变更首次暂存时，文件沙箱禁止创建 Git worktree index lock。
+
+### Error
+```text
+fatal: Unable to create '/Users/lei/App_developing/wander-xinhua/.git/worktrees/building-house-315/index.lock': Operation not permitted
+```
+
+### Context
+- 工作文件都在允许写入的建筑 Worktree 内；
+- Git index 位于主仓库 `.git/worktrees/`，不属于普通文件写入范围；
+- 失败发生在写 index 前，没有产生部分暂存或修改模型二进制。
+
+### Suggested Fix
+保持精确文件清单，按既有 Git 暂存权限在宿主环境重试；不要改写 `.git`、复制 index 或绕过 Worktree。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `.git/worktrees/building-house-315/index`, `.learnings/ERRORS.md`
+- See Also: ERR-20260725-042
+
+### Resolution
+- **Resolved**: 2026-07-25T23:00:00+08:00
+- **Notes**: 使用相同精确文件清单，经批准以 Git 暂存权限重试成功；未绕过 Worktree，也未将本错误记录混入 gate-only 暂存。
+
+---
+
 ## [ERR-20260724-091] vite_preview_sandbox_listen_permission
 
 **Logged**: 2026-07-24T00:00:00+08:00
