@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "film-art-center",
   "activeScope": "active-18-buildings",
-  "reviewedAt": "2026-07-25T19:20:00+08:00",
+  "reviewedAt": "2026-07-25T19:42:00+08:00",
   "sharedContract": {
     "origin": [0, 0, 0],
     "frontDirection": "-Y",
@@ -37,7 +37,7 @@
     "identityAllowed": false
   },
   "massing": {
-    "status": "headless-and-structure-pass-mcp1-pending",
+    "status": "mcp1-pass-map-calibration-pending",
     "derivedFrom": {
       "method": "deterministic-simplification-of-frozen-hero-parameters",
       "heroGlbSha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6"
@@ -53,8 +53,9 @@
       "images": 0
     },
     "buildRecord": "docs/research/build-records/tiers/xinhua-road/massing/film-art-center-massing.json",
-    "mcp1": "pending",
-    "mapAcceptance": "blocked-until-mcp1"
+    "mcp1": "pass",
+    "mcpRecord": "docs/research/film-art-center-blender-mcp-gates.json",
+    "mapAcceptance": "pending"
   },
   "recoveryDecision": {
     "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
@@ -75,5 +76,5 @@
     "facilityAndSharedPrototypes": "not-imported",
     "otherBuildings": "untouched"
   },
-  "nextGate": "blender-mcp1-massing-review"
+  "nextGate": "three-js-massing-map-calibration"
 }

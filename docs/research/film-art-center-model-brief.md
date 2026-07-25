@@ -135,7 +135,7 @@
 
 | Field | Hero | Identity | Massing |
 | --- | --- | --- | --- |
-| Status | retained-formal-runtime-accepted | blocked until Massing map gate and Hero MCP2 | Headless/GLB pass, MCP1 pending |
+| Status | retained-formal-runtime-accepted | blocked until Massing map gate and Hero MCP2 | MCP1 pass, map calibration pending |
 | Output | `public/models/xinhua-road/film-art-center.glb` | pending | `public/models/tiers/xinhua-road/massing/film-art-center-massing.glb` |
 | Source | frozen Hero `.blend` + `build_film_art_center()` | must derive from frozen Hero | deterministic simplification of frozen Hero parameters |
 | SHA-256 | `e4887f6d…b0de6` | pending | `c89791dc…584a6` |
@@ -280,3 +280,22 @@ height，且原记录明确 `mapAcceptance=blocked`。它保留为 recovery 对�
 - Gate state: Headless 和 GLB 结构通过；Blender MCP1 尚未执行，地图校准被严格阻断；
   Identity 仍不得开始。回退点是本 iteration 前冻结 Hero 与 recovery/Hold commit，
   两者均未覆盖。
+
+### Iteration 6 — Blender MCP1 Massing review — 2026-07-25
+
+- Scene inspection: 主窗口经 Blender MCP 只加载正式
+  `film-art-center-massing` Mesh；root location/rotation 为 `[0,0,0]`、scale
+  `[1,1,1]`，Blender bounds 为 `[-11.455,-6.965,0]` 到
+  `[11.455,6.725,13.7]`，1,750 vertices、1,652 polygons、3,376 export
+  triangles、6 materials、0 images。
+- Visual result: canonical、side、entrance 三个与 Headless 相同固定机位均通过；
+  三层横向体块、全宽上翘主屋面、第二道红檐、双层廊深、上层中央退进和两侧低翼
+  可读，无悬空、无非预期穿插、入口未被 Massing 几何封死。
+- Scale boundary: 1.8 m 临时人物为 `0.666667` 场景单位且未保存、未导出；对照显示
+  继承自已验收 Hero 的视觉体量较大。MCP1 不把物理实测尺度写成已确认事实，实际
+  Three.js 人物尺度、占屏、道路退界和相机安全仍是下一道地图硬门。
+- Provenance: 正式 GLB 仍为 `c89791dc…584a6`，Blend 仍为
+  `3b461d83…3314e6`；`acceptedInteractiveChanges=[]`，临时 camera/light/ground/proxy
+  未保存到主资产，因此无需生成器 round-trip。
+- Gate state: MCP1 Pass；地图校准 Pending；Identity 继续 blocked。正式记录见
+  `docs/research/film-art-center-blender-mcp-gates.json`。

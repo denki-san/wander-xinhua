@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "assetId": "film-art-center",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-25T19:42:00+08:00",
+  "reviewedBy": "main-coordinator",
+  "sourceCheckpoint": "6d0206d",
+  "pipelineOrder": [
+    "evidence-and-brief",
+    "massing-generation",
+    "blender-mcp-massing-review",
+    "three-js-map-calibration",
+    "hero-master-review",
+    "identity-derivation",
+    "three-tier-review",
+    "three-js-runtime-acceptance"
+  ],
+  "massingGate": {
+    "gate": "mcp1-massing-pre-map-calibration",
+    "status": "pass",
+    "interactiveReview": "Blender MCP",
+    "fallbackUsed": false,
+    "editableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/massing/film-art-center-massing.blend",
+      "sha256": "3b461d8307a0d1f53d90cd529fb39298a6ecbbbee356f63adca7f54c4c3314e6",
+      "bytes": 142503
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/xinhua-road/massing/film-art-center-massing.glb",
+      "sha256": "c89791dc3978b317cc2f8807a77f7a84b5c596f8d4cd01c1cffd05090e9584a6",
+      "bytes": 240572,
+      "triangles": 3376,
+      "materials": 6,
+      "images": 0
+    },
+    "generator": {
+      "path": "scripts/create_film_art_center_massing_model.py",
+      "sha256": "93379e78c7c502f6b37bb76e44454e6f7278c2d65b09a0ac8d1243b2eac262e6"
+    },
+    "buildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing/film-art-center-massing.json"
+    },
+    "referenceEvidence": {
+      "canonical": "docs/research/assets/poi-references/film-art-center/film-art-center-government-front-canonical-2024.jpg",
+      "observed": [
+        "three-storey horizontal composition",
+        "full-width upturned main roof",
+        "second red gallery roof",
+        "double veranda depth and column rhythm",
+        "recessed upper central loggia",
+        "low glazed side wings"
+      ],
+      "inferred": [
+        "overall dimensions inherited from the accepted Hero visual scale",
+        "side and rear massing simplified where direct evidence is absent"
+      ],
+      "unknown": [
+        "surveyed width depth and height",
+        "physical floor heights",
+        "exact side-wing boundaries"
+      ]
+    },
+    "sceneInspection": {
+      "rootObject": "film-art-center-massing",
+      "rootType": "MESH",
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1],
+      "meshCount": 1,
+      "boundsBlender": {
+        "min": [-11.455, -6.965, -1.1920928955078125e-7],
+        "max": [11.455, 6.725, 13.7]
+      },
+      "dimensionsBlender": [22.91, 13.69, 13.70000011920929],
+      "vertices": 1750,
+      "edges": 3340,
+      "polygons": 1652,
+      "triangles": 3376,
+      "materials": 6,
+      "images": 0,
+      "frontDirection": "-Y",
+      "groundDatum": 0,
+      "authoredMetersPerSceneUnit": 2.7
+    },
+    "humanScale": {
+      "heightMeters": 1.8,
+      "heightSceneUnits": 0.666667,
+      "boundsBlenderZ": [0, 0.666667],
+      "temporaryProxyOnly": true,
+      "savedToMaster": false,
+      "exportedToGlb": false,
+      "finding": "The inherited Hero visual scale reads very large against the physical-height proxy; actual runtime player scale and screen occupancy remain a hard map gate."
+    },
+    "fixedViews": {
+      "canonical": {
+        "camera": [3, -43, 8],
+        "target": [0, -0.5, 6.3],
+        "lensMm": 54,
+        "screenshot": "test_artifacts/test_film-art-center-massing_mcp1_canonical.png",
+        "sha256": "12ef43ad5d8bfbc944ff2177190e7e60ae03915b394bfb6420794aa41ad587e0",
+        "bytes": 608635
+      },
+      "side": {
+        "camera": [34, -28, 9],
+        "target": [1, 0, 6.1],
+        "lensMm": 52,
+        "screenshot": "test_artifacts/test_film-art-center-massing_mcp1_side.png",
+        "sha256": "e5b636866e3a6255940e7494e7b9d350941f33111af629bb9c2725feffc426c8",
+        "bytes": 629955
+      },
+      "entrance": {
+        "camera": [10, -48, 4.8],
+        "target": [0, -0.8, 5.7],
+        "lensMm": 56,
+        "screenshot": "test_artifacts/test_film-art-center-massing_mcp1_entrance.png",
+        "sha256": "815038985b490f376c9a423bd2c765ce481623cdb947194cfbf97121f08329e9",
+        "bytes": 607144
+      },
+      "scale": {
+        "camera": [3, -43, 8],
+        "target": [0, -0.5, 6.3],
+        "lensMm": 54,
+        "screenshot": "test_artifacts/test_film-art-center-massing_mcp1_scale.png",
+        "sha256": "9aa41063d06109db5be1eb30d3c5bb34af324682072f95621a632b1344d74ec7",
+        "bytes": 608837
+      }
+    },
+    "checks": {
+      "groundContact": "pass-z-zero-datum",
+      "rootTransform": "pass-normalized",
+      "volumeHierarchy": "pass-three-storey-double-roof-and-low-side-wings",
+      "mainRoof": "pass-full-width-upturned-silhouette-readable",
+      "galleryRoof": "pass-second-red-horizontal-tier-readable",
+      "verandaDepth": "pass-double-depth-and-column-rhythm-readable",
+      "upperLoggia": "pass-recessed-central-opening-readable",
+      "entrance": "pass-not-sealed-by-massing-geometry",
+      "visibleIntersections": "pass-no-unintended-floating-or-clipping",
+      "texturePolicy": "pass-zero-images",
+      "physicalSurveyScale": "unknown-not-claimed",
+      "runtimePlayerScale": "pending-three-js-map-gate",
+      "runtimeScreenOccupancy": "pending-three-js-map-gate"
+    },
+    "acceptedInteractiveChanges": [],
+    "generatorRoundTrip": {
+      "status": "not-required",
+      "note": "MCP1 only added unsaved and unexported QA camera, lights, ground and 1.8 m proxy. No geometry, material or transform changes were accepted."
+    },
+    "nextGate": "three-js-massing-map-calibration"
+  },
+  "heroGate": {
+    "status": "retained-formal-but-mcp2-pending-after-map-calibration"
+  },
+  "identityGate": {
+    "status": "blocked-until-massing-map-and-hero-mcp2"
+  },
+  "threeTierGate": {
+    "status": "pending"
+  }
+}
