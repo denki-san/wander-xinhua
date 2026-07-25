@@ -96,6 +96,9 @@ export function xinhuaRoadDistanceHeroIds({
 export const SHANGHAI_CINEMA_IDENTITY_MODEL_PATH =
   "/models/xinhua-road/shanghai-cinema-hybrid-identity.glb";
 export const SHANGHAI_CINEMA_IDENTITY_CACHE_VERSION = "20260722-hybrid-1";
+export const SHANGHAI_CINEMA_MASSING_MODEL_PATH =
+  "/models/xinhua-road/shanghai-cinema-massing.glb";
+export const SHANGHAI_CINEMA_MASSING_CACHE_VERSION = "20260725-massing-1";
 
 export type XinhuaRoadBuildingQualityEntry = {
   buildingId: string;
@@ -117,9 +120,11 @@ export type XinhuaRoadBuildingQualityEntry = {
     requiredBeforeMapVisible: true;
   };
   massing: {
-    strategy: "bounds-proxy";
+    strategy: "bounds-proxy" | "formal-glb";
     visibility: "cover-only";
     localBounds: LandmarkPlacement["localBounds"];
+    model?: string;
+    cacheVersion?: string;
   };
   shared: Pick<LandmarkPlacement, "position" | "yaw" | "scale" | "localObstacles">;
   collision: "stable-shared-structure";
@@ -155,9 +160,15 @@ function buildingQualityEntry(
       requiredBeforeMapVisible: true,
     },
     massing: {
-      strategy: "bounds-proxy",
+      strategy: shanghaiCinema ? "formal-glb" : "bounds-proxy",
       visibility: "cover-only",
       localBounds: landmark.localBounds,
+      model: shanghaiCinema
+        ? SHANGHAI_CINEMA_MASSING_MODEL_PATH
+        : undefined,
+      cacheVersion: shanghaiCinema
+        ? SHANGHAI_CINEMA_MASSING_CACHE_VERSION
+        : undefined,
     },
     shared: {
       position: landmark.position,
@@ -212,7 +223,7 @@ export type ProductionBuildingQualityEntry = {
     requiredBeforeMapVisible: true;
   };
   massing: {
-    strategy: "bounds-proxy" | "programmatic-site";
+    strategy: "bounds-proxy" | "formal-glb" | "programmatic-site";
     assets: readonly string[];
     parametersSource: string;
     visibility: "cover-only";
@@ -250,12 +261,16 @@ function roadEvidence(landmarkId: string): ProductionQualityEvidence {
       identityBuildRecords: [
         "docs/research/build-records/shanghai-cinema-hybrid-identity.json",
       ],
-      massingBuildRecords: [],
+      massingBuildRecords: [
+        "docs/research/build-records/shanghai-cinema-massing.json",
+      ],
       canonicalScreenshots: [
         "test_artifacts/test_shanghai-cinema-hybrid-identity_canonical_preview.png",
+        "test_artifacts/test_shanghai-cinema_mcp1_massing_canonical.png",
       ],
       sideScreenshots: [
         "test_artifacts/test_shanghai-cinema-hybrid-identity_side_preview.png",
+        "test_artifacts/test_shanghai-cinema_mcp1_massing_side.png",
       ],
       rearScreenshots: [],
       runtimeScreenshots: [
@@ -315,7 +330,13 @@ const XINHUA_ROAD_PRODUCTION_QUALITY_MANIFEST = Object.fromEntries(
       },
       massing: {
         strategy: entry.massing.strategy,
-        assets: [],
+        assets: entry.massing.model
+          ? [
+            entry.massing.cacheVersion
+              ? `${entry.massing.model}?v=${entry.massing.cacheVersion}`
+              : entry.massing.model,
+          ]
+          : [],
         parametersSource:
           `app/scene/xinhua-road-landmarks-data.json#${entry.buildingId}.localBounds`,
         visibility: entry.massing.visibility,
