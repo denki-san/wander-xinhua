@@ -280,3 +280,18 @@
   - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_fixed_side.png`
   - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_fixed_entrance.png`
 - Gate result: 材质阻断的确定性修复与 Headless Eevee 证据完成，但主窗口 Blender MCP2 尚未复核；状态停在 `main-window-serial-blender-mcp2-rereview`，Identity 继续锁定，旧 Hero、共享 generator 与公共 registry 均未修改。
+
+### Iteration 8 — 2026-07-25 Blender MCP2 rereview pass
+
+- Reviewed source: 主窗口以 Blender MCP 直接重开 commit `a17cfe4` 的 Hero v2 master；正式 `.blend` SHA-256 `8f5c3984abef50239f1ece5e5360887d8615786cb6283bf60d85f80bd12f21bd`、GLB SHA-256 `026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b`，没有重建或替换被审查二进制。
+- Scene inspection: `1` mesh、`2,396` vertices、`1,802` polygons；root location/rotation `[0,0,0]`、scale `[1,1,1]`，normalized。
+- Material inspection: `7/7` materials 均为 `use_nodes=True`，Principled `Base Color` 与七层 diffuse 分组一致；玻璃 roughness `0.38`、其余 `0.88`；保持 `0` images/textures，不虚构透明、透射或贴图。
+- Geometry inspection: `area < 1e-10` 为 `0`，non-finite normals 为 `0`，固定机位没有发现非预期相交。
+- Passed evidence:
+  - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_rereview_canonical.png`，SHA-256 `8d6483ef61b9dbcfb026687c8a11b9b8e3d3bc34781c76cd4112197e812565f4`，`920,601` bytes
+  - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_rereview_side.png`，SHA-256 `188a195e6fef6fbe790308a24c4a45b48bacc330c5c5bb313cb523f7b54576e8`，`860,709` bytes
+  - `test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_rereview_entrance.png`，SHA-256 `213bfe8ad01af3582600da78f05ce89f1943c018ba0620bf5773e28f29ae16ac`，`994,183` bytes
+- Visual result: canonical 清楚读出前部白色 U 形建筑、深色半木构、连续窄窗、陡坡屋顶和后院红砖长屋；side/depth 证明前后两栋独立、开放间隙、后屋双山墙与两根烟囱；entrance 证明入口棚、门窗节奏和 `1.8m` 人物尺度。未知侧后保持低细节。
+- Scope result: Passed；没有树木、灌木、草坪、家具、雨伞、花盆、灯、围栏、店招、装饰铺装、其他建筑或全地图资产。
+- Interactive boundary: `acceptedInteractiveChanges=[]`；主窗口临时相机、灯光、地面和人物 QA rig 未保存、未导出，不需要 generator round-trip。
+- Gate result: Blender MCP2 Passed。Hero v2 现为独立 Identity 的获准来源；该授权来自 post-build MCP2 gate record，源 GLB root 中构建时的 `identity_allowed=false` 不做二进制回写，以免改变已审查 SHA。Identity 尚未开始，按主窗口要求暂停在 gate checkpoint 整合前。旧 Hero 继续 Hold，公共 registry 与共享 generator 均未修改。
