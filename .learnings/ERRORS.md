@@ -7092,3 +7092,156 @@ Blender MCP 打开同一冻结 Blend，并在交互场景内检查对象、材�
 ### Resolution
 - **Resolved**: 2026-07-25T20:12:00+08:00
 - **Notes**: 已切换为主窗口串行 Blender MCP 候选审查，不在子 Worktree重试。
+
+---
+
+## [ERR-20260725-037] film_art_python_compile_cache_permission
+
+**Logged**: 2026-07-25T20:32:36+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Film Art Center 生成器语法预检尝试写入 macOS 受限 Python 缓存目录，被沙箱拒绝。
+
+### Error
+```text
+PermissionError: [Errno 1] Operation not permitted:
+'/Users/lei/Library/Caches/com.apple.python/Users/lei/App_developing/wander-xinhua/.worktrees/building-film-art-center'
+```
+
+### Context
+- 命令为 `python3 -m py_compile scripts/create_xinhua_road_models.py`。
+- Python 在编译前创建 `__pycache__` 目录失败，尚未报告脚本语法错误。
+- `git diff --check` 同次执行通过。
+
+### Suggested Fix
+设置 `PYTHONPYCACHEPREFIX=/tmp/test_film_art_python_cache` 后重跑语法预检，
+避免写入用户缓存目录。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_xinhua_road_models.py
+
+### Resolution
+- **Resolved**: 2026-07-25T20:32:36+08:00
+- **Notes**: 改用可写的 `/tmp` Python 缓存目录。
+
+---
+
+## [ERR-20260725-038] film_art_hero_byte_nondeterminism
+
+**Logged**: 2026-07-25T20:37:30+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: assets
+
+### Summary
+Film Art Center 使用相同生成器连续两次单资产重建后，GLB、Blend 与固定机位 PNG
+尺寸和几何统计一致，但 SHA-256 不一致。
+
+### Error
+```text
+first GLB:  e13d63469ac031b28f2e7475b8d6b365812d8eb5ee9fe20da4c8408815dca2bb
+second GLB: 3b63f2faa3230a7c708742a1eee72e25b2f3bac45eb265ec81322ea0cf228fb1
+bytes:      4076292 (both)
+```
+
+### Context
+- 两次命令均为同一 Worktree、同一 Blender 5.2、同一
+  `--asset=film-art-center` 输入。
+- 两次均删除 76 个近零面积面，输出 570 source objects、1 runtime node。
+- 固定机位 PNG 的字节大小一致，但 SHA 不一致；Blend 第二次增加 36 bytes。
+
+### Suggested Fix
+保留一次输出并重建第三次，分别比较 GLB JSON 与 BIN chunk，定位 exporter 元数据、
+顶点排序或浮点序列差异；在解决前不得声称 Hero 二进制字节确定性。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_xinhua_road_models.py
+- Related Files: public/models/xinhua-road/film-art-center.glb
+- Related Files: assets/models/source/xinhua-road/film-art-center.blend
+
+### Resolution
+- **Resolved**: 2026-07-25T20:43:40+08:00
+- **Notes**: 差异精确定位为没有贴图的材质仍导出 TEXCOORD，连续重建时 40 bytes
+  UV 浮点值发生 1 ULP 抖动。生成器现仅在材质实际包含 Image Texture 时导出
+  TEXCOORD；两次重建 GLB 均为
+  `33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b`，
+  `cmp` 通过，3,148,572 bytes。
+
+---
+
+## [ERR-20260725-039] zsh_path_loop_variable_shadow
+
+**Logged**: 2026-07-25T20:46:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+只读汇总 Film Art Center 证据指纹时使用循环变量 `path`，覆盖了 zsh 的特殊
+`path` 数组及 `PATH`，导致循环内和后续命令无法解析。
+
+### Error
+```text
+zsh: command not found: shasum
+zsh: command not found: stat
+zsh: command not found: git
+zsh: command not found: rg
+```
+
+### Context
+- 命令只包含存在性检查、SHA、文件大小和 tracked 文件查询。
+- 没有写入或修改资产；失败仅发生在 shell 命令解析。
+
+### Suggested Fix
+zsh 脚本不得把循环变量命名为 `path`；改用 `asset_file` 等非特殊名称。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/test_film-art-center-hero_mcp2_canonical.png
+
+### Resolution
+- **Resolved**: 2026-07-25T20:46:00+08:00
+- **Notes**: 改用 `asset_file` 后重跑只读指纹汇总。
+
+---
+
+## [ERR-20260725-040] film_art_massing_lineage_current_hero_assumption
+
+**Logged**: 2026-07-25T20:50:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Film Art Center Hero 修复后，Massing lineage 测试仍假设当前 Hero 路径的 SHA 必须
+等于 Massing 派生时冻结的旧 Hero SHA，导致 26 项中 1 项失败。
+
+### Error
+```text
+actual current Hero: 33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b
+expected derivation Hero: e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6
+```
+
+### Context
+- Massing 二进制、MCP1 与地图门未改变；它确实由修复前冻结 Hero 参数派生。
+- 当前 Hero 路径在 MCP2 拓扑修复后合法变化，旧 SHA 应作为 derivation snapshot
+  保留，而不是要求当前文件倒退。
+- 同批其余 25 项测试及当前 Hero GLB audit 通过。
+
+### Suggested Fix
+在 Massing build record 中分离 `heroGlbSha256AtDerivation` 与
+`currentHeroGlbSha256`；测试分别校验历史 provenance 和当前 lineage 状态。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_film_art_center_quality_tiers.test.mjs
+- Related Files: docs/research/build-records/tiers/xinhua-road/massing/film-art-center-massing.json
+
+### Resolution
+- **Resolved**: 2026-07-25T20:50:00+08:00
+- **Notes**: 测试不再把当前 Hero 文件误当成派生时快照。

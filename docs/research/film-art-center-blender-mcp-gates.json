@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "film-art-center",
   "activeScope": "active-18-buildings",
-  "reviewedAt": "2026-07-25T20:07:03+08:00",
+  "reviewedAt": "2026-07-25T20:43:40+08:00",
   "reviewedBy": "main-coordinator",
   "sourceCheckpoint": "6d0206d",
   "pipelineOrder": [
@@ -155,7 +155,119 @@
     "scope": "film-art-center-only"
   },
   "heroGate": {
-    "status": "retained-formal-mcp2-unblocked-pending"
+    "gate": "mcp2-hero-master-review",
+    "status": "blocked-topology-repair-built-recheck-pending",
+    "interactiveReview": "Blender MCP",
+    "fallbackUsed": false,
+    "preRepairCandidate": {
+      "blend": {
+        "path": "assets/models/source/xinhua-road/film-art-center.blend",
+        "sha256": "32e27757001feeb1da31a2ada1fbfafc7c6f6a038d3f85ab408912973a2c8e0c",
+        "bytes": 916897
+      },
+      "glb": {
+        "path": "public/models/xinhua-road/film-art-center.glb",
+        "sha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6",
+        "bytes": 4082744,
+        "triangles": 63516,
+        "materials": 14,
+        "images": 0
+      },
+      "sceneInspection": {
+        "rootObject": "film-art-center",
+        "rootType": "MESH",
+        "rootLocation": [0, 0, 0],
+        "rootRotation": [0, 0, 0],
+        "rootScale": [1, 1, 1],
+        "polygons": 31427,
+        "nonfinitePolygonNormals": 0
+      },
+      "visualChecks": {
+        "canonical": "pass-full-main-roof-second-red-eave-double-veranda-and-signature-entrance-readable",
+        "side": "pass-veranda-depth-loggia-low-glass-wing-and-human-scale-readable",
+        "entrance": "pass-sign-order-lions-warm-entry-and-central-path-readable"
+      },
+      "topologyBlocker": {
+        "areaEpsilon": 1e-10,
+        "facesBelowEpsilon": 76,
+        "byMaterial": {
+          "艺术中心白色构件": 48,
+          "艺术中心暗铜金属": 12,
+          "艺术中心入口暖光": 12,
+          "艺术中心朱红屋瓦": 4
+        },
+        "decision": "mcp2-blocked-repair-generator-before-identity"
+      },
+      "fixedViews": {
+        "canonical": {
+          "camera": [3, -43, 8],
+          "target": [0, -0.5, 6.3],
+          "lensMm": 54,
+          "screenshot": "test_artifacts/test_film-art-center-hero_mcp2_canonical.png",
+          "sha256": "318c3bf76eeee3312eb57940c3924a8c0ddc423f38f304e8f3602fac58b52ff1",
+          "bytes": 1109765
+        },
+        "side": {
+          "camera": [34, -28, 9],
+          "target": [1, 0, 6.1],
+          "lensMm": 52,
+          "screenshot": "test_artifacts/test_film-art-center-hero_mcp2_side.png",
+          "sha256": "9dc7c25257aaebf2b02db9bf092535c6480cdacbe5da2ff4fb48ee17bcfb0e92",
+          "bytes": 1086102
+        },
+        "entrance": {
+          "camera": [10, -48, 4.8],
+          "target": [0, -0.8, 5.7],
+          "lensMm": 56,
+          "screenshot": "test_artifacts/test_film-art-center-hero_mcp2_entrance-street.png",
+          "sha256": "c19271a2e609953416bc49b3436c10fff48a4e64e3e30a85f39b674f8a62c54f",
+          "bytes": 1061334
+        }
+      },
+      "acceptedInteractiveChanges": []
+    },
+    "generatorRoundTrip": {
+      "status": "completed-recheck-pending",
+      "generator": {
+        "path": "scripts/create_xinhua_road_models.py",
+        "sha256": "324be84a32ed3d43ff0bc1ceaca040e8e46f68aff21151b1bafa4ae524f6f3c6"
+      },
+      "method": "MeshPolygon.area index selection followed by BMesh FACES_ONLY deletion after the joined root transform is applied",
+      "removedFaces": 76,
+      "postRepairFacesBelowEpsilon": 0,
+      "postRepairNonfinitePolygonNormals": 0,
+      "textureCoordinatePolicy": "omit TEXCOORD when no material contains an Image Texture",
+      "deterministicGlb": {
+        "status": "pass",
+        "method": "two consecutive clean single-asset builds plus cmp",
+        "sha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b"
+      }
+    },
+    "recheckCandidate": {
+      "editableSource": {
+        "path": "assets/models/source/xinhua-road/film-art-center.blend",
+        "sha256": "f58952f3bf4c086fb09afdbda4efdc264a124a74a12e6f63e7a9c70f3d3359b8",
+        "bytes": 912286
+      },
+      "runtimeAsset": {
+        "path": "public/models/xinhua-road/film-art-center.glb",
+        "sha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+        "bytes": 3148572,
+        "triangles": 63368,
+        "materials": 14,
+        "images": 0,
+        "textures": 0,
+        "texcoordPrimitives": 0,
+        "cacheVersion": "20260725-film-art-5"
+      },
+      "fixedHeadlessViews": {
+        "canonical": "test_artifacts/test_film-art-center_canonical_preview.png",
+        "side": "test_artifacts/test_film-art-center_side_preview.png",
+        "entrance": "test_artifacts/test_film-art-center_street_preview.png"
+      },
+      "status": "pending-main-coordinator-blender-mcp-recheck"
+    },
+    "nextGate": "mcp2-recheck-before-identity"
   },
   "identityGate": {
     "status": "blocked-until-hero-mcp2"

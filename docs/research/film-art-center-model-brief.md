@@ -126,19 +126,22 @@
 - Single-asset build command: `/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xinhua_road_models.py -- --asset=film-art-center`
 - Build record: `docs/research/build-records/film-art-center.json`
 - Three-way comparison: `test_artifacts/test_film-art-center_three-way-comparison.png`，从左至右为参考照片、Blender canonical、Three.js runtime。
-- Runtime cache version: `20260722-film-art-4`，与 GLB SHA-256 `e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6` 绑定。
+- Runtime cache version: `20260725-film-art-5`，与待 MCP2 复核 Hero GLB
+  SHA-256 `33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b`
+  绑定；位置、朝向、碰撞和 start preset 未改变。
 
 ### Runtime tier lineage and budgets — 2026-07-25
 
-现有 Hero 已冻结并保留，不因补齐 runtime tiers 而重建。正式 lineage 见
+Hero 在主窗口首次 MCP2 中通过视觉层，但因 76 个近零面积面被拓扑门阻断；当前
+生成器、Blend 与 GLB 已完成确定性修复，等待同一 MCP2 固定机位复核。正式 lineage 见
 `docs/research/film-art-center-tier-lineage.json`。
 
 | Field | Hero | Identity | Massing |
 | --- | --- | --- | --- |
-| Status | retained-formal-runtime-accepted | blocked until Massing map gate and Hero MCP2 | MCP1 pass, map calibration pending |
+| Status | topology repaired, MCP2 recheck pending | blocked until Hero MCP2 pass | MCP1 pass, map pass |
 | Output | `public/models/xinhua-road/film-art-center.glb` | pending | `public/models/tiers/xinhua-road/massing/film-art-center-massing.glb` |
 | Source | frozen Hero `.blend` + `build_film_art_center()` | must derive from frozen Hero | deterministic simplification of frozen Hero parameters |
-| SHA-256 | `e4887f6d…b0de6` | pending | `c89791dc…584a6` |
+| SHA-256 | `33daaaf0…b8e1b` | pending | `c89791dc…584a6` |
 | Max nodes | 8 | 4 | 2 |
 | Max triangles | 90,000 | 24,000 | 4,000 |
 | Max materials | 14 | 8 | 6 |
@@ -157,7 +160,7 @@ height，且原记录明确 `mapAcceptance=blocked`。它保留为 recovery 对�
 | Batch | Deliverable | Blender check | Runtime check | Status |
 | --- | --- | --- | --- | --- |
 | Massing | Hero 主模型施工中的三层横向体块、中层檐、全宽主屋顶和真实廊深 | canonical 轮廓与照片宽高比 | 主体不再像窄高盒子 | Complete（Hero construction checkpoint；不等于 standalone Massing tier） |
-| Identity | 双层柱廊、栏杆、中央凉廊、入口牌匾和卧狮 | 四项身份构件清晰 | 游戏距离仍可辨识 | Complete |
+| Identity | 从 MCP2 通过后的 Hero 派生独立轻量 tier | 三处以上主体独有构件清晰 | 三档运行时切换仍可辨识 | Blocked（等待 Hero MCP2 recheck） |
 | Materials | 暖白墙柱、朱红屋瓦、深窗与暖入口 | 阴影层次与红瓦不过饱和 | 无黑面、透明排序或过曝 | Complete |
 | Site | 草坪、路径、灌木和低玻璃连接体 | canonical 场地关系 | 入口路径开放 | Complete |
 | Collision | 主体实体与开放院落分离 | 无大盒封场 | 人物与相机可达 | Complete（实际首屏 + 数据与自动测试） |
@@ -198,7 +201,9 @@ height，且原记录明确 `mapAcceptance=blocked`。它保留为 recovery 对�
 - [x] First-screen loading behavior passes
 - [x] Performance comparison recorded
 
-最终 Three.js 实机验收已通过，详细证据如下。
+以下 Three.js 实机验收属于 Iteration 4 的旧 Hero
+`e4887f6d…b0de6`，保留为历史基线；当前 `33daaaf0…b8e1b` 必须在 MCP2、
+Identity/MCP3 完成后重新执行三档运行时验收，不能沿用旧截图冒充当前二进制通过。
 
 - Runtime: Chrome 可见标签页以静态发布预览打开 `/?start=film-art`；`1200 × 807` 首帧使用 `[35,99]`、`[0.581,-0.814]`、`cameraTargetHeight=3.6` 和 `scale=1.0`。
 - Visual: 主体约占画面宽度七成，主屋面、连续翘檐、双层柱廊、入口、卧狮与两侧低翼完整可读；方向为 canonical 近正视。最终截图为 `test_artifacts/test_film-art-center_runtime_preview.png`。
@@ -330,3 +335,39 @@ height，且原记录明确 `mapAcceptance=blocked`。它保留为 recovery 对�
 - Gate state: Massing map gate Pass；Hero MCP2 现已解锁但尚未执行，Identity
   在 Hero MCP2 前继续 blocked。正式记录见
   `docs/research/film-art-center-massing-map-qa.json`。
+
+### Iteration 8 — Hero MCP2 topology repair candidate — 2026-07-25
+
+- Initial MCP2: 主窗口 Blender MCP 在 canonical、side、entrance 三个固定机位确认
+  全宽主屋顶、第二道红檐、双层柱廊与栏杆、中央退进凉廊、正确字序牌匾、卧狮、
+  两侧低玻璃翼和人物尺度均可读；`acceptedInteractiveChanges=[]`，临时 QA rig
+  未保存、未导出。
+- Blocker: 冻结 Hero joined mesh 为 31,427 polygons、0 个非有限法线，但存在
+  76 个面积 `<1e-10` 的面：白色构件 48、暗铜 12、入口暖光 12、朱红屋瓦 4。
+  因此首次 MCP2 严格判定为 `BLOCKED-TOPOLOGY`，Identity 保持锁定。
+- Generator repair: 在 join 与根变换烘焙后，以 `MeshPolygon.area` 选择严格近零
+  面索引，再用 BMesh `FACES_ONLY` 删除。没有按距离合并顶点，也没有 dissolve
+  相邻有效边，避免误伤中文字形、栏杆、灯具和有效上翘屋檐。修复逻辑已回写
+  `scripts/create_xinhua_road_models.py`。
+- Numeric edge case: Blender 5.2 的 `BMeshFace.calc_area()` 对两组三点共线的红瓦
+  三角面产生约 `1e-6` 的浮点抵消误差，而 `MeshPolygon.area` 为 `0`；因此不直接
+  用 BMesh 面积作入口判定。重建 Blend 复核为 31,351 polygons、34,226 vertices、
+  0 个面积 `<1e-10` 面、0 个非有限法线，最小有效面面积
+  `1.3669633744939347e-6`，root location/rotation/scale 仍为
+  `[0,0,0] / [0,0,0] / [1,1,1]`。
+- Runtime asset: 新 GLB 为 1 node、1 mesh、14 materials、63,368 triangles、
+  0 images、0 textures、3,148,572 bytes，SHA-256
+  `33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b`；
+  bounds 与地图已验收版本不变。缓存升级为 `20260725-film-art-5`，位置、yaw、
+  scale、bounds、obstacles、start 与 forward 均未改。
+- Determinism: 连续重建最初暴露 40 bytes 的 TEXCOORD 1-ULP 抖动。材质没有任何
+  Image Texture，生成器现只在资产实际使用图片纹理时导出 TEXCOORD；再次连续两次
+  clean build 后 GLB SHA 完全一致且 `cmp` 通过。省去的 UV 不参与当前材质或可见
+  几何。
+- Fixed views: canonical、side、street 三张 Headless 固定机位已重跑并人工检查，
+  牌匾、白色栏杆、入口灯、红瓦和低翼未因拓扑清理丢失。首次 MCP2 的三张主窗口
+  截图保留为 blocker 证据；修复候选仍必须由主窗口用 Blender MCP 同机位复核。
+- Gate state: `mcp2-topology-repaired-recheck-pending`；不得自行标 Pass，
+  不得开始 formal Identity。回退点为首次 MCP2 前旧 Hero
+  `e4887f6d…b0de6` 与当前生成器差异；Hold、树木、装饰、ordinary OSM、全地图及
+  其他建筑均未触碰。

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "film-art-center",
   "activeScope": "active-18-buildings",
-  "reviewedAt": "2026-07-25T20:07:03+08:00",
+  "reviewedAt": "2026-07-25T20:43:40+08:00",
   "sharedContract": {
     "origin": [0, 0, 0],
     "frontDirection": "-Y",
@@ -15,19 +15,31 @@
     "startPreset": "/?start=film-art"
   },
   "hero": {
-    "status": "retained-formal-runtime-accepted",
+    "status": "mcp2-topology-repaired-recheck-pending",
     "generator": "scripts/create_xinhua_road_models.py",
+    "generatorSha256": "324be84a32ed3d43ff0bc1ceaca040e8e46f68aff21151b1bafa4ae524f6f3c6",
     "blend": {
       "path": "assets/models/source/xinhua-road/film-art-center.blend",
-      "sha256": "32e27757001feeb1da31a2ada1fbfafc7c6f6a038d3f85ab408912973a2c8e0c"
+      "sha256": "f58952f3bf4c086fb09afdbda4efdc264a124a74a12e6f63e7a9c70f3d3359b8",
+      "bytes": 912286
     },
     "glb": {
       "path": "public/models/xinhua-road/film-art-center.glb",
-      "sha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6",
-      "bytes": 4082744,
-      "triangles": 63516,
+      "sha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+      "bytes": 3148572,
+      "triangles": 63368,
       "materials": 14,
-      "images": 0
+      "images": 0,
+      "textures": 0,
+      "texcoordPrimitives": 0,
+      "cacheVersion": "20260725-film-art-5"
+    },
+    "topologyRepair": {
+      "areaEpsilon": 1e-10,
+      "removedFaces": 76,
+      "remainingFacesBelowEpsilon": 0,
+      "nonfinitePolygonNormals": 0,
+      "deterministicGlb": "pass"
     },
     "buildRecord": "docs/research/build-records/film-art-center.json"
   },
@@ -77,5 +89,5 @@
     "facilityAndSharedPrototypes": "not-imported",
     "otherBuildings": "untouched"
   },
-  "nextGate": "blender-mcp2-hero-master-review"
+  "nextGate": "blender-mcp2-hero-master-recheck"
 }
