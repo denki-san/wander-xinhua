@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-25T12:27:41.288Z",
+  "scope": "poc",
+  "targetCount": 80,
+  "thresholds": {
+    "minimumIou": 0.7,
+    "maximumCentroidDistanceMetres": 5,
+    "minimumAreaRatio": 0.67,
+    "maximumAreaRatio": 1.5,
+    "minimumHeightMetres": 3,
+    "maximumHeightMetres": 90
+  },
+  "sourceAvailability": [
+    {
+      "dataset": "OpenStreetMap",
+      "status": "available",
+      "licence": "ODbL-1.0",
+      "role": "footprint source of record and direct tags"
+    },
+    {
+      "dataset": "3D-GloBFP",
+      "status": "available",
+      "licence": "CC-BY-4.0",
+      "role": "primary independent modelled height",
+      "productYear": 2020,
+      "extractedFeatureCount": 3771,
+      "sourceArchiveMd5": "8476dc9ee2ff403d9f524faa1627296d"
+    },
+    {
+      "dataset": "Overture Buildings",
+      "status": "available",
+      "licence": "per-feature",
+      "role": "provenance-filtered conditional source",
+      "release": "2026-07-22.0",
+      "featureCount": 2685,
+      "independentHeightOrFloorCount": 0,
+      "note": "all height/floor fields in the extract are OSM-derived and are not counted twice"
+    },
+    {
+      "dataset": "GlobalBuildingAtlas",
+      "status": "unavailable",
+      "licence": "CC-BY-NC-4.0 for GBA.Height and GBA.LoD1",
+      "role": "approved auxiliary source for current non-commercial use",
+      "note": "official WFS and public API returned HTTP 403 during this run; no GBA value was imported"
+    }
+  ],
+  "counts": {
+    "targetBuildings": 80,
+    "confidence": {
+      "A": 11,
+      "B": 43,
+      "C": 26
+    },
+    "selectedSource": {
+      "3D-GloBFP": 43,
+      "OpenStreetMap": 11,
+      "wander-xinhua-heuristic": 26
+    },
+    "globfpCandidates": 79,
+    "globfpOneToOneMatches": 43,
+    "unmatched": 1,
+    "ambiguous": 0,
+    "rejected": 36,
+    "sourceAgeRisks": 79,
+    "directEvidenceConflicts": 4,
+    "manualReviewQueue": 30
+  },
+  "distributions": {
+    "baselineHeightMetres": {
+      "count": 80,
+      "min": 9,
+      "p25": 15,
+      "median": 15,
+      "p75": 24,
+      "max": 72
+    },
+    "selectedHeightMetres": {
+      "count": 80,
+      "min": 8.49,
+      "p25": 15,
+      "median": 19.63,
+      "p75": 24.94,
+      "max": 73.15
+    },
+    "selectedMinusBaselineMetres": {
+      "count": 80,
+      "min": -10.14,
+      "p25": 0,
+      "median": 0,
+      "p75": 2.87,
+      "max": 49.15
+    },
+    "matchedIou": {
+      "count": 79,
+      "min": 0.04,
+      "p25": 0.45,
+      "median": 0.71,
+      "p75": 0.75,
+      "max": 0.86
+    }
+  },
+  "rolloutDecision": "blocked-until-manual-license-runtime-and-visual-gates-pass"
+}

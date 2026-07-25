@@ -4,11 +4,15 @@
 
 - 项目内知识源：`docs/knowledge-sources/`
 - 原始调研证据：`docs/research/`
-- U 盘 LLM Wiki：`/Volumes/plugin/TowerOld_XHS_Archive/xhs-creator-wiki`
-- Wiki 监控入口：`raw/sources/derived/wander-xinhua/`
+- 独立 3D LLM Wiki：`/Volumes/plugin/Threejs-3d-research`
+- Wiki 监控入口：
+  `raw/sources/threejs-modeling-knowledge-base/wander-xinhua/`
 
 LLM Wiki 学的是 `raw/sources/` 下的 Markdown，不会直接学习视频、图片或
 `evidence.json`。原始素材只读保留；分析升级时新建派生文件，不覆盖旧数据。
+
+`wander-xinhua` 的 Three.js、Blender、建筑、地理数据和运行时研究只进入
+`Threejs-3d-research`。不得写入 TowerOld；`xinhua` 只作为历史检索别名。
 
 ## 1. 怎么把内容放进去
 
@@ -16,7 +20,8 @@ LLM Wiki 学的是 `raw/sources/` 下的 Markdown，不会直接学习视频、�
 2. 将可核验结论写成英文文件名的 Markdown，放入 `docs/knowledge-sources/`。
 3. 每条结论标注为“观察”“推断”或“未知”，附原始证据路径或 URL。
 4. 将 Markdown 复制到 Wiki 的
-   `raw/sources/derived/wander-xinhua/`；不要直接修改自动生成的 `wiki/`。
+   `raw/sources/threejs-modeling-knowledge-base/wander-xinhua/` 对应专题目录；
+   不要直接修改自动生成的 `wiki/`。
 5. 触发 Source Rescan，等队列清空后再检索验证。
 
 ## 2. 怎么对视频做拉片

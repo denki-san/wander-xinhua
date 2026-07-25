@@ -41,6 +41,35 @@ const BUILD_RECORD_OUTPUT = resolve(
   PROJECT_ROOT,
   "docs/research/build-records/xinhua-district-massing.json",
 );
+const POC_OUTPUT_DIR = resolve(PROJECT_ROOT, "test_artifacts/test_building_height_poc");
+const POC_SOURCE_OUTPUT = resolve(
+  POC_OUTPUT_DIR,
+  "test_xinhua-district-massing-poc-data.json",
+);
+const POC_RUNTIME_MANIFEST_OUTPUT = resolve(
+  POC_OUTPUT_DIR,
+  "test_xinhua-district-massing-poc-runtime.json",
+);
+const POC_GLB_OUTPUT = resolve(
+  POC_OUTPUT_DIR,
+  "test_xinhua-district-massing-poc.glb",
+);
+const POC_BUILD_RECORD_OUTPUT = resolve(
+  POC_OUTPUT_DIR,
+  "test_xinhua-district-massing-poc-build-record.json",
+);
+const FULL_HEIGHT_EVIDENCE = resolve(
+  PROJECT_ROOT,
+  "app/scene/xinhua-building-height-runtime.json",
+);
+const POC_HEIGHT_EVIDENCE = resolve(
+  PROJECT_ROOT,
+  "docs/research/building-height-evidence-poc.json",
+);
+const POC_GATE = resolve(
+  PROJECT_ROOT,
+  "docs/research/building-height-poc-gate.json",
+);
 const RELATION_ID = 13469094;
 const OSM_AREA_ID = 3_600_000_000 + RELATION_ID;
 const HEIGHT_BANDS = ["low", "mid", "high"];
@@ -53,6 +82,10 @@ const MATERIAL_OPACITY = 0.58;
 const ROAD_BUILDING_CLEARANCE = 0.18;
 const ROAD_SETBACK_MIN_SCALE = 0.58;
 const ROAD_SETBACK_HIGHWAYS = /^(trunk|primary|secondary|tertiary|residential)/;
+const HEIGHT_RANGE = {
+  minimumHeightMetres: 3,
+  maximumHeightMetres: 90,
+};
 const RUNTIME_BUDGETS = {
   maxBytes: 3_000_000,
   maxMeshes: 12,
@@ -524,6 +557,114 @@ function heightBand(heightMeters) {
   return "high";
 }
 
+function outputPaths(heightMode) {
+  if (heightMode === "poc") {
+    return {
+      source: POC_SOURCE_OUTPUT,
+      runtimeManifest: POC_RUNTIME_MANIFEST_OUTPUT,
+      glb: POC_GLB_OUTPUT,
+      buildRecord: POC_BUILD_RECORD_OUTPUT,
+    };
+  }
+  return {
+    source: SOURCE_OUTPUT,
+    runtimeManifest: RUNTIME_MANIFEST_OUTPUT,
+    glb: GLB_OUTPUT,
+    buildRecord: BUILD_RECORD_OUTPUT,
+  };
+}
+
+function projectRelativePath(path) {
+  return path.startsWith(`${PROJECT_ROOT}/`)
+    ? path.slice(PROJECT_ROOT.length + 1)
+    : path;
+}
+
+async function readHeightEvidence(heightMode, argumentsList) {
+  if (heightMode === "baseline") return null;
+  const explicitIndex = argumentsList.indexOf("--height-evidence");
+  const path = explicitIndex >= 0
+    ? resolve(PROJECT_ROOT, argumentsList[explicitIndex + 1])
+    : heightMode === "poc"
+      ? POC_HEIGHT_EVIDENCE
+      : FULL_HEIGHT_EVIDENCE;
+  const bytes = await readFile(path);
+  const parsed = JSON.parse(bytes);
+  const records = parsed.records ?? [];
+  if (!Array.isArray(records) || !records.length) {
+    throw new Error(`高度证据没有记录：${projectRelativePath(path)}`);
+  }
+  return {
+    path,
+    sha256: sha256(bytes),
+    records,
+  };
+}
+
+async function assertFullRolloutGate() {
+  const gate = JSON.parse(await readFile(POC_GATE, "utf8"));
+  if (
+    gate?.decision !== "pass"
+    || gate?.fullRolloutAuthorized !== true
+    || gate?.gates?.matching !== "pass"
+    || gate?.gates?.licence !== "pass"
+    || gate?.gates?.visualQuality !== "pass"
+  ) {
+    throw new Error("PoC 三道质量门尚未全部通过，拒绝生成全量街区体块");
+  }
+  return gate;
+}
+
+function applyHeightEvidence(records, evidence, heightMode) {
+  if (!evidence) {
+    records.forEach((record) => {
+      record.heightConfidence = record.heightSource === "heuristic" ? "C" : "A";
+      record.heightCalibrationStatus = "baseline";
+    });
+    return;
+  }
+  const byId = new Map(evidence.records.map((record) => [
+    record.overviewAssetId ?? record.osmRef,
+    record,
+  ]));
+  let applied = 0;
+  for (const record of records) {
+    const calibration = byId.get(record.assetId);
+    if (!calibration) {
+      if (heightMode === "full") {
+        throw new Error(`全量高度证据缺少 ${record.assetId}`);
+      }
+      record.heightConfidence = record.heightSource === "heuristic" ? "C" : "A";
+      record.heightCalibrationStatus = "not-in-poc";
+      continue;
+    }
+    const heightMeters = Number(calibration.selectedHeightMetres);
+    if (
+      !Number.isFinite(heightMeters)
+      || heightMeters < HEIGHT_RANGE.minimumHeightMetres
+      || heightMeters > HEIGHT_RANGE.maximumHeightMetres
+    ) {
+      throw new Error(`高度证据越界：${record.assetId}=${heightMeters}`);
+    }
+    record.heightMeters = round(heightMeters, 2);
+    record.heightSceneUnits = round(
+      heightMeters / mapData.meta.metersPerSceneUnit,
+      4,
+    );
+    record.heightSource = calibration.selectedSource ?? record.heightSource;
+    record.heightConfidence = calibration.confidence ?? "C";
+    record.heightBand = heightBand(heightMeters);
+    record.heightCalibrationStatus = heightMode;
+    applied += 1;
+  }
+  if (heightMode === "poc" && applied < 50) {
+    throw new Error(`PoC 实际应用建筑少于 50：${applied}`);
+  }
+  if (heightMode === "full" && applied !== records.length) {
+    throw new Error(`全量高度证据应用不完整：${applied}/${records.length}`);
+  }
+}
+
 function spatialChunk([x, z]) {
   const horizontal = x < 0 ? "west" : "east";
   const vertical = z < 0 ? "south" : "north";
@@ -936,6 +1077,15 @@ function countBy(items, key) {
 
 async function run() {
   const argumentsList = process.argv.slice(2);
+  const heightModeIndex = argumentsList.indexOf("--height-mode");
+  const heightMode = heightModeIndex >= 0
+    ? argumentsList[heightModeIndex + 1]
+    : "baseline";
+  if (!["baseline", "poc", "full"].includes(heightMode)) {
+    throw new Error("--height-mode 只能是 baseline、poc 或 full");
+  }
+  if (heightMode === "full") await assertFullRolloutGate();
+  const outputs = outputPaths(heightMode);
   const rawArgumentIndex = argumentsList.indexOf("--raw");
   let snapshot;
   if (argumentsList.includes("--fetch")) {
@@ -954,6 +1104,8 @@ async function run() {
 
   const rawBytes = await readFile(snapshot.output);
   const compiled = compileSourceRecords(snapshot.raw);
+  const heightEvidence = await readHeightEvidence(heightMode, argumentsList);
+  applyHeightEvidence(compiled.accepted, heightEvidence, heightMode);
   const snapshotName = basename(snapshot.output);
   compiled.accepted.forEach((record) => {
     record.sourceSnapshot = snapshotName;
@@ -973,7 +1125,7 @@ async function run() {
     throw new Error(`街区体块超出运行时预算：${budgetFailures.join(", ")}`);
   }
   if (argumentsList.includes("--verify-only")) {
-    const existing = await readFile(GLB_OUTPUT);
+    const existing = await readFile(outputs.glb);
     const existingHash = sha256(existing);
     if (existingHash !== firstHash) {
       throw new Error(`离线重放与现有 GLB 不一致：${firstHash} != ${existingHash}`);
@@ -993,7 +1145,7 @@ async function run() {
   const sourceRecord = {
     meta: {
       name: "新华路街道概览建筑体块",
-      version: 1,
+      version: heightMode === "baseline" ? 1 : 2,
       generatedAt,
       osmRelationId: RELATION_ID,
       sourceSnapshot: snapshotName,
@@ -1003,6 +1155,11 @@ async function run() {
       metersPerSceneUnit: mapData.meta.metersPerSceneUnit,
       buildingPartsPolicy: "held",
       nonSurveyDisclosure: true,
+      heightMode,
+      heightEvidence: heightEvidence
+        ? projectRelativePath(heightEvidence.path)
+        : null,
+      heightEvidenceSha256: heightEvidence?.sha256 ?? null,
     },
     sourceCounts: compiled.sourceCounts,
     acceptedBuildings: compiled.accepted,
@@ -1016,8 +1173,8 @@ async function run() {
     assetId: "xinhua-district-massing",
     generatedAt,
     command: snapshot.endpoint
-      ? "node scripts/generate_overview_district_massing.mjs --fetch"
-      : `node scripts/generate_overview_district_massing.mjs --raw ${snapshotName}`,
+      ? `node scripts/generate_overview_district_massing.mjs --fetch --height-mode ${heightMode}`
+      : `node scripts/generate_overview_district_massing.mjs --raw docs/research/data/${snapshotName} --height-mode ${heightMode}`,
     generator: {
       path: "scripts/generate_overview_district_massing.mjs",
       sha256: sha256(generatorBytes),
@@ -1033,11 +1190,16 @@ async function run() {
       osmCopyright: "https://www.openstreetmap.org/copyright",
       osmLicence: "ODbL-1.0",
       relationId: RELATION_ID,
+      heightEvidence: heightEvidence ? {
+        path: projectRelativePath(heightEvidence.path),
+        sha256: heightEvidence.sha256,
+        mode: heightMode,
+      } : null,
     },
     output: {
-      sourceRecord: "app/scene/xinhua-district-massing-data.json",
-      runtimeManifest: "app/scene/xinhua-district-massing-runtime.json",
-      glb: "public/models/overview/xinhua-district-massing.glb",
+      sourceRecord: projectRelativePath(outputs.source),
+      runtimeManifest: projectRelativePath(outputs.runtimeManifest),
+      glb: projectRelativePath(outputs.glb),
       sha256: firstHash,
       bytes: firstBuild.glb.byteLength,
       meshes: firstBuild.meshes,
@@ -1056,6 +1218,8 @@ async function run() {
       rejectedBuildings: compiled.rejected.length,
       heldBuildingParts: compiled.heldParts.length,
       heightProvenance: countBy(compiled.accepted, "heightSource"),
+      heightConfidence: countBy(compiled.accepted, "heightConfidence"),
+      heightCalibrationStatus: countBy(compiled.accepted, "heightCalibrationStatus"),
       heightBands: countBy(compiled.accepted, "heightBand"),
       replacementExclusions: countBy(compiled.excluded, "replacementPoiId"),
       roadSetbackAdjusted: compiled.accepted
@@ -1081,30 +1245,41 @@ async function run() {
   };
 
   await Promise.all([
-    mkdir(dirname(SOURCE_OUTPUT), { recursive: true }),
-    mkdir(dirname(RUNTIME_MANIFEST_OUTPUT), { recursive: true }),
-    mkdir(dirname(GLB_OUTPUT), { recursive: true }),
-    mkdir(dirname(BUILD_RECORD_OUTPUT), { recursive: true }),
+    mkdir(dirname(outputs.source), { recursive: true }),
+    mkdir(dirname(outputs.runtimeManifest), { recursive: true }),
+    mkdir(dirname(outputs.glb), { recursive: true }),
+    mkdir(dirname(outputs.buildRecord), { recursive: true }),
   ]);
-  await Promise.all([
-    writeFile(SOURCE_OUTPUT, `${JSON.stringify(sourceRecord, null, 2)}\n`),
-    writeFile(RUNTIME_MANIFEST_OUTPUT, `${JSON.stringify({
-      assetId: "xinhua-district-massing",
-      url: `/models/overview/xinhua-district-massing.glb?v=${firstHash.slice(0, 12)}`,
-      sha256: firstHash,
-      bytes: firstBuild.glb.byteLength,
-      meshes: firstBuild.meshes,
-      triangles: firstBuild.triangles,
-      modes: ["overview"],
-      weakNetworkPolicy: "skip",
-      castShadow: false,
-      collision: false,
-    }, null, 2)}\n`),
-    writeFile(GLB_OUTPUT, firstBuild.glb),
-    writeFile(BUILD_RECORD_OUTPUT, `${JSON.stringify(buildRecord, null, 2)}\n`),
-  ]);
+  const runtimeManifest = {
+    assetId: "xinhua-district-massing",
+    url: `/models/overview/xinhua-district-massing.glb?v=${firstHash.slice(0, 12)}`,
+    sha256: firstHash,
+    bytes: firstBuild.glb.byteLength,
+    meshes: firstBuild.meshes,
+    triangles: firstBuild.triangles,
+    modes: ["overview"],
+    weakNetworkPolicy: "skip",
+    castShadow: false,
+    collision: false,
+    heightMode,
+    heightEvidenceSha256: heightEvidence?.sha256 ?? null,
+  };
+  const writes = [
+    writeFile(outputs.source, `${JSON.stringify(sourceRecord, null, 2)}\n`),
+    writeFile(outputs.runtimeManifest, `${JSON.stringify(runtimeManifest, null, 2)}\n`),
+    writeFile(outputs.glb, firstBuild.glb),
+    writeFile(outputs.buildRecord, `${JSON.stringify(buildRecord, null, 2)}\n`),
+  ];
+  if (heightMode === "poc" && argumentsList.includes("--activate-poc")) {
+    writes.push(
+      writeFile(RUNTIME_MANIFEST_OUTPUT, `${JSON.stringify(runtimeManifest, null, 2)}\n`),
+      writeFile(GLB_OUTPUT, firstBuild.glb),
+    );
+  }
+  await Promise.all(writes);
   process.stdout.write(`${JSON.stringify({
     sourceSnapshot: snapshotName,
+    heightMode,
     acceptedBuildings: compiled.accepted.length,
     excludedBuildings: compiled.excluded.length,
     rejectedBuildings: compiled.rejected.length,

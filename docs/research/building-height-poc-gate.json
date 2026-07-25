@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "evaluatedAt": "2026-07-25T12:32:01.860Z",
+  "decision": "pass",
+  "fullRolloutAuthorized": true,
+  "pocCount": 80,
+  "evidenceBackedCount": 54,
+  "gates": {
+    "matching": "pass",
+    "licence": "pass",
+    "visualQuality": "pass"
+  },
+  "matchingChecks": {
+    "targetCountIsBetween50And100": true,
+    "exactFrozenPocCount": true,
+    "meaningfulEvidenceCoverage": true,
+    "everyBPassesFrozenSpatialGate": true,
+    "heightsInsideSafetyRange": true,
+    "manualReviewCountIs20To40": true,
+    "manualReviewHasNoPending": true,
+    "noRejectedBRemainsSelected": true,
+    "directConflictsReviewed": true
+  },
+  "licenceChecks": {
+    "osmSourceRecorded": true,
+    "globfpUsesCcBy4": true,
+    "overtureKeepsPerFeatureLicence": true,
+    "unavailableGbaNotSelected": true,
+    "thirdPartyNoticeVerified": true,
+    "nonCommercialBoundaryRecorded": true
+  },
+  "buildChecks": {
+    "glbShaMatchesBuildRecord": true,
+    "deterministicReplay": true,
+    "bytesWithinBudget": true,
+    "meshesWithinBudget": true,
+    "trianglesWithinBudget": true,
+    "materialsWithinBudget": true,
+    "zeroImages": true
+  },
+  "visualChecks": {
+    "desktopSameCameraReviewed": true,
+    "mobile390SameCameraReviewed": true,
+    "roadAndPoiHierarchyPreserved": true,
+    "noUnreviewedExtremeHeight": true,
+    "noOverlapHoleOrZFighting": true,
+    "currentGlbRequestSucceeded": true,
+    "noConsoleErrors": true,
+    "osmAttributionVisible": true,
+    "nonSurveyDisclosureVisible": true
+  },
+  "evidence": {
+    "matchReport": "docs/research/building-height-match-report-poc.json",
+    "manualReview": "docs/research/building-height-manual-review-queue-poc.json",
+    "buildRecord": "test_artifacts/test_building_height_poc/test_xinhua-district-massing-poc-build-record.json",
+    "runtimeQa": "docs/research/test_building_height_poc_runtime_qa.json"
+  }
+}

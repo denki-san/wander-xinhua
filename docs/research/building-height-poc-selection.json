@@ -1,0 +1,510 @@
+{
+  "schemaVersion": 1,
+  "count": 80,
+  "targetCount": 80,
+  "selectionPolicy": [
+    "all direct OSM height or levels",
+    "low-rise houses and small footprints",
+    "medium district blocks",
+    "current tallest candidates",
+    "Xingfu Road and Fahuazhen Road interfaces",
+    "authored POI replacement edges",
+    "strict one-to-one 3D-GloBFP matches",
+    "deterministic balanced fill"
+  ],
+  "records": [
+    {
+      "assetId": "way/1117538713",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/1216373121",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/1216373123",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/1343674554",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/1343674557",
+      "reasons": [
+        "core-road-interface"
+      ]
+    },
+    {
+      "assetId": "way/1343775703",
+      "reasons": [
+        "low-rise-house-or-small-footprint"
+      ]
+    },
+    {
+      "assetId": "way/1343775704",
+      "reasons": [
+        "low-rise-house-or-small-footprint",
+        "balanced-deterministic-fill"
+      ]
+    },
+    {
+      "assetId": "way/1343775715",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/1469054481",
+      "reasons": [
+        "current-tallest-candidate",
+        "balanced-deterministic-fill"
+      ]
+    },
+    {
+      "assetId": "way/228966553",
+      "reasons": [
+        "authored-poi-replacement-edge"
+      ]
+    },
+    {
+      "assetId": "way/228966555",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/293827645",
+      "reasons": [
+        "medium-district-block",
+        "balanced-deterministic-fill"
+      ]
+    },
+    {
+      "assetId": "way/293827654",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/296006189",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/297851858",
+      "reasons": [
+        "core-road-interface"
+      ]
+    },
+    {
+      "assetId": "way/297853840",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/297855004",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/426764527",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/428379420",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/428379724",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/493383434",
+      "reasons": [
+        "direct-osm-height-or-levels"
+      ]
+    },
+    {
+      "assetId": "way/493401527",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/493402089",
+      "reasons": [
+        "direct-osm-height-or-levels"
+      ]
+    },
+    {
+      "assetId": "way/493402379",
+      "reasons": [
+        "direct-osm-height-or-levels"
+      ]
+    },
+    {
+      "assetId": "way/493414601",
+      "reasons": [
+        "direct-osm-height-or-levels"
+      ]
+    },
+    {
+      "assetId": "way/493421562",
+      "reasons": [
+        "low-rise-house-or-small-footprint",
+        "core-road-interface",
+        "balanced-deterministic-fill"
+      ]
+    },
+    {
+      "assetId": "way/494634318",
+      "reasons": [
+        "direct-osm-height-or-levels"
+      ]
+    },
+    {
+      "assetId": "way/494662056",
+      "reasons": [
+        "direct-osm-height-or-levels"
+      ]
+    },
+    {
+      "assetId": "way/494662067",
+      "reasons": [
+        "direct-osm-height-or-levels"
+      ]
+    },
+    {
+      "assetId": "way/71799657",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864485588",
+      "reasons": [
+        "authored-poi-replacement-edge"
+      ]
+    },
+    {
+      "assetId": "way/864485605",
+      "reasons": [
+        "medium-district-block"
+      ]
+    },
+    {
+      "assetId": "way/864485654",
+      "reasons": [
+        "current-tallest-candidate",
+        "balanced-deterministic-fill"
+      ]
+    },
+    {
+      "assetId": "way/864485657",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864485658",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864485672",
+      "reasons": [
+        "low-rise-house-or-small-footprint"
+      ]
+    },
+    {
+      "assetId": "way/864485682",
+      "reasons": [
+        "low-rise-house-or-small-footprint",
+        "balanced-deterministic-fill"
+      ]
+    },
+    {
+      "assetId": "way/864493087",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864493094",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864493103",
+      "reasons": [
+        "balanced-deterministic-fill"
+      ]
+    },
+    {
+      "assetId": "way/864493116",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864493127",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864493143",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864493145",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864493194",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864493203",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864493210",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864493212",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864493216",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864493217",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864493219",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864493221",
+      "reasons": [
+        "medium-district-block"
+      ]
+    },
+    {
+      "assetId": "way/864493241",
+      "reasons": [
+        "authored-poi-replacement-edge"
+      ]
+    },
+    {
+      "assetId": "way/864505101",
+      "reasons": [
+        "medium-district-block",
+        "balanced-deterministic-fill"
+      ]
+    },
+    {
+      "assetId": "way/864505108",
+      "reasons": [
+        "core-road-interface"
+      ]
+    },
+    {
+      "assetId": "way/864505114",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864505125",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864505151",
+      "reasons": [
+        "core-road-interface"
+      ]
+    },
+    {
+      "assetId": "way/864505155",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864505196",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864823803",
+      "reasons": [
+        "medium-district-block",
+        "balanced-deterministic-fill"
+      ]
+    },
+    {
+      "assetId": "way/864823825",
+      "reasons": [
+        "current-tallest-candidate",
+        "strict-one-to-one-globfp-match",
+        "balanced-deterministic-fill"
+      ]
+    },
+    {
+      "assetId": "way/864823827",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864823833",
+      "reasons": [
+        "authored-poi-replacement-edge"
+      ]
+    },
+    {
+      "assetId": "way/864823834",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864823860",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864823877",
+      "reasons": [
+        "core-road-interface"
+      ]
+    },
+    {
+      "assetId": "way/864847861",
+      "reasons": [
+        "authored-poi-replacement-edge"
+      ]
+    },
+    {
+      "assetId": "way/864847862",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864847872",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864847907",
+      "reasons": [
+        "direct-osm-height-or-levels"
+      ]
+    },
+    {
+      "assetId": "way/864847908",
+      "reasons": [
+        "direct-osm-height-or-levels"
+      ]
+    },
+    {
+      "assetId": "way/864847909",
+      "reasons": [
+        "direct-osm-height-or-levels"
+      ]
+    },
+    {
+      "assetId": "way/864847910",
+      "reasons": [
+        "direct-osm-height-or-levels"
+      ]
+    },
+    {
+      "assetId": "way/864847912",
+      "reasons": [
+        "balanced-deterministic-fill"
+      ]
+    },
+    {
+      "assetId": "way/864847915",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864847939",
+      "reasons": [
+        "current-tallest-candidate",
+        "balanced-deterministic-fill"
+      ]
+    },
+    {
+      "assetId": "way/864847955",
+      "reasons": [
+        "current-tallest-candidate",
+        "balanced-deterministic-fill"
+      ]
+    },
+    {
+      "assetId": "way/864847970",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    },
+    {
+      "assetId": "way/864847971",
+      "reasons": [
+        "strict-one-to-one-globfp-match"
+      ]
+    }
+  ]
+}

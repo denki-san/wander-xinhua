@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "frozenAt": "2026-07-25T20:02:00+08:00",
+  "sourceCommit": "fc96800edb39cf2745ea328237aedb3a86e1f7f5",
+  "acceptedBuildings": 730,
+  "heightProvenance": {
+    "heuristic": 719,
+    "osm-levels": 11
+  },
+  "heightDistribution": [
+    {
+      "heightMetres": 9,
+      "count": 26
+    },
+    {
+      "heightMetres": 10.5,
+      "count": 56
+    },
+    {
+      "heightMetres": 12,
+      "count": 1
+    },
+    {
+      "heightMetres": 15,
+      "count": 401
+    },
+    {
+      "heightMetres": 21,
+      "count": 1
+    },
+    {
+      "heightMetres": 24,
+      "count": 241
+    },
+    {
+      "heightMetres": 30,
+      "count": 1
+    },
+    {
+      "heightMetres": 33,
+      "count": 2
+    },
+    {
+      "heightMetres": 72,
+      "count": 1
+    }
+  ],
+  "files": [
+    {
+      "path": "public/models/overview/xinhua-district-massing.glb",
+      "sha256": "b61cec4fc93e5326f87845f022abf92008c8254c78bfd95de8ea1e19d4f11dea"
+    },
+    {
+      "path": "app/scene/xinhua-district-massing-data.json",
+      "sha256": "ec3a8ce4cf06da4be593bf7fd995507242f50d5fa4f34eddd3d7eab23fc95132"
+    },
+    {
+      "path": "app/scene/xinhua-district-massing-runtime.json",
+      "sha256": "6628a8c873d04ad65b5f6e6d2d8e3a704ce093a8ae83ce4eb0bf53fd7f8561a1"
+    },
+    {
+      "path": "docs/research/build-records/xinhua-district-massing.json",
+      "sha256": "838ad0659420a2feb3cf1d5645b5d5b88e01d3b7b3cb03bec518decd1a6f9fd8"
+    }
+  ],
+  "readonlyArchive": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/building-height-calibration/xinhua-20260725/baseline/",
+  "notes": [
+    "The baseline files are retained read-only outside the Git worktree before PoC activation.",
+    "Git history remains an additional rollback source.",
+    "The baseline height values are not survey measurements."
+  ]
+}

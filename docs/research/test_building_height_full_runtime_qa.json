@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "testedAt": "2026-07-25",
+  "runtimeMode": "full",
+  "browser": {
+    "surface": "Codex in-app browser",
+    "engine": "Chromium",
+    "errorCount": 0,
+    "knownWarning": "THREE.Clock deprecation warning only"
+  },
+  "sameCameraComparison": {
+    "desktop": {
+      "pass": true,
+      "viewport": "1440x1024",
+      "qaStart": "quiet-southwest",
+      "baseline": "docs/research/test_building_height_baseline_desktop_1440x1024.png",
+      "full": "docs/research/test_building_height_full_desktop_1440x1024.png",
+      "notes": "最终 full manifest 已加载；道路边界、角色落点、已创作 POI 与街区整体构图保持一致。"
+    },
+    "mobile390": {
+      "pass": true,
+      "viewport": "390x844",
+      "qaStart": "quiet-southwest",
+      "baseline": "docs/research/test_building_height_baseline_mobile_390x844.png",
+      "full": "docs/research/test_building_height_full_mobile_390x844.png",
+      "notes": "390px 最终页面完整显示街区与角色，没有异常高点、遮挡或响应式裁切问题。"
+    }
+  },
+  "additionalViews": [
+    {
+      "qaStart": "xingfu-road",
+      "viewport": "1440x1024",
+      "screenshot": "docs/research/test_building_height_full_xingfu_road_desktop_1440x1024.png",
+      "result": "pass",
+      "notes": "华山绿地入口面板可见，POI、道路和街区层级保持清楚。"
+    },
+    {
+      "qaStart": "fahuazhen-road",
+      "viewport": "1440x1024",
+      "screenshot": "docs/research/test_building_height_full_fahuazhen_road_desktop_1440x1024.png",
+      "result": "pass",
+      "notes": "德必法华525入口面板可见，POI、道路退界和街区层级保持清楚。"
+    }
+  ],
+  "visualQuality": {
+    "roadAndPoiHierarchy": "pass",
+    "noUnreviewedExtremeHeight": "pass",
+    "noOverlapHoleOrZFighting": "pass",
+    "notes": "最终 730 栋记录中只有 54 栋采用 A/B 高度；3 个大幅 B 变化已有 PoC 人工复核，其余不确定对象均保留 C 级基线。"
+  },
+  "requests": {
+    "districtGlb": {
+      "url": "/models/overview/xinhua-district-massing.glb?v=e4d46d0b59d6",
+      "status": 200,
+      "bytes": 682168,
+      "contentType": "model/gltf-binary",
+      "sha256": "e4d46d0b59d67e8c4e4a411e1a80333c0ba1310fb353fe1ab6dc881d958d3ee4"
+    }
+  },
+  "attribution": {
+    "thirdPartyNoticeUpdated": true,
+    "gbaNonCommercialBoundaryRecorded": true,
+    "osmVisible": true,
+    "nonSurveyDisclosureVisible": true,
+    "visibleDisclosure": "全览街区高度为多源证据估算，非测绘级"
+  },
+  "deployment": {
+    "sites": "not-published",
+    "vps": "not-published"
+  }
+}

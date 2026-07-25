@@ -1,7 +1,7 @@
 {
   "assetId": "xinhua-district-massing",
-  "generatedAt": "2026-07-25T12:32:28.489Z",
-  "command": "node scripts/generate_overview_district_massing.mjs --raw docs/research/data/xinhua-buildings-osm-20260725-074802.json --height-mode full",
+  "generatedAt": "2026-07-25T12:28:00.831Z",
+  "command": "node scripts/generate_overview_district_massing.mjs --raw docs/research/data/xinhua-buildings-osm-20260725-074802.json --height-mode poc",
   "generator": {
     "path": "scripts/generate_overview_district_massing.mjs",
     "sha256": "f77aebd57ca0156fa0c7d4d7f01b9c6719df8a4445f3406d082b6d19342cb595"
@@ -18,15 +18,15 @@
     "osmLicence": "ODbL-1.0",
     "relationId": 13469094,
     "heightEvidence": {
-      "path": "app/scene/xinhua-building-height-runtime.json",
-      "sha256": "c9fabe989787b78ad2e73e9497d46931cc281586d55b86f4340be2b2b0477de4",
-      "mode": "full"
+      "path": "docs/research/building-height-evidence-poc.json",
+      "sha256": "c1aa3749cd1551a26f4e01ea83f8a14826a19196d44f27cfe61038f88e04346e",
+      "mode": "poc"
     }
   },
   "output": {
-    "sourceRecord": "app/scene/xinhua-district-massing-data.json",
-    "runtimeManifest": "app/scene/xinhua-district-massing-runtime.json",
-    "glb": "public/models/overview/xinhua-district-massing.glb",
+    "sourceRecord": "test_artifacts/test_building_height_poc/test_xinhua-district-massing-poc-data.json",
+    "runtimeManifest": "test_artifacts/test_building_height_poc/test_xinhua-district-massing-poc-runtime.json",
+    "glb": "test_artifacts/test_building_height_poc/test_xinhua-district-massing-poc.glb",
     "sha256": "e4d46d0b59d67e8c4e4a411e1a80333c0ba1310fb353fe1ab6dc881d958d3ee4",
     "bytes": 682168,
     "meshes": 12,
@@ -126,8 +126,9 @@
     "rejectedBuildings": 44,
     "heldBuildingParts": 0,
     "heightProvenance": {
-      "wander-xinhua-heuristic": 676,
+      "heuristic": 650,
       "3D-GloBFP": 43,
+      "wander-xinhua-heuristic": 26,
       "OpenStreetMap": 11
     },
     "heightConfidence": {
@@ -136,7 +137,8 @@
       "A": 11
     },
     "heightCalibrationStatus": {
-      "full": 730
+      "not-in-poc": 650,
+      "poc": 80
     },
     "heightBands": {
       "mid": 623,

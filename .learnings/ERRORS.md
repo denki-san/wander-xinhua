@@ -6533,3 +6533,175 @@ ENOENT: no such file or directory, scandir
 ### Resolution
 - **Resolved**: 2026-07-25T19:12:00+08:00
 - **Notes**: 构建完成后串行重跑全仓 Node 测试和范围专项测试。
+
+---
+## [ERR-20260725-021] zsh_unquoted_query_url_glob
+
+**Logged**: 2026-07-25T19:50:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+用 `curl` 探测带查询参数的数据下载 URL 时未给 URL 加引号，zsh 在发出请求前
+把 `?` 当作通配符并中止命令。
+
+### Error
+```text
+zsh:1: no matches found:
+https://zenodo.org/records/12674244/files/China_1.rar?download=1
+```
+
+### Context
+- 目标是读取 3D-GloBFP RAR 文件的前 1 MiB，判断是否能远程列出归档内容。
+- 失败发生在 shell 展开阶段，没有下载完整文件，也没有改动仓库数据。
+
+### Suggested Fix
+所有包含 `?`、`&` 或其他 shell 元字符的 URL 都使用单引号包裹。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/data/
+
+### Resolution
+- **Resolved**: 2026-07-25T19:50:00+08:00
+- **Notes**: 改为单引号 URL 后重试。
+
+---
+## [ERR-20260725-022] building_height_source_access_and_resume
+
+**Logged**: 2026-07-25T19:57:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: data
+
+### Summary
+新版 Figshare API 与 GlobalBuildingAtlas WFS 从当前网络返回 403/502；Zenodo
+旧版 `China_4.rar` 首次传输在约 16% 处断开。
+
+### Error
+```text
+api.figshare.com: HTTP 403
+ndownloader.figshare.com: HTTP 502
+tubvsig-so2sat-vm1.srv.mwn.de/geoserver/ows: HTTP 403
+curl: (18) transfer closed with 2791144153 bytes remaining to read
+```
+
+### Context
+- 3D-GloBFP 官方 `world_grid` 已确认新华路属于 grid 2435。
+- Overture bbox 下载成功；其高度与楼层字段均为 OSM 派生，不能作为独立来源。
+- Zenodo 分卷支持 HTTP Range，可保留部分文件并续传。
+
+### Suggested Fix
+3D-GloBFP 使用旧版官方 Zenodo 分卷并启用 `-C -`、`--retry-all-errors` 续传；
+完整下载后必须比对官方 MD5。GBA 标记为本轮不可用，不导入任何未验证值。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/data/, scripts/extract_globfp_height_slice.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T20:22:00+08:00
+- **Notes**: 续传完成；`China_4.rar` MD5 与官方
+  `8476dc9ee2ff403d9f524faa1627296d` 一致。上海 Shapefile 已只读提取；
+  GBA 本轮保持不可用且未导入。
+
+---
+## [ERR-20260725-023] poc_selection_upper_bound
+
+**Logged**: 2026-07-25T20:25:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: data
+
+### Summary
+PoC 分层选择已经达到 80 栋后，后续类别第一次遇到新记录时又加入 1 栋，
+被数量门禁以 81/80 拒绝。
+
+### Error
+```text
+Error: PoC 选择数量必须为 80，实际 81
+```
+
+### Context
+- 分层函数只在插入后检查全局上限。
+- 新一轮类别中的已有记录会 `continue`，导致上限检查被推迟到下一个新记录。
+- 失败发生在输出文件写入前，没有覆盖 PoC 或运行时产物。
+
+### Suggested Fix
+每轮分层函数入口和每次新增前都检查 `selected.size >= POC_COUNT`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/generate_building_height_evidence.mjs
+
+### Resolution
+- **Resolved**: 2026-07-25T20:25:00+08:00
+- **Notes**: 增加入口与新增前的双重上限检查。
+
+---
+## [ERR-20260725-024] zsh_empty_config_glob
+
+**Logged**: 2026-07-25T20:39:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+只读检查 LLM Wiki 配置时直接使用可能为空的 `*.json` shell glob，zsh 在
+`rg` 执行前以 `no matches found` 中止。
+
+### Error
+```text
+zsh:1: no matches found: /Volumes/plugin/Threejs-3d-research/*.json
+```
+
+### Context
+- 目标是诊断 Source Watch 的索引状态。
+- 失败发生在 shell 展开阶段，没有读取错误文件，也没有改动 Wiki。
+
+### Suggested Fix
+未知目录结构使用 `find -name '*.json'` 或先列出精确路径，不向 zsh 传递可能
+为空的裸 glob。
+
+### Metadata
+- Reproducible: yes
+- Related Files: /Volumes/plugin/Threejs-3d-research/.llm-wiki/
+
+### Resolution
+- **Resolved**: 2026-07-25T20:39:00+08:00
+- **Notes**: 改用 `find` 获取精确配置文件路径后继续只读检查。
+
+---
+## [ERR-20260725-025] raw_source_text_diff_whitespace
+
+**Logged**: 2026-07-25T20:47:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: git
+
+### Summary
+两份官方 3D-GloBFP companion 文本保留上游 CRLF 和尾随空格，导致 staged
+`git diff --check` 报错。
+
+### Error
+```text
+globfp-data-links-zenodo-15459025-20260725.txt: trailing whitespace
+globfp-readme-zenodo-15459025-20260725.txt: new blank line at EOF
+```
+
+### Context
+- 文件是只读研究来源的原始 companion 文本，不应为满足代码格式而改写字节。
+- 其他源码和生成结果没有 whitespace 错误。
+
+### Suggested Fix
+在 `.gitattributes` 中只把这两个精确路径标记为 `binary`，保持原始字节，
+同时让差异检查继续覆盖所有实际源码和结构化数据。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .gitattributes, docs/research/data/
+
+### Resolution
+- **Resolved**: 2026-07-25T20:47:00+08:00
+- **Notes**: 精确添加两个 binary 属性；未清洗或覆盖上游文本。

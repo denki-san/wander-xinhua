@@ -39,6 +39,8 @@ test("街区体块保留原始 OSM 来源、确定性高度和完整替换追踪
   assert.equal(source.meta.osmRelationId, 13469094);
   assert.equal(source.meta.metersPerSceneUnit, 2.7);
   assert.equal(source.meta.buildingPartsPolicy, "held");
+  assert.equal(source.meta.heightMode, "full");
+  assert.match(source.meta.heightEvidence, /xinhua-building-height-runtime\.json/);
   assert.equal(source.meta.sourceSnapshotSha256, sha256(rawBytes));
   assert.equal(build.source.rawSnapshotSha256, sha256(rawBytes));
   assert.equal(build.source.osmLicence, "ODbL-1.0");
@@ -81,7 +83,13 @@ test("街区体块保留原始 OSM 来源、确定性高度和完整替换追踪
     )));
 
   for (const building of source.acceptedBuildings) {
-    assert.ok(["osm-height", "osm-levels", "heuristic"].includes(building.heightSource));
+    assert.ok([
+      "OpenStreetMap",
+      "3D-GloBFP",
+      "wander-xinhua-heuristic",
+    ].includes(building.heightSource));
+    assert.ok(["A", "B", "C"].includes(building.heightConfidence));
+    assert.equal(building.heightCalibrationStatus, "full");
     assert.ok(["low", "mid", "high"].includes(building.heightBand));
     assert.ok(Number.isFinite(building.heightMeters) && building.heightMeters >= 3);
     assert.ok(Number.isFinite(building.heightSceneUnits) && building.heightSceneUnits > 0);
@@ -216,6 +224,8 @@ test("同一原始快照离线重放会得到当前 GLB 的相同 SHA", async ()
       "scripts/generate_overview_district_massing.mjs",
       "--raw",
       build.source.rawSnapshot,
+      "--height-mode",
+      "full",
       "--verify-only",
     ],
     {
@@ -272,7 +282,7 @@ test("运行时按全览入口网络档位懒加载且失败不阻断原地图",
   assert.match(component, /object\.receiveShadow = false/);
   assert.match(component, /object\.raycast = \(\) => \{\}/);
   assert.doesNotMatch(component, /fetch\(|overpass|nominatim/i);
-  assert.match(experience, /全览街区体块为非测绘级近似/);
+  assert.match(experience, /全览街区高度为多源证据估算，非测绘级/);
   assert.match(experience, /\{ready && \(\s*<ProgressiveFeatureBoundary/);
   assert.match(experience, /mode === "intro" && !effectsDisabledForQa/);
   assert.match(experience, /"xingfu-road": \[139\.4, -98\.5\]/);
@@ -295,7 +305,7 @@ test("需求文档明确冻结首版范围和本地验收边界", async () => {
   const [plan, planStat] = await Promise.all([readFile(planUrl, "utf8"), stat(planUrl)]);
   assert.ok(planStat.size > 8_000);
   assert.match(plan, /Existing overview POIs\/areas \| 17 \| retained/);
-  assert.match(plan, /Release boundary: local acceptance only/);
+  assert.match(plan, /does not authorize a Sites or VPS deployment/);
   assert.match(plan, /GLB binary size \| ≤ 3\.0 MB/);
   assert.match(plan, /Weak-network GLB requests \| 0/);
   assert.match(plan, /Same-camera before\/after evidence/);

@@ -1,0 +1,14 @@
+{
+  "last_release": "2026-07-22.0",
+  "last_run": "2026-07-25T11:53:27.366533+00:00",
+  "theme": "buildings",
+  "type": "building",
+  "bbox": {
+    "xmin": 121.4126483,
+    "ymin": 31.1977205,
+    "xmax": 121.4331415,
+    "ymax": 31.2153661
+  },
+  "backend": "geojson",
+  "output": "docs/research/data/xinhua-buildings-overture-2026-07-22.0-20260725.geojson"
+}

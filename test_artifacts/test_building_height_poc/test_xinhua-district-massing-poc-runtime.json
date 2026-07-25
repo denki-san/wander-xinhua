@@ -11,6 +11,6 @@
   "weakNetworkPolicy": "skip",
   "castShadow": false,
   "collision": false,
-  "heightMode": "full",
-  "heightEvidenceSha256": "c9fabe989787b78ad2e73e9497d46931cc281586d55b86f4340be2b2b0477de4"
+  "heightMode": "poc",
+  "heightEvidenceSha256": "c1aa3749cd1551a26f4e01ea83f8a14826a19196d44f27cfe61038f88e04346e"
 }

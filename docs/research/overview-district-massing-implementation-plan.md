@@ -3,10 +3,11 @@
 ## Status
 
 - Review date: 2026-07-25
-- Product scope: first local implementation
-- Target branch: `codex/overview-district-massing`
+- Baseline implementation: merged to `origin/main` by `46c58a8`
+- Height-calibration follow-up: approved in principle; not implemented
 - Target experience: `overview` only
-- Release boundary: local acceptance only; no Sites or VPS deployment
+- Release boundary: this document update authorizes research and planning only;
+  it does not authorize a Sites or VPS deployment
 
 ## Product decision
 
@@ -17,6 +18,12 @@ continuous urban district and that the authored POIs sit inside that district.
 The first implementation therefore adds one restrained **district massing
 layer** to `overview`. Roads, parks, water, labels, the player and authored POIs
 remain the information hierarchy. Generic buildings are background context.
+
+To avoid confusion with the per-building production tier named `Massing`, the
+generic overview layer is called **district context blocks** in new research
+records. It remains implemented under the historical
+`overview-district-massing` file and asset names; this documentation-only naming
+clarification does not require a runtime migration.
 
 OpenStreetMap (OSM) is the geographic source of record. Amap, Apple Maps and
 Google Maps may be used only as visual product references; this implementation
@@ -384,45 +391,157 @@ Detailed evidence is recorded in
 `docs/research/test_overview_district_massing_runtime_qa.json` and the
 `test_refined_overview_*.png` files in `docs/research/`.
 
+## Building-height calibration decision
+
+### Conclusion
+
+The baseline district context layer is accepted for its original purpose:
+making the overview read as a continuous urban district. Its current heights
+are not accepted as evidence of the real skyline or of an individual
+building's dimensions.
+
+Of 730 accepted generic buildings, 719 (98.5%) use a footprint/type heuristic
+and only 11 use OSM `building:levels`. The heuristic produces a deliberately
+small vocabulary of 9, 10.5, 15 and 24 metre blocks. This is adequate as a
+fallback but too uniform for a height-faithful district and must not be copied
+into a detailed building Brief as if it were measured fact.
+
+The approved follow-up is:
+
+```text
+OSM footprint and explicit tags
+→ 3D-GloBFP primary estimated height
+→ GlobalBuildingAtlas auxiliary estimate for the current non-commercial
+  community/public-interest project
+→ provenance-filtered Overture attributes
+→ photo, map-view and reliable POI evidence review
+→ deterministic fallback heuristic
+```
+
+The research contract, source assessment, matching gates and reusable record
+schema are frozen in
+`docs/knowledge-sources/xinhua-building-height-evidence-strategy-2026-07-25.md`.
+
+### Source policy
+
+1. **Direct evidence wins.** A valid OSM `height`, reliable explicit floor
+   count, official record or evidence-backed POI Brief outranks modelled
+   datasets.
+2. **3D-GloBFP is the first enrichment source.** It covers China, provides
+   individual-building estimated heights for a 2020 reference year and is
+   distributed under CC BY 4.0. Its estimates are not survey measurements.
+3. **GlobalBuildingAtlas is approved as an auxiliary research and production
+   source under the project's current declared non-commercial
+   community/public-interest use.** Its height and LoD1 products are CC BY-NC
+   4.0. Preserve attribution and source-version metadata. Re-run a licence and
+   use review before enabling advertising, paid access, commercial licensing,
+   client work or another material change of purpose.
+4. **Overture is conditional evidence, not automatically an independent
+   source.** Read `sources[]` per record. OSM-derived height or floor fields
+   cannot be counted as independent confirmation of the same OSM value.
+5. **User-supplied map screenshots and current photographs are validation
+   evidence.** They may confirm floor count, relative height band, podium,
+   roof, demolition or recent construction. Do not trace proprietary map
+   geometry or infer survey-grade metres from screen pixels.
+6. **Google Open Buildings 2.5D is out of scope while Shanghai is outside its
+   official coverage.** Copernicus GLO-30 remains terrain/context evidence, not
+   a per-building height source.
+
+### Matching and confidence gates
+
+Run a 50–100 building proof of concept before changing all 730 records. Every
+candidate match records source feature ID, source version/year, licence,
+intersection-over-union (IoU), centroid distance, area ratio and match method.
+
+- `A — verified`: official/direct height, reliable explicit floor count, or
+  evidence-backed POI/photographic verification.
+- `B — matched estimate`: a permitted individual-building dataset passes the
+  spatial gate and has no unresolved conflict with direct evidence.
+- `C — heuristic`: footprint/type-only fallback, visibly disclosed as an
+  approximation.
+
+An automatic `B` match requires either an exact traceable source link or all of
+the following initial thresholds:
+
+- footprint IoU `>= 0.70`;
+- centroid distance `<= 5 m`;
+- matched/source area ratio between `0.67` and `1.50`;
+- one-to-one assignment with no competing higher-quality candidate;
+- finite height within the existing 3–90 m runtime safety range.
+
+These are starting QA thresholds, not geographic truth. Record coverage and
+conflict distributions during the proof of concept, then tighten rather than
+silently loosen them. Reject ambiguous one-to-many and many-to-one matches.
+Flag a candidate for manual review when it differs from reliable floors by
+more than two floors or 6 m, is a local skyline outlier, belongs to a core POI,
+or represents construction/demolition after the source year.
+
+### Reuse in detailed building production
+
+Height enrichment is not a disposable overview-only task. Each accepted match
+must create a reusable evidence record that can seed a future real-detail
+building Brief:
+
+```text
+osmRef
+overviewAssetId
+sourceFeatureIds[]
+sourceDataset + version/year + licence
+heightCandidates[]
+selectedHeightMetres + selectionReason
+floorCountCandidates[]
+footprintMatch { iou, centroidDistanceMetres, areaRatio, method }
+confidence A | B | C
+observedFacts[]
+inferences[]
+unknowns[]
+roofOrPodiumNotes[]
+currentnessRisks[]
+detailSceneReadiness not-ready | needs-review | brief-ready
+evidencePaths[]
+```
+
+The overview compiler may consume `selectedHeightMetres`; a Blender Model Brief
+must consume the full record and still complete the canonical, side/depth and
+entrance/identity evidence gates. A `B` height estimate can establish a first
+massing proportion, but it cannot establish facade divisions, roof form,
+entrance geometry, materials or the unseen sides of a detailed building.
+
+### Implementation and acceptance sequence
+
+1. Preserve downloaded source files and derived extracts; never overwrite the
+   existing OSM snapshot or current generated height records.
+2. Build a bounded 50–100 building proof of concept covering low-rise houses,
+   medium blocks, the tallest current candidates, core roads and authored POI
+   replacement edges.
+3. Produce a match report containing coverage, unmatched, ambiguous, rejected,
+   source-age and direct-evidence conflict counts.
+4. Manually review the 20–40 buildings with the greatest skyline, POI or
+   conflict impact.
+5. Compare current and enriched height distributions and capture same-camera
+   desktop and 390 px overview screenshots.
+6. Accept the full rollout only if road/POI hierarchy remains intact, no
+   building acquires unreviewed extreme height, the GLB remains inside the
+   existing runtime budgets, attribution/disclosure is updated and deterministic
+   replay passes.
+7. Preserve the per-building evidence records after GLB generation and index
+   them from future POI/model Briefs.
+
+### Height-calibration implementation result
+
+The 2026-07-25 implementation completed the gated sequence above. The
+80-building PoC passed matching, licence and visual-quality gates with 54
+evidence-backed `A/B` records and 30 completed manual reviews. Only then was the
+full 730-building evidence set generated: `A 11 / B 43 / C 676`. The final GLB
+remains within the existing budget, has deterministic SHA-256
+`e4d46d0b59d67e8c4e4a411e1a80333c0ba1310fb353fe1ab6dc881d958d3ee4`,
+and passed desktop and 390px real-page QA. See
+[`building-height-calibration-decision-log.md`](./building-height-calibration-decision-log.md).
+
 ## Deferred backlog
 
 - Render evidence-supported `building:part` hierarchy after measuring whether
   skyline detail materially improves overview comprehension.
-- Enrich generic-building heights with a multi-source evidence pass instead of
-  continuing to rely on footprint-area heuristics alone:
-  1. spatially match the current OSM footprints against the Asia release of
-     3D-GloBFP and record the matched height, source year and match quality;
-  2. inspect the current Overture Buildings release for independent `height`,
-     `num_floors` and `building_part` values, while detecting OSM-derived values
-     so the same source is not counted twice;
-  3. use user-supplied map screenshots, current street photographs and reliable
-     POI material only to validate floor counts, relative height bands, podiums,
-     roofs and recent construction/demolition—not to trace proprietary map
-     geometry or calculate survey-grade height from screen pixels;
-  4. keep Copernicus GLO-30 limited to district-scale terrain/surface trends
-     because its 30 m DSM mixes buildings, infrastructure and vegetation;
-  5. do not use Google Open Buildings 2.5D unless its official coverage expands
-     to Shanghai.
-- Store one height confidence level per building:
-  - `A`: official record, explicit reliable floor count, or verified
-    site/photo evidence;
-  - `B`: independent height dataset agrees with screenshot/photo or floor-count
-    evidence;
-  - `C`: footprint-only heuristic, which remains visibly disclosed as an
-    approximation.
-- Run automated matching and conflict detection before requesting manual
-  evidence. Ask for screenshots only for missing, conflicting or
-  skyline-important buildings, normally a 20–40 building review set rather
-  than all generic buildings.
-- Screenshot evidence should contain a labelled top-down locator and two
-  opposite oblique views covering roughly one to three blocks. Record the map
-  product, layer/mode, capture date, visible labels, target buildings and any
-  uncertainty. Preserve screenshots as research evidence; never ship or embed
-  proprietary map captures in runtime assets.
-- Before importing any third-party height field into generated/runtime data,
-  record its licence and commercial-use compatibility. In particular,
-  GlobalBuildingAtlas height and LoD1 products are currently CC BY-NC 4.0 and
-  must not be used as a production source without a compatible-use decision.
 - Map exact OSM refs for inferred POIs and replace masks with direct IDs.
 - Produce or upgrade individual POI Hero/Identity/Massing tiers through the
   photo-reference workflow.

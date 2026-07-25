@@ -1,0 +1,29 @@
+1. 3D-GloBFP: the first global three-dimensional building footprint dataset (PART Ⅰ, grid ID: 0-400)
+https://figshare.com/articles/dataset/3D-GloBFP_the_first_global_three-dimensional_building_footprint_dataset_PART_grid_ID_0-400_/28879733
+
+2. 3D-GloBFP: the first global three-dimensional building footprint dataset (PART Ⅱ, grid ID: 401-699)
+https://figshare.com/articles/dataset/3D-GloBFP_the_first_global_three-dimensional_building_footprint_dataset_PART_grid_ID_400-699_/28881749
+
+3. 3D-GloBFP: the first global three-dimensional building footprint dataset (PART Ⅲ, grid ID: 700-899)
+https://figshare.com/articles/dataset/3D-GloBFP_the_first_global_three-dimensional_building_footprint_dataset_PART_grid_ID_700-899_/28882700
+
+4. 3D-GloBFP: the first global three-dimensional building footprint dataset (PART Ⅳ, grid ID: 900-1299)
+https://figshare.com/articles/dataset/3D-GloBFP_the_first_global_three-dimensional_building_footprint_dataset_PART_grid_ID_900-1299_/28889813
+
+5. 3D-GloBFP: the first global three-dimensional building footprint dataset (PART Ⅴ, grid ID: 1300-1699)
+https://figshare.com/articles/dataset/3D-GloBFP_the_first_global_three-dimensional_building_footprint_dataset_PART_grid_ID_1300-1699_/28890593
+
+6. 3D-GloBFP: the first global three-dimensional building footprint dataset (PART Ⅵ, grid ID: 1700-1799)
+https://figshare.com/articles/dataset/3D-GloBFP_the_first_global_three-dimensional_building_footprint_dataset_PART_grid_ID_1700-1799_/28891631
+
+7. 3D-GloBFP: the first global three-dimensional building footprint dataset (PART Ⅶ, grid ID: 1800-1899)
+https://figshare.com/articles/dataset/3D-GloBFP_the_first_global_three-dimensional_building_footprint_dataset_PART_grid_ID_1800-1899_/28903454
+
+8. 3D-GloBFP: the first global three-dimensional building footprint dataset (PART Ⅷ, grid ID: 1900-1999)
+https://figshare.com/articles/dataset/3D-GloBFP_the_first_global_three-dimensional_building_footprint_dataset_PART_grid_ID_1900-1999_/28903853
+
+9. 3D-GloBFP: the first global three-dimensional building footprint dataset (PART Ⅸ, grid ID: 2000-2299)
+https://figshare.com/articles/dataset/3D-GloBFP_the_first_global_three-dimensional_building_footprint_dataset_PART_grid_ID_2000-2299_/28904453
+
+10. 3D-GloBFP: the first global three-dimensional building footprint dataset (PART Ⅹ, grid ID: 2300-2554)
+https://figshare.com/articles/dataset/3D-GloBFP_the_first_global_three-dimensional_building_footprint_dataset_PART_grid_ID_2300-2599_/28906499

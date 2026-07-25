@@ -1,0 +1,738 @@
+{
+  "schemaVersion": 1,
+  "requiredReviewCount": 30,
+  "records": [
+    {
+      "osmRef": "way/494662067",
+      "reviewReasons": [
+        "direct-evidence"
+      ],
+      "confidence": "A",
+      "baselineHeightMetres": 12,
+      "selectedHeightMetres": 12,
+      "selectedSource": "OpenStreetMap",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/370980",
+        "iou": 0.5786,
+        "centroidDistanceMetres": 4.3479,
+        "areaRatio": 1.3153,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 2,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": true,
+      "decision": "retain-direct",
+      "reviewerNotes": "保留 OSM 明确楼层换算的 12 m；3D-GloBFP 候选与直接证据冲突且 IoU 未达到 0.70。"
+    },
+    {
+      "osmRef": "way/493383434",
+      "reviewReasons": [
+        "direct-evidence"
+      ],
+      "confidence": "A",
+      "baselineHeightMetres": 9,
+      "selectedHeightMetres": 9,
+      "selectedSource": "OpenStreetMap",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/343026",
+        "iou": 0.4174,
+        "centroidDistanceMetres": 7.5953,
+        "areaRatio": 2.3597,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 2,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": true,
+      "decision": "retain-direct",
+      "reviewerNotes": "保留 OSM 明确楼层换算的 9 m；候选质心、面积比和 IoU 均未通过冻结门槛。"
+    },
+    {
+      "osmRef": "way/864847910",
+      "reviewReasons": [
+        "direct-evidence"
+      ],
+      "confidence": "A",
+      "baselineHeightMetres": 24,
+      "selectedHeightMetres": 24,
+      "selectedSource": "OpenStreetMap",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/360570",
+        "iou": 0.2612,
+        "centroidDistanceMetres": 2.8233,
+        "areaRatio": 3.8288,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 4,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-direct",
+      "reviewerNotes": "保留 OSM 明确楼层换算的 24 m；3D-GloBFP 面积比 3.8288，不构成一对一证据。"
+    },
+    {
+      "osmRef": "way/864847908",
+      "reviewReasons": [
+        "direct-evidence"
+      ],
+      "confidence": "A",
+      "baselineHeightMetres": 24,
+      "selectedHeightMetres": 24,
+      "selectedSource": "OpenStreetMap",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/360554",
+        "iou": 0.6157,
+        "centroidDistanceMetres": 3.7572,
+        "areaRatio": 1.4735,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 4,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-direct",
+      "reviewerNotes": "保留 OSM 明确楼层换算的 24 m；候选 IoU 0.6157 未通过冻结门槛。"
+    },
+    {
+      "osmRef": "way/494634318",
+      "reviewReasons": [
+        "direct-evidence"
+      ],
+      "confidence": "A",
+      "baselineHeightMetres": 21,
+      "selectedHeightMetres": 21,
+      "selectedSource": "OpenStreetMap",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/380663",
+        "iou": 0.1911,
+        "centroidDistanceMetres": 7.7639,
+        "areaRatio": 1.4374,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 2,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-direct",
+      "reviewerNotes": "保留 OSM 明确楼层换算的 21 m；候选 IoU 和质心距离均未通过。"
+    },
+    {
+      "osmRef": "way/493402089",
+      "reviewReasons": [
+        "direct-evidence"
+      ],
+      "confidence": "A",
+      "baselineHeightMetres": 33,
+      "selectedHeightMetres": 33,
+      "selectedSource": "OpenStreetMap",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/347009",
+        "iou": 0.6148,
+        "centroidDistanceMetres": 4.4215,
+        "areaRatio": 1.229,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 1,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-direct",
+      "reviewerNotes": "保留 OSM 明确楼层换算的 33 m；候选 IoU 0.6148 未通过冻结门槛。"
+    },
+    {
+      "osmRef": "way/864847909",
+      "reviewReasons": [
+        "direct-evidence"
+      ],
+      "confidence": "A",
+      "baselineHeightMetres": 24,
+      "selectedHeightMetres": 24,
+      "selectedSource": "OpenStreetMap",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/360560",
+        "iou": 0.4386,
+        "centroidDistanceMetres": 3.1795,
+        "areaRatio": 2.2024,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 4,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-direct",
+      "reviewerNotes": "保留 OSM 明确楼层换算的 24 m；候选 IoU 与面积比均未通过。"
+    },
+    {
+      "osmRef": "way/493414601",
+      "reviewReasons": [
+        "direct-evidence",
+        "skyline-high-point"
+      ],
+      "confidence": "A",
+      "baselineHeightMetres": 72,
+      "selectedHeightMetres": 72,
+      "selectedSource": "OpenStreetMap",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/346977",
+        "iou": 0.08,
+        "centroidDistanceMetres": 35.7263,
+        "areaRatio": 1.9843,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 2,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": true,
+      "decision": "retain-direct",
+      "reviewerNotes": "保留 OSM 明确楼层换算的 72 m；候选与直接证据冲突，且 IoU、质心、面积比均失败；桌面与 390px 天际线无异常。"
+    },
+    {
+      "osmRef": "way/493402379",
+      "reviewReasons": [
+        "direct-evidence"
+      ],
+      "confidence": "A",
+      "baselineHeightMetres": 33,
+      "selectedHeightMetres": 33,
+      "selectedSource": "OpenStreetMap",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/346984",
+        "iou": 0.6203,
+        "centroidDistanceMetres": 4.7977,
+        "areaRatio": 0.8775,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 2,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-direct",
+      "reviewerNotes": "保留 OSM 明确楼层换算的 33 m；候选 IoU 0.6203 未通过冻结门槛。"
+    },
+    {
+      "osmRef": "way/864847907",
+      "reviewReasons": [
+        "direct-evidence"
+      ],
+      "confidence": "A",
+      "baselineHeightMetres": 24,
+      "selectedHeightMetres": 24,
+      "selectedSource": "OpenStreetMap",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/360556",
+        "iou": 0.3096,
+        "centroidDistanceMetres": 5.4968,
+        "areaRatio": 1.7443,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 4,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-direct",
+      "reviewerNotes": "保留 OSM 明确楼层换算的 24 m；候选 IoU、质心和面积比均未通过。"
+    },
+    {
+      "osmRef": "way/494662056",
+      "reviewReasons": [
+        "direct-evidence"
+      ],
+      "confidence": "A",
+      "baselineHeightMetres": 30,
+      "selectedHeightMetres": 30,
+      "selectedSource": "OpenStreetMap",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/370998",
+        "iou": 0.2489,
+        "centroidDistanceMetres": 14.5521,
+        "areaRatio": 1.263,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 2,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": true,
+      "decision": "retain-direct",
+      "reviewerNotes": "保留 OSM 明确楼层换算的 30 m；候选与直接证据冲突，且 IoU 和质心距离失败。"
+    },
+    {
+      "osmRef": "way/1343674557",
+      "reviewReasons": [
+        "road-or-poi-interface"
+      ],
+      "confidence": "C",
+      "baselineHeightMetres": 15,
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/375776",
+        "iou": 0.4578,
+        "centroidDistanceMetres": 2.0848,
+        "areaRatio": 1.8204,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 2,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-baseline",
+      "reviewerNotes": "保留 C 级 15 m；面积比 1.8204 超过上限，核心道路真实页面未见层级或遮挡异常。"
+    },
+    {
+      "osmRef": "way/228966553",
+      "reviewReasons": [
+        "road-or-poi-interface"
+      ],
+      "confidence": "C",
+      "baselineHeightMetres": 15,
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/360546",
+        "iou": 0.5813,
+        "centroidDistanceMetres": 2.1295,
+        "areaRatio": 1.6816,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 3,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-baseline",
+      "reviewerNotes": "保留 C 级 15 m；IoU 0.5813 且面积比 1.6816，未达到冻结门槛。"
+    },
+    {
+      "osmRef": "way/297851858",
+      "reviewReasons": [
+        "road-or-poi-interface"
+      ],
+      "confidence": "C",
+      "baselineHeightMetres": 24,
+      "selectedHeightMetres": 24,
+      "selectedSource": "wander-xinhua-heuristic",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/370927",
+        "iou": 0.2281,
+        "centroidDistanceMetres": 16.5082,
+        "areaRatio": 1.2349,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 3,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-baseline",
+      "reviewerNotes": "保留 C 级 24 m；IoU 0.2281、质心距离 16.5082 m，不能采用模型估算。"
+    },
+    {
+      "osmRef": "way/493421562",
+      "reviewReasons": [
+        "road-or-poi-interface"
+      ],
+      "confidence": "C",
+      "baselineHeightMetres": 9,
+      "selectedHeightMetres": 9,
+      "selectedSource": "wander-xinhua-heuristic",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": null,
+        "iou": null,
+        "centroidDistanceMetres": null,
+        "areaRatio": null,
+        "assignment": "unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 0,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-baseline",
+      "reviewerNotes": "保留 C 级 9 m；没有空间候选，未知真实高度保持显式记录。"
+    },
+    {
+      "osmRef": "way/864485588",
+      "reviewReasons": [
+        "road-or-poi-interface"
+      ],
+      "confidence": "C",
+      "baselineHeightMetres": 15,
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/365617",
+        "iou": 0.131,
+        "centroidDistanceMetres": 6.6578,
+        "areaRatio": 1.3637,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 2,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-baseline",
+      "reviewerNotes": "保留 C 级 15 m；IoU 0.131、质心距离 6.6578 m，匹配失败。"
+    },
+    {
+      "osmRef": "way/864493241",
+      "reviewReasons": [
+        "road-or-poi-interface"
+      ],
+      "confidence": "C",
+      "baselineHeightMetres": 15,
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/360376",
+        "iou": 0.6356,
+        "centroidDistanceMetres": 1.8649,
+        "areaRatio": 1.0019,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 1,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-baseline",
+      "reviewerNotes": "保留 C 级 15 m；IoU 0.6356 未达到 0.70，不因接近阈值而放宽标准。"
+    },
+    {
+      "osmRef": "way/864505108",
+      "reviewReasons": [
+        "road-or-poi-interface"
+      ],
+      "confidence": "C",
+      "baselineHeightMetres": 15,
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/370767",
+        "iou": 0.5875,
+        "centroidDistanceMetres": 2.9621,
+        "areaRatio": 1.4273,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 1,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-baseline",
+      "reviewerNotes": "保留 C 级 15 m；IoU 0.5875 未通过，幸福路/法华镇路页面层级正常。"
+    },
+    {
+      "osmRef": "way/864505151",
+      "reviewReasons": [
+        "road-or-poi-interface"
+      ],
+      "confidence": "C",
+      "baselineHeightMetres": 15,
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/360447",
+        "iou": 0.6855,
+        "centroidDistanceMetres": 3.1317,
+        "areaRatio": 1.092,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 1,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-baseline",
+      "reviewerNotes": "保留 C 级 15 m；IoU 0.6855 仍低于冻结门槛，不做边界放宽。"
+    },
+    {
+      "osmRef": "way/864823833",
+      "reviewReasons": [
+        "road-or-poi-interface"
+      ],
+      "confidence": "C",
+      "baselineHeightMetres": 15,
+      "selectedHeightMetres": 15,
+      "selectedSource": "wander-xinhua-heuristic",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/370898",
+        "iou": 0.6251,
+        "centroidDistanceMetres": 2.7832,
+        "areaRatio": 0.8342,
+        "assignment": "rejected-or-unmatched",
+        "passesSpatialGate": false,
+        "candidateCount": 1,
+        "passingCandidateCount": 0
+      },
+      "directEvidenceConflict": false,
+      "decision": "retain-baseline",
+      "reviewerNotes": "保留 C 级 15 m；IoU 0.6251 未通过，POI replacement 边缘未见穿插。"
+    },
+    {
+      "osmRef": "way/864505155",
+      "reviewReasons": [
+        "lowest-passing-iou"
+      ],
+      "confidence": "B",
+      "baselineHeightMetres": 15,
+      "selectedHeightMetres": 10.15,
+      "selectedSource": "3D-GloBFP",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/360452",
+        "iou": 0.7051,
+        "centroidDistanceMetres": 2.0296,
+        "areaRatio": 1.0921,
+        "assignment": "one-to-one",
+        "passesSpatialGate": true,
+        "candidateCount": 4,
+        "passingCandidateCount": 1
+      },
+      "directEvidenceConflict": false,
+      "decision": "accept",
+      "reviewerNotes": "接受 10.15 m；唯一候选通过 IoU 0.7051、质心 2.0296 m、面积比 1.0921，真实页面无塌陷或孔洞。"
+    },
+    {
+      "osmRef": "way/426764527",
+      "reviewReasons": [
+        "lowest-passing-iou"
+      ],
+      "confidence": "B",
+      "baselineHeightMetres": 15,
+      "selectedHeightMetres": 34.55,
+      "selectedSource": "3D-GloBFP",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/350613",
+        "iou": 0.7064,
+        "centroidDistanceMetres": 4.302,
+        "areaRatio": 0.9128,
+        "assignment": "one-to-one",
+        "passesSpatialGate": true,
+        "candidateCount": 1,
+        "passingCandidateCount": 1
+      },
+      "directEvidenceConflict": false,
+      "decision": "accept",
+      "reviewerNotes": "接受 34.55 m；唯一候选通过 IoU 0.7064、质心 4.302 m、面积比 0.9128，桌面与 390px 层级正常。"
+    },
+    {
+      "osmRef": "way/864493217",
+      "reviewReasons": [
+        "lowest-passing-iou"
+      ],
+      "confidence": "B",
+      "baselineHeightMetres": 15,
+      "selectedHeightMetres": 16.33,
+      "selectedSource": "3D-GloBFP",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/355026",
+        "iou": 0.707,
+        "centroidDistanceMetres": 1.7449,
+        "areaRatio": 1.3604,
+        "assignment": "one-to-one",
+        "passesSpatialGate": true,
+        "candidateCount": 1,
+        "passingCandidateCount": 1
+      },
+      "directEvidenceConflict": false,
+      "decision": "accept",
+      "reviewerNotes": "接受 16.33 m；唯一候选通过 IoU 0.707、质心 1.7449 m、面积比 1.3604。"
+    },
+    {
+      "osmRef": "way/864485657",
+      "reviewReasons": [
+        "lowest-passing-iou"
+      ],
+      "confidence": "B",
+      "baselineHeightMetres": 15,
+      "selectedHeightMetres": 16.67,
+      "selectedSource": "3D-GloBFP",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/355052",
+        "iou": 0.7089,
+        "centroidDistanceMetres": 2.3409,
+        "areaRatio": 0.786,
+        "assignment": "one-to-one",
+        "passesSpatialGate": true,
+        "candidateCount": 1,
+        "passingCandidateCount": 1
+      },
+      "directEvidenceConflict": false,
+      "decision": "accept",
+      "reviewerNotes": "接受 16.67 m；唯一候选通过 IoU 0.7089、质心 2.3409 m、面积比 0.786。"
+    },
+    {
+      "osmRef": "way/1117538713",
+      "reviewReasons": [
+        "largest-height-change",
+        "skyline-high-point"
+      ],
+      "confidence": "B",
+      "baselineHeightMetres": 24,
+      "selectedHeightMetres": 73.15,
+      "selectedSource": "3D-GloBFP",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/385845",
+        "iou": 0.7572,
+        "centroidDistanceMetres": 2.9257,
+        "areaRatio": 0.9651,
+        "assignment": "one-to-one",
+        "passesSpatialGate": true,
+        "candidateCount": 2,
+        "passingCandidateCount": 1
+      },
+      "directEvidenceConflict": false,
+      "decision": "accept",
+      "reviewerNotes": "接受 73.15 m 模型估算；IoU 0.7572、质心 2.9257 m、面积比 0.9651，三机位呈正常宽体高层，非针塔且未压过 POI。"
+    },
+    {
+      "osmRef": "way/864493127",
+      "reviewReasons": [
+        "largest-height-change",
+        "skyline-high-point"
+      ],
+      "confidence": "B",
+      "baselineHeightMetres": 24,
+      "selectedHeightMetres": 60,
+      "selectedSource": "3D-GloBFP",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/350683",
+        "iou": 0.7326,
+        "centroidDistanceMetres": 2.0144,
+        "areaRatio": 1.2415,
+        "assignment": "one-to-one",
+        "passesSpatialGate": true,
+        "candidateCount": 1,
+        "passingCandidateCount": 1
+      },
+      "directEvidenceConflict": false,
+      "decision": "accept",
+      "reviewerNotes": "接受 60 m 模型估算；IoU 0.7326、质心 2.0144 m、面积比 1.2415，桌面与 390px 天际线复核通过。"
+    },
+    {
+      "osmRef": "way/864505114",
+      "reviewReasons": [
+        "largest-height-change",
+        "skyline-high-point"
+      ],
+      "confidence": "B",
+      "baselineHeightMetres": 24,
+      "selectedHeightMetres": 58.64,
+      "selectedSource": "3D-GloBFP",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/375774",
+        "iou": 0.7594,
+        "centroidDistanceMetres": 2.4971,
+        "areaRatio": 0.9175,
+        "assignment": "one-to-one",
+        "passesSpatialGate": true,
+        "candidateCount": 1,
+        "passingCandidateCount": 1
+      },
+      "directEvidenceConflict": false,
+      "decision": "accept",
+      "reviewerNotes": "接受 58.64 m 模型估算；IoU 0.7594、质心 2.4971 m、面积比 0.9175，核心道路视角无异常遮挡。"
+    },
+    {
+      "osmRef": "way/428379724",
+      "reviewReasons": [
+        "skyline-high-point"
+      ],
+      "confidence": "B",
+      "baselineHeightMetres": 24,
+      "selectedHeightMetres": 49.37,
+      "selectedSource": "3D-GloBFP",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/343021",
+        "iou": 0.7202,
+        "centroidDistanceMetres": 1.8471,
+        "areaRatio": 1.1899,
+        "assignment": "one-to-one",
+        "passesSpatialGate": true,
+        "candidateCount": 3,
+        "passingCandidateCount": 1
+      },
+      "directEvidenceConflict": false,
+      "decision": "accept",
+      "reviewerNotes": "接受 49.37 m；唯一通过候选 IoU 0.7202、质心 1.8471 m、面积比 1.1899，天际线形态正常。"
+    },
+    {
+      "osmRef": "way/493401527",
+      "reviewReasons": [
+        "skyline-high-point"
+      ],
+      "confidence": "B",
+      "baselineHeightMetres": 24,
+      "selectedHeightMetres": 48.3,
+      "selectedSource": "3D-GloBFP",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/346990",
+        "iou": 0.7792,
+        "centroidDistanceMetres": 1.4108,
+        "areaRatio": 0.9307,
+        "assignment": "one-to-one",
+        "passesSpatialGate": true,
+        "candidateCount": 3,
+        "passingCandidateCount": 1
+      },
+      "directEvidenceConflict": false,
+      "decision": "accept",
+      "reviewerNotes": "接受 48.3 m；唯一通过候选 IoU 0.7792、质心 1.4108 m、面积比 0.9307，未见穿插或层级丢失。"
+    },
+    {
+      "osmRef": "way/296006189",
+      "reviewReasons": [
+        "skyline-high-point"
+      ],
+      "confidence": "B",
+      "baselineHeightMetres": 24,
+      "selectedHeightMetres": 40.17,
+      "selectedSource": "3D-GloBFP",
+      "footprintMatch": {
+        "method": "spatial-iou",
+        "sourceFeatureId": "grid-2435/375906",
+        "iou": 0.7528,
+        "centroidDistanceMetres": 2.7694,
+        "areaRatio": 1.3176,
+        "assignment": "one-to-one",
+        "passesSpatialGate": true,
+        "candidateCount": 1,
+        "passingCandidateCount": 1
+      },
+      "directEvidenceConflict": false,
+      "decision": "accept",
+      "reviewerNotes": "接受 40.17 m；唯一候选通过 IoU 0.7528、质心 2.7694 m、面积比 1.3176，法华镇路视角正常。"
+    }
+  ],
+  "reviewedAt": "2026-07-25",
+  "reviewer": "Codex visual and evidence audit",
+  "evidenceViews": [
+    "docs/research/test_building_height_poc_desktop_1440x1024.png",
+    "docs/research/test_building_height_poc_mobile_390x844.png",
+    "docs/research/test_building_height_poc_xingfu_road_desktop_1440x1024.png",
+    "docs/research/test_building_height_poc_fahuazhen_road_desktop_1440x1024.png"
+  ]
+}
