@@ -15,13 +15,13 @@ async function sha256File(relativePath) {
   return createHash("sha256").update(source).digest("hex");
 }
 
-test("上海影城小红书查询合同只准备精确地图补证，锁定既有合格阶段", async () => {
+test("上海影城小红书查询合同只做精确地图补证，部分执行仍锁定既有合格阶段", async () => {
   const contract = await readJson(contractPath);
   for (const input of Object.values(contract.verifiedInputs)) {
     assert.equal(await sha256File(input.path), input.sha256, input.path);
   }
   assert.equal(contract.assetId, "shanghai-cinema");
-  assert.equal(contract.status, "prepared-awaiting-main-window-human-paced-xiaohongshu-search");
+  assert.equal(contract.status, "partial-main-window-live-search-browser-connection-interrupted");
   assert.match(contract.retainedAcceptedStages.tiers, /do not rebuild or replace/u);
   assert.match(contract.retainedAcceptedStages.blenderMcp, /do not rerun/u);
   assert.match(contract.retainedAcceptedStages.threeJs, /do not rerun/u);
@@ -30,10 +30,15 @@ test("上海影城小红书查询合同只准备精确地图补证，锁定既�
 
 test("查询范围、慢速人工预算与挑战停止线禁止自动化或规避", async () => {
   const contract = await readJson(contractPath);
-  assert.equal(contract.scope.browserAccessed, false);
-  assert.equal(contract.scope.xiaohongshuAccessed, false);
-  assert.equal(contract.scope.networkSearchExecuted, false);
+  assert.equal(contract.scope.browserAccessed, true);
+  assert.equal(contract.scope.xiaohongshuAccessed, true);
+  assert.equal(contract.scope.networkSearchExecuted, true);
   assert.equal(contract.scope.mediaDownloaded, false);
+  assert.equal(contract.liveExecution.queryCount, 1);
+  assert.equal(contract.liveExecution.openedPostCount, 2);
+  assert.equal(contract.liveExecution.reasonableSearchComplete, false);
+  assert.equal(contract.liveExecution.runtimeDisableEligible, false);
+  await readJson(contract.liveExecution.audit);
   assert.equal(contract.searchPlan.exactQueryGroups.length, 4);
   assert.deepEqual(contract.searchPlan.maximumResultsToOpen, {
     perQuery: 4,

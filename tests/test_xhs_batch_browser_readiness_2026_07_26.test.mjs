@@ -10,11 +10,11 @@ async function readJson(relativePath) {
   return JSON.parse(await readFile(new URL(relativePath, root), "utf8"));
 }
 
-test("十栋XHS合同已就绪，但Chrome未运行时不得冒充本窗口已检索", async () => {
+test("十栋XHS合同保持串行，上海影城部分执行不得冒充已完成", async () => {
   const record = await readJson(recordPath);
   assert.equal(
     record.status,
-    "ten-query-contracts-ready-browser-not-running-all-blocked-building-offline-archives-audited",
+    "one-live-contract-partial-browser-connection-interrupted-nine-other-contracts-pending",
   );
   assert.deepEqual(record.scope.assetIds, [
     "fahua-heritage",
@@ -28,17 +28,17 @@ test("十栋XHS合同已就绪，但Chrome未运行时不得冒充本窗口已�
     "xinhua-villas-329",
     "fics-xinhua-365",
   ]);
-  assert.deepEqual(record.browserChecks.browserClientDiscoveredTypes, []);
+  assert.deepEqual(record.browserChecks.browserClientDiscoveredTypes, ["extension"]);
   assert.equal(record.browserChecks.googleChrome.installed, true);
-  assert.equal(record.browserChecks.googleChrome.runningProcessFound, false);
+  assert.equal(record.browserChecks.googleChrome.runningProcessFound, true);
   assert.equal(record.browserChecks.chatgptChromeExtension.enabled, true);
   assert.equal(record.browserChecks.nativeMessagingHost.correct, true);
   assert.equal(record.scope.browserLaunched, false);
-  assert.equal(record.scope.xiaohongshuAccessed, false);
-  assert.match(record.scope.scopeStatement, /main-window diagnostic session/);
+  assert.equal(record.scope.xiaohongshuAccessed, true);
+  assert.match(record.scope.scopeStatement, /already-running Chrome session/);
 });
 
-test("十份查询合同必须存在，法华外部证据接入不冒充本窗口检索", async () => {
+test("十份查询合同必须存在，部分执行与未运行状态严格分开", async () => {
   const record = await readJson(recordPath);
   assert.equal(record.queryContracts.length, 10);
   for (const contract of record.queryContracts) {
@@ -48,6 +48,12 @@ test("十份查询合同必须存在，法华外部证据接入不冒充本窗�
         contract.executionStatus,
         "external-evidence-ingested-building-local-map-pending",
       );
+    } else if (contract.assetId === "shanghai-cinema") {
+      assert.equal(
+        contract.executionStatus,
+        "partial-one-query-two-posts-map-anchor-still-blocked-browser-connection-interrupted",
+      );
+      await access(new URL(contract.liveAudit, root));
     } else {
       assert.equal(contract.executionStatus, "not-run");
     }
@@ -80,8 +86,9 @@ test("十份查询合同必须存在，法华外部证据接入不冒充本窗�
   assert.equal(record.offlineEvidenceCoverage.blockedAssetCount, 10);
   assert.equal(record.offlineEvidenceCoverage.offlineAuditCompleteCount, 10);
   assert.equal(record.offlineEvidenceCoverage.otherOfflineExternalAuditCount, 9);
-  assert.equal(record.offlineEvidenceCoverage.mainWindowLiveXhsExecutionCount, 0);
-  assert.equal(record.offlineEvidenceCoverage.liveQueryNotRunCount, 9);
+  assert.equal(record.offlineEvidenceCoverage.mainWindowLiveXhsExecutionCount, 1);
+  assert.equal(record.offlineEvidenceCoverage.liveQueryNotRunCount, 8);
+  assert.equal(record.offlineEvidenceCoverage.liveQueryPartialCount, 1);
   assert.equal(record.offlineEvidenceCoverage.runtimeDisableEligible, false);
   assert.equal(
     record.externalEvidenceDiscovery.discoveryStatus,

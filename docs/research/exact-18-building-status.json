@@ -37,7 +37,7 @@
     {
       "id": "shanghai-cinema",
       "name": "上海影城",
-      "evidence": "pass-multi-view-offline-front-stair-closeups-added-xhs-subject-error-corrected-exact-anchor-still-blocked",
+      "evidence": "pass-multi-view-offline-plus-traceable-live-xhs-wide-front-forecourt-evidence-exact-anchor-still-blocked",
       "hero": "pass",
       "identity": "pass-hybrid",
       "massing": "pass",
@@ -46,7 +46,7 @@
       "mcp3": "pass",
       "map": "blocked-confirmed-road-setback-official-anchor-search-exhausted-no-calibratable-site-plan",
       "threeJs": "pass-three-tier-retained",
-      "overall": "blocked-map-xhs-query-ready-not-executed",
+      "overall": "blocked-map-xhs-query-partial-browser-connection-interrupted",
       "runtimePolicy": "preserve-current-no-map-promotion",
       "records": [
         "docs/research/shanghai-cinema-final-audit-2026-07-26.json",
@@ -59,6 +59,7 @@
         "docs/research/shanghai-cinema-official-anchor-evidence-exhaustion-2026-07-26.json",
         "docs/research/shanghai-cinema-xiaohongshu-query-contract-2026-07-26.json",
         "docs/research/shanghai-cinema-offline-evidence-exhaustive-audit-2026-07-27.json",
+        "docs/research/shanghai-cinema-xiaohongshu-live-audit-2026-07-27.json",
         "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
       ]
     },

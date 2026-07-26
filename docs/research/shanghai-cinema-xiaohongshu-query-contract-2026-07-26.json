@@ -4,12 +4,12 @@
   "label": "上海影城",
   "preparedAt": "2026-07-26",
   "baseCommit": "0af3c120bd95420fb327fa08cf81874042f180f3",
-  "status": "prepared-awaiting-main-window-human-paced-xiaohongshu-search",
+  "status": "partial-main-window-live-search-browser-connection-interrupted",
   "scope": {
-    "browserAccessed": false,
-    "xiaohongshuAccessed": false,
+    "browserAccessed": true,
+    "xiaohongshuAccessed": true,
     "mediaDownloaded": false,
-    "networkSearchExecuted": false,
+    "networkSearchExecuted": true,
     "modelingPerformed": false,
     "blenderOrMcpRerun": false,
     "qualifiedStageRerun": false,
@@ -137,6 +137,14 @@
     "naming": "YYYYMMDD_xhs_<post-id>_<image-or-frame-index>.<extension>",
     "sidecar": "docs/research/assets/xiaohongshu/shanghai-cinema/original/YYYYMMDD_xhs_<post-id>_metadata.json",
     "currentAction": "No directory or media is created by this preparation commit."
+  },
+  "liveExecution": {
+    "audit": "docs/research/shanghai-cinema-xiaohongshu-live-audit-2026-07-27.json",
+    "queryCount": 1,
+    "openedPostCount": 2,
+    "result": "traceable-wide-front-evidence-found-map-anchor-not-cleared-browser-connection-interrupted",
+    "reasonableSearchComplete": false,
+    "runtimeDisableEligible": false
   },
   "rejectionAndDisposition": {
     "reasonableSearchMissDefinition": "All four query groups are attempted at the stated human pace, no more than 24 results total are deliberately reviewed, and no verified result satisfies every required same-subject category after duplicate and adjacent-site rejection.",

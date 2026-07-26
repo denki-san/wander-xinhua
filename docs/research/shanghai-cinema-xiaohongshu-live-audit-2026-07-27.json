@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "label": "上海影城",
+  "auditedAt": "2026-07-27T01:36:25+08:00",
+  "baseCommit": "edc508838ed848e1d4c50624477d6f23ee329152",
+  "status": "partial-live-search-browser-connection-interrupted-map-anchor-still-blocked",
+  "scope": {
+    "executionOwner": "main-window-xhigh",
+    "mode": "serial-read-only-human-paced-xiaohongshu-search",
+    "chromeAccessed": true,
+    "xiaohongshuAccessed": true,
+    "queryCount": 1,
+    "openedPostCount": 2,
+    "mediaDownloaded": false,
+    "rawMediaMaterialized": false,
+    "repositoryModelAssetsModified": false,
+    "mapRegistryRuntimeModified": false,
+    "recoveryOrHoldModified": false,
+    "treesDecorationsOrFullMapModified": false,
+    "acceptedStageRerun": false
+  },
+  "queryExecution": {
+    "query": "上海影城 新华路160号",
+    "queryGroup": 1,
+    "resultPage": "https://www.xiaohongshu.com/search_result_ai?keyword=%25E4%25B8%258A%25E6%25B5%25B7%25E5%25BD%25B1%25E5%259F%258E%2520%25E6%2596%25B0%25E5%258D%258E%25E8%25B7%25AF160%25E5%258F%25B7&source=web_explore_feed",
+    "loginState": "existing-user-session-readable",
+    "challengeOrRateLimitObserved": false,
+    "commentsLikesFollowsOrMessagesPerformed": false
+  },
+  "reviewedPosts": [
+    {
+      "postId": "68e53317000000000400214e",
+      "url": "https://www.xiaohongshu.com/explore/68e53317000000000400214e",
+      "displayedAuthor": "曦曦（迷恋MJ版）",
+      "displayedDate": "2025-10-07",
+      "title": "迄今为止买过最贵的电影票",
+      "displayedMediaCount": 7,
+      "reviewedMediaIndices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "observed": [
+        "image 1 shows the built white Shanghai Cinema ribbon facade, Shanghai Cinema lettering, ground glazing and the tall tower behind from a close frontal low-angle view",
+        "image 2 is a ticket or purchase screenshot naming 上海影城SHO长宁区新华路160号",
+        "images 3 through 7 are food photographs and add no building or map evidence"
+      ],
+      "notObserved": [
+        "curb or road edge",
+        "locatable Xinhua Road or Panyu Road context in the same frame",
+        "two georeferenced boundary controls",
+        "parcel line, north arrow, scale or coordinates"
+      ],
+      "classification": "traceable-same-subject-front-closeup-insufficient-for-map-anchor"
+    },
+    {
+      "postId": "684e8955000000002202a475",
+      "url": "https://www.xiaohongshu.com/explore/684e8955000000002202a475",
+      "displayedAuthor": "小兰屿",
+      "displayedDate": "2025-07-06",
+      "title": "上海影城 长宁区新华路160号 @上海影城sho",
+      "displayedMediaCount": 12,
+      "reviewedMediaIndices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "observed": [
+        "images 1 and 3 show a broad frontal view of the same built cinema with the main entrance, forecourt, curved external stair, ribbon facade and tall tower co-visible",
+        "image 1 includes a handheld Shanghai International Film Festival ticket and image 3 is an unobstructed facade view",
+        "images 2 and 4 show festival merchandise and add no building or map evidence"
+      ],
+      "notObserved": [
+        "street curb or asphalt edge",
+        "a visible parcel boundary between cinema, hotel and adjacent structures",
+        "north arrow, measured scale or world coordinates",
+        "a complete road-to-entrance control chain"
+      ],
+      "classification": "traceable-same-subject-wide-front-and-forecourt-partial-evidence-map-anchor-not-cleared"
+    }
+  ],
+  "unopenedLeads": [
+    {
+      "postId": "690103510000000007020ef7",
+      "title": "行走丨上海影城，没有电影节的时候人也忒少"
+    },
+    {
+      "postId": "677fb3b6000000002002d35d",
+      "title": "上海影城改造：一场与美好回忆的盛大告别"
+    },
+    {
+      "postId": "684e6b42000000002203764f",
+      "title": "电影路的下午🍃｜✨新华路｜上海小众citywalk"
+    },
+    {
+      "postId": "6810b5e0000000002202afba",
+      "title": "6️⃣4️⃣条永不拓宽的马路 — 新华路🌳"
+    }
+  ],
+  "interruption": {
+    "afterAction": "attempting to advance from image 4 to image 5 of post 684e8955000000002202a475",
+    "browserConnectionLost": true,
+    "chromeRunning": true,
+    "chatgptChromeExtensionInstalledAndEnabled": true,
+    "nativeMessagingHostCorrect": true,
+    "challengeLoginPromptOrRateLimit": false,
+    "retryPolicy": "The lightweight connection retry failed once. Chrome troubleshooting requires explicit user approval before opening a new Chrome window and retrying; no alternate browser, scraper or automation bypass is authorized."
+  },
+  "evidenceClassification": {
+    "observed": [
+      "One exact query was executed in the user's existing logged-in Chrome session.",
+      "Two traceable same-subject posts were opened at deliberate human pace.",
+      "The second post materially improves traceable broad front, entrance, forecourt, external-stair and tower co-visibility.",
+      "Neither reviewed post shows the required road edge and boundary-control chain."
+    ],
+    "inferred": [
+      {
+        "claim": "The broad front view is useful for retained-model visual comparison and local depth sanity, but cannot authorize a map transform.",
+        "confidence": "high"
+      }
+    ],
+    "unknown": [
+      "Whether images 5 through 12 of the interrupted second post contain usable street-interface evidence.",
+      "Whether the unopened leads contain a same-frame road edge plus two stable cinema-boundary controls.",
+      "Whether later query groups can distinguish the cinema compound boundary from adjacent facilities."
+    ]
+  },
+  "gateEvaluation": {
+    "evidence": "expanded-traceable-wide-front-evidence",
+    "hero": "pass-retained-no-rerun",
+    "identity": "pass-hybrid-retained-no-rerun",
+    "massing": "pass-retained-no-rerun",
+    "mcp1": "pass-retained-no-rerun",
+    "mcp2": "pass-retained-no-rerun",
+    "mcp3": "pass-retained-no-rerun",
+    "map": "blocked-no-required-street-interface-and-two-point-control-chain",
+    "threeJs": "pass-three-tier-retained-no-rerun",
+    "runtimeDisableEligible": false,
+    "buildingComplete": false
+  },
+  "nextGate": "After explicit user approval to open a new Chrome window, resume the second post at image 5, then continue the remaining query groups under the existing human-paced contract. Preserve all files and do not disable the runtime asset before a complete reasonable-search adjudication."
+}

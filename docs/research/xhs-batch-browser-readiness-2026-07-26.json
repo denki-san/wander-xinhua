@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "checkedAt": "2026-07-26T22:43:26+08:00",
   "baseCommit": "2643a4d2c5ab84f945336b29e764eae0dc0ae926",
-  "status": "ten-query-contracts-ready-browser-not-running-all-blocked-building-offline-archives-audited",
-  "updatedAt": "2026-07-26T23:49:26+08:00",
+  "status": "one-live-contract-partial-browser-connection-interrupted-nine-other-contracts-pending",
+  "updatedAt": "2026-07-27T01:36:25+08:00",
   "scope": {
     "assetIds": [
       "fahua-heritage",
@@ -17,22 +17,24 @@
       "xinhua-villas-329",
       "fics-xinhua-365"
     ],
-    "readOnlyDiagnosticsOnly": true,
+    "readOnlyDiagnosticsOnly": false,
     "browserLaunched": false,
-    "xiaohongshuAccessed": false,
+    "xiaohongshuAccessed": true,
     "mediaDownloaded": false,
     "runtimeModified": false,
     "assetFilesModified": false,
     "recoveryHoldModified": false,
-    "scopeStatement": "xiaohongshuAccessed=false only describes this main-window diagnostic session; a pre-existing Fahua evidence package was later discovered on the U disk and is recorded separately below."
+    "scopeStatement": "The main window used the user's already-running Chrome session for one serial read-only Shanghai Cinema query. No browser was launched, no media was downloaded, and no runtime or asset file was modified."
   },
   "browserChecks": {
-    "browserClientDiscoveredTypes": [],
+    "browserClientDiscoveredTypes": [
+      "extension"
+    ],
     "googleChrome": {
       "installed": true,
       "path": "/Applications/Google Chrome.app",
       "version": "150.0.7871.184",
-      "runningProcessFound": false
+      "runningProcessFound": true
     },
     "chatgptChromeExtension": {
       "profile": "Default",
@@ -46,7 +48,7 @@
       "expectedOriginAllowed": true,
       "correct": true
     },
-    "diagnosticBoundary": "Chrome process detection used a read-only process listing and found no matching process. No browser, tab, extension manager, or login state was opened or changed."
+    "diagnosticBoundary": "Chrome was already running. The main window claimed the existing Xiaohongshu tab read-only, ran one query, opened two posts and stopped when the browser connection failed. No login state, interaction metric or platform content was modified."
   },
   "externalEvidenceDiscovery": {
     "assetId": "fahua-heritage",
@@ -81,7 +83,8 @@
     {
       "assetId": "shanghai-cinema",
       "path": "docs/research/shanghai-cinema-xiaohongshu-query-contract-2026-07-26.json",
-      "executionStatus": "not-run"
+      "executionStatus": "partial-one-query-two-posts-map-anchor-still-blocked-browser-connection-interrupted",
+      "liveAudit": "docs/research/shanghai-cinema-xiaohongshu-live-audit-2026-07-27.json"
     },
     {
       "assetId": "xinhua-villas-211",
@@ -185,9 +188,10 @@
     "offlineAuditCompleteCount": 10,
     "fahuaExternalPackageAndExhaustionAuditCount": 1,
     "otherOfflineExternalAuditCount": 9,
-    "mainWindowLiveXhsExecutionCount": 0,
-    "liveQueryNotRunCount": 9,
-    "status": "complete-offline-only-live-xhs-and-user-photo-materialization-still-pending",
+    "mainWindowLiveXhsExecutionCount": 1,
+    "liveQueryNotRunCount": 8,
+    "liveQueryPartialCount": 1,
+    "status": "offline-audits-complete-one-live-contract-partial-eight-not-run-user-photo-materialization-still-pending",
     "runtimeDisableEligible": false
   },
   "userPhotoSequenceMaterialization": {
@@ -211,7 +215,7 @@
     "externalAuditResult": "zero-attributable-original-files-after-snapshot-legacy-kb-and-wiki-linkage-search"
   },
   "nextGate": {
-    "requiredUserAction": "Allow the main window to launch Chrome when the user is available for the nine not-run contracts. Materialize the nine Xingfuli originals when the attachment channel exposes them; Fahua exact map, rear, and scale remain a separate evidence gate.",
+    "requiredUserAction": "Approve opening a new Chrome window so the main window can reconnect and resume the partial Shanghai Cinema contract, then run the remaining eight not-run contracts. Materialize the nine Xingfuli originals when the attachment channel exposes them; Fahua exact map, rear, and scale remain a separate evidence gate.",
     "executionOwner": "main-window-xhigh",
     "executionMode": "serial-read-only-human-paced",
     "parallelXhsBrowsingForbidden": true,
@@ -220,7 +224,7 @@
   },
   "runtimeDisablePolicy": {
     "eligibleNow": false,
-    "reason": "Nine contracted searches have not executed; the discovered Fahua package is ingested but does not clear exact map, rear, or scale; the nine Xingfuli originals are still not readable as files.",
+    "reason": "The Shanghai Cinema contract is only partial and eight other contracted searches have not executed; the discovered Fahua package is ingested but does not clear exact map, rear, or scale; the nine Xingfuli originals are still not readable as files.",
     "allFilesMustRemain": true
   }
 }
