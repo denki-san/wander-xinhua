@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "assetId": "villa-le-bec",
+  "auditedAt": "2026-07-26",
+  "status": "massing-accepted-at-historical-integration-hero-and-identity-blocked",
+  "scope": {
+    "browserOrXhsAccessed": false,
+    "blenderRerun": false,
+    "binaryModified": false,
+    "sharedFilesModified": false
+  },
+  "currentWorktree": {
+    "head": "88a809be0aea32aca2ac238d8730c2f5ac4c2773",
+    "integrationCommitIsAncestor": false,
+    "candidateCommitIsAncestor": false,
+    "historicalIntegrationFilesPresent": false,
+    "interpretation": "本 worktree 不包含主窗口集成文件；不得以本分支缺失文件否定历史验收，也不得将历史浏览器结果表述为本分支当前运行时验收。"
+  },
+  "historicalMainWindowFacts": {
+    "mapCandidate": {
+      "commit": "a897447a8413157de3fb57c3965803e20c3d8f18",
+      "path": "docs/research/villa-le-bec-map-candidate.json",
+      "contentSha256": "330e86fad6077188d2f09f2b4c66ff794a52cd1097a8c4fd99e39010233e2597",
+      "verdict": "feasible-candidate-awaiting-main-window-integration"
+    },
+    "integrationRuntimeQa": {
+      "commit": "833bb8aadac20334ed489dfb26666621126493f6",
+      "path": "docs/research/villa-le-bec-threejs-runtime-qa-v2.json",
+      "contentSha256": "cef09b7539cb2d7c0a2cd2d9831beb29e521895cf236ea512ed932aadc3193f8",
+      "verdict": "pass-massing-map-and-runtime",
+      "formalMassingAcceptance": "pass"
+    }
+  },
+  "currentArtifacts": {
+    "massing": {
+      "reuse": "allowed-as-massing-only",
+      "blend": {
+        "path": "assets/models/source/tiers/xinhua-road/massing-v2/villa-le-bec-massing.blend",
+        "sha256": "34a9ba4582e9a6bb1eeb0ca38dd173a80c5d754f896b6b139eaef20f0908d5bc"
+      },
+      "glb": {
+        "path": "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
+        "sha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f",
+        "nodes": 1,
+        "triangles": 120,
+        "images": 0
+      },
+      "placement": {
+        "position": [-34.1, 88.8],
+        "yaw": -0.38,
+        "scale": 0.82,
+        "movementAuthorized": false
+      },
+      "mcp1": "pass-current-sha-visual-and-structure",
+      "acceptedMapCollisionShell": "twelve complete-cover local-z strips from historical integration"
+    },
+    "legacyHero": {
+      "reuse": "prohibited-as-mcp2-source",
+      "blend": {
+        "path": "assets/models/source/xinhua-road/villa-le-bec.blend",
+        "sha256": "268cb2c04748e6e312a71beefbd620d35bdf773eab0ac8ff458881e011ffd1c9"
+      },
+      "glb": {
+        "path": "public/models/xinhua-road/villa-le-bec.glb",
+        "sha256": "620dd38a364140574565aeaaa971148d124e9171698c53c6322b13f967a0b600"
+      },
+      "strictlyInvalidBecause": [
+        "one-building-model-versus-evidence-bound-two-building-site",
+        "not-derived-from-current-massing-sha",
+        "patio-branding-cafe-vegetation-and-decorative-content-outside-scope",
+        "no-hero-build-record-or-mcp2-authorization"
+      ]
+    },
+    "identity": {
+      "artifactPresent": false,
+      "status": "blocked-lineage",
+      "massingMasqueradeProhibited": true
+    }
+  },
+  "evidenceAndLineage": {
+    "massingEvidence": "pass-for-two-building-massing",
+    "membership": "two-way-binding-medium-high-not-cadastral",
+    "unknown": [
+      "surveyed-height",
+      "cadastral-boundary",
+      "low-annex-osm-membership",
+      "ways-864493245-246-247-address-membership"
+    ],
+    "heroMinimumNextStep": [
+      "freeze-the-accepted-massing-sha-as-hero-source",
+      "create-a-pure-two-building-hero-without-patio-branding-cafe-vegetation-or-dressing",
+      "run-mcp2-on-that-hero-before-identity"
+    ]
+  },
+  "verdict": {
+    "buildingComplete": false,
+    "safeAction": "reuse-the-current-sha-massing-only-and-preserve-historical-main-window-acceptance-as-commit-bound-evidence",
+    "forbidden": [
+      "treat-historical-runtime-qa-as-current-worktree-runtime-qa",
+      "promote-legacy-hero-to-mcp2",
+      "derive-identity-from-massing-or-legacy-hero",
+      "rebuild-or-move-accepted-massing-without-new-evidence"
+    ]
+  }
+}
