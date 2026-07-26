@@ -88,8 +88,9 @@ for (const {
   });
 }
 
-test("两栋显式 QA 三档、逐级 fallback 与18栋范围守卫闭合", () => {
+test("三栋显式 QA 三档、逐级 fallback 与18栋范围守卫闭合", () => {
   assert.deepEqual(Object.keys(ACCEPTED_BUILDING_TIER_QA), [
+    "villa-le-bec",
     "hudec-memorial",
     "xinhua-pocket-park",
   ]);
@@ -121,7 +122,7 @@ test("两栋显式 QA 三档、逐级 fallback 与18栋范围守卫闭合", () =
     null,
   );
   assert.equal(
-    resolveBuildingTierQa("?qaModelId=villa-le-bec&qaModelTier=hero"),
+    resolveBuildingTierQa("?qaModelId=xingfuli-west&qaModelTier=hero"),
     null,
   );
 });

@@ -172,6 +172,7 @@
         "tests/test_villa_le_bec_identity_implementation.test.mjs",
         "tests/test_villa_le_bec_identity_v2.test.mjs",
         "tests/test_villa_le_bec_blender_mcp3_gate_v2.test.mjs",
+        "tests/test_villa_le_bec_three_tier_runtime_contract.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
@@ -184,7 +185,10 @@
       ],
       "runtimeRoutes": [
         "/?start=villa-le-bec&cameraQa=1&qaAutoStart=1",
-        "/?start=villa-le-bec&qaModelId=villa-le-bec&qaModelTier=massing&cameraQa=1&qaAutoStart=1"
+        "/?start=villa-le-bec&qaModelId=villa-le-bec&qaModelTier=hero&cameraQa=1&qaAutoStart=1",
+        "/?start=villa-le-bec&qaModelId=villa-le-bec&qaModelTier=identity&cameraQa=1&qaAutoStart=1",
+        "/?start=villa-le-bec&qaModelId=villa-le-bec&qaModelTier=massing&cameraQa=1&qaAutoStart=1",
+        "/?start=villa-le-bec&qaModelId=villa-le-bec&qaModelTier=hero&qaActiveFallback=villa-le-bec:hero&cameraQa=1&qaAutoStart=1"
       ]
     },
     {

@@ -236,8 +236,12 @@ test("公共运行时只在显式 QA 深链替换单栋模型，默认生产入�
   assert.match(worldSource, /root\.dataset\.xinhuaQaMovement/);
 });
 
-test("邬达克与口袋公园 QA 支持三档和逐级确定性 fallback", () => {
-  for (const assetId of ["hudec-memorial", "xinhua-pocket-park"]) {
+test("Villa Le Bec、邬达克与口袋公园 QA 支持三档和逐级确定性 fallback", () => {
+  for (const assetId of [
+    "villa-le-bec",
+    "hudec-memorial",
+    "xinhua-pocket-park",
+  ]) {
     const hero = resolveBuildingTierQa(
       `?qaModelId=${assetId}&qaModelTier=hero`,
     );

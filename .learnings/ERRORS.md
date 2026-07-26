@@ -9064,3 +9064,101 @@ expected:
 - **Notes**: 已按 `sha256sum` 完整值修正，并重跑同一专项测试。
 
 ---
+
+## [ERR-20260726-103] local_static_server_sandbox_bind_denied
+
+**Logged**: 2026-07-26T16:48:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+Villa Le Bec 三档运行时验收启动本地静态服务时，受限环境拒绝绑定
+`127.0.0.1:3002`；静态构建本身已通过，项目代码未报错。
+
+### Error
+```text
+PermissionError: [Errno 1] Operation not permitted
+```
+
+### Context
+- 命令为 `python3 -m http.server 3002 --bind 127.0.0.1 --directory dist-static`；
+- 失败发生在 `socket.bind()`，没有写入项目文件或改变构建产物；
+- 同一命令需要在获准的本机环境中运行，不能通过修改应用代码规避。
+
+### Suggested Fix
+本地浏览器验收服务遇到 `socket.bind()` 权限错误时，保留原命令并请求受控的本机
+执行权限；启动后先用 HTTP 200 探针确认，再进入浏览器采集。
+
+### Metadata
+- Reproducible: yes
+- Related Files: dist-static/index.html
+
+### Resolution
+- **Resolved**: 2026-07-26T16:49:00+08:00
+- **Notes**: 改用同一受控静态服务命令的授权执行路径，未修改项目实现。
+
+---
+
+## [ERR-20260726-104] in_app_browser_unavailable_for_local_runtime
+
+**Logged**: 2026-07-26T16:50:00+08:00
+**Priority**: medium
+**Status**: pending
+**Area**: tests
+
+### Summary
+Villa Le Bec 三档页面已构建且本地 HTTP 返回 `200`，但当前 Codex 浏览器运行时没有
+任何可用 Browser 实例，无法完成真实 Three.js 画面与控制台采集。
+
+### Error
+```text
+No browser is available
+agent.browsers.list() => []
+```
+
+### Context
+- 目标页面为 `http://127.0.0.1:3002/?start=villa-le-bec...`；
+- Browser bootstrap 已成功，按故障文档只读列举一次可用实例，结果为空；
+- 不允许用 DOM/源码测试冒充真实渲染验收，也不切换到外部网页。
+
+### Suggested Fix
+待 Codex Browser 或 Chrome 实例重新可用后，在同一构建和 QA 参数下继续三档、
+forced fallback、性能、碰撞、资源与控制台采集；此前保持 runtime pending。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/villa-le-bec-blender-mcp3-gate-v2.json
+
+---
+
+## [ERR-20260726-105] exec_isolate_did_not_retain_montage_binding
+
+**Logged**: 2026-07-26T16:52:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+第二批 Villa Le Bec MCP3 截图检查错误复用了上一笔 `functions.exec` 中的局部路径变量，
+但该执行器每次使用独立 isolate，导致变量不存在。
+
+### Error
+```text
+ReferenceError: mcp3Base is not defined
+```
+
+### Context
+- 第一批三张 canonical 图已正常读取；
+- 失败只发生在组织第二批截图路径，没有写文件或改变验收记录；
+- `functions.exec` 与持久化浏览器 JavaScript 会话的变量生命周期不同。
+
+### Suggested Fix
+每一笔 `functions.exec` 都在同一脚本内声明其所需路径和临时变量；不要跨调用依赖
+顶层 binding。
+
+### Resolution
+- **Resolved**: 2026-07-26T16:52:00+08:00
+- **Notes**: 第二笔调用内重新声明路径，六张 side/entrance 图全部读取成功。
+
+---

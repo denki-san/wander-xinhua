@@ -281,6 +281,24 @@ export const BUILDING_MASSING_QA_CANDIDATES = Object.freeze({
 });
 
 export const ACCEPTED_BUILDING_TIER_QA = Object.freeze({
+  "villa-le-bec": Object.freeze({
+    hero: Object.freeze({
+      modelPath:
+        "/models/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.glb"
+        + "?v=20260726-hero-4f909a3b149e",
+      buildRecord:
+        "docs/research/build-records/tiers/xinhua-road/hero-v2/"
+        + "villa-le-bec-hero-v2.json",
+    }),
+    identity: Object.freeze({
+      modelPath:
+        "/models/tiers/xinhua-road/identity-v2/villa-le-bec-identity-v2.glb"
+        + "?v=20260726-identity-4be0685ed6db",
+      buildRecord:
+        "docs/research/build-records/tiers/xinhua-road/identity-v2/"
+        + "villa-le-bec-identity-v2.json",
+    }),
+  }),
   "hudec-memorial": Object.freeze({
     hero: Object.freeze({
       modelPath:
