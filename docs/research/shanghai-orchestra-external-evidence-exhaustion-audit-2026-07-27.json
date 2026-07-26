@@ -1,0 +1,409 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-orchestra",
+  "label": "上海民族乐团",
+  "auditedAt": "2026-07-27",
+  "baseCommit": "4dd9e32e12b051d0b9c84ef3943f4cdb7b280a47",
+  "mode": "building-local-read-only-external-evidence-exhaustion",
+  "status": "four-research-only-views-recovered-formal-membership-map-lineage-unchanged-blocked",
+  "scope": {
+    "included": [
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/",
+      "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/",
+      "Shanghai Orchestra target-name path, text, source-ID and SHA-256 inventory",
+      "Buildings 6, 7 and 8 membership, entrance continuity, facade multi-view, scale, roof, rear and Fahua/Xinhua road relation",
+      "Hero and Identity evidence-lineage usability"
+    ],
+    "notPerformed": [
+      "browser, Xiaohongshu or network access",
+      "external-drive write, move, rename or deletion",
+      "asset, GLB, Blend, generator, Blender or MCP change",
+      "map, registry, runtime, Fast Mode, exact status or roster change",
+      "Recovery/Hold or other-building change",
+      "accepted Recovery Massing, MCP1 or diagnostic Three.js rerun"
+    ],
+    "externalRootsModified": false,
+    "binaryModified": false,
+    "sharedFilesModified": false,
+    "recoveryHoldModified": false
+  },
+  "repositoryInputs": {
+    "referenceManifest": {
+      "path": "docs/research/shanghai-orchestra-reference-manifest.json",
+      "sha256": "55361f9f666b385982a99d7dbc20a0447e9dc2947c9418be9172fcf0c39497fe"
+    },
+    "publicPrimarySourceRescue": {
+      "path": "docs/research/shanghai-orchestra-public-primary-source-rescue-2026-07-26.json",
+      "sha256": "8600767257044bcc5abb93c55e1ebfcfd8212b073c9552994c0fbcf1376f2f34"
+    },
+    "finalGapAudit": {
+      "path": "docs/research/shanghai-orchestra-final-gap-audit.json",
+      "sha256": "52b8b1784348ba64905eb98d843440eeb0c44a19d645cad27b4d15001d0e5d31"
+    },
+    "localBlocker": {
+      "path": "docs/research/shanghai-orchestra-gap-medium-blocker-2026-07-26.json",
+      "sha256": "8e00ae3c838d9710c614ff36a7a28755d00b4c1abc36c82b9979015f3f6c237a"
+    },
+    "membershipDepthAudit": {
+      "path": "docs/research/shanghai-orchestra-osm-membership-deep-audit.json",
+      "sha256": "56101596ce4fd53f7439295a993872ac8e5fd92f49c4bb33beca065d67ddd8b2"
+    },
+    "membershipRescueAudit": {
+      "path": "docs/research/shanghai-orchestra-osm-membership-rescue-audit.json",
+      "sha256": "ac86366309b410fe3b5b15f7878b7abc913dc5d93185d54fa5af2b055ea686cf"
+    },
+    "xiaohongshuQueryContract": {
+      "path": "docs/research/shanghai-orchestra-xiaohongshu-query-contract-2026-07-26.json",
+      "sha256": "45b7dc719a6697095d2792c6fc515f0c2908f01aeb7ec62804b7da2555991052"
+    },
+    "massingGlb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.glb",
+      "sha256": "63eb25ca4abcbab0e434adb528ea0f37650495c614833f7b9bd05afbc519484c"
+    },
+    "legacyHeroGlb": {
+      "path": "public/models/xinhua-road/shanghai-orchestra.glb",
+      "sha256": "8f86e7e1c9b9e7c30c760e9e1ff80bd4cebee243e3fe0a964ffbe47bb280ee6c"
+    }
+  },
+  "auditMethod": {
+    "pathInventory": [
+      "enumerate every regular file in the requested roots",
+      "enumerate target slug, orchestra, Chinese subject and Xinhua Road 336 paths",
+      "enumerate all common video extensions regardless of filename"
+    ],
+    "textAndSourceIdInventory": [
+      "search Shanghai Orchestra, Shanghai Chinese Orchestra, Xinhua Road 336, Buildings 6/7/8 and ways 864505162 through 864505170",
+      "search the TJAD publication URL and three official-source stable IDs",
+      "read the current and legacy source records, snapshot manifests and SHA256SUMS"
+    ],
+    "visualAndHashInventory": [
+      "SHA-256 every target-name path and collapse byte-identical archive views",
+      "inspect every unique real-reference candidate from snapshot 5383f2a",
+      "separate real photography from generated preview, runtime, MCP and Massing output"
+    ],
+    "gateRule": "Only independently attributable same-subject evidence that binds a numbered member or a continuous entrance/road control to a locatable footprint can change formal membership or map. Unannotated archive images may strengthen visual research but cannot authorize Hero or Identity lineage before member binding closes."
+  },
+  "rootInventory": {
+    "dynamicEvidence": {
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence",
+      "regularFilesObserved": 6184,
+      "legacyImportFilesObserved": 1671,
+      "snapshotFilesObserved": 4511,
+      "snapshotIds": [
+        {
+          "id": "2026-07-26-ad37273",
+          "gitSha": "ad37273",
+          "manifestFileCount": 979,
+          "targetNameFilePaths": 8,
+          "targetNameVisualPaths": 6,
+          "targetNameDistinctContentHashes": 8
+        },
+        {
+          "id": "2026-07-26-5383f2a",
+          "gitSha": "5383f2a",
+          "manifestFileCount": 1210,
+          "sourceWorktreeDirty": true,
+          "wikiEligible": false,
+          "targetNameFilePaths": 19,
+          "targetNameVisualPaths": 17,
+          "targetNameDistinctContentHashes": 15,
+          "containsFourUnadmittedRealViews": true
+        },
+        {
+          "id": "2026-07-26-b20494c",
+          "gitSha": "b20494c",
+          "manifestFileCount": 1155,
+          "targetNameFilePaths": 27,
+          "targetNameVisualPaths": 15,
+          "targetNameDistinctContentHashes": 27,
+          "containsAcceptedMassingAndQaRecords": true
+        },
+        {
+          "id": "2026-07-27-5c5fa52",
+          "gitSha": "5c5fa52",
+          "manifestFileCount": 1159,
+          "targetNameFilePaths": 27,
+          "targetNameVisualPaths": 15,
+          "targetNameDistinctContentHashes": 27,
+          "containsAcceptedMassingAndQaRecords": true
+        }
+      ],
+      "legacyArchiveTargetNameFilePaths": 18,
+      "legacyArchiveTargetNameVisualPaths": 12,
+      "legacyArchiveTargetNameDistinctContentHashes": 9,
+      "targetNameFilePaths": 99,
+      "targetNameVisualPaths": 65,
+      "targetNameJsonPaths": 32,
+      "targetNameMarkdownPaths": 2,
+      "targetNameDistinctContentHashes": 35,
+      "targetNameDistinctVisualHashes": 22
+    },
+    "oldKnowledgeBase": {
+      "root": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base",
+      "regularFilesObserved": 316,
+      "targetNameFilePaths": 0,
+      "targetTextMatchFiles": 2,
+      "textMatchFiles": [
+        "wander-xinhua/shanghai-orchestra-public-primary-source-rescue-2026-07-26/README.md",
+        "building-height-calibration/xinhua-20260725/baseline/xinhua-district-massing-data.json"
+      ],
+      "interpretation": "The README repeats the existing official/TJAD rescue. The height baseline only records project-authored replacement ways and cannot establish OSM or property membership."
+    }
+  },
+  "immutableArchiveControls": {
+    "legacyArchive": {
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/knowledge-base/wander-xinhua/building-evidence/snapshots/main-bab7ec4-2026-07-26",
+      "sourceCommit": "bab7ec4",
+      "archiveMetadataSha256": "e05b48209ce6f599175a10a3b597c3c017657f64ff975df830da355d457c793b",
+      "checksumFileSha256": "2420db2fd0865f5bbc9176b6a1268294ef738f1dc9d1ced6b74922f950ad1f71",
+      "newIndependentOrchestraMedia": 0
+    },
+    "candidateSnapshot": {
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-5383f2a",
+      "manifestSha256": "76fd29c9d89477778ef9269830751e24c648965d883335ddd6170bd1a6c2fe23",
+      "checksumFileSha256": "1ac3c5e8d1fbaf978949ba64888c00dba34aa7d8d256b2ec2c395ac860f18736",
+      "sourceWorktreeDirty": true,
+      "wikiEligible": false,
+      "preservation": "The four unadmitted images remain read-only in this immutable snapshot; this audit neither copies nor rewrites them."
+    }
+  },
+  "targetVisualDeduplication": {
+    "pathsAudited": 65,
+    "uniqueVisualHashes": 22,
+    "uniqueRealReferenceHashes": 8,
+    "uniqueGeneratedHashes": 14,
+    "repositoryAdmittedRealReferences": [
+      {
+        "sha256": "cd65d10e36a5d26fc54e20469551a09fb18572abc5f47a6e0ece6b32b09d4ece",
+        "classification": "verified-tjad-compound-courtyard-canonical"
+      },
+      {
+        "sha256": "3b141114cde1d09da5612ddab59ee6fd36287ad755b3a5cd7cb7965bd18ddbac",
+        "classification": "verified-tjad-fahua-road-curved-facade"
+      },
+      {
+        "sha256": "04cfc8cea5ec550b6a39d907009fe981d3b3745468fe726d4bab3f3b6e5883dd",
+        "classification": "verified-tjad-entrance-canopy-detail"
+      },
+      {
+        "sha256": "1387eb30f3abbab81cab413734960d8c535f381bdf2856caf194f966602d02a2",
+        "classification": "verified-same-project-right-front-three-quarter"
+      }
+    ],
+    "unadmittedSnapshotRealCandidates": [
+      {
+        "path": "repository/test_artifacts/test_landmark_comparison_sources/test_shanghai_orchestra_real_019.jpg",
+        "sha256": "cb781ed56012361f90939ca691d293e4aea8f4826e63496cea808751aded9dfd",
+        "bytes": 458032,
+        "dimensions": [
+          960,
+          720
+        ],
+        "visualClassification": "probable-same-project-aerial-context",
+        "observedContribution": [
+          "broad low-rise compound and adjacent urban context",
+          "roof forms, mature trees and neighboring-volume controls"
+        ],
+        "limitations": [
+          "no adjacent source URL or sidecar",
+          "no compass, red line, building number or OSM-way annotation",
+          "capture date and renovation phase unknown"
+        ],
+        "gateContribution": "roof-and-compound-context-research-only"
+      },
+      {
+        "path": "repository/test_artifacts/test_landmark_comparison_sources/test_shanghai_orchestra_real_021.jpg",
+        "sha256": "e7cd1305e22751f78af4972aa4ca38551774735565a62b13d8065333a06482be",
+        "bytes": 269528,
+        "dimensions": [
+          960,
+          622
+        ],
+        "visualClassification": "probable-same-project-pre-renovation-courtyard",
+        "observedContribution": [
+          "two-storey courtyard volume",
+          "cars and one person provide non-survey scale cues"
+        ],
+        "limitations": [
+          "no adjacent source URL or sidecar",
+          "pre-renovation appearance cannot establish current facade",
+          "no member number, road edge or footprint control"
+        ],
+        "gateContribution": "historical-courtyard-and-scale-research-only"
+      },
+      {
+        "path": "repository/test_artifacts/test_landmark_comparison_sources/test_shanghai_orchestra_real_022.jpg",
+        "sha256": "b0f9acb489e424ee4edab1229d0ccc35ba8ea2ff19cfc2ed98ffec1288851ee4",
+        "bytes": 317636,
+        "dimensions": [
+          960,
+          622
+        ],
+        "visualClassification": "probable-same-project-pre-renovation-inner-approach",
+        "observedContribution": [
+          "gate, parked cars, narrow internal approach and two-storey side volume",
+          "partial entrance-to-courtyard spatial continuity"
+        ],
+        "limitations": [
+          "no adjacent source URL or sidecar",
+          "the frame ends inside the compound and does not connect to curb, sidewalk, asphalt or a readable road control",
+          "no member number or footprint annotation"
+        ],
+        "gateContribution": "entrance-continuity-and-scale-research-only"
+      },
+      {
+        "path": "repository/test_artifacts/test_landmark_comparison_sources/test_shanghai_orchestra_real_024.jpg",
+        "sha256": "2c4b933ee5e920aecb5442fe5068cb895e7e7b159654ade1a553e41c92b7196e",
+        "bytes": 399177,
+        "dimensions": [
+          960,
+          1440
+        ],
+        "visualClassification": "probable-same-project-post-renovation-side-facade",
+        "observedContribution": [
+          "long light-colored wall, roof break, downpipe, vertical fins and side door",
+          "door and window provide non-survey human-scale cues",
+          "visually continuous with the admitted right-front three-quarter reference"
+        ],
+        "limitations": [
+          "no adjacent source URL or sidecar",
+          "no road, member number, rear endpoint or footprint annotation"
+        ],
+        "gateContribution": "side-facade-and-roof-profile-research-only"
+      }
+    ],
+    "exactDuplicateFindings": [
+      {
+        "pathSuffix": "test_shanghai_orchestra_real_025.jpg",
+        "duplicatesSha256": "3b141114cde1d09da5612ddab59ee6fd36287ad755b3a5cd7cb7965bd18ddbac"
+      },
+      {
+        "pathSuffix": "test_shanghai_orchestra_real_042.jpg",
+        "duplicatesSha256": "1387eb30f3abbab81cab413734960d8c535f381bdf2856caf194f966602d02a2"
+      },
+      {
+        "pathSuffix": "test_shanghai_orchestra_real.jpg",
+        "duplicatesSha256": "1387eb30f3abbab81cab413734960d8c535f381bdf2856caf194f966602d02a2"
+      }
+    ],
+    "generatedExclusion": "The remaining 14 unique visual hashes are generated legacy preview, runtime, text-direction, Massing, MCP1 or Three.js QA output and are circular evidence for real geometry."
+  },
+  "sourceIdDeduplication": {
+    "tjadPublication": {
+      "stableId": "gooood:renovation-project-of-shanghai-chinese-orchestra-no-336-xinhua-road-phase-i",
+      "textPathOccurrences": 23,
+      "knownDirectAssetIds": [
+        "018",
+        "025",
+        "038"
+      ],
+      "newIndependentTextSource": false
+    },
+    "officialSources": [
+      {
+        "stableId": "sh-whlyj:c79520d4b7ff4453b70a55986bb67e24",
+        "textPathOccurrences": 11,
+        "newIndependentSource": false
+      },
+      {
+        "stableId": "sh-whlyj:36cf92ac31f234d9004706565987582f",
+        "textPathOccurrences": 11,
+        "newIndependentSource": false
+      },
+      {
+        "stableId": "sh-gov-open-doc:2bd1451e-b190-4d59-a575-f3eae1fe4659",
+        "textPathOccurrences": 11,
+        "newIndependentSource": false
+      }
+    ],
+    "candidateWayIds": [
+      864505166,
+      864505168,
+      864505165,
+      864505169,
+      864505163
+    ],
+    "candidateWayTextPathOccurrencesEach": 31,
+    "newMemberTableOrRelationSourceFound": false,
+    "unadmittedImageProvenance": {
+      "observed": "Only numbered test-artifact filenames and immutable snapshot checksums are preserved beside images 019, 021, 022 and 024.",
+      "inferred": "The number pattern and visual continuity are compatible with the known TJAD/Gooood project sequence.",
+      "unknown": "The original direct asset URL, source page association, capture date, author and rights record for each image are not preserved in an adjacent sidecar.",
+      "formalUse": "research-reference-only-until-provenance-is-recovered"
+    }
+  },
+  "rawVideoExhaustion": {
+    "commonVideoExtensionsEnumerated": [
+      "mp4",
+      "mov",
+      "m4v",
+      "webm",
+      "avi",
+      "mkv"
+    ],
+    "dynamicEvidenceVideoCandidates": {
+      "count": 8,
+      "classifications": [
+        "four archive or snapshot views of a Shanghai Cinema progressive LOD preview",
+        "four Rain character runtime-motion videos across snapshots"
+      ]
+    },
+    "oldKnowledgeBaseVideoCandidates": {
+      "count": 7,
+      "classifications": [
+        "Arnis geospatial world generation",
+        "two image-to-Three.js research sources",
+        "two interactive 3D storytelling sources",
+        "American city generator",
+        "Depth Anything video-to-3D"
+      ]
+    },
+    "targetNamedVideoCandidates": 0,
+    "qualifiedOrchestraVideoFound": false
+  },
+  "evidenceResult": {
+    "observed": [
+      "All 65 target-name visual paths collapse to 22 hashes: eight real-reference candidates and fourteen generated outputs.",
+      "Four of the eight real-reference hashes are already admitted in the repository; four additional views exist only in dirty snapshot 5383f2a.",
+      "The additional views show aerial context, a historical courtyard, a historical inner approach and a post-renovation side facade.",
+      "No additional view carries an adjacent source sidecar, building 6/7/8 label, retained-volume label, compass, road name, cadastral boundary, scale bar or OSM-way annotation.",
+      "The old knowledge base adds only the existing official/TJAD rescue and authored-replacement height data; no new member table, relation dump or media was found."
+    ],
+    "inferred": [
+      "The four additional images are probable same-project TJAD/Gooood sequence material, but the inference cannot replace the missing direct provenance record.",
+      "The aerial and historical approach are useful controls for future comparison after formal membership closes."
+    ],
+    "unknown": [
+      "which ways bind to Buildings 6, 7 and 8 or retained volumes",
+      "formal included and excluded compound boundary",
+      "continuous present-day entrance-to-Xinhua-or-Fahuazhen-road sequence",
+      "which visible facade is on the Xinhua Road side",
+      "surveyed height, ground datum, roof back and complete rear construction",
+      "legal Hero and Identity derivation member set"
+    ]
+  },
+  "gateDecision": {
+    "compoundEvidence": "pass-retained",
+    "facadeMultiView": "strengthened-research-only-by-024",
+    "scale": "partial-research-only-cars-person-door-and-window-no-survey",
+    "entranceContinuity": "partial-research-only-historical-inner-approach-no-road-edge",
+    "roofAndRear": "partial-research-only-aerial-and-roof-profile-no-numbered-member-or-full-rear",
+    "fahuaRoadSide": "pass-retained-existing-tjad-reference",
+    "xinhuaRoadSide": "blocked-no-explicit-road-linked-facade",
+    "formalMemberBinding": "unchanged-blocked",
+    "formalMapAcceptance": "unchanged-blocked",
+    "mcp1Massing": "pass-shape-only-preserved-no-rerun",
+    "threeDiagnostic": "pass-preserved-no-promotion-no-rerun",
+    "legacyHero": "hold-not-mcp2-candidate",
+    "heroIdentityLineage": "unchanged-blocked-until-member-binding-and-provenance-close",
+    "mcp2Hero": "not-entered",
+    "identity": "blocked",
+    "mcp3": "not-entered",
+    "placementMutationAuthorized": false,
+    "modelOrMcpRerunAuthorized": false,
+    "runtimeOrRegistryMutationAuthorized": false,
+    "buildingComplete": false
+  },
+  "verdict": "The external archive preserves four useful but unadmitted real-view candidates beyond the repository set. They improve research coverage for aerial context, historical entrance continuity, scale and side-facade form, but their direct provenance and all member-to-way, numbered-building and road-linked controls remain missing. Formal membership, map, Hero/Identity lineage, MCP2 and MCP3 therefore remain blocked while accepted Massing MCP1 and diagnostic Three.js stages stay preserved without rerun."
+}
