@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-orchestra",
+  "auditedAt": "2026-07-26",
+  "baselineCommit": "d2c0f23ef05098563d9ed81fba3eac8bf706c978",
+  "status": "massing-mcp1-diagnostic-pass-membership-hero-identity-blocked",
+  "scope": {
+    "included": [
+      "repository-local-evidence-and-brief",
+      "five-osm-candidate-read-only-audit",
+      "accepted-massing-mcp1-and-three-diagnostic",
+      "legacy-hero-and-strict-lineage"
+    ],
+    "excludedAndHeld": [
+      "trees",
+      "vegetation",
+      "street-furniture",
+      "decoration",
+      "ordinary-osm-outside-five-candidates",
+      "other-buildings",
+      "full-map-assets",
+      "recovery-hold"
+    ],
+    "browserOpened": false,
+    "blenderRerun": false,
+    "sharedFilesModified": false
+  },
+  "evidence": {
+    "status": "compound-supported-member-binding-missing",
+    "manifest": "docs/research/shanghai-orchestra-reference-manifest.json",
+    "brief": "docs/research/shanghai-orchestra-model-brief.md",
+    "subject": "compound-with-buildings-6-7-8-retained-volumes-and-courtyards",
+    "references": [
+      {
+        "path": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-exterior-tjad-2019.jpg",
+        "sha256": "cd65d10e36a5d26fc54e20469551a09fb18572abc5f47a6e0ece6b32b09d4ece"
+      },
+      {
+        "path": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-fahua-facade-tjad-2019.jpg",
+        "sha256": "3b141114cde1d09da5612ddab59ee6fd36287ad755b3a5cd7cb7965bd18ddbac"
+      },
+      {
+        "path": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-entrance-canopy-tjad-2019.jpg",
+        "sha256": "04cfc8cea5ec550b6a39d907009fe981d3b3745468fe726d4bab3f3b6e5883dd"
+      }
+    ],
+    "blockingUnknowns": [
+      "buildings-6-7-8-to-five-osm-way-binding",
+      "retained-volume-to-way-binding",
+      "candidate-specific-entrance-direction",
+      "surveyed-heights-and-roof-backs"
+    ]
+  },
+  "massing": {
+    "status": "shape-mcp1-and-three-diagnostic-pass-membership-blocked",
+    "version": "massing-v2",
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.blend",
+      "sha256": "805a805947f82abc54360ab213c9d1cde90049ea6cbf9e807b553a4f53f85cf4"
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.glb",
+      "sha256": "63eb25ca4abcbab0e434adb528ea0f37650495c614833f7b9bd05afbc519484c",
+      "bytes": 9132,
+      "nodes": 5,
+      "meshes": 5,
+      "materials": 1,
+      "images": 0,
+      "triangles": 76
+    },
+    "candidateWayIds": [
+      864505166,
+      864505168,
+      864505165,
+      864505169,
+      864505163
+    ],
+    "mcp1": "pass-shape-only-preserved",
+    "threeDiagnostic": "pass-load-performance-collision-stop-qa-only-preserved"
+  },
+  "map": {
+    "status": "geometry-pass-formal-membership-blocked",
+    "placement": {
+      "position": [-44.4, 44],
+      "yaw": 2.761592653589793,
+      "scale": 0.88
+    },
+    "roads": {
+      "xinhuaMinimumAsphaltEdgeClearance": 4.880222,
+      "fahuazhenMinimumAsphaltEdgeClearance": 10.667135,
+      "asphaltOverlap": false
+    },
+    "adjacency": {
+      "candidatePairMinimumGap": 0.798917,
+      "candidatePairIntersectionCount": 0,
+      "adjacentUnknownMinimumGap": 1.169289,
+      "adjacentUnknownIntersectionCount": 0
+    },
+    "currentApproach": {
+      "start": [-28.5, 60],
+      "minimumBuildingClearance": 7.053485,
+      "collisionFree": true
+    },
+    "promotionAllowed": false,
+    "blocker": "TJAD photos prove the compound but do not bind buildings 6, 7, 8 or retained volumes to the five OSM ways."
+  },
+  "legacyHero": {
+    "status": "hold-not-mcp2-candidate",
+    "glb": {
+      "path": "public/models/xinhua-road/shanghai-orchestra.glb",
+      "sha256": "8f86e7e1c9b9e7c30c760e9e1ff80bd4cebee243e3fe0a964ffbe47bb280ee6c",
+      "bytes": 2346448,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 15,
+      "images": 0
+    },
+    "blend": {
+      "path": "assets/models/source/xinhua-road/shanghai-orchestra.blend",
+      "sha256": "5dea3c5fdfa922b3cc81241fbcb5b2b2653ac1e2933cf4594afd408af403abe8"
+    },
+    "generator": "scripts/create_xinhua_road_models.py#build_orchestra",
+    "subjectMismatch": [
+      "generic-heritage-plus-modern-hall-summary-not-five-bound-members",
+      "not-derived-from-current-five-way-massing",
+      "no-current-hero-build-record",
+      "no-current-mcp2-authorization"
+    ],
+    "scopeOutsideContent": [
+      "plaza",
+      "wayfinding",
+      "brand-name-text",
+      "benches",
+      "planters",
+      "decorative-linear-lights",
+      "decorative-paving"
+    ],
+    "mcp2": "not-entered"
+  },
+  "strictLineage": {
+    "status": "blocked",
+    "formalMassingMembership": false,
+    "heroDerivedFromCurrentMassing": false,
+    "heroMatchesFiveCandidateCompound": false,
+    "identityDerivationAuthorized": false
+  },
+  "identity": {
+    "status": "not-created",
+    "reason": "Formal five-way membership is unknown and the legacy Hero is not a legal MCP2 candidate. Massing cannot masquerade as Identity."
+  },
+  "gates": {
+    "evidenceCompound": "pass",
+    "formalMemberBinding": "blocked",
+    "mcp1Massing": "pass-shape-only-preserved",
+    "threeDiagnostic": "pass-preserved-no-promotion",
+    "formalMapAcceptance": "blocked",
+    "heroCandidate": "blocked",
+    "mcp2Hero": "not-entered",
+    "identity": "blocked",
+    "mcp3": "not-entered",
+    "buildingComplete": false
+  },
+  "verdict": {
+    "checkpoint": "clean-blocked-checkpoint",
+    "requiredToClose": [
+      "bind-buildings-6-7-8-and-retained-volumes-to-exact-osm-ways",
+      "repeat-formal-map-collision-and-camera-acceptance",
+      "build-evidence-backed-hero-from-accepted-member-set-before-mcp2"
+    ],
+    "sharedIntegrationRequired": false
+  }
+}
