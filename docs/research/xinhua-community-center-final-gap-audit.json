@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-community-center",
+  "auditedAt": "2026-07-26",
+  "baselineCommit": "2e33699f24330f4c9c98f4c63e8048fd657d90e3",
+  "status": "massing-mcp1-collision-pass-road-hero-identity-blocked",
+  "scope": {
+    "included": [
+      "repository-local-building-4-evidence",
+      "named-poi-to-osm-binding",
+      "service-road-and-neighbor-calibration",
+      "accepted-massing-mcp1-three-collision",
+      "legacy-hero-and-strict-lineage"
+    ],
+    "excludedAndHeld": [
+      "toy-exchange-house",
+      "trees",
+      "vegetation",
+      "street-furniture",
+      "decoration",
+      "ordinary-osm",
+      "other-buildings",
+      "full-map-assets",
+      "recovery-hold"
+    ],
+    "browserOpened": false,
+    "blenderRerun": false,
+    "sharedFilesModified": false
+  },
+  "evidence": {
+    "status": "pass-conservative-building-4-massing-only",
+    "manifest": "docs/research/xinhua-community-center-reference-manifest.json",
+    "brief": "docs/research/xinhua-community-center-model-brief.md",
+    "references": [
+      {
+        "path": "docs/research/assets/requested-poi-references/xinhua-community-center-front.jpg",
+        "sha256": "6f8c977a478b07769294af6299fec41b5e269ad11da3446681046e15d366c6bf",
+        "role": "building-4-front-and-entrance"
+      },
+      {
+        "path": "docs/research/assets/requested-poi-references/xinhua-community-center-toy-house.jpg",
+        "sha256": "9441bdc22d03c664282a853b5adbabba68f99930243d9f924d06676dfb392cf5",
+        "role": "separate-site-structure-excluded-from-building-4"
+      }
+    ],
+    "coverage": {
+      "canonical": "supported",
+      "entranceDetail": "supported-by-canonical",
+      "sideDepth": "unknown",
+      "siteRelationship": "partial"
+    },
+    "binding": {
+      "namedPoiNode": 13765678129,
+      "buildingWay": 864493234,
+      "accessRoadWay": 577252269,
+      "status": "pass-for-massing-only"
+    },
+    "heroEvidenceAuthorized": false,
+    "identityEvidenceAuthorized": false
+  },
+  "massing": {
+    "status": "binary-mcp1-collision-pass-map-blocked",
+    "version": "massing-v2",
+    "generator": {
+      "path": "scripts/create_xinhua_community_center_massing_model.py",
+      "sha256": "55df52060c5366882d9297b30916b53cc8aae8bbd5b7d24f6b8be465975d0268"
+    },
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.blend",
+      "sha256": "0dd2a77127e600829b762e4f575fc80221398ede17a231d8ba5c92301d9289f1"
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb",
+      "sha256": "a0609064ec15f0bfeb042ac9013152eda7575205c55bdaf79063cae38c77b471",
+      "bytes": 6596,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 3,
+      "images": 0,
+      "triangles": 48
+    },
+    "mcp1": "pass-main-window-axis-recheck-preserved",
+    "threeCollision": "pass-wall-stop-with-lateral-slide-no-penetration-preserved"
+  },
+  "map": {
+    "status": "blocked-road-surface-overlap",
+    "placement": {
+      "position": [-74.78057782060566, 112.5501903703319],
+      "yaw": 1.1800125527954972,
+      "scale": 1
+    },
+    "projection": {
+      "maximumVertexWorldError": 0,
+      "status": "pass"
+    },
+    "neighbor": {
+      "closestWay": 864493232,
+      "gapSceneUnits": 1.1517136810103772,
+      "overlapCount": 0,
+      "status": "pass-no-overlap"
+    },
+    "road": {
+      "wayId": 577252269,
+      "name": "新华路345弄",
+      "highway": "service",
+      "renderedHalfWidth": 1.25,
+      "buildingBoundaryToCenterline": 0.8473649273117979,
+      "asphaltEdgeClearance": -0.4026350726882021,
+      "asphaltOverlapMeters": 1.0871146962581457,
+      "status": "blocked-building-overlaps-rendered-service-road"
+    },
+    "productionPromotionAuthorized": false
+  },
+  "legacyHero": {
+    "status": "hold-not-mcp2-candidate",
+    "glb": {
+      "path": "public/models/requested-pois/xinhua-community-center.glb",
+      "sha256": "cc022632a23b796ab049f6f6fc71e9b8cd5985abf8521a3198c2471c3c41b2cd",
+      "bytes": 755436,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 13,
+      "images": 0
+    },
+    "blend": {
+      "path": "assets/models/source/requested-pois/xinhua-community-center.blend",
+      "sha256": "62dd3dc5f41146324f814b03bb80f4c6d6b7f441faeee34afc6f0de1fd3ffc04"
+    },
+    "generator": {
+      "path": "scripts/create_requested_poi_models.py",
+      "function": "build_xinhua_community_center",
+      "sha256": "3bd9cd02fcd2e62b9d8c26866cc2660b6c42fc3a91e4399a934f2d563647d5d1"
+    },
+    "subjectMismatch": [
+      "includes-unbound-toy-exchange-house",
+      "uses-invented-site-layout-around-building-4",
+      "not-derived-from-current-way-864493234-massing",
+      "no-current-hero-build-record",
+      "no-current-mcp2-authorization"
+    ],
+    "scopeOutsideContent": [
+      "lawn",
+      "forecourt",
+      "planters",
+      "sports-court",
+      "toy-house-and-shelves"
+    ],
+    "mcp2": "not-entered"
+  },
+  "strictLineage": {
+    "status": "blocked",
+    "formalMapPassed": false,
+    "heroDerivedFromCurrentMassing": false,
+    "heroMatchesBuilding4OnlyBoundary": false,
+    "identityDerivationAuthorized": false
+  },
+  "identity": {
+    "status": "not-created",
+    "reason": "Side/depth evidence and formal map acceptance are missing; legacy Hero exceeds the Building 4 boundary and is not a legal MCP2 candidate."
+  },
+  "gates": {
+    "building4EvidenceForMassing": "pass",
+    "osmBindingForMassing": "pass",
+    "massingBinary": "pass-preserved",
+    "mcp1Massing": "pass-preserved",
+    "threeCollision": "pass-preserved",
+    "formalMapAcceptance": "blocked",
+    "heroCandidate": "blocked",
+    "mcp2Hero": "not-entered",
+    "identity": "blocked",
+    "mcp3": "not-entered",
+    "buildingComplete": false
+  },
+  "verdict": {
+    "checkpoint": "clean-blocked-checkpoint",
+    "requiredToClose": [
+      "resolve-way-864493234-versus-rendered-service-road-contract-without-arbitrary-movement",
+      "obtain-building-4-side-depth-evidence",
+      "repeat-formal-map-collision-and-camera-acceptance",
+      "build-building-4-only-hero-from-accepted-massing-before-mcp2"
+    ],
+    "sharedIntegrationRequired": false
+  }
+}
