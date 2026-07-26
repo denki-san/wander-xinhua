@@ -207,6 +207,12 @@ test("Film Massing v2 候选锁定 MCP1 SHA 与两栋正式 transform", async ()
 
   for (const source of Object.values(candidate.sources)) {
     if (!source.path || !source.sha256) continue;
+    if (source.path === "app/scene/xinhua-road-landmarks-data.json") {
+      // 候选窗口只读冻结当时 registry；后续主窗口接入其他建筑会合法
+      // 推进共享文件，因此保留 review-time SHA 而不要求当前文件回退。
+      assert.match(source.sha256, /^[0-9a-f]{64}$/);
+      continue;
+    }
     assert.equal(await sha256(source.path), source.sha256);
   }
 });

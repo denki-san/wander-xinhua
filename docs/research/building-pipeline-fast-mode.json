@@ -46,6 +46,7 @@
       "label": "上海电影艺术中心",
       "tests": [
         "tests/test_film_art_center_quality_tiers.test.mjs",
+        "tests/test_film_art_center_map_candidate_v2.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
@@ -249,7 +250,8 @@
         "tests/test_building_massing_qa_contract.test.mjs",
         "tests/test_requested_poi_models.test.mjs",
         "tests/test_xinhua_community_center_massing_v2.test.mjs",
-        "tests/test_xinhua_community_center_final_gap.test.mjs"
+        "tests/test_xinhua_community_center_final_gap.test.mjs",
+        "tests/test_xinhua_community_center_map_candidate.test.mjs"
       ],
       "glbs": [
         "public/models/requested-pois/xinhua-community-center.glb",
@@ -265,6 +267,7 @@
       "label": "德必法华525",
       "tests": [
         "tests/test_debi_fahua_525_final_disposition.test.mjs",
+        "tests/test_debi_fahua_525_map_candidate.test.mjs",
         "tests/test_requested_poi_models.test.mjs"
       ],
       "glbs": [

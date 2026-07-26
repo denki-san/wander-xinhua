@@ -220,6 +220,12 @@ test("德必候选锁定现有 disposition、输入 SHA 与 Hero Hold 边界", a
   ]);
 
   for (const source of Object.values(candidate.sources)) {
+    if (source.path === "app/scene/xinhua-road-landmarks-data.json") {
+      // 德必候选不拥有共享 registry；其 review-time SHA 必须保留，
+      // 但其他建筑由主窗口接入后不能要求当前文件回退。
+      assert.match(source.sha256, /^[0-9a-f]{64}$/);
+      continue;
+    }
     assert.equal(await sha256(source.path), source.sha256);
   }
   assert.equal(
