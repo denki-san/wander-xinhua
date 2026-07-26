@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T21:06:36+08:00",
+  "snapshotAt": "2026-07-26T21:46:00+08:00",
   "snapshotBaseCommit": "04aff48-plus-main-window-film-v2",
   "scope": {
     "mode": "exact-18-building-fast-mode",
@@ -105,7 +105,7 @@
     {
       "id": "xinhua-villas-211",
       "name": "新华别墅211弄",
-      "evidence": "massing-pass-local-same-member-evidence-rescue-exhausted",
+      "evidence": "massing-pass-public-member-facts-improved-member-way-depth-rescue-exhausted",
       "hero": "hold-invalid-lineage",
       "identity": "missing",
       "massing": "pass",
@@ -122,7 +122,8 @@
         "docs/research/xinhua-villas-211-hero-readiness-adjudication.json",
         "docs/research/xinhua-villas-211-hero-lineage-member-depth-readiness.json",
         "docs/research/xinhua-villas-211-local-same-member-evidence-rescue.json",
-        "docs/research/xinhua-villas-211-gap-medium-blocker-2026-07-26.json"
+        "docs/research/xinhua-villas-211-gap-medium-blocker-2026-07-26.json",
+        "docs/research/xinhua-villas-211-public-primary-source-rescue-2026-07-26.json"
       ]
     },
     {
@@ -282,7 +283,7 @@
     {
       "id": "debi-fahua-525",
       "name": "德必法华525",
-      "evidence": "massing-footprint-pass-primary-membership-pending",
+      "evidence": "massing-footprint-pass-public-primary-source-rescue-exhausted-membership-pending",
       "hero": "hold-scope-polluted",
       "identity": "missing",
       "massing": "held-candidate-not-mcp1",
@@ -297,7 +298,8 @@
         "docs/research/debi-fahua-525-final-disposition.json",
         "docs/research/debi-fahua-525-map-candidate.json",
         "docs/research/debi-fahua-525-overlap-lineage-audit.json",
-        "docs/research/debi-fahua-525-evidence-gate-v2-audit.json"
+        "docs/research/debi-fahua-525-evidence-gate-v2-audit.json",
+        "docs/research/debi-fahua-525-public-primary-source-rescue-2026-07-26.json"
       ]
     },
     {
@@ -323,7 +325,7 @@
     {
       "id": "fics-xinhua-365",
       "name": "FICS新华365",
-      "evidence": "massing-pass-member-binding-blocked",
+      "evidence": "massing-pass-public-primary-source-rescue-exhausted-member-binding-blocked",
       "hero": "hold-invalid-lineage",
       "identity": "missing",
       "massing": "diagnostic-pass",
@@ -338,7 +340,8 @@
         "docs/research/fics-xinhua-365-final-gap-audit.json",
         "docs/research/fics-xinhua-365-membership-map-blocker.json",
         "docs/research/fics-xinhua-365-map-surface-audit.json",
-        "docs/research/fics-xinhua-365-exact-compound-audit-2026-07-26.json"
+        "docs/research/fics-xinhua-365-exact-compound-audit-2026-07-26.json",
+        "docs/research/fics-xinhua-365-public-primary-source-rescue-2026-07-26.json"
       ]
     },
     {
