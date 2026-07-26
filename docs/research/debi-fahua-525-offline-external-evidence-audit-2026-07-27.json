@@ -1,0 +1,396 @@
+{
+  "schemaVersion": 1,
+  "assetId": "debi-fahua-525",
+  "auditedAt": "2026-07-27",
+  "status": "offline-external-evidence-exhausted-no-unregistered-admissible-media",
+  "scope": {
+    "mode": "read-only-offline-external-evidence-audit",
+    "roots": [
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots",
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports",
+      "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base"
+    ],
+    "browserAccessed": false,
+    "networkAccessed": false,
+    "xiaohongshuAccessed": false,
+    "externalVolumeModified": false,
+    "mediaDownloaded": false,
+    "modelOrGeneratorModified": false,
+    "sharedFilesModified": false,
+    "registryOrRuntimeModified": false,
+    "recoveryOrHoldModified": false,
+    "retainedVisibilityOrMapQaRerun": false
+  },
+  "policy": {
+    "authority": "current-project-AGENTS-dynamic-evidence-storage-boundary",
+    "archiveTruth": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+    "wikiBoundary": "Dynamic per-asset evidence is not eligible for Threejs-3d-research or any other LLM Wiki.",
+    "legacyKnowledgeBaseTreatment": "Read-only predecessor archive checked for duplicates and text provenance only; no media was written or re-imported."
+  },
+  "localInputs": {
+    "queryContract": {
+      "path": "docs/research/debi-fahua-525-xiaohongshu-query-contract-2026-07-26.json",
+      "sha256": "9dc455bf4626a39f323bdb838b68f333e109a23e2d842b3cc1de54affdf02236"
+    },
+    "finalDisposition": {
+      "path": "docs/research/debi-fahua-525-final-disposition.json",
+      "sha256": "85c8d913ca5e297af1adc09df5fb0b9369bf3958226da6085bad4354e406b183"
+    },
+    "evidenceGate": {
+      "path": "docs/research/debi-fahua-525-evidence-gate-v2-audit.json",
+      "sha256": "41b0fdf0fba9d79bb48bebf987b0e4a163091d78f81ea1974f340f45a7b62748"
+    },
+    "overlapLineage": {
+      "path": "docs/research/debi-fahua-525-overlap-lineage-audit.json",
+      "sha256": "dbfab7ccafc85c7ed5c3826f90c06864a415f5a9379a0dfc30ecaccf5708f9d6"
+    },
+    "mapCandidate": {
+      "path": "docs/research/debi-fahua-525-map-candidate.json",
+      "sha256": "cf9df5eb34d7f844f07ddc5d1484f7507799637cc9b98a6d2a11ef81d37ad647"
+    },
+    "publicPrimarySourceRescue": {
+      "path": "docs/research/debi-fahua-525-public-primary-source-rescue-2026-07-26.json",
+      "sha256": "bfe7407787807311b4b0b5455525919ebd6cfb81779258e69d3705f23a8e90a2"
+    },
+    "publicPrimarySourceNote": {
+      "path": "docs/knowledge-sources/debi-fahua-525-public-primary-source-rescue-2026-07-26.md",
+      "sha256": "9b355bdac933414da2fffd0a612227bc51eb8c5c0d21ce38ca3a3a814f4b9e77"
+    }
+  },
+  "reproducibleSearch": {
+    "fileEnumeration": "find <root> -type f -print | LC_ALL=C sort",
+    "pathRegex": "debi[-_ ]?fahua[-_ ]?525|fahua[-_ ]?525|德必.{0,8}法华.{0,8}525|法华镇路.?525|德必525",
+    "contentGlobs": [
+      "*.md",
+      "*.json",
+      "*.txt",
+      "*.csv",
+      "*.tsv"
+    ],
+    "contentRegex": "debi[-_ ]?fahua[-_ ]?525|德必.{0,8}法华.{0,8}525|法华镇路.?525|dobechina.com/projects/mandr/77|2c91c2876e3f379f016e5e1fb33d1002|1309976|864847922|66394007|85686605|f6376a71e8505c27892d9cb6bbf60ffdae31a5148fe0ba6a7cc2eed233ed2d6a|d69d9fdd69ce9ae17126ea3212b4f2f831f139b789b2dc12f26a0ea31c8f9bc5|e9709b7608a3fa56333a95e6e1a0109167473ddfed7b86fd2bb5482bb4208009|a9bc1e6e2e510c935430feb26974ca27dfe2359c470605136f45a3fcbc7cb8ad",
+    "broadContentRegex": "德必法华|德必.{0,12}525|法华镇路.{0,8}525|Fahuazhen Road.{0,8}525|Dobe Fahua",
+    "mediaExtensionsRegex": "\\.(jpe?g|png|webp|gif|mp4|mov|m4v|webm|heic|avif|svg)$",
+    "sourceIdentityKeys": [
+      "https://www.dobechina.com/projects/mandr/77",
+      "2c91c2876e3f379f016e5e1fb33d1002",
+      "1309976",
+      "864847922",
+      "66394007",
+      "85686605"
+    ],
+    "digestMethod": "Apply LC_ALL=C sort to the newline-separated matched absolute path list, then shasum -a 256.",
+    "symlinkRule": "Do not follow symlinks. The old knowledge-base building-evidence symlink target is separately enumerated as legacy-imports.",
+    "filenameLimitation": "No newline-containing filenames were observed in the three roots."
+  },
+  "searchScopes": [
+    {
+      "id": "dynamic-snapshots",
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots",
+      "fileCount": 5675,
+      "allFileListSha256": "35a2cfad05e93ff0cf0274c43e8b17add25f3cdce64ee859e1a26391d6491e30",
+      "pathHitCount": 46,
+      "pathHitListSha256": "7197d90bc4972d19eddb7ee2ee6f7e346297444c27e92a9fdc3b048706d3b0f9",
+      "textHitCount": 121,
+      "textHitListSha256": "a1311a653433dbf2ef14b023a280261f2cef931f37e150e7d32a5d5f498e3262",
+      "mediaPathHitCount": 26,
+      "snapshots": [
+        {
+          "id": "2026-07-26-5383f2a",
+          "manifestSha256": "76fd29c9d89477778ef9269830751e24c648965d883335ddd6170bd1a6c2fe23",
+          "declaredFileCount": 1210,
+          "declaredByteCount": 622911488,
+          "checksumListSha256": "1ac3c5e8d1fbaf978949ba64888c00dba34aa7d8d256b2ec2c395ac860f18736",
+          "checksumVerification": "pass"
+        },
+        {
+          "id": "2026-07-26-ad37273",
+          "manifestSha256": "5b5eb28ec0d943d16231c3f9440036770d55389e67e98ad24e1546e2f0c58e7b",
+          "declaredFileCount": 979,
+          "declaredByteCount": 450568192,
+          "checksumListSha256": "2ba0c627cbe0f9b5dd24fcb34a93521197b11fb8ca2e662b48d2b56a18b1c041",
+          "checksumVerification": "pass"
+        },
+        {
+          "id": "2026-07-26-b20494c",
+          "manifestSha256": "1d1278811a8cc3470b2597667b8e6b3ef78c5f71b79963a03763e5fcc7fbd645",
+          "declaredFileCount": 1155,
+          "declaredByteCount": 476893184,
+          "checksumListSha256": "138f8fa1651cdb0916057a02ba3868eb933693ab962df43b01dca947b796eb7d",
+          "checksumVerification": "pass"
+        },
+        {
+          "id": "2026-07-27-5c5fa52",
+          "manifestSha256": "73b27b3d50367d1976fdea7015a8e0fb02866480f6979f7a5e89a99888a8471a",
+          "declaredFileCount": 1159,
+          "declaredByteCount": 476061696,
+          "checksumListSha256": "98c53f3da1e41303ef028ff07e36b556a258185f8916b41af593002e5fc0ba3d",
+          "checksumVerification": "pass"
+        },
+        {
+          "id": "2026-07-27-a40fe03",
+          "manifestSha256": "848e8c0075f3be32584deacd3d0931545355c548416b6038cf419bbf37f85aff",
+          "declaredFileCount": 1162,
+          "declaredByteCount": 477016064,
+          "checksumListSha256": "f7726a75c1fdc5cd69336be93159db279d382ce24dea1e60a10c480b2479ab36",
+          "checksumVerification": "pass"
+        }
+      ]
+    },
+    {
+      "id": "legacy-imports",
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports",
+      "fileCount": 1671,
+      "allFileListSha256": "6c3cf03f79f14a89871fe525c04c4f484f5f66f9827406dabbcbec8ca837688d",
+      "pathHitCount": 16,
+      "pathHitListSha256": "af7400e2ae51e330be3df29e2922af6358136a4674f470c434aaacfda8471443",
+      "textHitCount": 23,
+      "textHitListSha256": "86010981aba667cdd38bff16f6634f9089657506d9c15e333bde7e6205e7e7e1",
+      "mediaPathHitCount": 10,
+      "checksumList": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/SHA256SUMS",
+      "checksumListSha256": "0b868ac38160bbb2cfad68b5aef0ce5a5f46180de8e2209cbf25751ea18cc2d2",
+      "checksumBaseDirectory": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence",
+      "checksumVerification": "pass"
+    },
+    {
+      "id": "old-threejs-knowledge-base",
+      "root": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base",
+      "fileCount": 316,
+      "allFileListSha256": "8ebbc61592a5a45ca6aec63b0d1673ad1afec99741bd5d145d72caed8f6f35da",
+      "pathHitCount": 1,
+      "pathHitListSha256": "0d19953a99ef78dc3f4b4c62a55787f53f4e5952a05d98e940223bc1b4de055b",
+      "textHitCount": 4,
+      "textHitListSha256": "ce31ce945b60c0005a051f3a3f5ba511628080ac38e34e3c640f763bdc49d595",
+      "mediaPathHitCount": 0,
+      "directAssetPathHit": {
+        "path": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/debi-fahua-525-public-primary-source-rescue-2026-07-26/README.md",
+        "sha256": "9b355bdac933414da2fffd0a612227bc51eb8c5c0d21ce38ca3a3a814f4b9e77",
+        "classification": "legacy-text-only-public-primary-source-rescue"
+      },
+      "otherTextHitClassification": "OSM replacement metadata only; no real-world Debi media"
+    }
+  ],
+  "crossScopeResults": {
+    "broadTextHitCount": 56,
+    "broadTextHitListSha256": "9ef47dea88abdbf3037941101a9840f11f3e00a3e78de9c27f47520568bf289d",
+    "physicalMediaPathHitCount": 36,
+    "mediaPathHitListSha256": "c9212c5d963aa8165d302abc3554f6983dea6a8768c99100d5119d836844dbc3",
+    "uniqueMediaSha256Count": 6,
+    "videoPathHitCount": 0,
+    "officialSourceIdentityTextPathHitCount": 22,
+    "assetManifestOrSourceRecordPhysicalHitCount": 15,
+    "unregisteredAdmissibleMediaCount": 0,
+    "unregisteredAdmissibleManifestOrSourceRecordCount": 0
+  },
+  "candidateDisposition": [
+    {
+      "id": "registered-building-and-compound-photos",
+      "uniqueSha256Count": 3,
+      "registeredBy": [
+        "docs/research/poi-reference-manifest.json",
+        "docs/research/debi-fahua-525-evidence-gate-v2-audit.json"
+      ],
+      "captures": [
+        {
+          "captureId": "main-building-front",
+          "sha256": "f6376a71e8505c27892d9cb6bbf60ffdae31a5148fe0ba6a7cc2eed233ed2d6a",
+          "coverage": "low-angle-front-and-525-roof-sign-no-street-edge"
+        },
+        {
+          "captureId": "internal-courtyard-drive",
+          "sha256": "d69d9fdd69ce9ae17126ea3212b4f2f831f139b789b2dc12f26a0ea31c8f9bc5",
+          "coverage": "internal-built-edge-and-open-drive-no-external-road-continuity"
+        },
+        {
+          "captureId": "garden-side-building",
+          "sha256": "e9709b7608a3fa56333a95e6e1a0109167473ddfed7b86fd2bb5482bb4208009",
+          "coverage": "internal-garden-axis-no-road-or-georeferenced-member-control"
+        }
+      ],
+      "newEvidence": false,
+      "reason": "All three operator-page captures and their exact duplicates were already registered; they do not measure Fahuazhen Road or bind the visible masses to OSM members."
+    },
+    {
+      "id": "heritage-stone-site-detail",
+      "sha256": "a9bc1e6e2e510c935430feb26974ca27dfe2359c470605136f45a3fcbc7cb8ad",
+      "uniqueSha256Count": 1,
+      "classification": "same-campus-historical-site-detail-hold-outside-pure-building-scope",
+      "newEvidence": false,
+      "reason": "The image supports the interior historical display only; it cannot establish a building footprint, road edge, entrance sequence or pure-building Hero lineage."
+    },
+    {
+      "id": "generated-and-runtime-media",
+      "uniqueSha256Count": 2,
+      "classification": "legacy-Hero preview and Three.js runtime derivative",
+      "newEvidence": false,
+      "reason": "Generated media cannot prove the real road width, curb, compound members, unseen footprint or source lineage."
+    },
+    {
+      "id": "official-source-records",
+      "sourceIds": [
+        "dobechina-mandr-77",
+        "ssme-2c91c2876e3f379f016e5e1fb33d1002",
+        "shcn-1309976"
+      ],
+      "offlineBinaryState": "only-the-four-already-registered-reference-binaries-are-present",
+      "newSourceRecordFound": false,
+      "newEvidence": false,
+      "reason": "Repeated JSON, Markdown and checksum references add no survey, dimensioned plan, road cross-section, member list or access classification."
+    },
+    {
+      "id": "fahua-heritage-cross-asset",
+      "classification": "wrong-subject-cross-asset-hold",
+      "newEvidence": false,
+      "reason": "Fahua Heritage arch and Xiaohongshu frames belong to the separate fahua-heritage asset and may not be used to solve Debi 525 building or road gates."
+    },
+    {
+      "id": "old-knowledge-base-readme",
+      "classification": "legacy-text-only-public-primary-source-rescue",
+      "newEvidence": false,
+      "reason": "The direct Debi directory contains only README.md and no photo, video, frame or manifest."
+    }
+  ],
+  "visualFindings": [
+    {
+      "view": "main-building-front",
+      "observed": "The low-angle image shows the six-storey white vertical-frame facade, external switchback stair and 525 roof sign.",
+      "inferred": "It is strong same-building identity evidence but has no visible curb, external roadway or locatable entrance-to-street sequence.",
+      "unknown": [
+        "camera direction",
+        "accepted OSM way",
+        "street entrance position",
+        "Fahuazhen Road curb",
+        "road width",
+        "rear footprint"
+      ]
+    },
+    {
+      "view": "internal-courtyard-drive",
+      "observed": "The image shows a paved internal drive, one long built edge, bamboo island, parking and a gateway-like opening.",
+      "inferred": "It corroborates an open internal space but does not connect that space continuously to Fahuazhen Road or distinguish all compound members.",
+      "unknown": [
+        "external entrance continuity",
+        "courtyard polygon",
+        "member-to-way assignment",
+        "north direction",
+        "measured drive width",
+        "road-edge relation"
+      ]
+    },
+    {
+      "view": "garden-side-building",
+      "observed": "The image shows an internal garden axis, a multi-storey white facade and side parking structures.",
+      "inferred": "It adds an internal perspective but lacks a shared survey control with the front and courtyard images.",
+      "unknown": [
+        "visible member identity",
+        "accepted footprint",
+        "camera direction",
+        "street relation",
+        "complete depth",
+        "compound boundary"
+      ]
+    }
+  ],
+  "roadAndMembershipFindings": {
+    "representativeWay": {
+      "id": 864847922,
+      "confidence": "medium-secondary-map-corroborated-not-cadastral",
+      "addressOrLevelsTagsPresent": false,
+      "primaryMembershipProofFoundOffline": false
+    },
+    "otherCompoundMemberCandidates": [
+      864847921,
+      864847920,
+      228966550,
+      864847917,
+      228966551
+    ],
+    "memberListOrFootprintPlanFoundOffline": false,
+    "entranceContinuityControlFoundOffline": false,
+    "fahuazhenRoad": {
+      "osmWayId": 66394007,
+      "widthOrLanesTagPresent": false,
+      "currentRenderedFullWidthSceneUnits": 7.25,
+      "exactFootprintAsphaltClearanceSceneUnits": -0.6332288789337808,
+      "measuredWidthOrAuthoritativeCrossSectionFoundOffline": false,
+      "curbAndFootprintInOneLocatableViewFoundOffline": false,
+      "accessClassificationFoundOffline": false,
+      "status": "blocked-true-footprint-overlap-under-current-stylized-width"
+    },
+    "dingxiRoad": {
+      "osmWayId": 85686605,
+      "exactFootprintAsphaltClearanceSceneUnits": 1.3522828004512357,
+      "status": "retained-pass-not-current-blocker"
+    }
+  },
+  "retainedStages": {
+    "recoveryMassingV2": {
+      "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+      "sha256": "b9093a059417e15e722b836a38276fecabe769f6bbc9c63dfea4a08c9d95d63e",
+      "runtimeVisibility": "pass-preserved",
+      "formalMap": "blocked-membership-and-fahuazhen-road-overlap",
+      "action": "retain unchanged; do not rerun visibility"
+    },
+    "isolatedMassingV3": {
+      "commit": "0a5bbe811c5647d96a20bfafc85d6f6c7d4a7709",
+      "sha256": "5602771c1ba0572c8368a07695be715aaffb1c492ebe24aae25c75f1021768a1",
+      "sourceWayId": 864847922,
+      "mcp1": "pending-main-window-batch-review",
+      "formalMap": "blocked",
+      "action": "retain candidate; this audit does not promote or rebuild it"
+    }
+  },
+  "legacyHeroLineage": {
+    "path": "public/models/requested-pois/debi-fahua-525.glb",
+    "sha256": "1f5af3879410bec374b33183d2a89c01f01b1994b72327b344bb6d792b0a6a56",
+    "assetLevelBuildRecordPresent": false,
+    "derivedFromAcceptedMassing": false,
+    "scopePollution": [
+      "site slab",
+      "fish pond and pond edge",
+      "bamboo clusters",
+      "two ginkgo trees",
+      "heritage stone"
+    ],
+    "disposition": "retain-hold-not-mcp2-or-identity-parent"
+  },
+  "evidenceClassification": {
+    "observed": [
+      "All five dynamic-evidence snapshot checksum lists pass from their snapshot roots.",
+      "The legacy-import checksum list passes from the dynamic-evidence root required by its prefixed paths.",
+      "The 36 explicit Debi media path hits collapse to six unique SHA-256 values: three registered building or compound photos, one site-history detail and two generated or runtime derivatives.",
+      "The newest a40fe03 snapshot adds only exact-SHA duplicates for Debi 525.",
+      "No Debi-associated video, Xiaohongshu source ID, survey, dimensioned plan, road cross-section or new source record is present.",
+      "The old 3D knowledge-base direct Debi directory contains one legacy README and no media."
+    ],
+    "inferred": [
+      "The offline external archive is reasonably exhausted for traceably attributable Debi 525 evidence.",
+      "The photographs corroborate compound identity and an open internal drive but do not bind any visible building to way 864847922 or the five other candidate members.",
+      "No offline material releases the Fahuazhen Road overlap, entrance continuity, compound membership, formal map, MCP1 or legal Hero-lineage gates."
+    ],
+    "unknown": [
+      "The primary or cadastral boundary of the Debi compound and its complete member list.",
+      "The measured Fahuazhen Road asphalt width, curb position and access classification at the nearest footprint point.",
+      "A continuous, independently locatable sequence from the signed street entrance into the courtyard and target facade.",
+      "A pure-building Hero lineage derived from a main-window-accepted Massing SHA."
+    ]
+  },
+  "verdict": {
+    "offlineArchiveExhausted": true,
+    "queryContractExecuted": false,
+    "primaryCompoundMembershipFound": false,
+    "measuredFahuazhenRoadControlFound": false,
+    "entranceContinuityFound": false,
+    "acceptedMassingExists": false,
+    "mcp1Passed": false,
+    "formalMapAccepted": false,
+    "heroAuthorized": false,
+    "identityAuthorized": false,
+    "mcp2Authorized": false,
+    "mcp3Authorized": false,
+    "runtimeDisableEligible": false,
+    "reasonRuntimeDisableNotEligible": "The offline archive was exhausted, but the authenticated Xiaohongshu query contract has not been executed and the main window has not adjudicated a reasonable public-search exhaustion.",
+    "recoveryVisibilityRetention": true,
+    "permanentRetention": true,
+    "nextGate": "Main-window adjudication requires primary compound membership plus measured or authoritative Fahuazhen Road surface controls before formal map acceptance; only then may MCP1 and a pure-building Hero lineage proceed."
+  }
+}
