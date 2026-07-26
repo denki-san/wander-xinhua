@@ -8841,3 +8841,36 @@ AssertionError: 5 !== 3
 - **Notes**: 后台写入停止后单独重跑状态矩阵测试 4/4 通过；全仓回归随后重新执行。
 
 ---
+## [ERR-20260726-093] fics_audit_froze_public_registry_as_immutable_input
+
+**Logged**: 2026-07-26T15:31:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+FICS membership blocker 测试把建筑分支审查时的公共 landmark registry SHA
+当成永久不可变输入；主窗口完成其他建筑的公共接线后，FICS 专项发生假回归。
+
+### Error
+```text
+app/scene/xinhua-road-landmarks-data.json
+actual:   6df9f443...
+expected: f87c8fde...
+```
+
+### Context
+- FICS 的 OSM 快照、Massing record、道路 service overlap 和成员集 blocker 均未漂移；
+- 变化来自邬达克与口袋公园的主窗口公共 runtime 接线；
+- 建筑分支不得冻结公共交叉文件的未来 SHA。
+
+### Suggested Fix
+保留审查时 SHA 作为可追溯快照，但用显式 `shaPolicy` 标记为公共交叉文件；
+专项测试继续严格校验建筑专属证据和地图输入，不要求公共 registry 永久不变。
+
+### Resolution
+- **Resolved**: 2026-07-26T15:32:00+08:00
+- **Notes**: FICS record 增加 `review-time-snapshot-public-cross-cut-file`，
+  测试不再把该历史 SHA 当作当前公共文件合同。
+
+---

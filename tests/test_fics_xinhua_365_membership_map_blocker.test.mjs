@@ -41,6 +41,24 @@ test("FICS membership blocker 固定输入、候选集与冻结 transform", asyn
   assert.equal(blocker.membership.formalMembership, "blocked-no-primary-or-cadastral-binding");
 });
 
+test("FICS 审查时公共 registry 快照与主窗口当前值分开记录", async () => {
+  const blocker = await json(blockerPath);
+  const snapshot = blocker.sharedRegistrySnapshot;
+  const registry = await json(snapshot.path);
+  const currentEntry = registry.landmarks.find(({ id }) => id === blocker.assetId);
+
+  assert.equal(snapshot.capturedAtAudit, true);
+  assert.equal(snapshot.liveHashRequired, false);
+  assert.match(snapshot.sha256AtAudit, /^[a-f0-9]{64}$/);
+  assert.notEqual(snapshot.sha256AtAudit, snapshot.currentMainWindowShaAtIntegration);
+  assert.equal(await sha256(snapshot.path), snapshot.currentMainWindowShaAtIntegration);
+  assert.equal(snapshot.ficsEntryModified, false);
+  assert.ok(currentEntry);
+  assert.deepEqual(currentEntry.position, blocker.formalPlacement.position);
+  assert.equal(currentEntry.yaw, blocker.formalPlacement.yaw);
+  assert.equal(currentEntry.scale, blocker.formalPlacement.scale);
+});
+
 test("FICS OSM way 没有名称或门牌，不能伪装成正式成员", async () => {
   const [blocker, snapshot] = await Promise.all([
     json(blockerPath),

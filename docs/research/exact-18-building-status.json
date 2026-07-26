@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T15:24:00+08:00",
-  "snapshotBaseCommit": "8414aa4",
+  "snapshotAt": "2026-07-26T15:30:00+08:00",
+  "snapshotBaseCommit": "4f75344",
   "scope": {
     "mode": "exact-18-building-fast-mode",
     "buildingCount": 18,
@@ -158,7 +158,8 @@
       "runtimePolicy": "massing-only-no-tier-promotion",
       "records": [
         "docs/research/villa-le-bec-final-gap-audit.json",
-        "docs/research/villa-le-bec-map-candidate.json"
+        "docs/research/villa-le-bec-map-candidate.json",
+        "docs/research/villa-le-bec-three-tier-final-disposition.json"
       ]
     },
     {
@@ -176,7 +177,8 @@
       "overall": "blocked-membership-hero-identity",
       "runtimePolicy": "diagnostic-only-no-promotion",
       "records": [
-        "docs/research/shanghai-orchestra-final-gap-audit.json"
+        "docs/research/shanghai-orchestra-final-gap-audit.json",
+        "docs/research/shanghai-orchestra-membership-tier-final-disposition-2026-07-26.md"
       ]
     },
     {
@@ -290,7 +292,8 @@
       "overall": "blocked-service-road-and-tiers",
       "runtimePolicy": "diagnostic-only-no-promotion",
       "records": [
-        "docs/research/fics-xinhua-365-final-gap-audit.json"
+        "docs/research/fics-xinhua-365-final-gap-audit.json",
+        "docs/research/fics-xinhua-365-membership-map-blocker.json"
       ]
     },
     {
