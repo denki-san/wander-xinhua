@@ -1,0 +1,632 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-329",
+  "auditedAt": "2026-07-26",
+  "purpose": "read-only-adjudication-of-recovery-massing-v2-and-new-hero-identity-readiness",
+  "baseline": {
+    "requestedStableCommit": "ebae8d865a15761f32d890959499911acf8b092d",
+    "worktreeBaseCommit": "ebae8d865a15761f32d890959499911acf8b092d",
+    "mainCommitObservedAtWorktreeCreation": "cb3fb142ff8356aeebbcad9006a2f140d34282ea",
+    "uncommittedMainChangesAbsorbed": false
+  },
+  "verdict": {
+    "status": "blocked-new-hero-and-identity-insufficient-same-subject-evidence-and-subject-contract",
+    "recoveryMassingV2": "preserved-qualified-recovery-structure-and-runtime-visual-stage-only",
+    "currentEvidenceBoundMassing": "massing-v3-formal-map-and-runtime-pass-frozen",
+    "newHeroAuthorized": false,
+    "identityDerivationAuthorized": false,
+    "modelingPerformed": false,
+    "reason": "Recovery Massing-v2 的可编辑源、GLB、build record 与四张 QA 图保持精确 SHA，足以作为既有 Recovery 阶段冻结保留，但其五个节点仍是未绑定候选，且当前树缺少该记录引用的共享生成器、geometry spec 与旧 Massing brief。后续 Massing-v3 已用15、36、40、42四成员完成正式地图与运行时验收；然而 stable ID 仍代表329弄 compound，不是任一代表单栋。现有同主体多视角与成员到 footprint 证据不足以完成 compound Hero，旧 Hero 又是211弄2号跨资产污染并含场地装饰，因此不能授权新 Hero，也不存在合法 Hero SHA 可派生 Identity。"
+  },
+  "scope": {
+    "included": [
+      "Recovery Massing-v2 lineage, binary structure and inherited QA",
+      "accepted four-member Massing-v3 map and runtime lineage",
+      "local repository photos and existing view matrix",
+      "329-lane compound versus individual-member subject contract",
+      "legacy Hero origin, structure and scope pollution",
+      "standalone Identity artifact and derivation readiness"
+    ],
+    "excludedAndUntouched": [
+      "Blender and all model generators",
+      "Blend and GLB binaries",
+      "Fast and exact manifests",
+      "app runtime and registry",
+      "public assets",
+      "browser, XHS and network access",
+      "trees and full-map decoration",
+      "other buildings"
+    ],
+    "readOnlyEvidenceReview": true,
+    "browserOrXhsAccessed": false,
+    "networkAccessed": false,
+    "blenderOpened": false,
+    "generatorRun": false,
+    "binaryRebuilt": false,
+    "sharedFilesModified": false,
+    "legacyHeroModified": false,
+    "recoveryMassingV2Modified": false,
+    "massingV3Modified": false
+  },
+  "recordPrecedence": [
+    {
+      "rank": 1,
+      "path": "docs/research/xinhua-villas-329-hero-identity-readiness-deep-audit.json",
+      "role": "current read-only readiness adjudication"
+    },
+    {
+      "rank": 2,
+      "path": "docs/research/xinhua-villas-329-hero-readiness-adjudication.json",
+      "role": "accepted Massing map/runtime freeze and prior Hero blocker"
+    },
+    {
+      "rank": 3,
+      "path": "docs/research/xinhua-villas-329-threejs-runtime-qa-v2.json",
+      "role": "formal Massing-v3 map, runtime and collision acceptance"
+    },
+    {
+      "rank": 4,
+      "path": "docs/research/xinhua-villas-329-map-conflict-superseding-adjudication-2026-07-26.md",
+      "role": "supersedes the stale map blocker in final-disposition"
+    },
+    {
+      "rank": 5,
+      "path": "docs/research/xinhua-villas-329-reference-manifest.json",
+      "role": "current subject, photo and coverage boundary"
+    },
+    {
+      "rank": 6,
+      "path": "docs/research/xinhua-villas-329-member-binding.json",
+      "role": "Massing-grade member-to-footprint binding"
+    },
+    {
+      "rank": 7,
+      "path": "docs/research/xinhua-villas-329-massing-recovery-checkpoint.json",
+      "role": "historical Recovery Massing-v2 preservation boundary"
+    },
+    {
+      "rank": 8,
+      "path": "docs/research/xinhua-villas-329-final-disposition.json",
+      "role": "historical Hero metrics only; its map blocker fields are stale and superseded"
+    }
+  ],
+  "sources": {
+    "referenceManifest": {
+      "path": "docs/research/xinhua-villas-329-reference-manifest.json",
+      "sha256": "a66b79290bf08fd79b3c6730602d81efac20c02c659a44eb63e1825dad7ba985"
+    },
+    "modelBrief": {
+      "path": "docs/research/xinhua-villas-329-model-brief.md",
+      "sha256": "865ad3894ae2d10eed3b929b6fc744699f4c6f405f9075befe5de98750a17d78"
+    },
+    "memberBinding": {
+      "path": "docs/research/xinhua-villas-329-member-binding.json",
+      "sha256": "2d34b0c7839014776b98255febe722d87c45d39063a6b4b98838fdc02ba80330"
+    },
+    "xhsInventory": {
+      "path": "docs/research/xinhua-villas-329-xhs-evidence-inventory.json",
+      "sha256": "5e763e646a88b48756e688e8dcb9c1bb525339b6fd05b2e2ee8d93a7846eee7c"
+    },
+    "xhsSourceNote": {
+      "path": "docs/knowledge-sources/xinhua-villas-329-xhs-evidence.md",
+      "sha256": "e84c11142998312c40b80cb5ec22e77607bbfd6635807cfc96f4266ade1ede07"
+    },
+    "recoveryCheckpoint": {
+      "path": "docs/research/xinhua-villas-329-massing-recovery-checkpoint.json",
+      "sha256": "c39ac0d905a0465d37c26f83f11f7c9e4342d37ba3f2c56051b547ed015adcde"
+    },
+    "recoveryMassingV2BuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.json",
+      "sha256": "b0b6c2f8e8e25a5685b5d6998bbbb24e49f5ce8d796ac42d02f3cef4eb9e794b"
+    },
+    "mapCandidate": {
+      "path": "docs/research/xinhua-villas-329-map-candidate.json",
+      "sha256": "4f292d3b168c8188326892c7054c3464a18755d53abccd32cf98719f2a0b3d14"
+    },
+    "runtimeQaV2": {
+      "path": "docs/research/xinhua-villas-329-threejs-runtime-qa-v2.json",
+      "sha256": "1cc5ba6b63cce2af19105bcf448b6057cbc53c0fcd740654e1afb0f89a20a9f1"
+    },
+    "mapSupersession": {
+      "path": "docs/research/xinhua-villas-329-map-conflict-superseding-adjudication-2026-07-26.md",
+      "sha256": "a69c42e48ef4b4719ede0c4280d9ba34316390659cdeb97165a0afb0cfd9e967"
+    },
+    "priorHeroReadiness": {
+      "path": "docs/research/xinhua-villas-329-hero-readiness-adjudication.json",
+      "sha256": "28169cad1006dca9c43e03e69e509a0f872481e6c6c35f226210fc3833238008"
+    },
+    "historicalFinalDisposition": {
+      "path": "docs/research/xinhua-villas-329-final-disposition.json",
+      "sha256": "c8174c70cbcb0cc9e10899904eecf08b30cb932f9d14b8c290ba0e39e7be048a"
+    },
+    "massingV3BuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.json",
+      "sha256": "9f8d1d2dcadc754fcad17df092bb44de5ff87cdeab654daa89db6bec3911a5f1"
+    },
+    "massingV3Blend": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.blend",
+      "sha256": "68004686207183ee7276c52b6c4805dc3233c7fd76d19fb9ba11d254444709c1"
+    },
+    "massingV3Glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
+      "sha256": "f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704"
+    },
+    "legacyHeroGenerator": {
+      "path": "scripts/create_xinhua_road_models.py",
+      "sha256": "324be84a32ed3d43ff0bc1ceaca040e8e46f68aff21151b1bafa4ae524f6f3c6"
+    },
+    "registry": {
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "6df9f4439679ff72203ef023cab289532df4c1d9c71a4242cfd6ef155e4055e8"
+    },
+    "massingQaContract": {
+      "path": "app/scene/building-massing-qa-contract.mjs",
+      "sha256": "bf31e7fd359165640b1384b164aeac83b0eaa2977a46b03cc1ad24fac525abaa"
+    },
+    "overviewIdentityContract": {
+      "path": "app/scene/xinhua-road-identity-contract.ts",
+      "sha256": "f4fa0947777bf9e8404588b25eb3f1a95eb83a17e022de9e785e6e0b076bc2ba"
+    },
+    "fastManifest": {
+      "path": "docs/research/building-pipeline-fast-mode.json",
+      "sha256": "292fe6de8e4bb82bb68520031ff798ed53c2a6d843abcf45f9e54e8e93c0b8a4"
+    },
+    "legacy329Reference": {
+      "path": "docs/research/assets/landmark-comparison/xinhua-villas-329-real.jpg",
+      "sha256": "4e6862de23c5667ed3497f681ef19fdcf5a22e58b996c3e9b557efab34f7ed16"
+    },
+    "official211Member2Reference": {
+      "path": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-2-official-2025.jpg",
+      "sha256": "3568005a4e89a6ce95abf4be19fb22ab0dd277d17622fdd16a9ccad20d1496aa"
+    },
+    "villas211ReferenceManifest": {
+      "path": "docs/research/xinhua-villas-211-reference-manifest.json",
+      "sha256": "c112f5e2b20231de5d42ee1a483a701220d9dcd65d7aa9114c8d0cb32968ed46"
+    }
+  },
+  "sourceShaPolicy": {
+    "currentFileImmutable": [
+      "referenceManifest",
+      "modelBrief",
+      "memberBinding",
+      "xhsInventory",
+      "xhsSourceNote",
+      "recoveryCheckpoint",
+      "recoveryMassingV2BuildRecord",
+      "mapCandidate",
+      "runtimeQaV2",
+      "mapSupersession",
+      "priorHeroReadiness",
+      "historicalFinalDisposition",
+      "massingV3BuildRecord",
+      "massingV3Blend",
+      "massingV3Glb",
+      "legacy329Reference",
+      "official211Member2Reference"
+    ],
+    "baselineCommitBlobSnapshot": [
+      "legacyHeroGenerator",
+      "registry",
+      "massingQaContract",
+      "overviewIdentityContract",
+      "fastManifest",
+      "villas211ReferenceManifest"
+    ],
+    "baselineCommit": "ebae8d865a15761f32d890959499911acf8b092d",
+    "baselineSemanticChecks": [
+      "legacyHeroGenerator build_xinhua_villas_329 function"
+    ],
+    "currentSemanticChecks": [
+      "registry xinhua-villas-329 model and placement",
+      "Massing QA contract xinhua-villas-329 v3 model",
+      "overview identity xinhua-villas-329 villa-row mapping"
+    ],
+    "reason": "跨建筑共享文件允许在集成时因其他资产合法变化；其审计时 SHA 锁基线 Git blob，当前工作树只验证329专属语义，避免整文件 SHA 假回归。"
+  },
+  "recoveryMassingV2": {
+    "sourceRecoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "checkpointCommit": "3b88ed3298ec0ce608f82880fbd71495f5eb8f57",
+    "status": "preserved-qualified-recovery-structure-and-runtime-visual-stage-only",
+    "rebuildRequired": false,
+    "rebuildAuthorized": false,
+    "preservedArtifacts": {
+      "blend": {
+        "path": "assets/models/source/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.blend",
+        "sha256": "e492dbe99b500dc01d02ad1774541d7c7b922988bc4e52a50e05d8b2155307c5",
+        "byteIdenticalToRecovery": true
+      },
+      "glb": {
+        "path": "public/models/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.glb",
+        "sha256": "f7ade44ba879dead433abd006603a613520af730d9a2a35dada412b99a0c3819",
+        "byteIdenticalToRecovery": true,
+        "bytes": 8244,
+        "nodes": 5,
+        "meshes": 5,
+        "primitives": 5,
+        "triangles": 60,
+        "materials": 1,
+        "images": 0,
+        "textures": 0
+      },
+      "buildRecord": {
+        "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.json",
+        "sha256": "b0b6c2f8e8e25a5685b5d6998bbbb24e49f5ce8d796ac42d02f3cef4eb9e794b",
+        "byteIdenticalToRecovery": true
+      }
+    },
+    "qaArtifacts": [
+      {
+        "path": "test_artifacts/all-models/massing-v2/test_xinhua-villas-329-massing-v2-canonical.png",
+        "sha256": "bd7e80ff5b8c85fb720aceb6b5a05a1cb52b974ea3a57760d22c30048f6290db",
+        "meaning": "Recovery fixed-camera preview, not formal MCP1"
+      },
+      {
+        "path": "test_artifacts/all-models/massing-v2/test_xinhua-villas-329-massing-v2-side.png",
+        "sha256": "350f57a1a05dafebb24c3e66f94a42ed0eea784e18b0e41686340348433c3da8",
+        "meaning": "Recovery fixed-camera side preview, not formal MCP1"
+      },
+      {
+        "path": "test_artifacts/all-models/massing-v2/test_xinhua-villas-329-massing-v2-threejs.png",
+        "sha256": "e9a2b1eea5d6558fad74da51f6402461abf40df8f27971d98ff7e8d461d70d12",
+        "meaning": "inherited runtime visual evidence only"
+      },
+      {
+        "path": "test_artifacts/all-models/massing-v2/test_xinhua-villas-329-massing-v2-threejs-isolated.png",
+        "sha256": "d987ed68268a74043f4bdcfb4edae89daeb89751dbf9bf2e5bac3b4de3a34c49",
+        "meaning": "inherited isolated runtime visual evidence only"
+      }
+    ],
+    "recoverySourceOnlyDependencies": [
+      {
+        "path": "scripts/create_xinhua_road_clean_massing_models.py",
+        "sourceCommitSha256": "596ce3f3abf8134bbf43f0fb70075984be84739e03f416c52865e3bcbc13d8d9",
+        "presentInCurrentWorktree": false
+      },
+      {
+        "path": "docs/research/xinhua-road-clean-massing-geometry-spec.json",
+        "sourceCommitSha256": "6429ce8d273751c4bc7351f5e8e594818a97ea12aeee258b1945e512f69f32b8",
+        "presentInCurrentWorktree": false
+      },
+      {
+        "path": "docs/research/xinhua-road-massing-model-brief.md",
+        "sourceCommitSha256": "dc8f5637a6e7cc05068d685640e5164e0f57ee045f52a16bd8912ccfa5def3b8",
+        "presentInCurrentWorktree": false
+      }
+    ],
+    "nodeSemantics": {
+      "sourceWayIds": [
+        864485664,
+        864493173,
+        864493174,
+        864493244,
+        864493245
+      ],
+      "candidateStatus": "five-member-candidates-pending",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "mapBinding": "pending"
+    },
+    "qualifiedFor": [
+      "frozen Recovery stage continuity",
+      "editable-source and GLB container integrity",
+      "inherited runtime visual evidence"
+    ],
+    "notQualifiedFor": [
+      "subject-specific member binding",
+      "formal map acceptance",
+      "Hero source lineage",
+      "Identity derivation",
+      "production tier promotion"
+    ],
+    "reasonNotToRedo": "后续 evidence-bound Massing-v3 已正式通过地图和运行时；重做 Recovery Massing-v2 不会补足 Hero 所缺的同主体多视角、成员归属或 compound 范围授权。"
+  },
+  "currentAcceptedMassing": {
+    "tierFolder": "massing-v3",
+    "glbPath": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
+    "modelSha256": "f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704",
+    "blendPath": "assets/models/source/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.blend",
+    "blendSha256": "68004686207183ee7276c52b6c4805dc3233c7fd76d19fb9ba11d254444709c1",
+    "glbStructure": {
+      "bytes": 21632,
+      "nodes": 4,
+      "meshes": 4,
+      "primitives": 10,
+      "triangles": 204,
+      "materials": 4,
+      "images": 0,
+      "textures": 0
+    },
+    "members": [
+      "15",
+      "36",
+      "40",
+      "42"
+    ],
+    "placement": {
+      "position": [
+        -42.13,
+        79.48
+      ],
+      "yaw": -0.38,
+      "scale": 0.62
+    },
+    "mcp1": "pass-current-sha-visual-and-structure",
+    "formalMassingAcceptance": "pass",
+    "runtimeLoad": "pass",
+    "runtimeCollision": "pass-hard-collision-before-interior-target",
+    "collisionProxyCount": 14,
+    "minimumCollisionRoadClearance": 0.848155,
+    "minimumCollisionNeighborClearance": 0.174798,
+    "movementScaleOrFootprintChangeAuthorized": false,
+    "frozenAndNotRebuilt": true
+  },
+  "stableSubjectContract": {
+    "assetBoundary": "329-lane-compound",
+    "runtimeIdentityKind": "villa-row",
+    "overviewIdentityKindMeaning": "programmatic overview semantic only, not a standalone Identity GLB or Hero-derived tier",
+    "runtimeDescriptionMeaning": "historic-residence compound and lane, not one representative villa",
+    "memberSetWithMassingBinding": [
+      "15",
+      "36",
+      "40",
+      "42"
+    ],
+    "evidenceOnlyUnmappedMembers": [
+      "17",
+      "32乙",
+      "38",
+      "231"
+    ],
+    "excludedUnknownAdjacentWayId": 864493245,
+    "representationStrategies": {
+      "compoundHeroUsingFourBoundMembers": {
+        "authorized": false,
+        "reason": "Massing-grade sequence bindings and partial compound views do not close member-specific Hero faces, roof backs, site relations or compound-wide canonical coverage."
+      },
+      "singleMember36AsCompoundRepresentative": {
+        "authorized": false,
+        "reason": "36 has the strongest bound-member view set, but its footprint binding remains medium and no product decision narrows the compound stable ID to member 36."
+      },
+      "singleMember38AsCompoundRepresentative": {
+        "authorized": false,
+        "reason": "38 has one official front-oblique view but no footprint placement and no authorization to represent the compound."
+      },
+      "separateMemberSpecificHeroIds": {
+        "authorized": false,
+        "reason": "No member-specific stable IDs, registry contracts or complete footprint bindings are in scope."
+      }
+    }
+  },
+  "localEvidenceReview": {
+    "method": "repository-local-files-only-with-direct-visual-inspection",
+    "browserAccess": false,
+    "networkAccess": false,
+    "observed": [
+      "XHS image 5 and image 7 show the same number-40 entrance facade from only a modest lateral change; this is not a full side or depth set.",
+      "XHS image 6 is a frontal number-42 entrance view; no second number-42 side, depth or rear view is present.",
+      "XHS image 8 shows the number-15 gate and only a partial rear mass through the gate.",
+      "XHS images 1, 3, 4 and 18 show a low red-tile compound, tall chimney and related courtyard masses, but none visibly repeats a number-36 doorplate.",
+      "The official number-17 file is one front view and the official number-38 file is one front-oblique view; neither supplies a mapped compound position.",
+      "XHS images 9 through 17 retain black media areas and add no usable view coverage.",
+      "The legacy 329 reference and official 211-lane member-2 reference visibly share the long dormer, full-width glazed enclosure, left chimney, right polygonal tower, right half-timber volume and garden relationship."
+    ],
+    "authorClaimed": [
+      "The XHS post body identifies number 36 as a two-storey round cake villa.",
+      "The XHS post body names numbers 17, 32乙, 42 and street-side 231 as 329-lane members or related residences."
+    ],
+    "inferred": [
+      "Images 1, 3, 4 and 18 plausibly provide multiple views of number 36 or its immediate compound, but exact same-building continuity is not doorplate-proven in every image.",
+      "The 15, 36, 40 and 42 OSM assignment is suitable for conservative Massing because it combines visible doorplates, post order and spatial sequence; it is not cadastral or surveyed membership.",
+      "The legacy Hero was modeled from a reference later bound with high confidence to 211-lane member 2."
+    ],
+    "unknown": [
+      "A complete compound-wide canonical view and exact compound boundary.",
+      "Cadastral or surveyed member-to-footprint ownership for 15, 36, 40 and 42.",
+      "Member 15 full silhouette and roof/rear structure.",
+      "Member 36 exact entrance, rear wing and roof back.",
+      "Member 40 rear pavilion depth and hidden elevations.",
+      "Member 42 side, depth, rear roof connection and hidden additions.",
+      "Footprint placement for official members 17 and 38.",
+      "Whether way 864493245 belongs to the 329-lane compound."
+    ]
+  },
+  "sameSubjectViewMatrix": [
+    {
+      "subject": "329-lane-compound",
+      "canonical": "partial-xhs-01",
+      "sideOrDepth": "partial-xhs-04-and-18",
+      "entranceOrIdentity": "partial-xhs-01-and-08",
+      "sameSubjectContinuity": "compound-context-only-not-complete-layout",
+      "footprintBinding": "four-member-sequence-binding-not-survey",
+      "heroGate": "blocked"
+    },
+    {
+      "subject": "member-15",
+      "canonical": "missing-full-silhouette",
+      "sideOrDepth": "missing",
+      "entranceOrIdentity": "supported-xhs-08-visible-doorplate",
+      "sameSubjectContinuity": "single-partial-view",
+      "footprintBinding": "bound-medium-by-sequence",
+      "heroGate": "blocked"
+    },
+    {
+      "subject": "member-36",
+      "canonical": "supported-by-post-and-xhs-01",
+      "sideOrDepth": "plausible-xhs-03-04-18",
+      "entranceOrIdentity": "partial",
+      "sameSubjectContinuity": "author-claim-and-architectural-continuity-not-repeated-doorplate",
+      "footprintBinding": "bound-medium-by-sequence",
+      "heroGate": "blocked"
+    },
+    {
+      "subject": "member-40",
+      "canonical": "supported-xhs-05-and-07-visible-doorplate",
+      "sideOrDepth": "partial-small-lateral-change-only",
+      "entranceOrIdentity": "supported",
+      "sameSubjectContinuity": "strong-same-facade",
+      "footprintBinding": "bound-medium-high-by-sequence",
+      "heroGate": "blocked"
+    },
+    {
+      "subject": "member-42",
+      "canonical": "supported-xhs-06-visible-doorplate",
+      "sideOrDepth": "missing",
+      "entranceOrIdentity": "supported",
+      "sameSubjectContinuity": "single-front-view",
+      "footprintBinding": "bound-medium-high-by-sequence",
+      "heroGate": "blocked"
+    },
+    {
+      "subject": "member-17",
+      "canonical": "supported-one-official-front",
+      "sideOrDepth": "missing",
+      "entranceOrIdentity": "partial",
+      "sameSubjectContinuity": "single-view",
+      "footprintBinding": "missing",
+      "heroGate": "blocked"
+    },
+    {
+      "subject": "member-38",
+      "canonical": "supported-one-official-front-oblique",
+      "sideOrDepth": "partial-within-same-single-image",
+      "entranceOrIdentity": "supported",
+      "sameSubjectContinuity": "single-view",
+      "footprintBinding": "missing",
+      "heroGate": "blocked"
+    }
+  ],
+  "legacyHeroLineage": {
+    "introducingCommit": "e292fde194c2704a9eeaf7e4a8faf192a5d0385e",
+    "referenceIntroducingCommit": "b24e8cf67d42339932fc56993e75f2f4503d6ac1",
+    "blend": {
+      "path": "assets/models/source/xinhua-road/xinhua-villas-329.blend",
+      "sha256": "24687ecb8f61f486a7b5e38abae24bd21c0321e788518da429bc5c7d2b666246"
+    },
+    "glb": {
+      "path": "public/models/xinhua-road/xinhua-villas-329.glb",
+      "sha256": "81b2d79bb502cb42c187169f339f0ac9428ea8ae855e43e8b0756768ced0210b",
+      "bytes": 1443312,
+      "nodes": 1,
+      "meshes": 1,
+      "primitives": 14,
+      "triangles": 20524,
+      "materials": 14,
+      "images": 0,
+      "textures": 0,
+      "nodeExtras": {
+        "detail_current_parts": 286,
+        "detail_method": "photo-semantic-components",
+        "detail_upgrade": "20260718"
+      }
+    },
+    "generatorFunction": "build_xinhua_villas_329",
+    "modeledPersistentCues": [
+      "long four-window dormer",
+      "full-width glazed sunroom",
+      "left tall chimney",
+      "right polygonal tower",
+      "red-tile roof",
+      "garden relationship"
+    ],
+    "crossAssetReferenceVerdict": "high-confidence-same-structure-as-official-211-member-2",
+    "pixelIdentity": false,
+    "scopePollution": {
+      "materials": [
+        "329草坪",
+        "329浅绿",
+        "329绿篱",
+        "329树干",
+        "329庭院灯"
+      ],
+      "generatorContent": [
+        "one lawn slab",
+        "six shrubs",
+        "two garden trees",
+        "two garden lamps"
+      ],
+      "pureBuildingHeroCompliant": false
+    },
+    "provenanceGaps": [
+      "no asset-level Hero build record",
+      "no derivedFrom accepted Massing SHA",
+      "no evidence manifest SHA in GLB extras",
+      "no current-subject MCP2",
+      "no same-camera Hero evidence comparison"
+    ],
+    "currentRuntimeWiring": {
+      "registryModel": "/models/xinhua-road/xinhua-villas-329.glb",
+      "registryCacheVersion": "20260718-detail-1",
+      "qaMassingModel": "/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb?v=20260726-massing-f245efd0",
+      "productionStillPointsToLegacyHero": true,
+      "changeAuthorizedInThisAudit": false
+    },
+    "verdict": "hold-cross-asset-contaminated-scope-polluted-not-a-hero-or-identity-source"
+  },
+  "heroReadiness": {
+    "authorized": false,
+    "preflightHardGates": {
+      "repositoryAndRuntimeContractsInspected": true,
+      "localReferencesSavedAndManifested": true,
+      "canonicalComparisonSelected": "partial-compound-context-only",
+      "observedInferredUnknownSeparated": true,
+      "threeIdentityCuesDefinedPerBoundMember": true,
+      "sameSubjectCanonicalSideEntranceCoverageComplete": false,
+      "heroMemberOwnershipAndFootprintsBound": false,
+      "compoundOrRepresentativeScopeExplicitlyAuthorized": false,
+      "legacyHeroValidSource": false
+    },
+    "hardBlockers": [
+      "stable ID is a compound but no complete compound Hero coverage or explicit representative-member decision exists",
+      "member 15 lacks a full silhouette and side/depth evidence",
+      "member 36 multi-view continuity and footprint binding remain inferential",
+      "member 40 has only a modest lateral pair and unknown rear pavilion depth",
+      "member 42 has only a front view and no side/depth evidence",
+      "official members 17 and 38 are not footprint-bound",
+      "legacy Hero is cross-asset contaminated and scope-polluted"
+    ],
+    "forbiddenUntilUnblocked": [
+      "open Blender for new Hero construction",
+      "reuse or patch the legacy Hero",
+      "merge different members into one invented villa",
+      "choose a representative member without an explicit subject-contract decision",
+      "invent hidden facades, roofs, annexes or compound layout",
+      "move, rescale or rebuild accepted Massing to compensate for evidence gaps"
+    ]
+  },
+  "identityReadiness": {
+    "status": "blocked-no-valid-hero-source",
+    "standaloneIdentityArtifactsFound": 0,
+    "overviewProgrammaticIdentityKind": "villa-row",
+    "overviewProgrammaticIdentityCountsAsStandaloneTier": false,
+    "validHeroSourceSha": null,
+    "heroMcp2Passed": false,
+    "identityDerivationAuthorized": false,
+    "mcp3Reachable": false,
+    "threeTierRuntimeReachable": false,
+    "reason": "Identity 必须从已完成且通过 MCP2 的同主体 Hero 派生；当前只有 programmatic overview identity kind，没有329专属 Identity Blend、GLB、build record 或合法 Hero SHA。"
+  },
+  "minimumAdditionalEvidence": {
+    "firstRequiredDecision": "明确 xinhua-villas-329 的 Hero 是四成员 compound、某一获准代表成员，还是新建成员级 stable IDs；不得在建模中临时偷换。",
+    "forCompoundHero": [
+      "一份可地理配准或用户确认的329弄总平面，把拟纳入 Hero 的每个门牌绑定到 footprint、朝向、入口和成员间通道。",
+      "对每个拟纳入成员提供同主体 canonical、一个真实侧向或纵深、一个入口或身份细节视角；至少补齐15、40、42，且确认36多图确为同一成员。",
+      "补足 compound 入口与整体布局视角，明确哪些场地构件属于建筑 Hero、哪些继续排除。"
+    ],
+    "forSingleRepresentativeHero": [
+      "主窗口明确授权将 compound stable ID 收窄到指定成员，或创建独立成员 stable ID。",
+      "把所选成员绑定到具体 footprint 与朝向。",
+      "补齐同成员侧/后/屋顶证据后再写 Hero Brief。"
+    ],
+    "afterEvidenceForCompoundHero": [
+      "从已接受 Massing-v3 合同创建全新纯建筑 Hero，不复用旧 Hero。",
+      "只实现已获成员级多视角与布局证据支持的四成员 compound 内容，不扩张到未绑定成员或场地装饰。"
+    ],
+    "afterEvidenceForSingleMemberHero": [
+      "先为获准的代表成员或新 stable ID 建立并接受独立成员级 Massing、placement、registry 与碰撞合同；不得直接把四成员 compound Massing-v3 当成单成员 Hero 来源。",
+      "从该成员级已接受 Massing 与同成员证据创建全新纯建筑 Hero，不复用旧 Hero。"
+    ],
+    "afterNewHero": [
+      "冻结新 Hero source/output SHA、build record、固定三视图与碰撞意图并完成 MCP2。",
+      "仅在 MCP2 通过后派生 Identity，再执行 MCP3 与同版本 Three.js 三档验收。"
+    ]
+  }
+}
