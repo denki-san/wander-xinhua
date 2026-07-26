@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "assetId": "villa-le-bec",
+  "auditedAt": "2026-07-26",
+  "status": "pass-start-pure-two-building-hero-only",
+  "scope": {
+    "assetCount": 1,
+    "modelAsset": "one-two-building-hero-package",
+    "runtimeInstances": 1,
+    "scopeExpansionAuthorized": false,
+    "browserOrXhsAccessed": false,
+    "blenderOpened": false,
+    "generatorModified": false,
+    "included": [
+      "street-villa-main-way-864493176",
+      "garden-villa-secondary-way-864493175",
+      "evidence-supported-building-exterior-geometry",
+      "open-courtyard-passage-contract"
+    ],
+    "heldOrExcluded": [
+      "low-annex-with-unknown-osm-membership",
+      "ways-864493245-246-247",
+      "former-garage-as-separately-confirmed-structure",
+      "signage-and-brand-text",
+      "patio-furniture-umbrellas",
+      "vegetation-and-garden-dressing",
+      "interior-and-unseen-rear-detail"
+    ]
+  },
+  "frozenInputs": {
+    "referenceManifest": {
+      "path": "docs/research/villa-le-bec-reference-manifest.json",
+      "sha256": "873f4ecc61f7e090e9965355ecd9a67886889f133ca03b7ee3663bfc626017a6"
+    },
+    "modelBrief": {
+      "path": "docs/research/villa-le-bec-model-brief.md",
+      "sha256": "5051b252c633e87197c366714e350304cc58e8b4b81c4773261eb278784c30e7"
+    },
+    "acceptedMassing": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
+      "sha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f",
+      "buildRecord": "docs/research/build-records/tiers/xinhua-road/massing-v2/villa-le-bec-massing.json",
+      "buildRecordSha256": "4ba6a170b3d364a1763770458e2103bd8527e2aa2136fbb13a84cc3d29b54b17",
+      "mcp1": "pass-current-sha-visual-and-structure",
+      "historicalMapAcceptance": "pass-at-833bb8a-commit-bound-evidence"
+    },
+    "mapContract": {
+      "placement": { "position": [-34.1, 88.8], "yaw": -0.38, "scale": 0.82 },
+      "movementAuthorized": false,
+      "sourceWays": [864493176, 864493175]
+    }
+  },
+  "viewCoverage": {
+    "canonical": {
+      "path": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_01.jpg",
+      "sha256": "07339d1c2178efaa0acfd6efac2765e80c113f523ac1497b0d781d32f8c93535",
+      "direction": "from-xinhua-road-toward-street-villa-courtyard-gate-and-garden-villa",
+      "status": "pass"
+    },
+    "sideDepth": {
+      "paths": [
+        "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_02.jpg",
+        "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_11.jpg"
+      ],
+      "status": "pass-for-visible-side-depth-only"
+    },
+    "entranceIdentity": {
+      "path": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_02.jpg",
+      "status": "pass-no-commercial-brand-geometry"
+    },
+    "sharedPassage": {
+      "paths": [
+        "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_03.jpg",
+        "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_04.jpg",
+        "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_05.jpg"
+      ],
+      "status": "pass-open-courtyard"
+    }
+  },
+  "heroContract": {
+    "threeIdentifyingCues": [
+      "street-villa-warm-white-wall-dark-base-and-red-brown-hipped-roof",
+      "street-villa-projecting-window-and-roof-dormer-silhouette",
+      "garden-villa-entry-bay-side-window-and-roof-dormer",
+      "two-separated-buildings-with-open-courtyard-axis"
+    ],
+    "materials": ["warm-white-plaster", "dark-base-and-frames", "muted-red-brown-roof", "low-reflection-dark-glass"],
+    "collisionAndSharedSpace": {
+      "solidBuildings": [864493176, 864493175],
+      "walkable": "open-courtyard-axis-and-gap-between-two-solid-buildings",
+      "forbidden": "one-whole-site-collision-box-or-closing-courtyard-with-hero-detail",
+      "historicalAcceptedProxy": "twelve-complete-cover-local-z-strips-preserving-open-passage"
+    },
+    "unknownMustNotBeInvented": [
+      "low-annex-geometry-and-membership",
+      "cadastral-boundary",
+      "surveyed-heights",
+      "historic-entrance-direction",
+      "commercial-state-and-branding"
+    ]
+  },
+  "decision": {
+    "heroStartAuthorized": true,
+    "identityStartAuthorized": false,
+    "minimumNextAction": "create-a-single-asset-deterministic-pure-two-building-hero-from-the-frozen-massing-sha; preserve-placement-and-open-courtyard-contract; then-run-mcp2",
+    "blockersBeforeIdentity": [
+      "complete-and-review-evidence-supported-hero-master",
+      "record-hero-sha-build-record-and-mcp2",
+      "derive-identity-from-that-hero-only"
+    ]
+  }
+}
