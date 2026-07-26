@@ -7946,3 +7946,102 @@ expected: main-window-real-browser-acceptance
 ### Resolution
 - **Resolved**: 2026-07-26T00:43:00+08:00
 - **Notes**: 更新唯一 stale nextGate 断言；没有修改任何建筑二进制或地图合同。
+
+---
+## [ERR-20260726-067] functions_exec_orchestration_syntax_error
+
+**Logged**: 2026-07-26T01:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+只读并行编排脚本在解析阶段失败，未执行任何子命令。
+
+### Error
+```text
+SyntaxError: Unexpected token '/'
+```
+
+### Context
+- 在 xinhua-villas-329 Fast Mode 预检中，尝试用 `functions.exec` 并行读取技能、项目工作流、memory 命中与 Git 状态。
+- 隔离 JavaScript 源码未通过解析，文件系统没有被读取或修改。
+- 首次追加错误记录时又因补丁上下文假设错误而失败；随后先读取文件尾部，再用精确上下文追加。
+
+### Suggested Fix
+对包含多段长 shell 字符串的预检优先使用独立 `exec_command`；如需 `functions.exec`，先缩小脚本并避免难以审计的嵌套字符串。修改 append-only 日志前先读取尾部上下文。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: none
+
+### Resolution
+- **Resolved**: 2026-07-26T01:00:00+08:00
+- **Notes**: 改用直接只读 `exec_command` 调用，并先核验补丁上下文。
+
+---
+## [ERR-20260726-068] git_restore_worktree_index_lock_sandbox
+
+**Logged**: 2026-07-26T01:10:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+从 Recovery commit 选择性恢复建筑专属文件时，受限沙箱无法创建 Worktree index lock。
+
+### Error
+```text
+fatal: Unable to create '/Users/lei/App_developing/wander-xinhua/.git/worktrees/building-xinhua-villas-329-fast/index.lock': Operation not permitted
+```
+
+### Context
+- 目标仅为 7 个 `xinhua-villas-329` 专属 Massing Blend、GLB、build record 与截图。
+- 命令未包含共享 runtime、registry、普通 OSM 或其他资产。
+
+### Suggested Fix
+对需要写入主仓库 `.git/worktrees/*/index.lock` 的精确 `git restore --source=<recovery>` 使用受控沙箱外权限，并保持显式文件白名单。
+
+### Metadata
+- Reproducible: yes
+- Related Files: assets/models/source/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.blend
+
+### Resolution
+- **Resolved**: 2026-07-26T01:10:00+08:00
+- **Notes**: 以 Recovery commit 和 7 文件白名单获得受控权限后成功恢复。
+
+---
+## [ERR-20260726-069] zsh_path_variable_shadowed_system_path
+
+**Logged**: 2026-07-26T01:22:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+只读 Recovery 哈希循环误用 zsh 特殊变量 `path`，覆盖了命令搜索路径。
+
+### Error
+```text
+zsh:1: command not found: git
+zsh:1: command not found: sha256sum
+```
+
+### Context
+- 循环变量命名为 `path`；zsh 将 `path` 与 `PATH` 绑定，赋值后只保留当前文件名。
+- 前置的当前文件 SHA-256 已正常输出，循环内 Recovery 对比未执行。
+- 没有修改任何文件或 Git 状态。
+
+### Suggested Fix
+在 zsh 中使用 `candidate_file` 等任务专属变量名，不使用 `path`、`PATH`、`home`
+等特殊或系统变量名。
+
+### Metadata
+- Reproducible: yes
+- Related Files: none
+
+### Resolution
+- **Resolved**: 2026-07-26T01:22:00+08:00
+- **Notes**: 改用 `candidate_file` 后，三个 Recovery 文件 SHA-256 均逐字节一致。
+
+---
