@@ -165,12 +165,11 @@ def clean_unused_data() -> None:
 
 
 def rerender_clear_street_view(slug: str, preview_dir: Path) -> None:
-    """把共享旧机位从南侧檐棚线移到中间主巷，避免身份构件遮挡全画面。"""
-    minimum, maximum = legacy.scene_bounds()
+    """正对东侧成员完整立面，清楚显示阳台板、窗列与连续店面。"""
     camera = bpy.context.scene.camera
-    camera.location = (minimum.x - 1.0, -7.0, 2.25)
-    target = (maximum.x, -5.5, 2.8)
-    camera.data.lens = 60
+    camera.location = (12.5, -28.0, 2.2)
+    target = (12.5, 2.0, 4.5)
+    camera.data.lens = 50
     camera.rotation_euler = (
         Vector(target) - camera.location
     ).to_track_quat("-Z", "Y").to_euler()
