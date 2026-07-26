@@ -155,3 +155,89 @@ Recovery 合格的固定机位预览、GLB 导出和 isolated/context runtime �
 - Rejected: 继续使用偏向东侧建筑的旧手工中心点，或为避碰任意挪移。
 - Remaining blockers: 主窗口 MCP 1、公共接线与当前 Three.js runtime；Hero/Identity
   后续门仍关闭。
+
+## Hero V2 Candidate Addendum
+
+### 2026-07-26 — Main-window Hero candidate authorization
+
+主窗口已完成 Massing MCP1，并正在独立修复窄空间相机。为避免重复等待，本建筑分支
+获准从当前 Massing lineage 构建 Hero v2 候选；这项授权不代表相机门、公共地图推广
+或 Hero MCP2 已通过。
+
+#### Frozen lineage and scope
+
+- Stable asset ID: `building:xinhua-road:xinhua-pocket-park`
+- Massing source SHA:
+  `cc89e36e68397199d91684d3059c5c88410a7acc1b1c015398e05d8e57b15fa3`
+- Authored origin / ground datum: `[0, 0, 0]` / `Y=0`
+- Blender front: local `-Y`; GLB / runtime entrance direction: local `+Z`
+- Runtime placement remains
+  `[-57.421934309, 67.062980370] / -0.398058989 / 0.88`
+- Authored plan envelope remains `1.68 × 9.20` scene units, becoming
+  `3.99168m × 21.8592m` at runtime.
+- Collision semantics remain two side walls with an open center passage; no full-site collision box.
+
+Hero v2 only models the evidence-visible architectural body:
+
+1. paired continuous faceted mirror walls;
+2. the weathering-steel wave band;
+3. the mirror silhouette above the steel band;
+4. the weathering-steel entrance header;
+5. vertical panel seams that make the folded wall rhythm readable.
+
+Explicitly excluded from the Hero candidate:
+
+- planting and grass proxies;
+- bench;
+- rotating exhibition/signage panels;
+- ground lights and tactile studs;
+- paving, path slab and paving joints;
+- trees, decorations, adjacent buildings and full-map assets.
+
+The path remains visually empty in the GLB so the accepted central route cannot be blocked by
+unsupported movable or landscape content.
+
+#### Hero quality contract
+
+| Field | Hero v2 candidate |
+| --- | --- |
+| Generator | `scripts/create_xinhua_pocket_park_hero_v2.py` |
+| Editable source | `assets/models/source/tiers/xinhua-road/hero-v2/xinhua-pocket-park-hero.blend` |
+| GLB | `public/models/tiers/xinhua-road/hero-v2/xinhua-pocket-park-hero.glb` |
+| Build record | `docs/research/build-records/tiers/xinhua-road/hero-v2/xinhua-pocket-park-hero.json` |
+| Max nodes | 6 |
+| Max triangles | 2,500 |
+| Max materials | 4 |
+| Max images / textures | 0 / 0 |
+| Max GLB bytes | 650,000 |
+| Collision | inherited split west/east walls; center ground-level passage open |
+| Public integration | main-window only after xhigh MCP2 |
+
+The fixed cameras are an auditable Headless fallback, not MCP2:
+
+- canonical: from the Xinhua Road entrance toward the interior;
+- side: across the full 22m corridor depth;
+- entrance: close enough to show the open center and 1.8m QA-only human proxy.
+
+The triptych right panel intentionally remains the accepted Massing Three.js screenshot and is
+labelled `HERO PENDING`; no Hero runtime claim is made before public integration.
+
+#### Candidate gate status
+
+- Evidence / Brief: `pass-for-evidence-visible-building-body`
+- Massing MCP1: `pass-retained`
+- Massing analytic map geometry: `pass-retained`
+- Massing narrow-space camera: `main-window-fix-in-progress`
+- Hero deterministic construction: `authorized`
+- Hero MCP2: `pending-main-window-xhigh`
+- Identity: `not-created-not-authorized`
+- Shared registry/runtime/Fast manifest: `unchanged`
+
+#### Remaining inference
+
+- Exact surveyed panel module widths remain unknown; the fold rhythm is a conservative
+  evidence-backed approximation within the accepted outer envelope.
+- Exact mirror distortion, rear termination and current movable landscape/furniture layout remain
+  unmodeled.
+- No performance improvement is claimed before the candidate is integrated and sampled under the
+  main-window runtime protocol.

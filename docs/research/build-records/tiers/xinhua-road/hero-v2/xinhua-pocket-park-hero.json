@@ -1,0 +1,268 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-pocket-park",
+  "stableAssetId": "building:xinhua-road:xinhua-pocket-park",
+  "tier": "hero",
+  "version": "hero-v2",
+  "generatedAt": "2026-07-26",
+  "status": "candidate-pending-main-window-xhigh-mcp2",
+  "scope": {
+    "modelAssets": 1,
+    "runtimeInstancesCreated": 0,
+    "identityCreated": false,
+    "sharedRegistryModified": false,
+    "sharedRuntimeModified": false,
+    "fastManifestModified": false,
+    "excluded": [
+      "planting proxies",
+      "bench",
+      "rotating exhibition panels",
+      "ground lights",
+      "paving and path slab",
+      "trees and decorations",
+      "full-map assets",
+      "Recovery/Hold mutations"
+    ]
+  },
+  "generator": {
+    "path": "scripts/create_xinhua_pocket_park_hero_v2.py",
+    "sha256": "61ad1d167749a6f817e12f4ad2991c800805e6c0f913b174df552f6c21548266",
+    "bytes": 33127,
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xinhua_pocket_park_hero_v2.py",
+    "blenderVersion": "5.2.0 LTS",
+    "singleAssetOnly": true
+  },
+  "lineage": {
+    "derivedFromTier": "massing-v2",
+    "massingBlend": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.blend",
+      "sha256": "40488f7394cd734fc67493d54cb7c44e7c3f55ccf14454d7d27e16b1ca183d27"
+    },
+    "massingGlb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.glb",
+      "sha256": "cc89e36e68397199d91684d3059c5c88410a7acc1b1c015398e05d8e57b15fa3"
+    },
+    "massingBuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.json",
+      "sha256": "982b7768f9e2f8e800461bcfbb8cb28028d1200dad3fb03192c687cffbd6de8a"
+    },
+    "massingMcp1": {
+      "path": "docs/research/xinhua-pocket-park-blender-mcp-gates.json",
+      "sha256": "097f49a975ec1ca54bb6e24188c4fcca4f273c40e752e8c21ebd532e02a20ef6",
+      "status": "pass-retained"
+    },
+    "massingMap": {
+      "path": "docs/research/xinhua-pocket-park-massing-map-qa.json",
+      "sha256": "cac9c1993a9eb2ffa7680d91622ba4576704dba3274e1af859c6a7236ea83d9b",
+      "geometry": "pass-retained",
+      "camera": "main-window-fix-in-progress"
+    },
+    "legacyHeroUsedAsGeometrySource": false
+  },
+  "evidence": {
+    "referenceManifest": {
+      "path": "docs/research/xinhua-pocket-park-reference-manifest.json",
+      "sha256": "856f38adfcd90866c629d4c4e23ee8a3c6f46cc8f389b87936c23093ff0bacbb"
+    },
+    "brief": {
+      "path": "docs/research/xinhua-pocket-park-model-brief.md",
+      "sha256": "cfa04008880a3eaac4dd93ef7b16dcddf5268a6516e5ba9d21e4daafd653555b"
+    },
+    "observedIdentityCues": [
+      "paired continuous faceted mirror walls",
+      "weathering-steel wave band",
+      "mirror upper silhouette above the steel band",
+      "weathering-steel entrance header",
+      "vertical mirror-panel seams"
+    ],
+    "unknownKeptUnmodeled": [
+      "surveyed irregular width profile",
+      "rear termination outside the accepted envelope",
+      "exact facade offsets and panel module dimensions",
+      "current planting and movable furnishing layout"
+    ]
+  },
+  "contract": {
+    "sceneUnitMeters": 2.7,
+    "authoredFront": "local-negative-y",
+    "glbFront": "local-positive-z",
+    "origin": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "groundY": 0.0,
+    "runtimePosition": [
+      -57.421934309,
+      67.06298037
+    ],
+    "runtimeYaw": -0.398058989,
+    "runtimeScale": 0.88,
+    "authoredEnvelope": {
+      "widthSceneUnits": 1.68,
+      "lengthSceneUnits": 9.2,
+      "widthMetersAtRuntime": 3.99168,
+      "lengthMetersAtRuntime": 21.8592
+    },
+    "localObstacles": [
+      {
+        "role": "west-mirror-wall",
+        "minX": -0.84,
+        "maxX": -0.68,
+        "minZ": -4.6,
+        "maxZ": 4.6
+      },
+      {
+        "role": "east-mirror-wall",
+        "minX": 0.68,
+        "maxX": 0.84,
+        "minZ": -4.6,
+        "maxZ": 4.6
+      }
+    ],
+    "centerPassage": {
+      "minimumLocalWidthSceneUnits": 1.36,
+      "runtimeWidthSceneUnits": 1.1968,
+      "runtimeWidthMeters": 3.23136,
+      "groundLevelCrossingObjects": 0
+    }
+  },
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/hero-v2/xinhua-pocket-park-hero.blend",
+      "sha256": "3510dd5676c5d3f65e2a5e88d12c309143671a1ff9248bd4d61d43381df2ef87",
+      "bytes": 105158
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/hero-v2/xinhua-pocket-park-hero.glb",
+      "sha256": "c6ef6f107e3c1b6555784858dea2e46da8813e68aec589d04d0d3c10aeb8a7c7",
+      "bytes": 64952,
+      "nodes": 3,
+      "meshes": 3,
+      "primitives": 9,
+      "triangles": 1152,
+      "materials": 4,
+      "materialNames": [
+        "xinhua-pocket-park-hero-weathering-steel",
+        "xinhua-pocket-park-hero-mirror-light",
+        "xinhua-pocket-park-hero-mirror-deep",
+        "xinhua-pocket-park-hero-dark-seam"
+      ],
+      "images": 0,
+      "textures": 0,
+      "animations": 0,
+      "bounds": {
+        "min": [
+          -0.8399999737739563,
+          0,
+          -4.599999904632568
+        ],
+        "max": [
+          0.8399999737739563,
+          1.659999966621399,
+          4.599999904632568
+        ]
+      },
+      "transformedNodes": [],
+      "nodeNames": [
+        "xinhua-pocket-park-hero-entrance-header",
+        "xinhua-pocket-park-hero-left-wall",
+        "xinhua-pocket-park-hero-right-wall"
+      ],
+      "nodeExtras": [
+        {
+          "stable_asset_id": "building:xinhua-road:xinhua-pocket-park",
+          "asset_id": "xinhua-pocket-park",
+          "tier": "hero",
+          "version_name": "hero-v2",
+          "component_role": "weathering-steel-entrance-header",
+          "authored_front": "local-negative-y",
+          "glb_front": "local-positive-z",
+          "scene_unit_meters": 2.7,
+          "derived_from_massing_glb_sha256": "cc89e36e68397199d91684d3059c5c88410a7acc1b1c015398e05d8e57b15fa3",
+          "mcp2_status": "pending-main-window-xhigh",
+          "identity_allowed": false
+        },
+        {
+          "stable_asset_id": "building:xinhua-road:xinhua-pocket-park",
+          "asset_id": "xinhua-pocket-park",
+          "tier": "hero",
+          "version_name": "hero-v2",
+          "component_role": "left-faceted-mirror-wall",
+          "authored_front": "local-negative-y",
+          "glb_front": "local-positive-z",
+          "scene_unit_meters": 2.7,
+          "derived_from_massing_glb_sha256": "cc89e36e68397199d91684d3059c5c88410a7acc1b1c015398e05d8e57b15fa3",
+          "mcp2_status": "pending-main-window-xhigh",
+          "identity_allowed": false
+        },
+        {
+          "stable_asset_id": "building:xinhua-road:xinhua-pocket-park",
+          "asset_id": "xinhua-pocket-park",
+          "tier": "hero",
+          "version_name": "hero-v2",
+          "component_role": "right-faceted-mirror-wall",
+          "authored_front": "local-negative-y",
+          "glb_front": "local-positive-z",
+          "scene_unit_meters": 2.7,
+          "derived_from_massing_glb_sha256": "cc89e36e68397199d91684d3059c5c88410a7acc1b1c015398e05d8e57b15fa3",
+          "mcp2_status": "pending-main-window-xhigh",
+          "identity_allowed": false
+        }
+      ]
+    },
+    "previews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/hero-v2/xinhua-pocket-park/test_xinhua_pocket_park_hero_v2_canonical.png",
+        "sha256": "f573686d12c0c05282063e2b6f8d3cdce790509ffb80353ab5539735a51c89ad",
+        "bytes": 754320
+      },
+      "side": {
+        "path": "test_artifacts/all-models/hero-v2/xinhua-pocket-park/test_xinhua_pocket_park_hero_v2_side.png",
+        "sha256": "7ba742e619dd5e64326fd3c769915886cdebaabefc5db2e3f0f347d8d011f82b",
+        "bytes": 711824
+      },
+      "entrance": {
+        "path": "test_artifacts/all-models/hero-v2/xinhua-pocket-park/test_xinhua_pocket_park_hero_v2_entrance.png",
+        "sha256": "88f61e16a4aa8ffb16bf36d92c5aeed4987a41626704655b5b02c168ad3716d7",
+        "bytes": 762003
+      }
+    },
+    "triptych": {
+      "path": "test_artifacts/all-models/hero-v2/xinhua-pocket-park/test_xinhua_pocket_park_hero_v2_triptych.png",
+      "sha256": "19a9be32a1f4af37e47238acff0787d0c63cc7f2f7d90984fc1f8739172ed512",
+      "bytes": 1763503,
+      "panels": [
+        "reference-research-only",
+        "blender-hero-v2-candidate",
+        "threejs-accepted-massing-hero-runtime-pending"
+      ]
+    }
+  },
+  "sourceBlend": {
+    "objectNames": [
+      "xinhua-pocket-park-hero-entrance-header",
+      "xinhua-pocket-park-hero-left-wall",
+      "xinhua-pocket-park-hero-right-wall"
+    ],
+    "meshObjectCount": 3,
+    "qaObjectsSaved": 0,
+    "editable": true
+  },
+  "budget": {
+    "maximumNodes": 6,
+    "maximumTriangles": 2500,
+    "maximumMaterials": 4,
+    "maximumImages": 0,
+    "maximumBytes": 650000
+  },
+  "validation": {
+    "headlessBuild": "pass",
+    "glbAudit": "pass",
+    "fixedCameraFallback": "pass-generated-not-mcp2",
+    "mcp2": "pending-main-window-xhigh",
+    "identityAuthorized": false,
+    "heroRuntime": "pending-after-mcp2-and-main-window-integration",
+    "performanceClaimed": false
+  }
+}
