@@ -8464,3 +8464,31 @@ AssertionError: house-315 不得通过缩放解决道路退界
 - **Resolved**: 2026-07-26T10:31:00+08:00
 - **Notes**: 测试改为逐栋验证证据锁定比例，并把 House315 的正式 OSM 校准值
   更新为 `0.754254`；仍禁止为了退界任意缩放。
+
+---
+## [ERR-20260726-085] frame_telemetry_used_untyped_import_meta_env
+
+**Logged**: 2026-07-26T11:20:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: threejs-runtime-qa
+
+### Summary
+三栋批次全仓回归的 scene-only TypeScript 配置没有声明 Vite
+`ImportMetaEnv`，通用帧采样遥测读取 `import.meta.env.PROD` 导致唯一类型错误。
+
+### Error
+```text
+app/scene/xinhua-road-landmarks.tsx(621,30):
+error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+```
+
+### Context
+- 279项中278项通过，失败只来自遥测标签的构建器耦合；
+- 静态构建和真实页面采样已成功，模型、地图和碰撞结论不受影响；
+- 不应为了一个非关键标签扩大全局 TypeScript/Vite 类型边界。
+
+### Resolution
+- **Resolved**: 2026-07-26T11:21:00+08:00
+- **Notes**: 帧采样将标签改为无构建器耦合的 `browser-runtime`；实际
+  production preview 条件继续由验收记录和启动命令封存。

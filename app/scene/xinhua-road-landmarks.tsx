@@ -618,7 +618,7 @@ function GlbModel({
       fps: durationMs > 0 ? sample.frames * 1_000 / durationMs : 0,
       rendererDrawCalls: gl.info.render.calls,
       rendererTriangles: gl.info.render.triangles,
-      buildMode: import.meta.env.PROD ? "production" : "development",
+      buildMode: "browser-runtime",
     });
   });
   return <primitive object={model} scale={[1, 1, -1]} />;
