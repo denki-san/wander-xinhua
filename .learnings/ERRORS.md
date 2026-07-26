@@ -171,13 +171,15 @@ expected Gltf- to remain deferred
 ```text
 fatal: Unable to create '.git/worktrees/loading-experience-v2/index.lock':
 Operation not permitted
+
+error: cannot open '.git/FETCH_HEAD': Operation not permitted
 ```
 
 ### Resolution
 保持相同的明确暂存范围，在已批准的 Git 执行边界中重跑；不更改工作树内容。
 
 ### Prevention
-本地 worktree 的 `.git` 实际指向主仓库元数据；文件工作区可写不代表 worktree index 可写。
+本地 worktree 的 `.git` 实际指向主仓库元数据；文件工作区可写不代表 worktree index 或 `FETCH_HEAD` 可写。需要更新远端引用时直接使用受控的 Git 提升权限。
 
 ---
 
@@ -7662,6 +7664,38 @@ curl: (6) Could not resolve host: xinhua.denkisan.me
 - Reproducible: unknown
 - Related Files: deploy/nginx/xinhua.denkisan.me.conf, app/scene/detailed-wanderer-character.tsx
 - See Also: ERR-20260716-030
+
+---
+
+## [ERR-20260726-S02] zsh_readonly_status_variable
+
+**Logged**: 2026-07-26T23:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+worktree 只读盘点脚本误用 zsh 保留只读变量 `status`，导致循环在读取首个 worktree 前退出。
+
+### Error
+```text
+zsh:2: read-only variable: status
+```
+
+### Context
+- 操作为逐个读取 worktree 的 `git status --porcelain`，未执行写入或清理。
+- zsh 将 `status` 用作上一条命令退出码的只读特殊参数。
+
+### Suggested Fix
+跨 shell 脚本避免使用 `status` 作为变量名，改用语义更明确的 `worktree_state` 或 `status_output`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-26T23:00:00+08:00
+- **Notes**: 已将临时变量改名为 `status_output` 后重跑。
 
 ---
 
