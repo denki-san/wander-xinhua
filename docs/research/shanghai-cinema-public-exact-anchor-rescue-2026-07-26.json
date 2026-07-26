@@ -149,29 +149,39 @@
   "knowledgeWorkflow": {
     "projectId": "0e0c3670-c275-42f9-8c06-6de01e3683b5",
     "projectName": "Threejs-3d-research",
-    "statusAtReview": "queued-processing-not-complete",
+    "statusAtReview": "partial-index-pass-second-source-not-complete",
     "sources": [
       {
         "repositoryPath": "docs/knowledge-sources/shanghai-cinema-public-anchor-evidence-2026-07-26.md",
         "sha256": "6fc9b9ca09924042a82f18f98a4a0425aebf0251362b8ffb8f8e8abbf53cefe1",
-        "rawSourcePath": "raw/sources/threejs-modeling-knowledge-base/wander-xinhua/shanghai-cinema-public-anchor-evidence-2026-07-26.md"
+        "rawSourcePath": "raw/sources/threejs-modeling-knowledge-base/wander-xinhua/shanghai-cinema-public-anchor-evidence-2026-07-26.md",
+        "indexStatus": "pass-search-read-and-derived-pages",
+        "wikiPath": "wiki/sources/31-threejs-modeling-knowledge-base--13-wander-xinhua--49-shanghai-cinema-public-anchor-evidence-2026-07-26--93it5i.md"
       },
       {
         "repositoryPath": "docs/knowledge-sources/shanghai-cinema-public-exact-anchor-rescue-2026-07-26.md",
         "sha256": "c56ff88c3d8599343c7b2b3c8f179c6d6c6ba1c912fd78120fde6e861f05fc29",
-        "rawSourcePath": "raw/sources/threejs-modeling-knowledge-base/wander-xinhua/shanghai-cinema-public-exact-anchor-rescue-2026-07-26.md"
+        "rawSourcePath": "raw/sources/threejs-modeling-knowledge-base/wander-xinhua/shanghai-cinema-public-exact-anchor-rescue-2026-07-26.md",
+        "indexStatus": "pending-no-independent-search-hit"
       }
     ],
     "rawSourceReadback": "pass-both-source-paths-readable",
-    "queueSnapshot": {
+    "queueSnapshotAtRescan": {
       "processing": 1,
       "pending": 1,
       "failed": 0
     },
-    "searchHit": false,
+    "liveIndexCheck": {
+      "checkedAt": "2026-07-26T21:20:48+08:00",
+      "firstSourceSearchHit": true,
+      "firstSourceReadback": true,
+      "firstSourceDerivedFindingHit": true,
+      "secondSourceIndependentSearchHit": false
+    },
+    "searchHit": "partial-first-source-only",
     "graphRelationHit": false,
     "completionClaimAllowed": false,
-    "policy": "Keep the evidence rescue additive and pending. Only queue-zero plus search/read-back and traceability can close the external research workflow."
+    "policy": "Keep the second evidence rescue source additive and pending. Only both sources searchable/readable with traceability can close the external research workflow."
   },
   "disposition": {
     "userObservationConfirmed": true,
