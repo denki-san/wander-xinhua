@@ -7916,3 +7916,47 @@ Type 'string | null' is not assignable to type 'string'
   `string | null`；对象级收窄后同两处类型错误仍存在。
 - 增加 `filmArtTier = filmArtQaActive?.tier ?? "identity"`。resolver 只在三档键
   命中时返回对象，因此默认值只修补静态推断，不改变任何有效路由。
+
+---
+## [ERR-20260726-066] fast_mode_stop_policy_test_regex_escape
+
+**Logged**: 2026-07-26T21:09:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+
+Fast Mode 止损门测试在正则字面量中把路径式双反斜杠写法用于 `/`，导致测试文件
+解析阶段报错，尚未进入断言。
+
+### Error
+
+```text
+SyntaxError: Invalid regular expression flags
+assert.match(stoppedPlan.stdout, /xiaohongshu=0\\/1/);
+```
+
+### Context
+
+- 命令：`node --test tests/test_building_pipeline_fast_mode.test.mjs`
+- Node.js：v25.3.0
+- 执行器真实命令已正确输出 `xiaohongshu=0/1` 并命中 STOP。
+
+### Suggested Fix
+
+在 JavaScript 正则字面量中使用单反斜杠转义 `/`：`/xiaohongshu=0\/1/`，随后重跑
+同一专项测试和 Fast Mode 真实命令。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: tests/test_building_pipeline_fast_mode.test.mjs
+
+### Resolution
+
+- **Resolved**: 2026-07-26T21:12:00+08:00
+- **Notes**: 改用正则字面量单反斜杠转义 `/`；专项测试 7/7 通过，真实
+  STOP 命令与三栋全阻塞 `--full` 批次均按预期跳过重复资产工作。
+
+---
