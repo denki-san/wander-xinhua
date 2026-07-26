@@ -38,7 +38,17 @@ test("Xingfuli West 三档二进制可保留，但严格 lineage 尚未被历史
   assert.ok(Date.parse(identity.generatedAt) < Date.parse(hero.generatedAt));
   assert.equal(JSON.stringify(identity).includes("derivedFrom"), false);
   assert.equal(JSON.stringify(massing).includes("derivedFrom"), false);
+  assert.equal(audit.lineage.status, "blocked-formal-lineage-proof");
   assert.equal(audit.lineage.formalDerivedFromHeroField, "historical-record-missing-not-invented");
+  assert.deepEqual(
+    audit.lineage.historicalBuildOrder.map(({ tier }) => tier),
+    ["massing", "identity", "hero"],
+  );
+  assert.equal(audit.lineage.strictVerdict.existingBinariesRetained, true);
+  assert.equal(audit.lineage.strictVerdict.formalHeroToIdentityProof, false);
+  assert.equal(audit.lineage.strictVerdict.formalHeroToMassingProof, false);
+  assert.equal(audit.lineage.strictVerdict.assetQualityFailure, false);
+  assert.equal(audit.lineage.strictVerdict.rebuildAuthorized, false);
   assert.equal(audit.roadGate.verdict.assetRebuildAuthorized, false);
 });
 
@@ -68,4 +78,5 @@ test("Xingfuli West 西/中净距不是道路负净距的修复证据", async ()
   assert.equal(audit.roadGate.verdict.globalTranslationAuthorized, false);
   assert.equal(audit.roadGate.verdict.uniformOrNonUniformScaleHackAuthorized, false);
   assert.equal(audit.gates.map, "blocked-road-clearance");
+  assert.equal(audit.gates.lineage, "blocked-formal-lineage-proof");
 });
