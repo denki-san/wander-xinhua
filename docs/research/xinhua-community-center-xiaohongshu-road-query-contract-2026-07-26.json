@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-community-center",
+  "label": "新华·社区营造中心",
+  "preparedAt": "2026-07-26",
+  "status": "query-contract-ready-not-executed",
+  "purpose": "主窗口在用户浏览器可用时，以慢速、单会话、只读检索补足 way/577252269 service-road 的实测或可量证据；本文件不是检索结果。",
+  "scope": {
+    "browserOrXiaohongshuAccessed": false,
+    "networkAccessed": false,
+    "mediaDownloaded": false,
+    "modelOrGeneratorModified": false,
+    "sharedRuntimeOrRoadContractModified": false,
+    "sharedRegistryOrFastManifestModified": false,
+    "recoveryOrHoldModified": false,
+    "acceptedStagesRetainedWithoutRerun": [
+      "Building-4 Massing v2",
+      "MCP1 Massing axis recheck",
+      "Three.js resource and console diagnostics",
+      "Three.js wall-stop collision replay"
+    ]
+  },
+  "frozenInputs": {
+    "buildingWayId": 864493234,
+    "roadWayId": 577252269,
+    "roadName": "新华路345弄",
+    "roadHighway": "service",
+    "placement": {
+      "position": [-74.78057782060566, 112.5501903703319],
+      "yaw": 1.1800125527954972,
+      "scale": 1
+    },
+    "renderedFullWidthSceneUnits": 2.5,
+    "buildingBoundaryToCenterlineSceneUnits": 0.8473649273117979,
+    "asphaltOverlapSceneUnits": 0.4026350726882021,
+    "asphaltOverlapMeters": 1.0871146962581457,
+    "zeroBufferMaximumFullWidthMeters": 4.575770607483709,
+    "currentMapGate": "blocked-road-surface-overlap",
+    "sourceRecords": [
+      "docs/research/xinhua-community-center-official-service-road-evidence-exhaustion-2026-07-26.json",
+      "docs/research/xinhua-community-center-service-road-gap-audit-2026-07-26.json",
+      "docs/research/xinhua-community-center-service-road-local-rescue-audit.json",
+      "docs/research/xinhua-community-center-final-gap-audit.json",
+      "docs/research/xinhua-community-center-massing-map-gate.json",
+      "docs/research/xinhua-community-center-threejs-runtime-qa.json"
+    ]
+  },
+  "searchContract": {
+    "owner": "main-window-only",
+    "executionMode": "one-human-paced-read-only-browser-session",
+    "queries": [
+      {
+        "id": "frontage-both-curbs",
+        "terms": ["新华路345弄 社区营造中心 路边", "新华·社区营造中心 弄堂 路缘"],
+        "needed": ["Building 4 frontage", "both visible curbs or asphalt edges", "continuous road segment"]
+      },
+      {
+        "id": "road-centerline-offset",
+        "terms": ["新华路345弄 改造 弄堂", "新华路345弄 社区营造中心 改造"],
+        "needed": ["road centerline or a dimension chain to a fixed frontage", "relation of the photographed road to way/577252269"]
+      },
+      {
+        "id": "scale-and-surface-access",
+        "terms": ["新华路345弄 路面", "新华路345弄 车辆 通行"],
+        "needed": ["measurable scale reference", "surface material", "access or vehicle-use observation"]
+      },
+      {
+        "id": "date-and-provenance",
+        "terms": ["新华路345弄 美好生活空间", "新华路345弄 社区营造中心"],
+        "needed": ["capture or publication date", "author or original-post provenance", "enough location context to reject a similarly named lane"]
+      }
+    ],
+    "acceptanceMatrix": [
+      {
+        "id": "both-road-edges",
+        "required": true,
+        "pass": "同一地点、同一时期的可定位资料能看见 Building 4 前 service road 的两条路缘或两条连续柏油边。",
+        "fail": "只看到近侧铺装、单边路缘、裁切街景或无法确认是否为 Building 4 前方。"
+      },
+      {
+        "id": "centerline-or-offset-chain",
+        "required": true,
+        "pass": "有道路中心线，或从两边缘到固定建筑边界的连续尺寸/可复算偏移链。",
+        "fail": "只能由透视猜中心线，或将运行时 collision / zero-overlap 反推值当作实测。"
+      },
+      {
+        "id": "measurable-scale",
+        "required": true,
+        "pass": "比例尺、测距标注、可验证已知尺寸或可地理配准正射/现场测量附不确定度。",
+        "fail": "单张透视照片中的人车或门洞未经校准即作为道路宽度。"
+      },
+      {
+        "id": "date-and-provenance",
+        "required": true,
+        "pass": "保留原帖 URL、作者或发布者、发布日期/拍摄时间与原始媒体上下文。",
+        "fail": "转载拼图、AI 图、去除出处的截图或日期不可核验。"
+      },
+      {
+        "id": "surface-and-access",
+        "required": true,
+        "pass": "明确记录可见 surface（沥青/铺装等）与 access/vehicle 观察；未知必须保持未知。",
+        "fail": "把 highway=service 自动解释成已实测宽度、私有通道或可随意改窄。"
+      },
+      {
+        "id": "location-binding",
+        "required": true,
+        "pass": "照片/视频可与新华路345弄、Building 4 前立面或稳定路口要素交叉定位，并明确与 way/577252269 的关系。",
+        "fail": "只凭标题或地址叙述把附近弄堂当成目标道路。"
+      }
+    ],
+    "rejectionRules": [
+      "不得用运行时碰撞通过、zero-overlap 阈值或 0.4026350726882021 scene-unit overlap 反推实测道路宽度。",
+      "不得把 4.575770607483709 m zero-buffer 上限写成观测值或授权的 shared-road width。",
+      "不得因为照片看似狭窄而移楼、缩放、修改 OSM-bound footprint、改窄/隐藏 shared service-road renderer，或拆分碰撞掩盖压占。",
+      "不得用无地点绑定的社区活动照片、室内照片、Building 4 侧后未知面或 toy-exchange-house 替代道路证据。"
+    ],
+    "humanPacedBudget": {
+      "maxQueries": 4,
+      "maxResultPosts": 8,
+      "maxMediaItems": 24,
+      "minimumSecondsBetweenSearches": 45,
+      "minimumSecondsBetweenPostOpens": 20,
+      "maximumSessionMinutes": 18,
+      "parallelSessions": 0,
+      "stopImmediatelyOn": ["rate warning", "verification challenge", "login prompt", "security warning"]
+    },
+    "prohibited": [
+      "automated bulk collection",
+      "login mutation or social interaction",
+      "simulating or evading platform detection",
+      "circumventing a warning, challenge, or access restriction",
+      "starting another building search in parallel"
+    ]
+  },
+  "decisionBoundary": {
+    "noResultIsNotEvidence": true,
+    "mainWindowMayDeclareReasonableExhaustionOnlyAfter": [
+      "the full slow budget has been attempted without a platform stop",
+      "each acceptance-matrix row has been checked against retained source URLs and media metadata",
+      "observed, inferred, and unknown facts are recorded separately",
+      "a result cannot satisfy every required row without unsafe width inference"
+    ],
+    "runtimeDisable": {
+      "eligibleNow": false,
+      "mayBeProposedOnlyBy": "main-window after reasonable search exhaustion",
+      "mustRetain": ["all existing GLB", "Blend", "generator", "evidence", "MCP records", "runtime QA", "query contract", "Recovery/Hold"]
+    },
+    "untilThen": "Keep the current Massing-only diagnostic runtime policy and formal map block; no Hero, Identity, MCP2, MCP3, promotion, movement, scale, road-width, or collision-contract change is authorized."
+  }
+}
