@@ -22,6 +22,6 @@
 ## Fixed views and gates
 
 - Canonical and side cameras are the existing deterministic headless views.
-- Side view: local `(0.0, -20.0, 8.0)` toward `(37.0, -6.5, 4.0)`; it stays outside the lane to preserve two east volumes and their depth without a near facade occluder.
-- Street view: local `(53.0, -18.0, 10.0)` toward `(34.0, -6.0, 4.0)`, an elevated Panyu-facing oblique view of the white glass corner, matrix entry and long south facade. Both are visual review only and do not assert road clearance.
+- Side view: local `(60.0, -5.0, 15.0)` toward `(31.0, -5.0, 3.8)`; high, unobstructed depth review of the two east volumes.
+- Street view: local `(44.0, -7.0, 3.8)` toward `(31.0, -7.0, 3.8)`; an east-to-west inner-courtyard entrance identity view. It compares facades, timber slats and entry composition only; it is not Panyu-road evidence and does not decide road clearance.
 - Before promotion: main-window MCP 1/2/3, map/road decision, and Three.js tier/fallback/performance/collision QA are still required.
