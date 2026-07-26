@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "villa-le-bec",
   "tier": "hero-v2",
-  "reviewedAt": "2026-07-26T16:19:00+08:00",
+  "reviewedAt": "2026-07-26T16:27:00+08:00",
   "reviewer": "main-window-xhigh",
   "gate": "MCP2",
   "verdict": "pass",
@@ -35,7 +35,9 @@
     "massingParentSha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f"
   },
   "mcpObservedScene": {
-    "objects": 1,
+    "savedAssetObjects": 1,
+    "liveReviewObjects": 6,
+    "temporaryReviewHelpers": 5,
     "meshObjects": 1,
     "vertices": 1126,
     "polygons": 845,
@@ -57,17 +59,17 @@
     {
       "view": "canonical",
       "path": "test_artifacts/all-models/hero-v2/villa-le-bec/mcp2/test_villa-le-bec-hero-v2-mcp2-canonical.png",
-      "sha256": "3dfe4820dea28f0afdd549b9f7de81caaeb9214c751dbff89b31c77b1a668333"
+      "sha256": "b55ccac97b3e8a6da401f1b6f9c074b093ead85ef3c8fd3f3d3ce2411a426e79"
     },
     {
       "view": "side-depth",
       "path": "test_artifacts/all-models/hero-v2/villa-le-bec/mcp2/test_villa-le-bec-hero-v2-mcp2-side.png",
-      "sha256": "52e93d053a8721e2d738afc196a86d9c73d014066ca7db88319326c74d75d6e1"
+      "sha256": "9ae6cb21a21c5724816fe3d31dd5a7d0809998c0b2cc70d78adf3f605df19464"
     },
     {
       "view": "entrance",
       "path": "test_artifacts/all-models/hero-v2/villa-le-bec/mcp2/test_villa-le-bec-hero-v2-mcp2-entrance.png",
-      "sha256": "742d80645bf074087b101bdea27b60b5f131c3a3e1e798aeca80d0aca96e01a6"
+      "sha256": "7e7178a9a82f1f76b11bd19dbd1aa41bb7f257a439ed72d1a9a8a9cbfbc78d41"
     }
   ],
   "criteria": {

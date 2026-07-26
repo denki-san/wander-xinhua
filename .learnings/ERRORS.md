@@ -8971,7 +8971,7 @@ expected: authorized-not-built
 
 **Logged**: 2026-07-26T16:15:00+08:00
 **Priority**: medium
-**Status**: open
+**Status**: resolved
 **Area**: integration
 
 ### Summary
@@ -8996,5 +8996,36 @@ v2 record 应记录历史 commit，测试从该 commit 读取并校验 SHA。
 ### Resolution
 - **Resolved**: 2026-07-26T16:19:00+08:00
 - **Notes**: v2 record 增加历史 commit，测试改从 Git 读取首版 v1；live path 只验证已 supersede。
+
+---
+## [ERR-20260726-101] villa_mcp2_png_changed_between_hash_and_stage
+
+**Logged**: 2026-07-26T16:22:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: blender-mcp
+
+### Summary
+Villa Le Bec v2 可复现修复接入后重跑 Blender MCP 固定机位，PNG 在记录哈希与实际暂存
+之间被同一渲染流程写成最终字节，导致 gate JSON 一度锁定前一瞬间的 PNG SHA。
+
+### Error
+```text
+actual:   b55ccac9...
+expected: 3dfe4820...
+```
+
+### Context
+- Hero v2 GLB、Blend、生成器和像素内容未漂移；
+- 三张截图已作为同一提交的最终字节落盘；
+- 失败只影响截图证据指纹，不影响 MCP 观察、模型二进制或门结论。
+
+### Suggested Fix
+完成 Blender 重开与所有渲染后，先停止写入，再从已暂存或已提交 blob 读取最终 SHA；
+不要在仍可能写回 PNG 的窗口里生成 gate record。
+
+### Resolution
+- **Resolved**: 2026-07-26T16:22:00+08:00
+- **Notes**: gate record 改为锁定提交后的实际三张 PNG SHA，并重新跑专项测试。
 
 ---

@@ -47,7 +47,9 @@ test("Villa Le Bec Hero v2 三固定机位和范围通过，旧 v1/Identity 继�
     assert.equal(await sha256(evidence.path), evidence.sha256, evidence.path);
   }
   assert.ok(Object.values(gate.criteria).every((value) => value.startsWith("pass")));
-  assert.equal(gate.mcpObservedScene.objects, 1);
+  assert.equal(gate.mcpObservedScene.savedAssetObjects, 1);
+  assert.equal(gate.mcpObservedScene.liveReviewObjects, 6);
+  assert.equal(gate.mcpObservedScene.temporaryReviewHelpers, 5);
   assert.equal(gate.mcpObservedScene.temporaryReviewHelpersSavedToBlend, false);
   assert.equal(gate.mcpObservedScene.dirtyAfterReopen, false);
   assert.match(gate.supersession.heroV1, /^hold-/);
