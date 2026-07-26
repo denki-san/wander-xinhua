@@ -1,0 +1,424 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "label": "上海影城",
+  "auditedAt": "2026-07-27T00:40:49+08:00",
+  "baseCommit": "e9c50ebef1f70b6f83f8545fb01d70e17baffd12",
+  "status": "offline-unregistered-real-closeups-found-no-calibratable-boundary-evidence",
+  "scope": {
+    "mode": "read-only-exhaustive-external-evidence-audit",
+    "included": [
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/",
+      "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/"
+    ],
+    "browserAccessed": false,
+    "networkAccessed": false,
+    "xiaohongshuAccessed": false,
+    "externalFilesWritten": false,
+    "externalFilesMovedOrDeleted": false,
+    "repositoryAssetsModified": false,
+    "sharedFilesModified": false,
+    "recoveryOrHoldModified": false,
+    "modelBlendGeneratorModified": false,
+    "mcpMapRegistryRuntimeModified": false,
+    "qualifiedStageRerun": false
+  },
+  "verifiedInputs": {
+    "referenceManifest": {
+      "path": "docs/research/shanghai-cinema-reference-manifest.json",
+      "sha256": "28cb52037a1c781cfe9a68631929a9ad33949cdf74038302c94baef9d51f27e5"
+    },
+    "xiaohongshuQueryContract": {
+      "path": "docs/research/shanghai-cinema-xiaohongshu-query-contract-2026-07-26.json",
+      "sha256": "1721adeaccc59920ba96b73ee2c05d2493c6fde91b705cf770a6d2bbdc8a0774"
+    },
+    "remainingAnchorBlocker": {
+      "path": "docs/research/shanghai-cinema-gap-medium-anchor-blocker-2026-07-26.json",
+      "sha256": "3d84b7cd313e289f9cedc36a715a91fd9a729089527cf855ecf1478035281e8d"
+    },
+    "exactAnchorAudit": {
+      "path": "docs/research/shanghai-cinema-exact-anchor-road-setback-audit.json",
+      "sha256": "d9be563f25984e61d4d37695d8353272e3a3cfbc5e35cbe48a3be5f22fe18d82"
+    }
+  },
+  "searchMethod": {
+    "cutoffRule": "The inventory is an exact read-only snapshot at auditedAt. Later immutable snapshots may increase live root counts without invalidating this cutoff.",
+    "pathAndTextTerms": [
+      "shanghai-cinema",
+      "上海影城",
+      "上海电影艺术中心",
+      "Cinema 2",
+      "影城2",
+      "银星皇冠假日",
+      "皇冠假日",
+      "Crowne Plaza",
+      "新华路160",
+      "Xinhua 160",
+      "永华"
+    ],
+    "sourceIdReview": [
+      "all post IDs in the six-post legacy XHS manifest",
+      "the ordered-route post 67fcf03c000000000b02d804",
+      "the early test_landmark_comparison_sources candidate set"
+    ],
+    "mediaDedup": "Candidate media was grouped by full SHA-256 before visual adjudication. Exact immutable copies count once as evidence.",
+    "visualReview": "All 88 legacy XHS originals were reviewed through six deterministic source-order contact sheets; all 14 early Shanghai Cinema candidate files were then reviewed individually at original resolution.",
+    "repositoryRegistrationCheck": {
+      "repositoryImageFilesHashed": 862,
+      "excludedFromCount": [
+        ".git",
+        "node_modules",
+        "dist",
+        "dist-static"
+      ],
+      "newCandidateShaMatches": 0
+    }
+  },
+  "rootInventoryAtCutoff": [
+    {
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+      "fileCount": 6184,
+      "byteCount": 2707059994,
+      "basenameOrPathHits": 508,
+      "textContentHits": 250,
+      "mediaFileCount": 4671,
+      "note": "Includes legacy-imports and four immutable repository snapshots."
+    },
+    {
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/",
+      "fileCount": 1671,
+      "byteCount": 691388513,
+      "basenameOrPathHits": 161,
+      "textContentHits": 81,
+      "mediaFileCount": 1225,
+      "note": "Contains the 88-image legacy XHS set and the earlier building-evidence snapshot."
+    },
+    {
+      "root": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/",
+      "fileCount": 316,
+      "byteCount": 4481838791,
+      "basenameOrPathHits": 4,
+      "textContentHits": 10,
+      "mediaFileCount": 204,
+      "note": "The relevant current leads are text-only source records and the legacy XHS manifest; raw XHS media lives under Dynamic Evidence legacy-imports."
+    }
+  ],
+  "snapshotIntegrity": [
+    {
+      "snapshotId": "2026-07-26-ad37273",
+      "manifestPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-ad37273/manifest.json",
+      "manifestSha256": "5b5eb28ec0d943d16231c3f9440036770d55389e67e98ad24e1546e2f0c58e7b",
+      "checksumPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-ad37273/SHA256SUMS",
+      "checksumSha256": "2ba0c627cbe0f9b5dd24fcb34a93521197b11fb8ca2e662b48d2b56a18b1c041",
+      "declaredFileCount": 979,
+      "declaredByteCount": 450568192,
+      "fullChecksumVerification": "pass"
+    },
+    {
+      "snapshotId": "2026-07-26-5383f2a",
+      "manifestPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-5383f2a/manifest.json",
+      "manifestSha256": "76fd29c9d89477778ef9269830751e24c648965d883335ddd6170bd1a6c2fe23",
+      "checksumPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-5383f2a/SHA256SUMS",
+      "checksumSha256": "1ac3c5e8d1fbaf978949ba64888c00dba34aa7d8d256b2ec2c395ac860f18736",
+      "declaredFileCount": 1210,
+      "declaredByteCount": 622911488,
+      "fullChecksumVerification": "pass"
+    },
+    {
+      "snapshotId": "2026-07-26-b20494c",
+      "manifestPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-b20494c/manifest.json",
+      "manifestSha256": "1d1278811a8cc3470b2597667b8e6b3ef78c5f71b79963a03763e5fcc7fbd645",
+      "checksumPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-b20494c/SHA256SUMS",
+      "checksumSha256": "138f8fa1651cdb0916057a02ba3868eb933693ab962df43b01dca947b796eb7d",
+      "declaredFileCount": 1155,
+      "declaredByteCount": 476893184,
+      "fullChecksumVerification": "pass"
+    },
+    {
+      "snapshotId": "2026-07-27-5c5fa52",
+      "manifestPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-27-5c5fa52/manifest.json",
+      "manifestSha256": "73b27b3d50367d1976fdea7015a8e0fb02866480f6979f7a5e89a99888a8471a",
+      "checksumPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-27-5c5fa52/SHA256SUMS",
+      "checksumSha256": "98c53f3da1e41303ef028ff07e36b556a258185f8916b41af593002e5fc0ba3d",
+      "declaredFileCount": 1159,
+      "declaredByteCount": 476061696,
+      "fullChecksumVerification": "pass"
+    }
+  ],
+  "earlyCandidateSet": {
+    "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-5383f2a/repository/test_artifacts/test_landmark_comparison_sources/",
+    "fileCount": 14,
+    "uniqueShaCount": 13,
+    "sourceMetadataStatus": "no-sidecar-no-url-no-source-id-beyond-filename",
+    "shaGroups": [
+      {
+        "sha256": "295cf8c4acc246cf8766eb021a5cecfb4047136669f08660c4655d5b3bd6129a",
+        "files": [
+          "test_shanghai_cinema_real.jpg",
+          "test_shanghai_cinema_real_746.jpg"
+        ],
+        "classification": "registered-real-photo-exact-duplicate"
+      },
+      {
+        "sha256": "66cdf1b7e6a60b2dd600fb1b78f6a30cf685d192cfc0b1b31ae9d25bb841fd17",
+        "files": [
+          "test_shanghai_cinema_real.png"
+        ],
+        "classification": "real-photo-unregistered-source-unbound"
+      },
+      {
+        "sha256": "79011ef74cac4849353e3b5f70af1e61974398868ca113c3dc0c77713dabb863",
+        "files": [
+          "test_shanghai_cinema_real_734.jpg"
+        ],
+        "classification": "wrong-subject-shanghai-film-art-center"
+      },
+      {
+        "sha256": "d3321d3f73cf3290c21984eb8f7d1798964735e73838cf8aff7603c40c2460ac",
+        "files": [
+          "test_shanghai_cinema_real_736.jpg"
+        ],
+        "classification": "real-interior-subject-unbound-not-exterior-evidence"
+      },
+      {
+        "sha256": "9c584b85f2100660e88ff840751f968b023ad91530b93d95d4c546974ce51fa7",
+        "files": [
+          "test_shanghai_cinema_real_737.jpg"
+        ],
+        "classification": "wrong-subject-shanghai-film-art-center"
+      },
+      {
+        "sha256": "5e482dd99220f7e6c6ce10e8b7b24d75d50d14e39580c2db2524ad7d5531a313",
+        "files": [
+          "test_shanghai_cinema_real_740.jpg"
+        ],
+        "classification": "address-information-screenshot"
+      },
+      {
+        "sha256": "6167747f85e35beec804148f0b2d6c83c0cca2b18d1475afe015af770b5aa9c1",
+        "files": [
+          "test_shanghai_cinema_real_742.jpg"
+        ],
+        "classification": "design-rendering-not-built-photo"
+      },
+      {
+        "sha256": "87ead0d0be193e3bae65c5a30328b8531f47c985db58dace8e74b02b27bb8eb3",
+        "files": [
+          "test_shanghai_cinema_real_743.jpg"
+        ],
+        "classification": "festival-venue-infographic"
+      },
+      {
+        "sha256": "ed68f6a16e5b9ca9265890a49bd5d1dbfe101bbb20f82064f3589739d51c6894",
+        "files": [
+          "test_shanghai_cinema_real_747.jpg"
+        ],
+        "classification": "real-photo-unregistered-source-unbound"
+      },
+      {
+        "sha256": "034c55a4d410061af08871c926fb22d785d1708a87d0ba5e48a1e336888fc0f5",
+        "files": [
+          "test_shanghai_cinema_real_749.jpg"
+        ],
+        "classification": "real-photo-unregistered-source-unbound"
+      },
+      {
+        "sha256": "11ee33abedfdb612a44cc96a983359da1d7e83000ed475e6b0f6ca0b7497e753",
+        "files": [
+          "test_shanghai_cinema_real_751.jpg"
+        ],
+        "classification": "festival-logo-graphic"
+      },
+      {
+        "sha256": "36d07250a4425684f6ad3a5e4629fbeff611eff9006648b92d553a7f1c48e13d",
+        "files": [
+          "test_shanghai_cinema_real_candidate.jpg"
+        ],
+        "classification": "festival-poster-graphic"
+      },
+      {
+        "sha256": "cce96d7d8ca99ac1b9de747236eede290ca72cad52da021a28a09787fc5beff7",
+        "files": [
+          "test_shanghai_cinema_runtime_matched.png"
+        ],
+        "classification": "runtime-render-exact-duplicate"
+      }
+    ]
+  },
+  "newUnregisteredRealMedia": [
+    {
+      "file": "test_shanghai_cinema_real.png",
+      "path": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-5383f2a/repository/test_artifacts/test_landmark_comparison_sources/test_shanghai_cinema_real.png",
+      "sha256": "66cdf1b7e6a60b2dd600fb1b78f6a30cf685d192cfc0b1b31ae9d25bb841fd17",
+      "bytes": 2043581,
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "containerObservation": "JPEG bytes stored with a .png filename",
+      "view": "front-close-low-angle",
+      "observed": [
+        "Built white ribbon facade, Shanghai Cinema lettering, glazing and a tall hotel-like tower are co-visible.",
+        "The tower is behind and to the image-right of the cinema facade."
+      ],
+      "notObserved": [
+        "readable hotel identity",
+        "Cinema 2 identity",
+        "ground parcel boundary",
+        "road edge, north arrow, scale or coordinates"
+      ]
+    },
+    {
+      "file": "test_shanghai_cinema_real_747.jpg",
+      "path": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-5383f2a/repository/test_artifacts/test_landmark_comparison_sources/test_shanghai_cinema_real_747.jpg",
+      "sha256": "ed68f6a16e5b9ca9265890a49bd5d1dbfe101bbb20f82064f3589739d51c6894",
+      "bytes": 91176,
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "view": "front-close-during-fit-out",
+      "observed": [
+        "Built white ribbon, cinema lettering, ground glazing and a tall tower behind are visible.",
+        "Construction equipment shows temporary fit-out state."
+      ],
+      "notObserved": [
+        "side or rear facade",
+        "street curb",
+        "hotel or Cinema 2 ground boundary",
+        "measured scale or coordinates"
+      ]
+    },
+    {
+      "file": "test_shanghai_cinema_real_749.jpg",
+      "path": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-5383f2a/repository/test_artifacts/test_landmark_comparison_sources/test_shanghai_cinema_real_749.jpg",
+      "sha256": "034c55a4d410061af08871c926fb22d785d1708a87d0ba5e48a1e336888fc0f5",
+      "bytes": 207222,
+      "dimensions": [
+        1080,
+        1080
+      ],
+      "view": "right-external-stair-during-fit-out",
+      "observed": [
+        "The curved external stair, glass balustrade, support column, adjacent entry steps, people and construction equipment are visible.",
+        "People provide only an approximate human-scale sanity check."
+      ],
+      "notObserved": [
+        "street or parcel boundary",
+        "rear facade",
+        "Cinema 2 or hotel identity",
+        "survey dimensions"
+      ]
+    }
+  ],
+  "legacyXhsAdjudication": {
+    "manifest": {
+      "path": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/evidence-manifest.json",
+      "sha256": "3fffec9c23a83933ed3b825c73f1c3c4e7734b8b5b6df2c8aada07a19f289cd6",
+      "sourceCount": 6,
+      "rawImageCount": 88
+    },
+    "readme": {
+      "path": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/README.md",
+      "sha256": "f141e7109fb963f2ce725337374695a610c4e71542c1487908fb10ae352d42a1"
+    },
+    "orderedRoutePost": {
+      "postId": "67fcf03c000000000b02d804",
+      "title": "新华路夜神扫街 + citywalk 路线",
+      "rawImageCount": 14,
+      "manifestClaim": "image-13.webp is a readable SHANGHAI CINEMA entrance",
+      "actualMedia": {
+        "path": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/knowledge-base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/raw/xhs/67fcf03c000000000b02d804/image-13.webp",
+        "sha256": "22ea14990cf4e5433f4b375d98a6e3b37edb6d9f1092f3373e5922dc7f9864a2",
+        "bytes": 409096,
+        "dimensions": [
+          1440,
+          1080
+        ],
+        "classification": "wrong-subject-character-and-live-shopfront",
+        "observed": "The facade reads CHARACTER & LIVE; no Shanghai Cinema ribbon, lettering or entrance is present."
+      }
+    },
+    "allSourceReviewResult": "No qualifying Shanghai Cinema photo or frame exists in the 88 reviewed XHS originals. The route names the cinema, but route inclusion is not visual subject evidence.",
+    "effect": "Reject the manifest's image-13 subject label. Do not promote it into Shanghai Cinema evidence or use it for map acceptance."
+  },
+  "evidenceClassification": {
+    "observed": [
+      "Three previously unregistered source-unbound real media files show the built cinema front or right external stair.",
+      "Two front closeups co-show a tall hotel-like tower behind the cinema, but neither shows the ground boundary between the properties.",
+      "The right-stair construction photo adds approximate human-scale and assembly context, not a measured dimension.",
+      "No qualifying rear facade, Cinema 2 identity, readable Crowne Plaza identity, parcel boundary, road-edge control chain or survey plan was found.",
+      "The only legacy XHS frame explicitly labelled as Shanghai Cinema is a wrong-subject CHARACTER & LIVE shopfront."
+    ],
+    "inferred": [
+      {
+        "claim": "The three real files improve front-detail and right-stair coverage, but current registered official/ARCHINA references already cover the same structural cues with traceable sources.",
+        "confidence": "high"
+      },
+      {
+        "claim": "The co-visible tall tower is consistent with an adjacent hotel context, but the files do not identify it as 银星皇冠假日 and do not reveal the ground parcel boundary.",
+        "confidence": "medium"
+      }
+    ],
+    "unknown": [
+      "Original URL, author, capture date and source ID for the three unregistered real files.",
+      "Whether the co-visible tower is the exact 银星皇冠假日主体 requested for boundary adjudication.",
+      "The identity and footprint of Cinema 2.",
+      "Rear-facade geometry and the exact cinema/hotel/Cinema 2 boundary.",
+      "WGS84 coordinates of the entrance, ribbon endpoints and tower or site-wall controls."
+    ]
+  },
+  "acceptanceEvaluation": [
+    {
+      "category": "real-multiview-and-side-rear-coverage",
+      "result": "partial-no-gate-change",
+      "effect": "Front closeups and one right-stair construction view are new by SHA; no rear view or source traceability was found."
+    },
+    {
+      "category": "entrance-and-scale",
+      "result": "partial-no-gate-change",
+      "effect": "People and equipment support rough human-scale sanity only; no measured entrance chain or dimension exists."
+    },
+    {
+      "category": "cinema-2-and-crowne-plaza-boundary",
+      "result": "blocked",
+      "effect": "A tall tower is co-visible, but neither its identity nor the ground parcel boundary is readable; Cinema 2 is absent."
+    },
+    {
+      "category": "two-point-georeferenced-map-anchor",
+      "result": "blocked",
+      "effect": "No new media supplies north arrow, scale or dimensions and two non-coincident local/world subject controls."
+    },
+    {
+      "category": "xiaohongshu-reasonable-search",
+      "result": "pending-main-window",
+      "effect": "This task intentionally used no browser or network. The prepared human-paced query contract remains the next search gate."
+    }
+  ],
+  "retainedStagePolicy": {
+    "recovery": "retained-no-rerun",
+    "hero": "pass-retained-no-rerun",
+    "identity": "pass-retained-no-rerun",
+    "massing": "pass-retained-no-rerun",
+    "mcp1": "pass-retained-no-rerun",
+    "mcp2": "pass-retained-no-rerun",
+    "mcp3": "pass-retained-no-rerun",
+    "threeRuntime": "pass-retained-no-rerun",
+    "exactMapAnchor": "blocked-no-change",
+    "runtimePromotionOrDisableAuthorized": false
+  },
+  "verdict": {
+    "newUnregisteredRealPhotosFound": 3,
+    "newTraceableRealPhotosFound": 0,
+    "newRearFacadeEvidenceFound": false,
+    "qualifyingCinema2BoundaryFound": false,
+    "qualifyingCrownePlazaBoundaryFound": false,
+    "qualifyingTwoPointAnchorFound": false,
+    "xhsManifestSubjectErrorFound": true,
+    "formalMapAcceptanceAuthorized": false,
+    "buildingComplete": false,
+    "gateChange": "evidence-ledger-expanded-only",
+    "nextGate": "main-window human-paced Xiaohongshu search under the existing query contract; if still insufficient, main window alone may adjudicate the user's retain-files-and-disable-runtime option"
+  }
+}
