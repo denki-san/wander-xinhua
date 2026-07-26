@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "assetId": "debi-fahua-525",
+  "researchedAt": "2026-07-26",
+  "mode": "public-official-owner-operator-and-formal-source-only-rescue",
+  "status": "blocked-primary-public-source-rescue-does-not-close-map-or-membership",
+  "scope": {
+    "networkAccessed": true,
+    "publicSourcesOnly": true,
+    "userBrowserAccessed": false,
+    "xiaohongshuAccessed": false,
+    "blenderOrMcpRerun": false,
+    "recoveryMassingRerun": false,
+    "threeRuntimeRerun": false,
+    "binaryModified": false,
+    "sharedRegistryRuntimeFastOrStatusModified": false,
+    "excluded": ["trees", "decorations", "full-map-assets", "Recovery/Hold", "other-buildings"]
+  },
+  "verifiedInputs": {
+    "finalDisposition": {
+      "path": "docs/research/debi-fahua-525-final-disposition.json",
+      "sha256": "85c8d913ca5e297af1adc09df5fb0b9369bf3958226da6085bad4354e406b183"
+    },
+    "evidenceGate": {
+      "path": "docs/research/debi-fahua-525-evidence-gate-v2-audit.json",
+      "sha256": "41b0fdf0fba9d79bb48bebf987b0e4a163091d78f81ea1974f340f45a7b62748"
+    },
+    "overlapLineage": {
+      "path": "docs/research/debi-fahua-525-overlap-lineage-audit.json",
+      "sha256": "dbfab7ccafc85c7ed5c3826f90c06864a415f5a9379a0dfc30ecaccf5708f9d6"
+    },
+    "mapCandidate": {
+      "path": "docs/research/debi-fahua-525-map-candidate.json",
+      "sha256": "cf9df5eb34d7f844f07ddc5d1484f7507799637cc9b98a6d2a11ef81d37ad647"
+    },
+    "knowledgeSource": {
+      "path": "docs/knowledge-sources/debi-fahua-525-public-primary-source-rescue-2026-07-26.md",
+      "sha256": "9b355bdac933414da2fffd0a612227bc51eb8c5c0d21ce38ca3a3a814f4b9e77"
+    }
+  },
+  "sourcesReviewed": [
+    {
+      "url": "https://www.dobechina.com/projects/mandr/77",
+      "publisher": "Dobe official project page",
+      "class": "owner-operator-primary",
+      "observed": [
+        "Dobe identifies Dobe Fahua 525 at Fahuazhen Road 525.",
+        "It describes the site as the group's first independently renovated and operated creative park.",
+        "It describes courtyard, garden, bamboo, fish pond and historic stone elements.",
+        "It lists six floors and 5428.17 square metres."
+      ],
+      "missing": ["site plan", "georeferenced footprint", "member list", "courtyard polygon", "road cross-section", "access classification"]
+    },
+    {
+      "url": "https://www.ssme.sh.gov.cn/public/product%21serviceDetail.do?productId=2c91c2876e3f379f016e5e1fb33d1002",
+      "publisher": "Shanghai SME Service Cloud",
+      "class": "government-hosted-operator-service-listing",
+      "observed": [
+        "The listing places the Dobe-operated creative park at Fahuazhen Road 525.",
+        "It describes a Zen-culture creative park and says building area is over 10000 square metres."
+      ],
+      "boundary": "The listing is not a survey or cadastral plan. Its area statement is not reconciled with the operator page's 5428.17 square metres and cannot identify a footprint.",
+      "missing": ["site plan", "compound members", "courtyard boundary", "road width", "service-road access"]
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col6991/20260527/1309976.html",
+      "publisher": "Shanghai Changning government",
+      "class": "official-historical-location-source",
+      "observed": ["The article identifies the historic Fahua Temple at today's Fahuazhen Road 525."],
+      "boundary": "Historical-location evidence only; it has no current compound, road or building-footprint geometry.",
+      "missing": ["current site plan", "current member binding", "road measurement"]
+    }
+  ],
+  "searchAccounting": {
+    "queries": ["德必 法华 525 法华镇路 525 官方", "site:dobechina.com 法华 525 德必", "site:shcn.gov.cn 法华镇路 525", "site:ghzyj.sh.gov.cn 法华镇路 525", "法华镇路525号 总平面", "法华镇路525号 规划", "德必法华525 平面图", "德必法华525 法华镇路 设计"],
+    "formalSitePlanFound": false,
+    "primaryMemberToOsmWayBindingFound": false,
+    "measuredServiceRoadWidthOrAccessFound": false
+  },
+  "evidenceClassification": {
+    "observed": [
+      "Public operator, government-hosted service and Changning government sources all support the named address or compound-level historical provenance.",
+      "The operator source supports six floors and a garden/courtyard-oriented compound description.",
+      "No reviewed public source contains a dimensioned/georeferenced plan, individual building membership, courtyard polygon, road surface edge, width or access classification."
+    ],
+    "inferred": [
+      "The public sources corroborate same-compound provenance of the local references, but do not raise the OSM representative-way confidence above secondary-map corroboration.",
+      "The conflicting 5428.17 and over-10000 square-metre statements reinforce that published area cannot be treated as a footprint measurement."
+    ],
+    "unknown": [
+      "Whether way 864847922 is the intended target building.",
+      "Which nearby OSM ways are compound members and where the open courtyard boundary lies.",
+      "Fahuazhen Road width, asphalt edge, access regime and service-road classification at the nearest footprint vertex.",
+      "A formal plan capable of resolving the true-footprint-versus-rendered-road overlap."
+    ]
+  },
+  "blockerDisposition": {
+    "compoundMembership": "unchanged-blocked-primary-or-cadastral-proof-missing",
+    "targetWay864847922": "unchanged-medium-secondary-map-corroborated-only",
+    "openCourtyardBoundary": "unchanged-observed-open-space-exact-polygon-unknown",
+    "fahuazhenRoad": "unchanged-true-footprint-overlap-under-current-rendered-width",
+    "massingMcp1": "unchanged-pending-not-rerun",
+    "heroLineageAndIdentity": "unchanged-blocked",
+    "publicMapMutationAuthorized": false
+  },
+  "minimumUnblock": [
+    "A primary cadastral, owner, operator, architect, planning or survey plan that maps the address/compound to included and excluded OSM footprints and identifies the target building plus courtyard boundary.",
+    "A measured or formally specified Fahuazhen Road cross-section/surface edge and access classification at the nearest footprint point, or an evidence-backed correction to the source footprint itself.",
+    "Main-window adjudication before any shared placement, road, collision or runtime change; then repeat the affected map/MCP/runtime gates only."
+  ],
+  "wikiIngestion": {
+    "status": "pending-configured-llm-wiki-ingestion",
+    "requirement": "The knowledge-source Markdown must be copied to the configured LLM Wiki raw-source path, rescanned, then verified by queue-empty plus search/read-back before claiming external research workflow completion.",
+    "externalStorageWritten": false
+  },
+  "verdict": {
+    "blockerChanged": false,
+    "buildingComplete": false,
+    "nextGate": "obtain dimensioned or georeferenced primary site and road evidence"
+  }
+}
