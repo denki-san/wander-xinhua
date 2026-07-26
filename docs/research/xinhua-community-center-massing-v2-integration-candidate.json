@@ -2,10 +2,20 @@
   "version": 1,
   "assetId": "xinhua-community-center",
   "candidateStatus": "building-complete-main-window-gates-pending",
-  "modelSha256": "ebe89d49194b14ca5a5d65303403dd73502e6b11dce362368199d95a85e74eca",
+  "modelSha256": "a0609064ec15f0bfeb042ac9013152eda7575205c55bdaf79063cae38c77b471",
+  "axisContract": {
+    "blenderSource": "x-runtime-x_y-runtime-z",
+    "rawGltf": "blender-y-exports-as-negative-z",
+    "rendererScale": [
+      1,
+      1,
+      -1
+    ],
+    "runtimeResult": "binding-xz-restored"
+  },
   "registryCandidate": {
     "model": "/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb",
-    "cacheVersion": "20260726-massing-ebe89d49",
+    "cacheVersion": "20260726-massing-a0609064",
     "position": [
       -74.78057782060566,
       112.5501903703319

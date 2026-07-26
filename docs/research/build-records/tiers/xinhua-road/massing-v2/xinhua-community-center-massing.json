@@ -3,7 +3,7 @@
   "auditedAt": "2026-07-26",
   "assetId": "building:xinhua-road:xinhua-community-center",
   "tier": "massing",
-  "status": "headless-pass-map-calibrated-candidate-mcp1-pending",
+  "status": "headless-pass-axis-corrected-map-calibrated-candidate-mcp1-pending",
   "scope": {
     "buildingOnly": true,
     "includedOsmWays": [
@@ -27,7 +27,13 @@
     "sourceBuildingWay": "way/864493234",
     "sourceAccessRoad": "way/577252269",
     "referenceOnly": true,
-    "embeddedInGlb": false
+    "embeddedInGlb": false,
+    "axisConversion": {
+      "blenderSource": "x-runtime-x_y-runtime-z",
+      "gltfExport": "blender-y-to-raw-gltf-negative-z",
+      "renderer": "GlbModel primitive scale [1,1,-1]",
+      "runtime": "single-renderer-z-flip-restores-binding-xz"
+    }
   },
   "runtimePlacementCandidate": {
     "position": [
@@ -36,8 +42,15 @@
     ],
     "yaw": 1.1800125527954972,
     "scale": 1,
-    "authoredFront": "blender-local-negative-y",
-    "gltfFront": "local-positive-z",
+    "blenderSourceFront": "local-positive-y",
+    "rawGltfFront": "local-negative-z",
+    "rendererScale": [
+      1,
+      1,
+      -1
+    ],
+    "runtimeFront": "local-positive-z",
+    "axisConversion": "blender-y-equals-binding-runtime-z_then-gltf-export-negates-z_then-shared-renderer-negates-z-once",
     "frontWorldDirection": [
       0.9246107940065941,
       0.3809132179466811
@@ -139,33 +152,33 @@
     "previews": {
       "canonical": {
         "path": "test_artifacts/all-models/massing-v2/xinhua-community-center/test_xinhua-community-center-massing-v2-canonical.png",
-        "sha256": "bf03ade01a1597d417990f2ec69bb75fbf3549456d098f6641ca8aa7874cc0f9",
-        "bytes": 722677
+        "sha256": "927bfb9ea007fddf95bfcaca8c582058b00a6f1e7a2abfe3d5ad814c5620ec12",
+        "bytes": 714574
       },
       "sideDepth": {
         "path": "test_artifacts/all-models/massing-v2/xinhua-community-center/test_xinhua-community-center-massing-v2-side-depth.png",
-        "sha256": "e84f2e77329bb96b84a43d7fd9ce94fcc5d3ffa1a20f885ebc865a2930582e43",
-        "bytes": 739036
+        "sha256": "b82e436863a6b8a2e7af20fa9b6c25e8b508edb4e4d208316718bd3c05ee029e",
+        "bytes": 738121
       },
       "entrance": {
         "path": "test_artifacts/all-models/massing-v2/xinhua-community-center/test_xinhua-community-center-massing-v2-entrance.png",
-        "sha256": "1951f38ae065a2a2a72ed86d58d56c8bfd735cbcd19da9265544176279888d42",
-        "bytes": 741799
+        "sha256": "cc181d7148559b336b1124732ce37fe9c59fa5fe8caa2100d1705612c3956315",
+        "bytes": 747234
       }
     }
   },
   "generator": {
-    "sha256": "d08192deb257c69c18dedc91e2082aa4a72b0d543b249cc2e041775fb7322596",
+    "sha256": "55df52060c5366882d9297b30916b53cc8aae8bbd5b7d24f6b8be465975d0268",
     "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xinhua_community_center_massing_model.py",
     "blenderVersion": "5.2.0 LTS"
   },
   "blend": {
-    "sha256": "9ee020e49d2d3236ec5961c9f494d8b8bf6b0df84b57d648804e8a3834c657ea",
-    "bytes": 95745
+    "sha256": "0dd2a77127e600829b762e4f575fc80221398ede17a231d8ba5c92301d9289f1",
+    "bytes": 95831
   },
   "glb": {
-    "sha256": "ebe89d49194b14ca5a5d65303403dd73502e6b11dce362368199d95a85e74eca",
-    "bytes": 6500,
+    "sha256": "a0609064ec15f0bfeb042ac9013152eda7575205c55bdaf79063cae38c77b471",
+    "bytes": 6596,
     "nodes": 1,
     "meshes": 1,
     "materials": 3,
@@ -176,12 +189,12 @@
       "min": [
         -6.232807,
         0,
-        -2.609305
+        -2.2995
       ],
       "max": [
         6.337574,
         2.95,
-        2.2995
+        2.609305
       ]
     },
     "rootTransformsNormalized": true
@@ -198,6 +211,7 @@
     "headlessBuild": "pass",
     "fixedViews": "pass",
     "glbAudit": "pass",
+    "rendererAxisRegression": "pass-specialized-test",
     "mcp1": "pending-main-window-batch",
     "mapProjection": "pass-candidate",
     "roadSurface": "pending-runtime-road-width",

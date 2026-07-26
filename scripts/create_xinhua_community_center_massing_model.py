@@ -84,15 +84,15 @@ def add_polygon_prism(
     height: float,
     material: bpy.types.Material,
 ) -> bpy.types.Object:
-    """把 Three.js 的 XZ footprint 映射为 Blender 的 X/-Y 平面。"""
+    """把运行时 XZ 映射到 Blender X/Y，由共享 renderer 完成唯一 Z 翻转。"""
 
     count = len(footprint_xz)
     vertices = [
-        (float(x_value), -float(z_value), z_bottom)
+        (float(x_value), float(z_value), z_bottom)
         for x_value, z_value in footprint_xz
     ]
     vertices.extend(
-        (float(x_value), -float(z_value), z_bottom + height)
+        (float(x_value), float(z_value), z_bottom + height)
         for x_value, z_value in footprint_xz
     )
     faces: list[tuple[int, ...]] = [
@@ -125,7 +125,7 @@ def add_box(
         size=1.0,
         location=(
             center_xz[0],
-            -center_xz[1],
+            center_xz[1],
             z_bottom + height / 2,
         ),
     )
@@ -149,7 +149,10 @@ def join_building(objects: list[bpy.types.Object]) -> bpy.types.Object:
     building["tier"] = "massing"
     building["source_osm_way"] = "864493234"
     building["source_poi_node"] = "13765678129"
-    building["authored_front"] = "blender-local-negative-y"
+    building["blender_source_front"] = "local-positive-y"
+    building["raw_gltf_front"] = "local-negative-z"
+    building["renderer_scale_z"] = -1
+    building["runtime_front"] = "local-positive-z"
     building["reference_images_embedded"] = False
     return building
 
@@ -294,6 +297,12 @@ def write_build_record(binding: dict[str, Any]) -> None:
             "sourceAccessRoad": "way/577252269",
             "referenceOnly": True,
             "embeddedInGlb": False,
+            "axisConversion": {
+                "blenderSource": "x-runtime-x_y-runtime-z",
+                "gltfExport": "blender-y-to-raw-gltf-negative-z",
+                "renderer": "GlbModel primitive scale [1,1,-1]",
+                "runtime": "single-renderer-z-flip-restores-binding-xz",
+            },
         },
         "runtimePlacementCandidate": binding["runtimePlacementCandidate"],
         "mapCalibration": {
@@ -491,7 +500,7 @@ def main() -> None:
     camera = setup_preview()
     render_view(
         camera,
-        (0.0, -17.5, 6.4),
+        (0.0, 17.5, 6.4),
         (0.0, 0.0, 1.25),
         CANONICAL_PATH,
         15.2,
@@ -505,8 +514,8 @@ def main() -> None:
     )
     render_view(
         camera,
-        (9.8, -13.5, 5.4),
-        (0.0, -1.0, 1.25),
+        (9.8, 13.5, 5.4),
+        (0.0, 1.0, 1.25),
         ENTRANCE_PATH,
         11.8,
     )
