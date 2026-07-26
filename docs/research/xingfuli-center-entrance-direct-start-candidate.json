@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xingfuli-center",
+  "status": "geometry-safe-candidate-pending-public-start-runtime",
+  "candidate": {
+    "id": "xingfuli-entrance-detail-candidate",
+    "local": [46, -5.05],
+    "world": [84.35242194650252, 8.526261668474035],
+    "source": "xingfuli-qa-paths.json#west-to-east-main endpoint",
+    "nearestObstacleSceneUnits": 0.6584993027552266,
+    "playerRadiusSceneUnits": 0.48,
+    "clearanceAfterPlayerRadiusSceneUnits": 0.1784993027552266
+  },
+  "frozenSpatialContract": {
+    "placement": { "position": [106.6662, 12.9045], "rotationY": 2.997763, "horizontalScale": 0.581898, "longitudinalScale": 0.5382809787234043 },
+    "centerMainLaneRemainingAfterPlayerDiameter": 6.1682505,
+    "eastNeighborAabbClearance": 0.3095189556086382,
+    "existingRoute": "west-to-east-main",
+    "buildingsMoved": false,
+    "tiersRebuilt": false
+  },
+  "camera": {
+    "forward": "entrance-detail convention: negated xingfuli axis",
+    "shoulderOffset": 0.9,
+    "targetShoulderOffset": 0.12,
+    "distance": 5.35,
+    "collisionRadius": 0.26,
+    "collisionMargin": 0.08,
+    "analyticSpringArm": "pass-uncompressed"
+  },
+  "handoff": {
+    "publicFilesChanged": false,
+    "authorizedNow": false,
+    "requiredMainWindowAction": "replace the public xingfuli-entrance-detail start only after a real page camera/collision check with this exact local candidate",
+    "retainedBlockers": ["identity-lineage", "mcp1-mcp3", "three-tier-runtime-final"]
+  }
+}
