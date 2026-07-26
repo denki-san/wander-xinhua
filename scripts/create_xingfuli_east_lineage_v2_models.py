@@ -128,15 +128,12 @@ def clean_data() -> None:
                 blocks.remove(block)
 
 
-def render_street(slug: str, directory: Path) -> None:
+def render_fixed_view(slug: str, directory: Path, view: str, location: tuple[float, float, float], target: tuple[float, float, float], lens: int) -> None:
     camera = bpy.context.scene.camera
-    # 入口东南侧略抬高的同机位：左侧长南立面、右侧白玻璃转角与矩阵墙
-    # 同时入画。它只用于视觉审查，不是道路净距或地图验收证据。
-    camera.location = (47.0, -24.0, 5.8)
-    target = (31.5, -2.5, 4.1)
-    camera.data.lens = 42
+    camera.location = location
+    camera.data.lens = lens
     camera.rotation_euler = (Vector(target) - camera.location).to_track_quat("-Z", "Y").to_euler()
-    bpy.context.scene.render.filepath = str(directory / f"test_{slug}_street_preview.png")
+    bpy.context.scene.render.filepath = str(directory / f"test_{slug}_{view}_preview.png")
     bpy.ops.render.render(write_still=True)
 
 
@@ -183,7 +180,10 @@ def derive(item: argparse.Namespace, lineage: dict[str, str]) -> dict:
     legacy.ASSET_OBJECTS[:] = [obj for obj in bpy.context.scene.objects if obj.type == "MESH"]
     legacy.PREVIEW_DIR = preview_dir
     legacy.render_views(slug)
-    render_street(slug, preview_dir)
+    # 两个显式固定机位沿中庭轴观察东端。避免南侧立面在近景遮挡，使两档
+    # 同时可比较 north-east-entry 和 south-east-entry 的纵深与入口关系。
+    render_fixed_view(slug, preview_dir, "side", (7.0, -7.0, 5.4), (36.0, -7.0, 4.0), 48)
+    render_fixed_view(slug, preview_dir, "street", (15.0, -10.5, 4.6), (43.0, -5.5, 4.1), 45)
     legacy.merge_for_export(slug, len(retained), item.tier, "east")
     merged = legacy.ASSET_OBJECTS[0]
     for key, value in scene.items():
