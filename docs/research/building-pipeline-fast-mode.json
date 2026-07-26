@@ -193,6 +193,7 @@
       "tests": [
         "tests/test_building_massing_qa_contract.test.mjs",
         "tests/test_hudec_memorial_v2.test.mjs",
+        "tests/test_hudec_memorial_final_disposition.test.mjs",
         "tests/test_requested_poi_models.test.mjs"
       ],
       "glbs": [
@@ -230,7 +231,8 @@
       "tests": [
         "tests/test_building_massing_qa_contract.test.mjs",
         "tests/test_requested_poi_models.test.mjs",
-        "tests/test_xinhua_community_center_massing_v2.test.mjs"
+        "tests/test_xinhua_community_center_massing_v2.test.mjs",
+        "tests/test_xinhua_community_center_final_gap.test.mjs"
       ],
       "glbs": [
         "public/models/requested-pois/xinhua-community-center.glb",
