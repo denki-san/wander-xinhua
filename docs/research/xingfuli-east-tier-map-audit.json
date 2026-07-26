@@ -1,0 +1,269 @@
+{
+  "version": 1,
+  "buildingId": "xingfuli-east",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "406f584be9dc036b4ab441ce5639ad00d127de4a",
+  "scope": {
+    "mode": "preserved-tier-fast-audit",
+    "rebuiltAssets": false,
+    "sharedFilesModified": false,
+    "excluded": [
+      "trees",
+      "decorations",
+      "full-map assets",
+      "Recovery/Hold"
+    ]
+  },
+  "preflight": {
+    "blender": {
+      "path": "/Applications/Blender.app/Contents/MacOS/Blender",
+      "version": "5.2.0 LTS",
+      "status": "pass-with-nonblocking-arch-warning"
+    },
+    "generator": {
+      "path": "scripts/create_xingfuli_models.py",
+      "sha256": "f479f096b2f0092329c77a49e61fb5cfab208d4f05a9ca5278d46115a59b7d75",
+      "singleAssetCommand": "--segment=east --stage=<massing|identity|materials|site|final>",
+      "status": "pass"
+    },
+    "glbAudit": "python3 scripts/audit_glb.py public/models/xingfuli/xingfuli-east.glb public/models/xingfuli/xingfuli-east-identity.glb public/models/xingfuli/xingfuli-east-massing.glb",
+    "fastModeQaEntry": "/?start=xingfuli-canonical&cameraQa=1&qaAutoStart=1",
+    "eastSpecificQaEntry": "/?start=xingfuli-entrance-detail&cameraQa=1&qaAutoStart=1"
+  },
+  "evidence": {
+    "manifest": {
+      "path": "docs/research/xingfuli-reference-manifest.json",
+      "sha256": "09d958cefb58412b514e211ecf44c00019f5e280c4d66488b5190350bcc97b0c",
+      "localReferences": 9,
+      "coverage": [
+        "canonical",
+        "side-or-depth",
+        "entrance-identity",
+        "site-material-detail"
+      ],
+      "status": "pass"
+    },
+    "brief": {
+      "path": "docs/research/xingfuli-model-brief.md",
+      "sha256": "356c666e0a6fed61d4f27fba225639a2fc675456df01eacda62f4673d8995cd8",
+      "status": "pass"
+    },
+    "observed": [
+      "公开照片覆盖主巷、纵深、番禺路入口和场地细节。",
+      "OSM way/400066625 是名为幸福里的 pedestrian 中心线，只有两个几何点，不是 east 单栋建筑轮廓。"
+    ],
+    "inferred": [
+      "east 分段和两栋建筑 ID 来自项目 layout 与照片顺序，不等于真实楼座测绘或地址分割。"
+    ],
+    "unknown": [
+      "east 单栋精确 footprint、背立面、屋顶机电、施工图尺寸和 2026 租户状态。"
+    ]
+  },
+  "tiers": {
+    "hero": {
+      "glb": "public/models/xingfuli/xingfuli-east.glb",
+      "glbSha256": "4dc21aa6f137daa076a6da1948b0c08c15310789541ee59af06c352febea4327",
+      "blend": "assets/models/source/xingfuli/xingfuli-east.blend",
+      "blendSha256": "487c3b61669941801f6605ecec3e9711fa1e6cff27c53cc2fc96e4439fbb2d72",
+      "buildRecord": "docs/research/build-records/xingfuli.json",
+      "generatedAt": "2026-07-23T01:40:30+08:00",
+      "metrics": {
+        "bytes": 499736,
+        "nodes": 1,
+        "meshes": 1,
+        "triangles": 7008,
+        "materials": 10,
+        "images": 0,
+        "textures": 0,
+        "bounds": {
+          "min": [
+            5.909999847412109,
+            0.09000000357627869,
+            -7.739999771118164
+          ],
+          "max": [
+            47,
+            8.46500015258789,
+            22.09000015258789
+          ]
+        }
+      },
+      "status": "preserved-binary-pass"
+    },
+    "identity": {
+      "glb": "public/models/xingfuli/xingfuli-east-identity.glb",
+      "glbSha256": "d83f31ef60d01b342dd350605bafa71b87152e9f7ea9cd8fb04cbe80eb50e592",
+      "blend": "assets/models/source/xingfuli/xingfuli-east-identity.blend",
+      "blendSha256": "62156aade12bf810dbd0c1e584acf30535db18b18ce867c183582996dde1cf7b",
+      "buildRecord": "docs/research/build-records/xingfuli-identity.json",
+      "generatedAt": "2026-07-23T00:26:00+08:00",
+      "metrics": {
+        "bytes": 439020,
+        "nodes": 1,
+        "meshes": 1,
+        "triangles": 6168,
+        "materials": 8,
+        "images": 0,
+        "textures": 0,
+        "bounds": {
+          "min": [
+            5.909999847412109,
+            0.09000000357627869,
+            -7.739999771118164
+          ],
+          "max": [
+            47,
+            8.46500015258789,
+            22.09000015258789
+          ]
+        }
+      },
+      "status": "preserved-binary-pass"
+    },
+    "massing": {
+      "glb": "public/models/xingfuli/xingfuli-east-massing.glb",
+      "glbSha256": "5924e935ed9cba120c77396f28adbea12368ad31448c63ad67c5b75a96d319ee",
+      "blend": "assets/models/source/xingfuli/xingfuli-east-massing.blend",
+      "blendSha256": "12b9d9496388b6b4e1cb0514cb8c14b970849e09495b6609bf9ceaf790285278",
+      "buildRecord": "docs/research/build-records/xingfuli-massing.json",
+      "generatedAt": "2026-07-22T23:51:00+08:00",
+      "metrics": {
+        "bytes": 289288,
+        "nodes": 1,
+        "meshes": 1,
+        "triangles": 4032,
+        "materials": 7,
+        "images": 0,
+        "textures": 0,
+        "bounds": {
+          "min": [
+            5.909999847412109,
+            0.09000000357627869,
+            -7.739999771118164
+          ],
+          "max": [
+            47,
+            6.980000019073486,
+            22.09000015258789
+          ]
+        }
+      },
+      "status": "preserved-binary-pass"
+    },
+    "recoveryComparison": {
+      "worktree": "/Users/lei/App_developing/wander-xinhua-all-models-v3",
+      "sameGlbSha256ForAllThreeTiers": true,
+      "status": "pass-read-only"
+    }
+  },
+  "lineageGate": {
+    "status": "blocked",
+    "reason": "三个 build record 记录了同一 generator 和各自二进制，但没有 Identity derivedFrom Hero SHA、Massing derivedFrom Identity SHA；时间顺序为 Massing 早于 Identity，Identity 早于 Hero final，不能据此证明严格 Hero→Identity→Massing 派生。",
+    "preservationDecision": "Recovery/current 的合格二进制禁止重做或覆盖；保留三档，等待主窗口裁决可接受的 provenance 补证方案。"
+  },
+  "mapCalibration": {
+    "osm": {
+      "snapshot": "docs/research/data/xinhua-roads-osm-20260716-080509.json",
+      "snapshotSha256": "351308feafab0344dc59a66ebd68d0748f81ef1cd69dc218765a22eb51abf2ec",
+      "wayId": 400066625,
+      "kind": "pedestrian-centerline",
+      "geometryPoints": 2,
+      "lengthMeters": 147.7
+    },
+    "placement": {
+      "osmAnchor": [
+        106.6662,
+        12.9045
+      ],
+      "rotationY": 2.997763,
+      "axisLocalPositiveX": [
+        -0.9896743343618581,
+        -0.14333426633367558
+      ],
+      "horizontalScale": 0.581898,
+      "verticalScale": 1.5,
+      "longitudinalScale": 0.5382809787234043,
+      "adjustedRuntimePosition": [
+        108.6950323854418,
+        13.198335245984035
+      ],
+      "eastEndWorld": [
+        83.65705752750827,
+        9.572092115149513
+      ],
+      "eastSeamWorld": [
+        96.97512926045164,
+        11.50094484431681
+      ],
+      "trimmedLengthMeters": 136.6157124,
+      "axisAnchorStatus": "pass"
+    },
+    "roadClearance": {
+      "road": "番禺路",
+      "roadClass": "tertiary",
+      "asphaltHalfWidthScene": 3.625,
+      "northEastBuildingAsphaltClearanceScene": 3.7934396841590976,
+      "southEastBuildingAsphaltClearanceScene": -3.625,
+      "entranceMatrixWallAsphaltClearanceScene": -3.1160300017937015,
+      "eastLaneBaseAsphaltClearanceScene": -3.625,
+      "status": "blocked",
+      "reason": "当前南侧长建筑、入口矩阵墙和 east lane base 的变换轮廓与番禺路 asphalt 相交；way/400066625 不是建筑 footprint，不能在本栋分支猜测新位置。"
+    },
+    "status": "blocked"
+  },
+  "collisionAndCamera": {
+    "eastBuildings": [
+      "north-east-entry",
+      "south-east-entry"
+    ],
+    "neighborAcrossSegment": "north-inner-east",
+    "northNeighborGapWorld": 1.0442650987234032,
+    "northNeighborGapAfterPlayerDiameterWorld": 0.08426509872340326,
+    "eastMainLaneClearanceWorld": 7.1282505,
+    "eastMainLaneAfterPlayerDiameterWorld": 6.1682505,
+    "threeSegmentQaRoutes": 3,
+    "eastRouteEnd": {
+      "local": [
+        46,
+        -5.05
+      ],
+      "blocked": false
+    },
+    "fastModeCanonicalStart": {
+      "local": [
+        4,
+        -7
+      ],
+      "targetsEast": false,
+      "blocked": false
+    },
+    "eastEntranceStart": {
+      "local": [
+        45,
+        -5.5
+      ],
+      "world": [
+        84.8476121505103,
+        8.862566059758151
+      ],
+      "blocked": true,
+      "blockingObstacle": "east-entry-bollard-2"
+    },
+    "status": "blocked",
+    "reason": "三段既有 QA 路线可通过，但 Fast Mode canonical 起点不针对 east，east 专属 entrance-detail 起点被固定石桩碰撞体覆盖。"
+  },
+  "gates": {
+    "evidence": "pass",
+    "heroBinary": "pass-preserved",
+    "identityBinary": "pass-preserved",
+    "massingBinary": "pass-preserved",
+    "strictTierLineage": "blocked",
+    "osmAxisAndAnchor": "pass",
+    "roadAndFootprint": "blocked",
+    "threeSegmentRoutes": "pass-existing-contract",
+    "eastStartAndCamera": "blocked",
+    "blenderMcpFinal": "pending-main-window",
+    "threeJsRuntimeFinal": "pending-main-window-after-map-fix",
+    "overall": "blocked"
+  }
+}
