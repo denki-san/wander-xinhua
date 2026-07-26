@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-211",
+  "auditedAt": "2026-07-26",
+  "status": "blocked-evidence-not-authorized-to-build-hero",
+  "scope": {
+    "mode": "readiness-read-only",
+    "blenderOpened": false,
+    "browserOrXhsAccessed": false,
+    "binaryRebuilt": false,
+    "sharedFilesModified": false,
+    "legacyHeroModified": false
+  },
+  "sources": {
+    "referenceManifest": {
+      "path": "docs/research/xinhua-villas-211-reference-manifest.json",
+      "sha256": "c112f5e2b20231de5d42ee1a483a701220d9dcd65d7aa9114c8d0cb32968ed46"
+    },
+    "modelBrief": {
+      "path": "docs/research/xinhua-villas-211-model-brief.md",
+      "sha256": "64dd3e71e6856db656e120c9ad7e5297cb654a4729ee7f9b921c41dbbabe555b"
+    },
+    "threeTierDisposition": {
+      "path": "docs/research/xinhua-villas-211-three-tier-final-disposition.json",
+      "sha256": "aacd253f9c26f9de033f767365a01093797a9cae04c2f07551b779f17084c8f2"
+    }
+  },
+  "viewMatrix": {
+    "compoundCanonical": "supported-as-entrance-axis-only",
+    "compoundSideOrDepth": "missing",
+    "compoundEntranceDetail": "partial",
+    "compoundSpatialLayout": "massing-only-nine-unbound-osm-footprints",
+    "member211_1Front": "supported",
+    "member211_1SideOrRear": "missing",
+    "member211_1Placement": "missing",
+    "member211_2FrontOblique": "supported",
+    "member211_2Rear": "missing",
+    "member211_2Placement": "missing"
+  },
+  "identityComponents": {
+    "entranceRightGatehouse": {
+      "facts": ["white infill", "dark timber lines", "tiled roof", "small dormer"],
+      "footprintBinding": "unknown",
+      "heroUse": "not-authorized-until-member-binding"
+    },
+    "entranceAsymmetry": {
+      "facts": ["left pale building or wall edge", "right gatehouse-like volume"],
+      "footprintBinding": "unknown",
+      "heroUse": "compound-threshold-only-not-member-hero"
+    },
+    "openLane": {
+      "facts": ["continuous open lane", "no solid beam across entrance"],
+      "footprintBinding": "compound-level-only",
+      "heroUse": "collision constraint only"
+    },
+    "member211_1Cues": {
+      "facts": ["warm rough walls", "red-tile eave", "arched openings", "terrace and tall chimney"],
+      "footprintBinding": "unknown",
+      "heroUse": "not-authorized"
+    },
+    "member211_2Cues": {
+      "facts": ["red pitched roof", "long dormer", "glazed front porch", "half-timbered gable"],
+      "footprintBinding": "unknown",
+      "heroUse": "not-authorized"
+    }
+  },
+  "frozenMassingContract": {
+    "glb": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb",
+    "glbSha256": "ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c",
+    "placement": { "position": [38.32, 110.67], "yaw": -0.38, "scale": 0.62 },
+    "collision": {
+      "localObstacleCount": 9,
+      "polygonOverlapCount": 0,
+      "localObstacleAabbOverlapCount": 0,
+      "wallStop": "pass-wall-stop-no-penetration"
+    },
+    "mcp1": "pass-main-window-batch",
+    "mapRuntime": "pass-main-window-real-browser",
+    "movementOrScaleAuthorized": false
+  },
+  "heroAuthorization": {
+    "authorized": false,
+    "missingHardGates": [
+      "same-subject compound side or depth view",
+      "member house-number to OSM-way binding",
+      "member 211-1 and 211-2 position and orientation binding",
+      "complete member footprint and rear-facade coverage"
+    ],
+    "legacyHero": "hold-not-mcp2-candidate-not-a-valid-source",
+    "minimumUnblock": [
+      "authorized site plan, survey, or user-confirmed member layout",
+      "side or depth evidence for entrance-visible buildings",
+      "explicit footprint, position, and orientation binding for any detailed member"
+    ],
+    "forbidden": [
+      "promote legacy hero to MCP2",
+      "derive identity from massing",
+      "invent house-number to footprint binding",
+      "move or scale accepted massing"
+    ]
+  }
+}
