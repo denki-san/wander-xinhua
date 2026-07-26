@@ -130,7 +130,7 @@ test("Hero v2 精确继承已验收 Massing lineage，不重做或偷换父级",
   assert.equal(record.lineage.massingMap.geometry, "pass-retained");
   assert.equal(
     record.lineage.massingMap.camera,
-    "main-window-fix-in-progress",
+    "pass-main-window-runtime-v2",
   );
   assert.equal(record.lineage.legacyHeroUsedAsGeometrySource, false);
   assert.equal(record.scope.identityCreated, false);
@@ -315,7 +315,7 @@ test("Hero v2 只含证据可见建筑本体，明确排除旧 Hero 场地代理
   }
 });
 
-test("三机位与三联对照均为当前候选，且不冒充 MCP2 或 Hero runtime", async () => {
+test("三机位与三联对照保持候选快照，MCP2 由主窗口记录晋级", async () => {
   const record = await readJson(recordPath);
   for (const preview of Object.values(record.outputs.previews)) {
     const buffer = await readFile(new URL(preview.path, root));
@@ -345,10 +345,10 @@ test("三机位与三联对照均为当前候选，且不冒充 MCP2 或 Hero ru
   ]);
   assert.equal(
     record.validation.fixedCameraFallback,
-    "pass-generated-not-mcp2",
+    "pass-main-window-fixed-views-and-live-scene",
   );
-  assert.equal(record.validation.mcp2, "pending-main-window-xhigh");
-  assert.equal(record.validation.identityAuthorized, false);
+  assert.equal(record.validation.mcp2, "pass-main-window-xhigh");
+  assert.equal(record.validation.identityAuthorized, true);
   assert.equal(
     record.validation.heroRuntime,
     "pending-after-mcp2-and-main-window-integration",

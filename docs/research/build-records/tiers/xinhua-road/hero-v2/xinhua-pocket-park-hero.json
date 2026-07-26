@@ -5,7 +5,7 @@
   "tier": "hero",
   "version": "hero-v2",
   "generatedAt": "2026-07-26",
-  "status": "candidate-pending-main-window-xhigh-mcp2",
+  "status": "mcp2-pass-identity-authorized",
   "scope": {
     "modelAssets": 1,
     "runtimeInstancesCreated": 0,
@@ -53,9 +53,9 @@
     },
     "massingMap": {
       "path": "docs/research/xinhua-pocket-park-massing-map-qa.json",
-      "sha256": "cac9c1993a9eb2ffa7680d91622ba4576704dba3274e1af859c6a7236ea83d9b",
+      "sha256": "c56a1c894f55d0d07e910219bfaf40b23a81a21ddd026a645c4e5d5c558c182a",
       "geometry": "pass-retained",
-      "camera": "main-window-fix-in-progress"
+      "camera": "pass-main-window-runtime-v2"
     },
     "legacyHeroUsedAsGeometrySource": false
   },
@@ -259,9 +259,10 @@
   "validation": {
     "headlessBuild": "pass",
     "glbAudit": "pass",
-    "fixedCameraFallback": "pass-generated-not-mcp2",
-    "mcp2": "pending-main-window-xhigh",
-    "identityAuthorized": false,
+    "fixedCameraFallback": "pass-main-window-fixed-views-and-live-scene",
+    "mcp2": "pass-main-window-xhigh",
+    "mcp2Record": "docs/research/xinhua-pocket-park-blender-mcp-gates-v2.json",
+    "identityAuthorized": true,
     "heroRuntime": "pending-after-mcp2-and-main-window-integration",
     "performanceClaimed": false
   }

@@ -70,16 +70,16 @@ function closeArray(actual, expected, tolerance = 1e-5) {
   }
 }
 
-test("邬达克 V2 Hero 只写本栋独立候选且未越过 MCP2/Identity", async () => {
+test("邬达克 V2 Hero 只写本栋资产且主窗口 MCP2 后仅授权 Identity", async () => {
   const record = await readJson(recordPath);
   assert.equal(record.stableAssetId, "hudec-memorial");
   assert.equal(record.tier, "hero");
-  assert.equal(record.status, "candidate-awaiting-main-window-mcp2");
+  assert.equal(record.status, "mcp2-pass-identity-authorized");
   assert.equal(record.scope.legacyHeroOverwritten, false);
   assert.equal(record.scope.acceptedMassingOverwritten, false);
   assert.equal(record.scope.identityGenerated, false);
-  assert.equal(record.validation.mcp2, "pending-main-window-xhigh");
-  assert.equal(record.validation.identityAuthorization, false);
+  assert.equal(record.validation.mcp2, "pass-main-window-xhigh");
+  assert.equal(record.validation.identityAuthorization, true);
   for (const input of Object.values(record.inputs)) {
     assert.equal(await sha256(input.path), input.sha256, input.path);
   }
@@ -225,7 +225,7 @@ test("canonical、side、entrance 与三联对照均为当前可追溯 PNG", asy
   );
 });
 
-test("Hero 预算与门状态只达到 main-window MCP2 候选", async () => {
+test("Hero 预算通过且主窗口 MCP2 已冻结当前 SHA", async () => {
   const record = await readJson(recordPath);
   assert.ok(record.structure.nodes <= record.budget.maxNodes);
   assert.ok(record.structure.triangles <= record.budget.maxTriangles);
@@ -239,6 +239,6 @@ test("Hero 预算与门状态只达到 main-window MCP2 候选", async () => {
   assert.equal(record.validation.performanceClaim, "none");
   assert.equal(
     record.validation.overall,
-    "candidate-awaiting-main-window-mcp2",
+    "mcp2-pass-identity-authorized",
   );
 });

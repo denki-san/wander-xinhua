@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 2,
+  "assetId": "film-art-center",
+  "tier": "massing-v2",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-26T14:08:21+08:00",
+  "reviewedBy": "main-window-xhigh",
+  "sourceCheckpoint": "44c5cf3",
+  "mcp1": {
+    "status": "pass",
+    "interactiveReview": "Blender MCP",
+    "fallbackUsed": false,
+    "editableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/film-art-center-massing.blend",
+      "sha256": "1465fa1635c9f9e17e5cd280d6d2c6e0a0789c12a88986475484430c58c8eb43"
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/film-art-center-massing.glb",
+      "sha256": "34e319174cb8cc121232ad3f5f15e30831c790b32b86268a193c329c9082b314",
+      "bytes": 240812
+    },
+    "generator": {
+      "path": "scripts/create_film_art_center_massing_v2_model.py",
+      "sha256": "e410d520066ace851faf3466afb37942a9bcdcfcdd46c144a5ec4547c5ff5622"
+    },
+    "lineage": {
+      "status": "pass-current-final-hero-frozen-parameters",
+      "heroSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+      "doubleBuild": "pass-byte-identical",
+      "legacyMassingPreserved": true
+    },
+    "sceneInspection": {
+      "objects": 1,
+      "meshes": 1,
+      "materials": 6,
+      "rootObject": "film-art-center-massing-v2",
+      "rootLocation": [
+        0,
+        0,
+        0
+      ],
+      "rootRotation": [
+        0,
+        0,
+        0
+      ],
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "vertices": 1750,
+      "polygons": 1648,
+      "trianglesGlb": 3372,
+      "boundsBlender": {
+        "min": [
+          -11.454999923706055,
+          -6.965000152587891,
+          -1.1920928955078125e-7
+        ],
+        "max": [
+          11.454999923706055,
+          6.724999904632568,
+          13.699999809265137
+        ]
+      }
+    },
+    "fixedViews": {
+      "canonical": "test_artifacts/film-art-center-massing-v2/test_film-art-center-massing-v2_canonical.png",
+      "side": "test_artifacts/film-art-center-massing-v2/test_film-art-center-massing-v2_side.png",
+      "entrance": "test_artifacts/film-art-center-massing-v2/test_film-art-center-massing-v2_entrance.png"
+    },
+    "checks": {
+      "rootTransform": "pass-normalized",
+      "groundContact": "pass",
+      "volumeHierarchy": "pass",
+      "verandasAndColumns": "pass-readable",
+      "upturnedRoofs": "pass-readable",
+      "glassWingsAndOpenings": "pass-readable",
+      "materialAndBlackFaces": "pass",
+      "singleBuildingScope": "pass",
+      "texturePolicy": "pass-zero-images"
+    },
+    "acceptedInteractiveChanges": [],
+    "blendSavedByMcp": false
+  },
+  "nextGate": "integrate-massing-v2-qa-override-and-repeat-map-collision-threejs"
+}

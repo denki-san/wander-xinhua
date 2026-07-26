@@ -3,7 +3,7 @@
   "generatedAt": "2026-07-26",
   "stableAssetId": "hudec-memorial",
   "tier": "hero",
-  "status": "candidate-awaiting-main-window-mcp2",
+  "status": "mcp2-pass-identity-authorized",
   "baseCommit": "ade098eaa4be7a37d766b2867c909885742d6030",
   "scope": {
     "included": [
@@ -291,12 +291,13 @@
   "validation": {
     "headlessFixedViews": "pass-candidate",
     "glbAudit": "pass-forbid-images-max-nodes-2",
-    "visualInspection": "pass-candidate-cues-readable-no-mcp2-claim",
+    "visualInspection": "pass-main-window-mcp2-fixed-views-and-live-scene",
     "scopeAudit": "pass-building-body-only",
     "threeJsHeroRuntime": "not-run-not-integrated",
     "performanceClaim": "none",
-    "mcp2": "pending-main-window-xhigh",
-    "identityAuthorization": false,
-    "overall": "candidate-awaiting-main-window-mcp2"
+    "mcp2": "pass-main-window-xhigh",
+    "mcp2Record": "docs/research/hudec-memorial-blender-mcp-gates-v2.json",
+    "identityAuthorization": true,
+    "overall": "mcp2-pass-identity-authorized"
   }
 }

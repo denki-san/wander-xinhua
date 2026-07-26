@@ -40,7 +40,7 @@ test("Film Art Center Massing v2 严格绑定最终 Hero 三个 SHA", async () =
   ]);
   const lineage = record.lineage;
   assert.equal(record.tier, "massing-v2");
-  assert.equal(record.status, "headless-lineage-candidate-mcp1-pending");
+  assert.equal(record.status, "mcp1-pass-main-window");
   assert.equal(
     lineage.heroGlbSha256,
     "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
@@ -152,7 +152,7 @@ test("Film Art Center Massing v2 固定三视图存在且不提前声明 MCP1", 
     assert.ok(buffer.length > 500_000);
     assert.ok(preview.lensMm >= 50 && preview.lensMm <= 60);
   }
-  assert.equal(record.gates.mcp1, "pending-main-window-batch-review");
+  assert.equal(record.gates.mcp1, "pass-main-window-xhigh");
   assert.equal(record.gates.mapAcceptance, "not-reviewed-in-this-branch");
   assert.equal(record.gates.identityAllowed, false);
 });

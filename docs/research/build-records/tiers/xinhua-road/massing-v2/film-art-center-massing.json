@@ -3,7 +3,17 @@
   "auditedAt": "2026-07-26",
   "assetId": "building:xinhua-road:film-art-center",
   "tier": "massing-v2",
-  "status": "headless-lineage-candidate-mcp1-pending",
+  "status": "mcp1-pass-main-window",
+  "validation": {
+    "headlessDoubleBuild": "pass-byte-identical",
+    "glbAudit": "pass",
+    "lineage": "pass-current-final-hero-frozen-parameters",
+    "fixedViews": "pass-main-window",
+    "liveScene": "pass-main-window-blender-mcp",
+    "mcp1": "pass-main-window-xhigh",
+    "mcp1Record": "docs/research/film-art-center-blender-mcp-gates-v2.json",
+    "mapAndRuntime": "pending-main-window"
+  },
   "generator": {
     "path": "scripts/create_film_art_center_massing_v2_model.py",
     "sha256": "e410d520066ace851faf3466afb37942a9bcdcfcdd46c144a5ec4547c5ff5622",
@@ -345,7 +355,7 @@
       "currentSha256": "34e319174cb8cc121232ad3f5f15e30831c790b32b86268a193c329c9082b314",
       "byteIdentical": true
     },
-    "mcp1": "pending-main-window-batch-review",
+    "mcp1": "pass-main-window-xhigh",
     "mapAcceptance": "not-reviewed-in-this-branch",
     "identityAllowed": false
   }
