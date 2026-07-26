@@ -46,6 +46,11 @@ test("证据止损策略严格覆盖18栋并限制两轮救援", async () => {
   assert.equal(stopPolicy.scopeCount, 18);
   assert.equal(stopPolicy.limits.localPrimaryPasses, 1);
   assert.equal(stopPolicy.limits.xiaohongshuPasses, 1);
+  assert.equal(
+    stopPolicy.storage.buildingEvidenceRoot,
+    "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence",
+  );
+  assert.equal(stopPolicy.storage.wikiIngestion, false);
   assert.equal(stopPolicy.buildings.length, 18);
 
   const manifestIds = manifest.buildings.map(({ id }) => id).sort();
@@ -60,6 +65,12 @@ test("证据止损策略严格覆盖18栋并限制两轮救援", async () => {
       assert.equal(building.attempts.xiaohongshu, 0);
       assert.equal(building.nextAction, "xiaohongshu-once");
       assert.equal(building.allowAssetWork, false);
+    }
+    if (building.state === "active") {
+      assert.equal(building.attempts.localPrimary, 1);
+      assert.equal(building.attempts.xiaohongshu, 1);
+      assert.equal(building.nextAction, "none");
+      assert.equal(building.allowAssetWork, true);
     }
   }
 });
@@ -110,7 +121,7 @@ test("单栋命令不触发全仓构建，完整回归只由 --full 添加", asy
   assert.match(fullPlan.stdout, /npm run lint/);
 });
 
-test("被阻塞建筑只允许最后一次证据搜索，不再执行资产检查", () => {
+test("被阻塞建筑只进入连续证据阶段，不再执行资产检查", () => {
   const stoppedPlan = spawnSync(
     process.execPath,
     [
@@ -124,7 +135,7 @@ test("被阻塞建筑只允许最后一次证据搜索，不再执行资产检�
   assert.equal(stoppedPlan.status, 0, stoppedPlan.stderr);
   assert.match(stoppedPlan.stdout, /shanghai-cinema: research-only/);
   assert.match(stoppedPlan.stdout, /xiaohongshu=0\/1/);
-  assert.match(stoppedPlan.stdout, /STOP：只允许最后一次小红书证据搜索/);
+  assert.match(stoppedPlan.stdout, /STOP：进入唯一连续小红书证据阶段/);
   assert.match(stoppedPlan.stdout, /本批全部命中止损门/);
   assert.doesNotMatch(stoppedPlan.stdout, /audit_glb\\.py/);
   assert.doesNotMatch(stoppedPlan.stdout, /npm test/);

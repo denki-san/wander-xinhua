@@ -1,15 +1,20 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T21:06:01+08:00",
+  "snapshotAt": "2026-07-26T21:31:00+08:00",
   "scopeCount": 18,
+  "storage": {
+    "buildingEvidenceRoot": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence",
+    "wikiIngestion": false,
+    "repositoryPolicy": "index-and-status-only-no-duplicate-building-media"
+  },
   "limits": {
     "localPrimaryPasses": 1,
     "xiaohongshuPasses": 1
   },
   "rules": {
-    "researchOnly": "本地与官方来源一轮无解后，只允许一次小红书证据搜索，不得继续建模、MCP 或运行时晋级。",
-    "foundEvidence": "小红书找到可追溯且主体一致的证据后，状态改为 active，再恢复被阻塞阶段；已有合格阶段不得重做。",
-    "missingEvidence": "小红书仍无解时，状态改为 terminal-disabled；关闭游戏运行时入口，保留所有源文件、GLB、证据和 Hold 成果。",
+    "researchOnly": "本地与官方来源一轮无解后，进入唯一一次连续小红书证据阶段；允许慢速查看多个查询和候选直到出现强证据或检索明确穷尽，期间不得继续建模、MCP 或运行时晋级。",
+    "foundEvidence": "小红书找到可追溯、主体一致且覆盖缺失视角或地图关系的强证据后，状态改为 active，再恢复被阻塞阶段；已有合格阶段不得重做。",
+    "missingEvidence": "小红书连续证据阶段明确穷尽仍无强证据时，状态改为 terminal-disabled；关闭游戏运行时入口，保留所有源文件、GLB、证据和 Hold 成果。",
     "preservePolicy": "任何终止状态都不得删除、覆盖或整体合并 Recovery/Hold 与范围外成果。"
   },
   "buildings": [
@@ -193,7 +198,7 @@
       "terminalAction": "disable-runtime-preserve-files",
       "preserveFiles": true,
       "allowAssetWork": false,
-      "reason": "仅有正面视角，缺少街道上下文；本地证据救援已耗尽。"
+      "reason": "侧窗口已在U盘保存小红书候选笔记69e4f467的195.5至197.4秒关键帧；是否构成强证据及状态迁移必须由主窗口裁决，本流程分支不推进资产门。"
     },
     {
       "id": "fics-xinhua-365",

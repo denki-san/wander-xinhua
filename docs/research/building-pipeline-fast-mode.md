@@ -78,7 +78,8 @@ Fast Mode manifest 为每栋建筑保存真实 `?start=` 路由，并自动追�
 每栋建筑的证据救援上限固定为：
 
 1. 仓库本地证据、用户原图和官方/主来源合并为一轮；
-2. 上一轮无解后，只允许一次小红书搜索；
+2. 上一轮无解后，进入唯一一次连续小红书证据阶段；该阶段可以慢速查看多个
+   关键词和候选，直到找到强证据或以可追溯记录证明检索穷尽；
 3. 小红书找到可追溯、同一主体的有效证据时，将状态从 `research-only` 改为
    `active`，只恢复原先被阻塞的阶段；
 4. 小红书仍无解时，将状态改为 `terminal-disabled`，关闭游戏运行时入口，但
@@ -98,3 +99,9 @@ npm run building:fast -- --building shanghai-cinema --plan
 止损状态不得靠口头结论更新。每次小红书搜索都必须先保存来源、主体一致性和
 搜索结果记录，再原子更新状态表；不得把 `research-only` 留在
 `xiaohongshu=1/1`，也不得通过提高次数上限绕过终止规则。
+
+单栋建筑的照片、视频、关键帧、地图锚点、院落归属、道路关系和分析以U盘
+`/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence/`
+为唯一存储，不接入 `Threejs-3d-research`，也不在仓库重复保存建筑媒体。
+仓库只保留 stable asset ID、U盘证据指针和验收状态。只有可跨建筑复用的
+Blender、Three.js、WebGL 方法知识才进入该 Wiki。

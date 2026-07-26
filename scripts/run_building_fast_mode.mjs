@@ -112,6 +112,13 @@ function validateStopPolicy(manifest, stopPolicy) {
   ) {
     throw new Error("证据止损上限必须是本地/官方一轮、小红书一轮");
   }
+  if (
+    stopPolicy.storage?.buildingEvidenceRoot !==
+      "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence" ||
+    stopPolicy.storage?.wikiIngestion !== false
+  ) {
+    throw new Error("单栋建筑证据必须只存 U 盘 building-evidence，且禁止接入 Wiki");
+  }
 
   const manifestIds = manifest.buildings.map(({ id }) => id).sort();
   const policyIds = stopPolicy.buildings.map(({ id }) => id).sort();
@@ -157,6 +164,18 @@ function validateStopPolicy(manifest, stopPolicy) {
       ) {
         throw new Error(
           `${building.id} 的 research-only 状态必须只剩一次小红书搜索，且禁止资产返工`,
+        );
+      }
+    }
+    if (building.state === "active") {
+      if (
+        building.attempts.localPrimary !== 1 ||
+        building.attempts.xiaohongshu !== 1 ||
+        building.nextAction !== "none" ||
+        building.allowAssetWork !== true
+      ) {
+        throw new Error(
+          `${building.id} 的 active 状态必须有已保存的强证据，并只恢复被阻塞阶段`,
         );
       }
     }
@@ -257,7 +276,7 @@ function printSelection(selected, runnable, commands, plan, stopPolicyById) {
     );
     if (policy.state === "research-only") {
       console.log(
-        "  STOP：只允许最后一次小红书证据搜索，禁止建模、MCP、GLB 重建和运行时晋级。",
+        "  STOP：进入唯一连续小红书证据阶段，可慢速查看多个查询和候选直到强证据或检索穷尽；期间禁止建模、MCP、GLB 重建和运行时晋级。",
       );
     } else if (policy.state === "terminal-disabled") {
       console.log(
