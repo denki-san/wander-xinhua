@@ -1,0 +1,289 @@
+{
+  "schemaVersion": 1,
+  "assetId": "sun-ke-villa",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "d2c0f23ef05098563d9ed81fba3eac8bf706c978",
+  "status": "formal-pass-current-recovery-derived-authority",
+  "scope": {
+    "mode": "read-only-authority-and-lineage-reconciliation",
+    "binaryRebuilt": false,
+    "qualifiedGateRerun": false,
+    "browserOrXhsAccessed": false,
+    "sharedFilesModified": false,
+    "legacyCandidateOverwrittenOrDeleted": false,
+    "excluded": [
+      "shared registry",
+      "shared runtime",
+      "Fast manifest",
+      "extra Shangsheng massing",
+      "trees",
+      "decorations",
+      "full-map assets",
+      "Recovery/Hold",
+      "other buildings"
+    ]
+  },
+  "authorityDecision": {
+    "status": "current-public-runtime-is-recovery-accepted-tier-set",
+    "recoverySnapshotCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "integrationCommit": "80f622b0b9fbd32797aae3ac31e0cf5d39bcb52e",
+    "integrationCommitContainedByBase": true,
+    "authoritativeTierShas": {
+      "hero": "6d16423155304063606a3cd7d9be3878cfa11469ddd2463077e8961bbe3812b9",
+      "identity": "6b541e8ffab4c298ee6366083a3f236c6e3dd6d85020ab1cf12ac12cdc42b478",
+      "massing": "f233f9defd2196025dcb104fcccd8147df8327ccd638cff803ef8f9a7e3e50d0"
+    },
+    "reason": "当前 public 文件、版本化 runtime URL、三份 build record、MCP v2、地图 v2 与 Three.js v3 全部指向同一组三档 SHA；Hero、Identity 与 Recovery 快照逐字节一致，Massing 由 recovery 几何在独立单资产生成器中逐字节复现并完成正式接入。"
+  },
+  "recordPrecedence": [
+    {
+      "rank": 1,
+      "path": "docs/research/sun-ke-villa-final-authority-audit.json",
+      "role": "current authority and lineage reconciliation"
+    },
+    {
+      "rank": 2,
+      "path": "docs/research/sun-ke-villa-three-tier-runtime-qa-v3.json",
+      "sha256": "28615427b0a0fa1c258fd5e97ad442546100ed673042e630b24a0c6979bf0503",
+      "role": "integrated public runtime and fallback authority"
+    },
+    {
+      "rank": 3,
+      "path": "docs/research/sun-ke-villa-blender-mcp-gates-v2.json",
+      "sha256": "61f3398a22c9de7dfdcd1f5d60edd5fdb3744ce5bdb1572fef71d15f5f3b056a",
+      "role": "current exact-binary MCP three-gate authority"
+    },
+    {
+      "rank": 4,
+      "path": "docs/research/sun-ke-villa-massing-map-qa-v2.json",
+      "sha256": "d8954dd0ffdb01877ec2a0986354d28fa419f9634df4bea9af709bec0488caa1",
+      "role": "map, orientation, collision and open porte-cochere authority"
+    },
+    {
+      "rank": 5,
+      "path": "docs/research/sun-ke-villa-three-tier-runtime-qa-v2.json",
+      "sha256": "865bb4a18bf3de53b28ca60543908f2e1521678eaff5585e78d3d591dbcca7bf",
+      "role": "exact-binary cache and reconciliation evidence retained; programmatic fallback visual verdict is superseded by v3"
+    },
+    {
+      "rank": 6,
+      "path": "docs/research/sun-ke-villa-three-tier-runtime-qa.json",
+      "role": "historical runtime record retained without deletion"
+    }
+  ],
+  "inputs": {
+    "referenceManifest": {
+      "path": "docs/research/sun-ke-villa-reference-manifest.json",
+      "sha256": "c23a573719f9210782ed9ecc04287a7a77c7b6f313f4b5b34c0111677c27e01c"
+    },
+    "modelBrief": {
+      "path": "docs/research/sun-ke-villa-model-brief.md",
+      "sha256": "7d770b4525be71098f2ad7570710af280ee9e1e44de66043ec2887f5c39d6d42"
+    },
+    "runtimeTierSource": {
+      "path": "app/scene/shangsheng-full-models.tsx",
+      "sha256": "b84fa2f2a80103db04a43236ea5d8777fd1c92cf45e29c63bfd2d07be7a46aa4"
+    },
+    "runtimeFallbackSource": {
+      "path": "app/scene/shangsheng-xinsuo-block.tsx",
+      "sha256": "3d3944cd68dfd19c3b4e5704e7b7262f7287d559d6aa8c27bf9cb589fad624b9"
+    },
+    "collisionContract": {
+      "path": "app/scene/sun-ke-villa-tier-contract.mjs",
+      "sha256": "7920adc18471a3a6e519c13868ea25a90fc237908ee49d80a402ac1f00df2148"
+    }
+  },
+  "authoritativeTiers": {
+    "hero": {
+      "status": "formal-pass-frozen-master",
+      "lineageId": "sun-ke-villa-hero-6d1642315530",
+      "generator": {
+        "path": "scripts/create_sun_ke_villa_model.py",
+        "sha256": "0d7dcc00db2b81f59d14e2af0746d468ae6718324f91209a36b6fe1d9bc1f17e",
+        "bytes": 33238
+      },
+      "blend": {
+        "path": "assets/models/source/sun-ke-villa.blend",
+        "sha256": "1c01fddf3624e91dfe5ad4e4bb3e242b28898a4ed55da703806c11e0013b53c9",
+        "bytes": 260636
+      },
+      "glb": {
+        "path": "public/models/shangsheng/sun-ke-villa.glb",
+        "sha256": "6d16423155304063606a3cd7d9be3878cfa11469ddd2463077e8961bbe3812b9",
+        "bytes": 1027924,
+        "triangles": 15548,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 8,
+        "images": 0,
+        "textures": 0
+      },
+      "buildRecord": {
+        "path": "docs/research/build-records/tiers/sun-ke-villa/hero/sun-ke-villa-hero.json",
+        "sha256": "6bf0116d4e9305abe948f7300a35e48b35886090de9122dba4a19bb6a658b5b5"
+      }
+    },
+    "identity": {
+      "status": "formal-pass-derived-from-frozen-hero",
+      "derivedFromHeroLineageId": "sun-ke-villa-hero-6d1642315530",
+      "derivedFromHeroGlbSha256": "6d16423155304063606a3cd7d9be3878cfa11469ddd2463077e8961bbe3812b9",
+      "derivedFromHeroBlendSha256": "1c01fddf3624e91dfe5ad4e4bb3e242b28898a4ed55da703806c11e0013b53c9",
+      "generator": {
+        "path": "scripts/create_sun_ke_villa_identity_model.py",
+        "sha256": "ee9b3bb8b468f0ff79dc2cfc7c2b811999eb5cf6bba56e6bae6c196b7c6d49a5",
+        "bytes": 17748
+      },
+      "blend": {
+        "path": "assets/models/source/tiers/sun-ke-villa/identity/sun-ke-villa-identity.blend",
+        "sha256": "acc713ca204f99fcc200cea080a9cd2532474aab3077e07eeac4407abe5a6725",
+        "bytes": 160366
+      },
+      "glb": {
+        "path": "public/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity.glb",
+        "sha256": "6b541e8ffab4c298ee6366083a3f236c6e3dd6d85020ab1cf12ac12cdc42b478",
+        "bytes": 345196,
+        "triangles": 5192,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 7,
+        "images": 0,
+        "textures": 0
+      },
+      "buildRecord": {
+        "path": "docs/research/build-records/tiers/sun-ke-villa/identity/sun-ke-villa-identity.json",
+        "sha256": "e051a64b1a3b328ab4e728fa6f03b6ad9384170947156e8368ef84593214859d"
+      }
+    },
+    "massing": {
+      "status": "formal-pass-recovered-and-single-asset-reproduced",
+      "derivation": "independent-evidence-and-osm-footprint-tier-not-derived-from-identity",
+      "sourceWayId": 864847877,
+      "generator": {
+        "path": "scripts/create_sun_ke_villa_massing_model.py",
+        "sha256": "7a9197cc80b98ba7f0ea30fb9a9dc9684dee2cd81414c67c2b1aef11da09c244",
+        "bytes": 23015
+      },
+      "blend": {
+        "path": "assets/models/source/tiers/sun-ke-villa/massing/sun-ke-villa-massing.blend",
+        "sha256": "332200935be244603a6c65e60bdffc96d3aa461458581db41db252594c957487",
+        "bytes": 100168
+      },
+      "glb": {
+        "path": "public/models/tiers/sun-ke-villa/massing/sun-ke-villa-massing.glb",
+        "sha256": "f233f9defd2196025dcb104fcccd8147df8327ccd638cff803ef8f9a7e3e50d0",
+        "bytes": 19988,
+        "triangles": 252,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 2,
+        "images": 0,
+        "textures": 0
+      },
+      "buildRecord": {
+        "path": "docs/research/build-records/tiers/sun-ke-villa/massing/sun-ke-villa-massing.json",
+        "sha256": "874af2beaa2d3f58550a816388030c9a7c4cae979a6c4adacf1a8764c3d7b77e"
+      }
+    }
+  },
+  "strictTierLineage": {
+    "status": "pass-with-explicit-independent-massing-provenance",
+    "heroToIdentity": "pass-exact-glb-blend-build-record-and-lineage-id",
+    "identityToMassing": "not-a-derivation-edge",
+    "massingRelationship": "same-subject-osm-way-origin-scale-height-front-and-open-porte-cochere-contract",
+    "triangleOrdering": "hero-greater-than-identity-greater-than-massing",
+    "sharedGroundY": 0,
+    "sharedHeightSceneUnits": 5.05,
+    "canonicalFront": "local -Y",
+    "warning": "Massing build record identityAllowed=false；不得倒置 lineage，把 Massing 声称为 Identity 的派生源。"
+  },
+  "historicalCandidate": {
+    "status": "retained-in-git-history-not-public-runtime-authority",
+    "commit": "50bb0e046daadb6ff83b868cf2deba10ea2c6d62",
+    "tiers": {
+      "hero": {
+        "path": "public/models/shangsheng/sun-ke-villa.glb",
+        "sha256": "8309b5b76ebdd42f2ec4cb433bf4586f54fbd29c15d57318cb61a3dada752ea2",
+        "bytes": 991292
+      },
+      "identity": {
+        "path": "public/models/shangsheng/sun-ke-villa-identity.glb",
+        "sha256": "036a2b754cfb77ba8cde0bf1b6e373cc9fdb6ed18a0c9bf8647ee2beea9ef59a",
+        "bytes": 618376
+      },
+      "massing": {
+        "path": "public/models/shangsheng/sun-ke-villa-massing.glb",
+        "sha256": "406cf9a3254176cce6874c248ad90fb8510561137461cbf5bffd39d357325490",
+        "bytes": 156044
+      }
+    },
+    "disposition": "保持历史可恢复，不复制回 public、不覆盖当前 Recovery accepted 三档、不删除 Git 对象。"
+  },
+  "mcpAndMap": {
+    "mcpRecord": "docs/research/sun-ke-villa-blender-mcp-gates-v2.json",
+    "mcpStatus": "pass-current-exact-three-tier-binaries",
+    "mapRecord": "docs/research/sun-ke-villa-massing-map-qa-v2.json",
+    "mapStatus": "formal-pass",
+    "position": [
+      51.5664,
+      -157.4202
+    ],
+    "yawRadians": 0.009414,
+    "runtimeScale": [
+      1,
+      1,
+      1
+    ],
+    "movementAuthorized": false,
+    "northPorteCochereProjectionSceneUnits": 2.16534,
+    "frontColumnObstacles": [
+      {
+        "minX": 40.86,
+        "maxX": 41.35,
+        "minZ": -14.71,
+        "maxZ": -14.22
+      },
+      {
+        "minX": 42.65,
+        "maxX": 43.16,
+        "minZ": -14.71,
+        "maxZ": -14.22
+      }
+    ],
+    "coveredLaneClearWidthSceneUnits": 1.3,
+    "coveredLaneOpen": true,
+    "collisionStatus": "pass"
+  },
+  "runtimeAuthority": {
+    "status": "pass-v3",
+    "record": "docs/research/sun-ke-villa-three-tier-runtime-qa-v3.json",
+    "tierUrlsMatchPublicFiles": true,
+    "normalTiers": "pass-hero-identity-massing",
+    "heroToIdentityFallback": "pass",
+    "identityToProgrammaticFallback": "pass-after-v3-fix",
+    "unexpectedConsoleErrorsInNormalTiers": 0,
+    "v2RetainedEvidence": [
+      "exact-binary cache revalidation",
+      "first-screen and delayed-loading",
+      "reconciliation runs"
+    ],
+    "v2SupersededEvidence": [
+      "identity-to-programmatic visual verdict before integrated fallback fix"
+    ],
+    "performanceClaim": "no-new-performance-improvement-claim"
+  },
+  "gates": {
+    "evidenceAndBrief": "pass-retained",
+    "hero": "pass-authoritative",
+    "identity": "pass-authoritative-derived-from-hero",
+    "massing": "pass-authoritative-independent-provenance",
+    "mcp1Massing": "pass-retained-v2",
+    "mcp2Hero": "pass-retained-v2",
+    "mcp3Identity": "pass-retained-v2",
+    "map": "pass-retained-v2",
+    "collisionAndOpenPorteCochere": "pass-retained-v2-and-v3",
+    "threeJsThreeTier": "pass-v3",
+    "fallback": "pass-v3",
+    "overall": "formal-pass"
+  },
+  "mainWindowAction": "只需 cherry-pick 本审计 checkpoint；不得重跑已合格门，不得把历史较重候选恢复到 public，也不得整体合入 Recovery/Hold。"
+}
