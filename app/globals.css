@@ -1067,24 +1067,34 @@ kbd {
   }
 
   .world-tools {
-    gap: 8px;
+    gap: 6px;
   }
 
   .world-tool-stack {
-    gap: 8px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 6px;
   }
 
   .lighting-hud-switcher {
-    width: 158px;
+    width: 144px;
+    flex: 0 0 144px;
   }
 
   .lighting-hud-switcher button {
-    min-height: 34px;
-    padding: 0 7px;
+    min-height: 32px;
+    gap: 4px;
+    padding: 0 5px;
+  }
+
+  .lighting-hud-switcher button span {
+    font-size: 14px;
   }
 
   .lighting-hud-switcher button strong {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .world-tools .overview-toggle {

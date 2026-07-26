@@ -209,7 +209,15 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.ok(
     experience.indexOf('className="lighting-hud-switcher"')
       < experience.indexOf('<nav className="world-tools"'),
-    "全览光照切换应位于右上工具按钮上方",
+    "全览光照切换应排在右上工具按钮之前",
+  );
+  assert.match(
+    styles,
+    /@media \(pointer: coarse\), \(max-width: 760px\)[\s\S]*?\.world-tool-stack\s*\{[^}]*display: flex;[^}]*flex-direction: row;[^}]*flex-wrap: nowrap;[^}]*align-items: center;/,
+  );
+  assert.match(
+    styles,
+    /@media \(pointer: coarse\), \(max-width: 760px\)[\s\S]*?\.lighting-hud-switcher\s*\{[^}]*width: 144px;[^}]*flex: 0 0 144px;/,
   );
   assert.match(styles, /\.overview-poi-card\s*\{[^}]*top: 82px;/);
   assert.match(styles, /top: calc\(env\(safe-area-inset-top, 0px\) \+ 124px\)/);
