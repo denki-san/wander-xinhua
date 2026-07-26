@@ -111,6 +111,7 @@
         "tests/test_xinhua_villas_329_massing_v3.test.mjs",
         "tests/test_xinhua_villas_329_massing_recovery_checkpoint.test.mjs",
         "tests/test_xinhua_villas_329_final_disposition.test.mjs",
+        "tests/test_xinhua_villas_329_map_conflict_superseding_adjudication.test.mjs",
         "tests/test_model_detail_upgrade.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -157,6 +158,7 @@
         "tests/test_villa_le_bec_massing_checkpoint.test.mjs",
         "tests/test_villa_le_bec_final_gap.test.mjs",
         "tests/test_villa_le_bec_three_tier_final_disposition.test.mjs",
+        "tests/test_villa_le_bec_hero_readiness.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
@@ -327,6 +329,7 @@
         "tests/test_xingfuli_blender_mcp_batch.test.mjs",
         "tests/test_xingfuli_threejs_tier_contract.test.mjs",
         "tests/test_xingfuli_threejs_runtime_batch.test.mjs",
+        "tests/test_xingfuli_user_photo_sequence_evidence.test.mjs",
         "tests/test_xingfuli_west_fast_audit.test.mjs",
         "tests/test_xingfuli_west_map_collision_lineage_adjudication.test.mjs",
         "tests/test_xingfuli_models.test.mjs"
@@ -352,6 +355,7 @@
         "tests/test_xingfuli_blender_mcp_batch.test.mjs",
         "tests/test_xingfuli_threejs_tier_contract.test.mjs",
         "tests/test_xingfuli_threejs_runtime_batch.test.mjs",
+        "tests/test_xingfuli_user_photo_sequence_evidence.test.mjs",
         "tests/test_xingfuli_center_lineage_map.test.mjs",
         "scripts/test_xingfuli_center_lineage_map_calibration.mjs",
         "tests/test_xingfuli_models.test.mjs"
@@ -377,6 +381,7 @@
         "tests/test_xingfuli_blender_mcp_batch.test.mjs",
         "tests/test_xingfuli_threejs_tier_contract.test.mjs",
         "tests/test_xingfuli_threejs_runtime_batch.test.mjs",
+        "tests/test_xingfuli_user_photo_sequence_evidence.test.mjs",
         "tests/test_xingfuli_east_tier_map_audit.test.mjs",
         "tests/test_xingfuli_models.test.mjs"
       ],

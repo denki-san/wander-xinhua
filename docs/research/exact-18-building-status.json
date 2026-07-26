@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T15:30:00+08:00",
-  "snapshotBaseCommit": "4f75344",
+  "snapshotAt": "2026-07-26T15:38:00+08:00",
+  "snapshotBaseCommit": "0276fa7",
   "scope": {
     "mode": "exact-18-building-fast-mode",
     "buildingCount": 18,
@@ -19,8 +19,8 @@
   },
   "summary": {
     "complete": 5,
-    "inProgress": 0,
-    "blockedOrPartial": 13,
+    "inProgress": 1,
+    "blockedOrPartial": 12,
     "completeIds": [
       "one-step-garden",
       "house-315",
@@ -28,7 +28,9 @@
       "xinhua-pocket-park",
       "sun-ke-villa"
     ],
-    "inProgressIds": []
+    "inProgressIds": [
+      "villa-le-bec"
+    ]
   },
   "buildings": [
     {
@@ -121,7 +123,8 @@
       "runtimePolicy": "massing-only-no-tier-promotion",
       "records": [
         "docs/research/xinhua-villas-329-final-disposition.json",
-        "docs/research/xinhua-villas-329-threejs-runtime-qa-v2.json"
+        "docs/research/xinhua-villas-329-threejs-runtime-qa-v2.json",
+        "docs/research/xinhua-villas-329-map-conflict-superseding-adjudication-2026-07-26.md"
       ]
     },
     {
@@ -145,8 +148,8 @@
     {
       "id": "villa-le-bec",
       "name": "哥伦比亚乡村俱乐部",
-      "evidence": "massing-pass-hero-invalid",
-      "hero": "hold-invalid-lineage",
+      "evidence": "pass-hero-readiness-multi-view",
+      "hero": "in-progress-pure-two-building",
       "identity": "missing",
       "massing": "pass",
       "mcp1": "pass",
@@ -154,12 +157,13 @@
       "mcp3": "blocked",
       "map": "pass",
       "threeJs": "pass-massing-performance-collision",
-      "overall": "massing-complete-hero-identity-blocked",
+      "overall": "in-progress-hero-build",
       "runtimePolicy": "massing-only-no-tier-promotion",
       "records": [
         "docs/research/villa-le-bec-final-gap-audit.json",
         "docs/research/villa-le-bec-map-candidate.json",
-        "docs/research/villa-le-bec-three-tier-final-disposition.json"
+        "docs/research/villa-le-bec-three-tier-final-disposition.json",
+        "docs/research/villa-le-bec-hero-readiness.json"
       ]
     },
     {
@@ -311,7 +315,8 @@
       "overall": "blocked-road-and-lineage",
       "runtimePolicy": "preserve-current-no-formal-promotion",
       "records": [
-        "docs/research/xingfuli-west-fast-audit.json"
+        "docs/research/xingfuli-west-fast-audit.json",
+        "docs/research/xingfuli-user-photo-sequence-2026-07-26.json"
       ]
     },
     {
@@ -329,7 +334,8 @@
       "overall": "blocked-strict-lineage",
       "runtimePolicy": "preserve-current-no-formal-promotion",
       "records": [
-        "docs/research/xingfuli-center-lineage-map-audit.json"
+        "docs/research/xingfuli-center-lineage-map-audit.json",
+        "docs/research/xingfuli-user-photo-sequence-2026-07-26.json"
       ]
     },
     {
@@ -347,7 +353,8 @@
       "overall": "blocked-road-and-lineage",
       "runtimePolicy": "preserve-current-no-formal-promotion",
       "records": [
-        "docs/research/xingfuli-east-tier-map-audit.json"
+        "docs/research/xingfuli-east-tier-map-audit.json",
+        "docs/research/xingfuli-user-photo-sequence-2026-07-26.json"
       ]
     },
     {

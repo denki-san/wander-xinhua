@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "assetGroup": "xingfuli",
+  "receivedAt": "2026-07-26T15:28:30+08:00",
+  "sourceType": "user-captured-photo-sequence",
+  "sourceAuthority": "photographer-first-party-statement",
+  "scope": {
+    "includedBuildings": [
+      "xingfuli-west",
+      "xingfuli-center",
+      "xingfuli-east"
+    ],
+    "excludedAndHeld": [
+      "trees",
+      "street furniture",
+      "decorations",
+      "full-map assets",
+      "other buildings"
+    ]
+  },
+  "userStatement": {
+    "photoCount": 9,
+    "samePlace": "xingfuli",
+    "orderedSequence": true,
+    "routeStart": "xingfu-road-entrance",
+    "routeEnd": "opposite-road",
+    "routeEndRoadCandidate": "panyu-road",
+    "routeEndRoadStatus": "user-unsure-requires-map-and-photo-verification"
+  },
+  "assistantObserved": {
+    "personalPhotoFilesMaterializedInWorktree": false,
+    "personalPhotoHashesAvailable": false,
+    "existingPublicReferenceManifest": "docs/research/xingfuli-reference-manifest.json",
+    "existingPublicReferenceCount": 9,
+    "existingPublicReferencesAreSameAsUserSequence": false,
+    "reason": "现有九张均记录为2018至2021年公开网页来源，不能改写为用户个人实拍。"
+  },
+  "orderedSlots": [
+    {
+      "sequence": 1,
+      "id": "user-sequence-01",
+      "routeRole": "xingfu-road-entrance-start",
+      "assetState": "pending-original-file"
+    },
+    {
+      "sequence": 2,
+      "id": "user-sequence-02",
+      "routeRole": "early-route",
+      "assetState": "pending-original-file"
+    },
+    {
+      "sequence": 3,
+      "id": "user-sequence-03",
+      "routeRole": "early-route",
+      "assetState": "pending-original-file"
+    },
+    {
+      "sequence": 4,
+      "id": "user-sequence-04",
+      "routeRole": "middle-route",
+      "assetState": "pending-original-file"
+    },
+    {
+      "sequence": 5,
+      "id": "user-sequence-05",
+      "routeRole": "middle-route",
+      "assetState": "pending-original-file"
+    },
+    {
+      "sequence": 6,
+      "id": "user-sequence-06",
+      "routeRole": "middle-route",
+      "assetState": "pending-original-file"
+    },
+    {
+      "sequence": 7,
+      "id": "user-sequence-07",
+      "routeRole": "late-route",
+      "assetState": "pending-original-file"
+    },
+    {
+      "sequence": 8,
+      "id": "user-sequence-08",
+      "routeRole": "late-route",
+      "assetState": "pending-original-file"
+    },
+    {
+      "sequence": 9,
+      "id": "user-sequence-09",
+      "routeRole": "opposite-road-end",
+      "assetState": "pending-original-file"
+    }
+  ],
+  "inferred": [
+    "九图很可能形成沿幸福里长轴的连续路线，可用于复核西区、中区、东区的相邻顺序。",
+    "若第九张的道路身份经地图和画面共同确认，则路线方向可用于检验当前 east 端与番禺路的绑定。"
+  ],
+  "unknown": [
+    "九张原图的本地路径、SHA-256、EXIF与拍摄日期。",
+    "每张照片对应的精确建筑段、观察方向和相机位置。",
+    "第九张对面道路是否确为番禺路。",
+    "照片序列方向是否与当前运行时 local +X 完全一致。"
+  ],
+  "acceptancePolicy": {
+    "rawImagesReadOnlyWhenAvailable": true,
+    "doNotOverwriteExistingPublicReferences": true,
+    "doNotEmbedInGlbOrRuntime": true,
+    "sequenceMayConstrainFacadeOrder": true,
+    "sequenceAloneMayNotPromoteMapOrLineageGate": true,
+    "requiredBeforeVisualAdjudication": [
+      "materialize-all-nine-original-files",
+      "record-sha256-and-image-metadata",
+      "visually-map-each-image-to-west-center-east-or-unknown",
+      "verify-route-end-road-with-map-and-visible-evidence"
+    ]
+  },
+  "externalArchive": {
+    "knowledgeBase": "Threejs-3d-research",
+    "sourcePath": "raw/sources/threejs-modeling-knowledge-base/wander-xinhua/xingfuli-user-photo-route-2026-07-26.md",
+    "rawImageArchiveStatus": "pending-original-files"
+  }
+}
