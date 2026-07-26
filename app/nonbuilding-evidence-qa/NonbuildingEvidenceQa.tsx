@@ -47,6 +47,13 @@ const ASSETS = [
     evidence: "多张水景图反复显示窄矩形槽体、可见土层和高低不等植物。",
     path: "/models/nonbuilding/xingfuli-current-street-furniture/xingfuli-water-edge-slim-planter-visible-low.glb",
   },
+  {
+    slug: "xinhua-shared-bicycle",
+    name: "新华路共享自行车 · 开源扫描优化候选",
+    location: "新华路沿线共享单车停放带；精确节点待后续 placement 任务确认",
+    evidence: "本地街景证据显示蓝色低跨车架、前车篮、后挡泥板；开源扫描补足真实结构。",
+    path: "/models/nonbuilding/xinhua-bicycle-family/xinhua-shared-bicycle-visible-low.glb?v=31983bf59dd1",
+  },
 ] as const;
 
 type AssetSlug = (typeof ASSETS)[number]["slug"];
@@ -196,7 +203,7 @@ export function NonbuildingEvidenceQa() {
       <header className={styles.header}>
         <div>
           <p className={styles.eyebrow}>NONBUILDING EVIDENCE QA</p>
-          <h1>幸福里当前街具 · 两态验证</h1>
+          <h1>非建筑低模资产 · 两态验证</h1>
         </div>
         <div className={styles.headerStatus}>
           <span className={visible ? styles.visibleDot : styles.hiddenDot} />

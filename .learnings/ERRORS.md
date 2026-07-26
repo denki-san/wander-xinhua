@@ -32,6 +32,121 @@ Error: listen EPERM: operation not permitted 127.0.0.1:4317
 
 ---
 
+## [ERR-20260726-066] blender_52_eevee_enum_changed
+
+**Logged**: 2026-07-26T00:28:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: modeling
+
+### Summary
+
+自行车快速生成器首次运行在固定机位预览阶段使用了 Blender 旧版 Eevee
+枚举，Blender 5.2 拒绝该值。
+
+### Error
+
+```text
+TypeError: enum "BLENDER_EEVEE_NEXT" not found in
+('BLENDER_EEVEE', 'BLENDER_WORKBENCH', 'CYCLES')
+```
+
+### Context
+
+- 三维几何、首份 `.blend` 和 GLB 已在错误前成功生成；
+- 失败只发生在添加 QA 灯光后的预览渲染；
+- 当前 Blender 版本为 5.2.0 LTS。
+
+### Suggested Fix
+
+使用当前版本可查询到的 `BLENDER_EEVEE` 枚举，并在只有一个对象的材质组中
+跳过无意义的 join。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: scripts/create_xinhua_bicycle_family.py
+
+### Resolution
+
+- **Resolved**: 2026-07-26T00:29:00+08:00
+- **Notes**: 已改用 `BLENDER_EEVEE`，随后从头重建全部三辆自行车。
+
+---
+
+## [ERR-20260726-067] empty_blender_scene_has_no_world
+
+**Logged**: 2026-07-26T00:29:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: modeling
+
+### Summary
+
+`read_factory_settings(use_empty=True)` 创建的 Blender 空场景没有 World，
+固定机位预览直接设置背景色时失败。
+
+### Error
+
+```text
+AttributeError: 'NoneType' object has no attribute 'color'
+```
+
+### Context
+
+- 错误仍发生在 master 和 GLB 保存之后；
+- 快速生成器需要自己建立完整的 QA 世界，而不能依赖默认启动文件。
+
+### Suggested Fix
+
+在预览初始化时检测 `scene.world`，为空则显式创建 `QA-world`。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: scripts/create_xinhua_bicycle_family.py
+- See Also: ERR-20260726-066
+
+### Resolution
+
+- **Resolved**: 2026-07-26T00:30:00+08:00
+- **Notes**: 已显式创建 QA World 并重新执行批量构建。
+
+---
+
+## [ERR-20260726-068] zsh_unquoted_query_url_glob
+
+**Logged**: 2026-07-26T00:32:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+
+本地 QA URL 含 `?`，未加引号时被 zsh 当作 glob，健康检查未执行。
+
+### Error
+
+```text
+zsh: no matches found: http://localhost:3018/nonbuilding-evidence-qa?asset=...
+```
+
+### Suggested Fix
+
+所有含 query string 的 curl URL 使用单引号包裹。
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: app/nonbuilding-evidence-qa/NonbuildingEvidenceQa.tsx
+
+### Resolution
+
+- **Resolved**: 2026-07-26T00:32:00+08:00
+- **Notes**: 已改用带引号 URL 重新检查。
+
+---
+
 ## [ERR-20260725-053] llm_wiki_desktop_api_unreachable
 
 **Logged**: 2026-07-25T19:00:00+08:00
@@ -8416,3 +8531,46 @@ Argument of type 'number[]' is not assignable to parameter of type
   完成证据；不把全仓 `npm test` 误报为通过。
 
 ---
+## [ERR-20260726-069] img2threejs 质量校验脚本名误判
+
+**Logged**: 2026-07-26
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+按常见命名猜测执行了不存在的 `check_spec_quality.py`。
+
+### Error
+`forge/stage2_spec/check_spec_quality.py: No such file or directory`
+
+### Cause
+没有先查询仓库内实际脚本名；该项目使用 `validate_sculpt_spec.py --strict-quality`。
+
+### Fix
+先用 `rg --files forge` 定位验证入口，再执行仓库提供的参数帮助。
+
+### Prevention
+外部工具仓库的脚本入口一律先以文件清单和 `--help` 为准，不根据语义猜文件名。
+## [ERR-20260726-070] Blender 脚本误解析宿主参数
+
+**Logged**: 2026-07-26
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+优化脚本直接调用 `argparse.parse_args()`，把 Blender 自身的
+`--background` 和 `--python` 参数当成脚本参数。
+
+### Error
+`error: unrecognized arguments: --background --python ...`
+
+### Cause
+未按 Blender 约定只解析 `--` 之后的脚本参数。
+
+### Fix
+从 `sys.argv` 中截取 `--` 后的参数再交给 argparse。
+
+### Prevention
+所有 Blender Python CLI 入口统一使用 `--` 分隔宿主参数和脚本参数。

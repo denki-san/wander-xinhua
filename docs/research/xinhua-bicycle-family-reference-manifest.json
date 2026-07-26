@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-07-26",
+  "package": "xinhua-bicycle-family",
+  "status": "approved-for-fast-visible-low-build",
+  "sourcePolicy": "research-only-no-runtime-embedding-no-logo-copy",
+  "externalRoot": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/raw/xhs",
+  "approvedAssets": [
+    "xinhua-commuter-bicycle",
+    "xinhua-shared-bicycle",
+    "xinhua-vintage-bicycle"
+  ],
+  "references": [
+    {
+      "localPath": "docs/research/assets/nonbuilding-evidence-pilot/xinhua-bicycle-family/xinhua-commuter-bicycle-2026.webp",
+      "sha256": "86ca4174e4a2e523d67c2b4e5af79f5bcfecd5de466fec8a346d04b60a41e290",
+      "sourceUrl": "https://www.xiaohongshu.com/explore/6a241e4e00000000220246d6",
+      "rawFile": "6a241e4e00000000220246d6/image-10.webp",
+      "subject": "green commuter bicycle outside M2F",
+      "possibleLocation": "M2F cafe storefront on the article route",
+      "locationEvidence": "store sign is readable and the article names M2F",
+      "confidence": "high",
+      "view": "canonical broadside-oblique",
+      "supports": ["diamond frame", "flat handlebar", "adult bicycle scale"]
+    },
+    {
+      "localPath": "docs/research/assets/nonbuilding-evidence-pilot/xinhua-bicycle-family/xinhua-shared-bicycle-2026.webp",
+      "sha256": "278eeccf67668090b3c229863f4587f1e8163040d1f6cfd10805490279121bc6",
+      "sourceUrl": "https://www.xiaohongshu.com/explore/6a241e4e00000000220246d6",
+      "rawFile": "6a241e4e00000000220246d6/image-11.webp",
+      "subject": "blue shared bicycle with basket",
+      "possibleLocation": "Xinhua Road article route; exact storefront not asserted",
+      "locationEvidence": "article route plus visible street environment",
+      "confidence": "medium",
+      "view": "full side and basket detail",
+      "supports": ["step-through frame", "front basket", "rear fender"]
+    },
+    {
+      "localPath": "docs/research/assets/nonbuilding-evidence-pilot/xinhua-bicycle-family/xinhua-vintage-bicycle-2026.webp",
+      "sha256": "1ea9063e48509b3084a264f325e8952ce3284d5733daded9760bacac2a6b941c",
+      "sourceUrl": "https://www.xiaohongshu.com/explore/67fcf03c000000000b02d804",
+      "rawFile": "67fcf03c000000000b02d804/image-05.webp",
+      "subject": "vintage bicycle cockpit and saddle",
+      "possibleLocation": "Xinhua Road citywalk route; exact point unknown",
+      "locationEvidence": "ordered article route only",
+      "confidence": "low",
+      "view": "identity detail",
+      "supports": ["silver cockpit", "brown grips", "orange-red frame accent"]
+    },
+    {
+      "localPath": "docs/research/assets/nonbuilding-evidence-pilot/xinhua-bicycle-family/xinhua-bicycle-density-2026.webp",
+      "sha256": "8e20de0be2bd1724085bef71951112fdc725fcbc63510fe745fd0607f5bb544d",
+      "sourceUrl": "https://www.xiaohongshu.com/explore/6a241e4e00000000220246d6",
+      "rawFile": "6a241e4e00000000220246d6/image-18.webp",
+      "subject": "shared bicycles, cyclist and pedestrians",
+      "possibleLocation": "Xinhua Road article route; exact storefront unknown",
+      "locationEvidence": "article route without readable address",
+      "confidence": "medium",
+      "view": "activity context",
+      "supports": ["small parked groups", "rider presence", "street-life density"]
+    }
+  ],
+  "held": [
+    "cargo-bicycle",
+    "child-bicycle",
+    "parking-rack",
+    "animated-rider",
+    "production-placement"
+  ]
+}

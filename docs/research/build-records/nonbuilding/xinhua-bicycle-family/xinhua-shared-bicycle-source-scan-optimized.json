@@ -1,0 +1,29 @@
+{
+  "asset": "xinhua-shared-bicycle",
+  "status": "candidate-for-isolated-qa",
+  "source": {
+    "path": "assets/models/source/nonbuilding/xinhua-bicycle-family/original/blue_bike_3d_scan.glb",
+    "sha256": "6a83dd3e7d7f7435fa3b9d811ac35c833457c52fe128622604e32dd54a72aa0a",
+    "license": "Creative Commons Attribution",
+    "creator": "Ye Hang (@YeHang)"
+  },
+  "derivative": {
+    "path": "public/models/nonbuilding/xinhua-bicycle-family/xinhua-shared-bicycle-visible-low.glb",
+    "sha256": "31983bf59dd11d49c59280a7e61f31351f080892990706989b710a5e61c0d12d",
+    "bytes": 789484,
+    "trianglesBefore": 64519,
+    "trianglesAfter": 14500,
+    "materials": {
+      "BikeBlue": 7984,
+      "RubberCharcoal": 28849,
+      "WornMetal": 7905,
+      "WeatheredFrame": 19781
+    },
+    "embeddedImages": 0,
+    "brandingPolicy": "Original albedo removed; broad material classes only.",
+    "states": [
+      "visible-low",
+      "hidden"
+    ]
+  }
+}

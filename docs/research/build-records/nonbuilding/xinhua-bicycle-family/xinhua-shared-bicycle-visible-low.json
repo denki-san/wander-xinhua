@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-shared-bicycle",
+  "label": "新华路蓝色共享自行车",
+  "package": "xinhua-bicycle-family",
+  "runtimeTier": "visible-low",
+  "runtimeStates": [
+    "visible-low",
+    "hidden"
+  ],
+  "generator": "scripts/create_xinhua_bicycle_family.py",
+  "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python scripts/create_xinhua_bicycle_family.py -- --asset xinhua-shared-bicycle",
+  "blenderVersion": "5.2.0 LTS",
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/xinhua-bicycle-family/xinhua-shared-bicycle.blend",
+    "blendSha256": "a09dd965550a2a1772d43a42ed90d68a86606adbf9180338d0640b46899e9056",
+    "glb": "public/models/nonbuilding/xinhua-bicycle-family/xinhua-shared-bicycle-visible-low.glb"
+  },
+  "glb": {
+    "sha256": "d1f51b2eb8c73270d2749de44f0b56d10bfe3e51fa98f0ceca357317b2f665e2",
+    "bytes": 139356,
+    "nodes": 5,
+    "meshes": 5,
+    "triangles": 2156,
+    "materials": 5,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "bounds": {
+      "min": [
+        -0.32,
+        0,
+        -0.085
+      ],
+      "max": [
+        0.362475,
+        0.468,
+        0.085
+      ]
+    },
+    "transformedNodes": []
+  },
+  "budget": {
+    "maxTriangles": 2400,
+    "maxNodes": 6,
+    "maxMaterials": 5,
+    "maxImages": 0,
+    "maxBinaryBytes": 160000
+  },
+  "identityCues": [
+    "blue step-through frame",
+    "open front basket",
+    "rear fender"
+  ],
+  "evidenceRef": "docs/research/xinhua-bicycle-family-reference-manifest.json",
+  "buildingTierCompatibility": {
+    "hero": "not-applicable-by-nonbuilding-two-state-contract",
+    "identity": "not-applicable-by-nonbuilding-two-state-contract",
+    "massing": "not-applicable-by-nonbuilding-two-state-contract"
+  },
+  "previewGate": {
+    "status": "headless-fixed-camera-passed",
+    "views": [
+      "canonical",
+      "side",
+      "detail"
+    ],
+    "savedQaObjectsInMaster": false
+  },
+  "runtimeGate": {
+    "status": "pending-isolated-qa",
+    "productionRegistry": "intentionally-not-integrated",
+    "productionInstances": 0
+  }
+}

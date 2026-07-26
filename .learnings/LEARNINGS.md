@@ -927,3 +927,33 @@ Messenger 式移动触控不是“永久隐藏摇杆、移动时显示跳跃按�
 - Tags: performance, character, fog, trees, decorations, correction
 
 ---
+## [LRN-20260726-001] correction
+
+**Logged**: 2026-07-26T00:33:00+08:00
+**Priority**: high
+**Status**: pending
+**Area**: modeling
+
+### Summary
+
+快速生成低模不能以“结构齐全”为完成标准；自行车细杆件和轮组对比例、轮廓与
+材质非常敏感，粗糙程序化结果即使预算合格也会显得廉价。
+
+### Details
+
+用户明确反馈首批程序化自行车“太丑了”，要求优先寻找现成模型或共享单车模型。
+后续类似高熟悉度日常物件应先比较可用开源资产，再决定是否原创生成；快速流程
+必须把早期 contact sheet 作为视觉否决门。
+
+### Suggested Action
+
+先检索许可清晰的 CC0/CC BY 城市自行车资产并做隔离导入；只在没有合适来源时
+才继续原创建模。未通过视觉门的生成物不得进入正式地图或主线候选。
+
+### Metadata
+
+- Source: user_feedback
+- Related Files: scripts/create_xinhua_bicycle_family.py
+- Tags: bicycle, visual-quality, asset-sourcing, fast-lane
+
+---

@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-vintage-bicycle",
+  "label": "新华路银橙复古自行车",
+  "package": "xinhua-bicycle-family",
+  "runtimeTier": "visible-low",
+  "runtimeStates": [
+    "visible-low",
+    "hidden"
+  ],
+  "generator": "scripts/create_xinhua_bicycle_family.py",
+  "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python scripts/create_xinhua_bicycle_family.py -- --asset xinhua-vintage-bicycle",
+  "blenderVersion": "5.2.0 LTS",
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/xinhua-bicycle-family/xinhua-vintage-bicycle.blend",
+    "blendSha256": "f053bf35b876b7c9d68618ca247854411c30df99aea3e8f94cea8127e6c41331",
+    "glb": "public/models/nonbuilding/xinhua-bicycle-family/xinhua-vintage-bicycle-visible-low.glb"
+  },
+  "glb": {
+    "sha256": "a44e54a3e80047c388618f437d6341c6a699e56de47d1ddd13df750b1c9af0d6",
+    "bytes": 122636,
+    "nodes": 5,
+    "meshes": 5,
+    "triangles": 1864,
+    "materials": 5,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "bounds": {
+      "min": [
+        -0.32,
+        0,
+        -0.085
+      ],
+      "max": [
+        0.32,
+        0.462,
+        0.085
+      ]
+    },
+    "transformedNodes": []
+  },
+  "budget": {
+    "maxTriangles": 2400,
+    "maxNodes": 6,
+    "maxMaterials": 5,
+    "maxImages": 0,
+    "maxBinaryBytes": 160000
+  },
+  "identityCues": [
+    "silver upper frame",
+    "orange-red seat-tube accent",
+    "brown cockpit"
+  ],
+  "evidenceRef": "docs/research/xinhua-bicycle-family-reference-manifest.json",
+  "buildingTierCompatibility": {
+    "hero": "not-applicable-by-nonbuilding-two-state-contract",
+    "identity": "not-applicable-by-nonbuilding-two-state-contract",
+    "massing": "not-applicable-by-nonbuilding-two-state-contract"
+  },
+  "previewGate": {
+    "status": "headless-fixed-camera-passed",
+    "views": [
+      "canonical",
+      "side",
+      "detail"
+    ],
+    "savedQaObjectsInMaster": false
+  },
+  "runtimeGate": {
+    "status": "pending-isolated-qa",
+    "productionRegistry": "intentionally-not-integrated",
+    "productionInstances": 0
+  }
+}

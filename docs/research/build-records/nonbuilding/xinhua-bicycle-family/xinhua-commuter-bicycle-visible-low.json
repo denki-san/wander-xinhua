@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-commuter-bicycle",
+  "label": "新华路绿色通勤自行车",
+  "package": "xinhua-bicycle-family",
+  "runtimeTier": "visible-low",
+  "runtimeStates": [
+    "visible-low",
+    "hidden"
+  ],
+  "generator": "scripts/create_xinhua_bicycle_family.py",
+  "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python scripts/create_xinhua_bicycle_family.py -- --asset xinhua-commuter-bicycle",
+  "blenderVersion": "5.2.0 LTS",
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/xinhua-bicycle-family/xinhua-commuter-bicycle.blend",
+    "blendSha256": "8d8e57c73f6a18b9654d51edbf0c6ebe61482b674655bfde0fd5e6358b0a4acd",
+    "glb": "public/models/nonbuilding/xinhua-bicycle-family/xinhua-commuter-bicycle-visible-low.glb"
+  },
+  "glb": {
+    "sha256": "d20c8c9c2c6bde4faf86081f75e54b1567db00aeba362cdd89caaa5ee34fccb1",
+    "bytes": 111780,
+    "nodes": 5,
+    "meshes": 5,
+    "triangles": 1716,
+    "materials": 5,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "bounds": {
+      "min": [
+        -0.32,
+        0,
+        -0.085
+      ],
+      "max": [
+        0.32,
+        0.448,
+        0.085
+      ]
+    },
+    "transformedNodes": []
+  },
+  "budget": {
+    "maxTriangles": 2400,
+    "maxNodes": 6,
+    "maxMaterials": 5,
+    "maxImages": 0,
+    "maxBinaryBytes": 160000
+  },
+  "identityCues": [
+    "green diamond frame",
+    "flat handlebar",
+    "compact rear rack"
+  ],
+  "evidenceRef": "docs/research/xinhua-bicycle-family-reference-manifest.json",
+  "buildingTierCompatibility": {
+    "hero": "not-applicable-by-nonbuilding-two-state-contract",
+    "identity": "not-applicable-by-nonbuilding-two-state-contract",
+    "massing": "not-applicable-by-nonbuilding-two-state-contract"
+  },
+  "previewGate": {
+    "status": "headless-fixed-camera-passed",
+    "views": [
+      "canonical",
+      "side",
+      "detail"
+    ],
+    "savedQaObjectsInMaster": false
+  },
+  "runtimeGate": {
+    "status": "pending-isolated-qa",
+    "productionRegistry": "intentionally-not-integrated",
+    "productionInstances": 0
+  }
+}
