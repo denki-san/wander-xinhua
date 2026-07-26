@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "auditedAt": "2026-07-26",
+  "purpose": "close-hero-exact-source-reproducibility-without-public-or-runtime-writes",
+  "baseline": {
+    "worktreeBaseCommit": "c066873253a534da17b438a8d1530a0b4e043f9f",
+    "requestedIntegrationCommit": "dcd619e04fc735e8b0a4b9b01cac7ca78a749ecb",
+    "commonAncestor": "ade098eaa4be7a37d766b2867c909885742d6030",
+    "relationshipAtStart": "sibling-branches",
+    "historyPolicy": "keep-c066873-history-and-deliver-one-cherry-pickable-building-specific-commit"
+  },
+  "verdict": {
+    "status": "pass-exact-source-reproduction",
+    "exactPublicShaReproduced": true,
+    "exactIndependentProcessDeterminism": true,
+    "structuralEquivalence": "pass-exact",
+    "reason": "SHA 锁定的已验收上海影城 Hero Blend 在两个独立 Blender 5.2.0 LTS 进程中均导出与当前 public Hero 字节完全相同的 GLB。"
+  },
+  "scope": {
+    "publicHeroModified": false,
+    "sourceBlendModified": false,
+    "frozenProceduralGeneratorModified": false,
+    "sharedRegistryModified": false,
+    "sharedRuntimeModified": false,
+    "fastManifestModified": false,
+    "mapAnchorModified": false,
+    "recoveryMassingModified": false,
+    "heroMcp2Modified": false,
+    "identityMcp3Modified": false,
+    "candidateBinariesCommitted": false,
+    "candidateBinaryRetention": "local-ignored-test-artifacts-only",
+    "excluded": [
+      "public wiring",
+      "map pass",
+      "browser acceptance",
+      "network research",
+      "other assets"
+    ]
+  },
+  "sourceOfTruth": {
+    "path": "assets/models/source/xinhua-road/shanghai-cinema.blend",
+    "sha256": "fbb13fdb89169101c97bda0f3e5ba9644c70743aa85bd810368b365969db8fd8",
+    "bytes": 1275824,
+    "role": "accepted-editable-hero-source",
+    "requiredMeshObject": "shanghai-cinema",
+    "requiredProvenanceProperty": {
+      "runtime_x_mirrored": true
+    }
+  },
+  "exactExporter": {
+    "path": "scripts/create_shanghai_cinema_hero_exact_reproduction.py",
+    "sha256": "5465f462729f1b1bf3cd564bdab8d2badad58a440441f3cac478442a1b8e37b8",
+    "policy": [
+      "Blender must directly load the SHA-locked accepted Blend",
+      "output must be a new GLB below the building-specific ignored test_artifacts root",
+      "existing candidate paths are never overwritten",
+      "the exported byte count and SHA must match the accepted public Hero or the process fails"
+    ]
+  },
+  "environment": {
+    "blenderVersion": "5.2.0 LTS",
+    "blenderBuildHash": "fbe6228777e7",
+    "blenderBuildDate": "2026-07-14",
+    "platform": "macOS arm64",
+    "controlledThreads": 1,
+    "commandTemplate": "/Applications/Blender.app/Contents/MacOS/Blender --background assets/models/source/xinhua-road/shanghai-cinema.blend --threads 1 --python-exit-code 1 --python scripts/create_shanghai_cinema_hero_exact_reproduction.py -- --output=<new-building-specific-path.glb>"
+  },
+  "referenceHero": {
+    "path": "public/models/xinhua-road/shanghai-cinema.glb",
+    "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+    "bytes": 5862660,
+    "jsonChunkSha256": "4dafad8f0fc57c28b7f00fc6e91a357d6325731d5f88860ddcdf8c640b1075f6",
+    "binaryChunkSha256": "dd38faa8f0dbac9f8c4771d8221be5dd782e71f09fd38ddebf8d0b5aacd67230"
+  },
+  "controlledIndependentExports": [
+    {
+      "id": "verified-a",
+      "path": "test_artifacts/shanghai-cinema-hero-exact-reproduction/verified-a/shanghai-cinema.glb",
+      "committed": false,
+      "glbSha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+      "glbBytes": 5862660,
+      "exactReferenceMatch": true
+    },
+    {
+      "id": "verified-b",
+      "path": "test_artifacts/shanghai-cinema-hero-exact-reproduction/verified-b/shanghai-cinema.glb",
+      "committed": false,
+      "glbSha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+      "glbBytes": 5862660,
+      "exactReferenceMatch": true
+    }
+  ],
+  "exactComparison": {
+    "referenceToVerifiedA": {
+      "exactFileMatch": true,
+      "exactJsonChunkMatch": true,
+      "exactBinaryChunkMatch": true,
+      "differingFileBytes": 0,
+      "differingBinaryBytes": 0,
+      "differingAccessors": []
+    },
+    "referenceToVerifiedB": {
+      "exactFileMatch": true,
+      "exactJsonChunkMatch": true,
+      "exactBinaryChunkMatch": true,
+      "differingFileBytes": 0,
+      "differingBinaryBytes": 0,
+      "differingAccessors": []
+    },
+    "verifiedAToVerifiedB": {
+      "exactFileMatch": true,
+      "exactJsonChunkMatch": true,
+      "exactBinaryChunkMatch": true,
+      "differingFileBytes": 0,
+      "differingBinaryBytes": 0,
+      "differingAccessors": []
+    }
+  },
+  "structure": {
+    "status": "pass-exact-all-three",
+    "nodes": 1,
+    "meshes": 1,
+    "primitives": 13,
+    "triangles": 83820,
+    "materials": 13,
+    "images": 0,
+    "textures": 0,
+    "accessors": 52,
+    "bufferViews": 52,
+    "bounds": {
+      "min": [
+        -19,
+        -0.06000000983476639,
+        -11.800000190734863
+      ],
+      "max": [
+        19,
+        17.225000381469727,
+        14.199999809265137
+      ]
+    }
+  },
+  "rootCause": {
+    "observed": [
+      "历史 procedural generator 的两个独立 run 生成不同 Blend SHA 与 GLB SHA。",
+      "旧审计证明其 JSON、结构、bounds、材质顺序、POSITION、NORMAL 与 INDICES 相同，差异只在 TEXCOORD_0 的 Float32 末位，最大绝对差为 5.960464477539063e-8。",
+      "同一份已验收 Blend 通过相同导出参数在两个独立进程中均精确复现 public Hero。"
+    ],
+    "localization": {
+      "status": "inferred-by-controlled-elimination",
+      "stableBoundary": "gltf-export-from-the-sha-locked-accepted-blend",
+      "unstableBoundary": "fresh-procedural-build-save-and-export",
+      "unresolvedSubstage": "尚未直接比较两个 procedural Blend 内的 UV，因此不能在 mesh construction、Blend save/reload state 或 fresh in-memory export 之间作更细的事实定位。"
+    },
+    "inference": "最可能的漂移来源是 primitive cube 默认 UV 经 Bevel modifier 插值、应用与 Join 合并时的 Float32 末位差；该机制是基于差异 accessor 与生成器操作顺序的推断，不作为直接观测事实。",
+    "fix": "把 SHA 锁定的可编辑 accepted Blend 设为精确 Hero 源，并使用建筑专属 exporter 只在内存中应用历史 runtime X 镜像后导出；不再把 fresh procedural rebuild 当作 exact-binary source。",
+    "notClaimed": "没有声称历史 procedural generator 已变成字节确定性，没有把微观漂移子阶段写成直接观测事实，也没有以视觉等价替代 exact SHA。"
+  },
+  "auditTools": {
+    "exactComparison": {
+      "path": "scripts/audit_shanghai_cinema_hero_reproduction.mjs",
+      "sha256": "086160d1f984d1de81c4aa56a7fb28b7ced4f6d9a2e524163b076665a9d1b590",
+      "result": "pass-exact-source-reproduction"
+    },
+    "glbStructure": {
+      "path": "scripts/audit_glb.py",
+      "sha256": "51a1418ad4c3f578b0cc2f6bfa05884c8b7e5c815a838092989663ff4a1e3a85",
+      "arguments": "--forbid-images --max-nodes 1",
+      "result": "pass-reference-and-both-independent-exports"
+    }
+  },
+  "gates": {
+    "acceptedBlendShaLock": "pass",
+    "headlessIndependentExports": "pass-two-runs",
+    "exactPublicSha": "pass-both-runs",
+    "exactRoundtripDeterminism": "pass",
+    "glbStructure": "pass",
+    "publicHeroReplacement": "not-requested",
+    "mapGate": "untouched-no-pass-claimed",
+    "runtimeGate": "untouched-no-pass-claimed",
+    "overall": "pass-exact-source-reproduction"
+  }
+}
