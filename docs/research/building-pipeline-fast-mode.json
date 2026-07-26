@@ -214,6 +214,7 @@
         "tests/test_shanghai_orchestra_membership_tier_final_disposition.test.mjs",
         "tests/test_shanghai_orchestra_osm_membership_deep_audit.test.mjs",
         "tests/test_shanghai_orchestra_osm_membership_rescue_audit.test.mjs",
+        "tests/test_shanghai_orchestra_gap_medium_blocker.test.mjs",
         "scripts/test_generate_shanghai_orchestra_map_calibration.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -327,6 +328,7 @@
       "label": "法华遗韵",
       "tests": [
         "tests/test_fahua_heritage_local_evidence_rescue.test.mjs",
+        "tests/test_fahua_heritage_gap_audit_2026_07_26.test.mjs",
         "tests/test_requested_poi_models.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],

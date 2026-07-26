@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T19:32:03+08:00",
+  "snapshotAt": "2026-07-26T20:41:51+08:00",
   "snapshotBaseCommit": "04aff48-plus-main-window-film-v2",
   "scope": {
     "mode": "exact-18-building-fast-mode",
@@ -211,7 +211,8 @@
         "docs/research/shanghai-orchestra-final-gap-audit.json",
         "docs/research/shanghai-orchestra-membership-tier-final-disposition-2026-07-26.md",
         "docs/research/shanghai-orchestra-osm-membership-deep-audit.json",
-        "docs/research/shanghai-orchestra-osm-membership-rescue-audit.json"
+        "docs/research/shanghai-orchestra-osm-membership-rescue-audit.json",
+        "docs/research/shanghai-orchestra-gap-medium-blocker-2026-07-26.json"
       ]
     },
     {
@@ -312,7 +313,8 @@
       "runtimePolicy": "preserve-files-when-user-awake-search-xhs-then-disable-runtime-if-still-missing",
       "records": [
         "docs/research/fahua-heritage-final-disposition.json",
-        "docs/research/fahua-heritage-local-evidence-rescue.json"
+        "docs/research/fahua-heritage-local-evidence-rescue.json",
+        "docs/research/fahua-heritage-gap-audit-2026-07-26.json"
       ]
     },
     {
