@@ -15,7 +15,7 @@
 
 ## Candidate derivation
 
-- Hero -> Identity v2: remove site lane/matrix hardscape and Hero-only material details while retaining the white glass corner, roof tank, long south timber facade, brick window volume, storefront rhythm and overall silhouette.
+- Hero -> Identity v2: retain the inherited lane base and Panyu-entry matrix hardscape so the tier bounds and ground/entry semantics remain stable; remove Hero-only material details while retaining the white glass corner, roof tank, long south timber facade, brick window volume, storefront rhythm and overall silhouette.
 - Identity v2 -> Massing v2: remove sills and extra window columns only. Keep the entrance volumes and long-axis silhouette unchanged.
 - The generator verifies parent GLB and Blend SHA before opening the parent and exports only new v2 paths.
 

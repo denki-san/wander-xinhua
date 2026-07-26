@@ -34,13 +34,13 @@ CONTRACT = {
         "parent_glb": "xingfuli-east.glb",
         "parent_blend": "xingfuli-east.blend",
         "parent_tier": "hero",
-        "expected_objects": 134,
+        "expected_objects": 142,
     },
     "massing-v2": {
         "parent_glb": "xingfuli-east-identity-v2.glb",
         "parent_blend": "xingfuli-east-identity-v2.blend",
         "parent_tier": "identity-v2",
-        "expected_objects": 82,
+        "expected_objects": 90,
     },
 }
 
@@ -101,10 +101,8 @@ def remove(obj: bpy.types.Object) -> None:
 
 
 def identity_reason(name: str) -> str | None:
-    if name == "east-lane-base" or name == "east-entry-matrix-wall":
-        return "exclude-site-hardscape"
-    if name.startswith("east-entry-matrix-recess-"):
-        return "exclude-site-matrix-recess"
+    # lane base 与入口矩阵墙决定 Hero 的外包络、地面接触和入口边界；
+    # v2 只删减细节，不能让 tier 切换时缩短可见场地边界。
     if "-material-" in name or "-glass-spandrel-" in name:
         return "remove-hero-material-detail"
     return None
