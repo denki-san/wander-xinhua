@@ -9903,3 +9903,39 @@ expected blocked-one-front-only-local-rescue-exhausted-xhs-deferred
   exact-18 契约测试，避免只更新数据不更新守卫。
 
 ---
+
+## [ERR-20260726-023] rsync_archive_dropped_hardlinks
+
+**Logged**: 2026-07-26T23:24:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: infra
+
+### Summary
+复制建筑证据历史档案时使用 `rsync -a`，没有保留原分类视图中的 hardlink，
+使目标副本从约 317 MB 膨胀到约 635 MB。
+
+### Error
+```text
+source size: about 317 MB
+copied size: about 635 MB
+```
+
+### Context
+- 原档案用 hardlink 让 canonical 文件与建筑分类视图共享同一数据块。
+- `rsync -a` 不包含 `-H`，文件内容正确但物理空间重复。
+- 原目录和新建的主证据快照均未受影响。
+
+### Suggested Fix
+复制含 hardlink 的归档必须使用 `rsync -aH`，并在启用目标前同时比较文件级
+checksum、inode/link count 和 `du` 物理占用。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/archive_dynamic_evidence.sh
+
+### Resolution
+- **Resolved**: 2026-07-26T23:25:00+08:00
+- **Notes**: 删除未启用的目标副本后用 `rsync -aH` 重建，并重新执行 checksum 与物理占用验收。
+
+---

@@ -19,7 +19,7 @@
         ↓
 工具链预检 + 旧资产基线
         ↓
-仓库内本地参考图 + 来源元数据
+外置动态证据快照 + 来源元数据
         ↓
 视角覆盖矩阵 + canonical comparison view + 模型 Brief
         ↓
@@ -62,9 +62,11 @@ Three.js ?start= 入口脚本化运行时验收
 
 ### 必须完成
 
-1. 将参考图片保存至 `docs/research/assets/`；
+1. 将参考图片归档至 `/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/` 的新快照；
+   为兼容现有生成器保留 `docs/research/assets/` 工作副本时，同一轮必须完成
+   外置归档和 SHA 校验；
 2. 在 `docs/research/poi-reference-manifest.json` 或专项 manifest 中记录：
-   - 本地路径；
+   - 外置快照 ID 与证据相对路径；
    - 原始 URL；
    - 主体和地址；
    - 视角；
@@ -86,11 +88,12 @@ Three.js ?start= 入口脚本化运行时验收
 | 入口或细节 | 门廊、招牌、楼梯、窗门节奏或独有构件 |
 | 场地关系（适用时） | 道路退界、围墙、庭院、树木和开放路径 |
 
-每个身份构件必须能回指至少一张本地证据。找不到侧面、背面或屋顶证据时，应降低对应面的细节承诺并写入 `unknown`，不得把想象补全包装成观察事实。
+每个身份构件必须能回指至少一张外置快照中的证据。找不到侧面、背面或屋顶
+证据时，应降低对应面的细节承诺并写入 `unknown`，不得把想象补全包装成观察事实。
 
 ### 退出条件
 
-- 参考图已经本地化；
+- 参考图已经进入外置动态证据快照，且 SHA 校验通过；
 - canonical view 已明确；
 - 视角覆盖矩阵已完成，且缺口有明确降级策略；
 - 至少三处身份构件已定义；
@@ -190,7 +193,18 @@ BLENDER_BIN="/Applications/Blender.app/Contents/MacOS/Blender"
 - 快速定位穿模、漂浮、入口阻挡和视觉层级；
 - 观察骨骼和动画。
 
-MCP 不是资产真值来源。每次有价值的 MCP 修改都必须回写 Python 生成器、manifest 或运行时数据，再用 Headless Blender 重建验证。
+MCP 不是资产真值来源，但在工具可用时是以下三个正式视觉审查点：
+
+1. **Massing MCP Gate**：进入 Three.js 地图校准前；
+2. **Hero MCP Gate**：完整 Hero master 完成、派生 Identity 前；
+3. **Three-tier MCP Gate**：Identity 派生并复核 Massing 后、运行时三级验收前。
+
+每个 Gate 都保存以 `test_` 开头的 canonical、侧向或三级对照截图，并把
+截图归档到外置动态证据快照；结论写入 Brief 或 Decision log。每次有价值的 MCP 修改都必须回写 Python
+生成器、manifest 或运行时数据，再用 Headless Blender 重建验证。
+
+MCP 不可用时，使用相同固定机位的 Headless Blender 渲染作为降级证据，
+并明确记录“未执行 MCP 交互审查”，不得使用旧截图冒充本轮检查。
 
 ## Build record
 
@@ -254,6 +268,8 @@ MCP 不是资产真值来源。每次有价值的 MCP 修改都必须回写 Pyth
 完成必须同时满足：
 
 - 参考证据和 Brief 完整；
+- 本轮参考、预览、运行时截图、指标与证据 JSON 已进入外置动态证据快照，
+  manifest 和 SHA 校验通过；
 - 生成器、`.blend`、`.glb` 和预览齐全；
 - 灰模运行时门和参考 / Blender / Three.js 三联对照有记录；
 - build record 与当前二进制、运行时缓存版本一致；
