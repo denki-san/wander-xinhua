@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-pocket-park",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "2b9eb49a2c77bcdb126da15566bd204c44786e66",
+  "status": "blocked-narrow-corridor-camera-and-hero-lineage",
+  "scope": {
+    "mode": "preserved-stage-final-disposition",
+    "binaryRebuilt": false,
+    "qualifiedGateRerun": false,
+    "browserOrXhsAccessed": false,
+    "sharedFilesModified": false,
+    "legacyHeroOverwrittenOrDeleted": false,
+    "excluded": [
+      "shared registry",
+      "shared runtime",
+      "Fast manifest",
+      "trees",
+      "decorations",
+      "ordinary OSM massing",
+      "full-map assets",
+      "Recovery/Hold",
+      "other buildings"
+    ]
+  },
+  "recordPrecedence": [
+    {
+      "rank": 1,
+      "path": "docs/research/xinhua-pocket-park-final-disposition.json",
+      "role": "current gate and lineage reconciliation"
+    },
+    {
+      "rank": 2,
+      "path": "docs/research/xinhua-pocket-park-threejs-runtime-qa.json",
+      "sha256": "1002d37be6564bc12eaa533a8729351399f45a1edf585ef58a8534f71b84b112",
+      "role": "current exact-Massing runtime, collision and camera blocker"
+    },
+    {
+      "rank": 3,
+      "path": "docs/research/xinhua-pocket-park-massing-map-qa.json",
+      "sha256": "cac9c1993a9eb2ffa7680d91622ba4576704dba3274e1af859c6a7236ea83d9b",
+      "role": "evidence-derived placement, road, neighbor and walkability candidate"
+    },
+    {
+      "rank": 4,
+      "path": "docs/research/xinhua-pocket-park-blender-mcp-gates.json",
+      "sha256": "097f49a975ec1ca54bb6e24188c4fcca4f273c40e752e8c21ebd532e02a20ef6",
+      "role": "current Massing MCP1 authority"
+    },
+    {
+      "rank": 5,
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.json",
+      "sha256": "982b7768f9e2f8e800461bcfbb8cb28028d1200dad3fb03192c687cffbd6de8a",
+      "role": "Recovery binary provenance and historical isolated/context runtime visibility"
+    }
+  ],
+  "inputs": {
+    "referenceManifest": {
+      "path": "docs/research/xinhua-pocket-park-reference-manifest.json",
+      "sha256": "856f38adfcd90866c629d4c4e23ee8a3c6f46cc8f389b87936c23093ff0bacbb"
+    },
+    "modelBrief": {
+      "path": "docs/research/xinhua-pocket-park-model-brief.md",
+      "sha256": "783fbb41136d2cf9c749efa067cb27ccbd26ef9db1d2320f3f160b2b9a03b38c"
+    },
+    "publicRegistry": {
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "f87c8fde941c71c6876bba4e7a50cf9177c5b7d11163822c4f4ac906568d9fa6"
+    }
+  },
+  "evidenceGate": {
+    "status": "pass-for-massing-and-map-candidate",
+    "subject": "新华路“新·境”口袋公园",
+    "semantics": "walkable-pocket-park-between-two-buildings",
+    "observedDimensionsMeters": {
+      "length": 22,
+      "maximumWidthExclusive": 4.2,
+      "areaSquareMeters": 106
+    },
+    "binding": "medium-high-two-building-corridor-binding-not-cadastral-survey",
+    "flankingOsmWays": [
+      864485662,
+      864485663
+    ],
+    "unknown": [
+      "cadastral parcel polygon",
+      "surveyed facade offsets",
+      "exact irregular width profile",
+      "exact internal element dimensions"
+    ],
+    "xhsSearchRequired": false
+  },
+  "currentMassing": {
+    "status": "recovery-binary-mcp1-and-partial-threejs-pass",
+    "recoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "sharedRecoveryGenerator": {
+      "path": "scripts/create_xinhua_road_clean_massing_models.py",
+      "sha256": "596ce3f3abf8134bbf43f0fb70075984be84739e03f416c52865e3bcbc13d8d9",
+      "copiedIntoCurrentBranch": false
+    },
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.blend",
+      "originalRecoverySha256": "07cbcef2639046f01f60a777e0c5b9bbcf48fe4ba91fe3d8904f2334e48752c8",
+      "sha256": "40488f7394cd734fc67493d54cb7c44e7c3f55ccf14454d7d27e16b1ca183d27",
+      "bytes": 96816,
+      "hygieneOnly": "test-preview-ground removed; building geometry and GLB unchanged"
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.glb",
+      "sha256": "cc89e36e68397199d91684d3059c5c88410a7acc1b1c015398e05d8e57b15fa3",
+      "bytes": 14068,
+      "nodes": 7,
+      "meshes": 7,
+      "primitives": 7,
+      "triangles": 108,
+      "materials": 1,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [
+          -0.84,
+          0,
+          -4.6
+        ],
+        "max": [
+          0.84,
+          1.66,
+          4.6
+        ]
+      }
+    },
+    "mcp1": "pass-main-window-current-sha",
+    "recoveryRuntimeVisibility": "pass-isolated-and-context",
+    "currentThreeJs": "resource-map-geometry-ground-collision-performance-pass-camera-blocked"
+  },
+  "mapGate": {
+    "status": "formal-acceptance-blocked-camera",
+    "candidatePlacement": {
+      "position": [
+        -57.421934309,
+        67.06298037
+      ],
+      "yaw": -0.398058989,
+      "scale": 0.88,
+      "groundY": 0,
+      "publicRegistryPromotionAllowed": false
+    },
+    "dimensions": {
+      "lengthMeters": 21.8592,
+      "widthMeters": 3.99168,
+      "officialEnvelope": "pass"
+    },
+    "clearance": {
+      "westFlankingBuildingSceneUnits": 0.610876094,
+      "eastFlankingBuildingSceneUnits": 0.611036035,
+      "collisionMarginSceneUnits": 0.2,
+      "minimumAfterCollisionMarginSceneUnits": 0.410876094,
+      "xinhuaRoadAsphaltEdgeSceneUnits": 3.042780101,
+      "xinhuaRoadOuterVergeEdgeSceneUnits": 1.567780101,
+      "xinhuaRoad345LaneAsphaltEdgeSceneUnits": 4.091509116,
+      "status": "pass-no-road-or-neighbor-overlap"
+    },
+    "walkability": {
+      "pathWidthSceneUnits": 1.056,
+      "wallToWallOpenGapSceneUnits": 1.1968,
+      "entranceClearWidthSceneUnits": 0.9504,
+      "splitWallObstacles": 2,
+      "centerRoute": "pass",
+      "finalTargetErrorSceneUnits": 0.034743315
+    },
+    "camera": {
+      "status": "blocked",
+      "requestedArmLength": 5.37,
+      "observedArmLengthRange": [
+        0.38,
+        0.51
+      ],
+      "blocker": "pocket-park-wall-segment",
+      "observedFailureModes": [
+        "spring-clear-with-wall-occlusion",
+        "spring-compressed-with-character-clipping"
+      ],
+      "reason": "狭廊现有第三人称相机不能同时保持在墙外并避免切入角色。"
+    },
+    "qaBoundary": {
+      "wallRuntimeSegments": 308,
+      "wallCollisionMarginSceneUnits": 0,
+      "innerShellInsetMeters": 0.19008,
+      "neighborSuppressionQaOnly": "fics-xinhua-365 legacy obstacle index 2",
+      "sharedRuntimePromotionPending": true
+    },
+    "performance": {
+      "mapFps": 59.94006,
+      "collisionFps": 59.594756,
+      "sampleFramesPerRun": 120,
+      "improvementClaimed": false
+    },
+    "consoleErrors": 0
+  },
+  "legacyHero": {
+    "status": "retained-same-subject-but-strict-lineage-unproven-and-mcp2-ineligible",
+    "subjectContinuity": "high-same-stable-id-same-alley-envelope-and-identity-cues",
+    "generatorLineage": "legacy-shared-requested-poi-generator",
+    "generator": {
+      "path": "scripts/create_requested_poi_models.py",
+      "sha256": "3bd9cd02fcd2e62b9d8c26866cc2660b6c42fc3a91e4399a934f2d563647d5d1"
+    },
+    "blend": {
+      "path": "assets/models/source/requested-pois/xinhua-pocket-park.blend",
+      "sha256": "1e0825a6a5b8f3daf330858d06b329f6506a10d1b6c3eef9f7ccc1cb4d43e6d6"
+    },
+    "glb": {
+      "path": "public/models/requested-pois/xinhua-pocket-park.glb",
+      "sha256": "cae947e10c876a65a24341ebd4a10c6596bf64e012f59c2173100903f1b57768",
+      "bytes": 1112484,
+      "nodes": 1,
+      "meshes": 1,
+      "primitives": 11,
+      "triangles": 15524,
+      "materials": 11,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [
+          -0.8523647785186768,
+          -4.470348358154297e-8,
+          -4.599999904632568
+        ],
+        "max": [
+          0.8523647785186768,
+          3.7804603576660156,
+          4.639999866485596
+        ]
+      }
+    },
+    "currentDefaultRegistryTransform": {
+      "position": [
+        -56.9,
+        66.3
+      ],
+      "yaw": -0.38,
+      "scale": 0.88
+    },
+    "lineageGaps": [
+      "no asset-level Hero build record",
+      "not derived from immutable Recovery Massing source or a documented shared parameter set",
+      "current default placement and yaw differ from accepted map candidate",
+      "no MCP2 record for current binary at accepted corridor placement"
+    ],
+    "heldExistingScope": [
+      "planting proxies",
+      "bench",
+      "rotating panels",
+      "ground lights",
+      "paving detail"
+    ],
+    "scopePolicy": "既有细节只读保留；本任务不删除、不升级，也不把它们作为新范围成果。",
+    "mcp2Authorized": false,
+    "mcp2Candidate": false
+  },
+  "identityDisposition": {
+    "status": "not-created-blocked-by-map-and-hero-lineage",
+    "generatorExists": false,
+    "blendExists": false,
+    "glbExists": false,
+    "buildRecordExists": false,
+    "derivationAuthorized": false
+  },
+  "publicRuntimeDisposition": {
+    "defaultRegistryStillReferencesLegacyHero": true,
+    "defaultTransformIsHistorical": true,
+    "acceptedMassingUsedScopedQaOverride": true,
+    "formalPromotionAllowed": false,
+    "sharedChangeAuthorizedHere": false
+  },
+  "gates": {
+    "evidenceAndBrief": "pass",
+    "recoveryMassing": "pass-retained",
+    "massingMcp1": "pass-retained",
+    "mapGeometry": "pass-candidate",
+    "roadAndNeighborClearance": "pass",
+    "centerCollisionRoute": "pass",
+    "camera": "blocked",
+    "formalMapAcceptance": "blocked-camera",
+    "heroLineage": "blocked",
+    "heroMcp2": "not-authorized",
+    "identity": "blocked",
+    "identityMcp3": "not-reachable",
+    "threeTierRuntime": "not-reachable",
+    "overall": "blocked-narrow-corridor-camera-and-hero-lineage"
+  },
+  "mainWindowActions": [
+    "保留当前 Recovery Massing SHA、MCP1、isolated/context 可见性和已通过的当前 Three.js 子门，不得重做。",
+    "在共享相机系统中增加证据可解释的 narrow-space camera mode，或采用不遮挡主体且不改变建筑几何的墙体显示策略，并用同一路线复验。",
+    "把 qa-only 邻楼 obstacle suppression 转化为公共数据的独立证据裁决；不得把临时 suppression 冒充生产接受。",
+    "相机与正式 map gate 通过后，再裁定 legacy Hero 是否可建立严格 build lineage；未闭合前不得执行 MCP2。",
+    "只有 Hero MCP2 通过并冻结后才允许派生 Identity、执行 MCP3 与 Three.js 三档验收。"
+  ]
+}
