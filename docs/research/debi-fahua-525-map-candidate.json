@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "assetId": "debi-fahua-525",
+  "recordedAt": "2026-07-26",
+  "status": "infeasible-current-fahuazhen-road-width-and-primary-membership",
+  "scope": {
+    "included": [
+      "existing-massing-v3-held-candidate",
+      "way-864847922-exact-footprint",
+      "formal-placement-round-trip",
+      "fahuazhen-and-dingxi-road-clearance",
+      "rotated-aabb-diagnosis",
+      "nearest-building-clearance"
+    ],
+    "excludedAndHeld": [
+      "massing-rebuild",
+      "legacy-hero",
+      "identity",
+      "placement-change",
+      "scale-change",
+      "qa-only-suppression",
+      "public-registry",
+      "shared-runtime",
+      "road-contract",
+      "fast-manifest",
+      "other-buildings",
+      "trees",
+      "vegetation",
+      "dressing",
+      "ordinary-osm-assets",
+      "full-map-assets",
+      "recovery-hold"
+    ],
+    "browserOrXhsAccessed": false,
+    "binaryModified": false,
+    "legacyHeroUsed": false,
+    "identityModified": false,
+    "publicRegistryModified": false,
+    "sharedRuntimeModified": false,
+    "roadContractModified": false
+  },
+  "sources": {
+    "currentDisposition": {
+      "path": "docs/research/debi-fahua-525-final-disposition.json",
+      "sha256": "85c8d913ca5e297af1adc09df5fb0b9369bf3958226da6085bad4354e406b183"
+    },
+    "referenceManifest": {
+      "path": "docs/research/poi-reference-manifest.json",
+      "sha256": "be687fc29e7f45cf0029159c35274918de32450d33341457e57fcfbac931b51f"
+    },
+    "modelBrief": {
+      "path": "docs/research/requested-poi-model-brief.md",
+      "sha256": "034b303cb454235405edf8d5b8e26a9ae164e5aadfd85278dc7158a18955c26f"
+    },
+    "rawBuildingOsm": {
+      "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+      "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c",
+      "timestampOsmBase": "2026-07-25T07:46:51Z"
+    },
+    "rawRoadOsm": {
+      "path": "docs/research/data/xinhua-roads-osm-20260716-080509.json",
+      "sha256": "351308feafab0344dc59a66ebd68d0748f81ef1cd69dc218765a22eb51abf2ec"
+    },
+    "map": {
+      "path": "app/scene/xinhua-map-data.json",
+      "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78"
+    },
+    "landmarkRegistryReadOnly": {
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "f87c8fde941c71c6876bba4e7a50cf9177c5b7d11163822c4f4ac906568d9fa6"
+    },
+    "roadSurfaceContract": {
+      "path": "app/scene/road-surface-contract.ts",
+      "sha256": "81798e268e7da1ec6d98de973b0332ad953cb4b933734a30840200ebf26057a7"
+    }
+  },
+  "existingMassing": {
+    "sourceCommit": "0a5bbe811c5647d96a20bfafc85d6f6c7d4a7709",
+    "tier": "massing-v3",
+    "status": "held-candidate-not-integrated",
+    "sourceWayId": 864847922,
+    "bindingStatus": "bound-medium-secondary-map-corroborated",
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v3/debi-fahua-525-massing.glb",
+      "sha256": "5602771c1ba0572c8368a07695be715aaffb1c492ebe24aae25c75f1021768a1",
+      "bytes": 3212,
+      "nodes": 1,
+      "triangles": 40,
+      "images": 0
+    },
+    "mcp1": "pending-not-redone",
+    "binaryCopiedIntoThisBranch": false
+  },
+  "subjectBinding": {
+    "address": "法华镇路525号",
+    "representativeWayId": 864847922,
+    "confidence": "medium-secondary-map-corroborated-not-cadastral",
+    "observed": [
+      "Official and local evidence binds the project name and address to Fahuazhen Road 525.",
+      "Local photos show the main facade, courtyard depth, and garden context."
+    ],
+    "inferred": [
+      "Way 864847922 is the strongest conservative representative footprint.",
+      "The existing six-floor height proxy is not a surveyed height."
+    ],
+    "unknown": [
+      "cadastral compound boundary",
+      "complete compound member list",
+      "exact courtyard and entrance polygon",
+      "whether all way segments share one height"
+    ],
+    "primaryMembershipProofAvailable": false
+  },
+  "formalPlacement": {
+    "position": [
+      -102,
+      -49
+    ],
+    "yaw": -2.6,
+    "scale": 0.92,
+    "transformChanged": false,
+    "movementAuthorized": false,
+    "source": "app/scene/xinhua-road-landmarks-data.json",
+    "roundTripMaximumVertexErrorSceneUnits": 0,
+    "decision": "retain-held-candidate-transform",
+    "reason": "The Massing local coordinates were deterministically authored by inverse-transforming raw OSM way 864847922 through this placement. Translation or scale changes would break that round trip and have no primary evidence."
+  },
+  "exactFootprint": {
+    "sourceWayId": 864847922,
+    "worldVertices": [
+      [
+        -102.92820453798852,
+        -29.203030370412414
+      ],
+      [
+        -105.52009950627968,
+        -24.75277185181365
+      ],
+      [
+        -122.02712038637233,
+        -34.23874148146379
+      ],
+      [
+        -123.68804899833971,
+        -35.40145851856153
+      ],
+      [
+        -125.01397077851286,
+        -37.04318222225108
+      ],
+      [
+        -124.9681277379717,
+        -38.877327407343564
+      ],
+      [
+        -124.56611953861591,
+        -41.02262222221098
+      ],
+      [
+        -121.25836786519284,
+        -52.66616888880338
+      ],
+      [
+        -116.783381858236,
+        -51.41338222218705
+      ],
+      [
+        -120.09465992016396,
+        -39.76574148147272
+      ],
+      [
+        -119.4316990300774,
+        -38.6889999999171
+      ]
+    ],
+    "sourceLocalBounds": {
+      "minX": 11.957318512378963,
+      "maxX": 28.13496597556315,
+      "minZ": -14.205667328604406,
+      "maxZ": 20.611479321865886
+    }
+  },
+  "roadClearance": {
+    "fahuazhenRoad": {
+      "osmWayId": 66394007,
+      "name": "法华镇路",
+      "highway": "tertiary",
+      "osmWidthTagPresent": false,
+      "osmLanesTagPresent": false,
+      "runtimeRenderedFullWidthSceneUnits": 7.25,
+      "runtimeRenderedFullWidthMeters": 19.575,
+      "runtimeRenderedHalfWidthSceneUnits": 3.625,
+      "exactFootprintToCenterlineSceneUnits": 2.9917711210662192,
+      "exactFootprintToCenterlineMeters": 8.077782026878792,
+      "nearestFootprintVertex": [
+        -105.52009950627968,
+        -24.75277185181365
+      ],
+      "nearestRoadPoint": [
+        -107.0019858788278,
+        -22.153789893488046
+      ],
+      "asphaltClearanceSceneUnits": -0.6332288789337808,
+      "asphaltClearanceMeters": -1.7097179731212082,
+      "maximumNonOverlappingFullWidthSceneUnits": 5.9835422421324385,
+      "maximumNonOverlappingFullWidthMeters": 16.155564053757583,
+      "maximumNonOverlappingFullWidthWithPointTwoCollisionMarginSceneUnits": 5.583542242132438,
+      "status": "blocked-true-footprint-overlap"
+    },
+    "dingxiRoad": {
+      "osmWayId": 85686605,
+      "name": "定西路",
+      "highway": "tertiary",
+      "runtimeRenderedFullWidthSceneUnits": 7.25,
+      "runtimeRenderedHalfWidthSceneUnits": 3.625,
+      "exactFootprintToCenterlineSceneUnits": 4.977282800451236,
+      "asphaltClearanceSceneUnits": 1.3522828004512357,
+      "asphaltClearanceMeters": 3.6511635612183365,
+      "status": "pass-exact-footprint"
+    }
+  },
+  "rotatedAabbDiagnosis": {
+    "singleSourceLocalAabb": {
+      "fahuazhenCenterlineDistanceSceneUnits": 0,
+      "fahuazhenAsphaltClearanceSceneUnits": -3.625,
+      "dingxiCenterlineDistanceSceneUnits": 0,
+      "dingxiAsphaltClearanceSceneUnits": -3.625,
+      "interpretation": "The single rotated local AABB falsely reports a Dingxi Road overlap and overstates the Fahuazhen Road overlap."
+    },
+    "exactFootprint": {
+      "fahuazhenAsphaltClearanceSceneUnits": -0.6332288789337808,
+      "dingxiAsphaltClearanceSceneUnits": 1.3522828004512357,
+      "interpretation": "Exact polygon evaluation clears Dingxi Road but still physically overlaps the current stylized Fahuazhen asphalt."
+    },
+    "completeCoverSplitShell": {
+      "status": "cannot-close-formal-road-gate",
+      "reason": "Any no-gap, no-shrink shell covering the exact footprint must retain the nearest footprint vertex, whose centerline distance is already smaller than the rendered asphalt half-width. Decomposition can reduce AABB overreach but cannot make the true Fahuazhen overlap positive."
+    }
+  },
+  "neighborClearance": {
+    "nearestWayId": 864847918,
+    "exactRawGapSceneUnits": 2.609279367272679,
+    "exactRawGapMeters": 7.045054291636234,
+    "gapAfterBothPointTwoMarginsSceneUnits": 2.209279367272679,
+    "status": "pass-no-neighbor-collision"
+  },
+  "verdict": {
+    "evidenceGate": "pass-conservative-massing-only",
+    "mcp1": "pending-preserved-no-rerun",
+    "placement": "retain-held-candidate-transform-no-movement-authorized",
+    "rotatedAabb": "partly-false-positive-dingxi-only",
+    "formalMapCandidate": "infeasible-current-fahuazhen-width-and-membership-evidence",
+    "runtimeAcceptance": "blocked",
+    "hero": "hold-scope-polluted-no-reuse-no-rebuild",
+    "identity": "unchanged-blocked",
+    "minimumNewAuthorityRequired": [
+      "primary or cadastral proof that way 864847922 represents the in-scope building",
+      "measured or authoritative Fahuazhen Road width at the nearest footprint point, supporting a full asphalt width at or below 5.9835422421 scene units",
+      "or evidence-backed footprint correction that does not translate or shrink the subject merely to pass QA"
+    ],
+    "mainWindowAction": "Keep formal map acceptance blocked. Do not integrate the single rotated AABB as collision truth. Re-evaluate an exact-polygon or complete-cover shell only after primary membership and local road-width evidence are available, then run deterministic map, collision, entrance, and camera QA."
+  }
+}

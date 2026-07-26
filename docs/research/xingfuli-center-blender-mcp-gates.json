@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xingfuli-center",
+  "reviewedAt": "2026-07-26T12:33:43+08:00",
+  "reviewedBy": "main-coordinator",
+  "activeScope": "active-18-buildings",
+  "recoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+  "editableSources": {
+    "hero": {
+      "path": "assets/models/source/xingfuli/xingfuli-center.blend",
+      "sha256": "b8e8aa2b4776244b23335b9148a94e1be5c8b7683f835960f4483547c7587eea",
+      "bytes": 180605
+    },
+    "identity": {
+      "path": "assets/models/source/xingfuli/xingfuli-center-identity.blend",
+      "sha256": "b7e4114e49bf87af3d8679424f44a2a707d0d512f07a6ad04ad3038ab5f9e112",
+      "bytes": 151393
+    },
+    "massing": {
+      "path": "assets/models/source/xingfuli/xingfuli-center-massing.blend",
+      "sha256": "96deb8d73d2c87f456c567dd92cb3f568effb27f84eb625daeb8516a0ff3d872",
+      "bytes": 131313
+    }
+  },
+  "runtimeAssets": {
+    "hero": {
+      "path": "public/models/xingfuli/xingfuli-center.glb",
+      "sha256": "860249a2656cf7af9aa2ef746f05cc7f39506ec1e8751df236e3c1e3f0f594b9",
+      "bytes": 554080
+    },
+    "identity": {
+      "path": "public/models/xingfuli/xingfuli-center-identity.glb",
+      "sha256": "19800200464e0e9423e5a355abde7216478ba73c10b7539b0bafe5674fc4dc21",
+      "bytes": 453004
+    },
+    "massing": {
+      "path": "public/models/xingfuli/xingfuli-center-massing.glb",
+      "sha256": "d6eeae59d35c3577817cdf35febb06493b53cbb661774e81a6e55d7a6dce26d3",
+      "bytes": 310204
+    }
+  },
+  "sceneInspection": {
+    "hero": {
+      "meshObjects": 177,
+      "materials": 9,
+      "boundsMin": [-23.34, -22.09, 0.09],
+      "boundsMax": [25.625, 7.74, 9.06]
+    },
+    "identity": {
+      "meshObjects": 116,
+      "materials": 6,
+      "boundsMin": [-23.34, -22.09, 0.09],
+      "boundsMax": [22, 7.74, 9.06]
+    },
+    "massing": {
+      "meshObjects": 58,
+      "materials": 6,
+      "boundsMin": [-23.34, -22.09, 0.09],
+      "boundsMax": [22, 7.74, 9.06]
+    },
+    "groundDatum": 0.09,
+    "canonicalDirection": "local-positive-x",
+    "canonicalLaneY": -7
+  },
+  "humanScale": {
+    "heightMeters": 1.8,
+    "heightSceneUnits": 0.666,
+    "temporaryProxyOnly": true,
+    "savedToMaster": false,
+    "exportedToGlb": false
+  },
+  "acceptedScreenshots": [
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_hero_mcp_axis_canonical.png",
+      "sha256": "ec1b5a781a2b41746ee067d4dd7305a69967e8f7f9618574db7f6410a22c351a",
+      "bytes": 589859
+    },
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_identity_mcp_axis_canonical.png",
+      "sha256": "af325a2cf2c48e572d7440920895b7bc2eebe1c55f9610053473cc27ba83658e",
+      "bytes": 572011
+    },
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_massing_mcp_axis_canonical.png",
+      "sha256": "e850f8f21f18ce421018a74d103e6b67c1b88c42422004bc42c788d95d4ef6bf",
+      "bytes": 567171
+    },
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_hero_mcp_cross_side.png",
+      "sha256": "6bf3d6162538baa1957077b442a4f75df7d3da2fb377669345f95f88ae9f0089",
+      "bytes": 549867
+    },
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_massing_mcp_cross_side.png",
+      "sha256": "f4ecbc8f53d4a95ff604c141e78e65e1bb8ddf8c68fc3587f6a44c18cc76fac3",
+      "bytes": 547249
+    },
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_hero_mcp_entrance_axis.png",
+      "sha256": "f0069a8daefa1dc50fc0b8a4444e593ddceb643f42800ce704fc9d06ad09f059",
+      "bytes": 571126
+    },
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_massing_mcp_entrance_axis.png",
+      "sha256": "8bb3f283aedfa8342930656cdd88907a81d3a658ad0f23dfabd66b6d9068a6d9",
+      "bytes": 566467
+    },
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_mcp_axis_contact_sheet.png",
+      "sha256": "bc7992df14fb8438b895eb5315285f2ecd3007930e003ac928a102e5e2087208",
+      "bytes": 411235
+    }
+  ],
+  "rejectedCameraEvidence": {
+    "status": "preserved-on-disk-not-accepted",
+    "reason": "The first automatic camera looked across local Y and contradicted the Brief's local +X canonical direction.",
+    "filenamePattern": "test_xingfuli_center_{tier}_mcp_{canonical|side|entrance}.png"
+  },
+  "gates": {
+    "mcp1Massing": "pass-retained-visual",
+    "mcp2Hero": "pass-retained-visual",
+    "mcp3ThreeTierVisual": "pass-same-camera-envelope-and-identity-readability",
+    "strictTierLineage": "blocked-identity-predates-final-hero-and-has-no-derivedFrom",
+    "formalMcp3": "blocked-lineage",
+    "map": "pass-center-segment",
+    "startCamera": "pass-threejs-safe-endpoint",
+    "runtimePromotionAllowed": false
+  },
+  "acceptedInteractiveChanges": [],
+  "generatorRoundTrip": {
+    "status": "not-required",
+    "note": "MCP only added unsaved QA cameras, lights, ground and a 1.8 m proxy. No production geometry, material or transform changed."
+  },
+  "nextGate": "Resolve strict Hero-to-Identity lineage before final Three.js promotion."
+}

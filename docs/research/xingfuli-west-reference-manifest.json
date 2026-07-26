@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "assetId": "xingfuli-west",
+  "auditedAt": "2026-07-26",
+  "purpose": "补齐幸福里西区在幸福路67号一端的道路关系证据；不替换既有九图清单，也不授权重建已验收三档资产。",
+  "inherits": "docs/research/xingfuli-reference-manifest.json",
+  "source": {
+    "pageTitle": "幸福路上，在云端深处，幸福里的《新参者咖啡》",
+    "pageUrl": "https://www.sohu.com/a/200706940_159612",
+    "publisher": "咖啡评论 / 搜狐",
+    "publishedAt": "2017-10-27T22:41:00+08:00",
+    "retrievedAt": "2026-07-26",
+    "relevantCaptions": [
+      "幸福里的幸福路67号出入口：在幸福路上面向北拍摄",
+      "幸福里的幸福路67号出入口：在幸福路上面向南边的法华镇路拍摄",
+      "幸福里的幸福路67号出入口"
+    ],
+    "usage": "research-only"
+  },
+  "references": [
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-xingfu-road-entrance-north-2017.jpeg",
+      "assetUrl": "https://5b0988e595225.cdn.sohucs.com/images/20171028/b9c8360c1ddf482fa8de5e727ca20b2c.jpeg",
+      "sha256": "f4a5cdc9dc5244c77fc1782511e8cbe6bb0ad21b5376b004ef06bdff52b9d492",
+      "bytes": 375931,
+      "dimensions": [
+        1280,
+        960
+      ],
+      "view": "xingfu-road-entrance-facing-north",
+      "observed": [
+        "幸福里西端入口位于幸福路东侧人行道后",
+        "入口一侧的绿化立面与道路之间存在连续路缘和人行道",
+        "建筑外墙未伸入机动车道路面"
+      ],
+      "usage": "research-only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-xingfu-road-entrance-south-2017.jpeg",
+      "assetUrl": "https://5b0988e595225.cdn.sohucs.com/images/20171028/4a832b49ef0a4659993dd7b3f60c6bab.jpeg",
+      "sha256": "c870b629ac30f9d7f255ff77f8c99dbf17727aa7f29199a30e44413ef87ea259",
+      "bytes": 212610,
+      "dimensions": [
+        1280,
+        960
+      ],
+      "view": "xingfu-road-entrance-facing-south",
+      "observed": [
+        "西端临街体量顺幸福路边界展开，不是垂直伸入道路的完整矩形端墙",
+        "绿化立面、玻璃体量和道路之间可见连续人行道",
+        "入口两侧体量在街角形成退让"
+      ],
+      "usage": "research-only"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-xingfu-road-entrance-detail-2017.jpeg",
+      "assetUrl": "https://5b0988e595225.cdn.sohucs.com/images/20171028/6c668ed7176a466c92c06a6e38f5707f.jpeg",
+      "sha256": "d7fa1cca71cb00fcc6c5bbae1ba803bbe2655494a18af5ebb8663ebcaa9418af",
+      "bytes": 222054,
+      "dimensions": [
+        1280,
+        960
+      ],
+      "view": "xingfu-road-entrance-frontal-detail",
+      "observed": [
+        "入口开口直接连接人行道与内部步行巷",
+        "入口两侧建筑边界与幸福路街墙平行或斜切衔接",
+        "照片可证明道路外退关系，但不能提供可靠的绝对米制尺寸"
+      ],
+      "usage": "research-only"
+    }
+  ],
+  "coverageMatrix": [
+    {
+      "slot": "xingfu-road-north-oblique",
+      "status": "covered",
+      "reference": "docs/research/assets/poi-references/xingfuli/xingfuli-xingfu-road-entrance-north-2017.jpeg"
+    },
+    {
+      "slot": "xingfu-road-south-oblique",
+      "status": "covered",
+      "reference": "docs/research/assets/poi-references/xingfuli/xingfuli-xingfu-road-entrance-south-2017.jpeg"
+    },
+    {
+      "slot": "xingfu-road-frontal-entrance",
+      "status": "covered",
+      "reference": "docs/research/assets/poi-references/xingfuli/xingfuli-xingfu-road-entrance-detail-2017.jpeg"
+    }
+  ],
+  "inferred": [
+    "当前西区应以 OSM 建筑轮廓和道路中心线共同裁定临街端，而不能仅用长轴端点和矩形楼体近似。",
+    "修复需要斜切或重构西端建筑/碰撞边界，或由公共道路层提供有证据的局部裁切；整体平移或统一缩放不足以解决。"
+  ],
+  "unknown": [
+    "2017 年照片到 2026 年之间的店铺和绿化细节变化",
+    "幸福路人行道的精确实测宽度",
+    "公共道路夸张宽度与真实街墙之间最终采用建筑裁切还是道路局部裁切"
+  ],
+  "policy": {
+    "rawImagesPreservedReadOnly": true,
+    "embeddedInGlb": false,
+    "logosCopiedIntoRuntime": false,
+    "authorizesTierRebuild": false
+  }
+}

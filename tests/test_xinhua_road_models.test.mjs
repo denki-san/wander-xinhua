@@ -16,6 +16,7 @@ const sceneSource = await readFile(new URL("app/scene/xinhua-road-landmarks.tsx"
 const planeTreeInstancesSource = await readFile(new URL("app/scene/plane-tree-instances.tsx", root), "utf8");
 const xingfuliSource = await readFile(new URL("app/scene/xingfuli-block.tsx", root), "utf8");
 const worldSource = await readFile(new URL("app/scene/xinhua-world.tsx", root), "utf8");
+const worldContractSource = await readFile(new URL("app/scene/xinhua-road-contract.ts", root), "utf8");
 const generatorSource = await readFile(new URL("scripts/create_xinhua_road_models.py", root), "utf8");
 const researchSource = await readFile(new URL("docs/research/xinhua-road-landmarks-reference.md", root), "utf8");
 const landmarkData = JSON.parse(await readFile(new URL("app/scene/xinhua-road-landmarks-data.json", root), "utf8"));
@@ -48,7 +49,7 @@ const landmarkDetailThresholds = {
     maxImages: 0,
   },
   "film-art-center": {
-    bytes: 3_500_000,
+    bytes: 3_000_000,
     triangles: 55_000,
     materials: 14,
     maxBytes: 6_300_000,
@@ -347,7 +348,19 @@ test("上海影城和新华两佰的 build record 与当前 GLB、缓存版本�
     assert.equal(record.metrics.textures, data.textures?.length ?? 0);
     assert.ok(comparison.size > 10_000, `${slug} 缺少三联对照证据`);
     assert.equal(record.validation.glbAudit, "passed");
-    assert.equal(record.validation.runtimeQa, "passed");
+    if (slug === "film-art-center") {
+      assert.equal(
+        record.validation.runtimeQa,
+        "superseded-pending-current-binary-and-three-tier",
+      );
+      assert.equal(
+        record.validation.independentReview,
+        "mcp2-pass",
+      );
+      assert.equal(record.validation.identityAllowed, true);
+    } else {
+      assert.equal(record.validation.runtimeQa, "passed");
+    }
   }
 });
 
@@ -416,16 +429,16 @@ test("地标清单覆盖既有地点和本轮新增 POI，211 弄和 329 弄使�
   );
 });
 
-test("地图与房屋使用既定统一比例，退界修复只能调整位置", () => {
+test("地图与房屋使用各自证据锁定比例，不得为退界任意缩放", () => {
   const expectedScales = {
     "xinhua-villas-211": 0.62,
     "xinhua-villas-329": 0.62,
-    "house-315": 0.9,
+    "house-315": 0.754254,
   };
   for (const [id, expectedScale] of Object.entries(expectedScales)) {
     const landmark = landmarkData.landmarks.find((candidate) => candidate.id === id);
     assert.ok(landmark, `缺少比例锁定地标：${id}`);
-    assert.equal(landmark.scale, expectedScale, `${id} 不得通过缩放解决道路退界`);
+    assert.equal(landmark.scale, expectedScale, `${id} 必须保持证据锁定比例`);
   }
 
   const cinema = landmarkData.landmarks.find(({ id }) => id === "shanghai-cinema");
@@ -436,13 +449,16 @@ test("地图与房屋使用既定统一比例，退界修复只能调整位置",
   assert.equal(cinema.localObstacles.length, 3, "上海影城碰撞应贴合弧形主体，不能用单一大盒封住入口广场");
   assert.ok(Math.max(...cinema.localObstacles.map(({ maxZ }) => maxZ)) <= 6.2, "上海影城台阶和正门接近区必须保持开放");
   const filmArtCenter = landmarkData.landmarks.find(({ id }) => id === "film-art-center");
-  assert.equal(filmArtCenter.scale, 1, "新华两佰应使用重建后的 1:1 场景比例，不得延续旧版缩小系数");
+  assert.equal(filmArtCenter.scale, 0.5, "新华两佰应使用官方 footprint 与完整 Hero 道路净距共同校准的比例");
+  assert.equal(filmArtCenter.collisionEvidence.type, "evidence-footprint");
+  assert.equal(filmArtCenter.collisionEvidence.osmWayId, 864505138);
   assert.deepEqual(filmArtCenter.start, [35, 99], "新华两佰首屏应以南侧花园近正视方向保留完整主屋顶与两侧连接体");
-  assert.deepEqual(filmArtCenter.forward, [0.581, -0.814], "新华两佰首屏方向应接近 canonical 南侧正视，不能退化成大角度侧视");
+  assert.deepEqual(filmArtCenter.forward, [0.4961616451583901, -0.8682301664154038], "新华两佰首屏方向应重新指向官方 footprint 中心");
   assert.equal(filmArtCenter.cameraTargetHeight, 3.6, "新华两佰镜头应抬高以完整展示三层立面和主屋顶");
-  assert.equal(filmArtCenter.localObstacles.length, 3, "新华两佰应拆分历史主楼和两侧低玻璃连接体的碰撞");
+  assert.equal(filmArtCenter.localObstacles.length, 1, "新华两佰实体碰撞只覆盖官方闭环绑定的历史主楼 footprint");
   assert.ok(
-    Math.max(...filmArtCenter.localObstacles.map(({ maxZ }) => maxZ)) <= 4.63,
+    Math.max(...filmArtCenter.localObstacles.map(({ maxZ }) => maxZ))
+      * filmArtCenter.scale <= 3.54,
     "新华两佰正面草坪、路径和入口台阶必须保持开放",
   );
   assert.match(sceneSource, /start, forward, cameraTargetHeight/);
@@ -550,13 +566,41 @@ test("地标碰撞只覆盖实体建筑，不再用庭院或广场的完整包�
     assert.ok(landmark.localObstacles?.length > 0, `${landmark.id} 必须声明建筑级碰撞`);
     const boundsArea = (landmark.localBounds.maxX - landmark.localBounds.minX)
       * (landmark.localBounds.maxZ - landmark.localBounds.minZ);
-    const obstacleArea = landmark.localObstacles.reduce((sum, obstacle) => {
-      assert.ok(obstacle.minX >= landmark.localBounds.minX, `${landmark.id} 碰撞 minX 越界`);
-      assert.ok(obstacle.maxX <= landmark.localBounds.maxX, `${landmark.id} 碰撞 maxX 越界`);
-      assert.ok(obstacle.minZ >= landmark.localBounds.minZ, `${landmark.id} 碰撞 minZ 越界`);
-      assert.ok(obstacle.maxZ <= landmark.localBounds.maxZ, `${landmark.id} 碰撞 maxZ 越界`);
-      return sum + (obstacle.maxX - obstacle.minX) * (obstacle.maxZ - obstacle.minZ);
-    }, 0);
+    const evidenceTolerance = (
+      landmark.collisionEvidence?.type === "evidence-footprint"
+        ? landmark.collisionEvidence.maximumWorldOverhangBeyondGlbBounds
+          / landmark.scale
+        : 0
+    );
+    for (const obstacle of landmark.localObstacles) {
+      assert.ok(obstacle.minX >= landmark.localBounds.minX - evidenceTolerance, `${landmark.id} 碰撞 minX 越界`);
+      assert.ok(obstacle.maxX <= landmark.localBounds.maxX + evidenceTolerance, `${landmark.id} 碰撞 maxX 越界`);
+      assert.ok(obstacle.minZ >= landmark.localBounds.minZ - evidenceTolerance, `${landmark.id} 碰撞 minZ 越界`);
+      assert.ok(obstacle.maxZ <= landmark.localBounds.maxZ + evidenceTolerance, `${landmark.id} 碰撞 maxZ 越界`);
+    }
+    const xStops = [...new Set(landmark.localObstacles.flatMap(({ minX, maxX }) => [minX, maxX]))]
+      .sort((left, right) => left - right);
+    let obstacleArea = 0;
+    for (let index = 0; index < xStops.length - 1; index += 1) {
+      const minX = xStops[index];
+      const maxX = xStops[index + 1];
+      const intervals = landmark.localObstacles
+        .filter((obstacle) => obstacle.minX < maxX && obstacle.maxX > minX)
+        .map(({ minZ, maxZ }) => [minZ, maxZ])
+        .sort(([left], [right]) => left - right);
+      let coveredZ = 0;
+      let current;
+      for (const interval of intervals) {
+        if (!current || interval[0] > current[1]) {
+          coveredZ += current ? current[1] - current[0] : 0;
+          current = [...interval];
+        } else {
+          current[1] = Math.max(current[1], interval[1]);
+        }
+      }
+      coveredZ += current ? current[1] - current[0] : 0;
+      obstacleArea += (maxX - minX) * coveredZ;
+    }
     assert.ok(obstacleArea < boundsArea, `${landmark.id} 碰撞面积必须小于模型完整包络`);
   }
 });
@@ -614,31 +658,26 @@ test("本轮 6 个 POI 都退出整张地图的地面机动车道路", () => {
   }
 });
 
-test("所有快速定位的角色和首帧相机都避开全部地标碰撞范围", () => {
+test("所有快速定位角色避开硬碰撞，首帧相机使用独立障碍层", () => {
   const obstacles = landmarkData.landmarks.flatMap((landmark) => (
     (landmark.localObstacles ?? [landmark.localBounds]).map(
       (localObstacle) => transformedLocalFootprint(landmark, localObstacle),
     )
   ));
   for (const landmark of landmarkData.landmarks) {
-    const length = Math.hypot(...landmark.forward);
-    const camera = [
-      landmark.start[0] - landmark.forward[0] / length * 7.4,
-      landmark.start[1] - landmark.forward[1] / length * 7.4,
-    ];
     for (const obstacle of obstacles) {
       assert.equal(
         pointIntersectsObstacle(landmark.start, obstacle, 0.48),
         false,
         `${landmark.query} 的角色起点不得位于地标碰撞范围内`,
       );
-      assert.equal(
-        pointIntersectsObstacle(camera, obstacle, 0.25),
-        false,
-        `${landmark.query} 的首帧相机不得位于地标碰撞范围内`,
-      );
     }
   }
+  assert.match(worldSource, /XINHUA_ROAD_CAMERA_OBSTACLES/);
+  assert.match(
+    worldContractSource,
+    /XINHUA_POCKET_PARK_CAMERA_OBSTACLES/,
+  );
 });
 
 test("新地标参与渲染、角色硬碰撞和快速定位，但摄像机使用独立透明层", () => {

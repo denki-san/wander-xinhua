@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "capturedAt": "2026-07-25T20:13:39+08:00",
+  "status": "passed",
+  "scope": "post-cherry-pick public-scene integration regression",
+  "integration": {
+    "branch": "codex/integrate-18-buildings",
+    "baseCommit": "9ddf693e28c87a7f2bcdb223bffde42a3f4920e0",
+    "sourceCommit": "633a0de",
+    "previewOrigin": "http://127.0.0.1:4191",
+    "buildMode": "vite-static-production-preview",
+    "viewport": [
+      1280,
+      720
+    ],
+    "sourceRuntimeRecord": "test_artifacts/test_shanghai-cinema_three-tier_runtime_qa.json"
+  },
+  "sharedAssertions": {
+    "playable": true,
+    "cameraMode": "spring-clear",
+    "cameraBlocker": "none",
+    "cameraArm": "5.43 / 5.43",
+    "fovDegrees": 58,
+    "runtimeErrors": [],
+    "consoleErrors": [],
+    "visualInspection": "passed at the same production placement after resolving public-scene integration conflicts",
+    "overviewDistrictHold": "preserved in its independent lazy chunk and production gate"
+  },
+  "cases": {
+    "hero": {
+      "route": "/?start=cinema&qaCinemaTier=hero&cameraQa=1",
+      "renderedTier": "hero",
+      "visual": "full tower, oculus, stair, glazing and platform readable",
+      "assets": [
+        {
+          "path": "/models/xinhua-road/shanghai-cinema.glb?v=20260721-cinema-7",
+          "encodedBodySize": 5862660,
+          "transferSize": 300,
+          "cache": "http-revalidation"
+        },
+        {
+          "path": "/models/xinhua-road/shanghai-cinema-hybrid-identity.glb?v=20260722-hybrid-1",
+          "encodedBodySize": 418620,
+          "transferSize": 300,
+          "cache": "http-revalidation"
+        }
+      ]
+    },
+    "identity": {
+      "route": "/?start=cinema&qaCinemaTier=identity&cameraQa=1",
+      "renderedTier": "identity-composite",
+      "visual": "ProgrammaticBody, Identity GLB and repeated details preserve the oculus, stair and tower silhouette",
+      "asset": {
+        "path": "/models/xinhua-road/shanghai-cinema-hybrid-identity.glb?v=20260722-hybrid-1",
+        "encodedBodySize": 418620,
+        "transferSize": 300,
+        "cache": "http-revalidation"
+      }
+    },
+    "massing": {
+      "route": "/?start=cinema&qaCinemaTier=massing&cameraQa=1",
+      "renderedTier": "massing",
+      "visual": "primary tower, oculus ribbon, stair and lower platform remain legible",
+      "asset": {
+        "path": "/models/xinhua-road/shanghai-cinema-massing.glb?v=20260725-massing-1",
+        "encodedBodySize": 714228,
+        "transferSize": 714528,
+        "cache": "network-transfer"
+      }
+    },
+    "heroUnavailable": {
+      "route": "/?start=cinema&qaCinemaTier=hero&qaCinemaFault=hero-unavailable&cameraQa=1",
+      "renderedTier": "identity-composite",
+      "heroRequestPresent": false,
+      "identityAsset": {
+        "encodedBodySize": 418620,
+        "transferSize": 300,
+        "cache": "http-revalidation"
+      },
+      "visual": "passed"
+    },
+    "identityUnavailable": {
+      "route": "/?start=cinema&qaCinemaTier=identity&qaCinemaFault=identity-unavailable&cameraQa=1",
+      "renderedTier": "programmatic",
+      "shanghaiCinemaGlbRequestPresent": false,
+      "visual": "tower, stair, platform and cylindrical oculus-body fallback remain visible and playable"
+    }
+  },
+  "regression": {
+    "targetedTests": "22/22",
+    "fullNodeTests": "193/193",
+    "lint": "passed",
+    "buildStatic": "passed",
+    "buildChunks": {
+      "overviewDistrictMassing": "overview-district-massing-BkQA4Qil.js",
+      "shanghaiCinemaRuntimeQa": "shanghai-cinema-runtime-qa-DVPJ4gXb.js"
+    }
+  },
+  "scopeBoundary": {
+    "trees": "unchanged",
+    "decor": "unchanged",
+    "ordinaryOsm": "unchanged",
+    "overviewDistrictMassing": "preserved Hold",
+    "otherBuildings": "unchanged"
+  }
+}

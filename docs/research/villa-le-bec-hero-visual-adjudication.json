@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "assetId": "villa-le-bec",
+  "adjudicatedAt": "2026-07-26T16:03:53+08:00",
+  "reviewSurface": "main-window-xhigh-pre-mcp2",
+  "candidate": {
+    "glb": "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
+    "sha256": "1374b7a8301345c23736644cfdc9a7ed467efb8371ebcdf72a507217b0015394",
+    "preservation": "retained-blocked-hero-v1-current-sha"
+  },
+  "reviewHistory": [
+    {
+      "iteration": 1,
+      "sha256": "56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad",
+      "gitCommit": "ea77bc3",
+      "status": "fail-bay-glazing-embedded-and-facade-hierarchy-missing",
+      "livePathSupersededByIteration": 2,
+      "preservation": "byte-exact-in-git-history"
+    },
+    {
+      "iteration": 2,
+      "sha256": "b608836074a7c0eb7e697eda38a00eeb95f98b0da6a68c5157efcb18539bf979",
+      "gitCommit": "29760a1",
+      "status": "fail-facade-hierarchy-and-dormer-glazing",
+      "bayGlazingSurfaceFix": "pass",
+      "livePathSupersededByIteration": 3,
+      "preservation": "byte-exact-in-git-history"
+    },
+    {
+      "iteration": 3,
+      "sha256": "1374b7a8301345c23736644cfdc9a7ed467efb8371ebcdf72a507217b0015394",
+      "gitCommit": "3661058",
+      "status": "fail-main-window-mcp-fixed-view-identity-mismatch",
+      "streetFacadeHierarchy": "blocked-ground-floor-rhythm-and-entry",
+      "dormerGlazingSurfaceFix": "pass"
+    }
+  ],
+  "comparisonInputs": [
+    {
+      "role": "canonical-reference-street-building",
+      "path": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_01.jpg",
+      "sha256": "07339d1c2178efaa0acfd6efac2765e80c113f523ac1497b0d781d32f8c93535"
+    },
+    {
+      "role": "entrance-reference-garden-building",
+      "path": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_02.jpg",
+      "sha256": "bbef94ff1e962a96a340ad4b6e37c01e418b7bc93e3df71e0652afe44f356900"
+    },
+    {
+      "role": "candidate-canonical",
+      "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-canonical.png",
+      "sha256": "0c6941431b8f84b600ac1e8f21c6103bc5e582535940ac6b02ad27d7e4345cbe"
+    },
+    {
+      "role": "candidate-entrance",
+      "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-entrance.png",
+      "sha256": "1cc36eed766cac78b74b0f1b663bd94ff2bb387e3fa89b7d8e57519c0942c9e1"
+    },
+    {
+      "role": "candidate-triptych",
+      "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-triptych.png",
+      "sha256": "a238f503fa819cb0610f9433e24ead71f1b392b06e7250595ae1ad26e6f9416e"
+    }
+  ],
+  "observed": {
+    "canonicalReference": [
+      "沿街主楼可见上下两层立面组织。",
+      "底层为连续入口与橱窗界面，上层有显著凸窗。",
+      "坡屋顶、深色基座和道路侧院门同时可见。"
+    ],
+    "candidateCanonical": [
+      "第三轮沿街主楼增加了上下两排窗和 projecting bay，但底层仍是孤立窗格，未形成参考照片的连续入口与橱窗层级。",
+      "两处沿街 dormer 的玻璃和窗框已位于外表面，固定机位读成有窗老虎窗。",
+      "暖白墙、深色基座与红褐坡屋顶的主体关系保持。"
+    ],
+    "entranceReference": [
+      "院内建筑正向入口、门、台阶和屋顶老虎窗均清晰可见。"
+    ],
+    "candidateEntrance": [
+      "院内侧向 glazing 保持在外表面，但入口固定机位仍看不到参考照片中的正向门、门槛和台阶。",
+      "院内 dormer 玻璃已外露；不可见背面、品牌与临时陈设继续保持未知。"
+    ]
+  },
+  "inferred": [
+    "候选保持了两栋分体和开放庭院这一 Massing 合同。",
+    "当前失败来自 Hero 身份构件和立面层级，不应通过移动、整体缩放或改地图掩盖。"
+  ],
+  "unknown": [
+    "不可见背立面和低矮附属体继续保持未知。",
+    "商业品牌与临时陈设不属于本轮修复要求。"
+  ],
+  "decision": {
+    "preMcp2VisualGate": "fail-iteration-3-fixed-view-identity-mismatch",
+    "mcp2": "fail-main-window-blender-mcp-current-sha",
+    "identityAuthorized": false,
+    "runtimePromotionAuthorized": false,
+    "massingMapAndCollisionRetained": true,
+    "minimumRepair": [
+      "沿街底层必须形成连续入口与橱窗带，并与上层凸窗明确分层。",
+      "院内入口固定机位必须读到正向门、门槛或台阶，而不是只有侧窗。"
+    ],
+    "nextGate": "new-hero-candidate-must-pass-mcp2-before-identity"
+  },
+  "scopeGuard": {
+    "onlyBuilding": "villa-le-bec",
+    "doNotModify": [
+      "trees",
+      "decorations",
+      "street-furniture",
+      "full-map-assets",
+      "other-buildings"
+    ]
+  }
+}

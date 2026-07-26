@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-329",
+  "auditedAt": "2026-07-26",
+  "stableBoundary": "329-lane-compound",
+  "registryPlacement": {
+    "position": [-42.13, 79.48],
+    "yaw": -0.38,
+    "scale": 0.62,
+    "source": "app/scene/xinhua-road-landmarks-data.json",
+    "movementAuthorized": false
+  },
+  "coordinateContract": {
+    "source": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "mapMetadata": "app/scene/xinhua-map-data.json",
+    "centerWgs84": [121.4227819, 31.2066376],
+    "metersPerSceneUnit": 2.7,
+    "metersPerLongitudeDegree": 95212.468224,
+    "metersPerLatitudeDegree": 110540,
+    "worldProjection": [
+      "worldX = (longitude - centerLongitude) * metersPerLongitudeDegree / metersPerSceneUnit",
+      "worldZ = -(latitude - centerLatitude) * metersPerLatitudeDegree / metersPerSceneUnit"
+    ],
+    "authoredCoordinateSpace": "glb-source-xz-before-runtime-z-flip",
+    "inverseRegistryTransform": [
+      "localX = cos(yaw) * ((worldX - positionX) / scale) - sin(yaw) * ((worldZ - positionZ) / scale)",
+      "sourceZ = -sin(yaw) * ((worldX - positionX) / scale) - cos(yaw) * ((worldZ - positionZ) / scale)"
+    ],
+    "generatorBlenderConversion": "blenderY = -sourceZ",
+    "maxAllowedWorldVertexErrorSceneUnits": 0.05
+  },
+  "sources": {
+    "osm": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "recoveryRecord": "docs/research/build-records/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.json",
+    "xhsPost": "https://www.xiaohongshu.com/search_result/696d1838000000002102bc99",
+    "xhsEvidenceDirectory": "docs/research/assets/xhs-xinhua-villas-329-20260725",
+    "officialMemberEvidence": [
+      "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-17-official-2024.jpg",
+      "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-38-official-2025.jpg"
+    ]
+  },
+  "bindingMethod": {
+    "status": "auditable-sequence-and-spatial-binding-not-survey",
+    "observedInputs": [
+      "OSM supplies four rectangular footprints used by the conservative member sequence and one additional adjacent candidate that lacks a doorplate-to-footprint binding.",
+      "XHS images 5 and 7 visibly show the 40 doorplate.",
+      "XHS image 6 visibly shows the 42 doorplate.",
+      "XHS image 8 visibly shows the 15 doorplate.",
+      "XHS images 1, 3, 4 and 18 show the low tiled compound with a tall chimney described by the post as the two-storey round number 36 cake villa.",
+      "The post image order walks from the compound overview toward successively numbered members."
+    ],
+    "inferredInputs": [
+      "The remaining four OSM footprints are ordered from the historic registry entrance side toward the deeper lane and paired with the visible 15, 36, 40 and 42 sequence.",
+      "The exact cadastral parcel boundary and rear-face orientation are not proven.",
+      "The binding is suitable for a conservative Massing checkpoint, not for surveyed Hero placement."
+    ],
+    "unknown": [
+      "Exact photographed camera coordinates.",
+      "Cadastral parcel-to-house-number records.",
+      "Complete rear elevations and roof backs.",
+      "Whether small annexes absent from OSM are original or later additions."
+    ]
+  },
+  "worldProjectionValidation": {
+    "method": "raw-osm-wgs84-to-world-then-authored-local-round-trip-per-vertex",
+    "toleranceSceneUnits": 0.05,
+    "maximumErrorSceneUnits": 0.000000367,
+    "perWayMaximumErrorSceneUnits": {
+      "864493244": 0.000000367,
+      "864485664": 0.000000343,
+      "864493174": 0.000000313,
+      "864493173": 0.000000253
+    },
+    "status": "pass"
+  },
+  "members": [
+    {
+      "sourceWayId": 864493244,
+      "houseNumber": "15",
+      "bindingStatus": "bound-medium",
+      "bindingEvidence": [
+        "visible doorplate in test_xhs_xinhua_villas_329_08.jpg",
+        "nearest retained OSM footprint to the registry-side entrance ordering after excluding the evidence-unbound adjacent candidate"
+      ],
+      "localFootprint": [
+        [-19.995744, -2.501275],
+        [-6.481968, -2.401083],
+        [-6.46588, -9.341696],
+        [-19.974375, -9.439777]
+      ],
+      "footprintAreaSqMeters": 262.8,
+      "modelContract": {
+        "kind": "evidence-limited-gabled-member",
+        "eaveHeight": 4.25,
+        "ridgeHeight": 5.45,
+        "observedCues": [
+          "narrow lane gate and number 15 pier",
+          "two-storey rear mass visible above the gate",
+          "light plaster and dark framed openings"
+        ],
+        "omittedUnknowns": [
+          "complete facade rhythm",
+          "rear elevation",
+          "unseen annex roofs"
+        ]
+      }
+    },
+    {
+      "sourceWayId": 864485664,
+      "houseNumber": "36",
+      "bindingStatus": "bound-medium",
+      "bindingEvidence": [
+        "post body identifies 36 as the two-storey round cake villa",
+        "images 1, 3, 4 and 18 show its tiled low wings, rounded volume and tall chimney",
+        "second retained OSM footprint in the entrance-to-depth sequence"
+      ],
+      "localFootprint": [
+        [-17.89188, 4.375919],
+        [-19.143251, 11.14312],
+        [-10.283142, 12.804766],
+        [-9.031772, 6.037565]
+      ],
+      "footprintAreaSqMeters": 173.8,
+      "modelContract": {
+        "kind": "round-cake-villa",
+        "eaveHeight": 4.15,
+        "ridgeHeight": 5.35,
+        "observedCues": [
+          "two-storey rounded principal volume",
+          "low red-tile wings",
+          "tall rectangular chimney",
+          "warm light plaster"
+        ],
+        "omittedUnknowns": [
+          "exact circular radius",
+          "unseen rear wing",
+          "window count on hidden faces"
+        ]
+      }
+    },
+    {
+      "sourceWayId": 864493174,
+      "houseNumber": "40",
+      "bindingStatus": "bound-medium-high",
+      "bindingEvidence": [
+        "number 40 doorplate is visible in images 5 and 7",
+        "the larger mid-depth OSM footprint matches the visibly taller multi-volume member before number 42"
+      ],
+      "localFootprint": [
+        [0.372955, 8.819783],
+        [8.337512, 8.644735],
+        [8.118383, 0.330269],
+        [0.150992, 0.497076]
+      ],
+      "footprintAreaSqMeters": 185.8,
+      "modelContract": {
+        "kind": "upper-pavilion-villa",
+        "eaveHeight": 4.2,
+        "ridgeHeight": 5.9,
+        "observedCues": [
+          "number 40 entrance",
+          "warm light plaster",
+          "two-storey main volume",
+          "dark framed upper glazed pavilion",
+          "low tiled entrance canopy"
+        ],
+        "omittedUnknowns": [
+          "rear pavilion depth",
+          "hidden facade openings",
+          "later alteration chronology"
+        ]
+      }
+    },
+    {
+      "sourceWayId": 864493173,
+      "houseNumber": "42",
+      "bindingStatus": "bound-medium-high",
+      "bindingEvidence": [
+        "number 42 doorplate is visible in image 6",
+        "the deepest retained OSM footprint follows number 40 in both number and post sequence"
+      ],
+      "localFootprint": [
+        [7.911941, 16.886574],
+        [13.539453, 16.76645],
+        [13.367561, 10.419151],
+        [7.740049, 10.539275]
+      ],
+      "footprintAreaSqMeters": 100.2,
+      "modelContract": {
+        "kind": "front-gabled-lanting",
+        "eaveHeight": 4.35,
+        "ridgeHeight": 5.75,
+        "observedCues": [
+          "number 42 entrance",
+          "front triangular gable",
+          "shallow red-tile entrance canopy",
+          "warm light plaster",
+          "paired upper windows"
+        ],
+        "omittedUnknowns": [
+          "rear roof connection",
+          "hidden side additions",
+          "exact Chinese-style garden layout"
+        ]
+      }
+    }
+  ],
+  "excludedCandidates": [
+    {
+      "sourceWayId": 864493245,
+      "status": "excluded-evidence-unbound-unknown-adjacent",
+      "projectedWorldCenter": [-42.346627, 92.122808],
+      "authoredLocalCenter": [7.239198, -19.06658],
+      "reason": "The raw OSM footprint is adjacent to the four retained candidates, but the available XHS and official evidence does not bind it to a 329-lane house number. It remains excluded from this conservative four-member Massing without any cross-asset attribution."
+    }
+  ],
+  "evidenceOnlyNotMapped": [
+    {
+      "houseNumber": "17",
+      "reason": "Official front evidence exists, but none of the four retained footprint bindings can be tied to number 17 without contradicting the doorplate sequence."
+    },
+    {
+      "houseNumber": "38",
+      "reason": "Official front-oblique evidence exists, but the supplied XHS sequence does not establish its OSM footprint."
+    },
+    {
+      "houseNumber": "32乙",
+      "reason": "The post body names the English garden villa, but the handed-off screenshots do not include a visible doorplate-to-footprint link."
+    },
+    {
+      "houseNumber": "231",
+      "reason": "The post identifies an along-street English garden villa outside the interior member sequence; it is not assigned to the four retained lane footprints."
+    }
+  ]
+}

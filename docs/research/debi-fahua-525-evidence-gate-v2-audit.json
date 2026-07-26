@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "assetId": "debi-fahua-525",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "04aff4831849da2708b8ace6597991eb8db73faa",
+  "status": "blocked-local-evidence-cannot-uniquely-bind-compound-members-or-open-courtyard",
+  "scope": {
+    "assetOnly": "debi-fahua-525",
+    "browserOrXhsOpened": false,
+    "networkEvidenceFetched": false,
+    "blenderOpened": false,
+    "generatorExecuted": false,
+    "modelOrBinaryGenerated": false,
+    "publicResolverOrRegistryModified": false,
+    "recoveryOrHoldModified": false,
+    "treesDecorationsFullMapOrOtherBuildingsModified": false
+  },
+  "preflight": {
+    "blender": "/opt/homebrew/bin/blender",
+    "generator": "scripts/create_requested_poi_models.py",
+    "glbAudit": "scripts/audit_glb.py",
+    "localPreviewFallback": "npm run dev",
+    "runtimeEntry": "/?start=fahua525",
+    "modelingGateReached": false,
+    "reasonNotInvoked": "The local evidence gate failed before modeling. The existing Recovery clean-v2 candidate was audited read-only and must not be rebuilt."
+  },
+  "sources": {
+    "currentFiles": [
+      {
+        "path": "docs/research/debi-fahua-525-final-disposition.json",
+        "sha256": "85c8d913ca5e297af1adc09df5fb0b9369bf3958226da6085bad4354e406b183"
+      },
+      {
+        "path": "docs/research/debi-fahua-525-map-candidate.json",
+        "sha256": "cf9df5eb34d7f844f07ddc5d1484f7507799637cc9b98a6d2a11ef81d37ad647"
+      },
+      {
+        "path": "docs/research/debi-fahua-525-overlap-lineage-audit.json",
+        "sha256": "dbfab7ccafc85c7ed5c3826f90c06864a415f5a9379a0dfc30ecaccf5708f9d6"
+      },
+      {
+        "path": "docs/research/poi-reference-manifest.json",
+        "sha256": "be687fc29e7f45cf0029159c35274918de32450d33341457e57fcfbac931b51f"
+      },
+      {
+        "path": "docs/research/requested-poi-model-brief.md",
+        "sha256": "034b303cb454235405edf8d5b8e26a9ae164e5aadfd85278dc7158a18955c26f"
+      },
+      {
+        "path": "app/scene/xinhua-road-landmarks-data.json",
+        "sha256": "00fbeb9922ba3422f908df870c1917f16791a9429cc2e61a1db8c6610923f1a5"
+      },
+      {
+        "path": "app/scene/xinhua-road-identity-contract.ts",
+        "sha256": "4ebc84311ffa86e5b1e23671f1af55020358fed441f866af9cf386eee368ace0"
+      }
+    ],
+    "formalLocalReferences": [
+      {
+        "path": "docs/research/assets/requested-poi-references/debi-fahua-525-front.jpg",
+        "sha256": "f6376a71e8505c27892d9cb6bbf60ffdae31a5148fe0ba6a7cc2eed233ed2d6a",
+        "width": 1277,
+        "height": 883,
+        "view": "canonical-main-building-front"
+      },
+      {
+        "path": "docs/research/assets/requested-poi-references/debi-fahua-525-courtyard.jpg",
+        "sha256": "d69d9fdd69ce9ae17126ea3212b4f2f831f139b789b2dc12f26a0ea31c8f9bc5",
+        "width": 2048,
+        "height": 1365,
+        "view": "longitudinal-open-courtyard-or-passage"
+      },
+      {
+        "path": "docs/research/assets/requested-poi-references/debi-fahua-525-garden.jpg",
+        "sha256": "e9709b7608a3fa56333a95e6e1a0109167473ddfed7b86fd2bb5482bb4208009",
+        "width": 1135,
+        "height": 1702,
+        "view": "open-ground-level-garden-access"
+      }
+    ],
+    "manifestFormalReferenceCount": 3,
+    "briefAdditionalSiteDetailReference": "docs/research/assets/requested-poi-references/debi-fahua-525-heritage-stone.jpg"
+  },
+  "referenceEvidenceMatrix": {
+    "front": {
+      "observed": [
+        "A tall white multi-storey main facade has giant vertical frames, dark glazing and an external switchback stair.",
+        "The image supports a visually distinctive representative main building."
+      ],
+      "inferred": [
+        "This facade is likely the six-storey main building described by the existing Brief."
+      ],
+      "unknown": [
+        "Which OSM way is this building.",
+        "Its cadastral footprint, surveyed height, road setback and relation to every compound member."
+      ]
+    },
+    "courtyard": {
+      "observed": [
+        "A paved longitudinal open space runs beside a white multi-storey building.",
+        "Planting and a side boundary leave the ground plane visibly open rather than roofed as one solid building."
+      ],
+      "inferred": [
+        "The compound contains at least one open courtyard or pedestrian passage between built masses."
+      ],
+      "unknown": [
+        "The courtyard polygon, its entrances and which surrounding OSM ways bound it."
+      ]
+    },
+    "garden": {
+      "observed": [
+        "A narrow open ground-level route is framed by a white multi-storey building, trees and a light canopy or parking structure."
+      ],
+      "inferred": [
+        "The representative building belongs to a larger compound with open ground between structures."
+      ],
+      "unknown": [
+        "Whether the canopy is inside any building footprint and which compound subbuilding is shown."
+      ]
+    }
+  },
+  "briefAndManifestAdjudication": {
+    "manifestPhotoStatus": "verified-same-compound",
+    "manifestBoundary": "Same-compound provenance does not identify an individual OSM building way or a cadastral courtyard boundary.",
+    "briefObservedClaim": "The existing Brief says the complete site envelope at [-102, -49] has exited both Fahuazhen Road and Dingxi Road.",
+    "briefClaimStatus": "superseded-for-formal-map-acceptance",
+    "contradictingExactEvidence": "The exact representative footprint is 2.9917711211 scene units from the Fahuazhen centerline and overlaps the current asphalt half-width by 0.6332288789 scene units.",
+    "policy": "Keep the historical Brief unchanged in this isolated evidence-gate task, but do not use its road-clearance sentence as current authorization."
+  },
+  "compoundAndCourtyardAdjudication": {
+    "representativeBuildingCandidate": {
+      "osmWayId": 864847922,
+      "confidence": "medium",
+      "tags": {
+        "building": "yes"
+      },
+      "nameAddressLevelsPresent": false,
+      "bindingBasis": "secondary-map-coordinate-and-adjacency-corroboration-only"
+    },
+    "recoveryCleanV2MemberCandidates": [
+      {
+        "osmWayId": 864847921,
+        "areaSquareMeters": 586.2
+      },
+      {
+        "osmWayId": 864847920,
+        "areaSquareMeters": 585.9
+      },
+      {
+        "osmWayId": 228966550,
+        "areaSquareMeters": 508.2
+      },
+      {
+        "osmWayId": 864847917,
+        "areaSquareMeters": 517.6
+      },
+      {
+        "osmWayId": 228966551,
+        "areaSquareMeters": 537.4
+      }
+    ],
+    "candidateSetMembershipStatus": "five-unbound-member-candidates-pending",
+    "singleRepresentativeAndFiveMemberInterpretationsEquivalent": false,
+    "openCourtyardBoundaryStatus": "observed-open-space-but-exact-polygon-unknown",
+    "neighborMembershipStatus": "nearby-building-polygons-exist-but-local-images-do-not-bind-identities",
+    "uniqueLocalAdjudicationAvailable": false,
+    "minimumAdditionalAuthority": [
+      "A georeferenced site plan or cadastral compound boundary linking the named address to individual footprints.",
+      "A primary-source campus plan or entrance-to-building sequence that binds the photographed main facade and courtyard to OSM members.",
+      "Measured road edge or surveyed setback evidence before changing placement, scale or shared road width."
+    ]
+  },
+  "recoveryCleanV2": {
+    "policy": "read-only-retained-qualified-massing-candidate-do-not-rebuild",
+    "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "glbPathAtCommit": "public/models/tiers/xinhua-road/massing-v2/debi-fahua-525-massing.glb",
+    "glbGitBlob": "cd12c2cbcd99d360d0471768899a03d500cb4c5f",
+    "glbSha256": "b9093a059417e15e722b836a38276fecabe769f6bbc9c63dfea4a08c9d95d63e",
+    "recordPathAtCommit": "docs/research/build-records/tiers/xinhua-road/massing-v2/debi-fahua-525-massing.json",
+    "recordGitBlob": "a2ec0c905911c685678f6cb72b1e85a0a3089edc",
+    "recordSha256": "9bd8f2815c6270ff286b81ff72c31fd93b45ef45ec29773062be64a261677cc7",
+    "blendSha256": "4bdc581ddb3e76e4e2c389b991796818de260220c28333a11538924736ca4eb8",
+    "metrics": {
+      "bytes": 8420,
+      "nodes": 5,
+      "meshes": 5,
+      "triangles": 60,
+      "materials": 1,
+      "images": 0,
+      "bounds": {
+        "min": [
+          -25.42458,
+          0,
+          -15.71688
+        ],
+        "max": [
+          14.481698,
+          4.227053,
+          25.294918
+        ]
+      }
+    },
+    "placement": {
+      "position": [
+        -102,
+        -49
+      ],
+      "yaw": -2.6,
+      "scale": 0.92,
+      "movementAuthorized": false
+    },
+    "runtimeVisualStatus": "pass-preserved",
+    "formalMapStatus": "blocked-membership-and-fahuazhen-road-overlap",
+    "glbAudit": "ok-forbid-images-max-nodes-8"
+  },
+  "exactMapAdjudication": {
+    "sourceFootprintWayId": 864847922,
+    "roundTripMaximumVertexErrorSceneUnits": 0,
+    "fahuazhenRoad": {
+      "osmWayId": 66394007,
+      "runtimeFullWidthSceneUnits": 7.25,
+      "runtimeFullWidthMeters": 19.575,
+      "exactFootprintCenterlineDistanceSceneUnits": 2.9917711210662192,
+      "exactFootprintCenterlineDistanceMeters": 8.077782026878792,
+      "asphaltClearanceSceneUnits": -0.6332288789337808,
+      "asphaltClearanceMeters": -1.7097179731212082,
+      "status": "blocked-true-footprint-overlap"
+    },
+    "dingxiRoad": {
+      "osmWayId": 85686605,
+      "exactFootprintCenterlineDistanceSceneUnits": 4.977282800451236,
+      "asphaltClearanceSceneUnits": 1.3522828004512357,
+      "asphaltClearanceMeters": 3.6511635612183365,
+      "status": "pass"
+    },
+    "nearestBuilding": {
+      "osmWayId": 864847918,
+      "rawGapSceneUnits": 2.609279367272679,
+      "rawGapMeters": 7.045054291636234,
+      "gapAfterBothPointTwoMarginsSceneUnits": 2.209279367272679,
+      "status": "pass"
+    },
+    "roadWidthBoundary": {
+      "maximumNonOverlappingFullWidthSceneUnits": 5.9835422421324385,
+      "maximumNonOverlappingFullWidthMeters": 16.155564053757583,
+      "requiredReductionFromCurrentSceneUnits": 1.2664577578675615,
+      "requiredReductionFromCurrentMeters": 3.4194359462424164,
+      "requiredReductionFromCurrentPercent": 17.46838286713878,
+      "maximumFullWidthWithPointTwoMarginSceneUnits": 5.583542242132438,
+      "maximumFullWidthWithPointTwoMarginMeters": 15.075564053757583,
+      "requiredReductionWithMarginPercent": 22.98562424644913,
+      "roadWidthChangeAuthorized": false
+    }
+  },
+  "currentRuntimeSurface": {
+    "registryPath": "app/scene/xinhua-road-landmarks-data.json",
+    "registryEntryActive": true,
+    "modelPath": "/models/requested-pois/debi-fahua-525.glb",
+    "cacheVersion": "20260718-detail-1",
+    "position": [
+      -102,
+      -49
+    ],
+    "yaw": -2.6,
+    "scale": 0.92,
+    "localBounds": {
+      "minX": -14,
+      "maxX": 14,
+      "minZ": -12,
+      "maxZ": 12
+    },
+    "localObstacleCount": 5,
+    "positioning": "inferred-fahua-road-525-south-compound",
+    "legacyHero": {
+      "path": "public/models/requested-pois/debi-fahua-525.glb",
+      "sha256": "1f5af3879410bec374b33183d2a89c01f01b1994b72327b344bb6d792b0a6a56",
+      "bytes": 1339244,
+      "nodes": 1,
+      "meshes": 1,
+      "triangles": 21336,
+      "materials": 14,
+      "images": 0,
+      "blendPath": "assets/models/source/requested-pois/debi-fahua-525.blend",
+      "blendSha256": "ad9e9226eb43811f6c3a782df3447e065e384e5ef7b7a578e2fe5584b564f44e",
+      "scopePolluted": true,
+      "pollution": [
+        "site slab",
+        "fish pond and pond edge",
+        "bamboo clusters",
+        "two ginkgo trees",
+        "heritage stone"
+      ],
+      "derivedFromAcceptedMassing": false
+    }
+  },
+  "disposition": {
+    "formalModelGenerated": false,
+    "isolatedCandidateGenerated": false,
+    "recoveryCleanV2Retained": true,
+    "legacyFilesRetained": true,
+    "sharedRuntimeChangeApplied": false,
+    "mainWindowRecommendation": "temporarily-disable-runtime-instance-retain-files",
+    "recommendationReason": "The active registry still loads a scope-polluted legacy Hero whose frozen placement has a true 0.6332288789 scene-unit Fahuazhen asphalt overlap, while compound membership and accepted Massing-to-Hero lineage remain unresolved.",
+    "reenableOnlyAfter": [
+      "Primary evidence uniquely binds the representative building and required compound members.",
+      "The exact footprint passes the road and neighbor gate without unauthorized movement, scale change, clipping or road narrowing.",
+      "An accepted Massing parent and compliant building-only Hero lineage are recorded and pass Three.js runtime acceptance."
+    ],
+    "verdict": "retain-candidates-and-files-no-promotion-recommend-temporary-runtime-disable"
+  }
+}

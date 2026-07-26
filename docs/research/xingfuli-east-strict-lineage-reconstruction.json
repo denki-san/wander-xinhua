@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xingfuli-east",
+  "auditedAt": "2026-07-26",
+  "status": "blocked-strict-lineage-not-proven-preserve-binaries",
+  "scope": { "readOnly": true, "binaryRebuilt": false, "derivedFromBackfilled": false, "sharedFilesModified": false },
+  "recoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+  "generator": { "path": "scripts/create_xingfuli_models.py", "sha256": "f479f096b2f0092329c77a49e61fb5cfab208d4f05a9ca5278d46115a59b7d75", "headAndRecoveryGitBlob": "5874158b4bb07f8e633bcd1f040adecf43c5a6a0" },
+  "tiers": {
+    "hero": { "glb": "public/models/xingfuli/xingfuli-east.glb", "glbSha256": "4dc21aa6f137daa076a6da1948b0c08c15310789541ee59af06c352febea4327", "blend": "assets/models/source/xingfuli/xingfuli-east.blend", "generatedAt": "2026-07-23T01:40:30+08:00", "gitBlob": "683414bd5a063ad9955c8bb2f54aad4187ee3b53" },
+    "identity": { "glb": "public/models/xingfuli/xingfuli-east-identity.glb", "glbSha256": "d83f31ef60d01b342dd350605bafa71b87152e9f7ea9cd8fb04cbe80eb50e592", "blend": "assets/models/source/xingfuli/xingfuli-east-identity.blend", "generatedAt": "2026-07-23T00:26:00+08:00", "gitBlob": "3a53a3c15c6e680dd7e3f9bb07e45fa41a276667" },
+    "massing": { "glb": "public/models/xingfuli/xingfuli-east-massing.glb", "glbSha256": "5924e935ed9cba120c77396f28adbea12368ad31448c63ad67c5b75a96d319ee", "blend": "assets/models/source/xingfuli/xingfuli-east-massing.blend", "generatedAt": "2026-07-22T23:51:00+08:00", "gitBlob": "329fb993433ef11ff9213ce29f12ae08e75230eb" }
+  },
+  "strictLineage": {
+    "sharedGenerator": "proven",
+    "headEqualsRecoveryForAllAuditedInputs": true,
+    "identityDerivedFromFinalHeroSha": "missing",
+    "massingDerivedFromIdentitySha": "missing",
+    "generationOrder": "massing-before-identity-before-final-hero",
+    "proven": false,
+    "forbidden": ["backfill historical derivedFrom", "rebuild or overwrite preserved tiers", "claim strict Hero-to-Identity-to-Massing provenance"]
+  },
+  "unrelatedGatesRetained": { "panyuRoad": "blocked", "eastStartCamera": "blocked", "mcpAndThree": "pending-main-window" },
+  "futureCandidate": ["retain current binaries and records unchanged", "after map/start blockers are resolved, create a new candidate from frozen final Hero source", "record input Hero SHA before deterministic Identity derivation", "record input Identity SHA before any Massing derivation and run MCP/Three acceptance"]
+}

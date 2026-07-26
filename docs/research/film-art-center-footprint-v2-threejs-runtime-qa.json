@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "assetId": "film-art-center",
+  "label": "上海电影艺术中心·新华两佰",
+  "recordedAt": "2026-07-26T19:32:03+08:00",
+  "owner": "main-coordinator",
+  "status": "pass-current-footprint-scale-runtime",
+  "buildMode": "vite-static-production-preview",
+  "preview": "http://127.0.0.1:4197",
+  "viewport": [1280, 720],
+  "devicePixelRatio": 1,
+  "pageVisibility": "visible",
+  "productionDefaultChanged": false,
+  "placement": {
+    "evidenceRecord": "docs/research/film-art-center-road-evidence-rescue-2026-07-26.json",
+    "registrySha256": "0743f115a7f6704862f21f5dad96daf11301ce28391290193252f57cfffa1dae",
+    "position": [46.388748754382405, 79.07089962964774],
+    "yaw": 2.786349542422368,
+    "scale": 0.5,
+    "start": [35, 99],
+    "forward": [0.4961616451583901, -0.8682301664154038],
+    "cameraTargetHeight": 3.6,
+    "fullHeroRoadClearanceSceneUnits": {
+      "577252297": 0.864477675412314,
+      "1520590652": 1.8913993784031866,
+      "1520590653": 15.562183131148483,
+      "682286683": 9.794122779720446
+    },
+    "status": "pass-evidence-footprint-and-complete-hero-clear-of-surface-roads"
+  },
+  "tiers": {
+    "hero": {
+      "status": "loaded",
+      "source": "/models/xinhua-road/film-art-center.glb?v=20260725-film-art-5",
+      "worldBounds": {
+        "min": [39.01985452994284, 0.9935574603917462, 73.90882743292676],
+        "max": [52.975051704483576, 8.193557329261528, 86.34248645542752]
+      },
+      "frameSample": {
+        "frames": 120,
+        "durationMs": 3032.9000000059605,
+        "fps": 39.56609185919884,
+        "rendererDrawCalls": 1985,
+        "rendererTriangles": 905707
+      }
+    },
+    "identity": {
+      "status": "loaded",
+      "source": "/models/tiers/xinhua-road/identity/film-art-center-identity.glb?v=20260725-film-art-identity-1",
+      "worldBounds": {
+        "min": [39.597885165620866, 0.9935574603917462, 73.90882743292676],
+        "max": [52.975051704483576, 7.913557596290336, 84.78437544398315]
+      },
+      "frameSample": {
+        "frames": 120,
+        "durationMs": 3308.0999999940395,
+        "fps": 36.27459871231711,
+        "rendererDrawCalls": 1973,
+        "rendererTriangles": 827347
+      }
+    },
+    "massing": {
+      "status": "loaded",
+      "source": "/models/tiers/xinhua-road/massing/film-art-center-massing.glb?v=c89791dc3978",
+      "worldBounds": {
+        "min": [39.80758539394619, 0.9935574603917462, 73.92621824877985],
+        "max": [52.92817387482161, 7.843557424628959, 84.3280885617138]
+      },
+      "frameSample": {
+        "frames": 120,
+        "durationMs": 2947,
+        "fps": 40.719375636240244,
+        "rendererDrawCalls": 1969,
+        "rendererTriangles": 785603
+      }
+    }
+  },
+  "fallbacks": {
+    "scopedIdentityFault": {
+      "status": "pass-playable-programmatic-identity",
+      "requestedTier": "identity",
+      "renderedRepresentation": "programmatic-miniature",
+      "faultSource": "/models/tiers/xinhua-road/identity/test_missing-film-art-center-identity.glb?v=a4d37446e272-fallback",
+      "expectedWindowErrors": 1,
+      "unexpectedConsoleErrors": 0,
+      "frameSample": {
+        "frames": 120,
+        "durationMs": 3392.5999999940395,
+        "fps": 35.37110180988352
+      }
+    },
+    "productionIdentityFault": {
+      "status": "pass-playable-programmatic-identity",
+      "faultSource": "/models/tiers/xinhua-road/identity/test_missing-film-art-center-production-identity.glb?v=a4d37446e272-fallback",
+      "expectedWindowErrors": 1,
+      "unexpectedConsoleErrors": 0,
+      "fallbackLocalPosition": [0, 0, -2.25]
+    }
+  },
+  "collision": {
+    "status": "pass-blocked-before-center-and-stable",
+    "route": "/?start=film-art&qaModelId=film-art-center&qaModelTier=hero&cameraQa=1&qaAutoStart=1&qaRuntimeTelemetry=1&qaMove=forward&qaMoveMs=7000&qaMoveTarget=46.388748754382405%2C79.07089962964774",
+    "start": [35, 99],
+    "targetInsideMainFootprint": [46.388748754382405, 79.07089962964774],
+    "movementDurationMs": 7000,
+    "telemetrySamples": 28,
+    "movementTerminalSample": [43.79701447240651, 84.6897609386958],
+    "settledFinal": [44.00495900729739, 84.6897609386958],
+    "finalTargetErrorSceneUnits": 6.103610076718933,
+    "camera": {
+      "mode": "spring-clear",
+      "blocker": "none",
+      "resolvedArm": 5.412,
+      "desiredArm": 5.412,
+      "actualArmYawDegrees": -18.89,
+      "goalYawDegrees": -27.34
+    },
+    "interpretation": "目标点位于 way/864505138 主楼 footprint 中心；角色未进入目标，稳定停在入口实体外，页面保持可操作。"
+  },
+  "console": {
+    "unexpectedErrorsAcrossLoadedTiersAndCollision": 0,
+    "expectedFaultInjectionWindowErrors": 2,
+    "knownWarnings": [
+      "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    ]
+  },
+  "performanceBoundary": {
+    "scope": "whole-scene",
+    "warmup": "route-load plus visible 120-frame dataset sample",
+    "buildMode": "vite-static-production-preview",
+    "claim": "measured-only-no-performance-improvement-claim"
+  },
+  "screenshots": [
+    {
+      "path": "test_artifacts/all-models/runtime/film-art-center-footprint-v2/test_film_art_center_hero_threejs.jpg",
+      "sha256": "395e639a25a930bb1d0fb74720772df1b5f01257cd331f6c3aed626f9344d0ab",
+      "bytes": 106058
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/film-art-center-footprint-v2/test_film_art_center_identity_threejs.jpg",
+      "sha256": "7075bca91ced51986be82885fcef775f7e0bfe0d7ba07ff305834fd200c51eda",
+      "bytes": 104029
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/film-art-center-footprint-v2/test_film_art_center_massing_threejs.jpg",
+      "sha256": "a88a1df1efb89a8f7b2b1aba7f00db581e6903ad372fe5ff6a136167466f3105",
+      "bytes": 101961
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/film-art-center-footprint-v2/test_film_art_center_identity_fallback_threejs.jpg",
+      "sha256": "50ac2d77c2fdc8bed0d080bf61899d5ec4499a1aae76593a8a63029b5842ee77",
+      "bytes": 100069
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/film-art-center-footprint-v2/test_film_art_center_production_fallback_threejs.jpg",
+      "sha256": "d64305881299df2895a79bfdc4152ed0a91a49208412d42921326e29f8e5d907",
+      "bytes": 100034
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/film-art-center-footprint-v2/test_film_art_center_collision_threejs.jpg",
+      "sha256": "fb6ff630155134d453f048411ebeb23ac4d63e661f09d807dd49ec76125e03df",
+      "bytes": 109219
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/film-art-center-footprint-v2/test_film_art_center_threejs_contact_sheet.jpg",
+      "sha256": "a22d4d6a4d0332212124e778034c5812658bcad54d18acce82f36e39c1b773b1",
+      "bytes": 147611
+    }
+  ],
+  "scope": {
+    "qualifiedBlenderAndBinaryStagesRedone": false,
+    "publicFilesChangedByMainOnly": true,
+    "trees": "untouched",
+    "decor": "untouched",
+    "fullMapAssets": "untouched",
+    "recoveryHold": "untouched"
+  },
+  "verdict": {
+    "threeTierLoading": "pass",
+    "fallback": "pass",
+    "performanceSample": "pass-measured-no-improvement-claim",
+    "collision": "pass",
+    "camera": "pass",
+    "map": "pass-current-footprint-and-complete-hero-clearance",
+    "runtime": "pass"
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "one-step-garden",
+  "tier": "massing",
+  "status": "mcp1-and-map-pass-awaiting-main-window-runtime-integration",
+  "recoveryCommitReadOnly": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+  "recoveryDecision": {
+    "evidenceExtracted": true,
+    "cleanV2GlbExtracted": false,
+    "reason": "恢复 GLB 是 membershipConfidence=low 的五个未绑定 OSM 平顶盒，不具备一号花园主体身份轮廓。"
+  },
+  "generator": "scripts/create_one_step_garden_massing_model.py",
+  "generatorSha256": "3927893071e5de2434e1d47a677f5dcddb0573f66c511933b0717c82e4e8f796",
+  "modelBrief": "docs/research/one-step-garden-model-brief.md",
+  "referenceManifest": "docs/research/one-step-garden-reference-manifest.json",
+  "evidenceSha256": [
+    "006c5722562b8be2316f975d6e06e14c35cf507f875d474ea4696f527c25d3ff",
+    "058998a95691b90af3562f2e3ef33092446f571fe8d63d7ac6b48b135a3587b0",
+    "171889a9a41a5c9d9ecb2b04d3abb70a306f7a2ec143fdb9511ffc75b44334f9"
+  ],
+  "massingGeometry": {
+    "frontVolume": "white U-shaped courtyard group with left/right longitudinal steep gables, transverse rear roof and shed dormer",
+    "rearVolume": "separate red-brick long roof with two garden-facing gables and two chimneys",
+    "walkableVoid": "open gap between front courtyard group and rear volume",
+    "omitted": [
+      "trees",
+      "shrubs",
+      "lawn",
+      "furniture",
+      "umbrellas",
+      "signage",
+      "temporary-commercial-dressing"
+    ]
+  },
+  "evidenceBoundary": {
+    "observed": [
+      "front white U-shaped courtyard relation",
+      "front steep tiled gables",
+      "front shed dormer",
+      "separate rear red-brick volume",
+      "rear long roof and two front gables",
+      "rear central tall and left secondary chimneys"
+    ],
+    "inferred": [
+      "exact depth and spacing",
+      "unseen rear sides",
+      "absolute height"
+    ],
+    "unknown": [
+      "surveyed footprints",
+      "OSM membership",
+      "compass orientation",
+      "rear facade and inter-building connection"
+    ]
+  },
+  "placement": {
+    "position": [
+      60.86,
+      120.73
+    ],
+    "yaw": -0.38,
+    "runtimeScale": 0.88,
+    "movementAuthorized": false,
+    "mapGate": "pass"
+  },
+  "scale": {
+    "sceneUnitMeters": 2.7,
+    "previewHumanMeters": 1.8,
+    "previewHumanSceneUnits": 0.666667,
+    "heightStatus": "photo-and-legacy-envelope-inference-not-survey"
+  },
+  "canonicalFront": "local-negative-y",
+  "identityAllowed": false,
+  "mcp1": {
+    "status": "pass",
+    "reviewedBy": "main-coordinator-via-shared-blender-mcp",
+    "reviewedBlendSha256": "a4c0e0fba996f139a88344b6f39a8a2509326ba7018206dc888231fab6474388",
+    "reviewedGlbSha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+    "acceptedInteractiveChanges": [],
+    "qaRigSaved": false,
+    "qaRigExported": false,
+    "record": "docs/research/one-step-garden-blender-mcp-gates.json",
+    "nextGate": "three-js-massing-map-calibration"
+  },
+  "mapAcceptance": "pass",
+  "runtimeGate": "pass-temporary-qa-assembly",
+  "runtimeQa": {
+    "status": "pass",
+    "record": "docs/research/one-step-garden-massing-map-qa.json",
+    "sharedRegistryIntegration": "pending-main-window",
+    "sourceRegistryCommitted": false
+  },
+  "blendSceneAudit": {
+    "objectCount": 1,
+    "objects": [
+      "one-step-garden-massing"
+    ],
+    "types": [
+      "MESH"
+    ],
+    "rootLocation": [
+      0,
+      0,
+      0
+    ],
+    "rootRotation": [
+      0,
+      0,
+      0
+    ],
+    "rootScale": [
+      1,
+      1,
+      1
+    ],
+    "previewHelpersSaved": false
+  },
+  "determinism": {
+    "sameCommandRuns": 2,
+    "sameGlbSha256": true
+  },
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v2/one-step-garden-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing-canonical.png",
+      "sideDepth": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing-side-depth.png",
+      "entrance": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing-entrance.png"
+    }
+  },
+  "fixedCameras": {
+    "canonical": {
+      "location": [
+        13.5,
+        -23.5,
+        14.0
+      ],
+      "target": [
+        0.0,
+        0.0,
+        2.8
+      ],
+      "orthoScale": 22.0,
+      "direction": "street local-negative-y toward front volume"
+    },
+    "sideDepth": {
+      "location": [
+        -22.0,
+        -4.0,
+        15.5
+      ],
+      "target": [
+        0.0,
+        2.0,
+        2.8
+      ],
+      "orthoScale": 22.0,
+      "direction": "west oblique showing front-rear separation"
+    },
+    "entrance": {
+      "location": [
+        7.0,
+        -18.5,
+        8.5
+      ],
+      "target": [
+        0.0,
+        -2.5,
+        2.2
+      ],
+      "orthoScale": 14.5,
+      "direction": "street oblique toward open entrance canopy"
+    }
+  },
+  "glb": {
+    "sha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+    "bytes": 18316,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 3,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "triangles": 204,
+    "bounds": {
+      "min": [
+        -7.25,
+        0,
+        -9.325
+      ],
+      "max": [
+        7.25,
+        6.25,
+        6.9
+      ]
+    },
+    "transformedNodes": []
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "version": 3,
+  "assetId": "film-art-center",
+  "label": "上海电影艺术中心·新华两佰",
+  "auditedAt": "2026-07-26",
+  "status": "pass-main-window-map-runtime-v3",
+  "researchQuestion": {
+    "primary": "是否存在可地理配准的一手资料，能把上海市长宁区新华路200号历史主楼绑定到准确 footprint，并同时裁决 OSM ways 577252297 与 1520590652 和建筑碰撞体的关系？",
+    "decisionBoundary": "官方规划图、修缮审批与带门牌的相邻锚点必须形成闭环；外观照片、搜索摘要或单纯几何邻近均不能单独授权地图修改。"
+  },
+  "scope": {
+    "included": [
+      "新华路200号历史花园住宅主楼",
+      "与主楼 footprint 直接冲突的 ways 577252297 与 1520590652",
+      "官方规划、修缮审批、当前 OSM footprint 与相邻门牌锚点"
+    ],
+    "excluded": [
+      "新华路160号上海影城",
+      "树木、装饰物和全地图新增资产",
+      "对既有 Hero、Identity、Massing、Blender MCP 与 Three.js 合格阶段的重做",
+      "在本建筑证据分支修改公共 registry、placement、collision 或 road surface 语义"
+    ]
+  },
+  "qualityContract": {
+    "preferredSources": [
+      "上海市规划、房管、文旅与长宁区人民政府公开材料",
+      "项目建设、修缮或运营主体的一手发布",
+      "带比例尺、北向和街坊编号的法定规划图"
+    ],
+    "acceptedClosure": "上海市规划主管部门 1:1000 法定保护规划图定位保护建筑；长宁文旅与市房管审批把主体绑定到新华路200号；冻结 OSM 快照以新华路160号上海影城、212号邮政所和主楼候选 way/864505138 完成当前坐标闭环。",
+    "rejectedAsSoleAuthority": [
+      "搜索摘要",
+      "单张外观照片",
+      "没有比例尺、方向或地址绑定的宣传示意图",
+      "仅凭 OSM 几何邻近进行主体归属推断"
+    ]
+  },
+  "frozenQualifiedStages": {
+    "evidenceAndBrief": "qualified-for-modeling",
+    "heroIdentityMassing": "qualified",
+    "blenderMcpThreeGates": "qualified",
+    "threeJsRuntime": "qualified",
+    "mapAcceptance": "only-stage-reopened-by-evidence-rescue"
+  },
+  "sources": {
+    "officialProtectionPlanPage": {
+      "path": "docs/research/assets/film-art-center-road-evidence/xinhua-protection-plan-official-page-2006.html",
+      "sha256": "e31cd4b44befecb795f13750c4972d1c72b108eb3e97364ab64615aba7319856",
+      "sourceUrl": "https://web.archive.org/web/20140421064035id_/http://218.242.36.250/News_Show.aspx?id=8285&type=1",
+      "publisher": "上海市城市规划管理局",
+      "publishedAt": "2006-09-20",
+      "retrievedAt": "2026-07-26",
+      "use": "锁定规划名称、沪府[2005]89号批准信息与原始图件链接。"
+    },
+    "officialBlockIndex": {
+      "path": "docs/research/assets/film-art-center-road-evidence/xinhua-protection-plan-block-index-2005.jpg",
+      "sha256": "2c3c811d45f80e6adadb0c8f9d8d440d878fe6bd47778b97601562c87b356da1",
+      "sourceUrl": "https://web.archive.org/web/20140421064035id_/http://218.242.36.250/upload/contentimage_8285_jiefangjidikuaibianhaosuoyintu.jpg",
+      "publisher": "上海市城市规划管理局",
+      "planDirection": "north-up",
+      "use": "把新华路、法华镇路、番禺路和 CN-124 街坊置于同一比例地图。"
+    },
+    "officialCn124EastPlan": {
+      "path": "docs/research/assets/film-art-center-road-evidence/xinhua-protection-plan-cn-124-east-2005.jpg",
+      "sha256": "d8e46a321aa86b3fa9107043956667d9b96fe55a8c312fa77e000f7952e831b8",
+      "sourceUrl": "https://web.archive.org/web/20140421064035id_/http://218.242.36.250/upload/contentimage_8285_CN-124-E.jpg",
+      "publisher": "上海市城市规划管理局",
+      "approvedAt": "2005-11",
+      "scale": "1:1000",
+      "planDirection": "north-up",
+      "observedFacts": [
+        "124-13 地块位于新华路北侧、124-14 狭长地块西侧。",
+        "124-13 内唯一红色保护建筑为近矩形三层主楼；保护范围未跨入 124-14。",
+        "124-15 与 124-16 的大体量位于 124-14 东侧，和上海影城现状方位闭合。"
+      ]
+    },
+    "officialRenovationApproval": {
+      "path": "docs/research/assets/film-art-center-road-evidence/xinhua-200-renovation-approval-2021.pdf",
+      "sha256": "961e47036f8e76126ee6eb07970789d50f64430e9908a1c0dc3bab6d1bff0b84",
+      "sourceUrl": "https://zwgk.shcn.gov.cn/xxgk/whgl-whjzdgz/2022/267/59835/7de89fe3b8c4445bbf98d44b2470781f.pdf",
+      "publisher": "上海市长宁区文化和旅游局",
+      "publishedAt": "2021-11-12",
+      "observedFacts": [
+        "批复对象是新华路200号花园住宅。",
+        "申请与工程业主为上海电影（集团）有限公司。",
+        "修缮不得改变外立面、结构体系和平面空间格局。"
+      ]
+    },
+    "officialDesignApproval": {
+      "path": "docs/research/assets/film-art-center-road-evidence/xinhua-200-design-approval-2022.html",
+      "sha256": "71c1d671e04c763363f155e5bd2c32ad70bb3fefb16ec9f8baf0efedc6e5e035",
+      "sourceUrl": "https://fgj.sh.gov.cn/yxlsjzjk/20230104/81d99ed3a8b3439389e9b603f588a748.html",
+      "publisher": "上海市房屋管理局",
+      "publishedAt": "2023-01-06",
+      "decisionAt": "2022-02-21",
+      "documentNumber": "沪房受理长〔2022〕2号",
+      "use": "确认新华路200号优秀历史建筑修缮设计方案获原则同意。"
+    },
+    "currentMunicipalView": {
+      "path": "docs/research/assets/film-art-center-road-evidence/xinhua-200-current-south-view-2026.jpg",
+      "sha256": "99f6a30f3bcd0547d9e098545519bcf25a433fe8dd061f5a6b4592a9c14805e9",
+      "sourcePageUrl": "https://www.jfdaily.com/sgh/detail?id=1697461",
+      "imageUrl": "https://sghimages.shobserver.com/img/catch/2026/01/19/0410a63d-38da-4006-897e-9535001bc77e.jpg",
+      "publisher": "上海市住房和城乡建设管理委员会新闻宣传中心供稿",
+      "publishedAt": "2026-01-19",
+      "viewDirection": "南侧花园正立面",
+      "use": "确认修缮后主楼南侧外观及两侧低连接空间仍存在；不用于坐标测量。"
+    },
+    "rawOsmBuildings": {
+      "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+      "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c"
+    },
+    "rawOsmRoads": {
+      "path": "docs/research/data/xinhua-roads-osm-20260716-080509.json",
+      "sha256": "351308feafab0344dc59a66ebd68d0748f81ef1cd69dc218765a22eb51abf2ec"
+    },
+    "runtimeMap": {
+      "path": "app/scene/xinhua-map-data.json",
+      "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78"
+    },
+    "currentRegistry": {
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "0743f115a7f6704862f21f5dad96daf11301ce28391290193252f57cfffa1dae"
+    }
+  },
+  "searchLog": [
+    {
+      "queries": [
+        "上海电影艺术中心 新华路200号 总平面图",
+        "新华两佰 修缮 总平面 建筑设计",
+        "新华路200号 优秀历史建筑 修缮 竣工",
+        "新华路200号 上海 地籍图 建筑"
+      ],
+      "result": "发现市房管修缮审批、长宁文旅立项批复及市规划主管部门 2005 年法定保护规划原始图。"
+    },
+    {
+      "queries": [
+        "沪房受理长〔2022〕2号",
+        "新华路200号优秀历史建筑修缮工程设计方案",
+        "上海市新华路历史文化风貌区保护规划",
+        "124-13 新华路"
+      ],
+      "result": "审批正文不公开设计图，但 Wayback 原始规划页保留 CN-124 详细图；规划图、审批主体和当前门牌锚点可形成闭环。"
+    },
+    {
+      "url": "https://www.dayuehs.com/pdf/xmyh02.pdf",
+      "result": "搜索索引可见 124-13 指标，但原站 TLS 连续失败且无法取得稳定本地原件；未将其作为裁决依据。"
+    }
+  ],
+  "footprintBindingClosure": {
+    "officialPlanParcel": "124-13",
+    "currentOsmFootprintWayId": 864505138,
+    "addressAnchors": [
+      {
+        "osmWayId": 292250766,
+        "address": "新华路160号",
+        "name": "上海影城",
+        "relation": "east-anchor"
+      },
+      {
+        "osmWayId": 376223385,
+        "address": "新华路212号",
+        "name": "新华路邮政所",
+        "relation": "west-anchor"
+      }
+    ],
+    "topology": [
+      "way/864505138 位于 160号上海影城和 212号邮政所之间，符合 200号门牌顺序。",
+      "way/864505138 位于两条南北向场内路之间，和官方 124-13 主楼相对 124-14、124-15/16 的拓扑一致。",
+      "way/864505138 长轴朝向与当前手工 placement yaw 只差 0.024756889 rad（约1.418度），提供独立几何交叉验证。"
+    ],
+    "confidence": "high-enough-for-runtime-placement-and-main-building-collision",
+    "precisionBoundary": "OSM footprint 是当前简化轮廓，不宣称替代竣工测绘；仅作为主楼 placement 与实体碰撞边界，不覆盖低玻璃连接体、草坪、路径或场内道路。"
+  },
+  "acceptedCandidate": {
+    "sourceOsmWayId": 864505138,
+    "positionScene": [
+      46.388748754382405,
+      79.07089962964774
+    ],
+    "yawRadians": 2.786349542422368,
+    "runtimeScale": 0.5,
+    "runtimeScaleCalibration": {
+      "status": "pass-main-window-threejs-and-road-clearance",
+      "reason": "旧 scale=1 的完整 Hero 外轮廓同时穿越 ways 577252297 与 1520590652。scale=0.5 后，主屋顶约 9.6×6.175 scene units，与 OSM 主楼 9.181×7.064 scene units 的 footprint 量级闭合；按运行时 glTF Z 反射后的完整 Hero 外轮廓，到西侧 service road 柏油边仍有 0.864477675412314 scene units，到东侧 unclassified road 柏油边有 1.8913993784031866 scene units。",
+      "completeHeroRoadClearanceSceneUnits": {
+        "577252297": 0.864477675412314,
+        "1520590652": 1.8913993784031866,
+        "1520590653": 15.562183131148483,
+        "682286683": 9.794122779720446
+      },
+      "binaryDecision": "Hero、Identity 与 Massing 二进制保持不变，只调整公共 uniform scale。",
+      "collisionDecision": "local collision rectangle 反向扩大两倍，乘以 runtimeScale 后的世界 footprint 与 way/864505138 完全不变。"
+    },
+    "polygonScene": [
+      [
+        40.84262248010412,
+        80.78017555558532
+      ],
+      [
+        43.32872581730236,
+        74.16824592592238
+      ],
+      [
+        51.936638222412,
+        77.3616237037829
+      ],
+      [
+        49.44700849771111,
+        83.97355333330037
+      ],
+      [
+        40.84262248010412,
+        80.78017555558532
+      ]
+    ],
+    "localCollisionRectangle": {
+      "minX": -9.18116646217537,
+      "maxX": 9.18116646217537,
+      "minZ": -7.06387451975493,
+      "maxZ": 7.06387451975493
+    },
+    "worldCollisionFootprintAfterScale": {
+      "minX": -4.590583231087685,
+      "maxX": 4.590583231087685,
+      "minZ": -3.531937259877465,
+      "maxZ": 3.531937259877465
+    },
+    "roadClearanceSceneUnits": {
+      "577252297": 2.047427162812107,
+      "1520590652": 3.0587946167251534,
+      "1520590653": 17.807663782959224,
+      "682286683": 11.907964415371055
+    },
+    "publicIntegrationRequirements": [
+      "由主窗口单独修改公共 registry；本证据分支不修改。",
+      "Hero、Identity、Massing 继续使用已验收二进制，不重跑 Blender MCP 三门。",
+      "地图变更后重跑 Film Art Center 专项测试与单页 Three.js 三档、fallback、碰撞和性能采集。",
+      "模型视觉尺度与已绑定主楼 footprint 分开校准；不得让视觉模型跨越两条地表道路。"
+    ]
+  },
+  "evidenceClassification": {
+    "observed": [
+      "法定 1:1000 规划图在 124-13 内标出唯一红色保护主楼，保护范围不跨 124-14。",
+      "官方两级审批把修缮对象和上海电影集团绑定到新华路200号。",
+      "冻结 OSM 快照把上海影城和邮政所分别绑定到新华路160号、212号。",
+      "way/864505138 位于两个门牌锚点之间，主楼 polygon 与三条场内路及新华路均有正净距。"
+    ],
+    "inferred": [
+      "规划图、审批和当前门牌/拓扑闭环足以把 way/864505138 绑定为新华路200号历史主楼的当前简化 footprint。",
+      "ways 577252297 与 1520590652 是主楼两侧场内通行线，而不是穿越主楼实体；当前冲突来自手工矩形碰撞体过大。"
+    ],
+    "unknown": [
+      "way/864505138 与竣工测绘之间的厘米级差异。",
+      "两侧低玻璃连接体的精确 footprint、可穿行范围和独立碰撞需求。",
+      "ways 577252297 与 1520590652 的当前道路等级、门禁和面层；本裁决不改 road surface tags。",
+      "0.5 是基于官方 footprint、完整 Hero 道路净距与真实页面人物尺度的运行时校准，不替代竣工测绘。"
+    ]
+  },
+  "gateDecision": {
+    "footprintBinding": "pass-evidence-closure-way-864505138",
+    "collisionCandidate": "pass-main-building-only",
+    "roadSurfaceSemantics": "hold-unchanged",
+    "formalMapAcceptance": "pass-main-window-map-runtime-v3",
+    "qualifiedModelStages": "preserve-no-redo",
+    "publicWiring": "pass-main-window-candidate",
+    "runtimeAcceptance": "docs/research/film-art-center-map-runtime-qa-v3.json",
+    "runtimeRemoval": "not-needed-evidence-found"
+  }
+}

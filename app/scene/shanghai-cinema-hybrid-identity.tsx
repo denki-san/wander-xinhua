@@ -25,10 +25,14 @@ import { ProgressiveFeatureBoundary } from "../progressive-feature-boundary";
 import {
   SHANGHAI_CINEMA_IDENTITY_CACHE_VERSION,
   SHANGHAI_CINEMA_IDENTITY_MODEL_PATH,
+  SHANGHAI_CINEMA_MASSING_CACHE_VERSION,
+  SHANGHAI_CINEMA_MASSING_MODEL_PATH,
 } from "./xinhua-road-identity-contract";
 
 export const SHANGHAI_CINEMA_HYBRID_IDENTITY_MODEL =
   `${SHANGHAI_CINEMA_IDENTITY_MODEL_PATH}?v=${SHANGHAI_CINEMA_IDENTITY_CACHE_VERSION}`;
+export const SHANGHAI_CINEMA_MASSING_MODEL =
+  `${SHANGHAI_CINEMA_MASSING_MODEL_PATH}?v=${SHANGHAI_CINEMA_MASSING_CACHE_VERSION}`;
 
 type Transform = {
   position: [number, number, number];
@@ -69,6 +73,37 @@ export function ShanghaiCinemaIdentityGlb({
     onReady?.();
   }, [onReady]);
   return <primitive object={model} scale={[1, 1, -1]} />;
+}
+
+export function ShanghaiCinemaMassingGlb({
+  onReady,
+}: {
+  onReady?: () => void;
+}) {
+  const { scene } = useGLTF(SHANGHAI_CINEMA_MASSING_MODEL);
+  const model = useMemo(() => cloneConfiguredScene(scene), [scene]);
+  useEffect(() => {
+    onReady?.();
+    document.documentElement.dataset.shanghaiCinemaMassingRuntime = "loaded";
+    performance.mark("shanghai-cinema-massing-loaded");
+    return () => {
+      delete document.documentElement.dataset.shanghaiCinemaMassingRuntime;
+      performance.clearMarks("shanghai-cinema-massing-loaded");
+    };
+  }, [onReady]);
+  return (
+    <group
+      name="shanghai-cinema-formal-massing"
+      userData={{
+        building: "shanghai-cinema",
+        stage: "massing",
+        lineage: "hero-and-hybrid-identity",
+        placement: "shared-xinhua-road-contract",
+      }}
+    >
+      <primitive object={model} scale={[1, 1, -1]} />
+    </group>
+  );
 }
 
 function useInstanceMatrices(

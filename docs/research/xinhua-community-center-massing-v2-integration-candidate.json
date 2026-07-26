@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "assetId": "xinhua-community-center",
+  "candidateStatus": "runtime-collision-pass-formal-map-blocked-road-overlap",
+  "modelSha256": "a0609064ec15f0bfeb042ac9013152eda7575205c55bdaf79063cae38c77b471",
+  "runtimeQa": "docs/research/xinhua-community-center-threejs-runtime-qa.json",
+  "axisContract": {
+    "blenderSource": "x-runtime-x_y-runtime-z",
+    "rawGltf": "blender-y-exports-as-negative-z",
+    "rendererScale": [
+      1,
+      1,
+      -1
+    ],
+    "runtimeResult": "binding-xz-restored"
+  },
+  "registryCandidate": {
+    "model": "/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb",
+    "cacheVersion": "20260726-massing-a0609064",
+    "position": [
+      -74.78057782060566,
+      112.5501903703319
+    ],
+    "yaw": 1.1800125527954972,
+    "scale": 1,
+    "localBounds": {
+      "minX": -6.2328073354853455,
+      "maxX": 6.3375736373407205,
+      "minZ": -2.6093047586433475,
+      "maxZ": 2.2995
+    },
+    "localObstacles": [
+      {
+        "minX": -6.2328073354853455,
+        "maxX": 6.3375736373407205,
+        "minZ": -2.6093047586433475,
+        "maxZ": 2.0344502538968166
+      }
+    ],
+    "start": [
+      -66.401198105,
+      115.83439432
+    ],
+    "forward": [
+      -0.9310421906207795,
+      -0.3649115499460933
+    ],
+    "positioning": "osm-node-13765678129-containing-way-864493234-front-road-577252269"
+  },
+  "fastManifestCandidate": {
+    "tests": [
+      "tests/test_requested_poi_models.test.mjs",
+      "tests/test_xinhua_community_center_massing_v2.test.mjs"
+    ],
+    "glbs": [
+      "public/models/requested-pois/xinhua-community-center.glb",
+      "public/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb"
+    ],
+    "runtimeRoutes": [
+      "/?start=community-center&qaModelId=xinhua-community-center&qaModelTier=massing&cameraQa=1&qaAutoStart=1"
+    ]
+  },
+  "mainWindowGates": [
+    "Blender MCP 1 canonical/side/entrance review",
+    "scoped Three.js visibility and exact resource SHA",
+    "road-surface-width and ground-contact review",
+    "deterministic collision approach and walkaround"
+  ]
+}

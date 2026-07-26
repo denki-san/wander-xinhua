@@ -1,0 +1,437 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xingfuli-west",
+  "label": "幸福里·西区",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "6d2dc2a",
+  "branch": "codex/building-xingfuli-west-map-collision-fast",
+  "status": "blocked-map-road-clearance-awaiting-shared-fix",
+  "scope": {
+    "existingAcceptedTiersRebuilt": false,
+    "sharedRegistryModified": false,
+    "sharedRuntimeModified": false,
+    "fastManifestModified": false,
+    "treesDecorationsFullMapOrHoldModified": false
+  },
+  "lineage": {
+    "status": "blocked-formal-lineage-proof",
+    "reconstructionRecord": "docs/research/xingfuli-west-lineage-reconstruction-2026-07-26.json",
+    "recoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "relationship": "当前提交与 Recovery/Hold 中的 west 三档 GLB、Blend、生成器、Brief、参考清单和三份 build record 逐项为同一 Git blob；这只证明资产保留与共同确定性来源，不证明 Identity 或 Massing 从最终 Hero 二进制派生。",
+    "formalDerivedFromHeroField": "historical-record-missing-not-invented",
+    "historicalBuildOrder": [
+      {
+        "tier": "massing",
+        "generatedAt": "2026-07-22T23:51:00+08:00"
+      },
+      {
+        "tier": "identity",
+        "generatedAt": "2026-07-23T00:26:00+08:00"
+      },
+      {
+        "tier": "hero",
+        "generatedAt": "2026-07-23T01:40:30+08:00"
+      }
+    ],
+    "strictVerdict": {
+      "existingBinariesRetained": true,
+      "formalHeroToIdentityProof": false,
+      "formalHeroToMassingProof": false,
+      "formalIdentityToMassingProof": false,
+      "assetQualityFailure": false,
+      "rebuildAuthorized": false,
+      "requiredResolution": "禁止给现有三档回填 derivedFrom；保留既有资产，并在未来新 candidate 路径以精确 Hero/Identity SHA 逐级派生、双构建验证后再讨论 promotion。"
+    },
+    "blendVerification": {
+      "filePresenceAndSha256": "pass-all-three-tiers",
+      "recoveryGitBlobEquality": "pass-all-three-tiers",
+      "headlessSceneRead": "not-completed-blender-5.2-exited-139-before-read",
+      "sourceFilesMutated": false,
+      "deferredInspection": "main-window-batched-blender-mcp-final-review"
+    },
+    "gitBlobEquality": [
+      {
+        "path": "public/models/xingfuli/xingfuli-west.glb",
+        "gitBlob": "59b3dad412b6168ecfc4000aeb61da06386dd3c5"
+      },
+      {
+        "path": "public/models/xingfuli/xingfuli-west-identity.glb",
+        "gitBlob": "105134a68183dfb43f9d6a87e24babb8dcd4380f"
+      },
+      {
+        "path": "public/models/xingfuli/xingfuli-west-massing.glb",
+        "gitBlob": "809906a6339cd43bdffbd32abdc040679ae19f22"
+      },
+      {
+        "path": "assets/models/source/xingfuli/xingfuli-west.blend",
+        "gitBlob": "6c05d4072c17e14df080b20f9ff1152e7a8371e9"
+      },
+      {
+        "path": "assets/models/source/xingfuli/xingfuli-west-identity.blend",
+        "gitBlob": "d94b93bed7049519e388a2beaf3ad3516f7d990a"
+      },
+      {
+        "path": "assets/models/source/xingfuli/xingfuli-west-massing.blend",
+        "gitBlob": "c061b81d7bfcfd7cf09498ec7593b65f876d4db5"
+      },
+      {
+        "path": "scripts/create_xingfuli_models.py",
+        "gitBlob": "5874158b4bb07f8e633bcd1f040adecf43c5a6a0"
+      },
+      {
+        "path": "docs/research/xingfuli-model-brief.md",
+        "gitBlob": "a79e9d52250c7c7253db4f6b1da1ab51b9d3759f"
+      },
+      {
+        "path": "docs/research/xingfuli-reference-manifest.json",
+        "gitBlob": "90928f0bf8296d69ab3028343c22541085775434"
+      },
+      {
+        "path": "docs/research/build-records/xingfuli.json",
+        "gitBlob": "9a2378266aa3ae30d3f277a9dfac1c7642e546e2"
+      },
+      {
+        "path": "docs/research/build-records/xingfuli-identity.json",
+        "gitBlob": "33abe105daf3c63082c8352af17b3bc24691c305"
+      },
+      {
+        "path": "docs/research/build-records/xingfuli-massing.json",
+        "gitBlob": "2e6cf1bba649febe6d18b0ae3d318fa486ff9b95"
+      }
+    ],
+    "sourceSha256": {
+      "generator": "f479f096b2f0092329c77a49e61fb5cfab208d4f05a9ca5278d46115a59b7d75",
+      "brief": "356c666e0a6fed61d4f27fba225639a2fc675456df01eacda62f4673d8995cd8",
+      "referenceManifest": "09d958cefb58412b514e211ecf44c00019f5e280c4d66488b5190350bcc97b0c",
+      "heroBuildRecord": "d99b1c7f5167b97172f161759a4d019c89961d043e5e9590ab2d4c6a76c633f5",
+      "identityBuildRecord": "d0f1c91933f468a507d0e00db717c87e8ab5ed535471d581a1377009ff7c56ff",
+      "massingBuildRecord": "eec4d65c5a840ac5a65fc146364438a6c5274caa813e6990e42b0d70802727d0"
+    }
+  },
+  "tiers": {
+    "hero": {
+      "stage": "final",
+      "glb": "public/models/xingfuli/xingfuli-west.glb",
+      "glbSha256": "ababb1860c360f5807ce99b392a5388eba30f0991bdcb4f653c99752786bf853",
+      "blend": "assets/models/source/xingfuli/xingfuli-west.blend",
+      "blendSha256": "0b9d64178e740aceb77469a1546d775f334427da16ba0037ab916c699b723a51",
+      "buildRecord": "docs/research/build-records/xingfuli.json",
+      "bytes": 317012,
+      "nodes": 1,
+      "meshes": 1,
+      "triangles": 4428,
+      "materials": 7,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [
+          -47,
+          0.09000000357627869,
+          -7.739999771118164
+        ],
+        "max": [
+          -22,
+          6.980000019073486,
+          22.09000015258789
+        ]
+      },
+      "glbRootTransform": "identity-implicit",
+      "recordedRuntimeGate": "passed-retained-no-rerun"
+    },
+    "identity": {
+      "stage": "identity",
+      "glb": "public/models/xingfuli/xingfuli-west-identity.glb",
+      "glbSha256": "69dc45a7237bd563204aa0189a0e3396b183d7b822e9ee676f2f5db72894aca1",
+      "blend": "assets/models/source/xingfuli/xingfuli-west-identity.blend",
+      "blendSha256": "226b7bc0a0a3d3eefdb5e8384ec132447d49b01d9bf014ba91fedb4fc4232bd7",
+      "buildRecord": "docs/research/build-records/xingfuli-identity.json",
+      "bytes": 279108,
+      "nodes": 1,
+      "meshes": 1,
+      "triangles": 3900,
+      "materials": 6,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [
+          -47,
+          0.09000000357627869,
+          -7.739999771118164
+        ],
+        "max": [
+          -22,
+          6.980000019073486,
+          22.09000015258789
+        ]
+      },
+      "glbRootTransform": "identity-implicit",
+      "recordedRuntimeGate": "passed-retained-no-rerun"
+    },
+    "massing": {
+      "stage": "massing",
+      "glb": "public/models/xingfuli/xingfuli-west-massing.glb",
+      "glbSha256": "178c1bbf89a15a082c596cae6e994f042997998fef02a3bf6fcaecdb104e5c04",
+      "blend": "assets/models/source/xingfuli/xingfuli-west-massing.blend",
+      "blendSha256": "cdea34c17e897ecb7418c7dec8836a31bf0e6289c94188a4c2f788a330e90212",
+      "buildRecord": "docs/research/build-records/xingfuli-massing.json",
+      "bytes": 194984,
+      "nodes": 1,
+      "meshes": 1,
+      "triangles": 2712,
+      "materials": 5,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [
+          -47,
+          0.09000000357627869,
+          -7.739999771118164
+        ],
+        "max": [
+          -22,
+          6.980000019073486,
+          22.09000015258789
+        ]
+      },
+      "glbRootTransform": "identity-implicit",
+      "recordedRuntimeGate": "passed-retained-no-rerun"
+    }
+  },
+  "mapCalibration": {
+    "status": "pass-anchor-direction-and-production-transform",
+    "sources": {
+      "boundary": {
+        "path": "docs/research/data/xinhua-boundary-osm-20260716-080509.json",
+        "sha256": "f0d316fde8d6e3dc75a853551b642468d4f4c530d8f415d3fef9daec4972c181"
+      },
+      "roads": {
+        "path": "docs/research/data/xinhua-roads-osm-20260716-080509.json",
+        "sha256": "351308feafab0344dc59a66ebd68d0748f81ef1cd69dc218765a22eb51abf2ec",
+        "timestampOsmBase": "2026-07-16T08:03:07Z"
+      },
+      "buildings": {
+        "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+        "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c",
+        "timestampOsmBase": "2026-07-25T07:46:51Z"
+      },
+      "projectMap": {
+        "path": "app/scene/xinhua-map-data.json",
+        "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78"
+      }
+    },
+    "osmWayId": 400066625,
+    "projection": {
+      "metersPerSceneUnit": 2.7,
+      "boundaryCenterWgs84": [
+        121.42278185,
+        31.20663755
+      ],
+      "projectedEndpoints": [
+        [
+          133.73296446666635,
+          16.824597407371904
+        ],
+        [
+          79.59938667119523,
+          8.984445555533235
+        ]
+      ],
+      "recomputedMidpoint": [
+        106.66617556893078,
+        12.90452148145257
+      ],
+      "recomputedDirection": [
+        -0.9896743332928893,
+        -0.14333427371454086
+      ],
+      "recomputedRotationY": 2.997762992542127,
+      "recomputedLengthScene": 54.69837498498664,
+      "recomputedLengthMeters": 147.68561245946395,
+      "recomputedHorizontalScale": 0.5818976062232621
+    },
+    "storedPlacement": {
+      "position": [
+        106.6662,
+        12.9045
+      ],
+      "rotationY": 2.997763,
+      "horizontalScale": 0.581898,
+      "verticalScale": 1.5,
+      "localLaneCenterZ": -7,
+      "lengthMeters": 147.7
+    },
+    "productionTransform": {
+      "panyuClearanceScene": 4.1,
+      "modelLengthLocal": 94,
+      "position": [
+        108.6950323854418,
+        13.198335245984035
+      ],
+      "longitudinalScale": 0.5382809787234043,
+      "axisX": [
+        -0.9896743343618581,
+        -0.14333426633367558
+      ],
+      "xingfuEndpointWorld": [
+        133.73300724337534,
+        16.824578376818558
+      ],
+      "panyuEndpointWorldAfterClearance": [
+        83.65705752750827,
+        9.572092115149513
+      ]
+    }
+  },
+  "roadGate": {
+    "status": "blocked-current-authored-west-footprints-overlap-xingfu-road",
+    "road": {
+      "osmWayId": 43763426,
+      "name": "幸福路",
+      "highway": "tertiary",
+      "runtimeWidthScene": 7.25,
+      "runtimeHalfWidthScene": 3.625
+    },
+    "currentAuthoredCollisionFootprints": [
+      {
+        "buildingId": "north-west",
+        "roadCenterlineDistanceScene": 2.4960405686458493,
+        "asphaltEdgeClearanceScene": -1.1289594313541507,
+        "asphaltEdgeClearanceMeters": -3.048190464656207
+      },
+      {
+        "buildingId": "south-west",
+        "roadCenterlineDistanceScene": 0.6047461590271431,
+        "asphaltEdgeClearanceScene": -3.020253840972857,
+        "asphaltEdgeClearanceMeters": -8.154685370626714
+      }
+    ],
+    "sourceOsmComparison": [
+      {
+        "assetId": "way/864823873",
+        "roadCenterlineDistanceScene": 3.8519805709570054,
+        "asphaltEdgeClearanceScene": 0.2269805709570054,
+        "asphaltEdgeClearanceMeters": 0.6128475415839146
+      },
+      {
+        "assetId": "way/864823874",
+        "roadCenterlineDistanceScene": 4.129786385516301,
+        "asphaltEdgeClearanceScene": 0.5047863855163008,
+        "asphaltEdgeClearanceMeters": 1.3629232408940124
+      },
+      {
+        "assetId": "way/864823875",
+        "roadCenterlineDistanceScene": 5.340290899469615,
+        "asphaltEdgeClearanceScene": 1.7152908994696148,
+        "asphaltEdgeClearanceMeters": 4.63128542856796
+      }
+    ],
+    "photoEvidence": "docs/research/xingfuli-west-reference-manifest.json",
+    "observed": [
+      "三张 2017 幸福路入口照片均显示建筑退在人行道后，未进入机动车道路面。",
+      "同一项目投影下，三条相关 OSM 建筑轮廓对当前夸张道路面仍保持正净距。",
+      "当前 north-west 与 south-west 矩形碰撞边界对道路面均为负净距。"
+    ],
+    "verdict": {
+      "mapGatePass": false,
+      "globalTranslationAuthorized": false,
+      "uniformOrNonUniformScaleHackAuthorized": false,
+      "assetRebuildAuthorized": false,
+      "requiredResolution": "主窗口在跨 Xingfuli 三段的公共集成节点裁定：按 OSM 临街多边形斜切西端建筑/碰撞，或为道路层建立有证据的局部裁切。两者都超出单栋私有文件范围。"
+    }
+  },
+  "segmentAndNeighborCollision": {
+    "status": "pass-no-structural-overlap-map-road-block-remains",
+    "westBuildings": [
+      "north-west",
+      "south-west"
+    ],
+    "neighborPairs": [
+      {
+        "west": "north-west",
+        "center": "north-inner-west",
+        "localStructuralGap": 1.1899999999999977,
+        "worldStructuralGap": 0.6405543646808499
+      },
+      {
+        "west": "south-west",
+        "center": "south-inner-west",
+        "localStructuralGap": 1.1899999999999977,
+        "worldStructuralGap": 0.6405543646808499
+      }
+    ],
+    "playerDiameterWorld": 0.96,
+    "seamIsWalkableRoute": false,
+    "glbBoundsOverlapExplanation": {
+      "westCenterOverlapLocal": 1.3400001525878906,
+      "westCenterOverlapWorld": 0.7212965936245209,
+      "cause": "center 段构件伸到 west 段 lane-base 上方；不是两栋结构碰撞。生产碰撞由按楼座拆分的 XINGFULI_BUILDING_OBSTACLES 提供。",
+      "mainLaneRoute": "west-to-east-main",
+      "recordedRouteGate": "passed-retained-no-rerun"
+    }
+  },
+  "startAndCamera": {
+    "status": "pass-static-production-contract",
+    "playerRadiusWorld": 0.48,
+    "cameraCollisionRadiusWorld": 0.26,
+    "productStart": {
+      "preset": "xingfuli",
+      "local": [
+        -39.5,
+        -7
+      ],
+      "world": [
+        129.73758572349232,
+        16.24592255806837
+      ],
+      "blocked": false,
+      "nearestObstacleDistanceScene": 2.092060744004645,
+      "clearanceAfterPlayerRadiusScene": 1.612060744004645
+    },
+    "fastQaStart": {
+      "preset": "xingfuli-canonical",
+      "route": "/?start=xingfuli-canonical&cameraQa=1&qaAutoStart=1",
+      "local": [
+        4,
+        -7
+      ],
+      "world": [
+        106.56414090817087,
+        12.889718809317268
+      ],
+      "blocked": false,
+      "nearestObstacleDistanceScene": 2.220574039111323,
+      "clearanceAfterPlayerRadiusScene": 1.7405740391113231
+    },
+    "initialProductCamera": {
+      "targetWorldBeforeDetailScale": [
+        129.74801003377112,
+        16.173946242842053
+      ],
+      "desiredWorldBeforeDetailScale": [
+        133.02471210442337,
+        16.170850693801395
+      ],
+      "planarDistanceScene": 3.2767035328574656,
+      "springArmFraction": 1,
+      "blockerId": null
+    }
+  },
+  "gates": {
+    "evidence": "pass-west-road-views-added",
+    "heroIdentityMassing": "pass-retained-existing-sha-and-records",
+    "lineage": "blocked-formal-lineage-proof",
+    "map": "blocked-road-clearance",
+    "startCamera": "pass-static-contract",
+    "blenderMcpBatchFinalReview": "pending-main-window-no-rebuild",
+    "threeJsRuntimeCollection": "blocked-until-map-road-fix",
+    "knowledgeBaseSync": "pending-final-threejs-3d-research-sync-and-readback"
+  },
+  "mainWindowTodo": [
+    "不要重建或覆盖 west 的 Hero/Identity/Massing；三档 SHA 已与 Recovery/current 双重锁定。",
+    "把 tests/test_xingfuli_west_fast_audit.test.mjs 接入 xingfuli-west 的 Fast Mode tests 数组。",
+    "在 Xingfuli 三段公共集成节点裁定西端建筑/碰撞斜切或道路局部裁切，禁止整体移动或缩放掩盖冲突。",
+    "地图门修复后，按 2～3 栋批次做 Blender MCP 三门终审；本栋仅核对已保留三档，不重新生成。",
+    "地图门修复后再跑单页 Three.js 三档/fallback/性能/碰撞采集。",
+    "最终完成前把本次幸福路入口观察同步到 Threejs-3d-research，并完成队列归零、搜索、读取和回溯；不要写入 TowerOld。"
+  ]
+}

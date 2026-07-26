@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-211",
+  "reviewedAt": "2026-07-26",
+  "mode": "fast-mode-local-only-blocker-handoff",
+  "status": "blocked-evidence-no-hero-or-identity-authorized",
+  "scope": {
+    "included": [
+      "accepted-massing-reuse-contract",
+      "local-and-recovery-lineage-audits",
+      "existing-mcp1-and-threejs-map-acceptance",
+      "private-specialty-regression"
+    ],
+    "notPerformed": [
+      "network-or-xiaohongshu-research",
+      "blender-or-mcp-rerun",
+      "new-hero-or-identity-modeling",
+      "runtime-or-registry-mutation",
+      "cross-asset-evidence-reuse",
+      "trees-decoration-or-full-map-work"
+    ],
+    "sharedFilesModified": false,
+    "binaryModified": false
+  },
+  "verifiedInputs": {
+    "localEvidenceRescue": {
+      "path": "docs/research/xinhua-villas-211-local-same-member-evidence-rescue.json",
+      "sha256": "e2ad99648084fa63128e8f80a60fedb43066a1f9755e1a710576ee02c75f2c49"
+    },
+    "heroReadiness": {
+      "path": "docs/research/xinhua-villas-211-hero-lineage-member-depth-readiness.json",
+      "sha256": "6f3096d094c60b1d7f221cdf65732bceeded6f1a040b5da7c7ab9dd2519f7b7a"
+    },
+    "threeTierDisposition": {
+      "path": "docs/research/xinhua-villas-211-three-tier-final-disposition.json",
+      "sha256": "aacd253f9c26f9de033f767365a01093797a9cae04c2f07551b779f17084c8f2"
+    }
+  },
+  "retainedAcceptedStage": {
+    "tier": "Massing v3 only",
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb",
+      "sha256": "ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c",
+      "nodes": 9,
+      "triangles": 134,
+      "images": 0
+    },
+    "acceptedGates": [
+      "MCP1 pass-main-window-batch",
+      "Three.js map, collision and runtime pass-main-window-real-browser"
+    ],
+    "placement": {
+      "position": [38.32, 110.67],
+      "yaw": -0.38,
+      "scale": 0.62,
+      "movementAuthorized": false
+    },
+    "action": "retain unchanged; do not redo accepted stages"
+  },
+  "rejectedShortcuts": [
+    {
+      "candidate": "legacy four-villa Hero",
+      "sha256": "0a7168e6104d39b808c096a390a14d1eb1690e49bef165193829517b022cb295",
+      "reason": "four authored members do not match the accepted nine-way Massing; it records no accepted-Massing SHA and includes held trees, lamps, planters, bench and paving."
+    },
+    {
+      "candidate": "Recovery voxel-remesh Massing",
+      "reason": "derived from the invalid legacy Hero rather than the accepted nine-way Massing, so it cannot rescue Hero lineage."
+    },
+    {
+      "candidate": "existing front or entrance photographs",
+      "reason": "four unique local captures bind zero photographs to a specific accepted OSM way and provide zero same-member complete side/rear/roof-back sets."
+    }
+  ],
+  "blockingFacts": {
+    "acceptedMassingWays": 9,
+    "acceptedWaysWithHouseNumber": 0,
+    "photosBoundToSpecificAcceptedWay": 0,
+    "sameMemberCompleteDepthSets": 0,
+    "legacyHeroAuthoredMembers": 4,
+    "legacyHeroMcp2": "not-entered"
+  },
+  "minimumUnblock": [
+    "A georeferenced or dimensioned authoritative plan, survey, or user-confirmed layout that assigns each Hero-target member (including 211-1 and/or 211-2) to a specific accepted OSM way.",
+    "For each Hero-target member, one same-member side or depth view plus one rear or roof-back view, tied to that plan and with observed facts separated from inference.",
+    "Member-specific height/storey and entrance or walkable-void evidence needed for collision.",
+    "A new Hero build record derived from accepted Massing SHA ab05b4ec, preserving the chosen member footprint, origin, front direction, scale and collision semantics; only then may MCP2, Identity derivation and MCP3 begin."
+  ],
+  "verdict": {
+    "heroAuthorized": false,
+    "identityAuthorized": false,
+    "mcp2Authorized": false,
+    "mcp3Authorized": false,
+    "runtimeOrRegistryMutationAuthorized": false,
+    "nextGate": "obtain member-to-way assignment and same-member side/rear depth evidence",
+    "buildingComplete": false
+  }
+}

@@ -1,0 +1,245 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-26T02:26:03+08:00",
+  "reviewedBy": "main-coordinator",
+  "activeCandidate": "fastModeCandidate",
+  "sourceCheckpoint": "ac4d595",
+  "pipelineOrder": [
+    "evidence-and-brief",
+    "massing-generation",
+    "blender-mcp-massing-review",
+    "three-js-map-calibration",
+    "hero-master-review",
+    "identity-derivation",
+    "three-tier-review",
+    "three-js-runtime-acceptance"
+  ],
+  "massingGate": {
+    "gate": "mcp1-massing-pre-map-calibration",
+    "status": "historical-pass-superseded-binary-and-transform",
+    "interactiveReview": "Blender MCP",
+    "fallbackUsed": false,
+    "editableSource": {
+      "path": "assets/models/source/requested-pois/hudec-memorial-massing.blend",
+      "sha256": "45357c1cef713d5ed10bc0f7de41da6819cdd2eaec0e5def04091d76e37d8d2c"
+    },
+    "runtimeAsset": {
+      "path": "public/models/requested-pois/hudec-memorial-massing.glb",
+      "sha256": "c38302eb136dbb4dfb9b882f725957d26260bc0cb10929459e44aeb4e96d14a5",
+      "bytes": 158312
+    },
+    "generator": {
+      "path": "scripts/create_hudec_memorial_v2.py",
+      "sha256": "5890fe9444008880544e6fb0fdb57331963d8491513f13eb162753f5b946144b"
+    },
+    "buildRecord": {
+      "path": "docs/research/build-records/hudec-memorial-massing.json",
+      "sha256": "65cc6ea48fcb78296c18d41f6e3e481ee34c42e786a976ca55de502e9f5d45de"
+    },
+    "sceneInspection": {
+      "rootObject": "hudec-memorial-massing",
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1],
+      "boundsBlender": {
+        "min": [-6.300000190734863, -5.6519999504089355, 0],
+        "max": [6.300000190734863, 5.148000240325928, 8.978400230407715]
+      },
+      "dimensionsBlender": [
+        12.600000381469727,
+        10.800000190734863,
+        8.978400230407715
+      ],
+      "vertices": 1168,
+      "polygons": 1094,
+      "triangles": 2180,
+      "materials": 5,
+      "images": 0,
+      "draws": 5,
+      "frontDirection": "-Y",
+      "groundDatum": 0,
+      "authoredMetersPerSceneUnit": 2.7
+    },
+    "humanScale": {
+      "heightMeters": 1.8,
+      "heightSceneUnits": 0.666,
+      "temporaryProxyOnly": true,
+      "savedToMaster": false
+    },
+    "fixedViews": {
+      "canonical": {
+        "camera": [-15.5, 23, 12],
+        "target": [-0.1, 1, 4.45],
+        "lensMm": 56,
+        "screenshot": "test_artifacts/test_hudec-memorial_mcp1_massing_canonical.png",
+        "sha256": "159f03a7e70dcf2b6ccdc1e0365d4d1d6ea0216136f9d885cb4765b8ed540b9c",
+        "bytes": 756575
+      },
+      "side": {
+        "camera": [21, 17, 10.8],
+        "target": [-0.8, 1.2, 4.35],
+        "lensMm": 54,
+        "screenshot": "test_artifacts/test_hudec-memorial_mcp1_massing_side.png",
+        "sha256": "98329c85c3e02d8b5cb911f26dbce735cd4046ae8d0e7550a1523a7542dd449c",
+        "bytes": 746549
+      },
+      "entrance": {
+        "camera": [8.2, -17, 6.2],
+        "target": [1.3, -1.35, 2.55],
+        "lensMm": 58,
+        "screenshot": "test_artifacts/test_hudec-memorial_mcp1_massing_entrance.png",
+        "sha256": "09854c743d335dd84b488267496617ed7c7b2799bafaa29f43ea8c039b4db640",
+        "bytes": 728659
+      }
+    },
+    "checks": {
+      "groundContact": "pass-z-zero-datum",
+      "rootTransform": "pass-normalized",
+      "humanScale": "pass",
+      "volumeHierarchy": "pass-steep-main-roof-cross-gables-and-lower-wing",
+      "signatureChimney": "pass-white-stack-base-plus-three-brick-flues",
+      "halfTimberGable": "pass-readable-in-canonical-and-side",
+      "lowGlazedWing": "pass-readable-in-canonical-and-side",
+      "entrance": "pass-for-massing-simplified-porch",
+      "visibleIntersections": "pass-no-unintended-clipping-in-fixed-views",
+      "texturePolicy": "pass-zero-images"
+    },
+    "acceptedInteractiveChanges": [],
+    "generatorRoundTrip": {
+      "status": "not-required",
+      "note": "MCP1 仅增加临时相机、灯光、地面和1.8米人物代理；未接受几何、材质或 transform 修改，正式 Blend 未保存。"
+    },
+    "nextGate": "superseded-by-fastModeCandidate"
+  },
+  "mapGate": {
+    "gate": "three-js-massing-map-calibration",
+    "status": "historical-blocked-superseded-candidate",
+    "reviewedAt": "2026-07-25T19:14:34+08:00",
+    "reviewedBy": "hudec-memorial-worktree-agent",
+    "sourceCheckpoint": "f509c60",
+    "runtimeQa": "test_artifacts/test_hudec-memorial_massing_runtime_metrics.json",
+    "fixedEntry": "/?start=hudec&network=standard",
+    "qaAssembly": {
+      "temporary": true,
+      "sourceRegistryCommitted": false,
+      "sourceRegistryRestoredSha256": "eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6",
+      "heroAssetOverwritten": false
+    },
+    "checks": {
+      "positioning": "pass-osm-way-494633921-existing-anchor",
+      "orientation": "pass-front-minus-y-runtime-yaw-pi-over-2",
+      "groundContact": "pass-no-visible-float-or-sink",
+      "roadSetback": "pass-existing-road-and-front-yard-clearance",
+      "humanScale": "pass-for-massing",
+      "camera": "pass-start-and-7.4-unit-probe-clear",
+      "collision": "blocked-porch-gap-1.2672-required-1.36",
+      "resource": "pass-http-200-exact-158312-byte-glb",
+      "console": "pass-zero-logs-and-zero-page-errors",
+      "performance": "blocked-sample-2.9911s-shorter-than-10s-contract"
+    },
+    "screenshots": [
+      "test_artifacts/test_hudec-memorial_massing_runtime_preview.png",
+      "test_artifacts/test_hudec-memorial_massing_runtime_entrance_preview.png",
+      "test_artifacts/test_hudec-memorial_massing_runtime_side_preview.png"
+    ],
+    "weakNetworkBoundary": "automatic weak profile intentionally keeps Identity proxy and does not request the exact GLB",
+    "blockers": [
+      "真实门廊净宽不足，不能靠缩碰撞盒制造通道。",
+      "临时 QA bundle 与 HAR 未保留，碰撞配置缺少独立运行时证据。",
+      "性能采样未达到 Brief 的 10 秒。"
+    ],
+    "nextGate": "repeat-mcp1-and-map-with-fastModeCandidate",
+    "heroIdentityAuthorized": false
+  },
+  "fastModeCandidate": {
+    "status": "mcp1-and-runtime-map-pass",
+    "generatedAt": "2026-07-26T02:24:06+08:00",
+    "ownership": "hudec-building-only",
+    "generator": {
+      "path": "scripts/create_hudec_memorial_v2.py",
+      "sha256": "be77ff6acbc09278e2cf0af5000fcfdddd69d657a25f41d72567e8f47a6648df"
+    },
+    "editableSource": {
+      "path": "assets/models/source/requested-pois/hudec-memorial-massing.blend",
+      "sha256": "dea695f3434f94889907094c7f4b09ab242c159c94703263e21be3c5438b0891",
+      "bytes": 130123
+    },
+    "runtimeAsset": {
+      "path": "public/models/requested-pois/hudec-memorial-massing.glb",
+      "sha256": "772ce8a8445a2cc9f1496a9876960ecf78964f11d09209578a1a5fbd52864ff0",
+      "bytes": 158312,
+      "cacheVersion": "20260726-hudec-massing-772ce8a8445a"
+    },
+    "buildRecord": {
+      "path": "docs/research/build-records/hudec-memorial-massing.json",
+      "sha256": "62b3e4e0f65da386260d0512e73ca99300b96feaa474b8a86e4718d4b50489b3"
+    },
+    "mapCalibration": {
+      "path": "test_artifacts/test_hudec-memorial_map_calibration.json",
+      "sha256": "969d4e5e1493fda976b0f319f3f25b941412fbc5d8cf612690e8df19b6f76f2e",
+      "status": "passed-static-map-recommendation-awaiting-main-runtime",
+      "position": [92.535374, -132.52181],
+      "yawRadians": 0.153486288,
+      "scale": 0.88,
+      "sourceBounds": {
+        "min": [-6.300000190734863, -1.4901161193847656e-8, -5.148000240325928],
+        "max": [6.300000190734863, 8.978400230407715, 5.6519999504089355]
+      },
+      "roadGate": "pass-model-asphalt-setback-10.17698-scene-units",
+      "entranceCollision": "pass-world-gap-1.400256-required-1.36",
+      "localObstacleCount": 7
+    },
+    "headless": {
+      "blenderVersion": "5.2.0 LTS",
+      "status": "pass",
+      "triangles": 2180,
+      "materials": 5,
+      "images": 0,
+      "fixedViews": {
+        "canonical": {
+          "path": "test_artifacts/test_hudec-memorial-massing_canonical_preview.png",
+          "sha256": "34356fed5ec71e234bc63bd2392352f38cdd895fff86b7e9f09e13c961508665",
+          "bytes": 754109
+        },
+        "side": {
+          "path": "test_artifacts/test_hudec-memorial-massing_side_preview.png",
+          "sha256": "0c81d25900001c8b8dc046c40df8a08b7e08fa6b53c1db9abd161bb8b5366113",
+          "bytes": 744051
+        },
+        "entrance": {
+          "path": "test_artifacts/test_hudec-memorial-massing_entrance_preview.png",
+          "sha256": "eb3b7b9144bff43b5eb06e7408ddc69049fa064c26f90f298a38f27720809320",
+          "bytes": 729280
+        }
+      }
+    },
+    "supersedes": {
+      "binarySha256": "c38302eb136dbb4dfb9b882f725957d26260bc0cb10929459e44aeb4e96d14a5",
+      "runtimeYawRadians": 1.5707963267948966,
+      "reason": "入口真实净宽不足，且旧 yaw 与 OSM 东西长轴和西侧证据不一致。"
+    },
+    "publicRegistryEdited": false,
+    "runtimeEdited": false,
+    "mainWindowReview": {
+      "record": "docs/research/build-records/hudec-memorial-massing.json#mainWindowReview",
+      "mcp1": "pass-current-sha-visual-and-structure",
+      "runtimeAssetVisibility": "pass-current-sha",
+      "mapAcceptance": "pass",
+      "collision": "pass-solid-wall-and-open-entrance-path",
+      "performance": "pass-visible-production-10.0151s-97.0534fps",
+      "consoleEvents": 0
+    },
+    "nextGate": "main-window-hero-mcp2"
+  },
+  "heroGate": {
+    "status": "authorized-for-main-window-mcp2"
+  },
+  "identityGate": {
+    "status": "blocked-until-reviewed-hero-master"
+  },
+  "threeTierGate": {
+    "status": "pending"
+  }
+}

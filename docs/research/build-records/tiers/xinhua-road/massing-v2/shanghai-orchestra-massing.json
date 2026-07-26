@@ -1,0 +1,279 @@
+{
+  "version": 2,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:shanghai-orchestra",
+  "tier": "massing",
+  "batch": "clean-footprint-v2",
+  "status": "runtime-pass-geometry-calibrated-membership-map-gate-blocked",
+  "generator": "codex/hold-all-models-v3-recovery-20260725:scripts/create_xinhua_road_clean_massing_models.py",
+  "buildingOnlyRegenerator": "scripts/create_shanghai_orchestra_massing_model.py",
+  "geometrySpec": "docs/research/shanghai-orchestra-osm-binding.json",
+  "modelBrief": "docs/research/shanghai-orchestra-model-brief.md",
+  "placement": {
+    "position": [
+      -44.4,
+      44
+    ],
+    "yaw": 2.761592653589793,
+    "scale": 0.88,
+    "movementAuthorized": false
+  },
+  "candidateStatus": "five-member-candidates-pending",
+  "membershipConfidence": "low",
+  "heightEvidence": {
+    "previewMeters": 10.5,
+    "localSceneUnits": 4.419192,
+    "status": "unknown-runtime-fallback-not-evidence"
+  },
+  "unknown": [
+    "building 6 7 8 way mapping",
+    "retained historic volume mapping",
+    "curved roof and link footprint",
+    "surveyed heights and entrance"
+  ],
+  "children": [
+    {
+      "name": "osm-way-864505166",
+      "sourceWayId": 864505166,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 445.9,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          -2.930471,
+          4.317778
+        ],
+        [
+          -2.495484,
+          12.580431
+        ],
+        [
+          -12.027254,
+          13.121194
+        ],
+        [
+          -12.462237,
+          4.858551
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-864505168",
+      "sourceWayId": 864505168,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 226.5,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          11.318353,
+          -6.949206
+        ],
+        [
+          11.433858,
+          2.317739
+        ],
+        [
+          7.104058,
+          2.388907
+        ],
+        [
+          6.990277,
+          -6.873722
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-864505165",
+      "sourceWayId": 864505165,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 252.3,
+      "triangles": 20,
+      "localFootprint": [
+        [
+          -7.989717,
+          -7.052497
+        ],
+        [
+          -7.618803,
+          0.023389
+        ],
+        [
+          -10.942988,
+          0.213896
+        ],
+        [
+          -11.097214,
+          -2.700283
+        ],
+        [
+          -16.150807,
+          -2.410163
+        ],
+        [
+          -16.367495,
+          -6.57187
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-864505169",
+      "sourceWayId": 864505169,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 1008.6,
+      "triangles": 20,
+      "localFootprint": [
+        [
+          25.8515,
+          4.945434
+        ],
+        [
+          25.153542,
+          14.412058
+        ],
+        [
+          13.132362,
+          13.592545
+        ],
+        [
+          12.896323,
+          16.782836
+        ],
+        [
+          7.843147,
+          16.436551
+        ],
+        [
+          8.777138,
+          3.77965
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-864505163",
+      "sourceWayId": 864505163,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 89.7,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          -8.260416,
+          -7.946317
+        ],
+        [
+          -14.079037,
+          -7.616155
+        ],
+        [
+          -14.221787,
+          -10.339536
+        ],
+        [
+          -8.406891,
+          -10.66821
+        ]
+      ]
+    }
+  ],
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing-v2/test_shanghai-orchestra-massing-v2-canonical.png",
+      "side": "test_artifacts/all-models/massing-v2/test_shanghai-orchestra-massing-v2-side.png"
+    }
+  },
+  "sourceBlendHygiene": {
+    "script": "scripts/clean_building_source_blend.py",
+    "preCleanupSha256": "debf4389c87310b99f1e13181491b36aba8d5ced21e47bbe2e2b72c450cf693a",
+    "currentSha256": "805a805947f82abc54360ab213c9d1cde90049ea6cbf9e807b553a4f53f85cf4",
+    "bytes": 102330,
+    "removedObject": "test-preview-ground",
+    "buildingGeometryChanged": false,
+    "glbRebuilt": false
+  },
+  "glb": {
+    "sha256": "63eb25ca4abcbab0e434adb528ea0f37650495c614833f7b9bd05afbc519484c",
+    "bytes": 9132,
+    "nodes": 5,
+    "meshes": 5,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 76,
+    "bounds": {
+      "min": [
+        -16.367495,
+        0,
+        -16.782837
+      ],
+      "max": [
+        25.8515,
+        4.419192,
+        10.66821
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": "pass",
+  "currentRuntimeDiagnostic": {
+    "status": "pass-load-performance-collision-stop-qa-only",
+    "record": "docs/research/shanghai-orchestra-threejs-runtime-qa.json",
+    "productionPromotionAllowed": false
+  },
+  "mapAcceptance": "blocked-evidence",
+  "identityAllowed": false,
+  "mcp1Gate": {
+    "status": "pass-shape-only",
+    "record": "docs/research/shanghai-orchestra-blender-mcp-gates.json",
+    "reason": "Main-window MCP1 confirms the five grounded Massing shapes and human scale without accepting their formal compound membership.",
+    "nextAction": "Obtain site-plan or address-compound evidence that maps buildings 6, 7, 8 and retained volumes to OSM ways before map promotion or Identity."
+  },
+  "mapCalibration": {
+    "file": "docs/research/shanghai-orchestra-massing-map-gate.json",
+    "rawBinding": "docs/research/shanghai-orchestra-osm-binding.json",
+    "maximumRecoveryWorldDeltaSceneUnits": 0.000006565,
+    "xinhuaRoadAsphaltEdgeClearanceSceneUnits": 4.880222,
+    "fahuazhenRoadAsphaltEdgeClearanceSceneUnits": 10.667135,
+    "candidatePairMinimumGapSceneUnits": 0.798917,
+    "adjacentUnknownMinimumGapSceneUnits": 1.169289,
+    "currentStartMinimumBuildingClearanceSceneUnits": 7.053485,
+    "geometryStatus": "pass",
+    "formalMembership": "blocked-evidence"
+  },
+  "buildingOnlyRegeneratorAudit": {
+    "performedAt": "2026-07-26",
+    "mode": "temporary-output-no-production-overwrite",
+    "glbSha256": "5cfd0a2ef729d9b8afbd705349684682fdf51d00c0fea4bea4f2771281ce6b5c",
+    "glbBytes": 9280,
+    "nodes": 5,
+    "meshes": 5,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "status": "ok-not-promoted-because-recovery-qualified-binary-is-preserved"
+  },
+  "runtimeGeometryVisual": "pass",
+  "runtimeQa": {
+    "file": "codex/hold-all-models-v3-recovery-20260725:docs/research/xinhua-road-clean-massing-runtime-qa.json",
+    "contextScreenshot": {
+      "file": "test_artifacts/all-models/massing-v2/test_shanghai-orchestra-massing-v2-threejs.png",
+      "sha256": "c1f5bae938f7489f37070c05f2f770cadaf5157631c361159f2507c190665147",
+      "bytes": 67056
+    },
+    "isolatedScreenshot": {
+      "file": "test_artifacts/all-models/massing-v2/test_shanghai-orchestra-massing-v2-threejs-isolated.png",
+      "sha256": "2103fecd56bb64f88cb5d690d2a2e85de7088b7d93b05b0261076d69fef704fb",
+      "bytes": 50341
+    }
+  }
+}

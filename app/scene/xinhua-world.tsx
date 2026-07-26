@@ -56,12 +56,18 @@ import {
   XINGFULI_BUILDING_OBSTACLES,
   XINGFULI_OBSTACLES,
 } from "./xingfuli-block";
+import { resolveXingfuliQa } from "./xingfuli-tier-contract.mjs";
 import {
   XINHUA_ROAD_CAMERA_OBSTACLES,
+  XINHUA_ROAD_LANDMARKS,
   XINHUA_ROAD_OBSTACLES,
   XINHUA_ROAD_START_PRESETS,
 } from "./xinhua-road-contract";
 import { XinhuaRoadMassing } from "./xinhua-road-massing";
+import type {
+  ShanghaiCinemaRuntimeQaFault,
+  ShanghaiCinemaRuntimeQaTier,
+} from "./shanghai-cinema-runtime-qa";
 import {
   XINGFULI_PLACEMENT,
   XINHUA_BOUNDARY,
@@ -80,6 +86,7 @@ import {
   isDirectReverseInput,
   lateralMovementWeight,
   movementCameraFollowWeight,
+  narrowSpaceCameraLift,
   nextCameraZoomDistance,
   normalizeWheelDeltaY,
   remainingDeadlineMs,
@@ -114,6 +121,20 @@ const ProgressiveDetailedWandererCharacter = lazy(
 const ProgressiveOverviewDistrictMassing = lazy(
   () => import("./overview-district-massing"),
 );
+const ProgressiveShanghaiCinemaRuntimeQaAsset = lazy(
+  () => import("./shanghai-cinema-runtime-qa").then((module) => ({
+    default: module.ShanghaiCinemaRuntimeQaAsset,
+  })),
+);
+const SHANGHAI_CINEMA_QA_PLACEMENT = (() => {
+  const placement = XINHUA_ROAD_LANDMARKS.find(
+    ({ id }) => id === "shanghai-cinema",
+  );
+  if (!placement) {
+    throw new Error("上海影城运行时 QA 缺少正式地图 placement");
+  }
+  return placement;
+})();
 
 const WORLD_UP = new Vector3(0, 1, 0);
 const INTRO_CAMERA_DIRECTION = new Vector3(126, 142, 138).normalize();
@@ -219,7 +240,12 @@ const [xingfuliCanonicalX, xingfuliCanonicalZ] = xingfuliLocalToWorld(
   XINGFULI_PLACEMENT.localLaneCenterZ,
 );
 const [xingfuliPoolDetailX, xingfuliPoolDetailZ] = xingfuliLocalToWorld(5.5, -10.4);
-const [xingfuliEntranceDetailX, xingfuliEntranceDetailZ] = xingfuliLocalToWorld(45, -5.5);
+// 原入口点与 east-entry-bollard-2 的人物碰撞半径重叠。复用已审计的
+// west-to-east 主路线安全端点，保持入口朝向不变。
+const [xingfuliEntranceDetailX, xingfuliEntranceDetailZ] = xingfuliLocalToWorld(
+  46,
+  -5.05,
+);
 const ACTION_POSITION = new Vector3(actionX, terrainHeightAt(actionX, actionZ) + 0.34, actionZ);
 const START_POSITION = new Vector3(startX, terrainHeightAt(startX, startZ) + 0.33, startZ);
 const HERO_START_POSITION = new Vector3(
@@ -504,6 +530,8 @@ function FlatNeighborhood({
   landmarkLoadMode = "overview",
   networkProfile,
   mode,
+  cinemaTierQa = null,
+  cinemaFaultQa = null,
 }: {
   onOpenAction: () => void;
   atmosphere: XinhuaAtmosphere;
@@ -517,6 +545,8 @@ function FlatNeighborhood({
   landmarkLoadMode?: "overview" | "explore";
   networkProfile: ProgressiveNetworkProfile;
   mode: "intro" | "overview" | "explore";
+  cinemaTierQa?: ShanghaiCinemaRuntimeQaTier | null;
+  cinemaFaultQa?: ShanghaiCinemaRuntimeQaFault | null;
 }) {
   const xingfuliTier = useProgressiveBuildingTier({
     mode,
@@ -546,13 +576,38 @@ function FlatNeighborhood({
     typeof window !== "undefined"
     && new URLSearchParams(window.location.search).get("district") === "off"
   );
+  const qaScopedLandmarkId = (
+    typeof window === "undefined"
+      ? null
+      : new URLSearchParams(window.location.search).get("qaModelId")
+  );
+  const xingfuliQaActive = resolveXingfuliQa(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
+  const qaFallbackHiddenIds = useMemo(() => {
+    if (
+      !qaScopedLandmarkId
+      || !XINHUA_ROAD_LANDMARKS.some(({ id }) => id === qaScopedLandmarkId)
+    ) {
+      return undefined;
+    }
+    return new Set([qaScopedLandmarkId]);
+  }, [qaScopedLandmarkId]);
   return (
     <group scale={[detailScale, detailScale, detailScale]}>
-      <XinhuaStreetMap
-        showRoadLabels={showRoadLabels}
-        showStreetDressing={mode === "explore"}
-        lowTier={lowTier}
-      />
+      {cinemaTierQa ? (
+        <XinhuaStreetMap
+          showRoadLabels={showRoadLabels}
+          showStreetDressing={mode === "explore" && !cinemaTierQa}
+          lowTier={lowTier}
+        />
+      ) : (
+        <XinhuaStreetMap
+          showRoadLabels={showRoadLabels}
+          showStreetDressing={mode === "explore"}
+          lowTier={lowTier}
+        />
+      )}
       {mode === "overview" && !districtDisabledForQa && (
         <OverviewDistrictMassingGate networkProfile={networkProfile} />
       )}
@@ -568,9 +623,11 @@ function FlatNeighborhood({
         ]}>
           <group position={[0, 0, -XINGFULI_PLACEMENT.localLaneCenterZ]}>
             <XingfuliBlock
-              loadDetailedArchitecture={showDetailModels}
+              loadDetailedArchitecture={
+                Boolean(xingfuliQaActive) || showDetailModels
+              }
               showEnvironmentDetails={mode === "explore"}
-              stage={xingfuliTier}
+              stage={xingfuliQaActive ? "full" : xingfuliTier}
             />
           </group>
         </group>
@@ -583,12 +640,56 @@ function FlatNeighborhood({
         showEnvironmentDetails={mode === "explore"}
         stage={shangshengTier}
       />
-      {showDetailModels ? (
+      {cinemaTierQa ? (
+        <group
+          name="shanghai-cinema-tier-map-qa"
+          position={[
+            SHANGHAI_CINEMA_QA_PLACEMENT.position[0],
+            terrainHeightAt(
+              SHANGHAI_CINEMA_QA_PLACEMENT.position[0],
+              SHANGHAI_CINEMA_QA_PLACEMENT.position[1],
+            ) + 0.1,
+            SHANGHAI_CINEMA_QA_PLACEMENT.position[1],
+          ]}
+          rotation-y={SHANGHAI_CINEMA_QA_PLACEMENT.yaw}
+          scale={SHANGHAI_CINEMA_QA_PLACEMENT.scale}
+          userData={{
+            assetId: "shanghai-cinema",
+            tier: cinemaTierQa,
+            fault: cinemaFaultQa ?? "none",
+            mapContext: "production-placement",
+          }}
+        >
+          <ProgressiveFeatureBoundary
+            resetKey={`${cinemaTierQa}:${cinemaFaultQa ?? "none"}`}
+            fallback={null}
+          >
+            <Suspense fallback={null}>
+              <ProgressiveShanghaiCinemaRuntimeQaAsset
+                tier={cinemaTierQa}
+                fault={cinemaFaultQa}
+              />
+            </Suspense>
+          </ProgressiveFeatureBoundary>
+        </group>
+      ) : showDetailModels ? (
         <ProgressiveFeatureBoundary
           resetKey={landmarkLoadMode}
-          fallback={<XinhuaRoadMassing identity />}
+          fallback={(
+            <XinhuaRoadMassing
+              identity
+              hiddenLandmarkIds={qaFallbackHiddenIds}
+            />
+          )}
         >
-          <Suspense fallback={<XinhuaRoadMassing identity />}>
+          <Suspense
+            fallback={(
+              <XinhuaRoadMassing
+                identity
+                hiddenLandmarkIds={qaFallbackHiddenIds}
+              />
+            )}
+          >
             <ProgressiveXinhuaRoadFullLayer
               showLabels={showDetailLabels}
               showHero={showHeroTree}
@@ -809,6 +910,80 @@ function useKeyboardControls() {
       resetInput();
     };
   }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const parameters = new URLSearchParams(window.location.search);
+    if (
+      parameters.get("qaAutoStart") !== "1"
+      || parameters.get("cameraQa") !== "1"
+    ) {
+      return;
+    }
+    const requestedKey = parameters.get("qaMove");
+    const qaMovementKeys = {
+      forward: "forward",
+      back: "back",
+      left: "left",
+      right: "right",
+    } as const;
+    if (!requestedKey || !(requestedKey in qaMovementKeys)) return;
+    const requestedDuration = Number(parameters.get("qaMoveMs"));
+    if (!Number.isFinite(requestedDuration)) return;
+    const durationMs = Math.min(Math.max(requestedDuration, 100), 20_000);
+    const inputKey = qaMovementKeys[
+      requestedKey as keyof typeof qaMovementKeys
+    ];
+    const root = document.documentElement;
+    const startedAt = window.performance.now();
+    const samples: Array<{
+      elapsedMs: number;
+      playerPosition: number[] | null;
+    }> = [];
+    const capture = () => {
+      const rawPosition = root.dataset.xinhuaPlayerPosition;
+      let playerPosition: number[] | null = null;
+      if (rawPosition) {
+        try {
+          const parsed = JSON.parse(rawPosition);
+          if (
+            Array.isArray(parsed)
+            && parsed.length === 2
+            && parsed.every((value) => typeof value === "number")
+          ) {
+            playerPosition = parsed;
+          }
+        } catch {
+          playerPosition = null;
+        }
+      }
+      samples.push({
+        elapsedMs: Number((window.performance.now() - startedAt).toFixed(1)),
+        playerPosition,
+      });
+      root.dataset.xinhuaQaMovement = JSON.stringify({
+        status: inputState[inputKey] ? "running" : "complete",
+        requestedKey,
+        durationMs,
+        target: parameters.get("qaMoveTarget"),
+        samples,
+      });
+    };
+
+    inputState[inputKey] = true;
+    capture();
+    const interval = window.setInterval(capture, 250);
+    const timeout = window.setTimeout(() => {
+      inputState[inputKey] = false;
+      window.clearInterval(interval);
+      capture();
+    }, durationMs);
+    return () => {
+      inputState[inputKey] = false;
+      window.clearInterval(interval);
+      window.clearTimeout(timeout);
+    };
+  }, []);
 }
 
 function PlayableWanderer({
@@ -828,6 +1003,26 @@ function PlayableWanderer({
   const outer = useRef<Group>(null);
   const groundShadow = useRef<Group>(null);
   const initialStart = useMemo(() => requestedStartPreset(startPreset), [startPreset]);
+  const qaMoveTarget = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    const parameters = new URLSearchParams(window.location.search);
+    if (
+      parameters.get("qaAutoStart") !== "1"
+      || parameters.get("cameraQa") !== "1"
+    ) {
+      return null;
+    }
+    const rawTarget = parameters.get("qaMoveTarget");
+    if (!rawTarget) return null;
+    const coordinates = rawTarget.split(",").map(Number);
+    if (
+      coordinates.length !== 2
+      || coordinates.some((value) => !Number.isFinite(value))
+    ) {
+      return null;
+    }
+    return new Vector3(coordinates[0], 0, coordinates[1]);
+  }, []);
   const initialForward = useMemo(() => initialStart.forward.clone(), [initialStart]);
   const cameraTargetHeight = initialStart.cameraTargetHeight ?? CAMERA_TARGET_HEIGHT;
   const initialCameraOffset = useMemo(
@@ -891,11 +1086,13 @@ function PlayableWanderer({
       CAMERA_COLLISION_MARGIN,
     );
     resolvedArmLength.current = desiredArmLength * initialArm.fraction;
+    const initialNarrowSpaceLift = narrowSpaceCameraLift(resolvedArmLength.current);
     // 首页相机离街区很远。进入游玩态时先同步切到角色身后，保证新建的游戏
     // 后处理合成器从正确视角绘制首帧，不把首页全景缓存带进游戏画面。
     camera.position
       .copy(cameraTarget)
-      .addScaledVector(armDirection.normalize(), resolvedArmLength.current);
+      .addScaledVector(armDirection.normalize(), resolvedArmLength.current)
+      .addScaledVector(WORLD_UP, initialNarrowSpaceLift);
     camera.up.copy(WORLD_UP);
     camera.lookAt(cameraTarget);
     onPositionRef.current([currentPosition.x, currentPosition.z]);
@@ -1159,7 +1356,14 @@ function PlayableWanderer({
 
     if (moving) {
       markFirstProgressiveControlResponse();
-      if (reverseTurnActive.current) {
+      if (qaMoveTarget) {
+        reverseTurnActive.current = false;
+        s.move.set(
+          qaMoveTarget.x - currentPosition.x,
+          0,
+          qaMoveTarget.z - currentPosition.z,
+        ).normalize();
+      } else if (reverseTurnActive.current) {
         s.move.copy(reverseMoveDirection.current);
       } else {
         cameraRelativeInputToPlanarMove(
@@ -1302,7 +1506,10 @@ function PlayableWanderer({
       delta,
     );
     resolvedArmLength.current = currentResolvedArmLength;
-    const cameraMode = springArm.blockerId
+    const narrowSpaceLift = narrowSpaceCameraLift(currentResolvedArmLength);
+    const cameraMode = narrowSpaceLift > 0.02
+      ? "spring-narrow-space"
+      : springArm.blockerId
       ? "spring-compressed"
       : Math.abs(currentResolvedArmLength - desiredArmLength) > 0.02
         ? "spring-recovering"
@@ -1311,7 +1518,8 @@ function PlayableWanderer({
       s.armDirection.multiplyScalar(1 / desiredArmLength);
       camera.position
         .copy(s.cameraTarget)
-        .addScaledVector(s.armDirection, currentResolvedArmLength);
+        .addScaledVector(s.armDirection, currentResolvedArmLength)
+        .addScaledVector(WORLD_UP, narrowSpaceLift);
     } else {
       camera.position.copy(s.cameraTarget);
     }
@@ -1338,6 +1546,7 @@ function PlayableWanderer({
         )),
         desiredArmLength,
         resolvedArmLength: currentResolvedArmLength,
+        narrowSpaceLift,
         blockerId: springArm.blockerId,
         cameraMode,
         manualGraceMs,
@@ -1848,6 +2057,8 @@ export function XinhuaWorld({
   onNearPoi,
   onPositionChange,
   networkProfile,
+  cinemaTierQa = null,
+  cinemaFaultQa = null,
 }: {
   mode: "intro" | "overview" | "explore";
   lowTier: boolean;
@@ -1861,6 +2072,8 @@ export function XinhuaWorld({
   onNearPoi: (poiId: string | null) => void;
   onPositionChange: (position: readonly [number, number]) => void;
   networkProfile: ProgressiveNetworkProfile;
+  cinemaTierQa?: ShanghaiCinemaRuntimeQaTier | null;
+  cinemaFaultQa?: ShanghaiCinemaRuntimeQaFault | null;
 }) {
   const exploring = mode === "explore";
   const overview = mode === "overview";
@@ -1909,20 +2122,39 @@ export function XinhuaWorld({
         lowTier={lowTier}
         atmosphere={atmosphere}
       />
-      <FlatNeighborhood
-        onOpenAction={onOpenAction}
-        atmosphere={atmosphere}
-        lowTier={lowTier}
-        detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
-        showDetailModels={mode !== "intro"}
-        showDetailLabels={false}
-        showRoadLabels={!exploring}
-        showHeroTree={exploring}
-        progressiveFocus={progressiveFocus}
-        landmarkLoadMode={exploring ? "explore" : "overview"}
-        networkProfile={networkProfile}
-        mode={mode}
-      />
+      {cinemaTierQa ? (
+        <FlatNeighborhood
+          onOpenAction={onOpenAction}
+          atmosphere={atmosphere}
+          lowTier={lowTier}
+          detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
+          showDetailModels={mode !== "intro"}
+          showDetailLabels={false}
+          showRoadLabels={!exploring}
+          showHeroTree={exploring && !cinemaTierQa}
+          progressiveFocus={progressiveFocus}
+          landmarkLoadMode={exploring ? "explore" : "overview"}
+          networkProfile={networkProfile}
+          mode={mode}
+          cinemaTierQa={cinemaTierQa}
+          cinemaFaultQa={cinemaFaultQa}
+        />
+      ) : (
+        <FlatNeighborhood
+          onOpenAction={onOpenAction}
+          atmosphere={atmosphere}
+          lowTier={lowTier}
+          detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
+          showDetailModels={mode !== "intro"}
+          showDetailLabels={false}
+          showRoadLabels={!exploring}
+          showHeroTree={exploring}
+          progressiveFocus={progressiveFocus}
+          landmarkLoadMode={exploring ? "explore" : "overview"}
+          networkProfile={networkProfile}
+          mode={mode}
+        />
+      )}
       <ResponsiveCameraProjection exploring={exploring} />
       <IntroCamera active={mode === "intro"} />
       {overview && (

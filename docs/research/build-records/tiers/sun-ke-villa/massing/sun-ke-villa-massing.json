@@ -19,7 +19,7 @@
     "note": "仅为逐字节复现 recovery GLB 的 scene extras；独立生成不读取批量 generator 或 12 栋 geometry spec"
   },
   "generator": "scripts/create_sun_ke_villa_massing_model.py",
-  "generatorSha256": "9c73e7c057ade582d1b86251f6c178c454f6f7397f45cf31cac0b87a810cc3d0",
+  "generatorSha256": "7a9197cc80b98ba7f0ea30fb9a9dc9684dee2cd81414c67c2b1aef11da09c244",
   "modelBrief": "docs/research/sun-ke-villa-model-brief.md",
   "sourceWayId": 864847877,
   "sourceFootprint": [
@@ -107,7 +107,7 @@
   "qaRecords": {
     "blenderMcp": "docs/research/sun-ke-villa-blender-mcp-gates-v2.json",
     "map": "docs/research/sun-ke-villa-massing-map-qa-v2.json",
-    "runtime": "docs/research/sun-ke-villa-three-tier-runtime-qa-v2.json"
+    "runtime": "docs/research/sun-ke-villa-three-tier-runtime-qa-v3.json"
   },
   "outputs": {
     "blend": "assets/models/source/tiers/sun-ke-villa/massing/sun-ke-villa-massing.blend",

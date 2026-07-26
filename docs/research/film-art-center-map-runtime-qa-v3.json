@@ -1,0 +1,247 @@
+{
+  "version": 3,
+  "assetId": "film-art-center",
+  "capturedAt": "2026-07-26T19:27:00+08:00",
+  "status": "pass-main-window-map-scale-three-tier-fallback-performance-collision",
+  "scope": {
+    "exactBuildingIds": [
+      "film-art-center"
+    ],
+    "qualifiedModelStagesReused": true,
+    "blenderMcpRepeated": false,
+    "modelBinariesChanged": false,
+    "treesDecorationFullMap": "untouched",
+    "recoveryHold": "untouched"
+  },
+  "build": {
+    "mode": "production-static-preview",
+    "command": "npm run build:static",
+    "pageVisibility": "visible",
+    "viewport": [
+      1280,
+      577
+    ],
+    "devicePixelRatio": 1,
+    "indexSha256": "0744af17ac40a0ed9a17350d772c907060facc0cec1c79318146e0756e4cecb1",
+    "entryChunk": "/assets/index-CdwzL3IX.js"
+  },
+  "placement": {
+    "source": "docs/research/film-art-center-road-evidence-rescue-2026-07-26.json",
+    "registry": "app/scene/xinhua-road-landmarks-data.json",
+    "registrySha256": "0743f115a7f6704862f21f5dad96daf11301ce28391290193252f57cfffa1dae",
+    "position": [
+      46.388748754382405,
+      79.07089962964774
+    ],
+    "yaw": 2.786349542422368,
+    "scale": 0.5,
+    "osmWayId": 864505138,
+    "completeHeroRoadClearanceSceneUnits": {
+      "577252297": 0.864477675412314,
+      "1520590652": 1.8913993784031866,
+      "1520590653": 15.562183131148483,
+      "682286683": 9.794122779720446
+    },
+    "collisionWorldFootprintAfterScale": {
+      "minX": -4.590583231087685,
+      "maxX": 4.590583231087685,
+      "minZ": -3.531937259877465,
+      "maxZ": 3.531937259877465
+    },
+    "observed": [
+      "旧 scale=1 的完整 Hero 外轮廓穿越两条场内道路。",
+      "scale=0.5 后主屋顶约 9.6×6.175 scene units，与 OSM 主楼 footprint 9.181×7.064 scene units 量级闭合。",
+      "Hero、Identity、Massing 二进制与已通过 Blender MCP 三门保持不变。"
+    ],
+    "unknown": [
+      "OSM footprint 与竣工测绘之间的厘米级差异。",
+      "两侧低玻璃连接体的精确 footprint 与独立碰撞需求。"
+    ]
+  },
+  "tiers": {
+    "hero": {
+      "route": "/?start=film-art&qaModelId=film-art-center&qaModelTier=hero&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaRuntimeTelemetry=1&qaBuild=scale05",
+      "status": "loaded",
+      "source": "/models/xinhua-road/film-art-center.glb?v=20260725-film-art-5",
+      "assetBytes": 3148572,
+      "resourceDurationMs": 111.8,
+      "resourceDecodedBodySize": 3148572,
+      "worldBounds": {
+        "min": [
+          39.01985452994284,
+          0.9935574603917462,
+          73.90882743292676
+        ],
+        "max": [
+          52.975051704483576,
+          8.193557329261528,
+          86.34248645542752
+        ]
+      },
+      "performance": {
+        "frames": 120,
+        "durationMs": 2077.5,
+        "fps": 57.761732851985556,
+        "drawCalls": 1991,
+        "rendererTriangles": 931711,
+        "buildMode": "browser-runtime"
+      },
+      "unexpectedErrors": 0,
+      "screenshot": {
+        "path": "test_artifacts/test_film-art-center_runtime_map_scale05_1280x577.png",
+        "sha256": "489185e466664a7c8cf5a73ce31a212503d50bc37125f4af3c28b6462146c63b",
+        "bytes": 423532
+      }
+    },
+    "identity": {
+      "route": "/?start=film-art&qaModelId=film-art-center&qaModelTier=identity&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaRuntimeTelemetry=1&qaBuild=scale05",
+      "status": "loaded",
+      "source": "/models/tiers/xinhua-road/identity/film-art-center-identity.glb?v=20260725-film-art-identity-1",
+      "assetBytes": 1130852,
+      "resourceDurationMs": 6.4,
+      "resourceDecodedBodySize": 1130852,
+      "worldBounds": {
+        "min": [
+          39.597885165620866,
+          0.9935574603917462,
+          73.90882743292676
+        ],
+        "max": [
+          52.975051704483576,
+          7.913557596290336,
+          84.78437544398315
+        ]
+      },
+      "performance": {
+        "frames": 120,
+        "durationMs": 2053.6000000089407,
+        "fps": 58.4339696140814,
+        "drawCalls": 1979,
+        "rendererTriangles": 853351,
+        "buildMode": "browser-runtime"
+      },
+      "unexpectedErrors": 0,
+      "screenshot": {
+        "path": "test_artifacts/test_film-art-center_runtime_map_scale05_identity_1280x577.png",
+        "sha256": "635d498f9833ffb14b10bb91f4362a0f1eda3afa8cc76a880fdf1b60319ecb6c",
+        "bytes": 418036
+      }
+    },
+    "massing": {
+      "route": "/?start=film-art&qaModelId=film-art-center&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaRuntimeTelemetry=1&qaBuild=scale05",
+      "status": "loaded",
+      "source": "/models/tiers/xinhua-road/massing/film-art-center-massing.glb?v=c89791dc3978",
+      "assetBytes": 240572,
+      "resourceDurationMs": 2.3,
+      "resourceDecodedBodySize": 240572,
+      "worldBounds": {
+        "min": [
+          39.80758539394619,
+          0.9935574603917462,
+          73.92621824877985
+        ],
+        "max": [
+          52.92817387482161,
+          7.843557424628959,
+          84.3280885617138
+        ]
+      },
+      "performance": {
+        "frames": 120,
+        "durationMs": 1984.5999999940395,
+        "fps": 60.465585004716516,
+        "drawCalls": 1975,
+        "rendererTriangles": 811607,
+        "buildMode": "browser-runtime"
+      },
+      "unexpectedErrors": 0,
+      "screenshot": {
+        "path": "test_artifacts/test_film-art-center_runtime_map_scale05_massing_1280x577.png",
+        "sha256": "bd5c3a4ef3a2f70ab7f1b0f769669b46d1b7fdc7b9b3aedce65ef3271c759a3b",
+        "bytes": 410643
+      }
+    }
+  },
+  "fallback": {
+    "scopedIdentity": {
+      "route": "/?start=film-art&qaModelId=film-art-center&qaModelTier=identity&qaActiveFallback=film-art-center-identity&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaRuntimeTelemetry=1&qaBuild=scale05",
+      "status": "fallback",
+      "pagePlayable": true,
+      "frames": 120,
+      "durationMs": 2070.199999988079,
+      "fps": 57.96541396999855,
+      "expectedWindowErrors": 1,
+      "unexpectedErrors": 0,
+      "source": "/models/tiers/xinhua-road/identity/test_missing-film-art-center-identity.glb?v=a4d37446e272-fallback",
+      "screenshot": {
+        "path": "test_artifacts/test_film-art-center_runtime_map_scale05_identity_fallback_1280x577.png",
+        "sha256": "904c0e2658a7b2a3472077125eef448e8f65bef13b419ceaabc3d444a3c7316f",
+        "bytes": 416604
+      }
+    },
+    "productionIdentity": {
+      "route": "/?start=film-art&qaProductionFallback=film-art-center-identity&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaRuntimeTelemetry=1&qaBuild=scale05",
+      "status": "fallback",
+      "pagePlayable": true,
+      "position": [
+        0,
+        0,
+        -2.25
+      ],
+      "expectedWindowErrors": 1,
+      "unexpectedErrors": 0,
+      "source": "/models/tiers/xinhua-road/identity/test_missing-film-art-center-production-identity.glb?v=a4d37446e272-fallback",
+      "screenshot": {
+        "path": "test_artifacts/test_film-art-center_runtime_map_scale05_production_fallback_1280x577.png",
+        "sha256": "6f0d5cce1b5c80b0c23250f6cd0291d1a5182dadcbdc84c340708c86cf3d0283",
+        "bytes": 417051
+      }
+    }
+  },
+  "collision": {
+    "route": "/?start=film-art&qaModelId=film-art-center&qaModelTier=hero&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaRuntimeTelemetry=1&qaBuild=scale05&qaMove=forward&qaMoveMs=10000&qaMoveTarget=46.388748754382405,79.07089962964774",
+    "status": "pass-blocked-and-wall-slide-no-penetration",
+    "durationMs": 10000,
+    "target": [
+      46.388748754382405,
+      79.07089962964774
+    ],
+    "start": [
+      35,
+      99
+    ],
+    "firstWallContact": {
+      "elapsedMs": 5527.2,
+      "playerPosition": [
+        43.33492726057639,
+        84.65944626720668
+      ]
+    },
+    "end": {
+      "elapsedMs": 10008.9,
+      "playerPosition": [
+        46.10402718061889,
+        84.65944626720668
+      ]
+    },
+    "wallSlidePlateauMs": 4481.7,
+    "targetDistanceAtEnd": 5.595800478,
+    "unexpectedErrors": 0,
+    "screenshot": {
+      "path": "test_artifacts/test_film-art-center_runtime_map_scale05_collision_1280x577.png",
+      "sha256": "e53528430ef1b7941853353aa9de20140a52450344a56f8c6cad4e3492b6e9c2",
+      "bytes": 345691
+    }
+  },
+  "acceptance": {
+    "evidence": "pass",
+    "heroIdentityMassing": "pass-reused-qualified-binaries",
+    "blenderMcpThreeGates": "pass-reused-qualified-stages",
+    "mapPlacement": "pass-way-864505138-scale-0.5",
+    "threeJsThreeTier": "pass",
+    "fallback": "pass-two-routes",
+    "performance": "pass-120-frames-each-no-improvement-claim",
+    "collision": "pass-deterministic-wall-contact-and-slide",
+    "console": "pass-zero-unexpected-errors"
+  }
+}

@@ -1,0 +1,430 @@
+{
+  "schemaVersion": 1,
+  "assetId": "film-art-center",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "0189d06a939651c0f7e2876d074321f2caa9a903",
+  "purpose": "adjudicate-the-internal-road-semantics-map-blocker-from-repository-only-evidence",
+  "verdict": {
+    "status": "blocked-formal-map-footprint-and-road-semantics-unbound",
+    "formalMapBlockerReleased": false,
+    "modelChangeAuthorized": false,
+    "reason": "当前 runtime 把 way 577252297 与 1520590652 都作为地表道路渲染，且两条中心线均穿过 film-art-center 的正式实体碰撞 footprint。仓内 OSM 建筑快照存在一个几何上合理但身份未绑定的 footprint；它能避开两条道路，却不能在缺少新华路200号身份与场地总平面证据时替换正式碰撞语义。"
+  },
+  "scope": {
+    "included": [
+      "repository OSM road snapshot",
+      "repository OSM building snapshot",
+      "current runtime road surface contract",
+      "current film-art-center placement and collision footprint",
+      "existing map candidate, runtime QA, Brief and build records",
+      "read-only geometric endpoint-coincidence and clearance recomputation"
+    ],
+    "excludedAndUntouched": [
+      "model generator",
+      "Blend and GLB binaries",
+      "Fast and exact manifests",
+      "shared runtime",
+      "registry",
+      "public assets",
+      "browser QA",
+      "network and social research",
+      "other buildings",
+      "trees, decoration and full-map work"
+    ],
+    "modelModified": false,
+    "publicGlbModified": false,
+    "runtimeModified": false,
+    "registryModified": false,
+    "roadContractModified": false,
+    "manifestModified": false
+  },
+  "sources": {
+    "rawRoadOsm": {
+      "path": "docs/research/data/xinhua-roads-osm-20260716-080509.json",
+      "sha256": "351308feafab0344dc59a66ebd68d0748f81ef1cd69dc218765a22eb51abf2ec",
+      "osmBaseTimestamp": "2026-07-16T08:03:07Z"
+    },
+    "rawBuildingOsm": {
+      "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+      "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c",
+      "osmBaseTimestamp": "2026-07-25T07:46:51Z"
+    },
+    "runtimeMap": {
+      "path": "app/scene/xinhua-map-data.json",
+      "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78"
+    },
+    "roadSurfaceContract": {
+      "path": "app/scene/road-surface-contract.ts",
+      "sha256": "81798e268e7da1ec6d98de973b0332ad953cb4b933734a30840200ebf26057a7"
+    },
+    "landmarkRegistry": {
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "6df9f4439679ff72203ef023cab289532df4c1d9c71a4242cfd6ef155e4055e8"
+    },
+    "districtMassing": {
+      "path": "app/scene/xinhua-district-massing-data.json",
+      "sha256": "ec3a8ce4cf06da4be593bf7fd995507242f50d5fa4f34eddd3d7eab23fc95132"
+    },
+    "priorMapCandidate": {
+      "path": "docs/research/film-art-center-map-candidate-v2.json",
+      "sha256": "22644f257deaca9cd46d0c914163de8bbf0e6c53fd37b03f543423e00e027cc5"
+    },
+    "priorFinalAudit": {
+      "path": "docs/research/film-art-center-final-audit-2026-07-26.json",
+      "sha256": "84c38d7b0e530ebfd50138af0a23becd751b04f3cf0345e570befb0d93a365cf"
+    },
+    "modelBrief": {
+      "path": "docs/research/film-art-center-model-brief.md",
+      "sha256": "450010f4a9980e413bbfd5b3ae4411f59f9fe9921685a9b93bf0e9e8627e2a4d"
+    },
+    "referenceManifest": {
+      "path": "docs/research/film-art-center-reference-manifest.json",
+      "sha256": "acb0842c618a9893d73e8a6465a203c684d63bfda2e4d0c6a8b2fdc40475f826"
+    },
+    "runtimeQa": {
+      "path": "docs/research/film-art-center-three-tier-runtime-qa.json",
+      "sha256": "9ffd4fafe4d33cb60d8e8f9eac5b8c9c68b7d62139de09ab12b0373a634a306f"
+    },
+    "massingV2BuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/film-art-center-massing.json",
+      "sha256": "85237c66b31c4d74f6360272257c68ec93957f408e02f3b3b58fd9f92af7ee09"
+    }
+  },
+  "coordinateContract": {
+    "centerWgs84": [
+      121.4227819,
+      31.2066376
+    ],
+    "metersPerSceneUnit": 2.7,
+    "longitudeProjection": "(lon-centerLon)*111320*cos(centerLat)/metersPerSceneUnit",
+    "latitudeProjection": "-(lat-centerLat)*110540/metersPerSceneUnit",
+    "runtimeRoadWidthsSceneUnits": {
+      "xinhuaRoad": 4.9,
+      "unclassified": 3.4,
+      "service": 2.5
+    },
+    "surfaceRule": "runtime isSurfaceRoad returns true when tunnel=false and layer>=0"
+  },
+  "observed": {
+    "formalPlacement": {
+      "position": [
+        47.5,
+        81.5
+      ],
+      "yaw": 2.761592653589793,
+      "scale": 1,
+      "transformChanged": false
+    },
+    "briefEvidenceBoundary": {
+      "address": "新华路200号",
+      "positionConfidence": "medium-address-and-relative-site",
+      "footprintConfidence": "low-to-medium-not-surveyed",
+      "exactDimensions": "unknown",
+      "sideRearAndConnectorExtent": "unknown"
+    },
+    "addressAndNameSearch": {
+      "buildingSnapshotAddress200Matches": 0,
+      "buildingSnapshotFilmArtNameMatches": [
+        {
+          "osmWayId": 292250766,
+          "name": "Shanghai Film Art Center",
+          "nameZh": "上海影城",
+          "address": "新华路160号",
+          "interpretation": "这是上海影城而非本资产所指的新华路200号新华两佰，不能作为主体绑定。"
+        }
+      ]
+    }
+  },
+  "roadSemantics": [
+    {
+      "osmWayId": 577252297,
+      "tags": {
+        "highway": "service",
+        "service": "alley",
+        "access": "private",
+        "oneway": "no"
+      },
+      "absentVerticalOrSurfaceTags": [
+        "layer",
+        "tunnel",
+        "covered",
+        "bridge",
+        "surface"
+      ],
+      "lengthSceneUnits": 49.15601031735106,
+      "lengthMeters": 132.72122785684786,
+      "geometricEndpointCoincidence": {
+        "evidenceBoundary": "raw snapshot contains geometry but no node IDs; coordinate equality does not prove shared-node topology",
+        "firstEndpoint": {
+          "coordinate": [
+            121.4237111,
+            31.2043658
+          ],
+          "coordinateCoincidesWithPublicRoad": "新华路",
+          "publicRoadWayId": 682286683,
+          "alsoCoincidesWithWayIds": [
+            577252272
+          ]
+        },
+        "lastEndpoint": {
+          "coordinate": [
+            121.4241978,
+            31.2054909
+          ],
+          "coordinateCoincidesWithPublicRoad": "法华镇路",
+          "publicRoadWayId": 66394007,
+          "alsoCoincidesWithWayIds": [
+            577450079
+          ]
+        }
+      },
+      "classification": {
+        "observed": "private service alley whose endpoint coordinates coincide with Xinhua Road and Fahuazhen Road geometry",
+        "inferred": "likely restricted cross-block or compound access connected to both named roads",
+        "unknown": "shared-node topology, current ground surface, gate position and whether any segment is covered",
+        "surfaceSuppressionAuthorized": false,
+        "reason": "access=private restricts access; it does not mark the geometry as tunnel, covered, removed or non-surface."
+      }
+    },
+    {
+      "osmWayId": 1520590652,
+      "tags": {
+        "highway": "unclassified"
+      },
+      "absentVerticalOrAccessTags": [
+        "access",
+        "service",
+        "layer",
+        "tunnel",
+        "covered",
+        "bridge",
+        "surface"
+      ],
+      "lengthSceneUnits": 58.84954008107236,
+      "lengthMeters": 158.89375821889539,
+      "geometricEndpointCoincidence": {
+        "evidenceBoundary": "raw snapshot contains geometry but no node IDs; coordinate equality does not prove shared-node topology",
+        "firstEndpoint": {
+          "coordinate": [
+            121.4246078,
+            31.205407
+          ],
+          "coordinateCoincidesWithPublicRoad": "法华镇路",
+          "publicRoadWayId": 66394007
+        },
+        "lastEndpoint": {
+          "coordinate": [
+            121.424449,
+            31.2041089
+          ],
+          "coordinateCoincidesWithPublicRoad": "新华路",
+          "publicRoadWayId": 682286683
+        },
+        "loopBranchWayId": 1520590653,
+        "loopBranchCoordinateCoincidenceIndexes": [
+          1,
+          4
+        ]
+      },
+      "classification": {
+        "observed": "unclassified road whose endpoint coordinates coincide with Fahuazhen Road and Xinhua Road geometry; no access restriction is recorded",
+        "inferred": "the endpoint coincidences, loop and four short spurs are compatible with a connected campus or compound access network",
+        "unknown": "shared-node topology, formal compound ownership, current public access and exact surface alignment",
+        "surfaceSuppressionAuthorized": false,
+        "reason": "拓扑和 tags 都没有把它降为私有、地下、建筑通道或非地表道路。"
+      }
+    },
+    {
+      "osmWayId": 1520590653,
+      "tags": {
+        "highway": "unclassified"
+      },
+      "lengthSceneUnits": 103.59104242259143,
+      "lengthMeters": 279.6958145409969,
+      "geometricEndpointCoincidence": {
+        "evidenceBoundary": "raw snapshot contains geometry but no node IDs",
+        "bothEndpointsCoincideWithWayId": 1520590652,
+        "attachedSpurWayIds": [
+          1520590654,
+          1520590655,
+          1520590656,
+          1520590657
+        ]
+      },
+      "classification": {
+        "observed": "loop-shaped branch whose endpoint and four spur coordinates coincide with other unclassified way geometry",
+        "inferred": "a topologically connected compound circulation network is plausible",
+        "unknown": "shared-node topology, compound boundary and access policy",
+        "surfaceSuppressionAuthorized": false
+      }
+    }
+  ],
+  "footprintBindingAudit": {
+    "runtimeReplacementTableIsNotMembershipEvidence": true,
+    "replacementTableObservations": [
+      {
+        "osmWayId": 376223385,
+        "replacementPoiId": "film-art-center",
+        "rawTags": {
+          "name": "新华路邮政所",
+          "address": "新华路 no,212",
+          "amenity": "post_office",
+          "building": "yes"
+        },
+        "identityDecision": "excluded-explicitly-different-subject"
+      },
+      {
+        "osmWayId": 864505141,
+        "replacementPoiId": "film-art-center",
+        "rawTags": {
+          "building": "apartments"
+        },
+        "identityDecision": "excluded-no-subject-identity-and-apartment-tag"
+      },
+      {
+        "osmWayId": 864505138,
+        "replacementPoiId": "shanghai-cinema",
+        "rawTags": {
+          "building": "yes"
+        },
+        "identityDecision": "plausible-by-position-only-not-formally-bound"
+      }
+    ],
+    "nearestPlausibleFootprint": {
+      "osmWayId": 864505138,
+      "centroidScene": [
+        46.388748754382405,
+        79.07089962964774
+      ],
+      "centroidDistanceToFormalPlacementSceneUnits": 2.671218437367513,
+      "centroidDistanceMeters": 7.212289780892285,
+      "areaSceneUnitsSquared": 64.84795066129095,
+      "edgeLengthsSceneUnits": [
+        7.06387451975493,
+        9.18116646217537,
+        7.065116389119527,
+        9.177860337311472
+      ],
+      "status": "inferred-nearest-not-authoritative",
+      "reason": "它位于正式 placement 附近并被 577252297 与 1520590652 两路夹持，但只有 building=yes；仓内没有地址200、名称、operator、ref 或 relation 绑定。"
+    },
+    "formalCollisionRectangles": {
+      "count": 3,
+      "unionAreaSceneUnitsSquared": 205.90720000000002,
+      "ratioToNearestPlausibleOsmFootprint": 3.1752306418359977,
+      "interpretation": "这是 collision footprint 与未绑定 OSM 候选的几何差异，不是实测尺度错误结论；Brief 已声明侧翼、场地和精确尺寸未知。"
+    }
+  },
+  "roadClearanceRecomputation": {
+    "method": "polygon-to-polyline segment distance minus current rendered road half-width",
+    "runtimeGeometry": [
+      {
+        "osmWayId": 577252297,
+        "renderedWidthSceneUnits": 2.5,
+        "formalEnvelopeAsphaltEdgeClearance": -1.25,
+        "formalSolidAsphaltEdgeClearance": -1.25,
+        "centerlineCrossesFormalSolid": true,
+        "status": "blocking"
+      },
+      {
+        "osmWayId": 1520590652,
+        "renderedWidthSceneUnits": 3.4,
+        "formalEnvelopeAsphaltEdgeClearance": -1.7,
+        "formalSolidAsphaltEdgeClearance": -1.7,
+        "centerlineCrossesFormalSolid": true,
+        "status": "blocking"
+      },
+      {
+        "osmWayId": 1520590653,
+        "renderedWidthSceneUnits": 3.4,
+        "formalEnvelopeAsphaltEdgeClearance": 7.713940839068191,
+        "formalSolidAsphaltEdgeClearance": 9.523574354381653,
+        "centerlineCrossesFormalSolid": false,
+        "status": "pass-corrected"
+      },
+      {
+        "osmWayId": 682286683,
+        "name": "新华路",
+        "renderedWidthSceneUnits": 4.9,
+        "formalEnvelopeAsphaltEdgeClearance": 6.7313017146902405,
+        "formalSolidAsphaltEdgeClearance": 9.066286488995686,
+        "centerlineCrossesFormalSolid": false,
+        "status": "pass"
+      }
+    ],
+    "rawOsmProjectedCrossCheck": [
+      {
+        "osmWayId": 577252297,
+        "formalSolidAsphaltEdgeClearance": -1.25,
+        "nearestPlausibleFootprintAsphaltEdgeClearance": 2.047427162812107
+      },
+      {
+        "osmWayId": 1520590652,
+        "formalSolidAsphaltEdgeClearance": -1.7,
+        "nearestPlausibleFootprintAsphaltEdgeClearance": 3.0587946167251534
+      },
+      {
+        "osmWayId": 1520590653,
+        "formalSolidAsphaltEdgeClearance": 9.525157634682255,
+        "nearestPlausibleFootprintAsphaltEdgeClearance": 17.807663782959224
+      },
+      {
+        "osmWayId": 682286683,
+        "formalSolidAsphaltEdgeClearance": 9.06863139868415,
+        "nearestPlausibleFootprintAsphaltEdgeClearance": 11.907964415371055
+      }
+    ],
+    "supersededPriorValue": {
+      "source": "docs/research/film-art-center-map-candidate-v2.json#roadClearance.internalRoads[2]",
+      "osmWayId": 1520590653,
+      "recordedEnvelopeAsphaltEdgeClearance": -0.6099790227232949,
+      "recomputedRuntimeEnvelopeAsphaltEdgeClearance": 7.713940839068191,
+      "recordedSolidAsphaltEdgeClearance": 0.16393058296351048,
+      "recomputedRuntimeSolidAsphaltEdgeClearance": 9.523574354381653,
+      "status": "superseded-by-direct-recomputation",
+      "blockerImpact": "none-ways-577252297-and-1520590652-remain-centerline-through-solid"
+    }
+  },
+  "evidenceClassification": {
+    "observed": [
+      "当前 runtime map 将三条目标道路保留为 layer 0、tunnel false 的 surface roads。",
+      "way 577252297 是 access=private、service=alley 的双向 service road；两个端点坐标分别与新华路、法华镇路 geometry 重合。",
+      "way 1520590652 是无 access 限制的 unclassified road；两个端点坐标分别与法华镇路、新华路 geometry 重合。",
+      "way 577252297 与 1520590652 的中心线均穿过正式 film-art-center 实体碰撞 footprint。",
+      "way 864505138 是离正式 placement 最近的 OSM 建筑 footprint，且其投影 polygon 与两条道路均有正净距。",
+      "仓内建筑快照没有新华路200号地址匹配；唯一 Film Art Center 名称匹配实际是新华路160号上海影城。",
+      "现有 ordinary-massing replacement 表把邮局212号和 apartments footprint 分给 film-art-center，又把最近的 generic footprint 分给 shanghai-cinema，因此它只能证明渲染抑制范围，不能证明主体 membership。"
+    ],
+    "inferred": [
+      "way 864505138 很可能对应或接近新华路200号主楼，因为它距正式 placement 仅约7.21米且位于两条可能跨街区连接的道路之间。",
+      "way 577252297、1520590652 的端点坐标重合可能表达跨街区连接；way 1520590653 的回路与四条支路可能表达上海影城或相邻文化园区的场内 circulation。",
+      "正式模型碰撞 footprint 对两侧未知低翼的矩形化表达，可能是两条穿越冲突的主要来源。"
+    ],
+    "unknown": [
+      "新华路200号主楼对应的 authoritative OSM way、parcel 或 compound relation。",
+      "由于 raw snapshot 不含 node IDs，端点坐标重合的道路是否在 OSM 拓扑中共享节点。",
+      "way 577252297 与 1520590652 的现状中心线、路宽、门禁、地表或覆盖关系。",
+      "新华两佰主楼、低玻璃连接体、邮局、上海影城与场内道路之间的精确产权和结构边界。",
+      "正式 collision rectangles 是否应按主楼 footprint、低翼结构或可穿通连接空间进一步拆分。"
+    ]
+  },
+  "gateDecision": {
+    "namedPublicRoadClearance": "pass",
+    "way1520590653Clearance": "pass-corrected",
+    "way577252297SurfaceSemantics": "blocked-no-nonsurface-authority",
+    "way1520590652SurfaceSemantics": "blocked-no-nonsurface-authority",
+    "filmArtCenterFootprintBinding": "blocked-unbound",
+    "formalMapAcceptance": "blocked",
+    "existingModelAndTransforms": "hold-unchanged",
+    "publicWiring": "not-authorized",
+    "overall": "blocked-formal-map-footprint-and-road-semantics-unbound"
+  },
+  "minimumAdditionalEvidence": {
+    "singleBestArtifact": "一张可地理配准、同时标注新华路200号主楼轮廓与两条场内道路的官方总平面图、竣工图或同等精度测绘。",
+    "ifSingleArtifactUnavailable": [
+      "能把新华路200号明确绑定到一个或多个 footprint 的官方地址点、地籍图或现场 GPS 轮廓。",
+      "对 way 577252297 与 1520590652 的入口、地表、门禁、覆盖/穿楼状态和与新华路/法华镇路连接的现场连续照片或测绘。"
+    ],
+    "nextAuthorizedStepAfterEvidence": "在独立 map/collision change 中按已绑定 footprint 修订碰撞或道路 surface 语义，然后用确定性 approach path 和同版本 runtime 重新验收；本审计不授权这些修改。"
+  }
+}

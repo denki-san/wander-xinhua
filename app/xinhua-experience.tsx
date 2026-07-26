@@ -371,6 +371,7 @@ function CameraQaPanel({ visible }: { visible: boolean }) {
         element.dataset.modeChanges = String(state.modeChangeCount);
         element.dataset.desiredArm = state.desiredArmLength.toFixed(3);
         element.dataset.resolvedArm = state.resolvedArmLength.toFixed(3);
+        element.dataset.narrowSpaceLift = state.narrowSpaceLift.toFixed(3);
         element.dataset.fov = state.fov.toFixed(1);
         element.dataset.manualGraceMs = state.manualGraceMs.toFixed(0);
         element.dataset.goalYaw = state.goalYawDegrees.toFixed(2);
@@ -380,6 +381,7 @@ function CameraQaPanel({ visible }: { visible: boolean }) {
           `mode ${state.cameraMode}`,
           `blocker ${state.blockerId ?? "none"}`,
           `arm ${state.resolvedArmLength.toFixed(2)} / ${state.desiredArmLength.toFixed(2)}`,
+          `narrow lift ${state.narrowSpaceLift.toFixed(2)}`,
           `arm yaw ${state.actualArmYawDegrees.toFixed(1)}° / ${state.desiredArmYawDegrees.toFixed(1)}°`,
           `goal yaw ${state.goalYawDegrees.toFixed(1)}°`,
           `input ${state.inputX.toFixed(2)}, ${state.inputY.toFixed(2)}`,
@@ -463,9 +465,39 @@ export function XinhuaExperience() {
     typeof window !== "undefined"
     && new URLSearchParams(window.location.search).get("cameraQa") === "1"
   ));
+  const [qaAutoStart] = useState(() => (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("qaAutoStart") === "1"
+  ));
+  const qaAutoStarted = useRef(false);
+  const [cinemaTierQa] = useState<"hero" | "identity" | "massing" | null>(() => {
+    if (typeof window === "undefined") return null;
+    const tier = new URLSearchParams(window.location.search).get("qaCinemaTier");
+    return tier === "hero" || tier === "identity" || tier === "massing"
+      ? tier
+      : null;
+  });
+  const [cinemaFaultQa] = useState<
+    "hero-unavailable" | "identity-unavailable" | null
+  >(() => {
+    if (typeof window === "undefined") return null;
+    const fault = new URLSearchParams(window.location.search).get("qaCinemaFault");
+    return fault === "hero-unavailable" || fault === "identity-unavailable"
+      ? fault
+      : null;
+  });
   const networkProfile = useProgressiveNetworkProfile();
   const [initialOverviewPosition] = useState(requestedOverviewStartPosition);
   const playerPosition = useRef<readonly [number, number]>(initialOverviewPosition);
+  useEffect(() => {
+    if (!cameraQaVisible) {
+      delete document.documentElement.dataset.xinhuaPlayerPosition;
+      return;
+    }
+    return () => {
+      delete document.documentElement.dataset.xinhuaPlayerPosition;
+    };
+  }, [cameraQaVisible]);
   const overviewPhotoCache = useRef(new Map<string, HTMLImageElement>());
   const [loadedOverviewPhoto, setLoadedOverviewPhoto] = useState<string | null>(null);
   const [overviewStartPosition, setOverviewStartPosition] = useState<readonly [number, number]>(
@@ -587,6 +619,12 @@ export function XinhuaExperience() {
     setMode(requestedPreset ? "explore" : "overview");
   }, []);
 
+  useEffect(() => {
+    if (!qaAutoStart || !ready || mode !== "intro" || qaAutoStarted.current) return;
+    qaAutoStarted.current = true;
+    begin();
+  }, [begin, mode, qaAutoStart, ready]);
+
   const showOverview = useCallback(() => {
     resetInput();
     setNearAction(false);
@@ -630,6 +668,9 @@ export function XinhuaExperience() {
       data-progressive-network={networkProfile}
       data-progressive-stage={ready ? "playable" : "booting"}
       data-lighting-state={atmosphereStyle}
+      data-qa-auto-start={qaAutoStart ? (mode === "intro" ? "pending" : "complete") : undefined}
+      data-shanghai-cinema-qa-tier={cinemaTierQa ?? undefined}
+      data-shanghai-cinema-qa-fault={cinemaFaultQa ?? undefined}
     >
       <Canvas
         shadows="percentage"
@@ -666,8 +707,14 @@ export function XinhuaExperience() {
           onNearPoi={setNearPoiId}
           onPositionChange={(position) => {
             playerPosition.current = position;
+            if (cameraQaVisible) {
+              document.documentElement.dataset.xinhuaPlayerPosition =
+                JSON.stringify(position);
+            }
           }}
           networkProfile={networkProfile}
+          cinemaTierQa={cinemaTierQa}
+          cinemaFaultQa={cinemaFaultQa}
         />
         {/*
           当前后处理链在可玩相机接管后只输出全屏 pass，导致 overview / explore 空白。

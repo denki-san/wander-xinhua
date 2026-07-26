@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 1,
+  "assetId": "house-315",
+  "recordedAt": "2026-07-26",
+  "status": "placement-candidate-osm-way-864485667-runtime-pending",
+  "scope": {
+    "included": [
+      "house-315-placement",
+      "house-315-collision-contract",
+      "house-315-start-and-camera-safety",
+      "house-315-neighbor-clearance"
+    ],
+    "excludedAndHeld": [
+      "hero-rebuild",
+      "identity-rebuild",
+      "massing-rebuild",
+      "blender",
+      "mcp2",
+      "mcp3",
+      "public-registry",
+      "shared-runtime",
+      "fast-manifest",
+      "villa-le-bec-files",
+      "trees",
+      "dressing",
+      "ordinary-osm-runtime",
+      "full-map-assets",
+      "legacy-hero"
+    ],
+    "binaryModified": false,
+    "publicRegistryModified": false,
+    "sharedRuntimeModified": false,
+    "fastManifestModified": false
+  },
+  "sources": {
+    "rawOsm": {
+      "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+      "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c",
+      "timestampOsmBase": "2026-07-25T07:46:51Z",
+      "generator": "Overpass API 0.7.62.11 87bfad18",
+      "license": "ODbL",
+      "copyright": "OpenStreetMap contributors"
+    },
+    "projection": {
+      "path": "app/scene/xinhua-map-data.json",
+      "centerWgs84": [121.4227819, 31.2066376],
+      "metersPerSceneUnit": 2.7,
+      "longitudeMetersPerDegree": "111320*cos(centerLatitude)",
+      "latitudeMetersPerDegree": 110540,
+      "sceneZDirection": "south-positive"
+    },
+    "subjectEvidence": {
+      "brief": "docs/research/house-315-model-brief.md",
+      "referenceManifest": "docs/research/house-315-reference-manifest.json",
+      "aerial": {
+        "path": "docs/research/assets/poi-references/house-315/house-315-aerial-jfdaily-2026.jpg",
+        "sha256": "bc3e964ea39c3c47235dac171b438e95e4b7f6c03397229bf44d343d7ac4a095",
+        "supports": [
+          "long-road-parallel-main-body",
+          "stepped-central-front-projection",
+          "asymmetric-east-wing",
+          "direct-road-facing-entrance"
+        ]
+      },
+      "entrance": "docs/research/assets/poi-references/house-315/house-315-entrance-jfdaily-2026.jpg",
+      "addressBinding": "docs/research/assets/poi-references/house-315/house-315-address-sign-jfdaily-2026.jpg"
+    },
+    "villaLeBecPeerAnchor": {
+      "sourceCommit": "30fce9d",
+      "record": "docs/research/build-records/tiers/xinhua-road/massing-v2/villa-le-bec-massing.json",
+      "placement": {
+        "position": [-34.1, 88.8],
+        "yaw": -0.38,
+        "scale": 0.82
+      },
+      "entities": [
+        {
+          "wayId": 864493176,
+          "role": "street-villa-main",
+          "maximumVertexDeltaToRawOsmSceneUnits": 0.000004
+        },
+        {
+          "wayId": 864493175,
+          "role": "garden-villa-secondary",
+          "maximumVertexDeltaToRawOsmSceneUnits": 0.000006
+        }
+      ],
+      "anchorStatus": "pass-exact-within-rounding"
+    }
+  },
+  "subjectBinding": {
+    "candidateWayId": 864485667,
+    "confidence": "medium-high",
+    "observed": [
+      "The local aerial shows one elongated road-parallel house with a stepped central projection and asymmetric eastern extension.",
+      "OSM way 864485667 is the only adjacent footprint east of the two Villa Le Bec entities with the same elongated and stepped topology.",
+      "The candidate footprint sits south of the Xinhua Road centerline and east of address 321, consistent with address 315 ordering and the entrance evidence."
+    ],
+    "inferred": [
+      "OSM way 864485667 is the horizontal footprint of House315.",
+      "The dominant OSM long edge defines the map yaw while the authored local negative Y remains the road-facing front."
+    ],
+    "unknown": [
+      "OSM way 864485667 has no addr:housenumber or name tag.",
+      "No cadastral survey or authoritative parcel boundary is available.",
+      "The candidate is not a final runtime map pass until the main window performs browser acceptance."
+    ],
+    "blockedMapPosition": false,
+    "reasonNotBlocked": "Photo topology, address order, road side, raw OSM adjacency and the exact Villa Le Bec peer anchor converge on one footprint; the remaining missing address tag is disclosed and keeps final acceptance pending rather than forcing an invented transform."
+  },
+  "sourceWay": {
+    "id": 864485667,
+    "tags": {
+      "building": "yes"
+    },
+    "wgs84Footprint": [
+      [121.4220209, 31.2046025],
+      [121.4220716, 31.2047038],
+      [121.422095, 31.2046953],
+      [121.4221258, 31.2047568],
+      [121.4222109, 31.2047256],
+      [121.4221802, 31.2046641],
+      [121.4223643, 31.2045968],
+      [121.4223136, 31.2044955]
+    ],
+    "worldFootprint": [
+      [-26.83581, 83.318501],
+      [-25.047932, 79.171204],
+      [-24.222757, 79.519201],
+      [-23.13663, 77.001345],
+      [-20.135674, 78.278696],
+      [-21.218275, 80.796552],
+      [-14.726195, 83.551864],
+      [-16.514074, 87.699161]
+    ],
+    "worldEnvelope": {
+      "minX": -26.83581,
+      "maxX": -14.726195,
+      "minZ": 77.001345,
+      "maxZ": 87.699161
+    }
+  },
+  "supersededPlacement": {
+    "position": [-23.03, 85.67],
+    "yaw": -0.38,
+    "scale": 0.9,
+    "source": "historical-runtime-migration-baseline-not-map-evidence",
+    "worldFootprint": [
+      [-27.829021, 79.062604],
+      [-15.375629, 84.036647],
+      [-18.518623, 91.905687],
+      [-30.972016, 86.931643]
+    ],
+    "worldEnvelope": {
+      "minX": -30.972016,
+      "maxX": -15.375629,
+      "minZ": 79.062604,
+      "maxZ": 91.905687
+    },
+    "intersectsVillaStreetEntity": true,
+    "intersectsVillaGardenEntity": true,
+    "verdict": "reject-wrong-map-position-scale-and-collision"
+  },
+  "candidate": {
+    "method": "fit-exact-glb-oriented-bounds-to-osm-way-864485667-oriented-bounds",
+    "dominantOsmEdgeYawRadians": -0.401371886,
+    "scaleRule": "minimum-of-osm-oriented-width-to-glb-width-and-osm-oriented-depth-to-glb-depth",
+    "placement": {
+      "position": [-20.127789, 82.330463],
+      "yaw": -0.401372,
+      "scale": 0.754254,
+      "start": [-21.8, 67.6],
+      "forward": [0.152032, 0.988376]
+    },
+    "sourceGltfBounds": {
+      "minX": -7.675,
+      "maxX": 7.225,
+      "minZ": -4.575,
+      "maxZ": 4.84
+    },
+    "worldFootprint": [
+      [-24.030402, 76.708384],
+      [-13.685179, 81.099015],
+      [-16.459527, 87.635947],
+      [-26.804751, 83.245316]
+    ],
+    "worldEnvelope": {
+      "minX": -26.804751,
+      "maxX": -13.685179,
+      "minZ": 76.708384,
+      "maxZ": 87.635947
+    },
+    "sourceLocalObstacles": [
+      {
+        "role": "west-main-body",
+        "minX": -7.675,
+        "maxX": -2.1254,
+        "minZ": -4.575,
+        "maxZ": 1.307215
+      },
+      {
+        "role": "east-main-body",
+        "minX": -2.1254,
+        "maxX": 7.225,
+        "minZ": -4.575,
+        "maxZ": 1.307215
+      },
+      {
+        "role": "central-front-projection",
+        "minX": -6.432454,
+        "maxX": -2.108321,
+        "minZ": 1.307215,
+        "maxZ": 4.84
+      }
+    ],
+    "collisionSemantics": "three-rotated-source-rectangles-approximating-the-osm-step-footprint-without-a-courtyard-wide-box",
+    "runtimeCollisionMarginSceneUnits": 0.2,
+    "runtimeWorldObstacleEnvelopes": [
+      {
+        "minX": -27.004751,
+        "maxX": -21.018275,
+        "minZ": 78.961233,
+        "maxZ": 85.080634
+      },
+      {
+        "minX": -23.151606,
+        "maxX": -14.526196,
+        "minZ": 80.596552,
+        "maxZ": 87.835947
+      },
+      {
+        "minX": -24.408707,
+        "maxX": -19.9654,
+        "minZ": 76.874529,
+        "maxZ": 81.001584
+      }
+    ]
+  },
+  "clearance": {
+    "motorRoad": {
+      "road": "新华路",
+      "centerlineSource": "app/scene/xinhua-map-data.json#roads/osmWayId=682286683",
+      "asphaltWidthSceneUnits": 4.9,
+      "modelFootprintToCenterlineSceneUnits": 6.052692,
+      "modelFootprintToAsphaltEdgeSceneUnits": 3.602692,
+      "conservativeAfterRuntimeCollisionMarginSceneUnits": 3.402692,
+      "status": "pass"
+    },
+    "villaLeBec": {
+      "physicalModelFootprint": [
+        {
+          "wayId": 864493176,
+          "minimumGapSceneUnits": 0.619394
+        },
+        {
+          "wayId": 864493175,
+          "minimumGapSceneUnits": 2.690714
+        }
+      ],
+      "rawOsmFootprint": [
+        {
+          "wayId": 864493176,
+          "minimumGapSceneUnits": 0.620285
+        },
+        {
+          "wayId": 864493175,
+          "minimumGapSceneUnits": 2.611213
+        }
+      ],
+      "runtimeCollisionAabbAfterBothMargins": [
+        {
+          "wayId": 864493176,
+          "minimumGapSceneUnits": 0.099834
+        },
+        {
+          "wayId": 864493175,
+          "minimumGapSceneUnits": 0.674188
+        }
+      ],
+      "status": "pass-no-overlap"
+    },
+    "nearestOtherRawOsmBuildings": [
+      {
+        "wayId": 864485666,
+        "minimumGapSceneUnits": 2.937019
+      },
+      {
+        "wayId": 864485665,
+        "minimumGapSceneUnits": 3.221606
+      },
+      {
+        "wayId": 864485670,
+        "minimumGapSceneUnits": 3.695302
+      },
+      {
+        "wayId": 864485669,
+        "minimumGapSceneUnits": 4.644712
+      }
+    ]
+  },
+  "entranceAndStart": {
+    "authoredFront": "runtime-local-negative-z",
+    "entranceLocal": [-1.9, -4.55],
+    "entranceWorld": [-20.106215, 78.611472],
+    "outwardTowardRoad": [0.390682, -0.920526],
+    "inwardFromRoad": [-0.390682, 0.920526],
+    "start": {
+      "position": [-21.8, 67.6],
+      "retained": true,
+      "forwardUpdatedTowardEntrance": [0.152032, 0.988376],
+      "distanceToModelFootprintSceneUnits": 9.377492,
+      "distanceToVillaStreetEntitySceneUnits": 16.276923,
+      "desiredCameraArmLengthSceneUnits": 5.44,
+      "cameraEndpointForUpdatedForward": [-22.627054, 62.223237],
+      "playerCollisionSafe": true,
+      "cameraAnalyticSafe": true,
+      "cameraRuntimeNote": "Landmarks remain transparent to the spring arm; the final camera and ground-contact pass remains a main-window browser gate."
+    }
+  },
+  "binaryHold": {
+    "hero": {
+      "path": "public/models/tiers/xinhua-road/hero-v2/house-315-hero.glb",
+      "sha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964"
+    },
+    "identity": {
+      "path": "public/models/tiers/xinhua-road/identity-v1/house-315-identity.glb",
+      "sha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d"
+    },
+    "massing": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/house-315-massing.glb",
+      "sha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832"
+    },
+    "legacyHero": {
+      "path": "public/models/xinhua-road/house-315.glb",
+      "sha256": "9d407a35c10bfa232d2a5a91ecae4886a9b146cdabec801319c7dc5530b67b07"
+    },
+    "allUnchanged": true
+  },
+  "verdict": {
+    "priorPlacementWrong": true,
+    "positionChanged": true,
+    "yawChanged": true,
+    "scaleChanged": true,
+    "collisionChanged": true,
+    "binaryRebuildRequired": false,
+    "blockedMapPosition": false,
+    "candidateReadyForMainWindow": true,
+    "finalRuntimeMapPass": false,
+    "requiredNext": [
+      "main-window-house-only-contract-integration",
+      "real-browser-position-and-ground-contact",
+      "entrance-approach-and-three-part-collision-replay",
+      "camera-full-arm-check",
+      "villa-le-bec-no-overlap-visual-and-collision-check"
+    ]
+  }
+}

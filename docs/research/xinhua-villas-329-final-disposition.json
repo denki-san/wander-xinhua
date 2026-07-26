@@ -1,0 +1,289 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-329",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "aada3c412d10f822305c2e3410435f3b00278c2c",
+  "status": "blocked-map-and-hero-lineage",
+  "scope": {
+    "stableBoundary": "329-lane-compound",
+    "mode": "preserved-stage-final-disposition",
+    "binaryRebuilt": false,
+    "identityDerived": false,
+    "browserOrXhsAccessed": false,
+    "sharedFilesModified": false,
+    "excluded": [
+      "shared registry",
+      "shared runtime",
+      "Fast manifest",
+      "trees",
+      "decorations",
+      "ordinary OSM runtime",
+      "full-map assets",
+      "Recovery/Hold",
+      "other buildings"
+    ]
+  },
+  "recordPrecedence": [
+    {
+      "rank": 1,
+      "path": "docs/research/xinhua-villas-329-final-disposition.json",
+      "role": "current gate reconciliation"
+    },
+    {
+      "rank": 2,
+      "path": "docs/research/xinhua-villas-329-massing-v3-integration-candidate.json",
+      "role": "main-window MCP1, runtime visibility and formal map blocker"
+    },
+    {
+      "rank": 3,
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.json",
+      "role": "current evidence-bound Massing v3 build provenance"
+    },
+    {
+      "rank": 4,
+      "path": "docs/research/xinhua-villas-329-reference-manifest.json",
+      "role": "evidence boundary and legacy Hero disposition; earlier pending MCP1 fields are historical"
+    },
+    {
+      "rank": 5,
+      "path": "docs/research/xinhua-villas-329-massing-recovery-checkpoint.json",
+      "role": "read-only Recovery Massing v2 provenance"
+    }
+  ],
+  "inputs": {
+    "referenceManifest": {
+      "path": "docs/research/xinhua-villas-329-reference-manifest.json",
+      "sha256": "a66b79290bf08fd79b3c6730602d81efac20c02c659a44eb63e1825dad7ba985"
+    },
+    "modelBrief": {
+      "path": "docs/research/xinhua-villas-329-model-brief.md",
+      "sha256": "865ad3894ae2d10eed3b929b6fc744699f4c6f405f9075befe5de98750a17d78"
+    },
+    "memberBinding": {
+      "path": "docs/research/xinhua-villas-329-member-binding.json",
+      "sha256": "2d34b0c7839014776b98255febe722d87c45d39063a6b4b98838fdc02ba80330"
+    },
+    "xhsInventory": {
+      "path": "docs/research/xinhua-villas-329-xhs-evidence-inventory.json",
+      "sha256": "5e763e646a88b48756e688e8dcb9c1bb525339b6fd05b2e2ee8d93a7846eee7c"
+    },
+    "xhsSourceNote": {
+      "path": "docs/knowledge-sources/xinhua-villas-329-xhs-evidence.md",
+      "sha256": "e84c11142998312c40b80cb5ec22e77607bbfd6635807cfc96f4266ade1ede07"
+    },
+    "massingV2Checkpoint": {
+      "path": "docs/research/xinhua-villas-329-massing-recovery-checkpoint.json",
+      "sha256": "c39ac0d905a0465d37c26f83f11f7c9e4342d37ba3f2c56051b547ed015adcde"
+    },
+    "massingV3Candidate": {
+      "path": "docs/research/xinhua-villas-329-massing-v3-integration-candidate.json",
+      "sha256": "639f00f2bf0cf61fba539380e2100a01f6032b4c0571f6f554d9523740a56941"
+    }
+  },
+  "evidenceGate": {
+    "status": "pass-conservative-massing-only",
+    "canonical": "partial-compound-context-supported",
+    "localXhsFiles": 19,
+    "usableXhsFiles": 9,
+    "blackMediaNeedsReview": 9,
+    "officialMemberEvidence": [
+      "329-17-front-only",
+      "329-38-front-oblique"
+    ],
+    "boundMassingMembers": [
+      "15",
+      "36",
+      "40",
+      "42"
+    ],
+    "excludedWayId": 864493245,
+    "observed": [
+      "本地 XHS 截图提供 compound 场景，以及15、40、42号可见门牌；正文和多图提供36号低瓦圆形体量与高烟囱。",
+      "原始 OSM 四个 footprint 回投到世界坐标的最大误差为 0.000000367 scene unit。"
+    ],
+    "inferred": [
+      "四个 footprint 的成员绑定是 sequence-and-spatial binding，不是地籍或测绘确认。",
+      "member-15 只达到 medium binding。"
+    ],
+    "unknown": [
+      "完整地籍边界和所有成员映射。",
+      "成员背立面、屋顶背坡和不可见附楼。",
+      "17、32乙、38、231号的 OSM footprint 绑定。",
+      "way/864493245 是否属于329弄成员。"
+    ],
+    "heroAuthorized": false,
+    "identityAuthorized": false
+  },
+  "massingDispositions": {
+    "recoveryV2": {
+      "status": "preserved-recovery-lineage-not-production-candidate",
+      "blend": {
+        "path": "assets/models/source/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.blend",
+        "sha256": "e492dbe99b500dc01d02ad1774541d7c7b922988bc4e52a50e05d8b2155307c5"
+      },
+      "glb": {
+        "path": "public/models/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.glb",
+        "sha256": "f7ade44ba879dead433abd006603a613520af730d9a2a35dada412b99a0c3819",
+        "bytes": 8244,
+        "nodes": 5,
+        "meshes": 5,
+        "primitives": 5,
+        "triangles": 60,
+        "materials": 1,
+        "images": 0,
+        "textures": 0
+      },
+      "buildRecord": {
+        "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.json",
+        "sha256": "b0b6c2f8e8e25a5685b5d6998bbbb24e49f5ce8d796ac42d02f3cef4eb9e794b"
+      },
+      "reason": "五个成员均是未绑定 OSM 候选，统一 fallback 高度不能证明329弄主体。"
+    },
+    "currentV3": {
+      "status": "mcp1-and-runtime-visibility-pass-map-blocked",
+      "generator": {
+        "path": "scripts/create_xinhua_villas_329_massing_model.py",
+        "sha256": "c72ed449366eaca90f3e31dd64f14ca3ad9de957968daa7c41f89d57fe3c15a0"
+      },
+      "blend": {
+        "path": "assets/models/source/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.blend",
+        "sha256": "68004686207183ee7276c52b6c4805dc3233c7fd76d19fb9ba11d254444709c1"
+      },
+      "glb": {
+        "path": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
+        "sha256": "f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704",
+        "bytes": 21632,
+        "nodes": 4,
+        "meshes": 4,
+        "primitives": 10,
+        "triangles": 204,
+        "materials": 4,
+        "images": 0,
+        "textures": 0,
+        "bounds": {
+          "min": [
+            -19.746794,
+            0,
+            -9.257435
+          ],
+          "max": [
+            13.41517,
+            6.35,
+            16.8141
+          ]
+        }
+      },
+      "buildRecord": {
+        "path": "docs/research/build-records/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.json",
+        "sha256": "9f8d1d2dcadc754fcad17df092bb44de5ff87cdeab654daa89db6bec3911a5f1"
+      },
+      "mcp1": "pass-current-sha-visual-and-structure",
+      "runtimeVisibility": {
+        "status": "pass-exact-v3-load-and-visibility-map-rejected",
+        "viewport": [
+          1280,
+          720
+        ],
+        "sampleFrames": 120,
+        "sampleDurationMs": 2031.6,
+        "fps": 59.0667,
+        "consoleEvents": 0,
+        "improvementClaimed": false
+      }
+    }
+  },
+  "mapGate": {
+    "status": "blocked-road-edge-and-member15-binding",
+    "placement": {
+      "position": [
+        -42.13,
+        79.48
+      ],
+      "yaw": -0.38,
+      "scale": 0.62,
+      "movementAuthorized": false
+    },
+    "stylizedAsphaltHalfWidthSceneUnits": 3.625,
+    "collisionMarginSceneUnits": 0.2,
+    "member15UnexpandedFootprintToAsphaltEdgeSceneUnits": 0.061079,
+    "member15CollisionAabbToAsphaltEdgeSceneUnits": -0.138921,
+    "minimumRequiredVisibleClearanceSceneUnits": 0.75,
+    "otherLandmarkObstacleIntersectionCount": 0,
+    "startAndFirstCamera": "pass-analytic",
+    "runtimeCollision": "not-run-because-map-gate-blocked",
+    "forbiddenFixes": [
+      "arbitrary whole-compound movement",
+      "arbitrary whole-compound scale reduction",
+      "silently deleting member-15",
+      "assigning way/864493245 by proximity"
+    ]
+  },
+  "heroDisposition": {
+    "status": "hold-cross-asset-contaminated-not-mcp2-candidate",
+    "blend": {
+      "path": "assets/models/source/xinhua-road/xinhua-villas-329.blend",
+      "sha256": "24687ecb8f61f486a7b5e38abae24bd21c0321e788518da429bc5c7d2b666246"
+    },
+    "glb": {
+      "path": "public/models/xinhua-road/xinhua-villas-329.glb",
+      "sha256": "81b2d79bb502cb42c187169f339f0ac9428ea8ae855e43e8b0756768ced0210b",
+      "bytes": 1443312,
+      "nodes": 1,
+      "meshes": 1,
+      "primitives": 14,
+      "triangles": 20524,
+      "materials": 14,
+      "images": 0,
+      "textures": 0
+    },
+    "buildRecord": "missing-asset-level-provenance",
+    "derivedFromMassingV3": false,
+    "subject": "high-confidence-member-211-2-cross-asset-match",
+    "scopePollution": [
+      "lawn",
+      "shrubs",
+      "trees",
+      "garden lamps"
+    ],
+    "mcp2Authorized": false,
+    "mcp2Candidate": false,
+    "reason": "旧 Hero 主体与211弄2号持续构件一致，且不从当前四成员 Massing v3 派生；不能通过一次视觉 MCP2 把错误 lineage 变成329 Hero。"
+  },
+  "strictLineageGate": {
+    "massingV3MapAccepted": false,
+    "heroDerivedFromMassingV3": false,
+    "heroMcp2Passed": false,
+    "identityDerivationAuthorized": false,
+    "status": "blocked"
+  },
+  "identityDisposition": {
+    "status": "not-created-not-authorized",
+    "generatorCreated": false,
+    "blendCreated": false,
+    "glbCreated": false,
+    "buildRecordCreated": false,
+    "previewsCreated": false,
+    "reason": "前置地图门 blocked，现有 Hero 又是跨资产污染 Hold；不存在合法 Hero SHA 作为 Identity 来源。"
+  },
+  "gates": {
+    "evidence": "pass-conservative-massing-only",
+    "recoveryMassingV2": "preserved-historical",
+    "massingV3Glb": "pass",
+    "massingV3Mcp1": "pass-preserved",
+    "massingV3RuntimeVisibility": "pass-preserved-map-rejected",
+    "mapAcceptance": "blocked",
+    "hero": "blocked-cross-asset-lineage-and-map",
+    "heroMcp2": "not-authorized",
+    "identity": "not-authorized",
+    "mcp3": "not-reachable",
+    "threeJsThreeTier": "not-reachable",
+    "overall": "blocked-map-and-hero-lineage"
+  },
+  "mainWindowActions": [
+    "用地籍、测绘、用户确认或更强门牌到 footprint 证据复核 member-15 与 way/864493244 的绑定；不得用任意移动或缩放绕过道路冲突。",
+    "若 member-15 绑定成立，基于真实道路边界修正成员 footprint/collision；若不成立，保留其文件为 Hold 并以证据明确排除。",
+    "地图门通过后，从已接受的 Massing v3 与同一成员证据创建全新的329 compound Hero；不得复用旧211弄2号 Hero。",
+    "主窗口对新 Hero 执行 MCP2；通过并冻结 Hero SHA 后，才允许派生 Identity。",
+    "Identity 完成后再执行 MCP3 同机位三档与 Three.js fallback/performance/collision 验收。"
+  ]
+}

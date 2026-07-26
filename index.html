@@ -15,6 +15,44 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (() => {
+        // 仅在显式 QA 参数下，于应用模块执行前收集 console 与全局异常。
+        const parameters = new URLSearchParams(window.location.search);
+        if (parameters.get("qaRuntimeTelemetry") !== "1") return;
+        const root = document.documentElement;
+        const append = (key, values) => {
+          const current = JSON.parse(root.dataset[key] || "[]");
+          current.push(values.map((value) => String(value)).join(" ").slice(0, 600));
+          root.dataset[key] = JSON.stringify(current.slice(-20));
+        };
+        root.dataset.runtimeQaTelemetry = "active";
+        root.dataset.runtimeQaConsoleErrors = "[]";
+        root.dataset.runtimeQaConsoleWarnings = "[]";
+        root.dataset.runtimeQaWindowErrors = "[]";
+        root.dataset.runtimeQaUnhandledRejections = "[]";
+        const originalError = console.error.bind(console);
+        const originalWarn = console.warn.bind(console);
+        console.error = (...values) => {
+          append("runtimeQaConsoleErrors", values);
+          originalError(...values);
+        };
+        console.warn = (...values) => {
+          append("runtimeQaConsoleWarnings", values);
+          originalWarn(...values);
+        };
+        window.addEventListener("error", (event) => {
+          append("runtimeQaWindowErrors", [
+            event.message || event.error || "window-error",
+          ]);
+        });
+        window.addEventListener("unhandledrejection", (event) => {
+          append("runtimeQaUnhandledRejections", [
+            event.reason || "unhandled-rejection",
+          ]);
+        });
+      })();
+    </script>
     <script type="module" src="/static-entry.tsx"></script>
   </body>
 </html>

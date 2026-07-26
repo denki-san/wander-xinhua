@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "gate": "mcp3-same-camera-three-tier",
+  "status": "ready-for-main-window-serial-review",
+  "doNotOperateFromThisWorktree": true,
+  "scope": {
+    "active": "shanghai-cinema Hero / Identity / Massing only",
+    "held": [
+      "all trees and decor",
+      "ordinary OSM massing",
+      "all unrelated buildings",
+      "recovery commit 3044cd8 binaries"
+    ]
+  },
+  "tiers": {
+    "hero": {
+      "blendPath": "/Users/lei/App_developing/wander-xinhua/.worktrees/building-shanghai-cinema/assets/models/source/xinhua-road/shanghai-cinema.blend",
+      "blendSha256": "fbb13fdb89169101c97bda0f3e5ba9644c70743aa85bd810368b365969db8fd8",
+      "glbPath": "/Users/lei/App_developing/wander-xinhua/.worktrees/building-shanghai-cinema/public/models/xinhua-road/shanghai-cinema.glb",
+      "glbSha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062"
+    },
+    "identity": {
+      "blendPath": "/Users/lei/App_developing/wander-xinhua/.worktrees/building-shanghai-cinema/assets/models/source/xinhua-road/shanghai-cinema-hybrid-identity.blend",
+      "blendSha256": "d087771e0547df66085c831f6befad1af9dd2b003e097d8af372187ddd2889ef",
+      "glbPath": "/Users/lei/App_developing/wander-xinhua/.worktrees/building-shanghai-cinema/public/models/xinhua-road/shanghai-cinema-hybrid-identity.glb",
+      "glbSha256": "66ea8425313f9024d0b707b87be27549504ec9dddab3a8fdb30961aaf2d48d9c",
+      "runtimeRecipe": "/Users/lei/App_developing/wander-xinhua/.worktrees/building-shanghai-cinema/app/scene/shanghai-cinema-hybrid-identity.tsx",
+      "representation": "ShanghaiCinemaProgrammaticBody + ShanghaiCinemaIdentityGlb + ShanghaiCinemaRepeatedDetails",
+      "warning": "独立 Identity GLB 只有身份增量，不是完整 Identity tier。MCP3 若不能按 runtimeRecipe 组装，应把 Identity Blender 画面标记为局部证据，并以同机位 Three.js composite 画面补足，不能误报完整通过。"
+    },
+    "massing": {
+      "blendPath": "/Users/lei/App_developing/wander-xinhua/.worktrees/building-shanghai-cinema/assets/models/source/xinhua-road/shanghai-cinema-massing.blend",
+      "blendSha256": "f827a26ee131a35503d93153fa23e4ce5df7a4b969b63906ced4919d4bf7f9dd",
+      "glbPath": "/Users/lei/App_developing/wander-xinhua/.worktrees/building-shanghai-cinema/public/models/xinhua-road/shanghai-cinema-massing.glb",
+      "glbSha256": "e1635a7796ad9ca4f7699e5559c73c4a02591b601e9d300f8a874c73a7a513ab"
+    }
+  },
+  "sharedTransform": {
+    "origin": [0, 0, 0],
+    "scale": 1,
+    "canonicalFront": "Blender local -Y",
+    "groundDatum": "Blender Z = 0",
+    "doNotApplyMapYawInsideAsset": true
+  },
+  "fixedViews": {
+    "canonical": {
+      "cameraBlender": [12, -50, 7],
+      "targetBlender": [0, -0.6, 6.2],
+      "lensMm": 48
+    },
+    "side": {
+      "cameraBlender": [39, -34, 8.5],
+      "targetBlender": [4, -0.2, 6.5],
+      "lensMm": 52
+    },
+    "entrance": {
+      "cameraBlender": [10, -45, 5.5],
+      "targetBlender": [0, -1, 6],
+      "lensMm": 48
+    }
+  },
+  "humanScaleProxy": {
+    "name": "test_mcp3_human_scale_1_8m",
+    "shape": "orange cylinder",
+    "heightMeters": 1.8,
+    "metersPerSceneUnit": 2.7,
+    "heightSceneUnits": 0.6666666666666666,
+    "radiusSceneUnits": 0.13,
+    "locationBlender": [0, -14.6, 0.3333333333333333],
+    "warning": "现有 test_mcp2 的 1.8 scene units 圆柱等于 4.86m，只可证明旧画面构图，不能作为人物尺度通过证据。"
+  },
+  "checks": [
+    "三档都使用完全相同的 origin、scale、相机位置、target 和 lens。",
+    "三档均确认基底落在 Blender Z = 0，不得用截图裁切掩盖悬空。",
+    "Massing 保留非对称丝带、椭圆开洞、玻璃鼓体、双侧翼和退后塔楼。",
+    "Identity 审查完整 composite，若只显示 Identity GLB 必须明确标记局部证据。",
+    "Hero 确认入口、幕墙、格栅、柱列与身份细节，不把材质差异误当几何差异。",
+    "修正后橙色人物代理在三档同机位中可见，底部位于 Z = 0。",
+    "不载入、不修改、不删除树木、装饰、普通 OSM 或其他建筑。"
+  ],
+  "expectedEvidence": [
+    "test_artifacts/test_shanghai-cinema_mcp3_massing_canonical.png",
+    "test_artifacts/test_shanghai-cinema_mcp3_identity_canonical.png",
+    "test_artifacts/test_shanghai-cinema_mcp3_hero_canonical.png",
+    "test_artifacts/test_shanghai-cinema_mcp3_massing_side.png",
+    "test_artifacts/test_shanghai-cinema_mcp3_identity_side.png",
+    "test_artifacts/test_shanghai-cinema_mcp3_hero_side.png",
+    "test_artifacts/test_shanghai-cinema_mcp3_massing_entrance.png",
+    "test_artifacts/test_shanghai-cinema_mcp3_identity_entrance.png",
+    "test_artifacts/test_shanghai-cinema_mcp3_hero_entrance.png"
+  ],
+  "acceptanceBoundary": {
+    "canPassNow": [
+      "exact current binary hash check",
+      "fixed-camera framing",
+      "corrected human proxy scale",
+      "Massing and Hero visual comparison"
+    ],
+    "mustStayPendingIfNotAssembled": [
+      "full Identity composite Blender comparison"
+    ]
+  }
+}

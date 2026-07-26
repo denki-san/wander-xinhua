@@ -3,7 +3,9 @@
 import { Html, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import {
+  Box3,
   Color,
+  Group,
   InstancedMesh,
   Material,
   Matrix4,
@@ -19,8 +21,34 @@ import {
   useMemo,
   useRef,
   useState,
+  type ReactNode,
   type RefObject,
 } from "react";
+import {
+  FILM_ART_CENTER_ASSET_ID,
+  resolveFilmArtCenterQaTier,
+} from "./film-art-center-tier-contract.mjs";
+import {
+  HOUSE_315_ASSET_ID,
+  resolveHouse315Qa,
+} from "./house-315-tier-contract.mjs";
+import {
+  House315RuntimeAsset,
+  type House315Fallback,
+  type House315Tier,
+} from "./house-315-runtime";
+import {
+  ONE_STEP_GARDEN_ASSET_ID,
+  resolveOneStepGardenQa,
+} from "./one-step-garden-tier-contract.mjs";
+import {
+  resolveBuildingTierQa,
+} from "./building-massing-qa-contract.mjs";
+import {
+  OneStepGardenRuntimeAsset,
+  type OneStepGardenFallback,
+  type OneStepGardenTier,
+} from "./one-step-garden-runtime";
 import {
   autumnShadowSurfaceHeightAt,
   terrainHeightAt,
@@ -62,6 +90,7 @@ type LandmarkPlacement = {
   scale: number;
   localBounds: MapObstacle;
   localObstacles?: MapObstacle[];
+  collisionMargin?: number;
   start: MapPolygonPoint;
   forward: MapPolygonPoint;
   cameraTargetHeight?: number;
@@ -69,6 +98,19 @@ type LandmarkPlacement = {
   labelHeight?: number;
   labelOffset?: MapPolygonPoint;
   positioning?: string;
+};
+
+type BuildingMassingQaCandidate = {
+  assetId: string;
+  requestedTier: string;
+  modelPath: string;
+  forcedFallback?: boolean;
+  fallbackTier?: "identity" | "massing";
+  placement?: {
+    position: readonly [number, number];
+    yaw: number;
+    scale: number;
+  };
 };
 
 // 160 号使用 OSM way 292250766 的建筑轮廓中心；其余位置由新华路中心线、
@@ -501,10 +543,138 @@ function configureModel(model: Object3D, autumnTree = false) {
   return model;
 }
 
-function GlbModel({ path }: { path: string }) {
+function GlbModel({
+  path,
+  qaAssetId,
+  qaTier,
+  qaWorldX,
+  qaWorldY,
+  qaWorldZ,
+  qaWorldYaw,
+  qaWorldScale,
+}: {
+  path: string;
+  qaAssetId?: string;
+  qaTier?: string;
+  qaWorldX?: number;
+  qaWorldY?: number;
+  qaWorldZ?: number;
+  qaWorldYaw?: number;
+  qaWorldScale?: number;
+}) {
   const { scene } = useGLTF(path);
   const model = useMemo(() => configureModel(scene.clone(true)), [scene]);
+  const qaFrameSample = useRef({
+    startedAt: 0,
+    frames: 0,
+    complete: false,
+  });
   useEffect(() => () => disposeModelMaterials(model), [model]);
+  useEffect(() => {
+    if (!qaAssetId || !qaTier) return;
+    qaFrameSample.current = {
+      startedAt: 0,
+      frames: 0,
+      complete: false,
+    };
+    // model 已挂在带 placement 的父 group 下，直接 setFromObject(model)
+    // 会把父级 world matrix 带进探针，再在 Box3 遍历时重复计算。使用未挂载的
+    // glTF clone 先量本地坐标，再显式应用同一 placement，确保遥测与画面一致。
+    const boundsProbe = new Group();
+    boundsProbe.scale.set(1, 1, -1);
+    boundsProbe.add(scene.clone(true));
+    boundsProbe.updateMatrixWorld(true);
+    const bounds = new Box3().setFromObject(boundsProbe);
+    if (
+      qaWorldX !== undefined
+      && qaWorldY !== undefined
+      && qaWorldZ !== undefined
+      && qaWorldYaw !== undefined
+      && qaWorldScale !== undefined
+    ) {
+      const placementMatrix = new Matrix4().compose(
+        new Vector3(qaWorldX, qaWorldY, qaWorldZ),
+        new Quaternion().setFromAxisAngle(
+          new Vector3(0, 1, 0),
+          qaWorldYaw,
+        ),
+        new Vector3(qaWorldScale, qaWorldScale, qaWorldScale),
+      );
+      bounds.applyMatrix4(placementMatrix);
+    }
+    const root = document.documentElement;
+    root.dataset.xinhuaRoadQaAsset = qaAssetId;
+    root.dataset.xinhuaRoadQaTier = qaTier;
+    root.dataset.xinhuaRoadQaRequestedTier = qaTier;
+    root.dataset.xinhuaRoadQaLoadedTier = qaTier;
+    root.dataset.xinhuaRoadQaStatus = "loaded";
+    root.dataset.xinhuaRoadQaSource = path;
+    root.dataset.xinhuaRoadQaBounds = JSON.stringify({
+      min: bounds.min.toArray(),
+      max: bounds.max.toArray(),
+    });
+    window.dispatchEvent(new CustomEvent("xinhua:active-asset-runtime", {
+      detail: {
+        assetId: qaAssetId,
+        tier: qaTier,
+        requestedTier: qaTier,
+        loadedTier: qaTier,
+        status: "loaded",
+        source: path,
+      },
+    }));
+    return () => {
+      if (root.dataset.xinhuaRoadQaSource !== path) return;
+      delete root.dataset.xinhuaRoadQaAsset;
+      delete root.dataset.xinhuaRoadQaTier;
+      delete root.dataset.xinhuaRoadQaRequestedTier;
+      delete root.dataset.xinhuaRoadQaLoadedTier;
+      delete root.dataset.xinhuaRoadQaStatus;
+      delete root.dataset.xinhuaRoadQaSource;
+      delete root.dataset.xinhuaRoadQaBounds;
+      delete root.dataset.xinhuaRoadQaRender;
+      delete root.dataset.xinhuaRoadQaFrameSample;
+    };
+  }, [
+    model,
+    path,
+    qaAssetId,
+    qaTier,
+    qaWorldScale,
+    qaWorldX,
+    qaWorldY,
+    qaWorldYaw,
+    qaWorldZ,
+    scene,
+  ]);
+  useFrame(({ gl }) => {
+    if (!qaAssetId || !qaTier) return;
+    const root = document.documentElement;
+    root.dataset.xinhuaRoadQaRender = JSON.stringify({
+      drawCalls: gl.info.render.calls,
+      triangles: gl.info.render.triangles,
+      lines: gl.info.render.lines,
+      points: gl.info.render.points,
+    });
+    const sample = qaFrameSample.current;
+    if (sample.complete || document.visibilityState !== "visible") return;
+    const now = window.performance.now();
+    if (sample.startedAt === 0) sample.startedAt = now;
+    sample.frames += 1;
+    if (sample.frames < 120) return;
+    const durationMs = now - sample.startedAt;
+    sample.complete = true;
+    root.dataset.xinhuaRoadQaFrameSample = JSON.stringify({
+      viewport: [window.innerWidth, window.innerHeight],
+      visible: true,
+      frames: sample.frames,
+      durationMs,
+      fps: durationMs > 0 ? sample.frames * 1_000 / durationMs : 0,
+      rendererDrawCalls: gl.info.render.calls,
+      rendererTriangles: gl.info.render.triangles,
+      buildMode: "browser-runtime",
+    });
+  });
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
@@ -617,6 +787,90 @@ function useDistanceHeroLandmarkIds({
   });
 }
 
+function BuildingQaFallback({
+  assetId,
+  tier,
+  loadedTier,
+  source,
+  children,
+}: {
+  assetId: string;
+  tier: string;
+  loadedTier?: string;
+  source: string;
+  children: ReactNode;
+}) {
+  const qaFrameSample = useRef({
+    startedAt: 0,
+    frames: 0,
+    complete: false,
+  });
+  useEffect(() => {
+    const root = document.documentElement;
+    const resolvedLoadedTier = loadedTier ?? tier;
+    qaFrameSample.current = {
+      startedAt: 0,
+      frames: 0,
+      complete: false,
+    };
+    root.dataset.xinhuaRoadQaAsset = assetId;
+    root.dataset.xinhuaRoadQaTier = tier;
+    root.dataset.xinhuaRoadQaRequestedTier = tier;
+    root.dataset.xinhuaRoadQaLoadedTier = resolvedLoadedTier;
+    root.dataset.xinhuaRoadQaStatus = "fallback";
+    root.dataset.xinhuaRoadQaSource = source;
+    window.dispatchEvent(new CustomEvent("xinhua:active-asset-runtime", {
+      detail: {
+        assetId,
+        tier,
+        requestedTier: tier,
+        loadedTier: resolvedLoadedTier,
+        status: "fallback",
+        source,
+      },
+    }));
+    return () => {
+      if (
+        root.dataset.xinhuaRoadQaSource !== source
+        || root.dataset.xinhuaRoadQaStatus !== "fallback"
+      ) return;
+      delete root.dataset.xinhuaRoadQaAsset;
+      delete root.dataset.xinhuaRoadQaTier;
+      delete root.dataset.xinhuaRoadQaRequestedTier;
+      delete root.dataset.xinhuaRoadQaLoadedTier;
+      delete root.dataset.xinhuaRoadQaStatus;
+      delete root.dataset.xinhuaRoadQaSource;
+      delete root.dataset.xinhuaRoadQaFrameSample;
+    };
+  }, [assetId, loadedTier, source, tier]);
+  useFrame(() => {
+    const root = document.documentElement;
+    if (
+      root.dataset.xinhuaRoadQaSource !== source
+      || root.dataset.xinhuaRoadQaStatus !== "fallback"
+    ) return;
+    const sample = qaFrameSample.current;
+    if (sample.complete || document.visibilityState !== "visible") return;
+    const now = window.performance.now();
+    if (sample.startedAt === 0) sample.startedAt = now;
+    sample.frames += 1;
+    if (sample.frames < 120) return;
+    const durationMs = now - sample.startedAt;
+    sample.complete = true;
+    root.dataset.xinhuaRoadQaFrameSample = JSON.stringify({
+      viewport: [window.innerWidth, window.innerHeight],
+      visible: true,
+      frames: sample.frames,
+      durationMs,
+      fps: durationMs > 0 ? sample.frames * 1_000 / durationMs : 0,
+      buildMode: "browser-runtime-fallback",
+      requestedTier: tier,
+      loadedTier: loadedTier ?? tier,
+    });
+  });
+  return children;
+}
+
 export function XinhuaRoadLandmarks({
   showLabels = true,
   mountedModelIds,
@@ -624,19 +878,121 @@ export function XinhuaRoadLandmarks({
   showLabels?: boolean;
   mountedModelIds: ReadonlySet<string>;
 }) {
+  const filmArtQa = resolveFilmArtCenterQaTier(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
+  const oneStepQa = resolveOneStepGardenQa(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
+  const house315Qa = resolveHouse315Qa(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
+  const buildingMassingQa = resolveBuildingTierQa(
+    typeof window === "undefined" ? "" : window.location.search,
+  ) as BuildingMassingQaCandidate | null;
   return (
     <group
       name="xinhua-road-photo-reference-landmarks"
       userData={{ stage: "full", loading: "distance-state-on-demand" }}
     >
       {XINHUA_ROAD_LANDMARKS.map((landmark) => {
-        const [x, z] = landmark.position;
         const [labelOffsetX, labelOffsetZ] = landmark.labelOffset ?? [0, 0];
+        const filmArtQaActive = filmArtQa?.assetId === landmark.id
+          ? filmArtQa
+          : null;
+        const oneStepQaActive = oneStepQa?.assetId === landmark.id
+          ? oneStepQa
+          : null;
+        const house315QaActive = house315Qa?.assetId === landmark.id
+          ? house315Qa
+          : null;
+        const buildingMassingQaActive =
+          buildingMassingQa?.assetId === landmark.id
+            ? buildingMassingQa
+            : null;
+        const [x, z] =
+          buildingMassingQaActive?.placement?.position ?? landmark.position;
         const y = terrainHeightAt(x, z) + 0.1;
-        const modelPath = landmark.cacheVersion
-          ? `${landmark.model}?v=${landmark.cacheVersion}`
-          : landmark.model;
+        const yaw =
+          buildingMassingQaActive?.placement?.yaw ?? landmark.yaw;
+        const scale =
+          buildingMassingQaActive?.placement?.scale ?? landmark.scale;
+        // resolver 只会在 tier 命中 Hero / Identity / Massing 时返回对象；
+        // 默认值仅用于弥补无 JSDoc 的 .mjs 推断，不会改变有效 QA 路由。
+        const filmArtTier = filmArtQaActive?.tier ?? "identity";
+        const modelPath = filmArtQaActive
+          ? filmArtQaActive.modelPath
+          : oneStepQaActive
+            ? oneStepQaActive.modelPath
+            : house315QaActive
+              ? house315QaActive.modelPath
+              : buildingMassingQaActive
+                ? buildingMassingQaActive.modelPath
+            : landmark.cacheVersion
+              ? `${landmark.model}?v=${landmark.cacheVersion}`
+              : landmark.model;
         const shouldMountModel = mountedModelIds.has(landmark.id);
+        const shouldMountActiveModel = (
+          filmArtQaActive
+          || oneStepQaActive
+          || house315QaActive
+          || buildingMassingQaActive
+          || shouldMountModel
+        );
+        const filmArtFallback = filmArtQaActive ? (
+          <BuildingQaFallback
+            assetId={landmark.id}
+            tier={filmArtTier}
+            source={modelPath}
+          >
+            <LandmarkProgressiveProxy
+              landmark={landmark}
+              identity
+              forceProgrammaticIdentity
+            />
+          </BuildingQaFallback>
+        ) : null;
+        const buildingMassingFallback = buildingMassingQaActive ? (
+          <BuildingQaFallback
+            assetId={landmark.id}
+            tier={buildingMassingQaActive.requestedTier}
+            loadedTier={buildingMassingQaActive.fallbackTier}
+            source={modelPath}
+          >
+            <LandmarkProgressiveProxy
+              landmark={landmark}
+              identity={buildingMassingQaActive.fallbackTier === "identity"}
+            />
+          </BuildingQaFallback>
+        ) : null;
+        const oneStepRequestedTier = (
+          oneStepQaActive?.requestedTier ?? "hero"
+        ) as OneStepGardenTier;
+        const oneStepFallback = (
+          oneStepQaActive
+          && oneStepQaActive.forcedFallback
+          && oneStepQaActive.requestedTier !== "massing"
+            ? oneStepQaActive.requestedTier
+            : null
+        ) as OneStepGardenFallback;
+        const oneStepNoLowerTierFallback = Boolean(
+          oneStepQaActive
+          && oneStepQaActive.fallbackMode === "no-lower-tier",
+        );
+        const house315RequestedTier = (
+          house315QaActive?.requestedTier ?? "hero"
+        ) as House315Tier;
+        const house315Fallback = (
+          house315QaActive
+          && house315QaActive.forcedFallback
+          && house315QaActive.requestedTier !== "massing"
+            ? house315QaActive.requestedTier
+            : null
+        ) as House315Fallback;
+        const house315NoLowerTierFallback = Boolean(
+          house315QaActive
+          && house315QaActive.fallbackMode === "no-lower-tier",
+        );
         return (
           <group
             key={landmark.id}
@@ -646,22 +1002,89 @@ export function XinhuaRoadLandmarks({
               address: landmark.address,
               positioning: landmark.positioning,
               modeling: "photo-reference-blender-glb",
+              qaTier: filmArtQaActive
+                ? filmArtTier
+                : oneStepQaActive
+                  ? oneStepQaActive.requestedTier
+                  : house315QaActive
+                    ? house315QaActive.requestedTier
+                    : buildingMassingQaActive
+                      ? buildingMassingQaActive.requestedTier
+                  : undefined,
+              qaOnly:
+                filmArtQaActive
+                || oneStepQaActive
+                || house315QaActive
+                || buildingMassingQaActive
+                || undefined,
             }}
           >
-            <group position={[x, y, z]} rotation-y={landmark.yaw} scale={landmark.scale}>
-              {shouldMountModel && (
-                <ProgressiveFeatureBoundary
-                  resetKey={modelPath}
-                  fallback={<LandmarkProgressiveProxy landmark={landmark} identity />}
-                >
-                  <Suspense
-                    fallback={(
-                      <LandmarkProgressiveProxy landmark={landmark} identity />
-                    )}
+            <group position={[x, y, z]} rotation-y={yaw} scale={scale}>
+              {shouldMountActiveModel && (
+                buildingMassingQaActive?.forcedFallback ? (
+                  buildingMassingFallback
+                ) : buildingMassingQaActive ? (
+                  <ProgressiveFeatureBoundary
+                    resetKey={modelPath}
+                    fallback={buildingMassingFallback}
                   >
-                    <GlbModel path={modelPath} />
-                  </Suspense>
-                </ProgressiveFeatureBoundary>
+                    <Suspense fallback={buildingMassingFallback}>
+                      <GlbModel
+                        path={modelPath}
+                        qaAssetId={landmark.id}
+                        qaTier={buildingMassingQaActive.requestedTier}
+                        qaWorldX={x}
+                        qaWorldY={y}
+                        qaWorldZ={z}
+                        qaWorldYaw={yaw}
+                        qaWorldScale={scale}
+                      />
+                    </Suspense>
+                  </ProgressiveFeatureBoundary>
+                ) : filmArtQaActive ? (
+                  <ProgressiveFeatureBoundary
+                    resetKey={modelPath}
+                    fallback={filmArtFallback}
+                  >
+                    <Suspense fallback={filmArtFallback}>
+                      <GlbModel
+                        path={modelPath}
+                        qaAssetId={landmark.id}
+                        qaTier={filmArtTier}
+                        qaWorldX={x}
+                        qaWorldY={y}
+                        qaWorldZ={z}
+                        qaWorldYaw={yaw}
+                        qaWorldScale={scale}
+                      />
+                    </Suspense>
+                  </ProgressiveFeatureBoundary>
+                ) : (
+                  <ProgressiveFeatureBoundary
+                    resetKey={modelPath}
+                    fallback={<LandmarkProgressiveProxy landmark={landmark} identity />}
+                  >
+                    <Suspense
+                      fallback={<LandmarkProgressiveProxy landmark={landmark} identity />}
+                    >
+                      {landmark.id === ONE_STEP_GARDEN_ASSET_ID ? (
+                        <OneStepGardenRuntimeAsset
+                          requestedTier={oneStepRequestedTier}
+                          forceFallback={oneStepFallback}
+                          noLowerTierFallback={oneStepNoLowerTierFallback}
+                        />
+                      ) : landmark.id === HOUSE_315_ASSET_ID ? (
+                        <House315RuntimeAsset
+                          requestedTier={house315RequestedTier}
+                          forceFallback={house315Fallback}
+                          noLowerTierFallback={house315NoLowerTierFallback}
+                        />
+                      ) : (
+                        <GlbModel path={modelPath} />
+                      )}
+                    </Suspense>
+                  </ProgressiveFeatureBoundary>
+                )
               )}
             </group>
             {showLabels && landmark.poi && (
@@ -707,14 +1130,45 @@ export default function XinhuaRoadFullLayer({
     loadMode,
     focusPosition,
   });
+  const filmArtQa = resolveFilmArtCenterQaTier(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
+  const oneStepQa = resolveOneStepGardenQa(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
+  const house315Qa = resolveHouse315Qa(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
+  const buildingMassingQa = resolveBuildingTierQa(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
+  if (!filmArtQa && !oneStepQa && !house315Qa && !buildingMassingQa) {
+    return (
+      <>
+        <XinhuaRoadMassing identity hiddenLandmarkIds={mountedModelIds} />
+        <XinhuaRoadPlaneTrees showHero={showHero} atmosphere={atmosphere} />
+        <XinhuaRoadLandmarks
+          showLabels={showLabels}
+          mountedModelIds={mountedModelIds}
+        />
+      </>
+    );
+  }
+  const activeMountedModelIds = new Set([
+    ...mountedModelIds,
+    ...(filmArtQa ? [FILM_ART_CENTER_ASSET_ID] : []),
+    ...(oneStepQa ? [ONE_STEP_GARDEN_ASSET_ID] : []),
+    ...(house315Qa ? [HOUSE_315_ASSET_ID] : []),
+    ...(buildingMassingQa ? [buildingMassingQa.assetId] : []),
+  ]);
 
   return (
     <>
-      <XinhuaRoadMassing identity hiddenLandmarkIds={mountedModelIds} />
+      <XinhuaRoadMassing identity hiddenLandmarkIds={activeMountedModelIds} />
       <XinhuaRoadPlaneTrees showHero={showHero} atmosphere={atmosphere} />
       <XinhuaRoadLandmarks
         showLabels={showLabels}
-        mountedModelIds={mountedModelIds}
+        mountedModelIds={activeMountedModelIds}
       />
     </>
   );

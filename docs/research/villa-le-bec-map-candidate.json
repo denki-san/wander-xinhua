@@ -1,0 +1,339 @@
+{
+  "schemaVersion": 1,
+  "assetId": "villa-le-bec",
+  "recordedAt": "2026-07-26",
+  "status": "feasible-candidate-awaiting-main-window-integration",
+  "scope": {
+    "included": [
+      "villa-le-bec-map-candidate",
+      "villa-le-bec-road-clearance",
+      "villa-le-bec-house-315-clearance",
+      "villa-le-bec-complete-cover-collision-shell"
+    ],
+    "excludedAndHeld": [
+      "binary-rebuild",
+      "legacy-hero",
+      "identity",
+      "blender",
+      "mcp-rerun",
+      "public-registry",
+      "shared-runtime",
+      "fast-manifest",
+      "trees",
+      "dressing",
+      "ordinary-osm-runtime",
+      "full-map-assets",
+      "recovery-hold"
+    ],
+    "binaryModified": false,
+    "publicRegistryModified": false,
+    "sharedRuntimeModified": false
+  },
+  "sources": {
+    "referenceManifest": {
+      "path": "docs/research/villa-le-bec-reference-manifest.json",
+      "sha256": "873f4ecc61f7e090e9965355ecd9a67886889f133ca03b7ee3663bfc626017a6",
+      "selectedLocalPhotos": 6,
+      "supports": [
+        "two-building-site",
+        "street-front-and-gate",
+        "entrance-and-side-depth",
+        "open-courtyard",
+        "partial-rear-side"
+      ],
+      "doesNotSupport": [
+        "surveyed-road-setback",
+        "maximum-road-setback",
+        "cadastral-parcel-boundary"
+      ]
+    },
+    "priorMapGate": {
+      "path": "docs/research/villa-le-bec-massing-map-gate.json",
+      "sha256": "5eff8a667225a9a980fb69aa2bf43c940bc104d0c58444b6e54ab9440559ffb8"
+    },
+    "massingBuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/villa-le-bec-massing.json",
+      "sha256": "4ba6a170b3d364a1763770458e2103bd8527e2aa2136fbb13a84cc3d29b54b17"
+    },
+    "house315AcceptedCandidate": {
+      "path": "docs/research/house-315-map-position-candidate.json",
+      "sha256": "71241fc637840d22e5fe57cffca48a550eee4699c8848377773f074238cb5e17"
+    },
+    "rawOsm": {
+      "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+      "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c",
+      "timestampOsmBase": "2026-07-25T07:46:51Z"
+    },
+    "map": {
+      "path": "app/scene/xinhua-map-data.json",
+      "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78",
+      "roadWayId": 682286683
+    },
+    "massingGlb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
+      "sha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f",
+      "bytes": 12008
+    }
+  },
+  "subjectBinding": {
+    "includedOsmWays": [
+      {
+        "wayId": 864493176,
+        "role": "street-villa-main",
+        "confidence": "medium-high"
+      },
+      {
+        "wayId": 864493175,
+        "role": "garden-villa-secondary",
+        "confidence": "medium-high"
+      }
+    ],
+    "excludedOsmWays": [
+      864493245,
+      864493246,
+      864493247
+    ],
+    "parcel": {
+      "authoritativeCadastralBoundaryAvailable": false,
+      "decision": "unknown-not-invented",
+      "constraint": "Use the two exact OSM building footprints and accepted House315 peer anchor; do not synthesize a parcel polygon."
+    }
+  },
+  "candidate": {
+    "placement": {
+      "position": [
+        -34.1,
+        88.8
+      ],
+      "yaw": -0.38,
+      "scale": 0.82
+    },
+    "transformChanged": false,
+    "transformDecision": "retain-exact-osm-aligned-placement",
+    "reason": "The current Massing footprints reproduce OSM ways 864493176 and 864493175, and the accepted House315 candidate independently confirms the same peer anchor. The six local photos provide no surveyed maximum setback that would authorize translation or scaling.",
+    "sourceLocalObstacles": [
+      {
+        "sourceWayId": 864493176,
+        "minX": -1.095583,
+        "maxX": 4.996285,
+        "minZ": 5.014079,
+        "maxZ": 9.832885
+      },
+      {
+        "sourceWayId": 864493175,
+        "minX": 6.395668,
+        "maxX": 9.996342,
+        "minZ": 1.209116,
+        "maxZ": 6.290767
+      }
+    ],
+    "runtimeCollisionMarginSceneUnits": 0.2,
+    "collisionShell": {
+      "method": "six-equal-local-z-strips-per-building",
+      "proxyCount": 12,
+      "coverage": "exact-union-of-each-source-local-aabb-with-no-gap-no-shrink-and-no-transform-change",
+      "reason": "A single rotated source rectangle becomes an oversized world AABB. Equal local-Z strips preserve complete source coverage while reducing that rotated-AABB false positive.",
+      "proxies": [
+        {
+          "sourceWayId": 864493176,
+          "segment": 1,
+          "minX": -1.095583,
+          "maxX": 4.996285,
+          "minZ": 5.014079,
+          "maxZ": 5.817213333333333
+        },
+        {
+          "sourceWayId": 864493176,
+          "segment": 2,
+          "minX": -1.095583,
+          "maxX": 4.996285,
+          "minZ": 5.817213333333333,
+          "maxZ": 6.620347666666667
+        },
+        {
+          "sourceWayId": 864493176,
+          "segment": 3,
+          "minX": -1.095583,
+          "maxX": 4.996285,
+          "minZ": 6.620347666666667,
+          "maxZ": 7.423482
+        },
+        {
+          "sourceWayId": 864493176,
+          "segment": 4,
+          "minX": -1.095583,
+          "maxX": 4.996285,
+          "minZ": 7.423482,
+          "maxZ": 8.226616333333333
+        },
+        {
+          "sourceWayId": 864493176,
+          "segment": 5,
+          "minX": -1.095583,
+          "maxX": 4.996285,
+          "minZ": 8.226616333333333,
+          "maxZ": 9.029750666666666
+        },
+        {
+          "sourceWayId": 864493176,
+          "segment": 6,
+          "minX": -1.095583,
+          "maxX": 4.996285,
+          "minZ": 9.029750666666666,
+          "maxZ": 9.832885
+        },
+        {
+          "sourceWayId": 864493175,
+          "segment": 1,
+          "minX": 6.395668,
+          "maxX": 9.996342,
+          "minZ": 1.209116,
+          "maxZ": 2.056057833333333
+        },
+        {
+          "sourceWayId": 864493175,
+          "segment": 2,
+          "minX": 6.395668,
+          "maxX": 9.996342,
+          "minZ": 2.056057833333333,
+          "maxZ": 2.902999666666667
+        },
+        {
+          "sourceWayId": 864493175,
+          "segment": 3,
+          "minX": 6.395668,
+          "maxX": 9.996342,
+          "minZ": 2.902999666666667,
+          "maxZ": 3.7499415
+        },
+        {
+          "sourceWayId": 864493175,
+          "segment": 4,
+          "minX": 6.395668,
+          "maxX": 9.996342,
+          "minZ": 3.7499415,
+          "maxZ": 4.596883333333333
+        },
+        {
+          "sourceWayId": 864493175,
+          "segment": 5,
+          "minX": 6.395668,
+          "maxX": 9.996342,
+          "minZ": 4.596883333333333,
+          "maxZ": 5.443825166666667
+        },
+        {
+          "sourceWayId": 864493175,
+          "segment": 6,
+          "minX": 6.395668,
+          "maxX": 9.996342,
+          "minZ": 5.443825166666667,
+          "maxZ": 6.290767
+        }
+      ]
+    }
+  },
+  "clearance": {
+    "road": {
+      "priorWholeAssetEnvelopeToAsphaltEdgeSceneUnits": 8.8255,
+      "priorValueInterpretation": "conservative-clearance-not-a-failure-threshold",
+      "stylizedAsphaltHalfWidthSceneUnits": 3.625,
+      "physicalFootprintToAsphaltEdgeSceneUnits": [
+        {
+          "wayId": 864493176,
+          "minimumGapSceneUnits": 9.33037
+        },
+        {
+          "wayId": 864493175,
+          "minimumGapSceneUnits": 12.226466
+        }
+      ],
+      "collisionShellToAsphaltEdgeSceneUnits": [
+        {
+          "wayId": 864493176,
+          "minimumGapSceneUnits": 7.350945
+        },
+        {
+          "wayId": 864493175,
+          "minimumGapSceneUnits": 10.95012
+        }
+      ],
+      "status": "pass-clear-of-stylized-asphalt",
+      "evidenceLimit": "No local evidence establishes a maximum permissible setback; distance alone does not authorize moving an OSM-aligned building."
+    },
+    "house315": {
+      "supersededPlacementClaimedIntersectionCount": 5,
+      "supersededPlacementReproducibleIntersectionCount": 4,
+      "supersededCountMethod": "three House315 source obstacles by two Villa source obstacles, each transformed to world AABB with 0.2 runtime margin",
+      "priorFiveCountReproducible": false,
+      "acceptedPlacementIntersectionCount": 0,
+      "acceptedPlacement": {
+        "position": [
+          -20.127789,
+          82.330463
+        ],
+        "yaw": -0.401372,
+        "scale": 0.754254
+      },
+      "collisionShellMinimumGapSceneUnits": [
+        {
+          "wayId": 864493176,
+          "minimumGapSceneUnits": 0.099834
+        },
+        {
+          "wayId": 864493175,
+          "minimumGapSceneUnits": 0.674188
+        }
+      ],
+      "status": "pass-no-overlap-against-accepted-house315"
+    },
+    "betweenVillaBuildings": {
+      "physicalRenderedFootprintGapSceneUnits": 1.399383,
+      "rawOsmFootprintGapSceneUnits": 1.333928,
+      "unsplitCollisionWorldAabbGapSceneUnits": 0,
+      "completeCoverCollisionShellGapSceneUnits": 0.283805,
+      "status": "pass-rotated-aabb-false-positive-resolved"
+    },
+    "nearestRawOsmNeighbors": [
+      {
+        "fromWayId": 864493176,
+        "toWayId": 864485667,
+        "assetId": "house-315",
+        "minimumGapSceneUnits": 0.620285
+      },
+      {
+        "fromWayId": 864493176,
+        "toWayId": 864493175,
+        "assetId": "villa-le-bec",
+        "minimumGapSceneUnits": 1.333928
+      },
+      {
+        "fromWayId": 864493176,
+        "toWayId": 864485666,
+        "minimumGapSceneUnits": 2.783412
+      },
+      {
+        "fromWayId": 864493175,
+        "toWayId": 864485667,
+        "assetId": "house-315",
+        "minimumGapSceneUnits": 2.611213
+      },
+      {
+        "fromWayId": 864493175,
+        "toWayId": 864493247,
+        "minimumGapSceneUnits": 5.734474
+      }
+    ]
+  },
+  "verdict": {
+    "evidenceGate": "pass-preserved",
+    "mcp1": "pass-preserved-no-rerun",
+    "mapCandidate": "feasible",
+    "transformAuthorized": true,
+    "transformChanged": false,
+    "collisionShellCandidate": "pass-analytic-awaiting-runtime-integration",
+    "runtimeAcceptance": "pending-main-window-integration-and-deterministic-collision-qa",
+    "heroAndIdentity": "hold",
+    "mainWindowAction": "Integrate only the asset-scoped 12-proxy collision shell, retain the current transform, then run the single-page deterministic map/collision QA. Do not merge this record as a shared runtime change."
+  }
+}

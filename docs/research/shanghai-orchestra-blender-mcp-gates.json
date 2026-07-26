@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-orchestra",
+  "tier": "massing-v2",
+  "recordedAt": "2026-07-26",
+  "owner": "main-window",
+  "mode": "building-fast-batch-mcp1",
+  "source": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.blend",
+    "blendSha256": "805a805947f82abc54360ab213c9d1cde90049ea6cbf9e807b553a4f53f85cf4",
+    "glb": "public/models/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.glb",
+    "glbSha256": "63eb25ca4abcbab0e434adb528ea0f37650495c614833f7b9bd05afbc519484c"
+  },
+  "mcp1": {
+    "gate": "mcp1-massing-pre-map-calibration",
+    "status": "pass-shape-only",
+    "sceneInspection": {
+      "objectCount": 5,
+      "meshObjects": 5,
+      "glbMaterials": 1,
+      "glbImages": 0,
+      "glbTextures": 0,
+      "glbTriangles": 76,
+      "blenderBounds": {
+        "min": [-16.367495, -10.66821, 0],
+        "max": [25.8515, 16.782837, 4.419192]
+      },
+      "rootTransformsNormalized": true,
+      "testObjectsInSavedSource": 0,
+      "referenceImagesEmbedded": false
+    },
+    "scaleProxy": {
+      "heightSceneUnits": 0.666667,
+      "metersPerSceneUnit": 2.7,
+      "heightMeters": 1.8,
+      "savedToBlend": false,
+      "exportedToGlb": false
+    },
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/massing-v2/shanghai-orchestra/test_shanghai_orchestra_mcp1_canonical.png",
+        "sha256": "179a97ef2df3e25fa68f71640c1eb577f6be470fac64a89535f4a7dfac1cd44b",
+        "bytes": 828864
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/massing-v2/shanghai-orchestra/test_shanghai_orchestra_mcp1_side.png",
+        "sha256": "269c03c430239f0497401e741fa7d2d6ea779da29c03cc7d27458ae67577a4fa",
+        "bytes": 833877
+      },
+      "humanScale": {
+        "path": "test_artifacts/all-models/massing-v2/shanghai-orchestra/test_shanghai_orchestra_mcp1_scale.png",
+        "sha256": "4f21285b2535189da713ceffe890d0435d60b76b779572a9ae66b10af9e76e4d",
+        "bytes": 720903
+      }
+    },
+    "observed": [
+      "five independent low-rise OSM volumes remain grounded and separated",
+      "the largest east L-shaped volume and smaller west cluster are readable across fixed views",
+      "the 1.8 metre proxy shows plausible conservative low-rise heights",
+      "the saved source contains only the five authorized candidate meshes"
+    ],
+    "inferred": [
+      "the five anonymous OSM volumes may form the orchestra compound but formal membership is unproven"
+    ],
+    "unknown": [
+      "which OSM ways correspond to the named orchestra facilities",
+      "entrance-facing direction for each candidate",
+      "surveyed heights and roof forms"
+    ],
+    "checks": {
+      "groundContact": "pass-z-zero-datum",
+      "humanScale": "pass",
+      "candidateSeparation": "pass-visible",
+      "scopeBoundary": "pass-no-tree-decoration-or-full-map-object",
+      "texturePolicy": "pass-zero-images",
+      "formalMembership": "blocked-evidence"
+    },
+    "interactiveChangesAccepted": [],
+    "qaRigSaved": false,
+    "qaRigExported": false,
+    "verdict": "pass-massing-shape-only-runtime-promotion-blocked"
+  },
+  "mapGate": "blocked-formal-membership",
+  "nextGate": "obtain-compound-membership-evidence-before-runtime-promotion",
+  "identityAuthorized": false,
+  "heroAuthorized": false
+}

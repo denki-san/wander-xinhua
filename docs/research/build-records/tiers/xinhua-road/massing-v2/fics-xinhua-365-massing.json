@@ -1,0 +1,235 @@
+{
+  "version": 2,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:fics-xinhua-365",
+  "tier": "massing",
+  "batch": "clean-footprint-v2",
+  "status": "runtime-pass-formal-map-gate-blocked",
+  "generator": "scripts/create_xinhua_road_clean_massing_models.py",
+  "geometrySpec": "docs/research/xinhua-road-clean-massing-geometry-spec.json",
+  "modelBrief": "docs/research/xinhua-road-massing-model-brief.md",
+  "placement": {
+    "position": [
+      -76.1,
+      75.2
+    ],
+    "yaw": -0.38,
+    "scale": 0.9,
+    "movementAuthorized": false
+  },
+  "candidateStatus": "five-member-candidates-pending",
+  "membershipConfidence": "medium",
+  "heightEvidence": {
+    "previewMeters": 10.5,
+    "localSceneUnits": 4.320988,
+    "status": "unknown-runtime-fallback-not-evidence"
+  },
+  "unknown": [
+    "villa industrial dormitory and main-building way mapping",
+    "building heights and roofs",
+    "complete campus boundary",
+    "courtyard and entrance"
+  ],
+  "children": [
+    {
+      "name": "osm-way-864493178",
+      "sourceWayId": 864493178,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 135.4,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          -2.76076,
+          -1.209419
+        ],
+        [
+          2.442968,
+          -1.14236
+        ],
+        [
+          2.363264,
+          3.263749
+        ],
+        [
+          -2.840463,
+          3.19669
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-864493177",
+      "sourceWayId": 864493177,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 302.4,
+      "triangles": 20,
+      "localFootprint": [
+        [
+          -2.088969,
+          -4.059201
+        ],
+        [
+          -2.004441,
+          -8.780733
+        ],
+        [
+          2.504676,
+          -8.720337
+        ],
+        [
+          2.571065,
+          -12.356972
+        ],
+        [
+          6.150009,
+          -12.312025
+        ],
+        [
+          5.999102,
+          -3.953862
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-864493179",
+      "sourceWayId": 864493179,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 95.5,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          -10.659155,
+          1.832642
+        ],
+        [
+          -5.018219,
+          1.906314
+        ],
+        [
+          -5.067647,
+          4.772031
+        ],
+        [
+          -10.708587,
+          4.698348
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-864493181",
+      "sourceWayId": 864493181,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 403.7,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          -21.417891,
+          -10.304317
+        ],
+        [
+          -3.49291,
+          -10.0672
+        ],
+        [
+          -3.560414,
+          -6.253774
+        ],
+        [
+          -21.485395,
+          -6.490891
+        ]
+      ]
+    },
+    {
+      "name": "osm-way-864493230",
+      "sourceWayId": 864493230,
+      "candidateRole": "unbound-member-candidate",
+      "geometryEvidence": "observed-osm-footprint",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "footprintAreaSqMeters": 122.6,
+      "triangles": 12,
+      "localFootprint": [
+        [
+          10.76934,
+          1.365985
+        ],
+        [
+          10.815979,
+          -2.879967
+        ],
+        [
+          15.707629,
+          -2.854796
+        ],
+        [
+          15.660987,
+          1.391146
+        ]
+      ]
+    }
+  ],
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing-v2/test_fics-xinhua-365-massing-v2-canonical.png",
+      "side": "test_artifacts/all-models/massing-v2/test_fics-xinhua-365-massing-v2-side.png"
+    }
+  },
+  "sourceBlendHygiene": {
+    "script": "scripts/clean_building_source_blend.py",
+    "originalRecoverySha256": "b6ac48bac72d534ed131aebefe9f3608d54ba049b9fa0e1d5bc29720cbb95749",
+    "currentSha256": "e71d6a55a24a76efde444cb1420172821cc2142263be826aaae8a10a08487e81",
+    "bytes": 95427,
+    "removedObject": "test-preview-ground",
+    "buildingGeometryChanged": false,
+    "glbRebuilt": false
+  },
+  "glb": {
+    "sha256": "e36f29a3f14e92ac833a324247c36c21d218003f17f666d1d0b5fc9f861fe8ad",
+    "bytes": 8564,
+    "nodes": 5,
+    "meshes": 5,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 68,
+    "bounds": {
+      "min": [
+        -21.485395,
+        0,
+        -4.772031
+      ],
+      "max": [
+        15.707629,
+        4.320988,
+        12.356972
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": "pass",
+  "mapAcceptance": "blocked",
+  "identityAllowed": false,
+  "runtimeGeometryVisual": "pass",
+  "runtimeQa": {
+    "file": "docs/research/xinhua-road-clean-massing-runtime-qa.json",
+    "contextScreenshot": {
+      "file": "test_artifacts/all-models/massing-v2/test_fics-xinhua-365-massing-v2-threejs.png",
+      "sha256": "f1051f0f7c2730a35582202c14d50dc9387fa65036ff426e947796694bc00aad",
+      "bytes": 54505
+    },
+    "isolatedScreenshot": {
+      "file": "test_artifacts/all-models/massing-v2/test_fics-xinhua-365-massing-v2-threejs-isolated.png",
+      "sha256": "2e150d12d1305b245a15479b43900e8f7ba083945af52c934b73588492ea4fa2",
+      "bytes": 54138
+    }
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-329",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "ade098eaa4be7a37d766b2867c909885742d6030",
+  "status": "feasible-candidate-awaiting-main-window-integration",
+  "scope": {
+    "binaryRebuilt": false,
+    "browserOrXhsAccessed": false,
+    "sharedFilesModified": false,
+    "recoveryOrHoldModified": false,
+    "placementChanged": false,
+    "memberBindingChanged": false,
+    "footprintChanged": false,
+    "excluded": [
+      "shared registry",
+      "shared runtime",
+      "Fast manifest",
+      "other buildings",
+      "trees",
+      "decorations",
+      "ordinary OSM runtime",
+      "full-map assets",
+      "Recovery/Hold"
+    ]
+  },
+  "inputs": {
+    "memberBinding": {
+      "path": "docs/research/xinhua-villas-329-member-binding.json",
+      "sha256": "2d34b0c7839014776b98255febe722d87c45d39063a6b4b98838fdc02ba80330"
+    },
+    "priorMapCandidate": {
+      "path": "docs/research/xinhua-villas-329-massing-v3-integration-candidate.json",
+      "sha256": "639f00f2bf0cf61fba539380e2100a01f6032b4c0571f6f554d9523740a56941"
+    },
+    "massingBuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.json",
+      "sha256": "9f8d1d2dcadc754fcad17df092bb44de5ff87cdeab654daa89db6bec3911a5f1"
+    },
+    "massingGlb": {
+      "path": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
+      "sha256": "f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704"
+    },
+    "roadAxis": {
+      "path": "app/scene/xinhua-road-placement.mjs",
+      "sha256": "b5ba41dcef437388b5fd36b226951ec57ba9aca03fa90098af91f95f40cf90ff"
+    }
+  },
+  "placement": {
+    "position": [
+      -42.13,
+      79.48
+    ],
+    "yaw": -0.38,
+    "scale": 0.62,
+    "verdict": "unchanged-exact-osm-round-trip"
+  },
+  "coordinateContract": {
+    "frontAndDirection": "unchanged-from-evidence-bound-massing-v3",
+    "osmMemberWays": [
+      864493244,
+      864485664,
+      864493174,
+      864493173
+    ],
+    "memberNumbers": [
+      "15",
+      "36",
+      "40",
+      "42"
+    ],
+    "maximumWorldVertexErrorSceneUnits": 0.000000367,
+    "maximumAllowedWorldVertexErrorSceneUnits": 0.05,
+    "asphaltHalfWidthSceneUnits": 3.625,
+    "runtimeCollisionMarginSceneUnits": 0.2,
+    "minimumRequiredVisibleClearanceSceneUnits": 0.75
+  },
+  "blockerCorrection": {
+    "priorReportedValueSceneUnits": -0.138921,
+    "priorReportedMember": "15",
+    "recomputedActualMember": "42",
+    "cause": "The prior audit used the runtime world-AABB calculation correctly for the number but attached the result to member-15. With the required GLB source-Z flip, member-15 is the farthest retained member from the road; member-42 is nearest.",
+    "member15CollisionAabbToAsphaltEdgeSceneUnits": 10.316885,
+    "member42SingleCollisionAabbToAsphaltEdgeSceneUnits": -0.138921,
+    "member42OsmFootprintToAsphaltEdgeSceneUnits": 1.267802
+  },
+  "candidateMethod": {
+    "kind": "exact-local-aabb-strip-decomposition",
+    "description": "Keep the accepted transform and every member mesh unchanged. Preserve member-15 and member-36 as one local obstacle each. Partition the existing local AABBs of members 40 and 42 into six contiguous X strips each before the existing runtime source-Z flip, yaw, world-AABB conversion and 0.2 collision margin.",
+    "whyMembers40And42AreBothSplit": "Splitting only member-42 clears asphalt but the unsplit world AABB of member-40 still creates a false neighbor overlap. Six strips on both members preserve complete collision coverage and leave a positive conservative neighbor gap.",
+    "notAScaleFix": true,
+    "notAMovementFix": true,
+    "notAFootprintEdit": true,
+    "localUnionEqualsOriginalAabb": true,
+    "stripCountByMember": {
+      "15": 1,
+      "36": 1,
+      "40": 6,
+      "42": 6
+    }
+  },
+  "proposedLocalObstacles": [
+    {
+      "id": "member-15-way-864493244",
+      "member": "15",
+      "minX": -19.746794,
+      "maxX": -6.712191,
+      "minZ": -9.257435,
+      "maxZ": -2.58448
+    },
+    {
+      "id": "member-36-way-864485664",
+      "member": "36",
+      "minX": -18.991865,
+      "maxX": -9.183159,
+      "minZ": 4.548492,
+      "maxZ": 12.632193
+    },
+    {
+      "id": "member-40-way-864493174-strip-1",
+      "member": "40",
+      "minX": 0.326008,
+      "maxX": 1.6323255,
+      "minZ": 0.424231,
+      "maxZ": 8.721702
+    },
+    {
+      "id": "member-40-way-864493174-strip-2",
+      "member": "40",
+      "minX": 1.6323255,
+      "maxX": 2.938643,
+      "minZ": 0.424231,
+      "maxZ": 8.721702
+    },
+    {
+      "id": "member-40-way-864493174-strip-3",
+      "member": "40",
+      "minX": 2.938643,
+      "maxX": 4.2449605,
+      "minZ": 0.424231,
+      "maxZ": 8.721702
+    },
+    {
+      "id": "member-40-way-864493174-strip-4",
+      "member": "40",
+      "minX": 4.2449605,
+      "maxX": 5.551278,
+      "minZ": 0.424231,
+      "maxZ": 8.721702
+    },
+    {
+      "id": "member-40-way-864493174-strip-5",
+      "member": "40",
+      "minX": 5.551278,
+      "maxX": 6.8575955,
+      "minZ": 0.424231,
+      "maxZ": 8.721702
+    },
+    {
+      "id": "member-40-way-864493174-strip-6",
+      "member": "40",
+      "minX": 6.8575955,
+      "maxX": 8.163913,
+      "minZ": 0.424231,
+      "maxZ": 8.721702
+    },
+    {
+      "id": "member-42-way-864493173-strip-1",
+      "member": "42",
+      "minX": 7.864331,
+      "maxX": 8.789470833333333,
+      "minZ": 10.491626,
+      "maxZ": 16.8141
+    },
+    {
+      "id": "member-42-way-864493173-strip-2",
+      "member": "42",
+      "minX": 8.789470833333333,
+      "maxX": 9.714610666666667,
+      "minZ": 10.491626,
+      "maxZ": 16.8141
+    },
+    {
+      "id": "member-42-way-864493173-strip-3",
+      "member": "42",
+      "minX": 9.714610666666667,
+      "maxX": 10.6397505,
+      "minZ": 10.491626,
+      "maxZ": 16.8141
+    },
+    {
+      "id": "member-42-way-864493173-strip-4",
+      "member": "42",
+      "minX": 10.6397505,
+      "maxX": 11.564890333333333,
+      "minZ": 10.491626,
+      "maxZ": 16.8141
+    },
+    {
+      "id": "member-42-way-864493173-strip-5",
+      "member": "42",
+      "minX": 11.564890333333333,
+      "maxX": 12.490030166666667,
+      "minZ": 10.491626,
+      "maxZ": 16.8141
+    },
+    {
+      "id": "member-42-way-864493173-strip-6",
+      "member": "42",
+      "minX": 12.490030166666667,
+      "maxX": 13.41517,
+      "minZ": 10.491626,
+      "maxZ": 16.8141
+    }
+  ],
+  "roadClearanceSceneUnits": {
+    "visibleOsmFootprintToAsphaltEdge": {
+      "15": 13.244481,
+      "36": 3.821723,
+      "40": 6.278817,
+      "42": 1.267802,
+      "minimum": 1.267802,
+      "status": "pass-all-above-0.75"
+    },
+    "proposedCollisionAabbToAsphaltEdgeAfterMargin": {
+      "15": 10.316885,
+      "36": 1.574092,
+      "40": 5.79079,
+      "42": 0.848155,
+      "minimum": 0.848155,
+      "status": "pass-all-outside-asphalt-and-above-0.75"
+    }
+  },
+  "neighborClearanceSceneUnits": {
+    "visibleOsmFootprints": {
+      "15-36": 4.254072,
+      "15-40": 4.487853,
+      "15-42": 11.921403,
+      "36-40": 5.78287,
+      "36-42": 10.732687,
+      "40-42": 1.166192,
+      "minimum": 1.166192,
+      "status": "pass-no-footprint-overlap"
+    },
+    "proposedWorldCollisionAabbsAfterMargin": {
+      "15-36": 1.27764,
+      "15-40": 4.344314,
+      "15-42": 11.014446,
+      "36-40": 2.267639,
+      "36-42": 8.923201,
+      "40-42": 0.174798,
+      "minimum": 0.174798,
+      "status": "pass-no-collision-proxy-overlap"
+    }
+  },
+  "otherLandmarks": {
+    "priorIntersectionCount": 0,
+    "candidateIntersectionCount": 0,
+    "proof": "Every proposed strip world AABB is a subset of its prior single-member world AABB under the unchanged transform and margin, so decomposition cannot introduce an intersection that did not exist in the prior accepted audit."
+  },
+  "gates": {
+    "evidenceAndFourMemberBinding": "pass-retained",
+    "scaleAndDirection": "pass-unchanged",
+    "osmFootprintContainment": "pass-exact-union-no-shrink",
+    "visibleRoadClearance": "pass",
+    "collisionRoadClearance": "pass-candidate",
+    "neighborClearance": "pass-candidate",
+    "binary": "unchanged",
+    "sharedIntegration": "pending-main-window",
+    "overall": "feasible-candidate-awaiting-main-window-integration"
+  },
+  "mainWindowInstructions": [
+    "Do not change position [-42.13, 79.48], yaw -0.38 or scale 0.62.",
+    "Keep all four evidence-bound members and way IDs unchanged.",
+    "In the asset-scoped Massing QA contract only, replace the four prior local obstacles with the fourteen proposed local obstacles from this record.",
+    "Do not modify the GLB, member footprints, shared fallback behavior or any other building.",
+    "Run the deterministic Three.js collision path after integration; this checkpoint is analytic and does not claim runtime acceptance."
+  ]
+}

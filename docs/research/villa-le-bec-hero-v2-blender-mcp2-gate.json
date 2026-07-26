@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "assetId": "villa-le-bec",
+  "tier": "hero-v2",
+  "reviewedAt": "2026-07-26T16:27:00+08:00",
+  "reviewer": "main-window-xhigh",
+  "gate": "MCP2",
+  "verdict": "pass",
+  "inputs": {
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.blend",
+      "sha256": "6619a2eaa1b1e2c65d656ac3a52ebb940ff9ecb4ae3fd6f572737728da45276a"
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.glb",
+      "sha256": "4f909a3b149e2f16e00843d4f965dc37e0a96ea2c69d67ab4e12282d7d1b5b00",
+      "bytes": 124692,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 6,
+      "images": 0
+    },
+    "generator": {
+      "path": "scripts/create_villa_le_bec_hero_v2_model.py",
+      "sha256": "d22911f6c4bd54b3dd24b3a1ccda36445f4b2c57be42f2de3a5ae43905ed036e"
+    },
+    "buildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.json",
+      "sha256": "770bd1bedc402647740d241f84bdb6e0279521e831ccf4e12e58d8f0c49ccd7b",
+      "gitCommit": "9db605f276abee125cc4b83538bba8ba13deb8e8",
+      "preservation": "mcp2-time-snapshot-current-record-later-extended-by-runtime-qa"
+    },
+    "blockedV1Adjudication": {
+      "path": "docs/research/villa-le-bec-hero-visual-adjudication.json",
+      "sha256": "217cbca00d9e883514c64ba0dfba228d4bd9cd4153520cb7b2a811b9ab1f77d5"
+    },
+    "massingParentSha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f"
+  },
+  "mcpObservedScene": {
+    "savedAssetObjects": 1,
+    "liveReviewObjects": 6,
+    "temporaryReviewHelpers": 5,
+    "meshObjects": 1,
+    "vertices": 1126,
+    "polygons": 845,
+    "materials": 6,
+    "rootTransform": {
+      "location": [0, 0, 0],
+      "rotation": [0, 0, 0],
+      "scale": [1, 1, 1]
+    },
+    "bounds": {
+      "min": [-1.2012569904, -10.5719270706, 0],
+      "max": [10.0601530075, -0.6124868393, 4.5399999619]
+    },
+    "temporaryReviewHelpersSavedToBlend": false,
+    "sceneReopenedAfterReview": true,
+    "dirtyAfterReopen": false
+  },
+  "visualEvidence": [
+    {
+      "view": "canonical",
+      "path": "test_artifacts/all-models/hero-v2/villa-le-bec/mcp2/test_villa-le-bec-hero-v2-mcp2-canonical.png",
+      "sha256": "b55ccac97b3e8a6da401f1b6f9c074b093ead85ef3c8fd3f3d3ce2411a426e79"
+    },
+    {
+      "view": "side-depth",
+      "path": "test_artifacts/all-models/hero-v2/villa-le-bec/mcp2/test_villa-le-bec-hero-v2-mcp2-side.png",
+      "sha256": "9ae6cb21a21c5724816fe3d31dd5a7d0809998c0b2cc70d78adf3f605df19464"
+    },
+    {
+      "view": "entrance",
+      "path": "test_artifacts/all-models/hero-v2/villa-le-bec/mcp2/test_villa-le-bec-hero-v2-mcp2-entrance.png",
+      "sha256": "7e7178a9a82f1f76b11bd19dbd1aa41bb7f257a439ed72d1a9a8a9cbfbc78d41"
+    }
+  ],
+  "criteria": {
+    "twoBuildingSilhouette": "pass",
+    "streetTwoStoreyHierarchy": "pass-ground-storefront-upper-bay-and-roof-readable",
+    "gardenEntrance": "pass-front-door-upper-window-canopy-and-steps-readable",
+    "sideProjectingBay": "pass",
+    "windowedDormers": "pass",
+    "materials": "pass-six-untextured-materials",
+    "openCourtyardAndGap": "pass-retain-massing-collision-contract",
+    "scopePurity": "pass-no-trees-decoration-brand-interior-or-extra-ways",
+    "unknownSurfaces": "pass-not-invented"
+  },
+  "supersession": {
+    "heroV1": "hold-fixed-view-fail-files-and-git-history-retained",
+    "identityV1": "hold-derived-from-rejected-hero-v1-files-retained",
+    "authorizedParent": "hero-v2-current-sha-only"
+  },
+  "batchPolicy": {
+    "requested": "two-to-three-buildings",
+    "executed": "single-new-candidate",
+    "reason": "本轮只有 Villa Le Bec v2 产生新的 Blender 门候选；杏福里既有合格 MCP 阶段按快速模式禁止重做。"
+  },
+  "authorization": {
+    "identityV2": "authorized-from-current-hero-v2-sha-only",
+    "runtimePromotion": "not-authorized-until-identity-v2-mcp3-and-threejs",
+    "publicFiles": "main-window-only"
+  }
+}

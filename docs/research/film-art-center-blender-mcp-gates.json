@@ -1,0 +1,476 @@
+{
+  "schemaVersion": 1,
+  "assetId": "film-art-center",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-25T23:15:00+08:00",
+  "reviewedBy": "main-coordinator",
+  "sourceCheckpoint": "6d0206d",
+  "pipelineOrder": [
+    "evidence-and-brief",
+    "massing-generation",
+    "blender-mcp-massing-review",
+    "three-js-map-calibration",
+    "hero-master-review",
+    "identity-derivation",
+    "three-tier-review",
+    "three-js-runtime-acceptance"
+  ],
+  "massingGate": {
+    "gate": "mcp1-massing-pre-map-calibration",
+    "status": "pass",
+    "interactiveReview": "Blender MCP",
+    "fallbackUsed": false,
+    "editableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/massing/film-art-center-massing.blend",
+      "sha256": "3b461d8307a0d1f53d90cd529fb39298a6ecbbbee356f63adca7f54c4c3314e6",
+      "bytes": 142503
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/xinhua-road/massing/film-art-center-massing.glb",
+      "sha256": "c89791dc3978b317cc2f8807a77f7a84b5c596f8d4cd01c1cffd05090e9584a6",
+      "bytes": 240572,
+      "triangles": 3376,
+      "materials": 6,
+      "images": 0
+    },
+    "generator": {
+      "path": "scripts/create_film_art_center_massing_model.py",
+      "sha256": "93379e78c7c502f6b37bb76e44454e6f7278c2d65b09a0ac8d1243b2eac262e6"
+    },
+    "buildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing/film-art-center-massing.json"
+    },
+    "referenceEvidence": {
+      "canonical": "docs/research/assets/poi-references/film-art-center/film-art-center-government-front-canonical-2024.jpg",
+      "observed": [
+        "three-storey horizontal composition",
+        "full-width upturned main roof",
+        "second red gallery roof",
+        "double veranda depth and column rhythm",
+        "recessed upper central loggia",
+        "low glazed side wings"
+      ],
+      "inferred": [
+        "overall dimensions inherited from the accepted Hero visual scale",
+        "side and rear massing simplified where direct evidence is absent"
+      ],
+      "unknown": [
+        "surveyed width depth and height",
+        "physical floor heights",
+        "exact side-wing boundaries"
+      ]
+    },
+    "sceneInspection": {
+      "rootObject": "film-art-center-massing",
+      "rootType": "MESH",
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1],
+      "meshCount": 1,
+      "boundsBlender": {
+        "min": [-11.455, -6.965, -1.1920928955078125e-7],
+        "max": [11.455, 6.725, 13.7]
+      },
+      "dimensionsBlender": [22.91, 13.69, 13.70000011920929],
+      "vertices": 1750,
+      "edges": 3340,
+      "polygons": 1652,
+      "triangles": 3376,
+      "materials": 6,
+      "images": 0,
+      "frontDirection": "-Y",
+      "groundDatum": 0,
+      "authoredMetersPerSceneUnit": 2.7
+    },
+    "humanScale": {
+      "heightMeters": 1.8,
+      "heightSceneUnits": 0.666667,
+      "boundsBlenderZ": [0, 0.666667],
+      "temporaryProxyOnly": true,
+      "savedToMaster": false,
+      "exportedToGlb": false,
+      "finding": "The inherited Hero visual scale reads very large against the physical-height proxy; actual runtime player scale and screen occupancy remain a hard map gate."
+    },
+    "fixedViews": {
+      "canonical": {
+        "camera": [3, -43, 8],
+        "target": [0, -0.5, 6.3],
+        "lensMm": 54,
+        "screenshot": "test_artifacts/test_film-art-center-massing_mcp1_canonical.png",
+        "sha256": "12ef43ad5d8bfbc944ff2177190e7e60ae03915b394bfb6420794aa41ad587e0",
+        "bytes": 608635
+      },
+      "side": {
+        "camera": [34, -28, 9],
+        "target": [1, 0, 6.1],
+        "lensMm": 52,
+        "screenshot": "test_artifacts/test_film-art-center-massing_mcp1_side.png",
+        "sha256": "e5b636866e3a6255940e7494e7b9d350941f33111af629bb9c2725feffc426c8",
+        "bytes": 629955
+      },
+      "entrance": {
+        "camera": [10, -48, 4.8],
+        "target": [0, -0.8, 5.7],
+        "lensMm": 56,
+        "screenshot": "test_artifacts/test_film-art-center-massing_mcp1_entrance.png",
+        "sha256": "815038985b490f376c9a423bd2c765ce481623cdb947194cfbf97121f08329e9",
+        "bytes": 607144
+      },
+      "scale": {
+        "camera": [3, -43, 8],
+        "target": [0, -0.5, 6.3],
+        "lensMm": 54,
+        "screenshot": "test_artifacts/test_film-art-center-massing_mcp1_scale.png",
+        "sha256": "9aa41063d06109db5be1eb30d3c5bb34af324682072f95621a632b1344d74ec7",
+        "bytes": 608837
+      }
+    },
+    "checks": {
+      "groundContact": "pass-z-zero-datum",
+      "rootTransform": "pass-normalized",
+      "volumeHierarchy": "pass-three-storey-double-roof-and-low-side-wings",
+      "mainRoof": "pass-full-width-upturned-silhouette-readable",
+      "galleryRoof": "pass-second-red-horizontal-tier-readable",
+      "verandaDepth": "pass-double-depth-and-column-rhythm-readable",
+      "upperLoggia": "pass-recessed-central-opening-readable",
+      "entrance": "pass-not-sealed-by-massing-geometry",
+      "visibleIntersections": "pass-no-unintended-floating-or-clipping",
+      "texturePolicy": "pass-zero-images",
+      "physicalSurveyScale": "unknown-not-claimed",
+      "runtimePlayerScale": "pending-three-js-map-gate",
+      "runtimeScreenOccupancy": "pending-three-js-map-gate"
+    },
+    "acceptedInteractiveChanges": [],
+    "generatorRoundTrip": {
+      "status": "not-required",
+      "note": "MCP1 only added unsaved and unexported QA camera, lights, ground and 1.8 m proxy. No geometry, material or transform changes were accepted."
+    },
+    "nextGate": "three-js-massing-map-calibration"
+  },
+  "mapGate": {
+    "status": "pass",
+    "record": "docs/research/film-art-center-massing-map-qa.json",
+    "route": "/?start=film-art&qaModelTier=massing&qaModelId=film-art-center&cameraQa=1",
+    "productionDefaultChanged": false,
+    "scope": "film-art-center-only"
+  },
+  "heroGate": {
+    "gate": "mcp2-hero-master-review",
+    "status": "pass",
+    "interactiveReview": "Blender MCP",
+    "fallbackUsed": false,
+    "preRepairCandidate": {
+      "blend": {
+        "path": "assets/models/source/xinhua-road/film-art-center.blend",
+        "sha256": "32e27757001feeb1da31a2ada1fbfafc7c6f6a038d3f85ab408912973a2c8e0c",
+        "bytes": 916897
+      },
+      "glb": {
+        "path": "public/models/xinhua-road/film-art-center.glb",
+        "sha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6",
+        "bytes": 4082744,
+        "triangles": 63516,
+        "materials": 14,
+        "images": 0
+      },
+      "sceneInspection": {
+        "rootObject": "film-art-center",
+        "rootType": "MESH",
+        "rootLocation": [0, 0, 0],
+        "rootRotation": [0, 0, 0],
+        "rootScale": [1, 1, 1],
+        "polygons": 31427,
+        "nonfinitePolygonNormals": 0
+      },
+      "visualChecks": {
+        "canonical": "pass-full-main-roof-second-red-eave-double-veranda-and-signature-entrance-readable",
+        "side": "pass-veranda-depth-loggia-low-glass-wing-and-human-scale-readable",
+        "entrance": "pass-sign-order-lions-warm-entry-and-central-path-readable"
+      },
+      "topologyBlocker": {
+        "areaEpsilon": 1e-10,
+        "facesBelowEpsilon": 76,
+        "byMaterial": {
+          "艺术中心白色构件": 48,
+          "艺术中心暗铜金属": 12,
+          "艺术中心入口暖光": 12,
+          "艺术中心朱红屋瓦": 4
+        },
+        "decision": "mcp2-blocked-repair-generator-before-identity"
+      },
+      "fixedViews": {
+        "canonical": {
+          "camera": [3, -43, 8],
+          "target": [0, -0.5, 6.3],
+          "lensMm": 54,
+          "screenshot": "test_artifacts/test_film-art-center-hero_mcp2_canonical.png",
+          "sha256": "318c3bf76eeee3312eb57940c3924a8c0ddc423f38f304e8f3602fac58b52ff1",
+          "bytes": 1109765
+        },
+        "side": {
+          "camera": [34, -28, 9],
+          "target": [1, 0, 6.1],
+          "lensMm": 52,
+          "screenshot": "test_artifacts/test_film-art-center-hero_mcp2_side.png",
+          "sha256": "9dc7c25257aaebf2b02db9bf092535c6480cdacbe5da2ff4fb48ee17bcfb0e92",
+          "bytes": 1086102
+        },
+        "entrance": {
+          "camera": [10, -48, 4.8],
+          "target": [0, -0.8, 5.7],
+          "lensMm": 56,
+          "screenshot": "test_artifacts/test_film-art-center-hero_mcp2_entrance-street.png",
+          "sha256": "c19271a2e609953416bc49b3436c10fff48a4e64e3e30a85f39b674f8a62c54f",
+          "bytes": 1061334
+        }
+      },
+      "acceptedInteractiveChanges": []
+    },
+    "generatorRoundTrip": {
+      "status": "completed-mcp2-pass",
+      "generator": {
+        "path": "scripts/create_xinhua_road_models.py",
+        "sha256": "324be84a32ed3d43ff0bc1ceaca040e8e46f68aff21151b1bafa4ae524f6f3c6"
+      },
+      "method": "MeshPolygon.area index selection followed by BMesh FACES_ONLY deletion after the joined root transform is applied",
+      "removedFaces": 76,
+      "postRepairFacesBelowEpsilon": 0,
+      "postRepairNonfinitePolygonNormals": 0,
+      "textureCoordinatePolicy": "omit TEXCOORD when no material contains an Image Texture",
+      "deterministicGlb": {
+        "status": "pass",
+        "method": "two consecutive clean single-asset builds plus cmp",
+        "sha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b"
+      }
+    },
+    "recheckCandidate": {
+      "editableSource": {
+        "path": "assets/models/source/xinhua-road/film-art-center.blend",
+        "sha256": "f58952f3bf4c086fb09afdbda4efdc264a124a74a12e6f63e7a9c70f3d3359b8",
+        "bytes": 912286
+      },
+      "runtimeAsset": {
+        "path": "public/models/xinhua-road/film-art-center.glb",
+        "sha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+        "bytes": 3148572,
+        "triangles": 63368,
+        "materials": 14,
+        "images": 0,
+        "textures": 0,
+        "texcoordPrimitives": 0,
+        "cacheVersion": "20260725-film-art-5"
+      },
+      "fixedHeadlessViews": {
+        "canonical": "test_artifacts/test_film-art-center_canonical_preview.png",
+        "side": "test_artifacts/test_film-art-center_side_preview.png",
+        "entrance": "test_artifacts/test_film-art-center_street_preview.png"
+      },
+      "sceneInspection": {
+        "rootObject": "film-art-center",
+        "rootType": "MESH",
+        "rootLocation": [0, 0, 0],
+        "rootRotation": [0, 0, 0],
+        "rootScale": [1, 1, 1],
+        "vertices": 34226,
+        "polygons": 31351,
+        "materials": 14,
+        "facesBelowAreaEpsilon": 0,
+        "areaEpsilon": 1e-10,
+        "minimumValidFaceArea": 0.0000013669633744939347,
+        "nonfinitePolygonNormals": 0,
+        "degenerateFacesRemovedProperty": 76,
+        "boundsBlender": {
+          "min": [-11.555, -11.225, -1.1920928955078125e-7],
+          "max": [11.555, 6.725, 14.4]
+        }
+      },
+      "visualChecks": {
+        "canonical": "pass-main-and-secondary-red-eaves-double-veranda-central-loggia-sign-lights-lions-and-low-wings-readable",
+        "side": "pass-eave-depth-and-glass-wing-with-no-black-faces-or-visible-intersections",
+        "entrance": "pass-chinese-sign-order-lights-lions-columns-railing-and-entry-path-preserved"
+      },
+      "fixedMcpRecheckViews": {
+        "canonical": {
+          "camera": [3, -43, 8],
+          "target": [0, -0.5, 6.3],
+          "lensMm": 54,
+          "screenshot": "test_artifacts/test_film-art-center-hero_mcp2_recheck_canonical.png",
+          "sha256": "962baf1ac9d47aca442b3dca88b1af77e2dae3db05f9ab46fde8ce856ff0f419",
+          "bytes": 1109770
+        },
+        "side": {
+          "camera": [34, -28, 9],
+          "target": [1, 0, 6.1],
+          "lensMm": 52,
+          "screenshot": "test_artifacts/test_film-art-center-hero_mcp2_recheck_side.png",
+          "sha256": "ad23464bb8f7d7611fcedb5d577e1b9cfb222d463955d591f617c49fc79e1bcd",
+          "bytes": 1086127
+        },
+        "entrance": {
+          "camera": [10, -48, 4.8],
+          "target": [0, -0.8, 5.7],
+          "lensMm": 56,
+          "screenshot": "test_artifacts/test_film-art-center-hero_mcp2_recheck_entrance-street.png",
+          "sha256": "84d7ce3d88da26809c15e54f492d690427493ac2bf23204d050a894dde3b7b9e",
+          "bytes": 1061319
+        }
+      },
+      "acceptedInteractiveChanges": [],
+      "qaRigSaved": false,
+      "qaRigExported": false,
+      "status": "pass"
+    },
+    "decision": "pass-identity-derivation-unlocked",
+    "nextGate": "derive-independent-identity-from-frozen-hero"
+  },
+  "identityGate": {
+    "status": "pass",
+    "derivedFromHeroSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+    "forbiddenSubstitute": "arts-cluster-generic-proxy",
+    "generator": {
+      "path": "scripts/create_film_art_center_identity_model.py",
+      "sha256": "af0fbd64e9aa1cd2b9c3595ce51d4c792ac14a1afccb012df8aabf55c96d2f47"
+    },
+    "editableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/identity/film-art-center-identity.blend",
+      "sha256": "72ebda621ee6e93703e9085cb8df0cf44ffb19849a1ea84ac9d26f531cd6984a",
+      "bytes": 415072
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/xinhua-road/identity/film-art-center-identity.glb",
+      "sha256": "a4d37446e27225815624e6382048ed1dc341f1e079f089755ed5fb68e520e869",
+      "bytes": 1130852,
+      "triangles": 23816,
+      "materials": 8,
+      "images": 0,
+      "textures": 0,
+      "cacheVersion": "20260725-film-art-identity-1"
+    },
+    "headlessSceneInspection": {
+      "vertices": 13100,
+      "polygons": 11952,
+      "materials": 8,
+      "facesBelowAreaEpsilon": 0,
+      "areaEpsilon": 1e-10,
+      "minimumValidFaceArea": 0.000001981060677280766,
+      "nonfinitePolygonNormals": 0,
+      "degenerateFacesRemovedProperty": 4,
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1]
+    },
+    "fixedHeadlessViews": {
+      "canonical": {
+        "camera": [3, -43, 8],
+        "target": [0, -0.5, 6.3],
+        "lensMm": 54,
+        "screenshot": "test_artifacts/test_film-art-center-identity_canonical_preview.png",
+        "sha256": "cdc4b30e36575522e5eae56afed012eb97880d13cabfbde82aacb578ec5ebcd5",
+        "bytes": 725168
+      },
+      "side": {
+        "camera": [34, -28, 9],
+        "target": [1, 0, 6.1],
+        "lensMm": 52,
+        "screenshot": "test_artifacts/test_film-art-center-identity_side_preview.png",
+        "sha256": "9429e8a9b10ee51ff9203c060311dc2ec42fe900f76fbd7580029e47186fbfce",
+        "bytes": 738762
+      },
+      "entrance": {
+        "camera": [10, -48, 4.8],
+        "target": [0, -0.8, 5.7],
+        "lensMm": 56,
+        "screenshot": "test_artifacts/test_film-art-center-identity_entrance_preview.png",
+        "sha256": "b805661728211cc93294e6b89011389ef9c0dea3d33256716e62aa126d8b57bd",
+        "bytes": 711412
+      }
+    },
+    "deterministicGlb": "pass-two-clean-builds-cmp",
+    "mcp3SceneInspection": {
+      "meshCount": 1,
+      "vertices": 13100,
+      "polygons": 11952,
+      "materials": 8,
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1],
+      "facesBelowAreaEpsilon": 0,
+      "areaEpsilon": 1e-10,
+      "minimumValidFaceArea": 0.000001981060677280766,
+      "nonfinitePolygonNormals": 0,
+      "derivedFromHeroGlbSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+      "frontDirection": "-Y",
+      "forbiddenSubstitute": "arts-cluster-generic-proxy"
+    },
+    "mcp3VisualChecks": {
+      "canonical": "pass-double-red-eaves-double-columns-white-balustrade-central-loggia-window-groups-xinhua-200-sign-lions-lights-and-low-glass-wings-readable",
+      "side": "pass-veranda-depth-eave-silhouette-and-low-glass-wing-readable-with-evidence-limited-side-rear-detail",
+      "entrance": "pass-black-gold-xinhua-200-sign-paired-lions-lights-columns-balustrade-and-entry-axis-readable",
+      "threeTierContinuity": "pass-shared-main-silhouette-origin-front-direction-and-scale-semantics"
+    },
+    "fixedMcp3Views": {
+      "canonical": {
+        "camera": [3, -43, 8],
+        "target": [0, -0.5, 6.3],
+        "lensMm": 54,
+        "screenshot": "test_artifacts/test_film-art-center-identity_mcp3_recheck_canonical.png",
+        "sha256": "837f25b003910721aa128cf6ae9f816b2c9cb0a94ffdc80dde08fba6dd70ef25",
+        "bytes": 768286
+      },
+      "side": {
+        "camera": [34, -28, 9],
+        "target": [1, 0, 6.1],
+        "lensMm": 52,
+        "screenshot": "test_artifacts/test_film-art-center-identity_mcp3_recheck_side.png",
+        "sha256": "08397bb78b4f3504ef7da421dacb6a14a0dd090c6181b106424a6ff27058d9f6",
+        "bytes": 747393
+      },
+      "entrance": {
+        "camera": [10, -48, 4.8],
+        "target": [0, -0.8, 5.7],
+        "lensMm": 56,
+        "screenshot": "test_artifacts/test_film-art-center-identity_mcp3_recheck_entrance.png",
+        "sha256": "fb594df80fd441893891867cc8b32bd3299f5bd81ef63ce899630aa40d0b48d3",
+        "bytes": 725557
+      }
+    },
+    "threeTierComparisonSources": {
+      "hero": {
+        "canonicalSha256": "962baf1ac9d47aca442b3dca88b1af77e2dae3db05f9ab46fde8ce856ff0f419",
+        "sideSha256": "ad23464bb8f7d7611fcedb5d577e1b9cfb222d463955d591f617c49fc79e1bcd",
+        "entranceSha256": "84d7ce3d88da26809c15e54f492d690427493ac2bf23204d050a894dde3b7b9e"
+      },
+      "massing": {
+        "canonicalSha256": "12ef43ad5d8bfbc944ff2177190e7e60ae03915b394bfb6420794aa41ad587e0",
+        "sideSha256": "e5b636866e3a6255940e7494e7b9d350941f33111af629bb9c2725feffc426c8",
+        "entranceSha256": "815038985b490f376c9a423bd2c765ce481623cdb947194cfbf97121f08329e9"
+      }
+    },
+    "acceptedInteractiveChanges": [],
+    "qaRigSaved": false,
+    "qaRigExported": false,
+    "decision": "pass-runtime-integration-unlocked",
+    "nextGate": "complete-no-rework-unless-binary-or-public-contract-changes"
+  },
+  "threeTierGate": {
+    "status": "pass-blender-and-main-browser-runtime",
+    "runtimeQaRecord": "docs/research/film-art-center-three-tier-runtime-qa.json",
+    "runtimeMetrics": "test_artifacts/test_film-art-center_three-tier_runtime_metrics.json",
+    "productionIdentityPlacement": {
+      "strategy": "derived-glb",
+      "localPosition": [0, 0, 0],
+      "qaDirectGlbLocalPosition": [0, 0, 0],
+      "genericFallbackLocalPosition": [0, 0, -2.25],
+      "status": "pass"
+    },
+    "loadedTiers": ["hero", "identity", "massing"],
+    "fallback": "pass-scoped-film-art-center-identity-token",
+    "productionFailureFallback": {
+      "status": "pass",
+      "derivedGlbOuterPosition": [0, 0, 0],
+      "programmaticFallbackInnerPosition": [0, 0, -2.25],
+      "screenshot": "test_artifacts/test_film-art-center_runtime_production_identity_fallback_1280x800.png"
+    },
+    "nextGate": "complete-no-rework-unless-binary-or-public-contract-changes"
+  }
+}

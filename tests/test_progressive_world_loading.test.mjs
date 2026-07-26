@@ -13,12 +13,15 @@ import {
   visibleProgressiveBuildingTier,
 } from "../app/scene/progressive-building-stage.ts";
 import {
+  FILM_ART_CENTER_IDENTITY_CACHE_VERSION,
+  FILM_ART_CENTER_IDENTITY_MODEL_PATH,
   PRODUCTION_BUILDING_QUALITY_MANIFEST,
   XINHUA_ROAD_BUILDING_QUALITY_MANIFEST,
   XINHUA_ROAD_HERO_ENTER_DISTANCE,
   XINHUA_ROAD_HERO_EXIT_DISTANCE,
   XINHUA_ROAD_IDENTITY_KIND_BY_ID,
   xinhuaRoadDistanceHeroIds,
+  xinhuaRoadIdentityLocalPosition,
 } from "../app/scene/xinhua-road-identity-contract.ts";
 import {
   planarDistanceToLandmarkFootprint,
@@ -290,7 +293,14 @@ test("生产主世界让全部建筑遵守 Massing、Identity、Hero 三层和�
     experience,
     /setOverviewStartPosition\(playerPosition\.current\);\s+setDestinationPreset\(undefined\);/,
   );
-  assert.match(world, /fallback=\{<XinhuaRoadMassing identity \/>\}/);
+  assert.match(
+    world,
+    /fallback=\{\(\s*<XinhuaRoadMassing\s+identity\s+hiddenLandmarkIds=\{qaFallbackHiddenIds\}/,
+  );
+  assert.match(
+    world,
+    /const qaFallbackHiddenIds = useMemo\(\(\) => \{[\s\S]*return new Set\(\[qaScopedLandmarkId\]\);[\s\S]*\}, \[qaScopedLandmarkId\]\);/,
+  );
   assert.match(world, /<XinhuaRoadMassing identity=\{showDetailModels\} \/>/);
   assert.match(
     world,
@@ -335,6 +345,17 @@ test("生产主世界让全部建筑遵守 Massing、Identity、Hero 三层和�
   assert.match(roadMassing, /mergeGeometries\(pieces, false\)/);
   assert.match(roadMassing, /IDENTITY_VISUAL_SCALE = \[0\.68, 0\.78, 0\.68\]/);
   assert.match(roadMassing, /compact-architectural-identity/);
+  assert.match(
+    roadMassing,
+    /<FilmArtCenterIdentity source=\{productionIdentity\?\.modelPath\} \/>/,
+  );
+  assert.match(roadMassing, /landmark\.id === "film-art-center"/);
+  assert.match(roadMassing, /position=\{localPosition\}/);
+  assert.match(roadMassing, /usesDerivedIdentity[\s\S]*"derived-identity-glb"/);
+  assert.match(roadMassing, /position=\{programmaticLocalPosition\}/);
+  assert.match(roadMassing, /fallback=\{productionIdentityFallback\}/);
+  assert.doesNotMatch(roadMassing, /position=\{\[centerX, 0, centerZ\]\}/);
+  assert.match(roadFull, /forceProgrammaticIdentity/);
   assert.match(roadMassing, /<torusGeometry/);
   assert.match(roadMassing, /landmark\.id === "film-art-center"\) return 14\.4/);
   assert.doesNotMatch(
@@ -409,6 +430,42 @@ test("全世界生产 manifest 覆盖三档资产、共享空间参数和证据�
   );
   assert.equal(cinema.identity.cacheVersion, "20260722-hybrid-1");
   assert.equal(cinema.hero.model, "/models/xinhua-road/shanghai-cinema.glb");
+  const filmArtCenter =
+    XINHUA_ROAD_BUILDING_QUALITY_MANIFEST["film-art-center"];
+  assert.equal(filmArtCenter.identity.strategy, "derived-glb");
+  assert.equal(
+    filmArtCenter.identity.model,
+    FILM_ART_CENTER_IDENTITY_MODEL_PATH,
+  );
+  assert.equal(
+    filmArtCenter.identity.cacheVersion,
+    FILM_ART_CENTER_IDENTITY_CACHE_VERSION,
+  );
+  assert.equal(
+    filmArtCenter.hero.model,
+    "/models/xinhua-road/film-art-center.glb",
+  );
+  const filmPlacement = roadData.landmarks.find(
+    ({ id }) => id === "film-art-center",
+  );
+  assert.ok(filmPlacement);
+  const qaDirectGlbPosition = [0, 0, 0];
+  assert.deepEqual(
+    xinhuaRoadIdentityLocalPosition(
+      filmPlacement.localBounds,
+      filmArtCenter.identity.strategy,
+    ),
+    qaDirectGlbPosition,
+    "生产全览 derived Identity 与 QA direct GLB 必须共享冻结 Hero 原点",
+  );
+  assert.deepEqual(
+    xinhuaRoadIdentityLocalPosition(
+      filmPlacement.localBounds,
+      "programmatic-miniature",
+    ),
+    [0, 0, -2.25],
+    "production async/error fallback 必须使用 localBounds 的 -2.25m 中心平移",
+  );
 
   const productionIds = Object.keys(PRODUCTION_BUILDING_QUALITY_MANIFEST).sort();
   assert.deepEqual(
@@ -489,6 +546,31 @@ test("全世界生产 manifest 覆盖三档资产、共享空间参数和证据�
     .includes("docs/research/build-records/shanghai-cinema-hybrid-identity.json"));
   assert.ok(productionCinema.evidence.resourceMetrics
     .includes("test_artifacts/test_shanghai-cinema_hybrid_metrics.json"));
+  const productionFilmArtCenter =
+    PRODUCTION_BUILDING_QUALITY_MANIFEST["film-art-center"];
+  assert.equal(productionFilmArtCenter.identity.strategy, "derived-glb");
+  assert.equal(
+    productionFilmArtCenter.evidence.status,
+    "accepted-with-followup",
+  );
+  assert.deepEqual(
+    productionFilmArtCenter.evidence.identityBuildRecords,
+    [
+      "docs/research/build-records/tiers/xinhua-road/identity/film-art-center-identity.json",
+    ],
+  );
+  assert.deepEqual(
+    productionFilmArtCenter.evidence.massingBuildRecords,
+    [
+      "docs/research/build-records/tiers/xinhua-road/massing/film-art-center-massing.json",
+    ],
+  );
+  assert.deepEqual(
+    productionFilmArtCenter.evidence.drawCallMetrics,
+    ["test_artifacts/test_film-art-center_three-tier_runtime_metrics.json"],
+  );
+  assert.ok(productionFilmArtCenter.evidence.gaps
+    .some((gap) => gap.includes("主窗口真实浏览器终验")));
   for (const segment of ["west", "center", "east"]) {
     const productionXingfuli =
       PRODUCTION_BUILDING_QUALITY_MANIFEST[`xingfuli-${segment}`];

@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "recordedAt": "2026-07-26T15:20:00+08:00",
+  "reviewedBy": "main-window-xhigh",
+  "status": "pass-three-tier-runtime-retained-map-and-collision",
+  "mode": "building-fast-single-page",
+  "scope": {
+    "included": [
+      "hudec-memorial-three-tiers",
+      "deterministic-tier-fallback",
+      "production-registry",
+      "frame-performance",
+      "ground-camera-and-console"
+    ],
+    "excludedAndHeld": [
+      "trees",
+      "hedges",
+      "planting",
+      "street-furniture",
+      "decor",
+      "ordinary-osm",
+      "other-buildings",
+      "full-map-assets",
+      "recovery-hold"
+    ]
+  },
+  "build": {
+    "mode": "vite-static-production-preview",
+    "viewport": [1280, 720],
+    "pageVisibility": "visible",
+    "frameSample": 120,
+    "server": "loopback-only",
+    "publicFiles": {
+      "app/scene/building-massing-qa-contract.mjs": "bf31e7fd359165640b1384b164aeac83b0eaa2977a46b03cc1ad24fac525abaa",
+      "app/scene/xinhua-road-landmarks.tsx": "c6d350f5e3c97c0a5cbdfeb31ec896c41434499f345625fbe093fbf152dd109d",
+      "app/scene/xinhua-road-contract.ts": "9729c9c70fc09743ef4c0d2ea727f504cc224118506d72f2d6d0141e66e10ce2",
+      "app/scene/xinhua-road-massing.tsx": "8b0e0a449748682223ca388ffb75773f3d35171e34333274ce572ae9b96d6e31",
+      "app/scene/xinhua-road-identity-contract.ts": "f4fa0947777bf9e8404588b25eb3f1a95eb83a17e022de9e785e6e0b076bc2ba",
+      "app/scene/xinhua-road-landmarks-data.json": "6df9f4439679ff72203ef023cab289532df4c1d9c71a4242cfd6ef155e4055e8"
+    }
+  },
+  "placement": {
+    "position": [92.535374, -132.52181],
+    "yaw": 0.153486288,
+    "scale": 0.88,
+    "start": [92.5, -145],
+    "forward": [0, 1],
+    "groundContact": "pass",
+    "cameraAtStart": "pass-spring-clear"
+  },
+  "tiers": {
+    "hero": {
+      "path": "public/models/requested-pois/hudec-memorial-v2-hero.glb",
+      "sha256": "598b2ba19e2412d7a592836d45066c787a7cf1eac347a6a6c5d790c12ffabff5",
+      "bytes": 1565920,
+      "triangles": 22760,
+      "materials": 11,
+      "route": "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+      "requestedTier": "hero",
+      "loadedTier": "hero",
+      "status": "loaded",
+      "worldBounds": {
+        "min": [87.58437301459709, 0.8705365372464594, -136.474191779581],
+        "max": [97.4876454697341, 8.790535907821411, -128.4841400657825]
+      },
+      "performance": {
+        "frames": 120,
+        "durationMs": 2032,
+        "fps": 59.05511811023622,
+        "rendererDrawCalls": 1587,
+        "rendererTriangles": 813521
+      },
+      "screenshot": {
+        "path": "test_artifacts/all-models/runtime-final/hudec-memorial/test_hudec_memorial_hero_threejs_1280x720.png",
+        "sha256": "6bc0435bd30889e1986fbfddf5cd6197bc66544d9dde0f66aa161510e7c0c237",
+        "bytes": 75878
+      }
+    },
+    "identity": {
+      "path": "public/models/tiers/xinhua-road/identity-v1/hudec-memorial-identity.glb",
+      "sha256": "867f336824f62eb2dddcb54d4dede6904278a0bcd940997df6c06278bf35660f",
+      "bytes": 392920,
+      "triangles": 7136,
+      "materials": 8,
+      "route": "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=identity&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+      "requestedTier": "identity",
+      "loadedTier": "identity",
+      "status": "loaded",
+      "worldBounds": {
+        "min": [87.70960293690632, 0.8895445442960199, -136.4711499731607],
+        "max": [97.46362415254006, 8.790535907821411, -128.53169065150746]
+      },
+      "performance": {
+        "frames": 120,
+        "durationMs": 2028.0999999940395,
+        "fps": 59.16868004553655,
+        "rendererDrawCalls": 1581,
+        "rendererTriangles": 782273
+      },
+      "screenshot": {
+        "path": "test_artifacts/all-models/runtime-final/hudec-memorial/test_hudec_memorial_identity_threejs_1280x720.png",
+        "sha256": "a379141204b70b2cb7f6d945c48f4e5f534d7d11aa0d0f5fbb0a62e2341e8b2f",
+        "bytes": 69953
+      }
+    },
+    "massing": {
+      "path": "public/models/requested-pois/hudec-memorial-massing.glb",
+      "sha256": "772ce8a8445a2cc9f1496a9876960ecf78964f11d09209578a1a5fbd52864ff0",
+      "bytes": 158312,
+      "triangles": 2180,
+      "materials": 5,
+      "route": "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+      "requestedTier": "massing",
+      "loadedTier": "massing",
+      "status": "loaded",
+      "worldBounds": {
+        "min": [86.2961385244403, 0.889544531182998, -138.28468976777864],
+        "max": [98.70680224406695, 8.790536747054809, -127.19723599701291]
+      },
+      "performance": {
+        "frames": 120,
+        "durationMs": 2015.699999988079,
+        "fps": 59.53266855221992,
+        "rendererDrawCalls": 1575,
+        "rendererTriangles": 772361
+      },
+      "screenshot": {
+        "path": "test_artifacts/all-models/runtime-final/hudec-memorial/test_hudec_memorial_massing_threejs_1280x720.png",
+        "sha256": "2725a0417e539c4fe2e8b1f19272f6ed00fdb2c35adbdb272c91d9c6b9de43c5",
+        "bytes": 62935
+      }
+    }
+  },
+  "fallbacks": {
+    "heroToIdentity": {
+      "query": "qaActiveFallback=hudec-memorial:hero",
+      "status": "fallback",
+      "requestedTier": "hero",
+      "loadedTier": "identity",
+      "frames": 120,
+      "durationMs": 2017.9000000059605,
+      "fps": 59.467763516351425,
+      "buildMode": "browser-runtime-fallback"
+    },
+    "identityToMassing": {
+      "query": "qaActiveFallback=hudec-memorial:identity",
+      "status": "fallback",
+      "requestedTier": "identity",
+      "loadedTier": "massing",
+      "frames": 120,
+      "durationMs": 2004.3999999910593,
+      "fps": 59.868289762789495,
+      "buildMode": "browser-runtime-fallback"
+    }
+  },
+  "tierContinuity": {
+    "originYawScale": "pass-shared",
+    "heroIdentityBuildingCore": "pass-same-height-and-near-identical-envelope",
+    "massingKnownDifference": "accepted-massing-retains-front-boundary-walls-outside-the-hero-identity-core",
+    "runtimePoppingClaim": "no-origin-yaw-scale-or-ground-pop"
+  },
+  "retainedQualifiedStages": {
+    "massingMapAndCollision": {
+      "status": "pass-retained-not-repeated",
+      "record": "docs/research/build-records/hudec-memorial-massing.json#mainWindowReview.runtime",
+      "solidWall": "pass-retained",
+      "openEntrancePath": "pass-retained",
+      "reasonNotRepeated": "fast-mode-recovery-qualified-stage-preservation"
+    },
+    "mcp1": "pass-retained",
+    "mcp2": "pass-retained",
+    "mcp3": "docs/research/hudec-memorial-blender-mcp3-gate-v1.json"
+  },
+  "consoleAndProductionEntry": {
+    "freshProductionEntryCanvasCount": 1,
+    "freshProductionEntryConsoleErrors": 0,
+    "finalCleanQaTabConsoleErrors": 0,
+    "transientRetriedLoad": {
+      "occurred": true,
+      "resource": "/textures/sky/kenney-day-2048.jpg",
+      "assetPresentWithExpectedSha": true,
+      "successfulReload": true,
+      "finalCleanRunErrors": 0
+    }
+  },
+  "decision": {
+    "threeTierRuntime": "pass",
+    "deterministicFallback": "pass",
+    "performance": "pass-no-regression-claim",
+    "mapAndCollision": "pass-retained",
+    "publicRuntime": "accepted",
+    "overallBuilding": "complete"
+  }
+}

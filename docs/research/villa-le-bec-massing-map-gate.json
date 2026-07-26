@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 2,
+  "assetId": "villa-le-bec",
+  "tier": "massing",
+  "status": "mcp1-pass-runtime-render-pass-map-blocked",
+  "reviewedAt": "2026-07-26",
+  "reviewedBy": "main-window-xhigh-final-review",
+  "scope": {
+    "buildingOnly": true,
+    "sharedRuntimeModified": false,
+    "sharedRegistryModified": false,
+    "sharedFastManifestModified": false,
+    "treesOrDressingIncluded": false,
+    "ordinaryOsmIncluded": false
+  },
+  "lineage": {
+    "worktreeBase": "222e7eb",
+    "recoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "priorCheckpoint": "468daf12341ebccd44ae6c681c3c46120bc97592",
+    "supersededRecoveryGlbSha256": "8eabb87a0208294c226ecea5077f9833eceb885c2796ea00af88cab9172e96ec",
+    "generator": {
+      "path": "scripts/create_villa_le_bec_massing_model.py",
+      "sha256": "50a37c3d9fc666493ab912490b0bafef1bf13945107f3d704c7feda739cdd04c"
+    },
+    "editableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/villa-le-bec-massing.blend",
+      "sha256": "34a9ba4582e9a6bb1eeb0ca38dd173a80c5d754f896b6b139eaef20f0908d5bc"
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
+      "sha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f",
+      "bytes": 12008
+    }
+  },
+  "evidenceGate": {
+    "status": "pass-for-two-building-massing",
+    "xhsPostId": "66ba1786000000001e01cb8b",
+    "xhsSourceNote": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/source-note.md",
+    "platformRevisitedInBuildingWorktree": false,
+    "selectedImageCount": 6,
+    "selectedContactSheetCount": 1,
+    "coverageMatrix": {
+      "streetCanonical": "supported-xhs-01",
+      "sideDepth": "supported-xhs-02",
+      "entrance": "supported-xhs-02",
+      "courtyard": "supported-xhs-03-to-05",
+      "rearSide": "supported-xhs-11",
+      "twoBuildingCount": "author-stated-and-visually-consistent",
+      "surveyedHeight": "unknown",
+      "cadastralBoundary": "unknown"
+    },
+    "classification": {
+      "observed": [
+        "street-facing-building-and-courtyard-gate",
+        "second-hipped-roof-building-inside-courtyard",
+        "entry-bay-and-side-window",
+        "open-courtyard-axis",
+        "rear-side-bay-and-low-annex"
+      ],
+      "authorStated": [
+        "site-contains-two-century-old-buildings"
+      ],
+      "inferred": [
+        "way-864493176-is-street-villa-main",
+        "way-864493175-is-garden-villa-secondary"
+      ],
+      "unknown": [
+        "exact-surveyed-height",
+        "ownership-boundary",
+        "low-annex-osm-membership",
+        "ways-864493245-246-247-address-membership"
+      ]
+    }
+  },
+  "massingGate": {
+    "headlessBuild": "pass",
+    "fixedViewReview": "pass-canonical-side-entrance",
+    "mcp1": "pass-current-sha-visual-and-structure",
+    "mcpPerformedInThisCheckpoint": true,
+    "mcpReview": {
+      "reviewedAt": "2026-07-26",
+      "interactiveReview": "Blender MCP",
+      "runtimeGlbSha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f",
+      "scene": {
+        "root": "villa-le-bec-massing",
+        "meshCount": 1,
+        "materialCount": 3,
+        "vertices": 84,
+        "polygons": 62,
+        "bounds": {
+          "min": [-1.095583, -10.438301, 0],
+          "max": [9.996342, -1.209116, 4.58]
+        },
+        "rootTransform": "pass-normalized"
+      },
+      "visualChecks": {
+        "twoSeparatedBuildings": "pass",
+        "openCourtyardGap": "pass",
+        "canonicalSilhouette": "pass-for-massing",
+        "sideDepth": "pass-for-massing",
+        "entranceScale": "pass-for-massing"
+      },
+      "captures": [
+        {
+          "view": "canonical",
+          "path": "test_artifacts/all-models/massing-v2/villa-le-bec/test_villa-le-bec-massing_mcp1_canonical.png",
+          "sha256": "c4dafa4c5b59e9ca2a937133dfb08822c14a9f2b31ec042b6014560ff42f40ac",
+          "bytes": 482137
+        },
+        {
+          "view": "entrance-scale",
+          "path": "test_artifacts/all-models/massing-v2/villa-le-bec/test_villa-le-bec-massing_mcp1_entrance-scale.png",
+          "sha256": "9a0a8152f98956fb1504cbac64af5b5f14e184d4e65903ef29c5e7504a5ae35e",
+          "bytes": 660603
+        },
+        {
+          "view": "side-depth",
+          "path": "test_artifacts/all-models/massing-v2/villa-le-bec/test_villa-le-bec-massing_mcp1_side-depth.png",
+          "sha256": "8a6bb3a4127ed5d72c46c593424824efd89c04f4b9ec09a1d3025e22b504072e",
+          "bytes": 502749
+        }
+      ],
+      "note": "MCP1 只执行当前 SHA 的场景、结构和固定机位审查；未修改或保存几何、材质、transform 或 QA rig。"
+    },
+    "identityDerived": false,
+    "identityReason": "MCP1 已通过，但正式地图门被道路退界与 House315 占位冲突阻塞，Identity 继续关闭。"
+  },
+  "mapCalibrationCandidate": {
+    "placement": {
+      "position": [-34.1, 88.8],
+      "yawRadians": -0.38,
+      "scale": 0.82,
+      "movementAuthorized": false,
+      "source": "frozen-shared-registry"
+    },
+    "includedOsmWays": [
+      {
+        "wayId": 864493176,
+        "role": "street-villa-main",
+        "confidence": "medium-high"
+      },
+      {
+        "wayId": 864493175,
+        "role": "garden-villa-secondary",
+        "confidence": "medium-high"
+      }
+    ],
+    "excludedOsmWays": [
+      {
+        "wayId": 864493245,
+        "role": "unknown-neighbor-or-accessory"
+      },
+      {
+        "wayId": 864493246,
+        "role": "unknown-neighbor-or-accessory"
+      },
+      {
+        "wayId": 864493247,
+        "role": "unknown-neighbor-or-accessory"
+      }
+    ],
+    "fiveGenericBoxesRetained": false,
+    "proposedLocalObstacles": [
+      {
+        "sourceWayId": 864493176,
+        "minX": -1.095583,
+        "maxX": 4.996285,
+        "minZ": 5.014079,
+        "maxZ": 9.832885
+      },
+      {
+        "sourceWayId": 864493175,
+        "minX": 6.395668,
+        "maxX": 9.996342,
+        "minZ": 1.209116,
+        "maxZ": 6.290767
+      }
+    ],
+    "minimumWallGapSceneUnits": 1.399383,
+    "playerDiameterSceneUnits": 0.96,
+    "checks": {
+      "exactNewGlb": "pass",
+      "rootTransform": "pass-normalized",
+      "twoBuildingSeparation": "pass",
+      "analyticWallGap": "pass-before-runtime-margin",
+      "runtimeGeometryVisible": "pass-exact-v3-single-request",
+      "runtimeConsole": "pass-zero-events",
+      "position": "blocked-cross-building-footprint-membership",
+      "orientation": "provisional-footprints-align-to-osm-but-subject-role-not-final",
+      "groundContact": "pass-visual-candidate-only",
+      "roadSetback": "blocked-current-envelope-about-8.8255-scene-units-from-stylized-asphalt-edge",
+      "entranceClearance": "pending-after-placement-resolution",
+      "collision": "blocked-five-world-aabb-intersections-with-house-315-obstacles"
+    },
+    "runtimeCandidateEvidence": {
+      "qaUrl": "/?start=villa-le-bec&qaModelId=villa-le-bec&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+      "assetRequest": {
+        "path": "/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb?v=20260726-massing-593cc399",
+        "requestCount": 1,
+        "encodedBytes": 12008,
+        "transferSize": 12308,
+        "durationMs": 2.6
+      },
+      "consoleEvents": 0,
+      "screenshot": {
+        "path": "test_artifacts/test_villa-le-bec_runtime_map_candidate_1280x720.jpg",
+        "sha256": "63d10a3e9ca09cb889803f177f7aaf3cb82efbaf4c026485e7c800052f86d9b4",
+        "bytes": 62895,
+        "viewport": "1280x720"
+      },
+      "interpretation": "真实 Three.js 页面证明当前 v3 可加载和可见，但画面同时暴露与 House315 占位重叠；这不是地图通过证据。"
+    },
+    "mapBlocker": {
+      "roadAxisSource": "app/scene/xinhua-road-massing.tsx:XINHUA_ROAD_AXIS",
+      "stylizedAsphaltHalfWidthSceneUnits": 3.625,
+      "nearestEnvelopeToRoadCenterlineSceneUnits": 12.4505,
+      "nearestEnvelopeToAsphaltEdgeSceneUnits": 8.8255,
+      "house315IntersectionCount": 5,
+      "decision": "preserve-model-disable-promotion-until-subject-membership-and-placement-are-resolved"
+    }
+  },
+  "verdict": {
+    "evidenceBlockerClosed": true,
+    "mapAcceptance": "blocked",
+    "runtimePassInheritedFromRecovery": false,
+    "runtimeAssetVisibility": "pass-current-v3",
+    "reason": "当前 v3 已通过 MCP1 并在真实页面加载，但 frozen placement 离道路过远，且两栋 OSM footprint 与 House315 的既有占位发生五处 AABB 交叉；在跨建筑 subject membership 裁决前不得推广。",
+    "heroOrIdentityAuthorized": false,
+    "requiredToClose": [
+      "裁决 Villa Le Bec 与 House315 的原始 OSM footprint 归属",
+      "确定有证据的沿街入口或立面锚点，避免仅用综合体质心",
+      "修正位置后重跑道路退界、邻接碰撞、入口净宽与地图运行时验收"
+    ]
+  },
+  "mainWindowIntegrationCandidate": {
+    "tests": [
+      "tests/test_villa_le_bec_massing_checkpoint.test.mjs",
+      "tests/test_xinhua_road_models.test.mjs"
+    ],
+    "glbs": [
+      "public/models/xinhua-road/villa-le-bec.glb",
+      "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb"
+    ],
+    "runtimeRoutes": [
+      "/?start=villa-le-bec&qaModelId=villa-le-bec&qaModelTier=hero&cameraQa=1&qaAutoStart=1",
+      "/?start=villa-le-bec&qaModelId=villa-le-bec&qaModelTier=massing&cameraQa=1&qaAutoStart=1"
+    ],
+    "sharedHookRequired": "qaModelId/qaModelTier 接入新 Massing；localObstacles 使用两栋分体候选，禁止用新 GLB 整体 bounds 封闭庭院。"
+  }
+}

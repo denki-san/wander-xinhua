@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-211",
+  "tier": "massing",
+  "status": "massing-runtime-map-pass-hero-identity-blocked",
+  "model": "/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb",
+  "modelSourcePath": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb",
+  "runtimeQa": "docs/research/xinhua-villas-211-threejs-runtime-qa.json",
+  "modelSha256": "ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c",
+  "cacheVersion": "ab05b4ec2eb9",
+  "placement": {
+    "position": [
+      38.32,
+      110.67
+    ],
+    "yaw": -0.38,
+    "scale": 0.62,
+    "source": "app/scene/xinhua-road-landmarks-data.json",
+    "movementAuthorized": false,
+    "keepUnchanged": true
+  },
+  "localBounds": {
+    "minX": -32.228155,
+    "maxX": 22.558899,
+    "minZ": -14.307884,
+    "maxZ": 21.092002
+  },
+  "localObstacles": [
+    {
+      "id": "way-864485593",
+      "minX": -14.885911,
+      "maxX": -6.425579,
+      "minZ": 8.932183,
+      "maxZ": 16.961667
+    },
+    {
+      "id": "way-864485594",
+      "minX": -4.003608,
+      "maxX": 3.593271,
+      "minZ": 12.318421,
+      "maxZ": 17.265457
+    },
+    {
+      "id": "way-864485595",
+      "minX": -17.724523,
+      "maxX": -12.136674,
+      "minZ": 1.365112,
+      "maxZ": 6.419871
+    },
+    {
+      "id": "way-864485596",
+      "minX": -10.270679,
+      "maxX": 3.871692,
+      "minZ": 1.192926,
+      "maxZ": 8.101705
+    },
+    {
+      "id": "way-864485597",
+      "minX": 6.265997,
+      "maxX": 11.240944,
+      "minZ": -13.564915,
+      "maxZ": 10.296873
+    },
+    {
+      "id": "way-864485598",
+      "minX": 9.085028,
+      "maxX": 22.558899,
+      "minZ": 13.01248,
+      "maxZ": 21.092002
+    },
+    {
+      "id": "way-864485674",
+      "minX": -32.228155,
+      "maxX": -24.61737,
+      "minZ": -14.307884,
+      "maxZ": -7.831194
+    },
+    {
+      "id": "way-864485675",
+      "minX": -18.911344,
+      "maxX": -7.262798,
+      "minZ": -13.02446,
+      "maxZ": -5.94844
+    },
+    {
+      "id": "way-864485676",
+      "minX": -5.474773,
+      "maxX": 3.637373,
+      "minZ": -13.434163,
+      "maxZ": -5.069679
+    }
+  ],
+  "memberIdentity": "unknown-do-not-invent",
+  "mapCalibration": {
+    "maximumVertexRoundTripErrorSceneUnits": 1e-06,
+    "minimumRoadCenterlineDistanceSceneUnits": 5.4896,
+    "xinhuaRoadAsphaltHalfWidthSceneUnits": 2.45,
+    "minimumAsphaltEdgeClearanceSceneUnits": 3.0396,
+    "xinhuaRoadOuterVergeHalfWidthSceneUnits": 3.925,
+    "minimumOuterVergeClearanceSceneUnits": 1.5646,
+    "entranceGap": {
+      "betweenWayIds": [
+        864485674,
+        864485675
+      ],
+      "clearanceSceneUnits": 3.6682,
+      "playerDiameterSceneUnits": 0.96,
+      "status": "pass"
+    },
+    "minimumInternalMemberGap": {
+      "betweenWayIds": [
+        864485595,
+        864485596
+      ],
+      "clearanceSceneUnits": 1.1667,
+      "status": "pass-no-overlap"
+    },
+    "nearestExternalNeighbor": {
+      "compoundWayId": 864485597,
+      "neighborWayId": 864485677,
+      "clearanceSceneUnits": 0.6684,
+      "status": "no-overlap-not-a-designated-walkable-route"
+    },
+    "polygonOverlapCount": 0,
+    "localObstacleAabbOverlapCount": 0
+  },
+  "fastManifestCandidate": {
+    "tests": [
+      "scripts/test_xinhua_villas_211_massing_map_gate.mjs",
+      "tests/test_model_detail_upgrade.test.mjs",
+      "tests/test_xinhua_road_models.test.mjs"
+    ],
+    "glbs": [
+      "public/models/xinhua-road/xinhua-villas-211.glb",
+      "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb"
+    ],
+    "runtimeRoutes": [
+      "/?start=villas&cameraQa=1&qaAutoStart=1",
+      "/?start=villas&qaModelId=xinhua-villas-211&qaModelTier=massing&cameraQa=1&qaAutoStart=1"
+    ]
+  },
+  "sharedHookInstructions": [
+    "Only qaModelId=xinhua-villas-211 and qaModelTier=massing may select this candidate.",
+    "Keep the current position, yaw, scale, start and forward for first runtime calibration.",
+    "Use the nine local obstacle candidates separately; never replace them with one compound AABB.",
+    "Do not promote to production until main-window MCP1 and real Three.js map acceptance pass."
+  ],
+  "gates": {
+    "evidence": "pass-conservative-massing-footprints-only",
+    "headlessBuild": "pass",
+    "glbAudit": "pass-explicit-no-images-max-12-nodes",
+    "mcp1": "pass-main-window-batch",
+    "mapGeometry": "pass-analytic-candidate",
+    "runtimeMap": "pass-main-window-real-browser",
+    "hero": "blocked-evidence",
+    "identity": "blocked-evidence"
+  }
+}

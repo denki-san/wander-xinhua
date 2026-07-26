@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "assetId": "villa-le-bec",
+  "tier": "hero",
+  "status": "hero-v1-retained-mcp2-fixed-view-fail",
+  "generator": "scripts/create_villa_le_bec_hero_model.py",
+  "generatorSha256": "bceff773bd9c051ea48be7a3101079525a1a08a1e29325ce058890c20ebb4ad1",
+  "blenderVersion": "5.2.0 LTS",
+  "derivedFrom": {
+    "massingGlb": "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
+    "massingSha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f",
+    "placement": {
+      "position": [
+        -34.1,
+        88.8
+      ],
+      "yaw": -0.38,
+      "scale": 0.82,
+      "movementAuthorized": false
+    }
+  },
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/hero-v1/villa-le-bec-hero.blend",
+    "blendSha256": "a087f24cbc5c7b6eb6fb014e635a614d90f1be549441977a831277ed17f89329",
+    "glb": "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
+    "glbSha256": "1374b7a8301345c23736644cfdc9a7ed467efb8371ebcdf72a507217b0015394",
+    "bytes": 106348,
+    "bounds": {
+      "min": [
+        -1.152635097503662,
+        -10.557046890258789,
+        0.0
+      ],
+      "max": [
+        10.000630378723145,
+        -1.1461124420166016,
+        4.579999923706055
+      ]
+    },
+    "previews": [
+      {
+        "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-canonical.png",
+        "sha256": "0c6941431b8f84b600ac1e8f21c6103bc5e582535940ac6b02ad27d7e4345cbe"
+      },
+      {
+        "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-side-depth.png",
+        "sha256": "5ca382270a80eb0fe963fe0a6389b0dc844c89539eded2de29f788520ffb9232"
+      },
+      {
+        "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-entrance.png",
+        "sha256": "1cc36eed766cac78b74b0f1b663bd94ff2bb387e3fa89b7d8e57519c0942c9e1"
+      },
+      {
+        "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-triptych.png",
+        "sha256": "a238f503fa819cb0610f9433e24ead71f1b392b06e7250595ae1ad26e6f9416e"
+      }
+    ]
+  },
+  "budget": {
+    "maxTriangles": 68000,
+    "maxNodes": 10,
+    "maxMaterials": 12,
+    "maxImages": 0,
+    "maxBytes": 5200000
+  },
+  "scope": {
+    "twoBuildingsOnly": true,
+    "components": 121,
+    "excluded": [
+      "trees",
+      "dressing",
+      "brand",
+      "interior",
+      "low-annex",
+      "ways-864493245-246-247"
+    ]
+  },
+  "identityCues": [
+    "warm-white-dark-base-red-brown-hipped-roof",
+    "street-projecting-bay-and-dormers",
+    "garden-entry-bay-side-windows-and-dormer",
+    "open-courtyard-between-two-buildings"
+  ],
+  "collisionContract": {
+    "sameAsMassing": true,
+    "solidWays": [
+      864493176,
+      864493175
+    ],
+    "openCourtyard": true,
+    "bakedCollisionGeometry": false
+  },
+  "glazingVisibilityFix": {
+    "streetProjectingBay": {
+      "externalNormal": "local -Y / street -v",
+      "bayHalfDepth": 0.29,
+      "glazingCenterOffset": 0.335,
+      "surfaceClearance": 0.045
+    },
+    "gardenEntryBay": {
+      "externalNormal": "local -Y after yaw+90 / garden -u",
+      "bayHalfDepth": 0.23,
+      "glazingCenterOffset": 0.275,
+      "surfaceClearance": 0.045
+    },
+    "verdict": "both-glazing-and-frames-are-outside-their-bay-solid-surface"
+  },
+  "mcp2IdentityBatchFix": {
+    "streetFacade": "ground-unbranded-entry-and-glazing-rhythm-plus-upper-windows-and-projecting-bay-within-existing-massing-envelope",
+    "dormerGlazing": {
+      "count": 3,
+      "dormerHalfDepth": 0.41,
+      "glazingCenterOffset": 0.455,
+      "surfaceClearance": 0.045,
+      "externalNormal": "local -Y"
+    },
+    "gardenEntryGlazingChanged": false,
+    "massingPlacementOrCollisionChanged": false
+  },
+  "gates": {
+    "mcp2": "fail-main-window-fixed-view-identity-mismatch",
+    "identity": "not-authorized-from-hero-v1",
+    "runtime": "not-run-by-scope"
+  }
+}

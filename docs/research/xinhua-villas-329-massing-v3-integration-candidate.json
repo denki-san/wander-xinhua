@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-329",
+  "tier": "massing",
+  "status": "mcp1-pass-runtime-render-pass-map-blocked",
+  "model": "/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
+  "modelSourcePath": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
+  "modelSha256": "f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704",
+  "cacheVersion": "f245efd099d0",
+  "placement": {
+    "position": [-42.13, 79.48],
+    "yaw": -0.38,
+    "scale": 0.62,
+    "keepUnchanged": true
+  },
+  "coordinateValidation": {
+    "source": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "mapMetadata": "app/scene/xinhua-map-data.json",
+    "authoredCoordinateSpace": "glb-source-xz-before-runtime-z-flip",
+    "maximumWorldVertexErrorSceneUnits": 0.000000367,
+    "toleranceSceneUnits": 0.05,
+    "status": "pass"
+  },
+  "mainWindowMcp1": {
+    "status": "pass-current-sha-visual-and-structure",
+    "reviewedAt": "2026-07-26",
+    "reviewedBy": "main-window-xhigh-final-review",
+    "interactiveReview": "Blender MCP",
+    "scene": {
+      "meshCount": 4,
+      "materialCount": 4,
+      "vertices": 128,
+      "polygons": 90,
+      "rootTransforms": "pass-normalized"
+    },
+    "visualChecks": {
+      "fourSeparatedMemberMasses": "pass",
+      "canonicalSilhouette": "pass-for-conservative-massing",
+      "sideDepth": "pass-for-conservative-massing",
+      "entranceScale": "pass-with-1.8m-temporary-human-proxy"
+    },
+    "captures": [
+      {
+        "view": "canonical",
+        "path": "test_artifacts/all-models/massing-v3/xinhua-villas-329/test_xinhua-villas-329-massing_mcp1_raw-osm_canonical.png",
+        "sha256": "3377f71bafc2bbe47b5bda652c4e737acf88c872ca4e45b0fecef214ed57b1f1",
+        "bytes": 606744
+      },
+      {
+        "view": "entrance-scale",
+        "path": "test_artifacts/all-models/massing-v3/xinhua-villas-329/test_xinhua-villas-329-massing_mcp1_raw-osm_entrance-scale.png",
+        "sha256": "c87641b0624f5ec8d10fd36494333753c61ca5805c859da94a81a3301d59f6c8",
+        "bytes": 580409
+      },
+      {
+        "view": "side-depth",
+        "path": "test_artifacts/all-models/massing-v3/xinhua-villas-329/test_xinhua-villas-329-massing_mcp1_raw-osm_side-depth.png",
+        "sha256": "d666c5e5bbf8a5d1a42f55c9147536bdf5149c5dc14eb7ec91db769bc9c8a33e",
+        "bytes": 602855
+      }
+    ],
+    "note": "MCP1 的相机、灯光、地面和1.8米人物代理仅存在于未保存QA会话，没有写入Blend或GLB。"
+  },
+  "mainWindowRuntimeCandidate": {
+    "qaUrl": "/?start=villas329&qaModelId=xinhua-villas-329&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+    "status": "pass-exact-v3-load-and-visibility-map-rejected",
+    "dataset": {
+      "asset": "xinhua-villas-329",
+      "tier": "massing",
+      "runtimeStatus": "loaded",
+      "source": "/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb?v=20260726-massing-f245efd0"
+    },
+    "resource": {
+      "requestCount": 1,
+      "encodedBodySize": 21632,
+      "transferSize": 21932,
+      "durationMs": 3.1
+    },
+    "performance": {
+      "viewport": [1280, 720],
+      "visible": true,
+      "sampleFrames": 120,
+      "sampleDurationMs": 2031.6,
+      "fps": 59.0667,
+      "buildMode": "production"
+    },
+    "consoleEvents": 0,
+    "screenshot": {
+      "path": "test_artifacts/test_xinhua-villas-329_massing_runtime_map_candidate_1280x720.jpg",
+      "sha256": "a227d624705f0a5079e39dd30cab3a754b42d8e3ab0fbab30c1d7f4aa5a7ec5e",
+      "bytes": 70449
+    }
+  },
+  "mainWindowMapGate": {
+    "status": "blocked-road-edge-and-member15-binding",
+    "roadAxisSource": "app/scene/xinhua-road-placement.mjs:XINHUA_ROAD_AXIS",
+    "stylizedAsphaltHalfWidthSceneUnits": 3.625,
+    "candidateCollisionMarginSceneUnits": 0.2,
+    "nearestUnexpandedFootprintToAsphaltEdgeSceneUnits": 0.061079,
+    "nearestCollisionAabbToAsphaltEdgeSceneUnits": -0.138921,
+    "minimumRequiredVisibleClearanceSceneUnits": 0.75,
+    "otherLandmarkObstacleIntersectionCount": 0,
+    "start": [-26, 63],
+    "cameraArmSceneUnits": 5.44,
+    "startAndFirstCamera": "pass-analytic",
+    "runtimeCollision": "not-promoted-or-tested-because-map-gate-blocked",
+    "reason": "raw OSM round-trip is exact, but member-15 only has sequence-based medium binding and its footprint leaves 0.061 scene unit to the stylized asphalt edge; adding the required collision margin enters the road by 0.139."
+  },
+  "localBounds": {
+    "minX": -19.746794,
+    "maxX": 13.41517,
+    "minZ": -9.257435,
+    "maxZ": 16.8141
+  },
+  "localObstacles": [
+    {
+      "id": "member-15-way-864493244",
+      "minX": -19.746794,
+      "maxX": -6.712191,
+      "minZ": -9.257435,
+      "maxZ": -2.58448
+    },
+    {
+      "id": "member-36-way-864485664",
+      "minX": -18.991865,
+      "maxX": -9.183159,
+      "minZ": 4.548492,
+      "maxZ": 12.632193
+    },
+    {
+      "id": "member-40-way-864493174",
+      "minX": 0.326008,
+      "maxX": 8.163913,
+      "minZ": 0.424231,
+      "maxZ": 8.721702
+    },
+    {
+      "id": "member-42-way-864493173",
+      "minX": 7.864331,
+      "maxX": 13.41517,
+      "minZ": 10.491626,
+      "maxZ": 16.8141
+    }
+  ],
+  "excludedWayIds": [864493245],
+  "excludedWayReason": "Evidence-unbound adjacent footprint with unknown 329-lane membership.",
+  "fastManifestCandidate": {
+    "tests": [
+      "tests/test_xinhua_villas_329_massing_v3.test.mjs",
+      "tests/test_model_detail_upgrade.test.mjs",
+      "tests/test_xinhua_road_models.test.mjs"
+    ],
+    "glbs": [
+      "public/models/xinhua-road/xinhua-villas-329.glb",
+      "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb"
+    ],
+    "runtimeRoutes": [
+      "/?start=villas329&cameraQa=1&qaAutoStart=1",
+      "/?start=villas329&qaModelId=xinhua-villas-329&qaModelTier=massing&cameraQa=1&qaAutoStart=1"
+    ]
+  },
+  "sharedHookInstructions": [
+    "Add an asset-scoped xinhua-villas-329 tier resolver; do not use a global fallback token.",
+    "Point only qaModelTier=massing to the v3 GLB and cacheVersion f245efd099d0.",
+    "Keep the existing position, yaw, scale, start and forward unchanged for the first map calibration.",
+    "Replace the legacy single obstacle only inside the scoped Massing QA assembly with the four member obstacles above; keep member gaps walkable.",
+    "Keep way/864493245 excluded unless new address evidence binds it to a 329-lane member; do not assign it to another asset by proximity.",
+    "Do not promote v3 to production until the main-window batch completes first MCP1 and formal map acceptance."
+  ],
+  "gates": {
+    "evidence": "pass-conservative-massing-only",
+    "glbAudit": "pass",
+    "mcp1": "pass-current-sha-visual-and-structure",
+    "runtimeGate": "pass-current-v3-load-and-visibility-map-rejected",
+    "mapAcceptance": "blocked-road-edge-and-member15-binding",
+    "identity": "not-authorized",
+    "hero": "not-authorized"
+  }
+}

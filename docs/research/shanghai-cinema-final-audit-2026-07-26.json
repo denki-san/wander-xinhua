@@ -1,0 +1,423 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "label": "上海影城",
+  "auditedAt": "2026-07-26T13:31:10+08:00",
+  "integrationBase": "d2c0f23ef05098563d9ed81fba3eac8bf706c978",
+  "mode": "single-building-fast-final-gap-audit",
+  "verdict": {
+    "status": "blocked-map-binding-collision-shell-and-hero-generator-drift",
+    "eligibleForFinalComplete": false,
+    "retainedPasses": [
+      "evidence-and-model-brief",
+      "hero-identity-massing-current-binary-structure",
+      "hero-to-identity-to-massing-direct-binary-lineage",
+      "mcp1-massing-mcp2-hero-mcp3-three-tier",
+      "three-tier-runtime-fallback-cache-console-and-performance-capture",
+      "current-start-and-camera-safety"
+    ],
+    "blockers": [
+      {
+        "id": "map-origin-and-footprint-anchor",
+        "gate": "map-acceptance",
+        "reason": "当前固定矩形 GLB 包络与 OSM 非规则综合体缺少可定位入口/主丝带锚点；相对 OSM 边界，模型明显远离新华路并偏向番禺路，不能凭质心或最小位移候选宣称位置校准。"
+      },
+      {
+        "id": "runtime-aabb-neighbor-collision",
+        "gate": "collision",
+        "reason": "公共运行时把旋转后的局部实体矩形扩大为 world AABB；上海影城与 film-art-center 的一对 AABB 相交，但原始有向实体矩形并未相交。当前公共碰撞层仍是 blocker，且不能误报为真实实体互穿。"
+      },
+      {
+        "id": "hero-generator-source-drift",
+        "gate": "deterministic-source-lineage",
+        "reason": "当前共享 Hero 生成器 SHA 已从记录的 6ea5fc19…变为 324be84a…，并新增作用于所有资产的退化面删除与 TEXCOORD 导出策略；当前 Hero 二进制可保留，但用当前生成器精确重建该二进制尚未证明。"
+      }
+    ]
+  },
+  "scope": {
+    "included": [
+      "shanghai-cinema evidence, Brief and local references",
+      "shanghai-cinema Hero, composite Identity and Massing binaries, Blend sources and records",
+      "shanghai-cinema MCP1, MCP2, MCP3 and Three.js runtime records",
+      "current public registry, production road data, OSM complex polygon, start, camera and film-art-center neighbor geometry"
+    ],
+    "excludedAndUntouched": [
+      "shared registry and runtime",
+      "Fast Mode manifest",
+      "other building binaries and records",
+      "trees, decoration, ordinary OSM assets, full-map massing and Hold"
+    ],
+    "browserUsed": false,
+    "blenderRebuildPerformed": false,
+    "recoveryQualifiedStageRedone": false
+  },
+  "evidence": {
+    "status": "pass-retained",
+    "manifest": {
+      "path": "docs/research/shanghai-cinema-reference-manifest.json",
+      "sha256": "28cb52037a1c781cfe9a68631929a9ad33949cdf74038302c94baef9d51f27e5"
+    },
+    "brief": {
+      "path": "docs/research/shanghai-cinema-model-brief.md",
+      "sha256": "34b1dfb55cf1822d922b38dd86d04b06e87e27ee7843313398de5f2d7f37dfe1"
+    },
+    "viewCoverage": {
+      "canonical": {
+        "status": "observed",
+        "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-front-official.jpg",
+        "sha256": "194e5b4c8408ef5a3cd777be60e72d7b4a1d2768e60c8c80cacba1643d3cf297",
+        "pixels": [
+          940,
+          581
+        ],
+        "view": "front-left-three-quarter"
+      },
+      "rightDepth": {
+        "status": "observed",
+        "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-ribbon-glass-detail-2024.jpeg",
+        "sha256": "4ddc314087772b2d73dc3d81641ca7e77c5606302931df5390855e170d170917",
+        "pixels": [
+          1080,
+          606
+        ],
+        "view": "right-side-looking-toward-front"
+      },
+      "leftDepth": {
+        "status": "observed",
+        "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-oculus-stair-detail-2024.jpeg",
+        "sha256": "a94809192b2a13a1a8f81f317303f2c63b8fbb7c640e4def6cc410f89f4a92da",
+        "pixels": [
+          1080,
+          606
+        ],
+        "view": "left-side-looking-toward-front"
+      },
+      "entranceIdentity": {
+        "status": "observed",
+        "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-government-front-right-stair-2023.jpg",
+        "sha256": "9d97f6268fb64e906ee53915ecf052c427d83f543bf0072545cd733a1b2d3a19",
+        "pixels": [
+          1280,
+          839
+        ],
+        "view": "front-right-ground-level"
+      }
+    },
+    "canonicalObservationDirection": "从入口广场朝建筑本地 +Y 观察 local -Y 正面。",
+    "subjectBoundary": "新华路160号上海影城，不是新华路200号新华两佰；manifest 中两张错主体图片已保留并明确 rejected。"
+  },
+  "assets": {
+    "hero": {
+      "status": "binary-and-mcp2-pass-source-reproduction-blocked",
+      "generator": {
+        "path": "scripts/create_xinhua_road_models.py",
+        "recordedSha256": "6ea5fc19f98f6339d83063bafea9c0edd66ca07d2bb171be08f61d63fed3488d",
+        "recordedContentCommit": "869e92d83ea177cd4babe73d61ed5657e8f15ddd",
+        "currentSha256": "324be84a32ed3d43ff0bc1ceaca040e8e46f68aff21151b1bafa4ae524f6f3c6",
+        "currentDrift": [
+          "global remove_degenerate_faces after merged-root transform",
+          "global image-texture-aware export_texcoords policy"
+        ],
+        "exactCurrentRoundTrip": "not-performed-recovery-qualified-stage-retained"
+      },
+      "blend": {
+        "path": "assets/models/source/xinhua-road/shanghai-cinema.blend",
+        "sha256": "fbb13fdb89169101c97bda0f3e5ba9644c70743aa85bd810368b365969db8fd8",
+        "bytes": 1275824
+      },
+      "glb": {
+        "path": "public/models/xinhua-road/shanghai-cinema.glb",
+        "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+        "bytes": 5862660,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 13,
+        "images": 0,
+        "triangles": 83820
+      },
+      "buildRecord": {
+        "path": "docs/research/build-records/shanghai-cinema.json",
+        "sha256": "80dabe03e2b67c7fc22d613bef7065ea3e18913309e29bcb70658984e01f5887",
+        "generatorShaFieldPresent": false
+      }
+    },
+    "identity": {
+      "status": "pass-retained-composite-runtime-boundary",
+      "generator": {
+        "path": "scripts/create_shanghai_cinema_hybrid_identity.py",
+        "sha256": "09ce0a491038d3c008c8edb4dcfe70562308e46c71c9a55bf760ec6514af89a0"
+      },
+      "blend": {
+        "path": "assets/models/source/xinhua-road/shanghai-cinema-hybrid-identity.blend",
+        "sha256": "d087771e0547df66085c831f6befad1af9dd2b003e097d8af372187ddd2889ef",
+        "bytes": 204258
+      },
+      "glb": {
+        "path": "public/models/xinhua-road/shanghai-cinema-hybrid-identity.glb",
+        "sha256": "66ea8425313f9024d0b707b87be27549504ec9dddab3a8fdb30961aaf2d48d9c",
+        "bytes": 418620,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 3,
+        "images": 0,
+        "triangles": 8064,
+        "role": "unique-silhouette-increment-not-standalone-complete-identity"
+      },
+      "runtimeRecipe": {
+        "path": "app/scene/shanghai-cinema-hybrid-identity.tsx",
+        "sha256": "c36bdf9450bfa23d266f2ba1e878360031ea54001f7b984955e7899c814e4c31"
+      },
+      "buildRecord": {
+        "path": "docs/research/build-records/shanghai-cinema-hybrid-identity.json",
+        "sha256": "452f9835cc10e715be50495a753a60d3636c8268c0311ef66df98281423d8c09"
+      },
+      "derivedFromHeroGlbSha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062"
+    },
+    "massing": {
+      "status": "pass-retained-exact-direct-binary-lineage",
+      "generator": {
+        "path": "scripts/create_shanghai_cinema_massing.py",
+        "sha256": "5ea4ada18900bec14f337f28b661b78ad0420df059caaec508f0f543009186ae"
+      },
+      "blend": {
+        "path": "assets/models/source/xinhua-road/shanghai-cinema-massing.blend",
+        "sha256": "f827a26ee131a35503d93153fa23e4ce5df7a4b969b63906ced4919d4bf7f9dd",
+        "bytes": 250036
+      },
+      "glb": {
+        "path": "public/models/xinhua-road/shanghai-cinema-massing.glb",
+        "sha256": "e1635a7796ad9ca4f7699e5559c73c4a02591b601e9d300f8a874c73a7a513ab",
+        "bytes": 714228,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 7,
+        "images": 0,
+        "triangles": 10544,
+        "derivedFromHeroGlbSha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+        "derivedFromIdentityGlbSha256": "66ea8425313f9024d0b707b87be27549504ec9dddab3a8fdb30961aaf2d48d9c"
+      },
+      "buildRecord": {
+        "path": "docs/research/build-records/shanghai-cinema-massing.json",
+        "sha256": "124003e2bc4c2d4a2895791c1eeac7b6aa1d8b8d04776514bc27f6b16944136f"
+      }
+    }
+  },
+  "lineage": {
+    "record": {
+      "path": "docs/research/shanghai-cinema-tier-lineage.json",
+      "sha256": "9d1a7e0840f7a0383b6ab77d5a4de9934b71832d9285bb19585313d576c2ef38"
+    },
+    "directBinaryHeroToIdentity": "pass-exact-sha",
+    "directBinaryHeroAndIdentityToMassing": "pass-exact-glb-extras",
+    "compositeIdentityBoundary": "pass-explicit-not-standalone",
+    "deterministicHeroSource": "blocked-current-generator-sha-and-export-policy-drift",
+    "status": "binary-lineage-pass-source-reproducibility-blocked"
+  },
+  "blenderMcpGates": {
+    "record": {
+      "path": "docs/research/shanghai-cinema-blender-mcp-gates.json",
+      "sha256": "0e3ee8d4238e79c29ddf1a447a36b54ffe7c91c6da76889d2d12473a9457cbf8"
+    },
+    "mcp1Massing": "pass-retained",
+    "mcp2Hero": "pass-retained",
+    "mcp3ThreeTier": "pass-retained-composite-identity-boundary",
+    "acceptedInteractiveChanges": [],
+    "qaRigSavedOrExported": false
+  },
+  "mapAudit": {
+    "status": "blocked-map-binding-and-public-aabb-collision",
+    "registrySource": {
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "f87c8fde941c71c6876bba4e7a50cf9177c5b7d11163822c4f4ac906568d9fa6"
+    },
+    "productionRoadSource": {
+      "path": "app/scene/xinhua-map-data.json",
+      "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78"
+    },
+    "osmBuildingSource": {
+      "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+      "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c",
+      "wayId": 292250766
+    },
+    "placement": {
+      "position": [
+        74.1,
+        80.9
+      ],
+      "yaw": 2.761592653589793,
+      "scale": 1,
+      "groundTerrainY": 0.909780347,
+      "runtimeRootY": 1.009780347,
+      "groundContact": "pass-retained"
+    },
+    "osmComplexCentroid": {
+      "position": [
+        74.4298520554,
+        81.677068713
+      ],
+      "currentOriginDistanceSceneUnits": 0.8441789876412907,
+      "currentOriginDistanceMeters": 2.2792832666314853,
+      "interpretation": "当前 origin 接近综合体质心，但没有证据证明固定矩形 GLB origin 与该质心等价。"
+    },
+    "roadRelationships": {
+      "xinhuaRoad": {
+        "osmWayId": 682286683,
+        "name": "新华路",
+        "highway": "tertiary",
+        "surface": "asphalt",
+        "renderedWidth": 4.9,
+        "currentVisibleBoundsCenterlineDistance": 12.40481460058938,
+        "currentVisibleBoundsAsphaltEdgeClearance": 9.95481460058938,
+        "osmComplexBoundaryCenterlineDistance": 3.283233164391949,
+        "osmComplexBoundaryAsphaltEdgeClearance": 0.8332331643919488,
+        "modelFartherThanOsmBoundarySceneUnits": 9.121581436197431,
+        "modelFartherThanOsmBoundaryMeters": 24.628269877733064,
+        "status": "blocked-too-far-from-road-relative-to-osm-complex"
+      },
+      "panyuRoad": {
+        "osmWayId": 11960339,
+        "name": "番禺路",
+        "highway": "tertiary",
+        "surface": "asphalt",
+        "renderedWidth": 7.25,
+        "currentVisibleBoundsCenterlineDistance": 3.7878376981885307,
+        "currentVisibleBoundsAsphaltEdgeClearance": 0.16283769818853067,
+        "minimumRequiredClearance": 0.75,
+        "osmComplexBoundaryCenterlineDistance": 6.958348565865001,
+        "osmComplexBoundaryAsphaltEdgeClearance": 3.333348565865001,
+        "modelCloserThanOsmBoundarySceneUnits": 3.1705108676764704,
+        "status": "blocked-below-minimum-visible-clearance"
+      }
+    },
+    "geometryDiagnosis": {
+      "status": "blocked-origin-to-subject-anchor-not-proven",
+      "visibleEnvelopeIntersectsOsmComplex": true,
+      "reason": "origin 虽接近 OSM 质心，但固定 38 × 26 包络在新华路与番禺路两侧的偏差方向相反；问题包含包络形状和 origin 对真实前景丝带的绑定，不能简化为把整个资产向新华路平移。"
+    },
+    "collisionDiagnosis": {
+      "status": "blocked-public-runtime-shell-false-positive",
+      "runtimeRepresentation": "rotated-local-rectangle-to-world-axis-aligned-aabb-plus-margin",
+      "collisionMarginPerAsset": 0.2,
+      "runtimeAabbOverlap": {
+        "shanghaiCinemaObstacleIndex": 2,
+        "filmArtCenterObstacleIndex": 1,
+        "overlapSceneUnits": {
+          "x": 0.830850892336116,
+          "z": 0.4509227561555633,
+          "area": 0.37464957432651064
+        },
+        "shanghaiCinemaWorldAabb": {
+          "minX": 58.85808713533982,
+          "maxX": 68.25822602057647,
+          "minZ": 66.07209888468795,
+          "maxZ": 81.38432593125799
+        },
+        "filmArtCenterWorldAabb": {
+          "minX": 53.104821774787624,
+          "maxX": 59.68893802767594,
+          "minZ": 80.93340317510243,
+          "maxZ": 90.25046584219203
+        }
+      },
+      "orientedSolidRectangles": {
+        "intersectingPairsWithPerAssetMargin": 0,
+        "samePairLocalXOverlap": 1.7800729753126223,
+        "samePairLocalZSeparation": 1.8936832677312507,
+        "interpretation": "运行时 AABB 相交来自旋转后外包膨胀；按局部有向实体矩形并各加 0.2 margin 时仍无实体交叠。"
+      },
+      "fullVisibleEnvelopeOrientedOverlap": {
+        "x": 6.075071975312623,
+        "z": 10.501316732268748,
+        "area": 63.796254984087405,
+        "interpretation": "完整 bounds 包含广场/场地薄构件和非碰撞区域；该值证明视觉包络共享空间，但不能单独证明建筑实体网格互穿。"
+      }
+    },
+    "startAndCamera": {
+      "start": [
+        101,
+        112
+      ],
+      "playerRadius": 0.48,
+      "playerHits": [],
+      "forward": [
+        -0.654,
+        -0.756
+      ],
+      "headingToCenterErrorDegrees": 0.004181746453399903,
+      "cameraArmSceneUnits": 7.4,
+      "cameraPosition": [
+        105.8414110264492,
+        117.59649348011558
+      ],
+      "cameraRadius": 0.25,
+      "cameraHits": [],
+      "status": "pass-current-all-landmark-aabbs"
+    },
+    "existingCandidate": {
+      "record": {
+        "path": "docs/research/shanghai-cinema-map-placement-candidate-2026-07-26.md",
+        "sha256": "5fa356fc484e7c323757b75e54b0542d9ab3e68b405d5f3792dc0091cfbd6ce0"
+      },
+      "position": [
+        73.61,
+        80.4
+      ],
+      "status": "blocked-map-position",
+      "currentProductionRoadData": {
+        "xinhuaRoadAsphaltEdgeClearance": 10.236077723702625,
+        "panyuRoadAsphaltEdgeClearance": 0.7244032266486595,
+        "minimumPanyuClearance": 0.75
+      },
+      "decision": "do-not-wire",
+      "reason": "候选消除当前 AABB 相交，但在生产 app map 数据中仍略低于番禺路 0.75 最低退界，并把模型再推远新华路；它不是入口/丝带锚点校准。"
+    }
+  },
+  "threeJsRuntime": {
+    "tierRuntimeRecord": {
+      "path": "test_artifacts/test_shanghai-cinema_three-tier_runtime_qa.json",
+      "sha256": "58e71d8794ea513da65e6aac6b336244e4e5a2cf71433808b396e7ee17c4d817",
+      "status": "pass-retained-exact-binaries-fallback-cache-console-and-sampled-fps"
+    },
+    "publicIntegrationRecord": {
+      "path": "docs/research/shanghai-cinema-integration-runtime-qa.json",
+      "sha256": "09485a4d75985d42cb3e0e69c06364455b02a053761271ce56eaa2cb19df3998",
+      "status": "pass-retained-for-older-integration-asset-loading",
+      "notAcceptedFor": "current d2c0f23 all-neighbor collision and map binding"
+    },
+    "currentIntegratedMapStatus": "blocked-not-reaccepted",
+    "reason": "既有 runtime 记录证明三档和故障注入可运行，但没有量化当前 film-art-center 邻接 AABB，也没有解决新华路/番禺路锚点矛盾。"
+  },
+  "recovery": {
+    "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "decision": "retained-read-only-no-qualified-stage-redone",
+    "heroGlbSha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+    "identityGlbSha256": "66ea8425313f9024d0b707b87be27549504ec9dddab3a8fdb30961aaf2d48d9c",
+    "massingCandidates": [
+      {
+        "path": "public/models/tiers/xinhua-road/massing/shanghai-cinema-massing.glb",
+        "sha256": "f8ed57fe3d49ee3ee217fe0dc1eb8412f8be3132c3840ad5da719b0384de990d"
+      },
+      {
+        "path": "public/models/tiers/shanghai-cinema/massing/shanghai-cinema-massing.glb",
+        "sha256": "be69638759187a16e23e563009a487bd480ff9c37f9cf74e557ede9553691d70"
+      }
+    ],
+    "currentFormalMassingSha256": "e1635a7796ad9ca4f7699e5559c73c4a02591b601e9d300f8a874c73a7a513ab",
+    "currentDecision": "retain-current-formal-massing-no-rebuild"
+  },
+  "validation": {
+    "glbAudit": {
+      "command": "python3 scripts/audit_glb.py public/models/xinhua-road/shanghai-cinema.glb public/models/xinhua-road/shanghai-cinema-hybrid-identity.glb public/models/xinhua-road/shanghai-cinema-massing.glb",
+      "status": "pass-three-of-three"
+    },
+    "scopedTest": "tests/test_shanghai_cinema_quality_tiers.test.mjs",
+    "fastModeCommand": "npm run building:fast -- --building shanghai-cinema",
+    "expectedGateOutcome": "test-pass-with-final-building-verdict-blocked"
+  },
+  "mainWindowRepairBoundary": {
+    "geometryPlacement": "需要可复核的入口或主丝带 WGS84/总平面锚点，再联合校准非规则 OSM 综合体与固定 GLB origin；不要只采用质心或现有 [73.61,80.4] 候选。",
+    "collisionShell": "在共享运行时支持有向碰撞多边形/OBB，或在公共 registry 中将相邻两栋 obstacle 拆成更紧的局部壳；只改碰撞不能代替几何地图校准。",
+    "sourceLineage": "若要求最终可重建闭环，应由主窗口单独授权用当前共享生成器审计上海影城 Hero 是否产生新二进制，再决定冻结旧生成器快照还是升级 Hero/Identity/Massing 全链；本分支不重做已合格阶段。",
+    "sharedFilesToChangeInThisBranch": []
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "assetId": "film-art-center",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-26T19:32:03+08:00",
+  "sharedContract": {
+    "origin": [0, 0, 0],
+    "frontDirection": "-Y",
+    "groundDatum": 0,
+    "authoredMetersPerSceneUnit": 2.7,
+    "position": [46.388748754382405, 79.07089962964774],
+    "yaw": 2.786349542422368,
+    "scale": 0.5,
+    "collisionSource": "app/scene/xinhua-road-landmarks-data.json",
+    "startPreset": "/?start=film-art"
+  },
+  "hero": {
+    "status": "mcp2-pass-frozen-identity-source",
+    "generator": "scripts/create_xinhua_road_models.py",
+    "generatorSha256": "324be84a32ed3d43ff0bc1ceaca040e8e46f68aff21151b1bafa4ae524f6f3c6",
+    "blend": {
+      "path": "assets/models/source/xinhua-road/film-art-center.blend",
+      "sha256": "f58952f3bf4c086fb09afdbda4efdc264a124a74a12e6f63e7a9c70f3d3359b8",
+      "bytes": 912286
+    },
+    "glb": {
+      "path": "public/models/xinhua-road/film-art-center.glb",
+      "sha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+      "bytes": 3148572,
+      "triangles": 63368,
+      "materials": 14,
+      "images": 0,
+      "textures": 0,
+      "texcoordPrimitives": 0,
+      "cacheVersion": "20260725-film-art-5"
+    },
+    "topologyRepair": {
+      "areaEpsilon": 1e-10,
+      "removedFaces": 76,
+      "remainingFacesBelowEpsilon": 0,
+      "nonfinitePolygonNormals": 0,
+      "deterministicGlb": "pass",
+      "mcp2": "pass"
+    },
+    "buildRecord": "docs/research/build-records/film-art-center.json"
+  },
+  "identity": {
+    "status": "mcp3-and-main-browser-runtime-pass",
+    "derivedFrom": {
+      "heroGlbSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+      "method": "deterministic-simplification-preserving-subject-specific-cues"
+    },
+    "identityAllowed": true,
+    "forbiddenSubstitute": "arts-cluster-generic-proxy",
+    "generator": {
+      "path": "scripts/create_film_art_center_identity_model.py",
+      "sha256": "af0fbd64e9aa1cd2b9c3595ce51d4c792ac14a1afccb012df8aabf55c96d2f47"
+    },
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/identity/film-art-center-identity.blend",
+      "sha256": "72ebda621ee6e93703e9085cb8df0cf44ffb19849a1ea84ac9d26f531cd6984a",
+      "bytes": 415072
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/identity/film-art-center-identity.glb",
+      "sha256": "a4d37446e27225815624e6382048ed1dc341f1e079f089755ed5fb68e520e869",
+      "cacheVersion": "20260725-film-art-identity-1",
+      "bytes": 1130852,
+      "triangles": 23816,
+      "materials": 8,
+      "images": 0,
+      "textures": 0
+    },
+    "buildRecord": "docs/research/build-records/tiers/xinhua-road/identity/film-art-center-identity.json",
+    "mcp3": "pass",
+    "threeTierBlenderContinuity": "pass",
+    "acceptedInteractiveChanges": [],
+    "threeTierRuntime": "pass-main-window-real-browser"
+  },
+  "massing": {
+    "status": "mcp1-and-current-map-pass-common-provenance",
+    "derivedFrom": {
+      "method": "deterministic-simplification-of-frozen-hero-parameters",
+      "heroGlbSha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6"
+    },
+    "generator": "scripts/create_film_art_center_massing_model.py",
+    "blend": "assets/models/source/tiers/xinhua-road/massing/film-art-center-massing.blend",
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing/film-art-center-massing.glb",
+      "sha256": "c89791dc3978b317cc2f8807a77f7a84b5c596f8d4cd01c1cffd05090e9584a6",
+      "bytes": 240572,
+      "triangles": 3376,
+      "materials": 6,
+      "images": 0
+    },
+    "buildRecord": "docs/research/build-records/tiers/xinhua-road/massing/film-art-center-massing.json",
+    "mcp1": "pass",
+    "mcpRecord": "docs/research/film-art-center-blender-mcp-gates.json",
+    "mapAcceptance": "pass",
+    "mapRecord": "docs/research/film-art-center-footprint-v2-threejs-runtime-qa.json",
+    "lineageAdjudication": {
+      "record": "docs/research/film-art-center-lineage-adjudication-v2.json",
+      "status": "pass-common-provenance-topology-only-repair",
+      "directCurrentHeroShaClaim": false
+    }
+  },
+  "threeTierRuntime": {
+    "status": "pass-main-window-real-browser",
+    "qaRecord": "docs/research/film-art-center-map-runtime-qa-v3.json",
+    "supportingDefaultContextRecord": "docs/research/film-art-center-footprint-v2-threejs-runtime-qa.json",
+    "metrics": "docs/research/film-art-center-map-runtime-qa-v3.json#tiers",
+    "productionIdentityStrategy": "derived-glb",
+    "productionIdentityLocalPosition": [0, 0, 0],
+    "qaIdentityLocalPosition": [0, 0, 0],
+    "genericFallbackLocalPosition": [0, 0, -2.25],
+    "loadedTiers": ["hero", "identity", "massing"],
+    "fallback": "pass-scoped-film-art-center-identity-token",
+    "productionFailureFallback": {
+      "status": "pass",
+      "derivedGlbOuterPosition": [0, 0, 0],
+      "programmaticFallbackInnerPosition": [0, 0, -2.25],
+      "qaRecord": "docs/research/film-art-center-three-tier-runtime-qa.json"
+    },
+    "nextGate": "complete-current-footprint-no-rework-unless-binary-or-public-contract-changes"
+  },
+  "recoveryDecision": {
+    "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "candidateSha256": "4b925b2dad96894e7feda2b925962781fcd532d675657a9f17a96467458b0941",
+    "structure": {
+      "triangles": 12,
+      "materials": 1,
+      "bytes": 2316
+    },
+    "decision": "rejected-as-formal-massing",
+    "reason": "single generic OSM extrusion with unknown fallback height and blocked map binding; it does not preserve the named subject silhouette"
+  },
+  "holdBoundary": {
+    "trees": "untouched",
+    "decor": "untouched",
+    "ordinaryOsm": "not-imported",
+    "globalMassing": "untouched",
+    "facilityAndSharedPrototypes": "not-imported",
+    "otherBuildings": "untouched"
+  },
+  "nextGate": "complete-current-footprint-no-rework-unless-binary-or-public-contract-changes"
+}

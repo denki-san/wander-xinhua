@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-211",
+  "auditedAt": "2026-07-26",
+  "baselineCommit": "aada3c412d10f822305c2e3410435f3b00278c2c",
+  "status": "massing-complete-hero-identity-blocked-evidence",
+  "scope": {
+    "stableBoundary": "compound-entrance-and-lane-anchor",
+    "included": [
+      "local-evidence-and-brief",
+      "legacy-hero-read-only-audit",
+      "accepted-massing-mcp1-map-runtime-records",
+      "identity-lineage-decision"
+    ],
+    "excludedAndHeld": [
+      "xinhua-villas-329",
+      "trees",
+      "vegetation",
+      "street-furniture",
+      "decoration",
+      "ordinary-osm-outside-nine-bound-ways",
+      "other-buildings",
+      "full-map-assets",
+      "recovery-hold"
+    ],
+    "sharedFilesModified": false,
+    "blenderRerun": false,
+    "browserRerun": false
+  },
+  "evidence": {
+    "status": "pass-conservative-massing-only",
+    "manifest": "docs/research/xinhua-villas-211-reference-manifest.json",
+    "brief": "docs/research/xinhua-villas-211-model-brief.md",
+    "canonical": {
+      "path": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-overview-official-2023.jpg",
+      "sha256": "9d23cd3c57b492a01911907e8f376dc2bdb37b882b5233fafcaae3384540adf2",
+      "coverage": "compound-entrance-axis-only"
+    },
+    "member211_1": {
+      "path": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-1-official-2025.jpg",
+      "sha256": "e0146deb4cb9571f39aab3a01c0028f2ab1018c2126a7039f52a0433197f0dc4",
+      "coverage": "member-front-only-placement-unknown"
+    },
+    "member211_2": {
+      "path": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-2-official-2025.jpg",
+      "sha256": "3568005a4e89a6ce95abf4be19fb22ab0dd277d17622fdd16a9ccad20d1496aa",
+      "coverage": "member-front-oblique-only-placement-unknown"
+    },
+    "blockingUnknowns": [
+      "compound-side-and-depth",
+      "member-house-number-to-osm-way-binding",
+      "member-position-orientation-and-spacing",
+      "complete-member-footprints-and-rear-facades"
+    ]
+  },
+  "legacyHero": {
+    "status": "hold-not-mcp2-candidate",
+    "glb": {
+      "path": "public/models/xinhua-road/xinhua-villas-211.glb",
+      "sha256": "0a7168e6104d39b808c096a390a14d1eb1690e49bef165193829517b022cb295",
+      "bytes": 4188228,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 14,
+      "images": 0
+    },
+    "blend": {
+      "path": "assets/models/source/xinhua-road/xinhua-villas-211.blend",
+      "sha256": "2cfcc1408026a3e03ec05bb65aaa4eaf5633e18235808361a559d66bd0ec9f2a"
+    },
+    "generator": "scripts/create_xinhua_road_models.py#build_xinhua_villas_211",
+    "blockers": [
+      "unverified-four-villa-fixed-layout",
+      "scope-outside-trees",
+      "scope-outside-hedges",
+      "scope-outside-lamps",
+      "scope-outside-planters",
+      "scope-outside-bench",
+      "scope-outside-paving-grid",
+      "no-valid-compound-lineage"
+    ],
+    "mcp2": "not-entered"
+  },
+  "massing": {
+    "status": "complete-preserved",
+    "version": "massing-v3",
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb",
+      "sha256": "ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c",
+      "bytes": 16060,
+      "nodes": 9,
+      "meshes": 9,
+      "materials": 1,
+      "images": 0,
+      "triangles": 134
+    },
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.blend",
+      "sha256": "f6a26c12715ca9589b0ca9894dc9bc3b3252aa3d124f6f7be21478ea11440088"
+    },
+    "gates": {
+      "mcp1": "pass-main-window-batch",
+      "mapRuntime": "pass-main-window-real-browser"
+    },
+    "map": {
+      "position": [38.32, 110.67],
+      "yaw": -0.38,
+      "scale": 0.62,
+      "minimumAsphaltEdgeClearance": 3.0396,
+      "minimumOuterVergeClearance": 1.5646,
+      "entranceGap": 3.6682,
+      "minimumInternalMemberGap": 1.1667,
+      "nearestExternalNeighborGap": 0.6684,
+      "polygonOverlapCount": 0,
+      "localObstacleAabbOverlapCount": 0,
+      "collision": "pass-wall-stop-no-penetration"
+    }
+  },
+  "identity": {
+    "status": "not-created-blocked-lineage",
+    "reason": "Massing only proves nine conservative footprints; legacy Hero is not evidence truth and has no MCP2 authorization. Deriving Identity from either would invent member binding or make Massing masquerade as Identity.",
+    "massingMasqueradeProhibited": true,
+    "requiredBeforeDerivation": [
+      "member-specific-side-or-depth-evidence",
+      "member-to-osm-way-binding",
+      "valid-evidence-backed-hero",
+      "main-window-mcp2-pass-on-that-hero"
+    ]
+  },
+  "gates": {
+    "evidenceForMassing": "pass",
+    "mcp1Massing": "pass-preserved",
+    "mapRuntimeMassing": "pass-preserved",
+    "heroEvidence": "blocked",
+    "mcp2Hero": "not-entered",
+    "identityLineage": "blocked",
+    "mcp3": "not-entered",
+    "buildingComplete": false
+  },
+  "verdict": {
+    "checkpoint": "clean-blocked-checkpoint",
+    "mainWindowReviewRequired": [
+      "evidence-unblock-before-any-hero-candidate",
+      "mcp2-only-after-valid-hero-exists"
+    ],
+    "safeRuntimeAction": "retain-current-massing-only-acceptance-and-do-not-promote-legacy-hero",
+    "sharedIntegrationRequired": false
+  }
+}

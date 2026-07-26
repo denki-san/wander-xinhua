@@ -1,0 +1,595 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-26",
+  "assetId": "building:xinhua-road:shanghai-orchestra",
+  "status": "geometry-pass-membership-and-map-acceptance-blocked-evidence",
+  "sourceBinding": "docs/research/shanghai-orchestra-osm-binding.json",
+  "recoveryBuildRecord": "docs/research/build-records/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.json",
+  "runtimeTransform": {
+    "position": [
+      -44.4,
+      44
+    ],
+    "yaw": 2.761592653589793,
+    "scale": 0.88,
+    "frontDirection": "local-negative-y",
+    "transformRole": "stable-local-frame-only"
+  },
+  "mapContract": {
+    "centerWgs84": [
+      121.4227819,
+      31.2066376
+    ],
+    "metersPerSceneUnit": 2.7,
+    "projectionFormula": {
+      "x": "(lon-centerLon)*111320*cos(centerLat)/metersPerSceneUnit",
+      "z": "-(lat-centerLat)*110540/metersPerSceneUnit"
+    },
+    "roadWidthSource": "app/scene/road-surface-contract.ts:roadWidth"
+  },
+  "candidateChecks": [
+    {
+      "sourceWayId": 864505166,
+      "candidateRole": "unbound-member-candidate",
+      "worldFootprint": [
+        [
+          -40.595775,
+          41.427936
+        ],
+        [
+          -38.254254,
+          34.533515
+        ],
+        [
+          -30.288144,
+          37.202851
+        ],
+        [
+          -32.629665,
+          44.097272
+        ]
+      ],
+      "localFootprint": [
+        [
+          -2.930474,
+          4.317784
+        ],
+        [
+          -2.495482,
+          12.580424
+        ],
+        [
+          -12.02725,
+          13.121191
+        ],
+        [
+          -12.462243,
+          4.858551
+        ]
+      ],
+      "longestFootprintEdge": {
+        "lengthSceneUnits": 8.401444,
+        "yawRadians": -2.818265,
+        "evidence": "observed-osm-footprint-not-entrance-direction"
+      },
+      "projectionRoundTripMaxSceneUnits": 0,
+      "recoveryWorldDeltaMaxSceneUnits": 0.000006546,
+      "roadDistance": {
+        "xinhua": {
+          "osmWayId": 682286683,
+          "highway": "tertiary",
+          "centerlineSceneUnits": 20.507957,
+          "asphaltWidthSceneUnits": 4.9,
+          "asphaltEdgeSceneUnits": 18.057957
+        },
+        "fahuazhen": {
+          "osmWayId": 66394007,
+          "highway": "tertiary",
+          "centerlineSceneUnits": 17.846296,
+          "asphaltWidthSceneUnits": 7.25,
+          "asphaltEdgeSceneUnits": 14.221296
+        }
+      }
+    },
+    {
+      "sourceWayId": 864505168,
+      "candidateRole": "unbound-member-candidate",
+      "worldFootprint": [
+        [
+          -55.91793,
+          45.98464
+        ],
+        [
+          -52.987502,
+          38.373756
+        ],
+        [
+          -49.42585,
+          39.728895
+        ],
+        [
+          -52.356278,
+          47.335684
+        ]
+      ],
+      "localFootprint": [
+        [
+          11.318353,
+          -6.949206
+        ],
+        [
+          11.433862,
+          2.317742
+        ],
+        [
+          7.104056,
+          2.388902
+        ],
+        [
+          6.990274,
+          -6.873726
+        ]
+      ],
+      "longestFootprintEdge": {
+        "lengthSceneUnits": 8.155548,
+        "yawRadians": -1.20326,
+        "evidence": "observed-osm-footprint-not-entrance-direction"
+      },
+      "projectionRoundTripMaxSceneUnits": 0,
+      "recoveryWorldDeltaMaxSceneUnits": 0.000004731,
+      "roadDistance": {
+        "xinhua": {
+          "osmWayId": 682286683,
+          "highway": "tertiary",
+          "centerlineSceneUnits": 10.567233,
+          "asphaltWidthSceneUnits": 4.9,
+          "asphaltEdgeSceneUnits": 8.117233
+        },
+        "fahuazhen": {
+          "osmWayId": 66394007,
+          "highway": "tertiary",
+          "centerlineSceneUnits": 26.811718,
+          "asphaltWidthSceneUnits": 7.25,
+          "asphaltEdgeSceneUnits": 23.186718
+        }
+      }
+    },
+    {
+      "sourceWayId": 864505165,
+      "candidateRole": "unbound-member-candidate",
+      "worldFootprint": [
+        [
+          -40.172609,
+          52.371396
+        ],
+        [
+          -38.166094,
+          46.467741
+        ],
+        [
+          -35.387301,
+          47.397096
+        ],
+        [
+          -36.212475,
+          49.828976
+        ],
+        [
+          -31.987863,
+          51.241431
+        ],
+        [
+          -33.169203,
+          54.713206
+        ]
+      ],
+      "localFootprint": [
+        [
+          -7.989717,
+          -7.052492
+        ],
+        [
+          -7.618799,
+          0.023386
+        ],
+        [
+          -10.942986,
+          0.2139
+        ],
+        [
+          -11.097217,
+          -2.700276
+        ],
+        [
+          -16.150804,
+          -2.410165
+        ],
+        [
+          -16.36749,
+          -6.571867
+        ]
+      ],
+      "longestFootprintEdge": {
+        "lengthSceneUnits": 7.384563,
+        "yawRadians": -2.818899,
+        "evidence": "observed-osm-footprint-not-entrance-direction"
+      },
+      "projectionRoundTripMaxSceneUnits": 0,
+      "recoveryWorldDeltaMaxSceneUnits": 0.000006564,
+      "roadDistance": {
+        "xinhua": {
+          "osmWayId": 682286683,
+          "highway": "tertiary",
+          "centerlineSceneUnits": 10.511293,
+          "asphaltWidthSceneUnits": 4.9,
+          "asphaltEdgeSceneUnits": 8.061293
+        },
+        "fahuazhen": {
+          "osmWayId": 66394007,
+          "highway": "tertiary",
+          "centerlineSceneUnits": 29.16466,
+          "asphaltWidthSceneUnits": 7.25,
+          "asphaltEdgeSceneUnits": 25.53966
+        }
+      }
+    },
+    {
+      "sourceWayId": 864505169,
+      "candidateRole": "unbound-member-candidate",
+      "worldFootprint": [
+        [
+          -63.912251,
+          31.520276
+        ],
+        [
+          -60.25186,
+          24.011744
+        ],
+        [
+          -50.69535,
+          28.605296
+        ],
+        [
+          -49.461114,
+          26.075158
+        ],
+        [
+          -45.444558,
+          28.007561
+        ],
+        [
+          -50.339185,
+          38.04623
+        ]
+      ],
+      "localFootprint": [
+        [
+          25.851503,
+          4.945437
+        ],
+        [
+          25.15354,
+          14.412053
+        ],
+        [
+          13.132363,
+          13.592549
+        ],
+        [
+          12.896328,
+          16.782837
+        ],
+        [
+          7.843145,
+          16.436551
+        ],
+        [
+          8.777143,
+          3.779648
+        ]
+      ],
+      "longestFootprintEdge": {
+        "lengthSceneUnits": 15.060419,
+        "yawRadians": -2.693421,
+        "evidence": "observed-osm-footprint-not-entrance-direction"
+      },
+      "projectionRoundTripMaxSceneUnits": 0,
+      "recoveryWorldDeltaMaxSceneUnits": 0.00000478,
+      "roadDistance": {
+        "xinhua": {
+          "osmWayId": 682286683,
+          "highway": "tertiary",
+          "centerlineSceneUnits": 20.013204,
+          "asphaltWidthSceneUnits": 4.9,
+          "asphaltEdgeSceneUnits": 17.563204
+        },
+        "fahuazhen": {
+          "osmWayId": 66394007,
+          "highway": "tertiary",
+          "centerlineSceneUnits": 14.292135,
+          "asphaltWidthSceneUnits": 7.25,
+          "asphaltEdgeSceneUnits": 10.667135
+        }
+      }
+    },
+    {
+      "sourceWayId": 864505163,
+      "candidateRole": "unbound-member-candidate",
+      "worldFootprint": [
+        [
+          -40.243137,
+          53.19021
+        ],
+        [
+          -35.380248,
+          54.819652
+        ],
+        [
+          -36.152527,
+          57.091863
+        ],
+        [
+          -41.011889,
+          55.462421
+        ]
+      ],
+      "localFootprint": [
+        [
+          -8.26042,
+          -7.946315
+        ],
+        [
+          -14.07904,
+          -7.616156
+        ],
+        [
+          -14.221792,
+          -10.339538
+        ],
+        [
+          -8.406893,
+          -10.668211
+        ]
+      ],
+      "longestFootprintEdge": {
+        "lengthSceneUnits": 5.128622,
+        "yawRadians": 0.323319,
+        "evidence": "observed-osm-footprint-not-entrance-direction"
+      },
+      "projectionRoundTripMaxSceneUnits": 0,
+      "recoveryWorldDeltaMaxSceneUnits": 0.000004467,
+      "roadDistance": {
+        "xinhua": {
+          "osmWayId": 682286683,
+          "highway": "tertiary",
+          "centerlineSceneUnits": 7.330222,
+          "asphaltWidthSceneUnits": 4.9,
+          "asphaltEdgeSceneUnits": 4.880222
+        },
+        "fahuazhen": {
+          "osmWayId": 66394007,
+          "highway": "tertiary",
+          "centerlineSceneUnits": 36.146914,
+          "asphaltWidthSceneUnits": 7.25,
+          "asphaltEdgeSceneUnits": 32.521914
+        }
+      }
+    }
+  ],
+  "compoundRoadClearance": {
+    "xinhua": {
+      "sourceWayId": 864505163,
+      "osmWayId": 682286683,
+      "highway": "tertiary",
+      "centerlineSceneUnits": 7.330222,
+      "asphaltWidthSceneUnits": 4.9,
+      "asphaltEdgeSceneUnits": 4.880222
+    },
+    "fahuazhen": {
+      "sourceWayId": 864505169,
+      "osmWayId": 66394007,
+      "highway": "tertiary",
+      "centerlineSceneUnits": 14.292135,
+      "asphaltWidthSceneUnits": 7.25,
+      "asphaltEdgeSceneUnits": 10.667135
+    },
+    "interpretation": "positive asphaltEdgeSceneUnits means no footprint enters the rendered asphalt"
+  },
+  "adjacency": {
+    "candidatePairMinimumGapSceneUnits": 0.798917,
+    "candidatePairIntersections": [],
+    "adjacentUnknownMinimumGapSceneUnits": 1.169289,
+    "adjacentUnknownIntersections": [],
+    "candidatePairGaps": [
+      {
+        "firstWayId": 864505166,
+        "secondWayId": 864505168,
+        "gapSceneUnits": 8.99205
+      },
+      {
+        "firstWayId": 864505166,
+        "secondWayId": 864505165,
+        "gapSceneUnits": 4.005004
+      },
+      {
+        "firstWayId": 864505166,
+        "secondWayId": 864505169,
+        "gapSceneUnits": 9.323052
+      },
+      {
+        "firstWayId": 864505166,
+        "secondWayId": 864505163,
+        "gapSceneUnits": 11.040714
+      },
+      {
+        "firstWayId": 864505168,
+        "secondWayId": 864505165,
+        "gapSceneUnits": 12.929566
+      },
+      {
+        "firstWayId": 864505168,
+        "secondWayId": 864505169,
+        "gapSceneUnits": 1.247885
+      },
+      {
+        "firstWayId": 864505168,
+        "secondWayId": 864505163,
+        "gapSceneUnits": 13.453761
+      },
+      {
+        "firstWayId": 864505165,
+        "secondWayId": 864505169,
+        "gapSceneUnits": 14.802228
+      },
+      {
+        "firstWayId": 864505165,
+        "secondWayId": 864505163,
+        "gapSceneUnits": 0.798917
+      },
+      {
+        "firstWayId": 864505169,
+        "secondWayId": 864505163,
+        "gapSceneUnits": 18.200833
+      }
+    ],
+    "adjacentGaps": [
+      {
+        "candidateWayId": 864505166,
+        "adjacentWayId": 864505162,
+        "gapSceneUnits": 7.255638
+      },
+      {
+        "candidateWayId": 864505166,
+        "adjacentWayId": 864505164,
+        "gapSceneUnits": 1.693049
+      },
+      {
+        "candidateWayId": 864505166,
+        "adjacentWayId": 864505167,
+        "gapSceneUnits": 4.426128
+      },
+      {
+        "candidateWayId": 864505166,
+        "adjacentWayId": 864505170,
+        "gapSceneUnits": 14.469919
+      },
+      {
+        "candidateWayId": 864505168,
+        "adjacentWayId": 864505162,
+        "gapSceneUnits": 24.564673
+      },
+      {
+        "candidateWayId": 864505168,
+        "adjacentWayId": 864505164,
+        "gapSceneUnits": 16.932707
+      },
+      {
+        "candidateWayId": 864505168,
+        "adjacentWayId": 864505167,
+        "gapSceneUnits": 15.067064
+      },
+      {
+        "candidateWayId": 864505168,
+        "adjacentWayId": 864505170,
+        "gapSceneUnits": 14.660735
+      },
+      {
+        "candidateWayId": 864505165,
+        "adjacentWayId": 864505162,
+        "gapSceneUnits": 6.160603
+      },
+      {
+        "candidateWayId": 864505165,
+        "adjacentWayId": 864505164,
+        "gapSceneUnits": 1.169289
+      },
+      {
+        "candidateWayId": 864505165,
+        "adjacentWayId": 864505167,
+        "gapSceneUnits": 15.714005
+      },
+      {
+        "candidateWayId": 864505165,
+        "adjacentWayId": 864505170,
+        "gapSceneUnits": 24.406608
+      },
+      {
+        "candidateWayId": 864505169,
+        "adjacentWayId": 864505162,
+        "gapSceneUnits": 25.615038
+      },
+      {
+        "candidateWayId": 864505169,
+        "adjacentWayId": 864505164,
+        "gapSceneUnits": 18.405016
+      },
+      {
+        "candidateWayId": 864505169,
+        "adjacentWayId": 864505167,
+        "gapSceneUnits": 7.74934
+      },
+      {
+        "candidateWayId": 864505169,
+        "adjacentWayId": 864505170,
+        "gapSceneUnits": 1.900043
+      },
+      {
+        "candidateWayId": 864505163,
+        "adjacentWayId": 864505162,
+        "gapSceneUnits": 10.921314
+      },
+      {
+        "candidateWayId": 864505163,
+        "adjacentWayId": 864505164,
+        "gapSceneUnits": 5.845733
+      },
+      {
+        "candidateWayId": 864505163,
+        "adjacentWayId": 864505167,
+        "gapSceneUnits": 22.749046
+      },
+      {
+        "candidateWayId": 864505163,
+        "adjacentWayId": 864505170,
+        "gapSceneUnits": 29.979075
+      }
+    ]
+  },
+  "currentApproach": {
+    "start": [
+      -28.5,
+      60
+    ],
+    "forward": [
+      -0.707,
+      -0.707
+    ],
+    "minimumBuildingClearanceSceneUnits": 7.053485,
+    "collisionFree": true
+  },
+  "acceptance": {
+    "sourceProjection": "pass",
+    "recoveryGeometryAlignment": "pass",
+    "asphaltOverlap": "pass",
+    "footprintCollision": "pass",
+    "formalMembership": "blocked-evidence",
+    "mapAcceptance": "blocked-evidence",
+    "identityAllowed": false
+  },
+  "currentRuntimeDiagnostic": {
+    "status": "pass-load-performance-collision-stop-qa-only",
+    "record": "docs/research/shanghai-orchestra-threejs-runtime-qa.json",
+    "productionPromotionAllowed": false
+  },
+  "blocker": {
+    "reason": "TJAD photos prove the compound but do not map buildings 6, 7, 8 or retained volumes to the five OSM ways",
+    "retainedAssets": [
+      "public/models/xinhua-road/shanghai-orchestra.glb",
+      "assets/models/source/xinhua-road/shanghai-orchestra.blend",
+      "public/models/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.glb",
+      "assets/models/source/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.blend"
+    ],
+    "mcp1Record": "docs/research/shanghai-orchestra-blender-mcp-gates.json",
+    "nextGate": "Obtain formal member-set evidence before map promotion or Identity; QA-only runtime diagnosis may continue."
+  }
+}

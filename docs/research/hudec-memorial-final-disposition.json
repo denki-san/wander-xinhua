@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "2e33699f24330f4c9c98f4c63e8048fd657d90e3",
+  "status": "candidate-awaiting-main-window-mcp2",
+  "scope": {
+    "mode": "v2-hero-candidate-checkpoint",
+    "binaryRebuilt": true,
+    "acceptedMassingBinaryRebuilt": false,
+    "heroCandidateBuilt": true,
+    "qualifiedGateRerun": false,
+    "browserOrXhsAccessed": false,
+    "sharedFilesModified": false,
+    "legacyHeroOverwrittenOrDeleted": false,
+    "excluded": [
+      "shared registry",
+      "shared runtime",
+      "Fast manifest",
+      "trees",
+      "decorations",
+      "full-map assets",
+      "Recovery/Hold",
+      "other buildings"
+    ]
+  },
+  "recordPrecedence": [
+    {
+      "rank": 1,
+      "path": "docs/research/hudec-memorial-final-disposition.json",
+      "role": "current Hero lineage and remaining-gate reconciliation"
+    },
+    {
+      "rank": 2,
+      "path": "docs/research/build-records/hudec-memorial-massing.json",
+      "sha256": "62b3e4e0f65da386260d0512e73ca99300b96feaa474b8a86e4718d4b50489b3",
+      "role": "current Massing v2 MCP1 and real-map authority"
+    },
+    {
+      "rank": 3,
+      "path": "docs/research/hudec-memorial-blender-mcp-gates.json",
+      "sha256": "aab78f9755772552b9b20a6c2fcab38a22d30717e20db98624d2f65406e0ce23",
+      "role": "candidate precedence and historical supersession"
+    },
+    {
+      "rank": 4,
+      "path": "test_artifacts/test_hudec-memorial_map_calibration.json",
+      "sha256": "969d4e5e1493fda976b0f319f3f25b941412fbc5d8cf612690e8df19b6f76f2e",
+      "role": "static OSM, road and split-collision recommendation"
+    },
+    {
+      "rank": 5,
+      "path": "test_artifacts/test_hudec-memorial_massing_runtime_metrics.json",
+      "role": "historical rejected binary and map run retained without deletion"
+    }
+  ],
+  "inputs": {
+    "referenceManifest": {
+      "path": "docs/research/hudec-memorial-v2-reference-manifest.json",
+      "sha256": "8ac58e9721863c0c9d8407c5eda21809f9b37d03fc3b69a65b194521d8caa675"
+    },
+    "modelBrief": {
+      "path": "docs/research/hudec-memorial-v2-model-brief.md",
+      "sha256": "ef0fc4ae1023180adee808c7a3e0ae86a2804c70443be5b30e933df2dcda1da7"
+    },
+    "evidenceNote": {
+      "path": "docs/knowledge-sources/hudec-memorial-v2-modeling-evidence-2026-07-25.md",
+      "sha256": "aa2d860b61da949be7336a4559e2b3ca5461ccaf07f64cdc5e4e5f48098f0022"
+    },
+    "publicRegistry": {
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "f87c8fde941c71c6876bba4e7a50cf9177c5b7d11163822c4f4ac906568d9fa6"
+    }
+  },
+  "evidenceGate": {
+    "status": "pass-for-v2-massing-and-hero-construction",
+    "subject": "邬达克纪念馆（邬达克旧居）",
+    "address": "上海市长宁区番禺路129号",
+    "osmWayId": 494633921,
+    "canonicalReference": "HUDEC-V2-REF-C",
+    "covered": [
+      "canonical west-rear oblique",
+      "side and depth",
+      "entrance and identity detail"
+    ],
+    "unknown": [
+      "complete east and rear elevations",
+      "interior plan",
+      "exact floor heights and roof pitch",
+      "current obscured landscaping",
+      "precise cadastral boundary"
+    ],
+    "requiredHeroCues": [
+      "wide black-and-white half-timber facade",
+      "steep layered roof hierarchy",
+      "three-part tall brick chimney",
+      "gabled timber entrance porch",
+      "low glazed west-rear wing"
+    ],
+    "xhsSearchRequired": false
+  },
+  "currentMassing": {
+    "status": "mcp1-and-real-map-pass",
+    "generator": {
+      "path": "scripts/create_hudec_memorial_v2.py",
+      "sha256": "aa09dabb3017a521025e6c2a46b8fe4e1acc31713fab21973049fe69de56c82c",
+      "bytes": 22896,
+      "acceptedMassingBuildGeneratorSha256": "be77ff6acbc09278e2cf0af5000fcfdddd69d657a25f41d72567e8f47a6648df",
+      "currentlyAllows": "massing-and-hero-candidate"
+    },
+    "blend": {
+      "path": "assets/models/source/requested-pois/hudec-memorial-massing.blend",
+      "sha256": "dea695f3434f94889907094c7f4b09ab242c159c94703263e21be3c5438b0891",
+      "bytes": 130123
+    },
+    "glb": {
+      "path": "public/models/requested-pois/hudec-memorial-massing.glb",
+      "sha256": "772ce8a8445a2cc9f1496a9876960ecf78964f11d09209578a1a5fbd52864ff0",
+      "bytes": 158312,
+      "nodes": 1,
+      "meshes": 1,
+      "primitives": 5,
+      "triangles": 2180,
+      "materials": 5,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [
+          -6.300000190734863,
+          -1.4901161193847656e-8,
+          -5.148000240325928
+        ],
+        "max": [
+          6.300000190734863,
+          8.978400230407715,
+          5.6519999504089355
+        ]
+      }
+    },
+    "buildRecord": "docs/research/build-records/hudec-memorial-massing.json",
+    "mcp1": "pass-current-sha-visual-and-structure",
+    "acceptedInteractiveChanges": [],
+    "identityAuthorization": false
+  },
+  "mapGate": {
+    "status": "pass-current-sha-real-threejs",
+    "position": [
+      92.535374,
+      -132.52181
+    ],
+    "yawRadians": 0.153486288,
+    "scale": 0.88,
+    "movementAuthorized": false,
+    "road": {
+      "status": "pass",
+      "modelToAsphaltEdgeSceneUnits": 10.17698,
+      "setbackDeltaFromOsmSceneUnits": -0.466945
+    },
+    "entrance": {
+      "localVisualGapSceneUnits": 1.5912,
+      "worldVisualGapSceneUnits": 1.400256,
+      "requiredGapSceneUnits": 1.36,
+      "remainingClearanceSceneUnits": 0.040256,
+      "solidWallProbe": "pass-stops-and-slides-without-penetration",
+      "openPathProbe": "pass-walks-between-wall-segments-to-door"
+    },
+    "localObstacleCount": 7,
+    "performance": {
+      "viewport": [
+        1280,
+        720
+      ],
+      "pageVisibility": "visible",
+      "prewarmMs": 6000,
+      "sampleDurationMs": 10015.1,
+      "frames": 972,
+      "fps": 97.0534,
+      "buildMode": "production",
+      "improvementClaimed": false
+    },
+    "consoleEvents": 0
+  },
+  "legacyHero": {
+    "status": "hold-same-named-subject-but-not-v2-lineage-or-mcp2-candidate",
+    "subjectIdentity": "same-stable-id-and-address-intent",
+    "generatorLineage": "legacy-shared-requested-poi-generator",
+    "generator": {
+      "path": "scripts/create_requested_poi_models.py",
+      "sha256": "3bd9cd02fcd2e62b9d8c26866cc2660b6c42fc3a91e4399a934f2d563647d5d1"
+    },
+    "blend": {
+      "path": "assets/models/source/requested-pois/hudec-memorial.blend",
+      "sha256": "eba701d3290ea3f3a197bd36e4248c7ee665b34af71c012170e494bb3d2455ba",
+      "bytes": 1588024
+    },
+    "glb": {
+      "path": "public/models/requested-pois/hudec-memorial.glb",
+      "sha256": "42159678fb720c963a82921ed827aceb7825b164da321d67345891732f622984",
+      "bytes": 1154820,
+      "nodes": 1,
+      "meshes": 1,
+      "primitives": 14,
+      "triangles": 16624,
+      "materials": 14,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [
+          -8.75,
+          -0.02499999850988388,
+          -6.949999809265137
+        ],
+        "max": [
+          8.75,
+          10.735000610351562,
+          8.550000190734863
+        ]
+      }
+    },
+    "currentDefaultRegistryTransform": {
+      "position": [
+        91.34,
+        -131.74
+      ],
+      "yawRadians": 1.5707963267948966,
+      "scale": 0.72
+    },
+    "lineageMismatch": [
+      "not generated by scripts/create_hudec_memorial_v2.py",
+      "no Hero build record derived from accepted Massing parameters",
+      "bounds, origin envelope, yaw and runtime scale differ from accepted V2 contract",
+      "official evidence rejects its generic compact roof, two simple chimneys and incomplete west-rear hierarchy"
+    ],
+    "scopePollution": [
+      "courtyard slab",
+      "garden tree",
+      "hedges"
+    ],
+    "mcp2Authorized": false,
+    "mcp2Candidate": false,
+    "disposition": "保留为 legacy rollback/Hold，不覆盖、不删除、不用视觉 MCP2 洗白错误 lineage。"
+  },
+  "v2HeroCandidate": {
+    "status": "candidate-awaiting-main-window-mcp2",
+    "buildRecord": "docs/research/build-records/tiers/xinhua-road/hero/hudec-memorial-v2-hero.json",
+    "blend": "assets/models/source/requested-pois/hudec-memorial-v2-hero.blend",
+    "glb": "public/models/requested-pois/hudec-memorial-v2-hero.glb",
+    "glbSha256": "598b2ba19e2412d7a592836d45066c787a7cf1eac347a6a6c5d790c12ffabff5",
+    "mcp2Authorized": true,
+    "mcp2Passed": false,
+    "identityDerivationAuthorized": false
+  },
+  "heroGateInterpretation": {
+    "sourceRecordValue": "authorized-for-main-window-mcp2",
+    "meaning": "Massing 与地图通过后，允许提交一个从当前 V2 参数构建并冻结的 Hero 给主窗口审查。",
+    "doesNotMean": "legacy Hero 已通过或自动取得 MCP2 资格",
+    "currentEligibleHeroExists": true,
+    "status": "candidate-awaiting-main-window-mcp2"
+  },
+  "identityDisposition": {
+    "status": "not-created-blocked-until-v2-hero-mcp2",
+    "generatorExists": false,
+    "blendExists": false,
+    "glbExists": false,
+    "buildRecordExists": false,
+    "derivationAuthorized": false
+  },
+  "publicRuntimeDisposition": {
+    "defaultRegistryStillReferencesLegacyHero": true,
+    "acceptedMassingUsedScopedQaOverride": true,
+    "sharedRegistryChangeAuthorizedHere": false,
+    "status": "main-window-integration-pending-after-valid-hero-and-identity"
+  },
+  "gates": {
+    "evidenceAndBrief": "pass",
+    "massingMcp1": "pass-retained",
+    "massingMap": "pass-retained",
+    "road": "pass-retained",
+    "collisionAndOpenEntrance": "pass-retained",
+    "heroLineage": "pass-candidate",
+    "heroMcp2": "pending-main-window-xhigh",
+    "identity": "blocked",
+    "identityMcp3": "not-reachable",
+    "threeTierRuntime": "not-reachable",
+    "overall": "candidate-awaiting-main-window-mcp2"
+  },
+  "mainWindowActions": [
+    "保留当前 Massing SHA、MCP1 与真实地图门，不得重做。",
+    "对 V2 Hero candidate 执行主窗口 xhigh MCP2；不得用 legacy shared-generator Hero 替代。",
+    "仅在 Hero MCP2 通过且冻结后，从该 Hero lineage 派生 Identity，再执行 MCP3 与 Three.js 三档验收。",
+    "公共 registry/runtime 仍只由主窗口统一接入；本 checkpoint 不修改共享文件。"
+  ]
+}

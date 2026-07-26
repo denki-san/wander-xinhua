@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 1,
+  "assetId": "fahua-heritage",
+  "label": "法华遗韵",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "f8cafd25ff804ec283e7b189f8dfabcead284346",
+  "status": "blocked-local-evidence-exhausted-xhs-pending",
+  "scope": {
+    "mode": "medium-fast-preserved-stage-final-disposition",
+    "binaryRebuilt": false,
+    "qualifiedRecoveryStageRerun": false,
+    "browserOrXhsAccessed": false,
+    "productionSharedFilesModified": false,
+    "testHarnessExtended": true,
+    "legacyAssetOverwrittenOrDeleted": false,
+    "excluded": [
+      "shared registry",
+      "shared runtime",
+      "Fast manifest",
+      "trees",
+      "decorations",
+      "full-map assets",
+      "Recovery/Hold",
+      "other buildings"
+    ]
+  },
+  "inputs": {
+    "referenceManifest": {
+      "path": "docs/research/poi-reference-manifest.json",
+      "sha256": "be687fc29e7f45cf0029159c35274918de32450d33341457e57fcfbac931b51f"
+    },
+    "modelBrief": {
+      "path": "docs/research/requested-poi-model-brief.md",
+      "sha256": "034b303cb454235405edf8d5b8e26a9ae164e5aadfd85278dc7158a18955c26f"
+    },
+    "referencePhoto": {
+      "path": "docs/research/assets/requested-poi-references/fahua-heritage-arch.jpg",
+      "sha256": "bce705550e57ee299c9160ca04a19c5157b50d8f70873c988d4ef46ca49a662e",
+      "bytes": 163123,
+      "pixelWidth": 600,
+      "pixelHeight": 357
+    },
+    "publicRegistry": {
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "f87c8fde941c71c6876bba4e7a50cf9177c5b7d11163822c4f4ac906568d9fa6"
+    },
+    "identityContract": {
+      "path": "app/scene/xinhua-road-identity-contract.ts",
+      "sha256": "73b3256b88cd6a7969e051234ff564400db08d33b885b7c7c452eaedaa819e1f"
+    },
+    "identityRecipeSource": {
+      "path": "app/scene/xinhua-road-massing.tsx",
+      "sha256": "0260e615e51a139115040aac3cc7ea47899be25272aa784ebd00dc7775b88fe9"
+    }
+  },
+  "evidenceGate": {
+    "status": "blocked-front-only",
+    "subject": "法华遗韵纪念展板构筑物",
+    "address": "法华镇路与香花桥路交会处",
+    "canonicalReference": "docs/research/assets/requested-poi-references/fahua-heritage-arch.jpg",
+    "photoStatus": "verified-same-structure",
+    "coverage": {
+      "canonicalFront": "pass-preserved",
+      "sideOrDepth": "missing",
+      "entranceOrIdentityDetail": "partial-in-canonical-only",
+      "streetContextAndSiteBoundary": "missing"
+    },
+    "observed": [
+      "四根灰石柱形成三间立面",
+      "中央横额有金色法华遗韵文字",
+      "两侧有短灰瓦檐",
+      "中央和两侧均为深褐色说明板",
+      "构筑物紧邻右侧建筑墙面"
+    ],
+    "inferred": [
+      "现有约十米宽缩放来自单张正面照片和路口关系推断",
+      "背面、真实厚度与屋面深度仍沿用程序化简化"
+    ],
+    "unknown": [
+      "背面与两侧完整构造",
+      "精确高度、宽度和柱间距",
+      "构筑物与人行界面及产权边界的实测关系",
+      "道路侧观察方向",
+      "当前现场遮挡和开放步行范围"
+    ],
+    "dedicatedTemplateBriefExists": false,
+    "existingBriefSectionUsableAsLegacyCueSummary": true,
+    "newModelingAuthorized": false,
+    "xhsSearchRequiredBeforeNextModeling": true,
+    "xhsSearchPerformedInThisCheckpoint": false
+  },
+  "legacyHero": {
+    "status": "pass-preserved-structural-baseline-not-mcp2",
+    "generator": {
+      "path": "scripts/create_requested_poi_models.py",
+      "sha256": "3bd9cd02fcd2e62b9d8c26866cc2660b6c42fc3a91e4399a934f2d563647d5d1"
+    },
+    "blend": {
+      "path": "assets/models/source/requested-pois/fahua-heritage.blend",
+      "sha256": "8bb9b43c50e94c6f6ffd00f216dd5babf95282852e9514f309a7c4cdeec0fe8f",
+      "bytes": 2069797
+    },
+    "glb": {
+      "path": "public/models/requested-pois/fahua-heritage.glb",
+      "sha256": "f23d8b701a338838c60645e4460a5dccca904e62a58053f7066d29dff54bf7b3",
+      "bytes": 1739160,
+      "nodes": 1,
+      "meshes": 1,
+      "primitives": 7,
+      "triangles": 28152,
+      "materials": 7,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [
+          -7.75,
+          0,
+          -2.0999999046325684
+        ],
+        "max": [
+          7.75,
+          5.759999752044678,
+          2.0999999046325684
+        ]
+      },
+      "rootNode": "fahua-heritage",
+      "rootTransformBaked": true
+    },
+    "preview": {
+      "path": "test_artifacts/test_fahua-heritage_preview.png",
+      "sha256": "987b704d324e445f8ee6bda1e2999ba0bbbab4c7af4597371d5ec07e9b3923ab",
+      "bytes": 657077,
+      "pixelWidth": 900,
+      "pixelHeight": 700,
+      "visualStatus": "pass-preserved-front-oblique-cues-only"
+    },
+    "lineage": "legacy-shared-requested-poi-generator",
+    "heroBuildRecordExists": false,
+    "sameCameraTriptychExists": false,
+    "mcp2Authorized": false,
+    "mcp2Status": "not-entered-formal-massing-and-map-not-passed",
+    "disposition": "保留 legacy Hero、Blend、generator 与预览，不覆盖、不删除；结构审计通过不等于 MCP2。"
+  },
+  "recoveryMassing": {
+    "status": "pass-preserved-conditional-geometry-and-page-load-not-formal-mcp1",
+    "holdCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "record": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing/fahua-heritage-massing.json",
+      "sha256": "1155cc30e5fb5739a61d0647df363b75a953973ed5e7e93cfe44967f357ca399"
+    },
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/massing/fahua-heritage-massing.blend",
+      "sha256": "e882ccf59025ca52326dfa069b69546e829b515960e0c634ab3032768a71f7cc"
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing/fahua-heritage-massing.glb",
+      "sha256": "41f6a49bc20197ef6058fdd5190ab2e80bd547b47a5a56d4725b653bec57d42f",
+      "bytes": 92624,
+      "nodes": 1,
+      "meshes": 1,
+      "triangles": 900,
+      "materials": 1,
+      "images": 0,
+      "textures": 0
+    },
+    "preservedPasses": [
+      "GLB structural audit",
+      "single Massing material and budget",
+      "production-preview page playable",
+      "camera spring clear",
+      "single runtime visual screenshot"
+    ],
+    "preservedVerdict": "conditional-geometry-usable-gate-blocked",
+    "notPassed": [
+      "formal Blender MCP1 same-camera review",
+      "formal map acceptance",
+      "site-boundary walkaround",
+      "fixed street-context view",
+      "deterministic collision route"
+    ],
+    "rerunRequiredNow": false,
+    "integrationAuthorized": false
+  },
+  "staticMapAudit": {
+    "status": "pass-preserved-numeric-sanity-not-formal-map-acceptance",
+    "source": "current shared registry and production road centerlines",
+    "position": [
+      -63.4,
+      -2.6
+    ],
+    "yawRadians": -0.5,
+    "scale": 0.27,
+    "worldFootprintWithCollisionMargin": {
+      "minX": -65.70817579114419,
+      "maxX": -61.091824208855805,
+      "minZ": -4.300787252121136,
+      "maxZ": -0.8992127478788641
+    },
+    "roads": {
+      "fahuazhen": {
+        "osmWayId": 66394007,
+        "highway": "tertiary",
+        "roadWidthSceneUnits": 7.25,
+        "minimumCenterlineDistanceSceneUnits": 4.454112906030526,
+        "minimumAsphaltEdgeClearanceSceneUnits": 0.8291129060305256,
+        "projectMinimumClearanceSceneUnits": 0.75,
+        "status": "pass-static"
+      },
+      "xianghuaqiao": {
+        "osmWayId": 85686607,
+        "highway": "residential",
+        "roadWidthSceneUnits": 4.5,
+        "minimumCenterlineDistanceSceneUnits": 5.311200493264744,
+        "minimumAsphaltEdgeClearanceSceneUnits": 3.061200493264744,
+        "status": "pass-static"
+      }
+    },
+    "otherLandmarkEnvelopeOverlaps": [],
+    "start": {
+      "position": [
+        -61.97,
+        -5.23
+      ],
+      "forward": [
+        -0.479,
+        0.878
+      ],
+      "distanceToAssetOriginSceneUnits": 2.993626563217263,
+      "minimumSplitObstacleDistanceSceneUnits": 2.3688997171988984,
+      "headingErrorDegrees": 0.08094591918316835,
+      "status": "pass-static"
+    },
+    "localObstacleCount": 7,
+    "groundContact": "not-accepted-runtime-code-adds-terrain-plus-0.1-but-no-current-visual-measurement",
+    "formalMapAcceptance": "blocked-missing-street-context-site-boundary-and-walkaround"
+  },
+  "identityDisposition": {
+    "status": "blocked-programmatic-recipe-not-subject-faithful",
+    "currentStrategy": "programmatic-miniature",
+    "currentRecipe": "heritage-gate",
+    "standaloneBlendExists": false,
+    "standaloneGlbExists": false,
+    "buildRecordExists": false,
+    "derivedFromAcceptedHero": false,
+    "observedRecipeMismatch": [
+      "程序化配方主体是低层横向楼块",
+      "中央附加高楼块与四棱锥屋顶",
+      "没有四柱三间、三块说明板和两侧短瓦檐的主题结构"
+    ],
+    "mcp3Status": "not-reachable",
+    "disposition": "当前配方只能作为 generic fallback 代码路径，不能计为本栋正式 Identity。"
+  },
+  "threeJsDisposition": {
+    "status": "not-entered-three-tier-acceptance",
+    "currentDefaultRoute": "/?start=fahua-heritage&cameraQa=1&qaAutoStart=1",
+    "currentDefaultAsset": "legacy Hero only after distance mount",
+    "currentOverviewRepresentation": "programmatic-miniature",
+    "formalTierContractExists": false,
+    "heroRuntimeAcceptance": "not-entered",
+    "identityRuntimeAcceptance": "not-entered",
+    "massingRuntimeAcceptance": "conditional-recovery-page-load-preserved-only",
+    "deterministicFallbackAcceptance": "not-entered",
+    "performanceSample": "not-entered",
+    "consoleAndResourceTiming": "not-entered",
+    "interactiveCollisionAndCamera": "not-entered",
+    "staticSplitCollisionSanity": "pass-preserved",
+    "samePageThreeTierCollector": "not-addressable-without-formal-tier-contract"
+  },
+  "gates": {
+    "evidenceAndBrief": "blocked-front-only",
+    "massingStructure": "pass-retained-recovery",
+    "massingMcp1": "not-passed-recovery-conditional-only",
+    "massingMap": "blocked",
+    "heroStructure": "pass-retained-legacy",
+    "heroLineage": "blocked-no-formal-massing-parent-record",
+    "heroMcp2": "not-entered",
+    "identity": "blocked-generic-programmatic-recipe",
+    "identityMcp3": "not-reachable",
+    "threeTierRuntime": "not-entered",
+    "overall": "blocked-local-evidence-exhausted-xhs-pending"
+  },
+  "gameDisposition": {
+    "currentDecision": "do-not-delete-or-overwrite-files",
+    "runtimeRemovalNowAuthorized": false,
+    "nextDecisionGate": "slow-user-browser-xhs-evidence-search",
+    "ifXhsStillCannotSupplyMinimumCoverage": "main-window-removes-building-from-game registry/runtime while retaining all files and Recovery/Hold artifacts"
+  },
+  "mainWindowActions": [
+    "不得重做 Recovery 已保留的 GLB 结构、预算和单页可玩/视觉阶段。",
+    "按用户规则在登录浏览器中慢速搜索小红书，仅补侧向/纵深、街道关系和身份细节证据；本 checkpoint 未访问浏览器。",
+    "若小红书仍无法补足最低覆盖，由主窗口从游戏公共 registry/runtime 禁用本栋，所有现有文件继续保留。",
+    "若证据补足，先写独立 template Brief，再对 Recovery Massing 当前 SHA 执行正式 MCP1 与地图/步行门；未过不得授权 legacy Hero MCP2。",
+    "Hero 通过后再派生主体忠实的 Identity，替换 generic heritage-gate recipe 需由主窗口统一接入。",
+    "最后才执行 MCP3 与单页三档、fallback、性能、碰撞、控制台和资源验收。"
+  ]
+}

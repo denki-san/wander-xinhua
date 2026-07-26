@@ -993,3 +993,39 @@ Messenger 式移动触控不是“永久隐藏摇杆、移动时显示跳跃按�
 - Tags: performance, character, fog, trees, decorations, correction
 
 ---
+
+## [LRN-20260726-001] correction
+
+**Logged**: 2026-07-26T03:20:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+生成 OSM 绑定 GLB 时必须把 Blender 导出轴和公共 renderer 的固定 Z 翻转作为一条完整链验证，不能在生成器里预先重复翻转。
+
+### Details
+新华社区营造中心生成器把期望的 runtime XZ 写成 Blender X/-Y；Blender 导出后得到 raw
+GLTF +Z，而公共 `GlbModel` 又固定使用 `scale={[1, 1, -1]}`，最终把中央门廊镜像到
+OSM 绑定入口的反面。孤立 Blender 预览和只验证 footprint 数值回投都没有覆盖这条渲染轴链。
+
+正确合同是本生成器写入 `Blender Y = binding runtime Z`；Blender 导出将 Y 转为 raw GLTF
+-Z；共享 renderer 再执行唯一一次 Z 翻转，恢复期望 runtime Z。专项测试需要从门廊材质 primitive
+的 POSITION accessor 读取 raw GLTF 中心，应用 renderer 翻转和 registry placement 后，验证门廊
+位于 `entranceCenterWorld` 朝命名支路的一侧。
+
+### Suggested Action
+所有新道路建筑同时测试 footprint 和身份构件的完整坐标链：
+`Blender source → raw GLTF → renderer primitive transform → registry world`。不要仅凭 GLB bounds、
+Blender 截图或未经过 renderer 的 local-to-world 公式判断正反面。
+
+### Metadata
+- Source: user_feedback
+- Related Files: scripts/create_xinhua_community_center_massing_model.py, app/scene/xinhua-road-landmarks.tsx, tests/test_xinhua_community_center_massing_v2.test.mjs
+- Tags: blender, gltf, threejs, axis-conversion, map-calibration, correction
+
+### Resolution
+- **Resolved**: 2026-07-26T10:30:00+08:00
+- **Notes**: 生成器移除两处预先 Y 取反并确定性重建；新增从 GLB portal primitive 经共享 renderer 到 world 的轴链回归，专项7项与本栋Fast均通过。
+
+---

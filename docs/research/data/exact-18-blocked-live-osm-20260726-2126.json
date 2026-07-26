@@ -1,0 +1,497 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-07-26T13:25:49Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 66394007,
+  "center": {
+    "lat": 31.2063192,
+    "lon": 121.4226842
+  },
+  "tags": {
+    "highway": "tertiary",
+    "maxspeed": "30",
+    "name": "法华镇路",
+    "name:en": "Fahuazhen Road",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 228966550,
+  "center": {
+    "lat": 31.2078155,
+    "lon": 121.4202438
+  },
+  "tags": {
+    "building": "yes",
+    "name": "1号楼"
+  }
+},
+{
+  "type": "way",
+  "id": 228966551,
+  "center": {
+    "lat": 31.2080256,
+    "lon": 121.4203112
+  },
+  "tags": {
+    "building": "yes",
+    "name": "2号楼"
+  }
+},
+{
+  "type": "way",
+  "id": 292250766,
+  "center": {
+    "lat": 31.2046615,
+    "lon": 121.4248827
+  },
+  "tags": {
+    "addr:city": "上海",
+    "addr:housenumber": "160",
+    "addr:street": "新华路",
+    "amenity": "cinema",
+    "building": "yes",
+    "cinema:cinity": "yes",
+    "cinema:dolby_atmos": "yes",
+    "cinema:dolby_cinema": "yes",
+    "cinema:onyx": "yes",
+    "cinema:realD": "yes",
+    "dsscreated": "#cinema",
+    "name": "Shanghai Film Art Center",
+    "name:zh": "上海影城",
+    "note": "Show this to your taxi driver: 160 Xinhua Lu, near Panyu Lu 新华路160号， 近番禺路",
+    "opening_hours": "08:00-22:30",
+    "phone": "+86 21 6280 6088",
+    "screen": "7",
+    "website": "http://www.shanghai.lashou.com",
+    "wikidata": "Q96079079",
+    "wikimedia_commons": "Category:Shanghai Film Art Center",
+    "wikipedia": "zh:上海影城"
+  }
+},
+{
+  "type": "way",
+  "id": 400066625,
+  "center": {
+    "lat": 31.2063223,
+    "lon": 121.4258066
+  },
+  "tags": {
+    "bicycle": "no",
+    "highway": "pedestrian",
+    "name": "幸福里",
+    "surface": "paved"
+  }
+},
+{
+  "type": "way",
+  "id": 577252268,
+  "center": {
+    "lat": 31.2046955,
+    "lon": 121.4204668
+  },
+  "tags": {
+    "access": "private",
+    "highway": "service",
+    "oneway": "no",
+    "service": "alley"
+  }
+},
+{
+  "type": "way",
+  "id": 577252269,
+  "center": {
+    "lat": 31.2044476,
+    "lon": 121.4210503
+  },
+  "tags": {
+    "highway": "service",
+    "name": "新华路345弄",
+    "oneway": "no"
+  }
+},
+{
+  "type": "way",
+  "id": 864485593,
+  "center": {
+    "lat": 31.2038122,
+    "lon": 121.4236102
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864485594,
+  "center": {
+    "lat": 31.2037276,
+    "lon": 121.4237687
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864485595,
+  "center": {
+    "lat": 31.2039635,
+    "lon": 121.4235994
+  },
+  "tags": {
+    "building": "house"
+  }
+},
+{
+  "type": "way",
+  "id": 864485596,
+  "center": {
+    "lat": 31.2038870,
+    "lon": 121.4237927
+  },
+  "tags": {
+    "building": "house"
+  }
+},
+{
+  "type": "way",
+  "id": 864485597,
+  "center": {
+    "lat": 31.2039083,
+    "lon": 121.4240221
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864485598,
+  "center": {
+    "lat": 31.2036058,
+    "lon": 121.4240157
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864485664,
+  "center": {
+    "lat": 31.2048962,
+    "lon": 121.4214132
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864485674,
+  "center": {
+    "lat": 31.2042497,
+    "lon": 121.4234767
+  },
+  "tags": {
+    "building": "house"
+  }
+},
+{
+  "type": "way",
+  "id": 864485675,
+  "center": {
+    "lat": 31.2041414,
+    "lon": 121.4237167
+  },
+  "tags": {
+    "building": "house"
+  }
+},
+{
+  "type": "way",
+  "id": 864485676,
+  "center": {
+    "lat": 31.2040697,
+    "lon": 121.4239139
+  },
+  "tags": {
+    "building": "house"
+  }
+},
+{
+  "type": "way",
+  "id": 864493173,
+  "center": {
+    "lat": 31.2048285,
+    "lon": 121.4218499
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864493174,
+  "center": {
+    "lat": 31.2047368,
+    "lon": 121.4216863
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864493177,
+  "center": {
+    "lat": 31.2049323,
+    "lon": 121.4207495
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864493178,
+  "center": {
+    "lat": 31.2047814,
+    "lon": 121.4206095
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864493179,
+  "center": {
+    "lat": 31.2047975,
+    "lon": 121.4204062
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864493181,
+  "center": {
+    "lat": 31.2050717,
+    "lon": 121.4204063
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864493230,
+  "center": {
+    "lat": 31.2047081,
+    "lon": 121.4209447
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864493234,
+  "center": {
+    "lat": 31.2038924,
+    "lon": 121.4206544
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864493244,
+  "center": {
+    "lat": 31.2046873,
+    "lon": 121.4213326
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864493245,
+  "center": {
+    "lat": 31.2043874,
+    "lon": 121.4215811
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864505162,
+  "center": {
+    "lat": 31.2054861,
+    "lon": 121.4221208
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864505163,
+  "center": {
+    "lat": 31.2052908,
+    "lon": 121.4216987
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864505164,
+  "center": {
+    "lat": 31.2054740,
+    "lon": 121.4218489
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864505165,
+  "center": {
+    "lat": 31.2054019,
+    "lon": 121.4217588
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864505166,
+  "center": {
+    "lat": 31.2056773,
+    "lon": 121.4217769
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864505167,
+  "center": {
+    "lat": 31.2059800,
+    "lon": 121.4218635
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864505168,
+  "center": {
+    "lat": 31.2055909,
+    "lon": 121.4212883
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864505169,
+  "center": {
+    "lat": 31.2058797,
+    "lon": 121.4212313
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864505170,
+  "center": {
+    "lat": 31.2061774,
+    "lon": 121.4212753
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864823874,
+  "center": {
+    "lat": 31.2063856,
+    "lon": 121.4259584
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864847917,
+  "center": {
+    "lat": 31.2075137,
+    "lon": 121.4201547
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864847920,
+  "center": {
+    "lat": 31.2079909,
+    "lon": 121.4197827
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864847921,
+  "center": {
+    "lat": 31.2077741,
+    "lon": 121.4197288
+  },
+  "tags": {
+    "building": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 864847922,
+  "center": {
+    "lat": 31.2075831,
+    "lon": 121.4195500
+  },
+  "tags": {
+    "building": "yes"
+  }
+}
+
+  ]
+}

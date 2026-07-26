@@ -21,6 +21,30 @@
     "bytes": 5862660,
     "triangles": 83820
   },
+  "lineage": {
+    "stableAssetId": "shanghai-cinema",
+    "tier": "identity",
+    "derivedFromHero": {
+      "generator": "scripts/create_xinhua_road_models.py",
+      "generatorSha256": "6ea5fc19f98f6339d83063bafea9c0edd66ca07d2bb171be08f61d63fed3488d",
+      "blendSha256": "fbb13fdb89169101c97bda0f3e5ba9644c70743aa85bd810368b365969db8fd8",
+      "glbSha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062"
+    },
+    "derivation": "复用 Hero 生成器的丝带、椭圆开洞和鼓体几何函数；不独立发明身份轮廓",
+    "runtimeComposition": [
+      "ShanghaiCinemaProgrammaticBody",
+      "ShanghaiCinemaIdentityGlb",
+      "ShanghaiCinemaRepeatedDetails"
+    ],
+    "sharedContract": {
+      "origin": [0, 0, 0],
+      "canonicalFront": "local -Y",
+      "runtimeXMirrored": true,
+      "positionYawScaleAndCollision": "app/scene/xinhua-road-landmarks-data.json#shanghai-cinema"
+    },
+    "review": "passed-composite-runtime-boundary-recorded-2026-07-25",
+    "reviewRecord": "docs/research/shanghai-cinema-tier-lineage.json"
+  },
   "metrics": {
     "bytes": 418620,
     "sourceParts": 6,

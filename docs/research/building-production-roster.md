@@ -1,8 +1,9 @@
 # 18 栋建筑生产调度清单
 
 - 审计日期：2026-07-25
-- 主窗口 Git 基线：`main` / `46c58a8175c4050eba4aac03e92c48448a569bab`
-- 18 栋集成分支：`codex/integrate-18-buildings` / `af76226`
+- 主窗口 Git 基线：`main` / `origin/main` /
+  `fc96800edb39cf2745ea328237aedb3a86e1f7f5`
+- 18 栋集成分支：`codex/integrate-18-buildings` / through `577ceaf`
 - 范围权威：
   - `app/asset-library/asset-data.ts`
   - `app/scene/xinhua-road-landmarks-data.json`
@@ -13,7 +14,8 @@
 
 - `in-scope`：属于本轮 18 栋，尚未满足新目标的全部门禁。
 - `done`：证据、Hero / Identity / Massing、Blender MCP 三道门、地图校准和 Three.js 运行时均有当前证据。
-- `blocked-evidence`：证据不足，允许继续 Massing，但不得把 Hero 或 Identity 标为完成。
+- `blocked-evidence`：证据不足，只能继续补证；没有主体边界和纵深约束时不得制作
+  正式 Massing，更不得把 Hero 或 Identity 标为完成。
 - `hold`：不属于 18 栋；只读保留，不删除、不覆盖、不纳入完成数量。
 
 历史成果默认先审计、再保留，不因新流程自动重建。旧 Brief 中的
@@ -23,37 +25,35 @@
 
 | # | Stable asset ID | 建筑资产 | 当前可保留成果 | 新目标状态 | 下一项缺口 |
 | ---: | --- | --- | --- | --- | --- |
-| 1 | `shanghai-cinema` | 上海影城 | Hero `.blend/.glb`、Hybrid Identity、Massing、MCP 1/2、实际 Massing 地图门；主窗口已生成 MCP 3 三档同机位正式候选 | `in-scope` / active Worktree `faba744` | 封存 MCP 3 build record，并完成 Hero / Identity / Massing 与双 fallback 的实际 Three.js 终验 |
-| 2 | `film-art-center` | 上海电影艺术中心 | Hero `.blend/.glb`、专项证据/Brief/build record、canonical 运行时验收；recovery 有 clean-v2 Massing 候选 | `in-scope` / active Worktree from `af76226` | 审计 recovery Massing、先过 MCP 1 与地图门，再进入 Identity、MCP 2/3 和三级运行时 |
-| 3 | `one-step-garden` | 一尺花园 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/三张证据及 clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 审计证据与多体量 footprint，完成三档和全部门禁 |
-| 4 | `xinhua-villas-211` | 新华别墅·211弄 | 旧 Hero `.blend/.glb`、单张建筑群证据、旧运行时截图 | `in-scope` / legacy Hero baseline | 明确代表建筑/群组边界，补视角证据、三档和全部门禁 |
-| 5 | `xinhua-villas-329` | 新华别墅·329弄 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/两张证据及 clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 明确代表建筑/群组边界，审计候选 Massing，完成全部门禁 |
-| 6 | `house-315` | 新华路315号住宅 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/两张证据及 provisional Massing | `in-scope` / legacy Hero baseline | 补侧向/纵深 unknown，重验 Massing 与全部门禁 |
-| 7 | `villa-le-bec` | Villa Le Bec | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/六张候选证据及 clean-v2 Massing | `in-scope` / legacy Hero baseline | 核验候选证据、场地平面和 footprint，完成全部门禁 |
-| 8 | `shanghai-orchestra` | 上海民族乐团 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/三张证据及 clean-v2 Massing | `in-scope` / legacy Hero baseline | 拆分并绑定 compound 子建筑，完成全部门禁 |
-| 9 | `hudec-memorial` | 邬达克纪念馆 | 旧 Hero；新官方证据、V2 Brief、结构化 Massing；MCP 1 已由主窗口按固定三机位验收 | `in-scope` / active Worktree `f509c60` | 完成实际 Three.js Massing 地图门；未通过前不得进入 Identity / Hero |
-| 10 | `xinhua-pocket-park` | 新华路口袋公园 | 旧场地 GLB、两张同地点证据、recovery clean-v2 Massing 候选 | `in-scope` / legacy scoped asset | 固定“场地型建筑资产”语义，校准 footprint/朝向并完成全部门禁 |
-| 11 | `xinhua-community-center` | 新华·社区营造中心 | 旧 Hero `.blend/.glb`、两张同地点证据、旧预览/运行时截图 | `in-scope` / legacy Hero baseline | 确认建筑本体证据、独立 Brief、三档和全部门禁 |
-| 12 | `debi-fahua-525` | 德必法华525 | 旧 Hero、三张建筑群证据、recovery clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 明确代表建筑与开放庭院，审计候选 Massing 并完成全部门禁 |
-| 13 | `fahua-heritage` | 法华遗韵 | 旧牌坊 `.blend/.glb`、单张同构筑物证据、旧预览/运行时截图 | `in-scope` / legacy scoped asset | 固定其“构筑物资产”语义，补三档与全部门禁 |
-| 14 | `fics-xinhua-365` | FICS新华365 | 旧 Hero、三张建筑群证据、recovery clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 拆分子建筑、消除 alias 漂移并完成全部门禁 |
-| 15 | `xingfuli-west` | 幸福里·西区 | Hero / Identity / Massing `.blend/.glb`、共享 Brief/build records、地图与运行时证据 | `in-scope` / retained three-tier | 不重建；补可追溯 MCP 1/2/3 和当前版本同机位三级复核 |
-| 16 | `xingfuli-center` | 幸福里·中区 | Hero / Identity / Massing `.blend/.glb`、共享 Brief/build records、地图与运行时证据 | `in-scope` / retained three-tier | 不重建；补可追溯 MCP 1/2/3 和当前版本同机位三级复核 |
-| 17 | `xingfuli-east` | 幸福里·东区 | Hero / Identity / Massing `.blend/.glb`、共享 Brief/build records、地图与运行时证据 | `in-scope` / retained three-tier | 不重建；补可追溯 MCP 1/2/3 和当前版本同机位三级复核 |
-| 18 | `sun-ke-villa` | 孙科别墅 | Recovery Hero / Identity / Massing 已选择性恢复；单资产 Massing generator 可逐字节复现；MCP 三门、地图、Three.js 三档、双 fallback、碰撞和开放车道均有当前证据 | `done` / source `d29097d` + `177447a` / integrated `80f622b` + `9cb3bc8` | 无；保留分支与提交，后续只参加项目级回归 |
+| 1 | `shanghai-cinema` | 上海影城 | Hero、Hybrid Identity composite、正式 Massing、MCP 1/2/3 与三档运行时证据均保留；Film Art Center 新 footprint 已消除旧邻栋 AABB 假冲突；锁定 Blend 的专属 exporter 已两次精确复现 public Hero | `blocked-map` / current assets retained | 官方资料进一步确认前广场应与人行道无缝衔接，但仍缺带北箭头、比例尺与双控制点的地理配准总平；source reproduction 已闭合，不再是 blocker，禁止任意拖动或用旧邻栋冲突记录冒充完成 |
+| 2 | `film-art-center` | 上海电影艺术中心 | 官方 1:1000 规划、修缮审批、160/212 号锚点与 OSM way/864505138 闭合主楼 footprint；Hero/Identity/Massing 与 MCP 1/2/3 保留不重做，公共 placement 校准为 position `[46.388748754382405,79.07089962964774]`、yaw `2.786349542422368`、scale `0.5`；完整 Hero 已退出两条场内道路，主窗口单页三档、双故障注入、120 帧性能、碰撞和相机复验通过 | `complete` / integrated on `codex/integrate-18-buildings` | 已完成；Massing 真实保留拓扑修复前 Hero SHA，以共同 provenance 通过且不伪称 direct-current-SHA；二进制或公共合同不变时禁止重做，Hero 既有草坪/灌木/庭院灯保持冻结 |
+| 3 | `one-step-garden` | 一尺花园 | Evidence、分体 Massing/MCP 1、地图门、Hero v2/MCP 2、Identity v1/MCP 3，以及主窗口单页三档、Hero→Identity、Identity→Massing、Massing floor、120 帧性能、资源与墙面碰撞采集全部通过；入口穿行继承当前已通过地图门 | `complete` / integrated on `codex/integrate-18-buildings` | 已完成，二进制或公共合同不变时禁止重做；首次发白证据及旧误绑/范围污染 Hero 继续只读 Hold |
+| 4 | `xinhua-villas-211` | 新华别墅·211弄 | Massing v3 的 MCP1、地图、碰撞和 Three.js 已通过并冻结；旧四别墅 Hero 与 Recovery voxel Massing 均只读拒绝 | `blocked-hero-identity` / Massing retained | 需把同一 Hero-target member 绑定到 accepted OSM way，并补该成员侧/后/roof-back、尺度、入口碰撞证据；Hero 必须从已接受 Massing SHA 严格派生 |
+| 5 | `xinhua-villas-329` | 新华别墅·329弄 | 四成员 Massing v3、MCP1、正式地图与 Three.js 已通过；Recovery Massing v2 原字节保留 | `blocked-hero-identity` / Massing retained | 先裁决 compound、代表成员或成员级新 ID；旧 Hero 实为211弄2号且含树/灯等范围污染，禁止复用或派生 Identity |
+| 6 | `house-315` | 新华路315号住宅 | Evidence、Massing、Hero v2、Identity、Blender MCP 1/2/3、地图、Three.js 三档/fallback/碰撞均通过；旧范围污染 Hero 继续 Hold | `complete` / production | 无；1930/1949 年代冲突保留 Unknown，不恢复旧场地污染 |
+| 7 | `villa-le-bec` | Villa Le Bec | 六张证据、两栋主体、Massing、Hero、Identity、Blender MCP 1/2/3、地图与 Three.js 全部通过 | `complete` / production | 无；旧候选与历史碰撞失败证据继续保留，不重做 |
+| 8 | `shanghai-orchestra` | 上海民族乐团 | Recovery clean-v2 Massing 的 MCP1 与诊断 Three.js 保留；五个 OSM 候选均无路面交叉，新华路/法华镇路最小净距为 `4.880222`/`10.667135` scene unit | `blocked-membership` / diagnostic only | 本地 31 条数据路径/30 个 blob 已穷尽，五个候选及四个邻接反例都只有 `building=yes`，无名称、门牌或 relation；需权威总平、完整 relation/history 或用户逐 way 标注，禁止用几何安全冒充 compound 归属 |
+| 9 | `hudec-memorial` | 邬达克纪念馆 | 官方证据、Massing、Hero v2、Identity、Blender MCP 1/2/3、地图、碰撞与 Three.js 均通过 | `complete` / production | 无；旧 generic provisional Massing 仅作反例保留 |
+| 10 | `xinhua-pocket-park` | 新华路口袋公园 | 场地型建筑资产语义已冻结；三档、Blender MCP 1/2/3、地图、中央通路碰撞和 Three.js 均通过 | `complete` / production | 无；保持中央通路，不把整片场地改成单一碰撞盒 |
+| 11 | `xinhua-community-center` | 新华·社区营造中心 | way/864493234 Building-4 Massing、MCP1 与诊断 Three.js/碰撞保留；placement、yaw、scale 和最近邻净距均冻结 | `blocked-map` / diagnostic only | way/577252269 当前 service road 重叠 `0.402635` scene unit（`1.087115 m`）；6 份本地快照只有同一 `service/name/oneway=no`，无宽度、surface、access 或 relation 授权。需含双路缘、中心线/偏移、比例、日期与不确定度的测绘/地籍/业主/设计院总平，禁止任意移楼、缩放或改窄共享道路 |
+| 12 | `debi-fahua-525` | 德必法华525 | 三张证据与 Recovery clean-v2 Massing 只读保留；新审计锁定 compound、道路和邻栋量化结果 | `blocked-membership-map-lineage` / Hold | 法华镇路真实重叠 `0.633229` scene unit，主体成员绑定与三档 lineage 也未闭合；不禁用/删除，等本地或后续 XHS 证据裁决 |
+| 13 | `fahua-heritage` | 法华遗韵 | 旧牌坊结构基线、单张正面证据与 Recovery 合格子阶段只读保留；静态道路/出生点净距仅作 sanity | `blocked-evidence-map` / Hold | 缺同主体侧后、入口、街道界面和场地边界；用户醒后才慢速查 XHS，仍不足时仅由主窗口停用本栋 runtime，全部文件与 Hold 永久保留 |
+| 14 | `fics-xinhua-365` | FICS新华365 | Recovery Massing 的 MCP1、投影与诊断 Three.js 保留；五个 building=yes 候选和 service alley 已精确审计 | `blocked-membership-map-tiers` / diagnostic only | OSM 候选无 relation/名称/门牌，way/864493177 进入当前可见 service surface；禁止 alias、Hero/Identity 晋级或 runtime promotion |
+| 15 | `xingfuli-west` | 幸福里·西区 | Hero 保留；Identity v2 / Massing v2 严格派生；Blender MCP 1/2/3 与单页三档、两级 fallback、性能、碰撞均通过 | `blocked-map` / explicit QA uses lineage v2 / production Hero unchanged | 用户九张原图当前为 `0 files`，无 SHA/EXIF；way/400066625 只是两点 pedestrian centerline，不能证明底层通道宽度、墙体、开口或坡度，禁止任意挖洞 |
+| 16 | `xingfuli-center` | 幸福里·中区 | Hero 保留；Identity v2 / Massing v2 严格派生；Blender MCP 1/2/3、地图、单页三档、两级 fallback、性能、碰撞均通过 | `done` / lineage v2 tiers / production Hero unchanged | 无；目前只保留摄影者给出的九图路线顺序陈述，原图尚未物化，公网九图不得冒充用户实拍 |
+| 17 | `xingfuli-east` | 幸福里·东区 | Hero 保留；Identity v2 / Massing v2 严格派生；Blender MCP 1/2/3 与单页三档、两级 fallback、性能、碰撞均通过 | `blocked-map` / explicit QA uses lineage v2 / production Hero unchanged | south entry、entry matrix wall 与 lane base 仍和当前番禺路面合同相交；第9张只有“可能是番禺路”的陈述、无原图/可见内容/元数据，需物化后再与地图共同裁决，禁止任意位移 |
+| 18 | `sun-ke-villa` | 孙科别墅 | Recovery Hero / Identity / Massing 已选择性恢复；单资产 Massing generator 可逐字节复现；MCP 三门、地图、Three.js 三档、双 fallback、碰撞和开放车道均有当前证据；集成复核发现并修复旧程序化 fallback 大体块误判 | `done` / source `d29097d` + `177447a` / integrated through `5e67688` | 无；保留失败与修复截图、分支和提交，后续只参加项目级回归 |
 
 ## 恢复后的数量结论
 
-- 主窗口集成分支已整合 `done`：1 / 18（孙科别墅）；其 Recovery 二进制、
-  三门、地图和 Three.js 证据已按单建筑选择性提取，并在当前集成基线上通过
-  `build:static`、lint、178 / 178 全仓 Node 测试与 3 个 GLB audit。
-- 三档产物可直接保留：3 / 18（幸福里西/中/东）。
-- Hero + Identity 可直接保留：1 / 18（上海影城）。
-- 具备专项 V2 证据和可保留 Hero：2 / 18（电影艺术中心、孙科别墅）。
-- 具备旧 Hero 或场地/构筑物基线：12 / 18。
-
-这组统计用于调度优先级，不允许将“0 / 18 严格关闭”解释为重做 18 栋。
-主窗口应先给已有成熟资产补证，再把独立 Worktree 投向真正缺少三档的建筑。
+- 当前统一状态为 `complete` 8 / 18、`blocked/partial` 10 / 18。完整通过：
+  Film Art Center、一尺花园、新华路315号、Villa Le Bec、邬达克纪念馆、
+  新华路口袋公园、幸福里中区、孙科别墅。
+- 幸福里西/东区的 lineage v2、Blender MCP 三门和 Three.js 已通过，仍分别被
+  底层 pedestrian passage 未知与番禺路/照片9道路未知阻塞；运行时通过不等于地图完成。
+- Recovery 已合格阶段继续保留，不按新批次重复建模；10 栋 blocker 逐栋以证据、
+  主体绑定、道路净距或缺失门禁关闭，不允许把旧 Hero、范围外装饰或匿名 OSM
+  footprint 冒充正式完成。
 
 ## 丢失会话 Recovery / Hold 快照
 
@@ -83,9 +83,10 @@
 - 所有树木、街灯、外摆、花箱、铺装、垃圾桶、角色和其他装饰资产。
 - `codex/overview-district-massing` Worktree 的全地图新增体块成果：保持 Hold，
   主窗口不得合入本轮 18 栋建筑生产线。
-- `main` 在本轮调度期间由外部任务前进到 merge commit `46c58a8`，其中包含
-  overview district massing。调度窗口不删除或覆盖该现存成果，也不把它计入
-  18 栋；后续建筑提交不得修改其 GLB、数据、运行时模块、QA 或生成器。
+- `main` 在本轮调度期间由外部任务前进到 merge commit `46c58a8`，随后又以
+  `fc96800` 修复弱网状态下的 district massing 保持策略。调度窗口已把这两个
+  提交作为 Hold 基线合入集成分支，不删除或覆盖，也不把它们计入 18 栋；后续
+  建筑提交不得修改其 GLB、数据、运行时模块、QA 或生成器。
 
 ## 调度约束
 

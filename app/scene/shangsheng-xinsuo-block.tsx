@@ -224,46 +224,87 @@ function CountryClub({ building }: { building: Building }) {
 }
 
 function SunKeVillaFallback({ building }: { building: Building }) {
-  const height = 7.45;
-  const frontZ = building.depth / 2 + 0.12;
+  const wall = building.wall;
+  const roof = building.roof;
   return (
     <group
-      name="shangsheng-sun-ke-villa"
+      name="shangsheng-sun-ke-villa-programmatic-fallback"
       position={[building.position[0], 0.1, building.position[1]]}
       rotation-y={building.rotationY}
-      userData={{ building: "sun-ke-villa", osmWayId: building.id }}
+      userData={{
+        building: "sun-ke-villa",
+        osmWayId: building.id,
+        tier: "programmatic-fallback",
+        passage: "north-porte-cochere-center-lane-open",
+      }}
     >
-      <RoundedBox args={[building.width * 0.74, height, building.depth]} radius={0.16} smoothness={2} position={[-building.width * 0.08, height / 2, 0]} castShadow receiveShadow>
-        <meshToonMaterial color={building.wall} />
-      </RoundedBox>
-      <mesh position={[building.width * 0.37, height * 0.45, 0]} castShadow>
-        <cylinderGeometry args={[building.depth * 0.42, building.depth * 0.46, height * 0.9, 12]} />
+      <mesh position={[0, 0.03, 0]} receiveShadow>
+        <boxGeometry args={[building.width, 0.06, building.depth]} />
+        <meshToonMaterial color="#a8947e" />
+      </mesh>
+      <mesh position={[-0.42, 2.04, 0]} castShadow receiveShadow>
+        <boxGeometry args={[4.95, 4.08, 3.68]} />
+        <meshToonMaterial color={wall} />
+      </mesh>
+      <group position={[-0.42, 0, 0]}>
+        <TiledRoof width={5.18} depth={3.68} y={4.45} color={roof} />
+      </group>
+      <mesh position={[-2.92, 1.86, 0.08]} castShadow receiveShadow>
+        <boxGeometry args={[1.82, 3.72, 2.68]} />
+        <meshToonMaterial color={wall} />
+      </mesh>
+      <group position={[-2.92, 0, 0.08]}>
+        <TiledRoof width={2.04} depth={2.68} y={3.12} color={roof} />
+      </group>
+      <mesh position={[2.18, 1.82, 0.58]} castShadow receiveShadow>
+        <cylinderGeometry args={[1.23, 1.23, 3.64, 12]} />
         <meshToonMaterial color="#aa957f" />
       </mesh>
-      <mesh position={[building.width * 0.37, height * 0.94, 0]} castShadow>
-        <coneGeometry args={[building.depth * 0.48, 1.55, 12]} />
-        <meshToonMaterial color={building.roof} />
+      <mesh position={[2.18, 4.08, 0.58]} castShadow>
+        <coneGeometry args={[1.29, 0.96, 12]} />
+        <meshToonMaterial color={roof} />
       </mesh>
-      {[-1.35, 0, 1.35].map((x) => (
-        <ArchWindow key={x} x={x - building.width * 0.14} y={1.75} z={frontZ} pointed />
-      ))}
-      {[-1.9, -0.65, 0.65, 1.9].map((x) => (
-        <ArchWindow key={x} x={x - building.width * 0.14} y={4.55} z={frontZ} />
-      ))}
-      <TiledRoof width={building.width * 0.72} depth={building.depth} y={height + 0.28} color={building.roof} />
-      <mesh position={[-building.width * 0.05, 0.16, frontZ + 2.1]} receiveShadow>
-        <boxGeometry args={[building.width * 1.08, 0.14, 3.4]} />
-        <meshToonMaterial color="#7e684f" />
+      <mesh position={[1.04, 4.39, -0.58]} castShadow>
+        <boxGeometry args={[0.45, 1.32, 0.4]} />
+        <meshToonMaterial color={wall} />
       </mesh>
-      {Array.from({ length: 22 }, (_, index) => {
-        const side = index < 11 ? -1 : 1;
-        return (
-          <mesh key={index} position={[(index % 11 - 5) * 0.72, 0.48, frontZ + 3.5 + side * 1.35]} castShadow>
-            <icosahedronGeometry args={[0.4 + index % 3 * 0.06, 1]} />
-            <meshToonMaterial color={index % 3 ? "#4e7049" : "#d2c27e"} />
-          </mesh>
-        );
-      })}
+
+      <mesh position={[-1.22, 1.12, -1.87]}>
+        <boxGeometry args={[1.04, 2.12, 0.12]} />
+        <meshToonMaterial color="#344a47" />
+      </mesh>
+      {[-2.9, 0.45].map((x) => (
+        <ArchWindow
+          key={`north-window-${x}`}
+          x={x}
+          y={1.52}
+          z={-1.88}
+          facing={-1}
+          pointed
+        />
+      ))}
+
+      {[-2.1, -0.34].flatMap((x) => ([
+        <mesh key={`front-${x}`} position={[x, 1.08, -4.58]} castShadow receiveShadow>
+          <boxGeometry args={[0.4, 2.16, 0.4]} />
+          <meshToonMaterial color={wall} />
+        </mesh>,
+        <mesh key={`rear-${x}`} position={[x, 1.08, -2.48]} castShadow receiveShadow>
+          <boxGeometry args={[0.32, 2.16, 0.32]} />
+          <meshToonMaterial color={wall} />
+        </mesh>,
+        <mesh key={`beam-${x}`} position={[x, 2.2, -3.36]} castShadow>
+          <boxGeometry args={[0.24, 0.24, 2.92]} />
+          <meshToonMaterial color={wall} />
+        </mesh>,
+      ]))}
+      <group position={[-1.22, 0, -3.36]}>
+        <TiledRoof width={2.74} depth={3.14} y={2.76} color={roof} />
+      </group>
+      <mesh position={[-1.22, 0.08, -3.55]} receiveShadow>
+        <boxGeometry args={[2.9, 0.08, 3.25]} />
+        <meshToonMaterial color="#9a7255" />
+      </mesh>
     </group>
   );
 }

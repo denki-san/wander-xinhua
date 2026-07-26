@@ -1,0 +1,123 @@
+{
+  "version": 1,
+  "assetId": "xinhua-community-center",
+  "scope": {
+    "buildingOnly": true,
+    "includedOsmWays": [
+      864493234
+    ],
+    "sharedRegistryModified": false,
+    "sharedRuntimeModified": false,
+    "sharedFastManifestModified": false,
+    "outOfScopeAssetsCreated": 0
+  },
+  "evidenceGate": {
+    "status": "pass-conservative-massing-only",
+    "canonical": "docs/research/assets/requested-poi-references/xinhua-community-center-front.jpg",
+    "sideDepth": "unknown",
+    "massingAuthorized": true,
+    "identityAuthorized": false,
+    "heroAuthorized": false
+  },
+  "mapCalibrationCandidate": {
+    "namedPoiNode": 13765678129,
+    "buildingWay": 864493234,
+    "frontAccessRoadWay": 577252269,
+    "position": [
+      -74.78057782060566,
+      112.5501903703319
+    ],
+    "yaw": 1.1800125527954972,
+    "scale": 1,
+    "maximumVertexWorldErrorSceneUnits": 0,
+    "contractMaximumVertexWorldErrorSceneUnits": 0.0001,
+    "buildingBoundaryToRoadCenterlineSceneUnits": 0.8473649273117979,
+    "buildingBoundaryToRoadCenterlineMeters": 2.2878853037418545,
+    "closestNeighborWay": 864493232,
+    "closestNeighborGapSceneUnits": 1.1517136810103772,
+    "closestNeighborGapMeters": 3.1096269387280184,
+    "osmFootprintOverlapCount": 0,
+    "roadSurfaceWidthKnown": true
+  },
+  "axisContract": {
+    "blenderSource": "x-runtime-x_y-runtime-z",
+    "rawGltf": "blender-y-exports-as-negative-z",
+    "rendererScale": [
+      1,
+      1,
+      -1
+    ],
+    "runtimeResult": "binding-xz-restored",
+    "portalRoadSideVerifiedBySpecializedTest": true
+  },
+  "collisionCandidate": {
+    "localObstacles": [
+      {
+        "minX": -6.2328073354853455,
+        "maxX": 6.3375736373407205,
+        "minZ": -2.6093047586433475,
+        "maxZ": 2.0344502538968166
+      }
+    ],
+    "playerDiameterSceneUnits": 1.36,
+    "frontEntranceCenterlineDistanceSceneUnits": 0.9555281229277112,
+    "frontEntranceCenterlineExceedsPlayerRadius": true,
+    "sideGapWalkable": false,
+    "formalWalkaround": "pending-main-window"
+  },
+  "placementCandidate": {
+    "model": "/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb",
+    "cacheVersion": "20260726-massing-a0609064",
+    "position": [
+      -74.78057782060566,
+      112.5501903703319
+    ],
+    "yaw": 1.1800125527954972,
+    "scale": 1,
+    "localBounds": {
+      "minX": -6.2328073354853455,
+      "maxX": 6.3375736373407205,
+      "minZ": -2.6093047586433475,
+      "maxZ": 2.2995
+    },
+    "start": [
+      -71.98492826590126,
+      113.6132895446705
+    ],
+    "forward": [
+      -0.9310421906207795,
+      -0.3649115499460933
+    ],
+    "labelHeight": 3.25
+  },
+  "gates": {
+    "headlessBuild": "pass",
+    "fixedViews": "pass",
+    "glbAudit": "pass",
+    "mcp1": "pass-main-window-axis-recheck",
+    "mapProjection": "pass-candidate",
+    "roadSurface": "blocked-runtime-overlap-0.402635-scene-units",
+    "runtime": "pass-resource-console-collision-map-blocked-road-overlap",
+    "formalMapAcceptance": "blocked-road-surface-overlap"
+  },
+  "runtimeRoadSurfaceDecision": {
+    "contract": "app/scene/road-surface-contract.ts",
+    "roadWayId": 577252269,
+    "highway": "service",
+    "environmentScale": 5,
+    "renderedWidthSceneUnits": 2.5,
+    "renderedHalfWidthSceneUnits": 1.25,
+    "buildingBoundaryToCenterlineSceneUnits": 0.8473649273117979,
+    "asphaltEdgeClearanceSceneUnits": -0.4026350726882021,
+    "asphaltOverlapMeters": 1.0871146962581457,
+    "buildingMovedToHideConflict": false,
+    "result": "blocked-building-overlaps-rendered-service-road"
+  },
+  "recovery": {
+    "holdCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "massingSha256": "5fe5c22031f2108d4bcb5c7cf631fdfeed0cb3617a646ffbc396e88028fee921",
+    "retained": true,
+    "copiedIntoCurrentCandidate": false,
+    "runtimePassInherited": false
+  }
+}

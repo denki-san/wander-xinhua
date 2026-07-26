@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "assetId": "fics-xinhua-365",
+  "auditedAt": "2026-07-26",
+  "baselineCommit": "2e33699f24330f4c9c98f4c63e8048fd657d90e3",
+  "status": "massing-mcp1-diagnostic-pass-membership-service-road-hero-identity-blocked",
+  "scope": {
+    "included": [
+      "repository-local-evidence",
+      "five-osm-candidate-formal-membership",
+      "service-road-and-neighbor-calibration",
+      "accepted-recovery-massing-mcp1-three-diagnostic",
+      "legacy-hero-and-strict-lineage"
+    ],
+    "excludedAndHeld": [
+      "trees",
+      "vegetation",
+      "street-furniture",
+      "decoration",
+      "ordinary-osm-outside-five-candidates",
+      "other-buildings",
+      "full-map-assets",
+      "recovery-hold"
+    ],
+    "browserOpened": false,
+    "blenderRerun": false,
+    "sharedFilesModified": false
+  },
+  "evidence": {
+    "status": "compound-observed-member-binding-blocked",
+    "manifest": "docs/research/poi-reference-manifest.json#fics-xinhua-365",
+    "brief": "docs/research/requested-poi-model-brief.md#fics-xinhua-365",
+    "references": [
+      {
+        "path": "docs/research/assets/requested-poi-references/fics-xinhua-365-built-logo.jpg",
+        "sha256": "353edf2315645e00325cc5659e2ef2738825bd06c0237632009d7f0dec7deef6"
+      },
+      {
+        "path": "docs/research/assets/requested-poi-references/fics-xinhua-365-built-courtyard.jpg",
+        "sha256": "3d8e2348e6840a503c9c4a6e8ef900f20ed90e3401f13dd7a9edec9855ed9d61"
+      },
+      {
+        "path": "docs/research/assets/requested-poi-references/fics-xinhua-365-built-mansion.jpg",
+        "sha256": "87a4dc31c67f587bd91ba4c8b5cecc7137032bc4383dca1d4f8d53dbe08efc64"
+      }
+    ],
+    "observed": [
+      "roof-logo-building",
+      "open-courtyard",
+      "historic-mansion-in-same-campus",
+      "five-unlabeled-osm-building-footprints"
+    ],
+    "blockingUnknowns": [
+      "exact-campus-boundary",
+      "photo-building-to-five-way-binding",
+      "whether-other-adjacent-osm-buildings-belong-to-campus",
+      "real-heights-roofs-and-entrance-directions",
+      "service-road-versus-way-864493177-ground-truth"
+    ]
+  },
+  "massing": {
+    "status": "recovery-retained-mcp1-shape-pass-three-diagnostic-pass-map-blocked",
+    "version": "massing-v2",
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.blend",
+      "sha256": "e71d6a55a24a76efde444cb1420172821cc2142263be826aaae8a10a08487e81"
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.glb",
+      "sha256": "e36f29a3f14e92ac833a324247c36c21d218003f17f666d1d0b5fc9f861fe8ad",
+      "bytes": 8564,
+      "nodes": 5,
+      "meshes": 5,
+      "materials": 1,
+      "images": 0,
+      "triangles": 68
+    },
+    "candidateWayIds": [
+      864493178,
+      864493177,
+      864493179,
+      864493181,
+      864493230
+    ],
+    "mcp1": "pass-shape-only-preserved",
+    "threeDiagnostic": "pass-load-performance-collision-stop-qa-only-preserved"
+  },
+  "map": {
+    "status": "blocked-membership-and-service-road-overlap",
+    "placement": {
+      "position": [-76.1, 75.2],
+      "yaw": -0.38,
+      "scale": 0.9
+    },
+    "xinhuaRoad": {
+      "asphaltClearance": 10.490160422409048,
+      "status": "pass"
+    },
+    "campusServiceRoad": {
+      "osmWayId": 577252268,
+      "candidateWayId": 864493177,
+      "centerlineDistance": 0.1254539974419377,
+      "asphaltClearance": -1.1245460025580623,
+      "status": "blocked-visible-road-overlap"
+    },
+    "neighbors": {
+      "minimumCandidateGap": 1.359441689615192,
+      "minimumOtherOsmBuildingGap": 1.539353661433281,
+      "nearestOtherOsmWayId": 864485662,
+      "minimumRuntimeLandmarkGap": 8.248087113999592,
+      "nearestRuntimeLandmarkId": "xinhua-pocket-park",
+      "runtimeLandmarkOverlap": false
+    },
+    "promotionAllowed": false
+  },
+  "legacyHero": {
+    "status": "hold-not-mcp2-candidate",
+    "glb": {
+      "path": "public/models/requested-pois/fics-xinhua-365.glb",
+      "sha256": "ad02c2461b5633514713f3376d308d5478888ed03a701bc79b5c98bd95639c19",
+      "bytes": 6243696,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 33,
+      "images": 0
+    },
+    "blend": {
+      "path": "assets/models/source/requested-pois/fics-xinhua-365.blend",
+      "sha256": "8414049b1330e85f1a36acb6ba5c0711584b4173465fa44934cd8c6749b4b5a6"
+    },
+    "generator": {
+      "path": "scripts/create_requested_poi_models.py",
+      "function": "build_fics_xinhua_365",
+      "sha256": "3bd9cd02fcd2e62b9d8c26866cc2660b6c42fc3a91e4399a934f2d563647d5d1"
+    },
+    "subjectMismatch": [
+      "reuses-xinhua-mansion-with-arbitrary-offset",
+      "uses-invented-main-red-and-industrial-building-layout",
+      "not-derived-from-current-five-way-massing",
+      "no-current-hero-build-record",
+      "no-current-mcp2-authorization"
+    ],
+    "scopeOutsideContent": [
+      "origin-pad",
+      "central-square",
+      "decorative-paving-grid",
+      "garden-trees",
+      "benches"
+    ],
+    "mcp2": "not-entered"
+  },
+  "strictLineage": {
+    "status": "blocked",
+    "formalMassingMembership": false,
+    "serviceRoadResolved": false,
+    "heroDerivedFromCurrentMassing": false,
+    "heroMatchesAcceptedFiveWayCampus": false,
+    "identityDerivationAuthorized": false
+  },
+  "identity": {
+    "status": "not-created",
+    "reason": "Formal campus membership and service-road conflict are unresolved; legacy Hero is not a legal MCP2 candidate. Massing cannot masquerade as Identity."
+  },
+  "gates": {
+    "compoundEvidence": "pass",
+    "formalMemberBinding": "blocked",
+    "massingRecovery": "pass-preserved",
+    "mcp1Massing": "pass-shape-only-preserved",
+    "threeDiagnostic": "pass-preserved-no-promotion",
+    "serviceRoad": "blocked",
+    "formalMapAcceptance": "blocked",
+    "heroCandidate": "blocked",
+    "mcp2Hero": "not-entered",
+    "identity": "blocked",
+    "mcp3": "not-entered",
+    "buildingComplete": false
+  },
+  "verdict": {
+    "checkpoint": "clean-blocked-checkpoint",
+    "requiredToClose": [
+      "obtain-formal-campus-boundary-and-five-way-membership-evidence",
+      "resolve-service-way-577252268-versus-building-way-864493177",
+      "repeat-formal-map-collision-and-camera-acceptance",
+      "build-evidence-backed-hero-from-accepted-member-set-before-mcp2"
+    ],
+    "sharedIntegrationRequired": false
+  }
+}

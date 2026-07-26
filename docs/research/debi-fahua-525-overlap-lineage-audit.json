@@ -1,0 +1,274 @@
+{
+  "schemaVersion": 1,
+  "assetId": "debi-fahua-525",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "e1a2611b5bf8127cea8f229da0a89c12cfd1e4d0",
+  "status": "blocked-true-fahuazhen-footprint-overlap-width-evidence-and-tier-lineage",
+  "scope": {
+    "assetOnly": "debi-fahua-525",
+    "browserNetworkOrXhsAccessed": false,
+    "modelBinaryRebuilt": false,
+    "heroModified": false,
+    "sharedRuntimeRegistryFastOrExactModified": false,
+    "treesDecorationsFullMapOrOtherBuildingsModified": false,
+    "candidateCollisionProxyProduced": false
+  },
+  "sources": {
+    "currentFiles": [
+      {
+        "path": "docs/research/debi-fahua-525-map-candidate.json",
+        "sha256": "cf9df5eb34d7f844f07ddc5d1484f7507799637cc9b98a6d2a11ef81d37ad647"
+      },
+      {
+        "path": "docs/research/debi-fahua-525-final-disposition.json",
+        "sha256": "85c8d913ca5e297af1adc09df5fb0b9369bf3958226da6085bad4354e406b183"
+      },
+      {
+        "path": "docs/research/poi-reference-manifest.json",
+        "sha256": "be687fc29e7f45cf0029159c35274918de32450d33341457e57fcfbac931b51f"
+      },
+      {
+        "path": "docs/research/requested-poi-model-brief.md",
+        "sha256": "034b303cb454235405edf8d5b8e26a9ae164e5aadfd85278dc7158a18955c26f"
+      },
+      {
+        "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+        "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c"
+      },
+      {
+        "path": "docs/research/data/xinhua-roads-osm-20260716-080509.json",
+        "sha256": "351308feafab0344dc59a66ebd68d0748f81ef1cd69dc218765a22eb51abf2ec"
+      },
+      {
+        "path": "app/scene/xinhua-map-data.json",
+        "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78"
+      },
+      {
+        "path": "app/scene/xinhua-road-landmarks-data.json",
+        "sha256": "6df9f4439679ff72203ef023cab289532df4c1d9c71a4242cfd6ef155e4055e8"
+      },
+      {
+        "path": "app/scene/road-surface-contract.ts",
+        "sha256": "81798e268e7da1ec6d98de973b0332ad953cb4b933734a30840200ebf26057a7"
+      }
+    ],
+    "localReferences": [
+      "docs/research/assets/requested-poi-references/debi-fahua-525-front.jpg",
+      "docs/research/assets/requested-poi-references/debi-fahua-525-courtyard.jpg",
+      "docs/research/assets/requested-poi-references/debi-fahua-525-garden.jpg"
+    ]
+  },
+  "membership": {
+    "addressEvidence": "project-and-local-reference-material-bind-the-subject-to-fahuazhen-road-525",
+    "representativeWayId": 864847922,
+    "wayTags": {
+      "building": "yes"
+    },
+    "osmNameAddressOrBuildingLevelsPresent": false,
+    "bindingConfidence": "medium-secondary-map-corroborated-not-primary-or-cadastral",
+    "primaryMembershipProofAvailable": false,
+    "observed": [
+      "The local photos show the main facade, courtyard depth and garden context of the named compound.",
+      "OSM way 864847922 is an unlabelled building polygon with no address or level tags."
+    ],
+    "inferred": [
+      "Way 864847922 is the strongest conservative representative building candidate because secondary map coordinates and one-wall campus adjacency converge on it."
+    ],
+    "unknown": [
+      "cadastral compound boundary",
+      "complete compound member list",
+      "exact entrance and courtyard polygons",
+      "surveyed height and per-segment height"
+    ]
+  },
+  "frozenPlacement": {
+    "position": [
+      -102,
+      -49
+    ],
+    "yaw": -2.6,
+    "scale": 0.92,
+    "movementAuthorized": false,
+    "scaleChangeAuthorized": false,
+    "maximumRoundTripVertexErrorSceneUnits": 0
+  },
+  "footprintAndRoad": {
+    "sourceWayId": 864847922,
+    "exactFootprintVertexCount": 11,
+    "nearestFahuazhenFootprintVertex": [
+      -105.52009950627968,
+      -24.75277185181365
+    ],
+    "fahuazhenRoad": {
+      "osmWayId": 66394007,
+      "tags": {
+        "highway": "tertiary",
+        "surface": "asphalt",
+        "maxspeed": "30"
+      },
+      "widthTagPresent": false,
+      "lanesTagPresent": false,
+      "runtimeWidthSource": "tertiary-multiplier-1.45-times-environment-scale-5",
+      "runtimeFullWidthSceneUnits": 7.25,
+      "runtimeFullWidthMeters": 19.575,
+      "runtimeHalfWidthSceneUnits": 3.625,
+      "exactFootprintCenterlineDistanceSceneUnits": 2.9917711210662192,
+      "exactFootprintCenterlineDistanceMeters": 8.077782026878792,
+      "asphaltClearanceSceneUnits": -0.6332288789337808,
+      "asphaltClearanceMeters": -1.7097179731212082,
+      "status": "blocked-true-footprint-overlap"
+    },
+    "dingxiRoad": {
+      "osmWayId": 85686605,
+      "exactFootprintCenterlineDistanceSceneUnits": 4.977282800451236,
+      "asphaltClearanceSceneUnits": 1.3522828004512357,
+      "asphaltClearanceMeters": 3.6511635612183365,
+      "status": "pass-exact-footprint"
+    },
+    "nearestBuilding": {
+      "osmWayId": 864847918,
+      "rawGapSceneUnits": 2.609279367272679,
+      "gapAfterBothPointTwoMarginsSceneUnits": 2.209279367272679,
+      "status": "pass"
+    }
+  },
+  "roadWidthEvidenceBoundary": {
+    "maximumNonOverlappingFullWidthSceneUnits": 5.9835422421324385,
+    "maximumNonOverlappingFullWidthMeters": 16.155564053757583,
+    "requiredReductionFromCurrentSceneUnits": 1.2664577578675615,
+    "requiredReductionFromCurrentMeters": 3.4194359462424164,
+    "requiredReductionFromCurrentPercent": 17.46838286713878,
+    "maximumFullWidthWithPointTwoCollisionMarginSceneUnits": 5.583542242132438,
+    "maximumFullWidthWithPointTwoCollisionMarginMeters": 15.075564053757583,
+    "requiredReductionWithMarginPercent": 22.98562424644913,
+    "interpretation": "These are mathematical thresholds, not authority to change the shared road width. The OSM snapshot has no width or lanes tag and the local references do not measure the road cross-section."
+  },
+  "proxyAdjudication": {
+    "singleRotatedLocalAabb": {
+      "completeCoverage": true,
+      "fahuazhenResult": "overlap-overstated",
+      "dingxiResult": "false-positive-overlap",
+      "authorized": false
+    },
+    "exactFootprintPolygon": {
+      "completeCoverage": true,
+      "fahuazhenResult": "true-overlap-minus-0.6332288789",
+      "dingxiResult": "pass-plus-1.3522828005",
+      "authorizedForFormalPass": false
+    },
+    "completeCoverSplitShell": {
+      "geometricallyPossible": true,
+      "completeCoverage": true,
+      "canRemoveFahuazhenOverlap": false,
+      "proof": "Every complete-cover proxy must contain the nearest exact-footprint vertex. That vertex is only 2.9917711211 scene units from the Fahuazhen centerline, inside the current 3.625 scene-unit asphalt half-width.",
+      "candidateProduced": false
+    },
+    "verdict": "no-no-move-no-scale-complete-cover-collision-proxy-can-close-the-current-road-gate"
+  },
+  "tierLineage": {
+    "currentIntegrationSurface": {
+      "massingTierBinaryPresent": false,
+      "legacyHero": {
+        "path": "public/models/requested-pois/debi-fahua-525.glb",
+        "sha256": "1f5af3879410bec374b33183d2a89c01f01b1994b72327b344bb6d792b0a6a56",
+        "bytes": 1339244,
+        "nodes": 1,
+        "meshes": 1,
+        "triangles": 21336,
+        "materials": 14,
+        "images": 0,
+        "assetLevelBuildRecordPresent": false,
+        "derivedFromAcceptedMassing": false,
+        "scopePolluted": true,
+        "pollution": [
+          "site slab",
+          "fish pond and pond edge",
+          "bamboo clusters",
+          "two ginkgo trees",
+          "heritage stone"
+        ]
+      },
+      "identityTierBinaryPresent": false
+    },
+    "recoveryMassingV2": {
+      "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+      "glbPathAtCommit": "public/models/tiers/xinhua-road/massing-v2/debi-fahua-525-massing.glb",
+      "glbGitBlob": "cd12c2cbcd99d360d0471768899a03d500cb4c5f",
+      "glbSha256": "b9093a059417e15e722b836a38276fecabe769f6bbc9c63dfea4a08c9d95d63e",
+      "recordPathAtCommit": "docs/research/build-records/tiers/xinhua-road/massing-v2/debi-fahua-525-massing.json",
+      "recordGitBlob": "a2ec0c905911c685678f6cb72b1e85a0a3089edc",
+      "recordSha256": "9bd8f2815c6270ff286b81ff72c31fd93b45ef45ec29773062be64a261677cc7",
+      "metrics": {
+        "bytes": 8420,
+        "nodes": 5,
+        "meshes": 5,
+        "triangles": 60,
+        "materials": 1,
+        "images": 0
+      },
+      "membership": "five-member-candidates-pending",
+      "runtimeVisibility": "pass-preserved",
+      "formalMapAcceptance": "blocked",
+      "acceptedMassingSource": false
+    },
+    "isolatedMassingV3": {
+      "commit": "0a5bbe811c5647d96a20bfafc85d6f6c7d4a7709",
+      "glbPathAtCommit": "public/models/tiers/xinhua-road/massing-v3/debi-fahua-525-massing.glb",
+      "glbGitBlob": "890f70cc6c81dd078fb4a913b6c96646f9b3f90b",
+      "glbSha256": "5602771c1ba0572c8368a07695be715aaffb1c492ebe24aae25c75f1021768a1",
+      "recordPathAtCommit": "docs/research/build-records/tiers/xinhua-road/massing-v3/debi-fahua-525-massing.json",
+      "recordGitBlob": "c0e4cc9959612653e11f992e02bad5b7d893becf",
+      "recordSha256": "ad26c3483f8ebf5d81810fd9efe122aed390fb2ae2bf8870e87ec2d88f5ee034",
+      "metrics": {
+        "bytes": 3212,
+        "nodes": 1,
+        "meshes": 1,
+        "triangles": 40,
+        "materials": 1,
+        "images": 0
+      },
+      "membership": "single-representative-way-medium-secondary-map-corroborated",
+      "mcp1": "pending",
+      "formalMapAcceptance": "blocked",
+      "acceptedMassingSource": false
+    },
+    "strictGate": {
+      "recoveryAndV3AreAlternativeMassingCandidatesNotRuntimeTiers": true,
+      "acceptedMassingExists": false,
+      "heroDerivedFromAcceptedMassing": false,
+      "heroMcp2CandidateAuthorized": false,
+      "identityDerivedFromHeroSha": false,
+      "threeTierOriginPlacementCollisionLineageProven": false,
+      "status": "blocked-road-membership-and-lineage"
+    }
+  },
+  "glbAudits": [
+    {
+      "artifact": "recovery-massing-v2",
+      "status": "ok-forbid-images-max-nodes-8"
+    },
+    {
+      "artifact": "isolated-massing-v3",
+      "status": "ok-forbid-images-max-nodes-8"
+    },
+    {
+      "artifact": "current-legacy-hero",
+      "status": "ok-forbid-images-max-nodes-8",
+      "containerPassDoesNotRepairScopeOrLineage": true
+    }
+  ],
+  "verdict": {
+    "collisionProxyCandidate": "not-produced-no-legal-complete-cover-road-pass",
+    "map": "blocked-true-fahuazhen-overlap-under-current-stylized-width",
+    "membership": "blocked-primary-or-cadastral-proof-missing",
+    "massing": "blocked-no-integrated-accepted-source",
+    "hero": "blocked-legacy-scope-polluted-and-no-accepted-massing-parent",
+    "identity": "blocked-missing-and-not-authorized",
+    "minimumEvidenceOrAuthority": [
+      "Primary, cadastral or user-confirmed proof that OSM way 864847922 is the intended in-scope building footprint.",
+      "Measured or authoritative local Fahuazhen Road asphalt width at the nearest point, supporting no more than 5.9835422421 scene units full width, or 5.5835422421 with a 0.2 scene-unit building margin.",
+      "Alternatively, an evidence-backed footprint correction that changes the source polygon itself rather than translating, shrinking or clipping a collision proxy.",
+      "After the map and membership gates pass: integrate one accepted Massing SHA, build a pure-building Hero from it, pass MCP2, then derive Identity from that frozen Hero SHA."
+    ]
+  }
+}

@@ -1,0 +1,604 @@
+{
+  "schemaVersion": 1,
+  "assetId": "building:xinhua-road:xinhua-villas-211",
+  "tier": "massing",
+  "batch": "osm-footprint-bound-v3",
+  "generatedAt": "2026-07-26",
+  "status": "massing-runtime-map-pass-hero-identity-blocked",
+  "generator": "scripts/create_xinhua_villas_211_massing_model.py",
+  "binding": "docs/research/xinhua-villas-211-osm-binding.json",
+  "runtimeQa": "docs/research/xinhua-villas-211-threejs-runtime-qa.json",
+  "placement": {
+    "position": [
+      38.32,
+      110.67
+    ],
+    "yaw": -0.38,
+    "scale": 0.62,
+    "source": "app/scene/xinhua-road-landmarks-data.json",
+    "movementAuthorized": false
+  },
+  "lineage": {
+    "supersededRecoverySha256": "407cde33aa13dfad09b29f6ae23711aa5f86ea046a06adebe116eac2218d667d",
+    "supersededRecoveryMethod": "voxel-remesh-current-hero",
+    "replacementReason": "raw-osm-per-way-binding-replaces-unverified-legacy-voxel-remesh"
+  },
+  "scope": {
+    "includedWayIds": [
+      864485593,
+      864485594,
+      864485595,
+      864485596,
+      864485597,
+      864485598,
+      864485674,
+      864485675,
+      864485676
+    ],
+    "houseNumbers": "unknown",
+    "excludedContent": [
+      "member house-number invention",
+      "trees and vegetation",
+      "street furniture and decoration",
+      "all OSM footprints outside the nine listed ways",
+      "shared registry, runtime and fast manifest",
+      "all other building assets"
+    ]
+  },
+  "heightContract": {
+    "eaveSceneUnits": 2.85,
+    "ridgeSceneUnits": 3.55,
+    "source": "inferred-uniform-two-storey-proxy",
+    "surveyed": false
+  },
+  "children": [
+    {
+      "name": "xinhua-villas-211-way-864485593",
+      "sourceWayId": 864485593,
+      "houseNumber": "unknown",
+      "osmBuildingTag": "yes",
+      "worldFootprint": [
+        [
+          25.848422,
+          117.012731
+        ],
+        [
+          27.710355,
+          112.402804
+        ],
+        [
+          32.566191,
+          114.335207
+        ],
+        [
+          30.704258,
+          118.945134
+        ]
+      ],
+      "runtimeLocalFootprint": [
+        [
+          -14.885911,
+          16.961667
+        ],
+        [
+          -14.854952,
+          8.942787
+        ],
+        [
+          -6.425579,
+          8.932183
+        ],
+        [
+          -6.456538,
+          16.951063
+        ]
+      ],
+      "localObstacleCandidate": {
+        "id": "way-864485593",
+        "minX": -14.885911,
+        "maxX": -6.425579,
+        "minZ": 8.932183,
+        "maxZ": 16.961667
+      }
+    },
+    {
+      "name": "xinhua-villas-211-way-864485594",
+      "sourceWayId": 864485594,
+      "houseNumber": "unknown",
+      "osmBuildingTag": "yes",
+      "worldFootprint": [
+        [
+          32.044285,
+          119.690256
+        ],
+        [
+          33.193888,
+          116.848968
+        ],
+        [
+          37.556029,
+          118.58895
+        ],
+        [
+          36.406427,
+          121.426143
+        ]
+      ],
+      "runtimeLocalFootprint": [
+        [
+          -4.003608,
+          17.265457
+        ],
+        [
+          -3.981506,
+          12.321886
+        ],
+        [
+          3.593271,
+          12.318421
+        ],
+        [
+          3.568719,
+          17.25586
+        ]
+      ],
+      "localObstacleCandidate": {
+        "id": "way-864485594",
+        "minX": -4.003608,
+        "maxX": 3.593271,
+        "minZ": 12.318421,
+        "maxZ": 17.265457
+      }
+    },
+    {
+      "name": "xinhua-villas-211-way-864485595",
+      "sourceWayId": 864485595,
+      "houseNumber": "unknown",
+      "osmBuildingTag": "house",
+      "worldFootprint": [
+        [
+          29.847346,
+          111.567613
+        ],
+        [
+          26.638333,
+          110.290261
+        ],
+        [
+          27.81262,
+          107.387563
+        ],
+        [
+          31.018106,
+          108.664914
+        ]
+      ],
+      "runtimeLocalFootprint": [
+        [
+          -12.153728,
+          6.413326
+        ],
+        [
+          -17.724523,
+          6.419871
+        ],
+        [
+          -17.702186,
+          1.369547
+        ],
+        [
+          -12.136674,
+          1.365112
+        ]
+      ],
+      "localObstacleCandidate": {
+        "id": "way-864485595",
+        "minX": -17.724523,
+        "maxX": -12.136674,
+        "minZ": 1.365112,
+        "maxZ": 6.419871
+      }
+    },
+    {
+      "name": "xinhua-villas-211-way-864485596",
+      "sourceWayId": 864485596,
+      "houseNumber": "unknown",
+      "osmBuildingTag": "house",
+      "worldFootprint": [
+        [
+          32.139498,
+          109.004722
+        ],
+        [
+          40.274874,
+          112.247229
+        ],
+        [
+          38.670368,
+          116.214387
+        ],
+        [
+          34.794868,
+          114.670921
+        ],
+        [
+          35.27093,
+          113.487733
+        ],
+        [
+          31.01458,
+          111.792787
+        ]
+      ],
+      "runtimeLocalFootprint": [
+        [
+          -10.253709,
+          1.20321
+        ],
+        [
+          3.871692,
+          1.192926
+        ],
+        [
+          3.841775,
+          8.095028
+        ],
+        [
+          -2.88652,
+          8.101705
+        ],
+        [
+          -2.881304,
+          6.044664
+        ],
+        [
+          -10.270679,
+          6.052294
+        ]
+      ],
+      "localObstacleCandidate": {
+        "id": "way-864485596",
+        "minX": -10.270679,
+        "maxX": 3.871692,
+        "minZ": 1.192926,
+        "maxZ": 8.101705
+      }
+    },
+    {
+      "name": "xinhua-villas-211-way-864485597",
+      "sourceWayId": 864485597,
+      "houseNumber": "unknown",
+      "osmBuildingTag": "yes",
+      "worldFootprint": [
+        [
+          39.56607,
+          118.023967
+        ],
+        [
+          45.190659,
+          104.357948
+        ],
+        [
+          47.905977,
+          105.459254
+        ],
+        [
+          42.277862,
+          119.125273
+        ]
+      ],
+      "runtimeLocalFootprint": [
+        [
+          6.265997,
+          10.26964
+        ],
+        [
+          6.514949,
+          -13.564915
+        ],
+        [
+          11.240944,
+          -13.539791
+        ],
+        [
+          10.986711,
+          10.296873
+        ]
+      ],
+      "localObstacleCandidate": {
+        "id": "way-864485597",
+        "minX": 6.265997,
+        "maxX": 11.240944,
+        "minZ": -13.564915,
+        "maxZ": 10.296873
+      }
+    },
+    {
+      "name": "xinhua-villas-211-way-864485598",
+      "sourceWayId": 864485598,
+      "houseNumber": "unknown",
+      "osmBuildingTag": "yes",
+      "worldFootprint": [
+        [
+          40.511142,
+          120.369872
+        ],
+        [
+          48.265669,
+          123.329887
+        ],
+        [
+          46.506001,
+          127.882498
+        ],
+        [
+          38.747948,
+          124.922482
+        ]
+      ],
+      "runtimeLocalFootprint": [
+        [
+          9.085028,
+          13.218046
+        ],
+        [
+          22.470971,
+          13.01248
+        ],
+        [
+          22.558899,
+          20.884327
+        ],
+        [
+          9.167674,
+          21.092002
+        ]
+      ],
+      "localObstacleCandidate": {
+        "id": "way-864485598",
+        "minX": 9.085028,
+        "maxX": 22.558899,
+        "minZ": 13.01248,
+        "maxZ": 21.092002
+      }
+    },
+    {
+      "name": "xinhua-villas-211-way-864485674",
+      "sourceWayId": 864485674,
+      "houseNumber": "unknown",
+      "osmBuildingTag": "house",
+      "worldFootprint": [
+        [
+          23.154262,
+          95.060306
+        ],
+        [
+          27.400033,
+          96.861699
+        ],
+        [
+          25.848422,
+          100.46039
+        ],
+        [
+          21.602651,
+          98.654903
+        ]
+      ],
+      "runtimeLocalFootprint": [
+        [
+          -32.05458,
+          -14.307884
+        ],
+        [
+          -24.61737,
+          -14.149745
+        ],
+        [
+          -24.788495,
+          -7.831194
+        ],
+        [
+          -32.228155,
+          -7.995466
+        ]
+      ],
+      "localObstacleCandidate": {
+        "id": "way-864485674",
+        "minX": -32.228155,
+        "maxX": -24.61737,
+        "minZ": -14.307884,
+        "maxZ": -7.831194
+      }
+    },
+    {
+      "name": "xinhua-villas-211-way-864485675",
+      "sourceWayId": 864485675,
+      "houseNumber": "unknown",
+      "osmBuildingTag": "house",
+      "worldFootprint": [
+        [
+          30.531465,
+          98.863701
+        ],
+        [
+          37.07644,
+          101.643577
+        ],
+        [
+          35.401406,
+          105.532947
+        ],
+        [
+          28.856431,
+          102.753071
+        ]
+      ],
+      "runtimeLocalFootprint": [
+        [
+          -18.72925,
+          -13.02446
+        ],
+        [
+          -7.262798,
+          -12.776223
+        ],
+        [
+          -7.444892,
+          -5.94844
+        ],
+        [
+          -18.911344,
+          -6.196678
+        ]
+      ],
+      "localObstacleCandidate": {
+        "id": "way-864485675",
+        "minX": -18.911344,
+        "maxX": -7.262798,
+        "minZ": -13.02446,
+        "maxZ": -5.94844
+      }
+    },
+    {
+      "name": "xinhua-villas-211-way-864485676",
+      "sourceWayId": 864485676,
+      "houseNumber": "unknown",
+      "osmBuildingTag": "house",
+      "worldFootprint": [
+        [
+          38.381204,
+          101.725459
+        ],
+        [
+          43.459202,
+          103.883036
+        ],
+        [
+          41.456214,
+          108.537998
+        ],
+        [
+          36.378216,
+          106.380421
+        ]
+      ],
+      "runtimeLocalFootprint": [
+        [
+          -5.259477,
+          -13.434163
+        ],
+        [
+          3.637373,
+          -13.240402
+        ],
+        [
+          3.422077,
+          -5.069679
+        ],
+        [
+          -5.474773,
+          -5.26344
+        ]
+      ],
+      "localObstacleCandidate": {
+        "id": "way-864485676",
+        "minX": -5.474773,
+        "maxX": 3.637373,
+        "minZ": -13.434163,
+        "maxZ": -5.069679
+      }
+    }
+  ],
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.blend",
+      "sha256": "f6a26c12715ca9589b0ca9894dc9bc3b3252aa3d124f6f7be21478ea11440088",
+      "bytes": 96854
+    },
+    "glb": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb",
+    "previews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/massing-v3/xinhua-villas-211/test_xinhua-villas-211-massing-v3-canonical.png",
+        "sha256": "63f61e2b4fbde3b8b6653ea5ddb72a0eec3154aac21416ec5358b677abe34c2b",
+        "bytes": 435908
+      },
+      "side": {
+        "path": "test_artifacts/all-models/massing-v3/xinhua-villas-211/test_xinhua-villas-211-massing-v3-side-depth.png",
+        "sha256": "1966e95bc3a6c6eb93b9cdd0c3d82162f77df4b30d0d5d516673d130962884fd",
+        "bytes": 468739
+      },
+      "entrance": {
+        "path": "test_artifacts/all-models/massing-v3/xinhua-villas-211/test_xinhua-villas-211-massing-v3-entrance.png",
+        "sha256": "8f6788c17e1de500a9e5bec984dd0b7c94f80bb291d405f57baccdea191cef8b",
+        "bytes": 473915
+      }
+    }
+  },
+  "glb": {
+    "sha256": "ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c",
+    "bytes": 16060,
+    "nodes": 9,
+    "meshes": 9,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 134,
+    "bounds": {
+      "min": [
+        -32.228153,
+        0.0,
+        -21.092003
+      ],
+      "max": [
+        22.558899,
+        3.55,
+        14.307884
+      ]
+    },
+    "rootTransformsNormalized": true
+  },
+  "mapCalibration": {
+    "maximumVertexRoundTripErrorSceneUnits": 1e-06,
+    "minimumRoadCenterlineDistanceSceneUnits": 5.4896,
+    "xinhuaRoadAsphaltHalfWidthSceneUnits": 2.45,
+    "minimumAsphaltEdgeClearanceSceneUnits": 3.0396,
+    "xinhuaRoadOuterVergeHalfWidthSceneUnits": 3.925,
+    "minimumOuterVergeClearanceSceneUnits": 1.5646,
+    "entranceGap": {
+      "betweenWayIds": [
+        864485674,
+        864485675
+      ],
+      "clearanceSceneUnits": 3.6682,
+      "playerDiameterSceneUnits": 0.96,
+      "status": "pass"
+    },
+    "minimumInternalMemberGap": {
+      "betweenWayIds": [
+        864485595,
+        864485596
+      ],
+      "clearanceSceneUnits": 1.1667,
+      "status": "pass-no-overlap"
+    },
+    "nearestExternalNeighbor": {
+      "compoundWayId": 864485597,
+      "neighborWayId": 864485677,
+      "clearanceSceneUnits": 0.6684,
+      "status": "no-overlap-not-a-designated-walkable-route"
+    },
+    "polygonOverlapCount": 0,
+    "localObstacleAabbOverlapCount": 0
+  },
+  "gates": {
+    "evidence": "pass-conservative-massing-footprints-only",
+    "headlessBuild": "pass",
+    "glbAudit": "pass-explicit-no-images-max-12-nodes",
+    "mcp1": "pass-main-window-batch",
+    "mapGeometry": "pass-analytic-candidate",
+    "runtimeMap": "pass-main-window-real-browser",
+    "hero": "blocked-evidence",
+    "identity": "blocked-evidence"
+  }
+}

@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 1,
+  "assetId": "fahua-heritage",
+  "label": "法华遗韵",
+  "auditedAt": "2026-07-26T18:00:00+08:00",
+  "mode": "single-building-local-only-evidence-rescue",
+  "reviewBaseline": "5bde93350c1845278a54f5a34a598aa92d0c681d",
+  "holdCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+  "status": "blocked-local-evidence-rescue-exhausted",
+  "verdict": {
+    "canonicalFront": "pass-one-unique-photographic-capture",
+    "sideOrDepth": "blocked-zero-photographic-captures",
+    "streetOrEntry": "blocked-zero-street-interface-captures",
+    "streetContextAndSiteBoundary": "blocked-zero-photographic-or-survey-captures",
+    "mapPromotion": "blocked",
+    "newModelingAuthorized": false,
+    "runtimeOrRegistryChangeAuthorized": false,
+    "summary": "当前仓库、72 个唯一 ref tip 可达的历史 Git、Recovery/Hold 与现有生成记录中，没有新增同主体侧后/纵深或真实街道界面证据。三个真实图片路径只形成一个正面摄影 capture；Recovery 的 side 与 Three.js 图均由 front-only legacy 几何和当前 placement 生成，不能反向证明真实厚度、背面、道路侧方向或 site boundary。OSM 没有本构筑物 way/node/entrance，故 front-only 与 formal map blocker 均不能解除。"
+  },
+  "scope": {
+    "searched": [
+      "current target worktree tracked repository",
+      "all reachable local Git refs and historical blobs",
+      "codex/hold-all-models-v3-recovery-20260725 at 3044cd89",
+      "existing OSM snapshots, production map records and generator/build records"
+    ],
+    "excludedAndUntouched": [
+      "network, browser and Xiaohongshu",
+      "Blender and model rebuild",
+      "runtime, registry and public Fast/exact",
+      "trees, decorations and full-map assets",
+      "Recovery/Hold file copying or mutation",
+      "other buildings"
+    ]
+  },
+  "sourcePolicy": {
+    "description": "公共 cross 文件使用审查时 baseline Git blob；本栋当前二进制与照片严格校验；Recovery/Hold 只校验指定提交中的 Git blob，不复制到当前分支。",
+    "reviewTimeBaselineGitBlobs": [
+      {
+        "path": "app/scene/xinhua-road-landmarks-data.json",
+        "sha256": "f87c8fde941c71c6876bba4e7a50cf9177c5b7d11163822c4f4ac906568d9fa6"
+      },
+      {
+        "path": "app/scene/xinhua-map-data.json",
+        "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78"
+      },
+      {
+        "path": "app/scene/road-surface-contract.ts",
+        "sha256": "81798e268e7da1ec6d98de973b0332ad953cb4b933734a30840200ebf26057a7"
+      },
+      {
+        "path": "docs/research/poi-reference-manifest.json",
+        "sha256": "be687fc29e7f45cf0029159c35274918de32450d33341457e57fcfbac931b51f"
+      },
+      {
+        "path": "docs/research/requested-poi-model-brief.md",
+        "sha256": "034b303cb454235405edf8d5b8e26a9ae164e5aadfd85278dc7158a18955c26f"
+      },
+      {
+        "path": "scripts/create_requested_poi_models.py",
+        "sha256": "3bd9cd02fcd2e62b9d8c26866cc2660b6c42fc3a91e4399a934f2d563647d5d1"
+      },
+      {
+        "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+        "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c"
+      },
+      {
+        "path": "docs/research/data/xinhua-roads-osm-20260716-080509.json",
+        "sha256": "351308feafab0344dc59a66ebd68d0748f81ef1cd69dc218765a22eb51abf2ec"
+      },
+      {
+        "path": "docs/research/data/requested-pois-osm-20260717-103840.json",
+        "sha256": "898624d284d460f6d696720278531db463f6f458cbbe49b7d4ab36d46905104e"
+      }
+    ],
+    "strictCurrentBuildingFiles": [
+      {
+        "path": "docs/research/fahua-heritage-final-disposition.json",
+        "sha256": "1d473792166b3a4b085be06347c81af538b1c092ce3560987f0fa07db3f6dfba"
+      },
+      {
+        "path": "docs/research/assets/requested-poi-references/fahua-heritage-arch.jpg",
+        "sha256": "bce705550e57ee299c9160ca04a19c5157b50d8f70873c988d4ef46ca49a662e"
+      },
+      {
+        "path": "public/images/poi/fahua-heritage.jpg",
+        "sha256": "bce705550e57ee299c9160ca04a19c5157b50d8f70873c988d4ef46ca49a662e"
+      },
+      {
+        "path": "public/images/poi-thumbnails/fahua-heritage.jpg",
+        "sha256": "b613ba48cafa9c92fc06adac6492da57d1479ccd43978675ec9c4b0be3576230"
+      },
+      {
+        "path": "assets/models/source/requested-pois/fahua-heritage.blend",
+        "sha256": "8bb9b43c50e94c6f6ffd00f216dd5babf95282852e9514f309a7c4cdeec0fe8f"
+      },
+      {
+        "path": "public/models/requested-pois/fahua-heritage.glb",
+        "sha256": "f23d8b701a338838c60645e4460a5dccca904e62a58053f7066d29dff54bf7b3"
+      },
+      {
+        "path": "test_artifacts/test_fahua-heritage_preview.png",
+        "sha256": "987b704d324e445f8ee6bda1e2999ba0bbbab4c7af4597371d5ec07e9b3923ab"
+      }
+    ]
+  },
+  "searchAccounting": {
+    "uniqueReachableRefTips": 72,
+    "commitsChangingFahuaHeritageSlug": 20,
+    "commitsChangingChineseName": 11,
+    "currentExactTextPathCount": 16,
+    "holdExactTextPathCount": 20,
+    "historicalManifestCommitCount": 6,
+    "historicalManifestUniqueBlobCount": 6,
+    "historicalManifestResult": "all-six-versions-contain-one-front-reference-only",
+    "historicalNamedImagePathCount": 8,
+    "imagePathClassification": {
+      "sameSubjectRealPhotoPaths": 3,
+      "sameSubjectUniqueBinaryHashes": 2,
+      "sameSubjectUniquePhotographicCaptures": 1,
+      "wrongSubjectRealPhotoPaths": 1,
+      "generatedOrRuntimeVisualPaths": 4,
+      "qualifiedNewSideDepthCaptures": 0,
+      "qualifiedNewStreetContextCaptures": 0
+    },
+    "stopReason": "精确文本、历史 manifest、命名图片、Recovery/Hold、OSM 与生成记录全部归类完成；继续扫描无新语料类别，只会重复自生成图或范围外相邻资产。"
+  },
+  "historicalManifestAudit": {
+    "versions": [
+      {
+        "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+        "blob": "e8b9cad0b3915d4b8d82bb78339f5d91d45db2bb"
+      },
+      {
+        "commit": "a0e25a879f8c5ab3ffc11fbd194d0deec310cb76",
+        "blob": "9922bb32dd02572e56a9894b2ab2c5b859df145d"
+      },
+      {
+        "commit": "54fc124d5867e4952641656ffb4bd3e8b90024ab",
+        "blob": "a06c4feebe1dd2efe6baf4576aa5862d8563cc36"
+      },
+      {
+        "commit": "e713c097191ae5169b8cc265e05bfbef03d6f1d5",
+        "blob": "620acff93808e723e26bd84d023980adaf8858d5"
+      },
+      {
+        "commit": "90a4ba32b4c889f655e3d7a5c42a01612e16a85f",
+        "blob": "8942eac1284db91dc26989d87ef18d3c5bb212cf"
+      },
+      {
+        "commit": "e292fde194c2704a9eeaf7e4a8faf192a5d0385e",
+        "blob": "aa5e6534454739238535571af2f3a787fa1c85a4"
+      }
+    ],
+    "entryInvariant": {
+      "referenceCount": 1,
+      "path": "docs/research/assets/requested-poi-references/fahua-heritage-arch.jpg",
+      "view": "front"
+    }
+  },
+  "manifestSupplement": {
+    "subject": "法华遗韵纪念展板构筑物",
+    "address": "法华镇路与香花桥路交会处",
+    "canonicalComparisonView": {
+      "captureId": "fahua-heritage-front-capture-1",
+      "path": "docs/research/assets/requested-poi-references/fahua-heritage-arch.jpg",
+      "gitBlob": "c31b6bfbb8de8156d2f3e80315ef7be3685aeaa9",
+      "sha256": "bce705550e57ee299c9160ca04a19c5157b50d8f70873c988d4ef46ca49a662e",
+      "pixelWidth": 600,
+      "pixelHeight": 357,
+      "view": "front-close",
+      "status": "qualified-canonical-only"
+    },
+    "duplicateEncodings": [
+      {
+        "path": "public/images/poi/fahua-heritage.jpg",
+        "gitBlob": "c31b6bfbb8de8156d2f3e80315ef7be3685aeaa9",
+        "relationship": "byte-identical-copy-of-canonical"
+      },
+      {
+        "path": "public/images/poi-thumbnails/fahua-heritage.jpg",
+        "gitBlob": "ec4ab819078b4b168555c995c9559ac8787e0686",
+        "sha256": "b613ba48cafa9c92fc06adac6492da57d1479ccd43978675ec9c4b0be3576230",
+        "pixelWidth": 640,
+        "pixelHeight": 381,
+        "relationship": "manually-reviewed-same-front-capture-different-encoding-and-crop"
+      }
+    ],
+    "rejectedCandidates": [
+      {
+        "path": "docs/research/assets/requested-poi-references/debi-fahua-525-heritage-stone.jpg",
+        "classification": "wrong-subject",
+        "reason": "照片是德必法华525园区内“缘石”与水景，不含法华遗韵三间展板构筑物。"
+      },
+      {
+        "path": "test_artifacts/test_fahua-heritage_preview.png",
+        "classification": "generated-legacy-model-preview",
+        "reason": "由单张正面证据驱动的 legacy 模型生成，不能证明未观察侧面或街道位置。"
+      },
+      {
+        "path": "test_artifacts/all-models/massing/test_fahua-heritage-massing-canonical.png",
+        "classification": "generated-recovery-massing-preview",
+        "reason": "Recovery voxel-remesh 来自同一 legacy Hero，不是实景证据。"
+      },
+      {
+        "path": "test_artifacts/all-models/massing/test_fahua-heritage-massing-side.png",
+        "classification": "generated-recovery-massing-side",
+        "reason": "侧面来自 front-only 模型的推断厚度，作为证据会形成循环论证。"
+      },
+      {
+        "path": "test_artifacts/all-models/massing/test_fahua-heritage-massing-threejs.png",
+        "classification": "generated-runtime-placement-screenshot",
+        "reason": "画面中的道路关系来自当前 registry placement，不能独立验证真实 street context 或 site boundary。"
+      }
+    ],
+    "coverageMatrix": {
+      "canonical": {
+        "qualifiedCaptureCount": 1,
+        "status": "pass"
+      },
+      "depthOrSide": {
+        "qualifiedCaptureCount": 0,
+        "status": "blocked"
+      },
+      "streetOrEntry": {
+        "qualifiedCaptureCount": 0,
+        "identityDetailInCanonical": "partial-only",
+        "status": "blocked"
+      },
+      "streetContextAndSiteBoundary": {
+        "qualifiedCaptureCount": 0,
+        "status": "blocked"
+      }
+    }
+  },
+  "recoveryHoldAudit": {
+    "policy": "read-only-no-copy-no-rerun",
+    "sources": [
+      {
+        "path": "docs/research/xinhua-road-map-binding-audit.json",
+        "gitBlob": "aafdbed46264ee3f2e1df4fddf55d0c7850f3acc",
+        "sha256": "2ef0fdd35b6398be1263148940c9632f5d040e00e552b7a1730d439e368bc603"
+      },
+      {
+        "path": "docs/research/xinhua-road-massing-model-brief.md",
+        "gitBlob": "895554747ddbafd66d7082b0049e05af783297e8",
+        "sha256": "dc8f5637a6e7cc05068d685640e5164e0f57ee045f52a16bd8912ccfa5def3b8"
+      },
+      {
+        "path": "docs/research/xinhua-road-massing-runtime-qa.json",
+        "gitBlob": "b3c9d3160acd43f1c89843eb1324e06d270574df",
+        "sha256": "5ae9e36e875f0a138729b94fb33a15c57af445bb103dd884b46abf1959c66396"
+      },
+      {
+        "path": "docs/research/build-records/tiers/xinhua-road/massing/fahua-heritage-massing.json",
+        "gitBlob": "4ee06232b65466f7d5629688b8bd0b46aa60b6e1",
+        "sha256": "1155cc30e5fb5739a61d0647df363b75a953973ed5e7e93cfe44967f357ca399"
+      },
+      {
+        "path": "public/models/tiers/xinhua-road/massing/fahua-heritage-massing.glb",
+        "gitBlob": "23f877a465a7aa79963a4e97a49683a801377869",
+        "sha256": "41f6a49bc20197ef6058fdd5190ab2e80bd547b47a5a56d4725b653bec57d42f"
+      },
+      {
+        "path": "test_artifacts/all-models/massing/test_fahua-heritage-massing-side.png",
+        "gitBlob": "4f03e6e535bb4f3fdfb37d509ae929c3a005adf6",
+        "sha256": "f64f82d0284b16f3f179b088275efac9bee71e1d79e2844f06a68547df71ffb3"
+      },
+      {
+        "path": "test_artifacts/all-models/massing/test_fahua-heritage-massing-threejs.png",
+        "gitBlob": "8908d0f80440b6504faba5baf88f263ce4c3a130",
+        "sha256": "bf02ff85dfdca745688c5d4b32034b66a3bb999259e7fb95984eff44184f9e43"
+      }
+    ],
+    "preservedFindings": {
+      "massingGlbAudit": "ok",
+      "geometryRole": "site-feature-not-a-building",
+      "osmWayCandidateCount": 0,
+      "corroboratingOsmNodeCount": 0,
+      "runtimeScreenshot": "playable-spring-clear-but-self-referential-placement",
+      "formalMapAcceptance": "blocked"
+    }
+  },
+  "osmAndMapNegativeEvidence": {
+    "requestedPoiTargetPresent": false,
+    "namedSubjectElementsInSavedSnapshots": 0,
+    "entranceNodesBoundToSubject": 0,
+    "runtimeOrigin": {
+      "world": [
+        -63.4,
+        -2.6
+      ],
+      "wgs84": [
+        121.42098402622157,
+        31.206701106423015
+      ]
+    },
+    "roads": [
+      {
+        "osmWayId": 66394007,
+        "name": "法华镇路",
+        "highway": "tertiary",
+        "surface": "asphalt",
+        "staticAsphaltEdgeClearanceSceneUnits": 0.8291129060305256,
+        "status": "numeric-sanity-pass-not-site-boundary-proof"
+      },
+      {
+        "osmWayId": 85686607,
+        "name": "香花桥路",
+        "highway": "residential",
+        "surface": "asphalt",
+        "staticAsphaltEdgeClearanceSceneUnits": 3.061200493264744,
+        "status": "numeric-sanity-pass-not-site-boundary-proof"
+      }
+    ],
+    "nearestBuildingCandidate": {
+      "osmWayId": 292250767,
+      "tags": {
+        "building": "university",
+        "name": "丹蓝打印店"
+      },
+      "distanceFromCurrentAssetEnvelopeSceneUnits": 10.209694928218129,
+      "distanceFromCurrentAssetEnvelopeMeters": 27.56617630618895,
+      "decision": "reject-wrong-subject-neighbor",
+      "reason": "法华遗韵是独立三间展板构筑物；最近建筑名称与类型均不匹配，不能替代 site footprint。"
+    },
+    "interpretation": "道路中心线只能证明当前矩形没有压入 asphalt；没有构筑物本身的 OSM geometry、入口节点、路缘/人行界面边界或真实街景，无法证明 position、yaw、厚度与可绕行边界。"
+  },
+  "evidenceClassification": {
+    "observed": [
+      "一张正面近景中的四柱三间、中央金字横额、三块深色展板、两侧短瓦檐与右侧贴邻墙面。",
+      "所有六个历史 manifest 版本都只登记同一路径、view=front。",
+      "Recovery map-binding 明确记录 osmWayCandidates=[]、corroboratingOsmNodes=[]。",
+      "当前两条生产道路中心线下静态 asphalt 净距为正，最近 OSM 建筑是丹蓝打印店。"
+    ],
+    "inferred": [
+      "同一正面照片的 thumbnail 是另一编码/裁切，不是第二摄影机位。",
+      "当前约 11.3 x 3.06 米包络和侧面厚度来自 legacy 模型简化。",
+      "runtime 图中的街道关系由当前 placement 生成，不能作为独立现场证据。"
+    ],
+    "unknown": [
+      "构筑物真实侧后结构、屋檐进深和背板构造。",
+      "摄影机朝向以及构筑物相对法华镇路、香花桥路的准确一侧。",
+      "真实 sidewalk、绿化、人行通路、贴邻墙面和 site boundary。",
+      "可绕行范围、当前遮挡与现场是否仍完整存在。",
+      "精确 position、yaw、scale 和 ground datum。"
+    ]
+  },
+  "minimumEvidenceGap": {
+    "status": "blocked",
+    "required": [
+      "至少一张同主体侧向或斜后实景，能同时显示柱/展板厚度、短瓦檐进深和背面关系。",
+      "至少一张同主体街道宽景或带北向/比例的场地总平，能同时显示法华镇路或香花桥路、路缘/人行界面、构筑物全体与贴邻墙面。",
+      "在上述街道证据上明确观察方向；若要修改 placement，至少再提供两个可在 GLB 本地与 WGS84/总平中共同定位的非重合点。"
+    ],
+    "entryInterpretation": "本对象不是通行建筑，street/entry 门应按“道路侧接近路径与展板前人行界面”验收，不要求虚构门洞。",
+    "notSufficient": [
+      "同一正面照片的不同分辨率或裁切",
+      "legacy Hero/Massing 的侧视渲染",
+      "由当前 registry placement 生成的 Three.js 街道截图",
+      "德必法华525园区缘石或其他相邻建筑照片",
+      "只有道路中心线净距而没有 site boundary"
+    ]
+  },
+  "disposition": {
+    "frontOnlyBlockerReleased": false,
+    "mapBlockerReleased": false,
+    "legacyHero": "retain-read-only",
+    "recoveryMassing": "retain-read-only-conditional",
+    "identity": "blocked",
+    "threeTierRuntime": "blocked",
+    "nextGate": "obtain-real-side-depth-and-street-interface-evidence",
+    "removalOrPublicMutation": "not-authorized-in-this-local-only-task"
+  },
+  "validation": {
+    "scopedTest": "tests/test_fahua_heritage_local_evidence_rescue.test.mjs",
+    "browserUsed": false,
+    "networkUsed": false,
+    "blenderUsed": false,
+    "sharedFilesChanged": false
+  }
+}

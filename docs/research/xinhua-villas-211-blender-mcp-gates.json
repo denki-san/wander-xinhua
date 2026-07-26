@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-211",
+  "tier": "massing",
+  "recordedAt": "2026-07-26",
+  "owner": "main-window",
+  "mode": "building-fast-batch-mcp1",
+  "source": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb",
+    "glbSha256": "ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c"
+  },
+  "mcp1": {
+    "status": "pass",
+    "sceneInspection": {
+      "objectCount": 9,
+      "meshObjects": 9,
+      "materialCount": 1,
+      "includedOsmWays": [
+        864485593,
+        864485594,
+        864485595,
+        864485596,
+        864485597,
+        864485598,
+        864485674,
+        864485675,
+        864485676
+      ],
+      "rootTransformsNormalized": true,
+      "referenceImagesEmbedded": false
+    },
+    "scaleProxy": {
+      "heightSceneUnits": 0.6666666667,
+      "metersPerSceneUnit": 2.7,
+      "heightMeters": 1.8,
+      "savedToBlend": false,
+      "exportedToGlb": false
+    },
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/massing-v3/xinhua-villas-211/test_xinhua-villas-211-massing_mcp1_canonical.png",
+        "sha256": "c06e7fe9ac27d3584a01c6293c55058f5af50c7cf419e292833496434c6bf45c",
+        "bytes": 435870
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/massing-v3/xinhua-villas-211/test_xinhua-villas-211-massing_mcp1_side-depth.png",
+        "sha256": "83623b458f56af6a6e9e2663b791b965403399a8cef4540cc9375d5c0d5b13c9",
+        "bytes": 468687
+      },
+      "entranceScale": {
+        "path": "test_artifacts/all-models/massing-v3/xinhua-villas-211/test_xinhua-villas-211-massing_mcp1_entrance-scale.png",
+        "sha256": "7215ba3e92544f6a6732bc24de210f29cc6440fef0ebc9bd9971580817452864",
+        "bytes": 478750
+      }
+    },
+    "observed": [
+      "nine independent building masses remain separated",
+      "all nine masses are grounded at the shared datum",
+      "the designated entrance gap remains visibly open around the 1.8m proxy",
+      "no decorative, vegetation or full-map object is present"
+    ],
+    "inferred": [
+      "uniform conservative two-storey ridge height is adequate for Massing map calibration"
+    ],
+    "unknown": [
+      "member house-number identity",
+      "member-specific facade identity",
+      "side and rear facade detail"
+    ],
+    "interactiveChangesAccepted": [],
+    "qaRigSaved": false,
+    "qaRigExported": false,
+    "verdict": "pass-massing-only-runtime-map-authorized"
+  },
+  "nextGate": "main-window-threejs-map-ground-road-and-nine-part-collision",
+  "identityAuthorized": false,
+  "heroAuthorized": false
+}

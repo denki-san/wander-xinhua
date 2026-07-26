@@ -1,6 +1,8 @@
 import type { LandmarkPlacement } from "./xinhua-road-contract";
 import { planarDistanceToLandmarkFootprint } from "./xinhua-road-placement.mjs";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
+import { HOUSE_315_TIERS } from "./house-315-tier-contract.mjs";
+import { ONE_STEP_GARDEN_TIERS } from "./one-step-garden-tier-contract.mjs";
 
 const XINHUA_ROAD_QUALITY_LANDMARKS =
   landmarkData.landmarks as unknown as readonly LandmarkPlacement[];
@@ -96,6 +98,93 @@ export function xinhuaRoadDistanceHeroIds({
 export const SHANGHAI_CINEMA_IDENTITY_MODEL_PATH =
   "/models/xinhua-road/shanghai-cinema-hybrid-identity.glb";
 export const SHANGHAI_CINEMA_IDENTITY_CACHE_VERSION = "20260722-hybrid-1";
+export const SHANGHAI_CINEMA_MASSING_MODEL_PATH =
+  "/models/xinhua-road/shanghai-cinema-massing.glb";
+export const SHANGHAI_CINEMA_MASSING_CACHE_VERSION = "20260725-massing-1";
+export const FILM_ART_CENTER_IDENTITY_MODEL_PATH =
+  "/models/tiers/xinhua-road/identity/film-art-center-identity.glb";
+export const FILM_ART_CENTER_IDENTITY_CACHE_VERSION =
+  "20260725-film-art-identity-1";
+
+export const ACCEPTED_DERIVED_BUILDING_TIERS = {
+  "villa-le-bec": {
+    hero: {
+      path:
+        "/models/tiers/xinhua-road/hero-v2/"
+        + "villa-le-bec-hero-v2.glb",
+      cacheVersion: "20260726-hero-4f909a3b149e",
+    },
+    identity: {
+      path:
+        "/models/tiers/xinhua-road/identity-v2/"
+        + "villa-le-bec-identity-v2.glb",
+      cacheVersion: "20260726-identity-4be0685ed6db",
+    },
+    massing: {
+      path:
+        "/models/tiers/xinhua-road/massing-v2/"
+        + "villa-le-bec-massing.glb",
+      cacheVersion: "20260726-massing-593cc3995046",
+    },
+  },
+  "hudec-memorial": {
+    hero: {
+      path: "/models/requested-pois/hudec-memorial-v2-hero.glb",
+      cacheVersion: "20260726-hero-598b2ba19e24",
+    },
+    identity: {
+      path:
+        "/models/tiers/xinhua-road/identity-v1/"
+        + "hudec-memorial-identity.glb",
+      cacheVersion: "20260726-identity-867f336824f6",
+    },
+    massing: {
+      path: "/models/requested-pois/hudec-memorial-massing.glb",
+      cacheVersion: "20260726-massing-772ce8a8445a",
+    },
+  },
+  "xinhua-pocket-park": {
+    hero: {
+      path:
+        "/models/tiers/xinhua-road/hero-v2/"
+        + "xinhua-pocket-park-hero.glb",
+      cacheVersion: "20260726-hero-c6ef6f107e3c",
+    },
+    identity: {
+      path:
+        "/models/tiers/xinhua-road/identity-v1/"
+        + "xinhua-pocket-park-identity.glb",
+      cacheVersion: "20260726-identity-892677bb8f33",
+    },
+    massing: {
+      path:
+        "/models/tiers/xinhua-road/massing-v2/"
+        + "xinhua-pocket-park-massing.glb",
+      cacheVersion: "20260726-massing-cc89e36e6839",
+    },
+  },
+} as const;
+
+export type XinhuaRoadIdentityStrategy =
+  | "programmatic-miniature"
+  | "custom-landmark-hybrid"
+  | "derived-glb";
+
+/**
+ * 独立 GLB 已按 Hero 原点导出，不能再套用 bounds-center 平移。
+ * 只有以 bounds 构建的程序化缩影需要把几何中心移到共享建筑原点附近。
+ */
+export function xinhuaRoadIdentityLocalPosition(
+  localBounds: LandmarkPlacement["localBounds"],
+  strategy: XinhuaRoadIdentityStrategy,
+): [number, number, number] {
+  if (strategy !== "programmatic-miniature") return [0, 0, 0];
+  return [
+    (localBounds.minX + localBounds.maxX) / 2,
+    0,
+    -(localBounds.minZ + localBounds.maxZ) / 2,
+  ];
+}
 
 export type XinhuaRoadBuildingQualityEntry = {
   buildingId: string;
@@ -110,16 +199,18 @@ export type XinhuaRoadBuildingQualityEntry = {
     };
   };
   identity: {
-    strategy: "programmatic-miniature" | "custom-landmark-hybrid";
+    strategy: XinhuaRoadIdentityStrategy;
     recipe: XinhuaRoadIdentityKind;
     model?: string;
     cacheVersion?: string;
     requiredBeforeMapVisible: true;
   };
   massing: {
-    strategy: "bounds-proxy";
+    strategy: "bounds-proxy" | "formal-glb" | "derived-glb";
     visibility: "cover-only";
     localBounds: LandmarkPlacement["localBounds"];
+    model?: string;
+    cacheVersion?: string;
   };
   shared: Pick<LandmarkPlacement, "position" | "yaw" | "scale" | "localObstacles">;
   collision: "stable-shared-structure";
@@ -129,6 +220,12 @@ function buildingQualityEntry(
   landmark: LandmarkPlacement,
 ): XinhuaRoadBuildingQualityEntry {
   const shanghaiCinema = landmark.id === "shanghai-cinema";
+  const filmArtCenter = landmark.id === "film-art-center";
+  const oneStepGarden = landmark.id === "one-step-garden";
+  const house315 = landmark.id === "house-315";
+  const acceptedDerived = ACCEPTED_DERIVED_BUILDING_TIERS[
+    landmark.id as keyof typeof ACCEPTED_DERIVED_BUILDING_TIERS
+  ];
   return {
     buildingId: landmark.id,
     hero: {
@@ -142,22 +239,72 @@ function buildingQualityEntry(
       },
     },
     identity: {
-      strategy: shanghaiCinema
-        ? "custom-landmark-hybrid"
-        : "programmatic-miniature",
+      strategy: oneStepGarden || house315 || acceptedDerived
+        ? "derived-glb"
+        : shanghaiCinema
+          ? "custom-landmark-hybrid"
+          : filmArtCenter
+            ? "derived-glb"
+          : "programmatic-miniature",
       recipe: xinhuaRoadIdentityKind(landmark.id),
-      model: shanghaiCinema
-        ? SHANGHAI_CINEMA_IDENTITY_MODEL_PATH
-        : undefined,
-      cacheVersion: shanghaiCinema
-        ? SHANGHAI_CINEMA_IDENTITY_CACHE_VERSION
-        : undefined,
+      model: acceptedDerived
+        ? acceptedDerived.identity.path
+        : oneStepGarden || house315
+        ? (
+          oneStepGarden
+            ? ONE_STEP_GARDEN_TIERS.identity.path
+            : HOUSE_315_TIERS.identity.path
+        )
+        : shanghaiCinema
+          ? SHANGHAI_CINEMA_IDENTITY_MODEL_PATH
+          : filmArtCenter
+            ? FILM_ART_CENTER_IDENTITY_MODEL_PATH
+          : undefined,
+      cacheVersion: acceptedDerived
+        ? acceptedDerived.identity.cacheVersion
+        : oneStepGarden || house315
+        ? (
+          oneStepGarden
+            ? ONE_STEP_GARDEN_TIERS.identity.cacheVersion
+            : HOUSE_315_TIERS.identity.cacheVersion
+        )
+        : shanghaiCinema
+          ? SHANGHAI_CINEMA_IDENTITY_CACHE_VERSION
+          : filmArtCenter
+            ? FILM_ART_CENTER_IDENTITY_CACHE_VERSION
+          : undefined,
       requiredBeforeMapVisible: true,
     },
     massing: {
-      strategy: "bounds-proxy",
+      strategy: oneStepGarden || house315 || acceptedDerived
+        ? "derived-glb"
+        : shanghaiCinema
+          ? "formal-glb"
+          : "bounds-proxy",
       visibility: "cover-only",
       localBounds: landmark.localBounds,
+      model: acceptedDerived
+        ? acceptedDerived.massing.path
+        : oneStepGarden || house315
+        ? (
+          oneStepGarden
+            ? ONE_STEP_GARDEN_TIERS.massing.path
+            : HOUSE_315_TIERS.massing.path
+        )
+        : shanghaiCinema
+          ? SHANGHAI_CINEMA_MASSING_MODEL_PATH
+          : undefined,
+      cacheVersion: acceptedDerived
+        ? acceptedDerived.massing.cacheVersion
+        : oneStepGarden || house315
+        ? (
+          oneStepGarden
+            ? ONE_STEP_GARDEN_TIERS.massing.cacheVersion
+            : HOUSE_315_TIERS.massing.cacheVersion
+        )
+        : shanghaiCinema
+          ? SHANGHAI_CINEMA_MASSING_CACHE_VERSION
+          : undefined,
     },
     shared: {
       position: landmark.position,
@@ -216,7 +363,11 @@ export type ProductionBuildingQualityEntry = {
     requiredBeforeMapVisible: true;
   };
   massing: {
-    strategy: "bounds-proxy" | "programmatic-site" | "derived-glb";
+    strategy:
+      | "bounds-proxy"
+      | "formal-glb"
+      | "programmatic-site"
+      | "derived-glb";
     assets: readonly string[];
     parametersSource: string;
     visibility: "cover-only";
@@ -247,6 +398,64 @@ function emptyEvidence(
 }
 
 function roadEvidence(landmarkId: string): ProductionQualityEvidence {
+  if (landmarkId === "house-315") {
+    return {
+      status: "accepted-with-followup",
+      heroBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/hero-v2/house-315-hero.json",
+      ],
+      identityBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json",
+      ],
+      massingBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/massing-v2/house-315-massing.json",
+      ],
+      canonicalScreenshots: [
+        "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_canonical.png",
+      ],
+      sideScreenshots: [
+        "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_side-depth.png",
+      ],
+      rearScreenshots: [],
+      runtimeScreenshots: [],
+      resourceMetrics: [
+        "docs/research/house-315-three-tier-runtime-qa.json",
+      ],
+      drawCallMetrics: [],
+      gaps: [
+        "主窗口整合后补做三档、ResourceTiming、截图、console、FPS、四段碰撞与 deterministic fallback 真实浏览器终验",
+      ],
+    };
+  }
+  if (landmarkId === "one-step-garden") {
+    return {
+      status: "accepted-with-followup",
+      heroBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/hero-v2/one-step-garden-hero.json",
+      ],
+      identityBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/identity-v1/one-step-garden-identity.json",
+      ],
+      massingBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/massing-v2/one-step-garden-massing.json",
+      ],
+      canonicalScreenshots: [
+        "test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1_mcp3_recheck_canonical.png",
+      ],
+      sideScreenshots: [
+        "test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1_mcp3_recheck_side.png",
+      ],
+      rearScreenshots: [],
+      runtimeScreenshots: [],
+      resourceMetrics: [
+        "test_artifacts/test_one-step-garden-three-tier-runtime-qa.json",
+      ],
+      drawCallMetrics: [],
+      gaps: [
+        "主窗口整合后补做三档、ResourceTiming、截图、console、FPS、碰撞与 deterministic fallback 真实浏览器终验",
+      ],
+    };
+  }
   if (landmarkId === "shanghai-cinema") {
     return {
       status: "accepted-with-followup",
@@ -254,12 +463,16 @@ function roadEvidence(landmarkId: string): ProductionQualityEvidence {
       identityBuildRecords: [
         "docs/research/build-records/shanghai-cinema-hybrid-identity.json",
       ],
-      massingBuildRecords: [],
+      massingBuildRecords: [
+        "docs/research/build-records/shanghai-cinema-massing.json",
+      ],
       canonicalScreenshots: [
         "test_artifacts/test_shanghai-cinema-hybrid-identity_canonical_preview.png",
+        "test_artifacts/test_shanghai-cinema_mcp1_massing_canonical.png",
       ],
       sideScreenshots: [
         "test_artifacts/test_shanghai-cinema-hybrid-identity_side_preview.png",
+        "test_artifacts/test_shanghai-cinema_mcp1_massing_side.png",
       ],
       rearScreenshots: [],
       runtimeScreenshots: [
@@ -277,12 +490,39 @@ function roadEvidence(landmarkId: string): ProductionQualityEvidence {
   }
   if (landmarkId === "film-art-center") {
     return {
-      ...emptyEvidence([
-        "为程序化 Identity 补录独立 build record、背向截图与 draw-call 指标",
-      ]),
+      status: "accepted-with-followup",
       heroBuildRecords: ["docs/research/build-records/film-art-center.json"],
+      identityBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/identity/film-art-center-identity.json",
+      ],
+      massingBuildRecords: [
+        "docs/research/build-records/tiers/xinhua-road/massing/film-art-center-massing.json",
+      ],
+      canonicalScreenshots: [
+        "test_artifacts/test_film-art-center-hero_mcp2_recheck_canonical.png",
+        "test_artifacts/test_film-art-center-identity_mcp3_recheck_canonical.png",
+      ],
+      sideScreenshots: [
+        "test_artifacts/test_film-art-center-hero_mcp2_recheck_side.png",
+        "test_artifacts/test_film-art-center-identity_mcp3_recheck_side.png",
+      ],
+      rearScreenshots: [],
       runtimeScreenshots: [
-        "test_artifacts/test_film-art-center_runtime_preview.png",
+        "test_artifacts/test_film-art-center_runtime_hero_1280x800.png",
+        "test_artifacts/test_film-art-center_runtime_identity_1280x800.png",
+        "test_artifacts/test_film-art-center_runtime_massing_1280x800.png",
+        "test_artifacts/test_film-art-center_runtime_production_identity_1280x800.png",
+        "test_artifacts/test_film-art-center_runtime_identity_fallback_scoped_1280x800.png",
+        "test_artifacts/test_film-art-center_runtime_production_identity_fallback_1280x800.png",
+      ],
+      resourceMetrics: [
+        "test_artifacts/test_film-art-center_three-tier_runtime_metrics.json",
+      ],
+      drawCallMetrics: [
+        "test_artifacts/test_film-art-center_three-tier_runtime_metrics.json",
+      ],
+      gaps: [
+        "主窗口真实浏览器终验仍待统一调度执行",
       ],
     };
   }
@@ -319,7 +559,13 @@ const XINHUA_ROAD_PRODUCTION_QUALITY_MANIFEST = Object.fromEntries(
       },
       massing: {
         strategy: entry.massing.strategy,
-        assets: [],
+        assets: entry.massing.model
+          ? [
+            entry.massing.cacheVersion
+              ? `${entry.massing.model}?v=${entry.massing.cacheVersion}`
+              : entry.massing.model,
+          ]
+          : [],
         parametersSource:
           `app/scene/xinhua-road-landmarks-data.json#${entry.buildingId}.localBounds`,
         visibility: entry.massing.visibility,

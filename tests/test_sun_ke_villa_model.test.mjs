@@ -317,6 +317,13 @@ test("孙科别墅 GLB 已接入上生新所并保留延迟加载 fallback", asy
   assert.match(source, /const identityFallback =/);
   assert.match(source, /const fallback = tier === "hero" \? identityFallback : programmaticFallback/);
   assert.match(source, /SUN_KE_PORTE_COCHERE_COLUMN_OBSTACLES\.map\(localToWorldObstacle\)/);
+  assert.match(source, /name="shangsheng-sun-ke-villa-programmatic-fallback"/);
+  assert.match(source, /passage: "north-porte-cochere-center-lane-open"/);
+  assert.match(source, /\[-2\.1, -0\.34\]\.flatMap/);
+  assert.match(source, /position=\{\[x, 1\.08, -4\.58\]\}/);
+  assert.match(source, /position=\{\[x, 1\.08, -2\.48\]\}/);
+  assert.match(source, /position=\{\[-1\.22, 0, -3\.36\]\}/);
+  assert.doesNotMatch(source, /const height = 7\.45/);
   assert.match(fullModels, /"shangsheng-sun-ke-villa"/);
   assert.match(fullModels, /referenceView: "garden-front"/);
   assert.match(source, /sun-ke-tier/);
@@ -385,6 +392,70 @@ test("孙科别墅 QA 锁定 exact-18 范围、v2 MCP 门和开放门廊车道",
   assert.match(runtimeQa.loadingPolicyEvidence.scopePolicy, /exact-18/);
   assert.match(runtimeQa.reconciliationVerification.note, /exact-18/);
   assert.doesNotMatch(runtimeQa.reconciliationVerification.note, /31 栋|31栋/);
+
+  const integratedRuntimeQa = JSON.parse(await readFile(
+    path.join(root, "docs/research/sun-ke-villa-three-tier-runtime-qa-v3.json"),
+    "utf8",
+  ));
+  assert.equal(
+    integratedRuntimeQa.status,
+    "pass-integrated-after-programmatic-fallback-fix",
+  );
+  assert.equal(
+    integratedRuntimeQa.scope,
+    "exact-18-building-program-sun-ke-only-integration",
+  );
+  assert.equal(
+    integratedRuntimeQa.fallbackRuns.identityToProgrammatic.playable,
+    true,
+  );
+  assert.match(
+    integratedRuntimeQa.fallbackRuns.identityToProgrammatic.previousFalsePositive
+      .observedProblem,
+    /7\.45 scene-unit closed body/,
+  );
+  assert.deepEqual(
+    integratedRuntimeQa.fallbackRuns.identityToProgrammatic.fix
+      .acceptedInteractiveChanges,
+    [],
+  );
+  assert.equal(
+    integratedRuntimeQa.fallbackRuns.identityToProgrammatic.fix.sourceSha256,
+    await fileSha256("app/scene/shangsheng-xinsuo-block.tsx"),
+  );
+  for (const evidence of [
+    integratedRuntimeQa.integratedTierRuns.hero.screenshot,
+    integratedRuntimeQa.integratedTierRuns.identity.screenshot,
+    integratedRuntimeQa.integratedTierRuns.massing.screenshot,
+    integratedRuntimeQa.fallbackRuns.heroToIdentity.screenshot,
+    integratedRuntimeQa.fallbackRuns.identityToProgrammatic.previousFalsePositive
+      .screenshot,
+    integratedRuntimeQa.fallbackRuns.identityToProgrammatic.screenshot,
+  ]) {
+    assert.equal(await fileSha256(evidence.path), evidence.sha256);
+    assert.equal(await fileSize(evidence.path), evidence.bytes);
+  }
+
+  const massingRecord = JSON.parse(await readFile(
+    path.join(
+      root,
+      "docs/research/build-records/tiers/sun-ke-villa/massing/sun-ke-villa-massing.json",
+    ),
+    "utf8",
+  ));
+  assert.equal(
+    massingRecord.qaRecords.runtime,
+    "docs/research/sun-ke-villa-three-tier-runtime-qa-v3.json",
+  );
+  assert.equal(
+    massingRecord.generatorSha256,
+    await fileSha256("scripts/create_sun_ke_villa_massing_model.py"),
+  );
+  const massingGenerator = await readFile(
+    path.join(root, "scripts/create_sun_ke_villa_massing_model.py"),
+    "utf8",
+  );
+  assert.match(massingGenerator, /sun-ke-villa-three-tier-runtime-qa-v3\.json/);
 
   const brief = await readFile(
     path.join(root, "docs/research/sun-ke-villa-model-brief.md"),

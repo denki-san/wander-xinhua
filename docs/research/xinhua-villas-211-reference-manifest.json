@@ -1,0 +1,230 @@
+{
+  "version": 2,
+  "auditedAt": "2026-07-25",
+  "sourceRecoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+  "status": "pass-conservative-massing-footprints-hero-identity-blocked",
+  "subject": {
+    "id": "xinhua-villas-211",
+    "name": "新华别墅211弄",
+    "address": "上海市长宁区新华路211弄",
+    "stableBoundary": "compound-entrance-and-lane-anchor",
+    "notEquivalentTo": [
+      "member-building-211-1",
+      "member-building-211-2",
+      "combined-211-and-329-inventory",
+      "legacy-four-villa-package"
+    ]
+  },
+  "scope": {
+    "owned": [
+      "xinhua-villas-211 evidence",
+      "compound entrance threshold",
+      "visible left and right building edges",
+      "open lane void"
+    ],
+    "hold": [
+      "xinhua-villas-329",
+      "unbound compound members",
+      "trees and vegetation",
+      "lamps, planters, benches, signs and other decor",
+      "all ordinary OSM and full-map massing outside the nine explicitly bound 211 ways",
+      "shared registry and runtime",
+      "all other building assets"
+    ]
+  },
+  "canonicalComparison": {
+    "localPath": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-overview-official-2023.jpg",
+    "view": "compound-entrance-axis",
+    "direction": "from-xinhua-road-into-lane",
+    "meaning": "compound entrance front, not a member-building facade",
+    "reason": "It is the only local source that shows the stable compound POI entrance, the two-sided threshold and the open lane void.",
+    "limitation": "It does not prove full footprints, depth, internal member placement or a complete building facade."
+  },
+  "referencePhotos": [
+    {
+      "localPath": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-overview-official-2023.jpg",
+      "sourcePage": "https://www.meet-in-shanghai.net/tc/guide/stroll-xinhua-road-walk-into-the-old-timethe-building-can-be-read-863025/",
+      "sourceAsset": "https://obj.shine.cn/files/2023/06/24/7be0aab8-3f58-41af-909d-f0a274690cba_0.png",
+      "view": "compound-entrance-axis",
+      "subjectMatch": "verified-same-compound",
+      "publishedAt": "2023-06-24",
+      "captureDate": "unknown",
+      "sha256": "9d23cd3c57b492a01911907e8f376dc2bdb37b882b5233fafcaae3384540adf2",
+      "supports": [
+        "open lane void",
+        "right half-timber gatehouse-like volume",
+        "partial left building and wall edge",
+        "entrance observation direction"
+      ],
+      "doesNotSupport": [
+        "full compound layout",
+        "complete footprints",
+        "member 211-1 placement",
+        "member 211-2 placement"
+      ]
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-1-official-2025.jpg",
+      "sourcePage": "https://www.shcn.gov.cn/col6991/20251124/1301891.html",
+      "sourceAsset": "https://cn.storage.shmedia.tech/d2445b2703da4c43961f188dc142e91d",
+      "view": "member-building-211-1-front",
+      "subjectMatch": "verified-member-not-whole-compound",
+      "publishedAt": "2025-11-22",
+      "captureDate": "unknown",
+      "sha256": "e0146deb4cb9571f39aab3a01c0028f2ab1018c2126a7039f52a0433197f0dc4",
+      "supports": [
+        "member 211-1 front volume hierarchy",
+        "red tile eave bands",
+        "arched openings",
+        "terraces and tall chimney"
+      ],
+      "doesNotSupport": [
+        "side or rear footprint",
+        "placement relative to compound entrance",
+        "any feature of member 211-2"
+      ]
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-2-official-2025.jpg",
+      "sourcePage": "https://www.shcn.gov.cn/col6991/20251124/1301891.html",
+      "sourceAsset": "https://cn.storage.shmedia.tech/061a17223b5747fdb38ef3cbe2753b70",
+      "view": "member-building-211-2-front-oblique",
+      "subjectMatch": "verified-member-not-whole-compound",
+      "publishedAt": "2025-11-22",
+      "captureDate": "unknown",
+      "sha256": "3568005a4e89a6ce95abf4be19fb22ab0dd277d17622fdd16a9ccad20d1496aa",
+      "supports": [
+        "member 211-2 front-oblique silhouette",
+        "red pitched roof",
+        "long dormer window",
+        "glazed front enclosure",
+        "half-timber gable"
+      ],
+      "doesNotSupport": [
+        "complete rear or depth",
+        "placement relative to compound entrance",
+        "any feature of member 211-1"
+      ]
+    }
+  ],
+  "coverageMatrix": {
+    "compoundCanonicalFront": "supported-as-entrance-axis-only",
+    "compoundSideOrDepth": "missing",
+    "compoundEntranceDetail": "partial",
+    "compoundSpatialLayout": "supported-as-nine-unbound-osm-footprints",
+    "member211_1Front": "supported",
+    "member211_1SideOrRear": "missing",
+    "member211_1Placement": "missing",
+    "member211_2FrontOblique": "supported",
+    "member211_2Rear": "missing",
+    "member211_2Placement": "missing"
+  },
+  "observed": [
+    "The compound entrance has an open lane void with no solid overhead gate beam.",
+    "A small white-and-dark half-timber, tiled-roof volume appears on the right side of the entrance.",
+    "Only a partial light-colored building and wall edge are visible on the left side.",
+    "Member 211-1 and member 211-2 are visually distinct buildings.",
+    "The three photos do not show where members 211-1 and 211-2 sit relative to the entrance.",
+    "The legacy runtime screenshot shows a four-villa package that cannot be verified from the compound canonical.",
+    "The project replacement inventory binds nine raw OSM ways to the xinhua-villas-211 compound."
+  ],
+  "inferred": [
+    "The right entrance volume may function as a gatehouse, but its full plan and use are unconfirmed.",
+    "Left and right entrance masses require separate collision while the central lane remains open.",
+    "The current runtime position, yaw and scale are migration baselines rather than measured evidence.",
+    "The nine OSM footprints may be used as a conservative compound Massing while their house-number identities remain unknown."
+  ],
+  "unknown": [
+    "The member count and exact boundary of 211 Lane alone.",
+    "The mapping between entrance-side buildings and member numbers 211-1 or 211-2.",
+    "The position, orientation and spacing of members 211-1 and 211-2.",
+    "Complete footprints, depth, height, rear facades and roof backs.",
+    "Measured lane width, setback, ground levels and collision clearance.",
+    "Whether any legacy four-villa placement corresponds to the real compound."
+  ],
+  "legacyBaseline": {
+    "heroGlb": {
+      "path": "public/models/xinhua-road/xinhua-villas-211.glb",
+      "sha256": "0a7168e6104d39b808c096a390a14d1eb1690e49bef165193829517b022cb295",
+      "bytes": 4188228,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 14,
+      "images": 0,
+      "textures": 0,
+      "auditStatus": "ok",
+      "evidenceVerdict": "retained-legacy-not-evidence-truth"
+    },
+    "generatorFinding": {
+      "path": "scripts/create_xinhua_road_models.py",
+      "function": "build_xinhua_villas_211",
+      "inventedOrUnboundLayout": "four fixed villa placements plus a horseshoe lane",
+      "outOfScopeContent": [
+        "trees",
+        "hedges",
+        "lamps",
+        "planters",
+        "bench",
+        "paving grid"
+      ]
+    }
+  },
+  "recoveryMassingAudit": {
+    "pathInRecovery": "public/models/tiers/xinhua-road/massing/xinhua-villas-211-massing.glb",
+    "sha256": "407cde33aa13dfad09b29f6ae23711aa5f86ea046a06adebe116eac2218d667d",
+    "bytes": 91400,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "images": 0,
+    "triangles": 898,
+    "method": "voxel-remesh-current-hero",
+    "recoveryStatus": "massing-generated-runtime-gate-blocked-evidence-and-walkaround",
+    "currentVerdict": "rejected-as-subject-specific-massing-candidate",
+    "reason": "It inherits the unverified four-villa spatial package from the legacy Hero."
+  },
+  "osmMassingBinding": {
+    "path": "docs/research/xinhua-villas-211-osm-binding.json",
+    "sourceSnapshot": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "includedWayIds": [
+      864485593,
+      864485594,
+      864485595,
+      864485596,
+      864485597,
+      864485598,
+      864485674,
+      864485675,
+      864485676
+    ],
+    "bindingStatus": "bound-to-compound-not-house-number",
+    "maximumVertexRoundTripErrorSceneUnits": 0.000001,
+    "currentMassingSha256": "ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c"
+  },
+  "evidenceGate": {
+    "status": "pass-conservative-massing-footprints-only",
+    "massingAuthorized": true,
+    "heroAuthorized": false,
+    "identityAuthorized": false,
+    "blockers": [
+      "No same-subject compound side or depth view.",
+      "No cadastral member-to-house-number or member-to-entrance binding.",
+      "Member 211-1 and 211-2 photos cannot be assigned to an OSM footprint by invention.",
+      "The uniform Massing heights and shallow roofs are inferred rather than surveyed.",
+      "Hero and Identity cannot be derived from generic footprint prisms."
+    ],
+    "requiredToUnblock": [
+      "An authorized 211 Lane site plan, survey or user-confirmed member layout.",
+      "Side or depth evidence for the buildings visible at the compound entrance.",
+      "Explicit position and orientation binding for members 211-1 and 211-2.",
+      "Or main-window authorization to narrow the stable asset to an entrance-threshold package."
+    ]
+  },
+  "usageBoundary": {
+    "referenceOnly": true,
+    "embedInGlb": false,
+    "runtimeTexture": false,
+    "sourceAssociationsInheritedFromRecovery": true,
+    "sourcePagesRefreshedThisTurn": false
+  }
+}
