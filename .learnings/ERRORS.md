@@ -9622,3 +9622,53 @@ TypeError: root.setAttribute is not a function
   视口/性能口径。以后并行浏览器采集必须使用唯一批次目录或先取得路径所有权。
 
 ---
+
+## [ERR-20260726-122] external_wiki_hardlink_requires_escalated_permission
+
+**Logged**: 2026-07-26T20:52:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: evidence-wiki
+
+### Summary
+上海影城公开证据已复制到外置 3D 知识库后，workspace sandbox 允许读取两侧
+路径，但普通权限拒绝在 `Threejs-3d-research/raw/sources/` 创建同盘硬链接。
+
+### Error
+```text
+ln: .../shanghai-cinema-public-anchor-evidence-2026-07-26.md:
+Operation not permitted
+```
+
+### Resolution
+- **Resolved**: 2026-07-26T20:52:00+08:00
+- **Notes**: 先确认目标不存在，再只对这个精确源/目标请求提升权限；硬链接创建
+  后两路径 inode 均为 `293338`，仓库源、知识库副本和 Wiki raw source 的
+  SHA-256 均为 `6fc9b9ca…`。后续外置 Wiki 硬链接应预期需要窄范围权限，不要
+  因普通权限失败改用目录 symlink 或复制到 raw source。
+
+---
+
+## [ERR-20260726-123] sha256_copied_from_truncated_log
+
+**Logged**: 2026-07-26T21:03:30+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: evidence-wiki
+
+### Summary
+上海影城知识源测试首次失败，因为从错误日志中的缩写 `6fc9b9ca…` 回填了一个
+未经文件复算的完整 SHA-256。
+
+### Error
+```text
+actual   6fc9b9ca09924042a82f18f98a4a0425aebf0251362b8ffb8f8e8abbf53cefe1
+expected 6fc9b9ca1858ff09a9704d2c31633560a4f7af4f7a85e58d21c7c86352cab35d
+```
+
+### Resolution
+- **Resolved**: 2026-07-26T21:03:30+08:00
+- **Notes**: 使用 `shasum -a 256` 对实际仓库文件复算并修正记录。以后任何
+  指纹只能来自实际字节或完整工具输出，不能从摘要、省略号或手工补全值生成。
+
+---

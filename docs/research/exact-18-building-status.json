@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T20:41:51+08:00",
+  "snapshotAt": "2026-07-26T20:59:57+08:00",
   "snapshotBaseCommit": "04aff48-plus-main-window-film-v2",
   "scope": {
     "mode": "exact-18-building-fast-mode",
@@ -54,7 +54,8 @@
         "docs/research/shanghai-cinema-hero-exact-reproduction-audit.json",
         "docs/research/build-records/shanghai-cinema-hero-exact-reproduction.json",
         "docs/research/shanghai-cinema-exact-anchor-road-setback-audit.json",
-        "docs/research/shanghai-cinema-public-exact-anchor-rescue-2026-07-26.json"
+        "docs/research/shanghai-cinema-public-exact-anchor-rescue-2026-07-26.json",
+        "docs/research/shanghai-cinema-gap-medium-anchor-blocker-2026-07-26.json"
       ]
     },
     {
@@ -274,7 +275,8 @@
         "docs/research/xinhua-community-center-map-candidate.json",
         "docs/research/xinhua-community-center-final-gap-audit.json",
         "docs/research/xinhua-community-center-service-road-semantics-record.md",
-        "docs/research/xinhua-community-center-service-road-local-rescue-audit.json"
+        "docs/research/xinhua-community-center-service-road-local-rescue-audit.json",
+        "docs/research/xinhua-community-center-service-road-gap-audit-2026-07-26.json"
       ]
     },
     {

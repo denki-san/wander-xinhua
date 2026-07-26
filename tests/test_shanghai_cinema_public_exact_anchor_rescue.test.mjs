@@ -72,3 +72,26 @@ test("用户睡眠期间不访问登录浏览器，也不删除或覆盖资产",
     /所有 GLB、Blend、生成器、证据、Recovery\/Hold 文件永久保留/,
   );
 });
+
+test("外部证据已进入 Threejs-3d-research 队列，但未以 pending 冒充完成", async () => {
+  const record = await readJson(recordPath);
+  assert.equal(record.knowledgeWorkflow.projectName, "Threejs-3d-research");
+  assert.equal(
+    record.knowledgeWorkflow.statusAtReview,
+    "queued-processing-not-complete",
+  );
+  assert.equal(record.knowledgeWorkflow.sources.length, 2);
+  for (const source of record.knowledgeWorkflow.sources) {
+    assert.equal(
+      await sha256File(source.repositoryPath),
+      source.sha256,
+      source.repositoryPath,
+    );
+  }
+  assert.equal(record.knowledgeWorkflow.rawSourceReadback,
+    "pass-both-source-paths-readable");
+  assert.equal(record.knowledgeWorkflow.searchHit, false);
+  assert.equal(record.knowledgeWorkflow.graphRelationHit, false);
+  assert.equal(record.knowledgeWorkflow.completionClaimAllowed, false);
+  assert.match(record.knowledgeWorkflow.policy, /queue-zero/u);
+});

@@ -32,6 +32,7 @@
         "tests/test_shanghai_cinema_hero_exact_reproduction.test.mjs",
         "tests/test_shanghai_cinema_exact_anchor_road_setback_audit.test.mjs",
         "tests/test_shanghai_cinema_public_exact_anchor_rescue.test.mjs",
+        "tests/test_shanghai_cinema_gap_medium_anchor_blocker.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
@@ -296,7 +297,8 @@
         "tests/test_xinhua_community_center_final_gap.test.mjs",
         "tests/test_xinhua_community_center_map_candidate.test.mjs",
         "tests/test_xinhua_community_center_service_road_semantics.test.mjs",
-        "tests/test_xinhua_community_center_service_road_local_rescue_audit.test.mjs"
+        "tests/test_xinhua_community_center_service_road_local_rescue_audit.test.mjs",
+        "tests/test_xinhua_community_center_service_road_gap_audit_2026_07_26.test.mjs"
       ],
       "glbs": [
         "public/models/requested-pois/xinhua-community-center.glb",
