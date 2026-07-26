@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "label": "上海影城",
+  "preparedAt": "2026-07-26",
+  "baseCommit": "0af3c120bd95420fb327fa08cf81874042f180f3",
+  "status": "prepared-awaiting-main-window-human-paced-xiaohongshu-search",
+  "scope": {
+    "browserAccessed": false,
+    "xiaohongshuAccessed": false,
+    "mediaDownloaded": false,
+    "networkSearchExecuted": false,
+    "modelingPerformed": false,
+    "blenderOrMcpRerun": false,
+    "qualifiedStageRerun": false,
+    "binaryModified": false,
+    "publicRegistryModified": false,
+    "runtimeDisabled": false,
+    "excludedAndUntouched": [
+      "Recovery/Hold",
+      "trees",
+      "decorations",
+      "full-map assets",
+      "other buildings"
+    ]
+  },
+  "verifiedInputs": {
+    "remainingAnchorBlocker": {
+      "path": "docs/research/shanghai-cinema-gap-medium-anchor-blocker-2026-07-26.json",
+      "sha256": "3d84b7cd313e289f9cedc36a715a91fd9a729089527cf855ecf1478035281e8d"
+    },
+    "officialAnchorExhaustion": {
+      "path": "docs/research/shanghai-cinema-official-anchor-evidence-exhaustion-2026-07-26.json",
+      "sha256": "811ef4e3f8d4b78a14fe1cd31b13937c474c7b421fe630157d72f282c1f1e149"
+    },
+    "mapCalibration": {
+      "path": "docs/research/shanghai-cinema-map-calibration-2026-07-26.json",
+      "sha256": "35fbd46345b3552fc87cd69b948995d43779fa8bf55a6b1acaf6ef5a86731dc5"
+    },
+    "hero": {
+      "path": "public/models/xinhua-road/shanghai-cinema.glb",
+      "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062"
+    },
+    "identity": {
+      "path": "public/models/xinhua-road/shanghai-cinema-hybrid-identity.glb",
+      "sha256": "66ea8425313f9024d0b707b87be27549504ec9dddab3a8fdb30961aaf2d48d9c"
+    },
+    "massing": {
+      "path": "public/models/xinhua-road/shanghai-cinema-massing.glb",
+      "sha256": "e1635a7796ad9ca4f7699e5559c73c4a02591b601e9d300f8a874c73a7a513ab"
+    }
+  },
+  "retainedAcceptedStages": {
+    "tiers": "Hero, Hybrid Identity and Massing are accepted retained binaries; do not rebuild or replace.",
+    "blenderMcp": "MCP1 Massing, MCP2 Hero and MCP3 three-tier gates are retained pass; do not rerun.",
+    "threeJs": "Three-tier fallback, cache, console, performance, collision, start and camera records are retained pass; do not rerun.",
+    "map": "Only exact subject map-anchor acceptance remains blocked; this preparation does not mutate placement, collision shell, road, registry or runtime."
+  },
+  "minimumEvidenceQuestion": "After official-anchor search exhaustion, can a same-subject Xiaohongshu wide view show a locatable Xinhua Road or Panyu Road street interface plus at least two stable cinema-boundary controls, so it can be compared with the existing OSM compound without treating a perspective photograph as a survey plan?",
+  "searchPlan": {
+    "exactQueryGroups": [
+      ["上海影城 新华路160号", "上海影城 新华路", "上海影城 入口 广场"],
+      ["上海影城 番禺路", "上海影城 新华路 番禺路", "上海影城 街景"],
+      ["上海影城 外立面 改造 广场", "上海影城 侧面", "上海影城 后门"],
+      ["上海影城 丝带 入口", "上海影城 塔楼 路口", "上海影城 人行道"]
+    ],
+    "queryOrder": "Run groups sequentially. Add no synonym until the immediately preceding group has no verified same-subject wide result. Stop early if all required view categories are satisfied.",
+    "maximumResultsToOpen": {
+      "perQuery": 4,
+      "total": 24,
+      "perSessionMinutes": 15
+    },
+    "humanPace": {
+      "betweenQueriesSeconds": "30-60",
+      "betweenOpenedResultsSeconds": "20-45",
+      "scrollPolicy": "one deliberate scroll at a time; wait for visible content before another action",
+      "noBulkAutomation": true,
+      "noRepeatedRefresh": true,
+      "noCommentLikeFollowOrMessage": true,
+      "noLoginStateMutation": true,
+      "noSimulationOrDetectionEvasion": true,
+      "challengeStopLine": "Stop immediately on rate limit, verification, challenge, login prompt or unusual-access warning; record only the visible stop condition and do not retry, circumvent or switch automation."
+    }
+  },
+  "requiredSameSubjectHits": {
+    "streetInterface": {
+      "required": true,
+      "minimumVisibleFacts": ["readable or uniquely locatable Xinhua Road or Panyu Road context", "curb or sidewalk edge", "cinema facade or plaza edge in the same wide frame"]
+    },
+    "twoBoundaryControls": {
+      "required": true,
+      "minimumVisibleFacts": ["two non-coincident stable controls belonging to Shanghai Cinema", "examples: entrance center, main-ribbon end, tower corner, site-wall corner", "both controls must be sufficiently visible to compare against OSM context"]
+    },
+    "orientationOrDepth": {
+      "required": true,
+      "minimumVisibleFacts": ["side or oblique view", "facade/plaza depth relation", "road-side direction not contradicted by the known compound"]
+    },
+    "calibrationBoundary": {
+      "required": true,
+      "minimumVisibleFacts": ["post-level location/context or a reproducible street cue", "enough wide context to distinguish cinema compound from adjacent film-art-center or streetscape", "no claim that the photograph alone supplies north arrow, scale or a solved transform"]
+    }
+  },
+  "mediaClassification": {
+    "acceptable": [
+      "original post photo or video frame with provable same-subject wide street context",
+      "carousel image whose post-level location/context identifies Shanghai Cinema",
+      "oblique or side view that jointly shows a road edge and two cinema-boundary controls"
+    ],
+    "notSufficient": [
+      "front-only facade duplicate without curb, sidewalk or locatable road context",
+      "cropped ribbon, signage, lobby or decorative-detail close-up",
+      "AI-generated, collage, map screenshot, or untraceable repost",
+      "perspective photo offered as a replacement for a surveyed plan, north arrow or scale",
+      "Shanghai Film Art Center, CHAO hotel, Xinhua Road streetscape or Panyu Road image without a provable Shanghai Cinema subject",
+      "single address, POI pin, OSM centroid or one weak subject control"
+    ],
+    "captureRule": "Before inference, record post URL/identifier, displayed author handle, displayed date, query used, media type, exact image/frame index, and observed facts. Retain original media read-only; never overwrite or delete an earlier capture."
+  },
+  "evidenceLedger": {
+    "observed": [
+      "Official restricted search is exhausted without a public site plan containing north arrow, scale or dimensions and two georeferenced subject controls.",
+      "The accepted Hero, Hybrid Identity and Massing binaries, all three MCP gates, and Three.js three-tier records already pass and must not be redone.",
+      "Current regular GLB envelope is too far from Xinhua Road and too close to Panyu Road, while a single translation cannot solve plaza, ribbon and steps together."
+    ],
+    "inferred": [
+      "A verified wide social post may reduce uncertainty about street interface and local boundary correspondence, but cannot independently authorize a placement transform."
+    ],
+    "unknown": [
+      "WGS84 locations of the Hero pivot, entrance center and ribbon endpoint.",
+      "Authoritative post-renovation relation between wall or entrance geometry and OSM outline.",
+      "Whether any result can provide enough locatable context to supplement, but not replace, formal survey evidence."
+    ]
+  },
+  "rawMediaRetention": {
+    "policy": "Original media is read-only; never overwrite or delete an earlier capture.",
+    "repositoryRoot": "docs/research/assets/xiaohongshu/shanghai-cinema/original/",
+    "naming": "YYYYMMDD_xhs_<post-id>_<image-or-frame-index>.<extension>",
+    "sidecar": "docs/research/assets/xiaohongshu/shanghai-cinema/original/YYYYMMDD_xhs_<post-id>_metadata.json",
+    "currentAction": "No directory or media is created by this preparation commit."
+  },
+  "rejectionAndDisposition": {
+    "reasonableSearchMissDefinition": "All four query groups are attempted at the stated human pace, no more than 24 results total are deliberately reviewed, and no verified result satisfies every required same-subject category after duplicate and adjacent-site rejection.",
+    "whoMayConfirmMiss": "main window only",
+    "beforeMainWindowConfirmation": "No runtime-disable candidate, registry edit, runtime edit, model change, map/road/collision change or map acceptance is authorized.",
+    "afterMainWindowConfirmation": "Only after the main window records an exhaustive reasonable miss may it propose a runtime-disable candidate for this asset. A disable may remove the asset only from registry/runtime; all GLB, Blend, generator, evidence, test artifacts and Recovery/Hold materials remain permanently preserved.",
+    "stillNotAuthorized": ["delete files", "overwrite previous evidence", "modify Recovery/Hold", "claim map acceptance", "rerun accepted Hero/Identity/Massing/MCP/Three.js stages"]
+  }
+}
