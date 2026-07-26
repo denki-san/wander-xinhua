@@ -1,0 +1,264 @@
+{
+  "schemaVersion": 1,
+  "assetId": "fahua-heritage",
+  "label": "法华遗韵",
+  "auditedAt": "2026-07-27",
+  "baseCommit": "4d812bc73fa8964d3d6bbbaeda551887380ece66",
+  "mode": "building-local-read-only-external-evidence-exhaustion",
+  "status": "exhausted-no-new-qualifying-media-map-rear-scale-remain-blocked",
+  "scope": {
+    "included": [
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/",
+      "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/",
+      "fahua-heritage source-note, manifests, snapshots and target media",
+      "original-video, rear, walkaround, scale, road-name, intersection, footprint and curb controls"
+    ],
+    "notPerformed": [
+      "browser, Xiaohongshu or network access",
+      "external-drive write, move, rename or deletion",
+      "model, GLB, Blend, generator or MCP change",
+      "map, registry, runtime, Fast Mode, exact status or roster change",
+      "Recovery/Hold or other-building change"
+    ],
+    "externalRootsModified": false,
+    "binaryModified": false,
+    "sharedFilesModified": false,
+    "recoveryHoldModified": false
+  },
+  "repositoryInputs": {
+    "priorMapAudit": {
+      "path": "docs/research/fahua-heritage-xhs-map-calibratability-audit-2026-07-26.json",
+      "sha256": "ac8e109d53fc126244e9098bff48fef4678e2c307decf35fc6e9545b14234ac4"
+    },
+    "localIngestion": {
+      "path": "docs/research/fahua-heritage-xiaohongshu-local-ingestion-2026-07-26.json",
+      "sha256": "4a2d215e7fd27b45236f482db4cee7b357a75b5d3a868e3d07e632d5500aabc5"
+    },
+    "frame195": {
+      "path": "docs/research/assets/xiaohongshu/fahua-heritage/original/test_fahua-heritage-xhs-195s.png",
+      "sha256": "ad69d9e052daa46e79f6f11bdcde1b328cd5611c5fc211d16b171ca6aaf2cf40"
+    },
+    "frame197": {
+      "path": "docs/research/assets/xiaohongshu/fahua-heritage/original/test_fahua-heritage-xhs-197s.png",
+      "sha256": "76eeb64bf9aac3781f17aeaedc6aec3f7c4c273ba4e36185224a7da1e4937980"
+    }
+  },
+  "auditMethod": {
+    "pathInventory": [
+      "enumerate every regular file in each requested root",
+      "enumerate all target-name paths and their extensions",
+      "enumerate all common video extensions regardless of filename"
+    ],
+    "contentInventory": [
+      "search target slug, Chinese name, Xiaohongshu note ID, author and frame timestamps in text manifests",
+      "read the direct evidence manifest and source note",
+      "read immutable snapshot manifest, SHA256SUMS and legacy external-existing manifest",
+      "SHA-256 every target-name visual path and collapse duplicate or hard-linked content"
+    ],
+    "classification": [
+      "same-subject real photographic evidence",
+      "same-subject generated preview or runtime evidence",
+      "neighbor or other-building false positive",
+      "unrelated general 3D research media"
+    ],
+    "gateRule": "Only a new same-subject real source with independently locatable or measurable controls can change map, rear or scale. Duplicate frames, generated previews, runtime screenshots and neighboring subjects cannot."
+  },
+  "rootInventory": {
+    "dynamicEvidence": {
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence",
+      "regularFilesObserved": 5023,
+      "legacyImportFilesObserved": 1671,
+      "snapshotFilesObserved": 3350,
+      "snapshotIds": [
+        {
+          "id": "2026-07-26-ad37273",
+          "gitSha": "ad37273",
+          "manifestFileCount": 979,
+          "containsXhsFrames": false
+        },
+        {
+          "id": "2026-07-26-5383f2a",
+          "gitSha": "5383f2a",
+          "manifestFileCount": 1210,
+          "containsXhsFrames": false
+        },
+        {
+          "id": "2026-07-26-b20494c",
+          "gitSha": "b20494c",
+          "manifestFileCount": 1155,
+          "sourceWorktreeDirty": false,
+          "containsXhsFrames": true,
+          "containsPriorMapAudit": true
+        }
+      ],
+      "targetNameFilePaths": 49,
+      "targetNameDistinctContentHashes": 16,
+      "targetNameVisualPaths": 18,
+      "targetNameDistinctVisualHashes": 4
+    },
+    "oldKnowledgeBase": {
+      "root": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base",
+      "regularFilesObserved": 316,
+      "targetNameFilePaths": 3,
+      "targetNameDistinctContentHashes": 3,
+      "currentBuildingEvidenceFiles": 0,
+      "targetNameFiles": [
+        "wander-xinhua/fahua-heritage-public-evidence-rescue-2026-07-26/README.md",
+        "wander-xinhua/fahua-heritage-xiaohongshu-local-ingestion-2026-07-26/README.md",
+        "wander-xinhua/fahua-heritage-xiaohongshu-query-contract-2026-07-26/README.md"
+      ],
+      "interpretation": "The old building-evidence directory is empty after migration. Its three remaining target-name files are Markdown records only and contain no media."
+    }
+  },
+  "immutableArchiveControls": {
+    "legacyArchive": {
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/knowledge-base/wander-xinhua/building-evidence/snapshots/main-bab7ec4-2026-07-26",
+      "sourceCommit": "bab7ec4",
+      "repositoryFileCount": 755,
+      "externalExistingFileCount": 25,
+      "targetExternalEntries": 4,
+      "targetExternalEntryKinds": [
+        "195s frame",
+        "197s frame",
+        "evidence manifest",
+        "source note"
+      ],
+      "extraTargetOriginalMediaEntries": 0,
+      "hardLinkObservation": "The direct legacy-import frame and both archive views share one inode per frame; they are views of the same bytes, not additional captures."
+    },
+    "currentSnapshot": {
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-b20494c",
+      "frame195Sha256": "ad69d9e052daa46e79f6f11bdcde1b328cd5611c5fc211d16b171ca6aaf2cf40",
+      "frame197Sha256": "76eeb64bf9aac3781f17aeaedc6aec3f7c4c273ba4e36185224a7da1e4937980",
+      "priorMapAuditSha256": "ac8e109d53fc126244e9098bff48fef4678e2c307decf35fc6e9545b14234ac4",
+      "checksumEntriesPresent": true
+    }
+  },
+  "targetVisualDeduplication": {
+    "pathsAudited": 18,
+    "uniqueContent": [
+      {
+        "sha256": "bce705550e57ee299c9160ca04a19c5157b50d8f70873c988d4ef46ca49a662e",
+        "pathOccurrences": 5,
+        "classification": "same-subject-real-front-canonical",
+        "newComparedWithRepository": false,
+        "gateContribution": "front-only-existing"
+      },
+      {
+        "sha256": "ad69d9e052daa46e79f6f11bdcde1b328cd5611c5fc211d16b171ca6aaf2cf40",
+        "pathOccurrences": 4,
+        "classification": "same-subject-real-frame-195s",
+        "newComparedWithRepository": false,
+        "gateContribution": "side-depth-and-local-context-already-admitted"
+      },
+      {
+        "sha256": "76eeb64bf9aac3781f17aeaedc6aec3f7c4c273ba4e36185224a7da1e4937980",
+        "pathOccurrences": 4,
+        "classification": "same-subject-real-frame-197s",
+        "newComparedWithRepository": false,
+        "gateContribution": "side-depth-and-local-context-already-admitted"
+      },
+      {
+        "sha256": "987b704d324e445f8ee6bda1e2999ba0bbbab4c7af4597371d5ec07e9b3923ab",
+        "pathOccurrences": 5,
+        "classification": "generated-legacy-model-preview",
+        "newComparedWithRepository": false,
+        "gateContribution": "none-generated-circular-evidence"
+      }
+    ],
+    "newUniqueRealMediaAfter195And197": 0
+  },
+  "rawVideoExhaustion": {
+    "directManifestStatus": "not-downloaded-cdn-page-fetch-failed",
+    "sourceNoteStatus": "original-video-not-saved",
+    "oldKnowledgeBaseIngestionReadmeStatus": "original-video-not-saved",
+    "commonVideoExtensionsEnumerated": [
+      "mp4",
+      "mov",
+      "m4v",
+      "webm",
+      "avi",
+      "mkv"
+    ],
+    "dynamicEvidenceVideoCandidates": {
+      "count": 7,
+      "classifications": [
+        "three archive views of a Shanghai Cinema progressive LOD preview",
+        "one additional Shanghai Cinema progressive LOD preview in snapshot 5383f2a",
+        "three Rain character runtime-motion videos across snapshots"
+      ]
+    },
+    "oldKnowledgeBaseVideoCandidates": {
+      "count": 7,
+      "classifications": [
+        "Arnis geospatial world generation",
+        "two image-to-Three.js research sources",
+        "two interactive 3D storytelling sources",
+        "American city generator",
+        "Depth Anything video-to-3D"
+      ]
+    },
+    "matchingNoteIdAuthorAssetOrFrameTimestamp": 0,
+    "qualifiedOriginalVideoFound": false
+  },
+  "relatedFalsePositives": [
+    {
+      "pathSuffix": "test_artifacts/test_runtime_fahua_heritage.png",
+      "sha256": "c2b3d38c6a239284038a6299f783abb7e640ca1b0928d944fd6474e6143ba046",
+      "classification": "generated-runtime-placement",
+      "reason": "It renders authored placement and cannot independently validate real rear, scale or map controls."
+    },
+    {
+      "pathSuffix": "docs/research/test_refined_overview_fahuazhen_road_1440x1024.png",
+      "sha256": "4f42ec29a950c78da5fee5f6c97673eccea14e7d867c75c88b74d32defcde32a",
+      "classification": "generated-full-map-overview",
+      "reason": "It is runtime output and outside the single-building evidence gate."
+    },
+    {
+      "pathSuffix": "docs/research/assets/requested-poi-references/debi-fahua-525-heritage-stone.jpg",
+      "sha256": "a9bc1e6e2e510c935430feb26974ca27dfe2359c470605136f45a3fcbc7cb8ad",
+      "classification": "wrong-subject-debi-fahua-525",
+      "reason": "It shows the DeBi compound heritage stone, not the Fahua Heritage display structure."
+    },
+    {
+      "pathSuffix": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-fahua-facade-tjad-2019.jpg",
+      "sha256": "3b141114cde1d09da5612ddab59ee6fd36287ad755b3a5cd7cb7965bd18ddbac",
+      "classification": "wrong-subject-shanghai-orchestra",
+      "reason": "Fahua in the filename describes a road-facing orchestra facade, not the target."
+    }
+  ],
+  "evidenceResult": {
+    "observed": [
+      "The external archive contains no Fahua Heritage original video and no target video beyond the two retained frame captures.",
+      "All 18 target-name visual paths collapse to four hashes: one front photo, two admitted XHS frames and one generated model preview.",
+      "The immutable legacy manifest lists exactly four target external entries: the two frames, manifest and source note.",
+      "The clean b20494c snapshot preserves the same two frame hashes and the prior map audit; earlier snapshots contain no XHS frames.",
+      "No additional same-subject real rear, left/right walkaround, measurement, road-name, intersection, footprint or curb source was found."
+    ],
+    "inferred": [
+      "Repeated archive paths are copies or hard-linked views of already reviewed evidence, not independent coverage.",
+      "The source video may have contained additional seconds, but it is unavailable and cannot be treated as observed evidence."
+    ],
+    "unknown": [
+      "complete rear construction",
+      "full left, right and rear walkaround clearance",
+      "physical scale, camera calibration and measured ground datum",
+      "world orientation and visible road identity",
+      "exact footprint and surveyed curb, sidewalk or asphalt boundaries"
+    ]
+  },
+  "gateDecision": {
+    "sideOrDepth": "pass-retained-from-195s-197s-no-rerun",
+    "streetContext": "pass-retained-from-195s-197s-no-rerun",
+    "map": "blocked-no-new-georeferenced-road-or-footprint-control",
+    "rear": "blocked-no-new-real-rear-view",
+    "scale": "blocked-no-new-measurement-or-camera-calibration",
+    "completeWalkaround": "blocked-no-new-left-right-rear-sequence",
+    "placementMutationAuthorized": false,
+    "modelOrMcpRerunAuthorized": false,
+    "runtimeOrRegistryMutationAuthorized": false,
+    "buildingComplete": false
+  },
+  "verdict": "Read-only exhaustion across the dynamic-evidence snapshots, migrated legacy imports and old knowledge base found no qualifying source beyond the already admitted 195s and 197s frames. The audit does not change map, rear or scale gates."
+}
