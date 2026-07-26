@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T20:59:57+08:00",
+  "snapshotAt": "2026-07-26T21:06:36+08:00",
   "snapshotBaseCommit": "04aff48-plus-main-window-film-v2",
   "scope": {
     "mode": "exact-18-building-fast-mode",
@@ -362,7 +362,8 @@
         "docs/research/xingfuli-west-east-lineage-v2-blender-mcp-gates.json",
         "docs/research/xingfuli-west-east-lineage-v2-threejs-runtime-qa.json",
         "docs/research/xingfuli-west-collision-proxy-candidate-2026-07-26.json",
-        "docs/research/xingfuli-user-photo-sequence-2026-07-26.json"
+        "docs/research/xingfuli-user-photo-sequence-2026-07-26.json",
+        "docs/research/xingfuli-west-east-map-photo-blocker-2026-07-26.json"
       ]
     },
     {
@@ -410,7 +411,8 @@
         "docs/research/xingfuli-east-lineage-v2-candidate.json",
         "docs/research/xingfuli-west-east-lineage-v2-blender-mcp-gates.json",
         "docs/research/xingfuli-west-east-lineage-v2-threejs-runtime-qa.json",
-        "docs/research/xingfuli-user-photo-sequence-2026-07-26.json"
+        "docs/research/xingfuli-user-photo-sequence-2026-07-26.json",
+        "docs/research/xingfuli-west-east-map-photo-blocker-2026-07-26.json"
       ]
     },
     {

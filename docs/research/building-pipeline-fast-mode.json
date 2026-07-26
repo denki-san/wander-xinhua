@@ -383,6 +383,7 @@
         "tests/test_xingfuli_west_lineage_v2_candidate.test.mjs",
         "tests/test_xingfuli_west_east_lineage_v2_blender_mcp_gates.test.mjs",
         "tests/test_xingfuli_west_east_lineage_v2_threejs_runtime.test.mjs",
+        "tests/test_xingfuli_west_east_map_photo_blocker.test.mjs",
         "tests/test_xingfuli_models.test.mjs"
       ],
       "glbs": [
@@ -445,6 +446,7 @@
         "tests/test_xingfuli_east_lineage_v2_candidate.test.mjs",
         "tests/test_xingfuli_west_east_lineage_v2_blender_mcp_gates.test.mjs",
         "tests/test_xingfuli_west_east_lineage_v2_threejs_runtime.test.mjs",
+        "tests/test_xingfuli_west_east_map_photo_blocker.test.mjs",
         "tests/test_xingfuli_models.test.mjs"
       ],
       "glbs": [

@@ -39,9 +39,9 @@
 | 12 | `debi-fahua-525` | 德必法华525 | 三张证据与 Recovery clean-v2 Massing 只读保留；新审计锁定 compound、道路和邻栋量化结果 | `blocked-membership-map-lineage` / Hold | 法华镇路真实重叠 `0.633229` scene unit，主体成员绑定与三档 lineage 也未闭合；不禁用/删除，等本地或后续 XHS 证据裁决 |
 | 13 | `fahua-heritage` | 法华遗韵 | 旧牌坊结构基线、单张正面证据与 Recovery 合格子阶段只读保留；静态道路/出生点净距仅作 sanity | `blocked-evidence-map` / Hold | 缺同主体侧后、入口、街道界面和场地边界；用户醒后才慢速查 XHS，仍不足时仅由主窗口停用本栋 runtime，全部文件与 Hold 永久保留 |
 | 14 | `fics-xinhua-365` | FICS新华365 | Recovery Massing 的 MCP1、投影与诊断 Three.js 保留；五个 building=yes 候选和 service alley 已精确审计 | `blocked-membership-map-tiers` / diagnostic only | OSM 候选无 relation/名称/门牌，way/864493177 进入当前可见 service surface；禁止 alias、Hero/Identity 晋级或 runtime promotion |
-| 15 | `xingfuli-west` | 幸福里·西区 | Hero 保留；Identity v2 / Massing v2 严格派生；Blender MCP 1/2/3 与单页三档、两级 fallback、性能、碰撞均通过 | `blocked-map` / explicit QA uses lineage v2 / production Hero unchanged | 不重建；等待 OSM pedestrian way 400066625 是否为底层通道的真实证据，禁止任意挖洞 |
-| 16 | `xingfuli-center` | 幸福里·中区 | Hero 保留；Identity v2 / Massing v2 严格派生；Blender MCP 1/2/3、地图、单页三档、两级 fallback、性能、碰撞均通过 | `done` / lineage v2 tiers / production Hero unchanged | 无；用户九图原件仍只读保留，未确认视角继续标 Unknown |
-| 17 | `xingfuli-east` | 幸福里·东区 | Hero 保留；Identity v2 / Massing v2 严格派生；Blender MCP 1/2/3 与单页三档、两级 fallback、性能、碰撞均通过 | `blocked-map` / explicit QA uses lineage v2 / production Hero unchanged | 不重建；等待用户第9张对面道路是否为番禺路及真实道路边界证据，禁止用任意位移消除冲突 |
+| 15 | `xingfuli-west` | 幸福里·西区 | Hero 保留；Identity v2 / Massing v2 严格派生；Blender MCP 1/2/3 与单页三档、两级 fallback、性能、碰撞均通过 | `blocked-map` / explicit QA uses lineage v2 / production Hero unchanged | 用户九张原图当前为 `0 files`，无 SHA/EXIF；way/400066625 只是两点 pedestrian centerline，不能证明底层通道宽度、墙体、开口或坡度，禁止任意挖洞 |
+| 16 | `xingfuli-center` | 幸福里·中区 | Hero 保留；Identity v2 / Massing v2 严格派生；Blender MCP 1/2/3、地图、单页三档、两级 fallback、性能、碰撞均通过 | `done` / lineage v2 tiers / production Hero unchanged | 无；目前只保留摄影者给出的九图路线顺序陈述，原图尚未物化，公网九图不得冒充用户实拍 |
+| 17 | `xingfuli-east` | 幸福里·东区 | Hero 保留；Identity v2 / Massing v2 严格派生；Blender MCP 1/2/3 与单页三档、两级 fallback、性能、碰撞均通过 | `blocked-map` / explicit QA uses lineage v2 / production Hero unchanged | south entry、entry matrix wall 与 lane base 仍和当前番禺路面合同相交；第9张只有“可能是番禺路”的陈述、无原图/可见内容/元数据，需物化后再与地图共同裁决，禁止任意位移 |
 | 18 | `sun-ke-villa` | 孙科别墅 | Recovery Hero / Identity / Massing 已选择性恢复；单资产 Massing generator 可逐字节复现；MCP 三门、地图、Three.js 三档、双 fallback、碰撞和开放车道均有当前证据；集成复核发现并修复旧程序化 fallback 大体块误判 | `done` / source `d29097d` + `177447a` / integrated through `5e67688` | 无；保留失败与修复截图、分支和提交，后续只参加项目级回归 |
 
 ## 恢复后的数量结论
