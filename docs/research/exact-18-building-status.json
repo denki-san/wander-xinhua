@@ -64,13 +64,15 @@
       "mcp1": "pass",
       "mcp2": "pass",
       "mcp3": "pass",
-      "map": "blocked-internal-osm-road-semantics",
+      "map": "blocked-two-surface-roads-cross-formal-collision-footprint",
       "threeJs": "pass-three-tier-candidate",
-      "overall": "blocked-internal-road-semantics",
+      "overall": "blocked-internal-surface-road-and-footprint-binding",
       "runtimePolicy": "preserve-current-no-map-promotion",
       "records": [
         "docs/research/film-art-center-final-audit-2026-07-26.json",
-        "docs/research/film-art-center-map-candidate-v2.json"
+        "docs/research/film-art-center-map-candidate-v2.json",
+        "docs/research/film-art-center-road-semantics-2026-07-26.json",
+        "docs/research/film-art-center-internal-road-semantics-deep-audit.json"
       ]
     },
     {
@@ -272,11 +274,12 @@
       "mcp3": "blocked",
       "map": "blocked-fahuazhen-road-overlap-0.633229",
       "threeJs": "recovery-visibility-only",
-      "overall": "blocked-road-and-tier-lineage",
+      "overall": "blocked-true-road-overlap-membership-and-tier-lineage",
       "runtimePolicy": "hold-no-promotion",
       "records": [
         "docs/research/debi-fahua-525-final-disposition.json",
-        "docs/research/debi-fahua-525-map-candidate.json"
+        "docs/research/debi-fahua-525-map-candidate.json",
+        "docs/research/debi-fahua-525-overlap-lineage-audit.json"
       ]
     },
     {

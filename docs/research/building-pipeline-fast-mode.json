@@ -49,6 +49,8 @@
       "tests": [
         "tests/test_film_art_center_quality_tiers.test.mjs",
         "tests/test_film_art_center_map_candidate_v2.test.mjs",
+        "tests/test_film_art_center_road_semantics.test.mjs",
+        "tests/test_film_art_center_internal_road_semantics_deep_audit.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
@@ -298,6 +300,7 @@
       "tests": [
         "tests/test_debi_fahua_525_final_disposition.test.mjs",
         "tests/test_debi_fahua_525_map_candidate.test.mjs",
+        "tests/test_debi_fahua_525_overlap_lineage_audit.test.mjs",
         "tests/test_requested_poi_models.test.mjs"
       ],
       "glbs": [
