@@ -3257,6 +3257,13 @@ Blender 导入后的稳定名称为 `SuperHero_Male`（大写 H），眼睛与�
 
 保留 Lint 并行能力，但所有包含 Vite 构建的验证命令必须串行执行；随后单独重跑 `npm test`。
 
+### 再次发生
+
+2026-07-26 在 `loading-experience-v2` 验收时再次并行运行 `npm test` 与
+`npm run build`，两者竞争 `dist-static`，其中一路复制
+`public/images/poi/fahua-heritage.jpg` 时出现 `ENOENT`。确认另一条完整测试内置构建
+成功后，改为串行重跑构建。后续不得并行运行任何包含 `build:static` 的命令。
+
 ---
 ## [ERR-20260718-064] 全量测试仍锁定旧的高位摄像机参数
 

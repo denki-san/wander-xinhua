@@ -554,11 +554,16 @@ function FlatNeighborhood({
         showStreetDressing={mode === "explore"}
         lowTier={lowTier}
       />
-      {mode === "overview" && !districtDisabledForQa && (
-        <OverviewDistrictMassingGate
-          networkProfile={networkProfile}
-          focusPosition={progressiveFocus.current}
-        />
+      {!districtDisabledForQa && (
+        <group
+          name="persistent-overview-district-massing"
+          visible={mode !== "explore"}
+        >
+          <OverviewDistrictMassingGate
+            networkProfile={networkProfile}
+            focusPosition={progressiveFocus.current}
+          />
+        </group>
       )}
       <group
         position={[XINGFULI_POSITION[0], XINGFULI_BASE_Y, XINGFULI_POSITION[1]]}
@@ -617,7 +622,8 @@ function OverviewDistrictMassingGate({
   networkProfile: ProgressiveNetworkProfile;
   focusPosition: readonly [number, number];
 }) {
-  // 街区白模是全览的基础空间上下文，不再受会波动的网络估算结果控制。
+  // 白模在封面阶段就挂载并开始加载，进入全览时复用同一个实例。
+  // Explore 仅隐藏父组而不卸载资源，返回全览时不会再次出现空窗。
   // 资源失败仍由边界回退到原地图，不阻断游玩。
   if (!districtMassingEligibleAtOverviewEntry(networkProfile)) return null;
 

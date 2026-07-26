@@ -88,10 +88,9 @@ export function OverviewDistrictMassing({
   focusPosition: readonly [number, number];
   networkProfile: ProgressiveNetworkProfile;
 }) {
-  const chunks = useMemo(
-    () => orderedChunks(focusPosition),
-    [focusPosition],
-  );
+  // 只在首次挂载时按出生点确定加载顺序。角色开始上报位置后不能重排，否则会
+  // 重启渐进定时器，并把已经显示的四块白模错误降回两块。
+  const [chunks] = useState(() => orderedChunks(focusPosition));
   const [activeCount, setActiveCount] = useState(1);
   const [readyIds, setReadyIds] = useState<string[]>([]);
   const markReady = useCallback((id: string) => {
@@ -103,7 +102,7 @@ export function OverviewDistrictMassing({
   useEffect(() => {
     const interval = networkProfile === "weak" ? 900 : 180;
     const timers = chunks.slice(1).map((_, index) => window.setTimeout(() => {
-      setActiveCount(index + 2);
+      setActiveCount((current) => Math.max(current, index + 2));
     }, interval * (index + 1)));
     return () => timers.forEach((timer) => window.clearTimeout(timer));
   }, [chunks, networkProfile]);
@@ -114,6 +113,10 @@ export function OverviewDistrictMassing({
     if (readyIds.length === 1) performance.mark("xinhua-district-first-chunk-visible");
     if (readyIds.length === chunks.length) performance.mark("xinhua-district-all-chunks-visible");
   }, [chunks.length, readyIds]);
+
+  useEffect(() => {
+    document.documentElement.dataset.xinhuaDistrictActiveCount = String(activeCount);
+  }, [activeCount]);
 
   return (
     <>

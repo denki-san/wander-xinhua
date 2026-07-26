@@ -27,6 +27,37 @@
 
 ---
 
+## [LRN-20260726-001] correction
+
+**Logged**: 2026-07-26T22:10:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+白模“消失再出现”必须同时核对资源就绪状态和实际渲染子集，不能只用 ready ID 证明画面稳定。
+
+### Details
+首次修复让四块 GLB 在 intro 阶段完成加载，并在模式切换时保持挂载。遥测持续显示
+`readyIds=4`，但逐帧截图仍看到两个象限消失。根因是 focusPosition 数组引用变化导致
+分块排序 effect 重启；定时器随后把 `activeCount` 从 4 写回 2。readyIds 只记录“曾经
+完成加载”，不代表当前仍在 React 渲染树中。视锥裁剪并非根因。
+
+### Suggested Action
+渐进加载计数必须单调递增；用于确定首批资源的空间排序应在本次挂载内冻结。视觉问题必须
+用连续截图或视频验证，不把资源完成标记等同于当前可见性。
+
+### Metadata
+- Source: conversation
+- Related Files: app/scene/overview-district-massing.tsx, tests/test_overview_district_massing.test.mjs
+- Tags: progressive-loading, react, timers, visual-qa, correction
+
+### Resolution
+- **Resolved**: 2026-07-26T22:10:00+08:00
+- **Notes**: 冻结首次加载顺序，并用 Math.max 保证 activeCount 不倒退；撤回无关的视锥裁剪改动。
+
+---
+
 ## [LRN-20260725-006] correction
 
 **Logged**: 2026-07-25T19:12:00+08:00
