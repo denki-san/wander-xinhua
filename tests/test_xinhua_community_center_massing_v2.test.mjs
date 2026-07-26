@@ -15,6 +15,8 @@ const MAP_GATE_PATH =
   "docs/research/xinhua-community-center-massing-map-gate.json";
 const INTEGRATION_CANDIDATE_PATH =
   "docs/research/xinhua-community-center-massing-v2-integration-candidate.json";
+const MCP_GATES_PATH =
+  "docs/research/xinhua-community-center-blender-mcp-gates.json";
 const OSM_PATH =
   "docs/research/data/requested-pois-osm-20260717-103840.json";
 const MAP_PATH = "app/scene/xinhua-map-data.json";
@@ -336,7 +338,7 @@ test("Massing v2 的GLB、Blend、生成器、预览和预算可追溯", async (
   assert.equal(record.glb.images, record.budgets.maxImages);
   assert(record.glb.bytes <= record.budgets.maxBytes);
   assert.equal(record.gates.glbAudit, "pass");
-  assert.equal(record.gates.mcp1, "pending-main-window-batch");
+  assert.equal(record.gates.mcp1, "pass-main-window-batch");
   assert.equal(record.gates.runtimeGate, "pending-main-window-scoped-qa");
 
   for (const preview of Object.values(record.outputs.previews)) {
@@ -347,6 +349,36 @@ test("Massing v2 的GLB、Blend、生成器、预览和预算可追溯", async (
       [contents.readUInt32BE(16), contents.readUInt32BE(20)],
       [960, 720],
     );
+  }
+});
+
+test("社区中心 Massing v2 已通过主窗口批量 MCP1 且侧后未知项不越权", async () => {
+  const [record, gate, mcp] = await Promise.all([
+    readJson(RECORD_PATH),
+    readJson(MAP_GATE_PATH),
+    readJson(MCP_GATES_PATH),
+  ]);
+
+  assert.equal(record.gates.mcp1, "pass-main-window-batch");
+  assert.equal(gate.gates.mcp1, "pass-main-window-batch");
+  assert.equal(mcp.mcp1.status, "pass");
+  assert.equal(mcp.mcp1.sceneInspection.objectCount, 1);
+  assert.equal(mcp.mcp1.sceneInspection.meshObjects, 1);
+  assert.equal(mcp.mcp1.sceneInspection.materialCount, 3);
+  assert.equal(mcp.mcp1.sceneInspection.referenceImagesEmbedded, false);
+  assert.equal(mcp.mcp1.scaleProxy.heightMeters, 1.8);
+  assert.equal(mcp.mcp1.qaRigSaved, false);
+  assert.equal(mcp.mcp1.qaRigExported, false);
+  assert.equal(mcp.mcp1.interactiveChangesAccepted.length, 0);
+  assert(mcp.mcp1.unknown.includes("side and rear facades"));
+  assert.equal(mcp.identityAuthorized, false);
+  assert.equal(mcp.heroAuthorized, false);
+
+  for (const view of Object.values(mcp.mcp1.fixedViews)) {
+    const contents = await readFile(path.join(ROOT, view.path));
+    assert.equal(contents.length, view.bytes);
+    assert.equal(await sha256(view.path), view.sha256);
+    assert.equal(contents.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
   }
 });
 

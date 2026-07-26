@@ -4,7 +4,7 @@
   "tier": "massing",
   "batch": "osm-footprint-bound-v3",
   "generatedAt": "2026-07-26",
-  "status": "headless-built-pending-main-window-mcp1-and-runtime-map",
+  "status": "mcp1-pass-pending-main-window-runtime-map",
   "generator": "scripts/create_xinhua_villas_211_massing_model.py",
   "binding": "docs/research/xinhua-villas-211-osm-binding.json",
   "placement": {
@@ -594,7 +594,7 @@
     "evidence": "pass-conservative-massing-footprints-only",
     "headlessBuild": "pass",
     "glbAudit": "pass-explicit-no-images-max-12-nodes",
-    "mcp1": "pending-main-window-batch",
+    "mcp1": "pass-main-window-batch",
     "mapGeometry": "pass-analytic-candidate",
     "runtimeMap": "pending-main-window-scoped-qa",
     "hero": "blocked-evidence",

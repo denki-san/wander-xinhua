@@ -83,7 +83,7 @@
     "headlessBuild": "pass",
     "fixedViews": "pass",
     "glbAudit": "pass",
-    "mcp1": "pending-main-window-batch",
+    "mcp1": "pass-main-window-batch",
     "mapProjection": "pass-candidate",
     "roadSurface": "pending-runtime-road-width",
     "runtime": "pending-main-window-scoped-qa",

@@ -8377,3 +8377,30 @@ AssertionError: input did not match /fallback={<XinhuaRoadMassing identity \/>}/
 ### Resolution
 - **Resolved**: 2026-07-26T03:56:00+08:00
 - **Notes**: 更新源码合同断言以覆盖建筑范围隔离，并保留默认 Identity fallback。
+
+---
+## [ERR-20260726-082] blender_open_and_qa_rig_context_lost_active_object
+
+**Logged**: 2026-07-26T04:23:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: blender-mcp
+
+### Summary
+在单次 Blender MCP code 调用中先 `open_mainfile` 再连续建立 211弄 QA rig 时，
+`bpy.context.active_object` 临时不可用，调用在创建地面后中断。
+
+### Error
+```text
+Context object has no attribute active_object
+```
+
+### Context
+- 211弄九个建筑对象和 Blend 文件均保持完整；
+- 中断只影响未保存的 QA rig，没有修改或保存模型；
+- 原有 MCP1 截图仍在，但精确 1.8m 人物代理需要重渲染。
+
+### Resolution
+- **Resolved**: 2026-07-26T04:25:00+08:00
+- **Notes**: 将打开文件、建立 QA rig、渲染拆成三个 MCP 步骤，并改用
+  `bpy.context.view_layer.objects.active`；三固定机位成功重渲染。

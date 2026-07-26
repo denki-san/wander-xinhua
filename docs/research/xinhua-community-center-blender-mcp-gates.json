@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-community-center",
+  "tier": "massing",
+  "recordedAt": "2026-07-26",
+  "owner": "main-window",
+  "mode": "building-fast-batch-mcp1",
+  "source": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb",
+    "glbSha256": "ebe89d49194b14ca5a5d65303403dd73502e6b11dce362368199d95a85e74eca"
+  },
+  "mcp1": {
+    "status": "pass",
+    "sceneInspection": {
+      "objectCount": 1,
+      "meshObjects": 1,
+      "materialCount": 3,
+      "sourceOsmWay": 864493234,
+      "sourcePoiNode": 13765678129,
+      "meshPolygons": 24,
+      "rootTransformsNormalized": true,
+      "referenceImagesEmbedded": false
+    },
+    "scaleProxy": {
+      "heightSceneUnits": 0.6666666667,
+      "metersPerSceneUnit": 2.7,
+      "heightMeters": 1.8,
+      "savedToBlend": false,
+      "exportedToGlb": false
+    },
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/massing-v2/xinhua-community-center/test_xinhua-community-center-massing_mcp1_canonical.png",
+        "sha256": "172fab4b819d9b6aefd13c0429784efc0edb0ce1131cb56c17bb1fbc97181e0f",
+        "bytes": 729045
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/massing-v2/xinhua-community-center/test_xinhua-community-center-massing_mcp1_side-depth.png",
+        "sha256": "2de1410c05b706078d16cee24195ddcc31a82eacc01c27a90c4b208e7cb339c7",
+        "bytes": 742141
+      },
+      "entranceScale": {
+        "path": "test_artifacts/all-models/massing-v2/xinhua-community-center/test_xinhua-community-center-massing_mcp1_entrance-scale.png",
+        "sha256": "83d9723855970b8daa2893260fbb47d69733b88a86a647e3af1286b7d3eef46c",
+        "bytes": 739431
+      }
+    },
+    "observed": [
+      "single low white two-storey mass remains grounded",
+      "central silver portal and dark entrance stay legible beside the 1.8m proxy",
+      "the scene contains only the authorized building mesh",
+      "no decorative, vegetation, toy-house or full-map object is present"
+    ],
+    "inferred": [
+      "flat side and rear extrusion is acceptable only as conservative Massing"
+    ],
+    "unknown": [
+      "surveyed height",
+      "side and rear facades",
+      "roof equipment",
+      "toy-house placement"
+    ],
+    "interactiveChangesAccepted": [],
+    "qaRigSaved": false,
+    "qaRigExported": false,
+    "verdict": "pass-massing-only-runtime-map-authorized"
+  },
+  "nextGate": "main-window-threejs-map-road-width-ground-and-collision",
+  "identityAuthorized": false,
+  "heroAuthorized": false
+}

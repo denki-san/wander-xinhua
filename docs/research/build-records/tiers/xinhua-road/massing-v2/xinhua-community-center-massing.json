@@ -3,7 +3,7 @@
   "auditedAt": "2026-07-26",
   "assetId": "building:xinhua-road:xinhua-community-center",
   "tier": "massing",
-  "status": "headless-pass-map-calibrated-candidate-mcp1-pending",
+  "status": "mcp1-pass-map-calibrated-candidate-runtime-pending",
   "scope": {
     "buildingOnly": true,
     "includedOsmWays": [
@@ -198,7 +198,7 @@
     "headlessBuild": "pass",
     "fixedViews": "pass",
     "glbAudit": "pass",
-    "mcp1": "pending-main-window-batch",
+    "mcp1": "pass-main-window-batch",
     "mapProjection": "pass-candidate",
     "roadSurface": "pending-runtime-road-width",
     "runtimeGate": "pending-main-window-scoped-qa",

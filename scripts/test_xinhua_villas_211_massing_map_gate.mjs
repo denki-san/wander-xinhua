@@ -17,6 +17,10 @@ const INTEGRATION_PATH = resolve(
   ROOT,
   "docs/research/xinhua-villas-211-massing-v3-integration-candidate.json",
 );
+const MCP_GATES_PATH = resolve(
+  ROOT,
+  "docs/research/xinhua-villas-211-blender-mcp-gates.json",
+);
 const MAP_PATH = resolve(ROOT, "app/scene/xinhua-map-data.json");
 const OSM_PATH = resolve(
   ROOT,
@@ -198,7 +202,7 @@ test("211弄九个 OSM footprint 从 WGS84 到 runtime local 可逐顶点回放"
   assert.equal(record.gates.evidence, "pass-conservative-massing-footprints-only");
   assert.equal(record.gates.hero, "blocked-evidence");
   assert.equal(record.gates.identity, "blocked-evidence");
-  assert.equal(record.gates.mcp1, "pending-main-window-batch");
+  assert.equal(record.gates.mcp1, "pass-main-window-batch");
   assert.equal(record.gates.runtimeMap, "pending-main-window-scoped-qa");
 
   const expectedWayIds = [
@@ -480,5 +484,37 @@ test("211弄 Massing v3 二进制、节点和分体碰撞候选保持一致", as
   for (const preview of Object.values(record.outputs.previews)) {
     assert.equal(await sha256(resolve(ROOT, preview.path)), preview.sha256);
     assert(preview.bytes > 100_000);
+  }
+});
+
+test("211弄 Massing v3 已通过主窗口批量 MCP1 且保持 Hero/Identity 禁门", async () => {
+  const [record, integration, gates] = await Promise.all([
+    readFile(RECORD_PATH, "utf8").then(JSON.parse),
+    readFile(INTEGRATION_PATH, "utf8").then(JSON.parse),
+    readFile(MCP_GATES_PATH, "utf8").then(JSON.parse),
+  ]);
+
+  assert.equal(record.gates.mcp1, "pass-main-window-batch");
+  assert.equal(integration.gates.mcp1, "pass-main-window-batch");
+  assert.equal(gates.mcp1.status, "pass");
+  assert.equal(gates.mcp1.sceneInspection.meshObjects, 9);
+  assert.equal(gates.mcp1.sceneInspection.materialCount, 1);
+  assert.equal(gates.mcp1.scaleProxy.heightMeters, 1.8);
+  assert.equal(gates.mcp1.qaRigSaved, false);
+  assert.equal(gates.mcp1.qaRigExported, false);
+  assert.equal(gates.mcp1.interactiveChangesAccepted.length, 0);
+  assert.equal(gates.identityAuthorized, false);
+  assert.equal(gates.heroAuthorized, false);
+  assert.equal(integration.gates.identity, "blocked-evidence");
+  assert.equal(integration.gates.hero, "blocked-evidence");
+
+  for (const view of Object.values(gates.mcp1.fixedViews)) {
+    const contents = await readFile(resolve(ROOT, view.path));
+    assert.equal(contents.length, view.bytes);
+    assert.equal(
+      createHash("sha256").update(contents).digest("hex"),
+      view.sha256,
+    );
+    assert.equal(contents.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
   }
 });
