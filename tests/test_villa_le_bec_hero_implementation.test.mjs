@@ -72,6 +72,26 @@ test("Villa Le Bec Hero 保持双楼实体与开放庭院，未越权创建 Iden
     record.glazingVisibilityFix.verdict,
     "both-glazing-and-frames-are-outside-their-bay-solid-surface",
   );
+  assert.equal(
+    record.mcp2IdentityBatchFix.streetFacade,
+    "ground-unbranded-entry-and-glazing-rhythm-plus-upper-windows-and-projecting-bay-within-existing-massing-envelope",
+  );
+  assert.deepEqual(record.mcp2IdentityBatchFix.dormerGlazing, {
+    count: 3,
+    dormerHalfDepth: 0.41,
+    glazingCenterOffset: 0.455,
+    surfaceClearance: 0.045,
+    externalNormal: "local -Y",
+  });
+  assert.ok(
+    Math.abs(
+      record.mcp2IdentityBatchFix.dormerGlazing.glazingCenterOffset
+        - (record.mcp2IdentityBatchFix.dormerGlazing.dormerHalfDepth
+          + record.mcp2IdentityBatchFix.dormerGlazing.surfaceClearance),
+    ) < 1e-9,
+  );
+  assert.equal(record.mcp2IdentityBatchFix.gardenEntryGlazingChanged, false);
+  assert.equal(record.mcp2IdentityBatchFix.massingPlacementOrCollisionChanged, false);
   assert.equal(record.outputs.previews.length, 4);
   for (const preview of record.outputs.previews) {
     assert.equal(await sha256(preview.path), preview.sha256, preview.path);
