@@ -1,0 +1,405 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-211",
+  "label": "新华别墅211弄",
+  "reviewedAt": "2026-07-26",
+  "mode": "local-only-same-member-evidence-rescue",
+  "reviewBaseline": "d0e120829bd61cd8be1e37085f52ccbc4c2d9dd2",
+  "holdCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+  "status": "blocked-local-evidence-exhausted-no-same-member-way-depth-lineage",
+  "verdict": {
+    "acceptedMassing": "retain-unchanged",
+    "ownedUniquePhotographicCaptures": 4,
+    "namedPhotographicMembers": 2,
+    "photographsBoundToSpecificAcceptedWay": 0,
+    "acceptedMembersWithHouseNumber": 0,
+    "sameMemberSameWayCompleteDepthSets": 0,
+    "heroSameMemberDepthBlockerReleased": false,
+    "heroLineageBlockerReleased": false,
+    "legacyHero": "retain-hold-not-mcp2-candidate",
+    "newHeroAuthorized": false,
+    "runtimeOrRegistryChangeAuthorized": false,
+    "summary": "仓内 union 共有四个211弄自有实拍 capture：两个 compound 入口轴线、211弄1号正面和211弄2号正面斜视。它们没有把1号或2号分配给 accepted Massing 的九个具体 OSM way，且没有同一已绑定 member 的完整侧后面与 roof-back。Recovery Massing 只是旧四栋 Hero 的 voxel-remesh，历史 Hero 也从未记录 accepted 九-way Massing SHA，因此 depth 与 lineage blocker 均不能解除。"
+  },
+  "scope": {
+    "searched": [
+      "current repository at review baseline",
+      "all reachable local Git refs, commits and named historical blobs",
+      "Recovery/Hold commit 3044cd89",
+      "existing OSM snapshots, accepted Massing records and legacy generator/build lineage"
+    ],
+    "excludedAndUntouched": [
+      "network, browser and Xiaohongshu content inspection",
+      "Blender, model rebuild or binary modification",
+      "runtime, registry, Fast, exact and shared production files",
+      "xinhua-villas-329 evidence reuse",
+      "trees, vegetation, decoration and full-map assets",
+      "Recovery/Hold copying or mutation",
+      "other buildings"
+    ]
+  },
+  "sourcePolicy": {
+    "description": "公共交叉输入严格读取 reviewBaseline Git blob；Recovery/Hold 严格读取指定提交中的 blob；不以工作树当前值冒充审查时输入。",
+    "baselineGitBlobs": [
+      {
+        "path": "docs/research/xinhua-villas-211-hero-lineage-member-depth-readiness.json",
+        "gitBlob": "df2a8c20075308a524669cc14cbcf24db0c51bd7",
+        "sha256": "6f3096d094c60b1d7f221cdf65732bceeded6f1a040b5da7c7ab9dd2519f7b7a"
+      },
+      {
+        "path": "docs/research/xinhua-villas-211-reference-manifest.json",
+        "gitBlob": "165cabf7f57520d131139506bc6acd2a9424574f",
+        "sha256": "c112f5e2b20231de5d42ee1a483a701220d9dcd65d7aa9114c8d0cb32968ed46"
+      },
+      {
+        "path": "docs/research/xinhua-villas-211-model-brief.md",
+        "gitBlob": "f9ac6f2ff06f20bc1a2810254593a1b398ee7661",
+        "sha256": "64dd3e71e6856db656e120c9ad7e5297cb654a4729ee7f9b921c41dbbabe555b"
+      },
+      {
+        "path": "docs/research/xinhua-villas-211-three-tier-final-disposition.json",
+        "gitBlob": "7f20ed3f46d0f5e2a353f7186201b7e2fb10cab7",
+        "sha256": "aacd253f9c26f9de033f767365a01093797a9cae04c2f07551b779f17084c8f2"
+      },
+      {
+        "path": "docs/research/xinhua-villas-211-osm-binding.json",
+        "gitBlob": "c9d07276ba6ac9b66f83feebfae6639d8ff476ca",
+        "sha256": "2e9403aebe881bb663d5195d8faa5d61289283e2d3cacfe1fb900f25a9463aa2"
+      },
+      {
+        "path": "docs/research/build-records/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.json",
+        "gitBlob": "aa11abe72b3c3eeaf2094020b8cb9c48fc9799a0",
+        "sha256": "84009cecd2bd4320aadada9898a06875372f6516ef8e91618dd4e16e8e8b1249"
+      },
+      {
+        "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+        "gitBlob": "3c5d2c4c194d4aaaf1f4483b4a2a80518936c8e6",
+        "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c"
+      },
+      {
+        "path": "docs/research/data/xinhua-landmarks-overpass-20260717.json",
+        "gitBlob": "829352b11fa3413b5f62c98c115198824bb4d0b6",
+        "sha256": "27a2ee9ead92824f78378bc769df8667c50d49f06d6e09d5d719fe568cf25e19"
+      },
+      {
+        "path": "app/scene/xinhua-district-massing-data.json",
+        "gitBlob": "3801b5e216639aa2c5149273e17e61a412b10bb6",
+        "sha256": "ec3a8ce4cf06da4be593bf7fd995507242f50d5fa4f34eddd3d7eab23fc95132"
+      },
+      {
+        "path": "scripts/create_xinhua_road_models.py",
+        "gitBlob": "046b51121461a3153ac60380a3877bca0042e51b",
+        "sha256": "324be84a32ed3d43ff0bc1ceaca040e8e46f68aff21151b1bafa4ae524f6f3c6"
+      },
+      {
+        "path": "scripts/create_xinhua_villas_211_massing_model.py",
+        "gitBlob": "eafff1f6429159a8d18422e29534e2fa9bddad9a",
+        "sha256": "72d49b9fdb3741de026fd32745ea64b98438b38850015d83e0d8f826fd040808"
+      },
+      {
+        "path": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb",
+        "gitBlob": "463aaf8b3122f54941e92c1679749717cb422e1e",
+        "sha256": "ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c"
+      },
+      {
+        "path": "public/models/xinhua-road/xinhua-villas-211.glb",
+        "gitBlob": "412172d383460e8c5cc989a28fe0b4339dc8481e",
+        "sha256": "0a7168e6104d39b808c096a390a14d1eb1690e49bef165193829517b022cb295"
+      }
+    ],
+    "holdGitBlobs": [
+      {
+        "path": "docs/research/xinhua-villas-211-reference-manifest.json",
+        "gitBlob": "7602440c5e832af0eb5ea347e52d0fac83636694",
+        "sha256": "3644caa198f5c4e24e00c391ae1e544793f9204660cf1a111b9c0426a33b34c4"
+      },
+      {
+        "path": "docs/research/build-records/tiers/xinhua-road/massing/xinhua-villas-211-massing.json",
+        "gitBlob": "24aed232cc710d0aea3bd834fe922c271ab5fffc",
+        "sha256": "a57e62ba088ed6aadc13bf74b692998298b7d7e52b131eb62211f245abb67a92"
+      },
+      {
+        "path": "public/models/tiers/xinhua-road/massing/xinhua-villas-211-massing.glb",
+        "gitBlob": "1432f205ac1510a863a3082ef849285efd1b4eee",
+        "sha256": "407cde33aa13dfad09b29f6ae23711aa5f86ea046a06adebe116eac2218d667d"
+      },
+      {
+        "path": "scripts/create_xinhua_road_massing_models.py",
+        "gitBlob": "37fce609fa0e484d4d0208dd9a75a4520440850a",
+        "sha256": "32568fd7f3afdcb16e8a8d5ed089d55694cada9289d67c75c08e509f5145be3f"
+      }
+    ]
+  },
+  "searchAccounting": {
+    "uniqueReachableRefTips": 72,
+    "commitsMatchingSlugText": 43,
+    "commitsMatchingChineseName": 16,
+    "commitsMatchingLane211Text": 28,
+    "currentExactTextPathCount": 56,
+    "holdExactTextPathCount": 30,
+    "dedicatedManifestCommitCount": 4,
+    "dedicatedManifestUniqueBlobCount": 3,
+    "sharedManifestCommitCount": 6,
+    "sharedManifestUniqueBlobCount": 6,
+    "ownedRealPhotoPathCount": 6,
+    "ownedUniqueBinaryShaCount": 5,
+    "ownedUniquePhotographicCaptureCount": 4,
+    "generatedOrRuntimeVisualPathCount": 13,
+    "crossAssetRealPhotoPathCount": 3,
+    "crossAssetUniqueBinaryShaCount": 2,
+    "crossAssetUniquePhotographicCaptureCount": 1,
+    "qualifiedNewSameMemberCompleteDepthCaptures": 0,
+    "qualifiedPhotoToAcceptedWayAssignments": 0,
+    "stopReason": "当前树、全部本地历史、四版专用 manifest、六版共享 manifest、Recovery/Hold、OSM 与 generator/build lineage 已完成归类；继续扫描只会重复入口轴线、自生成图或禁止借用的329素材。"
+  },
+  "ownedPhotographicUnion": {
+    "captures": [
+      {
+        "captureId": "compound-entrance-winter",
+        "paths": [
+          "docs/research/assets/landmark-comparison/xinhua-villas-211-real.jpg",
+          "public/images/poi/xinhua-villas-211.jpg",
+          "public/images/poi-thumbnails/xinhua-villas-211.jpg"
+        ],
+        "primaryGitBlob": "5615820241338449aa9a62922c9f7025d8e3842b",
+        "primarySha256": "c76f59a80f8d7e5edc642a55a1ff9d869607093b266deaa7396f989c7d3e9022",
+        "view": "compound-entrance-axis",
+        "memberIdentity": "compound-only",
+        "acceptedWayAssignment": "unknown",
+        "depthCoverage": "entrance-axis-only"
+      },
+      {
+        "captureId": "compound-entrance-summer",
+        "paths": [
+          "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-overview-official-2023.jpg"
+        ],
+        "primaryGitBlob": "e8be7e0f37ee31488ba5c244dec8a16af6baedec",
+        "primarySha256": "9d23cd3c57b492a01911907e8f376dc2bdb37b882b5233fafcaae3384540adf2",
+        "view": "compound-entrance-axis",
+        "memberIdentity": "compound-only",
+        "acceptedWayAssignment": "unknown",
+        "depthCoverage": "entrance-axis-only"
+      },
+      {
+        "captureId": "member-211-1-front",
+        "paths": [
+          "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-1-official-2025.jpg"
+        ],
+        "primaryGitBlob": "9f139f9ab7ba07b957519fdf291a7f862468b596",
+        "primarySha256": "e0146deb4cb9571f39aab3a01c0028f2ab1018c2126a7039f52a0433197f0dc4",
+        "view": "front-with-partial-left-wing",
+        "memberIdentity": "211-1",
+        "acceptedWayAssignment": "unknown",
+        "depthCoverage": "partial-oblique-cues-not-complete-side-or-rear"
+      },
+      {
+        "captureId": "member-211-2-front-oblique",
+        "paths": [
+          "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-2-official-2025.jpg"
+        ],
+        "primaryGitBlob": "860980aaf705d3c04d1642ef7273e54e20725c0e",
+        "primarySha256": "3568005a4e89a6ce95abf4be19fb22ab0dd277d17622fdd16a9ccad20d1496aa",
+        "view": "front-oblique",
+        "memberIdentity": "211-2",
+        "acceptedWayAssignment": "unknown",
+        "depthCoverage": "partial-oblique-only-no-complete-rear"
+      }
+    ],
+    "coverage": {
+      "compoundCanonicalEntrance": "pass-two-distinct-captures-same-axis",
+      "compoundSideOrDepth": "blocked",
+      "member211_1Front": "pass-one-capture",
+      "member211_1CompleteSideRear": "blocked",
+      "member211_2FrontOblique": "pass-one-capture",
+      "member211_2CompleteSideRear": "blocked",
+      "memberToAcceptedWay": "blocked-zero-of-nine"
+    }
+  },
+  "historicalManifestAudit": {
+    "dedicatedVersions": [
+      {
+        "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+        "gitBlob": "7602440c5e832af0eb5ea347e52d0fac83636694",
+        "photoCount": 4
+      },
+      {
+        "commit": "85420d5d3863b8d7a14ebc5cad5925e7916e90f3",
+        "gitBlob": "165cabf7f57520d131139506bc6acd2a9424574f",
+        "photoCount": 3
+      },
+      {
+        "commit": "b785fc2aa98457f54950edc1bd60c9dc0b693915",
+        "gitBlob": "c310dbb68580a7f1b755bc4a8d29ddc78a2494ba",
+        "photoCount": 3
+      },
+      {
+        "commit": "e0d032e6120f3473c254b4415291782a2894fd0d",
+        "gitBlob": "165cabf7f57520d131139506bc6acd2a9424574f",
+        "photoCount": 3
+      }
+    ],
+    "sharedVersions": [
+      {
+        "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+        "gitBlob": "e8b9cad0b3915d4b8d82bb78339f5d91d45db2bb",
+        "photoCount": 3
+      },
+      {
+        "commit": "54fc124d5867e4952641656ffb4bd3e8b90024ab",
+        "gitBlob": "a06c4feebe1dd2efe6baf4576aa5862d8563cc36",
+        "photoCount": 1
+      },
+      {
+        "commit": "90a4ba32b4c889f655e3d7a5c42a01612e16a85f",
+        "gitBlob": "8942eac1284db91dc26989d87ef18d3c5bb212cf",
+        "photoCount": 1
+      },
+      {
+        "commit": "a0e25a879f8c5ab3ffc11fbd194d0deec310cb76",
+        "gitBlob": "9922bb32dd02572e56a9894b2ab2c5b859df145d",
+        "photoCount": 1
+      },
+      {
+        "commit": "e292fde194c2704a9eeaf7e4a8faf192a5d0385e",
+        "gitBlob": "aa5e6534454739238535571af2f3a787fa1c85a4",
+        "photoCount": 1
+      },
+      {
+        "commit": "e713c097191ae5169b8cc265e05bfbef03d6f1d5",
+        "gitBlob": "620acff93808e723e26bd84d023980adaf8858d5",
+        "photoCount": 1
+      }
+    ],
+    "sharedManifestResult": "five-older-versions-only-record-winter-entrance; hold-version-records-summer-entrance-plus-member-211-1-and-211-2",
+    "unionAddsNoPhotoToAcceptedWayAssignment": true
+  },
+  "acceptedMassingMemberAudit": {
+    "acceptedWayIds": [
+      864485593,
+      864485594,
+      864485595,
+      864485596,
+      864485597,
+      864485598,
+      864485674,
+      864485675,
+      864485676
+    ],
+    "acceptedMemberCount": 9,
+    "membersWithOsmHouseNumber": 0,
+    "membersWithOsmStreetAddress": 0,
+    "membersWithPhotoNumberToWayBinding": 0,
+    "membersWithSameMemberCompleteDepthSet": 0,
+    "allGlbNodesCarryUnknownHouseNumber": true,
+    "geometryAuthority": "accepted-compound-footprints-not-member-identity"
+  },
+  "crossAssetAndGeneratedRejections": {
+    "xinhuaVillas329": {
+      "decision": "excluded-forbidden-cross-asset-no-reuse",
+      "knownLegacyRepresentativePhotoPaths": 3,
+      "uniquePhotographicCaptures": 1,
+      "existingClassification": "same-visible-building-as-member-211-2-but-stored-and-governed-as-329-contamination",
+      "whyItCannotUnblock": [
+        "本任务明确禁止借用329素材。",
+        "该额外画面仍没有211-2到九个 accepted way 的 assignment。",
+        "该额外画面仍不显示完整背面和 roof-back。"
+      ],
+      "localXhsFilesNotInspected": {
+        "photoPaths": 18,
+        "contactSheets": 1,
+        "reason": "Xiaohongshu 与329均在本轮明确排除范围。"
+      }
+    },
+    "generatedVisuals": {
+      "uniquePathCount": 13,
+      "decision": "reject-as-photographic-evidence",
+      "reason": "legacy Hero、Recovery voxel-remesh、accepted Massing、MCP1 和 Three.js 图均由已有几何或 placement 生成，不能反向证明成员身份、未见侧后面或 way assignment。"
+    }
+  },
+  "lineageAudit": {
+    "acceptedMassingV3": {
+      "glbSha256": "ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c",
+      "historicalGlbBlobCount": 1,
+      "historicalGeneratorBlobCount": 1,
+      "nodes": 9,
+      "meshes": 9,
+      "triangles": 134,
+      "images": 0,
+      "memberIdentity": "unknown-house-number"
+    },
+    "legacyHero": {
+      "glbSha256": "0a7168e6104d39b808c096a390a14d1eb1690e49bef165193829517b022cb295",
+      "historicalGlbBlobCount": 1,
+      "historicalBlendBlobCount": 1,
+      "historicalRelevantGeneratorFunctionVersionCount": 1,
+      "relevantGeneratorFunctionSha256": "da16483f64f9e319131784d0471c8e8ae021a8316964271a14f63e3da15f9806",
+      "authoredMemberCount": 4,
+      "acceptedMassingMemberCount": 9,
+      "acceptedMassingShaRecorded": false,
+      "sameFootprint": false
+    },
+    "recoveryMassing": {
+      "glbSha256": "407cde33aa13dfad09b29f6ae23711aa5f86ea046a06adebe116eac2218d667d",
+      "proxyMethod": "voxel-remesh-current-hero",
+      "sourceHeroSha256": "0a7168e6104d39b808c096a390a14d1eb1690e49bef165193829517b022cb295",
+      "acceptedMassingSource": false,
+      "status": "rejected-as-hero-lineage-rescue"
+    },
+    "result": "blocked-no-historical-build-derived-from-accepted-nine-way-massing"
+  },
+  "evidenceClassification": {
+    "observed": [
+      "两个不同时间的实拍均只从新华路沿 compound 入口轴线向弄内观察。",
+      "211弄1号和2号各有一张官方成员照片，但 accepted 九个 OSM way 均无 addr:housenumber。",
+      "accepted Massing 的九个 GLB node 全部记录 house_number=unknown。",
+      "旧 Hero 是四栋固定排布，Recovery Massing 从该 Hero voxel-remesh，而非从 accepted Massing 派生。"
+    ],
+    "inferred": [
+      "入口照片中的左右体块只能作为 collective threshold 线索，不能分配成211-1或211-2。",
+      "211-1照片显示局部左翼、211-2照片显示正面斜视，但都不足以闭合完整侧后结构。",
+      "旧329代表图与211-2显示同一成员的判断不授予本轮跨资产使用权。"
+    ],
+    "unknown": [
+      "211-1与211-2分别对应九个 accepted way 中的哪一个。",
+      "九个 footprint 的真实门牌、成员数量和入口侧分工。",
+      "211-1和211-2完整侧面、背面、roof-back、朝向与相对 compound 入口位置。",
+      "任何可从 accepted Massing 回放到完整 Hero 的确定性 same-member source lineage。"
+    ]
+  },
+  "minimumEvidenceGap": {
+    "status": "blocked",
+    "required": [
+      "至少一份授权 site plan、survey、清晰可定向门牌总平或用户确认布局，把211-1或211-2明确绑定到九个 accepted OSM way 中的具体一个。",
+      "同一已绑定 member 的至少一个独立侧向/斜后实拍，闭合进深、侧墙、完整 roof-back 和背面关系。",
+      "记录该 member 的观察方向、入口方向、ground datum，以及照片事实与推断边界。",
+      "新 Hero build record 必须记录 derivedFrom accepted Massing SHA ab05b4ec，并保持同 member、footprint、origin、front、scale 和 collision semantics。"
+    ],
+    "notSufficient": [
+      "同一入口轴线的季节或裁切变化",
+      "只有成员号码但没有 accepted way assignment 的正面照片",
+      "旧329代表图或本轮未审查的329/XHS素材",
+      "legacy Hero、Recovery Massing、MCP1 或 Three.js 生成图",
+      "只有 compound footprint 而没有 member identity"
+    ]
+  },
+  "disposition": {
+    "frontEntranceEvidenceRetained": true,
+    "acceptedMassingRetained": true,
+    "sameMemberDepthBlockerReleased": false,
+    "heroLineageBlockerReleased": false,
+    "mcp2Authorized": false,
+    "identityAuthorized": false,
+    "buildingComplete": false,
+    "nextGate": "obtain-same-member-way-assignment-and-complete-side-rear-evidence",
+    "publicMutation": "not-authorized"
+  },
+  "validation": {
+    "scopedTest": "tests/test_xinhua_villas_211_local_same_member_evidence_rescue.test.mjs",
+    "networkUsed": false,
+    "browserUsed": false,
+    "xiaohongshuInspected": false,
+    "blenderUsed": false,
+    "modelRebuilt": false,
+    "sharedFilesChanged": false
+  }
+}
