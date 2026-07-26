@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 2,
+  "mode": "remaining-building-fast-mode",
+  "scopeCount": 10,
+  "maxParallelBuildings": 3,
+  "sharedTests": [
+    "tests/test_building_scope_hold.test.mjs",
+    "tests/test_blender_workflow_docs.test.mjs"
+  ],
+  "completedBuildingIds": [
+    "film-art-center",
+    "one-step-garden",
+    "house-315",
+    "villa-le-bec",
+    "hudec-memorial",
+    "xinhua-pocket-park",
+    "xingfuli-center",
+    "sun-ke-villa"
+  ],
+  "holdAssetIds": [
+    "plane-tree",
+    "campus-tree",
+    "huashan-tree",
+    "lane-lamp",
+    "cantilever-umbrella",
+    "outdoor-dining",
+    "slatted-bench",
+    "street-planter",
+    "stone-bollard",
+    "mixed-paving",
+    "ground-cover",
+    "navy-club-pool",
+    "trash-bin"
+  ],
+  "buildings": [
+    {
+      "id": "shanghai-cinema",
+      "label": "上海影城",
+      "tests": [
+        "tests/test_xinhua_road_models.test.mjs"
+      ],
+      "glbs": [
+        "public/models/xinhua-road/shanghai-cinema.glb",
+        "public/models/xinhua-road/shanghai-cinema-hybrid-identity.glb"
+      ],
+      "runtimeRoutes": [
+        "/?start=cinema&cameraQa=1&qaAutoStart=1"
+      ]
+    },
+    {
+      "id": "xinhua-villas-211",
+      "label": "新华别墅·211弄",
+      "tests": [
+        "tests/test_model_detail_upgrade.test.mjs",
+        "tests/test_xinhua_road_models.test.mjs"
+      ],
+      "glbs": [
+        "public/models/xinhua-road/xinhua-villas-211.glb"
+      ],
+      "runtimeRoutes": [
+        "/?start=villas&cameraQa=1&qaAutoStart=1"
+      ]
+    },
+    {
+      "id": "xinhua-villas-329",
+      "label": "新华别墅·329弄",
+      "tests": [
+        "tests/test_model_detail_upgrade.test.mjs",
+        "tests/test_xinhua_road_models.test.mjs"
+      ],
+      "glbs": [
+        "public/models/xinhua-road/xinhua-villas-329.glb"
+      ],
+      "runtimeRoutes": [
+        "/?start=villas329&cameraQa=1&qaAutoStart=1"
+      ]
+    },
+    {
+      "id": "shanghai-orchestra",
+      "label": "上海民族乐团",
+      "tests": [
+        "tests/test_xinhua_road_models.test.mjs"
+      ],
+      "glbs": [
+        "public/models/xinhua-road/shanghai-orchestra.glb"
+      ],
+      "runtimeRoutes": [
+        "/?start=orchestra&cameraQa=1&qaAutoStart=1"
+      ]
+    },
+    {
+      "id": "xinhua-community-center",
+      "label": "新华·社区营造中心",
+      "tests": [
+        "tests/test_requested_poi_models.test.mjs"
+      ],
+      "glbs": [
+        "public/models/requested-pois/xinhua-community-center.glb"
+      ],
+      "runtimeRoutes": [
+        "/?start=community-center&cameraQa=1&qaAutoStart=1"
+      ]
+    },
+    {
+      "id": "debi-fahua-525",
+      "label": "德必法华525",
+      "tests": [
+        "tests/test_requested_poi_models.test.mjs"
+      ],
+      "glbs": [
+        "public/models/requested-pois/debi-fahua-525.glb"
+      ],
+      "runtimeRoutes": [
+        "/?start=fahua525&cameraQa=1&qaAutoStart=1"
+      ]
+    },
+    {
+      "id": "fahua-heritage",
+      "label": "法华遗韵",
+      "tests": [
+        "tests/test_requested_poi_models.test.mjs",
+        "tests/test_xinhua_road_models.test.mjs"
+      ],
+      "glbs": [
+        "public/models/requested-pois/fahua-heritage.glb"
+      ],
+      "runtimeRoutes": [
+        "/?start=fahua-heritage&cameraQa=1&qaAutoStart=1"
+      ]
+    },
+    {
+      "id": "fics-xinhua-365",
+      "label": "FICS新华365",
+      "tests": [
+        "tests/test_requested_poi_models.test.mjs",
+        "tests/test_xinhua_road_models.test.mjs"
+      ],
+      "glbs": [
+        "public/models/requested-pois/fics-xinhua-365.glb"
+      ],
+      "runtimeRoutes": [
+        "/?start=fics365&cameraQa=1&qaAutoStart=1"
+      ]
+    },
+    {
+      "id": "xingfuli-west",
+      "label": "幸福里·西区",
+      "tests": [
+        "tests/test_xingfuli_models.test.mjs"
+      ],
+      "glbs": [
+        "public/models/xingfuli/xingfuli-west.glb"
+      ],
+      "runtimeRoutes": [
+        "/?start=xingfuli&cameraQa=1&qaAutoStart=1"
+      ]
+    },
+    {
+      "id": "xingfuli-east",
+      "label": "幸福里·东区",
+      "tests": [
+        "tests/test_xingfuli_models.test.mjs"
+      ],
+      "glbs": [
+        "public/models/xingfuli/xingfuli-east.glb"
+      ],
+      "runtimeRoutes": [
+        "/?start=xingfuli-entrance-detail&cameraQa=1&qaAutoStart=1"
+      ]
+    }
+  ]
+}

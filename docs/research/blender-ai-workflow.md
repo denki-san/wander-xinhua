@@ -249,6 +249,25 @@ MCP 不可用时，使用相同固定机位的 Headless Blender 渲染作为降�
 
 结构审计只证明容器与策略合规，不证明视觉正确。
 
+#### Blender → GLTF → Three.js 坐标轴合同
+
+道路绑定建筑不能只在 Blender 视图或 GLB bounds 中判断朝向。生成器、Blender
+导出、GLTF 原始坐标、共享 renderer 变换和 registry placement 必须作为一条完整
+坐标链验证：
+
+`Blender source → raw GLTF → renderer primitive transform → registry world`
+
+测试必须先读取该资产实际使用的 renderer primitive transform，不能假定所有 loader
+都采用同一坐标约定。当前道路建筑使用的共享 `GlbModel` 会对 Z 轴执行一次固定
+翻转；只有这条共享路径适用 `Blender Y = binding runtime Z`，生成器不得为了迎合
+最终画面提前重复翻转 Y/Z。自定义 loader 或没有 Z 翻转的资产必须按其真实 transform
+重新推导，不得套用道路建筑合同。
+
+对带入口、门廊、塔楼等方向性身份构件的建筑，专项测试必须读取该构件 primitive
+的 POSITION accessor 中心，依次应用 renderer 变换和 registry placement，最后
+验证它位于 `entranceCenterWorld` 或其他命名道路锚点的正确一侧。只检查 footprint、
+整体 AABB、Blender 截图或未经过 renderer 的 local-to-world 公式都不足以证明朝向。
+
 ### C. Three.js 运行时验收
 
 使用资产对应的 `?start=` 入口：
