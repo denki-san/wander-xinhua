@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "researchId": "pascal-editor-case-study-2026-07-26",
+  "capturedAt": "2026-07-26",
+  "subject": "Pascal Editor official landing page and public Wawa House viewer",
+  "sources": [
+    {
+      "url": "https://editor.pascal.app/",
+      "kind": "official-landing-page",
+      "observed": [
+        "Create, Edit, Present three-stage product narrative is visible.",
+        "Pascal Capture shows a side-by-side interior before/after comparison.",
+        "Asset library shows a category panel and a grouped furniture catalog."
+      ],
+      "artifacts": [
+        "test_artifacts/test_pascal_editor_home_2026-07-26.png",
+        "test_artifacts/test_pascal_editor_asset_library_2026-07-26.png"
+      ]
+    },
+    {
+      "url": "https://editor.pascal.app/viewer/project_hrY3qVVq16yo5Out?returnTo=%2F",
+      "kind": "public-community-viewer",
+      "observed": [
+        "The viewer remained on a loading screen during this capture.",
+        "Browser console reported a ChunkLoadError for a Next.js chunk."
+      ],
+      "unknown": [
+        "Whether this is a temporary CDN or cache failure, or a current production release problem.",
+        "Actual Wawa House runtime visual quality and first-person interaction."
+      ],
+      "artifacts": [
+        "test_artifacts/test_pascal_editor_wawa_viewer_chunk_error_2026-07-26.png"
+      ]
+    },
+    {
+      "url": "https://github.com/pascalorg/editor",
+      "kind": "source-code",
+      "commit": "daa1f3e99bd5656168b34affc9e70f5c024e3d7b",
+      "observed": [
+        "Registry, scene registry, spatial-grid and versioned plugin contracts were inspected."
+      ]
+    }
+  ],
+  "wikiMarkdown": "docs/knowledge-sources/pascal-editor-case-study-and-xinhua-assessment-2026-07-26.md",
+  "wikiPolicy": "Only the Markdown analysis may enter Threejs-3d-research; this JSON and screenshots remain dynamic evidence."
+}

@@ -1197,3 +1197,28 @@ Messenger 式移动触控不是“永久隐藏摇杆、移动时显示跳跃按�
 - Tags: webgl, street-furniture, production-integration, visual-acceptance, correction
 
 ---
+## [LRN-20260726-003] best_practice
+
+**Logged**: 2026-07-26T23:28:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+活跃 worktree 在测试期间变脏时，不能仅凭时间重合把改动归因于测试写入。
+
+### Details
+`codex/integrate-18-buildings` 在完整测试期间出现证据和测试文件改动。初步判断误认为
+测试会自我改写；随后搜索写入调用、核对文件时间和提交历史，确认另一个建筑证据任务仍在
+同一 worktree 写入并于 `6e30bf9` 收口。测试本身 778/778 通过。
+
+### Suggested Action
+判断测试污染前，必须同时检查写入调用、文件 mtime、运行进程、测试前后 HEAD 和并发提交；
+只有排除并发编辑后，才能把脏状态归因于测试。
+
+### Metadata
+- Source: error
+- Related Files: docs/research/exact-18-building-status.json, tests/test_exact_18_building_status.test.mjs
+- Tags: git, worktree, concurrency, tests, attribution
+
+---

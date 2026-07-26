@@ -32,6 +32,70 @@ Error: listen EPERM: operation not permitted 127.0.0.1:4317
 
 ---
 
+## [ERR-20260726-A25] sandbox_blocked_worktree_metadata_cleanup
+
+**Logged**: 2026-07-26T23:58:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+临时 worktree 目录已删除，但沙箱阻止 Git 删除主仓库 `.git/worktrees` 元数据。
+
+### Error
+```text
+error: failed to delete '.git/worktrees/test_asset_library_source': Operation not permitted
+```
+
+### Context
+- 临时 checkout 用于读取资产库迁移源。
+- 分支和提交需要保留，只清理已经不存在的 worktree 登记。
+
+### Suggested Fix
+确认临时目录已不存在后，以授权方式运行 `git worktree prune --verbose`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git/worktrees
+
+### Resolution
+- **Resolved**: 2026-07-26T23:58:00+08:00
+- **Notes**: 已 prune 失效登记，资产库分支和提交均保留。
+
+---
+
+## [ERR-20260726-A24] sites_initializer_missing_executable_bit
+
+**Logged**: 2026-07-26T23:40:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: config
+
+### Summary
+Sites 初始化入口脚本缺少可执行权限，直接调用返回 permission denied。
+
+### Error
+```text
+zsh:1: permission denied: /Users/lei/.codex/plugins/cache/openai-bundled/sites/0.1.31/scripts/init-site.sh
+```
+
+### Context
+- 尝试在临时目录初始化独立资产库网站。
+- 脚本内容可读，且可由 shell 解释执行。
+
+### Suggested Fix
+不修改插件缓存权限，使用 `bash <script> <target>` 调用。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-26T23:40:00+08:00
+- **Notes**: 改由 bash 调用同一初始化脚本。
+
+---
+
 # [ERR-20260726-022] blender_headless_sandbox_crash
 
 **Logged**: 2026-07-26
@@ -6722,7 +6786,7 @@ Vite 类型声明。
 ## [ERR-20260725-019] git_cherry_pick_worktree_index_lock_sandbox
 
 **Logged**: 2026-07-25T19:05:00+08:00
-**Priority**: low
+**Priority**: medium
 **Status**: resolved
 **Area**: tooling
 
@@ -6752,7 +6816,7 @@ Worktree 元数据或手工复制整棵提交。
 
 ### Resolution
 - **Resolved**: 2026-07-25T19:05:00+08:00
-- **Notes**: 保留失败现场无冲突状态，改用同一条明确提交的受控提权重试。
+- **Notes**: 保留失败现场无冲突状态，改用同一条明确提交的受控提权重试。2026-07-27 在同一 `integration-18-buildings` Worktree 精确暂存幸福里证据审计时再次复现；继续保持相同文件清单并使用受控 Git 元数据写权限。
 
 ---
 ## [ERR-20260725-020] build_and_rendered_tests_parallel_race
@@ -7555,6 +7619,8 @@ exit code 126
 ### Error
 ```text
 rm -f style commands are not permitted. Use a safer approach
+
+The automatic permission approval review did not finish before its deadline.
 ```
 
 ### Context
@@ -7562,7 +7628,7 @@ rm -f style commands are not permitted. Use a safer approach
 - 随后计划删除已被新回滚版本替代的单一旧备份与本次临时压缩包。
 
 ### Suggested Fix
-将删除动作拆成已核验的单目标远端操作与独立本地临时工作区回收，不将其与其他命令混合。
+将删除动作拆成已核验的单目标远端操作与独立本地临时工作区回收，不将其与其他命令混合。大量 `git worktree remove` 也应拆成较小的明确批次，避免审批审查超时。
 
 ### Metadata
 - Reproducible: yes
@@ -7650,11 +7716,15 @@ zsh: unmatched '
 ### Error
 ```text
 curl: (6) Could not resolve host: xinhua.denkisan.me
+
+ssh: Could not resolve hostname github.com
 ```
 
 ### Context
 - 首次 `curl -sSIL` 已确认首页、Rain GLB 和街区白模均返回 HTTP 200。
 - 随后的只读下载测速在不到一分钟内全部因 DNS 解析失败结束。
+- 后续一次发布复核中，GitHub SSH 与公网域名同时解析失败，说明应先区分本机
+  DNS 波动与远端 Git/站点故障。
 - 本地 1.6 Mbps 弱网探针已独立稳定复现人物与建筑升级缓慢，因此不能用这次 DNS 波动替代前端加载架构诊断。
 
 ### Suggested Fix
@@ -7675,11 +7745,16 @@ curl: (6) Could not resolve host: xinhua.denkisan.me
 **Area**: infra
 
 ### Summary
-worktree 只读盘点脚本误用 zsh 保留只读变量 `status`，导致循环在读取首个 worktree 前退出。
+worktree 只读盘点脚本误用 zsh 特殊变量并错误假定多行标量会自动拆分参数。
 
 ### Error
 ```text
 zsh:2: read-only variable: status
+
+zsh:8: command not found: git
+zsh:4: command not found: awk
+
+fatal: failed to stat '<multiple newline-separated SHAs>': File name too long
 ```
 
 ### Context
@@ -7687,7 +7762,9 @@ zsh:2: read-only variable: status
 - zsh 将 `status` 用作上一条命令退出码的只读特殊参数。
 
 ### Suggested Fix
-跨 shell 脚本避免使用 `status` 作为变量名，改用语义更明确的 `worktree_state` 或 `status_output`。
+跨 shell 脚本避免使用 `status` 和 `path` 作为变量名，改用语义更明确的
+`worktree_state`、`status_output` 或 `wt_path`。zsh 中处理多行 SHA 必须使用
+`while read` 或显式 `${(f)value}`，不能依赖未加说明的标量分词。
 
 ### Metadata
 - Reproducible: yes
@@ -7695,7 +7772,7 @@ zsh:2: read-only variable: status
 
 ### Resolution
 - **Resolved**: 2026-07-26T23:00:00+08:00
-- **Notes**: 已将临时变量改名为 `status_output` 后重跑。
+- **Notes**: 已将临时变量分别改名为 `status_output` 和 `wt_path` 后重跑。
 
 ---
 
@@ -7732,5 +7809,40 @@ checksum、inode/link count 和 `du` 物理占用。
 ### Resolution
 - **Resolved**: 2026-07-26T23:25:00+08:00
 - **Notes**: 删除未启用的目标副本后用 `rsync -aH` 重建，并重新执行 checksum 与物理占用验收。
+
+---
+
+## [ERR-20260726-024] archive_dynamic_evidence_incomplete_snapshot
+
+**Logged**: 2026-07-26T23:58:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: infra
+
+### Summary
+动态证据归档在创建快照目录并复制部分内容后，没有生成 `manifest.json` 和 `SHA256SUMS`。
+
+### Error
+```text
+snapshot exists: /Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-5383f2a
+manifest.json: No such file or directory
+```
+
+### Context
+- 执行 `./scripts/archive_dynamic_evidence.sh` 后，目标目录约 594 MB，包含本轮 Pascal 截图与证据 JSON。
+- 快照根目录缺少完成标志与全量 checksum，不能作为不可变证据或 Wiki 回溯依据。
+- 后续检查命令曾误用 zsh 的特殊变量 `path`，导致同一命令内的 `stat`、`find` 和 `wc` 无法解析；该检查错误未修改归档内容。
+
+### Suggested Fix
+先用不覆盖方式确认每个复制阶段是否完成并定位脚本退出点；只有在文件集稳定后，才生成 SHA256SUMS、manifest 并执行全量校验。若必须重建，先明确处理该未完成目录的保留或恢复策略，不能将其当作有效快照。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: scripts/archive_dynamic_evidence.sh, docs/research/pascal-editor-case-study-evidence-2026-07-26.json
+- See Also: ERR-20260726-S02, ERR-20260726-023
+
+### Resolution
+- **Resolved**: 2026-07-26T23:59:00+08:00
+- **Notes**: 复查时归档脚本已完成落盘；`manifest.json` 与 `SHA256SUMS` 出现，1210 个文件的 `shasum -a 256 -c` 全部通过。初次检查发生在外置卷写入尚未稳定可见的窗口，后续检查避免使用 zsh 特殊变量名。
 
 ---
