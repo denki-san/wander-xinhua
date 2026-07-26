@@ -53,6 +53,211 @@ function assertRootTransformNormalized(glb, label) {
   assert.equal(glb.nodes[0].scale, undefined, `${label} 根节点不得缩放`);
 }
 
+function finalAuditObstacle(landmark, obstacle, margin) {
+  const cosine = Math.cos(landmark.yaw);
+  const sine = Math.sin(landmark.yaw);
+  const worldX = [];
+  const worldZ = [];
+  for (const localX of [obstacle.minX, obstacle.maxX]) {
+    for (const sourceZ of [obstacle.minZ, obstacle.maxZ]) {
+      const localZ = -sourceZ;
+      worldX.push(
+        landmark.position[0]
+          + landmark.scale * (cosine * localX + sine * localZ),
+      );
+      worldZ.push(
+        landmark.position[1]
+          + landmark.scale * (-sine * localX + cosine * localZ),
+      );
+    }
+  }
+  return {
+    minX: Math.min(...worldX) - margin,
+    maxX: Math.max(...worldX) + margin,
+    minZ: Math.min(...worldZ) - margin,
+    maxZ: Math.max(...worldZ) + margin,
+  };
+}
+
+function finalAuditAabbOverlap(first, second) {
+  const x = Math.min(first.maxX, second.maxX)
+    - Math.max(first.minX, second.minX);
+  const z = Math.min(first.maxZ, second.maxZ)
+    - Math.max(first.minZ, second.minZ);
+  return {
+    intersects: x >= 0 && z >= 0,
+    x,
+    z,
+    area: Math.max(0, x) * Math.max(0, z),
+  };
+}
+
+function assertFinalAuditAabbClose(actual, expected) {
+  for (const key of ["minX", "maxX", "minZ", "maxZ"]) {
+    assert.ok(
+      Math.abs(actual[key] - expected[key]) < 1e-12,
+      `${key} 的浮点序列化差异必须小于 1e-12`,
+    );
+  }
+}
+
+function finalAuditPointHits(point, obstacle, radius) {
+  return point[0] >= obstacle.minX - radius
+    && point[0] <= obstacle.maxX + radius
+    && point[1] >= obstacle.minZ - radius
+    && point[1] <= obstacle.maxZ + radius;
+}
+
+function finalAuditCorners(landmark, bounds = landmark.localBounds) {
+  const cosine = Math.cos(landmark.yaw);
+  const sine = Math.sin(landmark.yaw);
+  return [
+    [bounds.minX, -bounds.minZ],
+    [bounds.maxX, -bounds.minZ],
+    [bounds.maxX, -bounds.maxZ],
+    [bounds.minX, -bounds.maxZ],
+  ].map(([localX, localZ]) => [
+    landmark.position[0]
+      + landmark.scale * (cosine * localX + sine * localZ),
+    landmark.position[1]
+      + landmark.scale * (-sine * localX + cosine * localZ),
+  ]);
+}
+
+function finalAuditOrientation(start, end, point) {
+  return (end[0] - start[0]) * (point[1] - start[1])
+    - (end[1] - start[1]) * (point[0] - start[0]);
+}
+
+function finalAuditPointOnSegment(point, start, end) {
+  return Math.abs(finalAuditOrientation(start, end, point)) <= 1e-9
+    && point[0] >= Math.min(start[0], end[0]) - 1e-9
+    && point[0] <= Math.max(start[0], end[0]) + 1e-9
+    && point[1] >= Math.min(start[1], end[1]) - 1e-9
+    && point[1] <= Math.max(start[1], end[1]) + 1e-9;
+}
+
+function finalAuditPointToSegmentDistance(point, start, end) {
+  const dx = end[0] - start[0];
+  const dz = end[1] - start[1];
+  const ratio = Math.max(0, Math.min(1, (
+    (point[0] - start[0]) * dx + (point[1] - start[1]) * dz
+  ) / (dx * dx + dz * dz)));
+  return Math.hypot(
+    point[0] - start[0] - ratio * dx,
+    point[1] - start[1] - ratio * dz,
+  );
+}
+
+function finalAuditSegmentsIntersect(startA, endA, startB, endB) {
+  const aStart = finalAuditOrientation(startA, endA, startB);
+  const aEnd = finalAuditOrientation(startA, endA, endB);
+  const bStart = finalAuditOrientation(startB, endB, startA);
+  const bEnd = finalAuditOrientation(startB, endB, endA);
+  return aStart * aEnd < 0 && bStart * bEnd < 0
+    || finalAuditPointOnSegment(startB, startA, endA)
+    || finalAuditPointOnSegment(endB, startA, endA)
+    || finalAuditPointOnSegment(startA, startB, endB)
+    || finalAuditPointOnSegment(endA, startB, endB);
+}
+
+function finalAuditSegmentDistance(startA, endA, startB, endB) {
+  if (finalAuditSegmentsIntersect(startA, endA, startB, endB)) return 0;
+  return Math.min(
+    finalAuditPointToSegmentDistance(startA, startB, endB),
+    finalAuditPointToSegmentDistance(endA, startB, endB),
+    finalAuditPointToSegmentDistance(startB, startA, endA),
+    finalAuditPointToSegmentDistance(endB, startA, endA),
+  );
+}
+
+function finalAuditPolygonToPolylineDistance(polygon, polyline) {
+  let distance = Number.POSITIVE_INFINITY;
+  for (let edge = 0; edge < polygon.length; edge += 1) {
+    for (let segment = 1; segment < polyline.length; segment += 1) {
+      distance = Math.min(distance, finalAuditSegmentDistance(
+        polygon[edge],
+        polygon[(edge + 1) % polygon.length],
+        polyline[segment - 1],
+        polyline[segment],
+      ));
+    }
+  }
+  return distance;
+}
+
+function finalAuditProjectOsmPoint(point, mapData) {
+  const [centerLon, centerLat] = mapData.meta.centerWgs84;
+  return [
+    (point.lon - centerLon)
+      * 111_320 * Math.cos(centerLat * Math.PI / 180)
+      / mapData.meta.metersPerSceneUnit,
+    -(point.lat - centerLat)
+      * 110_540 / mapData.meta.metersPerSceneUnit,
+  ];
+}
+
+function finalAuditPolygonCentroid(points) {
+  let twiceArea = 0;
+  let x = 0;
+  let z = 0;
+  for (let index = 0; index < points.length; index += 1) {
+    const [startX, startZ] = points[index];
+    const [endX, endZ] = points[(index + 1) % points.length];
+    const cross = startX * endZ - endX * startZ;
+    twiceArea += cross;
+    x += (startX + endX) * cross;
+    z += (startZ + endZ) * cross;
+  }
+  return [x / (3 * twiceArea), z / (3 * twiceArea)];
+}
+
+function finalAuditOrientedOverlap(
+  referenceLandmark,
+  otherLandmark,
+  referenceBounds,
+  otherBounds,
+  perAssetMargin = 0,
+) {
+  assert.equal(referenceLandmark.yaw, otherLandmark.yaw);
+  assert.equal(referenceLandmark.scale, 1);
+  assert.equal(otherLandmark.scale, 1);
+  const cosine = Math.cos(referenceLandmark.yaw);
+  const sine = Math.sin(referenceLandmark.yaw);
+  const dx = otherLandmark.position[0] - referenceLandmark.position[0];
+  const dz = otherLandmark.position[1] - referenceLandmark.position[1];
+  const offsetX = cosine * dx - sine * dz;
+  const offsetZ = -sine * dx - cosine * dz;
+  const otherInReference = {
+    minX: offsetX + otherBounds.minX - perAssetMargin,
+    maxX: offsetX + otherBounds.maxX + perAssetMargin,
+    minZ: offsetZ + otherBounds.minZ - perAssetMargin,
+    maxZ: offsetZ + otherBounds.maxZ + perAssetMargin,
+  };
+  const x = Math.min(
+    referenceBounds.maxX + perAssetMargin,
+    otherInReference.maxX,
+  ) - Math.max(
+    referenceBounds.minX - perAssetMargin,
+    otherInReference.minX,
+  );
+  const z = Math.min(
+    referenceBounds.maxZ + perAssetMargin,
+    otherInReference.maxZ,
+  ) - Math.max(
+    referenceBounds.minZ - perAssetMargin,
+    otherInReference.minZ,
+  );
+  return {
+    intersects: x >= 0 && z >= 0,
+    x,
+    z,
+    area: Math.max(0, x) * Math.max(0, z),
+    separationX: Math.max(0, -x),
+    separationZ: Math.max(0, -z),
+  };
+}
+
 test("上海影城当前正式 Massing 二进制、build record 与预算一致", async () => {
   const [record, massing] = await Promise.all([
     readJson("docs/research/build-records/shanghai-cinema-massing.json"),
@@ -375,4 +580,441 @@ test("上海影城运行时地图证据与 MCP3 候选锁定当前三档路径�
   assert.equal(mcp3.humanScaleProxy.heightSceneUnits, 2 / 3);
   assert.match(mcp3.tiers.identity.warning, /完整 Identity tier/);
   assert.deepEqual(mcp3.fixedViews, SHANGHAI_CINEMA_MCP3_QA_VIEWS);
+});
+
+test("上海影城最终审计拆分地图锚点、AABB 碰撞壳与 Hero 生成器漂移 blocker", async () => {
+  const [
+    audit,
+    landmarkData,
+    mapData,
+    buildings,
+    heroRecord,
+    lineage,
+    runtimeQa,
+    integrationQa,
+    hero,
+    identity,
+    massing,
+  ] = await Promise.all([
+    readJson("docs/research/shanghai-cinema-final-audit-2026-07-26.json"),
+    readJson("app/scene/xinhua-road-landmarks-data.json"),
+    readJson("app/scene/xinhua-map-data.json"),
+    readJson("docs/research/data/xinhua-buildings-osm-20260725-074802.json"),
+    readJson("docs/research/build-records/shanghai-cinema.json"),
+    readJson("docs/research/shanghai-cinema-tier-lineage.json"),
+    readJson("test_artifacts/test_shanghai-cinema_three-tier_runtime_qa.json"),
+    readJson("docs/research/shanghai-cinema-integration-runtime-qa.json"),
+    parseGlb("public/models/xinhua-road/shanghai-cinema.glb"),
+    parseGlb("public/models/xinhua-road/shanghai-cinema-hybrid-identity.glb"),
+    parseGlb("public/models/xinhua-road/shanghai-cinema-massing.glb"),
+  ]);
+
+  assert.equal(
+    audit.integrationBase,
+    "d2c0f23ef05098563d9ed81fba3eac8bf706c978",
+  );
+  assert.equal(
+    audit.verdict.status,
+    "blocked-map-binding-collision-shell-and-hero-generator-drift",
+  );
+  assert.equal(audit.verdict.eligibleForFinalComplete, false);
+  assert.deepEqual(
+    audit.verdict.blockers.map(({ id }) => id),
+    [
+      "map-origin-and-footprint-anchor",
+      "runtime-aabb-neighbor-collision",
+      "hero-generator-source-drift",
+    ],
+  );
+  assert.equal(audit.scope.browserUsed, false);
+  assert.equal(audit.scope.blenderRebuildPerformed, false);
+  assert.equal(audit.scope.recoveryQualifiedStageRedone, false);
+
+  for (const item of [
+    audit.evidence.manifest,
+    audit.evidence.brief,
+    audit.evidence.viewCoverage.canonical,
+    audit.evidence.viewCoverage.rightDepth,
+    audit.evidence.viewCoverage.leftDepth,
+    audit.evidence.viewCoverage.entranceIdentity,
+    audit.assets.hero.blend,
+    audit.assets.hero.glb,
+    audit.assets.hero.buildRecord,
+    audit.assets.identity.generator,
+    audit.assets.identity.blend,
+    audit.assets.identity.glb,
+    audit.assets.identity.runtimeRecipe,
+    audit.assets.identity.buildRecord,
+    audit.assets.massing.generator,
+    audit.assets.massing.blend,
+    audit.assets.massing.glb,
+    audit.assets.massing.buildRecord,
+    audit.lineage.record,
+    audit.blenderMcpGates.record,
+    audit.mapAudit.registrySource,
+    audit.mapAudit.productionRoadSource,
+    audit.mapAudit.osmBuildingSource,
+    audit.mapAudit.existingCandidate.record,
+    audit.threeJsRuntime.tierRuntimeRecord,
+    audit.threeJsRuntime.publicIntegrationRecord,
+  ]) {
+    assert.equal(
+      await sha256(item.path),
+      item.sha256,
+      `${item.path} 必须与最终审计指纹一致`,
+    );
+  }
+
+  assert.equal(hero.buffer.length, audit.assets.hero.glb.bytes);
+  assert.equal(identity.buffer.length, audit.assets.identity.glb.bytes);
+  assert.equal(massing.buffer.length, audit.assets.massing.glb.bytes);
+  assert.equal(
+    massing.json.nodes[0].extras.derived_from_hero_sha256,
+    audit.assets.hero.glb.sha256,
+  );
+  assert.equal(
+    massing.json.nodes[0].extras.derived_from_identity_sha256,
+    audit.assets.identity.glb.sha256,
+  );
+  assert.equal(
+    lineage.identity.derivedFromHero.recordedHeroGlbSha256,
+    audit.assets.hero.glb.sha256,
+  );
+  assert.equal(
+    audit.lineage.directBinaryHeroToIdentity,
+    "pass-exact-sha",
+  );
+  assert.equal(
+    audit.lineage.directBinaryHeroAndIdentityToMassing,
+    "pass-exact-glb-extras",
+  );
+  assert.equal(
+    heroRecord.generator.sha256,
+    undefined,
+    "旧 Hero build record 没有冻结生成器 SHA，不能补写成已证明",
+  );
+  assert.equal(audit.assets.hero.buildRecord.generatorShaFieldPresent, false);
+  assert.equal(
+    await sha256(audit.assets.hero.generator.path),
+    audit.assets.hero.generator.currentSha256,
+  );
+  assert.notEqual(
+    audit.assets.hero.generator.currentSha256,
+    audit.assets.hero.generator.recordedSha256,
+  );
+  assert.equal(
+    lineage.hero.generatorSha256,
+    audit.assets.hero.generator.recordedSha256,
+  );
+  const currentHeroGenerator = await readFile(
+    new URL(audit.assets.hero.generator.path, root),
+    "utf8",
+  );
+  assert.match(currentHeroGenerator, /def remove_degenerate_faces\(/);
+  assert.match(currentHeroGenerator, /export_texcoords=export_texcoords/);
+  assert.equal(
+    audit.lineage.deterministicHeroSource,
+    "blocked-current-generator-sha-and-export-policy-drift",
+  );
+
+  const cinema = landmarkData.landmarks.find(
+    ({ id }) => id === "shanghai-cinema",
+  );
+  const film = landmarkData.landmarks.find(
+    ({ id }) => id === "film-art-center",
+  );
+  assert.ok(cinema && film);
+  assert.deepEqual(cinema.position, audit.mapAudit.placement.position);
+  assert.equal(cinema.yaw, audit.mapAudit.placement.yaw);
+  assert.equal(cinema.scale, audit.mapAudit.placement.scale);
+
+  const osmCinema = buildings.elements.find(
+    ({ type, id }) => (
+      type === "way" && id === audit.mapAudit.osmBuildingSource.wayId
+    ),
+  );
+  assert.ok(osmCinema?.geometry);
+  const osmPolygon = osmCinema.geometry.slice(0, -1).map(
+    (point) => finalAuditProjectOsmPoint(point, mapData),
+  );
+  const osmCentroid = finalAuditPolygonCentroid(osmPolygon);
+  for (let axis = 0; axis < 2; axis += 1) {
+    assert.ok(
+      Math.abs(
+        osmCentroid[axis]
+          - audit.mapAudit.osmComplexCentroid.position[axis]
+      ) < 1e-9,
+    );
+  }
+  const originDistance = Math.hypot(
+    cinema.position[0] - osmCentroid[0],
+    cinema.position[1] - osmCentroid[1],
+  );
+  assert.ok(
+    Math.abs(
+      originDistance
+        - audit.mapAudit.osmComplexCentroid.currentOriginDistanceSceneUnits
+    ) < 1e-9,
+  );
+
+  const cinemaCorners = finalAuditCorners(cinema);
+  const roadAudits = [
+    audit.mapAudit.roadRelationships.xinhuaRoad,
+    audit.mapAudit.roadRelationships.panyuRoad,
+  ];
+  for (const roadAudit of roadAudits) {
+    const road = mapData.roads.find(
+      ({ osmWayId }) => osmWayId === roadAudit.osmWayId,
+    );
+    assert.ok(road);
+    const visibleCenterlineDistance = finalAuditPolygonToPolylineDistance(
+      cinemaCorners,
+      road.points,
+    );
+    const osmCenterlineDistance = finalAuditPolygonToPolylineDistance(
+      osmPolygon,
+      road.points,
+    );
+    assert.ok(
+      Math.abs(
+        visibleCenterlineDistance
+          - roadAudit.currentVisibleBoundsCenterlineDistance
+      ) < 1e-9,
+    );
+    assert.ok(
+      Math.abs(
+        osmCenterlineDistance
+          - roadAudit.osmComplexBoundaryCenterlineDistance
+      ) < 1e-9,
+    );
+    assert.ok(
+      Math.abs(
+        visibleCenterlineDistance - roadAudit.renderedWidth / 2
+          - roadAudit.currentVisibleBoundsAsphaltEdgeClearance
+      ) < 1e-9,
+    );
+    assert.ok(
+      Math.abs(
+        osmCenterlineDistance - roadAudit.renderedWidth / 2
+          - roadAudit.osmComplexBoundaryAsphaltEdgeClearance
+      ) < 1e-9,
+    );
+  }
+  assert.ok(
+    audit.mapAudit.roadRelationships.xinhuaRoad
+      .modelFartherThanOsmBoundarySceneUnits > 9,
+  );
+  assert.ok(
+    audit.mapAudit.roadRelationships.panyuRoad
+      .currentVisibleBoundsAsphaltEdgeClearance
+      < audit.mapAudit.roadRelationships.panyuRoad.minimumRequiredClearance,
+  );
+  assert.equal(
+    finalAuditPolygonToPolylineDistance(
+      cinemaCorners,
+      [...osmPolygon, osmPolygon[0]],
+    ),
+    0,
+  );
+
+  const candidate = {
+    ...cinema,
+    position: audit.mapAudit.existingCandidate.position,
+  };
+  const candidateCorners = finalAuditCorners(candidate);
+  for (const [roadName, expectedClearance] of [
+    [
+      "xinhuaRoad",
+      audit.mapAudit.existingCandidate.currentProductionRoadData
+        .xinhuaRoadAsphaltEdgeClearance,
+    ],
+    [
+      "panyuRoad",
+      audit.mapAudit.existingCandidate.currentProductionRoadData
+        .panyuRoadAsphaltEdgeClearance,
+    ],
+  ]) {
+    const roadAudit = audit.mapAudit.roadRelationships[roadName];
+    const road = mapData.roads.find(
+      ({ osmWayId }) => osmWayId === roadAudit.osmWayId,
+    );
+    const clearance = finalAuditPolygonToPolylineDistance(
+      candidateCorners,
+      road.points,
+    ) - roadAudit.renderedWidth / 2;
+    assert.ok(Math.abs(clearance - expectedClearance) < 1e-9);
+  }
+  assert.ok(
+    audit.mapAudit.existingCandidate.currentProductionRoadData
+      .panyuRoadAsphaltEdgeClearance
+      < audit.mapAudit.existingCandidate.currentProductionRoadData
+        .minimumPanyuClearance,
+  );
+  assert.ok(
+    audit.mapAudit.existingCandidate.currentProductionRoadData
+      .xinhuaRoadAsphaltEdgeClearance
+      > audit.mapAudit.roadRelationships.xinhuaRoad
+        .currentVisibleBoundsAsphaltEdgeClearance,
+  );
+
+  const allWorldAabbs = landmarkData.landmarks.flatMap((landmark) => (
+    landmark.localObstacles.map((obstacle, index) => ({
+      assetId: landmark.id,
+      index,
+      bounds: finalAuditObstacle(
+        landmark,
+        obstacle,
+        landmarkData.collisionMargin,
+      ),
+    }))
+  ));
+  const cinemaWorldAabbs = allWorldAabbs.filter(
+    ({ assetId }) => assetId === cinema.id,
+  );
+  const currentAabbOverlaps = [];
+  for (const cinemaObstacle of cinemaWorldAabbs) {
+    for (const otherObstacle of allWorldAabbs) {
+      if (otherObstacle.assetId === cinema.id) continue;
+      const overlap = finalAuditAabbOverlap(
+        cinemaObstacle.bounds,
+        otherObstacle.bounds,
+      );
+      if (overlap.intersects) {
+        currentAabbOverlaps.push({
+          cinemaObstacle,
+          otherObstacle,
+          overlap,
+        });
+      }
+    }
+  }
+  assert.equal(currentAabbOverlaps.length, 1);
+  const [runtimeOverlap] = currentAabbOverlaps;
+  const recordedAabb = audit.mapAudit.collisionDiagnosis.runtimeAabbOverlap;
+  assert.equal(
+    runtimeOverlap.cinemaObstacle.index,
+    recordedAabb.shanghaiCinemaObstacleIndex,
+  );
+  assert.equal(runtimeOverlap.otherObstacle.assetId, "film-art-center");
+  assert.equal(
+    runtimeOverlap.otherObstacle.index,
+    recordedAabb.filmArtCenterObstacleIndex,
+  );
+  for (const key of ["x", "z", "area"]) {
+    assert.ok(
+      Math.abs(
+        runtimeOverlap.overlap[key]
+          - recordedAabb.overlapSceneUnits[key]
+      ) < 1e-12,
+    );
+  }
+  assertFinalAuditAabbClose(
+    runtimeOverlap.cinemaObstacle.bounds,
+    recordedAabb.shanghaiCinemaWorldAabb,
+  );
+  assertFinalAuditAabbClose(
+    runtimeOverlap.otherObstacle.bounds,
+    recordedAabb.filmArtCenterWorldAabb,
+  );
+
+  let orientedSolidIntersections = 0;
+  for (const cinemaObstacle of cinema.localObstacles) {
+    for (const filmObstacle of film.localObstacles) {
+      const overlap = finalAuditOrientedOverlap(
+        cinema,
+        film,
+        cinemaObstacle,
+        filmObstacle,
+        landmarkData.collisionMargin,
+      );
+      if (overlap.intersects) orientedSolidIntersections += 1;
+    }
+  }
+  assert.equal(
+    orientedSolidIntersections,
+    audit.mapAudit.collisionDiagnosis.orientedSolidRectangles
+      .intersectingPairsWithPerAssetMargin,
+  );
+  const orientedPair = finalAuditOrientedOverlap(
+    cinema,
+    film,
+    cinema.localObstacles[recordedAabb.shanghaiCinemaObstacleIndex],
+    film.localObstacles[recordedAabb.filmArtCenterObstacleIndex],
+    landmarkData.collisionMargin,
+  );
+  assert.equal(orientedPair.intersects, false);
+  assert.ok(
+    Math.abs(
+      orientedPair.x
+        - audit.mapAudit.collisionDiagnosis.orientedSolidRectangles
+          .samePairLocalXOverlap
+    ) < 1e-12,
+  );
+  assert.ok(
+    Math.abs(
+      orientedPair.separationZ
+        - audit.mapAudit.collisionDiagnosis.orientedSolidRectangles
+          .samePairLocalZSeparation
+    ) < 1e-12,
+  );
+  const visibleEnvelopeOverlap = finalAuditOrientedOverlap(
+    cinema,
+    film,
+    cinema.localBounds,
+    film.localBounds,
+  );
+  for (const key of ["x", "z", "area"]) {
+    assert.ok(
+      Math.abs(
+        visibleEnvelopeOverlap[key]
+          - audit.mapAudit.collisionDiagnosis
+            .fullVisibleEnvelopeOrientedOverlap[key]
+      ) < 1e-12,
+    );
+  }
+
+  const forwardLength = Math.hypot(...cinema.forward);
+  const cameraPosition = [
+    cinema.start[0] - cinema.forward[0] / forwardLength
+      * audit.mapAudit.startAndCamera.cameraArmSceneUnits,
+    cinema.start[1] - cinema.forward[1] / forwardLength
+      * audit.mapAudit.startAndCamera.cameraArmSceneUnits,
+  ];
+  assert.deepEqual(cameraPosition, audit.mapAudit.startAndCamera.cameraPosition);
+  assert.deepEqual(
+    allWorldAabbs.filter(({ bounds }) => finalAuditPointHits(
+      cinema.start,
+      bounds,
+      audit.mapAudit.startAndCamera.playerRadius,
+    )),
+    [],
+  );
+  assert.deepEqual(
+    allWorldAabbs.filter(({ bounds }) => finalAuditPointHits(
+      cameraPosition,
+      bounds,
+      audit.mapAudit.startAndCamera.cameraRadius,
+    )),
+    [],
+  );
+
+  assert.equal(runtimeQa.status, "passed");
+  assert.equal(integrationQa.status, "passed");
+  assert.notEqual(
+    integrationQa.integration.baseCommit,
+    audit.integrationBase,
+    "旧整合 runtime 记录不得冒充当前 d2c0f23 地图验收",
+  );
+  assert.equal(
+    Object.hasOwn(integrationQa.sharedAssertions, "collisionEvidence"),
+    false,
+  );
+  assert.equal(
+    audit.threeJsRuntime.currentIntegratedMapStatus,
+    "blocked-not-reaccepted",
+  );
+  assert.deepEqual(
+    audit.mainWindowRepairBoundary.sharedFilesToChangeInThisBranch,
+    [],
+  );
 });
