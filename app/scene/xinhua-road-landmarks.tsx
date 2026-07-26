@@ -5,6 +5,7 @@ import { useFrame } from "@react-three/fiber";
 import {
   Box3,
   Color,
+  Group,
   InstancedMesh,
   Material,
   Matrix4,
@@ -544,10 +545,20 @@ function GlbModel({
   path,
   qaAssetId,
   qaTier,
+  qaWorldX,
+  qaWorldY,
+  qaWorldZ,
+  qaWorldYaw,
+  qaWorldScale,
 }: {
   path: string;
   qaAssetId?: string;
   qaTier?: string;
+  qaWorldX?: number;
+  qaWorldY?: number;
+  qaWorldZ?: number;
+  qaWorldYaw?: number;
+  qaWorldScale?: number;
 }) {
   const { scene } = useGLTF(path);
   const model = useMemo(() => configureModel(scene.clone(true)), [scene]);
@@ -564,8 +575,31 @@ function GlbModel({
       frames: 0,
       complete: false,
     };
-    model.updateMatrixWorld(true);
-    const bounds = new Box3().setFromObject(model);
+    // model 已挂在带 placement 的父 group 下，直接 setFromObject(model)
+    // 会把父级 world matrix 带进探针，再在 Box3 遍历时重复计算。使用未挂载的
+    // glTF clone 先量本地坐标，再显式应用同一 placement，确保遥测与画面一致。
+    const boundsProbe = new Group();
+    boundsProbe.scale.set(1, 1, -1);
+    boundsProbe.add(scene.clone(true));
+    boundsProbe.updateMatrixWorld(true);
+    const bounds = new Box3().setFromObject(boundsProbe);
+    if (
+      qaWorldX !== undefined
+      && qaWorldY !== undefined
+      && qaWorldZ !== undefined
+      && qaWorldYaw !== undefined
+      && qaWorldScale !== undefined
+    ) {
+      const placementMatrix = new Matrix4().compose(
+        new Vector3(qaWorldX, qaWorldY, qaWorldZ),
+        new Quaternion().setFromAxisAngle(
+          new Vector3(0, 1, 0),
+          qaWorldYaw,
+        ),
+        new Vector3(qaWorldScale, qaWorldScale, qaWorldScale),
+      );
+      bounds.applyMatrix4(placementMatrix);
+    }
     const root = document.documentElement;
     root.dataset.xinhuaRoadQaAsset = qaAssetId;
     root.dataset.xinhuaRoadQaTier = qaTier;
@@ -593,7 +627,18 @@ function GlbModel({
       delete root.dataset.xinhuaRoadQaRender;
       delete root.dataset.xinhuaRoadQaFrameSample;
     };
-  }, [model, path, qaAssetId, qaTier]);
+  }, [
+    model,
+    path,
+    qaAssetId,
+    qaTier,
+    qaWorldScale,
+    qaWorldX,
+    qaWorldY,
+    qaWorldYaw,
+    qaWorldZ,
+    scene,
+  ]);
   useFrame(({ gl }) => {
     if (!qaAssetId || !qaTier) return;
     const root = document.documentElement;
@@ -929,6 +974,11 @@ export function XinhuaRoadLandmarks({
                         path={modelPath}
                         qaAssetId={landmark.id}
                         qaTier={buildingMassingQaActive.requestedTier}
+                        qaWorldX={x}
+                        qaWorldY={y}
+                        qaWorldZ={z}
+                        qaWorldYaw={yaw}
+                        qaWorldScale={scale}
                       />
                     </Suspense>
                   </ProgressiveFeatureBoundary>
@@ -942,6 +992,11 @@ export function XinhuaRoadLandmarks({
                         path={modelPath}
                         qaAssetId={landmark.id}
                         qaTier={filmArtTier}
+                        qaWorldX={x}
+                        qaWorldY={y}
+                        qaWorldZ={z}
+                        qaWorldYaw={yaw}
+                        qaWorldScale={scale}
                       />
                     </Suspense>
                   </ProgressiveFeatureBoundary>

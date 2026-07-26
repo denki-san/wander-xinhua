@@ -52,7 +52,33 @@ export const BUILDING_MASSING_QA_CANDIDATES = Object.freeze({
     buildRecord:
       "docs/research/build-records/tiers/xinhua-road/massing-v2/"
       + "villa-le-bec-massing.json",
-    mapGate: "docs/research/villa-le-bec-massing-map-gate.json",
+    mapGate: "docs/research/villa-le-bec-map-candidate.json",
+    runtimePromotionAllowed: "pending-runtime-acceptance",
+    placement: Object.freeze({
+      position: Object.freeze([-34.1, 88.8]),
+      yaw: -0.38,
+      scale: 0.82,
+    }),
+    start: Object.freeze({
+      position: Object.freeze([-58, 88]),
+      forward: Object.freeze([1, 0.03]),
+    }),
+    // 两栋 OSM 绑定建筑各沿源 Z 轴等分为六段；完整覆盖原碰撞壳，
+    // 同时消除旋转后单一 world AABB 吞并楼间通道的假碰撞。
+    localObstacles: Object.freeze([
+      Object.freeze({ minX: -1.095583, maxX: 4.996285, minZ: 5.014079, maxZ: 5.817213333333333 }),
+      Object.freeze({ minX: -1.095583, maxX: 4.996285, minZ: 5.817213333333333, maxZ: 6.620347666666667 }),
+      Object.freeze({ minX: -1.095583, maxX: 4.996285, minZ: 6.620347666666667, maxZ: 7.423482 }),
+      Object.freeze({ minX: -1.095583, maxX: 4.996285, minZ: 7.423482, maxZ: 8.226616333333333 }),
+      Object.freeze({ minX: -1.095583, maxX: 4.996285, minZ: 8.226616333333333, maxZ: 9.029750666666666 }),
+      Object.freeze({ minX: -1.095583, maxX: 4.996285, minZ: 9.029750666666666, maxZ: 9.832885 }),
+      Object.freeze({ minX: 6.395668, maxX: 9.996342, minZ: 1.209116, maxZ: 2.056057833333333 }),
+      Object.freeze({ minX: 6.395668, maxX: 9.996342, minZ: 2.056057833333333, maxZ: 2.902999666666667 }),
+      Object.freeze({ minX: 6.395668, maxX: 9.996342, minZ: 2.902999666666667, maxZ: 3.7499415 }),
+      Object.freeze({ minX: 6.395668, maxX: 9.996342, minZ: 3.7499415, maxZ: 4.596883333333333 }),
+      Object.freeze({ minX: 6.395668, maxX: 9.996342, minZ: 4.596883333333333, maxZ: 5.443825166666667 }),
+      Object.freeze({ minX: 6.395668, maxX: 9.996342, minZ: 5.443825166666667, maxZ: 6.290767 }),
+    ]),
   }),
   "xinhua-villas-329": Object.freeze({
     assetId: "xinhua-villas-329",
@@ -63,8 +89,35 @@ export const BUILDING_MASSING_QA_CANDIDATES = Object.freeze({
     buildRecord:
       "docs/research/build-records/tiers/xinhua-road/massing-v3/"
       + "xinhua-villas-329-massing.json",
-    mapGate:
-      "docs/research/xinhua-villas-329-massing-v3-integration-candidate.json",
+    mapGate: "docs/research/xinhua-villas-329-map-candidate.json",
+    runtimePromotionAllowed: "pending-runtime-acceptance",
+    placement: Object.freeze({
+      position: Object.freeze([-42.13, 79.48]),
+      yaw: -0.38,
+      scale: 0.62,
+    }),
+    start: Object.freeze({
+      position: Object.freeze([-26, 63]),
+      forward: Object.freeze([-0.79, 0.62]),
+    }),
+    // 四栋 OSM 绑定建筑完整保留；仅将两栋旋转长体沿源 X 轴分片，
+    // 以贴合真实 footprint，避免 rotated-AABB 对道路和邻栋的假穿插。
+    localObstacles: Object.freeze([
+      Object.freeze({ minX: -19.746794, maxX: -6.712191, minZ: -9.257435, maxZ: -2.58448 }),
+      Object.freeze({ minX: -18.991865, maxX: -9.183159, minZ: 4.548492, maxZ: 12.632193 }),
+      Object.freeze({ minX: 0.326008, maxX: 1.6323255, minZ: 0.424231, maxZ: 8.721702 }),
+      Object.freeze({ minX: 1.6323255, maxX: 2.938643, minZ: 0.424231, maxZ: 8.721702 }),
+      Object.freeze({ minX: 2.938643, maxX: 4.2449605, minZ: 0.424231, maxZ: 8.721702 }),
+      Object.freeze({ minX: 4.2449605, maxX: 5.551278, minZ: 0.424231, maxZ: 8.721702 }),
+      Object.freeze({ minX: 5.551278, maxX: 6.8575955, minZ: 0.424231, maxZ: 8.721702 }),
+      Object.freeze({ minX: 6.8575955, maxX: 8.163913, minZ: 0.424231, maxZ: 8.721702 }),
+      Object.freeze({ minX: 7.864331, maxX: 8.789470833333333, minZ: 10.491626, maxZ: 16.8141 }),
+      Object.freeze({ minX: 8.789470833333333, maxX: 9.714610666666667, minZ: 10.491626, maxZ: 16.8141 }),
+      Object.freeze({ minX: 9.714610666666667, maxX: 10.6397505, minZ: 10.491626, maxZ: 16.8141 }),
+      Object.freeze({ minX: 10.6397505, maxX: 11.564890333333333, minZ: 10.491626, maxZ: 16.8141 }),
+      Object.freeze({ minX: 11.564890333333333, maxX: 12.490030166666667, minZ: 10.491626, maxZ: 16.8141 }),
+      Object.freeze({ minX: 12.490030166666667, maxX: 13.41517, minZ: 10.491626, maxZ: 16.8141 }),
+    ]),
   }),
   "hudec-memorial": Object.freeze({
     assetId: "hudec-memorial",

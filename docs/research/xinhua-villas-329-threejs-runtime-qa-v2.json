@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-329",
+  "tier": "massing",
+  "recordedAt": "2026-07-26T14:37:35+08:00",
+  "status": "pass-massing-map-and-runtime",
+  "inputs": {
+    "mapCandidate": "docs/research/xinhua-villas-329-map-candidate.json",
+    "modelPath": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
+    "modelSha256": "f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704",
+    "placement": {
+      "position": [
+        -42.13,
+        79.48
+      ],
+      "yaw": -0.38,
+      "scale": 0.62
+    },
+    "collisionProxyCount": 14
+  },
+  "runtime": {
+    "route": "/?start=villas329&qaModelId=xinhua-villas-329&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaMove=forward&qaMoveMs=9000&qaMoveTarget=-42.13,79.48",
+    "source": "/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb?v=20260726-massing-f245efd0",
+    "loadStatus": "loaded",
+    "fallback": "none",
+    "viewport": [
+      1280,
+      720
+    ],
+    "visibility": "visible",
+    "build": "static-production-bundle",
+    "telemetryBuildMode": "browser-runtime",
+    "frameSample": {
+      "frames": 120,
+      "durationMs": 2001.8999999910593,
+      "fps": 59.943054098874036,
+      "rendererDrawCalls": 222,
+      "rendererTriangles": 575655
+    },
+    "worldBounds": {
+      "min": [
+        -55.628591080183924,
+        0.9455530338999998,
+        65.25772681298967
+      ],
+      "max": [
+        -30.539169651647363,
+        4.882552974772192,
+        87.89526831106748
+      ],
+      "telemetryCorrection": "pass-parent-placement-applied-once"
+    },
+    "consoleErrors": 0
+  },
+  "collision": {
+    "target": [
+      -42.13,
+      79.48
+    ],
+    "finalPlayerPosition": [
+      -38.49621169088558,
+      74.15133643129786
+    ],
+    "targetError": 6.449734328161904,
+    "stationaryTailMs": 2751.2,
+    "verdict": "pass-hard-collision-before-interior-target"
+  },
+  "map": {
+    "transform": "pass-unchanged-exact-osm-round-trip",
+    "roadClearance": "pass-candidate-and-runtime",
+    "neighborClearance": "pass-candidate-and-runtime",
+    "groundContact": "pass-visible-runtime",
+    "formalMassingAcceptance": "pass"
+  },
+  "screenshot": {
+    "path": "test_artifacts/all-models/runtime/xinhua-villas-329/test_xinhua_villas_329_massing_threejs_collision_telemetry_fixed.png",
+    "sha256": "4dcf5518c30abc8538cbbb4cc833e6ae237931fd455f90d29a12532e096bee80",
+    "bytes": 73138
+  },
+  "scope": {
+    "hero": "blocked-invalid-cross-asset-lineage",
+    "identity": "missing",
+    "buildingComplete": false,
+    "holdAssetsModified": false
+  }
+}

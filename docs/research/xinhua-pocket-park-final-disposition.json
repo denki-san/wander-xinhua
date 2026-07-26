@@ -61,7 +61,7 @@
     },
     "modelBrief": {
       "path": "docs/research/xinhua-pocket-park-model-brief.md",
-      "sha256": "783fbb41136d2cf9c749efa067cb27ccbd26ef9db1d2320f3f160b2b9a03b38c"
+      "sha256": "cfa04008880a3eaac4dd93ef7b16dcddf5268a6516e5ba9d21e4daafd653555b"
     },
     "publicRegistry": {
       "path": "app/scene/xinhua-road-landmarks-data.json",
