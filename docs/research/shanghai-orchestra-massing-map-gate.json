@@ -576,6 +576,11 @@
     "mapAcceptance": "blocked-evidence",
     "identityAllowed": false
   },
+  "currentRuntimeDiagnostic": {
+    "status": "pass-load-performance-collision-stop-qa-only",
+    "record": "docs/research/shanghai-orchestra-threejs-runtime-qa.json",
+    "productionPromotionAllowed": false
+  },
   "blocker": {
     "reason": "TJAD photos prove the compound but do not map buildings 6, 7, 8 or retained volumes to the five OSM ways",
     "retainedAssets": [
@@ -584,6 +589,7 @@
       "public/models/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.glb",
       "assets/models/source/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.blend"
     ],
-    "nextGate": "Blender MCP1 only after formal member set is accepted or additional site-plan evidence is obtained"
+    "mcp1Record": "docs/research/shanghai-orchestra-blender-mcp-gates.json",
+    "nextGate": "Obtain formal member-set evidence before map promotion or Identity; QA-only runtime diagnosis may continue."
   }
 }

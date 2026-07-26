@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-pocket-park",
+  "recordedAt": "2026-07-26",
+  "owner": "main-window",
+  "buildMode": "vite-static-production-preview",
+  "viewport": [1280, 720],
+  "visibility": "visible",
+  "warmupSeconds": 10,
+  "routes": {
+    "map": "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+    "collision": "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaMove=forward&qaMoveMs=8000&qaMoveTarget=-57.421934309,67.06298037"
+  },
+  "resource": {
+    "status": "loaded",
+    "tier": "massing",
+    "source": "/models/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.glb?v=20260726-massing-cc89e36e",
+    "sha256": "cc89e36e68397199d91684d3059c5c88410a7acc1b1c015398e05d8e57b15fa3",
+    "bytes": 14068
+  },
+  "placement": {
+    "position": [-57.421934309, 67.06298037],
+    "yaw": -0.398058989,
+    "scale": 0.88,
+    "groundContact": "pass-visible",
+    "roadAndNeighborGeometry": "pass-analytic"
+  },
+  "performance": {
+    "map": {
+      "frames": 120,
+      "durationMs": 2002,
+      "fps": 59.94006,
+      "rendererDrawCalls": 232,
+      "rendererTriangles": 548888
+    },
+    "collision": {
+      "frames": 120,
+      "durationMs": 2013.6,
+      "fps": 59.594756,
+      "rendererDrawCallsAtFinalSample": 295,
+      "rendererTrianglesAtFinalSample": 631368
+    },
+    "claim": "measurement-only-no-baseline-improvement-claim"
+  },
+  "collision": {
+    "status": "pass-center-route",
+    "playerRadiusSceneUnits": 0.48,
+    "start": [-55.160193116, 61.684376543],
+    "target": [-57.421934309, 67.06298037],
+    "final": [-57.435401853997234, 67.09500728327845],
+    "finalTargetErrorSceneUnits": 0.034743315,
+    "durationMs": 8000,
+    "wallCollisionShell": {
+      "sourceWalls": 2,
+      "runtimeSegments": 308,
+      "collisionMarginSceneUnits": 0,
+      "innerShellInsetMeters": 0.19008,
+      "reason": "compensate-axis-aligned-square-player-projection-in-a-rotated-3.23m-corridor"
+    },
+    "qaOnlyNeighborSuppression": {
+      "assetId": "fics-xinhua-365",
+      "legacyObstacleIndex": 2,
+      "reason": "legacy long-wall AABB contradicted the measured 8.248087 scene-unit OSM clearance"
+    }
+  },
+  "camera": {
+    "status": "blocked",
+    "observedModes": [
+      "spring-clear-with-wall-occlusion",
+      "spring-compressed-with-character-clipping"
+    ],
+    "finalObservedArmLengthRange": [0.38, 0.51],
+    "requestedArmLength": 5.37,
+    "blocker": "pocket-park-wall-segment",
+    "reason": "The narrow corridor cannot currently keep the third-person camera outside the walls and outside the character at the same time."
+  },
+  "screenshots": {
+    "map": {
+      "path": "test_artifacts/all-models/runtime/xinhua-pocket-park/test_xinhua_pocket_park_massing_threejs_map_final.jpg",
+      "sha256": "fc7674fed0bf53175c0f52da7e851b206065db0c10e55b4ff4bdca7e805257c9",
+      "bytes": 70217
+    },
+    "collisionCameraBlocker": {
+      "path": "test_artifacts/all-models/runtime/xinhua-pocket-park/test_xinhua_pocket_park_massing_threejs_collision_final.jpg",
+      "sha256": "16e9b8d84a89da3d83a7d4682dc8c1889fb017ce7ceb1ffdf709e7bc4e1e1982",
+      "bytes": 50046
+    }
+  },
+  "console": {
+    "errorsObservedForCurrentRoute": 0,
+    "warnings": [
+      "THREE.Clock deprecation"
+    ]
+  },
+  "acceptance": {
+    "resource": "pass",
+    "mapPlacement": "pass-candidate",
+    "groundContact": "pass",
+    "collision": "pass-center-route",
+    "camera": "blocked",
+    "performanceSample": "pass-measured",
+    "formalMapAcceptance": "blocked-camera",
+    "runtimePromotionAllowed": false
+  },
+  "nextGate": "Add a narrow-space camera mode or a non-occluding wall treatment, then repeat the same route before production map promotion."
+}

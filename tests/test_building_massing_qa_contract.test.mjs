@@ -14,6 +14,9 @@ test("Massing 候选 QA 只允许18栋内已登记的建筑和精确档位", () 
     "xinhua-villas-329",
     "hudec-memorial",
     "xinhua-community-center",
+    "xinhua-pocket-park",
+    "fics-xinhua-365",
+    "shanghai-orchestra",
   ]);
   assert.equal(resolveBuildingMassingQa("?qaModelId=plane-tree&qaModelTier=massing"), null);
   assert.equal(resolveBuildingMassingQa("?qaModelId=villa-le-bec&qaModelTier=hero"), null);
@@ -120,6 +123,51 @@ test("Massing 候选 QA 只允许18栋内已登记的建筑和精确档位", () 
       minZ: -2.0344502538968166,
       maxZ: 2.6093047586433475,
     },
+  );
+  assert.deepEqual(
+    resolveBuildingMassingQa(
+      "?qaModelId=xinhua-pocket-park&qaModelTier=massing",
+    )?.placement,
+    {
+      position: [-57.421934309, 67.06298037],
+      yaw: -0.398058989,
+      scale: 0.88,
+    },
+  );
+  const pocketParkQa = resolveBuildingMassingQa(
+    "?qaModelId=xinhua-pocket-park&qaModelTier=massing",
+  );
+  assert.equal(pocketParkQa?.collisionMargin, 0);
+  assert.equal(pocketParkQa?.localObstacles.length, 308);
+  assert.ok(pocketParkQa?.localObstacles.every(
+    ({ minZ, maxZ }) => maxZ - minZ <= 0.060001,
+  ));
+  assert.ok(pocketParkQa?.localObstacles.every(
+    ({ maxX, minX }) => maxX <= -0.76 || minX >= 0.76,
+  ));
+  assert.equal(
+    resolveBuildingMassingQa(
+      "?qaModelId=fics-xinhua-365&qaModelTier=massing",
+    )?.localObstacles.length,
+    5,
+  );
+  assert.equal(
+    resolveBuildingMassingQa(
+      "?qaModelId=fics-xinhua-365&qaModelTier=massing",
+    )?.runtimePromotionAllowed,
+    false,
+  );
+  assert.equal(
+    resolveBuildingMassingQa(
+      "?qaModelId=shanghai-orchestra&qaModelTier=massing",
+    )?.localObstacles.length,
+    5,
+  );
+  assert.equal(
+    resolveBuildingMassingQa(
+      "?qaModelId=shanghai-orchestra&qaModelTier=massing",
+    )?.blocker,
+    "formal-membership-evidence",
   );
 });
 

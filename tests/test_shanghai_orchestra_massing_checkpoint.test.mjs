@@ -100,5 +100,14 @@ test("地图终审继续阻塞，不能凭坐标候选进入 Identity", () => {
   assert.equal(mapGate.acceptance.mapAcceptance, "blocked-evidence");
   assert.equal(mapGate.acceptance.identityAllowed, false);
   assert.match(mapGate.blocker.reason, /do not map buildings 6, 7, 8/);
-  assert.match(mapGate.blocker.nextGate, /MCP1/);
+  assert.equal(
+    mapGate.blocker.mcp1Record,
+    "docs/research/shanghai-orchestra-blender-mcp-gates.json",
+  );
+  assert.match(mapGate.blocker.nextGate, /formal member-set evidence/);
+  assert.equal(
+    mapGate.currentRuntimeDiagnostic.record,
+    "docs/research/shanghai-orchestra-threejs-runtime-qa.json",
+  );
+  assert.equal(mapGate.currentRuntimeDiagnostic.productionPromotionAllowed, false);
 });

@@ -174,19 +174,19 @@
     "evidence": "pass-for-massing-and-map-candidate",
     "recoveryAssetChain": "pass-selectively-retained",
     "glbAudit": "pass",
-    "massingMcp1": "pending-main-window-batch-review",
+    "massingMcp1": "pass-main-window-batch-review",
+    "massingMcp1Record": "docs/research/xinhua-pocket-park-blender-mcp-gates.json",
     "mapGeometry": "pass-candidate",
-    "formalMapAcceptance": "pending-main-window-mcp1-and-current-threejs-runtime",
+    "currentRuntime": "blocked-camera",
+    "currentRuntimeRecord": "docs/research/xinhua-pocket-park-threejs-runtime-qa.json",
+    "formalMapAcceptance": "blocked-runtime-camera",
     "hero": "legacy-asset-retained-mcp2-pending-after-map",
     "identity": "blocked-until-hero-lineage-review",
-    "threeTierRuntime": "pending",
+    "threeTierRuntime": "blocked-until-massing-camera-pass",
     "llmWiki": "not-synced-in-building-branch-do-not-claim-complete"
   },
   "mainWindowTodo": [
-    "Cherry-pick the building commit without importing the shared Recovery generator.",
-    "Run Blender MCP1 against the retained Massing SHA from canonical, side/depth and entrance views.",
-    "Wire the candidate placement, tier route and split mirror-wall obstacles in shared runtime files.",
-    "Run the current Three.js page for ground contact, entrance approach, collision, fallback and performance.",
-    "Only after current runtime acceptance, promote the map candidate and begin legacy Hero MCP2 review."
+    "Add a narrow-space camera mode or non-occluding wall treatment and repeat the fixed runtime route.",
+    "Only after the camera passes, promote the map candidate and begin legacy Hero MCP2 review."
   ]
 }

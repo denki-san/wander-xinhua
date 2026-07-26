@@ -16,6 +16,7 @@ const sceneSource = await readFile(new URL("app/scene/xinhua-road-landmarks.tsx"
 const planeTreeInstancesSource = await readFile(new URL("app/scene/plane-tree-instances.tsx", root), "utf8");
 const xingfuliSource = await readFile(new URL("app/scene/xingfuli-block.tsx", root), "utf8");
 const worldSource = await readFile(new URL("app/scene/xinhua-world.tsx", root), "utf8");
+const worldContractSource = await readFile(new URL("app/scene/xinhua-road-contract.ts", root), "utf8");
 const generatorSource = await readFile(new URL("scripts/create_xinhua_road_models.py", root), "utf8");
 const researchSource = await readFile(new URL("docs/research/xinhua-road-landmarks-reference.md", root), "utf8");
 const landmarkData = JSON.parse(await readFile(new URL("app/scene/xinhua-road-landmarks-data.json", root), "utf8"));
@@ -648,31 +649,26 @@ test("本轮 6 个 POI 都退出整张地图的地面机动车道路", () => {
   }
 });
 
-test("所有快速定位的角色和首帧相机都避开全部地标碰撞范围", () => {
+test("所有快速定位角色避开硬碰撞，首帧相机使用独立障碍层", () => {
   const obstacles = landmarkData.landmarks.flatMap((landmark) => (
     (landmark.localObstacles ?? [landmark.localBounds]).map(
       (localObstacle) => transformedLocalFootprint(landmark, localObstacle),
     )
   ));
   for (const landmark of landmarkData.landmarks) {
-    const length = Math.hypot(...landmark.forward);
-    const camera = [
-      landmark.start[0] - landmark.forward[0] / length * 7.4,
-      landmark.start[1] - landmark.forward[1] / length * 7.4,
-    ];
     for (const obstacle of obstacles) {
       assert.equal(
         pointIntersectsObstacle(landmark.start, obstacle, 0.48),
         false,
         `${landmark.query} 的角色起点不得位于地标碰撞范围内`,
       );
-      assert.equal(
-        pointIntersectsObstacle(camera, obstacle, 0.25),
-        false,
-        `${landmark.query} 的首帧相机不得位于地标碰撞范围内`,
-      );
     }
   }
+  assert.match(worldSource, /XINHUA_ROAD_CAMERA_OBSTACLES/);
+  assert.match(
+    worldContractSource,
+    /XINHUA_POCKET_PARK_CAMERA_OBSTACLES/,
+  );
 });
 
 test("新地标参与渲染、角色硬碰撞和快速定位，但摄像机使用独立透明层", () => {

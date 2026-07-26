@@ -164,13 +164,21 @@
       "id": "shanghai-orchestra",
       "label": "上海民族乐团",
       "tests": [
+        "tests/test_building_massing_qa_contract.test.mjs",
+        "tests/test_recovery_massing_mcp1_batch.test.mjs",
+        "tests/test_recovery_massing_threejs_runtime_batch.test.mjs",
+        "tests/test_shanghai_orchestra_massing_checkpoint.test.mjs",
+        "scripts/test_generate_shanghai_orchestra_map_calibration.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
-        "public/models/xinhua-road/shanghai-orchestra.glb"
+        "public/models/xinhua-road/shanghai-orchestra.glb",
+        "public/models/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.glb"
       ],
       "runtimeRoutes": [
-        "/?start=orchestra&cameraQa=1&qaAutoStart=1"
+        "/?start=orchestra&cameraQa=1&qaAutoStart=1",
+        "/?start=orchestra&qaModelId=shanghai-orchestra&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=orchestra&qaModelId=shanghai-orchestra&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaMove=forward&qaMoveMs=8000&qaMoveTarget=-40.6,41.4"
       ]
     },
     {
@@ -194,13 +202,20 @@
       "id": "xinhua-pocket-park",
       "label": "新华路口袋公园",
       "tests": [
+        "tests/test_building_massing_qa_contract.test.mjs",
+        "tests/test_recovery_massing_mcp1_batch.test.mjs",
+        "tests/test_recovery_massing_threejs_runtime_batch.test.mjs",
+        "tests/test_xinhua_pocket_park_massing_map_candidate.test.mjs",
         "tests/test_requested_poi_models.test.mjs"
       ],
       "glbs": [
-        "public/models/requested-pois/xinhua-pocket-park.glb"
+        "public/models/requested-pois/xinhua-pocket-park.glb",
+        "public/models/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.glb"
       ],
       "runtimeRoutes": [
-        "/?start=pocket-park&cameraQa=1&qaAutoStart=1"
+        "/?start=pocket-park&cameraQa=1&qaAutoStart=1",
+        "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaMove=forward&qaMoveMs=8000&qaMoveTarget=-57.421934309,67.06298037"
       ]
     },
     {
@@ -251,14 +266,22 @@
       "id": "fics-xinhua-365",
       "label": "FICS新华365",
       "tests": [
+        "tests/test_building_massing_qa_contract.test.mjs",
+        "tests/test_fics_xinhua_365_recovery_map.test.mjs",
+        "tests/test_recovery_massing_mcp1_batch.test.mjs",
+        "tests/test_recovery_massing_threejs_runtime_batch.test.mjs",
+        "scripts/test_fics_xinhua_365_map_calibration.mjs",
         "tests/test_requested_poi_models.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
-        "public/models/requested-pois/fics-xinhua-365.glb"
+        "public/models/requested-pois/fics-xinhua-365.glb",
+        "public/models/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.glb"
       ],
       "runtimeRoutes": [
-        "/?start=fics365&cameraQa=1&qaAutoStart=1"
+        "/?start=fics365&cameraQa=1&qaAutoStart=1",
+        "/?start=fics365&qaModelId=fics-xinhua-365&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=fics365&qaModelId=fics-xinhua-365&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaMove=forward&qaMoveMs=8000&qaMoveTarget=-76.1,75.2"
       ]
     },
     {

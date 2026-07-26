@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "assetId": "fics-xinhua-365",
+  "recordedAt": "2026-07-26",
+  "owner": "main-window",
+  "mode": "qa-only-diagnostic-no-production-promotion",
+  "buildMode": "vite-static-production-preview",
+  "viewport": [1280, 720],
+  "visibility": "visible",
+  "warmupSeconds": 10,
+  "routes": {
+    "map": "/?start=fics365&qaModelId=fics-xinhua-365&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+    "collision": "/?start=fics365&qaModelId=fics-xinhua-365&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaMove=forward&qaMoveMs=8000&qaMoveTarget=-76.1,75.2"
+  },
+  "resource": {
+    "status": "loaded",
+    "tier": "massing",
+    "source": "/models/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.glb?v=20260726-massing-e36f29a3",
+    "sha256": "e36f29a3f14e92ac833a324247c36c21d218003f17f666d1d0b5fc9f861fe8ad",
+    "bytes": 8564
+  },
+  "placement": {
+    "position": [-76.1, 75.2],
+    "yaw": -0.38,
+    "scale": 0.9,
+    "groundContact": "pass-visible",
+    "formalMembership": "blocked-evidence",
+    "serviceRoadClearanceSceneUnits": -1.124546003
+  },
+  "performance": {
+    "frames": 120,
+    "durationMs": 2008.1,
+    "fps": 59.75798,
+    "rendererDrawCalls": 256,
+    "rendererTriangles": 550316,
+    "claim": "measurement-only-no-baseline-improvement-claim"
+  },
+  "collisionDiagnostic": {
+    "status": "pass-stop-observed",
+    "start": [-71.6, 43.8],
+    "target": [-76.1, 75.2],
+    "final": [-74.89846040936905, 63.45284713832029],
+    "remainingTargetDistanceSceneUnits": 11.8084418,
+    "durationMs": 8000,
+    "cameraModeAtStop": "spring-clear",
+    "cameraArm": [5.37, 5.37],
+    "limit": "The stop proves the split candidate collision is active; it does not resolve the service-road overlap or campus membership."
+  },
+  "screenshots": {
+    "map": {
+      "path": "test_artifacts/all-models/runtime/fics-xinhua-365/test_fics_xinhua_365_massing_threejs_map.jpg",
+      "sha256": "25ff7c904cab553c8986a26e2b81d27908bc6aef165aea00159e195135960804",
+      "bytes": 77532
+    },
+    "collision": {
+      "path": "test_artifacts/all-models/runtime/fics-xinhua-365/test_fics_xinhua_365_massing_threejs_collision.jpg",
+      "sha256": "b41c08ed69922a7fc581d8281168e54df72c1d93be7ae72277f8a26fa11b3a0c",
+      "bytes": 82259
+    }
+  },
+  "console": {
+    "errorsObservedForCurrentRoute": 0,
+    "warnings": [
+      "THREE.Clock deprecation"
+    ]
+  },
+  "acceptance": {
+    "resource": "pass",
+    "groundContact": "pass",
+    "collisionDiagnostic": "pass",
+    "performanceSample": "pass-measured",
+    "formalMembership": "blocked-evidence",
+    "serviceRoad": "blocked-overlap",
+    "formalMapAcceptance": "blocked",
+    "runtimePromotionAllowed": false
+  },
+  "nextGate": "Resolve campus membership from stronger evidence and move the candidate completely clear of the service road before repeating the same runtime route."
+}

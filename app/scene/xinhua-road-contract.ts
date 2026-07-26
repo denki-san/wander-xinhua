@@ -16,6 +16,12 @@ export type LandmarkPlacement = {
   scale: number;
   localBounds: MapObstacle;
   localObstacles?: MapObstacle[];
+  collisionMargin?: number;
+  legacyObstacleSuppressions?: readonly {
+    assetId: string;
+    obstacleIndexes: readonly number[];
+    reason: string;
+  }[];
   start: MapPolygonPoint;
   forward: MapPolygonPoint;
   cameraTargetHeight?: number;
@@ -30,6 +36,12 @@ export const XINHUA_ROAD_LANDMARKS =
 
 type BuildingMassingQaCandidate = {
   assetId: string;
+  collisionMargin?: number;
+  legacyObstacleSuppressions?: readonly {
+    assetId: string;
+    obstacleIndexes: readonly number[];
+    reason: string;
+  }[];
   placement?: {
     position: readonly [number, number];
     yaw: number;
@@ -49,6 +61,7 @@ const ACTIVE_BUILDING_MASSING_QA = resolveBuildingMassingQa(
 export function transformedLandmarkFootprint(
   { position, yaw, scale }: LandmarkPlacement,
   localBounds: MapObstacle,
+  collisionMargin = landmarkData.collisionMargin,
 ): MapObstacle {
   const [positionX, positionZ] = position;
   const cosine = Math.cos(yaw);
@@ -64,13 +77,38 @@ export function transformedLandmarkFootprint(
     }
   }
 
-  const margin = landmarkData.collisionMargin;
   return {
-    minX: Math.min(...worldX) - margin,
-    maxX: Math.max(...worldX) + margin,
-    minZ: Math.min(...worldZ) - margin,
-    maxZ: Math.max(...worldZ) + margin,
+    minX: Math.min(...worldX) - collisionMargin,
+    maxX: Math.max(...worldX) + collisionMargin,
+    minZ: Math.min(...worldZ) - collisionMargin,
+    maxZ: Math.max(...worldZ) + collisionMargin,
   };
+}
+
+function splitPocketParkWallObstacle(
+  obstacle: MapObstacle,
+  maximumSourceLength = 0.06,
+) {
+  const length = obstacle.maxZ - obstacle.minZ;
+  const segmentCount = Math.max(1, Math.ceil(length / maximumSourceLength));
+  const segmentLength = length / segmentCount;
+  return Array.from({ length: segmentCount }, (_, index) => ({
+    minX: obstacle.minX,
+    maxX: obstacle.maxX,
+    minZ: obstacle.minZ + segmentLength * index,
+    maxZ: obstacle.minZ + segmentLength * (index + 1),
+  }));
+}
+
+function collisionObstaclesForLandmark(
+  landmark: LandmarkPlacement,
+  inputObstacles?: readonly MapObstacle[],
+) {
+  const obstacles = inputObstacles ?? landmark.localObstacles ?? [landmark.localBounds];
+  if (landmark.id !== "xinhua-pocket-park") return obstacles;
+  // 口袋公园是宽约 3.23 米的斜向窄廊。把两面长镜墙切片，避免旋转后的
+  // 轴对齐碰撞盒把真实可走的中央路径封死。
+  return obstacles.flatMap((obstacle) => splitPocketParkWallObstacle(obstacle));
 }
 
 export const XINHUA_ROAD_OBSTACLES: MapObstacle[] = XINHUA_ROAD_LANDMARKS.flatMap(
@@ -87,12 +125,19 @@ export const XINHUA_ROAD_OBSTACLES: MapObstacle[] = XINHUA_ROAD_LANDMARKS.flatMa
           localObstacles: [...qaActive.localObstacles],
         }
       : landmark;
-    return (
+    const suppression = ACTIVE_BUILDING_MASSING_QA?.legacyObstacleSuppressions
+      ?.find(({ assetId }) => assetId === landmark.id);
+    const localObstacles = (
       collisionPlacement.localObstacles ?? [collisionPlacement.localBounds]
+    ).filter((_, index) => !suppression?.obstacleIndexes.includes(index));
+    return collisionObstaclesForLandmark(
+      collisionPlacement,
+      localObstacles,
     ).map(
       (localObstacle) => transformedLandmarkFootprint(
         collisionPlacement,
         localObstacle,
+        qaActive?.collisionMargin ?? collisionPlacement.collisionMargin,
       ),
     );
   },
@@ -102,8 +147,33 @@ export const XINHUA_ROAD_MODEL_FOOTPRINTS: MapObstacle[] = XINHUA_ROAD_LANDMARKS
   (landmark) => transformedLandmarkFootprint(landmark, landmark.localBounds),
 );
 
-export const XINHUA_ROAD_CAMERA_OBSTACLES =
-  XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES as MapObstacle[];
+const XINHUA_POCKET_PARK_CAMERA_OBSTACLES =
+  ACTIVE_BUILDING_MASSING_QA?.assetId === "xinhua-pocket-park"
+    ? XINHUA_ROAD_LANDMARKS
+      .filter(({ id }) => id === "xinhua-pocket-park")
+      .flatMap((landmark) => {
+        const qaLandmark: LandmarkPlacement = {
+          ...landmark,
+          position: [...ACTIVE_BUILDING_MASSING_QA.placement!.position],
+          yaw: ACTIVE_BUILDING_MASSING_QA.placement!.yaw,
+          scale: ACTIVE_BUILDING_MASSING_QA.placement!.scale,
+          localObstacles: [...(ACTIVE_BUILDING_MASSING_QA.localObstacles ?? [])],
+          collisionMargin: ACTIVE_BUILDING_MASSING_QA.collisionMargin,
+        };
+        return collisionObstaclesForLandmark(qaLandmark).map(
+          (localObstacle) => transformedLandmarkFootprint(
+            qaLandmark,
+            localObstacle,
+            qaLandmark.collisionMargin,
+          ),
+        );
+      })
+    : [];
+
+export const XINHUA_ROAD_CAMERA_OBSTACLES: MapObstacle[] = [
+  ...XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
+  ...XINHUA_POCKET_PARK_CAMERA_OBSTACLES,
+];
 
 export const XINHUA_ROAD_START_PRESETS = Object.fromEntries(
   XINHUA_ROAD_LANDMARKS.flatMap(

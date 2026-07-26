@@ -234,11 +234,23 @@ test("候选包络不压道路、不碰邻楼并保留中心通路", () => {
   assert.equal(qa.walkability.recommendedLocalObstacles.length, 2);
 });
 
-test("建筑分支只产出候选，MCP、公共接线和三档门继续由主窗口负责", () => {
+test("主窗口已通过 MCP1 和碰撞路线，但正式地图被窄廊相机阻塞", () => {
   assert.equal(qa.gates.evidence, "pass-for-massing-and-map-candidate");
   assert.equal(qa.gates.mapGeometry, "pass-candidate");
-  assert.match(qa.gates.massingMcp1, /^pending-main-window/);
-  assert.match(qa.gates.formalMapAcceptance, /^pending-main-window/);
+  assert.equal(qa.gates.massingMcp1, "pass-main-window-batch-review");
+  assert.equal(
+    qa.gates.massingMcp1Record,
+    "docs/research/xinhua-pocket-park-blender-mcp-gates.json",
+  );
+  assert.equal(
+    qa.gates.formalMapAcceptance,
+    "blocked-runtime-camera",
+  );
+  assert.equal(qa.gates.currentRuntime, "blocked-camera");
+  assert.equal(
+    qa.gates.currentRuntimeRecord,
+    "docs/research/xinhua-pocket-park-threejs-runtime-qa.json",
+  );
   assert.match(qa.gates.identity, /^blocked/);
   assert.equal(qa.recovery.generator.copiedIntoBuildingBranch, false);
 });

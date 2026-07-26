@@ -8631,3 +8631,39 @@ Segmentation fault: 11
 - **Notes**: 三份源文件已顺序清洁；后续 MCP 灰模验收继续顺序执行。
 
 ---
+## [ERR-20260726-091] pocket_park_rotated_aabb_closed_walkable_corridor
+
+**Logged**: 2026-07-26T12:20:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: collision
+
+### Summary
+口袋公园解析记录显示中央通路可走，但真实 Three.js 路线只移动约 1.27
+场景单位便停止：旋转后的两面长镜墙被转换为巨大轴对齐盒，且 FICS 遗留长墙
+碰撞盒也与该路线产生假相交。
+
+### Error
+```text
+target: [-57.421934309, 67.06298037]
+first final: [-55.709881842, 62.851235455]
+second final: [-57.008162204, 65.984247714]
+```
+
+### Context
+- 口袋公园真实墙间净宽约 1.1968 local / 3.23 米；
+- 当前人物碰撞使用轴对齐方形半径 0.48，斜向投影比圆形代理更保守；
+- FICS 遗留 obstacle 2 与 OSM 计算的 8.248087 场景单位净距相矛盾；
+- 默认产品数据不得因 QA 候选而被静默覆盖。
+
+### Suggested Fix
+仅在显式 Pocket Park QA 契约中将两墙切为短段、把碰撞壳收进墙体内侧并设
+零额外 margin；显式抑制相邻 FICS 的遗留长墙假碰撞。默认产品 registry
+保持不变，待全部运行时门通过后再考虑提升。
+
+### Resolution
+- **Resolved**: 2026-07-26T12:35:00+08:00
+- **Notes**: 8 秒确定性路线最终距中心目标 0.034743 场景单位；角色碰撞通过。
+  窄廊相机仍压缩到 0.38–0.51，已作为独立正式 blocker 保留，未提升生产地图。
+
+---

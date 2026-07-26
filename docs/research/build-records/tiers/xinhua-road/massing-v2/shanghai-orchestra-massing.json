@@ -225,12 +225,18 @@
     "transformedNodes": []
   },
   "runtimeGate": "pass",
+  "currentRuntimeDiagnostic": {
+    "status": "pass-load-performance-collision-stop-qa-only",
+    "record": "docs/research/shanghai-orchestra-threejs-runtime-qa.json",
+    "productionPromotionAllowed": false
+  },
   "mapAcceptance": "blocked-evidence",
   "identityAllowed": false,
   "mcp1Gate": {
-    "status": "pending-formal-member-set",
-    "reason": "Recovery fixed-camera images are retained, but a formal Blender MCP1 review would validate an unproven five-way membership set.",
-    "nextAction": "Obtain site-plan or address-compound evidence that maps buildings 6, 7, 8 and retained volumes to OSM ways before MCP1."
+    "status": "pass-shape-only",
+    "record": "docs/research/shanghai-orchestra-blender-mcp-gates.json",
+    "reason": "Main-window MCP1 confirms the five grounded Massing shapes and human scale without accepting their formal compound membership.",
+    "nextAction": "Obtain site-plan or address-compound evidence that maps buildings 6, 7, 8 and retained volumes to OSM ways before map promotion or Identity."
   },
   "mapCalibration": {
     "file": "docs/research/shanghai-orchestra-massing-map-gate.json",

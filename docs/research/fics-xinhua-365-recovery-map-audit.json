@@ -172,10 +172,13 @@
     "massingMapAcceptance": "blocked",
     "hero": "legacy-baseline-blocked-by-massing-map",
     "identity": "missing-blocked",
-    "mcp1": "pending-main-window-batch",
+    "mcp1": "pass-shape-only-main-window-batch",
+    "mcp1Record": "docs/research/fics-xinhua-365-blender-mcp-gates.json",
     "mcp2": "not-authorized",
     "mcp3": "not-authorized",
-    "threeTierRuntime": "not-authorized"
+    "threeTierRuntime": "not-authorized",
+    "massingRuntimeDiagnostic": "pass-load-performance-collision-stop-qa-only",
+    "massingRuntimeDiagnosticRecord": "docs/research/fics-xinhua-365-threejs-runtime-qa.json"
   },
   "validation": {
     "buildingSpecificTests": "3-pass",

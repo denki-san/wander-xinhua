@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-orchestra",
+  "recordedAt": "2026-07-26",
+  "owner": "main-window",
+  "mode": "qa-only-diagnostic-no-production-promotion",
+  "buildMode": "vite-static-production-preview",
+  "viewport": [1280, 720],
+  "visibility": "visible",
+  "warmupSeconds": 10,
+  "routes": {
+    "map": "/?start=orchestra&qaModelId=shanghai-orchestra&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+    "collision": "/?start=orchestra&qaModelId=shanghai-orchestra&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaMove=forward&qaMoveMs=8000&qaMoveTarget=-40.6,41.4"
+  },
+  "resource": {
+    "status": "loaded",
+    "tier": "massing",
+    "source": "/models/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.glb?v=20260726-massing-63eb25ca",
+    "sha256": "63eb25ca4abcbab0e434adb528ea0f37650495c614833f7b9bd05afbc519484c",
+    "bytes": 9132
+  },
+  "placement": {
+    "position": [-44.4, 44],
+    "yaw": 2.761592653589793,
+    "scale": 0.88,
+    "groundContact": "pass-visible",
+    "roadClearance": "pass-analytic",
+    "formalMembership": "blocked-evidence"
+  },
+  "performance": {
+    "frames": 120,
+    "durationMs": 2009.3,
+    "fps": 59.722291,
+    "rendererDrawCalls": 211,
+    "rendererTriangles": 575964,
+    "claim": "measurement-only-no-baseline-improvement-claim"
+  },
+  "collisionDiagnostic": {
+    "status": "pass-stop-observed",
+    "start": [-28.5, 60],
+    "target": [-40.6, 41.4],
+    "final": [-34.56855151524862, 55.8101195082301],
+    "remainingTargetDistanceSceneUnits": 15.62145688,
+    "durationMs": 8000,
+    "cameraModeAtStop": "spring-clear",
+    "cameraArm": [5.37, 5.37],
+    "limit": "The stop proves candidate collision is active; it cannot prove which of the five anonymous OSM ways belongs to the named compound."
+  },
+  "screenshots": {
+    "map": {
+      "path": "test_artifacts/all-models/runtime/shanghai-orchestra/test_shanghai_orchestra_massing_threejs_map.jpg",
+      "sha256": "9366b00b2f9c5e23222875c71f5243c47ad80211587c4eadfd95d82013937c60",
+      "bytes": 61186
+    },
+    "collision": {
+      "path": "test_artifacts/all-models/runtime/shanghai-orchestra/test_shanghai_orchestra_massing_threejs_collision.jpg",
+      "sha256": "74be9fdd74bb33b833c524b1fc434fdb682761c5ac4026f5a8216d4aaa22c180",
+      "bytes": 46393
+    }
+  },
+  "console": {
+    "errorsObservedForCurrentRoute": 0,
+    "warnings": [
+      "THREE.Clock deprecation"
+    ]
+  },
+  "acceptance": {
+    "resource": "pass",
+    "groundContact": "pass",
+    "roadClearance": "pass",
+    "collisionDiagnostic": "pass",
+    "performanceSample": "pass-measured",
+    "formalMembership": "blocked-evidence",
+    "formalMapAcceptance": "blocked-evidence",
+    "runtimePromotionAllowed": false
+  },
+  "nextGate": "Bind the named orchestra compound to an exact source footprint, then repeat the same collision and camera route before production promotion."
+}

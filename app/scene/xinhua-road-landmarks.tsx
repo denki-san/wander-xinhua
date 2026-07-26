@@ -89,6 +89,7 @@ type LandmarkPlacement = {
   scale: number;
   localBounds: MapObstacle;
   localObstacles?: MapObstacle[];
+  collisionMargin?: number;
   start: MapPolygonPoint;
   forward: MapPolygonPoint;
   cameraTargetHeight?: number;
