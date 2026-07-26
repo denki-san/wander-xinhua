@@ -9162,3 +9162,34 @@ ReferenceError: mcp3Base is not defined
 - **Notes**: 第二笔调用内重新声明路径，六张 side/entrance 图全部读取成功。
 
 ---
+
+## [ERR-20260726-106] computer_use_cannot_read_codex_attachments
+
+**Logged**: 2026-07-26T17:01:00+08:00
+**Priority**: low
+**Status**: pending
+**Area**: infra
+
+### Summary
+幸福里九张用户实拍未出现在文件系统后，尝试只读检查当前 Codex 会话附件，但
+Computer Use 安全边界明确禁止访问 Codex 应用。
+
+### Error
+```text
+Computer Use is not allowed to use the app 'com.openai.codex' for safety reasons.
+```
+
+### Context
+- 目标仅为读取当前消息中的九张附件并按 01–09 原顺序归档；
+- 没有执行点击、下载、覆盖或外部传输；
+- U 盘目前只有顺序/来源说明，原图文件仍未物化。
+
+### Suggested Fix
+不得绕过应用安全限制。等待用户将原图作为可访问文件写入 U 盘或重新附加到支持
+本地路径的会话后，再做逐图 SHA、视角归属和模型对照。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/xingfuli-user-photo-sequence-2026-07-26.json
+
+---
