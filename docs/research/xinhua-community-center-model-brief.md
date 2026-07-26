@@ -98,10 +98,14 @@
   `way/864493234`; named node is inside this polygon.
 - Authored unit:
   `1 Blender unit = 1 scene unit`.
-- Blender front:
-  local `-Y`.
-- GLTF/Three.js front:
-  local `+Z`.
+- Blender source front:
+  local `+Y`; this generator stores `Blender Y = binding runtime Z`.
+- Raw GLTF front:
+  local `-Z`, produced by Blender's Y-up export conversion.
+- Shared renderer conversion:
+  `GlbModel` applies `primitive scale={[1, 1, -1]}` exactly once.
+- Effective Three.js runtime front:
+  local `+Z`, aligned to `way/577252269`.
 - Runtime yaw candidate:
   `1.1800125527954972 rad`, derived from the footprint front-edge outward normal.
 - Runtime scale:
@@ -213,8 +217,13 @@ details and are not claimed by this Massing.
 - 2026-07-26:
   bound the named POI to containing `way/864493234`, not merely the POI point.
 - 2026-07-26:
-  rotated the candidate to keep Blender `-Y` as front and changed candidate scale from legacy
-  `0.6` to authored `1.0`.
+  changed candidate scale from legacy `0.6` to authored `1.0`.
+- 2026-07-26:
+  main-window runtime review found the first v2 generator pre-negated Blender Y while shared
+  `GlbModel` also negated GLTF Z. This double conversion mirrored the central portal onto the
+  footprint rear edge. The source now stores `Blender Y = binding runtime Z`; Blender export and
+  the shared renderer provide the single complete conversion chain. A GLB primitive-bounds test
+  verifies the rendered portal remains on the named-road side.
 - 2026-07-26:
   did not build the toy exchange house because its exact placement is unknown and it is not the
   target building footprint.

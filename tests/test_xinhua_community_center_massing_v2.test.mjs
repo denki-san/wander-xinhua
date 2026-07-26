@@ -233,8 +233,10 @@ test("local footprint 通过候选 position/yaw/scale 回到OSM world且不靠sc
   const binding = await readJson(BINDING_PATH);
   const placement = binding.runtimePlacementCandidate;
   assert.equal(placement.scale, 1);
-  assert.equal(placement.authoredFront, "blender-local-negative-y");
-  assert.equal(placement.gltfFront, "local-positive-z");
+  assert.equal(placement.blenderSourceFront, "local-positive-y");
+  assert.equal(placement.rawGltfFront, "local-negative-z");
+  assert.deepEqual(placement.rendererScale, [1, 1, -1]);
+  assert.equal(placement.runtimeFront, "local-positive-z");
 
   let maximumError = 0;
   for (
@@ -270,6 +272,71 @@ test("local footprint 通过候选 position/yaw/scale 回到OSM world且不靠sc
       localFrontInWorld[0] - placement.frontWorldDirection[0],
       localFrontInWorld[1] - placement.frontWorldDirection[1],
     ) < 1e-12,
+  );
+});
+
+test("共享renderer翻Z后中央门廊仍位于OSM绑定入口与命名支路一侧", async () => {
+  const [binding, record, rendererSource] = await Promise.all([
+    readJson(BINDING_PATH),
+    readJson(RECORD_PATH),
+    readFile(
+      path.join(ROOT, "app/scene/xinhua-road-landmarks.tsx"),
+      "utf8",
+    ),
+  ]);
+  assert.match(
+    rendererSource,
+    /return <primitive object=\{model\} scale=\{\[1, 1, -1\]\} \/>;/,
+  );
+
+  const gltf = await parseGlb(record.outputs.glb);
+  const portalMaterialIndex = gltf.materials.findIndex(
+    ({ name }) => name === "community-center-silver-portal",
+  );
+  assert.notEqual(portalMaterialIndex, -1);
+  const portalPrimitive = gltf.meshes[0].primitives.find(
+    ({ material }) => material === portalMaterialIndex,
+  );
+  assert(portalPrimitive);
+  const portalAccessor =
+    gltf.accessors[portalPrimitive.attributes.POSITION];
+  const rawGltfCenter = [
+    (portalAccessor.min[0] + portalAccessor.max[0]) / 2,
+    (portalAccessor.min[2] + portalAccessor.max[2]) / 2,
+  ];
+  assert(
+    rawGltfCenter[1] < 0,
+    "Blender +Y 应在 raw GLTF 中导出为 -Z",
+  );
+
+  const renderedLocalCenter = [
+    rawGltfCenter[0],
+    -rawGltfCenter[1],
+  ];
+  const placement = binding.runtimePlacementCandidate;
+  const renderedWorldCenter = localToWorld(
+    renderedLocalCenter,
+    placement,
+  );
+  const entranceCenter = binding.frontAccessRoad.entranceCenterWorld;
+  const frontDirection = placement.frontWorldDirection;
+  const roadSideOffset =
+    (renderedWorldCenter[0] - entranceCenter[0]) * frontDirection[0]
+    + (renderedWorldCenter[1] - entranceCenter[1]) * frontDirection[1];
+  assert(
+    roadSideOffset > 0.1,
+    `门廊必须在入口朝支路一侧，实际偏移 ${roadSideOffset}`,
+  );
+
+  const roadClosest = binding.frontAccessRoad.entranceRoadClosestWorld;
+  const portalRoadDistance = Math.hypot(
+    renderedWorldCenter[0] - roadClosest[0],
+    renderedWorldCenter[1] - roadClosest[1],
+  );
+  assert(
+    portalRoadDistance
+      < binding.frontAccessRoad.entranceToCenterlineSceneUnits,
+    "突出门廊应比主体入口边更靠近命名支路",
   );
 });
 
@@ -325,9 +392,12 @@ test("Massing v2 的GLB、Blend、生成器、预览和预算可追溯", async (
   );
   assert.equal(gltf.nodes[0].extras.source_osm_way, "864493234");
   assert.equal(
-    gltf.nodes[0].extras.authored_front,
-    "blender-local-negative-y",
+    gltf.nodes[0].extras.blender_source_front,
+    "local-positive-y",
   );
+  assert.equal(gltf.nodes[0].extras.raw_gltf_front, "local-negative-z");
+  assert.equal(gltf.nodes[0].extras.renderer_scale_z, -1);
+  assert.equal(gltf.nodes[0].extras.runtime_front, "local-positive-z");
   for (const transform of ["translation", "rotation", "scale", "matrix"]) {
     assert.equal(gltf.nodes[0][transform], undefined);
   }
@@ -338,7 +408,7 @@ test("Massing v2 的GLB、Blend、生成器、预览和预算可追溯", async (
   assert.equal(record.glb.images, record.budgets.maxImages);
   assert(record.glb.bytes <= record.budgets.maxBytes);
   assert.equal(record.gates.glbAudit, "pass");
-  assert.equal(record.gates.mcp1, "pass-main-window-batch");
+  assert.equal(record.gates.mcp1, "pending-main-window-batch");
   assert.equal(record.gates.runtimeGate, "pending-main-window-scoped-qa");
 
   for (const preview of Object.values(record.outputs.previews)) {
@@ -352,34 +422,22 @@ test("Massing v2 的GLB、Blend、生成器、预览和预算可追溯", async (
   }
 });
 
-test("社区中心 Massing v2 已通过主窗口批量 MCP1 且侧后未知项不越权", async () => {
+test("社区中心轴向修复后二进制等待主窗口重跑 MCP1", async () => {
   const [record, gate, mcp] = await Promise.all([
     readJson(RECORD_PATH),
     readJson(MAP_GATE_PATH),
     readJson(MCP_GATES_PATH),
   ]);
 
-  assert.equal(record.gates.mcp1, "pass-main-window-batch");
-  assert.equal(gate.gates.mcp1, "pass-main-window-batch");
+  assert.equal(record.gates.mcp1, "pending-main-window-batch");
+  assert.equal(
+    gate.gates.mcp1,
+    "pending-main-window-batch-after-axis-correction",
+  );
   assert.equal(mcp.mcp1.status, "pass");
-  assert.equal(mcp.mcp1.sceneInspection.objectCount, 1);
-  assert.equal(mcp.mcp1.sceneInspection.meshObjects, 1);
-  assert.equal(mcp.mcp1.sceneInspection.materialCount, 3);
-  assert.equal(mcp.mcp1.sceneInspection.referenceImagesEmbedded, false);
-  assert.equal(mcp.mcp1.scaleProxy.heightMeters, 1.8);
-  assert.equal(mcp.mcp1.qaRigSaved, false);
-  assert.equal(mcp.mcp1.qaRigExported, false);
-  assert.equal(mcp.mcp1.interactiveChangesAccepted.length, 0);
-  assert(mcp.mcp1.unknown.includes("side and rear facades"));
+  assert.notEqual(mcp.source.glbSha256, record.glb.sha256);
   assert.equal(mcp.identityAuthorized, false);
   assert.equal(mcp.heroAuthorized, false);
-
-  for (const view of Object.values(mcp.mcp1.fixedViews)) {
-    const contents = await readFile(path.join(ROOT, view.path));
-    assert.equal(contents.length, view.bytes);
-    assert.equal(await sha256(view.path), view.sha256);
-    assert.equal(contents.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
-  }
 });
 
 test("Recovery provisional保留在Hold且共享registry未被建筑分支覆盖", async () => {

@@ -39,6 +39,17 @@
     "osmFootprintOverlapCount": 0,
     "roadSurfaceWidthKnown": false
   },
+  "axisContract": {
+    "blenderSource": "x-runtime-x_y-runtime-z",
+    "rawGltf": "blender-y-exports-as-negative-z",
+    "rendererScale": [
+      1,
+      1,
+      -1
+    ],
+    "runtimeResult": "binding-xz-restored",
+    "portalRoadSideVerifiedBySpecializedTest": true
+  },
   "collisionCandidate": {
     "localObstacles": [
       {
@@ -56,7 +67,7 @@
   },
   "placementCandidate": {
     "model": "/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb",
-    "cacheVersion": "20260726-massing-ebe89d49",
+    "cacheVersion": "20260726-massing-a0609064",
     "position": [
       -74.78057782060566,
       112.5501903703319
@@ -83,7 +94,7 @@
     "headlessBuild": "pass",
     "fixedViews": "pass",
     "glbAudit": "pass",
-    "mcp1": "pass-main-window-batch",
+    "mcp1": "pending-main-window-batch-after-axis-correction",
     "mapProjection": "pass-candidate",
     "roadSurface": "pending-runtime-road-width",
     "runtime": "pending-main-window-scoped-qa",

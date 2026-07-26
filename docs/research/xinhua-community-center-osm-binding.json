@@ -77,8 +77,15 @@
     ],
     "yaw": 1.1800125527954972,
     "scale": 1,
-    "authoredFront": "blender-local-negative-y",
-    "gltfFront": "local-positive-z",
+    "blenderSourceFront": "local-positive-y",
+    "rawGltfFront": "local-negative-z",
+    "rendererScale": [
+      1,
+      1,
+      -1
+    ],
+    "runtimeFront": "local-positive-z",
+    "axisConversion": "blender-y-equals-binding-runtime-z_then-gltf-export-negates-z_then-shared-renderer-negates-z-once",
     "frontWorldDirection": [
       0.9246107940065941,
       0.3809132179466811
