@@ -33,7 +33,7 @@
 | 6 | `house-315` | 新华路315号住宅 | 官方 canonical、俯瞰纵深、入口/门牌证据已闭合；subject-specific Massing、MCP 1、实际地图门、独立 Hero v2 与主窗口 MCP 2 已通过；旧 Hero 的结构/拓扑/范围污染版本继续只读 Hold | `in-scope` / source `14741bb` / integrated `a237231` | 从冻结 Hero v2 `ad414549…` 派生独立 Identity，完成 MCP 3 三档与真实 Three.js runtime；1930/1949 年代冲突继续为 Unknown，禁止恢复旧场地污染 |
 | 7 | `villa-le-bec` | Villa Le Bec | 旧 Hero 保留；六张证据闭合两栋主体，evidence-bound Massing v3 已通过当前 SHA 的 Blender MCP1 和真实页面加载/可见性 | `blocked-map` / integrated candidate `30fce9d` | frozen placement 离道路柏油边约 `8.8255` scene units，并与 House315 obstacles 有五处 AABB 交叉；模型保留但不得推广，先裁决 footprint 归属与沿街入口锚点，再复验道路退界、碰撞和入口 |
 | 8 | `shanghai-orchestra` | 上海民族乐团 | 旧 Hero `.blend/.glb`、recovery 新 Brief/manifest/三张证据及 clean-v2 Massing | `in-scope` / legacy Hero baseline | 拆分并绑定 compound 子建筑，完成全部门禁 |
-| 9 | `hudec-memorial` | 邬达克纪念馆 | 旧 Hero；新官方证据、V2 Brief、结构化 Massing 与 MCP 1；地图门证据已整合至 `8edac99` | `blocked-map` / source `ee3fcad` | 真实门廊净宽 `1.2672`，小于碰撞所需 `1.36`；必须回 Massing 加宽入口并重跑 MCP 1/地图门，禁止缩碰撞盒造假，Hero/Identity 继续关闭 |
+| 9 | `hudec-memorial` | 邬达克纪念馆 | 新官方证据、V2 Brief、修正入口与OSM朝向的当前 Massing；当前 SHA 已通过 Blender MCP1、真实页面位置/朝向/接地、实体墙碰撞、开放院墙缺口和可见 production 10秒性能门 | `massing-complete` / integrated candidate `350b77a` | 地图门已通过并开放 legacy Hero 的主窗口 MCP2 复核；Identity 继续关闭，必须等当前 Hero 终审 |
 | 10 | `xinhua-pocket-park` | 新华路口袋公园 | 旧场地 GLB、两张同地点证据、recovery clean-v2 Massing 候选 | `in-scope` / legacy scoped asset | 固定“场地型建筑资产”语义，校准 footprint/朝向并完成全部门禁 |
 | 11 | `xinhua-community-center` | 新华·社区营造中心 | 旧 Hero `.blend/.glb`、两张同地点证据、旧预览/运行时截图 | `in-scope` / legacy Hero baseline | 确认建筑本体证据、独立 Brief、三档和全部门禁 |
 | 12 | `debi-fahua-525` | 德必法华525 | 旧 Hero、三张建筑群证据、recovery clean-v2 Massing 候选 | `in-scope` / legacy Hero baseline | 明确代表建筑与开放庭院，审计候选 Massing 并完成全部门禁 |

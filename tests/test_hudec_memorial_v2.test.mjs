@@ -53,7 +53,7 @@ test("Hudec Massing 保持单资产安全并记录证据边界", async () => {
 
   assert.equal(record.stableAssetId, "hudec-memorial");
   assert.equal(record.qualityTier, "massing");
-  assert.equal(record.status, "fast-massing-static-pass-mcp1-pending");
+  assert.equal(record.status, "fast-massing-mcp1-and-runtime-map-pass");
   assert.equal(record.generator.singleAssetSafe, true);
   assert.deepEqual(record.holdBoundary, {
     trees: "untouched",
@@ -117,7 +117,7 @@ test("Hudec 历史 Three.js 地图门保留旧二进制证据与源 registry 边
   );
   assert.equal(gate.mapGate.status, "historical-blocked-superseded-candidate");
   assert.equal(gate.mapGate.heroIdentityAuthorized, false);
-  assert.equal(gate.heroGate.status, "blocked-until-map-gate-pass");
+  assert.equal(gate.heroGate.status, "authorized-for-main-window-mcp2");
   assert.equal(qa.verdict.mapGate, "blocked");
   assert.equal(qa.performance.sampleDurationMs < 10_000, true);
   assert.equal(
@@ -267,7 +267,7 @@ test("三张 Headless 固定机位与 1.8 m 代理合同齐全", async () => {
   assert.match(generator, /asset=False/);
 });
 
-test("Hudec Fast Massing 当前二进制与 gate 候选一致并明确等待主窗口 MCP1", async () => {
+test("Hudec Fast Massing 当前二进制已通过主窗口 MCP1 与真实地图门", async () => {
   const [gate, recordBuffer, glb, blend, calibrationBuffer] = await Promise.all([
     readFile(mcpGateUrl, "utf8").then(JSON.parse),
     readFile(recordUrl),
@@ -280,14 +280,16 @@ test("Hudec Fast Massing 当前二进制与 gate 候选一致并明确等待主�
 
   assert.equal(gate.assetId, "hudec-memorial");
   assert.equal(gate.activeCandidate, "fastModeCandidate");
-  assert.equal(candidate.status, "headless-and-static-map-pass-mcp1-pending");
+  assert.equal(candidate.status, "mcp1-and-runtime-map-pass");
   assert.equal(candidate.runtimeAsset.sha256, sha256(glb));
   assert.equal(candidate.editableSource.sha256, sha256(blend));
   assert.equal(candidate.mapCalibration.sha256, sha256(calibrationBuffer));
   assert.equal(candidate.headless.triangles, 2180);
   assert.equal(candidate.headless.materials, 5);
   assert.equal(candidate.headless.images, 0);
-  assert.equal(candidate.nextGate, "main-window-blender-mcp1");
+  assert.equal(candidate.mainWindowReview.mcp1, "pass-current-sha-visual-and-structure");
+  assert.equal(candidate.mainWindowReview.mapAcceptance, "pass");
+  assert.equal(candidate.nextGate, "main-window-hero-mcp2");
   assert.equal(candidate.publicRegistryEdited, false);
   assert.equal(candidate.runtimeEdited, false);
   assert.equal(
@@ -299,9 +301,25 @@ test("Hudec Fast Massing 当前二进制与 gate 候选一致并明确等待主�
     record.validation.mcpRecord,
     "docs/research/hudec-memorial-blender-mcp-gates.json",
   );
+  assert.equal(record.mainWindowReview.mcp1.captures.length, 3);
+  assert.equal(record.mainWindowReview.runtime.consoleEvents, 0);
+  assert.ok(
+    record.mainWindowReview.runtime.performance.sampleDurationMs >= 10_000,
+  );
+  assert.equal(record.mainWindowReview.mapAcceptance, "pass");
+  assert.equal(record.mainWindowReview.heroReviewAuthorized, true);
+  assert.equal(record.mainWindowReview.identityAuthorized, false);
 
   for (const view of ["canonical", "side", "entrance"]) {
     const screenshot = candidate.headless.fixedViews[view];
+    const buffer = await readFile(new URL(screenshot.path, root));
+    assert.equal(buffer.length, screenshot.bytes);
+    assert.equal(sha256(buffer), screenshot.sha256);
+  }
+  for (const screenshot of [
+    ...record.mainWindowReview.mcp1.captures,
+    ...record.mainWindowReview.runtime.screenshots,
+  ]) {
     const buffer = await readFile(new URL(screenshot.path, root));
     assert.equal(buffer.length, screenshot.bytes);
     assert.equal(sha256(buffer), screenshot.sha256);

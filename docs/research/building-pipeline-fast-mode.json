@@ -172,6 +172,7 @@
       "id": "hudec-memorial",
       "label": "邬达克纪念馆",
       "tests": [
+        "tests/test_building_massing_qa_contract.test.mjs",
         "tests/test_hudec_memorial_v2.test.mjs",
         "tests/test_requested_poi_models.test.mjs"
       ],
@@ -180,7 +181,8 @@
         "public/models/requested-pois/hudec-memorial-massing.glb"
       ],
       "runtimeRoutes": [
-        "/?start=hudec&cameraQa=1&qaAutoStart=1"
+        "/?start=hudec&cameraQa=1&qaAutoStart=1",
+        "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=massing&cameraQa=1&qaAutoStart=1"
       ]
     },
     {

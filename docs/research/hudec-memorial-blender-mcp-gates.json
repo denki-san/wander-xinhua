@@ -154,7 +154,7 @@
     "heroIdentityAuthorized": false
   },
   "fastModeCandidate": {
-    "status": "headless-and-static-map-pass-mcp1-pending",
+    "status": "mcp1-and-runtime-map-pass",
     "generatedAt": "2026-07-26T02:24:06+08:00",
     "ownership": "hudec-building-only",
     "generator": {
@@ -174,7 +174,7 @@
     },
     "buildRecord": {
       "path": "docs/research/build-records/hudec-memorial-massing.json",
-      "sha256": "fab32457af8d63cbb37fba48eef40a44e8987006d78bcc242e2ee993176235d1"
+      "sha256": "62b3e4e0f65da386260d0512e73ca99300b96feaa474b8a86e4718d4b50489b3"
     },
     "mapCalibration": {
       "path": "test_artifacts/test_hudec-memorial_map_calibration.json",
@@ -222,10 +222,19 @@
     },
     "publicRegistryEdited": false,
     "runtimeEdited": false,
-    "nextGate": "main-window-blender-mcp1"
+    "mainWindowReview": {
+      "record": "docs/research/build-records/hudec-memorial-massing.json#mainWindowReview",
+      "mcp1": "pass-current-sha-visual-and-structure",
+      "runtimeAssetVisibility": "pass-current-sha",
+      "mapAcceptance": "pass",
+      "collision": "pass-solid-wall-and-open-entrance-path",
+      "performance": "pass-visible-production-10.0151s-97.0534fps",
+      "consoleEvents": 0
+    },
+    "nextGate": "main-window-hero-mcp2"
   },
   "heroGate": {
-    "status": "blocked-until-map-gate-pass"
+    "status": "authorized-for-main-window-mcp2"
   },
   "identityGate": {
     "status": "blocked-until-reviewed-hero-master"

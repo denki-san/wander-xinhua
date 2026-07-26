@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "stableAssetId": "hudec-memorial",
   "qualityTier": "massing",
-  "status": "fast-massing-static-pass-mcp1-pending",
+  "status": "fast-massing-mcp1-and-runtime-map-pass",
   "generatedAt": "2026-07-26T02:24:06+08:00",
   "generator": {
     "path": "scripts/create_hudec_memorial_v2.py",
@@ -132,13 +132,117 @@
       "command": "python3 scripts/audit_glb.py public/models/requested-pois/hudec-memorial-massing.glb --forbid-images --max-nodes 2",
       "result": "passed"
     },
-    "mcp1": "pending-after-entrance-geometry-and-map-transform-correction",
+    "mcp1": "pass-current-sha-visual-and-structure",
     "mcpRecord": "docs/research/hudec-memorial-blender-mcp-gates.json",
-    "mapCalibration": "static-pass-recommendation-awaiting-main-runtime",
+    "mapCalibration": "pass-current-sha-real-threejs",
     "mapCalibrationRecord": "test_artifacts/test_hudec-memorial_map_calibration.json",
-    "runtimeQa": "pending-main-window-after-mcp1",
+    "runtimeQa": "pass-current-sha-load-map-collision-performance",
     "previousRuntimeQaRecord": "test_artifacts/test_hudec-memorial_massing_runtime_metrics.json",
     "independentReview": "headless-and-static-map-ready-for-mcp1"
+  },
+  "mainWindowReview": {
+    "reviewedAt": "2026-07-26",
+    "reviewedBy": "main-window-xhigh-final-review",
+    "runtimeGlbSha256": "772ce8a8445a2cc9f1496a9876960ecf78964f11d09209578a1a5fbd52864ff0",
+    "mcp1": {
+      "status": "pass-current-sha-visual-and-structure",
+      "interactiveReview": "Blender MCP",
+      "scene": {
+        "root": "hudec-memorial-massing",
+        "vertices": 1168,
+        "polygons": 1094,
+        "triangles": 2180,
+        "materials": 5,
+        "rootTransform": "pass-normalized"
+      },
+      "captures": [
+        {
+          "view": "canonical",
+          "path": "test_artifacts/all-models/massing-v2/hudec-memorial/test_hudec-memorial-massing_mcp1_fast_canonical.png",
+          "sha256": "c1dd30dce0287d24ea9b0e39ed1228062ef84eadc09a5ec20af7149f146d1e67",
+          "bytes": 654257
+        },
+        {
+          "view": "side",
+          "path": "test_artifacts/all-models/massing-v2/hudec-memorial/test_hudec-memorial-massing_mcp1_fast_side.png",
+          "sha256": "782d1f4b4dd4be2a46e6511177bcacb9a72debb1400759ed3fee7402aed4a9bd",
+          "bytes": 640764
+        },
+        {
+          "view": "entrance-scale",
+          "path": "test_artifacts/all-models/massing-v2/hudec-memorial/test_hudec-memorial-massing_mcp1_fast_entrance-scale.png",
+          "sha256": "6950aa6f89933b7f5eed2985628b06f56f206d5f8a099f91c370b5ff4484ec0f",
+          "bytes": 608468
+        }
+      ],
+      "acceptedInteractiveChanges": [],
+      "generatorRoundTrip": "not-required-qa-rig-not-saved"
+    },
+    "runtime": {
+      "qaUrl": "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+      "placement": {
+        "position": [92.535374, -132.52181],
+        "yaw": 0.153486288,
+        "scale": 0.88
+      },
+      "start": {
+        "position": [92.5, -145],
+        "forward": [0, 1]
+      },
+      "assetStatus": "loaded",
+      "resource": {
+        "requestCount": 1,
+        "encodedBodySize": 158312,
+        "transferSize": 158612,
+        "durationMs": 5.3
+      },
+      "consoleEvents": 0,
+      "mapChecks": {
+        "position": "pass-osm-footprint-recommendation",
+        "orientation": "pass-osm-long-axis-and-evidence",
+        "groundContact": "pass-visual",
+        "roadSetback": "pass-model-follows-osm-within-0.466945-scene-unit",
+        "solidWallCollision": "pass-forward-probe-stops-and-slides-without-penetration",
+        "entranceGap": "pass-side-adjusted-probe-walks-between-wall-segments-to-door",
+        "camera": "pass-spring-clear-arm-5.37-of-5.37"
+      },
+      "collisionProbes": {
+        "solidWallPlayerPosition": [95.80123264721226, -138.5889270580592],
+        "entrancePathPlayerPosition": [92.69590174225833, -137.50226868928317]
+      },
+      "performance": {
+        "viewport": [1280, 720],
+        "pageVisibility": "visible",
+        "prewarmMs": 6000,
+        "sampleDurationMs": 10015.1,
+        "frames": 972,
+        "fps": 97.0534,
+        "buildMode": "production"
+      },
+      "screenshots": [
+        {
+          "role": "map-candidate",
+          "path": "test_artifacts/test_hudec-memorial_massing_runtime_map_candidate_1280x720.jpg",
+          "sha256": "6f1f8f9775b7955dd90fd343786a6f4e3d9af22ba8316f628f3bc6d06baca1e9",
+          "bytes": 57545
+        },
+        {
+          "role": "solid-wall-collision",
+          "path": "test_artifacts/test_hudec-memorial_massing_runtime_collision_1280x720.jpg",
+          "sha256": "f214d0b0644090b3ca0418ede83114f4db796a7a579e7b99b7fe8f245c11fc6d",
+          "bytes": 65482
+        },
+        {
+          "role": "entrance-path",
+          "path": "test_artifacts/test_hudec-memorial_massing_runtime_entrance_path_1280x720.jpg",
+          "sha256": "e23a024959ffcd21991cc206f2bb1384c208757f9789d98d2c5b175eeaf8c392",
+          "bytes": 65409
+        }
+      ]
+    },
+    "mapAcceptance": "pass",
+    "heroReviewAuthorized": true,
+    "identityAuthorized": false
   },
   "holdBoundary": {
     "trees": "untouched",

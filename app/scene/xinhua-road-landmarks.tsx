@@ -98,6 +98,17 @@ type LandmarkPlacement = {
   positioning?: string;
 };
 
+type BuildingMassingQaCandidate = {
+  assetId: string;
+  requestedTier: string;
+  modelPath: string;
+  placement?: {
+    position: readonly [number, number];
+    yaw: number;
+    scale: number;
+  };
+};
+
 // 160 号使用 OSM way 292250766 的建筑轮廓中心；其余位置由新华路中心线、
 // 345 弄入口和门牌递增方向校准。奇数门牌位于北侧，偶数门牌位于南侧。
 export const XINHUA_ROAD_LANDMARKS = landmarkData.landmarks as unknown as readonly LandmarkPlacement[];
@@ -749,16 +760,14 @@ export function XinhuaRoadLandmarks({
   );
   const buildingMassingQa = resolveBuildingMassingQa(
     typeof window === "undefined" ? "" : window.location.search,
-  );
+  ) as BuildingMassingQaCandidate | null;
   return (
     <group
       name="xinhua-road-photo-reference-landmarks"
       userData={{ stage: "full", loading: "distance-state-on-demand" }}
     >
       {XINHUA_ROAD_LANDMARKS.map((landmark) => {
-        const [x, z] = landmark.position;
         const [labelOffsetX, labelOffsetZ] = landmark.labelOffset ?? [0, 0];
-        const y = terrainHeightAt(x, z) + 0.1;
         const filmArtQaActive = filmArtQa?.assetId === landmark.id
           ? filmArtQa
           : null;
@@ -772,6 +781,13 @@ export function XinhuaRoadLandmarks({
           buildingMassingQa?.assetId === landmark.id
             ? buildingMassingQa
             : null;
+        const [x, z] =
+          buildingMassingQaActive?.placement?.position ?? landmark.position;
+        const y = terrainHeightAt(x, z) + 0.1;
+        const yaw =
+          buildingMassingQaActive?.placement?.yaw ?? landmark.yaw;
+        const scale =
+          buildingMassingQaActive?.placement?.scale ?? landmark.scale;
         // resolver 只会在 tier 命中 Hero / Identity / Massing 时返回对象；
         // 默认值仅用于弥补无 JSDoc 的 .mjs 推断，不会改变有效 QA 路由。
         const filmArtTier = filmArtQaActive?.tier ?? "identity";
@@ -870,7 +886,7 @@ export function XinhuaRoadLandmarks({
                 || undefined,
             }}
           >
-            <group position={[x, y, z]} rotation-y={landmark.yaw} scale={landmark.scale}>
+            <group position={[x, y, z]} rotation-y={yaw} scale={scale}>
               {shouldMountActiveModel && (
                 buildingMassingQaActive ? (
                   <ProgressiveFeatureBoundary
