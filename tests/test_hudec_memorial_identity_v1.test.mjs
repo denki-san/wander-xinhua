@@ -217,7 +217,7 @@ test("Identity 相对 Hero 的减量成立且两次 GLB 导出字节一致", asy
   );
 });
 
-test("三机位与三联图均已固化，MCP3 通过但 Three.js 尚未验收", async () => {
+test("三机位与三联图已固化，MCP3 与 Three.js 均已验收", async () => {
   const record = await readJson(recordPath);
   for (const [view, preview] of Object.entries(record.previews)) {
     assert.equal(await sha256(preview.path), preview.sha256, view);
@@ -241,10 +241,17 @@ test("三机位与三联图均已固化，MCP3 通过但 Three.js 尚未验收",
     record.validation.mcp3Record,
     "docs/research/hudec-memorial-blender-mcp3-gate-v1.json",
   );
-  assert.equal(record.validation.threeJs, "not-run");
-  assert.equal(record.validation.performanceClaim, "none");
+  assert.equal(record.validation.threeJs, "pass-main-window-single-page");
+  assert.equal(
+    record.validation.threeJsRecord,
+    "docs/research/hudec-memorial-three-tier-runtime-qa-v1.json",
+  );
+  assert.equal(
+    record.validation.performanceClaim,
+    "pass-current-build-no-regression-claim",
+  );
   assert.equal(
     record.validation.overall,
-    "identity-v1-mcp3-pass-runtime-pending",
+    "identity-v1-runtime-pass",
   );
 });

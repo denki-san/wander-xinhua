@@ -4,7 +4,7 @@
   "assetId": "hudec-memorial",
   "tier": "identity",
   "versionName": "identity-v1",
-  "status": "identity-v1-mcp3-pass-runtime-pending",
+  "status": "identity-v1-runtime-pass",
   "generator": {
     "path": "scripts/create_hudec_memorial_identity_v1.py",
     "sha256": "728189fd4c2fdadbb619d9c2573fa710cd36e6fba6f2935cfbca67c019d5c615",
@@ -290,8 +290,9 @@
     "fixedViews": "pass-medium-building-window",
     "mcp3": "pass-main-window-xhigh",
     "mcp3Record": "docs/research/hudec-memorial-blender-mcp3-gate-v1.json",
-    "threeJs": "not-run",
-    "performanceClaim": "none",
-    "overall": "identity-v1-mcp3-pass-runtime-pending"
+    "threeJs": "pass-main-window-single-page",
+    "threeJsRecord": "docs/research/hudec-memorial-three-tier-runtime-qa-v1.json",
+    "performanceClaim": "pass-current-build-no-regression-claim",
+    "overall": "identity-v1-runtime-pass"
   }
 }

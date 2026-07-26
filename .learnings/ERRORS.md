@@ -8810,3 +8810,34 @@ second final: [-57.008162204, 65.984247714]
   窄廊相机仍压缩到 0.38–0.51，已作为独立正式 blocker 保留，未提升生产地图。
 
 ---
+## [ERR-20260726-092] full_regression_raced_async_runtime_record_write
+
+**Logged**: 2026-07-26T15:28:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: integration
+
+### Summary
+邬达克与口袋公园的浏览器 runtime 采集仍在异步写入统一状态矩阵时启动了全仓回归，
+测试读到了“逐栋已完成 5 栋、汇总仍为旧值 3 栋”的瞬时中间状态。
+
+### Error
+```text
+tests/test_exact_18_building_status.test.mjs
+AssertionError: 5 !== 3
+```
+
+### Context
+- 两栋专项测试与六个 GLB 审计已通过；
+- 失败不是建筑门退化，而是同一 JSON 在后台采集完成时分两步更新；
+- 后台写入稳定后，统一状态矩阵显示 `5 complete / 0 in progress / 13 blocked or partial`。
+
+### Suggested Fix
+浏览器批量采集写入公共状态文件时，主窗口先等待所有产物和状态矩阵稳定，再启动
+全仓回归；后续应优先用单次原子替换写入整份状态矩阵。
+
+### Resolution
+- **Resolved**: 2026-07-26T15:29:00+08:00
+- **Notes**: 后台写入停止后单独重跑状态矩阵测试 4/4 通过；全仓回归随后重新执行。
+
+---

@@ -106,7 +106,7 @@ test("Identity v1 只从冻结且已通过主窗口 MCP2 的 Hero v2 派生", as
   assert.equal(record.version, "identity-v1");
   assert.equal(
     record.status,
-    "identity-v1-mcp3-pass-runtime-pending",
+    "identity-v1-runtime-pass",
   );
   assert.equal(record.derivedFrom.heroRuntimeAsset.sha256, frozenHeroSha);
   assert.equal(
@@ -234,7 +234,7 @@ test("Identity 保留建筑身份构件并禁止场地、植物和装饰代理",
   assert.equal(record.scope.fastManifestModified, false);
 });
 
-test("四类固定预览与三联图属于当前候选，MCP3 通过但不冒充 Three.js", async () => {
+test("四类固定预览与三联图属于当前候选，MCP3 与 Three.js 均已验收", async () => {
   const record = await readJson(recordPath);
   const expectedPreviewDimensions = { width: 960, height: 720 };
   for (const preview of Object.values(record.outputs.previews)) {
@@ -255,7 +255,14 @@ test("四类固定预览与三联图属于当前候选，MCP3 通过但不冒充
     record.validation.mcp3Record,
     "docs/research/xinhua-pocket-park-blender-mcp3-gate-v1.json",
   );
-  assert.equal(record.validation.threeJsIdentity, "pending-main-window");
-  assert.equal(record.validation.runtimeClaimed, false);
-  assert.equal(record.validation.performanceClaimed, false);
+  assert.equal(
+    record.validation.threeJsIdentity,
+    "pass-main-window-single-page",
+  );
+  assert.equal(
+    record.validation.threeJsRecord,
+    "docs/research/xinhua-pocket-park-three-tier-runtime-qa-v1.json",
+  );
+  assert.equal(record.validation.runtimeClaimed, true);
+  assert.equal(record.validation.performanceClaimed, true);
 });

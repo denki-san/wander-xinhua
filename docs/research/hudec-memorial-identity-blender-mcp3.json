@@ -67,7 +67,8 @@
   "gateDecision": {
     "mcp3": "pass",
     "runtimeIntegrationAuthorized": true,
-    "threeJs": "pending-main-window-single-page",
-    "performanceClaim": "none-before-runtime-sampling"
+    "threeJs": "pass-main-window-single-page",
+    "threeJsRecord": "docs/research/hudec-memorial-three-tier-runtime-qa-v1.json",
+    "performanceClaim": "pass-current-build-no-regression-claim"
   }
 }

@@ -1,0 +1,218 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-pocket-park",
+  "recordedAt": "2026-07-26T15:20:00+08:00",
+  "reviewedBy": "main-window-xhigh",
+  "status": "pass-three-tier-fallback-performance-and-collision",
+  "mode": "building-fast-single-page",
+  "scope": {
+    "included": [
+      "xinhua-pocket-park-three-tiers",
+      "deterministic-tier-fallback",
+      "production-registry",
+      "frame-performance",
+      "center-passage-collision",
+      "ground-camera-and-console"
+    ],
+    "excludedAndHeld": [
+      "plants",
+      "trees",
+      "bench",
+      "rotating-panels",
+      "lights",
+      "paving",
+      "decor",
+      "adjacent-buildings",
+      "ordinary-osm",
+      "full-map-assets",
+      "recovery-hold"
+    ]
+  },
+  "build": {
+    "mode": "vite-static-production-preview",
+    "viewport": [1280, 720],
+    "pageVisibility": "visible",
+    "frameSample": 120,
+    "server": "loopback-only",
+    "publicFiles": {
+      "app/scene/building-massing-qa-contract.mjs": "bf31e7fd359165640b1384b164aeac83b0eaa2977a46b03cc1ad24fac525abaa",
+      "app/scene/xinhua-road-landmarks.tsx": "c6d350f5e3c97c0a5cbdfeb31ec896c41434499f345625fbe093fbf152dd109d",
+      "app/scene/xinhua-road-contract.ts": "9729c9c70fc09743ef4c0d2ea727f504cc224118506d72f2d6d0141e66e10ce2",
+      "app/scene/xinhua-road-massing.tsx": "8b0e0a449748682223ca388ffb75773f3d35171e34333274ce572ae9b96d6e31",
+      "app/scene/xinhua-road-identity-contract.ts": "f4fa0947777bf9e8404588b25eb3f1a95eb83a17e022de9e785e6e0b076bc2ba",
+      "app/scene/xinhua-road-landmarks-data.json": "6df9f4439679ff72203ef023cab289532df4c1d9c71a4242cfd6ef155e4055e8"
+    }
+  },
+  "placement": {
+    "position": [-57.421934309, 67.06298037],
+    "yaw": -0.398058989,
+    "scale": 0.88,
+    "start": [-55.160193116, 61.684376543],
+    "forward": [-0.387629821, 0.921815124],
+    "collisionMargin": 0,
+    "groundContact": "pass",
+    "cameraAtStart": "pass-spring-clear",
+    "cameraInsidePassage": "pass-spring-narrow-space"
+  },
+  "tiers": {
+    "hero": {
+      "path": "public/models/tiers/xinhua-road/hero-v2/xinhua-pocket-park-hero.glb",
+      "sha256": "c6ef6f107e3c1b6555784858dea2e46da8813e68aec589d04d0d3c10aeb8a7c7",
+      "bytes": 64952,
+      "triangles": 1152,
+      "materials": 4,
+      "route": "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+      "requestedTier": "hero",
+      "loadedTier": "hero",
+      "status": "loaded",
+      "worldBounds": {
+        "min": [-59.67246550740657, 0.9296368479468051, 63.044936872151965],
+        "max": [-55.17140311059343, 2.390436818573636, 71.08102386784805]
+      },
+      "performance": {
+        "frames": 120,
+        "durationMs": 2015.8999999910593,
+        "fps": 59.526762240454495,
+        "rendererDrawCalls": 236,
+        "rendererTriangles": 562494
+      },
+      "screenshot": {
+        "path": "test_artifacts/all-models/runtime-final/xinhua-pocket-park/test_xinhua_pocket_park_hero_threejs_1280x720.png",
+        "sha256": "daae0d5a9e68319a71b88796cf8d7fe295707b705f119094a8a51b616f89a3fe",
+        "bytes": 70596
+      }
+    },
+    "identity": {
+      "path": "public/models/tiers/xinhua-road/identity-v1/xinhua-pocket-park-identity.glb",
+      "sha256": "892677bb8f336ba8d504225fcaf207472829a85e4fa4424552777f0ecedf198d",
+      "bytes": 41164,
+      "triangles": 672,
+      "materials": 3,
+      "route": "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=identity&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+      "requestedTier": "identity",
+      "loadedTier": "identity",
+      "status": "loaded",
+      "worldBounds": {
+        "min": [-59.67246550740657, 0.9296368479468051, 63.044936872151965],
+        "max": [-55.17140311059343, 2.390436818573636, 71.08102386784805]
+      },
+      "performance": {
+        "frames": 120,
+        "durationMs": 2015.7999999970198,
+        "fps": 59.529715249616736,
+        "rendererDrawCalls": 232,
+        "rendererTriangles": 561534
+      },
+      "screenshot": {
+        "path": "test_artifacts/all-models/runtime-final/xinhua-pocket-park/test_xinhua_pocket_park_identity_threejs_1280x720.png",
+        "sha256": "77153676d2b504af6c474265d88b7bcf09832c744d9459e1725485b23fc55b8a",
+        "bytes": 69462
+      }
+    },
+    "massing": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.glb",
+      "sha256": "cc89e36e68397199d91684d3059c5c88410a7acc1b1c015398e05d8e57b15fa3",
+      "bytes": 14068,
+      "triangles": 108,
+      "materials": 1,
+      "route": "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+      "requestedTier": "massing",
+      "loadedTier": "massing",
+      "status": "loaded",
+      "worldBounds": {
+        "min": [-59.67246550740657, 0.9296368479468051, 63.044936872151965],
+        "max": [-55.17140311059343, 2.390436923477811, 71.08102386784805]
+      },
+      "performance": {
+        "frames": 120,
+        "durationMs": 2016.0999999940395,
+        "fps": 59.520857100518214,
+        "rendererDrawCalls": 232,
+        "rendererTriangles": 560406
+      },
+      "screenshot": {
+        "path": "test_artifacts/all-models/runtime-final/xinhua-pocket-park/test_xinhua_pocket_park_massing_threejs_1280x720.png",
+        "sha256": "b993069ba74be1cfd116675443f1414b55633b2c68f9b353fbe83ea8403b9e2c",
+        "bytes": 71272
+      }
+    }
+  },
+  "fallbacks": {
+    "heroToIdentity": {
+      "query": "qaActiveFallback=xinhua-pocket-park:hero",
+      "status": "fallback",
+      "requestedTier": "hero",
+      "loadedTier": "identity",
+      "frames": 120,
+      "durationMs": 2007.699999988079,
+      "fps": 59.76988593948922,
+      "buildMode": "browser-runtime-fallback"
+    },
+    "identityToMassing": {
+      "query": "qaActiveFallback=xinhua-pocket-park:identity",
+      "status": "fallback",
+      "requestedTier": "identity",
+      "loadedTier": "massing",
+      "frames": 120,
+      "durationMs": 2011.7000000029802,
+      "fps": 59.65104140767621,
+      "buildMode": "browser-runtime-fallback"
+    }
+  },
+  "tierContinuity": {
+    "originYawScale": "pass-shared",
+    "worldBounds": "pass-identical-across-all-three-tiers",
+    "openCenterPassage": "pass-visible-across-all-three-tiers",
+    "runtimePoppingClaim": "no-envelope-origin-yaw-scale-or-ground-pop"
+  },
+  "collision": {
+    "route": "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaMove=forward&qaMoveMs=8000&qaMoveTarget=-57.421934309,67.06298037",
+    "method": "deterministic-page-qa-movement",
+    "status": "pass",
+    "requestedDurationMs": 8000,
+    "target": [-57.421934309, 67.06298037],
+    "finalPosition": [-57.431196070408404, 67.08500558910164],
+    "finalError": 0.023896,
+    "threshold": 0.05,
+    "cameraModeAtEnd": "spring-narrow-space",
+    "frameSample": {
+      "frames": 120,
+      "durationMs": 2016.2000000029802,
+      "fps": 59.51790496965709,
+      "rendererDrawCalls": 214,
+      "rendererTriangles": 560058
+    },
+    "screenshot": {
+      "path": "test_artifacts/all-models/runtime-final/xinhua-pocket-park/test_xinhua_pocket_park_collision_threejs_1280x720.png",
+      "sha256": "54f4f89eb5f8afdaa924c46d7575a7005c6d7ca1a90e37ee73f0e6cc795328eb",
+      "bytes": 67844
+    }
+  },
+  "retainedQualifiedStages": {
+    "massingMap": "docs/research/xinhua-pocket-park-massing-map-qa.json",
+    "priorMassingRuntime": "docs/research/xinhua-pocket-park-threejs-runtime-qa-v2.json",
+    "mcp1": "pass-retained",
+    "mcp2": "pass-retained",
+    "mcp3": "docs/research/xinhua-pocket-park-blender-mcp3-gate-v1.json"
+  },
+  "consoleAndProductionEntry": {
+    "freshProductionEntryCanvasCount": 1,
+    "freshProductionEntryConsoleErrors": 0,
+    "finalCleanQaTabConsoleErrors": 0,
+    "transientRetriedLoad": {
+      "occurred": true,
+      "resource": "/textures/sky/kenney-day-2048.jpg",
+      "assetPresentWithExpectedSha": true,
+      "successfulReload": true,
+      "finalCleanRunErrors": 0
+    }
+  },
+  "decision": {
+    "threeTierRuntime": "pass",
+    "deterministicFallback": "pass",
+    "performance": "pass-no-regression-claim",
+    "mapAndCollision": "pass",
+    "publicRuntime": "accepted",
+    "overallBuilding": "complete"
+  }
+}

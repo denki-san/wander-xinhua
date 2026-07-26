@@ -66,10 +66,8 @@ for (const {
       assert.match(view.verdict, /^pass-/);
     }
     assert.equal(record.gates.mcp3, "pass");
-    assert.equal(
-      record.gates.threeJsIdentity,
-      "pending-main-window-runtime-integration",
-    );
+    assert.equal(record.gates.threeJsIdentity, "pass-main-window-single-page");
+    assert.equal(record.gates.overallBuilding, "complete");
   });
 }
 

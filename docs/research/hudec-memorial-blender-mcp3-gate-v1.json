@@ -100,7 +100,8 @@
     "identityVisual": "pass",
     "identityBudget": "pass",
     "mcp3": "pass",
-    "threeJsIdentity": "pending-main-window-runtime-integration",
-    "overallBuilding": "in-progress"
+    "threeJsIdentity": "pass-main-window-single-page",
+    "threeJsRecord": "docs/research/hudec-memorial-three-tier-runtime-qa-v1.json",
+    "overallBuilding": "complete"
   }
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T15:18:23+08:00",
-  "snapshotBaseCommit": "1fb5f25",
+  "snapshotAt": "2026-07-26T15:24:00+08:00",
+  "snapshotBaseCommit": "8414aa4",
   "scope": {
     "mode": "exact-18-building-fast-mode",
     "buildingCount": 18,
@@ -18,18 +18,17 @@
     ]
   },
   "summary": {
-    "complete": 3,
-    "inProgress": 2,
+    "complete": 5,
+    "inProgress": 0,
     "blockedOrPartial": 13,
     "completeIds": [
       "one-step-garden",
       "house-315",
+      "hudec-memorial",
+      "xinhua-pocket-park",
       "sun-ke-villa"
     ],
-    "inProgressIds": [
-      "hudec-memorial",
-      "xinhua-pocket-park"
-    ]
+    "inProgressIds": []
   },
   "buildings": [
     {
@@ -191,12 +190,13 @@
       "mcp2": "pass",
       "mcp3": "pass-atomic-main-window",
       "map": "pass",
-      "threeJs": "massing-pass-direct-tier-fallback-pending-browser",
-      "overall": "in-progress-threejs-direct-tier-pending",
-      "runtimePolicy": "production-wired-runtime-acceptance-pending",
+      "threeJs": "pass-three-tier-fallback-performance",
+      "overall": "complete",
+      "runtimePolicy": "production-wired-and-accepted",
       "records": [
         "docs/research/hudec-memorial-blender-mcp3-gate-v1.json",
-        "docs/research/hudec-memorial-identity-blender-mcp3.json"
+        "docs/research/hudec-memorial-identity-blender-mcp3.json",
+        "docs/research/hudec-memorial-three-tier-runtime-qa-v1.json"
       ]
     },
     {
@@ -210,12 +210,13 @@
       "mcp2": "pass",
       "mcp3": "pass-atomic-main-window",
       "map": "pass",
-      "threeJs": "massing-pass-direct-tier-fallback-pending-browser",
-      "overall": "in-progress-threejs-direct-tier-pending",
-      "runtimePolicy": "production-wired-runtime-acceptance-pending",
+      "threeJs": "pass-three-tier-fallback-performance-collision",
+      "overall": "complete",
+      "runtimePolicy": "production-wired-and-accepted",
       "records": [
         "docs/research/xinhua-pocket-park-blender-mcp3-gate-v1.json",
-        "docs/research/xinhua-pocket-park-identity-blender-mcp3.json"
+        "docs/research/xinhua-pocket-park-identity-blender-mcp3.json",
+        "docs/research/xinhua-pocket-park-three-tier-runtime-qa-v1.json"
       ]
     },
     {

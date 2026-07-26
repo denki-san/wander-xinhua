@@ -198,6 +198,7 @@
         "tests/test_hudec_memorial_identity_v1.test.mjs",
         "tests/test_main_window_identity_mcp3_batch.test.mjs",
         "tests/test_main_window_mcp3_identity_batch.test.mjs",
+        "tests/test_main_window_three_tier_runtime_batch.test.mjs",
         "tests/test_hudec_memorial_final_disposition.test.mjs",
         "tests/test_requested_poi_models.test.mjs"
       ],
@@ -227,6 +228,7 @@
         "tests/test_xinhua_pocket_park_identity_v1.test.mjs",
         "tests/test_main_window_identity_mcp3_batch.test.mjs",
         "tests/test_main_window_mcp3_identity_batch.test.mjs",
+        "tests/test_main_window_three_tier_runtime_batch.test.mjs",
         "tests/test_requested_poi_models.test.mjs"
       ],
       "glbs": [
