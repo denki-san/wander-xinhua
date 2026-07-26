@@ -16,6 +16,8 @@ from pathlib import Path
 
 import bpy
 
+# Blender 5.2 的 `--python relative/path.py` 不保证把脚本目录加入模块搜索路径。
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import create_xingfuli_models as legacy
 
 
