@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "label": "上海影城",
+  "researchedAt": "2026-07-26",
+  "baseCommit": "1dffc983bb47c42440997728df2efcbd6b5d4dcb",
+  "mode": "medium-building-window-official-planning-approval-survey-anchor-search",
+  "status": "blocked-official-search-exhausted-no-calibratable-site-plan",
+  "scope": {
+    "networkAccessed": true,
+    "sourceRestrictions": [
+      "official planning",
+      "official approval",
+      "official survey",
+      "official institutional disclosure"
+    ],
+    "userBrowserAccessed": false,
+    "xiaohongshuAccessed": false,
+    "reasonXiaohongshuDeferred": "用户睡眠期间不操作其登录浏览器或小红书会话。",
+    "blenderOrMcpRerun": false,
+    "qualifiedStageRerun": false,
+    "binaryRebuilt": false,
+    "publicRegistryModified": false,
+    "runtimeDisabled": false,
+    "excludedAndUntouched": [
+      "trees",
+      "decorations",
+      "full-map assets",
+      "Recovery/Hold",
+      "other buildings"
+    ]
+  },
+  "verifiedInputs": {
+    "exactAnchorAudit": {
+      "path": "docs/research/shanghai-cinema-exact-anchor-road-setback-audit.json",
+      "sha256": "d9be563f25984e61d4d37695d8353272e3a3cfbc5e35cbe48a3be5f22fe18d82"
+    },
+    "publicAnchorRescue": {
+      "path": "docs/research/shanghai-cinema-public-exact-anchor-rescue-2026-07-26.json",
+      "sha256": "5c98feafd8e5bf999ff12a6f8c28639c93aa1ba5e0078aa1a93750b0446ea2ba"
+    }
+  },
+  "calibrationRequirement": {
+    "northArrow": "required",
+    "scaleOrDimensions": "required",
+    "twoNonCoincidentSubjectControlPoints": "required",
+    "acceptableControls": [
+      "main entrance center",
+      "ribbon endpoint",
+      "tower corner",
+      "site-wall corner"
+    ],
+    "addressOrCentroidAlone": "not-sufficient",
+    "perspectivePhotoAlone": "not-sufficient"
+  },
+  "queryLog": [
+    {
+      "query": "2102CN0309D01 总平面 上海影城",
+      "result": "official construction-permit index located; no downloadable drawing or survey attachment exposed"
+    },
+    {
+      "query": "上海影城修缮项目 总平面图",
+      "result": "official institutional project report located; describes scope and plaza relationship, not a dimensioned plan"
+    },
+    {
+      "query": "新华路160号 上海影城 竣工图",
+      "result": "no authoritative public completion drawing with north arrow, scale, and two controls retrieved"
+    },
+    {
+      "query": "上海影城 总平图",
+      "result": "no authoritative public site plan meeting the calibration requirement retrieved"
+    }
+  ],
+  "reviewedSources": [
+    {
+      "url": "https://zwgk.shcn.gov.cn/xxgk/jzscgl-jgwzdgz/2022/313/64863.html",
+      "publisher": "上海市长宁区人民政府",
+      "kind": "official-construction-permit-index",
+      "observed": [
+        "项目名称为上海影城修缮项目。",
+        "地址为新华路160号。",
+        "施工许可项目编号为2102CN0309D01。"
+      ],
+      "notPresent": [
+        "site drawing attachment",
+        "north arrow",
+        "scale or dimensions",
+        "two georeferenced subject controls"
+      ]
+    },
+    {
+      "url": "https://static.cninfo.com.cn/finalpage/2024-03-30/1219466040.PDF",
+      "publisher": "华东建筑集团股份有限公司（法定披露 PDF）",
+      "kind": "official-institutional-project-report",
+      "observed": [
+        "修缮范围包含建筑外立面、室内空间与室外广场改造。",
+        "报告描述原台阶环绕空间改为平缓公共广场，并与人行道无缝衔接。"
+      ],
+      "notPresent": [
+        "building-level dimensioned site plan",
+        "north arrow",
+        "scale",
+        "two common GLB/WGS84 controls"
+      ]
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col7696/20230331/1233581.html",
+      "publisher": "上海市长宁区规划和自然资源局",
+      "kind": "official-project-site-meeting",
+      "observed": [
+        "公开页面记录上海影城立面改造项目的竣工规划资源验收推进。"
+      ],
+      "notPresent": [
+        "public survey drawing",
+        "dimensioned public site plan",
+        "control-point coordinates"
+      ]
+    }
+  ],
+  "evidenceClassification": {
+    "observed": [
+      "本轮限定来源检索确认项目编号、地址、改造范围和广场应与人行道平缓衔接。",
+      "没有检索到公开的、同时具备北箭头、比例或尺寸、以及至少两个可与 GLB 和 WGS84 对应主体控制点的图纸。",
+      "既有精确锚点审计已量化多个道路参照之间的平移不一致，因此不能用单一地址或中心点任意挪动资产。"
+    ],
+    "inferred": [
+      "官方项目描述可支持继续保留道路退界问题，但不足以决定整栋的平移、旋转或本地原点修改。"
+    ],
+    "unknown": [
+      "改造后入口中心、丝带端点、塔楼角点与路缘的测绘坐标。",
+      "是否存在未公开的竣工测绘、审批附图或设计院总平。"
+    ]
+  },
+  "knowledgeWorkflow": {
+    "repositorySource": "docs/knowledge-sources/shanghai-cinema-official-anchor-evidence-exhaustion-2026-07-26.md",
+    "projectName": "Threejs-3d-research",
+    "externalIngestion": "not-run",
+    "reason": "本建筑窗口无外部 Wiki 写入授权；本记录仅保留仓库内可追溯来源，不能据此声称新的知识库入库完成。"
+  },
+  "disposition": {
+    "exactMapAnchor": "blocked",
+    "publicPlacementMutationAuthorized": false,
+    "runtimeRemovalAuthorizedNow": false,
+    "currentAssets": "retain-unchanged",
+    "nextEvidenceGate": "用户可用时，以慢速、人工浏览方式补查小红书是否存在同主体、含街道界面且可标定的宽景；仍不足则按用户授权仅从游戏 registry/runtime 停用本栋，文件继续保留。",
+    "claimBoundary": "本记录说明本轮公开限定检索未找到合格图纸，不声称全球不存在该图纸。"
+  }
+}
