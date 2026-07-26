@@ -1,0 +1,126 @@
+{
+  "version": 2,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:xinhua-pocket-park",
+  "tier": "massing",
+  "batch": "clean-footprint-v2",
+  "status": "runtime-pass-formal-map-gate-blocked",
+  "generator": "scripts/create_xinhua_road_clean_massing_models.py",
+  "geometrySpec": "docs/research/xinhua-road-clean-massing-geometry-spec.json",
+  "modelBrief": "docs/research/xinhua-road-massing-model-brief.md",
+  "placement": {
+    "position": [
+      -56.9,
+      66.3
+    ],
+    "yaw": -0.38,
+    "scale": 0.88,
+    "movementAuthorized": false
+  },
+  "candidateStatus": "site-envelope-preview-not-surveyed-polygon",
+  "membershipConfidence": "medium",
+  "heightEvidence": {
+    "previewMeters": 10.5,
+    "localSceneUnits": 4.419192,
+    "status": "unknown-runtime-fallback-not-evidence"
+  },
+  "unknown": [
+    "true irregular boundary and width profile",
+    "mirror wall dimensions",
+    "path width",
+    "entrance end and dimensions",
+    "planting and bench exact positions"
+  ],
+  "children": [
+    {
+      "name": "path-slab",
+      "sourceWayId": null,
+      "candidateRole": "walkable-path",
+      "geometryEvidence": "approximate-site-envelope"
+    },
+    {
+      "name": "left-mirror-wall",
+      "sourceWayId": null,
+      "candidateRole": "mirror-wall-preview",
+      "geometryEvidence": "approximate-site-envelope"
+    },
+    {
+      "name": "right-mirror-wall",
+      "sourceWayId": null,
+      "candidateRole": "mirror-wall-preview",
+      "geometryEvidence": "approximate-site-envelope"
+    },
+    {
+      "name": "left-planting-strip",
+      "sourceWayId": null,
+      "candidateRole": "planting-strip-preview",
+      "geometryEvidence": "approximate-site-envelope"
+    },
+    {
+      "name": "right-planting-strip",
+      "sourceWayId": null,
+      "candidateRole": "planting-strip-preview",
+      "geometryEvidence": "approximate-site-envelope"
+    },
+    {
+      "name": "bench",
+      "sourceWayId": null,
+      "candidateRole": "bench-preview",
+      "geometryEvidence": "approximate-site-envelope"
+    },
+    {
+      "name": "entrance-frame",
+      "sourceWayId": null,
+      "candidateRole": "entrance-frame-preview",
+      "geometryEvidence": "approximate-site-envelope"
+    }
+  ],
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.glb",
+    "previews": {
+      "canonical": "test_artifacts/all-models/massing-v2/test_xinhua-pocket-park-massing-v2-canonical.png",
+      "side": "test_artifacts/all-models/massing-v2/test_xinhua-pocket-park-massing-v2-side.png"
+    }
+  },
+  "glb": {
+    "sha256": "cc89e36e68397199d91684d3059c5c88410a7acc1b1c015398e05d8e57b15fa3",
+    "bytes": 14068,
+    "nodes": 7,
+    "meshes": 7,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 108,
+    "bounds": {
+      "min": [
+        -0.84,
+        0,
+        -4.6
+      ],
+      "max": [
+        0.84,
+        1.66,
+        4.6
+      ]
+    },
+    "transformedNodes": []
+  },
+  "runtimeGate": "pass",
+  "mapAcceptance": "blocked",
+  "identityAllowed": false,
+  "runtimeGeometryVisual": "pass",
+  "runtimeQa": {
+    "file": "docs/research/xinhua-road-clean-massing-runtime-qa.json",
+    "contextScreenshot": {
+      "file": "test_artifacts/all-models/massing-v2/test_xinhua-pocket-park-massing-v2-threejs.png",
+      "sha256": "0b61dd364892d555fac8bad397fafecd13f1914e76f5fb9e97361b721545dd15",
+      "bytes": 63392
+    },
+    "isolatedScreenshot": {
+      "file": "test_artifacts/all-models/massing-v2/test_xinhua-pocket-park-massing-v2-threejs-isolated.png",
+      "sha256": "c0b69e4b8c8da67b3ef0177d28f83df7259cb268b8937fc696d4ceb38c9748a5",
+      "bytes": 64434
+    }
+  }
+}

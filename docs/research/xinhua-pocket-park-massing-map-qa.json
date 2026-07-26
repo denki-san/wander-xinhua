@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-pocket-park",
+  "auditedAt": "2026-07-26",
+  "recovery": {
+    "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "status": "selectively-retained-without-rebuild",
+    "generator": {
+      "pathInRecovery": "scripts/create_xinhua_road_clean_massing_models.py",
+      "sha256": "596ce3f3abf8134bbf43f0fb70075984be84739e03f416c52865e3bcbc13d8d9",
+      "singleAssetCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xinhua_road_clean_massing_models.py -- --asset xinhua-pocket-park",
+      "copiedIntoBuildingBranch": false,
+      "reason": "The deterministic generator is an eight-building shared Recovery source; retaining its immutable commit/path avoids importing cross-building files."
+    },
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.blend",
+      "sha256": "07cbcef2639046f01f60a777e0c5b9bbcf48fe4ba91fe3d8904f2334e48752c8"
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.glb",
+      "sha256": "cc89e36e68397199d91684d3059c5c88410a7acc1b1c015398e05d8e57b15fa3",
+      "bytes": 14068,
+      "nodes": 7,
+      "meshes": 7,
+      "materials": 1,
+      "images": 0,
+      "textures": 0,
+      "triangles": 108,
+      "bounds": {
+        "min": [-0.84, 0.0, -4.6],
+        "max": [0.84, 1.66, 4.6]
+      }
+    },
+    "record": "docs/research/build-records/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.json",
+    "qualifiedStagesNotRedone": [
+      "fixed-camera Blender preview",
+      "GLB export",
+      "Three.js isolated visibility",
+      "Recovery runtimeGate"
+    ]
+  },
+  "coordinateContract": {
+    "centerWgs84": [121.4227819, 31.2066376],
+    "metersPerLongitudeDegree": 95212.468224,
+    "metersPerLatitudeDegree": 110540,
+    "metersPerSceneUnit": 2.7,
+    "projection": [
+      "worldX = (longitude - centerLongitude) * metersPerLongitudeDegree / metersPerSceneUnit",
+      "worldZ = -(latitude - centerLatitude) * metersPerLatitudeDegree / metersPerSceneUnit"
+    ]
+  },
+  "binding": {
+    "status": "medium-high-two-building-corridor-binding-not-cadastral-survey",
+    "method": "midline-between-facing-osm-building-edges-constrained-by-official-22m-by-under-4.2m-site-dimensions",
+    "westFlankingBuilding": {
+      "osmWayId": 864485662,
+      "facingEdgeWgs84": [
+        [121.4211531, 31.2050837],
+        [121.4210688, 31.2049111]
+      ]
+    },
+    "eastFlankingBuilding": {
+      "osmWayId": 864485663,
+      "facingEdgeWgs84": [
+        [121.4212471, 31.2051061],
+        [121.4211452, 31.2048973]
+      ]
+    },
+    "corridorAxis": {
+      "frontWgs84": [121.4212001, 31.2050949],
+      "rearWgs84": [121.421107, 31.2049042],
+      "frontWorld": [-55.780400829, 63.159280741],
+      "rearWorld": [-59.063467788, 70.96668],
+      "lengthSceneUnits": 8.46959337,
+      "lengthMeters": 22.867902099
+    }
+  },
+  "candidatePlacement": {
+    "position": [-57.421934309, 67.06298037],
+    "yaw": -0.398058989,
+    "scale": 0.88,
+    "frontDirection": "local-positive-source-z-toward-xinhua-road-entrance",
+    "groundY": 0,
+    "movementAuthorization": "building-branch-candidate-only-no-public-registry-change",
+    "derivation": "The position and yaw are the midpoint and axis of the paired OSM facing edges; scale is retained because the Recovery envelope becomes 21.8592m by 3.99168m."
+  },
+  "dimensions": {
+    "massingLengthSceneUnits": 8.096,
+    "massingLengthMeters": 21.8592,
+    "massingWidthSceneUnits": 1.4784,
+    "massingWidthMeters": 3.99168,
+    "officialLengthMeters": 22,
+    "officialMaximumWidthMeters": 4.2,
+    "status": "pass-within-observed-envelope"
+  },
+  "worldEnvelope": [
+    [-59.672465562, 70.507952027],
+    [-58.309654083, 71.081023954],
+    [-55.171403055, 63.618008714],
+    [-56.534214534, 63.044936787]
+  ],
+  "clearance": {
+    "flankingBuildingsSceneUnits": {
+      "way864485662": 0.610876094,
+      "way864485663": 0.611036035
+    },
+    "otherNeighborBuildingsSceneUnits": {
+      "way864485661": 8.087577587,
+      "way864485664": 6.178705424,
+      "way864493228": 1.491969628
+    },
+    "xinhuaRoadSceneUnits": {
+      "centerline": 5.492780101,
+      "asphaltEdge": 3.042780101,
+      "outerVergeEdge": 1.567780101
+    },
+    "xinhuaRoad345LaneSceneUnits": {
+      "centerline": 5.341509116,
+      "asphaltEdge": 4.091509116
+    },
+    "collisionMarginSceneUnits": 0.2,
+    "minimumAfterCollisionMarginSceneUnits": 0.410876094,
+    "status": "pass-no-road-or-neighbor-overlap"
+  },
+  "walkability": {
+    "pathWidthSceneUnits": 1.056,
+    "pathWidthMeters": 2.8512,
+    "wallToWallOpenGapSceneUnits": 1.1968,
+    "wallToWallOpenGapMeters": 3.23136,
+    "entranceClearWidthSceneUnits": 0.9504,
+    "entranceClearWidthMeters": 2.56608,
+    "recommendedLocalObstacles": [
+      {
+        "role": "west-mirror-wall",
+        "minX": -0.84,
+        "maxX": -0.68,
+        "minZ": -4.6,
+        "maxZ": 4.6
+      },
+      {
+        "role": "east-mirror-wall",
+        "minX": 0.68,
+        "maxX": 0.84,
+        "minZ": -4.6,
+        "maxZ": 4.6
+      }
+    ],
+    "status": "pass-center-path-and-entrance-remain-open"
+  },
+  "evidenceDisposition": {
+    "observed": [
+      "Official project material says the site is a 22m alley between two buildings, under 4.2m wide, with its entrance on Xinhua Road.",
+      "OSM ways 864485662 and 864485663 expose facing edges around the address fallback corridor.",
+      "The Recovery GLB is 21.8592m long and 3.99168m wide at scale 0.88."
+    ],
+    "inferred": [
+      "The paired OSM facing edges are the flanking buildings described by the project source.",
+      "Their midpoint axis is the least-assumptive placement and orientation."
+    ],
+    "unknown": [
+      "Cadastral parcel limits and surveyed facade offsets.",
+      "Exact irregular width profile and internal element dimensions."
+    ]
+  },
+  "gates": {
+    "evidence": "pass-for-massing-and-map-candidate",
+    "recoveryAssetChain": "pass-selectively-retained",
+    "glbAudit": "pass",
+    "massingMcp1": "pending-main-window-batch-review",
+    "mapGeometry": "pass-candidate",
+    "formalMapAcceptance": "pending-main-window-mcp1-and-current-threejs-runtime",
+    "hero": "legacy-asset-retained-mcp2-pending-after-map",
+    "identity": "blocked-until-hero-lineage-review",
+    "threeTierRuntime": "pending",
+    "llmWiki": "not-synced-in-building-branch-do-not-claim-complete"
+  },
+  "mainWindowTodo": [
+    "Cherry-pick the building commit without importing the shared Recovery generator.",
+    "Run Blender MCP1 against the retained Massing SHA from canonical, side/depth and entrance views.",
+    "Wire the candidate placement, tier route and split mirror-wall obstacles in shared runtime files.",
+    "Run the current Three.js page for ground contact, entrance approach, collision, fallback and performance.",
+    "Only after current runtime acceptance, promote the map candidate and begin legacy Hero MCP2 review."
+  ]
+}

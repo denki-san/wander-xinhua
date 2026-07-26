@@ -8492,3 +8492,111 @@ error TS2339: Property 'env' does not exist on type 'ImportMeta'.
 - **Resolved**: 2026-07-26T11:21:00+08:00
 - **Notes**: 帧采样将标签改为无构建器耦合的 `browser-runtime`；实际
   production preview 条件继续由验收记录和启动命令封存。
+---
+## [ERR-20260726-086] pocket_park_inline_geometry_script_invalid_const
+
+**Logged**: 2026-07-26T04:47:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: map-calibration
+
+### Summary
+口袋公园只读几何计算脚本误把对象式冒号写进 `const` 声明，Node 在计算前即退出。
+
+### Error
+```text
+SyntaxError: Missing initializer in const declaration
+```
+
+### Context
+- 临时脚本只读取 OSM 与地图 JSON，没有写入资产或工作区；
+- 错误位于未使用的 `front/rear` 草稿声明。
+
+### Suggested Fix
+删除草稿声明，只保留实际使用的 `f`、`rr` 数组，再执行同一只读计算。
+
+### Resolution
+- **Resolved**: 2026-07-26T04:48:00+08:00
+- **Notes**: 删除无效声明后重跑几何审计。
+
+---
+## [ERR-20260726-087] audit_glb_unsupported_budget_flags
+
+**Logged**: 2026-07-26T04:55:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+项目 `scripts/audit_glb.py` 只支持图片策略与节点上限，命令误传三角面、材质和
+字节上限参数。
+
+### Error
+```text
+audit_glb.py: error: unrecognized arguments:
+--max-triangles 1200 --max-materials 1 --max-bytes 160000
+```
+
+### Context
+- 审计在读取资产前由参数解析器退出，未修改 GLB；
+- 三角面、材质和字节预算仍可用 build record 与 GLB JSON 交叉核验。
+
+### Suggested Fix
+先查看 `--help`，只传 `--forbid-images --max-nodes 16`；其余预算单独断言。
+
+### Resolution
+- **Resolved**: 2026-07-26T04:56:00+08:00
+- **Notes**: 改用脚本支持的参数重跑结构审计。
+
+---
+## [ERR-20260726-088] pocket_park_worktree_git_index_lock_sandbox
+
+**Logged**: 2026-07-26T05:07:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: git
+
+### Summary
+建筑 Worktree 暂存时无法在主仓 `.git/worktrees/...` 创建 `index.lock`。
+
+### Error
+```text
+fatal: Unable to create '.../.git/worktrees/building-xinhua-pocket-park-fast/index.lock':
+Operation not permitted
+```
+
+### Context
+- 建筑文件均位于允许写入的 Worktree；
+- Git 索引元数据位于受 sandbox 限制的主仓 `.git/worktrees`。
+
+### Suggested Fix
+保持精确文件清单，使用已授权的 `git add` 提权重试；不改变提交范围。
+
+### Resolution
+- **Resolved**: 2026-07-26T05:08:00+08:00
+- **Notes**: 以同一精确文件清单完成暂存。
+
+---
+## [ERR-20260726-089] pocket_park_brief_blank_line_at_eof
+
+**Logged**: 2026-07-26T05:11:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: docs
+
+### Summary
+提交前 `git diff --cached --check` 发现模型 Brief 文件末尾有多余空行。
+
+### Error
+```text
+docs/research/xinhua-pocket-park-model-brief.md:158: new blank line at EOF.
+```
+
+### Suggested Fix
+删除 EOF 多余空行，重新暂存并执行 staged diff 检查。
+
+### Resolution
+- **Resolved**: 2026-07-26T05:12:00+08:00
+- **Notes**: Brief 改为单个终止换行，重新执行检查。
+
+---
