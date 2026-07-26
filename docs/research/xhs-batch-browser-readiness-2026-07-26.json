@@ -138,7 +138,9 @@
     "sequenceMayConstrainFacadeOrder": true,
     "routeEndRoadCandidate": "panyu-road",
     "routeEndRoadAccepted": false,
-    "reason": "The current message exposed text but no readable image attachment paths or nine local image objects. Do not substitute existing public references or unrelated cache images."
+    "reason": "The current message exposed text but no readable image attachment paths or nine local image objects. Do not substitute existing public references or unrelated cache images.",
+    "externalMaterializationAudit": "docs/research/xingfuli-user-photo-external-materialization-audit-2026-07-27.json",
+    "externalAuditResult": "zero-attributable-original-files-after-snapshot-legacy-kb-and-wiki-linkage-search"
   },
   "nextGate": {
     "requiredUserAction": "Allow the main window to launch Chrome when the user is available for the nine not-run contracts. Materialize the nine Xingfuli originals when the attachment channel exposes them; Fahua exact map, rear, and scale remain a separate evidence gate.",

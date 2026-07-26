@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "assetIds": [
+    "xingfuli-west",
+    "xingfuli-center",
+    "xingfuli-east"
+  ],
+  "auditedAt": "2026-07-27T00:09:17+08:00",
+  "mode": "main-window-xhigh-read-only-external-materialization-audit",
+  "photographerStatement": {
+    "photoCount": 9,
+    "orderedSequence": true,
+    "routeStart": "xingfu-road-entrance",
+    "routeEnd": "opposite-road",
+    "routeEndRoadCandidate": "panyu-road",
+    "routeEndRoadAccepted": false
+  },
+  "searchedRoots": [
+    "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+    "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/",
+    "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/",
+    "/Volumes/plugin/Threejs-3d-research/"
+  ],
+  "searchedLinkagePatterns": [
+    "xingfuli",
+    "xingfu",
+    "panyu",
+    "幸福里",
+    "幸福路",
+    "番禺",
+    "user-sequence-01",
+    "photographer-first-party-statement",
+    "pending-original-file",
+    "raw",
+    "original",
+    "user-photo"
+  ],
+  "externalSnapshotsInspected": [
+    {
+      "snapshotId": "2026-07-26-5383f2a",
+      "gitSha": "5383f2a",
+      "fileCount": 1210,
+      "byteCount": 622911488,
+      "sourceWorktreeDirty": true,
+      "manifestSha256": "76fd29c9d89477778ef9269830751e24c648965d883335ddd6170bd1a6c2fe23"
+    },
+    {
+      "snapshotId": "2026-07-26-ad37273",
+      "gitSha": "ad37273",
+      "fileCount": 979,
+      "byteCount": 450568192,
+      "sourceWorktreeDirty": true,
+      "manifestSha256": "5b5eb28ec0d943d16231c3f9440036770d55389e67e98ad24e1546e2f0c58e7b"
+    },
+    {
+      "snapshotId": "2026-07-26-b20494c",
+      "gitSha": "b20494c",
+      "fileCount": 1155,
+      "byteCount": 476893184,
+      "sourceWorktreeDirty": false,
+      "manifestSha256": "1d1278811a8cc3470b2597667b8e6b3ef78c5f71b79963a03763e5fcc7fbd645"
+    }
+  ],
+  "repositoryInputs": {
+    "sequenceRecord": {
+      "path": "docs/research/xingfuli-user-photo-sequence-2026-07-26.json",
+      "sha256": "d05eaec36c1334c7ae00e63fd570370bff0d291298e37bf3da3ce24fccc9f3ad"
+    },
+    "publicReferenceManifest": {
+      "path": "docs/research/xingfuli-reference-manifest.json",
+      "sha256": "09d958cefb58412b514e211ecf44c00019f5e280c4d66488b5190350bcc97b0c",
+      "declaredReferenceCount": 9,
+      "classification": "public-web-references-not-user-captured-sequence"
+    },
+    "historicalRouteMarkdown": {
+      "path": "docs/knowledge-sources/xingfuli-user-photo-route-2026-07-26.md",
+      "sha256": "61ace9608e237238ae53a49e57c6771c5d261429a4c5a1c95cdf8c412e7bb435",
+      "classification": "route-statement-only-not-image-materialization",
+      "policyStatus": "historical-hold-no-new-dynamic-evidence-to-wiki"
+    }
+  },
+  "observed": [
+    "三个外置快照都保存了幸福里运行时、Blender 或公开参考证据，最新快照也保存了九图路线声明记录。",
+    "按幸福里、幸福路、番禺路、摄影者声明和 user-sequence 关联字段检索，命中的是路线声明、查询合同、运行时证据和公开参考，没有命中九个可归属于摄影者序列的原始图片文件。",
+    "仓库 public reference manifest 的九张图片均带公开网页 URL，不能改写为用户实拍。",
+    "当前没有九张用户原图的本地路径、文件名、SHA-256、尺寸、EXIF 或逐图画面内容。"
+  ],
+  "inferred": [
+    "当前消息很可能在会话层携带了用户可见图片，但本轮执行接口没有把九个图片对象物化为可读取文件。",
+    "在没有 manifest、顺序或摄影者关联字段时，U盘其他项目中的普通 IMG、DSC 或截图文件不能安全归入这条幸福里序列。"
+  ],
+  "unknown": [
+    "九张原图是否仍只存在于客户端消息附件缓存。",
+    "每张照片对应幸福里西、中、东或未知的哪一段。",
+    "第九张对侧道路是否确为番禺路。",
+    "九图能否证明西区底层通道边界或东区与番禺路的真实退界。"
+  ],
+  "materializationVerdict": {
+    "claimedPhotoCount": 9,
+    "attributableOriginalFileCount": 0,
+    "sha256Available": false,
+    "externalArchiveComplete": false,
+    "mapGateChanged": false,
+    "modelGateChanged": false,
+    "runtimeGateChanged": false,
+    "publicReferencesMaySubstitute": false
+  },
+  "requiredNextGate": {
+    "input": "nine readable original files or one ordered archive supplied by the photographer",
+    "targetArchiveRoot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+    "archiveMode": "new-immutable-snapshot-no-overwrite",
+    "requiredOutputs": [
+      "ordered 01-09 filenames",
+      "SHA256SUMS",
+      "image dimensions and EXIF or explicit metadata absence",
+      "west-center-east-or-unknown visual assignment",
+      "visible-evidence plus map verification of the route-end road",
+      "reference-Blender-Three.js comparison update"
+    ]
+  },
+  "scopeProtection": {
+    "browserAccessed": false,
+    "networkAccessed": false,
+    "externalFilesModified": false,
+    "assetFilesModified": false,
+    "registryOrRuntimeModified": false,
+    "recoveryOrHoldModified": false
+  }
+}

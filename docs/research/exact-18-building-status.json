@@ -389,6 +389,7 @@
         "docs/research/xingfuli-west-east-lineage-v2-threejs-runtime-qa.json",
         "docs/research/xingfuli-west-collision-proxy-candidate-2026-07-26.json",
         "docs/research/xingfuli-user-photo-sequence-2026-07-26.json",
+        "docs/research/xingfuli-user-photo-external-materialization-audit-2026-07-27.json",
         "docs/research/xingfuli-west-east-map-photo-blocker-2026-07-26.json",
         "docs/research/xingfuli-west-xhs-query-contract-2026-07-26.json",
         "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
@@ -416,7 +417,8 @@
         "docs/research/xingfuli-center-lineage-v2-threejs-runtime-qa.json",
         "docs/research/xingfuli-center-entrance-direct-start-candidate.json",
         "docs/research/xingfuli-center-entrance-runtime-qa-2026-07-26.json",
-        "docs/research/xingfuli-user-photo-sequence-2026-07-26.json"
+        "docs/research/xingfuli-user-photo-sequence-2026-07-26.json",
+        "docs/research/xingfuli-user-photo-external-materialization-audit-2026-07-27.json"
       ]
     },
     {
@@ -440,6 +442,7 @@
         "docs/research/xingfuli-west-east-lineage-v2-blender-mcp-gates.json",
         "docs/research/xingfuli-west-east-lineage-v2-threejs-runtime-qa.json",
         "docs/research/xingfuli-user-photo-sequence-2026-07-26.json",
+        "docs/research/xingfuli-user-photo-external-materialization-audit-2026-07-27.json",
         "docs/research/xingfuli-west-east-map-photo-blocker-2026-07-26.json",
         "docs/research/xingfuli-east-xhs-evidence-query-contract-2026-07-26.json",
         "docs/research/xhs-batch-browser-readiness-2026-07-26.json"

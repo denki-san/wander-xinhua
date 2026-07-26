@@ -70,6 +70,16 @@ test("十份查询合同必须存在，法华外部证据接入不冒充本窗�
   assert.equal(record.userPhotoSequenceMaterialization.claimedPhotoCount, 9);
   assert.equal(record.userPhotoSequenceMaterialization.readableAttachmentCount, 0);
   assert.equal(record.userPhotoSequenceMaterialization.routeEndRoadAccepted, false);
+  await access(
+    new URL(
+      record.userPhotoSequenceMaterialization.externalMaterializationAudit,
+      root,
+    ),
+  );
+  assert.match(
+    record.userPhotoSequenceMaterialization.externalAuditResult,
+    /zero-attributable-original-files/,
+  );
   assert.equal(record.nextGate.executionOwner, "main-window-xhigh");
   assert.equal(record.nextGate.parallelXhsBrowsingForbidden, true);
   assert.equal(record.nextGate.stopOnChallengeOrWarning, true);
