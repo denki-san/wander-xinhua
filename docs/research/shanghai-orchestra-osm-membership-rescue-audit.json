@@ -1,0 +1,458 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-orchestra",
+  "recordedAt": "2026-07-26",
+  "purpose": "local-only-osm-membership-rescue-across-current-data-recovery-imports-and-historical-git-blobs",
+  "baseline": {
+    "worktreeHeadBeforeAudit": "ca75506635ce483f0b0bf8adbee253feede71b1a",
+    "worktreeBaseBeforeExistingDeepAudit": "dcd619e04fc735e8b0a4b9b01cac7ca78a749ecb",
+    "recoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "heightEnrichmentCommit": "e561538d31d3652aac6bc895a4e9cc29367ea57c",
+    "uncommittedChangesAbsorbed": false
+  },
+  "verdict": {
+    "status": "blocked-membership-rescue-exhausted-no-authoritative-osm-membership-local-evidence",
+    "formalMembershipPromotable": false,
+    "formalMapAcceptancePromotable": false,
+    "massingDisposition": "retain-existing-five-way-diagnostic-only-no-rebuild",
+    "heroAuthorized": false,
+    "identityAuthorized": false,
+    "modelingPerformed": false,
+    "reason": "固定的 baseline、Recovery 与 enrichment Git 树覆盖仓内现存及历史 data 语料，但没有任何数据 blob 同时包含上海民族乐团或新华路336号身份与候选 way ID。历史 overview 曾把七个 way 标为 authored replacement，早期绑定审计只列一个 way，当前 Recovery Massing 采用五个 way；三种范围均明确是低置信或 inferred runtime authoring，而非 OSM relation/member、name、address、operator 或 ref 证据。仓内 relation 响应又没有序列化 members，且不存在 OSM full-history，因此本地证据无法把任一候选或候选集合精确绑定到主体。"
+  },
+  "scope": {
+    "included": [
+      "current-tracked-docs-research-data",
+      "recovery-data-tree",
+      "height-enrichment-data-tree",
+      "historical-data-path-and-blob-versions",
+      "candidate-way-tags",
+      "relation-and-member-serialization",
+      "name-address-operator-ref",
+      "deleted-or-visible-false-markers",
+      "overture-osm-import-lineage",
+      "historical-authored-replacement-scopes",
+      "existing-orchestra-massing-glb-read-only-audit"
+    ],
+    "excludedAndHeld": [
+      "network",
+      "browser",
+      "xiaohongshu",
+      "blender",
+      "model-generation",
+      "model-rebuild",
+      "runtime",
+      "registry",
+      "public-fast-manifest",
+      "exact-status",
+      "shared-source-modification",
+      "other-buildings",
+      "trees",
+      "vegetation",
+      "decoration",
+      "full-map-assets"
+    ],
+    "networkAccessed": false,
+    "browserAccessed": false,
+    "blenderOpened": false,
+    "modelBinaryModified": false,
+    "publicRuntimeModified": false
+  },
+  "sourceShaPolicy": {
+    "currentFileImmutable": [
+      "existingDeepAudit",
+      "osmBinding",
+      "finalGapAudit",
+      "massingBuildRecord",
+      "massingGlb",
+      "legacyHeroGlb"
+    ],
+    "baselineGitBlobSnapshot": [
+      "currentBuildingSnapshot",
+      "namedAddressQuery",
+      "requestedPoisSnapshot",
+      "overviewMassingData"
+    ],
+    "historicalGitBlobSnapshot": [
+      "recoveryRawBuildingQuery",
+      "recoveryBuildingInventory",
+      "recoveryMapBindingAudit",
+      "overtureImport",
+      "gbaHeightImport",
+      "ghsHeightMatch",
+      "globfpHeightMatch",
+      "globfpHeightMatchV2"
+    ],
+    "integrationRule": "共享数据与 app 交叉文件只读取 baseline Git blob；测试不锁 integration 当前工作树 SHA。只有 shanghai-orchestra 本栋审计、绑定、build record 和 GLB 可作当前文件不可变输入。"
+  },
+  "sources": {
+    "existingDeepAudit": {
+      "path": "docs/research/shanghai-orchestra-osm-membership-deep-audit.json",
+      "sha256": "56101596ce4fd53f7439295a993872ac8e5fd92f49c4bb33beca065d67ddd8b2"
+    },
+    "osmBinding": {
+      "path": "docs/research/shanghai-orchestra-osm-binding.json",
+      "sha256": "d32c569baff795033f111c365628b430758d92e3fc65f40706529a4652f542dd"
+    },
+    "finalGapAudit": {
+      "path": "docs/research/shanghai-orchestra-final-gap-audit.json",
+      "sha256": "52b8b1784348ba64905eb98d843440eeb0c44a19d645cad27b4d15001d0e5d31"
+    },
+    "massingBuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.json",
+      "sha256": "347e8314f1cd708ddc015a5972a1850ed56410e6d33f30cd9f91a2341c70d1c7"
+    },
+    "massingGlb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.glb",
+      "sha256": "63eb25ca4abcbab0e434adb528ea0f37650495c614833f7b9bd05afbc519484c"
+    },
+    "legacyHeroGlb": {
+      "path": "public/models/xinhua-road/shanghai-orchestra.glb",
+      "sha256": "8f86e7e1c9b9e7c30c760e9e1ff80bd4cebee243e3fe0a964ffbe47bb280ee6c"
+    },
+    "currentBuildingSnapshot": {
+      "commit": "ca75506635ce483f0b0bf8adbee253feede71b1a",
+      "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+      "gitBlob": "3c5d2c4c194d4aaaf1f4483b4a2a80518936c8e6"
+    },
+    "namedAddressQuery": {
+      "commit": "ca75506635ce483f0b0bf8adbee253feede71b1a",
+      "path": "docs/research/data/xinhua-landmarks-overpass-20260717.json",
+      "gitBlob": "829352b11fa3413b5f62c98c115198824bb4d0b6"
+    },
+    "requestedPoisSnapshot": {
+      "commit": "ca75506635ce483f0b0bf8adbee253feede71b1a",
+      "path": "docs/research/data/requested-pois-osm-20260717-103840.json",
+      "gitBlob": "8f2bfd06b8102eaea2638f18f62bd70a69972a51"
+    },
+    "overviewMassingData": {
+      "commit": "ca75506635ce483f0b0bf8adbee253feede71b1a",
+      "path": "app/scene/xinhua-district-massing-data.json",
+      "gitBlob": "3801b5e216639aa2c5149273e17e61a412b10bb6"
+    },
+    "recoveryRawBuildingQuery": {
+      "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+      "path": "docs/research/data/xinhua-buildings-overpass-20260724-185147.json",
+      "gitBlob": "ae2f4972785ffb7d7a4ec317ad6ff0c1aa5f3f65"
+    },
+    "recoveryBuildingInventory": {
+      "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+      "path": "docs/research/data/xinhua-building-inventory-20260724-185400.json",
+      "gitBlob": "254960b498c1f5624ab0d496965c49a2ce9c8b30"
+    },
+    "recoveryMapBindingAudit": {
+      "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+      "path": "docs/research/xinhua-road-map-binding-audit.json",
+      "gitBlob": "aafdbed46264ee3f2e1df4fddf55d0c7850f3acc"
+    },
+    "overtureImport": {
+      "commit": "e561538d31d3652aac6bc895a4e9cc29367ea57c",
+      "path": "docs/research/data/xinhua-buildings-overture-2026-07-22.0-20260725.geojson",
+      "gitBlob": "5fd682363cc1ddebcdff6df386a1cfb2b7bb6550"
+    },
+    "gbaHeightImport": {
+      "commit": "e561538d31d3652aac6bc895a4e9cc29367ea57c",
+      "path": "docs/research/data/xinhua-buildings-gba-lod1-20260725.json",
+      "gitBlob": "1ed0d931ed25f2655c6d624bb771a70d953aca19"
+    },
+    "ghsHeightMatch": {
+      "commit": "e561538d31d3652aac6bc895a4e9cc29367ea57c",
+      "path": "docs/research/data/xinhua-buildings-ghs-obat-matches-20260725.json",
+      "gitBlob": "511375aaa786fbae7bcf9dd645e975ce0fb72331"
+    },
+    "globfpHeightMatch": {
+      "commit": "e561538d31d3652aac6bc895a4e9cc29367ea57c",
+      "path": "docs/research/data/xinhua-buildings-globfp-group-matches-20260725.json",
+      "gitBlob": "329b4ebedfb94840a03f436b024ce61c4fe13721"
+    },
+    "globfpHeightMatchV2": {
+      "commit": "e561538d31d3652aac6bc895a4e9cc29367ea57c",
+      "path": "docs/research/data/xinhua-buildings-globfp-group-matches-v2-20260725.json",
+      "gitBlob": "23adf224d21f4f840f8392b5df1c442e4ee315d1"
+    }
+  },
+  "corpusInventory": {
+    "fixedTreeCommits": [
+      "ca75506635ce483f0b0bf8adbee253feede71b1a",
+      "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+      "e561538d31d3652aac6bc895a4e9cc29367ea57c"
+    ],
+    "currentTrackedDataFiles": 16,
+    "recoveryDataFiles": 17,
+    "heightEnrichmentDataFiles": 29,
+    "unionDataPaths": 31,
+    "unionUniqueGitBlobs": 30,
+    "unionUniqueBlobBytes": 14539890,
+    "canonicalObjectPathManifestSha256": "6b94e960886b83b80127d5a88240c896e33e38a373656786b22a1beb96575ae4",
+    "currentTrackedRawFixtureCacheFiles": 0,
+    "dataPathsWithMoreThanOneHistoricalBlobVersion": 0,
+    "candidateIdBearingBlobs": 9,
+    "subjectOrAddressBearingDataBlobs": 1,
+    "blobsBearingBothCandidateAndSubject": 0,
+    "candidateBearingBlobObjects": [
+      "1ed0d931ed25f2655c6d624bb771a70d953aca19",
+      "23adf224d21f4f840f8392b5df1c442e4ee315d1",
+      "254960b498c1f5624ab0d496965c49a2ce9c8b30",
+      "329b4ebedfb94840a03f436b024ce61c4fe13721",
+      "3c5d2c4c194d4aaaf1f4483b4a2a80518936c8e6",
+      "511375aaa786fbae7bcf9dd645e975ce0fb72331",
+      "5fd682363cc1ddebcdff6df386a1cfb2b7bb6550",
+      "8f2bfd06b8102eaea2638f18f62bd70a69972a51",
+      "ae2f4972785ffb7d7a4ec317ad6ff0c1aa5f3f65"
+    ],
+    "subjectOrAddressBearingDataBlobObjects": [
+      "829352b11fa3413b5f62c98c115198824bb4d0b6"
+    ],
+    "interpretation": "固定三棵 Git 树覆盖当前、Recovery 与全部已发现 enrichment data 路径；所有历史 data 路径均只有一个内容版本。没有 raw、fixture 或 cache 目录可提供额外隐藏绑定。"
+  },
+  "repositoryHistoryInventory": {
+    "preAuditGitObjectBlobsObserved": 4831,
+    "preAuditGitObjectBytesObserved": 1371121755,
+    "candidateIdHistoryPathsFromNineGitLogPickaxeQueries": 40,
+    "subjectOrAddressHistoryPathsFromGitLogPickaxe": 26,
+    "subjectAndRelationOrMembershipHistoryPathsFromGitLogRegex": 4,
+    "subjectAndRelationOrMembershipHistoryPathClasses": [
+      "project-status",
+      "project-audit",
+      "project-tests"
+    ],
+    "primaryOrImportedEvidencePathsInThatIntersection": 0,
+    "interpretation": "Git pickaxe 覆盖可达提交中的候选 ID、主体、地址与 relation/member 文本历史；共现内容只出现在项目作者的状态、审计和测试中，没有新增原始或导入身份来源。对象库总量仅作扫描边界记录，不把二进制对象数量冒充可解析 OSM 证据。"
+  },
+  "candidateUniverse": {
+    "allAdjacentWays": [
+      864505162,
+      864505163,
+      864505164,
+      864505165,
+      864505166,
+      864505167,
+      864505168,
+      864505169,
+      864505170
+    ],
+    "currentFiveWayDiagnosticSet": [
+      864505166,
+      864505168,
+      864505165,
+      864505169,
+      864505163
+    ],
+    "currentlyExcludedAdjacentWays": [
+      864505162,
+      864505164,
+      864505167,
+      864505170
+    ]
+  },
+  "osmTagAndRelationFindings": {
+    "currentBuildingSnapshot": {
+      "targetWaysFound": 9,
+      "targetWayTagVariants": [
+        {
+          "building": "yes"
+        }
+      ],
+      "targetWaysWithNameAddressOperatorOrRef": 0,
+      "relations": 0,
+      "relationMembershipCoverage": "unavailable-way-only-snapshot"
+    },
+    "recoveryRawBuildingQuery": {
+      "queryIncludesBuildingWaysAndBuildingRelations": true,
+      "targetWaysFound": 9,
+      "targetWayTagVariants": [
+        {
+          "building": "yes"
+        }
+      ],
+      "targetWaysWithNameAddressOperatorOrRef": 0,
+      "relations": 1,
+      "relationIds": [
+        5291331
+      ],
+      "relationSubject": "工程馆",
+      "serializedRelationMemberArrays": 0,
+      "targetWayMemberReferences": 0,
+      "relationMembershipCoverage": "unavailable-out-tags-center-geom-does-not-preserve-members"
+    },
+    "allFixedDataTrees": {
+      "relationElementsObserved": 40,
+      "relationElementsWithSerializedMembers": 0,
+      "targetWayMemberReferences": 0,
+      "relationMembershipCoverage": "unavailable-no-serialized-members",
+      "interpretation": "零 member 命中不能证明候选不属于 relation，因为全部 relation 记录都缺少 members 数组。"
+    },
+    "namedAddressQuery": {
+      "queryContainsSubject": true,
+      "queryContainsXinhuaRoad336": true,
+      "matchingNamedOrAddressElements": 0
+    },
+    "requestedPoisSnapshot": {
+      "targetWayRecords": 16,
+      "uniqueTargetWays": 8,
+      "queryTargetsShanghaiOrchestra": false,
+      "actualQueryTargets": [
+        "xinhua-pocket-park",
+        "debi-fahua-525",
+        "fics-xinhua-365"
+      ],
+      "targetWayTagVariants": [
+        {
+          "building": "yes"
+        }
+      ],
+      "interpretation": "这些 way 只是落入其他 POI 的半径查询，不能作为上海民族乐团 membership。"
+    }
+  },
+  "importAndDeletionFindings": {
+    "overtureImport": {
+      "targetFeaturesFound": 9,
+      "sourceDataset": "OpenStreetMap",
+      "recordIds": [
+        "w864505162@1",
+        "w864505163@1",
+        "w864505164@1",
+        "w864505165@1",
+        "w864505166@1",
+        "w864505167@1",
+        "w864505168@1",
+        "w864505169@1",
+        "w864505170@1"
+      ],
+      "sourceUpdateTime": "2020-10-28T02:00:44.000Z",
+      "nameAddressOperatorOrRefFieldsFound": 0,
+      "interpretation": "仓内 Overture 2026 导入只保存九个 OSM version 1 footprint 与通用属性，没有主体或成员标签。"
+    },
+    "heightImports": {
+      "candidateUniverseWaysWithGbaOrGhsOrGlobfpMatches": [
+        864505162,
+        864505170
+      ],
+      "matchesAreHeightOrGeometryOnly": true,
+      "nameAddressOperatorOrRefFieldsFound": 0,
+      "interpretation": "高度源只命中当前排除的162与170，既不绑定主体，也不能决定 included/excluded。"
+    },
+    "historicalDeletionMarkers": {
+      "candidateBearingBlobsWithDeletedMarker": 0,
+      "candidateBearingBlobsWithVisibleFalse": 0,
+      "osmFullHistoryArtifactsFound": 0,
+      "verdict": "no-local-deletion-evidence-but-deletion-history-not-provable",
+      "reason": "Overpass 与 Overture 是快照或导入，不是包含 changeset/tag version 序列的 OSM full-history dump。"
+    }
+  },
+  "historicalScopeHypotheses": [
+    {
+      "scope": "single-way",
+      "wayIds": [
+        864505166
+      ],
+      "source": "recoveryMapBindingAudit",
+      "sourceStatus": "candidate-pending",
+      "sourceConfidence": "low",
+      "authority": "project-authored-spatial-candidate-only",
+      "canBindMembership": false
+    },
+    {
+      "scope": "five-way",
+      "wayIds": [
+        864505166,
+        864505168,
+        864505165,
+        864505169,
+        864505163
+      ],
+      "source": "osmBinding",
+      "sourceStatus": "geometry-bound-ownership-blocked",
+      "sourceConfidence": "low",
+      "authority": "recovery-diagnostic-geometry",
+      "canBindMembership": false
+    },
+    {
+      "scope": "seven-way",
+      "wayIds": [
+        864505163,
+        864505164,
+        864505165,
+        864505166,
+        864505167,
+        864505168,
+        864505169
+      ],
+      "source": "overviewMassingData",
+      "sourceStatus": "authored-replacement",
+      "sourceConfidence": "inferred-runtime-placement",
+      "sourceOsmRefs": [],
+      "authority": "overview-render-suppression-not-osm-membership",
+      "canBindMembership": false
+    }
+  ],
+  "evidenceClassification": {
+    "observed": [
+      "固定三棵 Git 树的31个 data 路径和30个唯一 blob 已完成本地扫描。",
+      "九个候选相邻 way 在当前与 Recovery OSM 快照中都只有 building=yes。",
+      "唯一含上海民族乐团和新华路336号的数据 blob 是命名地址查询本身，结果中没有匹配元素。",
+      "全部40个 relation 记录都没有序列化 members 数组。",
+      "Overture 导入将九个 way 记录为 OSM version 1 footprint，没有身份字段。",
+      "仓内存在一、五、七 way 三种互相不一致的项目作者候选范围。"
+    ],
+    "authorClaimed": [
+      "上海民族乐团项目位于新华路336号。",
+      "项目包含6、7、8号楼、保留体量与连续院落。"
+    ],
+    "inferred": [
+      "九个相邻 way 构成需要 authoritative included/excluded 判定的候选宇宙。",
+      "七 way overview replacement 反映历史渲染避让范围，不代表 OSM 或产权 membership。",
+      "Overture @1 与无删除标记降低了仓内曾存在身份标签的可能性，但不能替代 OSM full history。"
+    ],
+    "unknown": [
+      "任何 relation 是否曾或当前包含九个候选 way，因为本地 relation 记录没有 members。",
+      "候选 way 是否曾有后又删除或回退的 name、address、operator 或 ref 标签。",
+      "一、五、七 way 哪个范围与新华路336号真实 compound 一致。",
+      "6、7、8号楼和保留体量对应哪些具体 way。",
+      "864505162、864505164、864505167、864505170 的 included/excluded 归属。"
+    ]
+  },
+  "formalDisposition": {
+    "status": "not-promotable-from-repository-local-evidence",
+    "localRescueExhausted": true,
+    "memberBinding": "blocked",
+    "exclusiveCompoundBoundary": "blocked",
+    "formalMapAcceptance": "blocked",
+    "diagnosticMassingRetention": "allowed-unchanged",
+    "massingRebuildAuthorized": false,
+    "heroAuthorized": false,
+    "identityAuthorized": false,
+    "runtimePromotionAllowed": false,
+    "forbiddenInterpretations": [
+      "treat-zero-serialized-member-hits-as-proof-of-no-relation",
+      "promote-seven-way-authored-replacement-to-osm-membership",
+      "promote-five-way-recovery-selection-to-address-boundary",
+      "promote-single-way-spatial-candidate-to-compound",
+      "use-height-imports-to-decide-ownership",
+      "rebuild-model-to-hide-membership-uncertainty"
+    ]
+  },
+  "minimumEvidenceToChangeDisposition": {
+    "preferredLocalImport": "OSM full-history or relation/member dump covering ways 864505162 through 864505170 and all parent relations, including version, timestamp, visible/deleted state and complete tags.",
+    "preferredAuthoritativeArtifact": "A georeferenced or dimensioned owner, architect, cadastral or surveyed site plan for Xinhua Road 336 showing the compound boundary and labelled buildings 6, 7 and 8 plus retained volumes.",
+    "acceptableUserAuthority": "An explicit user-confirmed annotated OSM map naming every included and excluded way and recording that decision as user authority rather than primary evidence.",
+    "minimumFields": [
+      "included-way-ids",
+      "excluded-way-ids",
+      "compound-boundary",
+      "building-6-7-8-labels",
+      "retained-volume-labels",
+      "source-provenance-and-date"
+    ],
+    "notEnoughAlone": [
+      "runtime-placement",
+      "authored-replacement",
+      "proximity",
+      "height-match",
+      "MCP1-shape-pass",
+      "GLB-structure-pass",
+      "unannotated-photo",
+      "renovation-area-similarity"
+    ]
+  }
+}
