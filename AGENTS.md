@@ -15,12 +15,27 @@
 [`docs/research/content-research-wiki-workflow.md`](docs/research/content-research-wiki-workflow.md)。
 原始素材只读保留；新增分析一律生成新文件，不覆盖或删除旧证据。
 
+### 动态证据存储边界
+
+- 建筑、物体、街具、人物、环境的参考图、截图、视频、音频、运行指标、证据
+  JSON、HAR 和对照图统一归档到外置硬盘
+  `/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/`。
+- 上述动态证据不得进入任何 LLM Wiki；Wiki 只保存抽象后的知识、方法和流程
+  Markdown。
+- 从社媒下载的媒体可以原样保留在外置证据归档；来源于社媒不构成入 Wiki
+  例外，只要内容用于建筑或其他 3D 资产证据，就不得进入 `Threejs-3d-research`。
+- 仓库可以保留兼容现有脚本所需的工作副本和小型索引，但外置硬盘快照是动态
+  证据的归档真值。新增或更新证据必须生成新快照，不覆盖旧快照。
+- 具体目录、快照、校验和回查规则见
+  [`docs/research/dynamic-evidence-storage-policy.md`](docs/research/dynamic-evidence-storage-policy.md)。
+
 ### 动工硬门槛
 
 在修改生成器或打开 Blender 前，必须完成：
 
 1. 预检 Blender、生成器、GLB 审计脚本、本地预览和浏览器验收入口；工具不可用时先记录回退路径；
-2. 将参考照片保存到仓库内的 `docs/research/assets/`，并记录来源、主体、视角和获取日期；
+2. 将参考照片归档到外置动态证据库；仓库工作副本仍使用
+   `docs/research/assets/` 时，必须在同一轮生成外置快照，并记录来源、主体、视角和获取日期；
 3. 在 `docs/research/poi-reference-manifest.json` 或对应研究清单中关联本地照片；
 4. 建立视角覆盖矩阵，至少覆盖 canonical、一个纵深/侧向视角、一个入口或身份细节视角；缺失面必须标记为未知；
 5. 选择一张 canonical comparison view，并明确观察方向；
