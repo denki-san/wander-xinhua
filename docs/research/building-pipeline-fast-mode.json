@@ -339,6 +339,7 @@
         "tests/test_fahua_heritage_local_evidence_rescue.test.mjs",
         "tests/test_fahua_heritage_gap_audit_2026_07_26.test.mjs",
         "tests/test_fahua_heritage_public_evidence_rescue_2026_07_26.test.mjs",
+        "tests/test_fahua_heritage_xiaohongshu_query_contract.test.mjs",
         "tests/test_requested_poi_models.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -392,6 +393,7 @@
         "tests/test_xingfuli_west_east_lineage_v2_blender_mcp_gates.test.mjs",
         "tests/test_xingfuli_west_east_lineage_v2_threejs_runtime.test.mjs",
         "tests/test_xingfuli_west_east_map_photo_blocker.test.mjs",
+        "tests/test_xingfuli_west_xhs_query_contract_2026_07_26.test.mjs",
         "tests/test_xingfuli_models.test.mjs"
       ],
       "glbs": [
@@ -455,6 +457,7 @@
         "tests/test_xingfuli_west_east_lineage_v2_blender_mcp_gates.test.mjs",
         "tests/test_xingfuli_west_east_lineage_v2_threejs_runtime.test.mjs",
         "tests/test_xingfuli_west_east_map_photo_blocker.test.mjs",
+        "tests/test_xingfuli_east_xhs_evidence_query_contract_2026_07_26.test.mjs",
         "tests/test_xingfuli_models.test.mjs"
       ],
       "glbs": [

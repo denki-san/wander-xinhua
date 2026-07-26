@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T22:19:00+08:00",
+  "snapshotAt": "2026-07-26T22:43:26+08:00",
   "snapshotBaseCommit": "04aff48-plus-main-window-film-v2",
   "scope": {
     "mode": "exact-18-building-fast-mode",
@@ -318,13 +318,15 @@
       "mcp3": "blocked",
       "map": "blocked-no-measured-side-rear-or-site-boundary",
       "threeJs": "not-formally-accepted",
-      "overall": "blocked-public-street-context-improved-rear-boundary-xhs-deferred",
+      "overall": "blocked-public-street-context-improved-xhs-query-ready-not-executed",
       "runtimePolicy": "preserve-files-when-user-awake-search-xhs-then-disable-runtime-if-still-missing",
       "records": [
         "docs/research/fahua-heritage-final-disposition.json",
         "docs/research/fahua-heritage-local-evidence-rescue.json",
         "docs/research/fahua-heritage-gap-audit-2026-07-26.json",
-        "docs/research/fahua-heritage-public-evidence-rescue-2026-07-26.json"
+        "docs/research/fahua-heritage-public-evidence-rescue-2026-07-26.json",
+        "docs/research/fahua-heritage-xiaohongshu-query-contract-2026-07-26.json",
+        "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
       ]
     },
     {
@@ -361,7 +363,7 @@
       "mcp3": "pass-lineage-v2-batched",
       "map": "blocked-pedestrian-way-ground-level-passage-unknown",
       "threeJs": "pass-lineage-v2-three-tier-fallback-performance-collision",
-      "overall": "blocked-map-evidence",
+      "overall": "blocked-map-evidence-xhs-query-ready-not-executed",
       "runtimePolicy": "production-hero-retained-lineage-v2-explicit-qa",
       "records": [
         "docs/research/xingfuli-west-fast-audit.json",
@@ -371,7 +373,9 @@
         "docs/research/xingfuli-west-east-lineage-v2-threejs-runtime-qa.json",
         "docs/research/xingfuli-west-collision-proxy-candidate-2026-07-26.json",
         "docs/research/xingfuli-user-photo-sequence-2026-07-26.json",
-        "docs/research/xingfuli-west-east-map-photo-blocker-2026-07-26.json"
+        "docs/research/xingfuli-west-east-map-photo-blocker-2026-07-26.json",
+        "docs/research/xingfuli-west-xhs-query-contract-2026-07-26.json",
+        "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
       ]
     },
     {
@@ -411,7 +415,7 @@
       "mcp3": "pass-lineage-v2-batched",
       "map": "blocked-panyu-road-overlap-photo9-road-unknown",
       "threeJs": "pass-lineage-v2-three-tier-fallback-performance-collision",
-      "overall": "blocked-map-evidence",
+      "overall": "blocked-map-evidence-xhs-query-ready-not-executed",
       "runtimePolicy": "production-hero-retained-lineage-v2-explicit-qa",
       "records": [
         "docs/research/xingfuli-east-tier-map-audit.json",
@@ -420,7 +424,9 @@
         "docs/research/xingfuli-west-east-lineage-v2-blender-mcp-gates.json",
         "docs/research/xingfuli-west-east-lineage-v2-threejs-runtime-qa.json",
         "docs/research/xingfuli-user-photo-sequence-2026-07-26.json",
-        "docs/research/xingfuli-west-east-map-photo-blocker-2026-07-26.json"
+        "docs/research/xingfuli-west-east-map-photo-blocker-2026-07-26.json",
+        "docs/research/xingfuli-east-xhs-evidence-query-contract-2026-07-26.json",
+        "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
       ]
     },
     {

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-07-26T22:43:26+08:00",
+  "baseCommit": "2643a4d2c5ab84f945336b29e764eae0dc0ae926",
+  "status": "query-contracts-ready-browser-not-running",
+  "scope": {
+    "assetIds": [
+      "fahua-heritage",
+      "xingfuli-west",
+      "xingfuli-east"
+    ],
+    "readOnlyDiagnosticsOnly": true,
+    "browserLaunched": false,
+    "xiaohongshuAccessed": false,
+    "mediaDownloaded": false,
+    "runtimeModified": false,
+    "assetFilesModified": false,
+    "recoveryHoldModified": false
+  },
+  "browserChecks": {
+    "browserClientDiscoveredTypes": [],
+    "googleChrome": {
+      "installed": true,
+      "path": "/Applications/Google Chrome.app",
+      "version": "150.0.7871.184",
+      "runningProcessFound": false
+    },
+    "chatgptChromeExtension": {
+      "profile": "Default",
+      "installed": true,
+      "enabled": true,
+      "version": "1.2.27221.15725_0"
+    },
+    "nativeMessagingHost": {
+      "manifestExists": true,
+      "nameMatches": true,
+      "expectedOriginAllowed": true,
+      "correct": true
+    },
+    "diagnosticBoundary": "Chrome process detection used a read-only process listing and found no matching process. No browser, tab, extension manager, or login state was opened or changed."
+  },
+  "queryContracts": [
+    {
+      "assetId": "fahua-heritage",
+      "path": "docs/research/fahua-heritage-xiaohongshu-query-contract-2026-07-26.json",
+      "executionStatus": "not-run"
+    },
+    {
+      "assetId": "xingfuli-west",
+      "path": "docs/research/xingfuli-west-xhs-query-contract-2026-07-26.json",
+      "executionStatus": "not-run"
+    },
+    {
+      "assetId": "xingfuli-east",
+      "path": "docs/research/xingfuli-east-xhs-evidence-query-contract-2026-07-26.json",
+      "executionStatus": "not-run"
+    }
+  ],
+  "nextGate": {
+    "requiredUserAction": "Allow the main window to launch Chrome when the user is available.",
+    "executionOwner": "main-window-xhigh",
+    "executionMode": "serial-read-only-human-paced",
+    "parallelXhsBrowsingForbidden": true,
+    "stopOnChallengeOrWarning": true,
+    "fallbackToUnrelatedBrowserOrScraperForbidden": true
+  },
+  "runtimeDisablePolicy": {
+    "eligibleNow": false,
+    "reason": "None of the three contracted Xiaohongshu searches has executed.",
+    "allFilesMustRemain": true
+  }
+}
