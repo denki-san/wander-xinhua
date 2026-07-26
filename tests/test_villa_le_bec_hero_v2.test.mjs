@@ -47,7 +47,7 @@ test("Villa Le Bec Hero v2 新路径可追溯且保留冻结 Massing 与 Hero v1
   );
   assert.equal(
     await sha256(heroV1Path),
-    "56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad",
+    "1374b7a8301345c23736644cfdc9a7ed467efb8371ebcdf72a507217b0015394",
   );
   assert.equal(record.derivedFrom.massingSha256, await sha256(massingPath));
   assert.equal(record.preservedCandidate.sha256, await sha256(heroV1Path));
@@ -60,6 +60,38 @@ test("Villa Le Bec Hero v2 新路径可追溯且保留冻结 Massing 与 Hero v1
     await sha256(record.qualityContract.blockedV1Adjudication),
     record.qualityContract.blockedV1AdjudicationSha256,
   );
+  const currentV1Record = await json(record.qualityContract.currentHeroV1BuildRecord);
+  assert.equal(
+    await sha256(record.qualityContract.currentHeroV1BuildRecord),
+    record.qualityContract.currentHeroV1BuildRecordSha256,
+  );
+  assert.equal(currentV1Record.outputs.glbSha256, await sha256(heroV1Path));
+  assert.equal(record.preservedCandidate.state, "current-integration-hero-v1-mcp2-pass");
+  assert.deepEqual(record.historicalLineage, [
+    {
+      role: "blocked-hero-v1-used-by-original-hero-v2-build",
+      baselineCommit: "dcd619e04fc735e8b0a4b9b01cac7ca78a749ecb",
+      pathAtCommit: heroV1Path,
+      sha256: "56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad",
+      currentWorkingTreeBinary: false,
+      preservedInGitHistory: true,
+    },
+  ]);
+  assert.equal(
+    record.reproducibilityRepair.priorHeroV2GlbSha256,
+    "a6ebf4a362a1d759bf818f62595c75ffa240b06461bc1479f13f6626a845b35d",
+  );
+  assert.equal(
+    record.reproducibilityRepair.rebuiltHeroV2GlbSha256,
+    record.outputs.glbSha256,
+  );
+  assert.deepEqual(record.reproducibilityRepair.fixedViewPixelComparison, {
+    method: "PIL-RGB-ImageChops-difference-bbox",
+    canonical: "pass-pixel-identical",
+    sideDepth: "pass-pixel-identical",
+    entrance: "pass-pixel-identical",
+    triptych: "pass-pixel-identical",
+  });
   assert.deepEqual(record.derivedFrom.placement, {
     position: [-34.1, 88.8],
     yaw: -0.38,
@@ -87,6 +119,14 @@ test("Villa Le Bec Hero v2 GLB 符合预算、无图片并记录修复语义", a
   assert.ok(glbBuffer.length <= record.budget.maxBytes);
   assert.equal(glb.nodes[0].extras.stable_asset_id, "villa-le-bec");
   assert.equal(glb.nodes[0].extras.candidate_version, "hero-v2");
+  assert.equal(
+    glb.nodes[0].extras.supersedes_preserved_hero_v1_sha256,
+    "1374b7a8301345c23736644cfdc9a7ed467efb8371ebcdf72a507217b0015394",
+  );
+  assert.equal(
+    glb.nodes[0].extras.historical_blocked_hero_v1_sha256,
+    "56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad",
+  );
   assert.equal(
     glb.nodes[0].extras.derived_from_massing_sha256,
     record.derivedFrom.massingSha256,

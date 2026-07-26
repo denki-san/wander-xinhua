@@ -3,9 +3,11 @@
 ## Scope and frozen contract
 
 - Asset: `villa-le-bec`; one two-building Hero candidate only.
-- Base: integration commit `dcd619e`.
+- Original build base: integration commit `dcd619e`.
+- Reproducibility repair base: current integration commit `14d5404`, which contains `338cb03`.
 - Accepted Massing: `public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb`, SHA-256 `593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f`.
-- Preserved blocked Hero v1: `public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb`, SHA-256 `56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad`.
+- Preserved current Hero v1: `public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb`, SHA-256 `1374b7a8301345c23736644cfdc9a7ed467efb8371ebcdf72a507217b0015394`; current build record marks it MCP2 pass.
+- Historical blocked Hero v1 lineage: the same path at baseline `dcd619e`, SHA-256 `56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad`; retained in Git history and not treated as the current working-tree binary.
 - Frozen placement: position `[-34.1, 88.8]`, yaw `-0.38`, scale `0.82`; movement and rescaling are not authorized.
 - Solid OSM ways: `864493176` and `864493175`.
 - Collision: keep two solid buildings and the `1.399383` scene-unit Massing wall gap; do not bake one whole-site box or close the courtyard.
@@ -82,9 +84,12 @@ Canonical observation direction is from Xinhua Road toward the street facade and
 - Changes: generated a new deterministic Hero v2 without modifying Hero v1, Massing, placement, collision, registry or runtime files.
 - Evidence-supported repair: the canonical render now separates the continuous lower storefront from the upper windows/projecting bay; the entrance render now shows the garden door, upper window, steps and full dormer; the side render shows the evidence-supported upper projecting window.
 - Headless Blender: pass for canonical, side/depth, entrance and triptych.
-- GLB: SHA-256 `a6ebf4a362a1d759bf818f62595c75ffa240b06461bc1479f13f6626a845b35d`; `124592` bytes; `1680` triangles; one node, one mesh, six materials and zero images/textures.
+- Original v2 GLB at integration commit `338cb03`: SHA-256 `a6ebf4a362a1d759bf818f62595c75ffa240b06461bc1479f13f6626a845b35d`.
+- Reproducible v2 GLB against current Hero v1: SHA-256 `4f909a3b149e2f16e00843d4f965dc37e0a96ea2c69d67ab4e12282d7d1b5b00`; `124692` bytes; `1680` triangles; one node, one mesh, six materials and zero images/textures.
+- Visual comparison: canonical, side/depth, entrance and triptych are all pixel-identical after decoding both baseline and rebuilt PNG files to RGB and comparing with `PIL.ImageChops.difference().getbbox()`. Individual Blender PNG byte hashes may differ because non-pixel container metadata is not stable; the PIL-authored triptych is byte-identical.
+- Binary delta: the GLB changes only to lock current Hero v1 `1374b7…` and historical blocked Hero v1 `56cb58…` in lineage extras; geometry, materials, cameras and pixels remain unchanged.
 - Fixed-view independent check: pass for the three blockers named by `villa-le-bec-hero-visual-adjudication.json`; unseen rear faces remain deliberately plain.
 - Runtime and performance: not run by task scope, so no runtime or performance claim is made.
 - Blender MCP2: not executed; candidate remains pending main-window MCP2 and cannot authorize Identity or runtime promotion.
 - Tool fallback: the sandboxed Blender process exited during platform initialization; the approved Headless Blender process outside the sandbox completed generation and rendering.
-- Rollback: retain all `hero-v1` files and remove only the new `hero-v2` paths and this commit if the candidate is rejected.
+- Rollback: retain all current and historical `hero-v1` lineage; remove only the new `hero-v2` paths and this commit if the candidate is rejected.

@@ -5,14 +5,17 @@
   "candidate": "hero-v2",
   "status": "headless-fixed-view-repair-pass-pending-main-window-mcp2",
   "generator": "scripts/create_villa_le_bec_hero_v2_model.py",
-  "generatorSha256": "830f9dadcf926e8c423dbcbcca5030dbc21ccc8b3416d95bab08fb5fb2ca52fe",
+  "generatorSha256": "d22911f6c4bd54b3dd24b3a1ccda36445f4b2c57be42f2de3a5ae43905ed036e",
   "generationCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_villa_le_bec_hero_v2_model.py",
   "blenderVersion": "5.2.0 LTS",
+  "integrationBaseCommit": "14d5404d09f578a72af87156fa2663fe00ab0374",
   "qualityContract": {
     "brief": "docs/research/villa-le-bec-hero-v2-brief.md",
-    "briefSha256": "f2f83d44fa69a9e62e146cd9432ca22a14918abc3192bb03d4c632403082e04f",
+    "briefSha256": "64aa2d78e2489f9c115e8b843437c23f374764ff0e31c5cf57910bb83c8adc53",
     "blockedV1Adjudication": "docs/research/villa-le-bec-hero-visual-adjudication.json",
-    "blockedV1AdjudicationSha256": "bfad1ad63ea89ded085506857e9703d2227d25dda4b5ecd5d567974e0abd300f"
+    "blockedV1AdjudicationSha256": "a64bec0f982b6acfc4817d6e9cc0965ac182544369bba878ae24f94c04390be4",
+    "currentHeroV1BuildRecord": "docs/research/build-records/tiers/xinhua-road/hero-v1/villa-le-bec-hero.json",
+    "currentHeroV1BuildRecordSha256": "c33b4ff52adef92d1a9f9ecc310caa4c7c0be11582becd365094af02a490f6f8"
   },
   "derivedFrom": {
     "massingGlb": "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
@@ -29,8 +32,32 @@
   },
   "preservedCandidate": {
     "glb": "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
-    "sha256": "56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad",
+    "sha256": "1374b7a8301345c23736644cfdc9a7ed467efb8371ebcdf72a507217b0015394",
+    "state": "current-integration-hero-v1-mcp2-pass",
     "overwritten": false
+  },
+  "historicalLineage": [
+    {
+      "role": "blocked-hero-v1-used-by-original-hero-v2-build",
+      "baselineCommit": "dcd619e04fc735e8b0a4b9b01cac7ca78a749ecb",
+      "pathAtCommit": "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
+      "sha256": "56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad",
+      "currentWorkingTreeBinary": false,
+      "preservedInGitHistory": true
+    }
+  ],
+  "reproducibilityRepair": {
+    "priorIntegrationCommit": "338cb03",
+    "priorHeroV2GlbSha256": "a6ebf4a362a1d759bf818f62595c75ffa240b06461bc1479f13f6626a845b35d",
+    "rebuiltHeroV2GlbSha256": "4f909a3b149e2f16e00843d4f965dc37e0a96ea2c69d67ab4e12282d7d1b5b00",
+    "binaryDelta": "lineage-extras-now-lock-current-and-historical-hero-v1-sha",
+    "fixedViewPixelComparison": {
+      "method": "PIL-RGB-ImageChops-difference-bbox",
+      "canonical": "pass-pixel-identical",
+      "sideDepth": "pass-pixel-identical",
+      "entrance": "pass-pixel-identical",
+      "triptych": "pass-pixel-identical"
+    }
   },
   "references": [
     {
@@ -54,10 +81,10 @@
   ],
   "outputs": {
     "blend": "assets/models/source/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.blend",
-    "blendSha256": "08b3280a3691ba10fda0d1bc8c02921f79a2f6582a484f014835c7e177eb008e",
+    "blendSha256": "6619a2eaa1b1e2c65d656ac3a52ebb940ff9ecb4ae3fd6f572737728da45276a",
     "glb": "public/models/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.glb",
-    "glbSha256": "a6ebf4a362a1d759bf818f62595c75ffa240b06461bc1479f13f6626a845b35d",
-    "bytes": 124592,
+    "glbSha256": "4f909a3b149e2f16e00843d4f965dc37e0a96ea2c69d67ab4e12282d7d1b5b00",
+    "bytes": 124692,
     "bounds": {
       "min": [
         -1.2012569904327393,
@@ -82,17 +109,17 @@
       {
         "view": "canonical",
         "path": "test_artifacts/all-models/hero-v2/villa-le-bec/test_villa-le-bec-hero-v2-canonical.png",
-        "sha256": "f7232738db6ef5d5154c4834753ca20f2289f9f2c4edd88975af216e3fbcb51a"
+        "sha256": "8109e90dcf40498d8614006d30c5b844314df9c3a01cd2ec5877318116f8328a"
       },
       {
         "view": "side-depth",
         "path": "test_artifacts/all-models/hero-v2/villa-le-bec/test_villa-le-bec-hero-v2-side-depth.png",
-        "sha256": "0b828d16871f40de5b122cdf4619b8ddf748064485d8b6d87e6531e46c6201bd"
+        "sha256": "c3a28135bcc3058a8eb0f8454ac7d41ab8d39ef537feda21f9937d1953f13ccc"
       },
       {
         "view": "entrance",
         "path": "test_artifacts/all-models/hero-v2/villa-le-bec/test_villa-le-bec-hero-v2-entrance.png",
-        "sha256": "77bdc7bfcfcfc87414e5971efcc50751ed5eae1dd773fa4257046626427d109f"
+        "sha256": "6126a96dec0839ace441863b2f9821865cedfce59423ae602c12ce81b9d3c45a"
       },
       {
         "view": "triptych",
