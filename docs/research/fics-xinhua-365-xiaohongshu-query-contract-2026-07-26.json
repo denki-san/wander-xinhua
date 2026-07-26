@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "assetId": "fics-xinhua-365",
+  "label": "FICS新华365",
+  "preparedAt": "2026-07-26",
+  "baseCommit": "0d201ee6b5b5028a36439a8eacb6acca26e36c4f",
+  "status": "prepared-awaiting-main-window-human-paced-xiaohongshu-search",
+  "scope": {
+    "browserAccessed": false,
+    "xiaohongshuAccessed": false,
+    "networkSearchExecuted": false,
+    "mediaDownloaded": false,
+    "modelingPerformed": false,
+    "blenderOrMcpRerun": false,
+    "qualifiedStageRerun": false,
+    "binaryModified": false,
+    "sharedFastStatusRosterModified": false,
+    "registryRuntimeRoadModified": false,
+    "runtimeDisabled": false,
+    "excludedAndUntouched": [
+      "Recovery/Hold",
+      "trees",
+      "decorations",
+      "full-map assets",
+      "other buildings"
+    ]
+  },
+  "verifiedInputs": {
+    "finalGapAudit": {
+      "path": "docs/research/fics-xinhua-365-final-gap-audit.json",
+      "sha256": "14d547ebe40c217672da7463435b2281432878f6e60fd665d9eb667462775228"
+    },
+    "membershipBlocker": {
+      "path": "docs/research/fics-xinhua-365-membership-map-blocker.json",
+      "sha256": "c0fffe4301a43d46664fdf92e25096a60b7c7bf1222bfff1e98e0f2166de1bfc"
+    },
+    "mapSurfaceAudit": {
+      "path": "docs/research/fics-xinhua-365-map-surface-audit.json",
+      "sha256": "27fb1005b82cfd57aa76a1332d9363b03c8fa094efcd1897cab7bc591c530713"
+    },
+    "publicPrimarySourceRescue": {
+      "path": "docs/research/fics-xinhua-365-public-primary-source-rescue-2026-07-26.json",
+      "sha256": "61c580076c60aff06fd78f4c29c22a21ee2f79271d5b1aaae195058beadcd973"
+    },
+    "recoveryMapAudit": {
+      "path": "docs/research/fics-xinhua-365-recovery-map-audit.json",
+      "sha256": "85af3305fa7a99b5bd2a081445e1cd9bcda27b5c84feb3c24b6f73ac9317050a"
+    },
+    "mcp1Gate": {
+      "path": "docs/research/fics-xinhua-365-blender-mcp-gates.json",
+      "sha256": "e3121cb87d9c516473f4464fd18aa61217fdd832de5ca0057089e4c51044364e"
+    },
+    "threeDiagnostic": {
+      "path": "docs/research/fics-xinhua-365-threejs-runtime-qa.json",
+      "sha256": "015bf790e89b0c31e7b80c4780326362416e8fd2341323a060432ee26f7ba594"
+    },
+    "massingGlb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.glb",
+      "sha256": "e36f29a3f14e92ac833a324247c36c21d218003f17f666d1d0b5fc9f861fe8ad"
+    }
+  },
+  "retainedAcceptedStages": {
+    "recoveryMassing": "Massing-v2 GLB, source and build record remain retained; do not rebuild, replace, move, rotate, scale or promote.",
+    "mcp1": "MCP1 shape-only review remains pass; formal membership was explicitly outside that pass and the gate must not be rerun.",
+    "projection": "Authored-to-raw-OSM round trip remains pass within 0.000014722 metres; do not recalculate placement as a pseudo-fix.",
+    "threeAndCollisionDiagnostic": "QA-only Massing load, ground contact, performance measurement and collision stop remain diagnostic pass; do not rerun or call them formal map acceptance.",
+    "stillBlocked": "Formal five-way membership, service-road ground truth, map acceptance, legal Hero lineage, Identity, MCP2 and MCP3 remain blocked."
+  },
+  "knownGeometryContract": {
+    "candidateBuildingWayIds": [864493178, 864493177, 864493179, 864493181, 864493230],
+    "candidateRole": "unbound-member-candidate",
+    "serviceWay": {
+      "osmWayId": 577252268,
+      "rawTags": {
+        "access": "private",
+        "highway": "service",
+        "oneway": "no",
+        "service": "alley"
+      },
+      "missingTags": ["surface", "width", "lanes", "bridge", "tunnel", "covered", "layer"],
+      "currentRuntime": "visible layer-0 service core surface plus shoulder",
+      "closestCandidateWayId": 864493177,
+      "centerlineDistanceMeters": 0.3387257930932318,
+      "currentRenderedCoreClearanceMeters": -3.0362742069067683,
+      "adjudication": "Current rendered surface overlaps the exact footprint, but the real-world road edge, width, surface, cover and operating disposition remain unknown."
+    },
+    "promotionAuthorized": false
+  },
+  "minimumEvidenceQuestions": [
+    "Which buildings are formally inside FICS Xinhua 365, and can each included building be bound to one of the five anonymous OSM candidates?",
+    "What is the real at-grade or covered relationship between building way/864493177 and service way/577252268?",
+    "What are the real surface, edge, width, access and cover/layer properties of way/577252268?",
+    "How does the Xinhua Road Lane 365 entrance connect continuously to the internal service route and campus boundary?",
+    "Is there a geolocatable footprint or plan with enough stable controls and scale to calibrate the compound without guessing?"
+  ],
+  "searchPlan": {
+    "queryGroups": [
+      {
+        "purpose": "campus-member-table-and-boundary",
+        "queries": ["FICS新华365 园区导览图", "FICS新华365 建筑分布", "新华路365弄 FICS 园区平面图", "FICS新华365 园区边界"]
+      },
+      {
+        "purpose": "five-anonymous-candidate-binding",
+        "queries": ["FICS新华365 五栋建筑", "FICS新华365 历史建筑", "FICS新华365 老洋房 园区", "FICS新华365 航拍 俯视"]
+      },
+      {
+        "purpose": "service-way-577252268-and-building-864493177",
+        "queries": ["FICS新华365 内部道路", "FICS新华365 服务通道", "FICS新华365 消防通道", "FICS新华365 后门 小路"]
+      },
+      {
+        "purpose": "lane-365-entrance-continuity",
+        "queries": ["FICS新华365 入口", "新华路365弄 FICS 入口", "FICS新华365 从新华路怎么进", "FICS新华365 园区门口"]
+      },
+      {
+        "purpose": "calibratable-footprint-and-road-edge",
+        "queries": ["FICS新华365 总平面", "FICS新华365 竣工图", "FICS新华365 道路 宽度", "FICS新华365 航拍 园区道路"]
+      }
+    ],
+    "queryOrder": "Run groups serially in the stated order. Do not expand synonyms until the immediately preceding query has no verified same-subject candidate. Stop early when every acceptance category is satisfied.",
+    "maximumResultsToOpen": {
+      "perQuery": 4,
+      "total": 28,
+      "perSessionMinutes": 20
+    },
+    "humanPace": {
+      "betweenQueriesSeconds": "30-60",
+      "betweenOpenedResultsSeconds": "20-45",
+      "scrollPolicy": "one deliberate scroll at a time; wait for visible content before another action",
+      "serialOnly": true,
+      "noBulkAutomation": true,
+      "noRepeatedRefresh": true,
+      "noCommentLikeFollowOrMessage": true,
+      "noLoginStateMutation": true,
+      "noSimulationOrDetectionEvasion": true,
+      "challengeStopLine": "Stop immediately on rate limit, verification, challenge, login prompt, access warning or unusual-response page. Record only the visible stop condition; do not retry, circumvent or switch automation."
+    }
+  },
+  "acceptanceMatrix": [
+    {
+      "category": "formal-or-observable-campus-membership",
+      "required": true,
+      "accept": ["same-subject campus guide, building schedule or continuous walk-through that distinguishes individual buildings", "visible building labels, stable identity cues or entrance sequence that can bind more than one candidate"],
+      "reject": ["venue name or address alone", "single facade with no campus relation", "the claim that FICS is an open public community"]
+    },
+    {
+      "category": "five-candidate-way-binding",
+      "required": true,
+      "accept": ["geolocatable aerial, orthographic plan or continuous multi-view sequence showing relative order and corners of the candidate buildings", "at least two stable controls shared with OSM context for each proposed binding"],
+      "reject": ["perspective architectural rendering without georeferencing", "five anonymous OSM footprints treated as named members", "cropped logo, courtyard or mansion detail"]
+    },
+    {
+      "category": "service-way-surface-width-cover-access",
+      "required": true,
+      "accept": ["same-location frame showing both way/864493177 building edge and the full service-route cross-section", "measurable curb or wall controls plus a person, vehicle or fixed dimension", "continuous evidence showing whether the route is at-grade, covered, rerouted, closed or absent"],
+      "reject": ["access=private interpreted as road absence", "runtime stylized width interpreted as measured width", "open-community publicity interpreted as public road access", "an indoor corridor or unrelated campus lane"]
+    },
+    {
+      "category": "lane-365-entrance-and-road-continuity",
+      "required": true,
+      "accept": ["same sequence visibly connects Xinhua Road/Lane 365 gate to the internal route", "entrance, curb, wall and first internal junction remain locatable in context"],
+      "reject": ["navigation pin", "event check-in photo", "entrance sign with no road continuity", "Xinhua Community Building Center or neighboring venue"]
+    },
+    {
+      "category": "calibratable-compound-footprint",
+      "required": true,
+      "accept": ["site plan or geolocatable aerial with campus boundary, internal road edges, scale or fixed dimensions and at least two non-coincident controls", "source context sufficient to reproduce the proposed photo-to-OSM correspondence"],
+      "reject": ["map screenshot without provenance or scale", "marketing masterplan without north/scale/currentness", "single address, POI pin or OSM centroid", "social perspective image claimed as a survey plan"]
+    }
+  ],
+  "globalRejections": [
+    "AI-generated, collage, heavily filtered or untraceable repost",
+    "unrelated FICS event interior, food, fashion or lifestyle content",
+    "Shanghai Film Art Center, Xinhua Community Building Center or another Lane 365 subject",
+    "duplicate front-only identity evidence that adds no member, boundary, road or footprint fact",
+    "promotional wording such as open community used as proof of road geometry, access class or formal campus membership"
+  ],
+  "captureAndClassification": {
+    "captureRule": "Before inference, record post URL/identifier, displayed author handle, displayed date, query, media type, exact image/frame index and directly visible facts.",
+    "observed": "Only directly visible signage, geometry, adjacency, surface and route continuity.",
+    "inferred": "Any candidate-way binding or road disposition inferred from the visible evidence; include confidence and cited controls.",
+    "unknown": "Any member, boundary, surface, width, cover, access or footprint fact not resolved by the captured evidence.",
+    "publicityBoundary": "Open public community is a usage or planning objective only; it never upgrades an OSM member binding or road-surface fact."
+  },
+  "dynamicEvidenceStorage": {
+    "archiveTruthRoot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+    "snapshotPattern": "snapshots/<date>-<git-sha>/external-imports/xiaohongshu/fics-xinhua-365/",
+    "immutableSnapshots": true,
+    "newSnapshotForEveryUpdate": true,
+    "sha256VerificationRequired": true,
+    "repositoryWorkCopy": "Allowed only when an existing script requires it; the same round must create and reference an external immutable snapshot.",
+    "wikiPolicy": "Downloaded social media, screenshots, evidence JSON, manifests and per-asset analysis must not enter any LLM Wiki. Wiki may contain only abstract method/process Markdown with snapshot ID, relative path and SHA references.",
+    "currentAction": "No evidence directory, repository work copy, external snapshot or Wiki file is created by this preparation commit."
+  },
+  "rejectionAndDisposition": {
+    "reasonableSearchMissDefinition": "All five query groups are attempted serially at the stated pace, no more than 28 results total are deliberately reviewed, and no verified result satisfies all required categories after duplicate, promotional and neighboring-subject rejection.",
+    "whoMayConfirmMiss": "main window only",
+    "beforeMainWindowConfirmation": "No runtime-disable candidate, registry edit, runtime edit, road edit, model change, placement change, member promotion, collision promotion or map acceptance is authorized.",
+    "afterMainWindowConfirmation": "Only after the main window records an actual reasonable exhaustive miss may it propose a runtime-disable candidate for this asset. A disable may remove the asset only from registry/runtime; all GLB, Blend, generator, evidence, tests, external snapshots and Recovery/Hold materials remain permanently preserved.",
+    "stillNotAuthorized": [
+      "delete or overwrite files or snapshots",
+      "modify Recovery/Hold",
+      "rerun accepted Massing, MCP1, projection or diagnostic Three/collision stages",
+      "promote anonymous OSM candidates",
+      "delete or restyle way/577252268",
+      "claim Hero, Identity, MCP2, MCP3 or formal map acceptance"
+    ]
+  }
+}
