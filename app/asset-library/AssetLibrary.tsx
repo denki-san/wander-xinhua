@@ -1,17 +1,27 @@
 "use client";
 
-import { Bounds, Center, PerspectiveCamera, useGLTF } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
-import Link from "next/link";
+import {
+  Bounds,
+  Center,
+  ContactShadows,
+  OrbitControls,
+  PerspectiveCamera as DreiPerspectiveCamera,
+  View,
+  useGLTF,
+} from "@react-three/drei";
+import { Canvas, useThree } from "@react-three/fiber";
+import Image from "next/image";
 import {
   Suspense,
   useEffect,
+  useCallback,
   useMemo,
   useRef,
   useState,
+  type RefObject,
   type ReactNode,
 } from "react";
-import { Box3, Group, Mesh, Object3D, Vector3 } from "three";
+import { Box3, Color, MathUtils, Material, Mesh, Object3D, Vector3 } from "three";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 import {
   CantileverCafeUmbrella,
@@ -31,22 +41,27 @@ import {
   type AssetStatus,
   type QualityLevel,
 } from "./asset-data";
+import { AssetAdminHeader } from "./AssetAdminHeader";
+import {
+  BUILDING_MANAGEMENT_RECORDS,
+  STATUS_LABELS,
+  type BuildingManagementRecord,
+} from "./building-management-data";
 import styles from "./asset-library.module.css";
 
 const CATEGORY_ORDER: AssetCategory[] = ["buildings", "lighting", "trees", "decor", "characters"];
+const QUALITY_LEVEL_OPTIONS: Array<{ id: QualityLevel["id"]; label: string }> = [
+  { id: "hero", label: "Hero / Full" },
+  { id: "identity", label: "Hybrid Identity" },
+  { id: "massing", label: "Massing" },
+];
 
-function detectPreviewQuality() {
-  if (typeof window === "undefined") return { animate: false, dpr: 1 };
-  const coarse = window.matchMedia("(any-pointer: coarse)").matches;
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const lowTier = coarse
-    || window.innerWidth < 900
-    || (navigator.hardwareConcurrency ?? 8) <= 4;
-  return {
-    animate: !lowTier && !reducedMotion,
-    dpr: lowTier ? 1 : Math.min(Math.max(window.devicePixelRatio || 1, 1), 1.25),
-  };
-}
+type PreviewSelection = {
+  label: string;
+  model?: string;
+  preview?: string;
+  variant?: number;
+};
 
 const STATUS_META: Record<AssetStatus, { label: string; className: string }> = {
   online: { label: "线上", className: styles.statusOnline },
@@ -62,7 +77,7 @@ function StatusBadge({ status }: { status: AssetStatus }) {
   return <span className={`${styles.statusBadge} ${meta.className}`}>{meta.label}</span>;
 }
 
-function useIsVisible(rootMargin = "80px") {
+function useIsVisible(rootMargin = "120px") {
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -77,20 +92,58 @@ function useIsVisible(rootMargin = "80px") {
   return { ref, visible };
 }
 
-function AutoTurn({
-  active,
-  children,
-  speed = 0.12,
-}: {
-  active: boolean;
-  children: ReactNode;
-  speed?: number;
-}) {
-  const group = useRef<Group>(null);
-  useFrame((_, delta) => {
-    if (active && group.current) group.current.rotation.y += delta * speed;
-  });
-  return <group ref={group}>{children}</group>;
+function PreviewPose({ children }: { children: ReactNode }) {
+  return <group rotation-y={-0.22}>{children}</group>;
+}
+
+function ScrollSync({ target }: { target: RefObject<HTMLDivElement | null> }) {
+  const invalidate = useThree((state) => state.invalidate);
+  useEffect(() => {
+    const node = target.current;
+    if (!node) return;
+    const refresh = () => invalidate();
+    node.addEventListener("scroll", refresh, { passive: true });
+    window.addEventListener("resize", refresh);
+    return () => {
+      node.removeEventListener("scroll", refresh);
+      window.removeEventListener("resize", refresh);
+    };
+  }, [invalidate, target]);
+  return null;
+}
+
+type PreviewMaterial = Material & {
+  color?: Color;
+  emissive?: Color;
+  emissiveIntensity?: number;
+  metalness?: number;
+  opacity?: number;
+  roughness?: number;
+  transparent?: boolean;
+};
+
+function clonePreviewMaterial(source: Material) {
+  const material = source.clone() as PreviewMaterial;
+  if (material.color) {
+    const hsl = { h: 0, s: 0, l: 0 };
+    material.color.getHSL(hsl);
+    material.color.setHSL(
+      hsl.h,
+      Math.max(hsl.s, 0.08),
+      Math.min(0.68, Math.max(0.2, hsl.l * 0.7)),
+    );
+  }
+  if (material.emissive) {
+    material.emissive.multiplyScalar(0.35);
+    material.emissiveIntensity = Math.min(material.emissiveIntensity ?? 0, 0.45);
+  }
+  if (typeof material.metalness === "number") material.metalness = Math.min(material.metalness, 0.12);
+  if (typeof material.roughness === "number") material.roughness = Math.max(material.roughness, 0.72);
+  if (material.transparent && typeof material.opacity === "number") {
+    material.opacity = Math.max(material.opacity, 0.78);
+  }
+  material.needsUpdate = true;
+  return material;
 }
 
 function RuntimeModel({ path }: { path: string }) {
@@ -98,13 +151,26 @@ function RuntimeModel({ path }: { path: string }) {
   const model = useMemo(() => {
     const result = clone(scene) as Object3D;
     result.traverse((child) => {
-      if (child instanceof Mesh) child.receiveShadow = false;
+      if (child instanceof Mesh) {
+        child.material = Array.isArray(child.material)
+          ? child.material.map(clonePreviewMaterial)
+          : clonePreviewMaterial(child.material);
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
     });
     const bounds = new Box3().setFromObject(result);
     const size = bounds.getSize(new Vector3());
     if (size.z > size.x * 0.96) result.rotation.y = -0.42;
     return result;
   }, [scene]);
+  useEffect(() => () => {
+    model.traverse((child) => {
+      if (!(child instanceof Mesh)) return;
+      const materials = Array.isArray(child.material) ? child.material : [child.material];
+      materials.forEach((material) => material.dispose());
+    });
+  }, [model]);
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
@@ -220,136 +286,195 @@ function ProceduralPreview({ kind, variant = 0 }: { kind: string; variant?: numb
   );
 }
 
-function AssetScene({
-  animate,
-  model,
-  preview,
-  variant,
-}: {
-  animate: boolean;
-  model?: string;
-  preview?: string;
-  variant?: number;
-}) {
+function AssetScene({ model, preview, variant }: { model?: string; preview?: string; variant?: number }) {
   return (
     <>
-      <color attach="background" args={["#cfd9de"]} />
-      <fog attach="fog" args={["#cfd9de", 24, 55]} />
-      <PerspectiveCamera makeDefault position={[8.8, 6.4, 11]} fov={32} />
-      <ambientLight color="#fff0da" intensity={0.55} />
-      <hemisphereLight args={["#bfd7e7", "#615342", 1.15]} />
+      <color attach="background" args={["#e7e8e4"]} />
+      <DreiPerspectiveCamera makeDefault position={[8.8, 6.4, 11]} fov={32} />
+      <ambientLight color="#fff4df" intensity={0.38} />
+      <hemisphereLight args={["#eef3f4", "#5b5046", 0.65]} />
       <directionalLight
         position={[-8, 11, -14]}
         color="#ffc47f"
-        intensity={4.6}
+        intensity={1.8}
+        castShadow
+        shadow-mapSize={[1024, 1024]}
       />
-      <directionalLight position={[8, 7, 10]} color="#a8c6d8" intensity={1.8} />
+      <directionalLight position={[8, 7, 10]} color="#b7d0da" intensity={0.55} />
       <Bounds fit clip observe margin={1.3}>
         <Center top>
-          <AutoTurn active={animate} speed={model?.includes("character") ? 0.04 : 0.1}>
-            {model
-              ? <RuntimeModel path={model} />
-              : <ProceduralPreview kind={preview ?? "missing"} variant={variant} />}
-          </AutoTurn>
+          <PreviewPose>
+            {model ? <RuntimeModel path={model} /> : <ProceduralPreview kind={preview ?? "missing"} variant={variant} />}
+          </PreviewPose>
         </Center>
       </Bounds>
+      <ContactShadows
+        position={[0, -0.02, 0]}
+        opacity={0.68}
+        scale={18}
+        blur={2.1}
+        far={12}
+        color="#243431"
+        frames={1}
+      />
     </>
   );
 }
 
+type OrbitControlHandle = {
+  target: Vector3;
+  minDistance: number;
+  maxDistance: number;
+  update: () => void;
+};
+
+function ModalAssetContent({ model, preview, variant }: { model?: string; preview?: string; variant?: number }) {
+  const getThreeState = useThree((state) => state.get);
+  const invalidate = useThree((state) => state.invalidate);
+  const frameAsset = useCallback(
+    ({ boundingSphere }: { boundingSphere: { radius: number } }) => {
+      const { camera, controls: rawControls } = getThreeState();
+      const controls = rawControls as OrbitControlHandle | undefined;
+      if (!("fov" in camera) || !("aspect" in camera)) return;
+      const radius = Math.max(boundingSphere.radius, 0.5);
+      const verticalFov = MathUtils.degToRad(camera.fov as number);
+      const horizontalFov = 2 * Math.atan(Math.tan(verticalFov / 2) * (camera.aspect as number));
+      const limitingFov = Math.min(verticalFov, horizontalFov);
+      const distance = radius / Math.sin(limitingFov / 2) * 1.18;
+      const direction = new Vector3(0.78, 0.52, 1).normalize();
+
+      camera.position.copy(direction.multiplyScalar(distance));
+      camera.near = Math.max(distance / 100, 0.01);
+      camera.far = Math.max(distance * 100, 100);
+      camera.lookAt(0, 0, 0);
+      camera.updateProjectionMatrix();
+
+      if (controls) {
+        controls.target.set(0, 0, 0);
+        controls.minDistance = radius * 0.65;
+        controls.maxDistance = distance * 6;
+        controls.update();
+      }
+      invalidate();
+    },
+    [getThreeState, invalidate],
+  );
+
+  return (
+    <Center
+      cacheKey={`${model ?? "procedural"}:${preview ?? "asset"}`}
+      onCentered={frameAsset}
+    >
+      <PreviewPose>
+        {model ? <RuntimeModel path={model} /> : <ProceduralPreview kind={preview ?? "missing"} variant={variant} />}
+      </PreviewPose>
+    </Center>
+  );
+}
+
 function LivePreview({
-  animate,
-  dpr,
-  label,
   model,
   preview,
   variant,
+  label,
+  onOpen,
 }: {
-  animate: boolean;
-  dpr: number;
-  label: string;
   model?: string;
   preview?: string;
   variant?: number;
+  label: string;
+  onOpen: () => void;
 }) {
   const { ref, visible } = useIsVisible();
   return (
     <div className={styles.preview}>
-      <div
+      <View
         ref={ref}
         className={styles.previewViewport}
         aria-label={`${label} 的实时三维预览`}
+        frames={Infinity}
       >
         {visible && (
-          <Canvas
-            dpr={dpr}
-            frameloop={animate ? "always" : "demand"}
-            gl={{ antialias: true, alpha: true }}
-          >
-            <Suspense fallback={null}>
-              <AssetScene
-                animate={animate}
-                model={model}
-                preview={preview}
-                variant={variant}
-              />
-            </Suspense>
-          </Canvas>
+          <Suspense fallback={null}>
+            <AssetScene model={model} preview={preview} variant={variant} />
+          </Suspense>
         )}
-      </div>
-      <div className={styles.previewChrome}>
-        <span className={styles.liveDot} />
-        实时 3D
-      </div>
+      </View>
+      <button
+        type="button"
+        className={styles.previewOpen}
+        onClick={onOpen}
+        aria-label={`打开 ${label} 大图`}
+        title="点击查看大图"
+      />
     </div>
   );
 }
 
-function BuildingCard({ animate, asset, dpr }: { animate: boolean; asset: AssetRecord; dpr: number }) {
-  const [selectedLevel, setSelectedLevel] = useState<QualityLevel>(
-    asset.qualityLevels?.[0] ?? {
-      id: "hero",
-      name: "Hero / Full",
-      status: asset.status,
-      model: asset.model,
-      note: "",
-    },
+function MissingPreview({ levelName }: { levelName: string }) {
+  return (
+    <div className={`${styles.preview} ${styles.missingPreview}`}>
+      <strong>暂无 {levelName}</strong>
+      <span>该资产尚未制作此质量等级</span>
+    </div>
   );
-  const displayModel = selectedLevel.model ?? asset.model;
+}
+
+function BuildingCard({
+  asset,
+  selectedLevelId,
+  onOpen,
+  onOpenDetail,
+}: {
+  asset: AssetRecord;
+  selectedLevelId: QualityLevel["id"];
+  onOpen: (selection: PreviewSelection) => void;
+  onOpenDetail: (assetId: string) => void;
+}) {
+  const selectedLevel = asset.qualityLevels?.find((level) => level.id === selectedLevelId);
+  const displayModel = selectedLevel?.model;
+  const levelName = selectedLevel?.name
+    ?? QUALITY_LEVEL_OPTIONS.find((level) => level.id === selectedLevelId)?.label
+    ?? selectedLevelId;
   return (
     <article className={`${styles.assetCard} ${styles.buildingCard}`}>
-      <LivePreview animate={animate} dpr={dpr} model={displayModel} label={`${asset.name} ${selectedLevel.name}`} />
+      {displayModel ? (
+        <LivePreview
+          model={displayModel}
+          label={`${asset.name} ${levelName}`}
+          onOpen={() => onOpen({ model: displayModel, label: `${asset.name} · ${levelName}` })}
+        />
+      ) : (
+        <MissingPreview levelName={levelName} />
+      )}
       <div className={styles.cardBody}>
         <div className={styles.cardTopline}>
           <span className={styles.assetCode}>{asset.id}</span>
-          <StatusBadge status={asset.status} />
+          <StatusBadge status={selectedLevel?.status ?? "pending"} />
         </div>
         <h3>{asset.name}</h3>
         <p className={styles.subtitle}>{asset.subtitle}</p>
-        <div className={styles.levels} aria-label={`${asset.name} 质量等级`}>
-          {asset.qualityLevels?.map((level) => (
-            <button
-              key={level.id}
-              type="button"
-              className={`${styles.levelButton} ${selectedLevel.id === level.id ? styles.levelButtonActive : ""}`}
-              onClick={() => setSelectedLevel(level)}
-              disabled={!level.model && level.status === "pending"}
-              title={level.note}
-            >
-              <span>{level.name}</span>
-              <StatusBadge status={level.status} />
-            </button>
-          ))}
-        </div>
-        <p className={styles.levelNote}>{selectedLevel.note}</p>
+        <p className={styles.levelNote}>{selectedLevel?.note ?? `暂无 ${levelName}`}</p>
+        <button
+          type="button"
+          className={styles.detailButton}
+          onClick={() => onOpenDetail(asset.id)}
+        >
+          查看建筑详情
+        </button>
       </div>
     </article>
   );
 }
 
-function StandardCard({ animate, asset, dpr }: { animate: boolean; asset: AssetRecord; dpr: number }) {
+function StandardCard({
+  asset,
+  onOpen,
+}: {
+  asset: AssetRecord;
+  onOpen: (selection: PreviewSelection) => void;
+}) {
   const [variant, setVariant] = useState(0);
-  const interactiveVariants = asset.id === "plane-tree" || asset.id === "trash-bin";
   let model = asset.model;
   if (asset.id === "plane-tree") {
     model = [
@@ -362,12 +487,11 @@ function StandardCard({ animate, asset, dpr }: { animate: boolean; asset: AssetR
   return (
     <article className={styles.assetCard}>
       <LivePreview
-        animate={animate}
-        dpr={dpr}
         model={model}
         preview={asset.preview}
-        label={asset.name}
         variant={variant}
+        label={asset.name}
+        onOpen={() => onOpen({ model, preview: asset.preview, variant, label: asset.name })}
       />
       <div className={styles.cardBody}>
         <div className={styles.cardTopline}>
@@ -379,18 +503,14 @@ function StandardCard({ animate, asset, dpr }: { animate: boolean; asset: AssetR
         {asset.variants && asset.variants.length > 0 && (
           <div className={styles.variantRow}>
             {asset.variants.map((item, index) => (
-              interactiveVariants ? (
-                <button
-                  key={item}
-                  type="button"
-                  className={`${styles.variantChip} ${variant === index ? styles.variantChipActive : ""}`}
-                  onClick={() => setVariant(index)}
-                >
-                  {item}
-                </button>
-              ) : (
-                <span key={item} className={styles.variantChip}>{item}</span>
-              )
+              <button
+                key={item}
+                type="button"
+                className={`${styles.variantChip} ${variant === index ? styles.variantChipActive : ""}`}
+                onClick={() => setVariant(index)}
+              >
+                {item}
+              </button>
             ))}
           </div>
         )}
@@ -400,10 +520,191 @@ function StandardCard({ animate, asset, dpr }: { animate: boolean; asset: AssetR
   );
 }
 
+function AssetPreviewModal({
+  selection,
+  onClose,
+}: {
+  selection: PreviewSelection;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [onClose]);
+
+  return (
+    <div
+      className={styles.modalBackdrop}
+      role="presentation"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <section className={styles.modalPanel} role="dialog" aria-modal="true" aria-label={`${selection.label} 大图`}>
+        <div className={styles.modalHeader}>
+          <div>
+            <span>资产大图</span>
+            <h2>{selection.label}</h2>
+          </div>
+          <button type="button" onClick={onClose} aria-label="关闭大图">关闭</button>
+        </div>
+        <div className={styles.modalStage}>
+          <Canvas shadows dpr={[1, 1.5]} gl={{ antialias: true }}>
+            <Suspense fallback={null}>
+              <color attach="background" args={["#e7e8e4"]} />
+              <DreiPerspectiveCamera makeDefault position={[8.8, 6.4, 11]} fov={32} />
+              <ambientLight color="#fff4df" intensity={0.38} />
+              <hemisphereLight args={["#eef3f4", "#5b5046", 0.65]} />
+              <directionalLight position={[-8, 11, -14]} color="#ffc47f" intensity={1.8} />
+              <directionalLight position={[8, 7, 10]} color="#b7d0da" intensity={0.55} />
+              <OrbitControls
+                makeDefault
+                target={[0, 0, 0]}
+                enablePan={false}
+                enableDamping
+                dampingFactor={0.08}
+                minPolarAngle={0.35}
+                maxPolarAngle={Math.PI / 2.05}
+              />
+              <ModalAssetContent model={selection.model} preview={selection.preview} variant={selection.variant} />
+            </Suspense>
+          </Canvas>
+        </div>
+        <p className={styles.modalHint}>拖动旋转 · 滚轮缩放 · Esc 关闭</p>
+      </section>
+    </div>
+  );
+}
+
+function BuildingDetailModal({
+  record,
+  onClose,
+}: {
+  record: BuildingManagementRecord;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [onClose]);
+
+  return (
+    <div
+      className={styles.detailBackdrop}
+      role="presentation"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <section className={styles.detailPanel} role="dialog" aria-modal="true" aria-label={`${record.name} 资产详情`}>
+        <div className={styles.detailHeader}>
+          <div>
+            <span className={styles.assetCode}>{record.id}</span>
+            <h2>{record.name}</h2>
+            <p>{record.address}</p>
+          </div>
+          <button type="button" onClick={onClose}>关闭</button>
+        </div>
+
+        <div className={styles.detailScroll}>
+          <section className={styles.detailSection}>
+            <div className={styles.detailSectionHead}>
+              <div>
+                <span>QUALITY LEVELS</span>
+                <h3>资产质量等级</h3>
+              </div>
+              <span className={`${styles.workflowBadge} ${styles[record.workflowState]}`}>
+                {STATUS_LABELS[record.workflowState]}
+              </span>
+            </div>
+            <p className={styles.workflowNote}>{record.workflowNote}</p>
+            <div className={styles.detailLevels}>
+              {QUALITY_LEVEL_OPTIONS.map((option) => {
+                const level = record.qualityLevels.find((item) => item.id === option.id);
+                const available = Boolean(level?.model);
+                return (
+                  <article key={option.id} className={!available ? styles.levelMissing : ""}>
+                    <div>
+                      <strong>{option.label}</strong>
+                      <StatusBadge status={available ? (level?.status ?? "pending") : "pending"} />
+                    </div>
+                    <p>{available ? level?.note : "暂无该等级资产"}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className={styles.detailSection}>
+            <div className={styles.detailSectionHead}>
+              <div>
+                <span>PHOTO COMPARISON</span>
+                <h3>照片与运行时对比</h3>
+              </div>
+              <span>{record.photos.length} 张</span>
+            </div>
+            <div className={styles.photoGrid}>
+              {record.photos.map((photo) => (
+                <figure key={`${photo.kind}-${photo.src}`}>
+                  <div>
+                    <Image src={photo.src} alt={`${record.name} ${photo.label}`} fill sizes="(max-width: 760px) 100vw, 45vw" />
+                  </div>
+                  <figcaption><span>{photo.kind}</span><strong>{photo.label}</strong></figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+
+          <section className={styles.detailSection}>
+            <div className={styles.detailSectionHead}>
+              <div>
+                <span>PROJECT DOCUMENTS</span>
+                <h3>相关文档</h3>
+              </div>
+              <span>{record.documents.length} 份</span>
+            </div>
+            <div className={styles.documentList}>
+              {record.documents.map((document) => (
+                <article key={document.path}>
+                  <span>{document.type}</span>
+                  <strong>{document.title}</strong>
+                  <code>{document.path}</code>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className={styles.gameEntry}>
+            <Image src={record.thumbnail} alt={`${record.name} 游戏入口`} fill sizes="(max-width: 760px) 100vw, 70vw" />
+            <div className={styles.gameEntryOverlay} />
+            <div className={styles.gameEntryContent}>
+              <span>GAME POI</span>
+              <h3>{record.name}</h3>
+              <p>从对应 POI 入口直接进入游戏，检查建筑位置、朝向、相机、碰撞与遮挡。</p>
+              <a href={`/?start=${record.gameStart}`} target="_blank" rel="noreferrer">
+                进入 {record.name}
+              </a>
+            </div>
+          </section>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 export function AssetLibrary() {
-  const [previewQuality] = useState(detectPreviewQuality);
+  const container = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState<AssetCategory | "all">("all");
   const [query, setQuery] = useState("");
+  const [selectedLevelId, setSelectedLevelId] = useState<QualityLevel["id"]>("hero");
+  const [previewSelection, setPreviewSelection] = useState<PreviewSelection | null>(null);
+  const [detailRecord, setDetailRecord] = useState<BuildingManagementRecord | null>(null);
 
   const onlineCounts = useMemo(() => Object.fromEntries(
     CATEGORY_ORDER.map((category) => [
@@ -426,29 +727,26 @@ export function AssetLibrary() {
   const onlineTotal = ALL_ASSETS.filter((asset) => asset.status === "online").length;
 
   return (
-    <div className={styles.shell}>
-      <header className={styles.header}>
-        <Link href="/" className={styles.brand} aria-label="返回新华漫游志">
-          <span className={styles.brandMark}>新</span>
-          <span>
-            <strong>新华漫游志</strong>
-            <small>Asset Library</small>
-          </span>
-        </Link>
-        <div className={styles.headerMeta}>
-          <span className={styles.syncDot} />
-          生产资产快照 · 2026.07.25
-        </div>
-      </header>
+    <div ref={container} className={styles.shell}>
+      <Canvas
+        className={styles.canvas}
+        eventSource={container}
+        frameloop="demand"
+        shadows
+        dpr={[1, 1.25]}
+        gl={{ antialias: true, alpha: true }}
+      >
+        <ScrollSync target={container} />
+        <View.Port />
+      </Canvas>
+
+      <AssetAdminHeader active="overview" />
 
       <main className={styles.main}>
         <section className={styles.hero}>
           <div>
-            <p className={styles.eyebrow}>生产资产总览 / 一页看清</p>
-            <h1>现在拥有什么，<br /><em>一眼看清。</em></h1>
-            <p className={styles.heroCopy}>
-              只统计真实接入场景的生产资产。建筑三档完整列出，实验、内部占位与待制作状态不会混入线上总数。
-            </p>
+            <h1>资产总览</h1>
+            <p className={styles.heroCopy}>建筑、光线、树木、装饰物与人物。</p>
           </div>
           <div className={styles.heroStats}>
             <div className={styles.primaryStat}>
@@ -494,6 +792,22 @@ export function AssetLibrary() {
           </label>
         </section>
 
+        <section className={styles.qualitySwitcher} aria-label="建筑质量等级">
+          <span>建筑质量等级</span>
+          <div>
+            {QUALITY_LEVEL_OPTIONS.map((level) => (
+              <button
+                key={level.id}
+                type="button"
+                className={selectedLevelId === level.id ? styles.qualityActive : ""}
+                onClick={() => setSelectedLevelId(level.id)}
+              >
+                {level.label}
+              </button>
+            ))}
+          </div>
+        </section>
+
         {CATEGORY_ORDER.map((category) => {
           const assets = filtered.filter((asset) => asset.category === category);
           if (assets.length === 0) return null;
@@ -513,8 +827,18 @@ export function AssetLibrary() {
               <div className={`${styles.assetGrid} ${category === "buildings" ? styles.buildingGrid : ""}`}>
                 {assets.map((asset) => (
                   category === "buildings"
-                    ? <BuildingCard key={asset.id} asset={asset} animate={previewQuality.animate} dpr={previewQuality.dpr} />
-                    : <StandardCard key={asset.id} asset={asset} animate={previewQuality.animate} dpr={previewQuality.dpr} />
+                    ? (
+                      <BuildingCard
+                        key={asset.id}
+                        asset={asset}
+                        selectedLevelId={selectedLevelId}
+                        onOpen={setPreviewSelection}
+                        onOpenDetail={(assetId) => {
+                          setDetailRecord(BUILDING_MANAGEMENT_RECORDS.find((item) => item.id === assetId) ?? null);
+                        }}
+                      />
+                    )
+                    : <StandardCard key={asset.id} asset={asset} onOpen={setPreviewSelection} />
                 ))}
               </div>
               {category === "lighting" && (
@@ -537,9 +861,19 @@ export function AssetLibrary() {
       </main>
 
       <footer className={styles.footer}>
-        <span>WANDER XINHUA · PRODUCTION ASSET LIBRARY</span>
+        <span>WANDER XINHUA · INTERNAL ASSET LIBRARY</span>
         <span>数据来源：生产注册表与运行时代码</span>
       </footer>
+
+      {previewSelection && (
+        <AssetPreviewModal
+          selection={previewSelection}
+          onClose={() => setPreviewSelection(null)}
+        />
+      )}
+      {detailRecord && (
+        <BuildingDetailModal record={detailRecord} onClose={() => setDetailRecord(null)} />
+      )}
     </div>
   );
 }

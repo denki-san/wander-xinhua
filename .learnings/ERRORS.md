@@ -1,5 +1,62 @@
 # Errors
 
+## [ERR-20260726-001] parallel_sites_build
+
+**Logged**: 2026-07-26T00:20:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+不能并行执行两个都会写入 `dist` 的完整 Sites 构建。
+
+### Error
+```
+EEXIST: file already exists, mkdir 'dist/.openai/drizzle'
+```
+
+### Context
+- 同时运行了 `npm test` 和 `npm run build`
+- `npm test` 内部本身会先调用一次 `npm run build`
+- 两个 Sites 构建争用同一个输出目录
+
+### Suggested Fix
+完整构建与 `npm test` 必须串行；需要并行时只能搭配不会写入同一输出目录的检查。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json, build/sites-vite-plugin.ts
+
+### Resolution
+- **Resolved**: 2026-07-26T00:20:00+08:00
+- **Notes**: 等待剩余构建退出后改为串行执行验证。
+
+---
+
+## [ERR-20260725-094] sites_packaging_script_not_executable
+
+**Logged**: 2026-07-25T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Sites 插件的打包入口与内部脚本在当前安装中都没有可执行权限。
+
+### Error
+```text
+permission denied: package-site.sh
+```
+
+### Context
+- 直接执行根级包装脚本失败。
+- 用 `bash` 调用包装脚本后，包装脚本内部仍通过 `exec` 直接执行无权限的内部脚本。
+
+### Resolution
+改用 `bash` 直接调用 `skills/sites-hosting/scripts/package-site.sh`，归档成功并通过脚本自带结构校验。
+
+---
+
 ## [ERR-20260724-091] vite_preview_sandbox_listen_permission
 
 **Logged**: 2026-07-24T00:00:00+08:00
