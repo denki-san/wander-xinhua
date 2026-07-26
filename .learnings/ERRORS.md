@@ -1,5 +1,30 @@
 # Errors
 
+## [ERR-20260726-132] xhs_readiness_guard_stale_after_contract_batch
+
+**Logged**: 2026-07-26T23:51:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+329 与 FICS 两份建筑专项查询合同接入后，主窗口已把浏览器准备清单从 8 份扩为
+10 份，但全仓测试仍锁定旧的状态字符串和数量，导致完整回归 790/792。
+
+### Error
+```text
+actual: ten-query-contracts-ready-browser-not-running-fahua-external-evidence-ingested
+expected: eight-query-contracts-ready-browser-not-running-fahua-external-evidence-ingested
+queryContracts: 10 !== 8
+```
+
+### Resolution
+- **Resolved**: 2026-07-26T23:52:00+08:00
+- **Notes**: 同步更新守卫为 10 份合同，并新增动态证据根、幸福里九图仍为
+  `0 readable files`、番禺路尚未接受的断言；不改变任何建筑资产或地图状态。
+
+---
+
 ## [ERR-20260726-095] worktree_index_lock_sandbox_permission
 
 **Logged**: 2026-07-26T14:35:00+08:00

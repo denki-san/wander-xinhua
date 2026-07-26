@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "checkedAt": "2026-07-26T22:43:26+08:00",
   "baseCommit": "2643a4d2c5ab84f945336b29e764eae0dc0ae926",
-  "status": "eight-query-contracts-ready-browser-not-running-fahua-external-evidence-ingested",
-  "updatedAt": "2026-07-26T23:09:19+08:00",
+  "status": "ten-query-contracts-ready-browser-not-running-fahua-external-evidence-ingested",
+  "updatedAt": "2026-07-26T23:49:26+08:00",
   "scope": {
     "assetIds": [
       "fahua-heritage",
@@ -13,7 +13,9 @@
       "xinhua-community-center",
       "debi-fahua-525",
       "xingfuli-west",
-      "xingfuli-east"
+      "xingfuli-east",
+      "xinhua-villas-329",
+      "fics-xinhua-365"
     ],
     "readOnlyDiagnosticsOnly": true,
     "browserLaunched": false,
@@ -60,7 +62,13 @@
     "mainWindowVisualInspection": "Both actual frames show the same Fahua Heritage subject and materially improve right-front depth and street-interface evidence. Exact map calibration, scale, and full rear geometry remain pending.",
     "repositoryRecord": "docs/research/fahua-heritage-xiaohongshu-local-ingestion-2026-07-26.json",
     "repositoryKnowledgeSource": "docs/knowledge-sources/fahua-heritage-xiaohongshu-local-ingestion-2026-07-26.md",
-    "uDiskFilesModified": false
+    "uDiskFilesModified": false,
+    "dynamicEvidencePolicy": {
+      "archiveTruthRoot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+      "newSnapshotStatus": "pending-main-window-batch-archive",
+      "legacyKnowledgeBasePackageStatus": "read-only-historical-source-do-not-overwrite",
+      "wikiEligibility": false
+    }
   },
   "queryContracts": [
     {
@@ -102,10 +110,38 @@
       "assetId": "xingfuli-east",
       "path": "docs/research/xingfuli-east-xhs-evidence-query-contract-2026-07-26.json",
       "executionStatus": "not-run"
+    },
+    {
+      "assetId": "xinhua-villas-329",
+      "path": "docs/research/xinhua-villas-329-xiaohongshu-query-contract-2026-07-26.json",
+      "executionStatus": "not-run"
+    },
+    {
+      "assetId": "fics-xinhua-365",
+      "path": "docs/research/fics-xinhua-365-xiaohongshu-query-contract-2026-07-26.json",
+      "executionStatus": "not-run"
     }
   ],
+  "userPhotoSequenceMaterialization": {
+    "assetIds": [
+      "xingfuli-west",
+      "xingfuli-center",
+      "xingfuli-east"
+    ],
+    "photographerStatement": "nine ordered real photos start at the Xingfu Road entrance and continue to the opposite road, which may be Panyu Road",
+    "claimedPhotoCount": 9,
+    "readableAttachmentCount": 0,
+    "localPathsAvailable": false,
+    "sha256Available": false,
+    "snapshotStatus": "pending-original-file-materialization",
+    "targetArchiveRoot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+    "sequenceMayConstrainFacadeOrder": true,
+    "routeEndRoadCandidate": "panyu-road",
+    "routeEndRoadAccepted": false,
+    "reason": "The current message exposed text but no readable image attachment paths or nine local image objects. Do not substitute existing public references or unrelated cache images."
+  },
   "nextGate": {
-    "requiredUserAction": "Allow the main window to launch Chrome when the user is available for the seven not-run contracts; Fahua exact map, rear, and scale adjudication remains a separate evidence gate.",
+    "requiredUserAction": "Allow the main window to launch Chrome when the user is available for the nine not-run contracts. Materialize the nine Xingfuli originals when the attachment channel exposes them; Fahua exact map, rear, and scale remain a separate evidence gate.",
     "executionOwner": "main-window-xhigh",
     "executionMode": "serial-read-only-human-paced",
     "parallelXhsBrowsingForbidden": true,
@@ -114,7 +150,7 @@
   },
   "runtimeDisablePolicy": {
     "eligibleNow": false,
-    "reason": "Seven contracted searches have not executed; the discovered Fahua package is ingested but does not clear exact map, rear, or scale.",
+    "reason": "Nine contracted searches have not executed; the discovered Fahua package is ingested but does not clear exact map, rear, or scale; the nine Xingfuli originals are still not readable as files.",
     "allFilesMustRemain": true
   }
 }

@@ -10,11 +10,11 @@ async function readJson(relativePath) {
   return JSON.parse(await readFile(new URL(relativePath, root), "utf8"));
 }
 
-test("八栋XHS合同已就绪，但Chrome未运行时不得冒充本窗口已检索", async () => {
+test("十栋XHS合同已就绪，但Chrome未运行时不得冒充本窗口已检索", async () => {
   const record = await readJson(recordPath);
   assert.equal(
     record.status,
-    "eight-query-contracts-ready-browser-not-running-fahua-external-evidence-ingested",
+    "ten-query-contracts-ready-browser-not-running-fahua-external-evidence-ingested",
   );
   assert.deepEqual(record.scope.assetIds, [
     "fahua-heritage",
@@ -25,6 +25,8 @@ test("八栋XHS合同已就绪，但Chrome未运行时不得冒充本窗口已�
     "debi-fahua-525",
     "xingfuli-west",
     "xingfuli-east",
+    "xinhua-villas-329",
+    "fics-xinhua-365",
   ]);
   assert.deepEqual(record.browserChecks.browserClientDiscoveredTypes, []);
   assert.equal(record.browserChecks.googleChrome.installed, true);
@@ -36,9 +38,9 @@ test("八栋XHS合同已就绪，但Chrome未运行时不得冒充本窗口已�
   assert.match(record.scope.scopeStatement, /main-window diagnostic session/);
 });
 
-test("八份查询合同必须存在，法华外部证据接入不冒充本窗口检索", async () => {
+test("十份查询合同必须存在，法华外部证据接入不冒充本窗口检索", async () => {
   const record = await readJson(recordPath);
-  assert.equal(record.queryContracts.length, 8);
+  assert.equal(record.queryContracts.length, 10);
   for (const contract of record.queryContracts) {
     await access(new URL(contract.path, root));
     if (contract.assetId === "fahua-heritage") {
@@ -57,6 +59,17 @@ test("八份查询合同必须存在，法华外部证据接入不冒充本窗�
   await access(new URL(record.externalEvidenceDiscovery.repositoryRecord, root));
   assert.match(record.externalEvidenceDiscovery.manifestPathMismatch, /actual/);
   assert.equal(record.externalEvidenceDiscovery.uDiskFilesModified, false);
+  assert.equal(
+    record.externalEvidenceDiscovery.dynamicEvidencePolicy.archiveTruthRoot,
+    "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+  );
+  assert.equal(
+    record.externalEvidenceDiscovery.dynamicEvidencePolicy.wikiEligibility,
+    false,
+  );
+  assert.equal(record.userPhotoSequenceMaterialization.claimedPhotoCount, 9);
+  assert.equal(record.userPhotoSequenceMaterialization.readableAttachmentCount, 0);
+  assert.equal(record.userPhotoSequenceMaterialization.routeEndRoadAccepted, false);
   assert.equal(record.nextGate.executionOwner, "main-window-xhigh");
   assert.equal(record.nextGate.parallelXhsBrowsingForbidden, true);
   assert.equal(record.nextGate.stopOnChallengeOrWarning, true);

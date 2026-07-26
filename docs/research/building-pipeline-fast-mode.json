@@ -132,6 +132,7 @@
         "tests/test_xinhua_villas_329_hero_readiness_adjudication.test.mjs",
         "tests/test_xinhua_villas_329_hero_identity_readiness_deep_audit.test.mjs",
         "tests/test_xinhua_villas_329_subject_contract_public_rescue_2026_07_26.test.mjs",
+        "tests/test_xinhua_villas_329_xiaohongshu_query_contract_2026_07_26.test.mjs",
         "tests/test_model_detail_upgrade.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -346,6 +347,7 @@
         "tests/test_fahua_heritage_public_evidence_rescue_2026_07_26.test.mjs",
         "tests/test_fahua_heritage_xiaohongshu_query_contract.test.mjs",
         "tests/test_fahua_heritage_xiaohongshu_local_ingestion_2026_07_26.test.mjs",
+        "tests/test_fahua_heritage_xhs_map_calibratability_audit_2026_07_26.test.mjs",
         "tests/test_requested_poi_models.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -367,6 +369,7 @@
         "tests/test_fics_xinhua_365_map_surface_audit.test.mjs",
         "tests/test_fics_xinhua_365_exact_compound_audit.test.mjs",
         "tests/test_fics_xinhua_365_public_primary_source_rescue_2026_07_26.test.mjs",
+        "tests/test_fics_xinhua_365_xiaohongshu_query_contract.test.mjs",
         "tests/test_recovery_massing_mcp1_batch.test.mjs",
         "tests/test_recovery_massing_threejs_runtime_batch.test.mjs",
         "scripts/test_fics_xinhua_365_map_calibration.mjs",

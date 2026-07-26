@@ -134,7 +134,7 @@
     {
       "id": "xinhua-villas-329",
       "name": "新华别墅329弄",
-      "evidence": "massing-pass-official-subject-contract-search-exhausted-no-member-way-binding",
+      "evidence": "massing-pass-official-subject-contract-public-search-exhausted-xhs-query-ready-not-executed",
       "hero": "hold-cross-asset-211-member-2-and-scope-polluted",
       "identity": "missing",
       "massing": "pass",
@@ -143,7 +143,7 @@
       "mcp3": "blocked",
       "map": "pass",
       "threeJs": "pass-massing-performance-collision",
-      "overall": "massing-complete-public-subject-contract-exhausted-hero-identity-blocked",
+      "overall": "massing-complete-hero-identity-blocked-xhs-query-ready-not-executed",
       "runtimePolicy": "massing-only-no-tier-promotion",
       "records": [
         "docs/research/xinhua-villas-329-final-disposition.json",
@@ -151,7 +151,9 @@
         "docs/research/xinhua-villas-329-map-conflict-superseding-adjudication-2026-07-26.md",
         "docs/research/xinhua-villas-329-hero-readiness-adjudication.json",
         "docs/research/xinhua-villas-329-hero-identity-readiness-deep-audit.json",
-        "docs/research/xinhua-villas-329-subject-contract-public-rescue-2026-07-26.json"
+        "docs/research/xinhua-villas-329-subject-contract-public-rescue-2026-07-26.json",
+        "docs/research/xinhua-villas-329-xiaohongshu-query-contract-2026-07-26.json",
+        "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
       ]
     },
     {
@@ -326,7 +328,7 @@
       "mcp1": "blocked",
       "mcp2": "blocked",
       "mcp3": "blocked",
-      "map": "blocked-no-measured-side-rear-or-site-boundary",
+      "map": "blocked-no-world-control-points-rear-scale-or-site-boundary",
       "threeJs": "not-formally-accepted",
       "overall": "blocked-map-rear-scale-after-xhs-evidence-ingestion",
       "runtimePolicy": "preserve-files-xhs-side-depth-pass-disable-runtime-only-if-final-map-rear-scale-evidence-still-insufficient",
@@ -337,13 +339,14 @@
         "docs/research/fahua-heritage-public-evidence-rescue-2026-07-26.json",
         "docs/research/fahua-heritage-xiaohongshu-query-contract-2026-07-26.json",
         "docs/research/fahua-heritage-xiaohongshu-local-ingestion-2026-07-26.json",
+        "docs/research/fahua-heritage-xhs-map-calibratability-audit-2026-07-26.json",
         "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
       ]
     },
     {
       "id": "fics-xinhua-365",
       "name": "FICS新华365",
-      "evidence": "massing-pass-public-primary-source-rescue-exhausted-member-binding-blocked",
+      "evidence": "massing-pass-public-primary-source-rescue-exhausted-xhs-query-ready-not-executed",
       "hero": "hold-invalid-lineage",
       "identity": "missing",
       "massing": "diagnostic-pass",
@@ -352,14 +355,16 @@
       "mcp3": "blocked",
       "map": "blocked-current-rendered-service-surface-way-864493177-and-membership",
       "threeJs": "pass-diagnostic-massing",
-      "overall": "blocked-rendered-service-surface-membership-and-tiers",
+      "overall": "blocked-rendered-service-surface-membership-and-tiers-xhs-query-ready-not-executed",
       "runtimePolicy": "diagnostic-only-no-promotion",
       "records": [
         "docs/research/fics-xinhua-365-final-gap-audit.json",
         "docs/research/fics-xinhua-365-membership-map-blocker.json",
         "docs/research/fics-xinhua-365-map-surface-audit.json",
         "docs/research/fics-xinhua-365-exact-compound-audit-2026-07-26.json",
-        "docs/research/fics-xinhua-365-public-primary-source-rescue-2026-07-26.json"
+        "docs/research/fics-xinhua-365-public-primary-source-rescue-2026-07-26.json",
+        "docs/research/fics-xinhua-365-xiaohongshu-query-contract-2026-07-26.json",
+        "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
       ]
     },
     {
