@@ -182,7 +182,7 @@ def derive(item: argparse.Namespace, lineage: dict[str, str]) -> dict:
     legacy.render_views(slug)
     # 两个显式固定机位沿中庭轴观察东端。避免南侧立面在近景遮挡，使两档
     # 同时可比较 north-east-entry 和 south-east-entry 的纵深与入口关系。
-    render_fixed_view(slug, preview_dir, "side", (0.0, -20.0, 8.0), (37.0, -6.5, 4.0), 42)
+    render_fixed_view(slug, preview_dir, "side", (60.0, -5.0, 15.0), (31.0, -5.0, 3.8), 32)
     render_fixed_view(slug, preview_dir, "street", (60.0, -5.0, 15.0), (31.0, -5.0, 3.8), 32)
     legacy.merge_for_export(slug, len(retained), item.tier, "east")
     merged = legacy.ASSET_OBJECTS[0]
