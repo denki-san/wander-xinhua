@@ -24,7 +24,8 @@
     "collision": "app/scene/xingfuli-qa-paths.json",
     "referenceManifest": "docs/research/xingfuli-reference-manifest.json",
     "modelBrief": "docs/research/xingfuli-model-brief.md",
-    "reproducibleAudit": "scripts/test_xingfuli_center_lineage_map_calibration.mjs"
+    "reproducibleAudit": "scripts/test_xingfuli_center_lineage_map_calibration.mjs",
+    "lineageReconstruction": "docs/research/xingfuli-center-lineage-reconstruction-2026-07-26.json"
   },
   "generator": {
     "path": "scripts/create_xingfuli_models.py",
@@ -104,9 +105,11 @@
     "identityGeneratedAt": "2026-07-23T00:26:00+08:00",
     "heroGeneratedAt": "2026-07-23T01:40:30+08:00",
     "identityHasExplicitDerivedFrom": false,
+    "massingHasExplicitDerivedFrom": false,
     "identityGeneratedBeforeFinalHero": true,
-    "status": "blocked-provisional",
-    "reason": "Identity build record 没有 final Hero source SHA/derivedFrom，且生成时间早于 final Hero。"
+    "massingGeneratedBeforeIdentityAndFinalHero": true,
+    "status": "blocked-formal-lineage-proof",
+    "reason": "历史顺序为 Massing → Identity → final Hero；生成器按 stage 独立重建，build record 与 GLB extras 均没有父级 SHA/derivedFrom。共同生成器与几何相似不能证明 Hero → Identity → Massing。"
   },
   "evidenceDecision": {
     "observed": [
@@ -249,7 +252,7 @@
     "movementOrScale": "no-change",
     "runtimePromotion": "blocked-until-identity-lineage-and-entrance-start-fixed",
     "mainWindowTodo": [
-      "将 Identity 与 final Hero SHA 建立正式 derivedFrom；若不能证明派生关系，则在 MCP2 后从 Hero 确定性重派生。",
+      "禁止给现有 Identity/Massing 回填 derivedFrom；保留合格二进制，并在未来新 candidate 路径以精确 Hero/Identity SHA 确定性重派生、双构建验证后再讨论 promotion。",
       "把 xingfuli-entrance-detail 从碰撞半径内移到已有 QA 路线安全端点，并做真实页面 camera/collision 复核。",
       "批量执行 MCP1/MCP2/MCP3 和当前三档同机位 Three.js 验收。"
     ]

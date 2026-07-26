@@ -33,6 +33,8 @@ test("Xingfuli Center 三档可保留，严格 Identity lineage 仍是 blocker",
   assert.ok(Date.parse(massing.generatedAt) < Date.parse(identity.generatedAt));
   assert.ok(Date.parse(identity.generatedAt) < Date.parse(hero.generatedAt));
   assert.equal(audit.lineage.identityHasExplicitDerivedFrom, false);
+  assert.equal(audit.lineage.massingHasExplicitDerivedFrom, false);
+  assert.equal(audit.lineage.status, "blocked-formal-lineage-proof");
   assert.equal(audit.gates.identity, "blocked-lineage");
   assert.equal(audit.decision.rebuild, "forbidden-retain-qualified-assets");
 });
