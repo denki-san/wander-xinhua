@@ -1,0 +1,409 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-211",
+  "recordedAt": "2026-07-26",
+  "baselineCommit": "0189d06a939651c0f7e2876d074321f2caa9a903",
+  "status": "blocked-no-same-member-same-footprint-hero-lineage",
+  "scope": {
+    "mode": "read-only-hero-lineage-and-member-depth-readiness",
+    "included": [
+      "accepted-massing-v3-contract",
+      "massing-member-extras-and-local-bounds",
+      "legacy-hero-lineage-and-local-bounds",
+      "repository-local-reference-depth-coverage",
+      "osm-member-tags",
+      "map-mcp1-and-runtime-records",
+      "hero-candidate-authorization-decision"
+    ],
+    "excludedAndHeld": [
+      "massing-rebuild",
+      "massing-recalibration",
+      "legacy-hero-modification",
+      "new-hero-build",
+      "identity",
+      "mcp2",
+      "browser",
+      "network",
+      "xiaohongshu",
+      "fast-manifest",
+      "exact-status",
+      "runtime",
+      "registry",
+      "other-buildings",
+      "trees",
+      "vegetation",
+      "street-furniture",
+      "decoration",
+      "full-map"
+    ],
+    "blenderOpened": false,
+    "browserOrNetworkAccessed": false,
+    "binaryModified": false,
+    "sharedFilesModified": false
+  },
+  "sources": {
+    "priorReadiness": {
+      "path": "docs/research/xinhua-villas-211-hero-readiness-adjudication.json",
+      "sha256": "95d3d42360591d54e996a346bb448a33202d1697baae8a4ac6f7a62c1047cdee"
+    },
+    "referenceManifest": {
+      "path": "docs/research/xinhua-villas-211-reference-manifest.json",
+      "sha256": "c112f5e2b20231de5d42ee1a483a701220d9dcd65d7aa9114c8d0cb32968ed46"
+    },
+    "modelBrief": {
+      "path": "docs/research/xinhua-villas-211-model-brief.md",
+      "sha256": "64dd3e71e6856db656e120c9ad7e5297cb654a4729ee7f9b921c41dbbabe555b"
+    },
+    "threeTierDisposition": {
+      "path": "docs/research/xinhua-villas-211-three-tier-final-disposition.json",
+      "sha256": "aacd253f9c26f9de033f767365a01093797a9cae04c2f07551b779f17084c8f2"
+    },
+    "osmBinding": {
+      "path": "docs/research/xinhua-villas-211-osm-binding.json",
+      "sha256": "2e9403aebe881bb663d5195d8faa5d61289283e2d3cacfe1fb900f25a9463aa2"
+    },
+    "mcp1": {
+      "path": "docs/research/xinhua-villas-211-blender-mcp-gates.json",
+      "sha256": "2e3866c169f8aafbf106baabefd767074b4408cdfd57e0dc355ab431fe4a94e6"
+    },
+    "runtimeQa": {
+      "path": "docs/research/xinhua-villas-211-threejs-runtime-qa.json",
+      "sha256": "7b7ac2c9605bd83079c350f56fc3f7db81bd3a87cde892bb21e4cec57debd6d7"
+    },
+    "massingBuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.json",
+      "sha256": "84009cecd2bd4320aadada9898a06875372f6516ef8e91618dd4e16e8e8b1249"
+    },
+    "buildingOsm": {
+      "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+      "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c",
+      "timestampOsmBase": "2026-07-25T07:46:51Z"
+    },
+    "namedAndAddressOsm": {
+      "path": "docs/research/data/xinhua-landmarks-overpass-20260717.json",
+      "sha256": "27a2ee9ead92824f78378bc769df8667c50d49f06d6e09d5d719fe568cf25e19",
+      "queryIncludesXinhuaRoad211": true,
+      "matchingXinhuaRoad211Elements": 0
+    },
+    "districtReplacementReadOnly": {
+      "path": "app/scene/xinhua-district-massing-data.json",
+      "sha256": "ec3a8ce4cf06da4be593bf7fd995507242f50d5fa4f34eddd3d7eab23fc95132"
+    },
+    "legacyGeneratorReadOnly": {
+      "path": "scripts/create_xinhua_road_models.py",
+      "sha256": "324be84a32ed3d43ff0bc1ceaca040e8e46f68aff21151b1bafa4ae524f6f3c6"
+    }
+  },
+  "frozenAcceptedMassing": {
+    "status": "accepted-massing-only-do-not-reopen",
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb",
+      "sha256": "ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c",
+      "bytes": 16060,
+      "nodes": 9,
+      "meshes": 9,
+      "materials": 1,
+      "images": 0,
+      "triangles": 134
+    },
+    "placement": {
+      "position": [
+        38.32,
+        110.67
+      ],
+      "yaw": -0.38,
+      "scale": 0.62,
+      "movementAuthorized": false
+    },
+    "gates": {
+      "mcp1": "pass-main-window-batch",
+      "mapRuntime": "pass-main-window-real-browser",
+      "collision": "pass-wall-stop-no-penetration"
+    },
+    "memberContract": {
+      "sourceWayIds": [
+        864485593,
+        864485594,
+        864485595,
+        864485596,
+        864485597,
+        864485598,
+        864485674,
+        864485675,
+        864485676
+      ],
+      "allNodesCarrySourceWayId": true,
+      "allNodesCarryUnknownHouseNumber": true,
+      "heightEvidence": "inferred-uniform-two-storey-proxy",
+      "mapBinding": "accepted-compound-footprints-not-member-identity"
+    },
+    "localBounds": {
+      "min": [
+        -32.228153228759766,
+        0,
+        -21.092002868652344
+      ],
+      "max": [
+        22.55889892578125,
+        3.549999952316284,
+        14.307884216308594
+      ]
+    }
+  },
+  "memberBindingDepthMatrix": [
+    {
+      "sourceWayId": 864485593,
+      "osmBuildingTag": "yes",
+      "houseNumber": "unknown",
+      "photoMemberBinding": "none",
+      "sideDepthCoverage": "none",
+      "rearRoofBackCoverage": "none",
+      "heroReady": false
+    },
+    {
+      "sourceWayId": 864485594,
+      "osmBuildingTag": "yes",
+      "houseNumber": "unknown",
+      "photoMemberBinding": "none",
+      "sideDepthCoverage": "none",
+      "rearRoofBackCoverage": "none",
+      "heroReady": false
+    },
+    {
+      "sourceWayId": 864485595,
+      "osmBuildingTag": "house",
+      "houseNumber": "unknown",
+      "photoMemberBinding": "none",
+      "sideDepthCoverage": "none",
+      "rearRoofBackCoverage": "none",
+      "heroReady": false
+    },
+    {
+      "sourceWayId": 864485596,
+      "osmBuildingTag": "house",
+      "houseNumber": "unknown",
+      "photoMemberBinding": "none",
+      "sideDepthCoverage": "none",
+      "rearRoofBackCoverage": "none",
+      "heroReady": false
+    },
+    {
+      "sourceWayId": 864485597,
+      "osmBuildingTag": "yes",
+      "houseNumber": "unknown",
+      "photoMemberBinding": "none",
+      "sideDepthCoverage": "none",
+      "rearRoofBackCoverage": "none",
+      "heroReady": false
+    },
+    {
+      "sourceWayId": 864485598,
+      "osmBuildingTag": "yes",
+      "houseNumber": "unknown",
+      "photoMemberBinding": "none",
+      "sideDepthCoverage": "none",
+      "rearRoofBackCoverage": "none",
+      "heroReady": false
+    },
+    {
+      "sourceWayId": 864485674,
+      "osmBuildingTag": "house",
+      "spatialRole": "frontage-member-left",
+      "houseNumber": "unknown",
+      "photoMemberBinding": "entrance-threshold-collective-only",
+      "sideDepthCoverage": "none",
+      "rearRoofBackCoverage": "none",
+      "heroReady": false
+    },
+    {
+      "sourceWayId": 864485675,
+      "osmBuildingTag": "house",
+      "spatialRole": "frontage-member-center",
+      "houseNumber": "unknown",
+      "photoMemberBinding": "entrance-threshold-collective-only",
+      "sideDepthCoverage": "none",
+      "rearRoofBackCoverage": "none",
+      "heroReady": false
+    },
+    {
+      "sourceWayId": 864485676,
+      "osmBuildingTag": "house",
+      "spatialRole": "frontage-member-right",
+      "houseNumber": "unknown",
+      "photoMemberBinding": "none",
+      "sideDepthCoverage": "none",
+      "rearRoofBackCoverage": "none",
+      "heroReady": false
+    }
+  ],
+  "referenceDepthAudit": {
+    "compoundEntrance": {
+      "path": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-overview-official-2023.jpg",
+      "sha256": "9d23cd3c57b492a01911907e8f376dc2bdb37b882b5233fafcaae3384540adf2",
+      "subjectBinding": "verified-same-compound",
+      "observed": [
+        "open lane with no solid overhead beam",
+        "partial pale left building edge",
+        "right white-and-dark half-timber gatehouse-like volume",
+        "entrance observation direction"
+      ],
+      "depthCoverage": "entrance-axis-only",
+      "wayAssignment": "unknown",
+      "limitation": "The small map printed on the sign is not a readable georeferenced member plan and cannot assign any of the nine OSM ways."
+    },
+    "member211_1": {
+      "path": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-1-official-2025.jpg",
+      "sha256": "e0146deb4cb9571f39aab3a01c0028f2ab1018c2126a7039f52a0433197f0dc4",
+      "subjectBinding": "verified-member-211-1",
+      "observed": [
+        "front volume hierarchy",
+        "red tile eaves",
+        "arched openings",
+        "terraces",
+        "tall chimney",
+        "partial left wing"
+      ],
+      "depthCoverage": "front-with-partial-oblique-cues-not-complete-side",
+      "rearRoofBackCoverage": "missing",
+      "osmWayAssignment": "unknown",
+      "heroReady": false
+    },
+    "member211_2": {
+      "path": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-2-official-2025.jpg",
+      "sha256": "3568005a4e89a6ce95abf4be19fb22ab0dd277d17622fdd16a9ccad20d1496aa",
+      "subjectBinding": "verified-member-211-2",
+      "observed": [
+        "front-oblique silhouette",
+        "red pitched roof",
+        "long dormer",
+        "glazed enclosure",
+        "half-timber gable"
+      ],
+      "depthCoverage": "partial-oblique-only",
+      "rearRoofBackCoverage": "missing",
+      "osmWayAssignment": "unknown",
+      "heroReady": false
+    }
+  },
+  "legacyHeroLineageAudit": {
+    "status": "hold-not-same-member-or-footprint-not-mcp2-candidate",
+    "glb": {
+      "path": "public/models/xinhua-road/xinhua-villas-211.glb",
+      "sha256": "0a7168e6104d39b808c096a390a14d1eb1690e49bef165193829517b022cb295",
+      "bytes": 4188228,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 14,
+      "images": 0
+    },
+    "blend": {
+      "path": "assets/models/source/xinhua-road/xinhua-villas-211.blend",
+      "sha256": "2cfcc1408026a3e03ec05bb65aaa4eaf5633e18235808361a559d66bd0ec9f2a"
+    },
+    "nodeExtras": {
+      "detail_current_parts": 805,
+      "detail_method": "photo-semantic-components",
+      "detail_upgrade": "20260718"
+    },
+    "missingRequiredLineageFields": [
+      "asset_id",
+      "tier",
+      "source_way_id",
+      "house_number",
+      "derivedFrom",
+      "accepted-massing-sha"
+    ],
+    "authoredMemberCount": 4,
+    "acceptedMassingMemberCount": 9,
+    "localBounds": {
+      "min": [
+        -15.448610305786133,
+        -0.04999999701976776,
+        -13.94999885559082
+      ],
+      "max": [
+        15.25,
+        8.140000343322754,
+        15.725000381469727
+      ]
+    },
+    "massingNodesOutsideLegacyLocalAabb": [
+      864485593,
+      864485594,
+      864485595,
+      864485598,
+      864485674,
+      864485675
+    ],
+    "generatorContradictions": [
+      "four-fixed-villa-placements-vs-nine-accepted-footprints",
+      "horseshoe-lane-not-derived-from-accepted-massing",
+      "solid-villas-gate-beam-vs-observed-open-lane",
+      "trees-hedges-lamps-planters-bench-and-paving-outside-scope"
+    ],
+    "mcp2": "not-entered"
+  },
+  "lineageGate": {
+    "sameStableAssetId": "name-only-insufficient",
+    "sameCompoundMemberSet": false,
+    "sameFootprint": false,
+    "sameOriginPlacementContract": "not-provable-from-lineage",
+    "acceptedMassingShaRecordedByHero": false,
+    "memberIdentityPreserved": false,
+    "collisionSemanticsPreserved": false,
+    "legacyHeroReusable": false,
+    "newHeroBuildAuthorized": false,
+    "reason": "The accepted nine-way Massing is a geometry-only compound contract with unknown member identities, while the legacy Hero is an unrelated four-villa package. Local photos do not close member-to-way or complete depth coverage."
+  },
+  "evidenceClassification": {
+    "observed": [
+      "Accepted Massing v3 contains nine independent nodes and every node records source_way_id plus house_number unknown.",
+      "All nine raw OSM ways lack member address or house-number tags in the local building snapshot.",
+      "The local named and address query contains Xinhua Road 211 but returns no matching address element.",
+      "MCP1 and real Three.js map acceptance passed for Massing only and explicitly keep Hero blocked.",
+      "The legacy Hero contains one merged node, four fixed villa placements in its generator, no accepted Massing SHA and no source-way lineage.",
+      "Six accepted Massing member bounds extend outside the legacy Hero local AABB.",
+      "The compound entrance photo shows no solid overhead beam, while the legacy generator creates villas-gate-beam.",
+      "Member 211-1 and 211-2 photos do not assign either member to an OSM way."
+    ],
+    "inferred": [
+      "Ways 864485674 and 864485675 define the accepted geometric entrance gap, but the photographed left and right structures cannot be assigned to those ways as Hero truth.",
+      "Member 211-1 and 211-2 have useful facade cues that may be reusable after member-to-way binding and depth evidence are supplied."
+    ],
+    "unknown": [
+      "The mapping from all nine accepted OSM ways to real member identities.",
+      "Which exact footprint is member 211-1 or member 211-2.",
+      "Which exact footprint contains the photographed entrance-side gatehouse-like volume.",
+      "Complete side, rear and roof-back geometry for the entrance-visible structures and members 211-1 and 211-2.",
+      "Surveyed member heights, ground levels and member-specific collision openings.",
+      "Whether all nine accepted Massing ways should receive Hero treatment or some should remain outside a narrower authorized package."
+    ]
+  },
+  "minimumEvidenceToUnblock": {
+    "forCurrentCompoundStableBoundary": [
+      "A north-oriented georeferenced or dimensioned authoritative 211 Lane plan that maps all nine accepted OSM ways to included member identities and explicitly labels members 211-1, 211-2 and the entrance-visible left and right structures.",
+      "At least one same-member side or depth view and one rear or roof-back view for every member that will receive Hero geometry, with the camera direction tied to that plan.",
+      "Member-specific height or storey evidence and explicit entrances or walkable voids needed for Hero collision.",
+      "An explicit inclusion decision for any accepted Massing member that lacks Hero evidence; generic decoration of unknown members is not allowed."
+    ],
+    "narrowerAlternative": "Main-window authorization to create a separate entrance-threshold stable asset or to narrow the existing contract, followed by side and depth evidence for both entrance-visible structures. The current task does not grant this scope change.",
+    "insufficientAlone": [
+      "accepted Massing geometry",
+      "MCP1 shape pass",
+      "Three.js map or collision pass",
+      "front-only member photo",
+      "legacy Hero container audit",
+      "legacy generator detail",
+      "runtime placement proximity"
+    ]
+  },
+  "verdict": {
+    "acceptedMassing": "retain-unchanged",
+    "legacyHero": "retain-hold-not-mcp2-candidate",
+    "newHeroCandidate": "not-built-blocked-evidence",
+    "mcp2": "not-entered-reserved-for-main-window-after-valid-candidate",
+    "identity": "blocked",
+    "formalRuntimeOrRegistryChange": false,
+    "buildingComplete": false
+  }
+}
