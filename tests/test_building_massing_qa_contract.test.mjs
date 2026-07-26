@@ -9,6 +9,7 @@ import {
 
 test("Massing 候选 QA 只允许18栋内已登记的建筑和精确档位", () => {
   assert.deepEqual(Object.keys(BUILDING_MASSING_QA_CANDIDATES), [
+    "xinhua-villas-211",
     "villa-le-bec",
     "xinhua-villas-329",
     "hudec-memorial",
@@ -16,6 +17,32 @@ test("Massing 候选 QA 只允许18栋内已登记的建筑和精确档位", () 
   assert.equal(resolveBuildingMassingQa("?qaModelId=plane-tree&qaModelTier=massing"), null);
   assert.equal(resolveBuildingMassingQa("?qaModelId=villa-le-bec&qaModelTier=hero"), null);
   assert.equal(resolveBuildingMassingQa("?qaModelId=villa-le-bec"), null);
+  assert.equal(
+    resolveBuildingMassingQa(
+      "?qaModelId=xinhua-villas-211&qaModelTier=massing",
+    )?.localObstacles.length,
+    9,
+  );
+  assert.deepEqual(
+    resolveBuildingMassingQa(
+      "?qaModelId=xinhua-villas-211&qaModelTier=massing",
+    )?.localObstacles[0],
+    {
+      minX: -14.885911,
+      maxX: -6.425579,
+      minZ: -16.961667,
+      maxZ: -8.932183,
+    },
+  );
+  assert.deepEqual(
+    resolveBuildingMassingQa(
+      "?qaModelId=xinhua-villas-211&qaModelTier=massing",
+    )?.start,
+    {
+      position: [24.7, 89],
+      forward: [0, 1],
+    },
+  );
   assert.equal(
     resolveBuildingMassingQa(
       "?qaModelId=villa-le-bec&qaModelTier=massing",
@@ -66,14 +93,27 @@ test("公共运行时只在显式 QA 深链替换单栋模型，默认生产入�
     new URL("../app/scene/xinhua-road-contract.ts", import.meta.url),
     "utf8",
   );
+  const worldSource = await readFile(
+    new URL("../app/scene/xinhua-world.tsx", import.meta.url),
+    "utf8",
+  );
   assert.match(source, /resolveBuildingMassingQa/);
   assert.match(source, /buildingMassingQaActive/);
   assert.match(source, /qaAssetId=\{landmark\.id\}/);
   assert.match(source, /qaTier=\{buildingMassingQaActive\.requestedTier\}/);
+  assert.match(source, /xinhuaRoadQaFrameSample/);
+  assert.match(source, /sample\.frames < 120/);
   assert.match(source, /buildingMassingQaActive\?\.placement\?\.position/);
   assert.match(source, /rotation-y=\{yaw\}/);
   assert.match(source, /scale=\{scale\}/);
   assert.match(worldContractSource, /ACTIVE_BUILDING_MASSING_QA/);
   assert.match(worldContractSource, /collisionPlacement/);
   assert.match(worldContractSource, /qaStart/);
+  assert.match(worldSource, /parameters\.get\("qaAutoStart"\) !== "1"/);
+  assert.match(worldSource, /parameters\.get\("cameraQa"\) !== "1"/);
+  assert.match(worldSource, /parameters\.get\("qaMove"\)/);
+  assert.match(worldSource, /parameters\.get\("qaMoveMs"\)/);
+  assert.match(worldSource, /parameters\.get\("qaMoveTarget"\)/);
+  assert.match(worldSource, /qaMoveTarget\.x - currentPosition\.x/);
+  assert.match(worldSource, /root\.dataset\.xinhuaQaMovement/);
 });

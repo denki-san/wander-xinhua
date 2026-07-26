@@ -643,13 +643,13 @@ test("House315 保持三档 source bounds，并使用 OSM 再校准的专属 pla
   assert.equal(HOUSE_315_PLACEMENT.mapSourceWayId, 864485667);
   assert.equal(
     HOUSE_315_PLACEMENT.mapPositionStatus,
-    "osm-calibrated-candidate-runtime-pending",
+    "osm-calibrated-runtime-pass",
   );
   assert.equal(candidate.verdict.priorPlacementWrong, true);
   assert.equal(candidate.verdict.binaryRebuildRequired, false);
 });
 
-test("House315 runtime 候选保持专属所有权且等待主窗口公共接线", async () => {
+test("House315 runtime 保持专属所有权且已完成主窗口公共接线", async () => {
   const candidate = await readJson(
     "docs/research/house-315-three-tier-runtime-qa.json",
   );
@@ -679,7 +679,7 @@ test("House315 runtime 候选保持专属所有权且等待主窗口公共接线
   assert.equal(candidate.assetId, HOUSE_315_ASSET_ID);
   assert.equal(
     candidate.status,
-    "placement-recalibrated-runtime-map-revalidation-pending",
+    "complete-three-tier-and-recalibrated-map-runtime-pass",
   );
   assert.equal(
     await sha256(candidate.source.contract.path),
@@ -741,23 +741,23 @@ test("House315 runtime 候选保持专属所有权且等待主窗口公共接线
   assert.equal(candidate.mainWindowIntegration.buildingWorktreeMustNotApply, true);
   assert.equal(
     candidate.mainWindowIntegration.status,
-    "placement-wired-runtime-map-revalidation-pending",
+    "integrated-runtime-map-pass",
   );
   assert.equal(candidate.mainWindowIntegration.publicRegistryModified, true);
   assert.equal(candidate.mainWindowIntegration.sharedRuntimeModified, true);
   assert.equal(
     candidate.mainWindowIntegration.browserAcceptance,
-    "pending-new-placement-map-and-collision",
+    "pass-new-placement-map-and-collision",
   );
   assert.ok(candidate.mainWindowIntegration.requiredPatches.length >= 6);
   assert.equal(candidate.completionBoundary.runtimeModuleImplemented, true);
   assert.equal(candidate.completionBoundary.mainWindowIntegrated, true);
   assert.equal(candidate.completionBoundary.mapPositionCandidateReady, true);
-  assert.equal(candidate.completionBoundary.mapPositionFinalRuntimePass, false);
-  assert.equal(candidate.completionBoundary.threeTierRuntimeFinalPass, false);
+  assert.equal(candidate.completionBoundary.mapPositionFinalRuntimePass, true);
+  assert.equal(candidate.completionBoundary.threeTierRuntimeFinalPass, true);
   assert.equal(
     candidate.validation.mainWindowBrowser,
-    "pending-new-placement-map-and-collision",
+    "pass-recalibrated-map-and-collision",
   );
   assert.equal(
     candidate.runtimeAcceptance.result,
@@ -771,6 +771,31 @@ test("House315 runtime 候选保持专属所有权且等待主窗口公共接线
   );
   for (const screenshot of Object.values(
     candidate.runtimeAcceptance.screenshots,
+  )) {
+    assert.equal(await sha256(screenshot.path), screenshot.sha256);
+    assert.equal(
+      (await stat(path.join(root, screenshot.path))).size,
+      screenshot.bytes,
+    );
+  }
+  assert.equal(
+    candidate.placementRecalibrationAcceptance.result,
+    "pass-recalibrated-map-and-collision",
+  );
+  assert.equal(
+    candidate.placementRecalibrationAcceptance.asset.sha256,
+    HOUSE_315_TIERS.massing.sha256,
+  );
+  assert.equal(
+    candidate.placementRecalibrationAcceptance.console.errors,
+    0,
+  );
+  assert.equal(
+    candidate.placementRecalibrationAcceptance.collisionReplay.penetrationObserved,
+    false,
+  );
+  for (const screenshot of Object.values(
+    candidate.placementRecalibrationAcceptance.screenshots,
   )) {
     assert.equal(await sha256(screenshot.path), screenshot.sha256);
     assert.equal(

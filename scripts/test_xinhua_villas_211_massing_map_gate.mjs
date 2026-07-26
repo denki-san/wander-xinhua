@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import { resolve } from "node:path";
 import test from "node:test";
 
@@ -20,6 +20,10 @@ const INTEGRATION_PATH = resolve(
 const MCP_GATES_PATH = resolve(
   ROOT,
   "docs/research/xinhua-villas-211-blender-mcp-gates.json",
+);
+const RUNTIME_QA_PATH = resolve(
+  ROOT,
+  "docs/research/xinhua-villas-211-threejs-runtime-qa.json",
 );
 const MAP_PATH = resolve(ROOT, "app/scene/xinhua-map-data.json");
 const OSM_PATH = resolve(
@@ -203,7 +207,7 @@ test("211弄九个 OSM footprint 从 WGS84 到 runtime local 可逐顶点回放"
   assert.equal(record.gates.hero, "blocked-evidence");
   assert.equal(record.gates.identity, "blocked-evidence");
   assert.equal(record.gates.mcp1, "pass-main-window-batch");
-  assert.equal(record.gates.runtimeMap, "pending-main-window-scoped-qa");
+  assert.equal(record.gates.runtimeMap, "pass-main-window-real-browser");
 
   const expectedWayIds = [
     864485593,
@@ -516,5 +520,46 @@ test("211弄 Massing v3 已通过主窗口批量 MCP1 且保持 Hero/Identity �
       view.sha256,
     );
     assert.equal(contents.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
+  }
+});
+
+test("211弄 Massing v3 已封存真实 Three.js 地图、性能与碰撞证据", async () => {
+  const [record, integration, runtime] = await Promise.all([
+    readFile(RECORD_PATH, "utf8").then(JSON.parse),
+    readFile(INTEGRATION_PATH, "utf8").then(JSON.parse),
+    readFile(RUNTIME_QA_PATH, "utf8").then(JSON.parse),
+  ]);
+
+  assert.equal(
+    record.status,
+    "massing-runtime-map-pass-hero-identity-blocked",
+  );
+  assert.equal(integration.status, record.status);
+  assert.equal(runtime.status, record.status);
+  assert.equal(record.runtimeQa, "docs/research/xinhua-villas-211-threejs-runtime-qa.json");
+  assert.equal(integration.runtimeQa, record.runtimeQa);
+  assert.equal(record.gates.runtimeMap, "pass-main-window-real-browser");
+  assert.equal(integration.gates.runtimeMap, record.gates.runtimeMap);
+  assert.equal(runtime.gates.runtimeMap, record.gates.runtimeMap);
+  assert.equal(runtime.asset.sha256, record.glb.sha256);
+  assert.equal(runtime.asset.loaded, true);
+  assert.equal(runtime.map.position, "pass-nine-osm-footprints");
+  assert.equal(runtime.map.roadSetback, "pass");
+  assert.equal(runtime.map.polygonOverlapCount, 0);
+  assert.equal(runtime.map.localObstacleAabbOverlapCount, 0);
+  assert.equal(runtime.performance.sampleFrames, 120);
+  assert.equal(runtime.performance.baselineComparisonClaimed, false);
+  assert.equal(runtime.console.errors, 0);
+  assert.equal(runtime.collisionReplay.penetrationObserved, false);
+  assert.equal(runtime.collisionReplay.result, "pass-wall-stop-no-penetration");
+  assert.equal(runtime.completionBoundary.massingComplete, true);
+  assert.equal(runtime.completionBoundary.buildingComplete, false);
+  assert.equal(runtime.gates.hero, "blocked-evidence");
+  assert.equal(runtime.gates.identity, "blocked-evidence");
+
+  for (const screenshot of Object.values(runtime.screenshots)) {
+    const absolutePath = resolve(ROOT, screenshot.path);
+    assert.equal(await sha256(absolutePath), screenshot.sha256);
+    assert.equal((await stat(absolutePath)).size, screenshot.bytes);
   }
 });

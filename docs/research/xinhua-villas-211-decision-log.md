@@ -194,3 +194,39 @@ Hero / Identity 仍需：
 
 回退本 iteration 的 building-only commit 即可恢复到集成基线；Recovery/Hold
 和旧 Hero 均未修改。
+
+## Iteration 7 — Main-window MCP1 and Three.js Massing map pass
+
+- Date: 2026-07-26
+- Integrated building commit: `e0d032e`
+- MCP1 record commit: `6132c9a`
+- Result: `massing-runtime-map-pass-hero-identity-blocked`
+
+主窗口直接打开正式 `.blend`，以 1.8m scale proxy 和 canonical、side / depth、
+entrance 三个固定机位完成 MCP1；九个 mesh、一个材质、原点、方向与浅坡轮廓
+均通过。QA rig 未保存、未导出，二进制没有交互式改动。
+
+随后在 1280×720、页面可见、Vite static production preview 中打开 scoped
+Massing QA 深链，实际加载
+`ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c`。
+画面确认九个体块不压新华路并正确接地；console error 为 0。120 帧样本耗时
+`2010.5ms`，约 `59.686645 FPS`，draw calls `176`，triangles `629388`；
+无同条件基线，不宣称性能提升。
+
+碰撞使用显式 QA-only target 驱动正式 player collision engine：
+
+- start `[24.7,89]`；
+- target `[24.7,97.5]`；
+- 输入持续 `8000ms`；
+- 约第1.75秒在 `[24.7,94.33200000000001]` 墙停，并稳定到第8秒；
+- 未穿透。
+
+正式截图：
+
+- `test_xinhua-villas-211_massing_runtime_map_1280x720.jpg`
+  (`a5d7a6ac...`, 84,970 bytes)
+- `test_xinhua-villas-211_massing_runtime_collision_1280x720.jpg`
+  (`5aaaf70a...`, 76,072 bytes)
+
+Massing 与地图门完成；Hero / Identity 仍因成员门牌到 way 的可靠绑定、侧向和
+纵深证据缺失而保持 blocked。不得用 uniform Massing 推断成员身份构件。

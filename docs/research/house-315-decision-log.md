@@ -860,3 +860,42 @@ Villa 庭院实体。
 - final runtime map pass：false；
 - next gate：主窗口接入 House-only contract，真实浏览器复核位置、接地、入口、
   三段碰撞、camera arm 与 Villa 无交叠。
+
+## Iteration 10 — Recalibrated placement runtime pass
+
+- Date: 2026-07-26
+- Integrated placement commit: `062eb62`
+- Result: `pass-recalibrated-map-and-collision`
+- Binary rebuild: no
+
+主窗口在 1280×720、页面可见、Vite static production preview 条件下重新打开
+House315 Massing 深链。页面实际加载的二进制 SHA 仍为
+`e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832`；
+console error 为 0。120 帧样本耗时 `2005ms`，约 `59.850374 FPS`，
+draw calls `245`，triangles `759944`。这些数字只证明本次同条件采样，不宣称
+相对性能提升。
+
+地图画面确认新 footprint 不压新华路、也不与 Villa Le Bec 两栋实体重叠。
+解析净距继续成立：到机动车道边缘 `3.602692` scene unit，扣除 runtime margin
+后 `3.402692`；与 Villa 两实体双方均加 margin 后仍有
+`0.099834 / 0.674188` scene unit 净距。
+
+碰撞通过显式 QA-only target 驱动正式 player collision engine：
+
+- start `[-21.8,67.6]`；
+- target `[-20.127789,82.330463]`；
+- 输入持续 `10000ms`；
+- 约第3秒在 `z=76.38416076798407` 稳定墙停，并保持到第10秒；
+- `x` 从约 `-20.7409` 横向滑移到 `-20.1439`；
+- 未穿透。
+
+正式截图：
+
+- `test_house-315_runtime_map_recalibrated_1280x720.jpg`
+  (`99a73fc5...`, 101,700 bytes)
+- `test_house-315_runtime_map_collision_recalibrated_1280x720.jpg`
+  (`eb0fcdbd...`, 98,928 bytes)
+
+旧三档 / fallback 运行时证据继续只证明加载链；旧落点的地图和碰撞结论保持
+superseded，不覆盖历史记录。House315 至此通过 Hero、Identity、Massing、
+MCP 三门、重新校准的地图以及 Three.js 运行时验收，继续进入本批项目级回归。

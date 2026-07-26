@@ -4,9 +4,10 @@
   "tier": "massing",
   "batch": "osm-footprint-bound-v3",
   "generatedAt": "2026-07-26",
-  "status": "mcp1-pass-pending-main-window-runtime-map",
+  "status": "massing-runtime-map-pass-hero-identity-blocked",
   "generator": "scripts/create_xinhua_villas_211_massing_model.py",
   "binding": "docs/research/xinhua-villas-211-osm-binding.json",
+  "runtimeQa": "docs/research/xinhua-villas-211-threejs-runtime-qa.json",
   "placement": {
     "position": [
       38.32,
@@ -596,7 +597,7 @@
     "glbAudit": "pass-explicit-no-images-max-12-nodes",
     "mcp1": "pass-main-window-batch",
     "mapGeometry": "pass-analytic-candidate",
-    "runtimeMap": "pending-main-window-scoped-qa",
+    "runtimeMap": "pass-main-window-real-browser",
     "hero": "blocked-evidence",
     "identity": "blocked-evidence"
   }

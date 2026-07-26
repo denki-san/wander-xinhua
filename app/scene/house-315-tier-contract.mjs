@@ -51,7 +51,7 @@ export const HOUSE_315_PLACEMENT = Object.freeze({
     HOUSE_315_SOURCE_LOCAL_OBSTACLES.map(mirrorZ),
   ),
   axisConversion: "gltf-z-mirrored-once-at-render",
-  mapPositionStatus: "osm-calibrated-candidate-runtime-pending",
+  mapPositionStatus: "osm-calibrated-runtime-pass",
   mapSourceWayId: 864485667,
   collisionSource: "osm-way-864485667-three-rectangle-decomposition",
 });

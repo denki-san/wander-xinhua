@@ -85,14 +85,18 @@
       "id": "xinhua-villas-211",
       "label": "新华别墅·211弄",
       "tests": [
+        "tests/test_building_massing_qa_contract.test.mjs",
+        "scripts/test_xinhua_villas_211_massing_map_gate.mjs",
         "tests/test_model_detail_upgrade.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
-        "public/models/xinhua-road/xinhua-villas-211.glb"
+        "public/models/xinhua-road/xinhua-villas-211.glb",
+        "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb"
       ],
       "runtimeRoutes": [
-        "/?start=villas&cameraQa=1&qaAutoStart=1"
+        "/?start=villas&cameraQa=1&qaAutoStart=1",
+        "/?start=villas&qaModelId=xinhua-villas-211&qaModelTier=massing&cameraQa=1&qaAutoStart=1"
       ]
     },
     {
@@ -122,6 +126,7 @@
         "tests/test_house_315_hero_disposition.test.mjs",
         "tests/test_house_315_hero_v2.test.mjs",
         "tests/test_house_315_identity_v1.test.mjs",
+        "tests/test_house_315_map_position_candidate.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [

@@ -8404,3 +8404,63 @@ Context object has no attribute active_object
 - **Resolved**: 2026-07-26T04:25:00+08:00
 - **Notes**: 将打开文件、建立 QA rig、渲染拆成三个 MCP 步骤，并改用
   `bpy.context.view_layer.objects.active`；三固定机位成功重渲染。
+
+---
+## [ERR-20260726-083] browser_automation_cannot_hold_keys_or_dispatch_raw_cdp
+
+**Logged**: 2026-07-26T10:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: threejs-runtime-qa
+
+### Summary
+浏览器 CUA 只支持离散 keypress，无法稳定保持 8～10 秒移动输入；raw CDP
+`Input.dispatchKeyEvent` 被浏览器控制层明确拒绝，页面 evaluator 也不提供
+`KeyboardEvent` / `document.createEvent` 构造入口。
+
+### Error
+```text
+This method is not supported through raw CDP. Use tab.cua...
+KeyboardEvent is not defined
+document.createEvent is not a function
+```
+
+### Context
+- 离散 keypress 只能产生很短位移，不能证明建筑碰撞墙停；
+- 直接改 player position 会绕过正式 collision engine，不能作为验收；
+- 默认产品入口不得被自动移动逻辑影响。
+
+### Resolution
+- **Resolved**: 2026-07-26T10:05:00+08:00
+- **Notes**: 增加同时要求 `qaAutoStart=1`、`cameraQa=1` 和显式 `qaMove`
+  的 QA-only 自动移动合同；`qaMoveTarget=x,z` 只覆盖移动方向，仍通过正式
+  player collision engine，并每250ms记录位置。默认产品入口行为不变。
+
+---
+## [ERR-20260726-084] legacy_scale_test_rejected_osm_calibrated_house315_scale
+
+**Logged**: 2026-07-26T10:30:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: test-contract
+
+### Summary
+House315 已依据 OSM way `864485667` 的宽深包络将 scale 从历史 `0.9`
+校准为 `0.754254`，但道路模型旧测试仍把所有退界修复限定为只移动位置。
+
+### Error
+```text
+AssertionError: house-315 不得通过缩放解决道路退界
+0.754254 !== 0.9
+```
+
+### Context
+- 新比例不是为道路退界任意缩小，而是用同一 GLB oriented bounds 对齐 OSM
+  oriented bounds 后取宽 / 深比例中的保守值；
+- 该比例已经通过道路净距、邻栋无重叠和真实 Three.js 碰撞验收；
+- 211弄、329弄既有证据锁定比例继续不变。
+
+### Resolution
+- **Resolved**: 2026-07-26T10:31:00+08:00
+- **Notes**: 测试改为逐栋验证证据锁定比例，并把 House315 的正式 OSM 校准值
+  更新为 `0.754254`；仍禁止为了退界任意缩放。

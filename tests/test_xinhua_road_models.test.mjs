@@ -428,16 +428,16 @@ test("地标清单覆盖既有地点和本轮新增 POI，211 弄和 329 弄使�
   );
 });
 
-test("地图与房屋使用既定统一比例，退界修复只能调整位置", () => {
+test("地图与房屋使用各自证据锁定比例，不得为退界任意缩放", () => {
   const expectedScales = {
     "xinhua-villas-211": 0.62,
     "xinhua-villas-329": 0.62,
-    "house-315": 0.9,
+    "house-315": 0.754254,
   };
   for (const [id, expectedScale] of Object.entries(expectedScales)) {
     const landmark = landmarkData.landmarks.find((candidate) => candidate.id === id);
     assert.ok(landmark, `缺少比例锁定地标：${id}`);
-    assert.equal(landmark.scale, expectedScale, `${id} 不得通过缩放解决道路退界`);
+    assert.equal(landmark.scale, expectedScale, `${id} 必须保持证据锁定比例`);
   }
 
   const cinema = landmarkData.landmarks.find(({ id }) => id === "shanghai-cinema");

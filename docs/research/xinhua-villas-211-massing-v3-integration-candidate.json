@@ -2,9 +2,10 @@
   "schemaVersion": 1,
   "assetId": "xinhua-villas-211",
   "tier": "massing",
-  "status": "mcp1-pass-pending-main-window-runtime-map",
+  "status": "massing-runtime-map-pass-hero-identity-blocked",
   "model": "/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb",
   "modelSourcePath": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb",
+  "runtimeQa": "docs/research/xinhua-villas-211-threejs-runtime-qa.json",
   "modelSha256": "ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c",
   "cacheVersion": "ab05b4ec2eb9",
   "placement": {
@@ -150,7 +151,7 @@
     "glbAudit": "pass-explicit-no-images-max-12-nodes",
     "mcp1": "pass-main-window-batch",
     "mapGeometry": "pass-analytic-candidate",
-    "runtimeMap": "pending-main-window-scoped-qa",
+    "runtimeMap": "pass-main-window-real-browser",
     "hero": "blocked-evidence",
     "identity": "blocked-evidence"
   }

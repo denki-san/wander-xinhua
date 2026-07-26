@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "house-315",
   "recordedAt": "2026-07-26",
-  "status": "placement-recalibrated-runtime-map-revalidation-pending",
+  "status": "complete-three-tier-and-recalibrated-map-runtime-pass",
   "mode": "building-fast",
   "scope": {
     "included": [
@@ -36,8 +36,8 @@
     "branch": "codex/building-house-315",
     "contract": {
       "path": "app/scene/house-315-tier-contract.mjs",
-      "sha256": "98d52d687566804d9b26a2921e1407bec5548f1445edb5e32761526b1390390d",
-      "bytes": 4459
+      "sha256": "39e95651e25602cb699115f939fedcc96497ea47f8dd1c0118bd85653b3c1fe0",
+      "bytes": 4446
     },
     "runtimeModule": {
       "path": "app/scene/house-315-runtime.tsx",
@@ -82,7 +82,7 @@
     },
     "sourceLocalObstacleCount": 3,
     "mapSourceWayId": 864485667,
-    "mapPositionStatus": "osm-calibrated-candidate-runtime-pending",
+    "mapPositionStatus": "osm-calibrated-runtime-pass",
     "axisConversion": "registry retains source GLTF coordinates; primitive scale-z=-1 and shared transformedFootprint each apply the same single conversion on their separate render/collision paths",
     "origin": [
       0,
@@ -185,11 +185,11 @@
   "mainWindowIntegration": {
     "owner": "main-window",
     "buildingWorktreeMustNotApply": true,
-    "status": "placement-wired-runtime-map-revalidation-pending",
+    "status": "integrated-runtime-map-pass",
     "publicRegistryModified": true,
     "sharedRuntimeModified": true,
     "fastManifestModified": true,
-    "browserAcceptance": "pending-new-placement-map-and-collision",
+    "browserAcceptance": "pass-new-placement-map-and-collision",
     "requiredPatches": [
       {
         "file": "app/scene/xinhua-road-landmarks-data.json",
@@ -385,6 +385,83 @@
     },
     "result": "pass-tier-and-fallback-only-map-and-collision-superseded"
   },
+  "placementRecalibrationAcceptance": {
+    "recordedAt": "2026-07-26T10:19:00+08:00",
+    "owner": "main-window",
+    "buildMode": "vite-static-production-preview",
+    "viewport": [
+      1280,
+      720
+    ],
+    "visibility": "visible",
+    "route": "/?start=house315&network=standard&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaModelId=house-315&qaModelTier=massing",
+    "collisionRoute": "/?start=house315&network=standard&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaModelId=house-315&qaModelTier=massing&qaMove=forward&qaMoveMs=10000&qaMoveTarget=-20.127789,82.330463",
+    "asset": {
+      "url": "/models/tiers/xinhua-road/massing-v2/house-315-massing.glb?v=20260725-massing-e9d62cfc",
+      "sha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+      "loaded": true
+    },
+    "map": {
+      "position": "pass-osm-way-864485667",
+      "orientation": "pass",
+      "groundContact": "pass",
+      "roadSetback": "pass",
+      "villaLeBecOverlap": "pass-none",
+      "camera": "pass",
+      "analyticAsphaltClearanceSceneUnits": 3.602692,
+      "analyticAsphaltClearanceAfterRuntimeMarginSceneUnits": 3.402692,
+      "villaEntityGapsAfterBothRuntimeMarginsSceneUnits": [
+        0.099834,
+        0.674188
+      ]
+    },
+    "performance": {
+      "sampleFrames": 120,
+      "durationMs": 2005,
+      "fps": 59.850374,
+      "rendererDrawCalls": 245,
+      "rendererTriangles": 759944
+    },
+    "collisionReplay": {
+      "method": "explicit-qa-only-target-through-production-collision-engine",
+      "queryRequires": [
+        "qaAutoStart=1",
+        "cameraQa=1",
+        "qaMove=forward",
+        "qaMoveMs=10000",
+        "qaMoveTarget=-20.127789,82.330463"
+      ],
+      "start": [
+        -21.8,
+        67.6
+      ],
+      "firstStableWallStopApproxSeconds": 3,
+      "finalStop": [
+        -20.1439,
+        76.38416076798407
+      ],
+      "stableStopZThroughSeconds": 10,
+      "lateralSlideObserved": true,
+      "penetrationObserved": false,
+      "result": "pass-wall-stop-with-lateral-slide-no-penetration"
+    },
+    "console": {
+      "errors": 0
+    },
+    "screenshots": {
+      "map": {
+        "path": "test_artifacts/test_house-315_runtime_map_recalibrated_1280x720.jpg",
+        "sha256": "99a73fc563dc099ceb61059e716ac6f4cb7f5caf99ebd0dea8df769f8a39e9ec",
+        "bytes": 101700
+      },
+      "collision": {
+        "path": "test_artifacts/test_house-315_runtime_map_collision_recalibrated_1280x720.jpg",
+        "sha256": "eb0fcdbdad851df0b5bf35dcf4b69ff2eea870eacfe45b19ac0aee2e95b2dbca",
+        "bytes": 98928
+      }
+    },
+    "result": "pass-recalibrated-map-and-collision"
+  },
   "validation": {
     "allowedCommand": "npm run building:fast -- --building house-315",
     "buildingFast": "pass-42-of-42-specialized-and-scope-tests",
@@ -405,17 +482,17 @@
       ],
       "reviewConclusion": "runtime-candidate-placement-recalibrated-ready-for-main-window-integration"
     },
-    "mainWindowBrowser": "pending-new-placement-map-and-collision"
+    "mainWindowBrowser": "pass-recalibrated-map-and-collision"
   },
   "completionBoundary": {
     "runtimeCandidateReadyForCommit": true,
     "runtimeModuleImplemented": true,
     "mapPositionCandidateReady": true,
-    "mapPositionFinalRuntimePass": false,
+    "mapPositionFinalRuntimePass": true,
     "publicRegistryModified": true,
     "sharedRuntimeModified": true,
     "mainWindowIntegrated": true,
-    "threeTierRuntimeFinalPass": false,
-    "nextAuthority": "main-window-integrate-candidate-then-real-browser-cdp-revalidation"
+    "threeTierRuntimeFinalPass": true,
+    "nextAuthority": "complete-retain-rollback-and-include-in-batch-regression"
   }
 }

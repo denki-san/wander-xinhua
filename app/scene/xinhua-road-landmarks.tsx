@@ -550,9 +550,19 @@ function GlbModel({
 }) {
   const { scene } = useGLTF(path);
   const model = useMemo(() => configureModel(scene.clone(true)), [scene]);
+  const qaFrameSample = useRef({
+    startedAt: 0,
+    frames: 0,
+    complete: false,
+  });
   useEffect(() => () => disposeModelMaterials(model), [model]);
   useEffect(() => {
     if (!qaAssetId || !qaTier) return;
+    qaFrameSample.current = {
+      startedAt: 0,
+      frames: 0,
+      complete: false,
+    };
     model.updateMatrixWorld(true);
     const bounds = new Box3().setFromObject(model);
     const root = document.documentElement;
@@ -580,15 +590,35 @@ function GlbModel({
       delete root.dataset.xinhuaRoadQaSource;
       delete root.dataset.xinhuaRoadQaBounds;
       delete root.dataset.xinhuaRoadQaRender;
+      delete root.dataset.xinhuaRoadQaFrameSample;
     };
   }, [model, path, qaAssetId, qaTier]);
   useFrame(({ gl }) => {
     if (!qaAssetId || !qaTier) return;
-    document.documentElement.dataset.xinhuaRoadQaRender = JSON.stringify({
+    const root = document.documentElement;
+    root.dataset.xinhuaRoadQaRender = JSON.stringify({
       drawCalls: gl.info.render.calls,
       triangles: gl.info.render.triangles,
       lines: gl.info.render.lines,
       points: gl.info.render.points,
+    });
+    const sample = qaFrameSample.current;
+    if (sample.complete || document.visibilityState !== "visible") return;
+    const now = window.performance.now();
+    if (sample.startedAt === 0) sample.startedAt = now;
+    sample.frames += 1;
+    if (sample.frames < 120) return;
+    const durationMs = now - sample.startedAt;
+    sample.complete = true;
+    root.dataset.xinhuaRoadQaFrameSample = JSON.stringify({
+      viewport: [window.innerWidth, window.innerHeight],
+      visible: true,
+      frames: sample.frames,
+      durationMs,
+      fps: durationMs > 0 ? sample.frames * 1_000 / durationMs : 0,
+      rendererDrawCalls: gl.info.render.calls,
+      rendererTriangles: gl.info.render.triangles,
+      buildMode: import.meta.env.PROD ? "production" : "development",
     });
   });
   return <primitive object={model} scale={[1, 1, -1]} />;

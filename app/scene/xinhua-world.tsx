@@ -901,6 +901,80 @@ function useKeyboardControls() {
       resetInput();
     };
   }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const parameters = new URLSearchParams(window.location.search);
+    if (
+      parameters.get("qaAutoStart") !== "1"
+      || parameters.get("cameraQa") !== "1"
+    ) {
+      return;
+    }
+    const requestedKey = parameters.get("qaMove");
+    const qaMovementKeys = {
+      forward: "forward",
+      back: "back",
+      left: "left",
+      right: "right",
+    } as const;
+    if (!requestedKey || !(requestedKey in qaMovementKeys)) return;
+    const requestedDuration = Number(parameters.get("qaMoveMs"));
+    if (!Number.isFinite(requestedDuration)) return;
+    const durationMs = Math.min(Math.max(requestedDuration, 100), 20_000);
+    const inputKey = qaMovementKeys[
+      requestedKey as keyof typeof qaMovementKeys
+    ];
+    const root = document.documentElement;
+    const startedAt = window.performance.now();
+    const samples: Array<{
+      elapsedMs: number;
+      playerPosition: number[] | null;
+    }> = [];
+    const capture = () => {
+      const rawPosition = root.dataset.xinhuaPlayerPosition;
+      let playerPosition: number[] | null = null;
+      if (rawPosition) {
+        try {
+          const parsed = JSON.parse(rawPosition);
+          if (
+            Array.isArray(parsed)
+            && parsed.length === 2
+            && parsed.every((value) => typeof value === "number")
+          ) {
+            playerPosition = parsed;
+          }
+        } catch {
+          playerPosition = null;
+        }
+      }
+      samples.push({
+        elapsedMs: Number((window.performance.now() - startedAt).toFixed(1)),
+        playerPosition,
+      });
+      root.dataset.xinhuaQaMovement = JSON.stringify({
+        status: inputState[inputKey] ? "running" : "complete",
+        requestedKey,
+        durationMs,
+        target: parameters.get("qaMoveTarget"),
+        samples,
+      });
+    };
+
+    inputState[inputKey] = true;
+    capture();
+    const interval = window.setInterval(capture, 250);
+    const timeout = window.setTimeout(() => {
+      inputState[inputKey] = false;
+      window.clearInterval(interval);
+      capture();
+    }, durationMs);
+    return () => {
+      inputState[inputKey] = false;
+      window.clearInterval(interval);
+      window.clearTimeout(timeout);
+    };
+  }, []);
 }
 
 function PlayableWanderer({
@@ -920,6 +994,26 @@ function PlayableWanderer({
   const outer = useRef<Group>(null);
   const groundShadow = useRef<Group>(null);
   const initialStart = useMemo(() => requestedStartPreset(startPreset), [startPreset]);
+  const qaMoveTarget = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    const parameters = new URLSearchParams(window.location.search);
+    if (
+      parameters.get("qaAutoStart") !== "1"
+      || parameters.get("cameraQa") !== "1"
+    ) {
+      return null;
+    }
+    const rawTarget = parameters.get("qaMoveTarget");
+    if (!rawTarget) return null;
+    const coordinates = rawTarget.split(",").map(Number);
+    if (
+      coordinates.length !== 2
+      || coordinates.some((value) => !Number.isFinite(value))
+    ) {
+      return null;
+    }
+    return new Vector3(coordinates[0], 0, coordinates[1]);
+  }, []);
   const initialForward = useMemo(() => initialStart.forward.clone(), [initialStart]);
   const cameraTargetHeight = initialStart.cameraTargetHeight ?? CAMERA_TARGET_HEIGHT;
   const initialCameraOffset = useMemo(
@@ -1251,7 +1345,14 @@ function PlayableWanderer({
 
     if (moving) {
       markFirstProgressiveControlResponse();
-      if (reverseTurnActive.current) {
+      if (qaMoveTarget) {
+        reverseTurnActive.current = false;
+        s.move.set(
+          qaMoveTarget.x - currentPosition.x,
+          0,
+          qaMoveTarget.z - currentPosition.z,
+        ).normalize();
+      } else if (reverseTurnActive.current) {
         s.move.copy(reverseMoveDirection.current);
       } else {
         cameraRelativeInputToPlanarMove(
