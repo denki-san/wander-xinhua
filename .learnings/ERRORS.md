@@ -9699,3 +9699,32 @@ Failed to create unified exec process: Too many open files (os error 24)
   也不通过提高系统限制绕过资源边界。
 
 ---
+
+## [ERR-20260726-125] unicode_regexp_escaped_backtick
+
+**Logged**: 2026-07-26T21:35:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+交接文档测试用动态 Unicode RegExp 匹配 Markdown 反引号时，把反引号写成了
+`\\``，Node 将它解析为无效的 Unicode 正则转义。
+
+### Error
+```text
+SyntaxError: Invalid regular expression: /\\`shanghai-cinema\\`/u:
+Invalid escape
+```
+
+### Context
+- Command: `node --test tests/test_exact_18_building_handoff.test.mjs`
+- 文档和18栋状态数据没有不一致；
+- 失败只发生在测试自身构造动态 RegExp 的阶段。
+
+### Resolution
+- **Resolved**: 2026-07-26T21:35:00+08:00
+- **Notes**: 对固定 Markdown token 改用 `String.includes()`，避免为了字面反引号
+  构造 Unicode RegExp；保留 RegExp 只处理真正需要模式匹配的静态合同。
+
+---
