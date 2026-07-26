@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-community-center",
+  "recordedAt": "2026-07-26",
+  "status": "infeasible-under-current-osm-binding-and-runtime-road-contract",
+  "scope": {
+    "included": [
+      "xinhua-community-center-osm-footprint",
+      "xinhua-community-center-formal-transform",
+      "front-service-road-width-contract",
+      "road-surface-intersection-proof",
+      "collision-shell-applicability"
+    ],
+    "excludedAndHeld": [
+      "binary-rebuild",
+      "placement-change",
+      "scale-change",
+      "qa-only-suppression",
+      "public-registry",
+      "shared-runtime",
+      "road-contract-change",
+      "fast-manifest",
+      "other-buildings",
+      "trees",
+      "dressing",
+      "ordinary-osm-runtime",
+      "full-map-assets",
+      "recovery-hold"
+    ],
+    "binaryModified": false,
+    "publicRegistryModified": false,
+    "sharedRuntimeModified": false,
+    "roadContractModified": false
+  },
+  "sources": {
+    "referenceManifest": {
+      "path": "docs/research/xinhua-community-center-reference-manifest.json",
+      "sha256": "d9284c077e4f3fc1abe4fcc4ddb424722632e52ddfdcb617de3f5232efcb766e",
+      "selectedLocalPhotos": 2,
+      "supports": [
+        "main-building-front",
+        "entrance-portal",
+        "paved-surface-immediately-outside-entrance"
+      ],
+      "doesNotSupport": [
+        "measured-road-width",
+        "opposite-road-edge",
+        "surveyed-building-setback",
+        "cadastral-boundary"
+      ]
+    },
+    "osmBinding": {
+      "path": "docs/research/xinhua-community-center-osm-binding.json",
+      "sha256": "f3d806bc35a955c13099f7ba8996fb29f3ccf3b0b5c9288210632a3d7b70668c"
+    },
+    "priorMapGate": {
+      "path": "docs/research/xinhua-community-center-massing-map-gate.json",
+      "sha256": "86ca0488d175a276c3434fca432d8a4cc7c30b328f4af150ac4ed61265906c57"
+    },
+    "priorFinalGapAudit": {
+      "path": "docs/research/xinhua-community-center-final-gap-audit.json",
+      "sha256": "68a834a904aa3470a0cc35097d317a0be246b772a424df10a591e5e357b4c1ed"
+    },
+    "massingBuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.json",
+      "sha256": "b4937ed946175aa47cf4681f5e3b9d704ab59c869e236a2c41732b920162d6c9"
+    },
+    "rawOsmSnapshot": {
+      "path": "docs/research/data/requested-pois-osm-20260717-103840.json",
+      "sha256": "898624d284d460f6d696720278531db463f6f458cbbe49b7d4ab36d46905104e",
+      "timestampOsmBase": "2026-07-17T10:37:11Z"
+    },
+    "map": {
+      "path": "app/scene/xinhua-map-data.json",
+      "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78"
+    },
+    "roadSurfaceContract": {
+      "path": "app/scene/road-surface-contract.ts",
+      "sha256": "81798e268e7da1ec6d98de973b0332ad953cb4b933734a30840200ebf26057a7"
+    },
+    "massingGlb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb",
+      "sha256": "a0609064ec15f0bfeb042ac9013152eda7575205c55bdaf79063cae38c77b471"
+    }
+  },
+  "buildingConstraint": {
+    "namedPoiNode": 13765678129,
+    "buildingWayId": 864493234,
+    "bindingBasis": "named-poi-node-inside-nearest-building-footprint",
+    "placement": {
+      "position": [
+        -74.78057782060566,
+        112.5501903703319
+      ],
+      "yaw": 1.1800125527954972,
+      "scale": 1
+    },
+    "transformChanged": false,
+    "maximumVertexWorldErrorSceneUnits": 0,
+    "osmFootprintOverlapCount": 0,
+    "closestNeighborWayId": 864493232,
+    "closestNeighborGapSceneUnits": 1.1517136810103772,
+    "closestNeighborGapMeters": 3.1096269387280184,
+    "decision": "retain-formal-transform",
+    "reason": "The named POI lies inside way 864493234 and the current transform reproduces that OSM footprint with zero vertex error. No evidence authorizes translation or scaling."
+  },
+  "roadConstraint": {
+    "roadWayId": 577252269,
+    "name": "新华路345弄",
+    "osmTags": {
+      "highway": "service",
+      "oneway": "no"
+    },
+    "osmWidthTagPresent": false,
+    "osmLanesTagPresent": false,
+    "runtimeStyle": "service",
+    "environmentScale": 5,
+    "runtimeRenderedFullWidthSceneUnits": 2.5,
+    "runtimeRenderedFullWidthMeters": 6.75,
+    "runtimeRenderedHalfWidthSceneUnits": 1.25,
+    "runtimeCollisionMarginSceneUnits": 0.2,
+    "physicalFootprintToCenterline": {
+      "sceneUnits": 0.8473649273117979,
+      "meters": 2.2878853037418545,
+      "buildingEdgeIndex": 1,
+      "roadSegmentIndex": 2,
+      "nearestBuildingPoint": [
+        -70.4854375878097,
+        107.46535037039932
+      ],
+      "nearestRoadPoint": [
+        -69.69650508963011,
+        107.77456361939463
+      ]
+    },
+    "asphaltOverlap": {
+      "sceneUnits": 0.4026350726882021,
+      "meters": 1.0871146962581457
+    },
+    "maximumNonOverlappingFullWidth": {
+      "sceneUnits": 1.6947298546235958,
+      "meters": 4.575770607483709
+    },
+    "maximumNonOverlappingFullWidthWithPointTwoCollisionMargin": {
+      "sceneUnits": 1.2947298546235957,
+      "meters": 3.4957706074837085
+    }
+  },
+  "candidateAnalysis": {
+    "exactFootprint": {
+      "status": "infeasible-current-road-width",
+      "reason": "The nearest point is a real OSM building vertex to road-segment projection, not a world-AABB corner. Exact polygon evaluation reproduces the overlap."
+    },
+    "completeCoverSplitShell": {
+      "status": "cannot-resolve-physical-road-surface-overlap",
+      "reason": "Any no-gap, no-shrink shell covering the exact building footprint must retain the nearest building point. Splitting can reduce rotated-AABB false positives but cannot increase physical footprint-to-centerline distance."
+    },
+    "roadWidthCalibration": {
+      "status": "blocked-missing-measured-width",
+      "requiredUpperBoundSceneUnits": 1.6947298546235958,
+      "requiredUpperBoundMeters": 4.575770607483709,
+      "currentWidthExcessSceneUnits": 0.8052701453764042,
+      "currentWidthExcessMeters": 2.1742293925162913,
+      "reason": "OSM classifies the way as service but provides neither width nor lanes. The front photo shows paving beside the entrance but not the opposite road edge, so it cannot determine a defensible full width."
+    },
+    "placementAdjustment": {
+      "status": "rejected",
+      "reason": "Translation or scale changes would break the exact OSM building binding and have no independent building evidence."
+    },
+    "qaSuppression": {
+      "status": "rejected",
+      "reason": "Ignoring this road only in QA would conceal the same production geometry conflict."
+    }
+  },
+  "verdict": {
+    "evidenceGate": "pass-preserved-conservative-massing-only",
+    "mcp1": "pass-preserved-no-rerun",
+    "formalMapCandidate": "infeasible-under-current-runtime-road-width",
+    "buildingTransform": "retain-unchanged",
+    "collisionShell": "no-legal-shell-can-solve-physical-overlap",
+    "runtimeAcceptance": "blocked",
+    "heroAndIdentity": "hold",
+    "minimumNewAuthorityRequired": [
+      "measured-or-authoritative-way-577252269-width-at-building-front",
+      "or-main-window-approved-way-specific-road-surface-contract-backed-by-new-evidence"
+    ],
+    "mainWindowAction": "Do not change the building. Retain the blocker unless new road-width evidence supports a full width at or below 1.6947298546 scene units; after any public road-contract decision, rerun deterministic map, collision, entrance, and camera QA."
+  }
+}
