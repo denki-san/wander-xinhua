@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T15:46:00+08:00",
-  "snapshotBaseCommit": "48c1718",
+  "snapshotAt": "2026-07-26T15:50:00+08:00",
+  "snapshotBaseCommit": "34ff7b8",
   "scope": {
     "mode": "exact-18-building-fast-mode",
     "buildingCount": 18,
@@ -19,8 +19,8 @@
   },
   "summary": {
     "complete": 5,
-    "inProgress": 1,
-    "blockedOrPartial": 12,
+    "inProgress": 0,
+    "blockedOrPartial": 13,
     "completeIds": [
       "one-step-garden",
       "house-315",
@@ -28,9 +28,7 @@
       "xinhua-pocket-park",
       "sun-ke-villa"
     ],
-    "inProgressIds": [
-      "villa-le-bec"
-    ]
+    "inProgressIds": []
   },
   "buildings": [
     {
@@ -152,7 +150,7 @@
       "id": "villa-le-bec",
       "name": "哥伦比亚乡村俱乐部",
       "evidence": "pass-hero-readiness-multi-view",
-      "hero": "in-progress-pure-two-building",
+      "hero": "blocked-pre-mcp2-visual-mismatch",
       "identity": "missing",
       "massing": "pass",
       "mcp1": "pass",
@@ -160,13 +158,14 @@
       "mcp3": "blocked",
       "map": "pass",
       "threeJs": "pass-massing-performance-collision",
-      "overall": "in-progress-hero-build",
+      "overall": "blocked-hero-pre-mcp2-visual-mismatch",
       "runtimePolicy": "massing-only-no-tier-promotion",
       "records": [
         "docs/research/villa-le-bec-final-gap-audit.json",
         "docs/research/villa-le-bec-map-candidate.json",
         "docs/research/villa-le-bec-three-tier-final-disposition.json",
-        "docs/research/villa-le-bec-hero-readiness.json"
+        "docs/research/villa-le-bec-hero-readiness.json",
+        "docs/research/villa-le-bec-hero-visual-adjudication.json"
       ]
     },
     {

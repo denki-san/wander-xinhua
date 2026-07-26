@@ -162,11 +162,14 @@
         "tests/test_villa_le_bec_final_gap.test.mjs",
         "tests/test_villa_le_bec_three_tier_final_disposition.test.mjs",
         "tests/test_villa_le_bec_hero_readiness.test.mjs",
+        "tests/test_villa_le_bec_hero_implementation.test.mjs",
+        "tests/test_villa_le_bec_hero_visual_adjudication.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
         "public/models/xinhua-road/villa-le-bec.glb",
-        "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb"
+        "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
+        "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb"
       ],
       "runtimeRoutes": [
         "/?start=villa-le-bec&cameraQa=1&qaAutoStart=1",
