@@ -9,11 +9,11 @@ export function XinhuaCoverMedia() {
     <picture className="intro-cover-picture">
       <source
         media="(max-width: 760px) and (orientation: portrait)"
-        srcSet="/images/xinhua-plane-tree-cover-mobile.jpg"
+        srcSet="/images/xinhua-plane-tree-cover-mobile-lite.jpg"
       />
       <img
         className="intro-cover-image"
-        src="/images/xinhua-plane-tree-cover-desktop.jpg"
+        src="/images/xinhua-plane-tree-cover-desktop-lite.jpg"
         alt=""
         decoding="async"
         fetchPriority="high"

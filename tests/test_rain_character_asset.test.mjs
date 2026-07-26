@@ -107,9 +107,10 @@ test("Rain 候选的生成器、来源哈希与 CC-BY 署名可追溯", async ()
   assert.match(generator, /#6b4936/);
 });
 
-test("Rain 短束低马尾和桌面手机证据对应同一 GLB", async () => {
+test("Rain 短束低马尾和桌面手机证据对应同一 Hero GLB", async () => {
   const [
     source,
+    characterAssets,
     detailedCharacter,
     recordText,
     canonical,
@@ -118,6 +119,7 @@ test("Rain 短束低马尾和桌面手机证据对应同一 GLB", async () => {
     mobile,
   ] = await Promise.all([
     readFile(new URL("../app/style-lab/StyleLab.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/scene/rain-character-assets.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/scene/detailed-wanderer-character.tsx", import.meta.url), "utf8"),
     readFile(new URL("../docs/research/build-records/rain-summer-wanderer.json", import.meta.url), "utf8"),
     readFile(new URL("../test_artifacts/test_rain_summer_character_canonical.png", import.meta.url)),
@@ -135,7 +137,7 @@ test("Rain 短束低马尾和桌面手机证据对应同一 GLB", async () => {
   assert.match(source, /new Vector3\(-31, 0\.025, -7\)/);
   assert.match(source, new RegExp(`rain-summer-wanderer\\.glb\\?v=${record.output.sha256.slice(0, 12)}`));
   assert.match(
-    detailedCharacter,
+    characterAssets,
     new RegExp(`rain-summer-wanderer\\.glb\\?v=${record.output.sha256.slice(0, 12)}`),
   );
   assert.match(detailedCharacter, /get\("qaMotion"\)/);
@@ -155,9 +157,9 @@ test("Rain 短束低马尾和桌面手机证据对应同一 GLB", async () => {
 });
 
 test("Rain 已进入正式地图并在桌面与手机可访问位置展示署名", async () => {
-  const [world, detailedCharacter, experience, recordText, desktop, mobile] = await Promise.all([
+  const [world, characterAssets, experience, recordText, desktop, mobile] = await Promise.all([
     readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/scene/detailed-wanderer-character.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/scene/rain-character-assets.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8"),
     readFile(new URL("../docs/research/build-records/rain-summer-wanderer.json", import.meta.url), "utf8"),
     readFile(new URL("../test_artifacts/test_xinhua_autumn_storybook_v2_character_desktop.png", import.meta.url)),
@@ -166,7 +168,7 @@ test("Rain 已进入正式地图并在桌面与手机可访问位置展示署名
   const record = JSON.parse(recordText);
 
   assert.match(
-    detailedCharacter,
+    characterAssets,
     new RegExp(`rain-summer-wanderer\\.glb\\?v=${record.output.sha256.slice(0, 12)}`),
   );
   assert.match(world, /ProgressiveDetailedWandererCharacter/);

@@ -281,7 +281,9 @@ test("生产主世界让全部建筑遵守 Massing、Identity、Hero 三层和�
   assert.match(featureBoundary, /previous\.resetKey !== this\.props\.resetKey/);
   assert.match(experience, /data-progressive-stage=\{ready \? "playable" : "booting"\}/);
   assert.match(experience, /performance\.mark\("xinhua-world-playable"\)/);
-  assert.match(experience, /<FirstPlayableFrame onReady=\{\(\) => setReady\(true\)\} \/>/);
+  assert.match(experience, /<FirstPlayableFrame onReady=\{\(\) => setRendererReady\(true\)\} \/>/);
+  assert.match(experience, /const ready = rendererReady && characterIdentityStatus !== null/);
+  assert.match(experience, /<RainIdentityPreloader onSettled=\{settleCharacterIdentity\} \/>/);
   assert.doesNotMatch(experience, /onCreated=/);
   assert.match(experience, /\{ready && \(\s*<ProgressiveFeatureBoundary/);
   assert.doesNotMatch(experience, /ready && networkProfile === "standard"/);
@@ -530,14 +532,15 @@ test("最高优先级合同明确全览固定 Identity、进入仅定位、本�
   assert.doesNotMatch(contract, /切换依据是明确的详情状态，不是地图中的空间距离/);
 });
 
-test("首个可操作路径排除 GLTF、人物精模和后处理，并满足 5Mbps 传输预算", async () => {
+test("首个开始路径包含 Identity GLTF 解析但排除 Hero 与后处理，并满足 5Mbps 预算", async () => {
   const assetDirectory = new URL("dist-static/assets/", root);
   const assetNames = (await readdir(assetDirectory)).filter((name) => name.endsWith(".js"));
   const playablePrefixes = [
     "index-",
     "xinhua-experience-",
     "xinhua-road-massing-",
-    "input-",
+    "rain-character-assets-",
+    "Gltf-",
   ];
   const playableNames = playablePrefixes.map((prefix) => {
     const matches = assetNames.filter((name) => name.startsWith(prefix));
@@ -558,12 +561,11 @@ test("首个可操作路径排除 GLTF、人物精模和后处理，并满足 5M
 
   assert.ok(entryBytes < 250_000, `轻量入口过大：${entryBytes}B`);
   assert.ok(
-    playableGzipBytes < baselineSingleBundleGzipBytes * 0.82,
-    `首个可操作路径压缩后仍有 ${playableGzipBytes}B`,
+    playableGzipBytes < baselineSingleBundleGzipBytes * 0.85,
+    `包含 Identity 解析器的开始路径压缩后仍有 ${playableGzipBytes}B`,
   );
   assert.ok(transferAt5MbpsMs < 650, `5Mbps 纯 JS 传输预算超限：${transferAt5MbpsMs}ms`);
   for (const deferredPrefix of [
-    "Gltf-",
     "visual-effect-composer-",
     "detailed-wanderer-character-",
     "xingfuli-architecture-model-",

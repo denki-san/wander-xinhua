@@ -169,8 +169,8 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(experience, /<XinhuaIntroSurface/);
   assert.match(experience, /ready=\{ready\}/);
   assert.match(experience, /onBegin=\{begin\}/);
-  assert.match(introSurface, /xinhua-plane-tree-cover-desktop\.jpg/);
-  assert.match(introSurface, /xinhua-plane-tree-cover-mobile\.jpg/);
+  assert.match(introSurface, /xinhua-plane-tree-cover-desktop-lite\.jpg/);
+  assert.match(introSurface, /xinhua-plane-tree-cover-mobile-lite\.jpg/);
   assert.match(introSurface, /max-width: 760px/);
   assert.match(introSurface, /aria-label="新华漫游"/);
   assert.match(introSurface, /intro-title-char[\s\S]*?>新<[\s\S]*?>华<[\s\S]*?>漫<[\s\S]*?>游</);
@@ -191,7 +191,8 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(experience, /实景图 · \{nearPoi\.photo\.sourceLabel\}/);
   assert.match(experience, /const photosByDistance = \[\.\.\.MAP_POIS\]\.sort/);
   assert.match(experience, /new Map<string, HTMLImageElement>\(\)/);
-  assert.match(experience, /POI_PHOTO_NEARBY_PREFETCH_COUNT = 4/);
+  assert.match(experience, /POI_PHOTO_NEARBY_PREFETCH_COUNT = 2/);
+  assert.match(experience, /if \(networkProfile === "weak"\) return/);
   assert.match(experience, /index < 2 \? "high" : "low"/);
   assert.match(experience, /POI_PHOTO_BACKGROUND_PREFETCH_DELAY_MS/);
   assert.match(experience, /overviewPhotoCache\.current\.set\(src, preview\)/);

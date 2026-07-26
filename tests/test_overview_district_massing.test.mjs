@@ -125,7 +125,7 @@ test("预编译 GLB 满足移动概览的体积、结构和材质预算", async 
   assert.ok(triangleCount <= build.budgets.maxTriangles);
   assert.equal(build.output.triangles, triangleCount);
   assert.deepEqual(manifest.modes, ["overview"]);
-  assert.equal(manifest.weakNetworkPolicy, "skip");
+  assert.equal(manifest.weakNetworkPolicy, "nearest-first");
   assert.equal(manifest.collision, false);
   assert.equal(manifest.castShadow, false);
   assert.equal(build.runtimeContract.opacity, 0.58);
@@ -268,7 +268,7 @@ test("运行时在所有网络档位加载全览白模且失败不阻断原地�
   assert.match(world, /get\("district"\) === "off"/);
   assert.match(
     world,
-    /<ProgressiveFeatureBoundary[\s\S]*?fallback=\{null\}[\s\S]*?<ProgressiveOverviewDistrictMassing \/>/,
+    /<ProgressiveFeatureBoundary[\s\S]*?fallback=\{null\}[\s\S]*?<ProgressiveOverviewDistrictMassing[\s\S]*?networkProfile=\{networkProfile\}/,
   );
   assert.ok(
     world.indexOf("<XinhuaStreetMap") < world.indexOf("<ProgressiveOverviewDistrictMassing"),
@@ -280,8 +280,11 @@ test("运行时在所有网络档位加载全览白模且失败不阻断原地�
   );
   assert.match(
     world,
-    /function OverviewDistrictMassingGate[\s\S]*?<ProgressiveOverviewDistrictMassing \/>/,
+    /function OverviewDistrictMassingGate[\s\S]*?<ProgressiveOverviewDistrictMassing[\s\S]*?focusPosition=\{focusPosition\}/,
   );
+  assert.match(component, /runtimeManifest\.chunks/);
+  assert.match(component, /networkProfile === "weak" \? 900 : 180/);
+  assert.match(component, /xinhuaDistrictChunkCount/);
   assert.match(component, /object\.castShadow = false/);
   assert.match(component, /object\.receiveShadow = false/);
   assert.match(component, /object\.raycast = \(\) => \{\}/);
