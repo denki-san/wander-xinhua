@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xingfuli-east",
+  "preparedAt": "2026-07-26",
+  "baseCommit": "2643a4d2c5ab84f945336b29e764eae0dc0ae926",
+  "mode": "building-window-medium-query-contract-only",
+  "status": "prepared-not-executed-main-window-xhs-search-required",
+  "scope": {
+    "included": [
+      "xingfuli-east Panyu Road endpoint evidence query design",
+      "existing accepted tier, Blender MCP and Three.js records",
+      "current south-entry, entry-matrix-wall and lane-base road blocker",
+      "user photo 9 provenance boundary",
+      "future read-only archive and Threejs-3d-research routing",
+      "conditional runtime-disable-candidate policy"
+    ],
+    "notPerformed": [
+      "browser or Xiaohongshu access",
+      "media download",
+      "user-photo materialization",
+      "Blender or MCP rerun",
+      "Three.js rerun",
+      "asset or generator rebuild",
+      "placement, collision, road or runtime mutation",
+      "public registry, roster, status or fast-mode mutation",
+      "external USB or Wiki write"
+    ],
+    "binaryModified": false,
+    "sharedFilesModified": false,
+    "recoveryHoldModified": false,
+    "otherBuildingsModified": false
+  },
+  "verifiedInputs": {
+    "mapPhotoBlocker": {
+      "path": "docs/research/xingfuli-west-east-map-photo-blocker-2026-07-26.json",
+      "sha256": "1593d8ad4178308234177efa1eb66464db9decbc571f27fcdfc8aef614d30330"
+    },
+    "userPhotoSequence": {
+      "path": "docs/research/xingfuli-user-photo-sequence-2026-07-26.json",
+      "sha256": "d05eaec36c1334c7ae00e63fd570370bff0d291298e37bf3da3ce24fccc9f3ad"
+    },
+    "userPhotoKnowledgeSource": {
+      "path": "docs/knowledge-sources/xingfuli-user-photo-route-2026-07-26.md",
+      "sha256": "61ace9608e237238ae53a49e57c6771c5d261429a4c5a1c95cdf8c412e7bb435"
+    },
+    "mcpBatch": {
+      "path": "docs/research/xingfuli-west-east-lineage-v2-blender-mcp-gates.json",
+      "sha256": "36f03fb42980094f62c39d6969b8c0fd2b716553eb718357f706cb41447c24c1"
+    },
+    "threeJsBatch": {
+      "path": "docs/research/xingfuli-west-east-lineage-v2-threejs-runtime-qa.json",
+      "sha256": "1cc11100f53cec73d078a3edb7d15e2a4ae58362be38a4087b4cd7221cfe22fe"
+    },
+    "eastTierMapAudit": {
+      "path": "docs/research/xingfuli-east-tier-map-audit.json",
+      "sha256": "ef1001fac7bbb89f2639dd0194ade4cacc54396bc64883f8ff0dead0bc531795"
+    },
+    "eastLineageV2Candidate": {
+      "path": "docs/research/xingfuli-east-lineage-v2-candidate.json",
+      "sha256": "a2998c4bf6df2c47449b1f5f5b880d474f2a01744fa32a33102935d09b80d15f"
+    }
+  },
+  "retainedAcceptedStages": {
+    "hero": {
+      "path": "public/models/xingfuli/xingfuli-east.glb",
+      "sha256": "4dc21aa6f137daa076a6da1948b0c08c15310789541ee59af06c352febea4327"
+    },
+    "identityV2": {
+      "path": "public/models/tiers/xingfuli/identity-v2/xingfuli-east-identity-v2.glb",
+      "sha256": "3352d6174273a87a1a049df61a884255d451d424f36a203361cf74671a71db25"
+    },
+    "massingV2": {
+      "path": "public/models/tiers/xingfuli/massing-v2/xingfuli-east-massing-v2.glb",
+      "sha256": "c0defcbdc99c5939499db3ce33fb4d01cb8f8cf9f9a5fc49dd9270e8a23d3450"
+    },
+    "strictTierLineage": "pass",
+    "blenderMcp": {
+      "mcp1": "pass",
+      "mcp2": "pass",
+      "mcp3": "pass"
+    },
+    "threeJs": {
+      "threeTierLoading": "pass",
+      "heroToIdentityFallback": "pass",
+      "identityToMassingFallback": "pass",
+      "performanceSampling": "pass-no-improvement-claim",
+      "collision": "pass-target-reached-no-penetration"
+    },
+    "action": "retain unchanged; do not rerun qualified lineage, MCP or Three.js stages for evidence-query preparation"
+  },
+  "currentMapBlocker": {
+    "status": "blocked-panyu-road-overlap-and-photo-9-road-unknown",
+    "surfaceRoad": {
+      "name": "番禺路",
+      "class": "tertiary",
+      "asphaltHalfWidthScene": 3.625
+    },
+    "intersectionAudit": [
+      {
+        "component": "south-east-entry-building",
+        "asphaltClearanceScene": -3.625,
+        "status": "intersects"
+      },
+      {
+        "component": "entry-matrix-wall",
+        "asphaltClearanceScene": -3.1160300017937015,
+        "status": "intersects"
+      },
+      {
+        "component": "east-lane-base",
+        "asphaltClearanceScene": -3.625,
+        "status": "intersects"
+      }
+    ],
+    "nonBlockerControl": {
+      "component": "north-east-entry-building",
+      "asphaltClearanceScene": 3.7934396841590976,
+      "status": "positive-clearance"
+    },
+    "reasonEvidenceIsRequired": "OSM way/400066625 is only a two-point pedestrian site axis, not an east-only building footprint or surveyed road boundary.",
+    "mutationAuthorized": false
+  },
+  "userPhotoNineBoundary": {
+    "photographerStatement": "Nine ordered first-party Xingfuli images begin at the Xingfu Road entrance and end at an opposite road that may be Panyu Road.",
+    "roadIdentityStatus": "user-unsure-not-confirmed",
+    "originalFileCount": 0,
+    "allNineSlots": "pending-original-file",
+    "photoNineVisualContentReviewed": false,
+    "photoNineSha256Available": false,
+    "photoNineExifAvailable": false,
+    "publicEvidenceMayReplacePhotoNine": false,
+    "policy": "A public Xiaohongshu post may independently support the east-end map decision, but must never be renamed, archived, cited or counted as the user's ninth original."
+  },
+  "queryContract": {
+    "executionOwner": "main-window-xhigh",
+    "executionStatus": "not-run",
+    "purpose": "Find a continuous, same-east-end evidence chain from the inner Xingfuli lane through the east exit to an independently identifiable Panyu Road edge.",
+    "accessBoundary": {
+      "existingSignedInUserBrowserOnlyIfNeeded": true,
+      "readOnly": true,
+      "noLikeCommentFollowSaveOrMessage": true,
+      "noParallelTabsOrAutomatedScrollLoop": true,
+      "noCaptchaOrRateLimitBypass": true,
+      "stopOnChallengeLoginRefreshOrPlatformWarning": true,
+      "doNotAttemptToImitateOrEvadePlatformDetection": true
+    },
+    "searchGroups": [
+      {
+        "priority": 1,
+        "goal": "exact road-end identity",
+        "queries": [
+          "幸福里 番禺路 入口",
+          "幸福里 番禺路381号 入口",
+          "上海幸福里 番禺路 出口"
+        ]
+      },
+      {
+        "priority": 2,
+        "goal": "east-entry structure",
+        "queries": [
+          "幸福里 东侧入口",
+          "幸福里 南入口 白色玻璃转角",
+          "幸福里 番禺路 木格栅 红砖"
+        ]
+      },
+      {
+        "priority": 3,
+        "goal": "continuous route topology",
+        "queries": [
+          "幸福里 幸福路 番禺路 贯通",
+          "幸福里 从幸福路走到番禺路",
+          "幸福里 citywalk 番禺路入口"
+        ]
+      }
+    ],
+    "slowReviewBudgetRecommendation": {
+      "maxSearchQueriesPerSession": 4,
+      "maxResultCardsReviewedPerQuery": 8,
+      "maxPostsOpenedPerSession": 6,
+      "maxMediaItemsInspectedPerSession": 24,
+      "minimumSecondsBetweenPostOpens": 15,
+      "minimumSecondsBetweenSearchSubmissions": 30,
+      "maximumSessionMinutes": 15,
+      "cooldownMinutesAfterAnyWarningOrChallenge": 60,
+      "stopAfterFirstQualifiedEvidenceChain": true,
+      "stopIfNoNewRelevantCandidateAfterTwoConsecutiveQueries": true,
+      "note": "These are conservative viewing limits to reduce load and respect platform friction, not timing randomization or anti-detection behavior."
+    },
+    "candidateCaptureFields": [
+      "post URL and stable content ID",
+      "author, visible publish date and collection timestamp",
+      "visible title and directly relevant caption text",
+      "media count, inspected media indices and original order",
+      "frame or image observations separated from author claims",
+      "east-end continuity decision and rejection reason when not qualified",
+      "source media fingerprint only after an authorized read-only download",
+      "rights and research-only boundary"
+    ]
+  },
+  "acceptanceMatrix": [
+    {
+      "id": "same-east-exit-continuity",
+      "required": true,
+      "pass": "One unbroken video segment or an ordered same-post image sequence visibly connects the inner east lane, the exit threshold and the outside road without a montage or location jump.",
+      "reject": "A single facade, isolated road view, unproven before/after pair or images from different posts."
+    },
+    {
+      "id": "road-identity",
+      "required": true,
+      "pass": "The endpoint shows a readable Panyu Road sign/address, or at least two unique visible landmarks that independently match current map geometry and establish Panyu Road.",
+      "reject": "Caption-only Panyu claim, generic asphalt road, photographer uncertainty, or map proximity without visible scene correspondence."
+    },
+    {
+      "id": "curb-and-surface-edge",
+      "required": true,
+      "pass": "The same chain clearly shows lane paving, sidewalk or verge, curb transition and asphalt edge at the east exit from a usable oblique or cross-road angle.",
+      "reject": "Road centerline only, fully occluded edge, night glare, or crop that hides the lane-to-road transition."
+    },
+    {
+      "id": "south-entry-building",
+      "required": true,
+      "pass": "The south-side entrance building is visible in the same continuous chain and its relationship to the exit threshold can be followed.",
+      "reject": "An unidentified building outside the entrance context or a facade that cannot be connected to the endpoint."
+    },
+    {
+      "id": "entry-matrix-wall",
+      "required": true,
+      "pass": "The entrance matrix wall or equivalent gridded boundary is visible with both its lane-side end and road-side end, allowing its extent to be compared with the curb.",
+      "reject": "A generic fence, a close-up without endpoints, or an inferred wall behind vegetation."
+    },
+    {
+      "id": "east-lane-base",
+      "required": true,
+      "pass": "The lane base or hardscape edge is visible continuously to its termination at the entrance and can be distinguished from sidewalk and asphalt.",
+      "reject": "Material texture alone, an interior-only paving view, or an assumed rectangular base."
+    },
+    {
+      "id": "same-subject-identity",
+      "required": true,
+      "pass": "At least two existing East cues, such as white glass corner, timber grille, brick vertical stack or storefront rhythm, co-occur with the exit evidence.",
+      "reject": "Only generic Shanghai lane cues or no correspondence with the accepted East subject."
+    },
+    {
+      "id": "currentness-and-alteration",
+      "required": true,
+      "pass": "Publish or capture date is recorded; visible temporary barriers, construction, tenant signs and later alterations are separated from stable geometry.",
+      "reject": "Undated media treated as current surveyed truth."
+    }
+  ],
+  "qualificationRule": {
+    "requiredMatrixIds": [
+      "same-east-exit-continuity",
+      "road-identity",
+      "curb-and-surface-edge",
+      "south-entry-building",
+      "entry-matrix-wall",
+      "east-lane-base",
+      "same-subject-identity",
+      "currentness-and-alteration"
+    ],
+    "allRequiredMustPass": true,
+    "independentMapComparisonRequired": true,
+    "singlePublicImageCanQualify": false,
+    "evidenceCanDirectlyAuthorizePlacementOrCollisionMutation": false,
+    "mainWindowAdjudicationRequired": true
+  },
+  "readOnlyArchiveContract": {
+    "writesPerformedNow": false,
+    "userOriginalRawRootWhenAvailable": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/xingfuli-user-photo-route-2026-07-26/raw/",
+    "publicXhsRawRootAfterQualifiedAuthorizedCapture": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/xingfuli-east-panyu-road-xhs-evidence/raw/",
+    "knowledgeSourcePathAfterCapture": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/xingfuli-east-panyu-road-xhs-evidence/README.md",
+    "wikiProject": "Threejs-3d-research",
+    "wikiRawMarkdownPath": "/Volumes/plugin/Threejs-3d-research/raw/sources/threejs-modeling-knowledge-base/wander-xinhua/xingfuli-east-panyu-road-xhs-evidence.md",
+    "existingUserRouteWikiPath": "wiki/sources/31-threejs-modeling-knowledge-base--13-wander-xinhua--36-xingfuli-user-photo-route-2026-07-26--6cszba.md",
+    "rawMediaPolicy": "Preserve original bytes, filenames, order, SHA-256 and metadata read-only; new analysis uses separate derived files and never overwrites source media.",
+    "wikiPolicy": "Hard-link only the Markdown source into the Wiki raw-source tree; do not hard-link or copy binary media into Wiki sources.",
+    "completionPolicy": "Archive plus rescan is not completion; require queue clear, search hit, read-back and traceability to source media."
+  },
+  "runtimeDisableCandidate": {
+    "currentEligibility": false,
+    "currentActionAuthorized": false,
+    "candidateOnlyAfter": [
+      "main window executes this reasonable slow Xiaohongshu query contract",
+      "search accounting records all reviewed queries and candidates",
+      "no candidate passes every required acceptance-matrix row",
+      "user photo 9 remains unavailable or inconclusive",
+      "main window records an evidence-exhausted adjudication"
+    ],
+    "candidateMeaning": "A main-window proposal to hide or disable the xingfuli-east runtime entry only; it is not permission for this building branch to mutate runtime.",
+    "preservationRequirements": [
+      "retain every Hero, Identity, Massing, Blend, generator, build record, screenshot and test file",
+      "retain Recovery/Hold and all out-of-scope assets unchanged",
+      "do not delete, overwrite, move or repurpose user originals or public evidence",
+      "record a reversible runtime-only change owned by the main integration window"
+    ],
+    "automaticDisableForbidden": true
+  },
+  "verdict": {
+    "queryReady": true,
+    "queryExecuted": false,
+    "qualifiedEvidenceFound": false,
+    "mapBlockerReleased": false,
+    "placementOrCollisionMutationAuthorized": false,
+    "runtimeDisableCandidateEligible": false,
+    "nextGate": "Main-window xhigh may execute the slow read-only XHS query contract; adjudicate evidence before either map work or a reversible runtime-disable candidate."
+  }
+}
