@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 1,
+  "assetId": "fics-xinhua-365",
+  "label": "FICS新华365",
+  "auditedAt": "2026-07-27T00:14:34+08:00",
+  "baseCommit": "385eb12eada8db04d9a5694d99cb6f4c310e4977",
+  "status": "offline-hidden-xhs-photos-found-map-membership-and-service-way-still-blocked",
+  "scope": {
+    "mode": "read-only-exhaustive-external-evidence-audit",
+    "included": [
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/",
+      "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/"
+    ],
+    "browserAccessed": false,
+    "networkAccessed": false,
+    "xiaohongshuAccessed": false,
+    "externalFilesWritten": false,
+    "externalFilesMovedOrDeleted": false,
+    "repositoryAssetsModified": false,
+    "sharedFilesModified": false,
+    "recoveryOrHoldModified": false,
+    "modelingOrGateRerun": false
+  },
+  "searchContract": {
+    "path": "docs/research/fics-xinhua-365-xiaohongshu-query-contract-2026-07-26.json",
+    "sha256": "370185fafac1080a9392309e8d8ee21a5513987e00c570a1d132e22d85e74a30",
+    "questions": [
+      "formal campus member table or boundary",
+      "binding of five anonymous OSM candidates",
+      "way/864493177 versus the current service surface",
+      "way/577252268 surface, width, cover, access and operational disposition",
+      "Lane 365 entrance continuity",
+      "geolocatable compound footprint"
+    ]
+  },
+  "rootInventory": [
+    {
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+      "fileCount": 5023,
+      "byteCount": 2233188244,
+      "basenameOrPathHits": 62,
+      "textContentHits": 88,
+      "note": "Includes legacy-imports; repeated immutable repository snapshots create duplicate path hits."
+    },
+    {
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/",
+      "fileCount": 1671,
+      "byteCount": 691388513,
+      "basenameOrPathHits": 18,
+      "textContentHits": 25,
+      "note": "Contains the raw 88-image nonbuilding street-life XHS set and the earlier building-evidence snapshot."
+    },
+    {
+      "root": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/",
+      "fileCount": 315,
+      "byteCount": 4481830524,
+      "basenameOrPathHits": 0,
+      "textContentHits": 5,
+      "note": "The five text hits are one FICS public-source README, two height/massing datasets, one district massing record and one nonbuilding XHS manifest; only the last manifest leads to previously unregistered FICS photos."
+    }
+  ],
+  "snapshotIntegrity": [
+    {
+      "snapshotId": "2026-07-26-ad37273",
+      "manifestPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-ad37273/manifest.json",
+      "manifestSha256": "5b5eb28ec0d943d16231c3f9440036770d55389e67e98ad24e1546e2f0c58e7b",
+      "checksumPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-ad37273/SHA256SUMS",
+      "checksumSha256": "2ba0c627cbe0f9b5dd24fcb34a93521197b11fb8ca2e662b48d2b56a18b1c041",
+      "declaredFileCount": 979,
+      "declaredByteCount": 450568192,
+      "fullChecksumVerification": "pass"
+    },
+    {
+      "snapshotId": "2026-07-26-5383f2a",
+      "manifestPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-5383f2a/manifest.json",
+      "manifestSha256": "76fd29c9d89477778ef9269830751e24c648965d883335ddd6170bd1a6c2fe23",
+      "checksumPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-5383f2a/SHA256SUMS",
+      "checksumSha256": "1ac3c5e8d1fbaf978949ba64888c00dba34aa7d8d256b2ec2c395ac860f18736",
+      "declaredFileCount": 1210,
+      "declaredByteCount": 622911488,
+      "fullChecksumVerification": "pass"
+    },
+    {
+      "snapshotId": "2026-07-26-b20494c",
+      "manifestPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-b20494c/manifest.json",
+      "manifestSha256": "1d1278811a8cc3470b2597667b8e6b3ef78c5f71b79963a03763e5fcc7fbd645",
+      "checksumPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-b20494c/SHA256SUMS",
+      "checksumSha256": "138f8fa1651cdb0916057a02ba3868eb933693ab962df43b01dca947b796eb7d",
+      "declaredFileCount": 1155,
+      "declaredByteCount": 476893184,
+      "fullChecksumVerification": "pass"
+    }
+  ],
+  "existingKnownMaterial": {
+    "uniqueReferenceImages": 6,
+    "immutableDuplicateCopiesPerImage": 5,
+    "registeredRealPhotos": [
+      {
+        "name": "fics-xinhua-365-built-logo.jpg",
+        "sha256": "353edf2315645e00325cc5659e2ef2738825bd06c0237632009d7f0dec7deef6"
+      },
+      {
+        "name": "fics-xinhua-365-built-courtyard.jpg",
+        "sha256": "3d8e2348e6840a503c9c4a6e8ef900f20ed90e3401f13dd7a9edec9855ed9d61"
+      },
+      {
+        "name": "fics-xinhua-365-built-mansion.jpg",
+        "sha256": "87a4dc31c67f587bd91ba4c8b5cecc7137032bc4383dca1d4f8d53dbe08efc64"
+      }
+    ],
+    "briefOnlyRenderings": [
+      {
+        "name": "fics-xinhua-365-aerial.jpg",
+        "sha256": "03ab8cac1992f6f215af82d6be08101f7cbb226b24344ed6be2a6d08b1b7401b",
+        "classification": "architectural-perspective-rendering-not-orthorectified-or-georeferenced"
+      },
+      {
+        "name": "fics-xinhua-365-main-building.jpg",
+        "sha256": "0ff838bd6c1e3e64904ae2d5c607eb8135cce3386eff348d1e230899a252b2fe",
+        "classification": "architectural-visualization-not-built-photo"
+      },
+      {
+        "name": "fics-xinhua-365-courtyard.jpg",
+        "sha256": "183a62ae6149df8bf72e765e0746f7e3bb1cc1e01bdf60cfc4cd0b6f6374945f",
+        "classification": "architectural-visualization-not-built-photo"
+      }
+    ],
+    "runtimeOnlyExtraScreenshots": [
+      {
+        "path": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-5383f2a/repository/test_artifacts/test_runtime_fics365.png",
+        "sha256": "7dc24a7d1f9d32ceb6a65cd7617c3f196e6d119d3275cd90b39a5ae303600c23"
+      },
+      {
+        "path": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-5383f2a/repository/test_artifacts/test_xinhua365_runtime.png",
+        "sha256": "7e5bf8ba57a59adaca24de8d1702d803e5423f49db45a4e1d0adf76b078f675c"
+      }
+    ],
+    "adjudication": "These are exact duplicates or Blender/Three.js/runtime captures. They add no unregistered real-world member, road or boundary evidence."
+  },
+  "hiddenLegacyXhsSource": {
+    "status": "found-unregistered-for-this-building",
+    "postId": "67fcf03c000000000b02d804",
+    "url": "https://www.xiaohongshu.com/explore/67fcf03c000000000b02d804",
+    "title": "新华路夜神扫街 + citywalk 路线",
+    "author": "返璞归真神探",
+    "publishedLabel": "2025-04-14",
+    "manifest": {
+      "path": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/evidence-manifest.json",
+      "sha256": "3fffec9c23a83933ed3b825c73f1c3c4e7734b8b5b6df2c8aada07a19f289cd6",
+      "postImageCount": 14,
+      "rawPostImageCount": 14,
+      "postImageSetComplete": true
+    },
+    "sourceReadme": {
+      "path": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/README.md",
+      "sha256": "f141e7109fb963f2ce725337374695a610c4e71542c1487908fb10ae352d42a1"
+    },
+    "rawMediaRoot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/knowledge-base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/raw/xhs/67fcf03c000000000b02d804/",
+    "repositoryRegistrationAudit": {
+      "mediaFilesHashed": 849,
+      "matchingPhotoShaCount": 0,
+      "postIdOrPhotoShaTextMatchCount": 0,
+      "status": "not-registered-in-current-fics-repository-evidence"
+    },
+    "relevantMedia": [
+      {
+        "file": "image-01.webp",
+        "path": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/knowledge-base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/raw/xhs/67fcf03c000000000b02d804/image-01.webp",
+        "sha256": "5dce97efd4216c8b067d103cb40772128070a91bab30d27cdc7df3ae605de541",
+        "bytes": 276568,
+        "dimensions": [1440, 1080],
+        "classification": "real-photo",
+        "observed": [
+          "A built multi-storey mural facade with a large numeral 6.",
+          "Ground-floor shops, planters, outdoor tables and a broad hard-paved foreground are visible.",
+          "The source watermark and same-post route context identify the image as FICS/Xinhua 365."
+        ],
+        "notObserved": [
+          "external road name or curb",
+          "campus boundary",
+          "OSM-way identity",
+          "measured width or scale"
+        ]
+      },
+      {
+        "file": "image-08.webp",
+        "path": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/knowledge-base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/raw/xhs/67fcf03c000000000b02d804/image-08.webp",
+        "sha256": "defcd0cb401bb1d92a7f10650e0f2451446a199a4f9bb2fb1da00dfbd1708a7c",
+        "bytes": 89690,
+        "dimensions": [1080, 1440],
+        "classification": "hand-drawn-route-map",
+        "observed": [
+          "The drawing places Xinhua 365 south of Xinhua Road and west of the Lane 345 community center.",
+          "It records an ordered citywalk context but no campus outline or internal-road geometry."
+        ],
+        "notObserved": [
+          "north arrow",
+          "scale",
+          "survey coordinates",
+          "building footprint or member table"
+        ]
+      },
+      {
+        "file": "image-10.webp",
+        "path": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/knowledge-base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/raw/xhs/67fcf03c000000000b02d804/image-10.webp",
+        "sha256": "f1bfd3585daa36b95e665398fe1b4b583835511e0879d5cbca2ce8fa215eefe2",
+        "bytes": 317412,
+        "dimensions": [1080, 1621],
+        "classification": "real-photo",
+        "observed": [
+          "A visible FICS 365 rooftop sign and a facade numeral 9 identify the same compound.",
+          "A narrow open-air hard-surfaced passage runs between built facades.",
+          "The captured segment includes exposed fire-service pipes, a convex mirror, vegetation, a transverse threshold or speed bump and steps at the far end."
+        ],
+        "notObserved": [
+          "proof that the passage is OSM way/577252268",
+          "proof that either facade is OSM way/864493177",
+          "measured carriageway width",
+          "formal access class, complete cover status or road edge coordinates"
+        ]
+      }
+    ]
+  },
+  "evidenceClassification": {
+    "observed": [
+      "Two previously unregistered same-post real photos show built FICS scenes labelled by visible numerals 6 and 9.",
+      "The numeral-9 scene contains an open-air hard-surfaced internal passage between buildings.",
+      "A same-post hand-drawn route map places Xinhua 365 approximately south of Xinhua Road and west of the Lane 345 community center.",
+      "All three immutable dynamic-evidence snapshots pass their complete SHA256SUMS verification.",
+      "The prior six FICS references and all runtime/MCP captures found by filename are duplicates of already known material."
+    ],
+    "inferred": [
+      {
+        "claim": "The photo set improves identity and internal-space coverage by showing at least two numbered FICS scenes and one service-like passage.",
+        "confidence": "high"
+      },
+      {
+        "claim": "The numeral-9 passage may be an internal service or pedestrian alley, but it cannot be equated with OSM way/577252268 without a geolocatable control chain.",
+        "confidence": "medium"
+      },
+      {
+        "claim": "The hand-drawn route map supports approximate entrance-side context, not a calibrated entrance point or continuous route.",
+        "confidence": "high"
+      }
+    ],
+    "unknown": [
+      "Whether numerals 6 and 9 are formal building numbers, zone labels or commercial wayfinding.",
+      "Which, if any, of the five candidate ways correspond to the photographed numeral-6 and numeral-9 facades.",
+      "Whether the photographed passage is way/577252268.",
+      "The real width, mapped edge, exact surface specification, access status and full covered/layer disposition of way/577252268.",
+      "The continuous path from the Xinhua Road/Lane 365 entrance to the photographed internal passage.",
+      "The formal campus boundary and complete member table."
+    ]
+  },
+  "acceptanceEvaluation": [
+    {
+      "category": "campus-member-table-and-boundary",
+      "result": "blocked",
+      "effect": "Visible numerals 6 and 9 are new identity controls but not a formal member schedule or boundary."
+    },
+    {
+      "category": "five-anonymous-candidate-binding",
+      "result": "blocked",
+      "effect": "No photo, frame or manifest contains a geolocatable photo-to-way correspondence."
+    },
+    {
+      "category": "way-864493177-versus-service-surface",
+      "result": "blocked",
+      "effect": "The numeral-9 passage is real and open-air in the captured segment, but neither adjacent facade is bound to way/864493177."
+    },
+    {
+      "category": "way-577252268-surface-width-cover-access",
+      "result": "partial-unbound-observation",
+      "effect": "An unknown internal passage is visibly hard-surfaced and uncovered in-frame; width, access, complete cover and OSM identity remain unknown."
+    },
+    {
+      "category": "lane-365-entrance-continuity",
+      "result": "partial-non-calibratable",
+      "effect": "The hand-drawn route gives approximate neighborhood order only; no continuous exterior-to-interior sequence exists."
+    },
+    {
+      "category": "calibratable-footprint",
+      "result": "blocked",
+      "effect": "No north arrow, scale, survey control, orthophoto or reproducible campus outline was found."
+    }
+  ],
+  "retainedStagePolicy": {
+    "recoveryMassing": "pass-retained-no-rerun",
+    "mcp1": "pass-shape-only-retained-no-rerun",
+    "projection": "pass-retained-no-rerun",
+    "threeAndCollisionDiagnostic": "pass-diagnostic-retained-no-rerun",
+    "heroIdentityMcp2Mcp3": "remain-blocked",
+    "formalMapAcceptance": "remain-blocked",
+    "runtimePromotionOrDisableAuthorized": false
+  },
+  "verdict": {
+    "newUnregisteredRealPhotosFound": 2,
+    "newUnregisteredContextFramesFound": 1,
+    "qualifyingMemberBindingFound": false,
+    "qualifyingServiceWayBindingFound": false,
+    "qualifyingEntranceContinuityFound": false,
+    "qualifyingCalibratableFootprintFound": false,
+    "buildingComplete": false,
+    "mainWindowAction": "Integrate this additive offline evidence audit, preserve all source files in place, and keep the browser/XHS reasonable-search gate pending. The hidden photos improve identity and generic internal-lane evidence but do not authorize map, road, collision, Hero/Identity or runtime changes."
+  },
+  "reproduction": {
+    "filenameScan": "find each root for fics, xinhua365, 577252268 and candidate-way path names",
+    "textScan": "rg text files for FICS/Xinhua 365, Lane 365, five candidate way IDs and service way/577252268",
+    "snapshotVerification": "cd each snapshot and run shasum -a 256 --check --status SHA256SUMS",
+    "legacyPostCheck": "parse evidence-manifest.json post 67fcf03c000000000b02d804 and compare its 14 image keys with the 14 raw files",
+    "repositoryDuplicateCheck": "hash 849 repository JPG/JPEG/PNG/WEBP/GIF files and compare against the three hidden-media SHA values",
+    "writeBoundary": "No external path was modified; this audit JSON and its test are the only repository additions."
+  }
+}
