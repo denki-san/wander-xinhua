@@ -58,7 +58,7 @@ test("Villa Le Bec 视觉裁决锁定参考和候选截图指纹且保留旧候�
   assert.equal(record.scopeGuard.doNotModify.includes("full-map-assets"), true);
 });
 
-test("统一状态与 Fast Mode 保留 v1/Identity Hold，并只把 v2 作为待复核候选", async () => {
+test("统一状态与 Fast Mode 保留 v1/Identity Hold，并只授权通过 MCP2 的 v2", async () => {
   const [status, fast] = await Promise.all([
     readJson("docs/research/exact-18-building-status.json"),
     readJson("docs/research/building-pipeline-fast-mode.json"),
@@ -66,9 +66,9 @@ test("统一状态与 Fast Mode 保留 v1/Identity Hold，并只把 v2 作为待
   const building = status.buildings.find((entry) => entry.id === "villa-le-bec");
   const fastBuilding = fast.buildings.find((entry) => entry.id === "villa-le-bec");
 
-  assert.equal(building.hero, "candidate-v2-pending-reproducibility-and-mcp2");
-  assert.equal(building.mcp2, "blocked-v1-failed-v2-recheck-pending");
-  assert.equal(building.identity, "hold-v1-derived-from-rejected-hero-v1");
+  assert.equal(building.hero, "pass-current-v2-sha");
+  assert.equal(building.mcp2, "pass-v2-current-sha");
+  assert.equal(building.identity, "hold-v1-v2-authorized-not-built");
   assert.equal(building.runtimePolicy, "massing-only-no-tier-promotion");
   assert.equal(building.records.includes(recordPath), true);
   assert.equal(fastBuilding.tests.includes("tests/test_villa_le_bec_hero_visual_adjudication.test.mjs"), true);

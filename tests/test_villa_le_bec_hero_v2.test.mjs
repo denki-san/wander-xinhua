@@ -182,7 +182,7 @@ test("Villa Le Bec Hero v2 只使用 01/02/11 并保留开放庭院合同", asyn
   }
 });
 
-test("Villa Le Bec Hero v2 三机位与 triptych 均锁定，主线可复现前不越权授权", async () => {
+test("Villa Le Bec Hero v2 三机位与 triptych 均锁定，MCP2 只授权当前 v2 SHA", async () => {
   const record = await json(recordPath);
   assert.deepEqual(record.outputs.previews.map(({ view }) => view), [
     "canonical",
@@ -194,7 +194,7 @@ test("Villa Le Bec Hero v2 三机位与 triptych 均锁定，主线可复现前�
     assert.equal(await sha256(preview.path), preview.sha256, preview.path);
   }
   assert.equal(record.gates.headlessCanonicalSideEntrance, "pass");
-  assert.equal(record.gates.mcp2, "pending-after-mainline-reproducibility-repair");
-  assert.equal(record.gates.identity, "not-authorized-until-reproducibility-and-mcp2");
+  assert.equal(record.gates.mcp2, "pass-main-window-blender-mcp-current-v2-sha");
+  assert.equal(record.gates.identity, "authorized-from-current-hero-v2-sha-only");
   assert.equal(record.gates.runtime, "not-run-by-scope");
 });
