@@ -1,0 +1,256 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xingfuli-west",
+  "candidateId": "osm-convex-collision-proxy-v1",
+  "auditedAt": "2026-07-26",
+  "scope": {
+    "mode": "collision-proxy-candidate-only",
+    "heroIdentityMassingModified": false,
+    "placementMovedScaledOrRotated": false,
+    "publicRegistryRuntimeOrManifestModified": false,
+    "browserUsed": false,
+    "productionCollisionModified": false
+  },
+  "verdict": {
+    "status": "blocked-full-coverage-conflicts-with-pedestrian-passage",
+    "candidatePromotable": false,
+    "productionRoadBlockerRemains": true,
+    "summary": "按 OSM 三个 building=yes 面做 100% 覆盖的精确凸分片可以消除幸福路 AABB 假入路，但 way/864823874 同时覆盖 OSM 幸福里步行中心线；完整地面实体会封堵入口与主巷。挖出人物通道又会破坏 100% footprint 覆盖，因此当前证据下不能同时通过。"
+  },
+  "inputs": {
+    "collisionSource": {
+      "path": "app/scene/xingfuli-collision.ts",
+      "sha256": "a0a53cc6fe33fd0406a0b154125564fdce29c28fef23157acc3fd5812bb9b460"
+    },
+    "layout": {
+      "path": "app/scene/xingfuli-layout.json",
+      "sha256": "a9f9655c5a7504a1033c8378e977d2157ad118426914347ec7ec466f90a0fc89"
+    },
+    "qaPaths": {
+      "path": "app/scene/xingfuli-qa-paths.json",
+      "sha256": "c4f109a4200085a8a1230a89ac9201f604af02453ff907fd37ffcaaea4700ea1"
+    },
+    "map": {
+      "path": "app/scene/xinhua-map-data.json",
+      "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78"
+    },
+    "osmBuildings": {
+      "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+      "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c"
+    },
+    "osmRoads": {
+      "path": "docs/research/data/xinhua-roads-osm-20260716-080509.json",
+      "sha256": "351308feafab0344dc59a66ebd68d0748f81ef1cd69dc218765a22eb51abf2ec"
+    },
+    "osmBoundary": {
+      "path": "docs/research/data/xinhua-boundary-osm-20260716-080509.json",
+      "sha256": "f0d316fde8d6e3dc75a853551b642468d4f4c530d8f415d3fef9daec4972c181"
+    },
+    "westReference": {
+      "path": "docs/research/xingfuli-west-reference-manifest.json",
+      "sha256": "48a6f4a2a4b3eb6774cad382ea6d713b4f83a337b7367178254590276e1229ee"
+    },
+    "existingAudit": "docs/research/xingfuli-west-fast-audit.json"
+  },
+  "unchangedProductionTransform": {
+    "position": [
+      108.6950323854418,
+      13.198335245984035
+    ],
+    "rotationY": 2.997763,
+    "longitudinalScale": 0.5382809787234043,
+    "crossScale": 0.581898,
+    "localLaneCenterZ": -7,
+    "metersPerSceneUnit": 2.7
+  },
+  "currentProductionFailure": {
+    "proxyType": "local-rectangles-sliced-to-world-aabb",
+    "northWestAsphaltEdgeClearanceScene": -1.1289594313541507,
+    "southWestAsphaltEdgeClearanceScene": -3.020253840972857,
+    "globalTranslationAuthorized": false,
+    "uniformOrNonUniformScaleHackAuthorized": false,
+    "assetRebuildAuthorized": false
+  },
+  "exactFootprintAttempt": {
+    "sourceOsmIds": [
+      864823873,
+      864823874,
+      864823875
+    ],
+    "sourceTag": "building=yes",
+    "method": "project-osm-to-existing-local-frame-then-ear-clip-to-convex-triangles",
+    "coverageRatio": 1,
+    "convexPieceCount": 10,
+    "westOwnershipRangeLocalX": [
+      -47,
+      -22
+    ],
+    "sourceFootprints": [
+      {
+        "osmId": 864823873,
+        "localPolygon": [
+          [-18.031680552826682, 8.946337671955607],
+          [-17.845244145902203, 15.760344207334889],
+          [-40.395119906148494, 16.32878661075586],
+          [-40.58046613775808, 9.521743151890355]
+        ],
+        "areaLocal": 153.67909591008396,
+        "westClipAreaLocal": 125.9871047022828,
+        "roadClearanceScene": 0.2269805709570054,
+        "roadClearanceMeters": 0.6128475415839146
+      },
+      {
+        "osmId": 864823874,
+        "localPolygon": [
+          [27.484428212041532, -0.8199402202482604],
+          [-2.305347528964626, -0.8313314575920865],
+          [-2.329761172193612, 9.117613757059484],
+          [-10.876641814863838, 9.110992629572685],
+          [-10.852228171596122, -0.8379525848315099],
+          [-39.09972002004141, -0.8498046601039242],
+          [-39.084993659942434, -7.562797376369676],
+          [27.505638129687835, -7.533801563382634]
+        ],
+        "areaLocal": 532.0854452378873,
+        "westClipAreaLocal": 114.73865870342922,
+        "roadClearanceScene": 0.5047863855163008,
+        "roadClearanceMeters": 1.3629232408940124
+      },
+      {
+        "osmId": 864823875,
+        "localPolygon": [
+          [19.82013893865415, -12.354960905977496],
+          [-34.02582296757213, -12.370998895752006],
+          [-33.99585042021941, -24.609829076039198],
+          [19.85768521975171, -24.587696636990348]
+        ],
+        "areaLocal": 658.8944825095757,
+        "westClipAreaLocal": 146.99055845992407,
+        "roadClearanceScene": 1.7152908994696148,
+        "roadClearanceMeters": 4.63128542856796
+      }
+    ],
+    "roadGate": {
+      "status": "pass-exact-convex-footprints-only",
+      "minimumAsphaltEdgeClearanceScene": 0.2269805709570054,
+      "allSourceFootprintsRemainFullyCovered": true
+    }
+  },
+  "pedestrianConflict": {
+    "buildingOsmId": 864823874,
+    "buildingTags": {
+      "building": "yes"
+    },
+    "missingVerticalOrPassageTags": [
+      "min_height",
+      "building:min_level",
+      "covered",
+      "tunnel",
+      "layer",
+      "entrance"
+    ],
+    "pedestrianOsmId": 400066625,
+    "pedestrianTags": {
+      "highway": "pedestrian",
+      "name": "幸福里"
+    },
+    "pedestrianLocalEndpoints": [
+      [-46.99992641894818, -7.000042903427085],
+      [54.61684464866446, -7.000042202387518]
+    ],
+    "footprintIntersectionLocalX": [
+      -39.08622818012831,
+      27.503951920121974
+    ],
+    "fullOverlap": {
+      "local": 66.59018010025028,
+      "scene": 35.84422731773048,
+      "meters": 96.77941375787229
+    },
+    "westOwnershipOverlap": {
+      "local": 17.08622818012831,
+      "scene": 9.197191627490877,
+      "meters": 24.83241739422537
+    },
+    "blockedMainRouteWaypoints": [
+      [-28, -6.8],
+      [-23, -5.7],
+      [-15, -5.7],
+      [-10, -6.2],
+      [6, -6.2]
+    ],
+    "entranceAndMainRouteGate": "fail-full-footprint-is-solid-at-player-height"
+  },
+  "westCenterSeam": {
+    "localX": -22,
+    "sourceIntervalsLocalZ": {
+      "864823873": [
+        9.047602227753284,
+        15.86507823906265
+      ],
+      "864823874": [
+        -7.555357992364227,
+        -0.8426299640317172
+      ],
+      "864823875": [
+        -24.604899085368956,
+        -12.367417011076608
+      ]
+    },
+    "centerNorthObstacleLocalZ": [
+      -0.75,
+      7.930000000000001
+    ],
+    "centerSouthObstacleLocalZ": [
+      -22.28,
+      -13
+    ],
+    "localXOverlapWithCenterObstacles": 1.53,
+    "worldXOverlapWithCenterObstacles": 0.8235698974468086,
+    "northOuterGapWorld": 0.6503305011251802,
+    "way874ToNorthGapWorld": 0.053901190810128174,
+    "southOverlapLocal": 9.280000000000001,
+    "playerDiameterWorld": 0.96,
+    "playerSizedSeamHole": false,
+    "status": "pass-candidate-seam-has-no-player-sized-hole"
+  },
+  "minimumWalkableCarve": {
+    "purpose": "只量化让半径 0.48 world 的人物沿 OSM 中心线通过所需的最低 west corridor；不是获准候选。",
+    "playerRadiusWorld": 0.48,
+    "playerRadiusLocalCross": 0.8248868358372086,
+    "way874WestAreaLocal": 114.73865870342922,
+    "minimumCarveArea": {
+      "local": 23.646404096007416,
+      "scene": 7.4066360545581205,
+      "squareMeters": 53.99437683772871
+    },
+    "removedFractionOfWay874West": 0.2060892498066189,
+    "remainingCoverageRatioOfWay874West": 0.7939107501933811,
+    "fullFootprintCoveragePreserved": false,
+    "status": "reject-without-ground-level-passage-evidence"
+  },
+  "evidenceDecision": {
+    "observed": [
+      "三个 OSM building=yes 面对幸福路夸张道路面均保持正净距。",
+      "way/864823874 与 OSM pedestrian way/400066625 在完整 footprint 内重叠约 96.78 米，其中 west ownership 范围约 24.83 米。",
+      "OSM building 记录没有 min_height、building:min_level、covered、tunnel、layer 或 entrance，可证明 footprint，但不能证明人物高度处的实体/架空关系。",
+      "三张幸福路入口照片证明人行道与内部步行巷连续开放，但不能给出 ground-level passage 的精确边界。"
+    ],
+    "inferred": [
+      "way/864823874 可能包含架空、门洞或 OSM 粗化轮廓，但现有数据不足以选择哪一部分可从人物碰撞中剔除。",
+      "精确凸分片适合消除 world AABB 假入路，但只有在 ground-level solid footprint 被证明后才可 promotion。"
+    ],
+    "unknown": [
+      "way/864823874 在人物高度处的真实实体边界、架空高度和入口开口宽度。",
+      "三条 OSM building 面与当前 seven-volume layout 的施工图级楼座对应关系。",
+      "公共碰撞层未来采用局部凸多边形、三角分片还是带明确 passage void 的组合代理。"
+    ]
+  },
+  "minimumFutureRepair": [
+    "取得 way/864823874 的 ground-level footprint、架空层/min_height 或入口测绘证据，明确哪些区域在人物高度处是实体。",
+    "在新 candidate 数据中保留三个 OSM 面的来源 SHA，并只对有证据的 passage void 做布尔裁切；不得用任意走廊挖空来迎合测试。",
+    "把剩余 solid footprint 确定性分解为凸片，记录 source polygon、void polygon、输出片段和覆盖/重叠面积。",
+    "在公共集成分支实现前，复跑幸福路道路净距、西中 seam、入口主路线、人物半径、相机和现有三档同机位验收。",
+    "证据补齐并通过前，继续使用现有生产碰撞且保持道路 gate blocked；不得移动、缩放、旋转或重建资产。"
+  ]
+}
