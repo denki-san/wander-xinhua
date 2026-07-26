@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-community-center",
+  "label": "新华·社区营造中心",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "06d61fe542ba4c1467b8ad7db1023ecbd9f02e4b",
+  "status": "blocked-service-road-semantics-unresolved",
+  "scope": {
+    "mode": "single-building-medium-gap-audit",
+    "networkAccessed": false,
+    "browserOrXhsAccessed": false,
+    "blenderOpened": false,
+    "qualifiedRecoveryStageRerun": false,
+    "modelBinaryModified": false,
+    "buildingTransformModified": false,
+    "roadRendererModified": false,
+    "publicRegistryModified": false,
+    "fastManifestModified": false,
+    "excluded": [
+      "Recovery/Hold mutation",
+      "trees",
+      "vegetation",
+      "decorations",
+      "full-map assets",
+      "other buildings"
+    ]
+  },
+  "inputs": {
+    "localRescue": {
+      "path": "docs/research/xinhua-community-center-service-road-local-rescue-audit.json",
+      "sha256": "c7543e054ea7ac2646dab63802a7857fb6365cbc92a5efa31f8ab1ff77ff824e"
+    },
+    "mapCandidate": {
+      "path": "docs/research/xinhua-community-center-map-candidate.json",
+      "sha256": "74fdb48bf36cf4b62f7d5cc3b6516f5f9ff5d4b483f767cc3f87b6702debde0d"
+    },
+    "mapGate": {
+      "path": "docs/research/xinhua-community-center-massing-map-gate.json",
+      "sha256": "86ca0488d175a276c3434fca432d8a4cc7c30b328f4af150ac4ed61265906c57"
+    },
+    "runtimeQa": {
+      "path": "docs/research/xinhua-community-center-threejs-runtime-qa.json",
+      "sha256": "e7f1c815cbf1a570fb2d610ac7b49e3a470381990cf301100ca0533c08a60c44"
+    },
+    "massingGlb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb",
+      "sha256": "a0609064ec15f0bfeb042ac9013152eda7575205c55bdaf79063cae38c77b471"
+    },
+    "frontPhoto": {
+      "path": "docs/research/assets/requested-poi-references/xinhua-community-center-front.jpg",
+      "sha256": "6f8c977a478b07769294af6299fec41b5e269ad11da3446681046e15d366c6bf"
+    },
+    "toyHousePhoto": {
+      "path": "docs/research/assets/requested-poi-references/xinhua-community-center-toy-house.jpg",
+      "sha256": "9441bdc22d03c664282a853b5adbabba68f99930243d9f924d06676dfb392cf5"
+    }
+  },
+  "acceptedStages": {
+    "osmBinding": "named POI node 13765678129 lies inside building way 864493234; current placement reproduces the footprint with zero vertex error",
+    "massingV2": "retained unchanged, MCP1 passed, and runtime collision wall-stop is diagnostic-only",
+    "runtimeDiagnostics": "resource, console, ground contact, camera, neighbor clearance and no-penetration collision replay passed; none proves road-surface semantics"
+  },
+  "frozenGeometry": {
+    "buildingWayId": 864493234,
+    "roadWayId": 577252269,
+    "roadName": "新华路345弄",
+    "placement": {
+      "position": [-74.78057782060566, 112.5501903703319],
+      "yaw": 1.1800125527954972,
+      "scale": 1
+    },
+    "start": {
+      "position": [-66.401198105, 115.83439432],
+      "forward": [-0.9310421906207795, -0.3649115499460933]
+    },
+    "closestNeighborWayId": 864493232,
+    "closestNeighborGapSceneUnits": 1.1517136810103772,
+    "road": {
+      "renderedFullWidthSceneUnits": 2.5,
+      "renderedHalfWidthSceneUnits": 1.25,
+      "buildingBoundaryToCenterlineSceneUnits": 0.8473649273117979,
+      "asphaltOverlapSceneUnits": 0.4026350726882021,
+      "asphaltOverlapMeters": 1.0871146962581457,
+      "zeroBufferMaximumFullWidthSceneUnits": 1.6947298546235958,
+      "zeroBufferMaximumFullWidthMeters": 4.575770607483709,
+      "pointTwoMarginMaximumFullWidthSceneUnits": 1.2947298546235957
+    }
+  },
+  "authorityReview": {
+    "repositoryAuthorityToClassifyRoadAsGroundFloorOrPrivatePassage": false,
+    "repositoryAuthorityToChangeBuildingFootprint": false,
+    "repositoryAuthorityToNarrowSharedServiceRoad": false,
+    "observedRoadTags": {
+      "highway": "service",
+      "name": "新华路345弄",
+      "oneway": "no"
+    },
+    "missingRoadTags": ["width", "est_width", "lanes", "access", "service", "surface", "maxwidth", "vehicle"],
+    "roadSnapshots": 6,
+    "uniqueGeometryVariants": 1,
+    "uniqueTagVariants": 1,
+    "relationOrMemberCoverage": "unavailable in every saved response",
+    "localPlanOrSurveyCount": 0,
+    "reason": "The zero-overlap width is a geometric threshold, not an observed or authorized road width. Existing photos only show the near paving and cannot establish both road edges, a centerline offset, or a private/ground-floor interpretation."
+  },
+  "prohibitedWithoutNewEvidence": [
+    "move or scale the building",
+    "alter the OSM-bound footprint",
+    "narrow or suppress the shared service-road renderer",
+    "split collision to conceal the physical footprint-to-road overlap",
+    "treat runtime no-penetration as map acceptance",
+    "promote Hero, Identity, MCP3, or three-tier runtime"
+  ],
+  "minimumUnlockEvidence": [
+    "A surveyed, cadastral, owner, or architect plan at the Building 4 frontage with both road edges, centerline or an offset/dimension chain, scale, date, provenance, and measurement uncertainty.",
+    "Or a geolocatable orthophoto or field measurement that distinguishes 4.5757706075 m from the current 6.75 m rendering and records both road edges plus uncertainty.",
+    "A complete OSM full-history and parent relation/member dump may inform a new review, but absent measured width or boundary evidence it cannot authorize a renderer change."
+  ],
+  "decision": "The 0.4026350727 scene-unit overlap remains a formal map blocker. Retain accepted Massing/MCP1/runtime diagnostic stages, do not rerun them, and do not model or modify public contracts."
+}
