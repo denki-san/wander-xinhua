@@ -32,6 +32,256 @@ Error: listen EPERM: operation not permitted 127.0.0.1:4317
 
 ---
 
+# [ERR-20260726-022] blender_headless_sandbox_crash
+
+**Logged**: 2026-07-26
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Blender 5.2 在默认文件沙箱内打开 Rain Blend 时以 code 139 退出。
+
+### Error
+```text
+Blender 5.2.0 LTS
+zsh: segmentation fault
+```
+
+### Context
+- Command: `/Applications/Blender.app/Contents/MacOS/Blender --background ...`
+- 首次只读场景预检，没有写生产资产。
+
+### Resolution
+在已批准的系统级执行环境中重跑同一个只读命令后成功；Rain rig、13 个 mesh 和三段动画均可读取。后续 Blender 资产生成沿用同一执行边界。
+
+### Prevention
+Blender 在受限沙箱内出现 code 139 时，不反复修改脚本；先以同命令在系统级环境复核是否是 GUI/GPU/文件访问沙箱问题。
+
+---
+# [ERR-20260726-017] rain_identity_first_pass_over_budget
+
+**Logged**: 2026-07-26
+**Priority**: low
+**Status**: resolved
+**Area**: assets
+
+### Summary
+Rain Identity 第一轮确定性减面成功导出，但超过主动设置的运行时预算。
+
+### Error
+```text
+Identity 超出三角面预算：14175 > 12000
+GLB：895668 bytes > 850000 bytes
+```
+
+### Context
+- 13 个 mesh、11 个材质、0 张图片、骨架与三段动作均保留。
+- 超预算主要来自高细分的鞋、头、裤子与身体。
+
+### Resolution
+第二轮进一步降低上述网格和眼睛的 decimation ratio，低马尾与发圈保持原几何不变。
+
+### Prevention
+Blender 源 polygon 数和 GLB 导出后的三角面数不等价；角色 Identity 的预算必须以实际 GLB accessor 审计为准。
+
+---
+# [ERR-20260726-018] local_preview_port_blocked_in_sandbox
+
+**Logged**: 2026-07-26
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+静态预览在默认文件沙箱内绑定 `127.0.0.1:4174` 时被系统拒绝。
+
+### Error
+```text
+Error: listen EPERM: operation not permitted 127.0.0.1:4174
+```
+
+### Resolution
+用已批准的本机网络执行边界重跑同一个 `npm run preview:static` 命令后成功，仅监听 loopback。
+
+### Prevention
+真实浏览器验收需要本地端口时，如果出现 `listen EPERM`，直接按同一 host/port 申请本机网络权限，不改成公开监听地址。
+
+---
+# [ERR-20260726-019] loading_contract_tests_expected_legacy_paths
+
+**Logged**: 2026-07-26
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+首轮定向测试仍断言旧封面文件名、旧白模弱网策略和 Hero 路径所在文件。
+
+### Error
+```text
+expected xinhua-plane-tree-cover-desktop.jpg
+expected weakNetworkPolicy "skip"
+ReferenceError: detailedCharacter is not defined
+```
+
+### Resolution
+将原测试更新到新合同：派生 lite 封面、`nearest-first` 白模分块策略，以及集中式 Rain 资产常量；保留对 Hero 动作逻辑的独立读取。
+
+### Prevention
+路径或运行时合同被主动重构时，同时搜索并更新对应的源码契约测试，不只新增测试。
+
+---
+# [ERR-20260726-020] full_suite_retained_pre_identity_loading_contract
+
+**Logged**: 2026-07-26
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+完整测试仍要求首个开始路径排除 GLTF、使用旧盒子人配色，并只以 Canvas 首帧解锁开始按钮；这些断言与本轮显式需求冲突。
+
+### Error
+```text
+expected setReady(true)
+expected old fallback colors
+missing input- startup chunk
+expected Gltf- to remain deferred
+```
+
+### Resolution
+将合同改为“Loading 阶段包含 Identity GLTF 解析，但 Hero 与后处理仍延后”；在加入 Gltf 解析器后继续约束 5 Mbps 纯 JS 传输小于 650 ms，并把人物比例与程序化色彩断言更新到集中常量和 Rain 保险层。
+
+### Prevention
+当产品主动把一种资源移入启动门槛时，需要同步修改首轮依赖预算，而不是继续把该资源当成禁止项。
+
+---
+# [ERR-20260726-021] worktree_git_index_locked_by_sandbox
+
+**Logged**: 2026-07-26
+**Priority**: low
+**Status**: resolved
+**Area**: git
+
+### Summary
+隔离 worktree 暂存时，默认文件沙箱不能写主仓库下的 worktree index lock。
+
+### Error
+```text
+fatal: Unable to create '.git/worktrees/loading-experience-v2/index.lock':
+Operation not permitted
+```
+
+### Resolution
+保持相同的明确暂存范围，在已批准的 Git 执行边界中重跑；不更改工作树内容。
+
+### Prevention
+本地 worktree 的 `.git` 实际指向主仓库元数据；文件工作区可写不代表 worktree index 可写。
+
+---
+
+## [ERR-20260726-016] completed_building_merge_worktree_no_space
+
+**Logged**: 2026-07-26T22:05:27+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: infra
+
+### Summary
+为 8 栋已完成建筑创建最终合并 Worktree 时，磁盘空间不足导致检出中止。
+
+### Error
+```text
+error: unable to create file assets/models/source/xinhua-road/xinhua-villas.blend: No space left on device
+fatal: cannot create directory at 'build': No space left on device
+```
+
+### Context
+- 目标分支：`codex/merge-completed-8-buildings`。
+- 目标路径：`.worktrees/merge-completed-8-buildings`。
+- 失败发生在新 Worktree 完成登记前；目标路径不存在，现有 Worktree 和用户文件未被覆盖。
+- 验证 Worktree 中有约 909 MB 可重建的 `node_modules` 和约 94 MB 可重建的 `dist-static`。
+
+### Suggested Fix
+只回收本任务生成且可重建的验证依赖与构建产物，保留验证分支提交；重新创建最终合并 Worktree，并复核剩余空间后继续。
+
+### Resolution
+仅删除验证 Worktree 中可重建的 `node_modules` 与 `dist-static` 后，最终 Worktree 成功创建；随后复用主目录依赖完成构建、427 项测试、lint 和 8 个真实页面入口验收。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .worktrees/verify-completed-8-buildings, .worktrees/merge-completed-8-buildings
+
+---
+## [ERR-20260726-014] static_release_preserved_unreadable_file_modes
+
+**Logged**: 2026-07-26T15:20:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+macOS 打包保留了本地静态文件的 `600` 权限，新目录切换后 Nginx 因无读取权限返回 403。
+
+### Error
+```text
+curl: (56) The requested URL returned error: 403
+HTTP/2 403
+open() "/var/www/xinhua-messenger/index.html" failed (13: Permission denied)
+```
+
+### Context
+- 新版本已经在 VPS 完成逐文件哈希校验和原子切换。
+- 文件内容、Nginx 配置和服务状态正常，但 `index.html` 模式为 `600`。
+- Cloudflare 将源站的 403 原样返回，浏览器请求头无法绕过。
+
+### Suggested Fix
+发布包解压后、切换前统一设置目录 `755`、文件 `644`，并把源站 HTTPS 200 纳入原子发布成功条件。
+
+### Metadata
+- Reproducible: yes
+- Related Files: deploy/README.md
+
+### Resolution
+- **Resolved**: 2026-07-26T15:20:00+08:00
+- **Notes**: 已将当前发布目录修正为目录 `755`、文件 `644`；源站和公网 HTTPS 均恢复 200，公开首页哈希与本地一致。
+
+---
+## [ERR-20260726-013] blender_mcp_eevee_engine_enum_mismatch
+
+**Logged**: 2026-07-26T14:45:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Blender MCP 连接端不接受 Headless Blender 5.2 使用的 `BLENDER_EEVEE_NEXT` 渲染枚举。
+
+### Error
+```text
+bpy_struct: item.attr = val: enum "BLENDER_EEVEE_NEXT" not found in
+('BLENDER_EEVEE', 'BLENDER_WORKBENCH', 'CYCLES')
+```
+
+### Context
+- 主窗口为邬达克纪念馆 Identity v1 执行 MCP3 固定机位终审。
+- Blend 已只读打开；脚本仅创建未保存的 QA 相机与灯光。
+- 错误发生在设置渲染引擎时，未保存或改写 Blend。
+
+### Suggested Fix
+在 Blender MCP 连接端使用其实际暴露的 `BLENDER_EEVEE` 枚举；Headless 生成器仍按各自 Blender 版本使用其有效枚举。
+
+### Metadata
+- Reproducible: yes
+- Related Files: assets/models/source/tiers/xinhua-road/identity-v1/hudec-memorial-identity.blend
+
+### Resolution
+- **Resolved**: 2026-07-26T14:45:00+08:00
+- **Notes**: 改用连接端有效的 `BLENDER_EEVEE` 后继续同一未保存 MCP3 渲染流程。
+
+---
+
 ## [ERR-20260725-093] browser_readonly_evaluate_hides_animation_frame
 
 **Logged**: 2026-07-25T00:55:00+08:00
@@ -3256,13 +3506,6 @@ Blender 导入后的稳定名称为 `SuperHero_Male`（大写 H），眼睛与�
 ### 修复
 
 保留 Lint 并行能力，但所有包含 Vite 构建的验证命令必须串行执行；随后单独重跑 `npm test`。
-
-### 再次发生
-
-2026-07-26 在 `loading-experience-v2` 验收时再次并行运行 `npm test` 与
-`npm run build`，两者竞争 `dist-static`，其中一路复制
-`public/images/poi/fahua-heritage.jpg` 时出现 `ENOENT`。确认另一条完整测试内置构建
-成功后，改为串行重跑构建。后续不得并行运行任何包含 `build:static` 的命令。
 
 ---
 ## [ERR-20260718-064] 全量测试仍锁定旧的高位摄像机参数
@@ -6785,7 +7028,73 @@ cause: UND_ERR_SOCKET
 - **Notes**: 已增加正文重试与稀疏文件断点扫描，并从 234 MB 继续下载。
 
 ---
-## [ERR-20260725-028] mobile_poi_offset_contract_stale
+## [ERR-20260725-028] district_massing_source_record_field_assumption
+
+**Logged**: 2026-07-25T20:10:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: docs
+
+### Summary
+只读高度分布统计误把源记录数组字段写成 `accepted`，实际字段是
+`acceptedBuildings`。
+
+### Error
+```text
+TypeError: a is not iterable
+```
+
+### Context
+- 对 `app/scene/xinhua-district-massing-data.json` 运行一次性 Node 统计。
+- 统计前未先读取顶层 schema。
+
+### Suggested Fix
+对大型生成 JSON 做临时统计前，先读取顶层键或文件头，再构造查询。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/xinhua-district-massing-data.json
+
+### Resolution
+- **Resolved**: 2026-07-25T20:10:00+08:00
+- **Notes**: 读取文件头确认字段为 `acceptedBuildings`，随后使用正确字段重跑。
+
+---
+## [ERR-20260725-029] threejs_wiki_source_path_mismatch
+
+**Logged**: 2026-07-25T20:32:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: docs
+
+### Summary
+项目旧工作流约定的 `raw/sources/derived/wander-xinhua/` 不存在于独立
+`Threejs-3d-research` Wiki。
+
+### Error
+```text
+cp: .../raw/sources/derived/wander-xinhua/...: No such file or directory
+```
+
+### Context
+- 当前 Wiki 已从 TowerOld 路由到独立 `Threejs-3d-research`。
+- 独立 Wiki 的实际受监控知识根是
+  `raw/sources/threejs-modeling-knowledge-base/`。
+
+### Suggested Fix
+同步 wander-xinhua 3D 研究时，先读取独立 Wiki 的实际 source tree，并写入
+`raw/sources/threejs-modeling-knowledge-base/wander-xinhua/` 下的专题目录。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/content-research-wiki-workflow.md
+
+### Resolution
+- **Resolved**: 2026-07-25T20:32:00+08:00
+- **Notes**: 已确认独立 Wiki 的 source root，改用其现有 wander-xinhua 分类。
+
+---
+## [ERR-20260725-030] mobile_poi_offset_contract_stale
 
 **Logged**: 2026-07-25T23:57:00+08:00
 **Priority**: low
@@ -6814,151 +7123,544 @@ Expected /safe-area-inset-top ... + 72px/ but CSS uses + 124px.
 ### Resolution
 - **Resolved**: 2026-07-25T23:57:00+08:00
 - **Notes**: 测试改为要求地图光线切换器和 124px 手机安全顶距。
-# [ERR-20260726-016] blender_headless_sandbox_crash
 
-**Logged**: 2026-07-26
-**Priority**: low
-**Status**: resolved
-**Area**: tooling
+---
+## [ERR-20260726-001] blender_headless_sandbox_startup_crash
+
+**Logged**: 2026-07-26T00:00:00+08:00
+**Priority**: medium
+**Status**: pending
+**Area**: tests
 
 ### Summary
-Blender 5.2 在默认文件沙箱内打开 Rain Blend 时以 code 139 退出。
+Blender 5.2 Headless 在受限进程中启动后、加载诊断脚本前以退出码 139 崩溃。
 
 ### Error
 ```text
+ArchWarn: ARCH_CACHE_LINE_SIZE != Arch_ObtainCacheLineSize()
 Blender 5.2.0 LTS
-zsh: segmentation fault
+Writing: .../blender.crash.txt
+exit code 139
 ```
 
 ### Context
-- Command: `/Applications/Blender.app/Contents/MacOS/Blender --background ...`
-- 首次只读场景预检，没有写生产资产。
+- 命令用于逐帧诊断 Rain 角色 Run 动画的裤脚形变。
+- 崩溃发生在 Blender 启动阶段，尚未输出脚本入口标记。
+- 同一项目的正式 Blender 资产工作流允许使用系统 Headless Blender。
 
-### Resolution
-在已批准的系统级执行环境中重跑同一个只读命令后成功；Rain rig、13 个 mesh 和三段动画均可读取。后续 Blender 资产生成沿用同一执行边界。
+### Suggested Fix
+在受限进程外重跑相同的只读诊断命令；若仍崩溃，再检查 crash 文件和 Blender
+5.2 当前构建，而不是把启动崩溃误判为模型或脚本错误。
 
-### Prevention
-Blender 在受限沙箱内出现 code 139 时，不反复修改脚本；先以同命令在系统级环境复核是否是 GUI/GPU/文件访问沙箱问题。
-
----
-# [ERR-20260726-017] rain_identity_first_pass_over_budget
-
-**Logged**: 2026-07-26
-**Priority**: low
-**Status**: resolved
-**Area**: assets
-
-### Summary
-Rain Identity 第一轮确定性减面成功导出，但超过主动设置的运行时预算。
-
-### Error
-```text
-Identity 超出三角面预算：14175 > 12000
-GLB：895668 bytes > 850000 bytes
-```
-
-### Context
-- 13 个 mesh、11 个材质、0 张图片、骨架与三段动作均保留。
-- 超预算主要来自高细分的鞋、头、裤子与身体。
-
-### Resolution
-第二轮进一步降低上述网格和眼睛的 decimation ratio，低马尾与发圈保持原几何不变。
-
-### Prevention
-Blender 源 polygon 数和 GLB 导出后的三角面数不等价；角色 Identity 的预算必须以实际 GLB accessor 审计为准。
+### Metadata
+- Reproducible: unknown
+- Related Files: scripts/test_diagnose_rain_run.py, assets/models/source/character/rain-summer-wanderer.blend
 
 ---
-# [ERR-20260726-018] local_preview_port_blocked_in_sandbox
+## [ERR-20260726-002] imagemagick_magick_command_missing
 
-**Logged**: 2026-07-26
-**Priority**: low
-**Status**: resolved
-**Area**: tooling
-
-### Summary
-静态预览在默认文件沙箱内绑定 `127.0.0.1:4174` 时被系统拒绝。
-
-### Error
-```text
-Error: listen EPERM: operation not permitted 127.0.0.1:4174
-```
-
-### Resolution
-用已批准的本机网络执行边界重跑同一个 `npm run preview:static` 命令后成功，仅监听 loopback。
-
-### Prevention
-真实浏览器验收需要本地端口时，如果出现 `listen EPERM`，直接按同一 host/port 申请本机网络权限，不改成公开监听地址。
-
----
-# [ERR-20260726-019] loading_contract_tests_expected_legacy_paths
-
-**Logged**: 2026-07-26
+**Logged**: 2026-07-26T00:00:00+08:00
 **Priority**: low
 **Status**: resolved
 **Area**: tests
 
 ### Summary
-首轮定向测试仍断言旧封面文件名、旧白模弱网策略和 Hero 路径所在文件。
+系统没有 ImageMagick 7 的 `magick` 总入口，跑步周期图拼接命令无法启动。
 
 ### Error
 ```text
-expected xinhua-plane-tree-cover-desktop.jpg
-expected weakNetworkPolicy "skip"
-ReferenceError: detailedCharacter is not defined
+zsh: command not found: magick
 ```
 
-### Resolution
-将原测试更新到新合同：派生 lite 封面、`nearest-first` 白模分块策略，以及集中式 Rain 资产常量；保留对 Hero 动作逻辑的独立读取。
+### Context
+- 12 张 Blender 测试帧已正常生成。
+- 失败操作只负责把测试帧拼成网格图。
 
-### Prevention
-路径或运行时合同被主动重构时，同时搜索并更新对应的源码契约测试，不只新增测试。
+### Suggested Fix
+检测 ImageMagick 6 的独立 `montage` 命令；若也不存在，再使用工作区已提供的图像库。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/test_render_rain_run_cycle.py
+
+### Resolution
+- **Resolved**: 2026-07-26T00:00:00+08:00
+- **Notes**: 改用环境中可用的图像拼接入口。
 
 ---
-# [ERR-20260726-020] full_suite_retained_pre_identity_loading_contract
+## [ERR-20260726-003] rain_source_blend_missing_for_full_rebuild
 
-**Logged**: 2026-07-26
+**Logged**: 2026-07-26T00:00:00+08:00
 **Priority**: medium
 **Status**: resolved
 **Area**: tests
 
 ### Summary
-完整测试仍要求首个开始路径排除 GLTF、使用旧盒子人配色，并只以 Canvas 首帧解锁开始按钮；这些断言与本轮显式需求冲突。
+Rain 全量生成器需要的原始 `rain_v01.blend` 当前不在仓库或旧临时缓存中。
 
 ### Error
 ```text
-expected setReady(true)
-expected old fallback colors
-missing input- startup chunk
-expected Gltf- to remain deferred
+FileNotFoundError: 缺少 Rain 源文件。请将 rain_v01.blend 放到
+assets/models/source/character/rain-source/rain_v01.blend，
+或 /tmp/test_rain_source/rain_v01.blend。
 ```
 
-### Resolution
-将合同改为“Loading 阶段包含 Identity GLTF 解析，但 Hero 与后处理仍延后”；在加入 Gltf 解析器后继续约束 5 Mbps 纯 JS 传输小于 650 ms，并把人物比例与程序化色彩断言更新到集中常量和 Rain 保险层。
+### Context
+- 仓库仍保留已验收、可编辑的 `rain-summer-wanderer.blend`。
+- 本轮只需修复现有角色的局部脚踝权重，不需要重新导入电影级源骨架。
+- 生成器在写入产物前失败，现有 Blend/GLB 未被覆盖。
 
-### Prevention
-当产品主动把一种资源移入启动门槛时，需要同步修改首轮依赖预算，而不是继续把该资源当成禁止项。
+### Suggested Fix
+为生成器加入明确的 `--repair-existing` 模式：打开现有可编辑 Blend，执行同一
+版本控制权重函数，再保存、导出和更新 build record；原始源文件恢复后仍可全量重建。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_rain_summer_character.py, assets/models/source/character/rain-summer-wanderer.blend
+
+### Resolution
+- **Resolved**: 2026-07-26T00:00:00+08:00
+- **Notes**: 使用显式局部修复入口，保持现有已验收资产作为输入并重建既定产物。
 
 ---
-# [ERR-20260726-021] worktree_git_index_locked_by_sandbox
+## [ERR-20260726-004] vite_preview_sandbox_listen_eperm
 
-**Logged**: 2026-07-26
+**Logged**: 2026-07-26T01:00:00+08:00
 **Priority**: low
 **Status**: resolved
-**Area**: git
+**Area**: tests
 
 ### Summary
-隔离 worktree 暂存时，默认文件沙箱不能写主仓库下的 worktree index lock。
+Vite static preview 在受限进程中监听 `127.0.0.1:4173` 被系统拒绝。
 
 ### Error
 ```text
-fatal: Unable to create '.git/worktrees/loading-experience-v2/index.lock':
-Operation not permitted
+Error: listen EPERM: operation not permitted 127.0.0.1:4173
 ```
 
-### Resolution
-保持相同的明确暂存范围，在已批准的 Git 执行边界中重跑；不更改工作树内容。
+### Context
+- `npm run build:static` 已成功。
+- 需要用 production build 区分现有 Vite dev 后处理错误与角色资产问题。
 
-### Prevention
-本地 worktree 的 `.git` 实际指向主仓库元数据；文件工作区可写不代表 worktree index 可写。
+### Suggested Fix
+在受限进程外启动同一 `npm run preview:static` 命令，不改端口或绕过安全边界。
+
+### Metadata
+- Reproducible: yes
+- Related Files: package.json, vite.static.config.ts
+
+### Resolution
+- **Resolved**: 2026-07-26T01:00:00+08:00
+- **Notes**: 使用批准的进程外本地预览入口。
+
+---
+## [ERR-20260726-005] browser_evaluate_performance_global_unavailable
+
+**Logged**: 2026-07-26T01:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+受限 Browser evaluate 环境不提供可直接调用的 `performance` 全局对象。
+
+### Error
+```text
+TypeError: Cannot read properties of undefined (reading 'getEntriesByType')
+```
+
+### Context
+- 尝试在 static preview 中读取 Rain GLB 的 Resource Timing。
+- Browser 指南已说明 evaluate 中不能假定 `performance` 等全局对象存在。
+
+### Suggested Fix
+将 DOM/canvas 可见状态与资源状态分开验证；资源 URL 使用页面资产能力或服务器请求日志。
+
+### Metadata
+- Reproducible: yes
+- Related Files: public/models/character/rain-summer-wanderer.glb
+
+### Resolution
+- **Resolved**: 2026-07-26T01:00:00+08:00
+- **Notes**: 改用 DOM、截图、控制台和本地服务器请求证据。
+
+---
+## [ERR-20260726-006] iab_canvas_press_focus_mismatch
+
+**Logged**: 2026-07-26T01:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+In-app Browser 无法把 `locator.press` 的键盘事件稳定发送给 WebGL canvas。
+
+### Error
+```text
+Focused input target no longer matches the resolved locator
+locator.press failed for selector canvas
+```
+
+### Context
+- canvas 唯一且可见，点击后焦点目标仍被运行时重定向。
+- 桌面正式地图监听 window 键盘事件，不依赖 canvas 表单焦点。
+
+### Suggested Fix
+改用移动端可见的跑步按钮和摇杆指针路径完成实际运行时动作验收。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/xinhua-experience.tsx, app/scene/xinhua-world.tsx
+
+### Resolution
+- **Resolved**: 2026-07-26T01:00:00+08:00
+- **Notes**: 使用页面公开的触控控制验收同一运行时动画。
+
+---
+## [ERR-20260726-007] git_index_lock_sandbox_denied
+
+**Logged**: 2026-07-26T02:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: config
+
+### Summary
+受限沙箱允许读取 `.git`，但不能创建 `index.lock`，导致精确暂存失败。
+
+### Error
+```text
+fatal: Unable to create '/Users/lei/App_developing/wander-xinhua/.git/index.lock': Operation not permitted
+```
+
+### Context
+- 在当前仓库执行精确文件列表的 `git add`。
+- 工作区文件可写，但 `.git` 在当前 permission profile 中为只读。
+
+### Suggested Fix
+Git 写入操作应直接使用受控的提升权限，并继续维持精确文件范围。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git/index
+
+### Resolution
+- **Resolved**: 2026-07-26T02:00:00+08:00
+- **Notes**: 使用受控的 Git 提升权限执行同一精确暂存命令。
+
+---
+## [ERR-20260726-008] rain_candidate_record_breaks_production_assertions
+
+**Logged**: 2026-07-26T04:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Rain 局部重建会先把 build record 降为候选并清空旧运行时字段，导致生产断言在浏览器复验前预期失败。
+
+### Error
+```text
+Expected 'production-ready' but received 'candidate'
+Cannot read properties of undefined (reading 'visualScale')
+```
+
+### Context
+- GLB 结构审计、静态构建和 Blender 动画检查均已通过。
+- 失败发生在新的运行时验收尚未写回 build record 之前。
+
+### Suggested Fix
+先完成固定入口浏览器验收，再恢复历史验证字段、更新新 SHA 和本轮脸部范围，最后重跑测试。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/build-records/rain-summer-wanderer.json, tests/test_rain_character_asset.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-26T04:20:00+08:00
+- **Notes**: 桌面/手机运行时验收通过后恢复历史字段，并写入新 SHA、脸部范围和深色毛发验证。
+
+---
+
+## [ERR-20260726-009] iab_wait_for_load_state_networkidle_unsupported
+
+**Logged**: 2026-07-26T04:10:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+In-app Browser 的 `waitForLoadState` 不支持 `networkidle`。
+
+### Error
+```text
+playwright_wait_for_load_state does not support networkidle
+```
+
+### Context
+- 正式地图含持续渲染和延迟资源，浏览器验收尝试等待 `networkidle`。
+
+### Suggested Fix
+等待 `domcontentloaded`，随后用明确的出发按钮、Canvas 尺寸、GLB 资源 URL 和控制台作为就绪信号。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/test_rain_face_runtime_desktop.png
+
+### Resolution
+- **Resolved**: 2026-07-26T04:10:00+08:00
+- **Notes**: 改用 DOM 与资源状态完成 1440×900 和 390×844 验收。
+
+---
+
+## [ERR-20260726-012] escalated_blender_chain_parse_failure
+
+**Logged**: 2026-07-26T05:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+把提升权限的 Blender 命令与普通拼图、审计命令串联时，执行包装层出现 JavaScript 解析错误。
+
+### Error
+```text
+SyntaxError: missing ) after argument list
+```
+
+### Context
+- 正式 Blend/GLB 已在前一步成功重建。
+- 失败仅发生在后续渲染验收命令的包装阶段。
+
+### Suggested Fix
+提升权限调用只运行 Headless Blender；拼图和 GLB 审计分别使用普通沙箱命令。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: scripts/test_render_rain_face_production.py
+
+### Resolution
+- **Resolved**: 2026-07-26T05:00:00+08:00
+- **Notes**: 拆分为独立渲染、拼图和审计步骤。
+
+---
+
+## [ERR-20260726-013] gh_token_invalid_for_push_only_flow
+
+**Logged**: 2026-07-26T05:30:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: config
+
+### Summary
+GitHub CLI 的默认账号 token 已失效，但本次只需通过 SSH Git remote 提交推送，不创建 PR。
+
+### Error
+```text
+The token in default is invalid.
+```
+
+### Context
+- `origin` 使用 `git@github.com:denki-san/wander-xinhua.git`。
+- 用户明确要求提交推送当前 `main`，未要求创建 PR。
+
+### Suggested Fix
+使用本机 SSH Git 凭据完成 push；需要 GitHub CLI 或 PR 时再运行 `gh auth login`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git/config
+
+### Resolution
+- **Resolved**: 2026-07-26T05:30:00+08:00
+- **Notes**: 将用 Git SSH push 和远端 SHA 验证替代 GitHub CLI。
+
+---
+## [ERR-20260726-009] push_poll_payload_syntax_error
+
+**Logged**: 2026-07-26T01:45:57+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: config
+
+### Summary
+一次 Git 推送轮询的工具参数键拼写错误，命令未执行。
+
+### Error
+```text
+SyntaxError: Unexpected string
+```
+
+### Context
+- 正在等待 HTTPS Git push 的长时间二进制对象上传。
+- 工具调用参数中的 `yield_time_ms` 键误写为带引号不匹配的形式。
+
+### Suggested Fix
+复用已验证的轮询参数结构，并在发送前检查 JSON 键和值的分隔符。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-26T01:45:57+08:00
+- **Notes**: 修正参数拼写后继续轮询原有推送会话；未影响 Git 引用或发布产物。
+
+---
+
+## [ERR-20260726-S01] sites_packager_executable_bit_recurs
+
+**Logged**: 2026-07-26T01:49:54+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+Sites 顶层打包脚本再次因缺少 executable 权限而无法直接运行。
+
+### Error
+```text
+permission denied: package-site.sh
+exit code 126
+```
+
+### Context
+- 为提交 `a8dee9892d5a62cf7f8b39f4b43bc40518334f70` 打包已验证的 `dist`。
+- 顶层脚本仍通过 `exec` 调用同样缺少 executable 权限的内层脚本。
+
+### Suggested Fix
+继续使用 `bash` 直接调用插件内层 `skills/sites-hosting/scripts/package-site.sh`，不修改插件权限。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .openai/hosting.json
+- See Also: ERR200, ERR201, ERR-20260724-092
+
+### Resolution
+- **Resolved**: 2026-07-26T01:49:54+08:00
+- **Notes**: 通过 `bash` 直接调用内层官方脚本，生成并验证了 32 MB Sites 归档。
+
+---
+## [ERR-20260726-010] cleanup_batch_rejected_by_safety_gate
+
+**Logged**: 2026-07-26T01:49:30+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+混合远端清理、临时文件删除和 Git 校验的批量命令被安全执行器拒绝，未实际执行。
+
+### Error
+```text
+rm -f style commands are not permitted. Use a safer approach
+```
+
+### Context
+- VPS 发布已完成并通过哈希验收。
+- 随后计划删除已被新回滚版本替代的单一旧备份与本次临时压缩包。
+
+### Suggested Fix
+将删除动作拆成已核验的单目标远端操作与独立本地临时工作区回收，不将其与其他命令混合。
+
+### Metadata
+- Reproducible: yes
+- Related Files: deploy/README.md
+
+### Resolution
+- **Resolved**: 2026-07-26T01:49:30+08:00
+- **Notes**: 拒绝发生在执行前，未影响线上目录、回滚版本或 Git 引用。
+
+---
+## [ERR-20260726-011] controls_multitouch_pulse_flaky_release_gate
+
+**Logged**: 2026-07-26T01:51:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+最新 main 的完整发布测试仅在多指跳跃脉冲断言失败，阻断了最新提交上线。
+
+### Error
+```text
+Expected values to be strictly equal:
+false !== true
+```
+
+### Context
+- 干净 worktree：`a8dee9892d5a62cf7f8b39f4b43bc40518334f70`。
+- `npm run build` 和 `npm run lint` 已通过。
+- 失败点为 `tests/test_controls.test.mjs` 的“多指跳跃脉冲可以续期且会自动复位”。
+
+### Suggested Fix
+先在同一干净 worktree 复跑目标单测，区分时序偶发性与稳定回归；未获得全绿测试前不得部署该 SHA。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: tests/test_controls.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-26T01:52:00+08:00
+- **Notes**: 目标单测连续三次通过，随后完整 `npm test` 190/190 通过；按通过的完整构建发布最新 main。
+
+---
+## [ERR-20260726-012] remote_cleanup_preflight_quote_mismatch
+
+**Logged**: 2026-07-26T01:54:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+远端临时发布清理的删除前检查命令存在引号不配对，Shell 在执行前拒绝解析。
+
+### Error
+```text
+zsh: unmatched '
+```
+
+### Context
+- 最新 VPS 发布已完成哈希验收。
+- 仅计划核对一个已被新回滚版本替代的旧备份和一个临时压缩包。
+
+### Suggested Fix
+对单路径远端预检使用无循环、无嵌套引号的独立命令，再执行精确删除。
+
+### Metadata
+- Reproducible: yes
+- Related Files: deploy/README.md
+
+### Resolution
+- **Resolved**: 2026-07-26T01:54:00+08:00
+- **Notes**: 错误发生在本地 Shell 解析阶段，远端未执行任何命令。
+
+---
+## [ERR-20260726-015] public_asset_dns_resolution_flapped
+
+**Logged**: 2026-07-26T20:09:35+08:00
+**Priority**: medium
+**Status**: pending
+**Area**: infra
+
+### Summary
+同一轮公网资源复核先成功取得 Cloudflare 响应头，随后再次请求时本机 DNS 无法解析 `xinhua.denkisan.me`。
+
+### Error
+```text
+curl: (6) Could not resolve host: xinhua.denkisan.me
+```
+
+### Context
+- 首次 `curl -sSIL` 已确认首页、Rain GLB 和街区白模均返回 HTTP 200。
+- 随后的只读下载测速在不到一分钟内全部因 DNS 解析失败结束。
+- 本地 1.6 Mbps 弱网探针已独立稳定复现人物与建筑升级缓慢，因此不能用这次 DNS 波动替代前端加载架构诊断。
+
+### Suggested Fix
+在目标用户网络与 VPS/Cloudflare 两端分别采集 DNS、请求状态和资源完成时间；发布验收增加连续多次解析与冷缓存 GLB 请求，并把 CDN 命中状态与前端加载指标分开记录。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: deploy/nginx/xinhua.denkisan.me.conf, app/scene/detailed-wanderer-character.tsx
+- See Also: ERR-20260716-030
 
 ---

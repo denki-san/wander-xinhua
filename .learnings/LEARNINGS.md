@@ -1,5 +1,119 @@
 # Learnings
 
+## [LRN-20260725-006] correction
+
+**Logged**: 2026-07-25T20:25:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: research
+
+### Summary
+`wander-xinhua` 当前是社区公益、非商业项目，评估 CC BY-NC 数据源时不能默认按商业产品排除。
+
+### Details
+首次建筑高度方案复核因为考虑未来商业化可能性，将 GlobalBuildingAtlas
+直接判定为不适合生产。用户明确纠正项目没有商业化，是社区公益项目。正确边界是：
+GlobalBuildingAtlas 的 CC BY-NC 4.0 高度和 LoD1 可以在当前非商业用途下作为辅助来源，
+同时必须保留署名、版本和许可，并在项目用途发生实质变化时重新审核。
+
+### Suggested Action
+许可证判断必须同时记录数据许可和项目当前实际用途；不要把“未来可能商业化”当作已经发生。
+对带 NC 限制的数据保留用途变化复核门，而不是在当前非商业项目中一律排除。
+
+### Metadata
+- Source: user_feedback
+- Related Files: docs/research/overview-district-massing-implementation-plan.md, docs/knowledge-sources/xinhua-building-height-evidence-strategy-2026-07-25.md
+- Tags: licence, non-commercial, community-project, building-height, globalbuildingatlas
+
+### Resolution
+- **Resolved**: 2026-07-25T20:25:00+08:00
+- **Notes**: 已更新方案，将 GlobalBuildingAtlas 定位为当前非商业项目可用的辅助高度源，并保留用途变化复核门。
+
+---
+
+## [LRN-20260726-WX2] correction
+
+**Logged**: 2026-07-26T13:33:00+08:00
+**Priority**: high
+**Status**: in_progress
+**Area**: frontend
+
+### Summary
+手机全览页的光线切换与帮助、全屏按钮必须组成同一行，不能沿用桌面的上下堆叠。
+
+### Details
+桌面右上工具区采用纵向 stack 视觉可接受，但用户手机实机截图显示光线切换独占第一行，
+帮助与全屏落到第二行，导致顶部过高且与 POI 卡片形成拥挤。移动端需要单独覆盖为横向布局，
+并在 320–390px 宽度内缩小切换器、按钮和间距，避免与左侧品牌标识碰撞。
+
+### Suggested Action
+桌面继续使用 grid stack；在移动端 media query 中把 `.world-tool-stack` 改为 flex row，
+收紧 `.lighting-hud-switcher`、`.world-tools` 和按钮尺寸。浏览器验收至少覆盖 390×844
+以及更窄的 320px 视口，并同时检查三个控件的 top 坐标一致、品牌不重叠、POI 卡片不遮挡。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/globals.css, app/xinhua-experience.tsx, tests/test_dual_scale_navigation.test.mjs
+- Tags: mobile, responsive, lighting-switcher, toolbar, correction
+- See Also: ERR-20260725-030
+
+---
+## [LRN-20260726-002] best_practice
+
+**Logged**: 2026-07-26T14:48:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: tests
+
+### Summary
+共享 Blender MCP 场景可能在两次工具调用之间被其他任务切换，打开文件和关键检查必须放在同一次调用。
+
+### Details
+主窗口先单独打开邬达克 Identity Blend 并读取到正确的对象、8 个材质和包络；后续渲染调用却在
+同一 MCP 场景中得到口袋公园三对象，说明外部任务在两次调用之间切换了共享 Blender 状态。
+如果仅依赖前一次 `open_mainfile`，固定机位图可能串到另一栋建筑。
+
+### Suggested Action
+每个 Blender MCP gate 的关键调用都应先在同一段 `execute_blender_code` 中执行
+`open_mainfile`，随后立即校验 `bpy.data.filepath`、对象名/材质/包络，再完成截图或渲染；
+不要跨调用假设当前场景仍属于同一资产。终审记录同时冻结 scene fingerprint 与 PNG SHA。
+
+### Metadata
+- Source: error
+- Related Files: assets/models/source/tiers/xinhua-road/identity-v1/hudec-memorial-identity.blend
+- Tags: blender-mcp, shared-state, scene-race, mcp3, visual-qa
+
+### Resolution
+- **Resolved**: 2026-07-26T14:48:00+08:00
+- **Notes**: 后续 MCP3 将打开、指纹校验和三机位渲染合并为每栋单一原子调用。
+
+---
+
+## [LRN-20260726-WX1] correction
+
+**Logged**: 2026-07-26T12:00:00+08:00
+**Priority**: medium
+**Status**: pending
+**Area**: frontend
+
+### Summary
+游戏首屏主标题使用英文名 `Wander Xinhua`，不要使用中文艺术字。
+
+### Details
+用户明确认为中文主标题不美观。首屏需要保留独立游戏的英文品牌感；中文更适合作为
+“出发”按钮和简短辅助文案，不应替代产品名。
+
+### Suggested Action
+今后的首屏、Loading 页和视觉方案默认把 `Wander Xinhua` 作为最高层级标题，
+再用艺术字体、色彩和按钮风格表达新华路与梧桐街区主题。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/components/intro-cover.tsx
+- Tags: intro, title, typography, correction
+
+---
+
 ## [LRN-20260725-005] correction
 
 **Logged**: 2026-07-25T15:05:00+08:00
@@ -322,7 +436,7 @@ Quaternius 模块导入后，上衣 6132 个顶点中有 4606 个同位置重复
 
 **Logged**: 2026-07-18T14:05:00+08:00
 **Priority**: high
-**Status**: in_progress
+**Status**: resolved
 **Area**: frontend
 
 ### Summary
@@ -1022,5 +1136,64 @@ Messenger 式移动触控不是“永久隐藏摇杆、移动时显示跳跃按�
 - Source: user_feedback
 - Related Files: app/scene/xinhua-road-landmarks.tsx, app/scene/xinhua-world.tsx
 - Tags: performance, character, fog, trees, decorations, correction
+
+---
+
+## [LRN-20260726-001] correction
+
+**Logged**: 2026-07-26T03:00:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+角色脸型对照必须先达到可见的结构差异，不能用小幅数值变化冒充有效 A/B。
+
+### Details
+首轮亚洲脸候选只把眼裂高度降低 8%/16%，颧颊增宽 2.5%/4.8%，但 Rain
+原始大眼和高眉比例很强，固定机位渲染中几乎看不出区别。用户明确指出对照无效。
+
+### Suggested Action
+候选阶段直接修改眼窝开口、眉弓、面中宽度、下颌与鼻梁侧面，并在交付前用同机位
+拼图检查肉眼可辨性；保留被否决的旧图，新一轮使用 `test_` 前缀和版本后缀。
+
+### Metadata
+- Source: user_feedback
+- Related Files: scripts/test_create_rain_face_variants.py, test_artifacts/test_rain_face_comparison.png
+- Tags: blender, character, visual-comparison, face, correction
+
+### Resolution
+- **Resolved**: 2026-07-26T03:30:00+08:00
+- **Notes**: 保留被否决的 V1/V2，对眼球、眼睑、眉弓、中面、下颌和鼻梁做协同结构调整，V3 同机位缩略图中差异可直接辨认。
+
+---
+
+## [LRN-20260726-002] correction
+
+**Logged**: 2026-07-26T22:43:50+08:00
+**Priority**: critical
+**Status**: pending
+**Area**: frontend
+
+### Summary
+资产 QA 通过但未接入用户实际游玩的场景，不是完成；正式运行时仍显示旧方盒占位时必须判定失败。
+
+### Details
+幸福里入口参考图明确显示四坡尖顶、方柱身和略宽底座。专项工作已经生成包含这些识别构件的
+`xingfuli-pointed-entry-bollard-visible-low.glb`，但为了隔离非建筑资产，没有替换正式场景中的
+旧 `IrregularStoneBollards`。后者仍使用单一 `boxGeometry`，因此用户在本地 `main` 实际看到的
+是五个近似立方体。此前把 Blender、GLB 和独立 QA 页面通过描述成街具成果，却没有把正式幸福里
+运行时作为最终验收面，造成“产物存在但产品没有改善”的错误完成判断。
+
+### Suggested Action
+真实场景资产任务必须在最终用户入口验收实际被引用的组件和二进制；检查网络请求、场景节点及
+运行时截图，证明旧占位已被替换。独立 QA 只证明候选资产可用，不能代替 production integration。
+入口石桩修复时应接入已生成的尖顶 GLB 或等价的可复用实例几何，校准人物尺度、地面接触、排列、
+碰撞和远近档，并在幸福里实际游玩视角通过视觉验收。
+
+### Metadata
+- Source: user_feedback
+- Related Files: app/scene/shared-street-assets.tsx, app/scene/xingfuli-block.tsx, public/models/nonbuilding/xingfuli-current-street-furniture/xingfuli-pointed-entry-bollard-visible-low.glb
+- Tags: webgl, street-furniture, production-integration, visual-acceptance, correction
 
 ---
