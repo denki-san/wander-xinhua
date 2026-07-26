@@ -3,7 +3,8 @@
   "auditedAt": "2026-07-26",
   "assetId": "building:xinhua-road:xinhua-community-center",
   "tier": "massing",
-  "status": "headless-pass-axis-corrected-map-calibrated-candidate-mcp1-pending",
+  "status": "runtime-collision-pass-formal-map-blocked-road-overlap",
+  "runtimeQa": "docs/research/xinhua-community-center-threejs-runtime-qa.json",
   "scope": {
     "buildingOnly": true,
     "includedOsmWays": [
@@ -212,10 +213,10 @@
     "fixedViews": "pass",
     "glbAudit": "pass",
     "rendererAxisRegression": "pass-specialized-test",
-    "mcp1": "pending-main-window-batch",
+    "mcp1": "pass-main-window-axis-recheck",
     "mapProjection": "pass-candidate",
-    "roadSurface": "pending-runtime-road-width",
-    "runtimeGate": "pending-main-window-scoped-qa",
+    "roadSurface": "blocked-runtime-overlap-0.402635-scene-units",
+    "runtimeGate": "pass-resource-console-collision-map-blocked-road-overlap",
     "identityAuthorized": false,
     "heroAuthorized": false
   },

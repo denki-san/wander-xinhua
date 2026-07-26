@@ -13,6 +13,7 @@ test("Massing 候选 QA 只允许18栋内已登记的建筑和精确档位", () 
     "villa-le-bec",
     "xinhua-villas-329",
     "hudec-memorial",
+    "xinhua-community-center",
   ]);
   assert.equal(resolveBuildingMassingQa("?qaModelId=plane-tree&qaModelTier=massing"), null);
   assert.equal(resolveBuildingMassingQa("?qaModelId=villa-le-bec&qaModelTier=hero"), null);
@@ -81,6 +82,44 @@ test("Massing 候选 QA 只允许18栋内已登记的建筑和精确档位", () 
       "?qaModelId=hudec-memorial&qaModelTier=massing",
     )?.localObstacles.length,
     7,
+  );
+  assert.equal(
+    resolveBuildingMassingQa(
+      "?qaModelId=xinhua-community-center&qaModelTier=massing",
+    )?.modelPath,
+    "/models/tiers/xinhua-road/massing-v2/"
+      + "xinhua-community-center-massing.glb"
+      + "?v=20260726-massing-a0609064",
+  );
+  assert.deepEqual(
+    resolveBuildingMassingQa(
+      "?qaModelId=xinhua-community-center&qaModelTier=massing",
+    )?.placement,
+    {
+      position: [-74.78057782060566, 112.5501903703319],
+      yaw: 1.1800125527954972,
+      scale: 1,
+    },
+  );
+  assert.deepEqual(
+    resolveBuildingMassingQa(
+      "?qaModelId=xinhua-community-center&qaModelTier=massing",
+    )?.start,
+    {
+      position: [-66.401198105, 115.83439432],
+      forward: [-0.9310421906207795, -0.3649115499460933],
+    },
+  );
+  assert.deepEqual(
+    resolveBuildingMassingQa(
+      "?qaModelId=xinhua-community-center&qaModelTier=massing",
+    )?.localObstacles[0],
+    {
+      minX: -6.2328073354853455,
+      maxX: 6.3375736373407205,
+      minZ: -2.0344502538968166,
+      maxZ: 2.6093047586433475,
+    },
   );
 });
 

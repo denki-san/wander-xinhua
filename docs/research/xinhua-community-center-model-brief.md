@@ -230,3 +230,13 @@ details and are not claimed by this Massing.
 - 2026-07-26:
   did not authorize Identity or Hero; side/depth evidence and final runtime map acceptance remain
   missing.
+- 2026-07-26:
+  the axis-corrected SHA `a0609064...` passed a new Blender MCP1 inspection and the Three.js
+  resource, console, performance and collision checks. The portal renders on the named-road side,
+  and collision stops the player without penetration.
+- 2026-07-26:
+  formal map acceptance remains blocked. Runtime classifies `way/577252269` as `service`; the
+  shared road contract renders it `2.5` scene units wide. The OSM-bound building edge is only
+  `0.8473649273` scene units from the centerline, so rendered asphalt overlaps the footprint by
+  `0.4026350727` scene units (`1.0871146963m`). The building was not moved or rescaled to hide
+  the conflict. Identity, Hero and production registry promotion remain unauthorized.

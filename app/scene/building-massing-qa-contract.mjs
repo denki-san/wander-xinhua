@@ -81,6 +81,35 @@ export const BUILDING_MASSING_QA_CANDIDATES = Object.freeze({
       Object.freeze({ minX: 2.448, maxX: 6.048, minZ: 4.5216, maxZ: 4.9104 }),
     ]),
   }),
+  "xinhua-community-center": Object.freeze({
+    assetId: "xinhua-community-center",
+    requestedTier: "massing",
+    modelPath:
+      "/models/tiers/xinhua-road/massing-v2/"
+      + "xinhua-community-center-massing.glb"
+      + "?v=20260726-massing-a0609064",
+    buildRecord:
+      "docs/research/build-records/tiers/xinhua-road/massing-v2/"
+      + "xinhua-community-center-massing.json",
+    mapGate: "docs/research/xinhua-community-center-massing-map-gate.json",
+    placement: Object.freeze({
+      position: Object.freeze([-74.78057782060566, 112.5501903703319]),
+      yaw: 1.1800125527954972,
+      scale: 1,
+    }),
+    start: Object.freeze({
+      position: Object.freeze([-66.401198105, 115.83439432]),
+      forward: Object.freeze([-0.9310421906207795, -0.3649115499460933]),
+    }),
+    localObstacles: Object.freeze([
+      Object.freeze({
+        minX: -6.2328073354853455,
+        maxX: 6.3375736373407205,
+        minZ: -2.0344502538968166,
+        maxZ: 2.6093047586433475,
+      }),
+    ]),
+  }),
 });
 
 export function resolveBuildingMassingQa(search = "") {

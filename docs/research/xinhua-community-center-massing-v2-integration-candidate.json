@@ -1,8 +1,9 @@
 {
   "version": 1,
   "assetId": "xinhua-community-center",
-  "candidateStatus": "building-complete-main-window-gates-pending",
+  "candidateStatus": "runtime-collision-pass-formal-map-blocked-road-overlap",
   "modelSha256": "a0609064ec15f0bfeb042ac9013152eda7575205c55bdaf79063cae38c77b471",
+  "runtimeQa": "docs/research/xinhua-community-center-threejs-runtime-qa.json",
   "axisContract": {
     "blenderSource": "x-runtime-x_y-runtime-z",
     "rawGltf": "blender-y-exports-as-negative-z",
@@ -37,8 +38,8 @@
       }
     ],
     "start": [
-      -71.98492826590126,
-      113.6132895446705
+      -66.401198105,
+      115.83439432
     ],
     "forward": [
       -0.9310421906207795,

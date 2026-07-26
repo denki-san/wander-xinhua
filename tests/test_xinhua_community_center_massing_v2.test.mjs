@@ -17,9 +17,12 @@ const INTEGRATION_CANDIDATE_PATH =
   "docs/research/xinhua-community-center-massing-v2-integration-candidate.json";
 const MCP_GATES_PATH =
   "docs/research/xinhua-community-center-blender-mcp-gates.json";
+const RUNTIME_QA_PATH =
+  "docs/research/xinhua-community-center-threejs-runtime-qa.json";
 const OSM_PATH =
   "docs/research/data/requested-pois-osm-20260717-103840.json";
 const MAP_PATH = "app/scene/xinhua-map-data.json";
+const ROAD_CONTRACT_PATH = "app/scene/road-surface-contract.ts";
 const REGISTRY_PATH = "app/scene/xinhua-road-landmarks-data.json";
 
 async function readJson(relativePath) {
@@ -357,8 +360,8 @@ test("地图候选不重叠邻楼，窄侧缝不承诺通行，正式道路门�
     gate.collisionCandidate.frontEntranceCenterlineExceedsPlayerRadius,
     true,
   );
-  assert.equal(gate.mapCalibrationCandidate.roadSurfaceWidthKnown, false);
-  assert.equal(gate.gates.formalMapAcceptance, "pending-main-window");
+  assert.equal(gate.mapCalibrationCandidate.roadSurfaceWidthKnown, true);
+  assert.equal(gate.gates.formalMapAcceptance, "blocked-road-surface-overlap");
   assert.equal(candidate.mainWindowGates.length, 4);
   assert.equal(candidate.registryCandidate.scale, 1);
   assert(
@@ -408,8 +411,11 @@ test("Massing v2 的GLB、Blend、生成器、预览和预算可追溯", async (
   assert.equal(record.glb.images, record.budgets.maxImages);
   assert(record.glb.bytes <= record.budgets.maxBytes);
   assert.equal(record.gates.glbAudit, "pass");
-  assert.equal(record.gates.mcp1, "pending-main-window-batch");
-  assert.equal(record.gates.runtimeGate, "pending-main-window-scoped-qa");
+  assert.equal(record.gates.mcp1, "pass-main-window-axis-recheck");
+  assert.equal(
+    record.gates.runtimeGate,
+    "pass-resource-console-collision-map-blocked-road-overlap",
+  );
 
   for (const preview of Object.values(record.outputs.previews)) {
     const contents = await readFile(path.join(ROOT, preview.path));
@@ -422,22 +428,100 @@ test("Massing v2 的GLB、Blend、生成器、预览和预算可追溯", async (
   }
 });
 
-test("社区中心轴向修复后二进制等待主窗口重跑 MCP1", async () => {
+test("社区中心真实 Three.js 碰撞通过但正式地图门拒绝支路压占", async () => {
+  const [record, gate, candidate, runtime, map, roadContract] = await Promise.all([
+    readJson(RECORD_PATH),
+    readJson(MAP_GATE_PATH),
+    readJson(INTEGRATION_CANDIDATE_PATH),
+    readJson(RUNTIME_QA_PATH),
+    readJson(MAP_PATH),
+    readFile(path.join(ROOT, ROAD_CONTRACT_PATH), "utf8"),
+  ]);
+
+  assert.equal(
+    record.status,
+    "runtime-collision-pass-formal-map-blocked-road-overlap",
+  );
+  assert.equal(candidate.candidateStatus, record.status);
+  assert.equal(record.runtimeQa, RUNTIME_QA_PATH);
+  assert.equal(candidate.runtimeQa, RUNTIME_QA_PATH);
+  assert.equal(runtime.asset.sha256, record.glb.sha256);
+  assert.equal(runtime.asset.loaded, true);
+  assert.equal(runtime.map.osmPlacement, "pass");
+  assert.equal(runtime.map.portalSide, "pass");
+  assert.equal(runtime.map.groundContact, "pass");
+  assert.equal(runtime.map.road.renderedWidthSceneUnits, 2.5);
+  assert.equal(map.meta.environmentScale, 5);
+  assert.equal(
+    map.roads.find(({ osmWayId }) => osmWayId === 577252269)?.highway,
+    "service",
+  );
+  assert.match(
+    roadContract,
+    /return 0\.5 \* XINHUA_ENVIRONMENT_SCALE;/,
+  );
+  assert.equal(
+    runtime.map.road.asphaltEdgeClearanceSceneUnits,
+    -0.4026350726882021,
+  );
+  assert.equal(
+    gate.runtimeRoadSurfaceDecision.result,
+    "blocked-building-overlaps-rendered-service-road",
+  );
+  assert.equal(runtime.map.formalAcceptance, "blocked-road-surface-overlap");
+  assert.equal(runtime.collisionReplay.penetrationObserved, false);
+  assert.equal(
+    runtime.collisionReplay.result,
+    "pass-wall-stop-with-lateral-slide-no-penetration",
+  );
+  assert.equal(runtime.console.errors, 0);
+  assert.equal(runtime.performance.map.sampleFrames, 120);
+  assert.equal(runtime.performance.baselineComparisonClaimed, false);
+  assert.equal(
+    runtime.completionBoundary.productionRegistryPromotionAuthorized,
+    false,
+  );
+  assert.equal(runtime.completionBoundary.buildingComplete, false);
+
+  for (const screenshot of Object.values(runtime.screenshots)) {
+    assert.equal(await sha256(screenshot.path), screenshot.sha256);
+    assert.equal(
+      (await stat(path.join(ROOT, screenshot.path))).size,
+      screenshot.bytes,
+    );
+  }
+});
+
+test("社区中心轴向修复后二进制已通过主窗口 MCP1 重验", async () => {
   const [record, gate, mcp] = await Promise.all([
     readJson(RECORD_PATH),
     readJson(MAP_GATE_PATH),
     readJson(MCP_GATES_PATH),
   ]);
 
-  assert.equal(record.gates.mcp1, "pending-main-window-batch");
-  assert.equal(
-    gate.gates.mcp1,
-    "pending-main-window-batch-after-axis-correction",
-  );
+  assert.equal(record.gates.mcp1, "pass-main-window-axis-recheck");
+  assert.equal(gate.gates.mcp1, "pass-main-window-axis-recheck");
   assert.equal(mcp.mcp1.status, "pass");
-  assert.notEqual(mcp.source.glbSha256, record.glb.sha256);
+  assert.equal(mcp.source.glbSha256, record.glb.sha256);
+  assert.equal(mcp.source.blendSha256, record.blend.sha256);
+  assert.equal(mcp.mcp1.sceneInspection.objectCount, 1);
+  assert.equal(mcp.mcp1.sceneInspection.meshObjects, 1);
+  assert.equal(mcp.mcp1.sceneInspection.materialCount, 3);
+  assert.equal(mcp.mcp1.sceneInspection.referenceImagesEmbedded, false);
+  assert.equal(mcp.mcp1.scaleProxy.heightMeters, 1.8);
+  assert.equal(mcp.mcp1.qaRigSaved, false);
+  assert.equal(mcp.mcp1.qaRigExported, false);
+  assert.equal(mcp.mcp1.interactiveChangesAccepted.length, 0);
+  assert(mcp.mcp1.unknown.includes("side and rear facades"));
   assert.equal(mcp.identityAuthorized, false);
   assert.equal(mcp.heroAuthorized, false);
+
+  for (const view of Object.values(mcp.mcp1.fixedViews)) {
+    const contents = await readFile(path.join(ROOT, view.path));
+    assert.equal(contents.length, view.bytes);
+    assert.equal(await sha256(view.path), view.sha256);
+    assert.equal(contents.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
+  }
 });
 
 test("Recovery provisional保留在Hold且共享registry未被建筑分支覆盖", async () => {

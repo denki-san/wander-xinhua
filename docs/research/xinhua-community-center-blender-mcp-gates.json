@@ -7,8 +7,9 @@
   "mode": "building-fast-batch-mcp1",
   "source": {
     "blend": "assets/models/source/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.blend",
+    "blendSha256": "0dd2a77127e600829b762e4f575fc80221398ede17a231d8ba5c92301d9289f1",
     "glb": "public/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb",
-    "glbSha256": "ebe89d49194b14ca5a5d65303403dd73502e6b11dce362368199d95a85e74eca"
+    "glbSha256": "a0609064ec15f0bfeb042ac9013152eda7575205c55bdaf79063cae38c77b471"
   },
   "mcp1": {
     "status": "pass",
@@ -18,7 +19,20 @@
       "materialCount": 3,
       "sourceOsmWay": 864493234,
       "sourcePoiNode": 13765678129,
+      "meshVertices": 32,
       "meshPolygons": 24,
+      "blenderBounds": {
+        "min": [
+          -6.232807159423828,
+          -2.609304666519165,
+          0
+        ],
+        "max": [
+          6.337573528289795,
+          2.299499988555908,
+          2.950000047683716
+        ]
+      },
       "rootTransformsNormalized": true,
       "referenceImagesEmbedded": false
     },
@@ -31,24 +45,25 @@
     },
     "fixedViews": {
       "canonical": {
-        "path": "test_artifacts/all-models/massing-v2/xinhua-community-center/test_xinhua-community-center-massing_mcp1_canonical.png",
-        "sha256": "172fab4b819d9b6aefd13c0429784efc0edb0ce1131cb56c17bb1fbc97181e0f",
-        "bytes": 729045
+        "path": "test_artifacts/all-models/massing-v2/xinhua-community-center/test_xinhua-community-center-massing_mcp1_axis-recheck_canonical.png",
+        "sha256": "a8d7a93aac0ecd421bc392059ff926424b8a35d4d539ab73df407bedc97a544a",
+        "bytes": 715582
       },
       "sideDepth": {
-        "path": "test_artifacts/all-models/massing-v2/xinhua-community-center/test_xinhua-community-center-massing_mcp1_side-depth.png",
-        "sha256": "2de1410c05b706078d16cee24195ddcc31a82eacc01c27a90c4b208e7cb339c7",
-        "bytes": 742141
+        "path": "test_artifacts/all-models/massing-v2/xinhua-community-center/test_xinhua-community-center-massing_mcp1_axis-recheck_side-depth.png",
+        "sha256": "eafc5e231e0fcadfdb3d703e32398e82d71117d0288980977e76e795c6d4811d",
+        "bytes": 741009
       },
       "entranceScale": {
-        "path": "test_artifacts/all-models/massing-v2/xinhua-community-center/test_xinhua-community-center-massing_mcp1_entrance-scale.png",
-        "sha256": "83d9723855970b8daa2893260fbb47d69733b88a86a647e3af1286b7d3eef46c",
-        "bytes": 739431
+        "path": "test_artifacts/all-models/massing-v2/xinhua-community-center/test_xinhua-community-center-massing_mcp1_axis-recheck_entrance-scale.png",
+        "sha256": "7c67385cdeb09c16901fcd0a471e6efea9c5855515e3e1ec430ce57303e85b82",
+        "bytes": 745852
       }
     },
     "observed": [
       "single low white two-storey mass remains grounded",
       "central silver portal and dark entrance stay legible beside the 1.8m proxy",
+      "canonical and entrance views inspect Blender local positive Y, matching the corrected authored front",
       "the scene contains only the authorized building mesh",
       "no decorative, vegetation, toy-house or full-map object is present"
     ],
@@ -64,7 +79,7 @@
     "interactiveChangesAccepted": [],
     "qaRigSaved": false,
     "qaRigExported": false,
-    "verdict": "pass-massing-only-runtime-map-authorized"
+    "verdict": "pass-axis-corrected-massing-only-runtime-map-authorized"
   },
   "nextGate": "main-window-threejs-map-road-width-ground-and-collision",
   "identityAuthorized": false,

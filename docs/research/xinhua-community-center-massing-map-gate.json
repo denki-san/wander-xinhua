@@ -37,7 +37,7 @@
     "closestNeighborGapSceneUnits": 1.1517136810103772,
     "closestNeighborGapMeters": 3.1096269387280184,
     "osmFootprintOverlapCount": 0,
-    "roadSurfaceWidthKnown": false
+    "roadSurfaceWidthKnown": true
   },
   "axisContract": {
     "blenderSource": "x-runtime-x_y-runtime-z",
@@ -94,11 +94,24 @@
     "headlessBuild": "pass",
     "fixedViews": "pass",
     "glbAudit": "pass",
-    "mcp1": "pending-main-window-batch-after-axis-correction",
+    "mcp1": "pass-main-window-axis-recheck",
     "mapProjection": "pass-candidate",
-    "roadSurface": "pending-runtime-road-width",
-    "runtime": "pending-main-window-scoped-qa",
-    "formalMapAcceptance": "pending-main-window"
+    "roadSurface": "blocked-runtime-overlap-0.402635-scene-units",
+    "runtime": "pass-resource-console-collision-map-blocked-road-overlap",
+    "formalMapAcceptance": "blocked-road-surface-overlap"
+  },
+  "runtimeRoadSurfaceDecision": {
+    "contract": "app/scene/road-surface-contract.ts",
+    "roadWayId": 577252269,
+    "highway": "service",
+    "environmentScale": 5,
+    "renderedWidthSceneUnits": 2.5,
+    "renderedHalfWidthSceneUnits": 1.25,
+    "buildingBoundaryToCenterlineSceneUnits": 0.8473649273117979,
+    "asphaltEdgeClearanceSceneUnits": -0.4026350726882021,
+    "asphaltOverlapMeters": 1.0871146962581457,
+    "buildingMovedToHideConflict": false,
+    "result": "blocked-building-overlaps-rendered-service-road"
   },
   "recovery": {
     "holdCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",

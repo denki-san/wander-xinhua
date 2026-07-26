@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-community-center",
+  "tier": "massing",
+  "recordedAt": "2026-07-26T11:05:00+08:00",
+  "status": "runtime-collision-pass-formal-map-blocked-road-overlap",
+  "owner": "main-window",
+  "buildMode": "vite-static-production-preview",
+  "viewport": [
+    1280,
+    720
+  ],
+  "visibility": "visible",
+  "scope": {
+    "included": [
+      "axis-corrected-massing",
+      "scoped-map-placement",
+      "road-surface-clearance",
+      "ground-contact",
+      "camera",
+      "collision",
+      "console",
+      "performance-sample"
+    ],
+    "excludedAndHeld": [
+      "identity",
+      "hero",
+      "trees",
+      "vegetation",
+      "street-furniture",
+      "decoration",
+      "ordinary-osm",
+      "other-buildings",
+      "full-map-assets"
+    ]
+  },
+  "asset": {
+    "url": "/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb?v=20260726-massing-a0609064",
+    "sha256": "a0609064ec15f0bfeb042ac9013152eda7575205c55bdaf79063cae38c77b471",
+    "bytes": 6596,
+    "loaded": true,
+    "portalSide": "pass-corrected-runtime-front-facing-named-road"
+  },
+  "placement": {
+    "position": [
+      -74.78057782060566,
+      112.5501903703319
+    ],
+    "yaw": 1.1800125527954972,
+    "scale": 1,
+    "osmWayId": 864493234,
+    "osmProjectionErrorSceneUnits": 0,
+    "changedToHideRoadConflict": false
+  },
+  "routes": {
+    "map": "/?start=community-center&qaModelId=xinhua-community-center&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+    "collision": "/?start=community-center&qaModelId=xinhua-community-center&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaMove=forward&qaMoveMs=8000&qaMoveTarget=-74.78057782060566,112.5501903703319"
+  },
+  "qaStart": {
+    "position": [
+      -66.401198105,
+      115.83439432
+    ],
+    "forward": [
+      -0.9310421906207795,
+      -0.3649115499460933
+    ],
+    "reason": "nine-scene-unit-entrance-side-setback-shows-full-footprint-and-road"
+  },
+  "map": {
+    "osmPlacement": "pass",
+    "orientation": "pass",
+    "portalSide": "pass",
+    "groundContact": "pass",
+    "camera": "pass",
+    "neighborOverlapCount": 0,
+    "road": {
+      "osmWayId": 577252269,
+      "name": "新华路345弄",
+      "highway": "service",
+      "runtimeContract": "app/scene/road-surface-contract.ts",
+      "environmentScale": 5,
+      "renderedWidthSceneUnits": 2.5,
+      "renderedHalfWidthSceneUnits": 1.25,
+      "buildingBoundaryToCenterlineSceneUnits": 0.8473649273117979,
+      "asphaltEdgeClearanceSceneUnits": -0.4026350726882021,
+      "asphaltOverlapMeters": 1.0871146962581457,
+      "result": "blocked-building-overlaps-rendered-service-road"
+    },
+    "formalAcceptance": "blocked-road-surface-overlap"
+  },
+  "performance": {
+    "map": {
+      "sampleFrames": 120,
+      "durationMs": 2016.6000000014901,
+      "fps": 59.506099375141986,
+      "rendererDrawCalls": 156,
+      "rendererTriangles": 547300
+    },
+    "collision": {
+      "sampleFrames": 120,
+      "durationMs": 2014.3000000044703,
+      "fps": 59.57404557401265,
+      "rendererDrawCalls": 149,
+      "rendererTriangles": 547096
+    },
+    "baselineComparisonClaimed": false
+  },
+  "collisionReplay": {
+    "method": "explicit-qa-only-target-through-production-collision-engine",
+    "start": [
+      -66.401198105,
+      115.83439432
+    ],
+    "target": [
+      -74.78057782060566,
+      112.5501903703319
+    ],
+    "durationMs": 8000,
+    "worldObstacleAabbWithContractMargin": {
+      "minX": -79.76732786430148,
+      "maxX": -70.2854375878097,
+      "minZ": 105.49648270521662,
+      "maxZ": 119.28806030264941
+    },
+    "firstStableXWallStopApproxSeconds": 1.25,
+    "stableWallStopX": -69.77577914573746,
+    "finalStop": [
+      -69.77577914573746,
+      112.57909560810812
+    ],
+    "lateralSlideObserved": true,
+    "penetrationObserved": false,
+    "result": "pass-wall-stop-with-lateral-slide-no-penetration"
+  },
+  "console": {
+    "errors": 0
+  },
+  "screenshots": {
+    "map": {
+      "path": "test_artifacts/test_xinhua-community-center_massing_runtime_map_axis-corrected_1280x720.jpg",
+      "sha256": "cfaa2dfaae42fa82e2e93767b1a8ddd93ea01718a387100a1969d2e2482959f8",
+      "bytes": 54222
+    },
+    "collision": {
+      "path": "test_artifacts/test_xinhua-community-center_massing_runtime_collision_axis-corrected_1280x720.jpg",
+      "sha256": "c4117695f3a32b7cfd7b57fbb3f66c941baed07b06b9ae8724661dd3dbd37e46",
+      "bytes": 47991
+    }
+  },
+  "gates": {
+    "evidence": "pass-conservative-massing-only",
+    "mcp1": "pass-main-window-axis-recheck",
+    "resourceAndConsole": "pass",
+    "collision": "pass",
+    "formalMap": "blocked-road-surface-overlap",
+    "identity": "blocked-evidence",
+    "hero": "blocked-evidence"
+  },
+  "completionBoundary": {
+    "massingBinaryComplete": true,
+    "mcp1Complete": true,
+    "runtimeCollisionComplete": true,
+    "formalMapComplete": false,
+    "identityComplete": false,
+    "heroComplete": false,
+    "buildingComplete": false,
+    "productionRegistryPromotionAuthorized": false,
+    "nextGate": "resolve-osm-footprint-versus-rendered-service-road-contract-without-arbitrary-building-movement"
+  }
+}

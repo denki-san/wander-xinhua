@@ -207,13 +207,17 @@
       "id": "xinhua-community-center",
       "label": "新华·社区营造中心",
       "tests": [
-        "tests/test_requested_poi_models.test.mjs"
+        "tests/test_building_massing_qa_contract.test.mjs",
+        "tests/test_requested_poi_models.test.mjs",
+        "tests/test_xinhua_community_center_massing_v2.test.mjs"
       ],
       "glbs": [
-        "public/models/requested-pois/xinhua-community-center.glb"
+        "public/models/requested-pois/xinhua-community-center.glb",
+        "public/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb"
       ],
       "runtimeRoutes": [
-        "/?start=community-center&cameraQa=1&qaAutoStart=1"
+        "/?start=community-center&cameraQa=1&qaAutoStart=1",
+        "/?start=community-center&qaModelId=xinhua-community-center&qaModelTier=massing&cameraQa=1&qaAutoStart=1"
       ]
     },
     {
