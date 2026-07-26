@@ -2,7 +2,7 @@
   "version": 1,
   "assetId": "xingfuli-center",
   "auditedAt": "2026-07-26",
-  "status": "candidate-ready-for-main-window-mcp3",
+  "status": "candidate-passed-main-window-mcp3",
   "purpose": "以已验收 Hero 为只读父级，补齐 Hero → Identity v2 → Massing v2 的严格可追溯派生链。",
   "scope": {
     "exactBuildingIds": [
@@ -65,7 +65,8 @@
     "两档连续双构建的 GLB SHA 分别相同；.blend SHA 不同且未被误报为字节确定。",
     "Hero、Identity v2、Massing v2 的 GLB bytes、三角面和源对象数严格递减。",
     "两档均为单 root、标准 root transform、零图片、零纹理、零动画、零骨骼。",
-    "六张 headless 固定机位图已复核，Identity 保留身份构件，Massing 进一步删减但不改变 bounds。"
+    "六张 headless 固定机位图已复核，Identity 保留身份构件，Massing 进一步删减但不改变 bounds。",
+    "主窗口已用 Blender MCP 打开三档源文件、核对 scene lineage、审查九张固定机位图，并在丢弃临时助手后重开确认 dirty=false。"
   ],
   "inferred": [
     "候选已满足进入主窗口 MCP3 的结构与可追溯条件。",
@@ -76,7 +77,6 @@
     "主窗口是否批准 production promotion。"
   ],
   "nextGates": [
-    "main-window Blender MCP3 batch",
     "main-window public manifest and resolver integration",
     "single-page Three.js three tiers, fallback, performance, errors and collision",
     "main-window project regression on the next 2-3-building batch"

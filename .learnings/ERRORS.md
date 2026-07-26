@@ -27,6 +27,89 @@ Operation not permitted
 
 ---
 
+## [ERR-20260726-110] blender_bound_box_corner_requires_vector
+
+**Logged**: 2026-07-26T18:12:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: blender-mcp
+
+### Summary
+幸福里中栋 MCP3 读取世界空间包络时，Blender 5.2 不接受 `Matrix @ bpy_prop_array`。
+
+### Error
+```text
+Matrix multiplication: not supported between 'Matrix' and 'bpy_prop_array' types
+```
+
+### Context
+- Hero 文件已打开，但没有保存或修改；
+- 失败仅发生在只读包络统计；
+- Blender 的 `Object.bound_box` corner 需要先显式转换为 `mathutils.Vector`。
+
+### Resolution
+- **Resolved**: 2026-07-26T18:13:00+08:00
+- **Notes**: 改为 `obj.matrix_world @ Vector(corner)`，三档 bounds 与 clean 状态均读取成功。
+
+---
+
+## [ERR-20260726-111] blender_open_mainfile_invalidates_ui_context
+
+**Logged**: 2026-07-26T18:15:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: blender-mcp
+
+### Summary
+同一笔 MCP Python 中调用 `open_mainfile` 后立即访问 `context.screen` 或
+`context.active_object`，上下文尚未恢复，导致 UI framing 或预览助手失败。
+
+### Error
+```text
+'NoneType' object has no attribute 'areas'
+'Context' object has no attribute 'active_object'
+```
+
+### Context
+- 目标 Blend 已成功打开且 `dirty=false`；
+- 没有保存临时相机、灯光或地面；
+- 失败来自文件加载后的 UI context 生命周期，不是候选资产错误。
+
+### Resolution
+- **Resolved**: 2026-07-26T18:17:00+08:00
+- **Notes**: 将“打开文件”“只读审计”“viewport framing/渲染”拆成独立 MCP 调用。
+
+---
+
+## [ERR-20260726-112] blender_mcp_preview_helper_contaminated_frame
+
+**Logged**: 2026-07-26T18:20:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: blender-mcp
+
+### Summary
+Identity v2 首次预览失败后遗留临时 preview ground；后续 framing 把它误计入
+资产范围，造成 canonical 画幅异常偏宽。该临时对象未保存进 Blend。
+
+### Error
+```text
+StructRNA of type Material has been removed
+```
+
+### Context
+- 旧 Python module 缓存引用了重开文件前已失效的 Blender Material；
+- 失败调用已部分创建 preview helper，导致下一次 bounds 被污染；
+- 原 Identity v2 Blend SHA 始终为
+  `6024700bd3a64f53f34227cdafea05d6a0c717d1a9b014a40ee95ed311bc2b87`。
+
+### Resolution
+- **Resolved**: 2026-07-26T18:23:00+08:00
+- **Notes**: 重开干净 Blend、reload 生成器模块、从115个源 mesh 重渲染，
+  并在三档终审后再次重开确认 `dirty=false` 与原 SHA 不变。
+
+---
+
 ## [ERR-20260726-109] blender_python_script_directory_not_on_sys_path
 
 **Logged**: 2026-07-26T17:26:00+08:00

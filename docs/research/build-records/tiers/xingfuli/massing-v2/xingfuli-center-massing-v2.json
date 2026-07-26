@@ -146,7 +146,7 @@
     "doubleBuildGlb": "pass-byte-identical",
     "glbStructure": "pass",
     "headlessFixedViews": "pass-candidate",
-    "blenderMcp3": "pending-main-window",
+    "blenderMcp3": "pass-main-window",
     "threeJs": "pending-main-window",
     "publicIntegration": "pending-main-window"
   }
