@@ -15,6 +15,7 @@ import sys
 from pathlib import Path
 
 import bpy
+from mathutils import Vector
 
 # Blender 5.2 的 `--python relative/path.py` 不保证把脚本目录加入模块搜索路径。
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -163,6 +164,22 @@ def clean_unused_data() -> None:
                 datablocks.remove(datablock)
 
 
+def rerender_clear_street_view(slug: str, preview_dir: Path) -> None:
+    """把共享旧机位从南侧檐棚线移到中间主巷，避免身份构件遮挡全画面。"""
+    minimum, maximum = legacy.scene_bounds()
+    camera = bpy.context.scene.camera
+    camera.location = (minimum.x - 1.0, -7.0, 2.25)
+    target = (maximum.x, -5.5, 2.8)
+    camera.data.lens = 60
+    camera.rotation_euler = (
+        Vector(target) - camera.location
+    ).to_track_quat("-Z", "Y").to_euler()
+    bpy.context.scene.render.filepath = str(
+        preview_dir / f"test_{slug}_street_preview.png"
+    )
+    bpy.ops.render.render(write_still=True)
+
+
 def derive_child(args: argparse.Namespace, lineage: dict[str, str]) -> dict:
     contract = EXPECTED_PARENT_NAMES[args.tier]
     bpy.ops.wm.open_mainfile(filepath=str(args.parent_blend.resolve()))
@@ -228,6 +245,7 @@ def derive_child(args: argparse.Namespace, lineage: dict[str, str]) -> dict:
     ]
     legacy.PREVIEW_DIR = preview_dir
     legacy.render_views(slug)
+    rerender_clear_street_view(slug, preview_dir)
     legacy.merge_for_export(slug, len(retained), args.tier, "center")
     merged = legacy.ASSET_OBJECTS[0]
     merged["asset"] = "xingfuli-center"

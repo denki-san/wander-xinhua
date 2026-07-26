@@ -35,6 +35,7 @@ test("幸福里中栋 Identity 和 Massing 均从父级 Blend 做真实对象删
   assert.match(source, /massing_removal_reason/);
   assert.match(source, /retained \+ removed/);
   assert.match(source, /reference_photos_embedded/);
+  assert.match(source, /camera\.location = \(minimum\.x - 1\.0, -7\.0, 2\.25\)/);
   assert.match(brief, /Hero → Identity v2 → Massing v2/);
   assert.match(brief, /Canonical comparison contract/);
   assert.match(brief, /Unique identity cues retained/);
