@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "assetId": "villa-le-bec",
+  "tier": "identity",
+  "versionName": "identity-v1",
+  "status": "identity-built-pending-mcp3-and-runtime",
+  "generator": {
+    "path": "scripts/create_villa_le_bec_identity_model.py",
+    "sha256": "252fb88d30270ddf582ccf27db85ffd4188f0b4ca3f9998f1ff37b8ddcc4f593",
+    "bytes": 12862
+  },
+  "blenderVersion": "5.2.0 LTS",
+  "derivedFrom": {
+    "tier": "hero",
+    "heroMcp2": "pass-main-window-blender-mcp-current-sha",
+    "heroBuildRecord": "docs/research/build-records/tiers/xinhua-road/hero-v1/villa-le-bec-hero.json",
+    "heroEditableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/hero-v1/villa-le-bec-hero.blend",
+      "sha256": "a087f24cbc5c7b6eb6fb014e635a614d90f1be549441977a831277ed17f89329"
+    },
+    "heroRuntimeAsset": {
+      "path": "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
+      "sha256": "1374b7a8301345c23736644cfdc9a7ed467efb8371ebcdf72a507217b0015394"
+    },
+    "heroGlbSha256": "1374b7a8301345c23736644cfdc9a7ed467efb8371ebcdf72a507217b0015394",
+    "heroBlendSha256": "a087f24cbc5c7b6eb6fb014e635a614d90f1be549441977a831277ed17f89329",
+    "massingSha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f",
+    "method": "sha-pinned-hero-subset-reconstruction-over-approved-massing-shell"
+  },
+  "continuity": {
+    "origin": "shared-zero-origin",
+    "frontDirection": "local-negative-y",
+    "groundDatum": "z=0",
+    "placement": {
+      "position": [
+        -34.1,
+        88.8
+      ],
+      "yaw": -0.38,
+      "scale": 0.82,
+      "movementAuthorized": false
+    },
+    "collision": {
+      "sameAsHeroAndMassing": true,
+      "solidWays": [
+        864493176,
+        864493175
+      ],
+      "openCourtyard": true,
+      "bakedCollisionGeometry": false
+    }
+  },
+  "identityCues": {
+    "preserved": [
+      "warm-white-dark-base-red-brown-hipped-roof",
+      "street-projecting-bay-and-two-dormer-silhouettes",
+      "garden-entry-bay-and-side-window-rhythm",
+      "open-courtyard-between-two-buildings"
+    ],
+    "deliberateLosses": [
+      "fine-window-frames-and-mullions",
+      "upper-lower-facade-window-separation",
+      "garden-dormer-glazing",
+      "eave-lines"
+    ]
+  },
+  "scope": {
+    "twoBuildingsOnly": true,
+    "components": 25,
+    "excluded": [
+      "trees",
+      "dressing",
+      "brand",
+      "interior",
+      "low-annex",
+      "extra-ways",
+      "public-registry",
+      "runtime-manifest",
+      "map"
+    ]
+  },
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/identity-v1/villa-le-bec-identity.blend",
+      "sha256": "88abfd37c050c108f2e307a1641981252b2e9789b81768601b505c58bb9f6995"
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/identity-v1/villa-le-bec-identity.glb",
+      "sha256": "802f9fe44b4f8bf43f08226c51b5ee08756aea8eaf5e9d1857b1f40fb20b110a",
+      "bytes": 24856,
+      "bounds": {
+        "min": [
+          -1.0955829620361328,
+          -10.548903465270996,
+          0.0
+        ],
+        "max": [
+          9.996341705322266,
+          -1.209115982055664,
+          4.579999923706055
+        ]
+      }
+    },
+    "previews": [
+      {
+        "path": "test_artifacts/all-models/identity-v1/villa-le-bec/test_villa-le-bec-identity-canonical.png",
+        "sha256": "587eae6f3b2aa5e3198d8a156f8f61b136287c6b223902ef9b6aa63f058f74b7"
+      },
+      {
+        "path": "test_artifacts/all-models/identity-v1/villa-le-bec/test_villa-le-bec-identity-side-depth.png",
+        "sha256": "6f7f0e4ebdd10a2dbe381203bc201215f196c437002c17483d870c477e96b71d"
+      },
+      {
+        "path": "test_artifacts/all-models/identity-v1/villa-le-bec/test_villa-le-bec-identity-entrance.png",
+        "sha256": "8f03b097ad5337b8ce7c13c6b2342efa5f57fc43713ee6ae0965e7f56fb155ef"
+      },
+      {
+        "path": "test_artifacts/all-models/identity-v1/villa-le-bec/test_villa-le-bec-identity-triptych.png",
+        "sha256": "6deecce7e51e1add9c2010146c9de3ac9d6e0b31c4623a60653b8e5c7fb941ba"
+      }
+    ]
+  },
+  "budget": {
+    "maxTriangles": 12000,
+    "maxNodes": 4,
+    "maxMaterials": 4,
+    "maxImages": 0,
+    "maxBytes": 900000,
+    "heroBytes": 106348,
+    "requiresLowerBytesThanHero": true
+  },
+  "gates": {
+    "mcp3": "not-run",
+    "runtime": "not-run-by-scope"
+  }
+}
