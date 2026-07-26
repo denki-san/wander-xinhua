@@ -1,0 +1,170 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-26",
+  "assetId": "building:xinhua-road:shanghai-orchestra",
+  "subject": "上海民族乐团新华路336号修缮一期复合场地",
+  "source": {
+    "kind": "observed-osm-wgs84-footprints",
+    "snapshot": "codex/hold-all-models-v3-recovery-20260725:docs/research/data/xinhua-buildings-overpass-20260724-185147.json",
+    "fetchedAt": "2026-07-24T18:51:55.073Z",
+    "mapProjection": "app/scene/xinhua-map-data.json",
+    "centerWgs84": [
+      121.4227819,
+      31.2066376
+    ],
+    "metersPerSceneUnit": 2.7
+  },
+  "runtimeTransform": {
+    "position": [
+      -44.4,
+      44
+    ],
+    "yaw": 2.761592653589793,
+    "scale": 0.88,
+    "frontDirection": "local-negative-y",
+    "transformRole": "stable-local-frame-only"
+  },
+  "candidateStatus": "geometry-bound-ownership-blocked",
+  "membershipConfidence": "low",
+  "candidateWayIds": [
+    864505166,
+    864505168,
+    864505165,
+    864505169,
+    864505163
+  ],
+  "candidateWays": [
+    {
+      "sourceWayId": 864505166,
+      "candidateRole": "unbound-member-candidate",
+      "heightMeters": 10.5,
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "wgs84Footprint": [
+        [121.4216307, 31.2056257],
+        [121.4216971, 31.2057941],
+        [121.421923, 31.2057289],
+        [121.4218566, 31.2055605]
+      ]
+    },
+    {
+      "sourceWayId": 864505168,
+      "candidateRole": "unbound-member-candidate",
+      "heightMeters": 10.5,
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "wgs84Footprint": [
+        [121.4211962, 31.2055144],
+        [121.4212793, 31.2057003],
+        [121.4213803, 31.2056672],
+        [121.4212972, 31.2054814]
+      ]
+    },
+    {
+      "sourceWayId": 864505165,
+      "candidateRole": "unbound-member-candidate",
+      "heightMeters": 10.5,
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "wgs84Footprint": [
+        [121.4216427, 31.2053584],
+        [121.4216996, 31.2055026],
+        [121.4217784, 31.2054799],
+        [121.421755, 31.2054205],
+        [121.4218748, 31.205386],
+        [121.4218413, 31.2053012]
+      ]
+    },
+    {
+      "sourceWayId": 864505169,
+      "candidateRole": "unbound-member-candidate",
+      "heightMeters": 10.5,
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "wgs84Footprint": [
+        [121.4209695, 31.2058677],
+        [121.4210733, 31.2060511],
+        [121.4213443, 31.2059389],
+        [121.4213793, 31.2060007],
+        [121.4214932, 31.2059535],
+        [121.4213544, 31.2057083]
+      ]
+    },
+    {
+      "sourceWayId": 864505163,
+      "candidateRole": "unbound-member-candidate",
+      "heightMeters": 10.5,
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "wgs84Footprint": [
+        [121.4216407, 31.2053384],
+        [121.4217786, 31.2052986],
+        [121.4217567, 31.2052431],
+        [121.4216189, 31.2052829]
+      ]
+    }
+  ],
+  "adjacentUnknownWays": [
+    {
+      "sourceWayId": 864505162,
+      "exclusionReason": "adjacent-osm-building-without-project-membership-evidence",
+      "wgs84Footprint": [
+        [121.4220625, 31.2055316],
+        [121.4220796, 31.2055267],
+        [121.4220936, 31.2055622],
+        [121.4221483, 31.2055465],
+        [121.4221343, 31.2055109],
+        [121.4222103, 31.205489],
+        [121.4221792, 31.20541],
+        [121.4220314, 31.2054527]
+      ]
+    },
+    {
+      "sourceWayId": 864505164,
+      "exclusionReason": "adjacent-osm-building-without-project-membership-evidence",
+      "wgs84Footprint": [
+        [121.421799, 31.2054433],
+        [121.4218309, 31.2055243],
+        [121.4218989, 31.2055047],
+        [121.421867, 31.2054237]
+      ]
+    },
+    {
+      "sourceWayId": 864505167,
+      "exclusionReason": "adjacent-osm-building-without-project-membership-evidence",
+      "wgs84Footprint": [
+        [121.4217058, 31.2059056],
+        [121.4217907, 31.2061209],
+        [121.4220213, 31.2060543],
+        [121.4219364, 31.2058391]
+      ]
+    },
+    {
+      "sourceWayId": 864505170,
+      "exclusionReason": "adjacent-osm-building-without-project-membership-evidence",
+      "wgs84Footprint": [
+        [121.4210772, 31.2062207],
+        [121.4211462, 31.2063131],
+        [121.4214734, 31.2061341],
+        [121.4214044, 31.2060418]
+      ]
+    }
+  ],
+  "evidenceBoundary": {
+    "observed": [
+      "OSM candidate and adjacent footprints are preserved in raw WGS84",
+      "TJAD evidence proves a compound with buildings 6, 7 and 8 plus retained volumes and linked courtyards",
+      "Recovery clean-v2 already projects the five candidate footprints exactly at the stable runtime transform"
+    ],
+    "inferred": [
+      "the five selected ways form a spatially plausible compound candidate near the current address anchor"
+    ],
+    "unknown": [
+      "which OSM way is building 6, 7 or 8",
+      "which ways are retained historic volumes",
+      "whether any adjacent unknown way belongs to the same compound",
+      "surveyed heights, roofs and entrance compass direction"
+    ]
+  },
+  "acceptance": {
+    "geometryBinding": "candidate-pass",
+    "formalMembership": "blocked-evidence",
+    "mapAcceptance": "blocked-evidence",
+    "identityAllowed": false
+  }
+}
