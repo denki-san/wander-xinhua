@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-329",
+  "auditedAt": "2026-07-26",
+  "status": "blocked-pure-building-hero-evidence",
+  "scope": {
+    "readOnly": true,
+    "browserOrXhsAccessed": false,
+    "blenderOpened": false,
+    "binaryRebuilt": false,
+    "sharedFilesModified": false,
+    "legacyHeroModified": false
+  },
+  "sources": {
+    "referenceManifest": { "path": "docs/research/xinhua-villas-329-reference-manifest.json", "sha256": "a66b79290bf08fd79b3c6730602d81efac20c02c659a44eb63e1825dad7ba985" },
+    "memberBinding": { "path": "docs/research/xinhua-villas-329-member-binding.json", "sha256": "2d34b0c7839014776b98255febe722d87c45d39063a6b4b98838fdc02ba80330" },
+    "mapSupersession": { "path": "docs/research/xinhua-villas-329-map-conflict-superseding-adjudication-2026-07-26.md", "sha256": "a69c42e48ef4b4719ede0c4280d9ba34316390659cdeb97165a0afb0cfd9e967" }
+  },
+  "frozenMassingMapRuntime": {
+    "integrationCommit": "833bb8a",
+    "glbSha256": "f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704",
+    "placement": { "position": [-42.13, 79.48], "yaw": -0.38, "scale": 0.62 },
+    "members": ["15", "36", "40", "42"],
+    "collisionProxyCount": 14,
+    "stripCountByMember": { "15": 1, "36": 1, "40": 6, "42": 6 },
+    "minimumCollisionRoadClearance": 0.848155,
+    "minimumCollisionNeighborClearance": 0.174798,
+    "formalMassingAcceptance": "pass",
+    "movementScaleFootprintChangesAuthorized": false
+  },
+  "viewMatrix": {
+    "compoundCanonical": "partial-supported-xhs-01",
+    "compoundSideOrDepth": "partial-supported-xhs-04-and-18",
+    "member15FullSilhouette": "partial",
+    "member36Canonical": "supported",
+    "member36SideOrDepth": "supported",
+    "member40Canonical": "supported",
+    "member40SideOrDepth": "partial",
+    "member42Canonical": "supported",
+    "member42SideOrDepth": "missing"
+  },
+  "memberBinding": {
+    "15": "bound-medium",
+    "36": "bound-medium",
+    "40": "bound-medium-high",
+    "42": "bound-medium-high",
+    "expandedMemberSetAuthorized": false
+  },
+  "identityComponents": {
+    "36-round-cake-villa": ["two-storey rounded volume", "low red-tile wings", "tall rectangular chimney"],
+    "40-upper-pavilion-villa": ["dark framed upper glazed pavilion", "low tiled entrance canopy", "warm light plaster"],
+    "42-front-gabled-lanting": ["front triangular gable", "shallow red-tile canopy", "paired upper windows"],
+    "15-gate-and-rear-mass": ["number 15 gate", "two-storey rear mass", "dark framed openings"]
+  },
+  "heroAuthorization": {
+    "authorized": false,
+    "legacyHero": "hold-cross-asset-contaminated-not-a-source",
+    "hardGates": [
+      "member15 full silhouette is partial",
+      "member40 side or depth is partial",
+      "member42 side or depth is missing",
+      "all retained bindings are below cadastral or surveyed confidence",
+      "compound canonical and layout remain partial"
+    ],
+    "minimumUnblock": [
+      "same-member side/depth or rear/roof evidence for 15, 40 and 42 before hidden-face Hero detail",
+      "cadastral, survey, or user-confirmed binding for each Hero-detailed member",
+      "authorized compound entrance/layout view if creating one compound Hero rather than a single bound member"
+    ],
+    "forbidden": ["reuse legacy cross-asset hero", "derive identity from massing", "move scale or edit accepted four-member footprints", "invent hidden faces"]
+  }
+}
