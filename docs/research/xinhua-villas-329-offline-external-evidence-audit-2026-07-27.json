@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-329",
+  "auditedAt": "2026-07-27",
+  "status": "offline-external-evidence-exhausted-no-unregistered-admissible-media",
+  "scope": {
+    "mode": "read-only-offline-external-evidence-audit",
+    "roots": [
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots",
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports",
+      "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base"
+    ],
+    "browserAccessed": false,
+    "networkAccessed": false,
+    "xiaohongshuAccessed": false,
+    "externalVolumeModified": false,
+    "mediaDownloaded": false,
+    "modelOrGeneratorModified": false,
+    "sharedFilesModified": false,
+    "registryOrRuntimeModified": false,
+    "recoveryOrHoldModified": false
+  },
+  "policy": {
+    "readOnlySource": "/Users/lei/App_developing/wander-xinhua/.worktrees/dynamic-evidence-storage/docs/research/dynamic-evidence-storage-policy.md",
+    "sha256": "088e145630f39c77ba446bca7df667c71888fe92209f9ef56c4f81d2efe554c5",
+    "archiveTruth": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+    "wikiBoundary": "Dynamic per-asset evidence is not eligible for Threejs-3d-research or any other LLM Wiki."
+  },
+  "localInputs": {
+    "queryContract": {
+      "path": "docs/research/xinhua-villas-329-xiaohongshu-query-contract-2026-07-26.json",
+      "sha256": "f57e11160c0e20d4d06b98bfa8724b16e41299c2d641c74a59ade4dbf844bfa9"
+    },
+    "referenceManifest": {
+      "path": "docs/research/xinhua-villas-329-reference-manifest.json",
+      "sha256": "a66b79290bf08fd79b3c6730602d81efac20c02c659a44eb63e1825dad7ba985"
+    },
+    "xhsInventory": {
+      "path": "docs/research/xinhua-villas-329-xhs-evidence-inventory.json",
+      "sha256": "5e763e646a88b48756e688e8dcb9c1bb525339b6fd05b2e2ee8d93a7846eee7c"
+    },
+    "xhsSourceNote": {
+      "path": "docs/knowledge-sources/xinhua-villas-329-xhs-evidence.md",
+      "sha256": "e84c11142998312c40b80cb5ec22e77607bbfd6635807cfc96f4266ade1ede07"
+    },
+    "publicRescue": {
+      "path": "docs/research/xinhua-villas-329-subject-contract-public-rescue-2026-07-26.json",
+      "sha256": "fe7013227f2a2f566f87d78d3d6c075cf94722dc198087be081c337104a2a2d6"
+    }
+  },
+  "reproducibleSearch": {
+    "fileEnumeration": "find <root> -type f -print | LC_ALL=C sort",
+    "pathRegex": "xinhua[-_ ]?villas[-_ ]?329|新华.*329|329弄|villas329",
+    "contentGlobs": ["*.md", "*.json", "*.txt", "*.csv", "*.tsv"],
+    "contentRegex": "xinhua[-_ ]?villas[-_ ]?329|新华.{0,6}329弄|新华路.{0,3}329|696d1838000000002102bc99",
+    "broadContentRegex": "新华别墅|新华路.{0,12}(17|36|38|40|42)号|Lane 329|No\\. (17|36|38|40|42)",
+    "mediaExtensionsRegex": "\\.(jpe?g|png|webp|gif|mp4|mov|m4v|webm|heic|avif|svg)$",
+    "digestMethod": "Apply LC_ALL=C sort to the newline-separated matched path list, then shasum -a 256.",
+    "symlinkRule": "Do not follow symlinks during enumeration. The old knowledge-base building-evidence symlink target is the separately enumerated legacy-imports root.",
+    "filenameLimitation": "No newline-containing filenames were observed in the three enumerated roots."
+  },
+  "searchScopes": [
+    {
+      "id": "dynamic-snapshots",
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots",
+      "fileCount": 3350,
+      "allFileListSha256": "c6632ee20d8b6bbe304e2e756d17ef7cc94fd90600b8379baa1f664632f936f3",
+      "pathHitCount": 114,
+      "pathHitListSha256": "e690716ee10e0fcc48b7829b436fcd4fd519ffde86348abde2200d7ae300f3de",
+      "textHitCount": 53,
+      "textHitListSha256": "b0c68db498c3378c250a5f1231c797a312762739940c8f0698001c5fad3a7fb2",
+      "mediaPathHitCount": 93,
+      "snapshots": [
+        {
+          "id": "2026-07-26-5383f2a",
+          "manifestSha256": "76fd29c9d89477778ef9269830751e24c648965d883335ddd6170bd1a6c2fe23",
+          "declaredFileCount": 1210,
+          "declaredByteCount": 622911488,
+          "checksumListSha256": "1ac3c5e8d1fbaf978949ba64888c00dba34aa7d8d256b2ec2c395ac860f18736",
+          "checksumVerification": "pass"
+        },
+        {
+          "id": "2026-07-26-ad37273",
+          "manifestSha256": "5b5eb28ec0d943d16231c3f9440036770d55389e67e98ad24e1546e2f0c58e7b",
+          "declaredFileCount": 979,
+          "declaredByteCount": 450568192,
+          "checksumListSha256": "2ba0c627cbe0f9b5dd24fcb34a93521197b11fb8ca2e662b48d2b56a18b1c041",
+          "checksumVerification": "pass"
+        },
+        {
+          "id": "2026-07-26-b20494c",
+          "manifestSha256": "1d1278811a8cc3470b2597667b8e6b3ef78c5f71b79963a03763e5fcc7fbd645",
+          "declaredFileCount": 1155,
+          "declaredByteCount": 476893184,
+          "checksumListSha256": "138f8fa1651cdb0916057a02ba3868eb933693ab962df43b01dca947b796eb7d",
+          "checksumVerification": "pass"
+        }
+      ]
+    },
+    {
+      "id": "legacy-imports",
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports",
+      "fileCount": 1671,
+      "allFileListSha256": "6c3cf03f79f14a89871fe525c04c4f484f5f66f9827406dabbcbec8ca837688d",
+      "pathHitCount": 60,
+      "pathHitListSha256": "d746b172b5fb8c25c62a464e4ea86f9b76143df1ba609398ca6ec2fbbff1e961",
+      "textHitCount": 31,
+      "textHitListSha256": "940e8e9035063a24a3b6055a27fe8c912ee6b022e44d76e2fbc9188b30a0e587",
+      "mediaPathHitCount": 48,
+      "checksumList": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/SHA256SUMS",
+      "checksumListSha256": "0b868ac38160bbb2cfad68b5aef0ce5a5f46180de8e2209cbf25751ea18cc2d2",
+      "checksumBaseDirectory": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence",
+      "checksumVerification": "pass",
+      "verificationCorrection": {
+        "firstAttempt": "false-fail-wrong-base-directory",
+        "reason": "Entries begin with legacy-imports/, so checking from legacy-imports itself prepended the directory twice.",
+        "correctedCommand": "cd /Volumes/plugin/Wander_Xinhua_Dynamic_Evidence && shasum -a 256 -c legacy-imports/SHA256SUMS",
+        "correctedResult": "pass"
+      }
+    },
+    {
+      "id": "old-threejs-knowledge-base",
+      "root": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base",
+      "fileCount": 316,
+      "allFileListSha256": "8ebbc61592a5a45ca6aec63b0d1673ad1afec99741bd5d145d72caed8f6f35da",
+      "pathHitCount": 1,
+      "pathHitListSha256": "46d0de34efe40df7b75c72c901743ebe3101a12117cc912f74545af30fd7ebdc",
+      "textHitCount": 4,
+      "textHitListSha256": "4f40605a82ef54f52fabd2dd428190bf16b597a7153243ac7f0420b33653ec42",
+      "mediaPathHitCount": 0,
+      "direct329PathHit": {
+        "path": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/xinhua-villas-329-subject-contract-public-rescue-2026-07-26/README.md",
+        "sha256": "541e44484d1ba93013959bd68d8e70f6967247621e882693daf7df9cbe202267",
+        "classification": "already-registered-text-only-public-rescue"
+      },
+      "otherTextHits": [
+        "building-height-calibration/xinhua-20260725/baseline/xinhua-district-massing-data.json",
+        "building-height-calibration/xinhua-20260725/baseline/xinhua-district-massing.json",
+        "wander-xinhua/xinhua-villas-211-public-primary-source-rescue-2026-07-26/README.md"
+      ],
+      "otherTextHitClassification": "OSM replacement metadata or cross-scope exclusion reference; no real-world 329 media"
+    }
+  ],
+  "crossScopeResults": {
+    "broadTextHitCount": 55,
+    "broadTextHitListSha256": "db9196ccd11d65b0d98876772590a33acf419f15ae4a3469eb653cb6a8096a4b",
+    "physical329MediaPathHitCount": 141,
+    "mediaPathHitListSha256": "f5bcad6786a21855f459b5db013eb2dedf3e810a14cd4258b2fc723e1ff9cb04",
+    "uniqueMediaSha256Count": 44,
+    "videoPathHitCount": 0,
+    "manifestInventoryOrSourceNotePhysicalHitCount": 10,
+    "unregisteredAdmissibleMediaCount": 0,
+    "unregisteredAdmissibleManifestOrSourceRecordCount": 0
+  },
+  "candidateDisposition": [
+    {
+      "id": "xhs-696d1838000000002102bc99",
+      "physicalFileClass": "18-jpg-captures-plus-one-derived-contact-sheet-repeated-across-snapshots",
+      "uniqueSha256Count": 19,
+      "registeredBy": "docs/research/xinhua-villas-329-xhs-evidence-inventory.json",
+      "usableRealCaptureCount": 9,
+      "needsReviewBlackMediaCount": 9,
+      "derivedContactSheetCount": 1,
+      "videoOrOriginalFrameManifestFound": false,
+      "newEvidence": false,
+      "reason": "Every SHA is already listed in the existing XHS inventory; files 9 through 17 remain black-media screenshots."
+    },
+    {
+      "id": "official-member-17-and-38",
+      "physicalFileClass": "two-official-reference-jpgs-repeated-across-snapshots",
+      "uniqueSha256Count": 2,
+      "registeredBy": "docs/research/xinhua-villas-329-reference-manifest.json",
+      "member17Sha256": "c7eba10495aec90b1f56992b419737c1b3ea636acd93ffef66727977662ec627",
+      "member38Sha256": "2b961ec0932770886aa7f126c11ed31094558146496543b108920afe6b7a5c26",
+      "newEvidence": false,
+      "reason": "The files are the existing front and front-oblique references and add no side, rear, roof-back or accepted-way binding."
+    },
+    {
+      "id": "legacy-329-real-reference",
+      "sha256": "4e6862de23c5667ed3497f681ef19fdcf5a22e58b996c3e9b557efab34f7ed16",
+      "uniqueSha256Count": 1,
+      "registeredBy": "docs/research/xinhua-villas-329-reference-manifest.json",
+      "classification": "permanent-hold-cross-asset-211-member-2",
+      "newEvidence": false
+    },
+    {
+      "id": "temporary-official-images",
+      "registeredBy": "docs/research/xinhua-villas-329-subject-contract-public-rescue-2026-07-26.json",
+      "recordedSha256": [
+        "99e9fb84e04a4a1c09058a7ea541bc47423a559b3877c267eaacdd5bea33283c",
+        "80a41db0973911b6f1404fc9bb39e1a67a6322f4b6723764c8dda34ec813be42",
+        "89ef5e1e5914594d1cb1496daf7596fe3ab9e4e7a16c01e08ba05c57968c17de",
+        "c8fd612c8ac67fb1f1e88f186184ef344f5026da433e6b9e526413523a3f23a2"
+      ],
+      "offlineBinaryFound": false,
+      "observed": "The SHA values and URLs occur only inside repeated public-rescue JSON records, not in any SHA256SUMS entry or associated offline media path.",
+      "newEvidence": false
+    },
+    {
+      "id": "generated-and-runtime-media",
+      "classification": "Blender, Massing, MCP1, Three.js, collision, comparison or runtime derivatives",
+      "uniqueSha256Count": 22,
+      "newEvidence": false,
+      "reason": "Generated media cannot prove real member identity, unseen faces, roof backs or member-to-way binding."
+    },
+    {
+      "id": "old-knowledge-base-329-readme",
+      "classification": "already-registered-text-only-public-rescue",
+      "newEvidence": false,
+      "reason": "The directory contains only README.md; no photo, video, frame or manifest is present."
+    }
+  ],
+  "memberFindings": [
+    {
+      "member": "17",
+      "observed": "Only the already registered official front image is available offline.",
+      "inferred": "The front image remains useful for identity cues but cannot establish placement.",
+      "unknown": ["accepted OSM way", "side or depth", "rear", "roof-back", "entrance continuity", "camera direction"]
+    },
+    {
+      "member": "36",
+      "observed": "The existing XHS captures and public-rescue text are duplicated offline; no new binary is present.",
+      "inferred": "The existing set continues to support a Massing-level rounded-villa identity only.",
+      "unknown": ["authoritative accepted-way binding", "exact entrance", "rear wing", "roof-back", "surveyed scale"]
+    },
+    {
+      "member": "38",
+      "observed": "Only the already registered official front-oblique image is available offline.",
+      "inferred": "The known adjacency to 36 remains a local relation, not a georeferenced footprint assignment.",
+      "unknown": ["accepted OSM way", "complete side or depth", "rear", "roof-back", "camera direction"]
+    },
+    {
+      "member": "40",
+      "observed": "Existing XHS images 5 and 7 are present; the official temporary image is represented only by URL and SHA text.",
+      "inferred": "The modest lateral pair and official description do not close the hidden pavilion depth.",
+      "unknown": ["authoritative accepted-way binding", "rear pavilion depth", "hidden elevations", "surveyed scale"]
+    },
+    {
+      "member": "42",
+      "observed": "Existing XHS image 6 is present and no additional offline view was found.",
+      "inferred": "The front identity remains usable for Massing semantics only.",
+      "unknown": ["authoritative accepted-way binding", "side or depth", "rear", "roof connection", "hidden additions"]
+    }
+  ],
+  "evidenceClassification": {
+    "observed": [
+      "All three dynamic-evidence snapshot checksum lists pass from their snapshot roots.",
+      "The legacy-import checksum list passes when evaluated from the dynamic-evidence root specified by its prefixed paths.",
+      "All 141 explicit 329 media path hits collapse to 44 unique SHA-256 values.",
+      "The 44 unique media SHA values partition into 19 XHS captures/contact-sheet files, two official member references, one permanent cross-asset Hold reference and 22 generated or runtime derivatives.",
+      "Every real-world-referential unique media SHA is already in the XHS inventory, reference manifest, or permanent cross-asset Hold record.",
+      "No 329-associated video path is present, and no new frame manifest or source record was found.",
+      "The old 3D knowledge-base 329 directory contains one already registered README and no media."
+    ],
+    "inferred": [
+      "The offline external archive is reasonably exhausted for traceably attributable 329 evidence.",
+      "No offline material releases the compound boundary, member-to-way, same-member multi-view, scale, entrance, rear, roof-back, Hero or Identity gates.",
+      "The accepted four-member Massing v3, MCP1, map, performance and collision stages should remain frozen and the legacy Hero should remain Hold."
+    ],
+    "unknown": [
+      "Completely unlabeled media with no 329 path, text, source ID, manifest or provenance cannot be semantically attributed and therefore is not admissible 329 evidence.",
+      "The four temporarily inspected official images are not available as offline binaries in the audited roots.",
+      "A future real Xiaohongshu search may expose content not present in these offline archives."
+    ]
+  },
+  "verdict": {
+    "offlineArchiveExhausted": true,
+    "queryContractExecuted": false,
+    "heroAuthorized": false,
+    "identityAuthorized": false,
+    "runtimeDisableEligible": false,
+    "reasonRuntimeDisableNotEligible": "Only the offline archive was exhausted; the main-window Xiaohongshu query contract has not been executed and reasonably exhausted.",
+    "safeAction": "Retain accepted Massing-only runtime, keep all files, and let the main window decide whether to execute the existing slow serial query contract.",
+    "permanentRetention": true
+  }
+}
