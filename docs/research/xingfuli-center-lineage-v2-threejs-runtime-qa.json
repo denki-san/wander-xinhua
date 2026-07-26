@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xingfuli-center",
+  "recordedAt": "2026-07-26T18:18:12+08:00",
+  "owner": "main-window-xhigh",
+  "status": "pass-production-tier-contract",
+  "build": {
+    "mode": "vite-static-production-preview",
+    "integrationBaseline": "d3ebc15",
+    "server": "vite preview",
+    "origin": "http://127.0.0.1:4197",
+    "viewport": [1280, 720],
+    "visibility": "visible",
+    "warmupSecondsPerPage": 8,
+    "browserSurface": "Codex Browser",
+    "sourceFingerprints": {
+      "app/scene/xingfuli-tier-contract.mjs": "c64054a89ccd8657badc4ae85863fd489314192b35e450485933eceac5790af1",
+      "docs/research/building-pipeline-fast-mode.json": "a9158ce927c73ad658786d10372ce544cd62df6b5889db1bc2cd6e65e96337f0",
+      "tests/test_xingfuli_threejs_tier_contract.test.mjs": "86338897c08c08fdba8416475b88822f03a5d0214a4d7f02806a3d8f8c16e43f"
+    },
+    "staticChunk": {
+      "path": "dist-static/assets/xingfuli-tier-contract-I4Q1clwq.js",
+      "sha256": "c6c3ed4a3d0570c50ebb906bfaccf868d060708f4db281b45333e23e6ab4bba6"
+    }
+  },
+  "tierContract": {
+    "productionDefaultChanged": false,
+    "defaultTier": "hero",
+    "hero": {
+      "source": "/models/xingfuli/xingfuli-center.glb?v=20260723-final-1",
+      "sha256": "860249a2656cf7af9aa2ef746f05cc7f39506ec1e8751df236e3c1e3f0f594b9",
+      "bytes": 554080
+    },
+    "identity": {
+      "source": "/models/tiers/xingfuli/identity-v2/xingfuli-center-identity-v2.glb?v=20260726-lineage-v2-a6c1339",
+      "sha256": "a6c1339d6a77f8f5b0b493b0f477c0aa0ccf9a9db42b6e571b01f343efef4f06",
+      "bytes": 452504
+    },
+    "massing": {
+      "source": "/models/tiers/xingfuli/massing-v2/xingfuli-center-massing-v2.glb?v=20260726-lineage-v2-a36b840",
+      "sha256": "a36b840fa7773db56fba5c6bbd9b77ed08a03b588ebfc0a358d4a9e82b2b0d99",
+      "bytes": 309700
+    },
+    "westEastChanged": false,
+    "oldCenterIdentityMassingPreserved": true
+  },
+  "tiers": {
+    "hero": {
+      "status": "loaded",
+      "requestedTier": "hero",
+      "renderedTier": "hero",
+      "source": "/models/xingfuli/xingfuli-center.glb?v=20260723-final-1",
+      "bounds": {
+        "min": [-23.34000015258789, 0.09000000357627869, -22.09000015258789],
+        "max": [25.625, 9.0600004196167, 7.739999771118164]
+      },
+      "performance": {
+        "frames": 120,
+        "durationMs": 2140.1000000089407,
+        "fps": 56.07214616116008,
+        "drawCalls": 523,
+        "triangles": 703837
+      },
+      "camera": "pass-spring-clear-5.44",
+      "blocker": "none"
+    },
+    "identity": {
+      "status": "loaded",
+      "requestedTier": "identity",
+      "renderedTier": "identity",
+      "source": "/models/tiers/xingfuli/identity-v2/xingfuli-center-identity-v2.glb?v=20260726-lineage-v2-a6c1339",
+      "bounds": {
+        "min": [-23.34000015258789, 0.2199997901916504, -22.09000015258789],
+        "max": [21.09000015258789, 9.059999465942383, 7.739999771118164]
+      },
+      "performance": {
+        "frames": 120,
+        "durationMs": 2313.9000000059605,
+        "fps": 51.860495267596214,
+        "drawCalls": 515,
+        "triangles": 701041
+      },
+      "camera": "pass-spring-clear-5.44",
+      "blocker": "none"
+    },
+    "massing": {
+      "status": "loaded",
+      "requestedTier": "massing",
+      "renderedTier": "massing",
+      "source": "/models/tiers/xingfuli/massing-v2/xingfuli-center-massing-v2.glb?v=20260726-lineage-v2-a36b840",
+      "bounds": {
+        "min": [-23.34000015258789, 0.2199997901916504, -22.09000015258789],
+        "max": [21.09000015258789, 9.059999465942383, 7.739999771118164]
+      },
+      "performance": {
+        "frames": 120,
+        "durationMs": 2230.7999999970198,
+        "fps": 53.79236148474104,
+        "drawCalls": 515,
+        "triangles": 698473
+      },
+      "camera": "pass-spring-clear-5.44",
+      "blocker": "none"
+    }
+  },
+  "fallbacks": {
+    "heroToIdentity": {
+      "status": "pass-forced-deterministic-fallback",
+      "requestedTier": "hero",
+      "renderedTier": "identity",
+      "reason": "forced-deterministic-hero-to-identity",
+      "source": "/models/tiers/xingfuli/identity-v2/xingfuli-center-identity-v2.glb?v=20260726-lineage-v2-a6c1339",
+      "errors": 0
+    },
+    "identityToMassing": {
+      "status": "pass-forced-deterministic-fallback",
+      "requestedTier": "identity",
+      "renderedTier": "massing",
+      "reason": "forced-deterministic-identity-to-massing",
+      "source": "/models/tiers/xingfuli/massing-v2/xingfuli-center-massing-v2.glb?v=20260726-lineage-v2-a36b840",
+      "errors": 0
+    }
+  },
+  "collision": {
+    "status": "pass-target-reached",
+    "tier": "identity",
+    "source": "/models/tiers/xingfuli/identity-v2/xingfuli-center-identity-v2.glb?v=20260726-lineage-v2-a6c1339",
+    "start": [106.56414090817087, 12.889718809317268],
+    "target": [93.845516783, 10.577308577],
+    "final": [93.8072128153271, 10.570344420663998],
+    "finalTargetErrorSceneUnits": 0.0389319073891578,
+    "durationMs": 6000,
+    "movementStatus": "complete",
+    "cameraFinal": "spring-clear",
+    "cameraArmFinal": 5.37,
+    "cameraBlockerFinal": "none"
+  },
+  "productionDefault": {
+    "status": "pass-current-product-entry-retained",
+    "url": "/?start=xingfuli-canonical&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaRuntimeTelemetry=1",
+    "qaAssetMarker": null,
+    "qaTierMarker": null,
+    "playerPosition": [106.56414090817087, 12.889718809317268],
+    "camera": "pass-spring-clear-5.44",
+    "cameraBlocker": "none"
+  },
+  "console": {
+    "pagesSampled": 7,
+    "consoleErrors": 0,
+    "windowErrors": 0,
+    "unhandledRejections": 0,
+    "knownWarnings": ["THREE.Clock deprecation"]
+  },
+  "screenshots": [
+    {
+      "view": "hero",
+      "path": "test_artifacts/all-models/runtime/xingfuli-center-lineage-v2/test_xingfuli_center_lineage_v2_hero_threejs.jpg",
+      "sha256": "133cc3f3e399cb35e18f57c7ab39e929882d3b27f34328d2a87eb11832f7e871",
+      "bytes": 81228
+    },
+    {
+      "view": "identity-v2",
+      "path": "test_artifacts/all-models/runtime/xingfuli-center-lineage-v2/test_xingfuli_center_lineage_v2_identity_threejs.jpg",
+      "sha256": "fc808d6fbefb63f8c563bb72571ec8b7ca9b56ddba446261f2c3341d1e9546e7",
+      "bytes": 79038
+    },
+    {
+      "view": "massing-v2",
+      "path": "test_artifacts/all-models/runtime/xingfuli-center-lineage-v2/test_xingfuli_center_lineage_v2_massing_threejs.jpg",
+      "sha256": "9190d01132a492bfefe2083e9c832df8e3de608170660df1a5dbdae7c03e771f",
+      "bytes": 78510
+    },
+    {
+      "view": "hero-to-identity-fallback",
+      "path": "test_artifacts/all-models/runtime/xingfuli-center-lineage-v2/test_xingfuli_center_lineage_v2_hero_to_identity_fallback.jpg",
+      "sha256": "18896eac1b3ed573bce0ecf7f47332ecdbf6d213a72dc6ca34dffd05b051e60c",
+      "bytes": 79064
+    },
+    {
+      "view": "identity-to-massing-fallback",
+      "path": "test_artifacts/all-models/runtime/xingfuli-center-lineage-v2/test_xingfuli_center_lineage_v2_identity_to_massing_fallback.jpg",
+      "sha256": "bfd473f353ffe3408e1735337f4686c61683589db69ef1590e0598ae2710799a",
+      "bytes": 78470
+    },
+    {
+      "view": "identity-v2-collision-final",
+      "path": "test_artifacts/all-models/runtime/xingfuli-center-lineage-v2/test_xingfuli_center_lineage_v2_collision_threejs.jpg",
+      "sha256": "25354785fc21137d1fa4b51105a4999d859ab22944921507f512435ac609f812",
+      "bytes": 83200
+    },
+    {
+      "view": "production-default",
+      "path": "test_artifacts/all-models/runtime/xingfuli-center-lineage-v2/test_xingfuli_center_lineage_v2_production_default.jpg",
+      "sha256": "37bcb098247f36d18e2db533adb8b7d185ff272b712808e61539e7eb9e97c6b0",
+      "bytes": 89842
+    }
+  ],
+  "acceptance": {
+    "strictTierLineage": "pass",
+    "blenderMcp123": "pass",
+    "threeTierLoading": "pass",
+    "fallback": "pass",
+    "performance": "pass-measured-no-improvement-claim",
+    "collision": "pass",
+    "camera": "pass",
+    "map": "pass-center-segment",
+    "consoleAndGlobalErrors": "pass-zero",
+    "productionDefault": "pass-unchanged-hero",
+    "runtimePromotionAllowed": true,
+    "scope": "exact-building-only-no-tree-decoration-or-full-map-change"
+  }
+}

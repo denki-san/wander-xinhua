@@ -2,7 +2,7 @@
   "version": 1,
   "assetId": "xingfuli-center",
   "tier": "massing-v2",
-  "status": "candidate-not-promoted",
+  "status": "accepted-tier-contract",
   "builtAt": "2026-07-26",
   "scope": {
     "buildingIds": [
@@ -147,7 +147,7 @@
     "glbStructure": "pass",
     "headlessFixedViews": "pass-candidate",
     "blenderMcp3": "pass-main-window",
-    "threeJs": "pending-main-window",
-    "publicIntegration": "pending-main-window"
+    "threeJs": "pass-main-window",
+    "publicIntegration": "pass-main-window-tier-contract"
   }
 }

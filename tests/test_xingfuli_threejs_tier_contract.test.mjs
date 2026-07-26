@@ -101,3 +101,29 @@ test("幸福里 QA 只接受三栋清单且页面暴露单页性能/档位/fallb
   assert.match(worldSource, /resolveXingfuliQa/);
   assert.match(worldSource, /xingfuliQaActive \? "full" : xingfuliTier/);
 });
+
+test("幸福里中栋 QA 接入 lineage v2，默认 Hero 与西东两栋保持原路径", () => {
+  const center = XINGFULI_TIERS["xingfuli-center"];
+  assert.equal(
+    center.hero.path,
+    "/models/xingfuli/xingfuli-center.glb",
+  );
+  assert.equal(
+    center.identity.path,
+    "/models/tiers/xingfuli/identity-v2/xingfuli-center-identity-v2.glb",
+  );
+  assert.equal(
+    center.massing.path,
+    "/models/tiers/xingfuli/massing-v2/xingfuli-center-massing-v2.glb",
+  );
+  assert.equal(
+    XINGFULI_TIERS["xingfuli-west"].identity.path,
+    "/models/xingfuli/xingfuli-west-identity.glb",
+  );
+  assert.equal(
+    XINGFULI_TIERS["xingfuli-east"].massing.path,
+    "/models/xingfuli/xingfuli-east-massing.glb",
+  );
+  assert.match(source, /requestedTier = qaActive \? qa\.requestedTier : "hero"/);
+  assert.match(source, /renderedTier = qaActive \? qa\.renderedTier : "hero"/);
+});

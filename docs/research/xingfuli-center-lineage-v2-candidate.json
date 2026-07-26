@@ -2,7 +2,7 @@
   "version": 1,
   "assetId": "xingfuli-center",
   "auditedAt": "2026-07-26",
-  "status": "candidate-passed-main-window-mcp3",
+  "status": "accepted-main-window-threejs-tier-contract",
   "purpose": "以已验收 Hero 为只读父级，补齐 Hero → Identity v2 → Massing v2 的严格可追溯派生链。",
   "scope": {
     "exactBuildingIds": [
@@ -13,6 +13,13 @@
     "publicRuntimeModified": false,
     "treesDecorationFullMap": "excluded",
     "recoveryHold": "untouched"
+  },
+  "scopeMeaning": "candidate-generation-only-before-main-window-promotion",
+  "promotion": {
+    "tierContractModified": true,
+    "productionDefaultHeroChanged": false,
+    "oldIdentityMassingBinariesPreserved": true,
+    "record": "docs/research/xingfuli-center-lineage-v2-threejs-runtime-qa.json"
   },
   "lineage": [
     {
@@ -66,19 +73,14 @@
     "Hero、Identity v2、Massing v2 的 GLB bytes、三角面和源对象数严格递减。",
     "两档均为单 root、标准 root transform、零图片、零纹理、零动画、零骨骼。",
     "六张 headless 固定机位图已复核，Identity 保留身份构件，Massing 进一步删减但不改变 bounds。",
-    "主窗口已用 Blender MCP 打开三档源文件、核对 scene lineage、审查九张固定机位图，并在丢弃临时助手后重开确认 dirty=false。"
+    "主窗口已用 Blender MCP 打开三档源文件、核对 scene lineage、审查九张固定机位图，并在丢弃临时助手后重开确认 dirty=false。",
+    "主窗口已在真实静态生产预览中采集三档、两级 fallback、120帧性能、错误遥测与确定性碰撞；Identity/Massing 已接入正式 tier contract，默认 Hero 不变。"
   ],
   "inferred": [
-    "候选已满足进入主窗口 MCP3 的结构与可追溯条件。",
-    "候选能否替代当前生产 Identity/Massing，仍取决于 MCP3 与真实 Three.js 同条件验收。"
+    "严格 Hero → Identity v2 → Massing v2 lineage、Blender MCP 三门和真实 Three.js 验收已闭合。"
   ],
-  "unknown": [
-    "候选在实际地图相机、fallback、碰撞和性能路径下是否与当前验收基线等价。",
-    "主窗口是否批准 production promotion。"
-  ],
+  "unknown": [],
   "nextGates": [
-    "main-window public manifest and resolver integration",
-    "single-page Three.js three tiers, fallback, performance, errors and collision",
     "main-window project regression on the next 2-3-building batch"
   ]
 }

@@ -11,9 +11,9 @@ const FALLBACK_CHAIN = Object.freeze({
   massing: null,
 });
 
-function tier(segment, name, sha256, bytes, cacheVersion) {
+function tier(segment, name, sha256, bytes, cacheVersion, pathOverride = null) {
   const suffix = name === "hero" ? "" : `-${name}`;
-  const path = `/models/xingfuli/${segment}${suffix}.glb`;
+  const path = pathOverride ?? `/models/xingfuli/${segment}${suffix}.glb`;
   return Object.freeze({
     name,
     path,
@@ -59,16 +59,18 @@ export const XINGFULI_TIERS = Object.freeze({
     identity: tier(
       "xingfuli-center",
       "identity",
-      "19800200464e0e9423e5a355abde7216478ba73c10b7539b0bafe5674fc4dc21",
-      453004,
-      "1",
+      "a6c1339d6a77f8f5b0b493b0f477c0aa0ccf9a9db42b6e571b01f343efef4f06",
+      452504,
+      "20260726-lineage-v2-a6c1339",
+      "/models/tiers/xingfuli/identity-v2/xingfuli-center-identity-v2.glb",
     ),
     massing: tier(
       "xingfuli-center",
       "massing",
-      "d6eeae59d35c3577817cdf35febb06493b53cbb661774e81a6e55d7a6dce26d3",
-      310204,
-      "1",
+      "a36b840fa7773db56fba5c6bbd9b77ed08a03b588ebfc0a358d4a9e82b2b0d99",
+      309700,
+      "20260726-lineage-v2-a36b840",
+      "/models/tiers/xingfuli/massing-v2/xingfuli-center-massing-v2.glb",
     ),
   }),
   "xingfuli-east": Object.freeze({

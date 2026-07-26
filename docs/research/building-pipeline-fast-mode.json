@@ -396,6 +396,10 @@
         "tests/test_xingfuli_user_photo_sequence_evidence.test.mjs",
         "tests/test_xingfuli_center_lineage_map.test.mjs",
         "tests/test_xingfuli_center_lineage_reconstruction.test.mjs",
+        "tests/test_xingfuli_center_lineage_v2_generator.test.mjs",
+        "tests/test_xingfuli_center_lineage_v2_candidate.test.mjs",
+        "tests/test_xingfuli_center_lineage_v2_blender_mcp_gates.test.mjs",
+        "tests/test_xingfuli_center_lineage_v2_threejs_runtime.test.mjs",
         "tests/test_xingfuli_center_entrance_direct_start_candidate.test.mjs",
         "tests/test_xingfuli_center_entrance_runtime_qa.test.mjs",
         "scripts/test_xingfuli_center_lineage_map_calibration.mjs",
@@ -403,8 +407,8 @@
       ],
       "glbs": [
         "public/models/xingfuli/xingfuli-center.glb",
-        "public/models/xingfuli/xingfuli-center-identity.glb",
-        "public/models/xingfuli/xingfuli-center-massing.glb"
+        "public/models/tiers/xingfuli/identity-v2/xingfuli-center-identity-v2.glb",
+        "public/models/tiers/xingfuli/massing-v2/xingfuli-center-massing-v2.glb"
       ],
       "runtimeRoutes": [
         "/?start=xingfuli-canonical&qaModelId=xingfuli-center&qaModelTier=hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",

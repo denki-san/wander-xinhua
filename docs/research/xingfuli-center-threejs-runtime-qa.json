@@ -99,5 +99,6 @@
     "formalRuntimeAcceptance": "blocked-lineage",
     "runtimePromotionAllowed": false
   },
-  "nextGate": "Resolve strict Hero-to-Identity lineage; binaries and QA evidence remain preserved."
+  "nextGate": "Resolve strict Hero-to-Identity lineage; binaries and QA evidence remain preserved.",
+  "supersededForLineagePromotionBy": "docs/research/xingfuli-center-lineage-v2-threejs-runtime-qa.json"
 }

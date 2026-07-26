@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T18:02:00+08:00",
-  "snapshotBaseCommit": "61184b4",
+  "snapshotAt": "2026-07-26T18:18:12+08:00",
+  "snapshotBaseCommit": "d3ebc15",
   "scope": {
     "mode": "exact-18-building-fast-mode",
     "buildingCount": 18,
@@ -18,15 +18,16 @@
     ]
   },
   "summary": {
-    "complete": 6,
+    "complete": 7,
     "inProgress": 0,
-    "blockedOrPartial": 12,
+    "blockedOrPartial": 11,
     "completeIds": [
       "one-step-garden",
       "house-315",
       "villa-le-bec",
       "hudec-memorial",
       "xinhua-pocket-park",
+      "xingfuli-center",
       "sun-ke-villa"
     ],
     "inProgressIds": []
@@ -351,19 +352,22 @@
       "id": "xingfuli-center",
       "name": "幸福里中区",
       "evidence": "pass-asset-identity-cues",
-      "hero": "pass-asset-lineage-blocked",
-      "identity": "pass-asset-lineage-blocked",
-      "massing": "pass-asset-lineage-blocked",
-      "mcp1": "pass",
-      "mcp2": "pass",
-      "mcp3": "pass",
+      "hero": "pass-retained-strict-parent",
+      "identity": "pass-lineage-v2",
+      "massing": "pass-lineage-v2",
+      "mcp1": "pass-lineage-v2",
+      "mcp2": "pass-lineage-v2",
+      "mcp3": "pass-lineage-v2",
       "map": "pass",
-      "threeJs": "pass-three-tier-fallback-performance-collision",
-      "overall": "blocked-strict-lineage",
-      "runtimePolicy": "preserve-current-no-formal-promotion",
+      "threeJs": "pass-lineage-v2-three-tier-fallback-performance-collision",
+      "overall": "complete",
+      "runtimePolicy": "production-hero-retained-lineage-v2-identity-massing-tier-contract",
       "records": [
         "docs/research/xingfuli-center-lineage-map-audit.json",
         "docs/research/xingfuli-center-lineage-reconstruction-2026-07-26.json",
+        "docs/research/xingfuli-center-lineage-v2-candidate.json",
+        "docs/research/xingfuli-center-lineage-v2-blender-mcp-gates.json",
+        "docs/research/xingfuli-center-lineage-v2-threejs-runtime-qa.json",
         "docs/research/xingfuli-center-entrance-direct-start-candidate.json",
         "docs/research/xingfuli-center-entrance-runtime-qa-2026-07-26.json",
         "docs/research/xingfuli-user-photo-sequence-2026-07-26.json"

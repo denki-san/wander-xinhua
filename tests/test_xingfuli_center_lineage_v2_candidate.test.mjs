@@ -71,12 +71,19 @@ test("幸福里中栋 lineage v2 候选严格锁定父子 SHA 和隔离范围", 
   ]);
 
   assert.equal(candidate.assetId, "xingfuli-center");
-  assert.equal(candidate.status, "candidate-passed-main-window-mcp3");
+  assert.equal(candidate.status, "accepted-main-window-threejs-tier-contract");
   assert.deepEqual(candidate.scope.exactBuildingIds, ["xingfuli-center"]);
   assert.equal(candidate.scope.candidatePathsOnly, true);
   assert.equal(candidate.scope.publicRuntimeModified, false);
   assert.equal(candidate.scope.treesDecorationFullMap, "excluded");
   assert.equal(candidate.scope.recoveryHold, "untouched");
+  assert.equal(
+    candidate.scopeMeaning,
+    "candidate-generation-only-before-main-window-promotion",
+  );
+  assert.equal(candidate.promotion.tierContractModified, true);
+  assert.equal(candidate.promotion.productionDefaultHeroChanged, false);
+  assert.equal(candidate.promotion.oldIdentityMassingBinariesPreserved, true);
 
   assert.equal(
     sha256(heroBytes),

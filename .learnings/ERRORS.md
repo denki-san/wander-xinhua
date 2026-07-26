@@ -9407,3 +9407,76 @@ expected: blocked-front-only-xhs-deferred
   与 local evidence rescue 两份记录存在。
 
 ---
+
+## [ERR-20260726-113] local_preview_port_already_owned_by_vite
+
+**Logged**: 2026-07-26T18:02:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+尝试在 `127.0.0.1:4197` 启动新的静态服务器时端口已被占用；受限探针此前无法
+连接该端口，不能据此假定没有监听进程。
+
+### Error
+```text
+OSError: [Errno 48] Address already in use
+```
+
+### Resolution
+- **Resolved**: 2026-07-26T18:03:00+08:00
+- **Notes**: 用 `lsof` 与 `ps` 只读确认占用者就是本集成 Worktree 的
+  `vite preview --port 4197`，复用该进程且未终止任何服务。
+
+---
+
+## [ERR-20260726-114] browser_navigation_method_called_on_playwright_helper
+
+**Logged**: 2026-07-26T18:05:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+复用旧 Browser tab 时误将导航调用写成 `tab.playwright.goto`；当前 Browser API
+把导航放在 `tab.goto`，Playwright helper 只负责 evaluate、locator 和等待。
+
+### Error
+```text
+tab.playwright.goto is not a function
+```
+
+### Resolution
+- **Resolved**: 2026-07-26T18:05:00+08:00
+- **Notes**: 只读查看 prototype 后改用 `tab.goto`，后续七页采集均在同一 tab 完成。
+
+---
+
+## [ERR-20260726-115] browser_evaluate_global_performance_unavailable
+
+**Logged**: 2026-07-26T18:15:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+默认产品入口检查尝试读取 `performance.getEntriesByType`，但当前 Browser evaluate
+沙箱不暴露 `window/globalThis.performance`。
+
+### Error
+```text
+TypeError: Cannot read properties of undefined (reading 'getEntriesByType')
+```
+
+### Context
+- 页面已正常加载，失败只发生在额外资源列表读取；
+- 三档 QA 页面已经通过页面内 source dataset 锁定精确 URL；
+- 默认入口是否被 QA 激活可由 `xingfuliQaAsset/xingfuliQaRenderedTier` 两个标记判断。
+
+### Resolution
+- **Resolved**: 2026-07-26T18:16:00+08:00
+- **Notes**: 默认入口改用页面内 QA 标记均为空、错误遥测为零、可见截图与静态 resolver
+  合同联合验收，不伪造 Resource Timing 证据。
+
+---
