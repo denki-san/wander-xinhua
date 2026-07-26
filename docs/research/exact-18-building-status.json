@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T17:00:00+08:00",
-  "snapshotBaseCommit": "0b2c8a4",
+  "snapshotAt": "2026-07-26T17:50:00+08:00",
+  "snapshotBaseCommit": "8947ac0",
   "scope": {
     "mode": "exact-18-building-fast-mode",
     "buildingCount": 18,
@@ -42,15 +42,16 @@
       "mcp1": "pass",
       "mcp2": "pass",
       "mcp3": "pass",
-      "map": "blocked-exact-subject-anchor",
+      "map": "blocked-confirmed-road-setback-no-georeferenced-local-anchor",
       "threeJs": "pass-three-tier-retained",
-      "overall": "blocked-map-anchor",
+      "overall": "blocked-confirmed-road-setback-exact-remedy",
       "runtimePolicy": "preserve-current-no-map-promotion",
       "records": [
         "docs/research/shanghai-cinema-final-audit-2026-07-26.json",
         "docs/research/shanghai-cinema-map-calibration-2026-07-26.json",
         "docs/research/shanghai-cinema-hero-exact-reproduction-audit.json",
-        "docs/research/build-records/shanghai-cinema-hero-exact-reproduction.json"
+        "docs/research/build-records/shanghai-cinema-hero-exact-reproduction.json",
+        "docs/research/shanghai-cinema-exact-anchor-road-setback-audit.json"
       ]
     },
     {
@@ -186,7 +187,7 @@
     {
       "id": "shanghai-orchestra",
       "name": "上海民族乐团",
-      "evidence": "blocked-osm-membership",
+      "evidence": "blocked-local-membership-rescue-exhausted",
       "hero": "hold-invalid-or-missing",
       "identity": "missing",
       "massing": "diagnostic-pass",
@@ -195,12 +196,13 @@
       "mcp3": "blocked",
       "map": "blocked-membership",
       "threeJs": "pass-diagnostic-massing",
-      "overall": "blocked-membership-hero-identity",
+      "overall": "blocked-local-membership-rescue-exhausted-hero-identity",
       "runtimePolicy": "diagnostic-only-no-promotion",
       "records": [
         "docs/research/shanghai-orchestra-final-gap-audit.json",
         "docs/research/shanghai-orchestra-membership-tier-final-disposition-2026-07-26.md",
-        "docs/research/shanghai-orchestra-osm-membership-deep-audit.json"
+        "docs/research/shanghai-orchestra-osm-membership-deep-audit.json",
+        "docs/research/shanghai-orchestra-osm-membership-rescue-audit.json"
       ]
     },
     {
@@ -286,7 +288,7 @@
     {
       "id": "fahua-heritage",
       "name": "法华遗韵",
-      "evidence": "blocked-front-only-xhs-deferred",
+      "evidence": "blocked-one-front-only-local-rescue-exhausted-xhs-deferred",
       "hero": "hold-legacy-not-mcp2",
       "identity": "missing",
       "massing": "conditional-geometry-only",
@@ -295,10 +297,11 @@
       "mcp3": "blocked",
       "map": "blocked-missing-street-context",
       "threeJs": "not-formally-accepted",
-      "overall": "blocked-evidence-xhs-deferred",
+      "overall": "blocked-local-evidence-rescue-exhausted-xhs-deferred",
       "runtimePolicy": "preserve-files-when-user-awake-search-xhs-then-disable-runtime-if-still-missing",
       "records": [
-        "docs/research/fahua-heritage-final-disposition.json"
+        "docs/research/fahua-heritage-final-disposition.json",
+        "docs/research/fahua-heritage-local-evidence-rescue.json"
       ]
     },
     {

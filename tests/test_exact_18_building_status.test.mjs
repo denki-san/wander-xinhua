@@ -79,13 +79,16 @@ test("每栋均保留门状态、runtime policy 与现存裁决记录", async ()
 test("证据不足的法华遗韵只计划停用 runtime，文件必须继续保留", async () => {
   const status = await readJson("docs/research/exact-18-building-status.json");
   const heritage = status.buildings.find(({ id }) => id === "fahua-heritage");
-  assert.equal(heritage.evidence, "blocked-front-only-xhs-deferred");
+  assert.equal(
+    heritage.evidence,
+    "blocked-one-front-only-local-rescue-exhausted-xhs-deferred",
+  );
   assert.match(heritage.runtimePolicy, /preserve-files/);
   assert.match(heritage.runtimePolicy, /disable-runtime-if-still-missing/);
-  assert.equal(
-    heritage.records.includes(
-      "docs/research/fahua-heritage-final-disposition.json",
-    ),
-    true,
-  );
+  for (const path of [
+    "docs/research/fahua-heritage-final-disposition.json",
+    "docs/research/fahua-heritage-local-evidence-rescue.json",
+  ]) {
+    assert.equal(heritage.records.includes(path), true);
+  }
 });

@@ -9197,3 +9197,36 @@ Computer Use is not allowed to use the app 'com.openai.codex' for safety reasons
 - Related Files: docs/research/xingfuli-user-photo-sequence-2026-07-26.json
 
 ---
+
+## [ERR-20260726-107] exact_status_test_still_locked_old_fahua_evidence_string
+
+**Logged**: 2026-07-26T17:52:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+主窗口把法华遗韵 evidence 状态细化为“本地 rescue 已耗尽且 XHS 延后”后，
+对应 exact 状态测试仍严格断言旧字符串，导致公共状态专项回归失败。
+
+### Error
+```text
+actual: blocked-one-front-only-local-rescue-exhausted-xhs-deferred
+expected: blocked-front-only-xhs-deferred
+```
+
+### Context
+- 本次只更新状态文案和新增本栋 rescue 记录，没有修改资产或 runtime；
+- 通用 Fast/exact 结构、18 栋范围守卫及其余专项均已通过；
+- 失败暴露的是公共状态与其显式合同必须原子更新。
+
+### Suggested Fix
+修改 exact 状态时同步更新状态专项测试，并额外锁定新增裁决记录仍存在，
+避免只改变字符串而丢失证据链。
+
+### Resolution
+- **Resolved**: 2026-07-26T17:52:00+08:00
+- **Notes**: 测试已改为断言新 evidence 字符串，并同时要求 final disposition
+  与 local evidence rescue 两份记录存在。
+
+---
