@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xingfuli-west",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "2643a4d2c5ab84f945336b29e764eae0dc0ae926",
+  "status": "prepared-no-xiaohongshu-access-or-media-download",
+  "scope": {"browserAccessed": false, "xiaohongshuAccessed": false, "mediaDownloaded": false, "registryModified": false, "binaryModified": false, "collisionOrTransformModified": false},
+  "inputs": {
+    "userRoute": {"path": "docs/research/xingfuli-user-photo-sequence-2026-07-26.json", "sha256": "d05eaec36c1334c7ae00e63fd570370bff0d291298e37bf3da3ce24fccc9f3ad"},
+    "westAudit": {"path": "docs/research/xingfuli-west-fast-audit.json", "sha256": "9c089fb784627645d381fbb681b2ad313cb8c8da439ab753ff38ed8bb9ad8c9e"},
+    "mapPhotoBlocker": {"path": "docs/research/xingfuli-west-east-map-photo-blocker-2026-07-26.json", "sha256": "1593d8ad4178308234177efa1eb66464db9decbc571f27fcdfc8aef614d30330"}
+  },
+  "retainedStages": {"heroIdentityMassing": "pass-retained-no-rebuild", "mcp": "pass-retained", "threejs": "pass-retained", "map": "blocked-way-400066625-passage-unknown"},
+  "queryPlan": {
+    "searchTerms": ["幸福里 幸福路 入口", "幸福里 西区 通道", "幸福里 拱洞 坡道", "幸福里 幸福路 沿街", "幸福里 番禺路 入口"],
+    "maximumResultsToOpenPerSession": 10,
+    "maximumQualifiedPostsToInspectPerSession": 4,
+    "minimumSecondsBetweenOpenActions": 45,
+    "minimumSecondsBeforeNextSearchAfterPostInspection": 90,
+    "behavior": ["use normal search and gradual scrolling", "do not bulk-open tabs", "do not automate likes, follows, comments, saves, or messages", "stop if rate limiting, verification, or account-risk signals appear"],
+    "doNotDownloadOrCopy": ["media files", "watermarked screenshots", "creator text beyond short evidence notes"],
+    "rawMediaPolicy": "If the user separately provides originals or a permitted source grants access, preserve them read-only with URL, post ID, author, capture date, SHA-256 and rights boundary; never overwrite current public references."
+  },
+  "acceptanceMatrix": [
+    {"id": "west-passage", "mustShow": ["ground-level passage or opening", "both side walls or structural limits", "clear view of whether it is covered/bridged/open", "person or known-scale reference"], "rejectIf": ["facade-only", "interior-only", "trees hide passage limits"]},
+    {"id": "west-road-interface", "mustShow": ["Xingfu Road entrance or street-facing interface", "curb/road/paving edge", "west building facade relation", "camera direction sufficient for map comparison"], "rejectIf": ["road name only", "cropped entrance without ground boundary"]},
+    {"id": "west-grade", "mustShow": ["slope, steps, or level change if present", "start and end ground planes", "wall/opening relation"], "rejectIf": ["single close-up without grade context"]}
+  ],
+  "evidenceRules": {"publicNineImagesAreNotUserOriginals": true, "userOriginalCountInRepository": 0, "acceptedPostMustBeSameSubjectAndLocation": true, "postMustNotAloneAuthorizeCollisionOrTransform": true, "mapDecisionStillRequires": ["visible evidence", "OSM/map geometry", "main-window adjudication"]},
+  "runtimeDisablePolicy": {"authorizedNow": false, "candidateOnlyAfter": ["main window performs the contracted slow XHS search", "no qualifying evidence after documented exhaustion", "main window confirms map blocker remains"], "ifCandidate": "disable only the runtime entry; preserve product files, all tier GLBs, Blend sources, generators, build records and Hold artifacts permanently"}
+}
