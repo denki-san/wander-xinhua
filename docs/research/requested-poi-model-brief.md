@@ -124,6 +124,13 @@
   - <https://www.thepaper.cn/newsDetail_forward_1527205>
 - 本地照片：`docs/research/assets/requested-poi-references/fahua-heritage-arch.jpg`
 - 典型对照图：`fahua-heritage-arch.jpg`，正立面。
+- XHS 连续视频帧：
+  - `docs/research/assets/xiaohongshu/fahua-heritage/original/test_fahua-heritage-xhs-195s.png`，右前斜向，作为新增 canonical comparison view；
+  - `docs/research/assets/xiaohongshu/fahua-heritage/original/test_fahua-heritage-xhs-197s.png`，近正面并覆盖左侧窄通行与路缘。
+- 视角覆盖：正面 `pass`；右前纵深 `pass`；左侧入口/路缘 `partial`；完整背面 `unknown`。
+- 可见事实：右侧短瓦檐和侧板有真实纵深，相邻青绿色墙面带 `518` 门牌，前方为抬高铺地并存在边缘高差。
+- 推断：`518` 只作为相邻墙面控制点，不能单独解释为本构筑物法定地址或精确地图锚点。
+- 未知：实测尺度、完整背面、footprint、道路/步道边界和完整可绕行净空；在地图校准前仍不授权建模或 MCP 晋级。
 - 轮廓与材料：灰石三间纪念构筑物，中间横额、两侧短瓦檐，中央和两侧嵌深褐说明牌。
 - 专属识别点：
   1. 中央四柱三间石构；

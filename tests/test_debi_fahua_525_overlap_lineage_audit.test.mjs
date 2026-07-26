@@ -67,12 +67,24 @@ test("德必 overlap/lineage 审计锁定当前集成输入且没有越权改公
     audit.baseCommit,
     "e1a2611b5bf8127cea8f229da0a89c12cfd1e4d0",
   );
+  const sharedReviewPaths = new Set([
+    "app/scene/xinhua-road-landmarks-data.json",
+    "docs/research/poi-reference-manifest.json",
+    "docs/research/requested-poi-model-brief.md",
+  ]);
   for (const source of audit.sources.currentFiles) {
-    const sourceBytes = source.path === "app/scene/xinhua-road-landmarks-data.json"
+    const sourceBytes = sharedReviewPaths.has(source.path)
       ? gitBytes(audit.baseCommit, source.path)
       : await bytes(source.path);
     assert.equal(sha256(sourceBytes), source.sha256, source.path);
   }
+  const manifest = await json("docs/research/poi-reference-manifest.json");
+  const entry = manifest.pois.find(({ id }) => id === "debi-fahua-525");
+  assert.equal(entry?.photoStatus, "verified-same-compound");
+  assert.deepEqual(
+    entry.referencePhotos.map(({ path }) => path),
+    audit.sources.localReferences,
+  );
   assert.equal(audit.scope.assetOnly, "debi-fahua-525");
   assert.equal(audit.scope.browserNetworkOrXhsAccessed, false);
   assert.equal(audit.scope.modelBinaryRebuilt, false);

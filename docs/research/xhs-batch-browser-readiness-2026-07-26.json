@@ -2,13 +2,16 @@
   "schemaVersion": 1,
   "checkedAt": "2026-07-26T22:43:26+08:00",
   "baseCommit": "2643a4d2c5ab84f945336b29e764eae0dc0ae926",
-  "status": "query-contracts-ready-browser-not-running-external-fahua-evidence-discovered",
+  "status": "eight-query-contracts-ready-browser-not-running-fahua-external-evidence-ingested",
+  "updatedAt": "2026-07-26T23:09:19+08:00",
   "scope": {
     "assetIds": [
       "fahua-heritage",
       "shanghai-cinema",
       "xinhua-villas-211",
       "shanghai-orchestra",
+      "xinhua-community-center",
+      "debi-fahua-525",
       "xingfuli-west",
       "xingfuli-east"
     ],
@@ -45,7 +48,7 @@
   },
   "externalEvidenceDiscovery": {
     "assetId": "fahua-heritage",
-    "discoveryStatus": "u-disk-package-found-corrected-ingestion-pending",
+    "discoveryStatus": "u-disk-package-ingested-building-local-map-pending",
     "collectedAtClaim": "2026-07-26T21:31:00+08:00",
     "manifest": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence/fahua-heritage/xhs-2026-07-26/test_fahua-heritage-xhs-evidence-manifest.json",
     "sourceNote": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence/fahua-heritage/xhs-2026-07-26/test_fahua-heritage-xhs-source-note.md",
@@ -55,13 +58,15 @@
     ],
     "manifestPathMismatch": "The manifest frame paths use test_xhs_fahua-heritage_* names, while the actual preserved files use test_fahua-heritage-xhs-* names.",
     "mainWindowVisualInspection": "Both actual frames show the same Fahua Heritage subject and materially improve right-front depth and street-interface evidence. Exact map calibration, scale, and full rear geometry remain pending.",
+    "repositoryRecord": "docs/research/fahua-heritage-xiaohongshu-local-ingestion-2026-07-26.json",
+    "repositoryKnowledgeSource": "docs/knowledge-sources/fahua-heritage-xiaohongshu-local-ingestion-2026-07-26.md",
     "uDiskFilesModified": false
   },
   "queryContracts": [
     {
       "assetId": "fahua-heritage",
       "path": "docs/research/fahua-heritage-xiaohongshu-query-contract-2026-07-26.json",
-      "executionStatus": "external-evidence-discovered-validation-pending"
+      "executionStatus": "external-evidence-ingested-building-local-map-pending"
     },
     {
       "assetId": "shanghai-cinema",
@@ -79,6 +84,16 @@
       "executionStatus": "not-run"
     },
     {
+      "assetId": "xinhua-community-center",
+      "path": "docs/research/xinhua-community-center-xiaohongshu-road-query-contract-2026-07-26.json",
+      "executionStatus": "not-run"
+    },
+    {
+      "assetId": "debi-fahua-525",
+      "path": "docs/research/debi-fahua-525-xiaohongshu-query-contract-2026-07-26.json",
+      "executionStatus": "not-run"
+    },
+    {
       "assetId": "xingfuli-west",
       "path": "docs/research/xingfuli-west-xhs-query-contract-2026-07-26.json",
       "executionStatus": "not-run"
@@ -90,7 +105,7 @@
     }
   ],
   "nextGate": {
-    "requiredUserAction": "Allow the main window to launch Chrome when the user is available; separately finish the building-local corrected ingestion of the discovered Fahua package.",
+    "requiredUserAction": "Allow the main window to launch Chrome when the user is available for the seven not-run contracts; Fahua exact map, rear, and scale adjudication remains a separate evidence gate.",
     "executionOwner": "main-window-xhigh",
     "executionMode": "serial-read-only-human-paced",
     "parallelXhsBrowsingForbidden": true,
@@ -99,7 +114,7 @@
   },
   "runtimeDisablePolicy": {
     "eligibleNow": false,
-    "reason": "Five contracted searches have not executed, and the discovered Fahua package still needs corrected ingestion and map adjudication.",
+    "reason": "Seven contracted searches have not executed; the discovered Fahua package is ingested but does not clear exact map, rear, or scale.",
     "allFilesMustRemain": true
   }
 }

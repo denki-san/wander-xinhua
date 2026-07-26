@@ -53,3 +53,27 @@ test("法华遗韵本地帧接入不改模型、MCP、运行时或Hold", async (
   assert.equal(record.scope.recoveryOrHoldModified, false);
   assert.equal(record.gateDecision.runtimeChangeAuthorized, false);
 });
+
+test("主窗口把两帧接入参考清单与Brief但不解除地图未知", async () => {
+  const [record, manifest, brief] = await Promise.all([
+    json(recordPath),
+    json("docs/research/poi-reference-manifest.json"),
+    readFile(new URL("docs/research/requested-poi-model-brief.md", root), "utf8"),
+  ]);
+  const poi = manifest.pois.find(({ id }) => id === "fahua-heritage");
+  assert.ok(poi);
+  assert.equal(
+    poi.photoStatus,
+    "verified-same-structure-xhs-depth-street-map-pending",
+  );
+  for (const frame of record.files) {
+    assert.equal(
+      poi.referencePhotos.some(({ path }) => path === frame.repositoryPath),
+      true,
+      frame.repositoryPath,
+    );
+    assert.match(brief, new RegExp(frame.repositoryPath.replaceAll("/", "\\/"), "u"));
+  }
+  assert.match(brief, /完整背面 `unknown`/u);
+  assert.match(brief, /地图校准前仍不授权建模或 MCP 晋级/u);
+});

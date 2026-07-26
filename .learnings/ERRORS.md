@@ -53,6 +53,64 @@ Error: Cannot find module
 
 ---
 
+## [ERR-20260726-130] cross_building_manifest_append_broke_debi_snapshot_tests
+
+**Logged**: 2026-07-26T23:14:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+主窗口为法华遗韵向共享参考 manifest 和 Brief 追加证据后，德必三条历史审计仍对
+整份共享文件当前 SHA 做等值断言，第三批 Fast Mode 专项阶段 116/119。
+
+### Error
+```text
+docs/research/poi-reference-manifest.json
+actual ace436ba... expected be687fc2...
+```
+
+### Resolution
+- **Resolved**: 2026-07-26T23:14:00+08:00
+- **Notes**: 德必守卫继续验证 review-time SHA 的存在或从审计 base commit 回读，
+  同时对当前 manifest 中 `debi-fahua-525` 条目的状态与三张参考逐项验真。法华追加
+  不再要求回退整份共享文件；德必模型、道路、运行时和自身证据均未改变。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_debi_fahua_525_final_disposition.test.mjs, tests/test_debi_fahua_525_map_candidate.test.mjs, tests/test_debi_fahua_525_overlap_lineage_audit.test.mjs
+- See Also: ERR-20260726-127, ERR-20260726-129
+
+---
+
+## [ERR-20260726-129] fahua_xhs_evidence_upgrade_left_front_only_assertions
+
+**Logged**: 2026-07-26T23:11:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+法华遗韵接入两张同主体 XHS 连续视频帧后，两个旧守卫仍要求
+`verified-same-structure` 和“只有一张正面图”，导致联合专项 25/27。
+
+### Error
+```text
+photoStatus actual verified-same-structure-xhs-depth-street-map-pending
+expected verified-same-structure
+
+runtimePolicy no longer matches disable-runtime-if-still-missing
+```
+
+### Resolution
+- **Resolved**: 2026-07-26T23:11:00+08:00
+- **Notes**: 守卫改为精确要求三张参考、右前纵深与左侧路缘两种新增视角，并继续
+  锁定完整背面、地图和尺度未知；旧 final disposition 的 review-time manifest/Brief
+  SHA 作为历史指纹保留，但允许主窗口追加证据。runtime 停用断言改为“最终地图/
+  背面/尺度仍不足时才可提出”，所有文件继续保留。
+
+---
+
 ## [ERR-20260726-127] xhs_query_contract_input_sha_stale_after_cherry_pick
 
 **Logged**: 2026-07-26T22:58:00+08:00

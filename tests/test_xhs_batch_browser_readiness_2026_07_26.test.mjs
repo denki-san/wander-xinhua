@@ -10,17 +10,19 @@ async function readJson(relativePath) {
   return JSON.parse(await readFile(new URL(relativePath, root), "utf8"));
 }
 
-test("六栋XHS合同已就绪，但Chrome未运行时不得冒充本窗口已检索", async () => {
+test("八栋XHS合同已就绪，但Chrome未运行时不得冒充本窗口已检索", async () => {
   const record = await readJson(recordPath);
   assert.equal(
     record.status,
-    "query-contracts-ready-browser-not-running-external-fahua-evidence-discovered",
+    "eight-query-contracts-ready-browser-not-running-fahua-external-evidence-ingested",
   );
   assert.deepEqual(record.scope.assetIds, [
     "fahua-heritage",
     "shanghai-cinema",
     "xinhua-villas-211",
     "shanghai-orchestra",
+    "xinhua-community-center",
+    "debi-fahua-525",
     "xingfuli-west",
     "xingfuli-east",
   ]);
@@ -34,15 +36,15 @@ test("六栋XHS合同已就绪，但Chrome未运行时不得冒充本窗口已�
   assert.match(record.scope.scopeStatement, /main-window diagnostic session/);
 });
 
-test("六份查询合同必须存在，法华外部证据不冒充本窗口检索", async () => {
+test("八份查询合同必须存在，法华外部证据接入不冒充本窗口检索", async () => {
   const record = await readJson(recordPath);
-  assert.equal(record.queryContracts.length, 6);
+  assert.equal(record.queryContracts.length, 8);
   for (const contract of record.queryContracts) {
     await access(new URL(contract.path, root));
     if (contract.assetId === "fahua-heritage") {
       assert.equal(
         contract.executionStatus,
-        "external-evidence-discovered-validation-pending",
+        "external-evidence-ingested-building-local-map-pending",
       );
     } else {
       assert.equal(contract.executionStatus, "not-run");
@@ -50,8 +52,9 @@ test("六份查询合同必须存在，法华外部证据不冒充本窗口检�
   }
   assert.equal(
     record.externalEvidenceDiscovery.discoveryStatus,
-    "u-disk-package-found-corrected-ingestion-pending",
+    "u-disk-package-ingested-building-local-map-pending",
   );
+  await access(new URL(record.externalEvidenceDiscovery.repositoryRecord, root));
   assert.match(record.externalEvidenceDiscovery.manifestPathMismatch, /actual/);
   assert.equal(record.externalEvidenceDiscovery.uDiskFilesModified, false);
   assert.equal(record.nextGate.executionOwner, "main-window-xhigh");

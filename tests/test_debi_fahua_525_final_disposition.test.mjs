@@ -65,13 +65,36 @@ function closeArray(actual, expected, tolerance = 1e-5) {
 
 test("德必法华525最终 disposition 只固定本栋输入且未重建二进制", async () => {
   const disposition = await readJson(dispositionPath);
+  const sharedEvidencePaths = new Set([
+    disposition.inputs.referenceManifest.path,
+    disposition.inputs.modelBrief.path,
+  ]);
   for (const input of [
     disposition.inputs.referenceManifest,
     disposition.inputs.modelBrief,
     disposition.inputs.legacyGenerator,
     ...disposition.inputs.localReferences,
   ]) {
+    if (sharedEvidencePaths.has(input.path)) {
+      // review-time SHA 保留；其他建筑可由主窗口向共享 manifest/Brief 追加证据。
+      assert.match(input.sha256, /^[0-9a-f]{64}$/u);
+      continue;
+    }
     assert.equal(await sha256(input.path), input.sha256, input.path);
+  }
+  const [manifest, brief] = await Promise.all([
+    readJson(disposition.inputs.referenceManifest.path),
+    readFile(new URL(disposition.inputs.modelBrief.path, root), "utf8"),
+  ]);
+  const entry = manifest.pois.find(({ id }) => id === "debi-fahua-525");
+  assert.ok(entry);
+  assert.equal(entry.photoStatus, "verified-same-compound");
+  assert.deepEqual(
+    entry.referencePhotos.map(({ path }) => path),
+    disposition.inputs.localReferences.map(({ path }) => path),
+  );
+  for (const reference of disposition.inputs.localReferences) {
+    assert.match(brief, new RegExp(reference.path.replaceAll("/", "\\/"), "u"));
   }
   assert.equal(
     disposition.baseCommit,

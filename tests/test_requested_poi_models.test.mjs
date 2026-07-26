@@ -298,28 +298,40 @@ test("法华遗韵 final disposition 只裁决本栋且保留 Recovery 合格子
   );
 });
 
-test("法华遗韵只有正面证据，未知面不得被 legacy 资产补写成已观察事实", async () => {
+test("法华遗韵新增纵深证据后仍不得把背面和地图未知补写成事实", async () => {
   const manifest = JSON.parse(
     await readFile(new URL(fahuaDisposition.inputs.referenceManifest.path, root)),
   );
   const entry = manifest.pois.find(({ id }) => id === "fahua-heritage");
-  assert.equal(entry.photoStatus, "verified-same-structure");
-  assert.equal(entry.referencePhotos.length, 1);
+  assert.equal(
+    entry.photoStatus,
+    "verified-same-structure-xhs-depth-street-map-pending",
+  );
+  assert.equal(entry.referencePhotos.length, 3);
   assert.equal(entry.referencePhotos[0].view, "front");
   assert.equal(entry.referencePhotos[0].captureDate, "unknown");
   assert.equal(
     entry.referencePhotos[0].path,
     fahuaDisposition.inputs.referencePhoto.path,
   );
+  assert.deepEqual(
+    entry.referencePhotos.slice(1).map(({ view }) => view),
+    [
+      "right-front-depth-and-street-interface",
+      "near-front-left-passage-and-curb",
+    ],
+  );
   const sharedCheckpointInputs = new Set([
     "publicRegistry",
     "identityContract",
     "identityRecipeSource",
+    "referenceManifest",
+    "modelBrief",
   ]);
   for (const [name, input] of Object.entries(fahuaDisposition.inputs)) {
     if (sharedCheckpointInputs.has(name)) {
-      // 法华 checkpoint 不拥有这些公共文件；其他建筑由主窗口接入后，
-      // 当前文件合法变化，但 review-time 指纹必须继续保留。
+      // 法华 checkpoint 不拥有公共运行时；主窗口也可以在 manifest/Brief 追加证据。
+      // 当前文件可合法变化，但 review-time 指纹必须继续保留。
       assert.match(input.sha256, /^[0-9a-f]{64}$/);
       continue;
     }
