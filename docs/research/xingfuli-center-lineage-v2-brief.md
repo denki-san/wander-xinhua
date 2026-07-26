@@ -63,7 +63,8 @@
 - Canonical view: existing center canonical camera, observing along the central
   lane toward the three Center member buildings.
 - Side/depth view: existing fixed side camera.
-- Identity detail view: existing fixed street camera.
+- Identity detail view: fixed street camera moved onto the central lane at
+  local `Y=-7.0`, so the south canopy cannot occlude the full frame.
 - Human scale: existing 1.8 m proxy and current Center runtime scale.
 - Camera, placement, yaw, source origin and map transform must not change.
 
