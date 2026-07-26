@@ -38,6 +38,13 @@ test("FICS Recovery 二进制和记录指纹保持一致", () => {
   ));
   assert.equal(sha256(glb.path), glb.sha256);
   assert.equal(sha256(blend.path), blend.sha256);
+  assert.equal(
+    blend.originalRecoverySha256,
+    "b6ac48bac72d534ed131aebefe9f3608d54ba049b9fa0e1d5bc29720cbb95749",
+  );
+  assert.equal(blend.hygieneCleanup.removedObject, "test-preview-ground");
+  assert.equal(blend.hygieneCleanup.buildingGeometryChanged, false);
+  assert.equal(blend.hygieneCleanup.glbRebuilt, false);
   assert.equal(record.glb.sha256, glb.sha256);
   assert.equal(glb.images, 0);
   assert.equal(glb.nodes, 5);

@@ -192,6 +192,15 @@
       "side": "test_artifacts/all-models/massing-v2/test_shanghai-orchestra-massing-v2-side.png"
     }
   },
+  "sourceBlendHygiene": {
+    "script": "scripts/clean_building_source_blend.py",
+    "preCleanupSha256": "debf4389c87310b99f1e13181491b36aba8d5ced21e47bbe2e2b72c450cf693a",
+    "currentSha256": "805a805947f82abc54360ab213c9d1cde90049ea6cbf9e807b553a4f53f85cf4",
+    "bytes": 102330,
+    "removedObject": "test-preview-ground",
+    "buildingGeometryChanged": false,
+    "glbRebuilt": false
+  },
   "glb": {
     "sha256": "63eb25ca4abcbab0e434adb528ea0f37650495c614833f7b9bd05afbc519484c",
     "bytes": 9132,

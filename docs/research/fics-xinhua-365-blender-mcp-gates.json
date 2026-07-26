@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "assetId": "fics-xinhua-365",
+  "tier": "massing-v2",
+  "recordedAt": "2026-07-26",
+  "owner": "main-window",
+  "mode": "building-fast-batch-mcp1",
+  "source": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.blend",
+    "blendSha256": "e71d6a55a24a76efde444cb1420172821cc2142263be826aaae8a10a08487e81",
+    "glb": "public/models/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.glb",
+    "glbSha256": "e36f29a3f14e92ac833a324247c36c21d218003f17f666d1d0b5fc9f861fe8ad"
+  },
+  "mcp1": {
+    "gate": "mcp1-massing-pre-map-calibration",
+    "status": "pass-shape-only",
+    "sceneInspection": {
+      "objectCount": 5,
+      "meshObjects": 5,
+      "glbMaterials": 1,
+      "glbImages": 0,
+      "glbTextures": 0,
+      "glbTriangles": 68,
+      "blenderBounds": {
+        "min": [-21.485395, -12.356972, 0],
+        "max": [15.707629, 4.772031, 4.320988]
+      },
+      "rootTransformsNormalized": true,
+      "testObjectsInSavedSource": 0,
+      "referenceImagesEmbedded": false
+    },
+    "scaleProxy": {
+      "heightSceneUnits": 0.666667,
+      "metersPerSceneUnit": 2.7,
+      "heightMeters": 1.8,
+      "savedToBlend": false,
+      "exportedToGlb": false
+    },
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/massing-v2/fics-xinhua-365/test_fics_xinhua_365_mcp1_canonical.png",
+        "sha256": "95cbc406f5905f52b0f2c0bb87d8e148672de3ac9190ccedd697e93ed6a95bd4",
+        "bytes": 807673
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/massing-v2/fics-xinhua-365/test_fics_xinhua_365_mcp1_side.png",
+        "sha256": "1048d35b53ac71af23bf7ca884f9fc496f23b04c2bf482873db32a3dd5dd6ef4",
+        "bytes": 812850
+      },
+      "humanScale": {
+        "path": "test_artifacts/all-models/massing-v2/fics-xinhua-365/test_fics_xinhua_365_mcp1_scale.png",
+        "sha256": "f953f00e836c8f838bc066ad2a0043ea86e604753ecb8ec12bd350577dc1811c",
+        "bytes": 707903
+      }
+    },
+    "observed": [
+      "five independent low-rise OSM volumes remain grounded and visually separated",
+      "the long west volume, central compound and detached east volume remain legible across fixed views",
+      "the 1.8 metre proxy shows plausible conservative low-rise heights",
+      "the saved source contains only the five authorized candidate meshes"
+    ],
+    "inferred": [
+      "the five anonymous OSM volumes may belong to the FICS campus but membership is not proven"
+    ],
+    "unknown": [
+      "formal campus membership of all five OSM ways",
+      "entrance-facing direction for each volume",
+      "surveyed heights and roof forms"
+    ],
+    "checks": {
+      "groundContact": "pass-z-zero-datum",
+      "humanScale": "pass",
+      "candidateSeparation": "pass-visible",
+      "scopeBoundary": "pass-no-tree-decoration-or-full-map-object",
+      "texturePolicy": "pass-zero-images",
+      "formalMembership": "blocked-evidence",
+      "serviceRoadClearance": "blocked-overlap-1.124546-scene-units"
+    },
+    "interactiveChangesAccepted": [],
+    "qaRigSaved": false,
+    "qaRigExported": false,
+    "verdict": "pass-massing-shape-only-runtime-promotion-blocked"
+  },
+  "mapGate": "blocked-membership-and-service-road-overlap",
+  "nextGate": "obtain-campus-membership-evidence-and-resolve-service-road-before-runtime-promotion",
+  "identityAuthorized": false,
+  "heroAuthorized": false
+}

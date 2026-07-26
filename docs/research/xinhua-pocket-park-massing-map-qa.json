@@ -14,7 +14,15 @@
     },
     "blend": {
       "path": "assets/models/source/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.blend",
-      "sha256": "07cbcef2639046f01f60a777e0c5b9bbcf48fe4ba91fe3d8904f2334e48752c8"
+      "originalRecoverySha256": "07cbcef2639046f01f60a777e0c5b9bbcf48fe4ba91fe3d8904f2334e48752c8",
+      "sha256": "40488f7394cd734fc67493d54cb7c44e7c3f55ccf14454d7d27e16b1ca183d27",
+      "bytes": 96816,
+      "hygieneCleanup": {
+        "script": "scripts/clean_building_source_blend.py",
+        "removedObject": "test-preview-ground",
+        "buildingGeometryChanged": false,
+        "glbRebuilt": false
+      }
     },
     "glb": {
       "path": "public/models/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.glb",

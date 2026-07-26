@@ -183,6 +183,15 @@
       "side": "test_artifacts/all-models/massing-v2/test_fics-xinhua-365-massing-v2-side.png"
     }
   },
+  "sourceBlendHygiene": {
+    "script": "scripts/clean_building_source_blend.py",
+    "originalRecoverySha256": "b6ac48bac72d534ed131aebefe9f3608d54ba049b9fa0e1d5bc29720cbb95749",
+    "currentSha256": "e71d6a55a24a76efde444cb1420172821cc2142263be826aaae8a10a08487e81",
+    "bytes": 95427,
+    "removedObject": "test-preview-ground",
+    "buildingGeometryChanged": false,
+    "glbRebuilt": false
+  },
   "glb": {
     "sha256": "e36f29a3f14e92ac833a324247c36c21d218003f17f666d1d0b5fc9f861fe8ad",
     "bytes": 8564,

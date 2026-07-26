@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-pocket-park",
+  "tier": "massing-v2",
+  "recordedAt": "2026-07-26",
+  "owner": "main-window",
+  "mode": "building-fast-batch-mcp1",
+  "source": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.blend",
+    "blendSha256": "40488f7394cd734fc67493d54cb7c44e7c3f55ccf14454d7d27e16b1ca183d27",
+    "glb": "public/models/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.glb",
+    "glbSha256": "cc89e36e68397199d91684d3059c5c88410a7acc1b1c015398e05d8e57b15fa3"
+  },
+  "mcp1": {
+    "gate": "mcp1-massing-pre-map-calibration",
+    "status": "pass",
+    "sceneInspection": {
+      "objectCount": 7,
+      "meshObjects": 7,
+      "glbMaterials": 1,
+      "glbImages": 0,
+      "glbTextures": 0,
+      "glbTriangles": 108,
+      "blenderBounds": {
+        "min": [-0.84, -4.6, 0],
+        "max": [0.84, 4.6, 1.66]
+      },
+      "rootTransformsNormalized": true,
+      "testObjectsInSavedSource": 0,
+      "referenceImagesEmbedded": false
+    },
+    "scaleProxy": {
+      "heightSceneUnits": 0.666667,
+      "metersPerSceneUnit": 2.7,
+      "heightMeters": 1.8,
+      "savedToBlend": false,
+      "exportedToGlb": false
+    },
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/massing-v2/xinhua-pocket-park/test_xinhua_pocket_park_mcp1_canonical.png",
+        "sha256": "51c23bece94e431bc95f4dce2adcb6a68fb59b048bf793f556ff6a1d9c724559",
+        "bytes": 798393
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/massing-v2/xinhua-pocket-park/test_xinhua_pocket_park_mcp1_side.png",
+        "sha256": "10bba63c6f2eef81a59b804e84f5eb3e3dea710d243f590387fff5bbb55861f3",
+        "bytes": 787426
+      },
+      "entranceScale": {
+        "path": "test_artifacts/all-models/massing-v2/xinhua-pocket-park/test_xinhua_pocket_park_mcp1_scale.png",
+        "sha256": "2842ced1ea2272dfde93cb9674595fd5f4979b176c579f38b2238229a2a3bdd1",
+        "bytes": 720019
+      }
+    },
+    "observed": [
+      "two parallel mirror walls preserve a continuous central passage",
+      "the entrance frame is readable from the canonical and scale views",
+      "the 1.8 metre proxy confirms a pedestrian-scale corridor rather than a building-height block",
+      "the saved source contains only the seven authorized park massing meshes"
+    ],
+    "inferred": [
+      "the simple frame and wall heights are acceptable only as conservative Massing",
+      "planting strips and bench placement remain schematic until runtime collision acceptance"
+    ],
+    "unknown": [
+      "surveyed wall and frame dimensions",
+      "current planting and bench arrangement",
+      "rear termination details"
+    ],
+    "checks": {
+      "groundContact": "pass-z-zero-datum",
+      "humanScale": "pass",
+      "centralWalkablePassage": "pass-visible",
+      "entranceFrame": "pass-readable",
+      "scopeBoundary": "pass-no-tree-decoration-or-full-map-object",
+      "texturePolicy": "pass-zero-images"
+    },
+    "interactiveChangesAccepted": [],
+    "qaRigSaved": false,
+    "qaRigExported": false,
+    "verdict": "pass-massing-only-map-runtime-candidate-authorized"
+  },
+  "mapGate": "candidate-pass-analytic-runtime-pending",
+  "nextGate": "main-window-threejs-map-ground-camera-collision-and-performance",
+  "identityAuthorized": false,
+  "heroAuthorized": false
+}

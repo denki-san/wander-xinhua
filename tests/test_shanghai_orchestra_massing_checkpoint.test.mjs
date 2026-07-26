@@ -50,12 +50,23 @@ test("上海民族乐团专项范围只包含五个待归属 OSM 候选", () => 
   )));
 });
 
-test("Recovery clean-v2 GLB 保持原 SHA，照片证据也未覆盖", () => {
+test("Recovery clean-v2 GLB 保持原 SHA，可编辑源只移除预览地面", () => {
   assert.equal(
     sha256("public/models/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.glb"),
     buildRecord.glb.sha256,
   );
   assert.equal(buildRecord.glb.sha256, "63eb25ca4abcbab0e434adb528ea0f37650495c614833f7b9bd05afbc519484c");
+  assert.equal(
+    sha256(buildRecord.outputs.blend),
+    buildRecord.sourceBlendHygiene.currentSha256,
+  );
+  assert.equal(
+    buildRecord.sourceBlendHygiene.preCleanupSha256,
+    "debf4389c87310b99f1e13181491b36aba8d5ced21e47bbe2e2b72c450cf693a",
+  );
+  assert.equal(buildRecord.sourceBlendHygiene.removedObject, "test-preview-ground");
+  assert.equal(buildRecord.sourceBlendHygiene.buildingGeometryChanged, false);
+  assert.equal(buildRecord.sourceBlendHygiene.glbRebuilt, false);
   assert.equal(buildRecord.glb.images, 0);
   assert.equal(buildRecord.glb.textures, 0);
   for (const reference of referenceManifest.referencePhotos) {

@@ -83,6 +83,15 @@
       "side": "test_artifacts/all-models/massing-v2/test_xinhua-pocket-park-massing-v2-side.png"
     }
   },
+  "sourceBlendHygiene": {
+    "script": "scripts/clean_building_source_blend.py",
+    "originalRecoverySha256": "07cbcef2639046f01f60a777e0c5b9bbcf48fe4ba91fe3d8904f2334e48752c8",
+    "currentSha256": "40488f7394cd734fc67493d54cb7c44e7c3f55ccf14454d7d27e16b1ca183d27",
+    "bytes": 96816,
+    "removedObject": "test-preview-ground",
+    "buildingGeometryChanged": false,
+    "glbRebuilt": false
+  },
   "glb": {
     "sha256": "cc89e36e68397199d91684d3059c5c88410a7acc1b1c015398e05d8e57b15fa3",
     "bytes": 14068,

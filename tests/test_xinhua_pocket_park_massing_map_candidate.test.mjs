@@ -136,7 +136,7 @@ function parseGlb(buffer) {
   return JSON.parse(buffer.toString("utf8", 20, 20 + jsonLength).trim());
 }
 
-test("Recovery Massing 二进制、结构与可编辑源保持原 SHA", async () => {
+test("Recovery Massing 二进制保持原 SHA，可编辑源只移除预览地面", async () => {
   const [glbBuffer, blendBuffer] = await Promise.all([
     readFile(new URL(qa.recovery.glb.path, root)),
     readFile(new URL(qa.recovery.blend.path, root)),
@@ -149,6 +149,19 @@ test("Recovery Massing 二进制、结构与可编辑源保持原 SHA", async ()
     createHash("sha256").update(blendBuffer).digest("hex"),
     qa.recovery.blend.sha256,
   );
+  assert.equal(
+    qa.recovery.blend.originalRecoverySha256,
+    "07cbcef2639046f01f60a777e0c5b9bbcf48fe4ba91fe3d8904f2334e48752c8",
+  );
+  assert.equal(
+    qa.recovery.blend.hygieneCleanup.removedObject,
+    "test-preview-ground",
+  );
+  assert.equal(
+    qa.recovery.blend.hygieneCleanup.buildingGeometryChanged,
+    false,
+  );
+  assert.equal(qa.recovery.blend.hygieneCleanup.glbRebuilt, false);
   const glb = parseGlb(glbBuffer);
   assert.equal(glb.nodes.length, 7);
   assert.equal(glb.meshes.length, 7);

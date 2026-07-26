@@ -8600,3 +8600,34 @@ docs/research/xinhua-pocket-park-model-brief.md:158: new blank line at EOF.
 - **Notes**: Brief 改为单个终止换行，重新执行检查。
 
 ---
+## [ERR-20260726-090] concurrent_headless_blender_source_cleanup_segfault
+
+**Logged**: 2026-07-26T11:30:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: blender
+
+### Summary
+三份建筑源 `.blend` 同时启动 Blender 5.2 headless 清洁时，进程均在载入前
+触发 `Segmentation fault: 11`，未写入源文件。
+
+### Error
+```text
+WARN ... ARCH_CACHE_LINE_SIZE
+Segmentation fault: 11
+```
+
+### Context
+- 目标仅为移除三份源文件中误保存的 `test-preview-ground`；
+- 三个并发进程都在脚本真正修改场景前崩溃，GLB 与建筑几何未变化；
+- `scripts/clean_building_source_blend.py` 保留为确定性清洁入口。
+
+### Suggested Fix
+同机 Blender 资产任务改为顺序执行；本批使用 Blender MCP 逐份移除预览地面、
+保存源文件，并以 SHA、对象数和重新打开场景验证结果。
+
+### Resolution
+- **Resolved**: 2026-07-26T11:30:00+08:00
+- **Notes**: 三份源文件已顺序清洁；后续 MCP 灰模验收继续顺序执行。
+
+---
