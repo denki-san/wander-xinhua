@@ -53,6 +53,31 @@ Error: Cannot find module
 
 ---
 
+## [ERR-20260726-131] relative_worktree_audit_ran_from_moved_main
+
+**Logged**: 2026-07-26T23:20:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: git
+
+### Summary
+完成第三批后的一次只读核验从主仓 cwd 运行，并使用 `.worktrees/...` 相对路径；
+此时外部会话已推进 main 且移除部分旧 Worktree，导致状态与模块读取指向错误视图。
+
+### Error
+```text
+Cannot find module ./docs/research/exact-18-building-status.json
+fatal: cannot change to '.worktrees/...': No such file or directory
+```
+
+### Resolution
+- **Resolved**: 2026-07-26T23:20:00+08:00
+- **Notes**: 立即回到 `/Users/lei/App_developing/wander-xinhua/.worktrees/integration-18-buildings`
+  并对所有建筑 Worktree 使用绝对路径；只读失败没有修改 main、资产或 Hold。后续
+  调度前先实时读取 `git worktree list --porcelain`，不复用旧清单中的路径假设。
+
+---
+
 ## [ERR-20260726-130] cross_building_manifest_append_broke_debi_snapshot_tests
 
 **Logged**: 2026-07-26T23:14:00+08:00

@@ -84,7 +84,10 @@ test("证据不足的法华遗韵只计划停用 runtime，文件必须继续保
     "pass-xhs-side-depth-and-street-context-map-rear-scale-pending",
   );
   assert.match(heritage.runtimePolicy, /preserve-files/);
-  assert.match(heritage.runtimePolicy, /disable-runtime-if-still-missing/);
+  assert.match(
+    heritage.runtimePolicy,
+    /disable-runtime-only-if-final-map-rear-scale-evidence-still-insufficient/,
+  );
   for (const path of [
     "docs/research/fahua-heritage-final-disposition.json",
     "docs/research/fahua-heritage-local-evidence-rescue.json",
