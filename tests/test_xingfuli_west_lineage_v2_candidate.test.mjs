@@ -290,24 +290,24 @@ test("候选 GLB 内嵌严格 lineage、标准 root 与零图片策略", async (
   }
 });
 
-test("共享 tier contract 保留旧 West，候选未接 resolver 或默认 Hero", () => {
+test("主窗口将 West lineage v2 接入显式 QA，产品默认仍保留 Hero", () => {
   const west = XINGFULI_TIERS["xingfuli-west"];
   assert.equal(west.hero.path, "/models/xingfuli/xingfuli-west.glb");
   assert.equal(
     west.identity.path,
-    "/models/xingfuli/xingfuli-west-identity.glb",
+    "/models/tiers/xingfuli/identity-v2/xingfuli-west-identity-v2.glb",
   );
   assert.equal(
     west.massing.path,
-    "/models/xingfuli/xingfuli-west-massing.glb",
+    "/models/tiers/xingfuli/massing-v2/xingfuli-west-massing-v2.glb",
   );
   assert.equal(
     west.identity.sha256,
-    "69dc45a7237bd563204aa0189a0e3396b183d7b822e9ee676f2f5db72894aca1",
+    "163d214be91a4eacc45a383913e89e820757b97765f74c5b4be080f74f34426d",
   );
   assert.equal(
     west.massing.sha256,
-    "178c1bbf89a15a082c596cae6e994f042997998fef02a3bf6fcaecdb104e5c04",
+    "f6d67f041162e4c090ff16f65897837db64c64fb3cf5a8baf0a4462c4e8ac377",
   );
 });
 

@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-07-26T20:30:00+08:00",
+  "owner": "main-window-xhigh",
+  "status": "pass-main-window-batched-mcp1-mcp2-mcp3",
+  "execution": {
+    "surface": "Blender MCP",
+    "batchSize": 2,
+    "mainWindowFinalReview": true,
+    "headlessOnly": false,
+    "temporaryReviewChangesSaved": false,
+    "finalDirtyState": false
+  },
+  "scope": {
+    "exactBuildingIds": [
+      "xingfuli-west",
+      "xingfuli-east"
+    ],
+    "treesDecorationFullMap": "excluded",
+    "recoveryHold": "untouched",
+    "publicRuntimeFilesChangedByBuildingBranches": false
+  },
+  "buildings": [
+    {
+      "assetId": "xingfuli-west",
+      "mapDisposition": "blocked-pedestrian-way-400066625-ground-level-passage-unknown",
+      "tiers": [
+        {
+          "tier": "hero",
+          "role": "accepted-read-only-parent",
+          "blend": {
+            "path": "assets/models/source/xingfuli/xingfuli-west.blend",
+            "sha256": "0b9d64178e740aceb77469a1546d775f334427da16ba0037ab916c699b723a51",
+            "bytes": 137384,
+            "meshObjects": 81,
+            "materials": 7,
+            "boundsMin": [-47, -22.09, 0.09],
+            "boundsMax": [-22, 7.74, 6.98],
+            "dirtyAfterInspection": false
+          },
+          "glb": {
+            "path": "public/models/xingfuli/xingfuli-west.glb",
+            "sha256": "ababb1860c360f5807ce99b392a5388eba30f0991bdcb4f653c99752786bf853",
+            "bytes": 317012
+          }
+        },
+        {
+          "tier": "identity-v2",
+          "role": "strict-child",
+          "blend": {
+            "path": "assets/models/source/tiers/xingfuli/identity-v2/xingfuli-west-identity-v2.blend",
+            "sha256": "9b90d62c9bf4e34bf13b0a86bae035421ba287a51382f9f925fc435fb34b6a59",
+            "bytes": 130335,
+            "meshObjects": 69,
+            "materials": 6,
+            "boundsMin": [-47, -22.09, 0.09],
+            "boundsMax": [-22, 7.74, 6.98],
+            "dirtyAfterInspection": false
+          },
+          "glb": {
+            "path": "public/models/tiers/xingfuli/identity-v2/xingfuli-west-identity-v2.glb",
+            "sha256": "163d214be91a4eacc45a383913e89e820757b97765f74c5b4be080f74f34426d",
+            "bytes": 280424
+          },
+          "retainedIdentityCues": [
+            "storefront rhythm",
+            "entrance canopy",
+            "south-west identity panels"
+          ]
+        },
+        {
+          "tier": "massing-v2",
+          "role": "strict-grandchild",
+          "blend": {
+            "path": "assets/models/source/tiers/xingfuli/massing-v2/xingfuli-west-massing-v2.blend",
+            "sha256": "dd4c4729dbdc9a7fbf9501ae5670f0f064ebd69d981d2953cf2f445d21d90af1",
+            "bytes": 116783,
+            "meshObjects": 34,
+            "materials": 5,
+            "boundsMin": [-47, -22.09, 0.09],
+            "boundsMax": [-22, 7.74, 6.98],
+            "dirtyAfterInspection": false
+          },
+          "glb": {
+            "path": "public/models/tiers/xingfuli/massing-v2/xingfuli-west-massing-v2.glb",
+            "sha256": "f6d67f041162e4c090ff16f65897837db64c64fb3cf5a8baf0a4462c4e8ac377",
+            "bytes": 196312
+          }
+        }
+      ],
+      "fixedViewEvidence": [
+        {
+          "tier": "identity-v2",
+          "view": "canonical",
+          "path": "test_artifacts/all-models/identity-v2/xingfuli-west/headless/test_xingfuli-west-identity-v2_canonical_preview.png",
+          "sha256": "c066ed23979cbd39b452015aac978a0257d22b4893e968629337a3a204b2bc1c",
+          "bytes": 839333
+        },
+        {
+          "tier": "identity-v2",
+          "view": "side",
+          "path": "test_artifacts/all-models/identity-v2/xingfuli-west/headless/test_xingfuli-west-identity-v2_side_preview.png",
+          "sha256": "65d1f86a917456be08d61cc21bfba02944252e713fc8e4d9808c2719d831893f",
+          "bytes": 845201
+        },
+        {
+          "tier": "identity-v2",
+          "view": "street",
+          "path": "test_artifacts/all-models/identity-v2/xingfuli-west/headless/test_xingfuli-west-identity-v2_street_preview.png",
+          "sha256": "9082e60fc20a2de7501c049f19c083bae7e0caff23c3e37b0f247c55146a1f6e",
+          "bytes": 819674
+        },
+        {
+          "tier": "massing-v2",
+          "view": "canonical",
+          "path": "test_artifacts/all-models/massing-v2/xingfuli-west/headless/test_xingfuli-west-massing-v2_canonical_preview.png",
+          "sha256": "243f968119643e175ec6177ab687fb21a90ade52a8278957a2079e4fd6d15961",
+          "bytes": 831378
+        },
+        {
+          "tier": "massing-v2",
+          "view": "side",
+          "path": "test_artifacts/all-models/massing-v2/xingfuli-west/headless/test_xingfuli-west-massing-v2_side_preview.png",
+          "sha256": "10cbf7b6f5811b14a58f7a8a676d1130e7395983bc231e27c2651063b82b0ead",
+          "bytes": 836629
+        },
+        {
+          "tier": "massing-v2",
+          "view": "street",
+          "path": "test_artifacts/all-models/massing-v2/xingfuli-west/headless/test_xingfuli-west-massing-v2_street_preview.png",
+          "sha256": "f4e53fdb5bf19beaa56b875be1a30888fcad7e60c19a6505edaa05c92ddee304",
+          "bytes": 811918
+        }
+      ]
+    },
+    {
+      "assetId": "xingfuli-east",
+      "mapDisposition": "blocked-panyu-road-overlap-and-photo-9-road-unknown",
+      "tiers": [
+        {
+          "tier": "hero",
+          "role": "accepted-read-only-parent",
+          "blend": {
+            "path": "assets/models/source/xingfuli/xingfuli-east.blend",
+            "sha256": "487c3b61669941801f6605ecec3e9711fa1e6cff27c53cc2fc96e4439fbb2d72",
+            "bytes": 174475,
+            "meshObjects": 156,
+            "materials": 10,
+            "boundsMin": [5.91, -22.09, 0.09],
+            "boundsMax": [47, 7.74, 8.465],
+            "dirtyAfterInspection": false
+          },
+          "glb": {
+            "path": "public/models/xingfuli/xingfuli-east.glb",
+            "sha256": "4dc21aa6f137daa076a6da1948b0c08c15310789541ee59af06c352febea4327",
+            "bytes": 499736
+          }
+        },
+        {
+          "tier": "identity-v2",
+          "role": "strict-child",
+          "blend": {
+            "path": "assets/models/source/tiers/xingfuli/identity-v2/xingfuli-east-identity-v2.blend",
+            "sha256": "5fc4999a58aebdce9c134f1da875a12d65c974fc76557410ff216c49a104ca98",
+            "bytes": 165731,
+            "meshObjects": 142,
+            "materials": 9,
+            "boundsMin": [5.91, -22.09, 0.09],
+            "boundsMax": [47, 7.74, 8.465],
+            "dirtyAfterInspection": false
+          },
+          "glb": {
+            "path": "public/models/tiers/xingfuli/identity-v2/xingfuli-east-identity-v2.glb",
+            "sha256": "3352d6174273a87a1a049df61a884255d451d424f36a203361cf74671a71db25",
+            "bytes": 461300
+          },
+          "retainedIdentityCues": [
+            "timber grille",
+            "brick vertical stack",
+            "white glass corner and storefront rhythm"
+          ]
+        },
+        {
+          "tier": "massing-v2",
+          "role": "strict-grandchild",
+          "blend": {
+            "path": "assets/models/source/tiers/xingfuli/massing-v2/xingfuli-east-massing-v2.blend",
+            "sha256": "339133cf28f9917d49283b118f9e679263bece54fbf6bac4509ae5046586ce8a",
+            "bytes": 147887,
+            "meshObjects": 90,
+            "materials": 9,
+            "boundsMin": [5.91, -22.09, 0.09],
+            "boundsMax": [47, 7.74, 8.465],
+            "dirtyAfterInspection": false
+          },
+          "glb": {
+            "path": "public/models/tiers/xingfuli/massing-v2/xingfuli-east-massing-v2.glb",
+            "sha256": "c0defcbdc99c5939499db3ce33fb4d01cb8f8cf9f9a5fc49dd9270e8a23d3450",
+            "bytes": 323544
+          }
+        }
+      ],
+      "fixedViewEvidence": [
+        {
+          "tier": "identity-v2",
+          "view": "canonical",
+          "path": "test_artifacts/all-models/identity-v2/xingfuli-east/headless/test_xingfuli-east-identity-v2_canonical_preview.png",
+          "sha256": "3c7775a63ed7e9fa3e2a4d10b568fbeb89b0dbb9da09a2868199b26a0d8bcabb",
+          "bytes": 837042
+        },
+        {
+          "tier": "identity-v2",
+          "view": "side",
+          "path": "test_artifacts/all-models/identity-v2/xingfuli-east/headless/test_xingfuli-east-identity-v2_side_preview.png",
+          "sha256": "59312477ca286af7e903e24f450ec40ee5499d7bc235339010b9408a072f3432",
+          "bytes": 826527
+        },
+        {
+          "tier": "identity-v2",
+          "view": "street",
+          "path": "test_artifacts/all-models/identity-v2/xingfuli-east/headless/test_xingfuli-east-identity-v2_street_preview.png",
+          "sha256": "5e1e3561cd32774cad3754c2134607f69175519ffe49c90c5021b0959fa1ad0e",
+          "bytes": 848023
+        },
+        {
+          "tier": "massing-v2",
+          "view": "canonical",
+          "path": "test_artifacts/all-models/massing-v2/xingfuli-east/headless/test_xingfuli-east-massing-v2_canonical_preview.png",
+          "sha256": "cafe0a75dec2f895ebd6e3914f431c028f547dd2fc2147e2b4abd1f62f4bfe39",
+          "bytes": 836330
+        },
+        {
+          "tier": "massing-v2",
+          "view": "side",
+          "path": "test_artifacts/all-models/massing-v2/xingfuli-east/headless/test_xingfuli-east-massing-v2_side_preview.png",
+          "sha256": "bb08ddd8c28db4f9893d2025fce1bb16ce3a1b2b173f3b2f97dc888b0fc42b30",
+          "bytes": 821225
+        },
+        {
+          "tier": "massing-v2",
+          "view": "street",
+          "path": "test_artifacts/all-models/massing-v2/xingfuli-east/headless/test_xingfuli-east-massing-v2_street_preview.png",
+          "sha256": "ca98135a04ca6017e9ad4c17d4e3616c434f7e072bd13e59c439b04ea15de951",
+          "bytes": 846914
+        }
+      ]
+    }
+  ],
+  "gates": {
+    "mcp1": {
+      "status": "pass",
+      "basis": "Massing v2 两栋均在 Blender MCP 打开；对象数、材质数、bounds 与 lineage candidate 一致，文件未变脏。"
+    },
+    "mcp2": {
+      "status": "pass",
+      "basis": "Hero 与 Identity v2 同机位复核保留了两栋各自的入口、立面节奏和材质身份构件。"
+    },
+    "mcp3": {
+      "status": "pass",
+      "basis": "West 81→69→34、East 156→142→90；十二张固定机位图复核通过，父子 SHA 闭合，最终 Blend 均 clean。"
+    }
+  },
+  "observed": [
+    "Blender MCP 场景统计与磁盘上的 Blend/GLB 指纹一致。",
+    "候选 Identity v2 与 Massing v2 保持相同主体 bounds 和正地面接触。",
+    "固定机位图由确定性生成器输出；MCP viewport 终审为交互式只读检查，未把临时 UI 状态保存为资产。",
+    "两栋候选中未引入树木、灯具、座椅、花盆、垃圾桶、遮阳伞或全地图资产。"
+  ],
+  "unknown": [
+    "West 的 OSM pedestrian way 是否为建筑底层通道。",
+    "用户照片第 9 张对面道路是否确为番禺路，以及 East 的真实道路边界。"
+  ],
+  "disposition": {
+    "tierLineage": "pass-promote-for-explicit-qa",
+    "map": "blocked-for-both-buildings",
+    "productionDefault": "keep-hero",
+    "nextGate": "single-page-threejs-batch"
+  }
+}

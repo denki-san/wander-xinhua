@@ -585,6 +585,7 @@ test("上海影城运行时地图证据与 MCP3 候选锁定当前三档路径�
 test("上海影城最终审计拆分地图锚点、AABB 碰撞壳与 Hero 生成器漂移 blocker", async () => {
   const [
     audit,
+    supersession,
     landmarkData,
     mapData,
     buildings,
@@ -597,6 +598,9 @@ test("上海影城最终审计拆分地图锚点、AABB 碰撞壳与 Hero 生成
     massing,
   ] = await Promise.all([
     readJson("docs/research/shanghai-cinema-final-audit-2026-07-26.json"),
+    readJson(
+      "docs/research/shanghai-cinema-film-neighbor-supersession-2026-07-26.json",
+    ),
     readJson("app/scene/xinhua-road-landmarks-data.json"),
     readJson("app/scene/xinhua-map-data.json"),
     readJson("docs/research/data/xinhua-buildings-osm-20260725-074802.json"),
@@ -726,10 +730,11 @@ test("上海影城最终审计拆分地图锚点、AABB 碰撞壳与 Hero 生成
   const cinema = landmarkData.landmarks.find(
     ({ id }) => id === "shanghai-cinema",
   );
-  const film = landmarkData.landmarks.find(
+  const currentFilm = landmarkData.landmarks.find(
     ({ id }) => id === "film-art-center",
   );
-  assert.ok(cinema && film);
+  const film = supersession.historicalAudit.filmArtCenter;
+  assert.ok(cinema && currentFilm && film);
   assert.deepEqual(cinema.position, audit.mapAudit.placement.position);
   assert.equal(cinema.yaw, audit.mapAudit.placement.yaw);
   assert.equal(cinema.scale, audit.mapAudit.placement.scale);
@@ -863,7 +868,10 @@ test("上海影城最终审计拆分地图锚点、AABB 碰撞壳与 Hero 生成
         .currentVisibleBoundsAsphaltEdgeClearance,
   );
 
-  const allWorldAabbs = landmarkData.landmarks.flatMap((landmark) => (
+  const historicalLandmarks = landmarkData.landmarks.map((landmark) => (
+    landmark.id === film.id ? film : landmark
+  ));
+  const allWorldAabbs = historicalLandmarks.flatMap((landmark) => (
     landmark.localObstacles.map((obstacle, index) => ({
       assetId: landmark.id,
       index,
@@ -922,6 +930,30 @@ test("上海影城最终审计拆分地图锚点、AABB 碰撞壳与 Hero 生成
     runtimeOverlap.otherObstacle.bounds,
     recordedAabb.filmArtCenterWorldAabb,
   );
+  const currentWorldAabbs = landmarkData.landmarks.flatMap((landmark) => (
+    landmark.localObstacles.map((obstacle, index) => ({
+      assetId: landmark.id,
+      index,
+      bounds: finalAuditObstacle(
+        landmark,
+        obstacle,
+        landmarkData.collisionMargin,
+      ),
+    }))
+  ));
+  const currentCinemaAabbs = currentWorldAabbs.filter(
+    ({ assetId }) => assetId === cinema.id,
+  );
+  const currentNeighborOverlaps = currentCinemaAabbs.flatMap(
+    (cinemaObstacle) => currentWorldAabbs.filter(
+      ({ assetId }) => assetId !== cinema.id,
+    ).filter((otherObstacle) => finalAuditAabbOverlap(
+      cinemaObstacle.bounds,
+      otherObstacle.bounds,
+    ).intersects),
+  );
+  assert.equal(currentNeighborOverlaps.length, 0);
+  assert.equal(supersession.currentRegistry.runtimeAabbOverlapPairs, 0);
 
   let orientedSolidIntersections = 0;
   for (const cinemaObstacle of cinema.localObstacles) {

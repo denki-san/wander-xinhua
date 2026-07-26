@@ -372,12 +372,15 @@
         "tests/test_xingfuli_west_lineage_reconstruction.test.mjs",
         "tests/test_xingfuli_west_map_collision_lineage_adjudication.test.mjs",
         "tests/test_xingfuli_west_collision_proxy_candidate.test.mjs",
+        "tests/test_xingfuli_west_lineage_v2_candidate.test.mjs",
+        "tests/test_xingfuli_west_east_lineage_v2_blender_mcp_gates.test.mjs",
+        "tests/test_xingfuli_west_east_lineage_v2_threejs_runtime.test.mjs",
         "tests/test_xingfuli_models.test.mjs"
       ],
       "glbs": [
         "public/models/xingfuli/xingfuli-west.glb",
-        "public/models/xingfuli/xingfuli-west-identity.glb",
-        "public/models/xingfuli/xingfuli-west-massing.glb"
+        "public/models/tiers/xingfuli/identity-v2/xingfuli-west-identity-v2.glb",
+        "public/models/tiers/xingfuli/massing-v2/xingfuli-west-massing-v2.glb"
       ],
       "runtimeRoutes": [
         "/?start=xingfuli&qaModelId=xingfuli-west&qaModelTier=hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",
@@ -431,12 +434,15 @@
         "tests/test_xingfuli_user_photo_sequence_evidence.test.mjs",
         "tests/test_xingfuli_east_tier_map_audit.test.mjs",
         "tests/test_xingfuli_east_strict_lineage_reconstruction.test.mjs",
+        "tests/test_xingfuli_east_lineage_v2_candidate.test.mjs",
+        "tests/test_xingfuli_west_east_lineage_v2_blender_mcp_gates.test.mjs",
+        "tests/test_xingfuli_west_east_lineage_v2_threejs_runtime.test.mjs",
         "tests/test_xingfuli_models.test.mjs"
       ],
       "glbs": [
         "public/models/xingfuli/xingfuli-east.glb",
-        "public/models/xingfuli/xingfuli-east-identity.glb",
-        "public/models/xingfuli/xingfuli-east-massing.glb"
+        "public/models/tiers/xingfuli/identity-v2/xingfuli-east-identity-v2.glb",
+        "public/models/tiers/xingfuli/massing-v2/xingfuli-east-massing-v2.glb"
       ],
       "runtimeRoutes": [
         "/?start=xingfuli-entrance-detail&qaModelId=xingfuli-east&qaModelTier=hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",

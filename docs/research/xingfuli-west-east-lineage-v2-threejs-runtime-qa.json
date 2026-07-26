@@ -1,0 +1,427 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-07-26T20:23:00+08:00",
+  "owner": "main-window-xhigh",
+  "status": "pass-single-browser-session-three-tier-fallback-performance-collision",
+  "build": {
+    "mode": "vite-static-production-preview",
+    "origin": "http://127.0.0.1:4198",
+    "viewport": [1280, 577],
+    "visibility": "visible",
+    "warmupSecondsPerRoute": 8,
+    "browserSession": "xingfuli-batch",
+    "sourceFingerprints": {
+      "app/scene/xingfuli-tier-contract.mjs": "4a92b39eb3fa62a8779885f8445df8793501c3b1c4b6db5e61d62703233d1ebd",
+      "docs/research/building-pipeline-fast-mode.json": "78b0f66c1a45b6e16c82621931747c475bd15413550a5a3719334627c190e2da",
+      "tests/test_xingfuli_threejs_tier_contract.test.mjs": "4a0e09a69721ba656c4e7fec5913142638edb79d50f551d744829a456b6d3f3c",
+      "tests/test_xingfuli_west_east_lineage_v2_threejs_runtime.test.mjs": "18ef525baefd4eaa8f9ca78388d13f8de44bfef69de498ca3014fbd9572359c2",
+      "docs/research/xingfuli-west-east-lineage-v2-blender-mcp-gates.json": "36f03fb42980094f62c39d6969b8c0fd2b716553eb718357f706cb41447c24c1"
+    },
+    "staticOutput": {
+      "indexPath": "dist-static/index.html",
+      "indexSha256": "89c161808a68abc19d82d2aaed210a80e1289e75ebeeeb4fa309b5564c471169",
+      "tierChunkPath": "dist-static/assets/xingfuli-tier-contract-DHAirT7P.js",
+      "tierChunkSha256": "6071b5d76b81bacf79efd077534b72152f25fdcb48e83982f1c404cc4d9c1fdc"
+    }
+  },
+  "scope": {
+    "exactBuildingIds": [
+      "xingfuli-west",
+      "xingfuli-east"
+    ],
+    "productionDefaultChanged": false,
+    "treesDecorationFullMap": "excluded",
+    "recoveryHold": "untouched"
+  },
+  "buildings": [
+    {
+      "assetId": "xingfuli-west",
+      "start": "xingfuli",
+      "mapStatus": "blocked-pedestrian-way-400066625-ground-level-passage-unknown",
+      "tiers": {
+        "hero": {
+          "status": "loaded",
+          "source": "/models/xingfuli/xingfuli-west.glb?v=20260723-final-1",
+          "sha256": "ababb1860c360f5807ce99b392a5388eba30f0991bdcb4f653c99752786bf853",
+          "bytes": 317012,
+          "performance": {
+            "frames": 120,
+            "durationMs": 1986.2,
+            "fps": 60.41687644785028,
+            "drawCalls": 668,
+            "triangles": 763429,
+            "buildMode": "browser-runtime"
+          },
+          "camera": "spring-clear",
+          "errors": 0
+        },
+        "identity": {
+          "status": "loaded",
+          "source": "/models/tiers/xingfuli/identity-v2/xingfuli-west-identity-v2.glb?v=20260726-lineage-v2-163d214",
+          "sha256": "163d214be91a4eacc45a383913e89e820757b97765f74c5b4be080f74f34426d",
+          "bytes": 280424,
+          "performance": {
+            "frames": 120,
+            "durationMs": 1979,
+            "fps": 60.6366851945427,
+            "drawCalls": 666,
+            "triangles": 762397,
+            "buildMode": "browser-runtime"
+          },
+          "camera": "spring-clear",
+          "errors": 0
+        },
+        "massing": {
+          "status": "loaded",
+          "source": "/models/tiers/xingfuli/massing-v2/xingfuli-west-massing-v2.glb?v=20260726-lineage-v2-f6d67f0",
+          "sha256": "f6d67f041162e4c090ff16f65897837db64c64fb3cf5a8baf0a4462c4e8ac377",
+          "bytes": 196312,
+          "performance": {
+            "frames": 120,
+            "durationMs": 2048.5,
+            "fps": 58.579448376861116,
+            "drawCalls": 664,
+            "triangles": 760885,
+            "buildMode": "browser-runtime"
+          },
+          "camera": "spring-clear",
+          "errors": 0
+        }
+      },
+      "fallbacks": {
+        "heroToIdentity": {
+          "status": "pass-forced-deterministic-fallback",
+          "requestedTier": "hero",
+          "renderedTier": "identity",
+          "reason": "forced-deterministic-hero-to-identity",
+          "source": "/models/tiers/xingfuli/identity-v2/xingfuli-west-identity-v2.glb?v=20260726-lineage-v2-163d214",
+          "fps": 58.79470847623714,
+          "errors": 0
+        },
+        "identityToMassing": {
+          "status": "pass-forced-deterministic-fallback",
+          "requestedTier": "identity",
+          "renderedTier": "massing",
+          "reason": "forced-deterministic-identity-to-massing",
+          "source": "/models/tiers/xingfuli/massing-v2/xingfuli-west-massing-v2.glb?v=20260726-lineage-v2-f6d67f0",
+          "fps": 60.658140828075,
+          "errors": 0
+        }
+      },
+      "collision": {
+        "status": "pass-target-reached-no-penetration",
+        "tier": "identity",
+        "start": [129.73758572349232, 16.24592255806837],
+        "target": [121.05608608, 14.224223386],
+        "durationMs": 6000,
+        "movementStatus": "complete",
+        "minimumTargetErrorSceneUnits": 0.000672885167515903,
+        "postWarmupTargetErrorSceneUnits": 0.02516288513977256,
+        "cameraFinal": "spring-compressed",
+        "cameraBlockerFinal": "obstacle-18",
+        "cameraArmFinal": 4.321,
+        "errors": 0
+      }
+    },
+    {
+      "assetId": "xingfuli-east",
+      "start": "xingfuli-entrance-detail",
+      "mapStatus": "blocked-panyu-road-overlap-and-photo-9-road-unknown",
+      "tiers": {
+        "hero": {
+          "status": "loaded",
+          "source": "/models/xingfuli/xingfuli-east.glb?v=20260723-final-1",
+          "sha256": "4dc21aa6f137daa076a6da1948b0c08c15310789541ee59af06c352febea4327",
+          "bytes": 499736,
+          "performance": {
+            "frames": 120,
+            "durationMs": 1978.7,
+            "fps": 60.64587860707498,
+            "drawCalls": 759,
+            "triangles": 738260,
+            "buildMode": "browser-runtime"
+          },
+          "camera": "spring-clear",
+          "errors": 0
+        },
+        "identity": {
+          "status": "loaded",
+          "source": "/models/tiers/xingfuli/identity-v2/xingfuli-east-identity-v2.glb?v=20260726-lineage-v2-3352d61",
+          "sha256": "3352d6174273a87a1a049df61a884255d451d424f36a203361cf74671a71db25",
+          "bytes": 461300,
+          "performance": {
+            "frames": 120,
+            "durationMs": 2077.7,
+            "fps": 57.75617269128772,
+            "drawCalls": 756,
+            "triangles": 737120,
+            "buildMode": "browser-runtime"
+          },
+          "camera": "spring-clear",
+          "errors": 0
+        },
+        "massing": {
+          "status": "loaded",
+          "source": "/models/tiers/xingfuli/massing-v2/xingfuli-east-massing-v2.glb?v=20260726-lineage-v2-c0defcb",
+          "sha256": "c0defcbdc99c5939499db3ce33fb4d01cb8f8cf9f9a5fc49dd9270e8a23d3450",
+          "bytes": 323544,
+          "performance": {
+            "frames": 120,
+            "durationMs": 1995.7,
+            "fps": 60.12927794749752,
+            "drawCalls": 756,
+            "triangles": 734696,
+            "buildMode": "browser-runtime"
+          },
+          "camera": "spring-clear",
+          "errors": 0
+        }
+      },
+      "fallbacks": {
+        "heroToIdentity": {
+          "status": "pass-forced-deterministic-fallback",
+          "requestedTier": "hero",
+          "renderedTier": "identity",
+          "reason": "forced-deterministic-hero-to-identity",
+          "source": "/models/tiers/xingfuli/identity-v2/xingfuli-east-identity-v2.glb?v=20260726-lineage-v2-3352d61",
+          "fps": 60.802594244204705,
+          "errors": 0
+        },
+        "identityToMassing": {
+          "status": "pass-forced-deterministic-fallback",
+          "requestedTier": "identity",
+          "renderedTier": "massing",
+          "reason": "forced-deterministic-identity-to-massing",
+          "source": "/models/tiers/xingfuli/massing-v2/xingfuli-east-massing-v2.glb?v=20260726-lineage-v2-c0defcb",
+          "fps": 58.79182793565938,
+          "errors": 0
+        }
+      },
+      "collision": {
+        "status": "pass-target-reached-no-penetration",
+        "tier": "identity",
+        "start": [84.35242194650252, 8.526261668474035],
+        "target": [93.845516783, 10.577308577],
+        "durationMs": 6000,
+        "movementStatus": "complete",
+        "minimumTargetErrorSceneUnits": 0.012845572522217602,
+        "postWarmupTargetErrorSceneUnits": 0.08449442754237962,
+        "cameraFinal": "spring-compressed",
+        "cameraBlockerFinal": "obstacle-164",
+        "cameraArmFinal": 3.575,
+        "errors": 0
+      }
+    }
+  ],
+  "productionDefault": {
+    "status": "pass-current-product-entry-retained",
+    "url": "/?start=xingfuli-canonical&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaRuntimeTelemetry=1",
+    "qaAssetMarker": null,
+    "qaRequestedTierMarker": null,
+    "qaRenderedTierMarker": null,
+    "playable": true,
+    "playerPosition": [106.56414090817087, 12.889718809317268],
+    "camera": "spring-clear",
+    "cameraBlocker": "none",
+    "errors": 0
+  },
+  "console": {
+    "routesSampled": 13,
+    "consoleErrors": 0,
+    "windowErrors": 0,
+    "unhandledRejections": 0,
+    "knownWarnings": [
+      "THREE.Clock deprecation"
+    ]
+  },
+  "visualEvidenceCorrection": {
+    "status": "pass-three-west-tier-screenshots-recaptured-primary-telemetry-retained",
+    "reason": "主窗口并行复核时在首轮记录尚未提交前覆盖了 West 三张纯 tier 截图；fallback、collision、East、production-default 与全部 primary telemetry 未被覆盖。",
+    "originalPrecommitFingerprintsUnavailableOnDisk": [
+      {
+        "view": "xingfuli-west-hero",
+        "sha256": "d007bc9474091b2432e8e0f3a57bca9cc9e8616a51a3999c771bcb8bc2eecf1f",
+        "bytes": 236447
+      },
+      {
+        "view": "xingfuli-west-identity-v2",
+        "sha256": "2217d7a53ad3ef14a21211ae1c2a0e413e58cba1fbb86c9f6d4a87495b1bc45b",
+        "bytes": 234565
+      },
+      {
+        "view": "xingfuli-west-massing-v2",
+        "sha256": "a2b66e21343857571178cb9bc0932fa52423f798cfd052b4e76c1c0409e2ef42",
+        "bytes": 233299
+      }
+    ],
+    "recapture": {
+      "origin": "http://127.0.0.1:4198",
+      "viewport": [
+        1280,
+        720
+      ],
+      "visibility": "visible",
+      "network": "standard",
+      "buildMode": "browser-runtime",
+      "performanceClaim": "supporting-only-primary-1280x577-session-remains-authoritative",
+      "tiers": {
+        "hero": {
+          "status": "loaded",
+          "source": "/models/xingfuli/xingfuli-west.glb?v=20260723-final-1",
+          "frames": 120,
+          "fps": 28.172982110116937,
+          "camera": "spring-clear",
+          "blocker": "none"
+        },
+        "identity": {
+          "status": "loaded",
+          "source": "/models/tiers/xingfuli/identity-v2/xingfuli-west-identity-v2.glb?v=20260726-lineage-v2-163d214",
+          "frames": 120,
+          "fps": 26.449195503636766,
+          "camera": "spring-clear",
+          "blocker": "none"
+        },
+        "massing": {
+          "status": "loaded",
+          "source": "/models/tiers/xingfuli/massing-v2/xingfuli-west-massing-v2.glb?v=20260726-lineage-v2-f6d67f0",
+          "frames": 120,
+          "fps": 31.83023872679045,
+          "camera": "spring-clear",
+          "blocker": "none"
+        }
+      }
+    }
+  },
+  "screenshots": [
+    {
+      "view": "xingfuli-west-hero",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_west_lineage_v2_hero_threejs.png",
+      "sha256": "5dd9a69d33f5cef9dbc4fa9364788abccc2489e912b269850afa083ac8b16c2c",
+      "bytes": 81636
+    },
+    {
+      "view": "xingfuli-west-identity-v2",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_west_lineage_v2_identity_threejs.png",
+      "sha256": "d96f737b58754ad6a73aafc6f58402f73d6ab2315e076ae285cafb91c33b5a7f",
+      "bytes": 78793
+    },
+    {
+      "view": "xingfuli-west-massing-v2",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_west_lineage_v2_massing_threejs.png",
+      "sha256": "551e15fc04a61aaa1b34cfe0de2e4cadefb2fd5dff16b4cc9f812eeb539e4bc5",
+      "bytes": 77169
+    },
+    {
+      "view": "xingfuli-west-hero-to-identity-fallback",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_west_lineage_v2_hero_to_identity_fallback.png",
+      "sha256": "62a18da1bb19c15cfd8a39cba1016b3f0d4a54ef410132639886f02b4cef00cc",
+      "bytes": 234723
+    },
+    {
+      "view": "xingfuli-west-identity-to-massing-fallback",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_west_lineage_v2_identity_to_massing_fallback.png",
+      "sha256": "9ff95b176c8b5bdf39c45a3b746232bd927da1664272e2330120366ddc0dd020",
+      "bytes": 233314
+    },
+    {
+      "view": "xingfuli-west-collision",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_west_lineage_v2_collision_threejs.png",
+      "sha256": "deb528a1bdb7af4adaee1899cc3ec6d519d545788604fa5c60fd737dfd9a09d0",
+      "bytes": 199092
+    },
+    {
+      "view": "xingfuli-east-hero",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_east_lineage_v2_hero_threejs.png",
+      "sha256": "e7a3b91a82c633bc4b002a0cb2c7f591bb379dc034b1f9dfe281e49b1278945e",
+      "bytes": 274607
+    },
+    {
+      "view": "xingfuli-east-identity-v2",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_east_lineage_v2_identity_threejs.png",
+      "sha256": "bcd90ee26162569cd18a9df9a5efa9e81554ec61b21f974ce0dba314583f1c00",
+      "bytes": 271415
+    },
+    {
+      "view": "xingfuli-east-massing-v2",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_east_lineage_v2_massing_threejs.png",
+      "sha256": "6765be0b05cfbe2bc4badef3b375965d91749a646e6e8326c7d2fc9d3bdd6930",
+      "bytes": 267944
+    },
+    {
+      "view": "xingfuli-east-hero-to-identity-fallback",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_east_lineage_v2_hero_to_identity_fallback.png",
+      "sha256": "dc3b647251be195bff3314e6ff3150503e90cb8342b59ba50a3bba5e6ad73ee6",
+      "bytes": 271313
+    },
+    {
+      "view": "xingfuli-east-identity-to-massing-fallback",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_east_lineage_v2_identity_to_massing_fallback.png",
+      "sha256": "4c042cd2e5a73308d31f47945f8e1dc3076b78ae32ed4e36bcf49350ce895ba3",
+      "bytes": 267893
+    },
+    {
+      "view": "xingfuli-east-collision",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_east_lineage_v2_collision_threejs.png",
+      "sha256": "300f069cd3118faf64d0b5303135c966a706f35cd67f413eef87cc9c333e5fed",
+      "bytes": 179796
+    },
+    {
+      "view": "xingfuli-production-default",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_production_default_threejs.png",
+      "sha256": "10d03117da2a18ed224dbc1dbd6cd9e3fd2290012d51b204f38e64ece6a6ad21",
+      "bytes": 231910
+    }
+  ],
+  "supportingScreenshots": [
+    {
+      "view": "xingfuli-west-hero-port-4199-1280x720",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_west_lineage_v2_hero_supporting_4199_1280x720.png",
+      "sha256": "1afc5c601e98bb71a1d9421c4a3a37f6b826ccbf8c82df67b002e10e65eaeeb9",
+      "bytes": 81657
+    },
+    {
+      "view": "xingfuli-west-identity-port-4199-1280x720",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_west_lineage_v2_identity_supporting_4199_1280x720.png",
+      "sha256": "7a221178f676916207d2752e8b1f7acc328cbe7d34c3763a730c8369a09a6624",
+      "bytes": 78771
+    },
+    {
+      "view": "xingfuli-west-massing-port-4199-1280x720",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_west_lineage_v2_massing_supporting_4199_1280x720.png",
+      "sha256": "dac5bd59dc5dafeac2f669bdadb412d4984dd87b602cf035ad8b277b57801aed",
+      "bytes": 84379
+    },
+    {
+      "view": "xingfuli-west-hero-port-4198-weak-profile-1280x720",
+      "path": "test_artifacts/all-models/runtime/xingfuli-west-east-lineage-v2/test_xingfuli_west_lineage_v2_hero_supporting_4198_weak_1280x720.png",
+      "sha256": "2f88157a48d07b8f8ae6f00f40e847cdaa008d54b9966e6369ba34d874f861c2",
+      "bytes": 84378
+    }
+  ],
+  "observed": [
+    "两栋共十三条 route 在同一浏览器会话和同一 production build 中采集，全部零 console/window/unhandled error。",
+    "六个 tier route 均返回正确 SHA 对应的 source，120 帧样本均高于 57 FPS。",
+    "四个 fallback route 均只降低一级且页面保持可玩。",
+    "两条确定性路线均进入目标 0.05 scene unit 内；终点截图未见人物进入建筑实体。",
+    "East 终点相机在窄场地多次压缩/恢复，最终保持人物可见，没有把相机压缩误报为碰撞失败。"
+  ],
+  "unknown": [
+    "West pedestrian way 的真实底层通道语义。",
+    "用户第 9 张照片对面道路是否确为番禺路。",
+    "相同运行时 telemetry 在模型首次 mount 的 bounds 读数存在 local/world 时序差异，因此地图裁决不使用该读数，仍以 GLB build record 与 OSM 投影为准。"
+  ],
+  "acceptance": {
+    "strictTierLineage": "pass",
+    "blenderMcp123": "pass",
+    "threeTierLoading": "pass",
+    "fallback": "pass",
+    "performance": "pass-measured-no-improvement-claim",
+    "collision": "pass-runtime-route-only",
+    "camera": "pass",
+    "consoleAndGlobalErrors": "pass-zero",
+    "productionDefault": "pass-unchanged-hero",
+    "map": "blocked-for-both-buildings",
+    "overall": "partial-complete-runtime-pass-map-blocked",
+    "scope": "exact-buildings-only-no-tree-decoration-or-full-map-change"
+  }
+}

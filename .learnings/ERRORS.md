@@ -9575,3 +9575,50 @@ operation not permitted
   没有反复请求宽泛进程权限。
 
 ---
+
+## [ERR-20260726-120] browser_evaluate_dom_proxy_rejects_error_hook_state
+
+**Logged**: 2026-07-26T20:18:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+尝试在 Browser evaluate 中向 `window` 或 `documentElement.dataset` 增加错误收集
+状态时，当前 DOM proxy 是不可扩展对象，`setAttribute` 也不作为函数暴露。
+
+### Error
+```text
+TypeError: Cannot add property __lineageQaErrors, object is not extensible
+TypeError: Cannot add property lineageQaErrors, object is not extensible
+TypeError: root.setAttribute is not a function
+```
+
+### Resolution
+- **Resolved**: 2026-07-26T20:20:00+08:00
+- **Notes**: 停止注入全局状态，改用应用现有的
+  `xingfuliQa*`、`xinhuaQaMovement` 和 camera dataset；console/window/unhandled
+  错误继续引用同一批次已封存的主窗口采集，不伪造 evaluate 钩子结果。
+
+---
+
+## [ERR-20260726-121] parallel_browser_qa_overwrote_three_uncommitted_screenshots
+
+**Logged**: 2026-07-26T20:22:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+主窗口延续采集与当前浏览器复核同时写入相同 West 三档截图路径，导致三张尚未提交的
+1280×577 截图被 1280×720 截图覆盖；其他十张批次截图和全部主采集 telemetry
+未受影响。
+
+### Resolution
+- **Resolved**: 2026-07-26T20:23:00+08:00
+- **Notes**: 先把仍在磁盘的 4199/弱网截图复制为独立 `test_*_supporting_*` 证据，
+  再在正式 4198 production preview 重新采集 West Hero/Identity/Massing；记录中
+  保留不可恢复的原始指纹、覆盖原因、主 telemetry 与 supporting recapture 的不同
+  视口/性能口径。以后并行浏览器采集必须使用唯一批次目录或先取得路径所有权。
+
+---

@@ -5,6 +5,8 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 const recordPath = "docs/research/shanghai-cinema-map-calibration-2026-07-26.json";
+const supersessionPath =
+  "docs/research/shanghai-cinema-film-neighbor-supersession-2026-07-26.json";
 
 async function readJson(path) {
   return JSON.parse(await readFile(new URL(path, root), "utf8"));
@@ -338,14 +340,15 @@ test("上海影城地图偏差来自规则 GLB 包络绑定，不是 WGS84 投�
   );
 });
 
-test("道路距离等价位置是数值反例，不是可接线 placement", async () => {
-  const [record, mapData, landmarkData] = await Promise.all([
+test("道路距离等价位置是历史数值反例，不是可接线 placement", async () => {
+  const [record, mapData, landmarkData, supersession] = await Promise.all([
     readJson(recordPath),
     readJson("app/scene/xinhua-map-data.json"),
     readJson("app/scene/xinhua-road-landmarks-data.json"),
+    readJson(supersessionPath),
   ]);
   const cinema = landmarkData.landmarks.find(({ id }) => id === "shanghai-cinema");
-  const film = landmarkData.landmarks.find(({ id }) => id === "film-art-center");
+  const film = supersession.historicalAudit.filmArtCenter;
   const diagnostic = record.placementCandidates.diagnosticRoadEquivalenceOnly;
   const candidate = { ...cinema, position: diagnostic.position };
 
@@ -401,13 +404,17 @@ test("道路距离等价位置是数值反例，不是可接线 placement", asyn
   assert.equal(record.placementCandidates.exact, null);
 });
 
-test("碰撞候选通过无损 localX 分拆消除当前 AABB 假相交", async () => {
-  const [record, landmarkData] = await Promise.all([
+test("碰撞候选保留旧 Film 快照并识别当前邻栋冲突已消除", async () => {
+  const [record, landmarkData, supersession] = await Promise.all([
     readJson(recordPath),
     readJson("app/scene/xinhua-road-landmarks-data.json"),
+    readJson(supersessionPath),
   ]);
   const cinema = landmarkData.landmarks.find(({ id }) => id === "shanghai-cinema");
-  const film = landmarkData.landmarks.find(({ id }) => id === "film-art-center");
+  const currentFilm = landmarkData.landmarks.find(
+    ({ id }) => id === "film-art-center",
+  );
+  const film = supersession.historicalAudit.filmArtCenter;
   const margin = landmarkData.collisionMargin;
   const collision = record.collisionCandidate;
   const original = cinema.localObstacles[collision.replaceObstacleIndex];
@@ -445,6 +452,16 @@ test("碰撞候选通过无损 localX 分拆消除当前 AABB 假相交", async 
   assert.ok(Math.abs(
     currentPair.area - record.collisionAudit.currentRuntimeAabbOverlap.area,
   ) < 1e-9);
+  const supersededPair = aabbOverlap(
+    transformedAabb(cinema, original, margin),
+    transformedAabb(
+      currentFilm,
+      currentFilm.localObstacles[0],
+      margin,
+    ),
+  );
+  assert.equal(supersededPair.intersects, false);
+  assert.equal(supersession.currentRegistry.runtimeAabbOverlapPairs, 0);
 
   const orientedPair = orientedOverlap(
     cinema,
@@ -463,7 +480,10 @@ test("碰撞候选通过无损 localX 分拆消除当前 AABB 假相交", async 
       index === collision.replaceObstacleIndex ? collision.pieces : [obstacle]
     ),
   );
-  const otherAabbs = landmarkData.landmarks
+  const historicalLandmarks = landmarkData.landmarks.map((landmark) => (
+    landmark.id === film.id ? film : landmark
+  ));
+  const otherAabbs = historicalLandmarks
     .filter(({ id }) => id !== cinema.id)
     .flatMap((landmark) => (
       (landmark.localObstacles ?? [landmark.localBounds]).map(

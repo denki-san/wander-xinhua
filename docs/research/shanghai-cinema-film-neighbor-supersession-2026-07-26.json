@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "assetId": "shanghai-cinema",
+  "recordedAt": "2026-07-26",
+  "status": "historical-neighbor-overlap-superseded-current-film-clear",
+  "scope": {
+    "buildings": [
+      "shanghai-cinema",
+      "film-art-center"
+    ],
+    "runtimeModified": false,
+    "assetsModified": false,
+    "treesDecorationFullMap": "excluded",
+    "recoveryHold": "untouched"
+  },
+  "historicalAudit": {
+    "path": "docs/research/shanghai-cinema-final-audit-2026-07-26.json",
+    "sha256": "eb88bc2f8062899ab064cfbd44df0c76f141e568eb0f9a4d5312968f3b3715e8",
+    "registrySnapshotCommit": "04aff4831849da2708b8ace6597991eb8db73faa",
+    "filmArtCenter": {
+      "id": "film-art-center",
+      "position": [
+        47.5,
+        81.5
+      ],
+      "yaw": 2.761592653589793,
+      "scale": 1,
+      "localBounds": {
+        "minX": -11.554999,
+        "maxX": 11.554999,
+        "minZ": -6.725,
+        "maxZ": 11.225
+      },
+      "localObstacles": [
+        {
+          "minX": -8,
+          "maxX": 8,
+          "minZ": -5.2,
+          "maxZ": 4.2
+        },
+        {
+          "minX": -11.46,
+          "maxX": -8.1,
+          "minZ": -3.63,
+          "maxZ": 4.63
+        },
+        {
+          "minX": 8.1,
+          "maxX": 11.46,
+          "minZ": -3.63,
+          "maxZ": 4.63
+        }
+      ]
+    },
+    "runtimeAabbOverlapPairs": 1,
+    "orientedSolidOverlapPairs": 0
+  },
+  "currentRegistry": {
+    "path": "app/scene/xinhua-road-landmarks-data.json",
+    "sha256": "0743f115a7f6704862f21f5dad96daf11301ce28391290193252f57cfffa1dae",
+    "filmArtCenterCalibrationCommit": "d9044e088cea1994e23a2e160ccf55d4e19086ab",
+    "filmArtCenter": {
+      "id": "film-art-center",
+      "position": [
+        46.388748754382405,
+        79.07089962964774
+      ],
+      "yaw": 2.786349542422368,
+      "scale": 0.5,
+      "localBounds": {
+        "minX": -11.554999,
+        "maxX": 11.554999,
+        "minZ": -6.725,
+        "maxZ": 11.225
+      },
+      "localObstacles": [
+        {
+          "minX": -9.18116646217537,
+          "maxX": 9.18116646217537,
+          "minZ": -7.06387451975493,
+          "maxZ": 7.06387451975493
+        }
+      ]
+    },
+    "runtimeAabbOverlapPairs": 0,
+    "decision": "Film Art Center 的正式 footprint 与比例校准已消除上海影城旧邻栋 AABB 假冲突；旧审计仍按当时 registry 快照复算，不能改写成当前冲突。"
+  },
+  "remainingShanghaiCinemaBlockers": [
+    "map-origin-and-footprint-anchor",
+    "hero-generator-source-drift"
+  ],
+  "verdict": {
+    "historicalAabbRecord": "preserved",
+    "currentNeighborCollision": "pass-no-aabb-overlap",
+    "shanghaiCinemaFinalComplete": false
+  }
+}

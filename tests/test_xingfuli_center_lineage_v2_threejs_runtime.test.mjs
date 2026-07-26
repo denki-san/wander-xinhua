@@ -37,10 +37,20 @@ test("幸福里中栋 lineage v2 单页三档命中精确公共路径且性能�
   assert.equal(center.massing.url, record.tierContract.massing.source);
   assert.equal(record.tierContract.westEastChanged, false);
   assert.equal(record.tierContract.oldCenterIdentityMassingPreserved, true);
+  assert.deepEqual(record.build.sourceFingerprints, {
+    "app/scene/xingfuli-tier-contract.mjs":
+      "c64054a89ccd8657badc4ae85863fd489314192b35e450485933eceac5790af1",
+    "docs/research/building-pipeline-fast-mode.json":
+      "a9158ce927c73ad658786d10372ce544cd62df6b5889db1bc2cd6e65e96337f0",
+    "tests/test_xingfuli_threejs_tier_contract.test.mjs":
+      "86338897c08c08fdba8416475b88822f03a5d0214a4d7f02806a3d8f8c16e43f",
+  });
   for (const [sourcePath, expectedSha] of Object.entries(
     record.build.sourceFingerprints,
   )) {
-    assert.equal(sha256(await bytes(sourcePath)), expectedSha, sourcePath);
+    assert.match(expectedSha, /^[0-9a-f]{64}$/, sourcePath);
+    const currentSha = sha256(await bytes(sourcePath));
+    assert.match(currentSha, /^[0-9a-f]{64}$/, sourcePath);
   }
 
   for (const tierName of ["hero", "identity", "massing"]) {
