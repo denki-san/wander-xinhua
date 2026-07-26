@@ -704,6 +704,13 @@ export function XinhuaExperience() {
         </button>
         {playing && (
           <div className="world-tool-stack">
+            {overview && (
+              <LightingSwitcher
+                className="lighting-hud-switcher"
+                atmosphereStyle={atmosphereStyle}
+                onChange={selectAtmosphereStyle}
+              />
+            )}
             <nav className="world-tools" aria-label="体验工具">
               {exploring && (
                 <button
@@ -721,13 +728,6 @@ export function XinhuaExperience() {
                 {fullscreen ? "↙" : "↗"}
               </button>
             </nav>
-            {overview && (
-              <LightingSwitcher
-                className="lighting-hud-switcher"
-                atmosphereStyle={atmosphereStyle}
-                onChange={selectAtmosphereStyle}
-              />
-            )}
           </div>
         )}
       </header>

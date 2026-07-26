@@ -164,7 +164,8 @@ function markFirstProgressiveControlResponse() {
 
 export const DETAIL_WORLD_SCALE = 1.65;
 const OVERVIEW_CHARACTER_SCALE = 22;
-const OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET = OVERVIEW_CHARACTER_SCALE * 0.26;
+// 注视点略高于人物中心，让全览角色落在屏幕中线下方，留出更多街区视野。
+const OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET = OVERVIEW_CHARACTER_SCALE * 0.6;
 const OVERVIEW_MOVE_SPEED = 94;
 const OVERVIEW_POI_DISTANCE = 42;
 const OVERVIEW_CAMERA_FILL = 0.215;
@@ -1419,7 +1420,7 @@ function OverviewWanderer({
   onNearPoi: (poiId: string | null) => void;
   onPositionChange: (position: readonly [number, number]) => void;
 }) {
-  const { camera } = useThree();
+  const { camera, size } = useThree();
   const outer = useRef<Group>(null);
   const position = useRef(new Vector3(
     initialPosition[0],
@@ -1434,6 +1435,7 @@ function OverviewWanderer({
   const scratchDisplacement = useMemo(() => new Vector3(), []);
   const scratchBasis = useMemo(() => new Matrix4(), []);
   const scratchRight = useMemo(() => new Vector3(), []);
+  const scratchScreen = useMemo(() => new Vector3(), []);
   useKeyboardControls();
 
   useEffect(() => {
@@ -1510,6 +1512,11 @@ function OverviewWanderer({
         position.current.x,
         position.current.z,
       ].map((value) => value.toFixed(3)).join(",");
+      scratchScreen.copy(position.current).project(camera);
+      document.documentElement.dataset.overviewQaPlayerScreen = [
+        (scratchScreen.x + 1) * size.width / 2,
+        (1 - scratchScreen.y) * size.height / 2,
+      ].map((value) => value.toFixed(1)).join(",");
     }
   });
 
@@ -1603,6 +1610,7 @@ function OverviewRuntimeQa({ active }: { active: boolean }) {
       delete root.dataset.overviewQaDistrictBounds;
       delete root.dataset.overviewQaFrameSample;
       delete root.dataset.overviewQaPlayer;
+      delete root.dataset.overviewQaPlayerScreen;
       frameSample.current = { viewport: "", warmupFrames: 0, deltas: [] };
       return;
     }

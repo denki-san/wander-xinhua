@@ -93,7 +93,7 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(world, /const OVERVIEW_CHARACTER_SCALE = 22/);
   assert.match(
     world,
-    /const OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET = OVERVIEW_CHARACTER_SCALE \* 0\.26/,
+    /const OVERVIEW_CAMERA_TARGET_HEIGHT_OFFSET = OVERVIEW_CHARACTER_SCALE \* 0\.6/,
   );
   assert.match(world, /const OVERVIEW_MOVE_SPEED = 94/);
   assert.match(world, /const OVERVIEW_CAMERA_FILL = 0\.215/);
@@ -158,6 +158,7 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   );
   assert.match(world, /dataset\.overviewQaActiveMarkers = String\(activeMarkers\)/);
   assert.match(world, /dataset\.overviewQaPlayer = \[/);
+  assert.match(world, /dataset\.overviewQaPlayerScreen = \[/);
   assert.doesNotMatch(shangsheng, /useGLTF\.preload/);
   assert.match(world, /scale=\{OVERVIEW_CHARACTER_SCALE\}/);
   assert.match(
@@ -200,6 +201,11 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(styles, /@keyframes poi-photo-loading/);
   assert.match(styles, /\.world-tools\s*\{[^}]*flex-direction: row;/);
   assert.match(experience, /className="lighting-hud-switcher"/);
+  assert.ok(
+    experience.indexOf('className="lighting-hud-switcher"')
+      < experience.indexOf('<nav className="world-tools"'),
+    "全览光照切换应位于右上工具按钮上方",
+  );
   assert.match(styles, /\.overview-poi-card\s*\{[^}]*top: 82px;/);
   assert.match(styles, /top: calc\(env\(safe-area-inset-top, 0px\) \+ 124px\)/);
   assert.match(styles, /height: 148px/);
