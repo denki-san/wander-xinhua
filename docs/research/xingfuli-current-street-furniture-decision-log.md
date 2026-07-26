@@ -53,3 +53,24 @@
   全仓测试全绿，也不把范围外修复混入街具提交。
 - Production boundary: 公共 registry、production manifest、18 栋资产及运行时
   入口仍保持未修改。
+
+## Pending Todo — 2026-07-26
+
+- [ ] 将 4 个已完成的幸福里街具 GLB 正式接入主场景：
+  `xingfuli-pointed-entry-bollard`、
+  `xingfuli-water-edge-stone-seat-round`、
+  `xingfuli-water-edge-stone-seat-long`、
+  `xingfuli-water-edge-slim-planter`。
+- [ ] 用尖顶入口石桩替换
+  `app/scene/shared-street-assets.tsx` 中正式场景仍在使用的方盒
+  `IrregularStoneBollards`；不得继续把旧方盒作为完成状态。
+- [ ] 沿用并复核当前 5 个入口实例位置，校准人物尺度、朝向、间距、地面接触和
+  单体底座碰撞，保持入口可通行。
+- [ ] 依据已保存的水景参考照片，为圆形石座、长形石座和窄型花槽冻结正式实例
+  坐标；精确位置未知的部分必须继续标记为推定。
+- [ ] 重复街具共享几何与材质；近景使用现有 `visible-low` GLB，远景
+  `hidden`，不得增加全览首屏负担。
+- [ ] 在实际幸福里入口 `/?start=xingfuli` 完成视觉、碰撞、遮挡、控制台、
+  网络请求和性能验收；独立 QA 页面通过不能代替正式场景验收。
+- [ ] 完成后运行 `npm test`、`npm run lint` 和静态构建，并保存以 `test_`
+  开头的正式运行时验收截图。
