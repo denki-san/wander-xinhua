@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-orchestra",
+  "label": "上海民族乐团",
+  "preparedAt": "2026-07-26",
+  "baseCommit": "85ef97a0af3c318f64291669effbc3173028bc65",
+  "mode": "building-window-medium-query-contract-only",
+  "status": "prepared-not-executed-main-window-human-paced-xiaohongshu-search-required",
+  "scope": {
+    "included": [
+      "minimum public same-subject evidence query design",
+      "member-to-way binding, entrance-road relation and footprint controls",
+      "legal Hero and Identity source readiness"
+    ],
+    "notPerformed": [
+      "browser or Xiaohongshu access",
+      "network search or media download",
+      "Blender MCP, Massing or Three.js rerun",
+      "Hero or Identity modeling",
+      "registry, runtime, map, status, roster or fast-manifest mutation",
+      "Recovery/Hold or out-of-scope asset mutation"
+    ],
+    "binaryModified": false,
+    "sharedFilesModified": false,
+    "recoveryHoldModified": false,
+    "runtimeDisabled": false
+  },
+  "verifiedInputs": {
+    "finalGapAudit": {
+      "path": "docs/research/shanghai-orchestra-final-gap-audit.json",
+      "sha256": "52b8b1784348ba64905eb98d843440eeb0c44a19d645cad27b4d15001d0e5d31"
+    },
+    "localBlocker": {
+      "path": "docs/research/shanghai-orchestra-gap-medium-blocker-2026-07-26.json",
+      "sha256": "8e00ae3c838d9710c614ff36a7a28755d00b4c1abc36c82b9979015f3f6c237a"
+    },
+    "officialAndDesignRescue": {
+      "path": "docs/research/shanghai-orchestra-public-primary-source-rescue-2026-07-26.json",
+      "sha256": "7779597f51be1445f1bc6e55e3a664b0b3671c14ba163fbb4e5192c3325bcc7f"
+    },
+    "mcp1": {
+      "path": "docs/research/shanghai-orchestra-blender-mcp-gates.json",
+      "sha256": "9ca22a5bcaf1fa1fb75879bcdda11e276b33bb0e8ad36218cc2fee5ea361ed8e"
+    },
+    "threeDiagnostic": {
+      "path": "docs/research/shanghai-orchestra-threejs-runtime-qa.json",
+      "sha256": "60e403de15bcc2d5590435f20b952475886d2cd30d2ce57a2ae01b0eea7c7cc3"
+    },
+    "massingMapGate": {
+      "path": "docs/research/shanghai-orchestra-massing-map-gate.json",
+      "sha256": "1c4c91bf6fc86ef04733ee91b542719b61f1485276bd33ca2bfdf7a34fc3718c"
+    },
+    "massingGlb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.glb",
+      "sha256": "63eb25ca4abcbab0e434adb528ea0f37650495c614833f7b9bd05afbc519484c"
+    }
+  },
+  "retainedAcceptedStages": {
+    "massing": "Recovery Massing v2 and five anonymous candidate ways are retained unchanged.",
+    "mcp1": "pass-shape-only-preserved; do not rerun.",
+    "threeDiagnostic": "pass-load-performance-collision-stop-qa-only-preserved; do not rerun or promote.",
+    "action": "This evidence-query preparation cannot promote map, Hero, Identity, MCP2, MCP3 or runtime."
+  },
+  "currentEvidenceBoundary": {
+    "observed": [
+      "Official sources corroborate Shanghai Chinese Orchestra at Xinhua Road 336.",
+      "The TJAD material corroborates Buildings 6, 7 and 8 plus retained volumes and courtyards.",
+      "Five OSM candidate ways remain anonymous: 864505166, 864505168, 864505165, 864505169 and 864505163."
+    ],
+    "inferred": [
+      "The five ways are a plausible Massing diagnostic compound only."
+    ],
+    "unknown": [
+      "Which candidate ways map to Buildings 6, 7 and 8 or retained volumes.",
+      "Formal compound boundary and excluded neighboring ways.",
+      "Candidate-specific entrance direction, road relation, measured footprint, height and roof back."
+    ],
+    "nonEvidence": [
+      "An official address, programme listing or event schedule proves neither building-way membership nor a map binding.",
+      "A caption, proximity, authored runtime placement, GLB/MCP1 or diagnostic collision result cannot prove membership."
+    ]
+  },
+  "queryContract": {
+    "executionOwner": "main-window-xhigh",
+    "executionStatus": "not-run",
+    "purpose": "Seek the smallest same-subject public visual chain that can identify the Xinhua Road 336 compound, named members or entrance-road relation without treating social media as cadastral authority.",
+    "searchGroups": [
+      {
+        "priority": 1,
+        "goal": "same compound and named institution",
+        "queries": ["上海民族乐团 新华路336", "上海民族乐团 新华路 建筑", "上海民族乐团 法华镇路 外观"]
+      },
+      {
+        "priority": 2,
+        "goal": "Buildings 6, 7, 8 and retained-volume identity",
+        "queries": ["上海民族乐团 6号楼 7号楼 8号楼", "上海民族乐团 改造 6号楼", "上海民族乐团 院落 保留建筑"]
+      },
+      {
+        "priority": 3,
+        "goal": "entrance and street relation",
+        "queries": ["上海民族乐团 入口 新华路", "上海民族乐团 法华镇路 入口", "新华路336 上海民族乐团 街景"]
+      },
+      {
+        "priority": 4,
+        "goal": "footprint-calibrating exterior context",
+        "queries": ["上海民族乐团 总平面 入口", "上海民族乐团 院落 外立面", "上海民族乐团 周边 建筑"]
+      }
+    ],
+    "accessBoundary": {
+      "existingSignedInUserBrowserOnlyIfNeeded": true,
+      "readOnly": true,
+      "noLikeCommentFollowSaveOrMessage": true,
+      "noParallelTabsOrAutomatedScrollLoop": true,
+      "noCaptchaRateLimitLoginOrPlatformWarningBypass": true,
+      "stopOnChallengeLoginRefreshOrPlatformWarning": true,
+      "doNotAttemptToImitateOrEvadePlatformDetection": true
+    },
+    "slowReviewBudgetRecommendation": {
+      "maxSearchQueriesPerSession": 4,
+      "maxResultCardsReviewedPerQuery": 8,
+      "maxPostsOpenedPerSession": 6,
+      "maxMediaItemsInspectedPerSession": 24,
+      "minimumSecondsBetweenPostOpens": 15,
+      "minimumSecondsBetweenSearchSubmissions": 30,
+      "maximumSessionMinutes": 15,
+      "cooldownMinutesAfterAnyWarningOrChallenge": 60,
+      "stopAfterFirstQualifiedEvidenceChain": true,
+      "stopIfNoNewRelevantCandidateAfterTwoConsecutiveQueries": true,
+      "note": "These are conservative viewing limits to reduce load and respect platform friction, not timing randomization or anti-detection behavior."
+    },
+    "captureFields": [
+      "post URL and stable content ID",
+      "displayed author, visible publish date, capture time and query",
+      "media count and inspected image or frame index in original order",
+      "directly visible facts separated from caption or author claims",
+      "candidate building number, entrance, road/curb and footprint-control observations",
+      "specific acceptance or rejection reason",
+      "research-only rights and provenance note"
+    ]
+  },
+  "acceptanceMatrix": [
+    {
+      "id": "same-subject-and-address",
+      "required": true,
+      "pass": "Visible institution sign, unambiguous architecture cue or post-level location corroborates Shanghai Chinese Orchestra at Xinhua Road 336.",
+      "reject": "Programme-only, performance interior, caption-only address, generic orchestra content or an unverified nearby venue."
+    },
+    {
+      "id": "member-label-or-way-control",
+      "required": true,
+      "pass": "A visible numbered Building 6, 7, 8 or retained-volume label co-occurs with at least two stable exterior controls that can be compared to a candidate footprint.",
+      "reject": "Building number mentioned only in caption, facade without locatable controls, or a numbered room rather than building."
+    },
+    {
+      "id": "compound-boundary-and-exclusion",
+      "required": true,
+      "pass": "A continuous exterior sequence or single broad view establishes compound boundary and distinguishes at least one included member from an adjacent non-member or road edge.",
+      "reject": "Isolated facade, montage jump, aerial image without source/provenance, or assumed boundary from proximity."
+    },
+    {
+      "id": "entrance-road-relation",
+      "required": true,
+      "pass": "The same-subject sequence visibly connects an entrance, curb/sidewalk/asphalt edge and a readable Xinhua Road or Fahuazhen Road control.",
+      "reject": "Road name only in caption, interior entrance, road centerline with hidden edge, or an unrelated street frontage."
+    },
+    {
+      "id": "footprint-calibration-controls",
+      "required": true,
+      "pass": "At least two fixed exterior controls, such as a corner, gate, wall end, road bend or neighboring distinct volume, support comparison to one candidate way without claiming survey precision.",
+      "reject": "Single perspective image, vegetation-obscured outline, crop without endpoints, or map screenshot without scale/provenance."
+    },
+    {
+      "id": "hero-identity-source-legality",
+      "required": true,
+      "pass": "The material gives a clear subject-specific facade, entrance or roof cue tied to an accepted member set; it may become a future Hero/Identity reference only after authoritative membership closes.",
+      "reject": "Decorative plaza, wayfinding, branded text, bench, planter, paving or a generic heritage-plus-modern composition."
+    },
+    {
+      "id": "currentness-and-alteration",
+      "required": true,
+      "pass": "Visible post date is recorded and temporary barriers, tenant signage, construction and seasonal obstructions are separated from stable geometry.",
+      "reject": "Undated imagery treated as current measured truth."
+    }
+  ],
+  "qualificationAndDisposition": {
+    "allRequiredMatrixIds": ["same-subject-and-address", "member-label-or-way-control", "compound-boundary-and-exclusion", "entrance-road-relation", "footprint-calibration-controls", "hero-identity-source-legality", "currentness-and-alteration"],
+    "socialMediaLimit": "Qualified social evidence may improve visual reference and identify a candidate for authoritative follow-up; it does not alone authorize formal OSM-way membership, map acceptance, Hero, Identity, MCP2, MCP3 or runtime promotion.",
+    "reasonableSearchMissDefinition": "All four query groups are attempted serially within the conservative budget and no result satisfies every required matrix row after duplicate, unrelated venue and caption-only rejection.",
+    "whoMayConfirmMiss": "main window only",
+    "beforeMainWindowConfirmation": "No runtime-disable candidate, registry edit, runtime edit, model change or road/map mutation is authorized.",
+    "afterMainWindowConfirmation": "A runtime-disable candidate may be prepared for shanghai-orchestra only. It may remove the asset only from registry/runtime; all GLB, Blend, generator, evidence, tests, artifacts and Recovery/Hold materials remain preserved.",
+    "stillNotAuthorized": ["delete files", "overwrite previous evidence", "modify Recovery/Hold", "claim formal membership from a schedule or address", "claim Hero/Identity/MCP2/MCP3/map acceptance"]
+  },
+  "rawMediaRetention": {
+    "policy": "Original captured media is read-only and additive; never overwrite or delete earlier evidence.",
+    "repositoryRoot": "docs/research/assets/xiaohongshu/shanghai-orchestra/original/",
+    "naming": "YYYYMMDD_xhs_<post-id>_<image-or-frame-index>.<extension>",
+    "sidecar": "docs/research/assets/xiaohongshu/shanghai-orchestra/original/YYYYMMDD_xhs_<post-id>_metadata.json",
+    "currentAction": "No directory or media is created by this preparation commit."
+  }
+}
