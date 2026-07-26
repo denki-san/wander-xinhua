@@ -8905,3 +8905,34 @@ docs/research/xinhua-villas-211-three-tier-final-disposition.json
 - **Notes**: 已确认 companion JSON 落盘并归属于 211 专项；稳定后重新执行完整回归。
 
 ---
+## [ERR-20260726-098] villa_hero_test_froze_mcp2_as_pending
+
+**Logged**: 2026-07-26T15:49:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Villa Le Bec Hero 实现测试把 MCP2 状态永久固定为 `pending`；主窗口固定机位裁决
+阻断候选后，正确的 `blocked-pre-mcp2-main-visual-review` 被误判为回归。
+
+### Error
+```text
+actual:   blocked-pre-mcp2-main-visual-review
+expected: pending
+```
+
+### Context
+- 候选二进制、双楼范围和开放庭院合同未变化；
+- 主窗口未进入 MCP2，也未授权 Identity；
+- 状态变化来自更严格的固定机位参考对比，不是门槛放宽。
+
+### Suggested Fix
+实现测试应验证候选没有把 MCP2 写成 `pass`，并与当前裁决记录同步；
+不得把等待审查的瞬时状态当成永久资产合同。
+
+### Resolution
+- **Resolved**: 2026-07-26T15:49:00+08:00
+- **Notes**: 实现记录和测试同步为 blocked；Villa 专项 40/40 与三个 GLB 审计通过。
+
+---
