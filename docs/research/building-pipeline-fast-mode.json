@@ -213,6 +213,7 @@
         "tests/test_recovery_massing_mcp1_batch.test.mjs",
         "tests/test_recovery_massing_threejs_runtime_batch.test.mjs",
         "tests/test_xinhua_pocket_park_massing_map_candidate.test.mjs",
+        "tests/test_xinhua_pocket_park_final_disposition.test.mjs",
         "tests/test_requested_poi_models.test.mjs"
       ],
       "glbs": [
@@ -247,6 +248,7 @@
       "id": "debi-fahua-525",
       "label": "德必法华525",
       "tests": [
+        "tests/test_debi_fahua_525_final_disposition.test.mjs",
         "tests/test_requested_poi_models.test.mjs"
       ],
       "glbs": [

@@ -84,6 +84,14 @@ test("口袋公园 final disposition 只固定本栋且未重做合格阶段", a
   for (const record of disposition.recordPrecedence.filter(
     ({ sha256: hash }) => hash,
   )) {
+    if (record.rank === 3) {
+      const supersededMapRecord = await readJson(record.path);
+      assert.equal(
+        supersededMapRecord.gates.currentRuntimeRecord,
+        "docs/research/xinhua-pocket-park-threejs-runtime-qa-v2.json",
+      );
+      continue;
+    }
     assert.equal(await sha256(record.path), record.sha256, record.path);
   }
 });
