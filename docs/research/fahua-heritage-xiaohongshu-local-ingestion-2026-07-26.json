@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "assetId": "fahua-heritage",
+  "label": "法华遗韵",
+  "ingestedAt": "2026-07-26T22:55:00+08:00",
+  "status": "side-depth-and-street-context-pass-map-and-rear-pending",
+  "scope": {
+    "mode": "single-building-local-evidence-ingestion",
+    "browserAccessed": false,
+    "xiaohongshuAccessed": false,
+    "networkAccessed": false,
+    "modelingPerformed": false,
+    "mcpStagePromoted": false,
+    "mapOrRuntimeChanged": false,
+    "runtimeDisabled": false,
+    "sharedManifestModified": false,
+    "recoveryOrHoldModified": false
+  },
+  "source": {
+    "platform": "xiaohongshu",
+    "noteId": "69e4f467000000001e00f7ab",
+    "url": "https://www.xiaohongshu.com/explore/69e4f467000000001e00f7ab",
+    "title": "人文新华 法华遗韵",
+    "author": "AA禅艺居",
+    "displayedDate": "04-19",
+    "collectedAt": "2026-07-26T21:31:00+08:00",
+    "query": "法华遗韵 上海",
+    "rawVideo": "not-saved",
+    "uDiskEvidenceDirectory": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence/fahua-heritage/xhs-2026-07-26",
+    "uDiskManifest": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence/fahua-heritage/xhs-2026-07-26/test_fahua-heritage-xhs-evidence-manifest.json",
+    "uDiskSourceNote": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence/fahua-heritage/xhs-2026-07-26/test_fahua-heritage-xhs-source-note.md",
+    "uDiskManifestPathMismatch": "The U-disk manifest names test_xhs_fahua-heritage_195s.png and test_xhs_fahua-heritage_197s.png, but the actual retained files are test_fahua-heritage-xhs-195s.png and test_fahua-heritage-xhs-197s.png. The source manifest and note were read only and were not edited."
+  },
+  "files": [
+    {
+      "timeSeconds": 195.49625,
+      "sourcePath": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence/fahua-heritage/xhs-2026-07-26/test_fahua-heritage-xhs-195s.png",
+      "repositoryPath": "docs/research/assets/xiaohongshu/fahua-heritage/original/test_fahua-heritage-xhs-195s.png",
+      "sha256": "ad69d9e052daa46e79f6f11bdcde1b328cd5611c5fc211d16b171ca6aaf2cf40",
+      "bytes": 132047,
+      "observed": [
+        "完整四柱三间展板构筑物",
+        "右侧短瓦檐与侧板深度",
+        "相邻青绿色墙面和518门牌",
+        "前方铺地与边缘高差"
+      ]
+    },
+    {
+      "timeSeconds": 197.375981,
+      "sourcePath": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence/fahua-heritage/xhs-2026-07-26/test_fahua-heritage-xhs-197s.png",
+      "repositoryPath": "docs/research/assets/xiaohongshu/fahua-heritage/original/test_fahua-heritage-xhs-197s.png",
+      "sha256": "76eeb64bf9aac3781f17aeaedc6aec3f7c4c273ba4e36185224a7da1e4937980",
+      "bytes": 136501,
+      "observed": [
+        "近正面完整牌坊",
+        "左侧窄通行界面",
+        "完整铺地与相邻墙面关系",
+        "路缘高差"
+      ]
+    }
+  ],
+  "evidence": {
+    "observed": [
+      "两帧来自同一视频的连续右前斜向至近正面镜头。",
+      "195.49625 秒帧可见右侧短瓦檐、侧板、相邻518门牌墙面与铺地。",
+      "197.375981 秒帧可见完整牌坊、左侧窄通行界面与路缘高差。"
+    ],
+    "inferred": [
+      "连续镜头支持右侧构造具有可见纵深，并支持构筑物与相邻墙面和前方铺地的关系。",
+      "518门牌只能作为相邻墙面的可见控制，不能单独认定为构筑物的法定地址或精确地图锚点。"
+    ],
+    "unknown": [
+      "完整背面构造",
+      "精确地图位置、朝向、footprint与尺度",
+      "可测量的道路、路缘、步道和景观边界",
+      "完整 walkaround clearance",
+      "由图像独立得出的真实高度和柱距"
+    ]
+  },
+  "gateDecision": {
+    "sideOrDepth": "pass-xhs-continuous-video",
+    "streetContext": "pass-xhs-continuous-video",
+    "exactMap": "pending-calibration",
+    "rear": "pending",
+    "scale": "pending",
+    "modelingAuthorized": false,
+    "massingMcp1Authorized": false,
+    "heroMcp2Authorized": false,
+    "mcp3Authorized": false,
+    "runtimeChangeAuthorized": false,
+    "decision": "This local ingestion only admits observed source frames. It does not rebuild, promote, calibrate, or modify any map, model, MCP gate, runtime, registry, Recovery, or Hold material."
+  }
+}
