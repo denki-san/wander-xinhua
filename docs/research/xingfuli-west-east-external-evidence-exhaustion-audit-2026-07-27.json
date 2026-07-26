@@ -1,0 +1,438 @@
+{
+  "schemaVersion": 1,
+  "assetIds": [
+    "xingfuli-west",
+    "xingfuli-east"
+  ],
+  "auditedAt": "2026-07-27T02:35:00+08:00",
+  "mode": "medium-read-only-offline-external-evidence-exhaustion-audit",
+  "status": "closed-search-west-map-blocked-east-map-blocked-independent-public-east-entrance-strengthened",
+  "scope": {
+    "included": [
+      "dynamic-evidence-snapshots-read-only",
+      "dynamic-evidence-legacy-imports-read-only",
+      "old-3d-knowledge-base-read-only",
+      "repository-public-reference-deduplication",
+      "xingfuli-west-ground-level-passage-evidence-adjudication",
+      "xingfuli-east-panyu-road-identity-setback-and-entrance-continuity-adjudication"
+    ],
+    "notPerformed": [
+      "browser-or-xiaohongshu-access",
+      "network-access",
+      "external-volume-write",
+      "user-nine-photo-substitution",
+      "model-blend-generator-or-glb-mutation",
+      "blender-mcp-rerun",
+      "threejs-runtime-rerun",
+      "registry-map-runtime-or-shared-file-mutation",
+      "trees-decoration-full-map-recovery-or-hold-work"
+    ],
+    "repositoryMediaAdded": false,
+    "externalFilesModified": false,
+    "acceptedStagesRebuilt": false
+  },
+  "repositoryInputs": {
+    "userSequenceRecord": {
+      "path": "docs/research/xingfuli-user-photo-sequence-2026-07-26.json",
+      "sha256": "d05eaec36c1334c7ae00e63fd570370bff0d291298e37bf3da3ce24fccc9f3ad"
+    },
+    "publicReferenceManifest": {
+      "path": "docs/research/xingfuli-reference-manifest.json",
+      "sha256": "09d958cefb58412b514e211ecf44c00019f5e280c4d66488b5190350bcc97b0c"
+    },
+    "westReferenceManifest": {
+      "path": "docs/research/xingfuli-west-reference-manifest.json",
+      "sha256": "48a6f4a2a4b3eb6774cad382ea6d713b4f83a337b7367178254590276e1229ee"
+    },
+    "priorMapBlocker": {
+      "path": "docs/research/xingfuli-west-east-map-photo-blocker-2026-07-26.json",
+      "sha256": "1593d8ad4178308234177efa1eb66464db9decbc571f27fcdfc8aef614d30330"
+    },
+    "acceptedMcpBatch": {
+      "path": "docs/research/xingfuli-west-east-lineage-v2-blender-mcp-gates.json",
+      "sha256": "36f03fb42980094f62c39d6969b8c0fd2b716553eb718357f706cb41447c24c1"
+    },
+    "acceptedThreejsBatch": {
+      "path": "docs/research/xingfuli-west-east-lineage-v2-threejs-runtime-qa.json",
+      "sha256": "1cc11100f53cec73d078a3edb7d15e2a4ae58362be38a4087b4cd7221cfe22fe"
+    },
+    "mainWindowUserPhotoMaterializationAudit": {
+      "path": "docs/research/xingfuli-user-photo-external-materialization-audit-2026-07-27.json",
+      "integratedCommit": "4eccf40",
+      "gitBlob": "dd842a8ff8e4cedd9107c9eb1866b584ee7aa393",
+      "sha256": "40b41d5ca5a13583da0138b4e35209d378415c51cd4f71c618798c823a67de56",
+      "result": "zero-attributable-user-original-files"
+    }
+  },
+  "offlineInventory": {
+    "searchedRoots": [
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/",
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/",
+      "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/"
+    ],
+    "regularFileCountsAtAudit": {
+      "dynamicEvidenceTotal": 7348,
+      "snapshots": 5675,
+      "legacyImports": 1671,
+      "old3dKnowledgeBase": 316
+    },
+    "snapshotInventory": [
+      {
+        "snapshotId": "2026-07-26-5383f2a",
+        "fileCount": 1210,
+        "sourceWorktreeDirty": true,
+        "manifestSha256": "76fd29c9d89477778ef9269830751e24c648965d883335ddd6170bd1a6c2fe23"
+      },
+      {
+        "snapshotId": "2026-07-26-ad37273",
+        "fileCount": 979,
+        "sourceWorktreeDirty": true,
+        "manifestSha256": "5b5eb28ec0d943d16231c3f9440036770d55389e67e98ad24e1546e2f0c58e7b"
+      },
+      {
+        "snapshotId": "2026-07-26-b20494c",
+        "fileCount": 1155,
+        "sourceWorktreeDirty": false,
+        "manifestSha256": "1d1278811a8cc3470b2597667b8e6b3ef78c5f71b79963a03763e5fcc7fbd645"
+      },
+      {
+        "snapshotId": "2026-07-27-5c5fa52",
+        "fileCount": 1159,
+        "sourceWorktreeDirty": false,
+        "manifestSha256": "73b27b3d50367d1976fdea7015a8e0fb02866480f6979f7a5e89a99888a8471a",
+        "sha256SumsSha256": "98c53f3da1e41303ef028ff07e36b556a258185f8916b41af593002e5fc0ba3d"
+      },
+      {
+        "snapshotId": "2026-07-27-a40fe03",
+        "fileCount": 1162,
+        "sourceWorktreeDirty": false,
+        "manifestSha256": "848e8c0075f3be32584deacd3d0931545355c548416b6038cf419bbf37f85aff",
+        "sha256SumsSha256": "f7726a75c1fdc5cd69336be93159db279d382ce24dea1e60a10c480b2479ab36"
+      }
+    ],
+    "latestSnapshotTargetDedup": {
+      "filter": "case-insensitive SHA256SUMS rows containing xingfuli",
+      "previousSnapshot": "2026-07-27-5c5fa52",
+      "latestSnapshot": "2026-07-27-a40fe03",
+      "rowCountEach": 255,
+      "sortedRowsSha256": "378b6e77158674ab8fa6b622e1bcfd2008c188471195cd468e5fe269f540ad23",
+      "result": "pass-identical-target-rows-no-repeat-visual-review-required",
+      "note": "The complete checksum files differ because the later snapshot contains unrelated additions; the Xingfuli rows are byte-identical after sorting."
+    },
+    "deduplication": {
+      "keys": [
+        "normalized-path",
+        "source-post-id",
+        "source-url",
+        "sha256",
+        "manifest-rawFile-linkage"
+      ],
+      "excludedAsCircular": [
+        "generated-blender-previews",
+        "mcp-screenshots-and-records",
+        "threejs-runtime-screenshots-and-records",
+        "glb-and-build-record-copies",
+        "authored-query-contracts-and-audits"
+      ],
+      "result": "one-new-independent-public-source-chain-with-twelve-unique-raw-images"
+    }
+  },
+  "userNinePhotoBoundary": {
+    "photographerStatement": "nine ordered original photos begin at the Xingfu Road entrance and continue to the opposite road, which may be Panyu Road",
+    "attributableOriginalFileCount": 0,
+    "readableOriginalFileCount": 0,
+    "orderedFileLinkageAvailable": false,
+    "sha256Available": false,
+    "dimensionsAvailable": false,
+    "exifAvailable": false,
+    "routeSlotsMapped": 0,
+    "routeEndRoadAccepted": false,
+    "publicEvidenceMaySubstitute": false,
+    "ordinaryImgOrCacheMaySubstitute": false,
+    "verdict": "unchanged-not-materialized"
+  },
+  "existingPublicReferenceDedup": {
+    "uniqueImageCount": 12,
+    "sets": [
+      {
+        "manifest": "docs/research/xingfuli-reference-manifest.json",
+        "count": 9,
+        "dateRange": "2018-2021-or-unknown",
+        "classification": "public-web-reference"
+      },
+      {
+        "manifest": "docs/research/xingfuli-west-reference-manifest.json",
+        "count": 3,
+        "dateRange": "2017",
+        "classification": "public-web-west-road-interface"
+      }
+    ],
+    "externalSnapshotCopies": "sha256-duplicates-of-repository-public-references",
+    "userSequenceMatchCount": 0
+  },
+  "independentPublicSource": {
+    "classification": "independent-public-xiaohongshu-post-not-user-nine-photo-sequence",
+    "postId": "682071e0000000000303e0ba",
+    "url": "https://www.xiaohongshu.com/explore/682071e0000000000303e0ba",
+    "title": "幸福里｜开放社区 城市客厅",
+    "author": "曼耶呦",
+    "publishedLabel": "2025-05-11",
+    "sourceEvidence": {
+      "oldKnowledgeBaseManifest": {
+        "path": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/evidence-manifest.json",
+        "sha256": "3fffec9c23a83933ed3b825c73f1c3c4e7734b8b5b6df2c8aada07a19f289cd6"
+      },
+      "oldKnowledgeBaseReadme": {
+        "path": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/README.md",
+        "sha256": "f141e7109fb963f2ce725337374695a610c4e71542c1487908fb10ae352d42a1"
+      },
+      "selectedCopyManifest": {
+        "path": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-ad37273/repository/docs/research/xingfuli-current-street-furniture-reference-manifest.json",
+        "sha256": "121364ad353a620f2df3dcf7f58a074b99863d7810f2632b1dac9b9a814c8a2d"
+      },
+      "articleLocationEvidence": "The post identifies Xingfuli between Panyu Road and Xingfu Road, north of Fahuazhen Road, and gives the address Panyu Road 381."
+    },
+    "rawArchive": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/knowledge-base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/raw/xhs/682071e0000000000303e0ba",
+    "rawFiles": [
+      {
+        "file": "image-01.webp",
+        "sha256": "8bca66b2015410c01a35b451a35a1d35a43aa3cbccc8d148162c20be89c188b3",
+        "bytes": 300308,
+        "dimensions": [1080, 1441],
+        "safeAssignment": "xingfuli-east-panyu-road-entrance",
+        "observed": [
+          "幸福里、华谊集团和番禺路381号入口文字可见",
+          "白色入口导视墙、租户矩阵墙、步行前场、树列、人物和尖顶路桩可见",
+          "画面右缘只显示部分道路或非机动车道，完整路缘至沥青边界被截断或遮挡"
+        ],
+        "supports": [
+          "east-road-identity-independent-public-2025",
+          "east-entrance-identity",
+          "east-pedestrian-forecourt-continuity",
+          "east-source-currentness"
+        ],
+        "doesNotSupport": [
+          "user-photo-slot-09",
+          "surveyed-setback-distance",
+          "complete-inner-lane-to-road-chain",
+          "west-ground-level-passage"
+        ]
+      },
+      {
+        "file": "image-02.webp",
+        "sha256": "135693544d19a8f076d50b0ff60b805d66a6eb8939982a207db114a9bc7b1107",
+        "bytes": 380060,
+        "dimensions": [1080, 1440],
+        "safeAssignment": "xingfuli-interior-unassigned",
+        "scene": "linear-water-feature-commercial-lane"
+      },
+      {
+        "file": "image-03.webp",
+        "sha256": "39e4399765b036d76bc9573c29c2e0659b285967b5187ea199c0938312f0a267",
+        "bytes": 431858,
+        "dimensions": [1080, 1441],
+        "safeAssignment": "xingfuli-interior-unassigned",
+        "scene": "linear-water-feature-planter-depth"
+      },
+      {
+        "file": "image-04.webp",
+        "sha256": "6dc9e024327ef85893fb4d9a939245a4f2a5705cdea9abd3840afbb7e5a42801",
+        "bytes": 492904,
+        "dimensions": [1080, 1441],
+        "safeAssignment": "xingfuli-interior-unassigned",
+        "scene": "evening-water-feature-dining-segment"
+      },
+      {
+        "file": "image-05.webp",
+        "sha256": "1edc052b6871d291ffc6519e085e0696fd2308f143ed7c16d76be839f0f075e4",
+        "bytes": 297780,
+        "dimensions": [1080, 1441],
+        "safeAssignment": "xingfuli-interior-unassigned",
+        "scene": "night-water-feature-walkway"
+      },
+      {
+        "file": "image-06.webp",
+        "sha256": "45feef01c283f38dd24d8d481f4bf10cdd0b8eb5d99fcfb6523d0235bd6cc6ee",
+        "bytes": 207664,
+        "dimensions": [1080, 1441],
+        "safeAssignment": "xingfuli-interior-unassigned",
+        "scene": "water-edge-furniture-and-activity"
+      },
+      {
+        "file": "image-07.webp",
+        "sha256": "f27d58ddc15d0efbc773a39cb57c6f9faa51a46a17f89b51ec9e8cd6694d65eb",
+        "bytes": 248398,
+        "dimensions": [1080, 1441],
+        "safeAssignment": "xingfuli-interior-unassigned",
+        "scene": "pedestrian-commercial-lane"
+      },
+      {
+        "file": "image-08.webp",
+        "sha256": "28b61c910c9abb369bf6231993edb6b729f19dc941270215cf20da2907bc98b2",
+        "bytes": 216288,
+        "dimensions": [1080, 1440],
+        "safeAssignment": "xingfuli-interior-unassigned",
+        "scene": "narrow-gap-between-old-and-new-facades"
+      },
+      {
+        "file": "image-09.webp",
+        "sha256": "34a7d6378b16e12bea980b5ef1584c1732d74e1e6ba8debaa50aeb6c752b035b",
+        "bytes": 241756,
+        "dimensions": [1080, 1440],
+        "safeAssignment": "xingfuli-interior-unassigned",
+        "scene": "water-edge-sculpture-and-street-furniture"
+      },
+      {
+        "file": "image-10.webp",
+        "sha256": "e83390507c0e27713f051b14800bb2cce77eff1a0e55f28227dc3e0dfd59c0d5",
+        "bytes": 191846,
+        "dimensions": [1080, 1440],
+        "safeAssignment": "xingfuli-interior-unassigned",
+        "scene": "storefront-rest-area"
+      },
+      {
+        "file": "image-11.webp",
+        "sha256": "098bceacd9015c0107f8b84b1128aaaea437af62ea98eabc83471ee5209dfbc7",
+        "bytes": 269672,
+        "dimensions": [1080, 1440],
+        "safeAssignment": "xingfuli-interior-unassigned",
+        "scene": "decorated-internal-passage-or-store-entry"
+      },
+      {
+        "file": "image-12.webp",
+        "sha256": "f1d6a18b73d77e43b7a858347b410c2d8ab383bb3edbdb36ddc74463061f9cd7",
+        "bytes": 305466,
+        "dimensions": [1080, 1441],
+        "safeAssignment": "xingfuli-interior-unassigned",
+        "scene": "water-feature-commercial-lane-end"
+      }
+    ],
+    "repositorySnapshotCopyDedup": [
+      {
+        "rawFile": "image-01.webp",
+        "copyFile": "xingfuli-entry-bollards-2026.webp",
+        "sha256": "8bca66b2015410c01a35b451a35a1d35a43aa3cbccc8d148162c20be89c188b3"
+      },
+      {
+        "rawFile": "image-02.webp",
+        "copyFile": "xingfuli-water-lane-planters-2026.webp",
+        "sha256": "135693544d19a8f076d50b0ff60b805d66a6eb8939982a207db114a9bc7b1107"
+      },
+      {
+        "rawFile": "image-03.webp",
+        "copyFile": "xingfuli-water-lane-planters-depth-2026.webp",
+        "sha256": "39e4399765b036d76bc9573c29c2e0659b285967b5187ea199c0938312f0a267"
+      },
+      {
+        "rawFile": "image-06.webp",
+        "copyFile": "xingfuli-water-edge-furniture-2026.webp",
+        "sha256": "45feef01c283f38dd24d8d481f4bf10cdd0b8eb5d99fcfb6523d0235bd6cc6ee"
+      },
+      {
+        "rawFile": "image-09.webp",
+        "copyFile": "xingfuli-stone-seat-family-2026.webp",
+        "sha256": "34a7d6378b16e12bea980b5ef1584c1732d74e1e6ba8debaa50aeb6c752b035b"
+      },
+      {
+        "rawFile": "image-12.webp",
+        "copyFile": "xingfuli-water-edge-planters-2026.webp",
+        "sha256": "f1d6a18b73d77e43b7a858347b410c2d8ab383bb3edbdb36ddc74463061f9cd7"
+      }
+    ],
+    "adjudicationBoundary": {
+      "rawImageCount": 12,
+      "uniqueSha256Count": 12,
+      "eastSpecificImageCount": 1,
+      "westSpecificImageCount": 0,
+      "interiorUnassignedImageCount": 11,
+      "userSequenceSlotMatchCount": 0,
+      "reason": "The post has a distinct post ID, author, publication date, title, twelve-image count and per-file manifest. It is independently traceable but is not the photographer's ordered nine-photo route."
+    }
+  },
+  "gateAdjudication": {
+    "west": {
+      "assetId": "xingfuli-west",
+      "publicXingfuRoadInterface": "pass-retained-2017-north-south-and-frontal-views",
+      "newIndependentWestSpecificEvidenceCount": 0,
+      "groundLevelPassage": "blocked-unchanged",
+      "pedestrianWay400066625Semantics": "blocked-unchanged",
+      "requiredUnknowns": [
+        "passage-opening-and-cover-state",
+        "both-side-walls-or-limits",
+        "person-scale-width",
+        "grade-and-ground-contact",
+        "relationship-to-current-west-collision-rectangles"
+      ],
+      "mapStatus": "blocked-pedestrian-way-400066625-ground-level-passage-unknown",
+      "mapClosed": false,
+      "modelMutationAuthorized": false
+    },
+    "east": {
+      "assetId": "xingfuli-east",
+      "independentPublicRoadIdentity": "pass-visible-panyu-road-381-address-2025",
+      "independentPublicEntranceIdentity": "pass-visible-wayfinding-wall-and-forecourt",
+      "independentPublicCurrentness": "pass-source-published-2025",
+      "sameEastExitContinuity": "blocked-no-continuous-inner-lane-threshold-road-chain",
+      "curbPavingAsphaltEdge": "blocked-incomplete-or-occluded",
+      "surveyedSetbackDistance": "blocked-no-measurement",
+      "southEntryBuildingBoundary": "blocked",
+      "matrixWallEndpoints": "partial",
+      "eastLaneBaseTermination": "blocked",
+      "userPhoto9RoadIdentity": "unknown-unmaterialized",
+      "runtimeOverlap": "blocked-current-south-building-entry-wall-and-lane-base-overlap-panyu-road-contract",
+      "mapStatus": "blocked-panyu-road-overlap-and-user-photo9-unmaterialized",
+      "mapClosed": false,
+      "modelMutationAuthorized": false
+    }
+  },
+  "retainedAcceptedStages": {
+    "west": {
+      "hero": {
+        "path": "public/models/xingfuli/xingfuli-west.glb",
+        "sha256": "ababb1860c360f5807ce99b392a5388eba30f0991bdcb4f653c99752786bf853"
+      },
+      "identityV2": {
+        "path": "public/models/tiers/xingfuli/identity-v2/xingfuli-west-identity-v2.glb",
+        "sha256": "163d214be91a4eacc45a383913e89e820757b97765f74c5b4be080f74f34426d"
+      },
+      "massingV2": {
+        "path": "public/models/tiers/xingfuli/massing-v2/xingfuli-west-massing-v2.glb",
+        "sha256": "f6d67f041162e4c090ff16f65897837db64c64fb3cf5a8baf0a4462c4e8ac377"
+      },
+      "lineage": "pass-retained",
+      "mcp1Mcp2Mcp3": "pass-retained-no-rerun",
+      "threeTierFallbackPerformanceCollision": "pass-retained-no-rerun"
+    },
+    "east": {
+      "hero": {
+        "path": "public/models/xingfuli/xingfuli-east.glb",
+        "sha256": "4dc21aa6f137daa076a6da1948b0c08c15310789541ee59af06c352febea4327"
+      },
+      "identityV2": {
+        "path": "public/models/tiers/xingfuli/identity-v2/xingfuli-east-identity-v2.glb",
+        "sha256": "3352d6174273a87a1a049df61a884255d451d424f36a203361cf74671a71db25"
+      },
+      "massingV2": {
+        "path": "public/models/tiers/xingfuli/massing-v2/xingfuli-east-massing-v2.glb",
+        "sha256": "c0defcbdc99c5939499db3ce33fb4d01cb8f8cf9f9a5fc49dd9270e8a23d3450"
+      },
+      "lineage": "pass-retained",
+      "mcp1Mcp2Mcp3": "pass-retained-no-rerun",
+      "threeTierFallbackPerformanceCollision": "pass-retained-no-rerun"
+    }
+  },
+  "verdict": {
+    "offlineSearchClosed": true,
+    "newIndependentPublicSourceAccepted": true,
+    "userNinePhotoEvidenceReady": false,
+    "westMapClosed": false,
+    "eastMapClosed": false,
+    "westBuildingComplete": false,
+    "eastBuildingComplete": false,
+    "publicMapMutationAuthorized": false,
+    "acceptedAssetsChanged": false,
+    "nextGateWest": "materialize a traceable ground-level passage view or authoritative passage geometry before changing collision or map binding",
+    "nextGateEast": "materialize a continuous east inner-lane-to-Panyu-road edge chain or authoritative surveyed footprint before changing the current overlap",
+    "nextGateUserSequence": "provide the nine original files or one ordered archive with immutable external snapshot linkage"
+  }
+}
