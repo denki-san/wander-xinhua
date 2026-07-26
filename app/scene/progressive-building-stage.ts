@@ -26,8 +26,11 @@ export function visibleProgressiveBuildingTier(
   networkProfile: ProgressiveNetworkProfile,
   tier: ProgressiveBuildingTier,
 ): ProgressiveBuildingTier {
+  // 网络档位不能把玩家已经看到的 Hero 降回 Identity；弱网下由 Suspense
+  // 继续显示 Identity，等附近 Hero 自然加载完成。
+  void networkProfile;
   if (mode === "intro") return "massing";
-  if (mode === "overview" || networkProfile === "weak") return "identity";
+  if (mode === "overview") return "identity";
   if (tier === "massing") return "identity";
   return tier;
 }
@@ -47,8 +50,10 @@ export function resolveProgressiveBuildingTier({
   fullEnterDistance: number;
   fullExitDistance: number;
 }): ProgressiveBuildingTier {
+  // Hero 是否出现只由模式和真实空间距离决定，不读取网络估算结果。
+  void networkProfile;
   if (mode === "intro") return "massing";
-  if (mode === "overview" || networkProfile === "weak") return "identity";
+  if (mode === "overview") return "identity";
   if (previousTier === "full") {
     return distance <= fullExitDistance ? "full" : "identity";
   }
@@ -113,7 +118,7 @@ export function useProgressiveBuildingTier({
     setTier(next);
   });
 
-  // 模式切换先于 effect 提交。离开封面后立即把残留 Massing 钳制为 Identity，
-  // 避免概览或游玩态闪出一帧方盒。
+  // 模式切换先于 effect 提交。离开封面后立即把残留 Massing 钳制为 Identity；
+  // 网络档变化不得把已经显示的 Hero 降级。
   return visibleProgressiveBuildingTier(mode, networkProfile, tier);
 }

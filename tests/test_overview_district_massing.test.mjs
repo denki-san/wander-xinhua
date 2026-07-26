@@ -243,12 +243,12 @@ test("同一原始快照离线重放会得到当前 GLB 的相同 SHA", async ()
   assert.equal(replay.sha256, build.output.sha256);
 });
 
-test("弱网只决定全览首次请求，已显示白模不随瞬时网络降级撤回", () => {
+test("全览白模不再被弱网估算门控", () => {
   assert.equal(districtMassingEligibleAtOverviewEntry("standard"), true);
-  assert.equal(districtMassingEligibleAtOverviewEntry("weak"), false);
+  assert.equal(districtMassingEligibleAtOverviewEntry("weak"), true);
 });
 
-test("运行时按全览入口网络档位懒加载且失败不阻断原地图", async () => {
+test("运行时在所有网络档位加载全览白模且失败不阻断原地图", async () => {
   const [world, component, experience] = await Promise.all([
     readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/scene/overview-district-massing.tsx", import.meta.url), "utf8"),
@@ -257,7 +257,6 @@ test("运行时按全览入口网络档位懒加载且失败不阻断原地图",
 
   assert.match(world, /lazy\(\s*\(\) => import\("\.\/overview-district-massing"\)/);
   assert.match(world, /function OverviewDistrictMassingGate/);
-  assert.match(world, /const \[eligibleAtEntry\] = useState/);
   assert.match(world, /districtMassingEligibleAtOverviewEntry\(networkProfile\)/);
   assert.match(world, /mode === "overview" && !districtDisabledForQa/);
   assert.doesNotMatch(
@@ -312,6 +311,6 @@ test("需求文档明确冻结首版范围和本地验收边界", async () => {
   assert.match(plan, /Existing overview POIs\/areas \| 17 \| retained/);
   assert.match(plan, /does not authorize a Sites or VPS deployment/);
   assert.match(plan, /GLB binary size \| ≤ 3\.0 MB/);
-  assert.match(plan, /Weak-network GLB requests \| 0/);
+  assert.match(plan, /Weak-network GLB requests \| 1 overview district request/);
   assert.match(plan, /Same-camera before\/after evidence/);
 });

@@ -64,11 +64,10 @@ camera and detail UI remain unchanged.
    approximation” disclosure instead of exposing thousands of technical labels.
 5. **Define failure isolation.** A missing or invalid district GLB falls back to
    the existing overview rather than blocking entry, movement or POI cards.
-6. **Define a weak-network policy.** `Save-Data`, `2g` and `3g` profiles may skip
-   this decorative layer when entering overview. Once the layer has been
-   requested and displayed in that overview session, later transient downlink
-   changes must not remove it; unloading downloaded context saves no transfer
-   and creates a visible map discontinuity.
+6. **Keep the district context profile-neutral.** The approximately 666KB
+   district layer is required overview context, not an optional quality tier.
+   `Save-Data`, `2g` and `3g` estimates must not remove it. Loading or parsing
+   failure still falls back to the existing map without blocking interaction.
 7. **Set budgets before generation.** The layer must stay within the size,
    triangle, material and draw-call limits below. A visually denser result is
    not accepted if it compromises overview responsiveness.
@@ -233,9 +232,8 @@ Rules:
 - Use warm off-white/very light grey materials with restrained height-band
   variation.
 - Keep road surfaces, parks, water, POI markers and the player visually dominant.
-- On weak-network profiles at overview entry, skip the district GLB and retain
-  the current map. Do not revoke an already eligible overview layer when the
-  browser later reports a transient weak profile.
+- Request the district GLB once whenever overview begins, independent of the
+  browser's estimated network profile.
 - On load or parse failure, render nothing for this layer and preserve overview
   interaction.
 - Never make a runtime request to Nominatim or Overpass.
@@ -250,7 +248,7 @@ Rules:
 | Images / textures | 0 |
 | Triangles | ≤ 100,000 |
 | Generic collision or raycast objects | 0 |
-| Weak-network GLB requests | 0 |
+| Weak-network GLB requests | 1 overview district request |
 
 The build record also reports accepted building count, height provenance,
 rejected/held counts, bounds, generator duration and SHA-256.
@@ -281,14 +279,14 @@ rejected/held counts, bounds, generator duration and SHA-256.
 
 1. Add a lazy `OverviewDistrictMassing` component.
 2. Mount it only for `overview`, after the map base and below authored assets.
-3. Add load-failure and weak-network fallbacks.
+3. Add a load-failure fallback without a network-quality visibility gate.
 4. Keep `intro` and `explore` free of this layer and request.
 
 ### Phase 3 — validation
 
 1. Add focused `test_`-prefixed tests for source provenance, deterministic
    replay, height provenance, held building parts, replacement exclusions,
-   geometry budgets, overview-only mounting and weak-network skipping.
+   geometry budgets, overview-only mounting and profile-neutral loading.
 2. Run `npm test`, `npm run lint` and `git diff --check`.
 3. Validate the compiled GLB structure and SHA.
 4. Use a real browser with an empty cache to verify requests, canvas state,
@@ -312,10 +310,8 @@ The local version passes only when all conditions hold:
 4. Overview movement, POI proximity card and “进入” continue to work.
 5. Returning to `overview` remounts safely; entering `explore` produces no
    district GLB node or request and preserves existing collision/camera behavior.
-6. Standard desktop and 390 px mobile load the GLB within budget; an overview
-   entered on weak-network mode makes zero district-GLB requests. A
-   standard-entry session keeps the visible layer mounted if the live network
-   profile later falls below the threshold.
+6. Standard desktop, 390 px mobile and a forced weak-network profile all load
+   the GLB within budget. Later network-profile changes do not remove it.
 7. Runtime makes no Overpass/Nominatim request and keeps OSM attribution visible.
 8. Tests, lint, build record, GLB audit and real-browser console checks pass on
    the same commit handed off for local review.
@@ -382,10 +378,10 @@ reviewed after the material, road and camera corrections; its bottom empty
 area was materially reduced. Timing observations are local-machine evidence,
 not a claim of performance improvement.
 
-The weak-network contract remains zero district requests. Entering a POI keeps
-the district inactive and returning to overview remounts it. OSM attribution
-and the non-survey disclosure remain visible, and runtime code makes no
-Overpass or Nominatim request.
+The corrected weak-network contract makes the same single overview district
+request as standard mode. Entering a POI keeps the district inactive and
+returning to overview remounts it. OSM attribution and the non-survey disclosure
+remain visible, and runtime code makes no Overpass or Nominatim request.
 
 Detailed evidence is recorded in
 `docs/research/test_overview_district_massing_runtime_qa.json` and the

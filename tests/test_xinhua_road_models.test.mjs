@@ -645,7 +645,7 @@ test("新地标参与渲染、角色硬碰撞和快速定位，但摄像机使�
   assert.match(worldSource, /<XinhuaRoadMassing identity=\{showDetailModels\} \/>/);
   assert.match(
     worldSource,
-    /<ProgressiveXinhuaRoadFullLayer[\s\S]*?showLabels=\{showDetailLabels\}[\s\S]*?loadMode=\{networkProfile === "standard" \? landmarkLoadMode : "overview"\}[\s\S]*?focusPosition=\{progressiveFocus\}/,
+    /<ProgressiveXinhuaRoadFullLayer[\s\S]*?showLabels=\{showDetailLabels\}[\s\S]*?loadMode=\{landmarkLoadMode\}[\s\S]*?focusPosition=\{progressiveFocus\}/,
   );
   assert.match(worldSource, /\.\.\.XINHUA_ROAD_OBSTACLES/);
   assert.match(worldSource, /\.\.\.XINHUA_ROAD_CAMERA_OBSTACLES/);

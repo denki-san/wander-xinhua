@@ -131,7 +131,7 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.doesNotMatch(world, /priorityPreset|detailPresetTargetsBuilding|detailActive/);
   assert.match(
     world,
-    /loadMode=\{networkProfile === "standard" \? landmarkLoadMode : "overview"\}/,
+    /loadMode=\{landmarkLoadMode\}/,
   );
   assert.match(roadLandmarks, /<LightweightPlaneTreeInstances \/>/);
   assert.match(roadLandmarks, /vegetation: "programmatic-lightweight"/);

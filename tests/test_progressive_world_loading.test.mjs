@@ -38,7 +38,7 @@ test("核心建筑按最近 footprint 边缘距离切换，而不是按园区中
   assert.equal(planarDistanceToBuildingFootprints([0, 4], footprints), 4);
 });
 
-test("网络策略在 5Mbps 保留近景 Hero 能力，并让地图与弱网固定 Identity", () => {
+test("网络档只影响加载速度，不得让白模消失或把近景 Hero 锁回 Identity", () => {
   assert.equal(XINHUA_ROAD_HERO_ENTER_DISTANCE, 40);
   assert.equal(XINHUA_ROAD_HERO_EXIT_DISTANCE, 55);
   assert.equal(WEAK_NETWORK_DOWNLINK_Mbps, 2.5);
@@ -97,7 +97,7 @@ test("网络策略在 5Mbps 保留近景 Hero 能力，并让地图与弱网固�
     previousTier: "identity",
     fullEnterDistance: 72,
     fullExitDistance: 88,
-  }), "identity");
+  }), "full", "弱网近景仍请求 Hero，并在加载期间继续显示 Identity");
   assert.equal(
     visibleProgressiveBuildingTier("overview", "standard", "massing"),
     "identity",
@@ -115,8 +115,8 @@ test("网络策略在 5Mbps 保留近景 Hero 能力，并让地图与弱网固�
   );
   assert.equal(
     visibleProgressiveBuildingTier("explore", "weak", "full"),
-    "identity",
-    "切换弱网时必须在首次提交同步钳制旧 Hero",
+    "full",
+    "切换弱网时不得把已经显示的 Hero 降回 Identity",
   );
   assert.equal(
     visibleProgressiveBuildingTier("intro", "standard", "full"),
@@ -293,6 +293,10 @@ test("生产主世界让全部建筑遵守 Massing、Identity、Hero 三层和�
   assert.match(world, /fallback=\{<XinhuaRoadMassing identity \/>\}/);
   assert.match(world, /<XinhuaRoadMassing identity=\{showDetailModels\} \/>/);
   assert.match(
+    world,
+    /loadMode=\{landmarkLoadMode\}/,
+  );
+  assert.doesNotMatch(
     world,
     /loadMode=\{networkProfile === "standard" \? landmarkLoadMode : "overview"\}/,
   );
