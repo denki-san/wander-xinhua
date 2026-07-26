@@ -9,6 +9,7 @@ export type CameraQaFrame = {
   actualArmYawDegrees: number;
   desiredArmLength: number;
   resolvedArmLength: number;
+  narrowSpaceLift: number;
   blockerId: string | null;
   cameraMode: string;
   manualGraceMs: number;
@@ -28,6 +29,7 @@ export const cameraQaState: CameraQaFrame & {
   actualArmYawDegrees: 0,
   desiredArmLength: 0,
   resolvedArmLength: 0,
+  narrowSpaceLift: 0,
   blockerId: null,
   cameraMode: "inactive",
   manualGraceMs: 0,

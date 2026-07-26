@@ -20,7 +20,7 @@ const sha256 = (relativePath) => crypto
 
 const records = {
   "xinhua-pocket-park": readJson(
-    "docs/research/xinhua-pocket-park-threejs-runtime-qa.json",
+    "docs/research/xinhua-pocket-park-threejs-runtime-qa-v2.json",
   ),
   "fics-xinhua-365": readJson(
     "docs/research/fics-xinhua-365-threejs-runtime-qa.json",
@@ -48,18 +48,19 @@ for (const [assetId, record] of Object.entries(records)) {
   });
 }
 
-test("Pocket Park 碰撞路线通过，但窄廊相机未通过且不得提升生产地图", () => {
+test("Pocket Park 碰撞路线和狭廊相机通过且不再依赖邻楼 suppression", () => {
   const record = records["xinhua-pocket-park"];
   const candidate = BUILDING_MASSING_QA_CANDIDATES["xinhua-pocket-park"];
   assert.equal(record.collision.status, "pass-center-route");
   assert.ok(record.collision.finalTargetErrorSceneUnits < 0.05);
   assert.equal(record.collision.wallCollisionShell.runtimeSegments, 308);
-  assert.equal(candidate.legacyObstacleSuppressions[0].assetId, "fics-xinhua-365");
-  assert.deepEqual(candidate.legacyObstacleSuppressions[0].obstacleIndexes, [2]);
-  assert.equal(record.camera.status, "blocked");
-  assert.ok(record.camera.finalObservedArmLengthRange[1] < 0.6);
-  assert.equal(record.acceptance.formalMapAcceptance, "blocked-camera");
-  assert.equal(record.acceptance.runtimePromotionAllowed, false);
+  assert.equal(candidate.legacyObstacleSuppressions, undefined);
+  assert.equal(record.collision.qaOnlyNeighborSuppression, undefined);
+  assert.equal(record.camera.status, "pass-narrow-space");
+  assert.ok(record.camera.resolvedArmLength < 0.6);
+  assert.equal(record.camera.narrowSpaceLift, 1.8);
+  assert.equal(record.acceptance.formalMapAcceptance, "pass");
+  assert.equal(record.acceptance.runtimePromotionAllowed, "map-and-runtime-gates-pass");
 });
 
 test("FICS 与 Orchestra 只保留诊断通过，证据和地图 blocker 不被运行时加载掩盖", () => {

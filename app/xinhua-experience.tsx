@@ -364,6 +364,7 @@ function CameraQaPanel({ visible }: { visible: boolean }) {
         element.dataset.modeChanges = String(state.modeChangeCount);
         element.dataset.desiredArm = state.desiredArmLength.toFixed(3);
         element.dataset.resolvedArm = state.resolvedArmLength.toFixed(3);
+        element.dataset.narrowSpaceLift = state.narrowSpaceLift.toFixed(3);
         element.dataset.fov = state.fov.toFixed(1);
         element.dataset.manualGraceMs = state.manualGraceMs.toFixed(0);
         element.dataset.goalYaw = state.goalYawDegrees.toFixed(2);
@@ -373,6 +374,7 @@ function CameraQaPanel({ visible }: { visible: boolean }) {
           `mode ${state.cameraMode}`,
           `blocker ${state.blockerId ?? "none"}`,
           `arm ${state.resolvedArmLength.toFixed(2)} / ${state.desiredArmLength.toFixed(2)}`,
+          `narrow lift ${state.narrowSpaceLift.toFixed(2)}`,
           `arm yaw ${state.actualArmYawDegrees.toFixed(1)}° / ${state.desiredArmYawDegrees.toFixed(1)}°`,
           `goal yaw ${state.goalYawDegrees.toFixed(1)}°`,
           `input ${state.inputX.toFixed(2)}, ${state.inputY.toFixed(2)}`,

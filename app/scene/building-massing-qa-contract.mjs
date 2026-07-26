@@ -134,13 +134,6 @@ export const BUILDING_MASSING_QA_CANDIDATES = Object.freeze({
       + "xinhua-pocket-park-massing.json",
     mapGate: "docs/research/xinhua-pocket-park-massing-map-qa.json",
     runtimePromotionAllowed: "pending-runtime-acceptance",
-    legacyObstacleSuppressions: Object.freeze([
-      Object.freeze({
-        assetId: "fics-xinhua-365",
-        obstacleIndexes: Object.freeze([2]),
-        reason: "legacy-long-wall-aabb-conflicts-with-osm-clearance-8.248087",
-      }),
-    ]),
     // 中央通路仅比人物直径宽约 0.093 场景单位；人物半径已提供实体留距。
     // 这里禁用全局 0.2 冗余、把旋转长墙切片，并把碰撞壳收进墙体内侧约
     // 0.19 米，以补偿当前轴对齐方形人物碰撞在斜向通路中的保守投影。
