@@ -8780,3 +8780,37 @@ second final: [-57.008162204, 65.984247714]
   窄廊相机仍压缩到 0.38–0.51，已作为独立正式 blocker 保留，未提升生产地图。
 
 ---
+## [ERR-20260726-092] film_art_road_record_truncated_source_hash
+
+**Logged**: 2026-07-26T15:20:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Film Art Center 道路语义记录首次测试时，地图生成器 SHA-256 被手工抄写截断。
+
+### Error
+```text
+actual:
+2674e1565cc032dfe3b3ad97f011d47a3eeefb1cdb4b72d314e1df000152e025
+expected:
+2674e1565cc032dfe3b3ad97f011d47a3eeef000152e025
+```
+
+### Context
+- 专项几何、OSM tags、坐标拓扑与 blocker 复算均通过；
+- 失败仅来自 JSON record 中手工录入的来源哈希缺少中间字符。
+
+### Suggested Fix
+来源哈希写入记录后立即运行逐源 SHA 锁定测试；较长哈希避免凭终端视觉截取。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/film-art-center-road-semantics-2026-07-26.json
+
+### Resolution
+- **Resolved**: 2026-07-26T15:21:00+08:00
+- **Notes**: 已按 `sha256sum` 完整值修正，并重跑同一专项测试。
+
+---
