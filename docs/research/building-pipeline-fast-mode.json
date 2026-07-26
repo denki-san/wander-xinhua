@@ -28,6 +28,7 @@
       "label": "上海影城",
       "tests": [
         "tests/test_shanghai_cinema_quality_tiers.test.mjs",
+        "tests/test_shanghai_cinema_map_calibration.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
@@ -322,6 +323,7 @@
         "tests/test_xingfuli_threejs_tier_contract.test.mjs",
         "tests/test_xingfuli_threejs_runtime_batch.test.mjs",
         "tests/test_xingfuli_west_fast_audit.test.mjs",
+        "tests/test_xingfuli_west_map_collision_lineage_adjudication.test.mjs",
         "tests/test_xingfuli_models.test.mjs"
       ],
       "glbs": [

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T15:13:44+08:00",
-  "snapshotBaseCommit": "7796111",
+  "snapshotAt": "2026-07-26T15:18:23+08:00",
+  "snapshotBaseCommit": "1fb5f25",
   "scope": {
     "mode": "exact-18-building-fast-mode",
     "buildingCount": 18,
@@ -47,7 +47,8 @@
       "overall": "blocked-map-anchor-and-hero-reproduction",
       "runtimePolicy": "preserve-current-no-map-promotion",
       "records": [
-        "docs/research/shanghai-cinema-final-audit-2026-07-26.json"
+        "docs/research/shanghai-cinema-final-audit-2026-07-26.json",
+        "docs/research/shanghai-cinema-map-calibration-2026-07-26.json"
       ]
     },
     {
