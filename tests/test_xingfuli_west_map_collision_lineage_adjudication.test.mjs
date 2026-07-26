@@ -47,6 +47,7 @@ test("Xingfuli West 三档二进制可保留，但严格 lineage 尚未被历史
   assert.equal(audit.lineage.strictVerdict.existingBinariesRetained, true);
   assert.equal(audit.lineage.strictVerdict.formalHeroToIdentityProof, false);
   assert.equal(audit.lineage.strictVerdict.formalHeroToMassingProof, false);
+  assert.equal(audit.lineage.strictVerdict.formalIdentityToMassingProof, false);
   assert.equal(audit.lineage.strictVerdict.assetQualityFailure, false);
   assert.equal(audit.lineage.strictVerdict.rebuildAuthorized, false);
   assert.equal(audit.roadGate.verdict.assetRebuildAuthorized, false);
