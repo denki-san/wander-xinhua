@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "checkedAt": "2026-07-26T22:43:26+08:00",
   "baseCommit": "2643a4d2c5ab84f945336b29e764eae0dc0ae926",
-  "status": "ten-query-contracts-ready-browser-not-running-fahua-external-evidence-ingested",
+  "status": "ten-query-contracts-ready-browser-not-running-all-blocked-building-offline-archives-audited",
   "updatedAt": "2026-07-26T23:49:26+08:00",
   "scope": {
     "assetIds": [
@@ -180,6 +180,16 @@
       "liveXhsContractStillRequired": true
     }
   ],
+  "offlineEvidenceCoverage": {
+    "blockedAssetCount": 10,
+    "offlineAuditCompleteCount": 10,
+    "fahuaExternalPackageAndExhaustionAuditCount": 1,
+    "otherOfflineExternalAuditCount": 9,
+    "mainWindowLiveXhsExecutionCount": 0,
+    "liveQueryNotRunCount": 9,
+    "status": "complete-offline-only-live-xhs-and-user-photo-materialization-still-pending",
+    "runtimeDisableEligible": false
+  },
   "userPhotoSequenceMaterialization": {
     "assetIds": [
       "xingfuli-west",

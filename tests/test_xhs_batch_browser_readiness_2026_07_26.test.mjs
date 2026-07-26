@@ -14,7 +14,7 @@ test("十栋XHS合同已就绪，但Chrome未运行时不得冒充本窗口已�
   const record = await readJson(recordPath);
   assert.equal(
     record.status,
-    "ten-query-contracts-ready-browser-not-running-fahua-external-evidence-ingested",
+    "ten-query-contracts-ready-browser-not-running-all-blocked-building-offline-archives-audited",
   );
   assert.deepEqual(record.scope.assetIds, [
     "fahua-heritage",
@@ -70,6 +70,19 @@ test("十份查询合同必须存在，法华外部证据接入不冒充本窗�
     await access(new URL(audit.path, root));
     assert.equal(audit.liveXhsContractStillRequired, true);
   }
+  assert.deepEqual(
+    record.offlineExternalAudits.map(({ assetId }) => assetId).sort(),
+    record.queryContracts
+      .filter(({ assetId }) => assetId !== "fahua-heritage")
+      .map(({ assetId }) => assetId)
+      .sort(),
+  );
+  assert.equal(record.offlineEvidenceCoverage.blockedAssetCount, 10);
+  assert.equal(record.offlineEvidenceCoverage.offlineAuditCompleteCount, 10);
+  assert.equal(record.offlineEvidenceCoverage.otherOfflineExternalAuditCount, 9);
+  assert.equal(record.offlineEvidenceCoverage.mainWindowLiveXhsExecutionCount, 0);
+  assert.equal(record.offlineEvidenceCoverage.liveQueryNotRunCount, 9);
+  assert.equal(record.offlineEvidenceCoverage.runtimeDisableEligible, false);
   assert.equal(
     record.externalEvidenceDiscovery.discoveryStatus,
     "u-disk-package-ingested-building-local-map-pending",
