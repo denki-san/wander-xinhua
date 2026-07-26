@@ -124,6 +124,20 @@
       "executionStatus": "not-run"
     }
   ],
+  "offlineExternalAudits": [
+    {
+      "assetId": "xinhua-villas-329",
+      "path": "docs/research/xinhua-villas-329-offline-external-evidence-audit-2026-07-27.json",
+      "result": "offline-archive-exhausted-no-new-admissible-media",
+      "liveXhsContractStillRequired": true
+    },
+    {
+      "assetId": "fics-xinhua-365",
+      "path": "docs/research/fics-xinhua-365-offline-evidence-exhaustive-audit-2026-07-27.json",
+      "result": "two-real-photos-and-one-route-map-found-map-binding-still-blocked",
+      "liveXhsContractStillRequired": true
+    }
+  ],
   "userPhotoSequenceMaterialization": {
     "assetIds": [
       "xingfuli-west",

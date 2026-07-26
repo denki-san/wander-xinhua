@@ -134,7 +134,7 @@
     {
       "id": "xinhua-villas-329",
       "name": "新华别墅329弄",
-      "evidence": "massing-pass-official-subject-contract-public-search-exhausted-xhs-query-ready-not-executed",
+      "evidence": "massing-pass-official-subject-contract-public-and-offline-archive-exhausted-xhs-query-ready-not-executed",
       "hero": "hold-cross-asset-211-member-2-and-scope-polluted",
       "identity": "missing",
       "massing": "pass",
@@ -153,6 +153,7 @@
         "docs/research/xinhua-villas-329-hero-identity-readiness-deep-audit.json",
         "docs/research/xinhua-villas-329-subject-contract-public-rescue-2026-07-26.json",
         "docs/research/xinhua-villas-329-xiaohongshu-query-contract-2026-07-26.json",
+        "docs/research/xinhua-villas-329-offline-external-evidence-audit-2026-07-27.json",
         "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
       ]
     },
@@ -347,7 +348,7 @@
     {
       "id": "fics-xinhua-365",
       "name": "FICS新华365",
-      "evidence": "massing-pass-public-primary-source-rescue-exhausted-xhs-query-ready-not-executed",
+      "evidence": "massing-pass-offline-xhs-identity-and-internal-lane-photos-found-live-xhs-query-not-executed",
       "hero": "hold-invalid-lineage",
       "identity": "missing",
       "massing": "diagnostic-pass",
@@ -365,6 +366,7 @@
         "docs/research/fics-xinhua-365-exact-compound-audit-2026-07-26.json",
         "docs/research/fics-xinhua-365-public-primary-source-rescue-2026-07-26.json",
         "docs/research/fics-xinhua-365-xiaohongshu-query-contract-2026-07-26.json",
+        "docs/research/fics-xinhua-365-offline-evidence-exhaustive-audit-2026-07-27.json",
         "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
       ]
     },
