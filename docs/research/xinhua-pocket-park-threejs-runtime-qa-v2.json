@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 2,
+  "assetId": "xinhua-pocket-park",
+  "recordedAt": "2026-07-26",
+  "owner": "main-window",
+  "integrationBase": "ade098eaa4be7a37d766b2867c909885742d6030",
+  "supersedes": "docs/research/xinhua-pocket-park-threejs-runtime-qa.json",
+  "buildMode": "vite-static-production-preview",
+  "viewport": [
+    1280,
+    720
+  ],
+  "visibility": "visible",
+  "warmupSeconds": 10,
+  "routes": {
+    "map": "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+    "collision": "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaMove=forward&qaMoveMs=8000&qaMoveTarget=-57.421934309,67.06298037"
+  },
+  "resource": {
+    "status": "loaded",
+    "tier": "massing",
+    "source": "/models/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.glb?v=20260726-massing-cc89e36e",
+    "sha256": "cc89e36e68397199d91684d3059c5c88410a7acc1b1c015398e05d8e57b15fa3",
+    "bytes": 14068
+  },
+  "placement": {
+    "position": [
+      -57.421934309,
+      67.06298037
+    ],
+    "yaw": -0.398058989,
+    "scale": 0.88,
+    "groundContact": "pass-visible",
+    "roadAndNeighborGeometry": "pass-analytic"
+  },
+  "performance": {
+    "source": "retained-from-v1-same-route-same-asset",
+    "map": {
+      "frames": 120,
+      "durationMs": 2002,
+      "fps": 59.94006,
+      "rendererDrawCalls": 232,
+      "rendererTriangles": 548888
+    },
+    "collision": {
+      "frames": 120,
+      "durationMs": 2013.6,
+      "fps": 59.594756,
+      "rendererDrawCallsAtFinalSample": 295,
+      "rendererTrianglesAtFinalSample": 631368
+    },
+    "claim": "measurement-only-no-baseline-improvement-claim"
+  },
+  "collision": {
+    "status": "pass-center-route",
+    "playerRadiusSceneUnits": 0.48,
+    "start": [
+      -55.160193116,
+      61.684376543
+    ],
+    "target": [
+      -57.421934309,
+      67.06298037
+    ],
+    "final": [
+      -57.420261033293045,
+      67.0590011847823
+    ],
+    "finalTargetErrorSceneUnits": 0.004316685,
+    "durationMs": 8005.5,
+    "wallCollisionShell": {
+      "sourceWalls": 2,
+      "runtimeSegments": 308,
+      "collisionMarginSceneUnits": 0,
+      "innerShellInsetMeters": 0.19008,
+      "reason": "compensate-axis-aligned-square-player-projection-in-a-rotated-3.23m-corridor"
+    },
+    "neighborCollisionCorrection": {
+      "assetId": "fics-xinhua-365",
+      "legacyObstacleIndex": 2,
+      "previousBehavior": "qa-only-suppression",
+      "currentBehavior": "source-x-segmentation-preserves-wall-and-removes-rotated-aabb-false-positive",
+      "sourceWallDimensions": [
+        23,
+        1.2
+      ],
+      "maximumSourceSegmentLength": 0.75,
+      "measuredOsmClearanceSceneUnits": 8.248087113999592
+    }
+  },
+  "camera": {
+    "status": "pass-narrow-space",
+    "mode": "spring-narrow-space",
+    "blocker": "obstacle-296",
+    "desiredArmLength": 5.402,
+    "resolvedArmLength": 0.349,
+    "narrowSpaceLift": 1.8,
+    "modeHistory": [
+      "spring-clear",
+      "spring-compressed",
+      "spring-narrow-space"
+    ],
+    "reason": "The horizontal camera position remains bound to the collision-safe spring arm. A smooth vertical lift keeps the full character visible without crossing either corridor wall."
+  },
+  "screenshots": {
+    "map": {
+      "path": "test_artifacts/all-models/runtime/xinhua-pocket-park/test_xinhua_pocket_park_massing_threejs_map_final.jpg",
+      "sha256": "fc7674fed0bf53175c0f52da7e851b206065db0c10e55b4ff4bdca7e805257c9",
+      "bytes": 70217
+    },
+    "narrowSpaceCamera": {
+      "path": "test_artifacts/all-models/runtime/xinhua-pocket-park/test_xinhua_pocket_park_massing_threejs_narrow_space_camera_final.png",
+      "sha256": "b7c21aceeb17ae5de12221580cf08af96ee768fa3fa4d6713fccb2120006c92a",
+      "bytes": 62874
+    }
+  },
+  "console": {
+    "errorsObservedForCurrentRoute": 0,
+    "warnings": [
+      "THREE.Clock deprecation"
+    ]
+  },
+  "acceptance": {
+    "resource": "pass",
+    "mapPlacement": "pass",
+    "groundContact": "pass",
+    "collision": "pass-center-route",
+    "camera": "pass-narrow-space",
+    "performanceSample": "pass-retained-same-conditions",
+    "formalMapAcceptance": "pass",
+    "runtimePromotionAllowed": "map-and-runtime-gates-pass"
+  },
+  "nextGate": "Close strict Hero lineage and pass MCP2 before deriving Identity or enabling three-tier production runtime."
+}

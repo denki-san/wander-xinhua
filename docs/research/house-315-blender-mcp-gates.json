@@ -1,0 +1,359 @@
+{
+  "schemaVersion": 1,
+  "assetId": "house-315",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-25T21:08:48+08:00",
+  "reviewedBy": "main-coordinator",
+  "sourceCheckpoint": "ca0c413",
+  "pipelineOrder": [
+    "evidence-and-brief",
+    "massing-generation",
+    "blender-mcp-massing-review",
+    "three-js-map-calibration",
+    "hero-master-review",
+    "identity-derivation",
+    "three-tier-review",
+    "three-js-runtime-acceptance"
+  ],
+  "massingGate": {
+    "gate": "mcp1-massing-pre-map-calibration",
+    "status": "pass",
+    "interactiveReview": "Blender MCP",
+    "fallbackUsed": false,
+    "editableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/house-315-massing.blend",
+      "sha256": "dccd5ad4a5b47e56c08e19be53446a6cb3eb43dc17dc5e10231018a5206b532b"
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/house-315-massing.glb",
+      "sha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+      "bytes": 17352
+    },
+    "generator": {
+      "path": "scripts/create_house_315_massing_model.py",
+      "sha256": "45c69f7f20d412de3f8f6dd1afef679d4dff81db2e4c0675089f4f6c6af492cf"
+    },
+    "buildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/house-315-massing.json"
+    },
+    "sceneInspection": {
+      "rootObject": "house-315-massing",
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1],
+      "meshObjects": 1,
+      "materials": 4,
+      "images": 0,
+      "vertices": 120,
+      "polygons": 92,
+      "degenerateAreaBelow1e10": 0,
+      "nonFiniteNormals": 0,
+      "boundsBlender": {
+        "min": [-7.675, -4.84, 0],
+        "max": [7.225, 4.575, 6.982892]
+      },
+      "frontDirection": "-Y",
+      "groundDatum": 0,
+      "authoredMetersPerSceneUnit": 2.7
+    },
+    "humanScale": {
+      "heightMeters": 1.8,
+      "heightSceneUnits": 0.666667,
+      "temporaryProxyOnly": true,
+      "savedToMaster": false,
+      "relationship": "pass-proxy-relation-readable-in-canonical-side-and-entrance-scale-views"
+    },
+    "qaRig": {
+      "savedToMaster": false,
+      "exportedToGlb": false
+    },
+    "fixedViews": {
+      "canonical": {
+        "direction": "local-negative-y canonical",
+        "screenshot": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing_mcp1_canonical.png",
+        "sha256": "f7c1994c578c11dc0d43ae9de68d48b5a1de3e2981fa471a12e6e64147f80e26",
+        "bytes": 687279
+      },
+      "sideDepth": {
+        "direction": "oblique side-depth",
+        "screenshot": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing_mcp1_side-depth.png",
+        "sha256": "18126ed42648b06d6e9198174494bb4fc16bcd4d6693ffaf35f06cc91988c002",
+        "bytes": 723140
+      },
+      "entranceScale": {
+        "direction": "street-facing gable and human-scale",
+        "screenshot": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing_mcp1_entrance-scale.png",
+        "sha256": "1681cf5da649acc901522ad581230468426e69bf9d80b7a9c959e983e1a74d6b",
+        "bytes": 670935
+      }
+    },
+    "checks": {
+      "groundContact": "pass-z-zero-datum",
+      "rootTransform": "pass-normalized",
+      "meshIntegrity": "pass-zero-degenerate-area-and-zero-nonfinite-normals",
+      "humanScale": "pass",
+      "centralHalfTimberGable": "pass-readable",
+      "transverseMainRidge": "pass-readable",
+      "asymmetricWings": "pass-right-long-wing-and-left-rear-short-wing-readable",
+      "facadeDivision": "pass-white-upper-wall-and-red-brick-base-readable",
+      "scopeBoundary": "pass-no-trees-walls-gates-lamps-or-paving",
+      "texturePolicy": "pass-zero-images"
+    },
+    "acceptedInteractiveChanges": [],
+    "generatorRoundTrip": {
+      "status": "not-required",
+      "note": "MCP1 只读取正式场景并使用临时 QA rig；没有接受几何、材质或 transform 修改，QA rig 未保存、未导出，Blend 与 GLB SHA 均保持不变。"
+    },
+    "nextGate": "three-js-massing-map-calibration"
+  },
+  "mapGate": {
+    "gate": "three-js-massing-map-calibration",
+    "status": "formal-pass",
+    "reviewedAt": "2026-07-25T21:32:44+08:00",
+    "reviewedBy": "house-315-worktree-agent",
+    "runtimeQa": "docs/research/house-315-massing-map-qa.json",
+    "fixedEntry": "/?start=house315&cameraQa=1&qaModelTier=massing&network=standard",
+    "movementAuthorized": false,
+    "frozenPlacement": {
+      "position": [-23.03, 85.67],
+      "yaw": -0.38,
+      "scale": 0.9
+    },
+    "temporaryQaAssembly": true,
+    "sharedRegistryRestoredSha256": "eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6",
+    "sharedRegistryCommitted": false,
+    "checks": {
+      "resource": "pass-http-200-exact-17352-byte-glb",
+      "positionOrientationScale": "pass-frozen-placement",
+      "groundAndRoad": "pass-ground-contact-and-road-setback",
+      "camera": "pass-spring-clear-start-and-close-probe",
+      "collision": "pass-front-recess-and-main-spine-stop",
+      "consoleAndErrors": "pass-zero",
+      "performance": "pass-10-second-visible-sample"
+    },
+    "nextGate": "main-window-shared-massing-integration-review"
+  },
+  "heroGate": {
+    "gate": "mcp2-hero-visual-review",
+    "status": "pass",
+    "reviewedAt": "2026-07-25",
+    "reviewedBy": "main-coordinator",
+    "interactiveReview": "Blender MCP",
+    "sourceCommit": "e258a02a9ace4dbc34ce2978dcadcb4112370939",
+    "candidate": {
+      "version": "hero-v2",
+      "generator": "scripts/create_house_315_hero_model.py",
+      "editableSource": "assets/models/source/tiers/xinhua-road/hero-v2/house-315-hero.blend",
+      "editableSourceSha256": "2750b3c876fa651ce1fd0ed09f8e9a5557804b8e2783839f6ed63a740cd756b6",
+      "runtimeAsset": "public/models/tiers/xinhua-road/hero-v2/house-315-hero.glb",
+      "runtimeAssetSha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+      "derivedMassingGlbSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+      "buildRecord": "docs/research/build-records/tiers/xinhua-road/hero-v2/house-315-hero.json"
+    },
+    "sceneInspection": {
+      "meshObjects": 1,
+      "vertices": 1960,
+      "polygons": 1472,
+      "materials": 6,
+      "principledNodeMaterials": 6,
+      "rootLocation": [
+        0,
+        0,
+        0
+      ],
+      "rootRotation": [
+        0,
+        0,
+        0
+      ],
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "zeroAreaPolygonsBelow1e10": 0,
+      "nonFiniteNormals": 0,
+      "minimumFaceArea": 0.001224979
+    },
+    "checks": {
+      "lineage": "pass-derived-from-accepted-massing-no-legacy-recovery-or-osm-geometry",
+      "canonical": "pass-central-tall-half-timber-gable-and-transverse-red-tile-ridge",
+      "sideDepth": "pass-asymmetric-wing-depth-and-structure-continuity",
+      "entrance": "pass-tall-entry-white-red-layer-and-human-scale",
+      "unknownRear": "pass-held-at-low-detail",
+      "scope": "pass-no-site-vegetation-or-decoration"
+    },
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2_mcp2_recheck_canonical.png",
+        "sha256": "3bb6bf7b7ce11ffa413477c6ecc2ca7ddc473bfec7a19dae858ee2934527ee2e",
+        "bytes": 828549
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2_mcp2_recheck_side.png",
+        "sha256": "d58896674922865424cbb8174606225ec82ed9cfe06c1f4dda939622269f3fc0",
+        "bytes": 893153
+      },
+      "entrance": {
+        "path": "test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2_mcp2_recheck_entrance.png",
+        "sha256": "959e79ca7db88cff40f5b5d4d024a4e328a9e0699eb52f961ef27d8feb6ab38b",
+        "bytes": 933340
+      }
+    },
+    "acceptedInteractiveChanges": [],
+    "qaRigSaved": false,
+    "qaRigExported": false,
+    "identityDerivationAuthorized": true,
+    "nextGate": "main-window-mcp3-same-camera-three-tier-review"
+  },
+  "identityGate": {
+    "status": "pass",
+    "sourceHeroMcp2": "pass",
+    "identityDerivationAuthorized": true,
+    "identityDerivationStarted": true,
+    "identityCandidateCompleted": true,
+    "candidate": {
+      "version": "identity-v1",
+      "generator": {
+        "path": "scripts/create_house_315_identity_model.py",
+        "sha256": "19fe2646b02767fb5495b19ecf979a07d2eed35acf009476e33172160dd72e51"
+      },
+      "editableSource": {
+        "path": "assets/models/source/tiers/xinhua-road/identity-v1/house-315-identity.blend",
+        "sha256": "79cc36080e835af913864fcfddca2763f0173df5bb7c107a54a662d241506a60",
+        "bytes": 109984
+      },
+      "runtimeAsset": {
+        "path": "public/models/tiers/xinhua-road/identity-v1/house-315-identity.glb",
+        "sha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+        "bytes": 62288
+      },
+      "buildRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json",
+      "tierLineage": "docs/research/house-315-tier-lineage.json",
+      "metrics": {
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 6,
+        "triangles": 776,
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "boundsMatchHeroAndMassing": true,
+        "rootTransform": "normalized"
+      },
+      "budget": {
+        "identityToHeroTriangleRatio": 0.264305,
+        "identityToHeroByteRatio": 0.292558,
+        "status": "pass"
+      },
+      "independentReview": {
+        "reviewer": "shanghai-cinema-peer",
+        "status": "ready",
+        "critical": 0,
+        "important": 0,
+        "minor": 0
+      },
+      "scopePollution": false,
+      "deterministicDoubleBuild": true,
+      "publicRegistryModified": false
+    },
+    "mcp3Status": "pass",
+    "identityFormalPass": true,
+    "mcp3Review": "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json#mcp3",
+    "runtimeAuthorized": true,
+    "runtimeExecutionStarted": true,
+    "runtimeIntegrated": true,
+    "publicRegistryModified": true,
+    "runtimeAcceptance": "docs/research/house-315-three-tier-runtime-qa.json#runtimeAcceptance"
+  },
+  "threeTierGate": {
+    "gate": "mcp3-same-camera-three-tier-review",
+    "status": "pass",
+    "recordedAt": "2026-07-25T23:37:00+08:00",
+    "reviewedBy": "main-coordinator",
+    "interactiveReview": "Blender MCP",
+    "sourceCommit": "6166d7d75591c5c0f2319ad0b04fa9cd026429a8",
+    "tierLineage": "docs/research/house-315-tier-lineage.json",
+    "sameOrigin": true,
+    "sameBounds": true,
+    "sameAuthoredFront": true,
+    "sameRuntimePlacement": true,
+    "sameCollisionSemantics": true,
+    "sameCameraViewSet": true,
+    "identityBudgetPass": true,
+    "mcp3Requested": true,
+    "formalPass": true,
+    "reviewedIdentity": {
+      "editableSource": {
+        "path": "assets/models/source/tiers/xinhua-road/identity-v1/house-315-identity.blend",
+        "sha256": "79cc36080e835af913864fcfddca2763f0173df5bb7c107a54a662d241506a60"
+      },
+      "runtimeAsset": {
+        "path": "public/models/tiers/xinhua-road/identity-v1/house-315-identity.glb",
+        "sha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+        "bytes": 62288
+      },
+      "sceneInspection": {
+        "meshObjects": 1,
+        "vertices": 520,
+        "polygons": 392,
+        "materials": 6,
+        "useNodes": "pass-6-of-6-Principled",
+        "rootLocation": [0, 0, 0],
+        "rootRotation": [0, 0, 0],
+        "rootScale": [1, 1, 1],
+        "rootNormalized": true
+      },
+      "geometryInspection": {
+        "areaBelow1eMinus10": 0,
+        "minimumPolygonArea": 0.002750016748905182,
+        "nonFiniteNormals": 0
+      }
+    },
+    "reviewedLineage": {
+      "heroGlbSha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+      "massingGlbSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+      "heroToIdentity": "pass-deliberate-roof-rib-window-mullion-and-minor-division-reduction",
+      "identityToMassing": "pass-silhouette-origin-front-bounds-and-asymmetric-wing-continuity",
+      "preservedIdentity": "pass-central-half-timber-gable-transverse-ridge-asymmetric-wings-white-red-division-tall-entry-dormer-and-chimney"
+    },
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_canonical.png",
+        "sha256": "ec629bcea2b838ee8fbe1e37164d25c5a59b8593770e509ad77dd1ceee876d80",
+        "bytes": 752578,
+        "dimensions": [960, 720]
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_side-depth.png",
+        "sha256": "3dc7ad0f9d15ea60bdd299c2369184ab25e33103a5bf5e084bbbdc9f1fe27067",
+        "bytes": 771459,
+        "dimensions": [960, 720]
+      },
+      "entranceDetail": {
+        "path": "test_artifacts/all-models/identity-v1/house-315/test_house-315-identity-v1_mcp3_recheck_entrance.png",
+        "sha256": "4449238a5e36c302ee9a6b30283e1df0bfffb7082d2f7fa09f6c0d80db71f799",
+        "bytes": 799157,
+        "dimensions": [960, 720]
+      }
+    },
+    "visualChecks": {
+      "canonical": "pass-central-half-timber-gable-transverse-ridge-white-red-facade-and-asymmetric-wings-readable",
+      "sideDepth": "pass-right-long-wing-left-short-rear-depth-dormer-chimney-and-roof-hierarchy-readable",
+      "entranceDetail": "pass-tall-entry-major-window-groups-half-timber-and-1p8m-human-scale-readable",
+      "threeTierContinuity": "pass-shared-origin-bounds-front-camera-silhouette-and-collision-semantics"
+    },
+    "scope": "pass-building-only-no-site-trees-decoration-other-buildings-or-full-map-assets",
+    "acceptedInteractiveChanges": [],
+    "qaRigSaved": false,
+    "qaRigExported": false,
+    "independentReview": {
+      "reviewer": "shanghai-cinema-peer",
+      "status": "ready",
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "nextGate": "complete-no-rework-unless-binary-or-public-contract-changes"
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "version": 2,
+  "assetId": "villa-le-bec",
+  "tier": "identity",
+  "versionName": "identity-v2",
+  "status": "identity-v2-mcp3-runtime-production-pass",
+  "generator": {
+    "path": "scripts/create_villa_le_bec_identity_v2_model.py",
+    "sha256": "c9c9072e8949516e71da731c982237337cc9afe2cd414157df98a13168de5a6b"
+  },
+  "blenderVersion": "5.2.0 LTS",
+  "derivedFrom": {
+    "tier": "hero-v2",
+    "heroBuildRecord": "docs/research/build-records/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.json",
+    "heroGlbSha256": "4f909a3b149e2f16e00843d4f965dc37e0a96ea2c69d67ab4e12282d7d1b5b00",
+    "heroBlendSha256": "6619a2eaa1b1e2c65d656ac3a52ebb940ff9ecb4ae3fd6f572737728da45276a",
+    "massingSha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f",
+    "method": "sha-pinned-hero-v2-direct-decimate-preserving-approved-identity-components"
+  },
+  "continuity": {
+    "placement": {
+      "position": [
+        -34.1,
+        88.8
+      ],
+      "yaw": -0.38,
+      "scale": 0.82,
+      "movementAuthorized": false
+    },
+    "collision": {
+      "sameAsHeroAndMassing": true,
+      "solidWays": [
+        864493176,
+        864493175
+      ],
+      "openCourtyard": true,
+      "bakedCollisionGeometry": false
+    }
+  },
+  "identityCues": {
+    "preserved": [
+      "two-building-hipped-roof-silhouette",
+      "street-storefront-upper-bay-and-dormers",
+      "garden-door-canopy-side-window-and-dormer",
+      "open-courtyard"
+    ],
+    "deliberateLosses": [
+      "58-percent-mesh-density",
+      "fine-window-and-trim-fidelity",
+      "small-roof-detail"
+    ]
+  },
+  "scope": {
+    "twoBuildingsOnly": true,
+    "sourceComponents": 142,
+    "excluded": [
+      "trees",
+      "decorations",
+      "brand",
+      "interior",
+      "low-annex",
+      "extra-ways",
+      "public-registry",
+      "runtime-manifest",
+      "map"
+    ]
+  },
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/identity-v2/villa-le-bec-identity-v2.blend",
+      "sha256": "dd1544d33b7f29b74d571d42d81049d064046c9839d6f234a3e5e9c64dcef8ac"
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/identity-v2/villa-le-bec-identity-v2.glb",
+      "sha256": "4be0685ed6db3f0fe462288de326393175f3bd4285a71992dac17a9f82f56e55",
+      "bytes": 45744,
+      "bounds": {
+        "min": [
+          -1.2003967761993408,
+          -10.571927070617676,
+          0.0
+        ],
+        "max": [
+          10.058867454528809,
+          -0.6124868392944336,
+          4.539999961853027
+        ]
+      }
+    },
+    "previews": [
+      {
+        "path": "test_artifacts/all-models/identity-v2/villa-le-bec/test_villa-le-bec-identity-v2-canonical.png",
+        "sha256": "b739594ca2c9efa03fc9ef8c858c0ab28a75cc46a22f50df4e0b939ceb01d010"
+      },
+      {
+        "path": "test_artifacts/all-models/identity-v2/villa-le-bec/test_villa-le-bec-identity-v2-side-depth.png",
+        "sha256": "d590e933846ed0706e633fe6212a8e3e4eed1e15201d3904ebcc63ab8c2bb2e9"
+      },
+      {
+        "path": "test_artifacts/all-models/identity-v2/villa-le-bec/test_villa-le-bec-identity-v2-entrance.png",
+        "sha256": "fe3c504ed7f5e8d7019f8536c7618b2e7fd0fff4b3c1805ecf2f04185fe72137"
+      },
+      {
+        "path": "test_artifacts/all-models/identity-v2/villa-le-bec/test_villa-le-bec-identity-v2-triptych.png",
+        "sha256": "c5f01fa2c5f41dd7d08320b3c00f631f0eaa0644deb05c3eb15c09037cf00501"
+      }
+    ]
+  },
+  "budget": {
+    "maxTriangles": 1200,
+    "maxNodes": 4,
+    "maxMaterials": 6,
+    "maxImages": 0,
+    "maxBytes": 900000,
+    "heroBytes": 124692,
+    "requiresLowerBytesThanHero": true
+  },
+  "gates": {
+    "mcp3": "pass-main-window-xhigh-current-sha",
+    "mcp3Record": "docs/research/villa-le-bec-blender-mcp3-gate-v2.json",
+    "runtime": "pass-main-window-three-tier-production",
+    "runtimeRecord": "docs/research/villa-le-bec-three-tier-runtime-qa-v3.json"
+  }
+}

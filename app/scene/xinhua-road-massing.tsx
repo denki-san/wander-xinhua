@@ -1,15 +1,34 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useGLTF } from "@react-three/drei";
+import {
+  Suspense,
+  useEffect,
+  useMemo,
+  type ReactNode,
+} from "react";
 import { BoxGeometry } from "three";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
+import { ProgressiveFeatureBoundary } from "../progressive-feature-boundary";
+import { FilmArtCenterIdentity } from "./film-art-center-identity";
+import {
+  resolveFilmArtCenterProductionIdentitySource,
+} from "./film-art-center-tier-contract.mjs";
 import { terrainHeightAt } from "./terrain";
 import {
   XINHUA_ROAD_LANDMARKS,
   type LandmarkPlacement,
 } from "./xinhua-road-contract";
-import { xinhuaRoadIdentityKind } from "./xinhua-road-identity-contract";
-import { ShanghaiCinemaHybridIdentity } from "./shanghai-cinema-hybrid-identity";
+import {
+  ACCEPTED_DERIVED_BUILDING_TIERS,
+  xinhuaRoadIdentityKind,
+  xinhuaRoadIdentityLocalPosition,
+} from "./xinhua-road-identity-contract";
+import {
+  ShanghaiCinemaHybridIdentity,
+} from "./shanghai-cinema-hybrid-identity";
+import { House315RuntimeAsset } from "./house-315-runtime";
+import { OneStepGardenRuntimeAsset } from "./one-step-garden-runtime";
 
 const IDENTITY_COLORS = [
   "#e8dfcf",
@@ -20,6 +39,19 @@ const IDENTITY_COLORS = [
 ] as const;
 
 const IDENTITY_VISUAL_SCALE = [0.68, 0.78, 0.68] as const;
+
+function AcceptedDerivedTierGlb({ source }: { source: string }) {
+  const { scene } = useGLTF(source);
+  const model = useMemo(() => {
+    const clone = scene.clone(true);
+    clone.traverse((child) => {
+      child.castShadow = true;
+      child.receiveShadow = true;
+    });
+    return clone;
+  }, [scene]);
+  return <primitive object={model} scale={[1, 1, -1]} />;
+}
 
 function landmarkHeight(landmark: LandmarkPlacement) {
   if (landmark.id === "shanghai-cinema") return 18;
@@ -595,14 +627,92 @@ function LandmarkIdentityMiniature({
   );
 }
 
+function FilmArtCenterProductionIdentityFallback({
+  qaActive,
+  position,
+  children,
+}: {
+  qaActive: boolean;
+  position: [number, number, number];
+  children: ReactNode;
+}) {
+  useEffect(() => {
+    if (!qaActive) return;
+    const root = document.documentElement;
+    root.dataset.xinhuaRoadProductionIdentityStatus = "fallback";
+    root.dataset.xinhuaRoadProductionIdentityAsset = "film-art-center";
+    root.dataset.xinhuaRoadProductionIdentityPosition = JSON.stringify(position);
+    return () => {
+      delete root.dataset.xinhuaRoadProductionIdentityStatus;
+      delete root.dataset.xinhuaRoadProductionIdentityAsset;
+      delete root.dataset.xinhuaRoadProductionIdentityPosition;
+    };
+  }, [position, qaActive]);
+
+  return (
+    <group
+      position={position}
+      userData={{
+        building: "film-art-center",
+        stage: "identity-fallback",
+        placement: "programmatic-bounds-center",
+      }}
+    >
+      {children}
+    </group>
+  );
+}
+
 export function LandmarkProgressiveProxy({
   landmark,
   identity,
+  forceProgrammaticIdentity = false,
 }: {
   landmark: LandmarkPlacement;
   identity: boolean;
+  forceProgrammaticIdentity?: boolean;
 }) {
-  if (identity && landmark.id === "shanghai-cinema") {
+  if (landmark.id === "house-315") {
+    return (
+      <group
+        name="house-315-progressive-proxy"
+        userData={{
+          building: landmark.id,
+          stage: identity ? "identity" : "massing",
+          overviewRepresentation: identity
+            ? "derived-identity-glb"
+            : "derived-massing-glb",
+          progressive: true,
+          sharedOrigin: true,
+        }}
+      >
+        <House315RuntimeAsset
+          requestedTier={identity ? "identity" : "massing"}
+        />
+      </group>
+    );
+  }
+  if (landmark.id === "one-step-garden") {
+    return (
+      <group
+        name="one-step-garden-progressive-proxy"
+        userData={{
+          building: landmark.id,
+          stage: identity ? "identity" : "massing",
+          overviewRepresentation: identity
+            ? "derived-identity-glb"
+            : "derived-massing-glb",
+          progressive: true,
+          sharedOrigin: true,
+        }}
+      >
+        <OneStepGardenRuntimeAsset
+          requestedTier={identity ? "identity" : "massing"}
+        />
+      </group>
+    );
+  }
+  if (identity && landmark.id === "shanghai-cinema" && !forceProgrammaticIdentity) {
     return (
       <group
         name="shanghai-cinema-progressive-proxy"
@@ -622,40 +732,120 @@ export function LandmarkProgressiveProxy({
   const bounds = landmark.localBounds;
   const width = bounds.maxX - bounds.minX;
   const depth = bounds.maxZ - bounds.minZ;
-  const centerX = (bounds.minX + bounds.maxX) / 2;
-  const centerZ = -(bounds.minZ + bounds.maxZ) / 2;
   const height = landmarkHeight(landmark);
   const wall = colorForLandmark(landmark);
+  const acceptedDerived = ACCEPTED_DERIVED_BUILDING_TIERS[
+    landmark.id as keyof typeof ACCEPTED_DERIVED_BUILDING_TIERS
+  ];
+  const usesDerivedIdentity = (
+    identity
+    && (
+      landmark.id === "film-art-center"
+      || Boolean(acceptedDerived)
+    )
+    && !forceProgrammaticIdentity
+  );
+  const usesDerivedMassing = !identity && Boolean(acceptedDerived);
+  const acceptedIdentitySource = acceptedDerived
+    ? `${acceptedDerived.identity.path}?v=${acceptedDerived.identity.cacheVersion}`
+    : null;
+  const acceptedMassingSource = acceptedDerived
+    ? `${acceptedDerived.massing.path}?v=${acceptedDerived.massing.cacheVersion}`
+    : null;
+  const programmaticLocalPosition = xinhuaRoadIdentityLocalPosition(
+    bounds,
+    "programmatic-miniature",
+  );
+  const localPosition = xinhuaRoadIdentityLocalPosition(
+    bounds,
+    usesDerivedIdentity || usesDerivedMassing
+      ? "derived-glb"
+      : "programmatic-miniature",
+  );
+  const productionIdentity = usesDerivedIdentity
+    ? resolveFilmArtCenterProductionIdentitySource(
+      typeof window === "undefined" ? "" : window.location.search,
+    )
+    : null;
+  const genericIdentity = (
+    <group
+      scale={IDENTITY_VISUAL_SCALE}
+      userData={{ presentation: "compact-architectural-identity" }}
+    >
+      <LandmarkIdentityMiniature
+        landmark={landmark}
+        width={width}
+        depth={depth}
+        height={height}
+        wall={wall}
+      />
+    </group>
+  );
+  const productionIdentityFallback = (
+    <FilmArtCenterProductionIdentityFallback
+      qaActive={productionIdentity?.forcedFallback ?? false}
+      position={programmaticLocalPosition}
+    >
+      {genericIdentity}
+    </FilmArtCenterProductionIdentityFallback>
+  );
+  const genericMassing = (
+    <mesh position={[0, height / 2, 0]} castShadow receiveShadow>
+      <boxGeometry args={[width * 0.9, height, depth * 0.86]} />
+      <meshToonMaterial color="#c9c3b5" />
+    </mesh>
+  );
 
   return (
     <group
       name={`${landmark.id}-progressive-proxy`}
-      position={[centerX, 0, centerZ]}
+      position={localPosition}
       userData={{
         building: landmark.id,
         stage: identity ? "identity" : "massing",
-        overviewRepresentation: identity ? "architectural-miniature" : "massing",
+        overviewRepresentation: identity
+          ? usesDerivedIdentity
+            ? "derived-identity-glb"
+            : "architectural-miniature"
+          : usesDerivedMassing
+            ? "derived-massing-glb"
+            : "massing",
         progressive: true,
       }}
     >
       {identity ? (
-        <group
-          scale={IDENTITY_VISUAL_SCALE}
-          userData={{ presentation: "compact-architectural-identity" }}
+        usesDerivedIdentity ? (
+          acceptedIdentitySource ? (
+            <ProgressiveFeatureBoundary
+              resetKey={acceptedIdentitySource}
+              fallback={genericIdentity}
+            >
+              <Suspense fallback={genericIdentity}>
+                <AcceptedDerivedTierGlb source={acceptedIdentitySource} />
+              </Suspense>
+            </ProgressiveFeatureBoundary>
+          ) : (
+            <ProgressiveFeatureBoundary
+              resetKey={productionIdentity?.modelPath ?? "film-art-center-identity"}
+              fallback={productionIdentityFallback}
+            >
+              <Suspense fallback={productionIdentityFallback}>
+                <FilmArtCenterIdentity source={productionIdentity?.modelPath} />
+              </Suspense>
+            </ProgressiveFeatureBoundary>
+          )
+        ) : genericIdentity
+      ) : acceptedMassingSource ? (
+        <ProgressiveFeatureBoundary
+          resetKey={acceptedMassingSource}
+          fallback={genericMassing}
         >
-          <LandmarkIdentityMiniature
-            landmark={landmark}
-            width={width}
-            depth={depth}
-            height={height}
-            wall={wall}
-          />
-        </group>
+          <Suspense fallback={genericMassing}>
+            <AcceptedDerivedTierGlb source={acceptedMassingSource} />
+          </Suspense>
+        </ProgressiveFeatureBoundary>
       ) : (
-        <mesh position={[0, height / 2, 0]} castShadow receiveShadow>
-          <boxGeometry args={[width * 0.9, height, depth * 0.86]} />
-          <meshToonMaterial color="#c9c3b5" />
-        </mesh>
+        genericMassing
       )}
     </group>
   );
@@ -664,9 +854,11 @@ export function LandmarkProgressiveProxy({
 export function XinhuaRoadMassing({
   identity,
   hiddenLandmarkIds,
+  onlyLandmarkId,
 }: {
   identity: boolean;
   hiddenLandmarkIds?: ReadonlySet<string>;
+  onlyLandmarkId?: string;
 }) {
   return (
     <group
@@ -678,6 +870,7 @@ export function XinhuaRoadMassing({
       }}
     >
       {XINHUA_ROAD_LANDMARKS.map((landmark) => {
+        if (onlyLandmarkId && landmark.id !== onlyLandmarkId) return null;
         if (hiddenLandmarkIds?.has(landmark.id)) return null;
         const [x, z] = landmark.position;
         return (

@@ -1,0 +1,473 @@
+{
+  "schemaVersion": 1,
+  "assetId": "film-art-center",
+  "recordedAt": "2026-07-26",
+  "mode": "warehouse-only-osm-road-semantics-audit",
+  "status": "formal-blocker-no-evidence-backed-building-only-candidate",
+  "constraints": {
+    "browserUsed": false,
+    "socialMediaUsed": false,
+    "externalNetworkUsed": false,
+    "modelMovedScaledOrRebuilt": false,
+    "publicRegistryModified": false,
+    "sharedRuntimeModified": false,
+    "publicManifestModified": false,
+    "mapModified": false,
+    "treesOrMapDressingModified": false
+  },
+  "scope": {
+    "included": [
+      "film-art-center-subject-boundary",
+      "frozen-osm-road-tags",
+      "coordinate-defined-road-topology",
+      "raw-to-runtime-map-coarsening",
+      "raw-and-runtime-centerline-to-solid-crossing",
+      "building-only-collision-candidate-decision"
+    ],
+    "excluded": [
+      "live-osm-refresh",
+      "browser-runtime-qa",
+      "xiaohongshu",
+      "placement-change",
+      "scale-change",
+      "model-rebuild",
+      "road-reroute",
+      "road-suppression",
+      "public-registry",
+      "shared-runtime",
+      "public-manifest",
+      "trees",
+      "full-map-dressing"
+    ]
+  },
+  "sources": {
+    "rawRoadOsm": {
+      "path": "docs/research/data/xinhua-roads-osm-20260716-080509.json",
+      "sha256": "351308feafab0344dc59a66ebd68d0748f81ef1cd69dc218765a22eb51abf2ec",
+      "osmBaseTimestamp": "2026-07-16T08:03:07Z",
+      "license": "ODbL"
+    },
+    "rawBoundaryOsm": {
+      "path": "docs/research/data/xinhua-boundary-osm-20260716-080509.json",
+      "sha256": "f0d316fde8d6e3dc75a853551b642468d4f4c530d8f415d3fef9daec4972c181"
+    },
+    "runtimeMap": {
+      "path": "app/scene/xinhua-map-data.json",
+      "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78"
+    },
+    "mapGenerator": {
+      "path": "scripts/test_generate_xinhua_map.mjs",
+      "sha256": "2674e1565cc032dfe3b3ad97f011d47a3eeefb1cdb4b72d314e1df000152e025"
+    },
+    "landmarkRegistryReadOnly": {
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "f87c8fde941c71c6876bba4e7a50cf9177c5b7d11163822c4f4ac906568d9fa6",
+      "shaPolicy": "review-time-snapshot-public-cross-cut-file"
+    },
+    "priorMapCandidate": {
+      "path": "docs/research/film-art-center-map-candidate-v2.json",
+      "sha256": "22644f257deaca9cd46d0c914163de8bbf0e6c53fd37b03f543423e00e027cc5"
+    },
+    "finalAudit": {
+      "path": "docs/research/film-art-center-final-audit-2026-07-26.json",
+      "sha256": "84c38d7b0e530ebfd50138af0a23becd751b04f3cf0345e570befb0d93a365cf"
+    },
+    "referenceManifest": {
+      "path": "docs/research/film-art-center-reference-manifest.json",
+      "sha256": "acb0842c618a9893d73e8a6465a203c684d63bfda2e4d0c6a8b2fdc40475f826"
+    },
+    "modelBrief": {
+      "path": "docs/research/film-art-center-model-brief.md",
+      "sha256": "450010f4a9980e413bbfd5b3ae4411f59f9fe9921685a9b93bf0e9e8627e2a4d"
+    },
+    "osmBuildingSnapshot": {
+      "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+      "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c"
+    },
+    "massingV2Glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/film-art-center-massing.glb",
+      "sha256": "34e319174cb8cc121232ad3f5f15e30831c790b32b86268a193c329c9082b314",
+      "bytes": 240812
+    }
+  },
+  "subjectBoundary": {
+    "observed": [
+      "The film-art-center asset represents the historic garden residence Xinhua 200 at 200 Xinhua Road.",
+      "The asset excludes the modern Shanghai Cinema at 160 Xinhua Road, CHAO Hotel, and the complete four-building campus."
+    ],
+    "excludedOsmBuilding": {
+      "osmWayId": 292250766,
+      "name": "Shanghai Film Art Center",
+      "nameZh": "上海影城",
+      "address": "160 Xinhua Road",
+      "reason": "This footprint belongs to the explicitly excluded Shanghai Cinema subject and cannot prove the Xinhua 200 footprint."
+    },
+    "exactXinhua200Footprint": "unknown-no-survey-or-subject-specific-osm-building-polygon",
+    "placement": {
+      "position": [
+        47.5,
+        81.5
+      ],
+      "yaw": 2.761592653589793,
+      "scale": 1,
+      "changed": false
+    },
+    "solidProxyBoundary": "The three model-local obstacle rectangles are an evidence-derived runtime proxy, not a survey-grade parcel or building footprint."
+  },
+  "mapPipeline": {
+    "projection": {
+      "boundaryBoundingBox": [
+        31.1972286,
+        31.2160465,
+        121.4122946,
+        121.4332691
+      ],
+      "centerWgs84Exact": [
+        121.42278185,
+        31.20663755
+      ],
+      "metersPerSceneUnit": 2.7,
+      "metersPerLongitudeDegree": "111320*cos(centerLatitude)",
+      "metersPerLatitudeDegree": 110540
+    },
+    "nonLinkSimplificationToleranceSceneUnits": 0.225,
+    "simplifier": "recursive-endpoint-perpendicular-distance",
+    "roundingDecimals": 4,
+    "topologyEvidenceBoundary": "The frozen road ways contain geometry but omit node IDs. Exact seven-decimal coordinate equality proves coordinate continuity in this snapshot, but not shared OSM node identity."
+  },
+  "roadClasses": {
+    "publicAsphalt": {
+      "classification": "observed-named-tertiary-asphalt-road-with-no-restrictive-access-tag",
+      "ways": [
+        {
+          "osmWayId": 682286683,
+          "name": "新华路",
+          "nameEn": "Xinhua Road",
+          "tags": {
+            "highway": "tertiary",
+            "surface": "asphalt",
+            "lanes": "2",
+            "lanes:forward": "1",
+            "lanes:backward": "1"
+          }
+        },
+        {
+          "osmWayId": 66394007,
+          "name": "法华镇路",
+          "nameEn": "Fahuazhen Road",
+          "tags": {
+            "highway": "tertiary",
+            "surface": "asphalt",
+            "maxspeed": "30"
+          }
+        }
+      ],
+      "legalPublicStatus": "not-proven-by-this-snapshot-alone"
+    },
+    "privateServiceAlley": {
+      "osmWayId": 577252297,
+      "rawTags": {
+        "access": "private",
+        "highway": "service",
+        "oneway": "no",
+        "service": "alley"
+      },
+      "observed": [
+        "The way is an unnamed two-point straight centerline.",
+        "Its south endpoint is coordinate-continuous with Xinhua Road.",
+        "Its north endpoint is coordinate-continuous with Fahuazhen Road.",
+        "The raw way has no surface, lanes, bridge, tunnel, covered, layer, footway, or pedestrian tag."
+      ],
+      "inferred": [
+        "A private service or driveway-like cross-block access is more defensible than a public asphalt or pedestrian classification."
+      ],
+      "unknown": [
+        "surface material",
+        "current physical existence",
+        "exact legal access",
+        "whether the line runs around, below, through, or has been displaced by Xinhua 200",
+        "centerline survey accuracy"
+      ],
+      "classification": "observed-private-service-alley-centerline-inferred-driveway-like-use"
+    },
+    "unclassifiedInternalLoop": {
+      "ways": [
+        {
+          "osmWayId": 1520590652,
+          "rawTags": {
+            "highway": "unclassified"
+          },
+          "rawPointCount": 6
+        },
+        {
+          "osmWayId": 1520590653,
+          "rawTags": {
+            "highway": "unclassified"
+          },
+          "rawPointCount": 14
+        }
+      ],
+      "observed": [
+        "Way 1520590652 connects Fahuazhen Road to Xinhua Road by exact endpoint coordinate equality.",
+        "Way 1520590653 joins way 1520590652 at its second and fifth coordinates, forming a coordinate-defined loop.",
+        "Neither unclassified way has name, access, service, surface, lanes, bridge, tunnel, covered, layer, footway, or pedestrian tags."
+      ],
+      "inferred": [
+        "The topology supports a campus or cross-block circulation interpretation, but does not establish the transport mode or surface."
+      ],
+      "unknown": [
+        "public versus private access",
+        "vehicular versus pedestrian use",
+        "surface material",
+        "current physical existence",
+        "whether any portion is covered or below a building",
+        "centerline survey accuracy"
+      ],
+      "classification": "observed-unnamed-unclassified-loop-inferred-internal-circulation-unknown-mode"
+    },
+    "pedestrian": {
+      "classification": "not-proven",
+      "reason": "None of the reviewed crossing or loop ways is tagged highway=pedestrian, highway=footway, highway=path, footway=*, or pedestrian=*."
+    }
+  },
+  "coordinateTopology": [
+    {
+      "coordinateWgs84": [
+        121.4237111,
+        31.2043658
+      ],
+      "connections": [
+        {
+          "osmWayId": 577252297,
+          "pointIndex": 0
+        },
+        {
+          "osmWayId": 682286683,
+          "pointIndex": 12
+        },
+        {
+          "osmWayId": 577252272,
+          "pointIndex": 4
+        }
+      ],
+      "meaning": "private service alley joins Xinhua Road"
+    },
+    {
+      "coordinateWgs84": [
+        121.4241978,
+        31.2054909
+      ],
+      "connections": [
+        {
+          "osmWayId": 577252297,
+          "pointIndex": 1
+        },
+        {
+          "osmWayId": 66394007,
+          "pointIndex": 19
+        },
+        {
+          "osmWayId": 577450079,
+          "pointIndex": 0
+        }
+      ],
+      "meaning": "private service alley joins Fahuazhen Road"
+    },
+    {
+      "coordinateWgs84": [
+        121.4246078,
+        31.205407
+      ],
+      "connections": [
+        {
+          "osmWayId": 1520590652,
+          "pointIndex": 0
+        },
+        {
+          "osmWayId": 66394007,
+          "pointIndex": 20
+        }
+      ],
+      "meaning": "unclassified through-way joins Fahuazhen Road"
+    },
+    {
+      "coordinateWgs84": [
+        121.424449,
+        31.2041089
+      ],
+      "connections": [
+        {
+          "osmWayId": 1520590652,
+          "pointIndex": 5
+        },
+        {
+          "osmWayId": 682286683,
+          "pointIndex": 16
+        }
+      ],
+      "meaning": "unclassified through-way joins Xinhua Road"
+    },
+    {
+      "coordinateWgs84": [
+        121.4246178,
+        31.205278
+      ],
+      "connections": [
+        {
+          "osmWayId": 1520590652,
+          "pointIndex": 1
+        },
+        {
+          "osmWayId": 1520590653,
+          "pointIndex": 13
+        }
+      ],
+      "meaning": "north loop junction"
+    },
+    {
+      "coordinateWgs84": [
+        121.4244555,
+        31.2041713
+      ],
+      "connections": [
+        {
+          "osmWayId": 1520590652,
+          "pointIndex": 4
+        },
+        {
+          "osmWayId": 1520590653,
+          "pointIndex": 0
+        }
+      ],
+      "meaning": "south loop junction"
+    }
+  ],
+  "rawToRuntimeGeometry": [
+    {
+      "osmWayId": 577252297,
+      "rawPointCount": 2,
+      "runtimePointCount": 2,
+      "removedPointCount": 0,
+      "maximumRetainedVertexProjectionAndRoundingDriftSceneUnits": 0.000050495767897694186,
+      "classification": "no-coarsening-capable-of-creating-the-crossing"
+    },
+    {
+      "osmWayId": 1520590652,
+      "rawPointCount": 6,
+      "runtimePointCount": 6,
+      "removedPointCount": 0,
+      "maximumRetainedVertexProjectionAndRoundingDriftSceneUnits": 0.000049816688608708593,
+      "classification": "no-coarsening-capable-of-creating-the-crossing"
+    },
+    {
+      "osmWayId": 1520590653,
+      "rawPointCount": 14,
+      "runtimePointCount": 8,
+      "removedPointCount": 6,
+      "maximumRetainedVertexProjectionAndRoundingDriftSceneUnits": 0.000054641716230751574,
+      "classification": "coarsened-but-does-not-cross-a-solid-proxy"
+    },
+    {
+      "osmWayId": 682286683,
+      "rawPointCount": 27,
+      "runtimePointCount": 4,
+      "removedPointCount": 23,
+      "maximumRetainedVertexProjectionAndRoundingDriftSceneUnits": 0.00003929999845790542,
+      "classification": "coarsened-named-road-remains-clear"
+    }
+  ],
+  "solidCrossings": [
+    {
+      "osmWayId": 577252297,
+      "solidRole": "right-low-wing",
+      "solidObstacleIndex": 2,
+      "rawSegmentIndex": 0,
+      "rawCenterlineInsideSolidSceneUnits": 8.262249153995567,
+      "runtimeCenterlineInsideSolidSceneUnits": 8.262249223069544,
+      "rawCenterlineInsideSolidMeters": 22.30807271578803,
+      "runtimeMinusRawSceneUnits": 6.907397498423285e-8,
+      "cause": "present-in-frozen-raw-osm-not-created-by-runtime-map-coarsening"
+    },
+    {
+      "osmWayId": 1520590652,
+      "solidRole": "main-body",
+      "solidObstacleIndex": 0,
+      "rawSegmentIndex": 1,
+      "rawCenterlineInsideSolidSceneUnits": 9.40640802787114,
+      "runtimeCenterlineInsideSolidSceneUnits": 9.40640829454732,
+      "rawCenterlineInsideSolidMeters": 25.39730167525208,
+      "runtimeMinusRawSceneUnits": 2.6667618158178203e-7,
+      "cause": "present-in-frozen-raw-osm-not-created-by-runtime-map-coarsening"
+    }
+  ],
+  "nonCrossingControls": [
+    {
+      "osmWayId": 1520590653,
+      "rawCrossingLengthSceneUnits": 0,
+      "runtimeCrossingLengthSceneUnits": 0,
+      "purpose": "proves that loop-side coarsening is not the source of either solid crossing"
+    },
+    {
+      "osmWayId": 682286683,
+      "rawCrossingLengthSceneUnits": 0,
+      "runtimeCrossingLengthSceneUnits": 0,
+      "purpose": "preserves the prior named-public-road-clearance result"
+    }
+  ],
+  "buildingOnlyCandidate": {
+    "status": "not-promotable",
+    "candidate": null,
+    "evaluatedOptions": [
+      {
+        "option": "ignore-or-suppress-way-577252297",
+        "decision": "reject-without-new-authority",
+        "reason": "The frozen source explicitly classifies it as a private service alley and the runtime map renders it as a surface road."
+      },
+      {
+        "option": "ignore-or-suppress-way-1520590652",
+        "decision": "reject-without-new-authority",
+        "reason": "The frozen source retains all six vertices, connects two named roads, and supplies no removed, tunnel, covered, or layer evidence."
+      },
+      {
+        "option": "carve-centerline-width-voids-from-the-building-collision-shell",
+        "decision": "reject-without-new-authority",
+        "reason": "A rendered centerline width does not prove a building passage polygon, vertical clearance, or a non-solid architectural void."
+      },
+      {
+        "option": "reuse-the-four-proxy-complete-cover-split-shell",
+        "decision": "retain-only-for-neighbor-aabb-false-positive",
+        "reason": "Exact-cover splitting changes broad-phase AABBs but cannot remove centerlines from the unchanged solid union."
+      }
+    ],
+    "whyNoSafeCandidate": "Both crossings exist in the frozen raw OSM geometry, while the exact Xinhua 200 footprint and the roads' current ground-level relationship to the building are unknown. A building-only carve would invent a passage; a road-only suppression would exceed scope and contradict the retained map source."
+  },
+  "formalBlocker": {
+    "status": "blocked-road-semantics-and-subject-footprint",
+    "formalMapPass": false,
+    "runtimeAcceptance": "blocked",
+    "unknownsThatPreventPromotion": [
+      "subject-specific georeferenced ground footprint for Xinhua 200",
+      "current existence and alignment of ways 577252297 and 1520590652",
+      "surface and transport mode for way 1520590652",
+      "whether either way runs around, under, through, or has been displaced by Xinhua 200",
+      "any passage polygon, covered status, layer, minimum height, or vertical clearance"
+    ],
+    "minimumSupplementalEvidence": [
+      "A georeferenced site plan or survey footprint explicitly scoped to Xinhua 200, not OSM way 292250766 at Xinhua 160.",
+      "Current, locatable ground-level evidence for the north, east, west, and driveway context showing whether each centerline runs around, below, through, or no longer exists.",
+      "An authoritative or field-verified access, surface, mode, and active-or-rerouted classification for ways 577252297 and 1520590652.",
+      "If a building passage exists, its horizontal void polygon plus covered, layer, minimum-height, and walkable or drivable clearance evidence; a centerline buffer alone is insufficient.",
+      "If either road is stale or displaced, update the authoritative map source and regenerate the map rather than hiding it with a building-only collision carve."
+    ],
+    "nextDeterministicStepAfterEvidence": "Reproject the evidence with the frozen 2.7 meters-per-scene-unit contract, derive a subject-only solid-and-void polygon, recompute raw and runtime road clearances, then run deterministic runtime collision QA."
+  },
+  "verdict": {
+    "publicAsphalt": "Xinhua Road and Fahuazhen Road are observed named tertiary roads with surface=asphalt in the frozen snapshot; legal public status is not independently proven.",
+    "privateDriveway": "Way 577252297 is observed private service/alley and is reasonably inferred as driveway-like, but its surface and current geometry are unknown.",
+    "pedestrian": "not-proven-for-any-reviewed-crossing-or-loop-way",
+    "unclassifiedInternal": "Ways 1520590652 and 1520590653 form an observed unnamed loop/through topology with unknown access, surface, and transport mode.",
+    "mappingCoarsening": "not-the-cause-of-the-two-solid-crossings",
+    "buildingOnlyCollisionMapCandidate": "none-evidence-backed",
+    "formalResult": "block-and-request-minimum-supplemental-evidence"
+  }
+}

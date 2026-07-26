@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-pocket-park",
+  "subject": "新华路“新·境”口袋公园",
+  "address": "上海市长宁区新华路359号新华社区青年中心旁",
+  "auditedAt": "2026-07-26",
+  "scope": {
+    "classification": "in-scope-site-asset-in-18-building-roster",
+    "assetSemantics": "walkable-pocket-park-between-two-buildings",
+    "excluded": [
+      "trees",
+      "decorations",
+      "ordinary-osm-massing",
+      "full-map-assets"
+    ]
+  },
+  "references": [
+    {
+      "path": "docs/research/assets/requested-poi-references/xinhua-pocket-park-canonical.jpg",
+      "sha256": "7234b2fe1930e7a7197fa85b3cf0f05815906c27151e28de3b7d80dc9ad0e4b9",
+      "bytes": 2281482,
+      "sourceUrl": "https://mooool.com/pocket-park-on-xinhua-road-shanghai-byshuishi.html",
+      "view": "canonical-entrance-to-interior",
+      "captureDate": "unknown",
+      "rightsBoundary": "research-reference-only-not-runtime-texture",
+      "supports": [
+        "continuous mirrored side walls",
+        "weathering-steel top profile",
+        "winding walkable path",
+        "planting islands and human scale"
+      ]
+    },
+    {
+      "path": "docs/research/assets/requested-poi-references/xinhua-pocket-park-signage.jpg",
+      "sha256": "d7b393f7180ed4914558a49f05eb0626cb5ab3ca691c8126290a373e9b8d210b",
+      "bytes": 2111887,
+      "sourceUrl": "https://mooool.com/pocket-park-on-xinhua-road-shanghai-byshuishi.html",
+      "view": "entrance-and-rotating-signage-detail",
+      "captureDate": "unknown",
+      "rightsBoundary": "research-reference-only-not-runtime-texture",
+      "supports": [
+        "rotating exhibition panels",
+        "mirror and weathering-steel material relationship",
+        "open central walking path"
+      ]
+    }
+  ],
+  "primarySource": {
+    "url": "https://www.gooood.cn/pocket-park-on-xinhua-road-by-shuishi.htm",
+    "provider": "SHUISHI via gooood",
+    "publishedAt": "2020-12-25",
+    "observedClaims": [
+      "The site is a 22-metre-long alleyway between two buildings on Xinhua Road.",
+      "The widest part is less than 4.2 metres.",
+      "The project area is 106 square metres.",
+      "The entrance is on Xinhua Road and the internal space is relatively far from the main road.",
+      "The project uses mirror-finished stainless steel, weathering steel and pebbledash stone."
+    ]
+  },
+  "mapSources": {
+    "osmBuildings": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "osmRequestedPoiFallback": "docs/research/data/requested-pois-osm-20260717-103840.json",
+    "runtimeMap": "app/scene/xinhua-map-data.json",
+    "flankingWays": [
+      "way/864485662",
+      "way/864485663"
+    ]
+  },
+  "coverage": {
+    "canonical": "complete",
+    "sideOrDepth": "partial-interior-depth-visible-but-no-surveyed-elevation",
+    "entranceOrIdentity": "complete",
+    "siteRelationship": "complete-for-two-building-alley-semantics-partial-for-cadastral-boundary",
+    "canonicalComparisonView": "docs/research/assets/requested-poi-references/xinhua-pocket-park-canonical.jpg",
+    "observationDirection": "from the Xinhua Road entrance toward the interior alley"
+  },
+  "classification": {
+    "observed": [
+      "The park is a narrow alley site between two buildings.",
+      "The site is about 22 metres long and less than 4.2 metres at its widest point.",
+      "Mirrored side walls, a weathering-steel entrance/profile, rotating exhibition panels and a walkable path are visible.",
+      "OSM ways 864485662 and 864485663 expose facing edges around the address fallback corridor."
+    ],
+    "inferred": [
+      "The facing edges of ways 864485662 and 864485663 are the two flanking building edges described by the design source.",
+      "The midpoint axis of those facing edges is the safest non-cadastral placement axis.",
+      "The southeast end of the axis is the Xinhua Road entrance end."
+    ],
+    "unknown": [
+      "The cadastral parcel polygon and surveyed wall offsets.",
+      "The exact irregular width profile along the full 22 metres.",
+      "Exact mirror-wall, planting-island, bench and entrance-frame dimensions.",
+      "Whether OSM building eaves or facade offsets differ from the footprint edges."
+    ]
+  }
+}

@@ -1,0 +1,234 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "building:xinhua-road:film-art-center",
+  "tier": "identity",
+  "status": "mcp3-and-main-browser-runtime-pass",
+  "generator": {
+    "path": "scripts/create_film_art_center_identity_model.py",
+    "sha256": "af0fbd64e9aa1cd2b9c3595ce51d4c792ac14a1afccb012df8aabf55c96d2f47",
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --factory-startup --python-exit-code 1 --python scripts/create_film_art_center_identity_model.py",
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "derivedFrom": {
+    "method": "deterministic-simplification-preserving-subject-specific-cues",
+    "heroGenerator": "scripts/create_xinhua_road_models.py",
+    "heroGeneratorSha256": "324be84a32ed3d43ff0bc1ceaca040e8e46f68aff21151b1bafa4ae524f6f3c6",
+    "heroBlend": "assets/models/source/xinhua-road/film-art-center.blend",
+    "heroBlendSha256": "f58952f3bf4c086fb09afdbda4efdc264a124a74a12e6f63e7a9c70f3d3359b8",
+    "heroGlb": "public/models/xinhua-road/film-art-center.glb",
+    "heroGlbSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+    "heroBuildRecord": "docs/research/build-records/film-art-center.json",
+    "heroBuildRecordSha256": "ed22cf283a0e6306b9f26e33e43560aadec457acad7338d854fba3f4ec18282a",
+    "heroGate": "mcp2-pass"
+  },
+  "contract": {
+    "authoredMetersPerSceneUnit": 2.7,
+    "frontDirection": "-Y",
+    "groundDatum": 0,
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "position": [
+      47.5,
+      81.5
+    ],
+    "yaw": 2.761592653589793,
+    "scale": 1,
+    "humanProxy": {
+      "meters": 1.8,
+      "sceneUnits": 0.666667,
+      "saved": false,
+      "exported": false
+    },
+    "preservedCues": [
+      "full-width upturned main roof",
+      "second red gallery roof",
+      "double veranda depth, columns and white balustrade",
+      "upper central recessed loggia and symmetric window rhythm",
+      "black and gold Xinhua 200 sign, paired lions and entrance lights",
+      "low glass side wings"
+    ],
+    "deliberateLosses": [
+      "dense Hero roof-rib count",
+      "full eight-character Hero sign replaced by the evidence-backed four-character Xinhua 200 name",
+      "side and rear window completeness",
+      "fine door hardware and drainage",
+      "lawn, shrubs, paving grid and lawn lights"
+    ],
+    "forbiddenSubstitute": "arts-cluster-generic-proxy"
+  },
+  "holdBoundary": {
+    "trees": "untouched",
+    "decor": "untouched",
+    "ordinaryOsm": "not-imported",
+    "globalMassing": "untouched",
+    "facilityAndSharedPrototypes": "not-imported",
+    "otherBuildings": "untouched"
+  },
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/identity/film-art-center-identity.blend",
+    "blendSha256": "72ebda621ee6e93703e9085cb8df0cf44ffb19849a1ea84ac9d26f531cd6984a",
+    "blendBytes": 415072,
+    "glb": "public/models/tiers/xinhua-road/identity/film-art-center-identity.glb",
+    "cacheVersion": "20260725-film-art-identity-1",
+    "previews": {
+      "canonical": {
+        "path": "test_artifacts/test_film-art-center-identity_canonical_preview.png",
+        "sha256": "cdc4b30e36575522e5eae56afed012eb97880d13cabfbde82aacb578ec5ebcd5",
+        "bytes": 725168,
+        "camera": [
+          3,
+          -43,
+          8
+        ],
+        "target": [
+          0,
+          -0.5,
+          6.3
+        ],
+        "lensMm": 54
+      },
+      "side": {
+        "path": "test_artifacts/test_film-art-center-identity_side_preview.png",
+        "sha256": "9429e8a9b10ee51ff9203c060311dc2ec42fe900f76fbd7580029e47186fbfce",
+        "bytes": 738762,
+        "camera": [
+          34,
+          -28,
+          9
+        ],
+        "target": [
+          1,
+          0,
+          6.1
+        ],
+        "lensMm": 52
+      },
+      "entrance": {
+        "path": "test_artifacts/test_film-art-center-identity_entrance_preview.png",
+        "sha256": "b805661728211cc93294e6b89011389ef9c0dea3d33256716e62aa126d8b57bd",
+        "bytes": 711412,
+        "camera": [
+          10,
+          -48,
+          4.8
+        ],
+        "target": [
+          0,
+          -0.8,
+          5.7
+        ],
+        "lensMm": 56
+      }
+    }
+  },
+  "glb": {
+    "sha256": "a4d37446e27225815624e6382048ed1dc341f1e079f089755ed5fb68e520e869",
+    "bytes": 1130852,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 8,
+    "images": 0,
+    "textures": 0,
+    "texcoordPrimitives": 0,
+    "triangles": 23816,
+    "bounds": {
+      "min": [
+        -11.554999,
+        -0.0,
+        -6.725
+      ],
+      "max": [
+        11.554999,
+        13.84,
+        7.90125
+      ]
+    },
+    "transformedNodes": []
+  },
+  "blendTopology": {
+    "vertices": 13100,
+    "polygons": 11952,
+    "materials": 8,
+    "areaEpsilon": 1e-10,
+    "facesBelowEpsilon": 0,
+    "minimumValidFaceArea": 0.000001981060677280766,
+    "nonfinitePolygonNormals": 0,
+    "degenerateFacesRemovedProperty": 4,
+    "rootLocation": [0, 0, 0],
+    "rootRotation": [0, 0, 0],
+    "rootScale": [1, 1, 1]
+  },
+  "mcp3": {
+    "status": "pass",
+    "interactiveReview": "Blender MCP",
+    "visualChecks": [
+      "full-width main roof and second red gallery roof",
+      "double veranda columns and white balustrade",
+      "central recessed loggia and symmetric window groups",
+      "black and gold Xinhua 200 sign, paired lions and entrance lights",
+      "low glass side wings",
+      "evidence-limited side and rear remain deliberately low detail",
+      "Hero Identity and Massing preserve silhouette origin front and scale semantics"
+    ],
+    "screenshots": {
+      "canonical": {
+        "path": "test_artifacts/test_film-art-center-identity_mcp3_recheck_canonical.png",
+        "sha256": "837f25b003910721aa128cf6ae9f816b2c9cb0a94ffdc80dde08fba6dd70ef25",
+        "bytes": 768286
+      },
+      "side": {
+        "path": "test_artifacts/test_film-art-center-identity_mcp3_recheck_side.png",
+        "sha256": "08397bb78b4f3504ef7da421dacb6a14a0dd090c6181b106424a6ff27058d9f6",
+        "bytes": 747393
+      },
+      "entrance": {
+        "path": "test_artifacts/test_film-art-center-identity_mcp3_recheck_entrance.png",
+        "sha256": "fb594df80fd441893891867cc8b32bd3299f5bd81ef63ce899630aa40d0b48d3",
+        "bytes": 725557
+      }
+    },
+    "acceptedInteractiveChanges": [],
+    "qaRigSaved": false,
+    "qaRigExported": false
+  },
+  "budgets": {
+    "maxNodes": 4,
+    "maxTriangles": 24000,
+    "maxMaterials": 8,
+    "maxImages": 0,
+    "maxBytes": 1600000
+  },
+  "runtime": {
+    "status": "pass-main-window-real-browser",
+    "qaRecord": "docs/research/film-art-center-three-tier-runtime-qa.json",
+    "metrics": "test_artifacts/test_film-art-center_three-tier_runtime_metrics.json",
+    "productionStrategy": "derived-glb",
+    "productionLocalPosition": [0, 0, 0],
+    "qaDirectGlbLocalPosition": [0, 0, 0],
+    "fallbackLocalPosition": [0, 0, -2.25],
+    "loadedTierScreenshots": {
+      "hero": "test_artifacts/test_film-art-center_runtime_hero_1280x800.png",
+      "identity": "test_artifacts/test_film-art-center_runtime_identity_1280x800.png",
+      "massing": "test_artifacts/test_film-art-center_runtime_massing_1280x800.png"
+    },
+    "fallbackScreenshot": "test_artifacts/test_film-art-center_runtime_identity_fallback_scoped_1280x800.png",
+    "productionFailureFallbackScreenshot": "test_artifacts/test_film-art-center_runtime_production_identity_fallback_1280x800.png",
+    "productionIdentityScreenshot": "test_artifacts/test_film-art-center_runtime_production_identity_1280x800.png"
+  },
+  "gates": {
+    "headlessBuild": "pass",
+    "glbAudit": "pass",
+    "deterministicGlb": {
+      "status": "pass",
+      "method": "two consecutive clean single-asset builds plus cmp",
+      "sha256": "a4d37446e27225815624e6382048ed1dc341f1e079f089755ed5fb68e520e869"
+    },
+    "fixedViewCandidateReview": "pass",
+    "mcp3": "pass",
+    "threeTierRuntime": "pass-main-window-real-browser"
+  }
+}

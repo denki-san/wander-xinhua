@@ -684,6 +684,30 @@ export function stepSpringArmLength(
   return safeCurrent + (safeTarget - safeCurrent) * dampingFactor(recoveryLambda, delta);
 }
 
+/**
+ * 镜头臂在狭窄空间被压到角色体积附近时，改为平滑抬高镜头。
+ * 水平位置仍完全服从 spring arm 的安全结果，因此不会越过墙体；
+ * 只增加垂直净空，避免镜头停在角色胸腔内。
+ */
+export function narrowSpaceCameraLift(
+  resolvedArmLength: number,
+  liftStartsAt = 1.45,
+  fullLiftAt = 0.75,
+  maximumLift = 1.8,
+) {
+  const safeStart = Math.max(0, liftStartsAt);
+  const safeFull = Math.max(0, Math.min(safeStart, fullLiftAt));
+  const safeMaximum = Math.max(0, maximumLift);
+  if (resolvedArmLength >= safeStart || safeMaximum === 0) return 0;
+  if (resolvedArmLength <= safeFull || safeStart - safeFull < 1e-9) {
+    return safeMaximum;
+  }
+  const progress = (safeStart - resolvedArmLength) / (safeStart - safeFull);
+  // smoothstep 避免进入/离开狭廊时产生垂直跳变。
+  const eased = progress * progress * (3 - 2 * progress);
+  return safeMaximum * eased;
+}
+
 /** 探索态按视口设置垂直 FOV：横屏保持 58°，窄竖屏平滑提升但不超过 62°。 */
 export function explorationVerticalFov(width: number, height: number) {
   const aspect = Math.max(0.1, width) / Math.max(1, height);

@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "status": "passed-static-map-recommendation-awaiting-main-runtime",
+  "generatedAt": "2026-07-26T02:26:03+08:00",
+  "sources": {
+    "osmSnapshot": "docs/research/data/requested-pois-osm-20260717-103840.json",
+    "osmWayId": 494633921,
+    "mapData": "app/scene/xinhua-map-data.json",
+    "panyuRoadOsmWayId": 11960339,
+    "buildRecord": "docs/research/build-records/hudec-memorial-massing.json"
+  },
+  "recommendation": {
+    "position": [
+      92.535374,
+      -132.52181
+    ],
+    "yawRadians": 0.153486288,
+    "yawDegrees": 8.794117,
+    "scale": 0.88,
+    "sourceGlbPositionBounds": {
+      "min": [
+        -6.300000190734863,
+        -1.4901161193847656e-8,
+        -5.148000240325928
+      ],
+      "max": [
+        6.300000190734863,
+        8.978400230407715,
+        5.6519999504089355
+      ]
+    },
+    "runtimeLocalBounds": {
+      "minX": -6.3,
+      "maxX": 6.3,
+      "minZ": -5.652,
+      "maxZ": 5.148
+    },
+    "runtimeFootprint": [
+      [
+        86.296139,
+        -136.589508
+      ],
+      [
+        97.253789,
+        -138.28469
+      ],
+      [
+        98.706802,
+        -128.892418
+      ],
+      [
+        87.749152,
+        -127.197236
+      ]
+    ]
+  },
+  "osmCalibration": {
+    "polygonCentroid": [
+      92.908003,
+      -132.44335
+    ],
+    "orientedCenter": [
+      92.50147,
+      -132.740963
+    ],
+    "projectedFootprint": [
+      [
+        87.376835,
+        -127.256104
+      ],
+      [
+        98.915175,
+        -129.041121
+      ],
+      [
+        97.698572,
+        -137.757404
+      ],
+      [
+        89.834727,
+        -137.020471
+      ],
+      [
+        86.823192,
+        -132.123959
+      ]
+    ],
+    "majorEdge": {
+      "lengthSceneUnits": 11.675598,
+      "yawRadians": 0.153486288,
+      "evidence": "OSM way 494633921 最长边，与西立面证据共同约束建筑东西长轴。"
+    },
+    "orientedWidthSceneUnits": 11.80588,
+    "orientedDepthSceneUnits": 9.273804
+  },
+  "roadGate": {
+    "status": "pass",
+    "asphaltHalfWidthSceneUnits": 3.625,
+    "osmFootprintToRoadCenterlineSceneUnits": 14.268925,
+    "modelToRoadCenterlineSceneUnits": 13.80198,
+    "osmFootprintToAsphaltEdgeSceneUnits": 10.643925,
+    "modelToAsphaltEdgeSceneUnits": 10.17698,
+    "setbackDeltaSceneUnits": -0.466945,
+    "note": "建议模型退界复现 OSM footprint 自身退界，不压机动车道，也没有因手工锚点额外远离番禺路。"
+  },
+  "orientationGate": {
+    "status": "pass-static-evidence",
+    "rejectedLegacyYawRadians": 1.5707963267948966,
+    "frontWorldVector": [
+      -0.152884,
+      -0.988244
+    ],
+    "note": "旧 yaw=π/2 会把证据支持的东西长轴旋转近 90°；建议 yaw 来自 OSM 最长边，local -Y 入口面保持与西后侧证据一致。"
+  },
+  "collisionRecommendation": {
+    "status": "pass-static-geometry",
+    "collisionMargin": 0.2,
+    "playerRadius": 0.48,
+    "requiredEntranceGap": 1.36,
+    "localEntranceGap": 1.5912,
+    "worldEntranceGap": 1.400256,
+    "remainingClearance": 0.040256,
+    "localObstacles": [
+      {
+        "id": "main-body",
+        "minX": -4.608,
+        "maxX": 4.104,
+        "minZ": -2.988,
+        "maxZ": 2.052
+      },
+      {
+        "id": "end-wing",
+        "minX": 2.016,
+        "maxX": 4.752,
+        "minZ": -3.42,
+        "maxZ": 1.62
+      },
+      {
+        "id": "low-glass-wing",
+        "minX": -4.5,
+        "maxX": -0.9,
+        "minZ": -3.762,
+        "maxZ": -1.35
+      },
+      {
+        "id": "entrance-left",
+        "minX": 0.738,
+        "maxX": 1.1124,
+        "minZ": 1.926,
+        "maxZ": 3.186
+      },
+      {
+        "id": "entrance-right",
+        "minX": 2.7036,
+        "maxX": 3.078,
+        "minZ": 1.926,
+        "maxZ": 3.186
+      },
+      {
+        "id": "street-wall-left",
+        "minX": -6.048,
+        "maxX": -2.448,
+        "minZ": 4.5216,
+        "maxZ": 4.9104
+      },
+      {
+        "id": "street-wall-right",
+        "minX": 2.448,
+        "maxX": 6.048,
+        "minZ": 4.5216,
+        "maxZ": 4.9104
+      }
+    ],
+    "worldObstacles": [
+      {
+        "id": "main-body",
+        "minX": 87.926004,
+        "maxX": 96.58051,
+        "minZ": -135.872483,
+        "maxZ": -129.917326
+      },
+      {
+        "id": "end-wing",
+        "minX": 93.628477,
+        "maxX": 97.085926,
+        "minZ": -136.335355,
+        "maxZ": -131.184198
+      },
+      {
+        "id": "low-glass-wing",
+        "minX": 87.915795,
+        "maxX": 91.771058,
+        "minZ": -135.872367,
+        "maxZ": -132.890422
+      },
+      {
+        "id": "entrance-left",
+        "minX": 93.2363,
+        "maxX": 94.131417,
+        "minZ": -131.196515,
+        "maxZ": -129.650379
+      },
+      {
+        "id": "entrance-right",
+        "minX": 94.945693,
+        "maxX": 95.84081,
+        "minZ": -131.460963,
+        "maxZ": -129.914827
+      },
+      {
+        "id": "street-wall-left",
+        "minX": 87.68403,
+        "maxX": 91.267096,
+        "minZ": -128.460229,
+        "maxZ": -127.23777
+      },
+      {
+        "id": "street-wall-right",
+        "minX": 95.072617,
+        "maxX": 98.655683,
+        "minZ": -129.603266,
+        "maxZ": -128.380807
+      }
+    ],
+    "excluded": [
+      "ground datum",
+      "roof and dormers",
+      "chimney already overlapped by main/low-wing blockers",
+      "trees and decor"
+    ]
+  },
+  "integrationBoundary": {
+    "publicRegistryEdited": false,
+    "runtimeEdited": false,
+    "mcp1RequiredBeforeRuntimeGate": true
+  }
+}

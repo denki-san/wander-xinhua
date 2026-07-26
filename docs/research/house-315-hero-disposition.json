@@ -1,0 +1,399 @@
+{
+  "schemaVersion": 1,
+  "assetId": "house-315",
+  "scope": "exact-18-building-program-house-315-only",
+  "auditedAt": "2026-07-25",
+  "auditMode": "read-only-no-rebuild-no-blender-mcp",
+  "status": "blocked-not-mcp2-candidate-rebuild-required",
+  "activeReplacementStatus": "hero-v2-identity-v1-massing-v2-complete-runtime-pass",
+  "decision": {
+    "sameIntendedSubjectAsApprovedMassing": true,
+    "sameGeometryContractAsApprovedMassing": false,
+    "crossBuildingMisbound": false,
+    "mcp2Candidate": false,
+    "mcp2Requested": false,
+    "identityAuthorized": false,
+    "heroConstructionAuthorizedByThisDisposition": false,
+    "legacyHeroDisposition": "hold-read-only-rollback-only",
+    "publicRegistryAction": "retain-existing-legacy-hero-without-worktree-change",
+    "nextGate": "main-window-reopens-hero-evidence-contract-then-new-hero-v2-candidate"
+  },
+  "replacementCandidate": {
+    "version": "hero-v2",
+    "status": "mcp2-pass",
+    "sourceCommit": "e258a02a9ace4dbc34ce2978dcadcb4112370939",
+    "generator": {
+      "path": "scripts/create_house_315_hero_model.py",
+      "sha256": "61e3aa5188e6aba14e0eabf58aa1cd19ba0980b812b62b79dc894d52cccd068f"
+    },
+    "editableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/hero-v2/house-315-hero.blend",
+      "sha256": "2750b3c876fa651ce1fd0ed09f8e9a5557804b8e2783839f6ed63a740cd756b6"
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/xinhua-road/hero-v2/house-315-hero.glb",
+      "sha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+      "bytes": 212908
+    },
+    "derivedMassingGlbSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+    "mcp2": {
+      "status": "pass",
+      "gateRecord": "docs/research/house-315-blender-mcp-gates.json#heroGate",
+      "acceptedInteractiveChanges": [],
+      "qaRigSaved": false,
+      "qaRigExported": false
+    },
+    "legacyHeroDisposition": "hold-read-only-rollback-only",
+    "legacyHeroOverwritten": false,
+    "identityLineage": {
+      "status": "identity-v1-complete-runtime-pass",
+      "identityDerivationAuthorized": true,
+      "identityDerivationStarted": true,
+      "identityCandidateCompleted": true,
+      "generator": {
+        "path": "scripts/create_house_315_identity_model.py",
+        "sha256": "19fe2646b02767fb5495b19ecf979a07d2eed35acf009476e33172160dd72e51"
+      },
+      "editableSource": {
+        "path": "assets/models/source/tiers/xinhua-road/identity-v1/house-315-identity.blend",
+        "sha256": "79cc36080e835af913864fcfddca2763f0173df5bb7c107a54a662d241506a60",
+        "bytes": 109984
+      },
+      "runtimeAsset": {
+        "path": "public/models/tiers/xinhua-road/identity-v1/house-315-identity.glb",
+        "sha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+        "bytes": 62288,
+        "triangles": 776,
+        "materials": 6,
+        "images": 0
+      },
+      "buildRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json",
+      "tierLineage": "docs/research/house-315-tier-lineage.json",
+      "mcp3": "pass",
+      "identityFormalPass": true,
+      "runtimeAuthorized": true,
+      "runtimeExecutionStarted": true,
+      "runtimeIntegrated": true,
+      "publicRegistryModified": true,
+      "runtimeAcceptance": "docs/research/house-315-three-tier-runtime-qa.json#runtimeAcceptance"
+    },
+    "publicRegistryModified": true,
+    "runtimeIntegrated": true
+  },
+  "formalSubjectContract": {
+    "referenceManifest": "docs/research/house-315-reference-manifest.json",
+    "modelBrief": "docs/research/house-315-model-brief.md",
+    "approvedMassingRecord": "docs/research/build-records/tiers/xinhua-road/massing-v2/house-315-massing.json",
+    "approvedMassingMapQa": "docs/research/house-315-massing-map-qa.json",
+    "requiredCues": [
+      "central-tall-projecting-half-timber-gable",
+      "connected-transverse-main-ridge-and-steep-red-tile-roof-hierarchy",
+      "asymmetric-long-right-wing-and-short-left-rear-wing",
+      "upper-white-roughcast-over-lower-red-brick",
+      "street-entrance-and-main-gable-relationship"
+    ],
+    "addressPlaqueBoundary": "The plaque is subject-binding evidence, not authorization to copy protected text or signage into the GLB.",
+    "excludedScope": [
+      "trees",
+      "shrubs",
+      "grass",
+      "walls",
+      "gates",
+      "fences",
+      "lamps",
+      "planters",
+      "decorative-paving",
+      "other-buildings",
+      "ordinary-osm",
+      "full-map-assets"
+    ]
+  },
+  "legacyHero": {
+    "editableSource": {
+      "path": "assets/models/source/xinhua-road/house-315.blend",
+      "sha256": "2e3a30f75dc57f9702edd712201840368ca9b4f0b405f4d21284a2e4bd6edcd2",
+      "bytes": 1928510,
+      "fileHeader": "Blender3D-64-bit-little-endian-version-4.05",
+      "modifiedByProducingCommit": true
+    },
+    "runtimeAsset": {
+      "path": "public/models/xinhua-road/house-315.glb",
+      "sha256": "9d407a35c10bfa232d2a5a91ecae4886a9b146cdabec801319c7dc5530b67b07",
+      "bytes": 1603468,
+      "modifiedByProducingCommit": true
+    },
+    "generator": {
+      "path": "scripts/create_xinhua_road_models.py",
+      "auditSnapshotSha256": "6ea5fc19f98f6339d83063bafea9c0edd66ca07d2bb171be08f61d63fed3488d",
+      "shaScope": "historical-disposition-worktree-snapshot-not-current-shared-file-contract",
+      "producingCommitSha256": "c731e80854480b68634bf94f640e2c16bac4a759e76e86a72e9acf99132ace11",
+      "house315FunctionSha256": "7552dd510b5845cad1ee531e8ec600cdd96d673cb37b17b1429fd7d28c6696cc",
+      "house315FunctionByteIdenticalToProducingCommit": true,
+      "fullGeneratorByteIdenticalToProducingCommit": false,
+      "note": "315号函数本体未漂移，但共享生成器随后因其他地标、影城和梧桐工作发生变化；旧 Hero 没有资产级 build record 锁定完整生成环境。"
+    },
+    "atomicLineage": {
+      "producingCommit": "e292fde194c2704a9eeaf7e4a8faf192a5d0385e",
+      "producingCommitSubject": "feat: overhaul POI models and references",
+      "producingCommitDate": "2026-07-18T07:30:14+08:00",
+      "sameCommitModified": [
+        "assets/models/source/xinhua-road/house-315.blend",
+        "public/models/xinhua-road/house-315.glb",
+        "scripts/create_xinhua_road_models.py",
+        "test_artifacts/test_house-315_preview.png"
+      ],
+      "binaryAssetsUnchangedSinceProducingCommit": true,
+      "legacyBuildRecordExpectedPaths": [
+        "docs/research/build-records/house-315.json",
+        "docs/research/build-records/tiers/xinhua-road/hero/house-315.json"
+      ],
+      "legacyBuildRecordExists": false,
+      "nonBuildRecordReferences": [
+        "research/house-315-model-brief.md",
+        "docs/research/model-detail-baseline.json",
+        "docs/research/model-detail-upgrade.json"
+      ]
+    }
+  },
+  "subjectAudit": {
+    "status": "same-intended-subject-but-structurally-insufficient",
+    "supportedLegacyCues": [
+      "steep-connected-red-tile-roofs",
+      "front-half-timber-gable",
+      "upper-white-over-lower-red-brick",
+      "chimney-and-deep-eave-language"
+    ],
+    "structuralMismatches": [
+      "The generator uses one main block, one off-center cross gable and one right hip-roof bay instead of the evidence-supported central tall gable, transverse spine and asymmetric wing hierarchy.",
+      "The right long wing and short left-rear wing visible in the aerial evidence are not represented with the approved Massing proportions.",
+      "The legacy porch door and canopy are an extrapolated entrance arrangement and do not reproduce the tall central opening, street gate and gable relationship shown by the entrance evidence.",
+      "The hidden side and rear geometry remain legacy extrapolations rather than evidence-bounded unknowns."
+    ],
+    "addressBinding": {
+      "evidence": "docs/research/assets/poi-references/house-315/house-315-address-sign-jfdaily-2026.jpg",
+      "legacyAssetLineageRecordsBinding": false,
+      "legacyAssetCopiesPlaqueText": false,
+      "finding": "The plaque closes the current subject identity, but the 2026 evidence was not part of the legacy producing commit."
+    },
+    "comparisonVerdict": "The old Hero was intentionally authored for House315 rather than another landmark, but it cannot represent the approved House315 subject contract at MCP2."
+  },
+  "scopePollution": {
+    "status": "fail-baked-into-single-runtime-mesh",
+    "explicitTrees": 0,
+    "explicitStandaloneShrubs": 0,
+    "bakedOutOfScopeContent": {
+      "fullGardenSlab": 1,
+      "fenceRuns": 2,
+      "gateRuns": 2,
+      "lampPosts": 2,
+      "plantersWithFoliage": 2,
+      "decorativePavingGrid": true
+    },
+    "generatorEvidence": [
+      "house315-garden",
+      "house315-front-fence-left/right",
+      "house315-gate-left/right",
+      "house315-entry-lamp-*",
+      "house315-planter-left/right",
+      "house315-entry-paving"
+    ],
+    "materialEvidence": [
+      "315基座",
+      "315铁艺",
+      "315入口灯",
+      "315花园绿植",
+      "315铺装缝"
+    ],
+    "selectiveRuntimeRemovalPossible": false,
+    "reason": "建筑与范围外场地对象在导出前合并为单一 house-315 mesh，不能在运行时安全拆除。"
+  },
+  "glbAudit": {
+    "bundledAuditCommand": "python3 /Users/lei/.codex/skills/photo-reference-webgl-modeling/scripts/audit_glb.py public/models/xinhua-road/house-315.glb --forbid-images --max-nodes 8",
+    "bundledAuditStatus": "pass-container-policy-only",
+    "structure": {
+      "scenes": 1,
+      "nodes": 1,
+      "meshes": 1,
+      "primitives": 14,
+      "materials": 14,
+      "images": 0,
+      "textures": 0,
+      "animations": 0,
+      "skins": 0,
+      "triangles": 23512
+    },
+    "root": {
+      "name": "house-315",
+      "translation": [0, 0, 0],
+      "rotation": [0, 0, 0, 1],
+      "scale": [1, 1, 1],
+      "explicitTransformProperties": [],
+      "status": "pass-normalized"
+    },
+    "boundsGltfAxes": {
+      "min": [-9.25, -0.054999999701976776, -6.700000286102295],
+      "max": [9.25, 9.989999771118164, 9.5],
+      "groundDatumStatus": "fail-min-y-below-zero"
+    },
+    "topology": {
+      "nonFinitePositions": 0,
+      "invalidIndices": 0,
+      "zeroAreaTriangles": 120,
+      "zeroAreaByMaterial": {
+        "315浅石材": 96,
+        "315铁艺": 24
+      },
+      "status": "fail-zero-area-triangles"
+    },
+    "normals": {
+      "primitivesWithoutNormals": 0,
+      "zeroLengthNormals": 0,
+      "nonUnitNormals": 0,
+      "faceVertexOrientationMismatches": 0,
+      "status": "pass"
+    },
+    "formalHeroBudget": {
+      "definedInCurrentAssetBrief": false,
+      "status": "blocked-no-formal-hero-budget"
+    }
+  },
+  "blendAudit": {
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background assets/models/source/xinhua-road/house-315.blend --python scripts/test_house_315_hero_blend_audit.py",
+    "mode": "read-only-no-save",
+    "blenderVersion": "5.2.0 LTS",
+    "scene": {
+      "meshObjects": 1,
+      "rootName": "house-315",
+      "rootLocation": [0, 0, 0],
+      "rootRotationEuler": [0, 0, 0],
+      "rootScale": [1, 1, 1],
+      "vertices": 12562,
+      "polygons": 10943,
+      "loopTriangles": 23512,
+      "materials": 14
+    },
+    "boundsBlenderAxes": {
+      "min": [-9.25, -9.5, -0.055],
+      "max": [9.25, 6.700000286, 9.989999771]
+    },
+    "topology": {
+      "zeroAreaPolygonsBelow1e10": 60,
+      "zeroAreaTrianglesBelow1e10": 120,
+      "nonFinitePositions": 0,
+      "nonFinitePolygonNormals": 0,
+      "nonFiniteTriangleNormals": 0,
+      "trianglePolygonOrientationMismatches": 0,
+      "status": "fail-zero-area-polygons"
+    }
+  },
+  "approvedMassingComparison": {
+    "record": "docs/research/build-records/tiers/xinhua-road/massing-v2/house-315-massing.json",
+    "runtimeAssetSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+    "boundsBlenderAxes": {
+      "min": [-7.675, -4.84, 0],
+      "max": [7.225, 4.575, 6.982892]
+    },
+    "legacyHeroEnvelopeMismatch": true,
+    "legacyHeroGroundDatumMismatch": true,
+    "legacyHeroPassageAndCollisionSemanticsMatch": false,
+    "finding": "The Hero envelope is dominated by its full garden slab and site decor and cannot switch against the accepted Massing without visible and collision popping."
+  },
+  "fixedViewAudit": {
+    "referenceCoverage": {
+      "canonicalFront": "supported-by-official-2023-front",
+      "sideOrDepth": "supported-for-massing-by-jfdaily-2026-aerial-only-hidden-rear-remains-unknown",
+      "entranceAndAddress": "supported-by-jfdaily-2026-images-243-and-244",
+      "rearDetail": "unknown"
+    },
+    "legacyGenericPreview": {
+      "path": "test_artifacts/test_house-315_preview.png",
+      "sha256": "8297d83db69849385a0665738cc38bec21d025563507ece066f8ae1963496b6a",
+      "bytes": 737040,
+      "dimensions": [900, 700],
+      "status": "generic-oblique-not-formal-canonical-side-or-entrance"
+    },
+    "legacyRuntimeComparison": {
+      "path": "docs/research/assets/landmark-comparison/house-315-runtime.png",
+      "sha256": "e5de198ed49f90f4e671d57df9504cf0620904d17b17400e6f77738b687d6c97",
+      "bytes": 84750,
+      "declaredExtension": "png",
+      "actualEncoding": "jpeg",
+      "dimensions": [1280, 720],
+      "status": "front-ish-map-context-only-no-fixed-camera-contract"
+    },
+    "missingViews": [
+      "formal-hero-canonical",
+      "formal-hero-side-depth",
+      "formal-hero-entrance-identity-detail",
+      "same-camera-hero-vs-approved-massing"
+    ]
+  },
+  "legacyTestBoundary": {
+    "test": "tests/test_xinhua_road_models.test.mjs",
+    "status": "minimum-size-detail-test-not-hero-quality-proof",
+    "covered": [
+      "minimum-glb-bytes",
+      "minimum-triangle-count",
+      "minimum-material-count"
+    ],
+    "notCovered": [
+      "subject-structure",
+      "formal-evidence-match",
+      "scope-pollution",
+      "zero-area-triangles",
+      "fixed-view-coverage",
+      "hero-to-massing-lineage",
+      "tier-transform-and-collision-popping"
+    ]
+  },
+  "blockers": [
+    {
+      "priority": "P0",
+      "id": "subject-structure",
+      "detail": "旧 Hero 是单主块、偏置横山墙和右侧凸窗，不满足已闭合证据中的中央高山墙、横向脊体与非对称翼层级。"
+    },
+    {
+      "priority": "P0",
+      "id": "scope-pollution",
+      "detail": "整块庭院、围栏、门、灯、花箱和铺装已合并进单一 Hero mesh。"
+    },
+    {
+      "priority": "P1",
+      "id": "topology",
+      "detail": "Blend / GLB 均复算为120个零面积三角面；法线有限且方向 mismatch 为0。"
+    },
+    {
+      "priority": "P1",
+      "id": "tier-contract",
+      "detail": "旧 Hero 与已通过地图门的 Massing 在包络、ground datum、主体体量和通行/碰撞语义上不一致。"
+    },
+    {
+      "priority": "P1",
+      "id": "provenance-and-fixed-views",
+      "detail": "没有资产级 Hero build record、正式 Hero 预算或 canonical/side/entrance 固定机位证据组。"
+    }
+  ],
+  "rebuildPlan": {
+    "preserveLegacyWithoutOverwrite": [
+      "assets/models/source/xinhua-road/house-315.blend",
+      "public/models/xinhua-road/house-315.glb",
+      "scripts/create_xinhua_road_models.py",
+      "test_artifacts/test_house-315_preview.png"
+    ],
+    "newPaths": {
+      "generator": "scripts/create_house_315_hero_model.py",
+      "editableSource": "assets/models/source/tiers/xinhua-road/hero-v2/house-315-hero.blend",
+      "runtimeAsset": "public/models/tiers/xinhua-road/hero-v2/house-315-hero.glb",
+      "buildRecord": "docs/research/build-records/tiers/xinhua-road/hero-v2/house-315-hero.json"
+    },
+    "orderedSteps": [
+      "由主窗口先决定是否以当前 canonical、俯瞰和入口证据重新开放 Hero evidence contract；隐藏背面保持 Unknown。",
+      "从已通过 MCP1 和地图门的 Massing 继承 origin、pivot、local-negative-y、ground-zero、体量层级和四个分体碰撞语义。",
+      "只增加照片直接支持的半木构、红瓦屋面、上白下红墙体、开口节奏和入口关系。",
+      "不生成树木、灌木、草坪、围栏、门、灯、花箱、装饰铺装、ordinary OSM 或其他建筑。",
+      "要求 zero-area=0、non-finite=0、normal-orientation-mismatch=0、根变换归一且 ground datum=0。",
+      "生成独立 canonical、side-depth、entrance-detail 固定机位和参考/Blender/Massing 对照，冻结新 SHA 与资产级 build record。",
+      "仅当 blocker 全部关闭后向主窗口申请串行 Blender MCP2；MCP2 通过前 Identity 继续锁定。"
+    ]
+  }
+}

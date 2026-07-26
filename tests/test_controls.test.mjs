@@ -366,6 +366,8 @@ test("进入游玩态时立即切到低位后肩镜头且视觉合成器不重�
   assert.match(world, /normalizeWheelDeltaY\(/);
   assert.match(world, /const CHARACTER_MAX_TURN_SPEED = 8\.5/);
   assert.match(world, /resolvedArmLength\.current \?\? collisionArmLength/);
+  assert.match(world, /narrowSpaceCameraLift\(currentResolvedArmLength\)/);
+  assert.match(world, /addScaledVector\(WORLD_UP, narrowSpaceLift\)/);
   assert.doesNotMatch(world, /Math\.max\(6\.4, zoom\.current/);
   assert.doesNotMatch(world, /driveSignature|CAMERA_FALLBACK_YAWS|lastSafeCameraPosition/);
   assert.doesNotMatch(world, /addScaledVector\(currentForward, -0\.52\)/);

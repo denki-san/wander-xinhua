@@ -1,0 +1,364 @@
+{
+  "schemaVersion": 1,
+  "assetId": "house-315",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "aada3c412d10f822305c2e3410435f3b00278c2c",
+  "status": "complete-preserved-no-rework",
+  "scope": {
+    "mode": "final-gap-audit",
+    "binaryRebuilt": false,
+    "blenderMcpRepeated": false,
+    "browserRepeated": false,
+    "sharedFilesModified": false,
+    "excluded": [
+      "shared registry",
+      "shared runtime",
+      "Fast manifest",
+      "trees",
+      "decorations",
+      "ordinary OSM runtime",
+      "full-map assets",
+      "Recovery/Hold",
+      "other buildings"
+    ]
+  },
+  "recordPrecedence": [
+    {
+      "rank": 1,
+      "path": "docs/research/house-315-final-audit.json",
+      "role": "current final reconciliation"
+    },
+    {
+      "rank": 2,
+      "path": "docs/research/house-315-three-tier-runtime-qa.json",
+      "role": "main-window final tier, fallback, recalibrated map, collision and performance acceptance"
+    },
+    {
+      "rank": 3,
+      "path": "docs/research/house-315-map-position-candidate.json",
+      "role": "immutable pre-integration OSM placement candidate; its runtime-pending fields are historical and superseded"
+    },
+    {
+      "rank": 4,
+      "path": "docs/research/house-315-tier-lineage.json",
+      "role": "binary tier lineage and MCP3 authority; its old 0.9 placement snapshot is superseded"
+    },
+    {
+      "rank": 5,
+      "path": "docs/research/house-315-blender-mcp-gates.json",
+      "role": "MCP1, MCP2 and MCP3 visual gate authority"
+    }
+  ],
+  "inputs": {
+    "referenceManifest": {
+      "path": "docs/research/house-315-reference-manifest.json",
+      "sha256": "8a3c1e1affaa9714fe99f7e01e90ef216cf22d80f3b697632cb73a48e5b5fe1f"
+    },
+    "modelBrief": {
+      "path": "docs/research/house-315-model-brief.md",
+      "sha256": "1f78f8503ae0b01e45e9946cda13ab4f519f19b1a3bd6a98f7b2a0add2d3f3fc"
+    },
+    "tierLineage": {
+      "path": "docs/research/house-315-tier-lineage.json",
+      "sha256": "7366b56912af2c16618e1e00951b673267109a3f3aab5e46cce8de811a582716"
+    },
+    "mcpGates": {
+      "path": "docs/research/house-315-blender-mcp-gates.json",
+      "sha256": "e481acadc29596aaa5ec1e9bb3b35cb7d18e18d4ae28412b0cae2081eb3a22a4"
+    },
+    "mapCandidate": {
+      "path": "docs/research/house-315-map-position-candidate.json",
+      "sha256": "71241fc637840d22e5fe57cffca48a550eee4699c8848377773f074238cb5e17"
+    },
+    "runtimeQa": {
+      "path": "docs/research/house-315-three-tier-runtime-qa.json",
+      "sha256": "dd93deca6e096bc2d3c1992b592bc98e498ae5007afd06a00eeeb7835050bbfa"
+    },
+    "rawOsm": {
+      "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+      "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c"
+    },
+    "tierContract": {
+      "path": "app/scene/house-315-tier-contract.mjs",
+      "sha256": "39e95651e25602cb699115f939fedcc96497ea47f8dd1c0118bd85653b3c1fe0"
+    },
+    "runtimeModule": {
+      "path": "app/scene/house-315-runtime.tsx",
+      "sha256": "ff58ae88cc5bda3be8f54791fec53fcaed9d5b75f91e5195b185d859b4f00d40"
+    },
+    "publicRegistry": {
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "f87c8fde941c71c6876bba4e7a50cf9177c5b7d11163822c4f4ac906568d9fa6"
+    }
+  },
+  "evidenceGate": {
+    "status": "pass-preserved",
+    "localReferenceCount": 6,
+    "coverage": {
+      "canonical": "pass",
+      "sideOrDepth": "pass-aerial",
+      "entranceAndAddress": "pass",
+      "identityDetail": "pass",
+      "rear": "partial-held-low-detail",
+      "surveyedDimensions": "unknown"
+    },
+    "observed": [
+      "官方正面、上观俯瞰、门牌、入口和外立面证据共同绑定新华路315号住宅。",
+      "陡坡相连红瓦屋顶、中央半木构山墙、上白下红立面和不对称侧翼跨视角持续可见。"
+    ],
+    "inferred": [
+      "OSM way 864485667 与地址顺序、道路侧别、照片拓扑和 Villa Le Bec 邻接关系共同支持当前 footprint 绑定，置信度为 medium-high。"
+    ],
+    "unknown": [
+      "OSM way 864485667 没有 addr:housenumber 或 name 标签。",
+      "没有权威地籍或测绘尺寸。",
+      "建造年代存在 1930 与 1949 的来源冲突。",
+      "完整背立面和隐藏屋顶细节未知。"
+    ]
+  },
+  "tiers": {
+    "massing": {
+      "version": "massing-v2",
+      "generator": {
+        "path": "scripts/create_house_315_massing_model.py",
+        "sha256": "45c69f7f20d412de3f8f6dd1afef679d4dff81db2e4c0675089f4f6c6af492cf"
+      },
+      "blend": {
+        "path": "assets/models/source/tiers/xinhua-road/massing-v2/house-315-massing.blend",
+        "sha256": "dccd5ad4a5b47e56c08e19be53446a6cb3eb43dc17dc5e10231018a5206b532b"
+      },
+      "glb": {
+        "path": "public/models/tiers/xinhua-road/massing-v2/house-315-massing.glb",
+        "sha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+        "bytes": 17352,
+        "nodes": 1,
+        "meshes": 1,
+        "primitives": 4,
+        "triangles": 176,
+        "materials": 4,
+        "images": 0,
+        "textures": 0
+      },
+      "buildRecord": {
+        "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/house-315-massing.json",
+        "sha256": "8cc9aa5b193f9e433b2368eb9d69a41b8c641df4a0cc5612399525ba569ab5dd"
+      },
+      "gate": "pass-preserved-mcp1-and-map"
+    },
+    "hero": {
+      "version": "hero-v2",
+      "derivedFromMassingGlbSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+      "generator": {
+        "path": "scripts/create_house_315_hero_model.py",
+        "sha256": "61e3aa5188e6aba14e0eabf58aa1cd19ba0980b812b62b79dc894d52cccd068f"
+      },
+      "blend": {
+        "path": "assets/models/source/tiers/xinhua-road/hero-v2/house-315-hero.blend",
+        "sha256": "2750b3c876fa651ce1fd0ed09f8e9a5557804b8e2783839f6ed63a740cd756b6"
+      },
+      "glb": {
+        "path": "public/models/tiers/xinhua-road/hero-v2/house-315-hero.glb",
+        "sha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+        "bytes": 212908,
+        "nodes": 1,
+        "meshes": 1,
+        "primitives": 6,
+        "triangles": 2936,
+        "materials": 6,
+        "images": 0,
+        "textures": 0
+      },
+      "buildRecord": {
+        "path": "docs/research/build-records/tiers/xinhua-road/hero-v2/house-315-hero.json",
+        "sha256": "1c263f851b6099e8036d78026e47cb7091860139c04463b396204eeb3b3915d7"
+      },
+      "gate": "pass-preserved-mcp2"
+    },
+    "identity": {
+      "version": "identity-v1",
+      "derivedFromHeroGlbSha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+      "derivedFromHeroBlendSha256": "2750b3c876fa651ce1fd0ed09f8e9a5557804b8e2783839f6ed63a740cd756b6",
+      "generator": {
+        "path": "scripts/create_house_315_identity_model.py",
+        "sha256": "19fe2646b02767fb5495b19ecf979a07d2eed35acf009476e33172160dd72e51"
+      },
+      "blend": {
+        "path": "assets/models/source/tiers/xinhua-road/identity-v1/house-315-identity.blend",
+        "sha256": "79cc36080e835af913864fcfddca2763f0173df5bb7c107a54a662d241506a60"
+      },
+      "glb": {
+        "path": "public/models/tiers/xinhua-road/identity-v1/house-315-identity.glb",
+        "sha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+        "bytes": 62288,
+        "nodes": 1,
+        "meshes": 1,
+        "primitives": 6,
+        "triangles": 776,
+        "materials": 6,
+        "images": 0,
+        "textures": 0
+      },
+      "buildRecord": {
+        "path": "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json",
+        "sha256": "584d26861fdd76e61fddf5a1fec0b11e301bfecd0ac0bc65c25e90ee2aa9a37e"
+      },
+      "gate": "pass-preserved-mcp3"
+    },
+    "continuity": {
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "authoredFront": "local-negative-y",
+      "groundDatum": 0,
+      "sceneUnitMeters": 2.7,
+      "bounds": {
+        "min": [
+          -7.675,
+          0,
+          -4.575
+        ],
+        "max": [
+          7.225,
+          6.982892,
+          4.84
+        ]
+      },
+      "status": "pass"
+    }
+  },
+  "strictLineageGate": {
+    "order": "Massing v2 -> Hero v2 -> Identity v1 -> Massing reverified at MCP3",
+    "massingToHeroShaPinned": true,
+    "heroToIdentityShaPinned": true,
+    "sameOriginBoundsFrontAndGroundDatum": true,
+    "identityTriangleReductionRatio": 0.735695,
+    "identityByteReductionRatio": 0.707442,
+    "mcp3FormalPass": true,
+    "status": "pass"
+  },
+  "mapAndCollisionGate": {
+    "osmWayId": 864485667,
+    "bindingConfidence": "medium-high",
+    "placement": {
+      "position": [
+        -20.127789,
+        82.330463
+      ],
+      "yaw": -0.401372,
+      "scale": 0.754254
+    },
+    "road": {
+      "name": "新华路",
+      "modelToAsphaltEdgeSceneUnits": 3.602692,
+      "afterRuntimeCollisionMarginSceneUnits": 3.402692,
+      "status": "pass"
+    },
+    "neighbors": {
+      "villaLeBecRuntimeGapsAfterBothMarginsSceneUnits": [
+        0.099834,
+        0.674188
+      ],
+      "nearestOtherOsmBuildingGapSceneUnits": 2.937019,
+      "status": "pass-no-overlap"
+    },
+    "collision": {
+      "source": "osm-way-864485667-three-rectangle-decomposition",
+      "localObstacleCount": 3,
+      "runtimeReplay": "pass-wall-stop-with-lateral-slide-no-penetration"
+    },
+    "startAndCamera": {
+      "start": [
+        -21.8,
+        67.6
+      ],
+      "forward": [
+        0.152032,
+        0.988376
+      ],
+      "distanceToFootprintSceneUnits": 9.377492,
+      "desiredCameraArmSceneUnits": 5.44,
+      "playerCollisionSafe": true,
+      "cameraAnalyticSafe": true,
+      "runtimeCamera": "pass"
+    },
+    "groundContact": "pass",
+    "status": "pass-main-window-runtime"
+  },
+  "runtimeGate": {
+    "routeBase": "/?start=house315&network=standard&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaModelId=house-315",
+    "tiers": {
+      "hero": "pass",
+      "identity": "pass",
+      "massing": "pass"
+    },
+    "fallback": {
+      "heroToIdentity": "pass-forced-deterministic",
+      "identityToMassing": "pass-forced-deterministic",
+      "massingFloor": "pass-no-lower-tier"
+    },
+    "consoleErrors": 0,
+    "performance": {
+      "tierSampleConditions": {
+        "viewport": [
+          1280,
+          720
+        ],
+        "buildMode": "vite-static-production-preview",
+        "visibility": "visible",
+        "framesPerRoute": 120,
+        "heroFps": 97.1109,
+        "identityFps": 98.9609,
+        "massingFps": 95.5795
+      },
+      "recalibratedMapSample": {
+        "frames": 120,
+        "durationMs": 2005,
+        "fps": 59.850374,
+        "rendererDrawCalls": 245,
+        "rendererTriangles": 759944
+      },
+      "improvementClaimed": false,
+      "status": "pass-recorded-conditions-only"
+    },
+    "status": "pass"
+  },
+  "supersededSnapshots": {
+    "tierLineagePlacement": {
+      "position": [
+        -23.03,
+        85.67
+      ],
+      "yaw": -0.38,
+      "scale": 0.9,
+      "supersededBy": "docs/research/house-315-three-tier-runtime-qa.json#placementRecalibrationAcceptance"
+    },
+    "mapCandidateRuntimePending": {
+      "historicalValue": false,
+      "field": "verdict.finalRuntimeMapPass",
+      "supersededBy": "docs/research/house-315-three-tier-runtime-qa.json#completionBoundary.mapPositionFinalRuntimePass"
+    },
+    "embeddedIdentityExtras": {
+      "historicalMcp3Status": "pending-main-window",
+      "historicalRuntimeIntegrated": false,
+      "supersededBy": "docs/research/house-315-blender-mcp-gates.json#threeTierGate and docs/research/house-315-three-tier-runtime-qa.json"
+    }
+  },
+  "gates": {
+    "evidenceAndBrief": "pass",
+    "massingMcp1": "pass-preserved",
+    "massingMapCalibration": "pass-recalibrated",
+    "heroMcp2": "pass-preserved",
+    "identityDerivation": "pass",
+    "threeTierMcp3": "pass-preserved",
+    "strictLineage": "pass",
+    "roadAndNeighborClearance": "pass",
+    "collisionStartCamera": "pass",
+    "fallback": "pass",
+    "performance": "pass-record-only-no-improvement-claim",
+    "threeJsRuntime": "pass-main-window",
+    "overall": "pass-complete-preserved"
+  },
+  "nextAuthority": "main-window-batch-regression-only-unless-binary-or-public-contract-changes"
+}

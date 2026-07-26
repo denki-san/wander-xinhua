@@ -1,0 +1,749 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-25",
+  "assetId": "house-315",
+  "tier": "hero",
+  "versionName": "hero-v2",
+  "status": "hero-mcp2-identity-v1-mcp3-pass-runtime-complete",
+  "generator": "scripts/create_house_315_hero_model.py",
+  "generatorSha256": "61e3aa5188e6aba14e0eabf58aa1cd19ba0980b812b62b79dc894d52cccd068f",
+  "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_house_315_hero_model.py",
+  "blenderVersion": "5.2.0 LTS",
+  "derivedFrom": {
+    "tier": "massing-v2",
+    "generator": "scripts/create_house_315_massing_model.py",
+    "generatorSha256": "45c69f7f20d412de3f8f6dd1afef679d4dff81db2e4c0675089f4f6c6af492cf",
+    "editableSource": "assets/models/source/tiers/xinhua-road/massing-v2/house-315-massing.blend",
+    "editableSourceSha256": "dccd5ad4a5b47e56c08e19be53446a6cb3eb43dc17dc5e10231018a5206b532b",
+    "runtimeAsset": "public/models/tiers/xinhua-road/massing-v2/house-315-massing.glb",
+    "runtimeAssetSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+    "buildRecord": "docs/research/build-records/tiers/xinhua-road/massing-v2/house-315-massing.json",
+    "mcp1": "formal-pass",
+    "mapQa": "docs/research/house-315-massing-map-qa.json",
+    "mapGate": "formal-pass"
+  },
+  "legacyHeroHold": {
+    "disposition": "docs/research/house-315-hero-disposition.json",
+    "editableSource": "assets/models/source/xinhua-road/house-315.blend",
+    "editableSourceSha256": "2e3a30f75dc57f9702edd712201840368ca9b4f0b405f4d21284a2e4bd6edcd2",
+    "runtimeAsset": "public/models/xinhua-road/house-315.glb",
+    "runtimeAssetSha256": "9d407a35c10bfa232d2a5a91ecae4886a9b146cdabec801319c7dc5530b67b07",
+    "geometryReused": false,
+    "overwritten": false,
+    "deleted": false
+  },
+  "notDerivedFrom": [
+    "legacy Hero geometry",
+    "Recovery voxel Massing",
+    "ordinary OSM",
+    "full-map massing",
+    "other buildings"
+  ],
+  "evidence": {
+    "modelBrief": "docs/research/house-315-model-brief.md",
+    "referenceManifest": "docs/research/house-315-reference-manifest.json",
+    "decisionLog": "docs/research/house-315-decision-log.md",
+    "canonical": "docs/research/assets/poi-references/house-315/house-315-front-official-2023.jpg",
+    "sideDepth": "docs/research/assets/poi-references/house-315/house-315-aerial-jfdaily-2026.jpg",
+    "entrance": "docs/research/assets/poi-references/house-315/house-315-entrance-jfdaily-2026.jpg",
+    "addressBinding": "docs/research/assets/poi-references/house-315/house-315-address-sign-jfdaily-2026.jpg"
+  },
+  "evidenceBoundary": {
+    "observed": [
+      "central tall projecting half-timber gable",
+      "connected transverse steep red-tile roof",
+      "asymmetric long right and short left-rear wings",
+      "upper white roughcast over lower exposed red brick",
+      "tall central opening and front gable relationship",
+      "front roof dormer and visible chimney"
+    ],
+    "inferred": [
+      "window subdivisions and low-detail side opening rhythm",
+      "neutral unlettered plaque proxy beside central opening"
+    ],
+    "unknown": [
+      "hidden rear openings and complete rear facade",
+      "surveyed dimensions and exact construction year",
+      "protected plaque text and logo"
+    ],
+    "omitted": [
+      "street gate and freestanding door",
+      "text or logo on plaque",
+      "trees and vegetation",
+      "full garden slab",
+      "walls and fences",
+      "lamps and planters",
+      "decorative paving",
+      "ordinary OSM and other buildings"
+    ]
+  },
+  "identityCues": [
+    "central tall half-timber gable with upper window",
+    "transverse main ridge and asymmetric wing hierarchy",
+    "white-over-red facade division",
+    "tall central glazed entrance relationship",
+    "front shed dormer and visible chimney"
+  ],
+  "originContract": {
+    "authoredFront": "local-negative-y",
+    "sceneUnitMeters": 2.7,
+    "groundDatum": 0,
+    "runtimePosition": [
+      -23.03,
+      85.67
+    ],
+    "runtimeYaw": -0.38,
+    "runtimeScale": 0.9,
+    "localBounds": {
+      "minX": -7.675,
+      "maxX": 7.225,
+      "minZ": -4.575,
+      "maxZ": 4.84
+    },
+    "fixedCameras": {
+      "canonical": {
+        "location": [
+          3.5,
+          -26.0,
+          11.0
+        ],
+        "target": [
+          -0.3,
+          0.0,
+          2.8
+        ],
+        "orthoScale": 18.5
+      },
+      "sideDepth": {
+        "location": [
+          21.0,
+          -16.0,
+          14.5
+        ],
+        "target": [
+          0.0,
+          0.5,
+          3.1
+        ],
+        "orthoScale": 18.5
+      },
+      "entrance": {
+        "location": [
+          7.5,
+          -19.0,
+          8.5
+        ],
+        "target": [
+          -1.3,
+          -1.5,
+          3.0
+        ],
+        "orthoScale": 13.5
+      }
+    }
+  },
+  "collisionContract": {
+    "source": "docs/research/house-315-massing-map-qa.json",
+    "localBounds": {
+      "minX": -7.675,
+      "maxX": 7.225,
+      "minZ": -4.575,
+      "maxZ": 4.84
+    },
+    "localObstacles": [
+      {
+        "minX": -6.7,
+        "maxX": 6.7,
+        "minZ": -3.5,
+        "maxZ": 2.4
+      },
+      {
+        "minX": -4.475,
+        "maxX": 0.675,
+        "minZ": -2.65,
+        "maxZ": 4.55
+      },
+      {
+        "minX": 3.275,
+        "maxX": 7.025,
+        "minZ": -4.375,
+        "maxZ": 3.075
+      },
+      {
+        "minX": -7.475,
+        "maxX": -3.225,
+        "minZ": -4.35,
+        "maxZ": -0.15
+      }
+    ],
+    "sameAsMassing": true,
+    "entranceAndFrontRecessRemainOpen": true,
+    "bakedCollisionGeometry": false
+  },
+  "scope": {
+    "buildingOnly": true,
+    "sourceComponentCount": 231,
+    "sourceComponents": [
+      "approved-massing-shell",
+      "house315-central-tall-entry-glass",
+      "house315-central-tall-entry-frame-left",
+      "house315-central-tall-entry-frame-right",
+      "house315-central-tall-entry-frame-top",
+      "house315-central-tall-entry-frame-bottom",
+      "house315-central-tall-entry-frame-horizontal",
+      "house315-central-tall-entry-mullion-0",
+      "house315-central-tall-entry-mullion-1",
+      "house315-central-left-window-glass",
+      "house315-central-left-window-frame-left",
+      "house315-central-left-window-frame-right",
+      "house315-central-left-window-frame-top",
+      "house315-central-left-window-frame-bottom",
+      "house315-central-left-window-frame-horizontal",
+      "house315-central-left-window-mullion-0",
+      "house315-central-right-window-glass",
+      "house315-central-right-window-frame-left",
+      "house315-central-right-window-frame-right",
+      "house315-central-right-window-frame-top",
+      "house315-central-right-window-frame-bottom",
+      "house315-central-right-window-frame-horizontal",
+      "house315-central-right-window-mullion-0",
+      "house315-central-upper-window-glass",
+      "house315-central-upper-window-frame-left",
+      "house315-central-upper-window-frame-right",
+      "house315-central-upper-window-frame-top",
+      "house315-central-upper-window-frame-bottom",
+      "house315-central-upper-window-frame-horizontal",
+      "house315-central-upper-window-mullion-0",
+      "house315-address-binding-unlettered-plaque",
+      "house315-central-timber-lower-horizontal",
+      "house315-central-timber-upper-horizontal",
+      "house315-central-timber-post-0",
+      "house315-central-timber-post-1",
+      "house315-central-timber-brace-left",
+      "house315-central-timber-brace-right",
+      "house315-main-spine-front-window-0-glass",
+      "house315-main-spine-front-window-0-frame-left",
+      "house315-main-spine-front-window-0-frame-right",
+      "house315-main-spine-front-window-0-frame-top",
+      "house315-main-spine-front-window-0-frame-bottom",
+      "house315-main-spine-front-window-0-frame-horizontal",
+      "house315-main-spine-front-window-0-mullion-0",
+      "house315-main-spine-front-window-1-glass",
+      "house315-main-spine-front-window-1-frame-left",
+      "house315-main-spine-front-window-1-frame-right",
+      "house315-main-spine-front-window-1-frame-top",
+      "house315-main-spine-front-window-1-frame-bottom",
+      "house315-main-spine-front-window-1-frame-horizontal",
+      "house315-main-spine-front-window-1-mullion-0",
+      "house315-main-spine-front-window-2-glass",
+      "house315-main-spine-front-window-2-frame-left",
+      "house315-main-spine-front-window-2-frame-right",
+      "house315-main-spine-front-window-2-frame-top",
+      "house315-main-spine-front-window-2-frame-bottom",
+      "house315-main-spine-front-window-2-frame-horizontal",
+      "house315-main-spine-front-window-2-mullion-0",
+      "house315-main-spine-front-window-3-glass",
+      "house315-main-spine-front-window-3-frame-left",
+      "house315-main-spine-front-window-3-frame-right",
+      "house315-main-spine-front-window-3-frame-top",
+      "house315-main-spine-front-window-3-frame-bottom",
+      "house315-main-spine-front-window-3-frame-horizontal",
+      "house315-main-spine-front-window-3-mullion-0",
+      "house315-right-wing-front-window-0-glass",
+      "house315-right-wing-front-window-0-frame-left",
+      "house315-right-wing-front-window-0-frame-right",
+      "house315-right-wing-front-window-0-frame-top",
+      "house315-right-wing-front-window-0-frame-bottom",
+      "house315-right-wing-front-window-0-frame-horizontal",
+      "house315-right-wing-front-window-0-mullion-0",
+      "house315-right-wing-front-window-1-glass",
+      "house315-right-wing-front-window-1-frame-left",
+      "house315-right-wing-front-window-1-frame-right",
+      "house315-right-wing-front-window-1-frame-top",
+      "house315-right-wing-front-window-1-frame-bottom",
+      "house315-right-wing-front-window-1-frame-horizontal",
+      "house315-right-wing-front-window-1-mullion-0",
+      "house315-right-wing-gable-window-glass",
+      "house315-right-wing-gable-window-frame-left",
+      "house315-right-wing-gable-window-frame-right",
+      "house315-right-wing-gable-window-frame-top",
+      "house315-right-wing-gable-window-frame-bottom",
+      "house315-right-wing-gable-window-frame-horizontal",
+      "house315-right-wing-gable-window-mullion-0",
+      "house315-right-wing-side-window-0-glass",
+      "house315-right-wing-side-window-0-frame-front",
+      "house315-right-wing-side-window-0-frame-rear",
+      "house315-right-wing-side-window-0-frame-top",
+      "house315-right-wing-side-window-0-frame-bottom",
+      "house315-right-wing-side-window-0-mullion",
+      "house315-right-wing-side-window-1-glass",
+      "house315-right-wing-side-window-1-frame-front",
+      "house315-right-wing-side-window-1-frame-rear",
+      "house315-right-wing-side-window-1-frame-top",
+      "house315-right-wing-side-window-1-frame-bottom",
+      "house315-right-wing-side-window-1-mullion",
+      "house315-right-wing-side-window-2-glass",
+      "house315-right-wing-side-window-2-frame-front",
+      "house315-right-wing-side-window-2-frame-rear",
+      "house315-right-wing-side-window-2-frame-top",
+      "house315-right-wing-side-window-2-frame-bottom",
+      "house315-right-wing-side-window-2-mullion",
+      "house315-main-shed-dormer-body",
+      "house315-main-shed-dormer-roof",
+      "house315-main-shed-dormer-window-0-glass",
+      "house315-main-shed-dormer-window-0-frame-left",
+      "house315-main-shed-dormer-window-0-frame-right",
+      "house315-main-shed-dormer-window-0-frame-top",
+      "house315-main-shed-dormer-window-0-frame-bottom",
+      "house315-main-shed-dormer-window-0-frame-horizontal",
+      "house315-main-shed-dormer-window-1-glass",
+      "house315-main-shed-dormer-window-1-frame-left",
+      "house315-main-shed-dormer-window-1-frame-right",
+      "house315-main-shed-dormer-window-1-frame-top",
+      "house315-main-shed-dormer-window-1-frame-bottom",
+      "house315-main-shed-dormer-window-1-frame-horizontal",
+      "house315-main-shed-dormer-window-2-glass",
+      "house315-main-shed-dormer-window-2-frame-left",
+      "house315-main-shed-dormer-window-2-frame-right",
+      "house315-main-shed-dormer-window-2-frame-top",
+      "house315-main-shed-dormer-window-2-frame-bottom",
+      "house315-main-shed-dormer-window-2-frame-horizontal",
+      "house315-main-chimney",
+      "house315-main-chimney-cap",
+      "house315-main-roof-detail-front-rib-0",
+      "house315-main-roof-detail-rear-rib-0",
+      "house315-main-roof-detail-front-rib-1",
+      "house315-main-roof-detail-rear-rib-1",
+      "house315-main-roof-detail-front-rib-2",
+      "house315-main-roof-detail-rear-rib-2",
+      "house315-main-roof-detail-front-rib-3",
+      "house315-main-roof-detail-rear-rib-3",
+      "house315-main-roof-detail-front-rib-4",
+      "house315-main-roof-detail-rear-rib-4",
+      "house315-main-roof-detail-front-rib-5",
+      "house315-main-roof-detail-rear-rib-5",
+      "house315-main-roof-detail-front-rib-6",
+      "house315-main-roof-detail-rear-rib-6",
+      "house315-main-roof-detail-front-rib-7",
+      "house315-main-roof-detail-rear-rib-7",
+      "house315-main-roof-detail-front-rib-8",
+      "house315-main-roof-detail-rear-rib-8",
+      "house315-main-roof-detail-front-rib-9",
+      "house315-main-roof-detail-rear-rib-9",
+      "house315-main-roof-detail-front-rib-10",
+      "house315-main-roof-detail-rear-rib-10",
+      "house315-main-roof-detail-front-rib-11",
+      "house315-main-roof-detail-rear-rib-11",
+      "house315-main-roof-detail-front-rib-12",
+      "house315-main-roof-detail-rear-rib-12",
+      "house315-main-roof-detail-front-rib-13",
+      "house315-main-roof-detail-rear-rib-13",
+      "house315-main-roof-detail-front-rib-14",
+      "house315-main-roof-detail-rear-rib-14",
+      "house315-main-roof-detail-front-rib-15",
+      "house315-main-roof-detail-rear-rib-15",
+      "house315-main-roof-detail-front-rib-16",
+      "house315-main-roof-detail-rear-rib-16",
+      "house315-main-roof-detail-front-rib-17",
+      "house315-main-roof-detail-rear-rib-17",
+      "house315-main-roof-detail-ridge",
+      "house315-central-roof-detail-left-rib-0",
+      "house315-central-roof-detail-right-rib-0",
+      "house315-central-roof-detail-left-rib-1",
+      "house315-central-roof-detail-right-rib-1",
+      "house315-central-roof-detail-left-rib-2",
+      "house315-central-roof-detail-right-rib-2",
+      "house315-central-roof-detail-left-rib-3",
+      "house315-central-roof-detail-right-rib-3",
+      "house315-central-roof-detail-left-rib-4",
+      "house315-central-roof-detail-right-rib-4",
+      "house315-central-roof-detail-left-rib-5",
+      "house315-central-roof-detail-right-rib-5",
+      "house315-central-roof-detail-left-rib-6",
+      "house315-central-roof-detail-right-rib-6",
+      "house315-central-roof-detail-left-rib-7",
+      "house315-central-roof-detail-right-rib-7",
+      "house315-central-roof-detail-left-rib-8",
+      "house315-central-roof-detail-right-rib-8",
+      "house315-central-roof-detail-left-rib-9",
+      "house315-central-roof-detail-right-rib-9",
+      "house315-central-roof-detail-left-rib-10",
+      "house315-central-roof-detail-right-rib-10",
+      "house315-central-roof-detail-left-rib-11",
+      "house315-central-roof-detail-right-rib-11",
+      "house315-central-roof-detail-ridge",
+      "house315-right-wing-roof-detail-left-rib-0",
+      "house315-right-wing-roof-detail-right-rib-0",
+      "house315-right-wing-roof-detail-left-rib-1",
+      "house315-right-wing-roof-detail-right-rib-1",
+      "house315-right-wing-roof-detail-left-rib-2",
+      "house315-right-wing-roof-detail-right-rib-2",
+      "house315-right-wing-roof-detail-left-rib-3",
+      "house315-right-wing-roof-detail-right-rib-3",
+      "house315-right-wing-roof-detail-left-rib-4",
+      "house315-right-wing-roof-detail-right-rib-4",
+      "house315-right-wing-roof-detail-left-rib-5",
+      "house315-right-wing-roof-detail-right-rib-5",
+      "house315-right-wing-roof-detail-left-rib-6",
+      "house315-right-wing-roof-detail-right-rib-6",
+      "house315-right-wing-roof-detail-left-rib-7",
+      "house315-right-wing-roof-detail-right-rib-7",
+      "house315-right-wing-roof-detail-left-rib-8",
+      "house315-right-wing-roof-detail-right-rib-8",
+      "house315-right-wing-roof-detail-left-rib-9",
+      "house315-right-wing-roof-detail-right-rib-9",
+      "house315-right-wing-roof-detail-left-rib-10",
+      "house315-right-wing-roof-detail-right-rib-10",
+      "house315-right-wing-roof-detail-ridge",
+      "house315-left-wing-roof-detail-front-rib-0",
+      "house315-left-wing-roof-detail-rear-rib-0",
+      "house315-left-wing-roof-detail-front-rib-1",
+      "house315-left-wing-roof-detail-rear-rib-1",
+      "house315-left-wing-roof-detail-front-rib-2",
+      "house315-left-wing-roof-detail-rear-rib-2",
+      "house315-left-wing-roof-detail-front-rib-3",
+      "house315-left-wing-roof-detail-rear-rib-3",
+      "house315-left-wing-roof-detail-front-rib-4",
+      "house315-left-wing-roof-detail-rear-rib-4",
+      "house315-left-wing-roof-detail-front-rib-5",
+      "house315-left-wing-roof-detail-rear-rib-5",
+      "house315-left-wing-roof-detail-front-rib-6",
+      "house315-left-wing-roof-detail-rear-rib-6",
+      "house315-left-wing-roof-detail-front-rib-7",
+      "house315-left-wing-roof-detail-rear-rib-7",
+      "house315-left-wing-roof-detail-ridge",
+      "house315-main-front-eave-shadow",
+      "house315-central-front-eave-shadow",
+      "house315-right-front-eave-shadow"
+    ],
+    "forbiddenContentAbsent": [
+      "trees",
+      "shrubs",
+      "grass",
+      "garden slab",
+      "walls",
+      "fences",
+      "street gate",
+      "lamps",
+      "planters",
+      "decorative paving",
+      "outdoor furniture",
+      "other buildings"
+    ]
+  },
+  "budget": {
+    "maxNodes": 1,
+    "maxTriangles": 45000,
+    "maxMaterials": 6,
+    "maxImages": 0,
+    "maxBytes": 3500000
+  },
+  "determinism": {
+    "independentCleanSceneBuilds": 2,
+    "firstGlbSha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+    "secondGlbSha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+    "sameGlbSha256": true
+  },
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/hero-v2/house-315-hero.blend",
+      "sha256": "2750b3c876fa651ce1fd0ed09f8e9a5557804b8e2783839f6ed63a740cd756b6",
+      "bytes": 132712
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/hero-v2/house-315-hero.glb",
+      "sha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+      "bytes": 212908
+    },
+    "previews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2-canonical.png",
+        "sha256": "2b666a9309dd9a9443237317ca4a25b862502fa7f320842adfdfc7bb4fb731c4",
+        "bytes": 766109
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2-side-depth.png",
+        "sha256": "6c244fb417043173ba0b4cd64ebcea667d33b80ed26f836d3dd11d0235da478c",
+        "bytes": 829455
+      },
+      "entrance": {
+        "path": "test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2-entrance.png",
+        "sha256": "76a0b55fa7d9614392574669ff905821ec1c537d0ae4e27f25a931ba1b542964",
+        "bytes": 823327
+      }
+    }
+  },
+  "blendSceneAudit": {
+    "objectCount": 1,
+    "meshObjects": 1,
+    "rootName": "house-315-hero",
+    "rootLocation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rootRotationEuler": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rootScale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "vertices": 1960,
+    "polygons": 1472,
+    "loopTriangles": 2936,
+    "materials": 6,
+    "bounds": {
+      "min": [
+        -7.675,
+        -4.84,
+        0.0
+      ],
+      "max": [
+        7.225,
+        4.575,
+        6.982892
+      ]
+    },
+    "zeroAreaPolygonsBelow1e10": 0,
+    "zeroAreaTrianglesBelow1e10": 0,
+    "nonFinitePositions": 0,
+    "nonFinitePolygonNormals": 0,
+    "trianglePolygonOrientationMismatches": 0,
+    "previewHelpersSaved": false
+  },
+  "glb": {
+    "sha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+    "bytes": 212908,
+    "nodes": 1,
+    "meshes": 1,
+    "primitives": 6,
+    "materials": 6,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 2936,
+    "topology": {
+      "zeroAreaTriangles": 0,
+      "nonFinitePositions": 0,
+      "invalidIndices": 0
+    },
+    "normals": {
+      "primitivesWithoutNormals": 0,
+      "zeroLengthNormals": 0,
+      "nonUnitNormals": 0,
+      "orientationMismatches": 0
+    },
+    "bounds": {
+      "min": [
+        -7.675,
+        0,
+        -4.575
+      ],
+      "max": [
+        7.225,
+        6.982892,
+        4.84
+      ]
+    },
+    "materialFactors": [
+      {
+        "name": "house-315-hero-deep-half-timber",
+        "baseColorFactor": [
+          0.055,
+          0.045,
+          0.038,
+          1.0
+        ],
+        "roughnessFactor": 0.76,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "house-315-hero-dark-red-tile",
+        "baseColorFactor": [
+          0.3,
+          0.085,
+          0.055,
+          1.0
+        ],
+        "roughnessFactor": 0.78,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "house-315-hero-warm-roughcast",
+        "baseColorFactor": [
+          0.73,
+          0.69,
+          0.6,
+          1.0
+        ],
+        "roughnessFactor": 0.9,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "house-315-hero-muted-red-brick",
+        "baseColorFactor": [
+          0.42,
+          0.18,
+          0.12,
+          1.0
+        ],
+        "roughnessFactor": 0.88,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "house-315-hero-entrance-shadow",
+        "baseColorFactor": [
+          0.025,
+          0.03,
+          0.028,
+          1.0
+        ],
+        "roughnessFactor": 0.82,
+        "metallicFactor": 0.0
+      },
+      {
+        "name": "house-315-hero-muted-glass",
+        "baseColorFactor": [
+          0.16,
+          0.24,
+          0.23,
+          1.0
+        ],
+        "roughnessFactor": 0.38,
+        "metallicFactor": 0.0
+      }
+    ],
+    "transformedNodes": []
+  },
+  "mcp2": {
+    "status": "pass",
+    "requested": true,
+    "passed": true,
+    "reviewedAt": "2026-07-25",
+    "reviewedBy": "main-coordinator",
+    "interactiveReview": "Blender MCP",
+    "sourceCommit": "e258a02a9ace4dbc34ce2978dcadcb4112370939",
+    "sceneInspection": {
+      "meshObjects": 1,
+      "vertices": 1960,
+      "polygons": 1472,
+      "materials": 6,
+      "principledNodeMaterials": 6,
+      "rootLocation": [
+        0,
+        0,
+        0
+      ],
+      "rootRotation": [
+        0,
+        0,
+        0
+      ],
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "zeroAreaPolygonsBelow1e10": 0,
+      "nonFiniteNormals": 0,
+      "minimumFaceArea": 0.001224979
+    },
+    "lineageInspection": {
+      "derivedMassingGlbSha256": "e9d62cfc7ffba69145d62508656a033a873e5769171414aff2124f7320389832",
+      "legacyHeroGeometryUsed": false,
+      "recoveryGeometryUsed": false,
+      "ordinaryOsmGeometryUsed": false
+    },
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2_mcp2_recheck_canonical.png",
+        "sha256": "3bb6bf7b7ce11ffa413477c6ecc2ca7ddc473bfec7a19dae858ee2934527ee2e",
+        "bytes": 828549,
+        "dimensions": [
+          1024,
+          768
+        ],
+        "result": "pass-central-tall-half-timber-gable-transverse-red-tile-ridge-and-asymmetric-wings-readable"
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2_mcp2_recheck_side.png",
+        "sha256": "d58896674922865424cbb8174606225ec82ed9cfe06c1f4dda939622269f3fc0",
+        "bytes": 893153,
+        "dimensions": [
+          1024,
+          768
+        ],
+        "result": "pass-right-long-and-left-short-wing-depth-roof-and-facade-continuity-readable"
+      },
+      "entrance": {
+        "path": "test_artifacts/all-models/hero-v2/house-315/test_house-315-hero-v2_mcp2_recheck_entrance.png",
+        "sha256": "959e79ca7db88cff40f5b5d4d024a4e328a9e0699eb52f961ef27d8feb6ab38b",
+        "bytes": 933340,
+        "dimensions": [
+          1024,
+          768
+        ],
+        "result": "pass-tall-entry-plaque-relation-white-red-layer-and-1p8m-scale-readable"
+      }
+    },
+    "checks": {
+      "subjectIdentity": "pass",
+      "structureAndHierarchy": "pass",
+      "materialSeparation": "pass-six-of-six-principled-node-materials",
+      "normalsAndTopology": "pass",
+      "unknownRear": "pass-held-at-low-detail",
+      "scope": "pass-building-only-no-site-vegetation-or-decoration"
+    },
+    "acceptedInteractiveChanges": [],
+    "qaRigSaved": false,
+    "qaRigExported": false
+  },
+  "identityAllowed": true,
+  "identityLineage": {
+      "status": "identity-v1-complete-runtime-pass",
+    "identityDerivationAuthorized": true,
+    "identityDerivationStarted": true,
+    "identityCandidateCompleted": true,
+    "sourceHeroGlbSha256": "ad414549bf6953bdeffe9b43d56b589101becf1a8c9efb57ac34446eac92f964",
+    "sourceHeroBlendSha256": "2750b3c876fa651ce1fd0ed09f8e9a5557804b8e2783839f6ed63a740cd756b6",
+    "identityGenerator": {
+      "path": "scripts/create_house_315_identity_model.py",
+      "sha256": "19fe2646b02767fb5495b19ecf979a07d2eed35acf009476e33172160dd72e51"
+    },
+    "identityEditableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/identity-v1/house-315-identity.blend",
+      "sha256": "79cc36080e835af913864fcfddca2763f0173df5bb7c107a54a662d241506a60",
+      "bytes": 109984
+    },
+    "identityRuntimeAsset": {
+      "path": "public/models/tiers/xinhua-road/identity-v1/house-315-identity.glb",
+      "sha256": "425e21b9773140d6a77604eb6de145996c8e36e6740498dbc41855ee43b2f12d",
+      "bytes": 62288,
+      "triangles": 776,
+      "materials": 6,
+      "images": 0,
+      "textures": 0,
+      "animations": 0
+    },
+    "identityBuildRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/house-315-identity.json",
+    "tierLineage": "docs/research/house-315-tier-lineage.json",
+    "mcp3": "pass",
+    "identityFormalPass": true,
+    "runtimeAuthorized": true,
+      "runtimeExecutionStarted": true,
+      "runtimeIntegrated": true,
+      "publicRegistryModified": true,
+      "runtimeAcceptance": "docs/research/house-315-three-tier-runtime-qa.json#runtimeAcceptance",
+      "nextAuthority": "complete-no-rework-unless-binary-or-public-contract-changes"
+  },
+  "threeJsRuntime": "complete",
+  "publicRegistry": {
+    "modified": true,
+    "integration": "three-tier-runtime-complete"
+  }
+}

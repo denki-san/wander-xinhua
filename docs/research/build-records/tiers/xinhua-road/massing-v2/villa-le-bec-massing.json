@@ -1,0 +1,212 @@
+{
+  "version": 3,
+  "auditedAt": "2026-07-26",
+  "assetId": "building:xinhua-road:villa-le-bec",
+  "tier": "massing",
+  "batch": "evidence-bound-two-building-v3",
+  "status": "mcp1-pass-runtime-render-pass-map-blocked",
+  "sourceCheckpoint": "468daf12341ebccd44ae6c681c3c46120bc97592",
+  "worktreeBase": "222e7eb",
+  "supersedesRecoveryGlbSha256": "8eabb87a0208294c226ecea5077f9833eceb885c2796ea00af88cab9172e96ec",
+  "generator": "scripts/create_villa_le_bec_massing_model.py",
+  "generatorSha256": "50a37c3d9fc666493ab912490b0bafef1bf13945107f3d704c7feda739cdd04c",
+  "generationCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_villa_le_bec_massing_model.py",
+  "blenderVersion": "5.2.0 LTS",
+  "sourceData": {
+    "osmSnapshot": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "referenceManifest": "docs/research/villa-le-bec-reference-manifest.json",
+    "xhsSourceNote": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/source-note.md",
+    "xhsPostId": "66ba1786000000001e01cb8b",
+    "xhsPostClaim": "author-stated-two-century-old-buildings",
+    "referenceOnly": true,
+    "embeddedInGlb": false
+  },
+  "placement": {
+    "position": [-34.1, 88.8],
+    "yaw": -0.38,
+    "scale": 0.82,
+    "movementAuthorized": false,
+    "status": "frozen-shared-registry-not-modified"
+  },
+  "membership": {
+    "included": [
+      {
+        "sourceWayId": 864493176,
+        "role": "street-villa-main",
+        "confidence": "medium-high",
+        "basis": "northern-street-cluster-plus-xhs-01-street-front-and-gate"
+      },
+      {
+        "sourceWayId": 864493175,
+        "role": "garden-villa-secondary",
+        "confidence": "medium-high",
+        "basis": "courtyard-offset-plus-xhs-01-02-two-building-and-entry-relationship"
+      }
+    ],
+    "excluded": [
+      {
+        "sourceWayId": 864493245,
+        "role": "unknown-neighbor-or-accessory",
+        "reason": "separate-southern-cluster-no-continuous-photo-or-address-binding"
+      },
+      {
+        "sourceWayId": 864493246,
+        "role": "unknown-neighbor-or-accessory",
+        "reason": "separate-southern-cluster-no-continuous-photo-or-address-binding"
+      },
+      {
+        "sourceWayId": 864493247,
+        "role": "unknown-neighbor-or-accessory",
+        "reason": "separate-southern-cluster-no-continuous-photo-or-address-binding"
+      }
+    ]
+  },
+  "massingGeometry": {
+    "observed": [
+      "two-separated-building-volumes",
+      "two-storey-warm-light-walls",
+      "hipped-tile-roofs",
+      "street-villa-projecting-window",
+      "garden-villa-entry-bay",
+      "garden-villa-roof-dormer",
+      "open-courtyard-gap"
+    ],
+    "inferred": [
+      "horizontal-footprints-from-osm-864493176-and-864493175",
+      "vertical-height-from-photo-storey-and-door-proportions",
+      "street-villa-versus-garden-villa-way-role"
+    ],
+    "omitted": [
+      "ways-864493245-864493246-864493247",
+      "trees",
+      "tables-and-chairs",
+      "signage-and-branding",
+      "garden-dressing",
+      "unknown-low-annex",
+      "interior"
+    ],
+    "frontDirection": "local -Y",
+    "groundDatum": 0,
+    "authoredMetersPerSceneUnit": 2.7
+  },
+  "children": [
+    {
+      "name": "street-villa-main",
+      "sourceWayId": 864493176,
+      "geometryEvidence": "observed-osm-footprint-plus-xhs-street-view",
+      "footprintAreaSqMeters": 137.2,
+      "localFootprint": [
+        [-0.968515, -9.832885],
+        [4.996285, -9.704577],
+        [4.869218, -5.014079],
+        [-1.095583, -5.142387]
+      ]
+    },
+    {
+      "name": "garden-villa-secondary",
+      "sourceWayId": 864493175,
+      "geometryEvidence": "observed-osm-footprint-plus-xhs-entry-and-side-view",
+      "footprintAreaSqMeters": 85.2,
+      "localFootprint": [
+        [6.53115, -6.290767],
+        [9.996342, -6.217839],
+        [9.866713, -1.209116],
+        [6.395668, -1.285091]
+      ]
+    }
+  ],
+  "collisionCandidate": {
+    "semantics": "two-solid-buildings-with-open-courtyard-gap",
+    "sharedRuntimeModified": false,
+    "proposedLocalObstacles": [
+      {
+        "sourceWayId": 864493176,
+        "minX": -1.095583,
+        "maxX": 4.996285,
+        "minZ": 5.014079,
+        "maxZ": 9.832885
+      },
+      {
+        "sourceWayId": 864493175,
+        "minX": 6.395668,
+        "maxX": 9.996342,
+        "minZ": 1.209116,
+        "maxZ": 6.290767
+      }
+    ],
+    "minimumWallGapSceneUnits": 1.399383,
+    "playerDiameterSceneUnits": 0.96,
+    "analyticWallGapStatus": "pass-before-main-window-runtime-margin-review"
+  },
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v2/villa-le-bec-massing.blend",
+    "blendSha256": "34a9ba4582e9a6bb1eeb0ca38dd173a80c5d754f896b6b139eaef20f0908d5bc",
+    "glb": "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
+    "previews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v3-canonical.png",
+        "sha256": "b33779323198e0b38c154754cc9ef2e0b6f772528214105ed85210fc821ab5da"
+      },
+      "side": {
+        "path": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v3-side.png",
+        "sha256": "85579953f11344f58379646b035550b59753a0e018094e1a74c4392ffb276c7b"
+      },
+      "entrance": {
+        "path": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v3-entrance.png",
+        "sha256": "6c43b772dd8ed3e90877c419654b136c03b24e8bc3d8a88cfa4efc4b199616ef"
+      }
+    }
+  },
+  "glb": {
+    "sha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f",
+    "bytes": 12008,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 3,
+    "images": 0,
+    "textures": 0,
+    "triangles": 120,
+    "bounds": {
+      "min": [-1.095583, 0, 1.209116],
+      "max": [9.996342, 4.58, 10.438301]
+    },
+    "rootTransform": {
+      "translation": [0, 0, 0],
+      "rotation": [0, 0, 0, 1],
+      "scale": [1, 1, 1]
+    }
+  },
+  "audit": {
+    "command": "python3 scripts/audit_glb.py public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb --forbid-images --max-nodes 8",
+    "status": "pass"
+  },
+  "headlessPreviewGate": "pass-three-fixed-views",
+  "mcp1": {
+    "status": "pass-current-sha-visual-and-structure",
+    "reviewedAt": "2026-07-26",
+    "reviewedBy": "main-window-xhigh-final-review",
+    "interactiveReview": "Blender MCP",
+    "runtimeGlbSha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f",
+    "captures": [
+      {
+        "view": "canonical",
+        "path": "test_artifacts/all-models/massing-v2/villa-le-bec/test_villa-le-bec-massing_mcp1_canonical.png",
+        "sha256": "c4dafa4c5b59e9ca2a937133dfb08822c14a9f2b31ec042b6014560ff42f40ac"
+      },
+      {
+        "view": "entrance-scale",
+        "path": "test_artifacts/all-models/massing-v2/villa-le-bec/test_villa-le-bec-massing_mcp1_entrance-scale.png",
+        "sha256": "9a0a8152f98956fb1504cbac64af5b5f14e184d4e65903ef29c5e7504a5ae35e"
+      },
+      {
+        "view": "side-depth",
+        "path": "test_artifacts/all-models/massing-v2/villa-le-bec/test_villa-le-bec-massing_mcp1_side-depth.png",
+        "sha256": "8a6bb3a4127ed5d72c46c593424824efd89c04f4b9ec09a1d3025e22b504072e"
+      }
+    ]
+  },
+  "runtimeGate": "pass-current-v3-load-and-visibility-map-rejected",
+  "mapAcceptance": "blocked-road-setback-and-house315-overlap",
+  "identityAllowed": false,
+  "mapGateRecord": "docs/research/villa-le-bec-massing-map-gate.json"
+}

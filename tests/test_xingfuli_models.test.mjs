@@ -359,22 +359,41 @@ test("运行时使用三段 final 模型并保留程序化 fallback 与三组 QA
     new URL("app/scene/xingfuli-architecture-model.tsx", root),
     "utf8",
   );
+  const tierContract = await readFile(
+    new URL("app/scene/xingfuli-tier-contract.mjs", root),
+    "utf8",
+  );
+  const { XINGFULI_TIERS } = await import(
+    new URL("app/scene/xingfuli-tier-contract.mjs", root)
+  );
   const world = await readFile(new URL("app/scene/xinhua-world.tsx", root), "utf8");
   const generator = await readFile(new URL("scripts/create_xingfuli_models.py", root), "utf8");
   const streetAssets = await readFile(new URL("app/scene/shared-street-assets.tsx", root), "utf8");
   const paving = await readFile(new URL("app/scene/mixed-stone-paving.tsx", root), "utf8");
   for (const segment of segmentIds) {
-    assert.match(fullArchitecture, new RegExp(`xingfuli-${segment}\\.glb\\?v=20260723-final-1`));
+    assert.equal(
+      XINGFULI_TIERS[`xingfuli-${segment}`].hero.url,
+      `/models/xingfuli/xingfuli-${segment}.glb?v=20260723-final-1`,
+    );
   }
+  assert.equal(
+    [...tierContract.matchAll(/"20260723-final-1"/g)].length,
+    3,
+    "三段 Hero 必须继续锁定 final cache version",
+  );
+  assert.match(fullArchitecture, /XINGFULI_TIERS/);
   assert.match(scene, /XingfuliArchitectureBoundary/);
   assert.match(scene, /XingfuliProceduralArchitectureFallback/);
   assert.match(fullArchitecture, /scale=\{\[1, 1, -1\]\}/);
   assert.match(scene, /resolvedStage === "massing"/);
-  assert.match(fullArchitecture, /stage: "full"/);
+  assert.match(fullArchitecture, /stage: qa\?\.requestedTier \?\? "full"/);
   assert.match(fullArchitecture, /name="xingfuli-final-architecture"/);
   assert.match(scene, /id: `east-entry-bollard-\$\{index\}`/);
   assert.doesNotMatch(scene, /\[-44\.6, 44\.6\]/);
-  assert.match(world, /<XingfuliBlock[\s\S]*?stage=\{xingfuliTier\}/);
+  assert.match(
+    world,
+    /<XingfuliBlock[\s\S]*?stage=\{xingfuliQaActive \? "full" : xingfuliTier\}/,
+  );
   assert.doesNotMatch(fullArchitecture, /useGLTF\.preload\(/);
   assert.match(world, /name === "xingfuli-canonical"/);
   assert.match(world, /name === "xingfuli-pool-detail"/);

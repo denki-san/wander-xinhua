@@ -659,7 +659,7 @@ def write_record(audit: dict[str, Any]) -> None:
         "qaRecords": {
             "blenderMcp": "docs/research/sun-ke-villa-blender-mcp-gates-v2.json",
             "map": "docs/research/sun-ke-villa-massing-map-qa-v2.json",
-            "runtime": "docs/research/sun-ke-villa-three-tier-runtime-qa-v2.json",
+            "runtime": "docs/research/sun-ke-villa-three-tier-runtime-qa-v3.json",
         },
         "outputs": {
             "blend": str(BLEND_PATH.relative_to(ROOT)),

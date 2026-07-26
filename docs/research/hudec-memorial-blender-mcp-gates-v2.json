@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 2,
+  "assetId": "hudec-memorial",
+  "tier": "hero-v2",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-26T14:08:21+08:00",
+  "reviewedBy": "main-window-xhigh",
+  "sourceCheckpoint": "c3c6a0b",
+  "supersedesForHero": "docs/research/hudec-memorial-blender-mcp-gates.json",
+  "mcp1": {
+    "status": "pass-retained",
+    "assetSha256": "772ce8a8445a2cc9f1496a9876960ecf78964f11d09209578a1a5fbd52864ff0",
+    "mapAndCollision": "pass-retained"
+  },
+  "mcp2": {
+    "status": "pass",
+    "interactiveReview": "Blender MCP",
+    "fallbackUsed": false,
+    "editableSource": {
+      "path": "assets/models/source/requested-pois/hudec-memorial-v2-hero.blend",
+      "sha256": "4fe426b4a670ad3f2bd50f020195b366599a100b11cfc0f83bfdc6fb8b50b28d"
+    },
+    "runtimeAsset": {
+      "path": "public/models/requested-pois/hudec-memorial-v2-hero.glb",
+      "sha256": "598b2ba19e2412d7a592836d45066c787a7cf1eac347a6a6c5d790c12ffabff5",
+      "bytes": 1565920
+    },
+    "generator": {
+      "path": "scripts/create_hudec_memorial_v2.py",
+      "sha256": "aa09dabb3017a521025e6c2a46b8fe4e1acc31713fab21973049fe69de56c82c"
+    },
+    "sceneInspection": {
+      "objects": 1,
+      "meshes": 1,
+      "materials": 11,
+      "rootObject": "hudec-memorial-v2-hero",
+      "rootLocation": [
+        0,
+        0,
+        0
+      ],
+      "rootRotation": [
+        0,
+        0,
+        0
+      ],
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "vertices": 12072,
+      "polygons": 10780,
+      "trianglesGlb": 22760,
+      "boundsBlender": {
+        "min": [
+          -5.111999988555908,
+          -3.756000518798828,
+          -0.021600008010864258
+        ],
+        "max": [
+          5.098609447479248,
+          3.8520002365112305,
+          8.978399276733398
+        ]
+      }
+    },
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/test_hudec-memorial-v2-hero_canonical_preview.png",
+        "sha256": "5fc91d770a33dcef646843c7eead8d92ee7a80be8c668f0495fd2feecebecdda"
+      },
+      "side": {
+        "path": "test_artifacts/test_hudec-memorial-v2-hero_side_preview.png",
+        "sha256": "b2f06b9db2ca659d49517696ec1f05cdc258a963d0298e2b5db729fdfdd9f6c9"
+      },
+      "entrance": {
+        "path": "test_artifacts/test_hudec-memorial-v2-hero_entrance_preview.png",
+        "sha256": "1e70a4463f5e6e6f8971380af67b89ca83ad00610d5c495be589f1456e91514c"
+      }
+    },
+    "checks": {
+      "rootTransform": "pass-normalized",
+      "massingEnvelope": "pass-contained",
+      "groundContact": "pass-within-recorded-tolerance",
+      "steepLayeredRoofAndDormers": "pass-readable",
+      "halfTimberFacade": "pass-readable",
+      "threeFlueChimney": "pass-readable",
+      "mullionedWindows": "pass-readable",
+      "entrancePorchAndLowGlassWing": "pass-readable",
+      "materialAndBlackFaces": "pass",
+      "buildingOnlyScope": "pass-no-courtyard-tree-hedge-or-decoration",
+      "texturePolicy": "pass-zero-images"
+    },
+    "acceptedInteractiveChanges": [],
+    "blendSavedByMcp": false
+  },
+  "identityAuthorization": {
+    "authorized": true,
+    "frozenHeroSha256": "598b2ba19e2412d7a592836d45066c787a7cf1eac347a6a6c5d790c12ffabff5",
+    "nextGate": "derive-identity-then-main-window-mcp3"
+  }
+}

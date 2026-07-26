@@ -27,18 +27,21 @@
       "name": "上海电影艺术中心",
       "address": "新华路200号",
       "model": "/models/xinhua-road/film-art-center.glb",
-      "cacheVersion": "20260722-film-art-4",
-      "position": [47.5, 81.5],
-      "yaw": 2.761592653589793,
-      "scale": 1,
+      "cacheVersion": "20260725-film-art-5",
+      "position": [46.388748754382405, 79.07089962964774],
+      "yaw": 2.786349542422368,
+      "scale": 0.5,
       "localBounds": { "minX": -11.554999, "maxX": 11.554999, "minZ": -6.725, "maxZ": 11.225 },
+      "collisionEvidence": {
+        "type": "evidence-footprint",
+        "osmWayId": 864505138,
+        "maximumWorldOverhangBeyondGlbBounds": 0.2
+      },
       "localObstacles": [
-        { "minX": -8.0, "maxX": 8.0, "minZ": -5.2, "maxZ": 4.2 },
-        { "minX": -11.46, "maxX": -8.1, "minZ": -3.63, "maxZ": 4.63 },
-        { "minX": 8.1, "maxX": 11.46, "minZ": -3.63, "maxZ": 4.63 }
+        { "minX": -9.18116646217537, "maxX": 9.18116646217537, "minZ": -7.06387451975493, "maxZ": 7.06387451975493 }
       ],
       "start": [35, 99],
-      "forward": [0.581, -0.814],
+      "forward": [0.4961616451583901, -0.8682301664154038],
       "cameraTargetHeight": 3.6
     },
     {
@@ -46,14 +49,21 @@
       "query": "garden179",
       "name": "一尺花园",
       "address": "新华路179弄",
-      "model": "/models/xinhua-road/one-step-garden.glb",
-      "cacheVersion": "20260718-detail-1",
+      "model": "/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb",
+      "cacheVersion": "20260725-hero-026565ba",
       "position": [60.86, 120.73],
       "yaw": -0.38,
       "scale": 0.88,
-      "localBounds": { "minX": -10, "maxX": 10, "minZ": -6.8, "maxZ": 9.2 },
+      "localBounds": { "minX": -7.25, "maxX": 7.25, "minZ": -9.325, "maxZ": 6.9 },
       "localObstacles": [
-        { "minX": -8.8, "maxX": 8.8, "minZ": -6.1, "maxZ": 4.7 }
+        { "minX": -4.2, "maxX": 4.2, "minZ": -1.8, "maxZ": 1.8 },
+        { "minX": -6.7, "maxX": -3.3, "minZ": -0.5, "maxZ": 6.7 },
+        { "minX": 3.4, "maxX": 6.6, "minZ": -0.5, "maxZ": 6.6 },
+        { "minX": -1.24, "maxX": -1.06, "minZ": 6.16, "maxZ": 6.34 },
+        { "minX": 3.26, "maxX": 3.44, "minZ": 6.16, "maxZ": 6.34 },
+        { "minX": -7, "maxX": 7, "minZ": -9.1, "maxZ": -4.9 },
+        { "minX": -6.775, "maxX": -3.525, "minZ": -7.05, "maxZ": -3.85 },
+        { "minX": 3.525, "maxX": 6.775, "minZ": -7.05, "maxZ": -3.85 }
       ],
       "start": [73, 109],
       "forward": [-0.925, 0.381]
@@ -103,31 +113,44 @@
       "query": "house315",
       "name": "新华路315号住宅",
       "address": "新华路315号",
-      "model": "/models/xinhua-road/house-315.glb",
-      "cacheVersion": "20260718-detail-1",
-      "position": [-23.03, 85.67],
-      "yaw": -0.38,
-      "scale": 0.9,
-      "localBounds": { "minX": -9.25, "maxX": 9.25, "minZ": -6.7, "maxZ": 9.5 },
+      "model": "/models/tiers/xinhua-road/hero-v2/house-315-hero.glb",
+      "cacheVersion": "20260725-hero-ad414549",
+      "position": [-20.127789, 82.330463],
+      "yaw": -0.401372,
+      "scale": 0.754254,
+      "localBounds": { "minX": -7.675, "maxX": 7.225, "minZ": -4.575, "maxZ": 4.84 },
       "localObstacles": [
-        { "minX": -7.3, "maxX": 5.4, "minZ": -5.0, "maxZ": 5.6 }
+        { "minX": -7.675, "maxX": -2.1254, "minZ": -4.575, "maxZ": 1.307215 },
+        { "minX": -2.1254, "maxX": 7.225, "minZ": -4.575, "maxZ": 1.307215 },
+        { "minX": -6.432454, "maxX": -2.108321, "minZ": 1.307215, "maxZ": 4.84 }
       ],
       "start": [-21.8, 67.6],
-      "forward": [-0.05, 1]
+      "forward": [0.152032, 0.988376]
     },
     {
       "id": "villa-le-bec",
       "query": "villa-le-bec",
       "name": "Villa Le Bec",
       "address": "新华路321号",
-      "model": "/models/xinhua-road/villa-le-bec.glb",
-      "cacheVersion": "20260718-detail-1",
+      "model": "/models/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.glb",
+      "cacheVersion": "20260726-hero-4f909a3b149e",
       "position": [-34.1, 88.8],
       "yaw": -0.38,
       "scale": 0.82,
-      "localBounds": { "minX": -9.5, "maxX": 9.5, "minZ": -6.3, "maxZ": 10.4 },
+      "localBounds": { "minX": -1.201257, "maxX": 10.060153, "minZ": 0.612487, "maxZ": 10.571927 },
       "localObstacles": [
-        { "minX": -7.8, "maxX": 7.8, "minZ": -6.2, "maxZ": 5.4 }
+        { "minX": -1.095583, "maxX": 4.996285, "minZ": 5.014079, "maxZ": 5.817213333333333 },
+        { "minX": -1.095583, "maxX": 4.996285, "minZ": 5.817213333333333, "maxZ": 6.620347666666667 },
+        { "minX": -1.095583, "maxX": 4.996285, "minZ": 6.620347666666667, "maxZ": 7.423482 },
+        { "minX": -1.095583, "maxX": 4.996285, "minZ": 7.423482, "maxZ": 8.226616333333333 },
+        { "minX": -1.095583, "maxX": 4.996285, "minZ": 8.226616333333333, "maxZ": 9.029750666666666 },
+        { "minX": -1.095583, "maxX": 4.996285, "minZ": 9.029750666666666, "maxZ": 9.832885 },
+        { "minX": 6.395668, "maxX": 9.996342, "minZ": 1.209116, "maxZ": 2.056057833333333 },
+        { "minX": 6.395668, "maxX": 9.996342, "minZ": 2.056057833333333, "maxZ": 2.902999666666667 },
+        { "minX": 6.395668, "maxX": 9.996342, "minZ": 2.902999666666667, "maxZ": 3.7499415 },
+        { "minX": 6.395668, "maxX": 9.996342, "minZ": 3.7499415, "maxZ": 4.596883333333333 },
+        { "minX": 6.395668, "maxX": 9.996342, "minZ": 4.596883333333333, "maxZ": 5.443825166666667 },
+        { "minX": 6.395668, "maxX": 9.996342, "minZ": 5.443825166666667, "maxZ": 6.290767 }
       ],
       "start": [-58, 88],
       "forward": [1, 0.03]
@@ -154,46 +177,46 @@
       "query": "hudec",
       "name": "邬达克纪念馆",
       "address": "番禺路129号",
-      "model": "/models/requested-pois/hudec-memorial.glb",
-      "cacheVersion": "20260718-detail-1",
-      "position": [91.34, -131.74],
-      "yaw": 1.5707963267948966,
-      "scale": 0.72,
-      "localBounds": { "minX": -8.75, "maxX": 8.75, "minZ": -6.95, "maxZ": 8.55 },
+      "model": "/models/requested-pois/hudec-memorial-v2-hero.glb",
+      "cacheVersion": "20260726-hero-598b2ba19e24",
+      "position": [92.535374, -132.52181],
+      "yaw": 0.153486288,
+      "scale": 0.88,
+      "localBounds": { "minX": -5.111999989, "maxX": 5.098609447, "minZ": -3.852000237, "maxZ": 3.756000519 },
       "localObstacles": [
-        { "minX": -6.4, "maxX": 4.4, "minZ": -5.1, "maxZ": 2.1 },
-        { "minX": 2.65, "maxX": 6.95, "minZ": -5.15, "maxZ": 0.35 },
-        { "minX": -1.3, "maxX": 1.7, "minZ": 2.28, "maxZ": 3.95 },
-        { "minX": -8.45, "maxX": -2.95, "minZ": 6.35, "maxZ": 7.05 },
-        { "minX": 2.95, "maxX": 8.45, "minZ": 6.35, "maxZ": 7.05 },
-        { "minX": -6.9, "maxX": -2.9, "minZ": 2.15, "maxZ": 5.25 }
+        { "minX": -4.608, "maxX": 4.104, "minZ": -2.988, "maxZ": 2.052 },
+        { "minX": 2.016, "maxX": 4.752, "minZ": -3.42, "maxZ": 1.62 },
+        { "minX": -4.5, "maxX": -0.9, "minZ": -3.762, "maxZ": -1.35 },
+        { "minX": 0.738, "maxX": 1.1124, "minZ": 1.926, "maxZ": 3.186 },
+        { "minX": 2.7036, "maxX": 3.078, "minZ": 1.926, "maxZ": 3.186 }
       ],
-      "start": [73, -132],
-      "forward": [1, 0],
+      "start": [92.5, -145],
+      "forward": [0, 1],
       "poi": true,
       "labelHeight": 4.8,
-      "positioning": "osm-way-494633921"
+      "positioning": "osm-way-494633921-long-axis-calibrated"
     },
     {
       "id": "xinhua-pocket-park",
       "query": "pocket-park",
       "name": "新华路口袋公园",
       "address": "新华路359号旁",
-      "model": "/models/requested-pois/xinhua-pocket-park.glb",
-      "cacheVersion": "20260718-detail-1",
-      "position": [-56.9, 66.3],
-      "yaw": -0.38,
+      "model": "/models/tiers/xinhua-road/hero-v2/xinhua-pocket-park-hero.glb",
+      "cacheVersion": "20260726-hero-c6ef6f107e3c",
+      "position": [-57.421934309, 67.06298037],
+      "yaw": -0.398058989,
       "scale": 0.88,
-      "localBounds": { "minX": -0.8524, "maxX": 0.8524, "minZ": -4.6, "maxZ": 4.64 },
+      "localBounds": { "minX": -0.84, "maxX": 0.84, "minZ": -4.6, "maxZ": 4.6 },
+      "collisionMargin": 0,
       "localObstacles": [
         { "minX": -0.84, "maxX": -0.68, "minZ": -4.6, "maxZ": 4.6 },
         { "minX": 0.68, "maxX": 0.84, "minZ": -4.6, "maxZ": 4.6 }
       ],
-      "start": [-51.5, 67],
-      "forward": [-0.992, -0.129],
+      "start": [-55.160193116, 61.684376543],
+      "forward": [-0.387629821, 0.921815124],
       "poi": true,
       "labelHeight": 4.2,
-      "positioning": "inferred-xinhua-road-359-scaled-to-4.2m-width"
+      "positioning": "osm-facing-edges-official-22m-by-under-4.2m"
     },
     {
       "id": "xinhua-community-center",

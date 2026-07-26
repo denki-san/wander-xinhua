@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "assetId": "villa-le-bec",
+  "recordedAt": "2026-07-26T17:00:00+08:00",
+  "reviewer": "main-window-xhigh",
+  "status": "pass-three-tier-fallback-performance-collision-and-production",
+  "build": {
+    "mode": "production-static",
+    "command": "npm run build:static",
+    "server": "http://127.0.0.1:4197",
+    "viewport": [1280, 720],
+    "pageVisibility": "visible",
+    "qaAutoStart": true,
+    "effects": "off",
+    "district": "off",
+    "canvasCount": 1
+  },
+  "frozenAssets": {
+    "hero": {
+      "path": "public/models/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.glb",
+      "sha256": "4f909a3b149e2f16e00843d4f965dc37e0a96ea2c69d67ab4e12282d7d1b5b00"
+    },
+    "identity": {
+      "path": "public/models/tiers/xinhua-road/identity-v2/villa-le-bec-identity-v2.glb",
+      "sha256": "4be0685ed6db3f0fe462288de326393175f3bd4285a71992dac17a9f82f56e55"
+    },
+    "massing": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
+      "sha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f"
+    }
+  },
+  "tierRuns": {
+    "hero": {
+      "requestedTier": "hero",
+      "loadedTier": "hero",
+      "status": "loaded",
+      "source": "/models/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.glb?v=20260726-hero-4f909a3b149e",
+      "bounds": {
+        "min": [-34.828472403, 0.955619915, 80.3840566021],
+        "max": [-23.2236409679, 4.6784198837, 91.393431883]
+      },
+      "performance": {
+        "frames": 120,
+        "durationMs": 2145.9,
+        "fps": 55.9205927581,
+        "rendererDrawCalls": 1640,
+        "rendererTriangles": 742808,
+        "buildMode": "browser-runtime"
+      },
+      "camera": {
+        "mode": "spring-clear",
+        "blocker": "none",
+        "desiredArm": 5.37,
+        "resolvedArm": 5.37,
+        "narrowSpaceLift": 0,
+        "fov": 58
+      }
+    },
+    "identity": {
+      "requestedTier": "identity",
+      "loadedTier": "identity",
+      "status": "loaded",
+      "source": "/models/tiers/xinhua-road/identity-v2/villa-le-bec-identity-v2.glb?v=20260726-identity-4be0685ed6db",
+      "bounds": {
+        "min": [-34.8278173456, 0.955619915, 80.3843182404],
+        "max": [-23.2246199229, 4.6784198837, 91.3930408759]
+      },
+      "performance": {
+        "frames": 120,
+        "durationMs": 2105.2,
+        "fps": 57.0017100512,
+        "rendererDrawCalls": 1640,
+        "rendererTriangles": 740488,
+        "buildMode": "browser-runtime"
+      },
+      "camera": {
+        "mode": "spring-clear",
+        "blocker": "none",
+        "desiredArm": 5.369,
+        "resolvedArm": 5.369,
+        "narrowSpaceLift": 0,
+        "fov": 58
+      }
+    },
+    "massing": {
+      "requestedTier": "massing",
+      "loadedTier": "massing",
+      "status": "loaded",
+      "source": "/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb?v=20260726-massing-593cc399",
+      "bounds": {
+        "min": [-34.5665334933, 0.955619915, 80.5179547188],
+        "max": [-23.3128765761, 4.7112198524, 90.919687294]
+      },
+      "performance": {
+        "frames": 120,
+        "durationMs": 2135.1,
+        "fps": 56.2034565123,
+        "rendererDrawCalls": 1634,
+        "rendererTriangles": 739688,
+        "buildMode": "browser-runtime"
+      },
+      "camera": {
+        "mode": "spring-clear",
+        "blocker": "none",
+        "desiredArm": 5.369,
+        "resolvedArm": 5.369,
+        "narrowSpaceLift": 0,
+        "fov": 58
+      }
+    }
+  },
+  "fallbackRuns": {
+    "heroToIdentity": {
+      "requestedTier": "hero",
+      "loadedTier": "identity",
+      "status": "fallback",
+      "frames": 120,
+      "durationMs": 2120.1,
+      "fps": 56.6011037217,
+      "buildMode": "browser-runtime-fallback"
+    },
+    "identityToMassing": {
+      "requestedTier": "identity",
+      "loadedTier": "massing",
+      "status": "fallback",
+      "frames": 120,
+      "durationMs": 2088.3,
+      "fps": 57.4630081886,
+      "buildMode": "browser-runtime-fallback"
+    }
+  },
+  "collision": {
+    "sharedContract": {
+      "placement": {
+        "position": [-34.1, 88.8],
+        "yaw": -0.38,
+        "scale": 0.82
+      },
+      "localObstacleCount": 12,
+      "solidWays": [864493176, 864493175],
+      "sameForAllTiers": true
+    },
+    "openCourtyardReplay": {
+      "start": [-58, 88],
+      "target": [-34.1, 88.8],
+      "durationMs": 10000,
+      "final": [-34.1142373995, 88.7995234343],
+      "distanceToTarget": 0.0142453733,
+      "result": "pass-open-courtyard-reachable"
+    },
+    "solidWallReplay": {
+      "start": [-58, 88],
+      "targetWorld": [-30.3569103884, 83.7401899198],
+      "targetSourceLocal": [1.950351, 7.423482],
+      "targetInsideFirstSolid": true,
+      "durationMs": 11000,
+      "finalWorld": [-34.0972892807, 83.9960055449],
+      "finalSourceLocal": [-2.1699786942, 5.4418356357],
+      "distanceToTarget": 3.7491166816,
+      "worldClearanceToFirstSolidMinX": 0.8810044692,
+      "penetrationObserved": false,
+      "result": "pass-exterior-wall-blocks-and-character-slides"
+    },
+    "productionSolidWallReplay": {
+      "qaTierOverride": false,
+      "durationMs": 11000,
+      "finalWorld": [-34.1122884503, 83.9624650613],
+      "fatalOverlay": false,
+      "alerts": [],
+      "result": "pass-production-collision-matches-explicit-qa"
+    }
+  },
+  "consoleAndErrors": {
+    "telemetryParameter": "qaRuntimeTelemetry=1",
+    "telemetryStatus": "active-before-static-entry",
+    "consoleErrors": [],
+    "consoleWarnings": [
+      "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    ],
+    "windowErrors": [],
+    "unhandledRejections": [],
+    "fatalOverlay": false,
+    "alerts": []
+  },
+  "productionIntegration": {
+    "hero": "/models/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.glb",
+    "identity": "/models/tiers/xinhua-road/identity-v2/villa-le-bec-identity-v2.glb",
+    "massing": "/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
+    "detailHero": "pass-playable-visual-and-solid-collision",
+    "overviewIdentity": "pass-playable-no-fatal-overlay",
+    "defaultEntryRequiresQaTierOverride": false,
+    "legacyHeroV1": "hold-files-retained-not-production",
+    "legacyIdentityV1": "hold-files-retained-not-production"
+  },
+  "screenshots": [
+    {
+      "role": "hero-open-courtyard-runtime",
+      "path": "test_artifacts/all-models/hero-v2/villa-le-bec/runtime/test_villa-le-bec-hero-v2-threejs-runtime.jpg",
+      "sha256": "48a7efcff53ee54a22786d54e30d7e0fe9eae686cc04ffa37e167f20db847f24",
+      "bytes": 54781
+    },
+    {
+      "role": "hero-solid-collision-runtime",
+      "path": "test_artifacts/all-models/hero-v2/villa-le-bec/runtime/test_villa-le-bec-hero-v2-solid-collision-runtime.jpg",
+      "sha256": "425a896d705e53a36dd7edc027a7923693c91d87229c3bf53262c9b6d57fc402",
+      "bytes": 72610
+    },
+    {
+      "role": "production-hero-solid-collision-runtime",
+      "path": "test_artifacts/all-models/hero-v2/villa-le-bec/runtime/test_villa-le-bec-production-hero-solid-collision-runtime.jpg",
+      "sha256": "d571fe1f0715b4af88f414cc0ff653e04accb79a12f7af4ac1958d9b514ac687",
+      "bytes": 74031
+    },
+    {
+      "role": "identity-runtime",
+      "path": "test_artifacts/all-models/identity-v2/villa-le-bec/runtime/test_villa-le-bec-identity-v2-threejs-runtime.jpg",
+      "sha256": "be0bdc3aaca8b2c0d0606e89008b91487510aab678bc4d2c42463af1e2e63b2d",
+      "bytes": 68641
+    },
+    {
+      "role": "hero-to-identity-fallback",
+      "path": "test_artifacts/all-models/identity-v2/villa-le-bec/runtime/test_villa-le-bec-hero-to-identity-fallback-runtime.jpg",
+      "sha256": "54824f255e5a08b0bcb06749aeaea404d877b502224eeeb05dc0b0dc472575b0",
+      "bytes": 65929
+    },
+    {
+      "role": "identity-to-massing-fallback",
+      "path": "test_artifacts/all-models/identity-v2/villa-le-bec/runtime/test_villa-le-bec-identity-to-massing-fallback-runtime.jpg",
+      "sha256": "2f723eaeb2d795be84bb97fe715e1768eb245bb992d2a04b6aeefa4d3e06ea9e",
+      "bytes": 63264
+    },
+    {
+      "role": "production-overview-identity",
+      "path": "test_artifacts/all-models/identity-v2/villa-le-bec/runtime/test_villa-le-bec-production-overview-identity-runtime.jpg",
+      "sha256": "4fd6c5ca5e5b10c5f61a13547a53401aa835abd5efc058f4b2c56e85c7e230e6",
+      "bytes": 56417
+    },
+    {
+      "role": "massing-runtime",
+      "path": "test_artifacts/all-models/massing-v2/villa-le-bec/runtime/test_villa-le-bec-massing-v2-threejs-runtime.jpg",
+      "sha256": "bc07a743bebc6b982f600b736e738458cbfc7bfd466dd06a1877afc7d3f24924",
+      "bytes": 67713
+    }
+  ],
+  "scope": {
+    "onlyBuilding": "villa-le-bec",
+    "publicFilesOwnedBy": "main-window",
+    "preservedHold": [
+      "hero-v1",
+      "identity-v1",
+      "recovery",
+      "trees",
+      "decorations",
+      "full-map-assets"
+    ]
+  },
+  "verdict": {
+    "mcp3Parent": "docs/research/villa-le-bec-blender-mcp3-gate-v2.json",
+    "threeJs": "pass",
+    "productionPromotion": "pass",
+    "overallBuilding": "complete"
+  }
+}

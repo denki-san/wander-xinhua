@@ -1,0 +1,351 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-pocket-park",
+  "stableAssetId": "building:xinhua-road:xinhua-pocket-park",
+  "tier": "identity",
+  "version": "identity-v1",
+  "generatedAt": "2026-07-26",
+  "status": "identity-v1-runtime-pass",
+  "scope": {
+    "modelAssets": 1,
+    "runtimeInstancesCreated": 0,
+    "sharedRegistryModified": false,
+    "sharedRuntimeModified": false,
+    "fastManifestModified": false,
+    "excluded": [
+      "plants and grass",
+      "trees and decorations",
+      "bench",
+      "rotating exhibition or signage panels",
+      "ground lights and tactile studs",
+      "paving and path slabs",
+      "adjacent buildings and full-map assets",
+      "Recovery/Hold mutations"
+    ]
+  },
+  "generator": {
+    "path": "scripts/create_xinhua_pocket_park_identity_v1.py",
+    "sha256": "15de59486c8aa2e5297a626ba5be469a9ecc6b7046c9d72aa07029db8fe1b513",
+    "bytes": 36731,
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xinhua_pocket_park_identity_v1.py",
+    "blenderVersion": "5.2.0 LTS",
+    "singleAssetOnly": true
+  },
+  "derivedFrom": {
+    "heroGenerator": {
+      "path": "scripts/create_xinhua_pocket_park_hero_v2.py",
+      "sha256": "61ad1d167749a6f817e12f4ad2991c800805e6c0f913b174df552f6c21548266"
+    },
+    "heroEditableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/hero-v2/xinhua-pocket-park-hero.blend",
+      "sha256": "3510dd5676c5d3f65e2a5e88d12c309143671a1ff9248bd4d61d43381df2ef87"
+    },
+    "heroRuntimeAsset": {
+      "path": "public/models/tiers/xinhua-road/hero-v2/xinhua-pocket-park-hero.glb",
+      "sha256": "c6ef6f107e3c1b6555784858dea2e46da8813e68aec589d04d0d3c10aeb8a7c7",
+      "triangles": 1152
+    },
+    "heroBuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/hero-v2/xinhua-pocket-park-hero.json",
+      "sha256": "f36ebab13e458b0fd60e6b819dc6d01de400289f470a1e153b701b57ab871fd5"
+    },
+    "heroMcp2Record": {
+      "path": "docs/research/xinhua-pocket-park-blender-mcp-gates-v2.json",
+      "sha256": "4c0e987e677c59fb7eccdccf43de41202bf6b6d09353fac36f1c92418f7f5d0c",
+      "status": "pass-main-window-xhigh"
+    },
+    "massingRuntimeAsset": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.glb",
+      "sha256": "cc89e36e68397199d91684d3059c5c88410a7acc1b1c015398e05d8e57b15fa3"
+    },
+    "profileExtraction": {
+      "source": "in-memory output from frozen Hero generator",
+      "heroProfileStationsPerWall": 13,
+      "identityProfileStationsPerWall": 8,
+      "selectedHeroProfileIndices": [
+        0,
+        2,
+        4,
+        5,
+        6,
+        8,
+        10,
+        12
+      ],
+      "entranceHeader": "exact frozen Hero vertex and face copy"
+    },
+    "heroStatus": "mcp2-pass-identity-authorized"
+  },
+  "evidence": {
+    "brief": {
+      "path": "docs/research/xinhua-pocket-park-identity-v1-brief.md",
+      "sha256": "8573c17c0dfdaf9a3f309f4f3852ca97db20f05750e4f654d0e052d80e670330"
+    },
+    "canonicalReference": {
+      "path": "docs/research/assets/requested-poi-references/xinhua-pocket-park-canonical.jpg",
+      "sha256": "7234b2fe1930e7a7197fa85b3cf0f05815906c27151e28de3b7d80dc9ad0e4b9",
+      "usage": "research-only-not-embedded"
+    },
+    "preservedIdentityCues": [
+      "paired continuous faceted mirror walls",
+      "weathering-steel wave bands",
+      "mirror upper silhouette",
+      "weathering-steel entrance header",
+      "open center passage"
+    ],
+    "deliberateLosses": [
+      "13 Hero wall profile stations reduced to 8 Identity stations",
+      "11 Hero seams per wall reduced to 6 Identity seams per wall",
+      "two alternating Hero mirror materials merged to one Identity mirror material",
+      "fine sub-panel variation omitted"
+    ]
+  },
+  "contract": {
+    "sceneUnitMeters": 2.7,
+    "authoredFront": "local-negative-y",
+    "glbFront": "local-positive-z",
+    "origin": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "groundY": 0.0,
+    "runtimePosition": [
+      -57.421934309,
+      67.06298037
+    ],
+    "runtimeYaw": -0.398058989,
+    "runtimeScale": 0.88,
+    "authoredEnvelope": {
+      "widthSceneUnits": 1.68,
+      "lengthSceneUnits": 9.2,
+      "widthMetersAtRuntime": 3.99168,
+      "lengthMetersAtRuntime": 21.8592
+    },
+    "localObstacles": [
+      {
+        "role": "west-mirror-wall",
+        "minX": -0.84,
+        "maxX": -0.68,
+        "minZ": -4.6,
+        "maxZ": 4.6
+      },
+      {
+        "role": "east-mirror-wall",
+        "minX": 0.68,
+        "maxX": 0.84,
+        "minZ": -4.6,
+        "maxZ": 4.6
+      }
+    ],
+    "centerPassage": {
+      "minimumLocalWidthSceneUnits": 1.36,
+      "runtimeWidthSceneUnits": 1.1968,
+      "runtimeWidthMeters": 3.23136,
+      "groundLevelCrossingObjects": 0
+    },
+    "fixedCameras": {
+      "canonical": {
+        "location": [
+          5.8,
+          -15.5,
+          5.2
+        ],
+        "target": [
+          0.0,
+          0.0,
+          0.78
+        ],
+        "lens": 58.0
+      },
+      "side": {
+        "location": [
+          18.0,
+          -1.2,
+          5.2
+        ],
+        "target": [
+          0.0,
+          0.0,
+          0.78
+        ],
+        "lens": 62.0
+      },
+      "detail": {
+        "location": [
+          3.2,
+          -10.6,
+          2.15
+        ],
+        "target": [
+          0.0,
+          -2.1,
+          0.82
+        ],
+        "lens": 62.0
+      },
+      "runtime-independent": {
+        "location": [
+          -7.2,
+          -12.5,
+          6.4
+        ],
+        "target": [
+          0.0,
+          -0.2,
+          0.78
+        ],
+        "lens": 62.0
+      }
+    }
+  },
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/identity-v1/xinhua-pocket-park-identity.blend",
+      "sha256": "49402a4813c66cfa7fabab66637409d90dcf93f10a1e0cd3f9bdf0c378ec3751",
+      "bytes": 101262
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/identity-v1/xinhua-pocket-park-identity.glb",
+      "sha256": "892677bb8f336ba8d504225fcaf207472829a85e4fa4424552777f0ecedf198d",
+      "bytes": 41164,
+      "nodes": 3,
+      "meshes": 3,
+      "primitives": 7,
+      "triangles": 672,
+      "materials": 3,
+      "materialNames": [
+        "xinhua-pocket-park-identity-weathering-steel",
+        "xinhua-pocket-park-identity-mirror",
+        "xinhua-pocket-park-identity-dark-seam"
+      ],
+      "images": 0,
+      "textures": 0,
+      "animations": 0,
+      "bounds": {
+        "min": [
+          -0.8399999737739563,
+          0,
+          -4.599999904632568
+        ],
+        "max": [
+          0.8399999737739563,
+          1.659999966621399,
+          4.599999904632568
+        ]
+      },
+      "transformedNodes": [],
+      "nodeNames": [
+        "xinhua-pocket-park-identity-entrance-header",
+        "xinhua-pocket-park-identity-left-wall",
+        "xinhua-pocket-park-identity-right-wall"
+      ],
+      "nodeExtras": [
+        {
+          "stable_asset_id": "building:xinhua-road:xinhua-pocket-park",
+          "asset_id": "xinhua-pocket-park",
+          "tier": "identity",
+          "version": "identity-v1",
+          "component_role": "weathering-steel-entrance-header",
+          "authored_front": "local-negative-y",
+          "glb_front": "local-positive-z",
+          "scene_unit_meters": 2.7,
+          "derived_from_hero_glb_sha256": "c6ef6f107e3c1b6555784858dea2e46da8813e68aec589d04d0d3c10aeb8a7c7",
+          "mcp3_status": "pending-main-window-xhigh",
+          "runtime_integrated": false
+        },
+        {
+          "stable_asset_id": "building:xinhua-road:xinhua-pocket-park",
+          "asset_id": "xinhua-pocket-park",
+          "tier": "identity",
+          "version": "identity-v1",
+          "component_role": "left-simplified-faceted-mirror-wall",
+          "authored_front": "local-negative-y",
+          "glb_front": "local-positive-z",
+          "scene_unit_meters": 2.7,
+          "derived_from_hero_glb_sha256": "c6ef6f107e3c1b6555784858dea2e46da8813e68aec589d04d0d3c10aeb8a7c7",
+          "mcp3_status": "pending-main-window-xhigh",
+          "runtime_integrated": false
+        },
+        {
+          "stable_asset_id": "building:xinhua-road:xinhua-pocket-park",
+          "asset_id": "xinhua-pocket-park",
+          "tier": "identity",
+          "version": "identity-v1",
+          "component_role": "right-simplified-faceted-mirror-wall",
+          "authored_front": "local-negative-y",
+          "glb_front": "local-positive-z",
+          "scene_unit_meters": 2.7,
+          "derived_from_hero_glb_sha256": "c6ef6f107e3c1b6555784858dea2e46da8813e68aec589d04d0d3c10aeb8a7c7",
+          "mcp3_status": "pending-main-window-xhigh",
+          "runtime_integrated": false
+        }
+      ]
+    },
+    "previews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/identity-v1/xinhua-pocket-park/test_xinhua_pocket_park_identity_v1_canonical.png",
+        "sha256": "19794a490551e132ef558771b184a7009648deab0b191bdf0072361b22fcb635",
+        "bytes": 752550
+      },
+      "side": {
+        "path": "test_artifacts/all-models/identity-v1/xinhua-pocket-park/test_xinhua_pocket_park_identity_v1_side.png",
+        "sha256": "edc50660e7d68b95498e43f35a47c11e8325b5d5dbfef3b7b251904bc4b91c1e",
+        "bytes": 701914
+      },
+      "detail": {
+        "path": "test_artifacts/all-models/identity-v1/xinhua-pocket-park/test_xinhua_pocket_park_identity_v1_detail.png",
+        "sha256": "33eba76957bb64e473f9b7b7d417dd7154a07a6bc4ad711cebd740e2239f18dc",
+        "bytes": 768452
+      },
+      "runtimeIndependent": {
+        "path": "test_artifacts/all-models/identity-v1/xinhua-pocket-park/test_xinhua_pocket_park_identity_v1_runtime_independent.png",
+        "sha256": "f038720d339c4ecde17d3670444c1c8238c38f2a48b739632cd85cb3483eeb43",
+        "bytes": 763413
+      }
+    },
+    "triptych": {
+      "path": "test_artifacts/all-models/identity-v1/xinhua-pocket-park/test_xinhua_pocket_park_identity_v1_triptych.png",
+      "sha256": "db20fc4ba00fa9994cf7557f41866636e0a07edd8f24e7dbc0bbfa704992340e",
+      "bytes": 1580665,
+      "panels": [
+        "reference-research-only",
+        "frozen-hero-mcp2-pass",
+        "identity-v1-headless-candidate-mcp3-runtime-pending"
+      ]
+    }
+  },
+  "sourceBlend": {
+    "objectNames": [
+      "xinhua-pocket-park-identity-entrance-header",
+      "xinhua-pocket-park-identity-left-wall",
+      "xinhua-pocket-park-identity-right-wall"
+    ],
+    "meshObjectCount": 3,
+    "qaObjectsSaved": 0,
+    "editable": true
+  },
+  "budget": {
+    "maximumNodes": 3,
+    "maximumMeshes": 3,
+    "maximumTriangles": 800,
+    "maximumMaterials": 3,
+    "maximumImages": 0,
+    "maximumBytes": 120000,
+    "heroTriangles": 1152,
+    "topologyReductionRequired": true
+  },
+  "validation": {
+    "headlessBuild": "pass",
+    "glbAudit": "pass",
+    "fixedCameraPreviews": "pass-generated-runtime-independent",
+    "heroMcp2": "pass-retained-main-window-xhigh",
+    "mcp3": "pass-main-window-xhigh",
+    "mcp3Record": "docs/research/xinhua-pocket-park-blender-mcp3-gate-v1.json",
+    "threeJsIdentity": "pass-main-window-single-page",
+    "threeJsRecord": "docs/research/xinhua-pocket-park-three-tier-runtime-qa-v1.json",
+    "fallbackPerformanceCollision": "pass-main-window-single-page",
+    "runtimeClaimed": true,
+    "performanceClaimed": true
+  }
+}

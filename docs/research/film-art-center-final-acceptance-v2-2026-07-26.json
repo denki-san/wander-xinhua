@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "assetId": "film-art-center",
+  "label": "上海电影艺术中心·新华两佰",
+  "acceptedAt": "2026-07-26T19:32:03+08:00",
+  "owner": "main-coordinator-xhigh",
+  "mode": "exact-18-building-fast-mode-final-acceptance",
+  "status": "complete",
+  "supersedes": {
+    "record": "docs/research/film-art-center-final-audit-2026-07-26.json",
+    "historicalVerdict": "blocked-current-map-and-strict-massing-lineage",
+    "preservation": "retained-read-only-not-overwritten"
+  },
+  "gates": {
+    "evidence": {
+      "status": "pass",
+      "record": "docs/research/film-art-center-road-evidence-rescue-2026-07-26.json",
+      "binding": "official-plan-parcel-124-13-plus-osm-way-864505138-and-address-anchors"
+    },
+    "hero": {
+      "status": "pass-retained",
+      "sha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b"
+    },
+    "identity": {
+      "status": "pass-retained",
+      "sha256": "a4d37446e27225815624e6382048ed1dc341f1e079f089755ed5fb68e520e869"
+    },
+    "massing": {
+      "status": "pass-retained",
+      "sha256": "c89791dc3978b317cc2f8807a77f7a84b5c596f8d4cd01c1cffd05090e9584a6"
+    },
+    "blenderMcp": {
+      "mcp1": "pass-retained",
+      "mcp2": "pass-retained",
+      "mcp3": "pass-retained",
+      "record": "docs/research/film-art-center-blender-mcp-gates.json",
+      "rerun": false
+    },
+    "lineage": {
+      "status": "pass-common-provenance-topology-only-repair",
+      "record": "docs/research/film-art-center-lineage-adjudication-v2.json",
+      "directCurrentHeroToMassingShaClaim": false
+    },
+    "map": {
+      "status": "pass-current",
+      "position": [46.388748754382405, 79.07089962964774],
+      "yaw": 2.786349542422368,
+      "scale": 0.5,
+      "mainFootprintOsmWayId": 864505138,
+      "completeHeroMinimumSurfaceRoadClearanceSceneUnits": 0.864477675412314,
+      "roadSurfaceSemanticsChanged": false
+    },
+    "threeJs": {
+      "status": "pass",
+      "record": "docs/research/film-art-center-map-runtime-qa-v3.json",
+      "supportingDefaultContextRecord": "docs/research/film-art-center-footprint-v2-threejs-runtime-qa.json",
+      "threeTiers": "pass",
+      "fallbacks": "pass-two-fault-injections",
+      "performance": "pass-measured-no-improvement-claim",
+      "collision": "pass-10-second-wall-contact-and-slide-plus-default-context",
+      "camera": "pass",
+      "unexpectedConsoleErrors": 0
+    },
+    "specialtyFastMode": {
+      "status": "pass",
+      "tests": 67,
+      "glbAudits": 3
+    }
+  },
+  "scope": {
+    "exact18": true,
+    "sharedFilesIntegratedByMainOnly": true,
+    "qualifiedRecoveryStagesRedone": false,
+    "heroIdentityMassingBinariesChanged": false,
+    "trees": "untouched",
+    "decor": "untouched",
+    "ordinaryOsmMassing": "not-imported",
+    "fullMapAssets": "untouched",
+    "recoveryHold": "preserved"
+  },
+  "verdict": {
+    "eligibleForProduction": true,
+    "overall": "complete",
+    "reason": "官方 1:1000 图、两级审批和门牌锚点闭合了主楼 way/864505138；公共 placement 按当前 footprint 校准到 position/yaw/scale=0.5，完整 Hero 退出两条场内道路，三档、双故障注入、120帧性能、碰撞与相机均在 production preview 通过。Massing 保留真实旧 Hero SHA，并以拓扑修复前后的共同 provenance 通过，不伪造 direct-current-SHA，也不重做已合格 MCP1。"
+  }
+}

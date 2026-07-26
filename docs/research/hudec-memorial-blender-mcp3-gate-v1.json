@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "tier": "identity",
+  "recordedAt": "2026-07-26T14:50:00+08:00",
+  "status": "pass-main-window-xhigh",
+  "source": {
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/identity-v1/hudec-memorial-identity.blend",
+      "sha256": "6bbc6254b5fea70b09e281b45a540f4290375c55f43b9c94f31a1109cb538551"
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/identity-v1/hudec-memorial-identity.glb",
+      "sha256": "867f336824f62eb2dddcb54d4dede6904278a0bcd940997df6c06278bf35660f",
+      "bytes": 392920,
+      "triangles": 7136,
+      "materials": 8,
+      "images": 0
+    },
+    "heroMcp2Record": "docs/research/hudec-memorial-blender-mcp-gates-v2.json"
+  },
+  "mcpSession": {
+    "method": "atomic-open-fingerprint-and-three-view-render",
+    "sharedSceneAssumedStableAcrossCalls": false,
+    "savedBlend": false,
+    "renderEngine": "BLENDER_EEVEE",
+    "sceneFingerprint": {
+      "meshNames": [
+        "hudec-memorial-identity"
+      ],
+      "meshCount": 1,
+      "materialCount": 8,
+      "materials": [
+        "HudecIdentity_DarkTimber",
+        "HudecIdentity_DeepGlass",
+        "HudecIdentity_EntranceStone",
+        "HudecIdentity_EntranceWood",
+        "HudecIdentity_MutedRoofTile",
+        "HudecIdentity_RedBrick",
+        "HudecIdentity_WarmPlaster",
+        "HudecIdentity_WindowFrame"
+      ],
+      "rootTransform": "normalized",
+      "blenderBounds": {
+        "min": [
+          -4.968000411987305,
+          -3.756000518798828,
+          0.0
+        ],
+        "max": [
+          5.076000213623047,
+          3.8195998668670654,
+          8.978399276733398
+        ]
+      }
+    }
+  },
+  "fixedViews": {
+    "canonical": {
+      "path": "test_artifacts/all-models/identity-v1/hudec-memorial/mcp3/test_hudec_memorial_identity_v1_mcp3_canonical_atomic.png",
+      "sha256": "70db25c66c5133644348de01f32e687d8d01a84bf613a266161686f7decf3327",
+      "bytes": 409431,
+      "verdict": "pass-layered-steep-roof-chimney-half-timber-and-glass-wing-readable"
+    },
+    "side": {
+      "path": "test_artifacts/all-models/identity-v1/hudec-memorial/mcp3/test_hudec_memorial_identity_v1_mcp3_side_atomic.png",
+      "sha256": "1a5c23429f305fb35aa74647b4fe5f5a6fb2289bb9f1d8b1863d65cdd650b3cb",
+      "bytes": 397881,
+      "verdict": "pass-end-gable-dormer-window-rhythm-and-depth-readable"
+    },
+    "entrance": {
+      "path": "test_artifacts/all-models/identity-v1/hudec-memorial/mcp3/test_hudec_memorial_identity_v1_mcp3_entrance_atomic.png",
+      "sha256": "ceec298f6c6974b0aab76126015fe90519c23fd0c7089de8a986183db84959c9",
+      "bytes": 529095,
+      "verdict": "pass-entrance-porch-half-timber-dormer-and-three-flue-crown-readable"
+    }
+  },
+  "continuity": {
+    "heroIdentityEnvelope": "pass",
+    "originGroundFront": "pass",
+    "preservedIdentityCues": [
+      "layered steep roof and dormers",
+      "half-timber facade and end gable",
+      "three-flue chimney crown",
+      "entrance porch door and steps",
+      "low glazed wing"
+    ],
+    "excludedScope": [
+      "trees",
+      "hedges",
+      "planting",
+      "courtyard dressing",
+      "street walls",
+      "signage",
+      "lights"
+    ]
+  },
+  "gates": {
+    "identityStructure": "pass",
+    "identityVisual": "pass",
+    "identityBudget": "pass",
+    "mcp3": "pass",
+    "threeJsIdentity": "pass-main-window-single-page",
+    "threeJsRecord": "docs/research/hudec-memorial-three-tier-runtime-qa-v1.json",
+    "overallBuilding": "complete"
+  }
+}

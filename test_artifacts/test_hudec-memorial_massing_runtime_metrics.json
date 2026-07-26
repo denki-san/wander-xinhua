@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "qualityTier": "massing",
+  "capturedAt": "2026-07-25T19:14:34+08:00",
+  "status": "blocked-entrance-collision-and-qa-provenance",
+  "runtime": {
+    "buildMode": "vite-static-preview",
+    "url": "http://127.0.0.1:4318/?start=hudec&network=standard",
+    "fixedStartQuery": "hudec",
+    "networkProfile": "standard",
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "devicePixelRatio": 1
+    },
+    "pageVisibility": "visible",
+    "warmupMs": 15000,
+    "canvas": {
+      "count": 1,
+      "width": 1440,
+      "height": 900
+    }
+  },
+  "qaAssembly": {
+    "temporary": true,
+    "purpose": "在不提交公共 registry/manifest 变更的前提下，让实际静态构建加载 Massing 二进制。",
+    "sourceRegistry": "app/scene/xinhua-road-landmarks-data.json",
+    "sourceBeforeSha256": "eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6",
+    "rejectedCollisionQaSourceSha256": "609aea7cb90695413504a6aac6c3e084f05c778bf67a8c006cd975b9ea553b05",
+    "sourceAfterRestoreSha256": "eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6",
+    "sourceRegistryCommitted": false,
+    "heroAssetOverwritten": false,
+    "heroAssetSha256": "42159678fb720c963a82921ed827aceb7825b164da321d67345891732f622984",
+    "runtimeValues": {
+      "model": "/models/requested-pois/hudec-memorial-massing.glb",
+      "cacheVersion": "20260725-hudec-massing-c38302eb136d",
+      "position": [91.34, -131.74],
+      "yawRadians": 1.5707963267948966,
+      "scale": 1,
+      "localBounds": {
+        "minX": -6.3,
+        "maxX": 6.3,
+        "minZ": -5.148,
+        "maxZ": 5.652
+      },
+      "localObstacles": [
+        {"minX": -4.608, "maxX": 4.104, "minZ": -2.988, "maxZ": 2.052},
+        {"minX": 2.016, "maxX": 4.752, "minZ": -3.42, "maxZ": 1.62},
+        {"minX": -4.5, "maxX": -0.9, "minZ": -3.762, "maxZ": -1.35},
+        {"minX": 0.9, "maxX": 1.2744, "minZ": 1.926, "maxZ": 3.186},
+        {"minX": 2.5416, "maxX": 2.916, "minZ": 1.926, "maxZ": 3.186},
+        {"minX": -6.048, "maxX": -2.448, "minZ": 4.5216, "maxZ": 4.9104},
+        {"minX": 2.448, "maxX": 6.048, "minZ": 4.5216, "maxZ": 4.9104},
+        {"minX": -4.968, "maxX": -2.088, "minZ": 1.548, "maxZ": 3.78}
+      ],
+      "collisionMargin": 0.2,
+      "start": [73, -132],
+      "forward": [1, 0],
+      "frontDirection": "-Y",
+      "positioning": "osm-way-494633921"
+    },
+    "rejectedCollisionCompiledDataModule": {
+      "pathAtQaBuild": "dist-static/assets/xinhua-road-landmarks-data-B_KwGIr4.js",
+      "bytes": 27184,
+      "sha256": "6f3cf8e2e1dfcc8edfc3bf6e68c0ec507db4c9b4ef96c49589005d7bd58b85e0",
+      "retained": false,
+      "note": "模块在最终普通构建时被替换；它编译了会让角色穿入可见门廊墙的缩窄碰撞实验，只保留为拒绝证据，不支持地图门通过。"
+    }
+  },
+  "resource": {
+    "url": "http://127.0.0.1:4318/models/requested-pois/hudec-memorial-massing.glb?v=20260725-hudec-massing-c38302eb136d",
+    "initiatorType": "fetch",
+    "responseStatus": 200,
+    "transferSize": 158612,
+    "encodedBodySize": 158312,
+    "decodedBodySize": 158312,
+    "durationMs": 47,
+    "sha256": "c38302eb136dbb4dfb9b882f725957d26260bc0cb10929459e44aeb4e96d14a5",
+    "provenance": {
+      "method": "agent-browser PerformanceResourceTiming eval",
+      "harRetained": false,
+      "evidentiaryStatus": "observed-not-independently-replayable"
+    }
+  },
+  "networkBoundary": {
+    "automaticProfile": "weak",
+    "navigatorConnection": {
+      "saveData": false,
+      "effectiveType": "4g",
+      "downlinkMbps": 1.65
+    },
+    "observedBehavior": "弱网档按既有策略只显示 Identity proxy，不请求精确 Massing GLB；standard 参数是项目已有的受支持 QA 覆盖。",
+    "isAssetFailure": false
+  },
+  "mapCalibration": {
+    "placement": {
+      "status": "pass",
+      "position": [91.34, -131.74],
+      "positioning": "osm-way-494633921",
+      "startToFootprintDistanceSceneUnits": 12.688
+    },
+    "orientation": {
+      "status": "pass",
+      "blenderFront": "-Y",
+      "runtimeYawRadians": 1.5707963267948966,
+      "startForward": [1, 0],
+      "note": "固定起点可直接看见入口立面，符合 loader 深度镜像后再施加 yaw=π/2 的合同。"
+    },
+    "groundContact": {
+      "status": "pass",
+      "glbMinY": -1.4901161193847656e-8,
+      "runtimePlacementOffset": 0.1,
+      "visualEvidence": "三张运行时截图中基座与地表连续，无可见悬浮或深陷。"
+    },
+    "roadSetback": {
+      "status": "pass",
+      "note": "沿用 OSM way 494633921 的既有落点；固定起点与入口之间保留道路、退界草地和门墙空间。"
+    },
+    "humanScale": {
+      "status": "pass-for-massing",
+      "note": "固定视图与缩放入口视图中，运行时角色、门洞、檐口和屋脊层级可同时判读；未以截图反推测量值。"
+    },
+    "camera": {
+      "status": "pass",
+      "startCameraClearanceProbe": [65.6, -132],
+      "probeDistanceBehindStartSceneUnits": 7.4,
+      "note": "起点与 Brief 指定的后方相机探针均在变换后的拆分 obstacle 之外。"
+    },
+    "collisionAndWalkable": {
+      "status": "blocked-entrance-width",
+      "method": "从生成器 AUTHORED_SCALE、porch_width、side_width 与 center_x 独立复算真实门廊墙范围，再应用生产 collisionMargin 与 PLAYER_RADIUS。",
+      "playerRadius": 0.48,
+      "actualPorchGeometry": {
+        "leftWallX": [0.9, 1.2744],
+        "rightWallX": [2.5416, 2.916],
+        "visualGap": 1.2672
+      },
+      "requiredGapWithMarginAndPlayerRadius": 1.36,
+      "gapDeficit": 0.0928,
+      "rejectedCalibration": "把两侧门廊 collision 缩为 x=0.90..1.05 与 2.766..2.916、并移动街墙 collision，会允许角色穿入可见墙体，不能作为 Pass。",
+      "requiredFix": "回到 Massing 批次加宽真实门廊净宽或调整真实墙体几何，然后重新生成 GLB、重跑 MCP1 与地图门。",
+      "singleCompoundObstacle": false
+    }
+  },
+  "performance": {
+    "warmupMs": 15000,
+    "sampleFrames": 180,
+    "sampleDurationMs": 2991.1,
+    "averageFrameMs": 16.617222222222253,
+    "medianFrameMs": 16.699999999982538,
+    "p95FrameMs": 16.79999999998836,
+    "estimatedFps": 60.178529637925735,
+    "contractStatus": "diagnostic-only-sample-shorter-than-required-10-seconds",
+    "claim": "仅记录诊断样本，不满足 Brief 的 10 秒性能验收，也不宣称相对性能提升。"
+  },
+  "console": {
+    "logs": [],
+    "pageErrors": [],
+    "provenance": {
+      "method": "agent-browser console and errors commands",
+      "traceRetained": false,
+      "evidentiaryStatus": "observed-not-independently-replayable"
+    }
+  },
+  "screenshots": {
+    "runtime": {
+      "path": "test_artifacts/test_hudec-memorial_massing_runtime_preview.png",
+      "bytes": 588546,
+      "sha256": "b00b98b38e0f5a8fb1512da7d9ef582a27a11a63b41bfcc9b3cf85a5d9a57e87"
+    },
+    "entrance": {
+      "path": "test_artifacts/test_hudec-memorial_massing_runtime_entrance_preview.png",
+      "bytes": 605527,
+      "sha256": "2b1fc4bcfc112939219b95737539382190a91c29871324e2beb8788f31694453"
+    },
+    "side": {
+      "path": "test_artifacts/test_hudec-memorial_massing_runtime_side_preview.png",
+      "bytes": 650669,
+      "sha256": "03ad5409a0cd008e8e3750c77c364a1c343749aa74927e54aeaf94fcc1d3898a"
+    }
+  },
+  "verdict": {
+    "mapGate": "blocked",
+    "blockers": [
+      "真实门廊净宽 1.2672 小于 collision margin 与玩家半径要求的 1.36。",
+      "未保留临时 QA bundle/HAR，运行时碰撞配置缺少独立可复核证据。",
+      "性能样本 2.9911 秒，短于 Brief 要求的 10 秒。"
+    ],
+    "next": "return-to-massing-entrance-geometry-before-new-mcp1-and-map-gate",
+    "heroIdentityAuthorized": false
+  },
+  "holdBoundary": {
+    "trees": "untouched",
+    "decor": "untouched",
+    "characters": "runtime character observed only; asset untouched",
+    "otherBuildings": "untouched",
+    "globalMassing": "untouched",
+    "publicRegistry": "temporary QA patch restored byte-for-byte and not committed"
+  }
+}

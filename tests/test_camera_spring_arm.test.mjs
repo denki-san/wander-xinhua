@@ -3,6 +3,7 @@ import test from "node:test";
 import {
   explorationVerticalFov,
   isPlanarPositionBlockedInPolygon,
+  narrowSpaceCameraLift,
   nextCameraZoomDistance,
   normalizeWheelDeltaY,
   remainingDeadlineMs,
@@ -142,6 +143,17 @@ test("spring arm 从合法零臂长恢复时不会单帧跳到完整长度", () 
   const firstFrame = stepSpringArmLength(0, 5, 6, 1 / 60);
   assert.ok(firstFrame > 0);
   assert.ok(firstFrame < 0.5);
+});
+
+test("狭窄空间镜头只抬高垂直位置并在安全臂长处平滑归零", () => {
+  assert.equal(narrowSpaceCameraLift(1.45), 0);
+  assert.equal(narrowSpaceCameraLift(0.75), 1.8);
+  assert.equal(narrowSpaceCameraLift(0.38), 1.8);
+
+  const middleLift = narrowSpaceCameraLift(1.1);
+  assert.ok(middleLift > 0);
+  assert.ok(middleLift < 1.8);
+  assert.ok(narrowSpaceCameraLift(1.2) < middleLift);
 });
 
 test("贴墙时构图偏移不移动 spring arm 的安全 pivot", () => {

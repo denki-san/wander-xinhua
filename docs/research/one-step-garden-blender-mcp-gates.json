@@ -1,0 +1,478 @@
+{
+  "schemaVersion": 1,
+  "assetId": "one-step-garden",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-25T22:34:22+08:00",
+  "reviewedBy": "main-coordinator",
+  "sourceCheckpoint": "bf07d51",
+  "latestReviewedCheckpoint": "f1029cc4b93565d461a69eceebc7b45207c2b6ad",
+  "pipelineOrder": [
+    "evidence-and-brief",
+    "massing-generation",
+    "blender-mcp-massing-review",
+    "three-js-map-calibration",
+    "hero-master-review",
+    "identity-derivation",
+    "three-tier-review",
+    "three-js-runtime-acceptance"
+  ],
+  "massingGate": {
+    "gate": "mcp1-massing-pre-map-calibration",
+    "status": "pass",
+    "interactiveReview": "Blender MCP",
+    "fallbackUsed": false,
+    "editableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/one-step-garden-massing.blend",
+      "sha256": "a4c0e0fba996f139a88344b6f39a8a2509326ba7018206dc888231fab6474388"
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb",
+      "sha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+      "bytes": 18316
+    },
+    "generator": {
+      "path": "scripts/create_one_step_garden_massing_model.py",
+      "sha256": "41a6e2190730ad54cb7dd269d3109049092f12b1f450559a55829b6b59e3f0e3"
+    },
+    "buildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/one-step-garden-massing.json"
+    },
+    "sceneInspection": {
+      "rootObject": "one-step-garden-massing",
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1],
+      "meshObjects": 1,
+      "materials": 3,
+      "images": 0,
+      "draws": 3,
+      "boundsBlender": {
+        "min": [-7.25, -6.9, 0],
+        "max": [7.25, 9.325, 6.25]
+      },
+      "frontDirection": "-Y",
+      "groundDatum": 0,
+      "authoredMetersPerSceneUnit": 2.7
+    },
+    "humanScale": {
+      "heightMeters": 1.8,
+      "heightSceneUnits": 0.666667,
+      "proxyPosition": [4.6, -7.4],
+      "proxyZRange": [0, 0.666667],
+      "temporaryProxyOnly": true,
+      "savedToMaster": false,
+      "storeyComparison": "pass-proxy-is-about-half-of-one-1.333-unit-storey"
+    },
+    "qaRig": {
+      "renderEngine": "EEVEE",
+      "resolution": [1024, 768],
+      "groundZ": -0.025,
+      "savedToMaster": false,
+      "exportedToGlb": false
+    },
+    "fixedViews": {
+      "canonical": {
+        "cameraType": "ORTHO",
+        "location": [13.5, -23.5, 14],
+        "target": [0, 0, 2.8],
+        "orthoScale": 22,
+        "screenshot": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_canonical.png",
+        "sha256": "7638db186fe140fca82d5efa46778ed6d2395012caa5cb90f954be6243575833",
+        "bytes": 529168
+      },
+      "sideDepth": {
+        "cameraType": "ORTHO",
+        "location": [-22, -4, 15.5],
+        "target": [0, 2, 2.8],
+        "orthoScale": 22,
+        "screenshot": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_side-depth.png",
+        "sha256": "11b1a0af219737a85293c25dfa14ae279a98dead9b2bce7b339a4dee66e135c2",
+        "bytes": 530488
+      },
+      "entranceScale": {
+        "cameraType": "ORTHO",
+        "location": [7, -18.5, 8.5],
+        "target": [0, -2.5, 2.2],
+        "orthoScale": 14.5,
+        "screenshot": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_entrance-scale.png",
+        "sha256": "8ac184b7cb22b49eb5ac437443a8b686fdb6d8d109d4436a55bd29ce954d5059",
+        "bytes": 561350
+      },
+      "streetScale": {
+        "cameraType": "ORTHO",
+        "location": [8.5, -25, 5.4],
+        "target": [0, -0.4, 2.65],
+        "orthoScale": 18,
+        "screenshot": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_street-scale.png",
+        "sha256": "a75bf99b7de1d77374202816c20ebe44ae5600b45249f3fa112428bc0d71af6b",
+        "bytes": 493061
+      }
+    },
+    "checks": {
+      "groundContact": "pass-z-zero-datum",
+      "rootTransform": "pass-normalized",
+      "humanScale": "pass",
+      "volumeHierarchy": "pass-front-u-courtyard-and-separate-rear-volume",
+      "frontSteepGables": "pass-readable",
+      "frontShedDormer": "pass-readable",
+      "rearTwinGables": "pass-readable",
+      "rearChimneys": "pass-two-readable",
+      "frontRearGap": "pass-open-and-readable",
+      "entrance": "pass-open-canopy-and-posts",
+      "visibleIntersections": "pass-no-unintended-clipping-in-fixed-views",
+      "texturePolicy": "pass-zero-images"
+    },
+    "acceptedInteractiveChanges": [],
+    "generatorRoundTrip": {
+      "status": "not-required",
+      "note": "MCP1 仅增加临时正交相机、灯光、地面和1.8米人物代理；没有接受几何、材质或 transform 修改，QA rig 未保存或导出。"
+    },
+    "nextGate": "three-js-massing-map-calibration"
+  },
+  "mapGate": {
+    "gate": "three-js-massing-map-calibration",
+    "status": "pass",
+    "reviewedAt": "2026-07-25T20:38:45+08:00",
+    "reviewedBy": "one-step-garden-worktree-agent",
+    "runtimeQa": "docs/research/one-step-garden-massing-map-qa.json",
+    "fixedEntry": "/?start=garden179&network=standard&cameraQa=1&effects=off&district=off",
+    "qaAssembly": {
+      "temporary": true,
+      "sourceRegistryCommitted": false,
+      "sourceRegistryRestoredSha256": "eccba9706ef88456ee6616ff9f44bc6f41ec8ac76d3f09478d08f7f58b5527e6",
+      "heroAssetOverwritten": false,
+      "sharedRuntimeFilesCommitted": false
+    },
+    "frozenPlacement": {
+      "position": [60.86, 120.73],
+      "yaw": -0.38,
+      "scale": 0.88
+    },
+    "movementAuthorized": false,
+    "checks": {
+      "positioning": "pass-frozen-placement",
+      "orientation": "pass-local-negative-y-to-xinhua-road",
+      "groundContact": "pass",
+      "roadSetback": "pass",
+      "humanScale": "pass",
+      "camera": "pass-spring-clear-blocker-none",
+      "wallCollision": "pass",
+      "entranceWalkable": "pass-scripted-path",
+      "frontRearGap": "pass-1.404-scene-unit-clear-width-after-margins",
+      "resource": "pass-http-200-exact-18316-byte-glb",
+      "console": "pass-zero-logs-and-zero-page-errors",
+      "performance": "pass-10.014-second-visible-sample"
+    },
+    "nextGate": "main-window-hero-master-disposition",
+    "heroMasterReviewAuthorized": true,
+    "identityAuthorized": false
+  },
+  "heroGate": {
+    "status": "pass",
+    "disposition": "docs/research/one-step-garden-hero-disposition.json",
+    "legacyHeroMcp2Candidate": false,
+    "legacyHeroDisposition": "hold-read-only-rollback-only",
+    "mcp2Requested": true,
+    "mcp2RereviewCompleted": true,
+    "mcp2FirstAttempt": {
+      "status": "blocked",
+      "finding": "all-seven-Principled-Base-Color-values-were-default-gray",
+      "cause": "generator-only-set-viewport-diffuse-color-and-workbench-previews-did-not-prove-node-or-glb-materials",
+      "acceptedInteractiveChanges": [],
+      "qaRigSaved": false,
+      "failedEvidence": {
+        "canonical": {
+          "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_canonical.png",
+          "sha256": "e2ac52f4633c83a739d133613ddd53a356c13e3b60395d4ef142b49cbd75284d",
+          "bytes": 760817
+        },
+        "side": {
+          "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_side.png",
+          "sha256": "a032a12be3b6f6d1278dd4dc22d598de3a909d8fc4ec774e336311356df18c64",
+          "bytes": 726967
+        },
+        "entrance": {
+          "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_recheck_entrance.png",
+          "sha256": "1062598e22f46a36a5574787a2d9585bedd779d805fe28f248697ec41b707508",
+          "bytes": 720355
+        }
+      }
+    },
+    "candidate": {
+      "version": "hero-v2",
+      "generator": "scripts/create_one_step_garden_hero_model.py",
+      "generatorSha256": "b536e1d32630b0ee3262d98029ba384bfa610f392316dad7dd658141124b30b8",
+      "editableSource": "assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend",
+      "editableSourceSha256": "8f5c3984abef50239f1ece5e5360887d8615786cb6283bf60d85f80bd12f21bd",
+      "runtimeAsset": "public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb",
+      "buildRecord": "docs/research/build-records/tiers/xinhua-road/hero-v2/one-step-garden-hero.json",
+      "derivedFromMassingGlbSha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+      "glbSha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+      "cacheVersion": "20260725-hero-026565ba",
+      "headlessStatus": "pass",
+      "topologyStatus": "pass-zero-degenerate-zero-normal-mismatch",
+      "blendMaterialStatus": "pass-seven-Principled-node-materials",
+      "glbMaterialStatus": "pass-seven-distinct-baseColorFactor-groups",
+      "formalPreviewEngine": "EEVEE",
+      "fixedViewCount": 3,
+      "mcp2Status": "pass",
+      "scopePollution": false,
+      "publicRegistryModified": false
+    },
+    "mcp2Rereview": {
+      "gate": "mcp2-hero-visual-review",
+      "status": "pass",
+      "recordedAt": "2026-07-25T21:55:16+08:00",
+      "reviewedBy": "main-coordinator",
+      "interactiveReview": "Blender MCP",
+      "sourceCommit": "a17cfe4",
+      "editableSource": {
+        "path": "assets/models/source/tiers/xinhua-road/hero-v2/one-step-garden-hero.blend",
+        "sha256": "8f5c3984abef50239f1ece5e5360887d8615786cb6283bf60d85f80bd12f21bd"
+      },
+      "runtimeAsset": {
+        "path": "public/models/tiers/xinhua-road/hero-v2/one-step-garden-hero.glb",
+        "sha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+        "bytes": 259772
+      },
+      "sceneInspection": {
+        "meshObjects": 1,
+        "vertices": 2396,
+        "polygons": 1802,
+        "rootLocation": [0, 0, 0],
+        "rootRotation": [0, 0, 0],
+        "rootScale": [1, 1, 1],
+        "rootNormalized": true
+      },
+      "materialInspection": {
+        "materials": 7,
+        "useNodes": "pass-7-of-7",
+        "principledBaseColor": "pass-matches-seven-diffuse-layers",
+        "glassRoughness": 0.38,
+        "otherRoughness": 0.88,
+        "texturePolicy": "pass-zero-images-zero-textures"
+      },
+      "geometryInspection": {
+        "areaBelow1eMinus10": 0,
+        "nonFiniteNormals": 0,
+        "visibleUnintendedIntersections": 0
+      },
+      "fixedViews": {
+        "canonical": {
+          "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_rereview_canonical.png",
+          "sha256": "8d6483ef61b9dbcfb026687c8a11b9b8e3d3bc34781c76cd4112197e812565f4",
+          "bytes": 920601,
+          "dimensions": [1024, 768],
+          "result": "pass-front-white-u-compound-half-timber-narrow-windows-steep-roofs-and-rear-brick-readable"
+        },
+        "sideDepth": {
+          "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_rereview_side.png",
+          "sha256": "188a195e6fef6fbe790308a24c4a45b48bacc330c5c5bb313cb523f7b54576e8",
+          "bytes": 860709,
+          "dimensions": [1024, 768],
+          "result": "pass-front-rear-separation-open-gap-twin-gables-two-chimneys-readable"
+        },
+        "entrance": {
+          "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2_mcp2_rereview_entrance.png",
+          "sha256": "213bfe8ad01af3582600da78f05ce89f1943c018ba0620bf5773e28f29ae16ac",
+          "bytes": 994183,
+          "dimensions": [1024, 768],
+          "result": "pass-canopy-door-window-rhythm-and-1p8m-human-scale"
+        }
+      },
+      "checks": {
+        "subjectIdentity": "pass",
+        "materialSeparation": "pass",
+        "normals": "pass",
+        "unknownSides": "pass-held-at-low-detail",
+        "scope": "pass-building-only-no-trees-decoration-or-site"
+      },
+      "acceptedInteractiveChanges": [],
+      "qaRigSaved": false,
+      "qaRigExported": false,
+      "identityDerivationAuthorized": true
+    },
+    "legacyBlockersClosedByCandidate": [
+      "subject-mismatch",
+      "misbound-evidence",
+      "scope-pollution",
+      "zero-area-triangles",
+      "normal-orientation-mismatches",
+      "hero-massing-tier-contract-mismatch",
+      "missing-build-record-and-fixed-view-set"
+    ],
+    "nextGate": "identity-v1-mcp3-pass-awaiting-main-window-gate-integration"
+  },
+  "identityGate": {
+    "status": "pass",
+    "legacyHeroMayBeIdentitySource": false,
+    "sourceHeroVersion": "hero-v2",
+    "sourceHeroGeneratorSha256": "b536e1d32630b0ee3262d98029ba384bfa610f392316dad7dd658141124b30b8",
+    "sourceHeroBlendSha256": "8f5c3984abef50239f1ece5e5360887d8615786cb6283bf60d85f80bd12f21bd",
+    "sourceHeroGlbSha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+    "sourceHeroMcp2": "pass",
+    "identityDerivationAuthorized": true,
+    "identityDerivationStarted": true,
+    "identityCandidateCompleted": true,
+    "candidate": {
+      "version": "identity-v1",
+      "generator": {
+        "path": "scripts/create_one_step_garden_identity_model.py",
+        "sha256": "d336d31efd4608d015643b5227a2bcf5d075ff2889a5b15fec1f4480212249b4"
+      },
+      "editableSource": {
+        "path": "assets/models/source/tiers/xinhua-road/identity-v1/one-step-garden-identity.blend",
+        "sha256": "9ecc551a8e9ff1c950949ca1bbf9ea1fdf13c81ab48acf876d5bbd2ad6687022",
+        "bytes": 117906
+      },
+      "runtimeAsset": {
+        "path": "public/models/tiers/xinhua-road/identity-v1/one-step-garden-identity.glb",
+        "sha256": "928ecfcace4a35e88ad68d34a2369fa673457275393ea65d8649d9de433b0497",
+        "bytes": 112456
+      },
+      "buildRecord": "docs/research/build-records/tiers/xinhua-road/identity-v1/one-step-garden-identity.json",
+      "tierLineage": "docs/research/one-step-garden-tier-lineage.json",
+      "metrics": {
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 6,
+        "triangles": 1484,
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "zeroAreaTriangles": 0,
+        "normalOrientationMismatches": 0,
+        "boundsMatchHeroAndMassing": true,
+        "rootTransform": "normalized"
+      },
+      "budget": {
+        "maxTriangles": 1800,
+        "maxBytes": 205000,
+        "triangleReductionRatioVsHero": 0.585938,
+        "byteReductionRatioVsHero": 0.567097,
+        "status": "pass"
+      },
+      "preservedCues": [
+        "front-white-u-shaped-compound",
+        "front-half-timber-street-gables",
+        "front-five-narrow-shed-dormer-windows",
+        "front-open-entry-canopy",
+        "separate-rear-red-brick-long-house",
+        "rear-twin-gables-and-two-chimneys",
+        "open-front-rear-building-gap"
+      ],
+      "scopePollution": false,
+      "deterministicDoubleBuild": true,
+      "publicRegistryModified": false
+    },
+    "mcp3Status": "pass",
+    "identityFormalPass": true,
+    "mcp3Review": "docs/research/build-records/tiers/xinhua-road/identity-v1/one-step-garden-identity.json#mcp3",
+    "executionPausedForMainWindowMcp3": false,
+    "runtimeAuthorized": true,
+    "runtimeExecutionStarted": false,
+    "runtimeExecutionPausedForMainWindowGateIntegration": true
+  },
+  "threeTierGate": {
+    "gate": "mcp3-same-camera-three-tier-review",
+    "status": "pass",
+    "recordedAt": "2026-07-25T22:34:22+08:00",
+    "reviewedBy": "main-coordinator",
+    "interactiveReview": "Blender MCP",
+    "sourceCommit": "f1029cc4b93565d461a69eceebc7b45207c2b6ad",
+    "tierLineage": "docs/research/one-step-garden-tier-lineage.json",
+    "sameOrigin": true,
+    "sameBounds": true,
+    "sameAuthoredFront": true,
+    "sameRuntimePlacement": true,
+    "sameCameraViewSet": true,
+    "identityBudgetPass": true,
+    "mcp3Requested": true,
+    "formalPass": true,
+    "reviewedIdentity": {
+      "editableSource": {
+        "path": "assets/models/source/tiers/xinhua-road/identity-v1/one-step-garden-identity.blend",
+        "sha256": "9ecc551a8e9ff1c950949ca1bbf9ea1fdf13c81ab48acf876d5bbd2ad6687022"
+      },
+      "runtimeAsset": {
+        "path": "public/models/tiers/xinhua-road/identity-v1/one-step-garden-identity.glb",
+        "sha256": "928ecfcace4a35e88ad68d34a2369fa673457275393ea65d8649d9de433b0497",
+        "bytes": 112456
+      },
+      "sceneInspection": {
+        "meshObjects": 1,
+        "vertices": 996,
+        "polygons": 752,
+        "materials": 6,
+        "useNodes": "pass-6-of-6-Principled",
+        "rootLocation": [0, 0, 0],
+        "rootRotation": [0, 0, 0],
+        "rootScale": [1, 1, 1],
+        "rootNormalized": true
+      },
+      "geometryInspection": {
+        "areaBelow1eMinus10": 0,
+        "minimumTriangleArea": 0.01209998,
+        "nonFiniteNormals": 0
+      }
+    },
+    "reviewedLineage": {
+      "heroGlbSha256": "026565ba9dcb347c2dd1f9b23b277a2fdf795c6c26e3e46f4f8cd29c4dee2f2b",
+      "massingGlbSha256": "a87caeba3b3ab4bc6735e6f3b98f424c15994895a8b51d8777d2cb98fb80e761",
+      "heroToIdentity": "pass-deliberate-window-grid-and-fine-division-reduction",
+      "identityToMassing": "pass-silhouette-origin-front-bounds-and-passage-continuity",
+      "preservedIdentity": "pass-front-white-u-half-timber-gables-entry-canopy-rear-brick-twin-gables-two-chimneys-open-gap"
+    },
+    "fixedViews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1_mcp3_recheck_canonical.png",
+        "sha256": "a62b7c781f9b11364ff83614a48354bdf41bf80df909fb341892219e8909a260",
+        "bytes": 915283,
+        "dimensions": [1024, 768]
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1_mcp3_recheck_side.png",
+        "sha256": "eff462fee37315ebb90ae1a52d27e94bf334696d58eb5c41fee22e3ccf605943",
+        "bytes": 857319,
+        "dimensions": [1024, 768]
+      },
+      "entranceDetail": {
+        "path": "test_artifacts/all-models/identity-v1/one-step-garden/test_one-step-garden-identity-v1_mcp3_recheck_entrance.png",
+        "sha256": "43845a920ded079a3b47d011de13f8df5d33abb20bfc77e35f8b43240f757895",
+        "bytes": 986082,
+        "dimensions": [1024, 768]
+      }
+    },
+    "scope": "pass-building-only-no-trees-decoration-other-buildings-or-full-map-assets",
+    "acceptedInteractiveChanges": [],
+    "qaRigSaved": false,
+    "qaRigExported": false,
+    "independentReview": {
+      "reviewer": "house-315-peer",
+      "status": "ready",
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "nextGate": "main-window-integrate-candidate-and-mcp3-then-three-js-three-tier-runtime-acceptance"
+  },
+  "runtimeIntegration": {
+    "status": "pending-main-window-candidate-and-mcp3-integration-before-building-runtime-qa",
+    "identityTierRuntimeAuthorized": true,
+    "identityRuntimeExecutionStarted": false,
+    "sharedRuntimeFilesModifiedByGateCommit": false,
+    "proposedValuesProvenance": "historical-massing-map-gate-only-not-final-three-tier-runtime-selection",
+    "proposedValues": {
+      "model": "/models/tiers/xinhua-road/massing-v2/one-step-garden-massing.glb",
+      "cacheVersion": "20260725-massing-a87caeba",
+      "localBounds": {
+        "minX": -7.25,
+        "maxX": 7.25,
+        "minZ": -9.325,
+        "maxZ": 6.9
+      },
+      "localObstacleCount": 8
+    },
+    "nextAuthority": "main-window-integration-then-one-step-garden-runtime-worktree"
+  }
+}

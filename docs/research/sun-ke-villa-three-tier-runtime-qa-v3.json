@@ -1,0 +1,183 @@
+{
+  "version": 3,
+  "assetId": "sun-ke-villa",
+  "auditedAt": "2026-07-25T19:35:00+08:00",
+  "status": "pass-integrated-after-programmatic-fallback-fix",
+  "scope": "exact-18-building-program-sun-ke-only-integration",
+  "integrationBaseCommit": "de80d0878fbd28f13f464a46034c272c144632d0",
+  "supersedesWithoutDeleting": "docs/research/sun-ke-villa-three-tier-runtime-qa-v2.json",
+  "reason": "孙科分支合入包含 overview Hold 的当前 main 后，主窗口重新执行真实静态页面验收。Hero、Identity、Massing 与 Hero 到 Identity 降级均通过；Identity 到程序化降级暴露旧大体块误判，修复后复验通过。",
+  "environment": {
+    "buildMode": "production-static",
+    "previewOrigin": "http://127.0.0.1:4191",
+    "browserControl": "in-app-browser-cdp",
+    "viewportCssPixels": [
+      1280,
+      720
+    ],
+    "canvasBufferPixels": [
+      2240,
+      1260
+    ],
+    "pageVisibility": "visible",
+    "networkProfileReportedByPage": "weak",
+    "cachePolicy": "Vite preview no-cache; previous exact-binary HTTP revalidation evidence retained from v2"
+  },
+  "tierArtifacts": {
+    "hero": {
+      "url": "/models/shangsheng/sun-ke-villa.glb?v=6d1642315530",
+      "sha256": "6d16423155304063606a3cd7d9be3878cfa11469ddd2463077e8961bbe3812b9",
+      "contentLength": 1027924
+    },
+    "identity": {
+      "url": "/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity.glb?v=6b541e8ffab4",
+      "sha256": "6b541e8ffab4c298ee6366083a3f236c6e3dd6d85020ab1cf12ac12cdc42b478",
+      "contentLength": 345196
+    },
+    "massing": {
+      "url": "/models/tiers/sun-ke-villa/massing/sun-ke-villa-massing.glb?v=f233f9defd21",
+      "sha256": "f233f9defd2196025dcb104fcccd8147df8327ccd638cff803ef8f9a7e3e50d0",
+      "contentLength": 19988
+    }
+  },
+  "integratedTierRuns": {
+    "hero": {
+      "qaUrl": "/?start=sunke-north&sun-ke-tier=hero",
+      "playable": true,
+      "responses": [
+        {
+          "tier": "hero",
+          "status": 200,
+          "mimeType": "model/gltf-binary",
+          "fromDiskCache": false,
+          "contentLength": 1027924
+        },
+        {
+          "tier": "identity-fallback",
+          "status": 200,
+          "mimeType": "model/gltf-binary",
+          "fromDiskCache": false,
+          "contentLength": 345196
+        }
+      ],
+      "unexpectedConsoleErrors": 0,
+      "visual": "pass-protruding-north-porte-cochere-independent-front-columns-open-center",
+      "screenshot": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-threejs-integrated-20260725.png",
+        "sha256": "3f5b6e8745c18f39c38803defe7dd9134f57106d5c40a98ae53a221b8582fbc6",
+        "bytes": 54244
+      }
+    },
+    "identity": {
+      "qaUrl": "/?start=sunke-north&sun-ke-tier=identity",
+      "playable": true,
+      "responses": [
+        {
+          "tier": "identity",
+          "status": 200,
+          "mimeType": "model/gltf-binary",
+          "fromDiskCache": false,
+          "contentLength": 345196
+        }
+      ],
+      "unexpectedConsoleErrors": 0,
+      "visual": "pass-recognizable-porte-cochere-and-open-center",
+      "screenshot": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-threejs-integrated-20260725.png",
+        "sha256": "2d56fd6f58689a02e592c61ee16d0c012b703381ffafcb3bbfacdbe868556ef1",
+        "bytes": 53052
+      }
+    },
+    "massing": {
+      "qaUrl": "/?start=sunke-north&sun-ke-tier=massing",
+      "playable": true,
+      "responses": [
+        {
+          "tier": "massing",
+          "status": 200,
+          "mimeType": "model/gltf-binary",
+          "fromDiskCache": false,
+          "contentLength": 19988
+        }
+      ],
+      "unexpectedConsoleErrors": 0,
+      "visual": "pass-structured-envelope-open-covered-lane",
+      "screenshot": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-massing-threejs-integrated-20260725.png",
+        "sha256": "a7cf93d6956865d22374a8e352f07818ff46d40035058abd6551c560423714c2",
+        "bytes": 51765
+      }
+    }
+  },
+  "fallbackRuns": {
+    "heroToIdentity": {
+      "qaUrl": "/?start=sunke-north&sun-ke-tier=hero&qaActiveFallback=hero",
+      "invalidHeroResponse": {
+        "url": "/models/shangsheng/sun-ke-villa-qa-missing.glb?v=6d1642315530",
+        "status": 200,
+        "mimeType": "text/html",
+        "interpretation": "Vite SPA shell intentionally triggers expected GLB parse failure"
+      },
+      "identityResponse": {
+        "status": 200,
+        "mimeType": "model/gltf-binary",
+        "contentLength": 345196
+      },
+      "playable": true,
+      "visual": "pass-identity-visible-with-protruding-porte-cochere",
+      "screenshot": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-fallback-identity-integrated-20260725.png",
+        "sha256": "2359a92ae886596da2c4a7367f373c238d774b82477417d802a5e225c40a8d24",
+        "bytes": 53014
+      }
+    },
+    "identityToProgrammatic": {
+      "qaUrl": "/?start=sunke-north&sun-ke-tier=identity&qaActiveFallback=identity",
+      "invalidIdentityResponse": {
+        "url": "/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity-qa-missing.glb?v=6b541e8ffab4",
+        "status": 200,
+        "mimeType": "text/html",
+        "interpretation": "Vite SPA shell intentionally triggers expected GLB parse failure"
+      },
+      "previousFalsePositive": {
+        "record": "docs/research/sun-ke-villa-three-tier-runtime-qa-v2.json",
+        "observedProblem": "7.45 scene-unit closed body obscured the north entrance and did not preserve the documented open porte-cochere",
+        "screenshot": {
+          "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-fallback-programmatic-integrated-failed-20260725.png",
+          "sha256": "ddf75886ef08f65e2ef8cf45cc0c1952b2868737b80840abba1beb9ef2990825",
+          "bytes": 41905
+        }
+      },
+      "fix": {
+        "source": "app/scene/shangsheng-xinsuo-block.tsx",
+        "sourceSha256": "3d3944cd68dfd19c3b4e5704e7b7262f7287d559d6aa8c27bf9cb589fad624b9",
+        "policy": "programmatic geometry reuses formal Massing major-volume dimensions and keeps the lane open between two local front-column obstacles",
+        "acceptedInteractiveChanges": []
+      },
+      "playable": true,
+      "visual": "pass-structured-low-detail-villa-correct-scale-protruding-canopy-independent-columns-open-center-lane",
+      "screenshot": {
+        "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-fallback-programmatic-integrated-fixed-20260725.png",
+        "sha256": "f1ef2582b903bba1c210de36cf906b665a6f9993cfb75a86ea390c23f8f9ca76",
+        "bytes": 52666
+      }
+    }
+  },
+  "cacheEvidence": {
+    "status": "pass-retained-exact-binary-evidence",
+    "record": "docs/research/sun-ke-villa-three-tier-runtime-qa-v2.json",
+    "reason": "Hero、Identity、Massing 二进制及版本化 URL 未变；v3 只修复纯程序化 fallback。"
+  },
+  "acceptance": {
+    "hero": "pass",
+    "identity": "pass",
+    "massing": "pass",
+    "positionScaleOrientationGround": "pass",
+    "collisionAndCoveredLane": "pass",
+    "heroToIdentityFallback": "pass",
+    "identityToProgrammaticFallback": "pass-after-v3-fix",
+    "cache": "pass-retained-from-v2-exact-binary",
+    "unexpectedConsoleErrorsInNormalTiers": 0,
+    "final": "pass"
+  }
+}
