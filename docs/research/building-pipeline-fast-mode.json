@@ -31,6 +31,7 @@
         "tests/test_shanghai_cinema_map_calibration.test.mjs",
         "tests/test_shanghai_cinema_hero_exact_reproduction.test.mjs",
         "tests/test_shanghai_cinema_exact_anchor_road_setback_audit.test.mjs",
+        "tests/test_shanghai_cinema_public_exact_anchor_rescue.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [

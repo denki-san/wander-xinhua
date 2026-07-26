@@ -44,16 +44,17 @@
       "mcp1": "pass",
       "mcp2": "pass",
       "mcp3": "pass",
-      "map": "blocked-confirmed-road-setback-no-georeferenced-local-anchor",
+      "map": "blocked-confirmed-road-setback-public-primary-source-rescue-exhausted-no-georeferenced-local-anchor",
       "threeJs": "pass-three-tier-retained",
-      "overall": "blocked-confirmed-road-setback-exact-remedy",
+      "overall": "blocked-public-primary-source-rescue-exhausted-exact-remedy",
       "runtimePolicy": "preserve-current-no-map-promotion",
       "records": [
         "docs/research/shanghai-cinema-final-audit-2026-07-26.json",
         "docs/research/shanghai-cinema-map-calibration-2026-07-26.json",
         "docs/research/shanghai-cinema-hero-exact-reproduction-audit.json",
         "docs/research/build-records/shanghai-cinema-hero-exact-reproduction.json",
-        "docs/research/shanghai-cinema-exact-anchor-road-setback-audit.json"
+        "docs/research/shanghai-cinema-exact-anchor-road-setback-audit.json",
+        "docs/research/shanghai-cinema-public-exact-anchor-rescue-2026-07-26.json"
       ]
     },
     {
