@@ -156,14 +156,14 @@
       "name": "哥伦比亚乡村俱乐部",
       "evidence": "pass-hero-readiness-multi-view",
       "hero": "pass-current-v2-sha",
-      "identity": "hold-v1-candidate-v2-built-pending-mcp3",
+      "identity": "hold-v1-pass-v2-current-sha",
       "massing": "pass",
       "mcp1": "pass",
       "mcp2": "pass-v2-current-sha",
-      "mcp3": "blocked",
+      "mcp3": "pass-v2-three-tier-current-sha",
       "map": "pass",
       "threeJs": "pass-massing-performance-collision",
-      "overall": "in-progress-mcp3-runtime",
+      "overall": "in-progress-runtime",
       "runtimePolicy": "massing-only-no-tier-promotion",
       "records": [
         "docs/research/villa-le-bec-final-gap-audit.json",
@@ -176,7 +176,8 @@
         "docs/research/build-records/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.json",
         "docs/research/villa-le-bec-hero-v2-blender-mcp2-gate.json",
         "docs/research/build-records/tiers/xinhua-road/identity-v1/villa-le-bec-identity.json",
-        "docs/research/build-records/tiers/xinhua-road/identity-v2/villa-le-bec-identity-v2.json"
+        "docs/research/build-records/tiers/xinhua-road/identity-v2/villa-le-bec-identity-v2.json",
+        "docs/research/villa-le-bec-blender-mcp3-gate-v2.json"
       ]
     },
     {

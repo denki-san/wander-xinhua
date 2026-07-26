@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "assetId": "villa-le-bec",
+  "reviewedAt": "2026-07-26T16:44:00+08:00",
+  "reviewer": "main-window-xhigh",
+  "gate": "MCP3",
+  "verdict": "pass",
+  "method": "atomic-open-fingerprint-and-three-tier-three-view-render",
+  "tiers": {
+    "massing": {
+      "blend": {
+        "path": "assets/models/source/tiers/xinhua-road/massing-v2/villa-le-bec-massing.blend",
+        "sha256": "34a9ba4582e9a6bb1eeb0ca38dd173a80c5d754f896b6b139eaef20f0908d5bc"
+      },
+      "glb": {
+        "path": "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
+        "sha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f",
+        "bytes": 12008
+      },
+      "scene": {
+        "savedAssetObjects": 1,
+        "meshObjects": 1,
+        "vertices": 84,
+        "polygons": 62,
+        "materials": 3,
+        "bounds": {
+          "min": [-1.095582962, -10.4383010864, 0],
+          "max": [9.9963417053, -1.2091159821, 4.5799999237]
+        }
+      },
+      "views": [
+        {
+          "view": "canonical",
+          "path": "test_artifacts/all-models/massing-v2/villa-le-bec/mcp3/test_villa-le-bec-massing-v2-mcp3-canonical.png",
+          "sha256": "95d4497c935db4113848b03c7a1f2742cc93765ad5ebadba10da0457005dfe15",
+          "bytes": 535166
+        },
+        {
+          "view": "side",
+          "path": "test_artifacts/all-models/massing-v2/villa-le-bec/mcp3/test_villa-le-bec-massing-v2-mcp3-side.png",
+          "sha256": "7a1625dc4bebf827741cd803a29c03b645ffe5e09e0346ec7d269a6d2c32ec06",
+          "bytes": 562665
+        },
+        {
+          "view": "entrance",
+          "path": "test_artifacts/all-models/massing-v2/villa-le-bec/mcp3/test_villa-le-bec-massing-v2-mcp3-entrance.png",
+          "sha256": "45e7feefb17455c6b5521e638000326e06188b9de9a623b071246ec08ad891b6",
+          "bytes": 646850
+        }
+      ]
+    },
+    "hero": {
+      "blend": {
+        "path": "assets/models/source/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.blend",
+        "sha256": "6619a2eaa1b1e2c65d656ac3a52ebb940ff9ecb4ae3fd6f572737728da45276a"
+      },
+      "glb": {
+        "path": "public/models/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.glb",
+        "sha256": "4f909a3b149e2f16e00843d4f965dc37e0a96ea2c69d67ab4e12282d7d1b5b00",
+        "bytes": 124692
+      },
+      "scene": {
+        "savedAssetObjects": 1,
+        "meshObjects": 1,
+        "vertices": 1126,
+        "polygons": 845,
+        "materials": 6,
+        "bounds": {
+          "min": [-1.2012569904, -10.5719270706, 0],
+          "max": [10.0601530075, -0.6124868393, 4.5399999619]
+        }
+      },
+      "views": [
+        {
+          "view": "canonical",
+          "path": "test_artifacts/all-models/hero-v2/villa-le-bec/mcp3/test_villa-le-bec-hero-v2-mcp3-canonical.png",
+          "sha256": "8598e063a6e22eabc2d4eeeeadd28329aa8656f35c52fac655d448c1e0572b6a",
+          "bytes": 589214
+        },
+        {
+          "view": "side",
+          "path": "test_artifacts/all-models/hero-v2/villa-le-bec/mcp3/test_villa-le-bec-hero-v2-mcp3-side.png",
+          "sha256": "9cfaf31bf11edcd4afde0b9d0f27f00049e2ab0d2991aad34119e1dd95ebbf29",
+          "bytes": 629256
+        },
+        {
+          "view": "entrance",
+          "path": "test_artifacts/all-models/hero-v2/villa-le-bec/mcp3/test_villa-le-bec-hero-v2-mcp3-entrance.png",
+          "sha256": "c9e68cfdadb1fa099baa44ccb6bc61498fcddc652e49c2ef8166389c2d01863f",
+          "bytes": 718416
+        }
+      ]
+    },
+    "identity": {
+      "blend": {
+        "path": "assets/models/source/tiers/xinhua-road/identity-v2/villa-le-bec-identity-v2.blend",
+        "sha256": "dd1544d33b7f29b74d571d42d81049d064046c9839d6f234a3e5e9c64dcef8ac"
+      },
+      "glb": {
+        "path": "public/models/tiers/xinhua-road/identity-v2/villa-le-bec-identity-v2.glb",
+        "sha256": "4be0685ed6db3f0fe462288de326393175f3bd4285a71992dac17a9f82f56e55",
+        "bytes": 45744
+      },
+      "scene": {
+        "savedAssetObjects": 1,
+        "meshObjects": 1,
+        "vertices": 638,
+        "polygons": 299,
+        "materials": 6,
+        "bounds": {
+          "min": [-1.2003967762, -10.5719270706, 0],
+          "max": [10.0588674545, -0.6124868393, 4.5399999619]
+        }
+      },
+      "views": [
+        {
+          "view": "canonical",
+          "path": "test_artifacts/all-models/identity-v2/villa-le-bec/mcp3/test_villa-le-bec-identity-v2-mcp3-canonical.png",
+          "sha256": "532c77feb36ce0b61b9ef46597a4e9032110f2c3530dfb123bd2f47e2137dc6b",
+          "bytes": 591994
+        },
+        {
+          "view": "side",
+          "path": "test_artifacts/all-models/identity-v2/villa-le-bec/mcp3/test_villa-le-bec-identity-v2-mcp3-side.png",
+          "sha256": "fad8dceaaa9da3260b44b09c0d56e9aa793dd4141ba30122ed6ba304403053e2",
+          "bytes": 620983
+        },
+        {
+          "view": "entrance",
+          "path": "test_artifacts/all-models/identity-v2/villa-le-bec/mcp3/test_villa-le-bec-identity-v2-mcp3-entrance.png",
+          "sha256": "803253e2792c623be6f1ba0772baa3d87fa235a80225ed7fc0e7c4df4412f1fb",
+          "bytes": 717230
+        }
+      ]
+    }
+  },
+  "fixedViewContract": {
+    "resolution": [960, 720],
+    "views": {
+      "canonical": {
+        "camera": [2, -25, 5.1],
+        "target": [4.35, -5.25, 2.05],
+        "lensMm": 54
+      },
+      "side": {
+        "camera": [16, 7, 6.2],
+        "target": [4.55, -5.2, 2.1],
+        "lensMm": 56
+      },
+      "entrance": {
+        "camera": [-3, 4.5, 4.8],
+        "target": [6.35, -3.75, 2.1],
+        "lensMm": 58
+      }
+    }
+  },
+  "continuity": {
+    "rootTransforms": "pass-all-identity",
+    "groundDatum": "pass-all-z-zero",
+    "twoBuildingEnvelope": "pass",
+    "openCourtyard": "pass",
+    "streetStorefrontUpperBayAndDormers": "pass-hero-and-identity",
+    "gardenDoorCanopyStepsSideBayAndDormer": "pass-hero-and-identity",
+    "deliberateIdentityLosses": "pass-detail-density-only",
+    "placementScaleCollision": "unchanged-from-accepted-massing",
+    "scopePurity": "pass-no-trees-decoration-brand-interior-or-extra-ways"
+  },
+  "mcpSession": {
+    "temporaryReviewHelpersPerTier": 5,
+    "temporaryReviewHelpersSavedToBlend": false,
+    "finalReopenedTier": "identity-v2",
+    "finalSavedAssetObjects": 1,
+    "dirtyAfterReopen": false
+  },
+  "batchPolicy": {
+    "requested": "two-to-three-buildings",
+    "executed": "single-new-candidate-three-tier",
+    "reason": "本轮只有 Villa Le Bec Identity v2 新进入 MCP3；同批杏福里既有合格 Blender 阶段按 Fast Mode 禁止重做。"
+  },
+  "authorization": {
+    "threeJsTierQa": "authorized-current-three-sha-only",
+    "defaultRuntimePromotion": "not-authorized-until-threejs-pass",
+    "identityV1": "hold-derived-from-rejected-hero-v1-files-retained",
+    "heroV1": "hold-fixed-view-fail-files-retained"
+  }
+}

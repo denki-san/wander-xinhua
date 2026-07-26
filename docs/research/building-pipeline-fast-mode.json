@@ -171,6 +171,7 @@
         "tests/test_villa_le_bec_hero_v2_blender_mcp2_gate.test.mjs",
         "tests/test_villa_le_bec_identity_implementation.test.mjs",
         "tests/test_villa_le_bec_identity_v2.test.mjs",
+        "tests/test_villa_le_bec_blender_mcp3_gate_v2.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [

@@ -3,7 +3,7 @@
   "assetId": "villa-le-bec",
   "tier": "identity",
   "versionName": "identity-v2",
-  "status": "identity-v2-built-pending-mcp3-and-runtime",
+  "status": "identity-v2-mcp3-pass-pending-runtime",
   "generator": {
     "path": "scripts/create_villa_le_bec_identity_v2_model.py",
     "sha256": "c9c9072e8949516e71da731c982237337cc9afe2cd414157df98a13168de5a6b"
@@ -116,7 +116,8 @@
     "requiresLowerBytesThanHero": true
   },
   "gates": {
-    "mcp3": "not-run",
+    "mcp3": "pass-main-window-xhigh-current-sha",
+    "mcp3Record": "docs/research/villa-le-bec-blender-mcp3-gate-v2.json",
     "runtime": "not-run-by-scope"
   }
 }
