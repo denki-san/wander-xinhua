@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "assetId": "xingfuli-center",
+  "auditedAt": "2026-07-26",
+  "status": "candidate-ready-for-main-window-mcp3",
+  "purpose": "以已验收 Hero 为只读父级，补齐 Hero → Identity v2 → Massing v2 的严格可追溯派生链。",
+  "scope": {
+    "exactBuildingIds": [
+      "xingfuli-center"
+    ],
+    "currentAcceptedAssets": "preserved-read-only",
+    "candidatePathsOnly": true,
+    "publicRuntimeModified": false,
+    "treesDecorationFullMap": "excluded",
+    "recoveryHold": "untouched"
+  },
+  "lineage": [
+    {
+      "tier": "hero",
+      "role": "accepted-read-only-parent",
+      "glb": "public/models/xingfuli/xingfuli-center.glb",
+      "glbSha256": "860249a2656cf7af9aa2ef746f05cc7f39506ec1e8751df236e3c1e3f0f594b9",
+      "blend": "assets/models/source/xingfuli/xingfuli-center.blend",
+      "blendSha256": "b8e8aa2b4776244b23335b9148a94e1be5c8b7683f835960f4483547c7587eea",
+      "bytes": 554080,
+      "triangles": 7788,
+      "sourceObjects": 177
+    },
+    {
+      "tier": "identity-v2",
+      "role": "strict-child-candidate",
+      "record": "docs/research/build-records/tiers/xingfuli/identity-v2/xingfuli-center-identity-v2.json",
+      "glb": "public/models/tiers/xingfuli/identity-v2/xingfuli-center-identity-v2.glb",
+      "glbSha256": "a6c1339d6a77f8f5b0b493b0f477c0aa0ccf9a9db42b6e571b01f343efef4f06",
+      "blend": "assets/models/source/tiers/xingfuli/identity-v2/xingfuli-center-identity-v2.blend",
+      "blendSha256": "6024700bd3a64f53f34227cdafea05d6a0c717d1a9b014a40ee95ed311bc2b87",
+      "bytes": 452504,
+      "triangles": 6372,
+      "sourceObjects": 115,
+      "parentGlbSha256": "860249a2656cf7af9aa2ef746f05cc7f39506ec1e8751df236e3c1e3f0f594b9",
+      "parentBlendSha256": "b8e8aa2b4776244b23335b9148a94e1be5c8b7683f835960f4483547c7587eea"
+    },
+    {
+      "tier": "massing-v2",
+      "role": "strict-grandchild-candidate",
+      "record": "docs/research/build-records/tiers/xingfuli/massing-v2/xingfuli-center-massing-v2.json",
+      "glb": "public/models/tiers/xingfuli/massing-v2/xingfuli-center-massing-v2.glb",
+      "glbSha256": "a36b840fa7773db56fba5c6bbd9b77ed08a03b588ebfc0a358d4a9e82b2b0d99",
+      "blend": "assets/models/source/tiers/xingfuli/massing-v2/xingfuli-center-massing-v2.blend",
+      "blendSha256": "37f4b8a50418c784dea93d46d349c8230e195623c69f489bb5d87d9c57ed3078",
+      "bytes": 309700,
+      "triangles": 4332,
+      "sourceObjects": 57,
+      "parentGlbSha256": "a6c1339d6a77f8f5b0b493b0f477c0aa0ccf9a9db42b6e571b01f343efef4f06",
+      "parentBlendSha256": "6024700bd3a64f53f34227cdafea05d6a0c717d1a9b014a40ee95ed311bc2b87"
+    }
+  ],
+  "preservedCurrentTiers": {
+    "heroGlbSha256": "860249a2656cf7af9aa2ef746f05cc7f39506ec1e8751df236e3c1e3f0f594b9",
+    "identityGlbSha256": "19800200464e0e9423e5a355abde7216478ba73c10b7539b0bafe5674fc4dc21",
+    "massingGlbSha256": "d6eeae59d35c3577817cdf35febb06493b53cbb661774e81a6e55d7a6dce26d3"
+  },
+  "observed": [
+    "两档均从精确父级 Blend 打开后删除对象，没有独立重建保留对象。",
+    "两档连续双构建的 GLB SHA 分别相同；.blend SHA 不同且未被误报为字节确定。",
+    "Hero、Identity v2、Massing v2 的 GLB bytes、三角面和源对象数严格递减。",
+    "两档均为单 root、标准 root transform、零图片、零纹理、零动画、零骨骼。",
+    "六张 headless 固定机位图已复核，Identity 保留身份构件，Massing 进一步删减但不改变 bounds。"
+  ],
+  "inferred": [
+    "候选已满足进入主窗口 MCP3 的结构与可追溯条件。",
+    "候选能否替代当前生产 Identity/Massing，仍取决于 MCP3 与真实 Three.js 同条件验收。"
+  ],
+  "unknown": [
+    "候选在实际地图相机、fallback、碰撞和性能路径下是否与当前验收基线等价。",
+    "主窗口是否批准 production promotion。"
+  ],
+  "nextGates": [
+    "main-window Blender MCP3 batch",
+    "main-window public manifest and resolver integration",
+    "single-page Three.js three tiers, fallback, performance, errors and collision",
+    "main-window project regression on the next 2-3-building batch"
+  ]
+}
