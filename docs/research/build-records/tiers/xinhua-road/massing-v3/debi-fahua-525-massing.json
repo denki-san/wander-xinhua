@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "assetId": "building:xinhua-road:debi-fahua-525",
+  "tier": "massing",
+  "batch": "evidence-limited-v3",
+  "generatedAt": "2026-07-26",
+  "status": "candidate-mcp1-pending-map-road-overlap-blocked",
+  "generator": "scripts/create_debi_fahua_525_massing_model.py",
+  "memberBinding": "docs/research/debi-fahua-525-member-binding.json",
+  "modelBrief": "docs/research/debi-fahua-525-model-brief-v2.md",
+  "sourceWayId": 864847922,
+  "bindingStatus": "bound-medium-secondary-map-corroborated",
+  "placement": {
+    "position": [
+      -102,
+      -49
+    ],
+    "yaw": -2.6,
+    "scale": 0.92,
+    "source": "app/scene/xinhua-road-landmarks-data.json",
+    "movementAuthorized": false
+  },
+  "height": {
+    "candidateMeters": 18,
+    "authoredLocalSceneUnits": 7.246377,
+    "status": "inferred-six-storey-at-three-metres-per-floor-not-surveyed"
+  },
+  "coordinateValidation": {
+    "method": "raw-osm-wgs84-to-world-then-authored-local-round-trip-per-vertex",
+    "maximumErrorSceneUnits": 0,
+    "toleranceSceneUnits": 1e-06,
+    "status": "pass"
+  },
+  "roadClearance": {
+    "status": "blocked-fahuazhen-stylized-asphalt-overlap",
+    "fahuazhenRoad": {
+      "osmWayId": 66394007,
+      "centerlineDistanceSceneUnits": 2.991771,
+      "asphaltHalfWidthSceneUnits": 3.625,
+      "asphaltClearanceSceneUnits": -0.633229,
+      "asphaltClearanceMeters": -1.709718
+    },
+    "dingxiRoad": {
+      "osmWayId": 85686605,
+      "centerlineDistanceSceneUnits": 4.977283,
+      "asphaltHalfWidthSceneUnits": 3.625,
+      "asphaltClearanceSceneUnits": 1.352283,
+      "asphaltClearanceMeters": 3.651164
+    },
+    "decision": "Do not shift or shrink the evidence footprint in the building branch. Main integration must adjudicate the locally exaggerated tertiary-road width or keep map acceptance blocked."
+  },
+  "neighborCollision": {
+    "collisionMarginSceneUnitsPerBuilding": 0.2,
+    "nearestWayId": 864847918,
+    "rawGapSceneUnits": 2.609279,
+    "gapAfterBothMarginsSceneUnits": 2.209279,
+    "rawGapMeters": 7.045054,
+    "status": "pass-candidate-footprint-does-not-collide-with-neighbor"
+  },
+  "openCourtyard": {
+    "status": "preserved-as-negative-space",
+    "siteSlab": false,
+    "courtyardCollision": false,
+    "exactPolygon": "unknown"
+  },
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v3/debi-fahua-525-massing.blend",
+      "sha256": "cbe0f889edf29dcd05e6beb4c9549eb1c04bd4695899244f3244f8b485862cc7",
+      "bytes": 93330
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v3/debi-fahua-525-massing.glb",
+      "sha256": "5602771c1ba0572c8368a07695be715aaffb1c492ebe24aae25c75f1021768a1",
+      "bytes": 3212
+    },
+    "previews": {
+      "canonical": {
+        "path": "test_artifacts/all-models/massing-v3/debi-fahua-525/test_debi-fahua-525-massing-v3-canonical.png",
+        "sha256": "90d573764238748df89c727b60d642954e552c54245ad561a488e2ae7fdf9440",
+        "bytes": 738595
+      },
+      "sideDepth": {
+        "path": "test_artifacts/all-models/massing-v3/debi-fahua-525/test_debi-fahua-525-massing-v3-side-depth.png",
+        "sha256": "aea9fffb3844043d815333ad08277ed156e71720677b0942247d9350516ffa72",
+        "bytes": 723697
+      },
+      "entranceContext": {
+        "path": "test_artifacts/all-models/massing-v3/debi-fahua-525/test_debi-fahua-525-massing-v3-entrance-context.png",
+        "sha256": "a196a08a0704302731e23299255977a819250d4abec48117829386a3b5a309b1",
+        "bytes": 721219
+      }
+    }
+  },
+  "glb": {
+    "sha256": "5602771c1ba0572c8368a07695be715aaffb1c492ebe24aae25c75f1021768a1",
+    "bytes": 3212,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "triangles": 40,
+    "bounds": {
+      "min": [
+        11.957319,
+        0,
+        -14.205667
+      ],
+      "max": [
+        28.134966,
+        7.246377,
+        20.611479
+      ]
+    },
+    "transformedNodes": []
+  },
+  "reproducibility": {
+    "previousGlbSha256": "5602771c1ba0572c8368a07695be715aaffb1c492ebe24aae25c75f1021768a1",
+    "currentGlbSha256": "5602771c1ba0572c8368a07695be715aaffb1c492ebe24aae25c75f1021768a1",
+    "matchesPrevious": true
+  },
+  "gates": {
+    "mcp1": "pending-main-window-batch-review",
+    "mapGeometryCalibration": "pass",
+    "formalMapAcceptance": "blocked-fahuazhen-road-overlap-and-primary-membership-proof",
+    "hero": "retained-legacy-no-rebuild",
+    "identity": "blocked",
+    "runtimePromotion": false
+  }
+}

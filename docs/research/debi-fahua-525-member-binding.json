@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "assetId": "debi-fahua-525",
+  "auditedAt": "2026-07-26",
+  "status": "representative-way-bound-medium-map-road-overlap-blocked",
+  "scope": {
+    "includedWayIds": [864847922],
+    "includedRole": "representative-compound-building-candidate",
+    "openCourtyardPolicy": "negative-space-only-no-site-slab-no-courtyard-collision",
+    "excludedContent": [
+      "trees and vegetation",
+      "street furniture and decoration",
+      "fish pond and heritage stone",
+      "unbound adjacent university buildings",
+      "unobserved rear facade details"
+    ]
+  },
+  "registryPlacement": {
+    "position": [-102, -49],
+    "yaw": -2.6,
+    "scale": 0.92,
+    "source": "app/scene/xinhua-road-landmarks-data.json",
+    "movementAuthorized": false
+  },
+  "coordinateContract": {
+    "source": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "mapMetadata": "app/scene/xinhua-map-data.json",
+    "centerWgs84": [121.4227819, 31.2066376],
+    "metersPerSceneUnit": 2.7,
+    "worldProjection": [
+      "worldX = (longitude - centerLongitude) * 111320 * cos(centerLatitude) / metersPerSceneUnit",
+      "worldZ = -(latitude - centerLatitude) * 110540 / metersPerSceneUnit"
+    ],
+    "authoredCoordinateSpace": "glb-source-xz-before-runtime-z-flip",
+    "inverseRegistryTransform": [
+      "localX = cos(yaw) * ((worldX - positionX) / scale) - sin(yaw) * ((worldZ - positionZ) / scale)",
+      "sourceZ = -sin(yaw) * ((worldX - positionX) / scale) - cos(yaw) * ((worldZ - positionZ) / scale)"
+    ],
+    "generatorBlenderConversion": "blenderY = -sourceZ",
+    "maxAllowedWorldVertexErrorSceneUnits": 0.000001
+  },
+  "evidence": {
+    "officialProjectPage": "https://www.dobechina.com/projects/mandr/77",
+    "officialHistoricalContext": "https://m.thepaper.cn/newsDetail_forward_11011983",
+    "localReferences": [
+      "docs/research/assets/requested-poi-references/debi-fahua-525-front.jpg",
+      "docs/research/assets/requested-poi-references/debi-fahua-525-courtyard.jpg",
+      "docs/research/assets/requested-poi-references/debi-fahua-525-garden.jpg"
+    ],
+    "observed": [
+      "Official project material identifies the address as Fahuazhen Road 525, six total floors and 5428.17 square metres.",
+      "The front reference shows a tall white frame, a dark glazed facade and an external switchback stair.",
+      "The courtyard and garden references show an open continuous approach between the principal building and low edges.",
+      "The historical source states the park and Shanghai Jiao Tong University Fahua campus are separated by one wall.",
+      "OSM way/228966550 and way/228966551 are explicitly named 1号楼 and 2号楼 inside the university campus record."
+    ],
+    "inferred": [
+      "The SmartShanghai China-map coordinate is treated as GCJ-02; after conversion it lands inside way/864847922.",
+      "The Leju China-map coordinate is treated as GCJ-02; after conversion it lands on the Dingxi Road approach west of way/864847922.",
+      "Together with the official one-wall adjacency, way/864847922 is the strongest conservative representative footprint, but not a cadastral proof of the entire compound.",
+      "Six floors are represented by an 18 metre candidate height using a 3 metre floor proxy; no surveyed height is available."
+    ],
+    "unknown": [
+      "Cadastral boundary and the complete list of compound sub-buildings.",
+      "Exact courtyard polygon, wall alignment and entrance point.",
+      "Whether every segment of way/864847922 has the same height.",
+      "Rear facade and roof equipment."
+    ],
+    "secondaryMapReferences": [
+      {
+        "id": "smartshanghai-le-jardin-secret",
+        "sourceUrl": "https://www.smartshanghai.com/venue/6062/Le_Jardin_Secret",
+        "providerCoordinateGcj02Inferred": [121.423927, 31.205664],
+        "convertedWgs84": [121.419290387, 31.207521242],
+        "projectedWorld": [-123.124269, -36.176965],
+        "insideTargetFootprint": true
+      },
+      {
+        "id": "leju-fahua-525",
+        "sourceUrl": "https://house.leju.com/sh/47319/",
+        "providerCoordinateGcj02Inferred": [121.42343, 31.205717],
+        "convertedWgs84": [121.418792812, 31.207573742],
+        "projectedWorld": [-140.670702, -38.326358],
+        "insideTargetFootprint": false,
+        "role": "roadside-approach-corroboration-only"
+      }
+    ]
+  },
+  "representativeMember": {
+    "sourceWayId": 864847922,
+    "bindingStatus": "bound-medium-secondary-map-corroborated",
+    "footprintAreaSqMeters": 1299.3,
+    "candidateHeightMeters": 18,
+    "heightEvidence": "inferred-six-storey-at-three-metres-per-floor-not-surveyed",
+    "worldFootprint": [
+      [-102.928205, -29.20303],
+      [-105.5201, -24.752772],
+      [-122.02712, -34.238741],
+      [-123.688049, -35.401459],
+      [-125.013971, -37.043182],
+      [-124.968128, -38.877327],
+      [-124.56612, -41.022622],
+      [-121.258368, -52.666169],
+      [-116.783382, -51.413382],
+      [-120.09466, -39.765741],
+      [-119.431699, -38.689]
+    ],
+    "localFootprint": [
+      [11.957319, 17.918815],
+      [16.865014, 20.611479],
+      [26.924417, 2.5269],
+      [27.819904, 0.513281],
+      [28.134966, -1.758773],
+      [27.064546, -3.44141],
+      [25.488047, -5.214283],
+      [15.883004, -14.205667],
+      [12.416969, -10.531363],
+      [22.027591, -1.538141],
+      [22.013436, -0.163788]
+    ]
+  },
+  "projectionValidation": {
+    "method": "raw-osm-wgs84-to-world-then-authored-local-round-trip-per-vertex",
+    "maximumErrorSceneUnits": 0,
+    "toleranceSceneUnits": 0.000001,
+    "status": "pass"
+  },
+  "roadClearance": {
+    "status": "blocked-fahuazhen-stylized-asphalt-overlap",
+    "fahuazhenRoad": {
+      "osmWayId": 66394007,
+      "centerlineDistanceSceneUnits": 2.991771,
+      "asphaltHalfWidthSceneUnits": 3.625,
+      "asphaltClearanceSceneUnits": -0.633229,
+      "asphaltClearanceMeters": -1.709718
+    },
+    "dingxiRoad": {
+      "osmWayId": 85686605,
+      "centerlineDistanceSceneUnits": 4.977283,
+      "asphaltHalfWidthSceneUnits": 3.625,
+      "asphaltClearanceSceneUnits": 1.352283,
+      "asphaltClearanceMeters": 3.651164
+    },
+    "decision": "Do not shift or shrink the evidence footprint in the building branch. Main integration must adjudicate the locally exaggerated tertiary-road width or keep map acceptance blocked."
+  },
+  "neighborCollision": {
+    "collisionMarginSceneUnitsPerBuilding": 0.2,
+    "nearestWayId": 864847918,
+    "rawGapSceneUnits": 2.609279,
+    "gapAfterBothMarginsSceneUnits": 2.209279,
+    "rawGapMeters": 7.045054,
+    "status": "pass-candidate-footprint-does-not-collide-with-neighbor"
+  },
+  "rejectedRecoveryCandidates": [
+    {
+      "sourceWayId": 864847921,
+      "reason": "unbound-inside-overinclusive-university-boundary"
+    },
+    {
+      "sourceWayId": 864847920,
+      "reason": "unbound-inside-overinclusive-university-boundary"
+    },
+    {
+      "sourceWayId": 228966550,
+      "osmName": "1号楼",
+      "reason": "named-university-campus-building"
+    },
+    {
+      "sourceWayId": 864847917,
+      "reason": "unbound-inside-overinclusive-university-boundary"
+    },
+    {
+      "sourceWayId": 228966551,
+      "osmName": "2号楼",
+      "reason": "named-university-campus-building"
+    }
+  ],
+  "gateDecision": {
+    "massingCandidateAllowed": true,
+    "mcp1": "pending",
+    "formalMapAcceptance": "blocked-road-overlap-and-primary-membership-proof",
+    "hero": "retained-legacy-hold-no-rebuild",
+    "identity": "blocked",
+    "runtimePromotion": false
+  }
+}
