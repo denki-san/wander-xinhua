@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "assetId": "debi-fahua-525",
+  "preparedAt": "2026-07-26",
+  "status": "query-contract-ready-not-executed",
+  "purpose": "Prepare a slow, serial, read-only Xiaohongshu evidence query for the named building compound and map blockers. This is not evidence collection or a map decision.",
+  "scope": {
+    "included": [
+      "compound-member binding",
+      "open-courtyard and building-footprint controls",
+      "Fahuazhen Road and Dingxi Road curb, width, surface and access controls",
+      "entrance sequence and independently locatable controls",
+      "legal Hero and Identity lineage evidence requirements"
+    ],
+    "excluded": [
+      "browser or Xiaohongshu access in this preparation task",
+      "media download",
+      "Blender, MCP, generator, GLB or Blend changes",
+      "shared registry, runtime, Fast Mode, exact-status or roster changes",
+      "trees, decorations, ordinary OSM and full-map assets",
+      "Recovery/Hold and other buildings"
+    ],
+    "browserOpened": false,
+    "xiaohongshuAccessed": false,
+    "networkAccessed": false,
+    "mediaDownloaded": false,
+    "modelOrRuntimeChanged": false,
+    "recoveryOrHoldChanged": false
+  },
+  "lockedInputs": {
+    "finalDisposition": {
+      "path": "docs/research/debi-fahua-525-final-disposition.json",
+      "sha256": "85c8d913ca5e297af1adc09df5fb0b9369bf3958226da6085bad4354e406b183"
+    },
+    "evidenceGate": {
+      "path": "docs/research/debi-fahua-525-evidence-gate-v2-audit.json",
+      "sha256": "41b0fdf0fba9d79bb48bebf987b0e4a163091d78f81ea1974f340f45a7b62748"
+    },
+    "overlapLineage": {
+      "path": "docs/research/debi-fahua-525-overlap-lineage-audit.json",
+      "sha256": "dbfab7ccafc85c7ed5c3826f90c06864a415f5a9379a0dfc30ecaccf5708f9d6"
+    },
+    "mapCandidate": {
+      "path": "docs/research/debi-fahua-525-map-candidate.json",
+      "sha256": "cf9df5eb34d7f844f07ddc5d1484f7507799637cc9b98a6d2a11ef81d37ad647"
+    },
+    "publicPrimarySource": {
+      "path": "docs/knowledge-sources/debi-fahua-525-public-primary-source-rescue-2026-07-26.md",
+      "sha256": "9b355bdac933414da2fffd0a612227bc51eb8c5c0d21ce38ca3a3a814f4b9e77"
+    }
+  },
+  "retainedStages": {
+    "recoveryCleanV2Massing": {
+      "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+      "sha256": "b9093a059417e15e722b836a38276fecabe769f6bbc9c63dfea4a08c9d95d63e",
+      "runtimeVisibility": "pass-preserved",
+      "formalMap": "blocked-membership-and-fahuazhen-road-overlap",
+      "policy": "read-only; do not rebuild or rerun accepted runtime visibility"
+    },
+    "isolatedMassingV3": {
+      "sha256": "5602771c1ba0572c8368a07695be715aaffb1c492ebe24aae25c75f1021768a1",
+      "mcp1": "pending-not-redone",
+      "policy": "retain candidate; no new model work is authorized by this contract"
+    },
+    "legacyHero": {
+      "status": "hold-scope-polluted-not-legal-identity-parent",
+      "policy": "retain file; never present it as a legal Hero or derive Identity from it"
+    }
+  },
+  "knownControls": {
+    "address": "法华镇路525号",
+    "representativeWay": {
+      "id": 864847922,
+      "confidence": "medium-secondary-map-corroborated-not-cadastral"
+    },
+    "compoundMemberCandidates": [864847921, 864847920, 228966550, 864847917, 228966551],
+    "courtyard": "locally observed as open, but exact polygon, entrances and bounding members are unknown",
+    "fahuazhenRoad": {
+      "osmWay": 66394007,
+      "currentRenderedFullWidthSceneUnits": 7.25,
+      "exactFootprintAsphaltClearanceSceneUnits": -0.6332288789337808,
+      "requiredEvidence": "measured or authoritative curb/surface cross-section and access classification at nearest footprint point"
+    },
+    "dingxiRoad": {
+      "osmWay": 85686605,
+      "exactFootprintAsphaltClearanceSceneUnits": 1.3522828004512357,
+      "requiredEvidence": "curb/surface and access confirmation only; it is not the current overlap blocker"
+    },
+    "prohibitedInference": [
+      "operator or government service-page floor area is not a footprint",
+      "conflicting 5428.17 and over-10000 square metre statements cannot set scale",
+      "a compound photo cannot assign a named facade to one OSM way without independently locatable controls",
+      "the -0.633229 overlap cannot be solved by moving, shrinking, clipping the building or narrowing shared road width"
+    ]
+  },
+  "queryGroups": [
+    {
+      "id": "compound-members-and-courtyard",
+      "queries": ["上海 德必法华525 园区 总平面", "法华镇路525号 德必 园区 入口 庭院", "德必法华525 建筑群 院落"],
+      "accept": ["one post contains a continuous, locatable sequence from signed entrance through courtyard to distinguishable built masses", "at least two independent visual anchors connect the sequence to 525 or a uniquely visible adjacent road/landmark", "open ground is visibly separated from roofed building volume"],
+      "reject": ["front-facade repost with no route or context", "interior-only, event-only or catalogue images", "unlocatable aerial/reel screenshots", "photos of nearby Fahua heritage, Shanghai Orchestra or unrelated Dobe campuses"],
+      "doesNotProve": ["cadastral footprint", "exact OSM member list", "courtyard polygon"]
+    },
+    {
+      "id": "road-surface-curb-access",
+      "queries": ["法华镇路525号 路口 路缘", "德必法华525 法华镇路 街景", "德必法华525 定西路 入口"],
+      "accept": ["road edge and building/compound edge are visible in one unambiguously locatable view", "a stable physical control such as street sign, entrance number, junction, curb line or facade is visible", "if a width is inferred from a photograph it is labelled inferred and never used alone to alter runtime road width"],
+      "reject": ["cropped road or driveway images without address/landmark controls", "maps, navigation screenshots or author captions presented as surveyed geometry", "views that cannot distinguish Fahuazhen Road from Dingxi Road"],
+      "doesNotProve": ["authoritative asphalt width", "service-road classification", "permission to change shared road contract"]
+    },
+    {
+      "id": "entrance-and-legal-lineage",
+      "queries": ["德必法华525 入口 外立面", "上海 法华镇路525号 主楼 外置楼梯", "德必法华525 白色竖框 楼梯"],
+      "accept": ["the six-storey white vertical-frame facade and external switchback stair are visible with address or compound controls", "a second perspective establishes entrance-to-facade or facade-to-courtyard relation", "new evidence is sufficient to write observed/inferred/unknown separately"],
+      "reject": ["single canonical-front duplicate", "AI-rendered, heavily filtered or source-untraceable image", "logo, sign or floor-area text alone", "legacy Hero render presented as a real photo"],
+      "doesNotAuthorize": ["Hero creation before formal Massing map acceptance and MCP1", "Identity derivation from legacy scope-polluted Hero", "MCP2 or MCP3 promotion"]
+    }
+  ],
+  "acceptanceMatrix": {
+    "compoundMemberBinding": "requires a primary plan or multiple independently locatable ground-level views that associate target facade, courtyard and included/excluded masses; Xiaohongshu alone remains corroboration unless controls are decisive",
+    "courtyardFootprint": "requires visible open-space boundaries at two or more controlled views plus an authoritative/georeferenced plan before an exact polygon decision",
+    "fahuazhenRoadWidth": "requires measured or authoritative cross-section/surface edge; image-only evidence may flag a discrepancy but cannot narrow the shared road",
+    "entrance": "requires address/compound control and continuity into the target building or courtyard",
+    "heroIdentityLineage": "only after main window accepts one Massing source, passes MCP1 and formal map gate; then build a pure-building Hero, pass MCP2 and derive Identity from frozen Hero SHA"
+  },
+  "slowSerialOperation": {
+    "executor": "main-window-xhigh-only",
+    "parallelXiaohongshuSessions": 0,
+    "maxQueriesPerSession": 4,
+    "maxPostOpensPerSession": 6,
+    "maxMediaInspectedPerSession": 24,
+    "minimumSecondsBetweenSearches": 45,
+    "minimumSecondsBetweenPostOpens": 20,
+    "minimumSecondsAfterPostBeforeNewSearch": 90,
+    "maximumSessionMinutes": 15,
+    "permittedActions": ["manual read-only query", "open one result at a time", "record directly visible text and media facts with URL and collection time"],
+    "forbiddenActions": ["login mutation", "likes, follows, comments, saves or messages", "bulk automation", "rate-limit evasion", "fingerprint or challenge evasion", "simulating human behavior to bypass detection"],
+    "stopImmediatelyOn": ["challenge", "warning", "rate-limit signal", "login prompt", "CAPTCHA", "unexpected redirect", "unclear account state"],
+    "postStopPolicy": "record not-run or partial-run with reason; do not retry in the same session"
+  },
+  "disposition": {
+    "actualSearchStatus": "not-executed",
+    "reasonableMissMayBeConfirmedBy": "main window only, after this exact serial contract has been executed without a platform warning and its logged results fail the acceptance matrix",
+    "runtimeDisable": "candidate-only after main-window reasonable-miss adjudication; this contract neither requests nor performs it",
+    "retention": "all existing GLB, Blend, generator, evidence, Recovery/Hold and held candidates remain permanently retained regardless of a later runtime-disable decision"
+  }
+}
