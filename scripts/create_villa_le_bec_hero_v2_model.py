@@ -19,7 +19,9 @@ MASSING_SCRIPT = ROOT / "scripts/create_villa_le_bec_massing_model.py"
 MASSING_GLB = ROOT / "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb"
 MASSING_SHA = "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f"
 HERO_V1_GLB = ROOT / "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb"
-HERO_V1_SHA = "56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad"
+HERO_V1_RECORD = ROOT / "docs/research/build-records/tiers/xinhua-road/hero-v1/villa-le-bec-hero.json"
+CURRENT_HERO_V1_SHA = "1374b7a8301345c23736644cfdc9a7ed467efb8371ebcdf72a507217b0015394"
+HISTORICAL_HERO_V1_SHA = "56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad"
 HERO_BLEND = ROOT / "assets/models/source/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.blend"
 HERO_GLB = ROOT / "public/models/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.glb"
 PREVIEW_DIR = ROOT / "test_artifacts/all-models/hero-v2/villa-le-bec"
@@ -628,7 +630,8 @@ def build_hero_v2() -> tuple[bpy.types.Object, list[str]]:
     root["runtime_tier"] = "hero"
     root["candidate_version"] = "hero-v2"
     root["derived_from_massing_sha256"] = MASSING_SHA
-    root["supersedes_preserved_hero_v1_sha256"] = HERO_V1_SHA
+    root["supersedes_preserved_hero_v1_sha256"] = CURRENT_HERO_V1_SHA
+    root["historical_blocked_hero_v1_sha256"] = HISTORICAL_HERO_V1_SHA
     root["front_direction"] = "local -Y"
     root["ground_datum"] = "z=0"
     root["collision_semantics"] = "two-solid-buildings-open-courtyard-preserved"
@@ -728,11 +731,14 @@ def write_record(root: bpy.types.Object, components: list[str]) -> None:
             "--python-exit-code 1 --python scripts/create_villa_le_bec_hero_v2_model.py"
         ),
         "blenderVersion": bpy.app.version_string,
+        "integrationBaseCommit": "14d5404d09f578a72af87156fa2663fe00ab0374",
         "qualityContract": {
             "brief": str(BRIEF.relative_to(ROOT)),
             "briefSha256": sha256(BRIEF),
             "blockedV1Adjudication": str(ADJUDICATION.relative_to(ROOT)),
             "blockedV1AdjudicationSha256": sha256(ADJUDICATION),
+            "currentHeroV1BuildRecord": str(HERO_V1_RECORD.relative_to(ROOT)),
+            "currentHeroV1BuildRecordSha256": sha256(HERO_V1_RECORD),
         },
         "derivedFrom": {
             "massingGlb": str(MASSING_GLB.relative_to(ROOT)),
@@ -746,8 +752,32 @@ def write_record(root: bpy.types.Object, components: list[str]) -> None:
         },
         "preservedCandidate": {
             "glb": str(HERO_V1_GLB.relative_to(ROOT)),
-            "sha256": HERO_V1_SHA,
+            "sha256": CURRENT_HERO_V1_SHA,
+            "state": "current-integration-hero-v1-mcp2-pass",
             "overwritten": False,
+        },
+        "historicalLineage": [
+            {
+                "role": "blocked-hero-v1-used-by-original-hero-v2-build",
+                "baselineCommit": "dcd619e04fc735e8b0a4b9b01cac7ca78a749ecb",
+                "pathAtCommit": str(HERO_V1_GLB.relative_to(ROOT)),
+                "sha256": HISTORICAL_HERO_V1_SHA,
+                "currentWorkingTreeBinary": False,
+                "preservedInGitHistory": True,
+            }
+        ],
+        "reproducibilityRepair": {
+            "priorIntegrationCommit": "338cb03",
+            "priorHeroV2GlbSha256": "a6ebf4a362a1d759bf818f62595c75ffa240b06461bc1479f13f6626a845b35d",
+            "rebuiltHeroV2GlbSha256": sha256(HERO_GLB),
+            "binaryDelta": "lineage-extras-now-lock-current-and-historical-hero-v1-sha",
+            "fixedViewPixelComparison": {
+                "method": "PIL-RGB-ImageChops-difference-bbox",
+                "canonical": "pass-pixel-identical",
+                "sideDepth": "pass-pixel-identical",
+                "entrance": "pass-pixel-identical",
+                "triptych": "pass-pixel-identical",
+            },
         },
         "references": [
             {
@@ -837,8 +867,8 @@ def write_record(root: bpy.types.Object, components: list[str]) -> None:
 def main() -> None:
     if sha256(MASSING_GLB) != MASSING_SHA:
         raise RuntimeError("冻结的 Massing SHA 不匹配，拒绝生成 Hero v2")
-    if sha256(HERO_V1_GLB) != HERO_V1_SHA:
-        raise RuntimeError("Hero v1 SHA 不匹配，拒绝覆盖式升级")
+    if sha256(HERO_V1_GLB) != CURRENT_HERO_V1_SHA:
+        raise RuntimeError("当前集成 Hero v1 SHA 不匹配，拒绝生成不可复现的 Hero v2")
     for reference, _ in REFERENCES:
         if not reference.exists():
             raise RuntimeError(f"缺少本地参考：{reference}")
