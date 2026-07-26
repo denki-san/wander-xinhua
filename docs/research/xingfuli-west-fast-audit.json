@@ -15,6 +15,7 @@
   },
   "lineage": {
     "status": "blocked-formal-lineage-proof",
+    "reconstructionRecord": "docs/research/xingfuli-west-lineage-reconstruction-2026-07-26.json",
     "recoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
     "relationship": "当前提交与 Recovery/Hold 中的 west 三档 GLB、Blend、生成器、Brief、参考清单和三份 build record 逐项为同一 Git blob；这只证明资产保留与共同确定性来源，不证明 Identity 或 Massing 从最终 Hero 二进制派生。",
     "formalDerivedFromHeroField": "historical-record-missing-not-invented",
@@ -36,9 +37,10 @@
       "existingBinariesRetained": true,
       "formalHeroToIdentityProof": false,
       "formalHeroToMassingProof": false,
+      "formalIdentityToMassingProof": false,
       "assetQualityFailure": false,
       "rebuildAuthorized": false,
-      "requiredResolution": "保留既有三档；若无法补出历史 derivedFrom，则由最终 Hero 的确定性来源重新派生 Identity/Massing，并记录 final Hero SHA 与输出 SHA。"
+      "requiredResolution": "禁止给现有三档回填 derivedFrom；保留既有资产，并在未来新 candidate 路径以精确 Hero/Identity SHA 逐级派生、双构建验证后再讨论 promotion。"
     },
     "blendVerification": {
       "filePresenceAndSha256": "pass-all-three-tiers",

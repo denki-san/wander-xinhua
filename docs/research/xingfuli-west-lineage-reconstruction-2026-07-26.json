@@ -1,0 +1,248 @@
+{
+  "version": 1,
+  "assetId": "xingfuli-west",
+  "auditedAt": "2026-07-26",
+  "scope": {
+    "mode": "read-only-lineage-reconstruction",
+    "heroIdentityMassingRebuilt": false,
+    "runtimeOrRegistryModified": false,
+    "manifestModified": false,
+    "browserUsed": false,
+    "existingMcpThreeJsOrRoadEvidenceModified": false
+  },
+  "verdict": {
+    "status": "blocked-historical-hero-parentage-not-provable",
+    "existingAssets": "retain-qualified-current-binaries",
+    "assetQualityFailure": false,
+    "formalHeroToIdentityProof": false,
+    "formalIdentityToMassingProof": false,
+    "derivedFromBackfillAuthorized": false,
+    "summary": "现存仓库可证明三档由同一生成器、同一 layout 和同一 Git 快照并列产生并原样保留，但不能证明 Identity 从已完成 Hero 派生，也不能证明 Massing 从 Identity 派生。"
+  },
+  "provableLineage": {
+    "status": "pass-common-source-snapshot-only",
+    "relationship": "generator+layout -> {massing, identity, final hero}",
+    "introductionCommit": "a0e25a879f8c5ab3ffc11fbd194d0deec310cb76",
+    "introductionCommittedAt": "2026-07-23T18:34:08+08:00",
+    "allFingerprintsMatchIntroductionCommit": true,
+    "generator": {
+      "path": "scripts/create_xingfuli_models.py",
+      "sha256": "f479f096b2f0092329c77a49e61fb5cfab208d4f05a9ca5278d46115a59b7d75",
+      "gitBlob": "5874158b4bb07f8e633bcd1f040adecf43c5a6a0"
+    },
+    "layout": {
+      "path": "app/scene/xingfuli-layout.json",
+      "sha256": "a9f9655c5a7504a1033c8378e977d2157ad118426914347ec7ec466f90a0fc89",
+      "gitBlob": "dd5c79e6777fba7e2743f922f9db2d98e52f5dfd"
+    }
+  },
+  "historicalBuildOrder": [
+    {
+      "tier": "massing",
+      "stage": "massing",
+      "generatedAt": "2026-07-22T23:51:00+08:00",
+      "record": "docs/research/build-records/xingfuli-massing.json",
+      "recordSha256": "eec4d65c5a840ac5a65fc146364438a6c5274caa813e6990e42b0d70802727d0",
+      "recordGitBlob": "2e6cf1bba649febe6d18b0ae3d318fa486ff9b95",
+      "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xingfuli_models.py -- --segment=all --stage=massing"
+    },
+    {
+      "tier": "identity",
+      "stage": "identity",
+      "generatedAt": "2026-07-23T00:26:00+08:00",
+      "record": "docs/research/build-records/xingfuli-identity.json",
+      "recordSha256": "d0f1c91933f468a507d0e00db717c87e8ab5ed535471d581a1377009ff7c56ff",
+      "recordGitBlob": "33abe105daf3c63082c8352af17b3bc24691c305",
+      "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xingfuli_models.py -- --segment=all --stage=identity"
+    },
+    {
+      "tier": "hero",
+      "stage": "final",
+      "generatedAt": "2026-07-23T01:40:30+08:00",
+      "record": "docs/research/build-records/xingfuli.json",
+      "recordSha256": "d99b1c7f5167b97172f161759a4d019c89961d043e5e9590ab2d4c6a76c633f5",
+      "recordGitBlob": "9a2378266aa3ae30d3f277a9dfac1c7642e546e2",
+      "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xingfuli_models.py -- --segment=all --stage=final"
+    }
+  ],
+  "artifacts": {
+    "hero": {
+      "stage": "final",
+      "blend": {
+        "path": "assets/models/source/xingfuli/xingfuli-west.blend",
+        "sha256": "0b9d64178e740aceb77469a1546d775f334427da16ba0037ab916c699b723a51",
+        "gitBlob": "6c05d4072c17e14df080b20f9ff1152e7a8371e9"
+      },
+      "glb": {
+        "path": "public/models/xingfuli/xingfuli-west.glb",
+        "sha256": "ababb1860c360f5807ce99b392a5388eba30f0991bdcb4f653c99752786bf853",
+        "gitBlob": "59b3dad412b6168ecfc4000aeb61da06386dd3c5",
+        "bytes": 317012,
+        "sourceObjectCount": 81
+      }
+    },
+    "identity": {
+      "stage": "identity",
+      "blend": {
+        "path": "assets/models/source/xingfuli/xingfuli-west-identity.blend",
+        "sha256": "226b7bc0a0a3d3eefdb5e8384ec132447d49b01d9bf014ba91fedb4fc4232bd7",
+        "gitBlob": "d94b93bed7049519e388a2beaf3ad3516f7d990a"
+      },
+      "glb": {
+        "path": "public/models/xingfuli/xingfuli-west-identity.glb",
+        "sha256": "69dc45a7237bd563204aa0189a0e3396b183d7b822e9ee676f2f5db72894aca1",
+        "gitBlob": "105134a68183dfb43f9d6a87e24babb8dcd4380f",
+        "bytes": 279108,
+        "sourceObjectCount": 69
+      }
+    },
+    "massing": {
+      "stage": "massing",
+      "blend": {
+        "path": "assets/models/source/xingfuli/xingfuli-west-massing.blend",
+        "sha256": "cdea34c17e897ecb7418c7dec8836a31bf0e6289c94188a4c2f788a330e90212",
+        "gitBlob": "c061b81d7bfcfd7cf09498ec7593b65f876d4db5"
+      },
+      "glb": {
+        "path": "public/models/xingfuli/xingfuli-west-massing.glb",
+        "sha256": "178c1bbf89a15a082c596cae6e994f042997998fef02a3bf6fcaecdb104e5c04",
+        "gitBlob": "809906a6339cd43bdffbd32abdc040679ae19f22",
+        "bytes": 194984,
+        "sourceObjectCount": 34
+      }
+    }
+  },
+  "generatorSemantics": {
+    "observed": [
+      "export_segment 每次先 clear_scene，再按指定 stage 调用 build_segment。",
+      "build_segment 每次从 xingfuli-layout.json 读取布局并按 stage 独立创建几何。",
+      "Identity 与 Massing 生成路径不加载 Hero 的 Blend 或 GLB，也不校验 Hero SHA。",
+      "Massing 会改变 canopy 深度、窗列数量、窗宽和身份构件密度，并非只删除 Hero mesh。",
+      "Identity 使用非 refined 色板；final Hero 另外加入 materials/site 细节。",
+      "Blend 在 merge_for_export 写入 stage extras 之前保存；GLB extras 不含父级 SHA。"
+    ],
+    "stageRelationship": "parallel-recipes-from-common-inputs",
+    "heroSupersetGeometrySimilarityIsLineageProof": false
+  },
+  "embeddedGlbMetadata": {
+    "common": {
+      "asset": "xingfuli",
+      "segment": "west",
+      "referenceManifest": "docs/research/xingfuli-reference-manifest.json",
+      "referencePhotosEmbedded": false,
+      "generator": "Khronos glTF Blender I/O v5.2.39"
+    },
+    "presentFields": [
+      "asset",
+      "segment",
+      "stage",
+      "source_object_count",
+      "reference_manifest",
+      "reference_photos_embedded"
+    ],
+    "missingLineageFields": [
+      "derivedFrom",
+      "derived_from_hero_glb_sha256",
+      "derived_from_hero_blend_sha256",
+      "derived_from_identity_glb_sha256",
+      "generator_sha256",
+      "layout_sha256",
+      "source_commit"
+    ]
+  },
+  "deterministicOutput": {
+    "recipeStaticInspection": "no-random-or-time-dependent-geometry-source-observed",
+    "historicalSnapshotInputsAvailable": true,
+    "byteExactRoundTripStatus": "not-proven-no-rebuild-authorized",
+    "doubleBuildEvidenceInRecords": false,
+    "currentArtifactsMatchRecordedSha256": true,
+    "currentArtifactsMatchIntroductionGitBlobs": true,
+    "conclusion": "可重放命令和输入快照存在，但未重建且记录没有双构建哈希，所以不得宣称字节级 deterministic round-trip 已证明。"
+  },
+  "preservedExistingEvidence": {
+    "blenderMcp": {
+      "path": "docs/research/xingfuli-west-blender-mcp-gates.json",
+      "sha256": "15ed3e2776e1872f9e8678904cf2e95b0a45e439f16e6235d899ff4d23572586",
+      "reviewedAt": "2026-07-26T12:33:43+08:00",
+      "mcp1Massing": "pass-retained-visual",
+      "mcp2Hero": "pass-retained-visual",
+      "mcp3ThreeTierVisual": "pass-same-camera-envelope-and-identity-readability",
+      "formalMcp3": "blocked-lineage"
+    },
+    "threeJsRuntime": {
+      "path": "docs/research/xingfuli-west-threejs-runtime-qa.json",
+      "sha256": "633b22eef3ea4b72b678fa6fafa1f5e1aaba3bb78a4c581392e9a96fff9b9776",
+      "recordedAt": "2026-07-26T12:56:00+08:00",
+      "threeTierLoading": "pass",
+      "fallback": "pass",
+      "strictTierLineage": "blocked",
+      "map": "blocked-xingfu-road-overlap",
+      "runtimePromotionAllowed": false
+    },
+    "xingfuRoadBlocker": {
+      "path": "docs/research/xingfuli-west-fast-audit.json",
+      "status": "blocked-current-authored-west-footprints-overlap-xingfu-road",
+      "northWestAsphaltEdgeClearanceScene": -1.1289594313541507,
+      "southWestAsphaltEdgeClearanceScene": -3.020253840972857,
+      "assetRebuildAuthorized": false,
+      "globalTranslationAuthorized": false,
+      "uniformOrNonUniformScaleHackAuthorized": false
+    }
+  },
+  "quantifiedGaps": [
+    {
+      "id": "G1",
+      "severity": "blocking",
+      "gap": "Identity 生成时间早于 final Hero，无法成为该 final Hero 的历史派生物。"
+    },
+    {
+      "id": "G2",
+      "severity": "blocking",
+      "gap": "Massing 生成时间早于 Identity 和 final Hero，无法证明 Identity -> Massing 历史派生。"
+    },
+    {
+      "id": "G3",
+      "severity": "blocking",
+      "gap": "Identity/Massing build record 均无 derivedFrom、父级 GLB/Blend SHA 或父级 gate。"
+    },
+    {
+      "id": "G4",
+      "severity": "blocking",
+      "gap": "生成器独立构建各 stage，不加载或校验 Hero/Identity 父级资产。"
+    },
+    {
+      "id": "G5",
+      "severity": "provenance",
+      "gap": "历史 build record 未记录 generator SHA、layout SHA 或 source commit。"
+    },
+    {
+      "id": "G6",
+      "severity": "provenance",
+      "gap": "GLB extras 未记录父级 SHA、generator SHA、layout SHA 或 source commit。"
+    },
+    {
+      "id": "G7",
+      "severity": "determinism",
+      "gap": "历史记录没有同输入连续两次构建的输出 SHA 对比。"
+    },
+    {
+      "id": "G8",
+      "severity": "historical-evidence",
+      "gap": "Git 只保存三档及记录的同一引入快照，没有中间提交或带输入哈希的生成日志。"
+    }
+  ],
+  "minimumRepairWithoutRedoingAcceptedAssets": {
+    "currentAction": [
+      "冻结并保留当前三档 GLB/Blend、MCP/Three.js 证据和幸福路道路 blocker，不覆盖、不降级，也不把共同来源误写为 derivedFrom。",
+      "将本记录作为历史 common-source reconstruction 证据，保持严格 lineage 与道路 gate blocked。"
+    ],
+    "formalClosureRequiresFutureCandidateDerivation": [
+      "以当前已验收 Hero GLB/Blend 的精确 SHA 为只读父级输入，在新 candidate 路径生成 Identity，再以 Identity 精确 SHA 生成 Massing。",
+      "候选记录必须包含父级 GLB/Blend SHA、generator SHA、layout SHA、source commit、Blender 版本、完整命令和输出 SHA。",
+      "同输入连续构建两次并记录相同输出 SHA；随后完成 GLB 结构与同机位 MCP/Three.js 验收，才允许单独讨论 promotion。",
+      "候选未通过前继续保留当前合格资产；不得就地覆盖，也不得借 lineage 修复掩盖幸福路负净距。"
+    ],
+    "strictLineageCanBeClosedWithoutAnyFutureDerivation": false,
+    "reason": "历史生成顺序与独立 stage 实现已排除对现有 final Hero 父级关系的严格追溯证明。"
+  }
+}
