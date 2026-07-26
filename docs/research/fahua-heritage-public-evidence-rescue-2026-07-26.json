@@ -14,5 +14,12 @@
   "inferred": ["Public context upgrades coverage beyond the isolated front capture but cannot validate legacy rear geometry or map boundary."],
   "unknown": ["rear and side construction", "measured footprint and thickness", "current curb, sidewalk, landscaped and walkaround boundary", "current ground datum"],
   "gates": {"evidence": "partial-identity-and-street-context", "map": "blocked-no-survey-boundary", "heroMcp2": "not-authorized", "identity": "blocked", "threeTier": "not-reachable"},
-  "decision": "Keep the legacy Hero and Recovery stages unchanged. Do not model or promote until a current measured plan or sufficient multi-angle measured imagery resolves the remaining geometry and boundary gaps."
+  "decision": "Keep the legacy Hero and Recovery stages unchanged. Do not model or promote until a current measured plan or sufficient multi-angle measured imagery resolves the remaining geometry and boundary gaps.",
+  "knowledgeArchive": {
+    "repositorySource": "docs/knowledge-sources/fahua-heritage-public-evidence-rescue-2026-07-26.md",
+    "archivePath": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/fahua-heritage-public-evidence-rescue-2026-07-26/README.md",
+    "rawSourcePath": "/Volumes/plugin/Threejs-3d-research/raw/sources/threejs-modeling-knowledge-base/wander-xinhua/fahua-heritage-public-evidence-rescue-2026-07-26.md",
+    "sha256": "13a9b4bd71a66a2dd50624af74751fa8a01cc4c25202dc77002074e75a990348",
+    "indexStatus": "pending"
+  }
 }

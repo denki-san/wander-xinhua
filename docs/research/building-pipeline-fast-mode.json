@@ -302,7 +302,8 @@
         "tests/test_xinhua_community_center_map_candidate.test.mjs",
         "tests/test_xinhua_community_center_service_road_semantics.test.mjs",
         "tests/test_xinhua_community_center_service_road_local_rescue_audit.test.mjs",
-        "tests/test_xinhua_community_center_service_road_gap_audit_2026_07_26.test.mjs"
+        "tests/test_xinhua_community_center_service_road_gap_audit_2026_07_26.test.mjs",
+        "tests/test_xinhua_community_center_official_service_road_evidence_exhaustion.test.mjs"
       ],
       "glbs": [
         "public/models/requested-pois/xinhua-community-center.glb",
@@ -337,6 +338,7 @@
       "tests": [
         "tests/test_fahua_heritage_local_evidence_rescue.test.mjs",
         "tests/test_fahua_heritage_gap_audit_2026_07_26.test.mjs",
+        "tests/test_fahua_heritage_public_evidence_rescue_2026_07_26.test.mjs",
         "tests/test_requested_poi_models.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],

@@ -63,6 +63,9 @@ test("本栋证据包不重跑合格阶段，也不动模型、道路或外部�
   assert.equal(record.scope.buildingTransformModified, false);
   assert.equal(record.scope.sharedRoadModified, false);
   assert.equal(record.scope.publicRegistryModified, false);
-  assert.equal(record.knowledgeWorkflow.externalIngestion, "not-run");
+  assert.equal(
+    record.knowledgeWorkflow.externalIngestion,
+    "raw-source-synced-index-pending",
+  );
   assert.equal(record.disposition.massingRebuildAuthorized, false);
 });

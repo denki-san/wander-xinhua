@@ -159,8 +159,11 @@
   "knowledgeWorkflow": {
     "repositorySource": "docs/knowledge-sources/xinhua-community-center-official-service-road-evidence-exhaustion-2026-07-26.md",
     "projectName": "Threejs-3d-research",
-    "externalIngestion": "not-run",
-    "reason": "外部 Wiki/U盘写入保留给主窗口；本分支不据此声称新增资料已完成外部知识库入库。"
+    "externalIngestion": "raw-source-synced-index-pending",
+    "archivePath": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/xinhua-community-center-official-service-road-evidence-exhaustion-2026-07-26/README.md",
+    "rawSourcePath": "/Volumes/plugin/Threejs-3d-research/raw/sources/threejs-modeling-knowledge-base/wander-xinhua/xinhua-community-center-official-service-road-evidence-exhaustion-2026-07-26.md",
+    "sha256": "ed52c90a1bb361f36c8eade988f79434f4291de56835b2c428103e1de2992207",
+    "claimBoundary": "两份 U 盘副本已与仓库 source 同 SHA；Wiki 搜索索引仍待后台处理。"
   },
   "disposition": {
     "serviceRoadMapGate": "blocked",

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T22:07:44+08:00",
+  "snapshotAt": "2026-07-26T22:19:00+08:00",
   "snapshotBaseCommit": "04aff48-plus-main-window-film-v2",
   "scope": {
     "mode": "exact-18-building-fast-mode",
@@ -264,23 +264,24 @@
     {
       "id": "xinhua-community-center",
       "name": "新华·社区营造中心",
-      "evidence": "pass-massing-building-4-only",
+      "evidence": "pass-massing-building-4-only-official-road-search-exhausted",
       "hero": "hold-invalid-lineage",
       "identity": "missing",
       "massing": "pass",
       "mcp1": "pass",
       "mcp2": "blocked",
       "mcp3": "blocked",
-      "map": "blocked-service-road-overlap-0.402635-local-width-relation-rescue-exhausted",
+      "map": "blocked-service-road-overlap-0.402635-official-search-exhausted-no-measured-road-contract",
       "threeJs": "pass-diagnostic-massing-collision",
-      "overall": "blocked-service-road-local-rescue-exhausted",
+      "overall": "blocked-service-road-official-public-rescue-exhausted",
       "runtimePolicy": "diagnostic-only-no-promotion",
       "records": [
         "docs/research/xinhua-community-center-map-candidate.json",
         "docs/research/xinhua-community-center-final-gap-audit.json",
         "docs/research/xinhua-community-center-service-road-semantics-record.md",
         "docs/research/xinhua-community-center-service-road-local-rescue-audit.json",
-        "docs/research/xinhua-community-center-service-road-gap-audit-2026-07-26.json"
+        "docs/research/xinhua-community-center-service-road-gap-audit-2026-07-26.json",
+        "docs/research/xinhua-community-center-official-service-road-evidence-exhaustion-2026-07-26.json"
       ]
     },
     {
@@ -308,21 +309,22 @@
     {
       "id": "fahua-heritage",
       "name": "法华遗韵",
-      "evidence": "blocked-one-front-only-local-rescue-exhausted-xhs-deferred",
+      "evidence": "partial-identity-and-street-context-public-rescue-rear-boundary-blocked",
       "hero": "hold-legacy-not-mcp2",
       "identity": "missing",
       "massing": "conditional-geometry-only",
       "mcp1": "blocked",
       "mcp2": "blocked",
       "mcp3": "blocked",
-      "map": "blocked-missing-street-context",
+      "map": "blocked-no-measured-side-rear-or-site-boundary",
       "threeJs": "not-formally-accepted",
-      "overall": "blocked-local-evidence-rescue-exhausted-xhs-deferred",
+      "overall": "blocked-public-street-context-improved-rear-boundary-xhs-deferred",
       "runtimePolicy": "preserve-files-when-user-awake-search-xhs-then-disable-runtime-if-still-missing",
       "records": [
         "docs/research/fahua-heritage-final-disposition.json",
         "docs/research/fahua-heritage-local-evidence-rescue.json",
-        "docs/research/fahua-heritage-gap-audit-2026-07-26.json"
+        "docs/research/fahua-heritage-gap-audit-2026-07-26.json",
+        "docs/research/fahua-heritage-public-evidence-rescue-2026-07-26.json"
       ]
     },
     {

@@ -9728,3 +9728,29 @@ Invalid escape
   构造 Unicode RegExp；保留 RegExp 只处理真正需要模式匹配的静态合同。
 
 ---
+
+## [ERR-20260726-126] exact_18_status_assertion_stale_after_evidence_upgrade
+
+**Logged**: 2026-07-26T22:20:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+法华遗韵公开补证把 evidence 从 `front-only` 提升为
+`partial identity and street context`，但仓库级 exact-18 状态测试仍锁定旧字符串，
+导致本批完整回归 741/742。
+
+### Error
+```text
+actual   partial-identity-and-street-context-public-rescue-rear-boundary-blocked
+expected blocked-one-front-only-local-rescue-exhausted-xhs-deferred
+```
+
+### Resolution
+- **Resolved**: 2026-07-26T22:20:00+08:00
+- **Notes**: 同步更新状态断言，并要求新的 public evidence record 必须存在；地图、
+  Hero、Identity 与 runtime 停用策略没有放宽。以后状态枚举升级时，同一批同时审查
+  exact-18 契约测试，避免只更新数据不更新守卫。
+
+---
