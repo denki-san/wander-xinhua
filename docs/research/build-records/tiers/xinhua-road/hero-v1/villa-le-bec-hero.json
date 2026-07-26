@@ -2,7 +2,7 @@
   "version": 1,
   "assetId": "villa-le-bec",
   "tier": "hero",
-  "status": "hero-mcp2-pass-identity-authorized",
+  "status": "hero-v1-retained-mcp2-fixed-view-fail",
   "generator": "scripts/create_villa_le_bec_hero_model.py",
   "generatorSha256": "bceff773bd9c051ea48be7a3101079525a1a08a1e29325ce058890c20ebb4ad1",
   "blenderVersion": "5.2.0 LTS",
@@ -118,8 +118,8 @@
     "massingPlacementOrCollisionChanged": false
   },
   "gates": {
-    "mcp2": "pass-main-window-blender-mcp-current-sha",
-    "identity": "authorized-from-current-hero-sha-only",
+    "mcp2": "fail-main-window-fixed-view-identity-mismatch",
+    "identity": "not-authorized-from-hero-v1",
     "runtime": "not-run-by-scope"
   }
 }

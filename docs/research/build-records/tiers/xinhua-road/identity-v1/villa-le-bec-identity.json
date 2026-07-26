@@ -3,7 +3,7 @@
   "assetId": "villa-le-bec",
   "tier": "identity",
   "versionName": "identity-v1",
-  "status": "identity-built-pending-mcp3-and-runtime",
+  "status": "hold-derived-from-rejected-hero-v1",
   "generator": {
     "path": "scripts/create_villa_le_bec_identity_model.py",
     "sha256": "252fb88d30270ddf582ccf27db85ffd4188f0b4ca3f9998f1ff37b8ddcc4f593",
@@ -12,7 +12,7 @@
   "blenderVersion": "5.2.0 LTS",
   "derivedFrom": {
     "tier": "hero",
-    "heroMcp2": "pass-main-window-blender-mcp-current-sha",
+    "heroMcp2": "fail-main-window-fixed-view-identity-mismatch",
     "heroBuildRecord": "docs/research/build-records/tiers/xinhua-road/hero-v1/villa-le-bec-hero.json",
     "heroEditableSource": {
       "path": "assets/models/source/tiers/xinhua-road/hero-v1/villa-le-bec-hero.blend",
@@ -130,7 +130,7 @@
     "requiresLowerBytesThanHero": true
   },
   "gates": {
-    "mcp3": "not-run",
-    "runtime": "not-run-by-scope"
+    "mcp3": "blocked-upstream-hero-v1-rejected",
+    "runtime": "hold-files-retained-no-promotion"
   }
 }

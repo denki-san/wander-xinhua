@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "assetId": "villa-le-bec",
   "tier": "hero",
-  "reviewedAt": "2026-07-26T16:00:00+08:00",
+  "reviewedAt": "2026-07-26T16:03:53+08:00",
   "reviewer": "main-window-xhigh",
   "gate": "MCP2",
-  "verdict": "pass",
+  "verdict": "fail-fixed-view-identity-mismatch",
   "inputs": {
     "blend": {
       "path": "assets/models/source/tiers/xinhua-road/hero-v1/villa-le-bec-hero.blend",
@@ -26,12 +26,14 @@
     },
     "buildRecord": {
       "path": "docs/research/build-records/tiers/xinhua-road/hero-v1/villa-le-bec-hero.json",
-      "sha256": "c33b4ff52adef92d1a9f9ecc310caa4c7c0be11582becd365094af02a490f6f8"
+      "sha256": "49c172a3ebdacf4a2ed6b38f667676e26cd034cc0d2026099beef9ba528da523"
     },
     "massingParentSha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f"
   },
   "mcpObservedScene": {
-    "objects": 1,
+    "savedAssetObjects": 1,
+    "liveReviewObjects": 5,
+    "temporaryReviewHelpers": 4,
     "meshObjects": 1,
     "vertices": 964,
     "polygons": 722,
@@ -66,9 +68,9 @@
   ],
   "criteria": {
     "twoBuildingSilhouette": "pass",
-    "streetFacadeHierarchy": "pass",
+    "streetFacadeHierarchy": "fail-ground-floor-remains-isolated-windows-not-reference-entry-storefront-rhythm",
     "projectingBayAndDormers": "pass",
-    "gardenEntryBayAndDormer": "pass",
+    "gardenEntryBayAndDormer": "fail-entrance-view-has-side-window-but-no-front-door-threshold-or-step",
     "materials": "pass",
     "openCourtyardAndGap": "pass-retain-massing-collision-contract",
     "scopePurity": "pass-no-trees-decoration-brand-interior-or-extra-ways",
@@ -77,7 +79,7 @@
   "iterationHistory": {
     "iteration1": "blocked-embedded-bay-glazing-and-missing-facade-hierarchy",
     "iteration2": "blocked-facade-hierarchy-and-embedded-dormer-glazing",
-    "iteration3": "pass-current-sha"
+    "iteration3": "blocked-current-sha-fixed-view-mismatch"
   },
   "batchPolicy": {
     "requested": "two-to-three-buildings",
@@ -85,7 +87,7 @@
     "reason": "本批只有 Villa Le Bec 产生新的 Hero 门候选；Recovery 与幸福里既有 MCP 合格阶段按快速模式禁止重做。"
   },
   "authorization": {
-    "identity": "authorized-from-current-hero-sha-only",
+    "identity": "not-authorized-from-hero-v1",
     "runtimePromotion": "not-authorized-until-identity-mcp3-and-threejs",
     "publicFiles": "main-window-only"
   }

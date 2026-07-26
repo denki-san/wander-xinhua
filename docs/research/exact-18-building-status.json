@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T16:02:00+08:00",
-  "snapshotBaseCommit": "3661058",
+  "snapshotAt": "2026-07-26T16:22:00+08:00",
+  "snapshotBaseCommit": "0189d06",
   "scope": {
     "mode": "exact-18-building-fast-mode",
     "buildingCount": 18,
@@ -45,11 +45,13 @@
       "mcp3": "pass",
       "map": "blocked-exact-subject-anchor",
       "threeJs": "pass-three-tier-retained",
-      "overall": "blocked-map-anchor-and-hero-reproduction",
+      "overall": "blocked-map-anchor",
       "runtimePolicy": "preserve-current-no-map-promotion",
       "records": [
         "docs/research/shanghai-cinema-final-audit-2026-07-26.json",
-        "docs/research/shanghai-cinema-map-calibration-2026-07-26.json"
+        "docs/research/shanghai-cinema-map-calibration-2026-07-26.json",
+        "docs/research/shanghai-cinema-hero-exact-reproduction-audit.json",
+        "docs/research/build-records/shanghai-cinema-hero-exact-reproduction.json"
       ]
     },
     {
@@ -152,15 +154,15 @@
       "id": "villa-le-bec",
       "name": "哥伦比亚乡村俱乐部",
       "evidence": "pass-hero-readiness-multi-view",
-      "hero": "pass-current-sha",
-      "identity": "authorized-not-built",
+      "hero": "candidate-v2-pending-reproducibility-and-mcp2",
+      "identity": "hold-v1-derived-from-rejected-hero-v1",
       "massing": "pass",
       "mcp1": "pass",
-      "mcp2": "pass",
+      "mcp2": "blocked-v1-failed-v2-recheck-pending",
       "mcp3": "blocked",
       "map": "pass",
       "threeJs": "pass-massing-performance-collision",
-      "overall": "in-progress-identity-build",
+      "overall": "in-progress-hero-v2-reproducibility",
       "runtimePolicy": "massing-only-no-tier-promotion",
       "records": [
         "docs/research/villa-le-bec-final-gap-audit.json",
@@ -168,7 +170,10 @@
         "docs/research/villa-le-bec-three-tier-final-disposition.json",
         "docs/research/villa-le-bec-hero-readiness.json",
         "docs/research/villa-le-bec-hero-visual-adjudication.json",
-        "docs/research/villa-le-bec-hero-blender-mcp2-gate-v1.json"
+        "docs/research/villa-le-bec-hero-blender-mcp2-gate-v1.json",
+        "docs/research/villa-le-bec-hero-v2-brief.md",
+        "docs/research/build-records/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.json",
+        "docs/research/build-records/tiers/xinhua-road/identity-v1/villa-le-bec-identity.json"
       ]
     },
     {
@@ -187,7 +192,8 @@
       "runtimePolicy": "diagnostic-only-no-promotion",
       "records": [
         "docs/research/shanghai-orchestra-final-gap-audit.json",
-        "docs/research/shanghai-orchestra-membership-tier-final-disposition-2026-07-26.md"
+        "docs/research/shanghai-orchestra-membership-tier-final-disposition-2026-07-26.md",
+        "docs/research/shanghai-orchestra-osm-membership-deep-audit.json"
       ]
     },
     {
@@ -322,6 +328,7 @@
       "records": [
         "docs/research/xingfuli-west-fast-audit.json",
         "docs/research/xingfuli-west-lineage-reconstruction-2026-07-26.json",
+        "docs/research/xingfuli-west-collision-proxy-candidate-2026-07-26.json",
         "docs/research/xingfuli-user-photo-sequence-2026-07-26.json"
       ]
     },
@@ -342,6 +349,8 @@
       "records": [
         "docs/research/xingfuli-center-lineage-map-audit.json",
         "docs/research/xingfuli-center-lineage-reconstruction-2026-07-26.json",
+        "docs/research/xingfuli-center-entrance-direct-start-candidate.json",
+        "docs/research/xingfuli-center-entrance-runtime-qa-2026-07-26.json",
         "docs/research/xingfuli-user-photo-sequence-2026-07-26.json"
       ]
     },

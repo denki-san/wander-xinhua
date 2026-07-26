@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xingfuli-center",
+  "recordedAt": "2026-07-26T16:10:00+08:00",
+  "owner": "main-window-xhigh",
+  "build": {
+    "mode": "vite-static-production-preview",
+    "integrationCommit": "14d5404",
+    "publicStartCommit": "aada3c4",
+    "url": "/?start=xingfuli-entrance-detail&qaModelId=xingfuli-center&qaModelTier=hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+    "viewport": [1280, 720],
+    "visibility": "visible",
+    "warmupSeconds": 5
+  },
+  "candidate": {
+    "local": [46, -5.05],
+    "expectedWorld": [84.35242194650252, 8.526261668474035],
+    "observedWorld": [84.35242194650252, 8.526261668474035],
+    "positionErrorSceneUnits": 0
+  },
+  "cameraAndCollision": {
+    "cameraMode": "spring-clear",
+    "blockerId": "none",
+    "desiredArm": 5.435,
+    "resolvedArm": 5.435,
+    "armCompression": 0,
+    "modeChanges": 1,
+    "playable": true,
+    "canvasCount": 1,
+    "status": "pass"
+  },
+  "tierEvidence": {
+    "requested": "hero",
+    "singlePageBatchRecord": "docs/research/xingfuli-center-threejs-runtime-qa.json",
+    "threeTierLoading": "pass-preserved-qualified-stage",
+    "fallback": "pass-preserved-qualified-stage",
+    "performance": "pass-preserved-qualified-stage-no-improvement-claim",
+    "collisionRoute": "pass-preserved-qualified-stage",
+    "repeated": false
+  },
+  "console": {
+    "errors": 0,
+    "warnings": [
+      "THREE.Clock deprecation"
+    ]
+  },
+  "screenshot": {
+    "path": "test_artifacts/all-models/xingfuli-center/runtime/test_xingfuli-center-entrance-detail-runtime.png",
+    "sha256": "714a756dc13bdc56369a01139dc13f9379903f65fb6cdf0ca996264bf5a5290e",
+    "bytes": 97918
+  },
+  "acceptance": {
+    "entranceStart": "pass",
+    "camera": "pass",
+    "collision": "pass",
+    "map": "pass-center-segment",
+    "strictTierLineage": "blocked",
+    "runtimePromotionAllowed": false,
+    "scope": "exact-building-only-no-tree-decoration-or-full-map-change"
+  }
+}

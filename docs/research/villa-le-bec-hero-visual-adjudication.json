@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "assetId": "villa-le-bec",
-  "adjudicatedAt": "2026-07-26T16:00:00+08:00",
+  "adjudicatedAt": "2026-07-26T16:03:53+08:00",
   "reviewSurface": "main-window-xhigh-pre-mcp2",
   "candidate": {
     "glb": "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
     "sha256": "1374b7a8301345c23736644cfdc9a7ed467efb8371ebcdf72a507217b0015394",
-    "preservation": "current-mcp2-accepted-hero"
+    "preservation": "retained-blocked-hero-v1-current-sha"
   },
   "reviewHistory": [
     {
@@ -30,8 +30,8 @@
       "iteration": 3,
       "sha256": "1374b7a8301345c23736644cfdc9a7ed467efb8371ebcdf72a507217b0015394",
       "gitCommit": "3661058",
-      "status": "pass-pre-mcp2-visual-and-mcp2-main-window",
-      "streetFacadeHierarchy": "pass",
+      "status": "fail-main-window-mcp-fixed-view-identity-mismatch",
+      "streetFacadeHierarchy": "blocked-ground-floor-rhythm-and-entry",
       "dormerGlazingSurfaceFix": "pass"
     }
   ],
@@ -69,7 +69,7 @@
       "坡屋顶、深色基座和道路侧院门同时可见。"
     ],
     "candidateCanonical": [
-      "第三轮沿街主楼在原包络内形成底层无品牌入口与窗、上层窗与 projecting bay 的可读层级。",
+      "第三轮沿街主楼增加了上下两排窗和 projecting bay，但底层仍是孤立窗格，未形成参考照片的连续入口与橱窗层级。",
       "两处沿街 dormer 的玻璃和窗框已位于外表面，固定机位读成有窗老虎窗。",
       "暖白墙、深色基座与红褐坡屋顶的主体关系保持。"
     ],
@@ -77,7 +77,7 @@
       "院内建筑正向入口、门、台阶和屋顶老虎窗均清晰可见。"
     ],
     "candidateEntrance": [
-      "院内 entry bay glazing 保持在外表面并在入口机位可见。",
+      "院内侧向 glazing 保持在外表面，但入口固定机位仍看不到参考照片中的正向门、门槛和台阶。",
       "院内 dormer 玻璃已外露；不可见背面、品牌与临时陈设继续保持未知。"
     ]
   },
@@ -90,13 +90,16 @@
     "商业品牌与临时陈设不属于本轮修复要求。"
   ],
   "decision": {
-    "preMcp2VisualGate": "pass-iteration-3",
-    "mcp2": "pass-main-window-blender-mcp-current-sha",
-    "identityAuthorized": true,
+    "preMcp2VisualGate": "fail-iteration-3-fixed-view-identity-mismatch",
+    "mcp2": "fail-main-window-blender-mcp-current-sha",
+    "identityAuthorized": false,
     "runtimePromotionAuthorized": false,
     "massingMapAndCollisionRetained": true,
-    "minimumRepair": [],
-    "nextGate": "derive-identity-from-current-hero-sha-only"
+    "minimumRepair": [
+      "沿街底层必须形成连续入口与橱窗带，并与上层凸窗明确分层。",
+      "院内入口固定机位必须读到正向门、门槛或台阶，而不是只有侧窗。"
+    ],
+    "nextGate": "new-hero-candidate-must-pass-mcp2-before-identity"
   },
   "scopeGuard": {
     "onlyBuilding": "villa-le-bec",

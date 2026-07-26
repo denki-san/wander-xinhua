@@ -3,7 +3,7 @@
   "assetId": "villa-le-bec",
   "tier": "hero",
   "candidate": "hero-v2",
-  "status": "headless-fixed-view-repair-pass-pending-main-window-mcp2",
+  "status": "headless-fixed-view-repair-pass-pending-reproducibility-and-mcp2",
   "generator": "scripts/create_villa_le_bec_hero_v2_model.py",
   "generatorSha256": "830f9dadcf926e8c423dbcbcca5030dbc21ccc8b3416d95bab08fb5fb2ca52fe",
   "generationCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_villa_le_bec_hero_v2_model.py",
@@ -12,7 +12,7 @@
     "brief": "docs/research/villa-le-bec-hero-v2-brief.md",
     "briefSha256": "f2f83d44fa69a9e62e146cd9432ca22a14918abc3192bb03d4c632403082e04f",
     "blockedV1Adjudication": "docs/research/villa-le-bec-hero-visual-adjudication.json",
-    "blockedV1AdjudicationSha256": "bfad1ad63ea89ded085506857e9703d2227d25dda4b5ecd5d567974e0abd300f"
+    "blockedV1AdjudicationSha256": "217cbca00d9e883514c64ba0dfba228d4bd9cd4153520cb7b2a811b9ab1f77d5"
   },
   "derivedFrom": {
     "massingGlb": "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
@@ -30,7 +30,9 @@
   "preservedCandidate": {
     "glb": "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
     "sha256": "56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad",
-    "overwritten": false
+    "gitCommit": "ea77bc3",
+    "currentPathSuperseded": true,
+    "preservation": "byte-exact-in-git-history"
   },
   "references": [
     {
@@ -144,8 +146,8 @@
   },
   "gates": {
     "headlessCanonicalSideEntrance": "pass",
-    "mcp2": "not-run-by-scope-pending-main-window",
-    "identity": "not-authorized-until-mcp2",
+    "mcp2": "pending-after-mainline-reproducibility-repair",
+    "identity": "not-authorized-until-reproducibility-and-mcp2",
     "runtime": "not-run-by-scope"
   }
 }

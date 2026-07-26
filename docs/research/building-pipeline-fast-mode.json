@@ -29,6 +29,7 @@
       "tests": [
         "tests/test_shanghai_cinema_quality_tiers.test.mjs",
         "tests/test_shanghai_cinema_map_calibration.test.mjs",
+        "tests/test_shanghai_cinema_hero_exact_reproduction.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
@@ -165,12 +166,16 @@
         "tests/test_villa_le_bec_hero_implementation.test.mjs",
         "tests/test_villa_le_bec_hero_visual_adjudication.test.mjs",
         "tests/test_villa_le_bec_hero_blender_mcp2_gate.test.mjs",
+        "tests/test_villa_le_bec_hero_v2.test.mjs",
+        "tests/test_villa_le_bec_identity_implementation.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
         "public/models/xinhua-road/villa-le-bec.glb",
         "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
-        "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb"
+        "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
+        "public/models/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.glb",
+        "public/models/tiers/xinhua-road/identity-v1/villa-le-bec-identity.glb"
       ],
       "runtimeRoutes": [
         "/?start=villa-le-bec&cameraQa=1&qaAutoStart=1",
@@ -187,6 +192,7 @@
         "tests/test_shanghai_orchestra_massing_checkpoint.test.mjs",
         "tests/test_shanghai_orchestra_final_gap.test.mjs",
         "tests/test_shanghai_orchestra_membership_tier_final_disposition.test.mjs",
+        "tests/test_shanghai_orchestra_osm_membership_deep_audit.test.mjs",
         "scripts/test_generate_shanghai_orchestra_map_calibration.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -340,6 +346,7 @@
         "tests/test_xingfuli_west_fast_audit.test.mjs",
         "tests/test_xingfuli_west_lineage_reconstruction.test.mjs",
         "tests/test_xingfuli_west_map_collision_lineage_adjudication.test.mjs",
+        "tests/test_xingfuli_west_collision_proxy_candidate.test.mjs",
         "tests/test_xingfuli_models.test.mjs"
       ],
       "glbs": [
@@ -366,6 +373,8 @@
         "tests/test_xingfuli_user_photo_sequence_evidence.test.mjs",
         "tests/test_xingfuli_center_lineage_map.test.mjs",
         "tests/test_xingfuli_center_lineage_reconstruction.test.mjs",
+        "tests/test_xingfuli_center_entrance_direct_start_candidate.test.mjs",
+        "tests/test_xingfuli_center_entrance_runtime_qa.test.mjs",
         "scripts/test_xingfuli_center_lineage_map_calibration.mjs",
         "tests/test_xingfuli_models.test.mjs"
       ],

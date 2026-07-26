@@ -18,17 +18,17 @@ function parseGlb(buffer) {
   return JSON.parse(buffer.subarray(20, 20 + jsonLength).toString("utf8").trim());
 }
 
-test("Villa Le Bec Identity 严格派生当前 MCP2 Hero 且保持双楼开放庭院", async () => {
+test("Villa Le Bec Identity 文件保留但因上游 Hero v1 被拒而保持 Hold", async () => {
   const [record, hero] = await Promise.all([
     json(recordPath),
     json("docs/research/build-records/tiers/xinhua-road/hero-v1/villa-le-bec-hero.json"),
   ]);
-  assert.equal(record.status, "identity-built-pending-mcp3-and-runtime");
+  assert.equal(record.status, "hold-derived-from-rejected-hero-v1");
   assert.equal(hero.outputs.glbSha256, heroGlbSha);
   assert.equal(hero.outputs.blendSha256, heroBlendSha);
   assert.equal(record.derivedFrom.heroGlbSha256, heroGlbSha);
   assert.equal(record.derivedFrom.heroBlendSha256, heroBlendSha);
-  assert.equal(record.derivedFrom.heroMcp2, "pass-main-window-blender-mcp-current-sha");
+  assert.equal(record.derivedFrom.heroMcp2, "fail-main-window-fixed-view-identity-mismatch");
   assert.equal(record.continuity.collision.sameAsHeroAndMassing, true);
   assert.equal(record.continuity.collision.openCourtyard, true);
   assert.deepEqual(record.continuity.collision.solidWays, [864493176, 864493175]);
@@ -36,8 +36,8 @@ test("Villa Le Bec Identity 严格派生当前 MCP2 Hero 且保持双楼开放�
   for (const forbidden of ["trees", "dressing", "brand", "interior", "low-annex", "extra-ways"]) {
     assert.ok(record.scope.excluded.includes(forbidden), forbidden);
   }
-  assert.equal(record.gates.mcp3, "not-run");
-  assert.equal(record.gates.runtime, "not-run-by-scope");
+  assert.equal(record.gates.mcp3, "blocked-upstream-hero-v1-rejected");
+  assert.equal(record.gates.runtime, "hold-files-retained-no-promotion");
 });
 
 test("Villa Le Bec Identity 符合降档预算、结构与预览完整性", async () => {

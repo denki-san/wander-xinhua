@@ -45,7 +45,7 @@ test("Villa Le Bec Hero 由冻结 Massing SHA 派生且符合预算", async () =
 
 test("Villa Le Bec Hero 保持双楼实体与开放庭院，未越权创建 Identity 或装饰", async () => {
   const record = await json(recordPath);
-  assert.equal(record.status, "hero-mcp2-pass-identity-authorized");
+  assert.equal(record.status, "hero-v1-retained-mcp2-fixed-view-fail");
   assert.equal(record.scope.twoBuildingsOnly, true);
   assert.equal(record.collisionContract.openCourtyard, true);
   assert.deepEqual(record.collisionContract.solidWays, [864493176, 864493175]);
@@ -53,8 +53,8 @@ test("Villa Le Bec Hero 保持双楼实体与开放庭院，未越权创建 Iden
   for (const forbidden of ["trees", "dressing", "brand", "interior", "low-annex"]) {
     assert.ok(record.scope.excluded.includes(forbidden), forbidden);
   }
-  assert.equal(record.gates.mcp2, "pass-main-window-blender-mcp-current-sha");
-  assert.equal(record.gates.identity, "authorized-from-current-hero-sha-only");
+  assert.equal(record.gates.mcp2, "fail-main-window-fixed-view-identity-mismatch");
+  assert.equal(record.gates.identity, "not-authorized-from-hero-v1");
   assert.equal(record.gates.runtime, "not-run-by-scope");
   assert.deepEqual(record.glazingVisibilityFix.streetProjectingBay, {
     externalNormal: "local -Y / street -v",

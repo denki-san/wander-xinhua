@@ -4151,7 +4151,7 @@ agent.browsers.list() => []
 
 **Logged**: 2026-07-21T18:34:00+08:00
 **Priority**: low
-**Status**: open
+**Status**: resolved
 **Area**: tooling
 
 ### Summary
@@ -8934,5 +8934,67 @@ expected: pending
 ### Resolution
 - **Resolved**: 2026-07-26T15:49:00+08:00
 - **Notes**: 实现记录和测试同步为 blocked；Villa 专项 40/40 与三个 GLB 审计通过。
+
+---
+## [ERR-20260726-099] villa_visual_test_froze_identity_as_not_built
+
+**Logged**: 2026-07-26T16:13:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Villa Le Bec Identity 已按 MCP2 当前 Hero SHA 构建后，Hero 视觉裁决测试仍把统一状态
+固定为 `authorized-not-built`，导致三建筑 Fast Mode 在专项阶段停止。
+
+### Error
+```text
+actual:   pass-built-current-sha
+expected: authorized-not-built
+```
+
+### Context
+- Hero GLB、MCP2 裁决和 runtime promotion policy 未变化；
+- Identity 新资产有独立 build record、专项测试与 GLB 审计；
+- 失败来自跨阶段状态断言没有随已验证的 Identity 提交更新。
+
+### Suggested Fix
+当下游阶段完成时，同一批更新统一状态、Fast Mode manifest 和所有引用该瞬时状态的
+上游测试；上游测试应继续锁定 runtime 不推广，而不是永久锁死 Identity 未构建。
+
+### Resolution
+- **Resolved**: 2026-07-26T16:13:00+08:00
+- **Notes**: 视觉裁决测试同步为 Identity current-SHA pass，并新增 Identity GLB 清单断言。
+
+---
+## [ERR-20260726-100] villa_v2_test_assumed_historical_v1_stayed_at_live_path
+
+**Logged**: 2026-07-26T16:15:00+08:00
+**Priority**: medium
+**Status**: open
+**Area**: integration
+
+### Summary
+Villa Le Bec Hero v2 的测试把初版 v1 候选 SHA 固定在同一个 live path；该路径随后经历
+两轮修复并被更晚的主窗口固定机位终审拒绝，初版已安全保存在 Git 历史而非当前路径。
+
+### Error
+```text
+actual:   1374b7a8...
+expected: 56cb58a3...
+```
+
+### Context
+- v1 三个迭代均可由 `ea77bc3`、`29760a1`、`3661058` 精确取回；
+- 更晚终审把当前 v1 与其派生 Identity 保留为 Hold，未删除任何文件；
+- v2 使用独立 Hero 路径，正在等待主窗口 MCP2。
+
+### Suggested Fix
+历史候选必须通过 Git commit + path 锁定，不得要求 live path 永久保持首版字节；
+v2 record 应记录历史 commit，测试从该 commit 读取并校验 SHA。
+
+### Resolution
+- **Resolved**: 2026-07-26T16:19:00+08:00
+- **Notes**: v2 record 增加历史 commit，测试改从 Git 读取首版 v1；live path 只验证已 supersede。
 
 ---

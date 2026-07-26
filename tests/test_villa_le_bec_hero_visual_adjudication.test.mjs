@@ -17,24 +17,24 @@ async function sha256(path) {
     .digest("hex");
 }
 
-test("Villa Le Bec Hero 第三版固定机位通过后只授权当前 SHA 进入 Identity", async () => {
+test("Villa Le Bec Hero v1 第三版固定机位失败且不授权 Identity", async () => {
   const record = await readJson(recordPath);
   const build = await readJson("docs/research/build-records/tiers/xinhua-road/hero-v1/villa-le-bec-hero.json");
 
   assert.equal(record.assetId, "villa-le-bec");
   assert.equal(record.candidate.sha256, build.outputs.glbSha256);
-  assert.equal(record.decision.preMcp2VisualGate, "pass-iteration-3");
-  assert.equal(record.decision.mcp2, "pass-main-window-blender-mcp-current-sha");
-  assert.equal(record.decision.identityAuthorized, true);
+  assert.equal(record.decision.preMcp2VisualGate, "fail-iteration-3-fixed-view-identity-mismatch");
+  assert.equal(record.decision.mcp2, "fail-main-window-blender-mcp-current-sha");
+  assert.equal(record.decision.identityAuthorized, false);
   assert.equal(record.decision.runtimePromotionAuthorized, false);
-  assert.equal(build.gates.mcp2, "pass-main-window-blender-mcp-current-sha");
-  assert.equal(build.gates.identity, "authorized-from-current-hero-sha-only");
+  assert.equal(build.gates.mcp2, "fail-main-window-fixed-view-identity-mismatch");
+  assert.equal(build.gates.identity, "not-authorized-from-hero-v1");
 });
 
 test("Villa Le Bec 视觉裁决锁定参考和候选截图指纹且保留旧候选", async () => {
   const record = await readJson(recordPath);
 
-  assert.equal(record.candidate.preservation, "current-mcp2-accepted-hero");
+  assert.equal(record.candidate.preservation, "retained-blocked-hero-v1-current-sha");
   assert.equal(record.comparisonInputs.length, 5);
   for (const input of record.comparisonInputs) {
     await access(new URL(input.path, root));
@@ -58,7 +58,7 @@ test("Villa Le Bec 视觉裁决锁定参考和候选截图指纹且保留旧候�
   assert.equal(record.scopeGuard.doNotModify.includes("full-map-assets"), true);
 });
 
-test("统一状态与 Fast Mode 保持 Villa Le Bec Hero 通过但仍不推广运行时", async () => {
+test("统一状态与 Fast Mode 保留 v1/Identity Hold，并只把 v2 作为待复核候选", async () => {
   const [status, fast] = await Promise.all([
     readJson("docs/research/exact-18-building-status.json"),
     readJson("docs/research/building-pipeline-fast-mode.json"),
@@ -66,14 +66,22 @@ test("统一状态与 Fast Mode 保持 Villa Le Bec Hero 通过但仍不推广�
   const building = status.buildings.find((entry) => entry.id === "villa-le-bec");
   const fastBuilding = fast.buildings.find((entry) => entry.id === "villa-le-bec");
 
-  assert.equal(building.hero, "pass-current-sha");
-  assert.equal(building.mcp2, "pass");
-  assert.equal(building.identity, "authorized-not-built");
+  assert.equal(building.hero, "candidate-v2-pending-reproducibility-and-mcp2");
+  assert.equal(building.mcp2, "blocked-v1-failed-v2-recheck-pending");
+  assert.equal(building.identity, "hold-v1-derived-from-rejected-hero-v1");
   assert.equal(building.runtimePolicy, "massing-only-no-tier-promotion");
   assert.equal(building.records.includes(recordPath), true);
   assert.equal(fastBuilding.tests.includes("tests/test_villa_le_bec_hero_visual_adjudication.test.mjs"), true);
   assert.equal(
     fastBuilding.glbs.includes("public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb"),
+    true,
+  );
+  assert.equal(
+    fastBuilding.glbs.includes("public/models/tiers/xinhua-road/identity-v1/villa-le-bec-identity.glb"),
+    true,
+  );
+  assert.equal(
+    fastBuilding.glbs.includes("public/models/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.glb"),
     true,
   );
 });

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "assetId": "xingfuli-center",
-  "status": "geometry-safe-candidate-pending-public-start-runtime",
+  "status": "runtime-pass-public-start-confirmed",
   "candidate": {
     "id": "xingfuli-entrance-detail-candidate",
     "local": [46, -5.05],
@@ -29,9 +29,14 @@
     "analyticSpringArm": "pass-uncompressed"
   },
   "handoff": {
-    "publicFilesChanged": false,
-    "authorizedNow": false,
-    "requiredMainWindowAction": "replace the public xingfuli-entrance-detail start only after a real page camera/collision check with this exact local candidate",
-    "retainedBlockers": ["identity-lineage", "mcp1-mcp3", "three-tier-runtime-final"]
+    "publicFilesChanged": "already-integrated-at-aada3c4-not-by-building-agent",
+    "authorizedNow": true,
+    "requiredMainWindowAction": "complete-real-page-camera-and-collision-check-passed-at-exact-local-candidate",
+    "retainedBlockers": ["identity-lineage"]
+  },
+  "runtimeAcceptance": {
+    "record": "docs/research/xingfuli-center-entrance-runtime-qa-2026-07-26.json",
+    "status": "pass",
+    "productionPromotion": false
   }
 }

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
@@ -46,12 +47,22 @@ test("Villa Le Bec Hero v2 新路径可追溯且保留冻结 Massing 与 Hero v1
     "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f",
   );
   assert.equal(
-    await sha256(heroV1Path),
-    "56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad",
+    record.preservedCandidate.gitCommit,
+    "ea77bc3",
+  );
+  const historicalV1 = execFileSync(
+    "git",
+    ["show", `${record.preservedCandidate.gitCommit}:${heroV1Path}`],
+    { cwd: decodeURIComponent(root.pathname) },
+  );
+  assert.equal(
+    createHash("sha256").update(historicalV1).digest("hex"),
+    record.preservedCandidate.sha256,
   );
   assert.equal(record.derivedFrom.massingSha256, await sha256(massingPath));
-  assert.equal(record.preservedCandidate.sha256, await sha256(heroV1Path));
-  assert.equal(record.preservedCandidate.overwritten, false);
+  assert.notEqual(record.preservedCandidate.sha256, await sha256(heroV1Path));
+  assert.equal(record.preservedCandidate.currentPathSuperseded, true);
+  assert.equal(record.preservedCandidate.preservation, "byte-exact-in-git-history");
   assert.equal(
     await sha256(record.qualityContract.brief),
     record.qualityContract.briefSha256,
@@ -122,7 +133,7 @@ test("Villa Le Bec Hero v2 只使用 01/02/11 并保留开放庭院合同", asyn
   }
 });
 
-test("Villa Le Bec Hero v2 三机位与 triptych 均锁定，MCP2 未被越权声明", async () => {
+test("Villa Le Bec Hero v2 三机位与 triptych 均锁定，主线可复现前不越权授权", async () => {
   const record = await json(recordPath);
   assert.deepEqual(record.outputs.previews.map(({ view }) => view), [
     "canonical",
@@ -134,7 +145,7 @@ test("Villa Le Bec Hero v2 三机位与 triptych 均锁定，MCP2 未被越权�
     assert.equal(await sha256(preview.path), preview.sha256, preview.path);
   }
   assert.equal(record.gates.headlessCanonicalSideEntrance, "pass");
-  assert.equal(record.gates.mcp2, "not-run-by-scope-pending-main-window");
-  assert.equal(record.gates.identity, "not-authorized-until-mcp2");
+  assert.equal(record.gates.mcp2, "pending-after-mainline-reproducibility-repair");
+  assert.equal(record.gates.identity, "not-authorized-until-reproducibility-and-mcp2");
   assert.equal(record.gates.runtime, "not-run-by-scope");
 });
