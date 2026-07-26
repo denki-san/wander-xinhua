@@ -73,12 +73,12 @@ test("用户睡眠期间不访问登录浏览器，也不删除或覆盖资产",
   );
 });
 
-test("外部证据第一份已入库、第二份仍 pending，整体不冒充完成", async () => {
+test("外部证据两份均完成搜索、回读与来源追踪", async () => {
   const record = await readJson(recordPath);
   assert.equal(record.knowledgeWorkflow.projectName, "Threejs-3d-research");
   assert.equal(
     record.knowledgeWorkflow.statusAtReview,
-    "partial-index-pass-second-source-not-complete",
+    "complete-both-sources-indexed-search-readback-pass",
   );
   assert.equal(record.knowledgeWorkflow.sources.length, 2);
   for (const source of record.knowledgeWorkflow.sources) {
@@ -100,16 +100,26 @@ test("外部证据第一份已入库、第二份仍 pending，整体不冒充完
   );
   assert.equal(
     record.knowledgeWorkflow.sources[1].indexStatus,
-    "pending-no-independent-search-hit",
+    "pass-search-read-and-derived-pages",
+  );
+  assert.match(
+    record.knowledgeWorkflow.sources[1].wikiPath,
+    /shanghai-cinema-public-exact-anchor-rescue/u,
   );
   assert.equal(record.knowledgeWorkflow.liveIndexCheck.firstSourceSearchHit, true);
   assert.equal(record.knowledgeWorkflow.liveIndexCheck.firstSourceReadback, true);
   assert.equal(
     record.knowledgeWorkflow.liveIndexCheck.secondSourceIndependentSearchHit,
-    false,
+    true,
   );
-  assert.equal(record.knowledgeWorkflow.searchHit, "partial-first-source-only");
-  assert.equal(record.knowledgeWorkflow.graphRelationHit, false);
-  assert.equal(record.knowledgeWorkflow.completionClaimAllowed, false);
-  assert.match(record.knowledgeWorkflow.policy, /both sources searchable/u);
+  assert.equal(record.knowledgeWorkflow.liveIndexCheck.secondSourceReadback, true);
+  assert.deepEqual(record.knowledgeWorkflow.queueSnapshotAtCompletion, {
+    processing: 0,
+    pending: 0,
+    failed: 0,
+  });
+  assert.equal(record.knowledgeWorkflow.searchHit, "pass-both-sources");
+  assert.match(record.knowledgeWorkflow.graphRelationHit, /^pass-/u);
+  assert.equal(record.knowledgeWorkflow.completionClaimAllowed, true);
+  assert.match(record.knowledgeWorkflow.policy, /map anchor remains blocked/u);
 });

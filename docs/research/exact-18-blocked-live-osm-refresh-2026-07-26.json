@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-07-26T21:26:00+08:00",
+  "mode": "main-window-read-only-live-osm-refresh",
+  "status": "complete-no-new-map-unlock",
+  "scope": {
+    "assetIds": [
+      "shanghai-cinema",
+      "xinhua-villas-211",
+      "xinhua-villas-329",
+      "shanghai-orchestra",
+      "xinhua-community-center",
+      "debi-fahua-525",
+      "fics-xinhua-365",
+      "xingfuli-west",
+      "xingfuli-east"
+    ],
+    "fahuaHeritageExcludedReason": "该 blocker 是实景证据与街道界面缺口，没有可复核的 OSM 主体 way。",
+    "readOnly": true,
+    "modelOrGeneratorModified": false,
+    "registryOrRuntimeModified": false,
+    "qualifiedStageRerun": false,
+    "holdUntouched": true,
+    "excludedAndUntouched": [
+      "trees",
+      "decorations",
+      "full-map assets",
+      "Recovery/Hold",
+      "buildings outside the exact 18"
+    ]
+  },
+  "source": {
+    "provider": "OpenStreetMap Overpass API",
+    "endpoint": "https://overpass-api.de/api/interpreter",
+    "responseGenerator": "Overpass API 0.7.62.11 87bfad18",
+    "queryContract": "Only the 41 explicitly enumerated building, road and pedestrian ways already cited by the blocked-building audits, plus their parent relations.",
+    "snapshotPath": "docs/research/data/exact-18-blocked-live-osm-20260726-2126.json",
+    "snapshotSha256": "1d4771af075281137a16cbdf6f70e962652a9d77e0b6eb5ff52d224a6c77c8f5",
+    "snapshotBytes": 7293
+  },
+  "results": {
+    "requestedWays": 41,
+    "returnedWays": 41,
+    "parentRelations": 0,
+    "waysWithNameAddressOrRoadSemantics": [
+      {
+        "wayId": 66394007,
+        "tags": {
+          "highway": "tertiary",
+          "name": "法华镇路",
+          "surface": "asphalt",
+          "maxspeed": "30"
+        }
+      },
+      {
+        "wayId": 228966550,
+        "tags": {
+          "building": "yes",
+          "name": "1号楼"
+        }
+      },
+      {
+        "wayId": 228966551,
+        "tags": {
+          "building": "yes",
+          "name": "2号楼"
+        }
+      },
+      {
+        "wayId": 292250766,
+        "tags": {
+          "building": "yes",
+          "amenity": "cinema",
+          "name:zh": "上海影城",
+          "addr:housenumber": "160",
+          "addr:street": "新华路"
+        }
+      },
+      {
+        "wayId": 400066625,
+        "tags": {
+          "highway": "pedestrian",
+          "name": "幸福里",
+          "surface": "paved",
+          "bicycle": "no"
+        }
+      },
+      {
+        "wayId": 577252268,
+        "tags": {
+          "highway": "service",
+          "service": "alley",
+          "access": "private",
+          "oneway": "no"
+        }
+      },
+      {
+        "wayId": 577252269,
+        "tags": {
+          "highway": "service",
+          "name": "新华路345弄",
+          "oneway": "no"
+        }
+      }
+    ]
+  },
+  "comparison": {
+    "debiNamedWaysAlreadyPresent": [
+      "docs/research/data/requested-pois-osm-20260717-103840.json",
+      "docs/research/data/xinhua-buildings-osm-20260725-074802.json"
+    ],
+    "newRelationMembership": false,
+    "newBuildingAddressBinding": false,
+    "newRoadWidthOrLanes": false,
+    "newCoveredLayerTunnelOrPassageTags": false,
+    "newExactAnchorControlPoint": false
+  },
+  "verdict": {
+    "mapGateUnlocked": false,
+    "placementMutationAuthorized": false,
+    "roadWidthMutationAuthorized": false,
+    "runtimeRemovalPerformed": false,
+    "reason": "Live OSM matches the locally audited semantics: all 41 ways are present, but no parent relation, new member binding, road width, passage semantics or georeferenced control point closes any blocker."
+  }
+}

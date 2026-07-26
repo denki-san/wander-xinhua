@@ -149,7 +149,7 @@
   "knowledgeWorkflow": {
     "projectId": "0e0c3670-c275-42f9-8c06-6de01e3683b5",
     "projectName": "Threejs-3d-research",
-    "statusAtReview": "partial-index-pass-second-source-not-complete",
+    "statusAtReview": "complete-both-sources-indexed-search-readback-pass",
     "sources": [
       {
         "repositoryPath": "docs/knowledge-sources/shanghai-cinema-public-anchor-evidence-2026-07-26.md",
@@ -162,7 +162,8 @@
         "repositoryPath": "docs/knowledge-sources/shanghai-cinema-public-exact-anchor-rescue-2026-07-26.md",
         "sha256": "c56ff88c3d8599343c7b2b3c8f179c6d6c6ba1c912fd78120fde6e861f05fc29",
         "rawSourcePath": "raw/sources/threejs-modeling-knowledge-base/wander-xinhua/shanghai-cinema-public-exact-anchor-rescue-2026-07-26.md",
-        "indexStatus": "pending-no-independent-search-hit"
+        "indexStatus": "pass-search-read-and-derived-pages",
+        "wikiPath": "wiki/sources/31-threejs-modeling-knowledge-base--13-wander-xinhua--53-shanghai-cinema-public-exact-anchor-rescue-2026-07-26--obtcxk.md"
       }
     ],
     "rawSourceReadback": "pass-both-source-paths-readable",
@@ -172,16 +173,22 @@
       "failed": 0
     },
     "liveIndexCheck": {
-      "checkedAt": "2026-07-26T21:20:48+08:00",
+      "checkedAt": "2026-07-26T21:28:00+08:00",
       "firstSourceSearchHit": true,
       "firstSourceReadback": true,
       "firstSourceDerivedFindingHit": true,
-      "secondSourceIndependentSearchHit": false
+      "secondSourceIndependentSearchHit": true,
+      "secondSourceReadback": true
     },
-    "searchHit": "partial-first-source-only",
-    "graphRelationHit": false,
-    "completionClaimAllowed": false,
-    "policy": "Keep the second evidence rescue source additive and pending. Only both sources searchable/readable with traceability can close the external research workflow."
+    "queueSnapshotAtCompletion": {
+      "processing": 0,
+      "pending": 0,
+      "failed": 0
+    },
+    "searchHit": "pass-both-sources",
+    "graphRelationHit": "pass-first-derived-finding-node-second-source-provenance-linked",
+    "completionClaimAllowed": true,
+    "policy": "The external research workflow is complete because both sources are searchable and readable with traceability. This closes ingestion only; the exact map anchor remains blocked."
   },
   "disposition": {
     "userObservationConfirmed": true,
