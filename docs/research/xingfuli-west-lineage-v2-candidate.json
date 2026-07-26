@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "assetId": "xingfuli-west",
+  "auditedAt": "2026-07-26",
+  "baselineCommit": "d09cca7b73f8e9989b65eb83b16e0bf0e27270dc",
+  "status": "candidate-lineage-generated-map-blocked-main-window-review-pending",
+  "purpose": "以已验收 Hero 为只读父级，补齐 Hero → Identity v2 → Massing v2 的严格派生候选；不覆盖旧资产，不把地图 blocker 混入建模结论。",
+  "scope": {
+    "exactBuildingIds": ["xingfuli-west"],
+    "currentAcceptedAssets": "preserved-read-only",
+    "candidatePathsOnly": true,
+    "publicRuntimeResolverManifestExactStatusModified": false,
+    "centerEastModified": false,
+    "treesDecorationFullMap": "excluded",
+    "recoveryHold": "untouched",
+    "xiaohongshuAccessed": false
+  },
+  "promotion": {
+    "authorized": false,
+    "productionDefaultHeroChanged": false,
+    "oldIdentityMassingBinariesPreserved": true,
+    "reason": "主窗口 MCP3、Three.js 和幸福路地图门尚未闭合。"
+  },
+  "lineage": [
+    {
+      "tier": "hero",
+      "role": "accepted-read-only-parent",
+      "glb": "public/models/xingfuli/xingfuli-west.glb",
+      "glbSha256": "ababb1860c360f5807ce99b392a5388eba30f0991bdcb4f653c99752786bf853",
+      "blend": "assets/models/source/xingfuli/xingfuli-west.blend",
+      "blendSha256": "0b9d64178e740aceb77469a1546d775f334427da16ba0037ab916c699b723a51",
+      "bytes": 317012,
+      "triangles": 4428,
+      "sourceObjects": 81
+    },
+    {
+      "tier": "identity-v2",
+      "role": "strict-child-candidate",
+      "record": "docs/research/build-records/tiers/xingfuli/identity-v2/xingfuli-west-identity-v2.json",
+      "glb": "public/models/tiers/xingfuli/identity-v2/xingfuli-west-identity-v2.glb",
+      "glbSha256": "163d214be91a4eacc45a383913e89e820757b97765f74c5b4be080f74f34426d",
+      "blend": "assets/models/source/tiers/xingfuli/identity-v2/xingfuli-west-identity-v2.blend",
+      "blendSha256": "9b90d62c9bf4e34bf13b0a86bae035421ba287a51382f9f925fc435fb34b6a59",
+      "bytes": 280424,
+      "triangles": 3900,
+      "sourceObjects": 69,
+      "parentGlbSha256": "ababb1860c360f5807ce99b392a5388eba30f0991bdcb4f653c99752786bf853",
+      "parentBlendSha256": "0b9d64178e740aceb77469a1546d775f334427da16ba0037ab916c699b723a51"
+    },
+    {
+      "tier": "massing-v2",
+      "role": "strict-grandchild-candidate",
+      "record": "docs/research/build-records/tiers/xingfuli/massing-v2/xingfuli-west-massing-v2.json",
+      "glb": "public/models/tiers/xingfuli/massing-v2/xingfuli-west-massing-v2.glb",
+      "glbSha256": "f6d67f041162e4c090ff16f65897837db64c64fb3cf5a8baf0a4462c4e8ac377",
+      "blend": "assets/models/source/tiers/xingfuli/massing-v2/xingfuli-west-massing-v2.blend",
+      "blendSha256": "dd4c4729dbdc9a7fbf9501ae5670f0f064ebd69d981d2953cf2f445d21d90af1",
+      "bytes": 196312,
+      "triangles": 2712,
+      "sourceObjects": 34,
+      "parentGlbSha256": "163d214be91a4eacc45a383913e89e820757b97765f74c5b4be080f74f34426d",
+      "parentBlendSha256": "9b90d62c9bf4e34bf13b0a86bae035421ba287a51382f9f925fc435fb34b6a59"
+    }
+  ],
+  "preservedCurrentTiers": {
+    "heroGlbSha256": "ababb1860c360f5807ce99b392a5388eba30f0991bdcb4f653c99752786bf853",
+    "identityGlbSha256": "69dc45a7237bd563204aa0189a0e3396b183d7b822e9ee676f2f5db72894aca1",
+    "massingGlbSha256": "178c1bbf89a15a082c596cae6e994f042997998fef02a3bf6fcaecdb104e5c04"
+  },
+  "headlessCameraContract": {
+    "sharedByBothCandidates": true,
+    "canonical": {
+      "location": [-55, -7, 3.5],
+      "target": [-32, -7, 3.2],
+      "lens": 48,
+      "review": "pass-complete-two-sided-storefront-canopy-and-window-rhythm"
+    },
+    "side": {
+      "location": [-58, -31, 11],
+      "target": [-34.5, -7, 3.3],
+      "lens": 52,
+      "review": "pass-nonblank-two-building-depth-and-identity-wall"
+    },
+    "street": {
+      "location": [-68, -26, 7.5],
+      "target": [-34.5, -6, 3.2],
+      "lens": 55,
+      "review": "pass-xingfu-road-entry-composition-storefront-windows-and-panels"
+    }
+  },
+  "mapGate": {
+    "status": "blocked-ground-level-passage-evidence-unavailable",
+    "productionCorrectionWritten": false,
+    "candidate": {
+      "path": "docs/research/xingfuli-west-collision-proxy-candidate-2026-07-26.json",
+      "sha256": "2b5e61762072fb517c8948a5678eb18b007ad6130c2834012744b59878a4485d",
+      "exactFootprintRoadClearanceScene": 0.2269805709570054,
+      "fullFootprintCoverage": 1,
+      "verdict": "blocked-full-coverage-conflicts-with-pedestrian-passage"
+    },
+    "blocker": {
+      "buildingOsmId": 864823874,
+      "pedestrianOsmId": 400066625,
+      "westOwnershipOverlapScene": 9.197191627490877,
+      "missingGroundLevelTags": [
+        "min_height",
+        "building:min_level",
+        "covered",
+        "tunnel",
+        "layer",
+        "entrance"
+      ],
+      "minimumCarveWouldPreserveFullFootprintCoverage": false
+    },
+    "decision": "现有 OSM 可消除道路 AABB 假重叠，却不能同时证明人物高度实体边界和入口 void；不制作任意 carve，不移动/缩放/旋转资产，也不改道路。"
+  },
+  "userOriginalPhotos": {
+    "record": "docs/research/xingfuli-user-photo-sequence-2026-07-26.json",
+    "sha256": "d05eaec36c1334c7ae00e63fd570370bff0d291298e37bf3da3ce24fccc9f3ad",
+    "count": 9,
+    "status": "pending-original-files-not-reviewed",
+    "publicReferenceManifestIsNotUserSequence": true
+  },
+  "observed": [
+    "两档均从精确父级 Blend 打开后删除对象，没有独立重建保留对象。",
+    "两档连续双构建的 GLB SHA 分别一致；Blend SHA 不同且未被误报为字节确定。",
+    "Hero、Identity v2、Massing v2 的 GLB bytes、三角面和源对象数严格递减，bounds 完全一致。",
+    "两档均为单 root、标准 root transform、零图片、零纹理、零动画、零骨骼。",
+    "六张显式同机位 headless 图已本地复核；旧默认 side/street 的遮挡问题已用固定 camera 消除。",
+    "既有 MCP、Three.js 和地图证据保持只读，用户九张原图仍未落盘。"
+  ],
+  "unknown": [
+    "新候选的 Blender MCP3 与实际 Three.js 切档、fallback、碰撞和相机结果。",
+    "way/864823874 在人物高度处的真实实体边界、架空高度和入口开口。",
+    "用户九张原图的文件、SHA、EXIF、视角映射和路线终点道路身份。"
+  ],
+  "nextGates": [
+    "main-window Blender MCP3 same-camera batch review",
+    "main-window Three.js tier, fallback, collision and camera review",
+    "separate Xingfu Road ground-level passage evidence before any map promotion"
+  ]
+}

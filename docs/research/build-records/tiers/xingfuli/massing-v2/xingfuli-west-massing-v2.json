@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "assetId": "xingfuli-west",
+  "tier": "massing-v2",
+  "status": "candidate-pending-main-window-mcp3-and-threejs",
+  "builtAt": "2026-07-26",
+  "scope": {
+    "buildingIds": ["xingfuli-west"],
+    "writesExistingTierPaths": false,
+    "writesRuntimeResolverManifestOrExactStatus": false,
+    "includesTreesDecorationOrFullMap": false,
+    "recoveryHoldModified": false
+  },
+  "derivation": {
+    "method": "strict-parent-blend-object-reduction",
+    "parentTier": "identity-v2",
+    "parentGlb": {
+      "path": "public/models/tiers/xingfuli/identity-v2/xingfuli-west-identity-v2.glb",
+      "sha256": "163d214be91a4eacc45a383913e89e820757b97765f74c5b4be080f74f34426d",
+      "bytes": 280424
+    },
+    "parentBlend": {
+      "path": "assets/models/source/tiers/xingfuli/identity-v2/xingfuli-west-identity-v2.blend",
+      "sha256": "9b90d62c9bf4e34bf13b0a86bae035421ba287a51382f9f925fc435fb34b6a59"
+    },
+    "parentObjects": 69,
+    "retainedObjects": 34,
+    "removedObjects": 35,
+    "removedByReason": {
+      "reduce-identity-window-columns": 8,
+      "remove-identity-abstract-panel-detail": 3,
+      "remove-identity-sill": 24
+    }
+  },
+  "inputs": {
+    "baselineCommit": "d09cca7b73f8e9989b65eb83b16e0bf0e27270dc",
+    "generator": {
+      "path": "scripts/create_xingfuli_west_lineage_v2_models.py",
+      "sha256": "12da5365459e95f260eb12cce326c239342b40cac163ae770aed59684a969445",
+      "sourceCommit": "39c9268e6caf0047d57b304dccc606b3061dd3f5"
+    },
+    "layout": {
+      "path": "app/scene/xingfuli-layout.json",
+      "sha256": "a9f9655c5a7504a1033c8378e977d2157ad118426914347ec7ec466f90a0fc89"
+    },
+    "referenceManifest": "docs/research/xingfuli-west-reference-manifest.json",
+    "referencePhotosEmbedded": false,
+    "userOriginalPhotosStatus": "pending-original-files-not-reviewed",
+    "blender": "5.2.0 LTS",
+    "exporter": "Khronos glTF Blender I/O v5.2.39"
+  },
+  "build": {
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_xingfuli_west_lineage_v2_models.py -- --tier massing-v2 --parent-glb public/models/tiers/xingfuli/identity-v2/xingfuli-west-identity-v2.glb --parent-blend assets/models/source/tiers/xingfuli/identity-v2/xingfuli-west-identity-v2.blend --expected-parent-glb-sha256 163d214be91a4eacc45a383913e89e820757b97765f74c5b4be080f74f34426d --expected-parent-blend-sha256 9b90d62c9bf4e34bf13b0a86bae035421ba287a51382f9f925fc435fb34b6a59 --source-commit 39c9268e6caf0047d57b304dccc606b3061dd3f5",
+    "doubleBuild": {
+      "glbByteExact": true,
+      "buildA": {
+        "glbSha256": "f6d67f041162e4c090ff16f65897837db64c64fb3cf5a8baf0a4462c4e8ac377",
+        "glbBytes": 196312,
+        "blendSha256": "8d23ac4011d94008474e973d643008935cd33b5e9d5eeb3d5a2fa01a7979c2ed",
+        "blendBytes": 116712
+      },
+      "buildB": {
+        "glbSha256": "f6d67f041162e4c090ff16f65897837db64c64fb3cf5a8baf0a4462c4e8ac377",
+        "glbBytes": 196312,
+        "blendSha256": "dd4c4729dbdc9a7fbf9501ae5670f0f064ebd69d981d2953cf2f445d21d90af1",
+        "blendBytes": 116783
+      },
+      "blendByteExact": false,
+      "blendNote": "Blender 内部保存元数据导致两次 Blend SHA 不同；只宣称导出 GLB 字节级确定。"
+    }
+  },
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/tiers/xingfuli/massing-v2/xingfuli-west-massing-v2.blend",
+      "sha256": "dd4c4729dbdc9a7fbf9501ae5670f0f064ebd69d981d2953cf2f445d21d90af1",
+      "bytes": 116783
+    },
+    "glb": {
+      "path": "public/models/tiers/xingfuli/massing-v2/xingfuli-west-massing-v2.glb",
+      "sha256": "f6d67f041162e4c090ff16f65897837db64c64fb3cf5a8baf0a4462c4e8ac377",
+      "bytes": 196312,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 5,
+      "images": 0,
+      "textures": 0,
+      "animations": 0,
+      "skins": 0,
+      "triangles": 2712,
+      "vertices": 5424,
+      "bounds": {
+        "min": [-47, 0.09000000357627869, -7.739999771118164],
+        "max": [-22, 6.980000019073486, 22.09000015258789]
+      },
+      "rootTransform": {
+        "translation": [0, 0, 0],
+        "rotation": [0, 0, 0, 1],
+        "scale": [1, 1, 1]
+      }
+    },
+    "previews": [
+      {
+        "view": "canonical",
+        "path": "test_artifacts/all-models/massing-v2/xingfuli-west/headless/test_xingfuli-west-massing-v2_canonical_preview.png",
+        "sha256": "243f968119643e175ec6177ab687fb21a90ade52a8278957a2079e4fd6d15961",
+        "bytes": 831378
+      },
+      {
+        "view": "side",
+        "path": "test_artifacts/all-models/massing-v2/xingfuli-west/headless/test_xingfuli-west-massing-v2_side_preview.png",
+        "sha256": "10cbf7b6f5811b14a58f7a8a676d1130e7395983bc231e27c2651063b82b0ead",
+        "bytes": 836629
+      },
+      {
+        "view": "street",
+        "path": "test_artifacts/all-models/massing-v2/xingfuli-west/headless/test_xingfuli-west-massing-v2_street_preview.png",
+        "sha256": "f4e53fdb5bf19beaa56b875be1a30888fcad7e60c19a6505edaa05c92ddee304",
+        "bytes": 811918
+      }
+    ]
+  },
+  "gates": {
+    "parentHashValidation": "pass",
+    "objectSetReduction": "pass",
+    "doubleBuildGlb": "pass-byte-identical",
+    "glbStructure": "pass",
+    "headlessFixedViews": "pass-local-visual-review",
+    "blenderMcp3": "pending-main-window-batch",
+    "threeJs": "pending-main-window",
+    "xingfuRoad": "blocked-ground-level-passage-evidence-unavailable",
+    "publicIntegration": "not-authorized"
+  }
+}
