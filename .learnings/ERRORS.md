@@ -171,13 +171,15 @@ expected Gltf- to remain deferred
 ```text
 fatal: Unable to create '.git/worktrees/loading-experience-v2/index.lock':
 Operation not permitted
+
+error: cannot open '.git/FETCH_HEAD': Operation not permitted
 ```
 
 ### Resolution
 保持相同的明确暂存范围，在已批准的 Git 执行边界中重跑；不更改工作树内容。
 
 ### Prevention
-本地 worktree 的 `.git` 实际指向主仓库元数据；文件工作区可写不代表 worktree index 可写。
+本地 worktree 的 `.git` 实际指向主仓库元数据；文件工作区可写不代表 worktree index 或 `FETCH_HEAD` 可写。需要更新远端引用时直接使用受控的 Git 提升权限。
 
 ---
 
