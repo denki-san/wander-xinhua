@@ -8347,3 +8347,33 @@ PermissionError: [Errno 1] Operation not permitted:
 ### Resolution
 - **Resolved**: 2026-07-26T03:23:00+08:00
 - **Notes**: 测试改读 `3.6682` 并使用 `1e-4` 容差，专项测试通过。
+
+---
+## [ERR-20260726-081] progressive_world_test_expected_pre_scoped_fallback
+
+**Logged**: 2026-07-26T03:55:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: test-contract
+
+### Summary
+329弄与邬达克批次全仓回归中，旧测试仍要求
+`fallback={<XinhuaRoadMassing identity />}`，但 House315 主窗口接线已经把生产 fallback
+升级为带 `qaFallbackHiddenIds` 的建筑范围隔离版本。
+
+### Error
+```text
+AssertionError: input did not match /fallback={<XinhuaRoadMassing identity \/>}/
+```
+
+### Context
+- 264项中263项通过；失败是源码正则过时，不是运行时构建、GLB或地图门失败。
+- 新 fallback 防止 QA 目标同时显示 Identity 与当前档位，默认产品入口语义不变。
+
+### Suggested Fix
+测试应验证 `identity + hiddenLandmarkIds={qaFallbackHiddenIds}` 以及隐藏集合只来源于
+显式 `qaModelId`，不能要求旧的无范围 fallback 文字。
+
+### Resolution
+- **Resolved**: 2026-07-26T03:56:00+08:00
+- **Notes**: 更新源码合同断言以覆盖建筑范围隔离，并保留默认 Identity fallback。

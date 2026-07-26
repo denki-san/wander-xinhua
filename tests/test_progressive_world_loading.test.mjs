@@ -293,7 +293,14 @@ test("生产主世界让全部建筑遵守 Massing、Identity、Hero 三层和�
     experience,
     /setOverviewStartPosition\(playerPosition\.current\);\s+setDestinationPreset\(undefined\);/,
   );
-  assert.match(world, /fallback=\{<XinhuaRoadMassing identity \/>\}/);
+  assert.match(
+    world,
+    /fallback=\{\(\s*<XinhuaRoadMassing\s+identity\s+hiddenLandmarkIds=\{qaFallbackHiddenIds\}/,
+  );
+  assert.match(
+    world,
+    /const qaFallbackHiddenIds = useMemo\(\(\) => \{[\s\S]*return new Set\(\[qaScopedLandmarkId\]\);[\s\S]*\}, \[qaScopedLandmarkId\]\);/,
+  );
   assert.match(world, /<XinhuaRoadMassing identity=\{showDetailModels\} \/>/);
   assert.match(
     world,
