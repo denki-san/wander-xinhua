@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T15:38:00+08:00",
-  "snapshotBaseCommit": "0276fa7",
+  "snapshotAt": "2026-07-26T15:46:00+08:00",
+  "snapshotBaseCommit": "48c1718",
   "scope": {
     "mode": "exact-18-building-fast-mode",
     "buildingCount": 18,
@@ -92,7 +92,7 @@
     {
       "id": "xinhua-villas-211",
       "name": "新华别墅211弄",
-      "evidence": "massing-pass-hero-insufficient",
+      "evidence": "massing-pass-hero-blocked-member-depth-binding",
       "hero": "hold-invalid-lineage",
       "identity": "missing",
       "massing": "pass",
@@ -104,13 +104,15 @@
       "overall": "blocked-hero-lineage-and-identity",
       "runtimePolicy": "massing-only-no-tier-promotion",
       "records": [
-        "docs/research/xinhua-villas-211-final-gap-audit.json"
+        "docs/research/xinhua-villas-211-final-gap-audit.json",
+        "docs/research/xinhua-villas-211-three-tier-final-disposition.json",
+        "docs/research/xinhua-villas-211-hero-readiness-adjudication.json"
       ]
     },
     {
       "id": "xinhua-villas-329",
       "name": "新华别墅329弄",
-      "evidence": "massing-pass-hero-invalid",
+      "evidence": "massing-pass-hero-blocked-depth-and-authoritative-binding",
       "hero": "hold-cross-asset",
       "identity": "missing",
       "massing": "pass",
@@ -124,7 +126,8 @@
       "records": [
         "docs/research/xinhua-villas-329-final-disposition.json",
         "docs/research/xinhua-villas-329-threejs-runtime-qa-v2.json",
-        "docs/research/xinhua-villas-329-map-conflict-superseding-adjudication-2026-07-26.md"
+        "docs/research/xinhua-villas-329-map-conflict-superseding-adjudication-2026-07-26.md",
+        "docs/research/xinhua-villas-329-hero-readiness-adjudication.json"
       ]
     },
     {
@@ -335,6 +338,7 @@
       "runtimePolicy": "preserve-current-no-formal-promotion",
       "records": [
         "docs/research/xingfuli-center-lineage-map-audit.json",
+        "docs/research/xingfuli-center-lineage-reconstruction-2026-07-26.json",
         "docs/research/xingfuli-user-photo-sequence-2026-07-26.json"
       ]
     },

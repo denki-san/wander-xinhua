@@ -62,6 +62,11 @@ test("个人实拍链已形成可同步到 Threejs-3d-research 的知识源", as
   assert.match(source, /has not yet been inspected/);
   assert.equal(record.externalArchive.knowledgeBase, "Threejs-3d-research");
   assert.match(record.externalArchive.sourcePath, /xingfuli-user-photo-route-2026-07-26\.md$/);
+  assert.match(record.externalArchive.sourceSha256, /^[a-f0-9]{64}$/);
+  assert.equal(record.externalArchive.sourceArchiveStatus, "pass-byte-identical");
+  assert.equal(record.externalArchive.sourceIndexStatus, "pass-search-read-and-graph-node");
+  assert.match(record.externalArchive.sourceWikiPath, /^wiki\/sources\/.+\.md$/);
+  assert.equal(record.externalArchive.rawImageArchiveStatus, "pending-original-files");
 });
 
 test("统一18栋状态矩阵为幸福里西中东引用同一实拍链记录", async () => {

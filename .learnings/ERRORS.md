@@ -8874,3 +8874,34 @@ expected: f87c8fde...
   测试不再把该历史 SHA 当作当前公共文件合同。
 
 ---
+## [ERR-20260726-097] full_regression_raced_villas_211_companion_commit
+
+**Logged**: 2026-07-26T15:42:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: integration
+
+### Summary
+幸福里三栋批次启动全仓回归时，后台集成刚提交新华别墅 211 Hero readiness 测试，
+但测试依赖的三档最终裁决 JSON 尚在下一笔 companion commit 中，造成瞬时缺文件。
+
+### Error
+```text
+ENOENT: no such file or directory
+docs/research/xinhua-villas-211-three-tier-final-disposition.json
+```
+
+### Context
+- 幸福里 69 项专项测试和 9 个 GLB 审计均已通过；
+- 失败时全仓为 505 项中的 1 项失败；
+- 缺失文件随后由 `48c1718` 接入，测试与证据文件来自同一 211 建筑范围。
+
+### Suggested Fix
+带有 companion evidence 的新测试必须与其依赖文件一起进入集成提交，或在批次全部
+提交完成、工作树稳定后再启动全仓回归；不得在异步提交窗口内跑项目级验收。
+
+### Resolution
+- **Resolved**: 2026-07-26T15:42:00+08:00
+- **Notes**: 已确认 companion JSON 落盘并归属于 211 专项；稳定后重新执行完整回归。
+
+---

@@ -91,6 +91,8 @@
         "tests/test_building_massing_qa_contract.test.mjs",
         "scripts/test_xinhua_villas_211_massing_map_gate.mjs",
         "tests/test_xinhua_villas_211_final_gap.test.mjs",
+        "tests/test_xinhua_villas_211_three_tier_final_disposition.test.mjs",
+        "tests/test_xinhua_villas_211_hero_readiness_adjudication.test.mjs",
         "tests/test_model_detail_upgrade.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -112,6 +114,7 @@
         "tests/test_xinhua_villas_329_massing_recovery_checkpoint.test.mjs",
         "tests/test_xinhua_villas_329_final_disposition.test.mjs",
         "tests/test_xinhua_villas_329_map_conflict_superseding_adjudication.test.mjs",
+        "tests/test_xinhua_villas_329_hero_readiness_adjudication.test.mjs",
         "tests/test_model_detail_upgrade.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -357,6 +360,7 @@
         "tests/test_xingfuli_threejs_runtime_batch.test.mjs",
         "tests/test_xingfuli_user_photo_sequence_evidence.test.mjs",
         "tests/test_xingfuli_center_lineage_map.test.mjs",
+        "tests/test_xingfuli_center_lineage_reconstruction.test.mjs",
         "scripts/test_xingfuli_center_lineage_map_calibration.mjs",
         "tests/test_xingfuli_models.test.mjs"
       ],

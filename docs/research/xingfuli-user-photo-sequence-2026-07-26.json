@@ -117,6 +117,11 @@
   "externalArchive": {
     "knowledgeBase": "Threejs-3d-research",
     "sourcePath": "raw/sources/threejs-modeling-knowledge-base/wander-xinhua/xingfuli-user-photo-route-2026-07-26.md",
+    "sourceSha256": "61ace9608e237238ae53a49e57c6771c5d261429a4c5a1c95cdf8c412e7bb435",
+    "sourceArchiveStatus": "pass-byte-identical",
+    "sourceIndexStatus": "pass-search-read-and-graph-node",
+    "sourceIndexVerifiedAt": "2026-07-26T15:40:14+08:00",
+    "sourceWikiPath": "wiki/sources/31-threejs-modeling-knowledge-base--13-wander-xinhua--36-xingfuli-user-photo-route-2026-07-26--6cszba.md",
     "rawImageArchiveStatus": "pending-original-files"
   }
 }
