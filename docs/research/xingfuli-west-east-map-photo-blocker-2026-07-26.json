@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "assetIds": ["xingfuli-west", "xingfuli-east"],
+  "reviewedAt": "2026-07-26",
+  "mode": "fast-mode-local-only-map-and-user-photo-materialization-audit",
+  "status": "blocked-west-passage-and-east-photo9-panyu-road-unknown",
+  "scope": {
+    "included": [
+      "west-east-lineage-v2-mcp-and-runtime-records",
+      "OSM-pedestrian-way-400066625-and-road-blockers",
+      "user-photo-route-repository-record",
+      "Threejs-3d-research-raw-source-and-Wiki-entity-read-only-query",
+      "private-specialty-regression"
+    ],
+    "notPerformed": [
+      "network-browser-or-xiaohongshu-research",
+      "blender-or-mcp-rerun",
+      "threejs-runtime-rerun",
+      "model-or-generator-rebuild",
+      "registry-manifest-status-or-roster-mutation",
+      "trees-decoration-full-map-recovery-or-hold-work"
+    ],
+    "sharedFilesModified": false,
+    "binaryModified": false
+  },
+  "verifiedInputs": {
+    "userRouteKnowledgeSource": {
+      "path": "docs/knowledge-sources/xingfuli-user-photo-route-2026-07-26.md",
+      "sha256": "61ace9608e237238ae53a49e57c6771c5d261429a4c5a1c95cdf8c412e7bb435"
+    },
+    "userSequenceRecord": {
+      "path": "docs/research/xingfuli-user-photo-sequence-2026-07-26.json",
+      "sha256": "d05eaec36c1334c7ae00e63fd570370bff0d291298e37bf3da3ce24fccc9f3ad"
+    },
+    "westAudit": {
+      "path": "docs/research/xingfuli-west-fast-audit.json",
+      "sha256": "9c089fb784627645d381fbb681b2ad313cb8c8da439ab753ff38ed8bb9ad8c9e"
+    },
+    "eastAudit": {
+      "path": "docs/research/xingfuli-east-tier-map-audit.json",
+      "sha256": "ef1001fac7bbb89f2639dd0194ade4cacc54396bc64883f8ff0dead0bc531795"
+    },
+    "mcpBatch": {
+      "path": "docs/research/xingfuli-west-east-lineage-v2-blender-mcp-gates.json",
+      "sha256": "36f03fb42980094f62c39d6969b8c0fd2b716553eb718357f706cb41447c24c1"
+    },
+    "runtimeBatch": {
+      "path": "docs/research/xingfuli-west-east-lineage-v2-threejs-runtime-qa.json",
+      "sha256": "1cc11100f53cec73d078a3edb7d15e2a4ae58362be38a4087b4cd7221cfe22fe"
+    }
+  },
+  "userPhotoMaterialization": {
+    "photographerStatement": "nine ordered original images begin at Xingfu Road and end at an opposite road that may be Panyu Road",
+    "originalFilesMaterialized": false,
+    "originalFileCount": 0,
+    "sha256Available": false,
+    "exifAvailable": false,
+    "allNineSlots": "pending-original-file",
+    "publicReferenceBoundary": "The repository's existing nine Xingfuli references are public web images from 2018-2021 and are not the user sequence.",
+    "forbiddenMisclassification": "Do not relabel, overwrite, or use those public references as user-captured originals."
+  },
+  "threejsResearchReadOnlyVerification": {
+    "rawSource": {
+      "knowledgeBase": "Threejs-3d-research",
+      "sourceSha256": "61ace9608e237238ae53a49e57c6771c5d261429a4c5a1c95cdf8c412e7bb435",
+      "result": "pass-byte-identical-to-repository-knowledge-source"
+    },
+    "wiki": {
+      "result": "pass-source-indexed-and-west-east-entities-present",
+      "westEntityBoundary": "No image can currently be assigned to xingfuli-west.",
+      "eastEntityBoundary": "Image 9 cannot currently bind the east end or confirm Panyu Road."
+    },
+    "rawImageArchive": "pending-original-files"
+  },
+  "retainedAcceptedStages": {
+    "west": {
+      "hero": "ababb1860c360f5807ce99b392a5388eba30f0991bdcb4f653c99752786bf853",
+      "identityV2": "163d214be91a4eacc45a383913e89e820757b97765f74c5b4be080f74f34426d",
+      "massingV2": "f6d67f041162e4c090ff16f65897837db64c64fb3cf5a8baf0a4462c4e8ac377",
+      "mcp": "pass-retained",
+      "threejs": "pass-retained"
+    },
+    "east": {
+      "hero": "4dc21aa6f137daa076a6da1948b0c08c15310789541ee59af06c352febea4327",
+      "identityV2": "3352d6174273a87a1a049df61a884255d451d424f36a203361cf74671a71db25",
+      "massingV2": "c0defcbdc99c5939499db3ce33fb4d01cb8f8cf9f9a5fc49dd9270e8a23d3450",
+      "mcp": "pass-retained",
+      "threejs": "pass-retained"
+    },
+    "action": "retain all qualified tiers unchanged; runtime pass cannot promote map acceptance"
+  },
+  "mapBlockers": {
+    "west": {
+      "status": "blocked-pedestrian-way-400066625-ground-level-passage-unknown",
+      "observed": [
+        "OSM way/400066625 is a two-point pedestrian centerline and not a west building footprint.",
+        "Current authored west collision rectangles overlap Xingfu Road while the related OSM street-facing footprints retain positive road clearance.",
+        "No materialized user image can identify whether the pedestrian route is open, covered, bridged, or constrained at the west passage."
+      ],
+      "inferred": [
+        "The user route could later constrain the west-to-center passage if original images are mapped, but its order alone cannot decide collision geometry."
+      ],
+      "unknown": [
+        "Ground-level passage width, walls, openings, grade and relation to the west collision rectangles."
+      ]
+    },
+    "east": {
+      "status": "blocked-panyu-road-overlap-and-photo9-road-unknown",
+      "observed": [
+        "The east south building, entry matrix wall and lane base overlap the current Panyu Road asphalt contract.",
+        "Way/400066625 supplies only the site axis and cannot define an east-only footprint.",
+        "Photo 9 is a first-party route endpoint statement but has no original file, visual content, metadata or road identification."
+      ],
+      "inferred": [
+        "If photo 9 is materialized and independently confirms Panyu Road, it may constrain east-end direction but will still require a footprint/road-boundary decision."
+      ],
+      "unknown": [
+        "Whether the opposite road in photo 9 is Panyu Road, the exact east street boundary, and the true geometry of the south-east entry edge."
+      ]
+    }
+  },
+  "minimumUnblock": [
+    "Preserve and materialize all nine original user images read-only; record original filenames, SHA-256, image dimensions and EXIF/capture date or explicit metadata absence.",
+    "Map every image to west, center, east or unknown using visible comparison; retain uncertain assignments as unknown.",
+    "Verify photo 9 road identity through both visible street evidence and map geometry; do not treat photographer uncertainty as Panyu confirmation.",
+    "For west, obtain evidence of the ground-level passage boundary and openings before changing collision/road geometry; for east, obtain an authoritative east footprint or surveyed road boundary before altering the Panyu overlap.",
+    "Only after those map inputs are adjudicated in the main window may affected public registry/runtime map gates be rerun."
+  ],
+  "verdict": {
+    "westMapClosed": false,
+    "eastMapClosed": false,
+    "userPhotoEvidenceReady": false,
+    "publicMapMutationAuthorized": false,
+    "buildingComplete": false,
+    "nextGate": "materialize original nine-photo route and complete map-constrained visual assignments"
+  }
+}
