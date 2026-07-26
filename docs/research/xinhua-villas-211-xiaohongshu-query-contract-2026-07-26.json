@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-211",
+  "recordedAt": "2026-07-26",
+  "status": "query-contract-ready-not-executed",
+  "purpose": "Obtain the minimum traceable public evidence needed to adjudicate the existing Hero/Identity blocker without reopening accepted Massing.",
+  "executionAuthority": {
+    "owner": "main-window-only",
+    "requiredMode": "manual-serial-read-only-browser-review",
+    "thisRecordExecutedSearch": false,
+    "browserOrXiaohongshuAccessed": false,
+    "mediaDownloaded": false,
+    "socialActionsOrLoginMutation": false,
+    "parallelSearchForbidden": true
+  },
+  "frozenAcceptedStages": {
+    "massing": {
+      "glb": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb",
+      "sha256": "ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c",
+      "mcp1": "pass-main-window-batch",
+      "mapRuntime": "pass-main-window-real-browser",
+      "collision": "pass-wall-stop-no-penetration",
+      "movementOrScaleAuthorized": false
+    },
+    "legacyHero": {
+      "path": "public/models/xinhua-road/xinhua-villas-211.glb",
+      "status": "hold-invalid-lineage-not-mcp2-candidate",
+      "reuseForbidden": true
+    },
+    "identity": "not-created-blocked-lineage"
+  },
+  "hardGates": {
+    "sameMemberMultiView": "A candidate must show the same named member in at least one independent side/depth or rear/roof-back view; front-only evidence is insufficient.",
+    "memberToOsmWay": "A candidate must contain, or be traceably combined with, an authoritative north-oriented plan, survey, or unambiguous location evidence assigning 211-1 or 211-2 to exactly one of the nine accepted source ways.",
+    "depthAndRear": "For every member proposed for Hero geometry, the retained evidence set must cover side/depth and rear or roof-back with recorded observation direction.",
+    "legalHeroLineage": "Only a future Hero derived from accepted Massing SHA ab05b4ec... with member, way, origin, orientation and collision semantics recorded can enter MCP2; the old four-villa Hero cannot be reused."
+  },
+  "acceptedSourceWays": [864485593, 864485594, 864485595, 864485596, 864485597, 864485598, 864485674, 864485675, 864485676],
+  "queryGroups": [
+    {
+      "id": "named-member-211-1",
+      "queries": ["新华路211弄1号", "新华别墅211弄1号", "新华路 211弄 1号 老洋房"],
+      "requiredSignals": ["visible or transcription-supported 211-1 identity", "same-member side/depth or rear/roof-back", "enough fixed context to record camera direction"],
+      "reject": ["front-only", "house number absent or merely inferred", "another Xinhua villa without same-member proof", "AI image, untraceable repost, collage without original attribution"]
+    },
+    {
+      "id": "named-member-211-2",
+      "queries": ["新华路211弄2号", "新华别墅211弄2号", "新华路 211弄 2号 老洋房"],
+      "requiredSignals": ["visible or transcription-supported 211-2 identity", "same-member side/depth or rear/roof-back", "enough fixed context to record camera direction"],
+      "reject": ["front-only", "house number absent or merely inferred", "xinhua-villas-329 material", "AI image, untraceable repost, collage without original attribution"]
+    },
+    {
+      "id": "compound-layout-and-way-binding",
+      "queries": ["新华别墅 211弄 平面图", "新华路211弄 导览图", "新华别墅 211弄 位置图"],
+      "requiredSignals": ["north arrow or independently orientable street context", "labels or dimensions that bind a named member to one accepted way", "enough geometry to reject ambiguous member placement"],
+      "reject": ["small unreadable sign map", "marketing illustration without location provenance", "compound-only entrance view", "any layout that cannot distinguish one of the nine accepted ways"]
+    },
+    {
+      "id": "compound-depth-and-entrance-context",
+      "queries": ["新华别墅211弄 内部", "新华别墅211弄 侧面", "新华别墅211弄 后院"],
+      "requiredSignals": ["same-compound anchors matched against local official captures", "side/depth or rear/roof-back geometry", "route or street context usable with the binding evidence"],
+      "reject": ["generic Xinhua Road streetscape", "single facade detail", "non-211 compound", "content whose date or provenance cannot be retained"]
+    }
+  ],
+  "acceptanceMatrix": [
+    {"id": "provenance", "passWhen": "post URL, author/display name, observed date, post date if present, and every used image or frame are recorded", "otherwise": "reject"},
+    {"id": "same-member", "passWhen": "211-1 or 211-2 is explicit, or a compound view has independent binding evidence", "otherwise": "reject"},
+    {"id": "way-binding", "passWhen": "one named member is assigned to one sourceWayId in acceptedSourceWays without interpolation", "otherwise": "remain-blocked"},
+    {"id": "view-depth", "passWhen": "the same bound member has a side/depth and rear or roof-back view with observation direction", "otherwise": "remain-blocked"},
+    {"id": "lineage", "passWhen": "a future candidate records accepted Massing SHA, sourceWayId, member, placement and collision semantics", "otherwise": "no-MCP2"}
+  ],
+  "publicAndUserPhotoBoundary": {
+    "publicImages": "Public posts are supplemental traceable evidence only and cannot be labeled as user-taken photographs.",
+    "userPhotos": "No user-supplied 211 original is currently asserted by this contract; if later supplied, retain its original path and distinguish it from public material.",
+    "noSubstitution": "Do not use public images to fill an absent user-photo slot, and do not use a thumbnail or generated runtime image as real-world evidence."
+  },
+  "rateAndSafety": {
+    "maximumQueriesPerSession": 4,
+    "maximumResultOpensPerSession": 8,
+    "minimumSecondsBetweenResultOpens": 30,
+    "minimumSecondsBetweenNewQueries": 60,
+    "maximumSessionMinutes": 20,
+    "stopImmediatelyOn": ["captcha or challenge", "rate-limit or warning", "login or verification prompt", "any uncertainty that an interaction changes account state"],
+    "prohibited": ["automation at scale", "parallel tabs or parallel agents", "likes, follows, comments, saves or messages", "evasion, simulation or bypass of platform detection"]
+  },
+  "postSearchDisposition": {
+    "onlyMainWindowMayAdjudicate": true,
+    "reasonableSearchExhaustion": "All four query groups were attempted under the safety limits, each opened result was logged, and no admissible combination closes all hard gates.",
+    "beforeExhaustion": "Keep current Massing-only runtime; do not disable or alter runtime, registry, assets, Recovery/Hold, or shared status.",
+    "afterExhaustion": "Main window may propose a runtime-disable candidate for this building only. It is not automatic and requires an explicit retained-file audit.",
+    "retention": "All existing GLB, Blend, generator, evidence, screenshots, tests, Recovery/Hold and rejected-candidate records remain permanently preserved."
+  },
+  "scope": {
+    "allowedFutureWork": ["evidence logging", "main-window adjudication", "future valid Hero only after every hard gate passes"],
+    "prohibitedHere": ["browser or network access", "Blender", "model rebuild", "generator modification", "registry/runtime/shared Fast manifest/exact status edits", "Recovery/Hold changes", "tree, decoration, full-map or extra-building work"]
+  }
+}
