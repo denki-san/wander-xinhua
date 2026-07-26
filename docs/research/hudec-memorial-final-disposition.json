@@ -3,10 +3,12 @@
   "assetId": "hudec-memorial",
   "auditedAt": "2026-07-26",
   "baseCommit": "2e33699f24330f4c9c98f4c63e8048fd657d90e3",
-  "status": "blocked-v2-hero-lineage-and-identity",
+  "status": "candidate-awaiting-main-window-mcp2",
   "scope": {
-    "mode": "preserved-stage-final-disposition",
-    "binaryRebuilt": false,
+    "mode": "v2-hero-candidate-checkpoint",
+    "binaryRebuilt": true,
+    "acceptedMassingBinaryRebuilt": false,
+    "heroCandidateBuilt": true,
     "qualifiedGateRerun": false,
     "browserOrXhsAccessed": false,
     "sharedFilesModified": false,
@@ -59,7 +61,7 @@
     },
     "modelBrief": {
       "path": "docs/research/hudec-memorial-v2-model-brief.md",
-      "sha256": "11d868f3648a75d43f107c2e8203289770f9cf7d2cf150a7613cd1bdca6e7bf3"
+      "sha256": "ef0fc4ae1023180adee808c7a3e0ae86a2804c70443be5b30e933df2dcda1da7"
     },
     "evidenceNote": {
       "path": "docs/knowledge-sources/hudec-memorial-v2-modeling-evidence-2026-07-25.md",
@@ -101,9 +103,10 @@
     "status": "mcp1-and-real-map-pass",
     "generator": {
       "path": "scripts/create_hudec_memorial_v2.py",
-      "sha256": "be77ff6acbc09278e2cf0af5000fcfdddd69d657a25f41d72567e8f47a6648df",
-      "bytes": 15771,
-      "currentlyAllows": "massing-only"
+      "sha256": "aa09dabb3017a521025e6c2a46b8fe4e1acc31713fab21973049fe69de56c82c",
+      "bytes": 22896,
+      "acceptedMassingBuildGeneratorSha256": "be77ff6acbc09278e2cf0af5000fcfdddd69d657a25f41d72567e8f47a6648df",
+      "currentlyAllows": "massing-and-hero-candidate"
     },
     "blend": {
       "path": "assets/models/source/requested-pois/hudec-memorial-massing.blend",
@@ -237,12 +240,22 @@
     "mcp2Candidate": false,
     "disposition": "保留为 legacy rollback/Hold，不覆盖、不删除、不用视觉 MCP2 洗白错误 lineage。"
   },
+  "v2HeroCandidate": {
+    "status": "candidate-awaiting-main-window-mcp2",
+    "buildRecord": "docs/research/build-records/tiers/xinhua-road/hero/hudec-memorial-v2-hero.json",
+    "blend": "assets/models/source/requested-pois/hudec-memorial-v2-hero.blend",
+    "glb": "public/models/requested-pois/hudec-memorial-v2-hero.glb",
+    "glbSha256": "598b2ba19e2412d7a592836d45066c787a7cf1eac347a6a6c5d790c12ffabff5",
+    "mcp2Authorized": true,
+    "mcp2Passed": false,
+    "identityDerivationAuthorized": false
+  },
   "heroGateInterpretation": {
     "sourceRecordValue": "authorized-for-main-window-mcp2",
     "meaning": "Massing 与地图通过后，允许提交一个从当前 V2 参数构建并冻结的 Hero 给主窗口审查。",
     "doesNotMean": "legacy Hero 已通过或自动取得 MCP2 资格",
-    "currentEligibleHeroExists": false,
-    "status": "blocked-missing-v2-hero-master-and-build-record"
+    "currentEligibleHeroExists": true,
+    "status": "candidate-awaiting-main-window-mcp2"
   },
   "identityDisposition": {
     "status": "not-created-blocked-until-v2-hero-mcp2",
@@ -264,17 +277,16 @@
     "massingMap": "pass-retained",
     "road": "pass-retained",
     "collisionAndOpenEntrance": "pass-retained",
-    "heroLineage": "blocked",
-    "heroMcp2": "not-authorized-for-legacy-missing-v2-candidate",
+    "heroLineage": "pass-candidate",
+    "heroMcp2": "pending-main-window-xhigh",
     "identity": "blocked",
     "identityMcp3": "not-reachable",
     "threeTierRuntime": "not-reachable",
-    "overall": "blocked-v2-hero-lineage-and-identity"
+    "overall": "candidate-awaiting-main-window-mcp2"
   },
   "mainWindowActions": [
     "保留当前 Massing SHA、MCP1 与真实地图门，不得重做。",
-    "扩展独立 V2 generator，从已接受的 Massing 参数构建全新 Hero master；不得复用 legacy shared-generator Hero 冒充同源。",
-    "生成 Hero build record 并由主窗口执行 MCP2。",
+    "对 V2 Hero candidate 执行主窗口 xhigh MCP2；不得用 legacy shared-generator Hero 替代。",
     "仅在 Hero MCP2 通过且冻结后，从该 Hero lineage 派生 Identity，再执行 MCP3 与 Three.js 三档验收。",
     "公共 registry/runtime 仍只由主窗口统一接入；本 checkpoint 不修改共享文件。"
   ]

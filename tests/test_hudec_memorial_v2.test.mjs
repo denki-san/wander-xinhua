@@ -62,7 +62,9 @@ test("Hudec Massing 保持单资产安全并记录证据边界", async () => {
     otherBuildings: "untouched",
     globalMassing: "untouched",
   });
-  assert.match(generator, /当前只开放 massing/);
+  assert.match(generator, /stage == "massing"/);
+  assert.match(generator, /stage == "hero"/);
+  assert.match(generator, /Identity 必须等主窗口 MCP2 通过并冻结 Hero/);
   assert.doesNotMatch(generator, /BUILDERS/);
   for (const cue of [
     "chimney-tower",

@@ -1,0 +1,302 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-26",
+  "stableAssetId": "hudec-memorial",
+  "tier": "hero",
+  "status": "candidate-awaiting-main-window-mcp2",
+  "baseCommit": "ade098eaa4be7a37d766b2867c909885742d6030",
+  "scope": {
+    "included": [
+      "main residence volumes",
+      "layered steep roofs and dormers",
+      "wide half-timber facade",
+      "mullioned windows",
+      "three-flue chimney tower",
+      "gabled entrance porch, door and steps",
+      "full-height end wing",
+      "low glazed west-rear wing"
+    ],
+    "excluded": [
+      "legacy courtyard slab",
+      "legacy street-wall package",
+      "trees",
+      "hedges",
+      "planting",
+      "signage",
+      "lighting",
+      "independent decoration",
+      "other buildings",
+      "shared registry",
+      "shared runtime",
+      "Fast manifest"
+    ],
+    "legacyHeroOverwritten": false,
+    "acceptedMassingOverwritten": false,
+    "identityGenerated": false
+  },
+  "inputs": {
+    "referenceManifest": {
+      "path": "docs/research/hudec-memorial-v2-reference-manifest.json",
+      "sha256": "8ac58e9721863c0c9d8407c5eda21809f9b37d03fc3b69a65b194521d8caa675"
+    },
+    "modelBrief": {
+      "path": "docs/research/hudec-memorial-v2-model-brief.md",
+      "sha256": "ef0fc4ae1023180adee808c7a3e0ae86a2804c70443be5b30e933df2dcda1da7"
+    },
+    "acceptedMassingBuildRecord": {
+      "path": "docs/research/build-records/hudec-memorial-massing.json",
+      "sha256": "62b3e4e0f65da386260d0512e73ca99300b96feaa474b8a86e4718d4b50489b3"
+    },
+    "acceptedMassingMcpRecord": {
+      "path": "docs/research/hudec-memorial-blender-mcp-gates.json",
+      "sha256": "aab78f9755772552b9b20a6c2fcab38a22d30717e20db98624d2f65406e0ce23"
+    },
+    "acceptedMassingMapCalibration": {
+      "path": "test_artifacts/test_hudec-memorial_map_calibration.json",
+      "sha256": "969d4e5e1493fda976b0f319f3f25b941412fbc5d8cf612690e8df19b6f76f2e"
+    }
+  },
+  "lineage": {
+    "status": "strict-candidate-derived-from-accepted-v2-massing-parameters",
+    "priorFinalDisposition": {
+      "path": "docs/research/hudec-memorial-final-disposition.json",
+      "snapshotSha256BeforeHeroCheckpoint": "7c39a292f141e12ab501059911d97c4901a2292b1888579a398d91e35053da2e",
+      "note": "该 SHA 记录 Hero 动工前的 disposition 快照；当前路径随本候选 checkpoint 更新，不作为现文件哈希断言。"
+    },
+    "sourceMassing": {
+      "blend": {
+        "path": "assets/models/source/requested-pois/hudec-memorial-massing.blend",
+        "sha256": "dea695f3434f94889907094c7f4b09ab242c159c94703263e21be3c5438b0891"
+      },
+      "glb": {
+        "path": "public/models/requested-pois/hudec-memorial-massing.glb",
+        "sha256": "772ce8a8445a2cc9f1496a9876960ecf78964f11d09209578a1a5fbd52864ff0"
+      }
+    },
+    "sharedContract": {
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "authoredUnitMeters": 2.7,
+      "authoredScale": 0.72,
+      "frontDirection": "-Y",
+      "groundDatum": 0,
+      "stableAssetId": "hudec-memorial",
+      "passageContract": "shared-split-obstacles-entrance-clear",
+      "runtimePlacement": {
+        "position": [
+          92.535374,
+          -132.52181
+        ],
+        "yaw": 0.153486288,
+        "scale": 0.88
+      }
+    },
+    "reusedMassingParameters": [
+      "main-body",
+      "main-roof",
+      "front-and-rear-dormers",
+      "end-wing-and-cross-gable",
+      "low-glass-wing-and-shed-roof",
+      "open-entrance-porch",
+      "chimney-tower-and-three-flues"
+    ],
+    "envelope": {
+      "acceptedMassingGlbBounds": {
+        "min": [
+          -6.300000190734863,
+          -1.4901161193847656e-8,
+          -5.148000240325928
+        ],
+        "max": [
+          6.300000190734863,
+          8.978400230407715,
+          5.6519999504089355
+        ]
+      },
+      "heroGlbBounds": {
+        "min": [
+          -5.111999988555908,
+          -0.021600008010864258,
+          -3.8520002365112305
+        ],
+        "max": [
+          5.098609447479248,
+          8.978399276733398,
+          3.756000518798828
+        ]
+      },
+      "horizontalContainment": "pass-hero-inside-accepted-massing-site-envelope",
+      "heightContinuity": "pass-within-export-precision",
+      "groundTolerance": "pass-minus-0.0216-within-plus-or-minus-0.04",
+      "interpretation": "Hero 排除 Massing 的 QA ground datum 与 street-wall package，因此 X/Z 包络更小；origin、front、height 和 authored parameters 不变。"
+    }
+  },
+  "generator": {
+    "path": "scripts/create_hudec_memorial_v2.py",
+    "sha256": "aa09dabb3017a521025e6c2a46b8fe4e1acc31713fab21973049fe69de56c82c",
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_hudec_memorial_v2.py -- --stage=hero",
+    "blenderVersion": "5.2.0 LTS",
+    "singleAssetSafe": true,
+    "sourceParts": 316,
+    "deterministicGlb": {
+      "status": "pass-two-consecutive-runs-byte-identical",
+      "sha256": "598b2ba19e2412d7a592836d45066c787a7cf1eac347a6a6c5d790c12ffabff5"
+    }
+  },
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/requested-pois/hudec-memorial-v2-hero.blend",
+      "sha256": "4fe426b4a670ad3f2bd50f020195b366599a100b11cfc0f83bfdc6fb8b50b28d",
+      "bytes": 378076,
+      "editable": true,
+      "note": "Blender save-state metadata is not byte-stable across runs; current checked-in source SHA is frozen."
+    },
+    "glb": {
+      "path": "public/models/requested-pois/hudec-memorial-v2-hero.glb",
+      "sha256": "598b2ba19e2412d7a592836d45066c787a7cf1eac347a6a6c5d790c12ffabff5",
+      "bytes": 1565920,
+      "cacheVersion": "20260726-hudec-v2-hero-598b2ba19e24"
+    }
+  },
+  "structure": {
+    "nodes": 1,
+    "meshes": 1,
+    "primitives": 11,
+    "triangles": 22760,
+    "materials": 11,
+    "materialNames": [
+      "HudecV2_WarmPlaster",
+      "HudecV2_MutedRoofTile",
+      "HudecV2_DarkTimber",
+      "HudecV2_DeepGlass",
+      "HudecV2_RedBrick",
+      "HudecV2_WindowFrame",
+      "HudecV2_DarkBrick",
+      "HudecV2_EntranceWood",
+      "HudecV2_DarkMetal",
+      "HudecV2_EntranceStone",
+      "HudecV2_RoofRidge"
+    ],
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "rootTransform": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "degenerateFacesRemovedDuringMerge": 60,
+    "bounds": {
+      "min": [
+        -5.111999988555908,
+        -0.021600008010864258,
+        -3.8520002365112305
+      ],
+      "max": [
+        5.098609447479248,
+        8.978399276733398,
+        3.756000518798828
+      ]
+    }
+  },
+  "budget": {
+    "maxNodes": 2,
+    "maxTriangles": 45000,
+    "maxMaterials": 16,
+    "maxImages": 0,
+    "maxBytes": 2800000,
+    "result": "pass"
+  },
+  "evidenceDisposition": {
+    "observed": [
+      "官方西后侧照片直接支持三联高砖烟囱、低玻璃翼、连续陡坡屋顶、端部全高半木构和密集分格窗。",
+      "正面照片直接支持宽幅半木构、入口三角门廊、木门、短台阶和窗格节奏。"
+    ],
+    "inferred": [
+      "窗格数量和隐藏立面的低细节延续按可见节奏保守补全。",
+      "瓦垄间距用于运行时尺度表达，不声明为测绘数量。"
+    ],
+    "unknown": [
+      "完整东立面和背立面",
+      "精确屋面坡度和楼层高度",
+      "隐藏开口和室内",
+      "现场材料风化"
+    ],
+    "omittedDespiteVisibleReference": [
+      "three-bird weathervane is omitted as independent decoration under current scope",
+      "courtyard paving and vegetation",
+      "street gate and wall package"
+    ]
+  },
+  "previews": {
+    "canonical": {
+      "path": "test_artifacts/test_hudec-memorial-v2-hero_canonical_preview.png",
+      "sha256": "5fc91d770a33dcef646843c7eead8d92ee7a80be8c668f0495fd2feecebecdda",
+      "bytes": 771476,
+      "dimensions": [
+        1000,
+        700
+      ]
+    },
+    "side": {
+      "path": "test_artifacts/test_hudec-memorial-v2-hero_side_preview.png",
+      "sha256": "b2f06b9db2ca659d49517696ec1f05cdc258a963d0298e2b5db729fdfdd9f6c9",
+      "bytes": 778776,
+      "dimensions": [
+        1000,
+        700
+      ]
+    },
+    "entrance": {
+      "path": "test_artifacts/test_hudec-memorial-v2-hero_entrance_preview.png",
+      "sha256": "1e70a4463f5e6e6f8971380af67b89ca83ad00610d5c495be589f1456e91514c",
+      "bytes": 859527,
+      "dimensions": [
+        1000,
+        700
+      ]
+    },
+    "triptych": {
+      "path": "test_artifacts/all-models/hero-v2/hudec-memorial/test_hudec-memorial-v2-hero_reference_blender_threejs_triptych.png",
+      "sha256": "996668efb4f5c77bc8eccd79ca218c7766cd4cc99ad896c6ffbd02da1e684dc8",
+      "bytes": 704863,
+      "dimensions": [
+        1680,
+        478
+      ],
+      "thirdPanel": "retained-accepted-massing-map-context-not-hero-runtime"
+    },
+    "triptychGenerator": {
+      "path": "scripts/test_create_hudec_memorial_v2_hero_triptych.mjs",
+      "sha256": "f2bf16a29bd6513286a34ef0bcdc3e20700bf7355da2467892639dca5c0dac8d"
+    }
+  },
+  "validation": {
+    "headlessFixedViews": "pass-candidate",
+    "glbAudit": "pass-forbid-images-max-nodes-2",
+    "visualInspection": "pass-candidate-cues-readable-no-mcp2-claim",
+    "scopeAudit": "pass-building-body-only",
+    "threeJsHeroRuntime": "not-run-not-integrated",
+    "performanceClaim": "none",
+    "mcp2": "pending-main-window-xhigh",
+    "identityAuthorization": false,
+    "overall": "candidate-awaiting-main-window-mcp2"
+  }
+}
