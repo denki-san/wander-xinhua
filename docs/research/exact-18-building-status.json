@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T17:50:00+08:00",
-  "snapshotBaseCommit": "8947ac0",
+  "snapshotAt": "2026-07-26T18:02:00+08:00",
+  "snapshotBaseCommit": "61184b4",
   "scope": {
     "mode": "exact-18-building-fast-mode",
     "buildingCount": 18,
@@ -96,7 +96,7 @@
     {
       "id": "xinhua-villas-211",
       "name": "新华别墅211弄",
-      "evidence": "massing-pass-hero-blocked-member-depth-binding",
+      "evidence": "massing-pass-local-same-member-evidence-rescue-exhausted",
       "hero": "hold-invalid-lineage",
       "identity": "missing",
       "massing": "pass",
@@ -105,13 +105,14 @@
       "mcp3": "blocked",
       "map": "pass-massing",
       "threeJs": "pass-massing-only",
-      "overall": "blocked-hero-same-member-depth-lineage-and-identity",
+      "overall": "blocked-local-same-member-way-depth-lineage-and-identity",
       "runtimePolicy": "massing-only-no-tier-promotion",
       "records": [
         "docs/research/xinhua-villas-211-final-gap-audit.json",
         "docs/research/xinhua-villas-211-three-tier-final-disposition.json",
         "docs/research/xinhua-villas-211-hero-readiness-adjudication.json",
-        "docs/research/xinhua-villas-211-hero-lineage-member-depth-readiness.json"
+        "docs/research/xinhua-villas-211-hero-lineage-member-depth-readiness.json",
+        "docs/research/xinhua-villas-211-local-same-member-evidence-rescue.json"
       ]
     },
     {
@@ -255,14 +256,15 @@
       "mcp1": "pass",
       "mcp2": "blocked",
       "mcp3": "blocked",
-      "map": "blocked-service-road-overlap-0.402635",
+      "map": "blocked-service-road-overlap-0.402635-local-width-relation-rescue-exhausted",
       "threeJs": "pass-diagnostic-massing-collision",
-      "overall": "blocked-service-road",
+      "overall": "blocked-service-road-local-rescue-exhausted",
       "runtimePolicy": "diagnostic-only-no-promotion",
       "records": [
         "docs/research/xinhua-community-center-map-candidate.json",
         "docs/research/xinhua-community-center-final-gap-audit.json",
-        "docs/research/xinhua-community-center-service-road-semantics-record.md"
+        "docs/research/xinhua-community-center-service-road-semantics-record.md",
+        "docs/research/xinhua-community-center-service-road-local-rescue-audit.json"
       ]
     },
     {

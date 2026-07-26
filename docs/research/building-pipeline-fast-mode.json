@@ -98,6 +98,7 @@
         "tests/test_xinhua_villas_211_three_tier_final_disposition.test.mjs",
         "tests/test_xinhua_villas_211_hero_readiness_adjudication.test.mjs",
         "tests/test_xinhua_villas_211_hero_lineage_member_depth_readiness.test.mjs",
+        "tests/test_xinhua_villas_211_local_same_member_evidence_rescue.test.mjs",
         "tests/test_model_detail_upgrade.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -289,7 +290,8 @@
         "tests/test_xinhua_community_center_massing_v2.test.mjs",
         "tests/test_xinhua_community_center_final_gap.test.mjs",
         "tests/test_xinhua_community_center_map_candidate.test.mjs",
-        "tests/test_xinhua_community_center_service_road_semantics.test.mjs"
+        "tests/test_xinhua_community_center_service_road_semantics.test.mjs",
+        "tests/test_xinhua_community_center_service_road_local_rescue_audit.test.mjs"
       ],
       "glbs": [
         "public/models/requested-pois/xinhua-community-center.glb",
