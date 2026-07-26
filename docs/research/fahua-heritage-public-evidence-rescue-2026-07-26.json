@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "assetId": "fahua-heritage",
+  "baseCommit": "028ae291094d1b3a8b8465d90eb50190d9257701",
+  "status": "public-street-context-found-rear-and-map-boundary-still-blocked",
+  "scope": {"xiaohongshuAccessed": false, "userBrowserAccessed": false, "modelingPerformed": false, "recoveryStageRerun": false, "binaryModified": false, "sharedFilesModified": false},
+  "sources": [
+    {"url": "https://www.thepaper.cn/newsDetail_forward_11011983", "type": "public-local-history-report", "sameSubject": true, "view": "wide street context at Fahuazhen Road and Xianghuaqiao Road intersection", "observed": ["commemorative arch", "intersection", "reconstructed landscape"]},
+    {"url": "https://www.thepaper.cn/newsDetail_forward_1527205", "type": "public-report credited to Shanghai Changning", "sameSubject": true, "view": "street landscape composition", "observed": ["arch at eastern end", "four bridge copies", "street feature"]},
+    {"url": "https://xmwb.xinmin.cn/xmwb/resfile/2013-03-24/A07/A07.pdf", "type": "public newspaper report", "sameSubject": true, "view": "on-site street interface", "observed": ["imitation stone arch", "one wooden and three stone bridge copies", "cultural corridor"], "limitation": "report states historical photos were lacking"}
+  ],
+  "inputs": {"finalDisposition": {"path": "docs/research/fahua-heritage-final-disposition.json", "sha256": "1d473792166b3a4b085be06347c81af538b1c092ce3560987f0fa07db3f6dfba"}, "localRescue": {"path": "docs/research/fahua-heritage-local-evidence-rescue.json", "sha256": "959dde6677369f69de0ac0632f61f46752d91572437c34c20762da9acd948e6a"}, "heroGlb": {"path": "public/models/requested-pois/fahua-heritage.glb", "sha256": "f23d8b701a338838c60645e4460a5dccca904e62a58053f7066d29dff54bf7b3"}},
+  "observed": ["Same-subject street context locates the feature at Fahuazhen Road and Xianghuaqiao Road intersection.", "The composition includes an arch and four bridge copies; it is a commemorative reconstructed landscape."],
+  "inferred": ["Public context upgrades coverage beyond the isolated front capture but cannot validate legacy rear geometry or map boundary."],
+  "unknown": ["rear and side construction", "measured footprint and thickness", "current curb, sidewalk, landscaped and walkaround boundary", "current ground datum"],
+  "gates": {"evidence": "partial-identity-and-street-context", "map": "blocked-no-survey-boundary", "heroMcp2": "not-authorized", "identity": "blocked", "threeTier": "not-reachable"},
+  "decision": "Keep the legacy Hero and Recovery stages unchanged. Do not model or promote until a current measured plan or sufficient multi-angle measured imagery resolves the remaining geometry and boundary gaps."
+}
