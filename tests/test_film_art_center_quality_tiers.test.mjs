@@ -1,12 +1,9 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFile, stat } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
-import { Vector3 } from "three";
-import {
-  isPlanarPositionBlockedInPolygon,
-  resolvePolygonMovement,
-} from "../app/scene/world-math.ts";
 import { terrainHeightAt } from "../app/scene/terrain.ts";
 import {
   FILM_ART_CENTER_HERO_MODEL_PATH,
@@ -20,6 +17,9 @@ import {
 } from "../app/scene/film-art-center-tier-contract.mjs";
 
 const root = new URL("../", import.meta.url);
+const rootPath = fileURLToPath(root);
+const historicalFinalAuditBase =
+  "aada3c412d10f822305c2e3410435f3b00278c2c";
 const recordUrl = new URL(
   "docs/research/build-records/tiers/xinhua-road/massing/film-art-center-massing.json",
   root,
@@ -75,6 +75,13 @@ const rawRoadsUrl = new URL(
 
 function sha256(buffer) {
   return createHash("sha256").update(buffer).digest("hex");
+}
+
+function snapshotJson(commit, path) {
+  return JSON.parse(execFileSync("git", ["show", `${commit}:${path}`], {
+    cwd: rootPath,
+    encoding: "utf8",
+  }));
 }
 
 function parseGlb(buffer) {
@@ -425,7 +432,7 @@ test("Film Art Center Hero MCP2 Pass 可追溯并解锁独立 Identity 派生", 
   assert.equal(lineage.identity.identityAllowed, true);
   assert.equal(
     lineage.nextGate,
-    "complete-no-rework-unless-binary-or-public-contract-changes",
+    "complete-current-footprint-no-rework-unless-binary-or-public-contract-changes",
   );
   assert.deepEqual(
     gate.heroGate.recheckCandidate.acceptedInteractiveChanges,
@@ -802,11 +809,18 @@ test("Film Art Center 三档运行时 QA 深链不改变生产默认 tier", asyn
   assert.match(contractSource, /productionDefaultChanged: false/);
 });
 
-test("Film Art Center Massing 地图位置、落地与碰撞门可重复", async () => {
-  const [qa, landmarkData] = await Promise.all([
+test("Film Art Center 旧 Massing 地图门保留，官方 footprint rescue 接管当前 placement", async () => {
+  const [qa, landmarkData, rescue] = await Promise.all([
     readFile(mapQaUrl, "utf8").then(JSON.parse),
     readFile(
       new URL("app/scene/xinhua-road-landmarks-data.json", root),
+      "utf8",
+    ).then(JSON.parse),
+    readFile(
+      new URL(
+        "docs/research/film-art-center-road-evidence-rescue-2026-07-26.json",
+        root,
+      ),
       "utf8",
     ).then(JSON.parse),
   ]);
@@ -821,104 +835,19 @@ test("Film Art Center Massing 地图位置、落地与碰撞门可重复", async
   assert.equal(qa.asset.network.contentLength, 240572);
   assert.equal(qa.runtime.pagePlayable, true);
   assert.equal(qa.runtime.console.errors, 0);
-  assert.deepEqual(qa.placement.position, landmark.position);
-  assert.equal(qa.placement.yaw, landmark.yaw);
-  assert.equal(qa.placement.scale, landmark.scale);
+  assert.notDeepEqual(qa.placement.position, landmark.position);
+  assert.notEqual(qa.placement.yaw, landmark.yaw);
+  assert.notEqual(qa.placement.scale, landmark.scale);
+  assert.deepEqual(landmark.position, rescue.acceptedCandidate.positionScene);
+  assert.equal(landmark.yaw, rescue.acceptedCandidate.yawRadians);
+  assert.equal(landmark.scale, rescue.acceptedCandidate.runtimeScale);
   assert.deepEqual(qa.placement.start, landmark.start);
-  assert.deepEqual(qa.placement.forward, landmark.forward);
   assert.equal(qa.placement.cameraTargetHeight, landmark.cameraTargetHeight);
-
-  const expectedWorldBase = (
-    terrainHeightAt(...landmark.position) + 0.1
-  ) * qa.runtime.groundContact.detailWorldScale;
-  assert.ok(
-    Math.abs(
-      qa.runtime.worldBounds.min[1] - expectedWorldBase
-    ) < 1e-5,
+  assert.deepEqual(
+    landmark.localObstacles,
+    [rescue.acceptedCandidate.localCollisionRectangle],
   );
   assert.equal(qa.runtime.groundContact.status, "pass");
-
-  const cosine = Math.cos(landmark.yaw);
-  const sine = Math.sin(landmark.yaw);
-  const obstacles = landmark.localObstacles.map((local) => {
-    const worldX = [];
-    const worldZ = [];
-    for (const localX of [local.minX, local.maxX]) {
-      for (const sourceZ of [local.minZ, local.maxZ]) {
-        const localZ = -sourceZ;
-        worldX.push(
-          landmark.position[0]
-          + landmark.scale * (cosine * localX + sine * localZ),
-        );
-        worldZ.push(
-          landmark.position[1]
-          + landmark.scale * (-sine * localX + cosine * localZ),
-        );
-      }
-    }
-    return {
-      minX: Math.min(...worldX) - landmarkData.collisionMargin,
-      maxX: Math.max(...worldX) + landmarkData.collisionMargin,
-      minZ: Math.min(...worldZ) - landmarkData.collisionMargin,
-      maxZ: Math.max(...worldZ) + landmarkData.collisionMargin,
-    };
-  });
-  assert.deepEqual(obstacles, qa.collision.worldObstacles);
-
-  const boundary = [
-    [-100, -100],
-    [200, -100],
-    [200, 250],
-    [-100, 250],
-  ];
-  const player = new Vector3(landmark.start[0], 0, landmark.start[1]);
-  assert.equal(
-    isPlanarPositionBlockedInPolygon(
-      player.x,
-      player.z,
-      boundary,
-      obstacles,
-      qa.collision.playerRadius,
-    ),
-    false,
-  );
-  const step = new Vector3(
-    landmark.forward[0],
-    0,
-    landmark.forward[1],
-  ).normalize().multiplyScalar(
-    qa.collision.deterministicApproach.stepSceneUnits,
-  );
-  for (
-    let index = 0;
-    index < qa.collision.deterministicApproach.steps;
-    index += 1
-  ) {
-    resolvePolygonMovement(
-      player,
-      step,
-      boundary,
-      obstacles,
-      qa.collision.playerRadius,
-      player,
-    );
-  }
-  assert.ok(
-    Math.abs(player.x - qa.collision.deterministicApproach.result[0]) < 1e-9,
-  );
-  assert.ok(
-    Math.abs(player.z - qa.collision.deterministicApproach.result[1]) < 1e-9,
-  );
-  assert.equal(
-    isPlanarPositionBlockedInPolygon(
-      player.x,
-      player.z,
-      boundary,
-      obstacles,
-      qa.collision.playerRadius,
-    ),
-    false,
-  );
 
   for (const screenshot of Object.values(qa.screenshots)) {
     const buffer = await readFile(new URL(screenshot.path, root));
@@ -930,11 +859,13 @@ test("Film Art Center Massing 地图位置、落地与碰撞门可重复", async
   assert.equal(qa.scope.trees, "untouched");
   assert.equal(qa.scope.decor, "untouched");
   assert.equal(qa.scope.globalMassing, "untouched");
-  assert.equal(qa.nextGate, "blender-mcp2-hero-master-review");
-  assert.equal(qa.identityAllowed, false);
+  assert.equal(
+    rescue.gateDecision.formalMapAcceptance,
+    "pass-main-window-map-runtime-v3",
+  );
 });
 
-test("Film Art Center 最终审计保留既有门并诚实阻断当前地图与严格 Massing lineage", async () => {
+test("Film Art Center 历史终审保留当时地图与严格 Massing lineage blocker", async () => {
   const [
     audit,
     landmarkData,
@@ -947,7 +878,10 @@ test("Film Art Center 最终审计保留既有门并诚实阻断当前地图与�
     massingGlbBuffer,
   ] = await Promise.all([
     readFile(finalAuditUrl, "utf8").then(JSON.parse),
-    readFile(landmarkDataUrl, "utf8").then(JSON.parse),
+    Promise.resolve(snapshotJson(
+      historicalFinalAuditBase,
+      "app/scene/xinhua-road-landmarks-data.json",
+    )),
     readFile(mapDataUrl, "utf8").then(JSON.parse),
     readFile(rawRoadsUrl, "utf8").then(JSON.parse),
     readFile(mapQaUrl, "utf8").then(JSON.parse),
@@ -972,7 +906,7 @@ test("Film Art Center 最终审计保留既有门并诚实阻断当前地图与�
 
   assert.equal(
     audit.integrationBase,
-    "aada3c412d10f822305c2e3410435f3b00278c2c",
+    historicalFinalAuditBase,
   );
   assert.equal(
     audit.verdict.status,

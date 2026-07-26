@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "assetId": "film-art-center",
+  "adjudicatedAt": "2026-07-26T19:32:03+08:00",
+  "owner": "main-coordinator-xhigh",
+  "status": "pass-common-provenance-topology-only-repair",
+  "question": "Massing 记录的派生 Hero SHA 是拓扑修复前的 e4887f6d…，而当前 Hero 是 33daaaf0…；在不重做已合格 MCP1 的前提下，三档 lineage 是否仍可追溯？",
+  "provenanceGraph": {
+    "sharedDesignBaselineHero": {
+      "path": "Recovery/Hold read-only public/models/xinhua-road/film-art-center.glb",
+      "sha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6",
+      "bytes": 4082744,
+      "triangles": 63516,
+      "materials": 14,
+      "images": 0
+    },
+    "currentHero": {
+      "path": "public/models/xinhua-road/film-art-center.glb",
+      "sha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+      "bytes": 3148572,
+      "triangles": 63368,
+      "materials": 14,
+      "images": 0,
+      "relationshipToBaseline": "deterministic-topology-only-repair",
+      "repair": {
+        "areaEpsilon": 1e-10,
+        "removedDegenerateFaces": 76,
+        "removedByMaterial": {
+          "艺术中心白色构件": 48,
+          "艺术中心暗铜金属": 12,
+          "艺术中心入口暖光": 12,
+          "艺术中心朱红屋瓦": 4
+        },
+        "postRepairFacesBelowEpsilon": 0,
+        "postRepairNonfinitePolygonNormals": 0,
+        "rootTransformNormalized": true,
+        "visibleDesignChange": false
+      }
+    },
+    "identity": {
+      "path": "public/models/tiers/xinhua-road/identity/film-art-center-identity.glb",
+      "sha256": "a4d37446e27225815624e6382048ed1dc341f1e079f089755ed5fb68e520e869",
+      "derivedFromCurrentHeroSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+      "relationship": "pass-direct-current-sha"
+    },
+    "massing": {
+      "path": "public/models/tiers/xinhua-road/massing/film-art-center-massing.glb",
+      "sha256": "c89791dc3978b317cc2f8807a77f7a84b5c596f8d4cd01c1cffd05090e9584a6",
+      "derivedFromBaselineHeroSha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6",
+      "relationship": "pass-shared-design-baseline",
+      "directCurrentHeroShaClaim": false
+    }
+  },
+  "evidence": {
+    "heroBuildRecord": "docs/research/build-records/film-art-center.json",
+    "massingBuildRecord": "docs/research/build-records/tiers/xinhua-road/massing/film-art-center-massing.json",
+    "identityBuildRecord": "docs/research/build-records/tiers/xinhua-road/identity/film-art-center-identity.json",
+    "mcpRecord": "docs/research/film-art-center-blender-mcp-gates.json",
+    "threeTierRuntime": "docs/research/film-art-center-map-runtime-qa-v3.json",
+    "supportingDefaultContextRuntime": "docs/research/film-art-center-footprint-v2-threejs-runtime-qa.json",
+    "fixedViewContinuity": "MCP3 已用当前 Hero、Identity 与既有 Massing 的固定机位确认原点、正面、尺度与主体轮廓连续性。"
+  },
+  "adjudication": {
+    "directCurrentHeroToMassingSha": "not-claimed",
+    "traceableDesignLineage": "pass",
+    "reason": "Massing 与当前 Hero 共享同一 e4887f6d… 设计基线；当前 Hero 的唯一授权变化是删除 76 个面积低于 1e-10 的退化面并清理未使用 TEXCOORD，没有改变可见造型、材质、原点或尺度。要求把 Massing 的 derivedFrom 字段伪改成当前 SHA 会破坏真实 provenance；重建已通过 MCP1 的 Massing 又违反快速模式的合格阶段冻结规则。保留旧 SHA、补齐共同来源链并明确不声称 direct-current-SHA，既不降视觉/结构门槛，也不制造虚假 lineage。",
+    "mcp1RedoRequired": false,
+    "binaryRebuildRequired": false,
+    "qualifiedStagePreservation": "pass",
+    "gate": "pass-common-provenance-topology-only-repair"
+  },
+  "scope": {
+    "recoveryHoldReadOnly": true,
+    "blenderMcpRerun": false,
+    "binaryChanged": false,
+    "treesDecorFullMap": "untouched"
+  }
+}

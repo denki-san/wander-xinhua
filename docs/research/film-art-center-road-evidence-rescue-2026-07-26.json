@@ -1,9 +1,9 @@
 {
-  "version": 2,
+  "version": 3,
   "assetId": "film-art-center",
   "label": "上海电影艺术中心·新华两佰",
   "auditedAt": "2026-07-26",
-  "status": "evidence-rescue-complete-map-candidate-ready",
+  "status": "pass-main-window-map-runtime-v3",
   "researchQuestion": {
     "primary": "是否存在可地理配准的一手资料，能把上海市长宁区新华路200号历史主楼绑定到准确 footprint，并同时裁决 OSM ways 577252297 与 1520590652 和建筑碰撞体的关系？",
     "decisionBoundary": "官方规划图、修缮审批与带门牌的相邻锚点必须形成闭环；外观照片、搜索摘要或单纯几何邻近均不能单独授权地图修改。"
@@ -120,7 +120,7 @@
     },
     "currentRegistry": {
       "path": "app/scene/xinhua-road-landmarks-data.json",
-      "sha256": "00fbeb9922ba3422f908df870c1917f16791a9429cc2e61a1db8c6610923f1a5"
+      "sha256": "0743f115a7f6704862f21f5dad96daf11301ce28391290193252f57cfffa1dae"
     }
   },
   "searchLog": [
@@ -179,6 +179,19 @@
       79.07089962964774
     ],
     "yawRadians": 2.786349542422368,
+    "runtimeScale": 0.5,
+    "runtimeScaleCalibration": {
+      "status": "pass-main-window-threejs-and-road-clearance",
+      "reason": "旧 scale=1 的完整 Hero 外轮廓同时穿越 ways 577252297 与 1520590652。scale=0.5 后，主屋顶约 9.6×6.175 scene units，与 OSM 主楼 9.181×7.064 scene units 的 footprint 量级闭合；按运行时 glTF Z 反射后的完整 Hero 外轮廓，到西侧 service road 柏油边仍有 0.864477675412314 scene units，到东侧 unclassified road 柏油边有 1.8913993784031866 scene units。",
+      "completeHeroRoadClearanceSceneUnits": {
+        "577252297": 0.864477675412314,
+        "1520590652": 1.8913993784031866,
+        "1520590653": 15.562183131148483,
+        "682286683": 9.794122779720446
+      },
+      "binaryDecision": "Hero、Identity 与 Massing 二进制保持不变，只调整公共 uniform scale。",
+      "collisionDecision": "local collision rectangle 反向扩大两倍，乘以 runtimeScale 后的世界 footprint 与 way/864505138 完全不变。"
+    },
     "polygonScene": [
       [
         40.84262248010412,
@@ -202,6 +215,12 @@
       ]
     ],
     "localCollisionRectangle": {
+      "minX": -9.18116646217537,
+      "maxX": 9.18116646217537,
+      "minZ": -7.06387451975493,
+      "maxZ": 7.06387451975493
+    },
+    "worldCollisionFootprintAfterScale": {
       "minX": -4.590583231087685,
       "maxX": 4.590583231087685,
       "minZ": -3.531937259877465,
@@ -235,16 +254,17 @@
       "way/864505138 与竣工测绘之间的厘米级差异。",
       "两侧低玻璃连接体的精确 footprint、可穿行范围和独立碰撞需求。",
       "ways 577252297 与 1520590652 的当前道路等级、门禁和面层；本裁决不改 road surface tags。",
-      "现有视觉模型需采用何种 uniform scale 才能在保持人物尺度的同时不跨路，须由实际 Three.js 页面校准。"
+      "0.5 是基于官方 footprint、完整 Hero 道路净距与真实页面人物尺度的运行时校准，不替代竣工测绘。"
     ]
   },
   "gateDecision": {
     "footprintBinding": "pass-evidence-closure-way-864505138",
     "collisionCandidate": "pass-main-building-only",
     "roadSurfaceSemantics": "hold-unchanged",
-    "formalMapAcceptance": "pending-main-window-public-integration-and-threejs-runtime",
+    "formalMapAcceptance": "pass-main-window-map-runtime-v3",
     "qualifiedModelStages": "preserve-no-redo",
-    "publicWiring": "hold-unchanged-in-building-branch",
+    "publicWiring": "pass-main-window-candidate",
+    "runtimeAcceptance": "docs/research/film-art-center-map-runtime-qa-v3.json",
     "runtimeRemoval": "not-needed-evidence-found"
   }
 }

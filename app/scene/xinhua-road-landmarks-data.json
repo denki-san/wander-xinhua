@@ -28,17 +28,20 @@
       "address": "新华路200号",
       "model": "/models/xinhua-road/film-art-center.glb",
       "cacheVersion": "20260725-film-art-5",
-      "position": [47.5, 81.5],
-      "yaw": 2.761592653589793,
-      "scale": 1,
+      "position": [46.388748754382405, 79.07089962964774],
+      "yaw": 2.786349542422368,
+      "scale": 0.5,
       "localBounds": { "minX": -11.554999, "maxX": 11.554999, "minZ": -6.725, "maxZ": 11.225 },
+      "collisionEvidence": {
+        "type": "evidence-footprint",
+        "osmWayId": 864505138,
+        "maximumWorldOverhangBeyondGlbBounds": 0.2
+      },
       "localObstacles": [
-        { "minX": -8.0, "maxX": 8.0, "minZ": -5.2, "maxZ": 4.2 },
-        { "minX": -11.46, "maxX": -8.1, "minZ": -3.63, "maxZ": 4.63 },
-        { "minX": 8.1, "maxX": 11.46, "minZ": -3.63, "maxZ": 4.63 }
+        { "minX": -9.18116646217537, "maxX": 9.18116646217537, "minZ": -7.06387451975493, "maxZ": 7.06387451975493 }
       ],
       "start": [35, 99],
-      "forward": [0.581, -0.814],
+      "forward": [0.4961616451583901, -0.8682301664154038],
       "cameraTargetHeight": 3.6
     },
     {

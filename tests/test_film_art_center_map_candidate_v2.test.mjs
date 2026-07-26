@@ -183,18 +183,29 @@ function roadWidth(road, environmentScale) {
   return 0.5 * environmentScale;
 }
 
-test("Film Massing v2 候选锁定 MCP1 SHA 与两栋正式 transform", async () => {
-  const [candidate, registry, mcp] = await Promise.all([
+test("Film Massing v2 候选锁定历史 transform，官方 footprint rescue 接管当前 transform", async () => {
+  const [candidate, registry, mcp, rescue] = await Promise.all([
     readJson(candidatePath),
     readJson("app/scene/xinhua-road-landmarks-data.json"),
     readJson("docs/research/film-art-center-blender-mcp-gates-v2.json"),
+    readJson("docs/research/film-art-center-road-evidence-rescue-2026-07-26.json"),
   ]);
   const film = registry.landmarks.find(({ id }) => id === "film-art-center");
   const cinema = registry.landmarks.find(({ id }) => id === "shanghai-cinema");
 
-  assert.deepEqual(candidate.formalPlacements.filmArtCenter.position, film.position);
-  assert.equal(candidate.formalPlacements.filmArtCenter.yaw, film.yaw);
-  assert.equal(candidate.formalPlacements.filmArtCenter.scale, film.scale);
+  assert.notDeepEqual(
+    candidate.formalPlacements.filmArtCenter.position,
+    film.position,
+  );
+  assert.notEqual(candidate.formalPlacements.filmArtCenter.yaw, film.yaw);
+  assert.notEqual(candidate.formalPlacements.filmArtCenter.scale, film.scale);
+  assert.deepEqual(film.position, rescue.acceptedCandidate.positionScene);
+  assert.equal(film.yaw, rescue.acceptedCandidate.yawRadians);
+  assert.equal(film.scale, rescue.acceptedCandidate.runtimeScale);
+  assert.deepEqual(
+    film.localObstacles,
+    [rescue.acceptedCandidate.localCollisionRectangle],
+  );
   assert.deepEqual(
     candidate.formalPlacements.shanghaiCinemaReadOnly.position,
     cinema.position,
@@ -265,12 +276,10 @@ test("旧邻栋 world AABB 冲突是 rotated-AABB 假阳性", async () => {
   assert.ok(marginGap > 0);
 });
 
-test("Film 左翼 local-X 二分完整覆盖且消除所有邻栋 AABB 交叉", async () => {
-  const [candidate, registry] = await Promise.all([
-    readJson(candidatePath),
-    readJson("app/scene/xinhua-road-landmarks-data.json"),
-  ]);
+test("Film 历史左翼 local-X 二分完整覆盖且消除当时的邻栋 AABB 交叉", async () => {
+  const candidate = await readJson(candidatePath);
   const film = candidate.formalPlacements.filmArtCenter;
+  const cinema = candidate.formalPlacements.shanghaiCinemaReadOnly;
   const proxies = candidate.neighborCollision.completeCoverSplitShell.proxies;
   const margin = candidate.neighborCollision.runtimeMarginPerAssetSceneUnits;
   const sourceLeft = film.sourceLocalSolidObstacles[1];
@@ -304,15 +313,14 @@ test("Film 左翼 local-X 二分完整覆盖且消除所有邻栋 AABB 交叉", 
       margin,
     ),
   );
-  const otherAabbs = registry.landmarks
-    .filter(({ id }) => id !== "film-art-center")
-    .flatMap((landmark) => landmark.localObstacles.map((obstacle) => ({
-      assetId: landmark.id,
+  const otherAabbs = cinema.sourceLocalSolidObstacles
+    .map((obstacle) => ({
+      assetId: "shanghai-cinema",
       bounds: bounds(
-        transformLocal(sourceRectangle(obstacle), landmark),
+        transformLocal(sourceRectangle(obstacle), cinema),
         margin,
       ),
-    })));
+    }));
   const minimumGap = Math.min(
     ...filmAabbs.flatMap(
       (filmAabb) => otherAabbs.map(

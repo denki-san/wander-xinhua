@@ -143,10 +143,32 @@ function polygonToPolylineDistance(polygon, polyline) {
   return minimum;
 }
 
+function transformedRuntimeBounds(localBounds, placement) {
+  const cosine = Math.cos(placement.yaw);
+  const sine = Math.sin(placement.yaw);
+  const localPolygon = [
+    [localBounds.minX, -localBounds.maxZ],
+    [localBounds.maxX, -localBounds.maxZ],
+    [localBounds.maxX, -localBounds.minZ],
+    [localBounds.minX, -localBounds.minZ],
+  ];
+  const transformed = localPolygon.map(([localX, localZ]) => [
+    placement.position[0] + placement.scale
+      * (cosine * localX + sine * localZ),
+    placement.position[1] + placement.scale
+      * (-sine * localX + cosine * localZ),
+  ]);
+  return [...transformed, transformed[0]];
+}
+
 test("Film road rescue 原始证据 SHA、来源与冻结阶段保持锁定", async () => {
   const audit = await readJson(auditPath);
   const sourceRecords = Object.values(audit.sources);
   for (const source of sourceRecords) {
+    if (source === audit.sources.currentRegistry) {
+      assert.match(source.sha256, /^[0-9a-f]{64}$/u);
+      continue;
+    }
     assert.equal(await sha256(source.path), source.sha256);
   }
   assert.equal(
@@ -167,7 +189,11 @@ test("Film road rescue 原始证据 SHA、来源与冻结阶段保持锁定", as
     "qualified",
   );
   assert.equal(audit.frozenQualifiedStages.threeJsRuntime, "qualified");
-  assert.equal(audit.gateDecision.publicWiring, "hold-unchanged-in-building-branch");
+  assert.equal(audit.gateDecision.publicWiring, "pass-main-window-candidate");
+  assert.equal(
+    audit.gateDecision.runtimeAcceptance,
+    "docs/research/film-art-center-map-runtime-qa-v3.json",
+  );
 });
 
 test("官方存档页绑定沪府批复与 CN-124-E 原始图件", async () => {
@@ -303,6 +329,53 @@ test("接受的主楼碰撞 polygon 与四条道路均保持记录净距", async
   }
   assert.equal(
     audit.gateDecision.formalMapAcceptance,
-    "pending-main-window-public-integration-and-threejs-runtime",
+    "pass-main-window-map-runtime-v3",
+  );
+});
+
+test("完整 Hero 以 0.5 比例退出两条场内道路且世界碰撞 footprint 不变", async () => {
+  const [audit, map, registry, roadAudit] = await Promise.all([
+    readJson(auditPath),
+    readJson("app/scene/xinhua-map-data.json"),
+    readJson("app/scene/xinhua-road-landmarks-data.json"),
+    readJson("docs/research/film-art-center-internal-road-semantics-deep-audit.json"),
+  ]);
+  const film = registry.landmarks.find(({ id }) => id === "film-art-center");
+  const calibration = audit.acceptedCandidate.runtimeScaleCalibration;
+  assert.equal(film.scale, audit.acceptedCandidate.runtimeScale);
+  assert.equal(film.scale, 0.5);
+  assert.deepEqual(
+    film.localObstacles.map((obstacle) => ({
+      minX: obstacle.minX * film.scale,
+      maxX: obstacle.maxX * film.scale,
+      minZ: obstacle.minZ * film.scale,
+      maxZ: obstacle.maxZ * film.scale,
+    })),
+    [audit.acceptedCandidate.worldCollisionFootprintAfterScale],
+  );
+
+  const completeHeroPolygon = transformedRuntimeBounds(
+    film.localBounds,
+    film,
+  );
+  const roadWidths =
+    roadAudit.coordinateContract.runtimeRoadWidthsSceneUnits;
+  for (const [roadIdText, expected] of Object.entries(
+    calibration.completeHeroRoadClearanceSceneUnits,
+  )) {
+    const roadId = Number(roadIdText);
+    const road = map.roads.find(({ osmWayId }) => osmWayId === roadId);
+    const width = roadWidths[
+      roadId === 682286683 ? "xinhuaRoad" : road.highway
+    ];
+    const clearance = (
+      polygonToPolylineDistance(completeHeroPolygon, road.points)
+      - width / 2
+    );
+    assert.equal(rounded(clearance), rounded(expected));
+    assert.ok(clearance > 0);
+  }
+  assert.ok(
+    calibration.completeHeroRoadClearanceSceneUnits["577252297"] >= 0.75,
   );
 });

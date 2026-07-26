@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "assetId": "film-art-center",
   "activeScope": "active-18-buildings",
-  "reviewedAt": "2026-07-25T23:15:00+08:00",
+  "reviewedAt": "2026-07-26T19:32:03+08:00",
   "sharedContract": {
     "origin": [0, 0, 0],
     "frontDirection": "-Y",
     "groundDatum": 0,
     "authoredMetersPerSceneUnit": 2.7,
-    "position": [47.5, 81.5],
-    "yaw": 2.761592653589793,
-    "scale": 1,
+    "position": [46.388748754382405, 79.07089962964774],
+    "yaw": 2.786349542422368,
+    "scale": 0.5,
     "collisionSource": "app/scene/xinhua-road-landmarks-data.json",
     "startPreset": "/?start=film-art"
   },
@@ -78,7 +78,7 @@
     "threeTierRuntime": "pass-main-window-real-browser"
   },
   "massing": {
-    "status": "mcp1-and-map-pass",
+    "status": "mcp1-and-current-map-pass-common-provenance",
     "derivedFrom": {
       "method": "deterministic-simplification-of-frozen-hero-parameters",
       "heroGlbSha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6"
@@ -97,12 +97,18 @@
     "mcp1": "pass",
     "mcpRecord": "docs/research/film-art-center-blender-mcp-gates.json",
     "mapAcceptance": "pass",
-    "mapRecord": "docs/research/film-art-center-massing-map-qa.json"
+    "mapRecord": "docs/research/film-art-center-footprint-v2-threejs-runtime-qa.json",
+    "lineageAdjudication": {
+      "record": "docs/research/film-art-center-lineage-adjudication-v2.json",
+      "status": "pass-common-provenance-topology-only-repair",
+      "directCurrentHeroShaClaim": false
+    }
   },
   "threeTierRuntime": {
     "status": "pass-main-window-real-browser",
-    "qaRecord": "docs/research/film-art-center-three-tier-runtime-qa.json",
-    "metrics": "test_artifacts/test_film-art-center_three-tier_runtime_metrics.json",
+    "qaRecord": "docs/research/film-art-center-map-runtime-qa-v3.json",
+    "supportingDefaultContextRecord": "docs/research/film-art-center-footprint-v2-threejs-runtime-qa.json",
+    "metrics": "docs/research/film-art-center-map-runtime-qa-v3.json#tiers",
     "productionIdentityStrategy": "derived-glb",
     "productionIdentityLocalPosition": [0, 0, 0],
     "qaIdentityLocalPosition": [0, 0, 0],
@@ -115,7 +121,7 @@
       "programmaticFallbackInnerPosition": [0, 0, -2.25],
       "qaRecord": "docs/research/film-art-center-three-tier-runtime-qa.json"
     },
-    "nextGate": "complete-no-rework-unless-binary-or-public-contract-changes"
+    "nextGate": "complete-current-footprint-no-rework-unless-binary-or-public-contract-changes"
   },
   "recoveryDecision": {
     "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
@@ -136,5 +142,5 @@
     "facilityAndSharedPrototypes": "not-imported",
     "otherBuildings": "untouched"
   },
-  "nextGate": "complete-no-rework-unless-binary-or-public-contract-changes"
+  "nextGate": "complete-current-footprint-no-rework-unless-binary-or-public-contract-changes"
 }

@@ -52,6 +52,8 @@
         "tests/test_film_art_center_map_candidate_v2.test.mjs",
         "tests/test_film_art_center_road_semantics.test.mjs",
         "tests/test_film_art_center_internal_road_semantics_deep_audit.test.mjs",
+        "tests/test_film_art_center_road_evidence_rescue.test.mjs",
+        "tests/test_film_art_center_map_runtime_qa_v3.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [

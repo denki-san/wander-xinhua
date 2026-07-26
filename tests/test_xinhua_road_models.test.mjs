@@ -449,13 +449,16 @@ test("地图与房屋使用各自证据锁定比例，不得为退界任意缩�
   assert.equal(cinema.localObstacles.length, 3, "上海影城碰撞应贴合弧形主体，不能用单一大盒封住入口广场");
   assert.ok(Math.max(...cinema.localObstacles.map(({ maxZ }) => maxZ)) <= 6.2, "上海影城台阶和正门接近区必须保持开放");
   const filmArtCenter = landmarkData.landmarks.find(({ id }) => id === "film-art-center");
-  assert.equal(filmArtCenter.scale, 1, "新华两佰应使用重建后的 1:1 场景比例，不得延续旧版缩小系数");
+  assert.equal(filmArtCenter.scale, 0.5, "新华两佰应使用官方 footprint 与完整 Hero 道路净距共同校准的比例");
+  assert.equal(filmArtCenter.collisionEvidence.type, "evidence-footprint");
+  assert.equal(filmArtCenter.collisionEvidence.osmWayId, 864505138);
   assert.deepEqual(filmArtCenter.start, [35, 99], "新华两佰首屏应以南侧花园近正视方向保留完整主屋顶与两侧连接体");
-  assert.deepEqual(filmArtCenter.forward, [0.581, -0.814], "新华两佰首屏方向应接近 canonical 南侧正视，不能退化成大角度侧视");
+  assert.deepEqual(filmArtCenter.forward, [0.4961616451583901, -0.8682301664154038], "新华两佰首屏方向应重新指向官方 footprint 中心");
   assert.equal(filmArtCenter.cameraTargetHeight, 3.6, "新华两佰镜头应抬高以完整展示三层立面和主屋顶");
-  assert.equal(filmArtCenter.localObstacles.length, 3, "新华两佰应拆分历史主楼和两侧低玻璃连接体的碰撞");
+  assert.equal(filmArtCenter.localObstacles.length, 1, "新华两佰实体碰撞只覆盖官方闭环绑定的历史主楼 footprint");
   assert.ok(
-    Math.max(...filmArtCenter.localObstacles.map(({ maxZ }) => maxZ)) <= 4.63,
+    Math.max(...filmArtCenter.localObstacles.map(({ maxZ }) => maxZ))
+      * filmArtCenter.scale <= 3.54,
     "新华两佰正面草坪、路径和入口台阶必须保持开放",
   );
   assert.match(sceneSource, /start, forward, cameraTargetHeight/);
@@ -563,11 +566,17 @@ test("地标碰撞只覆盖实体建筑，不再用庭院或广场的完整包�
     assert.ok(landmark.localObstacles?.length > 0, `${landmark.id} 必须声明建筑级碰撞`);
     const boundsArea = (landmark.localBounds.maxX - landmark.localBounds.minX)
       * (landmark.localBounds.maxZ - landmark.localBounds.minZ);
+    const evidenceTolerance = (
+      landmark.collisionEvidence?.type === "evidence-footprint"
+        ? landmark.collisionEvidence.maximumWorldOverhangBeyondGlbBounds
+          / landmark.scale
+        : 0
+    );
     for (const obstacle of landmark.localObstacles) {
-      assert.ok(obstacle.minX >= landmark.localBounds.minX, `${landmark.id} 碰撞 minX 越界`);
-      assert.ok(obstacle.maxX <= landmark.localBounds.maxX, `${landmark.id} 碰撞 maxX 越界`);
-      assert.ok(obstacle.minZ >= landmark.localBounds.minZ, `${landmark.id} 碰撞 minZ 越界`);
-      assert.ok(obstacle.maxZ <= landmark.localBounds.maxZ, `${landmark.id} 碰撞 maxZ 越界`);
+      assert.ok(obstacle.minX >= landmark.localBounds.minX - evidenceTolerance, `${landmark.id} 碰撞 minX 越界`);
+      assert.ok(obstacle.maxX <= landmark.localBounds.maxX + evidenceTolerance, `${landmark.id} 碰撞 maxX 越界`);
+      assert.ok(obstacle.minZ >= landmark.localBounds.minZ - evidenceTolerance, `${landmark.id} 碰撞 minZ 越界`);
+      assert.ok(obstacle.maxZ <= landmark.localBounds.maxZ + evidenceTolerance, `${landmark.id} 碰撞 maxZ 越界`);
     }
     const xStops = [...new Set(landmark.localObstacles.flatMap(({ minX, maxX }) => [minX, maxX]))]
       .sort((left, right) => left - right);

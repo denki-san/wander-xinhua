@@ -9,6 +9,8 @@ const root = new URL("../", import.meta.url);
 const rootPath = fileURLToPath(root);
 const auditPath =
   "docs/research/film-art-center-internal-road-semantics-deep-audit.json";
+const historicalRegistryCommit =
+  "0189d06a939651c0f7e2876d074321f2caa9a903";
 
 async function readJson(path) {
   return JSON.parse(await readFile(new URL(path, root), "utf8"));
@@ -26,6 +28,13 @@ function snapshotSha256(commit, path) {
       cwd: rootPath,
     }))
     .digest("hex");
+}
+
+function snapshotJson(commit, path) {
+  return JSON.parse(execFileSync("git", ["show", `${commit}:${path}`], {
+    cwd: rootPath,
+    encoding: "utf8",
+  }));
 }
 
 function rounded(value, precision = 9) {
@@ -402,7 +411,10 @@ test("最近但未绑定的 OSM footprint 与道路有正净距", async () => {
     readJson("docs/research/data/xinhua-roads-osm-20260716-080509.json"),
     readJson("docs/research/data/xinhua-buildings-osm-20260725-074802.json"),
     readJson("app/scene/xinhua-map-data.json"),
-    readJson("app/scene/xinhua-road-landmarks-data.json"),
+    Promise.resolve(snapshotJson(
+      historicalRegistryCommit,
+      "app/scene/xinhua-road-landmarks-data.json",
+    )),
   ]);
   const placement = registry.landmarks.find(
     ({ id }) => id === "film-art-center",
@@ -459,7 +471,10 @@ test("runtime map 中正式实体仍被两条地表道路中心线穿越", async
   const [audit, map, registry, candidate] = await Promise.all([
     readJson(auditPath),
     readJson("app/scene/xinhua-map-data.json"),
-    readJson("app/scene/xinhua-road-landmarks-data.json"),
+    Promise.resolve(snapshotJson(
+      historicalRegistryCommit,
+      "app/scene/xinhua-road-landmarks-data.json",
+    )),
     readJson("docs/research/film-art-center-map-candidate-v2.json"),
   ]);
   const placement = registry.landmarks.find(
@@ -503,7 +518,10 @@ test("1520590653 旧净距记录被复算纠正但不改变 blocker", async () =
   const [audit, map, registry, candidate] = await Promise.all([
     readJson(auditPath),
     readJson("app/scene/xinhua-map-data.json"),
-    readJson("app/scene/xinhua-road-landmarks-data.json"),
+    Promise.resolve(snapshotJson(
+      historicalRegistryCommit,
+      "app/scene/xinhua-road-landmarks-data.json",
+    )),
     readJson("docs/research/film-art-center-map-candidate-v2.json"),
   ]);
   const placement = registry.landmarks.find(
