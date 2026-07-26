@@ -26,6 +26,69 @@ Operation not permitted
 - **Notes**: 使用受控 Git 权限后仅暂存本批源文件、记录与合格截图。
 
 ---
+
+## [ERR-20260726-107] py_compile_default_cache_outside_sandbox
+
+**Logged**: 2026-07-26T17:23:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+幸福里中栋 lineage v2 生成器首次语法检查时，系统 Python 尝试把 pycache 写到
+用户 Library Cache；该路径不在建筑 Worktree 的受控写入范围。
+
+### Error
+```text
+PermissionError: [Errno 1] Operation not permitted:
+/Users/lei/Library/Caches/com.apple.python/...
+```
+
+### Context
+- 失败发生在 `py_compile` 创建缓存目录之前，未执行生成器；
+- 没有打开或覆盖任何 Blend、GLB 或 Recovery/Hold 文件；
+- 项目脚本本身尚未被判定为语法失败。
+
+### Suggested Fix
+语法检查显式使用任务专属
+`PYTHONPYCACHEPREFIX=/tmp/test_xingfuli_center_pycache`，避免向用户 Cache 写入。
+
+### Resolution
+- **Resolved**: 2026-07-26T17:24:00+08:00
+- **Notes**: 后续检查改用 `/tmp/test_xingfuli_center_pycache`，不扩大文件权限。
+
+---
+
+## [ERR-20260726-108] xingfuli_manifest_top_level_shape_assumed_array
+
+**Logged**: 2026-07-26T17:24:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+证据文件存在性预检首次把幸福里 manifest 顶层误当作数组，`jq` 无法从版本号等
+标量字段读取 `path`。
+
+### Error
+```text
+jq: error: Cannot index number with string "path"
+```
+
+### Context
+- manifest 实际是对象，照片路径分别位于 `coverageMatrix` 与 `references`；
+- 语法检查和两项生成器测试已先通过；
+- 没有写入或删除任何证据文件。
+
+### Suggested Fix
+先读取 manifest 顶层 keys，再按 `.coverageMatrix[].path` 与
+`.references[].path` 检查本地文件。
+
+### Resolution
+- **Resolved**: 2026-07-26T17:25:00+08:00
+- **Notes**: 已确认对象结构并改用显式字段路径。
+
+---
 ## [ERR-20260726-096] jq_object_fallback_parentheses
 
 **Logged**: 2026-07-26T15:18:00+08:00
