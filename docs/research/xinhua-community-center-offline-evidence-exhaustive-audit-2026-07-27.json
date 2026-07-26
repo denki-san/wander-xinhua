@@ -1,0 +1,487 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-community-center",
+  "label": "新华·社区营造中心",
+  "formalSubject": "上海市长宁区新华路345弄4号楼",
+  "buildingWay": "way/864493234",
+  "serviceRoadWay": "way/577252269",
+  "auditedAt": "2026-07-27T01:04:37+08:00",
+  "baseCommit": "afe6dd14d5730d33c73ecbb8d8724f3e31292a16",
+  "status": "offline-traceable-entrance-detail-found-road-and-side-rear-gates-still-blocked",
+  "scope": {
+    "mode": "read-only-exhaustive-external-evidence-audit",
+    "included": [
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/",
+      "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/"
+    ],
+    "browserAccessed": false,
+    "networkAccessed": false,
+    "xiaohongshuAccessed": false,
+    "externalFilesWritten": false,
+    "externalFilesMovedOrDeleted": false,
+    "repositoryAssetsModified": false,
+    "sharedFilesModified": false,
+    "recoveryOrHoldModified": false,
+    "modelBlendGeneratorModified": false,
+    "mcpMapRegistryRuntimeModified": false,
+    "qualifiedStageRerun": false
+  },
+  "verifiedInputs": {
+    "referenceManifest": {
+      "path": "docs/research/xinhua-community-center-reference-manifest.json",
+      "sha256": "d9284c077e4f3fc1abe4fcc4ddb424722632e52ddfdcb617de3f5232efcb766e"
+    },
+    "serviceRoadLocalRescueAudit": {
+      "path": "docs/research/xinhua-community-center-service-road-local-rescue-audit.json",
+      "sha256": "c7543e054ea7ac2646dab63802a7857fb6365cbc92a5efa31f8ab1ff77ff824e"
+    },
+    "finalGapAudit": {
+      "path": "docs/research/xinhua-community-center-final-gap-audit.json",
+      "sha256": "68a834a904aa3470a0cc35097d317a0be246b772a424df10a591e5e357b4c1ed"
+    },
+    "xiaohongshuRoadQueryContract": {
+      "path": "docs/research/xinhua-community-center-xiaohongshu-road-query-contract-2026-07-26.json",
+      "sha256": "e33e22a2ccf5d4cb8c2162800d95144ba696e1d3d1476b53c6233a99e3eafdca"
+    }
+  },
+  "registeredEvidenceBaseline": {
+    "registeredPhotoCount": 2,
+    "formalBuildingPhoto": {
+      "path": "docs/research/assets/requested-poi-references/xinhua-community-center-front.jpg",
+      "sha256": "6f8c977a478b07769294af6299fec41b5e269ad11da3446681046e15d366c6bf",
+      "dimensions": [
+        1080,
+        809
+      ],
+      "coverage": "Building 4 front and entrance"
+    },
+    "excludedAncillaryPhoto": {
+      "path": "docs/research/assets/requested-poi-references/xinhua-community-center-toy-house.jpg",
+      "sha256": "9441bdc22d03c664282a853b5adbabba68f99930243d9f924d06676dfb392cf5",
+      "dimensions": [
+        1080,
+        720
+      ],
+      "coverage": "separate toy exchange house, excluded from the formal Building 4 mass"
+    },
+    "existingCoverage": {
+      "canonical": "supported",
+      "entrance": "supported",
+      "sideDepth": "unknown",
+      "rear": "unknown",
+      "siteRelationship": "partial"
+    }
+  },
+  "searchMethod": {
+    "cutoffRule": "The inventory is an exact read-only snapshot at auditedAt. Exact copies in later repository snapshots do not become new evidence.",
+    "pathAndTextTerms": [
+      "xinhua-community-center",
+      "新华社区营造中心",
+      "社区营造中心",
+      "新华路345弄",
+      "4号楼",
+      "四号楼",
+      "577252269",
+      "864493234"
+    ],
+    "sourceIdReview": [
+      "all six post IDs in the legacy XHS manifest",
+      "post 690b429000000000040023b7 and all of its 18 source-order originals",
+      "ordered-route post 67fcf03c000000000b02d804",
+      "all path-named community-center files in snapshots, legacy-imports and the old 3D knowledge base"
+    ],
+    "mediaDedup": "Candidate media was grouped by full SHA-256, path and source ID before visual adjudication. Exact repository-snapshot copies count once.",
+    "visualReview": "All 18 originals from post 690b429000000000040023b7 were reviewed in source order; images 01, 02, 03, 07 and 18 were additionally reviewed at original resolution.",
+    "repositoryRegistrationCheck": {
+      "repositoryImageFilesHashed": 862,
+      "excludedFromCount": [
+        ".git",
+        "node_modules",
+        "dist",
+        "dist-static"
+      ],
+      "legacyPostImageCount": 18,
+      "legacyPostUniqueShaCount": 18,
+      "newCandidateShaMatches": 0
+    }
+  },
+  "rootInventoryAtCutoff": [
+    {
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+      "fileCount": 7348,
+      "byteCount": 3180987850,
+      "note": "Includes legacy-imports and five immutable repository snapshots."
+    },
+    {
+      "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/",
+      "fileCount": 1671,
+      "byteCount": 691388513,
+      "note": "Contains the only copy of each of the 18 adjudicated legacy XHS media hashes."
+    },
+    {
+      "root": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/",
+      "fileCount": 316,
+      "byteCount": 4481838791,
+      "note": "Contains the XHS manifest and README; the raw media is stored under Dynamic Evidence legacy-imports."
+    }
+  ],
+  "snapshotIntegrity": [
+    {
+      "snapshotId": "2026-07-26-ad37273",
+      "manifestPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-ad37273/manifest.json",
+      "manifestSha256": "5b5eb28ec0d943d16231c3f9440036770d55389e67e98ad24e1546e2f0c58e7b",
+      "checksumPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-ad37273/SHA256SUMS",
+      "checksumSha256": "2ba0c627cbe0f9b5dd24fcb34a93521197b11fb8ca2e662b48d2b56a18b1c041",
+      "declaredFileCount": 979,
+      "declaredByteCount": 450568192,
+      "fullChecksumVerification": "pass",
+      "verificationBasis": "same-mounted-state preceding audit"
+    },
+    {
+      "snapshotId": "2026-07-26-5383f2a",
+      "manifestPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-5383f2a/manifest.json",
+      "manifestSha256": "76fd29c9d89477778ef9269830751e24c648965d883335ddd6170bd1a6c2fe23",
+      "checksumPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-5383f2a/SHA256SUMS",
+      "checksumSha256": "1ac3c5e8d1fbaf978949ba64888c00dba34aa7d8d256b2ec2c395ac860f18736",
+      "declaredFileCount": 1210,
+      "declaredByteCount": 622911488,
+      "fullChecksumVerification": "pass",
+      "verificationBasis": "same-mounted-state preceding audit"
+    },
+    {
+      "snapshotId": "2026-07-26-b20494c",
+      "manifestPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-b20494c/manifest.json",
+      "manifestSha256": "1d1278811a8cc3470b2597667b8e6b3ef78c5f71b79963a03763e5fcc7fbd645",
+      "checksumPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-26-b20494c/SHA256SUMS",
+      "checksumSha256": "138f8fa1651cdb0916057a02ba3868eb933693ab962df43b01dca947b796eb7d",
+      "declaredFileCount": 1155,
+      "declaredByteCount": 476893184,
+      "fullChecksumVerification": "pass",
+      "verificationBasis": "same-mounted-state preceding audit"
+    },
+    {
+      "snapshotId": "2026-07-27-5c5fa52",
+      "manifestPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-27-5c5fa52/manifest.json",
+      "manifestSha256": "73b27b3d50367d1976fdea7015a8e0fb02866480f6979f7a5e89a99888a8471a",
+      "checksumPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-27-5c5fa52/SHA256SUMS",
+      "checksumSha256": "98c53f3da1e41303ef028ff07e36b556a258185f8916b41af593002e5fc0ba3d",
+      "declaredFileCount": 1159,
+      "declaredByteCount": 476061696,
+      "fullChecksumVerification": "pass",
+      "verificationBasis": "same-mounted-state preceding audit"
+    },
+    {
+      "snapshotId": "2026-07-27-a40fe03",
+      "manifestPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-27-a40fe03/manifest.json",
+      "manifestSha256": "848e8c0075f3be32584deacd3d0931545355c548416b6038cf419bbf37f85aff",
+      "checksumPath": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-27-a40fe03/SHA256SUMS",
+      "checksumSha256": "f7726a75c1fdc5cd69336be93159db279d382ce24dea1e60a10c480b2479ab36",
+      "declaredFileCount": 1162,
+      "declaredByteCount": 477016064,
+      "fullChecksumVerification": "pass",
+      "verificationBasis": "direct 1162-file verification in this audit"
+    }
+  ],
+  "legacyXhsSource": {
+    "manifest": {
+      "path": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/evidence-manifest.json",
+      "sha256": "3fffec9c23a83933ed3b825c73f1c3c4e7734b8b5b6df2c8aada07a19f289cd6",
+      "sourceCount": 6,
+      "rawImageCount": 88
+    },
+    "readme": {
+      "path": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/README.md",
+      "sha256": "f141e7109fb963f2ce725337374695a610c4e71542c1487908fb10ae352d42a1"
+    },
+    "legacyChecksumIndex": {
+      "path": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/SHA256SUMS",
+      "sha256": "0b868ac38160bbb2cfad68b5aef0ce5a5f46180de8e2209cbf25751ea18cc2d2"
+    },
+    "post": {
+      "postId": "690b429000000000040023b7",
+      "url": "https://www.xiaohongshu.com/explore/690b429000000000040023b7",
+      "title": "新华社区营造中心·考察笔记",
+      "author": "燥燥小卷",
+      "publishedLabel": "2025-11-05",
+      "rawRoot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/legacy-imports/knowledge-base/wander-xinhua/nonbuilding-street-life-xhs-2026-07-25/raw/xhs/690b429000000000040023b7/",
+      "rawImageCount": 18,
+      "uniqueShaCount": 18,
+      "exactShaOccurrencesInLegacyIndex": 18,
+      "exactShaOccurrencesInSnapshots": 0,
+      "exactShaOccurrencesInCurrentRepositoryImages": 0
+    },
+    "orderedRoutePost": {
+      "postId": "67fcf03c000000000b02d804",
+      "result": "route-name-only-no-building-4-or-service-road-control",
+      "effect": "The ordered route names the community center, but no frame binds Building 4, both road edges, scale and way/577252269 into one usable control chain."
+    }
+  },
+  "mediaAdjudication": [
+    {
+      "file": "image-01.webp",
+      "sha256": "2cd416e611af1cbb044556dd69d046eedb6eab2ac10090f5b5eb2f04d70afb5c",
+      "bytes": 492206,
+      "dimensions": [1080, 1440],
+      "classification": "real-same-venue-ancillary-collage-no-building-road-contract",
+      "observed": "Pet lawn, notices, wall and resident-made objects are visible in a collage; the formal Building 4 mass and a continuous road section are absent."
+    },
+    {
+      "file": "image-02.webp",
+      "sha256": "6366aed770354a1b6e9cba980b276876991ff69ff2e161cd7a2bf230496e251d",
+      "bytes": 822462,
+      "dimensions": [1080, 1440],
+      "classification": "wrong-subject-fics-xinhua-365",
+      "observed": "The facade reads FICS, 新华365 and number 365/369; it is not Building 4 and its visible public-street curb cannot calibrate way/577252269."
+    },
+    {
+      "file": "image-03.webp",
+      "sha256": "e6967e7d572cf7c950c0660cfcea90210fd5a87c33cb3f868fb1ffb00b35fdbc",
+      "bytes": 160168,
+      "dimensions": [1080, 1440],
+      "classification": "real-same-subject-traceable-entrance-detail-partial",
+      "observed": "The open entrance bay, retractable awning, threshold, temporary ramp, wall copy, display stands and immediate apron are visible.",
+      "inferred": "The post identity and visible match to the left entrance bay in the registered official front photo bind this detail to the community-center entrance with high confidence.",
+      "notObserved": [
+        "Building 4 full facade",
+        "side or rear facade",
+        "both service-road edges",
+        "curb-to-curb width",
+        "way-specific centerline or offset",
+        "measured scale, north arrow or coordinates"
+      ]
+    },
+    {
+      "file": "image-04.webp",
+      "sha256": "4de6b637d15a41959a445288e5f5dfa73b2fde34b952334fb7b3da6692b4d1fa",
+      "bytes": 288488,
+      "dimensions": [1080, 1440],
+      "classification": "real-same-venue-interior-not-exterior-evidence"
+    },
+    {
+      "file": "image-05.webp",
+      "sha256": "53e7f46ee0d2fec1ea55857bb6276a606f212248699bc5c6c324ad7db13cabb3",
+      "bytes": 311648,
+      "dimensions": [1080, 1440],
+      "classification": "real-same-venue-interior-not-exterior-evidence"
+    },
+    {
+      "file": "image-06.webp",
+      "sha256": "4843afaadc4f1c5ed49a4feaaad23e8428f8abe879b85bc2ba1cd43e0b8ef8b6",
+      "bytes": 294236,
+      "dimensions": [1080, 1440],
+      "classification": "real-same-venue-interior-not-exterior-evidence"
+    },
+    {
+      "file": "image-07.webp",
+      "sha256": "bc714ed3bbe6b9bdcbce48fc30c06b95bc7e55b3d3f9b24e319fa8ced013fd7d",
+      "bytes": 466174,
+      "dimensions": [1080, 1442],
+      "classification": "real-same-venue-garden-collage-no-building-road-contract",
+      "observed": "Seedling racks, garden beds, compost equipment and notice boards are visible; no continuous Building 4 facade or service-road section is shown."
+    },
+    {
+      "file": "image-08.webp",
+      "sha256": "e8d0a77911ea018db5b78e1080204aa6da2c9c43f712e4d17252dbb55253e78c",
+      "bytes": 273830,
+      "dimensions": [1080, 1440],
+      "classification": "real-same-venue-interior-not-exterior-evidence"
+    },
+    {
+      "file": "image-09.webp",
+      "sha256": "17a72e1e2a0a573214ef18777963dd018a21bd77ce11afa295e7b9c25d43e2e3",
+      "bytes": 319876,
+      "dimensions": [1080, 1441],
+      "classification": "real-same-venue-interior-not-exterior-evidence"
+    },
+    {
+      "file": "image-10.webp",
+      "sha256": "2455cb7d6773a01484f068f8951f70f6a8c3652e5572abe69650a4e6617b9bf6",
+      "bytes": 214870,
+      "dimensions": [1080, 1440],
+      "classification": "real-same-venue-interior-not-exterior-evidence"
+    },
+    {
+      "file": "image-11.webp",
+      "sha256": "affbb583453f996f1e89288036fa4521606768113f652c715d40c47bb7a40d15",
+      "bytes": 211082,
+      "dimensions": [1080, 1440],
+      "classification": "real-same-venue-interior-not-exterior-evidence"
+    },
+    {
+      "file": "image-12.webp",
+      "sha256": "ed66fc38755e1a55a89384f360762c9e59e1aaec9e5f25cb22cd038d0942fcb4",
+      "bytes": 342742,
+      "dimensions": [1080, 1440],
+      "classification": "real-same-venue-interior-not-exterior-evidence"
+    },
+    {
+      "file": "image-13.webp",
+      "sha256": "47ae660b697c64c620c71fd8c1ad136c71dd496012455ef67557a34819329829",
+      "bytes": 304152,
+      "dimensions": [1080, 1440],
+      "classification": "real-same-venue-interior-not-exterior-evidence"
+    },
+    {
+      "file": "image-14.webp",
+      "sha256": "e4072ce7d4ddda2cd3cd6719ba0494953206e91fff2e86169967f463e6152710",
+      "bytes": 291326,
+      "dimensions": [1080, 1440],
+      "classification": "real-same-venue-interior-not-exterior-evidence"
+    },
+    {
+      "file": "image-15.webp",
+      "sha256": "5bc58e789482c1c4fbad29180aa4935341e0855e4e709a4bd34bb5aae48e4f42",
+      "bytes": 212158,
+      "dimensions": [1080, 1440],
+      "classification": "real-same-venue-interior-content-not-geometry-evidence"
+    },
+    {
+      "file": "image-16.webp",
+      "sha256": "0a1f511082e4d53f889391ebaa3ac63a7266b8631faf05d390533e28989774bb",
+      "bytes": 253872,
+      "dimensions": [1080, 1440],
+      "classification": "real-same-venue-interior-not-exterior-evidence"
+    },
+    {
+      "file": "image-17.webp",
+      "sha256": "9c7170374804fc9cc3cea51d6ae1c4363a10ad3a0f2ce038e6f5fdc3e49739e6",
+      "bytes": 289448,
+      "dimensions": [1080, 1440],
+      "classification": "real-same-venue-interior-content-not-geometry-evidence"
+    },
+    {
+      "file": "image-18.webp",
+      "sha256": "fa7e2d04bafdaaf94d4eb9a23729317d78f47057382ff1591c06fbd887dedaac",
+      "bytes": 153168,
+      "dimensions": [1080, 1440],
+      "classification": "participatory-activity-map-not-survey-or-geometric-control",
+      "observed": "An indoor participant-opinion map of Xinhua Road is visible.",
+      "notObserved": [
+        "survey scale",
+        "north arrow",
+        "coordinates",
+        "Building 4 footprint",
+        "way/577252269 edges or centerline",
+        "dated dimensional controls"
+      ]
+    }
+  ],
+  "classificationCounts": {
+    "realSameSubjectTraceableEntranceDetail": 1,
+    "realSameVenueAncillaryOrGarden": 2,
+    "realSameVenueInteriorOrContent": 13,
+    "wrongSubject": 1,
+    "participatoryMapNotSurvey": 1,
+    "total": 18
+  },
+  "evidenceClassification": {
+    "observed": [
+      "One new source-traceable same-subject image adds entrance-bay detail.",
+      "One image previously described as the community-center street entrance is visibly FICS/新华365 and is a wrong subject.",
+      "The post contains two venue ancillary/garden collages, thirteen interior/content images and one non-survey participant map.",
+      "No reviewed image shows both edges of way/577252269, a measured width, a continuous curb/surface/entry chain, the Building 4 side/rear facade or two georeferenced subject controls."
+    ],
+    "inferred": [
+      {
+        "claim": "Image 03 is the community-center entrance bay also visible at the left side of the registered official front photo.",
+        "confidence": "high",
+        "basis": "post-level venue identity plus matching awning, open bay, ramp and frontage treatment"
+      },
+      {
+        "claim": "The entrance apron appears hard surfaced, but its material, width and relation to the OSM service-road centerline cannot be measured from this crop.",
+        "confidence": "medium"
+      }
+    ],
+    "unknown": [
+      "Building 4 side and rear facade geometry.",
+      "Actual curb-to-curb width, surface classification and access semantics of way/577252269.",
+      "Both road edges and centerline offset relative to the Building 4 boundary.",
+      "A continuous entrance-to-road path tied to a measured scale and capture date.",
+      "Two non-coincident local/world controls for formal map calibration."
+    ]
+  },
+  "roadContractEvaluation": {
+    "required": [
+      "both service-road edges",
+      "centerline or offset chain",
+      "measurable scale",
+      "surface and access semantics",
+      "continuous entrance-to-road relation",
+      "provenance and capture date",
+      "location binding to Building 4 and way/577252269"
+    ],
+    "satisfied": [],
+    "partial": [
+      "image 03 shows only the immediate entrance apron",
+      "the post supplies source identity and a published label, but no road measurement"
+    ],
+    "blocked": [
+      "both service-road edges",
+      "curb-to-curb width",
+      "surface and access semantics",
+      "way-specific centerline offset",
+      "continuous entry relation",
+      "measured scale and dual controls"
+    ],
+    "result": "blocked-no-change",
+    "diagnosticOnly": {
+      "currentRenderedWidthSceneUnits": 2.5,
+      "currentRenderedWidthMeters": 6.75,
+      "currentAsphaltOverlapSceneUnits": 0.4026350726882021,
+      "currentAsphaltOverlapMeters": 1.087114696258545,
+      "zeroOverlapThresholdSceneUnits": 1.6947298546235957,
+      "zeroOverlapThresholdMeters": 4.575770607483708,
+      "warning": "These are existing runtime diagnostics, not observed real-road dimensions and do not authorize narrowing or moving the road."
+    }
+  },
+  "acceptanceEvaluation": [
+    {
+      "category": "formal-building-identity",
+      "result": "partial-no-gate-change",
+      "effect": "Image 03 adds source-traceable entrance detail, but no side/rear coverage or full formal-building view."
+    },
+    {
+      "category": "service-road-width-curb-surface-and-entry-continuity",
+      "result": "blocked",
+      "effect": "No image supplies both edges, measurable scale, surface/access semantics and a continuous Building 4 entrance relation."
+    },
+    {
+      "category": "dual-control-map-calibration",
+      "result": "blocked",
+      "effect": "Neither the photos nor the participant map supply two non-coincident local/world controls."
+    },
+    {
+      "category": "xiaohongshu-reasonable-search",
+      "result": "pending-main-window",
+      "effect": "This task intentionally used no browser or network. The prepared human-paced query contract remains unchanged."
+    }
+  ],
+  "retainedStagePolicy": {
+    "recovery": "retained-no-rerun",
+    "massing": "pass-retained-no-rerun",
+    "mcp1": "pass-retained-no-rerun",
+    "threeRuntimeDiagnostic": "pass-retained-no-rerun",
+    "collisionDiagnostic": "pass-retained-no-rerun",
+    "hero": "blocked-no-change",
+    "identity": "blocked-no-change",
+    "mcp2": "blocked-no-change",
+    "mcp3": "blocked-no-change",
+    "formalMapAcceptance": "blocked-no-change",
+    "roadWidthOrAlignmentChangeAuthorized": false,
+    "runtimePromotionOrDisableAuthorized": false
+  },
+  "verdict": {
+    "newTraceableBuilding4EntranceDetailFound": true,
+    "newTraceableBuilding4EntranceDetailCount": 1,
+    "wrongSubjectManifestEntryFound": true,
+    "newSideOrRearEvidenceFound": false,
+    "qualifyingServiceRoadEvidenceFound": false,
+    "qualifyingDualControlEvidenceFound": false,
+    "heroIdentityAuthorized": false,
+    "formalMapAcceptanceAuthorized": false,
+    "buildingComplete": false,
+    "gateChange": "evidence-ledger-expanded-only",
+    "nextGate": "main-window human-paced Xiaohongshu road search under the existing query contract; if it remains insufficient, only the main window may adjudicate retain-files-and-disable-runtime"
+  }
+}
