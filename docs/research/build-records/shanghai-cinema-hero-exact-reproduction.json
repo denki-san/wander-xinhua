@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "assetId": "building:xinhua-road:shanghai-cinema",
+  "tier": "hero-exact-source-reproduction",
+  "builtAt": "2026-07-26",
+  "status": "pass-exact-source-reproduction",
+  "worktreeBaseCommit": "c066873253a534da17b438a8d1530a0b4e043f9f",
+  "source": {
+    "path": "assets/models/source/xinhua-road/shanghai-cinema.blend",
+    "sha256": "fbb13fdb89169101c97bda0f3e5ba9644c70743aa85bd810368b365969db8fd8",
+    "bytes": 1275824,
+    "modified": false
+  },
+  "generator": {
+    "path": "scripts/create_shanghai_cinema_hero_exact_reproduction.py",
+    "sha256": "5465f462729f1b1bf3cd564bdab8d2badad58a440441f3cac478442a1b8e37b8",
+    "inputPolicy": "sha-locked-accepted-editable-blend",
+    "outputPolicy": "new-building-specific-ignored-test-artifact-only",
+    "blenderVersion": "5.2.0 LTS",
+    "blenderBuildHash": "fbe6228777e7",
+    "threads": 1
+  },
+  "protectedOutput": {
+    "path": "public/models/xinhua-road/shanghai-cinema.glb",
+    "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+    "bytes": 5862660,
+    "modified": false
+  },
+  "isolatedOutputs": {
+    "directory": "test_artifacts/shanghai-cinema-hero-exact-reproduction",
+    "committed": false,
+    "retention": "local-ignored-reproducibility-output",
+    "verifiedA": {
+      "path": "test_artifacts/shanghai-cinema-hero-exact-reproduction/verified-a/shanghai-cinema.glb",
+      "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+      "bytes": 5862660,
+      "exactProtectedOutputMatch": true
+    },
+    "verifiedB": {
+      "path": "test_artifacts/shanghai-cinema-hero-exact-reproduction/verified-b/shanghai-cinema.glb",
+      "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+      "bytes": 5862660,
+      "exactProtectedOutputMatch": true
+    }
+  },
+  "metrics": {
+    "nodes": 1,
+    "meshes": 1,
+    "primitives": 13,
+    "triangles": 83820,
+    "materials": 13,
+    "images": 0,
+    "textures": 0,
+    "accessors": 52,
+    "bufferViews": 52,
+    "bounds": {
+      "min": [
+        -19,
+        -0.06000000983476639,
+        -11.800000190734863
+      ],
+      "max": [
+        19,
+        17.225000381469727,
+        14.199999809265137
+      ]
+    }
+  },
+  "audit": {
+    "record": "docs/research/shanghai-cinema-hero-exact-reproduction-audit.json",
+    "exactComparisonTool": "scripts/audit_shanghai_cinema_hero_reproduction.mjs",
+    "glbStructureTool": "scripts/audit_glb.py",
+    "exactFileComparison": "pass-zero-differing-bytes-all-three",
+    "glbStructure": "pass",
+    "exactPublicSha": "pass",
+    "exactIndependentProcessDeterminism": "pass"
+  },
+  "rootCauseDisposition": {
+    "localizationStatus": "inferred-by-controlled-elimination",
+    "unstableBoundary": "fresh-procedural-build-save-and-export",
+    "acceptedBlendExport": "deterministic-under-recorded-environment",
+    "exactSubstage": "unresolved-without-procedural-blend-uv-comparison",
+    "proceduralGenerator": "retained-as-historical-reconstruction-evidence-not-exact-binary-source"
+  },
+  "gates": {
+    "sourceSha": "pass",
+    "generatorScope": "pass-building-specific",
+    "headlessRoundtrip": "pass-two-independent-processes",
+    "exactSourceReproduction": "pass",
+    "publicHeroWrite": "none",
+    "publicWiring": "none",
+    "mapAnchor": "untouched",
+    "runtime": "untouched"
+  }
+}
