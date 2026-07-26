@@ -993,3 +993,43 @@ Messenger 式移动触控不是“永久隐藏摇杆、移动时显示跳跃按�
 - Tags: performance, character, fog, trees, decorations, correction
 
 ---
+
+## [LRN-20260726-004] correction
+
+**Logged**: 2026-07-26T21:18:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: docs
+
+### Summary
+
+Wander Xinhua 的单栋建筑验收证据以U盘为唯一存储且不接入
+`Threejs-3d-research`；只有可复用的技术与方法知识进入 Wiki。
+
+### Details
+
+建筑照片、视频、关键帧、地图锚点、院落归属、道路关系和单栋证据裁决是项目局部
+事实，以U盘 `3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence/`
+为唯一存储。仓库只保留证据指针和状态，不重复建筑媒体。把这些内容同步到领域
+Wiki 会混淆“项目证据”和“可复用知识”。只有跨建筑可迁移的 Blender、
+Three.js、WebGL 方法或研究结论才进入 `Threejs-3d-research`。
+
+### Suggested Action
+
+小红书建筑证据救援只在U盘生成证据记录与素材；不要把媒体复制到仓库，不要创建
+Wiki hard link、触发 rescan 或声称 Wiki 已学习。若后续从多栋实践中提炼出通用
+方法，再单独编写方法知识页并按 Wiki 工作流验收。
+
+### Metadata
+
+- Source: user_feedback
+- Related Files: docs/research/building-pipeline-fast-mode.md
+- Tags: evidence-boundary, building-research, threejs-wiki, correction
+
+### Resolution
+
+- **Resolved**: 2026-07-26T21:18:00+08:00
+- **Notes**: 已把U盘唯一存储和禁止 Wiki 入库边界写入 Fast Mode 文档；本轮
+  尚未向 Wiki 写入或同步任何建筑资料。
+
+---

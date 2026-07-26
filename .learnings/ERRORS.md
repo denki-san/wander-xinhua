@@ -31,6 +31,96 @@ Error: listen EPERM: operation not permitted 127.0.0.1:4317
 - **Notes**: 经批准后同一命令已在 `127.0.0.1:4317` 正常监听。
 
 ---
+
+## [ERR-20260726-067] xhs_page_asset_video_bundle_failed
+
+**Logged**: 2026-07-26T21:34:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: workflow
+
+### Summary
+
+Chrome 能正常播放法华遗韵小红书视频，但页面媒体打包因 CDN 页面内 fetch 失败，
+142 秒后返回 0 个文件。
+
+### Error
+
+```text
+requestedCount: 1
+downloadedCount: 0
+failedCount: 1
+reason: page fetch failed: TypeError: Failed to fetch
+```
+
+### Context
+
+- 来源笔记：`69e4f467000000001e00f7ab`
+- 媒体：单个约 3 分 23 秒视频
+- 搜索目标只是判断是否存在强建筑证据；用户允许浏览抓取慢速进行。
+- 建筑证据按用户边界只存U盘，不接入 Wiki。
+
+### Suggested Fix
+
+不要对同一签名 URL 反复打包。继续使用已登录页面的原生播放与确定性时间点核对，
+将可见关键帧、时间码、稳定笔记 URL 和下载失败边界保存到U盘；完整原视频保持
+`not-downloaded`，不得伪称已归档。
+
+### Metadata
+
+- Reproducible: unknown
+- Related Files: docs/research/building-pipeline-stop-policy.json
+
+### Resolution
+
+- **Resolved**: 2026-07-26T21:34:00+08:00
+- **Notes**: 页面内 195.5 秒和 197.4 秒连续画面形成同一主体侧向与街道强证据；
+  两张关键帧和来源记录已存U盘，完整视频明确标记未下载。
+- **Cleanup**: 结束时 Chrome 会话已不可用，未继续重试或切换控制方式；内置浏览器
+  研究页已正常清理。若 Chrome 中仍留有该研究页，由主窗口接手或用户自行关闭。
+
+---
+
+## [ERR-20260726-068] pipeline_stop_policy_git_index_permission
+
+**Logged**: 2026-07-26T21:42:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: workflow
+
+### Summary
+
+专项测试 7/7 通过后，组合命令中的 `git add` 无法创建 Worktree `index.lock`。
+
+### Error
+
+```text
+fatal: Unable to create '.git/worktrees/pipeline-stop-policy/index.lock':
+Operation not permitted
+```
+
+### Context
+
+- Worktree：`.worktrees/pipeline-stop-policy`
+- 失败发生在测试和 `git diff --check` 通过之后。
+- 文件内容与测试均未失败，只有 Git 元数据写入被沙箱拒绝。
+
+### Suggested Fix
+
+把测试与 Git 写入拆开；只对精确 `git add` 和 `git commit` 请求受控权限，不扩大
+到其他 Worktree 或主集成分支。
+
+### Metadata
+
+- Reproducible: unknown
+- Related Files: .git/worktrees/pipeline-stop-policy/index
+
+### Resolution
+
+- **Resolved**: 2026-07-26T21:42:00+08:00
+- **Notes**: 精确暂存四个流程文件并提交为 `f277876`；未触碰主集成未提交内容。
+
+---
 ## [ERR-20260725-032] gltf_float32_material_factor_exact_assertion
 
 **Logged**: 2026-07-25T21:37:00+08:00
