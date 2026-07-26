@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "assetId": "villa-le-bec",
-  "adjudicatedAt": "2026-07-26T15:53:00+08:00",
+  "adjudicatedAt": "2026-07-26T16:00:00+08:00",
   "reviewSurface": "main-window-xhigh-pre-mcp2",
   "candidate": {
     "glb": "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
-    "sha256": "b608836074a7c0eb7e697eda38a00eeb95f98b0da6a68c5157efcb18539bf979",
-    "preservation": "retain-current-blocked-candidate-until-next-reviewed-revision"
+    "sha256": "1374b7a8301345c23736644cfdc9a7ed467efb8371ebcdf72a507217b0015394",
+    "preservation": "current-mcp2-accepted-hero"
   },
   "reviewHistory": [
     {
@@ -22,7 +22,17 @@
       "sha256": "b608836074a7c0eb7e697eda38a00eeb95f98b0da6a68c5157efcb18539bf979",
       "gitCommit": "29760a1",
       "status": "fail-facade-hierarchy-and-dormer-glazing",
-      "bayGlazingSurfaceFix": "pass"
+      "bayGlazingSurfaceFix": "pass",
+      "livePathSupersededByIteration": 3,
+      "preservation": "byte-exact-in-git-history"
+    },
+    {
+      "iteration": 3,
+      "sha256": "1374b7a8301345c23736644cfdc9a7ed467efb8371ebcdf72a507217b0015394",
+      "gitCommit": "3661058",
+      "status": "pass-pre-mcp2-visual-and-mcp2-main-window",
+      "streetFacadeHierarchy": "pass",
+      "dormerGlazingSurfaceFix": "pass"
     }
   ],
   "comparisonInputs": [
@@ -39,17 +49,17 @@
     {
       "role": "candidate-canonical",
       "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-canonical.png",
-      "sha256": "108ec626cf975e295349019fa282e6b990a42ddebbdc436e681649765ed21e94"
+      "sha256": "0c6941431b8f84b600ac1e8f21c6103bc5e582535940ac6b02ad27d7e4345cbe"
     },
     {
       "role": "candidate-entrance",
       "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-entrance.png",
-      "sha256": "4c5f20f34448b99b7092553eed72b9f12ed79873bfc75a100f35afa75336ee82"
+      "sha256": "1cc36eed766cac78b74b0f1b663bd94ff2bb387e3fa89b7d8e57519c0942c9e1"
     },
     {
       "role": "candidate-triptych",
       "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-triptych.png",
-      "sha256": "7914a9e3a243e345e06106e59db7731c6b4d83a9305dce32ff18f41180c4dfa2"
+      "sha256": "a238f503fa819cb0610f9433e24ead71f1b392b06e7250595ae1ad26e6f9416e"
     }
   ],
   "observed": {
@@ -59,16 +69,16 @@
       "坡屋顶、深色基座和道路侧院门同时可见。"
     ],
     "candidateCanonical": [
-      "第二轮已把主楼 projecting-bay glazing 移到实体外表面，凸窗玻璃可见。",
-      "沿街候选仍主要呈现单层白墙体量与同层窗列，缺少底层入口或橱窗和上层凸窗之间的层级。",
-      "屋顶凸起在固定机位中主要读成无窗烟囱盒，而非参考中的老虎窗。"
+      "第三轮沿街主楼在原包络内形成底层无品牌入口与窗、上层窗与 projecting bay 的可读层级。",
+      "两处沿街 dormer 的玻璃和窗框已位于外表面，固定机位读成有窗老虎窗。",
+      "暖白墙、深色基座与红褐坡屋顶的主体关系保持。"
     ],
     "entranceReference": [
       "院内建筑正向入口、门、台阶和屋顶老虎窗均清晰可见。"
     ],
     "candidateEntrance": [
-      "第二轮院内 entry bay glazing 已移到外表面并在入口机位可见。",
-      "该构件仍只有大块窗格，缺少参考中可读的门洞、门槛或上下层入口层级。"
+      "院内 entry bay glazing 保持在外表面并在入口机位可见。",
+      "院内 dormer 玻璃已外露；不可见背面、品牌与临时陈设继续保持未知。"
     ]
   },
   "inferred": [
@@ -80,18 +90,13 @@
     "商业品牌与临时陈设不属于本轮修复要求。"
   ],
   "decision": {
-    "preMcp2VisualGate": "fail",
-    "mcp2": "not-entered-candidate-failed-fixed-view-comparison",
-    "identityAuthorized": false,
+    "preMcp2VisualGate": "pass-iteration-3",
+    "mcp2": "pass-main-window-blender-mcp-current-sha",
+    "identityAuthorized": true,
     "runtimePromotionAuthorized": false,
     "massingMapAndCollisionRetained": true,
-    "minimumRepair": [
-      "按参考恢复沿街主楼上下两层立面层级。",
-      "恢复底层入口或橱窗节奏与上层凸窗，不复制商业品牌。",
-      "把三处老虎窗 glazing/frame 移到 dormer 实体外表面，使固定机位读成有窗构件。",
-      "保持第二轮已经通过的主楼凸窗与院内入口 glazing 外表面修复。",
-      "重建新候选并生成新的 canonical、side、entrance 和 triptych，旧候选继续保留。"
-    ]
+    "minimumRepair": [],
+    "nextGate": "derive-identity-from-current-hero-sha-only"
   },
   "scopeGuard": {
     "onlyBuilding": "villa-le-bec",
