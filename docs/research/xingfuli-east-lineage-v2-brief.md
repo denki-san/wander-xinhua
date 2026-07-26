@@ -22,5 +22,5 @@
 ## Fixed views and gates
 
 - Canonical and side cameras are the existing deterministic headless views.
-- Street view: local `(41.5, -31.0, 2.6)` toward `(31.0, -7.0, 4.5)`, showing the Panyu-facing entry composition without asserting road clearance.
+- Street view: local `(47.0, -24.0, 5.8)` toward `(31.5, -2.5, 4.1)`, simultaneously showing the long south facade plus the white glass corner/matrix entry composition. It is visual review only and does not assert road clearance.
 - Before promotion: main-window MCP 1/2/3, map/road decision, and Three.js tier/fallback/performance/collision QA are still required.
