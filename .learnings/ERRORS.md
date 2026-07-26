@@ -9672,3 +9672,30 @@ expected 6fc9b9ca1858ff09a9704d2c31633560a4f7af4f7a85e58d21c7c86352cab35d
   指纹只能来自实际字节或完整工具输出，不能从摘要、省略号或手工补全值生成。
 
 ---
+
+## [ERR-20260726-124] parallel_exec_process_fd_limit
+
+**Logged**: 2026-07-26T21:17:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+并行启动三个只读 shell 检查时，统一执行层达到文件描述符上限，子进程未创建。
+
+### Error
+```text
+Failed to create unified exec process: Too many open files (os error 24)
+```
+
+### Context
+- 失败发生在创建第一个只读 `find` 子进程之前；
+- 没有创建、修改、移动或删除项目文件与 U 盘证据；
+- 同一检查串行执行后立即通过。
+
+### Resolution
+- **Resolved**: 2026-07-26T21:17:30+08:00
+- **Notes**: 外置卷与大型工作区盘点改为短命令串行执行，不重启服务、不杀进程，
+  也不通过提高系统限制绕过资源边界。
+
+---
