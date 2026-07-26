@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T15:50:00+08:00",
-  "snapshotBaseCommit": "34ff7b8",
+  "snapshotAt": "2026-07-26T15:54:07+08:00",
+  "snapshotBaseCommit": "dcd619e",
   "scope": {
     "mode": "exact-18-building-fast-mode",
     "buildingCount": 18,
@@ -318,6 +318,7 @@
       "runtimePolicy": "preserve-current-no-formal-promotion",
       "records": [
         "docs/research/xingfuli-west-fast-audit.json",
+        "docs/research/xingfuli-west-lineage-reconstruction-2026-07-26.json",
         "docs/research/xingfuli-user-photo-sequence-2026-07-26.json"
       ]
     },
@@ -357,6 +358,7 @@
       "runtimePolicy": "preserve-current-no-formal-promotion",
       "records": [
         "docs/research/xingfuli-east-tier-map-audit.json",
+        "docs/research/xingfuli-east-strict-lineage-reconstruction.json",
         "docs/research/xingfuli-user-photo-sequence-2026-07-26.json"
       ]
     },
