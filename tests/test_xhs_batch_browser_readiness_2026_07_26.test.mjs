@@ -90,6 +90,27 @@ test("十份查询合同必须存在，部分执行与未运行状态严格分�
   assert.equal(record.offlineEvidenceCoverage.liveQueryNotRunCount, 8);
   assert.equal(record.offlineEvidenceCoverage.liveQueryPartialCount, 1);
   assert.equal(record.offlineEvidenceCoverage.runtimeDisableEligible, false);
+  assert.equal(record.liveEvidenceArchives.length, 1);
+  assert.deepEqual(record.liveEvidenceArchives[0], {
+    assetId: "shanghai-cinema",
+    snapshotId: "2026-07-27-4171c5d",
+    snapshotRoot:
+      "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-27-4171c5d",
+    repositoryRecord:
+      "repository/docs/research/shanghai-cinema-xiaohongshu-live-audit-2026-07-27.json",
+    repositoryRecordSha256:
+      "2253c9357fa2667701bc9ddaaaf413a0105b4cd8582afc4e537227214900b103",
+    manifestSha256:
+      "2fbef578fecb7007f7fec3c03321e1b430a4fdc8f2089f9cfc5d235fc4742cf5",
+    checksumFileSha256:
+      "66189e8408f08780a79c954f210391eea577aba3101a5b2515bfea2399131b3f",
+    declaredFileCount: 1166,
+    declaredByteCount: 477089792,
+    fullChecksumVerification: "pass",
+    sourceWorktreeDirty: false,
+    wikiEligible: false,
+    rawMediaStatus: "not-materialized-browser-connection-interrupted",
+  });
   assert.equal(
     record.externalEvidenceDiscovery.discoveryStatus,
     "u-disk-package-ingested-building-local-map-pending",
