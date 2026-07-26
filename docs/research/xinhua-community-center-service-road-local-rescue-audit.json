@@ -1,0 +1,406 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-community-center",
+  "recordedAt": "2026-07-26",
+  "purpose": "local-only-rescue-of-way-577252269-road-surface-overlap",
+  "baseline": {
+    "worktreeHeadBeforeAudit": "d37449a34b06d5a9f6a462f9a314bff4a8d222fd",
+    "worktreeParent": "ab887bd5f8861ff1e04dba331aa191c4600be4fc",
+    "recoveryHoldCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "heightEnrichmentCommit": "e561538d31d3652aac6bc895a4e9cc29367ea57c",
+    "priorConstraintCommit": "619a02efad089322c4fa8fa753b8a303ae6ce56b",
+    "uncommittedChangesAbsorbed": false
+  },
+  "verdict": {
+    "status": "blocked-local-rescue-exhausted-road-width-and-relation-coverage-unavailable",
+    "overlapResolved": false,
+    "roadWidthOverrideAuthorized": false,
+    "buildingMovementAuthorized": false,
+    "buildingScaleChangeAuthorized": false,
+    "roadRendererChangeAuthorized": false,
+    "massingRebuildAuthorized": false,
+    "heroAuthorized": false,
+    "identityAuthorized": false,
+    "modelingPerformed": false,
+    "reason": "三份独立时间点道路快照与 requested-POIs 原始响应共保存 way 577252269 六次，几何和标签完全一致；唯一标签集合是 highway=service、name=新华路345弄、oneway=no，不含 width、est_width、lanes、access、service 子类、surface 或 maxwidth。全部相关响应都没有 relation 或 members，且仓内没有 OSM full-history、删除记录、测绘、总平或道路宽度图。零缓冲清除压占要求把当前2.5场景单位道路缩到不大于1.6947298546，缩窄32.210806%；该数值仅是反推阈值，不是实测或授权道路宽度。"
+  },
+  "scope": {
+    "included": [
+      "way-577252269-current-and-historical-tags",
+      "three-road-osm-snapshots",
+      "requested-pois-osm-response",
+      "recovery-hold-data-tree",
+      "height-enrichment-data-tree",
+      "all-local-git-history-pickaxe-results",
+      "relation-and-member-serialization",
+      "deleted-visible-and-full-history-markers",
+      "local-authoritative-site-or-road-plan-search",
+      "existing-overlap-math",
+      "existing-community-center-glb-read-only-audit"
+    ],
+    "excludedAndHeld": [
+      "network",
+      "browser",
+      "xiaohongshu",
+      "blender",
+      "model-generation",
+      "model-rebuild",
+      "building-translation",
+      "building-rescale",
+      "road-width-change",
+      "road-renderer",
+      "runtime",
+      "registry",
+      "public-fast-manifest",
+      "exact-status",
+      "other-buildings",
+      "trees",
+      "vegetation",
+      "decoration",
+      "full-map-assets"
+    ],
+    "networkAccessed": false,
+    "browserAccessed": false,
+    "blenderOpened": false,
+    "modelBinaryModified": false,
+    "sharedRuntimeModified": false
+  },
+  "sourceShaPolicy": {
+    "currentFileImmutable": [
+      "priorSemanticsRecord",
+      "priorFinalGapAudit",
+      "massingMapGate",
+      "osmBinding",
+      "referenceManifest",
+      "massingBuildRecord",
+      "massingGlb",
+      "legacyHeroGlb",
+      "frontReference",
+      "toyHouseReference"
+    ],
+    "baselineGitBlobSnapshot": [
+      "roadSnapshot0550",
+      "roadSnapshot0636",
+      "roadSnapshot0803",
+      "requestedPoisSnapshot",
+      "mapData",
+      "roadSurfaceContract"
+    ],
+    "historicalGitBlobSnapshot": [
+      "priorMapConstraint"
+    ],
+    "integrationRule": "共享 data、map 与 road contract 只按 baseline Git blob 读取；不锁 integration 当前工作树 SHA，也不要求其回退。只有本栋审计、绑定、参考、build record 与 GLB 可作当前文件不可变输入。"
+  },
+  "sources": {
+    "priorSemanticsRecord": {
+      "path": "docs/research/xinhua-community-center-service-road-semantics-record.md",
+      "sha256": "1575b16e77e9701c2004deb3aeea674afa6ff28089e9718b6605b31d30e0c6e7"
+    },
+    "priorFinalGapAudit": {
+      "path": "docs/research/xinhua-community-center-final-gap-audit.json",
+      "sha256": "68a834a904aa3470a0cc35097d317a0be246b772a424df10a591e5e357b4c1ed"
+    },
+    "massingMapGate": {
+      "path": "docs/research/xinhua-community-center-massing-map-gate.json",
+      "sha256": "86ca0488d175a276c3434fca432d8a4cc7c30b328f4af150ac4ed61265906c57"
+    },
+    "osmBinding": {
+      "path": "docs/research/xinhua-community-center-osm-binding.json",
+      "sha256": "f3d806bc35a955c13099f7ba8996fb29f3ccf3b0b5c9288210632a3d7b70668c"
+    },
+    "referenceManifest": {
+      "path": "docs/research/xinhua-community-center-reference-manifest.json",
+      "sha256": "d9284c077e4f3fc1abe4fcc4ddb424722632e52ddfdcb617de3f5232efcb766e"
+    },
+    "massingBuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.json",
+      "sha256": "b4937ed946175aa47cf4681f5e3b9d704ab59c869e236a2c41732b920162d6c9"
+    },
+    "massingGlb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb",
+      "sha256": "a0609064ec15f0bfeb042ac9013152eda7575205c55bdaf79063cae38c77b471"
+    },
+    "legacyHeroGlb": {
+      "path": "public/models/requested-pois/xinhua-community-center.glb",
+      "sha256": "cc022632a23b796ab049f6f6fc71e9b8cd5985abf8521a3198c2471c3c41b2cd"
+    },
+    "frontReference": {
+      "path": "docs/research/assets/requested-poi-references/xinhua-community-center-front.jpg",
+      "sha256": "6f8c977a478b07769294af6299fec41b5e269ad11da3446681046e15d366c6bf"
+    },
+    "toyHouseReference": {
+      "path": "docs/research/assets/requested-poi-references/xinhua-community-center-toy-house.jpg",
+      "sha256": "9441bdc22d03c664282a853b5adbabba68f99930243d9f924d06676dfb392cf5"
+    },
+    "roadSnapshot0550": {
+      "commit": "d37449a34b06d5a9f6a462f9a314bff4a8d222fd",
+      "path": "docs/research/data/xinhua-roads-osm-20260716.json",
+      "gitBlob": "4174c3d57302d31c3bc1221163a0ff2378c2e7f2"
+    },
+    "roadSnapshot0636": {
+      "commit": "d37449a34b06d5a9f6a462f9a314bff4a8d222fd",
+      "path": "docs/research/data/xinhua-roads-osm-20260716-063706.json",
+      "gitBlob": "f4723b3bc3f5c12e0bc334bffd9995ee037e8fd3"
+    },
+    "roadSnapshot0803": {
+      "commit": "d37449a34b06d5a9f6a462f9a314bff4a8d222fd",
+      "path": "docs/research/data/xinhua-roads-osm-20260716-080509.json",
+      "gitBlob": "589165400dc85c0a095b8b9a5da0ef644857208a"
+    },
+    "requestedPoisSnapshot": {
+      "commit": "d37449a34b06d5a9f6a462f9a314bff4a8d222fd",
+      "path": "docs/research/data/requested-pois-osm-20260717-103840.json",
+      "gitBlob": "8f2bfd06b8102eaea2638f18f62bd70a69972a51"
+    },
+    "mapData": {
+      "commit": "d37449a34b06d5a9f6a462f9a314bff4a8d222fd",
+      "path": "app/scene/xinhua-map-data.json",
+      "gitBlob": "2a799f94c54b6eee481acfc0f8a99c263984953d"
+    },
+    "roadSurfaceContract": {
+      "commit": "d37449a34b06d5a9f6a462f9a314bff4a8d222fd",
+      "path": "app/scene/road-surface-contract.ts",
+      "gitBlob": "06d232dcbaadb0b1312b32d0f3fdd71718edbbb9"
+    },
+    "priorMapConstraint": {
+      "commit": "619a02efad089322c4fa8fa753b8a303ae6ce56b",
+      "path": "docs/research/xinhua-community-center-map-candidate.json",
+      "gitBlob": "1b1c478a40edacf2c5a5b80fb41a5dbb073c0007"
+    }
+  },
+  "corpusInventory": {
+    "fixedTreeCommits": [
+      "d37449a34b06d5a9f6a462f9a314bff4a8d222fd",
+      "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+      "e561538d31d3652aac6bc895a4e9cc29367ea57c"
+    ],
+    "currentTrackedDataFiles": 16,
+    "recoveryHoldDataFiles": 17,
+    "heightEnrichmentDataFiles": 29,
+    "unionDataPaths": 31,
+    "unionUniqueGitBlobs": 30,
+    "unionUniqueBlobBytes": 14539890,
+    "canonicalObjectPathManifestSha256": "6b94e960886b83b80127d5a88240c896e33e38a373656786b22a1beb96575ae4",
+    "targetRoadBearingDataBlobs": 4,
+    "targetRoadBearingDataBlobObjects": [
+      "4174c3d57302d31c3bc1221163a0ff2378c2e7f2",
+      "589165400dc85c0a095b8b9a5da0ef644857208a",
+      "8f2bfd06b8102eaea2638f18f62bd70a69972a51",
+      "f4723b3bc3f5c12e0bc334bffd9995ee037e8fd3"
+    ],
+    "currentTrackedRawFixtureCacheFiles": 0
+  },
+  "repositoryHistoryInventory": {
+    "preAuditTargetRoadHistoryPaths": 18,
+    "preAuditTargetRoadBlobPathPairs": 36,
+    "rawRoadPathBlobVersions": {
+      "docs/research/data/xinhua-roads-osm-20260716.json": 1,
+      "docs/research/data/xinhua-roads-osm-20260716-063706.json": 1,
+      "docs/research/data/xinhua-roads-osm-20260716-080509.json": 1,
+      "docs/research/data/requested-pois-osm-20260717-103840.json": 1
+    },
+    "preAuditCommunityCenterNamedHistoricalPaths": 50,
+    "authoritativeSiteOrRoadPlanArtifactsFound": 0,
+    "communityCenterPdfCadGeoTiffOrOrthophotoArtifactsFound": 0,
+    "interpretation": "Git pickaxe 找到的其他 target-road blob 都是项目作者派生的 map、审计、build record、测试或生成器；原始道路证据仍只有四个不可变 data blob。"
+  },
+  "rawRoadEvidence": {
+    "roadWayId": 577252269,
+    "name": "新华路345弄",
+    "snapshots": [
+      {
+        "source": "roadSnapshot0550",
+        "timestampOsmBase": "2026-07-16T05:50:07Z",
+        "totalWays": 367,
+        "targetOccurrences": 1
+      },
+      {
+        "source": "roadSnapshot0636",
+        "timestampOsmBase": "2026-07-16T06:36:02Z",
+        "totalWays": 367,
+        "targetOccurrences": 1
+      },
+      {
+        "source": "roadSnapshot0803",
+        "timestampOsmBase": "2026-07-16T08:03:07Z",
+        "totalWays": 698,
+        "targetOccurrences": 1
+      },
+      {
+        "source": "requestedPoisSnapshot",
+        "timestampOsmBase": "2026-07-17T10:37:11Z",
+        "totalNodesAcrossTargetResponses": 24,
+        "totalWaysAcrossTargetResponses": 282,
+        "targetOccurrences": 3,
+        "containingQueryTargets": [
+          "xinhua-pocket-park",
+          "xinhua-community-center",
+          "fics-xinhua-365"
+        ]
+      }
+    ],
+    "totalTargetOccurrences": 6,
+    "uniqueGeometryVariants": 1,
+    "uniqueTagVariants": [
+      {
+        "highway": "service",
+        "name": "新华路345弄",
+        "oneway": "no"
+      }
+    ],
+    "missingWidthAndUseTags": [
+      "width",
+      "est_width",
+      "lanes",
+      "access",
+      "service",
+      "surface",
+      "maxwidth",
+      "vehicle"
+    ],
+    "onewayNoCanDetermineWidth": false,
+    "highwayServiceCanDetermineActualWidth": false,
+    "serviceSubclassKnown": false,
+    "surfaceKnown": false,
+    "actualPavedWidthKnown": false,
+    "centerlineOffsetKnown": false
+  },
+  "relationAndHistoryCoverage": {
+    "roadSnapshotElementTypes": [
+      "way"
+    ],
+    "requestedPoisElementTypes": [
+      "node",
+      "way"
+    ],
+    "relationElementsObserved": 0,
+    "serializedMemberArraysObserved": 0,
+    "parentRelationReferencesToWay577252269": 0,
+    "parentRelationCoverage": "unavailable-source-responses-do-not-include-relations-or-members",
+    "osmElementVersionFieldsFoundForTarget": 0,
+    "changesetFieldsFoundForTarget": 0,
+    "visibleFalseMarkersFoundForTarget": 0,
+    "deletedMarkersFoundForTarget": 0,
+    "osmFullHistoryArtifactsFound": 0,
+    "historicalTagDeletionVerdict": "no-local-deletion-evidence-but-full-history-unavailable",
+    "forbiddenInference": "Zero relation/member or deleted-tag hits cannot prove absence because the local responses are snapshots without parent-relation or version history coverage."
+  },
+  "localPlanAndPhotoEvidence": {
+    "selectedPrimaryReferenceImages": 2,
+    "authoritativeSitePlans": 0,
+    "authoritativeRoadPlans": 0,
+    "surveyOrCadastralPlans": 0,
+    "geolocatableOrthophotosWithScale": 0,
+    "frontReference": {
+      "path": "docs/research/assets/requested-poi-references/xinhua-community-center-front.jpg",
+      "observed": [
+        "building-4-front-and-entrance",
+        "paved-surface-immediately-outside-entrance"
+      ],
+      "missingForWidth": [
+        "opposite-road-edge",
+        "full-carriageway-cross-section",
+        "known-size-road-plane-control",
+        "orthorectification",
+        "surveyed-centerline-offset"
+      ],
+      "canAuthorizeWidth": false
+    },
+    "toyHouseReference": {
+      "scope": "separate-site-structure-excluded-from-building-4",
+      "canAuthorizeRoadWidth": false
+    },
+    "referenceManifestUnknown": "新华路345弄的实际路面宽度"
+  },
+  "overlapConstraint": {
+    "buildingWayId": 864493234,
+    "roadWayId": 577252269,
+    "metersPerSceneUnit": 2.7,
+    "currentRenderedFullWidthSceneUnits": 2.5,
+    "currentRenderedFullWidthMeters": 6.75,
+    "currentRenderedHalfWidthSceneUnits": 1.25,
+    "buildingBoundaryToCenterlineSceneUnits": 0.8473649273117979,
+    "buildingBoundaryToCenterlineMeters": 2.2878853037418545,
+    "asphaltOverlapSceneUnits": 0.4026350726882021,
+    "asphaltOverlapMeters": 1.0871146962581457,
+    "zeroBufferMaximumFullWidthSceneUnits": 1.6947298546235958,
+    "zeroBufferMaximumFullWidthMeters": 4.575770607483709,
+    "requiredFullWidthReductionSceneUnits": 0.8052701453764042,
+    "requiredFullWidthReductionMeters": 2.1742293925162913,
+    "requiredFullWidthReductionPercent": 32.21080581505616,
+    "pointTwoMarginMaximumFullWidthSceneUnits": 1.2947298546235957,
+    "pointTwoMarginMaximumFullWidthMeters": 3.4957706074837085,
+    "thresholdIsAuthorizedWidth": false,
+    "interpretation": "1.6947298546 只是零缓冲不相交所需上限；没有本地证据证明实际道路宽度小于等于该值。"
+  },
+  "evidenceClassification": {
+    "observed": [
+      "三份道路快照和 requested-POIs 响应中的六条目标记录具有完全相同的四点几何与三项标签。",
+      "目标 way 没有 width、est_width、lanes、access、service、surface、maxwidth 或 vehicle 标签。",
+      "相关原始响应没有 relation、members、version、changeset、visible=false 或 deleted 记录。",
+      "当前共享 service road contract 将该道路渲染为2.5场景单位宽。",
+      "建筑 footprint 到中心线只有0.8473649273场景单位，当前柏油压占0.4026350727。",
+      "社区中心历史资产只有两张来源照片，没有道路或场地总平。"
+    ],
+    "authorClaimed": [
+      "命名支路是新华路345弄。",
+      "新华社区营造中心位于新华路345弄4号楼。"
+    ],
+    "inferred": [
+      "way 577252269 是4号楼前方支路中心线。",
+      "正面照片中的近侧铺装与该支路空间相容，但不能量化完整道路宽度。",
+      "若真实 full width 不大于4.5757706075米，零缓冲几何可不相交；这不是宽度事实。"
+    ],
+    "unknown": [
+      "实际柏油或车行道 full width。",
+      "道路中心线是否相对铺装表面偏置。",
+      "路缘、排水沟、人行边界或共享空间边界。",
+      "parent relation membership。",
+      "way 历史上是否曾有后又删除 width、lanes、access、service 或 surface 标签。"
+    ]
+  },
+  "formalDisposition": {
+    "status": "not-promotable-from-repository-local-evidence",
+    "localRescueExhausted": true,
+    "formalRoadSurfaceAcceptance": "blocked",
+    "formalMapAcceptance": "blocked",
+    "diagnosticMassingRetention": "allowed-unchanged",
+    "massingRebuildAuthorized": false,
+    "buildingTransformChangeAuthorized": false,
+    "roadContractChangeAuthorized": false,
+    "heroAuthorized": false,
+    "identityAuthorized": false,
+    "runtimePromotionAllowed": false,
+    "forbiddenActions": [
+      "narrow-service-road-to-geometric-threshold-without-evidence",
+      "infer-lane-count-from-oneway-no",
+      "infer-private-driveway-from-highway-service",
+      "move-or-scale-building-to-clear-road",
+      "change-road-renderer-or-registry",
+      "rebuild-model-to-hide-overlap",
+      "treat-zero-relation-hits-as-complete-coverage"
+    ]
+  },
+  "minimumEvidenceToChangeDisposition": {
+    "preferredLocalImport": "OSM full-history plus complete parent relation/member dump for way 577252269, preserving version, timestamp, changeset, visible/deleted state and all width/use/surface tags.",
+    "preferredAuthoritativeArtifact": "A surveyed, cadastral, owner or architect site/road plan at the Building 4 frontage showing both road edges, centerline or dimension chain and a scale.",
+    "acceptableMeasuredEvidence": "A geolocatable orthophoto or field measurement with documented scale, both road edges and uncertainty small enough to distinguish 4.5757706075 metres from the current 6.75 metre rendering.",
+    "minimumFields": [
+      "measurement-location-at-building-4-frontage",
+      "full-paved-or-carriageway-width",
+      "both-road-edges",
+      "centerline-or-offset",
+      "source-provenance",
+      "capture-or-survey-date",
+      "measurement-uncertainty"
+    ],
+    "notEnoughAlone": [
+      "highway-service",
+      "oneway-no",
+      "unnumbered-lane-photo",
+      "runtime-collision-pass",
+      "zero-overlap-derived-threshold",
+      "generic-service-road-style"
+    ]
+  }
+}
