@@ -68,6 +68,7 @@
         "tests/test_one_step_garden_identity_v1.test.mjs",
         "tests/test_one_step_garden_massing_map_gate.test.mjs",
         "tests/test_one_step_garden_runtime_tiers.test.mjs",
+        "tests/test_one_step_garden_final_gap.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
@@ -87,6 +88,7 @@
       "tests": [
         "tests/test_building_massing_qa_contract.test.mjs",
         "scripts/test_xinhua_villas_211_massing_map_gate.mjs",
+        "tests/test_xinhua_villas_211_final_gap.test.mjs",
         "tests/test_model_detail_upgrade.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -127,6 +129,7 @@
         "tests/test_house_315_hero_v2.test.mjs",
         "tests/test_house_315_identity_v1.test.mjs",
         "tests/test_house_315_map_position_candidate.test.mjs",
+        "tests/test_house_315_final_audit.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [

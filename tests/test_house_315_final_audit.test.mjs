@@ -10,7 +10,6 @@ import {
 } from "../app/scene/house-315-tier-contract.mjs";
 
 const root = new URL("../", import.meta.url);
-const auditPath = new URL("docs/research/house-315-final-audit.json", root);
 
 async function readJson(path) {
   return JSON.parse(await readFile(new URL(path, root), "utf8"));
