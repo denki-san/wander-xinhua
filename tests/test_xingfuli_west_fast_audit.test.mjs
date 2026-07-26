@@ -257,7 +257,7 @@ test("Xingfuli West 三档 GLB、Blend 与历史 build record 保持锁定", asy
   assert.equal(audit.scope.existingAcceptedTiersRebuilt, false);
   assert.equal(audit.lineage.recoveryCommit, "3044cd89f801250afcd477dfbcbc7da358bf4b11");
   assert.equal(audit.lineage.gitBlobEquality.length, 12);
-  assert.match(audit.lineage.status, /^pass-/);
+  assert.equal(audit.lineage.status, "blocked-formal-lineage-proof");
 
   for (const [key, relativePath] of Object.entries(sourcePaths)) {
     assert.equal(await sha256(relativePath), audit.lineage.sourceSha256[key]);

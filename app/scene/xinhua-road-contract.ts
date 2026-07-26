@@ -1,6 +1,6 @@
 import type { MapObstacle, MapPolygonPoint } from "./world-math";
 import { XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES } from "./xinhua-road-placement.mjs";
-import { resolveBuildingMassingQa } from "./building-massing-qa-contract.mjs";
+import { resolveBuildingTierQa } from "./building-massing-qa-contract.mjs";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
 
 export type LandmarkPlacement = {
@@ -17,11 +17,6 @@ export type LandmarkPlacement = {
   localBounds: MapObstacle;
   localObstacles?: MapObstacle[];
   collisionMargin?: number;
-  legacyObstacleSuppressions?: readonly {
-    assetId: string;
-    obstacleIndexes: readonly number[];
-    reason: string;
-  }[];
   start: MapPolygonPoint;
   forward: MapPolygonPoint;
   cameraTargetHeight?: number;
@@ -37,11 +32,6 @@ export const XINHUA_ROAD_LANDMARKS =
 type BuildingMassingQaCandidate = {
   assetId: string;
   collisionMargin?: number;
-  legacyObstacleSuppressions?: readonly {
-    assetId: string;
-    obstacleIndexes: readonly number[];
-    reason: string;
-  }[];
   placement?: {
     position: readonly [number, number];
     yaw: number;
@@ -54,7 +44,7 @@ type BuildingMassingQaCandidate = {
   localObstacles?: readonly MapObstacle[];
 };
 
-const ACTIVE_BUILDING_MASSING_QA = resolveBuildingMassingQa(
+const ACTIVE_BUILDING_MASSING_QA = resolveBuildingTierQa(
   typeof window === "undefined" ? "" : window.location.search,
 ) as BuildingMassingQaCandidate | null;
 
@@ -100,11 +90,34 @@ function splitPocketParkWallObstacle(
   }));
 }
 
+function splitObstacleAlongSourceX(
+  obstacle: MapObstacle,
+  maximumSourceLength = 0.75,
+) {
+  const length = obstacle.maxX - obstacle.minX;
+  const segmentCount = Math.max(1, Math.ceil(length / maximumSourceLength));
+  const segmentLength = length / segmentCount;
+  return Array.from({ length: segmentCount }, (_, index) => ({
+    minX: obstacle.minX + segmentLength * index,
+    maxX: obstacle.minX + segmentLength * (index + 1),
+    minZ: obstacle.minZ,
+    maxZ: obstacle.maxZ,
+  }));
+}
+
 function collisionObstaclesForLandmark(
   landmark: LandmarkPlacement,
   inputObstacles?: readonly MapObstacle[],
 ) {
   const obstacles = inputObstacles ?? landmark.localObstacles ?? [landmark.localBounds];
+  if (landmark.id === "fics-xinhua-365") {
+    // FICS 旧模型第三段是 23 × 1.2 的旋转长墙。整段转成 world AABB
+    // 会膨胀到相距 8.248 场景单位的口袋公园；沿源 X 轴切片后仍保留
+    // 同一实体墙，只消除旋转 AABB 的假碰撞，不再依赖 QA-only suppression。
+    return obstacles.flatMap((obstacle, index) => (
+      index === 2 ? splitObstacleAlongSourceX(obstacle) : [obstacle]
+    ));
+  }
   if (landmark.id !== "xinhua-pocket-park") return obstacles;
   // 口袋公园是宽约 3.23 米的斜向窄廊。把两面长镜墙切片，避免旋转后的
   // 轴对齐碰撞盒把真实可走的中央路径封死。
@@ -125,11 +138,8 @@ export const XINHUA_ROAD_OBSTACLES: MapObstacle[] = XINHUA_ROAD_LANDMARKS.flatMa
           localObstacles: [...qaActive.localObstacles],
         }
       : landmark;
-    const suppression = ACTIVE_BUILDING_MASSING_QA?.legacyObstacleSuppressions
-      ?.find(({ assetId }) => assetId === landmark.id);
-    const localObstacles = (
-      collisionPlacement.localObstacles ?? [collisionPlacement.localBounds]
-    ).filter((_, index) => !suppression?.obstacleIndexes.includes(index));
+    const localObstacles =
+      collisionPlacement.localObstacles ?? [collisionPlacement.localBounds];
     return collisionObstaclesForLandmark(
       collisionPlacement,
       localObstacles,

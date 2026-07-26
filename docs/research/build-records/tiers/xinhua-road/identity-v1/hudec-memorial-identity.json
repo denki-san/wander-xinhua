@@ -1,0 +1,298 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-26",
+  "assetId": "hudec-memorial",
+  "tier": "identity",
+  "versionName": "identity-v1",
+  "status": "identity-v1-runtime-pass",
+  "generator": {
+    "path": "scripts/create_hudec_memorial_identity_v1.py",
+    "sha256": "728189fd4c2fdadbb619d9c2573fa710cd36e6fba6f2935cfbca67c019d5c615",
+    "bytes": 24443
+  },
+  "buildCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --factory-startup --python-exit-code 1 --python scripts/create_hudec_memorial_identity_v1.py",
+  "blenderVersion": "5.2.0 LTS",
+  "derivedFrom": {
+    "heroMcp2": "pass-main-window-xhigh",
+    "heroMcp2Record": {
+      "path": "docs/research/hudec-memorial-blender-mcp-gates-v2.json",
+      "sha256": "45d97bf5800e82cf55afa2947b97e20ececb9667fcda59c6ea4b56442c1598a3",
+      "bytes": 3275
+    },
+    "heroBuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/hero/hudec-memorial-v2-hero.json",
+      "sha256": "da07f28999f87de3ee5e2be50769bdfa4503af6edf932eec02738b9d3b9e07ef",
+      "bytes": 9681
+    },
+    "heroGenerator": {
+      "path": "scripts/create_hudec_memorial_v2.py",
+      "sha256": "aa09dabb3017a521025e6c2a46b8fe4e1acc31713fab21973049fe69de56c82c",
+      "bytes": 22896
+    },
+    "heroEditableSource": {
+      "path": "assets/models/source/requested-pois/hudec-memorial-v2-hero.blend",
+      "sha256": "4fe426b4a670ad3f2bd50f020195b366599a100b11cfc0f83bfdc6fb8b50b28d",
+      "bytes": 378076
+    },
+    "heroRuntimeAsset": {
+      "path": "public/models/requested-pois/hudec-memorial-v2-hero.glb",
+      "sha256": "598b2ba19e2412d7a592836d45066c787a7cf1eac347a6a6c5d790c12ffabff5",
+      "bytes": 1565920
+    },
+    "heroGlbSha256": "598b2ba19e2412d7a592836d45066c787a7cf1eac347a6a6c5d790c12ffabff5",
+    "method": "sha-pinned-frozen-hero-parameter-subset-reconstruction"
+  },
+  "continuity": {
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "frontDirection": "-Y",
+    "groundDatum": 0.0,
+    "authoredUnitMeters": 2.7,
+    "authoredScale": 0.72,
+    "runtimePosition": [
+      92.535374,
+      -132.52181
+    ],
+    "runtimeYaw": 0.153486288,
+    "runtimeScale": 0.88,
+    "passageContract": "shared-split-obstacles-entrance-clear",
+    "heroBounds": {
+      "min": [
+        -5.111999988555908,
+        -0.021600008010864258,
+        -3.8520002365112305
+      ],
+      "max": [
+        5.098609447479248,
+        8.978399276733398,
+        3.756000518798828
+      ]
+    },
+    "identityBounds": {
+      "min": [
+        -4.968,
+        0,
+        -3.8196
+      ],
+      "max": [
+        5.076,
+        8.978399,
+        3.756001
+      ]
+    },
+    "mapContractChanged": false
+  },
+  "identityCues": {
+    "preserved": [
+      "steep-layered-main-end-and-porch-roofs",
+      "front-and-rear-dormers-with-readable-windows",
+      "wide-front-and-end-gable-half-timber",
+      "three-independent-tall-chimney-flues-and-crowns",
+      "gabled-open-entrance-porch-door-and-steps",
+      "low-glass-west-rear-wing-and-coarse-frame"
+    ],
+    "deliberateLosses": [
+      "dense-roof-ribs",
+      "repeated-fine-window-jamb-sill-cap-and-hardware",
+      "half-of-repeated-front-diagonal-braces",
+      "repeated-chimney-brick-bands",
+      "fine-door-hardware"
+    ]
+  },
+  "scope": {
+    "included": "hudec-memorial-building-identity-only",
+    "excluded": [
+      "trees",
+      "hedges",
+      "planting",
+      "courtyard slab",
+      "street walls",
+      "signage",
+      "lighting",
+      "weathervane and independent decoration",
+      "other buildings",
+      "shared registry",
+      "shared runtime",
+      "Fast manifest"
+    ]
+  },
+  "budget": {
+    "contract": {
+      "maxNodes": 2,
+      "maxMeshes": 2,
+      "maxTriangles": 12000,
+      "maxMaterials": 9,
+      "maxImages": 0,
+      "maxTextures": 0,
+      "maxBytes": 700000
+    },
+    "heroBaseline": {
+      "bytes": 1565920,
+      "triangles": 22760,
+      "materials": 11
+    },
+    "reduction": {
+      "identityToHeroTriangleRatio": 0.313533,
+      "identityToHeroByteRatio": 0.25092,
+      "triangleReductionRatio": 0.686467,
+      "byteReductionRatio": 0.74908,
+      "materialReduction": 3
+    },
+    "status": "pass"
+  },
+  "determinism": {
+    "previousGlbSha256": "867f336824f62eb2dddcb54d4dede6904278a0bcd940997df6c06278bf35660f",
+    "currentGlbSha256": "867f336824f62eb2dddcb54d4dede6904278a0bcd940997df6c06278bf35660f",
+    "sameGlbSha256": true,
+    "status": "pass-two-consecutive-runs-byte-identical"
+  },
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/identity-v1/hudec-memorial-identity.blend",
+      "sha256": "6bbc6254b5fea70b09e281b45a540f4290375c55f43b9c94f31a1109cb538551",
+      "bytes": 194938
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/identity-v1/hudec-memorial-identity.glb",
+      "sha256": "867f336824f62eb2dddcb54d4dede6904278a0bcd940997df6c06278bf35660f",
+      "bytes": 392920,
+      "nodes": 1,
+      "meshes": 1,
+      "primitives": 8,
+      "triangles": 7136,
+      "materials": 8,
+      "materialNames": [
+        "HudecIdentity_WarmPlaster",
+        "HudecIdentity_MutedRoofTile",
+        "HudecIdentity_DarkTimber",
+        "HudecIdentity_DeepGlass",
+        "HudecIdentity_RedBrick",
+        "HudecIdentity_WindowFrame",
+        "HudecIdentity_EntranceWood",
+        "HudecIdentity_EntranceStone"
+      ],
+      "images": 0,
+      "textures": 0,
+      "animations": 0,
+      "skins": 0,
+      "bounds": {
+        "min": [
+          -4.968,
+          0,
+          -3.8196
+        ],
+        "max": [
+          5.076,
+          8.978399,
+          3.756001
+        ]
+      },
+      "transformedNodes": [],
+      "rootExtras": {
+        "degenerate_face_area_epsilon": 1e-10,
+        "degenerate_faces_removed": 0,
+        "stable_asset_id": "hudec-memorial",
+        "quality_tier": "identity-v1",
+        "derived_from_hero_glb_sha256": "598b2ba19e2412d7a592836d45066c787a7cf1eac347a6a6c5d790c12ffabff5",
+        "derived_from_mcp2_record_sha256": "45d97bf5800e82cf55afa2947b97e20ececb9667fcda59c6ea4b56442c1598a3",
+        "authored_unit_meters": 2.7,
+        "authored_scale": 0.72,
+        "front_direction": "-Y",
+        "ground_datum": 0.0,
+        "runtime_position": [
+          92.535374,
+          -132.52181
+        ],
+        "runtime_yaw": 0.153486288,
+        "runtime_scale": 0.88,
+        "passage_contract": "shared-split-obstacles-entrance-clear",
+        "source_parts": 132,
+        "generator": "scripts/create_hudec_memorial_identity_v1.py"
+      }
+    }
+  },
+  "previews": {
+    "canonical": {
+      "path": "test_artifacts/all-models/identity-v1/hudec-memorial/test_hudec-memorial-identity-v1_canonical.png",
+      "sha256": "7126187a5d1792355e719b5c9bc9aeb0ed4b238855ef9cb088e3a2bfc68e875c",
+      "bytes": 749112,
+      "camera": {
+        "location": [
+          -15.5,
+          23.0,
+          12.0
+        ],
+        "target": [
+          -0.1,
+          1.0,
+          4.45
+        ],
+        "lensMm": 56
+      },
+      "visualReview": "pass-identity-cues-readable"
+    },
+    "side": {
+      "path": "test_artifacts/all-models/identity-v1/hudec-memorial/test_hudec-memorial-identity-v1_side.png",
+      "sha256": "986767a116b5c76ccaf7118faefb05d6b1d382dd73eb01415b1e360f96174f5a",
+      "bytes": 747080,
+      "camera": {
+        "location": [
+          21.0,
+          17.0,
+          10.8
+        ],
+        "target": [
+          -0.8,
+          1.2,
+          4.35
+        ],
+        "lensMm": 54
+      },
+      "visualReview": "pass-layered-roof-dormer-and-end-gable-readable"
+    },
+    "entrance": {
+      "path": "test_artifacts/all-models/identity-v1/hudec-memorial/test_hudec-memorial-identity-v1_entrance.png",
+      "sha256": "43bcf0bf1038ea8b85d7b0c7ee7dca2dc17d40f1d7607ebe83891705fb145837",
+      "bytes": 793534,
+      "camera": {
+        "location": [
+          8.2,
+          -17.0,
+          6.2
+        ],
+        "target": [
+          1.3,
+          -1.35,
+          2.55
+        ],
+        "lensMm": 58
+      },
+      "visualReview": "pass-half-timber-and-entrance-readable"
+    }
+  },
+  "triptych": {
+    "path": "test_artifacts/all-models/identity-v1/hudec-memorial/test_hudec-memorial-identity-v1_reference_blender_threejs_triptych.png",
+    "sha256": "c22f4551e4edfaf66e81007a008d8f4c85a5f54552005ce280988bdbef50e69f",
+    "bytes": 543051,
+    "dimensions": [
+      1680,
+      478
+    ],
+    "status": "generated-after-final-headless-run",
+    "thirdPanel": "explicit-main-window-mcp3-and-threejs-pending-slate"
+  },
+  "validation": {
+    "headlessBuild": "pass",
+    "glbAudit": "pass-internal",
+    "fixedViews": "pass-medium-building-window",
+    "mcp3": "pass-main-window-xhigh",
+    "mcp3Record": "docs/research/hudec-memorial-blender-mcp3-gate-v1.json",
+    "threeJs": "pass-main-window-single-page",
+    "threeJsRecord": "docs/research/hudec-memorial-three-tier-runtime-qa-v1.json",
+    "performanceClaim": "pass-current-build-no-regression-claim",
+    "overall": "identity-v1-runtime-pass"
+  }
+}

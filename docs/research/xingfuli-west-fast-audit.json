@@ -3,8 +3,8 @@
   "assetId": "xingfuli-west",
   "label": "幸福里·西区",
   "auditedAt": "2026-07-26",
-  "baseCommit": "406f584be9dc036b4ab441ce5639ad00d127de4a",
-  "branch": "codex/building-xingfuli-west-fast",
+  "baseCommit": "6d2dc2a",
+  "branch": "codex/building-xingfuli-west-map-collision-fast",
   "status": "blocked-map-road-clearance-awaiting-shared-fix",
   "scope": {
     "existingAcceptedTiersRebuilt": false,
@@ -14,10 +14,34 @@
     "treesDecorationsFullMapOrHoldModified": false
   },
   "lineage": {
-    "status": "pass-shared-deterministic-stage-superset",
+    "status": "blocked-formal-lineage-proof",
+    "reconstructionRecord": "docs/research/xingfuli-west-lineage-reconstruction-2026-07-26.json",
     "recoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
-    "relationship": "当前提交与 Recovery/Hold 中的 west 三档 GLB、Blend、生成器、Brief、参考清单和三份 build record 逐项为同一 Git blob；Identity 与 Hero 由同一确定性生成器的阶段分支产生，Hero 保留 Identity 构件并增加材质/场地细节。",
+    "relationship": "当前提交与 Recovery/Hold 中的 west 三档 GLB、Blend、生成器、Brief、参考清单和三份 build record 逐项为同一 Git blob；这只证明资产保留与共同确定性来源，不证明 Identity 或 Massing 从最终 Hero 二进制派生。",
     "formalDerivedFromHeroField": "historical-record-missing-not-invented",
+    "historicalBuildOrder": [
+      {
+        "tier": "massing",
+        "generatedAt": "2026-07-22T23:51:00+08:00"
+      },
+      {
+        "tier": "identity",
+        "generatedAt": "2026-07-23T00:26:00+08:00"
+      },
+      {
+        "tier": "hero",
+        "generatedAt": "2026-07-23T01:40:30+08:00"
+      }
+    ],
+    "strictVerdict": {
+      "existingBinariesRetained": true,
+      "formalHeroToIdentityProof": false,
+      "formalHeroToMassingProof": false,
+      "formalIdentityToMassingProof": false,
+      "assetQualityFailure": false,
+      "rebuildAuthorized": false,
+      "requiredResolution": "禁止给现有三档回填 derivedFrom；保留既有资产，并在未来新 candidate 路径以精确 Hero/Identity SHA 逐级派生、双构建验证后再讨论 promotion。"
+    },
     "blendVerification": {
       "filePresenceAndSha256": "pass-all-three-tiers",
       "recoveryGitBlobEquality": "pass-all-three-tiers",
@@ -395,7 +419,7 @@
   "gates": {
     "evidence": "pass-west-road-views-added",
     "heroIdentityMassing": "pass-retained-existing-sha-and-records",
-    "lineage": "pass-shared-generator-superset-with-historical-field-caveat",
+    "lineage": "blocked-formal-lineage-proof",
     "map": "blocked-road-clearance",
     "startCamera": "pass-static-contract",
     "blenderMcpBatchFinalReview": "pending-main-window-no-rebuild",

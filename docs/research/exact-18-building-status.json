@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 1,
+  "snapshotAt": "2026-07-26T15:50:00+08:00",
+  "snapshotBaseCommit": "34ff7b8",
+  "scope": {
+    "mode": "exact-18-building-fast-mode",
+    "buildingCount": 18,
+    "sharedFileOwner": "main-window-only",
+    "outOfScopePolicy": "hold-preserve-no-delete-no-overwrite",
+    "excluded": [
+      "trees",
+      "street furniture",
+      "decorations",
+      "full-map new assets",
+      "ordinary OSM massing",
+      "extra Shangsheng or Huashan buildings",
+      "Recovery/Hold shared runtime drafts"
+    ]
+  },
+  "summary": {
+    "complete": 5,
+    "inProgress": 0,
+    "blockedOrPartial": 13,
+    "completeIds": [
+      "one-step-garden",
+      "house-315",
+      "hudec-memorial",
+      "xinhua-pocket-park",
+      "sun-ke-villa"
+    ],
+    "inProgressIds": []
+  },
+  "buildings": [
+    {
+      "id": "shanghai-cinema",
+      "name": "上海影城",
+      "evidence": "pass-multi-view",
+      "hero": "pass",
+      "identity": "pass-hybrid",
+      "massing": "pass",
+      "mcp1": "pass",
+      "mcp2": "pass",
+      "mcp3": "pass",
+      "map": "blocked-exact-subject-anchor",
+      "threeJs": "pass-three-tier-retained",
+      "overall": "blocked-map-anchor-and-hero-reproduction",
+      "runtimePolicy": "preserve-current-no-map-promotion",
+      "records": [
+        "docs/research/shanghai-cinema-final-audit-2026-07-26.json",
+        "docs/research/shanghai-cinema-map-calibration-2026-07-26.json"
+      ]
+    },
+    {
+      "id": "film-art-center",
+      "name": "上海电影艺术中心",
+      "evidence": "pass",
+      "hero": "pass",
+      "identity": "pass",
+      "massing": "pass-current-hero-lineage",
+      "mcp1": "pass",
+      "mcp2": "pass",
+      "mcp3": "pass",
+      "map": "blocked-internal-osm-road-semantics",
+      "threeJs": "pass-three-tier-candidate",
+      "overall": "blocked-internal-road-semantics",
+      "runtimePolicy": "preserve-current-no-map-promotion",
+      "records": [
+        "docs/research/film-art-center-final-audit-2026-07-26.json",
+        "docs/research/film-art-center-map-candidate-v2.json"
+      ]
+    },
+    {
+      "id": "one-step-garden",
+      "name": "一尺花园",
+      "evidence": "pass",
+      "hero": "pass",
+      "identity": "pass",
+      "massing": "pass",
+      "mcp1": "pass",
+      "mcp2": "pass",
+      "mcp3": "pass",
+      "map": "pass",
+      "threeJs": "pass-three-tier-fallback-performance-collision",
+      "overall": "complete",
+      "runtimePolicy": "production",
+      "records": [
+        "docs/research/one-step-garden-final-gap-audit.json"
+      ]
+    },
+    {
+      "id": "xinhua-villas-211",
+      "name": "新华别墅211弄",
+      "evidence": "massing-pass-hero-blocked-member-depth-binding",
+      "hero": "hold-invalid-lineage",
+      "identity": "missing",
+      "massing": "pass",
+      "mcp1": "pass",
+      "mcp2": "blocked",
+      "mcp3": "blocked",
+      "map": "pass-massing",
+      "threeJs": "pass-massing-only",
+      "overall": "blocked-hero-lineage-and-identity",
+      "runtimePolicy": "massing-only-no-tier-promotion",
+      "records": [
+        "docs/research/xinhua-villas-211-final-gap-audit.json",
+        "docs/research/xinhua-villas-211-three-tier-final-disposition.json",
+        "docs/research/xinhua-villas-211-hero-readiness-adjudication.json"
+      ]
+    },
+    {
+      "id": "xinhua-villas-329",
+      "name": "新华别墅329弄",
+      "evidence": "massing-pass-hero-blocked-depth-and-authoritative-binding",
+      "hero": "hold-cross-asset",
+      "identity": "missing",
+      "massing": "pass",
+      "mcp1": "pass",
+      "mcp2": "blocked",
+      "mcp3": "blocked",
+      "map": "pass",
+      "threeJs": "pass-massing-performance-collision",
+      "overall": "massing-complete-hero-identity-blocked",
+      "runtimePolicy": "massing-only-no-tier-promotion",
+      "records": [
+        "docs/research/xinhua-villas-329-final-disposition.json",
+        "docs/research/xinhua-villas-329-threejs-runtime-qa-v2.json",
+        "docs/research/xinhua-villas-329-map-conflict-superseding-adjudication-2026-07-26.md",
+        "docs/research/xinhua-villas-329-hero-readiness-adjudication.json"
+      ]
+    },
+    {
+      "id": "house-315",
+      "name": "新华路315号",
+      "evidence": "pass",
+      "hero": "pass",
+      "identity": "pass",
+      "massing": "pass",
+      "mcp1": "pass",
+      "mcp2": "pass",
+      "mcp3": "pass",
+      "map": "pass",
+      "threeJs": "pass-three-tier-fallback-performance-collision",
+      "overall": "complete",
+      "runtimePolicy": "production",
+      "records": [
+        "docs/research/house-315-final-audit.json"
+      ]
+    },
+    {
+      "id": "villa-le-bec",
+      "name": "哥伦比亚乡村俱乐部",
+      "evidence": "pass-hero-readiness-multi-view",
+      "hero": "blocked-pre-mcp2-visual-mismatch",
+      "identity": "missing",
+      "massing": "pass",
+      "mcp1": "pass",
+      "mcp2": "blocked",
+      "mcp3": "blocked",
+      "map": "pass",
+      "threeJs": "pass-massing-performance-collision",
+      "overall": "blocked-hero-pre-mcp2-visual-mismatch",
+      "runtimePolicy": "massing-only-no-tier-promotion",
+      "records": [
+        "docs/research/villa-le-bec-final-gap-audit.json",
+        "docs/research/villa-le-bec-map-candidate.json",
+        "docs/research/villa-le-bec-three-tier-final-disposition.json",
+        "docs/research/villa-le-bec-hero-readiness.json",
+        "docs/research/villa-le-bec-hero-visual-adjudication.json"
+      ]
+    },
+    {
+      "id": "shanghai-orchestra",
+      "name": "上海民族乐团",
+      "evidence": "blocked-osm-membership",
+      "hero": "hold-invalid-or-missing",
+      "identity": "missing",
+      "massing": "diagnostic-pass",
+      "mcp1": "pass-diagnostic",
+      "mcp2": "blocked",
+      "mcp3": "blocked",
+      "map": "blocked-membership",
+      "threeJs": "pass-diagnostic-massing",
+      "overall": "blocked-membership-hero-identity",
+      "runtimePolicy": "diagnostic-only-no-promotion",
+      "records": [
+        "docs/research/shanghai-orchestra-final-gap-audit.json",
+        "docs/research/shanghai-orchestra-membership-tier-final-disposition-2026-07-26.md"
+      ]
+    },
+    {
+      "id": "hudec-memorial",
+      "name": "邬达克纪念馆",
+      "evidence": "pass",
+      "hero": "pass",
+      "identity": "pass",
+      "massing": "pass",
+      "mcp1": "pass",
+      "mcp2": "pass",
+      "mcp3": "pass-atomic-main-window",
+      "map": "pass",
+      "threeJs": "pass-three-tier-fallback-performance",
+      "overall": "complete",
+      "runtimePolicy": "production-wired-and-accepted",
+      "records": [
+        "docs/research/hudec-memorial-blender-mcp3-gate-v1.json",
+        "docs/research/hudec-memorial-identity-blender-mcp3.json",
+        "docs/research/hudec-memorial-three-tier-runtime-qa-v1.json"
+      ]
+    },
+    {
+      "id": "xinhua-pocket-park",
+      "name": "新华路口袋公园",
+      "evidence": "pass",
+      "hero": "pass",
+      "identity": "pass",
+      "massing": "pass",
+      "mcp1": "pass",
+      "mcp2": "pass",
+      "mcp3": "pass-atomic-main-window",
+      "map": "pass",
+      "threeJs": "pass-three-tier-fallback-performance-collision",
+      "overall": "complete",
+      "runtimePolicy": "production-wired-and-accepted",
+      "records": [
+        "docs/research/xinhua-pocket-park-blender-mcp3-gate-v1.json",
+        "docs/research/xinhua-pocket-park-identity-blender-mcp3.json",
+        "docs/research/xinhua-pocket-park-three-tier-runtime-qa-v1.json"
+      ]
+    },
+    {
+      "id": "xinhua-community-center",
+      "name": "新华·社区营造中心",
+      "evidence": "pass-massing-building-4-only",
+      "hero": "hold-invalid-lineage",
+      "identity": "missing",
+      "massing": "pass",
+      "mcp1": "pass",
+      "mcp2": "blocked",
+      "mcp3": "blocked",
+      "map": "blocked-service-road-overlap-0.402635",
+      "threeJs": "pass-diagnostic-massing-collision",
+      "overall": "blocked-service-road",
+      "runtimePolicy": "diagnostic-only-no-promotion",
+      "records": [
+        "docs/research/xinhua-community-center-map-candidate.json",
+        "docs/research/xinhua-community-center-final-gap-audit.json"
+      ]
+    },
+    {
+      "id": "debi-fahua-525",
+      "name": "德必法华525",
+      "evidence": "massing-footprint-pass-primary-membership-pending",
+      "hero": "hold-scope-polluted",
+      "identity": "missing",
+      "massing": "held-candidate-not-mcp1",
+      "mcp1": "blocked",
+      "mcp2": "blocked",
+      "mcp3": "blocked",
+      "map": "blocked-fahuazhen-road-overlap-0.633229",
+      "threeJs": "recovery-visibility-only",
+      "overall": "blocked-road-and-tier-lineage",
+      "runtimePolicy": "hold-no-promotion",
+      "records": [
+        "docs/research/debi-fahua-525-final-disposition.json",
+        "docs/research/debi-fahua-525-map-candidate.json"
+      ]
+    },
+    {
+      "id": "fahua-heritage",
+      "name": "法华遗韵",
+      "evidence": "blocked-front-only-xhs-deferred",
+      "hero": "hold-legacy-not-mcp2",
+      "identity": "missing",
+      "massing": "conditional-geometry-only",
+      "mcp1": "blocked",
+      "mcp2": "blocked",
+      "mcp3": "blocked",
+      "map": "blocked-missing-street-context",
+      "threeJs": "not-formally-accepted",
+      "overall": "blocked-evidence-xhs-deferred",
+      "runtimePolicy": "preserve-files-when-user-awake-search-xhs-then-disable-runtime-if-still-missing",
+      "records": [
+        "docs/research/fahua-heritage-final-disposition.json"
+      ]
+    },
+    {
+      "id": "fics-xinhua-365",
+      "name": "FICS新华365",
+      "evidence": "massing-pass-membership-pending",
+      "hero": "hold-invalid-lineage",
+      "identity": "missing",
+      "massing": "diagnostic-pass",
+      "mcp1": "pass-diagnostic",
+      "mcp2": "blocked",
+      "mcp3": "blocked",
+      "map": "blocked-service-road-and-membership",
+      "threeJs": "pass-diagnostic-massing",
+      "overall": "blocked-service-road-and-tiers",
+      "runtimePolicy": "diagnostic-only-no-promotion",
+      "records": [
+        "docs/research/fics-xinhua-365-final-gap-audit.json",
+        "docs/research/fics-xinhua-365-membership-map-blocker.json"
+      ]
+    },
+    {
+      "id": "xingfuli-west",
+      "name": "幸福里西区",
+      "evidence": "pass-asset-identity-cues",
+      "hero": "pass-asset-lineage-blocked",
+      "identity": "pass-asset-lineage-blocked",
+      "massing": "pass-asset-lineage-blocked",
+      "mcp1": "pass",
+      "mcp2": "pass",
+      "mcp3": "pass",
+      "map": "blocked-road-overlap",
+      "threeJs": "pass-three-tier-fallback-performance-collision",
+      "overall": "blocked-road-and-lineage",
+      "runtimePolicy": "preserve-current-no-formal-promotion",
+      "records": [
+        "docs/research/xingfuli-west-fast-audit.json",
+        "docs/research/xingfuli-user-photo-sequence-2026-07-26.json"
+      ]
+    },
+    {
+      "id": "xingfuli-center",
+      "name": "幸福里中区",
+      "evidence": "pass-asset-identity-cues",
+      "hero": "pass-asset-lineage-blocked",
+      "identity": "pass-asset-lineage-blocked",
+      "massing": "pass-asset-lineage-blocked",
+      "mcp1": "pass",
+      "mcp2": "pass",
+      "mcp3": "pass",
+      "map": "pass",
+      "threeJs": "pass-three-tier-fallback-performance-collision",
+      "overall": "blocked-strict-lineage",
+      "runtimePolicy": "preserve-current-no-formal-promotion",
+      "records": [
+        "docs/research/xingfuli-center-lineage-map-audit.json",
+        "docs/research/xingfuli-center-lineage-reconstruction-2026-07-26.json",
+        "docs/research/xingfuli-user-photo-sequence-2026-07-26.json"
+      ]
+    },
+    {
+      "id": "xingfuli-east",
+      "name": "幸福里东区",
+      "evidence": "pass-asset-identity-cues",
+      "hero": "pass-asset-lineage-blocked",
+      "identity": "pass-asset-lineage-blocked",
+      "massing": "pass-asset-lineage-blocked",
+      "mcp1": "pass",
+      "mcp2": "pass",
+      "mcp3": "pass",
+      "map": "blocked-panyu-road-overlap",
+      "threeJs": "pass-three-tier-fallback-performance-collision",
+      "overall": "blocked-road-and-lineage",
+      "runtimePolicy": "preserve-current-no-formal-promotion",
+      "records": [
+        "docs/research/xingfuli-east-tier-map-audit.json",
+        "docs/research/xingfuli-user-photo-sequence-2026-07-26.json"
+      ]
+    },
+    {
+      "id": "sun-ke-villa",
+      "name": "孙科别墅",
+      "evidence": "pass",
+      "hero": "pass",
+      "identity": "pass",
+      "massing": "pass",
+      "mcp1": "pass",
+      "mcp2": "pass",
+      "mcp3": "pass",
+      "map": "pass",
+      "threeJs": "pass-three-tier-fallback-performance-collision",
+      "overall": "complete",
+      "runtimePolicy": "production",
+      "records": [
+        "docs/research/sun-ke-villa-final-authority-audit.json"
+      ]
+    }
+  ]
+}

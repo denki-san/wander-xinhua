@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 1,
+  "assetId": "film-art-center",
+  "tier": "massing-v2",
+  "recordedAt": "2026-07-26",
+  "status": "collision-shell-feasible-formal-map-infeasible-internal-roads",
+  "scope": {
+    "included": [
+      "film-art-center-massing-v2-formal-placement",
+      "film-art-center-local-solid-footprints",
+      "shanghai-cinema-read-only-neighbor-geometry",
+      "rotated-aabb-diagnosis",
+      "film-art-center-complete-cover-split-shell",
+      "production-road-clearance"
+    ],
+    "excludedAndHeld": [
+      "mcp1-rerun",
+      "binary-rebuild",
+      "placement-change",
+      "scale-change",
+      "qa-only-suppression",
+      "shanghai-cinema-files",
+      "public-registry",
+      "shared-runtime",
+      "road-contract",
+      "fast-manifest",
+      "other-buildings",
+      "trees",
+      "dressing",
+      "ordinary-osm-assets",
+      "full-map-assets",
+      "recovery-hold"
+    ],
+    "binaryModified": false,
+    "shanghaiCinemaModified": false,
+    "publicRegistryModified": false,
+    "sharedRuntimeModified": false,
+    "roadContractModified": false
+  },
+  "sources": {
+    "referenceManifest": {
+      "path": "docs/research/film-art-center-reference-manifest.json",
+      "sha256": "acb0842c618a9893d73e8a6465a203c684d63bfda2e4d0c6a8b2fdc40475f826"
+    },
+    "modelBrief": {
+      "path": "docs/research/film-art-center-model-brief.md",
+      "sha256": "450010f4a9980e413bbfd5b3ae4411f59f9fe9921685a9b93bf0e9e8627e2a4d"
+    },
+    "mcp1": {
+      "path": "docs/research/film-art-center-blender-mcp-gates-v2.json",
+      "sha256": "da468ccd963a6926092ac700b5399adcd448602de4145d1cdb0d6d7fd36d18cd",
+      "status": "pass-preserved-no-rerun"
+    },
+    "massingBuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/film-art-center-massing.json",
+      "sha256": "85237c66b31c4d74f6360272257c68ec93957f408e02f3b3b58fd9f92af7ee09"
+    },
+    "priorFilmAudit": {
+      "path": "docs/research/film-art-center-final-audit-2026-07-26.json",
+      "sha256": "84c38d7b0e530ebfd50138af0a23becd751b04f3cf0345e570befb0d93a365cf"
+    },
+    "shanghaiCinemaAudit": {
+      "path": "docs/research/shanghai-cinema-final-audit-2026-07-26.json",
+      "sha256": "eb88bc2f8062899ab064cfbd44df0c76f141e568eb0f9a4d5312968f3b3715e8"
+    },
+    "landmarkRegistryReadOnly": {
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "f87c8fde941c71c6876bba4e7a50cf9177c5b7d11163822c4f4ac906568d9fa6"
+    },
+    "map": {
+      "path": "app/scene/xinhua-map-data.json",
+      "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78"
+    },
+    "roadSurfaceContract": {
+      "path": "app/scene/road-surface-contract.ts",
+      "sha256": "81798e268e7da1ec6d98de973b0332ad953cb4b933734a30840200ebf26057a7"
+    },
+    "rawRoadOsm": {
+      "path": "docs/research/data/xinhua-roads-osm-20260716-080509.json",
+      "sha256": "351308feafab0344dc59a66ebd68d0748f81ef1cd69dc218765a22eb51abf2ec"
+    },
+    "massingGlb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/film-art-center-massing.glb",
+      "sha256": "34e319174cb8cc121232ad3f5f15e30831c790b32b86268a193c329c9082b314",
+      "bytes": 240812
+    }
+  },
+  "formalPlacements": {
+    "filmArtCenter": {
+      "position": [
+        47.5,
+        81.5
+      ],
+      "yaw": 2.761592653589793,
+      "scale": 1,
+      "transformChanged": false,
+      "massingV2LocalBounds": {
+        "minX": -11.455,
+        "maxX": 11.455,
+        "minZ": -6.725,
+        "maxZ": 6.965
+      },
+      "sourceLocalSolidObstacles": [
+        {
+          "role": "main-body",
+          "minX": -8,
+          "maxX": 8,
+          "minZ": -5.2,
+          "maxZ": 4.2
+        },
+        {
+          "role": "left-low-wing",
+          "minX": -11.46,
+          "maxX": -8.1,
+          "minZ": -3.63,
+          "maxZ": 4.63
+        },
+        {
+          "role": "right-low-wing",
+          "minX": 8.1,
+          "maxX": 11.46,
+          "minZ": -3.63,
+          "maxZ": 4.63
+        }
+      ]
+    },
+    "shanghaiCinemaReadOnly": {
+      "position": [
+        74.1,
+        80.9
+      ],
+      "yaw": 2.761592653589793,
+      "scale": 1,
+      "sourceLocalSolidObstacles": [
+        {
+          "role": "main-body",
+          "minX": -10.5,
+          "maxX": 10.5,
+          "minZ": -7.3,
+          "maxZ": 6.2
+        },
+        {
+          "role": "left-wing",
+          "minX": -14.4,
+          "maxX": -10.5,
+          "minZ": -10,
+          "maxZ": 4.5
+        },
+        {
+          "role": "right-wing",
+          "minX": 10.5,
+          "maxX": 14.4,
+          "minZ": -10,
+          "maxZ": 4.5
+        }
+      ]
+    },
+    "decision": "retain-both-transforms"
+  },
+  "neighborCollision": {
+    "runtimeMarginPerAssetSceneUnits": 0.2,
+    "priorWorldAabb": {
+      "status": "false-positive",
+      "filmObstacleIndex": 1,
+      "shanghaiCinemaObstacleIndex": 2,
+      "overlapSceneUnits": {
+        "x": 0.830850892336116,
+        "z": 0.4509227561555633,
+        "area": 0.37464957432651064
+      }
+    },
+    "exactObb": {
+      "physicalMinimumGapSceneUnits": 2.2936832677312395,
+      "minimumGapAfterBothPointTwoMarginsSceneUnits": 1.8936832677312395,
+      "intersectingPairsAfterMargins": 0,
+      "status": "pass-no-solid-intersection"
+    },
+    "completeCoverSplitShell": {
+      "method": "split-only-film-left-low-wing-at-local-x-midpoint",
+      "sourceObstacleCount": 3,
+      "proxyCount": 4,
+      "coverage": "exact-union-no-gap-no-shrink-no-transform-change",
+      "proxies": [
+        {
+          "role": "main-body",
+          "sourceObstacleIndex": 0,
+          "segment": 1,
+          "segmentCount": 1,
+          "minX": -8,
+          "maxX": 8,
+          "minZ": -5.2,
+          "maxZ": 4.2
+        },
+        {
+          "role": "left-low-wing-west-half",
+          "sourceObstacleIndex": 1,
+          "segment": 1,
+          "segmentCount": 2,
+          "minX": -11.46,
+          "maxX": -9.78,
+          "minZ": -3.63,
+          "maxZ": 4.63
+        },
+        {
+          "role": "left-low-wing-east-half",
+          "sourceObstacleIndex": 1,
+          "segment": 2,
+          "segmentCount": 2,
+          "minX": -9.78,
+          "maxX": -8.1,
+          "minZ": -3.63,
+          "maxZ": 4.63
+        },
+        {
+          "role": "right-low-wing",
+          "sourceObstacleIndex": 2,
+          "segment": 1,
+          "segmentCount": 1,
+          "minX": 8.1,
+          "maxX": 11.46,
+          "minZ": -3.63,
+          "maxZ": 4.63
+        }
+      ],
+      "minimumAabbGapToShanghaiCinemaSceneUnits": 0.17222363245825534,
+      "minimumAabbGapToAnyOtherLandmarkSceneUnits": 0.17222363245825534,
+      "nextNearestOtherAsset": {
+        "assetId": "xinhua-villas-211",
+        "obstacleIndex": 5,
+        "minimumAabbGapSceneUnits": 5.949804259895544
+      },
+      "status": "pass-analytic-awaiting-public-runtime-integration"
+    }
+  },
+  "roadClearance": {
+    "namedPublicRoad": {
+      "osmWayId": 682286683,
+      "name": "新华路",
+      "highway": "tertiary",
+      "renderedFullWidthSceneUnits": 4.9,
+      "massingV2EnvelopeToCenterlineSceneUnits": 9.181301714690223,
+      "massingV2EnvelopeToAsphaltEdgeSceneUnits": 6.731301714690223,
+      "solidObstaclesToCenterlineSceneUnits": 11.516286488995688,
+      "solidObstaclesToAsphaltEdgeSceneUnits": 9.066286488995686,
+      "status": "pass"
+    },
+    "internalRoads": [
+      {
+        "osmWayId": 577252297,
+        "highway": "service",
+        "access": "private",
+        "service": "alley",
+        "renderedFullWidthSceneUnits": 2.5,
+        "massingV2EnvelopeToCenterlineSceneUnits": 0,
+        "solidObstaclesToCenterlineSceneUnits": 0,
+        "solidObstaclesToAsphaltEdgeSceneUnits": -1.25,
+        "status": "blocked-centerline-crosses-solid-obstacle"
+      },
+      {
+        "osmWayId": 1520590652,
+        "highway": "unclassified",
+        "renderedFullWidthSceneUnits": 3.4,
+        "massingV2EnvelopeToCenterlineSceneUnits": 0,
+        "solidObstaclesToCenterlineSceneUnits": 0,
+        "solidObstaclesToAsphaltEdgeSceneUnits": -1.7,
+        "status": "blocked-centerline-crosses-solid-obstacle"
+      },
+      {
+        "osmWayId": 1520590653,
+        "highway": "unclassified",
+        "renderedFullWidthSceneUnits": 3.4,
+        "massingV2EnvelopeToCenterlineSceneUnits": 1.090020977276705,
+        "massingV2EnvelopeToAsphaltEdgeSceneUnits": -0.6099790227232949,
+        "solidObstaclesToCenterlineSceneUnits": 1.8639305829635104,
+        "solidObstaclesToAsphaltEdgeSceneUnits": 0.16393058296351048,
+        "status": "solid-clear-envelope-overlap"
+      }
+    ],
+    "splitShellDecision": "cannot-resolve-road-centerlines-that-cross-the-exact-solid-footprint",
+    "qaSuppressionAuthorized": false
+  },
+  "verdict": {
+    "evidenceGate": "pass-preserved",
+    "mcp1": "pass-preserved-no-rerun",
+    "neighborCollision": "feasible-with-film-only-complete-cover-split-shell",
+    "formalMapCandidate": "infeasible-current-internal-road-semantics",
+    "buildingTransforms": "retain-unchanged",
+    "runtimeAcceptance": "blocked",
+    "heroAndIdentity": "hold",
+    "minimumNewAuthorityRequired": [
+      "evidence-backed classification of ways 577252297 and 1520590652 as removed, rerouted, under-building, or non-surface",
+      "or an evidence-backed building-footprint correction that preserves subject identity"
+    ],
+    "mainWindowAction": "The four-proxy Film Art Center collision shell may be integrated to close the Shanghai Cinema AABB false positive. Do not declare formal map pass until the two centerline-through-solid internal roads are resolved with evidence and deterministic map/runtime QA."
+  }
+}

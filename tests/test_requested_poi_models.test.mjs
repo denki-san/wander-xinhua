@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile, stat } from "node:fs/promises";
 import test from "node:test";
 
@@ -6,7 +7,19 @@ const root = new URL("../", import.meta.url);
 const sceneSource = await readFile(new URL("app/scene/xinhua-road-landmarks.tsx", root), "utf8");
 const generatorSource = await readFile(new URL("scripts/create_requested_poi_models.py", root), "utf8");
 const briefSource = await readFile(new URL("docs/research/requested-poi-model-brief.md", root), "utf8");
+const identitySource = await readFile(new URL("app/scene/xinhua-road-identity-contract.ts", root), "utf8");
+const identityRecipeSource = await readFile(
+  new URL("app/scene/xinhua-road-massing.tsx", root),
+  "utf8",
+);
 const data = JSON.parse(await readFile(new URL("app/scene/xinhua-road-landmarks-data.json", root), "utf8"));
+const mapData = JSON.parse(await readFile(new URL("app/scene/xinhua-map-data.json", root), "utf8"));
+const fahuaDisposition = JSON.parse(
+  await readFile(
+    new URL("docs/research/fahua-heritage-final-disposition.json", root),
+    "utf8",
+  ),
+);
 
 const requestedAssets = {
   "hudec-memorial": { bytes: 500_000, materials: 12 },
@@ -29,6 +42,120 @@ function containsPoint(obstacle, x, z) {
     && x <= obstacle.maxX
     && z >= obstacle.minZ
     && z <= obstacle.maxZ;
+}
+
+async function sha256(path) {
+  return createHash("sha256")
+    .update(await readFile(new URL(path, root)))
+    .digest("hex");
+}
+
+function inspectGlb(buffer) {
+  const json = parseGlb(buffer);
+  let primitives = 0;
+  let triangles = 0;
+  const bounds = {
+    min: [Infinity, Infinity, Infinity],
+    max: [-Infinity, -Infinity, -Infinity],
+  };
+  for (const mesh of json.meshes ?? []) {
+    for (const primitive of mesh.primitives ?? []) {
+      primitives += 1;
+      const position = json.accessors[primitive.attributes.POSITION];
+      const indices = primitive.indices === undefined
+        ? position
+        : json.accessors[primitive.indices];
+      triangles += indices.count / 3;
+      for (let axis = 0; axis < 3; axis += 1) {
+        bounds.min[axis] = Math.min(bounds.min[axis], position.min[axis]);
+        bounds.max[axis] = Math.max(bounds.max[axis], position.max[axis]);
+      }
+    }
+  }
+  return {
+    json,
+    metrics: {
+      bytes: buffer.length,
+      nodes: json.nodes?.length ?? 0,
+      meshes: json.meshes?.length ?? 0,
+      primitives,
+      triangles,
+      materials: json.materials?.length ?? 0,
+      images: json.images?.length ?? 0,
+      textures: json.textures?.length ?? 0,
+      bounds,
+    },
+  };
+}
+
+function closeNumber(actual, expected, tolerance = 1e-6) {
+  assert.ok(
+    Math.abs(actual - expected) <= tolerance,
+    `${actual} 应接近 ${expected}`,
+  );
+}
+
+function closeArray(actual, expected, tolerance = 1e-6) {
+  assert.equal(actual.length, expected.length);
+  actual.forEach((value, index) => closeNumber(value, expected[index], tolerance));
+}
+
+function transformedPolygon(landmark) {
+  const cosine = Math.cos(landmark.yaw);
+  const sine = Math.sin(landmark.yaw);
+  return [
+    [landmark.localBounds.minX, landmark.localBounds.minZ],
+    [landmark.localBounds.maxX, landmark.localBounds.minZ],
+    [landmark.localBounds.maxX, landmark.localBounds.maxZ],
+    [landmark.localBounds.minX, landmark.localBounds.maxZ],
+  ].map(([localX, sourceZ]) => [
+    landmark.position[0] + landmark.scale * (
+      cosine * localX + sine * -sourceZ
+    ),
+    landmark.position[1] + landmark.scale * (
+      -sine * localX + cosine * -sourceZ
+    ),
+  ]);
+}
+
+function pointSegmentDistance(point, start, end) {
+  const dx = end[0] - start[0];
+  const dz = end[1] - start[1];
+  const lengthSquared = dx * dx + dz * dz;
+  const ratio = lengthSquared === 0
+    ? 0
+    : Math.max(0, Math.min(1, (
+      (point[0] - start[0]) * dx + (point[1] - start[1]) * dz
+    ) / lengthSquared));
+  return Math.hypot(
+    point[0] - (start[0] + dx * ratio),
+    point[1] - (start[1] + dz * ratio),
+  );
+}
+
+function minimumRoadDistance(polygon, roadName) {
+  let minimum = Infinity;
+  for (const road of mapData.roads.filter(
+    (candidate) => (
+      candidate.name === roadName
+      && !candidate.tunnel
+      && candidate.layer >= 0
+    ),
+  )) {
+    for (const point of polygon) {
+      for (let index = 1; index < road.points.length; index += 1) {
+        minimum = Math.min(
+          minimum,
+          pointSegmentDistance(
+            point,
+            road.points[index - 1],
+            road.points[index],
+          ),
+        );
+      }
+    }
+  }
+  return minimum;
 }
 
 test("本轮 6 个模型均保留 GLB、可编辑 Blend 和固定机位预览", async () => {
@@ -61,7 +188,7 @@ test("五组用户指定地点均成为 POI，并保留六个独立可识别模�
     ["FICS新华365", "德必法华525", "新华·社区营造中心", "新华路口袋公园", "法华遗韵", "邬达克纪念馆"].sort(),
   );
   for (const landmark of requested) {
-    assert.match(landmark.model, /^\/models\/requested-pois\/.+\.glb$/);
+    assert.match(landmark.model, /^\/models\/.+\.glb$/);
     assert.ok(landmark.labelHeight > 4, `${landmark.name} 必须有独立 POI 标签高度`);
     assert.ok(landmark.positioning, `${landmark.name} 必须记录落位证据`);
     assert.ok(landmark.localObstacles.length >= 2, `${landmark.name} 必须使用拆分碰撞`);
@@ -70,16 +197,23 @@ test("五组用户指定地点均成为 POI，并保留六个独立可识别模�
   assert.deepEqual(fics.aliases, ["xinhua365"]);
   assert.equal(fics.localObstacles.length, 6, "FICS 应按多栋建筑拆分碰撞");
   assert.deepEqual(fics.labelOffset, [10, -2], "FICS 标签必须避开相邻社区中心标签");
-  for (const id of [
-    "hudec-memorial",
-    "xinhua-pocket-park",
-    "xinhua-community-center",
-    "debi-fahua-525",
-    "fahua-heritage",
-    "fics-xinhua-365",
-  ]) {
+  const expectedCacheVersions = {
+    "hudec-memorial": "20260726-hero-598b2ba19e24",
+    "xinhua-pocket-park": "20260726-hero-c6ef6f107e3c",
+    "xinhua-community-center": "20260718-detail-1",
+    "debi-fahua-525": "20260718-detail-1",
+    "fahua-heritage": "20260718-detail-1",
+    "fics-xinhua-365": "20260718-detail-1",
+  };
+  for (const [id, expectedCacheVersion] of Object.entries(
+    expectedCacheVersions,
+  )) {
     const landmark = requested.find((candidate) => candidate.id === id);
-    assert.equal(landmark.cacheVersion, "20260718-detail-1", `${id} 必须刷新细节升级后的模型缓存`);
+    assert.equal(
+      landmark.cacheVersion,
+      expectedCacheVersion,
+      `${id} 必须冻结当前生产 Hero 的缓存版本`,
+    );
   }
 });
 
@@ -129,4 +263,182 @@ test("建模脚本和基准文档覆盖照片归纳、六个生成器与园区�
   }
   assert.match(briefSource, /requested-pois-osm-20260717-103840\.json/);
   assert.match(briefSource, /不打包进运行时 GLB/);
+});
+
+test("法华遗韵 final disposition 只裁决本栋且保留 Recovery 合格子阶段", async () => {
+  assert.equal(fahuaDisposition.assetId, "fahua-heritage");
+  assert.equal(
+    fahuaDisposition.baseCommit,
+    "f8cafd25ff804ec283e7b189f8dfabcead284346",
+  );
+  assert.equal(fahuaDisposition.scope.binaryRebuilt, false);
+  assert.equal(fahuaDisposition.scope.qualifiedRecoveryStageRerun, false);
+  assert.equal(fahuaDisposition.scope.browserOrXhsAccessed, false);
+  assert.equal(fahuaDisposition.scope.productionSharedFilesModified, false);
+  assert.equal(fahuaDisposition.scope.legacyAssetOverwrittenOrDeleted, false);
+  assert.deepEqual(
+    fahuaDisposition.recoveryMassing.preservedPasses,
+    [
+      "GLB structural audit",
+      "single Massing material and budget",
+      "production-preview page playable",
+      "camera spring clear",
+      "single runtime visual screenshot",
+    ],
+  );
+  assert.equal(
+    fahuaDisposition.recoveryMassing.preservedVerdict,
+    "conditional-geometry-usable-gate-blocked",
+  );
+  assert.equal(fahuaDisposition.recoveryMassing.rerunRequiredNow, false);
+  assert.equal(fahuaDisposition.recoveryMassing.integrationAuthorized, false);
+  assert.equal(
+    fahuaDisposition.gates.overall,
+    "blocked-local-evidence-exhausted-xhs-pending",
+  );
+});
+
+test("法华遗韵只有正面证据，未知面不得被 legacy 资产补写成已观察事实", async () => {
+  const manifest = JSON.parse(
+    await readFile(new URL(fahuaDisposition.inputs.referenceManifest.path, root)),
+  );
+  const entry = manifest.pois.find(({ id }) => id === "fahua-heritage");
+  assert.equal(entry.photoStatus, "verified-same-structure");
+  assert.equal(entry.referencePhotos.length, 1);
+  assert.equal(entry.referencePhotos[0].view, "front");
+  assert.equal(entry.referencePhotos[0].captureDate, "unknown");
+  assert.equal(
+    entry.referencePhotos[0].path,
+    fahuaDisposition.inputs.referencePhoto.path,
+  );
+  const sharedCheckpointInputs = new Set([
+    "publicRegistry",
+    "identityContract",
+    "identityRecipeSource",
+  ]);
+  for (const [name, input] of Object.entries(fahuaDisposition.inputs)) {
+    if (sharedCheckpointInputs.has(name)) {
+      // 法华 checkpoint 不拥有这些公共文件；其他建筑由主窗口接入后，
+      // 当前文件合法变化，但 review-time 指纹必须继续保留。
+      assert.match(input.sha256, /^[0-9a-f]{64}$/);
+      continue;
+    }
+    assert.equal(await sha256(input.path), input.sha256, input.path);
+  }
+  assert.equal(fahuaDisposition.evidenceGate.coverage.canonicalFront, "pass-preserved");
+  assert.equal(fahuaDisposition.evidenceGate.coverage.sideOrDepth, "missing");
+  assert.equal(
+    fahuaDisposition.evidenceGate.coverage.streetContextAndSiteBoundary,
+    "missing",
+  );
+  assert.ok(fahuaDisposition.evidenceGate.unknown.length >= 5);
+  assert.equal(fahuaDisposition.evidenceGate.newModelingAuthorized, false);
+  assert.equal(fahuaDisposition.evidenceGate.xhsSearchRequiredBeforeNextModeling, true);
+  assert.equal(fahuaDisposition.evidenceGate.xhsSearchPerformedInThisCheckpoint, false);
+});
+
+test("法华遗韵 legacy Hero 指纹和 GLB 结构保持精确，不冒充 MCP2", async () => {
+  const hero = fahuaDisposition.legacyHero;
+  for (const artifact of [hero.generator, hero.blend, hero.glb, hero.preview]) {
+    assert.equal(await sha256(artifact.path), artifact.sha256, artifact.path);
+    if (artifact.bytes !== undefined) {
+      assert.equal((await stat(new URL(artifact.path, root))).size, artifact.bytes);
+    }
+  }
+  const { json, metrics } = inspectGlb(
+    await readFile(new URL(hero.glb.path, root)),
+  );
+  for (const key of [
+    "bytes",
+    "nodes",
+    "meshes",
+    "primitives",
+    "triangles",
+    "materials",
+    "images",
+    "textures",
+  ]) {
+    assert.equal(metrics[key], hero.glb[key], `legacyHero.glb.${key}`);
+  }
+  closeArray(metrics.bounds.min, hero.glb.bounds.min);
+  closeArray(metrics.bounds.max, hero.glb.bounds.max);
+  assert.equal(json.nodes[0].name, hero.glb.rootNode);
+  assert.equal(json.nodes[0].translation, undefined);
+  assert.equal(json.nodes[0].rotation, undefined);
+  assert.equal(json.nodes[0].scale, undefined);
+  assert.equal(hero.heroBuildRecordExists, false);
+  assert.equal(hero.sameCameraTriptychExists, false);
+  assert.equal(hero.mcp2Authorized, false);
+  assert.equal(
+    hero.mcp2Status,
+    "not-entered-formal-massing-and-map-not-passed",
+  );
+});
+
+test("法华遗韵当前地图静态净距与出生点成立，但不替代正式地图步行门", () => {
+  const landmark = data.landmarks.find(({ id }) => id === "fahua-heritage");
+  const audit = fahuaDisposition.staticMapAudit;
+  const polygon = transformedPolygon(landmark);
+  const fahuazhenDistance = minimumRoadDistance(polygon, "法华镇路");
+  const xianghuaqiaoDistance = minimumRoadDistance(polygon, "香花桥路");
+  closeNumber(
+    fahuazhenDistance,
+    audit.roads.fahuazhen.minimumCenterlineDistanceSceneUnits,
+  );
+  closeNumber(
+    xianghuaqiaoDistance,
+    audit.roads.xianghuaqiao.minimumCenterlineDistanceSceneUnits,
+  );
+  closeNumber(
+    fahuazhenDistance - audit.roads.fahuazhen.roadWidthSceneUnits / 2,
+    audit.roads.fahuazhen.minimumAsphaltEdgeClearanceSceneUnits,
+  );
+  closeNumber(
+    xianghuaqiaoDistance - audit.roads.xianghuaqiao.roadWidthSceneUnits / 2,
+    audit.roads.xianghuaqiao.minimumAsphaltEdgeClearanceSceneUnits,
+  );
+  assert.ok(
+    audit.roads.fahuazhen.minimumAsphaltEdgeClearanceSceneUnits
+      >= audit.roads.fahuazhen.projectMinimumClearanceSceneUnits,
+  );
+  assert.deepEqual(audit.otherLandmarkEnvelopeOverlaps, []);
+  assert.equal(landmark.localObstacles.length, audit.localObstacleCount);
+  assert.ok(audit.start.minimumSplitObstacleDistanceSceneUnits > 2);
+  assert.ok(audit.start.headingErrorDegrees < 0.1);
+  assert.equal(
+    audit.formalMapAcceptance,
+    "blocked-missing-street-context-site-boundary-and-walkaround",
+  );
+});
+
+test("generic heritage-gate 配方与三档缺口保持显式，不能把 fallback 算作 Identity", () => {
+  assert.match(
+    identitySource,
+    /"fahua-heritage": "heritage-gate"/,
+  );
+  assert.match(
+    identitySource,
+    /: "programmatic-miniature"/,
+  );
+  assert.match(
+    identityRecipeSource,
+    /if \(kind === "heritage-gate"\)/,
+  );
+  assert.equal(
+    fahuaDisposition.identityDisposition.status,
+    "blocked-programmatic-recipe-not-subject-faithful",
+  );
+  assert.equal(fahuaDisposition.identityDisposition.standaloneGlbExists, false);
+  assert.equal(fahuaDisposition.identityDisposition.derivedFromAcceptedHero, false);
+  assert.equal(fahuaDisposition.identityDisposition.mcp3Status, "not-reachable");
+  assert.equal(
+    fahuaDisposition.threeJsDisposition.status,
+    "not-entered-three-tier-acceptance",
+  );
+  assert.equal(fahuaDisposition.threeJsDisposition.formalTierContractExists, false);
+  assert.equal(fahuaDisposition.threeJsDisposition.performanceSample, "not-entered");
+  assert.equal(
+    fahuaDisposition.gameDisposition.ifXhsStillCannotSupplyMinimumCoverage,
+    "main-window-removes-building-from-game registry/runtime while retaining all files and Recovery/Hold artifacts",
+  );
 });

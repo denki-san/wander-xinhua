@@ -5,6 +5,7 @@ import { useFrame } from "@react-three/fiber";
 import {
   Box3,
   Color,
+  Group,
   InstancedMesh,
   Material,
   Matrix4,
@@ -41,7 +42,7 @@ import {
   resolveOneStepGardenQa,
 } from "./one-step-garden-tier-contract.mjs";
 import {
-  resolveBuildingMassingQa,
+  resolveBuildingTierQa,
 } from "./building-massing-qa-contract.mjs";
 import {
   OneStepGardenRuntimeAsset,
@@ -103,6 +104,8 @@ type BuildingMassingQaCandidate = {
   assetId: string;
   requestedTier: string;
   modelPath: string;
+  forcedFallback?: boolean;
+  fallbackTier?: "identity" | "massing";
   placement?: {
     position: readonly [number, number];
     yaw: number;
@@ -544,10 +547,20 @@ function GlbModel({
   path,
   qaAssetId,
   qaTier,
+  qaWorldX,
+  qaWorldY,
+  qaWorldZ,
+  qaWorldYaw,
+  qaWorldScale,
 }: {
   path: string;
   qaAssetId?: string;
   qaTier?: string;
+  qaWorldX?: number;
+  qaWorldY?: number;
+  qaWorldZ?: number;
+  qaWorldYaw?: number;
+  qaWorldScale?: number;
 }) {
   const { scene } = useGLTF(path);
   const model = useMemo(() => configureModel(scene.clone(true)), [scene]);
@@ -564,11 +577,36 @@ function GlbModel({
       frames: 0,
       complete: false,
     };
-    model.updateMatrixWorld(true);
-    const bounds = new Box3().setFromObject(model);
+    // model 已挂在带 placement 的父 group 下，直接 setFromObject(model)
+    // 会把父级 world matrix 带进探针，再在 Box3 遍历时重复计算。使用未挂载的
+    // glTF clone 先量本地坐标，再显式应用同一 placement，确保遥测与画面一致。
+    const boundsProbe = new Group();
+    boundsProbe.scale.set(1, 1, -1);
+    boundsProbe.add(scene.clone(true));
+    boundsProbe.updateMatrixWorld(true);
+    const bounds = new Box3().setFromObject(boundsProbe);
+    if (
+      qaWorldX !== undefined
+      && qaWorldY !== undefined
+      && qaWorldZ !== undefined
+      && qaWorldYaw !== undefined
+      && qaWorldScale !== undefined
+    ) {
+      const placementMatrix = new Matrix4().compose(
+        new Vector3(qaWorldX, qaWorldY, qaWorldZ),
+        new Quaternion().setFromAxisAngle(
+          new Vector3(0, 1, 0),
+          qaWorldYaw,
+        ),
+        new Vector3(qaWorldScale, qaWorldScale, qaWorldScale),
+      );
+      bounds.applyMatrix4(placementMatrix);
+    }
     const root = document.documentElement;
     root.dataset.xinhuaRoadQaAsset = qaAssetId;
     root.dataset.xinhuaRoadQaTier = qaTier;
+    root.dataset.xinhuaRoadQaRequestedTier = qaTier;
+    root.dataset.xinhuaRoadQaLoadedTier = qaTier;
     root.dataset.xinhuaRoadQaStatus = "loaded";
     root.dataset.xinhuaRoadQaSource = path;
     root.dataset.xinhuaRoadQaBounds = JSON.stringify({
@@ -579,6 +617,8 @@ function GlbModel({
       detail: {
         assetId: qaAssetId,
         tier: qaTier,
+        requestedTier: qaTier,
+        loadedTier: qaTier,
         status: "loaded",
         source: path,
       },
@@ -587,13 +627,26 @@ function GlbModel({
       if (root.dataset.xinhuaRoadQaSource !== path) return;
       delete root.dataset.xinhuaRoadQaAsset;
       delete root.dataset.xinhuaRoadQaTier;
+      delete root.dataset.xinhuaRoadQaRequestedTier;
+      delete root.dataset.xinhuaRoadQaLoadedTier;
       delete root.dataset.xinhuaRoadQaStatus;
       delete root.dataset.xinhuaRoadQaSource;
       delete root.dataset.xinhuaRoadQaBounds;
       delete root.dataset.xinhuaRoadQaRender;
       delete root.dataset.xinhuaRoadQaFrameSample;
     };
-  }, [model, path, qaAssetId, qaTier]);
+  }, [
+    model,
+    path,
+    qaAssetId,
+    qaTier,
+    qaWorldScale,
+    qaWorldX,
+    qaWorldY,
+    qaWorldYaw,
+    qaWorldZ,
+    scene,
+  ]);
   useFrame(({ gl }) => {
     if (!qaAssetId || !qaTier) return;
     const root = document.documentElement;
@@ -737,24 +790,41 @@ function useDistanceHeroLandmarkIds({
 function BuildingQaFallback({
   assetId,
   tier,
+  loadedTier,
   source,
   children,
 }: {
   assetId: string;
   tier: string;
+  loadedTier?: string;
   source: string;
   children: ReactNode;
 }) {
+  const qaFrameSample = useRef({
+    startedAt: 0,
+    frames: 0,
+    complete: false,
+  });
   useEffect(() => {
     const root = document.documentElement;
+    const resolvedLoadedTier = loadedTier ?? tier;
+    qaFrameSample.current = {
+      startedAt: 0,
+      frames: 0,
+      complete: false,
+    };
     root.dataset.xinhuaRoadQaAsset = assetId;
     root.dataset.xinhuaRoadQaTier = tier;
+    root.dataset.xinhuaRoadQaRequestedTier = tier;
+    root.dataset.xinhuaRoadQaLoadedTier = resolvedLoadedTier;
     root.dataset.xinhuaRoadQaStatus = "fallback";
     root.dataset.xinhuaRoadQaSource = source;
     window.dispatchEvent(new CustomEvent("xinhua:active-asset-runtime", {
       detail: {
         assetId,
         tier,
+        requestedTier: tier,
+        loadedTier: resolvedLoadedTier,
         status: "fallback",
         source,
       },
@@ -766,10 +836,38 @@ function BuildingQaFallback({
       ) return;
       delete root.dataset.xinhuaRoadQaAsset;
       delete root.dataset.xinhuaRoadQaTier;
+      delete root.dataset.xinhuaRoadQaRequestedTier;
+      delete root.dataset.xinhuaRoadQaLoadedTier;
       delete root.dataset.xinhuaRoadQaStatus;
       delete root.dataset.xinhuaRoadQaSource;
+      delete root.dataset.xinhuaRoadQaFrameSample;
     };
-  }, [assetId, source, tier]);
+  }, [assetId, loadedTier, source, tier]);
+  useFrame(() => {
+    const root = document.documentElement;
+    if (
+      root.dataset.xinhuaRoadQaSource !== source
+      || root.dataset.xinhuaRoadQaStatus !== "fallback"
+    ) return;
+    const sample = qaFrameSample.current;
+    if (sample.complete || document.visibilityState !== "visible") return;
+    const now = window.performance.now();
+    if (sample.startedAt === 0) sample.startedAt = now;
+    sample.frames += 1;
+    if (sample.frames < 120) return;
+    const durationMs = now - sample.startedAt;
+    sample.complete = true;
+    root.dataset.xinhuaRoadQaFrameSample = JSON.stringify({
+      viewport: [window.innerWidth, window.innerHeight],
+      visible: true,
+      frames: sample.frames,
+      durationMs,
+      fps: durationMs > 0 ? sample.frames * 1_000 / durationMs : 0,
+      buildMode: "browser-runtime-fallback",
+      requestedTier: tier,
+      loadedTier: loadedTier ?? tier,
+    });
+  });
   return children;
 }
 
@@ -789,7 +887,7 @@ export function XinhuaRoadLandmarks({
   const house315Qa = resolveHouse315Qa(
     typeof window === "undefined" ? "" : window.location.search,
   );
-  const buildingMassingQa = resolveBuildingMassingQa(
+  const buildingMassingQa = resolveBuildingTierQa(
     typeof window === "undefined" ? "" : window.location.search,
   ) as BuildingMassingQaCandidate | null;
   return (
@@ -858,9 +956,13 @@ export function XinhuaRoadLandmarks({
           <BuildingQaFallback
             assetId={landmark.id}
             tier={buildingMassingQaActive.requestedTier}
+            loadedTier={buildingMassingQaActive.fallbackTier}
             source={modelPath}
           >
-            <LandmarkProgressiveProxy landmark={landmark} identity />
+            <LandmarkProgressiveProxy
+              landmark={landmark}
+              identity={buildingMassingQaActive.fallbackTier === "identity"}
+            />
           </BuildingQaFallback>
         ) : null;
         const oneStepRequestedTier = (
@@ -919,7 +1021,9 @@ export function XinhuaRoadLandmarks({
           >
             <group position={[x, y, z]} rotation-y={yaw} scale={scale}>
               {shouldMountActiveModel && (
-                buildingMassingQaActive ? (
+                buildingMassingQaActive?.forcedFallback ? (
+                  buildingMassingFallback
+                ) : buildingMassingQaActive ? (
                   <ProgressiveFeatureBoundary
                     resetKey={modelPath}
                     fallback={buildingMassingFallback}
@@ -929,6 +1033,11 @@ export function XinhuaRoadLandmarks({
                         path={modelPath}
                         qaAssetId={landmark.id}
                         qaTier={buildingMassingQaActive.requestedTier}
+                        qaWorldX={x}
+                        qaWorldY={y}
+                        qaWorldZ={z}
+                        qaWorldYaw={yaw}
+                        qaWorldScale={scale}
                       />
                     </Suspense>
                   </ProgressiveFeatureBoundary>
@@ -942,6 +1051,11 @@ export function XinhuaRoadLandmarks({
                         path={modelPath}
                         qaAssetId={landmark.id}
                         qaTier={filmArtTier}
+                        qaWorldX={x}
+                        qaWorldY={y}
+                        qaWorldZ={z}
+                        qaWorldYaw={yaw}
+                        qaWorldScale={scale}
                       />
                     </Suspense>
                   </ProgressiveFeatureBoundary>
@@ -1025,7 +1139,7 @@ export default function XinhuaRoadFullLayer({
   const house315Qa = resolveHouse315Qa(
     typeof window === "undefined" ? "" : window.location.search,
   );
-  const buildingMassingQa = resolveBuildingMassingQa(
+  const buildingMassingQa = resolveBuildingTierQa(
     typeof window === "undefined" ? "" : window.location.search,
   );
   if (!filmArtQa && !oneStepQa && !house315Qa && !buildingMassingQa) {

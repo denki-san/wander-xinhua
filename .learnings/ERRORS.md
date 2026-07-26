@@ -26,6 +26,36 @@ Operation not permitted
 - **Notes**: 使用受控 Git 权限后仅暂存本批源文件、记录与合格截图。
 
 ---
+## [ERR-20260726-096] jq_object_fallback_parentheses
+
+**Logged**: 2026-07-26T15:18:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+批量读取 GLB 指标时，把多个 `//` fallback 直接写进 object value，`jq`
+在冒号后的表达式边界报语法错误。
+
+### Error
+```text
+jq: error: syntax error, unexpected //, expecting '}'
+```
+
+### Context
+- 失败命令只读，资产与记录均未修改；
+- 文件体积与 SHA 已在同一命令前半段成功读取。
+
+### Suggested Fix
+object value 中的 fallback 链统一加括号，例如
+`{triangles: (.glb.triangles // .geometry.triangles // null)}`，或先用
+`jq 'paths'` 确认实际字段后读取单一路径。
+
+### Resolution
+- **Resolved**: 2026-07-26T15:19:00+08:00
+- **Notes**: 改用加括号的明确字段读取；不影响本批运行时验收。
+
+---
 ## [ERR-20260726-094] xingfuli_legacy_source_literal_assertion
 
 **Logged**: 2026-07-26T14:25:00+08:00
@@ -8778,5 +8808,131 @@ second final: [-57.008162204, 65.984247714]
 - **Resolved**: 2026-07-26T12:35:00+08:00
 - **Notes**: 8 秒确定性路线最终距中心目标 0.034743 场景单位；角色碰撞通过。
   窄廊相机仍压缩到 0.38–0.51，已作为独立正式 blocker 保留，未提升生产地图。
+
+---
+## [ERR-20260726-092] full_regression_raced_async_runtime_record_write
+
+**Logged**: 2026-07-26T15:28:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: integration
+
+### Summary
+邬达克与口袋公园的浏览器 runtime 采集仍在异步写入统一状态矩阵时启动了全仓回归，
+测试读到了“逐栋已完成 5 栋、汇总仍为旧值 3 栋”的瞬时中间状态。
+
+### Error
+```text
+tests/test_exact_18_building_status.test.mjs
+AssertionError: 5 !== 3
+```
+
+### Context
+- 两栋专项测试与六个 GLB 审计已通过；
+- 失败不是建筑门退化，而是同一 JSON 在后台采集完成时分两步更新；
+- 后台写入稳定后，统一状态矩阵显示 `5 complete / 0 in progress / 13 blocked or partial`。
+
+### Suggested Fix
+浏览器批量采集写入公共状态文件时，主窗口先等待所有产物和状态矩阵稳定，再启动
+全仓回归；后续应优先用单次原子替换写入整份状态矩阵。
+
+### Resolution
+- **Resolved**: 2026-07-26T15:29:00+08:00
+- **Notes**: 后台写入停止后单独重跑状态矩阵测试 4/4 通过；全仓回归随后重新执行。
+
+---
+## [ERR-20260726-093] fics_audit_froze_public_registry_as_immutable_input
+
+**Logged**: 2026-07-26T15:31:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+FICS membership blocker 测试把建筑分支审查时的公共 landmark registry SHA
+当成永久不可变输入；主窗口完成其他建筑的公共接线后，FICS 专项发生假回归。
+
+### Error
+```text
+app/scene/xinhua-road-landmarks-data.json
+actual:   6df9f443...
+expected: f87c8fde...
+```
+
+### Context
+- FICS 的 OSM 快照、Massing record、道路 service overlap 和成员集 blocker 均未漂移；
+- 变化来自邬达克与口袋公园的主窗口公共 runtime 接线；
+- 建筑分支不得冻结公共交叉文件的未来 SHA。
+
+### Suggested Fix
+保留审查时 SHA 作为可追溯快照，但用显式 `shaPolicy` 标记为公共交叉文件；
+专项测试继续严格校验建筑专属证据和地图输入，不要求公共 registry 永久不变。
+
+### Resolution
+- **Resolved**: 2026-07-26T15:32:00+08:00
+- **Notes**: FICS record 增加 `review-time-snapshot-public-cross-cut-file`，
+  测试不再把该历史 SHA 当作当前公共文件合同。
+
+---
+## [ERR-20260726-097] full_regression_raced_villas_211_companion_commit
+
+**Logged**: 2026-07-26T15:42:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: integration
+
+### Summary
+幸福里三栋批次启动全仓回归时，后台集成刚提交新华别墅 211 Hero readiness 测试，
+但测试依赖的三档最终裁决 JSON 尚在下一笔 companion commit 中，造成瞬时缺文件。
+
+### Error
+```text
+ENOENT: no such file or directory
+docs/research/xinhua-villas-211-three-tier-final-disposition.json
+```
+
+### Context
+- 幸福里 69 项专项测试和 9 个 GLB 审计均已通过；
+- 失败时全仓为 505 项中的 1 项失败；
+- 缺失文件随后由 `48c1718` 接入，测试与证据文件来自同一 211 建筑范围。
+
+### Suggested Fix
+带有 companion evidence 的新测试必须与其依赖文件一起进入集成提交，或在批次全部
+提交完成、工作树稳定后再启动全仓回归；不得在异步提交窗口内跑项目级验收。
+
+### Resolution
+- **Resolved**: 2026-07-26T15:42:00+08:00
+- **Notes**: 已确认 companion JSON 落盘并归属于 211 专项；稳定后重新执行完整回归。
+
+---
+## [ERR-20260726-098] villa_hero_test_froze_mcp2_as_pending
+
+**Logged**: 2026-07-26T15:49:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Villa Le Bec Hero 实现测试把 MCP2 状态永久固定为 `pending`；主窗口固定机位裁决
+阻断候选后，正确的 `blocked-pre-mcp2-main-visual-review` 被误判为回归。
+
+### Error
+```text
+actual:   blocked-pre-mcp2-main-visual-review
+expected: pending
+```
+
+### Context
+- 候选二进制、双楼范围和开放庭院合同未变化；
+- 主窗口未进入 MCP2，也未授权 Identity；
+- 状态变化来自更严格的固定机位参考对比，不是门槛放宽。
+
+### Suggested Fix
+实现测试应验证候选没有把 MCP2 写成 `pass`，并与当前裁决记录同步；
+不得把等待审查的瞬时状态当成永久资产合同。
+
+### Resolution
+- **Resolved**: 2026-07-26T15:49:00+08:00
+- **Notes**: 实现记录和测试同步为 blocked；Villa 专项 40/40 与三个 GLB 审计通过。
 
 ---

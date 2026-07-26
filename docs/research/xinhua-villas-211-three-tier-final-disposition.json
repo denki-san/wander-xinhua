@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-211",
+  "auditedAt": "2026-07-26",
+  "status": "massing-reusable-hero-and-identity-blocked",
+  "scope": {
+    "browserOrXhsAccessed": false,
+    "blenderRerun": false,
+    "binaryModified": false,
+    "sharedFilesModified": false,
+    "stableBoundary": "compound-entrance-and-lane-anchor"
+  },
+  "sources": {
+    "finalGapAudit": {
+      "path": "docs/research/xinhua-villas-211-final-gap-audit.json",
+      "sha256": "eb5655c5d14deed5c0103a6cb896e21749b01f9cbdbdfe73bbb5c4b301308cc9"
+    },
+    "referenceManifest": {
+      "path": "docs/research/xinhua-villas-211-reference-manifest.json",
+      "sha256": "c112f5e2b20231de5d42ee1a483a701220d9dcd65d7aa9114c8d0cb32968ed46"
+    },
+    "osmBinding": {
+      "path": "docs/research/xinhua-villas-211-osm-binding.json",
+      "sha256": "2e9403aebe881bb663d5195d8faa5d61289283e2d3cacfe1fb900f25a9463aa2"
+    },
+    "mcp1": {
+      "path": "docs/research/xinhua-villas-211-blender-mcp-gates.json",
+      "sha256": "2e3866c169f8aafbf106baabefd767074b4408cdfd57e0dc355ab431fe4a94e6"
+    },
+    "runtimeQa": {
+      "path": "docs/research/xinhua-villas-211-threejs-runtime-qa.json",
+      "sha256": "7b7ac2c9605bd83079c350f56fc3f7db81bd3a87cde892bb21e4cec57debd6d7"
+    },
+    "massingBuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.json",
+      "sha256": "84009cecd2bd4320aadada9898a06875372f6516ef8e91618dd4e16e8e8b1249"
+    }
+  },
+  "tiers": {
+    "massing": {
+      "reuse": "allowed-as-massing-only",
+      "glb": {
+        "path": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb",
+        "sha256": "ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c",
+        "nodes": 9,
+        "triangles": 134,
+        "images": 0
+      },
+      "blend": {
+        "path": "assets/models/source/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.blend",
+        "sha256": "f6a26c12715ca9589b0ca9894dc9bc3b3252aa3d124f6f7be21478ea11440088"
+      },
+      "mcp1": "pass-main-window-batch",
+      "mapRuntime": "pass-main-window-real-browser",
+      "mapBinding": "pass-conservative-nine-osm-footprints-only",
+      "placement": {
+        "position": [38.32, 110.67],
+        "yaw": -0.38,
+        "scale": 0.62,
+        "movementAuthorized": false
+      },
+      "collision": {
+        "localObstacleCount": 9,
+        "polygonOverlapCount": 0,
+        "localObstacleAabbOverlapCount": 0,
+        "wallStop": "pass-wall-stop-no-penetration"
+      }
+    },
+    "legacyHero": {
+      "reuse": "prohibited-as-mcp2-source",
+      "glb": {
+        "path": "public/models/xinhua-road/xinhua-villas-211.glb",
+        "sha256": "0a7168e6104d39b808c096a390a14d1eb1690e49bef165193829517b022cb295"
+      },
+      "blend": {
+        "path": "assets/models/source/xinhua-road/xinhua-villas-211.blend",
+        "sha256": "2cfcc1408026a3e03ec05bb65aaa4eaf5633e18235808361a559d66bd0ec9f2a"
+      },
+      "strictlyInvalidBecause": [
+        "unverified-four-villa-fixed-layout",
+        "trees-hedges-lamps-planters-bench-and-paving-grid-outside-scope",
+        "not-derived-from-nine-way-massing",
+        "no-mcp2-authorization"
+      ]
+    },
+    "identity": {
+      "reuse": "not-available",
+      "artifactPresent": false,
+      "status": "blocked-lineage-and-evidence",
+      "massingMasqueradeProhibited": true,
+      "requiredBeforeCreation": [
+        "member-specific-side-or-depth-evidence",
+        "member-to-osm-way-binding",
+        "valid-evidence-backed-hero-derived-from-accepted-massing",
+        "mcp2-pass-on-that-hero"
+      ]
+    }
+  },
+  "evidence": {
+    "massingCoverage": "pass-conservative-compound-footprints-only",
+    "heroOrIdentityCoverage": "blocked",
+    "knownGaps": [
+      "compound-side-and-depth",
+      "member-house-number-to-osm-way-binding",
+      "member-position-orientation-and-spacing",
+      "complete-member-footprints-and-rear-facades"
+    ]
+  },
+  "verdict": {
+    "buildingComplete": false,
+    "safeAction": "retain-massing-v3-only-and-do-not-promote-legacy-hero",
+    "nextExecutableGate": "obtain-evidence-then-build-valid-hero-and-run-mcp2",
+    "forbidden": [
+      "promote-legacy-hero-to-mcp2",
+      "derive-identity-from-massing",
+      "invent-member-house-number-binding",
+      "move-or-scale-massing-to-change-proven-map-placement"
+    ]
+  }
+}

@@ -177,12 +177,12 @@
     "massingMcp1": "pass-main-window-batch-review",
     "massingMcp1Record": "docs/research/xinhua-pocket-park-blender-mcp-gates.json",
     "mapGeometry": "pass-candidate",
-    "currentRuntime": "blocked-camera",
-    "currentRuntimeRecord": "docs/research/xinhua-pocket-park-threejs-runtime-qa.json",
-    "formalMapAcceptance": "blocked-runtime-camera",
-    "hero": "legacy-asset-retained-mcp2-pending-after-map",
+    "currentRuntime": "pass-narrow-space-camera-v2",
+    "currentRuntimeRecord": "docs/research/xinhua-pocket-park-threejs-runtime-qa-v2.json",
+    "formalMapAcceptance": "pass-main-window-runtime-v2",
+    "hero": "legacy-asset-retained-mcp2-pending-after-map-pass",
     "identity": "blocked-until-hero-lineage-review",
-    "threeTierRuntime": "blocked-until-massing-camera-pass",
+    "threeTierRuntime": "blocked-until-hero-and-identity",
     "llmWiki": "not-synced-in-building-branch-do-not-claim-complete"
   },
   "mainWindowTodo": [

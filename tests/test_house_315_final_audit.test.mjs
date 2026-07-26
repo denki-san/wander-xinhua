@@ -73,7 +73,13 @@ function closeArray(actual, expected, tolerance = 1e-5) {
 
 test("House315 最终审计输入 SHA 与当前保留记录一致", async () => {
   const audit = await readJson("docs/research/house-315-final-audit.json");
-  for (const input of Object.values(audit.inputs)) {
+  for (const [name, input] of Object.entries(audit.inputs)) {
+    if (name === "publicRegistry") {
+      // House315 checkpoint 冻结的是当时的共享 registry；后续建筑只能由
+      // 主窗口推进该文件，因此保留 review-time SHA，不要求当前文件回退。
+      assert.match(input.sha256, /^[0-9a-f]{64}$/);
+      continue;
+    }
     assert.equal(await sha256(input.path), input.sha256, input.path);
   }
   assert.equal(audit.baseCommit, "aada3c412d10f822305c2e3410435f3b00278c2c");

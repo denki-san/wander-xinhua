@@ -1,5 +1,6 @@
 "use client";
 
+import { useGLTF } from "@react-three/drei";
 import {
   Suspense,
   useEffect,
@@ -19,6 +20,7 @@ import {
   type LandmarkPlacement,
 } from "./xinhua-road-contract";
 import {
+  ACCEPTED_DERIVED_BUILDING_TIERS,
   xinhuaRoadIdentityKind,
   xinhuaRoadIdentityLocalPosition,
 } from "./xinhua-road-identity-contract";
@@ -39,6 +41,19 @@ const IDENTITY_COLORS = [
 ] as const;
 
 const IDENTITY_VISUAL_SCALE = [0.68, 0.78, 0.68] as const;
+
+function AcceptedDerivedTierGlb({ source }: { source: string }) {
+  const { scene } = useGLTF(source);
+  const model = useMemo(() => {
+    const clone = scene.clone(true);
+    clone.traverse((child) => {
+      child.castShadow = true;
+      child.receiveShadow = true;
+    });
+    return clone;
+  }, [scene]);
+  return <primitive object={model} scale={[1, 1, -1]} />;
+}
 
 function landmarkHeight(landmark: LandmarkPlacement) {
   if (landmark.id === "shanghai-cinema") return 18;
@@ -744,18 +759,33 @@ export function LandmarkProgressiveProxy({
   const depth = bounds.maxZ - bounds.minZ;
   const height = landmarkHeight(landmark);
   const wall = colorForLandmark(landmark);
+  const acceptedDerived = ACCEPTED_DERIVED_BUILDING_TIERS[
+    landmark.id as keyof typeof ACCEPTED_DERIVED_BUILDING_TIERS
+  ];
   const usesDerivedIdentity = (
     identity
-    && landmark.id === "film-art-center"
+    && (
+      landmark.id === "film-art-center"
+      || Boolean(acceptedDerived)
+    )
     && !forceProgrammaticIdentity
   );
+  const usesDerivedMassing = !identity && Boolean(acceptedDerived);
+  const acceptedIdentitySource = acceptedDerived
+    ? `${acceptedDerived.identity.path}?v=${acceptedDerived.identity.cacheVersion}`
+    : null;
+  const acceptedMassingSource = acceptedDerived
+    ? `${acceptedDerived.massing.path}?v=${acceptedDerived.massing.cacheVersion}`
+    : null;
   const programmaticLocalPosition = xinhuaRoadIdentityLocalPosition(
     bounds,
     "programmatic-miniature",
   );
   const localPosition = xinhuaRoadIdentityLocalPosition(
     bounds,
-    usesDerivedIdentity ? "derived-glb" : "programmatic-miniature",
+    usesDerivedIdentity || usesDerivedMassing
+      ? "derived-glb"
+      : "programmatic-miniature",
   );
   const productionIdentity = usesDerivedIdentity
     ? resolveFilmArtCenterProductionIdentitySource(
@@ -784,6 +814,12 @@ export function LandmarkProgressiveProxy({
       {genericIdentity}
     </FilmArtCenterProductionIdentityFallback>
   );
+  const genericMassing = (
+    <mesh position={[0, height / 2, 0]} castShadow receiveShadow>
+      <boxGeometry args={[width * 0.9, height, depth * 0.86]} />
+      <meshToonMaterial color="#c9c3b5" />
+    </mesh>
+  );
 
   return (
     <group
@@ -792,26 +828,49 @@ export function LandmarkProgressiveProxy({
       userData={{
         building: landmark.id,
         stage: identity ? "identity" : "massing",
-        overviewRepresentation: identity ? "architectural-miniature" : "massing",
+        overviewRepresentation: identity
+          ? usesDerivedIdentity
+            ? "derived-identity-glb"
+            : "architectural-miniature"
+          : usesDerivedMassing
+            ? "derived-massing-glb"
+            : "massing",
         progressive: true,
       }}
     >
       {identity ? (
         usesDerivedIdentity ? (
-          <ProgressiveFeatureBoundary
-            resetKey={productionIdentity?.modelPath ?? "film-art-center-identity"}
-            fallback={productionIdentityFallback}
-          >
-            <Suspense fallback={productionIdentityFallback}>
-              <FilmArtCenterIdentity source={productionIdentity?.modelPath} />
-            </Suspense>
-          </ProgressiveFeatureBoundary>
+          acceptedIdentitySource ? (
+            <ProgressiveFeatureBoundary
+              resetKey={acceptedIdentitySource}
+              fallback={genericIdentity}
+            >
+              <Suspense fallback={genericIdentity}>
+                <AcceptedDerivedTierGlb source={acceptedIdentitySource} />
+              </Suspense>
+            </ProgressiveFeatureBoundary>
+          ) : (
+            <ProgressiveFeatureBoundary
+              resetKey={productionIdentity?.modelPath ?? "film-art-center-identity"}
+              fallback={productionIdentityFallback}
+            >
+              <Suspense fallback={productionIdentityFallback}>
+                <FilmArtCenterIdentity source={productionIdentity?.modelPath} />
+              </Suspense>
+            </ProgressiveFeatureBoundary>
+          )
         ) : genericIdentity
+      ) : acceptedMassingSource ? (
+        <ProgressiveFeatureBoundary
+          resetKey={acceptedMassingSource}
+          fallback={genericMassing}
+        >
+          <Suspense fallback={genericMassing}>
+            <AcceptedDerivedTierGlb source={acceptedMassingSource} />
+          </Suspense>
+        </ProgressiveFeatureBoundary>
       ) : (
-        <mesh position={[0, height / 2, 0]} castShadow receiveShadow>
-          <boxGeometry args={[width * 0.9, height, depth * 0.86]} />
-          <meshToonMaterial color="#c9c3b5" />
-        </mesh>
+        genericMassing
       )}
     </group>
   );

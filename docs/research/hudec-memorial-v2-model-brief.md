@@ -278,3 +278,39 @@ Identity must preserve cues 1–5. Massing must preserve the wide facade, layere
   evidence for the superseded binary/transform. The corrected candidate now
   awaits main-window MCP 1 and temporary runtime wiring; Hero and Identity
   remain unauthorized.
+
+### Iteration 5 — V2 Hero candidate from accepted Massing
+
+- Source gate: current Massing GLB `772ce8a8445a…`, MCP 1 and real Three.js
+  map/collision/performance acceptance are retained without rerun.
+- Generator: `scripts/create_hudec_memorial_v2.py -- --stage=hero`; the Hero
+  builder directly reuses the accepted Massing main body, roof hierarchy,
+  chimney, end wing, low glass wing, entrance porch, `AUTHORED_SCALE=0.72`,
+  origin, local `-Y` front and `2.7m / scene unit`.
+- Independent output: `public/models/requested-pois/hudec-memorial-v2-hero.glb`
+  and `assets/models/source/requested-pois/hudec-memorial-v2-hero.blend`;
+  legacy Hero and current Massing are not overwritten.
+- Evidence-supported additions: wide front half-timber grid, mullioned facade
+  and end-wing windows, dormer windows, detailed entrance door and steps,
+  roof-scale ribs, three separately crowned brick flues and stronger low-wing
+  glazing frames.
+- Scope exclusion: no courtyard slab, street-wall package, tree, hedge,
+  planting, signage, lighting or independent decoration is copied from the
+  legacy shared-generator Hero. Entrance steps remain part of the building
+  approach and share the accepted open-passage intent.
+- GLB result: `1,565,920` bytes, `1` node, `1` mesh, `22,760` triangles,
+  `11` materials and zero images/textures. Root transform is normalized.
+- Envelope: Hero bounds stay inside the accepted Massing X/Z site envelope;
+  maximum height is `8.978399`, matching the accepted Massing `8.978400`
+  within export precision. The `-0.0216` ground minimum is within the Brief
+  `±0.04` bevel tolerance.
+- Reproducibility: two consecutive Headless runs produced exact Hero GLB SHA
+  `598b2ba19e2412…`; Blender save-state SHA may change between runs, so the
+  checked-in editable source SHA is frozen in the Hero build record.
+- Fixed views: canonical, side and entrance previews were regenerated from the
+  checked-in candidate. The reference / Blender / Three.js triptych explicitly
+  labels its third panel as the already accepted Massing map context; it is not
+  Hero runtime evidence.
+- Gate status: Headless visual candidate and GLB audit pass. Blender MCP 2 is
+  deliberately `pending-main-window-xhigh`; Identity remains blocked and no
+  Hero runtime or performance claim is made.

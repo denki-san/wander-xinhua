@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "tier": "identity-v1",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-26T14:55:19+08:00",
+  "reviewedBy": "main-window-xhigh",
+  "status": "pass",
+  "inputs": {
+    "heroMcp2Record": "docs/research/hudec-memorial-blender-mcp-gates-v2.json",
+    "frozenHeroSha256": "598b2ba19e2412d7a592836d45066c787a7cf1eac347a6a6c5d790c12ffabff5",
+    "identityBuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/identity-v1/hudec-memorial-identity.json",
+      "sha256": "f694a13247692005d29aaed447c5a20f037e8ab87b8a46380366ef9cfdcecbd5"
+    },
+    "editableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/identity-v1/hudec-memorial-identity.blend",
+      "sha256": "6bbc6254b5fea70b09e281b45a540f4290375c55f43b9c94f31a1109cb538551"
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/xinhua-road/identity-v1/hudec-memorial-identity.glb",
+      "sha256": "867f336824f62eb2dddcb54d4dede6904278a0bcd940997df6c06278bf35660f",
+      "bytes": 392920,
+      "triangles": 7136,
+      "materials": 8,
+      "images": 0
+    }
+  },
+  "mcp3": {
+    "interactiveReview": "Blender MCP",
+    "fallbackUsed": false,
+    "sceneInspection": {
+      "objects": 1,
+      "meshes": 1,
+      "materials": 8,
+      "rootObject": "hudec-memorial-identity",
+      "rootLocation": [0, 0, 0],
+      "rootRotation": [0, 0, 0],
+      "rootScale": [1, 1, 1],
+      "vertices": 3832,
+      "polygons": 3572,
+      "boundsBlender": {
+        "min": [-4.968000411987305, -3.756000518798828, 0],
+        "max": [5.076000213623047, 3.8195998668670654, 8.978399276733398]
+      }
+    },
+    "interactiveFixedViews": [
+      "front-orthographic",
+      "right-orthographic",
+      "saved-perspective"
+    ],
+    "checks": {
+      "rootTransform": "pass-normalized",
+      "heroEnvelopeContinuity": "pass",
+      "steepLayeredRoofAndDormers": "pass-readable",
+      "halfTimberFacade": "pass-readable",
+      "threeFlueChimney": "pass-readable",
+      "entrancePorch": "pass-readable",
+      "lowGlassWing": "pass-readable",
+      "materialAndBlackFaces": "pass",
+      "buildingOnlyScope": "pass-no-tree-hedge-courtyard-or-decoration",
+      "texturePolicy": "pass-zero-images"
+    },
+    "acceptedInteractiveChanges": [],
+    "blendSavedByMcp": false
+  },
+  "gateDecision": {
+    "mcp3": "pass",
+    "runtimeIntegrationAuthorized": true,
+    "threeJs": "pass-main-window-single-page",
+    "threeJsRecord": "docs/research/hudec-memorial-three-tier-runtime-qa-v1.json",
+    "performanceClaim": "pass-current-build-no-regression-claim"
+  }
+}

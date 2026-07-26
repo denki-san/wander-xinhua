@@ -62,7 +62,9 @@ test("Hudec Massing 保持单资产安全并记录证据边界", async () => {
     otherBuildings: "untouched",
     globalMassing: "untouched",
   });
-  assert.match(generator, /当前只开放 massing/);
+  assert.match(generator, /stage == "massing"/);
+  assert.match(generator, /stage == "hero"/);
+  assert.match(generator, /Identity 必须等主窗口 MCP2 通过并冻结 Hero/);
   assert.doesNotMatch(generator, /BUILDERS/);
   for (const cue of [
     "chimney-tower",
@@ -76,7 +78,7 @@ test("Hudec Massing 保持单资产安全并记录证据边界", async () => {
   }
 });
 
-test("Hudec 历史 Three.js 地图门保留旧二进制证据与源 registry 边界", async () => {
+test("Hudec 历史 Three.js 证据保留，当前 registry 使用已终审 V2 Hero", async () => {
   const [qa, gate, record, glb, landmarkSource] = await Promise.all([
     readFile(runtimeQaUrl, "utf8").then(JSON.parse),
     readFile(mcpGateUrl, "utf8").then(JSON.parse),
@@ -135,9 +137,10 @@ test("Hudec 历史 Three.js 地图门保留旧二进制证据与源 registry 边
   );
   assert.equal(
     committedHudec.model,
-    "/models/requested-pois/hudec-memorial.glb",
-    "公共 registry 必须保持 legacy Hero，不得把临时 Massing QA 路径提交进去",
+    "/models/requested-pois/hudec-memorial-v2-hero.glb",
+    "主窗口 MCP2/MCP3 通过后，公共 registry 必须使用冻结的 V2 Hero",
   );
+  assert.equal(committedHudec.cacheVersion, "20260726-hero-598b2ba19e24");
 
   for (const screenshot of Object.values(qa.screenshots)) {
     const buffer = await readFile(new URL(screenshot.path, root));

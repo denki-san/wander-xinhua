@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "assetId": "villa-le-bec",
+  "adjudicatedAt": "2026-07-26T15:47:40+08:00",
+  "reviewSurface": "main-window-xhigh-pre-mcp2",
+  "candidate": {
+    "glb": "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
+    "sha256": "56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad",
+    "preservation": "retain-as-blocked-candidate-do-not-delete-or-overwrite"
+  },
+  "comparisonInputs": [
+    {
+      "role": "canonical-reference-street-building",
+      "path": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_01.jpg",
+      "sha256": "07339d1c2178efaa0acfd6efac2765e80c113f523ac1497b0d781d32f8c93535"
+    },
+    {
+      "role": "entrance-reference-garden-building",
+      "path": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_02.jpg",
+      "sha256": "bbef94ff1e962a96a340ad4b6e37c01e418b7bc93e3df71e0652afe44f356900"
+    },
+    {
+      "role": "candidate-canonical",
+      "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-canonical.png",
+      "sha256": "f73fa425234c600cfa5a6a073fbd5cab2cba4d35c4654f6666e6cdf31d7a58c5"
+    },
+    {
+      "role": "candidate-entrance",
+      "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-entrance.png",
+      "sha256": "7bb0b6f3e6595134ab26901fada9f8c2abc3267cae09f7486cfbdd717e2881c0"
+    },
+    {
+      "role": "candidate-triptych",
+      "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-triptych.png",
+      "sha256": "332e395c142a2bd61df21a7ade0c989f06990ea8b4aa07425fe4a2015a825eaa"
+    }
+  ],
+  "observed": {
+    "canonicalReference": [
+      "沿街主楼可见上下两层立面组织。",
+      "底层为连续入口与橱窗界面，上层有显著凸窗。",
+      "坡屋顶、深色基座和道路侧院门同时可见。"
+    ],
+    "candidateCanonical": [
+      "沿街候选只呈现单层白墙体量与稀疏矩形窗。",
+      "缺少底层连续入口或橱窗界面，也没有读得出的上层凸窗层级。",
+      "屋顶凸起在固定机位中主要读成无窗烟囱盒，而非参考中的老虎窗。"
+    ],
+    "entranceReference": [
+      "院内建筑正向入口、门、台阶和屋顶老虎窗均清晰可见。"
+    ],
+    "candidateEntrance": [
+      "入口机位正面为没有门洞的空白凸块。",
+      "生成器将入口玻璃朝侧面布置，固定机位不能读出参考中的正向入口。"
+    ]
+  },
+  "inferred": [
+    "候选保持了两栋分体和开放庭院这一 Massing 合同。",
+    "当前失败来自 Hero 身份构件和立面层级，不应通过移动、整体缩放或改地图掩盖。"
+  ],
+  "unknown": [
+    "不可见背立面和低矮附属体继续保持未知。",
+    "商业品牌与临时陈设不属于本轮修复要求。"
+  ],
+  "decision": {
+    "preMcp2VisualGate": "fail",
+    "mcp2": "not-entered-candidate-failed-fixed-view-comparison",
+    "identityAuthorized": false,
+    "runtimePromotionAuthorized": false,
+    "massingMapAndCollisionRetained": true,
+    "minimumRepair": [
+      "按参考恢复沿街主楼上下两层立面层级。",
+      "恢复底层入口或橱窗节奏与上层凸窗，不复制商业品牌。",
+      "把屋顶老虎窗做成固定机位可读的有窗构件。",
+      "把院内入口门洞和玻璃改到参考支持的正向立面。",
+      "重建新候选并生成新的 canonical、side、entrance 和 triptych，旧候选继续保留。"
+    ]
+  },
+  "scopeGuard": {
+    "onlyBuilding": "villa-le-bec",
+    "doNotModify": [
+      "trees",
+      "decorations",
+      "street-furniture",
+      "full-map-assets",
+      "other-buildings"
+    ]
+  }
+}

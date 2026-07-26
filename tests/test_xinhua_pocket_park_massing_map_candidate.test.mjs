@@ -234,7 +234,7 @@ test("候选包络不压道路、不碰邻楼并保留中心通路", () => {
   assert.equal(qa.walkability.recommendedLocalObstacles.length, 2);
 });
 
-test("主窗口已通过 MCP1 和碰撞路线，但正式地图被窄廊相机阻塞", () => {
+test("主窗口已通过 MCP1、地图、碰撞路线与狭廊相机", () => {
   assert.equal(qa.gates.evidence, "pass-for-massing-and-map-candidate");
   assert.equal(qa.gates.mapGeometry, "pass-candidate");
   assert.equal(qa.gates.massingMcp1, "pass-main-window-batch-review");
@@ -244,12 +244,12 @@ test("主窗口已通过 MCP1 和碰撞路线，但正式地图被窄廊相机�
   );
   assert.equal(
     qa.gates.formalMapAcceptance,
-    "blocked-runtime-camera",
+    "pass-main-window-runtime-v2",
   );
-  assert.equal(qa.gates.currentRuntime, "blocked-camera");
+  assert.equal(qa.gates.currentRuntime, "pass-narrow-space-camera-v2");
   assert.equal(
     qa.gates.currentRuntimeRecord,
-    "docs/research/xinhua-pocket-park-threejs-runtime-qa.json",
+    "docs/research/xinhua-pocket-park-threejs-runtime-qa-v2.json",
   );
   assert.match(qa.gates.identity, /^blocked/);
   assert.equal(qa.recovery.generator.copiedIntoBuildingBranch, false);

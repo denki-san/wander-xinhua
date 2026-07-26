@@ -87,6 +87,7 @@ import {
   isDirectReverseInput,
   lateralMovementWeight,
   movementCameraFollowWeight,
+  narrowSpaceCameraLift,
   nextCameraZoomDistance,
   normalizeWheelDeltaY,
   remainingDeadlineMs,
@@ -1088,11 +1089,13 @@ function PlayableWanderer({
       CAMERA_COLLISION_MARGIN,
     );
     resolvedArmLength.current = desiredArmLength * initialArm.fraction;
+    const initialNarrowSpaceLift = narrowSpaceCameraLift(resolvedArmLength.current);
     // 首页相机离街区很远。进入游玩态时先同步切到角色身后，保证新建的游戏
     // 后处理合成器从正确视角绘制首帧，不把首页全景缓存带进游戏画面。
     camera.position
       .copy(cameraTarget)
-      .addScaledVector(armDirection.normalize(), resolvedArmLength.current);
+      .addScaledVector(armDirection.normalize(), resolvedArmLength.current)
+      .addScaledVector(WORLD_UP, initialNarrowSpaceLift);
     camera.up.copy(WORLD_UP);
     camera.lookAt(cameraTarget);
     onPositionRef.current([currentPosition.x, currentPosition.z]);
@@ -1506,7 +1509,10 @@ function PlayableWanderer({
       delta,
     );
     resolvedArmLength.current = currentResolvedArmLength;
-    const cameraMode = springArm.blockerId
+    const narrowSpaceLift = narrowSpaceCameraLift(currentResolvedArmLength);
+    const cameraMode = narrowSpaceLift > 0.02
+      ? "spring-narrow-space"
+      : springArm.blockerId
       ? "spring-compressed"
       : Math.abs(currentResolvedArmLength - desiredArmLength) > 0.02
         ? "spring-recovering"
@@ -1515,7 +1521,8 @@ function PlayableWanderer({
       s.armDirection.multiplyScalar(1 / desiredArmLength);
       camera.position
         .copy(s.cameraTarget)
-        .addScaledVector(s.armDirection, currentResolvedArmLength);
+        .addScaledVector(s.armDirection, currentResolvedArmLength)
+        .addScaledVector(WORLD_UP, narrowSpaceLift);
     } else {
       camera.position.copy(s.cameraTarget);
     }
@@ -1542,6 +1549,7 @@ function PlayableWanderer({
         )),
         desiredArmLength,
         resolvedArmLength: currentResolvedArmLength,
+        narrowSpaceLift,
         blockerId: springArm.blockerId,
         cameraMode,
         manualGraceMs,

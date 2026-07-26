@@ -52,7 +52,33 @@ export const BUILDING_MASSING_QA_CANDIDATES = Object.freeze({
     buildRecord:
       "docs/research/build-records/tiers/xinhua-road/massing-v2/"
       + "villa-le-bec-massing.json",
-    mapGate: "docs/research/villa-le-bec-massing-map-gate.json",
+    mapGate: "docs/research/villa-le-bec-map-candidate.json",
+    runtimePromotionAllowed: "pending-runtime-acceptance",
+    placement: Object.freeze({
+      position: Object.freeze([-34.1, 88.8]),
+      yaw: -0.38,
+      scale: 0.82,
+    }),
+    start: Object.freeze({
+      position: Object.freeze([-58, 88]),
+      forward: Object.freeze([1, 0.03]),
+    }),
+    // 两栋 OSM 绑定建筑各沿源 Z 轴等分为六段；完整覆盖原碰撞壳，
+    // 同时消除旋转后单一 world AABB 吞并楼间通道的假碰撞。
+    localObstacles: Object.freeze([
+      Object.freeze({ minX: -1.095583, maxX: 4.996285, minZ: 5.014079, maxZ: 5.817213333333333 }),
+      Object.freeze({ minX: -1.095583, maxX: 4.996285, minZ: 5.817213333333333, maxZ: 6.620347666666667 }),
+      Object.freeze({ minX: -1.095583, maxX: 4.996285, minZ: 6.620347666666667, maxZ: 7.423482 }),
+      Object.freeze({ minX: -1.095583, maxX: 4.996285, minZ: 7.423482, maxZ: 8.226616333333333 }),
+      Object.freeze({ minX: -1.095583, maxX: 4.996285, minZ: 8.226616333333333, maxZ: 9.029750666666666 }),
+      Object.freeze({ minX: -1.095583, maxX: 4.996285, minZ: 9.029750666666666, maxZ: 9.832885 }),
+      Object.freeze({ minX: 6.395668, maxX: 9.996342, minZ: 1.209116, maxZ: 2.056057833333333 }),
+      Object.freeze({ minX: 6.395668, maxX: 9.996342, minZ: 2.056057833333333, maxZ: 2.902999666666667 }),
+      Object.freeze({ minX: 6.395668, maxX: 9.996342, minZ: 2.902999666666667, maxZ: 3.7499415 }),
+      Object.freeze({ minX: 6.395668, maxX: 9.996342, minZ: 3.7499415, maxZ: 4.596883333333333 }),
+      Object.freeze({ minX: 6.395668, maxX: 9.996342, minZ: 4.596883333333333, maxZ: 5.443825166666667 }),
+      Object.freeze({ minX: 6.395668, maxX: 9.996342, minZ: 5.443825166666667, maxZ: 6.290767 }),
+    ]),
   }),
   "xinhua-villas-329": Object.freeze({
     assetId: "xinhua-villas-329",
@@ -63,8 +89,35 @@ export const BUILDING_MASSING_QA_CANDIDATES = Object.freeze({
     buildRecord:
       "docs/research/build-records/tiers/xinhua-road/massing-v3/"
       + "xinhua-villas-329-massing.json",
-    mapGate:
-      "docs/research/xinhua-villas-329-massing-v3-integration-candidate.json",
+    mapGate: "docs/research/xinhua-villas-329-map-candidate.json",
+    runtimePromotionAllowed: "pending-runtime-acceptance",
+    placement: Object.freeze({
+      position: Object.freeze([-42.13, 79.48]),
+      yaw: -0.38,
+      scale: 0.62,
+    }),
+    start: Object.freeze({
+      position: Object.freeze([-26, 63]),
+      forward: Object.freeze([-0.79, 0.62]),
+    }),
+    // 四栋 OSM 绑定建筑完整保留；仅将两栋旋转长体沿源 X 轴分片，
+    // 以贴合真实 footprint，避免 rotated-AABB 对道路和邻栋的假穿插。
+    localObstacles: Object.freeze([
+      Object.freeze({ minX: -19.746794, maxX: -6.712191, minZ: -9.257435, maxZ: -2.58448 }),
+      Object.freeze({ minX: -18.991865, maxX: -9.183159, minZ: 4.548492, maxZ: 12.632193 }),
+      Object.freeze({ minX: 0.326008, maxX: 1.6323255, minZ: 0.424231, maxZ: 8.721702 }),
+      Object.freeze({ minX: 1.6323255, maxX: 2.938643, minZ: 0.424231, maxZ: 8.721702 }),
+      Object.freeze({ minX: 2.938643, maxX: 4.2449605, minZ: 0.424231, maxZ: 8.721702 }),
+      Object.freeze({ minX: 4.2449605, maxX: 5.551278, minZ: 0.424231, maxZ: 8.721702 }),
+      Object.freeze({ minX: 5.551278, maxX: 6.8575955, minZ: 0.424231, maxZ: 8.721702 }),
+      Object.freeze({ minX: 6.8575955, maxX: 8.163913, minZ: 0.424231, maxZ: 8.721702 }),
+      Object.freeze({ minX: 7.864331, maxX: 8.789470833333333, minZ: 10.491626, maxZ: 16.8141 }),
+      Object.freeze({ minX: 8.789470833333333, maxX: 9.714610666666667, minZ: 10.491626, maxZ: 16.8141 }),
+      Object.freeze({ minX: 9.714610666666667, maxX: 10.6397505, minZ: 10.491626, maxZ: 16.8141 }),
+      Object.freeze({ minX: 10.6397505, maxX: 11.564890333333333, minZ: 10.491626, maxZ: 16.8141 }),
+      Object.freeze({ minX: 11.564890333333333, maxX: 12.490030166666667, minZ: 10.491626, maxZ: 16.8141 }),
+      Object.freeze({ minX: 12.490030166666667, maxX: 13.41517, minZ: 10.491626, maxZ: 16.8141 }),
+    ]),
   }),
   "hudec-memorial": Object.freeze({
     assetId: "hudec-memorial",
@@ -134,13 +187,6 @@ export const BUILDING_MASSING_QA_CANDIDATES = Object.freeze({
       + "xinhua-pocket-park-massing.json",
     mapGate: "docs/research/xinhua-pocket-park-massing-map-qa.json",
     runtimePromotionAllowed: "pending-runtime-acceptance",
-    legacyObstacleSuppressions: Object.freeze([
-      Object.freeze({
-        assetId: "fics-xinhua-365",
-        obstacleIndexes: Object.freeze([2]),
-        reason: "legacy-long-wall-aabb-conflicts-with-osm-clearance-8.248087",
-      }),
-    ]),
     // 中央通路仅比人物直径宽约 0.093 场景单位；人物半径已提供实体留距。
     // 这里禁用全局 0.2 冗余、把旋转长墙切片，并把碰撞壳收进墙体内侧约
     // 0.19 米，以补偿当前轴对齐方形人物碰撞在斜向通路中的保守投影。
@@ -234,10 +280,86 @@ export const BUILDING_MASSING_QA_CANDIDATES = Object.freeze({
   }),
 });
 
+export const ACCEPTED_BUILDING_TIER_QA = Object.freeze({
+  "hudec-memorial": Object.freeze({
+    hero: Object.freeze({
+      modelPath:
+        "/models/requested-pois/hudec-memorial-v2-hero.glb"
+        + "?v=20260726-hero-598b2ba19e24",
+      buildRecord:
+        "docs/research/build-records/tiers/xinhua-road/hero/"
+        + "hudec-memorial-v2-hero.json",
+      localObstacles: Object.freeze([
+        Object.freeze({ minX: -4.608, maxX: 4.104, minZ: -2.988, maxZ: 2.052 }),
+        Object.freeze({ minX: 2.016, maxX: 4.752, minZ: -3.42, maxZ: 1.62 }),
+        Object.freeze({ minX: -4.5, maxX: -0.9, minZ: -3.762, maxZ: -1.35 }),
+        Object.freeze({ minX: 0.738, maxX: 1.1124, minZ: 1.926, maxZ: 3.186 }),
+        Object.freeze({ minX: 2.7036, maxX: 3.078, minZ: 1.926, maxZ: 3.186 }),
+      ]),
+    }),
+    identity: Object.freeze({
+      modelPath:
+        "/models/tiers/xinhua-road/identity-v1/hudec-memorial-identity.glb"
+        + "?v=20260726-identity-867f336824f6",
+      buildRecord:
+        "docs/research/build-records/tiers/xinhua-road/identity-v1/"
+        + "hudec-memorial-identity.json",
+      localObstacles: Object.freeze([
+        Object.freeze({ minX: -4.608, maxX: 4.104, minZ: -2.988, maxZ: 2.052 }),
+        Object.freeze({ minX: 2.016, maxX: 4.752, minZ: -3.42, maxZ: 1.62 }),
+        Object.freeze({ minX: -4.5, maxX: -0.9, minZ: -3.762, maxZ: -1.35 }),
+        Object.freeze({ minX: 0.738, maxX: 1.1124, minZ: 1.926, maxZ: 3.186 }),
+        Object.freeze({ minX: 2.7036, maxX: 3.078, minZ: 1.926, maxZ: 3.186 }),
+      ]),
+    }),
+  }),
+  "xinhua-pocket-park": Object.freeze({
+    hero: Object.freeze({
+      modelPath:
+        "/models/tiers/xinhua-road/hero-v2/xinhua-pocket-park-hero.glb"
+        + "?v=20260726-hero-c6ef6f107e3c",
+      buildRecord:
+        "docs/research/build-records/tiers/xinhua-road/hero-v2/"
+        + "xinhua-pocket-park-hero.json",
+    }),
+    identity: Object.freeze({
+      modelPath:
+        "/models/tiers/xinhua-road/identity-v1/"
+        + "xinhua-pocket-park-identity.glb"
+        + "?v=20260726-identity-892677bb8f33",
+      buildRecord:
+        "docs/research/build-records/tiers/xinhua-road/identity-v1/"
+        + "xinhua-pocket-park-identity.json",
+    }),
+  }),
+});
+
 export function resolveBuildingMassingQa(search = "") {
   const params = new URLSearchParams(search);
   if (params.get("qaModelTier") !== "massing") return null;
   const assetId = params.get("qaModelId");
   if (!assetId) return null;
   return BUILDING_MASSING_QA_CANDIDATES[assetId] ?? null;
+}
+
+export function resolveBuildingTierQa(search = "") {
+  const params = new URLSearchParams(search);
+  const assetId = params.get("qaModelId");
+  const requestedTier = params.get("qaModelTier");
+  if (!assetId || !requestedTier) return null;
+  if (requestedTier === "massing") {
+    return resolveBuildingMassingQa(search);
+  }
+  if (requestedTier !== "hero" && requestedTier !== "identity") return null;
+  const shared = BUILDING_MASSING_QA_CANDIDATES[assetId];
+  const tier = ACCEPTED_BUILDING_TIER_QA[assetId]?.[requestedTier];
+  if (!shared || !tier) return null;
+  return Object.freeze({
+    ...shared,
+    ...tier,
+    requestedTier,
+    fallbackTier: requestedTier === "hero" ? "identity" : "massing",
+    forcedFallback:
+      params.get("qaActiveFallback") === `${assetId}:${requestedTier}`,
+  });
 }

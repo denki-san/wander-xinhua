@@ -5,6 +5,7 @@ import test from "node:test";
 import {
   BUILDING_MASSING_QA_CANDIDATES,
   resolveBuildingMassingQa,
+  resolveBuildingTierQa,
 } from "../app/scene/building-massing-qa-contract.mjs";
 
 test("Massing 候选 QA 只允许18栋内已登记的建筑和精确档位", () => {
@@ -54,12 +55,38 @@ test("Massing 候选 QA 只允许18栋内已登记的建筑和精确档位", () 
     "/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb"
       + "?v=20260726-massing-593cc399",
   );
+  const villaLeBecQa = resolveBuildingMassingQa(
+    "?qaModelId=villa-le-bec&qaModelTier=massing",
+  );
+  assert.equal(villaLeBecQa?.localObstacles.length, 12);
+  assert.deepEqual(villaLeBecQa?.placement, {
+    position: [-34.1, 88.8],
+    yaw: -0.38,
+    scale: 0.82,
+  });
+  assert.equal(
+    villaLeBecQa?.mapGate,
+    "docs/research/villa-le-bec-map-candidate.json",
+  );
   assert.equal(
     resolveBuildingMassingQa(
       "?qaModelId=xinhua-villas-329&qaModelTier=massing",
     )?.modelPath,
     "/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb"
       + "?v=20260726-massing-f245efd0",
+  );
+  const villas329Qa = resolveBuildingMassingQa(
+    "?qaModelId=xinhua-villas-329&qaModelTier=massing",
+  );
+  assert.equal(villas329Qa?.localObstacles.length, 14);
+  assert.deepEqual(villas329Qa?.placement, {
+    position: [-42.13, 79.48],
+    yaw: -0.38,
+    scale: 0.62,
+  });
+  assert.equal(
+    villas329Qa?.mapGate,
+    "docs/research/xinhua-villas-329-map-candidate.json",
   );
   assert.deepEqual(
     resolveBuildingMassingQa(
@@ -184,12 +211,16 @@ test("公共运行时只在显式 QA 深链替换单栋模型，默认生产入�
     new URL("../app/scene/xinhua-world.tsx", import.meta.url),
     "utf8",
   );
-  assert.match(source, /resolveBuildingMassingQa/);
+  assert.match(source, /resolveBuildingTierQa/);
   assert.match(source, /buildingMassingQaActive/);
   assert.match(source, /qaAssetId=\{landmark\.id\}/);
   assert.match(source, /qaTier=\{buildingMassingQaActive\.requestedTier\}/);
   assert.match(source, /xinhuaRoadQaFrameSample/);
   assert.match(source, /sample\.frames < 120/);
+  assert.match(source, /boundsProbe\.add\(scene\.clone\(true\)\)/);
+  assert.match(source, /bounds\.applyMatrix4\(placementMatrix\)/);
+  assert.match(source, /qaWorldX=\{x\}/);
+  assert.match(source, /qaWorldYaw=\{yaw\}/);
   assert.match(source, /buildingMassingQaActive\?\.placement\?\.position/);
   assert.match(source, /rotation-y=\{yaw\}/);
   assert.match(source, /scale=\{scale\}/);
@@ -203,4 +234,34 @@ test("公共运行时只在显式 QA 深链替换单栋模型，默认生产入�
   assert.match(worldSource, /parameters\.get\("qaMoveTarget"\)/);
   assert.match(worldSource, /qaMoveTarget\.x - currentPosition\.x/);
   assert.match(worldSource, /root\.dataset\.xinhuaQaMovement/);
+});
+
+test("邬达克与口袋公园 QA 支持三档和逐级确定性 fallback", () => {
+  for (const assetId of ["hudec-memorial", "xinhua-pocket-park"]) {
+    const hero = resolveBuildingTierQa(
+      `?qaModelId=${assetId}&qaModelTier=hero`,
+    );
+    const identity = resolveBuildingTierQa(
+      `?qaModelId=${assetId}&qaModelTier=identity`,
+    );
+    const massing = resolveBuildingTierQa(
+      `?qaModelId=${assetId}&qaModelTier=massing`,
+    );
+    assert.equal(hero?.requestedTier, "hero");
+    assert.equal(hero?.fallbackTier, "identity");
+    assert.equal(identity?.requestedTier, "identity");
+    assert.equal(identity?.fallbackTier, "massing");
+    assert.equal(massing?.requestedTier, "massing");
+    assert.equal(
+      resolveBuildingTierQa(
+        `?qaModelId=${assetId}&qaModelTier=hero`
+        + `&qaActiveFallback=${assetId}:hero`,
+      )?.forcedFallback,
+      true,
+    );
+  }
+  assert.equal(
+    resolveBuildingTierQa("?qaModelId=plane-tree&qaModelTier=hero"),
+    null,
+  );
 });

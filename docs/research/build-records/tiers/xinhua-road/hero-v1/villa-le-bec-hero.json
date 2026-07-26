@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "assetId": "villa-le-bec",
+  "tier": "hero",
+  "status": "hero-built-blocked-pre-mcp2-visual-review",
+  "generator": "scripts/create_villa_le_bec_hero_model.py",
+  "generatorSha256": "5a56db6276b7121491a2c81fae8aace7b0cc1916c5a29357af3d1e8ef179de3e",
+  "blenderVersion": "5.2.0 LTS",
+  "derivedFrom": {
+    "massingGlb": "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
+    "massingSha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f",
+    "placement": {
+      "position": [
+        -34.1,
+        88.8
+      ],
+      "yaw": -0.38,
+      "scale": 0.82,
+      "movementAuthorized": false
+    }
+  },
+  "outputs": {
+    "blend": "assets/models/source/tiers/xinhua-road/hero-v1/villa-le-bec-hero.blend",
+    "blendSha256": "fbe4cefdf60abeb1841bca6956d48e62d4bd1a66353077f75d41dc6797d3e1c6",
+    "glb": "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
+    "glbSha256": "56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad",
+    "bytes": 92908,
+    "bounds": {
+      "min": [
+        -1.152635097503662,
+        -10.475184440612793,
+        0.0
+      ],
+      "max": [
+        10.000630378723145,
+        -1.1461124420166016,
+        4.579999923706055
+      ]
+    },
+    "previews": [
+      {
+        "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-canonical.png",
+        "sha256": "f73fa425234c600cfa5a6a073fbd5cab2cba4d35c4654f6666e6cdf31d7a58c5"
+      },
+      {
+        "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-side-depth.png",
+        "sha256": "b06eafbf4faf80d126fa8e4df455ca1f8c65f6f061df5caf5938e69a62af5591"
+      },
+      {
+        "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-entrance.png",
+        "sha256": "7bb0b6f3e6595134ab26901fada9f8c2abc3267cae09f7486cfbdd717e2881c0"
+      },
+      {
+        "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-triptych.png",
+        "sha256": "332e395c142a2bd61df21a7ade0c989f06990ea8b4aa07425fe4a2015a825eaa"
+      }
+    ]
+  },
+  "budget": {
+    "maxTriangles": 68000,
+    "maxNodes": 10,
+    "maxMaterials": 12,
+    "maxImages": 0,
+    "maxBytes": 5200000
+  },
+  "scope": {
+    "twoBuildingsOnly": true,
+    "components": 105,
+    "excluded": [
+      "trees",
+      "dressing",
+      "brand",
+      "interior",
+      "low-annex",
+      "ways-864493245-246-247"
+    ]
+  },
+  "identityCues": [
+    "warm-white-dark-base-red-brown-hipped-roof",
+    "street-projecting-bay-and-dormers",
+    "garden-entry-bay-side-windows-and-dormer",
+    "open-courtyard-between-two-buildings"
+  ],
+  "collisionContract": {
+    "sameAsMassing": true,
+    "solidWays": [
+      864493176,
+      864493175
+    ],
+    "openCourtyard": true,
+    "bakedCollisionGeometry": false
+  },
+  "gates": {
+    "mcp2": "blocked-pre-mcp2-main-visual-review",
+    "identity": "not-authorized",
+    "runtime": "not-run-by-scope"
+  }
+}
