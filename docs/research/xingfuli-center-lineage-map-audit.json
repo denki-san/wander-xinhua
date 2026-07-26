@@ -1,0 +1,257 @@
+{
+  "version": 1,
+  "assetId": "xingfuli-center",
+  "auditedAt": "2026-07-26",
+  "scope": {
+    "status": "in-scope",
+    "assetCount": 1,
+    "excluded": [
+      "xingfuli-west",
+      "xingfuli-east",
+      "trees",
+      "decorations",
+      "ordinary-osm-massing",
+      "full-map-assets",
+      "recovery-hold"
+    ]
+  },
+  "sources": {
+    "integrationBaseline": "406f584be9dc036b4ab441ce5639ad00d127de4a",
+    "recoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "rawRoadSnapshot": "docs/research/data/xinhua-roads-osm-20260716-080509.json",
+    "currentMap": "app/scene/xinhua-map-data.json",
+    "layout": "app/scene/xingfuli-layout.json",
+    "collision": "app/scene/xingfuli-qa-paths.json",
+    "referenceManifest": "docs/research/xingfuli-reference-manifest.json",
+    "modelBrief": "docs/research/xingfuli-model-brief.md",
+    "reproducibleAudit": "scripts/test_xingfuli_center_lineage_map_calibration.mjs"
+  },
+  "generator": {
+    "path": "scripts/create_xingfuli_models.py",
+    "sha256": "f479f096b2f0092329c77a49e61fb5cfab208d4f05a9ca5278d46115a59b7d75",
+    "recoveryMatchesCurrent": true,
+    "singleAssetCommand": "Blender --background --python scripts/create_xingfuli_models.py -- --segment=center --stage=<tier>",
+    "rebuilt": false
+  },
+  "tiers": {
+    "hero": {
+      "glb": "public/models/xingfuli/xingfuli-center.glb",
+      "blend": "assets/models/source/xingfuli/xingfuli-center.blend",
+      "sha256": "860249a2656cf7af9aa2ef746f05cc7f39506ec1e8751df236e3c1e3f0f594b9",
+      "blendSha256": "b8e8aa2b4776244b23335b9148a94e1be5c8b7683f835960f4483547c7587eea",
+      "bytes": 554080,
+      "nodes": 1,
+      "meshes": 1,
+      "triangles": 7788,
+      "materials": 9,
+      "images": 0,
+      "textures": 0,
+      "transformedNodes": [],
+      "bounds": {
+        "min": [-23.34000015258789, 0.09000000357627869, -7.739999771118164],
+        "max": [25.625, 9.0600004196167, 22.09000015258789]
+      },
+      "recordMatchesCurrentGlb": true,
+      "recoveryMatchesCurrent": true,
+      "status": "pass-retained"
+    },
+    "identity": {
+      "glb": "public/models/xingfuli/xingfuli-center-identity.glb",
+      "blend": "assets/models/source/xingfuli/xingfuli-center-identity.blend",
+      "sha256": "19800200464e0e9423e5a355abde7216478ba73c10b7539b0bafe5674fc4dc21",
+      "blendSha256": "b7e4114e49bf87af3d8679424f44a2a707d0d512f07a6ad04ad3038ab5f9e112",
+      "bytes": 453004,
+      "nodes": 1,
+      "meshes": 1,
+      "triangles": 6384,
+      "materials": 6,
+      "images": 0,
+      "textures": 0,
+      "transformedNodes": [],
+      "bounds": {
+        "min": [-23.34000015258789, 0.09000000357627869, -7.739999771118164],
+        "max": [22, 9.0600004196167, 22.09000015258789]
+      },
+      "recordMatchesCurrentGlb": true,
+      "recoveryMatchesCurrent": true,
+      "status": "retained-binary-blocked-lineage"
+    },
+    "massing": {
+      "glb": "public/models/xingfuli/xingfuli-center-massing.glb",
+      "blend": "assets/models/source/xingfuli/xingfuli-center-massing.blend",
+      "sha256": "d6eeae59d35c3577817cdf35febb06493b53cbb661774e81a6e55d7a6dce26d3",
+      "blendSha256": "96deb8d73d2c87f456c567dd92cb3f568effb27f84eb625daeb8516a0ff3d872",
+      "bytes": 310204,
+      "nodes": 1,
+      "meshes": 1,
+      "triangles": 4344,
+      "materials": 6,
+      "images": 0,
+      "textures": 0,
+      "transformedNodes": [],
+      "bounds": {
+        "min": [-23.34000015258789, 0.09000000357627869, -7.739999771118164],
+        "max": [22, 9.0600004196167, 22.09000015258789]
+      },
+      "recordMatchesCurrentGlb": true,
+      "recoveryMatchesCurrent": true,
+      "status": "pass-retained"
+    }
+  },
+  "lineage": {
+    "generatorSharedAcrossTiers": true,
+    "massingGeneratedAt": "2026-07-22T23:51:00+08:00",
+    "identityGeneratedAt": "2026-07-23T00:26:00+08:00",
+    "heroGeneratedAt": "2026-07-23T01:40:30+08:00",
+    "identityHasExplicitDerivedFrom": false,
+    "identityGeneratedBeforeFinalHero": true,
+    "status": "blocked-provisional",
+    "reason": "Identity build record 没有 final Hero source SHA/derivedFrom，且生成时间早于 final Hero。"
+  },
+  "evidenceDecision": {
+    "observed": [
+      "OSM way/400066625 直接证明幸福里步行街的中心线、位置与 147.686 米长轴。",
+      "本地 canonical、侧向、入口和场地照片覆盖连续立面、水景、番禺路入口及铺地外摆。",
+      "三档 GLB 均使用同一生成器、无节点 transform、相同最低地面基准 Y=0.09。",
+      "当前中心段由 north-inner-west、north-inner-east、south-inner-west 三个结构化建筑成员组成。"
+    ],
+    "inferred": [
+      "三栋中心段成员与照片中具体立面的一一对应。",
+      "运行时本地 +X 对应番禺路入口，由 OSM 中心线顺序和照片立面关系共同推断。",
+      "不可见背立面、屋顶设备和内部连接使用保守简化。"
+    ],
+    "unknown": [
+      "施工图级单栋 footprint、层高和开间。",
+      "2026 年店铺、墙绘和外摆是否变化。",
+      "西/中段连续立面之间 1.19 local unit 小缝是否应作为可穿行侧通道。"
+    ]
+  },
+  "mapCalibration": {
+    "osmWayId": 400066625,
+    "address": "幸福路67号 / 番禺路381号",
+    "projection": {
+      "centerWgs84": [121.4227819, 31.2066376],
+      "metersPerSceneUnit": 2.7
+    },
+    "rawLengthSceneUnits": 54.69837495666478,
+    "rawLengthMeters": 147.68561238299492,
+    "rawMidpoint": [106.66441231879116, 12.906568518513527],
+    "storedMidpoint": [106.6662, 12.9045],
+    "midpointErrorSceneUnits": 0.002733966522333165,
+    "midpointErrorMeters": 0.007381709610299546,
+    "rawRotationY": 2.9977629924671367,
+    "storedRotationY": 2.997763,
+    "rotationErrorRadians": 7.532863222081687e-9,
+    "rawHorizontalScale": 0.5818976059219657,
+    "storedHorizontalScale": 0.581898,
+    "longitudinalScaleAfterPanyuSetback": 0.5382809787234043,
+    "runtimePosition": [108.6950323854418, 13.198335245984035],
+    "endpoints": {
+      "xingfuRoadErrorSceneUnits": 0.0027441610828666963,
+      "xingfuRoadErrorMeters": 0.00740923492374008,
+      "panyuRoadSetbackSceneUnits": 4.101454857642334,
+      "panyuRoadSetbackMeters": 11.0739281156343
+    },
+    "roads": {
+      "nearestVisibleRoad": {
+        "name": "幸福路",
+        "osmWayId": 43763426,
+        "buildingId": "south-inner-west",
+        "asphaltClearanceSceneUnits": 7.488958714398006,
+        "asphaltClearanceMeters": 20.220188528874615
+      },
+      "panyuRoad": {
+        "osmWayId": 11960339,
+        "buildingId": "north-inner-east",
+        "asphaltClearanceSceneUnits": 11.467936525058674,
+        "asphaltClearanceMeters": 30.96342861765842
+      }
+    },
+    "centerMainLane": {
+      "clearanceLocalUnits": 12.25,
+      "clearanceSceneUnits": 7.1282505,
+      "clearanceMeters": 19.246276350000002,
+      "remainingAfterPlayerDiameterSceneUnits": 6.1682505,
+      "status": "pass"
+    },
+    "adjacentSegments": {
+      "west": {
+        "minimumLocalOrientedClearance": 1.1899999999999977,
+        "minimumLongitudinalClearanceSceneUnits": 0.6405543646808499,
+        "minimumLongitudinalClearanceMeters": 1.7294967846382948,
+        "productionWorldAabbOverlaps": 2,
+        "status": "primary-lane-pass-side-gap-merged-by-aabb"
+      },
+      "east": {
+        "minimumLocalOrientedClearance": 1.9399999999999977,
+        "minimumLongitudinalClearanceSceneUnits": 1.0442650987234032,
+        "minimumLongitudinalClearanceMeters": 2.8195157665531887,
+        "productionWorldAabbClearanceSceneUnits": 0.3095189556086382,
+        "status": "pass"
+      }
+    }
+  },
+  "startCamera": {
+    "playerRadiusSceneUnits": 0.48,
+    "presets": {
+      "xingfuli": {
+        "world": [129.73758572349232, 16.24592255806837],
+        "nearestObstacleSceneUnits": 2.092060744004645,
+        "status": "pass"
+      },
+      "xingfuli-canonical": {
+        "world": [106.56414090817087, 12.889718809317268],
+        "nearestObstacleSceneUnits": 2.220574039111323,
+        "status": "pass"
+      },
+      "xingfuli-pool-detail": {
+        "world": [105.48147646629675, 14.73201199934332],
+        "nearestObstacleSceneUnits": 1.4432932663298919,
+        "status": "pass"
+      },
+      "xingfuli-entrance-detail": {
+        "local": [45, -5.5],
+        "world": [84.8476121505103, 8.862566059758151],
+        "nearestObstacleSceneUnits": 0.1792972909947803,
+        "status": "blocked-inside-player-radius-of-bollard"
+      }
+    },
+    "recommendedEntranceCandidate": {
+      "local": [46, -5.05],
+      "world": [84.35242194650252, 8.526261668474035],
+      "nearestObstacleSceneUnits": 0.6584993027552266,
+      "source": "existing west-to-east-main QA route endpoint",
+      "status": "geometry-pass-pending-main-runtime"
+    }
+  },
+  "gates": {
+    "evidence": "pass-package-medium-internal-member-confidence",
+    "hero": "pass-retained",
+    "massing": "pass-retained",
+    "identity": "blocked-lineage",
+    "map": "pass-center-segment",
+    "collision": "pass-primary-routes-retained-aabb-side-gaps-merged",
+    "startCamera": "blocked",
+    "mcp1": "pending-main-window-batch",
+    "mcp2": "pending-main-window-batch",
+    "mcp3": "pending-main-window-batch",
+    "threeTierRuntime": "pending-main-window"
+  },
+  "validation": {
+    "buildingSpecificTests": "4-pass",
+    "fastMode": "17-pass",
+    "glbAudits": "3-pass",
+    "fullRepositoryTest": "not-run-by-building-fast-mode",
+    "lint": "not-run-by-building-fast-mode"
+  },
+  "decision": {
+    "rebuild": "forbidden-retain-qualified-assets",
+    "movementOrScale": "no-change",
+    "runtimePromotion": "blocked-until-identity-lineage-and-entrance-start-fixed",
+    "mainWindowTodo": [
+      "将 Identity 与 final Hero SHA 建立正式 derivedFrom；若不能证明派生关系，则在 MCP2 后从 Hero 确定性重派生。",
+      "把 xingfuli-entrance-detail 从碰撞半径内移到已有 QA 路线安全端点，并做真实页面 camera/collision 复核。",
+      "批量执行 MCP1/MCP2/MCP3 和当前三档同机位 Three.js 验收。"
+    ]
+  }
+}
