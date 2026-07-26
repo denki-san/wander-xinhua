@@ -60,6 +60,10 @@ test("十份查询合同必须存在，法华外部证据接入不冒充本窗�
       "shanghai-cinema",
       "xinhua-villas-211",
       "shanghai-orchestra",
+      "xinhua-community-center",
+      "debi-fahua-525",
+      "xingfuli-west",
+      "xingfuli-east",
     ],
   );
   for (const audit of record.offlineExternalAudits) {

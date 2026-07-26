@@ -312,7 +312,8 @@
         "tests/test_xinhua_community_center_service_road_local_rescue_audit.test.mjs",
         "tests/test_xinhua_community_center_service_road_gap_audit_2026_07_26.test.mjs",
         "tests/test_xinhua_community_center_official_service_road_evidence_exhaustion.test.mjs",
-        "tests/test_xinhua_community_center_xiaohongshu_road_query_contract_2026_07_26.test.mjs"
+        "tests/test_xinhua_community_center_xiaohongshu_road_query_contract_2026_07_26.test.mjs",
+        "tests/test_xinhua_community_center_offline_evidence_exhaustive_audit.test.mjs"
       ],
       "glbs": [
         "public/models/requested-pois/xinhua-community-center.glb",
@@ -333,6 +334,7 @@
         "tests/test_debi_fahua_525_evidence_gate_v2_audit.test.mjs",
         "tests/test_debi_fahua_525_public_primary_source_rescue.test.mjs",
         "tests/test_debi_fahua_525_xiaohongshu_query_contract_2026_07_26.test.mjs",
+        "tests/test_debi_fahua_525_offline_external_evidence_audit_2026_07_27.test.mjs",
         "tests/test_requested_poi_models.test.mjs"
       ],
       "glbs": [
@@ -401,6 +403,7 @@
         "tests/test_xingfuli_threejs_runtime_batch.test.mjs",
         "tests/test_xingfuli_user_photo_sequence_evidence.test.mjs",
         "tests/test_xingfuli_user_photo_external_materialization_audit_2026_07_27.test.mjs",
+        "tests/test_xingfuli_west_east_external_evidence_exhaustion_audit_2026_07_27.test.mjs",
         "tests/test_xingfuli_west_fast_audit.test.mjs",
         "tests/test_xingfuli_west_lineage_reconstruction.test.mjs",
         "tests/test_xingfuli_west_map_collision_lineage_adjudication.test.mjs",
@@ -469,6 +472,7 @@
         "tests/test_xingfuli_threejs_runtime_batch.test.mjs",
         "tests/test_xingfuli_user_photo_sequence_evidence.test.mjs",
         "tests/test_xingfuli_user_photo_external_materialization_audit_2026_07_27.test.mjs",
+        "tests/test_xingfuli_west_east_external_evidence_exhaustion_audit_2026_07_27.test.mjs",
         "tests/test_xingfuli_east_tier_map_audit.test.mjs",
         "tests/test_xingfuli_east_strict_lineage_reconstruction.test.mjs",
         "tests/test_xingfuli_east_lineage_v2_candidate.test.mjs",

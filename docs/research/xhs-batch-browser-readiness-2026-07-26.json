@@ -154,6 +154,30 @@
       "path": "docs/research/shanghai-orchestra-external-evidence-exhaustion-audit-2026-07-27.json",
       "result": "four-research-only-real-views-found-membership-map-lineage-still-blocked",
       "liveXhsContractStillRequired": true
+    },
+    {
+      "assetId": "xinhua-community-center",
+      "path": "docs/research/xinhua-community-center-offline-evidence-exhaustive-audit-2026-07-27.json",
+      "result": "one-traceable-entrance-detail-found-service-road-and-map-controls-still-blocked",
+      "liveXhsContractStillRequired": true
+    },
+    {
+      "assetId": "debi-fahua-525",
+      "path": "docs/research/debi-fahua-525-offline-external-evidence-audit-2026-07-27.json",
+      "result": "offline-archive-exhausted-no-new-admissible-media",
+      "liveXhsContractStillRequired": true
+    },
+    {
+      "assetId": "xingfuli-west",
+      "path": "docs/research/xingfuli-west-east-external-evidence-exhaustion-audit-2026-07-27.json",
+      "result": "offline-search-closed-no-new-west-specific-passage-evidence",
+      "liveXhsContractStillRequired": true
+    },
+    {
+      "assetId": "xingfuli-east",
+      "path": "docs/research/xingfuli-west-east-external-evidence-exhaustion-audit-2026-07-27.json",
+      "result": "independent-public-panyu-road-381-entrance-found-map-overlap-still-blocked",
+      "liveXhsContractStillRequired": true
     }
   ],
   "userPhotoSequenceMaterialization": {
