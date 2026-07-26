@@ -50,7 +50,7 @@
       "version": "massing-v2",
       "generator": {
         "path": "scripts/create_one_step_garden_massing_model.py",
-        "sha256": "41a6e2190730ad54cb7dd269d3109049092f12b1f450559a55829b6b59e3f0e3"
+        "sha256": "3927893071e5de2434e1d47a677f5dcddb0573f66c511933b0717c82e4e8f796"
       },
       "editableSource": {
         "path": "assets/models/source/tiers/xinhua-road/massing-v2/one-step-garden-massing.blend",
