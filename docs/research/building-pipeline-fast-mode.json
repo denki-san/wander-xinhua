@@ -288,6 +288,10 @@
       "id": "xingfuli-west",
       "label": "幸福里·西区",
       "tests": [
+        "tests/test_xingfuli_blender_mcp_batch.test.mjs",
+        "tests/test_xingfuli_threejs_tier_contract.test.mjs",
+        "tests/test_xingfuli_threejs_runtime_batch.test.mjs",
+        "tests/test_xingfuli_west_fast_audit.test.mjs",
         "tests/test_xingfuli_models.test.mjs"
       ],
       "glbs": [
@@ -296,13 +300,23 @@
         "public/models/xingfuli/xingfuli-west-massing.glb"
       ],
       "runtimeRoutes": [
-        "/?start=xingfuli-canonical&cameraQa=1&qaAutoStart=1"
+        "/?start=xingfuli&qaModelId=xingfuli-west&qaModelTier=hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=xingfuli&qaModelId=xingfuli-west&qaModelTier=identity&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=xingfuli&qaModelId=xingfuli-west&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=xingfuli&qaModelId=xingfuli-west&qaModelTier=hero&qaActiveFallback=xingfuli-west:hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=xingfuli&qaModelId=xingfuli-west&qaModelTier=identity&qaActiveFallback=xingfuli-west:identity&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=xingfuli&qaModelId=xingfuli-west&qaModelTier=hero&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaMove=forward&qaMoveMs=6000&qaMoveTarget=121.05608608,14.224223386"
       ]
     },
     {
       "id": "xingfuli-center",
       "label": "幸福里·中区",
       "tests": [
+        "tests/test_xingfuli_blender_mcp_batch.test.mjs",
+        "tests/test_xingfuli_threejs_tier_contract.test.mjs",
+        "tests/test_xingfuli_threejs_runtime_batch.test.mjs",
+        "tests/test_xingfuli_center_lineage_map.test.mjs",
+        "scripts/test_xingfuli_center_lineage_map_calibration.mjs",
         "tests/test_xingfuli_models.test.mjs"
       ],
       "glbs": [
@@ -311,13 +325,22 @@
         "public/models/xingfuli/xingfuli-center-massing.glb"
       ],
       "runtimeRoutes": [
-        "/?start=xingfuli-canonical&cameraQa=1&qaAutoStart=1"
+        "/?start=xingfuli-canonical&qaModelId=xingfuli-center&qaModelTier=hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=xingfuli-canonical&qaModelId=xingfuli-center&qaModelTier=identity&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=xingfuli-canonical&qaModelId=xingfuli-center&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=xingfuli-canonical&qaModelId=xingfuli-center&qaModelTier=hero&qaActiveFallback=xingfuli-center:hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=xingfuli-canonical&qaModelId=xingfuli-center&qaModelTier=identity&qaActiveFallback=xingfuli-center:identity&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=xingfuli-canonical&qaModelId=xingfuli-center&qaModelTier=hero&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaMove=forward&qaMoveMs=6000&qaMoveTarget=93.845516783,10.577308577"
       ]
     },
     {
       "id": "xingfuli-east",
       "label": "幸福里·东区",
       "tests": [
+        "tests/test_xingfuli_blender_mcp_batch.test.mjs",
+        "tests/test_xingfuli_threejs_tier_contract.test.mjs",
+        "tests/test_xingfuli_threejs_runtime_batch.test.mjs",
+        "tests/test_xingfuli_east_tier_map_audit.test.mjs",
         "tests/test_xingfuli_models.test.mjs"
       ],
       "glbs": [
@@ -326,7 +349,12 @@
         "public/models/xingfuli/xingfuli-east-massing.glb"
       ],
       "runtimeRoutes": [
-        "/?start=xingfuli-canonical&cameraQa=1&qaAutoStart=1"
+        "/?start=xingfuli-entrance-detail&qaModelId=xingfuli-east&qaModelTier=hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=xingfuli-entrance-detail&qaModelId=xingfuli-east&qaModelTier=identity&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=xingfuli-entrance-detail&qaModelId=xingfuli-east&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=xingfuli-entrance-detail&qaModelId=xingfuli-east&qaModelTier=hero&qaActiveFallback=xingfuli-east:hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=xingfuli-entrance-detail&qaModelId=xingfuli-east&qaModelTier=identity&qaActiveFallback=xingfuli-east:identity&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=xingfuli-entrance-detail&qaModelId=xingfuli-east&qaModelTier=hero&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaMove=forward&qaMoveMs=6000&qaMoveTarget=93.845516783,10.577308577"
       ]
     },
     {

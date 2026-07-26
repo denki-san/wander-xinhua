@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xingfuli-east",
+  "recordedAt": "2026-07-26T12:56:00+08:00",
+  "owner": "main-coordinator",
+  "buildMode": "vite-static-production-preview",
+  "viewport": [1280, 720],
+  "visibility": "visible",
+  "warmupSeconds": 4.2,
+  "productionDefaultChanged": false,
+  "startFix": {
+    "oldLocal": [45, -5.5],
+    "oldStatus": "blocked-inside-east-entry-bollard-2-radius",
+    "newLocal": [46, -5.05],
+    "newWorld": [84.35242194650252, 8.526261668474035],
+    "source": "existing-west-to-east-main-route-endpoint",
+    "initialCamera": "pass-spring-clear-5.435"
+  },
+  "tiers": {
+    "hero": {
+      "source": "/models/xingfuli/xingfuli-east.glb?v=20260723-final-1",
+      "status": "loaded",
+      "fps": 60.03301815980898,
+      "drawCalls": 720,
+      "triangles": 703366
+    },
+    "identity": {
+      "source": "/models/xingfuli/xingfuli-east-identity.glb?v=1",
+      "status": "loaded",
+      "fps": 59.82352061445479,
+      "drawCalls": 715,
+      "triangles": 701650
+    },
+    "massing": {
+      "source": "/models/xingfuli/xingfuli-east-massing.glb?v=1",
+      "status": "loaded",
+      "fps": 60,
+      "drawCalls": 714,
+      "triangles": 698950
+    }
+  },
+  "fallbacks": {
+    "heroToIdentity": {
+      "requestedTier": "hero",
+      "renderedTier": "identity",
+      "status": "pass-forced-deterministic-fallback"
+    },
+    "identityToMassing": {
+      "requestedTier": "identity",
+      "renderedTier": "massing",
+      "status": "pass-forced-deterministic-fallback"
+    }
+  },
+  "collision": {
+    "status": "pass-target-reached",
+    "start": [84.35242194650252, 8.526261668474035],
+    "target": [93.845516783, 10.577308577],
+    "final": [93.87241139856002, 10.583894057146052],
+    "finalTargetErrorSceneUnits": 0.027689147601101215,
+    "durationMs": 6000
+  },
+  "camera": {
+    "initial": "pass-spring-clear-5.435",
+    "routeFinal": "pass-compressed-visible",
+    "routeFinalArm": 3.541,
+    "routeDesiredArm": 5.392,
+    "routeBlocker": "obstacle-164"
+  },
+  "screenshots": [
+    {
+      "path": "test_artifacts/all-models/runtime/xingfuli-east/test_xingfuli_east_hero_threejs.jpg",
+      "sha256": "44314993ab4c7ffd2b3c684a9f6b6c51a5a6b6aed5794dc8e3d84ce2e78992ab",
+      "bytes": 97020
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/xingfuli-east/test_xingfuli_east_identity_threejs.jpg",
+      "sha256": "9ed5222a413e851245deec72c6eee568a85fdad8d2547b9828f8a3087c486d6a",
+      "bytes": 95958
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/xingfuli-east/test_xingfuli_east_massing_threejs.jpg",
+      "sha256": "22e859fe4af44fec192f431148bd43034f96f965c28c7a2893d100114e8c361c",
+      "bytes": 95047
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/xingfuli-east/test_xingfuli_east_collision_threejs.jpg",
+      "sha256": "4a7cccc13de0c028534f7e0cb44fcae06340cac35995b4d1dc7b3ab1c3485b27",
+      "bytes": 68780
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/xingfuli-east/test_xingfuli_east_threejs_contact_sheet.jpg",
+      "sha256": "4fd175aa5179af4212be73839f961b316cef00092c9b6b725ed7c0a8a763857b",
+      "bytes": 71977
+    }
+  ],
+  "console": {
+    "errorsObservedAcrossBatch": 0,
+    "knownWarnings": ["THREE.Clock deprecation"]
+  },
+  "acceptance": {
+    "threeTierLoading": "pass",
+    "fallback": "pass",
+    "performanceSample": "pass-measured-no-improvement-claim",
+    "startCamera": "pass",
+    "collision": "pass",
+    "camera": "pass-compressed-visible",
+    "strictTierLineage": "blocked",
+    "map": "blocked-panyu-road-overlap",
+    "formalRuntimeAcceptance": "blocked-prerequisites",
+    "runtimePromotionAllowed": false
+  },
+  "nextGate": "Resolve strict tier lineage and the shared Panyu Road overlap; repeat the same route before production promotion."
+}

@@ -1,5 +1,59 @@
 # Errors
 
+## [ERR-20260726-095] worktree_index_lock_sandbox_permission
+
+**Logged**: 2026-07-26T14:35:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: git
+
+### Summary
+集成 worktree 暂存时，文件沙箱允许修改工作树，但不能在主仓共享
+`.git/worktrees` 中创建 `index.lock`。
+
+### Error
+```text
+fatal: Unable to create '.git/worktrees/integration-18-buildings/index.lock':
+Operation not permitted
+```
+
+### Suggested Fix
+保持精确文件清单，用获批的 `git add` 权限执行同一暂存动作；不得改用复制索引、
+新仓库或绕过 worktree 元数据的方案。
+
+### Resolution
+- **Resolved**: 2026-07-26T14:36:00+08:00
+- **Notes**: 使用受控 Git 权限后仅暂存本批源文件、记录与合格截图。
+
+---
+## [ERR-20260726-094] xingfuli_legacy_source_literal_assertion
+
+**Logged**: 2026-07-26T14:25:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+幸福里单页三档 QA 将 final URL 集中到 tier contract 后，旧测试仍要求 URL
+字面量直接出现在 React 组件源码中；全仓旧测试还把默认 detail/stage 表达式
+写死，导致运行时行为正确但专项与全仓测试先后失败。
+
+### Error
+```text
+AssertionError: input did not match /xingfuli-west\.glb\?v=20260723-final-1/
+AssertionError: input did not match /loadDetailedArchitecture=\{showDetailModels\}/
+```
+
+### Suggested Fix
+测试从 `xingfuli-tier-contract.mjs` 验证三段资产与 final cache version，并在
+React 组件中断言默认路径与显式 QA 分支，避免复制 URL 字面量形成双源真相。
+
+### Resolution
+- **Resolved**: 2026-07-26T14:26:00+08:00
+- **Notes**: 专项与全仓旧测试均已迁移到 contract/QA 分支断言，生产 URL、
+  默认 detail 行为和默认档位均未改变。
+
+---
 ## [ERR-20260724-091] vite_preview_sandbox_listen_permission
 
 **Logged**: 2026-07-24T00:00:00+08:00
@@ -29,6 +83,65 @@ Error: listen EPERM: operation not permitted 127.0.0.1:4317
 ### Resolution
 - **Resolved**: 2026-07-24T00:00:00+08:00
 - **Notes**: 经批准后同一命令已在 `127.0.0.1:4317` 正常监听。
+
+---
+## [ERR-20260726-093] xingfuli_mjs_key_union_typecheck
+
+**Logged**: 2026-07-26T12:42:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: typescript
+
+### Summary
+幸福里 QA contract 从 `.mjs` 导出的冻结 ID 数组在 TSX 中被推断为
+`string[]`，导致按 ID 访问冻结三档表时丢失键联合类型。
+
+### Error
+```text
+TS7053: expression of type string can't be used to index XINGFULI_TIERS
+```
+
+### Suggested Fix
+在 TSX 的表访问边界把 ID 收窄为 `keyof typeof XINGFULI_TIERS`，不改变
+运行时清单或放宽到任意资产 ID。
+
+### Resolution
+- **Resolved**: 2026-07-26T12:43:00+08:00
+- **Notes**: 只在索引处收窄键类型，exact-18 和三栋白名单保持不变。
+
+---
+## [ERR-20260726-092] blender_mcp_context_object_removed
+
+**Logged**: 2026-07-26T13:32:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: blender
+
+### Summary
+幸福里三栋批量 MCP 渲染第一次在创建临时人物代理时失败；Blender 5.2
+的当前 MCP context 不提供旧版 `bpy.context.object` 属性。
+
+### Errors
+```text
+Context object has no attribute object
+enum "BLENDER_EEVEE_NEXT" not found in ("BLENDER_EEVEE", "BLENDER_WORKBENCH", "CYCLES")
+```
+
+### Context
+- 失败发生在打开西区 Massing 源文件并创建临时 QA 物体后；
+- 未保存 `.blend`，未导出 GLB，建筑几何和当前二进制均未变化；
+- 问题只影响 MCP 临时渲染脚本的活动对象获取方式。
+- 当前 MCP 的 engine enum 仍使用 `BLENDER_EEVEE`，不能用 Headless 环境中的
+  `BLENDER_EEVEE_NEXT` 名称。
+
+### Suggested Fix
+所有新增临时物体统一通过 `bpy.context.view_layer.objects.active` 获取，
+渲染引擎使用当前 MCP 列出的 `BLENDER_EEVEE`；每次打开源文件后重新建立
+临时相机、灯光、地面与 1.8 米代理。
+
+### Resolution
+- **Resolved**: 2026-07-26T13:34:00+08:00
+- **Notes**: 改用 `active_object`，从未修改的源文件重新执行整批验收。
 
 ---
 ## [ERR-20260725-032] gltf_float32_material_factor_exact_assertion

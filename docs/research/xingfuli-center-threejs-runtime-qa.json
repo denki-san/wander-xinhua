@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xingfuli-center",
+  "recordedAt": "2026-07-26T12:56:00+08:00",
+  "owner": "main-coordinator",
+  "buildMode": "vite-static-production-preview",
+  "viewport": [1280, 720],
+  "visibility": "visible",
+  "warmupSeconds": 4.2,
+  "productionDefaultChanged": false,
+  "tiers": {
+    "hero": {
+      "source": "/models/xingfuli/xingfuli-center.glb?v=20260723-final-1",
+      "status": "loaded",
+      "fps": 59.59475566167819,
+      "drawCalls": 528,
+      "triangles": 691667
+    },
+    "identity": {
+      "source": "/models/xingfuli/xingfuli-center-identity.glb?v=1",
+      "status": "loaded",
+      "fps": 59.97001499250375,
+      "drawCalls": 522,
+      "triangles": 688895
+    },
+    "massing": {
+      "source": "/models/xingfuli/xingfuli-center-massing.glb?v=1",
+      "status": "loaded",
+      "fps": 59.84440454853052,
+      "drawCalls": 522,
+      "triangles": 686327
+    }
+  },
+  "fallbacks": {
+    "heroToIdentity": {
+      "requestedTier": "hero",
+      "renderedTier": "identity",
+      "status": "pass-forced-deterministic-fallback"
+    },
+    "identityToMassing": {
+      "requestedTier": "identity",
+      "renderedTier": "massing",
+      "status": "pass-forced-deterministic-fallback"
+    }
+  },
+  "collision": {
+    "status": "pass-target-reached",
+    "start": [106.56414090817087, 12.889718809317268],
+    "target": [93.845516783, 10.577308577],
+    "final": [93.79714781679547, 10.568514473858226],
+    "finalTargetErrorSceneUnits": 0.04916190742599639,
+    "durationMs": 6000
+  },
+  "camera": {
+    "initial": "pass-spring-clear-5.435",
+    "routeFinal": "pass-spring-clear",
+    "routeFinalArm": 5.386,
+    "routeBlocker": "none"
+  },
+  "screenshots": [
+    {
+      "path": "test_artifacts/all-models/runtime/xingfuli-center/test_xingfuli_center_hero_threejs.jpg",
+      "sha256": "30abfe80d0bc00bc81f5202323d165a3a4f76c9631f792b378c69cfb3f632887",
+      "bytes": 80191
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/xingfuli-center/test_xingfuli_center_identity_threejs.jpg",
+      "sha256": "927cbb21738246faca06e81e63ff79409721ca51ad8fc1728225d9baf468d974",
+      "bytes": 79117
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/xingfuli-center/test_xingfuli_center_massing_threejs.jpg",
+      "sha256": "a23e48645cf55beaf5cb93c61a0b21e27078d4a4ff0b2f592e4ce488f8a92b89",
+      "bytes": 78949
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/xingfuli-center/test_xingfuli_center_collision_threejs.jpg",
+      "sha256": "9cc2660e426e477eb87a4e37b63dcec00325d9ad0ced5becdcdd3243df717c1a",
+      "bytes": 78961
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/xingfuli-center/test_xingfuli_center_threejs_contact_sheet.jpg",
+      "sha256": "b93122d2722696db445e499e872c84c6cc45819a934e30cd1f259e51e8224679",
+      "bytes": 65962
+    }
+  ],
+  "console": {
+    "errorsObservedAcrossBatch": 0,
+    "knownWarnings": ["THREE.Clock deprecation"]
+  },
+  "acceptance": {
+    "threeTierLoading": "pass",
+    "fallback": "pass",
+    "performanceSample": "pass-measured-no-improvement-claim",
+    "collision": "pass",
+    "camera": "pass",
+    "map": "pass-center-segment",
+    "strictTierLineage": "blocked",
+    "formalRuntimeAcceptance": "blocked-lineage",
+    "runtimePromotionAllowed": false
+  },
+  "nextGate": "Resolve strict Hero-to-Identity lineage; binaries and QA evidence remain preserved."
+}

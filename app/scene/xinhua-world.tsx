@@ -57,6 +57,7 @@ import {
   XINGFULI_BUILDING_OBSTACLES,
   XINGFULI_OBSTACLES,
 } from "./xingfuli-block";
+import { resolveXingfuliQa } from "./xingfuli-tier-contract.mjs";
 import {
   XINHUA_ROAD_CAMERA_OBSTACLES,
   XINHUA_ROAD_LANDMARKS,
@@ -238,7 +239,12 @@ const [xingfuliCanonicalX, xingfuliCanonicalZ] = xingfuliLocalToWorld(
   XINGFULI_PLACEMENT.localLaneCenterZ,
 );
 const [xingfuliPoolDetailX, xingfuliPoolDetailZ] = xingfuliLocalToWorld(5.5, -10.4);
-const [xingfuliEntranceDetailX, xingfuliEntranceDetailZ] = xingfuliLocalToWorld(45, -5.5);
+// 原入口点与 east-entry-bollard-2 的人物碰撞半径重叠。复用已审计的
+// west-to-east 主路线安全端点，保持入口朝向不变。
+const [xingfuliEntranceDetailX, xingfuliEntranceDetailZ] = xingfuliLocalToWorld(
+  46,
+  -5.05,
+);
 const ACTION_POSITION = new Vector3(actionX, terrainHeightAt(actionX, actionZ) + 0.34, actionZ);
 const START_POSITION = new Vector3(startX, terrainHeightAt(startX, startZ) + 0.33, startZ);
 const HERO_START_POSITION = new Vector3(
@@ -574,6 +580,9 @@ function FlatNeighborhood({
       ? null
       : new URLSearchParams(window.location.search).get("qaModelId")
   );
+  const xingfuliQaActive = resolveXingfuliQa(
+    typeof window === "undefined" ? "" : window.location.search,
+  );
   const qaFallbackHiddenIds = useMemo(() => {
     if (
       !qaScopedLandmarkId
@@ -613,9 +622,11 @@ function FlatNeighborhood({
         ]}>
           <group position={[0, 0, -XINGFULI_PLACEMENT.localLaneCenterZ]}>
             <XingfuliBlock
-              loadDetailedArchitecture={showDetailModels}
+              loadDetailedArchitecture={
+                Boolean(xingfuliQaActive) || showDetailModels
+              }
               showEnvironmentDetails={mode === "explore"}
-              stage={xingfuliTier}
+              stage={xingfuliQaActive ? "full" : xingfuliTier}
             />
           </group>
         </group>
