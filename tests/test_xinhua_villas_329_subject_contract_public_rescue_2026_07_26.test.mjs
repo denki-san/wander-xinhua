@@ -122,7 +122,7 @@ test("知识源分层记录且仅拥有329本栋范围", async () => {
   assert.equal(record.scope.newXiaohongshuAccessed, false);
   assert.equal(
     record.knowledgeSource.externalWikiArchive,
-    "not-attempted-building-window-main-window-integration-owned",
+    "raw-source-synced-index-pending",
   );
 });
 

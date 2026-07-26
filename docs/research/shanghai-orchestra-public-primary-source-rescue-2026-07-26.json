@@ -20,5 +20,12 @@
   "inferred": ["Address-level corroboration improves subject identity but cannot prove an exclusive candidate footprint set."],
   "unknown": ["Which OSM ways bind to Buildings 6, 7, 8 and retained volumes.", "Formal compound boundary and adjacent-membership scope."],
   "blockerDecision": {"formalMembership": "unchanged-blocked", "formalMap": "unchanged-blocked", "heroAndIdentity": "unchanged-blocked", "recoveryMassing": "preserved-not-rerun"},
-  "minimumEvidence": ["Scaled official completion/site plan or red-line/cadastral record with building numbers and boundary.", "Georeferenced plan or official address record binding each included building to a specific footprint."]
+  "minimumEvidence": ["Scaled official completion/site plan or red-line/cadastral record with building numbers and boundary.", "Georeferenced plan or official address record binding each included building to a specific footprint."],
+  "knowledgeArchive": {
+    "repositorySource": "docs/knowledge-sources/shanghai-orchestra-public-primary-source-rescue-2026-07-26.md",
+    "archivePath": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/shanghai-orchestra-public-primary-source-rescue-2026-07-26/README.md",
+    "rawSourcePath": "/Volumes/plugin/Threejs-3d-research/raw/sources/threejs-modeling-knowledge-base/wander-xinhua/shanghai-orchestra-public-primary-source-rescue-2026-07-26.md",
+    "sha256": "5a1e6b7d9150ae25878dce0697c0676208222c07a7955f1865dcb0184c20ad29",
+    "indexStatus": "pending"
+  }
 }

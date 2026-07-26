@@ -277,6 +277,9 @@
   },
   "knowledgeSource": {
     "path": "docs/knowledge-sources/xinhua-villas-329-subject-contract-public-rescue-2026-07-26.md",
-    "externalWikiArchive": "not-attempted-building-window-main-window-integration-owned"
+    "externalWikiArchive": "raw-source-synced-index-pending",
+    "archivePath": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/xinhua-villas-329-subject-contract-public-rescue-2026-07-26/README.md",
+    "rawSourcePath": "/Volumes/plugin/Threejs-3d-research/raw/sources/threejs-modeling-knowledge-base/wander-xinhua/xinhua-villas-329-subject-contract-public-rescue-2026-07-26.md",
+    "sha256": "541e44484d1ba93013959bd68d8e70f6967247621e882693daf7df9cbe202267"
   }
 }

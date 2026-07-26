@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T21:46:00+08:00",
+  "snapshotAt": "2026-07-26T22:07:44+08:00",
   "snapshotBaseCommit": "04aff48-plus-main-window-film-v2",
   "scope": {
     "mode": "exact-18-building-fast-mode",
@@ -37,16 +37,16 @@
     {
       "id": "shanghai-cinema",
       "name": "上海影城",
-      "evidence": "pass-multi-view",
+      "evidence": "pass-multi-view-official-anchor-search-exhausted",
       "hero": "pass",
       "identity": "pass-hybrid",
       "massing": "pass",
       "mcp1": "pass",
       "mcp2": "pass",
       "mcp3": "pass",
-      "map": "blocked-confirmed-road-setback-public-primary-source-rescue-exhausted-no-georeferenced-local-anchor",
+      "map": "blocked-confirmed-road-setback-official-anchor-search-exhausted-no-calibratable-site-plan",
       "threeJs": "pass-three-tier-retained",
-      "overall": "blocked-public-primary-source-rescue-exhausted-exact-remedy",
+      "overall": "blocked-official-anchor-search-exhausted-exact-remedy",
       "runtimePolicy": "preserve-current-no-map-promotion",
       "records": [
         "docs/research/shanghai-cinema-final-audit-2026-07-26.json",
@@ -55,7 +55,8 @@
         "docs/research/build-records/shanghai-cinema-hero-exact-reproduction.json",
         "docs/research/shanghai-cinema-exact-anchor-road-setback-audit.json",
         "docs/research/shanghai-cinema-public-exact-anchor-rescue-2026-07-26.json",
-        "docs/research/shanghai-cinema-gap-medium-anchor-blocker-2026-07-26.json"
+        "docs/research/shanghai-cinema-gap-medium-anchor-blocker-2026-07-26.json",
+        "docs/research/shanghai-cinema-official-anchor-evidence-exhaustion-2026-07-26.json"
       ]
     },
     {
@@ -129,7 +130,7 @@
     {
       "id": "xinhua-villas-329",
       "name": "新华别墅329弄",
-      "evidence": "massing-pass-hero-blocked-same-subject-and-subject-contract",
+      "evidence": "massing-pass-official-subject-contract-search-exhausted-no-member-way-binding",
       "hero": "hold-cross-asset-211-member-2-and-scope-polluted",
       "identity": "missing",
       "massing": "pass",
@@ -138,14 +139,15 @@
       "mcp3": "blocked",
       "map": "pass",
       "threeJs": "pass-massing-performance-collision",
-      "overall": "massing-complete-hero-identity-blocked-same-subject-contract",
+      "overall": "massing-complete-public-subject-contract-exhausted-hero-identity-blocked",
       "runtimePolicy": "massing-only-no-tier-promotion",
       "records": [
         "docs/research/xinhua-villas-329-final-disposition.json",
         "docs/research/xinhua-villas-329-threejs-runtime-qa-v2.json",
         "docs/research/xinhua-villas-329-map-conflict-superseding-adjudication-2026-07-26.md",
         "docs/research/xinhua-villas-329-hero-readiness-adjudication.json",
-        "docs/research/xinhua-villas-329-hero-identity-readiness-deep-audit.json"
+        "docs/research/xinhua-villas-329-hero-identity-readiness-deep-audit.json",
+        "docs/research/xinhua-villas-329-subject-contract-public-rescue-2026-07-26.json"
       ]
     },
     {
@@ -199,7 +201,7 @@
     {
       "id": "shanghai-orchestra",
       "name": "上海民族乐团",
-      "evidence": "blocked-local-membership-rescue-exhausted",
+      "evidence": "blocked-public-official-address-programme-improved-membership-rescue-exhausted",
       "hero": "hold-invalid-or-missing",
       "identity": "missing",
       "massing": "diagnostic-pass",
@@ -208,14 +210,15 @@
       "mcp3": "blocked",
       "map": "blocked-membership",
       "threeJs": "pass-diagnostic-massing",
-      "overall": "blocked-local-membership-rescue-exhausted-hero-identity",
+      "overall": "blocked-public-membership-rescue-exhausted-hero-identity",
       "runtimePolicy": "diagnostic-only-no-promotion",
       "records": [
         "docs/research/shanghai-orchestra-final-gap-audit.json",
         "docs/research/shanghai-orchestra-membership-tier-final-disposition-2026-07-26.md",
         "docs/research/shanghai-orchestra-osm-membership-deep-audit.json",
         "docs/research/shanghai-orchestra-osm-membership-rescue-audit.json",
-        "docs/research/shanghai-orchestra-gap-medium-blocker-2026-07-26.json"
+        "docs/research/shanghai-orchestra-gap-medium-blocker-2026-07-26.json",
+        "docs/research/shanghai-orchestra-public-primary-source-rescue-2026-07-26.json"
       ]
     },
     {

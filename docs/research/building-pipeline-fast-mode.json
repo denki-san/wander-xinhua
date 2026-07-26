@@ -33,6 +33,7 @@
         "tests/test_shanghai_cinema_exact_anchor_road_setback_audit.test.mjs",
         "tests/test_shanghai_cinema_public_exact_anchor_rescue.test.mjs",
         "tests/test_shanghai_cinema_gap_medium_anchor_blocker.test.mjs",
+        "tests/test_shanghai_cinema_official_anchor_evidence_exhaustion.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
@@ -128,6 +129,7 @@
         "tests/test_xinhua_villas_329_map_conflict_superseding_adjudication.test.mjs",
         "tests/test_xinhua_villas_329_hero_readiness_adjudication.test.mjs",
         "tests/test_xinhua_villas_329_hero_identity_readiness_deep_audit.test.mjs",
+        "tests/test_xinhua_villas_329_subject_contract_public_rescue_2026_07_26.test.mjs",
         "tests/test_model_detail_upgrade.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -218,6 +220,7 @@
         "tests/test_shanghai_orchestra_osm_membership_deep_audit.test.mjs",
         "tests/test_shanghai_orchestra_osm_membership_rescue_audit.test.mjs",
         "tests/test_shanghai_orchestra_gap_medium_blocker.test.mjs",
+        "tests/test_shanghai_orchestra_public_primary_source_rescue_2026_07_26.test.mjs",
         "scripts/test_generate_shanghai_orchestra_map_calibration.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],

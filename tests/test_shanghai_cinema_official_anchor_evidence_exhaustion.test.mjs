@@ -61,5 +61,8 @@ test("用户睡眠期间不访问登录会话、不重跑合格阶段，也不�
   assert.equal(record.scope.publicRegistryModified, false);
   assert.equal(record.scope.runtimeDisabled, false);
   assert.equal(record.disposition.currentAssets, "retain-unchanged");
-  assert.equal(record.knowledgeWorkflow.externalIngestion, "not-run");
+  assert.equal(
+    record.knowledgeWorkflow.externalIngestion,
+    "raw-source-synced-index-pending",
+  );
 });

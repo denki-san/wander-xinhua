@@ -134,8 +134,11 @@
   "knowledgeWorkflow": {
     "repositorySource": "docs/knowledge-sources/shanghai-cinema-official-anchor-evidence-exhaustion-2026-07-26.md",
     "projectName": "Threejs-3d-research",
-    "externalIngestion": "not-run",
-    "reason": "本建筑窗口无外部 Wiki 写入授权；本记录仅保留仓库内可追溯来源，不能据此声称新的知识库入库完成。"
+    "externalIngestion": "raw-source-synced-index-pending",
+    "archivePath": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/shanghai-cinema-official-anchor-evidence-exhaustion-2026-07-26/README.md",
+    "rawSourcePath": "/Volumes/plugin/Threejs-3d-research/raw/sources/threejs-modeling-knowledge-base/wander-xinhua/shanghai-cinema-official-anchor-evidence-exhaustion-2026-07-26.md",
+    "sha256": "4b4a5197214450f6dde4bc3d536f8af058452ae9d0b95cfe19f4011686dfb13d",
+    "claimBoundary": "两份 U 盘副本已与仓库 source 同 SHA；Wiki 搜索索引仍待后台处理。"
   },
   "disposition": {
     "exactMapAnchor": "blocked",
