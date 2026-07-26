@@ -1,0 +1,344 @@
+{
+  "schemaVersion": 1,
+  "assetId": "film-art-center",
+  "label": "上海电影艺术中心·新华两佰",
+  "auditedAt": "2026-07-26T13:22:24+08:00",
+  "integrationBase": "aada3c412d10f822305c2e3410435f3b00278c2c",
+  "mode": "single-building-fast-final-gap-audit",
+  "verdict": {
+    "status": "blocked-current-map-and-strict-massing-lineage",
+    "eligibleForFinalComplete": false,
+    "retainedPasses": [
+      "evidence-and-model-brief-with-side-rear-marked-unknown",
+      "hero-glb-blend-build-record-and-mcp2",
+      "identity-derived-from-current-hero-and-mcp3",
+      "massing-glb-blend-build-record-and-mcp1",
+      "three-tier-binary-runtime-fallback-and-performance-capture"
+    ],
+    "blockers": [
+      {
+        "id": "current-neighbor-collision",
+        "gate": "map-acceptance",
+        "reason": "当前生产 registry 中 film-art-center 的侧翼碰撞体与 shanghai-cinema 的侧翼碰撞体相交；旧地图记录只验证 film-art-center 自身三块障碍，不能证明当前整合状态。"
+      },
+      {
+        "id": "strict-massing-current-hero-lineage",
+        "gate": "hero-identity-massing-lineage",
+        "reason": "正式 Massing 的 GLB extras 与 build record 仍精确记录旧 Hero e4887f6d…；现有 MCP3 只足以证明最终 Hero 与该 Massing 的后验视觉/空间连续性，不能改写成从当前 Hero 33daaaf0…重新派生。"
+      }
+    ]
+  },
+  "scope": {
+    "included": [
+      "film-art-center evidence, model brief and local photos",
+      "film-art-center Hero, Identity and Massing GLB, Blend and build records",
+      "film-art-center MCP1, MCP2, MCP3, map and Three.js records",
+      "current registry read-only neighbor, road, start and camera geometry"
+    ],
+    "excludedAndUntouched": [
+      "shared registry and runtime",
+      "Fast Mode manifest",
+      "other building binaries and records",
+      "trees, decoration, ordinary OSM assets, full-map massing and Hold"
+    ],
+    "browserUsed": false,
+    "blenderRebuildPerformed": false,
+    "recoveryQualifiedStageRedone": false
+  },
+  "evidence": {
+    "status": "pass-with-explicit-side-rear-unknown",
+    "manifest": {
+      "path": "docs/research/film-art-center-reference-manifest.json",
+      "sha256": "acb0842c618a9893d73e8a6465a203c684d63bfda2e4d0c6a8b2fdc40475f826"
+    },
+    "brief": {
+      "path": "docs/research/film-art-center-model-brief.md",
+      "sha256": "450010f4a9980e413bbfd5b3ae4411f59f9fe9921685a9b93bf0e9e8627e2a4d"
+    },
+    "classificationRecord": {
+      "path": "docs/knowledge-sources/film-art-center-modeling-evidence.md",
+      "sha256": "1d6b34b2344333de2274d82db82e32bb5275d62be866a2ce95cfa01124d2b807"
+    },
+    "viewCoverage": {
+      "canonical": {
+        "status": "observed",
+        "path": "docs/research/assets/poi-references/film-art-center/film-art-center-government-front-canonical-2024.jpg",
+        "sha256": "8faec82135abd02c37aab10df79fe496f097f6ecaee962dc4d098a8e6d2ccabb",
+        "pixels": [
+          1080,
+          810
+        ]
+      },
+      "depthOrSide": {
+        "status": "unknown-no-independent-side-reference",
+        "closestAvailable": "docs/research/assets/poi-references/film-art-center/film-art-center-citynews-front-detail-2026.png",
+        "sha256": "f32227b6c39db3e30648a6d778ff8727c21acfd509cb692a2bf50600fd036875",
+        "pixels": [
+          1080,
+          825
+        ],
+        "boundary": "只证明正面略偏右的构件纵深；东西侧与北立面继续是 Unknown，不据此虚构。"
+      },
+      "entranceIdentity": {
+        "status": "observed",
+        "path": "docs/research/assets/poi-references/film-art-center/film-art-center-prnewswire-entrance-detail-2024.jpg",
+        "sha256": "f04cc620fc644d97559fa45323e18edff7f0bb3e4d809dcaf6a019bb4c9002a9",
+        "pixels": [
+          1000,
+          667
+        ]
+      }
+    },
+    "canonicalObservationDirection": "从南侧草坪向北观察；Blender local -Y 朝 +Y。",
+    "subjectBoundary": "只对应新华路200号历史花园住宅新华两佰，不包含新华路160号上海影城、CHAO酒店或完整四栋建筑群。"
+  },
+  "assets": {
+    "hero": {
+      "status": "pass-retained",
+      "generator": {
+        "path": "scripts/create_xinhua_road_models.py",
+        "sha256": "324be84a32ed3d43ff0bc1ceaca040e8e46f68aff21151b1bafa4ae524f6f3c6"
+      },
+      "blend": {
+        "path": "assets/models/source/xinhua-road/film-art-center.blend",
+        "sha256": "f58952f3bf4c086fb09afdbda4efdc264a124a74a12e6f63e7a9c70f3d3359b8",
+        "bytes": 912286
+      },
+      "glb": {
+        "path": "public/models/xinhua-road/film-art-center.glb",
+        "sha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+        "bytes": 3148572,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 14,
+        "images": 0,
+        "triangles": 63368
+      },
+      "buildRecord": {
+        "path": "docs/research/build-records/film-art-center.json",
+        "sha256": "ed22cf283a0e6306b9f26e33e43560aadec457acad7338d854fba3f4ec18282a"
+      }
+    },
+    "identity": {
+      "status": "pass-retained-derived-from-current-hero",
+      "generator": {
+        "path": "scripts/create_film_art_center_identity_model.py",
+        "sha256": "af0fbd64e9aa1cd2b9c3595ce51d4c792ac14a1afccb012df8aabf55c96d2f47"
+      },
+      "blend": {
+        "path": "assets/models/source/tiers/xinhua-road/identity/film-art-center-identity.blend",
+        "sha256": "72ebda621ee6e93703e9085cb8df0cf44ffb19849a1ea84ac9d26f531cd6984a",
+        "bytes": 415072
+      },
+      "glb": {
+        "path": "public/models/tiers/xinhua-road/identity/film-art-center-identity.glb",
+        "sha256": "a4d37446e27225815624e6382048ed1dc341f1e079f089755ed5fb68e520e869",
+        "bytes": 1130852,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 8,
+        "images": 0,
+        "triangles": 23816,
+        "derivedFromHeroGlbSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b"
+      },
+      "buildRecord": {
+        "path": "docs/research/build-records/tiers/xinhua-road/identity/film-art-center-identity.json",
+        "sha256": "d31afe02dac5aebed510c46ae89ed09218a854f03d6eedde463f6e609c11bd35"
+      }
+    },
+    "massing": {
+      "status": "structure-pass-strict-current-hero-lineage-blocked",
+      "generator": {
+        "path": "scripts/create_film_art_center_massing_model.py",
+        "sha256": "93379e78c7c502f6b37bb76e44454e6f7278c2d65b09a0ac8d1243b2eac262e6"
+      },
+      "blend": {
+        "path": "assets/models/source/tiers/xinhua-road/massing/film-art-center-massing.blend",
+        "sha256": "3b461d8307a0d1f53d90cd529fb39298a6ecbbbee356f63adca7f54c4c3314e6",
+        "bytes": 142503
+      },
+      "glb": {
+        "path": "public/models/tiers/xinhua-road/massing/film-art-center-massing.glb",
+        "sha256": "c89791dc3978b317cc2f8807a77f7a84b5c596f8d4cd01c1cffd05090e9584a6",
+        "bytes": 240572,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 6,
+        "images": 0,
+        "triangles": 3376,
+        "derivedFromHeroGlbSha256AtBuild": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6"
+      },
+      "buildRecord": {
+        "path": "docs/research/build-records/tiers/xinhua-road/massing/film-art-center-massing.json",
+        "sha256": "7f273e5468422d46506acdcc9d4b1a5990b89d5f0b098775a957b6d420dcefc6"
+      },
+      "postRepairReverification": {
+        "status": "pass-visual-and-spatial-continuity-only",
+        "record": "docs/research/film-art-center-blender-mcp-gates.json#identityGate.threeTierComparisonSources",
+        "currentHeroGlbSha256": "33daaaf003b47b705e03c95d2fe2ac0973b815079753f868c95c3b0f2f9b8e1b",
+        "reason": "MCP3 使用最终 Hero 重检图与既有 Massing 固定图确认轮廓、原点、正面和尺度语义；没有重建 Massing，因此不得声称 exact derivation SHA 已更新。"
+      }
+    }
+  },
+  "lineage": {
+    "status": "blocked-exact-current-hero-sha-not-embedded-in-massing",
+    "heroToIdentity": "pass-exact-sha",
+    "identityThenMassingReverification": "pass-post-repair-visual-and-spatial-only",
+    "exactHeroToMassing": "blocked-old-hero-sha-retained",
+    "noBinaryRebuildDecision": "Recovery/current 已合格 Massing 不重做；保留真实旧 SHA 与 blocker，交由主窗口决定是否在未来授权一次正式重派生。"
+  },
+  "blenderMcpGates": {
+    "record": {
+      "path": "docs/research/film-art-center-blender-mcp-gates.json",
+      "sha256": "a7c09aa934ab93558f5a08bcd2031e58418eeb24893c7c57d6e109eac1fe991d"
+    },
+    "mcp1Massing": "pass-retained",
+    "mcp2Hero": "pass-retained-after-76-degenerate-face-repair",
+    "mcp3IdentityAndThreeTierContinuity": "pass-retained",
+    "acceptedInteractiveChanges": [],
+    "qaRigSavedOrExported": false
+  },
+  "mapAudit": {
+    "status": "blocked-current-neighbor-and-internal-road-semantics",
+    "registrySource": {
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "f87c8fde941c71c6876bba4e7a50cf9177c5b7d11163822c4f4ac906568d9fa6"
+    },
+    "roadSource": {
+      "path": "app/scene/xinhua-map-data.json",
+      "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78"
+    },
+    "placement": {
+      "position": [
+        47.5,
+        81.5
+      ],
+      "yaw": 2.761592653589793,
+      "scale": 1,
+      "groundTerrainY": 0.895646165,
+      "runtimeRootY": 0.995646165,
+      "groundContact": "pass-retained"
+    },
+    "namedPublicRoad": {
+      "osmWayId": 682286683,
+      "name": "新华路",
+      "highway": "tertiary",
+      "surface": "asphalt",
+      "renderedWidth": 4.9,
+      "fullVisibleBoundsCenterlineDistance": 4.9211050227454605,
+      "asphaltEdgeClearance": 2.4711050227454603,
+      "minimumRequiredClearance": 0.75,
+      "status": "pass"
+    },
+    "internalRoadUnknowns": [
+      {
+        "osmWayId": 1520590652,
+        "name": "",
+        "highway": "unclassified",
+        "renderedWidth": 3.4,
+        "fullVisibleBoundsAsphaltEdgeClearance": -1.7,
+        "solidObstacleEdgeClearances": [
+          -1.7,
+          -1.3221215751004376
+        ],
+        "status": "unknown-blocking-road-surface-claim",
+        "reason": "中心线穿过完整可见包络和两块实体障碍；没有证据证明它是建筑下可穿通道，也没有授权删除或改线。"
+      },
+      {
+        "osmWayId": 577252297,
+        "name": "",
+        "highway": "service",
+        "access": "private",
+        "service": "alley",
+        "renderedWidth": 2.5,
+        "fullVisibleBoundsAsphaltEdgeClearance": -1.25,
+        "solidObstacleMinimumEdgeClearance": -1.25,
+        "status": "unknown-private-site-road-overlap",
+        "reason": "可能是场地内部私有道路，但当前地图仍渲染该表面，不能在无定位证据时表述为已校准。"
+      }
+    ],
+    "neighborCollision": {
+      "status": "blocked",
+      "filmArtCenterObstacleIndex": 1,
+      "otherAssetId": "shanghai-cinema",
+      "otherObstacleIndex": 2,
+      "collisionMargin": 0.2,
+      "overlapSceneUnits": {
+        "x": 0.830850892336116,
+        "z": 0.4509227561555491,
+        "area": 0.3746495743264988
+      },
+      "filmArtCenterWorldAabb": {
+        "minX": 53.10482177478762,
+        "maxX": 59.68893802767594,
+        "minZ": 80.93340317510243,
+        "maxZ": 90.25046584219203
+      },
+      "shanghaiCinemaWorldAabb": {
+        "minX": 58.85808713533982,
+        "maxX": 68.25822602057647,
+        "minZ": 66.07209888468795,
+        "maxZ": 81.38432593125798
+      }
+    },
+    "startAndCamera": {
+      "start": [
+        35,
+        99
+      ],
+      "playerRadius": 0.48,
+      "playerHits": [],
+      "forward": [
+        0.581,
+        -0.814
+      ],
+      "headingToCenterErrorDegrees": 0.019979929285354976,
+      "cameraArmSceneUnits": 7.4,
+      "cameraPosition": [
+        30.70093746316423,
+        105.02312720307111
+      ],
+      "cameraRadius": 0.25,
+      "cameraHits": [],
+      "status": "pass-current-all-landmark-obstacles"
+    },
+    "supersededRecord": {
+      "path": "docs/research/film-art-center-massing-map-qa.json",
+      "sha256": "87d9af2ee7ea9de676f782d380cebad9c5c754b5bb658ed95bd8d56bcb125c84",
+      "retainedUse": "ground, self-obstacle and historical screenshot evidence only",
+      "notAcceptedFor": "current all-neighbor map pass"
+    }
+  },
+  "threeJsRuntime": {
+    "binaryTierAndFallbackRecord": {
+      "path": "docs/research/film-art-center-three-tier-runtime-qa.json",
+      "sha256": "9ffd4fafe4d33cb60d8e8f9eac5b8c9c68b7d62139de09ab12b0373a634a306f",
+      "status": "pass-retained-for-exact-three-tier-binaries-fallback-performance-and-console"
+    },
+    "currentIntegratedMapStatus": "blocked-not-reaccepted",
+    "reason": "原记录 collisionEvidence.repeated=false 并继承旧单栋 map gate；当前上海影城相邻碰撞与内部道路语义没有被该浏览器采集覆盖。"
+  },
+  "recovery": {
+    "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "decision": "retained-read-only-no-stage-redone",
+    "heroSha256": "e4887f6d87771616bd0e57305c5e577dab6040bdc05d70b6aa19ffe3d39b0de6",
+    "formalMassingSha256": "14db9eb13aaaf0bad62f0fa95c9dc2b8fecfb1ae155f5d0a33a088dba86bbcd4",
+    "genericMassingV2Sha256": "4b925b2dad96894e7feda2b925962781fcd532d675657a9f17a96467458b0941",
+    "genericMassingV2Decision": "rejected-generic-box-map-binding-blocked",
+    "identityAndFinalGateRecordsPresent": false
+  },
+  "validation": {
+    "glbAudit": {
+      "command": "python3 scripts/audit_glb.py public/models/xinhua-road/film-art-center.glb public/models/tiers/xinhua-road/identity/film-art-center-identity.glb public/models/tiers/xinhua-road/massing/film-art-center-massing.glb",
+      "status": "pass-three-of-three"
+    },
+    "scopedTest": "tests/test_film_art_center_quality_tiers.test.mjs",
+    "fastModeCommand": "npm run building:fast -- --building film-art-center",
+    "expectedGateOutcome": "test-pass-with-final-building-verdict-blocked"
+  },
+  "nextAction": {
+    "owner": "main-window",
+    "required": "先以可定位锚点联合裁决上海影城与新华两佰 placement/道路语义；若仍要求 exact current-Hero Massing lineage，再单独授权重新派生 Massing。完成前不得把 film-art-center 标为最终完成。",
+    "sharedFilesToChangeInThisBranch": []
+  }
+}

@@ -60,6 +60,18 @@ const identityGeneratorUrl = new URL(
   "scripts/create_film_art_center_identity_model.py",
   root,
 );
+const finalAuditUrl = new URL(
+  "docs/research/film-art-center-final-audit-2026-07-26.json",
+  root,
+);
+const mapDataUrl = new URL(
+  "app/scene/xinhua-map-data.json",
+  root,
+);
+const rawRoadsUrl = new URL(
+  "docs/research/data/xinhua-roads-osm-20260716-080509.json",
+  root,
+);
 
 function sha256(buffer) {
   return createHash("sha256").update(buffer).digest("hex");
@@ -82,6 +94,131 @@ function triangleCount(glb) {
       }, 0),
     0,
   );
+}
+
+function transformFinalAuditObstacle(landmark, obstacle, margin) {
+  const cosine = Math.cos(landmark.yaw);
+  const sine = Math.sin(landmark.yaw);
+  const worldX = [];
+  const worldZ = [];
+  for (const localX of [obstacle.minX, obstacle.maxX]) {
+    for (const sourceZ of [obstacle.minZ, obstacle.maxZ]) {
+      const localZ = -sourceZ;
+      worldX.push(
+        landmark.position[0]
+          + landmark.scale * (cosine * localX + sine * localZ),
+      );
+      worldZ.push(
+        landmark.position[1]
+          + landmark.scale * (-sine * localX + cosine * localZ),
+      );
+    }
+  }
+  return {
+    minX: Math.min(...worldX) - margin,
+    maxX: Math.max(...worldX) + margin,
+    minZ: Math.min(...worldZ) - margin,
+    maxZ: Math.max(...worldZ) + margin,
+  };
+}
+
+function finalAuditOverlap(first, second) {
+  const x = Math.min(first.maxX, second.maxX)
+    - Math.max(first.minX, second.minX);
+  const z = Math.min(first.maxZ, second.maxZ)
+    - Math.max(first.minZ, second.minZ);
+  return {
+    intersects: x >= 0 && z >= 0,
+    x,
+    z,
+    area: Math.max(0, x) * Math.max(0, z),
+  };
+}
+
+function finalAuditPointHits(point, obstacle, radius) {
+  return point[0] >= obstacle.minX - radius
+    && point[0] <= obstacle.maxX + radius
+    && point[1] >= obstacle.minZ - radius
+    && point[1] <= obstacle.maxZ + radius;
+}
+
+function finalAuditFootprintCorners(landmark) {
+  const cosine = Math.cos(landmark.yaw);
+  const sine = Math.sin(landmark.yaw);
+  const { minX, maxX, minZ, maxZ } = landmark.localBounds;
+  return [
+    [minX, -minZ],
+    [maxX, -minZ],
+    [maxX, -maxZ],
+    [minX, -maxZ],
+  ].map(([localX, localZ]) => [
+    landmark.position[0]
+      + landmark.scale * (cosine * localX + sine * localZ),
+    landmark.position[1]
+      + landmark.scale * (-sine * localX + cosine * localZ),
+  ]);
+}
+
+function finalAuditOrientation(start, end, point) {
+  return (end[0] - start[0]) * (point[1] - start[1])
+    - (end[1] - start[1]) * (point[0] - start[0]);
+}
+
+function finalAuditPointOnSegment(point, start, end) {
+  return Math.abs(finalAuditOrientation(start, end, point)) <= 1e-9
+    && point[0] >= Math.min(start[0], end[0]) - 1e-9
+    && point[0] <= Math.max(start[0], end[0]) + 1e-9
+    && point[1] >= Math.min(start[1], end[1]) - 1e-9
+    && point[1] <= Math.max(start[1], end[1]) + 1e-9;
+}
+
+function finalAuditPointToSegmentDistance(point, start, end) {
+  const dx = end[0] - start[0];
+  const dz = end[1] - start[1];
+  const ratio = Math.max(0, Math.min(1, (
+    (point[0] - start[0]) * dx + (point[1] - start[1]) * dz
+  ) / (dx * dx + dz * dz)));
+  return Math.hypot(
+    point[0] - start[0] - ratio * dx,
+    point[1] - start[1] - ratio * dz,
+  );
+}
+
+function finalAuditSegmentsIntersect(startA, endA, startB, endB) {
+  const aStart = finalAuditOrientation(startA, endA, startB);
+  const aEnd = finalAuditOrientation(startA, endA, endB);
+  const bStart = finalAuditOrientation(startB, endB, startA);
+  const bEnd = finalAuditOrientation(startB, endB, endA);
+  return aStart * aEnd < 0 && bStart * bEnd < 0
+    || finalAuditPointOnSegment(startB, startA, endA)
+    || finalAuditPointOnSegment(endB, startA, endA)
+    || finalAuditPointOnSegment(startA, startB, endB)
+    || finalAuditPointOnSegment(endA, startB, endB);
+}
+
+function finalAuditSegmentDistance(startA, endA, startB, endB) {
+  if (finalAuditSegmentsIntersect(startA, endA, startB, endB)) return 0;
+  return Math.min(
+    finalAuditPointToSegmentDistance(startA, startB, endB),
+    finalAuditPointToSegmentDistance(endA, startB, endB),
+    finalAuditPointToSegmentDistance(startB, startA, endA),
+    finalAuditPointToSegmentDistance(endB, startA, endA),
+  );
+}
+
+function finalAuditDistanceToRoad(corners, road) {
+  let distance = Number.POSITIVE_INFINITY;
+  for (let edge = 0; edge < corners.length; edge += 1) {
+    for (let segment = 1; segment < road.points.length; segment += 1) {
+      distance = Math.min(distance, finalAuditSegmentDistance(
+        corners[edge],
+        corners[(edge + 1) % corners.length],
+        road.points[segment - 1],
+        road.points[segment],
+      ));
+    }
+  }
+  return distance;
 }
 
 test("Film Art Center Massing 保持单建筑与 Hold 边界", async () => {
@@ -795,4 +932,286 @@ test("Film Art Center Massing 地图位置、落地与碰撞门可重复", async
   assert.equal(qa.scope.globalMassing, "untouched");
   assert.equal(qa.nextGate, "blender-mcp2-hero-master-review");
   assert.equal(qa.identityAllowed, false);
+});
+
+test("Film Art Center 最终审计保留既有门并诚实阻断当前地图与严格 Massing lineage", async () => {
+  const [
+    audit,
+    landmarkData,
+    mapData,
+    rawRoads,
+    mapQa,
+    runtimeQa,
+    heroGlbBuffer,
+    identityGlbBuffer,
+    massingGlbBuffer,
+  ] = await Promise.all([
+    readFile(finalAuditUrl, "utf8").then(JSON.parse),
+    readFile(landmarkDataUrl, "utf8").then(JSON.parse),
+    readFile(mapDataUrl, "utf8").then(JSON.parse),
+    readFile(rawRoadsUrl, "utf8").then(JSON.parse),
+    readFile(mapQaUrl, "utf8").then(JSON.parse),
+    readFile(
+      new URL(
+        "docs/research/film-art-center-three-tier-runtime-qa.json",
+        root,
+      ),
+      "utf8",
+    ).then(JSON.parse),
+    readFile(new URL(auditAssetPath("hero"), root)),
+    readFile(new URL(auditAssetPath("identity"), root)),
+    readFile(new URL(auditAssetPath("massing"), root)),
+  ]);
+
+  function auditAssetPath(tier) {
+    if (tier === "hero") {
+      return "public/models/xinhua-road/film-art-center.glb";
+    }
+    return `public/models/tiers/xinhua-road/${tier}/film-art-center-${tier}.glb`;
+  }
+
+  assert.equal(
+    audit.integrationBase,
+    "aada3c412d10f822305c2e3410435f3b00278c2c",
+  );
+  assert.equal(
+    audit.verdict.status,
+    "blocked-current-map-and-strict-massing-lineage",
+  );
+  assert.equal(audit.verdict.eligibleForFinalComplete, false);
+  assert.deepEqual(
+    audit.verdict.blockers.map(({ id }) => id),
+    [
+      "current-neighbor-collision",
+      "strict-massing-current-hero-lineage",
+    ],
+  );
+  assert.equal(audit.scope.browserUsed, false);
+  assert.equal(audit.scope.blenderRebuildPerformed, false);
+  assert.equal(audit.scope.recoveryQualifiedStageRedone, false);
+  assert.equal(
+    audit.evidence.viewCoverage.depthOrSide.status,
+    "unknown-no-independent-side-reference",
+  );
+
+  for (const item of [
+    audit.evidence.manifest,
+    audit.evidence.brief,
+    audit.evidence.classificationRecord,
+    audit.evidence.viewCoverage.canonical,
+    {
+      path: audit.evidence.viewCoverage.depthOrSide.closestAvailable,
+      sha256: audit.evidence.viewCoverage.depthOrSide.sha256,
+    },
+    audit.evidence.viewCoverage.entranceIdentity,
+    audit.assets.hero.generator,
+    audit.assets.hero.blend,
+    audit.assets.hero.glb,
+    audit.assets.hero.buildRecord,
+    audit.assets.identity.generator,
+    audit.assets.identity.blend,
+    audit.assets.identity.glb,
+    audit.assets.identity.buildRecord,
+    audit.assets.massing.generator,
+    audit.assets.massing.blend,
+    audit.assets.massing.glb,
+    audit.assets.massing.buildRecord,
+    audit.blenderMcpGates.record,
+    audit.mapAudit.supersededRecord,
+    audit.threeJsRuntime.binaryTierAndFallbackRecord,
+  ]) {
+    assert.equal(
+      sha256(await readFile(new URL(item.path, root))),
+      item.sha256,
+      `${item.path} 必须与最终审计指纹一致`,
+    );
+  }
+
+  assert.equal(sha256(heroGlbBuffer), audit.assets.hero.glb.sha256);
+  assert.equal(sha256(identityGlbBuffer), audit.assets.identity.glb.sha256);
+  assert.equal(sha256(massingGlbBuffer), audit.assets.massing.glb.sha256);
+  const identityGlb = parseGlb(identityGlbBuffer);
+  const massingGlb = parseGlb(massingGlbBuffer);
+  assert.equal(
+    identityGlb.nodes[0].extras.derived_from_hero_glb_sha256,
+    audit.assets.hero.glb.sha256,
+  );
+  assert.equal(
+    massingGlb.nodes[0].extras.derived_from_hero_glb_sha256,
+    audit.assets.massing.glb.derivedFromHeroGlbSha256AtBuild,
+  );
+  assert.notEqual(
+    massingGlb.nodes[0].extras.derived_from_hero_glb_sha256,
+    audit.assets.hero.glb.sha256,
+    "Massing 的旧 Hero SHA 必须保留为 blocker，不能伪造成当前 Hero 派生",
+  );
+  assert.equal(
+    audit.assets.massing.postRepairReverification.status,
+    "pass-visual-and-spatial-continuity-only",
+  );
+
+  const film = landmarkData.landmarks.find(
+    ({ id }) => id === "film-art-center",
+  );
+  const cinema = landmarkData.landmarks.find(
+    ({ id }) => id === "shanghai-cinema",
+  );
+  assert.ok(film && cinema);
+  const allWorldObstacles = landmarkData.landmarks.flatMap((landmark) => (
+    landmark.localObstacles.map((obstacle, index) => ({
+      assetId: landmark.id,
+      index,
+      bounds: transformFinalAuditObstacle(
+        landmark,
+        obstacle,
+        landmarkData.collisionMargin,
+      ),
+    }))
+  ));
+  const filmWorldObstacles = allWorldObstacles.filter(
+    ({ assetId }) => assetId === film.id,
+  );
+  const currentOverlaps = [];
+  for (const filmObstacle of filmWorldObstacles) {
+    for (const otherObstacle of allWorldObstacles) {
+      if (otherObstacle.assetId === film.id) continue;
+      const overlap = finalAuditOverlap(
+        filmObstacle.bounds,
+        otherObstacle.bounds,
+      );
+      if (overlap.intersects) {
+        currentOverlaps.push({
+          filmObstacle,
+          otherObstacle,
+          overlap,
+        });
+      }
+    }
+  }
+  assert.equal(currentOverlaps.length, 1);
+  const [currentOverlap] = currentOverlaps;
+  assert.equal(
+    currentOverlap.filmObstacle.index,
+    audit.mapAudit.neighborCollision.filmArtCenterObstacleIndex,
+  );
+  assert.equal(
+    currentOverlap.otherObstacle.assetId,
+    audit.mapAudit.neighborCollision.otherAssetId,
+  );
+  assert.equal(
+    currentOverlap.otherObstacle.index,
+    audit.mapAudit.neighborCollision.otherObstacleIndex,
+  );
+  for (const axis of ["x", "z", "area"]) {
+    assert.ok(
+      Math.abs(
+        currentOverlap.overlap[axis]
+          - audit.mapAudit.neighborCollision.overlapSceneUnits[axis]
+      ) < 1e-12,
+    );
+  }
+  assert.deepEqual(
+    currentOverlap.filmObstacle.bounds,
+    audit.mapAudit.neighborCollision.filmArtCenterWorldAabb,
+  );
+  assert.deepEqual(
+    currentOverlap.otherObstacle.bounds,
+    audit.mapAudit.neighborCollision.shanghaiCinemaWorldAabb,
+  );
+
+  const forwardLength = Math.hypot(...film.forward);
+  const cameraPosition = [
+    film.start[0] - film.forward[0] / forwardLength
+      * audit.mapAudit.startAndCamera.cameraArmSceneUnits,
+    film.start[1] - film.forward[1] / forwardLength
+      * audit.mapAudit.startAndCamera.cameraArmSceneUnits,
+  ];
+  assert.deepEqual(cameraPosition, audit.mapAudit.startAndCamera.cameraPosition);
+  assert.deepEqual(
+    allWorldObstacles.filter(({ bounds }) => finalAuditPointHits(
+      film.start,
+      bounds,
+      audit.mapAudit.startAndCamera.playerRadius,
+    )),
+    [],
+  );
+  assert.deepEqual(
+    allWorldObstacles.filter(({ bounds }) => finalAuditPointHits(
+      cameraPosition,
+      bounds,
+      audit.mapAudit.startAndCamera.cameraRadius,
+    )),
+    [],
+  );
+  assert.ok(
+    Math.abs(
+      terrainHeightAt(...film.position)
+        - audit.mapAudit.placement.groundTerrainY
+    ) < 1e-12,
+  );
+
+  const filmCorners = finalAuditFootprintCorners(film);
+  for (const roadAudit of [
+    audit.mapAudit.namedPublicRoad,
+    ...audit.mapAudit.internalRoadUnknowns,
+  ]) {
+    const road = mapData.roads.find(
+      ({ osmWayId }) => osmWayId === roadAudit.osmWayId,
+    );
+    assert.ok(road);
+    const clearance = finalAuditDistanceToRoad(filmCorners, road)
+      - roadAudit.renderedWidth / 2;
+    const expectedClearance = roadAudit.fullVisibleBoundsAsphaltEdgeClearance
+      ?? roadAudit.asphaltEdgeClearance;
+    assert.ok(
+      Math.abs(
+        clearance - expectedClearance
+      ) < 1e-12,
+    );
+  }
+  const publicRoad = audit.mapAudit.namedPublicRoad;
+  assert.ok(
+    publicRoad.asphaltEdgeClearance >= publicRoad.minimumRequiredClearance,
+  );
+  const unclassifiedAudit = audit.mapAudit.internalRoadUnknowns[0];
+  const unclassifiedRoad = mapData.roads.find(
+    ({ osmWayId }) => osmWayId === unclassifiedAudit.osmWayId,
+  );
+  for (
+    let index = 0;
+    index < unclassifiedAudit.solidObstacleEdgeClearances.length;
+    index += 1
+  ) {
+    const obstacleCorners = finalAuditFootprintCorners({
+      ...film,
+      localBounds: film.localObstacles[index],
+    });
+    const clearance = finalAuditDistanceToRoad(
+      obstacleCorners,
+      unclassifiedRoad,
+    ) - unclassifiedAudit.renderedWidth / 2;
+    assert.ok(
+      Math.abs(
+        clearance - unclassifiedAudit.solidObstacleEdgeClearances[index]
+      ) < 1e-12,
+    );
+  }
+  const privateRoadAudit = audit.mapAudit.internalRoadUnknowns[1];
+  const privateRoadRaw = rawRoads.elements.find(
+    ({ type, id }) => type === "way" && id === privateRoadAudit.osmWayId,
+  );
+  assert.equal(privateRoadRaw.tags.access, privateRoadAudit.access);
+  assert.equal(privateRoadRaw.tags.service, privateRoadAudit.service);
+
+  assert.equal(mapQa.status, "pass");
+  assert.equal(mapQa.collision.worldObstacles.length, 3);
+  assert.equal(
+    runtimeQa.mainWindowBrowserAcceptance.collisionEvidence.repeated,
+    false,
+  );
+  assert.equal(
+    audit.threeJsRuntime.currentIntegratedMapStatus,
+    "blocked-not-reaccepted",
+  );
+  assert.deepEqual(audit.nextAction.sharedFilesToChangeInThisBranch, []);
 });
