@@ -3257,6 +3257,13 @@ Blender 导入后的稳定名称为 `SuperHero_Male`（大写 H），眼睛与�
 
 保留 Lint 并行能力，但所有包含 Vite 构建的验证命令必须串行执行；随后单独重跑 `npm test`。
 
+### 再次发生
+
+2026-07-26 在 `loading-experience-v2` 验收时再次并行运行 `npm test` 与
+`npm run build`，两者竞争 `dist-static`，其中一路复制
+`public/images/poi/fahua-heritage.jpg` 时出现 `ENOENT`。确认另一条完整测试内置构建
+成功后，改为串行重跑构建。后续不得并行运行任何包含 `build:static` 的命令。
+
 ---
 ## [ERR-20260718-064] 全量测试仍锁定旧的高位摄像机参数
 
@@ -6807,3 +6814,151 @@ Expected /safe-area-inset-top ... + 72px/ but CSS uses + 124px.
 ### Resolution
 - **Resolved**: 2026-07-25T23:57:00+08:00
 - **Notes**: 测试改为要求地图光线切换器和 124px 手机安全顶距。
+# [ERR-20260726-016] blender_headless_sandbox_crash
+
+**Logged**: 2026-07-26
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Blender 5.2 在默认文件沙箱内打开 Rain Blend 时以 code 139 退出。
+
+### Error
+```text
+Blender 5.2.0 LTS
+zsh: segmentation fault
+```
+
+### Context
+- Command: `/Applications/Blender.app/Contents/MacOS/Blender --background ...`
+- 首次只读场景预检，没有写生产资产。
+
+### Resolution
+在已批准的系统级执行环境中重跑同一个只读命令后成功；Rain rig、13 个 mesh 和三段动画均可读取。后续 Blender 资产生成沿用同一执行边界。
+
+### Prevention
+Blender 在受限沙箱内出现 code 139 时，不反复修改脚本；先以同命令在系统级环境复核是否是 GUI/GPU/文件访问沙箱问题。
+
+---
+# [ERR-20260726-017] rain_identity_first_pass_over_budget
+
+**Logged**: 2026-07-26
+**Priority**: low
+**Status**: resolved
+**Area**: assets
+
+### Summary
+Rain Identity 第一轮确定性减面成功导出，但超过主动设置的运行时预算。
+
+### Error
+```text
+Identity 超出三角面预算：14175 > 12000
+GLB：895668 bytes > 850000 bytes
+```
+
+### Context
+- 13 个 mesh、11 个材质、0 张图片、骨架与三段动作均保留。
+- 超预算主要来自高细分的鞋、头、裤子与身体。
+
+### Resolution
+第二轮进一步降低上述网格和眼睛的 decimation ratio，低马尾与发圈保持原几何不变。
+
+### Prevention
+Blender 源 polygon 数和 GLB 导出后的三角面数不等价；角色 Identity 的预算必须以实际 GLB accessor 审计为准。
+
+---
+# [ERR-20260726-018] local_preview_port_blocked_in_sandbox
+
+**Logged**: 2026-07-26
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+静态预览在默认文件沙箱内绑定 `127.0.0.1:4174` 时被系统拒绝。
+
+### Error
+```text
+Error: listen EPERM: operation not permitted 127.0.0.1:4174
+```
+
+### Resolution
+用已批准的本机网络执行边界重跑同一个 `npm run preview:static` 命令后成功，仅监听 loopback。
+
+### Prevention
+真实浏览器验收需要本地端口时，如果出现 `listen EPERM`，直接按同一 host/port 申请本机网络权限，不改成公开监听地址。
+
+---
+# [ERR-20260726-019] loading_contract_tests_expected_legacy_paths
+
+**Logged**: 2026-07-26
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+首轮定向测试仍断言旧封面文件名、旧白模弱网策略和 Hero 路径所在文件。
+
+### Error
+```text
+expected xinhua-plane-tree-cover-desktop.jpg
+expected weakNetworkPolicy "skip"
+ReferenceError: detailedCharacter is not defined
+```
+
+### Resolution
+将原测试更新到新合同：派生 lite 封面、`nearest-first` 白模分块策略，以及集中式 Rain 资产常量；保留对 Hero 动作逻辑的独立读取。
+
+### Prevention
+路径或运行时合同被主动重构时，同时搜索并更新对应的源码契约测试，不只新增测试。
+
+---
+# [ERR-20260726-020] full_suite_retained_pre_identity_loading_contract
+
+**Logged**: 2026-07-26
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+完整测试仍要求首个开始路径排除 GLTF、使用旧盒子人配色，并只以 Canvas 首帧解锁开始按钮；这些断言与本轮显式需求冲突。
+
+### Error
+```text
+expected setReady(true)
+expected old fallback colors
+missing input- startup chunk
+expected Gltf- to remain deferred
+```
+
+### Resolution
+将合同改为“Loading 阶段包含 Identity GLTF 解析，但 Hero 与后处理仍延后”；在加入 Gltf 解析器后继续约束 5 Mbps 纯 JS 传输小于 650 ms，并把人物比例与程序化色彩断言更新到集中常量和 Rain 保险层。
+
+### Prevention
+当产品主动把一种资源移入启动门槛时，需要同步修改首轮依赖预算，而不是继续把该资源当成禁止项。
+
+---
+# [ERR-20260726-021] worktree_git_index_locked_by_sandbox
+
+**Logged**: 2026-07-26
+**Priority**: low
+**Status**: resolved
+**Area**: git
+
+### Summary
+隔离 worktree 暂存时，默认文件沙箱不能写主仓库下的 worktree index lock。
+
+### Error
+```text
+fatal: Unable to create '.git/worktrees/loading-experience-v2/index.lock':
+Operation not permitted
+```
+
+### Resolution
+保持相同的明确暂存范围，在已批准的 Git 执行边界中重跑；不更改工作树内容。
+
+### Prevention
+本地 worktree 的 `.git` 实际指向主仓库元数据；文件工作区可写不代表 worktree index 可写。
+
+---

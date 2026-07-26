@@ -107,6 +107,7 @@ import { resetCameraQa, updateCameraQa } from "./camera-qa";
 import type { ProgressiveNetworkProfile } from "./progressive-loading";
 import { useProgressiveBuildingTier } from "./progressive-building-stage";
 import { CORE_BUILDING_HERO_DISTANCE } from "./xinhua-road-identity-contract";
+import RainLiteWandererCharacter from "./rain-lite-wanderer-character";
 
 const ProgressiveXinhuaRoadFullLayer = lazy(
   () => import("./xinhua-road-landmarks"),
@@ -577,8 +578,16 @@ function FlatNeighborhood({
         showStreetDressing={mode === "explore"}
         lowTier={lowTier}
       />
-      {mode === "overview" && !districtDisabledForQa && (
-        <OverviewDistrictMassingGate networkProfile={networkProfile} />
+      {!districtDisabledForQa && (
+        <group
+          name="persistent-overview-district-massing"
+          visible={mode !== "explore"}
+        >
+          <OverviewDistrictMassingGate
+            networkProfile={networkProfile}
+            focusPosition={progressiveFocus.current}
+          />
+        </group>
       )}
       <group
         position={[XINGFULI_POSITION[0], XINGFULI_BASE_Y, XINGFULI_POSITION[1]]}
@@ -646,10 +655,13 @@ function FlatNeighborhood({
 
 function OverviewDistrictMassingGate({
   networkProfile,
+  focusPosition,
 }: {
   networkProfile: ProgressiveNetworkProfile;
+  focusPosition: readonly [number, number];
 }) {
-  // 街区白模是全览的基础空间上下文，不再受会波动的网络估算结果控制。
+  // 白模在封面阶段就挂载并开始加载，进入全览时复用同一个实例。
+  // Explore 仅隐藏父组而不卸载资源，返回全览时不会再次出现空窗。
   // 资源失败仍由边界回退到原地图，不阻断游玩。
   if (!districtMassingEligibleAtOverviewEntry(networkProfile)) return null;
 
@@ -659,7 +671,10 @@ function OverviewDistrictMassingGate({
       fallback={null}
     >
       <Suspense fallback={null}>
-        <ProgressiveOverviewDistrictMassing />
+        <ProgressiveOverviewDistrictMassing
+          focusPosition={focusPosition}
+          networkProfile={networkProfile}
+        />
       </Suspense>
     </ProgressiveFeatureBoundary>
   );
@@ -675,6 +690,18 @@ function FallbackWandererHead() {
       <mesh position={[0, 0.075, -0.015]} scale={[0.98, 0.78, 0.96]} castShadow>
         <sphereGeometry args={[0.245, 18, 12, 0, Math.PI * 2, 0, Math.PI * 0.72]} />
         <meshToonMaterial color="#111c1c" />
+      </mesh>
+      <mesh position={[0, 0.01, -0.245]} scale={[0.42, 0.62, 0.38]} castShadow>
+        <sphereGeometry args={[0.23, 12, 8]} />
+        <meshToonMaterial color="#17100f" />
+      </mesh>
+      <mesh position={[0.06, -0.03, -0.39]} scale={[0.2, 0.32, 0.22]} castShadow>
+        <sphereGeometry args={[0.22, 10, 7]} />
+        <meshToonMaterial color="#17100f" />
+      </mesh>
+      <mesh position={[0.06, 0.015, -0.425]} scale={[0.22, 0.1, 0.22]} castShadow>
+        <torusGeometry args={[0.15, 0.045, 6, 12]} />
+        <meshToonMaterial color="#cf725f" />
       </mesh>
       {[-0.085, 0.085].map((x) => (
         <mesh key={x} position={[x, 0.005, 0.205]}>
@@ -696,11 +723,15 @@ function FallbackWandererTorso() {
         position={[0, 1.18, 0]}
         castShadow
       >
-        <meshToonMaterial color="#657772" />
+        <meshToonMaterial color="#fff0cf" />
       </RoundedBox>
-      <mesh position={[0, 1.5, -0.13]} rotation-x={Math.PI / 2} scale={[1, 0.72, 1]}>
-        <torusGeometry args={[0.19, 0.045, 8, 20, Math.PI]} />
-        <meshToonMaterial color="#536560" />
+      <mesh position={[0, 1.48, 0.01]} rotation-x={Math.PI / 2} scale={[1, 0.72, 1]}>
+        <torusGeometry args={[0.2, 0.055, 8, 20, Math.PI]} />
+        <meshToonMaterial color="#65a6a0" />
+      </mesh>
+      <mesh position={[0.08, 1.21, 0.18]} rotation-z={-0.08} castShadow>
+        <capsuleGeometry args={[0.045, 0.38, 4, 8]} />
+        <meshToonMaterial color="#65a6a0" />
       </mesh>
     </group>
   );
@@ -717,7 +748,7 @@ function FallbackWandererArm({
     <group ref={armRef} position={[side * 0.36, 1.42, 0]} rotation-z={side * -0.06}>
       <mesh position={[0, -0.25, 0]} castShadow>
         <capsuleGeometry args={[0.095, 0.42, 5, 10]} />
-        <meshToonMaterial color="#5b6d68" />
+        <meshToonMaterial color="#9b664d" />
       </mesh>
       <mesh position={[0, -0.53, 0.015]} scale={[0.92, 1.08, 0.82]} castShadow>
         <sphereGeometry args={[0.095, 12, 8]} />
@@ -738,7 +769,7 @@ function FallbackWandererLeg({
     <group ref={legRef} position={[side * 0.15, 0.82, 0]}>
       <mesh position={[0, -0.29, 0]} castShadow>
         <capsuleGeometry args={[0.12, 0.46, 5, 10]} />
-        <meshToonMaterial color="#202b2f" />
+        <meshToonMaterial color="#52698a" />
       </mesh>
       <RoundedBox
         args={[0.23, 0.16, 0.38]}
@@ -747,7 +778,7 @@ function FallbackWandererLeg({
         position={[0, -0.67, 0.08]}
         castShadow
       >
-        <meshToonMaterial color="#555650" />
+        <meshToonMaterial color="#a96045" />
       </RoundedBox>
     </group>
   );
@@ -765,6 +796,16 @@ function ProceduralWandererCharacter({
   const leftLeg = useRef<Group>(null);
   const rightLeg = useRef<Group>(null);
   const body = useRef<Group>(null);
+
+  useEffect(() => {
+    document.documentElement.dataset.xinhuaCharacterTier = "procedural";
+    performance.mark("xinhua-character-procedural-visible");
+    return () => {
+      if (document.documentElement.dataset.xinhuaCharacterTier === "procedural") {
+        delete document.documentElement.dataset.xinhuaCharacterTier;
+      }
+    };
+  }, []);
 
   useFrame(({ clock }) => {
     const analogStrength = Math.min(1, Math.hypot(inputState.moveX, inputState.moveY));
@@ -808,10 +849,19 @@ type WandererCharacterProps = {
 };
 
 function WandererCharacter(props: WandererCharacterProps) {
-  // 角色模型单独进入 Suspense，避免首次载入 GLB 时把地面、建筑与相机一起挂起。
-  return (
+  const identity = (
     <ProgressiveFeatureBoundary fallback={<ProceduralWandererCharacter {...props} />}>
       <Suspense fallback={<ProceduralWandererCharacter {...props} />}>
+        <RainLiteWandererCharacter {...props} />
+      </Suspense>
+    </ProgressiveFeatureBoundary>
+  );
+
+  // Hero 单独升级；常规冷启动回退到已在封面加载完成的 Rain Identity，
+  // 只有 Identity 请求真正失败时才进入零请求的程序化保险层。
+  return (
+    <ProgressiveFeatureBoundary fallback={identity}>
+      <Suspense fallback={identity}>
         <ProgressiveDetailedWandererCharacter {...props} />
       </Suspense>
     </ProgressiveFeatureBoundary>

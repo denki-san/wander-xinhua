@@ -1,0 +1,39 @@
+{
+  "protocol": {
+    "viewport": [390, 844],
+    "downloadMbps": 1.6,
+    "uploadMbps": 0.75,
+    "latencyMs": 150,
+    "httpCacheDisabled": true,
+    "build": "production static",
+    "visibility": "visible"
+  },
+  "baseline": {
+    "startButtonMs": 3600,
+    "startButtonObservedHighMs": 5200,
+    "proceduralVisibleAfterClickMs": 700,
+    "firstDistrictVisibleAfterClickMs": 21000,
+    "allDistrictVisibleAfterClickMs": 21000,
+    "heroVisibleAfterClickMs": 32000,
+    "bulkPoiImageCount": 17,
+    "bulkPoiLocalBytes": 1546485
+  },
+  "optimized": {
+    "source": "test_loading_optimized_weak_cover_final_metrics.json",
+    "startButtonMs": 7303,
+    "identityVisibleAfterClickMs": 0,
+    "proceduralVisibleAfterClickMs": null,
+    "firstDistrictVisibleAfterClickMs": 4615,
+    "allDistrictVisibleAfterClickMs": 10134,
+    "heroVisibleAfterClickMs": 22813,
+    "bulkPoiImageCount": 0,
+    "actualNearbyPoiImageCount": 1,
+    "consoleErrorCount": 0
+  },
+  "failureInjection": {
+    "source": "test_loading_optimized_identity_failure_metrics.json",
+    "identityRequestBlocked": true,
+    "startButtonMs": 3268,
+    "proceduralVisibleAfterClickMs": 0
+  }
+}

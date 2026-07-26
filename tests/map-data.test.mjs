@@ -88,8 +88,8 @@ test("自然比例人物与五倍环境为幸福里街巷留下充足通行宽�
   const map = JSON.parse(await readFile(new URL("app/scene/xinhua-map-data.json", root), "utf8"));
   const layout = JSON.parse(await readFile(new URL("app/scene/xingfuli-layout.json", root), "utf8"));
   const world = await readFile(new URL("app/scene/xinhua-world.tsx", root), "utf8");
-  const detailedCharacter = await readFile(
-    new URL("app/scene/detailed-wanderer-character.tsx", root),
+  const characterAssets = await readFile(
+    new URL("app/scene/rain-character-assets.ts", root),
     "utf8",
   );
   const northBuildings = layout.buildings.filter((building) => building.side === "north");
@@ -112,8 +112,8 @@ test("自然比例人物与五倍环境为幸福里街巷留下充足通行宽�
   assert.match(world, /const CAMERA_TARGET_SHOULDER_OFFSET = 0\.12/);
   assert.match(world, /name === "xingfuli" \|\| name === "hero"/);
   assert.match(world, /<group ref=\{body\}>/);
-  assert.match(detailedCharacter, /const CHARACTER_VISUAL_SCALE = 1\.3/);
-  assert.match(detailedCharacter, /<primitive object=\{model\} scale=\{CHARACTER_VISUAL_SCALE\} \/>/);
+  assert.match(characterAssets, /RAIN_CHARACTER_VISUAL_SCALE = 1\.3/);
+  assert.match(characterAssets, /RAIN_CHARACTER_VISUAL_SCALE = 1\.3/);
   assert.match(world, /function FallbackWandererHead/);
   assert.match(world, /const SHADOW_CENTER = new Vector3/);
   assert.match(world, /HUASHAN_GREEN_POSITION\[0\]/);

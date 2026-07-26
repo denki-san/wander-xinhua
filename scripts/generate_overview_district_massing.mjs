@@ -582,28 +582,35 @@ function heightBand(heightMeters) {
 }
 
 function outputPaths(heightMode, activateRound2 = false) {
+  const withChunkDirectory = (paths) => ({
+    ...paths,
+    chunkDirectory: resolve(
+      dirname(paths.glb),
+      `${basename(paths.glb, ".glb")}-chunks`,
+    ),
+  });
   if (heightMode === "poc") {
-    return {
+    return withChunkDirectory({
       source: POC_SOURCE_OUTPUT,
       runtimeManifest: POC_RUNTIME_MANIFEST_OUTPUT,
       glb: POC_GLB_OUTPUT,
       buildRecord: POC_BUILD_RECORD_OUTPUT,
-    };
+    });
   }
   if (heightMode === "round2" && !activateRound2) {
-    return {
+    return withChunkDirectory({
       source: ROUND2_SOURCE_OUTPUT,
       runtimeManifest: ROUND2_RUNTIME_MANIFEST_OUTPUT,
       glb: ROUND2_GLB_OUTPUT,
       buildRecord: ROUND2_BUILD_RECORD_OUTPUT,
-    };
+    });
   }
-  return {
+  return withChunkDirectory({
     source: SOURCE_OUTPUT,
     runtimeManifest: RUNTIME_MANIFEST_OUTPUT,
     glb: GLB_OUTPUT,
     buildRecord: BUILD_RECORD_OUTPUT,
-  };
+  });
 }
 
 function projectRelativePath(path) {
@@ -919,6 +926,33 @@ async function buildGlb(records) {
   };
 }
 
+async function buildChunkedGlbs(records) {
+  const chunkIds = [...new Set(records.map((record) => record.chunk))].sort();
+  const builds = [];
+  for (const chunkId of chunkIds) {
+    const chunkRecords = records.filter((record) => record.chunk === chunkId);
+    const first = await buildGlb(chunkRecords);
+    const second = await buildGlb(chunkRecords);
+    const firstHash = sha256(first.glb);
+    const secondHash = sha256(second.glb);
+    if (firstHash !== secondHash) {
+      throw new Error(`街区分块 ${chunkId} 两次输出不一致：${firstHash} != ${secondHash}`);
+    }
+    builds.push({
+      id: chunkId,
+      filename: `${chunkId}.glb`,
+      glb: first.glb,
+      sha256: firstHash,
+      bytes: first.glb.byteLength,
+      meshes: first.meshes,
+      triangles: first.triangles,
+      buildingCount: chunkRecords.length,
+      deterministicReplay: true,
+    });
+  }
+  return builds;
+}
+
 export function compileSourceRecords(raw) {
   if (!Array.isArray(raw?.elements)) throw new Error("OSM 原始快照缺少 elements 数组");
   const replacements = materializeReplacementEntries();
@@ -1166,6 +1200,7 @@ async function run() {
   });
   const firstBuild = await buildGlb(compiled.accepted);
   const secondBuild = await buildGlb(compiled.accepted);
+  const chunkBuilds = await buildChunkedGlbs(compiled.accepted);
   const firstHash = sha256(firstBuild.glb);
   const secondHash = sha256(secondBuild.glb);
   if (firstHash !== secondHash) {
@@ -1184,6 +1219,16 @@ async function run() {
     if (existingHash !== firstHash) {
       throw new Error(`离线重放与现有 GLB 不一致：${firstHash} != ${existingHash}`);
     }
+    for (const chunk of chunkBuilds) {
+      const existingChunk = await readFile(resolve(outputs.chunkDirectory, chunk.filename));
+      const existingChunkHash = sha256(existingChunk);
+      if (existingChunkHash !== chunk.sha256) {
+        throw new Error(
+          `离线重放与现有分块 ${chunk.id} 不一致：`
+          + `${chunk.sha256} != ${existingChunkHash}`,
+        );
+      }
+    }
     process.stdout.write(`${JSON.stringify({
       deterministicReplay: true,
       sourceSnapshot: snapshotName,
@@ -1191,6 +1236,7 @@ async function run() {
       acceptedBuildings: compiled.accepted.length,
       meshes: firstBuild.meshes,
       triangles: firstBuild.triangles,
+      chunks: chunkBuilds.map(({ id, sha256: hash, bytes }) => ({ id, sha256: hash, bytes })),
     }, null, 2)}\n`);
     return;
   }
@@ -1272,6 +1318,17 @@ async function run() {
       textures: 0,
       bounds: mapData.bounds,
       chunks: firstBuild.chunks,
+      chunkDirectory: projectRelativePath(outputs.chunkDirectory),
+      chunkGlbs: chunkBuilds.map((chunk) => ({
+        id: chunk.id,
+        path: projectRelativePath(resolve(outputs.chunkDirectory, chunk.filename)),
+        sha256: chunk.sha256,
+        bytes: chunk.bytes,
+        meshes: chunk.meshes,
+        triangles: chunk.triangles,
+        buildingCount: chunk.buildingCount,
+        deterministicReplay: chunk.deterministicReplay,
+      })),
     },
     counts: {
       ...compiled.sourceCounts,
@@ -1311,6 +1368,7 @@ async function run() {
     mkdir(dirname(outputs.runtimeManifest), { recursive: true }),
     mkdir(dirname(outputs.glb), { recursive: true }),
     mkdir(dirname(outputs.buildRecord), { recursive: true }),
+    mkdir(outputs.chunkDirectory, { recursive: true }),
   ]);
   const runtimeManifest = {
     assetId: "xinhua-district-massing",
@@ -1320,17 +1378,30 @@ async function run() {
     meshes: firstBuild.meshes,
     triangles: firstBuild.triangles,
     modes: ["overview"],
-    weakNetworkPolicy: "skip",
+    weakNetworkPolicy: "nearest-first",
     castShadow: false,
     collision: false,
     heightMode,
     heightEvidenceSha256: heightEvidence?.sha256 ?? null,
+    chunks: chunkBuilds.map((chunk) => ({
+      id: chunk.id,
+      url: `/models/overview/xinhua-district-massing-chunks/${chunk.filename}`
+        + `?v=${chunk.sha256.slice(0, 12)}`,
+      sha256: chunk.sha256,
+      bytes: chunk.bytes,
+      meshes: chunk.meshes,
+      triangles: chunk.triangles,
+      buildingCount: chunk.buildingCount,
+    })),
   };
   const writes = [
     writeFile(outputs.source, `${JSON.stringify(sourceRecord, null, 2)}\n`),
     writeFile(outputs.runtimeManifest, `${JSON.stringify(runtimeManifest, null, 2)}\n`),
     writeFile(outputs.glb, firstBuild.glb),
     writeFile(outputs.buildRecord, `${JSON.stringify(buildRecord, null, 2)}\n`),
+    ...chunkBuilds.map((chunk) => (
+      writeFile(resolve(outputs.chunkDirectory, chunk.filename), chunk.glb)
+    )),
   ];
   if (heightMode === "poc" && argumentsList.includes("--activate-poc")) {
     writes.push(

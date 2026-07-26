@@ -1,0 +1,906 @@
+{
+  "label": "optimized_identity_failure",
+  "pageUrl": "http://127.0.0.1:4174/",
+  "protocol": {
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "deviceScaleFactor": 1,
+      "mobile": true
+    },
+    "network": {
+      "downloadMbps": 1.6,
+      "uploadMbps": 0.75,
+      "latencyMs": 150,
+      "cacheDisabled": true
+    },
+    "durationMs": 5000,
+    "blockIdentity": true,
+    "pageVisibility": "visible"
+  },
+  "navigationStartedAt": "2026-07-26T13:35:45.304Z",
+  "timings": {
+    "startButtonMs": 3268,
+    "clickedAtMs": 3368,
+    "identityVisibleAfterClickMs": null,
+    "heroVisibleAfterClickMs": null,
+    "proceduralVisibleAfterClickMs": 0,
+    "firstDistrictChunkAfterClickMs": 4819,
+    "allDistrictChunksAfterClickMs": null
+  },
+  "states": [
+    {
+      "elapsedMs": 3268,
+      "phase": "ready",
+      "ready": true,
+      "mode": "xinhua-stage is-intro",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": null,
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 3447,
+      "afterClickMs": 0,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 3554,
+      "afterClickMs": 179,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 3655,
+      "afterClickMs": 287,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 3755,
+      "afterClickMs": 387,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 3856,
+      "afterClickMs": 487,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 3957,
+      "afterClickMs": 588,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 4057,
+      "afterClickMs": 689,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 4235,
+      "afterClickMs": 790,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 4336,
+      "afterClickMs": 967,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 4437,
+      "afterClickMs": 1069,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 4538,
+      "afterClickMs": 1170,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 4639,
+      "afterClickMs": 1271,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 4740,
+      "afterClickMs": 1371,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 4842,
+      "afterClickMs": 1473,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 4943,
+      "afterClickMs": 1574,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 5048,
+      "afterClickMs": 1676,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 5150,
+      "afterClickMs": 1781,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 5251,
+      "afterClickMs": 1882,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 5352,
+      "afterClickMs": 1983,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 5454,
+      "afterClickMs": 2085,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 5555,
+      "afterClickMs": 2187,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 5656,
+      "afterClickMs": 2288,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 5757,
+      "afterClickMs": 2388,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 5857,
+      "afterClickMs": 2489,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 5958,
+      "afterClickMs": 2590,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 6058,
+      "afterClickMs": 2690,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 6158,
+      "afterClickMs": 2790,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 6260,
+      "afterClickMs": 2891,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 6364,
+      "afterClickMs": 2992,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 6465,
+      "afterClickMs": 3096,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 6567,
+      "afterClickMs": 3198,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 6669,
+      "afterClickMs": 3300,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 6770,
+      "afterClickMs": 3401,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 6871,
+      "afterClickMs": 3503,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 6973,
+      "afterClickMs": 3604,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 7072,
+      "afterClickMs": 3704,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 7173,
+      "afterClickMs": 3804,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 7273,
+      "afterClickMs": 3905,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 7374,
+      "afterClickMs": 4006,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 7476,
+      "afterClickMs": 4107,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 7577,
+      "afterClickMs": 4208,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 7682,
+      "afterClickMs": 4310,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 7784,
+      "afterClickMs": 4415,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 7885,
+      "afterClickMs": 4517,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 7986,
+      "afterClickMs": 4618,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 8087,
+      "afterClickMs": 4719,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 0,
+      "districtChunks": ""
+    },
+    {
+      "elapsedMs": 8273,
+      "afterClickMs": 4819,
+      "phase": "playing",
+      "ready": false,
+      "mode": "xinhua-stage is-overview is-playing",
+      "playable": "true",
+      "identityPreloaded": "failed",
+      "characterTier": "procedural",
+      "districtChunkCount": 1,
+      "districtChunks": "east-north"
+    }
+  ],
+  "characterTiersObservedAfterClick": [
+    "procedural"
+  ],
+  "resources": [
+    {
+      "url": "http://127.0.0.1:4174/",
+      "type": "Document",
+      "startedAtMs": 31,
+      "finishedAtMs": 200,
+      "encodedDataLength": 910,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/assets/index-DpQp44x_.js",
+      "type": "Script",
+      "startedAtMs": 199,
+      "finishedAtMs": 976,
+      "encodedDataLength": 58088,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/assets/rolldown-runtime-S-ySWqyJ.js",
+      "type": "Script",
+      "startedAtMs": 199,
+      "finishedAtMs": 359,
+      "encodedDataLength": 1015,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/assets/Gltf-YQ5PHOJX.js",
+      "type": "Script",
+      "startedAtMs": 199,
+      "finishedAtMs": 1985,
+      "encodedDataLength": 256936,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/assets/index-DbksUN8q.css",
+      "type": "Stylesheet",
+      "startedAtMs": 199,
+      "finishedAtMs": 479,
+      "encodedDataLength": 7627,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/assets/xinhua-experience-D5Dpwsch.js",
+      "type": "Script",
+      "startedAtMs": 2004,
+      "finishedAtMs": 2800,
+      "encodedDataLength": 43464,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/assets/atmosphere-contract-buvFeiFP.js",
+      "type": "Script",
+      "startedAtMs": 2004,
+      "finishedAtMs": 2173,
+      "encodedDataLength": 1304,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/assets/rain-character-assets-ebZRO39v.js",
+      "type": "Script",
+      "startedAtMs": 2005,
+      "finishedAtMs": 2181,
+      "encodedDataLength": 1366,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/assets/xinhua-road-massing-DC6_R6oo.js",
+      "type": "Script",
+      "startedAtMs": 2005,
+      "finishedAtMs": 2684,
+      "encodedDataLength": 32607,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/assets/xinhua-road-landmarks-data-DOYajlrq.js",
+      "type": "Script",
+      "startedAtMs": 2005,
+      "finishedAtMs": 2316,
+      "encodedDataLength": 7516,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/images/xinhua-plane-tree-cover-mobile-lite.jpg",
+      "type": "Image",
+      "startedAtMs": 2005,
+      "finishedAtMs": 6576,
+      "encodedDataLength": 272657,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/models/character/rain-summer-wanderer-identity.glb?v=f0075bba06a0",
+      "type": "Fetch",
+      "startedAtMs": 3119,
+      "finishedAtMs": 3120,
+      "encodedDataLength": null,
+      "failed": true,
+      "errorText": ""
+    },
+    {
+      "url": "http://127.0.0.1:4174/assets/shangsheng-full-models-EaFpnACt.js",
+      "type": "Script",
+      "startedAtMs": 3120,
+      "finishedAtMs": 3285,
+      "encodedDataLength": 1694,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/assets/visual-effect-composer-LHSj2kST.js",
+      "type": "Script",
+      "startedAtMs": 3189,
+      "finishedAtMs": 5543,
+      "encodedDataLength": 89888,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/models/tiers/sun-ke-villa/massing/sun-ke-villa-massing.glb?v=f233f9defd21",
+      "type": "Fetch",
+      "startedAtMs": 3285,
+      "finishedAtMs": 3883,
+      "encodedDataLength": 20263,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/assets/overview-district-massing-9yCMq05c.js",
+      "type": "Script",
+      "startedAtMs": 3446,
+      "finishedAtMs": 3590,
+      "encodedDataLength": 1893,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/models/tiers/sun-ke-villa/identity/sun-ke-villa-identity.glb?v=6b541e8ffab4",
+      "type": "Fetch",
+      "startedAtMs": 3446,
+      "finishedAtMs": null,
+      "encodedDataLength": null,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/assets/xinhua-road-landmarks-DxHA6ouT.js",
+      "type": "Script",
+      "startedAtMs": 3446,
+      "finishedAtMs": 3870,
+      "encodedDataLength": 4461,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/assets/plane-tree-instances-DL5A7YJV.js",
+      "type": "Script",
+      "startedAtMs": 3447,
+      "finishedAtMs": 3621,
+      "encodedDataLength": 1738,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/models/xinhua-road/shanghai-cinema-hybrid-identity.glb?v=20260722-hybrid-1",
+      "type": "Fetch",
+      "startedAtMs": 3447,
+      "finishedAtMs": null,
+      "encodedDataLength": null,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/assets/detailed-wanderer-character-CG74A6es.js",
+      "type": "Script",
+      "startedAtMs": 3447,
+      "finishedAtMs": 4056,
+      "encodedDataLength": 1156,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/images/poi-thumbnails/xingfuli.jpg",
+      "type": "Image",
+      "startedAtMs": 3554,
+      "finishedAtMs": 7949,
+      "encodedDataLength": 132280,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/models/overview/xinhua-district-massing-chunks/east-north.glb?v=b1e311115074",
+      "type": "Fetch",
+      "startedAtMs": 3591,
+      "finishedAtMs": 8121,
+      "encodedDataLength": 132061,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/models/character/rain-summer-wanderer.glb?v=45d2d21d2315",
+      "type": "Fetch",
+      "startedAtMs": 4057,
+      "finishedAtMs": null,
+      "encodedDataLength": null,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/models/overview/xinhua-district-massing-chunks/east-south.glb?v=f66ca5fad6fc",
+      "type": "Fetch",
+      "startedAtMs": 4624,
+      "finishedAtMs": null,
+      "encodedDataLength": null,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/models/overview/xinhua-district-massing-chunks/west-north.glb?v=7aafe8906aee",
+      "type": "Fetch",
+      "startedAtMs": 5524,
+      "finishedAtMs": null,
+      "encodedDataLength": null,
+      "failed": false
+    },
+    {
+      "url": "http://127.0.0.1:4174/models/overview/xinhua-district-massing-chunks/west-south.glb?v=700ca3200e14",
+      "type": "Fetch",
+      "startedAtMs": 6422,
+      "finishedAtMs": null,
+      "encodedDataLength": null,
+      "failed": false
+    }
+  ],
+  "summary": {
+    "totalEncodedBytes": 1068924,
+    "localImageRequests": 2,
+    "poiImageRequests": 1,
+    "characterRequests": [
+      {
+        "url": "http://127.0.0.1:4174/models/character/rain-summer-wanderer-identity.glb?v=f0075bba06a0",
+        "type": "Fetch",
+        "startedAtMs": 3119,
+        "finishedAtMs": 3120,
+        "encodedDataLength": null,
+        "failed": true,
+        "errorText": ""
+      },
+      {
+        "url": "http://127.0.0.1:4174/models/character/rain-summer-wanderer.glb?v=45d2d21d2315",
+        "type": "Fetch",
+        "startedAtMs": 4057,
+        "finishedAtMs": null,
+        "encodedDataLength": null,
+        "failed": false
+      }
+    ],
+    "districtRequests": [
+      {
+        "url": "http://127.0.0.1:4174/models/overview/xinhua-district-massing-chunks/east-north.glb?v=b1e311115074",
+        "type": "Fetch",
+        "startedAtMs": 3591,
+        "finishedAtMs": 8121,
+        "encodedDataLength": 132061,
+        "failed": false
+      },
+      {
+        "url": "http://127.0.0.1:4174/models/overview/xinhua-district-massing-chunks/east-south.glb?v=f66ca5fad6fc",
+        "type": "Fetch",
+        "startedAtMs": 4624,
+        "finishedAtMs": null,
+        "encodedDataLength": null,
+        "failed": false
+      },
+      {
+        "url": "http://127.0.0.1:4174/models/overview/xinhua-district-massing-chunks/west-north.glb?v=7aafe8906aee",
+        "type": "Fetch",
+        "startedAtMs": 5524,
+        "finishedAtMs": null,
+        "encodedDataLength": null,
+        "failed": false
+      },
+      {
+        "url": "http://127.0.0.1:4174/models/overview/xinhua-district-massing-chunks/west-south.glb?v=700ca3200e14",
+        "type": "Fetch",
+        "startedAtMs": 6422,
+        "finishedAtMs": null,
+        "encodedDataLength": null,
+        "failed": false
+      }
+    ],
+    "consoleErrorCount": 2
+  },
+  "console": [
+    {
+      "elapsedMs": 2882,
+      "type": "warning",
+      "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "elapsedMs": 3186,
+      "type": "exception",
+      "text": "Uncaught"
+    },
+    {
+      "elapsedMs": 3447,
+      "type": "exception",
+      "text": "Uncaught"
+    }
+  ]
+}

@@ -36,6 +36,11 @@ import { MAP_POIS, mapPoiById } from "./scene/poi-data";
 import { XinhuaWorld } from "./scene/xinhua-world";
 import mapData from "./scene/xinhua-map-data.json";
 import { cameraQaState } from "./scene/camera-qa";
+import {
+  RainIdentityPreloader,
+  RainIdentityPreloadFallback,
+  type RainIdentityPreloadStatus,
+} from "./scene/rain-character-preloader";
 
 const ProgressiveVisualEffectComposer = lazy(
   () => import("./scene/visual-effect-composer"),
@@ -50,9 +55,9 @@ type TouchTapCandidate = {
   startedInStickZone: boolean;
   startedWhileMoving: boolean;
 };
-const POI_PHOTO_NEARBY_PREFETCH_COUNT = 4;
-const POI_PHOTO_NEARBY_PREFETCH_INTERVAL_MS = 90;
-const POI_PHOTO_BACKGROUND_PREFETCH_DELAY_MS = 1_800;
+const POI_PHOTO_NEARBY_PREFETCH_COUNT = 2;
+const POI_PHOTO_NEARBY_PREFETCH_INTERVAL_MS = 320;
+const POI_PHOTO_BACKGROUND_PREFETCH_DELAY_MS = 1_200;
 const POI_PHOTO_BACKGROUND_PREFETCH_INTERVAL_MS = 480;
 const INITIAL_OVERVIEW_POSITION = [
   mapData.landmarks.xingfuli.position[0],
@@ -446,7 +451,10 @@ export function XinhuaExperience() {
     typeof window !== "undefined"
     && new URLSearchParams(window.location.search).get("effects") === "off"
   ));
-  const [ready, setReady] = useState(false);
+  const [rendererReady, setRendererReady] = useState(false);
+  const [characterIdentityStatus, setCharacterIdentityStatus] =
+    useState<RainIdentityPreloadStatus | null>(null);
+  const [characterHeroVisible, setCharacterHeroVisible] = useState(false);
   const [nearAction, setNearAction] = useState(false);
   const [nearPoiId, setNearPoiId] = useState<string | null>(null);
   const [destinationPreset, setDestinationPreset] = useState<string>();
@@ -491,6 +499,16 @@ export function XinhuaExperience() {
   const exploring = mode === "explore";
   const overview = mode === "overview";
   const nearPoi = mapPoiById(nearPoiId);
+  const ready = rendererReady && characterIdentityStatus !== null;
+  const settleCharacterIdentity = useCallback((status: RainIdentityPreloadStatus) => {
+    setCharacterIdentityStatus((current) => current ?? status);
+  }, []);
+
+  useEffect(() => {
+    const markHeroVisible = () => setCharacterHeroVisible(true);
+    window.addEventListener("xinhua:character-hero-visible", markHeroVisible);
+    return () => window.removeEventListener("xinhua:character-hero-visible", markHeroVisible);
+  }, []);
 
   useEffect(() => {
     const coarse = window.matchMedia("(any-pointer: coarse)").matches;
@@ -524,19 +542,29 @@ export function XinhuaExperience() {
 
   useEffect(() => {
     if (!overview) return;
+    // 弱网不做批量图片预取；靠近 POI 时由下一个 effect 只请求实际需要的一张。
+    if (networkProfile === "weak") return;
     const [playerX, playerZ] = playerPosition.current;
     const photosByDistance = [...MAP_POIS].sort((left, right) => (
       Math.hypot(left.position[0] - playerX, left.position[1] - playerZ)
       - Math.hypot(right.position[0] - playerX, right.position[1] - playerZ)
     ));
-    const timers = photosByDistance.map((poi, index) => window.setTimeout(() => {
+    const eligiblePhotos = characterHeroVisible
+      ? photosByDistance
+      : photosByDistance.slice(0, POI_PHOTO_NEARBY_PREFETCH_COUNT);
+    const timers = eligiblePhotos.map((poi, index) => window.setTimeout(() => {
       prefetchOverviewPhoto(poi.photo.src, index < 2 ? "high" : "low");
     }, index < POI_PHOTO_NEARBY_PREFETCH_COUNT
       ? index * POI_PHOTO_NEARBY_PREFETCH_INTERVAL_MS
       : POI_PHOTO_BACKGROUND_PREFETCH_DELAY_MS
         + (index - POI_PHOTO_NEARBY_PREFETCH_COUNT) * POI_PHOTO_BACKGROUND_PREFETCH_INTERVAL_MS));
     return () => timers.forEach((timer) => window.clearTimeout(timer));
-  }, [overview, prefetchOverviewPhoto]);
+  }, [
+    characterHeroVisible,
+    networkProfile,
+    overview,
+    prefetchOverviewPhoto,
+  ]);
 
   useEffect(() => {
     const src = overview ? nearPoi?.photo.src : undefined;
@@ -670,7 +698,17 @@ export function XinhuaExperience() {
           powerPreference: "high-performance",
         }}
       >
-        <FirstPlayableFrame onReady={() => setReady(true)} />
+        <FirstPlayableFrame onReady={() => setRendererReady(true)} />
+        <ProgressiveFeatureBoundary
+          resetKey="rain-identity-preload"
+          fallback={(
+            <RainIdentityPreloadFallback onSettled={settleCharacterIdentity} />
+          )}
+        >
+          <Suspense fallback={null}>
+            <RainIdentityPreloader onSettled={settleCharacterIdentity} />
+          </Suspense>
+        </ProgressiveFeatureBoundary>
         {exploring && (
           <Suspense fallback={null}>
             <AutumnStorybookSky atmosphereStyle={atmosphereStyle} />
@@ -762,7 +800,13 @@ export function XinhuaExperience() {
       {!playing && (
         <XinhuaIntroSurface
           ready={ready}
-          loadingMessage="正在校准街景与光影"
+          loadingMessage={
+            !rendererReady
+              ? "正在校准街景与光影"
+              : characterIdentityStatus === null
+                ? "正在准备轻量人物"
+                : "正在准备出发"
+          }
           onBegin={begin}
         />
       )}

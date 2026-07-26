@@ -1,0 +1,137 @@
+{
+  "asset": "rain-summer-wanderer-identity",
+  "tier": "Identity",
+  "source": {
+    "asset": "rain-summer-wanderer",
+    "blend": "assets/models/source/character/rain-summer-wanderer.blend",
+    "glb": "public/models/character/rain-summer-wanderer.glb",
+    "sha256": "45d2d21d231550d3d94a80c805f8e08c2d4b430f6d42d6cdce74f34e5f135805",
+    "license": "CC-BY",
+    "requiredCredit": "Rain Rig © Blender Foundation | cloud.blender.org"
+  },
+  "generator": "scripts/create_rain_lite_character.py",
+  "blender": "5.2.0 LTS",
+  "optimization": {
+    "method": "deterministic per-mesh decimation before the Armature modifier",
+    "ratios": {
+      "Rain_body": 0.17,
+      "Rain_eye": 0.12,
+      "Rain_eyebrows": 0.35,
+      "Rain_eyelashes": 0.25,
+      "Rain_hair_main": 0.18,
+      "Rain_hair_strand": 0.3,
+      "Rain_head": 0.1,
+      "Rain_jeans": 0.13,
+      "Rain_scarf": 0.25,
+      "Rain_shoes": 0.08,
+      "Rain_top": 0.25,
+      "Rain_hair_low_ponytail": 1.0,
+      "Rain_hairband_low": 1.0
+    },
+    "trianglesBeforeByMesh": {
+      "Rain_body": 12008,
+      "Rain_eye": 3458,
+      "Rain_eyebrows": 520,
+      "Rain_eyelashes": 472,
+      "Rain_hair_low_ponytail": 160,
+      "Rain_hair_main": 3933,
+      "Rain_hair_strand": 786,
+      "Rain_hairband_low": 168,
+      "Rain_head": 11116,
+      "Rain_jeans": 7477,
+      "Rain_scarf": 2434,
+      "Rain_shoes": 10138,
+      "Rain_top": 3424
+    },
+    "trianglesAfterByMesh": {
+      "Rain_body": 2041,
+      "Rain_eye": 413,
+      "Rain_eyebrows": 182,
+      "Rain_eyelashes": 118,
+      "Rain_hair_low_ponytail": 160,
+      "Rain_hair_main": 706,
+      "Rain_hair_strand": 235,
+      "Rain_hairband_low": 168,
+      "Rain_head": 1111,
+      "Rain_jeans": 971,
+      "Rain_scarf": 607,
+      "Rain_shoes": 810,
+      "Rain_top": 855
+    },
+    "identityCuesPreserved": [
+      "compact low ponytail and warm hairband",
+      "teal scarf and cream sleeveless top",
+      "blue jeans, brown shoes and Rain body silhouette"
+    ]
+  },
+  "output": {
+    "blend": "assets/models/source/character/rain-summer-wanderer-identity.blend",
+    "glb": "public/models/character/rain-summer-wanderer-identity.glb",
+    "sha256": "f0075bba06a04106ecbe9121e53f7f4d56304224320536bf2780ff14c3594c58",
+    "cacheVersion": "f0075bba06a0",
+    "bytes": 621308,
+    "triangles": 8377,
+    "nodes": 76,
+    "meshes": 13,
+    "materials": 11,
+    "images": 0,
+    "skins": 1,
+    "animations": [
+      "Idle_Neutral",
+      "Run",
+      "Walk"
+    ],
+    "bounds": {
+      "min": [
+        -0.6980293989181519,
+        -0.18594896793365479,
+        0.0012022630544379354
+      ],
+      "max": [
+        0.6980023980140686,
+        0.1245015561580658,
+        1.6510913372039795
+      ]
+    }
+  },
+  "budgets": {
+    "maxBytes": 650000,
+    "maxTriangles": 9000,
+    "maxNodes": 80,
+    "maxMeshes": 13,
+    "maxMaterials": 11,
+    "maxImages": 0
+  },
+  "validation": {
+    "blenderCanonical": "test_artifacts/test_rain_identity_canonical.png",
+    "blenderSide": "test_artifacts/test_rain_identity_side.png",
+    "threeWayComparison": "test_artifacts/test_rain_identity_three_way_comparison.png",
+    "runtimeScreenshot": "test_artifacts/test_loading_optimized_weak_cover_final_after_700ms.png",
+    "weakNetworkMetrics": "test_artifacts/test_loading_optimized_weak_cover_final_metrics.json",
+    "runtimeGate": "passed actual production static build at 390x844, 1.6Mbps down, 0.75Mbps up, 150ms latency and disabled HTTP cache",
+    "glbAudit": "ok: 621308 bytes, 76 nodes, 13 meshes, 11 materials, 0 images",
+    "deterministicReplay": {
+      "passed": true,
+      "firstSha256": "f0075bba06a04106ecbe9121e53f7f4d56304224320536bf2780ff14c3594c58",
+      "secondSha256": "f0075bba06a04106ecbe9121e53f7f4d56304224320536bf2780ff14c3594c58"
+    },
+    "runtime": {
+      "startButtonMs": 7303,
+      "identityVisibleAfterClickMs": 0,
+      "heroVisibleAfterClickMs": 22813,
+      "proceduralVisibleAfterClickMs": null,
+      "characterTiersObservedAfterClick": [
+        "identity",
+        "hero"
+      ],
+      "consoleErrors": 0
+    },
+    "failureInjection": {
+      "identityRequestBlocked": true,
+      "startButtonMs": 3268,
+      "proceduralVisibleAfterClickMs": 0,
+      "browserExceptions": "expected blocked-fetch diagnostics only"
+    }
+  },
+  "status": "production-ready"
+}

@@ -125,7 +125,7 @@ test("预编译 GLB 满足移动概览的体积、结构和材质预算", async 
   assert.ok(triangleCount <= build.budgets.maxTriangles);
   assert.equal(build.output.triangles, triangleCount);
   assert.deepEqual(manifest.modes, ["overview"]);
-  assert.equal(manifest.weakNetworkPolicy, "skip");
+  assert.equal(manifest.weakNetworkPolicy, "nearest-first");
   assert.equal(manifest.collision, false);
   assert.equal(manifest.castShadow, false);
   assert.equal(build.runtimeContract.opacity, 0.58);
@@ -248,7 +248,7 @@ test("全览白模不再被弱网估算门控", () => {
   assert.equal(districtMassingEligibleAtOverviewEntry("weak"), true);
 });
 
-test("运行时在所有网络档位加载全览白模且失败不阻断原地图", async () => {
+test("运行时提前挂载全览白模、跨模式复用且失败不阻断原地图", async () => {
   const [world, component, experience] = await Promise.all([
     readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/scene/overview-district-massing.tsx", import.meta.url), "utf8"),
@@ -258,7 +258,10 @@ test("运行时在所有网络档位加载全览白模且失败不阻断原地�
   assert.match(world, /lazy\(\s*\(\) => import\("\.\/overview-district-massing"\)/);
   assert.match(world, /function OverviewDistrictMassingGate/);
   assert.match(world, /districtMassingEligibleAtOverviewEntry\(networkProfile\)/);
-  assert.match(world, /mode === "overview" && !districtDisabledForQa/);
+  assert.match(world, /\{!districtDisabledForQa && \(/);
+  assert.match(world, /name="persistent-overview-district-massing"/);
+  assert.match(world, /visible=\{mode !== "explore"\}/);
+  assert.doesNotMatch(world, /mode === "overview" && !districtDisabledForQa/);
   assert.doesNotMatch(
     world,
     /mode === "overview" && networkProfile === "standard"/,
@@ -268,7 +271,7 @@ test("运行时在所有网络档位加载全览白模且失败不阻断原地�
   assert.match(world, /get\("district"\) === "off"/);
   assert.match(
     world,
-    /<ProgressiveFeatureBoundary[\s\S]*?fallback=\{null\}[\s\S]*?<ProgressiveOverviewDistrictMassing \/>/,
+    /<ProgressiveFeatureBoundary[\s\S]*?fallback=\{null\}[\s\S]*?<ProgressiveOverviewDistrictMassing[\s\S]*?networkProfile=\{networkProfile\}/,
   );
   assert.ok(
     world.indexOf("<XinhuaStreetMap") < world.indexOf("<ProgressiveOverviewDistrictMassing"),
@@ -280,10 +283,20 @@ test("运行时在所有网络档位加载全览白模且失败不阻断原地�
   );
   assert.match(
     world,
-    /function OverviewDistrictMassingGate[\s\S]*?<ProgressiveOverviewDistrictMassing \/>/,
+    /function OverviewDistrictMassingGate[\s\S]*?<ProgressiveOverviewDistrictMassing[\s\S]*?focusPosition=\{focusPosition\}/,
   );
+  assert.match(component, /runtimeManifest\.chunks/);
+  assert.match(component, /useState\(\(\) => orderedChunks\(focusPosition\)\)/);
+  assert.match(component, /networkProfile === "weak" \? 900 : 180/);
+  assert.match(
+    component,
+    /setActiveCount\(\(current\) => Math\.max\(current, index \+ 2\)\)/,
+  );
+  assert.match(component, /xinhuaDistrictChunkCount/);
+  assert.match(component, /xinhuaDistrictActiveCount/);
   assert.match(component, /object\.castShadow = false/);
   assert.match(component, /object\.receiveShadow = false/);
+  assert.match(component, /object\.frustumCulled = true/);
   assert.match(component, /object\.raycast = \(\) => \{\}/);
   assert.doesNotMatch(component, /fetch\(|overpass|nominatim/i);
   assert.match(experience, /全览街区高度为多源证据估算，非测绘级/);

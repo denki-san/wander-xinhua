@@ -88,20 +88,22 @@ test("三个 Quaternius CC0 源模块及授权证据均可复核", async () => {
   assert.doesNotMatch(generator, /MessengerBackpack|ShoulderStrap/);
 });
 
-test("正式运行时加载 Rain 单文件角色并混合待机、行走和奔跑动作", async () => {
-  const [world, detailedCharacter] = await Promise.all([
+test("正式运行时按 Rain Identity → Hero 三级合同混合待机、行走和奔跑动作", async () => {
+  const [world, detailedCharacter, identityCharacter, assets] = await Promise.all([
     readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/scene/detailed-wanderer-character.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/scene/rain-lite-wanderer-character.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/scene/rain-character-assets.ts", import.meta.url), "utf8"),
   ]);
 
-  assert.match(
-    detailedCharacter,
-    /const CHARACTER_MODEL_PATH = "\/models\/character\/rain-summer-wanderer\.glb\?v=45d2d21d2315"/,
-  );
-  assert.match(detailedCharacter, /const CHARACTER_VISUAL_SCALE = 1\.3/);
+  assert.match(assets, /rain-summer-wanderer\.glb\?v=45d2d21d2315/);
+  assert.match(assets, /rain-summer-wanderer-identity\.glb\?v=[a-f0-9]{12}/);
+  assert.match(assets, /RAIN_CHARACTER_VISUAL_SCALE = 1\.3/);
   assert.doesNotMatch(detailedCharacter, /CHARACTER_ANIMATION_PATH|universal-animation-standard\.glb/);
-  assert.match(detailedCharacter, /const \{ scene, animations \} = useGLTF\(CHARACTER_MODEL_PATH\)/);
-  assert.match(world, /<Suspense fallback=\{<ProceduralWandererCharacter \{\.\.\.props\} \/>\}>/);
+  assert.match(detailedCharacter, /useGLTF\(RAIN_HERO_MODEL_PATH\)/);
+  assert.match(identityCharacter, /useGLTF\(RAIN_IDENTITY_MODEL_PATH\)/);
+  assert.match(world, /<Suspense fallback=\{identity\}>/);
+  assert.match(world, /<RainLiteWandererCharacter \{\.\.\.props\} \/>/);
   assert.match(world, /<ProgressiveDetailedWandererCharacter \{\.\.\.props\} \/>/);
   assert.doesNotMatch(world, /detailed=\{networkProfile === "standard"\}/);
   assert.doesNotMatch(world, /if \(!detailed\)/);
@@ -109,14 +111,15 @@ test("正式运行时加载 Rain 单文件角色并混合待机、行走和奔�
   assert.match(detailedCharacter, /actions\.Idle_Neutral/);
   assert.match(detailedCharacter, /"Walk"/);
   assert.match(detailedCharacter, /"Run"/);
-  assert.match(detailedCharacter, /<primitive object=\{model\} scale=\{CHARACTER_VISUAL_SCALE\} \/>/);
+  assert.match(detailedCharacter, /<primitive object=\{model\} scale=\{RAIN_CHARACTER_VISUAL_SCALE\} \/>/);
   assert.match(world, /function FallbackWandererHead/);
   assert.match(world, /function FallbackWandererTorso/);
   assert.match(world, /function FallbackWandererArm/);
   assert.match(world, /function FallbackWandererLeg/);
-  assert.match(world, /#657772/);
-  assert.match(world, /#202b2f/);
-  assert.doesNotMatch(world, /#d9823f|#f1dfba|#bb5a3f/);
+  assert.match(world, /#fff0cf/);
+  assert.match(world, /#52698a/);
+  assert.match(world, /#65a6a0/);
+  assert.match(world, /#cf725f/);
   assert.doesNotMatch(world, /MessengerBackpack|Backpack|ShoulderStrap/);
   assert.doesNotMatch(detailedCharacter, /<primitive object=\{model\}[^>]*rotation-y=\{Math\.PI\}/);
 });

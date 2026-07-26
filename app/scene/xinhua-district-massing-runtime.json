@@ -8,9 +8,47 @@
   "modes": [
     "overview"
   ],
-  "weakNetworkPolicy": "skip",
+  "weakNetworkPolicy": "nearest-first",
   "castShadow": false,
   "collision": false,
   "heightMode": "round2",
-  "heightEvidenceSha256": "c20ad9fdc3f8f68dc8118b18f6f1e1e7b48a7b18bdf08212925fa02fc7881541"
+  "heightEvidenceSha256": "c20ad9fdc3f8f68dc8118b18f6f1e1e7b48a7b18bdf08212925fa02fc7881541",
+  "chunks": [
+    {
+      "id": "east-north",
+      "url": "/models/overview/xinhua-district-massing-chunks/east-north.glb?v=b1e311115074",
+      "sha256": "b1e3111150746d538deb5ed18c5c1fefb5dd1f52d44962bbc84221cfecbd97b4",
+      "bytes": 131784,
+      "meshes": 3,
+      "triangles": 2276,
+      "buildingCount": 125
+    },
+    {
+      "id": "east-south",
+      "url": "/models/overview/xinhua-district-massing-chunks/east-south.glb?v=f66ca5fad6fc",
+      "sha256": "f66ca5fad6fc6a2a19cbd48602e33c7eb5c5ef01d9605de7265ce037c1ba2e39",
+      "bytes": 188548,
+      "meshes": 3,
+      "triangles": 3250,
+      "buildingCount": 202
+    },
+    {
+      "id": "west-north",
+      "url": "/models/overview/xinhua-district-massing-chunks/west-north.glb?v=7aafe8906aee",
+      "sha256": "7aafe8906aeee783a6ce61f28e756b1c7ce13b871d9fc93494b19bab92ec6c28",
+      "bytes": 210724,
+      "meshes": 3,
+      "triangles": 3630,
+      "buildingCount": 231
+    },
+    {
+      "id": "west-south",
+      "url": "/models/overview/xinhua-district-massing-chunks/west-south.glb?v=700ca3200e14",
+      "sha256": "700ca3200e14232f59c9439884e74c10f0fe601f55788fde161ab7e762c00c38",
+      "bytes": 153548,
+      "meshes": 3,
+      "triangles": 2623,
+      "buildingCount": 172
+    }
+  ]
 }
