@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "assetId": "fahua-heritage",
+  "label": "法华遗韵",
+  "preparedAt": "2026-07-26",
+  "baseCommit": "2643a4d2c5ab84f945336b29e764eae0dc0ae926",
+  "status": "prepared-awaiting-main-window-human-paced-xiaohongshu-search",
+  "scope": {
+    "browserAccessed": false,
+    "xiaohongshuAccessed": false,
+    "mediaDownloaded": false,
+    "networkSearchExecuted": false,
+    "modelingPerformed": false,
+    "qualifiedStageRerun": false,
+    "binaryModified": false,
+    "publicRegistryModified": false,
+    "runtimeDisabled": false,
+    "excludedAndUntouched": [
+      "Recovery/Hold",
+      "trees",
+      "decorations",
+      "full-map assets",
+      "other buildings"
+    ]
+  },
+  "verifiedInputs": {
+    "gapAudit": {
+      "path": "docs/research/fahua-heritage-gap-audit-2026-07-26.json",
+      "sha256": "72fbfb4ef2202978341146f3a53f80fa1036ce3c9767d68f9ce0e7939f31f9b1"
+    },
+    "publicStreetContext": {
+      "path": "docs/research/fahua-heritage-public-evidence-rescue-2026-07-26.json",
+      "sha256": "859c27bf38d8976322bd44514ab97ad7aba4043e7a9c257fa974cade104d254b"
+    },
+    "finalDisposition": {
+      "path": "docs/research/fahua-heritage-final-disposition.json",
+      "sha256": "1d473792166b3a4b085be06347c81af538b1c092ce3560987f0fa07db3f6dfba"
+    },
+    "localEvidenceRescue": {
+      "path": "docs/research/fahua-heritage-local-evidence-rescue.json",
+      "sha256": "959dde6677369f69de0ac0632f61f46752d91572437c34c20762da9acd948e6a"
+    },
+    "legacyHeroGlb": {
+      "path": "public/models/requested-pois/fahua-heritage.glb",
+      "sha256": "f23d8b701a338838c60645e4460a5dccca904e62a58053f7066d29dff54bf7b3"
+    }
+  },
+  "startingState": {
+    "evidence": "partial-identity-and-street-context",
+    "canonical": "same-subject front capture only",
+    "publicStreetContext": "same-subject commemorative arch and intersection context; not a surveyed boundary",
+    "hero": "legacy structural baseline on Hold; not MCP2 candidate",
+    "recovery": "conditional Massing and single-page stages retained only; do not rerun or promote",
+    "map": "blocked: no measured footprint, current curb/sidewalk/landscape boundary, or walkaround boundary"
+  },
+  "searchPlan": {
+    "exactQueryGroups": [
+      ["法华遗韵", "上海 法华遗韵", "法华遗韵 香花桥路", "法华遗韵 法华镇路"],
+      ["法华镇路 香花桥路 牌坊", "法华镇路 香花桥路 法华遗韵", "法华遗韵 牌坊 入口"],
+      ["法华镇路503号 法华遗韵", "香花桥路 法华遗韵", "法华镇路 老桥 牌坊"],
+      ["法华镇路 香花桥路 街景", "法华遗韵 侧面", "法华遗韵 背面"]
+    ],
+    "queryOrder": "Run groups sequentially; only add a synonym when the immediately preceding group has no same-subject result.",
+    "maximumResultsToOpen": {
+      "perQuery": 6,
+      "total": 36,
+      "stopEarly": "Stop when all required view categories are satisfied by verified same-subject material."
+    },
+    "humanPace": {
+      "betweenQueriesSeconds": "20-45",
+      "betweenOpenedResultsSeconds": "15-35",
+      "scrollPolicy": "one deliberate scroll at a time; wait for visible content before another action",
+      "noBulkAutomation": true,
+      "noRepeatedRefresh": true,
+      "noCommentLikeFollowOrMessage": true,
+      "noLoginStateMutation": true
+    }
+  },
+  "requiredSameSubjectHits": {
+    "sideOrRear": {
+      "required": true,
+      "minimumVisibleFacts": ["panel or column depth", "eave/roof thickness", "rear or side relation"]
+    },
+    "entranceOrIdentityDetail": {
+      "required": true,
+      "minimumVisibleFacts": ["法华遗韵 title or unequivocal commemorative-arch cue", "approach/entrance relation"]
+    },
+    "streetInterface": {
+      "required": true,
+      "minimumVisibleFacts": ["Fahuazhen Road or Xianghuaqiao Road", "curb or sidewalk edge", "full structure", "adjacent wall, landscape edge, or walkaround boundary"]
+    },
+    "mapBinding": {
+      "required": true,
+      "minimumVisibleFacts": ["at least two locatable boundary controls", "sufficient coverage to distinguish structure footprint from neighboring landscape"]
+    }
+  },
+  "mediaClassification": {
+    "acceptable": [
+      "original post photo with readable same-subject context",
+      "post video frame only when the frame visibly establishes the required facts",
+      "carousel image with post-level location/context"
+    ],
+    "notSufficient": [
+      "front-only duplicate",
+      "cropped title or decorative-detail close-up",
+      "AI-generated, collage, or untraceable repost",
+      "adjacent DeBi Fahu 525 stone, water feature, or unrelated arch",
+      "street photo without a provable same-subject arch",
+      "map screenshot without scale, provenance, and locatable controls"
+    ],
+    "captureRule": "Record post URL/identifier, author handle as displayed, displayed date, query used, media type, and the exact observed frame/image index before making any inference."
+  },
+  "rawMediaRetention": {
+    "policy": "Original media is read-only; never overwrite or delete an earlier capture.",
+    "repositoryRoot": "docs/research/assets/xiaohongshu/fahua-heritage/original/",
+    "naming": "YYYYMMDD_xhs_<post-id>_<image-or-frame-index>.<extension>",
+    "sidecar": "docs/research/assets/xiaohongshu/fahua-heritage/original/YYYYMMDD_xhs_<post-id>_metadata.json",
+    "sidecarMinimum": ["source URL", "capture time", "query", "media type", "observed facts", "copyright/access note"],
+    "currentAction": "No directory or media is created by this preparation commit."
+  },
+  "evidenceLedger": {
+    "observed": [
+      "Existing local canonical evidence is front-only.",
+      "Existing public sources establish the same commemorative landscape at the Fahuazhen Road and Xianghuaqiao Road intersection.",
+      "Existing sources do not bind a measured current curb, sidewalk, landscape edge, footprint, or walkaround boundary."
+    ],
+    "inferred": [
+      "A verified multi-angle post may improve identity and geometry coverage, but does not itself authorize a map mutation unless street-edge controls are visible and locatable."
+    ],
+    "unknown": [
+      "side/rear construction and thickness",
+      "entrance approach",
+      "current road/curb/sidewalk/landscape boundary",
+      "measured footprint and walkaround clearance"
+    ]
+  },
+  "rejectionAndDisposition": {
+    "reasonableSearchMissDefinition": "All four query groups are attempted at the stated pace, at most 36 results total are deliberately reviewed, and no result satisfies every required same-subject category after duplicate and adjacent-site rejection.",
+    "whoMayConfirmMiss": "main window only",
+    "beforeMainWindowConfirmation": "No runtime disable candidate, registry edit, runtime edit, model change, or road/map change is authorized.",
+    "afterMainWindowConfirmation": "A runtime-disable candidate may be prepared for this asset only; it may remove the asset only from registry/runtime. All GLB, Blend, generator, evidence, test artifacts, and Recovery/Hold materials remain preserved.",
+    "stillNotAuthorized": ["delete files", "overwrite previous evidence", "modify Recovery/Hold", "claim Hero/Identity/MCP or map acceptance"]
+  }
+}

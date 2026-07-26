@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "label": "上海影城",
+  "researchedAt": "2026-07-26",
+  "baseCommit": "c27925bcbb5715df5071f86424ac848c6f9caf0d",
+  "mode": "main-window-public-primary-source-exact-anchor-rescue",
+  "status": "blocked-public-primary-source-rescue-exhausted-no-dimensioned-site-plan",
+  "scope": {
+    "networkAccessed": true,
+    "publicSearchOnly": true,
+    "userBrowserAccessed": false,
+    "xiaohongshuAccessed": false,
+    "reasonXiaohongshuDeferred": "用户睡眠期间不操作其登录会话，不触发平台限流或账号交互。",
+    "blenderOrMcpRerun": false,
+    "qualifiedStageRerun": false,
+    "binaryRebuilt": false,
+    "publicRegistryModified": false,
+    "runtimeDisabled": false,
+    "excludedAndUntouched": [
+      "trees",
+      "decorations",
+      "full-map assets",
+      "Recovery/Hold",
+      "other buildings"
+    ]
+  },
+  "verifiedInputs": {
+    "exactAnchorAudit": {
+      "path": "docs/research/shanghai-cinema-exact-anchor-road-setback-audit.json",
+      "sha256": "d9be563f25984e61d4d37695d8353272e3a3cfbc5e35cbe48a3be5f22fe18d82"
+    },
+    "heroExactReproductionAudit": {
+      "path": "docs/research/shanghai-cinema-hero-exact-reproduction-audit.json",
+      "sha256": "4b00d69735ec556b3030f0b83e30c8be118d6eb5d928d980300d80e6b8e13065"
+    },
+    "referenceManifest": {
+      "path": "docs/research/shanghai-cinema-reference-manifest.json",
+      "sha256": "28cb52037a1c781cfe9a68631929a9ad33949cdf74038302c94baef9d51f27e5"
+    }
+  },
+  "searchContract": {
+    "question": "能否找到带北箭头、比例尺，并至少把两个上海影城主体点同时绑定到总平/WGS84与当前GLB本地坐标的官方或设计方资料？",
+    "queries": [
+      "上海影城 杜兹设计 总平面图 改造 2023 新华路160号",
+      "上海影城 改造 平面图 入口 新华路160号",
+      "上海影城 总平面",
+      "上海电影艺术中心 总平面图",
+      "site:ghzyj.sh.gov.cn 新华路160号",
+      "上海影城修缮项目 2102CN0309D01",
+      "上海影城修缮项目 竣工规划"
+    ],
+    "qualityGate": {
+      "northArrow": "required",
+      "scaleOrDimensions": "required",
+      "twoNonCoincidentSubjectControlPoints": "required",
+      "perspectivePhotoAlone": "not-sufficient",
+      "addressOrCentroidAlone": "not-sufficient"
+    }
+  },
+  "reviewedSources": [
+    {
+      "url": "https://whlyj.sh.gov.cn/gqfc/20230606/d8c37f8ae8754ffb8c65e9cf6bf2b000.html",
+      "publisher": "上海市文化和旅游局",
+      "kind": "official-built-project-report",
+      "observed": [
+        "上海影城门前原本台阶环绕的空间改为平缓公共广场。",
+        "该广场被描述为无缝衔接人行道并全天候开放。"
+      ],
+      "missingForExactAnchor": [
+        "north arrow",
+        "scale or dimensions",
+        "two GLB-identifiable georeferenced control points"
+      ]
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col7696/20230331/1233581.html",
+      "publisher": "上海市长宁区规划和自然资源局",
+      "kind": "official-project-site-meeting",
+      "observed": [
+        "项目名称为上海影城立面改造项目。",
+        "页面记录竣工规划资源验收推进，但公开内容没有附可用于配准的总平数据。"
+      ],
+      "missingForExactAnchor": [
+        "dimensioned public site plan",
+        "control-point coordinates"
+      ]
+    },
+    {
+      "url": "https://zwgk.shcn.gov.cn/xxgk/jzscgl-jgwzdgz/2022/313/64863.html",
+      "publisher": "上海市长宁区人民政府",
+      "kind": "official-construction-permit-index",
+      "observed": [
+        "上海影城修缮项目地址为新华路160号。",
+        "施工许可项目编号为2102CN0309D01。"
+      ],
+      "missingForExactAnchor": [
+        "site drawing",
+        "north arrow",
+        "scale",
+        "subject control points"
+      ]
+    },
+    {
+      "url": "https://ghzyj.sh.gov.cn/cn/20211118/758d1e18ca8b4aaf8c7d9f17b98952df.html",
+      "publisher": "上海市规划和自然资源局",
+      "kind": "official-urban-renewal-summary",
+      "observed": [
+        "番禺路周边更新以南部上海影城项目为核心。",
+        "页面只给区域策略，没有公开主体总平或成员控制点。"
+      ],
+      "missingForExactAnchor": [
+        "building-level georeferenced plan"
+      ]
+    },
+    {
+      "url": "https://www.archina.com/index.php?a=show&g=works&id=156570&m=index",
+      "publisher": "ARCHINA / 华建集团上海建筑设计研究院项目资料",
+      "kind": "designer-project-feature",
+      "observed": [
+        "公开项目资料可支持立面、GRC飘带、玻璃幕墙和旋转楼梯的视觉构造。",
+        "已保存的项目图包含立面、细部和设计模型，但没有满足本次双点地理配准门槛的总平。"
+      ],
+      "missingForExactAnchor": [
+        "north arrow",
+        "dimensioned site boundary",
+        "two common local/world control points"
+      ]
+    }
+  ],
+  "evidenceClassification": {
+    "observed": [
+      "官方资料明确影城前公共广场应平缓且与人行道无缝衔接。",
+      "当前审计量化的 plaza envelope 相对同一 OSM footprint 多退 9.121581436197431 scene units。",
+      "当前 accepted Blend 经建筑专属 exporter 已两次精确复现 public Hero，source reproduction gate 已通过。",
+      "本轮公开一手资料没有返回满足北箭头、比例尺与双控制点条件的正式总平。"
+    ],
+    "inferred": [
+      "官方无缝衔接描述加强了用户所见当前退界偏差的可信度。",
+      "它可以否定当前观感，但不能单独决定应平移整栋、修改模型本地原点或重做 footprint。"
+    ],
+    "unknown": [
+      "主入口中心、主丝带端点和塔楼角点的 WGS84 坐标。",
+      "改造后路缘、人行道和主体墙线的测绘边界。",
+      "当前 OSM 综合体外轮廓各节点与建成墙线的误差。",
+      "小红书登录态内容是否包含可标定的侧向街景或总平。"
+    ]
+  },
+  "knowledgeWorkflow": {
+    "projectId": "0e0c3670-c275-42f9-8c06-6de01e3683b5",
+    "projectName": "Threejs-3d-research",
+    "statusAtReview": "complete-both-sources-indexed-search-readback-pass",
+    "sources": [
+      {
+        "repositoryPath": "docs/knowledge-sources/shanghai-cinema-public-anchor-evidence-2026-07-26.md",
+        "sha256": "6fc9b9ca09924042a82f18f98a4a0425aebf0251362b8ffb8f8e8abbf53cefe1",
+        "rawSourcePath": "raw/sources/threejs-modeling-knowledge-base/wander-xinhua/shanghai-cinema-public-anchor-evidence-2026-07-26.md",
+        "indexStatus": "pass-search-read-and-derived-pages",
+        "wikiPath": "wiki/sources/31-threejs-modeling-knowledge-base--13-wander-xinhua--49-shanghai-cinema-public-anchor-evidence-2026-07-26--93it5i.md"
+      },
+      {
+        "repositoryPath": "docs/knowledge-sources/shanghai-cinema-public-exact-anchor-rescue-2026-07-26.md",
+        "sha256": "c56ff88c3d8599343c7b2b3c8f179c6d6c6ba1c912fd78120fde6e861f05fc29",
+        "rawSourcePath": "raw/sources/threejs-modeling-knowledge-base/wander-xinhua/shanghai-cinema-public-exact-anchor-rescue-2026-07-26.md",
+        "indexStatus": "pass-search-read-and-derived-pages",
+        "wikiPath": "wiki/sources/31-threejs-modeling-knowledge-base--13-wander-xinhua--53-shanghai-cinema-public-exact-anchor-rescue-2026-07-26--obtcxk.md"
+      }
+    ],
+    "rawSourceReadback": "pass-both-source-paths-readable",
+    "queueSnapshotAtRescan": {
+      "processing": 1,
+      "pending": 1,
+      "failed": 0
+    },
+    "liveIndexCheck": {
+      "checkedAt": "2026-07-26T21:28:00+08:00",
+      "firstSourceSearchHit": true,
+      "firstSourceReadback": true,
+      "firstSourceDerivedFindingHit": true,
+      "secondSourceIndependentSearchHit": true,
+      "secondSourceReadback": true
+    },
+    "queueSnapshotAtCompletion": {
+      "processing": 0,
+      "pending": 0,
+      "failed": 0
+    },
+    "searchHit": "pass-both-sources",
+    "graphRelationHit": "pass-first-derived-finding-node-second-source-provenance-linked",
+    "completionClaimAllowed": true,
+    "policy": "The external research workflow is complete because both sources are searchable and readable with traceability. This closes ingestion only; the exact map anchor remains blocked."
+  },
+  "disposition": {
+    "userObservationConfirmed": true,
+    "heroExactSourceReproduction": "pass-retained-not-a-blocker",
+    "exactMapAnchor": "blocked",
+    "publicPlacementMutationAuthorized": false,
+    "runtimeRemovalAuthorizedNow": false,
+    "currentAssets": "retain-unchanged",
+    "nextGate": "用户可用时慢速搜索小红书；目标仅限带街道界面的同主体侧向宽景、可标定航拍或正式总平。",
+    "ifXiaohongshuStillInsufficient": "按用户授权只从游戏 registry/runtime 停用本栋；所有 GLB、Blend、生成器、证据、Recovery/Hold 文件永久保留。"
+  }
+}

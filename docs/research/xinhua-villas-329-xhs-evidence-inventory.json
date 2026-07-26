@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "sourceId": "696d1838000000002102bc99",
+  "sourceUrl": "https://www.xiaohongshu.com/search_result/696d1838000000002102bc99",
+  "title": "走进上海弄堂 新华路329弄 外国弄堂",
+  "author": "ii行摄",
+  "publishedAt": "2026-01-20",
+  "capturedAt": "2026-07-25",
+  "captureMethod": "main-window-user-logged-in-chrome-read-only",
+  "localDirectory": "docs/research/assets/xhs-xinhua-villas-329-20260725",
+  "files": [
+    {
+      "index": 1,
+      "name": "test_xhs_xinhua_villas_329_01.jpg",
+      "sha256": "8b0838efaa3bcbd78b668b6a5867c2abf8600c8794ed1fce6e929255574a6b74",
+      "visualStatus": "usable"
+    },
+    {
+      "index": 2,
+      "name": "test_xhs_xinhua_villas_329_02.jpg",
+      "sha256": "b92e3702364874cd512152dae9205922510255a7843cb99eea9ca13f4dd0d8e1",
+      "visualStatus": "usable"
+    },
+    {
+      "index": 3,
+      "name": "test_xhs_xinhua_villas_329_03.jpg",
+      "sha256": "6c1218937faf5b49074e18c185592cc22e605d4eefb51413da63d02aa5a56389",
+      "visualStatus": "usable"
+    },
+    {
+      "index": 4,
+      "name": "test_xhs_xinhua_villas_329_04.jpg",
+      "sha256": "2b1cc20b8e31b494bc3df3cd354ea34babc7e302d43791fba1177fbf73e89f78",
+      "visualStatus": "usable"
+    },
+    {
+      "index": 5,
+      "name": "test_xhs_xinhua_villas_329_05.jpg",
+      "sha256": "f967d4590ed4ac45db8798692b6302585da94a0a5993190e15439357fe3c4b3e",
+      "visualStatus": "usable"
+    },
+    {
+      "index": 6,
+      "name": "test_xhs_xinhua_villas_329_06.jpg",
+      "sha256": "1d4a6161f2f256bd9b8d237eec4d981fe58472de0b7ceb1fe8eadc4259dffa2f",
+      "visualStatus": "usable"
+    },
+    {
+      "index": 7,
+      "name": "test_xhs_xinhua_villas_329_07.jpg",
+      "sha256": "81394f8dba8469b65980eb40316ba06ea246779b6ba3f334bbf21acb11e047fd",
+      "visualStatus": "usable"
+    },
+    {
+      "index": 8,
+      "name": "test_xhs_xinhua_villas_329_08.jpg",
+      "sha256": "76f579f1f762441c5b755f9442b2fc78ce8efda1294f4ce645bbaeb336851ec1",
+      "visualStatus": "usable"
+    },
+    {
+      "index": 9,
+      "name": "test_xhs_xinhua_villas_329_09.jpg",
+      "sha256": "5cb652ffd6500c0324ee1f951c2f40b0c836977dd2a7f38ebb8a526ddb4da24b",
+      "visualStatus": "needs-review-black-media"
+    },
+    {
+      "index": 10,
+      "name": "test_xhs_xinhua_villas_329_10.jpg",
+      "sha256": "171e7838565ca6cfc6ec35ef8c7f528c8eeed94c715b8737ddeec666fb995f7f",
+      "visualStatus": "needs-review-black-media"
+    },
+    {
+      "index": 11,
+      "name": "test_xhs_xinhua_villas_329_11.jpg",
+      "sha256": "d7555f51d18b3cd5f8b97b5ccb056f0f4cb7e2cb7b635cc1f3269fe0d93686d1",
+      "visualStatus": "needs-review-black-media"
+    },
+    {
+      "index": 12,
+      "name": "test_xhs_xinhua_villas_329_12.jpg",
+      "sha256": "d50aa9bece1f14f0bb394da82a994dcb8545127ab1278bb27840c5b79eb4c165",
+      "visualStatus": "needs-review-black-media"
+    },
+    {
+      "index": 13,
+      "name": "test_xhs_xinhua_villas_329_13.jpg",
+      "sha256": "683fba7561a693b005b06a7848956990921b3e5db5758ad23f598a0c0b9a5d6f",
+      "visualStatus": "needs-review-black-media"
+    },
+    {
+      "index": 14,
+      "name": "test_xhs_xinhua_villas_329_14.jpg",
+      "sha256": "5f1423f54b18cf82494df8b52b893f2206d774bcd0ba026ee6ced9c668841493",
+      "visualStatus": "needs-review-black-media"
+    },
+    {
+      "index": 15,
+      "name": "test_xhs_xinhua_villas_329_15.jpg",
+      "sha256": "64f279e75c2062ef5bb3434592c47e9e7bef947ce88a5cc1284e8390937c35f9",
+      "visualStatus": "needs-review-black-media"
+    },
+    {
+      "index": 16,
+      "name": "test_xhs_xinhua_villas_329_16.jpg",
+      "sha256": "5fa171d6e6d09804ed95ae05cde778284323d4361d8540fd8460d876fc5de57b",
+      "visualStatus": "needs-review-black-media"
+    },
+    {
+      "index": 17,
+      "name": "test_xhs_xinhua_villas_329_17.jpg",
+      "sha256": "0e715243a569c61101ac52d1adaf8e08cd576b74036222d799e6db0f449fd860",
+      "visualStatus": "needs-review-black-media"
+    },
+    {
+      "index": 18,
+      "name": "test_xhs_xinhua_villas_329_18.jpg",
+      "sha256": "e904cd66b392b2a39193881f32b3a211819fd955ed688f94e5fba57577022817",
+      "visualStatus": "usable"
+    },
+    {
+      "index": "contact-sheet",
+      "name": "test_xhs_xinhua_villas_329_contact_sheet.jpg",
+      "sha256": "c8bfb3d11b59e8bde03755597c97608d02e7b1a56733970a6164e2dcc522143b",
+      "visualStatus": "derived-index"
+    }
+  ],
+  "originalsReadOnly": true,
+  "referenceOnly": true,
+  "embedInGlb": false
+}

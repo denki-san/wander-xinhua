@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-211",
+  "label": "新华别墅211弄",
+  "reviewedAt": "2026-07-26",
+  "baseCommit": "b84434e55a3a3b58e46201c01051595f311efb6c",
+  "mode": "main-window-xhigh-public-primary-source-rescue",
+  "status": "blocked-official-member-facts-improved-but-no-member-to-way-plan",
+  "scope": {
+    "publicPrimarySourcesOnly": true,
+    "userBrowserAccessed": false,
+    "xiaohongshuAccessed": false,
+    "binaryModified": false,
+    "blenderOrMcpRerun": false,
+    "runtimeOrRegistryModified": false,
+    "excludedAndUntouched": [
+      "xinhua-villas-329 asset files",
+      "trees",
+      "decorations",
+      "full-map assets",
+      "Recovery/Hold",
+      "other buildings"
+    ]
+  },
+  "verifiedInputs": {
+    "mediumBlocker": {
+      "path": "docs/research/xinhua-villas-211-gap-medium-blocker-2026-07-26.json",
+      "sha256": "dade8cc59130feacf9640297f0541d3f846a8fb9c1ffda9a054fb248304dc25b"
+    },
+    "referenceManifest": {
+      "path": "docs/research/xinhua-villas-211-reference-manifest.json",
+      "sha256": "c112f5e2b20231de5d42ee1a483a701220d9dcd65d7aa9114c8d0cb32968ed46"
+    }
+  },
+  "retainedStage": {
+    "tier": "Massing v3",
+    "path": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-211-massing.glb",
+    "sha256": "ab05b4ec2eb9a36d3a7a1fe49000bfb93ed165e446ee7997559eac88a058e15c",
+    "acceptedWayCount": 9,
+    "action": "retain unchanged; do not rerun accepted MCP1, map, collision or Three.js stages"
+  },
+  "reviewedSources": [
+    {
+      "url": "https://www.shcn.gov.cn/col7343/20241227/1275366.html",
+      "publisher": "上海市长宁区人民政府",
+      "kind": "official-community-history",
+      "observed": [
+        "211弄与329弄首尾相连，整体呈U形或马蹄形。",
+        "官方近年口径为两弄合计29幢花园洋房。",
+        "页面点名329弄40号和36号，但没有给211弄门牌到总平位置的对应关系。"
+      ]
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col7698/20230109/1228439.html",
+      "publisher": "上海市长宁区规划和自然资源局",
+      "kind": "official-protected-building-record",
+      "observed": [
+        "新华路211弄1号为邬达克设计的典型花园住宅。",
+        "1号用地约1240平方米、建筑面积约563平方米，建于1940年后。",
+        "页面没有带北箭头、比例尺或可绑定OSM way的总平。"
+      ]
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col5934/20211207/1158154.html",
+      "publisher": "上海市长宁区住房保障和房屋管理局",
+      "kind": "official-protected-building-index",
+      "observed": [
+        "官方索引确认外国弄堂新华路211弄12号。",
+        "索引地址写作新华路211-329弄，建造年份为1937年后。",
+        "页面不含足迹、朝向、尺寸或门牌到成员位置的映射。"
+      ]
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col6991/20251124/1301891.html",
+      "publisher": "上海市长宁区人民政府",
+      "kind": "official-photo-history",
+      "observed": [
+        "页面以照片标题分别确认211弄1号和211弄2号。",
+        "1号原为中国唱片厂英籍经理私宅；2号原主人为美国长老会传教士李佳白。",
+        "现有仓库已保存两张对应官方图片，但仍没有将门牌绑定到九个accepted OSM way。"
+      ]
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col7343/20241009/1269297.html",
+      "publisher": "上海市长宁区人民政府",
+      "kind": "official-streetscape-history",
+      "observed": [
+        "页面再次确认两弄共同组成29栋花园住宅的马蹄形compound。",
+        "211弄2号被描述为英国乡村式花园住宅，具有陡坡屋顶。",
+        "文章没有正式成员表、地籍图或可配准总平。"
+      ]
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col7343/20231129/1249286.html",
+      "publisher": "上海市长宁区人民政府",
+      "kind": "official-community-renewal-report",
+      "observed": [
+        "页面点名211弄5号及9号至15号旁绿化带。",
+        "弄内道路整治与停车位说明证明内部车行和公共空间治理存在。",
+        "道路宽度、路面边界、建筑总平和门牌到OSM way的关系均未公开。"
+      ]
+    }
+  ],
+  "evidenceClassification": {
+    "observed": [
+      "211弄与329弄是一个首尾相连的U形或马蹄形compound，而不是两个完全独立的直线院落。",
+      "官方资料至少点名211弄1号、2号、5号、9号至15号，其中1号、2号与12号有独立身份记录。",
+      "1号和2号的现有官方照片可继续作为member-specific正面证据。",
+      "本轮所有官方页面都没有给出门牌到accepted九个OSM way的可配准映射。"
+    ],
+    "inferred": [
+      "29幢是211弄与329弄合计口径，不能直接当作211弄单独成员数。",
+      "1号1240平方米用地与563平方米建筑面积可作为未来候选排除条件，但不能用面积近似猜测具体OSM way。",
+      "道路整治和停车位说明只证明内部车行使用，不授权修改道路宽度、碰撞或建筑位置。"
+    ],
+    "unknown": [
+      "accepted九个OSM way分别对应哪些211弄门牌。",
+      "211弄1号和2号在compound中的精确位置、朝向与邻接关系。",
+      "1号和2号的完整侧面、背面与roof-back。",
+      "211弄单独的正式成员数及其与329弄边界的地籍定义。",
+      "内部道路的测量宽度、边界和铺装结构。"
+    ]
+  },
+  "externalArchive": {
+    "projectName": "Threejs-3d-research",
+    "repositorySourcePath": "docs/knowledge-sources/xinhua-villas-211-public-primary-source-rescue-2026-07-26.md",
+    "sourceSha256": "e86e72af20036838066250db127632025751d6fe14b086f0b9d1f53c4501da22",
+    "knowledgeBasePath": "3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/xinhua-villas-211-public-primary-source-rescue-2026-07-26/README.md",
+    "rawSourcePath": "raw/sources/threejs-modeling-knowledge-base/wander-xinhua/xinhua-villas-211-public-primary-source-rescue-2026-07-26.md",
+    "archiveStatus": "pass-byte-identical-hardlink",
+    "wikiIndexStatus": "pending-no-search-hit"
+  },
+  "disposition": {
+    "officialMemberIdentityImproved": true,
+    "memberToAcceptedWayAssignment": "blocked-zero-of-nine",
+    "sameMemberDepthCoverage": "blocked",
+    "acceptedMassing": "retain-unchanged",
+    "heroAuthorized": false,
+    "identityAuthorized": false,
+    "mcp2Authorized": false,
+    "mcp3Authorized": false,
+    "runtimeOrRegistryMutationAuthorized": false,
+    "nextGate": "取得带门牌的正式总平、地籍/测绘图，或用户按连续路线逐栋确认门牌与位置；再补同一已绑定member的侧后面。"
+  }
+}

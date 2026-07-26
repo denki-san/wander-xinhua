@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-community-center",
+  "label": "新华·社区营造中心",
+  "researchedAt": "2026-07-26",
+  "baseCommit": "028ae291094d1b3a8b8465d90eb50190d9257701",
+  "mode": "medium-building-window-official-road-evidence-search",
+  "status": "blocked-official-public-search-exhausted-no-measured-service-road-contract",
+  "scope": {
+    "networkAccessed": true,
+    "allowedSourceKinds": [
+      "planning authority",
+      "approval authority",
+      "official street-office publication",
+      "official design or owner publication",
+      "survey or cadastral publication"
+    ],
+    "userBrowserAccessed": false,
+    "xiaohongshuAccessed": false,
+    "blenderOrMcpRerun": false,
+    "qualifiedStageRerun": false,
+    "modelBinaryModified": false,
+    "buildingTransformModified": false,
+    "sharedRoadModified": false,
+    "publicRegistryModified": false,
+    "excludedAndUntouched": [
+      "Recovery/Hold",
+      "trees",
+      "vegetation",
+      "decorations",
+      "full-map assets",
+      "other buildings"
+    ]
+  },
+  "verifiedInputs": {
+    "gapAudit": {
+      "path": "docs/research/xinhua-community-center-service-road-gap-audit-2026-07-26.json",
+      "sha256": "c58245954ddbbffca6f24f7156f1f560fdff1fe817bc518aa47f5c49ca35af2c"
+    },
+    "localRescue": {
+      "path": "docs/research/xinhua-community-center-service-road-local-rescue-audit.json",
+      "sha256": "c7543e054ea7ac2646dab63802a7857fb6365cbc92a5efa31f8ab1ff77ff824e"
+    },
+    "mapGate": {
+      "path": "docs/research/xinhua-community-center-massing-map-gate.json",
+      "sha256": "86ca0488d175a276c3434fca432d8a4cc7c30b328f4af150ac4ed61265906c57"
+    },
+    "runtimeQa": {
+      "path": "docs/research/xinhua-community-center-threejs-runtime-qa.json",
+      "sha256": "e7f1c815cbf1a570fb2d610ac7b49e3a470381990cf301100ca0533c08a60c44"
+    },
+    "massingGlb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/xinhua-community-center-massing.glb",
+      "sha256": "a0609064ec15f0bfeb042ac9013152eda7575205c55bdaf79063cae38c77b471"
+    }
+  },
+  "frozenGeometry": {
+    "buildingWayId": 864493234,
+    "roadWayId": 577252269,
+    "roadName": "新华路345弄",
+    "renderedFullWidthSceneUnits": 2.5,
+    "buildingBoundaryToCenterlineSceneUnits": 0.8473649273117979,
+    "asphaltOverlapSceneUnits": 0.4026350726882021,
+    "asphaltOverlapMeters": 1.0871146962581457,
+    "zeroBufferMaximumFullWidthMeters": 4.575770607483709
+  },
+  "unlockRequirement": {
+    "roadEdges": "both required",
+    "centerlineOrOffsetDimensionChain": "required",
+    "scale": "required",
+    "date": "required",
+    "provenance": "required",
+    "measurementUncertainty": "required",
+    "acceptableSource": "surveyed, cadastral, owner, architect, or formally geolocatable orthophoto/field measurement",
+    "addressOrProjectNarrative": "not-sufficient",
+    "singlePerspectivePhoto": "not-sufficient"
+  },
+  "queryLog": [
+    {
+      "query": "新华路345弄 规划 总平面",
+      "result": "official street-office project and planning pages found; no downloadable plan, road section, scale, or road-edge dimensions exposed"
+    },
+    {
+      "query": "新华路345弄 长宁 施工许可",
+      "result": "no authoritative public permit drawing or surveyed road attachment retrieved"
+    },
+    {
+      "query": "新华路345弄 测绘 道路",
+      "result": "no public cadastral or survey record with both road edges and uncertainty retrieved"
+    },
+    {
+      "query": "上海营邑规划设计股份有限公司 新华路345弄",
+      "result": "official street-office page identifies the commissioned planning firm, but no plan or cross-section is published there"
+    }
+  ],
+  "reviewedSources": [
+    {
+      "url": "https://www.shcn.gov.cn/col7343/20230322/1233016.html",
+      "publisher": "上海市长宁区人民政府 / 新华路街道",
+      "kind": "official-planning-publication",
+      "observed": [
+        "2021 年底起，街道委托上海营邑规划设计股份有限公司编制第二轮 15 分钟社区美好生活圈行动规划。",
+        "新华路345弄美好生活空间列为重点项目。"
+      ],
+      "notPresent": [
+        "site plan attachment",
+        "road cross-section",
+        "both road edges",
+        "centerline or offset dimension chain",
+        "scale",
+        "measurement uncertainty"
+      ]
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col7343/20220926/1222508.html",
+      "publisher": "上海市长宁区人民政府 / 新华路街道",
+      "kind": "official-project-opening-report",
+      "observed": [
+        "新华·社区营造中心在新华路345弄户外草坪启用。",
+        "中心占地面积被叙述为 800 多平方米。"
+      ],
+      "notPresent": [
+        "Building 4 frontage boundary",
+        "road edges",
+        "road centerline",
+        "scale or surveyed dimensions",
+        "date-qualified measurement uncertainty"
+      ]
+    },
+    {
+      "url": "https://zwgk.shcn.gov.cn/xxgk/jhzj-xhljdzdgz/2023/184/68054.html",
+      "publisher": "上海市长宁区人民政府 / 新华路街道",
+      "kind": "official-work-plan",
+      "observed": [
+        "工作要点说明推进新华路345弄整体更新改造与公益弄堂长效运营。"
+      ],
+      "notPresent": [
+        "authoritative road-surface contract",
+        "road-width or offset measurement",
+        "cadastral or survey plan"
+      ]
+    }
+  ],
+  "evidenceClassification": {
+    "observed": [
+      "官方资料能确认新华路345弄整体更新、社区营造中心与规划委托关系。",
+      "本轮限定公开检索没有找到同时展示双路缘、中心线或偏移量、比例、日期和不确定度的正式总平或横断面。",
+      "冻结审计中，way/577252269 与建筑边界的当前柏油重叠为 0.4026350726882021 scene units；将道路压窄到零重叠阈值不是实测道路宽度。"
+    ],
+    "inferred": [
+      "项目叙述和占地面积不能确定 Building 4 前方 service road 的法定或建成宽度，也不能授权更改共享道路地表合同。"
+    ],
+    "unknown": [
+      "Building 4 前方改造后两条路缘的实测位置。",
+      "中心线相对当前 OSM way/577252269 的偏移、日期和测量不确定度。",
+      "是否有未公开的业主、设计院、竣工测绘或地籍图。"
+    ]
+  },
+  "knowledgeWorkflow": {
+    "repositorySource": "docs/knowledge-sources/xinhua-community-center-official-service-road-evidence-exhaustion-2026-07-26.md",
+    "projectName": "Threejs-3d-research",
+    "externalIngestion": "raw-source-synced-index-pending",
+    "archivePath": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/xinhua-community-center-official-service-road-evidence-exhaustion-2026-07-26/README.md",
+    "rawSourcePath": "/Volumes/plugin/Threejs-3d-research/raw/sources/threejs-modeling-knowledge-base/wander-xinhua/xinhua-community-center-official-service-road-evidence-exhaustion-2026-07-26.md",
+    "sha256": "ed52c90a1bb361f36c8eade988f79434f4291de56835b2c428103e1de2992207",
+    "claimBoundary": "两份 U 盘副本已与仓库 source 同 SHA；Wiki 搜索索引仍待后台处理。"
+  },
+  "disposition": {
+    "serviceRoadMapGate": "blocked",
+    "roadContractChangeAuthorized": false,
+    "buildingMovementAuthorized": false,
+    "buildingScaleChangeAuthorized": false,
+    "massingRebuildAuthorized": false,
+    "acceptedStages": "retain Massing, MCP1, and Three.js diagnostics unchanged",
+    "claimBoundary": "本记录说明本轮限定公开检索未发现合格测绘/总平，不声称全球不存在该资料。"
+  }
+}

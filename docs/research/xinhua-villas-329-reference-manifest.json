@@ -1,0 +1,354 @@
+{
+  "version": 3,
+  "auditedAt": "2026-07-26",
+  "sourceRecoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+  "status": "evidence-pass-conservative-massing-v3",
+  "subject": {
+    "id": "xinhua-villas-329",
+    "name": "新华别墅329弄",
+    "address": "上海市长宁区新华路329弄",
+    "stableBoundary": "compound-of-historic-residences-and-lane",
+    "runtimeIdentityKind": "villa-row",
+    "notEquivalentTo": [
+      "member-building-329-17",
+      "member-building-329-38",
+      "member-building-329-36",
+      "xinhua-villas-211",
+      "xingfuli-west",
+      "xingfuli-center",
+      "xingfuli-east",
+      "legacy-single-villa-hero",
+      "five-unbound-osm-boxes"
+    ]
+  },
+  "scope": {
+    "owned": [
+      "xinhua-villas-329 evidence",
+      "compound boundary decision",
+      "member 329-17 evidence",
+      "member 329-38 evidence",
+      "XHS member 15, 36, 40 and 42 evidence",
+      "four-member OSM binding and conservative Massing v3"
+    ],
+    "hold": [
+      "xinhua-villas-211",
+      "all xingfuli assets",
+      "unmapped compound members",
+      "trees and vegetation",
+      "lamps, planters, benches, lawns, fountains and other decor",
+      "ordinary OSM and full-map massing",
+      "shared registry and runtime",
+      "all other building assets"
+    ]
+  },
+  "canonicalComparison": {
+    "status": "partial-compound-context-supported",
+    "requiredSubject": "xinhua-villas-329 compound",
+    "reason": "XHS image 1 shows a 329-lane compound context and heritage sign, while images 4 and 18 add depth. The complete cadastral boundary and one single compound-wide camera remain unknown.",
+    "localPath": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_01.jpg",
+    "observationDirection": "lane-context-facing-low-tile-compound-camera-coordinate-unknown",
+    "rejectedLegacyPath": "docs/research/assets/landmark-comparison/xinhua-villas-329-real.jpg",
+    "rejectedLegacyReason": "High-confidence same-structure visual match to the official member-building-211-2 image.",
+    "provisionalMemberCandidate": {
+      "localPath": "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-38-official-2025.jpg",
+      "condition": "May become a single-member canonical only after main-window authorization to represent the compound with member 329-38."
+    }
+  },
+  "referencePhotos": [
+    {
+      "localPath": "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-17-official-2024.jpg",
+      "sourcePage": "https://www.shcn.gov.cn/col7698/20240208/1254319.html",
+      "sourceAsset": "https://static.shcn.gov.cn/cncms/2024/02/08/961e9125-fe48-4d1b-99fb-e7a61804cbab.jpg",
+      "view": "member-building-329-17-front",
+      "subjectMatch": "verified-member-not-whole-compound",
+      "publishedAt": "2024-02-08",
+      "captureDate": "unknown",
+      "sha256": "c7eba10495aec90b1f56992b419737c1b3ea636acd93ffef66727977662ec627",
+      "supports": [
+        "red-brick upper volume",
+        "light-colored middle facade",
+        "lower arched openings",
+        "red-tile eave bands"
+      ],
+      "doesNotSupport": [
+        "compound entrance",
+        "complete side or rear",
+        "member placement",
+        "any feature of member 329-38"
+      ]
+    },
+    {
+      "localPath": "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-38-official-2025.jpg",
+      "sourcePage": "https://www.shcn.gov.cn/col6991/20251124/1301891.html",
+      "sourceAsset": "https://cn.storage.shmedia.tech/f7f7c2c657a446a59cbd2b9df6bbddfc",
+      "view": "member-building-329-38-front-oblique",
+      "subjectMatch": "verified-member-not-whole-compound",
+      "publishedAt": "2025-11-22",
+      "captureDate": "unknown",
+      "sha256": "2b961ec0932770886aa7f126c11ed31094558146496543b108920afe6b7a5c26",
+      "supports": [
+        "warm-yellow facade",
+        "three-arch entrance porch",
+        "timber balcony",
+        "red-tile roof hierarchy",
+        "tall chimney",
+        "visible rooftop addition"
+      ],
+      "doesNotSupport": [
+        "compound entrance",
+        "complete rear",
+        "member placement",
+        "any feature of member 329-17"
+      ]
+    }
+  ],
+  "coverageMatrix": {
+    "compoundCanonicalFront": "partial-supported-xhs-01",
+    "compoundSideOrDepth": "partial-supported-xhs-04-and-18",
+    "compoundEntrance": "partial-supported-xhs-01-and-member-15-gate-xhs-08",
+    "compoundSpatialLayout": "partial-supported-osm-four-member-sequence-not-cadastral",
+    "member329_15Entrance": "supported-visible-doorplate-xhs-08",
+    "member329_15FullSilhouette": "partial",
+    "member329_36Canonical": "supported-xhs-01",
+    "member329_36SideOrDepth": "supported-xhs-03-04-18",
+    "member329_36EntranceDetail": "partial",
+    "member329_40Canonical": "supported-visible-doorplate-xhs-05-07",
+    "member329_40SideOrDepth": "partial",
+    "member329_40EntranceDetail": "supported",
+    "member329_42Canonical": "supported-visible-doorplate-xhs-06",
+    "member329_42SideOrDepth": "missing",
+    "member329_42EntranceDetail": "supported",
+    "member329_17Front": "supported",
+    "member329_17SideOrRear": "missing",
+    "member329_17EntranceDetail": "partial",
+    "member329_17Placement": "missing",
+    "member329_38FrontOblique": "supported",
+    "member329_38SideOrDepth": "partial",
+    "member329_38EntranceDetail": "supported",
+    "member329_38Rear": "missing",
+    "member329_38Placement": "missing",
+    "member329_32Yi": "post-text-only-no-visible-doorplate-binding",
+    "member329_231": "post-text-only-outside-interior-sequence"
+  },
+  "observed": [
+    "Member 329-17 and member 329-38 are visually distinct buildings.",
+    "The two official member photos do not show the 329 Lane entrance or a compound layout.",
+    "The legacy 329 representative image shares the long dormer, full-width glazed enclosure, left chimney, right polygonal tower, half-timber side volume and garden relationship with the official 211-2 image.",
+    "The existing 329 Hero generator implements the same glazed enclosure, dormer, chimney and right tower.",
+    "The clean-v2 Massing contains five flat-roof boxes marked as unbound-member-candidate.",
+    "XHS images 5 and 7 visibly show number 40, image 6 shows number 42, and image 8 shows number 15.",
+    "XHS images 1, 3, 4 and 18 show the low tiled wings, rounded volume and tall chimney associated by the post body with number 36.",
+    "Raw OSM way 864493245 projects to world center [-42.346627, 92.122808]; available evidence does not bind it to a 329-lane house number."
+  ],
+  "inferred": [
+    "The legacy 329 representative image and Hero are high-confidence cross-asset contamination from member 211-2.",
+    "The stable asset remains a compound contract; XHS and OSM now permit a conservative four-member Massing but not a surveyed Hero.",
+    "Member 329-38 is the stronger future single-member starting point because its front-oblique image exposes more depth, but it is not currently authorized as the compound representative.",
+    "The current runtime position, yaw and scale are migration baselines rather than measured evidence."
+  ],
+  "unknown": [
+    "The exact compound entrance camera position and complete cadastral boundary.",
+    "The complete member count and members absent from the four retained OSM bindings.",
+    "The positions, orientations and spacing of members 329-17 and 329-38.",
+    "The complete footprint, depth, rear and roof backs of member 329-17.",
+    "The complete rear, footprint and rooftop-addition depth of member 329-38.",
+    "The exact rear faces and roof backs of members 15, 36, 40 and 42.",
+    "The footprint mapping for members 17, 32乙, 38 and 231.",
+    "The final runtime collision and camera relationship, pending scoped map QA."
+  ],
+  "crossAssetAudit": {
+    "legacy329Image": {
+      "path": "docs/research/assets/landmark-comparison/xinhua-villas-329-real.jpg",
+      "sha256": "4e6862de23c5667ed3497f681ef19fdcf5a22e58b996c3e9b557efab34f7ed16"
+    },
+    "official211_2Image": {
+      "path": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-2-official-2025.jpg",
+      "sha256": "3568005a4e89a6ce95abf4be19fb22ab0dd277d17622fdd16a9ccad20d1496aa",
+      "repositoryBinding": "member-building-211-2-front-oblique"
+    },
+    "pixelIdentity": false,
+    "sameStructureVisualMatch": "high-confidence",
+    "persistentMatchingCues": [
+      "long dormer",
+      "full-width glazed enclosure",
+      "left chimney",
+      "right polygonal tower",
+      "right half-timber volume",
+      "matching garden and skyline relationship"
+    ],
+    "verdict": "legacy-329-reference-and-hero-not-valid-as-329-subject-truth"
+  },
+  "legacyBaseline": {
+    "heroGlb": {
+      "path": "public/models/xinhua-road/xinhua-villas-329.glb",
+      "sha256": "81b2d79bb502cb42c187169f339f0ac9428ea8ae855e43e8b0756768ced0210b",
+      "bytes": 1443312,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 14,
+      "images": 0,
+      "textures": 0,
+      "auditStatus": "ok",
+      "evidenceVerdict": "retained-cross-asset-contaminated-legacy"
+    },
+    "generatorFinding": {
+      "path": "scripts/create_xinhua_road_models.py",
+      "function": "build_xinhua_villas_329",
+      "modeledSubject": "single garden house with dormer, glazed enclosure, chimney and polygonal tower",
+      "outOfScopeContent": [
+        "lawn",
+        "shrubs",
+        "trees",
+        "garden lamps"
+      ]
+    }
+  },
+  "recoveryMassingAudit": {
+    "voxelVersion": {
+      "pathInRecovery": "public/models/tiers/xinhua-road/massing/xinhua-villas-329-massing.glb",
+      "sha256": "24259a39e96e580bdc58252723d9d92804385918786371fcd3bd93d63a68f1db",
+      "method": "voxel-remesh-current-hero",
+      "currentVerdict": "rejected-cross-asset-lineage"
+    },
+    "cleanV2": {
+      "pathInRecovery": "public/models/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.glb",
+      "sha256": "f7ade44ba879dead433abd006603a613520af730d9a2a35dada412b99a0c3819",
+      "bytes": 8244,
+      "nodes": 5,
+      "meshes": 5,
+      "materials": 1,
+      "images": 0,
+      "triangles": 60,
+      "candidateStatus": "five-member-candidates-pending",
+      "membershipConfidence": "medium",
+      "heightEvidence": "unknown-runtime-fallback-not-evidence",
+      "runtimeGate": "pass",
+      "mapAcceptance": "blocked",
+      "currentVerdict": "rejected-as-subject-specific-massing-candidate",
+      "reason": "All five boxes are unbound ordinary-OSM candidates and do not express the evidence-supported silhouette of member 329-17 or 329-38."
+    }
+  },
+  "xhsEvidence20260726": {
+    "sourceUrl": "https://www.xiaohongshu.com/search_result/696d1838000000002102bc99",
+    "title": "走进上海弄堂 新华路329弄 外国弄堂",
+    "author": "ii行摄",
+    "publishedAt": "2026-01-20",
+    "capturedBy": "main-window-user-logged-in-chrome-read-only",
+    "localDirectory": "docs/research/assets/xhs-xinhua-villas-329-20260725",
+    "inventory": "docs/research/xinhua-villas-329-xhs-evidence-inventory.json",
+    "sourceNote": "docs/knowledge-sources/xinhua-villas-329-xhs-evidence.md",
+    "memberBinding": "docs/research/xinhua-villas-329-member-binding.json",
+    "usableImages": [
+      {
+        "index": 1,
+        "sha256": "8b0838efaa3bcbd78b668b6a5867c2abf8600c8794ed1fce6e929255574a6b74",
+        "supports": "compound context, low tiled wings, rounded volume and source text"
+      },
+      {
+        "index": 2,
+        "sha256": "b92e3702364874cd512152dae9205922510255a7843cb99eea9ca13f4dd0d8e1",
+        "supports": "half-timber gable context; no doorplate binding"
+      },
+      {
+        "index": 3,
+        "sha256": "6c1218937faf5b49074e18c185592cc22e605d4eefb51413da63d02aa5a56389",
+        "supports": "number 36 tall chimney and roof relation"
+      },
+      {
+        "index": 4,
+        "sha256": "2b1cc20b8e31b494bc3df3cd354ea34babc7e302d43791fba1177fbf73e89f78",
+        "supports": "number 36 side-depth and low tiled wings"
+      },
+      {
+        "index": 5,
+        "sha256": "f967d4590ed4ac45db8798692b6302585da94a0a5993190e15439357fe3c4b3e",
+        "supports": "visible number 40, entrance and upper pavilion"
+      },
+      {
+        "index": 6,
+        "sha256": "1d4a6161f2f256bd9b8d237eec4d981fe58472de0b7ceb1fe8eadc4259dffa2f",
+        "supports": "visible number 42, entrance canopy and front gable"
+      },
+      {
+        "index": 7,
+        "sha256": "81394f8dba8469b65980eb40316ba06ea246779b6ba3f334bbf21acb11e047fd",
+        "supports": "visible number 40 and upper pavilion side"
+      },
+      {
+        "index": 8,
+        "sha256": "76f579f1f762441c5b755f9442b2fc78ce8efda1294f4ce645bbaeb336851ec1",
+        "supports": "visible number 15 gate and partial rear mass"
+      },
+      {
+        "index": 18,
+        "sha256": "e904cd66b392b2a39193881f32b3a211819fd955ed688f94e5fba57577022817",
+        "supports": "number 36 compound side-depth"
+      }
+    ],
+    "needsReviewImages": [
+      {
+        "indices": [9, 10, 11, 12, 13, 14, 15, 16, 17],
+        "reason": "The captured media area is black; these files are retained but not used as visual evidence."
+      }
+    ],
+    "contactSheet": {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_contact_sheet.jpg",
+      "sha256": "c8bfb3d11b59e8bde03755597c97608d02e7b1a56733970a6164e2dcc522143b"
+    },
+    "usageBoundary": "research-reference-only-not-runtime-texture"
+  },
+  "massingV3": {
+    "generator": "scripts/create_xinhua_villas_329_massing_model.py",
+    "memberBinding": "docs/research/xinhua-villas-329-member-binding.json",
+    "blend": "assets/models/source/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.blend",
+    "glb": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
+    "buildRecord": "docs/research/build-records/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.json",
+    "modelSha256": "f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704",
+    "coordinateValidation": {
+      "authoredCoordinateSpace": "glb-source-xz-before-runtime-z-flip",
+      "maximumWorldVertexErrorSceneUnits": 0.000000367,
+      "toleranceSceneUnits": 0.05,
+      "status": "pass"
+    },
+    "includedMembers": ["15", "36", "40", "42"],
+    "excludedWayId": 864493245,
+    "excludedWayVerdict": "evidence-unbound unknown-adjacent footprint",
+    "evidenceStatus": "pass-conservative-massing-only",
+    "mcp1": "pending-main-window-batch",
+    "runtimeGate": "pending-main-window-scoped-qa",
+    "mapAcceptance": "pending-main-window-scoped-qa",
+    "identityAllowed": false,
+    "heroAllowed": false
+  },
+  "evidenceGate": {
+    "status": "pass-conservative-massing-only",
+    "massingAuthorized": true,
+    "heroAuthorized": false,
+    "identityAuthorized": false,
+    "closedBlockers": [
+      "XHS local screenshots now provide compound context and visible member doorplates.",
+      "Four retained OSM footprints have auditable 15, 36, 40 and 42 sequence bindings.",
+      "way/864493245 remains excluded because no available address evidence binds it to a 329-lane member."
+    ],
+    "remainingBlockers": [
+      "The bindings are not cadastral or surveyed and cannot authorize a Hero.",
+      "The legacy Hero and voxel Massing carry high-confidence member-211-2 contamination.",
+      "Members 17, 32乙, 38 and 231 remain evidence-only without OSM footprint binding.",
+      "MCP1 and the actual scoped Three.js map gate are pending main-window batch review."
+    ],
+    "requiredBeforeIdentityOrHero": [
+      "Main-window MCP1 and map acceptance for Massing v3.",
+      "Cadastral, survey or user-confirmed member mapping for any expanded member set.",
+      "Same-building rear or roof evidence before adding hidden-face detail."
+    ]
+  },
+  "usageBoundary": {
+    "referenceOnly": true,
+    "embedInGlb": false,
+    "runtimeTexture": false,
+    "sourceAssociationsInheritedFromRecovery": true,
+    "sourcePagesRefreshedThisTurn": true,
+    "browserCapturePerformedByMainWindow": true,
+    "externalThreejsWikiSync": "pending-main-window-integration"
+  }
+}

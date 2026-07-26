@@ -1,0 +1,424 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "label": "上海影城",
+  "auditedAt": "2026-07-26T17:22:24+08:00",
+  "mode": "single-building-read-only-exact-subject-anchor-and-road-setback-audit",
+  "reviewBaseline": "e6e51de88b4374328e0c3f4a2eb1943fdc918313",
+  "verdict": {
+    "userObservation": "confirmed-current-placement-too-far-from-xinhua-road",
+    "exactPlacement": "blocked-no-georeferenced-subject-local-anchor",
+    "publicWiringAuthorized": false,
+    "modelOrRuntimeChangeAuthorized": false,
+    "summary": "用户指出的“电影院离马路太远”在当前 placement 下是真实几何偏差。相对同一条新华路中心线，38 x 26 场景单位的广场包络比 OSM 上海影城主体外轮廓多退 9.121581436197431 场景单位（24.628269877733064 米）；生成器主丝带正面控制线多退 16.724718908956945 场景单位（45.156741054183755 米），入口台阶多退 14.358129821689808 场景单位（38.76695051856248 米）。当前 pivot 距 OSM 面积质心仅 2.279283266603221 米，排除数十米级投影或质心计算错误。道路宽度会改变绝对净距，但同路做差时半宽严格抵消，不能制造上述差值。直接原因是“近质心 anchor + 过浅且规则的模型场地/主体本地前缘”的绑定；仓内没有能把 GLB 主入口或丝带端点同时绑定到 WGS84 的双点证据，因此不能进一步裁决应移动 registry anchor、重置模型原点还是重做场地 footprint。"
+  },
+  "scope": {
+    "included": [
+      "OSM 上海影城主体候选、同址 POI 与相邻 footprint 的只读绑定审查",
+      "当前 registry position、yaw、scale、local bounds 与三块碰撞实体",
+      "当前生产新华路中心线与道路样式宽度",
+      "冻结上海影城生成器中的广场、主丝带与入口台阶本地几何",
+      "现有 Hero、Identity increment 与 Massing GLB 的只读结构审计"
+    ],
+    "excludedAndUntouched": [
+      "Fast/exact manifest",
+      "app runtime 与公共 registry",
+      "公共 GLB、Blend、生成器与其他建筑",
+      "Recovery 与既有 Hero/Identity/Massing/MCP/Three 合格阶段",
+      "Blender、浏览器、Xiaohongshu 与外部网络"
+    ]
+  },
+  "sourceIntegrity": {
+    "policy": "公共 cross-cut source 固定审查时 baseline Git blob；本栋证据、冻结生成器和二进制严格校验当前文件。这样主线之后的无关前进不会被误报为本审查 SHA 回归，而上海影城语义变化仍由专项断言发现。",
+    "reviewTimeBaselineGitBlobs": [
+      {
+        "path": "app/scene/xinhua-map-data.json",
+        "shaPolicy": "review-time-baseline-git-blob",
+        "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78"
+      },
+      {
+        "path": "app/scene/xinhua-road-landmarks-data.json",
+        "shaPolicy": "review-time-baseline-git-blob",
+        "sha256": "6df9f4439679ff72203ef023cab289532df4c1d9c71a4242cfd6ef155e4055e8"
+      },
+      {
+        "path": "app/scene/road-surface-contract.ts",
+        "shaPolicy": "review-time-baseline-git-blob",
+        "sha256": "81798e268e7da1ec6d98de973b0332ad953cb4b933734a30840200ebf26057a7"
+      },
+      {
+        "path": "app/scene/shanghai-cinema-massing-contract.mjs",
+        "shaPolicy": "review-time-baseline-git-blob",
+        "sha256": "92791ba78d514317df4f12e647429d268dbae4f040ea22a1ebff300931c2a788"
+      },
+      {
+        "path": "scripts/create_xinhua_road_models.py",
+        "shaPolicy": "review-time-baseline-git-blob",
+        "sha256": "324be84a32ed3d43ff0bc1ceaca040e8e46f68aff21151b1bafa4ae524f6f3c6"
+      }
+    ],
+    "strictCurrentBuildingSources": [
+      {
+        "path": "scripts/create_shanghai_cinema_frozen_hero.py",
+        "sha256": "bd2181f28b4e2fae1ad6c2d7940e5ecabf0eb80a0670506e9f0acd368a30d6d7"
+      },
+      {
+        "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+        "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c"
+      },
+      {
+        "path": "docs/research/data/xinhua-roads-osm-20260716-080509.json",
+        "sha256": "351308feafab0344dc59a66ebd68d0748f81ef1cd69dc218765a22eb51abf2ec"
+      },
+      {
+        "path": "docs/research/data/xinhua-landmarks-overpass-20260717.json",
+        "sha256": "27a2ee9ead92824f78378bc769df8667c50d49f06d6e09d5d719fe568cf25e19"
+      },
+      {
+        "path": "docs/research/shanghai-cinema-reference-manifest.json",
+        "sha256": "28cb52037a1c781cfe9a68631929a9ad33949cdf74038302c94baef9d51f27e5"
+      },
+      {
+        "path": "docs/research/shanghai-cinema-model-brief.md",
+        "sha256": "34b1dfb55cf1822d922b38dd86d04b06e87e27ee7843313398de5f2d7f37dfe1"
+      },
+      {
+        "path": "docs/research/shanghai-cinema-map-calibration-2026-07-26.json",
+        "sha256": "35fbd46345b3552fc87cd69b948995d43779fa8bf55a6b1acaf6ef5a86731dc5"
+      }
+    ]
+  },
+  "coordinateContract": {
+    "centerWgs84": [
+      121.4227819,
+      31.2066376
+    ],
+    "metersPerSceneUnit": 2.7,
+    "longitudeMetersPerDegree": "111320 * cos(centerLatitude)",
+    "latitudeMetersPerDegree": 110540,
+    "currentPlacement": {
+      "position": [
+        74.1,
+        80.9
+      ],
+      "yaw": 2.761592653589793,
+      "scale": 1,
+      "localBounds": {
+        "minX": -19,
+        "maxX": 19,
+        "minZ": -11.8,
+        "maxZ": 14.2
+      }
+    },
+    "blenderToRuntimeWorld": "冻结生成器 Blender 点 [x,y,z] 先转为 runtime local [-x,z,y]，再应用当前 position/yaw/scale。"
+  },
+  "osmSubjectBinding": {
+    "primaryFootprint": {
+      "type": "way",
+      "id": 292250766,
+      "status": "strong-subject-identity-best-available-footprint-not-survey-grade",
+      "observedTags": {
+        "name:zh": "上海影城",
+        "name": "Shanghai Film Art Center",
+        "addr:street": "新华路",
+        "addr:housenumber": "160",
+        "amenity": "cinema",
+        "building": "yes",
+        "wikidata": "Q96079079"
+      },
+      "uniqueVertices": 22,
+      "areaSceneUnitsSquared": 1269.0862968733736,
+      "areaSquareMeters": 9251.639104206895,
+      "centroidWorld": [
+        74.42985205536618,
+        81.67706871300298
+      ],
+      "currentPivotDistanceFromCentroidSceneUnits": 0.8441789876308224,
+      "currentPivotDistanceFromCentroidMeters": 2.279283266603221,
+      "classification": {
+        "observed": "中文名称、门牌、道路、cinema、building 与 Wikidata 同时命中上海影城。",
+        "inferred": "它是仓内最强且唯一的上海影城主体外轮廓候选，形状包含不规则综合体。",
+        "unknown": "OSM 绘制精度、每个折点是否为建成墙线，以及该综合体中哪一段对应 Hero 主丝带。"
+      }
+    },
+    "nestedCandidate": {
+      "type": "way",
+      "id": 1520590650,
+      "status": "unbound-overlapping-layer-candidate-do-not-use-as-anchor",
+      "observedTags": {
+        "building": "yes",
+        "layer": "1"
+      },
+      "uniqueVertices": 8,
+      "sharedUniqueVerticesWithPrimary": 4,
+      "allVerticesInsideOrOnPrimary": true,
+      "areaSceneUnitsSquared": 208.82001708702091,
+      "areaSquareMeters": 1522.2979245643826,
+      "centroidWorld": [
+        85.99041400566449,
+        75.78830459296775
+      ],
+      "xinhuaRoadCenterlineDistanceSceneUnits": 24.745153688266388,
+      "bindingGap": "无 name、address、amenity、building:part、ref、entrance 或 relation 角色；仅凭重叠和 layer=1 不能证明它是主丝带、门厅或可用于原点配准的 building part。"
+    },
+    "relationsInCachedBuildingSnapshot": {
+      "relationCount": 0,
+      "relationsContainingPrimaryOrNestedCandidate": 0,
+      "boundary": "只说明仓库快照未提供成员关系，不宣称实时 OSM 全局不存在关系。"
+    },
+    "sameAddressPoi": {
+      "type": "node",
+      "id": 5232418909,
+      "name": "城市超市",
+      "address": "新华路160号",
+      "status": "same-address-non-building-poi-not-subject-anchor",
+      "reason": "名称与 shop=supermarket 明确不是上海影城入口或建筑原点。"
+    },
+    "nearestSeparateFootprint": {
+      "type": "way",
+      "id": 864505137,
+      "building": "apartments",
+      "distanceFromPrimarySceneUnits": 3.7782817958342085,
+      "distanceFromPrimaryMeters": 10.201360848752364,
+      "status": "separate-neighbor-no-membership-evidence"
+    },
+    "entranceNodesInSavedSnapshots": 0
+  },
+  "footprintAndOriginDiagnosis": {
+    "primaryFootprintInCurrentAssetSourceAxes": {
+      "minX": -19.611478053036272,
+      "maxX": 16.074943958595693,
+      "minZ": -21.8860850568918,
+      "maxZ": 23.426477043542068,
+      "width": 35.686422011631965,
+      "depth": 45.31256210043387
+    },
+    "currentRectangularEnvelope": {
+      "minX": -19,
+      "maxX": 19,
+      "minZ": -11.8,
+      "maxZ": 14.2,
+      "width": 38,
+      "depth": 26,
+      "widthVsPrimaryRatio": 1.064830763577641,
+      "depthVsPrimaryRatio": 0.5737923170703042,
+      "rectangleAreaVsPrimaryPolygonAreaRatio": 0.7785128579783099
+    },
+    "xinhuaSideLocalDepthGapSceneUnits": 9.226477043542069,
+    "xinhuaSideLocalDepthGapMeters": 24.911487017563588,
+    "interpretation": "当前 pivot 近似放在 OSM 综合体质心，但模型的规则 38 x 26 场地包络和实际主体前缘都没有延伸到 OSM 在新华路一侧的非规则边界。若固定当前 anchor，问题属于 footprint / local-origin offset；若固定当前模型，则必须移动 anchor，但仓内没有证据证明移动向量。两者在单点配准下不可分辨。"
+  },
+  "roadContract": {
+    "road": {
+      "osmWayId": 682286683,
+      "name": "新华路",
+      "highway": "tertiary",
+      "lanes": 2,
+      "surface": "asphalt",
+      "rawWidthTag": null
+    },
+    "runtimeStyle": {
+      "environmentScale": 5,
+      "asphaltWidthSceneUnits": 4.9,
+      "asphaltWidthMeters": 13.23,
+      "asphaltHalfWidthSceneUnits": 2.45,
+      "curbWidthEachSideSceneUnits": 0.275,
+      "sidewalkWidthEachSideSceneUnits": 0.8,
+      "vergeWidthEachSideSceneUnits": 0.4,
+      "fullVisibleBandWidthSceneUnits": 7.85,
+      "fullVisibleBandWidthMeters": 21.195,
+      "fullVisibleBandHalfWidthSceneUnits": 3.925,
+      "classification": "项目运行时样式，不是 OSM 或官方测绘道路宽度。"
+    },
+    "roadWidthCausality": {
+      "absoluteClearanceSensitivity": "道路半宽每改变 1 场景单位，所有同侧 edge clearance 同时改变 1 场景单位。",
+      "relativeSetbackFormula": "(modelDistance - roadHalfWidth) - (osmDistance - roadHalfWidth) = modelDistance - osmDistance",
+      "verdict": "not-causal-for-model-vs-osm-excess",
+      "reason": "道路半宽在相对差值中严格抵消；它只给绝对净距带来最多约数米的样式不确定性，不能解释 24.63 至 45.16 米的模型相对后退。"
+    }
+  },
+  "xinhuaRoadMeasurements": {
+    "method": "对同一生产新华路 polyline 求二维线段最短距离；OSM 与包络按闭合多边形，主丝带按冻结生成器的 78 个正面控制点折线，入口台阶按 5 个生成器矩形逐一计算。",
+    "osmPrimaryFootprint": {
+      "centerlineDistanceSceneUnits": 3.283233164391949,
+      "centerlineDistanceMeters": 8.864729543858262,
+      "asphaltEdgeClearanceSceneUnits": 0.8332331643919488,
+      "asphaltEdgeClearanceMeters": 2.249729543858262,
+      "fullVisibleBandEdgeClearanceSceneUnits": -0.6417668356080508,
+      "fullVisibleBandEdgeClearanceMeters": -1.7327704561417373
+    },
+    "currentPlazaEnvelope": {
+      "semantic": "cinema-plaza，生成器中心 (0,-1.2)，平面尺寸 38 x 26；它是可见场地薄片，不是主体碰撞墙线。",
+      "centerlineDistanceSceneUnits": 12.40481460058938,
+      "centerlineDistanceMeters": 33.49299942159133,
+      "asphaltEdgeClearanceSceneUnits": 9.95481460058938,
+      "asphaltEdgeClearanceMeters": 26.877999421591326,
+      "fullVisibleBandEdgeClearanceSceneUnits": 8.479814600589378,
+      "fullVisibleBandEdgeClearanceMeters": 22.895499421591325,
+      "excessVsOsmSceneUnits": 9.121581436197431,
+      "excessVsOsmMeters": 24.628269877733064
+    },
+    "authoredMainRibbonFrontLine": {
+      "semantic": "cinema_front_y(x)=0.35-7.15*sqrt(1-(abs(x)/15.2)^2) 在实际生成器 x 控制点上的正面折线；不是从合并 GLB 猜测节点名称。",
+      "centerlineDistanceSceneUnits": 20.007952073348893,
+      "centerlineDistanceMeters": 54.021470598042015,
+      "asphaltEdgeClearanceSceneUnits": 17.557952073348893,
+      "asphaltEdgeClearanceMeters": 47.40647059804201,
+      "fullVisibleBandEdgeClearanceSceneUnits": 16.082952073348892,
+      "fullVisibleBandEdgeClearanceMeters": 43.42397059804201,
+      "excessVsOsmSceneUnits": 16.724718908956945,
+      "excessVsOsmMeters": 45.156741054183755
+    },
+    "entryStepsUnion": {
+      "semantic": "cinema-entry-step-0..4 的五个生成器矩形；最前边缘达到 Blender local Y=-8.98。",
+      "centerlineDistanceSceneUnits": 17.641362986081756,
+      "centerlineDistanceMeters": 47.63168006242074,
+      "asphaltEdgeClearanceSceneUnits": 15.191362986081757,
+      "asphaltEdgeClearanceMeters": 41.01668006242075,
+      "fullVisibleBandEdgeClearanceSceneUnits": 13.716362986081755,
+      "fullVisibleBandEdgeClearanceMeters": 37.03418006242074,
+      "excessVsOsmSceneUnits": 14.358129821689808,
+      "excessVsOsmMeters": 38.76695051856248
+    },
+    "collisionSolids": [
+      {
+        "index": 0,
+        "asphaltEdgeClearanceSceneUnits": 17.9722827866408,
+        "asphaltEdgeClearanceMeters": 48.52516352393016
+      },
+      {
+        "index": 1,
+        "asphaltEdgeClearanceSceneUnits": 20.086969201468026,
+        "asphaltEdgeClearanceMeters": 54.23481684396367
+      },
+      {
+        "index": 2,
+        "asphaltEdgeClearanceSceneUnits": 19.664256608908442,
+        "asphaltEdgeClearanceMeters": 53.0934928440528
+      }
+    ],
+    "diagnosticEquivalentTranslations": {
+      "status": "numbers-only-not-placement-candidates",
+      "plazaTowardRoadNormalSceneUnits": 9.121581436197431,
+      "plazaTowardRoadNormalMeters": 24.628269877733064,
+      "mainRibbonTowardRoadNormalSceneUnits": 16.724718908956945,
+      "mainRibbonTowardRoadNormalMeters": 45.156741054183755,
+      "entryStepsTowardRoadNormalSceneUnits": 14.358129821689808,
+      "entryStepsTowardRoadNormalMeters": 38.76695051856248,
+      "interpretation": "三个语义前缘需要不同的等价位移，证明单凭“离路多远”不能决定唯一 position；这些数值不含另一侧道路、邻栋碰撞、start 与 camera 约束，禁止接线。"
+    }
+  },
+  "causeAdjudication": {
+    "projection": {
+      "status": "ruled-out-as-primary-cause",
+      "evidence": "当前 pivot 到 OSM 面积质心仅 0.8441789876308224 场景单位（2.279283266603221 米）。"
+    },
+    "subjectFootprintSelection": {
+      "status": "primary-subject-identity-confirmed-inner-member-unbound",
+      "evidence": "way/292250766 是唯一同时命中中文名、地址、cinema、building 与 Wikidata 的 footprint；way/1520590650 没有成员语义。"
+    },
+    "roadWidth": {
+      "status": "not-causal-for-relative-excess",
+      "evidence": "相同道路中心线下 roadHalfWidth 在模型与 OSM edge clearance 做差时抵消。"
+    },
+    "footprint": {
+      "status": "confirmed-immediate-geometric-cause-at-current-anchor",
+      "evidence": "当前规则包络深度只有 OSM 轴向外包深度的 57.379%，新华路一侧少 9.226477043542069 场景单位；主体丝带比 OSM 边界多退 16.724718908956945 场景单位。"
+    },
+    "modelOriginAndRegistryAnchor": {
+      "status": "combined-binding-failure-separate-remedy-blocked",
+      "evidence": "当前 registry position 是近质心 anchor，而 GLB 原点到丝带/台阶/广场三种前缘偏移不同；没有双点地理配准就无法区分应移动整栋、重置原点还是改 footprint。"
+    },
+    "scale": {
+      "status": "retained-not-exactly-proven",
+      "evidence": "仓内无官方总平面尺寸；整体缩放会同时改变两侧退界且不能修复非规则 footprint，因此不能凭观感缩放。"
+    }
+  },
+  "evidenceClassification": {
+    "observed": [
+      "way/292250766 的名称、地址、cinema、building 与 Wikidata 标签。",
+      "当前 position/yaw/scale、生产新华路 polyline、运行时道路样式与冻结生成器参数。",
+      "已保存 front-wide-from-street 照片显示道路树阵、入口广场和正面朝街关系，但没有比例尺、北箭头或 GPS。",
+      "三档 GLB 当前 SHA、bounds 与结构审计保持既有合格结果。"
+    ],
+    "inferred": [
+      "way/292250766 是当前仓内最佳的上海影城综合体 footprint。",
+      "way/1520590650 可能是上层或内部体块，但不能绑定为主丝带或入口。",
+      "当前视觉偏差来自近质心 anchor 与浅模型前缘的组合。"
+    ],
+    "unknown": [
+      "OSM 外轮廓每个节点的测绘精度与改造后墙线对应关系。",
+      "主入口中心、丝带端点、模型 pivot 在 WGS84 中的精确位置。",
+      "way/1520590650 的正式建筑成员角色。",
+      "真实路缘、绿化带和人行道的测绘宽度。"
+    ]
+  },
+  "minimumAdditionalEvidence": {
+    "status": "blocked",
+    "required": "一张带北箭头和比例尺、能对应 OSM 外轮廓的官方总平面/测绘图，并至少标出两个也能在 GLB 本地坐标中唯一定位的主体点；最低可用组合是主入口中心加主丝带一端，或主入口中心加塔楼角点。",
+    "whyTwoPoints": "一个点只能约束平移；两个非重合点才能同时约束 yaw，并验证模型本地原点到主体前缘的偏置。若比例也未锁定，还需要图上比例或第三个非共线点。",
+    "notSufficient": [
+      "只有透视照片或“从街上拍摄”的描述",
+      "只有 OSM 面积质心",
+      "只有同址商铺 POI",
+      "只有未绑定的 layer=1 重叠 way",
+      "仅凭当前画面把模型手动向道路拖动或整体缩放"
+    ]
+  },
+  "retainedAcceptedWork": {
+    "recovery": "retained-no-rerun",
+    "hero": "retained-no-rerun",
+    "identity": "retained-no-rerun",
+    "massing": "retained-no-rerun",
+    "mcp": "retained-no-rerun",
+    "threeRuntime": "retained-no-rerun"
+  },
+  "glbAudit": {
+    "command": "python3 scripts/audit_glb.py public/models/xinhua-road/shanghai-cinema.glb public/models/xinhua-road/shanghai-cinema-hybrid-identity.glb public/models/xinhua-road/shanghai-cinema-massing.glb",
+    "assets": [
+      {
+        "tier": "hero",
+        "path": "public/models/xinhua-road/shanghai-cinema.glb",
+        "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+        "bytes": 5862660,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 13,
+        "images": 0,
+        "textures": 0,
+        "status": "ok"
+      },
+      {
+        "tier": "identity-increment",
+        "path": "public/models/xinhua-road/shanghai-cinema-hybrid-identity.glb",
+        "sha256": "66ea8425313f9024d0b707b87be27549504ec9dddab3a8fdb30961aaf2d48d9c",
+        "bytes": 418620,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 3,
+        "images": 0,
+        "textures": 0,
+        "status": "ok"
+      },
+      {
+        "tier": "massing",
+        "path": "public/models/xinhua-road/shanghai-cinema-massing.glb",
+        "sha256": "e1635a7796ad9ca4f7699e5559c73c4a02591b601e9d300f8a874c73a7a513ab",
+        "bytes": 714228,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 7,
+        "images": 0,
+        "textures": 0,
+        "status": "ok"
+      }
+    ]
+  },
+  "validation": {
+    "scopedTest": "tests/test_shanghai_cinema_exact_anchor_road_setback_audit.test.mjs",
+    "browserUsed": false,
+    "networkUsed": false,
+    "blenderUsed": false,
+    "sharedFilesChanged": false
+  }
+}

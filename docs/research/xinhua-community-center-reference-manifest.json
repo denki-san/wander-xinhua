@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "assetId": "xinhua-community-center",
+  "subject": "新华·社区营造中心",
+  "address": "上海市长宁区新华路345弄4号楼",
+  "status": "evidence-pass-conservative-massing-only",
+  "canonicalReference": "docs/research/assets/requested-poi-references/xinhua-community-center-front.jpg",
+  "references": [
+    {
+      "localPath": "docs/research/assets/requested-poi-references/xinhua-community-center-front.jpg",
+      "sha256": "6f8c977a478b07769294af6299fec41b5e269ad11da3446681046e15d366c6bf",
+      "pixelSize": [
+        1080,
+        809
+      ],
+      "sourceUrl": "https://www.shcn.gov.cn/col7343/20230609/1237981.html",
+      "sourceKind": "长宁区人民政府既有仓库证据",
+      "view": "building-front",
+      "captureDate": "unknown",
+      "observedSubject": "4号楼入口与正立面局部",
+      "runtimeUsage": "reference-only-not-embedded"
+    },
+    {
+      "localPath": "docs/research/assets/requested-poi-references/xinhua-community-center-toy-house.jpg",
+      "sha256": "9441bdc22d03c664282a853b5adbabba68f99930243d9f924d06676dfb392cf5",
+      "pixelSize": [
+        1080,
+        720
+      ],
+      "sourceUrl": "https://www.shcn.gov.cn/col7343/20230609/1237981.html",
+      "sourceKind": "长宁区人民政府既有仓库证据",
+      "view": "toy-exchange-house",
+      "captureDate": "unknown",
+      "observedSubject": "同一社区营造中心场地内的玩具交换屋",
+      "runtimeUsage": "reference-only-not-embedded"
+    }
+  ],
+  "viewCoverageMatrix": {
+    "canonical": {
+      "status": "supported",
+      "reference": "xinhua-community-center-front.jpg",
+      "covers": [
+        "两层低矮白色主体",
+        "平屋顶与女儿墙",
+        "中央银灰金属门斗",
+        "深色玻璃入口"
+      ]
+    },
+    "sideDepth": {
+      "status": "unknown",
+      "consequence": "Massing 深度只使用目标 OSM footprint，不承诺侧后立面构件"
+    },
+    "entranceDetail": {
+      "status": "supported-by-canonical",
+      "reference": "xinhua-community-center-front.jpg",
+      "covers": [
+        "金属门斗",
+        "玻璃入口",
+        "入口坡道",
+        "橙色4号标识"
+      ]
+    },
+    "siteRelationship": {
+      "status": "partial",
+      "references": [
+        "xinhua-community-center-front.jpg",
+        "xinhua-community-center-toy-house.jpg",
+        "way/577252269"
+      ],
+      "consequence": "只校准4号楼与新华路345弄支路；玩具屋没有地图绑定，不进入本栋 Massing"
+    }
+  },
+  "observed": [
+    "主体为低矮两层暖白建筑",
+    "屋顶为平屋顶并有低女儿墙",
+    "正立面中央有突出且高于檐口的银灰金属门斗",
+    "入口使用深色玻璃门窗",
+    "入口附近可见橙色4号标识与橙色窗面图形",
+    "玩具交换屋是独立小构筑物，不属于4号楼主 footprint"
+  ],
+  "inferred": [
+    "两层总高以7至8米边界生成，未声称为实测高度",
+    "OSM way/864493234 的临支路长边为照片正立面",
+    "入口门斗只作为 Massing 识别投影，不承担正式碰撞"
+  ],
+  "unknown": [
+    "实测建筑高度",
+    "侧立面与后立面",
+    "屋顶设备",
+    "玩具交换屋的精确地图位置",
+    "新华路345弄的实际路面宽度"
+  ],
+  "evidenceGate": {
+    "massingAuthorized": true,
+    "identityAuthorized": false,
+    "heroAuthorized": false,
+    "reason": "正面照片与包含命名POI节点的唯一近邻OSM footprint足以支持保守主楼Massing；多视角与身份细节覆盖仍不足"
+  },
+  "scopeBoundary": {
+    "included": [
+      "4号楼主建筑 way/864493234",
+      "正立面银灰门斗与入口暗面"
+    ],
+    "excluded": [
+      "玩具交换屋",
+      "草坪",
+      "花园",
+      "运动角",
+      "树木",
+      "装饰物",
+      "全地图和普通OSM新增资产"
+    ],
+    "recoveryRetainedInHold": true,
+    "platformSearchPerformed": false
+  }
+}
