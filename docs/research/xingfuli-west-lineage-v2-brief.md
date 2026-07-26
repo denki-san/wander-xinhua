@@ -84,10 +84,12 @@
 
 ## Canonical comparison contract
 
-- Canonical view: accepted local `+X` long-axis direction.
-- Side/depth view: existing fixed side camera across the two West members.
-- Entrance/identity view: existing fixed street camera toward the Xingfu Road
-  end and the South-West identity wall.
+- Canonical view: accepted local `+X` long-axis direction, camera
+  `(-55, -7, 3.5)` toward `(-32, -7, 3.2)`.
+- Side/depth view: camera `(-34.5, -35, 4.5)` toward
+  `(-34.5, -7, 3.2)` across the two West members.
+- Entrance/identity view: camera `(-14, -7, 3.2)` toward `(-37, -7, 3.0)`,
+  looking back toward the Xingfu Road end and South-West identity wall.
 - Human scale, placement, yaw, source origin and map transform must not change.
 
 ## Unique identity cues retained
