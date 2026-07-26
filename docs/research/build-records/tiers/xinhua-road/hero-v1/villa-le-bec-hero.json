@@ -4,7 +4,7 @@
   "tier": "hero",
   "status": "hero-built-blocked-pre-mcp2-visual-review",
   "generator": "scripts/create_villa_le_bec_hero_model.py",
-  "generatorSha256": "4ca1fa3f77ab5073a9f5fba04d4511c2eb230b774ac41ccdcb3bb144b5c77d41",
+  "generatorSha256": "bceff773bd9c051ea48be7a3101079525a1a08a1e29325ce058890c20ebb4ad1",
   "blenderVersion": "5.2.0 LTS",
   "derivedFrom": {
     "massingGlb": "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
@@ -21,10 +21,10 @@
   },
   "outputs": {
     "blend": "assets/models/source/tiers/xinhua-road/hero-v1/villa-le-bec-hero.blend",
-    "blendSha256": "f5890d4399b9415c9ce9f060f902ff0ca19ce18f9194ccbeb9e492d5719270a4",
+    "blendSha256": "a087f24cbc5c7b6eb6fb014e635a614d90f1be549441977a831277ed17f89329",
     "glb": "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
-    "glbSha256": "b608836074a7c0eb7e697eda38a00eeb95f98b0da6a68c5157efcb18539bf979",
-    "bytes": 92908,
+    "glbSha256": "1374b7a8301345c23736644cfdc9a7ed467efb8371ebcdf72a507217b0015394",
+    "bytes": 106348,
     "bounds": {
       "min": [
         -1.152635097503662,
@@ -40,19 +40,19 @@
     "previews": [
       {
         "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-canonical.png",
-        "sha256": "108ec626cf975e295349019fa282e6b990a42ddebbdc436e681649765ed21e94"
+        "sha256": "0c6941431b8f84b600ac1e8f21c6103bc5e582535940ac6b02ad27d7e4345cbe"
       },
       {
         "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-side-depth.png",
-        "sha256": "2b15ba9ec59386233d4c44bee33eb4ab8a2dd4452f422345c958655a3e542559"
+        "sha256": "5ca382270a80eb0fe963fe0a6389b0dc844c89539eded2de29f788520ffb9232"
       },
       {
         "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-entrance.png",
-        "sha256": "4c5f20f34448b99b7092553eed72b9f12ed79873bfc75a100f35afa75336ee82"
+        "sha256": "1cc36eed766cac78b74b0f1b663bd94ff2bb387e3fa89b7d8e57519c0942c9e1"
       },
       {
         "path": "test_artifacts/all-models/hero-v1/villa-le-bec/test_villa-le-bec-hero-triptych.png",
-        "sha256": "7914a9e3a243e345e06106e59db7731c6b4d83a9305dce32ff18f41180c4dfa2"
+        "sha256": "a238f503fa819cb0610f9433e24ead71f1b392b06e7250595ae1ad26e6f9416e"
       }
     ]
   },
@@ -65,7 +65,7 @@
   },
   "scope": {
     "twoBuildingsOnly": true,
-    "components": 105,
+    "components": 121,
     "excluded": [
       "trees",
       "dressing",
@@ -104,6 +104,18 @@
       "surfaceClearance": 0.045
     },
     "verdict": "both-glazing-and-frames-are-outside-their-bay-solid-surface"
+  },
+  "mcp2IdentityBatchFix": {
+    "streetFacade": "ground-unbranded-entry-and-glazing-rhythm-plus-upper-windows-and-projecting-bay-within-existing-massing-envelope",
+    "dormerGlazing": {
+      "count": 3,
+      "dormerHalfDepth": 0.41,
+      "glazingCenterOffset": 0.455,
+      "surfaceClearance": 0.045,
+      "externalNormal": "local -Y"
+    },
+    "gardenEntryGlazingChanged": false,
+    "massingPlacementOrCollisionChanged": false
   },
   "gates": {
     "mcp2": "blocked-pre-mcp2-main-visual-review",

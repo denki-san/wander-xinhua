@@ -90,7 +90,8 @@ def add_window(prefix: str, center: Vector, width: float, height: float, yaw: fl
 def add_dormer(prefix: str, center: Vector, yaw: float, wall, roof, frame, glass, objects: list) -> None:
     objects.append(box(f"{prefix}-body", center + Vector((0, 0, 4.02)), (1.15, 0.82, 0.78), yaw, wall))
     objects.append(box(f"{prefix}-cap", center + Vector((0, 0, 4.45)), (1.36, 1.02, 0.16), yaw, roof))
-    add_window(prefix, center + Vector((0, 0, 4.05)), 0.72, 0.48, yaw, frame, glass, objects)
+    # Dormer body 深 0.82；将窗框/玻璃移到正面外表，避免固定机位只读成烟囱。
+    add_window(prefix, center + Vector((0, 0, 4.05)), 0.72, 0.48, yaw, frame, glass, objects, normal_sign=-1.0, outside_offset=0.455)
 
 
 def build_hero() -> tuple[bpy.types.Object, list[str]]:
@@ -116,14 +117,17 @@ def build_hero() -> tuple[bpy.types.Object, list[str]]:
     ):
         objects.append(box(f"villa-le-bec-hero-{prefix}-base", Vector((center.x, center.y, 0.26)), (u_len * 0.98, v_len * 0.98, 0.52), yaw, base))
 
-    # 沿街主楼：可见正立面窗节奏、凸窗、两处老虎窗。
+    # 图01：沿街主楼维持原 Massing 包络内的底层无品牌入口/橱窗节奏与上层窗组织。
     street_front = street_center - street_v * (street_vl * 0.5)
-    for index, offset in enumerate((-street_ul * 0.30, street_ul * 0.02, street_ul * 0.31)):
-        center = Vector((street_front.x + street_u.x * offset, street_front.y + street_u.y * offset, 1.78))
-        add_window(f"villa-le-bec-hero-street-front-window-{index}", center, 0.88, 1.32, street_yaw, frame, glass, objects)
+    for index, offset in enumerate((-street_ul * 0.30, street_ul * 0.31)):
+        ground_center = Vector((street_front.x + street_u.x * offset, street_front.y + street_u.y * offset, 1.10))
+        upper_center = Vector((street_front.x + street_u.x * offset, street_front.y + street_u.y * offset, 2.48))
+        add_window(f"villa-le-bec-hero-street-ground-glazing-{index}", ground_center, 0.84, 1.02, street_yaw, frame, glass, objects, normal_sign=-1.0, outside_offset=0.08)
+        add_window(f"villa-le-bec-hero-street-upper-window-{index}", upper_center, 0.84, 0.88, street_yaw, frame, glass, objects, normal_sign=-1.0, outside_offset=0.08)
     bay_center = at_height(street_front - street_v * 0.40, 2.18)
     objects.append(box("villa-le-bec-hero-street-projecting-bay", bay_center, (1.55, 0.58, 2.12), street_yaw, wall))
-    add_window("villa-le-bec-hero-street-projecting-bay-window", bay_center + Vector((0, 0, 0.05)), 1.18, 1.36, street_yaw, frame, glass, objects, normal_sign=-1.0, outside_offset=0.335)
+    add_window("villa-le-bec-hero-street-projecting-bay-upper-window", bay_center + Vector((0, 0, 0.42)), 1.18, 0.92, street_yaw, frame, glass, objects, normal_sign=-1.0, outside_offset=0.335)
+    add_window("villa-le-bec-hero-street-projecting-bay-entry", bay_center + Vector((0, 0, -0.48)), 0.56, 0.76, street_yaw, frame, glass, objects, normal_sign=-1.0, outside_offset=0.335)
     for offset in (-street_ul * 0.22, street_ul * 0.23):
         center = at_height(street_center + street_u * offset - street_v * 0.12, 0)
         add_dormer("villa-le-bec-hero-street-dormer" + str(round(offset, 2)), center, street_yaw, wall, roof, frame, glass, objects)
@@ -234,6 +238,12 @@ def write_record(root: bpy.types.Object, components: list[str]) -> None:
             "streetProjectingBay": {"externalNormal": "local -Y / street -v", "bayHalfDepth": 0.29, "glazingCenterOffset": 0.335, "surfaceClearance": 0.045},
             "gardenEntryBay": {"externalNormal": "local -Y after yaw+90 / garden -u", "bayHalfDepth": 0.23, "glazingCenterOffset": 0.275, "surfaceClearance": 0.045},
             "verdict": "both-glazing-and-frames-are-outside-their-bay-solid-surface"
+        },
+        "mcp2IdentityBatchFix": {
+            "streetFacade": "ground-unbranded-entry-and-glazing-rhythm-plus-upper-windows-and-projecting-bay-within-existing-massing-envelope",
+            "dormerGlazing": {"count": 3, "dormerHalfDepth": 0.41, "glazingCenterOffset": 0.455, "surfaceClearance": 0.045, "externalNormal": "local -Y"},
+            "gardenEntryGlazingChanged": False,
+            "massingPlacementOrCollisionChanged": False
         },
         "gates": {"mcp2": "pending", "identity": "not-authorized", "runtime": "not-run-by-scope"}
     }
