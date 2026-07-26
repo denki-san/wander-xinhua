@@ -1,0 +1,282 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-329",
+  "label": "新华别墅329弄",
+  "reviewedAt": "2026-07-26",
+  "baseCommit": "1dffc983bb47c42440997728df2efcbd6b5d4dcb",
+  "mode": "building-window-medium-public-official-subject-contract-rescue",
+  "status": "blocked-public-official-search-exhausted-no-compound-plan-or-member-to-way-binding",
+  "scope": {
+    "publicOfficialSourcesOnly": true,
+    "existingLocalXhsEvidenceReadOnly": true,
+    "newXiaohongshuAccessed": false,
+    "userBrowserAccessed": false,
+    "repositoryImageAdded": false,
+    "binaryModified": false,
+    "blenderOrMcpRerun": false,
+    "acceptedMassingMapRuntimeRerun": false,
+    "runtimeRegistryOrSharedFilesModified": false,
+    "excludedAndUntouched": [
+      "xinhua-villas-211",
+      "trees",
+      "decorations",
+      "full-map assets",
+      "Recovery/Hold",
+      "other buildings"
+    ]
+  },
+  "verifiedInputs": {
+    "deepReadinessAudit": {
+      "path": "docs/research/xinhua-villas-329-hero-identity-readiness-deep-audit.json",
+      "sha256": "3b42161a5f981a3c876c7809414aa11a1f6b36e7e653fe930cdb7c25659f7921"
+    },
+    "priorHeroAdjudication": {
+      "path": "docs/research/xinhua-villas-329-hero-readiness-adjudication.json",
+      "sha256": "28169cad1006dca9c43e03e69e509a0f872481e6c6c35f226210fc3833238008"
+    },
+    "memberBinding": {
+      "path": "docs/research/xinhua-villas-329-member-binding.json",
+      "sha256": "2d34b0c7839014776b98255febe722d87c45d39063a6b4b98838fdc02ba80330"
+    },
+    "referenceManifest": {
+      "path": "docs/research/xinhua-villas-329-reference-manifest.json",
+      "sha256": "a66b79290bf08fd79b3c6730602d81efac20c02c659a44eb63e1825dad7ba985"
+    },
+    "acceptedRuntimeQa": {
+      "path": "docs/research/xinhua-villas-329-threejs-runtime-qa-v2.json",
+      "sha256": "1cc5ba6b63cce2af19105bcf448b6057cbc53c0fcd740654e1afb0f89a20a9f1"
+    },
+    "massingV3BuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.json",
+      "sha256": "9f8d1d2dcadc754fcad17df092bb44de5ff87cdeab654daa89db6bec3911a5f1"
+    }
+  },
+  "retainedQualifiedStage": {
+    "tier": "Massing v3",
+    "path": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
+    "sha256": "f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704",
+    "bytes": 21632,
+    "boundMembers": [
+      "15",
+      "36",
+      "40",
+      "42"
+    ],
+    "accepted": {
+      "mcp1": "pass",
+      "map": "pass",
+      "runtime": "pass",
+      "collision": "pass"
+    },
+    "action": "retain unchanged; do not rerun or rebuild accepted Massing, map, collision or Three.js stages"
+  },
+  "legacyHeroHold": {
+    "path": "public/models/xinhua-road/xinhua-villas-329.glb",
+    "sha256": "81b2d79bb502cb42c187169f339f0ac9428ea8ae855e43e8b0756768ced0210b",
+    "bytes": 1443312,
+    "status": "retain-file-as-cross-asset-contaminated-hold",
+    "subjectFinding": "high-confidence same structure as the official xinhua-villas-211 member 2 reference",
+    "runtimeUseAuthorized": false,
+    "modified": false
+  },
+  "reviewedOfficialSources": [
+    {
+      "url": "https://www.shcn.gov.cn/col7343/20241227/1275366.html",
+      "publisher": "上海市长宁区人民政府",
+      "kind": "official-community-history-with-member-images",
+      "observedText": [
+        "新华路211弄与329弄首尾相连，整体呈U形或马蹄形，两弄合计29幢花园洋房。",
+        "页面明确把40号置于弄堂里侧，主入口朝东北，南侧为圆拱结合敞廊，屋面为四坡顶，并有副楼和烟囱。",
+        "页面明确36号为二层砖木圆形蛋糕房，占地905平方米、建筑面积543平方米。"
+      ],
+      "temporarilyInspectedOfficialImages": [
+        {
+          "url": "https://cn.storage.shmedia.tech/ce5e6057fec24a38b5c4f6c4aa98b20b",
+          "sha256": "99e9fb84e04a4a1c09058a7ea541bc47423a559b3877c267eaacdd5bea33283c",
+          "subject": "foreign-lane entrance",
+          "view": "single entrance-axis context",
+          "repositoryArchived": false
+        },
+        {
+          "url": "https://cn.storage.shmedia.tech/13acf65ddfc74a1babd61397d5bd0d60",
+          "sha256": "80a41db0973911b6f1404fc9bb39e1a67a6322f4b6723764c8dda34ec813be42",
+          "subject": "member 40",
+          "view": "single courtyard front-side oblique",
+          "repositoryArchived": false
+        },
+        {
+          "url": "https://cn.storage.shmedia.tech/81212efd0e2a411cbee16a5167272382",
+          "sha256": "89ef5e1e5914594d1cb1496daf7596fe3ab9e4e7a16c01e08ba05c57968c17de",
+          "subject": "member 36",
+          "view": "single rounded principal facade",
+          "repositoryArchived": false
+        }
+      ],
+      "gateBoundary": "The text and single-view images improve member identity, but do not provide a dimensioned compound plan, camera coordinates, rear coverage or member-to-OSM assignment."
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col7343/20241009/1269297.html",
+      "publisher": "上海市长宁区人民政府",
+      "kind": "official-streetscape-history",
+      "observedText": [
+        "官方再次将211弄与329弄共同定义为马蹄形外国弄堂，合计29栋花园住宅。",
+        "36号被明确描述为双层圆形花园别墅。"
+      ],
+      "gateBoundary": "No lane-specific member count, numbered plan or footprint mapping is published."
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col6991/20251124/1301891.html",
+      "publisher": "上海市长宁区人民政府",
+      "kind": "official-photo-history",
+      "observedText": [
+        "官方照片标题确认329弄38号为西班牙式别墅。",
+        "标题说明38号左墙外是36号蛋糕房，只给出局部邻接语义。"
+      ],
+      "gateBoundary": "The photo is one front-oblique view and does not bind member 38 or 36 to an accepted OSM way."
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col7698/20240208/1254319.html",
+      "publisher": "上海市长宁区规划和自然资源局",
+      "kind": "official-protected-building-record",
+      "observedText": [
+        "17号为1925年西班牙式花园住宅，建筑面积358平方米，用地面积609平方米。",
+        "17号属于新华路历史文化风貌保护区并被列为上海优秀近代建筑。"
+      ],
+      "gateBoundary": "No north-oriented member plan, footprint coordinates, side, rear or roof-back coverage is published."
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col7343/20231129/1249286.html",
+      "publisher": "上海市长宁区人民政府",
+      "kind": "official-community-renewal-report",
+      "observedText": [
+        "页面点名329弄42号小花园的社区共创改造。"
+      ],
+      "gateBoundary": "The garden reference confirms an address and site relation only; it does not map the building footprint or supply hidden elevations."
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col7695/20230414/1234444.html",
+      "publisher": "上海市长宁区规划和自然资源局",
+      "kind": "official-number-67-elevator-site-plan-not-heritage-member-plan",
+      "observedText": [
+        "公示对象为新华路329弄67号楼加装电梯工程。",
+        "公示图包含红色设计范围、住宅组团建筑轮廓和多处电梯位置。"
+      ],
+      "temporarilyInspectedOfficialPlan": {
+        "url": "https://static.shcn.gov.cn/cncms/2023/0414/85f79e4a-1fe2-4cf7-8c62-cb5d9b598c18.jpg",
+        "sha256": "c8fd612c8ac67fb1f1e88f186184ef344f5026da433e6b9e526413523a3f23a2",
+        "repositoryArchived": false
+      },
+      "gateBoundary": "The plan is scoped to the No. 67 residential group and does not label heritage members 15, 36, 40, 42, 17 or 38, nor bind them to the four accepted OSM ways. Its red design scope must not be promoted to the historic-villa compound boundary."
+    },
+    {
+      "url": "https://zwgk.shcn.gov.cn/xxgk/xsdw-jyjjgxx/2026/78/81029.html",
+      "publisher": "上海市长宁区教育局",
+      "kind": "official-address-directory",
+      "observedText": [
+        "上海市民办新虹桥中学新华校区地址为新华路329弄43号。"
+      ],
+      "gateBoundary": "The directory proves an address in the lane namespace, not membership in the historic 29-villa set or an OSM footprint."
+    },
+    {
+      "url": "https://www.shcn.gov.cn/col5751/20240301/1255317/0e9616534c0f48c3920b701b4fb88965.pdf",
+      "publisher": "上海市长宁区人民政府国资系统",
+      "kind": "official-address-listing",
+      "observedText": [
+        "公开租赁信息列出新华路329弄56号101室。"
+      ],
+      "gateBoundary": "The listing proves another address number only; it does not classify a historic member or publish geometry."
+    }
+  ],
+  "evidenceClassification": {
+    "observed": [
+      "官方资料明确支持历史成员17、36、38、40、42的地址或建筑身份。",
+      "官方文字与单视图补强36号圆形主体、40号庭院内多体量和38号邻接36号的身份线索。",
+      "43号学校、56号房屋和67号住宅组团说明329弄地址命名空间包含当前四成员以外的不同用途与建筑类型。",
+      "67号正式总平公示图没有标注历史成员15、36、40、42、17、38，也不能映射到当前四个accepted OSM way。",
+      "现有四成员Massing v3的15、36、40、42顺序绑定仍是Massing级，不是地籍或测绘级。"
+    ],
+    "inferred": [
+      "当前stable ID最安全的语义是329弄历史花园住宅compound的保守表示，而不是整个329弄地址命名空间。",
+      "36号具有最强的单栋识别性，40号具有更明确的官方朝向与体量描述，但任何一栋代表整个compound都属于产品语义变更，不能由证据窗口自行授权。",
+      "正式67号总平证明有正式规划资料存在，但其项目范围不同，不能通过图形相似或邻近关系猜测历史成员位置。",
+      "17号、36号、38号已具备未来成员级ID的命名事实，但仍缺少门牌到地理footprint及同一成员完整多视角，不能创建生产ID。"
+    ],
+    "unknown": [
+      "329弄历史花园住宅子集的正式完整成员表、边界与单独成员数。",
+      "15、36、40、42、17、38分别对应哪个可地理配准footprint。",
+      "36号与40号的完整侧后面、屋顶背坡和附属体量。",
+      "17号与38号的完整侧后面及其在compound中的精确位置。",
+      "43、56、67号与历史29幢花园住宅口径的包含、排除或后建关系。",
+      "当前stable ID是否应保持compound、显式缩窄为代表成员，或拆分为多个成员级资产的产品决定。"
+    ]
+  },
+  "subjectContractAdjudication": {
+    "currentStableId": {
+      "id": "xinhua-villas-329",
+      "recommendedSemanticBoundary": "historic-garden-residence-compound-subset-with-conservative-four-member-massing",
+      "status": "retain-no-runtime-mutation",
+      "heroAuthorized": false,
+      "reason": "Compound-wide numbered plan and complete same-subject coverage remain missing."
+    },
+    "representativeMember": {
+      "authorized": false,
+      "strongestCandidates": [
+        {
+          "houseNumber": "36",
+          "strength": "distinctive circular architecture plus official area and one official facade",
+          "blockers": [
+            "no authoritative footprint assignment",
+            "no complete entrance/rear/roof-back set",
+            "no product authorization to represent the compound"
+          ]
+        },
+        {
+          "houseNumber": "40",
+          "strength": "official northeast entrance orientation, south arcade/veranda, hip roof, annex and chimney",
+          "blockers": [
+            "no authoritative footprint assignment",
+            "only one official courtyard oblique plus limited existing local views",
+            "no product authorization to represent the compound"
+          ]
+        }
+      ],
+      "runtimeStableIdReuseAuthorized": false
+    },
+    "memberSpecificStableIds": {
+      "authorized": false,
+      "candidateNamingPattern": "xinhua-villas-329-member-<house-number>",
+      "officiallyNamedCandidateNumbers": [
+        "17",
+        "36",
+        "38",
+        "40",
+        "42"
+      ],
+      "productionIdsCreated": [],
+      "minimumGate": [
+        "main-window product authorization for member-level asset expansion within the fixed 18-building scope",
+        "authoritative house-number-to-georeferenced-footprint binding",
+        "same-member canonical, side/depth and entrance/detail views",
+        "member-specific placement, origin, front direction, ground datum and tier lineage contract"
+      ]
+    }
+  },
+  "disposition": {
+    "publicOfficialSearch": "exhausted-for-current-query-set",
+    "compoundVersusAddressNamespaceClarified": true,
+    "formalHistoricCompoundPlanFound": false,
+    "memberToAcceptedWayBindingImproved": false,
+    "representativeMemberDecisionReleased": false,
+    "memberSpecificStableIdReleased": false,
+    "heroAuthorized": false,
+    "identityAuthorized": false,
+    "mcp2Authorized": false,
+    "mcp3Authorized": false,
+    "binaryOrRuntimeMutationAuthorized": false,
+    "nextGate": "取得标注历史成员门牌并可地理配准的正式总平/测绘图；若主窗口选择单栋代表或成员级拆分，还需先做产品语义授权，再补同一已绑定成员的canonical、侧后面和入口细节。"
+  },
+  "knowledgeSource": {
+    "path": "docs/knowledge-sources/xinhua-villas-329-subject-contract-public-rescue-2026-07-26.md",
+    "externalWikiArchive": "not-attempted-building-window-main-window-integration-owned"
+  }
+}
