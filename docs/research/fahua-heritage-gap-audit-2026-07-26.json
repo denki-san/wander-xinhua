@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "assetId": "fahua-heritage",
+  "label": "法华遗韵",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "b6e2c88aa3121df063c72fb72c674f0879081dcc",
+  "status": "blocked-front-only-and-unbound-site",
+  "scope": {
+    "mode": "single-building-medium-gap-audit",
+    "networkAccessed": false,
+    "browserOrXhsAccessed": false,
+    "blenderOpened": false,
+    "qualifiedStageRerun": false,
+    "binaryRebuilt": false,
+    "publicRegistryModified": false,
+    "fastManifestModified": false,
+    "runtimeDisabled": false,
+    "excluded": [
+      "trees",
+      "decorations",
+      "full-map assets",
+      "Recovery/Hold mutation",
+      "other buildings"
+    ]
+  },
+  "inputs": {
+    "finalDisposition": {
+      "path": "docs/research/fahua-heritage-final-disposition.json",
+      "sha256": "1d473792166b3a4b085be06347c81af538b1c092ce3560987f0fa07db3f6dfba"
+    },
+    "localEvidenceRescue": {
+      "path": "docs/research/fahua-heritage-local-evidence-rescue.json",
+      "sha256": "959dde6677369f69de0ac0632f61f46752d91572437c34c20762da9acd948e6a"
+    },
+    "canonicalPhoto": {
+      "path": "docs/research/assets/requested-poi-references/fahua-heritage-arch.jpg",
+      "sha256": "bce705550e57ee299c9160ca04a19c5157b50d8f70873c988d4ef46ca49a662e"
+    },
+    "legacyHeroGlb": {
+      "path": "public/models/requested-pois/fahua-heritage.glb",
+      "sha256": "f23d8b701a338838c60645e4460a5dccca904e62a58053f7066d29dff54bf7b3"
+    },
+    "legacyHeroBlend": {
+      "path": "assets/models/source/requested-pois/fahua-heritage.blend",
+      "sha256": "8bb9b43c50e94c6f6ffd00f216dd5babf95282852e9514f309a7c4cdeec0fe8f"
+    }
+  },
+  "acceptedOrRetained": {
+    "canonicalFront": "one same-subject front capture; retained as canonical only",
+    "legacyHero": "structural baseline retained; not an MCP2 candidate",
+    "recoveryMassing": "Recovery/Hold conditional GLB structure and single-page stage retained; do not rerun or promote",
+    "staticMap": "current numeric road and start clearance is sanity only, not a site-boundary or walkaround acceptance"
+  },
+  "hardBlockers": [
+    "No photographic side/depth capture exists for the named structure.",
+    "No street-context or site-boundary capture ties the structure to either road, sidewalk, adjacent wall, or walkaround space.",
+    "Saved OSM has no subject footprint, entrance node, or corroborating geometry.",
+    "The legacy Hero lacks a subject-level build record and cannot turn front-only evidence into MCP2 approval.",
+    "The generic heritage-gate overview recipe is not a standalone Identity derived from an accepted Hero."
+  ],
+  "gates": {
+    "evidenceAndBrief": "blocked-front-only",
+    "massingMcp1": "not-passed-recovery-conditional-only",
+    "mapAcceptance": "blocked-unbound-site-and-no-walkaround",
+    "heroMcp2": "not-authorized",
+    "identity": "blocked-no-accepted-hero-source",
+    "mcp3": "not-reachable",
+    "threeTierRuntime": "not-reachable"
+  },
+  "unexecutedQueue": {
+    "nextEvidenceAction": "When the user is available, perform a slow, logged-in Xiaohongshu search for the same structure's side/depth and street-interface views.",
+    "minimumEvidence": [
+      "A same-subject side or rear-oblique photograph showing column, panel, eave depth, and rear relationship.",
+      "A same-subject street-context photograph or georeferenced site plan showing a road edge, sidewalk/interface, complete structure, and adjacent wall."
+    ],
+    "ifStillInsufficient": "Main window may remove only this building from the game registry/runtime after the Xiaohongshu path is exhausted; preserve every existing file and Recovery/Hold artifact.",
+    "notExecuted": [
+      "Xiaohongshu search",
+      "runtime disablement",
+      "registry or runtime edit",
+      "file deletion or overwrite"
+    ]
+  },
+  "decision": "Do not model, promote, derive Identity, or disable runtime during this checkpoint. The evidence and map gates remain blocked."
+}
