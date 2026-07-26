@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "assetId": "fics-xinhua-365",
+  "auditedAt": "2026-07-26",
+  "status": "blocked-formal-membership-and-service-road",
+  "scope": {
+    "browserOrXhsAccessed": false,
+    "sharedFilesModified": false,
+    "binaryModified": false,
+    "runtimeCollisionShellWritten": false,
+    "excluded": [
+      "public-app-scene",
+      "public-registry",
+      "fast-manifest",
+      "trees",
+      "decorations",
+      "other-buildings"
+    ]
+  },
+  "sources": {
+    "recoveryMapAudit": {
+      "path": "docs/research/fics-xinhua-365-recovery-map-audit.json",
+      "sha256": "85af3305fa7a99b5bd2a081445e1cd9bcda27b5c84feb3c24b6f73ac9317050a"
+    },
+    "finalGapAudit": {
+      "path": "docs/research/fics-xinhua-365-final-gap-audit.json",
+      "sha256": "14d547ebe40c217672da7463435b2281432878f6e60fd665d9eb667462775228"
+    },
+    "massingBuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.json",
+      "sha256": "8affb973877f80c17ca0165f6b9bc474c6367a77a5f929a73ee638e02b34ed4f"
+    },
+    "requestedPoisOsm": {
+      "path": "docs/research/data/requested-pois-osm-20260717-103840.json",
+      "sha256": "898624d284d460f6d696720278531db463f6f458cbbe49b7d4ab36d46905104e"
+    },
+    "map": {
+      "path": "app/scene/xinhua-map-data.json",
+      "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78"
+    },
+    "landmarkRegistryReadOnly": {
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "f87c8fde941c71c6876bba4e7a50cf9177c5b7d11163822c4f4ac906568d9fa6"
+    }
+  },
+  "formalPlacement": {
+    "position": [-76.1, 75.2],
+    "yaw": -0.38,
+    "scale": 0.9,
+    "movementAuthorized": false,
+    "rawOsmRoundTripMaximumSceneUnits": 0.000005452299873039672,
+    "rawOsmRoundTripMaximumMeters": 0.000014721209657207114
+  },
+  "membership": {
+    "candidateWayIds": [864493178, 864493177, 864493179, 864493181, 864493230],
+    "candidateRoles": "unbound-member-candidate",
+    "observed": [
+      "三张本地建成实景表明 FICS 365 的屋顶标识、开放庭院和历史洋房位于同一园区。",
+      "原始 OSM 快照中的五个候选均只有 building=yes 与闭合几何。",
+      "五组 Massing 顶点可按冻结的 position/yaw/scale 回投影至这五个 OSM footprint。"
+    ],
+    "inferred": [
+      "五个候选可能属于 FICS 园区。",
+      "五个候选可能足以代表完整园区。"
+    ],
+    "unknown": [
+      "FICS 正式园区边界",
+      "照片建筑与五个 OSM way 的逐栋绑定",
+      "相邻 OSM 建筑是否也属于园区"
+    ],
+    "formalMembership": "blocked-no-primary-or-cadastral-binding"
+  },
+  "mapAndCollision": {
+    "candidateWorldBounds": {
+      "minX": -91.89061099923087,
+      "maxX": -62.0185806913251,
+      "minZ": 59.43776740747572,
+      "maxZ": 81.59080222227074
+    },
+    "xinhuaRoad": {
+      "osmWayId": 682286683,
+      "asphaltClearanceSceneUnits": 10.490160422409048,
+      "status": "pass"
+    },
+    "campusServiceRoad": {
+      "osmWayId": 577252268,
+      "candidateWayId": 864493177,
+      "centerlineDistanceSceneUnits": 0.1254539974419377,
+      "asphaltClearanceSceneUnits": -1.1245460025580623,
+      "asphaltClearanceMeters": -3.036274206906768,
+      "status": "blocked-visible-road-overlap"
+    },
+    "collisionShell": {
+      "source": "five independent raw OSM polygons retained in the Massing build record",
+      "runtimeWrite": "withheld",
+      "reason": "成员集尚无正式证据，且 candidate way/864493177 与当前可见 service road 真实重叠；不得把候选壳写为公共 runtime 碰撞事实。"
+    }
+  },
+  "verdict": {
+    "formalMapAcceptance": "blocked",
+    "heroAndIdentity": "blocked",
+    "forbiddenFixes": [
+      "arbitrary-position-shift",
+      "arbitrary-yaw-change",
+      "arbitrary-scale-reduction",
+      "silently-excluding-service-road",
+      "treating-unlabeled-osm-way-as-formal-membership"
+    ],
+    "requiredEvidence": [
+      "official campus plan, cadastral record, address record, or geolocatable aerial evidence binding the boundary and each included way",
+      "ground-truth disposition for service way/577252268 versus building way/864493177"
+    ]
+  }
+}
