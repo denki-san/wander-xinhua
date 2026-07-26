@@ -27,6 +27,37 @@ Operation not permitted
 
 ---
 
+## [ERR-20260726-109] blender_python_script_directory_not_on_sys_path
+
+**Logged**: 2026-07-26T17:26:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: 3d
+
+### Summary
+幸福里中栋 Identity v2 首次隔离构建在导入共享生成器时停止；Blender 5.2
+使用 `--python scripts/...py` 时没有自动把该脚本目录加入 `sys.path`。
+
+### Error
+```text
+ModuleNotFoundError: No module named 'create_xingfuli_models'
+```
+
+### Context
+- 失败发生在模块顶层 import，尚未调用 `open_mainfile`；
+- 没有创建、覆盖或删除 Blend、GLB、预览或 Recovery/Hold 文件；
+- 父级 SHA 和生成器提交参数尚未进入验证阶段。
+
+### Suggested Fix
+专用生成器在导入相邻共享模块前，显式把自身所在 `scripts/` 目录加入
+`sys.path`；修复后必须重新提交并使用新提交 SHA 构建。
+
+### Resolution
+- **Resolved**: 2026-07-26T17:27:00+08:00
+- **Notes**: 已在 import 前加入确定性的脚本目录，不依赖启动 cwd 或 Blender 版本行为。
+
+---
+
 ## [ERR-20260726-107] py_compile_default_cache_outside_sandbox
 
 **Logged**: 2026-07-26T17:23:00+08:00
