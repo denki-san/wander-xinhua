@@ -58,7 +58,7 @@ test("Villa Le Bec 视觉裁决锁定参考和候选截图指纹且保留旧候�
   assert.equal(record.scopeGuard.doNotModify.includes("full-map-assets"), true);
 });
 
-test("统一状态与 Fast Mode 保留 v1/Identity Hold，并只授权通过 MCP2 的 v2", async () => {
+test("统一状态与 Fast Mode 保留 v1 Hold，并登记通过 MCP2 派生的 Identity v2", async () => {
   const [status, fast] = await Promise.all([
     readJson("docs/research/exact-18-building-status.json"),
     readJson("docs/research/building-pipeline-fast-mode.json"),
@@ -68,7 +68,7 @@ test("统一状态与 Fast Mode 保留 v1/Identity Hold，并只授权通过 MCP
 
   assert.equal(building.hero, "pass-current-v2-sha");
   assert.equal(building.mcp2, "pass-v2-current-sha");
-  assert.equal(building.identity, "hold-v1-v2-authorized-not-built");
+  assert.equal(building.identity, "hold-v1-candidate-v2-built-pending-mcp3");
   assert.equal(building.runtimePolicy, "massing-only-no-tier-promotion");
   assert.equal(building.records.includes(recordPath), true);
   assert.equal(fastBuilding.tests.includes("tests/test_villa_le_bec_hero_visual_adjudication.test.mjs"), true);
@@ -82,6 +82,10 @@ test("统一状态与 Fast Mode 保留 v1/Identity Hold，并只授权通过 MCP
   );
   assert.equal(
     fastBuilding.glbs.includes("public/models/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.glb"),
+    true,
+  );
+  assert.equal(
+    fastBuilding.glbs.includes("public/models/tiers/xinhua-road/identity-v2/villa-le-bec-identity-v2.glb"),
     true,
   );
 });

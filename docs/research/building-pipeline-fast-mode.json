@@ -94,6 +94,7 @@
         "tests/test_xinhua_villas_211_final_gap.test.mjs",
         "tests/test_xinhua_villas_211_three_tier_final_disposition.test.mjs",
         "tests/test_xinhua_villas_211_hero_readiness_adjudication.test.mjs",
+        "tests/test_xinhua_villas_211_hero_lineage_member_depth_readiness.test.mjs",
         "tests/test_model_detail_upgrade.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -169,6 +170,7 @@
         "tests/test_villa_le_bec_hero_v2.test.mjs",
         "tests/test_villa_le_bec_hero_v2_blender_mcp2_gate.test.mjs",
         "tests/test_villa_le_bec_identity_implementation.test.mjs",
+        "tests/test_villa_le_bec_identity_v2.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
       "glbs": [
@@ -176,7 +178,8 @@
         "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
         "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
         "public/models/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.glb",
-        "public/models/tiers/xinhua-road/identity-v1/villa-le-bec-identity.glb"
+        "public/models/tiers/xinhua-road/identity-v1/villa-le-bec-identity.glb",
+        "public/models/tiers/xinhua-road/identity-v2/villa-le-bec-identity-v2.glb"
       ],
       "runtimeRoutes": [
         "/?start=villa-le-bec&cameraQa=1&qaAutoStart=1",
@@ -272,7 +275,8 @@
         "tests/test_requested_poi_models.test.mjs",
         "tests/test_xinhua_community_center_massing_v2.test.mjs",
         "tests/test_xinhua_community_center_final_gap.test.mjs",
-        "tests/test_xinhua_community_center_map_candidate.test.mjs"
+        "tests/test_xinhua_community_center_map_candidate.test.mjs",
+        "tests/test_xinhua_community_center_service_road_semantics.test.mjs"
       ],
       "glbs": [
         "public/models/requested-pois/xinhua-community-center.glb",

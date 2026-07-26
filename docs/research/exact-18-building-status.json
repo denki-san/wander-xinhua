@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T16:29:00+08:00",
-  "snapshotBaseCommit": "9db605f",
+  "snapshotAt": "2026-07-26T16:36:00+08:00",
+  "snapshotBaseCommit": "e1a2611",
   "scope": {
     "mode": "exact-18-building-fast-mode",
     "buildingCount": 18,
@@ -103,12 +103,13 @@
       "mcp3": "blocked",
       "map": "pass-massing",
       "threeJs": "pass-massing-only",
-      "overall": "blocked-hero-lineage-and-identity",
+      "overall": "blocked-hero-same-member-depth-lineage-and-identity",
       "runtimePolicy": "massing-only-no-tier-promotion",
       "records": [
         "docs/research/xinhua-villas-211-final-gap-audit.json",
         "docs/research/xinhua-villas-211-three-tier-final-disposition.json",
-        "docs/research/xinhua-villas-211-hero-readiness-adjudication.json"
+        "docs/research/xinhua-villas-211-hero-readiness-adjudication.json",
+        "docs/research/xinhua-villas-211-hero-lineage-member-depth-readiness.json"
       ]
     },
     {
@@ -155,14 +156,14 @@
       "name": "哥伦比亚乡村俱乐部",
       "evidence": "pass-hero-readiness-multi-view",
       "hero": "pass-current-v2-sha",
-      "identity": "hold-v1-v2-authorized-not-built",
+      "identity": "hold-v1-candidate-v2-built-pending-mcp3",
       "massing": "pass",
       "mcp1": "pass",
       "mcp2": "pass-v2-current-sha",
       "mcp3": "blocked",
       "map": "pass",
       "threeJs": "pass-massing-performance-collision",
-      "overall": "in-progress-identity-v2-build",
+      "overall": "in-progress-mcp3-runtime",
       "runtimePolicy": "massing-only-no-tier-promotion",
       "records": [
         "docs/research/villa-le-bec-final-gap-audit.json",
@@ -174,7 +175,8 @@
         "docs/research/villa-le-bec-hero-v2-brief.md",
         "docs/research/build-records/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.json",
         "docs/research/villa-le-bec-hero-v2-blender-mcp2-gate.json",
-        "docs/research/build-records/tiers/xinhua-road/identity-v1/villa-le-bec-identity.json"
+        "docs/research/build-records/tiers/xinhua-road/identity-v1/villa-le-bec-identity.json",
+        "docs/research/build-records/tiers/xinhua-road/identity-v2/villa-le-bec-identity-v2.json"
       ]
     },
     {
@@ -253,7 +255,8 @@
       "runtimePolicy": "diagnostic-only-no-promotion",
       "records": [
         "docs/research/xinhua-community-center-map-candidate.json",
-        "docs/research/xinhua-community-center-final-gap-audit.json"
+        "docs/research/xinhua-community-center-final-gap-audit.json",
+        "docs/research/xinhua-community-center-service-road-semantics-record.md"
       ]
     },
     {
