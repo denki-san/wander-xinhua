@@ -73,9 +73,30 @@ test("德必 evidence gate 锁定基线输入且没有越权修改运行时或 R
   assert.equal(audit.scope.recoveryOrHoldModified, false);
   assert.equal(audit.scope.treesDecorationsFullMapOrOtherBuildingsModified, false);
 
+  const captureTimeSharedPaths = new Set([
+    "docs/research/poi-reference-manifest.json",
+    "docs/research/requested-poi-model-brief.md",
+    "app/scene/xinhua-road-landmarks-data.json",
+    "app/scene/xinhua-road-identity-contract.ts",
+  ]);
   for (const source of audit.sources.currentFiles) {
-    assert.equal(sha256(await bytes(source.path)), source.sha256, source.path);
+    const sourceBytes = captureTimeSharedPaths.has(source.path)
+      ? gitBytes(audit.baseCommit, source.path)
+      : await bytes(source.path);
+    assert.equal(sha256(sourceBytes), source.sha256, source.path);
   }
+
+  const [baselineRegistry, currentRegistry] = await Promise.all([
+    Promise.resolve(JSON.parse(
+      gitBytes(audit.baseCommit, "app/scene/xinhua-road-landmarks-data.json"),
+    )),
+    json("app/scene/xinhua-road-landmarks-data.json"),
+  ]);
+  assert.deepEqual(
+    currentRegistry.landmarks.find(({ id }) => id === audit.scope.assetOnly),
+    baselineRegistry.landmarks.find(({ id }) => id === audit.scope.assetOnly),
+    "其他18栋推进共享 registry 时，德必本栋 entry 仍必须与审查基线一致",
+  );
 });
 
 test("manifest 的三张正式参考图与视觉证据边界保持可追溯", async () => {

@@ -119,7 +119,8 @@
         "docs/research/xinhua-villas-211-three-tier-final-disposition.json",
         "docs/research/xinhua-villas-211-hero-readiness-adjudication.json",
         "docs/research/xinhua-villas-211-hero-lineage-member-depth-readiness.json",
-        "docs/research/xinhua-villas-211-local-same-member-evidence-rescue.json"
+        "docs/research/xinhua-villas-211-local-same-member-evidence-rescue.json",
+        "docs/research/xinhua-villas-211-gap-medium-blocker-2026-07-26.json"
       ]
     },
     {
@@ -291,7 +292,8 @@
       "records": [
         "docs/research/debi-fahua-525-final-disposition.json",
         "docs/research/debi-fahua-525-map-candidate.json",
-        "docs/research/debi-fahua-525-overlap-lineage-audit.json"
+        "docs/research/debi-fahua-525-overlap-lineage-audit.json",
+        "docs/research/debi-fahua-525-evidence-gate-v2-audit.json"
       ]
     },
     {
@@ -330,7 +332,8 @@
       "records": [
         "docs/research/fics-xinhua-365-final-gap-audit.json",
         "docs/research/fics-xinhua-365-membership-map-blocker.json",
-        "docs/research/fics-xinhua-365-map-surface-audit.json"
+        "docs/research/fics-xinhua-365-map-surface-audit.json",
+        "docs/research/fics-xinhua-365-exact-compound-audit-2026-07-26.json"
       ]
     },
     {

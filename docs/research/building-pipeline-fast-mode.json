@@ -101,6 +101,7 @@
         "tests/test_xinhua_villas_211_hero_readiness_adjudication.test.mjs",
         "tests/test_xinhua_villas_211_hero_lineage_member_depth_readiness.test.mjs",
         "tests/test_xinhua_villas_211_local_same_member_evidence_rescue.test.mjs",
+        "tests/test_xinhua_villas_211_gap_medium_blocker.test.mjs",
         "tests/test_model_detail_upgrade.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -311,6 +312,7 @@
         "tests/test_debi_fahua_525_final_disposition.test.mjs",
         "tests/test_debi_fahua_525_map_candidate.test.mjs",
         "tests/test_debi_fahua_525_overlap_lineage_audit.test.mjs",
+        "tests/test_debi_fahua_525_evidence_gate_v2_audit.test.mjs",
         "tests/test_requested_poi_models.test.mjs"
       ],
       "glbs": [
@@ -344,6 +346,7 @@
         "tests/test_fics_xinhua_365_final_gap.test.mjs",
         "tests/test_fics_xinhua_365_membership_map_blocker.test.mjs",
         "tests/test_fics_xinhua_365_map_surface_audit.test.mjs",
+        "tests/test_fics_xinhua_365_exact_compound_audit.test.mjs",
         "tests/test_recovery_massing_mcp1_batch.test.mjs",
         "tests/test_recovery_massing_threejs_runtime_batch.test.mjs",
         "scripts/test_fics_xinhua_365_map_calibration.mjs",
