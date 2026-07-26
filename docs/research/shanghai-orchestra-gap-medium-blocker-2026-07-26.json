@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-orchestra",
+  "reviewedAt": "2026-07-26",
+  "mode": "fast-mode-local-only-blocker-handoff",
+  "status": "blocked-no-local-authoritative-compound-or-member-binding",
+  "scope": {
+    "included": [
+      "local-reference-manifest-and-brief",
+      "current-recovery-and-historical-osm-membership-audits",
+      "accepted-massing-mcp1-and-threejs-diagnostic-records",
+      "private-specialty-regression"
+    ],
+    "notPerformed": [
+      "network-browser-or-xiaohongshu-research",
+      "blender-or-mcp-rerun",
+      "massing-rebuild",
+      "hero-or-identity-modeling",
+      "registry-manifest-status-or-runtime-mutation",
+      "trees-decoration-full-map-or-hold-work"
+    ],
+    "sharedFilesModified": false,
+    "binaryModified": false
+  },
+  "verifiedInputs": {
+    "localMembershipRescue": {
+      "path": "docs/research/shanghai-orchestra-osm-membership-rescue-audit.json",
+      "sha256": "ac86366309b410fe3b5b15f7878b7abc913dc5d93185d54fa5af2b055ea686cf"
+    },
+    "membershipDepthAudit": {
+      "path": "docs/research/shanghai-orchestra-osm-membership-deep-audit.json",
+      "sha256": "56101596ce4fd53f7439295a993872ac8e5fd92f49c4bb33beca065d67ddd8b2"
+    },
+    "finalGapAudit": {
+      "path": "docs/research/shanghai-orchestra-final-gap-audit.json",
+      "sha256": "52b8b1784348ba64905eb98d843440eeb0c44a19d645cad27b4d15001d0e5d31"
+    },
+    "mapGate": {
+      "path": "docs/research/shanghai-orchestra-massing-map-gate.json",
+      "sha256": "1c4c91bf6fc86ef04733ee91b542719b61f1485276bd33ca2bfdf7a34fc3718c"
+    }
+  },
+  "retainedAcceptedStage": {
+    "tier": "Massing v2 diagnostic only",
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/shanghai-orchestra-massing.glb",
+      "sha256": "63eb25ca4abcbab0e434adb528ea0f37650495c614833f7b9bd05afbc519484c",
+      "nodes": 5,
+      "triangles": 76,
+      "images": 0
+    },
+    "candidateWayIds": [864505166, 864505168, 864505165, 864505169, 864505163],
+    "mcp1": "pass-shape-only-preserved",
+    "threeDiagnostic": "pass-load-performance-collision-stop-qa-only-preserved",
+    "placement": {
+      "position": [-44.4, 44],
+      "yaw": 2.761592653589793,
+      "scale": 0.88
+    },
+    "action": "retain unchanged; it is not authorized for formal map promotion"
+  },
+  "geometryObserved": {
+    "asphaltOverlap": false,
+    "xinhuaMinimumAsphaltEdgeClearanceSceneUnits": 4.880222,
+    "fahuazhenMinimumAsphaltEdgeClearanceSceneUnits": 10.667135,
+    "candidatePairMinimumGapSceneUnits": 0.798917,
+    "candidatePairIntersectionCount": 0,
+    "adjacentUnknownMinimumGapSceneUnits": 1.169289,
+    "adjacentUnknownIntersectionCount": 0,
+    "startMinimumBuildingClearanceSceneUnits": 7.053485,
+    "startCollisionFree": true
+  },
+  "evidence": {
+    "observed": [
+      "The five selected candidate ways and four adjacent counterexamples are anonymous building=yes footprints in the repository-local OSM snapshots.",
+      "The local named/address query includes Shanghai Orchestra and Xinhua Road 336 but returns zero matching elements.",
+      "The three local TJAD photographs prove an architecture compound but contain no OSM-identifiable footprint, compass, member number or site-plan binding.",
+      "The fixed current, Recovery and enrichment data-tree audit found zero blob containing both a candidate way and Shanghai Orchestra or Xinhua Road 336 identity."
+    ],
+    "inferred": [
+      "The five ways remain a spatially plausible diagnostic compound candidate because their Massing geometry and road clearances are valid.",
+      "The project-authored runtime frame is compatible with a courtyard or compound center, but cannot identify a member or address boundary."
+    ],
+    "unknown": [
+      "Which of all nine adjacent ways form the Xinhua Road 336 compound boundary.",
+      "Which exact ways are buildings 6, 7 and 8 or retained volumes.",
+      "Candidate-specific entrance direction, surveyed height and roof-back geometry."
+    ]
+  },
+  "rejectedShortcuts": [
+    "Proximity, road-facing photographs, renovation-area similarity, authored replacement ranges, runtime placement, height imports, MCP1 and GLB audits cannot prove formal membership.",
+    "The legacy Hero is not derived from the five-way Massing and includes held plaza, wayfinding, brand text, benches, planters, linear lights and paving; it cannot enter MCP2.",
+    "Massing cannot masquerade as Identity."
+  ],
+  "minimumUnblock": [
+    "An OSM full-history or relation/member dump for ways 864505162 through 864505170 and all parent relations, with complete tags and member arrays; or a georeferenced/dimensioned owner, architect, cadastral or survey site plan for Xinhua Road 336.",
+    "The evidence must explicitly list included and excluded ways, compound boundary, building 6/7/8 labels and retained-volume labels, plus source provenance/date.",
+    "An explicit user-annotated OSM map naming every included and excluded way is acceptable authority when recorded as user authority, not primary evidence.",
+    "Only after membership closes: formal map acceptance, a new evidence-backed Hero derived from the accepted member set, MCP2, Identity derivation, MCP3 and three-tier runtime QA."
+  ],
+  "verdict": {
+    "formalMapAcceptanceAuthorized": false,
+    "heroAuthorized": false,
+    "identityAuthorized": false,
+    "mcp2Authorized": false,
+    "mcp3Authorized": false,
+    "runtimeOrRegistryMutationAuthorized": false,
+    "nextGate": "obtain authoritative or user-confirmed included/excluded OSM-way membership",
+    "buildingComplete": false
+  }
+}
