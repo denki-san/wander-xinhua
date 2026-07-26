@@ -40,8 +40,10 @@ test("幸福里中区三档与记录指纹一致且不嵌入图片", () => {
 
 test("幸福里中区 Identity 未建立 final Hero lineage", () => {
   assert.equal(audit.lineage.identityHasExplicitDerivedFrom, false);
+  assert.equal(audit.lineage.massingHasExplicitDerivedFrom, false);
   assert.equal(audit.lineage.identityGeneratedBeforeFinalHero, true);
-  assert.equal(audit.lineage.status, "blocked-provisional");
+  assert.equal(audit.lineage.massingGeneratedBeforeIdentityAndFinalHero, true);
+  assert.equal(audit.lineage.status, "blocked-formal-lineage-proof");
   assert.equal(audit.gates.identity, "blocked-lineage");
 });
 
