@@ -1,0 +1,259 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "ade098eaa4be7a37d766b2867c909885742d6030",
+  "purpose": "close-or-quantify-hero-source-reproducibility-drift",
+  "verdict": {
+    "status": "blocked-exact-sha-texcoord-float-nondeterminism",
+    "exactPublicShaReproduced": false,
+    "exactRoundtripDeterminism": false,
+    "structuralEquivalence": "pass",
+    "visualGeometryEquivalence": "pass-exact-position-normal-index-and-bounds",
+    "reason": "恢复的真实历史生成器在当前 Blender 5.2.0 LTS 下无法连续两次生成相同 GLB；差异只出现在无贴图材质的 TEXCOORD_0 浮点末位，但 strict exact-SHA 门不能因此降级为 pass。"
+  },
+  "scope": {
+    "publicHeroModified": false,
+    "sharedGeneratorModified": false,
+    "sharedRegistryModified": false,
+    "sharedRuntimeModified": false,
+    "fastManifestModified": false,
+    "mapAnchorReviewed": false,
+    "candidateBinariesCommitted": false,
+    "candidateBinaryRetention": "local-ignored-test-artifacts-only",
+    "excluded": [
+      "other buildings",
+      "trees",
+      "decorations",
+      "ordinary OSM",
+      "full-map assets",
+      "Recovery/Hold writes"
+    ]
+  },
+  "sourceRecovery": {
+    "recordedGeneratorSha256": "6ea5fc19f98f6339d83063bafea9c0edd66ca07d2bb171be08f61d63fed3488d",
+    "recordedContentCommit": "869e92d83ea177cd4babe73d61ed5657e8f15ddd",
+    "verifiedGitObjectPath": "scripts/create_xinhua_road_models.py",
+    "verifiedGitObjectSha256": "6ea5fc19f98f6339d83063bafea9c0edd66ca07d2bb171be08f61d63fed3488d",
+    "readOnlyRecoveryPath": "/Users/lei/App_developing/wander-xinhua-all-models-v3/scripts/create_xinhua_road_models.py",
+    "readOnlyRecoverySha256": "6ea5fc19f98f6339d83063bafea9c0edd66ca07d2bb171be08f61d63fed3488d",
+    "frozenGenerator": {
+      "path": "scripts/create_shanghai_cinema_frozen_hero.py",
+      "sha256": "bd2181f28b4e2fae1ad6c2d7940e5ecabf0eb80a0670506e9f0acd368a30d6d7",
+      "sourceSnapshotPolicy": "historical-shared-snapshot-with-isolated-output-and-single-builder-entry",
+      "executableBuilderIds": [
+        "shanghai-cinema"
+      ],
+      "historicalSnapshotContainsInactiveSharedHelpers": true,
+      "historicalBuildFunctionSha256": "5dc8c45732dd9a3fd804ba01d32a9047b37a7993813b95d456a92befb7a674cb",
+      "frozenBuildFunctionSha256": "5dc8c45732dd9a3fd804ba01d32a9047b37a7993813b95d456a92befb7a674cb",
+      "currentSharedBuildFunctionSha256": "5dc8c45732dd9a3fd804ba01d32a9047b37a7993813b95d456a92befb7a674cb",
+      "allowedChangesFromSnapshot": [
+        "English asset-specific filename and provenance docstring",
+        "output redirected under ignored test_artifacts/shanghai-cinema-hero-reproduction",
+        "BUILDERS restricted to shanghai-cinema",
+        "entry rejects every asset ID except shanghai-cinema"
+      ]
+    }
+  },
+  "environment": {
+    "blenderVersion": "5.2.0 LTS",
+    "blenderBuildHash": "fbe6228777e7",
+    "blenderBuildDate": "2026-07-14",
+    "platform": "macOS arm64",
+    "controlledThreads": 1,
+    "command": "/Applications/Blender.app/Contents/MacOS/Blender --background --factory-startup --threads 1 --python-exit-code 1 --python scripts/create_shanghai_cinema_frozen_hero.py -- --asset=shanghai-cinema"
+  },
+  "referenceHero": {
+    "path": "public/models/xinhua-road/shanghai-cinema.glb",
+    "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+    "bytes": 5862660,
+    "jsonChunkSha256": "4dafad8f0fc57c28b7f00fc6e91a357d6325731d5f88860ddcdf8c640b1075f6",
+    "binaryChunkSha256": "dd38faa8f0dbac9f8c4771d8221be5dd782e71f09fd38ddebf8d0b5aacd67230",
+    "nodes": 1,
+    "meshes": 1,
+    "primitives": 13,
+    "triangles": 83820,
+    "materials": 13,
+    "images": 0,
+    "textures": 0,
+    "accessors": 52,
+    "bufferViews": 52,
+    "bounds": {
+      "min": [
+        -19,
+        -0.06000000983476639,
+        -11.800000190734863
+      ],
+      "max": [
+        19,
+        17.225000381469727,
+        14.199999809265137
+      ]
+    },
+    "blend": {
+      "path": "assets/models/source/xinhua-road/shanghai-cinema.blend",
+      "sha256": "fbb13fdb89169101c97bda0f3e5ba9644c70743aa85bd810368b365969db8fd8",
+      "bytes": 1275824
+    }
+  },
+  "controlledRoundtrips": [
+    {
+      "id": "thread-1-run-a",
+      "glbSha256": "d267206e3bca2c28fcf5c4501652fc32a9d5f9257067957655ac23b11c1e6170",
+      "glbBytes": 5862660,
+      "jsonChunkSha256": "4dafad8f0fc57c28b7f00fc6e91a357d6325731d5f88860ddcdf8c640b1075f6",
+      "binaryChunkSha256": "ef126f7671ce717a1640a1d9213f26d493292635f830901e9c98523a8562e62d",
+      "blendSha256": "da3a86bf02346c797134c9bece9e81eb9f3966da77f2666430a9b6de05abe083",
+      "blendBytes": 1269065
+    },
+    {
+      "id": "thread-1-run-b",
+      "glbSha256": "c0d5cc094d4862e502ac3105e9a426fe8a0dff4f788025c9052f67746ef3082d",
+      "glbBytes": 5862660,
+      "jsonChunkSha256": "4dafad8f0fc57c28b7f00fc6e91a357d6325731d5f88860ddcdf8c640b1075f6",
+      "binaryChunkSha256": "8d657570419fdba7543fd9328f10d318059ab738473817d928c29feba851a0ba",
+      "blendSha256": "970a0595ef08f12adee5b362dff2f9310ad705ffa01d17e14212222ded11e027",
+      "blendBytes": 1268915
+    }
+  ],
+  "exactComparison": {
+    "jsonChunk": {
+      "status": "pass-byte-identical-all-three",
+      "sha256": "4dafad8f0fc57c28b7f00fc6e91a357d6325731d5f88860ddcdf8c640b1075f6",
+      "bytes": 13048
+    },
+    "structure": {
+      "status": "pass-exact-all-three",
+      "nodes": 1,
+      "meshes": 1,
+      "primitives": 13,
+      "triangles": 83820,
+      "materials": 13,
+      "images": 0,
+      "textures": 0,
+      "accessors": 52,
+      "bufferViews": 52
+    },
+    "bounds": {
+      "status": "pass-exact-all-three",
+      "deltaReferenceToRunA": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          0,
+          0,
+          0
+        ]
+      },
+      "deltaReferenceToRunB": {
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "max": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "materialOrder": {
+      "status": "pass-exact-all-three",
+      "names": [
+        "影城广场",
+        "影城玻璃",
+        "影城阴影白",
+        "影城象牙白",
+        "影城浅玻璃",
+        "影城金属",
+        "影城深框",
+        "影城花池",
+        "影城绿植",
+        "影城板缝",
+        "影城灯光",
+        "影城座椅木",
+        "影城铺装缝"
+      ]
+    },
+    "binary": {
+      "status": "blocked",
+      "referenceToRunA": {
+        "differingBytes": 232,
+        "differingAccessorIndexes": [
+          18,
+          22,
+          42
+        ]
+      },
+      "referenceToRunB": {
+        "differingBytes": 156,
+        "differingAccessorIndexes": [
+          18,
+          22,
+          38,
+          42
+        ]
+      },
+      "runAToRunB": {
+        "differingBytes": 108,
+        "differingAccessorIndexes": [
+          22,
+          38,
+          42
+        ]
+      },
+      "onlySemantic": "TEXCOORD_0",
+      "nonTexcoordAccessorDifferences": [],
+      "maximumAbsoluteFloatDelta": 5.960464477539063e-8,
+      "affectedMaterials": [
+        "影城浅玻璃",
+        "影城金属",
+        "影城板缝",
+        "影城灯光"
+      ],
+      "positionDifferences": 0,
+      "normalDifferences": 0,
+      "indexDifferences": 0,
+      "interpretation": "当前 Blender 对无运行时贴图用途的 UV 浮点末位仍非字节稳定；视觉几何一致不能替代 exact SHA。"
+    }
+  },
+  "auditTool": {
+    "path": "scripts/audit_shanghai_cinema_hero_reproduction.mjs",
+    "sha256": "086160d1f984d1de81c4aa56a7fb28b7ced4f6d9a2e524163b076665a9d1b590",
+    "command": "node scripts/audit_shanghai_cinema_hero_reproduction.mjs --reference public/models/xinhua-road/shanghai-cinema.glb --roundtrip-a <run-a.glb> --roundtrip-b <run-b.glb>"
+  },
+  "fixedViews": {
+    "canonical": {
+      "path": "test_artifacts/shanghai-cinema-hero-reproduction/previews/test_shanghai-cinema_canonical_preview.png",
+      "sha256": "4ab7e5c24ce9a70b072e5b16d538dc0cf84a4738e1631ea857167f44e40612ea",
+      "bytes": 771773,
+      "visualReview": "pass"
+    },
+    "side": {
+      "path": "test_artifacts/shanghai-cinema-hero-reproduction/previews/test_shanghai-cinema_side_preview.png",
+      "sha256": "4043479d75354749b19816a73ffeb95c228df616598929371705a01fe4dc82c4",
+      "bytes": 801090,
+      "visualReview": "pass"
+    },
+    "street": {
+      "path": "test_artifacts/shanghai-cinema-hero-reproduction/previews/test_shanghai-cinema_street_preview.png",
+      "sha256": "f565f9e1f02c808b22e19d7d45a51d2fd21828292720cbeb35bfcf8762103cd1",
+      "bytes": 763414,
+      "visualReview": "pass"
+    }
+  },
+  "gateDecision": {
+    "heroBinaryRetained": true,
+    "heroMcp2Retained": true,
+    "sourceSnapshotRecovered": true,
+    "exactSourceReproduction": "blocked",
+    "publicHeroReplacementAuthorized": false,
+    "mapGateChanged": false,
+    "overall": "blocked-exact-sha-texcoord-float-nondeterminism"
+  }
+}
