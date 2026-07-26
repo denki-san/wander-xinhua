@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-pocket-park",
+  "tier": "identity-v1",
+  "activeScope": "active-18-buildings",
+  "reviewedAt": "2026-07-26T14:55:19+08:00",
+  "reviewedBy": "main-window-xhigh",
+  "status": "pass",
+  "inputs": {
+    "heroMcp2Record": "docs/research/xinhua-pocket-park-blender-mcp-gates-v2.json",
+    "frozenHeroSha256": "c6ef6f107e3c1b6555784858dea2e46da8813e68aec589d04d0d3c10aeb8a7c7",
+    "identityBuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/identity-v1/xinhua-pocket-park-identity.json",
+      "sha256": "c2ec2be12808652b168d922db5fad6f5e0443b1c0cb1e86413c504d375dd46b3"
+    },
+    "editableSource": {
+      "path": "assets/models/source/tiers/xinhua-road/identity-v1/xinhua-pocket-park-identity.blend",
+      "sha256": "49402a4813c66cfa7fabab66637409d90dcf93f10a1e0cd3f9bdf0c378ec3751"
+    },
+    "runtimeAsset": {
+      "path": "public/models/tiers/xinhua-road/identity-v1/xinhua-pocket-park-identity.glb",
+      "sha256": "892677bb8f336ba8d504225fcaf207472829a85e4fa4424552777f0ecedf198d",
+      "bytes": 41164,
+      "triangles": 672,
+      "materials": 3,
+      "images": 0
+    }
+  },
+  "mcp3": {
+    "interactiveReview": "Blender MCP",
+    "fallbackUsed": false,
+    "sceneInspection": {
+      "objects": 3,
+      "meshes": 3,
+      "materials": 3,
+      "objectNames": [
+        "xinhua-pocket-park-identity-left-wall",
+        "xinhua-pocket-park-identity-right-wall",
+        "xinhua-pocket-park-identity-entrance-header"
+      ],
+      "rootTransforms": "pass-all-zero-rotation-unit-scale",
+      "vertices": 448,
+      "polygons": 336,
+      "leftWallBoundsBlender": {
+        "min": [-0.8399999737739563, -4.599999904632568, 0],
+        "max": [-0.6800000071525574, 4.599999904632568, 1.659999966621399]
+      },
+      "rightWallBoundsBlender": {
+        "min": [0.6800000071525574, -4.599999904632568, 0],
+        "max": [0.8399999737739563, 4.599999904632568, 1.659999966621399]
+      },
+      "entranceHeaderBoundsBlender": {
+        "min": [-0.8399999737739563, -4.599999904632568, 1.3300000429153442],
+        "max": [0.8399999737739563, -4.360000133514404, 1.659999966621399]
+      }
+    },
+    "interactiveFixedViews": [
+      "front-orthographic",
+      "right-orthographic",
+      "top-orthographic",
+      "saved-perspective"
+    ],
+    "checks": {
+      "massingOriginDirectionAndEnvelope": "pass",
+      "twoContinuousFacetedMirrorWalls": "pass-readable",
+      "weatheringSteelBands": "pass-readable",
+      "entranceHeader": "pass-readable",
+      "centerPassage": "pass-open-1.36-local-scene-units",
+      "materialAndBlackFaces": "pass",
+      "buildingOnlyScope": "pass-no-planting-bench-panels-lighting-paving-or-decoration",
+      "texturePolicy": "pass-zero-images"
+    },
+    "acceptedInteractiveChanges": [],
+    "blendSavedByMcp": false
+  },
+  "gateDecision": {
+    "mcp3": "pass",
+    "runtimeIntegrationAuthorized": true,
+    "threeJs": "pending-main-window-single-page",
+    "performanceClaim": "none-before-runtime-sampling"
+  }
+}

@@ -280,10 +280,86 @@ export const BUILDING_MASSING_QA_CANDIDATES = Object.freeze({
   }),
 });
 
+export const ACCEPTED_BUILDING_TIER_QA = Object.freeze({
+  "hudec-memorial": Object.freeze({
+    hero: Object.freeze({
+      modelPath:
+        "/models/requested-pois/hudec-memorial-v2-hero.glb"
+        + "?v=20260726-hero-598b2ba19e24",
+      buildRecord:
+        "docs/research/build-records/tiers/xinhua-road/hero/"
+        + "hudec-memorial-v2-hero.json",
+      localObstacles: Object.freeze([
+        Object.freeze({ minX: -4.608, maxX: 4.104, minZ: -2.988, maxZ: 2.052 }),
+        Object.freeze({ minX: 2.016, maxX: 4.752, minZ: -3.42, maxZ: 1.62 }),
+        Object.freeze({ minX: -4.5, maxX: -0.9, minZ: -3.762, maxZ: -1.35 }),
+        Object.freeze({ minX: 0.738, maxX: 1.1124, minZ: 1.926, maxZ: 3.186 }),
+        Object.freeze({ minX: 2.7036, maxX: 3.078, minZ: 1.926, maxZ: 3.186 }),
+      ]),
+    }),
+    identity: Object.freeze({
+      modelPath:
+        "/models/tiers/xinhua-road/identity-v1/hudec-memorial-identity.glb"
+        + "?v=20260726-identity-867f336824f6",
+      buildRecord:
+        "docs/research/build-records/tiers/xinhua-road/identity-v1/"
+        + "hudec-memorial-identity.json",
+      localObstacles: Object.freeze([
+        Object.freeze({ minX: -4.608, maxX: 4.104, minZ: -2.988, maxZ: 2.052 }),
+        Object.freeze({ minX: 2.016, maxX: 4.752, minZ: -3.42, maxZ: 1.62 }),
+        Object.freeze({ minX: -4.5, maxX: -0.9, minZ: -3.762, maxZ: -1.35 }),
+        Object.freeze({ minX: 0.738, maxX: 1.1124, minZ: 1.926, maxZ: 3.186 }),
+        Object.freeze({ minX: 2.7036, maxX: 3.078, minZ: 1.926, maxZ: 3.186 }),
+      ]),
+    }),
+  }),
+  "xinhua-pocket-park": Object.freeze({
+    hero: Object.freeze({
+      modelPath:
+        "/models/tiers/xinhua-road/hero-v2/xinhua-pocket-park-hero.glb"
+        + "?v=20260726-hero-c6ef6f107e3c",
+      buildRecord:
+        "docs/research/build-records/tiers/xinhua-road/hero-v2/"
+        + "xinhua-pocket-park-hero.json",
+    }),
+    identity: Object.freeze({
+      modelPath:
+        "/models/tiers/xinhua-road/identity-v1/"
+        + "xinhua-pocket-park-identity.glb"
+        + "?v=20260726-identity-892677bb8f33",
+      buildRecord:
+        "docs/research/build-records/tiers/xinhua-road/identity-v1/"
+        + "xinhua-pocket-park-identity.json",
+    }),
+  }),
+});
+
 export function resolveBuildingMassingQa(search = "") {
   const params = new URLSearchParams(search);
   if (params.get("qaModelTier") !== "massing") return null;
   const assetId = params.get("qaModelId");
   if (!assetId) return null;
   return BUILDING_MASSING_QA_CANDIDATES[assetId] ?? null;
+}
+
+export function resolveBuildingTierQa(search = "") {
+  const params = new URLSearchParams(search);
+  const assetId = params.get("qaModelId");
+  const requestedTier = params.get("qaModelTier");
+  if (!assetId || !requestedTier) return null;
+  if (requestedTier === "massing") {
+    return resolveBuildingMassingQa(search);
+  }
+  if (requestedTier !== "hero" && requestedTier !== "identity") return null;
+  const shared = BUILDING_MASSING_QA_CANDIDATES[assetId];
+  const tier = ACCEPTED_BUILDING_TIER_QA[assetId]?.[requestedTier];
+  if (!shared || !tier) return null;
+  return Object.freeze({
+    ...shared,
+    ...tier,
+    requestedTier,
+    fallbackTier: requestedTier === "hero" ? "identity" : "massing",
+    forcedFallback:
+      params.get("qaActiveFallback") === `${assetId}:${requestedTier}`,
+  });
 }

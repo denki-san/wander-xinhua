@@ -347,7 +347,7 @@ test("生产主世界让全部建筑遵守 Massing、Identity、Hero 三层和�
   );
   assert.match(roadMassing, /landmark\.id === "film-art-center"/);
   assert.match(roadMassing, /position=\{localPosition\}/);
-  assert.match(roadMassing, /usesDerivedIdentity \? "derived-glb"/);
+  assert.match(roadMassing, /usesDerivedIdentity[\s\S]*"derived-identity-glb"/);
   assert.match(roadMassing, /position=\{programmaticLocalPosition\}/);
   assert.match(roadMassing, /fallback=\{productionIdentityFallback\}/);
   assert.doesNotMatch(roadMassing, /position=\{\[centerX, 0, centerZ\]\}/);

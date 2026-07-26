@@ -5,7 +5,7 @@
   "tier": "identity",
   "version": "identity-v1",
   "generatedAt": "2026-07-26",
-  "status": "identity-v1-candidate-pending-main-window-xhigh-mcp3",
+  "status": "identity-v1-mcp3-pass-runtime-pending",
   "scope": {
     "modelAssets": 1,
     "runtimeInstancesCreated": 0,
@@ -340,7 +340,8 @@
     "glbAudit": "pass",
     "fixedCameraPreviews": "pass-generated-runtime-independent",
     "heroMcp2": "pass-retained-main-window-xhigh",
-    "mcp3": "pending-main-window-xhigh",
+    "mcp3": "pass-main-window-xhigh",
+    "mcp3Record": "docs/research/xinhua-pocket-park-blender-mcp3-gate-v1.json",
     "threeJsIdentity": "pending-main-window",
     "fallbackPerformanceCollision": "pending-main-window",
     "runtimeClaimed": false,

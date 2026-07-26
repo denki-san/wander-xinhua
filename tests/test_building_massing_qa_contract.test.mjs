@@ -5,6 +5,7 @@ import test from "node:test";
 import {
   BUILDING_MASSING_QA_CANDIDATES,
   resolveBuildingMassingQa,
+  resolveBuildingTierQa,
 } from "../app/scene/building-massing-qa-contract.mjs";
 
 test("Massing 候选 QA 只允许18栋内已登记的建筑和精确档位", () => {
@@ -210,7 +211,7 @@ test("公共运行时只在显式 QA 深链替换单栋模型，默认生产入�
     new URL("../app/scene/xinhua-world.tsx", import.meta.url),
     "utf8",
   );
-  assert.match(source, /resolveBuildingMassingQa/);
+  assert.match(source, /resolveBuildingTierQa/);
   assert.match(source, /buildingMassingQaActive/);
   assert.match(source, /qaAssetId=\{landmark\.id\}/);
   assert.match(source, /qaTier=\{buildingMassingQaActive\.requestedTier\}/);
@@ -233,4 +234,34 @@ test("公共运行时只在显式 QA 深链替换单栋模型，默认生产入�
   assert.match(worldSource, /parameters\.get\("qaMoveTarget"\)/);
   assert.match(worldSource, /qaMoveTarget\.x - currentPosition\.x/);
   assert.match(worldSource, /root\.dataset\.xinhuaQaMovement/);
+});
+
+test("邬达克与口袋公园 QA 支持三档和逐级确定性 fallback", () => {
+  for (const assetId of ["hudec-memorial", "xinhua-pocket-park"]) {
+    const hero = resolveBuildingTierQa(
+      `?qaModelId=${assetId}&qaModelTier=hero`,
+    );
+    const identity = resolveBuildingTierQa(
+      `?qaModelId=${assetId}&qaModelTier=identity`,
+    );
+    const massing = resolveBuildingTierQa(
+      `?qaModelId=${assetId}&qaModelTier=massing`,
+    );
+    assert.equal(hero?.requestedTier, "hero");
+    assert.equal(hero?.fallbackTier, "identity");
+    assert.equal(identity?.requestedTier, "identity");
+    assert.equal(identity?.fallbackTier, "massing");
+    assert.equal(massing?.requestedTier, "massing");
+    assert.equal(
+      resolveBuildingTierQa(
+        `?qaModelId=${assetId}&qaModelTier=hero`
+        + `&qaActiveFallback=${assetId}:hero`,
+      )?.forcedFallback,
+      true,
+    );
+  }
+  assert.equal(
+    resolveBuildingTierQa("?qaModelId=plane-tree&qaModelTier=hero"),
+    null,
+  );
 });

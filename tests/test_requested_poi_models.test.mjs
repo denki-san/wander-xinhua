@@ -188,7 +188,7 @@ test("五组用户指定地点均成为 POI，并保留六个独立可识别模�
     ["FICS新华365", "德必法华525", "新华·社区营造中心", "新华路口袋公园", "法华遗韵", "邬达克纪念馆"].sort(),
   );
   for (const landmark of requested) {
-    assert.match(landmark.model, /^\/models\/requested-pois\/.+\.glb$/);
+    assert.match(landmark.model, /^\/models\/.+\.glb$/);
     assert.ok(landmark.labelHeight > 4, `${landmark.name} 必须有独立 POI 标签高度`);
     assert.ok(landmark.positioning, `${landmark.name} 必须记录落位证据`);
     assert.ok(landmark.localObstacles.length >= 2, `${landmark.name} 必须使用拆分碰撞`);
@@ -197,16 +197,23 @@ test("五组用户指定地点均成为 POI，并保留六个独立可识别模�
   assert.deepEqual(fics.aliases, ["xinhua365"]);
   assert.equal(fics.localObstacles.length, 6, "FICS 应按多栋建筑拆分碰撞");
   assert.deepEqual(fics.labelOffset, [10, -2], "FICS 标签必须避开相邻社区中心标签");
-  for (const id of [
-    "hudec-memorial",
-    "xinhua-pocket-park",
-    "xinhua-community-center",
-    "debi-fahua-525",
-    "fahua-heritage",
-    "fics-xinhua-365",
-  ]) {
+  const expectedCacheVersions = {
+    "hudec-memorial": "20260726-hero-598b2ba19e24",
+    "xinhua-pocket-park": "20260726-hero-c6ef6f107e3c",
+    "xinhua-community-center": "20260718-detail-1",
+    "debi-fahua-525": "20260718-detail-1",
+    "fahua-heritage": "20260718-detail-1",
+    "fics-xinhua-365": "20260718-detail-1",
+  };
+  for (const [id, expectedCacheVersion] of Object.entries(
+    expectedCacheVersions,
+  )) {
     const landmark = requested.find((candidate) => candidate.id === id);
-    assert.equal(landmark.cacheVersion, "20260718-detail-1", `${id} 必须刷新细节升级后的模型缓存`);
+    assert.equal(
+      landmark.cacheVersion,
+      expectedCacheVersion,
+      `${id} 必须冻结当前生产 Hero 的缓存版本`,
+    );
   }
 });
 
@@ -304,7 +311,18 @@ test("法华遗韵只有正面证据，未知面不得被 legacy 资产补写成
     entry.referencePhotos[0].path,
     fahuaDisposition.inputs.referencePhoto.path,
   );
-  for (const input of Object.values(fahuaDisposition.inputs)) {
+  const sharedCheckpointInputs = new Set([
+    "publicRegistry",
+    "identityContract",
+    "identityRecipeSource",
+  ]);
+  for (const [name, input] of Object.entries(fahuaDisposition.inputs)) {
+    if (sharedCheckpointInputs.has(name)) {
+      // 法华 checkpoint 不拥有这些公共文件；其他建筑由主窗口接入后，
+      // 当前文件合法变化，但 review-time 指纹必须继续保留。
+      assert.match(input.sha256, /^[0-9a-f]{64}$/);
+      continue;
+    }
     assert.equal(await sha256(input.path), input.sha256, input.path);
   }
   assert.equal(fahuaDisposition.evidenceGate.coverage.canonicalFront, "pass-preserved");

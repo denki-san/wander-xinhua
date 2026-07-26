@@ -1,6 +1,6 @@
 import type { MapObstacle, MapPolygonPoint } from "./world-math";
 import { XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES } from "./xinhua-road-placement.mjs";
-import { resolveBuildingMassingQa } from "./building-massing-qa-contract.mjs";
+import { resolveBuildingTierQa } from "./building-massing-qa-contract.mjs";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
 
 export type LandmarkPlacement = {
@@ -44,7 +44,7 @@ type BuildingMassingQaCandidate = {
   localObstacles?: readonly MapObstacle[];
 };
 
-const ACTIVE_BUILDING_MASSING_QA = resolveBuildingMassingQa(
+const ACTIVE_BUILDING_MASSING_QA = resolveBuildingTierQa(
   typeof window === "undefined" ? "" : window.location.search,
 ) as BuildingMassingQaCandidate | null;
 

@@ -42,7 +42,7 @@ import {
   resolveOneStepGardenQa,
 } from "./one-step-garden-tier-contract.mjs";
 import {
-  resolveBuildingMassingQa,
+  resolveBuildingTierQa,
 } from "./building-massing-qa-contract.mjs";
 import {
   OneStepGardenRuntimeAsset,
@@ -104,6 +104,8 @@ type BuildingMassingQaCandidate = {
   assetId: string;
   requestedTier: string;
   modelPath: string;
+  forcedFallback?: boolean;
+  fallbackTier?: "identity" | "massing";
   placement?: {
     position: readonly [number, number];
     yaw: number;
@@ -603,6 +605,8 @@ function GlbModel({
     const root = document.documentElement;
     root.dataset.xinhuaRoadQaAsset = qaAssetId;
     root.dataset.xinhuaRoadQaTier = qaTier;
+    root.dataset.xinhuaRoadQaRequestedTier = qaTier;
+    root.dataset.xinhuaRoadQaLoadedTier = qaTier;
     root.dataset.xinhuaRoadQaStatus = "loaded";
     root.dataset.xinhuaRoadQaSource = path;
     root.dataset.xinhuaRoadQaBounds = JSON.stringify({
@@ -613,6 +617,8 @@ function GlbModel({
       detail: {
         assetId: qaAssetId,
         tier: qaTier,
+        requestedTier: qaTier,
+        loadedTier: qaTier,
         status: "loaded",
         source: path,
       },
@@ -621,6 +627,8 @@ function GlbModel({
       if (root.dataset.xinhuaRoadQaSource !== path) return;
       delete root.dataset.xinhuaRoadQaAsset;
       delete root.dataset.xinhuaRoadQaTier;
+      delete root.dataset.xinhuaRoadQaRequestedTier;
+      delete root.dataset.xinhuaRoadQaLoadedTier;
       delete root.dataset.xinhuaRoadQaStatus;
       delete root.dataset.xinhuaRoadQaSource;
       delete root.dataset.xinhuaRoadQaBounds;
@@ -782,24 +790,41 @@ function useDistanceHeroLandmarkIds({
 function BuildingQaFallback({
   assetId,
   tier,
+  loadedTier,
   source,
   children,
 }: {
   assetId: string;
   tier: string;
+  loadedTier?: string;
   source: string;
   children: ReactNode;
 }) {
+  const qaFrameSample = useRef({
+    startedAt: 0,
+    frames: 0,
+    complete: false,
+  });
   useEffect(() => {
     const root = document.documentElement;
+    const resolvedLoadedTier = loadedTier ?? tier;
+    qaFrameSample.current = {
+      startedAt: 0,
+      frames: 0,
+      complete: false,
+    };
     root.dataset.xinhuaRoadQaAsset = assetId;
     root.dataset.xinhuaRoadQaTier = tier;
+    root.dataset.xinhuaRoadQaRequestedTier = tier;
+    root.dataset.xinhuaRoadQaLoadedTier = resolvedLoadedTier;
     root.dataset.xinhuaRoadQaStatus = "fallback";
     root.dataset.xinhuaRoadQaSource = source;
     window.dispatchEvent(new CustomEvent("xinhua:active-asset-runtime", {
       detail: {
         assetId,
         tier,
+        requestedTier: tier,
+        loadedTier: resolvedLoadedTier,
         status: "fallback",
         source,
       },
@@ -811,10 +836,38 @@ function BuildingQaFallback({
       ) return;
       delete root.dataset.xinhuaRoadQaAsset;
       delete root.dataset.xinhuaRoadQaTier;
+      delete root.dataset.xinhuaRoadQaRequestedTier;
+      delete root.dataset.xinhuaRoadQaLoadedTier;
       delete root.dataset.xinhuaRoadQaStatus;
       delete root.dataset.xinhuaRoadQaSource;
+      delete root.dataset.xinhuaRoadQaFrameSample;
     };
-  }, [assetId, source, tier]);
+  }, [assetId, loadedTier, source, tier]);
+  useFrame(() => {
+    const root = document.documentElement;
+    if (
+      root.dataset.xinhuaRoadQaSource !== source
+      || root.dataset.xinhuaRoadQaStatus !== "fallback"
+    ) return;
+    const sample = qaFrameSample.current;
+    if (sample.complete || document.visibilityState !== "visible") return;
+    const now = window.performance.now();
+    if (sample.startedAt === 0) sample.startedAt = now;
+    sample.frames += 1;
+    if (sample.frames < 120) return;
+    const durationMs = now - sample.startedAt;
+    sample.complete = true;
+    root.dataset.xinhuaRoadQaFrameSample = JSON.stringify({
+      viewport: [window.innerWidth, window.innerHeight],
+      visible: true,
+      frames: sample.frames,
+      durationMs,
+      fps: durationMs > 0 ? sample.frames * 1_000 / durationMs : 0,
+      buildMode: "browser-runtime-fallback",
+      requestedTier: tier,
+      loadedTier: loadedTier ?? tier,
+    });
+  });
   return children;
 }
 
@@ -834,7 +887,7 @@ export function XinhuaRoadLandmarks({
   const house315Qa = resolveHouse315Qa(
     typeof window === "undefined" ? "" : window.location.search,
   );
-  const buildingMassingQa = resolveBuildingMassingQa(
+  const buildingMassingQa = resolveBuildingTierQa(
     typeof window === "undefined" ? "" : window.location.search,
   ) as BuildingMassingQaCandidate | null;
   return (
@@ -903,9 +956,13 @@ export function XinhuaRoadLandmarks({
           <BuildingQaFallback
             assetId={landmark.id}
             tier={buildingMassingQaActive.requestedTier}
+            loadedTier={buildingMassingQaActive.fallbackTier}
             source={modelPath}
           >
-            <LandmarkProgressiveProxy landmark={landmark} identity />
+            <LandmarkProgressiveProxy
+              landmark={landmark}
+              identity={buildingMassingQaActive.fallbackTier === "identity"}
+            />
           </BuildingQaFallback>
         ) : null;
         const oneStepRequestedTier = (
@@ -964,7 +1021,9 @@ export function XinhuaRoadLandmarks({
           >
             <group position={[x, y, z]} rotation-y={yaw} scale={scale}>
               {shouldMountActiveModel && (
-                buildingMassingQaActive ? (
+                buildingMassingQaActive?.forcedFallback ? (
+                  buildingMassingFallback
+                ) : buildingMassingQaActive ? (
                   <ProgressiveFeatureBoundary
                     resetKey={modelPath}
                     fallback={buildingMassingFallback}
@@ -1080,7 +1139,7 @@ export default function XinhuaRoadFullLayer({
   const house315Qa = resolveHouse315Qa(
     typeof window === "undefined" ? "" : window.location.search,
   );
-  const buildingMassingQa = resolveBuildingMassingQa(
+  const buildingMassingQa = resolveBuildingTierQa(
     typeof window === "undefined" ? "" : window.location.search,
   );
   if (!filmArtQa && !oneStepQa && !house315Qa && !buildingMassingQa) {

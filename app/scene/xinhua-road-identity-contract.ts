@@ -106,6 +106,45 @@ export const FILM_ART_CENTER_IDENTITY_MODEL_PATH =
 export const FILM_ART_CENTER_IDENTITY_CACHE_VERSION =
   "20260725-film-art-identity-1";
 
+export const ACCEPTED_DERIVED_BUILDING_TIERS = {
+  "hudec-memorial": {
+    hero: {
+      path: "/models/requested-pois/hudec-memorial-v2-hero.glb",
+      cacheVersion: "20260726-hero-598b2ba19e24",
+    },
+    identity: {
+      path:
+        "/models/tiers/xinhua-road/identity-v1/"
+        + "hudec-memorial-identity.glb",
+      cacheVersion: "20260726-identity-867f336824f6",
+    },
+    massing: {
+      path: "/models/requested-pois/hudec-memorial-massing.glb",
+      cacheVersion: "20260726-massing-772ce8a8445a",
+    },
+  },
+  "xinhua-pocket-park": {
+    hero: {
+      path:
+        "/models/tiers/xinhua-road/hero-v2/"
+        + "xinhua-pocket-park-hero.glb",
+      cacheVersion: "20260726-hero-c6ef6f107e3c",
+    },
+    identity: {
+      path:
+        "/models/tiers/xinhua-road/identity-v1/"
+        + "xinhua-pocket-park-identity.glb",
+      cacheVersion: "20260726-identity-892677bb8f33",
+    },
+    massing: {
+      path:
+        "/models/tiers/xinhua-road/massing-v2/"
+        + "xinhua-pocket-park-massing.glb",
+      cacheVersion: "20260726-massing-cc89e36e6839",
+    },
+  },
+} as const;
+
 export type XinhuaRoadIdentityStrategy =
   | "programmatic-miniature"
   | "custom-landmark-hybrid"
@@ -164,6 +203,9 @@ function buildingQualityEntry(
   const filmArtCenter = landmark.id === "film-art-center";
   const oneStepGarden = landmark.id === "one-step-garden";
   const house315 = landmark.id === "house-315";
+  const acceptedDerived = ACCEPTED_DERIVED_BUILDING_TIERS[
+    landmark.id as keyof typeof ACCEPTED_DERIVED_BUILDING_TIERS
+  ];
   return {
     buildingId: landmark.id,
     hero: {
@@ -177,7 +219,7 @@ function buildingQualityEntry(
       },
     },
     identity: {
-      strategy: oneStepGarden || house315
+      strategy: oneStepGarden || house315 || acceptedDerived
         ? "derived-glb"
         : shanghaiCinema
           ? "custom-landmark-hybrid"
@@ -185,7 +227,9 @@ function buildingQualityEntry(
             ? "derived-glb"
           : "programmatic-miniature",
       recipe: xinhuaRoadIdentityKind(landmark.id),
-      model: oneStepGarden || house315
+      model: acceptedDerived
+        ? acceptedDerived.identity.path
+        : oneStepGarden || house315
         ? (
           oneStepGarden
             ? ONE_STEP_GARDEN_TIERS.identity.path
@@ -196,7 +240,9 @@ function buildingQualityEntry(
           : filmArtCenter
             ? FILM_ART_CENTER_IDENTITY_MODEL_PATH
           : undefined,
-      cacheVersion: oneStepGarden || house315
+      cacheVersion: acceptedDerived
+        ? acceptedDerived.identity.cacheVersion
+        : oneStepGarden || house315
         ? (
           oneStepGarden
             ? ONE_STEP_GARDEN_TIERS.identity.cacheVersion
@@ -210,14 +256,16 @@ function buildingQualityEntry(
       requiredBeforeMapVisible: true,
     },
     massing: {
-      strategy: oneStepGarden || house315
+      strategy: oneStepGarden || house315 || acceptedDerived
         ? "derived-glb"
         : shanghaiCinema
           ? "formal-glb"
           : "bounds-proxy",
       visibility: "cover-only",
       localBounds: landmark.localBounds,
-      model: oneStepGarden || house315
+      model: acceptedDerived
+        ? acceptedDerived.massing.path
+        : oneStepGarden || house315
         ? (
           oneStepGarden
             ? ONE_STEP_GARDEN_TIERS.massing.path
@@ -226,7 +274,9 @@ function buildingQualityEntry(
         : shanghaiCinema
           ? SHANGHAI_CINEMA_MASSING_MODEL_PATH
           : undefined,
-      cacheVersion: oneStepGarden || house315
+      cacheVersion: acceptedDerived
+        ? acceptedDerived.massing.cacheVersion
+        : oneStepGarden || house315
         ? (
           oneStepGarden
             ? ONE_STEP_GARDEN_TIERS.massing.cacheVersion

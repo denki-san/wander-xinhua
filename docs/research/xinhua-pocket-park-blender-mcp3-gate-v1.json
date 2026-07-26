@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-pocket-park",
+  "tier": "identity",
+  "recordedAt": "2026-07-26T14:50:00+08:00",
+  "status": "pass-main-window-xhigh",
+  "source": {
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/identity-v1/xinhua-pocket-park-identity.blend",
+      "sha256": "49402a4813c66cfa7fabab66637409d90dcf93f10a1e0cd3f9bdf0c378ec3751"
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/identity-v1/xinhua-pocket-park-identity.glb",
+      "sha256": "892677bb8f336ba8d504225fcaf207472829a85e4fa4424552777f0ecedf198d",
+      "bytes": 41164,
+      "triangles": 672,
+      "materials": 3,
+      "images": 0
+    },
+    "heroMcp2Record": "docs/research/xinhua-pocket-park-blender-mcp-gates-v2.json"
+  },
+  "mcpSession": {
+    "method": "atomic-open-fingerprint-and-three-view-render",
+    "sharedSceneAssumedStableAcrossCalls": false,
+    "savedBlend": false,
+    "renderEngine": "BLENDER_EEVEE",
+    "sceneFingerprint": {
+      "meshNames": [
+        "xinhua-pocket-park-identity-left-wall",
+        "xinhua-pocket-park-identity-right-wall",
+        "xinhua-pocket-park-identity-entrance-header"
+      ],
+      "meshCount": 3,
+      "materialCount": 3,
+      "materials": [
+        "xinhua-pocket-park-identity-dark-seam",
+        "xinhua-pocket-park-identity-mirror",
+        "xinhua-pocket-park-identity-weathering-steel"
+      ],
+      "rootTransform": "normalized",
+      "bounds": {
+        "min": [
+          -0.84,
+          0.0,
+          -4.6
+        ],
+        "max": [
+          0.84,
+          1.66,
+          4.6
+        ]
+      }
+    }
+  },
+  "fixedViews": {
+    "canonical": {
+      "path": "test_artifacts/all-models/identity-v1/xinhua-pocket-park/mcp3/test_xinhua_pocket_park_identity_v1_mcp3_canonical_atomic.png",
+      "sha256": "92a0f0331c1694919f2971e4ad0bf44c114e57af861c23ac506ce55fc2087c04",
+      "bytes": 535313,
+      "verdict": "pass-paired-faceted-walls-wave-bands-header-and-open-path-readable"
+    },
+    "side": {
+      "path": "test_artifacts/all-models/identity-v1/xinhua-pocket-park/mcp3/test_xinhua_pocket_park_identity_v1_mcp3_side_atomic.png",
+      "sha256": "afce5a8df91b092650b77a55ef029718721cca1b2261a49a55d0e5795b028c71",
+      "bytes": 519304,
+      "verdict": "pass-full-depth-wave-profile-and-seam-rhythm-readable"
+    },
+    "detail": {
+      "path": "test_artifacts/all-models/identity-v1/xinhua-pocket-park/mcp3/test_xinhua_pocket_park_identity_v1_mcp3_detail_atomic.png",
+      "sha256": "0c4f414958a4242f504cf1603820372a52ec29609fd46f397d939f21c0d4a4c3",
+      "bytes": 533570,
+      "verdict": "pass-entrance-header-open-ground-level-passage-and-two-wall-separation-readable"
+    }
+  },
+  "continuity": {
+    "heroIdentityEnvelope": "pass",
+    "originGroundFront": "pass",
+    "centerPassage": {
+      "minimumLocalWidth": 1.36,
+      "runtimeMeters": 3.23136,
+      "verdict": "pass-open"
+    },
+    "preservedIdentityCues": [
+      "paired continuous faceted mirror walls",
+      "weathering-steel wave bands",
+      "mirror upper silhouette",
+      "weathering-steel entrance header",
+      "open center passage"
+    ],
+    "excludedScope": [
+      "plants",
+      "trees",
+      "bench",
+      "rotating panels",
+      "lights",
+      "paving",
+      "decorations",
+      "adjacent buildings",
+      "full-map assets"
+    ]
+  },
+  "gates": {
+    "identityStructure": "pass",
+    "identityVisual": "pass",
+    "identityBudget": "pass",
+    "mcp3": "pass",
+    "threeJsIdentity": "pending-main-window-runtime-integration",
+    "overallBuilding": "in-progress"
+  }
+}

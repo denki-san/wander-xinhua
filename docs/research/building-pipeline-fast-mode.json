@@ -193,16 +193,24 @@
       "tests": [
         "tests/test_building_massing_qa_contract.test.mjs",
         "tests/test_hudec_memorial_v2.test.mjs",
+        "tests/test_hudec_memorial_identity_v1.test.mjs",
+        "tests/test_main_window_identity_mcp3_batch.test.mjs",
+        "tests/test_main_window_mcp3_identity_batch.test.mjs",
         "tests/test_hudec_memorial_final_disposition.test.mjs",
         "tests/test_requested_poi_models.test.mjs"
       ],
       "glbs": [
-        "public/models/requested-pois/hudec-memorial.glb",
+        "public/models/requested-pois/hudec-memorial-v2-hero.glb",
+        "public/models/tiers/xinhua-road/identity-v1/hudec-memorial-identity.glb",
         "public/models/requested-pois/hudec-memorial-massing.glb"
       ],
       "runtimeRoutes": [
         "/?start=hudec&cameraQa=1&qaAutoStart=1",
-        "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=massing&cameraQa=1&qaAutoStart=1"
+        "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=hero&cameraQa=1&qaAutoStart=1",
+        "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=identity&cameraQa=1&qaAutoStart=1",
+        "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=massing&cameraQa=1&qaAutoStart=1",
+        "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=hero&qaActiveFallback=hudec-memorial:hero&cameraQa=1&qaAutoStart=1",
+        "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=identity&qaActiveFallback=hudec-memorial:identity&cameraQa=1&qaAutoStart=1"
       ]
     },
     {
@@ -214,15 +222,23 @@
         "tests/test_recovery_massing_threejs_runtime_batch.test.mjs",
         "tests/test_xinhua_pocket_park_massing_map_candidate.test.mjs",
         "tests/test_xinhua_pocket_park_final_disposition.test.mjs",
+        "tests/test_xinhua_pocket_park_identity_v1.test.mjs",
+        "tests/test_main_window_identity_mcp3_batch.test.mjs",
+        "tests/test_main_window_mcp3_identity_batch.test.mjs",
         "tests/test_requested_poi_models.test.mjs"
       ],
       "glbs": [
-        "public/models/requested-pois/xinhua-pocket-park.glb",
+        "public/models/tiers/xinhua-road/hero-v2/xinhua-pocket-park-hero.glb",
+        "public/models/tiers/xinhua-road/identity-v1/xinhua-pocket-park-identity.glb",
         "public/models/tiers/xinhua-road/massing-v2/xinhua-pocket-park-massing.glb"
       ],
       "runtimeRoutes": [
         "/?start=pocket-park&cameraQa=1&qaAutoStart=1",
+        "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=identity&cameraQa=1&qaAutoStart=1&effects=off&district=off",
         "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=hero&qaActiveFallback=xinhua-pocket-park:hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+        "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=identity&qaActiveFallback=xinhua-pocket-park:identity&cameraQa=1&qaAutoStart=1&effects=off&district=off",
         "/?start=pocket-park&qaModelId=xinhua-pocket-park&qaModelTier=massing&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaMove=forward&qaMoveMs=8000&qaMoveTarget=-57.421934309,67.06298037"
       ]
     },

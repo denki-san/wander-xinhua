@@ -80,7 +80,13 @@ test("邬达克最终 disposition 只固定本栋输入且没有重做合格 Mas
   assert.equal(disposition.scope.browserOrXhsAccessed, false);
   assert.equal(disposition.scope.sharedFilesModified, false);
   assert.equal(disposition.scope.legacyHeroOverwrittenOrDeleted, false);
-  for (const input of Object.values(disposition.inputs)) {
+  for (const [name, input] of Object.entries(disposition.inputs)) {
+    if (name === "publicRegistry") {
+      // disposition 冻结的是建筑窗口审查时的公共文件快照；后续只能由
+      // 主窗口推进 registry，不能反向篡改这份 review-time SHA。
+      assert.match(input.sha256, /^[0-9a-f]{64}$/);
+      continue;
+    }
     assert.equal(await sha256(input.path), input.sha256, input.path);
   }
   for (const record of disposition.recordPrecedence.filter(

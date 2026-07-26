@@ -217,7 +217,7 @@ test("Identity 相对 Hero 的减量成立且两次 GLB 导出字节一致", asy
   );
 });
 
-test("三机位与三联图均已固化，但不声称 MCP3 或 Three.js 通过", async () => {
+test("三机位与三联图均已固化，MCP3 通过但 Three.js 尚未验收", async () => {
   const record = await readJson(recordPath);
   for (const [view, preview] of Object.entries(record.previews)) {
     assert.equal(await sha256(preview.path), preview.sha256, view);
@@ -236,8 +236,15 @@ test("三机位与三联图均已固化，但不声称 MCP3 或 Three.js 通过"
   assert.equal(record.validation.headlessBuild, "pass");
   assert.equal(record.validation.glbAudit, "pass-internal");
   assert.equal(record.validation.fixedViews, "pass-medium-building-window");
-  assert.equal(record.validation.mcp3, "pending-main-window-xhigh");
+  assert.equal(record.validation.mcp3, "pass-main-window-xhigh");
+  assert.equal(
+    record.validation.mcp3Record,
+    "docs/research/hudec-memorial-blender-mcp3-gate-v1.json",
+  );
   assert.equal(record.validation.threeJs, "not-run");
   assert.equal(record.validation.performanceClaim, "none");
-  assert.equal(record.validation.overall, "headless-candidate-mcp3-pending");
+  assert.equal(
+    record.validation.overall,
+    "identity-v1-mcp3-pass-runtime-pending",
+  );
 });

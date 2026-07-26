@@ -78,7 +78,13 @@ test("口袋公园 final disposition 只固定本栋且未重做合格阶段", a
   assert.equal(disposition.scope.browserOrXhsAccessed, false);
   assert.equal(disposition.scope.sharedFilesModified, false);
   assert.equal(disposition.scope.legacyHeroOverwrittenOrDeleted, false);
-  for (const input of Object.values(disposition.inputs)) {
+  for (const [name, input] of Object.entries(disposition.inputs)) {
+    if (name === "publicRegistry") {
+      // 这是建筑窗口审查时的公共 registry 指纹；当前文件可由后续主窗口
+      // 批次合法推进，因此这里只保留历史 SHA 格式，不要求当前文件回退。
+      assert.match(input.sha256, /^[0-9a-f]{64}$/);
+      continue;
+    }
     assert.equal(await sha256(input.path), input.sha256, input.path);
   }
   for (const record of disposition.recordPrecedence.filter(
