@@ -116,8 +116,8 @@
     {
       "id": "xinhua-villas-329",
       "name": "新华别墅329弄",
-      "evidence": "massing-pass-hero-blocked-depth-and-authoritative-binding",
-      "hero": "hold-cross-asset",
+      "evidence": "massing-pass-hero-blocked-same-subject-and-subject-contract",
+      "hero": "hold-cross-asset-211-member-2-and-scope-polluted",
       "identity": "missing",
       "massing": "pass",
       "mcp1": "pass",
@@ -125,13 +125,14 @@
       "mcp3": "blocked",
       "map": "pass",
       "threeJs": "pass-massing-performance-collision",
-      "overall": "massing-complete-hero-identity-blocked",
+      "overall": "massing-complete-hero-identity-blocked-same-subject-contract",
       "runtimePolicy": "massing-only-no-tier-promotion",
       "records": [
         "docs/research/xinhua-villas-329-final-disposition.json",
         "docs/research/xinhua-villas-329-threejs-runtime-qa-v2.json",
         "docs/research/xinhua-villas-329-map-conflict-superseding-adjudication-2026-07-26.md",
-        "docs/research/xinhua-villas-329-hero-readiness-adjudication.json"
+        "docs/research/xinhua-villas-329-hero-readiness-adjudication.json",
+        "docs/research/xinhua-villas-329-hero-identity-readiness-deep-audit.json"
       ]
     },
     {
@@ -303,20 +304,21 @@
     {
       "id": "fics-xinhua-365",
       "name": "FICS新华365",
-      "evidence": "massing-pass-membership-pending",
+      "evidence": "massing-pass-member-binding-blocked",
       "hero": "hold-invalid-lineage",
       "identity": "missing",
       "massing": "diagnostic-pass",
       "mcp1": "pass-diagnostic",
       "mcp2": "blocked",
       "mcp3": "blocked",
-      "map": "blocked-service-road-and-membership",
+      "map": "blocked-current-rendered-service-surface-way-864493177-and-membership",
       "threeJs": "pass-diagnostic-massing",
-      "overall": "blocked-service-road-and-tiers",
+      "overall": "blocked-rendered-service-surface-membership-and-tiers",
       "runtimePolicy": "diagnostic-only-no-promotion",
       "records": [
         "docs/research/fics-xinhua-365-final-gap-audit.json",
-        "docs/research/fics-xinhua-365-membership-map-blocker.json"
+        "docs/research/fics-xinhua-365-membership-map-blocker.json",
+        "docs/research/fics-xinhua-365-map-surface-audit.json"
       ]
     },
     {

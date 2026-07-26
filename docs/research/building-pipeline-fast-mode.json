@@ -119,6 +119,7 @@
         "tests/test_xinhua_villas_329_final_disposition.test.mjs",
         "tests/test_xinhua_villas_329_map_conflict_superseding_adjudication.test.mjs",
         "tests/test_xinhua_villas_329_hero_readiness_adjudication.test.mjs",
+        "tests/test_xinhua_villas_329_hero_identity_readiness_deep_audit.test.mjs",
         "tests/test_model_detail_upgrade.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -335,6 +336,7 @@
         "tests/test_fics_xinhua_365_recovery_map.test.mjs",
         "tests/test_fics_xinhua_365_final_gap.test.mjs",
         "tests/test_fics_xinhua_365_membership_map_blocker.test.mjs",
+        "tests/test_fics_xinhua_365_map_surface_audit.test.mjs",
         "tests/test_recovery_massing_mcp1_batch.test.mjs",
         "tests/test_recovery_massing_threejs_runtime_batch.test.mjs",
         "scripts/test_fics_xinhua_365_map_calibration.mjs",
