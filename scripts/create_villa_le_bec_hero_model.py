@@ -66,9 +66,10 @@ def at_height(point: Vector, z: float) -> Vector:
     return Vector((point.x, point.y, z))
 
 
-def add_window(prefix: str, center: Vector, width: float, height: float, yaw: float, frame, glass, objects: list) -> None:
+def add_window(prefix: str, center: Vector, width: float, height: float, yaw: float, frame, glass, objects: list, *, normal_sign: float = 1.0, outside_offset: float = 0.025) -> None:
     normal = Vector((-math.sin(yaw), math.cos(yaw)))
-    glass_center = center + Vector((normal.x * 0.025, normal.y * 0.025, 0))
+    # 将 glazing 明确置于 bay 的外表面，而不是嵌在实体盒厚度内。
+    glass_center = center + Vector((normal.x * normal_sign * outside_offset, normal.y * normal_sign * outside_offset, 0))
     objects.append(box(f"{prefix}-glass", glass_center, (width, 0.055, height), yaw, glass))
     for label, offset, dims in (
         ("left", -width / 2, (0.075, 0.08, height + 0.08)),
@@ -122,7 +123,7 @@ def build_hero() -> tuple[bpy.types.Object, list[str]]:
         add_window(f"villa-le-bec-hero-street-front-window-{index}", center, 0.88, 1.32, street_yaw, frame, glass, objects)
     bay_center = at_height(street_front - street_v * 0.40, 2.18)
     objects.append(box("villa-le-bec-hero-street-projecting-bay", bay_center, (1.55, 0.58, 2.12), street_yaw, wall))
-    add_window("villa-le-bec-hero-street-projecting-bay-window", bay_center + Vector((0, 0, 0.05)), 1.18, 1.36, street_yaw, frame, glass, objects)
+    add_window("villa-le-bec-hero-street-projecting-bay-window", bay_center + Vector((0, 0, 0.05)), 1.18, 1.36, street_yaw, frame, glass, objects, normal_sign=-1.0, outside_offset=0.335)
     for offset in (-street_ul * 0.22, street_ul * 0.23):
         center = at_height(street_center + street_u * offset - street_v * 0.12, 0)
         add_dormer("villa-le-bec-hero-street-dormer" + str(round(offset, 2)), center, street_yaw, wall, roof, frame, glass, objects)
@@ -131,7 +132,7 @@ def build_hero() -> tuple[bpy.types.Object, list[str]]:
     garden_entry = garden_center - garden_u * (garden_ul * 0.5) - garden_u * 0.30
     entry_center = at_height(garden_entry, 1.28)
     objects.append(box("villa-le-bec-hero-garden-entry-bay", entry_center, (0.46, 1.42, 2.42), garden_yaw, wall))
-    add_window("villa-le-bec-hero-garden-entry-glazing", entry_center + Vector((0, 0, -0.04)), 0.84, 1.74, garden_yaw + math.pi / 2, frame, glass, objects)
+    add_window("villa-le-bec-hero-garden-entry-glazing", entry_center + Vector((0, 0, -0.04)), 0.84, 1.74, garden_yaw + math.pi / 2, frame, glass, objects, normal_sign=1.0, outside_offset=0.275)
     garden_side = garden_center + garden_v * (garden_vl * 0.5)
     for index, offset in enumerate((-garden_ul * 0.22, garden_ul * 0.24)):
         center = at_height(garden_side + garden_u * offset, 1.7)
@@ -229,6 +230,11 @@ def write_record(root: bpy.types.Object, components: list[str]) -> None:
         "scope": {"twoBuildingsOnly": True, "components": len(components), "excluded": ["trees", "dressing", "brand", "interior", "low-annex", "ways-864493245-246-247"]},
         "identityCues": ["warm-white-dark-base-red-brown-hipped-roof", "street-projecting-bay-and-dormers", "garden-entry-bay-side-windows-and-dormer", "open-courtyard-between-two-buildings"],
         "collisionContract": {"sameAsMassing": True, "solidWays": [864493176, 864493175], "openCourtyard": True, "bakedCollisionGeometry": False},
+        "glazingVisibilityFix": {
+            "streetProjectingBay": {"externalNormal": "local -Y / street -v", "bayHalfDepth": 0.29, "glazingCenterOffset": 0.335, "surfaceClearance": 0.045},
+            "gardenEntryBay": {"externalNormal": "local -Y after yaw+90 / garden -u", "bayHalfDepth": 0.23, "glazingCenterOffset": 0.275, "surfaceClearance": 0.045},
+            "verdict": "both-glazing-and-frames-are-outside-their-bay-solid-surface"
+        },
         "gates": {"mcp2": "pending", "identity": "not-authorized", "runtime": "not-run-by-scope"}
     }
     RECORD.write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n", encoding="utf8")
