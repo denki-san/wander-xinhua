@@ -1,0 +1,368 @@
+{
+  "schemaVersion": 1,
+  "assetId": "fics-xinhua-365",
+  "recordedAt": "2026-07-26",
+  "mode": "warehouse-only-formal-map-surface-and-collision-audit",
+  "status": "blocked-member-binding-and-current-rendered-service-surface-overlap",
+  "baseline": {
+    "requestedCommit": "ebae8d8",
+    "actualCommit": "ebae8d865a15761f32d890959499911acf8b092d",
+    "branch": "codex/building-fics-xinhua-365-map-surface-audit-fast"
+  },
+  "constraints": {
+    "browserUsed": false,
+    "xiaohongshuUsed": false,
+    "externalNetworkUsed": false,
+    "blenderOpened": false,
+    "modelRebuilt": false,
+    "modelMovedRotatedOrScaled": false,
+    "roadDeletedReroutedOrRestyled": false,
+    "footprintChanged": false,
+    "collisionCandidateWritten": false,
+    "fastManifestModified": false,
+    "exactManifestModified": false,
+    "appRuntimeModified": false,
+    "publicRegistryModified": false,
+    "publicGlbModified": false,
+    "otherBuildingModified": false
+  },
+  "scope": {
+    "included": [
+      "fics-xinhua-365-only",
+      "retained-massing-v2-and-runtime-gate",
+      "formal-five-way-member-binding",
+      "raw-service-road-tags",
+      "current-road-rendering-semantics",
+      "exact-footprint-to-centerline-and-visible-surface-clearance",
+      "recovery-qa-aabb-versus-exact-footprint",
+      "legacy-collision-solid-lineage"
+    ],
+    "excluded": [
+      "browser",
+      "xiaohongshu",
+      "live-osm-refresh",
+      "blender",
+      "modeling",
+      "fast-mode",
+      "exact-mode",
+      "shared-runtime",
+      "public-registry",
+      "public-glb",
+      "road-or-footprint-edits",
+      "trees",
+      "decorations",
+      "other-buildings",
+      "full-repository-tests"
+    ]
+  },
+  "sources": {
+    "rawRoadOsm": {
+      "path": "docs/research/data/xinhua-roads-osm-20260716-080509.json",
+      "sha256": "351308feafab0344dc59a66ebd68d0748f81ef1cd69dc218765a22eb51abf2ec",
+      "osmBaseTimestamp": "2026-07-16T08:03:07Z",
+      "license": "ODbL"
+    },
+    "requestedPoiOsm": {
+      "path": "docs/research/data/requested-pois-osm-20260717-103840.json",
+      "sha256": "898624d284d460f6d696720278531db463f6f458cbbe49b7d4ab36d46905104e",
+      "fetchedAt": "2026-07-17T10:38:48.204Z"
+    },
+    "massingBuildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.json",
+      "sha256": "8affb973877f80c17ca0165f6b9bc474c6367a77a5f929a73ee638e02b34ed4f"
+    },
+    "priorMembershipBlocker": {
+      "path": "docs/research/fics-xinhua-365-membership-map-blocker.json",
+      "sha256": "c0fffe4301a43d46664fdf92e25096a60b7c7bf1222bfff1e98e0f2166de1bfc"
+    },
+    "finalGapAudit": {
+      "path": "docs/research/fics-xinhua-365-final-gap-audit.json",
+      "sha256": "14d547ebe40c217672da7463435b2281432878f6e60fd665d9eb667462775228"
+    },
+    "runtimeMap": {
+      "path": "app/scene/xinhua-map-data.json",
+      "sha256": "8cd254ee8f595e02c4a620c28dc040d0af2f82927698711e11774eca997b9d78",
+      "shaPolicy": "review-time-baseline-git-blob"
+    },
+    "roadSurfaceContract": {
+      "path": "app/scene/road-surface-contract.ts",
+      "sha256": "81798e268e7da1ec6d98de973b0332ad953cb4b933734a30840200ebf26057a7",
+      "shaPolicy": "review-time-baseline-git-blob"
+    },
+    "roadRenderer": {
+      "path": "app/scene/xinhua-map.tsx",
+      "sha256": "c3b4670f8dc05ad67a7c33fdd88e8dcbcfeb728c7574d88ad995e4cb96b4213a",
+      "shaPolicy": "review-time-baseline-git-blob"
+    },
+    "massingQaContract": {
+      "path": "app/scene/building-massing-qa-contract.mjs",
+      "sha256": "bf31e7fd359165640b1384b164aeac83b0eaa2977a46b03cc1ad24fac525abaa",
+      "shaPolicy": "review-time-baseline-git-blob"
+    },
+    "legacyPublicRegistry": {
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "6df9f4439679ff72203ef023cab289532df4c1d9c71a4242cfd6ef155e4055e8",
+      "shaPolicy": "review-time-baseline-git-blob"
+    },
+    "canonicalAerialRendering": {
+      "path": "docs/research/assets/requested-poi-references/fics-xinhua-365-aerial.jpg",
+      "sha256": "03ab8cac1992f6f215af82d6be08101f7cbb226b24344ed6be2a6d08b1b7401b",
+      "bytes": 143453,
+      "reviewClassification": "architectural-aerial-rendering-not-orthorectified-or-georeferenced"
+    },
+    "massingV2Glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.glb",
+      "sha256": "e36f29a3f14e92ac833a324247c36c21d218003f17f666d1d0b5fc9f861fe8ad",
+      "bytes": 8564
+    },
+    "legacyHeroGlb": {
+      "path": "public/models/requested-pois/fics-xinhua-365.glb",
+      "sha256": "ad02c2461b5633514713f3376d308d5478888ed03a701bc79b5c98bd95639c19",
+      "bytes": 6243696
+    }
+  },
+  "recoveryQualification": {
+    "massingTier": "massing-v2",
+    "selection": "retained-no-rebuild",
+    "buildRecordRuntimeGate": "pass",
+    "mcp1": "pass-shape-only-preserved",
+    "threeRuntimeDiagnostic": "pass-preserved-no-promotion",
+    "formalMapAcceptanceBeforeThisAudit": "blocked",
+    "formalMapAcceptanceAfterThisAudit": "blocked",
+    "reasonNotRepeated": "Recovery Massing-v2、GLB 结构和旧 runtimeGate 已有合格记录；本轮只审查未闭合的正式地图证据。"
+  },
+  "membership": {
+    "candidateWayIds": [
+      864493178,
+      864493177,
+      864493179,
+      864493181,
+      864493230
+    ],
+    "observed": [
+      "FICS 专用 Overpass 快照内没有 relation 元素。",
+      "五个候选 way 均为闭合 building=yes，且都没有 name、name:zh、addr:housenumber 或 addr:street。",
+      "Massing-v2 build record 将五个 way 明确标为 unbound-member-candidate。",
+      "本地 canonical aerial 是建筑效果鸟瞰图，不是正射、测绘或地籍图，不能与 OSM way 做逐栋几何绑定。"
+    ],
+    "inferred": [
+      "五个候选可能属于 FICS 新华365园区。",
+      "五个候选可能代表园区的主要建筑体。"
+    ],
+    "unknown": [
+      "正式园区边界。",
+      "五个候选与照片中各栋建筑的一一对应。",
+      "相邻 OSM building 是否也属于园区。",
+      "way/864493177 与 service way/577252268 的真实边缘、宽度和空间关系。"
+    ],
+    "formalBinding": "blocked-no-primary-cadastral-or-georeferenced-member-binding",
+    "memberSetMayBePromoted": false
+  },
+  "serviceRoadSemantics": {
+    "osmWayId": 577252268,
+    "rawTags": {
+      "access": "private",
+      "highway": "service",
+      "oneway": "no",
+      "service": "alley"
+    },
+    "rawMissingTags": [
+      "surface",
+      "width",
+      "lanes",
+      "bridge",
+      "tunnel",
+      "covered",
+      "layer"
+    ],
+    "observedMeaning": [
+      "access=private 是通行权限限制，不表示道路不存在，也不等于非可见地表。",
+      "service=alley 支持服务巷道语义，但没有提供真实路面材料或宽度。",
+      "当前 runtime map 将该 way 保存为 highway=service、layer=0、tunnel=false。",
+      "当前 isSurfaceRoad 只排除 tunnel 或 layer<0，不按 access=private 排除。",
+      "当前 renderer 使用 service path texture 生成可见核心面，并另生成 minor-road shoulder。"
+    ],
+    "runtimeRepresentation": {
+      "roadId": "577252268-0",
+      "rawPointCount": 4,
+      "runtimePointCount": 4,
+      "removedPointCount": 0,
+      "maximumRawToRuntimeVertexDriftSceneUnits": 0.0027422197316480487,
+      "maximumRawToRuntimeVertexDriftMeters": 0.007403993275449732,
+      "environmentScale": 5,
+      "metersPerSceneUnit": 2.7,
+      "coreSurfaceWidthSceneUnits": 2.5,
+      "coreSurfaceWidthMeters": 6.75,
+      "coreSurfaceHalfWidthSceneUnits": 1.25,
+      "shoulderWidthSceneUnits": 3.1,
+      "shoulderWidthMeters": 8.37,
+      "shoulderHalfWidthSceneUnits": 1.55,
+      "physicalSurfaceMaterial": "unknown-no-osm-surface-tag",
+      "physicalWidth": "unknown-no-osm-width-or-lanes-tag",
+      "widthClassification": "runtime-stylization-not-ground-truth"
+    },
+    "forbiddenInference": [
+      "不得因 access=private 删除道路。",
+      "不得把当前 6.75 m 核心面宽度称为现场实测宽度。",
+      "不得因 OSM 中心线接近建筑而任意移动、缩放或删减 footprint。"
+    ]
+  },
+  "exactGeometry": {
+    "projection": {
+      "centerWgs84": [
+        121.4227819,
+        31.2066376
+      ],
+      "metersPerSceneUnit": 2.7
+    },
+    "roadGeometry": "current-four-point-runtime-centerline",
+    "perCandidateClearance": [
+      {
+        "wayId": 864493178,
+        "centerlineDistanceSceneUnits": 3.766798233863321,
+        "centerlineDistanceMeters": 10.170355231430968,
+        "coreSurfaceClearanceSceneUnits": 2.516798233863321,
+        "coreSurfaceClearanceMeters": 6.795355231430967,
+        "shoulderClearanceSceneUnits": 2.2167982338633205,
+        "shoulderClearanceMeters": 5.985355231430966,
+        "status": "clear"
+      },
+      {
+        "wayId": 864493177,
+        "centerlineDistanceSceneUnits": 0.1254539974419377,
+        "centerlineDistanceMeters": 0.3387257930932318,
+        "coreSurfaceClearanceSceneUnits": -1.1245460025580623,
+        "coreSurfaceClearanceMeters": -3.0362742069067683,
+        "shoulderClearanceSceneUnits": -1.4245460025580623,
+        "shoulderClearanceMeters": -3.8462742069067684,
+        "status": "centerline-clear-current-rendered-core-and-shoulder-overlap"
+      },
+      {
+        "wayId": 864493179,
+        "centerlineDistanceSceneUnits": 10.56241793148171,
+        "centerlineDistanceMeters": 28.518528415000617,
+        "coreSurfaceClearanceSceneUnits": 9.31241793148171,
+        "coreSurfaceClearanceMeters": 25.143528415000617,
+        "shoulderClearanceSceneUnits": 9.012417931481709,
+        "shoulderClearanceMeters": 24.333528415000615,
+        "status": "clear"
+      },
+      {
+        "wayId": 864493181,
+        "centerlineDistanceSceneUnits": 8.861651643003151,
+        "centerlineDistanceMeters": 23.92645943610851,
+        "coreSurfaceClearanceSceneUnits": 7.611651643003151,
+        "coreSurfaceClearanceMeters": 20.55145943610851,
+        "shoulderClearanceSceneUnits": 7.3116516430031515,
+        "shoulderClearanceMeters": 19.74145943610851,
+        "status": "clear"
+      },
+      {
+        "wayId": 864493230,
+        "centerlineDistanceSceneUnits": 3.654603501338397,
+        "centerlineDistanceMeters": 9.867429453613672,
+        "coreSurfaceClearanceSceneUnits": 2.404603501338397,
+        "coreSurfaceClearanceMeters": 6.4924294536136715,
+        "shoulderClearanceSceneUnits": 2.1046035013383966,
+        "shoulderClearanceMeters": 5.682429453613671,
+        "status": "clear"
+      }
+    ],
+    "closestPair": {
+      "candidateWayId": 864493177,
+      "roadSegmentIndex": 0,
+      "footprintPointScene": [
+        -66.84973185659544,
+        66.96267555556298
+      ],
+      "roadPointScene": [
+        -66.73186227827928,
+        67.00563446595108
+      ],
+      "footprintPointWgs84": [
+        121.4208862,
+        31.205002
+      ],
+      "roadPointWgs84": [
+        121.42088954250195,
+        31.205000950705102
+      ]
+    },
+    "rawCenterlineCrossCheck": {
+      "rawRoadToWay864493177SceneUnits": 0.12446688602616525,
+      "runtimeRoadToWay864493177SceneUnits": 0.1254539974419377,
+      "clearanceDifferenceMeters": 0.0026652008225856217,
+      "classification": "runtime-rounding-does-not-create-the-surface-overlap"
+    },
+    "adjudication": [
+      "精确 footprint 与道路中心线不相交。",
+      "精确 footprint 与当前 runtime 核心面及 shoulder 均相交。",
+      "现有证据只能证明当前渲染几何冲突，不能证明现实中的道路边缘与建筑真实重叠。"
+    ]
+  },
+  "collisionAdjudication": {
+    "recoveryQaMemberSolids": {
+      "count": 5,
+      "configuration": "one-local-aabb-per-candidate-way-diagnostic-only",
+      "closestCandidateWayId": 864493177,
+      "exactFootprint": {
+        "centerlineDistanceSceneUnits": 0.1254539974419377,
+        "coreSurfaceClearanceSceneUnits": -1.1245460025580623
+      },
+      "memberAabb": {
+        "centerlineDistanceSceneUnits": 0.12421701678998544,
+        "centerlineDistanceMeters": 0.3353859453329607,
+        "coreSurfaceClearanceSceneUnits": -1.1257829832100146,
+        "coreSurfaceClearanceMeters": -3.0396140546670396
+      },
+      "aabbInflationAtClosestPairSceneUnits": 0.001236980651952259,
+      "aabbInflationAtClosestPairMeters": 0.0033398477602710995,
+      "centerlineIntersectsExactFootprint": false,
+      "centerlineIntersectsMemberAabb": false,
+      "currentRenderedCoreOverlapsExactFootprint": true,
+      "currentRenderedCoreOverlapsMemberAabb": true,
+      "verdict": "not-an-aabb-false-positive"
+    },
+    "legacyPublicCollisionSolids": {
+      "count": 6,
+      "centerlineIntersectingIndices": [
+        0,
+        1,
+        2,
+        5
+      ],
+      "lineage": "legacy-hero-subject-mismatch-held-not-mcp2-candidate",
+      "adjudicativeForAcceptedMassing": false,
+      "verdict": "legacy-centerline-crossings-overstate-conflict-and-cannot-replace-exact-massing-footprint-analysis"
+    },
+    "collisionCandidate": {
+      "written": false,
+      "reason": "五成员归属仍未正式绑定，且用精确 footprint 替换或细分 AABB 也不能消除当前可见 service surface 与 way/864493177 的重叠。"
+    }
+  },
+  "verdict": {
+    "formalMemberBinding": "blocked",
+    "formalMapAcceptance": "blocked",
+    "massingRecovery": "pass-retained",
+    "currentRenderedServiceSurface": "blocked-exact-footprint-overlap",
+    "realWorldRoadBuildingOverlap": "unknown",
+    "collisionAabbFalsePositive": false,
+    "heroAndIdentity": "blocked",
+    "modelingAuthorized": false,
+    "runtimePromotionAllowed": false,
+    "minimumAdditionalEvidence": [
+      "一份可把 FICS 新华365正式园区边界及每个纳入建筑绑定到具体 OSM way 的官方总平面、地籍/门牌资料，或可定位正射影像。",
+      "针对 way/864493177 与 service way/577252268 最近角点的可测量现场、竣工总图或地理配准影像，明确真实道路边缘、宽度、surface，以及道路是否改线、覆盖、停用或 OSM 中心线/footprint 存在偏移。"
+    ],
+    "possibleSingleEvidenceClosure": "一份含建筑编号、园区边界、内部道路边线和比例尺的权威竣工总平面可同时闭合两项证据。",
+    "forbiddenFixes": [
+      "delete-road-because-access-private",
+      "delete-road-because-near-building",
+      "move-rotate-or-scale-building-to-clear-style-width",
+      "shrink-or-drop-way-864493177-without-member-evidence",
+      "promote-five-unbound-candidates",
+      "treat-legacy-collision-solids-as-formal-geometry",
+      "rebuild-retained-massing-v2"
+    ]
+  }
+}
