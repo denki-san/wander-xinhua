@@ -9480,3 +9480,98 @@ TypeError: Cannot read properties of undefined (reading 'getEntriesByType')
   合同联合验收，不伪造 Resource Timing 证据。
 
 ---
+
+## [ERR-20260726-116] agent_browser_socket_requires_local_tool_permission
+
+**Logged**: 2026-07-26T18:14:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+从受限 shell 首次启动 `agent-browser` 时，其默认 socket 目录位于用户目录，
+当前 workspace sandbox 无法写入。
+
+### Error
+```text
+Socket directory '/Users/lei/.agent-browser' is not writable:
+Operation not permitted (os error 1)
+```
+
+### Resolution
+- **Resolved**: 2026-07-26T18:14:00+08:00
+- **Notes**: 仅对 `agent-browser` 的本地 QA 子命令申请受控权限；随后只访问
+  `localhost` 页面，没有打开小红书或复用用户登录会话。
+
+---
+
+## [ERR-20260726-117] runtime_screenshot_parent_directory_missing
+
+**Logged**: 2026-07-26T18:15:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-qa
+
+### Summary
+首次保存幸福里中栋 runtime 截图时假定 `test_artifacts/all-models/threejs`
+已存在，截图工具不会自动创建父目录。
+
+### Error
+```text
+Failed to save screenshot ... No such file or directory (os error 2)
+```
+
+### Resolution
+- **Resolved**: 2026-07-26T18:15:00+08:00
+- **Notes**: 只读列出现有证据目录后，改写到已存在的
+  `test_artifacts/all-models/runtime/xingfuli-center-lineage-v2`；失败路径没有生成
+  半成品。
+
+---
+
+## [ERR-20260726-118] accepted_candidate_status_test_lagged_record
+
+**Logged**: 2026-07-26T18:26:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+幸福里中栋 candidate 从 MCP3 候选提升为 Three.js tier contract accepted 后，
+专项测试仍短暂断言旧状态字符串。
+
+### Error
+```text
+actual: accepted-main-window-threejs-tier-contract
+expected: candidate-passed-main-window-mcp3
+```
+
+### Resolution
+- **Resolved**: 2026-07-26T18:27:00+08:00
+- **Notes**: 同步测试到 accepted 状态，并显式区分“候选生成阶段未改 public
+  runtime”与“主窗口验收后修改 tier contract”，避免 false/true 语义混淆。
+
+---
+
+## [ERR-20260726-119] process_listing_blocked_by_workspace_sandbox
+
+**Logged**: 2026-07-26T18:01:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+检查本地预览进程时，workspace sandbox 拒绝 `ps aux`，不能用该命令判断
+服务是否仍监听。
+
+### Error
+```text
+operation not permitted
+```
+
+### Resolution
+- **Resolved**: 2026-07-26T18:14:00+08:00
+- **Notes**: 后续改用已知 PTY session、loopback `curl` 与浏览器导航三者确认服务；
+  没有反复请求宽泛进程权限。
+
+---
