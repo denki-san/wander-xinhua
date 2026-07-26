@@ -159,8 +159,8 @@ def render_fixed_views(slug: str, preview_dir: Path) -> None:
     bpy.context.scene.camera = camera
     views = (
         ("canonical", (-55.0, -7.0, 3.5), (-32.0, -7.0, 3.2), 48),
-        ("side", (-34.5, -35.0, 4.5), (-34.5, -7.0, 3.2), 52),
-        ("street", (-14.0, -7.0, 3.2), (-37.0, -7.0, 3.0), 50),
+        ("side", (-58.0, -31.0, 11.0), (-34.5, -7.0, 3.3), 52),
+        ("street", (-68.0, -26.0, 7.5), (-34.5, -6.0, 3.2), 55),
     )
     for suffix, location, target, lens in views:
         camera.location = location

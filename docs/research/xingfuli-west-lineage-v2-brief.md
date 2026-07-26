@@ -86,10 +86,13 @@
 
 - Canonical view: accepted local `+X` long-axis direction, camera
   `(-55, -7, 3.5)` toward `(-32, -7, 3.2)`.
-- Side/depth view: camera `(-34.5, -35, 4.5)` toward
-  `(-34.5, -7, 3.2)` across the two West members.
-- Entrance/identity view: camera `(-14, -7, 3.2)` toward `(-37, -7, 3.0)`,
-  looking back toward the Xingfu Road end and South-West identity wall.
+- Side/depth view: camera `(-58, -31, 11)` toward
+  `(-34.5, -7, 3.3)`; the oblique elevation keeps both West members and their
+  longitudinal relationship in one frame.
+- Entrance/identity view: camera `(-68, -26, 7.5)` toward
+  `(-34.5, -6, 3.2)`, showing the complete Xingfu Road entrance composition,
+  continuous storefront/canopy, repeated windows and the South-West identity
+  wall/panels in one shared Identity/Massing camera.
 - Human scale, placement, yaw, source origin and map transform must not change.
 
 ## Unique identity cues retained
