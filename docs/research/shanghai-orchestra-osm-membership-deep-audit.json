@@ -1,0 +1,402 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-orchestra",
+  "recordedAt": "2026-07-26",
+  "baselineCommit": "dcd619e04fc735e8b0a4b9b01cac7ca78a749ecb",
+  "status": "blocked-no-way-specific-or-exclusive-compound-membership-evidence",
+  "scope": {
+    "included": [
+      "five-anonymous-osm-way-membership-audit",
+      "local-osm-name-and-address-query-audit",
+      "runtime-frame-spatial-diagnostic",
+      "candidate-and-adjacent-way-spatial-relations",
+      "local-reference-view-binding-audit"
+    ],
+    "excludedAndHeld": [
+      "massing-modification",
+      "massing-rebuild",
+      "hero",
+      "identity",
+      "blender",
+      "mcp",
+      "browser",
+      "network",
+      "xiaohongshu",
+      "public-fast-manifest",
+      "exact-status",
+      "runtime",
+      "registry",
+      "other-buildings",
+      "trees",
+      "vegetation",
+      "decoration",
+      "full-map"
+    ],
+    "browserOrNetworkAccessed": false,
+    "modelBinaryModified": false,
+    "publicRuntimeModified": false
+  },
+  "sources": {
+    "priorDisposition": {
+      "path": "docs/research/shanghai-orchestra-membership-tier-final-disposition-2026-07-26.md",
+      "sha256": "13975e68cd9e4b3587e387ad57a3f322f3f8a0b6d25c45a8db6ec259fac09aa8"
+    },
+    "priorFinalGapAudit": {
+      "path": "docs/research/shanghai-orchestra-final-gap-audit.json",
+      "sha256": "52b8b1784348ba64905eb98d843440eeb0c44a19d645cad27b4d15001d0e5d31"
+    },
+    "osmBinding": {
+      "path": "docs/research/shanghai-orchestra-osm-binding.json",
+      "sha256": "d32c569baff795033f111c365628b430758d92e3fc65f40706529a4652f542dd"
+    },
+    "mapGate": {
+      "path": "docs/research/shanghai-orchestra-massing-map-gate.json",
+      "sha256": "1c4c91bf6fc86ef04733ee91b542719b61f1485276bd33ca2bfdf7a34fc3718c"
+    },
+    "referenceManifest": {
+      "path": "docs/research/shanghai-orchestra-reference-manifest.json",
+      "sha256": "55361f9f666b385982a99d7dbc20a0447e9dc2947c9418be9172fcf0c39497fe"
+    },
+    "buildingOsm": {
+      "path": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+      "sha256": "a7357026e2015dc01109c284bb71a025a12b3b2c19f0b9708a074298a409283c",
+      "timestampOsmBase": "2026-07-25T07:46:51Z",
+      "elementTypes": {
+        "way": 878,
+        "relation": 0
+      },
+      "relationMembershipCoverage": "unavailable-in-this-way-only-snapshot"
+    },
+    "namedAndAddressOsmQuery": {
+      "path": "docs/research/data/xinhua-landmarks-overpass-20260717.json",
+      "sha256": "27a2ee9ead92824f78378bc769df8667c50d49f06d6e09d5d719fe568cf25e19",
+      "timestampOsmBase": "2026-07-16T16:31:11Z",
+      "queryIncludes": [
+        "name-regex-shanghai-orchestra",
+        "xinhua-road-house-number-336"
+      ],
+      "matchingNamedOrAddressElements": 0
+    },
+    "runtimeRegistryReadOnly": {
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "6df9f4439679ff72203ef023cab289532df4c1d9c71a4242cfd6ef155e4055e8"
+    }
+  },
+  "namedSubject": {
+    "name": "上海民族乐团",
+    "address": "上海市长宁区新华路336号",
+    "publishedProjectScope": [
+      "building-6",
+      "building-7",
+      "building-8",
+      "retained-volumes",
+      "linked-courtyards"
+    ],
+    "publishedAreaSquareMeters": 2205,
+    "publishedAreaSemantics": "renovation-area-not-ground-footprint",
+    "candidateFootprintAreaSumSquareMeters": 2023,
+    "areaComparisonCanBindMembership": false
+  },
+  "runtimeFrameDiagnostic": {
+    "positionScene": [
+      -44.4,
+      44
+    ],
+    "equivalentWgs84": [
+      121.42152282120249,
+      31.20556287591822
+    ],
+    "sourceClass": "project-authored-stable-local-frame-not-independent-address-geocode",
+    "insideFiveCandidateConvexHull": true,
+    "insideAnyCandidateFootprint": false,
+    "minimumCandidateFootprintDistanceSceneUnits": 4.592128,
+    "interpretation": "The point is spatially compatible with a courtyard or compound frame, but it cannot identify a member way or prove the address boundary."
+  },
+  "candidateWayIds": [
+    864505166,
+    864505168,
+    864505165,
+    864505169,
+    864505163
+  ],
+  "candidateWayAdjudications": [
+    {
+      "sourceWayId": 864505166,
+      "osmTagsObserved": {
+        "building": "yes"
+      },
+      "missingBindingTags": [
+        "name",
+        "addr:street",
+        "addr:housenumber",
+        "operator",
+        "ref",
+        "building:levels"
+      ],
+      "footprintAreaSquareMeters": 445.9,
+      "centroidWorld": [
+        -35.44196,
+        39.315393
+      ],
+      "runtimeFrameDistanceSceneUnits": 4.592128,
+      "xinhuaAsphaltEdgeClearanceSceneUnits": 18.057957,
+      "fahuazhenAsphaltEdgeClearanceSceneUnits": 14.221296,
+      "nearestSelectedWay": {
+        "sourceWayId": 864505165,
+        "gapSceneUnits": 4.005004
+      },
+      "nearestExcludedAnonymousWay": {
+        "sourceWayId": 864505164,
+        "gapSceneUnits": 1.693049
+      },
+      "spatialFinding": "An excluded anonymous way is closer than every selected member, so proximity does not make this way an exclusive compound member.",
+      "formalNamedBinding": "blocked"
+    },
+    {
+      "sourceWayId": 864505168,
+      "osmTagsObserved": {
+        "building": "yes"
+      },
+      "missingBindingTags": [
+        "name",
+        "addr:street",
+        "addr:housenumber",
+        "operator",
+        "ref",
+        "building:levels"
+      ],
+      "footprintAreaSquareMeters": 226.5,
+      "centroidWorld": [
+        -52.671935,
+        42.855446
+      ],
+      "runtimeFrameDistanceSceneUnits": 6.225276,
+      "xinhuaAsphaltEdgeClearanceSceneUnits": 8.117233,
+      "fahuazhenAsphaltEdgeClearanceSceneUnits": 23.186718,
+      "nearestSelectedWay": {
+        "sourceWayId": 864505169,
+        "gapSceneUnits": 1.247885
+      },
+      "nearestExcludedAnonymousWay": {
+        "sourceWayId": 864505170,
+        "gapSceneUnits": 14.660735
+      },
+      "spatialFinding": "The close pair with way 864505169 is a plausible sub-group, but neither way carries a member name, number, address or relation.",
+      "formalNamedBinding": "blocked"
+    },
+    {
+      "sourceWayId": 864505165,
+      "osmTagsObserved": {
+        "building": "yes"
+      },
+      "missingBindingTags": [
+        "name",
+        "addr:street",
+        "addr:housenumber",
+        "operator",
+        "ref",
+        "building:levels"
+      ],
+      "footprintAreaSquareMeters": 252.3,
+      "centroidWorld": [
+        -36.321723,
+        51.010819
+      ],
+      "runtimeFrameDistanceSceneUnits": 6.704575,
+      "xinhuaAsphaltEdgeClearanceSceneUnits": 8.061293,
+      "fahuazhenAsphaltEdgeClearanceSceneUnits": 25.53966,
+      "nearestSelectedWay": {
+        "sourceWayId": 864505163,
+        "gapSceneUnits": 0.798917
+      },
+      "nearestExcludedAnonymousWay": {
+        "sourceWayId": 864505164,
+        "gapSceneUnits": 1.169289
+      },
+      "spatialFinding": "The selected way 864505163 and excluded way 864505164 are both very close, so geometry does not prove where the named compound boundary passes.",
+      "formalNamedBinding": "blocked"
+    },
+    {
+      "sourceWayId": 864505169,
+      "osmTagsObserved": {
+        "building": "yes"
+      },
+      "missingBindingTags": [
+        "name",
+        "addr:street",
+        "addr:housenumber",
+        "operator",
+        "ref",
+        "building:levels"
+      ],
+      "footprintAreaSquareMeters": 1008.6,
+      "centroidWorld": [
+        -54.639921,
+        30.781911
+      ],
+      "runtimeFrameDistanceSceneUnits": 8.409595,
+      "xinhuaAsphaltEdgeClearanceSceneUnits": 17.563204,
+      "fahuazhenAsphaltEdgeClearanceSceneUnits": 10.667135,
+      "nearestSelectedWay": {
+        "sourceWayId": 864505168,
+        "gapSceneUnits": 1.247885
+      },
+      "nearestExcludedAnonymousWay": {
+        "sourceWayId": 864505170,
+        "gapSceneUnits": 1.900043
+      },
+      "spatialFinding": "This is the selected way nearest Fahuazhen Road, but excluded ways 864505167 and 864505170 are closer to that road, so the Fahuazhen facade photo cannot identify it.",
+      "formalNamedBinding": "blocked"
+    },
+    {
+      "sourceWayId": 864505163,
+      "osmTagsObserved": {
+        "building": "yes"
+      },
+      "missingBindingTags": [
+        "name",
+        "addr:street",
+        "addr:housenumber",
+        "operator",
+        "ref",
+        "building:levels"
+      ],
+      "footprintAreaSquareMeters": 89.7,
+      "centroidWorld": [
+        -38.196719,
+        55.140977
+      ],
+      "runtimeFrameDistanceSceneUnits": 10.086599,
+      "xinhuaAsphaltEdgeClearanceSceneUnits": 4.880222,
+      "fahuazhenAsphaltEdgeClearanceSceneUnits": 32.521914,
+      "nearestSelectedWay": {
+        "sourceWayId": 864505165,
+        "gapSceneUnits": 0.798917
+      },
+      "nearestExcludedAnonymousWay": {
+        "sourceWayId": 864505164,
+        "gapSceneUnits": 5.845733
+      },
+      "spatialFinding": "This is the selected way nearest Xinhua Road, but street proximity cannot assign building 6, 7, 8 or a retained-volume role.",
+      "formalNamedBinding": "blocked"
+    }
+  ],
+  "excludedAnonymousCounterexamples": [
+    {
+      "sourceWayId": 864505164,
+      "reason": "It is only 1.169289 scene units from selected way 864505165 and 1.693049 from selected way 864505166, yet has the same anonymous building=yes tag evidence."
+    },
+    {
+      "sourceWayId": 864505167,
+      "fahuazhenAsphaltEdgeClearanceSceneUnits": 0.51211,
+      "reason": "It is closer to Fahuazhen Road than every selected way, so the road-facing photo cannot validate the selected set by proximity."
+    },
+    {
+      "sourceWayId": 864505170,
+      "fahuazhenAsphaltEdgeClearanceSceneUnits": 2.640173,
+      "nearestSelectedWay": {
+        "sourceWayId": 864505169,
+        "gapSceneUnits": 1.900043
+      },
+      "reason": "It is both closer to Fahuazhen Road and close to selected way 864505169, while carrying the same anonymous building=yes evidence."
+    }
+  ],
+  "referenceViewBinding": [
+    {
+      "path": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-exterior-tjad-2019.jpg",
+      "sha256": "cd65d10e36a5d26fc54e20469551a09fb18572abc5f47a6e0ece6b32b09d4ece",
+      "observed": [
+        "low-rise connected white volumes",
+        "courtyard",
+        "vertical pipe identity feature"
+      ],
+      "waySpecificBinding": [],
+      "limitation": "No site plan, compass, visible address or OSM-identifiable outline is present."
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-fahua-facade-tjad-2019.jpg",
+      "sha256": "3b141114cde1d09da5612ddab59ee6fd36287ad755b3a5cd7cb7965bd18ddbac",
+      "authorClaimedView": "fahuazhen-road-facade",
+      "waySpecificBinding": [],
+      "limitation": "Road association is supported by the project source, but the image has no georeferenced footprint or member number; two excluded ways are closer to the road than every selected way."
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-entrance-canopy-tjad-2019.jpg",
+      "sha256": "04cfc8cea5ec550b6a39d907009fe981d3b3745468fe726d4bab3f3b6e5883dd",
+      "observed": [
+        "entrance glazing",
+        "canopy",
+        "string-like shadow detail"
+      ],
+      "waySpecificBinding": [],
+      "limitation": "Detail crop has no compound context, compass, building number or street marker."
+    }
+  ],
+  "evidenceClassification": {
+    "observed": [
+      "All five selected ways and all four adjacent counterexample ways have only building=yes tags in the local 2026-07-25 OSM building snapshot.",
+      "The local named and address query explicitly includes Shanghai Orchestra and Xinhua Road 336 but returns no matching named or address element.",
+      "The project-authored runtime frame lies inside the five-way convex hull, outside every individual footprint, and 4.592128 scene units from the nearest footprint.",
+      "All per-way areas, centroids, road clearances and nearest-neighbor gaps recorded above are reproducible from repository-local geometry.",
+      "The three local project photos show architecture and courtyard or detail relationships but do not identify an OSM way."
+    ],
+    "authorClaimed": [
+      "The published project is Shanghai Orchestra at Xinhua Road 336.",
+      "The project includes buildings 6, 7 and 8, retained volumes and linked courtyards.",
+      "One published reference is described as the Fahuazhen Road facade.",
+      "The published renovation area is 2205 square metres."
+    ],
+    "inferred": [
+      "The five selected ways form a spatially plausible low-rise compound candidate.",
+      "The runtime frame may represent a courtyard or compound-center authoring anchor.",
+      "Ways 864505168 and 864505169, and ways 864505165 and 864505163, form plausible close sub-groups.",
+      "Way 864505169 is the strongest selected candidate for a Fahuazhen-facing volume only by road proximity, but this inference is defeated as a binding because excluded ways are closer."
+    ],
+    "unknown": [
+      "Whether each selected way belongs to the Shanghai Orchestra compound.",
+      "Whether any of ways 864505162, 864505164, 864505167 or 864505170 also belongs to the compound.",
+      "Which exact ways are buildings 6, 7 and 8.",
+      "Which exact ways are retained historic volumes.",
+      "The cadastral or project boundary for Xinhua Road 336.",
+      "Candidate-specific entrance direction, surveyed height and roof-back geometry.",
+      "OSM relation membership because the local building snapshot contains ways only."
+    ]
+  },
+  "membershipVerdict": {
+    "864505166": "blocked-unbound",
+    "864505168": "blocked-unbound",
+    "864505165": "blocked-unbound",
+    "864505169": "blocked-unbound",
+    "864505163": "blocked-unbound",
+    "selectedSetExclusiveCompoundBoundary": "blocked",
+    "formalMapAcceptance": "blocked",
+    "diagnosticGeometryRetention": "allowed-no-promotion",
+    "massing": "retained-unchanged",
+    "hero": "hold-unchanged",
+    "identity": "blocked-unchanged",
+    "runtimePromotionAllowed": false
+  },
+  "minimumEvidenceToCloseMembership": {
+    "preferredSingleArtifact": "A georeferenced or dimensioned authoritative site plan for Xinhua Road 336 showing the compound boundary, Xinhua Road and Fahuazhen Road, and labelled footprints for buildings 6, 7 and 8 plus retained volumes.",
+    "minimumControlRequirements": [
+      "north-or-compass-direction",
+      "both-road-labels-or-three-independent-map-control-points",
+      "compound-boundary",
+      "included-and-excluded-footprints",
+      "building-6-7-8-labels"
+    ],
+    "acceptableAlternatives": [
+      "cadastral or surveyed parcel and building plan tied to the address",
+      "owner or architect annotated plan that can be deterministically registered to the local OSM snapshot",
+      "explicit user-confirmed annotated OSM map naming every included and excluded way, recorded as user authority rather than primary evidence"
+    ],
+    "insufficientAlone": [
+      "road clearance",
+      "runtime anchor proximity",
+      "MCP1 shape pass",
+      "Three.js diagnostic pass",
+      "unannotated exterior photo",
+      "renovation area similarity"
+    ]
+  }
+}
