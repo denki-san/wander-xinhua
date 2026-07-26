@@ -26,7 +26,9 @@
     },
     "buildRecord": {
       "path": "docs/research/build-records/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.json",
-      "sha256": "770bd1bedc402647740d241f84bdb6e0279521e831ccf4e12e58d8f0c49ccd7b"
+      "sha256": "770bd1bedc402647740d241f84bdb6e0279521e831ccf4e12e58d8f0c49ccd7b",
+      "gitCommit": "9db605f276abee125cc4b83538bba8ba13deb8e8",
+      "preservation": "mcp2-time-snapshot-current-record-later-extended-by-runtime-qa"
     },
     "blockedV1Adjudication": {
       "path": "docs/research/villa-le-bec-hero-visual-adjudication.json",

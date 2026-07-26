@@ -5,6 +5,11 @@ import {
   ACCEPTED_BUILDING_TIER_QA,
   resolveBuildingTierQa,
 } from "../app/scene/building-massing-qa-contract.mjs";
+import {
+  ACCEPTED_DERIVED_BUILDING_TIERS,
+  XINHUA_ROAD_BUILDING_QUALITY_MANIFEST,
+} from "../app/scene/xinhua-road-identity-contract.ts";
+import landmarkData from "../app/scene/xinhua-road-landmarks-data.json" with { type: "json" };
 
 const assetId = "villa-le-bec";
 
@@ -72,4 +77,22 @@ test("Villa Le Bec Hero 和 Identity 逐级 fallback，默认产品入口不变"
     resolveBuildingTierQa("?qaModelId=plane-tree&qaModelTier=hero"),
     null,
   );
+});
+
+test("Villa Le Bec 通过主窗口后生产 Hero、Identity、Massing 与碰撞合同统一", () => {
+  const landmark = landmarkData.landmarks.find(({ id }) => id === assetId);
+  const tiers = ACCEPTED_DERIVED_BUILDING_TIERS[assetId];
+  const quality = XINHUA_ROAD_BUILDING_QUALITY_MANIFEST[assetId];
+  assert.equal(landmark.model, tiers.hero.path);
+  assert.equal(landmark.cacheVersion, tiers.hero.cacheVersion);
+  assert.equal(landmark.localObstacles.length, 12);
+  assert.deepEqual(landmark.position, [-34.1, 88.8]);
+  assert.equal(landmark.yaw, -0.38);
+  assert.equal(landmark.scale, 0.82);
+  assert.equal(quality.hero.model, tiers.hero.path);
+  assert.equal(quality.identity.model, tiers.identity.path);
+  assert.equal(quality.massing.model, tiers.massing.path);
+  assert.equal(quality.identity.strategy, "derived-glb");
+  assert.equal(quality.massing.strategy, "derived-glb");
+  assert.equal(quality.collision, "stable-shared-structure");
 });

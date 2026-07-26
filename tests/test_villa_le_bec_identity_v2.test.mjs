@@ -14,7 +14,7 @@ function glb(buffer) { return JSON.parse(buffer.subarray(20, 20 + buffer.readUIn
 
 test("Villa Le Bec Identity v2 锁定当前 Hero v2 并保留双楼开放庭院", async () => {
   const record = await json(recordPath);
-  assert.equal(record.status, "identity-v2-mcp3-pass-pending-runtime");
+  assert.equal(record.status, "identity-v2-mcp3-runtime-production-pass");
   assert.equal(record.derivedFrom.heroGlbSha256, heroSha);
   assert.equal(record.derivedFrom.heroBlendSha256, blendSha);
   assert.equal(record.derivedFrom.massingSha256, "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f");
@@ -23,7 +23,7 @@ test("Villa Le Bec Identity v2 锁定当前 Hero v2 并保留双楼开放庭院"
   assert.deepEqual(record.continuity.collision.solidWays, [864493176, 864493175]);
   assert.equal(record.scope.twoBuildingsOnly, true);
   assert.equal(record.gates.mcp3, "pass-main-window-xhigh-current-sha");
-  assert.equal(record.gates.runtime, "not-run-by-scope");
+  assert.equal(record.gates.runtime, "pass-main-window-three-tier-production");
   for (const forbidden of ["trees", "decorations", "brand", "interior", "extra-ways"]) assert.ok(record.scope.excluded.includes(forbidden));
 });
 

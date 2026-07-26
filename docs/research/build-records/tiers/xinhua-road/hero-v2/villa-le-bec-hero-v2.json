@@ -3,7 +3,7 @@
   "assetId": "villa-le-bec",
   "tier": "hero",
   "candidate": "hero-v2",
-  "status": "hero-v2-reproducibility-and-mcp2-pass-identity-v2-authorized",
+  "status": "hero-v2-mcp2-mcp3-runtime-production-pass",
   "generator": "scripts/create_villa_le_bec_hero_v2_model.py",
   "generatorSha256": "d22911f6c4bd54b3dd24b3a1ccda36445f4b2c57be42f2de3a5ae43905ed036e",
   "generationCommand": "/Applications/Blender.app/Contents/MacOS/Blender --background --python-exit-code 1 --python scripts/create_villa_le_bec_hero_v2_model.py",
@@ -173,6 +173,7 @@
     "headlessCanonicalSideEntrance": "pass",
     "mcp2": "pass-main-window-blender-mcp-current-v2-sha",
     "identity": "authorized-from-current-hero-v2-sha-only",
-    "runtime": "not-run-by-scope"
+    "runtime": "pass-main-window-three-tier-production",
+    "runtimeRecord": "docs/research/villa-le-bec-three-tier-runtime-qa-v3.json"
   }
 }

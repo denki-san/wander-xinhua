@@ -2534,7 +2534,7 @@ Sites 项目状态检查必须在工具隔离层只提取 `status`、`access_mod
 
 **Logged**: 2026-07-15T23:55:00+08:00
 **Priority**: low
-**Status**: pending
+**Status**: resolved
 **Area**: workflow
 
 ### Summary
@@ -4629,7 +4629,7 @@ apply_patch did not return and required termination
 
 **Logged**: 2026-07-22T12:00:00+08:00
 **Priority**: low
-**Status**: pending
+**Status**: resolved
 **Area**: tooling
 
 ### Summary
@@ -9129,6 +9129,10 @@ forced fallback、性能、碰撞、资源与控制台采集；此前保持 runt
 ### Metadata
 - Reproducible: yes
 - Related Files: docs/research/villa-le-bec-blender-mcp3-gate-v2.json
+
+### Resolution
+- **Resolved**: 2026-07-26T17:00:00+08:00
+- **Notes**: 复用 `4197` 端口的既有 Codex Browser；已完成三档、两条 fallback、性能、控制台/全局错误、碰撞及生产默认入口验收。
 
 ---
 

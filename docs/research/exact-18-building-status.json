@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T16:36:00+08:00",
-  "snapshotBaseCommit": "e1a2611",
+  "snapshotAt": "2026-07-26T17:00:00+08:00",
+  "snapshotBaseCommit": "0b2c8a4",
   "scope": {
     "mode": "exact-18-building-fast-mode",
     "buildingCount": 18,
@@ -18,19 +18,18 @@
     ]
   },
   "summary": {
-    "complete": 5,
-    "inProgress": 1,
+    "complete": 6,
+    "inProgress": 0,
     "blockedOrPartial": 12,
     "completeIds": [
       "one-step-garden",
       "house-315",
+      "villa-le-bec",
       "hudec-memorial",
       "xinhua-pocket-park",
       "sun-ke-villa"
     ],
-    "inProgressIds": [
-      "villa-le-bec"
-    ]
+    "inProgressIds": []
   },
   "buildings": [
     {
@@ -164,9 +163,9 @@
       "mcp2": "pass-v2-current-sha",
       "mcp3": "pass-v2-three-tier-current-sha",
       "map": "pass",
-      "threeJs": "pass-massing-performance-collision",
-      "overall": "in-progress-runtime",
-      "runtimePolicy": "massing-only-no-tier-promotion",
+      "threeJs": "pass-three-tier-fallback-performance-collision",
+      "overall": "complete",
+      "runtimePolicy": "production-wired-and-accepted",
       "records": [
         "docs/research/villa-le-bec-final-gap-audit.json",
         "docs/research/villa-le-bec-map-candidate.json",
@@ -179,7 +178,8 @@
         "docs/research/villa-le-bec-hero-v2-blender-mcp2-gate.json",
         "docs/research/build-records/tiers/xinhua-road/identity-v1/villa-le-bec-identity.json",
         "docs/research/build-records/tiers/xinhua-road/identity-v2/villa-le-bec-identity-v2.json",
-        "docs/research/villa-le-bec-blender-mcp3-gate-v2.json"
+        "docs/research/villa-le-bec-blender-mcp3-gate-v2.json",
+        "docs/research/villa-le-bec-three-tier-runtime-qa-v3.json"
       ]
     },
     {

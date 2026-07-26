@@ -69,7 +69,7 @@ test("统一状态与 Fast Mode 保留 v1 Hold，并登记通过 MCP2 派生的 
   assert.equal(building.hero, "pass-current-v2-sha");
   assert.equal(building.mcp2, "pass-v2-current-sha");
   assert.equal(building.identity, "hold-v1-pass-v2-current-sha");
-  assert.equal(building.runtimePolicy, "massing-only-no-tier-promotion");
+  assert.equal(building.runtimePolicy, "production-wired-and-accepted");
   assert.equal(building.records.includes(recordPath), true);
   assert.equal(fastBuilding.tests.includes("tests/test_villa_le_bec_hero_visual_adjudication.test.mjs"), true);
   assert.equal(

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
@@ -27,6 +28,19 @@ test("Villa Le Bec Hero v2 MCP2 锁定当前二进制、父级与被拒 v1 裁�
   assert.equal(gate.verdict, "pass");
   for (const input of Object.values(gate.inputs)) {
     if (typeof input !== "object" || !input.path) continue;
+    if (input.gitCommit) {
+      const snapshot = execFileSync(
+        "git",
+        ["show", `${input.gitCommit}:${input.path}`],
+        { cwd: decodeURIComponent(root.pathname) },
+      );
+      assert.equal(
+        createHash("sha256").update(snapshot).digest("hex"),
+        input.sha256,
+        `${input.path}@${input.gitCommit}`,
+      );
+      continue;
+    }
     assert.equal(await sha256(input.path), input.sha256, input.path);
   }
   assert.equal(gate.inputs.glb.sha256, build.outputs.glbSha256);

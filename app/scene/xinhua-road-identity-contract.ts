@@ -107,6 +107,26 @@ export const FILM_ART_CENTER_IDENTITY_CACHE_VERSION =
   "20260725-film-art-identity-1";
 
 export const ACCEPTED_DERIVED_BUILDING_TIERS = {
+  "villa-le-bec": {
+    hero: {
+      path:
+        "/models/tiers/xinhua-road/hero-v2/"
+        + "villa-le-bec-hero-v2.glb",
+      cacheVersion: "20260726-hero-4f909a3b149e",
+    },
+    identity: {
+      path:
+        "/models/tiers/xinhua-road/identity-v2/"
+        + "villa-le-bec-identity-v2.glb",
+      cacheVersion: "20260726-identity-4be0685ed6db",
+    },
+    massing: {
+      path:
+        "/models/tiers/xinhua-road/massing-v2/"
+        + "villa-le-bec-massing.glb",
+      cacheVersion: "20260726-massing-593cc3995046",
+    },
+  },
   "hudec-memorial": {
     hero: {
       path: "/models/requested-pois/hudec-memorial-v2-hero.glb",

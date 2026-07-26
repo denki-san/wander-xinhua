@@ -196,5 +196,5 @@ test("Villa Le Bec Hero v2 三机位与 triptych 均锁定，MCP2 只授权当�
   assert.equal(record.gates.headlessCanonicalSideEntrance, "pass");
   assert.equal(record.gates.mcp2, "pass-main-window-blender-mcp-current-v2-sha");
   assert.equal(record.gates.identity, "authorized-from-current-hero-v2-sha-only");
-  assert.equal(record.gates.runtime, "not-run-by-scope");
+  assert.equal(record.gates.runtime, "pass-main-window-three-tier-production");
 });
