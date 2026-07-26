@@ -10,6 +10,18 @@ export const BUILDING_MASSING_QA_CANDIDATES = Object.freeze({
       + "villa-le-bec-massing.json",
     mapGate: "docs/research/villa-le-bec-massing-map-gate.json",
   }),
+  "xinhua-villas-329": Object.freeze({
+    assetId: "xinhua-villas-329",
+    requestedTier: "massing",
+    modelPath:
+      "/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb"
+      + "?v=20260726-massing-f245efd0",
+    buildRecord:
+      "docs/research/build-records/tiers/xinhua-road/massing-v3/"
+      + "xinhua-villas-329-massing.json",
+    mapGate:
+      "docs/research/xinhua-villas-329-massing-v3-integration-candidate.json",
+  }),
 });
 
 export function resolveBuildingMassingQa(search = "") {

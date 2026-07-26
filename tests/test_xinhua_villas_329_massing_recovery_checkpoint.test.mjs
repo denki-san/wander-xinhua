@@ -85,11 +85,8 @@ test("329弄 Recovery Massing-v2 只接续哈希与 blocker，不冒充地图门
   assert.equal(landmark.yaw, checkpoint.currentSharedState.yaw);
   assert.equal(landmark.scale, checkpoint.currentSharedState.scale);
   assert.equal(landmark.model, checkpoint.currentSharedState.model);
-  assert.equal(
-    await sha256(REGISTRY_PATH),
-    checkpoint.currentSharedState.registrySha256,
-    "建筑分支不得修改共享 registry",
-  );
+  // Recovery checkpoint 的整文件哈希只约束当时的建筑分支；主窗口随后可为其他
+  // 建筑更新同一 registry。329 本身的 frozen placement/model 仍须逐字段保持。
 
   assert(
     fastBuilding.glbs.includes(
@@ -101,13 +98,17 @@ test("329弄 Recovery Massing-v2 只接续哈希与 blocker，不冒充地图门
     fastBuilding.glbs.every((glb) => [
       "public/models/xinhua-road/xinhua-villas-329.glb",
       "public/models/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.glb",
+      "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
     ].includes(glb)),
-    "临时专项执行不得带入329以外的 GLB",
+    "主窗口专项执行只能审计329自身的 Hero、Recovery v2 与当前 v3",
   );
   assert.deepEqual(
     fastBuilding.runtimeRoutes,
-    ["/?start=villas329&cameraQa=1&qaAutoStart=1"],
-    "建筑分支不得提前声明未接线的 Massing QA route",
+    [
+      "/?start=villas329&cameraQa=1&qaAutoStart=1",
+      "/?start=villas329&qaModelId=xinhua-villas-329&qaModelTier=massing&cameraQa=1&qaAutoStart=1",
+    ],
+    "主窗口接线后必须保留默认入口并显式声明 scoped Massing QA route",
   );
   assert(
     checkpoint.mainWindowManifestCandidate.tests.includes(

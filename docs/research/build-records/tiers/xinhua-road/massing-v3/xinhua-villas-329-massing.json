@@ -4,7 +4,7 @@
   "tier": "massing",
   "batch": "evidence-bound-v3",
   "generatedAt": "2026-07-26",
-  "status": "headless-built-pending-main-window-mcp1-and-map-gate",
+  "status": "mcp1-pass-runtime-render-pass-map-blocked",
   "generator": "scripts/create_xinhua_villas_329_massing_model.py",
   "memberBinding": "docs/research/xinhua-villas-329-member-binding.json",
   "modelBrief": "docs/research/xinhua-villas-329-model-brief.md",
@@ -300,11 +300,21 @@
     "evidence": "pass-conservative-massing-only",
     "headlessBuild": "pass",
     "glbStructure": "pass-explicit-audit",
-    "mcp1": "pending-main-window-batch",
-    "runtimeGate": "pending-main-window-scoped-qa",
-    "mapAcceptance": "pending-main-window-scoped-qa",
+    "mcp1": "pass-current-sha-visual-and-structure",
+    "runtimeGate": "pass-current-v3-load-and-visibility-map-rejected",
+    "mapAcceptance": "blocked-road-edge-and-member15-binding",
     "heroAuthorized": false,
     "identityAuthorized": false
+  },
+  "mainWindowReview": {
+    "record": "docs/research/xinhua-villas-329-massing-v3-integration-candidate.json",
+    "mcp1ReviewedAt": "2026-07-26",
+    "runtimeGlbSha256": "f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704",
+    "mcp1CaptureCount": 3,
+    "runtimeAssetVisibility": "pass",
+    "runtimeConsoleEvents": 0,
+    "mapPromotionAuthorized": false,
+    "blocker": "member-15-collision-aabb-enters-stylized-road-and-footprint-binding-is-only-medium"
   },
   "explicitAudit": {
     "command": "python3 scripts/audit_glb.py public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb --forbid-images --max-nodes 8",

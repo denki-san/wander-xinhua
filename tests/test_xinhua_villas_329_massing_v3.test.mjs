@@ -90,9 +90,15 @@ test("329弄 XHS 证据只授权四成员保守 Massing v3", async () => {
   assert.equal(referenceManifest.evidenceGate.identityAuthorized, false);
   assert.equal(referenceManifest.evidenceGate.heroAuthorized, false);
   assert.equal(record.gates.evidence, "pass-conservative-massing-only");
-  assert.equal(record.gates.mcp1, "pending-main-window-batch");
-  assert.equal(record.gates.runtimeGate, "pending-main-window-scoped-qa");
-  assert.equal(record.gates.mapAcceptance, "pending-main-window-scoped-qa");
+  assert.equal(record.gates.mcp1, "pass-current-sha-visual-and-structure");
+  assert.equal(
+    record.gates.runtimeGate,
+    "pass-current-v3-load-and-visibility-map-rejected",
+  );
+  assert.equal(
+    record.gates.mapAcceptance,
+    "blocked-road-edge-and-member15-binding",
+  );
   assert.equal(record.gates.identityAuthorized, false);
   assert.equal(record.gates.heroAuthorized, false);
   assert.equal(binding.worldProjectionValidation.status, "pass");
@@ -102,6 +108,33 @@ test("329弄 XHS 证据只授权四成员保守 Massing v3", async () => {
   );
   assert.equal(record.coordinateValidation.status, "pass");
   assert.equal(integrationCandidate.coordinateValidation.status, "pass");
+  assert.equal(
+    integrationCandidate.mainWindowMcp1.status,
+    "pass-current-sha-visual-and-structure",
+  );
+  assert.equal(integrationCandidate.mainWindowMcp1.captures.length, 3);
+  assert.equal(
+    integrationCandidate.mainWindowRuntimeCandidate.dataset.runtimeStatus,
+    "loaded",
+  );
+  assert.equal(
+    integrationCandidate.mainWindowMapGate.status,
+    "blocked-road-edge-and-member15-binding",
+  );
+  assert.ok(
+    integrationCandidate.mainWindowMapGate
+      .nearestUnexpandedFootprintToAsphaltEdgeSceneUnits
+      < integrationCandidate.mainWindowMapGate
+        .minimumRequiredVisibleClearanceSceneUnits,
+  );
+  assert.ok(
+    integrationCandidate.mainWindowMapGate
+      .nearestCollisionAabbToAsphaltEdgeSceneUnits < 0,
+  );
+  assert.equal(
+    integrationCandidate.mainWindowMapGate.otherLandmarkObstacleIntersectionCount,
+    0,
+  );
 
   assert.deepEqual(
     binding.members.map(({ sourceWayId, houseNumber }) => [sourceWayId, houseNumber]),
@@ -301,12 +334,16 @@ test("329弄 XHS 证据只授权四成员保守 Massing v3", async () => {
   assert(
     fastBuilding.glbs.every((glb) => [
       "public/models/xinhua-road/xinhua-villas-329.glb",
+      "public/models/tiers/xinhua-road/massing-v2/xinhua-villas-329-massing.glb",
       "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
     ].includes(glb)),
-    "临时专项 manifest 不得包含其他建筑或其他329候选 GLB",
+    "主窗口专项 manifest 不得包含329以外的 GLB",
   );
   assert.deepEqual(
     fastBuilding.runtimeRoutes,
-    ["/?start=villas329&cameraQa=1&qaAutoStart=1"],
+    [
+      "/?start=villas329&cameraQa=1&qaAutoStart=1",
+      "/?start=villas329&qaModelId=xinhua-villas-329&qaModelTier=massing&cameraQa=1&qaAutoStart=1",
+    ],
   );
 });

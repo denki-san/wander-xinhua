@@ -8252,3 +8252,98 @@ escalation，不要绕过 `.git/worktrees` 或手工搬动元数据。
 - **Resolved**: 2026-07-26T03:01:00+08:00
 - **Notes**: 受控 rebase 成功，建筑分支已对齐 `codex/integrate-18-buildings`；
   Recovery/Hold 与其他建筑 Worktree 均未改动。
+
+---
+## [ERR-20260726-077] node_repl_fs_binding_not_available
+
+**Logged**: 2026-07-26T03:12:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: browser-runtime-qa
+
+### Summary
+保存新华329弄运行时截图时沿用了旧会话中的 `fs` 变量名，但当前 Node REPL
+没有该 binding。
+
+### Error
+```text
+ReferenceError: fs is not defined
+```
+
+### Context
+- 截图字节已在内存中生成，目标文件尚未写入。
+- 页面与采集状态没有改变。
+
+### Suggested Fix
+不要假定跨压缩或跨会话仍有旧 binding；用新的任务专属变量动态导入
+`node:fs/promises`。
+
+### Resolution
+- **Resolved**: 2026-07-26T03:12:00+08:00
+- **Notes**: 使用 `fs329 = await import("node:fs/promises")` 后成功保存同一截图字节。
+
+---
+## [ERR-20260726-078] python_py_compile_uses_unwritable_user_cache
+
+**Logged**: 2026-07-26T03:14:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: blender-generator-validation
+
+### Summary
+独立211弄 Worktree 中执行 `python3 -m py_compile` 时，Xcode Python 默认尝试把
+pycache 写入不在 writable roots 的用户缓存目录。
+
+### Error
+```text
+PermissionError: [Errno 1] Operation not permitted:
+/Users/lei/Library/Caches/com.apple.python/...
+```
+
+### Suggested Fix
+语法检查优先使用无写入的 `python3 -c 'compile(...)'`；确需 pycache 时使用任务专属
+`PYTHONPYCACHEPREFIX=/tmp/...`。
+
+### Resolution
+- **Resolved**: 2026-07-26T03:15:00+08:00
+- **Notes**: 211弄改用无写入 compile 后继续验证，未修改或删除任何缓存。
+
+---
+## [ERR-20260726-079] polygon_ridge_quad_can_self_intersect
+
+**Logged**: 2026-07-26T03:18:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: blender-geometry
+
+### Summary
+211弄首版把任意 polygon 长轴 ridge 直接组成 roof quad，顶点未按环方向拆分，
+导出虽成功但固定机位出现扭曲、暗洞和背面孔洞。
+
+### Suggested Fix
+任意 footprint 的浅坡屋顶按封闭环生成三角扇或先可靠三角化；GLB 容器 audit
+不能替代固定机位视觉检查。
+
+### Resolution
+- **Resolved**: 2026-07-26T03:20:00+08:00
+- **Notes**: 211弄生成器改为每个OSM footprint的封闭浅坡三角扇并重建。
+
+---
+## [ERR-20260726-080] map_test_asserted_unprinted_false_precision
+
+**Logged**: 2026-07-26T03:22:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: map-calibration
+
+### Summary
+211弄专项测试手工断言未实际打印的超精度入口净距常量，和合同内四位小数
+发生微小不一致。
+
+### Suggested Fix
+地图测试从绑定合同读取已声明精度，并使用与证据精度一致的容差；不要把展示数值
+伪装成测绘精度。
+
+### Resolution
+- **Resolved**: 2026-07-26T03:23:00+08:00
+- **Notes**: 测试改读 `3.6682` 并使用 `1e-4` 容差，专项测试通过。
