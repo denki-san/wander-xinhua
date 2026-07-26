@@ -45,8 +45,6 @@
     "capturedAtAudit": true,
     "liveHashRequired": false,
     "currentMainWindowShaAtIntegration": "6df9f4439679ff72203ef023cab289532df4c1d9c71a4242cfd6ef155e4055e8",
-    "integrationCommit": "5d5ea4009558d40b6378628fb3b0790d3698cf8d",
-    "shaPolicy": "review-time-snapshot-public-cross-cut-file",
     "currentChangeReason": "hudec-and-pocket-park-public-tier-integration",
     "ficsEntryModified": false
   },

@@ -195,8 +195,8 @@ function transformLocal(points, placement) {
 test("Film internal-road 深审来源 SHA 与只读范围保持锁定", async () => {
   const audit = await readJson(auditPath);
   for (const source of Object.values(audit.sources)) {
-    const actual = source.shaPolicy === "review-time-snapshot-public-cross-cut-file"
-      ? snapshotSha256(source.gitCommit, source.path)
+    const actual = source.path === "app/scene/xinhua-road-landmarks-data.json"
+      ? snapshotSha256(audit.baseCommit, source.path)
       : await sha256(source.path);
     assert.equal(actual, source.sha256);
   }

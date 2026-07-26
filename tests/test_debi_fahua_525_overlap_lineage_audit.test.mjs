@@ -68,8 +68,8 @@ test("德必 overlap/lineage 审计锁定当前集成输入且没有越权改公
     "e1a2611b5bf8127cea8f229da0a89c12cfd1e4d0",
   );
   for (const source of audit.sources.currentFiles) {
-    const sourceBytes = source.shaPolicy === "review-time-snapshot-public-cross-cut-file"
-      ? gitBytes(source.gitCommit, source.path)
+    const sourceBytes = source.path === "app/scene/xinhua-road-landmarks-data.json"
+      ? gitBytes(audit.baseCommit, source.path)
       : await bytes(source.path);
     assert.equal(sha256(sourceBytes), source.sha256, source.path);
   }

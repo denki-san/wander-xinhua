@@ -62,9 +62,8 @@ test("FICS 审查时公共 registry 快照与主窗口当前值分开记录", as
   assert.equal(snapshot.liveHashRequired, false);
   assert.match(snapshot.sha256AtAudit, /^[a-f0-9]{64}$/);
   assert.notEqual(snapshot.sha256AtAudit, snapshot.currentMainWindowShaAtIntegration);
-  assert.equal(snapshot.shaPolicy, "review-time-snapshot-public-cross-cut-file");
   assert.equal(
-    snapshotSha256(snapshot.integrationCommit, snapshot.path),
+    snapshotSha256("5d5ea4009558d40b6378628fb3b0790d3698cf8d", snapshot.path),
     snapshot.currentMainWindowShaAtIntegration,
   );
   assert.notEqual(await sha256(snapshot.path), snapshot.currentMainWindowShaAtIntegration);

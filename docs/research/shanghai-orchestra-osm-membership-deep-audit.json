@@ -79,9 +79,7 @@
     },
     "runtimeRegistryReadOnly": {
       "path": "app/scene/xinhua-road-landmarks-data.json",
-      "sha256": "6df9f4439679ff72203ef023cab289532df4c1d9c71a4242cfd6ef155e4055e8",
-      "gitCommit": "5d5ea4009558d40b6378628fb3b0790d3698cf8d",
-      "shaPolicy": "review-time-snapshot-public-cross-cut-file"
+      "sha256": "6df9f4439679ff72203ef023cab289532df4c1d9c71a4242cfd6ef155e4055e8"
     }
   },
   "namedSubject": {

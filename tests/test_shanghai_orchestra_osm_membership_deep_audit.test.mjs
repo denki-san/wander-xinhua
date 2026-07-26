@@ -205,8 +205,8 @@ function nearestAsphaltEdge(polygon, roadName) {
 test("上海民族乐团深审锁定仓内来源且 OSM 无命名、地址或 relation 绑定", () => {
   for (const source of Object.values(audit.sources)) {
     if (source.path && source.sha256) {
-      const actual = source.shaPolicy === "review-time-snapshot-public-cross-cut-file"
-        ? snapshotSha256(source.gitCommit, source.path)
+      const actual = source.path === "app/scene/xinhua-road-landmarks-data.json"
+        ? snapshotSha256(audit.baselineCommit, source.path)
         : sha256(source.path);
       assert.equal(actual, source.sha256);
     }
