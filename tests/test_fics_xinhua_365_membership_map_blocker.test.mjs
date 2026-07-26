@@ -1,9 +1,12 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
 
 const root = new URL("../", import.meta.url);
+const rootPath = fileURLToPath(root);
 const blockerPath = "docs/research/fics-xinhua-365-membership-map-blocker.json";
 
 async function json(relativePath) {
@@ -13,6 +16,14 @@ async function json(relativePath) {
 async function sha256(relativePath) {
   return createHash("sha256")
     .update(await readFile(new URL(relativePath, root)))
+    .digest("hex");
+}
+
+function snapshotSha256(commit, relativePath) {
+  return createHash("sha256")
+    .update(execFileSync("git", ["show", `${commit}:${relativePath}`], {
+      cwd: rootPath,
+    }))
     .digest("hex");
 }
 
@@ -51,7 +62,12 @@ test("FICS 审查时公共 registry 快照与主窗口当前值分开记录", as
   assert.equal(snapshot.liveHashRequired, false);
   assert.match(snapshot.sha256AtAudit, /^[a-f0-9]{64}$/);
   assert.notEqual(snapshot.sha256AtAudit, snapshot.currentMainWindowShaAtIntegration);
-  assert.equal(await sha256(snapshot.path), snapshot.currentMainWindowShaAtIntegration);
+  assert.equal(snapshot.shaPolicy, "review-time-snapshot-public-cross-cut-file");
+  assert.equal(
+    snapshotSha256(snapshot.integrationCommit, snapshot.path),
+    snapshot.currentMainWindowShaAtIntegration,
+  );
+  assert.notEqual(await sha256(snapshot.path), snapshot.currentMainWindowShaAtIntegration);
   assert.equal(snapshot.ficsEntryModified, false);
   assert.ok(currentEntry);
   assert.deepEqual(currentEntry.position, blocker.formalPlacement.position);

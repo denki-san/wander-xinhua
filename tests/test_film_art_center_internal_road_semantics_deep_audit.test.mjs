@@ -1,9 +1,12 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
 
 const root = new URL("../", import.meta.url);
+const rootPath = fileURLToPath(root);
 const auditPath =
   "docs/research/film-art-center-internal-road-semantics-deep-audit.json";
 
@@ -14,6 +17,14 @@ async function readJson(path) {
 async function sha256(path) {
   return createHash("sha256")
     .update(await readFile(new URL(path, root)))
+    .digest("hex");
+}
+
+function snapshotSha256(commit, path) {
+  return createHash("sha256")
+    .update(execFileSync("git", ["show", `${commit}:${path}`], {
+      cwd: rootPath,
+    }))
     .digest("hex");
 }
 
@@ -184,7 +195,10 @@ function transformLocal(points, placement) {
 test("Film internal-road 深审来源 SHA 与只读范围保持锁定", async () => {
   const audit = await readJson(auditPath);
   for (const source of Object.values(audit.sources)) {
-    assert.equal(await sha256(source.path), source.sha256);
+    const actual = source.shaPolicy === "review-time-snapshot-public-cross-cut-file"
+      ? snapshotSha256(source.gitCommit, source.path)
+      : await sha256(source.path);
+    assert.equal(actual, source.sha256);
   }
   assert.equal(
     audit.baseCommit,

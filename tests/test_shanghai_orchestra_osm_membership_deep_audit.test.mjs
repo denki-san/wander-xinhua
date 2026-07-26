@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
@@ -11,6 +12,11 @@ const readJson = (relativePath) => JSON.parse(
 );
 const sha256 = (relativePath) => crypto.createHash("sha256")
   .update(fs.readFileSync(path.join(ROOT, relativePath)))
+  .digest("hex");
+const snapshotSha256 = (commit, relativePath) => crypto.createHash("sha256")
+  .update(execFileSync("git", ["show", `${commit}:${relativePath}`], {
+    cwd: ROOT,
+  }))
   .digest("hex");
 const round = (value, digits = 6) => Number(value.toFixed(digits));
 
@@ -199,7 +205,10 @@ function nearestAsphaltEdge(polygon, roadName) {
 test("上海民族乐团深审锁定仓内来源且 OSM 无命名、地址或 relation 绑定", () => {
   for (const source of Object.values(audit.sources)) {
     if (source.path && source.sha256) {
-      assert.equal(sha256(source.path), source.sha256);
+      const actual = source.shaPolicy === "review-time-snapshot-public-cross-cut-file"
+        ? snapshotSha256(source.gitCommit, source.path)
+        : sha256(source.path);
+      assert.equal(actual, source.sha256);
     }
   }
   assert.equal(

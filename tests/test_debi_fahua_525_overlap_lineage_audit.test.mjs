@@ -68,7 +68,10 @@ test("德必 overlap/lineage 审计锁定当前集成输入且没有越权改公
     "e1a2611b5bf8127cea8f229da0a89c12cfd1e4d0",
   );
   for (const source of audit.sources.currentFiles) {
-    assert.equal(sha256(await bytes(source.path)), source.sha256, source.path);
+    const sourceBytes = source.shaPolicy === "review-time-snapshot-public-cross-cut-file"
+      ? gitBytes(source.gitCommit, source.path)
+      : await bytes(source.path);
+    assert.equal(sha256(sourceBytes), source.sha256, source.path);
   }
   assert.equal(audit.scope.assetOnly, "debi-fahua-525");
   assert.equal(audit.scope.browserNetworkOrXhsAccessed, false);
