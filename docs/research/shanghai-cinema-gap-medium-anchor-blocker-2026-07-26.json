@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "assetId": "shanghai-cinema",
+  "reviewedAt": "2026-07-26",
+  "mode": "fast-mode-local-only-anchor-adjudication-and-main-window-public-rescue-review",
+  "status": "map-anchor-blocked-source-drift-and-neighbor-shell-closed-public-rescue-consistent",
+  "scope": {
+    "included": [
+      "local-official-evidence-and-OSM-anchor-audits",
+      "accepted-three-tier-binary-and-runtime-records",
+      "exact-hero-source-reproduction-audit",
+      "film-art-center-neighbor-supersession",
+      "main-window-public-primary-source-rescue-review",
+      "private-specialty-regression"
+    ],
+    "notPerformed": [
+      "network-browser-or-xiaohongshu-research",
+      "blender-or-mcp-rerun",
+      "model-or-generator-modification",
+      "registry-runtime-manifest-status-or-roster-mutation",
+      "recovery-or-hold-work",
+      "trees-decoration-or-full-map-work"
+    ],
+    "sharedFilesModified": false,
+    "binaryModified": false
+  },
+  "verifiedInputs": {
+    "exactAnchorAudit": {
+      "path": "docs/research/shanghai-cinema-exact-anchor-road-setback-audit.json",
+      "sha256": "d9be563f25984e61d4d37695d8353272e3a3cfbc5e35cbe48a3be5f22fe18d82"
+    },
+    "exactHeroReproduction": {
+      "path": "docs/research/shanghai-cinema-hero-exact-reproduction-audit.json",
+      "sha256": "4b00d69735ec556b3030f0b83e30c8be118d6eb5d928d980300d80e6b8e13065"
+    },
+    "filmNeighborSupersession": {
+      "path": "docs/research/shanghai-cinema-film-neighbor-supersession-2026-07-26.json",
+      "sha256": "b1919be2ef8b909f420b104a42428759ab9aa60755efc099da366a23f6fafd9d"
+    },
+    "mapCalibration": {
+      "path": "docs/research/shanghai-cinema-map-calibration-2026-07-26.json",
+      "sha256": "35fbd46345b3552fc87cd69b948995d43779fa8bf55a6b1acaf6ef5a86731dc5"
+    }
+  },
+  "retainedAcceptedStages": {
+    "hero": {
+      "path": "public/models/xinhua-road/shanghai-cinema.glb",
+      "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+      "nodes": 1,
+      "triangles": 83820
+    },
+    "identityIncrement": {
+      "path": "public/models/xinhua-road/shanghai-cinema-hybrid-identity.glb",
+      "sha256": "66ea8425313f9024d0b707b87be27549504ec9dddab3a8fdb30961aaf2d48d9c",
+      "nodes": 1,
+      "triangles": 8064
+    },
+    "massing": {
+      "path": "public/models/xinhua-road/shanghai-cinema-massing.glb",
+      "sha256": "e1635a7796ad9ca4f7699e5559c73c4a02591b601e9d300f8a874c73a7a513ab",
+      "nodes": 1,
+      "triangles": 10544
+    },
+    "gates": [
+      "MCP1 Massing retained pass",
+      "MCP2 Hero retained pass",
+      "MCP3 three-tier retained pass",
+      "Three.js three-tier fallback, cache, console, performance and collision retained pass"
+    ],
+    "action": "retain unchanged; no qualified stage is rerun"
+  },
+  "closedFindings": {
+    "heroSourceDrift": {
+      "status": "closed-pass-exact-source-reproduction",
+      "source": "SHA-locked accepted Blend exported by the building-specific exact exporter in two independent Blender 5.2.0 processes",
+      "result": "both exports exactly match the accepted public Hero SHA c4d55703, JSON chunk and binary chunk"
+    },
+    "filmNeighborCollision": {
+      "status": "closed-current-no-runtime-aabb-overlap",
+      "result": "historical Film AABB record is preserved, while current calibrated Film scale and footprint produce zero AABB pairs with Shanghai Cinema"
+    }
+  },
+  "mainWindowPublicRescueReview": {
+    "input": {
+      "path": "docs/research/shanghai-cinema-public-exact-anchor-rescue-2026-07-26.json",
+      "worktree": "integration-18-buildings",
+      "sha256AtReview": "75cfefd43af6ded5dda1269cbca20c0f47b705e1743c3c1aa948db5615f12f25",
+      "readOnly": true
+    },
+    "crossChecks": [
+      "Its exact-anchor and Hero reproduction input fingerprints match the current verified building audits.",
+      "Its stated quality gate retains north arrow, scale or dimensions, and two non-coincident subject control points; this is consistent with the existing exact-anchor audit.",
+      "Its conclusion that public primary sources support plaza-to-sidewalk intent but not a solvable local-to-WGS84 transform is consistent with the existing geometry diagnosis.",
+      "Its Hero source-reproduction conclusion and its preserved-assets/no-runtime-removal disposition agree with the existing exact reproduction audit."
+    ],
+    "reviewLimitation": "This building worktree did not re-fetch the public URLs while the user sleeps. The main-window record's publisher observations are accepted as a declared external-research input, while the SHA-linked local geometry and source-reproduction claims were independently cross-checked.",
+    "integrationAdvice": "Safe to integrate as an additive evidence-rescue record. It does not authorize placement or runtime changes and should not replace the exact-anchor audit."
+  },
+  "externalResearchWorkflowReview": {
+    "officialPrimarySourceReview": {
+      "status": "content-conclusion-acceptable-non-decisive",
+      "confirmedByMainWindow": [
+        "Shanghai Municipal Administration of Culture and Tourism states the forecourt became a level public plaza seamlessly connected to the sidewalk.",
+        "Changning planning authority records the facade project and completion-acceptance progress.",
+        "Changning construction-permit index records project 2102CN0309D01 at Xinhua Road 160.",
+        "Shanghai planning authority provides only area-level renewal context."
+      ],
+      "effectOnAnchor": "These official facts support the observed street-interface concern, but none supplies north arrow, scale or two local-to-world subject control points. They must not authorize a placement transform."
+    },
+    "secondaryDesignerPage": {
+      "status": "non-decisive-not-required-for-anchor",
+      "page": "ARCHINA designer-project feature",
+      "review": "The page was unavailable during main-window verification. Do not rely on it for a map-anchor conclusion; the official primary-source findings stand independently."
+    },
+    "wikiIngestion": {
+      "status": "required-before-formal-external-research-integration",
+      "observedGap": "Main-window review found no corresponding source/Wiki ingestion for this public research in the Threejs-3d-research knowledge workflow.",
+      "requiredBeforeClaimingResearchWorkflowComplete": [
+        "Create an English-named repository knowledge-source Markdown that records the official URLs and separates observed, inferred and unknown claims.",
+        "Ingest the source into the configured LLM Wiki raw-source workflow, run rescan, wait for the queue to empty, then search/read back and retain a traceable verification result."
+      ],
+      "currentAction": "No external-storage write was performed by this building worktree. Until the workflow is complete, the public rescue may be used only as an additive pending-ingestion evidence record, never as a completed research/Wiki claim."
+    }
+  },
+  "remainingAnchorBlocker": {
+    "currentPlacement": {
+      "position": [74.1, 80.9],
+      "yaw": 2.761592653589793,
+      "scale": 1
+    },
+    "observed": [
+      "The named/addressed OSM primary footprint identifies the cinema compound, and the current pivot is only 0.844179 scene units from its area centroid.",
+      "Relative to the same Xinhua Road centerline, the visible plaza envelope is 9.121581 scene units (24.628270 m) farther from the road than the OSM footprint; the authored main-ribbon front line is 16.724719 scene units (45.156741 m) farther, and the entry steps are 14.358130 scene units (38.766951 m) farther.",
+      "The current regular 38 x 26 local envelope is shallow on the Xinhua Road side and too close to Panyu Road; all accepted binary and runtime checks remain unchanged."
+    ],
+    "inferred": [
+      "The current failure combines a near-centroid registry anchor with a regular model footprint/front-edge offset rather than a large WGS84 projection error.",
+      "A single translation cannot solve the plaza, ribbon and steps simultaneously because their road-equivalent translations differ."
+    ],
+    "unknown": [
+      "The WGS84 locations of the Hero pivot, main entrance center and main-ribbon endpoint.",
+      "The authoritative relation between the post-renovation wall/entrance geometry and the OSM outline.",
+      "Whether remedy should be registry translation, local-origin reset, footprint revision, or a combination."
+    ],
+    "formalMapAcceptanceAuthorized": false
+  },
+  "rejectedPseudoFixes": [
+    "Road-distance equivalent translations are diagnostic numbers only, not placement candidates; plaza, ribbon and steps require different translations.",
+    "Arbitrary registry movement or global scaling would alter both road setbacks and cannot prove the real anchor.",
+    "The OSM centroid, a same-address POI, or an unbound layer=1 overlap way provides at most one weak point and cannot solve orientation/origin offset.",
+    "The historical Film AABB overlap cannot be used as a current collision blocker or a reason to move Shanghai Cinema; current Film calibration has removed it."
+  ],
+  "minimumUnblock": [
+    "An official/site-survey plan with north arrow and scale, correlated to the OSM outline, marking at least two uniquely identifiable points in both WGS84 and the local GLB geometry (for example main entrance center plus a main-ribbon end, or a tower corner).",
+    "If scale is not fixed by that plan, include a scale measurement or a third non-collinear point.",
+    "Main-window adjudication of whether the solved transform requires registry placement, local-origin correction, footprint revision, or a combination; only then rerun the affected map/collision/runtime gates."
+  ],
+  "verdict": {
+    "mapAnchorClosed": false,
+    "heroSourceDriftClosed": true,
+    "filmNeighborCollisionClosed": true,
+    "publicWiringAuthorized": false,
+    "buildingComplete": false,
+    "nextGate": "obtain two-point georeferenced subject anchor evidence"
+  }
+}
