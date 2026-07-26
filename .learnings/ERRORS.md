@@ -26,6 +26,36 @@ Operation not permitted
 - **Notes**: 使用受控 Git 权限后仅暂存本批源文件、记录与合格截图。
 
 ---
+## [ERR-20260726-096] jq_object_fallback_parentheses
+
+**Logged**: 2026-07-26T15:18:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+批量读取 GLB 指标时，把多个 `//` fallback 直接写进 object value，`jq`
+在冒号后的表达式边界报语法错误。
+
+### Error
+```text
+jq: error: syntax error, unexpected //, expecting '}'
+```
+
+### Context
+- 失败命令只读，资产与记录均未修改；
+- 文件体积与 SHA 已在同一命令前半段成功读取。
+
+### Suggested Fix
+object value 中的 fallback 链统一加括号，例如
+`{triangles: (.glb.triangles // .geometry.triangles // null)}`，或先用
+`jq 'paths'` 确认实际字段后读取单一路径。
+
+### Resolution
+- **Resolved**: 2026-07-26T15:19:00+08:00
+- **Notes**: 改用加括号的明确字段读取；不影响本批运行时验收。
+
+---
 ## [ERR-20260726-094] xingfuli_legacy_source_literal_assertion
 
 **Logged**: 2026-07-26T14:25:00+08:00
