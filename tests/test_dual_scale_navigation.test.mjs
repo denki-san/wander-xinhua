@@ -172,8 +172,13 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.match(introSurface, /xinhua-plane-tree-cover-desktop\.jpg/);
   assert.match(introSurface, /xinhua-plane-tree-cover-mobile\.jpg/);
   assert.match(introSurface, /max-width: 760px/);
-  assert.match(introSurface, /<span>Wander<\/span>\s*<span>Xinhua<\/span>/);
-  assert.match(introSurface, />\s*START\s*<\/button>/);
+  assert.match(introSurface, /aria-label="新华漫游"/);
+  assert.match(introSurface, /intro-title-char[\s\S]*?>新<[\s\S]*?>华<[\s\S]*?>漫<[\s\S]*?>游</);
+  assert.match(introSurface, />\s*开始\s*<\/button>/);
+  assert.match(introSurface, />上海新华路社区<\/span>/);
+  assert.match(styles, /font-family: "FZKai-Z03", "Kaiti SC", STKaiti, KaiTi/);
+  assert.match(styles, /\.intro-title-char:nth-child\(4\)/);
+  assert.match(styles, /\.intro-entry\s*\{[^}]*left: 50%;[^}]*transform: translateX\(-50%\);/);
   assert.doesNotMatch(introSurface, /沿着梧桐树影/);
   assert.doesNotMatch(styles, /\.intro-start-button::after/);
   assert.match(introSurface, /正在铺开新华路/);

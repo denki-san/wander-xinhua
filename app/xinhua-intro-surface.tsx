@@ -35,17 +35,19 @@ export function XinhuaIntroSurface({
     >
       <XinhuaCoverMedia />
       <div className="intro-copy">
-        <span className="intro-kicker">SHANGHAI · XINHUA ROAD</span>
-        <h1 id="intro-title">
-          <span>Wander</span>
-          <span>Xinhua</span>
+        <span className="intro-kicker">上海新华路社区</span>
+        <h1 id="intro-title" aria-label="新华漫游">
+          <span className="intro-title-char" aria-hidden="true">新</span>
+          <span className="intro-title-char" aria-hidden="true">华</span>
+          <span className="intro-title-char" aria-hidden="true">漫</span>
+          <span className="intro-title-char" aria-hidden="true">游</span>
         </h1>
       </div>
 
       <div className="intro-entry">
         {ready && onBegin ? (
           <button className="intro-start-button" type="button" onClick={onBegin}>
-            START
+            开始
           </button>
         ) : (
           <div className="intro-loading-card" role="status" aria-live="polite">

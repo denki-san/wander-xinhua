@@ -235,6 +235,9 @@ button {
 .intro-entry {
   position: absolute;
   z-index: 2;
+}
+
+.intro-copy {
   left: clamp(28px, 5.6vw, 96px);
 }
 
@@ -263,20 +266,44 @@ button {
 .intro-copy h1 {
   position: relative;
   display: flex;
-  align-items: baseline;
-  gap: 0.2em;
+  align-items: center;
+  gap: 0.03em;
   width: fit-content;
   margin: 0;
   margin-top: clamp(16px, 2.4vh, 28px);
-  font-family: "Snell Roundhand", "Segoe Script", "Brush Script MT", "Apple Chancery", cursive;
-  font-size: clamp(66px, 7.2vw, 118px);
-  font-weight: 700;
-  line-height: 0.9;
-  letter-spacing: -0.045em;
+  color: #fff4d7;
+  font-family: "FZKai-Z03", "Kaiti SC", STKaiti, KaiTi, "Songti SC", STSong, serif;
+  font-size: clamp(68px, 7.4vw, 122px);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: 0.025em;
+  -webkit-text-stroke: clamp(0.5px, 0.07vw, 1.2px) rgba(74, 59, 39, 0.3);
   text-shadow:
-    0 3px 0 rgba(66, 52, 35, 0.26),
-    0 14px 36px rgba(15, 31, 27, 0.38);
-  transform: rotate(-1.6deg);
+    1px 2px 0 #315149,
+    3px 5px 0 rgba(36, 67, 59, 0.58),
+    0 16px 34px rgba(15, 31, 27, 0.38);
+  transform: rotate(-1.2deg);
+}
+
+.intro-title-char {
+  display: inline-block;
+  transform-origin: 50% 82%;
+}
+
+.intro-title-char:nth-child(1) {
+  transform: rotate(-3deg) translateY(0.035em);
+}
+
+.intro-title-char:nth-child(2) {
+  transform: rotate(1.5deg) translateY(-0.025em);
+}
+
+.intro-title-char:nth-child(3) {
+  transform: rotate(-1.2deg) translateY(0.02em);
+}
+
+.intro-title-char:nth-child(4) {
+  transform: rotate(2.4deg) translateY(-0.04em);
 }
 
 .intro-copy h1::after {
@@ -294,7 +321,9 @@ button {
 }
 
 .intro-entry {
+  left: 50%;
   bottom: max(36px, calc(env(safe-area-inset-bottom, 0px) + 28px));
+  transform: translateX(-50%);
 }
 
 .intro-start-button {
@@ -1075,8 +1104,7 @@ kbd {
       linear-gradient(0deg, rgba(16, 35, 31, 0.72) 0%, transparent 42%);
   }
 
-  .intro-copy,
-  .intro-entry {
+  .intro-copy {
     right: 20px;
     left: 20px;
   }
@@ -1094,12 +1122,10 @@ kbd {
   }
 
   .intro-copy h1 {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
+    gap: 0.02em;
     margin-top: 14px;
-    font-size: clamp(54px, 16.5vw, 76px);
-    line-height: 0.82;
+    font-size: clamp(58px, 17.5vw, 78px);
+    line-height: 0.9;
   }
 
   .intro-copy h1::after {
@@ -1110,9 +1136,12 @@ kbd {
   }
 
   .intro-entry {
+    right: auto;
+    left: 50%;
     bottom: max(24px, calc(env(safe-area-inset-bottom, 0px) + 18px));
     display: flex;
     justify-content: center;
+    transform: translateX(-50%);
   }
 
   .intro-start-button {
