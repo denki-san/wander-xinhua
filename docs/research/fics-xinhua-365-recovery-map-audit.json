@@ -1,0 +1,191 @@
+{
+  "version": 1,
+  "assetId": "fics-xinhua-365",
+  "auditedAt": "2026-07-26",
+  "scope": {
+    "status": "in-scope",
+    "assetCount": 1,
+    "excluded": [
+      "trees",
+      "decorations",
+      "ordinary-osm-massing",
+      "full-map-assets"
+    ]
+  },
+  "sources": {
+    "recoveryCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "integrationBaseline": "6132c9a03a16bffc1614b08b2a8cdb80bd0852ea",
+    "osmSnapshot": "docs/research/data/requested-pois-osm-20260717-103840.json",
+    "currentBuildingsSnapshot": "docs/research/data/xinhua-buildings-osm-20260725-074802.json",
+    "currentRoadMap": "app/scene/xinhua-map-data.json",
+    "referenceManifest": "docs/research/poi-reference-manifest.json",
+    "modelBrief": "docs/research/requested-poi-model-brief.md",
+    "reproducibleAudit": "scripts/test_fics_xinhua_365_map_calibration.mjs"
+  },
+  "recoverySelection": {
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.glb",
+      "sha256": "e36f29a3f14e92ac833a324247c36c21d218003f17f666d1d0b5fc9f861fe8ad",
+      "bytes": 8564,
+      "nodes": 5,
+      "meshes": 5,
+      "triangles": 68,
+      "materials": 1,
+      "images": 0,
+      "bounds": {
+        "min": [-21.485395, 0, -4.772031],
+        "max": [15.707629, 4.320988, 12.356972]
+      },
+      "selection": "retained-no-rebuild"
+    },
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.blend",
+      "sha256": "b6ac48bac72d534ed131aebefe9f3608d54ba049b9fa0e1d5bc29720cbb95749",
+      "bytes": 97308,
+      "selection": "retained-editable-source"
+    },
+    "buildRecord": {
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/fics-xinhua-365-massing.json",
+      "sha256": "580b35b3252d229426d047838641257b1a80c7ddf7c3bec9688c0ad475e8d775",
+      "selection": "retained"
+    },
+    "generator": {
+      "path": "scripts/create_xinhua_road_clean_massing_models.py",
+      "command": "Blender --background --python scripts/create_xinhua_road_clean_massing_models.py -- --asset fics-xinhua-365",
+      "storedAtCommit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+      "selection": "hold-shared-batch-file-not-cherry-picked",
+      "reason": "建筑分支禁止覆盖或引入共享批处理生成器；完整确定性来源仍由 Recovery commit 保存。"
+    }
+  },
+  "legacyTiers": {
+    "hero": {
+      "path": "public/models/requested-pois/fics-xinhua-365.glb",
+      "sha256": "ad02c2461b5633514713f3376d308d5478888ed03a701bc79b5c98bd95639c19",
+      "bytes": 6243696,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 33,
+      "images": 0,
+      "status": "legacy-baseline-not-formally-accepted"
+    },
+    "identity": {
+      "status": "missing-blocked"
+    }
+  },
+  "evidenceDecision": {
+    "observed": [
+      "本地三张建成实景分别证明 FICS 365 屋顶标识、开放庭院和历史洋房存在于同一园区。",
+      "原始 OSM 快照直接记录五个候选 way 的无标签 building footprint。",
+      "Recovery Massing 的五组顶点可按当前 position/yaw/scale 回投影到这五个原始 OSM footprint。",
+      "当前地图直接记录新华路和园区内 service road 的中心线及可见路面宽度。"
+    ],
+    "inferred": [
+      "way/864493178、864493177、864493179、864493181、864493230 属于 FICS 园区的五栋成员。",
+      "五栋候选足以代表完整 FICS 园区。",
+      "统一 10.5 米高度仅为预览 fallback，不是测绘高度。"
+    ],
+    "unknown": [
+      "FICS 园区的精确边界及五栋候选与照片中各建筑的一一对应。",
+      "其余相邻 OSM 建筑是否也属于园区。",
+      "各栋真实高度、层数、屋顶和入口方向。",
+      "园区 service road 与 way/864493177 的真实通行/穿楼关系。"
+    ]
+  },
+  "mapCalibration": {
+    "projection": {
+      "centerWgs84": [121.4227819, 31.2066376],
+      "metersPerSceneUnit": 2.7,
+      "metersPerLongitudeDegree": 95212.46822401397,
+      "metersPerLatitudeDegree": 110540
+    },
+    "placement": {
+      "position": [-76.1, 75.2],
+      "pivotWgs84": [121.42062388431327, 31.204800798842047],
+      "yaw": -0.38,
+      "scale": 0.9,
+      "movementAuthorized": false
+    },
+    "candidateWayIds": [
+      864493178,
+      864493177,
+      864493179,
+      864493181,
+      864493230
+    ],
+    "candidateWorldBounds": {
+      "minX": -91.89061099923087,
+      "maxX": -62.0185806913251,
+      "minZ": 59.43776740747572,
+      "maxZ": 81.59080222227074
+    },
+    "authoredToRawOsmRoundTrip": {
+      "maxSceneUnits": 0.000005452299873039672,
+      "maxMeters": 0.000014721209657207114,
+      "status": "pass"
+    },
+    "groundContact": {
+      "glbMinY": 0,
+      "status": "pass-by-record"
+    },
+    "roads": {
+      "xinhuaRoad": {
+        "centerlineDistanceSceneUnits": 12.940160422409047,
+        "asphaltClearanceSceneUnits": 10.490160422409048,
+        "asphaltClearanceMeters": 28.32343314050443,
+        "visibleOuterClearanceSceneUnits": 9.015160422409046,
+        "visibleOuterClearanceMeters": 24.340933140504425,
+        "status": "pass"
+      },
+      "campusServiceRoad": {
+        "osmWayId": 577252268,
+        "candidateWayId": 864493177,
+        "centerlineDistanceSceneUnits": 0.1254539974419377,
+        "asphaltClearanceSceneUnits": -1.1245460025580623,
+        "asphaltClearanceMeters": -3.036274206906768,
+        "status": "blocked-visible-road-overlap"
+      }
+    },
+    "clearances": {
+      "minimumBetweenCandidateBuildingsSceneUnits": 1.359441689615192,
+      "minimumBetweenCandidateBuildingsMeters": 3.6704925619610183,
+      "minimumOtherOsmBuildingSceneUnits": 1.539353661433281,
+      "minimumOtherOsmBuildingMeters": 4.156254885869859,
+      "nearestOtherOsmWayId": 864485662,
+      "minimumRuntimeLandmarkSceneUnits": 8.248087113999592,
+      "minimumRuntimeLandmarkMeters": 22.2698352073989,
+      "nearestRuntimeLandmarkId": "xinhua-pocket-park",
+      "runtimeLandmarkOverlap": false
+    }
+  },
+  "gates": {
+    "evidence": "blocked-member-binding",
+    "massingRecovery": "pass-retained",
+    "massingGlbAudit": "pass",
+    "massingRuntimeVisual": "pass-retained",
+    "massingMapAcceptance": "blocked",
+    "hero": "legacy-baseline-blocked-by-massing-map",
+    "identity": "missing-blocked",
+    "mcp1": "pending-main-window-batch",
+    "mcp2": "not-authorized",
+    "mcp3": "not-authorized",
+    "threeTierRuntime": "not-authorized"
+  },
+  "validation": {
+    "buildingSpecificTests": "3-pass",
+    "massingGlbAudit": "pass",
+    "fastMode": {
+      "status": "blocked-inherited-unrelated-test",
+      "passed": 27,
+      "failed": 1,
+      "failure": "tests/test_xinhua_road_models.test.mjs 仍要求 house-315 scale=0.9，但集成基线已采用 0.754254；本栋分支未修改公共/他栋测试。"
+    }
+  },
+  "decision": {
+    "movement": "reject-arbitrary-shift-or-scale",
+    "runtimePromotion": "blocked",
+    "nextRequiredEvidence": [
+      "能把园区边界和具体 OSM way 绑定到 FICS 365 的官方总平面、门牌地籍或可定位航拍。",
+      "确认 service way/577252268 是真实通道、制图偏差，还是应从可见道路中排除。"
+    ]
+  }
+}
