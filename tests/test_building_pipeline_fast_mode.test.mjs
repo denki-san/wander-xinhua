@@ -10,21 +10,57 @@ const manifestPath = path.join(
   root,
   "docs/research/building-pipeline-fast-mode.json",
 );
+const stopPolicyPath = path.join(
+  root,
+  "docs/research/building-pipeline-stop-policy.json",
+);
 
 async function readManifest() {
   return JSON.parse(await readFile(manifestPath, "utf8"));
+}
+
+async function readStopPolicy() {
+  return JSON.parse(await readFile(stopPolicyPath, "utf8"));
 }
 
 test("Fast Mode 严格锁定18栋并排除 Hold", async () => {
   const manifest = await readManifest();
   assert.equal(manifest.scopeCount, 18);
   assert.equal(manifest.maxParallelBuildings, 3);
+  assert.equal(
+    manifest.stopPolicyPath,
+    "docs/research/building-pipeline-stop-policy.json",
+  );
   assert.equal(manifest.buildings.length, 18);
 
   const ids = manifest.buildings.map(({ id }) => id);
   assert.equal(new Set(ids).size, 18);
   for (const holdId of manifest.holdAssetIds) {
     assert.equal(ids.includes(holdId), false, `${holdId} 不得进入18栋`);
+  }
+});
+
+test("证据止损策略严格覆盖18栋并限制两轮救援", async () => {
+  const manifest = await readManifest();
+  const stopPolicy = await readStopPolicy();
+  assert.equal(stopPolicy.scopeCount, 18);
+  assert.equal(stopPolicy.limits.localPrimaryPasses, 1);
+  assert.equal(stopPolicy.limits.xiaohongshuPasses, 1);
+  assert.equal(stopPolicy.buildings.length, 18);
+
+  const manifestIds = manifest.buildings.map(({ id }) => id).sort();
+  const policyIds = stopPolicy.buildings.map(({ id }) => id).sort();
+  assert.deepEqual(policyIds, manifestIds);
+  for (const building of stopPolicy.buildings) {
+    assert.equal(building.preserveFiles, true, `${building.id} 必须保留文件`);
+    assert.ok(building.attempts.localPrimary <= 1);
+    assert.ok(building.attempts.xiaohongshu <= 1);
+    if (building.state === "research-only") {
+      assert.equal(building.attempts.localPrimary, 1);
+      assert.equal(building.attempts.xiaohongshu, 0);
+      assert.equal(building.nextAction, "xiaohongshu-once");
+      assert.equal(building.allowAssetWork, false);
+    }
   }
 });
 
@@ -72,6 +108,26 @@ test("单栋命令不触发全仓构建，完整回归只由 --full 添加", asy
   assert.match(fullPlan.stdout, /批次项目级完整回归/);
   assert.match(fullPlan.stdout, /npm test/);
   assert.match(fullPlan.stdout, /npm run lint/);
+});
+
+test("被阻塞建筑只允许最后一次证据搜索，不再执行资产检查", () => {
+  const stoppedPlan = spawnSync(
+    process.execPath,
+    [
+      "scripts/run_building_fast_mode.mjs",
+      "--building",
+      "shanghai-cinema",
+      "--plan",
+    ],
+    { cwd: root, encoding: "utf8" },
+  );
+  assert.equal(stoppedPlan.status, 0, stoppedPlan.stderr);
+  assert.match(stoppedPlan.stdout, /shanghai-cinema: research-only/);
+  assert.match(stoppedPlan.stdout, /xiaohongshu=0\/1/);
+  assert.match(stoppedPlan.stdout, /STOP：只允许最后一次小红书证据搜索/);
+  assert.match(stoppedPlan.stdout, /本批全部命中止损门/);
+  assert.doesNotMatch(stoppedPlan.stdout, /audit_glb\\.py/);
+  assert.doesNotMatch(stoppedPlan.stdout, /npm test/);
 });
 
 test("Fast Mode 拒绝第四栋和范围外资产", () => {

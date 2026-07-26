@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "snapshotAt": "2026-07-26T21:06:01+08:00",
+  "scopeCount": 18,
+  "limits": {
+    "localPrimaryPasses": 1,
+    "xiaohongshuPasses": 1
+  },
+  "rules": {
+    "researchOnly": "本地与官方来源一轮无解后，只允许一次小红书证据搜索，不得继续建模、MCP 或运行时晋级。",
+    "foundEvidence": "小红书找到可追溯且主体一致的证据后，状态改为 active，再恢复被阻塞阶段；已有合格阶段不得重做。",
+    "missingEvidence": "小红书仍无解时，状态改为 terminal-disabled；关闭游戏运行时入口，保留所有源文件、GLB、证据和 Hold 成果。",
+    "preservePolicy": "任何终止状态都不得删除、覆盖或整体合并 Recovery/Hold 与范围外成果。"
+  },
+  "buildings": [
+    {
+      "id": "shanghai-cinema",
+      "state": "research-only",
+      "gate": "map",
+      "attempts": {
+        "localPrimary": 1,
+        "xiaohongshu": 0
+      },
+      "nextAction": "xiaohongshu-once",
+      "terminalAction": "disable-runtime-preserve-files",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "三档资产、MCP 与 Three.js 已过；公开主来源仍缺少可地理校准的精确锚点。"
+    },
+    {
+      "id": "film-art-center",
+      "state": "complete",
+      "gate": null,
+      "attempts": {
+        "localPrimary": 0,
+        "xiaohongshu": 0
+      },
+      "nextAction": "none",
+      "terminalAction": "none",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "严格三门与运行时验收已完成，不再重做。"
+    },
+    {
+      "id": "one-step-garden",
+      "state": "complete",
+      "gate": null,
+      "attempts": {
+        "localPrimary": 0,
+        "xiaohongshu": 0
+      },
+      "nextAction": "none",
+      "terminalAction": "none",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "严格三门与运行时验收已完成，不再重做。"
+    },
+    {
+      "id": "xinhua-villas-211",
+      "state": "research-only",
+      "gate": "evidence-lineage",
+      "attempts": {
+        "localPrimary": 1,
+        "xiaohongshu": 0
+      },
+      "nextAction": "xiaohongshu-once",
+      "terminalAction": "disable-runtime-preserve-files",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "Massing 已过；缺少同一成员的纵深证据，Hero 血缘和 Identity 不得晋级。"
+    },
+    {
+      "id": "xinhua-villas-329",
+      "state": "research-only",
+      "gate": "evidence-lineage",
+      "attempts": {
+        "localPrimary": 1,
+        "xiaohongshu": 0
+      },
+      "nextAction": "xiaohongshu-once",
+      "terminalAction": "disable-runtime-preserve-files",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "Massing 与地图已过；Hero 主体契约及 Identity 血缘不足。"
+    },
+    {
+      "id": "house-315",
+      "state": "complete",
+      "gate": null,
+      "attempts": {
+        "localPrimary": 0,
+        "xiaohongshu": 0
+      },
+      "nextAction": "none",
+      "terminalAction": "none",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "严格三门与运行时验收已完成，不再重做。"
+    },
+    {
+      "id": "villa-le-bec",
+      "state": "complete",
+      "gate": null,
+      "attempts": {
+        "localPrimary": 0,
+        "xiaohongshu": 0
+      },
+      "nextAction": "none",
+      "terminalAction": "none",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "严格三门与运行时验收已完成，不再重做。"
+    },
+    {
+      "id": "shanghai-orchestra",
+      "state": "research-only",
+      "gate": "membership",
+      "attempts": {
+        "localPrimary": 1,
+        "xiaohongshu": 0
+      },
+      "nextAction": "xiaohongshu-once",
+      "terminalAction": "disable-runtime-preserve-files",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "本地院落成员关系救援已耗尽；诊断 Massing 不得晋级为正式三档。"
+    },
+    {
+      "id": "hudec-memorial",
+      "state": "complete",
+      "gate": null,
+      "attempts": {
+        "localPrimary": 0,
+        "xiaohongshu": 0
+      },
+      "nextAction": "none",
+      "terminalAction": "none",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "严格三门与运行时验收已完成，不再重做。"
+    },
+    {
+      "id": "xinhua-pocket-park",
+      "state": "complete",
+      "gate": null,
+      "attempts": {
+        "localPrimary": 0,
+        "xiaohongshu": 0
+      },
+      "nextAction": "none",
+      "terminalAction": "none",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "严格三门与运行时验收已完成，不再重做。"
+    },
+    {
+      "id": "xinhua-community-center",
+      "state": "research-only",
+      "gate": "map-road",
+      "attempts": {
+        "localPrimary": 1,
+        "xiaohongshu": 0
+      },
+      "nextAction": "xiaohongshu-once",
+      "terminalAction": "disable-runtime-preserve-files",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "服务道路局部关系救援已耗尽，仍有 0.402635 场景单位重叠。"
+    },
+    {
+      "id": "debi-fahua-525",
+      "state": "research-only",
+      "gate": "map-membership-lineage",
+      "attempts": {
+        "localPrimary": 1,
+        "xiaohongshu": 0
+      },
+      "nextAction": "xiaohongshu-once",
+      "terminalAction": "disable-runtime-preserve-files",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "真实法华镇路面重叠 0.633229，且院落成员与三档血缘未闭合。"
+    },
+    {
+      "id": "fahua-heritage",
+      "state": "research-only",
+      "gate": "evidence-map",
+      "attempts": {
+        "localPrimary": 1,
+        "xiaohongshu": 0
+      },
+      "nextAction": "xiaohongshu-once",
+      "terminalAction": "disable-runtime-preserve-files",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "仅有正面视角，缺少街道上下文；本地证据救援已耗尽。"
+    },
+    {
+      "id": "fics-xinhua-365",
+      "state": "research-only",
+      "gate": "map-membership-lineage",
+      "attempts": {
+        "localPrimary": 1,
+        "xiaohongshu": 0
+      },
+      "nextAction": "xiaohongshu-once",
+      "terminalAction": "disable-runtime-preserve-files",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "当前服务面与院落成员绑定未闭合，诊断 Massing 不得晋级。"
+    },
+    {
+      "id": "xingfuli-west",
+      "state": "research-only",
+      "gate": "map-passage",
+      "attempts": {
+        "localPrimary": 1,
+        "xiaohongshu": 0
+      },
+      "nextAction": "xiaohongshu-once",
+      "terminalAction": "disable-runtime-preserve-files",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "三档与运行时已过；缺少步行道是否为地面通道的证据。"
+    },
+    {
+      "id": "xingfuli-center",
+      "state": "complete",
+      "gate": null,
+      "attempts": {
+        "localPrimary": 0,
+        "xiaohongshu": 0
+      },
+      "nextAction": "none",
+      "terminalAction": "none",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "严格三门与运行时验收已完成，不再重做。"
+    },
+    {
+      "id": "xingfuli-east",
+      "state": "research-only",
+      "gate": "map-road",
+      "attempts": {
+        "localPrimary": 1,
+        "xiaohongshu": 0
+      },
+      "nextAction": "xiaohongshu-once",
+      "terminalAction": "disable-runtime-preserve-files",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "三档与运行时已过；番禺路重叠与照片9道路关系未知。"
+    },
+    {
+      "id": "sun-ke-villa",
+      "state": "complete",
+      "gate": null,
+      "attempts": {
+        "localPrimary": 0,
+        "xiaohongshu": 0
+      },
+      "nextAction": "none",
+      "terminalAction": "none",
+      "preserveFiles": true,
+      "allowAssetWork": false,
+      "reason": "Recovery 合格阶段已采纳并完成严格验收，不再重做。"
+    }
+  ]
+}

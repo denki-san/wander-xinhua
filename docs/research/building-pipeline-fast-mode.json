@@ -3,6 +3,7 @@
   "mode": "18-building-fast-mode",
   "scopeCount": 18,
   "maxParallelBuildings": 3,
+  "stopPolicyPath": "docs/research/building-pipeline-stop-policy.json",
   "sharedTests": [
     "tests/test_building_scope_hold.test.mjs",
     "tests/test_blender_workflow_docs.test.mjs"

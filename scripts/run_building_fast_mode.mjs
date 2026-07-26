@@ -68,9 +68,17 @@ async function loadManifest() {
   return JSON.parse(await readFile(manifestPath, "utf8"));
 }
 
+async function loadStopPolicy(manifest) {
+  const stopPolicyPath = path.join(root, manifest.stopPolicyPath);
+  return JSON.parse(await readFile(stopPolicyPath, "utf8"));
+}
+
 async function validateManifest(manifest) {
   if (manifest.scopeCount !== 18 || manifest.buildings.length !== 18) {
     throw new Error("Fast Mode manifest 必须严格包含 18 栋建筑");
+  }
+  if (!manifest.stopPolicyPath) {
+    throw new Error("Fast Mode manifest 缺少 stopPolicyPath");
   }
   const ids = manifest.buildings.map(({ id }) => id);
   if (new Set(ids).size !== ids.length) {
@@ -83,7 +91,95 @@ async function validateManifest(manifest) {
   }
 }
 
+function validateAttempt(value, limit, label, buildingId) {
+  if (!Number.isInteger(value) || value < 0 || value > limit) {
+    throw new Error(
+      `${buildingId} 的 ${label} 次数必须是 0～${limit} 的整数`,
+    );
+  }
+}
+
+function validateStopPolicy(manifest, stopPolicy) {
+  if (
+    stopPolicy.scopeCount !== 18 ||
+    stopPolicy.buildings.length !== manifest.buildings.length
+  ) {
+    throw new Error("止损策略必须严格覆盖 18 栋建筑");
+  }
+  if (
+    stopPolicy.limits?.localPrimaryPasses !== 1 ||
+    stopPolicy.limits?.xiaohongshuPasses !== 1
+  ) {
+    throw new Error("证据止损上限必须是本地/官方一轮、小红书一轮");
+  }
+
+  const manifestIds = manifest.buildings.map(({ id }) => id).sort();
+  const policyIds = stopPolicy.buildings.map(({ id }) => id).sort();
+  if (new Set(policyIds).size !== policyIds.length) {
+    throw new Error("止损策略存在重复 stable asset ID");
+  }
+  if (manifestIds.join("\n") !== policyIds.join("\n")) {
+    throw new Error("止损策略与 Fast Mode 18 栋白名单不一致");
+  }
+
+  const allowedStates = new Set([
+    "active",
+    "complete",
+    "research-only",
+    "terminal-disabled",
+  ]);
+  for (const building of stopPolicy.buildings) {
+    if (!allowedStates.has(building.state)) {
+      throw new Error(`${building.id} 的止损状态无效：${building.state}`);
+    }
+    if (building.preserveFiles !== true) {
+      throw new Error(`${building.id} 必须明确 preserveFiles=true`);
+    }
+    validateAttempt(
+      building.attempts?.localPrimary,
+      stopPolicy.limits.localPrimaryPasses,
+      "本地/官方救援",
+      building.id,
+    );
+    validateAttempt(
+      building.attempts?.xiaohongshu,
+      stopPolicy.limits.xiaohongshuPasses,
+      "小红书救援",
+      building.id,
+    );
+
+    if (building.state === "research-only") {
+      if (
+        building.attempts.localPrimary !== 1 ||
+        building.attempts.xiaohongshu !== 0 ||
+        building.nextAction !== "xiaohongshu-once" ||
+        building.allowAssetWork !== false
+      ) {
+        throw new Error(
+          `${building.id} 的 research-only 状态必须只剩一次小红书搜索，且禁止资产返工`,
+        );
+      }
+    }
+    if (building.state === "terminal-disabled") {
+      if (
+        building.attempts.xiaohongshu !== 1 ||
+        building.nextAction !== "none" ||
+        building.terminalAction !== "disable-runtime-preserve-files" ||
+        building.allowAssetWork !== false
+      ) {
+        throw new Error(
+          `${building.id} 的终止状态必须关闭运行时、保留文件并禁止资产返工`,
+        );
+      }
+    }
+    if (building.state === "complete" && building.nextAction !== "none") {
+      throw new Error(`${building.id} 已完成，不得再安排证据救援`);
+    }
+  }
+}
+
 async function validateSelectionFiles(manifest, selected) {
+  if (selected.length === 0) return;
   const referencedFiles = new Set([
     ...manifest.sharedTests,
     ...selected.flatMap(({ tests, glbs }) => [...tests, ...glbs]),
@@ -112,6 +208,7 @@ function runCommand(command) {
 }
 
 function buildCommands(manifest, selected, full) {
+  if (selected.length === 0) return [];
   const tests = [...new Set([
     ...manifest.sharedTests,
     ...selected.flatMap(({ tests: buildingTests }) => buildingTests),
@@ -146,14 +243,39 @@ function buildCommands(manifest, selected, full) {
   return commands;
 }
 
-function printSelection(selected, commands, plan) {
+function printSelection(selected, runnable, commands, plan, stopPolicyById) {
   const mode = plan ? "计划预览" : "执行";
   console.log(`\nFast Mode ${mode}：${selected.map(({ id }) => id).join(", ")}`);
+  console.log("\n证据止损门：");
+  for (const building of selected) {
+    const policy = stopPolicyById.get(building.id);
+    const attempts =
+      `local/primary=${policy.attempts.localPrimary}/1, ` +
+      `xiaohongshu=${policy.attempts.xiaohongshu}/1`;
+    console.log(
+      `- ${building.id}: ${policy.state}; ${attempts}; next=${policy.nextAction}`,
+    );
+    if (policy.state === "research-only") {
+      console.log(
+        "  STOP：只允许最后一次小红书证据搜索，禁止建模、MCP、GLB 重建和运行时晋级。",
+      );
+    } else if (policy.state === "terminal-disabled") {
+      console.log(
+        "  STOP：运行时入口应关闭，源文件、GLB、证据与 Hold 成果必须保留。",
+      );
+    }
+  }
+  console.log(
+    `\n可执行专项检查：${runnable.map(({ id }) => id).join(", ") || "无"}`,
+  );
   for (const command of commands) {
     console.log(`- ${command.label}: ${formatCommand(command)}`);
   }
+  if (commands.length === 0) {
+    console.log("- 本批全部命中止损门，不执行专项测试、GLB 审计或全仓回归。");
+  }
   console.log("\nQA 直达入口（需先启动本地预览）：");
-  for (const building of selected) {
+  for (const building of runnable) {
     for (const route of building.runtimeRoutes) {
       console.log(`- ${building.id}: ${route}`);
     }
@@ -168,11 +290,17 @@ async function main() {
   }
   const manifest = await loadManifest();
   await validateManifest(manifest);
+  const stopPolicy = await loadStopPolicy(manifest);
+  validateStopPolicy(manifest, stopPolicy);
+  const stopPolicyById = new Map(
+    stopPolicy.buildings.map((building) => [building.id, building]),
+  );
 
   if (options.list) {
     for (const building of manifest.buildings) {
+      const policy = stopPolicyById.get(building.id);
       console.log(
-        `${building.id}\t${building.label}\t${building.tests.length} tests\t${building.glbs.length} GLB`,
+        `${building.id}\t${building.label}\t${policy.state}\t${building.tests.length} tests\t${building.glbs.length} GLB`,
       );
     }
     return;
@@ -192,10 +320,24 @@ async function main() {
     throw new Error(`不在 18 栋白名单：${unknownIds.join(", ")}`);
   }
   const selected = options.buildingIds.map((id) => buildingById.get(id));
-  await validateSelectionFiles(manifest, selected);
-  const commands = buildCommands(manifest, selected, options.full);
-  printSelection(selected, commands, options.plan);
+  const runnable = selected.filter((building) => {
+    const state = stopPolicyById.get(building.id).state;
+    return state === "active" || state === "complete";
+  });
+  await validateSelectionFiles(manifest, runnable);
+  const commands = buildCommands(manifest, runnable, options.full);
+  printSelection(
+    selected,
+    runnable,
+    commands,
+    options.plan,
+    stopPolicyById,
+  );
   if (options.plan) return;
+  if (commands.length === 0) {
+    console.log("\n✓ 止损门已生效，已跳过重复资产工作");
+    return;
+  }
   for (const command of commands) runCommand(command);
   console.log("\n✓ Fast Mode 检查通过");
 }

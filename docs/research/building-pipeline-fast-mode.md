@@ -10,6 +10,10 @@ Fast Mode 只覆盖
 树木、装饰、普通 OSM、全地图 Massing 和 Recovery/Hold 不进入此管线，也不删除、
 覆盖或整体合并。
 
+[`building-pipeline-stop-policy.json`](building-pipeline-stop-policy.json)
+是机器可读取的证据止损状态表。执行器每次运行都会校验它与18栋白名单完全一致，
+并在专项测试、GLB 审计、MCP 或运行时晋级前先执行止损门。
+
 ## 新的执行节奏
 
 ### 单栋 Worktree
@@ -68,3 +72,29 @@ Fast Mode manifest 为每栋建筑保存真实 `?start=` 路由，并自动追�
   record、Three.js 三档与 fallback、碰撞/控制台/资源/性能验收。
 - 停止规则：被证据或地图门阻塞时立即记录 blocker 并换下一栋，不在同一栋无限
   试错；不得用缩小碰撞盒、恢复污染资产或复制范围外成果来“过门”。
+
+## 可执行证据止损门
+
+每栋建筑的证据救援上限固定为：
+
+1. 仓库本地证据、用户原图和官方/主来源合并为一轮；
+2. 上一轮无解后，只允许一次小红书搜索；
+3. 小红书找到可追溯、同一主体的有效证据时，将状态从 `research-only` 改为
+   `active`，只恢复原先被阻塞的阶段；
+4. 小红书仍无解时，将状态改为 `terminal-disabled`，关闭游戏运行时入口，但
+   `preserveFiles` 必须保持 `true`，不得删除源文件、Blend、GLB、证据或 Hold；
+5. `complete` 建筑只允许回归验证，不得重做已经合格的阶段。
+
+处于 `research-only` 或 `terminal-disabled` 的建筑会被执行器自动跳过，不运行
+专项测试、GLB 审计或 `--full` 全仓回归。例如：
+
+```bash
+npm run building:fast -- --building shanghai-cinema --plan
+```
+
+输出必须显示 `STOP`、当前两轮使用次数和唯一允许的下一步。若一个批次的三栋
+全部命中止损门，执行器会直接成功结束并切换下一批，不再消耗建模与回归时间。
+
+止损状态不得靠口头结论更新。每次小红书搜索都必须先保存来源、主体一致性和
+搜索结果记录，再原子更新状态表；不得把 `research-only` 留在
+`xiaohongshu=1/1`，也不得通过提高次数上限绕过终止规则。
