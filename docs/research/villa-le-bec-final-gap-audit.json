@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "assetId": "villa-le-bec",
+  "auditedAt": "2026-07-26",
+  "baselineCommit": "aada3c412d10f822305c2e3410435f3b00278c2c",
+  "status": "massing-mcp1-pass-map-and-hero-lineage-blocked",
+  "scope": {
+    "included": [
+      "repository-local-official-and-xhs-evidence",
+      "legacy-hero-read-only-audit",
+      "massing-v2-mcp1-preserved-review",
+      "map-road-and-neighbor-blockers",
+      "strict-lineage-decision"
+    ],
+    "excludedAndHeld": [
+      "trees",
+      "vegetation",
+      "street-furniture",
+      "restaurant-dressing",
+      "decoration",
+      "ordinary-osm",
+      "other-buildings",
+      "full-map-assets",
+      "recovery-hold"
+    ],
+    "browserOpened": false,
+    "blenderRerun": false,
+    "sharedFilesModified": false
+  },
+  "evidence": {
+    "status": "pass-for-two-building-massing",
+    "manifest": "docs/research/villa-le-bec-reference-manifest.json",
+    "brief": "docs/research/villa-le-bec-model-brief.md",
+    "canonical": "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_01.jpg",
+    "coverage": {
+      "streetFront": "supported",
+      "sideDepth": "supported",
+      "entrance": "supported",
+      "courtyard": "supported",
+      "rearSide": "partial",
+      "twoBuildingCount": "author-stated-and-visually-consistent",
+      "surveyedHeight": "unknown",
+      "cadastralBoundary": "unknown"
+    },
+    "subjectBoundary": "two-building-site-with-open-courtyard"
+  },
+  "massing": {
+    "status": "mcp1-pass-preserved-map-blocked",
+    "version": "massing-v2",
+    "generator": {
+      "path": "scripts/create_villa_le_bec_massing_model.py",
+      "sha256": "50a37c3d9fc666493ab912490b0bafef1bf13945107f3d704c7feda739cdd04c"
+    },
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/villa-le-bec-massing.blend",
+      "sha256": "34a9ba4582e9a6bb1eeb0ca38dd173a80c5d754f896b6b139eaef20f0908d5bc"
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/villa-le-bec-massing.glb",
+      "sha256": "593cc3995046439d973788108ac00cd6176c3f7c8fce67702e98db01d54b975f",
+      "bytes": 12008,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 3,
+      "images": 0,
+      "triangles": 120
+    },
+    "mcp1": "pass-current-sha-visual-and-structure",
+    "runtimeVisibility": "pass-current-v3-single-request"
+  },
+  "map": {
+    "status": "blocked",
+    "frozenPlacement": {
+      "position": [-34.1, 88.8],
+      "yaw": -0.38,
+      "scale": 0.82
+    },
+    "road": {
+      "nearestEnvelopeToRoadCenterline": 12.4505,
+      "stylizedAsphaltHalfWidth": 3.625,
+      "nearestEnvelopeToAsphaltEdge": 8.8255,
+      "status": "blocked-too-far-from-street-anchor"
+    },
+    "neighbor": {
+      "assetId": "house-315",
+      "intersectionCount": 5,
+      "status": "blocked-cross-building-footprint-membership"
+    },
+    "requiredToClose": [
+      "resolve-villa-le-bec-versus-house-315-footprint-membership",
+      "select-evidence-backed-street-entry-anchor",
+      "rerun-road-neighbor-entrance-collision-runtime-after-placement-fix"
+    ]
+  },
+  "legacyHero": {
+    "status": "hold-not-mcp2-candidate",
+    "glb": {
+      "path": "public/models/xinhua-road/villa-le-bec.glb",
+      "sha256": "620dd38a364140574565aeaaa971148d124e9171698c53c6322b13f967a0b600",
+      "bytes": 2733588,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 15,
+      "images": 0
+    },
+    "blend": {
+      "path": "assets/models/source/xinhua-road/villa-le-bec.blend",
+      "sha256": "268cb2c04748e6e312a71beefbd620d35bdf773eab0ac8ff458881e011ffd1c9"
+    },
+    "generator": "scripts/create_xinhua_road_models.py#build_villa_le_bec",
+    "subjectMismatch": [
+      "models-one-main-building-while-current-boundary-is-two-building-site",
+      "not-derived-from-current-massing-sha",
+      "no-current-hero-build-record",
+      "no-current-mcp2-authorization"
+    ],
+    "scopeOutsideContent": [
+      "patio",
+      "sign-and-brand-text",
+      "cafe-sets-and-umbrellas",
+      "vegetation",
+      "string-lights",
+      "planters",
+      "wine-barrels",
+      "fences",
+      "decorative-paving"
+    ],
+    "mcp2": "not-entered"
+  },
+  "strictLineage": {
+    "status": "blocked",
+    "heroDerivedFromCurrentMassing": false,
+    "heroSubjectMatchesCurrentTwoBuildingBoundary": false,
+    "mapGatePassed": false,
+    "identityDerivationAuthorized": false
+  },
+  "identity": {
+    "status": "not-created",
+    "reason": "Current Hero is not a legal MCP2 candidate and the Massing map gate is blocked. Identity cannot be derived from legacy Hero or substituted with Massing."
+  },
+  "gates": {
+    "evidenceForMassing": "pass",
+    "mcp1Massing": "pass-preserved",
+    "mapAcceptance": "blocked",
+    "heroCandidate": "blocked",
+    "mcp2Hero": "not-entered",
+    "identity": "blocked",
+    "mcp3": "not-entered",
+    "buildingComplete": false
+  },
+  "verdict": {
+    "checkpoint": "clean-blocked-checkpoint",
+    "mainWindowFinalReview": "footprint-membership-and-placement-decision-required-before-hero",
+    "sharedIntegrationRequired": false
+  }
+}
