@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T22:43:26+08:00",
+  "snapshotAt": "2026-07-26T22:56:55+08:00",
   "snapshotBaseCommit": "04aff48-plus-main-window-film-v2",
   "scope": {
     "mode": "exact-18-building-fast-mode",
@@ -46,7 +46,7 @@
       "mcp3": "pass",
       "map": "blocked-confirmed-road-setback-official-anchor-search-exhausted-no-calibratable-site-plan",
       "threeJs": "pass-three-tier-retained",
-      "overall": "blocked-official-anchor-search-exhausted-exact-remedy",
+      "overall": "blocked-map-xhs-query-ready-not-executed",
       "runtimePolicy": "preserve-current-no-map-promotion",
       "records": [
         "docs/research/shanghai-cinema-final-audit-2026-07-26.json",
@@ -56,7 +56,9 @@
         "docs/research/shanghai-cinema-exact-anchor-road-setback-audit.json",
         "docs/research/shanghai-cinema-public-exact-anchor-rescue-2026-07-26.json",
         "docs/research/shanghai-cinema-gap-medium-anchor-blocker-2026-07-26.json",
-        "docs/research/shanghai-cinema-official-anchor-evidence-exhaustion-2026-07-26.json"
+        "docs/research/shanghai-cinema-official-anchor-evidence-exhaustion-2026-07-26.json",
+        "docs/research/shanghai-cinema-xiaohongshu-query-contract-2026-07-26.json",
+        "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
       ]
     },
     {
@@ -115,7 +117,7 @@
       "mcp3": "blocked",
       "map": "pass-massing",
       "threeJs": "pass-massing-only",
-      "overall": "blocked-local-same-member-way-depth-lineage-and-identity",
+      "overall": "blocked-local-same-member-way-depth-lineage-identity-xhs-query-ready-not-executed",
       "runtimePolicy": "massing-only-no-tier-promotion",
       "records": [
         "docs/research/xinhua-villas-211-final-gap-audit.json",
@@ -124,7 +126,9 @@
         "docs/research/xinhua-villas-211-hero-lineage-member-depth-readiness.json",
         "docs/research/xinhua-villas-211-local-same-member-evidence-rescue.json",
         "docs/research/xinhua-villas-211-gap-medium-blocker-2026-07-26.json",
-        "docs/research/xinhua-villas-211-public-primary-source-rescue-2026-07-26.json"
+        "docs/research/xinhua-villas-211-public-primary-source-rescue-2026-07-26.json",
+        "docs/research/xinhua-villas-211-xiaohongshu-query-contract-2026-07-26.json",
+        "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
       ]
     },
     {
@@ -210,7 +214,7 @@
       "mcp3": "blocked",
       "map": "blocked-membership",
       "threeJs": "pass-diagnostic-massing",
-      "overall": "blocked-public-membership-rescue-exhausted-hero-identity",
+      "overall": "blocked-membership-hero-identity-xhs-query-ready-not-executed",
       "runtimePolicy": "diagnostic-only-no-promotion",
       "records": [
         "docs/research/shanghai-orchestra-final-gap-audit.json",
@@ -218,7 +222,9 @@
         "docs/research/shanghai-orchestra-osm-membership-deep-audit.json",
         "docs/research/shanghai-orchestra-osm-membership-rescue-audit.json",
         "docs/research/shanghai-orchestra-gap-medium-blocker-2026-07-26.json",
-        "docs/research/shanghai-orchestra-public-primary-source-rescue-2026-07-26.json"
+        "docs/research/shanghai-orchestra-public-primary-source-rescue-2026-07-26.json",
+        "docs/research/shanghai-orchestra-xiaohongshu-query-contract-2026-07-26.json",
+        "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
       ]
     },
     {

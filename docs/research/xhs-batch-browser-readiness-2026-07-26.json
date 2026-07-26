@@ -2,10 +2,13 @@
   "schemaVersion": 1,
   "checkedAt": "2026-07-26T22:43:26+08:00",
   "baseCommit": "2643a4d2c5ab84f945336b29e764eae0dc0ae926",
-  "status": "query-contracts-ready-browser-not-running",
+  "status": "query-contracts-ready-browser-not-running-external-fahua-evidence-discovered",
   "scope": {
     "assetIds": [
       "fahua-heritage",
+      "shanghai-cinema",
+      "xinhua-villas-211",
+      "shanghai-orchestra",
       "xingfuli-west",
       "xingfuli-east"
     ],
@@ -15,7 +18,8 @@
     "mediaDownloaded": false,
     "runtimeModified": false,
     "assetFilesModified": false,
-    "recoveryHoldModified": false
+    "recoveryHoldModified": false,
+    "scopeStatement": "xiaohongshuAccessed=false only describes this main-window diagnostic session; a pre-existing Fahua evidence package was later discovered on the U disk and is recorded separately below."
   },
   "browserChecks": {
     "browserClientDiscoveredTypes": [],
@@ -39,10 +43,39 @@
     },
     "diagnosticBoundary": "Chrome process detection used a read-only process listing and found no matching process. No browser, tab, extension manager, or login state was opened or changed."
   },
+  "externalEvidenceDiscovery": {
+    "assetId": "fahua-heritage",
+    "discoveryStatus": "u-disk-package-found-corrected-ingestion-pending",
+    "collectedAtClaim": "2026-07-26T21:31:00+08:00",
+    "manifest": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence/fahua-heritage/xhs-2026-07-26/test_fahua-heritage-xhs-evidence-manifest.json",
+    "sourceNote": "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence/fahua-heritage/xhs-2026-07-26/test_fahua-heritage-xhs-source-note.md",
+    "actualFramePaths": [
+      "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence/fahua-heritage/xhs-2026-07-26/test_fahua-heritage-xhs-195s.png",
+      "/Volumes/plugin/3D_Modeling_ThreeJS_Knowledge_Base/wander-xinhua/building-evidence/fahua-heritage/xhs-2026-07-26/test_fahua-heritage-xhs-197s.png"
+    ],
+    "manifestPathMismatch": "The manifest frame paths use test_xhs_fahua-heritage_* names, while the actual preserved files use test_fahua-heritage-xhs-* names.",
+    "mainWindowVisualInspection": "Both actual frames show the same Fahua Heritage subject and materially improve right-front depth and street-interface evidence. Exact map calibration, scale, and full rear geometry remain pending.",
+    "uDiskFilesModified": false
+  },
   "queryContracts": [
     {
       "assetId": "fahua-heritage",
       "path": "docs/research/fahua-heritage-xiaohongshu-query-contract-2026-07-26.json",
+      "executionStatus": "external-evidence-discovered-validation-pending"
+    },
+    {
+      "assetId": "shanghai-cinema",
+      "path": "docs/research/shanghai-cinema-xiaohongshu-query-contract-2026-07-26.json",
+      "executionStatus": "not-run"
+    },
+    {
+      "assetId": "xinhua-villas-211",
+      "path": "docs/research/xinhua-villas-211-xiaohongshu-query-contract-2026-07-26.json",
+      "executionStatus": "not-run"
+    },
+    {
+      "assetId": "shanghai-orchestra",
+      "path": "docs/research/shanghai-orchestra-xiaohongshu-query-contract-2026-07-26.json",
       "executionStatus": "not-run"
     },
     {
@@ -57,7 +90,7 @@
     }
   ],
   "nextGate": {
-    "requiredUserAction": "Allow the main window to launch Chrome when the user is available.",
+    "requiredUserAction": "Allow the main window to launch Chrome when the user is available; separately finish the building-local corrected ingestion of the discovered Fahua package.",
     "executionOwner": "main-window-xhigh",
     "executionMode": "serial-read-only-human-paced",
     "parallelXhsBrowsingForbidden": true,
@@ -66,7 +99,7 @@
   },
   "runtimeDisablePolicy": {
     "eligibleNow": false,
-    "reason": "None of the three contracted Xiaohongshu searches has executed.",
+    "reason": "Five contracted searches have not executed, and the discovered Fahua package still needs corrected ingestion and map adjudication.",
     "allFilesMustRemain": true
   }
 }

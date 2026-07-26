@@ -31,7 +31,7 @@
     },
     "officialAnchorExhaustion": {
       "path": "docs/research/shanghai-cinema-official-anchor-evidence-exhaustion-2026-07-26.json",
-      "sha256": "811ef4e3f8d4b78a14fe1cd31b13937c474c7b421fe630157d72f282c1f1e149"
+      "sha256": "aff7a9ae189cd6c876d02f9bd2db9efe3aaf9c6ed1a853c9f38edb8ba4500941"
     },
     "mapCalibration": {
       "path": "docs/research/shanghai-cinema-map-calibration-2026-07-26.json",

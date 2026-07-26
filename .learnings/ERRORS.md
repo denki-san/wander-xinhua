@@ -27,6 +27,46 @@ Operation not permitted
 
 ---
 
+## [ERR-20260726-127] xhs_query_contract_input_sha_stale_after_cherry_pick
+
+**Logged**: 2026-07-26T22:58:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+上海影城与上海民族乐团的 XHS 查询合同在较旧建筑 Worktree 上生成；选择性摘取到
+较新的 exact-18 集成线后，合同里的输入 SHA 仍指向旧裁决 blob。
+
+### Error
+```text
+shanghai-cinema official-anchor exhaustion:
+actual aff7a9ae... expected 811ef4e3...
+
+shanghai-orchestra public-primary-source rescue:
+actual 86007672... expected 7779597f...
+```
+
+### Context
+- 新增查询合同的语义、模型三档与门状态没有失败；
+- 失败来自合同对输入文件 SHA 的逐字节锁定；
+- 建筑 Worktree 按用户要求只跑本栋专项测试，因此未看到主集成线后续 blob。
+
+### Suggested Fix
+选择性摘取后，由主窗口对合同声明的输入逐文件复算 SHA，只更新已验证的当前指纹，
+再运行合同专项测试与本批 Fast Mode 完整回归；不得删除输入锁或整体覆盖集成记录。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/shanghai-cinema-xiaohongshu-query-contract-2026-07-26.json, docs/research/shanghai-orchestra-xiaohongshu-query-contract-2026-07-26.json
+
+### Resolution
+- **Resolved**: 2026-07-26T22:59:00+08:00
+- **Notes**: 主窗口从当前集成文件复算完整 SHA，只更新两份合同的对应输入指纹；
+  其余锁定字段不变，联合专项测试 15/15 通过。完整回归继续由本批 Fast Mode 执行。
+
+---
+
 ## [ERR-20260726-110] blender_bound_box_corner_requires_vector
 
 **Logged**: 2026-07-26T18:12:00+08:00
