@@ -348,6 +348,7 @@
         "tests/test_fahua_heritage_xiaohongshu_query_contract.test.mjs",
         "tests/test_fahua_heritage_xiaohongshu_local_ingestion_2026_07_26.test.mjs",
         "tests/test_fahua_heritage_xhs_map_calibratability_audit_2026_07_26.test.mjs",
+        "tests/test_fahua_heritage_external_evidence_exhaustion_audit_2026_07_27.test.mjs",
         "tests/test_requested_poi_models.test.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],

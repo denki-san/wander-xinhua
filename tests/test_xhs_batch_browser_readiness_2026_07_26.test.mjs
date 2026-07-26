@@ -57,6 +57,13 @@ test("十份查询合同必须存在，法华外部证据接入不冒充本窗�
     "u-disk-package-ingested-building-local-map-pending",
   );
   await access(new URL(record.externalEvidenceDiscovery.repositoryRecord, root));
+  await access(
+    new URL(record.externalEvidenceDiscovery.externalExhaustionAudit, root),
+  );
+  assert.match(
+    record.externalEvidenceDiscovery.externalExhaustionResult,
+    /no-new-qualifying-media/,
+  );
   assert.match(record.externalEvidenceDiscovery.manifestPathMismatch, /actual/);
   assert.equal(record.externalEvidenceDiscovery.uDiskFilesModified, false);
   assert.equal(

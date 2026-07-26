@@ -61,6 +61,8 @@
     "manifestPathMismatch": "The manifest frame paths use test_xhs_fahua-heritage_* names, while the actual preserved files use test_fahua-heritage-xhs-* names.",
     "mainWindowVisualInspection": "Both actual frames show the same Fahua Heritage subject and materially improve right-front depth and street-interface evidence. Exact map calibration, scale, and full rear geometry remain pending.",
     "repositoryRecord": "docs/research/fahua-heritage-xiaohongshu-local-ingestion-2026-07-26.json",
+    "externalExhaustionAudit": "docs/research/fahua-heritage-external-evidence-exhaustion-audit-2026-07-27.json",
+    "externalExhaustionResult": "no-new-qualifying-media-map-rear-scale-remain-blocked",
     "repositoryKnowledgeSource": "docs/knowledge-sources/fahua-heritage-xiaohongshu-local-ingestion-2026-07-26.md",
     "uDiskFilesModified": false,
     "dynamicEvidencePolicy": {
