@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "snapshotAt": "2026-07-26T22:56:55+08:00",
+  "snapshotAt": "2026-07-26T23:09:19+08:00",
   "snapshotBaseCommit": "04aff48-plus-main-window-film-v2",
   "scope": {
     "mode": "exact-18-building-fast-mode",
@@ -279,7 +279,7 @@
       "mcp3": "blocked",
       "map": "blocked-service-road-overlap-0.402635-official-search-exhausted-no-measured-road-contract",
       "threeJs": "pass-diagnostic-massing-collision",
-      "overall": "blocked-service-road-official-public-rescue-exhausted",
+      "overall": "blocked-service-road-xhs-query-ready-not-executed",
       "runtimePolicy": "diagnostic-only-no-promotion",
       "records": [
         "docs/research/xinhua-community-center-map-candidate.json",
@@ -287,7 +287,9 @@
         "docs/research/xinhua-community-center-service-road-semantics-record.md",
         "docs/research/xinhua-community-center-service-road-local-rescue-audit.json",
         "docs/research/xinhua-community-center-service-road-gap-audit-2026-07-26.json",
-        "docs/research/xinhua-community-center-official-service-road-evidence-exhaustion-2026-07-26.json"
+        "docs/research/xinhua-community-center-official-service-road-evidence-exhaustion-2026-07-26.json",
+        "docs/research/xinhua-community-center-xiaohongshu-road-query-contract-2026-07-26.json",
+        "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
       ]
     },
     {
@@ -302,20 +304,22 @@
       "mcp3": "blocked",
       "map": "blocked-fahuazhen-road-overlap-0.633229",
       "threeJs": "recovery-visibility-only",
-      "overall": "blocked-true-road-overlap-membership-and-tier-lineage",
+      "overall": "blocked-road-overlap-membership-lineage-xhs-query-ready-not-executed",
       "runtimePolicy": "hold-no-promotion",
       "records": [
         "docs/research/debi-fahua-525-final-disposition.json",
         "docs/research/debi-fahua-525-map-candidate.json",
         "docs/research/debi-fahua-525-overlap-lineage-audit.json",
         "docs/research/debi-fahua-525-evidence-gate-v2-audit.json",
-        "docs/research/debi-fahua-525-public-primary-source-rescue-2026-07-26.json"
+        "docs/research/debi-fahua-525-public-primary-source-rescue-2026-07-26.json",
+        "docs/research/debi-fahua-525-xiaohongshu-query-contract-2026-07-26.json",
+        "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
       ]
     },
     {
       "id": "fahua-heritage",
       "name": "法华遗韵",
-      "evidence": "partial-identity-and-street-context-public-rescue-rear-boundary-blocked",
+      "evidence": "pass-xhs-side-depth-and-street-context-map-rear-scale-pending",
       "hero": "hold-legacy-not-mcp2",
       "identity": "missing",
       "massing": "conditional-geometry-only",
@@ -324,14 +328,15 @@
       "mcp3": "blocked",
       "map": "blocked-no-measured-side-rear-or-site-boundary",
       "threeJs": "not-formally-accepted",
-      "overall": "blocked-public-street-context-improved-xhs-query-ready-not-executed",
-      "runtimePolicy": "preserve-files-when-user-awake-search-xhs-then-disable-runtime-if-still-missing",
+      "overall": "blocked-map-rear-scale-after-xhs-evidence-ingestion",
+      "runtimePolicy": "preserve-files-xhs-side-depth-pass-disable-runtime-only-if-final-map-rear-scale-evidence-still-insufficient",
       "records": [
         "docs/research/fahua-heritage-final-disposition.json",
         "docs/research/fahua-heritage-local-evidence-rescue.json",
         "docs/research/fahua-heritage-gap-audit-2026-07-26.json",
         "docs/research/fahua-heritage-public-evidence-rescue-2026-07-26.json",
         "docs/research/fahua-heritage-xiaohongshu-query-contract-2026-07-26.json",
+        "docs/research/fahua-heritage-xiaohongshu-local-ingestion-2026-07-26.json",
         "docs/research/xhs-batch-browser-readiness-2026-07-26.json"
       ]
     },

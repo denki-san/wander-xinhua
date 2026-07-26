@@ -81,7 +81,7 @@ test("证据不足的法华遗韵只计划停用 runtime，文件必须继续保
   const heritage = status.buildings.find(({ id }) => id === "fahua-heritage");
   assert.equal(
     heritage.evidence,
-    "partial-identity-and-street-context-public-rescue-rear-boundary-blocked",
+    "pass-xhs-side-depth-and-street-context-map-rear-scale-pending",
   );
   assert.match(heritage.runtimePolicy, /preserve-files/);
   assert.match(heritage.runtimePolicy, /disable-runtime-if-still-missing/);
@@ -89,6 +89,7 @@ test("证据不足的法华遗韵只计划停用 runtime，文件必须继续保
     "docs/research/fahua-heritage-final-disposition.json",
     "docs/research/fahua-heritage-local-evidence-rescue.json",
     "docs/research/fahua-heritage-public-evidence-rescue-2026-07-26.json",
+    "docs/research/fahua-heritage-xiaohongshu-local-ingestion-2026-07-26.json",
   ]) {
     assert.equal(heritage.records.includes(path), true);
   }

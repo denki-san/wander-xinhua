@@ -27,6 +27,32 @@ Operation not permitted
 
 ---
 
+## [ERR-20260726-128] guessed_new_artifact_filename_in_read_only_summary
+
+**Logged**: 2026-07-26T23:02:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: docs
+
+### Summary
+汇总新摘取的法华 XHS 接入记录时，命令猜测了不存在的
+`fahua-heritage-xiaohongshu-evidence-ingestion-2026-07-26.json` 文件名。
+
+### Error
+```text
+Error: Cannot find module
+./docs/research/fahua-heritage-xiaohongshu-evidence-ingestion-2026-07-26.json
+```
+
+### Resolution
+- **Resolved**: 2026-07-26T23:02:00+08:00
+- **Notes**: 先用 `git show --name-only` 读取提交中的权威路径，再按实际文件
+  `docs/research/fahua-heritage-xiaohongshu-local-ingestion-2026-07-26.json`
+  完成 JSON 解析；没有文件缺失或工作区改动。以后新 artifact 名称只从提交或
+  文件清单读取，不从语义猜测。
+
+---
+
 ## [ERR-20260726-127] xhs_query_contract_input_sha_stale_after_cherry_pick
 
 **Logged**: 2026-07-26T22:58:00+08:00
