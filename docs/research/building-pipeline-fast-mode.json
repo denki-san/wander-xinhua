@@ -173,6 +173,7 @@
         "tests/test_recovery_massing_mcp1_batch.test.mjs",
         "tests/test_recovery_massing_threejs_runtime_batch.test.mjs",
         "tests/test_shanghai_orchestra_massing_checkpoint.test.mjs",
+        "tests/test_shanghai_orchestra_final_gap.test.mjs",
         "scripts/test_generate_shanghai_orchestra_map_calibration.mjs",
         "tests/test_xinhua_road_models.test.mjs"
       ],
@@ -273,6 +274,7 @@
       "tests": [
         "tests/test_building_massing_qa_contract.test.mjs",
         "tests/test_fics_xinhua_365_recovery_map.test.mjs",
+        "tests/test_fics_xinhua_365_final_gap.test.mjs",
         "tests/test_recovery_massing_mcp1_batch.test.mjs",
         "tests/test_recovery_massing_threejs_runtime_batch.test.mjs",
         "scripts/test_fics_xinhua_365_map_calibration.mjs",
@@ -366,7 +368,8 @@
       "id": "sun-ke-villa",
       "label": "孙科别墅",
       "tests": [
-        "tests/test_sun_ke_villa_model.test.mjs"
+        "tests/test_sun_ke_villa_model.test.mjs",
+        "tests/test_sun_ke_villa_final_authority.test.mjs"
       ],
       "glbs": [
         "public/models/shangsheng/sun-ke-villa.glb",
