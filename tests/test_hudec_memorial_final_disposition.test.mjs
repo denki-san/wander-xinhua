@@ -67,13 +67,15 @@ function closeArray(actual, expected, tolerance = 1e-5) {
   }
 }
 
-test("邬达克最终 disposition 只固定本栋输入且没有重做合格阶段", async () => {
+test("邬达克最终 disposition 只固定本栋输入且没有重做合格 Massing 阶段", async () => {
   const disposition = await readJson(dispositionPath);
   assert.equal(
     disposition.baseCommit,
     "2e33699f24330f4c9c98f4c63e8048fd657d90e3",
   );
-  assert.equal(disposition.scope.binaryRebuilt, false);
+  assert.equal(disposition.scope.binaryRebuilt, true);
+  assert.equal(disposition.scope.acceptedMassingBinaryRebuilt, false);
+  assert.equal(disposition.scope.heroCandidateBuilt, true);
   assert.equal(disposition.scope.qualifiedGateRerun, false);
   assert.equal(disposition.scope.browserOrXhsAccessed, false);
   assert.equal(disposition.scope.sharedFilesModified, false);
@@ -135,7 +137,12 @@ test("当前 Massing v2 二进制、生成器和 build record 精确闭合", asy
   assert.equal(json.nodes[0].extras.quality_tier, "massing");
   assert.equal(json.nodes[0].extras.generator, massing.generator.path);
   const generator = await readFile(new URL(massing.generator.path, root), "utf8");
-  assert.match(generator, /当前只开放 massing/u);
+  assert.equal(
+    massing.generator.acceptedMassingBuildGeneratorSha256,
+    "be77ff6acbc09278e2cf0af5000fcfdddd69d657a25f41d72567e8f47a6648df",
+  );
+  assert.match(generator, /stage == "massing"/u);
+  assert.match(generator, /stage == "hero"/u);
 });
 
 test("MCP1、道路、门廊碰撞和真实地图门保持当前 SHA 通过", async () => {
@@ -212,7 +219,7 @@ test("legacy Hero 仅主体命名相同，V2 lineage、transform 和范围均不
   );
 });
 
-test("Hero gate 只授权未来 V2 候选，Identity 和三档仍被 lineage 阻塞", async () => {
+test("Hero gate 已具备 V2 候选，Identity 和三档仍等待 MCP2", async () => {
   const disposition = await readJson(dispositionPath);
   const gate = await readJson(
     disposition.recordPrecedence.find(({ rank }) => rank === 3).path,
@@ -221,7 +228,12 @@ test("Hero gate 只授权未来 V2 候选，Identity 和三档仍被 lineage 阻
     gate.heroGate.status,
     disposition.heroGateInterpretation.sourceRecordValue,
   );
-  assert.equal(disposition.heroGateInterpretation.currentEligibleHeroExists, false);
+  assert.equal(disposition.heroGateInterpretation.currentEligibleHeroExists, true);
+  assert.equal(
+    disposition.v2HeroCandidate.status,
+    "candidate-awaiting-main-window-mcp2",
+  );
+  assert.equal(disposition.v2HeroCandidate.mcp2Passed, false);
   for (const path of [
     "public/models/requested-pois/hudec-memorial-identity.glb",
     "assets/models/source/requested-pois/hudec-memorial-identity.blend",
@@ -231,12 +243,13 @@ test("Hero gate 只授权未来 V2 候选，Identity 和三档仍被 lineage 阻
     await assert.rejects(access(new URL(path, root)));
   }
   assert.equal(disposition.identityDisposition.derivationAuthorized, false);
-  assert.equal(disposition.gates.heroLineage, "blocked");
+  assert.equal(disposition.gates.heroLineage, "pass-candidate");
+  assert.equal(disposition.gates.heroMcp2, "pending-main-window-xhigh");
   assert.equal(disposition.gates.identity, "blocked");
   assert.equal(disposition.gates.identityMcp3, "not-reachable");
   assert.equal(disposition.gates.threeTierRuntime, "not-reachable");
   assert.equal(
     disposition.gates.overall,
-    "blocked-v2-hero-lineage-and-identity",
+    "candidate-awaiting-main-window-mcp2",
   );
 });

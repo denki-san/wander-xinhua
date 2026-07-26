@@ -47,6 +47,32 @@ def massing_materials() -> dict[str, bpy.types.Material]:
     }
 
 
+def hero_materials() -> dict[str, bpy.types.Material]:
+    """Hero 使用项目低饱和色盘，不嵌入任何参考图片。"""
+    return {
+        "plaster": base.material("HudecV2_WarmPlaster", "#d8d0bd"),
+        "timber": base.material("HudecV2_DarkTimber", "#292522"),
+        "roof": base.material("HudecV2_MutedRoofTile", "#65463d"),
+        "brick": base.material("HudecV2_RedBrick", "#82483c"),
+        "glass": base.material(
+            "HudecV2_DeepGlass",
+            "#435a59",
+            roughness=0.3,
+        ),
+        "roof_ridge": base.material("HudecV2_RoofRidge", "#493b36"),
+        "brick_dark": base.material("HudecV2_DarkBrick", "#5c342e"),
+        "frame": base.material("HudecV2_WindowFrame", "#30302d"),
+        "wood": base.material("HudecV2_EntranceWood", "#704f3e"),
+        "metal": base.material(
+            "HudecV2_DarkMetal",
+            "#303735",
+            roughness=0.46,
+            metallic=0.35,
+        ),
+        "stone": base.material("HudecV2_EntranceStone", "#a79e8c"),
+    }
+
+
 def add_shed_roof(
     name: str,
     *,
@@ -194,18 +220,24 @@ def add_open_entrance_porch(
     )
 
 
-def build_massing() -> None:
+def build_massing(
+    *,
+    materials: dict[str, bpy.types.Material] | None = None,
+    include_site_contract: bool = True,
+    apply_authored_scale: bool = True,
+) -> None:
     """证据支持的体块、屋顶层级、烟囱、入口开口与低玻璃翼。"""
-    mat = massing_materials()
+    mat = materials or massing_materials()
 
     # OSM 外包络是场地级证据。浅底板只用于地面基准，不作为整院碰撞。
-    base.add_box(
-        "hudec-v2-ground-datum",
-        (0.0, -0.35, 0.06),
-        (17.5, 15.0, 0.12),
-        mat["plaster"],
-        bevel=0.08,
-    )
+    if include_site_contract:
+        base.add_box(
+            "hudec-v2-ground-datum",
+            (0.0, -0.35, 0.06),
+            (17.5, 15.0, 0.12),
+            mat["plaster"],
+            bevel=0.08,
+        )
 
     # Canonical 正立面位于 local -Y。主屋顶屋脊必须与正立面平行。
     base.add_box(
@@ -355,13 +387,223 @@ def build_massing() -> None:
         )
 
     # 入口街墙分段保留中央通路，不使用场地级大碰撞盒。
-    for side, x in (("left", -5.9), ("right", 5.9)):
+    if include_site_contract:
+        for side, x in (("left", -5.9), ("right", 5.9)):
+            base.add_box(
+                f"hudec-v2-street-wall-{side}",
+                (x, -6.55, 0.82),
+                (5.0, 0.54, 1.64),
+                mat["brick"],
+                bevel=0.055,
+            )
+
+    if apply_authored_scale:
+        scale_asset_geometry(AUTHORED_SCALE)
+
+
+def add_hero_front_timber(
+    mat: bpy.types.Material,
+) -> None:
+    """补足官方正面照片可见的宽幅矩形和斜撑半木构节奏。"""
+    face_y = -2.89
+    verticals = (-5.55, -3.65, -1.75, 0.15, 2.05, 3.95, 5.5)
+    for index, x in enumerate(verticals):
+        base.add_beam(
+            f"hudec-v2-hero-front-timber-vertical-{index}",
+            (x, face_y, 0.32),
+            (x, face_y, 5.55),
+            0.13,
+            mat,
+        )
+    for index, z in enumerate((0.42, 2.95, 5.42)):
+        base.add_beam(
+            f"hudec-v2-hero-front-timber-horizontal-{index}",
+            (verticals[0], face_y, z),
+            (verticals[-1], face_y, z),
+            0.14,
+            mat,
+        )
+    for index in range(len(verticals) - 1):
+        left = verticals[index]
+        right = verticals[index + 1]
+        if index % 2:
+            start_z, end_z = 0.5, 2.85
+        else:
+            start_z, end_z = 2.85, 0.5
+        base.add_beam(
+            f"hudec-v2-hero-front-timber-lower-diagonal-{index}",
+            (left, face_y, start_z),
+            (right, face_y, end_z),
+            0.115,
+            mat,
+        )
+        base.add_beam(
+            f"hudec-v2-hero-front-timber-upper-diagonal-{index}",
+            (left, face_y, 3.08 if index % 2 else 5.3),
+            (right, face_y, 5.3 if index % 2 else 3.08),
+            0.105,
+            mat,
+        )
+
+
+def add_hero_windows(
+    mat: dict[str, bpy.types.Material],
+) -> None:
+    """只在有证据覆盖的正面、西后侧和端翼建立分格窗。"""
+    for floor, z in enumerate((1.55, 4.12)):
+        for column, x in enumerate((-4.7, -2.75, -0.8, 1.0, 4.75)):
+            if floor == 0 and x > 0.5:
+                continue
+            base.add_window(
+                f"hudec-v2-hero-front-window-{floor}-{column}",
+                x,
+                -2.96,
+                z,
+                0.92 if floor == 0 else 0.84,
+                1.48 if floor == 0 else 1.25,
+                "Y",
+                mat["frame"],
+                mat["glass"],
+                depth=0.14,
+            )
+
+    for floor, z in enumerate((1.55, 3.95)):
+        for column, y in enumerate((-0.65, 1.15, 2.95)):
+            base.add_window(
+                f"hudec-v2-hero-end-wing-window-{floor}-{column}",
+                6.63,
+                y,
+                z,
+                0.78,
+                1.34,
+                "X",
+                mat["frame"],
+                mat["glass"],
+                depth=0.14,
+            )
+
+    base.add_window(
+        "hudec-v2-hero-main-dormer-window",
+        2.0,
+        -1.68,
+        7.1,
+        1.05,
+        0.9,
+        "Y",
+        mat["frame"],
+        mat["glass"],
+        depth=0.12,
+    )
+    base.add_window(
+        "hudec-v2-hero-rear-dormer-window",
+        0.65,
+        2.91,
+        7.32,
+        1.1,
+        0.92,
+        "Y",
+        mat["frame"],
+        mat["glass"],
+        depth=0.12,
+    )
+
+
+def add_hero_chimney_detail(
+    mat: dict[str, bpy.types.Material],
+) -> None:
+    """三联烟道保留独立冠部和砖带，避免回退为两根通用烟囱。"""
+    for index, x in enumerate((-4.72, -3.95, -3.18)):
+        for band, z in enumerate((9.62, 10.35, 11.08, 11.82)):
+            base.add_box(
+                f"hudec-v2-hero-chimney-band-{index}-{band}",
+                (x, 2.275, z),
+                (0.63, 0.07, 0.105),
+                mat["brick_dark"],
+                bevel=0.012,
+            )
         base.add_box(
-            f"hudec-v2-street-wall-{side}",
-            (x, -6.55, 0.82),
-            (5.0, 0.54, 1.64),
-            mat["brick"],
-            bevel=0.055,
+            f"hudec-v2-hero-chimney-crown-{index}",
+            (x, 2.85, 12.34),
+            (0.82, 1.46, 0.18),
+            mat["brick_dark"],
+            bevel=0.025,
+        )
+
+
+def build_hero() -> None:
+    """从已验收 Massing 参数派生只含建筑本体的 V2 Hero 候选。"""
+    mat = hero_materials()
+    build_massing(
+        materials=mat,
+        include_site_contract=False,
+        apply_authored_scale=False,
+    )
+
+    add_hero_front_timber(mat["timber"])
+    add_hero_windows(mat)
+    add_hero_chimney_detail(mat)
+
+    base.add_detailed_door(
+        "hudec-v2-hero-entrance-door",
+        (2.65, -2.94, 1.37),
+        1.24,
+        2.5,
+        mat["timber"],
+        mat["wood"],
+        mat["metal"],
+    )
+    base.add_stairs(
+        "hudec-v2-hero-entrance-step",
+        (2.65, -4.43),
+        2.55,
+        3,
+        0.42,
+        0.92,
+        mat["stone"],
+    )
+
+    base.add_gable_roof_ribs(
+        "hudec-v2-hero-main-roof-rib",
+        (-0.35, 0.65),
+        13.1,
+        8.2,
+        5.8,
+        4.5,
+        mat["roof_ridge"],
+        count=19,
+        ridge_axis="X",
+    )
+    base.add_gable_roof_ribs(
+        "hudec-v2-hero-end-wing-roof-rib",
+        (4.7, 1.25),
+        4.7,
+        7.8,
+        5.4,
+        3.6,
+        mat["roof_ridge"],
+        count=11,
+        ridge_axis="Y",
+    )
+    base.add_gable_roof_ribs(
+        "hudec-v2-hero-porch-roof-rib",
+        (2.65, -3.55),
+        3.75,
+        2.3,
+        2.37,
+        1.75,
+        mat["roof_ridge"],
+        count=7,
+        ridge_axis="Y",
+    )
+
+    # 低玻璃翼只加强建筑框架；不添加庭院、树木、绿篱或独立装饰。
+    for index, z in enumerate((0.42, 1.42, 2.35)):
+        base.add_beam(
+            f"hudec-v2-hero-low-wing-horizontal-{index}",
+            (-6.05, 5.25, z),
+            (-1.45, 5.25, z),
+            0.105,
+            mat["frame"],
         )
 
     scale_asset_geometry(AUTHORED_SCALE)
@@ -531,14 +773,26 @@ def requested_stage() -> str:
 
 def main() -> None:
     stage = requested_stage()
-    if stage != "massing":
-        raise ValueError(
-            "当前只开放 massing；完成 MCP 1 与真实地图校准后才允许 Hero/Identity"
+    if stage == "massing":
+        export_stage(
+            "hudec-memorial-massing",
+            build_massing,
+            stage="massing",
         )
-    export_stage(
-        "hudec-memorial-massing",
-        build_massing,
-        stage="massing",
+        return
+    if stage == "hero":
+        export_stage(
+            "hudec-memorial-v2-hero",
+            build_hero,
+            stage="hero-candidate",
+        )
+        return
+    if stage == "identity":
+        raise ValueError(
+            "Identity 必须等主窗口 MCP2 通过并冻结 Hero 后才允许派生"
+        )
+    raise ValueError(
+        f"不支持 stage={stage!r}；当前只允许 massing 或 hero"
     )
 
 
