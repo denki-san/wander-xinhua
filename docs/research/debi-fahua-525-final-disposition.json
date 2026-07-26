@@ -1,0 +1,278 @@
+{
+  "schemaVersion": 1,
+  "assetId": "debi-fahua-525",
+  "auditedAt": "2026-07-26",
+  "baseCommit": "2b9eb49a2c77bcdb126da15566bd204c44786e66",
+  "status": "blocked-map-mcp1-hero-lineage-and-identity",
+  "scope": {
+    "stableBoundary": "debi-fahua-525-building-compound",
+    "mode": "preserved-stage-final-disposition",
+    "binaryRebuilt": false,
+    "identityDerived": false,
+    "browserOrXhsAccessed": false,
+    "sharedFilesModified": false,
+    "excluded": [
+      "shared registry",
+      "shared runtime",
+      "Fast manifest",
+      "trees",
+      "vegetation",
+      "decorations",
+      "ordinary OSM runtime",
+      "full-map assets",
+      "Recovery/Hold",
+      "other buildings"
+    ]
+  },
+  "recordPrecedence": [
+    {
+      "rank": 1,
+      "path": "docs/research/debi-fahua-525-final-disposition.json",
+      "role": "current gate reconciliation"
+    },
+    {
+      "rank": 2,
+      "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v2/debi-fahua-525-massing.json",
+      "sha256": "9bd8f2815c6270ff286b81ff72c31fd93b45ef45ec29773062be64a261677cc7",
+      "role": "read-only Recovery clean-v2 runtime-visible candidate; not copied into this branch"
+    },
+    {
+      "rank": 3,
+      "commit": "0a5bbe811c5647d96a20bfafc85d6f6c7d4a7709",
+      "path": "docs/research/build-records/tiers/xinhua-road/massing-v3/debi-fahua-525-massing.json",
+      "sha256": "ad26c3483f8ebf5d81810fd9efe122aed390fb2ae2bf8870e87ec2d88f5ee034",
+      "role": "isolated evidence-limited v3 candidate; MCP1 remains pending"
+    },
+    {
+      "rank": 4,
+      "path": "docs/research/requested-poi-model-brief.md",
+      "role": "legacy evidence and visual intent; position statement is superseded by measured map blockers"
+    }
+  ],
+  "inputs": {
+    "referenceManifest": {
+      "path": "docs/research/poi-reference-manifest.json",
+      "sha256": "be687fc29e7f45cf0029159c35274918de32450d33341457e57fcfbac931b51f"
+    },
+    "modelBrief": {
+      "path": "docs/research/requested-poi-model-brief.md",
+      "sha256": "034b303cb454235405edf8d5b8e26a9ae164e5aadfd85278dc7158a18955c26f"
+    },
+    "legacyGenerator": {
+      "path": "scripts/create_requested_poi_models.py",
+      "sha256": "3bd9cd02fcd2e62b9d8c26866cc2660b6c42fc3a91e4399a934f2d563647d5d1"
+    },
+    "localReferences": [
+      {
+        "path": "docs/research/assets/requested-poi-references/debi-fahua-525-front.jpg",
+        "sha256": "f6376a71e8505c27892d9cb6bbf60ffdae31a5148fe0ba6a7cc2eed233ed2d6a",
+        "view": "main-building-front"
+      },
+      {
+        "path": "docs/research/assets/requested-poi-references/debi-fahua-525-courtyard.jpg",
+        "sha256": "d69d9fdd69ce9ae17126ea3212b4f2f831f139b789b2dc12f26a0ea31c8f9bc5",
+        "view": "courtyard-depth"
+      },
+      {
+        "path": "docs/research/assets/requested-poi-references/debi-fahua-525-garden.jpg",
+        "sha256": "e9709b7608a3fa56333a95e6e1a0109167473ddfed7b86fd2bb5482bb4208009",
+        "view": "garden-context"
+      }
+    ]
+  },
+  "evidenceGate": {
+    "status": "pass-conservative-massing-only",
+    "canonical": "main-building-front",
+    "viewCoverage": [
+      "main-building-front",
+      "courtyard-depth",
+      "garden-context"
+    ],
+    "observed": [
+      "项目清单与本地照片把法华镇路525号、主楼正面、庭院纵深和花园环境关联到同一园区。",
+      "正面参考可见白色巨型竖框、深色玻璃立面和外置折返楼梯。",
+      "庭院与花园参考可见主楼和低层边界之间连续开放的步行空间。"
+    ],
+    "inferred": [
+      "way/864847922 是当前最强的代表性 footprint 候选，但仅有 secondary-map corroboration。",
+      "六层按每层约3米得到18米候选高度，不是测绘高度。"
+    ],
+    "unknown": [
+      "完整地籍边界和园区全部建筑成员。",
+      "精确庭院边界、围墙线和入口点。",
+      "way/864847922 各段是否同高。",
+      "背立面和屋顶设备。"
+    ],
+    "heroAuthorized": false,
+    "identityAuthorized": false
+  },
+  "recoveryMassingV2": {
+    "status": "preserved-recovery-runtime-visible-formal-map-blocked",
+    "commit": "3044cd89f801250afcd477dfbcbc7da358bf4b11",
+    "blend": {
+      "path": "assets/models/source/tiers/xinhua-road/massing-v2/debi-fahua-525-massing.blend",
+      "sha256": "4bdc581ddb3e76e4e2c389b991796818de260220c28333a11538924736ca4eb8"
+    },
+    "glb": {
+      "path": "public/models/tiers/xinhua-road/massing-v2/debi-fahua-525-massing.glb",
+      "sha256": "b9093a059417e15e722b836a38276fecabe769f6bbc9c63dfea4a08c9d95d63e",
+      "bytes": 8420,
+      "nodes": 5,
+      "meshes": 5,
+      "triangles": 60,
+      "materials": 1,
+      "images": 0,
+      "textures": 0
+    },
+    "candidateStatus": "five-member-candidates-pending",
+    "membershipConfidence": "medium",
+    "runtimeGate": "pass",
+    "runtimeGeometryVisual": "pass",
+    "mapAcceptance": "blocked",
+    "identityAllowed": false,
+    "reason": "Recovery 合格阶段原样保留；其 runtime pass 不能提升为正式地图、MCP1 或三档验收。"
+  },
+  "isolatedMassingV3": {
+    "status": "candidate-only-not-integrated",
+    "commit": "0a5bbe811c5647d96a20bfafc85d6f6c7d4a7709",
+    "sourceWayId": 864847922,
+    "bindingStatus": "bound-medium-secondary-map-corroborated",
+    "glb": {
+      "sha256": "5602771c1ba0572c8368a07695be715aaffb1c492ebe24aae25c75f1021768a1",
+      "bytes": 3212,
+      "nodes": 1,
+      "meshes": 1,
+      "triangles": 40,
+      "materials": 1,
+      "images": 0,
+      "textures": 0
+    },
+    "mcp1": "pending-main-window-batch-review",
+    "mapGeometryCalibration": "pass",
+    "formalMapAcceptance": "blocked-fahuazhen-road-overlap-and-primary-membership-proof",
+    "runtimePromotion": false
+  },
+  "mapGate": {
+    "status": "blocked-road-overlap-and-primary-membership-proof",
+    "placement": {
+      "position": [
+        -102,
+        -49
+      ],
+      "yaw": -2.6,
+      "scale": 0.92,
+      "movementAuthorized": false
+    },
+    "fahuazhenRoad": {
+      "osmWayId": 66394007,
+      "asphaltClearanceSceneUnits": -0.633229,
+      "asphaltClearanceMeters": -1.709718,
+      "status": "blocked-overlap"
+    },
+    "dingxiRoad": {
+      "osmWayId": 85686605,
+      "asphaltClearanceSceneUnits": 1.352283,
+      "asphaltClearanceMeters": 3.651164,
+      "status": "pass"
+    },
+    "neighborCollision": {
+      "nearestWayId": 864847918,
+      "gapAfterBothMarginsSceneUnits": 2.209279,
+      "status": "pass-candidate-footprint-does-not-collide-with-neighbor"
+    },
+    "runtimeCollision": "not-run-because-formal-map-and-mcp1-blocked",
+    "forbiddenFixes": [
+      "arbitrary whole-building movement",
+      "arbitrary whole-building scale reduction",
+      "silently widening the subject boundary",
+      "treating secondary-map coordinates as cadastral proof"
+    ]
+  },
+  "legacyHeroDisposition": {
+    "status": "hold-scope-polluted-not-derived-from-accepted-massing",
+    "blend": {
+      "path": "assets/models/source/requested-pois/debi-fahua-525.blend",
+      "sha256": "ad9e9226eb43811f6c3a782df3447e065e384e5ef7b7a578e2fe5584b564f44e"
+    },
+    "glb": {
+      "path": "public/models/requested-pois/debi-fahua-525.glb",
+      "sha256": "1f5af3879410bec374b33183d2a89c01f01b1994b72327b344bb6d792b0a6a56",
+      "bytes": 1339244,
+      "nodes": 1,
+      "meshes": 1,
+      "primitives": 14,
+      "triangles": 21336,
+      "materials": 14,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [
+          -14,
+          -0.14000000059604645,
+          -12
+        ],
+        "max": [
+          14,
+          14.050000190734863,
+          12
+        ]
+      }
+    },
+    "buildRecord": "missing-asset-level-provenance",
+    "derivedFromAcceptedMassing": false,
+    "scopePollution": [
+      "full-compound site slab",
+      "fish pond and pond edge",
+      "bamboo clusters",
+      "two ginkgo trees",
+      "heritage stone"
+    ],
+    "mcp2Authorized": false,
+    "mcp2Candidate": false,
+    "reason": "旧 Hero 同时打包建筑、场地、植物与历史构件，且没有从任何正式地图已接受的 Massing 派生；保留文件但不能作为本轮纯建筑 MCP2 候选。"
+  },
+  "strictLineageGate": {
+    "massingMcp1Passed": false,
+    "formalMapAccepted": false,
+    "heroDerivedFromAcceptedMassing": false,
+    "heroMcp2Passed": false,
+    "identityDerivationAuthorized": false,
+    "status": "blocked"
+  },
+  "identityDisposition": {
+    "status": "not-created-not-authorized",
+    "generatorCreated": false,
+    "blendCreated": false,
+    "glbCreated": false,
+    "buildRecordCreated": false,
+    "previewsCreated": false,
+    "reason": "MCP1 与正式地图门未通过，旧 Hero 又不具备合法 lineage 和纯建筑 scope，无法冻结 Hero SHA 作为 Identity 来源。"
+  },
+  "threeJsDisposition": {
+    "recoveryMassingRuntimeVisibility": "pass-preserved",
+    "currentMassingExactShaRuntime": "not-available-in-integrated-baseline",
+    "threeTierFallbackPerformanceCollision": "not-reachable",
+    "improvementClaimed": false
+  },
+  "gates": {
+    "evidence": "pass-conservative-massing-only",
+    "recoveryMassingV2": "pass-preserved-runtime-visible-map-blocked",
+    "massingV3": "candidate-not-integrated",
+    "mcp1": "pending-not-passed",
+    "mapAcceptance": "blocked",
+    "hero": "blocked-scope-and-lineage",
+    "mcp2": "not-authorized",
+    "identity": "not-authorized",
+    "mcp3": "not-reachable",
+    "threeJsThreeTier": "not-reachable",
+    "overall": "blocked-map-mcp1-hero-lineage-and-identity"
+  },
+  "mainWindowActions": [
+    "在不改动 Recovery/Hold 的前提下，选择是否把孤立 v3 候选按当前 SHA 纳入下一批 MCP1；未终审前不得写 pass。",
+    "用地籍、测绘或用户确认的主体边界复核 way/864847922，并裁决法华镇路 stylized asphalt 与证据 footprint 的冲突；不得靠任意移动或缩放绕过。",
+    "地图门通过后，从已接受 Massing 新建纯建筑 Hero，移除 site、鱼池、竹林、银杏和缘石等范围外内容。",
+    "主窗口对新 Hero 执行 MCP2，并冻结 Hero SHA 后才允许派生 Identity。",
+    "Identity 完成后再执行 MCP3 同机位三档与 Three.js fallback、性能和碰撞验收。"
+  ]
+}
