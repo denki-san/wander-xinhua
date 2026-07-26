@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "assetId": "xinhua-villas-329",
+  "recordedAt": "2026-07-26",
+  "status": "query-contract-ready-not-executed",
+  "purpose": "Search only for the minimum traceable evidence needed to define the historic garden-residence compound subset, bind named members to accepted OSM ways, close same-member Hero views, and authorize a legal Hero-to-Identity lineage.",
+  "executionAuthority": {
+    "owner": "main-window-only",
+    "mode": "manual-serial-read-only-browser-review",
+    "searchExecutedByThisRecord": false,
+    "browserOrXiaohongshuAccessed": false,
+    "networkAccessed": false,
+    "mediaDownloaded": false,
+    "parallelSearchForbidden": true
+  },
+  "frozenAcceptedStages": {
+    "massing": {
+      "tier": "massing-v3",
+      "path": "public/models/tiers/xinhua-road/massing-v3/xinhua-villas-329-massing.glb",
+      "sha256": "f245efd099d00049c068230fe999f5e492c16aef441775dddf7c41dd9350b704",
+      "members": ["15", "36", "40", "42"],
+      "acceptedOsmWays": [864493244, 864485664, 864493174, 864493173],
+      "mcp1": "pass",
+      "formalMap": "pass",
+      "threePerformance": "pass-no-improvement-claim",
+      "collision": "pass-hard-collision-before-interior-target",
+      "movementScaleOrFootprintChangeAuthorized": false,
+      "rerunOrRebuildRequired": false
+    },
+    "legacyHero": {
+      "path": "public/models/xinhua-road/xinhua-villas-329.glb",
+      "sha256": "81b2d79bb502cb42c187169f339f0ac9428ea8ae855e43e8b0756768ced0210b",
+      "status": "permanent-hold-cross-asset-contaminated",
+      "reusePatchOrMcp2Forbidden": true
+    },
+    "identity": {
+      "status": "not-created-no-valid-hero-source",
+      "derivationAuthorized": false
+    }
+  },
+  "historicSubjectBoundary": {
+    "target": "historic-garden-residence-compound-subset",
+    "namedMembersForSearch": ["17", "36", "38", "40", "42"],
+    "currentMassingMembersRemainFrozen": ["15", "36", "40", "42"],
+    "bindingIntent": "Determine whether each named member can be assigned to one accepted OSM way with traceable evidence; this contract does not authorize rebinding, member replacement, footprint edits, or stable-ID expansion.",
+    "excludedNamespaceEvidence": [
+      {
+        "subject": "number-67-elevator-site-plan",
+        "reason": "The plan concerns the wider 329-lane address namespace and does not label the historic garden-residence members or bind them to accepted OSM ways."
+      },
+      {
+        "subject": "generic-329-lane-address",
+        "reason": "An address containing 329 Lane does not prove membership in the current historic compound subset."
+      }
+    ]
+  },
+  "queryGroups": [
+    {
+      "id": "historic-compound-boundary",
+      "queries": [
+        "新华别墅329弄 花园住宅 总平图",
+        "新华路329弄 外国弄堂 花园住宅 17号 36号 38号 40号 42号",
+        "新华别墅329弄 历史建筑 分布图"
+      ],
+      "accept": [
+        "north-oriented or independently orientable plan of the historic garden-residence subset",
+        "explicit labels for at least two target members and a lane entrance or fixed street anchor",
+        "enough member geometry to distinguish the accepted OSM ways"
+      ],
+      "reject": [
+        "number-67 elevator site plan",
+        "generic 329-lane address map",
+        "unlabeled tourist sketch",
+        "compound entrance photo without member layout",
+        "marketing illustration without traceable provenance"
+      ]
+    },
+    {
+      "id": "member-17-and-38-way-binding",
+      "queries": [
+        "新华路329弄17号 老洋房",
+        "新华别墅329弄17号 入口 侧面",
+        "新华路329弄38号 西班牙式别墅",
+        "新华别墅329弄38号 36号 相邻"
+      ],
+      "accept": [
+        "visible or transcription-supported doorplate",
+        "same-frame lane, neighboring member, entrance, or plan anchor",
+        "evidence that assigns the member to exactly one accepted OSM way without proximity-only inference"
+      ],
+      "reject": [
+        "front-only identity without placement",
+        "image borrowed from 211 Lane",
+        "generic Spanish-style villa",
+        "caption-only address without visible subject continuity"
+      ]
+    },
+    {
+      "id": "members-36-40-42-way-binding",
+      "queries": [
+        "新华别墅329弄36号 蛋糕房 入口",
+        "新华别墅329弄40号 花园住宅 侧面",
+        "新华别墅329弄42号 兰亭 侧面",
+        "新华路329弄36号 40号 42号 位置"
+      ],
+      "accept": [
+        "doorplate or reliable post transcription tied to the photographed building",
+        "a fixed lane-order, neighboring-member, entrance, or plan anchor",
+        "member-to-way evidence stronger than the existing sequence-and-spatial Massing inference"
+      ],
+      "reject": [
+        "a repeated crop of existing front evidence",
+        "post order used as the only way-binding proof",
+        "a member number visible without compound context",
+        "ordinary residential content using the same house number outside 329 Lane"
+      ]
+    },
+    {
+      "id": "same-member-multiview-scale-and-entry",
+      "queries": [
+        "新华别墅329弄17号 36号 38号 40号 42号 内部路线",
+        "新华别墅329弄 花园住宅 侧面 后院",
+        "新华别墅329弄 老洋房 人物 合影 建筑",
+        "新华别墅329弄 入口 门牌 屋顶 背面"
+      ],
+      "accept": [
+        "same-member continuity through repeated identity cues or continuous video movement",
+        "canonical plus side or depth plus entrance or identity-detail coverage",
+        "rear or roof-back evidence for every hidden face proposed for Hero geometry",
+        "person, standard door, measured plan, or other defensible scale reference",
+        "recordable camera direction and ground datum"
+      ],
+      "reject": [
+        "different members combined into one supposed view set",
+        "front-only or detail-only set",
+        "generated runtime image, AI image, or untraceable repost",
+        "tree, decoration, garden furniture, or full-map content presented as building evidence"
+      ]
+    }
+  ],
+  "acceptanceMatrix": [
+    {
+      "id": "source-provenance",
+      "passWhen": "Record post URL, author/display name, collection time, publication time if visible, post text, and the exact image or video frame used.",
+      "otherwise": "reject"
+    },
+    {
+      "id": "historic-subset-membership",
+      "passWhen": "Evidence distinguishes the historic garden-residence subset from the wider 329-lane address namespace.",
+      "otherwise": "reject"
+    },
+    {
+      "id": "member-to-way-binding",
+      "passWhen": "A named member among 17, 36, 38, 40 or 42 is assigned to exactly one accepted OSM way using an orientable plan or independently cross-checked fixed anchors.",
+      "otherwise": "remain-blocked"
+    },
+    {
+      "id": "same-member-view-closure",
+      "passWhen": "The same bound member has canonical, side or depth, entrance or identity detail, rear or roof-back where modeled, camera direction and scale evidence.",
+      "otherwise": "remain-blocked"
+    },
+    {
+      "id": "compound-coverage",
+      "passWhen": "Every member proposed for the compound Hero passes member binding and view closure, and the compound boundary and circulation remain explicit.",
+      "otherwise": "no-compound-hero"
+    },
+    {
+      "id": "hero-lineage",
+      "passWhen": "A new pure-building Hero records the accepted Massing SHA, source way, member set, placement, collision semantics and evidence paths before MCP2.",
+      "otherwise": "no-MCP2"
+    },
+    {
+      "id": "identity-lineage",
+      "passWhen": "Identity is derived only from the frozen SHA of a new same-subject Hero after that Hero passes MCP2.",
+      "otherwise": "no-Identity-or-MCP3"
+    }
+  ],
+  "publicAndUserPhotoBoundary": {
+    "publicMedia": "Public posts are supplemental traceable evidence and must never be labeled as user-taken photographs.",
+    "userMedia": "Any later user-supplied original must retain its own source path and metadata and remain distinct from public material.",
+    "noSubstitution": "A public image, thumbnail, generated image, contact sheet, or runtime screenshot cannot fill a user-photo slot."
+  },
+  "dynamicEvidenceStorage": {
+    "archiveTruth": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+    "futureMediaAndEvidence": "If main-window browsing later retains media or per-asset evidence, create a new immutable snapshot using scripts/archive_dynamic_evidence.sh; never overwrite an older snapshot.",
+    "repositoryBoundary": "The repository may keep only compatibility working copies and small indexes required by existing scripts, with the external snapshot ID, relative path and SHA recorded.",
+    "wikiBoundary": "Downloaded social media, images, videos, audio, screenshots, runtime metrics, evidence JSON and manifests for this asset must not enter any LLM Wiki, including Threejs-3d-research or TowerOld.",
+    "thisRecordCreatedSnapshot": false
+  },
+  "rateAndSafety": {
+    "manualSerialOnly": true,
+    "maximumQueriesPerSession": 4,
+    "maximumResultOpensPerSession": 6,
+    "minimumSecondsBetweenResultOpens": 45,
+    "minimumSecondsBetweenNewQueries": 90,
+    "maximumSessionMinutes": 20,
+    "stopImmediatelyOn": [
+      "captcha or challenge",
+      "rate-limit or platform warning",
+      "login or verification prompt",
+      "any uncertainty that an interaction changes account state"
+    ],
+    "prohibited": [
+      "parallel agents, parallel tabs, or bulk automation",
+      "likes, saves, follows, comments, messages, or other social actions",
+      "behavior simulation, detection evasion, challenge bypass, or retry loops"
+    ]
+  },
+  "postSearchDisposition": {
+    "onlyMainWindowMayAdjudicate": true,
+    "reasonableExhaustion": "Main window attempted all four query groups within the conservative limits, logged every opened result and rejection reason, and found no admissible evidence combination that closes the acceptance matrix.",
+    "beforeExhaustion": "Retain the accepted four-member Massing runtime unchanged. Do not disable the building or alter assets, registry, runtime, shared files, Recovery/Hold, or evidence archives.",
+    "afterExhaustion": "Main window may propose runtime disable for xinhua-villas-329 only. Disable is not automatic and must be accompanied by a retained-file audit.",
+    "permanentRetention": "All GLB, Blend, generators, evidence, screenshots, tests, public-source records, Recovery/Hold files and rejected candidates remain permanently preserved."
+  },
+  "scope": {
+    "prohibitedHere": [
+      "browser, Xiaohongshu, or network access",
+      "media download",
+      "Blender, model, generator, registry or runtime change",
+      "shared Fast manifest, status or roster change",
+      "Recovery/Hold change",
+      "tree, decoration, full-map or other-building work"
+    ]
+  }
+}
