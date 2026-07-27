@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "project": "wander-xinhua",
+  "archiveRoot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence",
+  "snapshotId": "2026-07-27-storage-migration-52db477",
+  "snapshotRelativePath": "snapshots/2026-07-27-storage-migration-52db477",
+  "contentRoot": "repository",
+  "checksumFile": "SHA256SUMS",
+  "sourceGitSha": "52db477",
+  "snapshotFileCount": 980,
+  "snapshotByteCount": 451461120,
+  "migration": {
+    "removedTrackedFileCount": 402,
+    "removedTrackedByteCount": 203417368,
+    "retainedCiFixtureCount": 366,
+    "retainedCiFixtureByteCount": 210524871
+  },
+  "wikiEligible": false
+}

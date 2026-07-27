@@ -13,9 +13,33 @@
 # testing
 /coverage
 /test_artifacts/*
-!/test_artifacts/test_*_preview.png
-!/test_artifacts/test_*_runtime_metrics.json
 /test_local_preview.command
+
+# 动态证据归档在外置硬盘；仓库仅保留已经纳入版本控制的 CI fixture
+/docs/research/assets/**/*.png
+/docs/research/assets/**/*.jpg
+/docs/research/assets/**/*.jpeg
+/docs/research/assets/**/*.webp
+/docs/research/assets/**/*.gif
+/docs/research/assets/**/*.mp4
+/docs/research/assets/**/*.mov
+/docs/research/assets/**/*.m4a
+/docs/research/assets/**/*.mp3
+/docs/research/assets/**/*.wav
+/docs/research/assets/**/*.har
+/docs/research/assets/**/*.pdf
+/docs/research/assets/**/*.html
+/docs/research/test_*.png
+/docs/research/test_*.jpg
+/docs/research/test_*.jpeg
+/docs/research/test_*.webp
+/research/previews/
+/research/references/**/*.png
+/research/references/**/*.jpg
+/research/references/**/*.jpeg
+/research/references/**/*.webp
+/assets/models/source/character/*-preview.png
+/assets/models/source/character/references/*-preview.jpg
 
 # next.js
 /.next/
