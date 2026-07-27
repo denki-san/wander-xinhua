@@ -717,7 +717,7 @@ export function StyleLab() {
   const contract = STYLE_BY_ID[style];
 
   return (
-    <section className={styles.lab} data-style={style} aria-label="新华漫游志三种视觉风格比较">
+    <section className={styles.lab} data-style={style} aria-label="漫步新华三种视觉风格比较">
       <div className={styles.canvasWrap}>
         <Canvas
           key={style}
@@ -732,7 +732,7 @@ export function StyleLab() {
       </div>
 
       <header className={styles.header}>
-        <a className={styles.brand} href="/" aria-label="返回新华漫游志">
+        <a className={styles.brand} href="/" aria-label="返回漫步新华">
           <span>游</span>
           <strong>新华视觉试验场</strong>
         </a>

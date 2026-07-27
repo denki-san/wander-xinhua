@@ -1,4 +1,4 @@
-"""生成《新华漫游志》的中性城市漫游者。
+"""生成《漫步新华》的中性城市漫游者。
 
 角色使用 Quaternius Ultimate Modular Men Pack 的 CC0 模块重新组合：
 Suit 的短发头部、Casual_Hoodie 的上装、Casual_2 的长裤和运动鞋。

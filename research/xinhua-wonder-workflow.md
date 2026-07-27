@@ -2,7 +2,7 @@
 
 ## 目标
 
-这个原型把“上传图片到生成 3D 模型”拆成一条可以体验、可以解释、也可以继续补证的链路。它不把单张图片包装成摄影测量结果，而是把图像证据转换成可编辑的程序化体块，再用《新华漫游志》的街区语言完成第一版 Wonder 风格化。
+这个原型把“上传图片到生成 3D 模型”拆成一条可以体验、可以解释、也可以继续补证的链路。它不把单张图片包装成摄影测量结果，而是把图像证据转换成可编辑的程序化体块，再用《漫步新华》的街区语言完成第一版 Wonder 风格化。
 
 ## 六阶段链路
 
@@ -13,7 +13,7 @@
 5. **Wonder**：照片颜色不会直接成为写实纹理，而是向新华路的暖白、砖红、梧桐绿、雾蓝与深灰绿色盘收敛；轮廓、入口、窗洞节奏和至少三处身份构件优先。
 6. **Validate**：依次检查主照片机位、侧向复核、地图顶视和人眼漫游。Blender 预览通过不代表 Three.js 中的比例、地面接触、遮挡、相机和性能已经通过。
 
-米制换算与艺术倍率必须分别保留：`sceneScale = meterAuthoredScale × visualScaleMultiplier`。当前新华漫游志的 `meterAuthoredScale` 基线为 `1 / 2.7`。
+米制换算与艺术倍率必须分别保留：`sceneScale = meterAuthoredScale × visualScaleMultiplier`。当前漫步新华的 `meterAuthoredScale` 基线为 `1 / 2.7`。
 
 ## 为什么采用新版“新华 Wonder”
 
@@ -29,7 +29,7 @@
 - 预置的新华路 315 号住宅、上海影城和邬达克纪念馆使用仓库内已有原创 GLB，并保留 Blend 与确定性生成脚本。
 - 预置公开照片只作为研究证据保存在 `research/`，不进入部署页面和模型贴图。
 - `Identity`、`Position`、`Scale`、`Orientation` 必须分开显示；未知位置不得用图像特征推导。
-- 当前场景尺度明确拆成 `sceneScale = meterAuthoredScale × visualScaleMultiplier`。`meterAuthoredScale` 负责 2.7 m / scene unit 的真实换算，`visualScaleMultiplier` 只服务于《新华漫游志》5× 环境体验，不能混成一个“看起来差不多”的数值。
+- 当前场景尺度明确拆成 `sceneScale = meterAuthoredScale × visualScaleMultiplier`。`meterAuthoredScale` 负责 2.7 m / scene unit 的真实换算，`visualScaleMultiplier` 只服务于《漫步新华》5× 环境体验，不能混成一个“看起来差不多”的数值。
 
 ## 三个案例覆盖的难题
 

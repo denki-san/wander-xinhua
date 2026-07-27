@@ -1,5 +1,35 @@
 # Learnings
 
+## [LRN-20260727-MBX] correction
+
+**Logged**: 2026-07-27T12:00:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+产品统一中文名为“漫步新华”，不再使用“新华漫游志”。
+
+### Details
+用户明确纠正当前产品的所有中文名称。运行时品牌、页面标题、SEO/社交元数据、
+资产管理页、产品主页、可访问性标签和当前项目说明都必须统一使用“漫步新华”。
+英文项目名 `Wander Xinhua` 和代码仓库名 `wander-xinhua` 不在本次中文改名范围。
+
+### Suggested Action
+新增或修改面向用户的中文产品文案时，默认使用“漫步新华”；测试应锁定静态入口标题，
+发布前搜索运行时代码中是否残留旧中文名。历史发布记录和不可变证据不批量改写。
+
+### Metadata
+- Source: user_feedback
+- Related Files: `app/layout.tsx`, `app/xinhua-experience.tsx`, `app/asset-library/`, `index.html`
+- Tags: naming, brand, chinese, correction
+
+### Resolution
+- **Resolved**: 2026-07-27T12:00:00+08:00
+- **Notes**: 已统一当前产品运行时、元数据、测试和现行说明中的中文名称。
+
+---
+
 ## [LRN-20260725-006] correction
 
 **Logged**: 2026-07-25T20:25:00+08:00

@@ -762,10 +762,10 @@ export function XinhuaExperience() {
           type="button"
           className="xinhua-brand"
           onClick={() => window.location.reload()}
-          aria-label="重新开始新华漫游志"
+          aria-label="重新开始漫步新华"
         >
           <span>游</span>
-          <strong>新华漫游志</strong>
+          <strong>漫步新华</strong>
         </button>
         {playing && (
           <div className="world-tool-stack">

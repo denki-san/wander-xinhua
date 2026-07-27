@@ -3,7 +3,7 @@
 ## 建模对象
 
 - Subject and address：新华路315号住宅，上海市长宁区新华路315号
-- Intended stylization level：适合《新华漫游志》的精致扁平 3D；保留真实轮廓和开间节奏，材质做 cozy 风格化
+- Intended stylization level：适合《漫步新华》的精致扁平 3D；保留真实轮廓和开间节奏，材质做 cozy 风格化
 - World scale and coordinate convention：
   - `wander-xinhua` 当前地图为 `2.7 m / scene unit`
   - 原模型采用 Blender Z-up、正面 local `-Y`

@@ -20,7 +20,7 @@ export const RELEASE_NOTES: ReleaseNote[] = [
     date: "2026-07-27",
     version: "v0.1.0",
     title: "产品主页与更新日历上线",
-    summary: "为新华漫游志建立一个可以持续讲述产品进展的公开入口。",
+    summary: "为漫步新华建立一个可以持续讲述产品进展的公开入口。",
     highlights: ["首页占位信息架构", "按日期定位的 Changelog", "为 GitHub 构建期同步预留数据接口"],
     category: "产品体验",
     source: "local",

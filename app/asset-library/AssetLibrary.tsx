@@ -428,10 +428,10 @@ export function AssetLibrary() {
   return (
     <div className={styles.shell}>
       <header className={styles.header}>
-        <Link href="/" className={styles.brand} aria-label="返回新华漫游志">
+        <Link href="/" className={styles.brand} aria-label="返回漫步新华">
           <span className={styles.brandMark}>新</span>
           <span>
-            <strong>新华漫游志</strong>
+            <strong>漫步新华</strong>
             <small>Asset Library</small>
           </span>
         </Link>

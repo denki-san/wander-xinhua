@@ -3,7 +3,7 @@
 ## 建模对象
 
 - Subject and address：上海影城，上海市长宁区新华路160号
-- Intended stylization level：保留现代建筑的连续弧形轮廓、首层通透感与层叠水平线，用低饱和材质纳入《新华漫游志》街区语言
+- Intended stylization level：保留现代建筑的连续弧形轮廓、首层通透感与层叠水平线，用低饱和材质纳入《漫步新华》街区语言
 - World scale and coordinate convention：沿用 `2.7 m / scene unit`；模型正面与原项目资产约定一致，demo 只做统一居中和宽度归一
 - Placement evidence：OSM way `292250766`
 

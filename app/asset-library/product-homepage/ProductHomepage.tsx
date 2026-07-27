@@ -30,7 +30,7 @@ export function ProductHomepage() {
       <nav className={styles.nav} aria-label="产品主页导航">
         <Link href="/asset-library" className={styles.brand}>
           <span className={styles.brandMark}>新</span>
-          <span>新华漫游志</span>
+          <span>漫步新华</span>
         </Link>
         <div className={styles.navLinks}>
           <a href="#changelog">更新日志</a>
@@ -149,7 +149,7 @@ export function ProductHomepage() {
       </section>
 
       <footer className={styles.footer}>
-        <span>新华漫游志 · 产品主页占位版</span>
+        <span>漫步新华 · 产品主页占位版</span>
         <Link href="/asset-library">回到 Asset Library</Link>
       </footer>
     </main>

@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { NonbuildingEvidenceQa } from "./NonbuildingEvidenceQa";
 
 export const metadata: Metadata = {
-  title: "非建筑证据模型 QA｜新华漫游志",
+  title: "非建筑证据模型 QA｜漫步新华",
   description: "隔离验证幸福里当前街具的 visible-low / hidden 两态合同。",
 };
 
