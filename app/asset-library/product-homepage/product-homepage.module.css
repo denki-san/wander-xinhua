@@ -1,0 +1,172 @@
+.shell {
+  min-height: 100svh;
+  overflow: auto;
+  color: #26362f;
+  background: #f6f1e7;
+  font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.nav,
+.hero,
+.statement,
+.changelog,
+.syncDesign,
+.footer {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.nav {
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand,
+.navLinks a,
+.footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand {
+  display: inline-flex;
+  gap: 9px;
+  align-items: center;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.brandMark {
+  display: grid;
+  width: 33px;
+  height: 33px;
+  place-items: center;
+  color: #fff9eb;
+  background: #26362f;
+  border-radius: 10px 10px 10px 3px;
+}
+
+.navLinks { display: flex; gap: 24px; color: #6c756f; font-size: 13px; }
+.navLinks a:hover, .footer a:hover { color: #d36342; }
+
+.hero {
+  min-height: 570px;
+  padding: 74px 0 90px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: clamp(42px, 8vw, 120px);
+  align-items: center;
+}
+
+.eyebrow {
+  margin: 0 0 16px;
+  color: #d36342;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.hero h1,
+.changelog h2,
+.syncDesign h2 {
+  margin: 0;
+  font-family: Georgia, "Songti SC", serif;
+  font-weight: 500;
+  letter-spacing: -0.06em;
+}
+
+.hero h1 { font-size: clamp(57px, 8vw, 104px); line-height: 0.92; }
+.hero h1 em { color: #d36342; font-style: normal; }
+.heroCopy > p:not(.eyebrow) { max-width: 510px; margin: 28px 0 0; color: #68736c; font-size: 16px; line-height: 1.9; }
+.heroActions { display: flex; flex-wrap: wrap; gap: 22px; align-items: center; margin-top: 34px; }
+.primaryAction, .secondaryAction { text-decoration: none; font-size: 14px; }
+.primaryAction { padding: 13px 19px; color: #fffaf0; background: #26362f; border-radius: 999px; }
+.primaryAction:hover { background: #d36342; }
+.secondaryAction { color: #526057; border-bottom: 1px solid #8f9990; padding-bottom: 4px; }
+
+.placeCard {
+  position: relative;
+  min-height: 405px;
+  padding: 27px;
+  overflow: hidden;
+  color: #fff8ed;
+  background: #34483d;
+  border-radius: 34px 34px 34px 7px;
+  box-shadow: 18px 23px 0 #e6d8c3;
+}
+.cardNumber { position: relative; z-index: 1; color: #d3dcb4; font: 14px ui-monospace, monospace; }
+.cardScene { position: absolute; right: 0; bottom: 76px; left: 0; height: 230px; overflow: hidden; }
+.cardScene::before, .cardScene::after { position: absolute; content: ""; border-radius: 50%; }
+.cardScene::before { width: 300px; height: 300px; right: -86px; bottom: -155px; background: #c7cf87; }
+.cardScene::after { width: 190px; height: 190px; left: -76px; bottom: -88px; background: #e0905c; }
+.cardScene i { position: absolute; bottom: 0; width: 23%; background: #ebd2a3; border-radius: 4px 4px 0 0; box-shadow: inset -10px 0 rgba(38,54,47,.1); }
+.cardScene i:nth-child(1) { left: 24%; height: 126px; }
+.cardScene i:nth-child(2) { left: 48%; height: 184px; background: #f4ddaa; }
+.cardScene i:nth-child(3) { left: 72%; height: 100px; }
+.cardScene b { position: absolute; width: 34px; height: 34px; left: 19%; bottom: 125px; background: #26362f; border-radius: 50% 50% 45% 45%; box-shadow: 92px 32px 0 #2b3b33, 182px 0 0 #2b3b33; }
+.placeCard p { position: absolute; right: 27px; bottom: 26px; left: 27px; z-index: 1; margin: 0; font-family: Georgia, "Songti SC", serif; font-size: 24px; line-height: 1.25; }
+.placeCard small { position: absolute; bottom: 26px; right: 27px; z-index: 2; color: #d2ddbd; font-size: 10px; letter-spacing: .08em; writing-mode: vertical-rl; }
+
+.statement { padding: 83px 0; display: flex; justify-content: space-between; gap: 30px; border-top: 1px solid #d9d1c2; border-bottom: 1px solid #d9d1c2; }
+.statement p { margin: 0; font-family: Georgia, "Songti SC", serif; font-size: clamp(27px, 3.5vw, 44px); line-height: 1.2; letter-spacing: -0.04em; }
+.statement span { align-self: end; color: #738076; font-size: 12px; letter-spacing: .08em; white-space: nowrap; }
+
+.changelog { padding: 120px 0 90px; }
+.sectionHeading { display: flex; gap: 30px; justify-content: space-between; align-items: end; margin-bottom: 40px; }
+.sectionHeading h2, .syncDesign h2 { font-size: clamp(40px, 5vw, 65px); line-height: .98; }
+.sectionHeading > p { max-width: 235px; margin: 0; color: #788177; font-size: 14px; line-height: 1.7; }
+.changelogGrid { display: grid; grid-template-columns: minmax(310px, .9fr) minmax(320px, 1.1fr); gap: 20px; }
+.calendarCard, .releaseCard { padding: clamp(24px, 4vw, 38px); border-radius: 25px; }
+.calendarCard { color: #eef0d9; background: #26362f; }
+.calendarHeading { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+.calendarHeading span { display: block; color: #b9c4a9; font-size: 11px; letter-spacing: .08em; }
+.calendarHeading strong { display: block; margin-top: 5px; color: #fff9ee; font-family: Georgia, "Songti SC", serif; font-size: 27px; font-weight: 500; }
+.calendarHeading .calendarStatus { padding: 6px 8px; border: 1px solid rgba(239,240,217,.25); border-radius: 999px; color: #d8dfc3; font-size: 10px; white-space: nowrap; }
+.weekdays, .calendarGrid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; }
+.weekdays { margin: 34px 0 8px; color: #aeb9a7; font-size: 10px; }
+.calendarGrid { gap: 4px; }
+.calendarDay { min-height: 38px; display: grid; place-items: center; position: relative; border: 0; color: #e8ebd5; background: transparent; border-radius: 11px; font: 13px ui-monospace, monospace; }
+button.calendarDay { cursor: pointer; }
+.hasRelease { color: #25362e; background: #e5d28b; }
+.hasRelease:hover, .selectedDay { color: #fffaf0; background: #d36342; outline: 2px solid #f0dcc7; outline-offset: 2px; }
+.calendarDay i { position: absolute; bottom: 4px; width: 3px; height: 3px; background: currentColor; border-radius: 50%; }
+.calendarHint { display: flex; gap: 8px; align-items: center; margin: 28px 0 0; color: #b9c4a9; font-size: 11px; }
+.calendarHint i { width: 7px; height: 7px; border-radius: 50%; background: #e5d28b; }
+.releaseCard { display: flex; flex-direction: column; color: #26362f; background: #fffdf8; border: 1px solid #e2d9cb; }
+.releaseMeta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; color: #718077; font-size: 11px; }
+.releaseMeta span { padding: 5px 8px; border: 1px solid #d6dcd0; border-radius: 999px; }
+.releaseMeta time { margin-left: auto; }
+.releaseCard h3 { margin: 32px 0 14px; font-family: Georgia, "Songti SC", serif; font-size: clamp(28px, 3vw, 40px); font-weight: 500; letter-spacing: -.04em; }
+.releaseCard > p { max-width: 520px; margin: 0; color: #657269; font-size: 15px; line-height: 1.8; }
+.releaseCard ul { margin: 26px 0; padding: 0; list-style: none; }
+.releaseCard li { padding: 9px 0; border-top: 1px solid #e5dfd4; font-size: 13px; }
+.releaseCard li::before { margin-right: 10px; color: #d36342; content: "＋"; }
+.releaseCard footer { margin-top: auto; display: flex; justify-content: space-between; gap: 10px; color: #788177; font-size: 11px; }
+.releaseCard footer a { color: #26362f; text-decoration: none; border-bottom: 1px solid #a7afa5; }
+.releaseList { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 20px; overflow: hidden; border: 1px solid #ded5c8; border-radius: 16px; background: #ded5c8; }
+.releaseList button { display: flex; gap: 11px; align-items: center; min-height: 60px; padding: 16px; border: 0; color: #47554c; background: #fdfaf3; cursor: pointer; text-align: left; }
+.releaseList button:hover, .releaseList .activeRelease { background: #e8e4d8; }
+.releaseList time { color: #d36342; font: 11px ui-monospace, monospace; }
+.releaseList small { margin-left: auto; color: #879087; font-size: 10px; }
+
+.syncDesign { padding: 70px clamp(28px, 6vw, 76px); color: #fff9ee; background: #d36342; border-radius: 36px; }
+.syncDesign .eyebrow { color: #ffe0bd; }
+.syncDesign p:last-child { max-width: 690px; margin: 24px 0 0; color: #fff0dd; font-size: 15px; line-height: 1.9; }
+.footer { padding: 35px 0 46px; display: flex; justify-content: space-between; color: #758076; font-size: 12px; }
+
+@media (max-width: 720px) {
+  .nav, .hero, .statement, .changelog, .syncDesign, .footer { width: min(100% - 32px, 1180px); }
+  .navLinks { gap: 15px; }
+  .hero { min-height: 0; padding: 46px 0 72px; grid-template-columns: 1fr; }
+  .placeCard { min-height: 330px; }
+  .statement, .sectionHeading { display: block; }
+  .statement span, .sectionHeading > p { display: block; margin-top: 20px; }
+  .changelog { padding: 83px 0 65px; }
+  .changelogGrid { grid-template-columns: 1fr; }
+  .releaseList { grid-template-columns: 1fr; }
+  .syncDesign { padding: 46px 28px; border-radius: 25px; }
+  .footer { gap: 18px; flex-direction: column; }
+}

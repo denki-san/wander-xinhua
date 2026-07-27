@@ -436,6 +436,7 @@ export function AssetLibrary() {
           </span>
         </Link>
         <div className={styles.headerMeta}>
+          <a href="/product-homepage" className={styles.productHomepageLink}>产品主页</a>
           <span className={styles.syncDot} />
           生产资产快照 · 2026.07.25
         </div>

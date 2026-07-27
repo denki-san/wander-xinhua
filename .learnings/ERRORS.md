@@ -1,5 +1,37 @@
 # Errors
 
+## [ERR-20260727-A31] git_index_lock_sandbox_permission
+
+**Logged**: 2026-07-27T11:48:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+发布提交在默认文件沙箱中无法创建 Git index lock。
+
+### Error
+```text
+fatal: Unable to create '/Users/lei/App_developing/wander-xinhua/.git/index.lock': Operation not permitted
+```
+
+### Context
+- 主页与资产库 VPS 发布前，尝试只暂存本轮明确文件并创建可追溯提交。
+- 工作区源码和已完成的构建产物均未受影响。
+
+### Suggested Fix
+核对不存在遗留 `index.lock` 后，以授权方式重跑同一组精确路径的 `git add` 与 `git commit`，不要扩大暂存范围。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `.git/index`, `.learnings/ERRORS.md`
+
+### Resolution
+- **Resolved**: 2026-07-27T11:49:00+08:00
+- **Notes**: 确认没有遗留锁文件后，以授权方式完成精确暂存和提交。
+
+---
+
 ## [ERR-20260724-091] vite_preview_sandbox_listen_permission
 
 **Logged**: 2026-07-24T00:00:00+08:00

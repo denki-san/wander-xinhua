@@ -6,9 +6,13 @@ import { XinhuaExperienceLoader } from "./app/xinhua-experience-loader";
 const AssetLibrary = lazy(() => import("./app/asset-library/AssetLibrary").then((module) => ({
   default: module.AssetLibrary,
 })));
+const ProductHomepage = lazy(() => import("./app/asset-library/product-homepage/ProductHomepage").then((module) => ({
+  default: module.ProductHomepage,
+})));
 const root = document.getElementById("root");
 const routePath = window.location.pathname.replace(/\/+$/, "") || "/";
 const assetLibraryRoute = routePath === "/asset-library";
+const productHomepageRoute = routePath === "/product-homepage";
 
 if (!root) {
   throw new Error("找不到应用挂载节点");
@@ -16,9 +20,9 @@ if (!root) {
 
 createRoot(root).render(
   <StrictMode>
-    {assetLibraryRoute ? (
+    {assetLibraryRoute || productHomepageRoute ? (
       <Suspense fallback={<div role="status">正在装载资产总览…</div>}>
-        <AssetLibrary />
+        {assetLibraryRoute ? <AssetLibrary /> : <ProductHomepage />}
       </Suspense>
     ) : <XinhuaExperienceLoader />}
   </StrictMode>,

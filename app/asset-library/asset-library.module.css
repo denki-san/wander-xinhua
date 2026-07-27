@@ -84,6 +84,21 @@
   font-size: 12px;
 }
 
+.productHomepageLink {
+  padding: 6px 9px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.42);
+  font-size: 11px;
+  text-decoration: none;
+}
+
+.productHomepageLink:hover {
+  color: #fff9ee;
+  background: var(--ink);
+}
+
 .syncDot,
 .liveDot {
   width: 7px;
