@@ -45,6 +45,16 @@ import {
 const ProgressiveVisualEffectComposer = lazy(
   () => import("./scene/visual-effect-composer"),
 );
+const PerformanceDiagnosticsCanvasProbe = lazy(
+  () => import("./performance/performance-diagnostics").then((module) => ({
+    default: module.PerformanceDiagnosticsCanvasProbe,
+  })),
+);
+const PerformanceDiagnosticsPanel = lazy(
+  () => import("./performance/performance-diagnostics").then((module) => ({
+    default: module.PerformanceDiagnosticsPanel,
+  })),
+);
 
 const TOUCH_STICK_TRAVEL = 42;
 type TouchTapCandidate = {
@@ -447,6 +457,10 @@ function LightingSwitcher({
 
 export function XinhuaExperience() {
   const [mode, setMode] = useState<"intro" | "overview" | "explore">("intro");
+  const [performanceDiagnosticsEnabled] = useState(() => (
+    typeof window !== "undefined"
+    && new URLSearchParams(window.location.search).get("perf") === "1"
+  ));
   const [effectsDisabledForQa] = useState(() => (
     typeof window !== "undefined"
     && new URLSearchParams(window.location.search).get("effects") === "off"
@@ -500,6 +514,9 @@ export function XinhuaExperience() {
   const overview = mode === "overview";
   const nearPoi = mapPoiById(nearPoiId);
   const ready = rendererReady && characterIdentityStatus !== null;
+  const performanceEntry = mode === "explore"
+    ? destinationPreset ?? "explore"
+    : mode;
   const settleCharacterIdentity = useCallback((status: RainIdentityPreloadStatus) => {
     setCharacterIdentityStatus((current) => current ?? status);
   }, []);
@@ -699,6 +716,16 @@ export function XinhuaExperience() {
         }}
       >
         <FirstPlayableFrame onReady={() => setRendererReady(true)} />
+        {performanceDiagnosticsEnabled && (
+          <Suspense fallback={null}>
+            <PerformanceDiagnosticsCanvasProbe
+              enabled
+              mode={mode}
+              entry={performanceEntry}
+              ready={ready}
+            />
+          </Suspense>
+        )}
         <ProgressiveFeatureBoundary
           resetKey="rain-identity-preload"
           fallback={(
@@ -754,6 +781,19 @@ export function XinhuaExperience() {
           </ProgressiveFeatureBoundary>
         )}
       </Canvas>
+
+      {performanceDiagnosticsEnabled && (
+        <Suspense fallback={null}>
+          <PerformanceDiagnosticsPanel
+            enabled
+            mode={mode}
+            entry={performanceEntry}
+            renderDpr={renderDpr}
+            qualityTier={lowTier ? "low" : "high"}
+            networkProfile={networkProfile}
+          />
+        </Suspense>
+      )}
 
       <CameraQaPanel visible={cameraQaVisible && exploring} />
 

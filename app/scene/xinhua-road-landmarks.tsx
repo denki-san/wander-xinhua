@@ -442,6 +442,8 @@ function configureModel(model: Object3D) {
 
 function GlbModel({
   path,
+  performanceAssetId,
+  performanceTier = "hero",
   qaAssetId,
   qaTier,
   qaWorldX,
@@ -451,6 +453,8 @@ function GlbModel({
   qaWorldScale,
 }: {
   path: string;
+  performanceAssetId?: string;
+  performanceTier?: string;
   qaAssetId?: string;
   qaTier?: string;
   qaWorldX?: number;
@@ -460,7 +464,17 @@ function GlbModel({
   qaWorldScale?: number;
 }) {
   const { scene } = useGLTF(path);
-  const model = useMemo(() => configureModel(scene.clone(true)), [scene]);
+  const model = useMemo(() => {
+    const configured = configureModel(scene.clone(true));
+    if (performanceAssetId) {
+      configured.userData = {
+        ...configured.userData,
+        performanceAssetId,
+        performanceTier,
+      };
+    }
+    return configured;
+  }, [performanceAssetId, performanceTier, scene]);
   const qaFrameSample = useRef({
     startedAt: 0,
     frames: 0,
@@ -902,6 +916,8 @@ export function XinhuaRoadLandmarks({
                     <Suspense fallback={buildingMassingFallback}>
                       <GlbModel
                         path={modelPath}
+                        performanceAssetId={landmark.id}
+                        performanceTier={buildingMassingQaActive.requestedTier}
                         qaAssetId={landmark.id}
                         qaTier={buildingMassingQaActive.requestedTier}
                         qaWorldX={x}
@@ -920,6 +936,8 @@ export function XinhuaRoadLandmarks({
                     <Suspense fallback={filmArtFallback}>
                       <GlbModel
                         path={modelPath}
+                        performanceAssetId={landmark.id}
+                        performanceTier={filmArtTier}
                         qaAssetId={landmark.id}
                         qaTier={filmArtTier}
                         qaWorldX={x}
@@ -951,7 +969,11 @@ export function XinhuaRoadLandmarks({
                           noLowerTierFallback={house315NoLowerTierFallback}
                         />
                       ) : (
-                        <GlbModel path={modelPath} />
+                        <GlbModel
+                          path={modelPath}
+                          performanceAssetId={landmark.id}
+                          performanceTier="hero"
+                        />
                       )}
                     </Suspense>
                   </ProgressiveFeatureBoundary>

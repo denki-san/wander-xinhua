@@ -170,7 +170,12 @@ function XingfuliArchitecture() {
       <Suspense fallback={fallback}>
         <group
           name="xingfuli-progressive-full-boundary"
-          userData={{ stage: "full", progressive: true }}
+          userData={{
+            performanceAssetId: "xingfuli",
+            performanceTier: "hero",
+            stage: "full",
+            progressive: true,
+          }}
         >
           <ProgressiveXingfuliArchitecture />
         </group>
@@ -784,7 +789,13 @@ export function XingfuliBlock({
   return (
     <group
       data-neighborhood="xingfuli"
-      userData={{ stage: resolvedStage, progressive: true }}
+      userData={{
+        asset: "xingfuli",
+        requestedTier: resolvedStage,
+        performanceTier: resolvedStage === "full" ? "identity" : resolvedStage,
+        stage: resolvedStage,
+        progressive: true,
+      }}
     >
       {resolvedStage === "massing"
         ? <XingfuliMassingArchitecture />
