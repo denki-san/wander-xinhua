@@ -4,8 +4,8 @@
 
 - Asset package: `xingfuli-current-street-furniture`
 - Model assets: 4
-- Runtime instances: 0（本批不进入正式地图）
-- Runtime component: `app/nonbuilding-evidence-qa/`
+- Runtime instances: 12（入口 5、水边座具 4、花槽 3）
+- Runtime component: `app/scene/xingfuli-current-street-furniture.tsx`
 - Generator: `scripts/create_xingfuli_current_street_furniture_models.py`
 - Editable sources: `assets/models/source/nonbuilding/xingfuli-current-street-furniture/*.blend`
 - Runtime GLB: `public/models/nonbuilding/xingfuli-current-street-furniture/*-visible-low.glb`
@@ -17,13 +17,14 @@
 
 | Slug | Model role | Site binding | Production integration |
 | --- | --- | --- | --- |
-| `xingfuli-pointed-entry-bollard` | 当前入口尖顶路桩 | 幸福里番禺路入口 | 禁止 |
-| `xingfuli-water-edge-stone-seat-round` | 临水近球形座具 | 幸福里内部水景段 | 禁止 |
-| `xingfuli-water-edge-stone-seat-long` | 临水长椭圆座具 | 幸福里内部水景段 | 禁止 |
-| `xingfuli-water-edge-slim-planter` | 临水窄矩形花槽 | 幸福里内部水景段 | 禁止 |
+| `xingfuli-pointed-entry-bollard` | 当前入口尖顶路桩 | 幸福里番禺路入口 | 5 个实例 |
+| `xingfuli-water-edge-stone-seat-round` | 临水近球形座具 | 幸福里内部水景段 | 2 个推定实例 |
+| `xingfuli-water-edge-stone-seat-long` | 临水长椭圆座具 | 幸福里内部水景段 | 2 个推定实例 |
+| `xingfuli-water-edge-slim-planter` | 临水窄矩形花槽 | 幸福里内部水景段 | 3 个推定实例 |
 
-本批只生成上述四个模型，不修改 18 栋建筑资产、公共 registry、production
-manifest 或 18 栋运行时入口。
+本批仍只包含上述四个模型，不修改 18 栋建筑资产。2026-07-28 的正式接入只在
+幸福里 `full` stage 加载这 12 个实例；`identity`、`massing` 和全览不请求这些
+GLB。
 
 ## Compatibility Contract
 
@@ -36,7 +37,7 @@ manifest 或 18 栋运行时入口。
   2026 证据中的尖顶路桩以新 slug 独立保存，不覆盖历史资产。
 - 当前恢复分支里的 `rectangular-planter` 是跨场景共享原型；本批花槽具有幸福里
   场地绑定，不替换共享原型。
-- 将来接入地图时，实例合同沿用 `assetId`、`variant`、`anchor`、`seed`、
+- 正式地图实例合同沿用 `assetId`、`variant`、`anchor`、`seed`、
   `footprint`、`collision`、`mobileTier`、`evidenceRef`，并保留主路、入口、
   木桥与临水通道 forbidden zones。
 
@@ -130,9 +131,11 @@ manifest 或 18 栋运行时入口。
 
 ### Position
 
-- Coordinate source: 本批不写正式坐标。
-- Scene position: QA 原点地面中心。
-- Confidence: 场地高，精确实例位置未冻结。
+- Coordinate source: 入口沿用既有 5 个审计中心；水边只由照片确认位置家族，
+  没有测绘坐标。
+- Scene position: 入口 5 个位置为保留值；水边 7 个位置冻结在
+  `app/scene/xingfuli-current-street-furniture.tsx`。
+- Confidence: 入口位置中等；水边具体坐标为推定，场地与物体家族为高置信。
 
 ### Scale
 
@@ -161,8 +164,8 @@ manifest 或 18 栋运行时入口。
 
 ### Collision and access
 
-- 路桩：未来单实例使用紧包围圆柱或方盒；路桩之间保持通行间距。
-- 座具：未来使用紧包围胶囊 / 椭圆盒；不得沿水边合并为连续碰撞墙。
+- 路桩：单实例使用紧包围方盒；路桩之间保持通行间距。
+- 座具：使用紧包围椭圆盒；不得沿水边合并为连续碰撞墙。
 - 花槽：只覆盖槽体 footprint，植物冠层不参与玩家碰撞。
 - 本批 QA 只检查 ground contact 与边界；正式通路、相机和水景碰撞留到未来
   点位接入提交。
@@ -182,17 +185,18 @@ manifest 或 18 栋运行时入口。
   `public/models/nonbuilding/xingfuli-current-street-furniture/<slug>-visible-low.glb`
 - Build record:
   `docs/research/build-records/nonbuilding/xingfuli-current-street-furniture/<slug>-visible-low.json`
-- Cache rule: 只有 GLB 二进制 SHA 变化才更新资产版本；本批不触碰 production manifest。
+- Cache rule: 只有 GLB 二进制 SHA 变化才更新资产版本；正式组件使用当前 GLB
+  SHA 前 12 位作为查询版本。
 
 ## Batch Plan
 
 | Batch | Deliverable | Blender check | Runtime check | Status |
 | --- | --- | --- | --- | --- |
 | Evidence / scope | 6 张入选图、manifest、4 个 slug | N/A | N/A | Passed |
-| Editable Hero master | 四份确定性 `.blend` | canonical / side / detail | N/A | Pending |
-| Visible-low derivation | 四份 GLB 与 build records | bounds / materials | 独立 QA route | Pending |
-| Two-state contract | `visible-low` / `hidden` | N/A | QA 距离切换 | Pending |
-| Production placement | 不在本批 | N/A | forbidden zones / collision | Hold |
+| Editable Hero master | 四份确定性 `.blend` | canonical / side / detail | N/A | Passed |
+| Visible-low derivation | 四份 GLB 与 build records | bounds / materials | 独立 QA route | Passed |
+| Two-state contract | `visible-low` / `hidden` | N/A | QA 距离切换 | Passed |
+| Production placement | 12 个幸福里实例 | N/A | forbidden zones / collision / real page | Passed 2026-07-28 |
 
 建筑式 Massing 和 Identity 阶段对本批明确为
 `not-applicable-by-nonbuilding-two-state-contract`；不因此生成两份肉眼无差异的重复
@@ -222,4 +226,11 @@ GLB。
 - [x] console 0 new errors
 - [x] 固定视口、build mode、预热与采样条件已记录
 - [x] 参考 / Blender / Three.js 三联 `test_` 对照齐全
-- [x] 未修改 18 栋资产、公共 registry、production manifest 或 18 栋入口
+- [x] 未修改 18 栋资产；正式接入仅限幸福里 `full` stage
+- [x] 入口和水边紧碰撞通过三条确定性 QA 路线
+- [x] `?start=xingfuli`、水边和入口正式页面最终验收
+
+正式记录：
+`docs/research/test_xingfuli_current_street_furniture_production_runtime_qa.json`。
+三条 production static 路径均有 canvas、无 console/page error；120 帧样本为
+55.15–60.63 FPS。该数据只用于验收，没有同条件基线，因此不声称性能提升。

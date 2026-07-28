@@ -74,3 +74,33 @@
   网络请求和性能验收；独立 QA 页面通过不能代替正式场景验收。
 - [ ] 完成后运行 `npm test`、`npm run lint` 和静态构建，并保存以 `test_`
   开头的正式运行时验收截图。
+
+## Iteration 5 — 2026-07-28 Production integration
+
+- Scope: 正式接入仍严格限制为 4 个幸福里专属模型；Meshy 10 件通用资产只进入
+  隔离资产库，不在本轮自动摆放。
+- Runtime: 新增 `app/scene/xingfuli-current-street-furniture.tsx`，只在幸福里
+  `full` stage 加载；`identity`、`massing` 和全览保持 hidden，不增加首屏请求。
+- Entrance: 保留既有 5 个入口中心，使用当前尖顶路桩 GLB 替换方盒
+  `IrregularStoneBollards`，碰撞收紧为逐个底座 AABB。
+- Water edge: 冻结 2 个圆座、2 个长座和 3 个窄花槽。照片直接支持物体家族和
+  水边关系，但不支持测绘坐标，因此 7 个位置明确标记为
+  `inferred-water-edge-position`。
+- Collision: 第一版南侧位置侵入 `west-to-east-main` 角色净距，已拒绝；调整到
+  水景边沿后，三条确定性路线重新通过。
+- Cache: 四条正式模型路径使用当前 GLB SHA 前 12 位作为查询版本。
+- Runtime acceptance: production static build 下完成 `?start=xingfuli`、水池近景和
+  入口近景三条实际 Chrome 路径。三条路径均有 canvas，console/page errors
+  均为 0；120 帧样本为 55.15–60.63 FPS。
+- Resource acceptance: 水池冷加载记录四个 GLB 共 61,888 transfer bytes；正式
+  中央入口的 PerformanceResourceTiming 记录三件水边 GLB，入口路桩复用上一条
+  路径中的 GLTF 内存缓存。
+- Hidden acceptance: 关闭浏览器后以全新会话进入西南全览，匹配
+  `/models/nonbuilding/xingfuli-current-street-furniture/` 的资源请求为 0，
+  canvas 正常且 page errors 为 0。
+- Visual acceptance: 入口 5 个尖顶路桩落地且保留角色通道；水边 7 件模型不侵入
+  三条确定性主路线；中央巷道可通行。
+- Evidence: `docs/research/test_xingfuli_current_street_furniture_production_runtime_qa.json`
+  和三张 `test_artifacts/test_xingfuli_current_street_furniture_*_runtime.png`。
+- Performance boundary: 没有同条件旧版本基线，不声称性能提升。
+- Result: 本 TODO 可标记 `done`。

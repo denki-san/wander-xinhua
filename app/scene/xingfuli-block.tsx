@@ -20,14 +20,13 @@ import type { ProgressiveBuildingTier } from "./progressive-loading";
 import { MixedStonePaving } from "./mixed-stone-paving";
 import {
   CantileverCafeUmbrella,
-  IrregularStoneBollards,
   OutdoorDiningSet,
   SlattedBench,
   StreetLampInstances,
   StreetPlanter,
-  type StoneBollardPlacement,
   type StreetLampPlacement,
 } from "./shared-street-assets";
+import { XingfuliCurrentStreetFurniture } from "./xingfuli-current-street-furniture";
 import {
   XINGFULI_BUILDINGS,
   XINGFULI_BUILDING_OBSTACLES,
@@ -85,22 +84,6 @@ const XINGFULI_LAMP_PLACEMENTS: StreetLampPlacement[] = [
   { id: "east-south", position: [30, 0.26, -11.7], yaw: Math.PI, lit: true },
   { id: "east-north", position: [39, 0.26, -2.1] },
 ];
-const XINGFULI_ENTRY_BOLLARDS: StoneBollardPlacement[] = [
-  -11.8,
-  -9,
-  -6.2,
-  -3.4,
-  -0.6,
-].map((z, index) => ({
-  id: `east-entry-bollard-${index}`,
-  position: [44.6, 0.3, z] as [number, number, number],
-  scale: [
-    0.34 + (index % 2) * 0.045,
-    0.26 + (index % 3) * 0.035,
-    0.32 + ((index + 1) % 2) * 0.04,
-  ] as [number, number, number],
-  yaw: index * 0.37,
-}));
 export const XINGFULI_DETAIL_UPGRADE = {
   windowLayersBefore: 3,
   windowLayersAfter: 6,
@@ -736,11 +719,6 @@ function LaneFurniture() {
       <group name="planter-east-square-base" position={[40.3, 0.28, -10.7]} scale={0.9}>
         <StreetPlanter variant="square" seed={41} evidenceRef={XINGFULI_STREET_EVIDENCE} />
       </group>
-      <IrregularStoneBollards
-        name="xingfuli-entry-stone-bollards"
-        placements={XINGFULI_ENTRY_BOLLARDS}
-        evidenceRef={XINGFULI_STREET_EVIDENCE}
-      />
     </group>
   );
 }
@@ -825,6 +803,13 @@ export function XingfuliBlock({
         <>
           <ReflectingPoolDynamicDetails />
           <LaneFurniture />
+          {fullReady && (
+            <ProgressiveFeatureBoundary fallback={null}>
+              <Suspense fallback={null}>
+                <XingfuliCurrentStreetFurniture />
+              </Suspense>
+            </ProgressiveFeatureBoundary>
+          )}
           <ProgressiveFeatureBoundary fallback={null}>
             <Suspense fallback={null}>
               <ProgressivePlaneTreeInstances
