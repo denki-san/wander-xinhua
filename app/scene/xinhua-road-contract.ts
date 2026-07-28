@@ -1,5 +1,9 @@
 import type { MapObstacle, MapPolygonPoint } from "./world-math";
-import { XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES } from "./xinhua-road-placement.mjs";
+import {
+  buildPlaneTreePlacements,
+  buildPlaneTreeTrunkObstacles,
+  XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
+} from "./xinhua-road-placement.mjs";
 import { resolveBuildingTierQa } from "./building-massing-qa-contract.mjs";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
 
@@ -133,6 +137,16 @@ export const XINHUA_ROAD_OBSTACLES: MapObstacle[] = XINHUA_ROAD_LANDMARKS.flatMa
 export const XINHUA_ROAD_MODEL_FOOTPRINTS: MapObstacle[] = XINHUA_ROAD_LANDMARKS.map(
   (landmark) => transformedLandmarkFootprint(landmark, landmark.localBounds),
 );
+
+export const XINHUA_PLANE_TREE_PLACEMENTS = buildPlaneTreePlacements(
+  XINHUA_ROAD_LANDMARKS,
+  XINHUA_ROAD_MODEL_FOOTPRINTS,
+  XINHUA_ROAD_OBSTACLES,
+);
+
+// 只让树干阻挡玩家；树冠和板根不进入镜头碰撞层，避免林荫道镜头抖动。
+export const XINHUA_PLANE_TREE_TRUNK_OBSTACLES: MapObstacle[] =
+  buildPlaneTreeTrunkObstacles(XINHUA_PLANE_TREE_PLACEMENTS);
 
 const XINHUA_POCKET_PARK_CAMERA_OBSTACLES =
   ACTIVE_BUILDING_MASSING_QA?.assetId === "xinhua-pocket-park"

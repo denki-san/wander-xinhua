@@ -1,7 +1,12 @@
 import assert from "node:assert/strict";
 import { readFile, stat } from "node:fs/promises";
 import test from "node:test";
-import { buildPlaneTreePlacements } from "../app/scene/xinhua-road-placement.mjs";
+import {
+  buildPlaneTreePlacements,
+  buildPlaneTreeTrunkObstacles,
+  groundedPlaneTreeTranslationY,
+  XINHUA_PLANE_TREE_TRUNK_HALF_EXTENT,
+} from "../app/scene/xinhua-road-placement.mjs";
 
 const root = new URL("../", import.meta.url);
 
@@ -80,6 +85,40 @@ test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async ()
   assert.doesNotMatch(instancesSource, /material\.clone/);
 });
 
+test("Identity 与 Massing 都按真实最低点贴合地表", async () => {
+  const buildRecord = JSON.parse(await readFile(
+    new URL("docs/research/build-records/plane-tree-family-canopy-v2.json", root),
+    "utf8",
+  ));
+  for (const asset of [...buildRecord.identity, ...buildRecord.massing]) {
+    const minimumY = asset.bounds.min[1];
+    for (const scaleY of [0.9, 1, 1.09]) {
+      const translationY = groundedPlaneTreeTranslationY(3.25, scaleY, minimumY);
+      const groundedMinimum = translationY + minimumY * scaleY;
+      assert.ok(Math.abs(groundedMinimum - 3.25) < 1e-9);
+    }
+  }
+});
+
+test("每个新华路梧桐树位只生成树干级玩家碰撞", async () => {
+  const landmarkData = await readFile(
+    new URL("app/scene/xinhua-road-landmarks-data.json", root),
+    "utf8",
+  ).then(JSON.parse);
+  const placements = buildPlaneTreePlacements(landmarkData.landmarks, []);
+  const obstacles = buildPlaneTreeTrunkObstacles(placements);
+  assert.equal(obstacles.length, placements.length);
+  assert.ok(XINHUA_PLANE_TREE_TRUNK_HALF_EXTENT > 0.3);
+  assert.ok(XINHUA_PLANE_TREE_TRUNK_HALF_EXTENT < 0.7);
+  placements.forEach(({ position }, index) => {
+    const obstacle = obstacles[index];
+    assert.ok(position[0] > obstacle.minX && position[0] < obstacle.maxX);
+    assert.ok(position[1] > obstacle.minZ && position[1] < obstacle.maxZ);
+    assert.ok(obstacle.maxX - obstacle.minX < 1.2);
+    assert.ok(obstacle.maxZ - obstacle.minZ < 1.2);
+  });
+});
+
 test("四个 Identity 与三个 Massing 共享轻量预算并保持无图片策略", async () => {
   let totalBytes = 0;
   for (const slug of ["plane-tree-a", "plane-tree-b", "plane-tree-c", "plane-tree-d"]) {
@@ -132,11 +171,24 @@ test("四个 Identity 与三个 Massing 共享轻量预算并保持无图片策�
   }
 });
 
-test("全览使用 Massing、详情使用四 Identity，Runtime Hero 已退出产品", async () => {
-  const [landmarks, instances, world, brief, heroViewer, heroStats] = await Promise.all([
+test("全览和弱网使用 Massing、标准近景使用四 Identity，Runtime Hero 已退出产品", async () => {
+  const [
+    landmarks,
+    instances,
+    world,
+    contract,
+    assetLibrary,
+    assetData,
+    brief,
+    heroViewer,
+    heroStats,
+  ] = await Promise.all([
     readFile(new URL("app/scene/xinhua-road-landmarks.tsx", root), "utf8"),
     readFile(new URL("app/scene/plane-tree-instances.tsx", root), "utf8"),
     readFile(new URL("app/scene/xinhua-world.tsx", root), "utf8"),
+    readFile(new URL("app/scene/xinhua-road-contract.ts", root), "utf8"),
+    readFile(new URL("app/asset-library/AssetLibrary.tsx", root), "utf8"),
+    readFile(new URL("app/asset-library/asset-data.ts", root), "utf8"),
     readFile(new URL("docs/research/plane-tree-canopy-v2-model-brief.md", root), "utf8"),
     readFile(new URL("app/building-evidence-lab/PlaneTreeViewer.tsx", root), "utf8"),
     stat(new URL("public/models/building-evidence-lab/xinhua-plane-tree-hero.glb", root)),
@@ -147,9 +199,20 @@ test("全览使用 Massing、详情使用四 Identity，Runtime Hero 已退出�
   assert.doesNotMatch(landmarks, /HeroPlaneTree|showHero/);
   assert.doesNotMatch(world, /showHeroTree|showHero=/);
   assert.match(landmarks, /tier="massing"/);
-  assert.match(landmarks, /detailed=\{loadMode === "explore"\}/);
+  assert.equal((landmarks.match(/grounding="bounds"/g) ?? []).length, 2);
+  assert.match(
+    landmarks,
+    /detailed=\{loadMode === "explore" && networkProfile !== "weak"\}/,
+  );
+  assert.match(world, /networkProfile=\{networkProfile\}/);
+  assert.match(contract, /XINHUA_PLANE_TREE_TRUNK_OBSTACLES/);
+  assert.match(world, /\.\.\.XINHUA_PLANE_TREE_TRUNK_OBSTACLES/);
   assert.match(instances, /PLANE_TREE_MASSING_MODELS/);
   assert.match(instances, /plane-tree-d\.glb\?v=c3cf688014a2/);
+  assert.match(assetLibrary, /plane-tree-d\.glb\?v=c3cf688014a2/);
+  assert.doesNotMatch(assetLibrary, /xinhua-plane-tree-hero\.glb/);
+  assert.match(assetData, /instanceCount: 46/);
+  assert.match(assetData, /全览与弱网使用三款 Massing/);
   assert.match(brief, /产品运行时不再请求、渲染或预加载 Hero/);
 });
 

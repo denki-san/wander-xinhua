@@ -2826,7 +2826,7 @@ def export_asset(slug: str, builder: Callable[[], None]) -> dict[str, int | str]
         ASSET_OBJECTS[0]["runtime_x_mirrored"] = True
     ASSET_OBJECTS[0]["detail_current_parts"] = source_object_count
     ASSET_OBJECTS[0]["detail_method"] = "photo-semantic-components"
-    ASSET_OBJECTS[0]["detail_upgrade"] = "20260718"
+    ASSET_OBJECTS[0]["detail_upgrade"] = "20260728"
     if slug.startswith("plane-tree-"):
         ASSET_OBJECTS[0]["plane_tree_family"] = (
             "canopy-v2-massing"

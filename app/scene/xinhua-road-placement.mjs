@@ -14,6 +14,29 @@ export const XINHUA_PLANE_TREE_PILOT = Object.freeze({
   length: 55.6,
   targetCount: 18,
 });
+export const XINHUA_PLANE_TREE_TRUNK_HALF_EXTENT = 0.48;
+
+/** 只按树干底部生成玩家碰撞盒，不把树冠或板根算作阻挡。 */
+export function buildPlaneTreeTrunkObstacles(
+  placements,
+  halfExtent = XINHUA_PLANE_TREE_TRUNK_HALF_EXTENT,
+) {
+  return placements.map(({ position, scale }) => {
+    const halfX = halfExtent * scale[0];
+    const halfZ = halfExtent * scale[2];
+    return {
+      minX: position[0] - halfX,
+      maxX: position[0] + halfX,
+      minZ: position[1] - halfZ,
+      maxZ: position[1] + halfZ,
+    };
+  });
+}
+
+/** 根据模型真实最低点把缩放后的实例精确贴到目标地表。 */
+export function groundedPlaneTreeTranslationY(surfaceY, scaleY, modelMinimumY) {
+  return surfaceY - modelMinimumY * scaleY;
+}
 
 /**
  * 先把世界坐标逆变换回建筑局部坐标，再计算到建筑旋转矩形轮廓的距离。

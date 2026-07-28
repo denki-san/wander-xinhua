@@ -158,8 +158,8 @@
 | Runtime calibration | 315号试验段18棵、道路定向 | N/A | 比例、朝向、入口和地面接触 | Code ready |
 | Identity | A/B/C升级 + D新增 | canonical/side/root | 正常漫游近中景 | GLB passed |
 | Materials | 树皮和叶簇调色 | 斑驳树皮、叶簇层次 | 夏/秋 palette 可读 | Blender passed |
-| Collision | 现有树干级碰撞 | N/A | 入口和道路可达 | Pending |
-| Optimization | 结构、体积和实例批次 | GLB audit | 首屏请求和采样 | Pending |
+| Collision | 树干级碰撞 | N/A | 入口和道路可达 | Passed |
+| Optimization | 结构、体积和实例批次 | GLB audit | 首屏请求和采样 | Passed |
 
 ## Validation
 

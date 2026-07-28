@@ -4,6 +4,7 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 const sceneSource = await readFile(new URL("app/scene/xinhua-road-landmarks.tsx", root), "utf8");
+const roadContractSource = await readFile(new URL("app/scene/xinhua-road-contract.ts", root), "utf8");
 const generatorSource = await readFile(new URL("scripts/create_requested_poi_models.py", root), "utf8");
 const briefSource = await readFile(new URL("docs/research/requested-poi-model-brief.md", root), "utf8");
 const data = JSON.parse(await readFile(new URL("app/scene/xinhua-road-landmarks-data.json", root), "utf8"));
@@ -98,7 +99,7 @@ test("口袋公园与园区广场保持可步行，法华遗韵中央说明板�
   assert.ok(fics.localObstacles.every((obstacle) => !containsPoint(obstacle, 0, 0)));
 
   assert.match(sceneSource, /landmark\.localObstacles \?\? \[landmark\.localBounds\]/);
-  assert.match(sceneSource, /XINHUA_ROAD_MODEL_FOOTPRINTS/);
+  assert.match(roadContractSource, /XINHUA_ROAD_MODEL_FOOTPRINTS/);
   assert.match(generatorSource, /heritage-center-panel/);
 });
 

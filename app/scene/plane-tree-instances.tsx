@@ -17,6 +17,7 @@ import {
   Quaternion,
   Vector3,
 } from "three";
+import { groundedPlaneTreeTranslationY } from "./xinhua-road-placement.mjs";
 
 export type PlaneTreeVariant = 0 | 1 | 2 | 3;
 export type PlaneTreeTier = "identity" | "massing";
@@ -43,6 +44,17 @@ export const PLANE_TREE_MASSING_MODELS = [
 ] as const;
 
 export const PLANE_TREE_GROUND_INSET = 0.04;
+export const PLANE_TREE_IDENTITY_MINIMUM_Y = [
+  -0.079623,
+  -0.065563,
+  -0.072952,
+  -0.0647,
+] as const;
+export const PLANE_TREE_MASSING_MINIMUM_Y = [
+  -0.003856,
+  -0.020009,
+  -0.015339,
+] as const;
 
 type ColorMaterial = Material & {
   color?: Color;
@@ -84,11 +96,15 @@ function InstancedPlaneTreePart({
   placements,
   variant,
   part,
+  minimumY,
+  boundsGrounding,
 }: {
   sourceMesh: Mesh;
   placements: PlaneTreeInstancePlacement[];
   variant: PlaneTreeVariant;
   part: number;
+  minimumY: number;
+  boundsGrounding: boolean;
 }) {
   const instanceRef = useRef<InstancedMesh>(null);
   const material = useMemo(() => (
@@ -117,7 +133,13 @@ function InstancedPlaneTreePart({
       const [scaleX, scaleY, scaleZ] = placement.scale;
       // 父组统一翻转 Blender 导出的 Z 轴；实例内部使用镜像位置和反向旋转，
       // 确保所有单实例矩阵保持正缩放，避免 InstancedMesh 的负行列式问题。
-      position.set(x, y - PLANE_TREE_GROUND_INSET, -z);
+      position.set(
+        x,
+        boundsGrounding
+          ? groundedPlaneTreeTranslationY(y, scaleY, minimumY)
+          : y - PLANE_TREE_GROUND_INSET,
+        -z,
+      );
       quaternion.setFromAxisAngle(up, -placement.yaw);
       scale.set(scaleX, scaleY, scaleZ);
       placementMatrix.compose(position, quaternion, scale);
@@ -126,7 +148,7 @@ function InstancedPlaneTreePart({
     });
     instances.instanceMatrix.needsUpdate = true;
     instances.computeBoundingSphere();
-  }, [placements, sourceMesh]);
+  }, [boundsGrounding, minimumY, placements, sourceMesh]);
 
   return (
     <instancedMesh
@@ -150,10 +172,14 @@ function InstancedPlaneTreeVariant({
   variant,
   placements,
   modelPath,
+  minimumY,
+  boundsGrounding,
 }: {
   variant: PlaneTreeVariant;
   placements: PlaneTreeInstancePlacement[];
   modelPath: string;
+  minimumY: number;
+  boundsGrounding: boolean;
 }) {
   const { scene } = useGLTF(modelPath);
   const sourceMeshes = useMemo(() => {
@@ -175,6 +201,8 @@ function InstancedPlaneTreeVariant({
       placements={placements}
       variant={variant}
       part={part}
+      minimumY={minimumY}
+      boundsGrounding={boundsGrounding}
     />
   ));
 }
@@ -183,14 +211,19 @@ export function PlaneTreeInstances({
   placements,
   name = "plane-tree-instances",
   tier = "identity",
+  grounding = "legacy",
 }: {
   placements: PlaneTreeInstancePlacement[];
   name?: string;
   tier?: PlaneTreeTier;
+  grounding?: "legacy" | "bounds";
 }) {
   const modelPaths = tier === "massing"
     ? PLANE_TREE_MASSING_MODELS
     : PLANE_TREE_MODELS;
+  const minimumYByVariant = tier === "massing"
+    ? PLANE_TREE_MASSING_MINIMUM_Y
+    : PLANE_TREE_IDENTITY_MINIMUM_Y;
   const placementsByVariant = useMemo(() => {
     const grouped: Record<PlaneTreeVariant, PlaneTreeInstancePlacement[]> = {
       0: [],
@@ -227,6 +260,8 @@ export function PlaneTreeInstances({
               variant={variant}
               placements={placementsByVariant[variant]}
               modelPath={modelPath}
+              minimumY={minimumYByVariant[variant]!}
+              boundsGrounding={grounding === "bounds"}
             />
           </Suspense>
         ) : null

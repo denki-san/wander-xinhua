@@ -60,10 +60,10 @@ import {
 } from "./plane-tree-instances";
 import type { MapObstacle, MapPolygonPoint } from "./world-math";
 import {
-  buildPlaneTreePlacements,
   XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
 } from "./xinhua-road-placement.mjs";
 import type { XinhuaAtmosphere } from "./atmosphere-contract";
+import type { ProgressiveNetworkProfile } from "./progressive-loading";
 import { ProgressiveFeatureBoundary } from "../progressive-feature-boundary";
 import {
   LandmarkProgressiveProxy,
@@ -73,6 +73,9 @@ import {
   XINHUA_ROAD_HERO_SAMPLE_SECONDS,
   xinhuaRoadDistanceHeroIds,
 } from "./xinhua-road-identity-contract";
+import {
+  XINHUA_PLANE_TREE_PLACEMENTS as SHARED_XINHUA_PLANE_TREE_PLACEMENTS,
+} from "./xinhua-road-contract";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
 
 type LandmarkPlacement = {
@@ -150,9 +153,6 @@ export const XINHUA_ROAD_OBSTACLES: MapObstacle[] = XINHUA_ROAD_LANDMARKS.flatMa
     (localObstacle) => transformedFootprint(landmark, localObstacle),
   ),
 );
-const XINHUA_ROAD_MODEL_FOOTPRINTS: MapObstacle[] = XINHUA_ROAD_LANDMARKS.map(
-  (landmark) => transformedFootprint(landmark, landmark.localBounds),
-);
 // 人物仍被建筑阻挡，但第三人称摄像机把街景地标视为透明层。
 // 这样人物贴近门面转动视角时，镜头可以短暂穿过建筑，而不会被锁在门前。
 export const XINHUA_ROAD_CAMERA_OBSTACLES = XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES as MapObstacle[];
@@ -178,18 +178,15 @@ type AutumnLandmarkMaterial = Material & {
   roughness?: number;
 };
 
-export const XINHUA_PLANE_TREE_PLACEMENTS = buildPlaneTreePlacements(
-  XINHUA_ROAD_LANDMARKS,
-  XINHUA_ROAD_MODEL_FOOTPRINTS,
-  XINHUA_ROAD_OBSTACLES,
-) as unknown as TreePlacement[];
+export const XINHUA_PLANE_TREE_PLACEMENTS =
+  SHARED_XINHUA_PLANE_TREE_PLACEMENTS as unknown as TreePlacement[];
 
 const XINHUA_PLANE_TREE_INSTANCES: PlaneTreeInstancePlacement[] =
   XINHUA_PLANE_TREE_PLACEMENTS.map((placement) => {
     const [x, z] = placement.position;
     return {
       ...placement,
-      position: [x, terrainHeightAt(x, z) + 0.08, z],
+      position: [x, terrainHeightAt(x, z), z],
     };
   });
 
@@ -599,6 +596,7 @@ export function XinhuaRoadPlaneTrees({
           name="xinhua-road-plane-tree-massing-batches"
           placements={XINHUA_MASSING_PLANE_TREE_INSTANCES}
           tier="massing"
+          grounding="bounds"
         />
       </group>
     );
@@ -616,6 +614,7 @@ export function XinhuaRoadPlaneTrees({
       <PlaneTreeInstances
         name="xinhua-road-plane-tree-batches"
         placements={XINHUA_PLANE_TREE_INSTANCES}
+        grounding="bounds"
       />
       <AutumnLeafCarpet />
     </group>
@@ -989,11 +988,13 @@ export default function XinhuaRoadFullLayer({
   showLabels = true,
   atmosphere,
   loadMode = "overview",
+  networkProfile,
   focusPosition,
 }: {
   showLabels?: boolean;
   atmosphere: XinhuaAtmosphere;
   loadMode?: "overview" | "explore";
+  networkProfile: ProgressiveNetworkProfile;
   focusPosition: RefObject<readonly [number, number]>;
 }) {
   const mountedModelIds = useDistanceHeroLandmarkIds({
@@ -1017,7 +1018,7 @@ export default function XinhuaRoadFullLayer({
       <>
         <XinhuaRoadMassing identity hiddenLandmarkIds={mountedModelIds} />
         <XinhuaRoadPlaneTrees
-          detailed={loadMode === "explore"}
+          detailed={loadMode === "explore" && networkProfile !== "weak"}
           atmosphere={atmosphere}
         />
         <XinhuaRoadLandmarks
@@ -1039,7 +1040,7 @@ export default function XinhuaRoadFullLayer({
     <>
       <XinhuaRoadMassing identity hiddenLandmarkIds={activeMountedModelIds} />
       <XinhuaRoadPlaneTrees
-        detailed={loadMode === "explore"}
+        detailed={loadMode === "explore" && networkProfile !== "weak"}
         atmosphere={atmosphere}
       />
       <XinhuaRoadLandmarks

@@ -61,6 +61,7 @@ import {
   XINHUA_ROAD_CAMERA_OBSTACLES,
   XINHUA_ROAD_LANDMARKS,
   XINHUA_ROAD_OBSTACLES,
+  XINHUA_PLANE_TREE_TRUNK_OBSTACLES,
   XINHUA_ROAD_START_PRESETS,
 } from "./xinhua-road-contract";
 import { XinhuaRoadMassing } from "./xinhua-road-massing";
@@ -406,6 +407,7 @@ const WORLD_OBSTACLES: MapObstacle[] = [
   ...HUASHAN_GREEN_OBSTACLES,
   ...SHANGSHENG_XINSUO_OBSTACLES,
   ...XINHUA_ROAD_OBSTACLES,
+  ...XINHUA_PLANE_TREE_TRUNK_OBSTACLES,
 ];
 
 const WORLD_CAMERA_OBSTACLES: MapObstacle[] = [
@@ -638,6 +640,7 @@ function FlatNeighborhood({
               showLabels={showDetailLabels}
               atmosphere={atmosphere}
               loadMode={landmarkLoadMode}
+              networkProfile={networkProfile}
               focusPosition={progressiveFocus}
             />
           </Suspense>

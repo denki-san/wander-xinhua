@@ -39,7 +39,8 @@ test("当前资产口径保留真实数量与缺口提示", async () => {
     readFile(new URL("app/asset-library/asset-data.ts", root), "utf8"),
     readFile(new URL("app/asset-library/AssetLibrary.tsx", root), "utf8"),
   ]);
-  assert.match(data, /instanceCount: 32/);
+  assert.match(data, /instanceCount: 46/);
+  assert.match(data, /D · 分叉团冠/);
   assert.match(data, /instanceCount: 44/);
   assert.match(data, /instanceCount: 112/);
   assert.match(data, /雨季夏日漫游者/);
