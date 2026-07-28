@@ -91,6 +91,7 @@ test("生产体验懒加载 query-only 面板并提供统一 JSON API", async ()
   assert.match(captureScript, /Network\.loadingFailed/);
   assert.match(captureScript, /Network\.responseReceived/);
   assert.match(captureScript, /acceptance\.passed/);
+  assert.match(captureScript, /ignoredBrowserProbeHttpErrorCount/);
   assert.match(captureScript, /拒绝覆盖已有基线目录/);
   assert.match(captureScript, /拒绝从非 clean worktree 采集基线/);
   assert.match(captureScript, /HEAD\^\{tree\}/);

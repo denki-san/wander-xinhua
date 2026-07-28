@@ -288,12 +288,24 @@ function attachRuntimeFailureCollectors(client) {
   });
   client.on("Network.responseReceived", ({ requestId, type, response }) => {
     if (response.status < 400) return;
+    let ignoredByBaselineAcceptance = false;
+    try {
+      // Chrome 会自动探测未配置的 favicon；它不属于页面 first-playable、
+      // JS、GLB 或图片渲染资源，但仍完整保留在原始证据中。
+      ignoredByBaselineAcceptance = (
+        type === "Other"
+        && new URL(response.url).pathname === "/favicon.ico"
+      );
+    } catch {
+      ignoredByBaselineAcceptance = false;
+    }
     httpErrors.push({
       requestId,
       type,
       url: response.url,
       status: response.status,
       statusText: response.statusText,
+      ignoredByBaselineAcceptance,
     });
   });
   return { consoleEntries, networkFailures, httpErrors };
@@ -308,7 +320,12 @@ function failureCounts({ consoleEntries, networkFailures, httpErrors }) {
       ({ type }) => type === "error" || type === "exception",
     ).length,
     networkFailureCount: networkFailures.length,
-    httpErrorCount: httpErrors.length,
+    httpErrorCount: httpErrors.filter(
+      ({ ignoredByBaselineAcceptance }) => !ignoredByBaselineAcceptance,
+    ).length,
+    ignoredBrowserProbeHttpErrorCount: httpErrors.filter(
+      ({ ignoredByBaselineAcceptance }) => ignoredByBaselineAcceptance,
+    ).length,
   };
 }
 
