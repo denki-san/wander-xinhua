@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 2,
+  "assetId": "hudec-memorial",
+  "gate": "evidence",
+  "decision": "approved",
+  "reviewedAt": "2026-07-28T15:41:10.611Z",
+  "reviewer": "codex-user-evidence-recheck",
+  "reviewerType": "user-correction-led-manual-review",
+  "caseVersion": 2,
+  "target": null,
+  "sandbox": null,
+  "note": "新外置快照 2026-07-28-0ef306f 全量 SHA 通过；canonical、side/depth、historic front 与 entrance 覆盖成立，原始 URL 缺口保留为 unknown。"
+}

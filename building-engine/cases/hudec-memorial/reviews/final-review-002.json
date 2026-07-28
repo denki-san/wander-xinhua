@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 2,
+  "assetId": "hudec-memorial",
+  "gate": "final",
+  "decision": "changes-requested",
+  "reviewedAt": "2026-07-28T15:40:58.241Z",
+  "reviewer": "codex-user-evidence-recheck",
+  "reviewerType": "user-correction-led-manual-review",
+  "caseVersion": 2,
+  "target": {
+    "stage": "master",
+    "dslSha256": "a20658c05d2ae756f939fa53d4e46cc886d9ee11940e590d6b1413522bb4121b",
+    "glbSha256": "6de1f632a3883c72b70e60599c68d148910c42e9afb45b1326d31341196e6c3d",
+    "collisionSha256": "6272faf3418955e671e3a0d14786a902fe6156f3cce941ba409d3d5c6ee69421",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/master.json"
+  },
+  "sandbox": null,
+  "note": "新用户照片证明旧三联图中的整体轮廓与真实建筑不符；旧 Final Gate 撤销，必须从 Massing 重走。"
+}

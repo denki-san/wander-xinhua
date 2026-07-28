@@ -8,7 +8,7 @@
     "claimIds": [
       "hudec-memorial-main-massing",
       "hudec-memorial-layered-roofs",
-      "hudec-memorial-triple-chimney",
+      "hudec-memorial-chimney-tower",
       "hudec-memorial-half-timber",
       "hudec-memorial-entry-gate",
       "hudec-memorial-glass-wing",
@@ -236,7 +236,7 @@
         "height": 3.78,
         "material": "brick",
         "evidenceClaimIds": [
-          "hudec-memorial-triple-chimney"
+          "hudec-memorial-chimney-tower"
         ]
       },
       {
@@ -254,7 +254,7 @@
         "height": 3.9,
         "material": "brick",
         "evidenceClaimIds": [
-          "hudec-memorial-triple-chimney"
+          "hudec-memorial-chimney-tower"
         ]
       },
       {
@@ -272,7 +272,7 @@
         "height": 3.78,
         "material": "brick",
         "evidenceClaimIds": [
-          "hudec-memorial-triple-chimney"
+          "hudec-memorial-chimney-tower"
         ]
       },
       {
@@ -933,7 +933,7 @@
         "rotationDegrees": 0,
         "material": "brick",
         "evidenceClaimIds": [
-          "hudec-memorial-triple-chimney"
+          "hudec-memorial-chimney-tower"
         ]
       },
       {
@@ -950,7 +950,7 @@
         "rotationDegrees": 0,
         "material": "brick",
         "evidenceClaimIds": [
-          "hudec-memorial-triple-chimney"
+          "hudec-memorial-chimney-tower"
         ]
       },
       {
@@ -967,7 +967,7 @@
         "rotationDegrees": 0,
         "material": "brick",
         "evidenceClaimIds": [
-          "hudec-memorial-triple-chimney"
+          "hudec-memorial-chimney-tower"
         ]
       },
       {

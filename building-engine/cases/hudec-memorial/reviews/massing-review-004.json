@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 4,
+  "assetId": "hudec-memorial",
+  "gate": "massing",
+  "decision": "changes-requested",
+  "reviewedAt": "2026-07-28T15:40:47.185Z",
+  "reviewer": "codex-user-evidence-recheck",
+  "reviewerType": "user-correction-led-manual-review",
+  "caseVersion": 2,
+  "target": {
+    "stage": "massing",
+    "dslSha256": "a20658c05d2ae756f939fa53d4e46cc886d9ee11940e590d6b1413522bb4121b",
+    "glbSha256": "23a745ecd2b34c5d140d2d0a2470cb7a4d9589d27b55414c62fe53ada6072f56",
+    "collisionSha256": "6272faf3418955e671e3a0d14786a902fe6156f3cce941ba409d3d5c6ee69421",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/massing.json"
+  },
+  "sandbox": null,
+  "note": "新用户照片证明长单坡玻璃翼、落地白色烟囱塔和交错双山墙与当前 Massing 不一致；旧 Gate M 撤销。"
+}

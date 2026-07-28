@@ -6,11 +6,11 @@
   "inputs": {
     "case": {
       "path": "building-engine/cases/hudec-memorial/building-case.json",
-      "sha256": "7e42634d6cbf70a96b34c45a52cb724e0bc06813284fe5130a384012617e7e0e"
+      "sha256": "2214b8fd6a7e01f720730e220c77e64a1eec7ed83560dc02b02b57a196cc85d8"
     },
     "dsl": {
       "path": "building-engine/cases/hudec-memorial/building-dsl.json",
-      "sha256": "a20658c05d2ae756f939fa53d4e46cc886d9ee11940e590d6b1413522bb4121b"
+      "sha256": "cacfe51c73fdd351841e9e0bff149085260ae0c4d2b61693e291d65e151896e1"
     },
     "schema": {
       "path": "building-engine/schema/building-dsl.schema.json",
@@ -80,6 +80,8 @@
       "confidence": 0.84,
       "evidenceRefs": [
         "hudec-memorial-osm-binding",
+        "hudec-memorial-user-oblique-overview",
+        "hudec-memorial-user-historic-front",
         "hudec-memorial-canonical-depth",
         "hudec-memorial-entrance"
       ]
@@ -89,8 +91,8 @@
   "ignored": [],
   "conflict": [],
   "counts": {
-    "claims": 8,
-    "evidenceItems": 4,
+    "claims": 9,
+    "evidenceItems": 8,
     "volumes": 14,
     "roofs": 6,
     "openings": 11,
