@@ -73,9 +73,9 @@ test("生产体验懒加载 query-only 面板并提供统一 JSON API", async ()
   assert.match(diagnostics, /object-visible-chain-not-camera-frustum/);
   assert.match(
     diagnostics,
-    /consecutive-r3f-after-effect-frame-end-timestamps/,
+    /consecutive-r3f-after-effect-observation-timestamps/,
   );
-  assert.match(diagnostics, /addAfterEffect\(\(frameEndedAtMs\)/);
+  assert.match(diagnostics, /frameEndedAtMs: performance\.now\(\)/);
   assert.match(diagnostics, /completedExport\?\.renderer\.last/);
   assert.match(diagnostics, /completedExport\?\.scene/);
   assert.match(diagnostics, /不使用 object\.name 猜资产/);

@@ -140,7 +140,7 @@ export type PerformanceSampleExport = {
     requestedSampleDurationMs: number;
     actualSampleDurationMs: number;
     frameTimingSource:
-      | "consecutive-r3f-after-effect-frame-end-timestamps"
+      | "consecutive-r3f-after-effect-observation-timestamps"
       | "r3f-clock-delta";
     movementRoute: string;
     visibility: VisibilityProtocol;
@@ -541,7 +541,7 @@ function buildExport({
         )
         : frames.durationMs,
       frameTimingSource: sample
-        ? "consecutive-r3f-after-effect-frame-end-timestamps"
+        ? "consecutive-r3f-after-effect-observation-timestamps"
         : "r3f-clock-delta",
       movementRoute: options.movementRoute,
       visibility: currentVisibilityProtocol(sample),
@@ -892,10 +892,12 @@ export function PerformanceDiagnosticsCanvasProbe({
     const previousAutoReset = gl.info.autoReset;
     gl.info.autoReset = false;
     gl.info.reset();
-    const removeAfterEffect = addAfterEffect((frameEndedAtMs) => {
+    const removeAfterEffect = addAfterEffect(() => {
       recordRuntimeFrame({
         deltaMs: latestDeltaMs.current,
-        frameEndedAtMs,
+        // addAfterEffect 的回调参数是该帧 rAF 起始时间；这里在完整
+        // R3F + postprocessing 帧结束后重新取时，避免首个锚点落在采样开始前。
+        frameEndedAtMs: performance.now(),
         renderer: rendererSnapshot(gl),
         scene,
       });
