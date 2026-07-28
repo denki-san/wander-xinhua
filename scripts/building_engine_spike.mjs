@@ -241,21 +241,25 @@ function validateCollision(dsl, conflicts) {
 
 
 function verifyEvidenceItem(caseData, item, conflicts) {
-  const candidates = [];
-  if (item.repositoryPath) candidates.push(resolveInRepo(item.repositoryPath));
   const snapshotPath = resolve(
     caseData.evidenceArchive.root,
     item.snapshotPath,
   );
-  candidates.push(snapshotPath);
-  for (const path of candidates) {
-    if (!existsSync(path)) {
-      conflicts.push(`证据不存在：${path}`);
-      continue;
-    }
-    const actual = sha256File(path);
-    if (actual !== item.sha256) {
-      conflicts.push(`证据 SHA 不一致：${path}`);
+  if (!existsSync(snapshotPath)) {
+    conflicts.push(`外置快照证据不存在：${snapshotPath}`);
+  } else if (sha256File(snapshotPath) !== item.sha256) {
+    conflicts.push(`外置快照证据 SHA 不一致：${snapshotPath}`);
+  }
+
+  // 外置不可变快照是证据真值；仓库路径只是兼容旧脚本的可选工作副本。
+  // 干净 worktree 不应因为被 .gitignore 排除的工作副本缺失而无法复现。
+  if (item.repositoryPath) {
+    const repositoryPath = resolveInRepo(item.repositoryPath);
+    if (
+      existsSync(repositoryPath)
+      && sha256File(repositoryPath) !== item.sha256
+    ) {
+      conflicts.push(`仓库证据工作副本 SHA 不一致：${repositoryPath}`);
     }
   }
 }

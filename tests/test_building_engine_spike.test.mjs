@@ -121,6 +121,8 @@ test("Compiler 保持数据驱动，单一 CLI 覆盖最小 Pipeline", () => {
   assert.match(compiler, /def add_shed_roof\(/);
   assert.match(compiler, /roof\["type"\] == "shed"/);
   assert.match(cli, /highSide 与 ridgeAxis=/);
+  assert.match(cli, /外置不可变快照是证据真值/);
+  assert.match(cli, /existsSync\(repositoryPath\)/);
   assert.deepEqual(
     hudecDsl.massing.roofs
       .filter((roof) => roof.type === "shed")
