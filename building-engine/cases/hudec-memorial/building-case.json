@@ -211,7 +211,13 @@
   ],
   "reviews": {
     "evidence": "building-engine/cases/hudec-memorial/reviews/evidence-review-001.json",
-    "massing": [],
-    "final": []
+    "massing": [
+      "building-engine/cases/hudec-memorial/reviews/massing-review-001.json",
+      "building-engine/cases/hudec-memorial/reviews/massing-review-002.json",
+      "building-engine/cases/hudec-memorial/reviews/massing-review-003.json"
+    ],
+    "final": [
+      "building-engine/cases/hudec-memorial/reviews/final-review-001.json"
+    ]
   }
 }

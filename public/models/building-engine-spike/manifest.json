@@ -95,6 +95,98 @@
         "openPathCount": 2
       }
     },
+    "hudec-memorial": {
+      "name": "邬达克纪念馆（邬达克旧居）",
+      "archetype": "garden-villa",
+      "coordinateContract": {
+        "sceneUnitMeters": 2.7,
+        "front": "local-negative-y",
+        "groundDatum": 0
+      },
+      "cameras": {
+        "canonical": {
+          "position": [
+            15,
+            17,
+            11
+          ],
+          "target": [
+            -0.4,
+            0.5,
+            3.45
+          ],
+          "orthoScale": 15.2
+        },
+        "side": {
+          "position": [
+            17,
+            10,
+            10.5
+          ],
+          "target": [
+            0,
+            0.4,
+            3.35
+          ],
+          "orthoScale": 14.5
+        },
+        "entrance": {
+          "position": [
+            10,
+            -18,
+            8.5
+          ],
+          "target": [
+            0.1,
+            -0.7,
+            3
+          ],
+          "orthoScale": 14.2
+        }
+      },
+      "tiers": {
+        "massing": {
+          "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb?v=23a745ecd2b3",
+          "sha256": "23a745ecd2b34c5d140d2d0a2470cb7a4d9589d27b55414c62fe53ada6072f56",
+          "bytes": 26044,
+          "bounds": {
+            "min": [
+              -5.9,
+              0,
+              -4.025
+            ],
+            "max": [
+              5.175,
+              8.05,
+              4.005
+            ]
+          }
+        },
+        "master": {
+          "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb?v=6de1f632a388",
+          "sha256": "6de1f632a3883c72b70e60599c68d148910c42e9afb45b1326d31341196e6c3d",
+          "bytes": 225452,
+          "bounds": {
+            "min": [
+              -5.9,
+              0,
+              -4.025
+            ],
+            "max": [
+              5.175,
+              8.18,
+              4.005
+            ]
+          }
+        }
+      },
+      "collision": {
+        "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-collision.json?v=6272faf34189",
+        "sha256": "6272faf3418955e671e3a0d14786a902fe6156f3cce941ba409d3d5c6ee69421",
+        "obstacleCount": 8,
+        "openPathCount": 3
+      }
+    },
     "sun-ke-villa": {
       "name": "孙科别墅",
       "archetype": "garden-villa",

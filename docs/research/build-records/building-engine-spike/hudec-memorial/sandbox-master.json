@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "stage": "master",
+  "status": "pass",
+  "recordedAt": "2026-07-28T22:27:12+08:00",
+  "browser": "Codex Browser (Chrome)",
+  "buildMode": "production",
+  "url": "http://127.0.0.1:4177/building-engine-sandbox?asset=hudec-memorial&tier=master&view=canonical&qa=1",
+  "view": "canonical",
+  "glbSha256": "6de1f632a3883c72b70e60599c68d148910c42e9afb45b1326d31341196e6c3d",
+  "collisionSha256": "6272faf3418955e671e3a0d14786a902fe6156f3cce941ba409d3d5c6ee69421",
+  "viewport": {
+    "width": 1280,
+    "height": 720,
+    "devicePixelRatio": 1
+  },
+  "canvas": {
+    "width": 804,
+    "height": 584
+  },
+  "pageVisibility": "visible",
+  "warmupSeconds": 2.5,
+  "sampleDurationSeconds": 5.02,
+  "consoleErrors": 0,
+  "pageErrors": 0,
+  "modelVisible": true,
+  "groundContact": "pass",
+  "openPathCheck": "pass",
+  "fixedViewsReviewed": [
+    "canonical",
+    "side",
+    "entrance"
+  ],
+  "identityFeaturesReviewed": [
+    "wide-half-timber-facade",
+    "triple-tall-chimney",
+    "layered-cross-gables",
+    "gabled-entrance-and-brick-arch",
+    "low-glass-wing"
+  ],
+  "firstScreenResources": {
+    "source": "sandbox-http-record-plus-browser-dom",
+    "required": [
+      "manifest.json",
+      "hudec-memorial-collision.json",
+      "hudec-memorial-master.glb"
+    ],
+    "allRequiredHttpStatus": 200
+  },
+  "performance": {
+    "source": "Chrome DevTools Protocol Performance.getMetrics",
+    "taskDurationDeltaSeconds": 0.001418,
+    "scriptDurationDeltaSeconds": 0.0005210000000000001,
+    "layoutDurationDeltaSeconds": 0,
+    "recalcStyleDurationDeltaSeconds": 0,
+    "jsHeapUsedBytesStart": 26403308,
+    "jsHeapUsedBytesEnd": 26403812,
+    "claim": "raw-sample-only-no-baseline-no-improvement-claim"
+  },
+  "screenshots": [
+    {
+      "view": "canonical",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-master-sandbox-canonical.png",
+      "sha256": "29c25f5a5c209c0ec8b697895b0dce06abe9944baa661a38faca978956c70943",
+      "bytes": 104442
+    },
+    {
+      "view": "side",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-master-sandbox-side.png",
+      "sha256": "0e753fb78e28bb3dcfb8d9340901282832bad9547760a077df951d9a494c95dd",
+      "bytes": 101873
+    },
+    {
+      "view": "entrance",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-master-sandbox-entrance.png",
+      "sha256": "06aa49cdc03050a8943bb1fe993924cf118092c2ffe4868a4278678abd2732c2",
+      "bytes": 107651
+    }
+  ],
+  "screenshot": {
+    "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-master-sandbox-canonical.png",
+    "sha256": "29c25f5a5c209c0ec8b697895b0dce06abe9944baa661a38faca978956c70943",
+    "bytes": 104442
+  },
+  "httpRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-http-master.json",
+  "finalComparison": {
+    "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-final-triptych.png",
+    "sha256": "3d1d041b3facf474852a63413d1dc6e0b76edc5302af39becd177377a10b2531",
+    "bytes": 1822125,
+    "columnsLeftToRight": [
+      "approved-reference",
+      "blender-master-canonical",
+      "threejs-master-canonical"
+    ],
+    "outcome": "approved-experimental-with-known-unknowns",
+    "knownUnknowns": [
+      "surveyed-dimensions",
+      "hidden-east-and-rear-openings",
+      "weathervane-detail",
+      "precise-window-and-timber-spacing"
+    ]
+  },
+  "reviewNote": "真实地图首轮入口移动发现柱间净宽不足，已退回 DSL 加宽门廊柱距并同步碰撞；当前 Blender 与 production Sandbox 三机位均可辨五项身份构件，模型接地，拆分碰撞与三条开放路径自动检查通过。该结论仅支持实验链路，不授权替换正式 Hudec Hero。"
+}

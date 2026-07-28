@@ -32,6 +32,76 @@ fatal: Unable to create '/Users/lei/App_developing/wander-xinhua/.git/index.lock
 
 ---
 
+## [ERR-20260728-007] static_preview_does_not_mount_app_routes
+
+**Logged**: 2026-07-28T22:16:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+Vite static preview 会把 `/building-engine-sandbox` 回退到单页入口，但
+`static-entry.tsx` 没有挂载该 App Router 页面，视觉上只出现产品首页。
+
+### Error
+```text
+/building-engine-sandbox 返回 200，但 data-qa-route 缺失，页面显示“新华漫游”首页。
+```
+
+### Context
+- `vite.static.config.ts` 只生成一个 `dist-static/index.html`；
+- `static-entry.tsx` 只分流 `/asset-library` 与 `/product-homepage`；
+- 用 HTTP 200 或相似建筑画面判断 Sandbox 会产生假阳性。
+
+### Suggested Fix
+需要验证 App Router 页面时，先运行 `npm run build:sites`，再用
+`npm run start:sites` 启动本地 production server；必须核对
+`data-qa-route="building-engine-sandbox"` 和当前 GLB SHA。
+
+### Metadata
+- Reproducible: yes
+- Related Files: static-entry.tsx, app/building-engine-sandbox/page.tsx
+
+### Resolution
+- **Resolved**: 2026-07-28T22:17:00+08:00
+- **Notes**: 切换到本地 Vinext production build 后，Sandbox 路由、Canvas、
+  GLB 与 collision SHA 均可直接核对。
+
+---
+
+## [ERR-20260728-008] sandbox_warmup_exact_value_overfit
+
+**Logged**: 2026-07-28T22:36:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+专项测试把人工浏览器预热时间锁成精确 `2` 秒，新的诚实记录使用 `2.5` 秒后
+出现非语义失败。
+
+### Error
+```text
+AssertionError: 2.5 !== 2
+```
+
+### Context
+- 质量合同要求记录预热条件，不要求所有资产精确相同；
+- 页面状态、Canvas、错误数、GLB SHA 与三视角均已独立验证。
+
+### Suggested Fix
+验证预热时间处于合理区间，同时继续强制 `sampleDurationSeconds >= 5`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_building_engine_spike.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-28T22:37:00+08:00
+- **Notes**: 改为断言 `2 <= warmupSeconds <= 10`。
+
+---
+
 ## [ERR-20260728-001] python_bytecode_cache_outside_sandbox
 
 **Logged**: 2026-07-28T19:42:34+08:00

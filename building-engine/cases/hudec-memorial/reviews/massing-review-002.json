@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 2,
+  "assetId": "hudec-memorial",
+  "gate": "massing",
+  "decision": "approved",
+  "reviewedAt": "2026-07-28T13:35:16.005Z",
+  "reviewer": "codex-visual-audit",
+  "reviewerType": "codex-visual-review",
+  "caseVersion": 1,
+  "target": {
+    "stage": "massing",
+    "dslSha256": "12b5b86f17f0b2fb6f7c7c8fa054a105b0ac6dc016bafc9e1d1dcf225157af85",
+    "glbSha256": "b75109206588c27f836bc7258ba1d4a5e72c088517e69470eedf9ec1adfaabc7",
+    "collisionSha256": "b45b4daaca79be7f4c639abbdd920bef5eb5071c03bd92d99fbbfb019cb1051b",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/massing.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-massing.json",
+    "sha256": "d7b456c25e1b2fccbcfbd87392473bc8477dd2b3a8160ea0f8196a89c9ae470b"
+  },
+  "note": "首轮 Master 对照暴露 canonical 朝向问题后退回；只调整 DSL 中已有证据支持的 canonical 立面与固定相机。三机位和 production Sandbox 复核通过，允许重新进入 Master。"
+}

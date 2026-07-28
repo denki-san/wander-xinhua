@@ -7,7 +7,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const assetIds = ["house-315", "sun-ke-villa"];
+const assetIds = ["house-315", "hudec-memorial", "sun-ke-villa"];
 
 function absolute(relativePath) {
   return path.join(root, relativePath);
@@ -68,7 +68,7 @@ function segmentIntersectsExpandedObstacle(openPath, obstacle) {
   return lower <= upper;
 }
 
-test("Spike 只声明一个 archetype 与两栋冻结样本", () => {
+test("Spike 与第三栋盲测只声明 garden-villa archetype", () => {
   const schema = readJson("building-engine/schema/building-dsl.schema.json");
   assert.equal(schema.properties.archetype.const, "garden-villa");
 
@@ -93,6 +93,11 @@ test("Spike 只声明一个 archetype 与两栋冻结样本", () => {
   assert.match(plan, /`lilong-street`.*不实现/);
   assert.match(plan, /`public-hybrid`.*不实现/);
   assert.match(plan, /后台、数据库、Worker、任务队列/);
+  const productionizationPlan = read(
+    "docs/research/building-engine-productionization-plan.md",
+  );
+  assert.match(productionizationPlan, /第三栋.*盲测/);
+  assert.match(productionizationPlan, /hudec-memorial/);
 });
 
 test("Compiler 保持数据驱动，单一 CLI 覆盖最小 Pipeline", () => {
@@ -100,7 +105,7 @@ test("Compiler 保持数据驱动，单一 CLI 覆盖最小 Pipeline", () => {
   const cli = read("scripts/building_engine_spike.mjs");
   assert.doesNotMatch(
     compiler,
-    /house-315|sun-ke-villa|lilong-street|public-hybrid/,
+    /house-315|hudec-memorial|sun-ke-villa|lilong-street|public-hybrid/,
   );
   assert.match(compiler, /dsl\["massing"\]\["volumes"\]/);
   assert.match(compiler, /dsl\["master"\]\["features"\]/);
@@ -231,7 +236,8 @@ test("真实 Sandbox 记录、最终三联图与 manifest 全部绑定当前 Mas
     assert.equal(sandboxMaster.openPathCheck, "pass");
     assert.equal(sandboxMaster.viewport.width, 1280);
     assert.equal(sandboxMaster.viewport.height, 720);
-    assert.equal(sandboxMaster.warmupSeconds, 2);
+    assert.ok(sandboxMaster.warmupSeconds >= 2);
+    assert.ok(sandboxMaster.warmupSeconds <= 10);
     assert.ok(sandboxMaster.sampleDurationSeconds >= 5);
     assert.equal(
       sandboxMaster.performance.claim,

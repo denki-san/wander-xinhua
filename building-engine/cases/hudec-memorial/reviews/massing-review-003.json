@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 3,
+  "assetId": "hudec-memorial",
+  "gate": "massing",
+  "decision": "approved",
+  "reviewedAt": "2026-07-28T14:19:43.278Z",
+  "reviewer": "codex-visual-audit",
+  "reviewerType": "codex-visual-review",
+  "caseVersion": 1,
+  "target": {
+    "stage": "massing",
+    "dslSha256": "a20658c05d2ae756f939fa53d4e46cc886d9ee11940e590d6b1413522bb4121b",
+    "glbSha256": "23a745ecd2b34c5d140d2d0a2470cb7a4d9589d27b55414c62fe53ada6072f56",
+    "collisionSha256": "6272faf3418955e671e3a0d14786a902fe6156f3cce941ba409d3d5c6ee69421",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/massing.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-massing.json",
+    "sha256": "ca4ff777c37e9e6297df3924e8f6b203b5c2b28b915b303fec0dcb322c862650"
+  },
+  "note": "真实地图首轮入口移动发现柱间净宽不足，已退回 DSL 加宽门廊柱距；Blender 与 production Sandbox 三固定机位复核通过，入口仍保持证据支持的三角雨棚和四柱关系，允许重新进入 Master。"
+}

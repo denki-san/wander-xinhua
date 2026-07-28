@@ -6,11 +6,11 @@
   "inputs": {
     "case": {
       "path": "building-engine/cases/hudec-memorial/building-case.json",
-      "sha256": "5b31be3d1c3026bd6b4995ebb0bbad0b5f2c9f73367e69227a178e3130badfc2"
+      "sha256": "7e42634d6cbf70a96b34c45a52cb724e0bc06813284fe5130a384012617e7e0e"
     },
     "dsl": {
       "path": "building-engine/cases/hudec-memorial/building-dsl.json",
-      "sha256": "feb179ce70960954021e64d059ca9a7588711ee7ac79c84bbcd9b60ac14fa06c"
+      "sha256": "a20658c05d2ae756f939fa53d4e46cc886d9ee11940e590d6b1413522bb4121b"
     },
     "schema": {
       "path": "building-engine/schema/building-dsl.schema.json",
@@ -44,24 +44,35 @@
     "roof:front-dormer-roof",
     "opening:main-front-lower-windows",
     "opening:main-front-upper-windows",
+    "opening:main-canonical-lower-windows",
+    "opening:main-canonical-upper-windows",
     "opening:entrance-tall-door",
     "opening:east-end-lower-window-row",
     "opening:east-end-upper-window-row",
     "opening:low-glass-wing-window-row",
+    "opening:low-glass-wing-canonical-window-row",
     "opening:front-dormer-window",
     "opening:brick-arched-gate",
     "feature:east-front-timber-gable",
+    "feature:east-canonical-timber-gable",
     "feature:main-front-lower-timber-band",
     "feature:main-front-upper-timber-band",
     "feature:main-front-timber-post-left",
     "feature:main-front-timber-post-center-left",
     "feature:main-front-timber-post-center",
     "feature:main-front-timber-post-center-right",
+    "feature:main-canonical-lower-timber-band",
+    "feature:main-canonical-upper-timber-band",
+    "feature:main-canonical-timber-post-left",
+    "feature:main-canonical-timber-post-center-left",
+    "feature:main-canonical-timber-post-center",
+    "feature:main-canonical-timber-post-center-right",
     "feature:entrance-gabled-porch",
     "feature:triple-chimney-left-cap",
     "feature:triple-chimney-center-cap",
     "feature:triple-chimney-right-cap",
-    "feature:low-wing-eave-band"
+    "feature:low-wing-eave-band",
+    "feature:low-wing-canonical-eave-band"
   ],
   "inferred": [
     {
@@ -82,8 +93,8 @@
     "evidenceItems": 4,
     "volumes": 14,
     "roofs": 6,
-    "openings": 8,
-    "features": 12,
+    "openings": 11,
+    "features": 20,
     "obstacles": 8,
     "openPaths": 3
   }

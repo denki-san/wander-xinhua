@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 1,
+  "assetId": "hudec-memorial",
+  "gate": "final",
+  "decision": "approved-spike-with-known-unknowns",
+  "reviewedAt": "2026-07-28T14:34:13.801Z",
+  "reviewer": "codex-visual-audit",
+  "reviewerType": "codex-visual-review",
+  "caseVersion": 1,
+  "target": {
+    "stage": "master",
+    "dslSha256": "a20658c05d2ae756f939fa53d4e46cc886d9ee11940e590d6b1413522bb4121b",
+    "glbSha256": "6de1f632a3883c72b70e60599c68d148910c42e9afb45b1326d31341196e6c3d",
+    "collisionSha256": "6272faf3418955e671e3a0d14786a902fe6156f3cce941ba409d3d5c6ee69421",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/master.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-master.json",
+    "sha256": "c8b013e9e4ab6142eab8d059c65b4f56629046eaec502bdf7633e3ae8f7e1e0c"
+  },
+  "note": "Blender、production Sandbox 与真实 ?start=hudec 显式 QA tier 均通过。入口路线在 DSL 加宽门廊柱距后可达，实体墙持续输入仍阻挡；默认页面继续加载既有 Hero。仅批准实验链路，不授权替换正式生产资产。"
+}

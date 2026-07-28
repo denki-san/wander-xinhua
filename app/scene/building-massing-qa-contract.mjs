@@ -330,6 +330,29 @@ export const ACCEPTED_BUILDING_TIER_QA = Object.freeze({
         Object.freeze({ minX: 2.7036, maxX: 3.078, minZ: 1.926, maxZ: 3.186 }),
       ]),
     }),
+    "engine-master": Object.freeze({
+      modelPath:
+        "/models/building-engine-spike/hudec-memorial/"
+        + "hudec-memorial-master.glb?v=6de1f632a388",
+      buildRecord:
+        "docs/research/build-records/building-engine-spike/"
+        + "hudec-memorial/master.json",
+      runtimePromotionAllowed: false,
+      blocker: "experimental-building-engine-only-not-production-replacement",
+      // DSL 入口柱碰撞已贴合可见实体；人物半径本身提供安全留距。
+      // 继续叠加全局 0.2 会把已审核的入口开放路径封死。
+      collisionMargin: 0,
+      localObstacles: Object.freeze([
+        Object.freeze({ minX: -4.1, maxX: 4.1, minZ: -2.7, maxZ: 2.7 }),
+        Object.freeze({ minX: 2.15, maxX: 4.95, minZ: -3.25, maxZ: 2.55 }),
+        Object.freeze({ minX: -4.9, maxX: -1.9, minZ: -3.4, maxZ: 0.4 }),
+        Object.freeze({ minX: -5.7, maxX: -1.9, minZ: -3.85, maxZ: -1.65 }),
+        Object.freeze({ minX: 2.26, maxX: 2.54, minZ: 3.41, maxZ: 3.69 }),
+        Object.freeze({ minX: 3.86, maxX: 4.14, minZ: 3.41, maxZ: 3.69 }),
+        Object.freeze({ minX: -5.25, maxX: -4.95, minZ: 2.83, maxZ: 3.33 }),
+        Object.freeze({ minX: -3.95, maxX: -3.65, minZ: 2.83, maxZ: 3.33 }),
+      ]),
+    }),
   }),
   "xinhua-pocket-park": Object.freeze({
     hero: Object.freeze({
@@ -368,7 +391,11 @@ export function resolveBuildingTierQa(search = "") {
   if (requestedTier === "massing") {
     return resolveBuildingMassingQa(search);
   }
-  if (requestedTier !== "hero" && requestedTier !== "identity") return null;
+  if (
+    requestedTier !== "hero"
+    && requestedTier !== "identity"
+    && requestedTier !== "engine-master"
+  ) return null;
   const shared = BUILDING_MASSING_QA_CANDIDATES[assetId];
   const tier = ACCEPTED_BUILDING_TIER_QA[assetId]?.[requestedTier];
   if (!shared || !tier) return null;
@@ -376,7 +403,12 @@ export function resolveBuildingTierQa(search = "") {
     ...shared,
     ...tier,
     requestedTier,
-    fallbackTier: requestedTier === "hero" ? "identity" : "massing",
+    fallbackTier:
+      requestedTier === "hero"
+        ? "identity"
+        : requestedTier === "engine-master"
+          ? "identity"
+          : "massing",
     forcedFallback:
       params.get("qaActiveFallback") === `${assetId}:${requestedTier}`,
   });

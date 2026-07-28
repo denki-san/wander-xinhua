@@ -42,7 +42,7 @@
 - Local production build：`npm run build:sites`
 - Sandbox：`/building-engine-sandbox`
 - Real map：`/?start=hudec`
-- Browser：Codex in-app Browser；真实 production preview
+- Browser：Codex Browser（本次自动选择 Chrome）；真实 local production preview
 - Blender MCP：当前 Add-on 不可用，使用三固定机位 Headless Blender 降级，
   明确记录“未执行 MCP 交互审查”
 - Dynamic evidence：复用不可变快照 `2026-07-28-6d29438`；本轮新预览、
@@ -171,10 +171,10 @@
 | Batch | Deliverable | Blender check | Runtime check | Status |
 | --- | --- | --- | --- | --- |
 | Evidence | Case、coverage、Brief | N/A | N/A | Passed |
-| Massing | 主体、屋面、三联烟囱、门廊和低翼 | 三固定机位 | Sandbox Massing | Pending |
-| Calibration | 比例、方向、接地和开放路径 | Fixed renders | Gate M | Pending |
-| Master | 开口、半木构节奏、入口和烟囱冠部 | 三固定机位 | Sandbox Master | Pending |
-| Real map | Building Engine Master | N/A | `/?start=hudec` | Pending |
+| Massing | 主体、屋面、三联烟囱、门廊和低翼 | 三固定机位 | Sandbox Massing | Passed |
+| Calibration | 比例、方向、接地和开放路径 | Fixed renders | Gate M | Passed |
+| Master | 开口、半木构节奏、入口和烟囱冠部 | 三固定机位 | Sandbox Master | Passed |
+| Real map | Building Engine Master | N/A | `/?start=hudec` | Passed |
 | Cold build | 干净 worktree 单一 CLI 重建 | SHA / structure | N/A | Pending |
 
 ## Validation
@@ -183,12 +183,12 @@
 - [x] Observed / Inferred / Unknown 分离
 - [x] 至少五处 Hudec 身份构件
 - [x] Compiler、Schema、Art Profile SHA 冻结
-- [ ] Massing 固定机位和 Sandbox 通过
-- [ ] Gate M 记录绑定当前 DSL / GLB / collision SHA
-- [ ] Master 固定机位、GLB 和碰撞自动检查通过
-- [ ] 参考 / Blender / Three.js 三联图通过
-- [ ] 真实 `/?start=hudec` 可见、接地、方向和碰撞通过
-- [ ] 默认 Hudec 页面仍加载原正式 Hero
+- [x] Massing 固定机位和 Sandbox 通过
+- [x] Gate M 记录绑定当前 DSL / GLB / collision SHA
+- [x] Master 固定机位、GLB 和碰撞自动检查通过
+- [x] 参考 / Blender / Three.js 三联图通过
+- [x] 真实 `/?start=hudec` 可见、接地、方向和碰撞通过
+- [x] 默认 Hudec 页面仍加载原正式 Hero
 - [ ] 干净 worktree 冷启动复建得到一致 GLB
 - [ ] 新动态证据快照与全量 SHA 通过
 
@@ -203,3 +203,65 @@
 - Remaining inference: 东/背立面、测绘尺寸、隐藏开口和风向标细节。
 - Rollback point: `eb4be8c`。
 
+### Iteration 1 — 2026-07-28 first Massing calibration
+
+- Compiler SHA: 冻结值未变化。
+- Automatic result: pass；`288` triangles、`5` materials、`26044` bytes，
+  images / textures / animations / skins 均为 `0`。
+- Visual result: reject-before-Gate-M。层叠屋面、端山墙、低翼与门廊成立，
+  但三联烟囱只高出最高屋脊约 `0.58` scene unit，弱于官方 canonical 中的
+  高耸纵向比例。
+- Evidence preserved:
+  `test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-iteration0-*`。
+- Correction: 只把三根烟囱顶面提高到约 `7.93 / 8.05 / 7.93`，同步移动
+  Master 冠部；不改 Compiler、Schema、Art Profile 或其他体块。
+- Gate M: 仍为 Pending，必须重建并重新检查三固定机位。
+
+### Iteration 2 — 2026-07-28 canonical identity calibration
+
+- Compiler、Schema、Art Profile SHA：冻结值未变化。
+- Massing result: `b7510920…`；`288` triangles、`5` materials、
+  `26044` bytes，Gate M 通过。
+- First Master visual result: reject。production Sandbox 能显示模型，但与官方
+  canonical 三联对照时，固定机位未同时呈现低玻璃翼和已观察半木构。
+- Correction: 只在 DSL 增加已有照片支持的 canonical-facing 半木构/窗格，
+  并把 canonical 相机移到正确观察侧；未读取旧 Hudec 生成器几何。
+- Second Master result: `30a6c8e8…`；`3140` triangles、`7` materials、
+  `225452` bytes，Sandbox 三机位通过。
+
+### Iteration 3 — 2026-07-28 real-map entrance rejection
+
+- Real-map source: 显式 `engine-master` 已加载，GLB 与 Sandbox SHA 一致；
+  默认 Hudec registry 未改变。
+- Deterministic movement result: reject。入口目标
+  `[94.7868433168, -136.3874687945]` 前进 `6000 ms` 后停在
+  `[94.7868433165, -136.9447750771]`，剩余约 `0.5573` world unit。
+- Diagnosis: 两根门廊柱局部净宽 `0.88`，映射后小于人物直径 `0.96`，
+  再叠加全局 `0.2` collision margin 后开放路径被封死。
+- Evidence preserved:
+  `docs/research/build-records/building-engine-spike/hudec-memorial/real-map-engine-master-iteration1-rejected.json`。
+- Correction: 只在 DSL 把入口柱中心从 `2.62 / 3.78` 调整到
+  `2.40 / 4.00`，同步加宽门廊屋顶、Feature、碰撞和开放路径；显式 QA tier
+  使用 `collisionMargin: 0`，由人物半径提供实体留距。
+
+### Iteration 4 — 2026-07-28 accepted experimental chain
+
+- Current DSL: `a20658c0…`
+- Current Massing: `23a745ec…`；Gate M
+  `massing-review-003.json` 通过。
+- Current Master: `6de1f632…`；collision `6272faf3…`；
+  `3140` triangles、`7` materials、`0` images / textures / animations /
+  skins、`225452` bytes。
+- Production Sandbox: canonical、side、entrance 三固定机位和模型可见、
+  接地、开放路径检查通过；三联图
+  `test_hudec-memorial-final-triptych.png` 通过。
+- Real-map: 同一入口路线最终距目标约 `0.0551`，判定通过；向建筑中心持续
+  前进仍在墙前保留约 `3.3828` world unit，判定未穿透。
+- Default route: 浏览器只观察到既有 Massing、Identity 与
+  `hudec-memorial-v2-hero.glb?v=20260726-hero-598b2ba19e24`，未请求
+  Building Engine Master。
+- Final Gate:
+  `final-review-001.json` 为
+  `approved-spike-with-known-unknowns`；仅批准实验链路，不授权替换正式
+  Hudec Hero。
+- Remaining: 干净 detached worktree 冷启动复建与新外置动态证据快照。
