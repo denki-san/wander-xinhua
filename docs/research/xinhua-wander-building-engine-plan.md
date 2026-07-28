@@ -1,8 +1,9 @@
 # 新华漫游建筑引擎：`garden-villa` Spike 方案
 
-- Status: `approved-for-local-spike`
+- Status: `spike-complete-local`
 - Baseline commit: `556d0bbe540f5da89ab90522c6a1333c0feb3e24`
 - Branch: `codex/building-engine-spike`
+- Accepted implementation commit: `6d294381da9011359af08100ea17ac44efd421ed`
 - Product surface: 一个本地 CLI 与一个真实 Three.js Sandbox
 - Phase-one formula: 一个 Archetype、两栋建筑、一个 CLI、三个审核门
 - In scope archetype: `garden-villa`
@@ -581,3 +582,75 @@ isolated Blender render 或 GLB Viewer 不能替代此页。
 
 如果任一答案为否，下一轮先修 DSL、Compiler 或 gate contract，不进入
 `lilong-street`、`public-hybrid`，也不建设任何后台。
+
+## 14. 本轮执行结果
+
+本轮三个问题的答案均为“是”，但结论只覆盖本地 Spike，不代表生产资产替换或发布：
+
+1. `house-315` 与 `sun-ke-villa` 使用同一 schema、Art Profile 和
+   `scripts/compile_garden_villa.py`；第二栋只更换 DSL，没有增加按资产 ID
+   分支或修改 Compiler Python；
+2. 两栋都依次取得 Evidence、Massing、Final 三道门的当前产物记录；
+3. `npm run building:spike -- <command>` 是唯一 Runner，可按单资产或 `all`
+   执行 inspect、validate、build、review、qa 和 status。
+
+### 14.1 三道审核门
+
+| 资产 | Evidence Gate | Massing Gate | Final Gate |
+| --- | --- | --- | --- |
+| `house-315` | `approved` | `approved`；canonical / side / entrance 已校准 | `approved-spike-with-known-unknowns` |
+| `sun-ke-villa` | `approved` | `approved`；canonical / side / entrance 已校准 | `approved-spike-with-known-unknowns` |
+
+Final Gate 的三联图固定为“审核参考 / Blender Master canonical / Three.js
+Master canonical”从左到右排列。审核结论没有把未知背面或测绘尺寸补成事实。
+
+### 14.2 GLB 与碰撞自动检查
+
+| 资产 / Stage | GLB SHA-256 | 字节 | 节点 | 三角面 | 材质 | 图片 / 贴图 / 动画 / 骨骼 |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| `house-315` Massing | `2111ba5f4d5529ecf09219fe1aa6d95b17c9ca6434cfefbc5db239f6761f06c6` | 12,740 | 1 | 128 | 3 | `0 / 0 / 0 / 0` |
+| `house-315` Master | `69b36c6779ee09ec49350ef0d1182eced99126a0608bcfaf3aec0f8caed1d9c2` | 79,692 | 1 | 1,016 | 8 | `0 / 0 / 0 / 0` |
+| `sun-ke-villa` Massing | `357cf3b6548594ee2f1e2cec9c78cf29265f8d853aa11f52311534ed7dd9ad28` | 22,236 | 1 | 292 | 3 | `0 / 0 / 0 / 0` |
+| `sun-ke-villa` Master | `a5312d67e673a8356fd8507289a146d438667c33832ccbee0a4f7a69dde4ee49` | 186,044 | 1 | 2,764 | 7 | `0 / 0 / 0 / 0` |
+
+四个 GLB 均满足根变换、`min Y = 0`、bounds、lineage、几何完整性和预算合同。
+两栋的碰撞障碍物均为正尺寸，两个 required open path 均保持开放；Massing 与 Master
+复用同一 collision contract。
+
+### 14.3 真实 Three.js Sandbox
+
+验收使用 production build 下的 `/building-engine-sandbox`，不是 isolated
+GLB Viewer。记录条件为：
+
+- 视口 `1280 × 720`、DPR `1`，Canvas `804 × 584`；
+- 页面可见，预热 `2 s`，采样约 `5 s`；
+- 两栋 Massing 与 Master 的 canonical / side / entrance 全部人工查看；
+- 模型可见、地面接触和开放路径均为 `pass`；
+- 当前 GLB 与 collision SHA 和 manifest 完全一致；
+- console error 与 page error 均为 `0`；
+- 首屏资源均为 `13` 个；
+- 性能只保存同条件原始样本，没有基线，因此不声称性能提升。
+
+### 14.4 测试与动态证据归档
+
+- 专项测试：`6 / 6` 通过；
+- `npm test`：`444 / 444` 通过；
+- `npm run lint`：`0 error`；保留既有
+  `tests/test_house_315_map_position_candidate.test.mjs` 的一条非阻断 warning；
+- 新外置快照：
+  `/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-28-6d29438/`；
+- 快照绑定 `gitSha: 6d29438`、`sourceWorktreeDirty: false`、
+  `wikiEligible: false`；
+- 快照包含 `619` 个文件、`258617344` 字节，归档脚本与本轮独立
+  `shasum -a 256 -c SHA256SUMS` 均全量通过。
+
+### 14.5 保留的证据未知项
+
+| 资产 | 未知或冲突 |
+| --- | --- |
+| `house-315` | 后立面、测绘尺寸、建造年份来源冲突 |
+| `sun-ke-villa` | 测绘高度、隐藏侧立面开口、屋顶背面细节 |
+
+这些未知项不阻塞本地 Compiler Spike，但会阻塞任何“测绘级复原”声明。项目
+production registry、placement 与既有 production GLB 均未修改；本轮没有继续
+Meshy QA，也没有建设后台、数据库、Worker 或任务队列，没有 push、合并或部署。
