@@ -1,7 +1,7 @@
 {
   "version": 1,
   "generatedAt": "2026-07-25",
-  "status": "visible-low-isolated-runtime-qa-passed",
+  "status": "production-runtime-accepted",
   "package": "xingfuli-current-street-furniture",
   "assetCount": 4,
   "runtimeStates": [
@@ -16,9 +16,33 @@
   "totalTriangles": 1086,
   "zeroImageTextureAssetCount": 4,
   "rootTransformCleanAssetCount": 4,
-  "runtimeIntegration": "isolated-qa-only",
-  "productionRegistry": "intentionally-not-modified",
-  "productionManifest": "intentionally-not-modified",
+  "runtimeIntegration": "xingfuli-full-stage-production",
+  "productionRegistry": "app/scene/xingfuli-current-street-furniture.tsx",
+  "productionManifest": "component-scoped-sha-versioned-model-paths",
+  "productionInstanceCount": 12,
+  "productionInstanceCounts": {
+    "xingfuli-pointed-entry-bollard": 5,
+    "xingfuli-water-edge-stone-seat-round": 2,
+    "xingfuli-water-edge-stone-seat-long": 2,
+    "xingfuli-water-edge-slim-planter": 3
+  },
+  "productionPlacement": {
+    "entrance": "retained-five-audited-instance-centers",
+    "waterEdge": "inferred-from-observed-location-family-not-surveyed",
+    "collision": "tight-base-aabbs-in-app/scene/xingfuli-qa-paths.json",
+    "loading": "visible-low-only-when-xingfuli-full-stage-hidden-otherwise"
+  },
+  "productionQa": {
+    "status": "passed",
+    "routes": [
+      "/?start=xingfuli",
+      "/?start=xingfuli-pool-detail",
+      "/?start=xingfuli-entrance-detail"
+    ],
+    "record": "docs/research/test_xingfuli_current_street_furniture_production_runtime_qa.json",
+    "consoleErrors": 0,
+    "pageErrors": 0
+  },
   "runtimeQa": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-current-street-furniture-runtime-metrics.json",
   "finalReview": "docs/research/xingfuli-current-street-furniture-final-review.md",
   "triptychContactSheet": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-current-street-furniture-triptych-contact-sheet.png",
@@ -30,7 +54,7 @@
       "slug": "xingfuli-pointed-entry-bollard",
       "family": "street-furniture",
       "siteBinding": "xingfuli",
-      "status": "blender-glb-and-isolated-runtime-qa-passed",
+      "status": "production-runtime-accepted",
       "sourceTier": "editable-hero-master",
       "runtimeTier": "visible-low",
       "runtimeStates": [
@@ -144,12 +168,12 @@
         "transformedNodes": []
       },
       "runtimeGate": {
-        "status": "passed-isolated-qa",
+        "status": "passed-production-runtime",
         "qaRoute": "/nonbuilding-evidence-qa?asset=xingfuli-pointed-entry-bollard",
-        "productionRegistry": "intentionally-not-integrated",
-        "productionManifest": "intentionally-not-modified",
-        "mapPlacement": "not-performed",
-        "collision": "not-performed",
+        "productionRegistry": "app/scene/xingfuli-current-street-furniture.tsx",
+        "productionManifest": "component-scoped-sha-versioned-model-paths",
+        "mapPlacement": "five-retained-audited-entry-centers",
+        "collision": "five-tight-base-aabbs-pass-deterministic-routes",
         "twoStateDistanceCheck": "passed: 4m and 10m use the same visible-low GLB; fresh 22m tab is hidden with zero GLB requests",
         "performance": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-current-street-furniture-runtime-metrics.json",
         "runtimeScreenshot": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-pointed-entry-bollard-webgl.png",
@@ -170,7 +194,7 @@
       "slug": "xingfuli-water-edge-stone-seat-round",
       "family": "street-furniture",
       "siteBinding": "xingfuli",
-      "status": "blender-glb-and-isolated-runtime-qa-passed",
+      "status": "production-runtime-accepted",
       "sourceTier": "editable-hero-master",
       "runtimeTier": "visible-low",
       "runtimeStates": [
@@ -285,12 +309,12 @@
         "transformedNodes": []
       },
       "runtimeGate": {
-        "status": "passed-isolated-qa",
+        "status": "passed-production-runtime",
         "qaRoute": "/nonbuilding-evidence-qa?asset=xingfuli-water-edge-stone-seat-round",
-        "productionRegistry": "intentionally-not-integrated",
-        "productionManifest": "intentionally-not-modified",
-        "mapPlacement": "not-performed",
-        "collision": "not-performed",
+        "productionRegistry": "app/scene/xingfuli-current-street-furniture.tsx",
+        "productionManifest": "component-scoped-sha-versioned-model-paths",
+        "mapPlacement": "two-inferred-water-edge-centers-not-surveyed",
+        "collision": "two-tight-base-aabbs-pass-deterministic-routes",
         "twoStateDistanceCheck": "shared route contract passed; individual 4m visible-low render passed",
         "performance": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-current-street-furniture-runtime-metrics.json",
         "runtimeScreenshot": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-round-webgl.png",
@@ -311,7 +335,7 @@
       "slug": "xingfuli-water-edge-stone-seat-long",
       "family": "street-furniture",
       "siteBinding": "xingfuli",
-      "status": "blender-glb-and-isolated-runtime-qa-passed",
+      "status": "production-runtime-accepted",
       "sourceTier": "editable-hero-master",
       "runtimeTier": "visible-low",
       "runtimeStates": [
@@ -426,12 +450,12 @@
         "transformedNodes": []
       },
       "runtimeGate": {
-        "status": "passed-isolated-qa",
+        "status": "passed-production-runtime",
         "qaRoute": "/nonbuilding-evidence-qa?asset=xingfuli-water-edge-stone-seat-long",
-        "productionRegistry": "intentionally-not-integrated",
-        "productionManifest": "intentionally-not-modified",
-        "mapPlacement": "not-performed",
-        "collision": "not-performed",
+        "productionRegistry": "app/scene/xingfuli-current-street-furniture.tsx",
+        "productionManifest": "component-scoped-sha-versioned-model-paths",
+        "mapPlacement": "two-inferred-water-edge-centers-not-surveyed",
+        "collision": "two-tight-base-aabbs-pass-deterministic-routes",
         "twoStateDistanceCheck": "shared route contract passed; individual 4m visible-low render passed",
         "performance": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-current-street-furniture-runtime-metrics.json",
         "runtimeScreenshot": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-long-webgl.png",
@@ -452,7 +476,7 @@
       "slug": "xingfuli-water-edge-slim-planter",
       "family": "street-furniture",
       "siteBinding": "xingfuli",
-      "status": "blender-glb-and-isolated-runtime-qa-passed",
+      "status": "production-runtime-accepted",
       "sourceTier": "editable-hero-master",
       "runtimeTier": "visible-low",
       "runtimeStates": [
@@ -587,12 +611,12 @@
         "transformedNodes": []
       },
       "runtimeGate": {
-        "status": "passed-isolated-qa",
+        "status": "passed-production-runtime",
         "qaRoute": "/nonbuilding-evidence-qa?asset=xingfuli-water-edge-slim-planter",
-        "productionRegistry": "intentionally-not-integrated",
-        "productionManifest": "intentionally-not-modified",
-        "mapPlacement": "not-performed",
-        "collision": "not-performed",
+        "productionRegistry": "app/scene/xingfuli-current-street-furniture.tsx",
+        "productionManifest": "component-scoped-sha-versioned-model-paths",
+        "mapPlacement": "three-inferred-water-edge-centers-not-surveyed",
+        "collision": "three-tight-base-aabbs-pass-deterministic-routes",
         "twoStateDistanceCheck": "shared route contract passed; individual 4m visible-low render passed",
         "performance": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-current-street-furniture-runtime-metrics.json",
         "runtimeScreenshot": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-slim-planter-webgl.png",

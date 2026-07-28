@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-28",
+  "assetId": "shared:street-asset:plane-tree-straight-sparse",
+  "slug": "plane-tree-straight-sparse",
+  "family": "shared-street-asset",
+  "status": "blender-glb-and-isolated-runtime-qa-passed",
+  "sourceRoute": "meshy-agent-web-no-api",
+  "source": {
+    "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_plane_tree_straight_s_0727170449_generate.glb",
+    "sha256": "5dcb00753acd3cf9275374be31583a9c8a03e2baf4920a74466a549929497708",
+    "evidenceSnapshot": "2026-07-28-2ca6310",
+    "immutable": true
+  },
+  "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+  "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+  "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+  "generator": "scripts/create_meshy_agent_street_asset_models.py",
+  "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset plane-tree-straight-sparse",
+  "use": "近景行道树候选；正式高重复版前最多四个实例",
+  "maxInstances": 4,
+  "recognizers": [
+    "单一连续主干",
+    "疏松分层树冠",
+    "叶簇间可见空隙"
+  ],
+  "targetDimensionsMeters": [
+    7.148438,
+    5.898438,
+    10
+  ],
+  "fittedBlenderBounds": {
+    "min": [
+      -3.574219,
+      -2.949219,
+      0
+    ],
+    "max": [
+      3.574219,
+      2.949219,
+      10
+    ],
+    "originMeaning": "ground-envelope-center"
+  },
+  "decimation": {
+    "before": 664,
+    "target": 3900,
+    "after": 664,
+    "applied": false,
+    "reason": "Meshy Remesh failed twice; used silhouette-guided deterministic rebuild"
+  },
+  "buildMode": "meshy-silhouette-guided-deterministic-rebuild",
+  "sharedPaletteMaterials": [
+    "bark",
+    "foliage-dark",
+    "foliage-warm"
+  ],
+  "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+  "originContract": {
+    "meaning": "ground-envelope-center",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "blenderFront": "-Y",
+    "worldPlacementBaked": false
+  },
+  "budget": {
+    "maxTriangles": 4000,
+    "maxNodes": 3,
+    "maxMaterials": 3,
+    "maxImages": 0,
+    "maxTextures": 0,
+    "maxBinaryBytes": 900000
+  },
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/plane-tree-straight-sparse.blend",
+    "blendSha256": "acc41d2167ff60c268a11c37be90377c398bb7b5beb715db0884579e07ed0543",
+    "glb": "public/models/nonbuilding/meshy-agent-street-assets/plane-tree-straight-sparse-visible-low.glb",
+    "previews": {
+      "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_plane-tree-straight-sparse-canonical.png",
+      "canonicalSha256": "751f93a7b3a26851361f880897bb8870cac9a60c2bc5ce796bdf64c3e5b14532",
+      "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_plane-tree-straight-sparse-side.png",
+      "sideSha256": "b34a027bd9ee1525490f964905c12d3c941128ca2a9d3418e94252b5a8837edb",
+      "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_plane-tree-straight-sparse-detail.png",
+      "detailSha256": "03e8bd1fac687054182eb83f7f1ac015d3c484643956f8a6dbbe4ee0e2851440",
+      "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_plane-tree-straight-sparse-webgl.png",
+      "runtimeSha256": "2a964fb85afd34f3d2a2eb644e2ff2e14f1d4fa889ef4c57e9ebf54b439fdc3c",
+      "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_plane-tree-straight-sparse-triptych.png",
+      "triptychSha256": "fc4148e37a7df36454ba0589911332656d5615db6de0825fb993b6012e5c422d"
+    }
+  },
+  "glb": {
+    "sha256": "a6cdf4f70c3820a96869d33031a7d7ad221e771f36cf641c3a6112174a833c19",
+    "bytes": 67164,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 3,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 664,
+    "bounds": {
+      "min": [
+        -3.574219,
+        0,
+        -2.949219
+      ],
+      "max": [
+        3.574219,
+        10,
+        2.949219
+      ],
+      "size": [
+        7.148438,
+        10,
+        5.898438
+      ]
+    },
+    "transformedNodes": []
+  },
+  "gates": {
+    "sourceSha": "passed",
+    "blenderBuild": "passed",
+    "glbStructure": "passed",
+    "budget": "passed",
+    "visual": "passed-three-way-comparison",
+    "runtime": "passed-isolated-qa",
+    "productionMap": "not-integrated"
+  },
+  "runtimeGate": {
+    "status": "passed-isolated-qa",
+    "qaRoute": "/meshy-street-assets-qa",
+    "productionPlacement": "not-integrated",
+    "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+    "modelScale": 0.3703703703703703,
+    "metersPerSceneUnit": 2.7,
+    "distanceMeters": 24,
+    "state": "visible-low",
+    "renderReady": true,
+    "canvasCount": 1,
+    "decodedBodySize": 67164,
+    "visualBrowserViewport": {
+      "width": 1638,
+      "height": 851
+    },
+    "structuralBrowserViewport": {
+      "width": 1280,
+      "height": 577,
+      "devicePixelRatio": 1
+    },
+    "consoleErrorCount": 0,
+    "performanceClaim": "none-local-warm-cache-only"
+  }
+}

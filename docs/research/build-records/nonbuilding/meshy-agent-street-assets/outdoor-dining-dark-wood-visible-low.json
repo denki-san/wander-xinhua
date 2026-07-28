@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-28",
+  "assetId": "shared:street-asset:outdoor-dining-dark-wood",
+  "slug": "outdoor-dining-dark-wood",
+  "family": "shared-street-asset",
+  "status": "blender-glb-and-isolated-runtime-qa-passed",
+  "sourceRoute": "meshy-agent-web-no-api",
+  "source": {
+    "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_outdoor_dining_remesh_0727170828_generate.glb",
+    "sha256": "71436018e7f5cec12a62dd5e7646814db7729c35f8f63e763d59b5b234728a6a",
+    "evidenceSnapshot": "2026-07-28-2ca6310",
+    "immutable": true
+  },
+  "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+  "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+  "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+  "generator": "scripts/create_meshy_agent_street_asset_models.py",
+  "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset outdoor-dining-dark-wood",
+  "use": "一桌两椅可移动组合",
+  "maxInstances": 8,
+  "recognizers": [
+    "单张长方桌",
+    "两把椅子相对",
+    "全部腿独立落地"
+  ],
+  "targetDimensionsMeters": [
+    2.4,
+    2.2,
+    0.9
+  ],
+  "fittedBlenderBounds": {
+    "min": [
+      -1.2,
+      -1.1,
+      0
+    ],
+    "max": [
+      1.2,
+      1.1,
+      0.9
+    ],
+    "originMeaning": "ground-envelope-center"
+  },
+  "decimation": {
+    "before": 204,
+    "target": null,
+    "after": 204,
+    "applied": false,
+    "reason": "Meshy Remesh failed twice; used silhouette-guided deterministic rebuild"
+  },
+  "buildMode": "meshy-silhouette-guided-deterministic-rebuild",
+  "sharedPaletteMaterials": [
+    "metal-dark",
+    "wood"
+  ],
+  "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+  "originContract": {
+    "meaning": "ground-envelope-center",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "blenderFront": "-Y",
+    "worldPlacementBaked": false
+  },
+  "budget": {
+    "maxTriangles": 3000,
+    "maxNodes": 3,
+    "maxMaterials": 2,
+    "maxImages": 0,
+    "maxTextures": 0,
+    "maxBinaryBytes": 320000
+  },
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/outdoor-dining-dark-wood.blend",
+    "blendSha256": "f7fbeb90122e7803edfd361a058bae3d667813a91bfc60c6bb9106367a5410e4",
+    "glb": "public/models/nonbuilding/meshy-agent-street-assets/outdoor-dining-dark-wood-visible-low.glb",
+    "previews": {
+      "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_outdoor-dining-dark-wood-canonical.png",
+      "canonicalSha256": "d4fb327448e635f018f6a8948d20ea96258e0d5553d902549d6c996373563b38",
+      "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_outdoor-dining-dark-wood-side.png",
+      "sideSha256": "9bca25af0d0099edeeef3effcdd705b2a543c7f88aed328f9d86b93cfa336eb5",
+      "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_outdoor-dining-dark-wood-detail.png",
+      "detailSha256": "586b75172e445fe1f64c1078a675a011183a4eb11edd4fcd0d882022e5d536e2",
+      "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_outdoor-dining-dark-wood-webgl.png",
+      "runtimeSha256": "c69e0158a5cdec33c666e53bca08feae2c88f1741923ab675c84b5d7ab5aee86",
+      "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_outdoor-dining-dark-wood-triptych.png",
+      "triptychSha256": "e6508a0632490fb4d3395e3f2606324d3846445487992f6c0be1565b55eea0d9"
+    }
+  },
+  "glb": {
+    "sha256": "50ba2639ec35d24e02cf0171ca69733eee295ef02c1036d63e42836493940816",
+    "bytes": 16936,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 2,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 204,
+    "bounds": {
+      "min": [
+        -1.2,
+        0,
+        -1.1
+      ],
+      "max": [
+        1.2,
+        0.9,
+        1.1
+      ],
+      "size": [
+        2.4,
+        0.9,
+        2.2
+      ]
+    },
+    "transformedNodes": []
+  },
+  "gates": {
+    "sourceSha": "passed",
+    "blenderBuild": "passed",
+    "glbStructure": "passed",
+    "budget": "passed",
+    "visual": "passed-three-way-comparison",
+    "runtime": "passed-isolated-qa",
+    "productionMap": "not-integrated"
+  },
+  "runtimeGate": {
+    "status": "passed-isolated-qa",
+    "qaRoute": "/meshy-street-assets-qa",
+    "productionPlacement": "not-integrated",
+    "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+    "modelScale": 0.3703703703703703,
+    "metersPerSceneUnit": 2.7,
+    "distanceMeters": 6,
+    "state": "visible-low",
+    "renderReady": true,
+    "canvasCount": 1,
+    "decodedBodySize": 16936,
+    "visualBrowserViewport": {
+      "width": 1638,
+      "height": 851
+    },
+    "structuralBrowserViewport": {
+      "width": 1280,
+      "height": 577,
+      "devicePixelRatio": 1
+    },
+    "consoleErrorCount": 0,
+    "performanceClaim": "none-local-warm-cache-only"
+  }
+}

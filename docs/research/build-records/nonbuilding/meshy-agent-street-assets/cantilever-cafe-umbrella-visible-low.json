@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-28",
+  "assetId": "shared:street-asset:cantilever-cafe-umbrella",
+  "slug": "cantilever-cafe-umbrella",
+  "family": "shared-street-asset",
+  "status": "blender-glb-and-isolated-runtime-qa-passed",
+  "sourceRoute": "meshy-agent-web-no-api",
+  "source": {
+    "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_cantilever_cafe_umbre_0727170809_generate.glb",
+    "sha256": "aa05ecb11f89262277a11c485d1ecec4ffbba7a43baa924789e123f44b027532",
+    "evidenceSnapshot": "2026-07-28-2ca6310",
+    "immutable": true
+  },
+  "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+  "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+  "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+  "generator": "scripts/create_meshy_agent_street_asset_models.py",
+  "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset cantilever-cafe-umbrella",
+  "use": "餐饮外摆悬臂伞",
+  "maxInstances": 8,
+  "recognizers": [
+    "方形伞面",
+    "侧置支架与悬臂",
+    "低矮配重底座"
+  ],
+  "targetDimensionsMeters": [
+    2.8,
+    2.8,
+    2.57
+  ],
+  "fittedBlenderBounds": {
+    "min": [
+      -1.4,
+      -1.4,
+      0
+    ],
+    "max": [
+      1.4,
+      1.4,
+      2.57
+    ],
+    "originMeaning": "ground-envelope-center"
+  },
+  "decimation": {
+    "before": 176,
+    "target": 1900,
+    "after": 176,
+    "applied": false,
+    "reason": "Meshy Remesh failed twice; used silhouette-guided deterministic rebuild"
+  },
+  "buildMode": "meshy-silhouette-guided-deterministic-rebuild",
+  "sharedPaletteMaterials": [
+    "metal-dark",
+    "coral"
+  ],
+  "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+  "originContract": {
+    "meaning": "ground-envelope-center",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "blenderFront": "-Y",
+    "worldPlacementBaked": false
+  },
+  "budget": {
+    "maxTriangles": 2000,
+    "maxNodes": 3,
+    "maxMaterials": 2,
+    "maxImages": 0,
+    "maxTextures": 0,
+    "maxBinaryBytes": 256000
+  },
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/cantilever-cafe-umbrella.blend",
+    "blendSha256": "4734df7f449f84c5ff7022e753ffadc513760b96628d31ad6050140925b08583",
+    "glb": "public/models/nonbuilding/meshy-agent-street-assets/cantilever-cafe-umbrella-visible-low.glb",
+    "previews": {
+      "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_cantilever-cafe-umbrella-canonical.png",
+      "canonicalSha256": "d916aed37d240ed6485f060ec60589086522c62038ea1243d51b2346e562028c",
+      "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_cantilever-cafe-umbrella-side.png",
+      "sideSha256": "20c4f893b2f7a6e7cdb0b470790e7faf0da30a628a5549c51a829d74cb23d53b",
+      "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_cantilever-cafe-umbrella-detail.png",
+      "detailSha256": "81f2a0b9bcabf1380a81a68c5a4c0d7d91e82ba892db0bf5840a309f6893135e",
+      "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_cantilever-cafe-umbrella-webgl.png",
+      "runtimeSha256": "6df29d0002fb042d94cba3434e2f30d7ec203f3e45556ef9b3f2b738c4b3ccdd",
+      "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_cantilever-cafe-umbrella-triptych.png",
+      "triptychSha256": "b4220e6775b9453c044c38fbef7eaa7b75e4da3a88bff533103f042ddd06bb9a"
+    }
+  },
+  "glb": {
+    "sha256": "f40dd14dae002c6861cc572d7f3c3f3997d96e4be6d8b2bb10b8b509f18aaba0",
+    "bytes": 14060,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 2,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 176,
+    "bounds": {
+      "min": [
+        -1.4,
+        0,
+        -1.4
+      ],
+      "max": [
+        1.4,
+        2.57,
+        1.4
+      ],
+      "size": [
+        2.8,
+        2.57,
+        2.8
+      ]
+    },
+    "transformedNodes": []
+  },
+  "gates": {
+    "sourceSha": "passed",
+    "blenderBuild": "passed",
+    "glbStructure": "passed",
+    "budget": "passed",
+    "visual": "passed-three-way-comparison",
+    "runtime": "passed-isolated-qa",
+    "productionMap": "not-integrated"
+  },
+  "runtimeGate": {
+    "status": "passed-isolated-qa",
+    "qaRoute": "/meshy-street-assets-qa",
+    "productionPlacement": "not-integrated",
+    "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+    "modelScale": 0.3703703703703703,
+    "metersPerSceneUnit": 2.7,
+    "distanceMeters": 10,
+    "state": "visible-low",
+    "renderReady": true,
+    "canvasCount": 1,
+    "decodedBodySize": 14060,
+    "visualBrowserViewport": {
+      "width": 1638,
+      "height": 851
+    },
+    "structuralBrowserViewport": {
+      "width": 1280,
+      "height": 577,
+      "devicePixelRatio": 1
+    },
+    "consoleErrorCount": 0,
+    "performanceClaim": "none-local-warm-cache-only"
+  }
+}

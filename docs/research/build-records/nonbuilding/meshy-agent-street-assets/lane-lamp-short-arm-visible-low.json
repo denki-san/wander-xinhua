@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-28",
+  "assetId": "shared:street-asset:lane-lamp-short-arm",
+  "slug": "lane-lamp-short-arm",
+  "family": "shared-street-asset",
+  "status": "blender-glb-and-isolated-runtime-qa-passed",
+  "sourceRoute": "meshy-agent-web-no-api",
+  "source": {
+    "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_lane_lamp_short_arm_0727170548_generate.glb",
+    "sha256": "5e4cde3a41eb9be1cd52ffedefac06b538d263e112ef4a0838609fe083993ef7",
+    "evidenceSnapshot": "2026-07-28-2ca6310",
+    "immutable": true
+  },
+  "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+  "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+  "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+  "generator": "scripts/create_meshy_agent_street_asset_models.py",
+  "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset lane-lamp-short-arm",
+  "use": "里弄重复路灯",
+  "maxInstances": 24,
+  "recognizers": [
+    "细长灯杆",
+    "约半米短臂",
+    "克制八边形灯罩"
+  ],
+  "targetDimensionsMeters": [
+    1.069687,
+    0.574219,
+    3.36
+  ],
+  "fittedBlenderBounds": {
+    "min": [
+      -0.534844,
+      -0.287109,
+      0
+    ],
+    "max": [
+      0.534844,
+      0.287109,
+      3.36
+    ],
+    "originMeaning": "ground-envelope-center"
+  },
+  "decimation": {
+    "before": 248,
+    "target": 1450,
+    "after": 248,
+    "applied": false,
+    "reason": "Meshy Remesh failed twice; used silhouette-guided deterministic rebuild"
+  },
+  "buildMode": "meshy-silhouette-guided-deterministic-rebuild",
+  "sharedPaletteMaterials": [
+    "metal-dark",
+    "lamp-warm"
+  ],
+  "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+  "originContract": {
+    "meaning": "ground-envelope-center",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "blenderFront": "-Y",
+    "worldPlacementBaked": false
+  },
+  "budget": {
+    "maxTriangles": 1500,
+    "maxNodes": 3,
+    "maxMaterials": 2,
+    "maxImages": 0,
+    "maxTextures": 0,
+    "maxBinaryBytes": 256000
+  },
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/lane-lamp-short-arm.blend",
+    "blendSha256": "f99cecbfd39771cbfdcef52203266a51af298fc02e9992919b981ab33a3307dc",
+    "glb": "public/models/nonbuilding/meshy-agent-street-assets/lane-lamp-short-arm-visible-low.glb",
+    "previews": {
+      "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_lane-lamp-short-arm-canonical.png",
+      "canonicalSha256": "3ea11dd39703576c890dc2fffe943515be2f3d978d5ef78afc6941460aeb7416",
+      "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_lane-lamp-short-arm-side.png",
+      "sideSha256": "145b7c4f4a7640790f0dfdcd862614c3bafc9e35d60bf1547cd1d8d38099d506",
+      "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_lane-lamp-short-arm-detail.png",
+      "detailSha256": "b6a097d0a1e3cdb93eb4c43cb66c4216fddfde3fc8a264cf9069749f6b9d8b7d",
+      "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_lane-lamp-short-arm-webgl.png",
+      "runtimeSha256": "c2f4f02ab2299f54fcced15cdfe437533bf8d5b3941a1a5340c77168a047ec0c",
+      "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_lane-lamp-short-arm-triptych.png",
+      "triptychSha256": "581c41425144efe4e31d2d3b3261a5c4333682bd6ebfb18d905f0d3544cc4b8e"
+    }
+  },
+  "glb": {
+    "sha256": "b8c2997a47b1c3988f84aaae517e91bf3a175d0a3a1625b47962e86f11ebdc6f",
+    "bytes": 17548,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 2,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 248,
+    "bounds": {
+      "min": [
+        -0.534844,
+        0,
+        -0.287109
+      ],
+      "max": [
+        0.534844,
+        3.36,
+        0.287109
+      ],
+      "size": [
+        1.069687,
+        3.36,
+        0.574219
+      ]
+    },
+    "transformedNodes": []
+  },
+  "gates": {
+    "sourceSha": "passed",
+    "blenderBuild": "passed",
+    "glbStructure": "passed",
+    "budget": "passed",
+    "visual": "passed-three-way-comparison",
+    "runtime": "passed-isolated-qa",
+    "productionMap": "not-integrated"
+  },
+  "runtimeGate": {
+    "status": "passed-isolated-qa",
+    "qaRoute": "/meshy-street-assets-qa",
+    "productionPlacement": "not-integrated",
+    "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+    "modelScale": 0.3703703703703703,
+    "metersPerSceneUnit": 2.7,
+    "distanceMeters": 10,
+    "state": "visible-low",
+    "renderReady": true,
+    "canvasCount": 1,
+    "decodedBodySize": 17548,
+    "visualBrowserViewport": {
+      "width": 1638,
+      "height": 851
+    },
+    "structuralBrowserViewport": {
+      "width": 1280,
+      "height": 577,
+      "devicePixelRatio": 1
+    },
+    "consoleErrorCount": 0,
+    "performanceClaim": "none-local-warm-cache-only"
+  }
+}

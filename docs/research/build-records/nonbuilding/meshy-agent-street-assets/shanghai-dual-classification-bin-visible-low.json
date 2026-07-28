@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-28",
+  "assetId": "shared:street-asset:shanghai-dual-classification-bin",
+  "slug": "shanghai-dual-classification-bin",
+  "family": "shared-street-asset",
+  "status": "blender-glb-and-isolated-runtime-qa-passed",
+  "sourceRoute": "meshy-agent-web-no-api",
+  "source": {
+    "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_shanghai_dual_classif_0727170748_generate.glb",
+    "sha256": "93ad9c582c19540aa9a98af13258fd76bd88483b3ba12b85d4358d72dadb6ea7",
+    "evidenceSnapshot": "2026-07-28-2ca6310",
+    "immutable": true
+  },
+  "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+  "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+  "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+  "generator": "scripts/create_meshy_agent_street_asset_models.py",
+  "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset shanghai-dual-classification-bin",
+  "use": "沿街高重复双分类垃圾桶",
+  "maxInstances": 20,
+  "recognizers": [
+    "双投口",
+    "中缝",
+    "银灰与低饱和蓝分区"
+  ],
+  "targetDimensionsMeters": [
+    0.9,
+    0.46,
+    0.91
+  ],
+  "fittedBlenderBounds": {
+    "min": [
+      -0.45,
+      -0.23,
+      0
+    ],
+    "max": [
+      0.45,
+      0.23,
+      0.91
+    ],
+    "originMeaning": "ground-envelope-center"
+  },
+  "decimation": {
+    "before": 84,
+    "target": 1150,
+    "after": 84,
+    "applied": false,
+    "reason": "Meshy Remesh failed twice; used silhouette-guided deterministic rebuild"
+  },
+  "buildMode": "meshy-silhouette-guided-deterministic-rebuild",
+  "sharedPaletteMaterials": [
+    "silver",
+    "blue",
+    "metal-dark"
+  ],
+  "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+  "originContract": {
+    "meaning": "ground-envelope-center",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "blenderFront": "-Y",
+    "worldPlacementBaked": false
+  },
+  "budget": {
+    "maxTriangles": 1200,
+    "maxNodes": 3,
+    "maxMaterials": 3,
+    "maxImages": 0,
+    "maxTextures": 0,
+    "maxBinaryBytes": 192000
+  },
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/shanghai-dual-classification-bin.blend",
+    "blendSha256": "a4aa794556d96374cda16a4c6b053b3f3f58739acd4d7a6a4b1739bcace41da5",
+    "glb": "public/models/nonbuilding/meshy-agent-street-assets/shanghai-dual-classification-bin-visible-low.glb",
+    "previews": {
+      "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_shanghai-dual-classification-bin-canonical.png",
+      "canonicalSha256": "e8aedbe854ad54e486d05d664bc26b1ce8937d86e8965007e5be66b623878aa1",
+      "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_shanghai-dual-classification-bin-side.png",
+      "sideSha256": "a058738e523bfa61e72ebf42c20554f5b6c2ddb3287ef1cc9d4699a86d462166",
+      "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_shanghai-dual-classification-bin-detail.png",
+      "detailSha256": "b6cd1d33b9e3fba210a1b839369f7603792259e818ac958e2db73a6b0e1c2859",
+      "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_shanghai-dual-classification-bin-webgl.png",
+      "runtimeSha256": "3d9eac25bcda9518c979e2d4cafa407bd6210f2935bf81a35737024b0b702fa9",
+      "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_shanghai-dual-classification-bin-triptych.png",
+      "triptychSha256": "e75a068797a7faeadda90836eff866361d3fa9b55d3341e24feb3ba904ce8326"
+    }
+  },
+  "glb": {
+    "sha256": "134c52d35f704df1d4e30c5014454e29c1c848129807003c753be9e0f0c1781b",
+    "bytes": 9556,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 3,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 84,
+    "bounds": {
+      "min": [
+        -0.45,
+        0,
+        -0.23
+      ],
+      "max": [
+        0.45,
+        0.91,
+        0.23
+      ],
+      "size": [
+        0.9,
+        0.91,
+        0.46
+      ]
+    },
+    "transformedNodes": []
+  },
+  "gates": {
+    "sourceSha": "passed",
+    "blenderBuild": "passed",
+    "glbStructure": "passed",
+    "budget": "passed",
+    "visual": "passed-three-way-comparison",
+    "runtime": "passed-isolated-qa",
+    "productionMap": "not-integrated"
+  },
+  "runtimeGate": {
+    "status": "passed-isolated-qa",
+    "qaRoute": "/meshy-street-assets-qa",
+    "productionPlacement": "not-integrated",
+    "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+    "modelScale": 0.3703703703703703,
+    "metersPerSceneUnit": 2.7,
+    "distanceMeters": 4,
+    "state": "visible-low",
+    "renderReady": true,
+    "canvasCount": 1,
+    "decodedBodySize": 9556,
+    "visualBrowserViewport": {
+      "width": 1638,
+      "height": 851
+    },
+    "structuralBrowserViewport": {
+      "width": 1280,
+      "height": 577,
+      "devicePixelRatio": 1
+    },
+    "consoleErrorCount": 0,
+    "performanceClaim": "none-local-warm-cache-only"
+  }
+}

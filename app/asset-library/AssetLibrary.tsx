@@ -411,6 +411,12 @@ export function AssetLibrary() {
       ALL_ASSETS.filter((asset) => asset.category === category && asset.status === "online").length,
     ]),
   ) as Record<AssetCategory, number>, []);
+  const totalCounts = useMemo(() => Object.fromEntries(
+    CATEGORY_ORDER.map((category) => [
+      category,
+      ALL_ASSETS.filter((asset) => asset.category === category).length,
+    ]),
+  ) as Record<AssetCategory, number>, []);
 
   const filtered = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -438,7 +444,7 @@ export function AssetLibrary() {
         <div className={styles.headerMeta}>
           <a href="/product-homepage" className={styles.productHomepageLink}>产品主页</a>
           <span className={styles.syncDot} />
-          生产资产快照 · 2026.07.25
+          生产与候选资产快照 · 2026.07.28
         </div>
       </header>
 
@@ -448,7 +454,7 @@ export function AssetLibrary() {
             <p className={styles.eyebrow}>生产资产总览 / 一页看清</p>
             <h1>现在拥有什么，<br /><em>一眼看清。</em></h1>
             <p className={styles.heroCopy}>
-              只统计真实接入场景的生产资产。建筑三档完整列出，实验、内部占位与待制作状态不会混入线上总数。
+              线上总数只统计真实接入场景的生产资产；已通过隔离 QA 的通用模型集中列为“已就绪”，不会冒充线上实例。
             </p>
           </div>
           <div className={styles.heroStats}>
@@ -481,7 +487,8 @@ export function AssetLibrary() {
                 className={activeCategory === category ? styles.tabActive : ""}
                 onClick={() => setActiveCategory(category)}
               >
-                {CATEGORY_META[category].label} <span>{onlineCounts[category]}</span>
+                {CATEGORY_META[category].label}{" "}
+                <span>{totalCounts[category]} / 线上 {onlineCounts[category]}</span>
               </button>
             ))}
           </div>

@@ -388,7 +388,12 @@ test("运行时使用三段 final 模型并保留程序化 fallback 与三组 QA
   assert.match(scene, /resolvedStage === "massing"/);
   assert.match(fullArchitecture, /stage: qa\?\.requestedTier \?\? "full"/);
   assert.match(fullArchitecture, /name="xingfuli-final-architecture"/);
-  assert.match(scene, /id: `east-entry-bollard-\$\{index\}`/);
+  const currentStreetFurniture = await readFile(
+    new URL("app/scene/xingfuli-current-street-furniture.tsx", root),
+    "utf8",
+  );
+  assert.match(currentStreetFurniture, /id: `east-entry-bollard-\$\{index\}`/);
+  assert.match(scene, /<XingfuliCurrentStreetFurniture \/>/);
   assert.doesNotMatch(scene, /\[-44\.6, 44\.6\]/);
   assert.match(
     world,
@@ -430,9 +435,10 @@ test("幸福里全览隐藏装饰并使用轻量树，详情按距离恢复原�
   ));
   assert.ok(qaData.fixedObstacles.some(({ id }) => id.startsWith("planter-")));
   assert.ok(qaData.fixedObstacles.some(({ id }) => id.startsWith("east-entry-bollard-")));
-  assert.match(scene, /StreetPlanter|east-entry-bollard|LaneFurniture/);
+  assert.ok(qaData.fixedObstacles.some(({ id }) => id.startsWith("water-edge-")));
+  assert.match(scene, /StreetPlanter|XingfuliCurrentStreetFurniture|LaneFurniture/);
   assert.match(scene, /<LightweightXingfuliTrees \/>/);
-  assert.match(scene, /identityReady && environmentDetailed && \([\s\S]*?<LaneFurniture \/>[\s\S]*?<ProgressiveFeatureBoundary/);
+  assert.match(scene, /identityReady && environmentDetailed && \([\s\S]*?<LaneFurniture \/>[\s\S]*?fullReady && \([\s\S]*?<XingfuliCurrentStreetFurniture \/>/);
   assert.doesNotMatch(collision, /const structuralObstacleIds = new Set/);
 });
 

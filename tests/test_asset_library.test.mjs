@@ -50,6 +50,38 @@ test("当前资产口径保留真实数量与缺口提示", async () => {
   assert.match(client, /正午/);
 });
 
+test("十件通用街景 GLB 集中管理为已就绪候选而非线上实例", async () => {
+  const [data, manifestText] = await Promise.all([
+    readFile(new URL("app/asset-library/asset-data.ts", root), "utf8"),
+    readFile(
+      new URL(
+        "docs/research/meshy-agent-street-assets-model-manifest.json",
+        root,
+      ),
+      "utf8",
+    ),
+  ]);
+  const manifest = JSON.parse(manifestText);
+  const sharedBlock = data.match(
+    /export const SHARED_STREET_MODEL_ASSETS = \[([\s\S]*?)\] satisfies AssetRecord\[\];/,
+  );
+
+  assert.equal(manifest.assets.length, 10);
+  assert.ok(sharedBlock, "应存在共享街具模型统一清单");
+  assert.match(sharedBlock[1], /status: "ready"/);
+  for (const asset of manifest.assets) {
+    assert.match(sharedBlock[1], new RegExp(asset.slug));
+    assert.match(
+      sharedBlock[1],
+      new RegExp(
+        `${asset.slug}-visible-low\\.glb\\?v=${asset.glb.sha256.slice(0, 12)}`,
+      ),
+    );
+    await access(new URL(asset.outputs.glb, root));
+  }
+  assert.doesNotMatch(sharedBlock[1], /status: "online"/);
+});
+
 test("资产后台引用的生产 GLB 均存在", async () => {
   const [data, landmarksText] = await Promise.all([
     readFile(new URL("app/asset-library/asset-data.ts", root), "utf8"),

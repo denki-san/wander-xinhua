@@ -119,12 +119,13 @@
     "transformedNodes": []
   },
   "runtimeGate": {
-    "status": "passed-isolated-qa",
+    "status": "passed-production-runtime",
     "qaRoute": "/nonbuilding-evidence-qa?asset=xingfuli-pointed-entry-bollard",
-    "productionRegistry": "intentionally-not-integrated",
-    "productionManifest": "intentionally-not-modified",
-    "mapPlacement": "not-performed",
-    "collision": "not-performed",
+    "productionRegistry": "app/scene/xingfuli-current-street-furniture.tsx",
+    "productionManifest": "component-scoped-sha-versioned-model-path",
+    "mapPlacement": "five-retained-audited-entry-centers",
+    "collision": "five-tight-base-aabbs-pass-deterministic-routes",
+    "productionRuntimeQa": "docs/research/test_xingfuli_current_street_furniture_production_runtime_qa.json",
     "twoStateDistanceCheck": "passed: 4m and 10m use the same visible-low GLB; fresh 22m tab is hidden with zero GLB requests",
     "performance": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-current-street-furniture-runtime-metrics.json",
     "runtimeScreenshot": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-pointed-entry-bollard-webgl.png",

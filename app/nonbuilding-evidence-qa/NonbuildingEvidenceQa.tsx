@@ -25,6 +25,10 @@ const ASSETS = [
     location: "番禺路 381 号入口附近",
     evidence: "入口图反复显示方柱身、四坡尖顶帽和离散排列。",
     path: "/models/nonbuilding/xingfuli-current-street-furniture/xingfuli-pointed-entry-bollard-visible-low.glb",
+    defaultDistanceMeters: 4,
+    hideDistanceMeters: FAR_HIDE_DISTANCE_METERS,
+    targetHeightMeters: 0.15,
+    mountHeightMeters: 0,
   },
   {
     slug: "xingfuli-water-edge-stone-seat-round",
@@ -32,6 +36,10 @@ const ASSETS = [
     location: "幸福里内部水景段",
     evidence: "水边近景和纵深图共同证明近球形、底部收平的座具。",
     path: "/models/nonbuilding/xingfuli-current-street-furniture/xingfuli-water-edge-stone-seat-round-visible-low.glb",
+    defaultDistanceMeters: 4,
+    hideDistanceMeters: FAR_HIDE_DISTANCE_METERS,
+    targetHeightMeters: 0.12,
+    mountHeightMeters: 0,
   },
   {
     slug: "xingfuli-water-edge-stone-seat-long",
@@ -39,6 +47,10 @@ const ASSETS = [
     location: "幸福里内部水景段",
     evidence: "多件重复实例证明长椭圆轮廓、圆钝端部和低矮顶部。",
     path: "/models/nonbuilding/xingfuli-current-street-furniture/xingfuli-water-edge-stone-seat-long-visible-low.glb",
+    defaultDistanceMeters: 4,
+    hideDistanceMeters: FAR_HIDE_DISTANCE_METERS,
+    targetHeightMeters: 0.12,
+    mountHeightMeters: 0,
   },
   {
     slug: "xingfuli-water-edge-slim-planter",
@@ -46,6 +58,10 @@ const ASSETS = [
     location: "幸福里内部线性水景边缘",
     evidence: "多张水景图反复显示窄矩形槽体、可见土层和高低不等植物。",
     path: "/models/nonbuilding/xingfuli-current-street-furniture/xingfuli-water-edge-slim-planter-visible-low.glb",
+    defaultDistanceMeters: 4,
+    hideDistanceMeters: FAR_HIDE_DISTANCE_METERS,
+    targetHeightMeters: 0.16,
+    mountHeightMeters: 0,
   },
 ] as const;
 
@@ -55,21 +71,32 @@ function resolveAsset(slug: string | null) {
   return ASSETS.find((asset) => asset.slug === slug) ?? ASSETS[0];
 }
 
-function parseDistance(value: string | null) {
+function parseDistance(value: string | null, fallback = DEFAULT_DISTANCE_METERS) {
   const parsed = Number(value);
-  if (!Number.isFinite(parsed)) return DEFAULT_DISTANCE_METERS;
-  return Math.min(24, Math.max(3, parsed));
+  if (!Number.isFinite(parsed)) return fallback;
+  return Math.min(60, Math.max(3, parsed));
 }
 
-function CameraRig({ distanceMeters }: { distanceMeters: number }) {
+function CameraRig({
+  distanceMeters,
+  targetHeightMeters,
+}: {
+  distanceMeters: number;
+  targetHeightMeters: number;
+}) {
   const { camera, invalidate } = useThree();
   useEffect(() => {
     const distance = distanceMeters / METERS_PER_SCENE_UNIT;
-    camera.position.set(distance * 0.12, Math.max(0.44, distance * 0.17), distance);
-    camera.lookAt(new Vector3(0, 0.21, 0));
+    const targetHeight = targetHeightMeters / METERS_PER_SCENE_UNIT;
+    camera.position.set(
+      distance * 0.12,
+      Math.max(0.44, targetHeight + distance * 0.06),
+      distance,
+    );
+    camera.lookAt(new Vector3(0, targetHeight, 0));
     camera.updateProjectionMatrix();
     invalidate();
-  }, [camera, distanceMeters, invalidate]);
+  }, [camera, distanceMeters, invalidate, targetHeightMeters]);
   return null;
 }
 
@@ -116,11 +143,15 @@ function HumanScaleRuler() {
 function QaScene({
   assetPath,
   distanceMeters,
+  targetHeightMeters,
+  mountHeightMeters,
   onModelReady,
   visible,
 }: {
   assetPath: string;
   distanceMeters: number;
+  targetHeightMeters: number;
+  mountHeightMeters: number;
   onModelReady: (path: string) => void;
   visible: boolean;
 }) {
@@ -128,7 +159,10 @@ function QaScene({
     <>
       <color attach="background" args={["#d8dfdc"]} />
       <fog attach="fog" args={["#d8dfdc", 6, 13]} />
-      <CameraRig distanceMeters={distanceMeters} />
+      <CameraRig
+        distanceMeters={distanceMeters}
+        targetHeightMeters={targetHeightMeters}
+      />
       <ambientLight intensity={0.8} color="#fff4df" />
       <hemisphereLight args={["#d9e7eb", "#655744", 1.25]} />
       <directionalLight
@@ -146,7 +180,9 @@ function QaScene({
       <HumanScaleRuler />
       {visible ? (
         <Suspense fallback={null}>
-          <RuntimeModel path={assetPath} onReady={onModelReady} />
+          <group position-y={mountHeightMeters / METERS_PER_SCENE_UNIT}>
+            <RuntimeModel path={assetPath} onReady={onModelReady} />
+          </group>
         </Suspense>
       ) : null}
     </>
@@ -166,7 +202,10 @@ export function NonbuildingEvidenceQa() {
     () => resolveAsset(searchParams.get("asset")).slug,
   );
   const [distanceMeters, setDistanceMeters] = useState(
-    () => parseDistance(searchParams.get("distance")),
+    () => parseDistance(
+      searchParams.get("distance"),
+      resolveAsset(searchParams.get("asset")).defaultDistanceMeters,
+    ),
   );
   const [loadedAssetPath, setLoadedAssetPath] = useState<string | null>(null);
   const handleModelReady = useCallback((path: string) => {
@@ -174,7 +213,7 @@ export function NonbuildingEvidenceQa() {
   }, []);
 
   const asset = resolveAsset(assetSlug);
-  const visible = distanceMeters < FAR_HIDE_DISTANCE_METERS;
+  const visible = distanceMeters < asset.hideDistanceMeters;
   const runtimeState = visible ? "visible-low" : "hidden";
   const renderReady = !visible || loadedAssetPath === asset.path;
 
@@ -216,6 +255,8 @@ export function NonbuildingEvidenceQa() {
             <QaScene
               assetPath={asset.path}
               distanceMeters={distanceMeters}
+              targetHeightMeters={asset.targetHeightMeters}
+              mountHeightMeters={asset.mountHeightMeters}
               onModelReady={handleModelReady}
               visible={visible}
             />
@@ -253,7 +294,10 @@ export function NonbuildingEvidenceQa() {
                   key={candidate.slug}
                   type="button"
                   className={candidate.slug === asset.slug ? styles.activeButton : ""}
-                  onClick={() => setAssetSlug(candidate.slug)}
+                  onClick={() => {
+                    setAssetSlug(candidate.slug);
+                    setDistanceMeters(candidate.defaultDistanceMeters);
+                  }}
                   data-qa-asset-button={candidate.slug}
                 >
                   {candidate.name.replace("幸福里", "")}
@@ -267,11 +311,11 @@ export function NonbuildingEvidenceQa() {
             <div className={styles.distanceButtons}>
               {[
                 { label: "近景", value: 4 },
-                { label: "稍远", value: 10 },
-                { label: "远景隐藏", value: 22 },
+                { label: "推荐", value: asset.defaultDistanceMeters },
+                { label: "远景隐藏", value: asset.hideDistanceMeters + 4 },
               ].map((preset) => (
                 <button
-                  key={preset.value}
+                  key={preset.label}
                   type="button"
                   className={distanceMeters === preset.value ? styles.activeButton : ""}
                   onClick={() => setDistanceMeters(preset.value)}
@@ -287,7 +331,7 @@ export function NonbuildingEvidenceQa() {
               <input
                 type="range"
                 min="3"
-                max="24"
+                max="60"
                 step="1"
                 value={distanceMeters}
                 onChange={(event) => setDistanceMeters(Number(event.target.value))}
@@ -304,7 +348,7 @@ export function NonbuildingEvidenceQa() {
                 <dd>同一份 visible-low GLB</dd>
               </div>
               <div>
-                <dt>≥ {FAR_HIDE_DISTANCE_METERS} m</dt>
+                <dt>≥ {asset.hideDistanceMeters} m</dt>
                 <dd>hidden，完全不渲染</dd>
               </div>
               <div>

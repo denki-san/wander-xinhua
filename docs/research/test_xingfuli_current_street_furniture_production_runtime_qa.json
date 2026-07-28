@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "capturedAt": "2026-07-28",
+  "status": "passed",
+  "build": {
+    "mode": "production-static-preview",
+    "command": "npm run build:static",
+    "server": "python3 -m http.server 4317 --bind 127.0.0.1 --directory dist-static",
+    "viewport": [
+      1280,
+      577
+    ],
+    "pageVisibility": "visible",
+    "effects": "off",
+    "district": "off",
+    "warmupSeconds": 5,
+    "frameSampleCount": 120
+  },
+  "routes": [
+    {
+      "url": "/?start=xingfuli",
+      "result": "passed",
+      "visual": "central lane is traversable; the water-edge family is visible without blocking the main lane",
+      "fps": 60.63,
+      "sampleDurationMs": 1979.1,
+      "canvasCount": 1,
+      "consoleErrors": 0,
+      "pageErrors": 0,
+      "resourceEvidence": "three water-edge GLBs appear in the route PerformanceResourceTiming entries; the pointed bollard remained in the browser GLTF cache after the entrance route",
+      "screenshot": "test_artifacts/test_xingfuli_current_street_furniture_runtime.png"
+    },
+    {
+      "url": "/?start=xingfuli-pool-detail",
+      "result": "passed",
+      "visual": "two round seats, two long seats and three slim planters remain on the south water edge and outside the deterministic main route",
+      "fps": 55.15,
+      "drawCalls": 611,
+      "triangles": 744481,
+      "canvasCount": 1,
+      "consoleErrors": 0,
+      "pageErrors": 0,
+      "loadedAssetCount": 4,
+      "coldTransferBytes": [
+        9652,
+        10948,
+        30344,
+        10944
+      ],
+      "screenshot": "test_artifacts/test_xingfuli_current_street_furniture_pool_runtime.png"
+    },
+    {
+      "url": "/?start=xingfuli-entrance-detail",
+      "result": "passed",
+      "visual": "five pointed bollards are grounded, individually spaced and preserve the character route through the entrance",
+      "fps": 58.69,
+      "drawCalls": 799,
+      "triangles": 743752,
+      "canvasCount": 1,
+      "consoleErrors": 0,
+      "pageErrors": 0,
+      "loadedAssetCount": 4,
+      "screenshot": "test_artifacts/test_xingfuli_current_street_furniture_entrance_runtime.png"
+    },
+    {
+      "url": "/?qaAutoStart=1&effects=off&district=off&overview-qa=1&overview-start=quiet-southwest",
+      "session": "fresh-browser-session",
+      "result": "passed",
+      "visual": "overview canvas rendered without mounting the full-stage street-furniture component",
+      "canvasCount": 1,
+      "consoleErrors": 0,
+      "pageErrors": 0,
+      "streetFurnitureResourceCount": 0,
+      "resourceMatch": "/models/nonbuilding/xingfuli-current-street-furniture/",
+      "screenshot": "test_artifacts/test_xingfuli_current_street_furniture_overview_hidden_runtime.png"
+    }
+  ],
+  "collision": {
+    "source": "app/scene/xingfuli-qa-paths.json",
+    "result": "passed",
+    "method": "deterministic route-to-tight-base-AABB clearance tests",
+    "routes": [
+      "west-to-east-main",
+      "pool-north-bypass",
+      "pool-bridge-crossing"
+    ]
+  },
+  "loadingContract": {
+    "visible": "xingfuli full stage",
+    "hidden": "identity, massing and overview stages",
+    "implementationEvidence": "the component is a LaneFurniture sibling behind an explicit fullReady boundary",
+    "runtimeEvidence": "a fresh overview browser session produced zero matching street-furniture resource entries"
+  },
+  "performanceClaim": "acceptance sample only; no same-condition baseline and no performance-improvement claim"
+}

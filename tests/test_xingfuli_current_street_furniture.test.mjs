@@ -29,7 +29,7 @@ function sha256(relativePath) {
     .digest("hex");
 }
 
-test("幸福里当前街具范围严格为四件且生产接入保持关闭", () => {
+test("幸福里当前街具范围严格为四件且生产接入只发生在 full stage", () => {
   const references = readJson(
     "docs/research/xingfuli-current-street-furniture-reference-manifest.json",
   );
@@ -39,16 +39,34 @@ test("幸福里当前街具范围严格为四件且生产接入保持关闭", ()
   assert.deepEqual(references.approvedAssets, slugs);
   assert.equal(manifest.assetCount, 4);
   assert.deepEqual(manifest.assets.map((asset) => asset.slug), slugs);
-  assert.equal(manifest.status, "visible-low-isolated-runtime-qa-passed");
+  assert.equal(manifest.status, "production-runtime-accepted");
+  assert.equal(manifest.productionQa.status, "passed");
+  assert.equal(
+    manifest.productionQa.record,
+    "docs/research/test_xingfuli_current_street_furniture_production_runtime_qa.json",
+  );
   assert.ok(
     manifest.assets.every(
-      (asset) => asset.status === "blender-glb-and-isolated-runtime-qa-passed",
+      (asset) => asset.status === "production-runtime-accepted",
     ),
   );
   assert.deepEqual(manifest.runtimeStates, ["visible-low", "hidden"]);
-  assert.equal(manifest.productionRegistry, "intentionally-not-modified");
-  assert.equal(manifest.productionManifest, "intentionally-not-modified");
-  assert.equal(manifest.runtimeIntegration, "isolated-qa-only");
+  assert.equal(
+    manifest.productionRegistry,
+    "app/scene/xingfuli-current-street-furniture.tsx",
+  );
+  assert.equal(
+    manifest.productionManifest,
+    "component-scoped-sha-versioned-model-paths",
+  );
+  assert.equal(manifest.runtimeIntegration, "xingfuli-full-stage-production");
+  assert.equal(manifest.productionInstanceCount, 12);
+  assert.deepEqual(manifest.productionInstanceCounts, {
+    "xingfuli-pointed-entry-bollard": 5,
+    "xingfuli-water-edge-stone-seat-round": 2,
+    "xingfuli-water-edge-stone-seat-long": 2,
+    "xingfuli-water-edge-slim-planter": 3,
+  });
 });
 
 test("四个 master 与 visible-low GLB 可追溯且全部通过预算", () => {
@@ -80,9 +98,13 @@ test("四个 master 与 visible-low GLB 可追溯且全部通过预算", () => {
     );
     assert.equal(
       record.runtimeGate.productionRegistry,
-      "intentionally-not-integrated",
+      "app/scene/xingfuli-current-street-furniture.tsx",
     );
-    assert.equal(record.runtimeGate.status, "passed-isolated-qa");
+    assert.equal(record.runtimeGate.status, "passed-production-runtime");
+    assert.equal(
+      record.runtimeGate.productionRuntimeQa,
+      "docs/research/test_xingfuli_current_street_furniture_production_runtime_qa.json",
+    );
     assert.equal(record.runtimeGate.consoleErrors, 0);
     assert.equal(record.mcpGate.status, "passed");
     assert.equal(record.mcpGate.savedQaObjectsInMaster, false);
@@ -108,10 +130,10 @@ test("生成器支持单资产重建且只声明冻结 slug", () => {
   assert.doesNotMatch(generator, /xinhua-road-landmarks-data\.json/);
 });
 
-test("隔离 QA 页面实现 visible-low 与 hidden 两态且不进入正式 world", () => {
+test("隔离 QA 与正式幸福里场景共同使用同一组 SHA 固定 GLB", () => {
   const qa = read("app/nonbuilding-evidence-qa/NonbuildingEvidenceQa.tsx");
   assert.match(qa, /FAR_HIDE_DISTANCE_METERS = 18/);
-  assert.match(qa, /distanceMeters < FAR_HIDE_DISTANCE_METERS/);
+  assert.match(qa, /distanceMeters < asset\.hideDistanceMeters/);
   assert.match(
     qa,
     /<RuntimeModel path=\{assetPath\} onReady=\{onModelReady\} \/>/,
@@ -122,8 +144,20 @@ test("隔离 QA 页面实现 visible-low 与 hidden 两态且不进入正式 wor
   for (const slug of slugs) assert.match(qa, new RegExp(slug));
 
   const productionWorld = read("app/scene/xinhua-world.tsx");
-  assert.doesNotMatch(productionWorld, new RegExp(packageSlug));
+  const productionComponent = read(
+    "app/scene/xingfuli-current-street-furniture.tsx",
+  );
+  const xingfuliBlock = read("app/scene/xingfuli-block.tsx");
+  assert.match(productionComponent, new RegExp(packageSlug));
   for (const slug of slugs) {
-    assert.doesNotMatch(productionWorld, new RegExp(slug));
+    assert.match(productionComponent, new RegExp(slug));
   }
+  assert.match(productionComponent, /runtimeTier: "visible-low"/);
+  assert.match(productionComponent, /inferred-water-edge-position/);
+  assert.match(xingfuliBlock, /<XingfuliCurrentStreetFurniture \/>/);
+  assert.match(
+    xingfuliBlock,
+    /identityReady && environmentDetailed && \([\s\S]*?<LaneFurniture \/>[\s\S]*?fullReady && \([\s\S]*?<XingfuliCurrentStreetFurniture \/>/,
+  );
+  assert.doesNotMatch(productionWorld, /meshy-agent-street-(assets|props)/);
 });
