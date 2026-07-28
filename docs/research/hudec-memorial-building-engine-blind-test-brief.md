@@ -1,6 +1,6 @@
 # Hudec Memorial Building Engine Blind-Test Brief
 
-- Current status: `evidence-corrected-engine-v2-final-cold-build-pending`
+- Current status: `evidence-corrected-engine-v2-cold-build-passed-output-snapshot-pending`
 
 ## Scope
 
@@ -194,7 +194,7 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 | Calibration v2 | 比例、方向、接地和开放路径 | Fixed renders | Gate M | Passed |
 | Master v2 | 半木构、玻璃翼、窗格、入口和烟囱冠部 | 三固定机位 | Sandbox Master | Passed |
 | Real map v2 | Building Engine Master | N/A | `/?start=hudec` | Passed |
-| Cold build v2 | 干净 worktree 单一 CLI 重建 | SHA / structure | N/A | Pending final rerun |
+| Cold build v2 | 干净 worktree 单一 CLI 重建 | SHA / structure | N/A | Passed |
 
 ## Validation
 
@@ -209,7 +209,7 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 - [x] 新参考 / Blender / Three.js 三联图通过
 - [x] 真实 `/?start=hudec` 可见、接地、方向和碰撞通过
 - [x] 默认 Hudec 页面仍加载原正式 Hero
-- [ ] 最终提交在干净 worktree 重建三栋并得到一致 GLB
+- [x] 最终提交在干净 worktree 重建三栋并得到一致 GLB
 - [ ] 新输出动态证据快照与全量 SHA 通过
 
 ## Decision Log
@@ -366,7 +366,7 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
   `cb910b91…`，与已审核产物逐字节一致；
 - Visual determinism: Massing / Master 的 canonical、side、entrance 共六张预览
   解码后像素全部一致；
-- Automation: 全量 `npm test` 为 `447/447`；lint 为 `0 error / 1` 条既有
+- Automation: 全量 `npm test` 为 `448/448`；lint 为 `0 error / 1` 条既有
   `test_house_315_map_position_candidate.test.mjs` warning；
 - Record:
   `docs/research/build-records/building-engine-spike/hudec-memorial/cold-build-77d6719.json`；
@@ -377,3 +377,16 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 - Supersession: 上述冷构建发生在最终 Schema 加固与两栋回归重建之前，只作历史
   证据，不作为当前最终 Cold-build Gate；
 - Remaining: 从最终提交重新冷构建三栋、创建外置输出证据快照并完成复审。
+
+### Iteration 10 — 2026-07-29 final three-asset cold build
+
+- Source: 从提交 `888ccb7f880724856926b9db499543836e0a753e` 创建干净
+  detached worktree，初始 `git status --short` 为空；
+- Build: 单一 CLI 对 House 315、Hudec、孙科别墅依次重建 Massing 与 Master；
+- Binary determinism: 六个 GLB 与三个 collision 文件均和已审核工作树逐字节
+  一致；
+- Visual determinism: 三栋、两阶段、三机位共 18 张预览解码后像素全部一致；
+- QA: `qa --asset all --stage all` 六级全部通过；
+- Record:
+  `docs/research/build-records/building-engine-spike/hudec-memorial/cold-build-888ccb7.json`；
+- Remaining: 创建新的外置输出证据快照并完成复审。

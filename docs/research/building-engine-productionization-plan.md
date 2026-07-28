@@ -1,12 +1,13 @@
 # 新华漫游建筑引擎：生产化验收方案
 
-- Status: `evidence-corrected-engine-v2-final-cold-build-pending`
+- Status: `evidence-corrected-engine-v2-cold-build-passed-output-snapshot-pending`
 - Branch: `codex/building-engine-spike`
 - Accepted Spike implementation: `6d294381da9011359af08100ea17ac44efd421ed`
 - Spike closure: `16f196fdf4479ca170509c2d4b797850e6a1a263`
 - Blind-test runtime implementation: `f4ab24af432f06c1097db0c8a0e92fb729438008`
 - Cold-build closure: `9762c919450125ae24ce736ce33034d549ffbbc8`
 - Acceptance snapshot: `2026-07-28-9762c91`
+- Evidence-corrected implementation: `888ccb7f880724856926b9db499543836e0a753e`
 - Scope: 新证据修正版 Compiler、真实 `?start=` QA、干净复建、合并前审查
 - Explicitly excluded: 修改默认 production registry、替换正式 GLB、Meshy、
   后台、数据库、Worker、任务队列、push、合并和部署
@@ -313,8 +314,10 @@
   必须存在”的证据校验，使外置不可变快照重新成为唯一归档真值；此后审查又
   加固了 Schema / CLI 并重建两栋回归资产，因此该冷构建只作历史证据，最终提交
   仍需重新冷构建三栋；
-- 全量 `npm test` 为 `447/447`，lint 为 `0 error / 1` 条既有 warning；
+- 最终 detached worktree `888ccb7…` 已重建三栋；六个 GLB 与三个 collision
+  均和已审核产物逐字节一致，18 张固定机位预览解码后像素一致，六级自动 QA
+  全部通过；
+- 全量 `npm test` 为 `448/448`，lint 为 `0 error / 1` 条既有 warning；
 - 正式 Hudec Hero、默认 registry 与 cacheVersion 未改变。
 
-当前只剩最终提交的三栋冷构建、新输出证据快照与复审。完成前状态仍不是
-merge-ready。
+当前只剩新输出证据快照与复审。完成前状态仍不是 merge-ready。
