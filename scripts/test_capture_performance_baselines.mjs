@@ -377,17 +377,30 @@ async function verifyPerfQueryIsolation(
       `(() => ({
         url: window.location.href,
         perfApiType: typeof window.__XINHUA_PERF__,
-        panelCount: document.querySelectorAll(".performance-diagnostics").length,
-        diagnosticsChunkRequests: performance.getEntriesByType("resource")
+        panelCount: document.querySelectorAll('[data-performance-diagnostics="true"]').length,
+        diagnosticsAssetRequests: performance.getEntriesByType("resource")
           .map((entry) => entry.name)
-          .filter((name) => name.includes("performance-diagnostics"))
+          .filter((name) => name.includes("performance-diagnostics")),
+        diagnosticsStyleRuleCount: Array.from(document.styleSheets)
+          .flatMap((sheet) => {
+            try {
+              return Array.from(sheet.cssRules, (rule) => rule.cssText);
+            } catch {
+              return [];
+            }
+          })
+          .filter((cssText) => (
+            cssText.includes("performance-diagnostics")
+            || cssText.includes("data-performance-diagnostics")
+          )).length
       }))()`,
     );
     const counts = failureCounts(failures);
     const passed = (
       observed.perfApiType === "undefined"
       && observed.panelCount === 0
-      && observed.diagnosticsChunkRequests.length === 0
+      && observed.diagnosticsAssetRequests.length === 0
+      && observed.diagnosticsStyleRuleCount === 0
       && counts.consoleErrorCount === 0
       && counts.networkFailureCount === 0
       && counts.httpErrorCount === 0

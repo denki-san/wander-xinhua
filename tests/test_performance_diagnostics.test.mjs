@@ -50,10 +50,23 @@ test("first playable 请求按 JS、GLB、图片和其他资源汇总", () => {
 });
 
 test("生产体验懒加载 query-only 面板并提供统一 JSON API", async () => {
-  const [experience, diagnostics, styles, captureScript] = await Promise.all([
+  const [
+    experience,
+    diagnostics,
+    globalStyles,
+    diagnosticStyles,
+    captureScript,
+  ] = await Promise.all([
     readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/performance/performance-diagnostics.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(
+      new URL(
+        "../app/performance/performance-diagnostics.module.css",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
     readFile(
       new URL("../scripts/test_capture_performance_baselines.mjs", import.meta.url),
       "utf8",
@@ -63,6 +76,8 @@ test("生产体验懒加载 query-only 面板并提供统一 JSON API", async ()
   assert.match(experience, /import\("\.\/performance\/performance-diagnostics"\)/);
   assert.match(experience, /PerformanceDiagnosticsCanvasProbe/);
   assert.match(experience, /PerformanceDiagnosticsPanel/);
+  assert.match(diagnostics, /performance-diagnostics\.module\.css/);
+  assert.match(diagnostics, /data-performance-diagnostics="true"/);
   assert.match(diagnostics, /window\.__XINHUA_PERF__ = \{/);
   assert.match(diagnostics, /xinhua-perf-\$\{entry\}-first-playable/);
   assert.match(diagnostics, /gl\.info\.render\.calls/);
@@ -82,10 +97,13 @@ test("生产体验懒加载 query-only 面板并提供统一 JSON API", async ()
   assert.doesNotMatch(diagnostics, /object\.name \|\|/);
   assert.match(diagnostics, /liveFrameDurations\.length = 0/);
   assert.match(diagnostics, /latestExport: null/);
-  assert.match(styles, /\.performance-diagnostics\s*\{/);
+  assert.match(diagnosticStyles, /\.panel\s*\{/);
+  assert.doesNotMatch(globalStyles, /performance-diagnostics/);
   assert.match(captureScript, /standard-4g-80ms-5mbps-down-2mbps-up/);
   assert.match(captureScript, /qaAutoStart=1&start=xingfuli/);
   assert.match(captureScript, /verifyPerfQueryIsolation/);
+  assert.match(captureScript, /diagnosticsAssetRequests/);
+  assert.match(captureScript, /diagnosticsStyleRuleCount/);
   assert.match(captureScript, /buildProductionIdentity/);
   assert.match(captureScript, /verifyServedBuildIdentity/);
   assert.match(captureScript, /Network\.loadingFailed/);

@@ -1,0 +1,124 @@
+.panel {
+  position: fixed;
+  z-index: 80;
+  right: 16px;
+  bottom: 16px;
+  width: min(390px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  padding: 14px;
+  overflow: auto;
+  border: 1px solid rgb(194 226 208 / 38%);
+  border-radius: 14px;
+  color: #effbf3;
+  background: rgb(10 20 17 / 92%);
+  box-shadow: 0 14px 44px rgb(0 0 0 / 38%);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.35;
+  backdrop-filter: blur(12px);
+}
+
+.header {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 11px;
+}
+
+.header div {
+  display: grid;
+  gap: 2px;
+}
+
+.header span {
+  color: #91bca3;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.header strong {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.header .status {
+  max-width: 150px;
+  color: #f2cf84;
+  text-align: right;
+  letter-spacing: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid rgb(194 226 208 / 14%);
+  border-radius: 9px;
+  background: rgb(194 226 208 / 12%);
+}
+
+.grid div {
+  min-width: 0;
+  padding: 7px 8px;
+  background: rgb(13 28 23 / 94%);
+}
+
+.grid dt {
+  overflow: hidden;
+  color: #87ad99;
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.grid dd {
+  margin: 2px 0 0;
+  overflow: hidden;
+  color: #f1f8f3;
+  font-variant-numeric: tabular-nums;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.note {
+  margin: 9px 1px;
+  color: #95aa9f;
+  font-size: 9px;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+}
+
+.actions button {
+  min-height: 34px;
+  padding: 7px 10px;
+  border: 1px solid rgb(207 232 217 / 24%);
+  border-radius: 8px;
+  color: #effbf3;
+  background: #315c48;
+  font: inherit;
+  cursor: pointer;
+}
+
+.actions button:last-child {
+  background: #25352e;
+}
+
+.actions button:disabled {
+  cursor: wait;
+  opacity: 0.62;
+}
+
+@media (max-width: 760px) {
+  .panel {
+    right: 10px;
+    bottom: 10px;
+    width: min(360px, calc(100vw - 20px));
+    max-height: min(72vh, 620px);
+  }
+}

@@ -8,6 +8,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import type { Object3D, WebGLRenderer } from "three";
+import styles from "./performance-diagnostics.module.css";
 import {
   calculateFrameMetrics,
   DEFAULT_LONG_FRAME_THRESHOLD_MS,
@@ -996,20 +997,21 @@ export function PerformanceDiagnosticsPanel({
   const requests = displayFirstPlayable?.requests;
   return (
     <aside
-      className="performance-diagnostics"
+      className={styles.panel}
       aria-label="性能诊断"
+      data-performance-diagnostics="true"
       data-performance-status={state.status}
       data-performance-entry={entry}
     >
-      <div className="performance-diagnostics-header">
+      <div className={styles.header}>
         <div>
           <span>PERF · {PERFORMANCE_SCHEMA_VERSION.split(".").at(-1)}</span>
           <strong>{entry} / {mode}</strong>
         </div>
-        <span className="performance-diagnostics-status">{state.statusMessage}</span>
+        <span className={styles.status}>{state.statusMessage}</span>
       </div>
 
-      <dl className="performance-diagnostics-grid">
+      <dl className={styles.grid}>
         <div><dt>FPS</dt><dd>{metric(frameMetrics.fps)}</dd></div>
         <div><dt>Frame avg</dt><dd>{metric(frameMetrics.averageMs, " ms")}</dd></div>
         <div><dt>Frame P95</dt><dd>{metric(frameMetrics.p95Ms, " ms")}</dd></div>
@@ -1059,11 +1061,11 @@ export function PerformanceDiagnosticsPanel({
         </div>
       </dl>
 
-      <p className="performance-diagnostics-note">
+      <p className={styles.note}>
         Long frame &gt; {DEFAULT_LONG_FRAME_THRESHOLD_MS} ms · 默认预热 5 秒 / 采样 10 秒
         {" · "}Visible 指 Object3D.visible 链路，非相机视锥
       </p>
-      <div className="performance-diagnostics-actions">
+      <div className={styles.actions}>
         <button
           type="button"
           onClick={startSample}
