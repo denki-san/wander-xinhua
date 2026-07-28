@@ -7,7 +7,7 @@
   "blenderVersion": "5.2.0 LTS",
   "generator": {
     "path": "scripts/compile_garden_villa.py",
-    "sha256": "1c6674b0943dd6d992a4d595cfcba848b4c6e00f473c1fde39d929e7c58a00fe"
+    "sha256": "20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9"
   },
   "inputs": {
     "dsl": {
@@ -22,14 +22,14 @@
   "lineage": {
     "dslSha256": "06d6fa20b81dee8b2abf431f7d3e445da0a8ea3b120277886cf2f1fbcb1abafc",
     "artProfileSha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10",
-    "compilerSha256": "1c6674b0943dd6d992a4d595cfcba848b4c6e00f473c1fde39d929e7c58a00fe"
+    "compilerSha256": "20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9"
   },
   "editableObjectCount": 15,
   "outputs": {
     "blend": {
       "path": "assets/models/source/building-engine-spike/sun-ke-villa/sun-ke-villa-massing.blend",
-      "sha256": "900cfeb676dba3878af75c069f95f26e43373c4aeea48b38e4f92b56479d099f",
-      "bytes": 103050
+      "sha256": "a59fbc3057ee321707ac4b7379fe3dbc94153fa1ea5aa16acb3f88f7c80ab5ba",
+      "bytes": 103067
     },
     "glb": {
       "path": "public/models/building-engine-spike/sun-ke-villa/sun-ke-villa-massing.glb",
@@ -68,19 +68,19 @@
       {
         "view": "canonical",
         "path": "test_artifacts/building-engine-spike/sun-ke-villa/test_sun-ke-villa-massing-canonical.png",
-        "sha256": "5d3cfb9962286ea9236dfdc31a2428bf8b1a9b45fb7d26358dceb85af417ee3c",
+        "sha256": "6c916fbbdca35de1d070a93c10c15e4e68229d0dc2e9946cf319b81112e3ec44",
         "bytes": 709649
       },
       {
         "view": "side",
         "path": "test_artifacts/building-engine-spike/sun-ke-villa/test_sun-ke-villa-massing-side.png",
-        "sha256": "df4ec9999d70d591d7e5dc7cfa8bf94640b0b348e087ca1c85427fd8a5f0cee7",
+        "sha256": "efa9217ec04b35d1e4e1efb57aa45ca34e7093214c0f6579f9e932cd472dd49c",
         "bytes": 736971
       },
       {
         "view": "entrance",
         "path": "test_artifacts/building-engine-spike/sun-ke-villa/test_sun-ke-villa-massing-entrance.png",
-        "sha256": "1595cf22b0d7ae1795cfa0240f0705cb2761d7bc2cd9d3d5160a4ea71151e4a2",
+        "sha256": "92ff78fcc59cd6c725cd43a84e0d2a0c321bcfd99d8ac21b39de5b95ecb771bf",
         "bytes": 752716
       }
     ]

@@ -7,7 +7,7 @@
   "blenderVersion": "5.2.0 LTS",
   "generator": {
     "path": "scripts/compile_garden_villa.py",
-    "sha256": "1c6674b0943dd6d992a4d595cfcba848b4c6e00f473c1fde39d929e7c58a00fe"
+    "sha256": "20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9"
   },
   "inputs": {
     "dsl": {
@@ -22,7 +22,7 @@
   "lineage": {
     "dslSha256": "d3bc02159042d4dbe1a1ef6c5425e39641a34437efae4512a6aaec6cb0aa5409",
     "artProfileSha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10",
-    "compilerSha256": "1c6674b0943dd6d992a4d595cfcba848b4c6e00f473c1fde39d929e7c58a00fe",
+    "compilerSha256": "20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9",
     "derivedFromMassing": {
       "record": "docs/research/build-records/building-engine-spike/house-315/massing.json",
       "glbSha256": "2111ba5f4d5529ecf09219fe1aa6d95b17c9ca6434cfefbc5db239f6761f06c6"
@@ -32,8 +32,8 @@
   "outputs": {
     "blend": {
       "path": "assets/models/source/building-engine-spike/house-315/house-315-master.blend",
-      "sha256": "7033ba9336ea5a66d34bb8b047483d7bc114b530b0d957a1acd365803e3d01c8",
-      "bytes": 135422
+      "sha256": "79c6d973ae0b0d6aed30cd6461f3c542c36088a1524b3b9b6c40ef85ce076d3c",
+      "bytes": 135420
     },
     "glb": {
       "path": "public/models/building-engine-spike/house-315/house-315-master.glb",
@@ -72,19 +72,19 @@
       {
         "view": "canonical",
         "path": "test_artifacts/building-engine-spike/house-315/test_house-315-master-canonical.png",
-        "sha256": "678f60d878c5ef25c645afdb09b090c77d82864a1ee7deef6eaaa1e1fee072ff",
+        "sha256": "cdd7bfbff4e044d607998c9774137b887e253c0159fbaaf0773ef81aa60e9260",
         "bytes": 762482
       },
       {
         "view": "side",
         "path": "test_artifacts/building-engine-spike/house-315/test_house-315-master-side.png",
-        "sha256": "cc8eab2aa170c99b016f62bf0305a907a6623a4544407105a49b29b43b2f7d98",
+        "sha256": "47e0e0639cee38007d2718f6fd9df0428445df8ec5c808906ae74f21af9c657a",
         "bytes": 802701
       },
       {
         "view": "entrance",
         "path": "test_artifacts/building-engine-spike/house-315/test_house-315-master-entrance.png",
-        "sha256": "17472eceda2ff9ab7008a34e9b5507b2d03d33a81bb657406114337f545c4645",
+        "sha256": "09fce0ebc7904d53ea427031138422f5d129d4805ace4ec32f6b7d9ccdcee11e",
         "bytes": 810406
       }
     ]

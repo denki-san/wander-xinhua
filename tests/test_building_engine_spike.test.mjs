@@ -6,6 +6,8 @@ import { spawnSync } from "node:child_process";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
+import { validateRoofContract } from "../scripts/building_engine_spike.mjs";
+
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const assetIds = ["house-315", "hudec-memorial", "sun-ke-villa"];
 
@@ -118,6 +120,10 @@ test("Compiler 保持数据驱动，单一 CLI 覆盖最小 Pipeline", () => {
     schema.$defs.roof.properties.highSide.enum,
     ["positiveX", "negativeX", "positiveY", "negativeY"],
   );
+  assert.deepEqual(
+    schema.$defs.roof.allOf[0].then.required,
+    ["length", "span", "ridgeAxis", "highSide"],
+  );
   assert.match(compiler, /def add_shed_roof\(/);
   assert.match(compiler, /roof\["type"\] == "shed"/);
   assert.match(cli, /highSide 与 ridgeAxis=/);
@@ -145,6 +151,66 @@ test("Compiler 保持数据驱动，单一 CLI 覆盖最小 Pipeline", () => {
   assert.deepEqual(reports.map((report) => report.assetId), assetIds);
   assert.ok(reports.every((report) => report.status === "ok"));
   assert.ok(reports.every((report) => report.unsupported.length === 0));
+
+  const qa = spawnSync(
+    process.execPath,
+    ["scripts/building_engine_spike.mjs", "qa", "--asset", "all", "--stage", "all"],
+    { cwd: root, encoding: "utf8" },
+  );
+  assert.equal(qa.status, 0, qa.stderr);
+  assert.equal(JSON.parse(qa.stdout).length, assetIds.length * 2);
+});
+
+test("单坡屋顶合同拒绝非法轴向、错侧、缺字段和非 shed 的 highSide", () => {
+  assert.deepEqual(validateRoofContract({
+    id: "valid-shed",
+    type: "shed",
+    length: 4,
+    span: 2,
+    ridgeAxis: "X",
+    highSide: "positiveY",
+  }), []);
+  assert.match(
+    validateRoofContract({
+      id: "invalid-axis",
+      type: "shed",
+      length: 4,
+      span: 2,
+      ridgeAxis: "Z",
+      highSide: "positiveX",
+    }).join("\n"),
+    /ridgeAxis=Z 不受支持/,
+  );
+  assert.match(
+    validateRoofContract({
+      id: "invalid-side",
+      type: "shed",
+      length: 4,
+      span: 2,
+      ridgeAxis: "X",
+      highSide: "positiveX",
+    }).join("\n"),
+    /highSide 与 ridgeAxis=X 不匹配/,
+  );
+  assert.match(
+    validateRoofContract({
+      id: "missing-side",
+      type: "shed",
+      length: 4,
+      span: 2,
+      ridgeAxis: "Y",
+    }).join("\n"),
+    /缺少 highSide/,
+  );
+  assert.match(
+    validateRoofContract({
+      id: "gable-with-high-side",
+      type: "gable",
+      ridgeAxis: "X",
+      highSide: "positiveY",
+    }).join("\n"),
+    /非 shed roof .* 不得声明 highSide/,
+  );
 });
 
 test("三道审核门都绑定当前资产 SHA，未知项没有被抹除", () => {

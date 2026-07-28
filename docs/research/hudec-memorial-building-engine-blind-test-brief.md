@@ -1,6 +1,6 @@
 # Hudec Memorial Building Engine Blind-Test Brief
 
-- Current status: `evidence-corrected-engine-v2-runtime-passed-cold-build-pending`
+- Current status: `evidence-corrected-engine-v2-final-cold-build-pending`
 
 ## Scope
 
@@ -194,7 +194,7 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 | Calibration v2 | 比例、方向、接地和开放路径 | Fixed renders | Gate M | Passed |
 | Master v2 | 半木构、玻璃翼、窗格、入口和烟囱冠部 | 三固定机位 | Sandbox Master | Passed |
 | Real map v2 | Building Engine Master | N/A | `/?start=hudec` | Passed |
-| Cold build v2 | 干净 worktree 单一 CLI 重建 | SHA / structure | N/A | Pending |
+| Cold build v2 | 干净 worktree 单一 CLI 重建 | SHA / structure | N/A | Pending final rerun |
 
 ## Validation
 
@@ -209,7 +209,7 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 - [x] 新参考 / Blender / Three.js 三联图通过
 - [x] 真实 `/?start=hudec` 可见、接地、方向和碰撞通过
 - [x] 默认 Hudec 页面仍加载原正式 Hero
-- [ ] 干净 worktree 冷启动复建得到一致 GLB
+- [ ] 最终提交在干净 worktree 重建三栋并得到一致 GLB
 - [ ] 新输出动态证据快照与全量 SHA 通过
 
 ## Decision Log
@@ -340,7 +340,7 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 ### Iteration 8 — 2026-07-29 evidence-corrected runtime acceptance
 
 - Compiler / Schema: 加入通用 `shed` roof 和 `highSide` 校验；Compiler
-  `20ed07e…`、Schema `b3a89f7e…`，Compiler 中没有任何资产 ID；
+  `20ed07e…`、Schema `9fd4bc65…`，Compiler 中没有任何资产 ID；
 - Massing: `15e448bf…`，`360` triangles、`5` materials、`31080` bytes；
   `massing-review-006.json` 绑定当前 DSL、GLB 和 collision 后通过；
 - Master: `cd3d49fc…`，collision `cb910b91…`，`2676` triangles、
@@ -353,3 +353,27 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 - Real map: 新入口目标误差 `0.0259` world unit；实体墙前剩余
   `3.6810` world unit；默认入口只加载既有 Massing、Identity 与正式 Hero；
 - Remaining: 干净 detached worktree 冷构建、全量测试、lint 和新输出快照。
+
+### Iteration 9 — 2026-07-29 evidence-corrected cold-build acceptance
+
+- First attempt: 固定提交 `c74b91b…` 的干净 worktree 正确拦截了四张仓库证据
+  工作副本缺失；这些图片已在外置不可变快照中，但被 `.gitignore` 排除，不应
+  成为冷构建必需输入；
+- Fix: `77d6719…` 将外置快照恢复为证据真值；仓库工作副本改为可选，存在时
+  仍强制校验 SHA，外置文件缺失或 SHA 不符仍会失败；
+- Cold build: detached worktree 从 `77d6719…` 用单一 CLI 重新生成 Massing、
+  Master 和 collision；三者 SHA 分别为 `15e448bf…`、`cd3d49fc…`、
+  `cb910b91…`，与已审核产物逐字节一致；
+- Visual determinism: Massing / Master 的 canonical、side、entrance 共六张预览
+  解码后像素全部一致；
+- Automation: 全量 `npm test` 为 `447/447`；lint 为 `0 error / 1` 条既有
+  `test_house_315_map_position_candidate.test.mjs` warning；
+- Record:
+  `docs/research/build-records/building-engine-spike/hudec-memorial/cold-build-77d6719.json`；
+- Review follow-up: 首轮代码审查发现两栋回归资产只 validate、没有闭合
+  Compiler lineage，同时发现非法 `ridgeAxis` / `highSide` 负例未被拦截；
+  当前已重建 House 315 与孙科别墅，六级 `qa --asset all` 通过，并在 Schema、
+  CLI 与测试中补齐负例；
+- Supersession: 上述冷构建发生在最终 Schema 加固与两栋回归重建之前，只作历史
+  证据，不作为当前最终 Cold-build Gate；
+- Remaining: 从最终提交重新冷构建三栋、创建外置输出证据快照并完成复审。

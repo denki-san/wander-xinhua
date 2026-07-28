@@ -240,6 +240,40 @@ function validateCollision(dsl, conflicts) {
 }
 
 
+export function validateRoofContract(roof) {
+  const conflicts = [];
+  const allowedAxes = new Set(["X", "Y"]);
+  const hasHighSide = Object.hasOwn(roof, "highSide");
+
+  if (roof.ridgeAxis !== undefined && !allowedAxes.has(roof.ridgeAxis)) {
+    conflicts.push(`roof ${roof.id} 的 ridgeAxis=${roof.ridgeAxis} 不受支持`);
+  }
+  if (roof.type !== "shed") {
+    if (hasHighSide) {
+      conflicts.push(`非 shed roof ${roof.id} 不得声明 highSide`);
+    }
+    return conflicts;
+  }
+
+  for (const key of ["length", "span", "ridgeAxis", "highSide"]) {
+    if (roof[key] === undefined) {
+      conflicts.push(`shed roof ${roof.id} 缺少 ${key}`);
+    }
+  }
+  if (!allowedAxes.has(roof.ridgeAxis)) return conflicts;
+
+  const allowedHighSides = roof.ridgeAxis === "X"
+    ? new Set(["positiveY", "negativeY"])
+    : new Set(["positiveX", "negativeX"]);
+  if (!allowedHighSides.has(roof.highSide)) {
+    conflicts.push(
+      `shed roof ${roof.id} 的 highSide 与 ridgeAxis=${roof.ridgeAxis} 不匹配`,
+    );
+  }
+  return conflicts;
+}
+
+
 function verifyEvidenceItem(caseData, item, conflicts) {
   const snapshotPath = resolve(
     caseData.evidenceArchive.root,
@@ -316,15 +350,7 @@ function validateAsset(assetId, { writeReport = true } = {}) {
     }
   }
   for (const roof of dsl.massing.roofs) {
-    if (roof.type !== "shed") continue;
-    const allowedHighSides = roof.ridgeAxis === "X"
-      ? new Set(["positiveY", "negativeY"])
-      : new Set(["positiveX", "negativeX"]);
-    if (!allowedHighSides.has(roof.highSide)) {
-      conflicts.push(
-        `shed roof ${roof.id} 的 highSide 与 ridgeAxis=${roof.ridgeAxis} 不匹配`,
-      );
-    }
+    conflicts.push(...validateRoofContract(roof));
   }
   const paletteTokens = new Set(Object.keys(profile.palette));
   for (const [role, token] of Object.entries(dsl.materials)) {

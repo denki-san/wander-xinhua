@@ -1,6 +1,6 @@
 # 新华漫游建筑引擎：生产化验收方案
 
-- Status: `evidence-corrected-engine-v2-runtime-passed-cold-build-pending`
+- Status: `evidence-corrected-engine-v2-final-cold-build-pending`
 - Branch: `codex/building-engine-spike`
 - Accepted Spike implementation: `6d294381da9011359af08100ea17ac44efd421ed`
 - Spike closure: `16f196fdf4479ca170509c2d4b797850e6a1a263`
@@ -46,7 +46,7 @@
 | 输入 | Evidence-corrected SHA-256 |
 | --- | --- |
 | `scripts/compile_garden_villa.py` | `20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9` |
-| `building-engine/schema/building-dsl.schema.json` | `b3a89f7eda903f22c1ac5b07d2f6c02acee8a97e6bdec92ae2956b10faf1c444` |
+| `building-engine/schema/building-dsl.schema.json` | `9fd4bc658d6a8e7e3972961dc114c4b05962f19a3b161b41a2c90b1ed7a4bfb8` |
 | `building-engine/art-profiles/xinhua-autumn-lowpoly-v1.json` | `be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10` |
 
 新 Compiler 只增加通用 `shed` 屋顶及 `highSide` 方向校验；Compiler 源码仍不得
@@ -87,17 +87,22 @@
 
 ```text
 /Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/
-└── snapshots/2026-07-28-6d29438/
+└── snapshots/2026-07-28-0ef306f/
 ```
 
 | Evidence slot | 本地证据 | SHA-256 | 状态 |
 | --- | --- | --- | --- |
+| User canonical / overview | `hudec-memorial-user-oblique-overview-20260728.png` | `7f287bc923c99217ab208025b74357e567046226e51f8d26131cc990cbbd50c6` | `covered-source-provenance-partial` |
+| User canonical crop | `hudec-memorial-user-oblique-overview-crop-20260728.png` | `5337dabc16367068f18bde2a0f6c62c8e431bd808cb4a82cd667ed2f68ab2b35` | `duplicate-view-not-independent-coverage` |
+| User historic front | `hudec-memorial-user-historic-front-20260728.png` | `63dee9616e1a5faa8891f3bf14771ca5871f9c623279254dc4301155258dfe8e` | `covered-source-provenance-partial` |
+| User glass wing / side | `hudec-memorial-user-glass-wing-20260728.png` | `8f33685ca2b01459412490d04c6710328b86e56fa8c2e5bb525cf07e4c0d64d8` | `covered-source-provenance-partial` |
 | Canonical / depth | `hudec-memorial-street-official-2026.jpg` | `5d1775a76aa341431ff03c7f04efd2b74fe143f230a1205f128ec53262c1d28f` | `covered` |
 | Side / depth | `hudec-memorial-west-elevations.jpg` | `a23e28ef2cd1b985b5217654cca797b20f83048945d4fe57e9abac4fd8bf6a4b` | `covered` |
 | Entrance / facade | `hudec-memorial-front-wikimedia.jpg` | `d2284eaec967e7414ad5873d2c63795b051b112a30dd9f39f3f7641a690a8f86` | `covered` |
 
-外置快照中的三份 SHA 与工作副本完全一致。参考图只用于研究，不嵌入 GLB，
-不作为运行时贴图。
+外置快照共 `669` 个文件、`272363520` bytes，`SHA256SUMS` 已全量通过。四张
+用户图片的原始 URL、作者和拍摄日期未知；两张可见水印只按画面事实记录，不据此
+虚构来源。参考图只用于研究，不嵌入 GLB，不作为运行时贴图。
 
 ### Observed
 
@@ -289,8 +294,10 @@
 ## 11. Evidence-corrected Engine v2 当前重验
 
 - 通用 Compiler 已加入 `shed` roof；Compiler
-  `20ed07e…`、Schema `b3a89f7e…`，没有资产 ID 分支；
-- 三栋 `garden-villa` Case 的 DSL validation 均通过；
+  `20ed07e…`、Schema `9fd4bc65…`，没有资产 ID 分支；Schema 与 CLI 均拒绝
+  非法轴向、错侧、缺字段和非 `shed` 的 `highSide`；
+- House 315、Hudec、孙科别墅全部重建后，`qa --asset all --stage all` 六级
+  产物均通过；两栋回归资产的 GLB / collision SHA 保持不变；
 - Hudec Massing `15e448bf…`、Master `cd3d49fc…`、collision
   `cb910b91…`，Master 为 `2676` triangles、`8` materials、`0` images /
   textures / animations / skins、`194952` bytes；
@@ -301,7 +308,13 @@
 - production Sandbox 三固定机位、接地、九个拆分碰撞体与三条开放路径通过；
 - 真实地图入口最终距目标 `0.0259` world unit；持续朝实体墙移动仍剩
   `3.6810` world unit；默认 Hudec 入口没有请求 Building Engine Master；
+- detached worktree `77d6719…` 曾得到逐字节一致的 Hudec 两级 GLB 与 collision，
+  六张固定机位预览解码后像素一致；首次失败同时修正了“错误要求仓库工作副本
+  必须存在”的证据校验，使外置不可变快照重新成为唯一归档真值；此后审查又
+  加固了 Schema / CLI 并重建两栋回归资产，因此该冷构建只作历史证据，最终提交
+  仍需重新冷构建三栋；
+- 全量 `npm test` 为 `447/447`，lint 为 `0 error / 1` 条既有 warning；
 - 正式 Hudec Hero、默认 registry 与 cacheVersion 未改变。
 
-当前只剩干净 worktree 冷构建、全量 `npm test` / lint 和新的输出证据快照。
-完成前状态仍不是 merge-ready。
+当前只剩最终提交的三栋冷构建、新输出证据快照与复审。完成前状态仍不是
+merge-ready。

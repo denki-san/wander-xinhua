@@ -341,7 +341,27 @@
         "evidenceClaimIds": {
           "$ref": "#/$defs/claimRefs"
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "shed"
+              }
+            },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["length", "span", "ridgeAxis", "highSide"]
+          },
+          "else": {
+            "not": {
+              "required": ["highSide"]
+            }
+          }
+        }
+      ]
     },
     "opening": {
       "type": "object",

@@ -7,7 +7,7 @@
   "blenderVersion": "5.2.0 LTS",
   "generator": {
     "path": "scripts/compile_garden_villa.py",
-    "sha256": "1c6674b0943dd6d992a4d595cfcba848b4c6e00f473c1fde39d929e7c58a00fe"
+    "sha256": "20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9"
   },
   "inputs": {
     "dsl": {
@@ -22,14 +22,14 @@
   "lineage": {
     "dslSha256": "d3bc02159042d4dbe1a1ef6c5425e39641a34437efae4512a6aaec6cb0aa5409",
     "artProfileSha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10",
-    "compilerSha256": "1c6674b0943dd6d992a4d595cfcba848b4c6e00f473c1fde39d929e7c58a00fe"
+    "compilerSha256": "20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9"
   },
   "editableObjectCount": 12,
   "outputs": {
     "blend": {
       "path": "assets/models/source/building-engine-spike/house-315/house-315-massing.blend",
-      "sha256": "30da15636e2f37ead802679781eb6813f5f1e656f6cd527ed26467dc5b4158db",
-      "bytes": 100465
+      "sha256": "818a2f6126fbe4f252eea61b9dbfc09718856b1d94c6653e7cb9f23efb1931b5",
+      "bytes": 100363
     },
     "glb": {
       "path": "public/models/building-engine-spike/house-315/house-315-massing.glb",
@@ -68,19 +68,19 @@
       {
         "view": "canonical",
         "path": "test_artifacts/building-engine-spike/house-315/test_house-315-massing-canonical.png",
-        "sha256": "2b3fb7f0ae098fde0f23636bbf74afbe537c8476c6e4d52afd09268410acb137",
+        "sha256": "4f4b6412b7e4c1d68a293b43558bf0d81ab2551e03592d8573d44e291a06026d",
         "bytes": 736379
       },
       {
         "view": "side",
         "path": "test_artifacts/building-engine-spike/house-315/test_house-315-massing-side.png",
-        "sha256": "18a1e60eb23e1baf0b0ee91e9a7c33770687dfa2e12758339a84b4b7b9762251",
+        "sha256": "02621b70d156ec90fbc18d5b24884136c3695dda04f8cca867e21d70ee26dcc6",
         "bytes": 783097
       },
       {
         "view": "entrance",
         "path": "test_artifacts/building-engine-spike/house-315/test_house-315-massing-entrance.png",
-        "sha256": "afce36041d475808112391455bcf0e19859eb9e8a13b55eb66456af5efe8f0a4",
+        "sha256": "a9ac919617cfc2177ee414d36ab04ed60a1be62021460b7a5406d9f17cc5beea",
         "bytes": 777287
       }
     ]
