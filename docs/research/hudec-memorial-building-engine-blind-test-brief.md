@@ -175,7 +175,7 @@
 | Calibration | 比例、方向、接地和开放路径 | Fixed renders | Gate M | Passed |
 | Master | 开口、半木构节奏、入口和烟囱冠部 | 三固定机位 | Sandbox Master | Passed |
 | Real map | Building Engine Master | N/A | `/?start=hudec` | Passed |
-| Cold build | 干净 worktree 单一 CLI 重建 | SHA / structure | N/A | Pending |
+| Cold build | 干净 worktree 单一 CLI 重建 | SHA / structure | N/A | Passed |
 
 ## Validation
 
@@ -189,7 +189,7 @@
 - [x] 参考 / Blender / Three.js 三联图通过
 - [x] 真实 `/?start=hudec` 可见、接地、方向和碰撞通过
 - [x] 默认 Hudec 页面仍加载原正式 Hero
-- [ ] 干净 worktree 冷启动复建得到一致 GLB
+- [x] 干净 worktree 冷启动复建得到一致 GLB
 - [ ] 新动态证据快照与全量 SHA 通过
 
 ## Decision Log
@@ -264,4 +264,21 @@
   `final-review-001.json` 为
   `approved-spike-with-known-unknowns`；仅批准实验链路，不授权替换正式
   Hudec Hero。
-- Remaining: 干净 detached worktree 冷启动复建与新外置动态证据快照。
+- Remaining at this iteration: 干净 detached worktree 冷启动复建与新外置动态
+  证据快照。
+
+### Iteration 5 — 2026-07-28 cold-build acceptance
+
+- Source commit: `f4ab24af432f06c1097db0c8a0e92fb729438008`。
+- Clean room: 从该提交创建干净 detached worktree，只运行单资产 CLI 的
+  `build --stage all` 与 `qa --stage all`。
+- Binary result: Massing `23a745ec…`、Master `6de1f632…` 和 collision
+  `6272faf3…` 均与接受产物逐字节一致。
+- Structure / lineage: Master 保持 `3140` triangles、`7` materials、
+  `0` images / textures / animations / skins，Compiler、DSL、Art Profile
+  与 Massing lineage 全部一致。
+- Preview note: canonical PNG 因编码或元数据产生不同文件 SHA，但像素比较
+  `SSIM 1.000000`、`PSNR infinite`；不影响 GLB 确定性判断。
+- Record:
+  `docs/research/build-records/building-engine-spike/hudec-memorial/cold-build-f4ab24a.json`。
+- Remaining: 新外置动态证据快照与全量 SHA。

@@ -3985,6 +3985,8 @@ Failed to create unified exec process: Too many open files (os error 24)
 ### Resolution
 - **Resolved**: 2026-07-21T00:00:00+08:00
 - **Notes**: 已切换为串行执行，后续命令恢复正常。2026-07-21 17:02 在关闭本地 dev server 后启动 `npm run build` 时再次复发，说明长会话中的浏览器/执行会话残留也可能耗尽统一执行器文件描述符；本轮继续通过关闭无用标签页和串行重试恢复。
+- **Recurrence**: 2026-07-28 建筑引擎收尾时并行读取三份冷构建结果再次触发；
+  关闭 production server、复位浏览器并改回串行后恢复，项目文件未受影响。
 
 ---
 ## [ERR-20260723-082] lighting_v3_effect_children_typecheck

@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "archetype": "garden-villa",
+  "status": "pass",
+  "createdAt": "2026-07-28T22:53:07+08:00",
+  "source": {
+    "commit": "f4ab24af432f06c1097db0c8a0e92fb729438008",
+    "worktree": "/private/tmp/test_building_engine_cold_f4ab24a_20260728_2238",
+    "mode": "detached",
+    "preBuildStatus": "clean"
+  },
+  "commands": [
+    "node scripts/building_engine_spike.mjs build --asset hudec-memorial --stage all",
+    "node scripts/building_engine_spike.mjs qa --asset hudec-memorial --stage all"
+  ],
+  "frozenInputs": {
+    "compilerSha256": "1c6674b0943dd6d992a4d595cfcba848b4c6e00f473c1fde39d929e7c58a00fe",
+    "schemaSha256": "fbcce0470e7efa3a845771fb0b764ac38e9e702d1cbe920376f75c3aff75b619",
+    "artProfileSha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10",
+    "dslSha256": "a20658c05d2ae756f939fa53d4e46cc886d9ee11940e590d6b1413522bb4121b"
+  },
+  "outputs": {
+    "massing": {
+      "path": "public/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb",
+      "sha256": "23a745ecd2b34c5d140d2d0a2470cb7a4d9589d27b55414c62fe53ada6072f56",
+      "acceptedBinaryComparison": "identical"
+    },
+    "master": {
+      "path": "public/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb",
+      "sha256": "6de1f632a3883c72b70e60599c68d148910c42e9afb45b1326d31341196e6c3d",
+      "acceptedBinaryComparison": "identical",
+      "structure": {
+        "nodes": 1,
+        "meshes": 1,
+        "primitives": 7,
+        "triangles": 3140,
+        "materials": 7,
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "skins": 0,
+        "bounds": {
+          "min": [
+            -5.9,
+            -0.0,
+            -4.025
+          ],
+          "max": [
+            5.175,
+            8.18,
+            4.005
+          ]
+        }
+      }
+    },
+    "collision": {
+      "path": "public/models/building-engine-spike/hudec-memorial/hudec-memorial-collision.json",
+      "sha256": "6272faf3418955e671e3a0d14786a902fe6156f3cce941ba409d3d5c6ee69421",
+      "acceptedBinaryComparison": "identical",
+      "obstacleCount": 8,
+      "openPathCount": 3
+    }
+  },
+  "lineage": {
+    "derivedFromMassingGlbSha256": "23a745ecd2b34c5d140d2d0a2470cb7a4d9589d27b55414c62fe53ada6072f56",
+    "matchesAcceptedRecord": true
+  },
+  "previewCheck": {
+    "view": "canonical",
+    "acceptedPngSha256": "4ffd2db82899133d981050cc2675975df99507ac1a35b977eed8572eb51d3284",
+    "coldBuildPngSha256": "445d60de2fe10c5cc086494fb8656850f8f66197a80c08c0cf8937dff69eb198",
+    "byteIdentical": false,
+    "pixelSsim": 1.0,
+    "pixelPsnr": "infinite",
+    "interpretation": "像素完全一致；PNG 编码或元数据不同，不影响 GLB 冷构建确定性。"
+  },
+  "artifactQaStatus": "pass",
+  "decision": "cold-build-gate-passed"
+}
