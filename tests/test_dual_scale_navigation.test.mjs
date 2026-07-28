@@ -148,7 +148,7 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
   assert.doesNotMatch(roadLandmarks, /landmarkMatchesPreset|priorityPreset|xinhuaRoadDetailHeroId/);
   assert.match(
     roadLandmarks,
-    /<Suspense[\s\S]*?<LandmarkProgressiveProxy landmark=\{landmark\} identity \/>[\s\S]*?<GlbModel path=\{modelPath\} \/>/,
+    /<Suspense[\s\S]*?<LandmarkProgressiveProxy landmark=\{landmark\} identity \/>[\s\S]*?<GlbModel[\s\S]*?path=\{modelPath\}[\s\S]*?performanceAssetId=\{landmark\.id\}[\s\S]*?performanceTier="hero"[\s\S]*?\/>/,
   );
   assert.match(shangsheng, /fallback=\{<GenericCampusBuilding building=\{building\} \/>\}/);
   assert.doesNotMatch(world, /overview-poi-label|OVERVIEW_POI_LABEL_OFFSETS/);
