@@ -169,6 +169,8 @@ test("单坡屋顶合同拒绝非法轴向、错侧、缺字段和非 shed 的 h
     span: 2,
     ridgeAxis: "X",
     highSide: "positiveY",
+    eaveHeight: 1,
+    ridgeHeight: 2,
   }), []);
   assert.match(
     validateRoofContract({
@@ -178,6 +180,8 @@ test("单坡屋顶合同拒绝非法轴向、错侧、缺字段和非 shed 的 h
       span: 2,
       ridgeAxis: "Z",
       highSide: "positiveX",
+      eaveHeight: 1,
+      ridgeHeight: 2,
     }).join("\n"),
     /ridgeAxis=Z 不受支持/,
   );
@@ -189,6 +193,8 @@ test("单坡屋顶合同拒绝非法轴向、错侧、缺字段和非 shed 的 h
       span: 2,
       ridgeAxis: "X",
       highSide: "positiveX",
+      eaveHeight: 1,
+      ridgeHeight: 2,
     }).join("\n"),
     /highSide 与 ridgeAxis=X 不匹配/,
   );
@@ -199,8 +205,36 @@ test("单坡屋顶合同拒绝非法轴向、错侧、缺字段和非 shed 的 h
       length: 4,
       span: 2,
       ridgeAxis: "Y",
+      eaveHeight: 1,
+      ridgeHeight: 2,
     }).join("\n"),
     /缺少 highSide/,
+  );
+  assert.match(
+    validateRoofContract({
+      id: "invalid-length",
+      type: "shed",
+      length: -1,
+      span: 0,
+      ridgeAxis: "Y",
+      highSide: "positiveX",
+      eaveHeight: 1,
+      ridgeHeight: 1,
+    }).join("\n"),
+    /length 必须是正数[\s\S]*span 必须是正数[\s\S]*ridgeHeight 必须高于 eaveHeight/,
+  );
+  assert.match(
+    validateRoofContract({
+      id: "invalid-number-type",
+      type: "shed",
+      length: "4",
+      span: 2,
+      ridgeAxis: "X",
+      highSide: "negativeY",
+      eaveHeight: -1,
+      ridgeHeight: 2,
+    }).join("\n"),
+    /length 必须是正数[\s\S]*eaveHeight 必须是非负数/,
   );
   assert.match(
     validateRoofContract({

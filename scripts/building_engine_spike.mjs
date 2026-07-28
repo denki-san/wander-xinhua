@@ -255,10 +255,48 @@ export function validateRoofContract(roof) {
     return conflicts;
   }
 
-  for (const key of ["length", "span", "ridgeAxis", "highSide"]) {
+  for (const key of [
+    "length",
+    "span",
+    "ridgeAxis",
+    "highSide",
+    "eaveHeight",
+    "ridgeHeight",
+  ]) {
     if (roof[key] === undefined) {
       conflicts.push(`shed roof ${roof.id} 缺少 ${key}`);
     }
+  }
+  for (const key of ["length", "span", "ridgeHeight"]) {
+    if (
+      roof[key] !== undefined
+      && (
+        typeof roof[key] !== "number"
+        || !Number.isFinite(roof[key])
+        || roof[key] <= 0
+      )
+    ) {
+      conflicts.push(`shed roof ${roof.id} 的 ${key} 必须是正数`);
+    }
+  }
+  if (
+    roof.eaveHeight !== undefined
+    && (
+      typeof roof.eaveHeight !== "number"
+      || !Number.isFinite(roof.eaveHeight)
+      || roof.eaveHeight < 0
+    )
+  ) {
+    conflicts.push(`shed roof ${roof.id} 的 eaveHeight 必须是非负数`);
+  }
+  if (
+    typeof roof.eaveHeight === "number"
+    && Number.isFinite(roof.eaveHeight)
+    && typeof roof.ridgeHeight === "number"
+    && Number.isFinite(roof.ridgeHeight)
+    && roof.ridgeHeight <= roof.eaveHeight
+  ) {
+    conflicts.push(`shed roof ${roof.id} 的 ridgeHeight 必须高于 eaveHeight`);
   }
   if (!allowedAxes.has(roof.ridgeAxis)) return conflicts;
 
