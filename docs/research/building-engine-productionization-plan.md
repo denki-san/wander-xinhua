@@ -1,9 +1,12 @@
 # 新华漫游建筑引擎：生产化验收方案
 
-- Status: `approved-for-local-productionization-acceptance`
+- Status: `merge-ready-experimental`
 - Branch: `codex/building-engine-spike`
 - Accepted Spike implementation: `6d294381da9011359af08100ea17ac44efd421ed`
 - Spike closure: `16f196fdf4479ca170509c2d4b797850e6a1a263`
+- Blind-test runtime implementation: `f4ab24af432f06c1097db0c8a0e92fb729438008`
+- Cold-build closure: `9762c919450125ae24ce736ce33034d549ffbbc8`
+- Acceptance snapshot: `2026-07-28-9762c91`
 - Scope: 第三栋盲测、真实 `?start=` QA、干净复建、合并前审查
 - Explicitly excluded: 修改默认 production registry、替换正式 GLB、Meshy、
   后台、数据库、Worker、任务队列、push、合并和部署
@@ -202,3 +205,47 @@
 - 默认 production registry 或正式 Hudec GLB 被替换；
 - 关键结构依赖未知证据或旧生成器代码补齐。
 
+## 9. 验收结果
+
+### 9.1 冻结与盲测
+
+- Compiler、Schema、Art Profile 的冻结 SHA 全程未变化；
+- `hudec-memorial` 只通过新增 Case / DSL 表达，Compiler Python 中不存在
+  Hudec、House 315 或孙科别墅的资产专用分支；
+- Massing、Final 和真实地图门均通过，已知东/背立面与精确测绘尺寸继续保持
+  `unknown`，没有用旧 Hudec generator 补齐。
+
+### 9.2 真实运行时
+
+- production Sandbox 的 canonical、side、entrance 三固定机位通过；
+- 真实 `/?start=hudec` 显式 `engine-master` 路线通过：入口最终距目标约
+  `0.0551` world unit，向建筑中心持续移动仍在墙前保留约 `3.3828`
+  world unit；
+- 无 QA 参数的默认 Hudec 页面仍只加载既有
+  `hudec-memorial-v2-hero.glb?v=20260726-hero-598b2ba19e24`。
+
+### 9.3 确定性、回归与快照
+
+- clean detached worktree 从 `f4ab24a` 只运行单一 CLI，得到与接受产物
+  逐字节一致的 Massing、Master 和 collision；
+- 专项测试 `9 / 9`，`npm test` 为 `447 / 447`；
+- `npm run lint` 为 `0 error`；唯一 warning 位于未被本分支修改的既有测试；
+- 新不可变快照为
+  `/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-28-9762c91/`，
+  来源 worktree clean，包含 `663` files、`271917056` bytes；
+- 归档脚本与独立复核均得到 `663 / 663` SHA-256 通过，其中 `44` 项属于
+  Hudec Building Engine 本轮产物、截图或记录。
+
+### 9.4 合并边界
+
+本分支结论为 `merge-ready-experimental`，不是“真实生产建筑链路已经完成”。
+允许合并的只是：
+
+- 单一 `garden-villa` Compiler 与 CLI；
+- 三个可追溯 Case（其中第三个为冻结 Compiler 盲测）；
+- 隔离 Sandbox；
+- 只在显式 QA 参数下生效的 Hudec `engine-master` tier。
+
+本结论不授权替换正式 Hudec Hero、批量迁移现有建筑、推送、合并或部署。
+真正成为默认生产链路前，仍需另开任务设计 registry promotion、单资产回滚、
+线上性能基线和首个正式资产替换验收。

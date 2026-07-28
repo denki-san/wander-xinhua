@@ -45,8 +45,8 @@
 - Browser：Codex Browser（本次自动选择 Chrome）；真实 local production preview
 - Blender MCP：当前 Add-on 不可用，使用三固定机位 Headless Blender 降级，
   明确记录“未执行 MCP 交互审查”
-- Dynamic evidence：复用不可变快照 `2026-07-28-6d29438`；本轮新预览、
-  浏览器证据和指标完成后再创建新快照
+- Dynamic evidence：输入证据复用不可变快照 `2026-07-28-6d29438`；本轮新预览、
+  浏览器证据和指标归档到不可变验收快照 `2026-07-28-9762c91`
 
 ## Evidence
 
@@ -190,7 +190,7 @@
 - [x] 真实 `/?start=hudec` 可见、接地、方向和碰撞通过
 - [x] 默认 Hudec 页面仍加载原正式 Hero
 - [x] 干净 worktree 冷启动复建得到一致 GLB
-- [ ] 新动态证据快照与全量 SHA 通过
+- [x] 新动态证据快照与全量 SHA 通过
 
 ## Decision Log
 
@@ -281,4 +281,20 @@
   `SSIM 1.000000`、`PSNR infinite`；不影响 GLB 确定性判断。
 - Record:
   `docs/research/build-records/building-engine-spike/hudec-memorial/cold-build-f4ab24a.json`。
-- Remaining: 新外置动态证据快照与全量 SHA。
+- Remaining at this iteration: 新外置动态证据快照与全量 SHA。
+
+### Iteration 6 — 2026-07-28 merge-ready experimental closure
+
+- Acceptance snapshot:
+  `/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-28-9762c91/`。
+- Snapshot source: clean commit `9762c91`；`663` files、`271917056` bytes、
+  `wikiEligible: false`。
+- Checksum result: 归档脚本和独立串行复核均验证 `663 / 663` SHA-256 通过；
+  其中 `44` 项为本轮 Hudec Building Engine 产物、截图或记录。
+- Regression: 专项测试 `9 / 9`；`npm test` 为 `447 / 447`；`npm run lint`
+  为 `0 error`，保留一个与本分支无关的既有 warning。
+- Local review: 未发现 Critical 或 Important 问题；Compiler 没有资产专用分支，
+  正式 Hudec registry、默认 Hero 和 cacheVersion 未改变。
+- Decision: `merge-ready-experimental`。该结论只允许把隔离 CLI、Sandbox 与
+  显式 QA tier 作为实验链路候选合并；不授权替换正式 Hudec Hero、推送、
+  合并或部署。

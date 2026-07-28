@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "status": "pass",
+  "decision": "merge-ready-experimental",
+  "snapshot": {
+    "id": "2026-07-28-9762c91",
+    "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-28-9762c91",
+    "sourceCommit": "9762c91",
+    "sourceWorktreeDirty": false,
+    "fileCount": 663,
+    "byteCount": 271917056,
+    "wikiEligible": false
+  },
+  "checksumVerification": {
+    "archiveScript": "pass",
+    "independentCheckedFiles": 663,
+    "independentFailures": 0,
+    "hudecBuildingEngineEntries": 44
+  },
+  "verification": {
+    "targetedTests": {
+      "passed": 9,
+      "failed": 0
+    },
+    "npmTest": {
+      "passed": 447,
+      "failed": 0
+    },
+    "lint": {
+      "errors": 0,
+      "warnings": 1,
+      "warningScope": "既有且不在本分支改动范围"
+    },
+    "localCodeReview": {
+      "critical": 0,
+      "important": 0,
+      "assessment": "merge-ready-experimental"
+    }
+  },
+  "productionBoundary": {
+    "defaultHudecHeroChanged": false,
+    "productionRegistryChanged": false,
+    "push": false,
+    "merge": false,
+    "deploy": false
+  }
+}
