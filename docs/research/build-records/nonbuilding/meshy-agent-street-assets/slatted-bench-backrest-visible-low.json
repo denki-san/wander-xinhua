@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-28",
+  "assetId": "shared:street-asset:slatted-bench-backrest",
+  "slug": "slatted-bench-backrest",
+  "family": "shared-street-asset",
+  "status": "blender-glb-and-isolated-runtime-qa-passed",
+  "sourceRoute": "meshy-agent-web-no-api",
+  "source": {
+    "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_slatted_bench_remesh2_0727170635_generate.glb",
+    "sha256": "fce50d3baebc35a8e2b127985b9dece96f2bd2bacfcc13c46724afbaa388f066",
+    "evidenceSnapshot": "2026-07-28-2ca6310",
+    "immutable": true
+  },
+  "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+  "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+  "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+  "generator": "scripts/create_meshy_agent_street_asset_models.py",
+  "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset slatted-bench-backrest",
+  "use": "店前与水边可复用长椅",
+  "maxInstances": 12,
+  "recognizers": [
+    "可见条板缝",
+    "深灰金属支架",
+    "四个可信落地点"
+  ],
+  "targetDimensionsMeters": [
+    2.08,
+    0.82,
+    0.93
+  ],
+  "fittedBlenderBounds": {
+    "min": [
+      -1.04,
+      -0.41,
+      0
+    ],
+    "max": [
+      1.04,
+      0.41,
+      0.93
+    ],
+    "originMeaning": "ground-envelope-center"
+  },
+  "decimation": {
+    "before": 2094,
+    "target": null,
+    "after": 2094,
+    "applied": false
+  },
+  "buildMode": "direct-meshy-geometry-controlled-processing",
+  "sharedPaletteMaterials": [
+    "metal-dark",
+    "wood"
+  ],
+  "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+  "originContract": {
+    "meaning": "ground-envelope-center",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "blenderFront": "-Y",
+    "worldPlacementBaked": false
+  },
+  "budget": {
+    "maxTriangles": 2500,
+    "maxNodes": 3,
+    "maxMaterials": 3,
+    "maxImages": 0,
+    "maxTextures": 0,
+    "maxBinaryBytes": 256000
+  },
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/slatted-bench-backrest.blend",
+    "blendSha256": "c0879ac553beeb7762da8316b52224125c3e8180b00dac189d5f570b95a50c5c",
+    "glb": "public/models/nonbuilding/meshy-agent-street-assets/slatted-bench-backrest-visible-low.glb",
+    "previews": {
+      "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_slatted-bench-backrest-canonical.png",
+      "canonicalSha256": "249ec8a2df7eba3d9ebacebf796bff54bd3162464a746b6f78c6be719cd2699e",
+      "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_slatted-bench-backrest-side.png",
+      "sideSha256": "1d7d63cd6297b57ace8226b30c900e4de548a6dee1f67129187a25bc6eb45ff6",
+      "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_slatted-bench-backrest-detail.png",
+      "detailSha256": "47d9f1f86bd5a150abd78fb46b33d559480f1d3fd95ee10269b021208ec16481",
+      "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_slatted-bench-backrest-webgl.png",
+      "runtimeSha256": "f633b74af2fcc4cded218899af2501bdfaba0c0a122b9a510bbe7ebadbba5c2d",
+      "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_slatted-bench-backrest-triptych.png",
+      "triptychSha256": "4395e039e28d649b376745af8f60e3e71f428649b6865a2e08044ac3584df3ac"
+    }
+  },
+  "glb": {
+    "sha256": "9b250532181fce6f6efe4f0b50faa2201f6360f842999510e51140e8fafd8614",
+    "bytes": 165572,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 2,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 2094,
+    "bounds": {
+      "min": [
+        -1.04,
+        0,
+        -0.41
+      ],
+      "max": [
+        1.04,
+        0.93,
+        0.41
+      ],
+      "size": [
+        2.08,
+        0.93,
+        0.82
+      ]
+    },
+    "transformedNodes": []
+  },
+  "gates": {
+    "sourceSha": "passed",
+    "blenderBuild": "passed",
+    "glbStructure": "passed",
+    "budget": "passed",
+    "visual": "passed-three-way-comparison",
+    "runtime": "passed-isolated-qa",
+    "productionMap": "not-integrated"
+  },
+  "runtimeGate": {
+    "status": "passed-isolated-qa",
+    "qaRoute": "/meshy-street-assets-qa",
+    "productionPlacement": "not-integrated",
+    "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+    "modelScale": 0.3703703703703703,
+    "metersPerSceneUnit": 2.7,
+    "distanceMeters": 5,
+    "state": "visible-low",
+    "renderReady": true,
+    "canvasCount": 1,
+    "decodedBodySize": 165572,
+    "visualBrowserViewport": {
+      "width": 1638,
+      "height": 851
+    },
+    "structuralBrowserViewport": {
+      "width": 1280,
+      "height": 577,
+      "devicePixelRatio": 1
+    },
+    "consoleErrorCount": 0,
+    "performanceClaim": "none-local-warm-cache-only"
+  }
+}

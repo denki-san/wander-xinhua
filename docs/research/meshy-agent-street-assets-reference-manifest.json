@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "batchId": "meshy-agent-street-assets-20260728",
+  "status": "evidence-gate-passed-for-generic-shared-candidates-only",
+  "evidenceSnapshot": {
+    "id": "2026-07-28-2ca6310",
+    "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-28-2ca6310",
+    "relativeRoot": "repository/test_artifacts/test_meshy_agent_batch_20260728",
+    "sha256Verified": true,
+    "fileCount": 869,
+    "byteCount": 430026752
+  },
+  "scopeBoundary": {
+    "genericSharedAssetAuthority": true,
+    "sitePlacementAuthority": false,
+    "specificHistoricObjectReconstructionAuthority": false,
+    "rule": "每件资产可以进入共享候选库；接入具体地点前仍须用该地点真实照片复核造型、数量、朝向和位置。"
+  },
+  "sources": [
+    {
+      "id": "meshy-agent-run-record",
+      "kind": "browser-process-record",
+      "path": "test_artifacts/test_meshy_agent_batch_20260728/test_meshy_agent_run_record.md",
+      "archivedRelativePath": "repository/test_artifacts/test_meshy_agent_batch_20260728/test_meshy_agent_run_record.md"
+    },
+    {
+      "id": "meshy-export-manifest",
+      "kind": "raw-model-audit",
+      "path": "test_artifacts/test_meshy_agent_batch_20260728/test_meshy_agent_export_manifest.json",
+      "archivedRelativePath": "repository/test_artifacts/test_meshy_agent_batch_20260728/test_meshy_agent_export_manifest.json"
+    }
+  ],
+  "assets": [
+    {
+      "assetId": "plane-tree-straight-sparse",
+      "canonicalEvidence": {
+        "path": "test_artifacts/test_meshy_agent_batch_20260728/test_01_plane_tree_initial_viewer.jpeg",
+        "sha256": "548aed00cfaf33ae005ec12b6fe02ba42347cf09f6a1f030ffa4076f1bbe502e",
+        "observation": "viewer canonical, slightly elevated three-quarter view"
+      },
+      "viewCoverage": {
+        "canonical": "available",
+        "depthOrSide": "unknown-before-blender",
+        "identityDetail": "available-in-canonical-for-single-trunk-and-canopy",
+        "unknownFaces": ["underside of canopy", "rear branch layout", "root flare"]
+      }
+    },
+    {
+      "assetId": "lane-lamp-short-arm",
+      "canonicalEvidence": {
+        "path": "test_artifacts/test_meshy_agent_batch_20260728/test_02_lane_lamp_short_arm_initial_viewer.jpeg",
+        "sha256": "68c2e9153ad98ba94cc3b26613e13e92cc4dae3b2818f0ba7b722488721d6c0",
+        "observation": "viewer canonical showing full pole, short arm and lantern"
+      },
+      "viewCoverage": {
+        "canonical": "available",
+        "depthOrSide": "unknown-before-blender",
+        "identityDetail": "available-in-canonical-for-lantern-and-arm",
+        "unknownFaces": ["rear lantern frame", "base underside"]
+      }
+    },
+    {
+      "assetId": "slatted-bench-backrest",
+      "canonicalEvidence": {
+        "path": "test_artifacts/test_meshy_agent_batch_20260728/test_03_slatted_bench_backrest_initial_viewer.jpeg",
+        "sha256": "dddf0161a01d7d64fa8f8cdf011738b7aafe1c65ee15784caeb5b9f88ce9e634",
+        "observation": "viewer three-quarter view showing slats, supports and ground contacts"
+      },
+      "viewCoverage": {
+        "canonical": "available",
+        "depthOrSide": "unknown-before-blender",
+        "identityDetail": "available-in-canonical-for-slat-gaps",
+        "unknownFaces": ["underside bracing", "rear fasteners"]
+      }
+    },
+    {
+      "assetId": "street-planter-long",
+      "canonicalEvidence": {
+        "path": "test_artifacts/test_meshy_agent_batch_20260728/test_04_street_planter_long_initial_viewer.jpeg",
+        "sha256": "aa3a5584653e85a8d2b6f66692577f63feb8be1f6bb1920c302815f27ae14117",
+        "observation": "viewer three-quarter view showing trough, soil and foliage masses"
+      },
+      "viewCoverage": {
+        "canonical": "available",
+        "depthOrSide": "unknown-before-blender",
+        "identityDetail": "available-in-canonical-for-rim-and-foliage",
+        "unknownFaces": ["bottom drainage", "rear foliage silhouette"]
+      }
+    },
+    {
+      "assetId": "stone-bollard-squat",
+      "canonicalEvidence": {
+        "path": "test_artifacts/test_meshy_agent_batch_20260728/test_05_stone_bollard_squat_initial_viewer.jpeg",
+        "sha256": "884aae798a6208b3cc110a3e7878d5478393e5c64b9e59bb2d3df53387ca575a",
+        "observation": "viewer three-quarter view showing irregular cuboid and bevel"
+      },
+      "viewCoverage": {
+        "canonical": "available",
+        "depthOrSide": "unknown-before-blender",
+        "identityDetail": "available-in-canonical-for-beveled-top",
+        "unknownFaces": ["rear irregularity", "underside"]
+      }
+    },
+    {
+      "assetId": "shanghai-dual-classification-bin",
+      "canonicalEvidence": {
+        "path": "test_artifacts/test_meshy_agent_batch_20260728/test_06_shanghai_dual_classification_bin_initial_viewer.jpeg",
+        "sha256": "989d54a190ccd0f9fccf83d454d0c639192d563fc6d08861274f12fcf0c11bdd",
+        "observation": "viewer front three-quarter view showing two apertures and centre seam"
+      },
+      "viewCoverage": {
+        "canonical": "available",
+        "depthOrSide": "unknown-before-blender",
+        "identityDetail": "available-in-canonical-for-two-openings",
+        "unknownFaces": ["rear access panel", "lid hinge", "underside"]
+      }
+    },
+    {
+      "assetId": "cantilever-cafe-umbrella",
+      "canonicalEvidence": {
+        "path": "test_artifacts/test_meshy_agent_batch_20260728/test_07_cantilever_cafe_umbrella_initial_viewer.jpeg",
+        "sha256": "4c2fce2acc3baf0dd305632e66c4a923a95a857bb91a512eb10428846a08cd85",
+        "observation": "viewer three-quarter view showing canopy, offset support and base"
+      },
+      "viewCoverage": {
+        "canonical": "available",
+        "depthOrSide": "unknown-before-blender",
+        "identityDetail": "available-in-canonical-for-cantilever-relationship",
+        "unknownFaces": ["canopy underside ribs", "rear brace", "base underside"]
+      }
+    },
+    {
+      "assetId": "outdoor-dining-dark-wood",
+      "canonicalEvidence": {
+        "path": "test_artifacts/test_meshy_agent_batch_20260728/test_08_outdoor_dining_dark_wood_initial_viewer.jpeg",
+        "sha256": "6b1abdbd2fd2220fd5510f8103161998f3f69261e69de4b221a6376809e73130",
+        "observation": "viewer three-quarter view showing one table and two opposite chairs"
+      },
+      "viewCoverage": {
+        "canonical": "available",
+        "depthOrSide": "unknown-before-blender",
+        "identityDetail": "available-in-canonical-for-three-part-group",
+        "unknownFaces": ["seat undersides", "rear chair braces"]
+      }
+    },
+    {
+      "assetId": "vintage-step-through-bicycle",
+      "canonicalEvidence": {
+        "path": "test_artifacts/test_meshy_agent_batch_20260728/test_09_vintage_step_through_bicycle_initial_viewer.jpeg",
+        "sha256": "79dd91dd16a4867248427c11d58449f36a535adbabb55f5531ac4dd4474741bb",
+        "observation": "viewer side three-quarter view showing step-through frame, wheels and baskets"
+      },
+      "viewCoverage": {
+        "canonical": "available",
+        "depthOrSide": "available-in-canonical",
+        "identityDetail": "available-in-canonical-for-frame-and-baskets",
+        "unknownFaces": ["chain-side mechanics", "far-side rack supports"]
+      }
+    },
+    {
+      "assetId": "wall-ac-outdoor-unit",
+      "canonicalEvidence": {
+        "path": "test_artifacts/test_meshy_agent_batch_20260728/test_10_wall_ac_outdoor_unit_initial_viewer.jpeg",
+        "sha256": "71eabd3c3277c74b3f40ed022834c9246f6c700db251fb279df03530e44a1bb8",
+        "observation": "viewer front three-quarter view showing fan, grille and brackets"
+      },
+      "viewCoverage": {
+        "canonical": "available",
+        "depthOrSide": "unknown-before-blender",
+        "identityDetail": "available-in-canonical-for-fan-and-brackets",
+        "unknownFaces": ["wall-side panel", "pipe sockets", "rear fasteners"]
+      }
+    }
+  ]
+}

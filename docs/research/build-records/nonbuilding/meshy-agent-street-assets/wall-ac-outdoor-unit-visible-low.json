@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-28",
+  "assetId": "shared:street-asset:wall-ac-outdoor-unit",
+  "slug": "wall-ac-outdoor-unit",
+  "family": "shared-street-asset",
+  "status": "blender-glb-and-isolated-runtime-qa-passed",
+  "sourceRoute": "meshy-agent-web-no-api",
+  "source": {
+    "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_wall_ac_remesh2_1200_0727171203_generate.glb",
+    "sha256": "cd53a937eaeb1d530c9e1965ab718829e110ed94af844665c837d337b23e8ba9",
+    "evidenceSnapshot": "2026-07-28-2ca6310",
+    "immutable": true
+  },
+  "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+  "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+  "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+  "generator": "scripts/create_meshy_agent_street_asset_models.py",
+  "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset wall-ac-outdoor-unit",
+  "use": "立面高重复生活细节",
+  "maxInstances": 24,
+  "recognizers": [
+    "闭合箱体",
+    "单个大风扇圆环",
+    "百叶与双托架"
+  ],
+  "targetDimensionsMeters": [
+    0.8,
+    0.32,
+    0.55
+  ],
+  "fittedBlenderBounds": {
+    "min": [
+      -0.4,
+      -0.32,
+      -0.275
+    ],
+    "max": [
+      0.4,
+      0,
+      0.275
+    ],
+    "originMeaning": "wall-back-center"
+  },
+  "decimation": {
+    "before": 232,
+    "target": 950,
+    "after": 232,
+    "applied": false,
+    "reason": "Meshy Remesh failed twice; used silhouette-guided deterministic rebuild"
+  },
+  "buildMode": "meshy-silhouette-guided-deterministic-rebuild",
+  "sharedPaletteMaterials": [
+    "ac-shell",
+    "metal-dark"
+  ],
+  "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+  "originContract": {
+    "meaning": "wall-back-center",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "blenderFront": "-Y",
+    "worldPlacementBaked": false
+  },
+  "budget": {
+    "maxTriangles": 1000,
+    "maxNodes": 3,
+    "maxMaterials": 2,
+    "maxImages": 0,
+    "maxTextures": 0,
+    "maxBinaryBytes": 160000
+  },
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/wall-ac-outdoor-unit.blend",
+    "blendSha256": "bd63b0a96ae19fff093e14e967082b39ed665febb1e5ebda8573abfea958b2f7",
+    "glb": "public/models/nonbuilding/meshy-agent-street-assets/wall-ac-outdoor-unit-visible-low.glb",
+    "previews": {
+      "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_wall-ac-outdoor-unit-canonical.png",
+      "canonicalSha256": "13877331e158b3fc7849a62ef857f081f9c5c54ce9dac0feac1c657b22e76cdf",
+      "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_wall-ac-outdoor-unit-side.png",
+      "sideSha256": "b5c7751be8e11b7f9f9b8317cadefa248ba7884f9d98a6a3de805e2170530a13",
+      "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_wall-ac-outdoor-unit-detail.png",
+      "detailSha256": "3e0dae5c640261d81b122cd9e21188126f84280fefcb73978fd95bcdd6504423",
+      "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_wall-ac-outdoor-unit-webgl.png",
+      "runtimeSha256": "4f0672df4050f4f223752481faf5749fc4b179d79434696bd9b8a0a8c3ef5dba",
+      "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_wall-ac-outdoor-unit-triptych.png",
+      "triptychSha256": "c8f7c61202803aaa5e749be644d9144bc0da085f6699a0cd86ce7c3f753635e7"
+    }
+  },
+  "glb": {
+    "sha256": "0f0c211e80655c95563f80fb28a3df43b2ab261cbc877e9021c379ee70b03e50",
+    "bytes": 17080,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 2,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 232,
+    "bounds": {
+      "min": [
+        -0.4,
+        -0.275,
+        0
+      ],
+      "max": [
+        0.4,
+        0.275,
+        0.32
+      ],
+      "size": [
+        0.8,
+        0.55,
+        0.32
+      ]
+    },
+    "transformedNodes": []
+  },
+  "gates": {
+    "sourceSha": "passed",
+    "blenderBuild": "passed",
+    "glbStructure": "passed",
+    "budget": "passed",
+    "visual": "passed-three-way-comparison",
+    "runtime": "passed-isolated-qa",
+    "productionMap": "not-integrated"
+  },
+  "runtimeGate": {
+    "status": "passed-isolated-qa",
+    "qaRoute": "/meshy-street-assets-qa",
+    "productionPlacement": "not-integrated",
+    "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+    "modelScale": 0.3703703703703703,
+    "metersPerSceneUnit": 2.7,
+    "distanceMeters": 5,
+    "state": "visible-low",
+    "renderReady": true,
+    "canvasCount": 1,
+    "decodedBodySize": 17080,
+    "visualBrowserViewport": {
+      "width": 1638,
+      "height": 851
+    },
+    "structuralBrowserViewport": {
+      "width": 1280,
+      "height": 577,
+      "devicePixelRatio": 1
+    },
+    "consoleErrorCount": 0,
+    "performanceClaim": "none-local-warm-cache-only"
+  }
+}

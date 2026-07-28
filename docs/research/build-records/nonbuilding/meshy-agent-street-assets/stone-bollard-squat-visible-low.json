@@ -1,0 +1,156 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-28",
+  "assetId": "shared:street-asset:stone-bollard-squat",
+  "slug": "stone-bollard-squat",
+  "family": "shared-street-asset",
+  "status": "blender-glb-and-isolated-runtime-qa-passed",
+  "sourceRoute": "meshy-agent-web-no-api",
+  "source": {
+    "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_stone_bollard_remesh__0727165819_generate.glb",
+    "sha256": "b40a2cc2c8a95ace03730eb660abf149cbec26fd8f1f7ed3d4c1fad6d55d86da",
+    "evidenceSnapshot": "2026-07-28-2ca6310",
+    "immutable": true
+  },
+  "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+  "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+  "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+  "generator": "scripts/create_meshy_agent_street_asset_models.py",
+  "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset stone-bollard-squat",
+  "use": "入口与边界高重复石桩",
+  "maxInstances": 32,
+  "recognizers": [
+    "矮方轮廓",
+    "不规则侧面",
+    "斜切顶面"
+  ],
+  "targetDimensionsMeters": [
+    0.6,
+    0.52,
+    0.75
+  ],
+  "fittedBlenderBounds": {
+    "min": [
+      -0.3,
+      -0.26,
+      0
+    ],
+    "max": [
+      0.3,
+      0.26,
+      0.75
+    ],
+    "originMeaning": "ground-envelope-center"
+  },
+  "decimation": {
+    "before": 288,
+    "target": null,
+    "after": 288,
+    "applied": false
+  },
+  "buildMode": "direct-meshy-geometry-controlled-processing",
+  "sharedPaletteMaterials": [
+    "stone"
+  ],
+  "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+  "originContract": {
+    "meaning": "ground-envelope-center",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "blenderFront": "-Y",
+    "worldPlacementBaked": false
+  },
+  "budget": {
+    "maxTriangles": 500,
+    "maxNodes": 3,
+    "maxMaterials": 1,
+    "maxImages": 0,
+    "maxTextures": 0,
+    "maxBinaryBytes": 96000
+  },
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/stone-bollard-squat.blend",
+    "blendSha256": "41b8c702283cf73d6283422c66906b16e7c458000fb210bbd0ca23f62a03ec58",
+    "glb": "public/models/nonbuilding/meshy-agent-street-assets/stone-bollard-squat-visible-low.glb",
+    "previews": {
+      "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_stone-bollard-squat-canonical.png",
+      "canonicalSha256": "17f966735be82b61f30ef86571fc35060d15bdd2b80300ff0bd1dfb53b602357",
+      "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_stone-bollard-squat-side.png",
+      "sideSha256": "a55f6f086b052a3fce4155bbacece1394043c74656729e7da596cd0f79faefc5",
+      "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_stone-bollard-squat-detail.png",
+      "detailSha256": "43b40ad1b889b1dee04f91de5617716028096893aed6cfa3a64ec09038ba7f6e",
+      "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_stone-bollard-squat-webgl.png",
+      "runtimeSha256": "f747595197ab78615776cf2924da22ca9131fe420c2fdb3a0a20773e477a9584",
+      "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_stone-bollard-squat-triptych.png",
+      "triptychSha256": "97080c575690f9265da943dbd20e0c943c7699540a7258183ef5d5111ca80dfc"
+    }
+  },
+  "glb": {
+    "sha256": "33eb45ce517c613f8846043939907615aa7bbe9c1c52e516543f1d008eae11f5",
+    "bytes": 23980,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 288,
+    "bounds": {
+      "min": [
+        -0.3,
+        0,
+        -0.26
+      ],
+      "max": [
+        0.3,
+        0.75,
+        0.26
+      ],
+      "size": [
+        0.6,
+        0.75,
+        0.52
+      ]
+    },
+    "transformedNodes": []
+  },
+  "gates": {
+    "sourceSha": "passed",
+    "blenderBuild": "passed",
+    "glbStructure": "passed",
+    "budget": "passed",
+    "visual": "passed-three-way-comparison",
+    "runtime": "passed-isolated-qa",
+    "productionMap": "not-integrated"
+  },
+  "runtimeGate": {
+    "status": "passed-isolated-qa",
+    "qaRoute": "/meshy-street-assets-qa",
+    "productionPlacement": "not-integrated",
+    "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+    "modelScale": 0.3703703703703703,
+    "metersPerSceneUnit": 2.7,
+    "distanceMeters": 4,
+    "state": "visible-low",
+    "renderReady": true,
+    "canvasCount": 1,
+    "decodedBodySize": 23980,
+    "visualBrowserViewport": {
+      "width": 1638,
+      "height": 851
+    },
+    "structuralBrowserViewport": {
+      "width": 1280,
+      "height": 577,
+      "devicePixelRatio": 1
+    },
+    "consoleErrorCount": 0,
+    "performanceClaim": "none-local-warm-cache-only"
+  }
+}

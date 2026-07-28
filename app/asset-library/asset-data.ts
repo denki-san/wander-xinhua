@@ -184,6 +184,123 @@ export const TREE_ASSETS = [
   },
 ] satisfies AssetRecord[];
 
+const SHARED_STREET_MODEL_BASE =
+  "/models/nonbuilding/meshy-agent-street-assets";
+
+// 统一管理已经通过隔离 QA、但尚未获得具体地点摆放授权的通用 GLB。
+export const SHARED_STREET_MODEL_ASSETS = [
+  {
+    id: "shared-street-plane-tree-straight-sparse",
+    category: "trees",
+    name: "直干疏冠法国梧桐 · 通用候选",
+    subtitle: "隔离 QA 已通过 · 少量近景候选",
+    status: "ready",
+    model:
+      `${SHARED_STREET_MODEL_BASE}/plane-tree-straight-sparse-visible-low.glb?v=a6cdf4f70c38`,
+    variants: ["visible-low", "50 m hidden"],
+    note: "不替换当前三种线上梧桐；只有地点照片与近景树位共同确认后才接入。",
+  },
+  {
+    id: "shared-street-lane-lamp-short-arm",
+    category: "decor",
+    name: "里弄短臂路灯 · GLB",
+    subtitle: "隔离 QA 已通过 · 地点待授权",
+    status: "ready",
+    model:
+      `${SHARED_STREET_MODEL_BASE}/lane-lamp-short-arm-visible-low.glb?v=b8c2997a47b1`,
+    variants: ["visible-low", "28 m hidden"],
+    note: "未来可替换证据匹配的里弄近景 primitive；本轮不修改生产实例。",
+  },
+  {
+    id: "shared-street-slatted-bench-backrest",
+    category: "decor",
+    name: "条板靠背长椅 · GLB",
+    subtitle: "隔离 QA 已通过 · 地点待授权",
+    status: "ready",
+    model:
+      `${SHARED_STREET_MODEL_BASE}/slatted-bench-backrest-visible-low.glb?v=9b250532181f`,
+    variants: ["visible-low", "18 m hidden"],
+    note: "候选用于庭院、水边和店前；接入前需匹配照片、数量与通行空间。",
+  },
+  {
+    id: "shared-street-planter-long",
+    category: "decor",
+    name: "长条街景花箱 · GLB",
+    subtitle: "隔离 QA 已通过 · 地点待授权",
+    status: "ready",
+    model:
+      `${SHARED_STREET_MODEL_BASE}/street-planter-long-visible-low.glb?v=d24fd3310a66`,
+    variants: ["visible-low", "18 m hidden"],
+    note: "通用长花箱，不替代幸福里水边专属窄花槽。",
+  },
+  {
+    id: "shared-street-stone-bollard-squat",
+    category: "decor",
+    name: "矮方不规则石桩 · GLB",
+    subtitle: "隔离 QA 已通过 · 地点待授权",
+    status: "ready",
+    model:
+      `${SHARED_STREET_MODEL_BASE}/stone-bollard-squat-visible-low.glb?v=33eb45ce517c`,
+    variants: ["visible-low", "18 m hidden"],
+    note: "保留为通用装饰石桩；不替代幸福里当前入口尖顶路桩。",
+  },
+  {
+    id: "shared-street-shanghai-dual-classification-bin",
+    category: "decor",
+    name: "上海双分类垃圾桶 · GLB",
+    subtitle: "隔离 QA 已通过 · 批量性能待测",
+    status: "ready",
+    model:
+      `${SHARED_STREET_MODEL_BASE}/shanghai-dual-classification-bin-visible-low.glb?v=134c52d35f70`,
+    variants: ["visible-low", "18 m hidden"],
+    note: "可用于近景升级；批量替换前必须比较 InstancedMesh 的 draw calls。",
+  },
+  {
+    id: "shared-street-cantilever-cafe-umbrella",
+    category: "decor",
+    name: "悬臂咖啡伞 · GLB",
+    subtitle: "隔离 QA 已通过 · 地点待授权",
+    status: "ready",
+    model:
+      `${SHARED_STREET_MODEL_BASE}/cantilever-cafe-umbrella-visible-low.glb?v=f40dd14dae00`,
+    variants: ["visible-low", "24 m hidden"],
+    note: "只用于照片确认的商业外摆，不复制品牌或临时餐牌。",
+  },
+  {
+    id: "shared-street-outdoor-dining-dark-wood",
+    category: "decor",
+    name: "深色木金属户外桌椅 · GLB",
+    subtitle: "隔离 QA 已通过 · 地点待授权",
+    status: "ready",
+    model:
+      `${SHARED_STREET_MODEL_BASE}/outdoor-dining-dark-wood-visible-low.glb?v=50ba2639ec35`,
+    variants: ["visible-low", "18 m hidden"],
+    note: "作为一桌两椅组合管理；不拆成可交互家具。",
+  },
+  {
+    id: "shared-street-vintage-step-through-bicycle",
+    category: "decor",
+    name: "复古弯梁自行车 · GLB",
+    subtitle: "隔离 QA 已通过 · 少量近景候选",
+    status: "ready",
+    model:
+      `${SHARED_STREET_MODEL_BASE}/vintage-step-through-bicycle-visible-low.glb?v=4aee4bbf515c`,
+    variants: ["visible-low", "18 m hidden"],
+    note: "仅少量入口或墙边身份道具；不做骑行、转向或物理交互。",
+  },
+  {
+    id: "shared-street-wall-ac-outdoor-unit",
+    category: "decor",
+    name: "壁挂空调外机 · GLB",
+    subtitle: "隔离 QA 已通过 · 立面证据待授权",
+    status: "ready",
+    model:
+      `${SHARED_STREET_MODEL_BASE}/wall-ac-outdoor-unit-visible-low.glb?v=0f0c211e8065`,
+    variants: ["visible-low", "18 m hidden", "2.2 m 墙面锚点"],
+    note: "必须绑定照片确认的具体立面和背部墙面锚点，禁止落地摆放。",
+  },
+] satisfies AssetRecord[];
+
 export const DECOR_ASSETS = [
   {
     id: "lane-lamp",
@@ -296,6 +413,7 @@ export const ALL_ASSETS = [
   ...BUILDING_ASSETS,
   ...LIGHTING_ASSETS,
   ...TREE_ASSETS,
+  ...SHARED_STREET_MODEL_ASSETS,
   ...DECOR_ASSETS,
   ...CHARACTER_ASSETS,
 ] satisfies AssetRecord[];

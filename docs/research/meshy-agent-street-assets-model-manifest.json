@@ -1,0 +1,1617 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-28",
+  "status": "visible-low-isolated-runtime-qa-passed",
+  "package": "meshy-agent-street-assets",
+  "assetCount": 10,
+  "sourceRoute": "meshy-agent-web-no-api",
+  "evidenceSnapshot": "2026-07-28-2ca6310",
+  "finalEvidenceSnapshot": {
+    "id": "2026-07-28-meshy-agent-street-assets-final-2ca6310",
+    "path": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-28-meshy-agent-street-assets-final-2ca6310",
+    "fileCount": 1010,
+    "byteCount": 477827072,
+    "manifestSha256": "f9fa2d38634827587d3401f64049a5d7b6cd713029bdfd7ace38a155a76d643e",
+    "checksumFile": "SHA256SUMS",
+    "checksumFileSha256": "d3f5bea9bea340e26c8c5e5936f2e3a244f96e78ab99051b296767fd02c937bf",
+    "wikiEligible": false
+  },
+  "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+  "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+  "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+  "generator": "scripts/create_meshy_agent_street_asset_models.py",
+  "totalGlbBytes": 435012,
+  "totalTriangles": 5326,
+  "zeroImageTextureAssetCount": 10,
+  "rootTransformCleanAssetCount": 10,
+  "runtimeIntegration": "isolated-qa-passed-production-placement-pending",
+  "productionRegistry": "intentionally-not-modified",
+  "assets": [
+    {
+      "version": 1,
+      "auditedAt": "2026-07-28",
+      "assetId": "shared:street-asset:plane-tree-straight-sparse",
+      "slug": "plane-tree-straight-sparse",
+      "family": "shared-street-asset",
+      "status": "blender-glb-and-isolated-runtime-qa-passed",
+      "sourceRoute": "meshy-agent-web-no-api",
+      "source": {
+        "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_plane_tree_straight_s_0727170449_generate.glb",
+        "sha256": "5dcb00753acd3cf9275374be31583a9c8a03e2baf4920a74466a549929497708",
+        "evidenceSnapshot": "2026-07-28-2ca6310",
+        "immutable": true
+      },
+      "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+      "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+      "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+      "generator": "scripts/create_meshy_agent_street_asset_models.py",
+      "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset plane-tree-straight-sparse",
+      "use": "近景行道树候选；正式高重复版前最多四个实例",
+      "maxInstances": 4,
+      "recognizers": [
+        "单一连续主干",
+        "疏松分层树冠",
+        "叶簇间可见空隙"
+      ],
+      "targetDimensionsMeters": [
+        7.148438,
+        5.898438,
+        10
+      ],
+      "fittedBlenderBounds": {
+        "min": [
+          -3.574219,
+          -2.949219,
+          0
+        ],
+        "max": [
+          3.574219,
+          2.949219,
+          10
+        ],
+        "originMeaning": "ground-envelope-center"
+      },
+      "decimation": {
+        "before": 664,
+        "target": 3900,
+        "after": 664,
+        "applied": false,
+        "reason": "Meshy Remesh failed twice; used silhouette-guided deterministic rebuild"
+      },
+      "buildMode": "meshy-silhouette-guided-deterministic-rebuild",
+      "sharedPaletteMaterials": [
+        "bark",
+        "foliage-dark",
+        "foliage-warm"
+      ],
+      "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+      "originContract": {
+        "meaning": "ground-envelope-center",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false
+      },
+      "budget": {
+        "maxTriangles": 4000,
+        "maxNodes": 3,
+        "maxMaterials": 3,
+        "maxImages": 0,
+        "maxTextures": 0,
+        "maxBinaryBytes": 900000
+      },
+      "outputs": {
+        "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/plane-tree-straight-sparse.blend",
+        "blendSha256": "acc41d2167ff60c268a11c37be90377c398bb7b5beb715db0884579e07ed0543",
+        "glb": "public/models/nonbuilding/meshy-agent-street-assets/plane-tree-straight-sparse-visible-low.glb",
+        "previews": {
+          "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_plane-tree-straight-sparse-canonical.png",
+          "canonicalSha256": "751f93a7b3a26851361f880897bb8870cac9a60c2bc5ce796bdf64c3e5b14532",
+          "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_plane-tree-straight-sparse-side.png",
+          "sideSha256": "b34a027bd9ee1525490f964905c12d3c941128ca2a9d3418e94252b5a8837edb",
+          "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_plane-tree-straight-sparse-detail.png",
+          "detailSha256": "03e8bd1fac687054182eb83f7f1ac015d3c484643956f8a6dbbe4ee0e2851440",
+          "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_plane-tree-straight-sparse-webgl.png",
+          "runtimeSha256": "2a964fb85afd34f3d2a2eb644e2ff2e14f1d4fa889ef4c57e9ebf54b439fdc3c",
+          "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_plane-tree-straight-sparse-triptych.png",
+          "triptychSha256": "fc4148e37a7df36454ba0589911332656d5615db6de0825fb993b6012e5c422d"
+        }
+      },
+      "glb": {
+        "sha256": "a6cdf4f70c3820a96869d33031a7d7ad221e771f36cf641c3a6112174a833c19",
+        "bytes": 67164,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 3,
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "skins": 0,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            -3.574219,
+            0,
+            -2.949219
+          ],
+          "max": [
+            3.574219,
+            10,
+            2.949219
+          ],
+          "size": [
+            7.148438,
+            10,
+            5.898438
+          ]
+        },
+        "transformedNodes": []
+      },
+      "gates": {
+        "sourceSha": "passed",
+        "blenderBuild": "passed",
+        "glbStructure": "passed",
+        "budget": "passed",
+        "visual": "passed-three-way-comparison",
+        "runtime": "passed-isolated-qa",
+        "productionMap": "not-integrated"
+      },
+      "runtimeGate": {
+        "status": "passed-isolated-qa",
+        "qaRoute": "/meshy-street-assets-qa",
+        "productionPlacement": "not-integrated",
+        "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+        "modelScale": 0.3703703703703703,
+        "metersPerSceneUnit": 2.7,
+        "distanceMeters": 24,
+        "state": "visible-low",
+        "renderReady": true,
+        "canvasCount": 1,
+        "decodedBodySize": 67164,
+        "visualBrowserViewport": {
+          "width": 1638,
+          "height": 851
+        },
+        "structuralBrowserViewport": {
+          "width": 1280,
+          "height": 577,
+          "devicePixelRatio": 1
+        },
+        "consoleErrorCount": 0,
+        "performanceClaim": "none-local-warm-cache-only"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-28",
+      "assetId": "shared:street-asset:lane-lamp-short-arm",
+      "slug": "lane-lamp-short-arm",
+      "family": "shared-street-asset",
+      "status": "blender-glb-and-isolated-runtime-qa-passed",
+      "sourceRoute": "meshy-agent-web-no-api",
+      "source": {
+        "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_lane_lamp_short_arm_0727170548_generate.glb",
+        "sha256": "5e4cde3a41eb9be1cd52ffedefac06b538d263e112ef4a0838609fe083993ef7",
+        "evidenceSnapshot": "2026-07-28-2ca6310",
+        "immutable": true
+      },
+      "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+      "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+      "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+      "generator": "scripts/create_meshy_agent_street_asset_models.py",
+      "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset lane-lamp-short-arm",
+      "use": "里弄重复路灯",
+      "maxInstances": 24,
+      "recognizers": [
+        "细长灯杆",
+        "约半米短臂",
+        "克制八边形灯罩"
+      ],
+      "targetDimensionsMeters": [
+        1.069687,
+        0.574219,
+        3.36
+      ],
+      "fittedBlenderBounds": {
+        "min": [
+          -0.534844,
+          -0.287109,
+          0
+        ],
+        "max": [
+          0.534844,
+          0.287109,
+          3.36
+        ],
+        "originMeaning": "ground-envelope-center"
+      },
+      "decimation": {
+        "before": 248,
+        "target": 1450,
+        "after": 248,
+        "applied": false,
+        "reason": "Meshy Remesh failed twice; used silhouette-guided deterministic rebuild"
+      },
+      "buildMode": "meshy-silhouette-guided-deterministic-rebuild",
+      "sharedPaletteMaterials": [
+        "metal-dark",
+        "lamp-warm"
+      ],
+      "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+      "originContract": {
+        "meaning": "ground-envelope-center",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false
+      },
+      "budget": {
+        "maxTriangles": 1500,
+        "maxNodes": 3,
+        "maxMaterials": 2,
+        "maxImages": 0,
+        "maxTextures": 0,
+        "maxBinaryBytes": 256000
+      },
+      "outputs": {
+        "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/lane-lamp-short-arm.blend",
+        "blendSha256": "f99cecbfd39771cbfdcef52203266a51af298fc02e9992919b981ab33a3307dc",
+        "glb": "public/models/nonbuilding/meshy-agent-street-assets/lane-lamp-short-arm-visible-low.glb",
+        "previews": {
+          "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_lane-lamp-short-arm-canonical.png",
+          "canonicalSha256": "3ea11dd39703576c890dc2fffe943515be2f3d978d5ef78afc6941460aeb7416",
+          "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_lane-lamp-short-arm-side.png",
+          "sideSha256": "145b7c4f4a7640790f0dfdcd862614c3bafc9e35d60bf1547cd1d8d38099d506",
+          "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_lane-lamp-short-arm-detail.png",
+          "detailSha256": "b6a097d0a1e3cdb93eb4c43cb66c4216fddfde3fc8a264cf9069749f6b9d8b7d",
+          "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_lane-lamp-short-arm-webgl.png",
+          "runtimeSha256": "c2f4f02ab2299f54fcced15cdfe437533bf8d5b3941a1a5340c77168a047ec0c",
+          "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_lane-lamp-short-arm-triptych.png",
+          "triptychSha256": "581c41425144efe4e31d2d3b3261a5c4333682bd6ebfb18d905f0d3544cc4b8e"
+        }
+      },
+      "glb": {
+        "sha256": "b8c2997a47b1c3988f84aaae517e91bf3a175d0a3a1625b47962e86f11ebdc6f",
+        "bytes": 17548,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 2,
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "skins": 0,
+        "triangles": 248,
+        "bounds": {
+          "min": [
+            -0.534844,
+            0,
+            -0.287109
+          ],
+          "max": [
+            0.534844,
+            3.36,
+            0.287109
+          ],
+          "size": [
+            1.069687,
+            3.36,
+            0.574219
+          ]
+        },
+        "transformedNodes": []
+      },
+      "gates": {
+        "sourceSha": "passed",
+        "blenderBuild": "passed",
+        "glbStructure": "passed",
+        "budget": "passed",
+        "visual": "passed-three-way-comparison",
+        "runtime": "passed-isolated-qa",
+        "productionMap": "not-integrated"
+      },
+      "runtimeGate": {
+        "status": "passed-isolated-qa",
+        "qaRoute": "/meshy-street-assets-qa",
+        "productionPlacement": "not-integrated",
+        "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+        "modelScale": 0.3703703703703703,
+        "metersPerSceneUnit": 2.7,
+        "distanceMeters": 10,
+        "state": "visible-low",
+        "renderReady": true,
+        "canvasCount": 1,
+        "decodedBodySize": 17548,
+        "visualBrowserViewport": {
+          "width": 1638,
+          "height": 851
+        },
+        "structuralBrowserViewport": {
+          "width": 1280,
+          "height": 577,
+          "devicePixelRatio": 1
+        },
+        "consoleErrorCount": 0,
+        "performanceClaim": "none-local-warm-cache-only"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-28",
+      "assetId": "shared:street-asset:slatted-bench-backrest",
+      "slug": "slatted-bench-backrest",
+      "family": "shared-street-asset",
+      "status": "blender-glb-and-isolated-runtime-qa-passed",
+      "sourceRoute": "meshy-agent-web-no-api",
+      "source": {
+        "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_slatted_bench_remesh2_0727170635_generate.glb",
+        "sha256": "fce50d3baebc35a8e2b127985b9dece96f2bd2bacfcc13c46724afbaa388f066",
+        "evidenceSnapshot": "2026-07-28-2ca6310",
+        "immutable": true
+      },
+      "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+      "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+      "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+      "generator": "scripts/create_meshy_agent_street_asset_models.py",
+      "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset slatted-bench-backrest",
+      "use": "店前与水边可复用长椅",
+      "maxInstances": 12,
+      "recognizers": [
+        "可见条板缝",
+        "深灰金属支架",
+        "四个可信落地点"
+      ],
+      "targetDimensionsMeters": [
+        2.08,
+        0.82,
+        0.93
+      ],
+      "fittedBlenderBounds": {
+        "min": [
+          -1.04,
+          -0.41,
+          0
+        ],
+        "max": [
+          1.04,
+          0.41,
+          0.93
+        ],
+        "originMeaning": "ground-envelope-center"
+      },
+      "decimation": {
+        "before": 2094,
+        "target": null,
+        "after": 2094,
+        "applied": false
+      },
+      "buildMode": "direct-meshy-geometry-controlled-processing",
+      "sharedPaletteMaterials": [
+        "metal-dark",
+        "wood"
+      ],
+      "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+      "originContract": {
+        "meaning": "ground-envelope-center",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false
+      },
+      "budget": {
+        "maxTriangles": 2500,
+        "maxNodes": 3,
+        "maxMaterials": 3,
+        "maxImages": 0,
+        "maxTextures": 0,
+        "maxBinaryBytes": 256000
+      },
+      "outputs": {
+        "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/slatted-bench-backrest.blend",
+        "blendSha256": "c0879ac553beeb7762da8316b52224125c3e8180b00dac189d5f570b95a50c5c",
+        "glb": "public/models/nonbuilding/meshy-agent-street-assets/slatted-bench-backrest-visible-low.glb",
+        "previews": {
+          "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_slatted-bench-backrest-canonical.png",
+          "canonicalSha256": "249ec8a2df7eba3d9ebacebf796bff54bd3162464a746b6f78c6be719cd2699e",
+          "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_slatted-bench-backrest-side.png",
+          "sideSha256": "1d7d63cd6297b57ace8226b30c900e4de548a6dee1f67129187a25bc6eb45ff6",
+          "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_slatted-bench-backrest-detail.png",
+          "detailSha256": "47d9f1f86bd5a150abd78fb46b33d559480f1d3fd95ee10269b021208ec16481",
+          "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_slatted-bench-backrest-webgl.png",
+          "runtimeSha256": "f633b74af2fcc4cded218899af2501bdfaba0c0a122b9a510bbe7ebadbba5c2d",
+          "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_slatted-bench-backrest-triptych.png",
+          "triptychSha256": "4395e039e28d649b376745af8f60e3e71f428649b6865a2e08044ac3584df3ac"
+        }
+      },
+      "glb": {
+        "sha256": "9b250532181fce6f6efe4f0b50faa2201f6360f842999510e51140e8fafd8614",
+        "bytes": 165572,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 2,
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "skins": 0,
+        "triangles": 2094,
+        "bounds": {
+          "min": [
+            -1.04,
+            0,
+            -0.41
+          ],
+          "max": [
+            1.04,
+            0.93,
+            0.41
+          ],
+          "size": [
+            2.08,
+            0.93,
+            0.82
+          ]
+        },
+        "transformedNodes": []
+      },
+      "gates": {
+        "sourceSha": "passed",
+        "blenderBuild": "passed",
+        "glbStructure": "passed",
+        "budget": "passed",
+        "visual": "passed-three-way-comparison",
+        "runtime": "passed-isolated-qa",
+        "productionMap": "not-integrated"
+      },
+      "runtimeGate": {
+        "status": "passed-isolated-qa",
+        "qaRoute": "/meshy-street-assets-qa",
+        "productionPlacement": "not-integrated",
+        "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+        "modelScale": 0.3703703703703703,
+        "metersPerSceneUnit": 2.7,
+        "distanceMeters": 5,
+        "state": "visible-low",
+        "renderReady": true,
+        "canvasCount": 1,
+        "decodedBodySize": 165572,
+        "visualBrowserViewport": {
+          "width": 1638,
+          "height": 851
+        },
+        "structuralBrowserViewport": {
+          "width": 1280,
+          "height": 577,
+          "devicePixelRatio": 1
+        },
+        "consoleErrorCount": 0,
+        "performanceClaim": "none-local-warm-cache-only"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-28",
+      "assetId": "shared:street-asset:street-planter-long",
+      "slug": "street-planter-long",
+      "family": "shared-street-asset",
+      "status": "blender-glb-and-isolated-runtime-qa-passed",
+      "sourceRoute": "meshy-agent-web-no-api",
+      "source": {
+        "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_street_planter_remesh_0727170718_generate.glb",
+        "sha256": "63a20265f78a5abf81b13fc070f773efe4a818ef923ea87524f15a0b28634337",
+        "evidenceSnapshot": "2026-07-28-2ca6310",
+        "immutable": true
+      },
+      "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+      "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+      "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+      "generator": "scripts/create_meshy_agent_street_asset_models.py",
+      "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset street-planter-long",
+      "use": "店前与水边通用花箱",
+      "maxInstances": 16,
+      "recognizers": [
+        "清晰槽口",
+        "可见土层",
+        "两至三团叶簇"
+      ],
+      "targetDimensionsMeters": [
+        1.4,
+        0.54,
+        0.55
+      ],
+      "fittedBlenderBounds": {
+        "min": [
+          -0.7,
+          -0.27,
+          0
+        ],
+        "max": [
+          0.7,
+          0.27,
+          0.55
+        ],
+        "originMeaning": "ground-envelope-center"
+      },
+      "decimation": {
+        "before": 632,
+        "target": null,
+        "after": 632,
+        "applied": false
+      },
+      "buildMode": "direct-meshy-geometry-controlled-processing",
+      "sharedPaletteMaterials": [
+        "planter",
+        "soil",
+        "foliage-dark",
+        "foliage-warm"
+      ],
+      "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+      "originContract": {
+        "meaning": "ground-envelope-center",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false
+      },
+      "budget": {
+        "maxTriangles": 1500,
+        "maxNodes": 3,
+        "maxMaterials": 4,
+        "maxImages": 0,
+        "maxTextures": 0,
+        "maxBinaryBytes": 192000
+      },
+      "outputs": {
+        "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/street-planter-long.blend",
+        "blendSha256": "2560935f34e12209ab0fe49c7c0f55ab8dcf0551c80c5b76dd644beef6261f62",
+        "glb": "public/models/nonbuilding/meshy-agent-street-assets/street-planter-long-visible-low.glb",
+        "previews": {
+          "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_street-planter-long-canonical.png",
+          "canonicalSha256": "7fd9fffa3ea4db274d003edeb30ee995aba2c4faa385b27cecd79d59a91997d8",
+          "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_street-planter-long-side.png",
+          "sideSha256": "b33ad15fb6f8ec2dbba8883fc1db554ef1837d99a66e325aee6de1a33145ebb3",
+          "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_street-planter-long-detail.png",
+          "detailSha256": "99343ffa8403334dc6c5335874bc404f373b0c40f95edef1a59d0ce59ed522fb",
+          "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_street-planter-long-webgl.png",
+          "runtimeSha256": "c41e72725b6eeab28ad4e6c0e86aefff2618a9605ede7c77b389b5fb57d533b8",
+          "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_street-planter-long-triptych.png",
+          "triptychSha256": "25b920c34bd4b1955458ffec39f419ad018a01c4b8849b3044bce5eb07b131f1"
+        }
+      },
+      "glb": {
+        "sha256": "d24fd3310a6632c527bfebe147908f149711d493dc03d999b6b3efb992142276",
+        "bytes": 53128,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 4,
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "skins": 0,
+        "triangles": 632,
+        "bounds": {
+          "min": [
+            -0.7,
+            0,
+            -0.27
+          ],
+          "max": [
+            0.7,
+            0.55,
+            0.27
+          ],
+          "size": [
+            1.4,
+            0.55,
+            0.54
+          ]
+        },
+        "transformedNodes": []
+      },
+      "gates": {
+        "sourceSha": "passed",
+        "blenderBuild": "passed",
+        "glbStructure": "passed",
+        "budget": "passed",
+        "visual": "passed-three-way-comparison",
+        "runtime": "passed-isolated-qa",
+        "productionMap": "not-integrated"
+      },
+      "runtimeGate": {
+        "status": "passed-isolated-qa",
+        "qaRoute": "/meshy-street-assets-qa",
+        "productionPlacement": "not-integrated",
+        "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+        "modelScale": 0.3703703703703703,
+        "metersPerSceneUnit": 2.7,
+        "distanceMeters": 5,
+        "state": "visible-low",
+        "renderReady": true,
+        "canvasCount": 1,
+        "decodedBodySize": 53128,
+        "visualBrowserViewport": {
+          "width": 1638,
+          "height": 851
+        },
+        "structuralBrowserViewport": {
+          "width": 1280,
+          "height": 577,
+          "devicePixelRatio": 1
+        },
+        "consoleErrorCount": 0,
+        "performanceClaim": "none-local-warm-cache-only"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-28",
+      "assetId": "shared:street-asset:stone-bollard-squat",
+      "slug": "stone-bollard-squat",
+      "family": "shared-street-asset",
+      "status": "blender-glb-and-isolated-runtime-qa-passed",
+      "sourceRoute": "meshy-agent-web-no-api",
+      "source": {
+        "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_stone_bollard_remesh__0727165819_generate.glb",
+        "sha256": "b40a2cc2c8a95ace03730eb660abf149cbec26fd8f1f7ed3d4c1fad6d55d86da",
+        "evidenceSnapshot": "2026-07-28-2ca6310",
+        "immutable": true
+      },
+      "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+      "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+      "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+      "generator": "scripts/create_meshy_agent_street_asset_models.py",
+      "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset stone-bollard-squat",
+      "use": "入口与边界高重复石桩",
+      "maxInstances": 32,
+      "recognizers": [
+        "矮方轮廓",
+        "不规则侧面",
+        "斜切顶面"
+      ],
+      "targetDimensionsMeters": [
+        0.6,
+        0.52,
+        0.75
+      ],
+      "fittedBlenderBounds": {
+        "min": [
+          -0.3,
+          -0.26,
+          0
+        ],
+        "max": [
+          0.3,
+          0.26,
+          0.75
+        ],
+        "originMeaning": "ground-envelope-center"
+      },
+      "decimation": {
+        "before": 288,
+        "target": null,
+        "after": 288,
+        "applied": false
+      },
+      "buildMode": "direct-meshy-geometry-controlled-processing",
+      "sharedPaletteMaterials": [
+        "stone"
+      ],
+      "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+      "originContract": {
+        "meaning": "ground-envelope-center",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false
+      },
+      "budget": {
+        "maxTriangles": 500,
+        "maxNodes": 3,
+        "maxMaterials": 1,
+        "maxImages": 0,
+        "maxTextures": 0,
+        "maxBinaryBytes": 96000
+      },
+      "outputs": {
+        "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/stone-bollard-squat.blend",
+        "blendSha256": "41b8c702283cf73d6283422c66906b16e7c458000fb210bbd0ca23f62a03ec58",
+        "glb": "public/models/nonbuilding/meshy-agent-street-assets/stone-bollard-squat-visible-low.glb",
+        "previews": {
+          "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_stone-bollard-squat-canonical.png",
+          "canonicalSha256": "17f966735be82b61f30ef86571fc35060d15bdd2b80300ff0bd1dfb53b602357",
+          "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_stone-bollard-squat-side.png",
+          "sideSha256": "a55f6f086b052a3fce4155bbacece1394043c74656729e7da596cd0f79faefc5",
+          "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_stone-bollard-squat-detail.png",
+          "detailSha256": "43b40ad1b889b1dee04f91de5617716028096893aed6cfa3a64ec09038ba7f6e",
+          "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_stone-bollard-squat-webgl.png",
+          "runtimeSha256": "f747595197ab78615776cf2924da22ca9131fe420c2fdb3a0a20773e477a9584",
+          "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_stone-bollard-squat-triptych.png",
+          "triptychSha256": "97080c575690f9265da943dbd20e0c943c7699540a7258183ef5d5111ca80dfc"
+        }
+      },
+      "glb": {
+        "sha256": "33eb45ce517c613f8846043939907615aa7bbe9c1c52e516543f1d008eae11f5",
+        "bytes": 23980,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 1,
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "skins": 0,
+        "triangles": 288,
+        "bounds": {
+          "min": [
+            -0.3,
+            0,
+            -0.26
+          ],
+          "max": [
+            0.3,
+            0.75,
+            0.26
+          ],
+          "size": [
+            0.6,
+            0.75,
+            0.52
+          ]
+        },
+        "transformedNodes": []
+      },
+      "gates": {
+        "sourceSha": "passed",
+        "blenderBuild": "passed",
+        "glbStructure": "passed",
+        "budget": "passed",
+        "visual": "passed-three-way-comparison",
+        "runtime": "passed-isolated-qa",
+        "productionMap": "not-integrated"
+      },
+      "runtimeGate": {
+        "status": "passed-isolated-qa",
+        "qaRoute": "/meshy-street-assets-qa",
+        "productionPlacement": "not-integrated",
+        "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+        "modelScale": 0.3703703703703703,
+        "metersPerSceneUnit": 2.7,
+        "distanceMeters": 4,
+        "state": "visible-low",
+        "renderReady": true,
+        "canvasCount": 1,
+        "decodedBodySize": 23980,
+        "visualBrowserViewport": {
+          "width": 1638,
+          "height": 851
+        },
+        "structuralBrowserViewport": {
+          "width": 1280,
+          "height": 577,
+          "devicePixelRatio": 1
+        },
+        "consoleErrorCount": 0,
+        "performanceClaim": "none-local-warm-cache-only"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-28",
+      "assetId": "shared:street-asset:shanghai-dual-classification-bin",
+      "slug": "shanghai-dual-classification-bin",
+      "family": "shared-street-asset",
+      "status": "blender-glb-and-isolated-runtime-qa-passed",
+      "sourceRoute": "meshy-agent-web-no-api",
+      "source": {
+        "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_shanghai_dual_classif_0727170748_generate.glb",
+        "sha256": "93ad9c582c19540aa9a98af13258fd76bd88483b3ba12b85d4358d72dadb6ea7",
+        "evidenceSnapshot": "2026-07-28-2ca6310",
+        "immutable": true
+      },
+      "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+      "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+      "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+      "generator": "scripts/create_meshy_agent_street_asset_models.py",
+      "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset shanghai-dual-classification-bin",
+      "use": "沿街高重复双分类垃圾桶",
+      "maxInstances": 20,
+      "recognizers": [
+        "双投口",
+        "中缝",
+        "银灰与低饱和蓝分区"
+      ],
+      "targetDimensionsMeters": [
+        0.9,
+        0.46,
+        0.91
+      ],
+      "fittedBlenderBounds": {
+        "min": [
+          -0.45,
+          -0.23,
+          0
+        ],
+        "max": [
+          0.45,
+          0.23,
+          0.91
+        ],
+        "originMeaning": "ground-envelope-center"
+      },
+      "decimation": {
+        "before": 84,
+        "target": 1150,
+        "after": 84,
+        "applied": false,
+        "reason": "Meshy Remesh failed twice; used silhouette-guided deterministic rebuild"
+      },
+      "buildMode": "meshy-silhouette-guided-deterministic-rebuild",
+      "sharedPaletteMaterials": [
+        "silver",
+        "blue",
+        "metal-dark"
+      ],
+      "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+      "originContract": {
+        "meaning": "ground-envelope-center",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false
+      },
+      "budget": {
+        "maxTriangles": 1200,
+        "maxNodes": 3,
+        "maxMaterials": 3,
+        "maxImages": 0,
+        "maxTextures": 0,
+        "maxBinaryBytes": 192000
+      },
+      "outputs": {
+        "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/shanghai-dual-classification-bin.blend",
+        "blendSha256": "a4aa794556d96374cda16a4c6b053b3f3f58739acd4d7a6a4b1739bcace41da5",
+        "glb": "public/models/nonbuilding/meshy-agent-street-assets/shanghai-dual-classification-bin-visible-low.glb",
+        "previews": {
+          "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_shanghai-dual-classification-bin-canonical.png",
+          "canonicalSha256": "e8aedbe854ad54e486d05d664bc26b1ce8937d86e8965007e5be66b623878aa1",
+          "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_shanghai-dual-classification-bin-side.png",
+          "sideSha256": "a058738e523bfa61e72ebf42c20554f5b6c2ddb3287ef1cc9d4699a86d462166",
+          "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_shanghai-dual-classification-bin-detail.png",
+          "detailSha256": "b6cd1d33b9e3fba210a1b839369f7603792259e818ac958e2db73a6b0e1c2859",
+          "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_shanghai-dual-classification-bin-webgl.png",
+          "runtimeSha256": "3d9eac25bcda9518c979e2d4cafa407bd6210f2935bf81a35737024b0b702fa9",
+          "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_shanghai-dual-classification-bin-triptych.png",
+          "triptychSha256": "e75a068797a7faeadda90836eff866361d3fa9b55d3341e24feb3ba904ce8326"
+        }
+      },
+      "glb": {
+        "sha256": "134c52d35f704df1d4e30c5014454e29c1c848129807003c753be9e0f0c1781b",
+        "bytes": 9556,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 3,
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "skins": 0,
+        "triangles": 84,
+        "bounds": {
+          "min": [
+            -0.45,
+            0,
+            -0.23
+          ],
+          "max": [
+            0.45,
+            0.91,
+            0.23
+          ],
+          "size": [
+            0.9,
+            0.91,
+            0.46
+          ]
+        },
+        "transformedNodes": []
+      },
+      "gates": {
+        "sourceSha": "passed",
+        "blenderBuild": "passed",
+        "glbStructure": "passed",
+        "budget": "passed",
+        "visual": "passed-three-way-comparison",
+        "runtime": "passed-isolated-qa",
+        "productionMap": "not-integrated"
+      },
+      "runtimeGate": {
+        "status": "passed-isolated-qa",
+        "qaRoute": "/meshy-street-assets-qa",
+        "productionPlacement": "not-integrated",
+        "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+        "modelScale": 0.3703703703703703,
+        "metersPerSceneUnit": 2.7,
+        "distanceMeters": 4,
+        "state": "visible-low",
+        "renderReady": true,
+        "canvasCount": 1,
+        "decodedBodySize": 9556,
+        "visualBrowserViewport": {
+          "width": 1638,
+          "height": 851
+        },
+        "structuralBrowserViewport": {
+          "width": 1280,
+          "height": 577,
+          "devicePixelRatio": 1
+        },
+        "consoleErrorCount": 0,
+        "performanceClaim": "none-local-warm-cache-only"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-28",
+      "assetId": "shared:street-asset:cantilever-cafe-umbrella",
+      "slug": "cantilever-cafe-umbrella",
+      "family": "shared-street-asset",
+      "status": "blender-glb-and-isolated-runtime-qa-passed",
+      "sourceRoute": "meshy-agent-web-no-api",
+      "source": {
+        "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_cantilever_cafe_umbre_0727170809_generate.glb",
+        "sha256": "aa05ecb11f89262277a11c485d1ecec4ffbba7a43baa924789e123f44b027532",
+        "evidenceSnapshot": "2026-07-28-2ca6310",
+        "immutable": true
+      },
+      "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+      "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+      "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+      "generator": "scripts/create_meshy_agent_street_asset_models.py",
+      "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset cantilever-cafe-umbrella",
+      "use": "餐饮外摆悬臂伞",
+      "maxInstances": 8,
+      "recognizers": [
+        "方形伞面",
+        "侧置支架与悬臂",
+        "低矮配重底座"
+      ],
+      "targetDimensionsMeters": [
+        2.8,
+        2.8,
+        2.57
+      ],
+      "fittedBlenderBounds": {
+        "min": [
+          -1.4,
+          -1.4,
+          0
+        ],
+        "max": [
+          1.4,
+          1.4,
+          2.57
+        ],
+        "originMeaning": "ground-envelope-center"
+      },
+      "decimation": {
+        "before": 176,
+        "target": 1900,
+        "after": 176,
+        "applied": false,
+        "reason": "Meshy Remesh failed twice; used silhouette-guided deterministic rebuild"
+      },
+      "buildMode": "meshy-silhouette-guided-deterministic-rebuild",
+      "sharedPaletteMaterials": [
+        "metal-dark",
+        "coral"
+      ],
+      "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+      "originContract": {
+        "meaning": "ground-envelope-center",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false
+      },
+      "budget": {
+        "maxTriangles": 2000,
+        "maxNodes": 3,
+        "maxMaterials": 2,
+        "maxImages": 0,
+        "maxTextures": 0,
+        "maxBinaryBytes": 256000
+      },
+      "outputs": {
+        "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/cantilever-cafe-umbrella.blend",
+        "blendSha256": "4734df7f449f84c5ff7022e753ffadc513760b96628d31ad6050140925b08583",
+        "glb": "public/models/nonbuilding/meshy-agent-street-assets/cantilever-cafe-umbrella-visible-low.glb",
+        "previews": {
+          "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_cantilever-cafe-umbrella-canonical.png",
+          "canonicalSha256": "d916aed37d240ed6485f060ec60589086522c62038ea1243d51b2346e562028c",
+          "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_cantilever-cafe-umbrella-side.png",
+          "sideSha256": "20c4f893b2f7a6e7cdb0b470790e7faf0da30a628a5549c51a829d74cb23d53b",
+          "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_cantilever-cafe-umbrella-detail.png",
+          "detailSha256": "81f2a0b9bcabf1380a81a68c5a4c0d7d91e82ba892db0bf5840a309f6893135e",
+          "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_cantilever-cafe-umbrella-webgl.png",
+          "runtimeSha256": "6df29d0002fb042d94cba3434e2f30d7ec203f3e45556ef9b3f2b738c4b3ccdd",
+          "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_cantilever-cafe-umbrella-triptych.png",
+          "triptychSha256": "b4220e6775b9453c044c38fbef7eaa7b75e4da3a88bff533103f042ddd06bb9a"
+        }
+      },
+      "glb": {
+        "sha256": "f40dd14dae002c6861cc572d7f3c3f3997d96e4be6d8b2bb10b8b509f18aaba0",
+        "bytes": 14060,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 2,
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "skins": 0,
+        "triangles": 176,
+        "bounds": {
+          "min": [
+            -1.4,
+            0,
+            -1.4
+          ],
+          "max": [
+            1.4,
+            2.57,
+            1.4
+          ],
+          "size": [
+            2.8,
+            2.57,
+            2.8
+          ]
+        },
+        "transformedNodes": []
+      },
+      "gates": {
+        "sourceSha": "passed",
+        "blenderBuild": "passed",
+        "glbStructure": "passed",
+        "budget": "passed",
+        "visual": "passed-three-way-comparison",
+        "runtime": "passed-isolated-qa",
+        "productionMap": "not-integrated"
+      },
+      "runtimeGate": {
+        "status": "passed-isolated-qa",
+        "qaRoute": "/meshy-street-assets-qa",
+        "productionPlacement": "not-integrated",
+        "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+        "modelScale": 0.3703703703703703,
+        "metersPerSceneUnit": 2.7,
+        "distanceMeters": 10,
+        "state": "visible-low",
+        "renderReady": true,
+        "canvasCount": 1,
+        "decodedBodySize": 14060,
+        "visualBrowserViewport": {
+          "width": 1638,
+          "height": 851
+        },
+        "structuralBrowserViewport": {
+          "width": 1280,
+          "height": 577,
+          "devicePixelRatio": 1
+        },
+        "consoleErrorCount": 0,
+        "performanceClaim": "none-local-warm-cache-only"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-28",
+      "assetId": "shared:street-asset:outdoor-dining-dark-wood",
+      "slug": "outdoor-dining-dark-wood",
+      "family": "shared-street-asset",
+      "status": "blender-glb-and-isolated-runtime-qa-passed",
+      "sourceRoute": "meshy-agent-web-no-api",
+      "source": {
+        "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_outdoor_dining_remesh_0727170828_generate.glb",
+        "sha256": "71436018e7f5cec12a62dd5e7646814db7729c35f8f63e763d59b5b234728a6a",
+        "evidenceSnapshot": "2026-07-28-2ca6310",
+        "immutable": true
+      },
+      "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+      "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+      "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+      "generator": "scripts/create_meshy_agent_street_asset_models.py",
+      "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset outdoor-dining-dark-wood",
+      "use": "一桌两椅可移动组合",
+      "maxInstances": 8,
+      "recognizers": [
+        "单张长方桌",
+        "两把椅子相对",
+        "全部腿独立落地"
+      ],
+      "targetDimensionsMeters": [
+        2.4,
+        2.2,
+        0.9
+      ],
+      "fittedBlenderBounds": {
+        "min": [
+          -1.2,
+          -1.1,
+          0
+        ],
+        "max": [
+          1.2,
+          1.1,
+          0.9
+        ],
+        "originMeaning": "ground-envelope-center"
+      },
+      "decimation": {
+        "before": 204,
+        "target": null,
+        "after": 204,
+        "applied": false,
+        "reason": "Meshy Remesh failed twice; used silhouette-guided deterministic rebuild"
+      },
+      "buildMode": "meshy-silhouette-guided-deterministic-rebuild",
+      "sharedPaletteMaterials": [
+        "metal-dark",
+        "wood"
+      ],
+      "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+      "originContract": {
+        "meaning": "ground-envelope-center",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false
+      },
+      "budget": {
+        "maxTriangles": 3000,
+        "maxNodes": 3,
+        "maxMaterials": 2,
+        "maxImages": 0,
+        "maxTextures": 0,
+        "maxBinaryBytes": 320000
+      },
+      "outputs": {
+        "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/outdoor-dining-dark-wood.blend",
+        "blendSha256": "f7fbeb90122e7803edfd361a058bae3d667813a91bfc60c6bb9106367a5410e4",
+        "glb": "public/models/nonbuilding/meshy-agent-street-assets/outdoor-dining-dark-wood-visible-low.glb",
+        "previews": {
+          "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_outdoor-dining-dark-wood-canonical.png",
+          "canonicalSha256": "d4fb327448e635f018f6a8948d20ea96258e0d5553d902549d6c996373563b38",
+          "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_outdoor-dining-dark-wood-side.png",
+          "sideSha256": "9bca25af0d0099edeeef3effcdd705b2a543c7f88aed328f9d86b93cfa336eb5",
+          "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_outdoor-dining-dark-wood-detail.png",
+          "detailSha256": "586b75172e445fe1f64c1078a675a011183a4eb11edd4fcd0d882022e5d536e2",
+          "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_outdoor-dining-dark-wood-webgl.png",
+          "runtimeSha256": "c69e0158a5cdec33c666e53bca08feae2c88f1741923ab675c84b5d7ab5aee86",
+          "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_outdoor-dining-dark-wood-triptych.png",
+          "triptychSha256": "e6508a0632490fb4d3395e3f2606324d3846445487992f6c0be1565b55eea0d9"
+        }
+      },
+      "glb": {
+        "sha256": "50ba2639ec35d24e02cf0171ca69733eee295ef02c1036d63e42836493940816",
+        "bytes": 16936,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 2,
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "skins": 0,
+        "triangles": 204,
+        "bounds": {
+          "min": [
+            -1.2,
+            0,
+            -1.1
+          ],
+          "max": [
+            1.2,
+            0.9,
+            1.1
+          ],
+          "size": [
+            2.4,
+            0.9,
+            2.2
+          ]
+        },
+        "transformedNodes": []
+      },
+      "gates": {
+        "sourceSha": "passed",
+        "blenderBuild": "passed",
+        "glbStructure": "passed",
+        "budget": "passed",
+        "visual": "passed-three-way-comparison",
+        "runtime": "passed-isolated-qa",
+        "productionMap": "not-integrated"
+      },
+      "runtimeGate": {
+        "status": "passed-isolated-qa",
+        "qaRoute": "/meshy-street-assets-qa",
+        "productionPlacement": "not-integrated",
+        "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+        "modelScale": 0.3703703703703703,
+        "metersPerSceneUnit": 2.7,
+        "distanceMeters": 6,
+        "state": "visible-low",
+        "renderReady": true,
+        "canvasCount": 1,
+        "decodedBodySize": 16936,
+        "visualBrowserViewport": {
+          "width": 1638,
+          "height": 851
+        },
+        "structuralBrowserViewport": {
+          "width": 1280,
+          "height": 577,
+          "devicePixelRatio": 1
+        },
+        "consoleErrorCount": 0,
+        "performanceClaim": "none-local-warm-cache-only"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-28",
+      "assetId": "shared:street-asset:vintage-step-through-bicycle",
+      "slug": "vintage-step-through-bicycle",
+      "family": "shared-street-asset",
+      "status": "blender-glb-and-isolated-runtime-qa-passed",
+      "sourceRoute": "meshy-agent-web-no-api",
+      "source": {
+        "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_vintage_step_through__0727171113_generate.glb",
+        "sha256": "234d0dc8e8b5b8301c6df5e7b97d5361ca9b270721156d43cecf57dff3a488b9",
+        "evidenceSnapshot": "2026-07-28-2ca6310",
+        "immutable": true
+      },
+      "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+      "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+      "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+      "generator": "scripts/create_meshy_agent_street_asset_models.py",
+      "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset vintage-step-through-bicycle",
+      "use": "少量近景身份道具",
+      "maxInstances": 4,
+      "recognizers": [
+        "两轮闭环",
+        "弯梁车架",
+        "前篮、后架与挡泥板"
+      ],
+      "targetDimensionsMeters": [
+        1.76,
+        0.6,
+        1.1
+      ],
+      "fittedBlenderBounds": {
+        "min": [
+          -0.88,
+          -0.3,
+          0
+        ],
+        "max": [
+          0.88,
+          0.3,
+          1.1
+        ],
+        "originMeaning": "ground-envelope-center"
+      },
+      "decimation": {
+        "before": 704,
+        "target": 4900,
+        "after": 704,
+        "applied": false,
+        "reason": "Meshy Remesh failed twice; used silhouette-guided deterministic rebuild"
+      },
+      "buildMode": "meshy-silhouette-guided-deterministic-rebuild",
+      "sharedPaletteMaterials": [
+        "metal-dark",
+        "foliage-dark",
+        "wood"
+      ],
+      "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+      "originContract": {
+        "meaning": "ground-envelope-center",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false
+      },
+      "budget": {
+        "maxTriangles": 5000,
+        "maxNodes": 3,
+        "maxMaterials": 3,
+        "maxImages": 0,
+        "maxTextures": 0,
+        "maxBinaryBytes": 700000
+      },
+      "outputs": {
+        "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/vintage-step-through-bicycle.blend",
+        "blendSha256": "08e144bfb6b6c9f994f73532dd27c0007398cdf08dbded9b157274351671a489",
+        "glb": "public/models/nonbuilding/meshy-agent-street-assets/vintage-step-through-bicycle-visible-low.glb",
+        "previews": {
+          "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_vintage-step-through-bicycle-canonical.png",
+          "canonicalSha256": "e5ee6e7f45815a6cbef7f0d92495fbc27a635a1ba633ebcd5940c032c3f8cb72",
+          "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_vintage-step-through-bicycle-side.png",
+          "sideSha256": "f1843defb89f39b2bd0956dc3e7417d4e82f8ac83a89afa65ed28c19cc832f63",
+          "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_vintage-step-through-bicycle-detail.png",
+          "detailSha256": "7d3153ef2633855c458235a76d7a2eac1eddf40eac825d676561cdc2236ed3e8",
+          "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_vintage-step-through-bicycle-webgl.png",
+          "runtimeSha256": "ba6cdb7b4bc0cb8ae865559f9aa8c33dcc09e9632c266c5ce571dfcee70f8b2e",
+          "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_vintage-step-through-bicycle-triptych.png",
+          "triptychSha256": "9db99e4a762949db5be4e9540404a8b8cd7bd73baa1e4cc8936a8303d75d8792"
+        }
+      },
+      "glb": {
+        "sha256": "4aee4bbf515c443d18664723565ab31bbadcf72bffcdc4289b8bb075ee5f186a",
+        "bytes": 49988,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 3,
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "skins": 0,
+        "triangles": 704,
+        "bounds": {
+          "min": [
+            -0.88,
+            0,
+            -0.3
+          ],
+          "max": [
+            0.88,
+            1.1,
+            0.3
+          ],
+          "size": [
+            1.76,
+            1.1,
+            0.6
+          ]
+        },
+        "transformedNodes": []
+      },
+      "gates": {
+        "sourceSha": "passed",
+        "blenderBuild": "passed",
+        "glbStructure": "passed",
+        "budget": "passed",
+        "visual": "passed-three-way-comparison",
+        "runtime": "passed-isolated-qa",
+        "productionMap": "not-integrated"
+      },
+      "runtimeGate": {
+        "status": "passed-isolated-qa",
+        "qaRoute": "/meshy-street-assets-qa",
+        "productionPlacement": "not-integrated",
+        "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+        "modelScale": 0.3703703703703703,
+        "metersPerSceneUnit": 2.7,
+        "distanceMeters": 5,
+        "state": "visible-low",
+        "renderReady": true,
+        "canvasCount": 1,
+        "decodedBodySize": 49988,
+        "visualBrowserViewport": {
+          "width": 1638,
+          "height": 851
+        },
+        "structuralBrowserViewport": {
+          "width": 1280,
+          "height": 577,
+          "devicePixelRatio": 1
+        },
+        "consoleErrorCount": 0,
+        "performanceClaim": "none-local-warm-cache-only"
+      }
+    },
+    {
+      "version": 1,
+      "auditedAt": "2026-07-28",
+      "assetId": "shared:street-asset:wall-ac-outdoor-unit",
+      "slug": "wall-ac-outdoor-unit",
+      "family": "shared-street-asset",
+      "status": "blender-glb-and-isolated-runtime-qa-passed",
+      "sourceRoute": "meshy-agent-web-no-api",
+      "source": {
+        "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_wall_ac_remesh2_1200_0727171203_generate.glb",
+        "sha256": "cd53a937eaeb1d530c9e1965ab718829e110ed94af844665c837d337b23e8ba9",
+        "evidenceSnapshot": "2026-07-28-2ca6310",
+        "immutable": true
+      },
+      "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+      "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+      "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+      "generator": "scripts/create_meshy_agent_street_asset_models.py",
+      "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset wall-ac-outdoor-unit",
+      "use": "立面高重复生活细节",
+      "maxInstances": 24,
+      "recognizers": [
+        "闭合箱体",
+        "单个大风扇圆环",
+        "百叶与双托架"
+      ],
+      "targetDimensionsMeters": [
+        0.8,
+        0.32,
+        0.55
+      ],
+      "fittedBlenderBounds": {
+        "min": [
+          -0.4,
+          -0.32,
+          -0.275
+        ],
+        "max": [
+          0.4,
+          0,
+          0.275
+        ],
+        "originMeaning": "wall-back-center"
+      },
+      "decimation": {
+        "before": 232,
+        "target": 950,
+        "after": 232,
+        "applied": false,
+        "reason": "Meshy Remesh failed twice; used silhouette-guided deterministic rebuild"
+      },
+      "buildMode": "meshy-silhouette-guided-deterministic-rebuild",
+      "sharedPaletteMaterials": [
+        "ac-shell",
+        "metal-dark"
+      ],
+      "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+      "originContract": {
+        "meaning": "wall-back-center",
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "blenderUp": "Z",
+        "runtimeUp": "Y",
+        "blenderFront": "-Y",
+        "worldPlacementBaked": false
+      },
+      "budget": {
+        "maxTriangles": 1000,
+        "maxNodes": 3,
+        "maxMaterials": 2,
+        "maxImages": 0,
+        "maxTextures": 0,
+        "maxBinaryBytes": 160000
+      },
+      "outputs": {
+        "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/wall-ac-outdoor-unit.blend",
+        "blendSha256": "bd63b0a96ae19fff093e14e967082b39ed665febb1e5ebda8573abfea958b2f7",
+        "glb": "public/models/nonbuilding/meshy-agent-street-assets/wall-ac-outdoor-unit-visible-low.glb",
+        "previews": {
+          "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_wall-ac-outdoor-unit-canonical.png",
+          "canonicalSha256": "13877331e158b3fc7849a62ef857f081f9c5c54ce9dac0feac1c657b22e76cdf",
+          "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_wall-ac-outdoor-unit-side.png",
+          "sideSha256": "b5c7751be8e11b7f9f9b8317cadefa248ba7884f9d98a6a3de805e2170530a13",
+          "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_wall-ac-outdoor-unit-detail.png",
+          "detailSha256": "3e0dae5c640261d81b122cd9e21188126f84280fefcb73978fd95bcdd6504423",
+          "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_wall-ac-outdoor-unit-webgl.png",
+          "runtimeSha256": "4f0672df4050f4f223752481faf5749fc4b179d79434696bd9b8a0a8c3ef5dba",
+          "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_wall-ac-outdoor-unit-triptych.png",
+          "triptychSha256": "c8f7c61202803aaa5e749be644d9144bc0da085f6699a0cd86ce7c3f753635e7"
+        }
+      },
+      "glb": {
+        "sha256": "0f0c211e80655c95563f80fb28a3df43b2ab261cbc877e9021c379ee70b03e50",
+        "bytes": 17080,
+        "nodes": 1,
+        "meshes": 1,
+        "materials": 2,
+        "images": 0,
+        "textures": 0,
+        "animations": 0,
+        "skins": 0,
+        "triangles": 232,
+        "bounds": {
+          "min": [
+            -0.4,
+            -0.275,
+            0
+          ],
+          "max": [
+            0.4,
+            0.275,
+            0.32
+          ],
+          "size": [
+            0.8,
+            0.55,
+            0.32
+          ]
+        },
+        "transformedNodes": []
+      },
+      "gates": {
+        "sourceSha": "passed",
+        "blenderBuild": "passed",
+        "glbStructure": "passed",
+        "budget": "passed",
+        "visual": "passed-three-way-comparison",
+        "runtime": "passed-isolated-qa",
+        "productionMap": "not-integrated"
+      },
+      "runtimeGate": {
+        "status": "passed-isolated-qa",
+        "qaRoute": "/meshy-street-assets-qa",
+        "productionPlacement": "not-integrated",
+        "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+        "modelScale": 0.3703703703703703,
+        "metersPerSceneUnit": 2.7,
+        "distanceMeters": 5,
+        "state": "visible-low",
+        "renderReady": true,
+        "canvasCount": 1,
+        "decodedBodySize": 17080,
+        "visualBrowserViewport": {
+          "width": 1638,
+          "height": 851
+        },
+        "structuralBrowserViewport": {
+          "width": 1280,
+          "height": 577,
+          "devicePixelRatio": 1
+        },
+        "consoleErrorCount": 0,
+        "performanceClaim": "none-local-warm-cache-only"
+      }
+    }
+  ],
+  "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+  "runtimePassedAssetCount": 10,
+  "runtimeConsoleErrorCount": 0,
+  "threeWayComparisonContactSheet": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_meshy-agent-street-assets-triptych-contact-sheet.png",
+  "finalReview": "docs/research/meshy-agent-street-assets-final-review.md"
+}

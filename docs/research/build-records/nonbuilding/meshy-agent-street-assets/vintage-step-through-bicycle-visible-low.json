@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-28",
+  "assetId": "shared:street-asset:vintage-step-through-bicycle",
+  "slug": "vintage-step-through-bicycle",
+  "family": "shared-street-asset",
+  "status": "blender-glb-and-isolated-runtime-qa-passed",
+  "sourceRoute": "meshy-agent-web-no-api",
+  "source": {
+    "file": "test_artifacts/test_meshy_agent_batch_20260728/raw_exports/Meshy_AI_vintage_step_through__0727171113_generate.glb",
+    "sha256": "234d0dc8e8b5b8301c6df5e7b97d5361ca9b270721156d43cecf57dff3a488b9",
+    "evidenceSnapshot": "2026-07-28-2ca6310",
+    "immutable": true
+  },
+  "modelBrief": "docs/research/meshy-agent-street-assets-model-brief.md",
+  "referenceManifest": "docs/research/meshy-agent-street-assets-reference-manifest.json",
+  "decisionLog": "docs/research/meshy-agent-street-assets-decision-log.md",
+  "generator": "scripts/create_meshy_agent_street_asset_models.py",
+  "buildCommand": "/opt/homebrew/bin/blender --background --python scripts/create_meshy_agent_street_asset_models.py -- --asset vintage-step-through-bicycle",
+  "use": "少量近景身份道具",
+  "maxInstances": 4,
+  "recognizers": [
+    "两轮闭环",
+    "弯梁车架",
+    "前篮、后架与挡泥板"
+  ],
+  "targetDimensionsMeters": [
+    1.76,
+    0.6,
+    1.1
+  ],
+  "fittedBlenderBounds": {
+    "min": [
+      -0.88,
+      -0.3,
+      0
+    ],
+    "max": [
+      0.88,
+      0.3,
+      1.1
+    ],
+    "originMeaning": "ground-envelope-center"
+  },
+  "decimation": {
+    "before": 704,
+    "target": 4900,
+    "after": 704,
+    "applied": false,
+    "reason": "Meshy Remesh failed twice; used silhouette-guided deterministic rebuild"
+  },
+  "buildMode": "meshy-silhouette-guided-deterministic-rebuild",
+  "sharedPaletteMaterials": [
+    "metal-dark",
+    "foliage-dark",
+    "wood"
+  ],
+  "texturePolicy": "shared-flat-materials-zero-images-zero-textures",
+  "originContract": {
+    "meaning": "ground-envelope-center",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "blenderUp": "Z",
+    "runtimeUp": "Y",
+    "blenderFront": "-Y",
+    "worldPlacementBaked": false
+  },
+  "budget": {
+    "maxTriangles": 5000,
+    "maxNodes": 3,
+    "maxMaterials": 3,
+    "maxImages": 0,
+    "maxTextures": 0,
+    "maxBinaryBytes": 700000
+  },
+  "outputs": {
+    "blend": "assets/models/source/nonbuilding/meshy-agent-street-assets/vintage-step-through-bicycle.blend",
+    "blendSha256": "08e144bfb6b6c9f994f73532dd27c0007398cdf08dbded9b157274351671a489",
+    "glb": "public/models/nonbuilding/meshy-agent-street-assets/vintage-step-through-bicycle-visible-low.glb",
+    "previews": {
+      "canonical": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_vintage-step-through-bicycle-canonical.png",
+      "canonicalSha256": "e5ee6e7f45815a6cbef7f0d92495fbc27a635a1ba633ebcd5940c032c3f8cb72",
+      "side": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_vintage-step-through-bicycle-side.png",
+      "sideSha256": "f1843defb89f39b2bd0956dc3e7417d4e82f8ac83a89afa65ed28c19cc832f63",
+      "detail": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_vintage-step-through-bicycle-detail.png",
+      "detailSha256": "7d3153ef2633855c458235a76d7a2eac1eddf40eac825d676561cdc2236ed3e8",
+      "runtime": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_vintage-step-through-bicycle-webgl.png",
+      "runtimeSha256": "ba6cdb7b4bc0cb8ae865559f9aa8c33dcc09e9632c266c5ce571dfcee70f8b2e",
+      "triptych": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_vintage-step-through-bicycle-triptych.png",
+      "triptychSha256": "9db99e4a762949db5be4e9540404a8b8cd7bd73baa1e4cc8936a8303d75d8792"
+    }
+  },
+  "glb": {
+    "sha256": "4aee4bbf515c443d18664723565ab31bbadcf72bffcdc4289b8bb075ee5f186a",
+    "bytes": 49988,
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 3,
+    "images": 0,
+    "textures": 0,
+    "animations": 0,
+    "skins": 0,
+    "triangles": 704,
+    "bounds": {
+      "min": [
+        -0.88,
+        0,
+        -0.3
+      ],
+      "max": [
+        0.88,
+        1.1,
+        0.3
+      ],
+      "size": [
+        1.76,
+        1.1,
+        0.6
+      ]
+    },
+    "transformedNodes": []
+  },
+  "gates": {
+    "sourceSha": "passed",
+    "blenderBuild": "passed",
+    "glbStructure": "passed",
+    "budget": "passed",
+    "visual": "passed-three-way-comparison",
+    "runtime": "passed-isolated-qa",
+    "productionMap": "not-integrated"
+  },
+  "runtimeGate": {
+    "status": "passed-isolated-qa",
+    "qaRoute": "/meshy-street-assets-qa",
+    "productionPlacement": "not-integrated",
+    "runtimeMetrics": "test_artifacts/nonbuilding/meshy-agent-street-assets/test_runtime_metrics.json",
+    "modelScale": 0.3703703703703703,
+    "metersPerSceneUnit": 2.7,
+    "distanceMeters": 5,
+    "state": "visible-low",
+    "renderReady": true,
+    "canvasCount": 1,
+    "decodedBodySize": 49988,
+    "visualBrowserViewport": {
+      "width": 1638,
+      "height": 851
+    },
+    "structuralBrowserViewport": {
+      "width": 1280,
+      "height": 577,
+      "devicePixelRatio": 1
+    },
+    "consoleErrorCount": 0,
+    "performanceClaim": "none-local-warm-cache-only"
+  }
+}
