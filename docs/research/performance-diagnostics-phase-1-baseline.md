@@ -7,7 +7,8 @@
 桌面基线。
 
 - 性能诊断仅在 URL 明确包含 `?perf=1` 时懒加载；
-- 普通 URL 不暴露 `window.__XINHUA_PERF__`，不渲染面板，也不请求诊断 chunk；
+- 普通 URL 不暴露 `window.__XINHUA_PERF__`，不渲染面板，也不请求诊断
+  JavaScript / CSS 资产或携带诊断 CSSOM 规则；
 - 未修改 Chunk、LOD、压缩、资源调度或画质策略；
 - 本轮结果仅是单机单轮基线，不代表性能提升或回归；
 - 未部署、未推送。
@@ -16,6 +17,7 @@
 
 - `app/performance/performance-metrics.ts`
 - `app/performance/performance-diagnostics.tsx`
+- `app/performance/performance-diagnostics.module.css`
 - `scripts/test_capture_performance_baselines.mjs`
 - `tests/test_performance_diagnostics.test.mjs`
 
@@ -67,18 +69,18 @@
 
 采集源码：
 
-- commit：`4533af1594948014518340134c8505904722436e`
-- tree：`51542850046124f0ee50bcd51fc43111be589cb8`
+- commit：`dc4225ae8d362c1a6bbda37e538d1eed83df16e7`
+- tree：`db901eab32b4f4fcf8ed5d76c7f64840d230e635`
 - served `index.html` SHA-256：
-  `2e17253f0074df57800daeb596b77981a12826e4a46950ee224c0b194d063681`
+  `e0d37e3917a42b1eeaa81c77825da13ee765e76186af4d268fcfb4f4f1d66989`
 
 ### 帧数据
 
 | 入口 | 有效帧 | 实际窗口 | FPS | avg | P95 | max | long frames |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| intro | 600 | 10000.3 ms | 60.04 | 16.66 ms | 22.5 ms | 25.4 ms | 0 |
-| overview | 600 | 10020.0 ms | 59.98 | 16.67 ms | 22.2 ms | 23.9 ms | 0 |
-| xingfuli | 600 | 10011.3 ms | 60.02 | 16.66 ms | 21.5 ms | 30.1 ms | 0 |
+| intro | 600 | 10005.7 ms | 60.02 | 16.66 ms | 20.6 ms | 23.2 ms | 0 |
+| overview | 599 | 10001.4 ms | 59.99 | 16.67 ms | 19.2 ms | 27.9 ms | 0 |
+| xingfuli | 600 | 10008.6 ms | 60.01 | 16.66 ms | 18.5 ms | 30.6 ms | 0 |
 
 ### Renderer
 
@@ -87,8 +89,8 @@ Calls 和 triangles 均按 `average / last / maximum` 展示。
 | 入口 | draw calls | triangles | geometries | textures | programs |
 | --- | --- | --- | ---: | ---: | ---: |
 | intro | `329 / 329 / 329` | `259995 / 259995 / 259995` | 164 | 22 | 24 |
-| overview | `1747.95 / 1747 / 1754` | `307370.32 / 330344 / 330344` | 1810 | 16 | 18 |
-| xingfuli | `1047.67 / 573 / 1555` | `670751.05 / 784187 / 784187` | 466 | 10 | 43 |
+| overview | `1747.97 / 1747 / 1754` | `307169.94 / 330344 / 330344` | 1810 | 16 | 18 |
+| xingfuli | `1044.57 / 573 / 1555` | `671934.43 / 784187 / 784187` | 466 | 10 | 43 |
 
 Xingfuli 在采样窗口内的 calls / triangles 变化明显，因此后续分析必须保留
 average、last、maximum 和原始逐帧窗口语义，不能只摘取一个数值。
@@ -99,9 +101,9 @@ Tier 顺序为 `Massing / Identity / Hero / Unknown`。
 
 | 入口 | loaded tier | visible tier | chunks loaded / visible | active assets | first playable | 请求完成数 | transfer |
 | --- | --- | --- | --- | ---: | ---: | --- | ---: |
-| intro | `30 / 0 / 0 / 0` | `30 / 0 / 0 / 0` | `4 / 4` | 27 | 4078.1 ms | `13 JS / 11 GLB / 1 IMG`，共 26 | 2285808 B |
-| overview | `4 / 19 / 0 / 0` | `4 / 19 / 0 / 0` | `4 / 4` | 20 | 4226.9 ms | `15 JS / 11 GLB / 1 IMG`，共 28 | 2293146 B |
-| xingfuli | `4 / 18 / 1 / 0` | `0 / 18 / 1 / 0` | `4 / 0` | 19 | 4263.9 ms | `15 JS / 11 GLB / 1 IMG`，共 28 | 2293146 B |
+| intro | `30 / 0 / 0 / 0` | `30 / 0 / 0 / 0` | `4 / 4` | 27 | 4023.8 ms | `13 JS / 11 GLB / 1 IMG`，共 27 | 2286590 B |
+| overview | `4 / 19 / 0 / 0` | `4 / 19 / 0 / 0` | `4 / 4` | 20 | 4195.1 ms | `15 JS / 11 GLB / 1 IMG`，共 29 | 2293927 B |
+| xingfuli | `4 / 18 / 1 / 0` | `0 / 18 / 1 / 0` | `4 / 0` | 19 | 4277.5 ms | `15 JS / 11 GLB / 1 IMG`，共 29 | 2293927 B |
 
 Collector 验收确认：
 
@@ -113,7 +115,8 @@ Collector 验收确认：
 
 ## 页面与失败门
 
-- 普通 production URL：API 为 `undefined`、面板数为 `0`、诊断 chunk 请求为 `0`。
+- 普通 production URL：API 为 `undefined`、面板数为 `0`、诊断 JavaScript /
+  CSS 请求为 `0`、诊断 CSSOM 规则数为 `0`。
 - 三个入口均为 production、入口和 mode 匹配、采样期间页面全程可见。
 - 三个入口的 console error、network failure、应用 HTTP error 均为 `0`。
 - 每个入口保留一个既有 `THREE.Clock` deprecated warning；本轮未扩大范围处理。
@@ -123,14 +126,14 @@ Collector 验收确认：
 
 外置动态证据快照：
 
-- snapshot ID：`2026-07-29-4533af1`
-- snapshot manifest：`gitSha=4533af1`、`sourceWorktreeDirty=false`
-- 文件数 / 字节数：`643 / 271802368`
+- snapshot ID：`2026-07-29-dc4225a`
+- snapshot manifest：`gitSha=dc4225a`、`sourceWorktreeDirty=false`
+- 文件数 / 字节数：`651 / 275111936`
 - `SHA256SUMS`：独立复查全部通过
 - 正式基线相对路径：
-  `repository/test_artifacts/performance-baselines/test_issue_2_phase_1_desktop_4533af1/`
+  `repository/test_artifacts/performance-baselines/test_issue_2_phase_1_desktop_dc4225a/`
 - 正式 baseline manifest SHA-256：
-  `6d8bc66d56f378f21734e6d2b8b0afc5fe5d5bdbde1131922d005f03dbd30107`
+  `62ce8eb491ebe7c9db71925b4c6bc99a1d41a74eace054d5cca1e5d6038de17e`
 
 动态 JSON、截图和运行指标不得进入 `Threejs-3d-research`；该 Wiki 只允许保存
 进一步抽象后的方法与流程 Markdown。
@@ -145,6 +148,10 @@ Collector 验收确认：
   HTTP 失败门，采集被中止，没有正式 manifest。
 - `test_issue_2_phase_1_desktop_85f4cae/`：已通过当时协议，但帧间隔锚点使用
   rAF 起始时间；发现首个锚点可能落在采样开始前后，已由 `4533af1` 替代。
+- `test_issue_2_phase_1_desktop_4533af1/`：帧采样语义与三入口数据有效，
+  但普通 URL 隔离门只检查诊断资源名、API 和 DOM；面板样式仍位于全局 CSS，
+  因而普通用户会下载并解析诊断 CSS。`dc4225a` 将样式拆为异步 CSS module，
+  并同时检查诊断 JavaScript / CSS 请求与 CSSOM 规则，故该轮已被替代。
 
 这些历史证据及其不可变快照用于保留决策与校验链，不用于性能结论。
 
