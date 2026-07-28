@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 1,
+  "assetId": "sun-ke-villa",
+  "gate": "evidence",
+  "decision": "approved",
+  "reviewedAt": "2026-07-28T00:00:00+08:00",
+  "reviewer": "codex-existing-evidence-audit",
+  "reviewerType": "independent-evidence-audit",
+  "caseVersion": 1,
+  "snapshotId": "2026-07-27-storage-migration-52db477",
+  "snapshotChecksumStatus": "verified-all-2026-07-28",
+  "coverage": {
+    "canonical": "pass",
+    "sideDepth": "pass",
+    "entranceIdentity": "pass",
+    "footprint": "pass-with-explicit-inference"
+  },
+  "findings": [
+    "三联尖券、二层连续拱窗和右侧圆角塔楼跨官方视角持续可见。",
+    "北入口与用户近景共同证明 porte-cochere 外挑、厚柱和开放覆盖车道。",
+    "OSM 只约束主体水平范围；高度和隐藏侧面继续标为 inferred / unknown。"
+  ],
+  "blockingConflicts": [],
+  "nextGate": "massing"
+}

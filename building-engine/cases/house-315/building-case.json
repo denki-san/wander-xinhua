@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "caseVersion": 1,
+  "assetId": "house-315",
+  "archetype": "garden-villa",
+  "subject": {
+    "name": "新华路315号住宅",
+    "address": "上海市长宁区新华路315号",
+    "boundary": "single-garden-villa"
+  },
+  "scope": {
+    "status": "in-scope",
+    "modelAssetCount": 1,
+    "researchOnly": true,
+    "productionReplacementAuthorized": false
+  },
+  "briefPath": "docs/research/house-315-building-engine-spike-brief.md",
+  "dslPath": "building-engine/cases/house-315/building-dsl.json",
+  "evidenceArchive": {
+    "snapshotId": "2026-07-27-storage-migration-52db477",
+    "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-27-storage-migration-52db477",
+    "contentRoot": "repository",
+    "fileCount": 980,
+    "byteCount": 451461120,
+    "checksumStatus": "verified-all-2026-07-28"
+  },
+  "evidenceItems": [
+    {
+      "id": "house-315-canonical",
+      "slot": "canonical",
+      "repositoryPath": "docs/research/assets/poi-references/house-315/house-315-front-official-2023.jpg",
+      "snapshotPath": "repository/docs/research/assets/poi-references/house-315/house-315-front-official-2023.jpg",
+      "sha256": "6f479e2d9505f8817457eaa7af8c1033790bfd16c864ab13287086d0c1943c00",
+      "source": "上海市文旅推广网",
+      "view": "新华路朝沿街正面",
+      "usageBoundary": "research-reference-only"
+    },
+    {
+      "id": "house-315-aerial",
+      "slot": "side-depth",
+      "repositoryPath": "docs/research/assets/poi-references/house-315/house-315-aerial-jfdaily-2026.jpg",
+      "snapshotPath": "repository/docs/research/assets/poi-references/house-315/house-315-aerial-jfdaily-2026.jpg",
+      "sha256": "bc3e964ea39c3c47235dac171b438e95e4b7f6c03397229bf44d343d7ac4a095",
+      "source": "上观新闻 Image 242",
+      "view": "正面偏右俯瞰",
+      "usageBoundary": "research-reference-only"
+    },
+    {
+      "id": "house-315-entrance",
+      "slot": "entrance-identity",
+      "repositoryPath": "docs/research/assets/poi-references/house-315/house-315-entrance-jfdaily-2026.jpg",
+      "snapshotPath": "repository/docs/research/assets/poi-references/house-315/house-315-entrance-jfdaily-2026.jpg",
+      "sha256": "f72e564587e32f0dafe1652fbd4f9f803911f661f0235bf5795a9b61e64cc051",
+      "source": "上观新闻 Image 244",
+      "view": "沿街入口与中央山墙",
+      "usageBoundary": "research-reference-only"
+    },
+    {
+      "id": "house-315-address",
+      "slot": "subject-binding",
+      "repositoryPath": "docs/research/assets/poi-references/house-315/house-315-address-sign-jfdaily-2026.jpg",
+      "snapshotPath": "repository/docs/research/assets/poi-references/house-315/house-315-address-sign-jfdaily-2026.jpg",
+      "sha256": "4598dfd65b7a361d1e2643ed602e832516e34284dad49a0ae18cd65dcf929a93",
+      "source": "上观新闻 Image 243",
+      "view": "门牌与保护铭牌",
+      "usageBoundary": "subject-binding-only"
+    }
+  ],
+  "coverage": {
+    "canonical": "supported",
+    "sideDepth": "supported-for-massing",
+    "entranceIdentity": "supported",
+    "subjectBinding": "supported",
+    "rear": "partial-unknown",
+    "surveyedDimensions": "unknown"
+  },
+  "claims": [
+    {
+      "claimId": "house-315-main-massing",
+      "field": "massing.volumes",
+      "origin": "observed",
+      "confidence": 0.93,
+      "evidenceRefs": ["house-315-canonical", "house-315-aerial"],
+      "reviewState": "approved",
+      "valueSummary": "横向主脊、中央前出体量、右长翼与左后短翼构成非对称连续住宅。"
+    },
+    {
+      "claimId": "house-315-steep-roofs",
+      "field": "massing.roofs",
+      "origin": "observed",
+      "confidence": 0.95,
+      "evidenceRefs": ["house-315-canonical", "house-315-aerial", "house-315-entrance"],
+      "reviewState": "approved",
+      "valueSummary": "相连陡坡红瓦屋顶与中央纵向高山墙形成主体轮廓。"
+    },
+    {
+      "claimId": "house-315-central-timber-gable",
+      "field": "master.features.timber-gable",
+      "origin": "observed",
+      "confidence": 0.97,
+      "evidenceRefs": ["house-315-canonical", "house-315-entrance"],
+      "reviewState": "approved",
+      "valueSummary": "中央高山墙使用深色半木构分格并向沿街面前出。"
+    },
+    {
+      "claimId": "house-315-facade-split",
+      "field": "materials.facade",
+      "origin": "observed",
+      "confidence": 0.94,
+      "evidenceRefs": ["house-315-canonical", "house-315-aerial"],
+      "reviewState": "approved",
+      "valueSummary": "沿街立面持续呈现上部暖白灰泥与下部低饱和红砖分区。"
+    },
+    {
+      "claimId": "house-315-entry-rhythm",
+      "field": "master.openings",
+      "origin": "observed",
+      "confidence": 0.88,
+      "evidenceRefs": ["house-315-canonical", "house-315-entrance"],
+      "reviewState": "approved",
+      "valueSummary": "中央高入口、山墙上层小窗和两侧深色窗带构成沿街节奏。"
+    },
+    {
+      "claimId": "house-315-relative-depth",
+      "field": "massing.depth",
+      "origin": "inferred",
+      "confidence": 0.78,
+      "evidenceRefs": ["house-315-aerial"],
+      "reviewState": "approved",
+      "valueSummary": "俯瞰支持相对进深和翼部层级，不代表测绘尺寸。"
+    },
+    {
+      "claimId": "house-315-scale",
+      "field": "coordinateContract.scale",
+      "origin": "inferred",
+      "confidence": 0.74,
+      "evidenceRefs": ["house-315-canonical", "house-315-entrance"],
+      "reviewState": "approved",
+      "valueSummary": "沿用已通过历史 Massing 地图门的人物、门与层高视觉比例。"
+    }
+  ],
+  "identityContract": {
+    "requiredClaimIds": [
+      "house-315-central-timber-gable",
+      "house-315-steep-roofs",
+      "house-315-facade-split"
+    ],
+    "targetViewingDistanceSceneUnits": 14,
+    "detailsIntentionallyOmitted": [
+      "文字和保护铭牌",
+      "围墙、树木和庭院软装",
+      "隐藏背面具体开口",
+      "逐片瓦和砖缝"
+    ]
+  },
+  "unknowns": [
+    {
+      "field": "rear-facade",
+      "strategy": "保持低细节且不添加身份装饰"
+    },
+    {
+      "field": "surveyed-dimensions",
+      "strategy": "保留已审核视觉比例，不声明实测"
+    },
+    {
+      "field": "construction-year",
+      "strategy": "保留 1930 与 1949 来源冲突，不进入几何"
+    }
+  ],
+  "reviews": {
+    "evidence": "building-engine/cases/house-315/reviews/evidence-review-001.json",
+    "massing": [],
+    "final": []
+  }
+}

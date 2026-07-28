@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "caseVersion": 1,
+  "assetId": "sun-ke-villa",
+  "archetype": "garden-villa",
+  "subject": {
+    "name": "孙科别墅",
+    "address": "上海市长宁区番禺路60号（上生·新所内）",
+    "boundary": "single-garden-villa-with-porte-cochere",
+    "osmWayId": 864847877
+  },
+  "scope": {
+    "status": "in-scope",
+    "modelAssetCount": 1,
+    "researchOnly": true,
+    "productionReplacementAuthorized": false
+  },
+  "briefPath": "docs/research/sun-ke-villa-building-engine-spike-brief.md",
+  "dslPath": "building-engine/cases/sun-ke-villa/building-dsl.json",
+  "evidenceArchive": {
+    "snapshotId": "2026-07-27-storage-migration-52db477",
+    "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-27-storage-migration-52db477",
+    "contentRoot": "repository",
+    "fileCount": 980,
+    "byteCount": 451461120,
+    "checksumStatus": "verified-all-2026-07-28"
+  },
+  "evidenceItems": [
+    {
+      "id": "sun-ke-villa-canonical",
+      "slot": "canonical",
+      "repositoryPath": "docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-front-canonical.jpg",
+      "snapshotPath": "repository/docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-front-canonical.jpg",
+      "sha256": "a745ecb8cd3c9cf49155e059706e45cdfa601b71ea2393abd742ef98922bff5f",
+      "source": "上海市长宁区人民政府",
+      "view": "花园正立面近正视",
+      "usageBoundary": "research-reference-only"
+    },
+    {
+      "id": "sun-ke-villa-right-front",
+      "slot": "side-depth",
+      "repositoryPath": "docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-right-front.jpg",
+      "snapshotPath": "repository/docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-right-front.jpg",
+      "sha256": "2ce8d886d3b16708a1b81b902946c28103f72ed14ed81909bff9278cfbddc2d6",
+      "source": "上海市民政局／上海老年报",
+      "view": "花园右前斜视",
+      "usageBoundary": "research-reference-only"
+    },
+    {
+      "id": "sun-ke-villa-north-entrance",
+      "slot": "entrance-identity",
+      "repositoryPath": "docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-north-entrance.jpg",
+      "snapshotPath": "repository/docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-north-entrance.jpg",
+      "sha256": "5d7f815bd751446a0fbb39b02b9dd6ee5fbcaae6c81c68b7433ef7731ed67331",
+      "source": "上海市长宁区人民政府",
+      "view": "北侧门廊与入口斜视",
+      "usageBoundary": "research-reference-only"
+    },
+    {
+      "id": "sun-ke-villa-porte-cochere",
+      "slot": "entrance-identity-detail",
+      "repositoryPath": null,
+      "snapshotPath": "repository/docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-north-porte-cochere-user-reference-20260725.png",
+      "sha256": "6e00c8c3884a14e51382b22db86b0a8660a8b1468661a6efda18b126053d5b62",
+      "source": "user-provided-attachment",
+      "view": "北侧 porte-cochere 近景",
+      "usageBoundary": "geometry-correction-reference-only"
+    }
+  ],
+  "coverage": {
+    "canonical": "supported",
+    "sideDepth": "supported",
+    "entranceIdentity": "supported",
+    "footprint": "supported-osm-with-photo-correction",
+    "rear": "partial",
+    "surveyedHeight": "unknown"
+  },
+  "claims": [
+    {
+      "claimId": "sun-ke-villa-main-massing",
+      "field": "massing.volumes",
+      "origin": "observed",
+      "confidence": 0.91,
+      "evidenceRefs": ["sun-ke-villa-canonical", "sun-ke-villa-right-front"],
+      "reviewState": "approved",
+      "valueSummary": "低西翼、中央主体、右侧圆角塔楼与错落屋顶形成不对称单体住宅。"
+    },
+    {
+      "claimId": "sun-ke-villa-footprint",
+      "field": "massing.footprint",
+      "origin": "retrieved",
+      "confidence": 0.9,
+      "evidenceRefs": ["sun-ke-villa-canonical", "sun-ke-villa-right-front"],
+      "reviewState": "approved",
+      "valueSummary": "OSM way 864847877 约束主体水平范围；照片支持门廊越出矩形主体。"
+    },
+    {
+      "claimId": "sun-ke-villa-garden-arches",
+      "field": "master.openings.garden",
+      "origin": "observed",
+      "confidence": 0.98,
+      "evidenceRefs": ["sun-ke-villa-canonical", "sun-ke-villa-right-front"],
+      "reviewState": "approved",
+      "valueSummary": "花园立面首层三联尖券门廊与二层连续圆拱窗是最强身份构件。"
+    },
+    {
+      "claimId": "sun-ke-villa-round-tower",
+      "field": "master.features.round-tower",
+      "origin": "observed",
+      "confidence": 0.96,
+      "evidenceRefs": ["sun-ke-villa-canonical", "sun-ke-villa-right-front"],
+      "reviewState": "approved",
+      "valueSummary": "右侧圆角塔楼、窄高窗、水平腰线与低弧形红瓦屋顶持续可见。"
+    },
+    {
+      "claimId": "sun-ke-villa-porte-cochere",
+      "field": "master.features.porte-cochere",
+      "origin": "observed",
+      "confidence": 0.97,
+      "evidenceRefs": ["sun-ke-villa-north-entrance", "sun-ke-villa-porte-cochere"],
+      "reviewState": "approved",
+      "valueSummary": "北侧门廊明显外挑，前端厚柱支撑，长坡屋顶连接主楼且覆盖车道保持开放。"
+    },
+    {
+      "claimId": "sun-ke-villa-palette",
+      "field": "materials",
+      "origin": "observed",
+      "confidence": 0.95,
+      "evidenceRefs": ["sun-ke-villa-canonical", "sun-ke-villa-right-front", "sun-ke-villa-north-entrance"],
+      "reviewState": "approved",
+      "valueSummary": "浅暖粗糙墙面、低饱和红褐瓦、深色窗框与暖石材窗套。"
+    },
+    {
+      "claimId": "sun-ke-villa-scale",
+      "field": "coordinateContract.scale",
+      "origin": "inferred",
+      "confidence": 0.8,
+      "evidenceRefs": ["sun-ke-villa-canonical", "sun-ke-villa-right-front"],
+      "reviewState": "approved",
+      "valueSummary": "主体水平尺度受 OSM 约束，高度由楼层、门窗和历史已审核包络推断。"
+    }
+  ],
+  "identityContract": {
+    "requiredClaimIds": [
+      "sun-ke-villa-garden-arches",
+      "sun-ke-villa-round-tower",
+      "sun-ke-villa-porte-cochere"
+    ],
+    "targetViewingDistanceSceneUnits": 13,
+    "detailsIntentionallyOmitted": [
+      "室内和品牌展陈",
+      "逐片筒瓦与墙面纹理",
+      "不可验证雕花",
+      "隐藏侧面具体开窗"
+    ]
+  },
+  "unknowns": [
+    {
+      "field": "surveyed-height",
+      "strategy": "保持历史已审核视觉高度，不声明实测"
+    },
+    {
+      "field": "hidden-side-openings",
+      "strategy": "使用低密度重复语法，不作为身份焦点"
+    },
+    {
+      "field": "roof-back-details",
+      "strategy": "只保留主屋顶层级与烟囱，不添加不可见细节"
+    }
+  ],
+  "reviews": {
+    "evidence": "building-engine/cases/sun-ke-villa/reviews/evidence-review-001.json",
+    "massing": [],
+    "final": []
+  }
+}
