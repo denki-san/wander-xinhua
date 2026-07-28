@@ -8052,3 +8052,35 @@ AssertionError: input did not match /不建设后台、数据库、Worker、任�
 - **Notes**: 移除非语义前缀后重跑专项测试。
 
 ---
+
+## [ERR-20260728-006] photo_reference_skill_entrypoint_missing
+
+**Logged**: 2026-07-28T21:01:25+08:00
+**Priority**: medium
+**Status**: pending
+**Area**: config
+
+### Summary
+技能清单声明 `photo-reference-webgl-modeling/SKILL.md` 可用，但当前技能目录缺少入口文件。
+
+### Error
+```text
+sed: /Users/lei/.codex/skills/photo-reference-webgl-modeling/SKILL.md:
+No such file or directory
+```
+
+### Context
+- 生产化验收开始前按技能清单读取完整入口；
+- 当前目录只剩 `scripts/audit_glb.py`；
+- 同日归档目录仍保存 `SKILL.md.archived`，项目自己的 Blender、证据与动态归档
+  工作流文件也仍可作为保守回退。
+
+### Suggested Fix
+恢复当前技能目录的 `SKILL.md` 与 references，或让可用技能清单停止暴露缺失入口。
+在修复前，任务继续执行项目内更严格的工作流，并明确记录技能回退。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `/Users/lei/.codex/skills/photo-reference-webgl-modeling/`
+
+---
