@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "archetype": "garden-villa",
+  "status": "ok",
+  "inputs": {
+    "case": {
+      "path": "building-engine/cases/hudec-memorial/building-case.json",
+      "sha256": "5b31be3d1c3026bd6b4995ebb0bbad0b5f2c9f73367e69227a178e3130badfc2"
+    },
+    "dsl": {
+      "path": "building-engine/cases/hudec-memorial/building-dsl.json",
+      "sha256": "feb179ce70960954021e64d059ca9a7588711ee7ac79c84bbcd9b60ac14fa06c"
+    },
+    "schema": {
+      "path": "building-engine/schema/building-dsl.schema.json",
+      "sha256": "fbcce0470e7efa3a845771fb0b764ac38e9e702d1cbe920376f75c3aff75b619"
+    },
+    "artProfile": {
+      "path": "building-engine/art-profiles/xinhua-autumn-lowpoly-v1.json",
+      "sha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10"
+    }
+  },
+  "compiled": [
+    "volume:main-hall",
+    "volume:east-end-wing",
+    "volume:west-rear-wing",
+    "volume:low-glass-wing",
+    "volume:entrance-front-left-column",
+    "volume:entrance-front-right-column",
+    "volume:entrance-rear-left-column",
+    "volume:entrance-rear-right-column",
+    "volume:brick-gate-left-post",
+    "volume:brick-gate-right-post",
+    "volume:triple-chimney-left",
+    "volume:triple-chimney-center",
+    "volume:triple-chimney-right",
+    "volume:front-dormer",
+    "roof:main-steep-roof",
+    "roof:east-cross-gable-roof",
+    "roof:west-rear-wing-roof",
+    "roof:low-glass-wing-roof",
+    "roof:entrance-porch-roof",
+    "roof:front-dormer-roof",
+    "opening:main-front-lower-windows",
+    "opening:main-front-upper-windows",
+    "opening:entrance-tall-door",
+    "opening:east-end-lower-window-row",
+    "opening:east-end-upper-window-row",
+    "opening:low-glass-wing-window-row",
+    "opening:front-dormer-window",
+    "opening:brick-arched-gate",
+    "feature:east-front-timber-gable",
+    "feature:main-front-lower-timber-band",
+    "feature:main-front-upper-timber-band",
+    "feature:main-front-timber-post-left",
+    "feature:main-front-timber-post-center-left",
+    "feature:main-front-timber-post-center",
+    "feature:main-front-timber-post-center-right",
+    "feature:entrance-gabled-porch",
+    "feature:triple-chimney-left-cap",
+    "feature:triple-chimney-center-cap",
+    "feature:triple-chimney-right-cap",
+    "feature:low-wing-eave-band"
+  ],
+  "inferred": [
+    {
+      "claimId": "hudec-memorial-footprint-scale",
+      "confidence": 0.84,
+      "evidenceRefs": [
+        "hudec-memorial-osm-binding",
+        "hudec-memorial-canonical-depth",
+        "hudec-memorial-entrance"
+      ]
+    }
+  ],
+  "unsupported": [],
+  "ignored": [],
+  "conflict": [],
+  "counts": {
+    "claims": 8,
+    "evidenceItems": 4,
+    "volumes": 14,
+    "roofs": 6,
+    "openings": 8,
+    "features": 12,
+    "obstacles": 8,
+    "openPaths": 3
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "caseVersion": 1,
+  "assetId": "hudec-memorial",
+  "archetype": "garden-villa",
+  "subject": {
+    "name": "邬达克纪念馆（邬达克旧居）",
+    "address": "上海市长宁区番禺路129号",
+    "boundary": "single-garden-villa",
+    "osmWayId": 494633921
+  },
+  "scope": {
+    "status": "in-scope-blind-test",
+    "modelAssetCount": 1,
+    "researchOnly": true,
+    "productionReplacementAuthorized": false
+  },
+  "briefPath": "docs/research/hudec-memorial-building-engine-blind-test-brief.md",
+  "dslPath": "building-engine/cases/hudec-memorial/building-dsl.json",
+  "evidenceArchive": {
+    "snapshotId": "2026-07-28-6d29438",
+    "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-28-6d29438",
+    "contentRoot": "repository",
+    "fileCount": 619,
+    "byteCount": 258617344,
+    "checksumStatus": "verified-all-2026-07-28"
+  },
+  "evidenceItems": [
+    {
+      "id": "hudec-memorial-canonical-depth",
+      "slot": "canonical",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-street-official-2026.jpg",
+      "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-street-official-2026.jpg",
+      "sha256": "5d1775a76aa341431ff03c7f04efd2b74fe143f230a1205f128ec53262c1d28f",
+      "source": "Shanghai Government English Portal / City News Service",
+      "view": "西后侧斜向，朝烟囱塔、层叠屋顶、端山墙和低玻璃翼",
+      "usageBoundary": "research-reference-only"
+    },
+    {
+      "id": "hudec-memorial-west-elevations",
+      "slot": "side-depth",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-west-elevations.jpg",
+      "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-west-elevations.jpg",
+      "sha256": "a23e28ef2cd1b985b5217654cca797b20f83048945d4fe57e9abac4fd8bf6a4b",
+      "source": "上海市长宁区人民政府",
+      "view": "三张历史西立面与烟囱塔草图",
+      "usageBoundary": "historic-structure-reference-only"
+    },
+    {
+      "id": "hudec-memorial-entrance",
+      "slot": "entrance-identity",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-front-wikimedia.jpg",
+      "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-front-wikimedia.jpg",
+      "sha256": "d2284eaec967e7414ad5873d2c63795b051b112a30dd9f39f3f7641a690a8f86",
+      "source": "Wikimedia Commons",
+      "view": "庭院正面偏右，入口门廊、砖拱门和半木构立面",
+      "usageBoundary": "research-reference-only"
+    },
+    {
+      "id": "hudec-memorial-osm-binding",
+      "slot": "subject-binding",
+      "repositoryPath": "docs/research/data/requested-pois-osm-20260717-103840.json",
+      "snapshotPath": "repository/docs/research/data/requested-pois-osm-20260717-103840.json",
+      "sha256": "898624d284d460f6d696720278531db463f6f458cbbe49b7d4ab36d46905104e",
+      "source": "OpenStreetMap / Overpass snapshot",
+      "view": "way 494633921 地址、层数、历史建筑与主体名称",
+      "usageBoundary": "subject-and-footprint-binding-only"
+    }
+  ],
+  "coverage": {
+    "canonical": "supported",
+    "sideDepth": "supported",
+    "entranceIdentity": "supported",
+    "subjectBinding": "supported",
+    "footprint": "supported-osm-compound-envelope",
+    "rearEast": "partial-unknown",
+    "surveyedDimensions": "unknown"
+  },
+  "claims": [
+    {
+      "claimId": "hudec-memorial-main-massing",
+      "field": "massing.volumes",
+      "origin": "observed",
+      "confidence": 0.92,
+      "evidenceRefs": [
+        "hudec-memorial-canonical-depth",
+        "hudec-memorial-entrance"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "宽幅主体、端部高山墙、后侧翼和低玻璃翼构成非对称单栋住宅。"
+    },
+    {
+      "claimId": "hudec-memorial-layered-roofs",
+      "field": "massing.roofs",
+      "origin": "observed",
+      "confidence": 0.97,
+      "evidenceRefs": [
+        "hudec-memorial-canonical-depth",
+        "hudec-memorial-west-elevations",
+        "hudec-memorial-entrance"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "主屋面、交叉端山墙、低侧翼与入口门廊形成连续而高低错落的陡坡屋顶。"
+    },
+    {
+      "claimId": "hudec-memorial-triple-chimney",
+      "field": "massing.chimney",
+      "origin": "observed",
+      "confidence": 0.99,
+      "evidenceRefs": [
+        "hudec-memorial-canonical-depth",
+        "hudec-memorial-west-elevations"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "三联高红砖烟囱及其外扩冠部是最强纵向身份构件。"
+    },
+    {
+      "claimId": "hudec-memorial-half-timber",
+      "field": "master.features.half-timber",
+      "origin": "observed",
+      "confidence": 0.98,
+      "evidenceRefs": [
+        "hudec-memorial-canonical-depth",
+        "hudec-memorial-entrance"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "暖白墙面上的近黑色木构、端山墙全高木构和密集窗格持续可见。"
+    },
+    {
+      "claimId": "hudec-memorial-entry-gate",
+      "field": "master.openings.entrance",
+      "origin": "observed",
+      "confidence": 0.96,
+      "evidenceRefs": [
+        "hudec-memorial-entrance"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "三角入口门廊、深色木门、短台阶与独立砖拱门共同定义庭院入口。"
+    },
+    {
+      "claimId": "hudec-memorial-glass-wing",
+      "field": "master.features.low-glass-wing",
+      "origin": "observed",
+      "confidence": 0.94,
+      "evidenceRefs": [
+        "hudec-memorial-canonical-depth"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "西后侧低玻璃翼与高主体之间的层级差构成可辨纵深。"
+    },
+    {
+      "claimId": "hudec-memorial-footprint-scale",
+      "field": "coordinateContract.scale",
+      "origin": "inferred",
+      "confidence": 0.84,
+      "evidenceRefs": [
+        "hudec-memorial-osm-binding",
+        "hudec-memorial-canonical-depth",
+        "hudec-memorial-entrance"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "OSM compound envelope、既有已验收落点和人物/门尺度共同约束水平包络，不声明测绘尺寸。"
+    },
+    {
+      "claimId": "hudec-memorial-palette",
+      "field": "materials",
+      "origin": "observed",
+      "confidence": 0.96,
+      "evidenceRefs": [
+        "hudec-memorial-canonical-depth",
+        "hudec-memorial-entrance"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "暖白灰泥、近黑木构、低饱和红砖和红褐屋面构成主体色彩。"
+    }
+  ],
+  "identityContract": {
+    "requiredClaimIds": [
+      "hudec-memorial-half-timber",
+      "hudec-memorial-layered-roofs",
+      "hudec-memorial-triple-chimney",
+      "hudec-memorial-entry-gate",
+      "hudec-memorial-glass-wing"
+    ],
+    "targetViewingDistanceSceneUnits": 15,
+    "detailsIntentionallyOmitted": [
+      "馆名、牌匾和受保护标志",
+      "逐片瓦、砖缝和烟囱雕饰",
+      "树木、绿篱和庭院装饰物",
+      "隐藏东立面与背立面的具体开口",
+      "三鸟风向标的雕塑细节"
+    ]
+  },
+  "unknowns": [
+    {
+      "field": "rear-east-facades",
+      "strategy": "只维持低细节封闭体块与可见屋顶连续性"
+    },
+    {
+      "field": "surveyed-dimensions",
+      "strategy": "使用 OSM envelope 与已审核视觉比例，不声明实测"
+    },
+    {
+      "field": "hidden-openings",
+      "strategy": "不生成不可见面身份开口"
+    },
+    {
+      "field": "weathervane-detail",
+      "strategy": "当前 DSL 不表达雕塑细节，不复制原物"
+    }
+  ],
+  "reviews": {
+    "evidence": "building-engine/cases/hudec-memorial/reviews/evidence-review-001.json",
+    "massing": [],
+    "final": []
+  }
+}
