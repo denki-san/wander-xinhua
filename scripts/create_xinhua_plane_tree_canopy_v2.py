@@ -2826,7 +2826,9 @@ def export_asset(slug: str, builder: Callable[[], None]) -> dict[str, int | str]
         ASSET_OBJECTS[0]["runtime_x_mirrored"] = True
     ASSET_OBJECTS[0]["detail_current_parts"] = source_object_count
     ASSET_OBJECTS[0]["detail_method"] = "photo-semantic-components"
-    ASSET_OBJECTS[0]["detail_upgrade"] = "20260728"
+    # 这是从既有树族继承的 detail-upgrade lineage 标签，不是本次构建日期。
+    # 当前构建日期与二进制 SHA 由 canopy-v2 build record 单独记录。
+    ASSET_OBJECTS[0]["detail_upgrade"] = "20260718"
     if slug.startswith("plane-tree-"):
         ASSET_OBJECTS[0]["plane_tree_family"] = (
             "canopy-v2-massing"

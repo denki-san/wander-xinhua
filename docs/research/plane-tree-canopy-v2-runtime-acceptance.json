@@ -1,7 +1,7 @@
 {
   "asset": "xinhua-road-plane-tree-family-canopy-v2",
   "acceptedAt": "2026-07-28",
-  "status": "local-runtime-passed",
+  "status": "local-runtime-postfix-passed",
   "publication": "not-deployed",
   "route": "http://localhost:3017/?start=house315",
   "browser": "agent-browser isolated Chrome",
@@ -59,6 +59,72 @@
     "pageErrors": 0,
     "consoleErrors": 0
   },
+  "postFixAcceptance": {
+    "routeBase": "http://127.0.0.1:4319/?start=house315&cameraQa=1",
+    "runtimeMode": "production-static",
+    "viewport": [
+      1280,
+      720
+    ],
+    "standardNetwork": {
+      "profile": "standard",
+      "identityRequests": [
+        "plane-tree-a.glb?v=ac1e64eb4352",
+        "plane-tree-b.glb?v=f5cb12e0ac1e",
+        "plane-tree-c.glb?v=b89237348db6",
+        "plane-tree-d.glb?v=c3cf688014a2"
+      ],
+      "massingRequestCount": 0,
+      "runtimeHeroRequestCount": 0,
+      "frames": 120,
+      "durationMs": 2033.3,
+      "fps": 59.0174,
+      "rendererDrawCalls": 221,
+      "rendererTriangles": 706236
+    },
+    "weakNetwork": {
+      "profile": "weak",
+      "xinhuaRoadIdentityDRequestCount": 0,
+      "massingRequests": [
+        "plane-tree-massing-a.glb?v=bd85399575f7",
+        "plane-tree-massing-b.glb?v=cceebc88d362",
+        "plane-tree-massing-c.glb?v=da13f13c657b"
+      ],
+      "note": "A/B/C Identity requests belong to the three independent Xingfuli tree instances; the Xinhua Road layer switched to Massing and did not request D.",
+      "runtimeHeroRequestCount": 0,
+      "frames": 120,
+      "durationMs": 2016.6,
+      "fps": 59.5061,
+      "rendererDrawCalls": 188,
+      "rendererTriangles": 336548
+    },
+    "grounding": {
+      "method": "translationY = terrainY - glbMinimumY * instanceScaleY",
+      "identity": "visual-pass",
+      "massing": "visual-pass",
+      "numericUnitTest": "passed"
+    },
+    "trunkCollision": {
+      "targetTreeId": "plane-tree-1-pilot-8",
+      "target": [
+        -16.195782234489588,
+        66.01024904222493
+      ],
+      "start": [
+        -21.8,
+        67.6
+      ],
+      "end": [
+        -17.14905789923048,
+        66.01025143623798
+      ],
+      "targetDistanceAtStop": 0.9532756647439135,
+      "durationMs": 5000,
+      "status": "blocked-by-trunk-passed"
+    },
+    "pageErrors": 0,
+    "consoleErrors": 0
+  },
   "screenshots": [
     {
       "path": "test_artifacts/test_plane_tree_canopy_v2_house315_explore.png",
@@ -79,20 +145,38 @@
       "path": "test_artifacts/test_plane_tree_canopy_v2_triptych.png",
       "sha256": "168688d6f11d25fd9c12d5d902807ed7d66f6919c64de2dc215e38cab0e87fa3",
       "view": "reference-blender-threejs-triptych"
+    },
+    {
+      "path": "test_artifacts/test_plane_tree_canopy_v2_postfix_standard.png",
+      "sha256": "c559ca33ee0ba7bb52c5ce2786a99d2e929fe9812127ae66a33c1af7e469e032",
+      "view": "postfix-standard-identity-grounding"
+    },
+    {
+      "path": "test_artifacts/test_plane_tree_canopy_v2_postfix_weak.png",
+      "sha256": "9c6a286f8d2b95884f5f2cbbaf3202819a81d57d00b4d370107caeb3b7af323b",
+      "view": "postfix-weak-massing-grounding"
+    },
+    {
+      "path": "test_artifacts/test_plane_tree_canopy_v2_postfix_collision.png",
+      "sha256": "c7627394fa3043615d01311d489ba37c7374240e8a1f95d1012b1e43c94e1c7f",
+      "view": "postfix-deterministic-trunk-collision"
     }
   ],
   "dynamicEvidenceSnapshot": {
-    "snapshotId": "2026-07-28-2ca6310-plane-tree-canopy-v2-runtime",
+    "snapshotId": "2026-07-28-8484e51-plane-tree-canopy-v2-postfix-runtime",
     "wikiEligible": false
   },
   "validation": {
-    "npmTest": "438/438 passed",
+    "npmTest": "445/445 passed",
     "npmLint": "0 errors, 1 pre-existing unrelated warning",
     "glbAudit": "7/7 passed",
     "runtimeIdentity": "passed",
     "runtimeMassing": "passed",
     "runtimeHeroRemoved": "passed",
     "movementAndCamera": "passed",
-    "fullRouteRollout": "hold-until-user-accepts-pilot"
+    "weakNetworkMassing": "passed",
+    "identityAndMassingGrounding": "passed",
+    "trunkCollision": "passed",
+    "fullRouteRollout": "authorized-for-vps-publication"
   }
 }

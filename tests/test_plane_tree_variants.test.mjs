@@ -211,7 +211,7 @@ test("全览和弱网使用 Massing、标准近景使用四 Identity，Runtime H
   assert.match(instances, /plane-tree-d\.glb\?v=c3cf688014a2/);
   assert.match(assetLibrary, /plane-tree-d\.glb\?v=c3cf688014a2/);
   assert.doesNotMatch(assetLibrary, /xinhua-plane-tree-hero\.glb/);
-  assert.match(assetData, /instanceCount: 46/);
+  assert.match(assetData, /instanceCount: 49/);
   assert.match(assetData, /全览与弱网使用三款 Massing/);
   assert.match(brief, /产品运行时不再请求、渲染或预加载 Hero/);
 });
