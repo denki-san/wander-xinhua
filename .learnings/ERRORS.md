@@ -32,6 +32,69 @@ fatal: Unable to create '/Users/lei/App_developing/wander-xinhua/.git/index.lock
 
 ---
 
+## [ERR-20260728-002] worktree_git_index_sandbox_denied
+
+**Logged**: 2026-07-28T22:33:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+在隔离 worktree 中暂存 V3 候选时，受限环境不能写入主仓库 `.git/worktrees`
+下的索引锁文件。
+
+### Error
+```text
+fatal: Unable to create '.git/worktrees/plane-tree-canopy-v3/index.lock':
+Operation not permitted
+```
+
+### Context
+- 工作文件位于可写 worktree，但 worktree 索引元数据仍由主仓库 `.git` 管理。
+- 失败发生在创建 lock 前，没有产生部分暂存或修改工作文件。
+
+### Resolution
+- **Resolved**: 2026-07-28T22:34:00+08:00
+- **Notes**: 保持原暂存清单不变，在授权环境中重跑同一 `git add`。
+
+---
+
+## [ERR-20260728-001] blender_headless_sandbox_metal_startup_crash
+
+**Logged**: 2026-07-28T21:48:00+08:00
+**Priority**: medium
+**Status**: in_progress
+**Area**: tests
+
+### Summary
+Canopy V3 的首个 Massing 单资产构建在受限进程中初始化 Metal 时退出 139。
+
+### Error
+```text
+ArchWarn: ARCH_CACHE_LINE_SIZE != Arch_ObtainCacheLineSize()
+Blender 5.2.0 LTS
+supports_barycentric_whitelist
+MTLBackend::metal_is_supported
+GPU_backend_type_selection_detect
+exit code 139
+```
+
+### Context
+- Command: `Blender --background --python-exit-code 1 --python scripts/create_xinhua_plane_tree_canopy_v2.py -- --asset=plane-tree-massing-a`
+- Python 生成器尚未开始执行，崩溃栈停在 Metal backend 探测。
+- 这是已知的受限进程边界，不能据此修改模型生成器。
+
+### Suggested Fix
+在授权的受限进程外原样重跑确定性 Headless Blender 命令；只有外部环境仍失败时
+才继续排查生成器。
+
+### Metadata
+- Reproducible: yes-in-sandbox
+- Related Files: scripts/create_xinhua_plane_tree_canopy_v2.py, /var/folders/9m/y4r0hmv54wg70vv7xm95n2bh0000gn/T/blender.crash.txt
+- See Also: ERR-20260726-001
+
+---
+
 ## [ERR-20260724-091] vite_preview_sandbox_listen_permission
 
 **Logged**: 2026-07-24T00:00:00+08:00

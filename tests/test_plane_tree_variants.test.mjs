@@ -52,11 +52,11 @@ test("街景梧桐生成器继承连续根颈并保留四 Identity 与三 Massin
   assert.match(generator, /def build_plane_tree_massing/);
   assert.match(generator, /plane-tree-d/);
   assert.match(generator, /plane-tree-massing-a/);
-  assert.match(generator, /canopy-v2-identity/);
-  assert.match(generator, /canopy-v2-massing/);
+  assert.match(generator, /canopy-v3-identity/);
+  assert.match(generator, /canopy-v3-massing/);
   assert.match(generator, /tree-leaf-cluster-/);
   assert.match(generator, /subdivisions=1/);
-  assert.match(generator, /留下照片中可见的天空孔洞/);
+  assert.match(generator, /局部透光孔/);
 });
 
 test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async () => {
@@ -67,7 +67,7 @@ test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async ()
   const first = buildPlaneTreePlacements(landmarkData.landmarks, []);
   const second = buildPlaneTreePlacements(landmarkData.landmarks, []);
   assert.deepEqual(first, second);
-  assert.equal(first.filter(({ id }) => id.includes("-pilot-")).length, 18);
+  assert.equal(first.filter(({ id }) => id.includes("-pilot-")).length, 20);
   assert.deepEqual([...new Set(first.map(({ variant }) => variant))].sort(), [0, 1, 2, 3]);
   const previousBySide = new Map();
   for (const placement of first) {
@@ -87,7 +87,7 @@ test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async ()
 
 test("Identity 与 Massing 都按真实最低点贴合地表", async () => {
   const buildRecord = JSON.parse(await readFile(
-    new URL("docs/research/build-records/plane-tree-family-canopy-v2.json", root),
+    new URL("docs/research/build-records/plane-tree-family-canopy-v3.json", root),
     "utf8",
   ));
   for (const asset of [...buildRecord.identity, ...buildRecord.massing]) {
@@ -132,7 +132,7 @@ test("四个 Identity 与三个 Massing 共享轻量预算并保持无图片策�
     assert.equal(glb.materials?.length, 6);
     assert.equal(glb.images, undefined);
     assert.equal(glb.textures, undefined);
-    assert.equal(glb.nodes?.[0]?.extras?.plane_tree_family, "canopy-v2-identity");
+    assert.equal(glb.nodes?.[0]?.extras?.plane_tree_family, "canopy-v3-identity");
     assert.equal(glb.nodes?.[0]?.extras?.instancing_ready, true);
     const triangles = glb.meshes[0].primitives.reduce(
       (sum, primitive) => sum + glb.accessors[primitive.indices].count / 3,
@@ -146,7 +146,7 @@ test("四个 Identity 与三个 Massing 共享轻量预算并保持无图片策�
       assert.ok((await stat(preview)).size > 10_000);
     }
   }
-  assert.ok(totalBytes > 750_000);
+  assert.ok(totalBytes > 650_000);
   assert.ok(totalBytes <= 1_200_000);
 
   for (const slug of [
@@ -161,13 +161,13 @@ test("四个 Identity 与三个 Massing 共享轻量预算并保持无图片策�
       (sum, primitive) => sum + glb.accessors[primitive.indices].count / 3,
       0,
     );
-    assert.ok(stats.size <= 40_000);
-    assert.ok(triangles >= 150 && triangles <= 500);
+    assert.ok(stats.size <= 60_000);
+    assert.ok(triangles >= 250 && triangles <= 900);
     assert.equal(glb.nodes?.length, 1);
     assert.equal(glb.materials?.length, 3);
     assert.equal(glb.images, undefined);
     assert.equal(glb.textures, undefined);
-    assert.equal(glb.nodes?.[0]?.extras?.plane_tree_family, "canopy-v2-massing");
+    assert.equal(glb.nodes?.[0]?.extras?.plane_tree_family, "canopy-v3-massing");
   }
 });
 
@@ -189,7 +189,7 @@ test("全览和弱网使用 Massing、标准近景使用四 Identity，Runtime H
     readFile(new URL("app/scene/xinhua-road-contract.ts", root), "utf8"),
     readFile(new URL("app/asset-library/AssetLibrary.tsx", root), "utf8"),
     readFile(new URL("app/asset-library/asset-data.ts", root), "utf8"),
-    readFile(new URL("docs/research/plane-tree-canopy-v2-model-brief.md", root), "utf8"),
+    readFile(new URL("docs/research/plane-tree-canopy-v3-model-brief.md", root), "utf8"),
     readFile(new URL("app/building-evidence-lab/PlaneTreeViewer.tsx", root), "utf8"),
     stat(new URL("public/models/building-evidence-lab/xinhua-plane-tree-hero.glb", root)),
   ]);
@@ -208,12 +208,12 @@ test("全览和弱网使用 Massing、标准近景使用四 Identity，Runtime H
   assert.match(contract, /XINHUA_PLANE_TREE_TRUNK_OBSTACLES/);
   assert.match(world, /\.\.\.XINHUA_PLANE_TREE_TRUNK_OBSTACLES/);
   assert.match(instances, /PLANE_TREE_MASSING_MODELS/);
-  assert.match(instances, /plane-tree-d\.glb\?v=c3cf688014a2/);
-  assert.match(assetLibrary, /plane-tree-d\.glb\?v=c3cf688014a2/);
+  assert.match(instances, /plane-tree-d\.glb\?v=2621693404c1/);
+  assert.match(assetLibrary, /plane-tree-d\.glb\?v=2621693404c1/);
   assert.doesNotMatch(assetLibrary, /xinhua-plane-tree-hero\.glb/);
-  assert.match(assetData, /instanceCount: 49/);
+  assert.match(assetData, /instanceCount: 86/);
   assert.match(assetData, /全览与弱网使用三款 Massing/);
-  assert.match(brief, /产品运行时不再请求、渲染或预加载 Hero/);
+  assert.match(brief, /Runtime Hero: 继续保持 0/);
 });
 
 test("构建扫描不会沿外部知识库链接消耗系统资源", async () => {

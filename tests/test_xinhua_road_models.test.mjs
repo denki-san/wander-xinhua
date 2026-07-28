@@ -472,10 +472,10 @@ test("地图与房屋使用各自证据锁定比例，不得为退界任意缩�
 });
 
 test("梧桐位置沿新华路双侧避让，315试验段密植且分层加载", () => {
-  assert.match(planeTreeInstancesSource, /plane-tree-a\.glb\?v=ac1e64eb4352/);
-  assert.match(planeTreeInstancesSource, /plane-tree-b\.glb\?v=f5cb12e0ac1e/);
-  assert.match(planeTreeInstancesSource, /plane-tree-c\.glb\?v=b89237348db6/);
-  assert.match(planeTreeInstancesSource, /plane-tree-d\.glb\?v=c3cf688014a2/);
+  assert.match(planeTreeInstancesSource, /plane-tree-a\.glb\?v=33996813d4a6/);
+  assert.match(planeTreeInstancesSource, /plane-tree-b\.glb\?v=ddb198367ee4/);
+  assert.match(planeTreeInstancesSource, /plane-tree-c\.glb\?v=ea6509dc6882/);
+  assert.match(planeTreeInstancesSource, /plane-tree-d\.glb\?v=2621693404c1/);
   assert.match(planeTreeInstancesSource, /PLANE_TREE_MASSING_MODELS/);
   assert.match(planeTreeInstancesSource, /InstancedPlaneTreeVariant/);
   assert.match(planeTreeInstancesSource, /InstancedPlaneTreePart/);
@@ -502,7 +502,7 @@ test("梧桐位置沿新华路双侧避让，315试验段密植且分层加载",
     pilotObstacles,
   );
   assert.ok(placements.length >= 20, "避让后仍需保留连续的双侧梧桐树阵");
-  assert.equal(placements.filter(({ id }) => id.includes("-pilot-")).length, 18);
+  assert.equal(placements.filter(({ id }) => id.includes("-pilot-")).length, 20);
   assert.deepEqual([...new Set(placements.map(({ variant }) => variant))].sort(), [0, 1, 2, 3]);
   const previousVariantBySide = new Map();
   for (const placement of placements) {
@@ -555,7 +555,7 @@ test("梧桐 Identity GLB 可审计，并只在详情运行时恢复", async () 
   }
   assert.match(planeTreeInstancesSource, /scene\.traverse\(\(child\) => \{[\s\S]*result\.push\(child\)/);
   assert.match(planeTreeInstancesSource, /vegetation: "xinhua-plane-tree"/);
-  assert.match(planeTreeInstancesSource, /season: "late-autumn"/);
+  assert.match(planeTreeInstancesSource, /season: "summer"/);
   assert.match(planeTreeInstancesSource, /variant,\s*part,\s*instanced: true,/s);
   assert.doesNotMatch(xingfuliSource, /function PlaneTree/);
   assert.equal((xingfuliSource.match(/id: "xingfuli-[^"]+-plane-tree"/g) ?? []).length, 3);

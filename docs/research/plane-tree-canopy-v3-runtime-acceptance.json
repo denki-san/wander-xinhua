@@ -1,0 +1,129 @@
+{
+  "asset": "xinhua-road-plane-tree-family-canopy-v3",
+  "acceptedAt": "2026-07-28",
+  "status": "local-runtime-candidate-passed",
+  "publication": "not-deployed-pending-user-visual-confirmation",
+  "routeBase": "http://127.0.0.1:4328/?start=house315",
+  "browser": "Codex in-app browser",
+  "runtimeMode": "production-static",
+  "viewport": [1200, 807],
+  "pageVisible": true,
+  "placement": {
+    "pilotTreeCount": 20,
+    "allXinhuaRoadTreeCount": 83,
+    "assetLibraryOnlineTreeCount": 242,
+    "planeTreeAssetLibraryCount": 86,
+    "orientation": "road-inward with deterministic plus-or-minus four-degree jitter",
+    "baseSpacingSceneUnits": 6,
+    "pilotEntranceClearanceSceneUnits": 5.4,
+    "result": "safe positions passed without shrinking entrance clearance"
+  },
+  "standardNetwork": {
+    "urlParameters": "cameraQa=1&network=standard&qaAutoStart=1&qaMove=forward&qaMoveMs=5600&qaMoveTarget=0.20,79.89",
+    "identityRequests": [
+      "plane-tree-a.glb?v=33996813d4a6",
+      "plane-tree-b.glb?v=ddb198367ee4",
+      "plane-tree-c.glb?v=ea6509dc6882",
+      "plane-tree-d.glb?v=2621693404c1"
+    ],
+    "massingRequestCount": 0,
+    "runtimeHeroRequestCount": 0,
+    "movement": {
+      "start": [-21.8, 67.6],
+      "sampledEnd": [-6.558702375645935, 76.11434308196863],
+      "status": "complete",
+      "cameraMode": "spring-clear",
+      "cameraBlocker": "none"
+    },
+    "performanceSample": {
+      "source": "house315FrameSample",
+      "frames": 120,
+      "durationMs": 2011.5,
+      "fps": 59.657,
+      "rendererDrawCalls": 302,
+      "rendererTriangles": 978398,
+      "buildMode": "production"
+    },
+    "visual": {
+      "continuousCanopy": "passed",
+      "roadCenterOverlap": "passed",
+      "lowForkAndReadableMainBranches": "passed",
+      "summerGreen": "passed",
+      "note": "低多边形树冠已形成连续拱廊，但不宣称达到照片级还原。"
+    },
+    "pageErrors": 0,
+    "consoleErrors": 0
+  },
+  "weakNetwork": {
+    "urlParameters": "cameraQa=1&network=weak&qaAutoStart=1&qaMove=forward&qaMoveMs=5600&qaMoveTarget=0.20,79.89",
+    "massingRequests": [
+      "plane-tree-massing-a.glb?v=f2285924a2d6",
+      "plane-tree-massing-b.glb?v=74de0c3d3765",
+      "plane-tree-massing-c.glb?v=4f71de83466e"
+    ],
+    "xingfuliIdentityRequests": [
+      "plane-tree-a.glb?v=33996813d4a6",
+      "plane-tree-b.glb?v=ddb198367ee4",
+      "plane-tree-c.glb?v=ea6509dc6882"
+    ],
+    "xinhuaRoadIdentityDRequestCount": 0,
+    "runtimeHeroRequestCount": 0,
+    "movement": {
+      "start": [-21.8, 67.6],
+      "sampledEnd": [-6.5654682268207285, 76.11056343147146],
+      "status": "complete",
+      "cameraMode": "spring-clear",
+      "cameraBlocker": "none"
+    },
+    "performanceSample": {
+      "source": "house315FrameSample",
+      "frames": 120,
+      "durationMs": 2058.4,
+      "fps": 58.298,
+      "rendererDrawCalls": 266,
+      "rendererTriangles": 451472,
+      "buildMode": "production"
+    },
+    "visual": {
+      "firstPass": "rejected-five-branch-engineering-truss",
+      "secondPass": "rejected-three-long-branch-engineering-truss",
+      "postFix": "passed-independent-review",
+      "fix": "long branches replaced by short unequal bent forks; road reach now comes from low overlapping crown masses",
+      "note": "弱网同机位已不再出现连续长梁门架；最终状态以独立复审为准。"
+    },
+    "pageErrors": 0,
+    "consoleErrors": 0
+  },
+  "performanceBoundary": "Standard and weak samples used identical viewport and production-static conditions. No same-condition V2 baseline was sampled in this iteration, so no performance-improvement claim is made.",
+  "screenshots": [
+    {
+      "path": "test_artifacts/test_plane_tree_canopy_v3_runtime_standard.png",
+      "sha256": "f9f497ec0273f26b48c1fadad4172727c26f91b18d7c5105849837409cc3b3bc",
+      "view": "deterministic-road-axis-standard-identity"
+    },
+    {
+      "path": "test_artifacts/test_plane_tree_canopy_v3_runtime_weak.png",
+      "sha256": "80e3f93d47fb6137e9f246a28c9ae074350d018ad0d001aebef4ce4537bdc3e7",
+      "view": "deterministic-road-axis-weak-massing"
+    },
+    {
+      "path": "test_artifacts/test_plane_tree_canopy_v3_triptych.png",
+      "sha256": "e56f661b7a710270ab885073022bfd678a12e545be315aa98e12cd79528b5e59",
+      "view": "user-runtime-user-reference-v3-runtime"
+    }
+  ],
+  "dynamicEvidenceSnapshot": {
+    "snapshotId": "2026-07-28-plane-tree-canopy-v3-final-runtime-v2-4f5e339",
+    "fileCount": 625,
+    "byteCount": 263847936,
+    "checksum": "passed",
+    "wikiEligible": false
+  },
+  "validation": {
+    "deterministicMassingRebuild": "3/3 final short-fork SHA stable",
+    "glbAudit": "7/7 passed, one node each, zero images and textures",
+    "npmTest": "445/445 passed",
+    "npmLint": "0 errors, 1 pre-existing unrelated warning",
+    "independentReview": "passed-final-short-fork; no critical or important blockers"
+  }
+}

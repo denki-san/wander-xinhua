@@ -12,7 +12,7 @@ export const XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES = Object.freeze([]);
 export const XINHUA_PLANE_TREE_PILOT = Object.freeze({
   centerDistance: 131.1,
   length: 55.6,
-  targetCount: 18,
+  targetCount: 20,
 });
 export const XINHUA_PLANE_TREE_TRUNK_HALF_EXTENT = 0.48;
 
@@ -112,7 +112,9 @@ export function buildPlaneTreePlacements(
   const entrances = landmarks.map(({ start }) => start);
   const candidatesBySide = [[], []];
   const pilotCandidatesBySide = [[], []];
-  const spacing = 14.5;
+  // V2 的 14.5 scene units 约等于 39 米，纵深中过于稀疏。V3 按成熟
+  // 行道树约 16 米的推断节奏密采样，仍由入口和建筑净空过滤。
+  const spacing = 6;
   const total = polylineLength(XINHUA_ROAD_AXIS);
   const pilotStart = XINHUA_PLANE_TREE_PILOT.centerDistance
     - XINHUA_PLANE_TREE_PILOT.length / 2;

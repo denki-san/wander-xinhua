@@ -2227,7 +2227,7 @@ def create_plane_tree_trunk(
 ) -> bpy.types.Object:
     """创建带连续根颈的低多边形树干，避免树干像圆柱一样直接插入地面。"""
     ring_heights = (0.0, 0.28, 0.86, trunk_height)
-    ring_radii = (0.61, 0.53, 0.39, 0.25)
+    ring_radii = (0.68, 0.59, 0.45, 0.32)
     ring_segments = 14
     vertices: list[tuple[float, float, float]] = []
     faces: list[tuple[int, ...]] = []
@@ -2376,7 +2376,7 @@ def add_plane_tree_branch_path(
 
 
 def build_plane_tree(variant: int) -> None:
-    """生成四款街道修剪型 Identity；本地 -Y 统一朝道路内侧。"""
+    """生成四款成熟连续林冠 Identity；本地 -Y 统一朝道路内侧。"""
     rng = random.Random(9107 + variant * 103)
     root_rng = random.Random(12011 + variant * 137)
     bark = material("梧桐树皮", "#8d826e")
@@ -2387,7 +2387,9 @@ def build_plane_tree(variant: int) -> None:
         material("梧桐叶中", "#5d7d4f"),
         material("梧桐叶浅", "#78905b"),
     ]
-    trunk_height = (4.25, 4.05, 4.35, 4.15)[variant]
+    # 新华路实景中的粗大主枝较早出现。V2 在约 4.1 scene units 才分叉，
+    # 运行时读成修剪型长直杆；V3 把主叉降低到总高约 24% 至 34%。
+    trunk_height = (2.2, 2.05, 2.35, 2.15)[variant]
     trunk_lean = (
         (0.04, -0.08),
         (0.28, -0.12),
@@ -2433,56 +2435,85 @@ def build_plane_tree(variant: int) -> None:
             bevel=0.035,
             rotation=(0, 0, angle),
         )
-    fork = (trunk_lean[0] * 0.94, trunk_lean[1] * 0.94, trunk_height - 0.2)
-    branch_paths = (
+    fork = Vector((
+        trunk_lean[0] * 0.94,
+        trunk_lean[1] * 0.94,
+        trunk_height - 0.14,
+    ))
+    # 路径使用相对分叉点的坐标。前三根粗枝向本地 -Y 跨向道路中心，
+    # 后两根沿道路/建筑侧展开，形成成熟悬铃木的宽拱骨架。
+    relative_branch_paths = (
         (
-            ((-0.05, -0.08, 4.05), (-0.8, -0.65, 5.35), (-2.0, -1.25, 6.35), (-3.15, -1.55, 7.15)),
-            ((0.02, -0.06, 4.08), (0.95, -0.55, 5.25), (2.2, -1.2, 6.2), (3.25, -1.45, 7.05)),
-            ((0.0, 0.0, 4.1), (-0.75, 0.72, 5.65), (-1.55, 1.28, 6.85), (-2.15, 1.5, 7.55)),
-            ((0.05, 0.0, 4.12), (0.9, 0.62, 5.55), (1.65, 1.18, 6.8), (2.1, 1.42, 7.45)),
-            ((0.0, -0.05, 4.12), (0.15, -0.3, 5.75), (-0.2, -0.55, 7.15), (0.35, -0.65, 8.25)),
+            ((0.0, 0.0, 0.0), (-0.7, -1.25, 1.15), (-1.55, -3.2, 2.65), (-2.2, -5.15, 4.0)),
+            ((0.0, 0.0, 0.0), (0.75, -1.2, 1.1), (1.65, -3.15, 2.55), (2.35, -5.25, 3.9)),
+            ((0.0, 0.0, 0.0), (0.1, -1.45, 1.45), (-0.2, -3.65, 3.15), (0.35, -5.7, 4.65)),
+            ((0.0, 0.0, 0.0), (-1.15, 0.65, 1.35), (-2.45, 1.25, 2.95), (-3.25, 1.55, 4.35)),
+            ((0.0, 0.0, 0.0), (1.1, 0.55, 1.25), (2.35, 1.1, 2.85), (3.15, 1.4, 4.2)),
         ),
         (
-            ((0.2, -0.1, 3.9), (-0.55, -0.8, 5.1), (-1.55, -1.35, 6.2), (-2.45, -1.7, 7.0)),
-            ((0.2, -0.1, 3.9), (1.15, -0.62, 5.15), (2.55, -1.22, 6.25), (3.75, -1.58, 7.1)),
-            ((0.22, -0.02, 3.92), (1.15, 0.58, 5.4), (2.25, 1.05, 6.55), (3.0, 1.22, 7.35)),
-            ((0.18, 0.0, 3.92), (-0.55, 0.72, 5.45), (-1.25, 1.2, 6.7), (-1.7, 1.5, 7.5)),
-            ((0.2, -0.06, 3.92), (0.55, -0.35, 5.65), (0.85, -0.62, 7.15), (0.55, -0.78, 8.15)),
+            ((0.0, 0.0, 0.0), (-0.45, -1.35, 1.05), (-1.2, -3.35, 2.5), (-1.75, -5.4, 3.9)),
+            ((0.0, 0.0, 0.0), (0.95, -1.15, 1.2), (2.05, -3.0, 2.75), (3.0, -5.05, 4.15)),
+            ((0.0, 0.0, 0.0), (0.35, -1.55, 1.55), (0.75, -3.8, 3.25), (0.55, -5.85, 4.75)),
+            ((0.0, 0.0, 0.0), (-0.85, 0.7, 1.4), (-1.75, 1.35, 3.0), (-2.3, 1.65, 4.4)),
+            ((0.0, 0.0, 0.0), (1.2, 0.45, 1.2), (2.65, 0.9, 2.75), (3.55, 1.1, 4.0)),
         ),
         (
-            ((-0.18, -0.05, 4.15), (-1.1, -0.6, 5.35), (-2.35, -1.05, 6.25), (-3.45, -1.25, 7.05)),
-            ((-0.16, -0.04, 4.15), (0.75, -0.78, 5.25), (1.8, -1.5, 6.35), (2.7, -1.8, 7.2)),
-            ((-0.18, 0.0, 4.16), (-1.05, 0.55, 5.5), (-2.1, 1.05, 6.65), (-2.8, 1.25, 7.4)),
-            ((-0.15, 0.02, 4.16), (0.65, 0.72, 5.55), (1.4, 1.25, 6.75), (1.9, 1.5, 7.55)),
-            ((-0.18, -0.02, 4.16), (-0.3, -0.35, 5.9), (0.1, -0.55, 7.35), (-0.25, -0.65, 8.45)),
+            ((0.0, 0.0, 0.0), (-0.95, -1.15, 1.15), (-2.05, -3.0, 2.6), (-2.85, -5.0, 3.95)),
+            ((0.0, 0.0, 0.0), (0.55, -1.45, 1.05), (1.35, -3.5, 2.65), (1.9, -5.65, 4.2)),
+            ((0.0, 0.0, 0.0), (-0.2, -1.5, 1.6), (0.2, -3.75, 3.3), (-0.25, -5.95, 4.8)),
+            ((0.0, 0.0, 0.0), (-1.15, 0.45, 1.35), (-2.55, 0.95, 2.95), (-3.5, 1.15, 4.2)),
+            ((0.0, 0.0, 0.0), (0.9, 0.75, 1.35), (1.85, 1.45, 3.0), (2.45, 1.8, 4.45)),
         ),
         (
-            ((0.08, -0.15, 3.95), (-0.75, -0.75, 5.0), (-1.75, -1.55, 6.0), (-2.7, -2.05, 6.9)),
-            ((0.1, -0.15, 3.95), (1.05, -0.72, 5.05), (2.2, -1.5, 6.1), (3.15, -2.0, 7.0)),
-            ((0.1, -0.08, 3.97), (-0.9, 0.5, 5.25), (-1.8, 0.98, 6.45), (-2.35, 1.22, 7.2)),
-            ((0.12, -0.08, 3.97), (0.95, 0.55, 5.3), (1.8, 1.0, 6.55), (2.45, 1.2, 7.3)),
-            ((0.1, -0.12, 3.97), (0.35, -0.45, 5.5), (-0.05, -0.75, 6.95), (0.45, -0.95, 8.1)),
+            ((0.0, 0.0, 0.0), (-0.65, -1.25, 0.95), (-1.55, -3.2, 2.4), (-2.4, -5.35, 3.75)),
+            ((0.0, 0.0, 0.0), (0.85, -1.3, 1.1), (1.85, -3.35, 2.6), (2.55, -5.55, 4.0)),
+            ((0.0, 0.0, 0.0), (0.15, -1.65, 1.5), (-0.35, -3.95, 3.1), (0.25, -6.0, 4.55)),
+            ((0.0, 0.0, 0.0), (-1.0, 0.6, 1.25), (-2.15, 1.2, 2.75), (-2.85, 1.55, 4.05)),
+            ((0.0, 0.0, 0.0), (1.15, 0.55, 1.35), (2.45, 1.15, 3.0), (3.25, 1.35, 4.3)),
         ),
     )[variant]
-    # 把第一控制点绑定到实际树干倾斜后的分叉点，后续点保留四款不同轮廓。
-    leaf_cluster_centers: list[tuple[float, float, float]] = []
-    for branch_index, authored_path in enumerate(branch_paths):
-        offset = Vector(fork) - Vector(authored_path[0])
-        path = tuple(tuple(Vector(point) + offset) for point in authored_path)
+    branch_origin_offsets = (
+        (-0.08, -0.02, -0.1),
+        (0.1, -0.04, 0.04),
+        (0.02, -0.08, 0.34),
+        (-0.1, 0.04, 0.16),
+        (0.1, 0.02, 0.28),
+    )
+    leaf_cluster_specs: list[
+        tuple[tuple[float, float, float], tuple[float, float, float]]
+    ] = []
+    for branch_index, relative_path in enumerate(relative_branch_paths):
+        branch_origin = fork + Vector(branch_origin_offsets[branch_index])
+        path = tuple(tuple(branch_origin + Vector(point)) for point in relative_path)
         add_plane_tree_branch_path(
             f"tree-branch-{branch_index}",
             path,
             bark,
             bark_dark,
-            base_thickness=0.38 if branch_index < 2 else 0.34,
+            base_thickness=0.56 if branch_index < 3 else 0.46,
         )
         end = Vector(path[-1])
         direction = (end - Vector(path[-2])).normalized()
         side = Vector((-direction.y, direction.x, 0.0)).normalized()
-        # 两根可读细枝带出分层叶簇；叶簇沿枝线展开，不使用大球冠。
+        # 大、中叶团沿枝架互相覆盖；小簇只负责破坏外轮廓，不能再读成球串。
+        lobe_start = Vector(path[1])
+        for cluster_index, progress in enumerate((0.28, 0.48, 0.66, 0.83, 1.0)):
+            lateral = (-0.34 if cluster_index % 2 == 0 else 0.32)
+            center = lobe_start.lerp(end, progress) + side * lateral
+            center.z += rng.uniform(-0.16, 0.2)
+            inward = branch_index < 3
+            leaf_cluster_specs.append((
+                tuple(center),
+                (
+                    (1.35 if inward else 1.18) + rng.random() * 0.38,
+                    (1.48 if inward else 1.05) + rng.random() * 0.4,
+                    0.82 + rng.random() * 0.34,
+                ),
+            ))
+
         twig_ends = (
-            end + direction * 0.72 + side * 0.42 + Vector((0.0, 0.0, 0.55)),
-            end + direction * 0.5 - side * 0.52 + Vector((0.0, 0.0, 0.38)),
+            end + direction * 0.8 + side * 0.52 + Vector((0.0, 0.0, 0.48)),
+            end + direction * 0.62 - side * 0.58 + Vector((0.0, 0.0, 0.32)),
         )
         for twig_index, twig_end in enumerate(twig_ends):
             add_plane_tree_branch_path(
@@ -2490,40 +2521,35 @@ def build_plane_tree(variant: int) -> None:
                 (tuple(end), tuple(twig_end)),
                 bark,
                 bark_dark,
-                base_thickness=0.12,
+                base_thickness=0.16,
             )
-            for cluster_index in range(4):
-                progress = 0.18 + cluster_index * 0.25
-                lateral = (-0.22 if cluster_index % 2 == 0 else 0.24)
-                center = end.lerp(twig_end, progress)
-                center += side * lateral
-                center.z += (-0.12 + cluster_index * 0.08) + rng.uniform(-0.08, 0.13)
-                leaf_cluster_centers.append(tuple(center))
-        # 主枝膝部和端部的较低叶簇把冠层下缘做成不规则折线。
-        knee = Vector(path[-2])
-        leaf_cluster_centers.extend((
-            tuple(knee + side * 0.38 + Vector((0.0, 0.0, 0.18))),
-            tuple(end - side * 0.2 + Vector((0.0, 0.0, -0.22))),
+            leaf_cluster_specs.append((
+                tuple(end.lerp(twig_end, 0.78)),
+                (0.95 + rng.random() * 0.24, 0.9 + rng.random() * 0.28, 0.68 + rng.random() * 0.2),
+            ))
+
+    # 顶部脊线负责把五根主枝连接成连续冠层，只留下局部透光孔。
+    top_clusters = (
+        (-2.7, -2.5, 6.25), (-1.35, -3.15, 6.65), (0.0, -3.55, 6.9),
+        (1.4, -3.1, 6.6), (2.7, -2.45, 6.3),
+        (-2.65, -0.25, 6.45), (-1.25, -0.7, 7.05), (0.15, -0.9, 7.35),
+        (1.55, -0.65, 7.0), (2.75, -0.15, 6.5),
+    )
+    for index, authored_center in enumerate(top_clusters):
+        center = Vector(authored_center)
+        center.x += trunk_lean[0] + (variant - 1.5) * 0.08
+        center.y += trunk_lean[1]
+        center.z += (variant % 2) * 0.12
+        leaf_cluster_specs.append((
+            tuple(center),
+            (
+                1.35 + (index % 3) * 0.14 + rng.random() * 0.18,
+                1.18 + ((index + 1) % 3) * 0.16 + rng.random() * 0.18,
+                0.88 + (index % 2) * 0.16 + rng.random() * 0.18,
+            ),
         ))
 
-    # 顶部小簇连接主枝，但刻意偏离中心，留下照片中可见的天空孔洞。
-    top_cluster_count = 10
-    for index in range(top_cluster_count):
-        angle = index * math.tau / top_cluster_count + variant * 0.37
-        radial = 0.78 + (index % 2) * 0.38
-        center = (
-            trunk_lean[0] + math.cos(angle) * radial,
-            trunk_lean[1] + math.sin(angle) * radial * 0.72 - 0.12,
-            7.75 + (index % 3) * 0.28 + rng.random() * 0.2,
-        )
-        leaf_cluster_centers.append(center)
-
-    for index, center in enumerate(leaf_cluster_centers):
-        scale = (
-            0.48 + rng.random() * 0.28,
-            0.38 + rng.random() * 0.24,
-            0.32 + rng.random() * 0.2,
-        )
+    for index, (center, scale) in enumerate(leaf_cluster_specs):
         add_icosphere(
             f"tree-leaf-cluster-{index}",
             center,
@@ -2534,16 +2560,16 @@ def build_plane_tree(variant: int) -> None:
 
 
 def build_plane_tree_massing(variant: int) -> None:
-    """生成全览/弱网使用的三款极轻轮廓，不承担近景树皮和枝序。"""
+    """生成全览/弱网使用的三款连续拱顶轮廓，不承担近景树皮和枝序。"""
     bark = material("梧桐远景树干", "#756d5f")
     leaves = (
         material("梧桐远景叶深", "#456847"),
         material("梧桐远景叶浅", "#668052"),
     )
     fork = (
-        (0.0, -0.05, 4.15),
-        (0.22, -0.12, 4.0),
-        (-0.2, -0.04, 4.25),
+        (0.0, -0.05, 2.2),
+        (0.22, -0.12, 2.05),
+        (-0.2, -0.04, 2.35),
     )[variant]
     add_beam(
         f"tree-massing-trunk-{variant}",
@@ -2553,33 +2579,62 @@ def build_plane_tree_massing(variant: int) -> None:
         bark,
         round_beam=True,
     )
+    # 弱网模型只在树干顶部保留短弯叉。跨路体量完全由连片叶团承担，避免
+    # 数十个实例把长枝重复成连续的“工程门架”。
     ends = (
-        ((-2.8, -1.25, 7.0), (2.8, -1.25, 7.05), (-1.9, 1.15, 7.3), (1.9, 1.15, 7.35), (0.0, -0.3, 8.15)),
-        ((-2.15, -1.5, 6.9), (3.35, -1.35, 7.0), (-1.4, 1.25, 7.45), (2.5, 1.0, 7.25), (0.55, -0.35, 8.05)),
-        ((-3.25, -1.1, 7.0), (2.35, -1.6, 7.15), (-2.5, 1.0, 7.25), (1.75, 1.3, 7.45), (-0.2, -0.25, 8.35)),
+        ((-1.5, -2.45, 4.75), (1.35, -2.75, 4.95), (-0.15, -3.05, 5.2)),
+        ((-1.2, -2.7, 4.7), (1.75, -2.4, 5.05), (0.35, -3.1, 5.3)),
+        ((-1.75, -2.35, 4.9), (1.15, -2.9, 5.0), (-0.35, -3.2, 5.35)),
     )[variant]
+    branch_origin_offsets = (
+        (-0.16, -0.02, -0.12),
+        (0.13, -0.05, 0.14),
+        (0.02, -0.08, 0.42),
+    )
     for index, end in enumerate(ends):
-        add_beam(
+        origin = Vector(fork) + Vector(branch_origin_offsets[index])
+        end_vector = Vector(end)
+        side_bend = Vector((
+            (-0.48 if index % 2 == 0 else 0.4) * (1.0 + variant * 0.08),
+            0.28 - index * 0.11,
+            0.0,
+        ))
+        path = (
+            tuple(origin),
+            tuple(origin.lerp(end_vector, 0.42) + side_bend + Vector((0.0, 0.0, -0.18))),
+            tuple(origin.lerp(end_vector, 0.72) - side_bend * 0.38 + Vector((0.0, 0.0, 0.2))),
+            tuple(end_vector),
+        )
+        add_plane_tree_branch_path(
             f"tree-massing-branch-{variant}-{index}",
-            fork,
-            end,
-            0.23 if index < 2 else 0.19,
+            path,
             bark,
-            round_beam=True,
+            bark,
+            base_thickness=(0.48, 0.39, 0.32)[index],
         )
         add_icosphere(
             f"tree-massing-crown-{variant}-{index}",
-            (end[0], end[1], end[2] + 0.2),
-            (1.35, 1.0, 0.92),
+            (end[0], end[1] - 0.45, end[2] + 0.08),
+            (2.45, 2.55, 1.62),
             leaves[(index + variant) % 2],
             subdivisions=1,
         )
-    # 两个内层簇连接冠层但保留中间孔洞，避免远景再次退化成单球。
-    for index, center in enumerate(((-0.85, -0.55, 7.55), (0.9, 0.15, 7.65))):
+    # 内层大簇从分叉上方开始遮住枝条中后段；另外三组无梁支撑的跨路叶团
+    # 延伸树冠。局部高差保留低多边形层次，但不重新打开贯穿道路的蓝天槽。
+    for index, center in enumerate((
+        (-1.65, -2.0, 5.2),
+        (0.0, -2.55, 5.55),
+        (1.65, -2.05, 5.3),
+        (-1.75, -5.0, 5.85),
+        (0.1, -5.55, 6.2),
+        (1.85, -4.95, 5.95),
+        (-1.35, -0.35, 5.75),
+        (1.45, -0.25, 5.9),
+    )):
         add_icosphere(
             f"tree-massing-inner-{variant}-{index}",
             center,
-            (1.25, 0.92, 0.84),
+            (2.25 if index < 3 else 2.5, 2.2, 1.55),
             leaves[(index + variant + 1) % 2],
             subdivisions=1,
         )
@@ -2831,9 +2886,9 @@ def export_asset(slug: str, builder: Callable[[], None]) -> dict[str, int | str]
     ASSET_OBJECTS[0]["detail_upgrade"] = "20260718"
     if slug.startswith("plane-tree-"):
         ASSET_OBJECTS[0]["plane_tree_family"] = (
-            "canopy-v2-massing"
+            "canopy-v3-massing"
             if slug.startswith("plane-tree-massing-")
-            else "canopy-v2-identity"
+            else "canopy-v3-identity"
         )
         ASSET_OBJECTS[0]["plane_tree_variant"] = slug.removeprefix("plane-tree-")
         ASSET_OBJECTS[0]["instancing_ready"] = True

@@ -30,6 +30,37 @@
 
 ---
 
+## [LRN-20260728-001] correction
+
+**Logged**: 2026-07-28T21:40:00+08:00
+**Priority**: critical
+**Status**: in_progress
+**Area**: frontend
+
+### Summary
+梧桐树资产通过结构、性能和请求验收，不代表新华路连续林冠的视觉目标已经通过。
+
+### Details
+Canopy V2 的 Brief 写明“连续冠层”和“横展主枝”，但生成器实际在枝端布置大量
+约 0.5 scene unit 的孤立小叶簇，并刻意保留过多天空孔洞；运行时还统一转成偏秋色。
+最终道路中心视角呈现为两排修剪型稀疏景观树，与用户提供的新华路实景中粗壮老树、
+低位大分叉、跨路横展、相邻树冠互相穿插形成连续拱顶的视觉主体差距很大。此前验收
+只证明了 GLB 合规、实例加载、碰撞和性能，没有量化画面中的林冠覆盖和跨路搭接，
+因此错误地把技术门通过描述成视觉完成。
+
+### Suggested Action
+下一版以道路中心 canonical 画面为第一质量门：量化上半屏林冠覆盖、中心线上方
+左右冠层搭接、近景主枝粗度和连续阴影；叶簇必须组成大尺度互相重叠的冠层块面，
+不得读成孤立球串。最终必须用用户运行时截图、用户实景图和新版 Three.js 同机位图
+做三联对照，视觉门未通过时不得合并或部署。
+
+### Metadata
+- Source: user_feedback
+- Related Files: scripts/create_xinhua_plane_tree_canopy_v2.py, docs/research/plane-tree-canopy-v2-model-brief.md, app/scene/plane-tree-instances.tsx
+- Tags: blender, plane-tree, canopy, visual-acceptance, runtime, correction
+
+---
+
 ## [LRN-20260725-006] correction
 
 **Logged**: 2026-07-25T20:25:00+08:00
