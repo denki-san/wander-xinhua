@@ -1,6 +1,6 @@
 # 新华漫游建筑引擎：生产化验收方案
 
-- Status: `merge-ready-experimental`
+- Status: `reopened-new-evidence-not-merge-ready`
 - Branch: `codex/building-engine-spike`
 - Accepted Spike implementation: `6d294381da9011359af08100ea17ac44efd421ed`
 - Spike closure: `16f196fdf4479ca170509c2d4b797850e6a1a263`
@@ -249,3 +249,22 @@
 本结论不授权替换正式 Hudec Hero、批量迁移现有建筑、推送、合并或部署。
 真正成为默认生产链路前，仍需另开任务设计 registry promotion、单资产回滚、
 线上性能基线和首个正式资产替换验收。
+
+## 10. 2026-07-28 新证据重开
+
+用户新增四张邬达克纪念馆照片后，Section 9 的通过结论只保留为历史记录，当前
+状态回退为 `not-merge-ready`。
+
+新照片直接证明：
+
+- 前部玻璃空间位于与主体连续的长单坡屋面下，不是独立低双坡小屋；
+- 烟囱包含落地白色实体塔身和顶部成组红砖烟道，不是从屋面直接伸出的三根细柱；
+- 主体是紧凑主屋脊、长坡翼和前后交错双山墙的组合，不是宽盒主体加松散侧翼；
+- 旧三联图已经显示这些轮廓差异，原人工 Final Gate 属于假通过。
+
+现有 Compiler 只支持 `gable / hipped / flat` 屋顶，无法诚实表达照片中的长单坡
+玻璃翼，因此记录为通用 `shed` roof `compiler-gap`。若本轮增加通用屋顶类型，
+冻结 Compiler SHA 将变化，原“第三栋不修改 Compiler 的盲测通过”结论永久失效；
+必须冻结新 Compiler、Schema，再对 House 315、孙科别墅和 Hudec 三栋重跑自动
+回归，并对 Hudec 从 Evidence Gate、Massing Gate、Final Gate、真实地图和冷构建
+完整重验。

@@ -1,5 +1,7 @@
 # Hudec Memorial Building Engine Blind-Test Brief
 
+- Current status: `rejected-by-new-evidence-rebuild-required`
+
 ## Scope
 
 - Asset slug: `hudec-memorial`
@@ -298,3 +300,21 @@
 - Decision: `merge-ready-experimental`。该结论只允许把隔离 CLI、Sandbox 与
   显式 QA tier 作为实验链路候选合并；不授权替换正式 Hudec Hero、推送、
   合并或部署。
+
+### Iteration 7 — 2026-07-28 new user evidence rejection
+
+- New evidence: 四张用户提供的当前/历史斜向与正向照片，工作副本及 provenance
+  见
+  `docs/research/assets/requested-poi-references/hudec-memorial-user-evidence-20260728.json`。
+- Rejection: 新照片证明旧 Master 的宽盒主体、独立低双坡玻璃翼和悬浮式三烟道
+  与真实建筑不一致；真实建筑是紧凑复合屋面、长坡玻璃翼、落地白色烟囱塔加红砖
+  冠部，以及前后交错双山墙。
+- Gate impact: `massing-review-003.json`、`final-review-001.json` 和
+  Iteration 6 的 `merge-ready-experimental` 结论全部降为历史记录，不能继续作为
+  当前视觉通过证据。
+- Provenance gap: 两张图片可见 `@文化上海` / `@乐游上海` 水印，但原始发布 URL、
+  作者与拍摄日期未知；只标记为用户提供研究证据，不虚构来源。
+- Compiler impact: 长单坡玻璃翼超出现有 Roof DSL 的 `gable / hipped / flat`
+  表达范围，先记录通用 `shed` roof `compiler-gap`；如果扩展 Compiler，旧冻结
+  盲测结论失效，必须冻结新版本并重跑三栋回归。
+- Next: 先创建新外置证据快照，再重写 coverage、Brief、Massing 和碰撞合同。

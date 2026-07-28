@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "subject": {
+    "assetId": "hudec-memorial",
+    "name": "邬达克纪念馆（邬达克旧居）",
+    "address": "上海市长宁区番禺路 129 号"
+  },
+  "acquiredAt": "2026-07-28T23:23:23+08:00",
+  "acquisitionMethod": "user-provided-codex-attachments",
+  "sourceBoundary": {
+    "originalPostUrls": "unknown",
+    "originalCaptureDates": "unknown",
+    "usage": "research-reference-only",
+    "wikiEligible": false,
+    "note": "可见水印只作为 provenance 线索，不据此虚构作者、原始 URL 或拍摄日期。"
+  },
+  "items": [
+    {
+      "id": "hudec-user-oblique-overview",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-oblique-overview-20260728.png",
+      "originalAttachmentPath": "/Users/lei/.codex/attachments/cebeba10-7fb4-49f7-8b66-52d7347796c3/codex-clipboard-ad00d331-5562-4796-9231-26bd0931771c.png",
+      "sha256": "7f287bc923c99217ab208025b74357e567046226e51f8d26131cc990cbbd50c6",
+      "pixelSize": [
+        640,
+        377
+      ],
+      "view": "高位斜向总览；可见主屋脊、前部长坡翼、双山墙、白色烟囱塔与后侧低翼",
+      "visibleWatermark": "@文化上海",
+      "independentEvidence": true
+    },
+    {
+      "id": "hudec-user-oblique-overview-crop",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-oblique-overview-crop-20260728.png",
+      "originalAttachmentPath": "/Users/lei/.codex/attachments/0752fa07-a85d-4a5f-8719-e06e12b548cf/codex-clipboard-0da8a4b6-14f5-44ae-8530-b848a55a5da1.png",
+      "sha256": "5337dabc16367068f18bde2a0f6c62c8e431bd808cb4a82cd667ed2f68ab2b35",
+      "pixelSize": [
+        183,
+        275
+      ],
+      "view": "同一高位斜向画面的烟囱塔、长坡翼和中央山墙裁切",
+      "visibleWatermark": "none-in-crop",
+      "relationship": "crop-of-the-same-view-as-hudec-user-oblique-overview",
+      "independentEvidence": false
+    },
+    {
+      "id": "hudec-user-historic-front",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-historic-front-20260728.png",
+      "originalAttachmentPath": "/Users/lei/.codex/attachments/fcde6eab-6b7f-45b4-a1d3-5bfece405d3d/codex-clipboard-6fdf9d4f-b456-4ff0-ac2a-28b7a2b0579d.png",
+      "sha256": "63dee9616e1a5faa8891f3bf14771ca5871f9c623279254dc4301155258dfe8e",
+      "pixelSize": [
+        302,
+        309
+      ],
+      "view": "历史正向总览；可见左右交错山墙、连续半木构、主屋脊和两处烟囱关系",
+      "visibleWatermark": "none-visible",
+      "independentEvidence": true,
+      "temporalBoundary": "historic-state; current facade details must be cross-checked"
+    },
+    {
+      "id": "hudec-user-glass-wing",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-glass-wing-20260728.png",
+      "originalAttachmentPath": "/Users/lei/.codex/attachments/26271a09-0293-444b-a8e1-00b9ffe9fefb/codex-clipboard-06ff5b0c-4661-4062-8b85-74da6bd33d81.png",
+      "sha256": "8f33685ca2b01459412490d04c6710328b86e56fa8c2e5bb525cf07e4c0d64d8",
+      "pixelSize": [
+        365,
+        547
+      ],
+      "view": "近距离斜向；可见玻璃围护、与主体相连的长单坡屋面、端山墙和白色烟囱塔",
+      "visibleWatermark": "@乐游上海",
+      "independentEvidence": true
+    }
+  ],
+  "observedCorrections": [
+    "玻璃翼位于长坡屋面下并与主体连续，不是独立低矮双坡小屋。",
+    "烟囱具有从低层延伸至屋脊以上的白色实体塔身，顶部才是成组红砖烟道。",
+    "主体由紧凑的主屋脊、前部长坡翼和前后交错山墙组成，不是宽盒主体加两个松散侧翼。",
+    "半木构主要沿端山墙、转角与窗格形成连续节奏，旧模型的平直宽立面节奏不成立。"
+  ],
+  "unknowns": [
+    "四张图片的原始发布 URL、作者和拍摄日期。",
+    "被树木遮挡的东侧与背侧开口。",
+    "精确测绘尺寸、屋坡角度和烟囱内部烟道数量。"
+  ]
+}

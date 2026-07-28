@@ -1,5 +1,37 @@
 # Errors
 
+## [ERR-20260728-009] jq_dollar_defs_key_access
+
+**Logged**: 2026-07-28T23:23:23+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+读取 JSON Schema 时把 `$defs` 写成 jq 变量语法，导致只读查询失败。
+
+### Error
+```text
+jq: error: syntax error, unexpected BINDING
+```
+
+### Context
+- 尝试同时摘取 `roof`、`volume`、`feature` 和 `opening` 定义；
+- 命令没有修改仓库文件。
+
+### Suggested Fix
+对包含美元符号的 JSON key 使用 `.["$defs"]` 显式键访问。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `building-engine/schema/building-dsl.schema.json`
+
+### Resolution
+- **Resolved**: 2026-07-28T23:23:23+08:00
+- **Notes**: 改用 `.["$defs"]` 后继续只读检查。
+
+---
+
 ## [ERR-20260727-A31] git_index_lock_sandbox_permission
 
 **Logged**: 2026-07-27T11:48:00+08:00

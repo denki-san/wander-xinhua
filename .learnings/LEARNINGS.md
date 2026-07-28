@@ -1,5 +1,35 @@
 # Learnings
 
+## [LRN-20260728-HUD] correction
+
+**Logged**: 2026-07-28T23:23:23+08:00
+**Priority**: critical
+**Status**: in_progress
+**Area**: research
+
+### Summary
+用户新增的邬达克纪念馆照片证明已通过的 Building Engine Master 主体体块错误，
+上一轮视觉门属于假通过。
+
+### Details
+旧三联图虽然同时展示参考、Blender 和 Three.js，但模型把真实的长坡玻璃翼、
+落地白色烟囱塔、前后交错双山墙和紧凑复合屋面简化成宽盒主体、独立低翼与悬浮式
+三烟道。结构差异在旧对照图中已经可见，却因为只检查“有烟囱、半木构、坡屋顶”等
+类别特征而没有被否决。新照片还证明低玻璃翼与大坡屋顶是一体关系，不是后侧独立小屋。
+
+### Suggested Action
+撤销旧 Massing / Final 通过结论，从新证据快照、覆盖矩阵和 canonical 机位重新开始。
+后续人工门必须逐项比较整体轮廓、屋面连接、主次体块、烟囱基座和玻璃翼位置，不能只
+核对身份构件名称；三联图中出现明显轮廓不一致时必须直接 reject。
+
+### Metadata
+- Source: user_feedback
+- Related Files: `building-engine/cases/hudec-memorial/`,
+  `docs/research/hudec-memorial-building-engine-blind-test-brief.md`
+- Tags: hudec, visual-gate, false-positive, evidence, correction
+
+---
+
 ## [LRN-20260727-MBX] correction
 
 **Logged**: 2026-07-27T12:00:00+08:00
