@@ -7,10 +7,10 @@
   ],
   "archetype": "garden-villa",
   "status": "pass",
-  "createdAt": "2026-07-29T01:18:21+08:00",
+  "createdAt": "2026-07-29T01:25:28+08:00",
   "source": {
-    "commit": "888ccb7f880724856926b9db499543836e0a753e",
-    "worktree": "/Users/lei/App_developing/wander-xinhua/.worktrees/test_building-engine-cold-888ccb7",
+    "commit": "53b7a6dda3082fbcb244437a8ce0a40c6a39d362",
+    "worktree": "/Users/lei/App_developing/wander-xinhua/.worktrees/test_building-engine-cold-53b7a6d",
     "mode": "detached",
     "preBuildStatus": "clean"
   },
@@ -20,7 +20,7 @@
   ],
   "frozenInputs": {
     "compilerSha256": "20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9",
-    "cliSha256": "09706c00412cf811a52109ab0682b21de121a423627166cd640de1fdd0a66c82",
+    "cliSha256": "988187dd58844e00644791832e22edb38b1505e31880dc55e911a30e5b880329",
     "schemaSha256": "9fd4bc658d6a8e7e3972961dc114c4b05962f19a3b161b41a2c90b1ed7a4bfb8",
     "artProfileSha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10",
     "dslSha256": {
@@ -28,6 +28,14 @@
       "hudec-memorial": "fde1d744684d9e47b9a4f89051f9c24077f89dd96e1407f38862dc8234d191b6",
       "sun-ke-villa": "06d6fa20b81dee8b2abf431f7d3e445da0a8ea3b120277886cf2f1fbcb1abafc"
     }
+  },
+  "validationHardening": {
+    "shedRequiredFields": "pass",
+    "shedAxisAndHighSide": "pass",
+    "shedPositiveFiniteLengthSpanRidge": "pass",
+    "shedNonNegativeEave": "pass",
+    "shedRidgeAboveEave": "pass",
+    "nonShedHighSideRejected": "pass"
   },
   "evidenceInput": {
     "hudecSnapshotId": "2026-07-28-0ef306f",
@@ -57,11 +65,8 @@
     "stageCount": 2,
     "viewCountPerStage": 3,
     "totalComparisons": 18,
-    "pixelComparison": "all-18-pixel-identical",
-    "interpretation": "三栋 Massing / Master 的 canonical、side、entrance 解码后像素全部一致；PNG 编码或元数据差异不影响视觉确定性。"
+    "pixelComparison": "all-18-pixel-identical"
   },
   "artifactQaStatus": "six-of-six-pass",
-  "decision": "historical-cold-build-pass",
-  "supersededForFinalAcceptance": true,
-  "supersessionReason": "复审后又补充了 shed 数值类型、有限值、正数范围和屋脊高于檐口的 CLI 门，最终接受记录改由 cold-build-53b7a6d.json 承担。"
+  "decision": "cold-build-gate-passed"
 }

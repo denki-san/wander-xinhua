@@ -378,7 +378,7 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
   证据，不作为当前最终 Cold-build Gate；
 - Remaining: 从最终提交重新冷构建三栋、创建外置输出证据快照并完成复审。
 
-### Iteration 10 — 2026-07-29 final three-asset cold build
+### Iteration 10 — 2026-07-29 pre-final three-asset cold build
 
 - Source: 从提交 `888ccb7f880724856926b9db499543836e0a753e` 创建干净
   detached worktree，初始 `git status --short` 为空；
@@ -389,4 +389,17 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 - QA: `qa --asset all --stage all` 六级全部通过；
 - Record:
   `docs/research/build-records/building-engine-spike/hudec-memorial/cold-build-888ccb7.json`；
-- Remaining: 创建新的外置输出证据快照并完成复审。
+- Review finding: 复审发现 CLI 尚未把 `length / span / eaveHeight /
+  ridgeHeight` 的类型、有限值与范围合同落为负例门，因此本记录降为历史通过。
+
+### Iteration 11 — 2026-07-29 final validation hardening and cold build
+
+- Validation: `shed` 现在要求长度、跨度、檐口与屋脊字段存在；长度、跨度和屋脊
+  必须是有限正数，檐口必须是有限非负数，且屋脊必须高于檐口；
+- Negative tests: 覆盖负长度、零跨度、字符串数值、负檐口和屋脊不高于檐口；
+- Source: 提交 `53b7a6dda3082fbcb244437a8ce0a40c6a39d362`；
+- Cold build: 干净 detached worktree 重建三栋，六个 GLB 与三个 collision
+  逐字节一致，18 张固定机位预览像素一致，六级自动 QA 通过；
+- Record:
+  `docs/research/build-records/building-engine-spike/hudec-memorial/cold-build-53b7a6d.json`；
+- Remaining: 创建最终外置输出证据快照并完成复审。

@@ -7,7 +7,7 @@
 - Blind-test runtime implementation: `f4ab24af432f06c1097db0c8a0e92fb729438008`
 - Cold-build closure: `9762c919450125ae24ce736ce33034d549ffbbc8`
 - Acceptance snapshot: `2026-07-28-9762c91`
-- Evidence-corrected implementation: `888ccb7f880724856926b9db499543836e0a753e`
+- Evidence-corrected implementation: `53b7a6dda3082fbcb244437a8ce0a40c6a39d362`
 - Scope: 新证据修正版 Compiler、真实 `?start=` QA、干净复建、合并前审查
 - Explicitly excluded: 修改默认 production registry、替换正式 GLB、Meshy、
   后台、数据库、Worker、任务队列、push、合并和部署
@@ -314,7 +314,11 @@
   必须存在”的证据校验，使外置不可变快照重新成为唯一归档真值；此后审查又
   加固了 Schema / CLI 并重建两栋回归资产，因此该冷构建只作历史证据，最终提交
   仍需重新冷构建三栋；
-- 最终 detached worktree `888ccb7…` 已重建三栋；六个 GLB 与三个 collision
+- detached worktree `888ccb7…` 曾重建三栋并通过二进制与像素一致性检查；
+  复审随后发现 `shed` 长度、跨度和高度数值范围仍可绕过 CLI，因此该记录降为
+  历史通过；
+- 最终 detached worktree `53b7a6d…` 在补齐数值类型、有限值、正数范围和
+  `ridgeHeight > eaveHeight` 门后重新重建三栋；六个 GLB 与三个 collision
   均和已审核产物逐字节一致，18 张固定机位预览解码后像素一致，六级自动 QA
   全部通过；
 - 全量 `npm test` 为 `448/448`，lint 为 `0 error / 1` 条既有 warning；
