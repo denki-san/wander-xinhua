@@ -1,6 +1,6 @@
 # Hudec Memorial Building Engine Blind-Test Brief
 
-- Current status: `evidence-corrected-engine-v2-cold-build-passed-output-snapshot-pending`
+- Current status: `merge-ready-evidence-corrected-experimental`
 
 ## Scope
 
@@ -210,7 +210,7 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 - [x] 真实 `/?start=hudec` 可见、接地、方向和碰撞通过
 - [x] 默认 Hudec 页面仍加载原正式 Hero
 - [x] 最终提交在干净 worktree 重建三栋并得到一致 GLB
-- [ ] 新输出动态证据快照与全量 SHA 通过
+- [x] 新输出动态证据快照与全量 SHA 通过
 
 ## Decision Log
 
@@ -402,4 +402,18 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
   逐字节一致，18 张固定机位预览像素一致，六级自动 QA 通过；
 - Record:
   `docs/research/build-records/building-engine-spike/hudec-memorial/cold-build-53b7a6d.json`；
-- Remaining: 创建最终外置输出证据快照并完成复审。
+- At this point: 只剩最终外置输出证据快照与复审。
+
+### Iteration 12 — 2026-07-29 evidence-corrected closure
+
+- Snapshot:
+  `/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-29-45cc711/`；
+- Snapshot source: clean commit `45cc711`；`678` files、`279162880` bytes；
+  归档脚本与独立 `shasum -a 256 -c SHA256SUMS` 均为 `0` failures；
+- Automation: `npm test` 为 `448/448`；lint 为 `0 error / 1` 条既有 warning；
+- Review: 两轮只读审查发现的三栋 Compiler lineage、`shed` 负例和证据快照真值
+  问题全部关闭，最终为 `0 Critical / 0 Important`；
+- Decision: `merge-ready-evidence-corrected-experimental`；
+- Boundary: 默认 Hudec Hero、production registry、placement 与 cacheVersion
+  均未替换；本轮没有 push、合并或部署。成为默认生产链路仍需独立 promotion、
+  线上性能基线和回滚验收任务。

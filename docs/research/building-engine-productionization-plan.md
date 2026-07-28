@@ -1,13 +1,15 @@
 # 新华漫游建筑引擎：生产化验收方案
 
-- Status: `evidence-corrected-engine-v2-cold-build-passed-output-snapshot-pending`
+- Status: `merge-ready-evidence-corrected-experimental`
 - Branch: `codex/building-engine-spike`
 - Accepted Spike implementation: `6d294381da9011359af08100ea17ac44efd421ed`
 - Spike closure: `16f196fdf4479ca170509c2d4b797850e6a1a263`
 - Blind-test runtime implementation: `f4ab24af432f06c1097db0c8a0e92fb729438008`
-- Cold-build closure: `9762c919450125ae24ce736ce33034d549ffbbc8`
-- Acceptance snapshot: `2026-07-28-9762c91`
+- Historical cold-build closure: `9762c919450125ae24ce736ce33034d549ffbbc8`
+- Historical acceptance snapshot: `2026-07-28-9762c91`
 - Evidence-corrected implementation: `53b7a6dda3082fbcb244437a8ce0a40c6a39d362`
+- Evidence-corrected closure: `45cc711`
+- Evidence-corrected acceptance snapshot: `2026-07-29-45cc711`
 - Scope: 新证据修正版 Compiler、真实 `?start=` QA、干净复建、合并前审查
 - Explicitly excluded: 修改默认 production registry、替换正式 GLB、Meshy、
   后台、数据库、Worker、任务队列、push、合并和部署
@@ -324,4 +326,12 @@
 - 全量 `npm test` 为 `448/448`，lint 为 `0 error / 1` 条既有 warning；
 - 正式 Hudec Hero、默认 registry 与 cacheVersion 未改变。
 
-当前只剩新输出证据快照与复审。完成前状态仍不是 merge-ready。
+最终外置快照 `2026-07-29-45cc711` 来自 clean worktree，包含 `678` 个文件、
+`279162880` bytes；归档脚本与独立全量 `SHA256SUMS` 回查均通过。两轮代码审查
+发现的三栋 lineage、`shed` 字段/方向/数值门和证据快照真值问题已全部修复，
+最终复审为 `0 Critical / 0 Important`。
+
+本分支结论为 `merge-ready-evidence-corrected-experimental`。它只表示隔离的
+Building Engine Spike、显式 QA tier 和证据修正版 Hudec 可以进入后续合并评估；
+不表示已替换默认生产 Hero，也不授权 push、合并或部署。真正成为默认生产链路
+仍需单独执行 registry promotion、线上同条件性能基线和可回滚的首栋正式替换验收。
