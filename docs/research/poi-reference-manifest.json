@@ -363,28 +363,6 @@
           "sha256": "7f287bc923c99217ab208025b74357e567046226e51f8d26131cc990cbbd50c6"
         },
         {
-          "path": "docs/research/assets/requested-poi-references/hudec-memorial-user-oblique-overview-crop-20260728.png",
-          "sourceUrl": null,
-          "sourceNote": "同一用户附件机位的裁切，不计独立视角覆盖",
-          "view": "high-oblique-overview-crop",
-          "captureDate": "unknown",
-          "acquiredAt": "2026-07-28",
-          "snapshotId": "2026-07-28-0ef306f",
-          "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-user-oblique-overview-crop-20260728.png",
-          "sha256": "5337dabc16367068f18bde2a0f6c62c8e431bd808cb4a82cd667ed2f68ab2b35"
-        },
-        {
-          "path": "docs/research/assets/requested-poi-references/hudec-memorial-user-historic-front-20260728.png",
-          "sourceUrl": null,
-          "sourceNote": "用户提供的历史照片；原始 URL、作者与拍摄日期未知",
-          "view": "historic-front-overview",
-          "captureDate": "unknown",
-          "acquiredAt": "2026-07-28",
-          "snapshotId": "2026-07-28-0ef306f",
-          "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-user-historic-front-20260728.png",
-          "sha256": "63dee9616e1a5faa8891f3bf14771ca5871f9c623279254dc4301155258dfe8e"
-        },
-        {
           "path": "docs/research/assets/requested-poi-references/hudec-memorial-user-glass-wing-20260728.png",
           "sourceUrl": null,
           "sourceNote": "用户提供的 Codex 附件；可见 @乐游上海 水印；原始 URL 与作者未知",
@@ -400,13 +378,7 @@
           "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hudec_House.jpeg",
           "view": "front-right-three-quarter",
           "captureDate": "2018-06-09"
-        },
-        {
-          "path": "docs/research/assets/requested-poi-references/hudec-memorial-west-elevations.jpg",
-          "sourceUrl": "https://www.shcn.gov.cn/col6991/20260405/1307940.html",
-          "view": "west-elevations",
-          "captureDate": "unknown"
-        }
+    }
       ]
     },
     {

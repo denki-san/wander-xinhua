@@ -52,7 +52,15 @@ test("17 个 POI 均有模型、可编辑来源和已核验的本地真实照片
       `${poi.id} 的多张照片必须是不同观察角度`,
     );
     for (const photo of record.referencePhotos) {
-      assert.match(photo.sourceUrl, /^https:\/\//);
+      if (photo.sourceUrl === null) {
+        assert.match(record.photoStatus, /source-provenance-partial$/);
+        assert.ok(photo.sourceNote, `${poi.id} 的用户证据必须保留来源缺口说明`);
+        assert.match(photo.sha256, /^[a-f0-9]{64}$/);
+        assert.ok(photo.snapshotId, `${poi.id} 的用户证据必须绑定外置快照`);
+        assert.ok(photo.snapshotPath, `${poi.id} 的用户证据必须绑定快照内路径`);
+      } else {
+        assert.match(photo.sourceUrl, /^https:\/\//);
+      }
       assert.ok(photo.captureDate, `${poi.id} 的照片必须记录拍摄日期或 unknown`);
       await assertNonEmptyFile(photo.path, 10_000);
     }

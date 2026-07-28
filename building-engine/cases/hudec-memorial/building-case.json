@@ -10,7 +10,7 @@
     "osmWayId": 494633921
   },
   "scope": {
-    "status": "in-scope-evidence-rebuild",
+    "status": "accepted-evidence-corrected-experimental",
     "modelAssetCount": 1,
     "researchOnly": true,
     "productionReplacementAuthorized": false
@@ -289,11 +289,14 @@
       "building-engine/cases/hudec-memorial/reviews/massing-review-001.json",
       "building-engine/cases/hudec-memorial/reviews/massing-review-002.json",
       "building-engine/cases/hudec-memorial/reviews/massing-review-003.json",
-      "building-engine/cases/hudec-memorial/reviews/massing-review-004.json"
+      "building-engine/cases/hudec-memorial/reviews/massing-review-004.json",
+      "building-engine/cases/hudec-memorial/reviews/massing-review-005.json",
+      "building-engine/cases/hudec-memorial/reviews/massing-review-006.json"
     ],
     "final": [
       "building-engine/cases/hudec-memorial/reviews/final-review-001.json",
-      "building-engine/cases/hudec-memorial/reviews/final-review-002.json"
+      "building-engine/cases/hudec-memorial/reviews/final-review-002.json",
+      "building-engine/cases/hudec-memorial/reviews/final-review-003.json"
     ]
   }
 }

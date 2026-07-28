@@ -9,15 +9,15 @@
     "status": 200
   },
   "glb": {
-    "url": "http://127.0.0.1:4177/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb?v=23a745ecd2b3",
+    "url": "http://127.0.0.1:4177/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb?v=15e448bfbbde",
     "status": 200,
-    "sha256": "23a745ecd2b34c5d140d2d0a2470cb7a4d9589d27b55414c62fe53ada6072f56",
-    "bytes": 26044
+    "sha256": "15e448bfbbde995f2dff3e7059b18969f640434c253bfb24962a148b4a714a9a",
+    "bytes": 31080
   },
   "collision": {
-    "url": "http://127.0.0.1:4177/models/building-engine-spike/hudec-memorial/hudec-memorial-collision.json?v=6272faf34189",
+    "url": "http://127.0.0.1:4177/models/building-engine-spike/hudec-memorial/hudec-memorial-collision.json?v=cb910b91864b",
     "status": 200,
-    "sha256": "6272faf3418955e671e3a0d14786a902fe6156f3cce941ba409d3d5c6ee69421",
-    "bytes": 1859
+    "sha256": "cb910b91864b38ed8b11969b097acf1233d3f33bff6255cc7aa164e4c731d65c",
+    "bytes": 2000
   }
 }

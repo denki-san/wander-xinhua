@@ -412,6 +412,93 @@ def add_gable_roof(
     register(obj)
 
 
+def add_shed_roof(
+    roof: dict[str, Any],
+    materials: dict[str, bpy.types.Material],
+) -> None:
+    """生成一侧高、一侧低的通用单坡屋面楔体。"""
+
+    center_x, center_y = (float(value) for value in roof["center"])
+    length = float(roof["length"])
+    span = float(roof["span"])
+    eave = float(roof["eaveHeight"])
+    ridge = float(roof["ridgeHeight"])
+    axis = roof.get("ridgeAxis", "X")
+    high_side = roof.get("highSide")
+    if ridge <= eave:
+        raise ValueError(f"{roof['id']} 的 ridgeHeight 必须高于 eaveHeight")
+
+    if axis == "X":
+        if high_side not in {"positiveY", "negativeY"}:
+            raise ValueError(
+                f"{roof['id']} 的 ridgeAxis=X 只支持 positiveY / negativeY",
+            )
+        vertices = [
+            (-length / 2, -span / 2, eave),
+            (length / 2, -span / 2, eave),
+            (-length / 2, span / 2, eave),
+            (length / 2, span / 2, eave),
+            (-length / 2, span / 2, ridge),
+            (length / 2, span / 2, ridge),
+        ]
+        faces = [
+            (0, 1, 5, 4),
+            (2, 4, 5, 3),
+            (0, 4, 2),
+            (1, 3, 5),
+            (0, 2, 3, 1),
+        ]
+        if high_side == "negativeY":
+            vertices = [(x, -y, z) for x, y, z in vertices]
+            faces = [tuple(reversed(face)) for face in faces]
+    elif axis == "Y":
+        if high_side not in {"positiveX", "negativeX"}:
+            raise ValueError(
+                f"{roof['id']} 的 ridgeAxis=Y 只支持 positiveX / negativeX",
+            )
+        vertices = [
+            (-span / 2, -length / 2, eave),
+            (-span / 2, length / 2, eave),
+            (span / 2, -length / 2, eave),
+            (span / 2, length / 2, eave),
+            (span / 2, -length / 2, ridge),
+            (span / 2, length / 2, ridge),
+        ]
+        faces = [
+            (0, 4, 5, 1),
+            (2, 3, 5, 4),
+            (0, 2, 4),
+            (1, 5, 3),
+            (0, 1, 3, 2),
+        ]
+        if high_side == "negativeX":
+            vertices = [(-x, y, z) for x, y, z in vertices]
+            faces = [tuple(reversed(face)) for face in faces]
+    else:
+        raise ValueError(f"{roof['id']} 的 ridgeAxis 只支持 X / Y")
+
+    mesh = bpy.data.meshes.new(f"{roof['id']}-mesh")
+    mesh.from_pydata(
+        [
+            (x + center_x, y + center_y, z)
+            for x, y, z in vertices
+        ],
+        [],
+        faces,
+    )
+    mesh.validate(clean_customdata=True)
+    mesh.update(calc_edges=True)
+    obj = bpy.data.objects.new(roof["id"], mesh)
+    bpy.context.collection.objects.link(obj)
+    obj.data.materials.append(material_for(roof["material"], materials))
+    fascia_role = roof.get("gableMaterial")
+    if fascia_role:
+        obj.data.materials.append(material_for(fascia_role, materials))
+        for index, polygon in enumerate(obj.data.polygons):
+            polygon.material_index = 0 if index in {0, 4} else 1
+    register(obj)
+
+
 def add_hipped_roof(
     roof: dict[str, Any],
     materials: dict[str, bpy.types.Material],
@@ -499,6 +586,8 @@ def build_roof(
         add_gable_roof(roof, materials)
     elif roof["type"] == "hipped":
         add_hipped_roof(roof, materials)
+    elif roof["type"] == "shed":
+        add_shed_roof(roof, materials)
     elif roof["type"] == "flat":
         center_x, center_y = (float(value) for value in roof["center"])
         add_box(

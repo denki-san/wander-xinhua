@@ -333,7 +333,7 @@ export const ACCEPTED_BUILDING_TIER_QA = Object.freeze({
     "engine-master": Object.freeze({
       modelPath:
         "/models/building-engine-spike/hudec-memorial/"
-        + "hudec-memorial-master.glb?v=6de1f632a388",
+        + "hudec-memorial-master.glb?v=cd3d49fcc108",
       buildRecord:
         "docs/research/build-records/building-engine-spike/"
         + "hudec-memorial/master.json",
@@ -343,14 +343,15 @@ export const ACCEPTED_BUILDING_TIER_QA = Object.freeze({
       // 继续叠加全局 0.2 会把已审核的入口开放路径封死。
       collisionMargin: 0,
       localObstacles: Object.freeze([
-        Object.freeze({ minX: -4.1, maxX: 4.1, minZ: -2.7, maxZ: 2.7 }),
-        Object.freeze({ minX: 2.15, maxX: 4.95, minZ: -3.25, maxZ: 2.55 }),
-        Object.freeze({ minX: -4.9, maxX: -1.9, minZ: -3.4, maxZ: 0.4 }),
-        Object.freeze({ minX: -5.7, maxX: -1.9, minZ: -3.85, maxZ: -1.65 }),
-        Object.freeze({ minX: 2.26, maxX: 2.54, minZ: 3.41, maxZ: 3.69 }),
-        Object.freeze({ minX: 3.86, maxX: 4.14, minZ: 3.41, maxZ: 3.69 }),
-        Object.freeze({ minX: -5.25, maxX: -4.95, minZ: 2.83, maxZ: 3.33 }),
-        Object.freeze({ minX: -3.95, maxX: -3.65, minZ: 2.83, maxZ: 3.33 }),
+        Object.freeze({ minX: -4.2, maxX: 4.2, minZ: -2.8, maxZ: 1.9 }),
+        Object.freeze({ minX: -2.03, maxX: 1.13, minZ: -2.06, maxZ: 3.5 }),
+        Object.freeze({ minX: 1.23, maxX: 3.88, minZ: -2.15, maxZ: 2.65 }),
+        Object.freeze({ minX: -4.65, maxX: -0.79, minZ: 2.02, maxZ: 4.74 }),
+        Object.freeze({ minX: 2.95, maxX: 5.41, minZ: -3.06, maxZ: 0.1 }),
+        Object.freeze({ minX: 2.34, maxX: 2.62, minZ: 3.5, maxZ: 3.78 }),
+        Object.freeze({ minX: 3.98, maxX: 4.26, minZ: 3.5, maxZ: 3.78 }),
+        Object.freeze({ minX: -6.15, maxX: -5.85, minZ: 4.06, maxZ: 4.58 }),
+        Object.freeze({ minX: -4.85, maxX: -4.55, minZ: 4.06, maxZ: 4.58 }),
       ]),
     }),
   }),

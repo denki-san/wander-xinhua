@@ -20,7 +20,7 @@ test("邬达克 Building Engine Master 只通过显式 QA 参数接入真实地�
   assert.equal(
     resolved.modelPath,
     "/models/building-engine-spike/hudec-memorial/"
-      + "hudec-memorial-master.glb?v=6de1f632a388",
+      + "hudec-memorial-master.glb?v=cd3d49fcc108",
   );
   assert.equal(
     resolved.buildRecord,
@@ -43,40 +43,40 @@ test("邬达克 Building Engine Master 只通过显式 QA 参数接入真实地�
     position: [92.5, -145],
     forward: [0, 1],
   });
-  assert.equal(resolved.localObstacles.length, 8);
+  assert.equal(resolved.localObstacles.length, 9);
 });
 
-test("邬达克 Engine 碰撞按 glTF Z 轴绑定八个拆分体块", () => {
+test("邬达克 Engine 碰撞按 glTF Z 轴绑定九个拆分体块", () => {
   const resolved = ACCEPTED_BUILDING_TIER_QA[assetId][engineTier];
   assert.deepEqual(resolved.localObstacles[0], {
-    minX: -4.1,
-    maxX: 4.1,
-    minZ: -2.7,
-    maxZ: 2.7,
+    minX: -4.2,
+    maxX: 4.2,
+    minZ: -2.8,
+    maxZ: 1.9,
   });
   assert.deepEqual(resolved.localObstacles[3], {
-    minX: -5.7,
-    maxX: -1.9,
-    minZ: -3.85,
-    maxZ: -1.65,
-  });
-  assert.deepEqual(resolved.localObstacles[4], {
-    minX: 2.26,
-    maxX: 2.54,
-    minZ: 3.41,
-    maxZ: 3.69,
+    minX: -4.65,
+    maxX: -0.79,
+    minZ: 2.02,
+    maxZ: 4.74,
   });
   assert.deepEqual(resolved.localObstacles[5], {
-    minX: 3.86,
-    maxX: 4.14,
-    minZ: 3.41,
-    maxZ: 3.69,
+    minX: 2.34,
+    maxX: 2.62,
+    minZ: 3.5,
+    maxZ: 3.78,
   });
   assert.deepEqual(resolved.localObstacles[6], {
-    minX: -5.25,
-    maxX: -4.95,
-    minZ: 2.83,
-    maxZ: 3.33,
+    minX: 3.98,
+    maxX: 4.26,
+    minZ: 3.5,
+    maxZ: 3.78,
+  });
+  assert.deepEqual(resolved.localObstacles[7], {
+    minX: -6.15,
+    maxX: -5.85,
+    minZ: 4.06,
+    maxZ: 4.58,
   });
 });
 

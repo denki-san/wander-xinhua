@@ -285,7 +285,7 @@
           "type": "string"
         },
         "type": {
-          "enum": ["gable", "hipped", "flat"]
+          "enum": ["gable", "hipped", "shed", "flat"]
         },
         "shape": {
           "enum": ["rect", "round"]
@@ -316,6 +316,9 @@
         },
         "ridgeAxis": {
           "enum": ["X", "Y"]
+        },
+        "highSide": {
+          "enum": ["positiveX", "negativeX", "positiveY", "negativeY"]
         },
         "ridgeLength": {
           "type": "number",

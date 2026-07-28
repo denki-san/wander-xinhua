@@ -3,13 +3,13 @@
   "assetId": "hudec-memorial",
   "stage": "massing",
   "status": "pass",
-  "recordedAt": "2026-07-28T22:18:42+08:00",
-  "browser": "Codex Browser (Chrome)",
+  "recordedAt": "2026-07-29T00:27:49+08:00",
+  "browser": "agent-browser Chromium",
   "buildMode": "production",
   "url": "http://127.0.0.1:4177/building-engine-sandbox?asset=hudec-memorial&tier=massing&view=canonical&qa=1",
   "view": "canonical",
-  "glbSha256": "23a745ecd2b34c5d140d2d0a2470cb7a4d9589d27b55414c62fe53ada6072f56",
-  "collisionSha256": "6272faf3418955e671e3a0d14786a902fe6156f3cce941ba409d3d5c6ee69421",
+  "glbSha256": "15e448bfbbde995f2dff3e7059b18969f640434c253bfb24962a148b4a714a9a",
+  "collisionSha256": "cb910b91864b38ed8b11969b097acf1233d3f33bff6255cc7aa164e4c731d65c",
   "viewport": {
     "width": 1280,
     "height": 720,
@@ -20,7 +20,7 @@
     "height": 584
   },
   "pageVisibility": "visible",
-  "warmupSeconds": 2.5,
+  "warmupSeconds": 3,
   "sampleDurationSeconds": 0,
   "consoleErrors": 0,
   "pageErrors": 0,
@@ -50,22 +50,22 @@
     {
       "view": "canonical",
       "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-sandbox-canonical.png",
-      "sha256": "9a1a9ad7d5a60f64fa967f59b2f00641ee0cd3c7ea8e073fbfe56fa52ba53bdd",
-      "bytes": 97447
+      "sha256": "e371d105d3bbf464de3386dcd5444e93e2c07dbf1a53e5ee97fc1908417f0f27",
+      "bytes": 341331
     },
     {
       "view": "side",
       "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-sandbox-side.png",
-      "sha256": "2073c23ff9a4b1658d8f0927ef4a450497d067495c511d24a46e242303c1452f",
-      "bytes": 95932
+      "sha256": "2982f667f88943256967e4a41ce0a8901fad703680ce494d5bce01a7043da76a",
+      "bytes": 300193
     },
     {
       "view": "entrance",
       "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-sandbox-entrance.png",
-      "sha256": "88c50760e1fa5ff8df6a1ee85b187ec27a1cf0b6e63ed2d65758875dabbb4029",
-      "bytes": 99944
+      "sha256": "ea3e7d72eed99f49cb170f37586fd5c517820c6d91a81bedf2402b1d01ef532a",
+      "bytes": 324380
     }
   ],
   "httpRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-http-massing.json",
-  "reviewNote": "真实地图首轮入口移动发现柱间净宽不足，因此退回 DSL 加宽门廊柱距；当前 production Sandbox 三固定机位复核通过，门廊仍符合入口照片的三角雨棚与四柱关系，模型根接地，八个拆分碰撞障碍与三条必须开放路径自动检查均通过。"
+  "reviewNote": "用户新增四张照片后，旧 Massing 已撤销。本轮按新证据重建为紧凑复合坡屋顶：前部玻璃长单坡、两组交错前山墙、落地白色烟囱塔及顶部成组红砖烟道均在主对照和侧向机位可辨；production Sandbox 三固定机位、模型接地、九个拆分碰撞障碍与三条必须开放路径均通过。"
 }

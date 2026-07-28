@@ -14,7 +14,7 @@
     },
     "schema": {
       "path": "building-engine/schema/building-dsl.schema.json",
-      "sha256": "fbcce0470e7efa3a845771fb0b764ac38e9e702d1cbe920376f75c3aff75b619"
+      "sha256": "b3a89f7eda903f22c1ac5b07d2f6c02acee8a97e6bdec92ae2956b10faf1c444"
     },
     "artProfile": {
       "path": "building-engine/art-profiles/xinhua-autumn-lowpoly-v1.json",

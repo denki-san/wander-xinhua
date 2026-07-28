@@ -1,6 +1,6 @@
 # Hudec Memorial Building Engine Blind-Test Brief
 
-- Current status: `rejected-by-new-evidence-rebuild-required`
+- Current status: `evidence-corrected-engine-v2-runtime-passed-cold-build-pending`
 
 ## Scope
 
@@ -49,7 +49,8 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 - Local production build：`npm run build:sites`
 - Sandbox：`/building-engine-sandbox`
 - Real map：`/?start=hudec`
-- Browser：Codex Browser（本次自动选择 Chrome）；真实 local production preview
+- Browser：应用内 Browser 当前无可用实例；降级为独立
+  `agent-browser Chromium`，仍访问真实 local production preview
 - Blender MCP：当前 Add-on 不可用，使用三固定机位 Headless Blender 降级，
   明确记录“未执行 MCP 交互审查”
 - Dynamic evidence：新输入证据位于不可变快照 `2026-07-28-0ef306f`，
@@ -188,11 +189,11 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 | Batch | Deliverable | Blender check | Runtime check | Status |
 | --- | --- | --- | --- | --- |
 | Evidence v2 | 新 Case、coverage、Brief 和外置快照 | N/A | N/A | Passed |
-| Compiler gap | 通用 `shed` roof，不加 Hudec 特判 | 三栋自动回归 | N/A | Pending |
-| Massing v2 | 紧凑主体、长单坡、双山墙和烟囱塔 | 三固定机位 | Sandbox Massing | Pending |
-| Calibration v2 | 比例、方向、接地和开放路径 | Fixed renders | Gate M | Pending |
-| Master v2 | 半木构、玻璃翼、窗格、入口和烟囱冠部 | 三固定机位 | Sandbox Master | Pending |
-| Real map v2 | Building Engine Master | N/A | `/?start=hudec` | Pending |
+| Compiler gap | 通用 `shed` roof，不加 Hudec 特判 | 三栋自动回归 | N/A | Passed |
+| Massing v2 | 紧凑主体、长单坡、双山墙和烟囱塔 | 三固定机位 | Sandbox Massing | Passed |
+| Calibration v2 | 比例、方向、接地和开放路径 | Fixed renders | Gate M | Passed |
+| Master v2 | 半木构、玻璃翼、窗格、入口和烟囱冠部 | 三固定机位 | Sandbox Master | Passed |
+| Real map v2 | Building Engine Master | N/A | `/?start=hudec` | Passed |
 | Cold build v2 | 干净 worktree 单一 CLI 重建 | SHA / structure | N/A | Pending |
 
 ## Validation
@@ -201,13 +202,13 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 - [x] Observed / Inferred / Unknown 分离
 - [x] 至少五处 Hudec 身份构件
 - [x] 旧视觉假通过与通用 `shed` roof Compiler Gap 已记录
-- [ ] 新 Compiler、Schema、Art Profile SHA 冻结
-- [ ] Massing v2 固定机位和 Sandbox 通过
-- [ ] Gate M v2 记录绑定当前 DSL / GLB / collision SHA
-- [ ] Master v2 固定机位、GLB 和碰撞自动检查通过
-- [ ] 新参考 / Blender / Three.js 三联图通过
-- [ ] 真实 `/?start=hudec` 可见、接地、方向和碰撞通过
-- [ ] 默认 Hudec 页面仍加载原正式 Hero
+- [x] 新 Compiler、Schema、Art Profile SHA 冻结
+- [x] Massing v2 固定机位和 Sandbox 通过
+- [x] Gate M v2 记录绑定当前 DSL / GLB / collision SHA
+- [x] Master v2 固定机位、GLB 和碰撞自动检查通过
+- [x] 新参考 / Blender / Three.js 三联图通过
+- [x] 真实 `/?start=hudec` 可见、接地、方向和碰撞通过
+- [x] 默认 Hudec 页面仍加载原正式 Hero
 - [ ] 干净 worktree 冷启动复建得到一致 GLB
 - [ ] 新输出动态证据快照与全量 SHA 通过
 
@@ -335,3 +336,20 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
   表达范围，先记录通用 `shed` roof `compiler-gap`；如果扩展 Compiler，旧冻结
   盲测结论失效，必须冻结新版本并重跑三栋回归。
 - Next: 先创建新外置证据快照，再重写 coverage、Brief、Massing 和碰撞合同。
+
+### Iteration 8 — 2026-07-29 evidence-corrected runtime acceptance
+
+- Compiler / Schema: 加入通用 `shed` roof 和 `highSide` 校验；Compiler
+  `20ed07e…`、Schema `b3a89f7e…`，Compiler 中没有任何资产 ID；
+- Massing: `15e448bf…`，`360` triangles、`5` materials、`31080` bytes；
+  `massing-review-006.json` 绑定当前 DSL、GLB 和 collision 后通过；
+- Master: `cd3d49fc…`，collision `cb910b91…`，`2676` triangles、
+  `8` materials、`0` images / textures / animations / skins、
+  `194952` bytes；
+- Visual: 新用户 canonical / Blender / production Three.js 三联图通过；
+  长单坡玻璃翼、白色烟囱塔、成组红砖烟道、交错半木构双山墙和入口均可辨；
+- Final Gate: `final-review-003.json` 为
+  `approved-spike-with-known-unknowns`，只批准 evidence-corrected 实验链路；
+- Real map: 新入口目标误差 `0.0259` world unit；实体墙前剩余
+  `3.6810` world unit；默认入口只加载既有 Massing、Identity 与正式 Hero；
+- Remaining: 干净 detached worktree 冷构建、全量测试、lint 和新输出快照。

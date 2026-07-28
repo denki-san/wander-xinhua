@@ -1,28 +1,28 @@
 # 新华漫游建筑引擎：生产化验收方案
 
-- Status: `reopened-new-evidence-not-merge-ready`
+- Status: `evidence-corrected-engine-v2-runtime-passed-cold-build-pending`
 - Branch: `codex/building-engine-spike`
 - Accepted Spike implementation: `6d294381da9011359af08100ea17ac44efd421ed`
 - Spike closure: `16f196fdf4479ca170509c2d4b797850e6a1a263`
 - Blind-test runtime implementation: `f4ab24af432f06c1097db0c8a0e92fb729438008`
 - Cold-build closure: `9762c919450125ae24ce736ce33034d549ffbbc8`
 - Acceptance snapshot: `2026-07-28-9762c91`
-- Scope: 第三栋盲测、真实 `?start=` QA、干净复建、合并前审查
+- Scope: 新证据修正版 Compiler、真实 `?start=` QA、干净复建、合并前审查
 - Explicitly excluded: 修改默认 production registry、替换正式 GLB、Meshy、
   后台、数据库、Worker、任务队列、push、合并和部署
 
 ## 1. 本轮要回答的问题
 
-上一轮证明两份共同参与设计的 DSL 可以驱动同一个 `garden-villa` Compiler。
-本轮不继续扩架构，只验证：
+原第三栋冻结 Compiler 盲测已被新照片推翻。本轮不继续扩架构，只验证：
 
-> 一栋没有参与 Compiler 设计、但证据闭合的花园住宅，能否在不修改
-> Compiler Python、Schema 和 Art Profile 的条件下，只新增 Case 与 DSL，
-> 通过同样的三审核门，并在真实新华漫游 `?start=` 页面中工作。
+> 用一个通用 `shed` roof 扩展修复证据表达缺口后，能否不加入 Hudec 特判，
+> 保持 House 315 与孙科别墅回归通过，并让证据修正版 Hudec 重新通过三审核门
+> 和真实新华漫游 `?start=` 页面。
 
-通过本轮只能得到 `merge-ready-experimental`，不能自动替换生产建筑或发布。
+通过本轮最多得到 `merge-ready-evidence-corrected-experimental`，不能自动替换
+生产建筑或发布。
 
-## 2. 冻结输入
+## 2. 原冻结输入（已失效）
 
 | 输入 | 冻结 SHA-256 |
 | --- | --- |
@@ -41,6 +41,17 @@
 已有 Hudec Hero / Identity / Massing 只作为 DSL 冻结后的只读结果对照，不作为
 几何输入或可复制代码。
 
+### 2.1 新证据修正版冻结输入
+
+| 输入 | Evidence-corrected SHA-256 |
+| --- | --- |
+| `scripts/compile_garden_villa.py` | `20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9` |
+| `building-engine/schema/building-dsl.schema.json` | `b3a89f7eda903f22c1ac5b07d2f6c02acee8a97e6bdec92ae2956b10faf1c444` |
+| `building-engine/art-profiles/xinhua-autumn-lowpoly-v1.json` | `be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10` |
+
+新 Compiler 只增加通用 `shed` 屋顶及 `highSide` 方向校验；Compiler 源码仍不得
+出现 `hudec-memorial` 或其他资产 ID。
+
 ## 3. 第三栋盲测资产
 
 ### 3.1 选择
@@ -57,7 +68,8 @@
 - 是单栋花园住宅，不把两栋建筑或商业场地合并成一个 Case；
 - canonical、侧向/纵深、入口/身份细节均有当前本地证据；
 - 既有正式落点、碰撞和 `/?start=hudec` 可作为真实运行时合同；
-- 层叠坡屋顶、三联高烟囱、半木构端山墙和低玻璃翼能测试 DSL 的组合能力。
+- 紧凑复合坡屋顶、长单坡玻璃翼、白色烟囱塔与半木构双山墙能测试 DSL 的
+  组合能力。
 
 ### 3.2 继续 Hold 的候选
 
@@ -91,7 +103,7 @@
 
 - 黑白半木构主体、深出檐陡坡屋顶和密集窄窗；
 - 高低错落的连续屋面与低玻璃翼；
-- 三联高红砖烟囱及冠部；
+- 落地白色烟囱塔、顶部成组红砖烟道及后侧次烟囱；
 - 入口三角门廊、木门、台阶和砖拱门；
 - 端山墙全高木构节奏；
 - 屋脊三鸟形风向标。
@@ -113,9 +125,9 @@
 
 至少保留五项识别构件：
 
-1. 宽幅黑白半木构主体；
-2. 多层连续陡坡屋顶；
-3. 三联高红砖烟囱；
+1. 前后交错的黑白半木构双山墙；
+2. 主屋脊与前部长单坡玻璃翼；
+3. 落地白色烟囱塔与顶部成组红砖烟道；
 4. 三角入口门廊与砖拱门；
 5. 端山墙全高木构和低玻璃翼。
 
@@ -186,10 +198,12 @@
 
 ## 8. 完成与合并判断
 
-只有以下全部满足，才能报告 `merge-ready-experimental`：
+只有以下全部满足，才能报告
+`merge-ready-evidence-corrected-experimental`：
 
-- 冻结 Compiler、Schema、Art Profile SHA 未变化；
-- 第三栋只新增 Case / DSL 即通过三审核门；
+- 新 Compiler、Schema、Art Profile SHA 冻结且三栋 Case 回归通过；
+- 通用扩展中不存在 Hudec 或其他资产专用分支；
+- Hudec 新 DSL 通过 Evidence、Massing、Final 三审核门；
 - Building Engine Sandbox 与真实 `/?start=hudec` 均通过；
 - 默认 Hudec 页面仍加载原正式 Hero；
 - 干净 detached worktree 冷启动复建通过；
@@ -199,13 +213,16 @@
 
 出现下列任一情况，结论为 `not-merge-ready`：
 
-- 为 Hudec 修改 Compiler Python 或加入资产专用分支；
+- 为 Hudec 加入资产专用 Compiler 分支；
 - 只能在独立 Sandbox 中显示，真实 `?start=` 未通过；
 - 冷启动复建无法得到一致 GLB；
 - 默认 production registry 或正式 Hudec GLB 被替换；
 - 关键结构依赖未知证据或旧生成器代码补齐。
 
-## 9. 验收结果
+## 9. 旧版验收结果（已被新证据撤销）
+
+本节只保留 `2026-07-28-9762c91` 快照所对应的历史结果，不可继续作为当前
+视觉通过或合并依据。
 
 ### 9.1 冻结与盲测
 
@@ -268,3 +285,23 @@
 必须冻结新 Compiler、Schema，再对 House 315、孙科别墅和 Hudec 三栋重跑自动
 回归，并对 Hudec 从 Evidence Gate、Massing Gate、Final Gate、真实地图和冷构建
 完整重验。
+
+## 11. Evidence-corrected Engine v2 当前重验
+
+- 通用 Compiler 已加入 `shed` roof；Compiler
+  `20ed07e…`、Schema `b3a89f7e…`，没有资产 ID 分支；
+- 三栋 `garden-villa` Case 的 DSL validation 均通过；
+- Hudec Massing `15e448bf…`、Master `cd3d49fc…`、collision
+  `cb910b91…`，Master 为 `2676` triangles、`8` materials、`0` images /
+  textures / animations / skins、`194952` bytes；
+- Gate M 当前记录为 `massing-review-006.json`，Final Gate 当前记录为
+  `final-review-003.json`，均绑定新 DSL / GLB / collision SHA；
+- 新参考 / Blender / Three.js 三联图明确呈现长单坡玻璃翼、落地白色烟囱塔、
+  成组红砖烟道与交错半木构双山墙；
+- production Sandbox 三固定机位、接地、九个拆分碰撞体与三条开放路径通过；
+- 真实地图入口最终距目标 `0.0259` world unit；持续朝实体墙移动仍剩
+  `3.6810` world unit；默认 Hudec 入口没有请求 Building Engine Master；
+- 正式 Hudec Hero、默认 registry 与 cacheVersion 未改变。
+
+当前只剩干净 worktree 冷构建、全量 `npm test` / lint 和新的输出证据快照。
+完成前状态仍不是 merge-ready。

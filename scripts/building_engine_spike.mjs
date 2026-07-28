@@ -311,6 +311,17 @@ function validateAsset(assetId, { writeReport = true } = {}) {
       compiled.push(`${kind}:${item.id}`);
     }
   }
+  for (const roof of dsl.massing.roofs) {
+    if (roof.type !== "shed") continue;
+    const allowedHighSides = roof.ridgeAxis === "X"
+      ? new Set(["positiveY", "negativeY"])
+      : new Set(["positiveX", "negativeX"]);
+    if (!allowedHighSides.has(roof.highSide)) {
+      conflicts.push(
+        `shed roof ${roof.id} 的 highSide 与 ridgeAxis=${roof.ridgeAxis} 不匹配`,
+      );
+    }
+  }
   const paletteTokens = new Set(Object.keys(profile.palette));
   for (const [role, token] of Object.entries(dsl.materials)) {
     if (!paletteTokens.has(token)) unsupported.push(`palette:${role}:${token}`);

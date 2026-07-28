@@ -101,14 +101,32 @@ test("Spike 与第三栋盲测只声明 garden-villa archetype", () => {
 });
 
 test("Compiler 保持数据驱动，单一 CLI 覆盖最小 Pipeline", () => {
+  const schema = readJson("building-engine/schema/building-dsl.schema.json");
   const compiler = read("scripts/compile_garden_villa.py");
   const cli = read("scripts/building_engine_spike.mjs");
+  const hudecDsl = readJson(
+    "building-engine/cases/hudec-memorial/building-dsl.json",
+  );
   assert.doesNotMatch(
     compiler,
     /house-315|hudec-memorial|sun-ke-villa|lilong-street|public-hybrid/,
   );
   assert.match(compiler, /dsl\["massing"\]\["volumes"\]/);
   assert.match(compiler, /dsl\["master"\]\["features"\]/);
+  assert.ok(schema.$defs.roof.properties.type.enum.includes("shed"));
+  assert.deepEqual(
+    schema.$defs.roof.properties.highSide.enum,
+    ["positiveX", "negativeX", "positiveY", "negativeY"],
+  );
+  assert.match(compiler, /def add_shed_roof\(/);
+  assert.match(compiler, /roof\["type"\] == "shed"/);
+  assert.match(cli, /highSide 与 ridgeAxis=/);
+  assert.deepEqual(
+    hudecDsl.massing.roofs
+      .filter((roof) => roof.type === "shed")
+      .map((roof) => [roof.ridgeAxis, roof.highSide]),
+    [["X", "positiveY"]],
+  );
   for (const command of ["inspect", "validate", "build", "review", "qa", "status"]) {
     assert.match(cli, new RegExp(`command === "${command}"`));
   }

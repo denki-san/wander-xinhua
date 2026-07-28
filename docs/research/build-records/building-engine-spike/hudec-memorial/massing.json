@@ -7,12 +7,12 @@
   "blenderVersion": "5.2.0 LTS",
   "generator": {
     "path": "scripts/compile_garden_villa.py",
-    "sha256": "1c6674b0943dd6d992a4d595cfcba848b4c6e00f473c1fde39d929e7c58a00fe"
+    "sha256": "20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9"
   },
   "inputs": {
     "dsl": {
       "path": "building-engine/cases/hudec-memorial/building-dsl.json",
-      "sha256": "a20658c05d2ae756f939fa53d4e46cc886d9ee11940e590d6b1413522bb4121b"
+      "sha256": "fde1d744684d9e47b9a4f89051f9c24077f89dd96e1407f38862dc8234d191b6"
     },
     "artProfile": {
       "path": "building-engine/art-profiles/xinhua-autumn-lowpoly-v1.json",
@@ -20,25 +20,25 @@
     }
   },
   "lineage": {
-    "dslSha256": "a20658c05d2ae756f939fa53d4e46cc886d9ee11940e590d6b1413522bb4121b",
+    "dslSha256": "fde1d744684d9e47b9a4f89051f9c24077f89dd96e1407f38862dc8234d191b6",
     "artProfileSha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10",
-    "compilerSha256": "1c6674b0943dd6d992a4d595cfcba848b4c6e00f473c1fde39d929e7c58a00fe"
+    "compilerSha256": "20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9"
   },
-  "editableObjectCount": 26,
+  "editableObjectCount": 32,
   "outputs": {
     "blend": {
       "path": "assets/models/source/building-engine-spike/hudec-memorial/hudec-memorial-massing.blend",
-      "sha256": "85902bd2f7ee627aa46fb13214d62d96d7b6f953954cc6db844baf6f3e707c77",
-      "bytes": 108111
+      "sha256": "46c944920e2d434a4060c0465d67acdb4928a211c2b358b53f2f44020a68e72d",
+      "bytes": 110564
     },
     "glb": {
       "path": "public/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb",
-      "sha256": "23a745ecd2b34c5d140d2d0a2470cb7a4d9589d27b55414c62fe53ada6072f56",
-      "bytes": 26044,
+      "sha256": "15e448bfbbde995f2dff3e7059b18969f640434c253bfb24962a148b4a714a9a",
+      "bytes": 31080,
       "nodes": 1,
       "meshes": 1,
       "primitives": 5,
-      "triangles": 288,
+      "triangles": 360,
       "materials": 5,
       "images": 0,
       "textures": 0,
@@ -46,49 +46,49 @@
       "skins": 0,
       "bounds": {
         "min": [
-          -5.9,
+          -6.15,
           0,
-          -4.025
+          -3.255
         ],
         "max": [
-          5.175,
-          8.05,
-          4.005
+          5.605,
+          7.88,
+          5.005
         ]
       },
       "transformedNodes": []
     },
     "collision": {
       "path": "public/models/building-engine-spike/hudec-memorial/hudec-memorial-collision.json",
-      "sha256": "6272faf3418955e671e3a0d14786a902fe6156f3cce941ba409d3d5c6ee69421",
-      "obstacleCount": 8,
+      "sha256": "cb910b91864b38ed8b11969b097acf1233d3f33bff6255cc7aa164e4c731d65c",
+      "obstacleCount": 9,
       "openPathCount": 3
     },
     "previews": [
       {
         "view": "canonical",
         "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-canonical.png",
-        "sha256": "dde397d1e947b6eeba74a308cdb0e426eeaa788bd2ce13c295c058d54ea7b3c3",
-        "bytes": 759595
+        "sha256": "9e99f1123c95f6f06eef479d80bbed6b11dae2f0883824a8bd2b5dbaeeb834f6",
+        "bytes": 761641
       },
       {
         "view": "side",
         "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-side.png",
-        "sha256": "e626be3dde5415de605f7990218335989f67bb849334290efc796fb716fb4ec8",
-        "bytes": 759212
+        "sha256": "3671f108de68233054faa8410eb3bbf334a6ce09359c8f53c397ce232498f5bd",
+        "bytes": 789327
       },
       {
         "view": "entrance",
         "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-entrance.png",
-        "sha256": "5ed45b08f92826c8b774b441bc9f4cba0a8f133f0a6a4710e551911004eb5bd1",
-        "bytes": 773951
+        "sha256": "b3cc9a9bd39e0e0acae87d0376dc0067c86fceb838770b35c251434d865b35f0",
+        "bytes": 790564
       }
     ]
   },
   "geometryIntegrity": {
-    "vertices": 196,
-    "polygons": 150,
-    "triangles": 288,
+    "vertices": 244,
+    "polygons": 186,
+    "triangles": 360,
     "zeroAreaTriangles": 0,
     "nonFinitePositions": 0,
     "status": "ok"
