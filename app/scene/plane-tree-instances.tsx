@@ -18,7 +18,8 @@ import {
   Vector3,
 } from "three";
 
-export type PlaneTreeVariant = 0 | 1 | 2;
+export type PlaneTreeVariant = 0 | 1 | 2 | 3;
+export type PlaneTreeTier = "identity" | "massing";
 
 export type PlaneTreeInstancePlacement = {
   id: string;
@@ -29,9 +30,16 @@ export type PlaneTreeInstancePlacement = {
 };
 
 export const PLANE_TREE_MODELS = [
-  "/models/xinhua-road/plane-tree-a.glb?v=36ffe252c43b",
-  "/models/xinhua-road/plane-tree-b.glb?v=7c2e06d0794f",
-  "/models/xinhua-road/plane-tree-c.glb?v=c4c14bd84d9c",
+  "/models/xinhua-road/plane-tree-a.glb?v=ac1e64eb4352",
+  "/models/xinhua-road/plane-tree-b.glb?v=f5cb12e0ac1e",
+  "/models/xinhua-road/plane-tree-c.glb?v=b89237348db6",
+  "/models/xinhua-road/plane-tree-d.glb?v=c3cf688014a2",
+] as const;
+
+export const PLANE_TREE_MASSING_MODELS = [
+  "/models/xinhua-road/plane-tree-massing-a.glb?v=bd85399575f7",
+  "/models/xinhua-road/plane-tree-massing-b.glb?v=cceebc88d362",
+  "/models/xinhua-road/plane-tree-massing-c.glb?v=da13f13c657b",
 ] as const;
 
 export const PLANE_TREE_GROUND_INSET = 0.04;
@@ -141,11 +149,13 @@ function InstancedPlaneTreePart({
 function InstancedPlaneTreeVariant({
   variant,
   placements,
+  modelPath,
 }: {
   variant: PlaneTreeVariant;
   placements: PlaneTreeInstancePlacement[];
+  modelPath: string;
 }) {
-  const { scene } = useGLTF(PLANE_TREE_MODELS[variant]);
+  const { scene } = useGLTF(modelPath);
   const sourceMeshes = useMemo(() => {
     const result: Mesh[] = [];
     scene.updateMatrixWorld(true);
@@ -153,10 +163,10 @@ function InstancedPlaneTreeVariant({
       if (child instanceof Mesh) result.push(child);
     });
     if (result.length === 0) {
-      throw new Error(`梧桐树模型缺少网格：${PLANE_TREE_MODELS[variant]}`);
+      throw new Error(`梧桐树模型缺少网格：${modelPath}`);
     }
     return result;
-  }, [scene, variant]);
+  }, [modelPath, scene]);
 
   return sourceMeshes.map((sourceMesh, part) => (
     <InstancedPlaneTreePart
@@ -172,36 +182,56 @@ function InstancedPlaneTreeVariant({
 export function PlaneTreeInstances({
   placements,
   name = "plane-tree-instances",
+  tier = "identity",
 }: {
   placements: PlaneTreeInstancePlacement[];
   name?: string;
+  tier?: PlaneTreeTier;
 }) {
+  const modelPaths = tier === "massing"
+    ? PLANE_TREE_MASSING_MODELS
+    : PLANE_TREE_MODELS;
   const placementsByVariant = useMemo(() => {
     const grouped: Record<PlaneTreeVariant, PlaneTreeInstancePlacement[]> = {
       0: [],
       1: [],
       2: [],
+      3: [],
     };
-    for (const placement of placements) grouped[placement.variant].push(placement);
+    for (const placement of placements) {
+      const variant = tier === "massing"
+        ? placement.variant % PLANE_TREE_MASSING_MODELS.length as PlaneTreeVariant
+        : placement.variant;
+      grouped[variant].push({ ...placement, variant });
+    }
     return grouped;
-  }, [placements]);
+  }, [placements, tier]);
 
   return (
     <group
       name={name}
       scale={[1, 1, -1]}
-      userData={{ vegetation: "xinhua-plane-tree-family", variants: 3, instanced: true }}
+      userData={{
+        vegetation: "xinhua-plane-tree-family",
+        variants: modelPaths.length,
+        tier,
+        instanced: true,
+      }}
     >
-      {([0, 1, 2] as const).map((variant) => (
+      {modelPaths.map((modelPath, variantIndex) => {
+        const variant = variantIndex as PlaneTreeVariant;
+        return (
         placementsByVariant[variant].length > 0 ? (
-          <Suspense key={PLANE_TREE_MODELS[variant]} fallback={null}>
+          <Suspense key={modelPath} fallback={null}>
             <InstancedPlaneTreeVariant
               variant={variant}
               placements={placementsByVariant[variant]}
+              modelPath={modelPath}
             />
           </Suspense>
         ) : null
-      ))}
+        );
+      })}
     </group>
   );
 }

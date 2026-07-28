@@ -81,8 +81,8 @@ test("全览关闭天空与树木装饰，详情恢复原有天空、树影和�
     /xinhua-storybook-cloud-layer|camera-relative-low-poly-clouds/,
   );
   assert.match(world, /<fog attach="fog"/);
-  assert.match(landmarks, /<LightweightPlaneTreeInstances \/>/);
-  assert.match(landmarks, /if \(!showHero\)/);
+  assert.match(landmarks, /tier="massing"/);
+  assert.match(landmarks, /if \(!detailed\)/);
   assert.match(landmarks, /<AutumnPlaneTreeShadows atmosphere=\{atmosphere\} \/>/);
   assert.match(landmarks, /<AutumnLeafCarpet \/>/);
 });

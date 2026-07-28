@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-28",
+  "status": "passed-for-identity-and-massing-pilot",
+  "subject": {
+    "id": "xinhua-road-plane-tree-canopy-v2",
+    "name": "新华路行道梧桐树阵",
+    "speciesBoundary": "上海街道语境中的悬铃木行道树",
+    "runtimeBoundary": "新华路315号附近约150米试验段"
+  },
+  "dynamicEvidenceSnapshot": {
+    "snapshotId": "2026-07-28-2ca6310-plane-tree-canopy-v2",
+    "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-28-2ca6310-plane-tree-canopy-v2",
+    "wikiEligible": false,
+    "policy": "原始图片只读归档到外置动态证据库，不进入仓库或 LLM Wiki"
+  },
+  "referencePhotos": [
+    {
+      "externalPath": "external-imports/plane-tree-canopy-v2/xinhua-official-canopy-2022.png",
+      "sourcePage": "https://www.shcn.gov.cn/col314/20220628/1217411.html",
+      "sourceAsset": "https://cn.storage.shmedia.tech/175870209db14cb28dbbfaf3a0016c1b.png",
+      "publisher": "上海市长宁区人民政府",
+      "publishedAt": "2022-06-28",
+      "acquiredAt": "2026-07-28",
+      "view": "road-center-longitudinal-summer",
+      "sha256": "4c16ffded7c4aab4526aabf7c3738ce5fe9022885cd00bafe4346dfb0b6aef3d",
+      "supports": [
+        "道路两侧树冠在道路上方连续搭接",
+        "夏季树冠体量饱满",
+        "街道纵深中的冠层节奏"
+      ],
+      "doesNotSupport": [
+        "单棵完整根系",
+        "单棵精确枝序",
+        "测绘尺寸"
+      ]
+    },
+    {
+      "externalPath": "external-imports/plane-tree-canopy-v2/xinhua-official-canopy-2023.jpg",
+      "sourcePage": "https://www.shcn.gov.cn/col314/20230724/1240713.html",
+      "sourceAsset": "https://cn.storage.shmedia.tech/5e99e2163ae643a99b5e7badd8288c4d.jpg",
+      "publisher": "上海市长宁区人民政府",
+      "publishedAt": "2023-07-24",
+      "acquiredAt": "2026-07-28",
+      "view": "street-side-oblique-summer",
+      "sha256": "f4b0662cf4f42df0807c94148ed6852d65d76efec29a51e8114534408912dff1",
+      "supports": [
+        "沿街侧向树冠互相穿插",
+        "树干与人行道、建筑立面的尺度关系",
+        "冠层下缘并非整齐球体"
+      ],
+      "doesNotSupport": [
+        "单棵背面枝序",
+        "精确株距",
+        "树干直径测绘值"
+      ]
+    },
+    {
+      "externalPath": "external-imports/plane-tree-canopy-v2/xinhua-official-autumn-2025-01.jpg",
+      "sourcePage": "https://www.shcn.gov.cn/col6991/20251215/1302906.html",
+      "sourceAsset": "https://cn.storage.shmedia.tech/da5af802288740789779b328abe6fd66",
+      "publisher": "上海市长宁区人民政府",
+      "publishedAt": "2025-12-15",
+      "acquiredAt": "2026-07-28",
+      "view": "road-center-longitudinal-autumn",
+      "sha256": "71f4748162519dd9485fa0001a36a8fdb5903e748e6ae0d3b38e29ad107cd842",
+      "supports": [
+        "道路上方拱廊式树冠轮廓",
+        "粗大弯曲主枝在落叶期仍清晰可读",
+        "中央保留不规则天空缝隙"
+      ],
+      "doesNotSupport": [
+        "夏季叶簇密度",
+        "单棵根颈全貌",
+        "精确冠幅"
+      ]
+    },
+    {
+      "externalPath": "external-imports/plane-tree-canopy-v2/xinhua-official-autumn-2025-02.jpg",
+      "sourcePage": "https://www.shcn.gov.cn/col6991/20251215/1302906.html",
+      "sourceAsset": "https://cn.storage.shmedia.tech/26bd7638189348aab236d739f37af8da",
+      "publisher": "上海市长宁区人民政府",
+      "publishedAt": "2025-12-15",
+      "acquiredAt": "2026-07-28",
+      "view": "street-side-trunk-and-bark-autumn",
+      "sha256": "7ef65dc6e35ab2f76486f9b4bedd8da1ae3552df92183d831b8059f846a99acf",
+      "supports": [
+        "灰褐、浅灰和黄褐相间的斑驳树皮",
+        "粗树干与街道空间的近景尺度",
+        "树干并非笔直圆柱"
+      ],
+      "doesNotSupport": [
+        "完整树冠",
+        "隐藏侧根",
+        "精确树龄"
+      ]
+    }
+  ],
+  "coverageMatrix": {
+    "canonicalRoadCanopy": "supported-by-2022-and-2025-road-center-views",
+    "sideOrOblique": "supported-by-2023-street-side-view",
+    "identityDetail": "supported-by-2025-trunk-and-bark-view",
+    "singleTreeRear": "missing",
+    "surveyedDimensions": "missing",
+    "exactSpeciesCultivar": "unknown"
+  },
+  "observed": [
+    "新华路行道树的视觉主体是两侧树冠在道路上方形成连续但不封死的冠层。",
+    "粗大主枝具有明显弯曲和横向伸展，分叉后的枝架在落叶期仍可读。",
+    "树皮呈灰褐、浅灰和黄褐相间的斑驳块面。",
+    "冠层下缘和外轮廓不规则，不是规则球形或单一圆锥形。"
+  ],
+  "inferred": [
+    "低多边形模型可用分层叶簇和少量天空孔洞表达茂密度，不需要逐片叶子。",
+    "道路内侧主枝应比建筑侧更横向，以形成街道拱廊感。",
+    "Identity 变体之间应改变主干倾斜、主叉数量、横向冠幅和冠隙位置，而不是只改变颜色。"
+  ],
+  "unknown": [
+    "照片中每棵树的精确株距、树高、胸径和冠幅。",
+    "单棵树被遮挡的背面枝序。",
+    "试验段每个历史树位的真实测绘坐标。",
+    "不同照片中树木的具体个体对应关系。"
+  ]
+}

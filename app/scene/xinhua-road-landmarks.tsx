@@ -54,9 +54,7 @@ import {
   terrainHeightAt,
 } from "./terrain";
 import {
-  PLANE_TREE_GROUND_INSET,
   PlaneTreeInstances,
-  cloneAutumnPlaneTreeMaterial,
   type PlaneTreeInstancePlacement,
   type PlaneTreeVariant,
 } from "./plane-tree-instances";
@@ -180,13 +178,10 @@ type AutumnLandmarkMaterial = Material & {
   roughness?: number;
 };
 
-export const XINHUA_HERO_PLANE_TREE_ID = "plane-tree-0-12";
-export const XINHUA_HERO_PLANE_TREE_MODEL =
-  "/models/building-evidence-lab/xinhua-plane-tree-hero.glb?v=3";
-const XINHUA_HERO_PLANE_TREE_TARGET = [20.75, 95.57] as const;
 export const XINHUA_PLANE_TREE_PLACEMENTS = buildPlaneTreePlacements(
   XINHUA_ROAD_LANDMARKS,
   XINHUA_ROAD_MODEL_FOOTPRINTS,
+  XINHUA_ROAD_OBSTACLES,
 ) as unknown as TreePlacement[];
 
 const XINHUA_PLANE_TREE_INSTANCES: PlaneTreeInstancePlacement[] =
@@ -198,35 +193,11 @@ const XINHUA_PLANE_TREE_INSTANCES: PlaneTreeInstancePlacement[] =
     };
   });
 
-function selectHeroPlaneTreePlacement(preferredId: string) {
-  const preferred = XINHUA_PLANE_TREE_INSTANCES.find(
-    (candidate) => candidate.id === preferredId,
-  );
-  if (preferred) return preferred;
-  if (XINHUA_PLANE_TREE_INSTANCES.length === 0) {
-    throw new Error("找不到可安全放置 Hero 梧桐的既有树位");
-  }
-
-  const [targetX, targetZ] = XINHUA_HERO_PLANE_TREE_TARGET;
-  return XINHUA_PLANE_TREE_INSTANCES.reduce((closest, candidate) => {
-    const closestDistance = Math.hypot(
-      closest.position[0] - targetX,
-      closest.position[2] - targetZ,
-    );
-    const candidateDistance = Math.hypot(
-      candidate.position[0] - targetX,
-      candidate.position[2] - targetZ,
-    );
-    return candidateDistance < closestDistance ? candidate : closest;
-  });
-}
-
-const XINHUA_HERO_PLANE_TREE_PLACEMENT = selectHeroPlaneTreePlacement(
-  XINHUA_HERO_PLANE_TREE_ID,
-);
-const XINHUA_DETAIL_PLANE_TREE_INSTANCES = XINHUA_PLANE_TREE_INSTANCES.filter(
-  (placement) => placement.id !== XINHUA_HERO_PLANE_TREE_PLACEMENT.id,
-);
+const XINHUA_MASSING_PLANE_TREE_INSTANCES =
+  XINHUA_PLANE_TREE_INSTANCES.map((placement) => ({
+    ...placement,
+    variant: (placement.variant % 3) as PlaneTreeVariant,
+  }));
 
 function AutumnPlaneTreeShadows({ atmosphere }: { atmosphere: XinhuaAtmosphere }) {
   const shadowLobes = useMemo(() => {
@@ -408,74 +379,6 @@ function AutumnLeafCarpet() {
   );
 }
 
-function LightweightPlaneTreeInstances() {
-  const trunks = useRef<InstancedMesh>(null);
-  const crowns = useRef<InstancedMesh>(null);
-
-  useLayoutEffect(() => {
-    const matrix = new Matrix4();
-    const quaternion = new Quaternion();
-    const position = new Vector3();
-    const scale = new Vector3();
-    const up = new Vector3(0, 1, 0);
-
-    XINHUA_PLANE_TREE_INSTANCES.forEach((tree, index) => {
-      const [x, y, z] = tree.position;
-      const height = 6.4 * tree.scale[1];
-      quaternion.setFromAxisAngle(up, tree.yaw);
-
-      position.set(x, y + height * 0.5, z);
-      scale.set(0.26 * tree.scale[0], height, 0.26 * tree.scale[2]);
-      matrix.compose(position, quaternion, scale);
-      trunks.current?.setMatrixAt(index, matrix);
-
-      position.set(x, y + height * 0.92, z);
-      scale.set(
-        1.8 * tree.scale[0],
-        1.75 * tree.scale[1],
-        1.8 * tree.scale[2],
-      );
-      matrix.compose(position, quaternion, scale);
-      crowns.current?.setMatrixAt(index, matrix);
-    });
-
-    if (trunks.current) {
-      trunks.current.instanceMatrix.needsUpdate = true;
-      trunks.current.computeBoundingSphere();
-    }
-    if (crowns.current) {
-      crowns.current.instanceMatrix.needsUpdate = true;
-      crowns.current.computeBoundingSphere();
-    }
-  }, []);
-
-  return (
-    <group
-      name="xinhua-road-lightweight-plane-trees"
-      userData={{
-        vegetation: "programmatic-lightweight",
-        instanced: true,
-        decorations: "omitted",
-      }}
-    >
-      <instancedMesh
-        ref={trunks}
-        args={[undefined, undefined, XINHUA_PLANE_TREE_INSTANCES.length]}
-      >
-        <cylinderGeometry args={[1, 1, 1, 5]} />
-        <meshToonMaterial color="#665747" />
-      </instancedMesh>
-      <instancedMesh
-        ref={crowns}
-        args={[undefined, undefined, XINHUA_PLANE_TREE_INSTANCES.length]}
-      >
-        <icosahedronGeometry args={[1, 0]} />
-        <meshToonMaterial color="#56734c" />
-      </instancedMesh>
-    </group>
-  );
-}
-
 function cloneAutumnLandmarkMaterial(source: Material) {
   const material = source.clone() as AutumnLandmarkMaterial;
   const name = source.name.toLowerCase();
@@ -528,15 +431,12 @@ function disposeModelMaterials(model: Object3D) {
   materials.forEach((material) => material.dispose());
 }
 
-function configureModel(model: Object3D, autumnTree = false) {
+function configureModel(model: Object3D) {
   model.traverse((child) => {
     if (!(child instanceof Mesh)) return;
-    const cloneMaterial = autumnTree
-      ? cloneAutumnPlaneTreeMaterial
-      : cloneAutumnLandmarkMaterial;
     child.material = Array.isArray(child.material)
-      ? child.material.map(cloneMaterial)
-      : cloneMaterial(child.material);
+      ? child.material.map(cloneAutumnLandmarkMaterial)
+      : cloneAutumnLandmarkMaterial(child.material);
     child.castShadow = true;
     child.receiveShadow = true;
   });
@@ -678,46 +578,28 @@ function GlbModel({
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
-function HeroPlaneTree() {
-  const { scene } = useGLTF(XINHUA_HERO_PLANE_TREE_MODEL);
-  const model = useMemo(() => configureModel(scene.clone(true), true), [scene]);
-  useEffect(() => () => disposeModelMaterials(model), [model]);
-  const [x, y, z] = XINHUA_HERO_PLANE_TREE_PLACEMENT.position;
-  return (
-    <group
-      name="xinhua-road-hero-plane-tree"
-      position={[x, y - PLANE_TREE_GROUND_INSET, z]}
-      rotation-y={XINHUA_HERO_PLANE_TREE_PLACEMENT.yaw}
-      scale={XINHUA_HERO_PLANE_TREE_PLACEMENT.scale}
-      userData={{
-        vegetation: "xinhua-plane-tree-hero",
-        source: XINHUA_HERO_PLANE_TREE_MODEL,
-        replaces: XINHUA_HERO_PLANE_TREE_PLACEMENT.id,
-      }}
-    >
-      <primitive object={model} scale={[1, 1, -1]} />
-    </group>
-  );
-}
-
 export function XinhuaRoadPlaneTrees({
-  showHero = false,
+  detailed = false,
   atmosphere,
 }: {
-  showHero?: boolean;
+  detailed?: boolean;
   atmosphere: XinhuaAtmosphere;
 }) {
-  if (!showHero) {
+  if (!detailed) {
     return (
       <group
         name="xinhua-road-plane-trees"
         userData={{
-          variants: 1,
-          arrangement: "deterministic-id-hash",
-          quality: "overview-lightweight",
+          variants: 3,
+          arrangement: "road-oriented-pilot-density",
+          quality: "massing",
         }}
       >
-        <LightweightPlaneTreeInstances />
+        <PlaneTreeInstances
+          name="xinhua-road-plane-tree-massing-batches"
+          placements={XINHUA_MASSING_PLANE_TREE_INSTANCES}
+          tier="massing"
+        />
       </group>
     );
   }
@@ -725,27 +607,17 @@ export function XinhuaRoadPlaneTrees({
     <group
       name="xinhua-road-plane-trees"
       userData={{
-        variants: 3,
-        arrangement: "deterministic-id-hash",
-        quality: "detail-original",
+        variants: 4,
+        arrangement: "road-oriented-pilot-density",
+        quality: "identity",
       }}
     >
       <AutumnPlaneTreeShadows atmosphere={atmosphere} />
       <PlaneTreeInstances
         name="xinhua-road-plane-tree-batches"
-        placements={XINHUA_DETAIL_PLANE_TREE_INSTANCES}
+        placements={XINHUA_PLANE_TREE_INSTANCES}
       />
       <AutumnLeafCarpet />
-      <Suspense
-        fallback={(
-          <PlaneTreeInstances
-            name="xinhua-road-hero-plane-tree-loading-fallback"
-            placements={[XINHUA_HERO_PLANE_TREE_PLACEMENT]}
-          />
-        )}
-      >
-        <HeroPlaneTree />
-      </Suspense>
     </group>
   );
 }
@@ -1115,13 +987,11 @@ export function XinhuaRoadLandmarks({
 
 export default function XinhuaRoadFullLayer({
   showLabels = true,
-  showHero = false,
   atmosphere,
   loadMode = "overview",
   focusPosition,
 }: {
   showLabels?: boolean;
-  showHero?: boolean;
   atmosphere: XinhuaAtmosphere;
   loadMode?: "overview" | "explore";
   focusPosition: RefObject<readonly [number, number]>;
@@ -1146,7 +1016,10 @@ export default function XinhuaRoadFullLayer({
     return (
       <>
         <XinhuaRoadMassing identity hiddenLandmarkIds={mountedModelIds} />
-        <XinhuaRoadPlaneTrees showHero={showHero} atmosphere={atmosphere} />
+        <XinhuaRoadPlaneTrees
+          detailed={loadMode === "explore"}
+          atmosphere={atmosphere}
+        />
         <XinhuaRoadLandmarks
           showLabels={showLabels}
           mountedModelIds={mountedModelIds}
@@ -1165,7 +1038,10 @@ export default function XinhuaRoadFullLayer({
   return (
     <>
       <XinhuaRoadMassing identity hiddenLandmarkIds={activeMountedModelIds} />
-      <XinhuaRoadPlaneTrees showHero={showHero} atmosphere={atmosphere} />
+      <XinhuaRoadPlaneTrees
+        detailed={loadMode === "explore"}
+        atmosphere={atmosphere}
+      />
       <XinhuaRoadLandmarks
         showLabels={showLabels}
         mountedModelIds={activeMountedModelIds}

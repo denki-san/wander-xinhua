@@ -15,7 +15,7 @@ test("梧桐树替换白名单明确排除其他树种和通用绿化", async ()
   const [rollout, xingfuli, generator, heroViewer] = await Promise.all([
     readFile(new URL("docs/research/plane-tree-variant-rollout.md", root), "utf8"),
     readFile(new URL("app/scene/xingfuli-block.tsx", root), "utf8"),
-    readFile(new URL("scripts/create_xinhua_road_models.py", root), "utf8"),
+    readFile(new URL("scripts/create_xinhua_plane_tree_canopy_v2.py", root), "utf8"),
     readFile(new URL("app/building-evidence-lab/PlaneTreeViewer.tsx", root), "utf8"),
   ]);
   assert.match(rollout, /替换白名单/);
@@ -32,22 +32,26 @@ test("梧桐树替换白名单明确排除其他树种和通用绿化", async ()
   assert.match(heroViewer, /xinhua-plane-tree-hero\.glb\?v=3/);
 });
 
-test("街景梧桐生成器继承连续根颈并保留三种结构变体", async () => {
+test("街景梧桐生成器继承连续根颈并保留四 Identity 与三 Massing", async () => {
   const generator = await readFile(
-    new URL("scripts/create_xinhua_road_models.py", root),
+    new URL("scripts/create_xinhua_plane_tree_canopy_v2.py", root),
     "utf8",
   );
   assert.match(generator, /def create_plane_tree_trunk/);
   assert.match(generator, /def create_plane_tree_buttress/);
   assert.match(generator, /def merge_plane_tree_roots/);
-  assert.match(generator, /remesh_voxel_size = 0\.12/);
+  assert.match(generator, /remesh_voxel_size = 0\.16/);
   assert.match(generator, /bpy\.ops\.object\.voxel_remesh/);
   assert.match(generator, /root_rng = random\.Random\(12011 \+ variant \* 137\)/);
-  assert.match(generator, /trunk_lean = \(\(0\.0, 0\.0\), \(0\.24, -0\.09\), \(-0\.2, 0\.12\)\)\[variant\]/);
-  assert.match(generator, /plane_tree_family.*root-collar-v2/);
+  assert.match(generator, /def add_plane_tree_branch_path/);
+  assert.match(generator, /def build_plane_tree_massing/);
+  assert.match(generator, /plane-tree-d/);
+  assert.match(generator, /plane-tree-massing-a/);
+  assert.match(generator, /canopy-v2-identity/);
+  assert.match(generator, /canopy-v2-massing/);
   assert.match(generator, /tree-leaf-cluster-/);
   assert.match(generator, /subdivisions=1/);
-  assert.match(generator, /保留中央和侧面的天空冠隙/);
+  assert.match(generator, /留下照片中可见的天空孔洞/);
 });
 
 test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async () => {
@@ -58,6 +62,8 @@ test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async ()
   const first = buildPlaneTreePlacements(landmarkData.landmarks, []);
   const second = buildPlaneTreePlacements(landmarkData.landmarks, []);
   assert.deepEqual(first, second);
+  assert.equal(first.filter(({ id }) => id.includes("-pilot-")).length, 18);
+  assert.deepEqual([...new Set(first.map(({ variant }) => variant))].sort(), [0, 1, 2, 3]);
   const previousBySide = new Map();
   for (const placement of first) {
     const side = placement.id.split("-")[2];
@@ -74,9 +80,9 @@ test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async ()
   assert.doesNotMatch(instancesSource, /material\.clone/);
 });
 
-test("三个街景 GLB 共享轻量预算并保持无图片策略", async () => {
+test("四个 Identity 与三个 Massing 共享轻量预算并保持无图片策略", async () => {
   let totalBytes = 0;
-  for (const slug of ["plane-tree-a", "plane-tree-b", "plane-tree-c"]) {
+  for (const slug of ["plane-tree-a", "plane-tree-b", "plane-tree-c", "plane-tree-d"]) {
     const url = new URL(`public/models/xinhua-road/${slug}.glb`, root);
     const [stats, buffer] = await Promise.all([stat(url), readFile(url)]);
     totalBytes += stats.size;
@@ -87,8 +93,13 @@ test("三个街景 GLB 共享轻量预算并保持无图片策略", async () => 
     assert.equal(glb.materials?.length, 6);
     assert.equal(glb.images, undefined);
     assert.equal(glb.textures, undefined);
-    assert.equal(glb.nodes?.[0]?.extras?.plane_tree_family, "root-collar-v2");
+    assert.equal(glb.nodes?.[0]?.extras?.plane_tree_family, "canopy-v2-identity");
     assert.equal(glb.nodes?.[0]?.extras?.instancing_ready, true);
+    const triangles = glb.meshes[0].primitives.reduce(
+      (sum, primitive) => sum + glb.accessors[primitive.indices].count / 3,
+      0,
+    );
+    assert.ok(triangles >= 2_500 && triangles <= 4_500);
     for (const suffix of ["preview", "canonical", "side", "root"]) {
       const preview = suffix === "preview"
         ? new URL(`test_artifacts/test_${slug}_preview.png`, root)
@@ -96,32 +107,50 @@ test("三个街景 GLB 共享轻量预算并保持无图片策略", async () => 
       assert.ok((await stat(preview)).size > 10_000);
     }
   }
-  assert.ok(totalBytes > 700_000, "开放枝架和小叶簇应比旧圆球树冠包含更多可读几何");
-  assert.ok(totalBytes <= 1_400_000);
+  assert.ok(totalBytes > 750_000);
+  assert.ok(totalBytes <= 1_200_000);
+
+  for (const slug of [
+    "plane-tree-massing-a",
+    "plane-tree-massing-b",
+    "plane-tree-massing-c",
+  ]) {
+    const url = new URL(`public/models/xinhua-road/${slug}.glb`, root);
+    const [stats, buffer] = await Promise.all([stat(url), readFile(url)]);
+    const glb = parseGlb(buffer);
+    const triangles = glb.meshes[0].primitives.reduce(
+      (sum, primitive) => sum + glb.accessors[primitive.indices].count / 3,
+      0,
+    );
+    assert.ok(stats.size <= 40_000);
+    assert.ok(triangles >= 150 && triangles <= 500);
+    assert.equal(glb.nodes?.length, 1);
+    assert.equal(glb.materials?.length, 3);
+    assert.equal(glb.images, undefined);
+    assert.equal(glb.textures, undefined);
+    assert.equal(glb.nodes?.[0]?.extras?.plane_tree_family, "canopy-v2-massing");
+  }
 });
 
-test("全览使用轻量梧桐，详情恢复已验收 Hero 梧桐且不重叠", async () => {
-  const [landmarks, world, rollout, heroStats, heroBuffer] = await Promise.all([
+test("全览使用 Massing、详情使用四 Identity，Runtime Hero 已退出产品", async () => {
+  const [landmarks, instances, world, brief, heroViewer, heroStats] = await Promise.all([
     readFile(new URL("app/scene/xinhua-road-landmarks.tsx", root), "utf8"),
+    readFile(new URL("app/scene/plane-tree-instances.tsx", root), "utf8"),
     readFile(new URL("app/scene/xinhua-world.tsx", root), "utf8"),
-    readFile(new URL("docs/research/plane-tree-variant-rollout.md", root), "utf8"),
+    readFile(new URL("docs/research/plane-tree-canopy-v2-model-brief.md", root), "utf8"),
+    readFile(new URL("app/building-evidence-lab/PlaneTreeViewer.tsx", root), "utf8"),
     stat(new URL("public/models/building-evidence-lab/xinhua-plane-tree-hero.glb", root)),
-    readFile(new URL("public/models/building-evidence-lab/xinhua-plane-tree-hero.glb", root)),
   ]);
-  const hero = parseGlb(heroBuffer);
   assert.ok(heroStats.size > 1_500_000 && heroStats.size < 2_200_000);
-  assert.equal(hero.nodes?.length, 7);
-  assert.equal(hero.meshes?.length, 7);
-  assert.equal(hero.images, undefined);
-  assert.equal(hero.textures, undefined);
-  assert.match(landmarks, /XINHUA_HERO_PLANE_TREE_ID = "plane-tree-0-12"/);
-  assert.match(landmarks, /xinhua-plane-tree-hero\.glb\?v=3/);
-  assert.match(landmarks, /<LightweightPlaneTreeInstances \/>/);
-  assert.match(landmarks, /selectHeroPlaneTreePlacement/);
-  assert.match(landmarks, /if \(!showHero\)/);
-  assert.match(landmarks, /hero-plane-tree-loading-fallback/);
-  assert.match(world, /showHeroTree=\{exploring\}/);
-  assert.match(rollout, /近景模式.*Hero/);
+  assert.match(heroViewer, /xinhua-plane-tree-hero\.glb\?v=3/);
+  assert.doesNotMatch(landmarks, /xinhua-plane-tree-hero\.glb/);
+  assert.doesNotMatch(landmarks, /HeroPlaneTree|showHero/);
+  assert.doesNotMatch(world, /showHeroTree|showHero=/);
+  assert.match(landmarks, /tier="massing"/);
+  assert.match(landmarks, /detailed=\{loadMode === "explore"\}/);
+  assert.match(instances, /PLANE_TREE_MASSING_MODELS/);
+  assert.match(instances, /plane-tree-d\.glb\?v=c3cf688014a2/);
+  assert.match(brief, /产品运行时不再请求、渲染或预加载 Hero/);
 });
 
 test("构建扫描不会沿外部知识库链接消耗系统资源", async () => {

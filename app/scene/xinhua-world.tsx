@@ -507,7 +507,6 @@ function FlatNeighborhood({
   showDetailModels = false,
   showDetailLabels = true,
   showRoadLabels = true,
-  showHeroTree = false,
   progressiveFocus,
   landmarkLoadMode = "overview",
   networkProfile,
@@ -520,7 +519,6 @@ function FlatNeighborhood({
   showDetailModels?: boolean;
   showDetailLabels?: boolean;
   showRoadLabels?: boolean;
-  showHeroTree?: boolean;
   progressiveFocus: RefObject<readonly [number, number]>;
   landmarkLoadMode?: "overview" | "explore";
   networkProfile: ProgressiveNetworkProfile;
@@ -638,7 +636,6 @@ function FlatNeighborhood({
           >
             <ProgressiveXinhuaRoadFullLayer
               showLabels={showDetailLabels}
-              showHero={showHeroTree}
               atmosphere={atmosphere}
               loadMode={landmarkLoadMode}
               focusPosition={progressiveFocus}
@@ -2113,7 +2110,6 @@ export function XinhuaWorld({
         showDetailModels={mode !== "intro"}
         showDetailLabels={false}
         showRoadLabels={!exploring}
-        showHeroTree={exploring}
         progressiveFocus={progressiveFocus}
         landmarkLoadMode={exploring ? "explore" : "overview"}
         networkProfile={networkProfile}

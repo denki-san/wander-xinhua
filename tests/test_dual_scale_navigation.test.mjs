@@ -133,9 +133,9 @@ test("双尺度视图让全览镜头跟随人物并在闲逛态放大环境而�
     world,
     /loadMode=\{landmarkLoadMode\}/,
   );
-  assert.match(roadLandmarks, /<LightweightPlaneTreeInstances \/>/);
-  assert.match(roadLandmarks, /vegetation: "programmatic-lightweight"/);
-  assert.match(roadLandmarks, /if \(!showHero\)/);
+  assert.match(roadLandmarks, /tier="massing"/);
+  assert.match(roadLandmarks, /quality: "massing"/);
+  assert.match(roadLandmarks, /if \(!detailed\)/);
   assert.match(roadLandmarks, /<PlaneTreeInstances/);
   assert.match(planeTreeInstances, /placementsByVariant\[variant\]\.length > 0/);
   assert.doesNotMatch(roadLandmarks, /LandmarkLoadingVolume/);

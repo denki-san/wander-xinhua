@@ -60,15 +60,15 @@ function binYawTowardSidewalk(tangent, sideSign) {
   return Math.atan2(-tangent[1] * sideSign, tangent[0] * sideSign);
 }
 
-function transformedFootprint(landmark) {
+function transformedFootprint(landmark, localBounds = landmark.localBounds) {
   const [positionX, positionZ] = landmark.position;
   const cosine = Math.cos(landmark.yaw);
   const sine = Math.sin(landmark.yaw);
   const worldX = [];
   const worldZ = [];
 
-  for (const localX of [landmark.localBounds.minX, landmark.localBounds.maxX]) {
-    for (const sourceZ of [landmark.localBounds.minZ, landmark.localBounds.maxZ]) {
+  for (const localX of [localBounds.minX, localBounds.maxX]) {
+    for (const sourceZ of [localBounds.minZ, localBounds.maxZ]) {
       // 与 GlbModel 和地标碰撞系统使用同一套 Blender Z 轴翻转。
       const localZ = -sourceZ;
       worldX.push(positionX + landmark.scale * (cosine * localX + sine * localZ));
@@ -86,9 +86,15 @@ function transformedFootprint(landmark) {
 
 export function buildXinhuaStreetDressingConstraints() {
   const obstacles = landmarkData.landmarks.map(transformedFootprint);
+  const pilotObstacles = landmarkData.landmarks.flatMap((landmark) => (
+    (landmark.localObstacles ?? [landmark.localBounds]).map(
+      (localObstacle) => transformedFootprint(landmark, localObstacle),
+    )
+  ));
   const treePositions = buildPlaneTreePlacements(
     landmarkData.landmarks,
     obstacles,
+    pilotObstacles,
   ).map(({ position }) => position);
   return {
     entrances: landmarkData.landmarks.map(({ start }) => start),

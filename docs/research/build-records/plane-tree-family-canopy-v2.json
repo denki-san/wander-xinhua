@@ -1,0 +1,171 @@
+{
+  "asset": "xinhua-road-plane-tree-family-canopy-v2",
+  "builtAt": "2026-07-28",
+  "gitBaseline": "2ca63104832304eb1212f59e435efe94aa0e2348",
+  "generator": "scripts/create_xinhua_plane_tree_canopy_v2.py",
+  "blender": "5.2.0 LTS",
+  "sourceLineage": {
+    "offlineHero": "public/models/building-evidence-lab/xinhua-plane-tree-hero.glb",
+    "offlineHeroSha256": "c5055a87b032b8a58ca3b76f29144d5fb289c4e51553d99a07881d1856ba3339",
+    "offlineHeroRuntimeDisposition": "retained-offline-not-requested",
+    "referenceManifest": "docs/research/plane-tree-canopy-v2-reference-manifest.json",
+    "dynamicEvidenceSnapshot": "2026-07-28-2ca6310-plane-tree-canopy-v2"
+  },
+  "identity": [
+    {
+      "slug": "plane-tree-a",
+      "blend": "assets/models/source/xinhua-road/plane-tree-a.blend",
+      "glb": "public/models/xinhua-road/plane-tree-a.glb",
+      "sha256": "ac1e64eb43527e9fdeb99cc459e058adf22f4de8c3cd27ee506025ef88fa8274",
+      "cacheVersion": "ac1e64eb4352",
+      "sourceObjects": 96,
+      "bytes": 211496,
+      "triangles": 4358,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 6,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [-4.076159, -0.079623, -2.426961],
+        "max": [4.454818, 9.898745, 2.637469]
+      }
+    },
+    {
+      "slug": "plane-tree-b",
+      "blend": "assets/models/source/xinhua-road/plane-tree-b.blend",
+      "glb": "public/models/xinhua-road/plane-tree-b.glb",
+      "sha256": "f5cb12e0ac1ec8ad953a15fbdf14ed0b6fb5608b5303e1376682b1da9dcb2594",
+      "cacheVersion": "f5cb12e0ac1e",
+      "sourceObjects": 96,
+      "bytes": 211524,
+      "triangles": 4284,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 6,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [-3.497518, -0.065563, -2.479927],
+        "max": [4.987639, 9.694671, 3.005953]
+      }
+    },
+    {
+      "slug": "plane-tree-c",
+      "blend": "assets/models/source/xinhua-road/plane-tree-c.blend",
+      "glb": "public/models/xinhua-road/plane-tree-c.glb",
+      "sha256": "b89237348db6e77fdd032f1aaed80fded2b9d220af0850c12a10e1958931b4c3",
+      "cacheVersion": "b89237348db6",
+      "sourceObjects": 96,
+      "bytes": 208184,
+      "triangles": 4364,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 6,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [-4.525066, -0.072952, -2.644178],
+        "max": [3.84459, 10.059293, 2.745531]
+      }
+    },
+    {
+      "slug": "plane-tree-d",
+      "blend": "assets/models/source/xinhua-road/plane-tree-d.blend",
+      "glb": "public/models/xinhua-road/plane-tree-d.glb",
+      "sha256": "c3cf688014a29dbc73a0f956af2c4499ee8808d056d8877fc4dab10e8aa3df5b",
+      "cacheVersion": "c3cf688014a2",
+      "sourceObjects": 96,
+      "bytes": 206784,
+      "triangles": 4284,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 6,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [-3.795877, -0.0647, -2.243077],
+        "max": [4.495048, 9.813323, 3.266487]
+      }
+    }
+  ],
+  "massing": [
+    {
+      "slug": "plane-tree-massing-a",
+      "blend": "assets/models/source/xinhua-road/plane-tree-massing-a.blend",
+      "glb": "public/models/xinhua-road/plane-tree-massing-a.glb",
+      "sha256": "bd85399575f7526ef53640165a2227416f2b8dc86cd09cf65d24e6e2e2000390",
+      "cacheVersion": "bd85399575f7",
+      "sourceObjects": 13,
+      "bytes": 23880,
+      "triangles": 356,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 3,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [-4.007474, -0.003856, -2.00064],
+        "max": [4.007474, 9.27, 2.10064]
+      }
+    },
+    {
+      "slug": "plane-tree-massing-b",
+      "blend": "assets/models/source/xinhua-road/plane-tree-massing-b.blend",
+      "glb": "public/models/xinhua-road/plane-tree-massing-b.glb",
+      "sha256": "cceebc88d362cfdeebcebc903e909cddf0b9ca23adba53aaa9c4b8e0088cf89f",
+      "cacheVersion": "cceebc88d362",
+      "sourceObjects": 13,
+      "bytes": 23880,
+      "triangles": 356,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 3,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [-3.357473, -0.020009, -2.10064],
+        "max": [4.557473, 9.17, 2.35064]
+      }
+    },
+    {
+      "slug": "plane-tree-massing-c",
+      "blend": "assets/models/source/xinhua-road/plane-tree-massing-c.blend",
+      "glb": "public/models/xinhua-road/plane-tree-massing-c.glb",
+      "sha256": "da13f13c657bef81e7a43758fb58cdf431235b3bb04948d81e7146ab74f357e8",
+      "cacheVersion": "da13f13c657b",
+      "sourceObjects": 13,
+      "bytes": 23880,
+      "triangles": 356,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 3,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [-4.457473, -0.015339, -2.15064],
+        "max": [3.557474, 9.47, 2.45064]
+      }
+    }
+  ],
+  "totals": {
+    "identityBytes": 837988,
+    "identityTriangles": 17290,
+    "massingBytes": 71640,
+    "massingTriangles": 1068,
+    "runtimeHeroBytes": 0
+  },
+  "runtime": {
+    "component": "app/scene/plane-tree-instances.tsx",
+    "strategy": "four Identity or three Massing GLBs loaded once and reused through InstancedMesh",
+    "pilotStart": "house315",
+    "pilotLengthSceneUnits": 55.6,
+    "pilotApproxMeters": 150,
+    "pilotTreeCount": 18,
+    "pilotSideCounts": [10, 8],
+    "allRuntimeTreeCount": 46,
+    "orientation": "road-inward with deterministic plus-or-minus four-degree jitter",
+    "runtimeHeroRequests": 0
+  },
+  "status": "local-threejs-runtime-validated"
+}

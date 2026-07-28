@@ -35,6 +35,7 @@ const assetSlugs = [
   "plane-tree-a",
   "plane-tree-b",
   "plane-tree-c",
+  "plane-tree-d",
 ];
 
 const landmarkDetailThresholds = {
@@ -244,7 +245,7 @@ function footprintToRoadDistance(landmark, road) {
   return distance;
 }
 
-test("9 个地标和 3 类梧桐树都有自有 GLB、Blend 源文件和测试预览", async () => {
+test("9 个地标和 4 类 Identity 梧桐都有 GLB、Blend 源文件和测试预览", async () => {
   for (const slug of assetSlugs) {
     const glbUrl = new URL(`public/models/xinhua-road/${slug}.glb`, root);
     const blendUrl = new URL(`assets/models/source/xinhua-road/${slug}.blend`, root);
@@ -470,10 +471,12 @@ test("地图与房屋使用各自证据锁定比例，不得为退界任意缩�
   );
 });
 
-test("梧桐位置沿新华路双侧交错避让，全览轻量且详情恢复三变体", () => {
-  assert.match(planeTreeInstancesSource, /plane-tree-a\.glb\?v=36ffe252c43b/);
-  assert.match(planeTreeInstancesSource, /plane-tree-b\.glb\?v=7c2e06d0794f/);
-  assert.match(planeTreeInstancesSource, /plane-tree-c\.glb\?v=c4c14bd84d9c/);
+test("梧桐位置沿新华路双侧避让，315试验段密植且分层加载", () => {
+  assert.match(planeTreeInstancesSource, /plane-tree-a\.glb\?v=ac1e64eb4352/);
+  assert.match(planeTreeInstancesSource, /plane-tree-b\.glb\?v=f5cb12e0ac1e/);
+  assert.match(planeTreeInstancesSource, /plane-tree-c\.glb\?v=b89237348db6/);
+  assert.match(planeTreeInstancesSource, /plane-tree-d\.glb\?v=c3cf688014a2/);
+  assert.match(planeTreeInstancesSource, /PLANE_TREE_MASSING_MODELS/);
   assert.match(planeTreeInstancesSource, /InstancedPlaneTreeVariant/);
   assert.match(planeTreeInstancesSource, /InstancedPlaneTreePart/);
   assert.match(planeTreeInstancesSource, /sourceMeshes\.map/);
@@ -482,15 +485,25 @@ test("梧桐位置沿新华路双侧交错避让，全览轻量且详情恢复�
   assert.match(planeTreeInstancesSource, /scale\.set\(scaleX, scaleY, scaleZ\)/);
   assert.match(planeTreeInstancesSource, /scale=\{\[1, 1, -1\]\}/);
   assert.match(planeTreeInstancesSource, /placementsByVariant\[variant\]\.length > 0/);
-  assert.match(sceneSource, /arrangement: "deterministic-id-hash"/);
-  assert.match(sceneSource, /<LightweightPlaneTreeInstances \/>/);
-  assert.match(sceneSource, /if \(!showHero\)/);
+  assert.match(sceneSource, /arrangement: "road-oriented-pilot-density"/);
+  assert.match(sceneSource, /tier="massing"/);
+  assert.match(sceneSource, /if \(!detailed\)/);
   assert.match(sceneSource, /<PlaneTreeInstances/);
 
   const obstacles = landmarkData.landmarks.map(transformedFootprint);
-  const placements = buildPlaneTreePlacements(landmarkData.landmarks, obstacles);
+  const pilotObstacles = landmarkData.landmarks.flatMap((landmark) => (
+    (landmark.localObstacles ?? [landmark.localBounds]).map(
+      (localObstacle) => transformedLocalFootprint(landmark, localObstacle),
+    )
+  ));
+  const placements = buildPlaneTreePlacements(
+    landmarkData.landmarks,
+    obstacles,
+    pilotObstacles,
+  );
   assert.ok(placements.length >= 20, "避让后仍需保留连续的双侧梧桐树阵");
-  assert.deepEqual([...new Set(placements.map(({ variant }) => variant))].sort(), [0, 1, 2]);
+  assert.equal(placements.filter(({ id }) => id.includes("-pilot-")).length, 18);
+  assert.deepEqual([...new Set(placements.map(({ variant }) => variant))].sort(), [0, 1, 2, 3]);
   const previousVariantBySide = new Map();
   for (const placement of placements) {
     const side = placement.id.split("-")[2];
@@ -498,7 +511,10 @@ test("梧桐位置沿新华路双侧交错避让，全览轻量且详情恢复�
     previousVariantBySide.set(side, placement.variant);
     assert.equal(placement.scale.length, 3);
     assert.ok(placement.scale.every((value) => value > 0));
-    for (const obstacle of obstacles) {
+    const activeObstacles = placement.id.includes("-pilot-")
+      ? pilotObstacles
+      : obstacles;
+    for (const obstacle of activeObstacles) {
       assert.equal(
         pointIntersectsObstacle(placement.position, obstacle, TREE_BUILDING_CLEARANCE),
         false,
@@ -507,16 +523,19 @@ test("梧桐位置沿新华路双侧交错避让，全览轻量且详情恢复�
     }
     for (const landmark of landmarkData.landmarks) {
       assert.ok(
-        Math.hypot(placement.position[0] - landmark.start[0], placement.position[1] - landmark.start[1]) >= 9.2,
+        Math.hypot(
+          placement.position[0] - landmark.start[0],
+          placement.position[1] - landmark.start[1],
+        ) >= (placement.id.includes("-pilot-") ? 5.4 : 9.2),
         `${placement.id} 不得堵住 ${landmark.query} 入口`,
       );
     }
   }
 });
 
-test("梧桐 GLB 资产仍可审计，并只在详情运行时恢复", async () => {
+test("梧桐 Identity GLB 可审计，并只在详情运行时恢复", async () => {
   const expectedMaterials = ["梧桐叶中", "梧桐叶浅", "梧桐叶深", "梧桐树皮", "梧桐树皮浅斑", "梧桐树皮深斑"].sort();
-  for (const slug of ["plane-tree-a", "plane-tree-b", "plane-tree-c"]) {
+  for (const slug of ["plane-tree-a", "plane-tree-b", "plane-tree-c", "plane-tree-d"]) {
     const buffer = await readFile(new URL(`public/models/xinhua-road/${slug}.glb`, root));
     const data = parseGlb(buffer);
     assert.equal(data.meshes[0].primitives.length, 6, `${slug} 必须保留 6 个材质分片`);

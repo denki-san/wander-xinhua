@@ -1,5 +1,11 @@
 # 梧桐树轻量多变体替换方案
 
+> 2026-07-28 状态更新：本文保留 2026-07-22 至 2026-07-23 的历史实施记录。
+> 当前产品方案已取消 Runtime Hero，改为 4 个 Identity + 3 个 Massing，
+> 并先在 `?start=house315` 附近验证18棵试验段。当前合同见
+> `docs/research/plane-tree-canopy-v2-model-brief.md`，运行时验收见
+> `docs/research/plane-tree-canopy-v2-runtime-acceptance.json`。
+
 ## 目标
 
 - 让项目中所有明确识别为上海梧桐／悬铃木的运行时对象继承 Hero 母版的连续根颈、低矮板根、斑驳树皮和高位分叉语言。

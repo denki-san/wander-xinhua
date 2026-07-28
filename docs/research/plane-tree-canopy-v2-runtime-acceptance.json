@@ -1,0 +1,98 @@
+{
+  "asset": "xinhua-road-plane-tree-family-canopy-v2",
+  "acceptedAt": "2026-07-28",
+  "status": "local-runtime-passed",
+  "publication": "not-deployed",
+  "route": "http://localhost:3017/?start=house315",
+  "browser": "agent-browser isolated Chrome",
+  "runtimeMode": "development",
+  "viewport": [1280, 577],
+  "warmupSeconds": 8,
+  "pageVisible": true,
+  "placement": {
+    "pilotTreeCount": 18,
+    "pilotSideCounts": [10, 8],
+    "allRuntimeTreeCount": 46,
+    "orientation": "road-inward with deterministic plus-or-minus four-degree jitter",
+    "buildingClearance": 1.4,
+    "legacyEntranceClearance": 9.2,
+    "pilotEntranceClearance": 5.4
+  },
+  "requests": {
+    "identity": [
+      "/models/xinhua-road/plane-tree-a.glb?v=ac1e64eb4352",
+      "/models/xinhua-road/plane-tree-b.glb?v=f5cb12e0ac1e",
+      "/models/xinhua-road/plane-tree-c.glb?v=b89237348db6",
+      "/models/xinhua-road/plane-tree-d.glb?v=c3cf688014a2"
+    ],
+    "massing": [
+      "/models/xinhua-road/plane-tree-massing-a.glb?v=bd85399575f7",
+      "/models/xinhua-road/plane-tree-massing-b.glb?v=cceebc88d362",
+      "/models/xinhua-road/plane-tree-massing-c.glb?v=da13f13c657b"
+    ],
+    "runtimeHeroRequestCount": 0
+  },
+  "performanceSample": {
+    "source": "house315FrameSample",
+    "frames": 120,
+    "durationMs": 2016.8,
+    "fps": 59.5002,
+    "rendererDrawCalls": 226,
+    "rendererTriangles": 708548,
+    "buildMode": "development",
+    "comparisonBoundary": "No same-condition pre-change baseline; no performance-improvement claim."
+  },
+  "movement": {
+    "urlParameters": "cameraQa=1&qaAutoStart=1&qaMove=forward&qaMoveMs=2000",
+    "requestedKey": "forward",
+    "durationMs": 2000,
+    "start": [-21.8, 67.6],
+    "end": [-18.60717903606547, 72.87434000014773],
+    "status": "complete",
+    "cameraMode": "spring-clear",
+    "cameraBlocker": "none",
+    "desiredArm": 5.369,
+    "resolvedArm": 5.369,
+    "narrowSpaceLift": 0
+  },
+  "console": {
+    "pageErrors": 0,
+    "consoleErrors": 0
+  },
+  "screenshots": [
+    {
+      "path": "test_artifacts/test_plane_tree_canopy_v2_house315_explore.png",
+      "sha256": "2bbe1f2fb3b0805024c43258dbd64a2781a6ab49a38db32680cab176489b1af3",
+      "view": "identity-street-runtime"
+    },
+    {
+      "path": "test_artifacts/test_plane_tree_canopy_v2_house315_overview.png",
+      "sha256": "ecf4ab0ffc47b3e3f3ae500baa7e9efeee472269192062f817e0ae06ac628986",
+      "view": "massing-overview-runtime"
+    },
+    {
+      "path": "test_artifacts/test_plane_tree_canopy_v2_house315_movement.png",
+      "sha256": "9863ada6d67f30d0d68f6271ec6c397e63380844ef969f9882b5379a037884ee",
+      "view": "deterministic-movement-camera-qa"
+    },
+    {
+      "path": "test_artifacts/test_plane_tree_canopy_v2_triptych.png",
+      "sha256": "168688d6f11d25fd9c12d5d902807ed7d66f6919c64de2dc215e38cab0e87fa3",
+      "view": "reference-blender-threejs-triptych"
+    }
+  ],
+  "dynamicEvidenceSnapshot": {
+    "snapshotId": "2026-07-28-2ca6310-plane-tree-canopy-v2-runtime",
+    "wikiEligible": false
+  },
+  "validation": {
+    "npmTest": "438/438 passed",
+    "npmLint": "0 errors, 1 pre-existing unrelated warning",
+    "glbAudit": "7/7 passed",
+    "runtimeIdentity": "passed",
+    "runtimeMassing": "passed",
+    "runtimeHeroRemoved": "passed",
+    "movementAndCamera": "passed",
+    "fullRouteRollout": "hold-until-user-accepts-pilot"
+  }
+}
