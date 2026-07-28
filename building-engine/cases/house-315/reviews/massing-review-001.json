@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 1,
+  "assetId": "house-315",
+  "gate": "massing",
+  "decision": "approved",
+  "reviewedAt": "2026-07-28T12:04:22.366Z",
+  "reviewer": "codex-independent-visual-audit",
+  "reviewerType": "codex-visual-review",
+  "caseVersion": 1,
+  "target": {
+    "stage": "massing",
+    "dslSha256": "d3bc02159042d4dbe1a1ef6c5425e39641a34437efae4512a6aaec6cb0aa5409",
+    "glbSha256": "2111ba5f4d5529ecf09219fe1aa6d95b17c9ca6434cfefbc5db239f6761f06c6",
+    "collisionSha256": "adafb5e9bc784cdce4bfe73c51d32bfbe3b12aa971114b2e69110bba00889943",
+    "buildRecord": "docs/research/build-records/building-engine-spike/house-315/massing.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/house-315/sandbox-massing.json",
+    "sha256": "990015d862db3840a5b00112d83f426f7e62d277f34748ad9609cda1cc490558"
+  },
+  "note": "三处固定机位完成视觉校准；体块、朝向、地面接触与开放路径符合当前证据，允许进入 Low-poly Master。"
+}

@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "assetId": "house-315",
+  "archetype": "garden-villa",
+  "status": "ok",
+  "inputs": {
+    "case": {
+      "path": "building-engine/cases/house-315/building-case.json",
+      "sha256": "016fd7c655a4f8a7a2dedda6a3e06bfc05b4449fe998505acc6ce86b85cfc1c2"
+    },
+    "dsl": {
+      "path": "building-engine/cases/house-315/building-dsl.json",
+      "sha256": "d3bc02159042d4dbe1a1ef6c5425e39641a34437efae4512a6aaec6cb0aa5409"
+    },
+    "schema": {
+      "path": "building-engine/schema/building-dsl.schema.json",
+      "sha256": "fbcce0470e7efa3a845771fb0b764ac38e9e702d1cbe920376f75c3aff75b619"
+    },
+    "artProfile": {
+      "path": "building-engine/art-profiles/xinhua-autumn-lowpoly-v1.json",
+      "sha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10"
+    }
+  },
+  "compiled": [
+    "volume:main-spine",
+    "volume:central-projecting-gable",
+    "volume:right-long-wing",
+    "volume:left-rear-short-wing",
+    "roof:main-spine-roof",
+    "roof:central-projecting-roof",
+    "roof:right-long-wing-roof",
+    "roof:left-rear-short-roof",
+    "opening:central-tall-entry",
+    "opening:central-upper-window",
+    "opening:main-front-window-row",
+    "opening:right-wing-window-row",
+    "opening:left-wing-window-row",
+    "feature:central-half-timber-gable",
+    "feature:right-wing-balcony",
+    "feature:right-roof-chimney",
+    "feature:facade-split-trim"
+  ],
+  "inferred": [
+    {
+      "claimId": "house-315-relative-depth",
+      "confidence": 0.78,
+      "evidenceRefs": [
+        "house-315-aerial"
+      ]
+    },
+    {
+      "claimId": "house-315-scale",
+      "confidence": 0.74,
+      "evidenceRefs": [
+        "house-315-canonical",
+        "house-315-entrance"
+      ]
+    }
+  ],
+  "unsupported": [],
+  "ignored": [],
+  "conflict": [],
+  "counts": {
+    "claims": 7,
+    "evidenceItems": 4,
+    "volumes": 4,
+    "roofs": 4,
+    "openings": 5,
+    "features": 4,
+    "obstacles": 4,
+    "openPaths": 2
+  }
+}

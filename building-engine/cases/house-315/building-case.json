@@ -80,7 +80,10 @@
       "field": "massing.volumes",
       "origin": "observed",
       "confidence": 0.93,
-      "evidenceRefs": ["house-315-canonical", "house-315-aerial"],
+      "evidenceRefs": [
+        "house-315-canonical",
+        "house-315-aerial"
+      ],
       "reviewState": "approved",
       "valueSummary": "横向主脊、中央前出体量、右长翼与左后短翼构成非对称连续住宅。"
     },
@@ -89,7 +92,11 @@
       "field": "massing.roofs",
       "origin": "observed",
       "confidence": 0.95,
-      "evidenceRefs": ["house-315-canonical", "house-315-aerial", "house-315-entrance"],
+      "evidenceRefs": [
+        "house-315-canonical",
+        "house-315-aerial",
+        "house-315-entrance"
+      ],
       "reviewState": "approved",
       "valueSummary": "相连陡坡红瓦屋顶与中央纵向高山墙形成主体轮廓。"
     },
@@ -98,7 +105,10 @@
       "field": "master.features.timber-gable",
       "origin": "observed",
       "confidence": 0.97,
-      "evidenceRefs": ["house-315-canonical", "house-315-entrance"],
+      "evidenceRefs": [
+        "house-315-canonical",
+        "house-315-entrance"
+      ],
       "reviewState": "approved",
       "valueSummary": "中央高山墙使用深色半木构分格并向沿街面前出。"
     },
@@ -107,7 +117,10 @@
       "field": "materials.facade",
       "origin": "observed",
       "confidence": 0.94,
-      "evidenceRefs": ["house-315-canonical", "house-315-aerial"],
+      "evidenceRefs": [
+        "house-315-canonical",
+        "house-315-aerial"
+      ],
       "reviewState": "approved",
       "valueSummary": "沿街立面持续呈现上部暖白灰泥与下部低饱和红砖分区。"
     },
@@ -116,7 +129,10 @@
       "field": "master.openings",
       "origin": "observed",
       "confidence": 0.88,
-      "evidenceRefs": ["house-315-canonical", "house-315-entrance"],
+      "evidenceRefs": [
+        "house-315-canonical",
+        "house-315-entrance"
+      ],
       "reviewState": "approved",
       "valueSummary": "中央高入口、山墙上层小窗和两侧深色窗带构成沿街节奏。"
     },
@@ -125,7 +141,9 @@
       "field": "massing.depth",
       "origin": "inferred",
       "confidence": 0.78,
-      "evidenceRefs": ["house-315-aerial"],
+      "evidenceRefs": [
+        "house-315-aerial"
+      ],
       "reviewState": "approved",
       "valueSummary": "俯瞰支持相对进深和翼部层级，不代表测绘尺寸。"
     },
@@ -134,7 +152,10 @@
       "field": "coordinateContract.scale",
       "origin": "inferred",
       "confidence": 0.74,
-      "evidenceRefs": ["house-315-canonical", "house-315-entrance"],
+      "evidenceRefs": [
+        "house-315-canonical",
+        "house-315-entrance"
+      ],
       "reviewState": "approved",
       "valueSummary": "沿用已通过历史 Massing 地图门的人物、门与层高视觉比例。"
     }
@@ -169,7 +190,11 @@
   ],
   "reviews": {
     "evidence": "building-engine/cases/house-315/reviews/evidence-review-001.json",
-    "massing": [],
-    "final": []
+    "massing": [
+      "building-engine/cases/house-315/reviews/massing-review-001.json"
+    ],
+    "final": [
+      "building-engine/cases/house-315/reviews/final-review-001.json"
+    ]
   }
 }

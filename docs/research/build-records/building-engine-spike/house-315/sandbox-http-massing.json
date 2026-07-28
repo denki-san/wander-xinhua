@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "assetId": "house-315",
+  "stage": "massing",
+  "status": "http-pass-awaiting-browser-visual",
+  "origin": "http://127.0.0.1:4177",
+  "page": {
+    "url": "http://127.0.0.1:4177/building-engine-sandbox?asset=house-315&tier=massing&view=canonical&qa=1",
+    "status": 200
+  },
+  "glb": {
+    "url": "http://127.0.0.1:4177/models/building-engine-spike/house-315/house-315-massing.glb?v=2111ba5f4d55",
+    "status": 200,
+    "sha256": "2111ba5f4d5529ecf09219fe1aa6d95b17c9ca6434cfefbc5db239f6761f06c6",
+    "bytes": 12740
+  },
+  "collision": {
+    "url": "http://127.0.0.1:4177/models/building-engine-spike/house-315/house-315-collision.json?v=adafb5e9bc78",
+    "status": 200,
+    "sha256": "adafb5e9bc784cdce4bfe73c51d32bfbe3b12aa971114b2e69110bba00889943",
+    "bytes": 1187
+  }
+}

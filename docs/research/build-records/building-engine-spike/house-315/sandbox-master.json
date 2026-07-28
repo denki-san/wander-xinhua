@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "assetId": "house-315",
+  "stage": "master",
+  "status": "pass",
+  "recordedAt": "2026-07-28T20:10:48+08:00",
+  "browser": "Codex In-app Browser",
+  "buildMode": "production",
+  "url": "http://127.0.0.1:4177/building-engine-sandbox?asset=house-315&tier=master&view=canonical&qa=1",
+  "view": "canonical",
+  "glbSha256": "69b36c6779ee09ec49350ef0d1182eced99126a0608bcfaf3aec0f8caed1d9c2",
+  "collisionSha256": "adafb5e9bc784cdce4bfe73c51d32bfbe3b12aa971114b2e69110bba00889943",
+  "viewport": {
+    "width": 1280,
+    "height": 720,
+    "devicePixelRatio": 1
+  },
+  "canvas": {
+    "width": 804,
+    "height": 584
+  },
+  "pageVisibility": "visible",
+  "warmupSeconds": 2,
+  "sampleDurationSeconds": 5.028858,
+  "consoleErrors": 0,
+  "pageErrors": 0,
+  "modelVisible": true,
+  "groundContact": "pass",
+  "openPathCheck": "pass",
+  "fixedViewsReviewed": [
+    "canonical",
+    "side",
+    "entrance"
+  ],
+  "identityFeaturesReviewed": [
+    "central-half-timber-gable",
+    "central-tall-entry",
+    "right-wing-balcony",
+    "right-roof-chimney"
+  ],
+  "firstScreenResources": {
+    "total": 13,
+    "scripts": 8,
+    "stylesheets": 2,
+    "other": 3,
+    "fonts": 0,
+    "images": 0,
+    "video": 0,
+    "requiredOther": [
+      "manifest.json",
+      "house-315-collision.json",
+      "house-315-master.glb"
+    ]
+  },
+  "performance": {
+    "source": "Chrome DevTools Protocol Performance.getMetrics",
+    "taskDurationDeltaSeconds": 0.000603,
+    "scriptDurationDeltaSeconds": 0,
+    "layoutDurationDeltaSeconds": 0,
+    "recalcStyleDurationDeltaSeconds": 0,
+    "jsHeapUsedBytesStart": 12023804,
+    "jsHeapUsedBytesEnd": 12023804,
+    "claim": "raw-sample-only-no-baseline-no-improvement-claim"
+  },
+  "screenshot": {
+    "path": "test_artifacts/building-engine-spike/house-315/test_house-315-master-sandbox-canonical.png",
+    "sha256": "d214b60af5a7ac8ae64549a7ecb3904358ce6220ad7dd02640be2a97cd41a579",
+    "bytes": 96368
+  },
+  "httpRecord": "docs/research/build-records/building-engine-spike/house-315/sandbox-http-master.json",
+  "finalComparison": {
+    "path": "test_artifacts/building-engine-spike/house-315/test_house-315-final-triptych.png",
+    "sha256": "92f1f64b1d4df57304a429b9f4df031aa0e146de37c3d447f3a65b28def15eca",
+    "bytes": 950701,
+    "columnsLeftToRight": [
+      "approved-reference",
+      "blender-master-canonical",
+      "threejs-master-canonical"
+    ],
+    "outcome": "approved-spike-with-known-unknowns",
+    "knownUnknowns": [
+      "rear-facade",
+      "surveyed-dimensions",
+      "construction-year-source-conflict"
+    ]
+  },
+  "reviewNote": "三处固定机位均显示当前 Master；半木构山墙、高门、右翼阳台与烟囱可辨，建筑根接地，碰撞和开放路径合同保持不变。"
+}

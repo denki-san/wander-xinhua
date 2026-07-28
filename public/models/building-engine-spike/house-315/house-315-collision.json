@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "assetId": "house-315",
+  "archetype": "garden-villa",
+  "dslSha256": "d3bc02159042d4dbe1a1ef6c5425e39641a34437efae4512a6aaec6cb0aa5409",
+  "coordinateContract": {
+    "sceneUnitMeters": 2.7,
+    "front": "local-negative-y",
+    "groundDatum": 0
+  },
+  "obstacles": [
+    {
+      "id": "main-spine",
+      "minX": -6.7,
+      "maxX": 6.7,
+      "minY": -2.15,
+      "maxY": 3.25
+    },
+    {
+      "id": "central-projecting-gable",
+      "minX": -4.475,
+      "maxX": 0.675,
+      "minY": -4.55,
+      "maxY": 2.65
+    },
+    {
+      "id": "right-long-wing",
+      "minX": 3.275,
+      "maxX": 7.025,
+      "minY": -3.075,
+      "maxY": 4.375
+    },
+    {
+      "id": "left-rear-short-wing",
+      "minX": -7.475,
+      "maxX": -3.225,
+      "minY": 0.15,
+      "maxY": 4.35
+    }
+  ],
+  "requiredOpenPaths": [
+    {
+      "id": "street-to-central-entry",
+      "from": [
+        -1.9,
+        -7.2
+      ],
+      "to": [
+        -1.9,
+        -5.1
+      ],
+      "width": 0.9
+    },
+    {
+      "id": "right-front-clearance",
+      "from": [
+        2.05,
+        -6.2
+      ],
+      "to": [
+        2.05,
+        -3.45
+      ],
+      "width": 0.7
+    }
+  ]
+}

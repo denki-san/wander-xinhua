@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "assetId": "sun-ke-villa",
+  "stage": "master",
+  "status": "http-pass-awaiting-browser-visual",
+  "origin": "http://127.0.0.1:4177",
+  "page": {
+    "url": "http://127.0.0.1:4177/building-engine-sandbox?asset=sun-ke-villa&tier=master&view=canonical&qa=1",
+    "status": 200
+  },
+  "glb": {
+    "url": "http://127.0.0.1:4177/models/building-engine-spike/sun-ke-villa/sun-ke-villa-master.glb?v=a5312d67e673",
+    "status": 200,
+    "sha256": "a5312d67e673a8356fd8507289a146d438667c33832ccbee0a4f7a69dde4ee49",
+    "bytes": 186044
+  },
+  "collision": {
+    "url": "http://127.0.0.1:4177/models/building-engine-spike/sun-ke-villa/sun-ke-villa-collision.json?v=1d18b0c89238",
+    "status": 200,
+    "sha256": "1d18b0c89238e10fa7c98fa5b2403f9cc08eb2fc67c45e33d1481258d1d5676a",
+    "bytes": 1625
+  }
+}

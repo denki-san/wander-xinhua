@@ -81,7 +81,10 @@
       "field": "massing.volumes",
       "origin": "observed",
       "confidence": 0.91,
-      "evidenceRefs": ["sun-ke-villa-canonical", "sun-ke-villa-right-front"],
+      "evidenceRefs": [
+        "sun-ke-villa-canonical",
+        "sun-ke-villa-right-front"
+      ],
       "reviewState": "approved",
       "valueSummary": "低西翼、中央主体、右侧圆角塔楼与错落屋顶形成不对称单体住宅。"
     },
@@ -90,7 +93,10 @@
       "field": "massing.footprint",
       "origin": "retrieved",
       "confidence": 0.9,
-      "evidenceRefs": ["sun-ke-villa-canonical", "sun-ke-villa-right-front"],
+      "evidenceRefs": [
+        "sun-ke-villa-canonical",
+        "sun-ke-villa-right-front"
+      ],
       "reviewState": "approved",
       "valueSummary": "OSM way 864847877 约束主体水平范围；照片支持门廊越出矩形主体。"
     },
@@ -99,7 +105,10 @@
       "field": "master.openings.garden",
       "origin": "observed",
       "confidence": 0.98,
-      "evidenceRefs": ["sun-ke-villa-canonical", "sun-ke-villa-right-front"],
+      "evidenceRefs": [
+        "sun-ke-villa-canonical",
+        "sun-ke-villa-right-front"
+      ],
       "reviewState": "approved",
       "valueSummary": "花园立面首层三联尖券门廊与二层连续圆拱窗是最强身份构件。"
     },
@@ -108,7 +117,10 @@
       "field": "master.features.round-tower",
       "origin": "observed",
       "confidence": 0.96,
-      "evidenceRefs": ["sun-ke-villa-canonical", "sun-ke-villa-right-front"],
+      "evidenceRefs": [
+        "sun-ke-villa-canonical",
+        "sun-ke-villa-right-front"
+      ],
       "reviewState": "approved",
       "valueSummary": "右侧圆角塔楼、窄高窗、水平腰线与低弧形红瓦屋顶持续可见。"
     },
@@ -117,7 +129,10 @@
       "field": "master.features.porte-cochere",
       "origin": "observed",
       "confidence": 0.97,
-      "evidenceRefs": ["sun-ke-villa-north-entrance", "sun-ke-villa-porte-cochere"],
+      "evidenceRefs": [
+        "sun-ke-villa-north-entrance",
+        "sun-ke-villa-porte-cochere"
+      ],
       "reviewState": "approved",
       "valueSummary": "北侧门廊明显外挑，前端厚柱支撑，长坡屋顶连接主楼且覆盖车道保持开放。"
     },
@@ -126,7 +141,11 @@
       "field": "materials",
       "origin": "observed",
       "confidence": 0.95,
-      "evidenceRefs": ["sun-ke-villa-canonical", "sun-ke-villa-right-front", "sun-ke-villa-north-entrance"],
+      "evidenceRefs": [
+        "sun-ke-villa-canonical",
+        "sun-ke-villa-right-front",
+        "sun-ke-villa-north-entrance"
+      ],
       "reviewState": "approved",
       "valueSummary": "浅暖粗糙墙面、低饱和红褐瓦、深色窗框与暖石材窗套。"
     },
@@ -135,7 +154,10 @@
       "field": "coordinateContract.scale",
       "origin": "inferred",
       "confidence": 0.8,
-      "evidenceRefs": ["sun-ke-villa-canonical", "sun-ke-villa-right-front"],
+      "evidenceRefs": [
+        "sun-ke-villa-canonical",
+        "sun-ke-villa-right-front"
+      ],
       "reviewState": "approved",
       "valueSummary": "主体水平尺度受 OSM 约束，高度由楼层、门窗和历史已审核包络推断。"
     }
@@ -170,7 +192,11 @@
   ],
   "reviews": {
     "evidence": "building-engine/cases/sun-ke-villa/reviews/evidence-review-001.json",
-    "massing": [],
-    "final": []
+    "massing": [
+      "building-engine/cases/sun-ke-villa/reviews/massing-review-001.json"
+    ],
+    "final": [
+      "building-engine/cases/sun-ke-villa/reviews/final-review-001.json"
+    ]
   }
 }

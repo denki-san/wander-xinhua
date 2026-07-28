@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "assetId": "sun-ke-villa",
+  "stage": "massing",
+  "status": "pass",
+  "recordedAt": "2026-07-28T20:03:19+08:00",
+  "browser": "Codex In-app Browser",
+  "buildMode": "production",
+  "url": "http://127.0.0.1:4177/building-engine-sandbox?asset=sun-ke-villa&tier=massing&view=canonical&qa=1",
+  "view": "canonical",
+  "glbSha256": "357cf3b6548594ee2f1e2cec9c78cf29265f8d853aa11f52311534ed7dd9ad28",
+  "collisionSha256": "1d18b0c89238e10fa7c98fa5b2403f9cc08eb2fc67c45e33d1481258d1d5676a",
+  "viewport": {
+    "width": 1280,
+    "height": 720,
+    "devicePixelRatio": 1
+  },
+  "canvas": {
+    "width": 804,
+    "height": 584
+  },
+  "pageVisibility": "visible",
+  "warmupSeconds": 2,
+  "sampleDurationSeconds": 5.026759,
+  "consoleErrors": 0,
+  "pageErrors": 0,
+  "modelVisible": true,
+  "groundContact": "pass",
+  "openPathCheck": "pass",
+  "fixedViewsReviewed": [
+    "canonical",
+    "side",
+    "entrance"
+  ],
+  "firstScreenResources": {
+    "total": 13,
+    "scripts": 8,
+    "stylesheets": 2,
+    "other": 3,
+    "fonts": 0,
+    "images": 0,
+    "video": 0,
+    "requiredOther": [
+      "manifest.json",
+      "sun-ke-villa-collision.json",
+      "sun-ke-villa-massing.glb"
+    ]
+  },
+  "performance": {
+    "source": "Chrome DevTools Protocol Performance.getMetrics",
+    "taskDurationDeltaSeconds": 0.000517,
+    "scriptDurationDeltaSeconds": 0,
+    "layoutDurationDeltaSeconds": 0,
+    "recalcStyleDurationDeltaSeconds": 0,
+    "jsHeapUsedBytesStart": 11972948,
+    "jsHeapUsedBytesEnd": 11972948,
+    "claim": "raw-sample-only-no-baseline-no-improvement-claim"
+  },
+  "screenshot": {
+    "path": "test_artifacts/building-engine-spike/sun-ke-villa/test_sun-ke-villa-massing-sandbox-canonical.png",
+    "sha256": "89633736bd91818f071e9af53638bea7868ef3e50b3db07f6235c903cf6883ae",
+    "bytes": 80852
+  },
+  "httpRecord": "docs/research/build-records/building-engine-spike/sun-ke-villa/sandbox-http-massing.json",
+  "reviewNote": "主对照可见中央主楼、西侧低翼和东侧圆塔；侧向验证纵深；北入口机位明确显示门廊，碰撞障碍与两条必须开放路径没有重叠。"
+}

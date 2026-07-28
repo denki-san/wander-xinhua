@@ -427,12 +427,12 @@
       {
         "id": "garden-to-pointed-entry",
         "from": [-0.42, -5],
-        "to": [-0.42, -2.35],
+        "to": [-0.42, -2.55],
         "width": 0.8
       },
       {
         "id": "porte-cochere-covered-lane",
-        "from": [-1.22, 1.95],
+        "from": [-1.22, 2.85],
         "to": [-1.22, 5.2],
         "width": 0.8
       }

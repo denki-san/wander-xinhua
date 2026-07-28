@@ -32,6 +32,74 @@ fatal: Unable to create '/Users/lei/App_developing/wander-xinhua/.git/index.lock
 
 ---
 
+## [ERR-20260728-001] python_bytecode_cache_outside_sandbox
+
+**Logged**: 2026-07-28T19:42:34+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: config
+
+### Summary
+使用系统 Python 检查建筑编译器语法时，默认字节码缓存路径位于当前可写范围之外。
+
+### Error
+```text
+PermissionError: [Errno 1] Operation not permitted:
+/Users/lei/Library/Caches/com.apple.python/
+```
+
+### Context
+- 命令为 `python3 -m py_compile scripts/compile_garden_villa.py`。
+- 失败发生在写入 `__pycache__`，不能据此判定脚本存在语法错误。
+
+### Suggested Fix
+设置 `PYTHONPYCACHEPREFIX=/tmp/test_building_engine_pycache` 后重新执行语法检查，
+并继续用 Blender Python 做运行时验证。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/compile_garden_villa.py
+
+### Resolution
+- **Resolved**: 2026-07-28T19:43:00+08:00
+- **Notes**: 将字节码缓存定向到 `/tmp/test_building_engine_pycache` 后语法检查退出码为 0。
+
+---
+
+## [ERR-20260728-002] building_engine_cli_missing_output_parent
+
+**Logged**: 2026-07-28T19:42:34+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: backend
+
+### Summary
+建筑引擎 CLI 首次写入验证报告时，没有先创建按资产分隔的父目录。
+
+### Error
+```text
+ENOENT: no such file or directory, open
+docs/research/build-records/building-engine-spike/house-315/compiler-report.json
+```
+
+### Context
+- 命令为 `node scripts/building_engine_spike.mjs validate --asset all`。
+- `writeJson` 直接调用 `writeFileSync`，全新 worktree 中目标目录尚不存在。
+
+### Suggested Fix
+在统一的 `writeJson` 边界调用
+`mkdirSync(dirname(path), { recursive: true })`，随后重跑两栋建筑的完整验证。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/building_engine_spike.mjs
+
+### Resolution
+- **Resolved**: 2026-07-28T19:43:00+08:00
+- **Notes**: `writeJson` 统一创建父目录后，两栋建筑完整验证均通过。
+
+---
+
 ## [ERR-20260724-091] vite_preview_sandbox_listen_permission
 
 **Logged**: 2026-07-24T00:00:00+08:00
@@ -3815,6 +3883,7 @@ jq: Cannot index array with string "items"
 ### Resolution
 - **Resolved**: 2026-07-19T22:26:00+08:00
 - **Notes**: 已改用数组查询，并确认目录级符号链接下的 11 个 Markdown 已进入 ingest queue。
+- **Recurrence**: 2026-07-28 读取建筑 case 时误猜 `.evidence`；先用 `jq 'keys'` 确认实际字段为 `.evidenceItems` 后恢复只读查询。
 
 ---
 ## [ERR-20260721-081] parallel_exec_too_many_open_files
@@ -4881,6 +4950,7 @@ Error : Filter not found
 ### Resolution
 - **Resolved**: 2026-07-22T21:01:00+08:00
 - **Notes**: 改用 FFmpeg 的 scale、pad 和 hstack，按 Reference、Blender、Three.js 固定顺序生成三联图。
+- **Recurrence**: 2026-07-28 建筑引擎最终对照复现；继续使用固定左到右顺序，并在最终审核记录中声明列语义。
 
 ---
 ## [ERR-20260722-114] vps_precheck_shell_quote_mismatch
@@ -5805,6 +5875,7 @@ TypeError: requestAnimationFrame is not a function
 **Error:** `react-hooks/immutability` 拒绝在 `useLayoutEffect` 修改 `useThree()` 返回的 camera；`react-hooks/set-state-in-effect` 拒绝 effect 内同步设置 QA 查询参数状态。
 **Cause:** 相机投影更新没有放进 R3F 的帧生命周期；只读 URL 初值被不必要地建模成 effect 同步。
 **Resolution:** 用 `useFrame(({ camera, size }) => ...)` 更新 FOV，只在值变化时刷新投影矩阵；QA 开关改为带 `window` 守卫的惰性 `useState` 初值。修正后重新运行 lint。
+**Recurrence:** 2026-07-28 建筑引擎 Sandbox 首版复现相同规则；相机改入 `useFrame`，异步结果按资源路径派生，URL effect 仅同步外部历史记录后，局部 lint 与完整 Sites 构建通过。
 
 ## [ERR169] 多个二进制验收产物不能用文本补丁批量整理
 
@@ -7227,7 +7298,7 @@ Expected /safe-area-inset-top ... + 72px/ but CSS uses + 124px.
 
 **Logged**: 2026-07-26T00:00:00+08:00
 **Priority**: medium
-**Status**: pending
+**Status**: resolved
 **Area**: tests
 
 ### Summary
@@ -7253,6 +7324,10 @@ exit code 139
 ### Metadata
 - Reproducible: unknown
 - Related Files: scripts/test_diagnose_rain_run.py, assets/models/source/character/rain-summer-wanderer.blend
+
+### Resolution
+- **Resolved**: 2026-07-28T19:44:04+08:00
+- **Notes**: 本轮建筑引擎首次构建复现同一 Metal 探测崩溃；同一 CLI 在受限沙箱外成功生成两栋 Massing 的 `.blend`、GLB、碰撞记录和六张固定机位图，确认不是生成器故障。
 
 ---
 ## [ERR-20260726-002] imagemagick_magick_command_missing
@@ -7876,5 +7951,104 @@ manifest.json: No such file or directory
 ### Resolution
 - **Resolved**: 2026-07-26T23:59:00+08:00
 - **Notes**: 复查时归档脚本已完成落盘；`manifest.json` 与 `SHA256SUMS` 出现，1210 个文件的 `shasum -a 256 -c` 全部通过。初次检查发生在外置卷写入尚未稳定可见的窗口，后续检查避免使用 zsh 特殊变量名。
+
+---
+
+## [ERR-20260728-003] sandbox_null_derived_state_ternary
+
+**Logged**: 2026-07-28T19:53:30+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+建筑引擎 Sandbox 的 production bundle 在 manifest 载入前读取了空状态的 `.value`。
+
+### Error
+```text
+TypeError: Cannot read properties of null (reading 'value')
+```
+
+### Context
+- 完整 Sites 构建通过，但真实 production 页面在 React 初始化阶段为空白。
+- `collisionState?.path === asset?.collision.path` 在两侧都为空时结果为 `true`，
+  三元表达式随后读取 `collisionState.value`。
+- 同型问题也存在于尚未载入的模型 bounds 派生值。
+
+### Suggested Fix
+在比较资源路径之前先要求拥有者非空：`asset && ...`、`tierContract && ...`，
+随后重新构建并从真实浏览器验证页面和控制台。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/building-engine-sandbox/BuildingEngineSandbox.tsx
+
+### Resolution
+- **Resolved**: 2026-07-28T20:01:00+08:00
+- **Notes**: 增加非空拥有者门槛后，重新构建 production route；两栋当前 Massing 均达到 runtime-ready，控制台零 error。
+
+---
+
+## [ERR-20260728-004] local_sandbox_http_qa_network_boundary
+
+**Logged**: 2026-07-28T20:01:30+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+CLI 在受限进程中无法读取已在本机运行的 production Sandbox。
+
+### Error
+```text
+fetch failed
+```
+
+### Context
+- 浏览器已经能访问 `http://127.0.0.1:4177`，但受限 shell 中的 Node fetch 失败。
+- 失败发生在 HTTP 层，不影响已通过的本地产物 SHA 自动检查。
+
+### Suggested Fix
+保持相同 origin 和 CLI 参数，在沙箱外重跑 HTTP QA。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/building_engine_spike.mjs
+
+### Resolution
+- **Resolved**: 2026-07-28T20:02:00+08:00
+- **Notes**: 沙箱外重跑后，两栋页面、GLB 与碰撞 JSON 均返回 HTTP 200，下载字节 SHA 与 manifest 完全一致。
+
+---
+
+## [ERR-20260728-005] building_engine_plan_test_phrase_overfit
+
+**Logged**: 2026-07-28T20:12:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+专项测试把“不建设”前缀误当成方案范围合同的一部分。
+
+### Error
+```text
+AssertionError: input did not match /不建设后台、数据库、Worker、任务队列/
+```
+
+### Context
+- 方案已明确写出 `Explicitly excluded: 后台、数据库、Worker、任务队列`。
+- 测试应锁定排除对象，不应锁定同义句式。
+
+### Suggested Fix
+只断言 `后台、数据库、Worker、任务队列` 的连续范围合同。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_building_engine_spike.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-28T20:12:30+08:00
+- **Notes**: 移除非语义前缀后重跑专项测试。
 
 ---

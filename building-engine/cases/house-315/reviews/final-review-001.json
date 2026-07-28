@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 1,
+  "assetId": "house-315",
+  "gate": "final",
+  "decision": "approved-spike-with-known-unknowns",
+  "reviewedAt": "2026-07-28T12:13:56.294Z",
+  "reviewer": "codex-independent-visual-audit",
+  "reviewerType": "codex-visual-review",
+  "caseVersion": 1,
+  "target": {
+    "stage": "master",
+    "dslSha256": "d3bc02159042d4dbe1a1ef6c5425e39641a34437efae4512a6aaec6cb0aa5409",
+    "glbSha256": "69b36c6779ee09ec49350ef0d1182eced99126a0608bcfaf3aec0f8caed1d9c2",
+    "collisionSha256": "adafb5e9bc784cdce4bfe73c51d32bfbe3b12aa971114b2e69110bba00889943",
+    "buildRecord": "docs/research/build-records/building-engine-spike/house-315/master.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/house-315/sandbox-master.json",
+    "sha256": "ebb2e6b48034d5b9bb0e84f3ebdbd7ff31e4ce32283d813eeb25177082c16360"
+  },
+  "note": "参考/Blender/Three.js 三联对照通过；后立面、实测尺寸与建成年代冲突继续保持为已知未知。"
+}

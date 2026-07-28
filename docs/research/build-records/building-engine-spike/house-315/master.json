@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "assetId": "house-315",
+  "archetype": "garden-villa",
+  "stage": "master",
+  "status": "built-auto-qa-pass",
+  "blenderVersion": "5.2.0 LTS",
+  "generator": {
+    "path": "scripts/compile_garden_villa.py",
+    "sha256": "1c6674b0943dd6d992a4d595cfcba848b4c6e00f473c1fde39d929e7c58a00fe"
+  },
+  "inputs": {
+    "dsl": {
+      "path": "building-engine/cases/house-315/building-dsl.json",
+      "sha256": "d3bc02159042d4dbe1a1ef6c5425e39641a34437efae4512a6aaec6cb0aa5409"
+    },
+    "artProfile": {
+      "path": "building-engine/art-profiles/xinhua-autumn-lowpoly-v1.json",
+      "sha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10"
+    }
+  },
+  "lineage": {
+    "dslSha256": "d3bc02159042d4dbe1a1ef6c5425e39641a34437efae4512a6aaec6cb0aa5409",
+    "artProfileSha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10",
+    "compilerSha256": "1c6674b0943dd6d992a4d595cfcba848b4c6e00f473c1fde39d929e7c58a00fe",
+    "derivedFromMassing": {
+      "record": "docs/research/build-records/building-engine-spike/house-315/massing.json",
+      "glbSha256": "2111ba5f4d5529ecf09219fe1aa6d95b17c9ca6434cfefbc5db239f6761f06c6"
+    }
+  },
+  "editableObjectCount": 86,
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/building-engine-spike/house-315/house-315-master.blend",
+      "sha256": "7033ba9336ea5a66d34bb8b047483d7bc114b530b0d957a1acd365803e3d01c8",
+      "bytes": 135422
+    },
+    "glb": {
+      "path": "public/models/building-engine-spike/house-315/house-315-master.glb",
+      "sha256": "69b36c6779ee09ec49350ef0d1182eced99126a0608bcfaf3aec0f8caed1d9c2",
+      "bytes": 79692,
+      "nodes": 1,
+      "meshes": 1,
+      "primitives": 8,
+      "triangles": 1016,
+      "materials": 8,
+      "images": 0,
+      "textures": 0,
+      "animations": 0,
+      "skins": 0,
+      "bounds": {
+        "min": [
+          -7.675,
+          0,
+          -4.575
+        ],
+        "max": [
+          7.225,
+          6.982893,
+          4.876
+        ]
+      },
+      "transformedNodes": []
+    },
+    "collision": {
+      "path": "public/models/building-engine-spike/house-315/house-315-collision.json",
+      "sha256": "adafb5e9bc784cdce4bfe73c51d32bfbe3b12aa971114b2e69110bba00889943",
+      "obstacleCount": 4,
+      "openPathCount": 2
+    },
+    "previews": [
+      {
+        "view": "canonical",
+        "path": "test_artifacts/building-engine-spike/house-315/test_house-315-master-canonical.png",
+        "sha256": "678f60d878c5ef25c645afdb09b090c77d82864a1ee7deef6eaaa1e1fee072ff",
+        "bytes": 762482
+      },
+      {
+        "view": "side",
+        "path": "test_artifacts/building-engine-spike/house-315/test_house-315-master-side.png",
+        "sha256": "cc8eab2aa170c99b016f62bf0305a907a6623a4544407105a49b29b43b2f7d98",
+        "bytes": 802701
+      },
+      {
+        "view": "entrance",
+        "path": "test_artifacts/building-engine-spike/house-315/test_house-315-master-entrance.png",
+        "sha256": "17472eceda2ff9ab7008a34e9b5507b2d03d33a81bb657406114337f545c4645",
+        "bytes": 810406
+      }
+    ]
+  },
+  "geometryIntegrity": {
+    "vertices": 680,
+    "polygons": 512,
+    "triangles": 1016,
+    "zeroAreaTriangles": 0,
+    "nonFinitePositions": 0,
+    "status": "ok"
+  },
+  "budget": {
+    "maxNodes": 64,
+    "maxTriangles": 12000,
+    "maxMaterials": 10,
+    "maxImages": 0,
+    "maxBytes": 1500000
+  },
+  "mcpReview": {
+    "status": "not-run-addon-unavailable",
+    "fallback": "headless-fixed-camera-previews"
+  },
+  "nextGate": "final-comparison-review"
+}
