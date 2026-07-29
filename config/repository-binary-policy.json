@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "project": "wander-xinhua",
+  "baselinePath": "config/repository-binary-baseline.json",
+  "baselineRef": "main",
+  "historyLargeObjectThresholdBytes": 1048576,
+  "existingGrowthToleranceBytes": 0,
+  "unclassifiedFileThresholdBytes": 262145,
+  "knownTextExtensions": [
+    ".cjs",
+    ".css",
+    ".csv",
+    ".frag",
+    ".geojson",
+    ".glsl",
+    ".html",
+    ".js",
+    ".json",
+    ".jsx",
+    ".lock",
+    ".md",
+    ".mjs",
+    ".py",
+    ".sh",
+    ".sql",
+    ".svg",
+    ".toml",
+    ".ts",
+    ".tsx",
+    ".txt",
+    ".vert",
+    ".xml",
+    ".yaml",
+    ".yml"
+  ],
+  "newFileLimits": {
+    "repository-binary": 262144,
+    "runtime-media": 524288
+  },
+  "blockedNewCategories": [
+    "dynamic-evidence",
+    "editable-source"
+  ],
+  "approvalRequiredCategories": [
+    "runtime-model"
+  ],
+  "dynamicEvidencePrefixes": [
+    "test_artifacts/",
+    "docs/research/assets/",
+    "research/references/",
+    "research/previews/"
+  ],
+  "dynamicEvidencePathPatterns": [
+    "^docs/research/test_",
+    "(?:^|/)[^/]*(?:-evidence|-runtime-qa|-reference-manifest|-metrics|-audit)[^/]*\\.(?:json|har)$",
+    "^research/(?!source/).+\\.(?:json|har|html|pdf|png|jpe?g|webp|gif|mp4|mov|m4a|mp3|wav)$"
+  ],
+  "editableSourcePrefixes": [
+    "assets/models/source/",
+    "research/source/"
+  ],
+  "editableSourceExtensions": [
+    ".abc",
+    ".blend",
+    ".blend1",
+    ".dae",
+    ".exr",
+    ".fbx",
+    ".obj",
+    ".psb",
+    ".psd",
+    ".stl",
+    ".usd",
+    ".usda",
+    ".usdc",
+    ".xcf"
+  ],
+  "runtimeModelPrefixes": [
+    "public/models/"
+  ],
+  "runtimeModelExtensions": [
+    ".abc",
+    ".bin",
+    ".dae",
+    ".fbx",
+    ".glb",
+    ".gltf",
+    ".ktx2",
+    ".obj",
+    ".stl",
+    ".usd",
+    ".usda",
+    ".usdc"
+  ],
+  "runtimeMediaPrefixes": [
+    "public/images/",
+    "public/textures/"
+  ],
+  "binaryExtensions": [
+    ".avif",
+    ".bin",
+    ".blend",
+    ".blend1",
+    ".fbx",
+    ".gif",
+    ".glb",
+    ".gltf",
+    ".gz",
+    ".har",
+    ".hdr",
+    ".jpeg",
+    ".jpg",
+    ".ktx2",
+    ".m4a",
+    ".mov",
+    ".mp3",
+    ".mp4",
+    ".obj",
+    ".pdf",
+    ".png",
+    ".psb",
+    ".psd",
+    ".stl",
+    ".tif",
+    ".tiff",
+    ".usd",
+    ".usda",
+    ".usdc",
+    ".wav",
+    ".webm",
+    ".webp",
+    ".xcf",
+    ".zip"
+  ],
+  "holdPathPatterns": [
+    "(?:^|/)xinhua-mansion(?:\\.|/)",
+    "(?:^|/)xinhua-villas\\.(?:blend|glb)$",
+    "(?:^|/)wukang-mansion(?:\\.|/)",
+    "(?:^|/)navy-club-pool(?:\\.|/)"
+  ],
+  "approvedAdditions": []
+}
