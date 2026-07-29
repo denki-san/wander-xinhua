@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "assetId": "house-315",
+  "stage": "massing",
+  "status": "pass",
+  "recordedAt": "2026-07-28T20:03:19+08:00",
+  "browser": "Codex In-app Browser",
+  "buildMode": "production",
+  "url": "http://127.0.0.1:4177/building-engine-sandbox?asset=house-315&tier=massing&view=canonical&qa=1",
+  "view": "canonical",
+  "glbSha256": "2111ba5f4d5529ecf09219fe1aa6d95b17c9ca6434cfefbc5db239f6761f06c6",
+  "collisionSha256": "adafb5e9bc784cdce4bfe73c51d32bfbe3b12aa971114b2e69110bba00889943",
+  "viewport": {
+    "width": 1280,
+    "height": 720,
+    "devicePixelRatio": 1
+  },
+  "canvas": {
+    "width": 804,
+    "height": 584
+  },
+  "pageVisibility": "visible",
+  "warmupSeconds": 2,
+  "sampleDurationSeconds": 5.02666,
+  "consoleErrors": 0,
+  "pageErrors": 0,
+  "modelVisible": true,
+  "groundContact": "pass",
+  "openPathCheck": "pass",
+  "fixedViewsReviewed": [
+    "canonical",
+    "side",
+    "entrance"
+  ],
+  "firstScreenResources": {
+    "total": 13,
+    "scripts": 8,
+    "stylesheets": 2,
+    "other": 3,
+    "fonts": 0,
+    "images": 0,
+    "video": 0,
+    "requiredOther": [
+      "manifest.json",
+      "house-315-collision.json",
+      "house-315-massing.glb"
+    ]
+  },
+  "performance": {
+    "source": "Chrome DevTools Protocol Performance.getMetrics",
+    "taskDurationDeltaSeconds": 0.000522,
+    "scriptDurationDeltaSeconds": 0,
+    "layoutDurationDeltaSeconds": 0,
+    "recalcStyleDurationDeltaSeconds": 0,
+    "jsHeapUsedBytesStart": 11720384,
+    "jsHeapUsedBytesEnd": 11720384,
+    "claim": "raw-sample-only-no-baseline-no-improvement-claim"
+  },
+  "screenshot": {
+    "path": "test_artifacts/building-engine-spike/house-315/test_house-315-massing-sandbox-canonical.png",
+    "sha256": "30ab129592e7fb7c582de817b07d3edbd6346cf5472dce632c8bff41e82a0940",
+    "bytes": 91964
+  },
+  "httpRecord": "docs/research/build-records/building-engine-spike/house-315/sandbox-http-massing.json",
+  "reviewNote": "主对照、侧向纵深和入口机位均人工查看；体块完整可见，根接地，碰撞障碍与两条必须开放路径没有重叠。"
+}

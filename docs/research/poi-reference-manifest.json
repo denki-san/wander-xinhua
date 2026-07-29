@@ -348,21 +348,37 @@
         "positionEvidence": "osm-way-494633921"
       },
       "cardPhoto": "/images/poi-thumbnails/hudec-memorial.jpg",
-      "canonicalReference": "docs/research/assets/requested-poi-references/hudec-memorial-front-wikimedia.jpg",
-      "photoStatus": "verified-same-building",
+      "canonicalReference": "docs/research/assets/requested-poi-references/hudec-memorial-user-oblique-overview-20260728.png",
+      "photoStatus": "verified-same-building-user-source-provenance-partial",
       "referencePhotos": [
+        {
+          "path": "docs/research/assets/requested-poi-references/hudec-memorial-user-oblique-overview-20260728.png",
+          "sourceUrl": null,
+          "sourceNote": "用户提供的 Codex 附件；可见 @文化上海 水印；原始 URL 与作者未知",
+          "view": "high-oblique-overview-current",
+          "captureDate": "unknown",
+          "acquiredAt": "2026-07-28",
+          "snapshotId": "2026-07-28-0ef306f",
+          "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-user-oblique-overview-20260728.png",
+          "sha256": "7f287bc923c99217ab208025b74357e567046226e51f8d26131cc990cbbd50c6"
+        },
+        {
+          "path": "docs/research/assets/requested-poi-references/hudec-memorial-user-glass-wing-20260728.png",
+          "sourceUrl": null,
+          "sourceNote": "用户提供的 Codex 附件；可见 @乐游上海 水印；原始 URL 与作者未知",
+          "view": "glass-wing-and-chimney-tower-current",
+          "captureDate": "unknown",
+          "acquiredAt": "2026-07-28",
+          "snapshotId": "2026-07-28-0ef306f",
+          "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-user-glass-wing-20260728.png",
+          "sha256": "8f33685ca2b01459412490d04c6710328b86e56fa8c2e5bb525cf07e4c0d64d8"
+        },
         {
           "path": "docs/research/assets/requested-poi-references/hudec-memorial-front-wikimedia.jpg",
           "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hudec_House.jpeg",
           "view": "front-right-three-quarter",
           "captureDate": "2018-06-09"
-        },
-        {
-          "path": "docs/research/assets/requested-poi-references/hudec-memorial-west-elevations.jpg",
-          "sourceUrl": "https://www.shcn.gov.cn/col6991/20260405/1307940.html",
-          "view": "west-elevations",
-          "captureDate": "unknown"
-        }
+    }
       ]
     },
     {

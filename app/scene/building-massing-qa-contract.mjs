@@ -123,10 +123,14 @@ export const BUILDING_MASSING_QA_CANDIDATES = Object.freeze({
     assetId: "hudec-memorial",
     requestedTier: "massing",
     modelPath:
-      "/models/requested-pois/hudec-memorial-massing.glb"
-      + "?v=20260726-hudec-massing-772ce8a8445a",
-    buildRecord: "docs/research/build-records/hudec-memorial-massing.json",
-    mapGate: "test_artifacts/test_hudec-memorial_map_calibration.json",
+      "/models/building-engine-spike/hudec-memorial/"
+      + "hudec-memorial-massing.glb?v=c83fb903cc0c",
+    buildRecord:
+      "docs/research/build-records/building-engine-spike/"
+      + "hudec-memorial/massing.json",
+    mapGate:
+      "docs/research/build-records/building-engine-spike/"
+      + "hudec-memorial/production-promotion.json",
     placement: Object.freeze({
       position: Object.freeze([92.535374, -132.52181]),
       yaw: 0.153486288,
@@ -136,14 +140,13 @@ export const BUILDING_MASSING_QA_CANDIDATES = Object.freeze({
       position: Object.freeze([92.5, -145]),
       forward: Object.freeze([0, 1]),
     }),
+    collisionMargin: 0,
     localObstacles: Object.freeze([
-      Object.freeze({ minX: -4.608, maxX: 4.104, minZ: -2.988, maxZ: 2.052 }),
-      Object.freeze({ minX: 2.016, maxX: 4.752, minZ: -3.42, maxZ: 1.62 }),
-      Object.freeze({ minX: -4.5, maxX: -0.9, minZ: -3.762, maxZ: -1.35 }),
-      Object.freeze({ minX: 0.738, maxX: 1.1124, minZ: 1.926, maxZ: 3.186 }),
-      Object.freeze({ minX: 2.7036, maxX: 3.078, minZ: 1.926, maxZ: 3.186 }),
-      Object.freeze({ minX: -6.048, maxX: -2.448, minZ: 4.5216, maxZ: 4.9104 }),
-      Object.freeze({ minX: 2.448, maxX: 6.048, minZ: 4.5216, maxZ: 4.9104 }),
+      Object.freeze({ minX: -4.6, maxX: 4.6, minZ: -2.85, maxZ: 1.95 }),
+      Object.freeze({ minX: -4.25, maxX: -1.15, minZ: 0.7, maxZ: 3.4 }),
+      Object.freeze({ minX: 1.15, maxX: 4.25, minZ: 0.7, maxZ: 3.4 }),
+      Object.freeze({ minX: -6.65, maxX: -4.25, minZ: -1.8, maxZ: 3.1 }),
+      Object.freeze({ minX: 4.075, maxX: 6.225, minZ: -2.25, maxZ: 0.85 }),
     ]),
   }),
   "xinhua-community-center": Object.freeze({
@@ -302,26 +305,65 @@ export const ACCEPTED_BUILDING_TIER_QA = Object.freeze({
   "hudec-memorial": Object.freeze({
     hero: Object.freeze({
       modelPath:
+        "/models/building-engine-spike/hudec-memorial/"
+        + "hudec-memorial-master.glb?v=b7002cbd4e5c",
+      buildRecord:
+        "docs/research/build-records/building-engine-spike/"
+        + "hudec-memorial/master.json",
+      runtimePromotionAllowed: true,
+      collisionMargin: 0,
+      localObstacles: Object.freeze([
+        Object.freeze({ minX: -4.6, maxX: 4.6, minZ: -2.85, maxZ: 1.95 }),
+        Object.freeze({ minX: -4.25, maxX: -1.15, minZ: 0.7, maxZ: 3.4 }),
+        Object.freeze({ minX: 1.15, maxX: 4.25, minZ: 0.7, maxZ: 3.4 }),
+        Object.freeze({ minX: -6.65, maxX: -4.25, minZ: -1.8, maxZ: 3.1 }),
+        Object.freeze({ minX: 4.075, maxX: 6.225, minZ: -2.25, maxZ: 0.85 }),
+      ]),
+    }),
+    identity: Object.freeze({
+      modelPath:
+        "/models/building-engine-spike/hudec-memorial/"
+        + "hudec-memorial-master.glb?v=b7002cbd4e5c",
+      buildRecord:
+        "docs/research/build-records/building-engine-spike/"
+        + "hudec-memorial/master.json",
+      runtimePromotionAllowed: true,
+      collisionMargin: 0,
+      localObstacles: Object.freeze([
+        Object.freeze({ minX: -4.6, maxX: 4.6, minZ: -2.85, maxZ: 1.95 }),
+        Object.freeze({ minX: -4.25, maxX: -1.15, minZ: 0.7, maxZ: 3.4 }),
+        Object.freeze({ minX: 1.15, maxX: 4.25, minZ: 0.7, maxZ: 3.4 }),
+        Object.freeze({ minX: -6.65, maxX: -4.25, minZ: -1.8, maxZ: 3.1 }),
+        Object.freeze({ minX: 4.075, maxX: 6.225, minZ: -2.25, maxZ: 0.85 }),
+      ]),
+    }),
+    "engine-master": Object.freeze({
+      modelPath:
+        "/models/building-engine-spike/hudec-memorial/"
+        + "hudec-memorial-master.glb?v=b7002cbd4e5c",
+      buildRecord:
+        "docs/research/build-records/building-engine-spike/"
+        + "hudec-memorial/master.json",
+      runtimePromotionAllowed: true,
+      collisionMargin: 0,
+      localObstacles: Object.freeze([
+        Object.freeze({ minX: -4.6, maxX: 4.6, minZ: -2.85, maxZ: 1.95 }),
+        Object.freeze({ minX: -4.25, maxX: -1.15, minZ: 0.7, maxZ: 3.4 }),
+        Object.freeze({ minX: 1.15, maxX: 4.25, minZ: 0.7, maxZ: 3.4 }),
+        Object.freeze({ minX: -6.65, maxX: -4.25, minZ: -1.8, maxZ: 3.1 }),
+        Object.freeze({ minX: 4.075, maxX: 6.225, minZ: -2.25, maxZ: 0.85 }),
+      ]),
+    }),
+    "legacy-hero": Object.freeze({
+      modelPath:
         "/models/requested-pois/hudec-memorial-v2-hero.glb"
         + "?v=20260726-hero-598b2ba19e24",
       buildRecord:
         "docs/research/build-records/tiers/xinhua-road/hero/"
         + "hudec-memorial-v2-hero.json",
-      localObstacles: Object.freeze([
-        Object.freeze({ minX: -4.608, maxX: 4.104, minZ: -2.988, maxZ: 2.052 }),
-        Object.freeze({ minX: 2.016, maxX: 4.752, minZ: -3.42, maxZ: 1.62 }),
-        Object.freeze({ minX: -4.5, maxX: -0.9, minZ: -3.762, maxZ: -1.35 }),
-        Object.freeze({ minX: 0.738, maxX: 1.1124, minZ: 1.926, maxZ: 3.186 }),
-        Object.freeze({ minX: 2.7036, maxX: 3.078, minZ: 1.926, maxZ: 3.186 }),
-      ]),
-    }),
-    identity: Object.freeze({
-      modelPath:
-        "/models/tiers/xinhua-road/identity-v1/hudec-memorial-identity.glb"
-        + "?v=20260726-identity-867f336824f6",
-      buildRecord:
-        "docs/research/build-records/tiers/xinhua-road/identity-v1/"
-        + "hudec-memorial-identity.json",
+      runtimePromotionAllowed: false,
+      rollbackOnly: true,
+      collisionMargin: 0.2,
       localObstacles: Object.freeze([
         Object.freeze({ minX: -4.608, maxX: 4.104, minZ: -2.988, maxZ: 2.052 }),
         Object.freeze({ minX: 2.016, maxX: 4.752, minZ: -3.42, maxZ: 1.62 }),
@@ -368,7 +410,12 @@ export function resolveBuildingTierQa(search = "") {
   if (requestedTier === "massing") {
     return resolveBuildingMassingQa(search);
   }
-  if (requestedTier !== "hero" && requestedTier !== "identity") return null;
+  if (
+    requestedTier !== "hero"
+    && requestedTier !== "identity"
+    && requestedTier !== "engine-master"
+    && requestedTier !== "legacy-hero"
+  ) return null;
   const shared = BUILDING_MASSING_QA_CANDIDATES[assetId];
   const tier = ACCEPTED_BUILDING_TIER_QA[assetId]?.[requestedTier];
   if (!shared || !tier) return null;
@@ -376,7 +423,14 @@ export function resolveBuildingTierQa(search = "") {
     ...shared,
     ...tier,
     requestedTier,
-    fallbackTier: requestedTier === "hero" ? "identity" : "massing",
+    fallbackTier:
+      requestedTier === "hero"
+        ? "identity"
+        : requestedTier === "engine-master"
+          ? "identity"
+          : requestedTier === "legacy-hero"
+            ? "identity"
+          : "massing",
     forcedFallback:
       params.get("qaActiveFallback") === `${assetId}:${requestedTier}`,
   });

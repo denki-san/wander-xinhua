@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "stage": "massing",
+  "status": "historical-target-summary",
+  "decision": "approved-then-superseded-by-canonical-calibration",
+  "lineage": {
+    "dslSha256": "c4f0f78cdef04b226e1b86ad45ba20a3e82db2fee0623fbd549450fb192fc6e4",
+    "artProfileSha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10",
+    "compilerSha256": "1c6674b0943dd6d992a4d595cfcba848b4c6e00f473c1fde39d929e7c58a00fe"
+  },
+  "artifact": {
+    "glbSha256": "f16bd1dea9572f60fbbe22734bca62e03c5ba86405a51a33c281e26d44c35165",
+    "collisionSha256": "f87535cb3c2e7b8360d8cc033092627623f4bd1cf0d3b3c231075adb4911ca03",
+    "bytes": 26044,
+    "triangles": 288,
+    "materials": 5,
+    "images": 0,
+    "bounds": {
+      "min": [
+        -5.9,
+        0,
+        -4.025
+      ],
+      "max": [
+        5.175,
+        8.05,
+        4.005
+      ]
+    },
+    "archivedBinary": null,
+    "archiveStatus": "not-preserved-before-camera-calibration"
+  },
+  "sandboxRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-massing-iteration1.json",
+  "note": "该灰模通过烟囱高度校准，但后续 Master 对照发现 canonical 方向未同时呈现低翼与半木构，因此被新的 DSL/camera 校准取代。保留目标 SHA 与 Sandbox 证据，不声称旧二进制仍在当前输出路径。"
+}

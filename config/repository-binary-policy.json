@@ -138,5 +138,48 @@
     "(?:^|/)wukang-mansion(?:\\.|/)",
     "(?:^|/)navy-club-pool(?:\\.|/)"
   ],
-  "approvedAdditions": []
+  "approvedAdditions": [
+    {
+      "path": "docs/research/poi-reference-manifest.json",
+      "sha256": "95266af67b17085c3f731d8c2bd9ee29aa3163697157cbf7eea4484479caf679",
+      "bytes": 23715,
+      "reason": "Building Engine 新增邬达克纪念馆审核证据索引；原始动态证据仍以外置不可变快照为真值"
+    },
+    {
+      "path": "public/models/building-engine-spike/house-315/house-315-massing.glb",
+      "sha256": "2111ba5f4d5529ecf09219fe1aa6d95b17c9ca6434cfefbc5db239f6761f06c6",
+      "bytes": 12740,
+      "reason": "garden-villa Building Engine 的 House 315 Massing 运行时资产"
+    },
+    {
+      "path": "public/models/building-engine-spike/house-315/house-315-master.glb",
+      "sha256": "69b36c6779ee09ec49350ef0d1182eced99126a0608bcfaf3aec0f8caed1d9c2",
+      "bytes": 79692,
+      "reason": "garden-villa Building Engine 的 House 315 Master 运行时资产"
+    },
+    {
+      "path": "public/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb",
+      "sha256": "c83fb903cc0c8ee9adc047a787a52f7e3e0f35257d305adfd8ba5bb0aabbb4d2",
+      "bytes": 22040,
+      "reason": "garden-villa Building Engine 的邬达克纪念馆 Massing 运行时资产"
+    },
+    {
+      "path": "public/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb",
+      "sha256": "b7002cbd4e5cb2ce9448e747ebacd9cf7faaa3cdcd81046272c0e57fd3635002",
+      "bytes": 216172,
+      "reason": "新华路首个可玩关键路径使用的邬达克纪念馆 Master 运行时资产"
+    },
+    {
+      "path": "public/models/building-engine-spike/sun-ke-villa/sun-ke-villa-massing.glb",
+      "sha256": "357cf3b6548594ee2f1e2cec9c78cf29265f8d853aa11f52311534ed7dd9ad28",
+      "bytes": 22236,
+      "reason": "garden-villa Building Engine 第三栋盲测的孙科别墅 Massing 运行时资产"
+    },
+    {
+      "path": "public/models/building-engine-spike/sun-ke-villa/sun-ke-villa-master.glb",
+      "sha256": "a5312d67e673a8356fd8507289a146d438667c33832ccbee0a4f7a69dde4ee49",
+      "bytes": 186044,
+      "reason": "garden-villa Building Engine 第三栋盲测的孙科别墅 Master 运行时资产"
+    }
+  ]
 }

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 9,
+  "assetId": "hudec-memorial",
+  "gate": "massing",
+  "decision": "approved",
+  "reviewedAt": "2026-07-29T12:17:37.254Z",
+  "reviewer": "lei + Codex topology A final DSL calibration",
+  "reviewerType": "user-selection-led-manual-review",
+  "caseVersion": 4,
+  "target": {
+    "stage": "massing",
+    "dslSha256": "dcd0e928df92d2229ae5ccfe6677ad9572f0825ebfe7bfd5491fc3e0208105c4",
+    "glbSha256": "d9e4523d1587a7bead978c8beb4d3913848ac7228e77d663fdf3c9ecaaf2b192",
+    "collisionSha256": "9c3fc004ccfacb0e2056c2397db5d11de9cf06bf4881ed98e21cc649b23ca139",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/massing.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-massing-v5.json",
+    "sha256": "baaff13a0d9966cf41d39fe057d967c2cab1fdc9f5f13b1139886550c0839e75"
+  },
+  "note": "用户已选择 A，并确认两根对称烟囱位于靠正面的主屋面坡面，白色基座与红砖段均加高。最终 DSL 绑定后的 Massing 已在 production Sandbox 三固定机位复核；当前 GLB、collision、接地、三条非空开放路径、控制台与页面错误均通过。批准进入 Low-poly Master。"
+}

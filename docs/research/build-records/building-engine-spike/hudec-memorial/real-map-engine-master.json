@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "tier": "engine-master",
+  "status": "pass",
+  "recordedAt": "2026-07-29T00:54:21+08:00",
+  "browser": "agent-browser Chromium",
+  "buildMode": "production",
+  "scope": "explicit-qa-only",
+  "runtime": {
+    "route": "http://127.0.0.1:4177/?start=hudec&qaModelId=hudec-memorial&qaModelTier=engine-master&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+    "loadedStatus": "loaded",
+    "requestedTier": "engine-master",
+    "loadedTier": "engine-master",
+    "source": "/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb?v=cd3d49fcc108",
+    "viewport": [
+      1280,
+      720
+    ],
+    "pageVisibility": "visible",
+    "bounds": {
+      "min": [
+        86.51363387211619,
+        0.8895441246793208,
+        -137.62851916125808
+      ],
+      "max": [
+        97.84771111591779,
+        7.92954454429602,
+        -128.86367351072656
+      ]
+    },
+    "placement": {
+      "position": [
+        92.535374,
+        -132.52181
+      ],
+      "yaw": 0.153486288,
+      "scale": 0.88
+    },
+    "start": {
+      "position": [
+        92.5,
+        -145
+      ],
+      "forward": [
+        0,
+        1
+      ]
+    },
+    "collisionMargin": 0,
+    "consoleErrors": 0,
+    "pageErrors": 0,
+    "warnings": []
+  },
+  "checks": {
+    "placementAndGroundContact": {
+      "status": "pass",
+      "note": "初始视角可见新证据版双山墙、玻璃翼、白色烟囱塔与人物尺度；bounds 最低点贴合地面，未见漂浮、下陷或错误朝向。"
+    },
+    "requiredEntrancePath": {
+      "status": "pass",
+      "routeSuffix": "&qaMove=forward&qaMoveMs=6000&qaMoveTarget=94.86035497285316%2C-136.4878880975506",
+      "target": [
+        94.86035497285316,
+        -136.4878880975506
+      ],
+      "finalMovementSample": [
+        94.85343483300323,
+        -136.51284409165902
+      ],
+      "distanceToTarget": 0.02589768285931221,
+      "acceptanceThreshold": 0.1,
+      "note": "按新 DSL 门廊开放路径端点重新计算世界坐标；6 秒确定性路线进入四柱之间并抵达门前，误差低于 0.1。"
+    },
+    "solidWallCollision": {
+      "status": "pass",
+      "routeSuffix": "&qaMove=forward&qaMoveMs=6000&qaMoveTarget=92.535374%2C-132.52181",
+      "target": [
+        92.535374,
+        -132.52181
+      ],
+      "finalMovementSample": [
+        92.53460851819821,
+        -136.2028553490571
+      ],
+      "remainingDistance": 3.68104542864896,
+      "continuedInputBlocked": true,
+      "note": "持续前进输入未穿透双山墙下的半木构主墙；末段采样 Z 值保持不变，人物在墙前停下。"
+    },
+    "defaultProductionHeroUnchanged": {
+      "status": "pass",
+      "route": "http://127.0.0.1:4177/?start=hudec&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+      "qaTierDatasetAbsent": true,
+      "observedHudecResources": [
+        "/models/requested-pois/hudec-memorial-massing.glb?v=20260726-massing-772ce8a8445a",
+        "/models/tiers/xinhua-road/identity-v1/hudec-memorial-identity.glb?v=20260726-identity-867f336824f6",
+        "/models/requested-pois/hudec-memorial-v2-hero.glb?v=20260726-hero-598b2ba19e24"
+      ],
+      "engineMasterResourceAbsent": true,
+      "note": "无显式 qaModelTier 参数时仍只观察到既有 Massing、Identity 与正式 Hero；未出现 Building Engine Master 请求或 QA tier dataset。"
+    }
+  },
+  "rawFrameSamples": [
+    {
+      "check": "requiredEntrancePath",
+      "frames": 120,
+      "durationMs": 1976.5,
+      "fps": 60.713382241335694,
+      "rendererDrawCalls": 1559,
+      "rendererTriangles": 806473
+    },
+    {
+      "check": "solidWallCollision",
+      "frames": 120,
+      "durationMs": 1980.300000011921,
+      "fps": 60.5968792603533,
+      "rendererDrawCalls": 1562,
+      "rendererTriangles": 807573
+    }
+  ],
+  "performanceClaim": "raw-samples-only-no-baseline-no-improvement-claim",
+  "lineage": {
+    "dslSha256": "fde1d744684d9e47b9a4f89051f9c24077f89dd96e1407f38862dc8234d191b6",
+    "compilerSha256": "20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9",
+    "schemaSha256": "b3a89f7eda903f22c1ac5b07d2f6c02acee8a97e6bdec92ae2956b10faf1c444",
+    "artProfileSha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10",
+    "glbSha256": "cd3d49fcc1080b15be2ba76eea44f024213ae1b3a51530dbdfa4aeac10d65521",
+    "collisionSha256": "cb910b91864b38ed8b11969b097acf1233d3f33bff6255cc7aa164e4c731d65c",
+    "qaContractSha256": "86b36a7e527532df09128b67859f6c999514c45cdb95c7926f501745c1fe544d"
+  },
+  "rejectedPredecessor": "docs/research/build-records/building-engine-spike/hudec-memorial/real-map-engine-master-iteration1-rejected.json",
+  "screenshots": [
+    {
+      "check": "placementAndGroundContact",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-engine-master-map-canonical.png",
+      "sha256": "c1d0a02331d11889ff6bca25f6c756235f86952b35be7f4c30fb664001117881",
+      "bytes": 386974
+    },
+    {
+      "check": "requiredEntrancePath",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-engine-master-map-entrance-pass.png",
+      "sha256": "62fb0a0de76ff3e5325989885b7cd465cb1b9b1c4b2e41e0eff1baebb6f21241",
+      "bytes": 365753
+    },
+    {
+      "check": "solidWallCollision",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-engine-master-map-wall-block.png",
+      "sha256": "739f4c87195dcad42ff45f4757fa66f2ceb989b12d0427f342b1b7eda3f2ae8c",
+      "bytes": 589846
+    },
+    {
+      "check": "defaultProductionHeroUnchanged",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-default-hero-map.png",
+      "sha256": "5213b102d1c59174f6b4ffb3a8a6367bb437b4bc1d3b0102fac68ecb45eba689",
+      "bytes": 385537
+    }
+  ]
+}

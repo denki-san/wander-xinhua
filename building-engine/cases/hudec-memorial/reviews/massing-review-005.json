@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 5,
+  "assetId": "hudec-memorial",
+  "gate": "massing",
+  "decision": "approved",
+  "reviewedAt": "2026-07-28T16:18:20.249Z",
+  "reviewer": "Codex evidence-corrected visual review",
+  "reviewerType": "independent-manual-review",
+  "caseVersion": 2,
+  "target": {
+    "stage": "massing",
+    "dslSha256": "75518a1117b91af2330d9626b592ad1343aebdbc41b757400450f35939511f05",
+    "glbSha256": "13bd66ba0b25b79626b5fe927cd9b74011dabf714b3611121bae342f2140f1b3",
+    "collisionSha256": "c647b078f205ca22437c568d7c0f68b99d02f19da4e75f1ae0c578ea265e6f34",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/massing.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-massing.json",
+    "sha256": "2c0f7be03ba1dd353a7670697e2e267aafa8e588e9fb98c74e6e5424a20c0c49"
+  },
+  "note": "新照片触发旧版撤销；本版按主对照、侧向和入口固定机位复核，玻璃长单坡、交错山墙、白色烟囱塔与成组红砖烟道关系通过 Gate M。"
+}

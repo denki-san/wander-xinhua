@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "archetype": "garden-villa",
+  "status": "ok",
+  "inputs": {
+    "case": {
+      "path": "building-engine/cases/hudec-memorial/building-case.json",
+      "sha256": "5def0d1aaa722fe83f268762cd6abe9e3da402ddb44d9c7dc098247a0277076c"
+    },
+    "dsl": {
+      "path": "building-engine/cases/hudec-memorial/building-dsl.json",
+      "sha256": "637a2473f5285c42ed7d1cc8c2788a3ef83db335588a00e63d3498d6be0b5bf9"
+    },
+    "schema": {
+      "path": "building-engine/schema/building-dsl.schema.json",
+      "sha256": "9fd4bc658d6a8e7e3972961dc114c4b05962f19a3b161b41a2c90b1ed7a4bfb8"
+    },
+    "artProfile": {
+      "path": "building-engine/art-profiles/xinhua-autumn-lowpoly-v1.json",
+      "sha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10"
+    }
+  },
+  "compiled": [
+    "volume:rear-main-range",
+    "volume:front-left-shallow-bay",
+    "volume:front-right-shallow-bay",
+    "volume:left-glass-lean-to",
+    "volume:right-low-return",
+    "volume:left-chimney-white-roof-base",
+    "volume:left-chimney-brick-head",
+    "volume:left-chimney-brick-cap",
+    "volume:right-chimney-white-roof-base",
+    "volume:right-chimney-brick-head",
+    "volume:right-chimney-brick-cap",
+    "roof:rear-main-roof",
+    "roof:front-left-shallow-gable",
+    "roof:front-right-shallow-gable",
+    "roof:left-glass-catslide",
+    "roof:right-low-return-roof",
+    "opening:left-glass-wing-side-window-row",
+    "opening:left-glass-wing-front-window-row",
+    "opening:front-left-bay-lower-window-row",
+    "opening:front-left-bay-upper-window-row",
+    "opening:front-right-bay-lower-window-row",
+    "opening:front-right-bay-upper-window-row",
+    "opening:central-upper-window-row",
+    "opening:central-left-ground-window",
+    "opening:central-right-ground-window",
+    "opening:central-arched-entry",
+    "opening:right-low-return-side-window-row",
+    "feature:front-left-timber-gable",
+    "feature:front-left-lower-timber-band",
+    "feature:front-left-upper-timber-band",
+    "feature:front-left-left-timber-post",
+    "feature:front-left-center-timber-post",
+    "feature:front-left-right-timber-post",
+    "feature:front-right-timber-gable",
+    "feature:front-right-lower-timber-band",
+    "feature:front-right-upper-timber-band",
+    "feature:front-right-left-timber-post",
+    "feature:front-right-center-timber-post",
+    "feature:front-right-right-timber-post",
+    "feature:central-lower-timber-band",
+    "feature:central-upper-timber-band",
+    "feature:central-left-timber-post",
+    "feature:central-right-timber-post",
+    "feature:left-glass-wing-side-eave-band",
+    "feature:left-glass-wing-side-mid-mullion",
+    "feature:left-glass-wing-side-post-01",
+    "feature:left-glass-wing-side-post-02",
+    "feature:left-glass-wing-side-post-03",
+    "feature:left-glass-wing-side-post-04",
+    "feature:left-glass-wing-side-post-05",
+    "feature:left-glass-wing-side-post-06",
+    "feature:left-glass-wing-side-post-07",
+    "feature:left-glass-wing-front-eave-band",
+    "feature:left-glass-wing-front-mid-mullion",
+    "feature:left-glass-wing-front-post-01",
+    "feature:left-glass-wing-front-post-02",
+    "feature:left-glass-wing-front-post-03",
+    "feature:left-glass-wing-front-post-04",
+    "feature:left-chimney-white-shoulder-band",
+    "feature:left-chimney-brick-crown",
+    "feature:left-chimney-front-rib-a",
+    "feature:left-chimney-front-rib-b",
+    "feature:right-chimney-white-shoulder-band",
+    "feature:right-chimney-brick-crown",
+    "feature:right-chimney-front-rib-a",
+    "feature:right-chimney-front-rib-b"
+  ],
+  "inferred": [
+    {
+      "claimId": "hudec-memorial-footprint-scale",
+      "confidence": 0.84,
+      "evidenceRefs": [
+        "hudec-memorial-osm-binding",
+        "hudec-memorial-user-oblique-overview",
+        "hudec-memorial-user-historic-front",
+        "hudec-memorial-canonical-depth",
+        "hudec-memorial-entrance"
+      ]
+    }
+  ],
+  "unsupported": [],
+  "ignored": [],
+  "conflict": [],
+  "counts": {
+    "claims": 10,
+    "evidenceItems": 11,
+    "volumes": 11,
+    "roofs": 5,
+    "openings": 11,
+    "features": 39,
+    "obstacles": 5,
+    "openPaths": 3
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "id": "xinhua-autumn-lowpoly-v1",
+  "description": "新华秋日绘本式低多边形建筑色板与可读性合同。",
+  "coordinateContract": {
+    "sceneUnitMeters": 2.7,
+    "front": "local-negative-y",
+    "groundDatum": 0
+  },
+  "palette": {
+    "warm-plaster": {
+      "color": "#c8bda7",
+      "roughness": 0.94,
+      "metallic": 0
+    },
+    "warm-plaster-shadow": {
+      "color": "#a89b84",
+      "roughness": 0.95,
+      "metallic": 0
+    },
+    "muted-brick": {
+      "color": "#833e31",
+      "roughness": 0.96,
+      "metallic": 0
+    },
+    "muted-red-tile": {
+      "color": "#74372c",
+      "roughness": 0.9,
+      "metallic": 0
+    },
+    "deep-timber": {
+      "color": "#302b27",
+      "roughness": 0.86,
+      "metallic": 0
+    },
+    "warm-stone": {
+      "color": "#d5c7a8",
+      "roughness": 0.9,
+      "metallic": 0
+    },
+    "muted-glass": {
+      "color": "#48615f",
+      "roughness": 0.42,
+      "metallic": 0
+    },
+    "entrance-shadow": {
+      "color": "#202b2a",
+      "roughness": 0.82,
+      "metallic": 0
+    },
+    "dark-metal": {
+      "color": "#2c3431",
+      "roughness": 0.72,
+      "metallic": 0.18
+    },
+    "path-stone": {
+      "color": "#9f927b",
+      "roughness": 0.95,
+      "metallic": 0
+    },
+    "massing-wall": {
+      "color": "#b7aa91",
+      "roughness": 1,
+      "metallic": 0
+    },
+    "massing-roof": {
+      "color": "#68413a",
+      "roughness": 1,
+      "metallic": 0
+    }
+  },
+  "readability": {
+    "minimumOpeningFrameThickness": 0.045,
+    "minimumTrimThickness": 0.05,
+    "minimumBalconyRailThickness": 0.04,
+    "minimumCollisionGap": 0.12,
+    "humanHeightMeters": 1.8,
+    "humanHeightSceneUnits": 0.666667
+  },
+  "preview": {
+    "resolution": [960, 720],
+    "background": "#d7cba9",
+    "ground": "#667065",
+    "human": "#d46f3d",
+    "frontMarker": "#3f7893"
+  },
+  "defaultBudgets": {
+    "massing": {
+      "maxNodes": 32,
+      "maxTriangles": 1500,
+      "maxMaterials": 4,
+      "maxImages": 0,
+      "maxBytes": 250000
+    },
+    "master": {
+      "maxNodes": 64,
+      "maxTriangles": 12000,
+      "maxMaterials": 10,
+      "maxImages": 0,
+      "maxBytes": 1500000
+    }
+  },
+  "forbidden": [
+    "reference-photo-texture",
+    "embedded-image",
+    "protected-logo",
+    "brick-by-brick-geometry",
+    "hidden-interior",
+    "unreviewed-unknown-detail"
+  ]
+}

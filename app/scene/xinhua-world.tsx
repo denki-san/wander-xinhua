@@ -382,6 +382,27 @@ function requestedStartPreset(requestedName?: string): StartPreset {
   };
 }
 
+function requestedQaStartOverride() {
+  if (typeof window === "undefined") return null;
+  const parameters = new URLSearchParams(window.location.search);
+  if (
+    parameters.get("qaAutoStart") !== "1"
+    || parameters.get("cameraQa") !== "1"
+  ) {
+    return null;
+  }
+  const rawStart = parameters.get("qaStart");
+  if (!rawStart) return null;
+  const coordinates = rawStart.split(",").map(Number);
+  if (
+    coordinates.length !== 2
+    || coordinates.some((value) => !Number.isFinite(value))
+  ) {
+    return null;
+  }
+  return groundedPosition(coordinates[0], coordinates[1]);
+}
+
 const XINGFULI_WORLD_OBSTACLES = XINGFULI_OBSTACLES.map((obstacle) => transformMapObstacle(
   obstacle,
   XINGFULI_POSITION,
@@ -989,7 +1010,11 @@ function PlayableWanderer({
   const { camera, gl } = useThree();
   const outer = useRef<Group>(null);
   const groundShadow = useRef<Group>(null);
-  const initialStart = useMemo(() => requestedStartPreset(startPreset), [startPreset]);
+  const initialStart = useMemo(() => {
+    const preset = requestedStartPreset(startPreset);
+    const qaStart = requestedQaStartOverride();
+    return qaStart ? { ...preset, position: qaStart } : preset;
+  }, [startPreset]);
   const qaMoveTarget = useMemo(() => {
     if (typeof window === "undefined") return null;
     const parameters = new URLSearchParams(window.location.search);

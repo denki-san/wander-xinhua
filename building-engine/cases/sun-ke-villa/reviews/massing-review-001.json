@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 1,
+  "assetId": "sun-ke-villa",
+  "gate": "massing",
+  "decision": "approved",
+  "reviewedAt": "2026-07-28T12:04:22.367Z",
+  "reviewer": "codex-independent-visual-audit",
+  "reviewerType": "codex-visual-review",
+  "caseVersion": 1,
+  "target": {
+    "stage": "massing",
+    "dslSha256": "06d6fa20b81dee8b2abf431f7d3e445da0a8ea3b120277886cf2f1fbcb1abafc",
+    "glbSha256": "357cf3b6548594ee2f1e2cec9c78cf29265f8d853aa11f52311534ed7dd9ad28",
+    "collisionSha256": "1d18b0c89238e10fa7c98fa5b2403f9cc08eb2fc67c45e33d1481258d1d5676a",
+    "buildRecord": "docs/research/build-records/building-engine-spike/sun-ke-villa/massing.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/sun-ke-villa/sandbox-massing.json",
+    "sha256": "fed0dda45005ac2e74bae46a82bd55266a28f6c39058de66f8fef97fcaa6d264"
+  },
+  "note": "三处固定机位完成视觉校准；中央主楼、西侧低翼、东侧圆塔与北侧门廊关系清楚，允许进入 Low-poly Master。"
+}

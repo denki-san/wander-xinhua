@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 1,
+  "assetId": "sun-ke-villa",
+  "gate": "final",
+  "decision": "approved-spike-with-known-unknowns",
+  "reviewedAt": "2026-07-28T12:13:56.294Z",
+  "reviewer": "codex-independent-visual-audit",
+  "reviewerType": "codex-visual-review",
+  "caseVersion": 1,
+  "target": {
+    "stage": "master",
+    "dslSha256": "06d6fa20b81dee8b2abf431f7d3e445da0a8ea3b120277886cf2f1fbcb1abafc",
+    "glbSha256": "a5312d67e673a8356fd8507289a146d438667c33832ccbee0a4f7a69dde4ee49",
+    "collisionSha256": "1d18b0c89238e10fa7c98fa5b2403f9cc08eb2fc67c45e33d1481258d1d5676a",
+    "buildRecord": "docs/research/build-records/building-engine-spike/sun-ke-villa/master.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/sun-ke-villa/sandbox-master.json",
+    "sha256": "9dc812e1a403c79e3498fe947f6d2ec9afe3bc6af6cd260a9e1e5ee0abfed79e"
+  },
+  "note": "参考/Blender/Three.js 三联对照通过；实测高度、隐藏侧窗与后坡细节继续保持为已知未知。"
+}

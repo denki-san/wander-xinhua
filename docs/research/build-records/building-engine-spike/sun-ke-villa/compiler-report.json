@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "assetId": "sun-ke-villa",
+  "archetype": "garden-villa",
+  "status": "ok",
+  "inputs": {
+    "case": {
+      "path": "building-engine/cases/sun-ke-villa/building-case.json",
+      "sha256": "029bed194ee3c75ee72d11964220ae9a12f84f8975d6e37239ead9f7865a677b"
+    },
+    "dsl": {
+      "path": "building-engine/cases/sun-ke-villa/building-dsl.json",
+      "sha256": "06d6fa20b81dee8b2abf431f7d3e445da0a8ea3b120277886cf2f1fbcb1abafc"
+    },
+    "schema": {
+      "path": "building-engine/schema/building-dsl.schema.json",
+      "sha256": "9fd4bc658d6a8e7e3972961dc114c4b05962f19a3b161b41a2c90b1ed7a4bfb8"
+    },
+    "artProfile": {
+      "path": "building-engine/art-profiles/xinhua-autumn-lowpoly-v1.json",
+      "sha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10"
+    }
+  },
+  "compiled": [
+    "volume:central-residence",
+    "volume:lower-west-wing",
+    "volume:rounded-east-tower",
+    "volume:front-dormer",
+    "volume:porte-cochere-front-left-column",
+    "volume:porte-cochere-front-right-column",
+    "volume:porte-cochere-rear-left-column",
+    "volume:porte-cochere-rear-right-column",
+    "volume:porte-cochere-left-beam",
+    "volume:porte-cochere-right-beam",
+    "roof:central-tiled-roof",
+    "roof:west-wing-tiled-roof",
+    "roof:tower-low-curved-roof",
+    "roof:front-dormer-roof",
+    "roof:porte-cochere-gable-roof",
+    "opening:garden-pointed-entry-left",
+    "opening:garden-pointed-entry-center",
+    "opening:garden-pointed-entry-right",
+    "opening:garden-upper-arch-row",
+    "opening:west-wing-window-row",
+    "opening:north-upper-pointed-row",
+    "feature:garden-balcony",
+    "feature:rounded-east-tower-identity",
+    "feature:north-porte-cochere-identity",
+    "feature:main-chimney",
+    "feature:garden-string-course"
+  ],
+  "inferred": [
+    {
+      "claimId": "sun-ke-villa-scale",
+      "confidence": 0.8,
+      "evidenceRefs": [
+        "sun-ke-villa-canonical",
+        "sun-ke-villa-right-front"
+      ]
+    }
+  ],
+  "unsupported": [],
+  "ignored": [],
+  "conflict": [],
+  "counts": {
+    "claims": 7,
+    "evidenceItems": 4,
+    "volumes": 10,
+    "roofs": 5,
+    "openings": 6,
+    "features": 5,
+    "obstacles": 7,
+    "openPaths": 2
+  }
+}

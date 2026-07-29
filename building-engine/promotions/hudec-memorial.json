@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "status": "production-promotion-ready-local",
+  "decision": "promote-selected-topology-a",
+  "sourceCommit": "2afcefbe500cbfa5ecc7d9da9888828f66b77706",
+  "acceptedEvidenceSnapshot": "2026-07-29-a396474",
+  "reviewedSourceCommit": "c2e600a08a74e19d41b7bebe2a1e0cd607f201f0",
+  "promotionAcceptanceSnapshot": "2026-07-30-c2e600a",
+  "production": {
+    "hero": {
+      "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb",
+      "sha256": "b7002cbd4e5cb2ce9448e747ebacd9cf7faaa3cdcd81046272c0e57fd3635002",
+      "cacheVersion": "b7002cbd4e5c",
+      "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/master.json"
+    },
+    "identity": {
+      "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb",
+      "sha256": "b7002cbd4e5cb2ce9448e747ebacd9cf7faaa3cdcd81046272c0e57fd3635002",
+      "cacheVersion": "b7002cbd4e5c",
+      "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/master.json",
+      "strategy": "reuse-low-poly-master-and-browser-cache"
+    },
+    "massing": {
+      "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb",
+      "sha256": "c83fb903cc0c8ee9adc047a787a52f7e3e0f35257d305adfd8ba5bb0aabbb4d2",
+      "cacheVersion": "c83fb903cc0c",
+      "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/massing.json"
+    },
+    "collision": {
+      "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-collision.json",
+      "sha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637",
+      "collisionMargin": 0,
+      "localObstacles": [
+        { "minX": -4.6, "maxX": 4.6, "minZ": -2.85, "maxZ": 1.95 },
+        { "minX": -4.25, "maxX": -1.1500000000000001, "minZ": 0.6999999999999997, "maxZ": 3.4 },
+        { "minX": 1.1500000000000001, "maxX": 4.25, "minZ": 0.6999999999999997, "maxZ": 3.4 },
+        { "minX": -6.65, "maxX": -4.25, "minZ": -1.8000000000000003, "maxZ": 3.1 },
+        { "minX": 4.075, "maxX": 6.2250000000000005, "minZ": -2.25, "maxZ": 0.8500000000000001 }
+      ]
+    },
+    "localBounds": {
+      "minX": -6.875,
+      "maxX": 6.4,
+      "minZ": -3.15,
+      "maxZ": 3.79
+    },
+    "placement": {
+      "position": [92.535374, -132.52181],
+      "yaw": 0.153486288,
+      "scale": 0.88
+    },
+    "start": {
+      "position": [92.5, -145],
+      "forward": [0, 1]
+    }
+  },
+  "rollback": {
+    "status": "preserved-not-default",
+    "hero": {
+      "path": "/models/requested-pois/hudec-memorial-v2-hero.glb",
+      "sha256": "598b2ba19e2412d7a592836d45066c787a7cf1eac347a6a6c5d790c12ffabff5",
+      "cacheVersion": "20260726-hero-598b2ba19e24",
+      "buildRecord": "docs/research/build-records/tiers/xinhua-road/hero/hudec-memorial-v2-hero.json"
+    },
+    "identity": {
+      "path": "/models/tiers/xinhua-road/identity-v1/hudec-memorial-identity.glb",
+      "sha256": "867f336824f62eb2dddcb54d4dede6904278a0bcd940997df6c06278bf35660f",
+      "cacheVersion": "20260726-identity-867f336824f6"
+    },
+    "massing": {
+      "path": "/models/requested-pois/hudec-memorial-massing.glb",
+      "sha256": "772ce8a8445a2cc9f1496a9876960ecf78964f11d09209578a1a5fbd52864ff0",
+      "cacheVersion": "20260726-massing-772ce8a8445a"
+    },
+    "localBounds": {
+      "minX": -5.111999989,
+      "maxX": 5.098609447,
+      "minZ": -3.852000237,
+      "maxZ": 3.756000519
+    },
+    "collisionMargin": 0.2,
+    "localObstacles": [
+      { "minX": -4.608, "maxX": 4.104, "minZ": -2.988, "maxZ": 2.052 },
+      { "minX": 2.016, "maxX": 4.752, "minZ": -3.42, "maxZ": 1.62 },
+      { "minX": -4.5, "maxX": -0.9, "minZ": -3.762, "maxZ": -1.35 },
+      { "minX": 0.738, "maxX": 1.1124, "minZ": 1.926, "maxZ": 3.186 },
+      { "minX": 2.7036, "maxX": 3.078, "minZ": 1.926, "maxZ": 3.186 }
+    ],
+    "qaTier": "legacy-hero",
+    "rollbackProcedure": [
+      "restore production model, cacheVersion, localBounds, localObstacles and collisionMargin from this rollback block",
+      "restore Hudec hero, identity and massing entries in ACCEPTED_DERIVED_BUILDING_TIERS",
+      "run focused Hudec tests, npm test, npm run lint and real ?start=hudec acceptance"
+    ]
+  },
+  "validation": {
+    "status": "production-promotion-ready-local",
+    "implementationCommit": "a65a6592f563fc688ddfbdd4c98de54e7a39fa29",
+    "reviewedSourceCommit": "c2e600a08a74e19d41b7bebe2a1e0cd607f201f0",
+    "runtimeRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/production-promotion.json",
+    "acceptanceSnapshotRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/acceptance-snapshot-c2e600a.json",
+    "requiredRoutes": [
+      "/?start=hudec&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+      "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=legacy-hero&cameraQa=1&qaAutoStart=1&effects=off&district=off"
+    ],
+    "checks": {
+      "defaultProductionMaster": "pass",
+      "legacyRollbackRoute": "pass",
+      "canonicalSideEntrance": "pass",
+      "entrancePath": "pass",
+      "solidWallBlock": "pass",
+      "sideCirculation": "pass",
+      "consoleErrors": 0,
+      "pageErrors": 0
+    },
+    "projectGates": {
+      "buildingEngineArtifactQa": "4/4 production + 2/2 experimental pass",
+      "npmTest": "456/456 pass",
+      "lint": "0 errors / 1 pre-existing warning",
+      "independentReview": "0 Critical / 0 Important / 0 Minor",
+      "externalSnapshot": "745/745 SHA-256 pass"
+    },
+    "performanceClaim": "matched-local-raw-samples-no-online-improvement-claim",
+    "deployment": "not-authorized"
+  }
+}

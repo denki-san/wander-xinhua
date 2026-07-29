@@ -1,5 +1,88 @@
 # Learnings
 
+## [LRN-20260730-RBK] best_practice
+
+**Logged**: 2026-07-30T00:50:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: tests
+
+### Summary
+3D 资产回滚 QA 必须原子切换模型、角色碰撞、相机碰撞与 collision margin。
+
+### Details
+Hudec `legacy-hero` 首版只切回旧 GLB 和旧 `localObstacles`。Resolver 仍从新版
+shared contract 继承 `collisionMargin: 0`，相机障碍也无条件从新版 production
+landmark 生成，形成“旧模型 + 混合碰撞”的假回滚。仅检查旧 URL 与 loaded tier
+无法发现这种错误。
+
+### Suggested Action
+每个可回滚 3D tier 都应显式冻结碰撞 margin；角色与 spring-arm 相机必须从同一个
+active tier 构造障碍。自动测试要比较旧 tier 的角色 / 相机碰撞结果，并在真实页面
+重新验证旧资源、console 和 page errors。
+
+### Metadata
+- Source: error
+- Related Files: `app/scene/building-massing-qa-contract.mjs`,
+  `app/scene/xinhua-road-contract.ts`,
+  `tests/test_hudec_memorial_production_promotion.test.mjs`
+- Tags: rollback, collision, camera, qa, threejs
+
+### Resolution
+- **Resolved**: 2026-07-30T00:50:00+08:00
+- **Notes**: `legacy-hero` 显式恢复 `0.2` margin，相机碰撞跟随 active QA tier；
+  专项测试与 production runtime 重验通过。
+
+---
+
+## [LRN-20260728-HUD] correction
+
+**Logged**: 2026-07-28T23:23:23+08:00
+**Priority**: critical
+**Status**: in_progress
+**Area**: research
+
+### Summary
+用户新增的邬达克纪念馆照片证明已通过的 Building Engine Master 主体体块错误，
+上一轮视觉门属于假通过。
+
+### Details
+旧三联图虽然同时展示参考、Blender 和 Three.js，但模型把真实的长坡玻璃翼、
+落地白色烟囱塔、前后交错双山墙和紧凑复合屋面简化成宽盒主体、独立低翼与悬浮式
+三烟道。结构差异在旧对照图中已经可见，却因为只检查“有烟囱、半木构、坡屋顶”等
+类别特征而没有被否决。新照片还证明低玻璃翼与大坡屋顶是一体关系，不是后侧独立小屋。
+用户随后在模型图上明确标注：左侧长坡玻璃翼、烟囱塔和相连体量属于建筑侧面，
+右侧山墙与入口方向才是正面。旧 DSL 把近乎正交的侧立面与正立面摊成同一排，
+因此问题不仅是体块比例，而是平面朝向、转角关系和屋顶拓扑均被误读。
+第二轮 A/B/C 候选仍然错误地复用了同一套体块拓扑，只改了山墙宽度、长坡长度和
+烟囱高度。用户要求的“三个方案”实际是三种互斥的 3D 结构解释，例如前凸山墙究竟
+是浅凸立面、两条深翼，还是由后部横向主楼连接的 U 形布局；参数微调不算不同方案。
+用户补充确认三张照片是同一栋建筑的三个机位：现代正面斜视、靠近画面左侧烟囱的
+近距离广角，以及历史完全正面；两个烟囱在整体结构上对称。
+用户最终选择“横向主楼加两个浅前凸山墙”的 A 拓扑，并在 A 三视图上继续标注：
+两根对称烟囱都从靠正面这一侧的主屋面坡面穿出。候选 A 把烟囱中心放到屋脊后侧，
+并把白色基座一直落到地面，导致侧向图读成外墙烟囱塔，位置仍然错误。
+
+### Suggested Action
+撤销旧 Massing / Final 通过结论，从新证据快照、覆盖矩阵和 canonical 机位重新开始。
+后续人工门必须逐项比较整体轮廓、屋面连接、主次体块、烟囱基座和玻璃翼位置，不能只
+核对身份构件名称；三联图中出现明显轮廓不一致时必须直接 reject。
+固定机位必须包含同时看见“左侧面 + 右正面”的正面右 45 度转角视角，并显式核验两个
+立面是否保持正交空间关系，不能再仅凭画面左右位置推断建筑正面。
+进入比例微调前，候选之间必须先改变平面连接和屋顶相交关系，并为每案写出可被照片
+证伪的结构假设；若三案只共享同一组 volume / roof 拓扑，则不得称为三个结构方案。
+烟囱位置必须成对建模并从完全正面机位核验左右关系，不能把第二根降级为普通后置烟道。
+屋面烟囱的白色基座必须从坡面交点附近开始，不能默认从地面生成；同时用正面斜视和
+画面左烟囱侧两个机位核验它们位于同一侧坡面，而不只检查完全正面下的左右对称。
+
+### Metadata
+- Source: user_feedback
+- Related Files: `building-engine/cases/hudec-memorial/`,
+  `docs/research/hudec-memorial-building-engine-blind-test-brief.md`
+- Tags: hudec, visual-gate, false-positive, evidence, correction
+
+---
+
 ## [LRN-20260727-MBX] correction
 
 **Logged**: 2026-07-27T12:00:00+08:00

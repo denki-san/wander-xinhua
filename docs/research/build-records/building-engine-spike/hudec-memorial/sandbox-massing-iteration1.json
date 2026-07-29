@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "stage": "massing",
+  "status": "pass",
+  "recordedAt": "2026-07-28T21:24:04+08:00",
+  "browser": "Codex In-app Browser",
+  "buildMode": "production",
+  "url": "http://127.0.0.1:4177/building-engine-sandbox?asset=hudec-memorial&tier=massing&view=canonical&qa=1",
+  "view": "canonical",
+  "glbSha256": "f16bd1dea9572f60fbbe22734bca62e03c5ba86405a51a33c281e26d44c35165",
+  "collisionSha256": "f87535cb3c2e7b8360d8cc033092627623f4bd1cf0d3b3c231075adb4911ca03",
+  "viewport": {
+    "width": 1280,
+    "height": 720,
+    "devicePixelRatio": 1
+  },
+  "canvas": {
+    "width": 804,
+    "height": 584
+  },
+  "pageVisibility": "visible",
+  "warmupSeconds": 2,
+  "sampleDurationSeconds": 5.024,
+  "consoleErrors": 0,
+  "pageErrors": 0,
+  "modelVisible": true,
+  "groundContact": "pass",
+  "openPathCheck": "pass",
+  "fixedViewsReviewed": [
+    "canonical",
+    "side",
+    "entrance"
+  ],
+  "firstScreenResources": {
+    "total": 13,
+    "scripts": 8,
+    "stylesheets": 2,
+    "other": 3,
+    "fonts": 0,
+    "images": 0,
+    "video": 0,
+    "requiredOther": [
+      "manifest.json",
+      "hudec-memorial-collision.json",
+      "hudec-memorial-massing.glb"
+    ]
+  },
+  "performance": {
+    "source": "Chrome DevTools Protocol Performance.getMetrics",
+    "taskDurationDeltaSeconds": 0.000147,
+    "scriptDurationDeltaSeconds": 0,
+    "layoutDurationDeltaSeconds": 0,
+    "recalcStyleDurationDeltaSeconds": 0,
+    "jsHeapUsedBytesStart": 9445652,
+    "jsHeapUsedBytesEnd": 9445652,
+    "claim": "raw-sample-only-no-baseline-no-improvement-claim"
+  },
+  "screenshots": [
+    {
+      "view": "canonical",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-sandbox-iteration1-canonical.png",
+      "sha256": "c99ca8c4b834f8030106d9914e65140ce605da9c652091f73ec3f2b0a8cd7be7",
+      "bytes": 98596
+    },
+    {
+      "view": "side",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-sandbox-iteration1-side.png",
+      "sha256": "12c8050bbec2dae67b853d5ecc031cad7c7e941101a95ebad86b6bfe0fe36a93",
+      "bytes": 92590
+    },
+    {
+      "view": "entrance",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-sandbox-iteration1-entrance.png",
+      "sha256": "c9c83f836b82666f21d60c2cea2b6f12dc09a5e25498fa6106cafbc8d4496c2d",
+      "bytes": 96449
+    }
+  ],
+  "httpRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-http-massing-iteration1.json",
+  "reviewNote": "三处固定机位均人工查看；第三次盲测灰模的层叠陡坡屋顶、三联高烟囱、端山墙、低玻璃翼、入口门廊和砖门柱可辨。模型根接地，八个拆分碰撞障碍与三条必须开放路径均通过。"
+}

@@ -1,0 +1,409 @@
+{
+  "schemaVersion": 1,
+  "caseVersion": 4,
+  "assetId": "hudec-memorial",
+  "archetype": "garden-villa",
+  "deliveryRole": "production",
+  "subject": {
+    "name": "邬达克纪念馆（邬达克旧居）",
+    "address": "上海市长宁区番禺路129号",
+    "boundary": "single-garden-villa",
+    "osmWayId": 494633921
+  },
+  "scope": {
+    "status": "selected-a-spike-approved-with-known-unknowns",
+    "modelAssetCount": 1,
+    "researchOnly": true,
+    "productionReplacementAuthorized": false
+  },
+  "briefPath": "docs/research/hudec-memorial-building-engine-blind-test-brief.md",
+  "dslPath": "building-engine/cases/hudec-memorial/building-dsl.json",
+  "evidenceArchive": {
+    "snapshotId": "2026-07-29-hudec-a-evidence-v1-083bde0",
+    "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-29-hudec-a-evidence-v1-083bde0",
+    "contentRoot": "repository",
+    "fileCount": 733,
+    "byteCount": 316420096,
+    "checksumStatus": "verified-all-2026-07-29-independent-recheck"
+  },
+  "orientationCorrections": [
+    {
+      "id": "hudec-memorial-user-front-side-orientation-20260729",
+      "source": "用户对被否决 Master 右前斜视图的直接标注",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-orientation-annotation-20260729.png",
+      "sha256": "02b2545ba6082bb486ff78f6a3ba54876adf76d4b5d9d421af8ea1eb3da84b79",
+      "statement": "左侧长坡玻璃翼、主烟囱和相连体量属于侧面；右侧山墙与入口方向才是正面。",
+      "effect": "正面与侧面必须在平面和屋顶中保持正交转角，不得再摊成同一排。",
+      "evidenceBasis": [
+        "hudec-memorial-user-glass-wing",
+        "hudec-memorial-user-oblique-overview",
+        "hudec-memorial-user-historic-front",
+        "hudec-memorial-entrance"
+      ],
+      "archiveStatus": "archived-2026-07-29-hudec-a-evidence-v1-083bde0"
+    },
+    {
+      "id": "hudec-memorial-user-topology-a-selection-20260729",
+      "source": "用户对三种互斥 3D 结构候选的直接选择",
+      "statement": "采用 A：横向通长主楼加两个浅前凸山墙；不采用 U 形深翼或前后贯通 H 形翼楼。",
+      "effect": "正式 Massing 使用通长横向主屋面、两个浅前凸正面山墙和画面左烟囱侧的长坡玻璃翼。",
+      "evidenceBasis": [
+        "hudec-memorial-user-modern-front-oblique",
+        "hudec-memorial-user-historic-front-wide",
+        "hudec-memorial-user-glass-wing"
+      ],
+      "archiveStatus": "archived-2026-07-29-hudec-a-evidence-v1-083bde0"
+    },
+    {
+      "id": "hudec-memorial-user-roof-chimney-correction-20260729",
+      "source": "用户对选定 A 三视图的直接标注与后续高度确认",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-roof-chimney-annotation-20260729.png",
+      "sha256": "af74e056baab5440e764d22e9bbd23aca51081887f6398a63dfffd89b0a90255",
+      "statement": "两根烟囱左右成对，均从靠正面一侧的主屋面坡面穿出；白色基座和红砖烟道都应采用加高版。",
+      "effect": "白色基座不再落地，双烟囱共享相同 Y 坐标和垂直分段，红砖冠部高于主屋脊。",
+      "evidenceBasis": [
+        "hudec-memorial-user-modern-front-oblique",
+        "hudec-memorial-user-historic-front-wide",
+        "hudec-memorial-user-roof-chimney-annotation"
+      ],
+      "archiveStatus": "archived-2026-07-29-hudec-a-evidence-v1-083bde0"
+    }
+  ],
+  "evidenceItems": [
+    {
+      "id": "hudec-memorial-canonical-depth",
+      "slot": "canonical",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-street-official-2026.jpg",
+      "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-street-official-2026.jpg",
+      "sha256": "5d1775a76aa341431ff03c7f04efd2b74fe143f230a1205f128ec53262c1d28f",
+      "source": "Shanghai Government English Portal / City News Service",
+      "view": "西后侧斜向，朝烟囱塔、层叠屋顶、端山墙和低玻璃翼",
+      "usageBoundary": "research-reference-only"
+    },
+    {
+      "id": "hudec-memorial-west-elevations",
+      "slot": "side-depth",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-west-elevations.jpg",
+      "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-west-elevations.jpg",
+      "sha256": "a23e28ef2cd1b985b5217654cca797b20f83048945d4fe57e9abac4fd8bf6a4b",
+      "source": "上海市长宁区人民政府",
+      "view": "三张历史西立面与烟囱塔草图",
+      "usageBoundary": "historic-structure-reference-only"
+    },
+    {
+      "id": "hudec-memorial-entrance",
+      "slot": "entrance-identity",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-front-wikimedia.jpg",
+      "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-front-wikimedia.jpg",
+      "sha256": "d2284eaec967e7414ad5873d2c63795b051b112a30dd9f39f3f7641a690a8f86",
+      "source": "Wikimedia Commons",
+      "view": "庭院正面偏右，入口门廊、砖拱门和半木构立面",
+      "usageBoundary": "research-reference-only"
+    },
+    {
+      "id": "hudec-memorial-user-oblique-overview",
+      "slot": "canonical",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-oblique-overview-20260728.png",
+      "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-user-oblique-overview-20260728.png",
+      "sha256": "7f287bc923c99217ab208025b74357e567046226e51f8d26131cc990cbbd50c6",
+      "source": "用户提供的 Codex 附件；可见 @文化上海 水印；原始 URL、作者与拍摄日期未知",
+      "view": "高位斜向总览，覆盖主屋脊、长坡玻璃翼、双山墙、白色烟囱塔和后侧低翼",
+      "usageBoundary": "research-reference-only-source-provenance-partial"
+    },
+    {
+      "id": "hudec-memorial-user-oblique-overview-crop",
+      "slot": "canonical-detail-crop",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-oblique-overview-crop-20260728.png",
+      "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-user-oblique-overview-crop-20260728.png",
+      "sha256": "5337dabc16367068f18bde2a0f6c62c8e431bd808cb4a82cd667ed2f68ab2b35",
+      "source": "用户提供的同机位裁切；原始 URL、作者与拍摄日期未知",
+      "view": "同一高位斜向画面的烟囱塔、长坡翼和中央山墙裁切，不计独立覆盖",
+      "usageBoundary": "research-reference-only-duplicate-view"
+    },
+    {
+      "id": "hudec-memorial-user-historic-front",
+      "slot": "historic-front",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-historic-front-20260728.png",
+      "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-user-historic-front-20260728.png",
+      "sha256": "63dee9616e1a5faa8891f3bf14771ca5871f9c623279254dc4301155258dfe8e",
+      "source": "用户提供的历史照片；原始 URL、作者与拍摄日期未知",
+      "view": "历史正向总览，覆盖交错双山墙、连续半木构、主屋脊与烟囱关系",
+      "usageBoundary": "historic-structure-reference-only"
+    },
+    {
+      "id": "hudec-memorial-user-glass-wing",
+      "slot": "side-depth",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-glass-wing-20260728.png",
+      "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-user-glass-wing-20260728.png",
+      "sha256": "8f33685ca2b01459412490d04c6710328b86e56fa8c2e5bb525cf07e4c0d64d8",
+      "source": "用户提供的 Codex 附件；可见 @乐游上海 水印；原始 URL、作者与拍摄日期未知",
+      "view": "近距离斜向，覆盖玻璃围护、连续长单坡屋面、端山墙和白色烟囱塔",
+      "usageBoundary": "research-reference-only-source-provenance-partial"
+    },
+    {
+      "id": "hudec-memorial-user-modern-front-oblique",
+      "slot": "canonical-current-front-oblique",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-modern-front-oblique-20260729.png",
+      "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-user-modern-front-oblique-20260729.png",
+      "sha256": "f94b6f3eca38fe68aa8ee309ba2a7c49fa0b499d72425fa7687cf4a43247282b",
+      "source": "用户提供；可见 Baidu 百科水印；原始 URL、作者与拍摄日期未知",
+      "view": "现代正面稍偏斜，覆盖通长主屋面、两个浅前凸山墙、长坡侧翼和成对烟囱",
+      "usageBoundary": "research-reference-only-source-provenance-partial"
+    },
+    {
+      "id": "hudec-memorial-user-historic-front-wide",
+      "slot": "historic-exact-front",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-historic-front-wide-20260729.png",
+      "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-user-historic-front-wide-20260729.png",
+      "sha256": "7ef4e9b43f74abc54a013345124d77ea3f6a966485ce972b4575a253454db5c5",
+      "source": "用户提供的历史完全正面照片；原始 URL、作者与拍摄日期未知",
+      "view": "历史完全正面，覆盖通长主屋脊、两个浅前凸山墙、中央退进立面和对称双烟囱",
+      "usageBoundary": "historic-structure-reference-only"
+    },
+    {
+      "id": "hudec-memorial-user-roof-chimney-annotation",
+      "slot": "direct-geometry-correction",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-roof-chimney-annotation-20260729.png",
+      "snapshotPath": "repository/docs/research/assets/requested-poi-references/hudec-memorial-user-roof-chimney-annotation-20260729.png",
+      "sha256": "af74e056baab5440e764d22e9bbd23aca51081887f6398a63dfffd89b0a90255",
+      "source": "用户在选定 A 三视图上的直接标注",
+      "view": "标注两根烟囱位于靠正面一侧主屋面坡面；后续文本确认白色与红色部分均需加高",
+      "usageBoundary": "authoritative-user-geometry-correction"
+    },
+    {
+      "id": "hudec-memorial-osm-binding",
+      "slot": "subject-binding",
+      "repositoryPath": "docs/research/data/requested-pois-osm-20260717-103840.json",
+      "snapshotPath": "repository/docs/research/data/requested-pois-osm-20260717-103840.json",
+      "sha256": "898624d284d460f6d696720278531db463f6f458cbbe49b7d4ab36d46905104e",
+      "source": "OpenStreetMap / Overpass snapshot",
+      "view": "way 494633921 地址、层数、历史建筑与主体名称",
+      "usageBoundary": "subject-and-footprint-binding-only"
+    }
+  ],
+  "coverage": {
+    "canonical": "supported-current-user-modern-front-oblique-plus-official",
+    "sideDepth": "supported-current-glass-wing-plus-official",
+    "frontSideOrientation": "supported-user-correction-over-archived-reference-views",
+    "historicExactFront": "supported-user-wide-historic-front",
+    "topologySelection": "supported-user-selected-a-over-three-mutually-exclusive-candidates",
+    "roofChimneys": "supported-user-annotation-plus-modern-and-historic-front",
+    "entranceIdentity": "supported",
+    "subjectBinding": "supported",
+    "footprint": "supported-osm-compound-envelope",
+    "rearEast": "partial-unknown",
+    "surveyedDimensions": "unknown"
+  },
+  "claims": [
+    {
+      "claimId": "hudec-memorial-main-massing",
+      "field": "massing.volumes",
+      "origin": "observed",
+      "confidence": 0.97,
+      "evidenceRefs": [
+        "hudec-memorial-user-modern-front-oblique",
+        "hudec-memorial-user-historic-front-wide",
+        "hudec-memorial-user-oblique-overview",
+        "hudec-memorial-user-historic-front",
+        "hudec-memorial-user-glass-wing",
+        "hudec-memorial-canonical-depth",
+        "hudec-memorial-entrance"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "用户选择 A 拓扑：横向通长主楼承托连续主屋面，正面两个山墙是浅前凸体块；画面左烟囱侧连接长坡玻璃翼，不采用 U 形深翼或前后贯通 H 形翼楼。"
+    },
+    {
+      "claimId": "hudec-memorial-front-side-orientation",
+      "field": "coordinateContract.front",
+      "origin": "observed",
+      "confidence": 0.99,
+      "evidenceRefs": [
+        "hudec-memorial-user-glass-wing",
+        "hudec-memorial-user-oblique-overview",
+        "hudec-memorial-user-historic-front",
+        "hudec-memorial-entrance"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "用户明确确认照片与模型对照中的左侧长坡翼为侧立面，右侧山墙与入口方向为正面；本地 -Y 继续定义正面，侧翼沿 X 侧展开。"
+    },
+    {
+      "claimId": "hudec-memorial-layered-roofs",
+      "field": "massing.roofs",
+      "origin": "observed",
+      "confidence": 0.97,
+      "evidenceRefs": [
+        "hudec-memorial-user-modern-front-oblique",
+        "hudec-memorial-user-historic-front-wide",
+        "hudec-memorial-user-oblique-overview",
+        "hudec-memorial-user-historic-front",
+        "hudec-memorial-user-glass-wing",
+        "hudec-memorial-canonical-depth",
+        "hudec-memorial-west-elevations",
+        "hudec-memorial-entrance"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "横向通长主屋脊后方连续，两个浅前凸山墙以纵向短屋脊穿入主屋面；画面左烟囱侧的长单坡玻璃翼贴附主体，画面右端保留低回转翼。"
+    },
+    {
+      "claimId": "hudec-memorial-triple-chimney",
+      "field": "massing.chimney",
+      "origin": "observed",
+      "confidence": 0.99,
+      "evidenceRefs": [
+        "hudec-memorial-canonical-depth",
+        "hudec-memorial-west-elevations"
+      ],
+      "reviewState": "superseded-new-evidence",
+      "valueSummary": "旧结论只描述三根红砖烟道，遗漏落地白色实体塔身，禁止继续作为几何 Claim。"
+    },
+    {
+      "claimId": "hudec-memorial-chimney-tower",
+      "field": "massing.chimney",
+      "origin": "observed",
+      "confidence": 0.99,
+      "evidenceRefs": [
+        "hudec-memorial-user-modern-front-oblique",
+        "hudec-memorial-user-historic-front-wide",
+        "hudec-memorial-user-roof-chimney-annotation",
+        "hudec-memorial-user-oblique-overview",
+        "hudec-memorial-user-historic-front",
+        "hudec-memorial-user-glass-wing",
+        "hudec-memorial-canonical-depth",
+        "hudec-memorial-west-elevations"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "两根烟囱左右成对并从靠正面一侧的主屋面坡面穿出；可见加高白色屋面基座，其上为更高红砖烟道和外扩冠部，二者不落地形成外墙塔。"
+    },
+    {
+      "claimId": "hudec-memorial-half-timber",
+      "field": "master.features.half-timber",
+      "origin": "observed",
+      "confidence": 0.98,
+      "evidenceRefs": [
+        "hudec-memorial-user-oblique-overview",
+        "hudec-memorial-user-historic-front",
+        "hudec-memorial-user-glass-wing",
+        "hudec-memorial-canonical-depth",
+        "hudec-memorial-entrance"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "暖白墙面上的近黑色木构、端山墙全高木构和密集窗格持续可见。"
+    },
+    {
+      "claimId": "hudec-memorial-entry-gate",
+      "field": "master.openings.entrance",
+      "origin": "observed",
+      "confidence": 0.96,
+      "evidenceRefs": [
+        "hudec-memorial-entrance"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "三角入口门廊、深色木门、短台阶与独立砖拱门共同定义庭院入口。"
+    },
+    {
+      "claimId": "hudec-memorial-glass-wing",
+      "field": "master.features.low-glass-wing",
+      "origin": "observed",
+      "confidence": 0.94,
+      "evidenceRefs": [
+        "hudec-memorial-user-oblique-overview",
+        "hudec-memorial-user-glass-wing",
+        "hudec-memorial-canonical-depth"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "玻璃围护沿建筑侧立面展开，位于贴附主体的长单坡屋面下，在正面转角前形成连续低透明基座。"
+    },
+    {
+      "claimId": "hudec-memorial-footprint-scale",
+      "field": "coordinateContract.scale",
+      "origin": "inferred",
+      "confidence": 0.84,
+      "evidenceRefs": [
+        "hudec-memorial-osm-binding",
+        "hudec-memorial-user-oblique-overview",
+        "hudec-memorial-user-historic-front",
+        "hudec-memorial-canonical-depth",
+        "hudec-memorial-entrance"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "OSM compound envelope、既有已验收落点和人物/门尺度共同约束水平包络，不声明测绘尺寸。"
+    },
+    {
+      "claimId": "hudec-memorial-palette",
+      "field": "materials",
+      "origin": "observed",
+      "confidence": 0.96,
+      "evidenceRefs": [
+        "hudec-memorial-user-oblique-overview",
+        "hudec-memorial-user-glass-wing",
+        "hudec-memorial-canonical-depth",
+        "hudec-memorial-entrance"
+      ],
+      "reviewState": "approved",
+      "valueSummary": "暖白灰泥、近黑木构、低饱和红砖和红褐屋面构成主体色彩。"
+    }
+  ],
+  "identityContract": {
+    "requiredClaimIds": [
+      "hudec-memorial-front-side-orientation",
+      "hudec-memorial-half-timber",
+      "hudec-memorial-layered-roofs",
+      "hudec-memorial-chimney-tower",
+      "hudec-memorial-entry-gate",
+      "hudec-memorial-glass-wing"
+    ],
+    "targetViewingDistanceSceneUnits": 15,
+    "detailsIntentionallyOmitted": [
+      "馆名、牌匾和受保护标志",
+      "逐片瓦、砖缝和烟囱雕饰",
+      "树木、绿篱和庭院装饰物",
+      "隐藏东立面与背立面的具体开口",
+      "三鸟风向标的雕塑细节"
+    ]
+  },
+  "unknowns": [
+    {
+      "field": "rear-east-facades",
+      "strategy": "只维持低细节封闭体块与可见屋顶连续性"
+    },
+    {
+      "field": "surveyed-dimensions",
+      "strategy": "使用 OSM envelope 与已审核视觉比例，不声明实测"
+    },
+    {
+      "field": "hidden-openings",
+      "strategy": "不生成不可见面身份开口"
+    },
+    {
+      "field": "weathervane-detail",
+      "strategy": "当前 DSL 不表达雕塑细节，不复制原物"
+    },
+    {
+      "field": "new-user-evidence-provenance",
+      "strategy": "保留可见水印、附件 SHA、获取日期和外置快照路径；原始 URL、作者与拍摄日期继续标记 unknown"
+    }
+  ],
+  "reviews": {
+    "evidence": "building-engine/cases/hudec-memorial/reviews/evidence-review-004.json",
+    "massing": [
+      "building-engine/cases/hudec-memorial/reviews/massing-review-001.json",
+      "building-engine/cases/hudec-memorial/reviews/massing-review-002.json",
+      "building-engine/cases/hudec-memorial/reviews/massing-review-003.json",
+      "building-engine/cases/hudec-memorial/reviews/massing-review-004.json",
+      "building-engine/cases/hudec-memorial/reviews/massing-review-005.json",
+      "building-engine/cases/hudec-memorial/reviews/massing-review-006.json",
+      "building-engine/cases/hudec-memorial/reviews/massing-review-007.json",
+      "building-engine/cases/hudec-memorial/reviews/massing-review-008.json",
+      "building-engine/cases/hudec-memorial/reviews/massing-review-009.json",
+      "building-engine/cases/hudec-memorial/reviews/massing-review-010.json"
+    ],
+    "final": [
+      "building-engine/cases/hudec-memorial/reviews/final-review-001.json",
+      "building-engine/cases/hudec-memorial/reviews/final-review-002.json",
+      "building-engine/cases/hudec-memorial/reviews/final-review-003.json",
+      "building-engine/cases/hudec-memorial/reviews/final-review-004.json",
+      "building-engine/cases/hudec-memorial/reviews/final-review-005.json",
+      "building-engine/cases/hudec-memorial/reviews/final-review-006.json"
+    ]
+  }
+}

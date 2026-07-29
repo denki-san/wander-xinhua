@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "tier": "engine-master",
+  "status": "rejected",
+  "date": "2026-07-28",
+  "reason": "required-open-path-endpoint-unreachable",
+  "route": "http://127.0.0.1:4177/?start=hudec&qaModelId=hudec-memorial&qaModelTier=engine-master&cameraQa=1&qaAutoStart=1&effects=off&district=off&qaMove=forward&qaMoveMs=6000&qaMoveTarget=94.78684331681714%2C-136.3874687944917",
+  "runtime": {
+    "viewport": [
+      1280,
+      720
+    ],
+    "pageVisibility": "visible",
+    "loadedStatus": "loaded",
+    "loadedTier": "engine-master",
+    "source": "/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb?v=30a6c8e8a6e0",
+    "consoleErrors": 0,
+    "pageErrors": 0,
+    "warning": "THREE.Clock deprecated warning only"
+  },
+  "input": {
+    "durationMs": 6000,
+    "start": [
+      92.5,
+      -145
+    ],
+    "target": [
+      94.78684331681714,
+      -136.3874687944917
+    ],
+    "final": [
+      94.7868433164734,
+      -136.94477507710943
+    ],
+    "remainingDistance": 0.5573062826177297,
+    "plateau": {
+      "fromElapsedMs": 3040.2,
+      "toElapsedMs": 6034.9,
+      "z": -136.94477507710943
+    }
+  },
+  "diagnosis": {
+    "playerRadiusWorld": 0.48,
+    "inheritedCollisionMarginWorld": 0.2,
+    "columnClearWidthLocal": 0.88,
+    "columnClearWidthWorldBeforeRotationAabb": 0.7744,
+    "requiredPlayerDiameterWorld": 0.96,
+    "conclusion": "入口柱间净宽小于人物直径，且全局 margin 进一步收窄路径；必须回到 DSL 校准柱距，不能用运行时隐藏碰撞绕过。"
+  },
+  "lineage": {
+    "dslSha256": "12b5b86f17f0b2fb6f7c7c8fa054a105b0ac6dc016bafc9e1d1dcf225157af85",
+    "glbSha256": "30a6c8e8a6e0257eae441f672dece9caafa0c8ad8bde89326cc662124a35bff4",
+    "collisionSha256": "b45b4daaca79be7f4c639abbdd920bef5eb5071c03bd92d99fbbfb019cb1051b"
+  },
+  "screenshot": {
+    "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-engine-master-map-entrance-blocked-iteration1.png",
+    "sha256": "88474f50a5538b162187099e311299ec725a09ae1af4f844f20ecc29cacb2702",
+    "bytes": 79092
+  }
+}

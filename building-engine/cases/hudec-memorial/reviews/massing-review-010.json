@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 10,
+  "assetId": "hudec-memorial",
+  "gate": "massing",
+  "decision": "approved",
+  "reviewedAt": "2026-07-29T12:23:55.982Z",
+  "reviewer": "lei + Codex topology A final timber calibration",
+  "reviewerType": "user-selection-led-manual-review",
+  "caseVersion": 4,
+  "target": {
+    "stage": "massing",
+    "dslSha256": "637a2473f5285c42ed7d1cc8c2788a3ef83db335588a00e63d3498d6be0b5bf9",
+    "glbSha256": "c83fb903cc0c8ee9adc047a787a52f7e3e0f35257d305adfd8ba5bb0aabbb4d2",
+    "collisionSha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/massing.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-massing-v6.json",
+    "sha256": "7fdc25a64dbfe582af0881e144fb6167e79b94ee579d86a0d404af679e41bdfb"
+  },
+  "note": "最终 DSL 仅把后续 Master 的三角山墙木构移到屋檐外表面；Massing 几何、碰撞与三机位像素保持不变，三张截图与前一审核逐像素一致。production Sandbox 当前 GLB、collision、接地、三条开放路径、控制台与页面错误均通过。批准进入修正后的 Low-poly Master。"
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 6,
+  "assetId": "hudec-memorial",
+  "gate": "massing",
+  "decision": "approved",
+  "reviewedAt": "2026-07-28T16:28:28.083Z",
+  "reviewer": "Codex evidence-corrected visual review",
+  "reviewerType": "independent-manual-review",
+  "caseVersion": 2,
+  "target": {
+    "stage": "massing",
+    "dslSha256": "fde1d744684d9e47b9a4f89051f9c24077f89dd96e1407f38862dc8234d191b6",
+    "glbSha256": "15e448bfbbde995f2dff3e7059b18969f640434c253bfb24962a148b4a714a9a",
+    "collisionSha256": "cb910b91864b38ed8b11969b097acf1233d3f33bff6255cc7aa164e4c731d65c",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/massing.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-massing.json",
+    "sha256": "e67e5f5fd32a68496da7855ab00f37a81fde8c20e7bfb19557bb1a537afa7788"
+  },
+  "note": "Master 外立面校准仅调整 master.features；为保持审核链严谨，已重建并重验绑定当前 DSL SHA 的同形 Massing，三固定机位及 production Sandbox 继续通过。"
+}

@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "archetype": "garden-villa",
+  "source": "building-engine/cases",
+  "manifestRole": "isolated-building-engine-sandbox",
+  "productionAssets": [
+    "house-315",
+    "hudec-memorial"
+  ],
+  "experimentalAssets": [
+    "sun-ke-villa"
+  ],
+  "assets": {
+    "house-315": {
+      "name": "新华路315号住宅",
+      "archetype": "garden-villa",
+      "deliveryRole": "production",
+      "coordinateContract": {
+        "sceneUnitMeters": 2.7,
+        "front": "local-negative-y",
+        "groundDatum": 0
+      },
+      "cameras": {
+        "canonical": {
+          "position": [
+            3.5,
+            -26,
+            11
+          ],
+          "target": [
+            -0.3,
+            0,
+            2.8
+          ],
+          "orthoScale": 18.5
+        },
+        "side": {
+          "position": [
+            21,
+            -16,
+            14.5
+          ],
+          "target": [
+            0,
+            0.5,
+            3.1
+          ],
+          "orthoScale": 18.5
+        },
+        "entrance": {
+          "position": [
+            7.5,
+            -19,
+            8.5
+          ],
+          "target": [
+            -1.3,
+            -1.5,
+            3
+          ],
+          "orthoScale": 13.5
+        }
+      },
+      "tiers": {
+        "massing": {
+          "path": "/models/building-engine-spike/house-315/house-315-massing.glb?v=2111ba5f4d55",
+          "sha256": "2111ba5f4d5529ecf09219fe1aa6d95b17c9ca6434cfefbc5db239f6761f06c6",
+          "bytes": 12740,
+          "bounds": {
+            "min": [
+              -7.675,
+              0,
+              -4.575
+            ],
+            "max": [
+              7.225,
+              6.95,
+              4.775
+            ]
+          }
+        },
+        "master": {
+          "path": "/models/building-engine-spike/house-315/house-315-master.glb?v=69b36c6779ee",
+          "sha256": "69b36c6779ee09ec49350ef0d1182eced99126a0608bcfaf3aec0f8caed1d9c2",
+          "bytes": 79692,
+          "bounds": {
+            "min": [
+              -7.675,
+              0,
+              -4.575
+            ],
+            "max": [
+              7.225,
+              6.982893,
+              4.876
+            ]
+          }
+        }
+      },
+      "collision": {
+        "path": "/models/building-engine-spike/house-315/house-315-collision.json?v=adafb5e9bc78",
+        "sha256": "adafb5e9bc784cdce4bfe73c51d32bfbe3b12aa971114b2e69110bba00889943",
+        "obstacleCount": 4,
+        "openPathCount": 2
+      }
+    },
+    "hudec-memorial": {
+      "name": "邬达克纪念馆（邬达克旧居）",
+      "archetype": "garden-villa",
+      "deliveryRole": "production",
+      "coordinateContract": {
+        "sceneUnitMeters": 2.7,
+        "front": "local-negative-y",
+        "groundDatum": 0
+      },
+      "cameras": {
+        "canonical": {
+          "position": [
+            -11.5,
+            -19,
+            8.2
+          ],
+          "target": [
+            0,
+            -0.7,
+            3.1
+          ],
+          "orthoScale": 14.8
+        },
+        "side": {
+          "position": [
+            -19,
+            -8.5,
+            7.8
+          ],
+          "target": [
+            -2.1,
+            -0.4,
+            3.05
+          ],
+          "orthoScale": 14.3
+        },
+        "entrance": {
+          "position": [
+            0,
+            -22,
+            6.6
+          ],
+          "target": [
+            0,
+            -0.8,
+            3
+          ],
+          "orthoScale": 14.2
+        }
+      },
+      "tiers": {
+        "massing": {
+          "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb?v=c83fb903cc0c",
+          "sha256": "c83fb903cc0c8ee9adc047a787a52f7e3e0f35257d305adfd8ba5bb0aabbb4d2",
+          "bytes": 22040,
+          "bounds": {
+            "min": [
+              -6.875,
+              0,
+              -3.15
+            ],
+            "max": [
+              6.4,
+              8.059999,
+              3.675
+            ]
+          }
+        },
+        "master": {
+          "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb?v=b7002cbd4e5c",
+          "sha256": "b7002cbd4e5cb2ce9448e747ebacd9cf7faaa3cdcd81046272c0e57fd3635002",
+          "bytes": 216172,
+          "bounds": {
+            "min": [
+              -6.875,
+              0,
+              -3.15
+            ],
+            "max": [
+              6.4,
+              8.15,
+              3.79
+            ]
+          }
+        }
+      },
+      "collision": {
+        "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-collision.json?v=0e853d79a138",
+        "sha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637",
+        "obstacleCount": 5,
+        "openPathCount": 3
+      }
+    },
+    "sun-ke-villa": {
+      "name": "孙科别墅",
+      "archetype": "garden-villa",
+      "deliveryRole": "experimental",
+      "coordinateContract": {
+        "sceneUnitMeters": 2.7,
+        "front": "local-negative-y",
+        "groundDatum": 0
+      },
+      "cameras": {
+        "canonical": {
+          "position": [
+            0.5,
+            -17,
+            7.2
+          ],
+          "target": [
+            -0.25,
+            0,
+            2.25
+          ],
+          "orthoScale": 10.8
+        },
+        "side": {
+          "position": [
+            12,
+            -12,
+            8.8
+          ],
+          "target": [
+            -0.2,
+            0.4,
+            2.3
+          ],
+          "orthoScale": 11.5
+        },
+        "entrance": {
+          "position": [
+            -7.5,
+            14.5,
+            7
+          ],
+          "target": [
+            -1.22,
+            3.2,
+            1.9
+          ],
+          "orthoScale": 8.6
+        }
+      },
+      "tiers": {
+        "massing": {
+          "path": "/models/building-engine-spike/sun-ke-villa/sun-ke-villa-massing.glb?v=357cf3b65485",
+          "sha256": "357cf3b6548594ee2f1e2cec9c78cf29265f8d853aa11f52311534ed7dd9ad28",
+          "bytes": 22236,
+          "bounds": {
+            "min": [
+              -3.94,
+              0,
+              -4.93
+            ],
+            "max": [
+              3.47,
+              4.67,
+              2.17
+            ]
+          }
+        },
+        "master": {
+          "path": "/models/building-engine-spike/sun-ke-villa/sun-ke-villa-master.glb?v=a5312d67e673",
+          "sha256": "a5312d67e673a8356fd8507289a146d438667c33832ccbee0a4f7a69dde4ee49",
+          "bytes": 186044,
+          "bounds": {
+            "min": [
+              -3.94,
+              0,
+              -4.93
+            ],
+            "max": [
+              3.519616,
+              5.14,
+              2.6375
+            ]
+          }
+        }
+      },
+      "collision": {
+        "path": "/models/building-engine-spike/sun-ke-villa/sun-ke-villa-collision.json?v=1d18b0c89238",
+        "sha256": "1d18b0c89238e10fa7c98fa5b2403f9cc08eb2fc67c45e33d1481258d1d5676a",
+        "obstacleCount": 7,
+        "openPathCount": 2
+      }
+    }
+  }
+}

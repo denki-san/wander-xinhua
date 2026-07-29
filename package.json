@@ -23,6 +23,7 @@
     "height:full:build": "node scripts/generate_overview_district_massing.mjs --raw docs/research/data/xinhua-buildings-osm-20260725-074802.json --height-mode full",
     "height:round2:build": "node scripts/generate_overview_district_massing.mjs --raw docs/research/data/xinhua-buildings-osm-20260725-074802.json --height-mode round2 --height-evidence app/scene/xinhua-building-height-runtime.json --activate-round2",
     "building:fast": "node scripts/run_building_fast_mode.mjs",
+    "building:spike": "node scripts/building_engine_spike.mjs",
     "test": "npm run check:binary-policy && npm run build && node --test tests/*.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern dist-static --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"

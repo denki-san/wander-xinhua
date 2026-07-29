@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
@@ -17,7 +18,62 @@ async function assertNonEmptyFile(relativePath, minimumBytes = 64) {
   assert.ok(metadata.size >= minimumBytes, `${relativePath} 文件异常小`);
 }
 
-test("17 个 POI 均有模型、可编辑来源和已核验的本地真实照片", async () => {
+async function fileExists(absolutePath) {
+  try {
+    await stat(absolutePath);
+    return true;
+  } catch (error) {
+    if (error?.code === "ENOENT") return false;
+    throw error;
+  }
+}
+
+async function sha256File(absolutePath) {
+  return createHash("sha256")
+    .update(await readFile(absolutePath))
+    .digest("hex");
+}
+
+async function assertReferencePhoto(photo, poiId) {
+  const repositoryPath = path.join(repoRoot, photo.path);
+  if (await fileExists(repositoryPath)) {
+    await assertNonEmptyFile(photo.path, 10_000);
+    if (photo.sha256) {
+      assert.equal(
+        await sha256File(repositoryPath),
+        photo.sha256,
+        `${poiId} 的仓库证据工作副本 SHA 不一致`,
+      );
+    }
+    return;
+  }
+
+  assert.ok(photo.snapshotId, `${poiId} 缺少照片时必须绑定外置快照`);
+  assert.ok(photo.snapshotPath, `${poiId} 缺少照片时必须绑定快照内路径`);
+  assert.match(photo.sha256 ?? "", /^[a-f0-9]{64}$/);
+
+  // CI 不要求挂载用户的外置硬盘；本地挂载存在时仍回查真实文件和 SHA。
+  const snapshotRoot = path.join(
+    "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots",
+    photo.snapshotId,
+  );
+  if (!(await fileExists(snapshotRoot))) return;
+  const snapshotPath = path.resolve(snapshotRoot, photo.snapshotPath);
+  assert.ok(
+    snapshotPath.startsWith(`${snapshotRoot}${path.sep}`),
+    `${poiId} 的快照路径越界`,
+  );
+  const metadata = await stat(snapshotPath);
+  assert.ok(metadata.isFile(), `${poiId} 的外置快照证据必须是文件`);
+  assert.ok(metadata.size >= 10_000, `${poiId} 的外置快照证据异常小`);
+  assert.equal(
+    await sha256File(snapshotPath),
+    photo.sha256,
+    `${poiId} 的外置快照证据 SHA 不一致`,
+  );
+}
+
+test("17 个 POI 均有模型、可编辑来源和已核验的照片或外置快照绑定", async () => {
   const manifestIds = manifest.pois.map(({ id }) => id).sort();
   const poiIds = MAP_POIS.map(({ id }) => id).sort();
   assert.deepEqual(manifestIds, poiIds);
@@ -52,9 +108,17 @@ test("17 个 POI 均有模型、可编辑来源和已核验的本地真实照片
       `${poi.id} 的多张照片必须是不同观察角度`,
     );
     for (const photo of record.referencePhotos) {
-      assert.match(photo.sourceUrl, /^https:\/\//);
+      if (photo.sourceUrl === null) {
+        assert.match(record.photoStatus, /source-provenance-partial$/);
+        assert.ok(photo.sourceNote, `${poi.id} 的用户证据必须保留来源缺口说明`);
+        assert.match(photo.sha256, /^[a-f0-9]{64}$/);
+        assert.ok(photo.snapshotId, `${poi.id} 的用户证据必须绑定外置快照`);
+        assert.ok(photo.snapshotPath, `${poi.id} 的用户证据必须绑定快照内路径`);
+      } else {
+        assert.match(photo.sourceUrl, /^https:\/\//);
+      }
       assert.ok(photo.captureDate, `${poi.id} 的照片必须记录拍摄日期或 unknown`);
-      await assertNonEmptyFile(photo.path, 10_000);
+      await assertReferencePhoto(photo, poi.id);
     }
   }
 });

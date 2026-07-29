@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 3,
+  "assetId": "hudec-memorial",
+  "gate": "final",
+  "decision": "approved-spike-with-known-unknowns",
+  "reviewedAt": "2026-07-28T16:40:39.596Z",
+  "reviewer": "Codex evidence-corrected final visual review",
+  "reviewerType": "independent-manual-review",
+  "caseVersion": 2,
+  "target": {
+    "stage": "master",
+    "dslSha256": "fde1d744684d9e47b9a4f89051f9c24077f89dd96e1407f38862dc8234d191b6",
+    "glbSha256": "cd3d49fcc1080b15be2ba76eea44f024213ae1b3a51530dbdfa4aeac10d65521",
+    "collisionSha256": "cb910b91864b38ed8b11969b097acf1233d3f33bff6255cc7aa164e4c731d65c",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/master.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-master.json",
+    "sha256": "263b6945f1af63ce829c1bea44aa88bf17af373bde6dec204193cb0a97290a58"
+  },
+  "note": "新照片、Blender canonical 与 production Three.js canonical 三联对照通过；本结论批准 evidence-corrected-engine-v2 实验链路，来源元数据、测绘尺寸、隐藏立面和风向标细节继续保留为未知，不授权直接替换生产 Hero。"
+}

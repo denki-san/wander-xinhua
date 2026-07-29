@@ -171,9 +171,46 @@ const XINHUA_POCKET_PARK_CAMERA_OBSTACLES =
       })
     : [];
 
+// Hudec 的花园住宅两侧是贴近长坡翼楼的窄通路。人物沿外墙绕行时，
+// spring arm 必须把当前实体碰撞体视为不透明，避免镜头穿进屋檐或玻璃翼。
+// 显式 legacy QA 必须连同旧碰撞与旧 margin 一起切换，不能出现旧模型配新碰撞。
+// 这里只增加 Hudec，不改变其他街景地标既有的透明相机策略。
+export function hudecCameraObstaclesForQa(
+  qaCandidate: BuildingMassingQaCandidate | null = ACTIVE_BUILDING_MASSING_QA,
+) {
+  return XINHUA_ROAD_LANDMARKS
+    .filter(({ id }) => id === "hudec-memorial")
+    .flatMap((landmark) => {
+      const qaActive =
+        qaCandidate?.assetId === landmark.id
+        && qaCandidate.placement
+        && qaCandidate.localObstacles
+          ? {
+              ...landmark,
+              position: [...qaCandidate.placement.position] as MapPolygonPoint,
+              yaw: qaCandidate.placement.yaw,
+              scale: qaCandidate.placement.scale,
+              localObstacles: [...qaCandidate.localObstacles],
+              collisionMargin: qaCandidate.collisionMargin,
+            }
+          : landmark;
+      return collisionObstaclesForLandmark(qaActive).map(
+        (localObstacle) => transformedLandmarkFootprint(
+          qaActive,
+          localObstacle,
+          qaActive.collisionMargin,
+        ),
+      );
+    });
+}
+
+export const XINHUA_HUDEC_CAMERA_OBSTACLES =
+  hudecCameraObstaclesForQa();
+
 export const XINHUA_ROAD_CAMERA_OBSTACLES: MapObstacle[] = [
   ...XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
   ...XINHUA_POCKET_PARK_CAMERA_OBSTACLES,
+  ...XINHUA_HUDEC_CAMERA_OBSTACLES,
 ];
 
 export const XINHUA_ROAD_START_PRESETS = Object.fromEntries(

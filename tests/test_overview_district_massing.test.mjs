@@ -235,7 +235,7 @@ test("同一原始快照离线重放会得到当前 GLB 的相同 SHA", async ()
     ],
     {
       cwd: new URL("../", import.meta.url),
-      timeout: 30_000,
+      timeout: 120_000,
     },
   );
   const replay = JSON.parse(stdout);

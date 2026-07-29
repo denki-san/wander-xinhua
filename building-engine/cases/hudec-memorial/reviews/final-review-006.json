@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 6,
+  "assetId": "hudec-memorial",
+  "gate": "final",
+  "decision": "approved-spike-with-known-unknowns",
+  "reviewedAt": "2026-07-29T12:38:40.799Z",
+  "reviewer": "Codex selected A final production-Sandbox comparison",
+  "reviewerType": "independent-manual-review",
+  "caseVersion": 4,
+  "target": {
+    "stage": "master",
+    "dslSha256": "637a2473f5285c42ed7d1cc8c2788a3ef83db335588a00e63d3498d6be0b5bf9",
+    "glbSha256": "b7002cbd4e5cb2ce9448e747ebacd9cf7faaa3cdcd81046272c0e57fd3635002",
+    "collisionSha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/master.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-master.json",
+    "sha256": "1ffabb02a0eb83bc7bad83b5b0a62d60f5ce0782599b3a58eee2f0848b42524c"
+  },
+  "note": "通过最终 Spike 终审：用户选定的 A 拓扑、靠正面屋面坡面的对称双烟囱、加高白色和红砖段，以及半木构双山墙、中央拱门、窗组和左侧长玻璃翼，均已进入同源 Blender 与 Three.js Master。GLB、碰撞、三固定机位、接地、开放路径、控制台和 5.1064 秒原始运行时采样均记录；不声称性能提升。背面、遮挡处及测绘尺寸仍为已知未知，不授权替换正式 Hero。"
+}

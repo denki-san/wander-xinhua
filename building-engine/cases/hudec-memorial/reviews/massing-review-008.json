@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 8,
+  "assetId": "hudec-memorial",
+  "gate": "massing",
+  "decision": "approved",
+  "reviewedAt": "2026-07-29T11:48:29.882Z",
+  "reviewer": "lei + Codex topology A calibration",
+  "reviewerType": "user-selection-led-manual-review",
+  "caseVersion": 4,
+  "target": {
+    "stage": "massing",
+    "dslSha256": "36d146623b04c621511115b96a02dc1b201635412244be1617044ae77a9b4800",
+    "glbSha256": "904c61d7fba6c999cb871406ca0d6951e517d72e1802714c536a3266568c7a4e",
+    "collisionSha256": "6f5d2c95b564fa18ae747ead8d4e40f02d86622cfcd9771074cb55fd0bff65cd",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/massing.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-massing-v4.json",
+    "sha256": "f11fd370549e495878b01c06241527405a528aba1a0e0d122162d90dda98c143"
+  },
+  "note": "用户从三种互斥拓扑中选择 A，并逐项确认屋面双烟囱位置及白色、红砖高度。正式三视图与批准候选像素一致；production Sandbox 显式加载当前 GLB 904c61d7… 和 collision 6f5d2c95…，模型可见、接地、三条非空开放路径、控制台与页面错误均通过。批准进入 Low-poly Master。"
+}

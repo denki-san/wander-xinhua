@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "assetId": "sun-ke-villa",
+  "archetype": "garden-villa",
+  "dslSha256": "06d6fa20b81dee8b2abf431f7d3e445da0a8ea3b120277886cf2f1fbcb1abafc",
+  "coordinateContract": {
+    "sceneUnitMeters": 2.7,
+    "front": "local-negative-y",
+    "groundDatum": 0
+  },
+  "obstacles": [
+    {
+      "id": "central-residence",
+      "minX": -2.895,
+      "maxX": 2.055,
+      "minY": -2.04,
+      "maxY": 2.04
+    },
+    {
+      "id": "lower-west-wing",
+      "minX": -3.83,
+      "maxX": -2.01,
+      "minY": -1.94,
+      "maxY": 1.78
+    },
+    {
+      "id": "rounded-east-tower",
+      "minX": 0.95,
+      "maxX": 3.41,
+      "minY": -1.81,
+      "maxY": 0.65
+    },
+    {
+      "id": "porte-cochere-front-left-column",
+      "minX": -2.3,
+      "maxX": -1.9,
+      "minY": 4.38,
+      "maxY": 4.78
+    },
+    {
+      "id": "porte-cochere-front-right-column",
+      "minX": -0.54,
+      "maxX": -0.14,
+      "minY": 4.38,
+      "maxY": 4.78
+    },
+    {
+      "id": "porte-cochere-rear-left-column",
+      "minX": -2.26,
+      "maxX": -1.94,
+      "minY": 2.32,
+      "maxY": 2.64
+    },
+    {
+      "id": "porte-cochere-rear-right-column",
+      "minX": -0.5,
+      "maxX": -0.18,
+      "minY": 2.32,
+      "maxY": 2.64
+    }
+  ],
+  "requiredOpenPaths": [
+    {
+      "id": "garden-to-pointed-entry",
+      "from": [
+        -0.42,
+        -5
+      ],
+      "to": [
+        -0.42,
+        -2.55
+      ],
+      "width": 0.8
+    },
+    {
+      "id": "porte-cochere-covered-lane",
+      "from": [
+        -1.22,
+        2.85
+      ],
+      "to": [
+        -1.22,
+        5.2
+      ],
+      "width": 0.8
+    }
+  ]
+}

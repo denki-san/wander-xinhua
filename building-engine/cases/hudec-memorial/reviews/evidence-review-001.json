@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 1,
+  "assetId": "hudec-memorial",
+  "gate": "evidence",
+  "decision": "approved",
+  "reviewedAt": "2026-07-28T21:20:00+08:00",
+  "reviewer": "codex-hudec-blind-test-evidence-audit",
+  "reviewerType": "codex-evidence-review",
+  "caseVersion": 1,
+  "snapshotId": "2026-07-28-6d29438",
+  "snapshotChecksumStatus": "verified-all-2026-07-28",
+  "coverage": {
+    "canonical": "pass",
+    "sideDepth": "pass",
+    "entranceIdentity": "pass",
+    "subjectBinding": "pass",
+    "rearEast": "pass-with-explicit-unknowns"
+  },
+  "findings": [
+    "官方西后侧斜向照片同时支持层叠屋面、三联烟囱、端山墙和低玻璃翼。",
+    "庭院正面照片支持入口门廊、砖拱门、窗格和宽幅半木构立面。",
+    "OSM way 494633921 闭合名称、地址、三层和 compound envelope，但不冒充净建筑测绘尺寸。",
+    "完整东立面、背立面、隐藏开口和精确尺寸继续保持 unknown。"
+  ],
+  "blockingConflicts": [],
+  "nextGate": "massing"
+}

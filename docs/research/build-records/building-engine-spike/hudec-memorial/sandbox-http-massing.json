@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "stage": "massing",
+  "status": "http-pass-awaiting-browser-visual",
+  "origin": "http://127.0.0.1:3000",
+  "page": {
+    "url": "http://127.0.0.1:3000/building-engine-sandbox?asset=hudec-memorial&tier=massing&view=canonical&qa=1",
+    "status": 200
+  },
+  "glb": {
+    "url": "http://127.0.0.1:3000/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb?v=c83fb903cc0c",
+    "status": 200,
+    "sha256": "c83fb903cc0c8ee9adc047a787a52f7e3e0f35257d305adfd8ba5bb0aabbb4d2",
+    "bytes": 22040
+  },
+  "collision": {
+    "url": "http://127.0.0.1:3000/models/building-engine-spike/hudec-memorial/hudec-memorial-collision.json?v=0e853d79a138",
+    "status": 200,
+    "sha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637",
+    "bytes": 1577
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 1,
+  "assetId": "hudec-memorial",
+  "gate": "massing",
+  "decision": "approved",
+  "reviewedAt": "2026-07-28T21:24:04+08:00",
+  "reviewer": "codex-visual-audit",
+  "reviewerType": "codex-visual-review",
+  "caseVersion": 1,
+  "target": {
+    "stage": "massing",
+    "dslSha256": "c4f0f78cdef04b226e1b86ad45ba20a3e82db2fee0623fbd549450fb192fc6e4",
+    "glbSha256": "f16bd1dea9572f60fbbe22734bca62e03c5ba86405a51a33c281e26d44c35165",
+    "collisionSha256": "f87535cb3c2e7b8360d8cc033092627623f4bd1cf0d3b3c231075adb4911ca03",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/massing-iteration1.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-massing-iteration1.json",
+    "sha256": "0c933930632525c80ae69bbdd56e970efc82d4e62f9870770a3636549fd8ec52"
+  },
+  "note": "第一次灰模因烟囱过矮被退回；只调整 DSL 后，三处固定机位与 production Sandbox 均通过。层叠屋顶、三联高烟囱、端山墙、低翼、门廊和砖门柱符合当前证据，允许进入 Low-poly Master。"
+}

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 3,
+  "assetId": "hudec-memorial",
+  "gate": "evidence",
+  "decision": "approved",
+  "reviewedAt": "2026-07-29T09:16:08.998Z",
+  "reviewer": "Codex user-orientation evidence review",
+  "reviewerType": "user-correction-led-manual-review",
+  "caseVersion": 3,
+  "target": null,
+  "sandbox": null,
+  "note": "归档照片已在 2026-07-28-0ef306f 验证；用户方向标注只纠正这些照片的正侧面解释，不作为新增建筑照片。Case v3 明确 local -Y 正面、侧翼沿 X 展开，未知背面和测绘尺寸不变。"
+}

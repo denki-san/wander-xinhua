@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "status": "pass",
+  "decision": "merge-ready-evidence-corrected-experimental",
+  "snapshot": {
+    "id": "2026-07-29-45cc711",
+    "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-29-45cc711",
+    "sourceCommit": "45cc711",
+    "sourceWorktreeDirty": false,
+    "fileCount": 678,
+    "byteCount": 279162880,
+    "wikiEligible": false
+  },
+  "checksumVerification": {
+    "archiveScript": "pass",
+    "independentCheckedFiles": 678,
+    "independentFailures": 0
+  },
+  "verification": {
+    "threeAssetColdBuild": {
+      "sourceCommit": "53b7a6dda3082fbcb244437a8ce0a40c6a39d362",
+      "artifactQaPassed": 6,
+      "glbBinaryIdentical": 6,
+      "collisionBinaryIdentical": 3,
+      "previewPixelIdentical": 18
+    },
+    "npmTest": {
+      "passed": 448,
+      "failed": 0
+    },
+    "lint": {
+      "errors": 0,
+      "warnings": 1,
+      "warningScope": "既有且不在本分支改动范围"
+    },
+    "independentCodeReview": {
+      "critical": 0,
+      "important": 0,
+      "assessment": "approved"
+    }
+  },
+  "knownUnknowns": [
+    "四张用户证据的原始 URL、作者和拍摄日期未知",
+    "隐藏东立面、背立面、精确测绘尺寸与室内平面未知",
+    "风向标只保留证据支持的轮廓，不复制未知细节"
+  ],
+  "productionBoundary": {
+    "defaultHudecHeroChanged": false,
+    "productionRegistryChanged": false,
+    "productionPlacementChanged": false,
+    "push": false,
+    "merge": false,
+    "deploy": false
+  }
+}

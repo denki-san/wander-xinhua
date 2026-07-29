@@ -1,5 +1,228 @@
 # Errors
 
+## [ERR-20260729-PGT] production_promotion_historical_isolation_assertion
+
+**Logged**: 2026-07-29T22:35:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Building Engine 从实验 tier 晋级 Hudec 正式入口后，全量测试仍把“任何正式
+registry 都不得引用 Building Engine”当作永久合同。
+
+### Error
+```text
+AssertionError: 正式 production registry 匹配 /building-engine-spike/
+AssertionError: promotion status 从 promotion-in-progress-local
+变为 runtime-pass-pending-project-gates
+```
+
+### Context
+- 本轮已由用户授权执行首栋 production promotion，但不授权 push、merge、deploy；
+- 旧断言来自实验阶段的隔离门，未表达“只有有 promotion record 的资产可晋级”；
+- 删除隔离测试会让其他建筑意外接入失去保护。
+
+### Suggested Fix
+把永久合同改为：Sandbox 保持隔离，正式 registry 中只有
+`building-engine/promotions/` 明确晋级的 Hudec 可引用 Building Engine；
+promotion 状态按受控状态机校验。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_building_engine_spike.test.mjs,
+  tests/test_hudec_memorial_production_promotion.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-29T22:38:00+08:00
+- **Notes**: 保留 Sandbox 隔离断言，并新增“仅 Hudec + promotion path 一致 +
+  deployment not-authorized”约束；状态断言接受运行时通过和本地就绪两个合法阶段。
+
+---
+
+## [ERR-20260729-FDL] post_regression_open_file_exhaustion
+
+**Logged**: 2026-07-29T20:47:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: config
+
+### Summary
+全量构建测试后仍同时保留 production server 与 Headless Chrome，导致后续只读
+SHA 命令无法创建新进程。
+
+### Error
+```text
+Failed to create unified exec process: Too many open files (os error 24)
+```
+
+### Context
+- 失败发生在 `shasum` 启动前，没有修改文件；
+- 本轮此前已完成多次 Blender、Vinext build、production server 和浏览器三机位；
+- 停止本地 server 后，同一 SHA 命令立即通过；最终四项只读检查再次并行启动
+  shell 时复现，改成串行并终止仍驻留的 agent-browser daemon 后关闭。
+
+### Suggested Fix
+完成 production Sandbox 截图、控制台和性能采样后立即关闭浏览器与本地 server，
+确认 daemon 实际退出；全量测试、SHA、归档和最终状态检查保持串行，避免把长期
+存活进程或并行 shell 留到收尾阶段。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-29T20:48:00+08:00
+- **Notes**: 先向 server PTY 发送中断，再关闭浏览器；最终终止残留
+  agent-browser daemon，并把收尾检查改为串行。
+
+---
+
+## [ERR-20260729-B52] blender_52_metal_backend_sandbox_crash
+
+**Logged**: 2026-07-29T20:01:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Blender 5.2 在受限沙箱内启动 Headless 编译时，于 Metal 后端能力探测阶段崩溃。
+
+### Error
+```text
+supports_barycentric_whitelist
+GPU_backend_type_selection_detect
+hudec-memorial massing 编译失败
+```
+
+### Context
+- DSL 校验已通过，崩溃发生在 Blender 读取场景前；
+- crash backtrace 指向 Metal 设备探测，不是生成器几何或 DSL 数据错误；
+- 同一命令在沙箱外运行后完成三机位渲染、Blend 保存、GLB 导出和 QA。
+
+### Suggested Fix
+macOS 上 Blender 5.2 若在沙箱内于 Metal 初始化崩溃，保留 crash report 后在受控沙箱外重跑同一确定性命令；不得把崩溃误报为模型编译失败。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/building_engine_spike.mjs, scripts/compile_garden_villa.py
+
+### Resolution
+- **Resolved**: 2026-07-29T20:01:07+08:00
+- **Notes**: 沙箱外重跑 `build --asset hudec-memorial --stage massing` 与 artifact QA 均通过。
+
+---
+
+## [ERR-20260729-P30] vinext_start_sandbox_port_permission
+
+**Logged**: 2026-07-29T19:28:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+本地 Vinext production server 在默认沙箱内无法监听 `0.0.0.0:3000`。
+
+### Error
+```text
+Error: listen EPERM: operation not permitted 0.0.0.0:3000
+```
+
+### Context
+- `npm run build:sites` 已成功；
+- 首次 `npm run start:sites` 在创建监听 socket 时退出，未修改应用资产。
+- Server 授权启动后，默认沙箱中的 CLI 访问 `127.0.0.1:3000` 仍返回
+  `fetch failed`；同一 HTTP QA 授权重跑后页面、GLB 和 collision 均为 `200`
+  且 SHA 匹配。
+
+### Suggested Fix
+保持同一 production build，以授权方式重跑 `npm run start:sites`，不要降级到
+不挂载 App Router 的静态预览。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `package.json`, `.learnings/ERRORS.md`
+- See Also: ERR-20260728-007
+
+### Resolution
+- **Resolved**: 2026-07-29T19:28:00+08:00
+- **Notes**: 授权后 Vinext production server 成功监听 3000 端口；HTTP QA
+  也需同等本机网络权限。
+
+---
+
+## [ERR-20260729-EVS] building_engine_evidence_snapshot_status
+
+**Logged**: 2026-07-29T19:20:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: backend
+
+### Summary
+Building Engine CLI 把证据快照通过状态硬编码为旧日期，拒绝新建且已独立校验的不可变快照。
+
+### Error
+```text
+hudec-memorial DSL validation failed
+conflict: 外置快照未记录本轮全量 SHA 通过
+```
+
+### Context
+- 新快照 `2026-07-29-hudec-a-evidence-v1-083bde0` 已由归档脚本和独立
+  `shasum -a 256 -c SHA256SUMS` 两次验证；
+- Case 的 `checksumStatus` 为
+  `verified-all-2026-07-29-independent-recheck`；
+- CLI 仍只接受精确字符串 `verified-all-2026-07-28`。
+
+### Suggested Fix
+接受带 ISO 日期的 `verified-all-...` 状态，不绑定单个历史日期；归档日期与
+独立复核日期允许不同，同时拒绝 pending、partial 和无日期字符串。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `scripts/building_engine_spike.mjs`,
+  `tests/test_building_engine_spike.test.mjs`,
+  `building-engine/cases/hudec-memorial/building-case.json`
+
+### Resolution
+- **Resolved**: 2026-07-29T19:25:00+08:00
+- **Notes**: 改为接受带 ISO 日期的 `verified-all-...` 全量校验状态；旧迁移
+  快照、新独立复核后缀、pending 和 partial 单元负例通过，三栋 validate 全通过。
+
+---
+
+## [ERR-20260728-009] jq_dollar_defs_key_access
+
+**Logged**: 2026-07-28T23:23:23+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+读取 JSON Schema 时把 `$defs` 写成 jq 变量语法，导致只读查询失败。
+
+### Error
+```text
+jq: error: syntax error, unexpected BINDING
+```
+
+### Context
+- 尝试同时摘取 `roof`、`volume`、`feature` 和 `opening` 定义；
+- 命令没有修改仓库文件。
+
+### Suggested Fix
+对包含美元符号的 JSON key 使用 `.["$defs"]` 显式键访问。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `building-engine/schema/building-dsl.schema.json`
+
+### Resolution
+- **Resolved**: 2026-07-28T23:23:23+08:00
+- **Notes**: 改用 `.["$defs"]` 后继续只读检查。
+
+---
+
 ## [ERR-20260727-A31] git_index_lock_sandbox_permission
 
 **Logged**: 2026-07-27T11:48:00+08:00
@@ -29,6 +252,144 @@ fatal: Unable to create '/Users/lei/App_developing/wander-xinhua/.git/index.lock
 ### Resolution
 - **Resolved**: 2026-07-27T11:49:00+08:00
 - **Notes**: 确认没有遗留锁文件后，以授权方式完成精确暂存和提交。
+
+---
+
+## [ERR-20260728-007] static_preview_does_not_mount_app_routes
+
+**Logged**: 2026-07-28T22:16:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+Vite static preview 会把 `/building-engine-sandbox` 回退到单页入口，但
+`static-entry.tsx` 没有挂载该 App Router 页面，视觉上只出现产品首页。
+
+### Error
+```text
+/building-engine-sandbox 返回 200，但 data-qa-route 缺失，页面显示“新华漫游”首页。
+```
+
+### Context
+- `vite.static.config.ts` 只生成一个 `dist-static/index.html`；
+- `static-entry.tsx` 只分流 `/asset-library` 与 `/product-homepage`；
+- 用 HTTP 200 或相似建筑画面判断 Sandbox 会产生假阳性。
+
+### Suggested Fix
+需要验证 App Router 页面时，先运行 `npm run build:sites`，再用
+`npm run start:sites` 启动本地 production server；必须核对
+`data-qa-route="building-engine-sandbox"` 和当前 GLB SHA。
+
+### Metadata
+- Reproducible: yes
+- Related Files: static-entry.tsx, app/building-engine-sandbox/page.tsx
+
+### Resolution
+- **Resolved**: 2026-07-28T22:17:00+08:00
+- **Notes**: 切换到本地 Vinext production build 后，Sandbox 路由、Canvas、
+  GLB 与 collision SHA 均可直接核对。
+
+---
+
+## [ERR-20260728-008] sandbox_warmup_exact_value_overfit
+
+**Logged**: 2026-07-28T22:36:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+专项测试把人工浏览器预热时间锁成精确 `2` 秒，新的诚实记录使用 `2.5` 秒后
+出现非语义失败。
+
+### Error
+```text
+AssertionError: 2.5 !== 2
+```
+
+### Context
+- 质量合同要求记录预热条件，不要求所有资产精确相同；
+- 页面状态、Canvas、错误数、GLB SHA 与三视角均已独立验证。
+
+### Suggested Fix
+验证预热时间处于合理区间，同时继续强制 `sampleDurationSeconds >= 5`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_building_engine_spike.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-28T22:37:00+08:00
+- **Notes**: 改为断言 `2 <= warmupSeconds <= 10`。
+
+---
+
+## [ERR-20260728-001] python_bytecode_cache_outside_sandbox
+
+**Logged**: 2026-07-28T19:42:34+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: config
+
+### Summary
+使用系统 Python 检查建筑编译器语法时，默认字节码缓存路径位于当前可写范围之外。
+
+### Error
+```text
+PermissionError: [Errno 1] Operation not permitted:
+/Users/lei/Library/Caches/com.apple.python/
+```
+
+### Context
+- 命令为 `python3 -m py_compile scripts/compile_garden_villa.py`。
+- 失败发生在写入 `__pycache__`，不能据此判定脚本存在语法错误。
+
+### Suggested Fix
+设置 `PYTHONPYCACHEPREFIX=/tmp/test_building_engine_pycache` 后重新执行语法检查，
+并继续用 Blender Python 做运行时验证。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/compile_garden_villa.py
+
+### Resolution
+- **Resolved**: 2026-07-28T19:43:00+08:00
+- **Notes**: 将字节码缓存定向到 `/tmp/test_building_engine_pycache` 后语法检查退出码为 0。
+
+---
+
+## [ERR-20260728-002] building_engine_cli_missing_output_parent
+
+**Logged**: 2026-07-28T19:42:34+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: backend
+
+### Summary
+建筑引擎 CLI 首次写入验证报告时，没有先创建按资产分隔的父目录。
+
+### Error
+```text
+ENOENT: no such file or directory, open
+docs/research/build-records/building-engine-spike/house-315/compiler-report.json
+```
+
+### Context
+- 命令为 `node scripts/building_engine_spike.mjs validate --asset all`。
+- `writeJson` 直接调用 `writeFileSync`，全新 worktree 中目标目录尚不存在。
+
+### Suggested Fix
+在统一的 `writeJson` 边界调用
+`mkdirSync(dirname(path), { recursive: true })`，随后重跑两栋建筑的完整验证。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/building_engine_spike.mjs
+
+### Resolution
+- **Resolved**: 2026-07-28T19:43:00+08:00
+- **Notes**: `writeJson` 统一创建父目录后，两栋建筑完整验证均通过。
 
 ---
 
@@ -3815,6 +4176,7 @@ jq: Cannot index array with string "items"
 ### Resolution
 - **Resolved**: 2026-07-19T22:26:00+08:00
 - **Notes**: 已改用数组查询，并确认目录级符号链接下的 11 个 Markdown 已进入 ingest queue。
+- **Recurrence**: 2026-07-28 读取建筑 case 时误猜 `.evidence`；先用 `jq 'keys'` 确认实际字段为 `.evidenceItems` 后恢复只读查询。
 
 ---
 ## [ERR-20260721-081] parallel_exec_too_many_open_files
@@ -3846,6 +4208,8 @@ Failed to create unified exec process: Too many open files (os error 24)
 ### Resolution
 - **Resolved**: 2026-07-21T00:00:00+08:00
 - **Notes**: 已切换为串行执行，后续命令恢复正常。2026-07-21 17:02 在关闭本地 dev server 后启动 `npm run build` 时再次复发，说明长会话中的浏览器/执行会话残留也可能耗尽统一执行器文件描述符；本轮继续通过关闭无用标签页和串行重试恢复。
+- **Recurrence**: 2026-07-28 建筑引擎收尾时并行读取三份冷构建结果再次触发；
+  关闭 production server、复位浏览器并改回串行后恢复，项目文件未受影响。
 
 ---
 ## [ERR-20260723-082] lighting_v3_effect_children_typecheck
@@ -4881,6 +5245,7 @@ Error : Filter not found
 ### Resolution
 - **Resolved**: 2026-07-22T21:01:00+08:00
 - **Notes**: 改用 FFmpeg 的 scale、pad 和 hstack，按 Reference、Blender、Three.js 固定顺序生成三联图。
+- **Recurrence**: 2026-07-28 建筑引擎最终对照复现；继续使用固定左到右顺序，并在最终审核记录中声明列语义。
 
 ---
 ## [ERR-20260722-114] vps_precheck_shell_quote_mismatch
@@ -5805,6 +6170,7 @@ TypeError: requestAnimationFrame is not a function
 **Error:** `react-hooks/immutability` 拒绝在 `useLayoutEffect` 修改 `useThree()` 返回的 camera；`react-hooks/set-state-in-effect` 拒绝 effect 内同步设置 QA 查询参数状态。
 **Cause:** 相机投影更新没有放进 R3F 的帧生命周期；只读 URL 初值被不必要地建模成 effect 同步。
 **Resolution:** 用 `useFrame(({ camera, size }) => ...)` 更新 FOV，只在值变化时刷新投影矩阵；QA 开关改为带 `window` 守卫的惰性 `useState` 初值。修正后重新运行 lint。
+**Recurrence:** 2026-07-28 建筑引擎 Sandbox 首版复现相同规则；相机改入 `useFrame`，异步结果按资源路径派生，URL effect 仅同步外部历史记录后，局部 lint 与完整 Sites 构建通过。
 
 ## [ERR169] 多个二进制验收产物不能用文本补丁批量整理
 
@@ -7227,7 +7593,7 @@ Expected /safe-area-inset-top ... + 72px/ but CSS uses + 124px.
 
 **Logged**: 2026-07-26T00:00:00+08:00
 **Priority**: medium
-**Status**: pending
+**Status**: resolved
 **Area**: tests
 
 ### Summary
@@ -7253,6 +7619,10 @@ exit code 139
 ### Metadata
 - Reproducible: unknown
 - Related Files: scripts/test_diagnose_rain_run.py, assets/models/source/character/rain-summer-wanderer.blend
+
+### Resolution
+- **Resolved**: 2026-07-28T19:44:04+08:00
+- **Notes**: 本轮建筑引擎首次构建复现同一 Metal 探测崩溃；同一 CLI 在受限沙箱外成功生成两栋 Massing 的 `.blend`、GLB、碰撞记录和六张固定机位图，确认不是生成器故障。
 
 ---
 ## [ERR-20260726-002] imagemagick_magick_command_missing
@@ -7876,5 +8246,241 @@ manifest.json: No such file or directory
 ### Resolution
 - **Resolved**: 2026-07-26T23:59:00+08:00
 - **Notes**: 复查时归档脚本已完成落盘；`manifest.json` 与 `SHA256SUMS` 出现，1210 个文件的 `shasum -a 256 -c` 全部通过。初次检查发生在外置卷写入尚未稳定可见的窗口，后续检查避免使用 zsh 特殊变量名。
+
+---
+
+## [ERR-20260728-003] sandbox_null_derived_state_ternary
+
+**Logged**: 2026-07-28T19:53:30+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+建筑引擎 Sandbox 的 production bundle 在 manifest 载入前读取了空状态的 `.value`。
+
+### Error
+```text
+TypeError: Cannot read properties of null (reading 'value')
+```
+
+### Context
+- 完整 Sites 构建通过，但真实 production 页面在 React 初始化阶段为空白。
+- `collisionState?.path === asset?.collision.path` 在两侧都为空时结果为 `true`，
+  三元表达式随后读取 `collisionState.value`。
+- 同型问题也存在于尚未载入的模型 bounds 派生值。
+
+### Suggested Fix
+在比较资源路径之前先要求拥有者非空：`asset && ...`、`tierContract && ...`，
+随后重新构建并从真实浏览器验证页面和控制台。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/building-engine-sandbox/BuildingEngineSandbox.tsx
+
+### Resolution
+- **Resolved**: 2026-07-28T20:01:00+08:00
+- **Notes**: 增加非空拥有者门槛后，重新构建 production route；两栋当前 Massing 均达到 runtime-ready，控制台零 error。
+
+---
+
+## [ERR-20260728-004] local_sandbox_http_qa_network_boundary
+
+**Logged**: 2026-07-28T20:01:30+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+CLI 在受限进程中无法读取已在本机运行的 production Sandbox。
+
+### Error
+```text
+fetch failed
+```
+
+### Context
+- 浏览器已经能访问 `http://127.0.0.1:4177`，但受限 shell 中的 Node fetch 失败。
+- 失败发生在 HTTP 层，不影响已通过的本地产物 SHA 自动检查。
+
+### Suggested Fix
+保持相同 origin 和 CLI 参数，在沙箱外重跑 HTTP QA。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/building_engine_spike.mjs
+
+### Resolution
+- **Resolved**: 2026-07-28T20:02:00+08:00
+- **Notes**: 沙箱外重跑后，两栋页面、GLB 与碰撞 JSON 均返回 HTTP 200，下载字节 SHA 与 manifest 完全一致。
+
+---
+
+## [ERR-20260728-005] building_engine_plan_test_phrase_overfit
+
+**Logged**: 2026-07-28T20:12:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+专项测试把“不建设”前缀误当成方案范围合同的一部分。
+
+### Error
+```text
+AssertionError: input did not match /不建设后台、数据库、Worker、任务队列/
+```
+
+### Context
+- 方案已明确写出 `Explicitly excluded: 后台、数据库、Worker、任务队列`。
+- 测试应锁定排除对象，不应锁定同义句式。
+
+### Suggested Fix
+只断言 `后台、数据库、Worker、任务队列` 的连续范围合同。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_building_engine_spike.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-28T20:12:30+08:00
+- **Notes**: 移除非语义前缀后重跑专项测试。
+
+---
+
+## [ERR-20260728-006] photo_reference_skill_entrypoint_missing
+
+**Logged**: 2026-07-28T21:01:25+08:00
+**Priority**: medium
+**Status**: pending
+**Area**: config
+
+### Summary
+技能清单声明 `photo-reference-webgl-modeling/SKILL.md` 可用，但当前技能目录缺少入口文件。
+
+### Error
+```text
+sed: /Users/lei/.codex/skills/photo-reference-webgl-modeling/SKILL.md:
+No such file or directory
+```
+
+### Context
+- 生产化验收开始前按技能清单读取完整入口；
+- 当前目录只剩 `scripts/audit_glb.py`；
+- 同日归档目录仍保存 `SKILL.md.archived`，项目自己的 Blender、证据与动态归档
+  工作流文件也仍可作为保守回退。
+
+### Suggested Fix
+恢复当前技能目录的 `SKILL.md` 与 references，或让可用技能清单停止暴露缺失入口。
+在修复前，任务继续执行项目内更严格的工作流，并明确记录技能回退。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `/Users/lei/.codex/skills/photo-reference-webgl-modeling/`
+
+---
+
+## [ERR-20260729-001] parallel_image_open_file_limit
+
+**Logged**: 2026-07-29T09:50:09+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: config
+
+### Summary
+并行读取用户参考图与多张模型预览时触发文件句柄上限。
+
+### Error
+```text
+Too many open files (os error 24)
+```
+
+### Context
+- 为回答单张参考图与三个固定机位是否相似，尝试在一次工具编排中并行打开五张原图。
+- 失败发生在读取阶段，没有修改模型、证据或运行时产物。
+
+### Suggested Fix
+视觉对照默认逐张读取；只有确认文件句柄预算充足时才并行打开多张原图。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: test_artifacts/building-engine-spike/hudec-memorial/
+
+### Resolution
+- **Resolved**: 2026-07-29T09:50:09+08:00
+- **Notes**: 改为逐张读取参考图和模型固定机位。
+
+---
+
+## [ERR-20260730-001] zsh_special_path_variable_overwrite
+
+**Logged**: 2026-07-30T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: config
+
+### Summary
+zsh 只读统计循环误用特殊变量 `path`，导致同一子进程后续命令无法解析。
+
+### Error
+```text
+zsh: command not found: stat
+zsh: command not found: shasum
+zsh: command not found: sed
+```
+
+### Context
+- 在集成 worktree 中统计待审批 GLB 的 bytes 与 SHA-256；
+- zsh 将小写 `path` 与 `PATH` 绑定，循环赋值覆盖了命令搜索目录；
+- 命令只完成了前置文件列表读取，没有修改仓库文件。
+
+### Suggested Fix
+shell 循环使用任务专用变量名，例如 `asset_file`，避免 `path`、`PATH`、`HOME`
+等 shell 或系统保留变量。
+
+### Metadata
+- Reproducible: yes
+- Related Files: config/repository-binary-policy.json
+
+### Resolution
+- **Resolved**: 2026-07-30T00:00:00+08:00
+- **Notes**: 后续命令改用 `asset_file`。
+
+---
+
+## [ERR-20260730-002] overview_replay_timeout_under_full_suite_load
+
+**Logged**: 2026-07-30T01:44:49+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+全仓并发测试负载下，街区体块确定性离线重放被固定 30 秒超时提前终止。
+
+### Error
+```text
+Command failed: node scripts/generate_overview_district_massing.mjs ... --verify-only
+signal: SIGTERM
+stdout: ""
+stderr: ""
+```
+
+### Context
+- 同一测试在前一轮完整测试中约 6.7 秒通过；
+- 第二轮与大量 GLB、构建和几何测试并发时运行约 30.9 秒，被测试超时杀死；
+- 失败没有生成器错误输出，也没有产生 SHA 不一致。
+
+### Suggested Fix
+保持相同确定性 SHA 断言，将这项重计算测试的进程上限提高到 120 秒，避免机器
+负载造成假失败。
+
+### Metadata
+- Reproducible: under heavy concurrent suite load
+- Related Files: tests/test_overview_district_massing.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-30T01:44:49+08:00
+- **Notes**: 超时由 30 秒提高到 120 秒；验证逻辑和期望 SHA 未改变。
 
 ---

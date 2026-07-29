@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 4,
+  "assetId": "hudec-memorial",
+  "gate": "final",
+  "decision": "changes-requested",
+  "reviewedAt": "2026-07-29T08:43:54.915Z",
+  "reviewer": "Codex user-orientation correction",
+  "reviewerType": "user-correction-led-manual-review",
+  "caseVersion": 2,
+  "target": {
+    "stage": "master",
+    "dslSha256": "fde1d744684d9e47b9a4f89051f9c24077f89dd96e1407f38862dc8234d191b6",
+    "glbSha256": "cd3d49fcc1080b15be2ba76eea44f024213ae1b3a51530dbdfa4aeac10d65521",
+    "collisionSha256": "cb910b91864b38ed8b11969b097acf1233d3f33bff6255cc7aa164e4c731d65c",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/master.json"
+  },
+  "sandbox": null,
+  "note": "新方向标注证明当前 Master 的平面朝向、转角和屋顶拓扑错误；风格身份线索不能替代同机位空间对照，旧 Final 批准失效。"
+}

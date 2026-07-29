@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "assetId": "sun-ke-villa",
+  "archetype": "garden-villa",
+  "stage": "master",
+  "status": "built-auto-qa-pass",
+  "blenderVersion": "5.2.0 LTS",
+  "generator": {
+    "path": "scripts/compile_garden_villa.py",
+    "sha256": "20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9"
+  },
+  "inputs": {
+    "dsl": {
+      "path": "building-engine/cases/sun-ke-villa/building-dsl.json",
+      "sha256": "06d6fa20b81dee8b2abf431f7d3e445da0a8ea3b120277886cf2f1fbcb1abafc"
+    },
+    "artProfile": {
+      "path": "building-engine/art-profiles/xinhua-autumn-lowpoly-v1.json",
+      "sha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10"
+    }
+  },
+  "lineage": {
+    "dslSha256": "06d6fa20b81dee8b2abf431f7d3e445da0a8ea3b120277886cf2f1fbcb1abafc",
+    "artProfileSha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10",
+    "compilerSha256": "20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9",
+    "derivedFromMassing": {
+      "record": "docs/research/build-records/building-engine-spike/sun-ke-villa/massing.json",
+      "glbSha256": "357cf3b6548594ee2f1e2cec9c78cf29265f8d853aa11f52311534ed7dd9ad28"
+    }
+  },
+  "editableObjectCount": 128,
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/building-engine-spike/sun-ke-villa/sun-ke-villa-master.blend",
+      "sha256": "b49223f99206d508b6e8ceee18acf7f9a990dcdb25af2836fcf5011cc9e1c5ad",
+      "bytes": 152847
+    },
+    "glb": {
+      "path": "public/models/building-engine-spike/sun-ke-villa/sun-ke-villa-master.glb",
+      "sha256": "a5312d67e673a8356fd8507289a146d438667c33832ccbee0a4f7a69dde4ee49",
+      "bytes": 186044,
+      "nodes": 1,
+      "meshes": 1,
+      "primitives": 7,
+      "triangles": 2764,
+      "materials": 7,
+      "images": 0,
+      "textures": 0,
+      "animations": 0,
+      "skins": 0,
+      "bounds": {
+        "min": [
+          -3.94,
+          0,
+          -4.93
+        ],
+        "max": [
+          3.519616,
+          5.14,
+          2.6375
+        ]
+      },
+      "transformedNodes": []
+    },
+    "collision": {
+      "path": "public/models/building-engine-spike/sun-ke-villa/sun-ke-villa-collision.json",
+      "sha256": "1d18b0c89238e10fa7c98fa5b2403f9cc08eb2fc67c45e33d1481258d1d5676a",
+      "obstacleCount": 7,
+      "openPathCount": 2
+    },
+    "previews": [
+      {
+        "view": "canonical",
+        "path": "test_artifacts/building-engine-spike/sun-ke-villa/test_sun-ke-villa-master-canonical.png",
+        "sha256": "ebe7cea340d9fbf97df2062e26e5665d05ce04f48dc7db6162e37ba55cfb0930",
+        "bytes": 768042
+      },
+      {
+        "view": "side",
+        "path": "test_artifacts/building-engine-spike/sun-ke-villa/test_sun-ke-villa-master-side.png",
+        "sha256": "782d7f59cb62575e85b0a907a95057846ee99108d0da2de1d9f575c92c2b0f3f",
+        "bytes": 794294
+      },
+      {
+        "view": "entrance",
+        "path": "test_artifacts/building-engine-spike/sun-ke-villa/test_sun-ke-villa-master-entrance.png",
+        "sha256": "d279269bf2602c236e0c14f395841574d98f65f99f813a535e9c0122d9119593",
+        "bytes": 765957
+      }
+    ]
+  },
+  "geometryIntegrity": {
+    "vertices": 1634,
+    "polygons": 1149,
+    "triangles": 2764,
+    "zeroAreaTriangles": 0,
+    "nonFinitePositions": 0,
+    "status": "ok"
+  },
+  "budget": {
+    "maxNodes": 64,
+    "maxTriangles": 12000,
+    "maxMaterials": 10,
+    "maxImages": 0,
+    "maxBytes": 1500000
+  },
+  "mcpReview": {
+    "status": "not-run-addon-unavailable",
+    "fallback": "headless-fixed-camera-previews"
+  },
+  "nextGate": "final-comparison-review"
+}

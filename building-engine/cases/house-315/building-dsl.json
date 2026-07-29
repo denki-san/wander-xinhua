@@ -1,0 +1,375 @@
+{
+  "schemaVersion": 1,
+  "assetId": "house-315",
+  "archetype": "garden-villa",
+  "artProfile": "xinhua-autumn-lowpoly-v1",
+  "evidence": {
+    "casePath": "building-engine/cases/house-315/building-case.json",
+    "claimIds": [
+      "house-315-main-massing",
+      "house-315-steep-roofs",
+      "house-315-central-timber-gable",
+      "house-315-facade-split",
+      "house-315-entry-rhythm",
+      "house-315-relative-depth",
+      "house-315-scale"
+    ]
+  },
+  "coordinateContract": {
+    "sceneUnitMeters": 2.7,
+    "front": "local-negative-y",
+    "groundDatum": 0
+  },
+  "materials": {
+    "wall": "warm-plaster",
+    "brick": "muted-brick",
+    "roof": "muted-red-tile",
+    "timber": "deep-timber",
+    "trim": "warm-stone",
+    "glass": "muted-glass",
+    "shadow": "entrance-shadow",
+    "metal": "dark-metal",
+    "path": "path-stone"
+  },
+  "massing": {
+    "volumes": [
+      {
+        "id": "main-spine",
+        "type": "box",
+        "center": [0, 0.55],
+        "size": [13.4, 5.4],
+        "height": 3.05,
+        "material": "wall",
+        "lowerMaterial": "brick",
+        "lowerHeight": 1.12,
+        "evidenceClaimIds": [
+          "house-315-main-massing",
+          "house-315-facade-split"
+        ]
+      },
+      {
+        "id": "central-projecting-gable",
+        "type": "box",
+        "center": [-1.9, -0.95],
+        "size": [5.15, 7.2],
+        "height": 3.65,
+        "material": "wall",
+        "lowerMaterial": "brick",
+        "lowerHeight": 1.22,
+        "evidenceClaimIds": [
+          "house-315-main-massing",
+          "house-315-central-timber-gable"
+        ]
+      },
+      {
+        "id": "right-long-wing",
+        "type": "box",
+        "center": [5.15, 0.65],
+        "size": [3.75, 7.45],
+        "height": 3,
+        "material": "wall",
+        "lowerMaterial": "brick",
+        "lowerHeight": 1.12,
+        "evidenceClaimIds": [
+          "house-315-main-massing",
+          "house-315-relative-depth"
+        ]
+      },
+      {
+        "id": "left-rear-short-wing",
+        "type": "box",
+        "center": [-5.35, 2.25],
+        "size": [4.25, 4.2],
+        "height": 2.55,
+        "material": "wall",
+        "lowerMaterial": "brick",
+        "lowerHeight": 1,
+        "evidenceClaimIds": [
+          "house-315-main-massing",
+          "house-315-relative-depth"
+        ]
+      }
+    ],
+    "roofs": [
+      {
+        "id": "main-spine-roof",
+        "type": "gable",
+        "shape": "rect",
+        "center": [0, 0.55],
+        "length": 13.9,
+        "span": 5.9,
+        "ridgeAxis": "X",
+        "eaveHeight": 3.05,
+        "ridgeHeight": 5.75,
+        "material": "roof",
+        "gableMaterial": "wall",
+        "evidenceClaimIds": ["house-315-steep-roofs"]
+      },
+      {
+        "id": "central-projecting-roof",
+        "type": "gable",
+        "shape": "rect",
+        "center": [-1.9, -0.95],
+        "length": 7.65,
+        "span": 5.6,
+        "ridgeAxis": "Y",
+        "eaveHeight": 3.65,
+        "ridgeHeight": 6.95,
+        "material": "roof",
+        "gableMaterial": "wall",
+        "evidenceClaimIds": [
+          "house-315-steep-roofs",
+          "house-315-central-timber-gable"
+        ]
+      },
+      {
+        "id": "right-long-wing-roof",
+        "type": "gable",
+        "shape": "rect",
+        "center": [5.15, 0.65],
+        "length": 7.85,
+        "span": 4.15,
+        "ridgeAxis": "Y",
+        "eaveHeight": 3,
+        "ridgeHeight": 5.55,
+        "material": "roof",
+        "gableMaterial": "wall",
+        "evidenceClaimIds": ["house-315-steep-roofs"]
+      },
+      {
+        "id": "left-rear-short-roof",
+        "type": "gable",
+        "shape": "rect",
+        "center": [-5.35, 2.25],
+        "length": 4.65,
+        "span": 4.6,
+        "ridgeAxis": "X",
+        "eaveHeight": 2.55,
+        "ridgeHeight": 4.45,
+        "material": "roof",
+        "gableMaterial": "wall",
+        "evidenceClaimIds": ["house-315-steep-roofs"]
+      }
+    ]
+  },
+  "master": {
+    "openings": [
+      {
+        "id": "central-tall-entry",
+        "type": "rect-window",
+        "anchor": [-1.9, -4.79, 0.18],
+        "width": 0.9,
+        "height": 2.72,
+        "rotationDegrees": 0,
+        "outsideSign": -1,
+        "material": "shadow",
+        "trimMaterial": "timber",
+        "frameMaterial": "timber",
+        "evidenceClaimIds": ["house-315-entry-rhythm"]
+      },
+      {
+        "id": "central-upper-window",
+        "type": "rect-window",
+        "anchor": [-1.9, -4.79, 4.05],
+        "width": 1.06,
+        "height": 0.92,
+        "rotationDegrees": 0,
+        "outsideSign": -1,
+        "material": "glass",
+        "trimMaterial": "timber",
+        "frameMaterial": "timber",
+        "evidenceClaimIds": [
+          "house-315-entry-rhythm",
+          "house-315-central-timber-gable"
+        ]
+      },
+      {
+        "id": "main-front-window-row",
+        "type": "window-row",
+        "anchor": [1.65, -2.21, 1.38],
+        "width": 0.72,
+        "height": 1.08,
+        "count": 3,
+        "spacing": 1.12,
+        "rotationDegrees": 0,
+        "outsideSign": -1,
+        "material": "glass",
+        "trimMaterial": "timber",
+        "frameMaterial": "timber",
+        "evidenceClaimIds": ["house-315-entry-rhythm"]
+      },
+      {
+        "id": "right-wing-window-row",
+        "type": "window-row",
+        "anchor": [5.15, -3.12, 1.34],
+        "width": 0.68,
+        "height": 1.02,
+        "count": 2,
+        "spacing": 1.06,
+        "rotationDegrees": 0,
+        "outsideSign": -1,
+        "material": "glass",
+        "trimMaterial": "timber",
+        "frameMaterial": "timber",
+        "evidenceClaimIds": ["house-315-entry-rhythm"]
+      },
+      {
+        "id": "left-wing-window-row",
+        "type": "window-row",
+        "anchor": [-5.35, 0.1, 1.22],
+        "width": 0.68,
+        "height": 0.94,
+        "count": 2,
+        "spacing": 1.05,
+        "rotationDegrees": 0,
+        "outsideSign": -1,
+        "material": "glass",
+        "trimMaterial": "timber",
+        "frameMaterial": "timber",
+        "evidenceClaimIds": ["house-315-entry-rhythm"]
+      }
+    ],
+    "features": [
+      {
+        "id": "central-half-timber-gable",
+        "type": "timber-gable",
+        "anchor": [-1.9, -4.8, 0],
+        "span": 5.15,
+        "eaveHeight": 3.65,
+        "ridgeHeight": 6.95,
+        "material": "timber",
+        "evidenceClaimIds": ["house-315-central-timber-gable"]
+      },
+      {
+        "id": "right-wing-balcony",
+        "type": "balcony",
+        "anchor": [5.15, -3.3, 1.66],
+        "width": 2.05,
+        "length": 0.52,
+        "height": 0.75,
+        "material": "metal",
+        "trimMaterial": "trim",
+        "evidenceClaimIds": [
+          "house-315-entry-rhythm",
+          "house-315-main-massing"
+        ]
+      },
+      {
+        "id": "right-roof-chimney",
+        "type": "chimney",
+        "anchor": [5.95, 1.25, 5.1],
+        "size": [0.46, 0.46, 1.18],
+        "material": "brick",
+        "trimMaterial": "trim",
+        "evidenceClaimIds": ["house-315-steep-roofs"]
+      },
+      {
+        "id": "facade-split-trim",
+        "type": "trim-band",
+        "anchor": [0, -2.18, 1.12],
+        "width": 13.2,
+        "length": 0.12,
+        "height": 0.11,
+        "rotationDegrees": 0,
+        "material": "timber",
+        "evidenceClaimIds": ["house-315-facade-split"]
+      }
+    ]
+  },
+  "collision": {
+    "obstacles": [
+      {
+        "id": "main-spine",
+        "minX": -6.7,
+        "maxX": 6.7,
+        "minY": -2.15,
+        "maxY": 3.25
+      },
+      {
+        "id": "central-projecting-gable",
+        "minX": -4.475,
+        "maxX": 0.675,
+        "minY": -4.55,
+        "maxY": 2.65
+      },
+      {
+        "id": "right-long-wing",
+        "minX": 3.275,
+        "maxX": 7.025,
+        "minY": -3.075,
+        "maxY": 4.375
+      },
+      {
+        "id": "left-rear-short-wing",
+        "minX": -7.475,
+        "maxX": -3.225,
+        "minY": 0.15,
+        "maxY": 4.35
+      }
+    ],
+    "requiredOpenPaths": [
+      {
+        "id": "street-to-central-entry",
+        "from": [-1.9, -7.2],
+        "to": [-1.9, -5.1],
+        "width": 0.9
+      },
+      {
+        "id": "right-front-clearance",
+        "from": [2.05, -6.2],
+        "to": [2.05, -3.45],
+        "width": 0.7
+      }
+    ]
+  },
+  "runtime": {
+    "sandboxScale": 1,
+    "cameras": {
+      "canonical": {
+        "position": [3.5, -26, 11],
+        "target": [-0.3, 0, 2.8],
+        "orthoScale": 18.5
+      },
+      "side": {
+        "position": [21, -16, 14.5],
+        "target": [0, 0.5, 3.1],
+        "orthoScale": 18.5
+      },
+      "entrance": {
+        "position": [7.5, -19, 8.5],
+        "target": [-1.3, -1.5, 3],
+        "orthoScale": 13.5
+      }
+    }
+  },
+  "budgets": {
+    "massing": {
+      "maxNodes": 32,
+      "maxTriangles": 1500,
+      "maxMaterials": 4,
+      "maxImages": 0,
+      "maxBytes": 250000
+    },
+    "master": {
+      "maxNodes": 64,
+      "maxTriangles": 12000,
+      "maxMaterials": 10,
+      "maxImages": 0,
+      "maxBytes": 1500000
+    }
+  },
+  "unknowns": [
+    {
+      "field": "rear-facade",
+      "strategy": "不生成背面身份装饰，只保留主体封闭体块"
+    },
+    {
+      "field": "surveyed-dimensions",
+      "strategy": "沿用已审核视觉比例，不声明实测"
+    },
+    {
+      "field": "construction-year",
+      "strategy": "不进入几何或运行时文字"
+    }
+  ]
+}

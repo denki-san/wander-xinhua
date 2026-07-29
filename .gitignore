@@ -29,6 +29,7 @@
 /docs/research/assets/**/*.har
 /docs/research/assets/**/*.pdf
 /docs/research/assets/**/*.html
+/docs/research/assets/**/*.json
 /docs/research/test_*.png
 /docs/research/test_*.jpg
 /docs/research/test_*.jpeg
@@ -73,6 +74,7 @@ next-env.d.ts
 /.worktrees/
 
 # Blender 与 Python 本地产物
+/assets/models/source/building-engine-spike/**/*.blend
 *.blend1
 __pycache__/
 *.pyc

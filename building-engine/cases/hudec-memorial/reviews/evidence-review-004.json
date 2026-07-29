@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 4,
+  "assetId": "hudec-memorial",
+  "gate": "evidence",
+  "decision": "approved",
+  "reviewedAt": "2026-07-29T11:22:59.648Z",
+  "reviewer": "lei + Codex selected-topology evidence review",
+  "reviewerType": "user-selection-led-manual-review",
+  "caseVersion": 4,
+  "target": null,
+  "sandbox": null,
+  "note": "Case v4 绑定不可变快照 2026-07-29-hudec-a-evidence-v1-083bde0；733/733 SHA 独立复核通过。用户选择 A 横向主楼加两个浅前凸山墙，并确认两根对称烟囱从靠正面主屋面坡面穿出，白色基座和红砖烟道均采用加高版；背面与测绘尺寸仍明确 unknown。"
+}

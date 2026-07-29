@@ -1,0 +1,491 @@
+{
+  "schemaVersion": 1,
+  "assetId": "sun-ke-villa",
+  "archetype": "garden-villa",
+  "artProfile": "xinhua-autumn-lowpoly-v1",
+  "evidence": {
+    "casePath": "building-engine/cases/sun-ke-villa/building-case.json",
+    "claimIds": [
+      "sun-ke-villa-main-massing",
+      "sun-ke-villa-footprint",
+      "sun-ke-villa-garden-arches",
+      "sun-ke-villa-round-tower",
+      "sun-ke-villa-porte-cochere",
+      "sun-ke-villa-palette",
+      "sun-ke-villa-scale"
+    ]
+  },
+  "coordinateContract": {
+    "sceneUnitMeters": 2.7,
+    "front": "local-negative-y",
+    "groundDatum": 0
+  },
+  "materials": {
+    "wall": "warm-plaster",
+    "wallShade": "warm-plaster-shadow",
+    "roof": "muted-red-tile",
+    "trim": "warm-stone",
+    "glass": "muted-glass",
+    "shadow": "entrance-shadow",
+    "metal": "dark-metal",
+    "path": "path-stone"
+  },
+  "massing": {
+    "volumes": [
+      {
+        "id": "central-residence",
+        "type": "box",
+        "center": [-0.42, 0],
+        "size": [4.95, 4.08],
+        "height": 3.68,
+        "material": "wall",
+        "evidenceClaimIds": [
+          "sun-ke-villa-main-massing",
+          "sun-ke-villa-footprint"
+        ]
+      },
+      {
+        "id": "lower-west-wing",
+        "type": "box",
+        "center": [-2.92, -0.08],
+        "size": [1.82, 3.72],
+        "height": 2.68,
+        "material": "wallShade",
+        "evidenceClaimIds": [
+          "sun-ke-villa-main-massing",
+          "sun-ke-villa-footprint"
+        ]
+      },
+      {
+        "id": "rounded-east-tower",
+        "type": "cylinder",
+        "center": [2.18, -0.58],
+        "radius": 1.23,
+        "segments": 20,
+        "height": 3.64,
+        "material": "wall",
+        "evidenceClaimIds": [
+          "sun-ke-villa-main-massing",
+          "sun-ke-villa-round-tower"
+        ]
+      },
+      {
+        "id": "front-dormer",
+        "type": "box",
+        "center": [-0.54, -1.27],
+        "size": [1.02, 0.72],
+        "baseHeight": 3.45,
+        "height": 0.92,
+        "material": "wall",
+        "evidenceClaimIds": ["sun-ke-villa-main-massing"]
+      },
+      {
+        "id": "porte-cochere-front-left-column",
+        "type": "box",
+        "center": [-2.1, 4.58],
+        "size": [0.4, 0.4],
+        "height": 2.16,
+        "material": "wall",
+        "evidenceClaimIds": ["sun-ke-villa-porte-cochere"]
+      },
+      {
+        "id": "porte-cochere-front-right-column",
+        "type": "box",
+        "center": [-0.34, 4.58],
+        "size": [0.4, 0.4],
+        "height": 2.16,
+        "material": "wall",
+        "evidenceClaimIds": ["sun-ke-villa-porte-cochere"]
+      },
+      {
+        "id": "porte-cochere-rear-left-column",
+        "type": "box",
+        "center": [-2.1, 2.48],
+        "size": [0.32, 0.32],
+        "height": 2.16,
+        "material": "wall",
+        "evidenceClaimIds": ["sun-ke-villa-porte-cochere"]
+      },
+      {
+        "id": "porte-cochere-rear-right-column",
+        "type": "box",
+        "center": [-0.34, 2.48],
+        "size": [0.32, 0.32],
+        "height": 2.16,
+        "material": "wall",
+        "evidenceClaimIds": ["sun-ke-villa-porte-cochere"]
+      },
+      {
+        "id": "porte-cochere-left-beam",
+        "type": "box",
+        "center": [-2.1, 3.36],
+        "size": [0.24, 2.92],
+        "baseHeight": 2.08,
+        "height": 0.24,
+        "material": "wall",
+        "evidenceClaimIds": ["sun-ke-villa-porte-cochere"]
+      },
+      {
+        "id": "porte-cochere-right-beam",
+        "type": "box",
+        "center": [-0.34, 3.36],
+        "size": [0.24, 2.92],
+        "baseHeight": 2.08,
+        "height": 0.24,
+        "material": "wall",
+        "evidenceClaimIds": ["sun-ke-villa-porte-cochere"]
+      }
+    ],
+    "roofs": [
+      {
+        "id": "central-tiled-roof",
+        "type": "gable",
+        "shape": "rect",
+        "center": [-0.42, 0],
+        "length": 5.18,
+        "span": 4.34,
+        "ridgeAxis": "X",
+        "eaveHeight": 3.68,
+        "ridgeHeight": 4.46,
+        "material": "roof",
+        "gableMaterial": "wall",
+        "evidenceClaimIds": ["sun-ke-villa-main-massing"]
+      },
+      {
+        "id": "west-wing-tiled-roof",
+        "type": "gable",
+        "shape": "rect",
+        "center": [-2.92, -0.08],
+        "length": 2.04,
+        "span": 3.92,
+        "ridgeAxis": "X",
+        "eaveHeight": 2.68,
+        "ridgeHeight": 3.13,
+        "material": "roof",
+        "gableMaterial": "wallShade",
+        "evidenceClaimIds": ["sun-ke-villa-main-massing"]
+      },
+      {
+        "id": "tower-low-curved-roof",
+        "type": "hipped",
+        "shape": "round",
+        "center": [2.18, -0.58],
+        "radius": 1.29,
+        "topRadius": 1.02,
+        "segments": 20,
+        "eaveHeight": 3.64,
+        "ridgeHeight": 3.96,
+        "material": "roof",
+        "evidenceClaimIds": ["sun-ke-villa-round-tower"]
+      },
+      {
+        "id": "front-dormer-roof",
+        "type": "gable",
+        "shape": "rect",
+        "center": [-0.54, -1.27],
+        "length": 1.18,
+        "span": 0.88,
+        "ridgeAxis": "X",
+        "eaveHeight": 4.35,
+        "ridgeHeight": 4.67,
+        "material": "roof",
+        "gableMaterial": "wall",
+        "evidenceClaimIds": ["sun-ke-villa-main-massing"]
+      },
+      {
+        "id": "porte-cochere-gable-roof",
+        "type": "gable",
+        "shape": "rect",
+        "center": [-1.22, 3.36],
+        "length": 3.14,
+        "span": 2.74,
+        "ridgeAxis": "Y",
+        "eaveHeight": 2.35,
+        "ridgeHeight": 3.18,
+        "material": "roof",
+        "gableMaterial": "wall",
+        "evidenceClaimIds": ["sun-ke-villa-porte-cochere"]
+      }
+    ]
+  },
+  "master": {
+    "openings": [
+      {
+        "id": "garden-pointed-entry-left",
+        "type": "arched-opening",
+        "anchor": [-1.55, -2.1, 0.16],
+        "width": 0.82,
+        "height": 1.78,
+        "rotationDegrees": 0,
+        "outsideSign": -1,
+        "pointed": true,
+        "open": true,
+        "material": "shadow",
+        "trimMaterial": "trim",
+        "frameMaterial": "metal",
+        "evidenceClaimIds": ["sun-ke-villa-garden-arches"]
+      },
+      {
+        "id": "garden-pointed-entry-center",
+        "type": "arched-opening",
+        "anchor": [-0.42, -2.1, 0.16],
+        "width": 0.82,
+        "height": 1.78,
+        "rotationDegrees": 0,
+        "outsideSign": -1,
+        "pointed": true,
+        "open": true,
+        "material": "shadow",
+        "trimMaterial": "trim",
+        "frameMaterial": "metal",
+        "evidenceClaimIds": ["sun-ke-villa-garden-arches"]
+      },
+      {
+        "id": "garden-pointed-entry-right",
+        "type": "arched-opening",
+        "anchor": [0.71, -2.1, 0.16],
+        "width": 0.82,
+        "height": 1.78,
+        "rotationDegrees": 0,
+        "outsideSign": -1,
+        "pointed": true,
+        "open": true,
+        "material": "shadow",
+        "trimMaterial": "trim",
+        "frameMaterial": "metal",
+        "evidenceClaimIds": ["sun-ke-villa-garden-arches"]
+      },
+      {
+        "id": "garden-upper-arch-row",
+        "type": "window-row",
+        "anchor": [-0.42, -2.11, 2.12],
+        "width": 0.72,
+        "height": 1.12,
+        "count": 4,
+        "spacing": 0.93,
+        "rotationDegrees": 0,
+        "outsideSign": -1,
+        "pointed": false,
+        "material": "glass",
+        "trimMaterial": "trim",
+        "frameMaterial": "metal",
+        "evidenceClaimIds": ["sun-ke-villa-garden-arches"]
+      },
+      {
+        "id": "west-wing-window-row",
+        "type": "window-row",
+        "anchor": [-2.92, -1.98, 0.48],
+        "width": 0.58,
+        "height": 1.05,
+        "count": 2,
+        "spacing": 0.78,
+        "rotationDegrees": 0,
+        "outsideSign": -1,
+        "pointed": true,
+        "material": "glass",
+        "trimMaterial": "trim",
+        "frameMaterial": "metal",
+        "evidenceClaimIds": ["sun-ke-villa-garden-arches"]
+      },
+      {
+        "id": "north-upper-pointed-row",
+        "type": "window-row",
+        "anchor": [0.48, 2.1, 2.08],
+        "width": 0.5,
+        "height": 1.12,
+        "count": 3,
+        "spacing": 0.73,
+        "rotationDegrees": 0,
+        "outsideSign": 1,
+        "pointed": true,
+        "material": "glass",
+        "trimMaterial": "trim",
+        "frameMaterial": "metal",
+        "evidenceClaimIds": ["sun-ke-villa-porte-cochere"]
+      }
+    ],
+    "features": [
+      {
+        "id": "garden-balcony",
+        "type": "balcony",
+        "anchor": [-0.42, -2.32, 2.12],
+        "width": 3.5,
+        "length": 0.5,
+        "height": 0.75,
+        "material": "metal",
+        "trimMaterial": "trim",
+        "evidenceClaimIds": ["sun-ke-villa-garden-arches"]
+      },
+      {
+        "id": "rounded-east-tower-identity",
+        "type": "round-tower",
+        "center": [2.18, -0.58],
+        "radius": 1.23,
+        "height": 3.64,
+        "windowAnglesDegrees": [200, 235, 270, 305, 340],
+        "material": "glass",
+        "trimMaterial": "trim",
+        "frameMaterial": "metal",
+        "evidenceClaimIds": ["sun-ke-villa-round-tower"]
+      },
+      {
+        "id": "north-porte-cochere-identity",
+        "type": "porte-cochere",
+        "anchor": [-1.22, 4.58, 0],
+        "width": 2.56,
+        "length": 2.92,
+        "height": 3.18,
+        "columns": [
+          [-2.1, 4.58],
+          [-0.34, 4.58],
+          [-2.1, 2.48],
+          [-0.34, 2.48]
+        ],
+        "material": "wall",
+        "roofMaterial": "roof",
+        "trimMaterial": "trim",
+        "evidenceClaimIds": ["sun-ke-villa-porte-cochere"]
+      },
+      {
+        "id": "main-chimney",
+        "type": "chimney",
+        "anchor": [1.04, 0.58, 3.7],
+        "size": [0.45, 0.4, 1.32],
+        "material": "wallShade",
+        "trimMaterial": "trim",
+        "evidenceClaimIds": ["sun-ke-villa-main-massing"]
+      },
+      {
+        "id": "garden-string-course",
+        "type": "trim-band",
+        "anchor": [-0.42, -2.13, 2.04],
+        "width": 4.84,
+        "length": 0.15,
+        "height": 0.12,
+        "rotationDegrees": 0,
+        "material": "trim",
+        "evidenceClaimIds": [
+          "sun-ke-villa-round-tower",
+          "sun-ke-villa-palette"
+        ]
+      }
+    ]
+  },
+  "collision": {
+    "obstacles": [
+      {
+        "id": "central-residence",
+        "minX": -2.895,
+        "maxX": 2.055,
+        "minY": -2.04,
+        "maxY": 2.04
+      },
+      {
+        "id": "lower-west-wing",
+        "minX": -3.83,
+        "maxX": -2.01,
+        "minY": -1.94,
+        "maxY": 1.78
+      },
+      {
+        "id": "rounded-east-tower",
+        "minX": 0.95,
+        "maxX": 3.41,
+        "minY": -1.81,
+        "maxY": 0.65
+      },
+      {
+        "id": "porte-cochere-front-left-column",
+        "minX": -2.3,
+        "maxX": -1.9,
+        "minY": 4.38,
+        "maxY": 4.78
+      },
+      {
+        "id": "porte-cochere-front-right-column",
+        "minX": -0.54,
+        "maxX": -0.14,
+        "minY": 4.38,
+        "maxY": 4.78
+      },
+      {
+        "id": "porte-cochere-rear-left-column",
+        "minX": -2.26,
+        "maxX": -1.94,
+        "minY": 2.32,
+        "maxY": 2.64
+      },
+      {
+        "id": "porte-cochere-rear-right-column",
+        "minX": -0.5,
+        "maxX": -0.18,
+        "minY": 2.32,
+        "maxY": 2.64
+      }
+    ],
+    "requiredOpenPaths": [
+      {
+        "id": "garden-to-pointed-entry",
+        "from": [-0.42, -5],
+        "to": [-0.42, -2.55],
+        "width": 0.8
+      },
+      {
+        "id": "porte-cochere-covered-lane",
+        "from": [-1.22, 2.85],
+        "to": [-1.22, 5.2],
+        "width": 0.8
+      }
+    ]
+  },
+  "runtime": {
+    "sandboxScale": 1,
+    "cameras": {
+      "canonical": {
+        "position": [0.5, -17, 7.2],
+        "target": [-0.25, 0, 2.25],
+        "orthoScale": 10.8
+      },
+      "side": {
+        "position": [12, -12, 8.8],
+        "target": [-0.2, 0.4, 2.3],
+        "orthoScale": 11.5
+      },
+      "entrance": {
+        "position": [-7.5, 14.5, 7],
+        "target": [-1.22, 3.2, 1.9],
+        "orthoScale": 8.6
+      }
+    }
+  },
+  "budgets": {
+    "massing": {
+      "maxNodes": 32,
+      "maxTriangles": 1500,
+      "maxMaterials": 4,
+      "maxImages": 0,
+      "maxBytes": 250000
+    },
+    "master": {
+      "maxNodes": 64,
+      "maxTriangles": 12000,
+      "maxMaterials": 10,
+      "maxImages": 0,
+      "maxBytes": 1500000
+    }
+  },
+  "unknowns": [
+    {
+      "field": "surveyed-height",
+      "strategy": "使用楼层与历史已审核 envelope，不声明实测"
+    },
+    {
+      "field": "hidden-side-openings",
+      "strategy": "只使用低密度重复语法，不作为身份焦点"
+    },
+    {
+      "field": "roof-back-details",
+      "strategy": "只保留主屋顶层级和一处烟囱"
+    }
+  ]
+}

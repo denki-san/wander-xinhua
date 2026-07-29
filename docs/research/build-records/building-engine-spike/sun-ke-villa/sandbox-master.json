@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "assetId": "sun-ke-villa",
+  "stage": "master",
+  "status": "pass",
+  "recordedAt": "2026-07-28T20:10:48+08:00",
+  "browser": "Codex In-app Browser",
+  "buildMode": "production",
+  "url": "http://127.0.0.1:4177/building-engine-sandbox?asset=sun-ke-villa&tier=master&view=canonical&qa=1",
+  "view": "canonical",
+  "glbSha256": "a5312d67e673a8356fd8507289a146d438667c33832ccbee0a4f7a69dde4ee49",
+  "collisionSha256": "1d18b0c89238e10fa7c98fa5b2403f9cc08eb2fc67c45e33d1481258d1d5676a",
+  "viewport": {
+    "width": 1280,
+    "height": 720,
+    "devicePixelRatio": 1
+  },
+  "canvas": {
+    "width": 804,
+    "height": 584
+  },
+  "pageVisibility": "visible",
+  "warmupSeconds": 2,
+  "sampleDurationSeconds": 5.028855,
+  "consoleErrors": 0,
+  "pageErrors": 0,
+  "modelVisible": true,
+  "groundContact": "pass",
+  "openPathCheck": "pass",
+  "fixedViewsReviewed": [
+    "canonical",
+    "side",
+    "entrance"
+  ],
+  "identityFeaturesReviewed": [
+    "garden-balcony",
+    "pointed-and-arched-opening-rhythm",
+    "rounded-east-tower",
+    "north-porte-cochere",
+    "main-chimney"
+  ],
+  "firstScreenResources": {
+    "total": 13,
+    "scripts": 8,
+    "stylesheets": 2,
+    "other": 3,
+    "fonts": 0,
+    "images": 0,
+    "video": 0,
+    "requiredOther": [
+      "manifest.json",
+      "sun-ke-villa-collision.json",
+      "sun-ke-villa-master.glb"
+    ]
+  },
+  "performance": {
+    "source": "Chrome DevTools Protocol Performance.getMetrics",
+    "taskDurationDeltaSeconds": 0.000511,
+    "scriptDurationDeltaSeconds": 0,
+    "layoutDurationDeltaSeconds": 0,
+    "recalcStyleDurationDeltaSeconds": 0,
+    "jsHeapUsedBytesStart": 12305832,
+    "jsHeapUsedBytesEnd": 12305832,
+    "claim": "raw-sample-only-no-baseline-no-improvement-claim"
+  },
+  "screenshot": {
+    "path": "test_artifacts/building-engine-spike/sun-ke-villa/test_sun-ke-villa-master-sandbox-canonical.png",
+    "sha256": "5c2c8f06034fb75aa453e94495b6a556f2f759741a538ed0b270456339aa2dcc",
+    "bytes": 89041
+  },
+  "httpRecord": "docs/research/build-records/building-engine-spike/sun-ke-villa/sandbox-http-master.json",
+  "finalComparison": {
+    "path": "test_artifacts/building-engine-spike/sun-ke-villa/test_sun-ke-villa-final-triptych.png",
+    "sha256": "0ca5838b903c89686a6cee21cfadfe5d40fc5e4c81e89d2c9590b4c518ba54d5",
+    "bytes": 975068,
+    "columnsLeftToRight": [
+      "approved-reference",
+      "blender-master-canonical",
+      "threejs-master-canonical"
+    ],
+    "outcome": "approved-spike-with-known-unknowns",
+    "knownUnknowns": [
+      "surveyed-height",
+      "hidden-side-openings",
+      "roof-back-details"
+    ]
+  },
+  "reviewNote": "三处固定机位均显示当前 Master；花园立面尖拱与拱窗节奏、长阳台、圆塔、烟囱和北侧门廊可辨，建筑根接地，碰撞和开放路径合同保持不变。"
+}
