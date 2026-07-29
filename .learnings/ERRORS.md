@@ -1,5 +1,41 @@
 # Errors
 
+## [ERR-20260729-004] clean_clone_missing_historical_git_objects
+
+**Logged**: 2026-07-29T21:55:37+08:00
+**Priority**: high
+**Status**: pending
+**Area**: tests
+
+### Summary
+GitHub 干净克隆的全量测试引用了远端任何 ref 都不可达的本机历史对象，导致 9 项
+`git show` 验证失败。
+
+### Error
+```text
+451 tests: 442 pass, 9 fail
+fatal: path 'app/scene/xinhua-road-landmarks-data.json' exists on disk,
+but not in '0189d06a939651c0f7e2876d074321f2caa9a903'
+fatal: invalid object name 'ea77bc3'
+```
+
+### Context
+- 在从 GitHub `origin/main` 创建的干净发布克隆执行 `npm test`。
+- 二进制门禁、静态构建、Sites 构建和本次专项测试均通过。
+- 失败测试文件未被 Issue #1 Phase 1/2 修改。
+- 同一测试在包含额外本机对象的旧工作区通过，不能作为远端可复现证据。
+
+### Suggested Fix
+逐项把历史 `git show <sha>:<path>` 输入迁移为远端可达 commit，或把所需不可变
+快照作为受控小型 fixture/外置证据索引保存；修复前不得宣称 GitHub 干净克隆全量
+测试通过。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `tests/test_film_art_center_internal_road_semantics_deep_audit.test.mjs`, `tests/test_film_art_center_quality_tiers.test.mjs`, `tests/test_villa_le_bec_hero_v2.test.mjs`, `tests/test_villa_le_bec_hero_v2_blender_mcp2_gate.test.mjs`, `tests/test_villa_le_bec_hero_visual_adjudication.test.mjs`, `tests/test_villa_le_bec_three_tier_final_disposition.test.mjs`
+
+---
+
 ## [ERR-20260729-003] ajv_strict_required_conditional_subschema
 
 **Logged**: 2026-07-29T21:31:00+08:00

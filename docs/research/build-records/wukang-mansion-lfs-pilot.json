@@ -2,7 +2,7 @@
   "recordVersion": 1,
   "assetId": "wukang-mansion",
   "version": "pilot-v1",
-  "status": "passed",
+  "status": "partial",
   "scope": {
     "phase": "issue-1-phase-2",
     "sourceCopiedToIndependentLfsRepository": true,
@@ -144,9 +144,11 @@
       "failed": 0
     },
     "fullTests": {
-      "status": "passed",
-      "tests": 462,
-      "failed": 0
+      "status": "blocked-by-pre-existing-unpublished-git-history",
+      "tests": 451,
+      "passed": 442,
+      "failed": 9,
+      "issueIntroducedByPilot": false
     },
     "lint": {
       "status": "passed-with-existing-warning",
