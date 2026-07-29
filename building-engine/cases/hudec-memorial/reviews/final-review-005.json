@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 5,
+  "assetId": "hudec-memorial",
+  "gate": "final",
+  "decision": "approved-spike-with-known-unknowns",
+  "reviewedAt": "2026-07-29T12:31:43.831Z",
+  "reviewer": "Codex evidence-bounded final comparison",
+  "reviewerType": "independent-manual-review",
+  "caseVersion": 4,
+  "target": {
+    "stage": "master",
+    "dslSha256": "637a2473f5285c42ed7d1cc8c2788a3ef83db335588a00e63d3498d6be0b5bf9",
+    "glbSha256": "b7002cbd4e5cb2ce9448e747ebacd9cf7faaa3cdcd81046272c0e57fd3635002",
+    "collisionSha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/master.json"
+  },
+  "sandbox": {
+    "path": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-master-v3.json",
+    "sha256": "73c079eab163f208118555edfeb379814e018822b2932dd3dc2c9e1a13f450ad"
+  },
+  "note": "通过 Spike 终审：用户选择的 A 拓扑、靠正面屋面坡面的对称双烟囱、加高白色基座与红砖段均被保留；半木构三角山墙、中央拱门、窗组和左侧长玻璃翼已进入同源 Blender 与 Three.js Master。GLB、碰撞、三固定机位、接地、开放路径和控制台均通过。背面、树木遮挡处与精确测绘尺寸仍为已知未知，不得据此直接提升为生产资产。"
+}

@@ -6,7 +6,10 @@ import { spawnSync } from "node:child_process";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
-import { validateRoofContract } from "../scripts/building_engine_spike.mjs";
+import {
+  hasVerifiedEvidenceChecksumStatus,
+  validateRoofContract,
+} from "../scripts/building_engine_spike.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const assetIds = ["house-315", "hudec-memorial", "sun-ke-villa"];
@@ -126,6 +129,7 @@ test("Compiler 保持数据驱动，单一 CLI 覆盖最小 Pipeline", () => {
   );
   assert.match(compiler, /def add_shed_roof\(/);
   assert.match(compiler, /roof\["type"\] == "shed"/);
+  assert.match(compiler, /def build_timber_gable\(/);
   assert.match(cli, /highSide 与 ridgeAxis=/);
   assert.match(cli, /外置不可变快照是证据真值/);
   assert.match(cli, /existsSync\(repositoryPath\)/);
@@ -133,7 +137,29 @@ test("Compiler 保持数据驱动，单一 CLI 覆盖最小 Pipeline", () => {
     hudecDsl.massing.roofs
       .filter((roof) => roof.type === "shed")
       .map((roof) => [roof.ridgeAxis, roof.highSide]),
-    [["X", "positiveY"]],
+    [["Y", "positiveX"]],
+  );
+  assert.deepEqual(
+    hudecDsl.master.features
+      .filter((feature) => feature.type === "timber-gable")
+      .map((feature) => [
+        feature.id,
+        feature.anchor,
+        feature.rotationDegrees,
+      ]),
+    [
+      ["front-left-timber-gable", [-2.7, -3.73, 0], 0],
+      ["front-right-timber-gable", [2.7, -3.73, 0], 0],
+    ],
+  );
+  assert.deepEqual(
+    hudecDsl.massing.volumes
+      .filter((volume) => volume.id.endsWith("chimney-white-roof-base"))
+      .map((volume) => [volume.center, volume.baseHeight, volume.height]),
+    [
+      [[-4.05, -0.68], 4.62, 1.68],
+      [[4.05, -0.68], 4.62, 1.68],
+    ],
   );
   for (const command of ["inspect", "validate", "build", "review", "qa", "status"]) {
     assert.match(cli, new RegExp(`command === "${command}"`));
@@ -244,6 +270,37 @@ test("单坡屋顶合同拒绝非法轴向、错侧、缺字段和非 shed 的 h
       highSide: "positiveY",
     }).join("\n"),
     /非 shed roof .* 不得声明 highSide/,
+  );
+});
+
+test("外置证据快照接受带日期的全量校验状态，不绑定单个历史日期", () => {
+  assert.equal(
+    hasVerifiedEvidenceChecksumStatus({
+      snapshotId: "2026-07-28-0ef306f",
+      checksumStatus: "verified-all-2026-07-28",
+    }),
+    true,
+  );
+  assert.equal(
+    hasVerifiedEvidenceChecksumStatus({
+      snapshotId: "2026-07-29-hudec-a-evidence-v1-083bde0",
+      checksumStatus: "verified-all-2026-07-29-independent-recheck",
+    }),
+    true,
+  );
+  assert.equal(
+    hasVerifiedEvidenceChecksumStatus({
+      snapshotId: "2026-07-29-hudec-a-evidence-v1-083bde0",
+      checksumStatus: "pending",
+    }),
+    false,
+  );
+  assert.equal(
+    hasVerifiedEvidenceChecksumStatus({
+      snapshotId: "2026-07-29-hudec-a-evidence-v1-083bde0",
+      checksumStatus: "verified-partial-2026-07-29",
+    }),
+    false,
   );
 });
 

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "reviewVersion": 7,
+  "assetId": "hudec-memorial",
+  "gate": "massing",
+  "decision": "changes-requested",
+  "reviewedAt": "2026-07-29T08:43:54.871Z",
+  "reviewer": "Codex user-orientation correction",
+  "reviewerType": "user-correction-led-manual-review",
+  "caseVersion": 2,
+  "target": {
+    "stage": "massing",
+    "dslSha256": "fde1d744684d9e47b9a4f89051f9c24077f89dd96e1407f38862dc8234d191b6",
+    "glbSha256": "15e448bfbbde995f2dff3e7059b18969f640434c253bfb24962a148b4a714a9a",
+    "collisionSha256": "cb910b91864b38ed8b11969b097acf1233d3f33bff6255cc7aa164e4c731d65c",
+    "buildRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/massing.json"
+  },
+  "sandbox": null,
+  "note": "用户标注确认左侧长坡玻璃翼与主烟囱属于侧面，右侧山墙与入口方向才是正面；当前 DSL 把正交立面摊成同一排，旧 Massing 批准失效。"
+}

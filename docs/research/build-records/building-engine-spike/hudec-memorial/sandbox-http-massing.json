@@ -3,21 +3,21 @@
   "assetId": "hudec-memorial",
   "stage": "massing",
   "status": "http-pass-awaiting-browser-visual",
-  "origin": "http://127.0.0.1:4177",
+  "origin": "http://127.0.0.1:3000",
   "page": {
-    "url": "http://127.0.0.1:4177/building-engine-sandbox?asset=hudec-memorial&tier=massing&view=canonical&qa=1",
+    "url": "http://127.0.0.1:3000/building-engine-sandbox?asset=hudec-memorial&tier=massing&view=canonical&qa=1",
     "status": 200
   },
   "glb": {
-    "url": "http://127.0.0.1:4177/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb?v=15e448bfbbde",
+    "url": "http://127.0.0.1:3000/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb?v=c83fb903cc0c",
     "status": 200,
-    "sha256": "15e448bfbbde995f2dff3e7059b18969f640434c253bfb24962a148b4a714a9a",
-    "bytes": 31080
+    "sha256": "c83fb903cc0c8ee9adc047a787a52f7e3e0f35257d305adfd8ba5bb0aabbb4d2",
+    "bytes": 22040
   },
   "collision": {
-    "url": "http://127.0.0.1:4177/models/building-engine-spike/hudec-memorial/hudec-memorial-collision.json?v=cb910b91864b",
+    "url": "http://127.0.0.1:3000/models/building-engine-spike/hudec-memorial/hudec-memorial-collision.json?v=0e853d79a138",
     "status": 200,
-    "sha256": "cb910b91864b38ed8b11969b097acf1233d3f33bff6255cc7aa164e4c731d65c",
-    "bytes": 2000
+    "sha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637",
+    "bytes": 1577
   }
 }

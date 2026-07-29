@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "hudec-memorial",
   "archetype": "garden-villa",
-  "dslSha256": "fde1d744684d9e47b9a4f89051f9c24077f89dd96e1407f38862dc8234d191b6",
+  "dslSha256": "637a2473f5285c42ed7d1cc8c2788a3ef83db335588a00e63d3498d6be0b5bf9",
   "coordinateContract": {
     "sceneUnitMeters": 2.7,
     "front": "local-negative-y",
@@ -10,105 +10,77 @@
   },
   "obstacles": [
     {
-      "id": "main-long-hall",
-      "minX": -4.2,
-      "maxX": 4.2,
-      "minY": -1.9,
-      "maxY": 2.8
+      "id": "rear-main-range",
+      "minX": -4.6,
+      "maxX": 4.6,
+      "minY": -1.95,
+      "maxY": 2.85
     },
     {
-      "id": "front-west-gable",
-      "minX": -2.03,
-      "maxX": 1.13,
-      "minY": -3.5,
-      "maxY": 2.06
+      "id": "front-left-shallow-bay",
+      "minX": -4.25,
+      "maxX": -1.1500000000000001,
+      "minY": -3.4,
+      "maxY": -0.6999999999999997
     },
     {
-      "id": "front-east-gable",
-      "minX": 1.23,
-      "maxX": 3.88,
-      "minY": -2.65,
-      "maxY": 2.15
+      "id": "front-right-shallow-bay",
+      "minX": 1.1500000000000001,
+      "maxX": 4.25,
+      "minY": -3.4,
+      "maxY": -0.6999999999999997
     },
     {
-      "id": "front-glass-wing",
-      "minX": -4.65,
-      "maxX": -0.79,
-      "minY": -4.74,
-      "maxY": -2.02
+      "id": "left-glass-lean-to",
+      "minX": -6.65,
+      "maxX": -4.25,
+      "minY": -3.1,
+      "maxY": 1.8000000000000003
     },
     {
-      "id": "rear-east-low-wing",
-      "minX": 2.95,
-      "maxX": 5.41,
-      "minY": -0.1,
-      "maxY": 3.06
-    },
-    {
-      "id": "entrance-front-left-column",
-      "minX": 2.34,
-      "maxX": 2.62,
-      "minY": -3.78,
-      "maxY": -3.5
-    },
-    {
-      "id": "entrance-front-right-column",
-      "minX": 3.98,
-      "maxX": 4.26,
-      "minY": -3.78,
-      "maxY": -3.5
-    },
-    {
-      "id": "brick-gate-left-post",
-      "minX": -6.15,
-      "maxX": -5.85,
-      "minY": -4.58,
-      "maxY": -4.06
-    },
-    {
-      "id": "brick-gate-right-post",
-      "minX": -4.85,
-      "maxX": -4.55,
-      "minY": -4.58,
-      "maxY": -4.06
+      "id": "right-low-return",
+      "minX": 4.075,
+      "maxX": 6.2250000000000005,
+      "minY": -0.8500000000000001,
+      "maxY": 2.25
     }
   ],
   "requiredOpenPaths": [
     {
-      "id": "courtyard-to-entrance",
+      "id": "front-central-entry",
       "from": [
-        3.3,
-        -6
+        0,
+        -5.4
       ],
       "to": [
-        3.3,
-        -4.05
+        0,
+        -2.5
       ],
-      "width": 0.8
+      "width": 0.9
     },
     {
-      "id": "brick-gate-arch",
+      "id": "left-side-circulation",
       "from": [
-        -5.35,
-        -6
+        -7.25,
+        -4
       ],
       "to": [
-        -5.35,
-        -4.82
+        -7.25,
+        3.2
       ],
-      "width": 0.7
+      "width": 0.55
     },
     {
-      "id": "west-side-circulation",
+      "id": "right-side-circulation",
       "from": [
-        -6.45,
-        -3.7
+        6.8,
+        -3.8
       ],
       "to": [
-        -6.45,
-        3.7
+        6.8,
+        3.2
       ],
-      "width": 0.65
+      "width": 0.55
     }
   ]
 }

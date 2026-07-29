@@ -68,16 +68,98 @@
       "view": "近距离斜向；可见玻璃围护、与主体相连的长单坡屋面、端山墙和白色烟囱塔",
       "visibleWatermark": "@乐游上海",
       "independentEvidence": true
+    },
+    {
+      "id": "hudec-user-orientation-annotation",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-orientation-annotation-20260729.png",
+      "originalAttachmentPath": "/Users/lei/.codex/attachments/ee1f04c7-e104-404a-aefd-53db8fa37a3f/codex-clipboard-96175d16-0471-4def-a3de-5d08fd8a8010.png",
+      "sha256": "02b2545ba6082bb486ff78f6a3ba54876adf76d4b5d9d421af8ea1eb3da84b79",
+      "pixelSize": [
+        1870,
+        1292
+      ],
+      "view": "用户在被否决的 Master 右前斜视图上标注：左圈长坡玻璃翼、烟囱塔与相连体量属于侧面，右侧山墙和入口方向属于正面",
+      "visibleWatermark": "none",
+      "relationship": "orientation-annotation-over-rejected-master-render",
+      "independentEvidence": false,
+      "authority": "user-provided-subject-orientation-correction",
+      "acquiredAt": "2026-07-29T00:00:00+08:00"
+    },
+    {
+      "id": "hudec-user-modern-front-oblique",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-modern-front-oblique-20260729.png",
+      "originalAttachmentPath": "/Users/lei/.codex/attachments/68bf9eb3-f465-485e-a9ff-02e43c7e82f9/codex-clipboard-a198a81e-331e-4c4d-a8bb-d0d13f21b821.png",
+      "sha256": "f94b6f3eca38fe68aa8ee309ba2a7c49fa0b499d72425fa7687cf4a43247282b",
+      "pixelSize": [
+        780,
+        590
+      ],
+      "view": "现代正面稍偏斜视角；拍摄位置绕开正面树木，可见横向主屋脊、两个浅前凸山墙、长坡侧翼和成对烟囱",
+      "visibleWatermark": "Baidu 百科",
+      "independentEvidence": true,
+      "authority": "user-provided-viewpoint-identification",
+      "acquiredAt": "2026-07-29T18:00:00+08:00"
+    },
+    {
+      "id": "hudec-user-left-chimney-side-duplicate",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-left-chimney-side-20260729.png",
+      "originalAttachmentPath": "/Users/lei/.codex/attachments/fd31819d-ad4a-429c-ac9e-84a1eebf2ba0/codex-clipboard-53cabdb9-d933-4b66-8966-7b61fee475c6.png",
+      "sha256": "8f33685ca2b01459412490d04c6710328b86e56fa8c2e5bb525cf07e4c0d64d8",
+      "pixelSize": [
+        365,
+        547
+      ],
+      "view": "从画面左侧烟囱附近近距离广角观察；用户确认该图与现代斜正面、历史完全正面属于同一结构",
+      "visibleWatermark": "@乐游上海",
+      "relationship": "byte-identical-to-hudec-user-glass-wing",
+      "independentEvidence": false,
+      "authority": "user-provided-viewpoint-identification",
+      "acquiredAt": "2026-07-29T18:00:00+08:00"
+    },
+    {
+      "id": "hudec-user-historic-front-wide",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-historic-front-wide-20260729.png",
+      "originalAttachmentPath": "/Users/lei/.codex/attachments/4a93bcee-0ba4-459f-aab8-1811dcd7e7a4/codex-clipboard-dac5139c-1eb8-4f6b-a78e-1dc5c519fa73.png",
+      "sha256": "7ef4e9b43f74abc54a013345124d77ea3f6a966485ce972b4575a253454db5c5",
+      "pixelSize": [
+        1432,
+        948
+      ],
+      "view": "历史完全正面；清楚显示横向通长主屋面、两个浅前凸山墙、中央退进立面和两根左右成对烟囱",
+      "visibleWatermark": "none-visible",
+      "independentEvidence": true,
+      "temporalBoundary": "historic-state; current facade details must be cross-checked",
+      "authority": "user-provided-viewpoint-identification",
+      "acquiredAt": "2026-07-29T18:00:00+08:00"
+    },
+    {
+      "id": "hudec-user-roof-chimney-annotation",
+      "repositoryPath": "docs/research/assets/requested-poi-references/hudec-memorial-user-roof-chimney-annotation-20260729.png",
+      "originalAttachmentPath": "/Users/lei/.codex/attachments/e1778169-168f-4420-9139-7c7936044824/codex-clipboard-ed5ec686-c098-4054-8110-c58f3ab3b3eb.png",
+      "sha256": "af74e056baab5440e764d22e9bbd23aca51081887f6398a63dfffd89b0a90255",
+      "pixelSize": [
+        2732,
+        786
+      ],
+      "view": "用户在选定 A 体块三视图上标注：两根对称烟囱均从靠正面一侧的主屋面坡面穿出，不是落地外墙塔或屋脊后侧烟囱",
+      "visibleWatermark": "none",
+      "relationship": "annotation-over-selected-topology-a-massing-render",
+      "independentEvidence": false,
+      "authority": "user-provided-geometry-correction",
+      "acquiredAt": "2026-07-29T18:45:00+08:00"
     }
   ],
   "observedCorrections": [
     "玻璃翼位于长坡屋面下并与主体连续，不是独立低矮双坡小屋。",
-    "烟囱具有从低层延伸至屋脊以上的白色实体塔身，顶部才是成组红砖烟道。",
+    "两根烟囱左右成对，均从靠正面一侧的主屋面坡面穿出；可见白色屋面基座，其上是更高的红砖烟道和外扩冠部。",
     "主体由紧凑的主屋脊、前部长坡翼和前后交错山墙组成，不是宽盒主体加两个松散侧翼。",
-    "半木构主要沿端山墙、转角与窗格形成连续节奏，旧模型的平直宽立面节奏不成立。"
+    "半木构主要沿端山墙、转角与窗格形成连续节奏，旧模型的平直宽立面节奏不成立。",
+    "用户明确纠正空间方向：长坡玻璃翼与主烟囱所在左侧体量是侧面，右侧山墙与入口方向才是正面；两个立面必须在转角处保持正交关系。",
+    "用户在三个互斥结构候选中选择 A：主体是横向通长主楼，正面两个山墙是浅前凸体块，不采用 U 形深翼或前后贯通 H 形翼楼。",
+    "用户确认白色屋面基座和红砖烟道都应比首轮 A 修订更高；最终候选保留屋面位置与左右间距，只增加两段垂直高度。"
   ],
   "unknowns": [
-    "四张图片的原始发布 URL、作者和拍摄日期。",
+    "所有用户提供参考图片的原始发布 URL、作者和拍摄日期。",
     "被树木遮挡的东侧与背侧开口。",
     "精确测绘尺寸、屋坡角度和烟囱内部烟道数量。"
   ]

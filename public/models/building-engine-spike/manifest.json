@@ -106,84 +106,84 @@
       "cameras": {
         "canonical": {
           "position": [
-            -15,
-            -17,
-            11.5
+            -11.5,
+            -19,
+            8.2
           ],
           "target": [
-            -0.35,
-            -0.65,
-            3.35
+            0,
+            -0.7,
+            3.1
           ],
           "orthoScale": 14.8
         },
         "side": {
           "position": [
-            15,
-            -13,
-            9.5
-          ],
-          "target": [
-            0.1,
-            -0.25,
-            3.2
-          ],
-          "orthoScale": 14.2
-        },
-        "entrance": {
-          "position": [
-            9,
-            -17,
+            -19,
+            -8.5,
             7.8
           ],
           "target": [
-            1.55,
-            -1.25,
-            2.8
+            -2.1,
+            -0.4,
+            3.05
           ],
-          "orthoScale": 13.5
+          "orthoScale": 14.3
+        },
+        "entrance": {
+          "position": [
+            0,
+            -22,
+            6.6
+          ],
+          "target": [
+            0,
+            -0.8,
+            3
+          ],
+          "orthoScale": 14.2
         }
       },
       "tiers": {
         "massing": {
-          "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb?v=15e448bfbbde",
-          "sha256": "15e448bfbbde995f2dff3e7059b18969f640434c253bfb24962a148b4a714a9a",
-          "bytes": 31080,
+          "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb?v=c83fb903cc0c",
+          "sha256": "c83fb903cc0c8ee9adc047a787a52f7e3e0f35257d305adfd8ba5bb0aabbb4d2",
+          "bytes": 22040,
           "bounds": {
             "min": [
-              -6.15,
+              -6.875,
               0,
-              -3.255
+              -3.15
             ],
             "max": [
-              5.605,
-              7.88,
-              5.005
+              6.4,
+              8.059999,
+              3.675
             ]
           }
         },
         "master": {
-          "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb?v=cd3d49fcc108",
-          "sha256": "cd3d49fcc1080b15be2ba76eea44f024213ae1b3a51530dbdfa4aeac10d65521",
-          "bytes": 194952,
+          "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb?v=b7002cbd4e5c",
+          "sha256": "b7002cbd4e5cb2ce9448e747ebacd9cf7faaa3cdcd81046272c0e57fd3635002",
+          "bytes": 216172,
           "bounds": {
             "min": [
-              -6.149999,
+              -6.875,
               0,
-              -3.255
+              -3.15
             ],
             "max": [
-              5.605,
-              8,
-              5.005
+              6.4,
+              8.15,
+              3.79
             ]
           }
         }
       },
       "collision": {
-        "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-collision.json?v=cb910b91864b",
-        "sha256": "cb910b91864b38ed8b11969b097acf1233d3f33bff6255cc7aa164e4c731d65c",
-        "obstacleCount": 9,
+        "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-collision.json?v=0e853d79a138",
+        "sha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637",
+        "obstacleCount": 5,
         "openPathCount": 3
       }
     },

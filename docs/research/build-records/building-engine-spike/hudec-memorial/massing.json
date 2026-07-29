@@ -12,7 +12,7 @@
   "inputs": {
     "dsl": {
       "path": "building-engine/cases/hudec-memorial/building-dsl.json",
-      "sha256": "fde1d744684d9e47b9a4f89051f9c24077f89dd96e1407f38862dc8234d191b6"
+      "sha256": "637a2473f5285c42ed7d1cc8c2788a3ef83db335588a00e63d3498d6be0b5bf9"
     },
     "artProfile": {
       "path": "building-engine/art-profiles/xinhua-autumn-lowpoly-v1.json",
@@ -20,25 +20,25 @@
     }
   },
   "lineage": {
-    "dslSha256": "fde1d744684d9e47b9a4f89051f9c24077f89dd96e1407f38862dc8234d191b6",
+    "dslSha256": "637a2473f5285c42ed7d1cc8c2788a3ef83db335588a00e63d3498d6be0b5bf9",
     "artProfileSha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10",
     "compilerSha256": "20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9"
   },
-  "editableObjectCount": 32,
+  "editableObjectCount": 21,
   "outputs": {
     "blend": {
       "path": "assets/models/source/building-engine-spike/hudec-memorial/hudec-memorial-massing.blend",
-      "sha256": "46c944920e2d434a4060c0465d67acdb4928a211c2b358b53f2f44020a68e72d",
-      "bytes": 110564
+      "sha256": "7f520a01a7bfc8a546dbb0debda6d7b36bb1401262b041935ff1e8bacf8fd12d",
+      "bytes": 106053
     },
     "glb": {
       "path": "public/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb",
-      "sha256": "15e448bfbbde995f2dff3e7059b18969f640434c253bfb24962a148b4a714a9a",
-      "bytes": 31080,
+      "sha256": "c83fb903cc0c8ee9adc047a787a52f7e3e0f35257d305adfd8ba5bb0aabbb4d2",
+      "bytes": 22040,
       "nodes": 1,
       "meshes": 1,
       "primitives": 5,
-      "triangles": 360,
+      "triangles": 232,
       "materials": 5,
       "images": 0,
       "textures": 0,
@@ -46,49 +46,49 @@
       "skins": 0,
       "bounds": {
         "min": [
-          -6.15,
+          -6.875,
           0,
-          -3.255
+          -3.15
         ],
         "max": [
-          5.605,
-          7.88,
-          5.005
+          6.4,
+          8.059999,
+          3.675
         ]
       },
       "transformedNodes": []
     },
     "collision": {
       "path": "public/models/building-engine-spike/hudec-memorial/hudec-memorial-collision.json",
-      "sha256": "cb910b91864b38ed8b11969b097acf1233d3f33bff6255cc7aa164e4c731d65c",
-      "obstacleCount": 9,
+      "sha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637",
+      "obstacleCount": 5,
       "openPathCount": 3
     },
     "previews": [
       {
         "view": "canonical",
         "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-canonical.png",
-        "sha256": "9e99f1123c95f6f06eef479d80bbed6b11dae2f0883824a8bd2b5dbaeeb834f6",
-        "bytes": 761641
+        "sha256": "6fd44200d093f527f78f4b056deb12f5e673a25b58c1a20693843192aa073012",
+        "bytes": 744285
       },
       {
         "view": "side",
         "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-side.png",
-        "sha256": "3671f108de68233054faa8410eb3bbf334a6ce09359c8f53c397ce232498f5bd",
-        "bytes": 789327
+        "sha256": "fa51f1341ffbf0bdeb29de24e592de7f0ec25b0461cfd9a5a43e97d6b6f1117c",
+        "bytes": 746905
       },
       {
         "view": "entrance",
         "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-entrance.png",
-        "sha256": "b3cc9a9bd39e0e0acae87d0376dc0067c86fceb838770b35c251434d865b35f0",
-        "bytes": 790564
+        "sha256": "461524a69d7ebb44455641d511d8979bcf55849d3602791d58032b054404762b",
+        "bytes": 702432
       }
     ]
   },
   "geometryIntegrity": {
-    "vertices": 244,
-    "polygons": 186,
-    "triangles": 360,
+    "vertices": 158,
+    "polygons": 121,
+    "triangles": 232,
     "zeroAreaTriangles": 0,
     "nonFinitePositions": 0,
     "status": "ok"

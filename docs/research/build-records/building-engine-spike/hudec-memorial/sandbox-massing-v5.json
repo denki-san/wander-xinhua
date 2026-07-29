@@ -3,13 +3,13 @@
   "assetId": "hudec-memorial",
   "stage": "massing",
   "status": "pass",
-  "recordedAt": "2026-07-29T20:23:02+08:00",
+  "recordedAt": "2026-07-29T20:16:15+08:00",
   "browser": "agent-browser Chromium",
   "buildMode": "production",
   "url": "http://127.0.0.1:3000/building-engine-sandbox?asset=hudec-memorial&tier=massing&view=canonical",
   "view": "canonical",
-  "glbSha256": "c83fb903cc0c8ee9adc047a787a52f7e3e0f35257d305adfd8ba5bb0aabbb4d2",
-  "collisionSha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637",
+  "glbSha256": "d9e4523d1587a7bead978c8beb4d3913848ac7228e77d663fdf3c9ecaaf2b192",
+  "collisionSha256": "9c3fc004ccfacb0e2056c2397db5d11de9cf06bf4881ed98e21cc649b23ca139",
   "viewport": {
     "width": 1280,
     "height": 577,
@@ -20,7 +20,7 @@
     "height": 441
   },
   "pageVisibility": "visible",
-  "warmupSeconds": 3,
+  "warmupSeconds": 1.5,
   "sampleDurationSeconds": 0,
   "consoleErrors": 0,
   "pageErrors": 0,
@@ -43,29 +43,29 @@
   },
   "performance": {
     "sampled": false,
-    "reason": "selected-a-final-dsl-gate-only",
+    "reason": "massing-calibration-gate-only",
     "claim": "no-performance-claim"
   },
   "screenshots": [
     {
       "view": "canonical",
-      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-sandbox-massing-canonical-v6-final-timber-dsl.png",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-sandbox-massing-canonical-v5-final-dsl.png",
       "sha256": "abf7a58db08ebe73464c5903f7094950f5f380ecf1f51ae789d80b5bb1359b58",
       "bytes": 255227
     },
     {
       "view": "side",
-      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-sandbox-massing-side-v6-final-timber-dsl.png",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-sandbox-massing-side-v5-final-dsl.png",
       "sha256": "9b1fe0bac6e4eb7735326f4b439b69e070d65dfbcb11a52e0cf78fc49d241548",
       "bytes": 245328
     },
     {
       "view": "entrance",
-      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-sandbox-massing-entrance-v6-final-timber-dsl.png",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-sandbox-massing-entrance-v5-final-dsl.png",
       "sha256": "36d4a624819fd6e4cbb4faa20e3c16d7712b44754fca3500f312e07907084b1f",
       "bytes": 212915
     }
   ],
   "httpRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-http-massing.json",
-  "reviewNote": "用户明确选择 A：通长横向主楼加两个浅前凸山墙。两根对称烟囱均位于靠正面的主屋面坡面，白色基座和红砖段均采用加高版；旧落地烟囱塔解释已撤销。production Sandbox 三固定机位、模型接地、五个拆分碰撞障碍与三条非空开放路径均通过。"
+  "reviewNote": "用户已选择 A 横向主楼加两个浅前凸山墙，并确认两根对称烟囱位于靠正面的主屋面坡面，白色基座和红砖段均采用加高版。正式 DSL 已同时固定后续 Low-poly Master 参数；production Sandbox 显式加载当前 Massing GLB 与 collision SHA，三个固定机位、模型可见、接地、三条非空开放路径、控制台与页面错误均通过。"
 }

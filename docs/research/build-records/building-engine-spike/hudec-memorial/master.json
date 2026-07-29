@@ -12,7 +12,7 @@
   "inputs": {
     "dsl": {
       "path": "building-engine/cases/hudec-memorial/building-dsl.json",
-      "sha256": "fde1d744684d9e47b9a4f89051f9c24077f89dd96e1407f38862dc8234d191b6"
+      "sha256": "637a2473f5285c42ed7d1cc8c2788a3ef83db335588a00e63d3498d6be0b5bf9"
     },
     "artProfile": {
       "path": "building-engine/art-profiles/xinhua-autumn-lowpoly-v1.json",
@@ -20,29 +20,29 @@
     }
   },
   "lineage": {
-    "dslSha256": "fde1d744684d9e47b9a4f89051f9c24077f89dd96e1407f38862dc8234d191b6",
+    "dslSha256": "637a2473f5285c42ed7d1cc8c2788a3ef83db335588a00e63d3498d6be0b5bf9",
     "artProfileSha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10",
     "compilerSha256": "20ed07e153cf4ef25219ec9e00ae3fcce35c4f2de6b2fe2a65119bd5f4bdfbb9",
     "derivedFromMassing": {
       "record": "docs/research/build-records/building-engine-spike/hudec-memorial/massing.json",
-      "glbSha256": "15e448bfbbde995f2dff3e7059b18969f640434c253bfb24962a148b4a714a9a"
+      "glbSha256": "c83fb903cc0c8ee9adc047a787a52f7e3e0f35257d305adfd8ba5bb0aabbb4d2"
     }
   },
-  "editableObjectCount": 219,
+  "editableObjectCount": 244,
   "outputs": {
     "blend": {
       "path": "assets/models/source/building-engine-spike/hudec-memorial/hudec-memorial-master.blend",
-      "sha256": "f4d4cd091b3e1f0644d3cf91b05779ca9f93acdc5a36f58d7bd98cf5105f9486",
-      "bytes": 187695
+      "sha256": "f010b67efd8b5d9b9f3935920d4b03db95153c8a21f0589cda69f79611a42d92",
+      "bytes": 196197
     },
     "glb": {
       "path": "public/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb",
-      "sha256": "cd3d49fcc1080b15be2ba76eea44f024213ae1b3a51530dbdfa4aeac10d65521",
-      "bytes": 194952,
+      "sha256": "b7002cbd4e5cb2ce9448e747ebacd9cf7faaa3cdcd81046272c0e57fd3635002",
+      "bytes": 216172,
       "nodes": 1,
       "meshes": 1,
       "primitives": 8,
-      "triangles": 2676,
+      "triangles": 2980,
       "materials": 8,
       "images": 0,
       "textures": 0,
@@ -50,49 +50,49 @@
       "skins": 0,
       "bounds": {
         "min": [
-          -6.149999,
-          -0.0,
-          -3.255
+          -6.875,
+          0,
+          -3.15
         ],
         "max": [
-          5.605,
-          8,
-          5.005
+          6.4,
+          8.15,
+          3.79
         ]
       },
       "transformedNodes": []
     },
     "collision": {
       "path": "public/models/building-engine-spike/hudec-memorial/hudec-memorial-collision.json",
-      "sha256": "cb910b91864b38ed8b11969b097acf1233d3f33bff6255cc7aa164e4c731d65c",
-      "obstacleCount": 9,
+      "sha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637",
+      "obstacleCount": 5,
       "openPathCount": 3
     },
     "previews": [
       {
         "view": "canonical",
         "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-master-canonical.png",
-        "sha256": "e887264e1b879676c6ff578397c61d0b3d51b02d5b7cb1ab6b4aaca897a626a5",
-        "bytes": 786587
+        "sha256": "53af94ec7d9917b9ec40f00fe4ef8111176d0abbbe963f8a80d7ae3b9ffb8d69",
+        "bytes": 786590
       },
       {
         "view": "side",
         "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-master-side.png",
-        "sha256": "3659cb44b643a8a4750adc4233807ad3d3621046a31ebe8a8833abe1c18e5276",
-        "bytes": 813714
+        "sha256": "f25d923286a7642d6ed3fd24081779ba02177e8735eac47084a52c47b7bb1c03",
+        "bytes": 773655
       },
       {
         "view": "entrance",
         "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-master-entrance.png",
-        "sha256": "c59e2277683e802f20a86d8cbd5393b0b3ee8edd0c8f238b45b99d737512bc26",
-        "bytes": 824278
+        "sha256": "3a3bd3a4d1170c0969f10ea4da50004ff8a5c92f3a0c47a5b2d8f6d99e2afad7",
+        "bytes": 772320
       }
     ]
   },
   "geometryIntegrity": {
-    "vertices": 1776,
-    "polygons": 1326,
-    "triangles": 2676,
+    "vertices": 1978,
+    "polygons": 1477,
+    "triangles": 2980,
     "zeroAreaTriangles": 0,
     "nonFinitePositions": 0,
     "status": "ok"

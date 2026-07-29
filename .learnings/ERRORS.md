@@ -1,5 +1,118 @@
 # Errors
 
+## [ERR-20260729-B52] blender_52_metal_backend_sandbox_crash
+
+**Logged**: 2026-07-29T20:01:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Blender 5.2 在受限沙箱内启动 Headless 编译时，于 Metal 后端能力探测阶段崩溃。
+
+### Error
+```text
+supports_barycentric_whitelist
+GPU_backend_type_selection_detect
+hudec-memorial massing 编译失败
+```
+
+### Context
+- DSL 校验已通过，崩溃发生在 Blender 读取场景前；
+- crash backtrace 指向 Metal 设备探测，不是生成器几何或 DSL 数据错误；
+- 同一命令在沙箱外运行后完成三机位渲染、Blend 保存、GLB 导出和 QA。
+
+### Suggested Fix
+macOS 上 Blender 5.2 若在沙箱内于 Metal 初始化崩溃，保留 crash report 后在受控沙箱外重跑同一确定性命令；不得把崩溃误报为模型编译失败。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/building_engine_spike.mjs, scripts/compile_garden_villa.py
+
+### Resolution
+- **Resolved**: 2026-07-29T20:01:07+08:00
+- **Notes**: 沙箱外重跑 `build --asset hudec-memorial --stage massing` 与 artifact QA 均通过。
+
+---
+
+## [ERR-20260729-P30] vinext_start_sandbox_port_permission
+
+**Logged**: 2026-07-29T19:28:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+本地 Vinext production server 在默认沙箱内无法监听 `0.0.0.0:3000`。
+
+### Error
+```text
+Error: listen EPERM: operation not permitted 0.0.0.0:3000
+```
+
+### Context
+- `npm run build:sites` 已成功；
+- 首次 `npm run start:sites` 在创建监听 socket 时退出，未修改应用资产。
+- Server 授权启动后，默认沙箱中的 CLI 访问 `127.0.0.1:3000` 仍返回
+  `fetch failed`；同一 HTTP QA 授权重跑后页面、GLB 和 collision 均为 `200`
+  且 SHA 匹配。
+
+### Suggested Fix
+保持同一 production build，以授权方式重跑 `npm run start:sites`，不要降级到
+不挂载 App Router 的静态预览。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `package.json`, `.learnings/ERRORS.md`
+- See Also: ERR-20260728-007
+
+### Resolution
+- **Resolved**: 2026-07-29T19:28:00+08:00
+- **Notes**: 授权后 Vinext production server 成功监听 3000 端口；HTTP QA
+  也需同等本机网络权限。
+
+---
+
+## [ERR-20260729-EVS] building_engine_evidence_snapshot_status
+
+**Logged**: 2026-07-29T19:20:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: backend
+
+### Summary
+Building Engine CLI 把证据快照通过状态硬编码为旧日期，拒绝新建且已独立校验的不可变快照。
+
+### Error
+```text
+hudec-memorial DSL validation failed
+conflict: 外置快照未记录本轮全量 SHA 通过
+```
+
+### Context
+- 新快照 `2026-07-29-hudec-a-evidence-v1-083bde0` 已由归档脚本和独立
+  `shasum -a 256 -c SHA256SUMS` 两次验证；
+- Case 的 `checksumStatus` 为
+  `verified-all-2026-07-29-independent-recheck`；
+- CLI 仍只接受精确字符串 `verified-all-2026-07-28`。
+
+### Suggested Fix
+接受带 ISO 日期的 `verified-all-...` 状态，不绑定单个历史日期；归档日期与
+独立复核日期允许不同，同时拒绝 pending、partial 和无日期字符串。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `scripts/building_engine_spike.mjs`,
+  `tests/test_building_engine_spike.test.mjs`,
+  `building-engine/cases/hudec-memorial/building-case.json`
+
+### Resolution
+- **Resolved**: 2026-07-29T19:25:00+08:00
+- **Notes**: 改为接受带 ISO 日期的 `verified-all-...` 全量校验状态；旧迁移
+  快照、新独立复核后缀、pending 和 partial 单元负例通过，三栋 validate 全通过。
+
+---
+
 ## [ERR-20260728-009] jq_dollar_defs_key_access
 
 **Logged**: 2026-07-28T23:23:23+08:00
@@ -8186,5 +8299,37 @@ No such file or directory
 ### Metadata
 - Reproducible: yes
 - Related Files: `/Users/lei/.codex/skills/photo-reference-webgl-modeling/`
+
+---
+
+## [ERR-20260729-001] parallel_image_open_file_limit
+
+**Logged**: 2026-07-29T09:50:09+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: config
+
+### Summary
+并行读取用户参考图与多张模型预览时触发文件句柄上限。
+
+### Error
+```text
+Too many open files (os error 24)
+```
+
+### Context
+- 为回答单张参考图与三个固定机位是否相似，尝试在一次工具编排中并行打开五张原图。
+- 失败发生在读取阶段，没有修改模型、证据或运行时产物。
+
+### Suggested Fix
+视觉对照默认逐张读取；只有确认文件句柄预算充足时才并行打开多张原图。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: test_artifacts/building-engine-spike/hudec-memorial/
+
+### Resolution
+- **Resolved**: 2026-07-29T09:50:09+08:00
+- **Notes**: 改为逐张读取参考图和模型固定机位。
 
 ---

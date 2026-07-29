@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "stage": "massing",
+  "status": "pass",
+  "recordedAt": "2026-07-29T19:45:00+08:00",
+  "browser": "agent-browser Chromium",
+  "buildMode": "production",
+  "url": "http://127.0.0.1:3000/building-engine-sandbox?asset=hudec-memorial&tier=massing&view=canonical&qa=1",
+  "view": "canonical",
+  "glbSha256": "904c61d7fba6c999cb871406ca0d6951e517d72e1802714c536a3266568c7a4e",
+  "collisionSha256": "6f5d2c95b564fa18ae747ead8d4e40f02d86622cfcd9771074cb55fd0bff65cd",
+  "viewport": {
+    "width": 1280,
+    "height": 577,
+    "devicePixelRatio": 1
+  },
+  "canvas": {
+    "width": 804,
+    "height": 441
+  },
+  "pageVisibility": "visible",
+  "warmupSeconds": 1.5,
+  "sampleDurationSeconds": 0,
+  "consoleErrors": 0,
+  "pageErrors": 0,
+  "modelVisible": true,
+  "groundContact": "pass",
+  "openPathCheck": "pass",
+  "fixedViewsReviewed": [
+    "canonical",
+    "side",
+    "entrance"
+  ],
+  "firstScreenResources": {
+    "source": "sandbox-http-record-plus-browser-dom",
+    "required": [
+      "manifest.json",
+      "hudec-memorial-collision.json",
+      "hudec-memorial-massing.glb"
+    ],
+    "allRequiredHttpStatus": 200
+  },
+  "performance": {
+    "sampled": false,
+    "reason": "massing-calibration-gate-only",
+    "claim": "no-performance-claim"
+  },
+  "screenshots": [
+    {
+      "view": "canonical",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-sandbox-massing-canonical-v4-open-paths.png",
+      "sha256": "461b8466118393c0b0164ce728674e54c6f9bb45c79ce34f098939b6beea07f9",
+      "bytes": 256853
+    },
+    {
+      "view": "side",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-sandbox-massing-side-v4-open-paths.png",
+      "sha256": "66595b98a74e82102edecf42e80eb96e47b55b9fede50b6b7da4d152deb1a456",
+      "bytes": 246712
+    },
+    {
+      "view": "entrance",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-sandbox-massing-entrance-v4-open-paths.png",
+      "sha256": "05690a04586a2bf331b5b915eb19f85780f128323dde8fdb05e15148406b2036",
+      "bytes": 213771
+    }
+  ],
+  "httpRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-http-massing.json",
+  "reviewNote": "用户选择 A 横向主楼加两个浅前凸山墙，并确认两根对称烟囱位于靠正面主屋面坡面且白色、红砖段均采用加高版。正式 Massing 三固定机位与用户批准候选像素一致；production Sandbox 显式加载当前 GLB 与 collision SHA，模型可见、接地、三条非空开放路径和控制台均通过。"
+}

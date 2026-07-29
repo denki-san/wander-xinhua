@@ -3,13 +3,13 @@
   "assetId": "hudec-memorial",
   "stage": "master",
   "status": "pass",
-  "recordedAt": "2026-07-29T00:39:24+08:00",
+  "recordedAt": "2026-07-29T20:36:38+08:00",
   "browser": "agent-browser Chromium",
   "buildMode": "production",
-  "url": "http://127.0.0.1:4177/building-engine-sandbox?asset=hudec-memorial&tier=master&view=canonical&qa=1",
+  "url": "http://127.0.0.1:3000/building-engine-sandbox?asset=hudec-memorial&tier=master&view=canonical",
   "view": "canonical",
-  "glbSha256": "cd3d49fcc1080b15be2ba76eea44f024213ae1b3a51530dbdfa4aeac10d65521",
-  "collisionSha256": "cb910b91864b38ed8b11969b097acf1233d3f33bff6255cc7aa164e4c731d65c",
+  "glbSha256": "b7002cbd4e5cb2ce9448e747ebacd9cf7faaa3cdcd81046272c0e57fd3635002",
+  "collisionSha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637",
   "viewport": {
     "width": 1280,
     "height": 720,
@@ -21,7 +21,7 @@
   },
   "pageVisibility": "visible",
   "warmupSeconds": 3,
-  "sampleDurationSeconds": 40.496,
+  "sampleDurationSeconds": 5.1064,
   "consoleErrors": 0,
   "pageErrors": 0,
   "modelVisible": true,
@@ -33,12 +33,11 @@
     "entrance"
   ],
   "identityFeaturesReviewed": [
-    "solid-white-chimney-tower-and-grouped-brick-flues",
-    "long-front-shed-roof-over-glazed-wing",
-    "twin-staggered-half-timber-front-gables",
+    "symmetric-roof-mounted-white-and-brick-chimneys",
+    "long-left-shed-roof-over-glazed-wing",
+    "twin-shallow-half-timber-front-gables",
     "dense-timber-window-grid",
-    "gabled-entrance-and-brick-arch",
-    "rear-secondary-brick-stack"
+    "central-brick-arched-entry"
   ],
   "firstScreenResources": {
     "source": "sandbox-http-record-plus-browser-dom",
@@ -51,59 +50,58 @@
   },
   "performance": {
     "source": "Window Performance API",
-    "sampleDurationSeconds": 40.496,
+    "sampleDurationSeconds": 5.1064,
     "pageVisibility": "visible",
-    "jsHeapUsedBytesStart": 8335324,
-    "jsHeapUsedBytesEnd": 8348816,
-    "totalJSHeapSizeStart": 10354908,
-    "totalJSHeapSizeEnd": 10354916,
-    "resourceCountStart": 14,
-    "resourceCountEnd": 14,
+    "jsHeapUsedBytesStart": 16189257,
+    "jsHeapUsedBytesEnd": 16202197,
+    "totalJSHeapSizeStart": 18293729,
+    "totalJSHeapSizeEnd": 18293737,
+    "resourceCountStart": 13,
+    "resourceCountEnd": 13,
     "claim": "raw-sample-only-no-baseline-no-improvement-claim"
   },
   "screenshots": [
     {
       "view": "canonical",
       "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-master-sandbox-canonical.png",
-      "sha256": "e9463bb9334581b294b21473728a5afb369a298ed33ee72f0c96fd223d4ce3f6",
-      "bytes": 351933
+      "sha256": "c98051a89d82bc9348bbd94f208034000f35033603575febaad5a5d67cb4d1b1",
+      "bytes": 354329
     },
     {
       "view": "side",
       "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-master-sandbox-side.png",
-      "sha256": "0d9214272c98e5a19b504117e9e5bf31c609a4b2d00edbd4f71a046976733690",
-      "bytes": 307396
+      "sha256": "53cab48a1241f72e6f6fbae57f3bfb8fbc836558491defd7337f31dc2df91f5b",
+      "bytes": 334838
     },
     {
       "view": "entrance",
       "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-master-sandbox-entrance.png",
-      "sha256": "8f3da14d5f13d3df23296e88dc0c4e622fc10467c2ac62c44e39776d412305b2",
-      "bytes": 338358
+      "sha256": "2ac7672c249987eae37d13c30136754984fc3ebfdea89b4800d9d4a555b3650d",
+      "bytes": 299436
     }
   ],
   "screenshot": {
     "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-master-sandbox-canonical.png",
-    "sha256": "e9463bb9334581b294b21473728a5afb369a298ed33ee72f0c96fd223d4ce3f6",
-    "bytes": 351933
+    "sha256": "c98051a89d82bc9348bbd94f208034000f35033603575febaad5a5d67cb4d1b1",
+    "bytes": 354329
   },
   "httpRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-http-master.json",
   "finalComparison": {
     "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-final-triptych.png",
-    "sha256": "c195fe128078add9192a6ba09999f268776bab7132240bdf8e1be5439a761ad3",
-    "bytes": 1026698,
+    "sha256": "97a23d3b585ca2c15cce55f5f0b5d06fc112c39b41fba6410bdbce4fe8d6f4e5",
+    "bytes": 1115220,
     "columnsLeftToRight": [
       "approved-reference",
       "blender-master-canonical",
       "threejs-master-canonical"
     ],
-    "outcome": "approved-evidence-corrected-experimental-with-known-unknowns",
+    "outcome": "approved-selected-a-spike-with-known-unknowns",
     "knownUnknowns": [
       "surveyed-dimensions",
       "hidden-east-and-rear-openings",
-      "weathervane-detail",
       "precise-window-and-timber-spacing",
       "user-photo-source-metadata"
     ]
   },
-  "reviewNote": "用户新增照片推翻旧视觉结论后，已按新 canonical 证据重建。参考 / Blender / Three.js 三联图确认前部玻璃长单坡、落地白色烟囱塔与成组红砖烟道、两组交错 Tudor 山墙、密集窗格和入口关系可辨；production Sandbox 三机位、接地、拆分碰撞和三条开放路径通过。该结论只批准证据修正版实验链路，不自动授权替换正式 Hudec Hero。"
+  "reviewNote": "用户选定 A 拓扑后，参考 / Blender / Three.js 三联图确认通长主楼、浅前凸双山墙、靠正面屋面坡面的对称双烟囱、加高白色与红砖段、左侧长玻璃翼、半木构窗格和中央拱门可辨。production Sandbox 三机位、接地、拆分碰撞和三条开放路径通过；5.1064 秒原始采样只记录条件，不声称性能提升。该结论只批准实验 Spike，不授权替换正式 Hudec Hero。"
 }

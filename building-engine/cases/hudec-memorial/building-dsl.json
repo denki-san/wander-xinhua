@@ -13,7 +13,8 @@
       "hudec-memorial-entry-gate",
       "hudec-memorial-glass-wing",
       "hudec-memorial-footprint-scale",
-      "hudec-memorial-palette"
+      "hudec-memorial-palette",
+      "hudec-memorial-front-side-orientation"
     ]
   },
   "coordinateContract": {
@@ -36,355 +37,223 @@
   "massing": {
     "volumes": [
       {
-        "id": "main-long-hall",
+        "id": "rear-main-range",
         "type": "box",
         "center": [
           0,
           0.45
         ],
         "size": [
-          8.4,
-          4.7
-        ],
-        "height": 3.45,
-        "material": "wall",
-        "lowerMaterial": "brick",
-        "lowerHeight": 0.62,
-        "evidenceClaimIds": [
-          "hudec-memorial-main-massing",
-          "hudec-memorial-half-timber"
-        ]
-      },
-      {
-        "id": "front-west-gable",
-        "type": "box",
-        "center": [
-          -0.45,
-          -0.72
-        ],
-        "size": [
-          3.15,
-          5.55
-        ],
-        "height": 4,
-        "material": "wall",
-        "lowerMaterial": "brick",
-        "lowerHeight": 0.68,
-        "evidenceClaimIds": [
-          "hudec-memorial-main-massing",
-          "hudec-memorial-half-timber"
-        ]
-      },
-      {
-        "id": "front-east-gable",
-        "type": "box",
-        "center": [
-          2.55,
-          -0.25
-        ],
-        "size": [
-          2.65,
+          9.2,
           4.8
         ],
-        "height": 3.82,
-        "material": "wallShade",
-        "lowerMaterial": "brick",
-        "lowerHeight": 0.64,
-        "evidenceClaimIds": [
-          "hudec-memorial-main-massing",
-          "hudec-memorial-half-timber"
-        ]
-      },
-      {
-        "id": "front-glass-wing",
-        "type": "box",
-        "center": [
-          -2.72,
-          -3.38
-        ],
-        "size": [
-          3.85,
-          2.72
-        ],
-        "height": 1.48,
-        "material": "glass",
-        "lowerMaterial": "brick",
-        "lowerHeight": 0.28,
-        "evidenceClaimIds": [
-          "hudec-memorial-main-massing",
-          "hudec-memorial-glass-wing"
-        ]
-      },
-      {
-        "id": "west-chimney-tower",
-        "type": "box",
-        "center": [
-          -3.65,
-          -1.28
-        ],
-        "size": [
-          1.72,
-          1.5
-        ],
-        "height": 5.65,
+        "height": 3.7,
         "material": "wall",
         "lowerMaterial": "brick",
         "lowerHeight": 0.58,
         "evidenceClaimIds": [
-          "hudec-memorial-chimney-tower",
           "hudec-memorial-main-massing"
         ]
       },
       {
-        "id": "west-chimney-neck",
+        "id": "front-left-shallow-bay",
         "type": "box",
         "center": [
-          -3.65,
-          -1.28
+          -2.7,
+          -2.05
         ],
         "size": [
-          1.2,
-          1.08
+          3.1,
+          2.7
         ],
-        "baseHeight": 5.3,
-        "height": 0.45,
-        "material": "wall",
+        "height": 4.05,
+        "material": "wallShade",
+        "lowerMaterial": "brick",
+        "lowerHeight": 0.58,
         "evidenceClaimIds": [
-          "hudec-memorial-chimney-tower"
+          "hudec-memorial-main-massing"
         ]
       },
       {
-        "id": "west-chimney-brick-plinth",
+        "id": "front-right-shallow-bay",
         "type": "box",
         "center": [
-          -3.65,
-          -1.28
+          2.7,
+          -2.05
         ],
         "size": [
-          1.38,
-          1.02
+          3.1,
+          2.7
         ],
-        "baseHeight": 5.62,
-        "height": 0.34,
-        "material": "brick",
+        "height": 4.05,
+        "material": "wallShade",
+        "lowerMaterial": "brick",
+        "lowerHeight": 0.58,
         "evidenceClaimIds": [
-          "hudec-memorial-chimney-tower"
+          "hudec-memorial-main-massing"
         ]
       },
       {
-        "id": "west-chimney-flue-left",
+        "id": "left-glass-lean-to",
         "type": "box",
         "center": [
-          -4.08,
-          -1.28
+          -5.45,
+          -0.65
         ],
         "size": [
-          0.38,
+          2.4,
+          4.9
+        ],
+        "height": 1.58,
+        "material": "glass",
+        "lowerMaterial": "brick",
+        "lowerHeight": 0.3,
+        "evidenceClaimIds": [
+          "hudec-memorial-glass-wing"
+        ]
+      },
+      {
+        "id": "right-low-return",
+        "type": "box",
+        "center": [
+          5.15,
           0.7
         ],
-        "baseHeight": 5.86,
-        "height": 1.92,
-        "material": "brick",
-        "evidenceClaimIds": [
-          "hudec-memorial-chimney-tower"
-        ]
-      },
-      {
-        "id": "west-chimney-flue-center",
-        "type": "box",
-        "center": [
-          -3.65,
-          -1.28
-        ],
         "size": [
-          0.38,
-          0.7
-        ],
-        "baseHeight": 5.86,
-        "height": 2.02,
-        "material": "brick",
-        "evidenceClaimIds": [
-          "hudec-memorial-chimney-tower"
-        ]
-      },
-      {
-        "id": "west-chimney-flue-right",
-        "type": "box",
-        "center": [
-          -3.22,
-          -1.28
-        ],
-        "size": [
-          0.38,
-          0.7
-        ],
-        "baseHeight": 5.86,
-        "height": 1.92,
-        "material": "brick",
-        "evidenceClaimIds": [
-          "hudec-memorial-chimney-tower"
-        ]
-      },
-      {
-        "id": "rear-brick-stack",
-        "type": "box",
-        "center": [
           2.15,
-          1.18
-        ],
-        "size": [
-          0.5,
-          0.68
-        ],
-        "baseHeight": 4.65,
-        "height": 1.95,
-        "material": "brick",
-        "evidenceClaimIds": [
-          "hudec-memorial-chimney-tower",
-          "hudec-memorial-layered-roofs"
-        ]
-      },
-      {
-        "id": "rear-east-low-wing",
-        "type": "box",
-        "center": [
-          4.18,
-          1.48
-        ],
-        "size": [
-          2.45,
-          3.15
+          3.1
         ],
         "height": 2.35,
         "material": "wallShade",
         "lowerMaterial": "brick",
-        "lowerHeight": 0.52,
+        "lowerHeight": 0.58,
         "evidenceClaimIds": [
-          "hudec-memorial-main-massing",
-          "hudec-memorial-layered-roofs"
+          "hudec-memorial-main-massing"
         ]
       },
       {
-        "id": "entrance-front-left-column",
+        "id": "left-chimney-white-roof-base",
         "type": "box",
         "center": [
-          2.48,
-          -3.64
+          -4.05,
+          -0.68
         ],
         "size": [
-          0.28,
-          0.28
+          1.12,
+          1.08
         ],
-        "height": 2.05,
-        "material": "wall",
-        "lowerMaterial": "brick",
-        "lowerHeight": 0.42,
-        "evidenceClaimIds": [
-          "hudec-memorial-entry-gate"
-        ]
-      },
-      {
-        "id": "entrance-front-right-column",
-        "type": "box",
-        "center": [
-          4.12,
-          -3.64
-        ],
-        "size": [
-          0.28,
-          0.28
-        ],
-        "height": 2.05,
-        "material": "wall",
-        "lowerMaterial": "brick",
-        "lowerHeight": 0.42,
-        "evidenceClaimIds": [
-          "hudec-memorial-entry-gate"
-        ]
-      },
-      {
-        "id": "entrance-rear-left-column",
-        "type": "box",
-        "center": [
-          2.48,
-          -2.9
-        ],
-        "size": [
-          0.24,
-          0.24
-        ],
-        "height": 2.05,
+        "baseHeight": 4.62,
+        "height": 1.68,
         "material": "wall",
         "evidenceClaimIds": [
-          "hudec-memorial-entry-gate"
+          "hudec-memorial-chimney-tower"
         ]
       },
       {
-        "id": "entrance-rear-right-column",
+        "id": "left-chimney-brick-head",
         "type": "box",
         "center": [
-          4.12,
-          -2.9
+          -4.05,
+          -0.68
         ],
         "size": [
-          0.24,
-          0.24
+          0.86,
+          0.82
         ],
-        "height": 2.05,
-        "material": "wall",
-        "evidenceClaimIds": [
-          "hudec-memorial-entry-gate"
-        ]
-      },
-      {
-        "id": "brick-gate-left-post",
-        "type": "box",
-        "center": [
-          -6,
-          -4.32
-        ],
-        "size": [
-          0.3,
-          0.52
-        ],
-        "height": 2.15,
+        "baseHeight": 6.08,
+        "height": 1.92,
         "material": "brick",
         "evidenceClaimIds": [
-          "hudec-memorial-entry-gate"
+          "hudec-memorial-chimney-tower"
         ]
       },
       {
-        "id": "brick-gate-right-post",
+        "id": "left-chimney-brick-cap",
         "type": "box",
         "center": [
-          -4.7,
-          -4.32
+          -4.05,
+          -0.68
         ],
         "size": [
-          0.3,
-          0.52
+          1.02,
+          0.98
         ],
-        "height": 2.15,
+        "baseHeight": 7.84,
+        "height": 0.22,
         "material": "brick",
         "evidenceClaimIds": [
-          "hudec-memorial-entry-gate"
+          "hudec-memorial-chimney-tower"
+        ]
+      },
+      {
+        "id": "right-chimney-white-roof-base",
+        "type": "box",
+        "center": [
+          4.05,
+          -0.68
+        ],
+        "size": [
+          1.12,
+          1.08
+        ],
+        "baseHeight": 4.62,
+        "height": 1.68,
+        "material": "wall",
+        "evidenceClaimIds": [
+          "hudec-memorial-chimney-tower"
+        ]
+      },
+      {
+        "id": "right-chimney-brick-head",
+        "type": "box",
+        "center": [
+          4.05,
+          -0.68
+        ],
+        "size": [
+          0.86,
+          0.82
+        ],
+        "baseHeight": 6.08,
+        "height": 1.92,
+        "material": "brick",
+        "evidenceClaimIds": [
+          "hudec-memorial-chimney-tower"
+        ]
+      },
+      {
+        "id": "right-chimney-brick-cap",
+        "type": "box",
+        "center": [
+          4.05,
+          -0.68
+        ],
+        "size": [
+          1.02,
+          0.98
+        ],
+        "baseHeight": 7.84,
+        "height": 0.22,
+        "material": "brick",
+        "evidenceClaimIds": [
+          "hudec-memorial-chimney-tower"
         ]
       }
     ],
     "roofs": [
       {
-        "id": "main-long-steep-roof",
+        "id": "rear-main-roof",
         "type": "gable",
         "shape": "rect",
         "center": [
           0,
           0.45
         ],
-        "length": 8.95,
-        "span": 5.15,
+        "length": 9.8,
+        "span": 5.4,
         "ridgeAxis": "X",
-        "eaveHeight": 3.45,
-        "ridgeHeight": 5.8,
+        "eaveHeight": 3.7,
+        "ridgeHeight": 6.05,
         "material": "roof",
         "gableMaterial": "wall",
         "evidenceClaimIds": [
@@ -392,59 +261,57 @@
         ]
       },
       {
-        "id": "front-west-cross-gable-roof",
+        "id": "front-left-shallow-gable",
         "type": "gable",
         "shape": "rect",
         "center": [
-          -0.45,
-          -0.72
+          -2.7,
+          -2.05
         ],
-        "length": 5.95,
+        "length": 3.25,
         "span": 3.55,
         "ridgeAxis": "Y",
-        "eaveHeight": 4,
-        "ridgeHeight": 6.28,
-        "material": "roof",
-        "gableMaterial": "wall",
-        "evidenceClaimIds": [
-          "hudec-memorial-layered-roofs",
-          "hudec-memorial-half-timber"
-        ]
-      },
-      {
-        "id": "front-east-cross-gable-roof",
-        "type": "gable",
-        "shape": "rect",
-        "center": [
-          2.55,
-          -0.25
-        ],
-        "length": 5.2,
-        "span": 3.05,
-        "ridgeAxis": "Y",
-        "eaveHeight": 3.82,
-        "ridgeHeight": 5.82,
+        "eaveHeight": 4.05,
+        "ridgeHeight": 6.4,
         "material": "roof",
         "gableMaterial": "wallShade",
         "evidenceClaimIds": [
-          "hudec-memorial-layered-roofs",
-          "hudec-memorial-half-timber"
+          "hudec-memorial-layered-roofs"
         ]
       },
       {
-        "id": "front-glass-wing-long-shed-roof",
+        "id": "front-right-shallow-gable",
+        "type": "gable",
+        "shape": "rect",
+        "center": [
+          2.7,
+          -2.05
+        ],
+        "length": 3.25,
+        "span": 3.55,
+        "ridgeAxis": "Y",
+        "eaveHeight": 4.05,
+        "ridgeHeight": 6.4,
+        "material": "roof",
+        "gableMaterial": "wallShade",
+        "evidenceClaimIds": [
+          "hudec-memorial-layered-roofs"
+        ]
+      },
+      {
+        "id": "left-glass-catslide",
         "type": "shed",
         "shape": "rect",
         "center": [
-          -2.72,
-          -3.38
+          -5.45,
+          -0.65
         ],
-        "length": 4.25,
-        "span": 3.25,
-        "ridgeAxis": "X",
-        "highSide": "positiveY",
-        "eaveHeight": 1.52,
-        "ridgeHeight": 4.28,
+        "length": 5.35,
+        "span": 2.85,
+        "ridgeAxis": "Y",
+        "highSide": "positiveX",
+        "eaveHeight": 1.62,
+        "ridgeHeight": 4.45,
         "material": "roof",
         "gableMaterial": "wall",
         "evidenceClaimIds": [
@@ -453,41 +320,21 @@
         ]
       },
       {
-        "id": "rear-east-low-wing-roof",
+        "id": "right-low-return-roof",
         "type": "gable",
         "shape": "rect",
         "center": [
-          4.18,
-          1.48
+          5.15,
+          0.7
         ],
-        "length": 3.55,
-        "span": 2.85,
+        "length": 3.45,
+        "span": 2.5,
         "ridgeAxis": "Y",
         "eaveHeight": 2.35,
-        "ridgeHeight": 3.72,
+        "ridgeHeight": 3.75,
         "material": "roof",
         "gableMaterial": "wallShade",
         "evidenceClaimIds": [
-          "hudec-memorial-layered-roofs"
-        ]
-      },
-      {
-        "id": "entrance-porch-roof",
-        "type": "gable",
-        "shape": "rect",
-        "center": [
-          3.3,
-          -3.28
-        ],
-        "length": 1.72,
-        "span": 2.2,
-        "ridgeAxis": "Y",
-        "eaveHeight": 2.05,
-        "ridgeHeight": 2.88,
-        "material": "roof",
-        "gableMaterial": "wall",
-        "evidenceClaimIds": [
-          "hudec-memorial-entry-gate",
           "hudec-memorial-layered-roofs"
         ]
       }
@@ -496,38 +343,16 @@
   "master": {
     "openings": [
       {
-        "id": "glass-wing-front-window-row",
+        "id": "left-glass-wing-side-window-row",
         "type": "window-row",
         "anchor": [
-          -2.72,
-          -4.77,
-          0.32
+          -6.67,
+          -0.65,
+          0.3
         ],
-        "width": 0.58,
-        "height": 1.02,
-        "count": 5,
-        "spacing": 0.7,
-        "rotationDegrees": 0,
-        "outsideSign": -1,
-        "material": "glass",
-        "trimMaterial": "timber",
-        "frameMaterial": "timber",
-        "evidenceClaimIds": [
-          "hudec-memorial-glass-wing",
-          "hudec-memorial-half-timber"
-        ]
-      },
-      {
-        "id": "glass-wing-west-window-row",
-        "type": "window-row",
-        "anchor": [
-          -4.67,
-          -3.38,
-          0.32
-        ],
-        "width": 0.58,
-        "height": 1.02,
-        "count": 3,
+        "width": 0.5,
+        "height": 1.12,
+        "count": 7,
         "spacing": 0.72,
         "rotationDegrees": 90,
         "outsideSign": 1,
@@ -536,103 +361,131 @@
         "frameMaterial": "timber",
         "evidenceClaimIds": [
           "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
           "hudec-memorial-half-timber"
         ]
       },
       {
-        "id": "west-gable-lower-window-row",
+        "id": "left-glass-wing-front-window-row",
         "type": "window-row",
         "anchor": [
-          -0.45,
-          -3.51,
-          0.72
-        ],
-        "width": 0.54,
-        "height": 1.16,
-        "count": 3,
-        "spacing": 0.8,
-        "rotationDegrees": 0,
-        "outsideSign": -1,
-        "material": "glass",
-        "trimMaterial": "brick",
-        "frameMaterial": "timber",
-        "evidenceClaimIds": [
-          "hudec-memorial-half-timber"
-        ]
-      },
-      {
-        "id": "west-gable-upper-window-row",
-        "type": "window-row",
-        "anchor": [
-          -0.45,
-          -3.52,
-          2.18
+          -5.45,
+          -3.12,
+          0.3
         ],
         "width": 0.52,
-        "height": 1.05,
+        "height": 1.12,
         "count": 3,
-        "spacing": 0.8,
+        "spacing": 0.68,
         "rotationDegrees": 0,
         "outsideSign": -1,
         "material": "glass",
         "trimMaterial": "timber",
         "frameMaterial": "timber",
         "evidenceClaimIds": [
+          "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
           "hudec-memorial-half-timber"
         ]
       },
       {
-        "id": "east-gable-lower-window-row",
+        "id": "front-left-bay-lower-window-row",
         "type": "window-row",
         "anchor": [
-          2.55,
-          -2.66,
-          0.7
-        ],
-        "width": 0.54,
-        "height": 1.12,
-        "count": 2,
-        "spacing": 0.78,
-        "rotationDegrees": 0,
-        "outsideSign": -1,
-        "material": "glass",
-        "trimMaterial": "brick",
-        "frameMaterial": "timber",
-        "evidenceClaimIds": [
-          "hudec-memorial-half-timber"
-        ]
-      },
-      {
-        "id": "east-gable-upper-window-row",
-        "type": "window-row",
-        "anchor": [
-          2.55,
-          -2.67,
-          2.12
+          -2.7,
+          -3.42,
+          0.72
         ],
         "width": 0.5,
-        "height": 1,
-        "count": 2,
-        "spacing": 0.78,
+        "height": 1.05,
+        "count": 3,
+        "spacing": 0.72,
         "rotationDegrees": 0,
         "outsideSign": -1,
         "material": "glass",
         "trimMaterial": "timber",
         "frameMaterial": "timber",
         "evidenceClaimIds": [
-          "hudec-memorial-half-timber"
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
         ]
       },
       {
-        "id": "main-front-clerestory-row",
+        "id": "front-left-bay-upper-window-row",
         "type": "window-row",
         "anchor": [
-          -2,
-          -1.93,
-          2.48
+          -2.7,
+          -3.43,
+          2.12
+        ],
+        "width": 0.46,
+        "height": 0.92,
+        "count": 3,
+        "spacing": 0.7,
+        "rotationDegrees": 0,
+        "outsideSign": -1,
+        "material": "glass",
+        "trimMaterial": "timber",
+        "frameMaterial": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
+        ]
+      },
+      {
+        "id": "front-right-bay-lower-window-row",
+        "type": "window-row",
+        "anchor": [
+          2.7,
+          -3.42,
+          0.72
+        ],
+        "width": 0.5,
+        "height": 1.05,
+        "count": 3,
+        "spacing": 0.72,
+        "rotationDegrees": 0,
+        "outsideSign": -1,
+        "material": "glass",
+        "trimMaterial": "timber",
+        "frameMaterial": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
+        ]
+      },
+      {
+        "id": "front-right-bay-upper-window-row",
+        "type": "window-row",
+        "anchor": [
+          2.7,
+          -3.43,
+          2.12
+        ],
+        "width": 0.46,
+        "height": 0.92,
+        "count": 3,
+        "spacing": 0.7,
+        "rotationDegrees": 0,
+        "outsideSign": -1,
+        "material": "glass",
+        "trimMaterial": "timber",
+        "frameMaterial": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
+        ]
+      },
+      {
+        "id": "central-upper-window-row",
+        "type": "window-row",
+        "anchor": [
+          0,
+          -1.97,
+          2.12
         ],
         "width": 0.44,
-        "height": 0.7,
+        "height": 0.82,
         "count": 3,
         "spacing": 0.62,
         "rotationDegrees": 0,
@@ -641,43 +494,84 @@
         "trimMaterial": "timber",
         "frameMaterial": "timber",
         "evidenceClaimIds": [
-          "hudec-memorial-glass-wing",
-          "hudec-memorial-half-timber"
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
         ]
       },
       {
-        "id": "chimney-tower-front-window-row",
-        "type": "window-row",
+        "id": "central-left-ground-window",
+        "type": "rect-window",
         "anchor": [
-          -3.65,
-          -2.04,
-          2.75
+          -0.75,
+          -1.97,
+          0.72
         ],
-        "width": 0.36,
-        "height": 0.72,
-        "count": 2,
-        "spacing": 0.48,
+        "width": 0.38,
+        "height": 0.82,
         "rotationDegrees": 0,
         "outsideSign": -1,
-        "material": "shadow",
+        "material": "glass",
         "trimMaterial": "timber",
         "frameMaterial": "timber",
         "evidenceClaimIds": [
-          "hudec-memorial-chimney-tower"
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
         ]
       },
       {
-        "id": "rear-east-wing-window-row",
+        "id": "central-right-ground-window",
+        "type": "rect-window",
+        "anchor": [
+          0.75,
+          -1.97,
+          0.72
+        ],
+        "width": 0.38,
+        "height": 0.82,
+        "rotationDegrees": 0,
+        "outsideSign": -1,
+        "material": "glass",
+        "trimMaterial": "timber",
+        "frameMaterial": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
+        ]
+      },
+      {
+        "id": "central-arched-entry",
+        "type": "arched-opening",
+        "anchor": [
+          0,
+          -1.98,
+          0.12
+        ],
+        "width": 0.78,
+        "height": 1.62,
+        "rotationDegrees": 0,
+        "outsideSign": -1,
+        "pointed": false,
+        "open": false,
+        "material": "shadow",
+        "trimMaterial": "brick",
+        "frameMaterial": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-entry-gate",
+          "hudec-memorial-front-side-orientation"
+        ]
+      },
+      {
+        "id": "right-low-return-side-window-row",
         "type": "window-row",
         "anchor": [
-          5.42,
-          1.42,
-          0.68
+          6.24,
+          0.7,
+          0.62
         ],
-        "width": 0.5,
-        "height": 1.02,
+        "width": 0.48,
+        "height": 0.92,
         "count": 2,
-        "spacing": 0.86,
+        "spacing": 1.05,
         "rotationDegrees": 90,
         "outsideSign": -1,
         "material": "glass",
@@ -686,371 +580,594 @@
         "evidenceClaimIds": [
           "hudec-memorial-main-massing"
         ]
-      },
-      {
-        "id": "entrance-tall-door",
-        "type": "rect-window",
-        "anchor": [
-          3.3,
-          -3.74,
-          0.16
-        ],
-        "width": 0.78,
-        "height": 1.82,
-        "rotationDegrees": 0,
-        "outsideSign": -1,
-        "material": "shadow",
-        "trimMaterial": "timber",
-        "frameMaterial": "timber",
-        "evidenceClaimIds": [
-          "hudec-memorial-entry-gate"
-        ]
-      },
-      {
-        "id": "brick-arched-gate",
-        "type": "arched-opening",
-        "anchor": [
-          -5.35,
-          -4.61,
-          0.12
-        ],
-        "width": 1.08,
-        "height": 1.72,
-        "rotationDegrees": 0,
-        "outsideSign": -1,
-        "pointed": false,
-        "open": true,
-        "material": "shadow",
-        "trimMaterial": "brick",
-        "frameMaterial": "metal",
-        "evidenceClaimIds": [
-          "hudec-memorial-entry-gate"
-        ]
       }
     ],
     "features": [
       {
-        "id": "west-front-timber-gable",
+        "id": "front-left-timber-gable",
         "type": "timber-gable",
         "anchor": [
-          -0.45,
+          -2.7,
           -3.73,
           0
         ],
-        "span": 3.15,
-        "eaveHeight": 4,
-        "ridgeHeight": 6.28,
+        "span": 3,
+        "eaveHeight": 4.05,
+        "ridgeHeight": 6.4,
+        "rotationDegrees": 0,
         "material": "timber",
         "evidenceClaimIds": [
           "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation",
           "hudec-memorial-layered-roofs"
         ]
       },
       {
-        "id": "east-front-timber-gable",
-        "type": "timber-gable",
-        "anchor": [
-          2.55,
-          -2.89,
-          0
-        ],
-        "span": 2.65,
-        "eaveHeight": 3.82,
-        "ridgeHeight": 5.82,
-        "material": "timber",
-        "evidenceClaimIds": [
-          "hudec-memorial-half-timber",
-          "hudec-memorial-layered-roofs"
-        ]
-      },
-      {
-        "id": "west-gable-lower-timber-band",
+        "id": "front-left-lower-timber-band",
         "type": "trim-band",
         "anchor": [
-          -0.45,
-          -3.56,
-          1.78
+          -2.7,
+          -3.45,
+          1.86
         ],
-        "width": 3.04,
+        "width": 2.9,
         "length": 0.13,
         "height": 0.13,
         "rotationDegrees": 0,
         "material": "timber",
         "evidenceClaimIds": [
-          "hudec-memorial-half-timber"
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
         ]
       },
       {
-        "id": "west-gable-upper-timber-band",
+        "id": "front-left-upper-timber-band",
         "type": "trim-band",
         "anchor": [
-          -0.45,
-          -3.56,
+          -2.7,
+          -3.45,
           3.42
         ],
-        "width": 3.04,
+        "width": 2.9,
         "length": 0.13,
         "height": 0.13,
         "rotationDegrees": 0,
         "material": "timber",
         "evidenceClaimIds": [
-          "hudec-memorial-half-timber"
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
         ]
       },
       {
-        "id": "west-gable-timber-post-left",
+        "id": "front-left-left-timber-post",
         "type": "trim-band",
         "anchor": [
-          -1.48,
-          -3.57,
-          2
+          -3.62,
+          -3.46,
+          2.02
         ],
         "width": 0.14,
-        "length": 0.14,
-        "height": 3.82,
+        "length": 0.13,
+        "height": 3.8,
         "rotationDegrees": 0,
         "material": "timber",
         "evidenceClaimIds": [
-          "hudec-memorial-half-timber"
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
         ]
       },
       {
-        "id": "west-gable-timber-post-center",
+        "id": "front-left-center-timber-post",
         "type": "trim-band",
         "anchor": [
-          -0.45,
-          -3.57,
-          2
-        ],
-        "width": 0.14,
-        "length": 0.14,
-        "height": 3.82,
-        "rotationDegrees": 0,
-        "material": "timber",
-        "evidenceClaimIds": [
-          "hudec-memorial-half-timber"
-        ]
-      },
-      {
-        "id": "west-gable-timber-post-right",
-        "type": "trim-band",
-        "anchor": [
-          0.58,
-          -3.57,
-          2
-        ],
-        "width": 0.14,
-        "length": 0.14,
-        "height": 3.82,
-        "rotationDegrees": 0,
-        "material": "timber",
-        "evidenceClaimIds": [
-          "hudec-memorial-half-timber"
-        ]
-      },
-      {
-        "id": "east-gable-lower-timber-band",
-        "type": "trim-band",
-        "anchor": [
-          2.55,
           -2.7,
-          1.76
+          -3.46,
+          2.02
         ],
-        "width": 2.54,
+        "width": 0.14,
+        "length": 0.13,
+        "height": 3.8,
+        "rotationDegrees": 0,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
+        ]
+      },
+      {
+        "id": "front-left-right-timber-post",
+        "type": "trim-band",
+        "anchor": [
+          -1.7800000000000002,
+          -3.46,
+          2.02
+        ],
+        "width": 0.14,
+        "length": 0.13,
+        "height": 3.8,
+        "rotationDegrees": 0,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
+        ]
+      },
+      {
+        "id": "front-right-timber-gable",
+        "type": "timber-gable",
+        "anchor": [
+          2.7,
+          -3.73,
+          0
+        ],
+        "span": 3,
+        "eaveHeight": 4.05,
+        "ridgeHeight": 6.4,
+        "rotationDegrees": 0,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation",
+          "hudec-memorial-layered-roofs"
+        ]
+      },
+      {
+        "id": "front-right-lower-timber-band",
+        "type": "trim-band",
+        "anchor": [
+          2.7,
+          -3.45,
+          1.86
+        ],
+        "width": 2.9,
         "length": 0.13,
         "height": 0.13,
         "rotationDegrees": 0,
         "material": "timber",
         "evidenceClaimIds": [
-          "hudec-memorial-half-timber"
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
         ]
       },
       {
-        "id": "east-gable-upper-timber-band",
+        "id": "front-right-upper-timber-band",
         "type": "trim-band",
         "anchor": [
-          2.55,
-          -2.7,
-          3.34
+          2.7,
+          -3.45,
+          3.42
         ],
-        "width": 2.54,
+        "width": 2.9,
         "length": 0.13,
         "height": 0.13,
         "rotationDegrees": 0,
         "material": "timber",
         "evidenceClaimIds": [
-          "hudec-memorial-half-timber"
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
         ]
       },
       {
-        "id": "east-gable-timber-post-left",
+        "id": "front-right-left-timber-post",
         "type": "trim-band",
         "anchor": [
-          1.74,
-          -2.71,
-          1.96
+          1.7800000000000002,
+          -3.46,
+          2.02
         ],
         "width": 0.14,
-        "length": 0.14,
-        "height": 3.7,
+        "length": 0.13,
+        "height": 3.8,
         "rotationDegrees": 0,
         "material": "timber",
         "evidenceClaimIds": [
-          "hudec-memorial-half-timber"
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
         ]
       },
       {
-        "id": "east-gable-timber-post-center",
+        "id": "front-right-center-timber-post",
         "type": "trim-band",
         "anchor": [
-          2.55,
-          -2.71,
-          1.96
+          2.7,
+          -3.46,
+          2.02
         ],
         "width": 0.14,
-        "length": 0.14,
-        "height": 3.7,
+        "length": 0.13,
+        "height": 3.8,
         "rotationDegrees": 0,
         "material": "timber",
         "evidenceClaimIds": [
-          "hudec-memorial-half-timber"
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
         ]
       },
       {
-        "id": "east-gable-timber-post-right",
+        "id": "front-right-right-timber-post",
         "type": "trim-band",
         "anchor": [
-          3.36,
-          -2.71,
-          1.96
+          3.62,
+          -3.46,
+          2.02
         ],
         "width": 0.14,
-        "length": 0.14,
-        "height": 3.7,
+        "length": 0.13,
+        "height": 3.8,
         "rotationDegrees": 0,
         "material": "timber",
         "evidenceClaimIds": [
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
+        ]
+      },
+      {
+        "id": "central-lower-timber-band",
+        "type": "trim-band",
+        "anchor": [
+          0,
+          -1.99,
+          1.9
+        ],
+        "width": 2.15,
+        "length": 0.12,
+        "height": 0.12,
+        "rotationDegrees": 0,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
+        ]
+      },
+      {
+        "id": "central-upper-timber-band",
+        "type": "trim-band",
+        "anchor": [
+          0,
+          -1.99,
+          3.28
+        ],
+        "width": 2.15,
+        "length": 0.12,
+        "height": 0.12,
+        "rotationDegrees": 0,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
+        ]
+      },
+      {
+        "id": "central-left-timber-post",
+        "type": "trim-band",
+        "anchor": [
+          -1.02,
+          -2,
+          1.95
+        ],
+        "width": 0.13,
+        "length": 0.12,
+        "height": 3.65,
+        "rotationDegrees": 0,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
+        ]
+      },
+      {
+        "id": "central-right-timber-post",
+        "type": "trim-band",
+        "anchor": [
+          1.02,
+          -2,
+          1.95
+        ],
+        "width": 0.13,
+        "length": 0.12,
+        "height": 3.65,
+        "rotationDegrees": 0,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-half-timber",
+          "hudec-memorial-front-side-orientation"
+        ]
+      },
+      {
+        "id": "left-glass-wing-side-eave-band",
+        "type": "trim-band",
+        "anchor": [
+          -6.68,
+          -0.65,
+          1.55
+        ],
+        "width": 4.72,
+        "length": 0.14,
+        "height": 0.14,
+        "rotationDegrees": 90,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
           "hudec-memorial-half-timber"
         ]
       },
       {
-        "id": "glass-wing-front-eave-band",
+        "id": "left-glass-wing-side-mid-mullion",
         "type": "trim-band",
         "anchor": [
-          -2.72,
-          -4.79,
-          1.45
+          -6.69,
+          -0.65,
+          0.84
         ],
-        "width": 3.82,
+        "width": 4.7,
+        "length": 0.08,
+        "height": 0.08,
+        "rotationDegrees": 90,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
+          "hudec-memorial-half-timber"
+        ]
+      },
+      {
+        "id": "left-glass-wing-side-post-01",
+        "type": "trim-band",
+        "anchor": [
+          -6.69,
+          -2.76,
+          0.92
+        ],
+        "width": 0.12,
+        "length": 0.12,
+        "height": 1.48,
+        "rotationDegrees": 0,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
+          "hudec-memorial-half-timber"
+        ]
+      },
+      {
+        "id": "left-glass-wing-side-post-02",
+        "type": "trim-band",
+        "anchor": [
+          -6.69,
+          -2.04,
+          0.92
+        ],
+        "width": 0.12,
+        "length": 0.12,
+        "height": 1.48,
+        "rotationDegrees": 0,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
+          "hudec-memorial-half-timber"
+        ]
+      },
+      {
+        "id": "left-glass-wing-side-post-03",
+        "type": "trim-band",
+        "anchor": [
+          -6.69,
+          -1.32,
+          0.92
+        ],
+        "width": 0.12,
+        "length": 0.12,
+        "height": 1.48,
+        "rotationDegrees": 0,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
+          "hudec-memorial-half-timber"
+        ]
+      },
+      {
+        "id": "left-glass-wing-side-post-04",
+        "type": "trim-band",
+        "anchor": [
+          -6.69,
+          -0.6,
+          0.92
+        ],
+        "width": 0.12,
+        "length": 0.12,
+        "height": 1.48,
+        "rotationDegrees": 0,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
+          "hudec-memorial-half-timber"
+        ]
+      },
+      {
+        "id": "left-glass-wing-side-post-05",
+        "type": "trim-band",
+        "anchor": [
+          -6.69,
+          0.12,
+          0.92
+        ],
+        "width": 0.12,
+        "length": 0.12,
+        "height": 1.48,
+        "rotationDegrees": 0,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
+          "hudec-memorial-half-timber"
+        ]
+      },
+      {
+        "id": "left-glass-wing-side-post-06",
+        "type": "trim-band",
+        "anchor": [
+          -6.69,
+          0.84,
+          0.92
+        ],
+        "width": 0.12,
+        "length": 0.12,
+        "height": 1.48,
+        "rotationDegrees": 0,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
+          "hudec-memorial-half-timber"
+        ]
+      },
+      {
+        "id": "left-glass-wing-side-post-07",
+        "type": "trim-band",
+        "anchor": [
+          -6.69,
+          1.56,
+          0.92
+        ],
+        "width": 0.12,
+        "length": 0.12,
+        "height": 1.48,
+        "rotationDegrees": 0,
+        "material": "timber",
+        "evidenceClaimIds": [
+          "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
+          "hudec-memorial-half-timber"
+        ]
+      },
+      {
+        "id": "left-glass-wing-front-eave-band",
+        "type": "trim-band",
+        "anchor": [
+          -5.45,
+          -3.13,
+          1.55
+        ],
+        "width": 2.22,
         "length": 0.14,
         "height": 0.14,
         "rotationDegrees": 0,
         "material": "timber",
         "evidenceClaimIds": [
           "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
           "hudec-memorial-half-timber"
         ]
       },
       {
-        "id": "glass-wing-front-post-left",
+        "id": "left-glass-wing-front-mid-mullion",
         "type": "trim-band",
         "anchor": [
-          -4.25,
-          -4.8,
-          0.86
+          -5.45,
+          -3.14,
+          0.84
         ],
-        "width": 0.14,
-        "length": 0.14,
-        "height": 1.58,
+        "width": 2.2,
+        "length": 0.08,
+        "height": 0.08,
         "rotationDegrees": 0,
         "material": "timber",
         "evidenceClaimIds": [
           "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
           "hudec-memorial-half-timber"
         ]
       },
       {
-        "id": "glass-wing-front-post-center-left",
+        "id": "left-glass-wing-front-post-01",
         "type": "trim-band",
         "anchor": [
-          -3.48,
-          -4.8,
-          0.86
+          -6.35,
+          -3.15,
+          0.92
         ],
         "width": 0.12,
         "length": 0.12,
-        "height": 1.58,
+        "height": 1.48,
         "rotationDegrees": 0,
         "material": "timber",
         "evidenceClaimIds": [
           "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
           "hudec-memorial-half-timber"
         ]
       },
       {
-        "id": "glass-wing-front-post-center",
+        "id": "left-glass-wing-front-post-02",
         "type": "trim-band",
         "anchor": [
-          -2.72,
-          -4.8,
-          0.86
+          -5.75,
+          -3.15,
+          0.92
         ],
         "width": 0.12,
         "length": 0.12,
-        "height": 1.58,
+        "height": 1.48,
         "rotationDegrees": 0,
         "material": "timber",
         "evidenceClaimIds": [
           "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
           "hudec-memorial-half-timber"
         ]
       },
       {
-        "id": "glass-wing-front-post-center-right",
+        "id": "left-glass-wing-front-post-03",
         "type": "trim-band",
         "anchor": [
-          -1.96,
-          -4.8,
-          0.86
+          -5.15,
+          -3.15,
+          0.92
         ],
         "width": 0.12,
         "length": 0.12,
-        "height": 1.58,
+        "height": 1.48,
         "rotationDegrees": 0,
         "material": "timber",
         "evidenceClaimIds": [
           "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
           "hudec-memorial-half-timber"
         ]
       },
       {
-        "id": "glass-wing-front-post-right",
+        "id": "left-glass-wing-front-post-04",
         "type": "trim-band",
         "anchor": [
-          -1.2,
-          -4.8,
-          0.86
+          -4.55,
+          -3.15,
+          0.92
         ],
-        "width": 0.14,
-        "length": 0.14,
-        "height": 1.58,
+        "width": 0.12,
+        "length": 0.12,
+        "height": 1.48,
         "rotationDegrees": 0,
         "material": "timber",
         "evidenceClaimIds": [
           "hudec-memorial-glass-wing",
+          "hudec-memorial-front-side-orientation",
           "hudec-memorial-half-timber"
         ]
       },
       {
-        "id": "chimney-tower-shoulder-band",
+        "id": "left-chimney-white-shoulder-band",
         "type": "trim-band",
         "anchor": [
-          -3.65,
-          -1.28,
-          5.68
+          -4.05,
+          -0.68,
+          6.18
         ],
-        "width": 1.82,
-        "length": 1.6,
+        "width": 1.18,
+        "length": 1.14,
         "height": 0.14,
         "rotationDegrees": 0,
         "material": "trim",
@@ -1059,16 +1176,16 @@
         ]
       },
       {
-        "id": "west-chimney-left-crown",
+        "id": "left-chimney-brick-crown",
         "type": "trim-band",
         "anchor": [
-          -4.08,
-          -1.28,
-          7.82
+          -4.05,
+          -0.68,
+          8.08
         ],
-        "width": 0.5,
-        "length": 0.82,
-        "height": 0.16,
+        "width": 1.08,
+        "length": 1.04,
+        "height": 0.14,
         "rotationDegrees": 0,
         "material": "brick",
         "evidenceClaimIds": [
@@ -1076,16 +1193,16 @@
         ]
       },
       {
-        "id": "west-chimney-center-crown",
+        "id": "left-chimney-front-rib-a",
         "type": "trim-band",
         "anchor": [
-          -3.65,
-          -1.28,
-          7.92
+          -4.27,
+          -1.1,
+          7.03
         ],
-        "width": 0.5,
-        "length": 0.82,
-        "height": 0.16,
+        "width": 0.1,
+        "length": 0.06,
+        "height": 1.5,
         "rotationDegrees": 0,
         "material": "brick",
         "evidenceClaimIds": [
@@ -1093,16 +1210,16 @@
         ]
       },
       {
-        "id": "west-chimney-right-crown",
+        "id": "left-chimney-front-rib-b",
         "type": "trim-band",
         "anchor": [
-          -3.22,
-          -1.28,
-          7.82
+          -3.8299999999999996,
+          -1.1,
+          7.03
         ],
-        "width": 0.5,
-        "length": 0.82,
-        "height": 0.16,
+        "width": 0.1,
+        "length": 0.06,
+        "height": 1.5,
         "rotationDegrees": 0,
         "material": "brick",
         "evidenceClaimIds": [
@@ -1110,21 +1227,71 @@
         ]
       },
       {
-        "id": "rear-brick-stack-cap",
+        "id": "right-chimney-white-shoulder-band",
         "type": "trim-band",
         "anchor": [
-          2.15,
-          1.18,
-          6.64
+          4.05,
+          -0.68,
+          6.18
         ],
-        "width": 0.66,
-        "length": 0.84,
-        "height": 0.16,
+        "width": 1.18,
+        "length": 1.14,
+        "height": 0.14,
+        "rotationDegrees": 0,
+        "material": "trim",
+        "evidenceClaimIds": [
+          "hudec-memorial-chimney-tower"
+        ]
+      },
+      {
+        "id": "right-chimney-brick-crown",
+        "type": "trim-band",
+        "anchor": [
+          4.05,
+          -0.68,
+          8.08
+        ],
+        "width": 1.08,
+        "length": 1.04,
+        "height": 0.14,
         "rotationDegrees": 0,
         "material": "brick",
         "evidenceClaimIds": [
-          "hudec-memorial-chimney-tower",
-          "hudec-memorial-layered-roofs"
+          "hudec-memorial-chimney-tower"
+        ]
+      },
+      {
+        "id": "right-chimney-front-rib-a",
+        "type": "trim-band",
+        "anchor": [
+          3.8299999999999996,
+          -1.1,
+          7.03
+        ],
+        "width": 0.1,
+        "length": 0.06,
+        "height": 1.5,
+        "rotationDegrees": 0,
+        "material": "brick",
+        "evidenceClaimIds": [
+          "hudec-memorial-chimney-tower"
+        ]
+      },
+      {
+        "id": "right-chimney-front-rib-b",
+        "type": "trim-band",
+        "anchor": [
+          4.27,
+          -1.1,
+          7.03
+        ],
+        "width": 0.1,
+        "length": 0.06,
+        "height": 1.5,
+        "rotationDegrees": 0,
+        "material": "brick",
+        "evidenceClaimIds": [
+          "hudec-memorial-chimney-tower"
         ]
       }
     ]
@@ -1132,105 +1299,77 @@
   "collision": {
     "obstacles": [
       {
-        "id": "main-long-hall",
-        "minX": -4.2,
-        "maxX": 4.2,
-        "minY": -1.9,
-        "maxY": 2.8
+        "id": "rear-main-range",
+        "minX": -4.6,
+        "maxX": 4.6,
+        "minY": -1.95,
+        "maxY": 2.85
       },
       {
-        "id": "front-west-gable",
-        "minX": -2.03,
-        "maxX": 1.13,
-        "minY": -3.5,
-        "maxY": 2.06
+        "id": "front-left-shallow-bay",
+        "minX": -4.25,
+        "maxX": -1.1500000000000001,
+        "minY": -3.4,
+        "maxY": -0.6999999999999997
       },
       {
-        "id": "front-east-gable",
-        "minX": 1.23,
-        "maxX": 3.88,
-        "minY": -2.65,
-        "maxY": 2.15
+        "id": "front-right-shallow-bay",
+        "minX": 1.1500000000000001,
+        "maxX": 4.25,
+        "minY": -3.4,
+        "maxY": -0.6999999999999997
       },
       {
-        "id": "front-glass-wing",
-        "minX": -4.65,
-        "maxX": -0.79,
-        "minY": -4.74,
-        "maxY": -2.02
+        "id": "left-glass-lean-to",
+        "minX": -6.65,
+        "maxX": -4.25,
+        "minY": -3.1,
+        "maxY": 1.8000000000000003
       },
       {
-        "id": "rear-east-low-wing",
-        "minX": 2.95,
-        "maxX": 5.41,
-        "minY": -0.1,
-        "maxY": 3.06
-      },
-      {
-        "id": "entrance-front-left-column",
-        "minX": 2.34,
-        "maxX": 2.62,
-        "minY": -3.78,
-        "maxY": -3.5
-      },
-      {
-        "id": "entrance-front-right-column",
-        "minX": 3.98,
-        "maxX": 4.26,
-        "minY": -3.78,
-        "maxY": -3.5
-      },
-      {
-        "id": "brick-gate-left-post",
-        "minX": -6.15,
-        "maxX": -5.85,
-        "minY": -4.58,
-        "maxY": -4.06
-      },
-      {
-        "id": "brick-gate-right-post",
-        "minX": -4.85,
-        "maxX": -4.55,
-        "minY": -4.58,
-        "maxY": -4.06
+        "id": "right-low-return",
+        "minX": 4.075,
+        "maxX": 6.2250000000000005,
+        "minY": -0.8500000000000001,
+        "maxY": 2.25
       }
     ],
     "requiredOpenPaths": [
       {
-        "id": "courtyard-to-entrance",
+        "id": "front-central-entry",
         "from": [
-          3.3,
-          -6
+          0,
+          -5.4
         ],
         "to": [
-          3.3,
-          -4.05
+          0,
+          -2.5
         ],
-        "width": 0.8
+        "width": 0.9
       },
       {
-        "id": "brick-gate-arch",
+        "id": "left-side-circulation",
         "from": [
-          -5.35,
-          -6
+          -7.25,
+          -4
         ],
         "to": [
-          -5.35,
-          -4.82
+          -7.25,
+          3.2
         ],
-        "width": 0.7
+        "width": 0.55
       },
       {
-        "id": "west-side-circulation",
+        "id": "right-side-circulation",
         "from": [
-          -6.45,
-          -3.7
+          6.8,
+          -3.8
         ],
         "to": [
-          -6.45,
-          3.7
+          6.8,
+          3.2
         ],
-        "width": 0.65
+        "width": 0.55
       }
     ]
   },
@@ -1239,42 +1378,42 @@
     "cameras": {
       "canonical": {
         "position": [
-          -15,
-          -17,
-          11.5
+          -11.5,
+          -19,
+          8.2
         ],
         "target": [
-          -0.35,
-          -0.65,
-          3.35
+          0,
+          -0.7,
+          3.1
         ],
         "orthoScale": 14.8
       },
       "side": {
         "position": [
-          15,
-          -13,
-          9.5
-        ],
-        "target": [
-          0.1,
-          -0.25,
-          3.2
-        ],
-        "orthoScale": 14.2
-      },
-      "entrance": {
-        "position": [
-          9,
-          -17,
+          -19,
+          -8.5,
           7.8
         ],
         "target": [
-          1.55,
-          -1.25,
-          2.8
+          -2.1,
+          -0.4,
+          3.05
         ],
-        "orthoScale": 13.5
+        "orthoScale": 14.3
+      },
+      "entrance": {
+        "position": [
+          0,
+          -22,
+          6.6
+        ],
+        "target": [
+          0,
+          -0.8,
+          3
+        ],
+        "orthoScale": 14.2
       }
     }
   },

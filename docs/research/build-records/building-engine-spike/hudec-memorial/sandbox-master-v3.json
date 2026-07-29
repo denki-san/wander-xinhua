@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "stage": "master",
+  "status": "pass",
+  "recordedAt": "2026-07-29T20:30:38+08:00",
+  "browser": "agent-browser Chromium",
+  "buildMode": "production",
+  "url": "http://127.0.0.1:3000/building-engine-sandbox?asset=hudec-memorial&tier=master&view=canonical",
+  "view": "canonical",
+  "glbSha256": "b7002cbd4e5cb2ce9448e747ebacd9cf7faaa3cdcd81046272c0e57fd3635002",
+  "collisionSha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637",
+  "viewport": {
+    "width": 1280,
+    "height": 577,
+    "devicePixelRatio": 1
+  },
+  "canvas": {
+    "width": 804,
+    "height": 441
+  },
+  "pageVisibility": "visible",
+  "warmupSeconds": 1.5,
+  "sampleDurationSeconds": 0,
+  "consoleErrors": 0,
+  "pageErrors": 0,
+  "modelVisible": true,
+  "groundContact": "pass",
+  "openPathCheck": "pass",
+  "fixedViewsReviewed": [
+    "canonical",
+    "side",
+    "entrance"
+  ],
+  "firstScreenResources": {
+    "source": "sandbox-http-record-plus-browser-dom",
+    "required": [
+      "manifest.json",
+      "hudec-memorial-collision.json",
+      "hudec-memorial-master.glb"
+    ],
+    "allRequiredHttpStatus": 200
+  },
+  "performance": {
+    "sampled": false,
+    "reason": "final-spike-visual-gate-only",
+    "claim": "no-performance-claim"
+  },
+  "screenshots": [
+    {
+      "view": "canonical",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-sandbox-master-canonical-v3-selected-a.png",
+      "sha256": "8c76e2d2e50687ffd51504b8898606bacde7e9ce5a5d76f05c5f3d1028dfe574",
+      "bytes": 266829
+    },
+    {
+      "view": "side",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-sandbox-master-side-v3-selected-a.png",
+      "sha256": "f1151f848dc56231df02155e545d13c596114ebbdb89b5c75bff15e3d76c07a1",
+      "bytes": 253410
+    },
+    {
+      "view": "entrance",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-sandbox-master-entrance-v3-selected-a.png",
+      "sha256": "1b6b97fc282407b6b31f11d799a3266281813e0b9fc50679b1b2f2a577517148",
+      "bytes": 216823
+    }
+  ],
+  "comparison": {
+    "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-final-triptych.png",
+    "sha256": "f4f5bc59e64b9d7f64f03544552d0496f464bb58f154a882d6fd5b470d18ac10",
+    "bytes": 1080446,
+    "panels": [
+      "user-front-oblique-reference",
+      "blender-selected-a-master",
+      "threejs-production-sandbox"
+    ]
+  },
+  "httpRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-http-master.json",
+  "reviewNote": "用户选择的 A 拓扑、靠正面屋面坡面的对称双烟囱及加高的白色和红砖段均已保留。Low-poly Master 新增双前山墙半木构、中央拱门、成组窗格与左侧长玻璃翼；三联图显示 Blender 与真实 Three.js 运行时同源。背面和被树木遮挡细节仍按证据合同标记为未知，不作虚构。"
+}

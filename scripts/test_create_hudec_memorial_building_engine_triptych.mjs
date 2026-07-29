@@ -17,15 +17,15 @@ const panelHeight = 420;
 const labelHeight = 58;
 const panels = [
   {
-    label: "New evidence · user oblique overview",
+    label: "Reference · user front oblique",
     input: path.join(
       root,
       "docs/research/assets/requested-poi-references/"
-        + "hudec-memorial-user-oblique-overview-20260728.png",
+        + "hudec-memorial-user-modern-front-oblique-20260729.png",
     ),
   },
   {
-    label: "Blender · evidence-corrected Master",
+    label: "Blender · selected A Master",
     input: path.join(
       outputDir,
       "test_hudec-memorial-master-canonical.png",

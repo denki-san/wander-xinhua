@@ -1,6 +1,6 @@
 # Hudec Memorial Building Engine Blind-Test Brief
 
-- Current status: `merge-ready-evidence-corrected-experimental`
+- Current status: `selected-topology-a-spike-approved-with-known-unknowns`
 
 ## Scope
 
@@ -53,9 +53,10 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
   `agent-browser Chromium`，仍访问真实 local production preview
 - Blender MCP：当前 Add-on 不可用，使用三固定机位 Headless Blender 降级，
   明确记录“未执行 MCP 交互审查”
-- Dynamic evidence：新输入证据位于不可变快照 `2026-07-28-0ef306f`，
-  `669 / 669` SHA-256 通过；旧错误模型及运行时证据保留在
-  `2026-07-28-9762c91`，不得覆盖
+- Dynamic evidence：A 选型、新机位图片和烟囱标注位于不可变快照
+  `2026-07-29-hudec-a-evidence-v1-083bde0`，`733 / 733` SHA-256
+  经归档脚本与独立复核两次通过；旧错误模型及运行时证据保留在既有快照中，
+  不得覆盖
 
 ## Evidence
 
@@ -70,6 +71,10 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 | `docs/research/assets/requested-poi-references/hudec-memorial-user-oblique-overview-crop-20260728.png` | 用户提供的同机位裁切 | 烟囱塔与长坡翼细节 | Duplicate view / not independent coverage |
 | `docs/research/assets/requested-poi-references/hudec-memorial-user-historic-front-20260728.png` | 用户提供；原始来源未知 | 历史正向总览 | Historic structure only |
 | `docs/research/assets/requested-poi-references/hudec-memorial-user-glass-wing-20260728.png` | 用户提供；可见 `@乐游上海` 水印；原始 URL 未知 | 玻璃翼、长单坡与烟囱塔近景 | Research only / provenance partial |
+| `docs/research/assets/requested-poi-references/hudec-memorial-user-modern-front-oblique-20260729.png` | 用户提供；可见 Baidu 百科水印；原始 URL 未知 | 现代正面稍偏斜，绕开正面树木 | Research only / provenance partial |
+| `docs/research/assets/requested-poi-references/hudec-memorial-user-left-chimney-side-20260729.png` | 用户再次提供并确认机位；与既有玻璃翼图逐字节相同 | 画面左烟囱侧近距离广角 | Duplicate view / not independent coverage |
+| `docs/research/assets/requested-poi-references/hudec-memorial-user-historic-front-wide-20260729.png` | 用户提供；原始来源未知 | 历史完全正面 | Historic structure only |
+| `docs/research/assets/requested-poi-references/hudec-memorial-user-roof-chimney-annotation-20260729.png` | 用户对选定 A 三视图的直接标注 | 靠正面屋面坡面的对称双烟囱 | Authoritative geometry correction |
 
 完整 URL、SHA 和主体边界见
 `building-engine/cases/hudec-memorial/building-case.json`。
@@ -78,10 +83,12 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 
 | Evidence slot | Evidence | Coverage | Downgrade |
 | --- | --- | --- | --- |
-| Canonical | 用户高位斜向总览 + 官方西后侧照片 | Covered | 同机位裁切不重复计数 |
-| Side / depth | 用户玻璃翼近景 + 官方西后侧照片 | Covered | 精确屋坡仍不冒充测绘 |
+| Canonical | 用户现代正面稍偏斜 + 高位斜向总览 | Covered | 现代正面图优先核验横向主楼与浅前凸双山墙 |
+| Side / depth | 用户画面左烟囱侧近景 + 官方西后侧照片 | Covered | 同 SHA 工作副本不重复计数，精确屋坡仍不冒充测绘 |
 | Entrance / identity | Wikimedia 庭院正面 | Covered | 不复制牌匾和不可读装饰 |
-| Historic front | 用户历史正向照片 + 政府立面草图 | Covered historic | 只校验结构关系，不冒充当前装修 |
+| Historic front | 用户历史完全正面宽图 + 旧历史正向图 + 政府立面草图 | Covered historic | 核验通长主屋面、浅前凸双山墙和对称双烟囱，不冒充当前装修 |
+| Topology selection | 三种互斥体块候选 + 用户选择 A | Covered by user decision | A 为横向主楼加浅前凸双山墙；B/C 作废但保留证据 |
+| Roof chimneys | 现代斜正面、历史完全正面、用户 A 标注 | Covered | 两根均在靠正面主屋面坡面；白色与红砖段采用加高版 |
 | Subject binding | OSM way `494633921` | Covered | envelope 不冒充测绘 |
 | Rear / east | 无完整照片 | Unknown | 低细节封闭，不加身份构件 |
 | Source provenance | 两张可见媒体水印，四张均无原始 URL | Partial | 保留 attachment SHA，不猜作者或日期 |
@@ -89,26 +96,27 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 ### Canonical comparison view
 
 - Local path:
-  `docs/research/assets/requested-poi-references/hudec-memorial-user-oblique-overview-20260728.png`
-- Direction: 高位前左斜向，朝主屋脊、前部长坡翼、中央/端部山墙和白色烟囱塔
-- Why selected: 同一画面可以核对整体包络、屋面连接、烟囱基座、玻璃翼位置和
-  前后山墙层级；这正是旧模型失败的五项
+  `docs/research/assets/requested-poi-references/hudec-memorial-user-modern-front-oblique-20260729.png`
+- Direction: 现代正面稍偏向画面左烟囱侧，拍摄位置绕开正面树木
+- Why selected: 同一画面可以核对横向通长主楼、两个浅前凸山墙、左侧长坡玻璃翼、
+  靠正面坡面的对称双烟囱和中央退进关系；历史完全正面作为结构正投影补充
 - Runtime reproduction: Blender local `-Y` 为前，canonical 固定机位从
   local `-X / -Y` 高位观察；真实地图使用对应西南斜向 QA 相机
 
 ### Observed
 
-- 紧凑黑白半木构主体、主屋脊与前后交错双山墙；
+- 横向通长黑白半木构主体、连续主屋脊与两个浅前凸正面山墙；
 - 前部玻璃围护位于与主体连续的长单坡屋面下，不是独立双坡小屋；
-- 从低层起立的白色烟囱塔承托顶部成组红砖烟道与外扩冠部；
-- 三角入口门廊、木门、台阶和独立砖拱门；
+- 两根烟囱左右成对，从靠正面一侧的主屋面坡面穿出；加高白色基座承托
+  更高红砖烟道与外扩冠部；
+- 两个浅前凸山墙之间的中央退进立面、拱形入口和两侧窄窗；
 - 端山墙、转角和玻璃翼上的连续深木构与密集窄窗；
 - 屋脊三鸟形风向标。
 
 ### Inferred
 
 - 水平包络由 OSM、既有已验收落点和人物/门尺度校准；
-- 长单坡、主屋脊和山墙的精确相交位置按多张照片的遮挡关系近似；
+- 长单坡、主屋脊、浅前凸山墙和屋面烟囱的精确相交位置按多张照片的遮挡关系近似；
 - 不可见立面保持可封闭、低细节的建筑逻辑；
 - 风向标仅允许原创低多边形轮廓，本 DSL 盲测不实现。
 
@@ -117,16 +125,17 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 - 精确东立面、背立面和隐藏开口；
 - 测绘尺寸、层高、屋坡和烟道尺寸；
 - 室内平面、植被遮挡的小构件和地籍边界。
-- 四张用户图片的原始发布 URL、作者与拍摄日期。
+- 所有用户图片的原始发布 URL、作者与拍摄日期。
 
 ## Quality Contract
 
 ### Identity
 
-- Silhouette: 紧凑主屋脊、前部长单坡翼、交错双山墙、后侧低翼和高烟囱塔
+- Silhouette: 横向通长主屋脊、两个浅前凸正面山墙、画面左烟囱侧长坡玻璃翼、
+  画面右端低回转翼和屋面高双烟囱
 - Signature cue 1: 端山墙与转角连续的黑白半木构
-- Signature cue 2: 落地白色烟囱塔与顶部成组红砖烟道
-- Signature cue 3: 前后交错双山墙与紧凑复合屋顶
+- Signature cue 2: 靠正面坡面的对称双烟囱、加高白色基座与红砖烟道
+- Signature cue 3: 横向主楼与两个浅前凸山墙形成的复合屋顶
 - Signature cue 4: 三角入口门廊与砖拱门
 - Signature cue 5: 长单坡屋面下的玻璃围护与密集窗格
 - Omitted: 牌匾、逐片瓦、砖缝、风向标雕塑、树木与未知背面细节
@@ -142,7 +151,8 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 ### Scale
 
 - Authored unit: `1 scene unit = 2.7 m`
-- Horizontal envelope target: 约 `10.5 × 8.0` scene units
+- Selected Massing envelope: 约 `13.3 × 6.3` scene units；该值是用户审核后的
+  视觉体块，不声明实测，真实地图仍用既有 placement 与允许 scale 校准
 - Human proxy: `1.8 m = 0.666667` scene unit
 - Allowed visual multiplier: `0.96–1.04`
 
@@ -157,8 +167,9 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 
 - Canonical occupancy: `66%–78%`
 - Maximum direction deviation: `15°`
-- Must show: 完整烟囱塔与冠部、主屋脊、长单坡玻璃翼、前后山墙和后侧低翼
-- Entrance view: 门廊、砖拱门、至少四组窗格完整可见
+- Must show: 两根屋面烟囱的白色基座与红砖冠部、主屋脊、长单坡玻璃翼、
+  双浅前凸山墙和右侧低回转翼
+- Entrance view: 中央拱门、两组半木构山墙和至少四组窗格完整可见
 
 ### Materials
 
@@ -172,8 +183,8 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 
 ### Collision and access
 
-- 主体、端山墙体块、长坡玻璃翼、后翼、门廊柱和砖拱门柱拆分；
-- 入口、砖拱门和西侧绕行保持开放；
+- 主体、两个浅前凸山墙、长坡玻璃翼和右侧低回转翼拆成五个碰撞体；
+- 中央入口、左侧绕行和右侧绕行保持三条非空开放路径；
 - 不使用覆盖整个 compound 的单一碰撞盒；
 - Massing 与 Master 共用相同 collision JSON。
 
@@ -188,29 +199,29 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 
 | Batch | Deliverable | Blender check | Runtime check | Status |
 | --- | --- | --- | --- | --- |
-| Evidence v2 | 新 Case、coverage、Brief 和外置快照 | N/A | N/A | Passed |
+| Evidence v4 | A 选型、新机位、屋面双烟囱和外置快照 | N/A | N/A | Passed |
 | Compiler gap | 通用 `shed` roof，不加 Hudec 特判 | 三栋自动回归 | N/A | Passed |
-| Massing v2 | 紧凑主体、长单坡、双山墙和烟囱塔 | 三固定机位 | Sandbox Massing | Passed |
-| Calibration v2 | 比例、方向、接地和开放路径 | Fixed renders | Gate M | Passed |
-| Master v2 | 半木构、玻璃翼、窗格、入口和烟囱冠部 | 三固定机位 | Sandbox Master | Passed |
-| Real map v2 | Building Engine Master | N/A | `/?start=hudec` | Passed |
-| Cold build v2 | 干净 worktree 单一 CLI 重建 | SHA / structure | N/A | Passed |
+| Massing v4 | A 横向主体、浅前凸双山墙、长坡侧翼、加高屋面双烟囱 | 三固定机位 | Sandbox Massing | Passed |
+| Calibration v4 | 比例、方向、接地和开放路径 | Fixed renders | Gate M | Passed |
+| Master v4 | 与 A 体块一致的半木构、玻璃翼、窗格与入口 | 三固定机位 | Sandbox Master | Passed with known unknowns |
+| Real map v4 | 显式 Building Engine Master QA | N/A | `/?start=hudec&qaModelTier=engine-master` | Deferred：不属于本轮简化 Pipeline |
+| Cold build v4 | 干净 worktree 单一 CLI 重建 | SHA / structure | N/A | Pending closure |
 
 ## Validation
 
-- [x] 新外置快照四张用户图片、旧证据与 OSM JSON SHA 全量通过
+- [x] A 选型新外置快照 `733 / 733` SHA 全量通过
 - [x] Observed / Inferred / Unknown 分离
 - [x] 至少五处 Hudec 身份构件
 - [x] 旧视觉假通过与通用 `shed` roof Compiler Gap 已记录
 - [x] 新 Compiler、Schema、Art Profile SHA 冻结
-- [x] Massing v2 固定机位和 Sandbox 通过
-- [x] Gate M v2 记录绑定当前 DSL / GLB / collision SHA
-- [x] Master v2 固定机位、GLB 和碰撞自动检查通过
+- [x] 正式 Massing v4 固定机位和 Sandbox 通过
+- [x] Gate M v4 记录绑定当前 DSL / GLB / collision SHA
+- [x] Master v4 固定机位、GLB 和碰撞自动检查通过
 - [x] 新参考 / Blender / Three.js 三联图通过
-- [x] 真实 `/?start=hudec` 可见、接地、方向和碰撞通过
+- [ ] 真实 `/?start=hudec` 可见、接地、方向和碰撞通过
 - [x] 默认 Hudec 页面仍加载原正式 Hero
-- [x] 最终提交在干净 worktree 重建三栋并得到一致 GLB
-- [x] 新输出动态证据快照与全量 SHA 通过
+- [ ] 最终提交在干净 worktree 重建三栋并得到一致 GLB
+- [ ] 新输出动态证据快照与全量 SHA 通过
 
 ## Decision Log
 
@@ -417,3 +428,47 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 - Boundary: 默认 Hudec Hero、production registry、placement 与 cacheVersion
   均未替换；本轮没有 push、合并或部署。成为默认生产链路仍需独立 promotion、
   线上性能基线和回滚验收任务。
+
+### Iteration 13 — 2026-07-29 user-selected topology A
+
+- New evidence: 用户补充现代正面稍偏斜、画面左烟囱侧近距离广角和历史完全
+  正面三机位，并确认三张照片结构一致；历史宽图清楚显示通长主屋面和成对烟囱；
+- Alternatives: 生成三种互斥体块解释。A 是横向主楼加两个浅前凸山墙，B 是
+  U 形深翼，C 是前后贯通 H 形翼楼；用户明确选择 A，旧参数微调候选作废；
+- Chimneys: 用户在 A 三视图标注两根烟囱都位于靠正面的主屋面坡面，并确认
+  白色基座和红砖烟道均采用加高版；旧落地白色烟囱塔解释被推翻；
+- Snapshot:
+  `/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-29-hudec-a-evidence-v1-083bde0/`；
+  `733` files、`316420096` bytes，归档脚本和独立串行 SHA-256 复核均通过；
+- Evidence Gate: Case v4 和 `evidence-review-004.json` 通过；原始 URL、作者、
+  拍摄日期、背面细节和测绘尺寸继续明确 unknown；
+- Validation fix: CLI 不再把 `checksumStatus` 锁死到单个旧日期，改为接受带
+  ISO 日期的 `verified-all-...` 全量状态并拒绝 pending / partial；
+- Current next step: 将已选 A 写入正式 Massing，经过 production Sandbox
+  后重新创建 Gate M；旧 Master 和旧 Final Gate 继续保持失效。
+
+### Iteration 14 — 2026-07-29 selected A Spike acceptance
+
+- Formal DSL: `637a2473…`。A 被写成横向通长主楼、两个浅前凸正面山墙、
+  左侧长单坡玻璃翼、右侧低回转翼和靠正面屋面坡面的对称双烟囱；两根烟囱的
+  白色基座均为 `1.68` scene unit，红砖段均为 `1.92` scene unit；
+- Gate M: `massing-review-010.json` 绑定 Massing `c83fb903…`、
+  collision `0e853d79…` 和 production Sandbox 三固定机位后通过；
+- Low-poly Master: `b7002cbd…`，`2980` triangles、`8` materials、
+  `0` images / textures / animations / skins、`216172` bytes。首轮人工检查发现
+  三角山墙木构被屋檐遮挡，修正到山墙外表面后重新构建；
+- Runtime: `sandbox-master.json` 记录 `1280 × 720` 视口、
+  `804 × 584` canvas、页面可见、模型可见、接地与三条开放路径均通过，
+  控制台与页面错误为 `0`；`5.1064 s` 只读原始采样不作性能提升声明；
+- Comparison:
+  `test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-final-triptych.png`
+  绑定用户现代正面稍偏斜参考、Blender canonical 和真实 Three.js Sandbox；
+- Final Gate: `final-review-006.json` 为
+  `approved-spike-with-known-unknowns`。背面、树木遮挡处、精确测绘尺寸和
+  用户图片原始 URL 继续 unknown；
+- Regression: 恢复冻结 Compiler `20ed07e1…`，不保留旧拓扑所需的通用旋转
+  改动；Building Engine 专项 `8 / 8`、全量 `npm test` 为 `449 / 449`，
+  lint 为 `0 error / 1` 条既有 warning；
+- Boundary: 本轮没有替换正式 Hudec Hero、没有修改 production registry、
+  placement 或 cacheVersion，也没有 push、合并或部署。真实 `/?start=hudec`
+  显式 Engine 复验和生产 promotion 继续属于独立后续任务。

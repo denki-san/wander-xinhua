@@ -20,7 +20,7 @@
     "height": 441
   },
   "pageVisibility": "visible",
-  "warmupSeconds": 3,
+  "warmupSeconds": 1.5,
   "sampleDurationSeconds": 0,
   "consoleErrors": 0,
   "pageErrors": 0,
@@ -43,7 +43,7 @@
   },
   "performance": {
     "sampled": false,
-    "reason": "selected-a-final-dsl-gate-only",
+    "reason": "massing-calibration-gate-only",
     "claim": "no-performance-claim"
   },
   "screenshots": [
@@ -67,5 +67,5 @@
     }
   ],
   "httpRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/sandbox-http-massing.json",
-  "reviewNote": "用户明确选择 A：通长横向主楼加两个浅前凸山墙。两根对称烟囱均位于靠正面的主屋面坡面，白色基座和红砖段均采用加高版；旧落地烟囱塔解释已撤销。production Sandbox 三固定机位、模型接地、五个拆分碰撞障碍与三条非空开放路径均通过。"
+  "reviewNote": "最终 DSL 仅把后续 Master 的三角山墙木构移到屋檐外表面；Massing 几何、碰撞与三机位像素保持不变，三张截图与前一审核逐像素一致。production Sandbox 显式加载新指纹下的 GLB 与 collision，模型可见、接地、三条非空开放路径、控制台与页面错误均通过。"
 }

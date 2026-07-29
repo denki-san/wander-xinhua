@@ -311,6 +311,11 @@ export function validateRoofContract(roof) {
   return conflicts;
 }
 
+export function hasVerifiedEvidenceChecksumStatus(evidenceArchive) {
+  const status = String(evidenceArchive?.checksumStatus ?? "");
+  return /^verified-all-\d{4}-\d{2}-\d{2}(?:-[a-z0-9]+)*$/.test(status);
+}
+
 
 function verifyEvidenceItem(caseData, item, conflicts) {
   const snapshotPath = resolve(
@@ -426,7 +431,7 @@ function validateAsset(assetId, { writeReport = true } = {}) {
   if (!evidenceReview || evidenceReview.decision !== "approved") {
     conflicts.push("Evidence Gate 未批准");
   }
-  if (caseData.evidenceArchive.checksumStatus !== "verified-all-2026-07-28") {
+  if (!hasVerifiedEvidenceChecksumStatus(caseData.evidenceArchive)) {
     conflicts.push("外置快照未记录本轮全量 SHA 通过");
   }
   const manifestPath = join(caseData.evidenceArchive.root, "manifest.json");
