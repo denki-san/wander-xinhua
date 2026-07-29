@@ -33,7 +33,7 @@
         "maximum": 5.382
       }
     },
-    "minimumConservativeVergeClearance": 0.69,
+    "minimumConservativeVergeClearance": 0.496,
     "pilotInstances": 11
   },
   "viewport": {
@@ -84,6 +84,6 @@
     "lint": "0 errors; one pre-existing unrelated warning in tests/test_house_315_map_position_candidate.test.mjs",
     "performanceClaim": "none; this placement-only change was not used to claim a performance improvement",
     "externalFeedbackSnapshot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-29-plane-tree-spacing-v5-user-feedback",
-    "externalRuntimeSnapshot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-29-plane-tree-spacing-v5-local-candidate"
+    "externalRuntimeSnapshot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-29-plane-tree-spacing-v5-local-candidate-r2"
   }
 }

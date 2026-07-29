@@ -10,9 +10,16 @@ import {
   XINHUA_PLANE_TREE_MINIMUM_SPACING,
   XINHUA_PLANE_TREE_PILOT,
   XINHUA_PLANE_TREE_SIDE_OFFSETS,
+  XINHUA_PLANE_TREE_TRUNK_HALF_EXTENT,
   XINHUA_ROAD_AXIS,
   XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
 } from "../app/scene/xinhua-road-placement.mjs";
+import {
+  XINHUA_ROAD_ASPHALT_WIDTH,
+  XINHUA_ROAD_CURB_WIDTH,
+  XINHUA_ROAD_SIDEWALK_WIDTH,
+  XINHUA_ROAD_VERGE_WIDTH,
+} from "../app/scene/road-surface-contract.ts";
 
 const root = new URL("../", import.meta.url);
 const sceneSource = await readFile(new URL("app/scene/xinhua-road-landmarks.tsx", root), "utf8");
@@ -510,6 +517,36 @@ test("梧桐位置沿新华路双侧避让，315试验段拉开株距且分层�
   assert.ok(pilotPlacements.length >= XINHUA_PLANE_TREE_PILOT.minimumCount);
   assert.ok(pilotPlacements.length <= XINHUA_PLANE_TREE_PILOT.targetCount);
   assert.deepEqual([...new Set(placements.map(({ variant }) => variant))].sort(), [0, 1, 2, 3]);
+  const house315 = landmarkData.landmarks.find(({ query }) => query === "house315");
+  const house315SegmentIndex = XINHUA_ROAD_AXIS.slice(1)
+    .map((end, index) => ({
+      index,
+      distance: pointToSegmentDistance(
+        house315.start,
+        XINHUA_ROAD_AXIS[index],
+        end,
+      ),
+    }))
+    .sort((left, right) => left.distance - right.distance)[0].index;
+  assert.ok(
+    orientation(
+      XINHUA_ROAD_AXIS[house315SegmentIndex],
+      XINHUA_ROAD_AXIS[house315SegmentIndex + 1],
+      house315.start,
+    ) < 0,
+    "house315 起点必须位于道路轴负法向，也就是镜头侧 side 1",
+  );
+  assert.ok(
+    XINHUA_PLANE_TREE_SIDE_OFFSETS[1].base
+      < XINHUA_PLANE_TREE_SIDE_OFFSETS[0].base,
+    "只允许镜头侧 side 1 向道路方向内移",
+  );
+  const visibleRoadBandHalfWidth = XINHUA_ROAD_ASPHALT_WIDTH / 2
+    + XINHUA_ROAD_CURB_WIDTH
+    + XINHUA_ROAD_SIDEWALK_WIDTH
+    + XINHUA_ROAD_VERGE_WIDTH;
+  assert.equal(Number(visibleRoadBandHalfWidth.toFixed(3)), 3.925);
+  let minimumCameraSideVergeClearance = Number.POSITIVE_INFINITY;
   for (const side of [0, 1]) {
     const row = placements.filter(({ id }) => id.startsWith(`plane-tree-${side}-`));
     const { base, jitter } = XINHUA_PLANE_TREE_SIDE_OFFSETS[side];
@@ -521,6 +558,16 @@ test("梧桐位置沿新华路双侧避让，315试验段拉开株距且分层�
       );
       assert.ok(offset >= base - 1e-6);
       assert.ok(offset <= base + jitter + 1e-6);
+      if (side === 1) {
+        const collisionHalfDiagonal = Math.hypot(
+          XINHUA_PLANE_TREE_TRUNK_HALF_EXTENT * placement.scale[0],
+          XINHUA_PLANE_TREE_TRUNK_HALF_EXTENT * placement.scale[2],
+        );
+        minimumCameraSideVergeClearance = Math.min(
+          minimumCameraSideVergeClearance,
+          offset - visibleRoadBandHalfWidth - collisionHalfDiagonal,
+        );
+      }
     }
     for (let left = 0; left < row.length; left += 1) {
       for (let right = left + 1; right < row.length; right += 1) {
@@ -534,6 +581,11 @@ test("梧桐位置沿新华路双侧避让，315试验段拉开株距且分层�
       }
     }
   }
+  assert.equal(
+    Number(minimumCameraSideVergeClearance.toFixed(3)),
+    0.496,
+    "镜头侧树干完整碰撞 AABB 必须留在绿化带外缘之外",
+  );
   const previousVariantBySide = new Map();
   for (const placement of placements) {
     const side = placement.id.split("-")[2];
