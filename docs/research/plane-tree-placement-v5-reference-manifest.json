@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-30",
+  "status": "placement-final-runtime-and-external-evidence-accepted",
+  "subject": {
+    "id": "xinhua-road-plane-tree-placement-v5",
+    "name": "新华路梧桐树阵株距与近侧道路落位",
+    "runtimeBoundary": "现有新华路 83 棵生产树位，不包含待批准的道路扩张"
+  },
+  "sourceEvidence": [
+    {
+      "manifest": "docs/research/plane-tree-canopy-v3-reference-manifest.json",
+      "snapshotId": "2026-07-28-plane-tree-canopy-v3-user-feedback-4f5e339",
+      "externalPath": "repository/test_artifacts/test_plane_tree_canopy_v3_user_reference.png",
+      "view": "canonical-road-center-summer",
+      "sha256": "866b7d2646539238fc4e26643e4b16bcad84f1dadf08eec261d4fb4ba313eca3",
+      "supports": [
+        "左右树列沿道路形成连续纵深节奏",
+        "树冠可自然搭接但树干不应读成密集栅栏",
+        "成熟行道树位于道路两侧而不是退到沿路画面之外"
+      ]
+    },
+    {
+      "manifest": "docs/research/plane-tree-canopy-v3-reference-manifest.json",
+      "snapshotId": "2026-07-28-plane-tree-canopy-v3-user-feedback-4f5e339",
+      "externalPath": "repository/test_artifacts/test_plane_tree_canopy_v3_user_runtime.png",
+      "view": "historical-product-road-center",
+      "sha256": "a4f781665b460224fcfc4342e7877b6221d00c279153a73e0079ac88cee5a446",
+      "supports": [
+        "house315 是可复现的道路中心验收入口",
+        "运行时树阵纵向节奏必须独立于单树模型质量验收"
+      ]
+    }
+  ],
+  "currentBaseline": {
+    "gitCommit": "d5f88ed",
+    "route": "/?start=house315&cameraQa=1&network=standard&qaAutoStart=1&qaMove=forward&qaMoveMs=5600&qaMoveTarget=0.20%2C79.89",
+    "viewport": {
+      "width": 1200,
+      "height": 807,
+      "deviceScaleFactor": 1
+    },
+    "temporaryScreenshot": "test_artifacts/test_plane_tree_placement_v5_baseline_standard.png",
+    "disposition": "仅作本轮工作副本；最终进入新的外置动态证据快照，不作为仓库动态证据真值"
+  },
+  "userCorrection": {
+    "receivedAt": "2026-07-29",
+    "observedInCurrentBaselineAt": "2026-07-30",
+    "requirements": [
+      "适度拉大道路轴向株距",
+      "把靠近镜头一侧树列向道路内移",
+      "继续验证机动车道净距、入口、建筑、碰撞和左右视觉平衡"
+    ]
+  },
+  "coverageMatrix": {
+    "canonical": "supported-by-existing-reference-and-current-house315-baseline",
+    "sideOrDepth": "supported-by-house315-road-axis-depth",
+    "identityDetail": "reuse-canopy-v4-fixed-previews-no-binary-change",
+    "siteRelationship": "supported-by-current-road-surface-contract-and-house315-runtime",
+    "rearOrExactTreePitSurvey": "missing"
+  },
+  "observed": [
+    "当前生产树位共 83 棵，其中 house315 试验段固定 20 棵。",
+    "当前两侧树干中心距道路轴均为 6.55 至 7.10 场景单位。",
+    "新华路沥青、路缘、人行道和绿化带外缘距道路轴约 3.925 场景单位。",
+    "当前 house315 标准档中试验段树干纵向节奏偏密，side 0 树列退到沿路画面外侧。"
+  ],
+  "inferred": [
+    "试验段从 20 棵降为 16 棵，并把候选步长从 3.6 提高到 4.2 场景单位，可在不放宽净空的前提下稳定形成 8+8，并温和拉大同侧最小间距。",
+    "side 0 树干中心距道路轴调整至约 4.80 至 5.25 场景单位，可把树列移回绿化带外侧近缘而不进入机动车道。",
+    "非试验段基础采样间距从 6.0 调整到约 6.2 场景单位属于小幅节奏修正。"
+  ],
+  "unknown": [
+    "每个现实树穴的精确中心、存活状态和历史补植间距。",
+    "参考照片精确焦距和每棵树的测绘距离。",
+    "被建筑遮挡路段的真实侧向树位。"
+  ],
+  "dynamicEvidenceArchive": {
+    "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/",
+    "candidateSnapshot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-30-plane-tree-placement-v5-candidate-d5f88ed",
+    "candidateDisposition": "retained immutable but superseded after the street-dressing regression fix",
+    "newSnapshot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-30-plane-tree-placement-v5-final-d5f88ed",
+    "status": "verified",
+    "fileCount": 657,
+    "byteCount": 272535552,
+    "checksum": "SHA256SUMS passed during creation and an independent second verification",
+    "completionRule": "外置硬盘挂载后必须创建新快照并通过 SHA256SUMS；未完成前不得声明任务完成"
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "asset": "xinhua-road-plane-tree-placement-v5",
+  "builtAt": "2026-07-30",
+  "gitBaseline": "d5f88ed",
+  "binaryChange": false,
+  "placementSource": {
+    "path": "app/scene/xinhua-road-placement.mjs",
+    "sha256": "61dc15b36f79aeb1a4101700915b2b05b150863e0baeff3af7fbc7faa9066f1d"
+  },
+  "streetDressingSource": {
+    "path": "app/scene/street-dressing-placement.mjs",
+    "sha256": "97d37dce0a8a1be412e5342c7ff0fdf0ab313a3a7e25a5ea9fbab1b545247983",
+    "reason": "near-side tree relocation requires deterministic opposite-side fallback to preserve the existing furnishing count and clearance contract"
+  },
+  "sourceLineage": {
+    "parentAsset": "xinhua-road-plane-tree-family-canopy-v4",
+    "parentBuildRecord": "docs/research/build-records/plane-tree-family-canopy-v4.json",
+    "referenceManifest": "docs/research/plane-tree-placement-v5-reference-manifest.json",
+    "modelBrief": "docs/research/plane-tree-placement-v5-model-brief.md",
+    "decisionLog": "docs/research/plane-tree-placement-v5-decision-log.md"
+  },
+  "placement": {
+    "baseline": {
+      "xinhuaRoadCount": 83,
+      "pilotCount": 20,
+      "axisSpacing": 6,
+      "sideOffsets": [
+        {
+          "base": 6.55,
+          "jitter": 0.55
+        },
+        {
+          "base": 6.55,
+          "jitter": 0.55
+        }
+      ]
+    },
+    "accepted": {
+      "xinhuaRoadCount": 79,
+      "xingfuliSharedCount": 3,
+      "assetLibraryCount": 82,
+      "sideCounts": [
+        41,
+        38
+      ],
+      "pilotCount": 16,
+      "pilotSideCounts": [
+        8,
+        8
+      ],
+      "axisSpacing": 6.2,
+      "pilotCandidateSpacing": 4.2,
+      "pilotSidePhase": 1.5,
+      "sideOffsets": [
+        {
+          "base": 4.8,
+          "jitter": 0.45
+        },
+        {
+          "base": 6.55,
+          "jitter": 0.45
+        }
+      ],
+      "visibleRoadEnvelopeHalfWidth": 3.925,
+      "sceneUnitMeters": 2.7
+    }
+  },
+  "identity": [
+    {
+      "slug": "plane-tree-a",
+      "glb": "public/models/xinhua-road/plane-tree-a.glb",
+      "sha256": "4c0f78206959bc510dc2ab378e2dcef707a4880b9e6294f9279add052212fa68",
+      "bytes": 223696,
+      "nodes": 1,
+      "materials": 6,
+      "images": 0
+    },
+    {
+      "slug": "plane-tree-b",
+      "glb": "public/models/xinhua-road/plane-tree-b.glb",
+      "sha256": "3545665d071e1c6b202319c68333e3d2b8434b07a3f60a0d8d0d2d95b4ef2fb1",
+      "bytes": 217520,
+      "nodes": 1,
+      "materials": 6,
+      "images": 0
+    },
+    {
+      "slug": "plane-tree-c",
+      "glb": "public/models/xinhua-road/plane-tree-c.glb",
+      "sha256": "3fcfc53a959b88c1f6879516d790b3513ecb28de3fbea23d9a651ea4158379d2",
+      "bytes": 222328,
+      "nodes": 1,
+      "materials": 6,
+      "images": 0
+    },
+    {
+      "slug": "plane-tree-d",
+      "glb": "public/models/xinhua-road/plane-tree-d.glb",
+      "sha256": "e454862756d10b6ac5fe7a36ef836a13941fc6b77f718bced6ace6e710b696b4",
+      "bytes": 221836,
+      "nodes": 1,
+      "materials": 6,
+      "images": 0
+    }
+  ],
+  "massing": [
+    {
+      "slug": "plane-tree-massing-a",
+      "glb": "public/models/xinhua-road/plane-tree-massing-a.glb",
+      "sha256": "75798812e312038425135f1d7ac3e876dc3d465f62ac9ed673cd1b45b826c725",
+      "bytes": 44836,
+      "nodes": 1,
+      "materials": 3,
+      "images": 0
+    },
+    {
+      "slug": "plane-tree-massing-b",
+      "glb": "public/models/xinhua-road/plane-tree-massing-b.glb",
+      "sha256": "fefadf540efedafe2ac13202965788b7bb9b7d258bab58847858303852dd4f5d",
+      "bytes": 44836,
+      "nodes": 1,
+      "materials": 3,
+      "images": 0
+    },
+    {
+      "slug": "plane-tree-massing-c",
+      "glb": "public/models/xinhua-road/plane-tree-massing-c.glb",
+      "sha256": "2e355e79e70b550b225ee31247ec03561280ab3da42be14131059615ed7b4675",
+      "bytes": 44836,
+      "nodes": 1,
+      "materials": 3,
+      "images": 0
+    }
+  ],
+  "totals": {
+    "identityBytes": 885380,
+    "massingBytes": 134508,
+    "glbBytes": 1019888,
+    "images": 0,
+    "runtimeHeroRequests": 0
+  },
+  "validation": {
+    "targetedTests": "14/14 passed",
+    "glbAudit": "7/7 passed",
+    "editableBlendFiles": "7/7 present",
+    "binaryHashComparison": "7/7 byte-identical to the V4 build record",
+    "standardRuntime": {
+      "frames": 300,
+      "fps": 60.05,
+      "frameP95Ms": 18.1,
+      "maximumDrawCalls": 252,
+      "maximumTriangles": 870496,
+      "identityRequests": 4,
+      "massingRequests": 0,
+      "errors": 0
+    },
+    "weakRuntime": {
+      "frames": 299,
+      "fps": 59.97,
+      "frameP95Ms": 18.3,
+      "maximumDrawCalls": 218,
+      "maximumTriangles": 314250,
+      "identityRequestsSharedByXingfuli": 3,
+      "massingRequests": 3,
+      "errors": 0
+    },
+    "performanceComparison": {
+      "standardFrameP95BaselineMs": 17.9,
+      "standardFrameP95AcceptedMs": 18.1,
+      "standardMaximumTrianglesDeltaPercent": -3.9,
+      "weakFrameP95BaselineMs": 18.7,
+      "weakFrameP95AcceptedMs": 18.3,
+      "weakMaximumTrianglesDeltaPercent": -2.3,
+      "conclusion": "matched-condition samples show no performance regression; no durable speedup claim is made from a single pair"
+    },
+    "fullTests": "461/461 passed",
+    "lint": "passed with zero errors and one pre-existing unrelated warning",
+    "externalSnapshot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-30-plane-tree-placement-v5-final-d5f88ed (657 files, 272535552 bytes, SHA256SUMS passed twice)"
+  },
+  "runtimeAcceptance": "docs/research/plane-tree-placement-v5-runtime-acceptance.json",
+  "status": "local-tests-runtime-evidence-accepted-pending-release"
+}

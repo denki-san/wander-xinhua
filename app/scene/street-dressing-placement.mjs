@@ -167,15 +167,21 @@ export function buildXinhuaStreetDressingPlacements(
     distance += clusterSpacing, index += 1
   ) {
     const sample = samplePolyline(XINHUA_ROAD_AXIS, distance);
-    const sideSign = index % 2 === 0 ? 1 : -1;
-    const planter = {
-      id: `street-planter-${index}`,
-      position: offsetSample(sample, 3.48, sideSign),
-      yaw: -Math.atan2(sample.tangent[1], sample.tangent[0]),
-      scale: 0.92 + (index % 3) * 0.08,
-      variant: index % 3,
-    };
-    if (placementIsClear(planter.position, "planter", constraints)) {
+    const preferredSideSign = index % 2 === 0 ? 1 : -1;
+    // V5 的近侧梧桐移到绿化带后，街具仍应保留原有数量合同。优先使用
+    // 交错侧；若该侧与树干净空冲突，则在道路对侧同一轴向位置回退。
+    const planter = [preferredSideSign, -preferredSideSign]
+      .map((sideSign) => ({
+        id: `street-planter-${index}`,
+        position: offsetSample(sample, 3.48, sideSign),
+        yaw: -Math.atan2(sample.tangent[1], sample.tangent[0]),
+        scale: 0.92 + (index % 3) * 0.08,
+        variant: index % 3,
+      }))
+      .find((candidate) => (
+        placementIsClear(candidate.position, "planter", constraints)
+      ));
+    if (planter) {
       planters.push(planter);
     }
     const binSample = samplePolyline(
@@ -184,8 +190,8 @@ export function buildXinhuaStreetDressingPlacements(
     );
     const bin = {
       id: `street-bin-${index}`,
-      position: offsetSample(binSample, 3.18, sideSign),
-      yaw: binYawTowardSidewalk(binSample.tangent, sideSign),
+      position: offsetSample(binSample, 3.18, preferredSideSign),
+      yaw: binYawTowardSidewalk(binSample.tangent, preferredSideSign),
       variant: index % 2,
     };
     if (placementIsClear(bin.position, "bin", constraints)) {
@@ -200,19 +206,27 @@ export function buildXinhuaStreetDressingPlacements(
     distance += shrubSpacing, index += 1
   ) {
     const sample = samplePolyline(XINHUA_ROAD_AXIS, distance);
-    const sideSign = index % 2 === 0 ? 1 : -1;
-    const shrub = {
-      id: `street-shrub-${index}`,
-      position: offsetSample(sample, 4.35 + (index % 3) * 0.18, sideSign),
-      yaw: index * 1.17,
-      scale: [
-        0.72 + (index % 4) * 0.08,
-        0.62 + (index % 3) * 0.09,
-        0.68 + ((index + 2) % 4) * 0.07,
-      ],
-      variant: index % 3,
-    };
-    if (placementIsClear(shrub.position, "shrub", constraints)) {
+    const preferredSideSign = index % 2 === 0 ? 1 : -1;
+    const shrub = [preferredSideSign, -preferredSideSign]
+      .map((sideSign) => ({
+        id: `street-shrub-${index}`,
+        position: offsetSample(
+          sample,
+          4.35 + (index % 3) * 0.18,
+          sideSign,
+        ),
+        yaw: index * 1.17,
+        scale: [
+          0.72 + (index % 4) * 0.08,
+          0.62 + (index % 3) * 0.09,
+          0.68 + ((index + 2) % 4) * 0.07,
+        ],
+        variant: index % 3,
+      }))
+      .find((candidate) => (
+        placementIsClear(candidate.position, "shrub", constraints)
+      ));
+    if (shrub) {
       shrubs.push(shrub);
     }
   }

@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "wander-xinhua.plane-tree-placement-runtime-acceptance.v1",
+  "acceptedAt": "2026-07-30",
+  "gitBaseline": "d5f88ed",
+  "placementSourceSha256": "61dc15b36f79aeb1a4101700915b2b05b150863e0baeff3af7fbc7faa9066f1d",
+  "route": "/?start=house315&cameraQa=1&network=standard&qaAutoStart=1&qaMove=forward&qaMoveMs=5600&qaMoveTarget=0.20%2C79.89",
+  "buildMode": "production-static",
+  "protocol": {
+    "browser": "Chrome 146.0.7680.153",
+    "viewport": {
+      "width": 1200,
+      "height": 807,
+      "deviceScaleFactor": 1
+    },
+    "cache": "disabled",
+    "warmupMs": 3000,
+    "sampleDurationMs": 5000,
+    "pageVisibility": "visible throughout",
+    "movement": "deterministic qaAutoStart forward movement completed"
+  },
+  "placement": {
+    "xinhuaRoadCount": 79,
+    "pilotCount": 16,
+    "pilotSideCounts": [
+      8,
+      8
+    ],
+    "sideCounts": [
+      41,
+      38
+    ],
+    "sameSidePilotMinimumGap": ">= 4.2 scene units",
+    "nearCameraSideOffset": "4.80-5.25 scene units from road axis",
+    "farSideOffset": "6.55-7.00 scene units from road axis",
+    "visibleRoadEnvelopeHalfWidth": 3.925,
+    "geometryAcceptance": "all scaled trunks remain outside the full asphalt, curb, sidewalk and verge envelope and preserve entrance/building clearance"
+  },
+  "visualAcceptance": {
+    "canonicalDirection": "house315 toward qaMoveTarget 0.20,79.89",
+    "nearCameraSide": "screen-right side-0 tree line now reads beside the verge instead of receding into the outer lawn",
+    "longitudinalRhythm": "less dense than the 83-tree/20-pilot baseline while retaining two-sided canopy continuity",
+    "referenceBlenderRuntimeTriptych": "test_artifacts/test_plane_tree_placement_v5_final_comparisons/test_plane_tree_placement_v5_reference_blender_threejs.png",
+    "beforeAfter": "test_artifacts/test_plane_tree_placement_v5_final_comparisons/test_plane_tree_placement_v5_before_after.png",
+    "standardWeak": "test_artifacts/test_plane_tree_placement_v5_final_comparisons/test_plane_tree_placement_v5_standard_weak.png"
+  },
+  "baseline": {
+    "manifest": "test_artifacts/test_plane_tree_placement_v5_baseline_d5f88ed_run3/test_plane_tree_placement_v5_baseline_manifest.json",
+    "standard": {
+      "frames": 300,
+      "fps": 59.97,
+      "frameP95Ms": 17.9,
+      "maximumDrawCalls": 252,
+      "maximumTriangles": 905820
+    },
+    "weak": {
+      "frames": 300,
+      "fps": 59.99,
+      "frameP95Ms": 18.7,
+      "maximumDrawCalls": 219,
+      "maximumTriangles": 321806
+    }
+  },
+  "accepted": {
+    "manifest": "test_artifacts/test_plane_tree_placement_v5_final_run4/test_plane_tree_placement_v5_final_manifest.json",
+    "standard": {
+      "frames": 300,
+      "fps": 60.05,
+      "frameP95Ms": 18.1,
+      "maximumDrawCalls": 252,
+      "maximumTriangles": 870496,
+      "identityRequests": 4,
+      "massingRequests": 0,
+      "errors": 0,
+      "passed": true
+    },
+    "weak": {
+      "frames": 299,
+      "fps": 59.97,
+      "frameP95Ms": 18.3,
+      "maximumDrawCalls": 218,
+      "maximumTriangles": 314250,
+      "identityRequestsSharedByXingfuli": 3,
+      "massingRequests": 3,
+      "errors": 0,
+      "passed": true
+    }
+  },
+  "performanceConclusion": "The matched-condition pair shows no frame-time, draw-call or triangle regression. A single pair is capture-time evidence and is not used to claim a durable performance speedup.",
+  "limitations": [
+    "Product-space placement is verified against the committed road geometry, not a surveyed tree-pit dataset.",
+    "The three weak-tier Identity requests belong to existing Xingfuli shared trees; the Xinhua Road array itself uses only the three Massing variants.",
+    "The seven V4 Blender and GLB binaries are unchanged; this acceptance validates placement and runtime integration."
+  ],
+  "checks": {
+    "consoleErrors": 0,
+    "windowErrors": 0,
+    "unhandledRejections": 0,
+    "networkFailures": 0,
+    "httpErrors": 0,
+    "fatalOverlay": false,
+    "movementComplete": true,
+    "standardPassed": true,
+    "weakPassed": true
+  },
+  "status": "local-production-runtime-passed"
+}
