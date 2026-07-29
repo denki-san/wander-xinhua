@@ -16,7 +16,7 @@
 | 内容 | 真值位置 | 轻量克隆默认行为 |
 | --- | --- | --- |
 | 代码、生成器、配置、测试、asset lock | `denki-san/wander-xinhua` | 检出 |
-| 生产 GLB 与运行时媒体 | `denki-san/wander-xinhua`，后续可试点 CDN | `code-only` 排除，`runtime-ready` 检出 |
+| 生产 GLB 与运行时媒体 | 首屏/回退在主仓库；非首屏 Hero 可用 immutable CDN | `code-only` 排除，`runtime-ready` 检出回退副本 |
 | 可编辑 `.blend` 与大型源资产 | 私有 `denki-san/wander-xinhua-assets` | 主仓库克隆不下载 |
 | 参考图、截图、视频、HAR、运行指标 | `/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/` | 永不由 Git/LFS 克隆 |
 
@@ -150,6 +150,8 @@ git lfs fsck
   随后 `npm ci`、静态构建和 Sites 构建全部通过。
 - GitHub 干净 full clone 的二进制门禁、构建和全量测试全部通过，测试为
   `453 / 453`。
+- 该 full clone 在安装依赖前总占用 `1,108,184 KiB`，其中 `.git` 为
+  `491,972 KiB`。这是完整历史与当前 tree 的实际磁盘占用，不等同于网络传输量。
 - 原 9 项历史 `git show` fixture 指向只存在于旧本机 object database、GitHub refs
   不可达的 commit。byte-exact 输入已进入外置不可变快照
   `snapshots/2026-07-29-issue-1-history-fixtures-d5f88ed`；主仓库只保存
@@ -170,6 +172,9 @@ git lfs fsck
 - 后续若从主仓库当前 tree 移除旧源，只能新增普通提交；本 Issue 禁止重写历史或强推。
 - 删除主仓库旧源之前，必须证明 LFS 干净克隆、指定 revision 回滚、生成器复现和
   旧提交回查全部通过，并再次征得用户确认。
-- CDN/R2 试点是下一阶段；本轮生产
-  `public/models/building-evidence-lab/wukang-mansion.glb` 的路径、SHA、缓存和发布包
-  均保持不变。
+- 上海影城非首屏 Hero 已建立 immutable CDN 主路径，但应用内原 GLB 仍作为离线和
+  旧版本回退，因此当前 full/runtime-ready checkout 体积不会因本试点缩小。后续只有
+  在同提交 Sites/VPS、离线回退和旧版本回滚长期稳定后，才能另开 Issue 讨论移除
+  回退副本。
+- 武康大楼生产 `public/models/building-evidence-lab/wukang-mansion.glb` 的路径、
+  SHA、缓存和发布包保持不变。

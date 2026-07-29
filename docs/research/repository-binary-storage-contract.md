@@ -5,7 +5,8 @@
 本合同源自 GitHub Issue #1 第一阶段：先停止主仓库继续吸收动态证据和未锁定的
 大型二进制；第二阶段继续记录独立 LFS 资产仓库试点。
 
-本阶段不删除既有文件、不迁移生产 runtime、不重写 Git 历史。
+本阶段不删除既有文件、不重写 Git 历史。可编辑源只做复制式 LFS 试点；生产
+runtime 只对一个非首屏 Hero 建立不可变 CDN 主路径，同时保留应用内原 GLB 回退。
 
 ## 存储边界
 
@@ -34,7 +35,8 @@
 4. 既有 grandfather 文件是否超过冻结体积；
 5. 删除或缩小既有文件继续允许；
 6. asset lock 实例是否完整通过 Draft 2020-12 schema，包括 Git LFS repository /
-   revision 条件、枚举、附加字段、SHA、bytes 和 bounds。
+   revision 条件、CDN immutable URL / fallback 条件、枚举、附加字段、SHA、bytes
+   和 bounds。
 
 `npm test` 在构建前运行该门禁，因此 CI 不需要挂载本地 U 盘。
 `.github/workflows/repository-binary-policy.yml` 还会在 pull request 和 `main`
@@ -84,7 +86,8 @@ LFS 资产仓库。
 - triangles、bounds 与 fallback；
 - generator、build record 和 evidence snapshot lineage。
 
-当前 asset lock 只登记武康大楼单建筑试点，不宣称全部 18 栋建筑已经迁入统一合同。
+当前 asset lock 只登记武康大楼可编辑源 LFS 试点和上海影城非首屏 Hero CDN 试点，
+不宣称全部 18 栋建筑已经迁入统一合同。
 
 ## 第二阶段单建筑试点
 
@@ -104,6 +107,33 @@ LFS 资产仓库。
 
 三种检出模式和限制见
 [`repository-lightweight-clone-guide.md`](repository-lightweight-clone-guide.md)。
+
+## 非首屏 Hero CDN 试点
+
+上海影城 Hero 保持现有 distance-state on-demand 装载，不加入首屏 preload。默认
+从带二进制 SHA-256 的 immutable URL 读取：
+
+```text
+https://xinhua.denkisan.me/cdn/sha256/c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062/shanghai-cinema.glb.bin.js
+```
+
+URL 尾缀用于让现有 Cloudflare 代理参与缓存；Nginx 明确返回
+`model/gltf-binary`，不能根据尾缀把内容误判成 JavaScript。浏览器加载失败时依次
+回退到应用内原
+`/models/xinhua-road/shanghai-cinema.glb?v=sha256-c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062`
+和 Identity 代理。
+`?asset-cdn-fallback=shanghai-cinema` 是可重复的离线回退验收入口。
+一次 CDN 失败后，本浏览器会话保持使用本地回退，避免靠近建筑时无限重试；下次
+页面会话会重新尝试 CDN。Nginx 源站对该单对象关闭 Range，缺文件时返回
+`404 + Cache-Control: no-store`，只有成功响应携带 immutable 与内容 SHA 头。
+Cloudflare 边缘可能基于已经缓存的完整对象响应合法 `Range` 为 `206`，或响应越界
+`Range` 为 `416`；这不属于源站的禁 Range 保证，也不影响 Three.js 当前使用的普通
+`GET`。因此验收与记录必须分别报告 origin 和 edge，不能把源站策略写成公网边缘
+合同。
+
+CDN 对象保存在独立于发布目录的 `/var/www/xinhua-cdn/sha256/...`，Sites 与 VPS
+同一提交引用同一 URL；切换或回滚 `/var/www/xinhua-messenger` 不会覆盖该对象。
+旧提交没有 CDN resolver，会自然继续读取应用内 GLB。
 
 ## 历史与删除边界
 

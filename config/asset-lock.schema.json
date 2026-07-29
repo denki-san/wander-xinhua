@@ -191,7 +191,36 @@
           "type": "string",
           "minLength": 1
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "delivery": {
+                "const": "cdn"
+              }
+            },
+            "required": [
+              "delivery"
+            ]
+          },
+          "then": {
+            "required": [
+              "fallbackLocation"
+            ],
+            "properties": {
+              "location": {
+                "type": "string",
+                "pattern": "^https://[^/]+/cdn/sha256/[0-9a-f]{64}/[^?#]+$"
+              },
+              "fallbackLocation": {
+                "type": "string",
+                "pattern": "^public/"
+              }
+            }
+          }
+        }
+      ]
     },
     "asset": {
       "type": "object",

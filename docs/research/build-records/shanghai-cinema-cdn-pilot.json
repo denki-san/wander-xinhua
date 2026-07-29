@@ -1,0 +1,191 @@
+{
+  "asset": "shanghai-cinema",
+  "pilot": "immutable-cdn-hero-v1",
+  "status": "deployment-validation-pending",
+  "generatedAt": "2026-07-30T01:19:13+08:00",
+  "sourceGitSha": "6721176074aec7946834869257d683ce0b569996",
+  "scope": {
+    "nonFirstScreenHero": true,
+    "editableSourceModified": false,
+    "runtimeBinaryModified": false,
+    "wukangProductionGlbModified": false,
+    "localRuntimeFallbackRetained": true
+  },
+  "source": {
+    "path": "assets/models/source/xinhua-road/shanghai-cinema.blend",
+    "sha256": "fbb13fdb89169101c97bda0f3e5ba9644c70743aa85bd810368b365969db8fd8",
+    "bytes": 1275824,
+    "generator": "scripts/create_xinhua_road_models.py",
+    "originalBuildRecord": "docs/research/build-records/shanghai-cinema.json"
+  },
+  "runtime": {
+    "path": "public/models/xinhua-road/shanghai-cinema.glb",
+    "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+    "bytes": 5862660,
+    "triangles": 83820,
+    "bounds": {
+      "min": [
+        -19,
+        -0.06000000983476639,
+        -11.800000190734863
+      ],
+      "max": [
+        19,
+        17.225000381469727,
+        14.199999809265137
+      ]
+    },
+    "loadPolicy": "distance-state-on-demand",
+    "firstScreenPreload": false
+  },
+  "cdn": {
+    "origin": "vps-nginx-cloudflare",
+    "url": "https://xinhua.denkisan.me/cdn/sha256/c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062/shanghai-cinema.glb.bin.js",
+    "originPath": "/var/www/xinhua-cdn/sha256/c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062/shanghai-cinema.glb",
+    "contentType": "model/gltf-binary",
+    "cacheControl": "public, max-age=31536000, immutable",
+    "cors": "*",
+    "rangePolicy": {
+      "origin": "disabled-with-nginx-max_ranges-0",
+      "cloudflareEdge": "may-serve-206-or-416-from-cached-complete-object",
+      "runtimeRequestMode": "ordinary-get-no-range"
+    },
+    "missingObjectPolicy": "404-no-store",
+    "sessionRetryPolicy": "session-sticky-local-fallback-after-cdn-error",
+    "publicValidation": {
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 5862660,
+      "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+      "ordinaryGet": {
+        "httpStatus": 200,
+        "contentLength": 5862660,
+        "cacheStatus": "HIT",
+        "contentType": "model/gltf-binary"
+      },
+      "validRange": {
+        "request": "bytes=0-99",
+        "httpStatus": 206,
+        "contentLength": 100,
+        "contentRange": "bytes 0-99/5862660",
+        "cacheStatus": "HIT"
+      },
+      "invalidRange": {
+        "request": "bytes=999999999-1000000000",
+        "httpStatus": 416,
+        "contentRange": "bytes */5862660",
+        "cacheStatus": "HIT",
+        "note": "Cloudflare edge cached behavior; not the Nginx origin contract"
+      },
+      "cloudflareObservations": [
+        {
+          "pop": "AMS",
+          "cacheStatus": "HIT",
+          "ageSeconds": 117
+        },
+        {
+          "pop": "LAX",
+          "cacheStatus": "MISS"
+        }
+      ]
+    },
+    "originValidation": {
+      "transport": "VPS-local HTTPS request with Host header",
+      "ordinaryGet": {
+        "httpStatus": 200,
+        "contentLength": 5862660
+      },
+      "validRangeRequest": {
+        "request": "bytes=0-99",
+        "httpStatus": 200,
+        "contentLength": 5862660
+      },
+      "invalidRangeRequest": {
+        "request": "bytes=999999999-1000000000",
+        "httpStatus": 200,
+        "contentLength": 5862660
+      }
+    }
+  },
+  "fallback": {
+    "url": "/models/xinhua-road/shanghai-cinema.glb?v=sha256-c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+    "queryOverride": "?asset-cdn-fallback=shanghai-cinema",
+    "sequence": [
+      "immutable-cdn",
+      "application-glb",
+      "identity-proxy"
+    ]
+  },
+  "evidence": {
+    "referenceSnapshot": {
+      "snapshot": "snapshots/2026-07-27-storage-migration-52db477",
+      "subjectPath": "repository/docs/research/assets/poi-references/shanghai-cinema"
+    },
+    "runtimeSnapshots": [
+      {
+        "snapshot": "snapshots/2026-07-30-issue-1-shanghai-cinema-final-runtime-6721176",
+        "subjectPath": "repository/test_artifacts",
+        "files": 8,
+        "checksums": "passed",
+        "scope": [
+          "default-cdn",
+          "forced-local",
+          "automatic-local-fallback",
+          "identity-fallback",
+          "distance-gate",
+          "public-cdn-headers",
+          "nginx-safe-error-cache"
+        ]
+      },
+      {
+        "snapshot": "snapshots/2026-07-30-issue-1-shanghai-cinema-range-contract-6721176",
+        "subjectPath": ".",
+        "files": 7,
+        "checksums": "passed",
+        "scope": [
+          "public-edge-ordinary-get",
+          "public-edge-valid-range",
+          "public-edge-invalid-range",
+          "nginx-origin-ordinary-get",
+          "nginx-origin-valid-range",
+          "nginx-origin-invalid-range"
+        ]
+      }
+    ]
+  },
+  "measurements": {
+    "githubFullCloneBeforeNodeModulesKiB": 1108184,
+    "githubFullCloneGitDirectoryKiB": 491972,
+    "localStaticArtifactKiB": 112544,
+    "localStaticFileCount": 143,
+    "vpsReleaseBeforePilotKiB": 97256,
+    "vpsReleaseAfterPilotKiB": null,
+    "sitesArtifactBytes": null
+  },
+  "acceptance": {
+    "assetLock": "passed",
+    "automatedTests": {
+      "status": "passed",
+      "fullSuite": "457/457",
+      "lintErrors": 0,
+      "existingLintWarnings": 1
+    },
+    "cleanClone": "pending",
+    "localRuntime": "passed",
+    "localForcedFallback": "passed",
+    "localAutomaticFallback": "passed",
+    "localIdentityFallback": "passed",
+    "localDistanceGate": "passed",
+    "nginxSyntax": "passed",
+    "nginxMissingObjectNoStore": "passed",
+    "sitesRuntime": "pending",
+    "vpsRuntime": "pending",
+    "oldVersionRollback": "pending"
+  },
+  "rollback": {
+    "cdnObjectIsReleaseIndependent": true,
+    "nginxPrePilotBackup": "/etc/nginx/sites-available/xinhua.denkisan.me.before-issue1-cdn-20260730",
+    "nginxCurrentPilotBackup": "/etc/nginx/sites-available/xinhua.denkisan.me.before-issue1-max-ranges-20260730",
+    "releaseDirectoriesRetained": true
+  }
+}

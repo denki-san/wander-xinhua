@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "project": "wander-xinhua",
-  "sourceGitSha": "b0b869e82cdf1664bd0d76f772530cfb925b7319",
-  "generatedAt": "2026-07-29T21:02:14+08:00",
+  "sourceGitSha": "6721176074aec7946834869257d683ce0b569996",
+  "generatedAt": "2026-07-30T01:19:13+08:00",
   "assets": [
     {
       "assetId": "wukang-mansion",
@@ -44,6 +44,48 @@
         "buildRecord": "docs/research/build-records/wukang-mansion-lfs-pilot.json",
         "evidenceSnapshots": [
           "external-evidence:snapshots/2026-07-26-ad37273/repository/research/references/wukang-mansion"
+        ]
+      }
+    },
+    {
+      "assetId": "shanghai-cinema",
+      "kind": "building",
+      "version": "cdn-pilot-v1",
+      "source": {
+        "storage": "main-repository",
+        "path": "assets/models/source/xinhua-road/shanghai-cinema.blend",
+        "sha256": "fbb13fdb89169101c97bda0f3e5ba9644c70743aa85bd810368b365969db8fd8",
+        "bytes": 1275824
+      },
+      "runtime": [
+        {
+          "tier": "hero",
+          "delivery": "cdn",
+          "location": "https://xinhua.denkisan.me/cdn/sha256/c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062/shanghai-cinema.glb.bin.js",
+          "fallbackLocation": "public/models/xinhua-road/shanghai-cinema.glb",
+          "sha256": "c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062",
+          "bytes": 5862660,
+          "triangles": 83820,
+          "bounds": {
+            "min": [
+              -19,
+              -0.06000000983476639,
+              -11.800000190734863
+            ],
+            "max": [
+              19,
+              17.225000381469727,
+              14.199999809265137
+            ]
+          },
+          "cacheVersion": "sha256-c4d557038677c9c48577636843fb784b496f4a92fc9ea6bbb1d5ca78e822c062"
+        }
+      ],
+      "lineage": {
+        "generator": "scripts/create_xinhua_road_models.py",
+        "buildRecord": "docs/research/build-records/shanghai-cinema-cdn-pilot.json",
+        "evidenceSnapshots": [
+          "external-evidence:snapshots/2026-07-27-storage-migration-52db477/repository/docs/research/assets/poi-references/shanghai-cinema"
         ]
       }
     }

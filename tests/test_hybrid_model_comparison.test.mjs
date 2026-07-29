@@ -79,7 +79,7 @@ test("上海影城生产 Identity 复用完整 Hybrid 组合且保持 Hero 原�
   assert.match(roadMassing, /fullScaleIdentity: true/);
   assert.match(
     roadLandmarks,
-    /fallback=\{<LandmarkProgressiveProxy landmark=\{landmark\} identity \/>\}/,
+    /const landmarkIdentityFallback = \([\s\S]*?<LandmarkProgressiveProxy landmark=\{landmark\} identity \/>[\s\S]*?fallback=\{activeModelFailureFallback\}[\s\S]*?<Suspense fallback=\{landmarkIdentityFallback\}>/,
   );
   assert.equal(buildRecord.role, "production-hybrid-identity");
   assert.equal(buildRecord.validation.productionReplacement, "approved-2026-07-24");

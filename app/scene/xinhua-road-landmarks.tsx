@@ -42,6 +42,11 @@ import {
   resolveOneStepGardenQa,
 } from "./one-step-garden-tier-contract.mjs";
 import {
+  resolveShanghaiCinemaDelivery,
+  SHANGHAI_CINEMA_ASSET_ID,
+  SHANGHAI_CINEMA_DELIVERY_CONTRACT,
+} from "./shanghai-cinema-delivery-contract.mjs";
+import {
   resolveBuildingTierQa,
 } from "./building-massing-qa-contract.mjs";
 import {
@@ -678,6 +683,134 @@ function GlbModel({
   return <primitive object={model} scale={[1, 1, -1]} />;
 }
 
+type ShanghaiCinemaDelivery = ReturnType<typeof resolveShanghaiCinemaDelivery>;
+
+function ShanghaiCinemaDeliveryTelemetry({
+  delivery,
+}: {
+  delivery: ShanghaiCinemaDelivery;
+}) {
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset.xinhuaAssetDeliveryAsset = delivery.assetId;
+    root.dataset.xinhuaAssetDeliveryRequestedUrl = delivery.requestedPath;
+    root.dataset.xinhuaAssetDeliveryLoadedUrl = delivery.loadedPath;
+    root.dataset.xinhuaAssetDeliveryStatus = delivery.status;
+    root.dataset.xinhuaAssetDeliveryExpectedSha256 = delivery.sha256;
+    root.dataset.xinhuaAssetDeliveryExpectedBytes = String(delivery.bytes);
+    window.dispatchEvent(new CustomEvent("xinhua:asset-delivery", {
+      detail: {
+        ...delivery,
+        expectedSha256: delivery.sha256,
+        expectedBytes: delivery.bytes,
+      },
+    }));
+    return () => {
+      if (
+        root.dataset.xinhuaAssetDeliveryAsset !== delivery.assetId
+        || root.dataset.xinhuaAssetDeliveryLoadedUrl !== delivery.loadedPath
+      ) return;
+      delete root.dataset.xinhuaAssetDeliveryAsset;
+      delete root.dataset.xinhuaAssetDeliveryRequestedUrl;
+      delete root.dataset.xinhuaAssetDeliveryLoadedUrl;
+      delete root.dataset.xinhuaAssetDeliveryStatus;
+      delete root.dataset.xinhuaAssetDeliveryExpectedSha256;
+      delete root.dataset.xinhuaAssetDeliveryExpectedBytes;
+    };
+  }, [delivery]);
+  return null;
+}
+
+function ShanghaiCinemaIdentityFailure({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset.xinhuaAssetDeliveryAsset = SHANGHAI_CINEMA_ASSET_ID;
+    root.dataset.xinhuaAssetDeliveryRequestedUrl =
+      SHANGHAI_CINEMA_DELIVERY_CONTRACT.primary;
+    root.dataset.xinhuaAssetDeliveryLoadedUrl = "identity-tier";
+    root.dataset.xinhuaAssetDeliveryStatus = "identity-fallback";
+    root.dataset.xinhuaAssetDeliveryExpectedSha256 =
+      SHANGHAI_CINEMA_DELIVERY_CONTRACT.sha256;
+    root.dataset.xinhuaAssetDeliveryExpectedBytes = String(
+      SHANGHAI_CINEMA_DELIVERY_CONTRACT.bytes,
+    );
+    window.dispatchEvent(new CustomEvent("xinhua:asset-delivery", {
+      detail: {
+        assetId: SHANGHAI_CINEMA_ASSET_ID,
+        requestedPath: SHANGHAI_CINEMA_DELIVERY_CONTRACT.primary,
+        loadedPath: "identity-tier",
+        status: "identity-fallback",
+        expectedSha256: SHANGHAI_CINEMA_DELIVERY_CONTRACT.sha256,
+        expectedBytes: SHANGHAI_CINEMA_DELIVERY_CONTRACT.bytes,
+      },
+    }));
+    return () => {
+      if (
+        root.dataset.xinhuaAssetDeliveryAsset !== SHANGHAI_CINEMA_ASSET_ID
+        || root.dataset.xinhuaAssetDeliveryStatus !== "identity-fallback"
+      ) return;
+      delete root.dataset.xinhuaAssetDeliveryAsset;
+      delete root.dataset.xinhuaAssetDeliveryRequestedUrl;
+      delete root.dataset.xinhuaAssetDeliveryLoadedUrl;
+      delete root.dataset.xinhuaAssetDeliveryStatus;
+      delete root.dataset.xinhuaAssetDeliveryExpectedSha256;
+      delete root.dataset.xinhuaAssetDeliveryExpectedBytes;
+    };
+  }, []);
+  return children;
+}
+
+function ShanghaiCinemaDeliveryModel({
+  delivery,
+}: {
+  delivery: ShanghaiCinemaDelivery;
+}) {
+  return (
+    <>
+      <GlbModel path={delivery.loadedPath} />
+      <ShanghaiCinemaDeliveryTelemetry delivery={delivery} />
+    </>
+  );
+}
+
+function ShanghaiCinemaRuntimeAsset({
+  search,
+  fallback,
+}: {
+  search: string;
+  fallback: ReactNode;
+}) {
+  const delivery = useMemo(
+    () => resolveShanghaiCinemaDelivery(search),
+    [search],
+  );
+  const localFallbackDelivery = useMemo(
+    () => resolveShanghaiCinemaDelivery(
+      "?asset-cdn-fallback=shanghai-cinema",
+    ),
+    [],
+  );
+  if (delivery.status === "local-fallback") {
+    return <ShanghaiCinemaDeliveryModel delivery={delivery} />;
+  }
+  return (
+    <ProgressiveFeatureBoundary
+      resetKey={SHANGHAI_CINEMA_DELIVERY_CONTRACT.primary}
+      fallback={(
+        <Suspense fallback={fallback}>
+          <ShanghaiCinemaDeliveryModel delivery={localFallbackDelivery} />
+        </Suspense>
+      )}
+    >
+      <ShanghaiCinemaDeliveryModel delivery={delivery} />
+    </ProgressiveFeatureBoundary>
+  );
+}
+
 function HeroPlaneTree() {
   const { scene } = useGLTF(XINHUA_HERO_PLANE_TREE_MODEL);
   const model = useMemo(() => configureModel(scene.clone(true), true), [scene]);
@@ -890,6 +1023,9 @@ export function XinhuaRoadLandmarks({
   const buildingMassingQa = resolveBuildingTierQa(
     typeof window === "undefined" ? "" : window.location.search,
   ) as BuildingMassingQaCandidate | null;
+  const assetDeliverySearch = (
+    typeof window === "undefined" ? "" : window.location.search
+  );
   return (
     <group
       name="xinhua-road-photo-reference-landmarks"
@@ -993,6 +1129,18 @@ export function XinhuaRoadLandmarks({
           house315QaActive
           && house315QaActive.fallbackMode === "no-lower-tier",
         );
+        const landmarkIdentityFallback = (
+          <LandmarkProgressiveProxy landmark={landmark} identity />
+        );
+        const activeModelFailureFallback = (
+          landmark.id === SHANGHAI_CINEMA_ASSET_ID
+            ? (
+              <ShanghaiCinemaIdentityFailure>
+                {landmarkIdentityFallback}
+              </ShanghaiCinemaIdentityFailure>
+            )
+            : landmarkIdentityFallback
+        );
         return (
           <group
             key={landmark.id}
@@ -1062,11 +1210,9 @@ export function XinhuaRoadLandmarks({
                 ) : (
                   <ProgressiveFeatureBoundary
                     resetKey={modelPath}
-                    fallback={<LandmarkProgressiveProxy landmark={landmark} identity />}
+                    fallback={activeModelFailureFallback}
                   >
-                    <Suspense
-                      fallback={<LandmarkProgressiveProxy landmark={landmark} identity />}
-                    >
+                    <Suspense fallback={landmarkIdentityFallback}>
                       {landmark.id === ONE_STEP_GARDEN_ASSET_ID ? (
                         <OneStepGardenRuntimeAsset
                           requestedTier={oneStepRequestedTier}
@@ -1078,6 +1224,11 @@ export function XinhuaRoadLandmarks({
                           requestedTier={house315RequestedTier}
                           forceFallback={house315Fallback}
                           noLowerTierFallback={house315NoLowerTierFallback}
+                        />
+                      ) : landmark.id === SHANGHAI_CINEMA_ASSET_ID ? (
+                        <ShanghaiCinemaRuntimeAsset
+                          search={assetDeliverySearch}
+                          fallback={landmarkIdentityFallback}
                         />
                       ) : (
                         <GlbModel path={modelPath} />

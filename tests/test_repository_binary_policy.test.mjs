@@ -465,6 +465,14 @@ test("asset lock schema 强制 source/runtime SHA、bytes 与 lineage", async ()
     lfsConditional.then.required,
     ["repository", "revision"],
   );
+  const cdnConditional = assetLockSchema.$defs.runtime.allOf.find(
+    (entry) => entry.if?.properties?.delivery?.const === "cdn",
+  );
+  assert.deepEqual(cdnConditional.then.required, ["fallbackLocation"]);
+  assert.match(
+    cdnConditional.then.properties.location.pattern,
+    /cdn\/sha256/,
+  );
 });
 
 test("asset lock 实例门禁拒绝缺少 revision 的 Git LFS source", () => {
@@ -515,6 +523,22 @@ test("asset lock 实例门禁拒绝缺少 revision 的 Git LFS source", () => {
       `应拒绝 ${keyword} 约束违规`,
     );
   }
+
+  const missingCdnFallback = structuredClone(assetLock);
+  const cdnRuntime = missingCdnFallback.assets.find(
+    ({ assetId }) => assetId === "shanghai-cinema",
+  ).runtime[0];
+  delete cdnRuntime.fallbackLocation;
+  const missingCdnFallbackResult = validateAssetLockDocument(
+    missingCdnFallback,
+    assetLockSchema,
+  );
+  assert.equal(missingCdnFallbackResult.passed, false);
+  assert.ok(
+    missingCdnFallbackResult.violations.some(
+      ({ code }) => code === "asset-lock-schema-required",
+    ),
+  );
 });
 
 test("武康大楼 LFS 试点锁定源 revision 且保持生产 GLB 不变", async () => {

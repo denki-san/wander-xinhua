@@ -571,6 +571,18 @@ export function validateAssetLockSchemaContract(schema) {
   for (const field of ["repository", "revision"]) {
     if (!lfsRequired.has(field)) violations.push(`source.lfs.${field}`);
   }
+  const cdnConditional = (schema.$defs?.runtime?.allOf ?? []).find(
+    (entry) => entry.if?.properties?.delivery?.const === "cdn",
+  );
+  const cdnRequired = new Set(cdnConditional?.then?.required ?? []);
+  if (!cdnRequired.has("fallbackLocation")) {
+    violations.push("runtime.cdn.fallbackLocation");
+  }
+  const cdnLocationPattern =
+    cdnConditional?.then?.properties?.location?.pattern ?? "";
+  if (!cdnLocationPattern.includes("/cdn/sha256/")) {
+    violations.push("runtime.cdn.location");
+  }
   return {
     passed: violations.length === 0,
     violations,
