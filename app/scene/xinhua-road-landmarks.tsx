@@ -602,7 +602,7 @@ export function XinhuaRoadPlaneTrees({
         name="xinhua-road-plane-trees"
         userData={{
           variants: 3,
-          arrangement: "road-oriented-pilot-density",
+          arrangement: "road-oriented-spaced-v5",
           quality: "massing",
         }}
       >
@@ -620,7 +620,7 @@ export function XinhuaRoadPlaneTrees({
       name="xinhua-road-plane-trees"
       userData={{
         variants: 4,
-        arrangement: "road-oriented-pilot-density",
+        arrangement: "road-oriented-spaced-v5",
         quality: "identity",
       }}
     >

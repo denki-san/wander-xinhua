@@ -1,0 +1,89 @@
+{
+  "assetFamily": "xinhua-road-plane-tree-spacing-v5",
+  "acceptedAt": "2026-07-29",
+  "candidate": {
+    "branch": "codex/plane-tree-spacing-v5",
+    "baseline": "17adb17",
+    "deployment": "local-candidate-not-deployed",
+    "userDecision": "pending"
+  },
+  "scope": {
+    "modelBinariesChanged": false,
+    "treeShapeChanged": false,
+    "placementGeneratorChanged": true,
+    "runtimeHeroRequests": 0
+  },
+  "placement": {
+    "xinhuaRoadInstances": 62,
+    "xingfuliInstances": 3,
+    "totalAssetLibraryInstances": 65,
+    "regularAxisSpacing": 7.5,
+    "minimumSameSideSpacingContract": 6.8,
+    "actualMinimumSpacing": {
+      "oppositeSide": 7.2,
+      "cameraSide": 7.055
+    },
+    "roadAxisOffset": {
+      "oppositeSide": {
+        "minimum": 6.591,
+        "maximum": 7.023
+      },
+      "cameraSide": {
+        "minimum": 5.111,
+        "maximum": 5.382
+      }
+    },
+    "minimumConservativeVergeClearance": 0.69,
+    "pilotInstances": 11
+  },
+  "viewport": {
+    "width": 1280,
+    "height": 577,
+    "pageVisibility": "visible",
+    "buildMode": "production-static",
+    "browser": "agent-browser isolated Chrome"
+  },
+  "standard": {
+    "url": "/?start=house315&qaAutoStart=1&network=standard&test_spacing=v5-final",
+    "progressiveStage": "playable",
+    "networkProfile": "standard",
+    "identityAssets": [
+      "plane-tree-a.glb?v=4c0f78206959",
+      "plane-tree-b.glb?v=3545665d071e",
+      "plane-tree-c.glb?v=3fcfc53a959b",
+      "plane-tree-d.glb?v=e454862756d1"
+    ],
+    "consoleErrors": [],
+    "visualDecision": "candidate passed agent review: camera-side trunks enter the user-marked roadside area and the opposite row no longer reads as a tightly packed wall; user confirmation remains required"
+  },
+  "weak": {
+    "url": "/?start=house315&qaAutoStart=1&network=weak&test_spacing=v5-final",
+    "progressiveStage": "playable",
+    "networkProfile": "weak",
+    "massingAssets": [
+      "plane-tree-massing-a.glb?v=75798812e312",
+      "plane-tree-massing-b.glb?v=fefadf540efe",
+      "plane-tree-massing-c.glb?v=2e355e79e70b"
+    ],
+    "consoleErrors": [],
+    "visualDecision": "candidate passed agent review: the weak tier uses the same spaced placements and keeps the radial branch correction"
+  },
+  "screenshots": [
+    {
+      "path": "test_artifacts/test_plane_tree_spacing_v5_runtime_standard.png",
+      "sha256": "03a36f7ebf03c69209024fb01f58b62eeb291949468b397e7419b2898debfbfb"
+    },
+    {
+      "path": "test_artifacts/test_plane_tree_spacing_v5_runtime_weak.png",
+      "sha256": "dc3dfa58cfa22837a80db5a675be788f486c2ab57879da63716a5915bbcec61d"
+    }
+  ],
+  "validation": {
+    "targetedTests": "30/30 passed",
+    "fullTests": "449/449 passed after static and Sites production builds",
+    "lint": "0 errors; one pre-existing unrelated warning in tests/test_house_315_map_position_candidate.test.mjs",
+    "performanceClaim": "none; this placement-only change was not used to claim a performance improvement",
+    "externalFeedbackSnapshot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-29-plane-tree-spacing-v5-user-feedback",
+    "externalRuntimeSnapshot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-29-plane-tree-spacing-v5-local-candidate"
+  }
+}

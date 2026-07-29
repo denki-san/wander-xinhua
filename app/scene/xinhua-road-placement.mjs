@@ -12,8 +12,15 @@ export const XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES = Object.freeze([]);
 export const XINHUA_PLANE_TREE_PILOT = Object.freeze({
   centerDistance: 131.1,
   length: 55.6,
-  targetCount: 20,
+  targetCount: 16,
+  minimumCount: 10,
 });
+export const XINHUA_PLANE_TREE_SPACING = 7.5;
+export const XINHUA_PLANE_TREE_MINIMUM_SPACING = 6.8;
+export const XINHUA_PLANE_TREE_SIDE_OFFSETS = Object.freeze([
+  Object.freeze({ base: 6.55, jitter: 0.55 }),
+  Object.freeze({ base: 5.05, jitter: 0.45 }),
+]);
 export const XINHUA_PLANE_TREE_TRUNK_HALF_EXTENT = 0.48;
 
 /** 只按树干底部生成玩家碰撞盒，不把树冠或板根算作阻挡。 */
@@ -98,9 +105,76 @@ function evenlySelect(candidates, count) {
   if (count <= 0) return [];
   if (candidates.length <= count) return [...candidates];
   if (count === 1) return [candidates[Math.floor(candidates.length / 2)]];
-  return Array.from({ length: count }, (_, index) => (
-    candidates[Math.round(index * (candidates.length - 1) / (count - 1))]
-  ));
+
+  // 入口过滤会让安全候选的索引不连续；只按数组索引抽样可能在端部留下
+  // 两棵相邻的 3.6-unit 树位。候选规模很小，直接枚举固定数量组合：
+  // 先最大化最小轴向间距，再最大化覆盖范围，最后选择节奏最均匀的一组。
+  let best = null;
+  function visit(startIndex, selected) {
+    if (selected.length === count) {
+      const gaps = selected.slice(1).map(
+        (candidate, index) => candidate.distance - selected[index].distance,
+      );
+      const minimumGap = Math.min(...gaps);
+      const span = selected.at(-1).distance - selected[0].distance;
+      const averageGap = span / gaps.length;
+      const gapVariance = gaps.reduce(
+        (sum, gap) => sum + (gap - averageGap) ** 2,
+        0,
+      );
+      if (
+        !best
+        || minimumGap > best.minimumGap + 1e-9
+        || (
+          Math.abs(minimumGap - best.minimumGap) <= 1e-9
+          && (
+            span > best.span + 1e-9
+            || (
+              Math.abs(span - best.span) <= 1e-9
+              && gapVariance < best.gapVariance - 1e-9
+            )
+          )
+        )
+      ) {
+        best = {
+          candidates: [...selected],
+          minimumGap,
+          span,
+          gapVariance,
+        };
+      }
+      return;
+    }
+    const remaining = count - selected.length;
+    for (
+      let index = startIndex;
+      index <= candidates.length - remaining;
+      index += 1
+    ) {
+      selected.push(candidates[index]);
+      visit(index + 1, selected);
+      selected.pop();
+    }
+  }
+  visit(0, []);
+  return best?.candidates ?? [];
+}
+
+function evenlySelectWithMinimumSpacing(candidates, maximumCount, minimumSpacing) {
+  for (
+    let count = Math.min(maximumCount, candidates.length);
+    count > 0;
+    count -= 1
+  ) {
+    const selected = evenlySelect(candidates, count);
+    const meetsMinimum = selected.slice(1).every(
+      (candidate, index) => (
+        candidate.distance - selected[index].distance >= minimumSpacing
+      ),
+    );
+    if (meetsMinimum) return selected;
+  }
+  return [];
 }
 
 /** 使用生产道路轴线、入口和建筑碰撞包络生成梧桐树阵。 */
@@ -112,9 +186,9 @@ export function buildPlaneTreePlacements(
   const entrances = landmarks.map(({ start }) => start);
   const candidatesBySide = [[], []];
   const pilotCandidatesBySide = [[], []];
-  // V2 的 14.5 scene units 约等于 39 米，纵深中过于稀疏。V3 按成熟
-  // 行道树约 16 米的推断节奏密采样，仍由入口和建筑净空过滤。
-  const spacing = 6;
+  // V5 将纵向节奏从 6 拉开到 7.5 scene units；315 号试验段也从双侧
+  // 20 棵降到 16 棵，避免成熟树冠因连续 3.6 unit 树位读成整片绿墙。
+  const spacing = XINHUA_PLANE_TREE_SPACING;
   const total = polylineLength(XINHUA_ROAD_AXIS);
   const pilotStart = XINHUA_PLANE_TREE_PILOT.centerDistance
     - XINHUA_PLANE_TREE_PILOT.length / 2;
@@ -131,7 +205,8 @@ export function buildPlaneTreePlacements(
   ) {
     const { point, tangent } = samplePolyline(XINHUA_ROAD_AXIS, distance);
     const sideSign = side === 0 ? 1 : -1;
-    const offset = 6.55 + deterministicUnit(id, 13) * 0.55;
+    const sideOffset = XINHUA_PLANE_TREE_SIDE_OFFSETS[side];
+    const offset = sideOffset.base + deterministicUnit(id, 13) * sideOffset.jitter;
     const position = [
       point[0] - tangent[1] * offset * sideSign,
       point[1] + tangent[0] * offset * sideSign,
@@ -189,29 +264,17 @@ export function buildPlaneTreePlacements(
   }
 
   const pilotTargetBySide = Math.floor(XINHUA_PLANE_TREE_PILOT.targetCount / 2);
-  const selectedCounts = pilotCandidatesBySide.map((candidates) => (
-    Math.min(pilotTargetBySide, candidates.length)
+  const selectedPilot = pilotCandidatesBySide.flatMap((candidates) => (
+    evenlySelectWithMinimumSpacing(
+      candidates,
+      pilotTargetBySide,
+      XINHUA_PLANE_TREE_MINIMUM_SPACING,
+    )
   ));
-  let unassigned = XINHUA_PLANE_TREE_PILOT.targetCount
-    - selectedCounts[0]
-    - selectedCounts[1];
-  while (unassigned > 0) {
-    const side = pilotCandidatesBySide[0].length - selectedCounts[0]
-      >= pilotCandidatesBySide[1].length - selectedCounts[1]
-      ? 0
-      : 1;
-    if (selectedCounts[side] >= pilotCandidatesBySide[side].length) break;
-    selectedCounts[side] += 1;
-    unassigned -= 1;
-  }
-  const selectedPilot = [
-    ...evenlySelect(pilotCandidatesBySide[0], selectedCounts[0]),
-    ...evenlySelect(pilotCandidatesBySide[1], selectedCounts[1]),
-  ];
-  if (selectedPilot.length !== XINHUA_PLANE_TREE_PILOT.targetCount) {
+  if (selectedPilot.length < XINHUA_PLANE_TREE_PILOT.minimumCount) {
     throw new Error(
       `新华路315号梧桐试验段安全树位不足：`
-      + `${selectedPilot.length}/${XINHUA_PLANE_TREE_PILOT.targetCount}`,
+      + `${selectedPilot.length}/${XINHUA_PLANE_TREE_PILOT.minimumCount}`,
     );
   }
 
@@ -222,7 +285,18 @@ export function buildPlaneTreePlacements(
       ...candidatesBySide[side],
       ...selectedPilot.filter((candidate) => candidate.side === side),
     ].sort((a, b) => a.distance - b.distance);
-    for (const candidate of sideCandidates) {
+    const spacedSideCandidates = sideCandidates.reduce((selected, candidate) => {
+      const previous = selected.at(-1);
+      if (
+        !previous
+        || candidate.distance - previous.distance
+          >= XINHUA_PLANE_TREE_MINIMUM_SPACING
+      ) {
+        selected.push(candidate);
+      }
+      return selected;
+    }, []);
+    for (const candidate of spacedSideCandidates) {
       const {
         id,
         position,

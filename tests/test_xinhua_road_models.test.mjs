@@ -7,6 +7,9 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import {
   buildPlaneTreePlacements,
   TREE_BUILDING_CLEARANCE,
+  XINHUA_PLANE_TREE_MINIMUM_SPACING,
+  XINHUA_PLANE_TREE_PILOT,
+  XINHUA_PLANE_TREE_SIDE_OFFSETS,
   XINHUA_ROAD_AXIS,
   XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
 } from "../app/scene/xinhua-road-placement.mjs";
@@ -471,7 +474,7 @@ test("地图与房屋使用各自证据锁定比例，不得为退界任意缩�
   );
 });
 
-test("梧桐位置沿新华路双侧避让，315试验段密植且分层加载", () => {
+test("梧桐位置沿新华路双侧避让，315试验段拉开株距且分层加载", () => {
   assert.match(planeTreeInstancesSource, /plane-tree-a\.glb\?v=4c0f78206959/);
   assert.match(planeTreeInstancesSource, /plane-tree-b\.glb\?v=3545665d071e/);
   assert.match(planeTreeInstancesSource, /plane-tree-c\.glb\?v=3fcfc53a959b/);
@@ -485,7 +488,7 @@ test("梧桐位置沿新华路双侧避让，315试验段密植且分层加载",
   assert.match(planeTreeInstancesSource, /scale\.set\(scaleX, scaleY, scaleZ\)/);
   assert.match(planeTreeInstancesSource, /scale=\{\[1, 1, -1\]\}/);
   assert.match(planeTreeInstancesSource, /placementsByVariant\[variant\]\.length > 0/);
-  assert.match(sceneSource, /arrangement: "road-oriented-pilot-density"/);
+  assert.equal((sceneSource.match(/arrangement: "road-oriented-spaced-v5"/g) ?? []).length, 2);
   assert.match(sceneSource, /tier="massing"/);
   assert.match(sceneSource, /if \(!detailed\)/);
   assert.match(sceneSource, /<PlaneTreeInstances/);
@@ -501,9 +504,36 @@ test("梧桐位置沿新华路双侧避让，315试验段密植且分层加载",
     obstacles,
     pilotObstacles,
   );
-  assert.ok(placements.length >= 20, "避让后仍需保留连续的双侧梧桐树阵");
-  assert.equal(placements.filter(({ id }) => id.includes("-pilot-")).length, 20);
+  assert.equal(placements.length, 62, "V5 新华路树阵数量必须与资产后台口径一致");
+  const pilotPlacements = placements.filter(({ id }) => id.includes("-pilot-"));
+  assert.equal(pilotPlacements.length, 11);
+  assert.ok(pilotPlacements.length >= XINHUA_PLANE_TREE_PILOT.minimumCount);
+  assert.ok(pilotPlacements.length <= XINHUA_PLANE_TREE_PILOT.targetCount);
   assert.deepEqual([...new Set(placements.map(({ variant }) => variant))].sort(), [0, 1, 2, 3]);
+  for (const side of [0, 1]) {
+    const row = placements.filter(({ id }) => id.startsWith(`plane-tree-${side}-`));
+    const { base, jitter } = XINHUA_PLANE_TREE_SIDE_OFFSETS[side];
+    for (const placement of row) {
+      const offset = Math.min(
+        ...XINHUA_ROAD_AXIS.slice(1).map((end, index) => (
+          pointToSegmentDistance(placement.position, XINHUA_ROAD_AXIS[index], end)
+        )),
+      );
+      assert.ok(offset >= base - 1e-6);
+      assert.ok(offset <= base + jitter + 1e-6);
+    }
+    for (let left = 0; left < row.length; left += 1) {
+      for (let right = left + 1; right < row.length; right += 1) {
+        assert.ok(
+          Math.hypot(
+            row[left].position[0] - row[right].position[0],
+            row[left].position[1] - row[right].position[1],
+          ) >= XINHUA_PLANE_TREE_MINIMUM_SPACING,
+          `${row[left].id} 与 ${row[right].id} 不得重新挤成密排`,
+        );
+      }
+    }
+  }
   const previousVariantBySide = new Map();
   for (const placement of placements) {
     const side = placement.id.split("-")[2];

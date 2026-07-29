@@ -5,6 +5,10 @@ import {
   buildPlaneTreePlacements,
   buildPlaneTreeTrunkObstacles,
   groundedPlaneTreeTranslationY,
+  XINHUA_PLANE_TREE_MINIMUM_SPACING,
+  XINHUA_PLANE_TREE_PILOT,
+  XINHUA_PLANE_TREE_SIDE_OFFSETS,
+  XINHUA_PLANE_TREE_SPACING,
   XINHUA_PLANE_TREE_TRUNK_HALF_EXTENT,
 } from "../app/scene/xinhua-road-placement.mjs";
 
@@ -153,8 +157,30 @@ test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async ()
   const first = buildPlaneTreePlacements(landmarkData.landmarks, []);
   const second = buildPlaneTreePlacements(landmarkData.landmarks, []);
   assert.deepEqual(first, second);
-  assert.equal(first.filter(({ id }) => id.includes("-pilot-")).length, 20);
+  const pilotCount = first.filter(({ id }) => id.includes("-pilot-")).length;
+  assert.ok(pilotCount >= XINHUA_PLANE_TREE_PILOT.minimumCount);
+  assert.ok(pilotCount <= XINHUA_PLANE_TREE_PILOT.targetCount);
+  assert.equal(XINHUA_PLANE_TREE_SPACING, 7.5);
+  assert.equal(XINHUA_PLANE_TREE_MINIMUM_SPACING, 6.8);
+  assert.deepEqual(XINHUA_PLANE_TREE_SIDE_OFFSETS, [
+    { base: 6.55, jitter: 0.55 },
+    { base: 5.05, jitter: 0.45 },
+  ]);
   assert.deepEqual([...new Set(first.map(({ variant }) => variant))].sort(), [0, 1, 2, 3]);
+  for (const side of [0, 1]) {
+    const row = first.filter(({ id }) => id.startsWith(`plane-tree-${side}-`));
+    for (let left = 0; left < row.length; left += 1) {
+      for (let right = left + 1; right < row.length; right += 1) {
+        assert.ok(
+          Math.hypot(
+            row[left].position[0] - row[right].position[0],
+            row[left].position[1] - row[right].position[1],
+          ) >= XINHUA_PLANE_TREE_MINIMUM_SPACING,
+          `${row[left].id} 与 ${row[right].id} 不得重新挤成密排`,
+        );
+      }
+    }
+  }
   const previousBySide = new Map();
   for (const placement of first) {
     const side = placement.id.split("-")[2];
@@ -277,6 +303,8 @@ test("全览和弱网使用 Massing、标准近景使用四 Identity，Runtime H
     assetLibrary,
     assetData,
     brief,
+    spacingBrief,
+    spacingAcceptance,
     heroViewer,
     heroStats,
   ] = await Promise.all([
@@ -287,6 +315,11 @@ test("全览和弱网使用 Massing、标准近景使用四 Identity，Runtime H
     readFile(new URL("app/asset-library/AssetLibrary.tsx", root), "utf8"),
     readFile(new URL("app/asset-library/asset-data.ts", root), "utf8"),
     readFile(new URL("docs/research/plane-tree-canopy-v4-model-brief.md", root), "utf8"),
+    readFile(new URL("docs/research/plane-tree-spacing-v5-placement-brief.md", root), "utf8"),
+    readFile(
+      new URL("docs/research/plane-tree-spacing-v5-runtime-acceptance.json", root),
+      "utf8",
+    ).then(JSON.parse),
     readFile(new URL("app/building-evidence-lab/PlaneTreeViewer.tsx", root), "utf8"),
     stat(new URL("public/models/building-evidence-lab/xinhua-plane-tree-hero.glb", root)),
   ]);
@@ -308,9 +341,13 @@ test("全览和弱网使用 Massing、标准近景使用四 Identity，Runtime H
   assert.match(instances, /plane-tree-d\.glb\?v=e454862756d1/);
   assert.match(assetLibrary, /plane-tree-d\.glb\?v=e454862756d1/);
   assert.doesNotMatch(assetLibrary, /xinhua-plane-tree-hero\.glb/);
-  assert.match(assetData, /instanceCount: 86/);
+  assert.match(assetData, /instanceCount: 65/);
   assert.match(assetData, /全览与弱网使用三款 Massing/);
   assert.match(brief, /Runtime Hero: 0/);
+  assert.match(spacingBrief, /全树阵最小同侧间距 \| 3\.6 \| 6\.8/);
+  assert.equal(spacingAcceptance.placement.xinhuaRoadInstances, 62);
+  assert.equal(spacingAcceptance.placement.totalAssetLibraryInstances, 65);
+  assert.equal(spacingAcceptance.candidate.deployment, "local-candidate-not-deployed");
 });
 
 test("构建扫描不会沿外部知识库链接消耗系统资源", async () => {
