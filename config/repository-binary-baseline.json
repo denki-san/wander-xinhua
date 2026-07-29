@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "project": "wander-xinhua",
-  "generatedAt": "2026-07-29T11:33:48.752Z",
-  "sourceGitSha": "17adb179ece773211804e502a26ea1709de2d349",
+  "generatedAt": "2026-07-29T13:47:47.774Z",
+  "sourceGitSha": "b0b869e82cdf1664bd0d76f772530cfb925b7319",
   "sourceRef": "main",
   "semantics": {
     "existingPathsGrandfathered": true,
@@ -12,22 +12,22 @@
     "gitHistoryRewritten": false
   },
   "summary": {
-    "currentFiles": 690,
-    "currentBytes": 421176863,
-    "duplicateGroups": 18,
-    "duplicateBytes": 14435277,
+    "currentFiles": 1033,
+    "currentBytes": 605581885,
+    "duplicateGroups": 27,
+    "duplicateBytes": 17342591,
     "historyLargeObjects": 138,
     "historyLargeObjectBytes": 320024533,
     "byCategory": [
       {
         "key": "dynamic-evidence",
-        "files": 468,
-        "bytes": 247310675
+        "files": 836,
+        "bytes": 431762093
       },
       {
         "key": "editable-source",
-        "files": 87,
-        "bytes": 76513689
+        "files": 76,
+        "bytes": 76958429
       },
       {
         "key": "repository-binary",
@@ -41,24 +41,31 @@
       },
       {
         "key": "runtime-model",
-        "files": 91,
-        "bytes": 78575832
+        "files": 77,
+        "bytes": 78084696
       }
     ],
     "byLifecycle": [
       {
         "key": "active-or-shared",
-        "files": 680,
-        "bytes": 387066119
+        "files": 1020,
+        "bytes": 571344457
       },
       {
         "key": "hold",
-        "files": 10,
-        "bytes": 34110744
+        "files": 13,
+        "bytes": 34237428
       }
     ]
   },
   "entries": [
+    {
+      "path": "assets/models/source/character/kaykit-rogue-preview.png",
+      "bytes": 568255,
+      "sha256": "23f93b3daab995d7997ced62f817c620c69ad6eba2169cbde0ca39b49c7d6818",
+      "category": "editable-source",
+      "lifecycle": "active-or-shared"
+    },
     {
       "path": "assets/models/source/character/quaternius-modular-men/Casual_2.gltf",
       "bytes": 3058092,
@@ -95,6 +102,20 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "assets/models/source/character/references/ultimate-modular-men-preview.jpg",
+      "bytes": 360869,
+      "sha256": "ccf065362f4035d5a62a7a18dcb092365670d1e0877e55c1de0b5cc184652e4b",
+      "category": "editable-source",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "assets/models/source/character/urban-wanderer-preview.png",
+      "bytes": 1055695,
+      "sha256": "4414c822689d0231f5a21e0b6e29dcc86de2f76a50ee962de73b69b4525709cc",
+      "category": "editable-source",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "assets/models/source/character/urban-wanderer.blend",
       "bytes": 2378961,
       "sha256": "516ea65b4c33286701ce57d16fb19cd5b49ad563915d08fc1f94ae253e9ecf18",
@@ -107,76 +128,6 @@
       "sha256": "f53654fe9f02528937adf5e74c44a5feda3167115556b87550283f9f0edadc7b",
       "category": "editable-source",
       "lifecycle": "hold"
-    },
-    {
-      "path": "assets/models/source/nonbuilding/meshy-agent-street-assets/cantilever-cafe-umbrella.blend",
-      "bytes": 97928,
-      "sha256": "4734df7f449f84c5ff7022e753ffadc513760b96628d31ad6050140925b08583",
-      "category": "editable-source",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "assets/models/source/nonbuilding/meshy-agent-street-assets/lane-lamp-short-arm.blend",
-      "bytes": 98546,
-      "sha256": "f99cecbfd39771cbfdcef52203266a51af298fc02e9992919b981ab33a3307dc",
-      "category": "editable-source",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "assets/models/source/nonbuilding/meshy-agent-street-assets/outdoor-dining-dark-wood.blend",
-      "bytes": 97865,
-      "sha256": "f7fbeb90122e7803edfd361a058bae3d667813a91bfc60c6bb9106367a5410e4",
-      "category": "editable-source",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "assets/models/source/nonbuilding/meshy-agent-street-assets/plane-tree-straight-sparse.blend",
-      "bytes": 110545,
-      "sha256": "acc41d2167ff60c268a11c37be90377c398bb7b5beb715db0884579e07ed0543",
-      "category": "editable-source",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "assets/models/source/nonbuilding/meshy-agent-street-assets/shanghai-dual-classification-bin.blend",
-      "bytes": 97640,
-      "sha256": "a4aa794556d96374cda16a4c6b053b3f3f58739acd4d7a6a4b1739bcace41da5",
-      "category": "editable-source",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "assets/models/source/nonbuilding/meshy-agent-street-assets/slatted-bench-backrest.blend",
-      "bytes": 163140,
-      "sha256": "c0879ac553beeb7762da8316b52224125c3e8180b00dac189d5f570b95a50c5c",
-      "category": "editable-source",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "assets/models/source/nonbuilding/meshy-agent-street-assets/stone-bollard-squat.blend",
-      "bytes": 102614,
-      "sha256": "41b8c702283cf73d6283422c66906b16e7c458000fb210bbd0ca23f62a03ec58",
-      "category": "editable-source",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "assets/models/source/nonbuilding/meshy-agent-street-assets/street-planter-long.blend",
-      "bytes": 116057,
-      "sha256": "2560935f34e12209ab0fe49c7c0f55ab8dcf0551c80c5b76dd644beef6261f62",
-      "category": "editable-source",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "assets/models/source/nonbuilding/meshy-agent-street-assets/vintage-step-through-bicycle.blend",
-      "bytes": 106365,
-      "sha256": "08e144bfb6b6c9f994f73532dd27c0007398cdf08dbded9b157274351671a489",
-      "category": "editable-source",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "assets/models/source/nonbuilding/meshy-agent-street-assets/wall-ac-outdoor-unit.blend",
-      "bytes": 98715,
-      "sha256": "bd63b0a96ae19fff093e14e967082b39ed665febb1e5ebda8573abfea958b2f7",
-      "category": "editable-source",
-      "lifecycle": "active-or-shared"
     },
     {
       "path": "assets/models/source/nonbuilding/xingfuli-current-street-furniture/xingfuli-pointed-entry-bollard.blend",
@@ -551,50 +502,22 @@
     },
     {
       "path": "assets/models/source/xinhua-road/plane-tree-a.blend",
-      "bytes": 178288,
-      "sha256": "31c660a432368ec64edae32bc651222369e034dd395e427a06900e4d2059a19d",
+      "bytes": 192781,
+      "sha256": "def92cfd21d0df43e363a43b7ad365540600c7801186ccc0ea28cf86dc1934d8",
       "category": "editable-source",
       "lifecycle": "active-or-shared"
     },
     {
       "path": "assets/models/source/xinhua-road/plane-tree-b.blend",
-      "bytes": 176840,
-      "sha256": "587e0fbd0e97fd3d5074d96a28cba88d3886b34f2c98b7b35d62d1139f93dd1c",
+      "bytes": 190572,
+      "sha256": "5517520ca2dfd80b8a7889ea4bfd28633e736ec3de91c20fb4a70c09f5ec8432",
       "category": "editable-source",
       "lifecycle": "active-or-shared"
     },
     {
       "path": "assets/models/source/xinhua-road/plane-tree-c.blend",
-      "bytes": 177602,
-      "sha256": "713f735520e7cbe8ee715bc8ac34d16df42049da2a85086335577b80bba21226",
-      "category": "editable-source",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "assets/models/source/xinhua-road/plane-tree-d.blend",
-      "bytes": 177068,
-      "sha256": "32b0d20b0c73bc04615e1f676e3a3e23f0c94fe1d9b2197a02de3fba34e00b92",
-      "category": "editable-source",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "assets/models/source/xinhua-road/plane-tree-massing-a.blend",
-      "bytes": 107349,
-      "sha256": "43518b30aea0fc0224669e0dbf30051586c7d53049c63808fb1c28aac9749cd5",
-      "category": "editable-source",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "assets/models/source/xinhua-road/plane-tree-massing-b.blend",
-      "bytes": 107586,
-      "sha256": "9ee5cd2fa185dc0bb2284fa5a5be109138d1fe83346dee84389007bd515fce7f",
-      "category": "editable-source",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "assets/models/source/xinhua-road/plane-tree-massing-c.blend",
-      "bytes": 107497,
-      "sha256": "f30c01119b38f5ea499588ead23b1446a79016ba27e60549ffd9d0e4b3d59d5c",
+      "bytes": 198213,
+      "sha256": "e0928cfa94406798bf713e9500c658304ee8f17b3f3d8845025760611c374303",
       "category": "editable-source",
       "lifecycle": "active-or-shared"
     },
@@ -655,6 +578,62 @@
       "lifecycle": "hold"
     },
     {
+      "path": "docs/research/assets/camera-controls-v1/test_camera_baseline_1440x1024.jpg",
+      "bytes": 106282,
+      "sha256": "b09a2b64506455bd6cabaca8553be1ba0cfdb91c26965a53c6e8d12697400a7d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/camera-controls-v1/test_camera_v1_1024x768.jpg",
+      "bytes": 74657,
+      "sha256": "a2b71aef2b71acddff311f83ec85080d70d9ef2b138401bef4d043d2c6bca185",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/camera-controls-v1/test_camera_v1_1440x1024.jpg",
+      "bytes": 113069,
+      "sha256": "a94f454ee471d9a9a44f3c316dd89c432ed0cefb89c43eb17a2d68438fb24c26",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/camera-controls-v1/test_camera_v1_390x844.jpg",
+      "bytes": 30152,
+      "sha256": "2b6b45ed713a104ec5538c5e0ca6619789f05bb982f5442ff6f9fb5e52074994",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/camera-controls-v1/test_camera_v1_844x390.jpg",
+      "bytes": 31095,
+      "sha256": "f141aba30b2ac08c78d5858e63457583d15550f99c2ac91d56c1bee8ddb07a55",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/camera-controls-v1/test_camera_v1_compressed_obstacle_deep.jpg",
+      "bytes": 114801,
+      "sha256": "690511361ba26cca137f2b4be221d166794a597b265c5721906ecabe9992a25e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/character-references/rain-animation-showcase.jpg",
+      "bytes": 306666,
+      "sha256": "375262d78a10e1de3d0757e2324a622a2476d77420018a0c3ea64171ae08f59e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/character-references/rain-v1-rig-preview.png",
+      "bytes": 1329709,
+      "sha256": "3295061cfa6c4634d3246c31b188d8be0023a9e5ed5e858b375130167d305267",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "docs/research/assets/film-art-center-road-evidence/xinhua-200-current-south-view-2026.jpg",
       "bytes": 148036,
       "sha256": "99f6a30f3bcd0547d9e098545519bcf25a433fe8dd061f5a6b4592a9c14805e9",
@@ -697,9 +676,30 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "docs/research/assets/landmark-comparison/film-art-center-real.jpg",
+      "bytes": 141708,
+      "sha256": "f04cc620fc644d97559fa45323e18edff7f0bb3e4d809dcaf6a019bb4c9002a9",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/landmark-comparison/film-art-center-runtime.png",
+      "bytes": 80083,
+      "sha256": "71cba50a9db3a810b6dd7c7b2ce9657615f61f3ab954e59748ff9ff5ae47091b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "docs/research/assets/landmark-comparison/house-315-real.jpg",
       "bytes": 352088,
       "sha256": "78581fafb11ff48f917f186c67370cc6b03d624e208776638f314d885c9da883",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/landmark-comparison/house-315-runtime.png",
+      "bytes": 84750,
+      "sha256": "e5de198ed49f90f4e671d57df9504cf0620904d17b17400e6f77738b687d6c97",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -718,9 +718,30 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "docs/research/assets/landmark-comparison/shanghai-cinema-real.jpg",
+      "bytes": 63838,
+      "sha256": "295cf8c4acc246cf8766eb021a5cecfb4047136669f08660c4655d5b3bd6129a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/landmark-comparison/shanghai-cinema-runtime.png",
+      "bytes": 95826,
+      "sha256": "cce96d7d8ca99ac1b9de747236eede290ca72cad52da021a28a09787fc5beff7",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "docs/research/assets/landmark-comparison/shanghai-orchestra-real.jpg",
       "bytes": 211716,
       "sha256": "1387eb30f3abbab81cab413734960d8c535f381bdf2856caf194f966602d02a2",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/landmark-comparison/shanghai-orchestra-runtime.png",
+      "bytes": 68144,
+      "sha256": "d7a0a9965c618bf6477cfa16455c3a862b788e05e0e164da35d087aa04e56b16",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -732,6 +753,27 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "docs/research/assets/landmark-comparison/villa-le-bec-runtime.png",
+      "bytes": 67108,
+      "sha256": "1e13b57a49dd34e7c58d438596b6537b0ebfcfaca57d1bf674649e6e75874ae1",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/landmark-comparison/xinhua-mansion-real.jpg",
+      "bytes": 265925,
+      "sha256": "bd97d255c28958bab9cb8124e0ea1162f48bd176433c11c3c3e6fec7c2cc1e85",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/landmark-comparison/xinhua-mansion-runtime.png",
+      "bytes": 72385,
+      "sha256": "5aec5916c1bb62ce8b1a717a2220d009a6697fb7fe0e606f81666ea490a2cb5d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "docs/research/assets/landmark-comparison/xinhua-villas-211-real.jpg",
       "bytes": 85606,
       "sha256": "c76f59a80f8d7e5edc642a55a1ff9d869607093b266deaa7396f989c7d3e9022",
@@ -739,9 +781,100 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "docs/research/assets/landmark-comparison/xinhua-villas-211-runtime.png",
+      "bytes": 77118,
+      "sha256": "1933621fd2520866ba948dc33989b9ff8e95d121212fef52142c12591a537bb2",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "docs/research/assets/landmark-comparison/xinhua-villas-329-real.jpg",
       "bytes": 212250,
       "sha256": "4e6862de23c5667ed3497f681ef19fdcf5a22e58b996c3e9b557efab34f7ed16",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/landmark-comparison/xinhua-villas-329-runtime.png",
+      "bytes": 83715,
+      "sha256": "54762ebfe21fe3104281e3c4d69e02bb441cac1673a823a84e8232aabcbd7245",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-entry-bollards-2026.webp",
+      "bytes": 300308,
+      "sha256": "8bca66b2015410c01a35b451a35a1d35a43aa3cbccc8d148162c20be89c188b3",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-stone-seat-family-2026.webp",
+      "bytes": 241756,
+      "sha256": "34a7d6378b16e12bea980b5ef1584c1732d74e1e6ba8debaa50aeb6c752b035b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-water-edge-furniture-2026.webp",
+      "bytes": 207664,
+      "sha256": "45feef01c283f38dd24d8d481f4bf10cdd0b8eb5d99fcfb6523d0235bd6cc6ee",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-water-edge-planters-2026.webp",
+      "bytes": 305466,
+      "sha256": "f1d6a18b73d77e43b7a858347b410c2d8ab383bb3edbdb36ddc74463061f9cd7",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-water-lane-planters-2026.webp",
+      "bytes": 380060,
+      "sha256": "135693544d19a8f076d50b0ff60b805d66a6eb8939982a207db114a9bc7b1107",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/nonbuilding-evidence-pilot/xingfuli-current-street-furniture/xingfuli-water-lane-planters-depth-2026.webp",
+      "bytes": 431858,
+      "sha256": "39e4399765b036d76bc9573c29c2e0659b285967b5187ea199c0938312f0a267",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/overview-district-massing/test_after_explore_mobile_390x844.png",
+      "bytes": 33046,
+      "sha256": "0c837584c5dfa6247cc5ee21b360c3d1aeb3259e83e14bfa11e1c00a8386dad4",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/overview-district-massing/test_after_overview_desktop_1440x1024.png",
+      "bytes": 235919,
+      "sha256": "688bd9c177927ab4cc7ce803debbe16c20d3cbcf3653e6d3b626e69928b94593",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/overview-district-massing/test_after_overview_mobile_390x844.png",
+      "bytes": 61084,
+      "sha256": "fc02eba03a6ad3b1451446d528d265aa3817722c970604a08038ef9e1e4c684d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/overview-district-massing/test_baseline_overview_desktop_1440x1024.png",
+      "bytes": 124968,
+      "sha256": "cccb24ae0552a3d40faeefea555b06083210c4b82b6da9a6f219c37a39d36c3d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/overview-district-massing/test_baseline_overview_mobile_390x844.png",
+      "bytes": 38395,
+      "sha256": "d068f31a8815b86ca8169d4e151c83086353c53ce4a078ace8c456f4c69f31f9",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -844,9 +977,58 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-before-renovation-2024.png",
+      "bytes": 365252,
+      "sha256": "b70a6450afb65767b5461698f069d4e2346c1a6f0383ceea940d468cc2379adc",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-front-built-2024.jpeg",
+      "bytes": 122623,
+      "sha256": "b9a388c70cc57f6820d8abd57159c6c30a2ab8e330336a778053dc92989506f0",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-grc-grid-2024.png",
+      "bytes": 388789,
+      "sha256": "f53a6a2b6041d8fab83c6452361db32746991476b551b5f8fcdcc1cb0fabdf71",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-oculus-stair-detail-2024.jpeg",
       "bytes": 131243,
       "sha256": "a94809192b2a13a1a8f81f317303f2c63b8fbb7c640e4def6cc410f89f4a92da",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-project-image-02-2024.png",
+      "bytes": 511836,
+      "sha256": "7480e041190dee32b0607a9eec4a91abce7258af32a19b055c8c2274751f0eca",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-project-image-06-2024.png",
+      "bytes": 335642,
+      "sha256": "042c5a43ca8f85e19bcb36afc64d172082e6aac65f13db666e526441f566079f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-project-image-07-2024.png",
+      "bytes": 8921,
+      "sha256": "a417610e416bc1877a9dd29a1957c2ea8cd0cf510b5c9141fcf14d9b24c4068a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-archina-project-image-08-2024.png",
+      "bytes": 163369,
+      "sha256": "ba2bca61b0d8f177e054b078f0da7a28bc114375bb042ca2fe18a32d5776822e",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -861,6 +1043,76 @@
       "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-front-official.jpg",
       "bytes": 67173,
       "sha256": "194e5b4c8408ef5a3cd777be60e72d7b4a1d2768e60c8c80cacba1643d3cf297",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-government-front-right-stair-2023.jpg",
+      "bytes": 195659,
+      "sha256": "9d97f6268fb64e906ee53915ecf052c427d83f543bf0072545cd733a1b2d3a19",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-government-front-wide-2023.jpg",
+      "bytes": 131030,
+      "sha256": "177cf13e48274ea79ba92e24b8ce7fe7c44ffa32cde776dd0f9d9a15299b7eb9",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-government-west-street-2024.jpg",
+      "bytes": 160818,
+      "sha256": "8faec82135abd02c37aab10df79fe496f097f6ecaee962dc4d098a8e6d2ccabb",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-jiemian-west-context-2024.png",
+      "bytes": 1902779,
+      "sha256": "e19f92a027e06fad0b45c086f4a6d0c580babbf909cfca5f480fd2ecbfffd446",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-lobby-official.jpg",
+      "bytes": 110529,
+      "sha256": "89eb4215fdeb5953d5d30ed614240a20e845d82a9c2007b0e1e5ead85c32deb5",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-renovation-official.jpeg",
+      "bytes": 258091,
+      "sha256": "5421be1b94fae2cdccd1910c31758953350a683933afee1e01cb6670a39d5bd6",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-spiral-stair-official.jpg",
+      "bytes": 111350,
+      "sha256": "62cc201bc49e4f743deb634e13d9dbf3317eaf96a1d2b99eb4514c697de5169a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-entrance-canopy-tjad-2019.jpg",
+      "bytes": 207915,
+      "sha256": "04cfc8cea5ec550b6a39d907009fe981d3b3745468fe726d4bab3f3b6e5883dd",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-exterior-tjad-2019.jpg",
+      "bytes": 183457,
+      "sha256": "cd65d10e36a5d26fc54e20469551a09fb18572abc5f47a6e0ece6b32b09d4ece",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/shanghai-orchestra/shanghai-orchestra-fahua-facade-tjad-2019.jpg",
+      "bytes": 227072,
+      "sha256": "3b141114cde1d09da5612ddab59ee6fd36287ad755b3a5cd7cb7965bd18ddbac",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -900,9 +1152,65 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-north-porch-model-correction-20260725.png",
+      "bytes": 1281221,
+      "sha256": "12712f963d99ee88a359914faf976c1a701e11d3a9fc1fb30a4fa3b1561fd14e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-north-porte-cochere-user-reference-20260725.png",
+      "bytes": 3486001,
+      "sha256": "6e00c8c3884a14e51382b22db86b0a8660a8b1468661a6efda18b126053d5b62",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "docs/research/assets/poi-references/sun-ke-villa/sun-ke-villa-right-front.jpg",
       "bytes": 182669,
       "sha256": "2ce8d886d3b16708a1b81b902946c28103f72ed14ed81909bff9278cfbddc2d6",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-candidate-01.jpg",
+      "bytes": 52970,
+      "sha256": "a3a1fc1e6223a25fc2f7f0595ac41ead66ec69ddd3cb8a46a618850d1afc20e4",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-candidate-02.jpg",
+      "bytes": 112834,
+      "sha256": "cb8adc51d6bfe998c64e546b1f412990a2012c28a228d8085a2a8ff4bd845c21",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-candidate-03.jpg",
+      "bytes": 35266,
+      "sha256": "460ef702a86171fab84417429922d1cf8da74acce57f96ee19c3e8cdc7b5f9a8",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-entry-2024.jpg",
+      "bytes": 91128,
+      "sha256": "d8165c7ce231bd3fdc16e2d5541b50378121227ebd32f4a2fbded637ed80c2ec",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-official-overview-2024.jpg",
+      "bytes": 395810,
+      "sha256": "374e4ab43309aec6ad30d5ff0ef973323d6d9541e185fd0e542f5f9f5c49b3ed",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/villa-le-bec/villa-le-bec-timeout-street-candidate-2022.jpg",
+      "bytes": 185418,
+      "sha256": "9d5bbdb02b8d492889cf044a205098baf771bb02c28c957ec5f11b9c0c4abd7c",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -1026,6 +1334,62 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-xingfu-road-entrance-detail-2017.jpeg",
+      "bytes": 222054,
+      "sha256": "d7fa1cca71cb00fcc6c5bbae1ba803bbe2655494a18af5ebb8663ebcaa9418af",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-xingfu-road-entrance-north-2017.jpeg",
+      "bytes": 375931,
+      "sha256": "f4a5cdc9dc5244c77fc1782511e8cbe6bb0ad21b5376b004ef06bdff52b9d492",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xingfuli/xingfuli-xingfu-road-entrance-south-2017.jpeg",
+      "bytes": 212610,
+      "sha256": "c870b629ac30f9d7f255ff77f8c99dbf17727aa7f29199a30e44413ef87ea259",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-1-official-2025.jpg",
+      "bytes": 207334,
+      "sha256": "e0146deb4cb9571f39aab3a01c0028f2ab1018c2126a7039f52a0433197f0dc4",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-211-2-official-2025.jpg",
+      "bytes": 195844,
+      "sha256": "3568005a4e89a6ce95abf4be19fb22ab0dd277d17622fdd16a9ccad20d1496aa",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xinhua-villas-211/xinhua-villas-overview-official-2023.jpg",
+      "bytes": 153900,
+      "sha256": "9d23cd3c57b492a01911907e8f376dc2bdb37b882b5233fafcaae3384540adf2",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-17-official-2024.jpg",
+      "bytes": 122670,
+      "sha256": "c7eba10495aec90b1f56992b419737c1b3ea636acd93ffef66727977662ec627",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/poi-references/xinhua-villas-329/xinhua-villas-329-38-official-2025.jpg",
+      "bytes": 162194,
+      "sha256": "2b961ec0932770886aa7f126c11ed31094558146496543b108920afe6b7a5c26",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "docs/research/assets/requested-poi-references/debi-fahua-525-courtyard.jpg",
       "bytes": 2170228,
       "sha256": "d69d9fdd69ce9ae17126ea3212b4f2f831f139b789b2dc12f26a0ea31c8f9bc5",
@@ -1047,9 +1411,23 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "docs/research/assets/requested-poi-references/debi-fahua-525-heritage-stone.jpg",
+      "bytes": 1431752,
+      "sha256": "a9bc1e6e2e510c935430feb26974ca27dfe2359c470605136f45a3fcbc7cb8ad",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "docs/research/assets/requested-poi-references/fahua-heritage-arch.jpg",
       "bytes": 163123,
       "sha256": "bce705550e57ee299c9160ca04a19c5157b50d8f70873c988d4ef46ca49a662e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/requested-poi-references/fics-xinhua-365-aerial.jpg",
+      "bytes": 143453,
+      "sha256": "03ab8cac1992f6f215af82d6be08101f7cbb226b24344ed6be2a6d08b1b7401b",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -1071,6 +1449,20 @@
       "path": "docs/research/assets/requested-poi-references/fics-xinhua-365-built-mansion.jpg",
       "bytes": 348986,
       "sha256": "87a4dc31c67f587bd91ba4c8b5cecc7137032bc4383dca1d4f8d53dbe08efc64",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/requested-poi-references/fics-xinhua-365-courtyard.jpg",
+      "bytes": 98774,
+      "sha256": "183a62ae6149df8bf72e765e0746f7e3bb1cc1e01bdf60cfc4cd0b6f6374945f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/requested-poi-references/fics-xinhua-365-main-building.jpg",
+      "bytes": 143259,
+      "sha256": "0ff838bd6c1e3e64904ae2d5c607eb8135cce3386eff348d1e230899a252b2fe",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -1124,9 +1516,345 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "docs/research/assets/shanghai-street-bin-weihai-2023-reference.jpg",
+      "bytes": 234118,
+      "sha256": "8e968059bc9b61f892d0b9b0d959e9fc826f97d125a26a5db6747a1763f1ae4e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/style-references/kenney-skybox-day.png",
+      "bytes": 1051605,
+      "sha256": "b7d98fe95157e74b3899a1dd468a1e478005bcd1f668b29b5b42a48cb5358fa2",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/style-references/kenney-skyboxes-license.txt",
+      "bytes": 543,
+      "sha256": "bf42824c9208ca9915b288f7e0b5a93a83af1076cfd5c6573c24c56757e6e559",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/style-references/synty-simple-sky-preview.jpg",
+      "bytes": 38363,
+      "sha256": "7f77eab324fab6aa5c9f255b5a603963b5b793b6638c2a7d738d96a8e165c39f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/style-references/xinhua-autumn-brick-wall.jpg",
+      "bytes": 198769,
+      "sha256": "e51a22bafe6df85335806fc8a544917ff32d6eb8f0983f82f6049dca00728114",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/style-references/xinhua-autumn-plane-trees-canonical.jpg",
+      "bytes": 217624,
+      "sha256": "cb007c52b145a75145f8b11acce3c7d0de02834d1608488f66081c32f466e5f9",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/style-references/xinhua-autumn-storybook-target.png",
+      "bytes": 2262027,
+      "sha256": "c76ca39af39f195524d2100a5a27d10efa0cd73065c91ea309a0d8475750e308",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_01.jpg",
+      "bytes": 356761,
+      "sha256": "07339d1c2178efaa0acfd6efac2765e80c113f523ac1497b0d781d32f8c93535",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_02.jpg",
+      "bytes": 340770,
+      "sha256": "bbef94ff1e962a96a340ad4b6e37c01e418b7bc93e3df71e0652afe44f356900",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_03.jpg",
+      "bytes": 408080,
+      "sha256": "52e3bd6160e1912331674224ade8aaedc9692f54742691766bd3df8e64f2c298",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_04.jpg",
+      "bytes": 307140,
+      "sha256": "cac4aa5e9de39194dc6d89d3e1d6e722f0be554ff8c24b67d3eb26ab669602ab",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_05.jpg",
+      "bytes": 343407,
+      "sha256": "93742fba79155710a41e3897de7bfd720bb80464c4eedb4a39897f8d5b0f3e38",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_06.jpg",
+      "bytes": 313006,
+      "sha256": "94b27ce933916b1181299f05198550fc20f936a71ce8e3432d155838f89d497b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_07.jpg",
+      "bytes": 329916,
+      "sha256": "e99c202dd9961cfd3d184a2c7f029c11245ba5a9994a7baf39c137663902599a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_08.jpg",
+      "bytes": 328041,
+      "sha256": "2dc3da84df13276a9e1c9fbd054cb9529658fa07c4a332ade4366dd4a38e49a9",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_09.jpg",
+      "bytes": 328668,
+      "sha256": "c220e55ae1f3ee3e58dad8980a3c8468d69d2c02f15fc8649b323903a8dad110",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_10.jpg",
+      "bytes": 395982,
+      "sha256": "6b9eead5a0426dc278de6bd2c61c834433e4d1b0438bf039462aa718c99482bb",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_11.jpg",
+      "bytes": 375787,
+      "sha256": "7e1b6d3072b7d5b739d107dbb7d7c5d26fae62dcf9ddc3d3fe8ff111f1977690",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_12.jpg",
+      "bytes": 298079,
+      "sha256": "38ecf102790853fa2479d652967ad441afd6f270ee2079df27829afd62c542a4",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_13.jpg",
+      "bytes": 315632,
+      "sha256": "91732ce0627da80be48b4734c78309977d728ae1853bddafec0daa63ac7b7ac1",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_14.jpg",
+      "bytes": 312419,
+      "sha256": "58863aa89ddfe5984e57ad31fbfea06310c41c88447b91b0bef6ca016609d5ff",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_15.jpg",
+      "bytes": 314127,
+      "sha256": "7233f33abc4832389386600539c59685e0848eefc3e128512ce864ed03a28884",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_16.jpg",
+      "bytes": 283574,
+      "sha256": "a650d34648bd48878df4940721fd13edf4c6bad1dcca180fce2deed5c4512cbd",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_17.jpg",
+      "bytes": 297938,
+      "sha256": "1869eb7cb520d8c00cb860970977640ec9eea7a4f9033aad50d2d0c1f5fbaaf7",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_18.jpg",
+      "bytes": 267694,
+      "sha256": "b83ed5dd56a393f7ccfccabe2587ecee464338a4a478e058cc6ac9467d5bdf68",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_contact_sheet.jpg",
+      "bytes": 409005,
+      "sha256": "0008933b85cbb534fa461ddadd1b07a379753623ad1a5155929fc887701f58ad",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_01.jpg",
+      "bytes": 297388,
+      "sha256": "8b0838efaa3bcbd78b668b6a5867c2abf8600c8794ed1fce6e929255574a6b74",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_02.jpg",
+      "bytes": 238057,
+      "sha256": "b92e3702364874cd512152dae9205922510255a7843cb99eea9ca13f4dd0d8e1",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_03.jpg",
+      "bytes": 211835,
+      "sha256": "6c1218937faf5b49074e18c185592cc22e605d4eefb51413da63d02aa5a56389",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_04.jpg",
+      "bytes": 276969,
+      "sha256": "2b1cc20b8e31b494bc3df3cd354ea34babc7e302d43791fba1177fbf73e89f78",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_05.jpg",
+      "bytes": 238328,
+      "sha256": "f967d4590ed4ac45db8798692b6302585da94a0a5993190e15439357fe3c4b3e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_06.jpg",
+      "bytes": 260030,
+      "sha256": "1d4a6161f2f256bd9b8d237eec4d981fe58472de0b7ceb1fe8eadc4259dffa2f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_07.jpg",
+      "bytes": 239396,
+      "sha256": "81394f8dba8469b65980eb40316ba06ea246779b6ba3f334bbf21acb11e047fd",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_08.jpg",
+      "bytes": 232756,
+      "sha256": "76f579f1f762441c5b755f9442b2fc78ce8efda1294f4ce645bbaeb336851ec1",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_09.jpg",
+      "bytes": 111169,
+      "sha256": "5cb652ffd6500c0324ee1f951c2f40b0c836977dd2a7f38ebb8a526ddb4da24b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_10.jpg",
+      "bytes": 111220,
+      "sha256": "171e7838565ca6cfc6ec35ef8c7f528c8eeed94c715b8737ddeec666fb995f7f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_11.jpg",
+      "bytes": 111219,
+      "sha256": "d7555f51d18b3cd5f8b97b5ccb056f0f4cb7e2cb7b635cc1f3269fe0d93686d1",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_12.jpg",
+      "bytes": 111228,
+      "sha256": "d50aa9bece1f14f0bb394da82a994dcb8545127ab1278bb27840c5b79eb4c165",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_13.jpg",
+      "bytes": 111237,
+      "sha256": "683fba7561a693b005b06a7848956990921b3e5db5758ad23f598a0c0b9a5d6f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_14.jpg",
+      "bytes": 111216,
+      "sha256": "5f1423f54b18cf82494df8b52b893f2206d774bcd0ba026ee6ced9c668841493",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_15.jpg",
+      "bytes": 111229,
+      "sha256": "64f279e75c2062ef5bb3434592c47e9e7bef947ce88a5cc1284e8390937c35f9",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_16.jpg",
+      "bytes": 111224,
+      "sha256": "5fa171d6e6d09804ed95ae05cde778284323d4361d8540fd8460d876fc5de57b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_17.jpg",
+      "bytes": 114487,
+      "sha256": "0e715243a569c61101ac52d1adaf8e08cd576b74036222d799e6db0f449fd860",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_18.jpg",
+      "bytes": 189704,
+      "sha256": "e904cd66b392b2a39193881f32b3a211819fd955ed688f94e5fba57577022817",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xhs-xinhua-villas-329-20260725/test_xhs_xinhua_villas_329_contact_sheet.jpg",
+      "bytes": 231293,
+      "sha256": "c8bfb3d11b59e8bde03755597c97608d02e7b1a56733970a6164e2dcc522143b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "docs/research/assets/xiaohongshu/fahua-heritage/original/README.md",
       "bytes": 383,
       "sha256": "eb653f1213b16f42cfef5c32476d7fa72c744d86c396ea8f982d458aae2d3c36",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xinhua-road-house-198-reference.jpg",
+      "bytes": 327719,
+      "sha256": "c07d5f3fd20c1c33ffed910ae8bdd54bc6ca016bbbeec2ea9b1124c5d4a0f267",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xinhua-road-house-199-reference.jpg",
+      "bytes": 517370,
+      "sha256": "a35ba40820fd0adf77e1db8046fb52389e46f6a43733902b3db4e0145af7de0d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/assets/xinhua-road-panyu-2023-reference.jpg",
+      "bytes": 594066,
+      "sha256": "37aca8d620a056867572ad033b2465078ad33ce0bfe31ae51cf474c2f33704ee",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -1177,13 +1905,6 @@
       "bytes": 78687,
       "sha256": "c8a6047d085d643cd9c281151e5b93368a241b50df873e47ac535165877f6051",
       "category": "repository-binary",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "docs/research/dynamic-evidence-storage-pointer.json",
-      "bytes": 612,
-      "sha256": "6d62b2e9b196bf35c8932fae94e05ed1c03e18e4d99b70c0d46facaa0e0b8a9b",
-      "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
@@ -1278,13 +1999,6 @@
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "docs/research/meshy-agent-street-assets-reference-manifest.json",
-      "bytes": 7906,
-      "sha256": "3b875538cd87bb6d782f3925492d13b90e7c4a7df19b40f95e2fec6d8ddee077",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
       "path": "docs/research/one-step-garden-final-gap-audit.json",
       "bytes": 6731,
       "sha256": "39b19a16a4b15b5e05e456d704c5dc18d7ba373d7990465f7f6f011ca9834f00",
@@ -1302,20 +2016,6 @@
       "path": "docs/research/pascal-editor-case-study-evidence-2026-07-26.json",
       "bytes": 1886,
       "sha256": "5b8f4271ce08e654edd6c46059544368f2e356496dd9fc41d4b68578261e0c8e",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "docs/research/plane-tree-canopy-v2-reference-manifest.json",
-      "bytes": 5257,
-      "sha256": "193421a5f602cbcc5167157625dab36115d353c475a56bb3ee6120c4d62b671b",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "docs/research/plane-tree-canopy-v3-reference-manifest.json",
-      "bytes": 3312,
-      "sha256": "4d5ca989728e33d402e121de8caeda26de1e48a37fdcf67faed3206c214c297b",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -1404,6 +2104,41 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "docs/research/test_building_height_baseline_desktop_1440x1024.png",
+      "bytes": 130440,
+      "sha256": "4560073cfbd330207027fd262d2022f3bf9050fd33c518a851635a22e5fd1a64",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/test_building_height_baseline_mobile_390x844.png",
+      "bytes": 37463,
+      "sha256": "e056eb6f51c5f91eb791ff6706433b5d23e8ff7abc59f4d231111a0ae820538f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/test_building_height_full_desktop_1440x1024.png",
+      "bytes": 130345,
+      "sha256": "7f0b8b44d4718b0bf2efd3b9e90fd311e596c0522878ac0463f82583fd2780e6",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/test_building_height_full_fahuazhen_road_desktop_1440x1024.png",
+      "bytes": 155256,
+      "sha256": "511311357126c4ccffc3e61e9bb23056219919541df65e588c6a7487dea55aec",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/test_building_height_full_mobile_390x844.png",
+      "bytes": 37319,
+      "sha256": "976453d99e619e6eb22e6e91b885e136f18ddfccbca0ed1856241bc9f3fe865e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "docs/research/test_building_height_full_runtime_qa.json",
       "bytes": 2627,
       "sha256": "63fb45f881b69f4e1b34e46eee1586d1472da1c439130f81dc725fc8907039c1",
@@ -1411,9 +2146,44 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "docs/research/test_building_height_full_xingfu_road_desktop_1440x1024.png",
+      "bytes": 179282,
+      "sha256": "2d15d2cdc35edb13c441a9304892eacc2fdb46354fb26287bb4a784a141e8095",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/test_building_height_poc_desktop_1440x1024.png",
+      "bytes": 130326,
+      "sha256": "c752da505fbbfaa73f3614214c6daaf874da2b92171428a5e8ff124bfcd13d11",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/test_building_height_poc_fahuazhen_road_desktop_1440x1024.png",
+      "bytes": 155279,
+      "sha256": "70ed47898261ec29d72cc02fde7a164c43f2d82f32f8a205bb5698e32fba06e6",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/test_building_height_poc_mobile_390x844.png",
+      "bytes": 37339,
+      "sha256": "e5a3b14e0db8646886265f620b60248946c9e1bd1ea3184dda876b62543d3160",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "docs/research/test_building_height_poc_runtime_qa.json",
       "bytes": 2506,
       "sha256": "a0a5991e079c0824a5abc0b733e00831d4b6bba12c63436185e9c47654efefe4",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/test_building_height_poc_xingfu_road_desktop_1440x1024.png",
+      "bytes": 179291,
+      "sha256": "65404ff6f1d3b8705aa6a85a1c065429e0cdee0e23b1622a9bd6f20903fea1f8",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -1439,6 +2209,13 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "docs/research/test_building_height_round2_final_fahuazhen_road_desktop_1440x1024.png",
+      "bytes": 839671,
+      "sha256": "4d08eaf1ec74bbdb5dfb6eaf039d7706df3dcc11b6f0c7ca495907c07a997260",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "docs/research/test_building_height_round2_final_mobile_390x844.png",
       "bytes": 190476,
       "sha256": "b9e1c34f6dbb1185ec8829922e7f8880fdb6fb77142741ebc09300cf098be54e",
@@ -1449,6 +2226,13 @@
       "path": "docs/research/test_building_height_round2_final_runtime_qa.json",
       "bytes": 2728,
       "sha256": "f7f697d36d9f2b09d02259231c43061dffcd6c1a18e548dd991c74442f7f9ecc",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/test_building_height_round2_final_xingfu_road_desktop_1440x1024.png",
+      "bytes": 957708,
+      "sha256": "e842253e8c068cd7592a502debb8d73419471f12ecf466ebedf704dfe186c89f",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -1495,6 +2279,48 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "docs/research/test_refined_baseline_overview_desktop_1440x1024.png",
+      "bytes": 126851,
+      "sha256": "0e3e83900883b57343fb9a22407b368a80ba3f8b2a1b7b6eafd24e0125803c74",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/test_refined_overview_boundary_clamp_1440x1024.png",
+      "bytes": 142243,
+      "sha256": "b3e0c77359884f5ee9162e27d3f3aec29aea1dc5dbba849c1ce477501c6a0c6b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/test_refined_overview_desktop_1440x1024.png",
+      "bytes": 172410,
+      "sha256": "4a8f28527d57973ed8dceb904dcab0cf62193af3fc12e63e34e12f7beaf0c942",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/test_refined_overview_fahuazhen_road_1440x1024.png",
+      "bytes": 141515,
+      "sha256": "4f42ec29a950c78da5fee5f6c97673eccea14e7d867c75c88b74d32defcde32a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/test_refined_overview_mobile_390x844.png",
+      "bytes": 56278,
+      "sha256": "c3077aeb0c0c276b512e74683a29ad4f230507c2b429bcfd0a44b20138836251",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "docs/research/test_refined_overview_xingfu_road_1440x1024.png",
+      "bytes": 163149,
+      "sha256": "86d307b528931d5af9b63cc46be4cf324a048a623a578e97f014b8acf8f6fadc",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "docs/research/test_street_surface_refinement_runtime_metrics.json",
       "bytes": 1756,
       "sha256": "280d08d400579d9efe3e16a21c6f4eadba50ebddcc4b6ae6e93efa956a009b58",
@@ -1505,13 +2331,6 @@
       "path": "docs/research/test_street_surface_runtime_metrics.json",
       "bytes": 1409,
       "sha256": "e58b44388660391d091d4450efcf253ee221690aa5d88e89e2dcea0ac2ea7a68",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "docs/research/test_xingfuli_current_street_furniture_production_runtime_qa.json",
-      "bytes": 3434,
-      "sha256": "6b51f3b019a505f939c53a5e3699dc9a36a12106400f8231b3be475d76b96d6a",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -1999,76 +2818,6 @@
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "public/models/nonbuilding/meshy-agent-street-assets/cantilever-cafe-umbrella-visible-low.glb",
-      "bytes": 14060,
-      "sha256": "f40dd14dae002c6861cc572d7f3c3f3997d96e4be6d8b2bb10b8b509f18aaba0",
-      "category": "runtime-model",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "public/models/nonbuilding/meshy-agent-street-assets/lane-lamp-short-arm-visible-low.glb",
-      "bytes": 17548,
-      "sha256": "b8c2997a47b1c3988f84aaae517e91bf3a175d0a3a1625b47962e86f11ebdc6f",
-      "category": "runtime-model",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "public/models/nonbuilding/meshy-agent-street-assets/outdoor-dining-dark-wood-visible-low.glb",
-      "bytes": 16936,
-      "sha256": "50ba2639ec35d24e02cf0171ca69733eee295ef02c1036d63e42836493940816",
-      "category": "runtime-model",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "public/models/nonbuilding/meshy-agent-street-assets/plane-tree-straight-sparse-visible-low.glb",
-      "bytes": 67164,
-      "sha256": "a6cdf4f70c3820a96869d33031a7d7ad221e771f36cf641c3a6112174a833c19",
-      "category": "runtime-model",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "public/models/nonbuilding/meshy-agent-street-assets/shanghai-dual-classification-bin-visible-low.glb",
-      "bytes": 9556,
-      "sha256": "134c52d35f704df1d4e30c5014454e29c1c848129807003c753be9e0f0c1781b",
-      "category": "runtime-model",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "public/models/nonbuilding/meshy-agent-street-assets/slatted-bench-backrest-visible-low.glb",
-      "bytes": 165572,
-      "sha256": "9b250532181fce6f6efe4f0b50faa2201f6360f842999510e51140e8fafd8614",
-      "category": "runtime-model",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "public/models/nonbuilding/meshy-agent-street-assets/stone-bollard-squat-visible-low.glb",
-      "bytes": 23980,
-      "sha256": "33eb45ce517c613f8846043939907615aa7bbe9c1c52e516543f1d008eae11f5",
-      "category": "runtime-model",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "public/models/nonbuilding/meshy-agent-street-assets/street-planter-long-visible-low.glb",
-      "bytes": 53128,
-      "sha256": "d24fd3310a6632c527bfebe147908f149711d493dc03d999b6b3efb992142276",
-      "category": "runtime-model",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "public/models/nonbuilding/meshy-agent-street-assets/vintage-step-through-bicycle-visible-low.glb",
-      "bytes": 49988,
-      "sha256": "4aee4bbf515c443d18664723565ab31bbadcf72bffcdc4289b8bb075ee5f186a",
-      "category": "runtime-model",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "public/models/nonbuilding/meshy-agent-street-assets/wall-ac-outdoor-unit-visible-low.glb",
-      "bytes": 17080,
-      "sha256": "0f0c211e80655c95563f80fb28a3df43b2ab261cbc877e9021c379ee70b03e50",
-      "category": "runtime-model",
-      "lifecycle": "active-or-shared"
-    },
-    {
       "path": "public/models/nonbuilding/xingfuli-current-street-furniture/xingfuli-pointed-entry-bollard-visible-low.glb",
       "bytes": 9352,
       "sha256": "b91f86a7cfb4bc61562e047edfe41bc7ab2006b2d9f5a4dc3581ab94b914d91e",
@@ -2490,50 +3239,22 @@
     },
     {
       "path": "public/models/xinhua-road/plane-tree-a.glb",
-      "bytes": 223696,
-      "sha256": "4c0f78206959bc510dc2ab378e2dcef707a4880b9e6294f9279add052212fa68",
+      "bytes": 310052,
+      "sha256": "36ffe252c43bf65352eb571661115d422d06282354448a2c9438933654984bc8",
       "category": "runtime-model",
       "lifecycle": "active-or-shared"
     },
     {
       "path": "public/models/xinhua-road/plane-tree-b.glb",
-      "bytes": 217520,
-      "sha256": "3545665d071e1c6b202319c68333e3d2b8434b07a3f60a0d8d0d2d95b4ef2fb1",
+      "bytes": 305140,
+      "sha256": "7c2e06d0794f3bcbd9bb545c99138a633476c5ba8c201fa6200d23d222af4f77",
       "category": "runtime-model",
       "lifecycle": "active-or-shared"
     },
     {
       "path": "public/models/xinhua-road/plane-tree-c.glb",
-      "bytes": 222328,
-      "sha256": "3fcfc53a959b88c1f6879516d790b3513ecb28de3fbea23d9a651ea4158379d2",
-      "category": "runtime-model",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "public/models/xinhua-road/plane-tree-d.glb",
-      "bytes": 221836,
-      "sha256": "e454862756d10b6ac5fe7a36ef836a13941fc6b77f718bced6ace6e710b696b4",
-      "category": "runtime-model",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "public/models/xinhua-road/plane-tree-massing-a.glb",
-      "bytes": 44836,
-      "sha256": "75798812e312038425135f1d7ac3e876dc3d465f62ac9ed673cd1b45b826c725",
-      "category": "runtime-model",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "public/models/xinhua-road/plane-tree-massing-b.glb",
-      "bytes": 44836,
-      "sha256": "fefadf540efedafe2ac13202965788b7bb9b7d258bab58847858303852dd4f5d",
-      "category": "runtime-model",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "public/models/xinhua-road/plane-tree-massing-c.glb",
-      "bytes": 44836,
-      "sha256": "2e355e79e70b550b225ee31247ec03561280ab3da42be14131059615ed7b4675",
+      "bytes": 348572,
+      "sha256": "c4c14bd84d9caa3670b9d42ef3cf332c470d793b7820d348a5949bb0da5aa25c",
       "category": "runtime-model",
       "lifecycle": "active-or-shared"
     },
@@ -2622,9 +3343,51 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "research/previews/test_plane-tree-hero_preview.png",
+      "bytes": 1216591,
+      "sha256": "6eadbea543b6138b03bf99c5faa07593de56b1a0119e822d45075aa5660f1959",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "research/previews/test_wukang-mansion_preview.png",
+      "bytes": 700959,
+      "sha256": "dfa67a66b16cb8f5777d73d1eeb3a14f73868d01e3661251d75e01ae040977fe",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "research/reference-metadata.json",
       "bytes": 3276,
       "sha256": "795b7f38936470a538d9bc9547fd5a4f08eea65d395c29ad00ecae24be3f8801",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "research/references/plane-tree/plane-tree-avenue.jpg",
+      "bytes": 1280816,
+      "sha256": "437475da9a975d6ed5b6ac35dfdd10bce26a42cac1cb732e4c8f44d4206d14a3",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "research/references/plane-tree/plane-tree-bark.jpg",
+      "bytes": 1092585,
+      "sha256": "e80622b337daea6362809b5aaa761ad51c5530115add38f021d3e161a05e076f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "research/references/plane-tree/plane-tree-canonical.jpg",
+      "bytes": 1728295,
+      "sha256": "670600e133a313a8de2f464e2cb8a0eb65f26f07aeb2d903a72ffa8efd2fa62c",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "research/references/plane-tree/style-target.png",
+      "bytes": 9283281,
+      "sha256": "b44c92b4fc34dd8c912f62f84f92a77d8fe2c4c9fbf6dce65b7574811c2cc6e9",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -2636,9 +3399,30 @@
       "lifecycle": "hold"
     },
     {
+      "path": "research/references/wukang-mansion/aerial-footprint.jpg",
+      "bytes": 41762,
+      "sha256": "c377f18b5c3bec2ee870681e15b6894c851824b4040fe409e596df0713fee474",
+      "category": "dynamic-evidence",
+      "lifecycle": "hold"
+    },
+    {
+      "path": "research/references/wukang-mansion/corner-detail.jpg",
+      "bytes": 44249,
+      "sha256": "3da832569d043a14f8bf843d38ebdb72b955fa6ad2abfac7a00ad95059a252b2",
+      "category": "dynamic-evidence",
+      "lifecycle": "hold"
+    },
+    {
       "path": "research/references/wukang-mansion/metadata.md",
       "bytes": 609,
       "sha256": "346df4d12060217d2d355737951413120ab7d65c72d6a13ca1645ce08e0db249",
+      "category": "dynamic-evidence",
+      "lifecycle": "hold"
+    },
+    {
+      "path": "research/references/wukang-mansion/street-corner.jpg",
+      "bytes": 40673,
+      "sha256": "ba14c26ba5c6168ea0291db0278b92c4899b24b9030556b129c2343cfd262b29",
       "category": "dynamic-evidence",
       "lifecycle": "hold"
     },
@@ -2716,6 +3500,62 @@
       "path": "test_artifacts/all-models/blender-mcp/xingfuli-center-lineage-v2/massing-v2/test_xingfuli-center-massing-v2-mcp3_street_preview.png",
       "bytes": 828900,
       "sha256": "c1ec9c95b4b5ace2014e091e8c6313cbaa66bdb0053e6bdfecdd79cce2500706",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_hero_mcp_axis_canonical.png",
+      "bytes": 589859,
+      "sha256": "ec1b5a781a2b41746ee067d4dd7305a69967e8f7f9618574db7f6410a22c351a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_hero_mcp_cross_side.png",
+      "bytes": 549867,
+      "sha256": "6bf3d6162538baa1957077b442a4f75df7d3da2fb377669345f95f88ae9f0089",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_hero_mcp_entrance_axis.png",
+      "bytes": 571126,
+      "sha256": "f0069a8daefa1dc50fc0b8a4444e593ddceb643f42800ce704fc9d06ad09f059",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_identity_mcp_axis_canonical.png",
+      "bytes": 572011,
+      "sha256": "af325a2cf2c48e572d7440920895b7bc2eebe1c55f9610053473cc27ba83658e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_massing_mcp_axis_canonical.png",
+      "bytes": 567171,
+      "sha256": "e850f8f21f18ce421018a74d103e6b67c1b88c42422004bc42c788d95d4ef6bf",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_massing_mcp_cross_side.png",
+      "bytes": 547249,
+      "sha256": "f4ecbc8f53d4a95ff604c141e78e65e1bb8ddf8c68fc3587f6a44c18cc76fac3",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_massing_mcp_entrance_axis.png",
+      "bytes": 566467,
+      "sha256": "8bb3f283aedfa8342930656cdd88907a81d3a658ad0f23dfabd66b6d9068a6d9",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/blender-mcp/xingfuli-center/test_xingfuli_center_mcp_axis_contact_sheet.png",
+      "bytes": 411235,
+      "sha256": "bc7992df14fb8438b895eb5315285f2ecd3007930e003ac928a102e5e2087208",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -2881,6 +3721,27 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2-canonical.png",
+      "bytes": 827073,
+      "sha256": "28839835dfc65b3d5513e968048876fe1e27292f6ed75ddd6b2d7919f2329d72",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2-entrance-detail.png",
+      "bytes": 862741,
+      "sha256": "c784b01fb556a741b40b98ab17e80a6027e440358c68fe039d0134e32b0e8a4d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/hero-v2/one-step-garden/test_one-step-garden-hero-v2-side-depth.png",
+      "bytes": 803251,
+      "sha256": "c26daa41ba4f990f4bc04539357a38f8b698552001ee9a72d351aa5a7189103d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/all-models/hero-v2/villa-le-bec/mcp2/test_villa-le-bec-hero-v2-mcp2-canonical.png",
       "bytes": 638880,
       "sha256": "b55ccac97b3e8a6da401f1b6f9c074b093ead85ef3c8fd3f3d3ce2411a426e79",
@@ -2996,6 +3857,55 @@
       "path": "test_artifacts/all-models/hero-v2/xinhua-pocket-park/test_xinhua_pocket_park_hero_v2_triptych.png",
       "bytes": 1763503,
       "sha256": "19a9be32a1f4af37e47238acff0787d0c63cc7f2f7d90984fc1f8739172ed512",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/hero/sun-ke-villa/test_sun-ke-villa-hero-blend-audit.json",
+      "bytes": 6292,
+      "sha256": "f021d51984c30a174aeccef38f2885df9a33f98c7995f00b70d4a1e988c38a01",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/hero/sun-ke-villa/test_sun-ke-villa-hero-mcp-canonical-rebuild-6d1642315530.png",
+      "bytes": 997672,
+      "sha256": "680bbc4a4e977f9bf02c761f79a72a42b3eb89420388f80400b125a65d8b719d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/hero/sun-ke-villa/test_sun-ke-villa-hero-mcp-canonical.png",
+      "bytes": 999843,
+      "sha256": "a5622d99e5e36fe344c4b9d8c78a125eb2c5d47e57752685a8762e4eb14ec69e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/hero/sun-ke-villa/test_sun-ke-villa-hero-mcp-north-entrance-rebuild-6d1642315530.png",
+      "bytes": 969034,
+      "sha256": "ed14bc2f35ddd74b78c011c1746c99457b81347b0cac9e4adcd5448d429b103c",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/hero/sun-ke-villa/test_sun-ke-villa-hero-mcp-north-entrance.png",
+      "bytes": 970293,
+      "sha256": "1bf0e07f7d06498c59e1c353b17bb1ac4741ef8f4ba1a76dea0d491aeac73a24",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/hero/sun-ke-villa/test_sun-ke-villa-hero-mcp-side-depth-rebuild-6d1642315530.png",
+      "bytes": 961684,
+      "sha256": "b1cc5dd19311702bab89d82faf97f59f47347faf6ecd478b0aa69bed04f4b31f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/hero/sun-ke-villa/test_sun-ke-villa-hero-mcp-side-depth.png",
+      "bytes": 963926,
+      "sha256": "ef26e12d9885ddeffc1c9f8befd5b13b4832bdff424bc97cc0aba35ebb86c2c6",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -3322,6 +4232,27 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/all-models/identity/sun-ke-villa/test_sun-ke-villa-identity-mcp-canonical-rebuild-6b541e8ffab4.png",
+      "bytes": 882976,
+      "sha256": "85950b79d3f3691759368daf6f6078d3c526cd2c4e893877dae6535166b2620f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/identity/sun-ke-villa/test_sun-ke-villa-identity-mcp-north-entrance-rebuild-6b541e8ffab4.png",
+      "bytes": 825562,
+      "sha256": "01a3101ecca5fc7090ab3152572a5567238e65f81d5bc264c6673787f9a45c38",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/identity/sun-ke-villa/test_sun-ke-villa-identity-mcp-side-depth-rebuild-6b541e8ffab4.png",
+      "bytes": 804163,
+      "sha256": "b73b0e6c9416de8a15ba7f7109e8bb011e15cd77e62c7f9ff648c0c7b24d1afd",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/all-models/identity/sun-ke-villa/test_sun-ke-villa-identity-north.png",
       "bytes": 824164,
       "sha256": "65816c0f0e6e10b6977eeb2253dac0645f214e56886479b999333c20b489340d",
@@ -3332,6 +4263,90 @@
       "path": "test_artifacts/all-models/identity/sun-ke-villa/test_sun-ke-villa-identity-side.png",
       "bytes": 808853,
       "sha256": "de42c6951dd4812ed2ba52bface7de584d12a32502668384ce0ee4d92600780a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing_mcp1_canonical.png",
+      "bytes": 687279,
+      "sha256": "f7c1994c578c11dc0d43ae9de68d48b5a1de3e2981fa471a12e6e64147f80e26",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing_mcp1_entrance-scale.png",
+      "bytes": 670935,
+      "sha256": "1681cf5da649acc901522ad581230468426e69bf9d80b7a9c959e983e1a74d6b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing_mcp1_side-depth.png",
+      "bytes": 723140,
+      "sha256": "18126ed42648b06d6e9198174494bb4fc16bcd4d6693ffaf35f06cc91988c002",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-canonical.png",
+      "bytes": 722057,
+      "sha256": "ab7c8ee2e846697fb808af7320844fa1230a99c091d8fa2f2c6ec5e112978634",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-entrance.png",
+      "bytes": 758696,
+      "sha256": "7913d6167eb1f8d8d0164a65814b2822be3d423359b2e15583b12bd89e819e01",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-map-gate.har",
+      "bytes": 557132,
+      "sha256": "58e6848dee07a05027d5940439b670cf72722571ecdd88186fe8d91fa76306c2",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-side-depth.png",
+      "bytes": 774613,
+      "sha256": "a52b89fff952a9af711a22d46cbdf7bf2ecd3e99fe3197ee02bb3f99fb0b340f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-threejs-approach-2s.png",
+      "bytes": 552632,
+      "sha256": "b1c38f353a24d860050c1947ef9402cae728bfac4c3c14347716e656b2ac121b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-threejs-canonical.png",
+      "bytes": 555856,
+      "sha256": "792632352118ab05542b863b39828ce450be6cf04170ba1f3ceaa12f5417cdac",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-threejs-collision-final-stop.png",
+      "bytes": 610937,
+      "sha256": "3e678becfe04e036b224b3beaecfb86c1e637cb69698c4cf4b6e5dc6f3844582",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-threejs-collision-fixed-heading-4s.png",
+      "bytes": 689170,
+      "sha256": "09f7a888da1c7f1670501b9c338d4212d0e06b02ecf59633486c581753e60a04",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/house-315/test_house-315-massing-threejs-side.png",
+      "bytes": 511381,
+      "sha256": "7ed0cd36897c819dd397571fadd55c794d1857c0af68b0bb6e3c1941111db4dd",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -3385,6 +4400,90 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_canonical.png",
+      "bytes": 529168,
+      "sha256": "7638db186fe140fca82d5efa46778ed6d2395012caa5cb90f954be6243575833",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_entrance-scale.png",
+      "bytes": 561350,
+      "sha256": "8ac184b7cb22b49eb5ac437443a8b686fdb6d8d109d4436a55bd29ce954d5059",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_side-depth.png",
+      "bytes": 530488,
+      "sha256": "11b1a0af219737a85293c25dfa14ae279a98dead9b2bce7b339a4dee66e135c2",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing_mcp1_street-scale.png",
+      "bytes": 493061,
+      "sha256": "a75bf99b7de1d77374202816c20ebe44ae5600b45249f3fa112428bc0d71af6b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing-canonical.png",
+      "bytes": 771544,
+      "sha256": "03abd90f53ef926d9c09e0c3e54ee46f813a3eaf2da2ee23e736fdea0b1fdd24",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing-entrance.png",
+      "bytes": 799433,
+      "sha256": "77a32052736ef2b4774aad295b864073f94cff9bab178897685fa7d3d52e8135",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/one-step-garden/test_one-step-garden-massing-side-depth.png",
+      "bytes": 776949,
+      "sha256": "61f951fc1e67d6ddc3e02a2043820810130c80f41182d65588a2f503f1453b3e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v2-canonical.png",
+      "bytes": 755174,
+      "sha256": "c5102a87130ee9f280360fedfcd4fdde484cda4b3d2e7f7bf71b84ce66e3c8d3",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v2-side.png",
+      "bytes": 751381,
+      "sha256": "6c3284fca6efce0a00a414ade2df4f8761a8ddd58dbfe8850ea484230b730a92",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v2-threejs-isolated.png",
+      "bytes": 58084,
+      "sha256": "5bc54b96f99edaeb006bd1c6991aee281e79ecddfb254a257232d541613db850",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v2-threejs-review1-context.png",
+      "bytes": 51378,
+      "sha256": "7f8f1329ee2c92e6e2979d732a32c2366fb1729929d17ff855554fefca352979",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v2-threejs.png",
+      "bytes": 54737,
+      "sha256": "d6d9490b4fa19dcde5f9f794c0e17d5e0fe127d07f15c9f0a2bfca81301ebe64",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v3-canonical.png",
       "bytes": 678608,
       "sha256": "b33779323198e0b38c154754cc9ef2e0b6f772528214105ed85210fc821ab5da",
@@ -3402,6 +4501,34 @@
       "path": "test_artifacts/all-models/massing-v2/test_villa-le-bec-massing-v3-side.png",
       "bytes": 690578,
       "sha256": "85579953f11344f58379646b035550b59753a0e018094e1a74c4392ffb276c7b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/test_xinhua-pocket-park-massing-v2-canonical.png",
+      "bytes": 715028,
+      "sha256": "7622248a466224373c3c176604f52e8301d10e1e0eca7873063a622b778d76ac",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/test_xinhua-pocket-park-massing-v2-side.png",
+      "bytes": 715428,
+      "sha256": "5d622fbd54767187b988411672654dd4cb60b149ad48e35c7491397aa9c35b21",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/test_xinhua-pocket-park-massing-v2-threejs-isolated.png",
+      "bytes": 64434,
+      "sha256": "c0b69e4b8c8da67b3ef0177d28f83df7259cb268b8937fc696d4ceb38c9748a5",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/test_xinhua-pocket-park-massing-v2-threejs.png",
+      "bytes": 63392,
+      "sha256": "0b61dd364892d555fac8bad397fafecd13f1914e76f5fb9e97361b721545dd15",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -3434,6 +4561,27 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/all-models/massing-v2/villa-le-bec/test_villa-le-bec-massing_mcp1_canonical.png",
+      "bytes": 482137,
+      "sha256": "c4dafa4c5b59e9ca2a937133dfb08822c14a9f2b31ec042b6014560ff42f40ac",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/villa-le-bec/test_villa-le-bec-massing_mcp1_entrance-scale.png",
+      "bytes": 660603,
+      "sha256": "9a0a8152f98956fb1504cbac64af5b5f14e184d4e65903ef29c5e7504a5ae35e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/villa-le-bec/test_villa-le-bec-massing_mcp1_side-depth.png",
+      "bytes": 502749,
+      "sha256": "8a6bb3a4127ed5d72c46c593424824efd89c04f4b9ec09a1d3025e22b504072e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/all-models/massing-v2/xingfuli-center/headless/test_xingfuli-center-massing-v2_canonical_preview.png",
       "bytes": 854846,
       "sha256": "239bae0ee9047c726c0487f939b4f8326ac94bfc97ca1c7c83e265e6894a869e",
@@ -3455,9 +4603,79 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/all-models/massing-v2/xinhua-pocket-park/test_xinhua_pocket_park_mcp1_canonical.png",
+      "bytes": 798393,
+      "sha256": "51c23bece94e431bc95f4dce2adcb6a68fb59b048bf793f556ff6a1d9c724559",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/xinhua-pocket-park/test_xinhua_pocket_park_mcp1_scale.png",
+      "bytes": 720019,
+      "sha256": "2842ced1ea2272dfde93cb9674595fd5f4979b176c579f38b2238229a2a3bdd1",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing-v2/xinhua-pocket-park/test_xinhua_pocket_park_mcp1_side.png",
+      "bytes": 787426,
+      "sha256": "10bba63c6f2eef81a59b804e84f5eb3e3dea710d243f590387fff5bbb55861f3",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/all-models/massing/sun-ke-villa/test_sun-ke-villa-massing-canonical.png",
       "bytes": 730972,
       "sha256": "c9fd64d14610995547d5c50f61b8f18fda327bb667a0f5b208e6cab763a10ba8",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing/sun-ke-villa/test_sun-ke-villa-massing-map-north-mcp.png",
+      "bytes": 583253,
+      "sha256": "038b0d4e043631eca6ada6bb5c7133074841a39384a34db0d63db25f3d266131",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing/sun-ke-villa/test_sun-ke-villa-massing-map-north.png",
+      "bytes": 491861,
+      "sha256": "3b60de2c7cfe3bf03a140e8416deac82b3f495edc30f0a42c138ae1b62a94c3b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing/sun-ke-villa/test_sun-ke-villa-massing-map-south-mcp.png",
+      "bytes": 895714,
+      "sha256": "369eafc3c2ad988acaca0fac2be418265409e9ad6c503074f4fa5ad6057ff53e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing/sun-ke-villa/test_sun-ke-villa-massing-map-south.png",
+      "bytes": 489963,
+      "sha256": "05631c667982ed36c00fe92b7c8ddf162fd14b706958db77ab3b2ed81f83c53a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing/sun-ke-villa/test_sun-ke-villa-massing-mcp-canonical.png",
+      "bytes": 725491,
+      "sha256": "3cb0383ea572c3288b518a0f44c6cd7eebfa8c5143c622e12374ef0317389d92",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing/sun-ke-villa/test_sun-ke-villa-massing-mcp-north-entrance.png",
+      "bytes": 771318,
+      "sha256": "a1a8b599325955f99b2c18428162d003c064f78d1e3149b943526471b03d62ad",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/massing/sun-ke-villa/test_sun-ke-villa-massing-mcp-side-depth.png",
+      "bytes": 749135,
+      "sha256": "136896ee4116a35521ed989aa042cc10e63e18229bc47fa8128fa73bf3399217",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -3567,6 +4785,13 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/all-models/runtime/villa-le-bec/test_villa_le_bec_massing_threejs_collision_telemetry_fixed.png",
+      "bytes": 68315,
+      "sha256": "0422a6df76c522fad0f46fbcb38e8d36080157a16a5a1f6c1a67ee9c2d226f80",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/all-models/runtime/xingfuli-center-lineage-v2/test_xingfuli_center_lineage_v2_collision_threejs.jpg",
       "bytes": 83200,
       "sha256": "25354785fc21137d1fa4b51105a4999d859ab22944921507f512435ac609f812",
@@ -3616,6 +4841,62 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/all-models/runtime/xingfuli-center/test_xingfuli_center_collision_threejs.jpg",
+      "bytes": 78961,
+      "sha256": "9cc2660e426e477eb87a4e37b63dcec00325d9ad0ced5becdcdd3243df717c1a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/xingfuli-center/test_xingfuli_center_hero_threejs.jpg",
+      "bytes": 80191,
+      "sha256": "30abfe80d0bc00bc81f5202323d165a3a4f76c9631f792b378c69cfb3f632887",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/xingfuli-center/test_xingfuli_center_identity_threejs.jpg",
+      "bytes": 79117,
+      "sha256": "927cbb21738246faca06e81e63ff79409721ca51ad8fc1728225d9baf468d974",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/xingfuli-center/test_xingfuli_center_massing_threejs.jpg",
+      "bytes": 78949,
+      "sha256": "a23e48645cf55beaf5cb93c61a0b21e27078d4a4ff0b2f592e4ce488f8a92b89",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/xingfuli-center/test_xingfuli_center_threejs_contact_sheet.jpg",
+      "bytes": 65962,
+      "sha256": "b93122d2722696db445e499e872c84c6cc45819a934e30cd1f259e51e8224679",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/xinhua-pocket-park/test_xinhua_pocket_park_massing_threejs_collision_final.jpg",
+      "bytes": 50046,
+      "sha256": "16e9b8d84a89da3d83a7d4682dc8c1889fb017ce7ceb1ffdf709e7bc4e1e1982",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/xinhua-pocket-park/test_xinhua_pocket_park_massing_threejs_map_final.jpg",
+      "bytes": 70217,
+      "sha256": "fc7674fed0bf53175c0f52da7e851b206065db0c10e55b4ff4bdca7e805257c9",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/runtime/xinhua-pocket-park/test_xinhua_pocket_park_massing_threejs_narrow_space_camera_final.png",
+      "bytes": 62874,
+      "sha256": "b7c21aceeb17ae5de12221580cf08af96ee768fa3fa4d6713fccb2120006c92a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-fallback-identity-integrated-20260725.png",
       "bytes": 53014,
       "sha256": "2359a92ae886596da2c4a7367f373c238d774b82477417d802a5e225c40a8d24",
@@ -3623,9 +4904,72 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-fallback-identity-reconciled-20260725.png",
+      "bytes": 312642,
+      "sha256": "e1e877c03bf9293dd2217337392ed0d18f89aadf188a5141c8cd7e658fa320c2",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-fallback-to-identity-threejs-rebuild-6b541e8ffab4.png",
+      "bytes": 48446,
+      "sha256": "9f5131977eef69f4fc47992925abd875bec6bb13444d9cd30aa03aab06df6e47",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-fallback-to-identity-threejs.png",
+      "bytes": 990226,
+      "sha256": "ecc922020426d4ad063aa143c0eb03d2cabd8944f434f8b496d954fbd4f45f4e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-mcp-canonical.png",
+      "bytes": 898210,
+      "sha256": "fb67f0237cbe0d22c32690a18c315ec43a9b898db6eb52ccf63cfbf117a3ae73",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-mcp-north-entrance.png",
+      "bytes": 876888,
+      "sha256": "0267b82f68d1376894c17bcbac23f572435f8caa463579d17e397942dfe7bbe5",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-mcp-side-depth.png",
+      "bytes": 830431,
+      "sha256": "161a4e8750dfffe0176609aaf0169d6621065727d095476e8c787d62a413e6c2",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-threejs-integrated-20260725.png",
       "bytes": 54244,
       "sha256": "3f5b6e8745c18f39c38803defe7dd9134f57106d5c40a98ae53a221b8582fbc6",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-threejs-north-rebuild-6d1642315530.png",
+      "bytes": 49938,
+      "sha256": "80e84a95f7157948105c0599ac24cdc78e7b8c177f7b2f12da38978ebd60f522",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-threejs-north-reconciled-20260725.png",
+      "bytes": 319755,
+      "sha256": "22767e82134df6f19a75b848123c49626d99970b264e6b9e0eae9f0f7b521719",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-hero-threejs-north.png",
+      "bytes": 1014031,
+      "sha256": "3d647249836a666a50fc2fda4b50af4492af401ee21e91b856dfcd944c08cdf4",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -3644,6 +4988,48 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-fallback-programmatic-reconciled-20260725.png",
+      "bytes": 268803,
+      "sha256": "a3c350e123f29c5f31a4d06143c1f7345721ec60a6c16b50e56c898028554190",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-fallback-programmatic-threejs-rebuild.png",
+      "bytes": 50089,
+      "sha256": "0cefa3b1adf0a481c64cac7ba66ff3e5d5cb3fd119098e84175bfec9240ba24a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-fallback-programmatic-threejs.png",
+      "bytes": 977324,
+      "sha256": "b885947d4c6a7e9e3288d9c52be2c92e598e05f1b802d77bf42410df35232c5d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-mcp-canonical.png",
+      "bytes": 838894,
+      "sha256": "a0860d4d239c8c0443ecd9cc86ec7a640452667d096b30d5c5090fbacbc24544",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-mcp-north-entrance.png",
+      "bytes": 807508,
+      "sha256": "6fccc438ee62f5222162c60b010431874e8c1e09c68a1526f6c25815482d685d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-mcp-side-depth.png",
+      "bytes": 768336,
+      "sha256": "ce5b4f20c258713ff1ad84c864f939d9168b0f450700d70e4cfb95131fba2065",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-threejs-integrated-20260725.png",
       "bytes": 53052,
       "sha256": "2d56fd6f58689a02e592c61ee16d0c012b703381ffafcb3bbfacdbe868556ef1",
@@ -3651,9 +5037,107 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-threejs-north-rebuild-6b541e8ffab4.png",
+      "bytes": 48288,
+      "sha256": "df07396c88afa5521e97ff7e0942f82f0161a846a94f2da916c1756e0a8f3ede",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-threejs-north-reconciled-20260725.png",
+      "bytes": 312246,
+      "sha256": "104c16fb95643b4c0e216116811cc31709909b741e6dd8a5f32ee575f9aa713b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-identity-threejs-north.png",
+      "bytes": 991045,
+      "sha256": "2b47d64cf9d928708f14ef73d71b5030c1d17f5bcf5d642f889dc9311ad7a4fa",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-massing-mcp-canonical.png",
+      "bytes": 524020,
+      "sha256": "44f8d663a0c7a395f8b2a8363ecdde9d847ceef77ec761024f882314ea711b9b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-massing-mcp-north-entrance.png",
+      "bytes": 576800,
+      "sha256": "110f43055167e6e65024eeb4566c3dc3145b93e88712c3e3b1428e2a3dc635cd",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-massing-mcp-side-depth.png",
+      "bytes": 516010,
+      "sha256": "32205aa399f74f653c72b0c1434afd9f0b09147ed3d13cb12d1bfa495d21fb8e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-massing-threejs-integrated-20260725.png",
       "bytes": 51765,
       "sha256": "a7cf93d6956865d22374a8e352f07818ff46d40035058abd6551c560423714c2",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-massing-threejs-north-reconciled-20260725.png",
+      "bytes": 307766,
+      "sha256": "31c3e9e78e686decca1309215e650eed383b587d3aa69f7d16399365965e878b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-massing-threejs-north.png",
+      "bytes": 946040,
+      "sha256": "44f92895ba8becda405e8a7fa83bd2a699359d1952f75934415ed5dd8e3acc3e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-tier-mcp-canonical-contact-sheet.png",
+      "bytes": 473193,
+      "sha256": "5411ca9e2b2982e4c4bd693b5518a8ad62da1e277e0309435ad334d8d44fd837",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-tier-mcp-canonical-rebuild-contact-sheet.png",
+      "bytes": 584657,
+      "sha256": "febe5c5b85cfcba9e3242f5d962aa068c1fbb0777e31147cd08db58dd30c8175",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-tier-mcp-north-entrance-contact-sheet.png",
+      "bytes": 439961,
+      "sha256": "483e9a2ad5a159c2bf2b99eff49db27b1e1da9a182ef4b455a045c32d98b8af7",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-tier-mcp-north-entrance-rebuild-contact-sheet.png",
+      "bytes": 553845,
+      "sha256": "4beaf5f3979d804eda1ea612d80c7bfe94f60590fad7757c9daa1fc02bf722b4",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-tier-mcp-side-depth-contact-sheet.png",
+      "bytes": 419109,
+      "sha256": "b486a5d907909c69ce3cb6fbace4cf50484e32d52953e76e3d7d17878286478b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/all-models/tier-review/sun-ke-villa/test_sun-ke-villa-tier-mcp-side-depth-rebuild-contact-sheet.png",
+      "bytes": 547684,
+      "sha256": "71850c07963367a94398272c938cd0ab5f5eb062c61c9af5cc2d959097663860",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -3686,9 +5170,86 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-current-street-furniture-runtime-metrics.json",
+      "bytes": 3724,
+      "sha256": "77140a5edc79fb99c12da9188890826910dd30994ce1ad8907d74e4704b385dc",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-current-street-furniture-triptych-contact-sheet.png",
+      "bytes": 938172,
+      "sha256": "f55365b668b2a342f7472c046a44de5b8a27206e2c3336700581ecf857db2d11",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-pointed-entry-bollard-canonical.png",
+      "bytes": 790275,
+      "sha256": "0b55ca396e92a30f9048b0f8527a7adc2d79a4b131c6c845dc4750226e5164f1",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-pointed-entry-bollard-detail.png",
+      "bytes": 848821,
+      "sha256": "a24a99c593f8801589966614ed65cbd0fd1a838449d4a4b3c26006cf2a4da643",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-pointed-entry-bollard-hidden-webgl.png",
+      "bytes": 48533,
+      "sha256": "8c1cd25c854b3b382613683f8cff6e070455e9c0bdc2167223f446def64b4100",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-pointed-entry-bollard-medium-webgl.png",
+      "bytes": 52285,
+      "sha256": "30046225f5ece8a938bf538c99a68af73192626186f70299179b5c213e706bad",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-pointed-entry-bollard-side.png",
+      "bytes": 781917,
+      "sha256": "0c4468294e01d9dd12a586bb1accb74c6d3c8990c54ac09ce47b4e35a22470b9",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-pointed-entry-bollard-triptych.png",
       "bytes": 898651,
       "sha256": "339a263de75c83dc061a36cffab68720684f36f6a1559f6ac825f501a86ea914",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-pointed-entry-bollard-webgl.png",
+      "bytes": 55441,
+      "sha256": "2cd81da421b7e9bd7d9860e34cc9842119178b0349b34ff71ebf3f4313435b8b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-slim-planter-canonical.png",
+      "bytes": 872730,
+      "sha256": "a579d8fcdb27cb802ab090b80f020a0d7c084d9419419cdaf1f643423ce22d22",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-slim-planter-detail.png",
+      "bytes": 932892,
+      "sha256": "43f58eb5eaa67fded13e64c89cbf065a7e7253a7a45329110f6ac2b19967fb3d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-slim-planter-side.png",
+      "bytes": 847871,
+      "sha256": "8dccba7881016926dc95d89bd4ee3a6725170c3e0ba7c0bd7148659746a40a73",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -3700,9 +5261,65 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-slim-planter-webgl.png",
+      "bytes": 58143,
+      "sha256": "78f18dda3cb745637f9c926dfac10ad7901b072c10a84fe02893575d2bf1407a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-long-canonical.png",
+      "bytes": 796338,
+      "sha256": "1cbd22831e6ba5f749eead89618275f6c1b835e79dc35b5b3d1bd88442e0d4e1",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-long-detail.png",
+      "bytes": 790858,
+      "sha256": "da7bba8dba027dfa8b99261b500bed0e1759dfc146149f788b32c91793d06151",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-long-side.png",
+      "bytes": 774221,
+      "sha256": "3a617af08923135d9a759bfc73489a36a18e5fe2133ff08633cdeb9961208947",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-long-triptych.png",
       "bytes": 841010,
       "sha256": "f1e8de2e64f4758484ec02bc25ff4c720fbbb8e752595aad79ccb4a2ef1d7c47",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-long-webgl.png",
+      "bytes": 55566,
+      "sha256": "01c0fadf94fc4d24de555d6b659e8fd73bd4c50d31595a93667547082341ca8c",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-round-canonical.png",
+      "bytes": 786711,
+      "sha256": "4548542e00130cca2b313396592a48771bf049f810032b6912fa9528780069bf",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-round-detail.png",
+      "bytes": 841391,
+      "sha256": "eda974b5bc4b4719b8a3e1ac73652edf22aa79c3fe64033483d26882889c1902",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-round-side.png",
+      "bytes": 773847,
+      "sha256": "ba89ce4f0cfd090b1a4de6e37e53b1178e40fa3db048d5c7cba51b0b6b2402c6",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -3714,9 +5331,30 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/nonbuilding/xingfuli-current-street-furniture/test_xingfuli-water-edge-stone-seat-round-webgl.png",
+      "bytes": 55017,
+      "sha256": "f9eaf1d9e87f49325a325400fb919bceb1478d242b0367445c537e87b54f1566",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/test_building_height_poc/test_xinhua-district-massing-poc-build-record.json",
       "bytes": 5336,
       "sha256": "ae7917c53375a5afb5e3f0f7eb6848d65e9c7f3dd7ada7ba1529b4ba820ab3fd",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_building_height_poc/test_xinhua-district-massing-poc-data.json",
+      "bytes": 855322,
+      "sha256": "cfcdf6b76151566ac9e289fea92e25a99b507d8220af0e3b07630a442fadda0c",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_building_height_poc/test_xinhua-district-massing-poc-runtime.json",
+      "bytes": 478,
+      "sha256": "a916e7f840a0b422b42693a491cee12f90194d528175e18455142fd75f212517",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -3780,6 +5418,41 @@
       "path": "test_artifacts/test_film-art-center_runtime_identity_fallback_scoped_1280x800.png",
       "bytes": 431891,
       "sha256": "50d20764a21c72b49b9130763ba7dbfaa18c96d3a1632bca03dd8654d56e6e14",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_film-art-center_runtime_main_hero_1280x720.jpg",
+      "bytes": 107212,
+      "sha256": "c6c1ff4acb31a26a8eae98f12998d63389a0bc1b5d02081e1f40b4b34ea88c4d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_film-art-center_runtime_main_identity_1280x720.jpg",
+      "bytes": 101322,
+      "sha256": "0a2142cec86d0e032a4b24a5e87255749a615ef04ed7dffa8cda11f2b1b45399",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_film-art-center_runtime_main_identity_fallback_1280x720.jpg",
+      "bytes": 86818,
+      "sha256": "3b430cd9c57dc00c96612257e397a20179703fc9086b5bd7411bb27a868be98f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_film-art-center_runtime_main_massing_1280x720.jpg",
+      "bytes": 92454,
+      "sha256": "ede13a70f49d1d2b5c0a0f29c37633c3e23602b3c19aaffae2187f58f17fb332",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_film-art-center_runtime_main_production_fallback_1280x720.jpg",
+      "bytes": 106721,
+      "sha256": "3479439d7c9ea12058efd20285e1ce521af6da205c8e6699e6bbfddb9ecea526",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -3882,6 +5555,20 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/test_film-art-center-hero_mcp2_canonical.png",
+      "bytes": 1109765,
+      "sha256": "318c3bf76eeee3312eb57940c3924a8c0ddc423f38f304e8f3602fac58b52ff1",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_film-art-center-hero_mcp2_entrance-street.png",
+      "bytes": 1061334,
+      "sha256": "c19271a2e609953416bc49b3436c10fff48a4e64e3e30a85f39b674f8a62c54f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/test_film-art-center-hero_mcp2_recheck_canonical.png",
       "bytes": 1109770,
       "sha256": "962baf1ac9d47aca442b3dca88b1af77e2dae3db05f9ab46fde8ce856ff0f419",
@@ -3899,6 +5586,13 @@
       "path": "test_artifacts/test_film-art-center-hero_mcp2_recheck_side.png",
       "bytes": 1086127,
       "sha256": "ad23464bb8f7d7611fcedb5d577e1b9cfb222d463955d591f617c49fc79e1bcd",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_film-art-center-hero_mcp2_side.png",
+      "bytes": 1086102,
+      "sha256": "9dc7c25257aaebf2b02db9bf092535c6480cdacbe5da2ff4fb48ee17bcfb0e92",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -4141,6 +5835,27 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/test_hudec-memorial_mcp1_massing_canonical.png",
+      "bytes": 756575,
+      "sha256": "159f03a7e70dcf2b6ccdc1e0365d4d1d6ea0216136f9d885cb4765b8ed540b9c",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_hudec-memorial_mcp1_massing_entrance.png",
+      "bytes": 728659,
+      "sha256": "09854c743d335dd84b488267496617ed7c7b2799bafaa29f43ea8c039b4db640",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_hudec-memorial_mcp1_massing_side.png",
+      "bytes": 746549,
+      "sha256": "98329c85c3e02d8b5cb911f26dbce735cd4046ae8d0e7550a1523a7542dd449c",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/test_hudec-memorial_preview.png",
       "bytes": 691247,
       "sha256": "98f7846bff7ed85481ad6293f006f9c107841cc5b4246f355c88a0bf1f223b1c",
@@ -4190,9 +5905,121 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/test_loading_comparison.json",
+      "bytes": 1158,
+      "sha256": "50a54c9428d84610954982bac14b56ea0dbb0a726e6ecbad4a69326b62d0fcce",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_loading_optimized_identity_failure_metrics.json",
+      "bytes": 24947,
+      "sha256": "495b3131913b4cf8fc0ede380cca9d50e61995bf3a75750d807d4cca657167c7",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_loading_optimized_weak_cover_final_after_700ms.png",
+      "bytes": 178332,
+      "sha256": "e6b249f70c410eae1dfaee851c629e3c0a3c2f67bfa0083399a1255814316e5e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_loading_optimized_weak_cover_final_first_district_chunk.png",
+      "bytes": 238176,
+      "sha256": "8344d41e5541df58899569c105c5faadee930e96b27a041ab27bbca419e7311f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_loading_optimized_weak_cover_final_hero_visible.png",
+      "bytes": 256697,
+      "sha256": "b7b97c18a556c942a1f78ce6b547f40087434198e74725c77b3f8844de1aab2e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_loading_optimized_weak_cover_final_metrics.json",
+      "bytes": 93458,
+      "sha256": "a9e40bd7662a74858f7c970e0bd67f37303ec4a0fa8a148d25d35e9c5dde496b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_loading_weak_comparison.png",
+      "bytes": 776113,
+      "sha256": "9182d9fc2c0db104ae0b5f37710c90ae915e897d632512a566b86f5be61549be",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_navy_club_preview.png",
+      "bytes": 1076820,
+      "sha256": "6a2d7a5e3f0aaeabfd63d2468204a71eed3619806c94e3dcd69550159e82412b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/test_one-step-garden_preview.png",
       "bytes": 730531,
       "sha256": "46650043d3456146fa603064ece54885813185b0ad2368c9440ec30acf9675da",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_one-step-garden_runtime_main_collision-start_1280x720.jpg",
+      "bytes": 87777,
+      "sha256": "4ae405f9cf504005e1f7a91d32de492d032e462b4a862c917e864d61cd3aaac9",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_one-step-garden_runtime_main_collision-wall_1280x720.jpg",
+      "bytes": 84381,
+      "sha256": "4fd65c717d00332f8986a6077b39afb15d7b9dcf4158f02a9b6d2ed43f9dfa5f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_one-step-garden_runtime_main_hero_1280x720.jpg",
+      "bytes": 87804,
+      "sha256": "c395a00588f28dba9a737378bcdb816f6e1f3716ca08044eb7b0c9f6d4c81338",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_one-step-garden_runtime_main_hero-fallback_1280x720.jpg",
+      "bytes": 87252,
+      "sha256": "1a8a7b0bdfbe73841f455c22d2102871770b754bae3946ec2876e1827688b25b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_one-step-garden_runtime_main_identity_1280x720.jpg",
+      "bytes": 87260,
+      "sha256": "9718db36a26a1bbaf25ee8f5a897ca4ec415f5d032e0ab05ddd66ec39d8290f7",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_one-step-garden_runtime_main_identity-fallback_1280x720.jpg",
+      "bytes": 82293,
+      "sha256": "2e65fb6a2aa911282fbbe114514d6224bad710f86cd961c5094be85ca0889d22",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_one-step-garden_runtime_main_massing_1280x720.jpg",
+      "bytes": 82306,
+      "sha256": "551800b409b7273a11cadf75a7e7882841c780949f3fe085a69501f45dabe5c3",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_one-step-garden_runtime_main_massing-floor_1280x720.jpg",
+      "bytes": 82276,
+      "sha256": "16560fe33d54dc27ccf5f2c345cf4ffc448320660e4afc7d83aaceb3a2d02890",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -4204,268 +6031,177 @@
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "test_artifacts/test_plane_tree_canopy_v2_house315_explore.png",
-      "bytes": 503975,
-      "sha256": "2bbe1f2fb3b0805024c43258dbd64a2781a6ab49a38db32680cab176489b1af3",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "test_artifacts/test_plane_tree_canopy_v2_house315_movement.png",
-      "bytes": 562822,
-      "sha256": "9863ada6d67f30d0d68f6271ec6c397e63380844ef969f9882b5379a037884ee",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "test_artifacts/test_plane_tree_canopy_v2_house315_overview.png",
-      "bytes": 534731,
-      "sha256": "ecf4ab0ffc47b3e3f3ae500baa7e9efeee472269192062f817e0ae06ac628986",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "test_artifacts/test_plane_tree_canopy_v2_postfix_collision.png",
-      "bytes": 483466,
-      "sha256": "c7627394fa3043615d01311d489ba37c7374240e8a1f95d1012b1e43c94e1c7f",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "test_artifacts/test_plane_tree_canopy_v2_postfix_standard.png",
-      "bytes": 558708,
-      "sha256": "c559ca33ee0ba7bb52c5ce2786a99d2e929fe9812127ae66a33c1af7e469e032",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "test_artifacts/test_plane_tree_canopy_v2_postfix_weak.png",
-      "bytes": 538845,
-      "sha256": "9c6a286f8d2b95884f5f2cbbaf3202819a81d57d00b4d370107caeb3b7af323b",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "test_artifacts/test_plane_tree_canopy_v2_triptych.png",
-      "bytes": 930864,
-      "sha256": "168688d6f11d25fd9c12d5d902807ed7d66f6919c64de2dc215e38cab0e87fa3",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "test_artifacts/test_plane_tree_canopy_v3_runtime_standard.png",
-      "bytes": 91993,
-      "sha256": "f9f497ec0273f26b48c1fadad4172727c26f91b18d7c5105849837409cc3b3bc",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "test_artifacts/test_plane_tree_canopy_v3_runtime_weak.png",
-      "bytes": 98220,
-      "sha256": "80e3f93d47fb6137e9f246a28c9ae074350d018ad0d001aebef4ce4537bdc3e7",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "test_artifacts/test_plane_tree_canopy_v3_triptych.png",
-      "bytes": 985562,
-      "sha256": "e56f661b7a710270ab885073022bfd678a12e545be315aa98e12cd79528b5e59",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
       "path": "test_artifacts/test_plane-tree-a_canonical_preview.png",
-      "bytes": 727794,
-      "sha256": "f00c2428b9250124c802d692562637095457c19ac8c4259ad42399e515c41148",
+      "bytes": 659757,
+      "sha256": "9d9ddfaa47eb9514426e51fcda4d7027cb0b3740f9261c3386297df1a99d0caa",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
       "path": "test_artifacts/test_plane-tree-a_preview.png",
-      "bytes": 722466,
-      "sha256": "2aa6ce19a8f473e4e719ed768ef0bff97329286765c0f2633482ab08cfb2b9cf",
+      "bytes": 664060,
+      "sha256": "419c0c3b3dbbc730f4d6314c5aa993e10d4629397e5608d45f8eea36c6df6106",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
       "path": "test_artifacts/test_plane-tree-a_root_preview.png",
-      "bytes": 700568,
-      "sha256": "0d5cbc71bd7f58fae3f06b65d4906043ea641838052ec9f2a2add9d6ca3c62a2",
+      "bytes": 622497,
+      "sha256": "4e0e93841ef903d9decf07ad736700d790f4d23921d4fa22e8e6842bd8f25bae",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
       "path": "test_artifacts/test_plane-tree-a_side_preview.png",
-      "bytes": 720013,
-      "sha256": "4d95b343745ca1f4286664c13795de8990e63b511e87a7f8ad6ea7a8974ad4a0",
+      "bytes": 644070,
+      "sha256": "816d5b08facf2ac11bc546d9c963bfab552f60be7a9e44177c3234476e1fd2e7",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
       "path": "test_artifacts/test_plane-tree-b_canonical_preview.png",
-      "bytes": 732024,
-      "sha256": "240f5867d208c336dd4f2a071eb96f8f933c57ebc6cedff6d7959df02a2e4d00",
+      "bytes": 658940,
+      "sha256": "4d8ccef8d1f6fb20bbb63e970fc5189973b857f0854537fbc6fafb962487e3fe",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
       "path": "test_artifacts/test_plane-tree-b_preview.png",
-      "bytes": 721146,
-      "sha256": "1ef91450cf2bf49e97c711c96cdb5fd8f36f0ba5ed5e26b86138a9b229a063f6",
+      "bytes": 661244,
+      "sha256": "57ec570c1cb55cf6044611d9e63975af06d37eaee52150346deadd62fb21f92f",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
       "path": "test_artifacts/test_plane-tree-b_root_preview.png",
-      "bytes": 687108,
-      "sha256": "6a0242cf3f85a13dacb823720b735ab92baef35ef209ea90cb73f33b44e7b709",
+      "bytes": 618154,
+      "sha256": "49a7d391cb69964c04313e2a138c4d21fcb5d2df50a0ca65283135108735308c",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
       "path": "test_artifacts/test_plane-tree-b_side_preview.png",
-      "bytes": 716904,
-      "sha256": "5939c9b827f5b15a515899fc268002a657c91c90ff45f909a3f63af31694748a",
+      "bytes": 646194,
+      "sha256": "9367840a376e779b1c464fba9ac65626d425f42b854899c2473b8e3093f16273",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
       "path": "test_artifacts/test_plane-tree-c_canonical_preview.png",
-      "bytes": 716950,
-      "sha256": "ad5fef3636b0a0aee78ea25e2f183e41ce7760bf4295011e321a30f156d788f5",
+      "bytes": 671983,
+      "sha256": "7d156ae200d0906d8817fc64136073af3916371015925d1a701ad8c735052e7a",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
       "path": "test_artifacts/test_plane-tree-c_preview.png",
-      "bytes": 713458,
-      "sha256": "b80f2704c8ec8fac2cb96975888c283996a57bfe04a51357ae324e6a189f38ab",
+      "bytes": 666131,
+      "sha256": "41ef638acdc659db30c1c971ba48ac9dab704738f1e20da416f48aaa21aaac2e",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
       "path": "test_artifacts/test_plane-tree-c_root_preview.png",
-      "bytes": 702440,
-      "sha256": "9e987388a359e4cc0e99f1f776a724f855516e7948ed1178ba86dcda56593ffb",
+      "bytes": 618017,
+      "sha256": "dd4cc36cf68bb8df21026339950110d2aa80a9efd1cf46ea6bca5d0821aa47d2",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
       "path": "test_artifacts/test_plane-tree-c_side_preview.png",
-      "bytes": 718546,
-      "sha256": "a1b33fd9f276f7230a833a9fdeeb06cd670385ecdf0fadc68883e0bdb73e9062",
+      "bytes": 646929,
+      "sha256": "1482ce69f1e97b3e8501c507f6115534b4a87ca223f6bebf944484954801695c",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "test_artifacts/test_plane-tree-d_canonical_preview.png",
-      "bytes": 728855,
-      "sha256": "605a323a3185ae0d4b5d15f22c46c0a63c625c06f57770600eee3d3310158fae",
+      "path": "test_artifacts/test_pocket_toy_cover_desktop_preview.png",
+      "bytes": 187290,
+      "sha256": "c9c87105b3f44cef33fc062db6b405804a2f23ad99d0b2e5ecd4c13947d021d6",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "test_artifacts/test_plane-tree-d_preview.png",
-      "bytes": 721507,
-      "sha256": "80074f0e7e7c81ea19addee6ca48ced4fadde99aa9bb8c8075aff93ba78055c6",
+      "path": "test_artifacts/test_pocket_toy_cover_mobile_preview.png",
+      "bytes": 39547,
+      "sha256": "9edad180ae57f33a2da25f1f256b17f62ad27409769a4d9dde918556f23515a1",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "test_artifacts/test_plane-tree-d_root_preview.png",
-      "bytes": 692774,
-      "sha256": "7b0fa5495ce1980650d248c6d1ef45bba946a57e9cce6ae8d77cf772941e2bba",
+      "path": "test_artifacts/test_rain_brown_eyes_runtime_desktop.png",
+      "bytes": 80820,
+      "sha256": "be7902c1eb3847ce0b47c8b2b67850e6a7899b2da1811c65090067c9da4c00ea",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "test_artifacts/test_plane-tree-d_side_preview.png",
-      "bytes": 722923,
-      "sha256": "3bcebdc59d11188cf745a2ee75422c63f7822b58517bafbc39f550649b5d30a4",
+      "path": "test_artifacts/test_rain_brown_eyes_runtime_mobile.png",
+      "bytes": 24608,
+      "sha256": "e2ae65ea55a2b36de69707fc93c5f06887a5112d41f0975ed9113acc4638b997",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "test_artifacts/test_plane-tree-massing-a_canonical_preview.png",
-      "bytes": 653843,
-      "sha256": "72c34f255592b9f65382205d727d935db1a27657f61f50a6098b940995913ccb",
+      "path": "test_artifacts/test_rain_face_comparison_v3_preview.png",
+      "bytes": 1044480,
+      "sha256": "b8ee6b5b28a4700a160f90e8e49363b950348f96f56220505670f956f48a5589",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "test_artifacts/test_plane-tree-massing-a_preview.png",
-      "bytes": 662022,
-      "sha256": "4715e8ab59c12728e3445e66448f4b4283e41b8f2ef2ca96472d8dd4190207c4",
+      "path": "test_artifacts/test_rain_face_production_comparison_preview.png",
+      "bytes": 555587,
+      "sha256": "bb7e2275fe6891c3587d3c4f059543ed9ea72bdaaf2aff148f91d4c038d74248",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "test_artifacts/test_plane-tree-massing-a_root_preview.png",
-      "bytes": 682871,
-      "sha256": "398178ae00cc06ce568f3638adff76a55f5e557e95528f72a13b897105f08a0b",
+      "path": "test_artifacts/test_rain_face_refinement_comparison_preview.png",
+      "bytes": 1097598,
+      "sha256": "4c23ea8eeafd2814d6263a3884ac64b38d1ddc39dcb818ef4f612e2f384d4301",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "test_artifacts/test_plane-tree-massing-a_side_preview.png",
-      "bytes": 666412,
-      "sha256": "3e6b8d8e62cf6b18b25e03096ddcd0e768079f53cce0494ce5f3b9d1b33b6dd8",
+      "path": "test_artifacts/test_rain_identity_canonical.png",
+      "bytes": 623231,
+      "sha256": "ec2dd87c5c08beb795a28aee92df330f77a05f3e1ac98a101c41e38842274e99",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "test_artifacts/test_plane-tree-massing-b_canonical_preview.png",
-      "bytes": 656933,
-      "sha256": "b3add24689a1f9bf415fe3cf8281bc4f52d1c9553501e6bf40804ac9b030e8e7",
+      "path": "test_artifacts/test_rain_identity_side.png",
+      "bytes": 606296,
+      "sha256": "25b18d88bb1f8ab98877efcc13839a332ba007e481928d0b48598ce2ed5ba63e",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "test_artifacts/test_plane-tree-massing-b_preview.png",
-      "bytes": 664585,
-      "sha256": "52c8c9cc7423fe43b3247e6ec010e636c714490bf5e5720cd92ed2876f210345",
+      "path": "test_artifacts/test_rain_identity_three_way_comparison.png",
+      "bytes": 635991,
+      "sha256": "5d8248dd3a6305b091ef43a660ba2785771df79eec8574ae8a7572301dd1d193",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "test_artifacts/test_plane-tree-massing-b_root_preview.png",
-      "bytes": 686195,
-      "sha256": "2c617a6bf489805de4cea24144a25c8c6953ee16d865dd2410ef118aba24c499",
+      "path": "test_artifacts/test_rain_production_local_desktop.jpg",
+      "bytes": 122237,
+      "sha256": "4f82973efa0181d9b7b67adefaa3d8e27d92efe13a8e384e618dc96b852748ab",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "test_artifacts/test_plane-tree-massing-b_side_preview.png",
-      "bytes": 666034,
-      "sha256": "f81fd8ef919d1ff4dc2e5818b7ae52921be6e6088633d4d1b7ae9470a33d35c1",
+      "path": "test_artifacts/test_rain_production_local_mobile.jpg",
+      "bytes": 33265,
+      "sha256": "be518b186610ba7d4b4564f1c765cfe85573af431a82e8d824e6ddc28b81145f",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
     {
-      "path": "test_artifacts/test_plane-tree-massing-c_canonical_preview.png",
-      "bytes": 653618,
-      "sha256": "fca1e3658bf5b031343e8d9a884469cd44364d11d6cee957d6ba3270bd666103",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "test_artifacts/test_plane-tree-massing-c_preview.png",
-      "bytes": 662653,
-      "sha256": "14ac30ab7069e24a27f8451418d66b70687a5e6a45ece7dad4c4031609d40892",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "test_artifacts/test_plane-tree-massing-c_root_preview.png",
-      "bytes": 685849,
-      "sha256": "a2a6ff74f12aa795ab0a3ab45027cc0e5282ee330c951a49a3f3d16e1c134df8",
-      "category": "dynamic-evidence",
-      "lifecycle": "active-or-shared"
-    },
-    {
-      "path": "test_artifacts/test_plane-tree-massing-c_side_preview.png",
-      "bytes": 662909,
-      "sha256": "704fbd5f982666c6602e520c174c71fe1703cae6d52d2ad35e7ba717c61c976d",
+      "path": "test_artifacts/test_rain_summer_animation_grid.png",
+      "bytes": 674412,
+      "sha256": "f7ba37de299309fc924f17d2a54cac0ea94fafb796c8f5a24d44bcd58c7216d9",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -4484,9 +6220,72 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/test_rain_summer_mobile_moved.jpg",
+      "bytes": 47584,
+      "sha256": "878018f6402f4ff396cdf58a2df85e74a227b8d4445fed021f25070862f5d571",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_rain_summer_mobile_runtime.jpg",
+      "bytes": 47326,
+      "sha256": "555a0f8d9cc49844f9501dc4f06ece9d09f85b1edbf4c1d6befbfdd545cb6127",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_rain_summer_runtime_motion_grid.jpg",
+      "bytes": 104020,
+      "sha256": "9be3ca842481821f594c51415e3b1110284e944ba75d7d2b3b38c8b2a0b70627",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_rain_summer_runtime_motion.mp4",
+      "bytes": 240265,
+      "sha256": "8b888c61e3b8b1b10aa2eb91311af2cc0eab45dfe131edc232ab204d222e9b3d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_rain_summer_runtime_preview.jpg",
+      "bytes": 175398,
+      "sha256": "afb7d8ee9fcfba541aa11e6f1571c68a5eca5a862f911098414fbc756ea29401",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_rain_summer_three-way-comparison.png",
+      "bytes": 977599,
+      "sha256": "4d584a28598252a94b7dbcfc6fa125c6c8d13848812fc4d8871c3a46b3c184fb",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/test_rain_summer_weight_audit.json",
       "bytes": 5432,
       "sha256": "caf00ee8171ccbdcbc474461f5505257c1b0c5b8bb347c7bc0281d1b196a8ffa",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_shanghai-cinema_canonical_preview.png",
+      "bytes": 771701,
+      "sha256": "244e04405853a2b9b446a151db106fa441aa9326e02872af2ad1993aceb83a2a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_shanghai-cinema_front_ab_comparison_preview.png",
+      "bytes": 254092,
+      "sha256": "421e5524473b3ac63883be4a110ea4bae3403869b6edc0168de1f93826d573f4",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_shanghai-cinema_full-glb_front_runtime_preview.png",
+      "bytes": 139151,
+      "sha256": "55ddebb74e11b2844de0f6b7f75969a705ba61deb60cefd04a599f76189db2b4",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -4498,6 +6297,20 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/test_shanghai-cinema_full-glb-near-mobile_cdp.png",
+      "bytes": 72101,
+      "sha256": "d8e1d954f079cc548b92d0127d5eaf81d18ef245aacb7c7836dc59814cd52fc6",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_shanghai-cinema_hybrid_front_runtime_preview.png",
+      "bytes": 66993,
+      "sha256": "1a33b0e3a4b462efcc366f2e5bf53402c839418bc133f39524e5fb607ec1717d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/test_shanghai-cinema_hybrid_metrics.json",
       "bytes": 9554,
       "sha256": "e999b6bf19956870370c8073855be0d91847dd25eff69c3751d9b9fa6709d288",
@@ -4505,9 +6318,23 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/test_shanghai-cinema_hybrid_three-way-comparison.png",
+      "bytes": 587499,
+      "sha256": "8a484271d3abad7fec2036326d7efb5e81390008bda087a9ef8be500d9dd9f55",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/test_shanghai-cinema_hybrid-near_cdp.png",
       "bytes": 148881,
       "sha256": "77c7dc62afe6246985d31cbd894ee81cd399cbf1e25eff5991925dea35425728",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_shanghai-cinema_hybrid-near-mobile_cdp.png",
+      "bytes": 54932,
+      "sha256": "d92602c9c2661ce45628f54cd345e46ce032d71d03704a73d731adb04c9848d2",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -4529,6 +6356,13 @@
       "path": "test_artifacts/test_shanghai-cinema_progressive_experiment_metrics.json",
       "bytes": 26777,
       "sha256": "0a61093cec5399e84329f64c920de2784ac2347bb0973b7da290858aae21d296",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_shanghai-cinema_progressive_full-first_baseline.png",
+      "bytes": 185793,
+      "sha256": "e5dc32b60527cf02bebe43fb69a857015c1b23068302ecb932b1d878d23d9581",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -4589,6 +6423,20 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/test_shanghai-cinema_side_preview.png",
+      "bytes": 801018,
+      "sha256": "e0cb4852a7113876c1209efe558a90bbc6b88ccc9259697f9d7ce2e61bff6238",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_shanghai-cinema_street_preview.png",
+      "bytes": 763342,
+      "sha256": "ef6b22c60054792fe4ba25992208927f296f7f27b6bdfd363e5f48af4bd36d95",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/test_shanghai-cinema_three-way-comparison.png",
       "bytes": 692332,
       "sha256": "66adcd2d6dd60313c54b35c6a40008340ef929d7046121a65545088dcdbb2489",
@@ -4613,6 +6461,34 @@
       "path": "test_artifacts/test_shanghai-orchestra_preview.png",
       "bytes": 710762,
       "sha256": "5217beba8805a4f3d7acfcb6776736460d46ecbf206f1ba50208216c9eb5b956",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_street_refinement_cinema_road_runtime.png",
+      "bytes": 857150,
+      "sha256": "b6fcf9856390855d07988f83ce74c3216947000afa2f28141fa7ebfb8839f82d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_street_refinement_faceted_shrub_runtime.png",
+      "bytes": 636985,
+      "sha256": "ad0b9bf0e9e683d6495ed69698c01617d4049fc4ca783d08f13dbbd4ddbb6915",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_street_surface_ground_detail_runtime_preview.png",
+      "bytes": 408913,
+      "sha256": "d1bf014297eeb60111a39cbfddb9af4a69d878e83dd892f0c8c3f8d0983d38cc",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_street_surface_shanghai_cinema_runtime_preview.png",
+      "bytes": 463250,
+      "sha256": "f8b9ee97798254c9bfc9848295bcae7e5e3aba7173096e074a5791523ac09388",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -4673,9 +6549,79 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/test_toy_shanghai-cinema_canonical_preview.png",
+      "bytes": 1138960,
+      "sha256": "8c4d779ed6dcda4fe578d132bff793a30d2f7aacb11c1a74997aea5fb074b525",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_toy_shanghai-cinema_side_preview.png",
+      "bytes": 1224085,
+      "sha256": "a72caa44a6ca133332b85938ff1d22c7ea4238fb65a877786472177a4d70382a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_toy_sun-ke-villa_canonical_preview.png",
+      "bytes": 1157663,
+      "sha256": "f263a6ba3c23c833559085d8194ae72dcd01ce132a414585927817465b239e33",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_toy_sun-ke-villa_entrance_preview.png",
+      "bytes": 1202136,
+      "sha256": "6684b24a69690484e11a35cfd40a33080732a42a6fba0fc6319a623b2f63818a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_toy_sun-ke-villa_identity_preview.png",
+      "bytes": 1148574,
+      "sha256": "b89790d2bb9644aa3e8817adc219c809d334b790bfeaa2e7c04fc3f015c87f85",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_toy_sun-ke-villa_massing_preview.png",
+      "bytes": 973487,
+      "sha256": "e80ef0a63118e45b10c026083b4b17e813b5200ae0235ff5126a8e8a95d441da",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_toy_sun-ke-villa_side_preview.png",
+      "bytes": 1156735,
+      "sha256": "26b5c6d0f1365f0f4ef1d4976b4d70d9235bb0995ee1e18b67aba059a2a673da",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_toy_sun-ke-villa_site_preview.png",
+      "bytes": 1153348,
+      "sha256": "64f5b7169a5b939d926962ef96c75e0c4fa0c1c0b61c7b3144abe96f067f8528",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/test_villa-le-bec_preview.png",
       "bytes": 761654,
       "sha256": "6fdac4e5f6be8ad24bc2d7f60edb3693d2befaf8606772a0dbc3abff0e4642c0",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_villa-le-bec_runtime_map_candidate_1280x720.jpg",
+      "bytes": 62895,
+      "sha256": "63d10a3e9ca09cb889803f177f7aaf3cb82efbaf4c026485e7c800052f86d9b4",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli_baseline_runtime_preview.png",
+      "bytes": 167307,
+      "sha256": "9a24ab6a03de22d4fb09a33debb5a6e70bdc3c8eccecb81389f2b406d0ba6f02",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -4750,6 +6696,13 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/test_xingfuli_massing_runtime_preview.png",
+      "bytes": 120117,
+      "sha256": "10fe0bdad569c0c97f1aa4d11ec7ff787138fb420eadc0ebee1dfc5da3cc02c0",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/test_xingfuli_massing_three-way_preview.png",
       "bytes": 999680,
       "sha256": "fc3361574523b1e02db1c8d52d8711737318178b3a3763a98aa8591428d9f3a0",
@@ -4799,6 +6752,97 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/test_xingfuli-center_street_preview.png",
+      "bytes": 828940,
+      "sha256": "f124ec86fadc29b6a4865cabfe349bcb59369df0859caa3f085e899739911151",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-center-identity_canonical_preview.png",
+      "bytes": 848939,
+      "sha256": "badc00998370beb6af32409035fcbc1d1fbe4ff040a4e08969110d585110ea64",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-center-identity_side_preview.png",
+      "bytes": 828315,
+      "sha256": "c883ad453691ff29859e84df0ccd003f58e5fe3f7e9d08c1d48767809b6bcad4",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-center-identity_street_preview.png",
+      "bytes": 803438,
+      "sha256": "16dde66c4b94794de1fb5c466c24bcb24a502b3fb3ca49afd325bef143505c3b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-center-massing_canonical_preview.png",
+      "bytes": 843828,
+      "sha256": "4bbb461a9baad0418de0236673ae7f62a4ef02df9ffc7c48c121a4ee67e9f61b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-center-massing_side_preview.png",
+      "bytes": 823235,
+      "sha256": "15dc55d8d89291bc165bec8b48a19a3bb9a3c97ce63dee1f80966f5b428d006e",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-center-massing_street_preview.png",
+      "bytes": 811966,
+      "sha256": "adfcc408bb1470838387ecc9a5b79d2c52cd63771320bd9a34f565443f833209",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-center-materials_canonical_preview.png",
+      "bytes": 866393,
+      "sha256": "2ad6c1321710c55f81605038da42589c98622d73d496dca63a229233ade44448",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-center-materials_side_preview.png",
+      "bytes": 847950,
+      "sha256": "91bd20bbd4b0497f79e5bcd2f92c00655e2b41152f97f811664dd84a035c1fa0",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-center-materials_street_preview.png",
+      "bytes": 828886,
+      "sha256": "5b656dfec39dd6b4b5642b4e1c9d3530b54b7f601d9939ab26d097f70cbb80c0",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-center-site_canonical_preview.png",
+      "bytes": 868575,
+      "sha256": "ce124fe6727269230c2751965875c827b87de874b55ff64e8cf2c421b5a42add",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-center-site_side_preview.png",
+      "bytes": 857859,
+      "sha256": "57129af9db5ffaf5951612a71c7b23b83a8f99f290a5bf865540b4606050c1e9",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-center-site_street_preview.png",
+      "bytes": 828945,
+      "sha256": "30616bba32a9e36eca2208faf530e328216f8b19c8c5902961032fd9314e0321",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/test_xingfuli-east_canonical_preview.png",
       "bytes": 838581,
       "sha256": "0d11aa21919f0ec7691a51889cfd267d35fafa54bf435020b62de2d20d8aa0cc",
@@ -4809,6 +6853,97 @@
       "path": "test_artifacts/test_xingfuli-east_side_preview.png",
       "bytes": 817001,
       "sha256": "8f04cac2deda7c85c5b7240f988dab3343f34502beffbdf24ee66bd7faca9abb",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-east_street_preview.png",
+      "bytes": 837084,
+      "sha256": "68bd11c77b2c9697e6ac707026ac0c6c3836b9aa27552ccf5a67e916e57251b1",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-east-identity_canonical_preview.png",
+      "bytes": 818982,
+      "sha256": "a85e0f6920eb1d914a48953080124c9c773fb025abb0f5daa04f1c9cda340366",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-east-identity_side_preview.png",
+      "bytes": 820564,
+      "sha256": "22e6a50e2a23d67b6879820acf018c3bf3c77541198300646b9812d406056b38",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-east-identity_street_preview.png",
+      "bytes": 803831,
+      "sha256": "44718fc32514d857063dad5d8dedb7ba87ca925008733ffa52649e0a50b8b25b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-east-massing_canonical_preview.png",
+      "bytes": 806599,
+      "sha256": "2939b1e55d7b8e3700b17eb8f8b8cda2f115b3e4331f7be0e9a0860a76a0c1f3",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-east-massing_side_preview.png",
+      "bytes": 809015,
+      "sha256": "47a9b0ddb2b2867332361ebb80fd713b3264d1feea793b43c9eb08fdd09d63e6",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-east-massing_street_preview.png",
+      "bytes": 820089,
+      "sha256": "662c3db7ee544bccd0a2401a148924afed496a86d97944246a409eba3ee03681",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-east-materials_canonical_preview.png",
+      "bytes": 838733,
+      "sha256": "2f6be8039903f2f188bcfa50c4a56f103cb782e23432e6b61fe0ab64ec62e73b",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-east-materials_side_preview.png",
+      "bytes": 816723,
+      "sha256": "8ccda39635cee744f1c19bc78789fdf0a7c56f83811b9cef3cbd49f01a218fc9",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-east-materials_street_preview.png",
+      "bytes": 836773,
+      "sha256": "9967b3d35eaa9c217b9e763fac35cfcbde3dd33bad3b5a2b2dd8102916097134",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-east-site_canonical_preview.png",
+      "bytes": 838586,
+      "sha256": "745bdfab39646fcd666d114ea4318457103b9abe209fe45d0d80dd71968da544",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-east-site_side_preview.png",
+      "bytes": 817006,
+      "sha256": "5b376d050d3e8e7d219b251cdce84249b713ffb6e2b3d79815c0e04e045fedce",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-east-site_street_preview.png",
+      "bytes": 837089,
+      "sha256": "5776baf45732e468716da13262cf17830bbefad72e94b0e03c447a78bf4b904e",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -4827,6 +6962,104 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/test_xingfuli-final-master_side_preview.png",
+      "bytes": 814320,
+      "sha256": "53f13dd2ab4abd9d8f3a7dd42a245835b28cdf552e9edff390e61217a8c6cfdc",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-final-master_street_preview.png",
+      "bytes": 837941,
+      "sha256": "4b95a9e6ad58789f1bfa841d7182a5ca79a6d4667da5ce0ee0b7752ddb9205a6",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-identity-master_canonical_preview.png",
+      "bytes": 858026,
+      "sha256": "8bb4b0f7da95f3539737c40432b8bdc48e9febe1dd7f9f2ca80cb62453a517ac",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-identity-master_side_preview.png",
+      "bytes": 801988,
+      "sha256": "41175ce497d1b7cff4f8343e5d70f4533eef6baa4b0fc3a5e7066703aabb0c7a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-identity-master_street_preview.png",
+      "bytes": 817820,
+      "sha256": "ac5592c9627ec6a9acf70cf5f6361e838866950d3654dd6d6164a9bac4977480",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-massing-master_canonical_preview.png",
+      "bytes": 852040,
+      "sha256": "284b6ceee5801eb6cdda64709b89a48ce9d70365bef67b7cdf89183610ac9327",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-massing-master_side_preview.png",
+      "bytes": 798450,
+      "sha256": "414b7c6a60142676566a2824274df45ba2fe0f141347923c9e51cae2ed6876c4",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-massing-master_street_preview.png",
+      "bytes": 812449,
+      "sha256": "29cd8598f3d46c42923c95d5d5685c97b79175c28e927e5d73dbb065bb499694",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-materials-master_canonical_preview.png",
+      "bytes": 879919,
+      "sha256": "1a5fadd1f1f91a8631689dcdcdf8c99bdd1c8a22ba021b75325b07d2a36c3eab",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-materials-master_side_preview.png",
+      "bytes": 814501,
+      "sha256": "34b6904bd32342a7a7b1466a70fb96b859b70cec5cb6880de2a333d3298bfe63",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-materials-master_street_preview.png",
+      "bytes": 836544,
+      "sha256": "a83640005304174cd9e20722082a7c4829312fd0be2a7bfcfc8d8882417228b8",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-site-master_canonical_preview.png",
+      "bytes": 881448,
+      "sha256": "e09fa7218c11d0b5760cf76682f4817038a61eec5e4115a946368f1f9d5cf2a0",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-site-master_side_preview.png",
+      "bytes": 814325,
+      "sha256": "fcc63f3635a975fbd8e1ec838bd3e5164d8d06983b634c705378ab08fdca66a7",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-site-master_street_preview.png",
+      "bytes": 837946,
+      "sha256": "494eb534aaef3b86abcf52f9aa9443423a97d19b9f0190a4fe0f216fea1ca352",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/test_xingfuli-west_canonical_preview.png",
       "bytes": 858226,
       "sha256": "658e22f194f50603adb4768b4c9f925015cf770bfdc0394b3da433dd1f679ce8",
@@ -4841,6 +7074,97 @@
       "lifecycle": "active-or-shared"
     },
     {
+      "path": "test_artifacts/test_xingfuli-west_street_preview.png",
+      "bytes": 803363,
+      "sha256": "0a3fee7832e7e45efd62a6da25c751d2ee2216aa2df4b6e6354cbdf6fa712393",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-west-identity_canonical_preview.png",
+      "bytes": 847036,
+      "sha256": "4d1288d11be1e09d3da5132e0ed83eae83c37185d74d200c927f12dec1d20872",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-west-identity_side_preview.png",
+      "bytes": 819733,
+      "sha256": "042e6ba3e0651383eeaa2f6ea562eccc8e0ad85cdc963a211f82f8602e8f93d4",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-west-identity_street_preview.png",
+      "bytes": 798065,
+      "sha256": "3abfd3d76ec5b4d4e440293bdb4722c1a0df3f1ef374a2289ad4f019f173bd40",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-west-massing_canonical_preview.png",
+      "bytes": 840142,
+      "sha256": "61f78b094e841a5bb177bc5b7317ee658bf55988b17b62360ee65e4898fc0ee5",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-west-massing_side_preview.png",
+      "bytes": 815978,
+      "sha256": "e1cddc0eb1c966d0aa58091b7ffdd19da434b6ce8bff4cf6652b9a19cfb142ec",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-west-massing_street_preview.png",
+      "bytes": 799609,
+      "sha256": "e3ea30a44d1c79009263bc868bb6e7008d241ac44d44b45b3a74e2fa34d34f2a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-west-materials_canonical_preview.png",
+      "bytes": 858236,
+      "sha256": "8fd5c5827e417f93bcc2e934d4a7ec626df76391443b3a1ad76ab3fbd7985e4c",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-west-materials_side_preview.png",
+      "bytes": 798630,
+      "sha256": "c0ed65aef8aa89decd787bd2ab68c7375348cffd134e666f7c7ae29e9559fbed",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-west-materials_street_preview.png",
+      "bytes": 803373,
+      "sha256": "cdefd2f97c06c430ea912433a495daadc0e47cbc1b0166e2c973043bb18d1695",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-west-site_canonical_preview.png",
+      "bytes": 858231,
+      "sha256": "b978afe9674aa7e0a380fc5eb0d42d0e316f9c6221b2e9cceb10fb2571c9c854",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-west-site_side_preview.png",
+      "bytes": 798625,
+      "sha256": "28e15c960db9ae5821f8c468a02a8ad862839e4d94894b0484e42f04363f371d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xingfuli-west-site_street_preview.png",
+      "bytes": 803368,
+      "sha256": "83a79803ac9260b7bc0020c1487a4a9c4d875cd5d522e71affd0f0702f5833c1",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
       "path": "test_artifacts/test_xinhua_autumn_storybook_v2_character_desktop.png",
       "bytes": 106935,
       "sha256": "ccf1a4b5178af12972ef46c5c375bb3e50477fec91a5be5816c69106d9b0c565",
@@ -4851,6 +7175,76 @@
       "path": "test_artifacts/test_xinhua_autumn_storybook_v2_character_mobile.png",
       "bytes": 29937,
       "sha256": "ad483cd0fb0c1ffb7b8722e843979f693012a9268ea6308d7b025146468fbcfd",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xinhua_autumn_storybook_v2_comparison.png",
+      "bytes": 860888,
+      "sha256": "27b79fae5894b653034db84f7afeb3138709cf865216e458c838a5be8698572a",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xinhua_autumn_storybook_v2_film_art_desktop.png",
+      "bytes": 142328,
+      "sha256": "f34ebe472df16231cf18991cf8038a68a26333ae8e8603bc57d71fc5db0d6593",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xinhua_autumn_storybook_v2_plane_tree_street_desktop.png",
+      "bytes": 124619,
+      "sha256": "b5c2ff966bee71db87ddc9a91aaad9b98fa1ac9f1bb872941dfbc54ee5d6e30d",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xinhua_lighting_v3_film_art_desktop.png",
+      "bytes": 153574,
+      "sha256": "bcb50f6cac8608bc9c8f475fc9381e38f53ab398f6e778881b280d3ec12a5f7f",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xinhua_lighting_v3_garden179_desktop.png",
+      "bytes": 144908,
+      "sha256": "eadeb6182cd0ad4ee12b4aca600169a939530126f39ad3f226a419d0b5021d10",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xinhua_lighting_v3_garden179_mobile.png",
+      "bytes": 49360,
+      "sha256": "f7797b840fad9ac469702fff8f946546518458bba34089e5c750e59b56f9fdf1",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xinhua_lighting_v3_garden179_surface_final_mobile.png",
+      "bytes": 51867,
+      "sha256": "f39f8d82b247a175fd1c2132e02f0af555c3f5e8d8a29587a6478c5029ad58d5",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xinhua_lighting_v3_house315_desktop.png",
+      "bytes": 149531,
+      "sha256": "4f1f5a662bd48cb8ed108195f8c14a865d08491538815d707dbc2abaa64b9d87",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xinhua_lighting_v3_tree_street_desktop.png",
+      "bytes": 111822,
+      "sha256": "f94356020cb34ab7f7616856d65d7d02000d3f77ed04ede9a1325a5688d07bbb",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xinhua_lighting_v3_tree_street_surface_final.png",
+      "bytes": 118837,
+      "sha256": "54e466f79ad55e6f6fe329c4e65033387dd3726d83cb5a12d0f83df8e9892c08",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -4872,6 +7266,13 @@
       "path": "test_artifacts/test_xinhua-pocket-park_preview.png",
       "bytes": 639636,
       "sha256": "dabb0c427f4750802f2f992ce5f10d069588288e76bd74afeef119bff68a1184",
+      "category": "dynamic-evidence",
+      "lifecycle": "active-or-shared"
+    },
+    {
+      "path": "test_artifacts/test_xinhua-villas_preview.png",
+      "bytes": 685539,
+      "sha256": "afa5b49c25c6d9875513a9d98fb8b701fbaeb1406620006bfca5e615bf282a06",
       "category": "dynamic-evidence",
       "lifecycle": "active-or-shared"
     },
@@ -4952,6 +7353,46 @@
       ]
     },
     {
+      "sha256": "0008933b85cbb534fa461ddadd1b07a379753623ad1a5155929fc887701f58ad",
+      "bytesPerCopy": 409005,
+      "copies": 2,
+      "duplicateBytes": 409005,
+      "paths": [
+        "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_contact_sheet.jpg",
+        "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_contact_sheet.jpg"
+      ]
+    },
+    {
+      "sha256": "52e3bd6160e1912331674224ade8aaedc9692f54742691766bd3df8e64f2c298",
+      "bytesPerCopy": 408080,
+      "copies": 2,
+      "duplicateBytes": 408080,
+      "paths": [
+        "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_03.jpg",
+        "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_03.jpg"
+      ]
+    },
+    {
+      "sha256": "7e1b6d3072b7d5b739d107dbb7d7c5d26fae62dcf9ddc3d3fe8ff111f1977690",
+      "bytesPerCopy": 375787,
+      "copies": 2,
+      "duplicateBytes": 375787,
+      "paths": [
+        "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_11.jpg",
+        "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_11.jpg"
+      ]
+    },
+    {
+      "sha256": "07339d1c2178efaa0acfd6efac2765e80c113f523ac1497b0d781d32f8c93535",
+      "bytesPerCopy": 356761,
+      "copies": 2,
+      "duplicateBytes": 356761,
+      "paths": [
+        "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_01.jpg",
+        "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_01.jpg"
+      ]
+    },
+    {
       "sha256": "78581fafb11ff48f917f186c67370cc6b03d624e208776638f314d885c9da883",
       "bytesPerCopy": 352088,
       "copies": 2,
@@ -4959,6 +7400,47 @@
       "paths": [
         "docs/research/assets/landmark-comparison/house-315-real.jpg",
         "public/images/poi/house-315.jpg"
+      ]
+    },
+    {
+      "sha256": "93742fba79155710a41e3897de7bfd720bb80464c4eedb4a39897f8d5b0f3e38",
+      "bytesPerCopy": 343407,
+      "copies": 2,
+      "duplicateBytes": 343407,
+      "paths": [
+        "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_05.jpg",
+        "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_05.jpg"
+      ]
+    },
+    {
+      "sha256": "bbef94ff1e962a96a340ad4b6e37c01e418b7bc93e3df71e0652afe44f356900",
+      "bytesPerCopy": 340770,
+      "copies": 2,
+      "duplicateBytes": 340770,
+      "paths": [
+        "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_02.jpg",
+        "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_02.jpg"
+      ]
+    },
+    {
+      "sha256": "cac4aa5e9de39194dc6d89d3e1d6e722f0be554ff8c24b67d3eb26ab669602ab",
+      "bytesPerCopy": 307140,
+      "copies": 2,
+      "duplicateBytes": 307140,
+      "paths": [
+        "docs/research/assets/poi-references/villa-le-bec/xhs-2024/test_xhs_villa_le_bec_04.jpg",
+        "docs/research/assets/xhs-villa-le-bec-20260725/test_xhs_villa_le_bec_04.jpg"
+      ]
+    },
+    {
+      "sha256": "f04cc620fc644d97559fa45323e18edff7f0bb3e4d809dcaf6a019bb4c9002a9",
+      "bytesPerCopy": 141708,
+      "copies": 3,
+      "duplicateBytes": 283416,
+      "paths": [
+        "docs/research/assets/landmark-comparison/film-art-center-real.jpg",
+        "docs/research/assets/poi-references/film-art-center/film-art-center-prnewswire-entrance-detail-2024.jpg",
+        "public/images/poi/film-art-center.jpg"
       ]
     },
     {
@@ -5022,6 +7504,16 @@
       ]
     },
     {
+      "sha256": "8faec82135abd02c37aab10df79fe496f097f6ecaee962dc4d098a8e6d2ccabb",
+      "bytesPerCopy": 160818,
+      "copies": 2,
+      "duplicateBytes": 160818,
+      "paths": [
+        "docs/research/assets/poi-references/film-art-center/film-art-center-government-front-canonical-2024.jpg",
+        "docs/research/assets/poi-references/shanghai-cinema/shanghai-cinema-government-west-street-2024.jpg"
+      ]
+    },
+    {
       "sha256": "9e4f1b86a55fe74e480467cc44b1b23bc0903c4ff10b5752f8e3b9c0e33e24d8",
       "bytesPerCopy": 157947,
       "copies": 2,
@@ -5052,16 +7544,6 @@
       ]
     },
     {
-      "sha256": "f04cc620fc644d97559fa45323e18edff7f0bb3e4d809dcaf6a019bb4c9002a9",
-      "bytesPerCopy": 141708,
-      "copies": 2,
-      "duplicateBytes": 141708,
-      "paths": [
-        "docs/research/assets/poi-references/film-art-center/film-art-center-prnewswire-entrance-detail-2024.jpg",
-        "public/images/poi/film-art-center.jpg"
-      ]
-    },
-    {
       "sha256": "c76f59a80f8d7e5edc642a55a1ff9d869607093b266deaa7396f989c7d3e9022",
       "bytesPerCopy": 85606,
       "copies": 2,
@@ -5069,6 +7551,16 @@
       "paths": [
         "docs/research/assets/landmark-comparison/xinhua-villas-211-real.jpg",
         "public/images/poi/xinhua-villas-211.jpg"
+      ]
+    },
+    {
+      "sha256": "295cf8c4acc246cf8766eb021a5cecfb4047136669f08660c4655d5b3bd6129a",
+      "bytesPerCopy": 63838,
+      "copies": 2,
+      "duplicateBytes": 63838,
+      "paths": [
+        "docs/research/assets/landmark-comparison/shanghai-cinema-real.jpg",
+        "public/images/poi/shanghai-cinema.jpg"
       ]
     }
   ],

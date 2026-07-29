@@ -84,7 +84,7 @@ LFS 资产仓库。
 武康大楼可编辑源已作为复制式试点进入私有独立 LFS 仓库：
 
 - repository：`denki-san/wander-xinhua-assets`
-- revision：`f1fd9c891f5576ce48006fb35e49d1bde5121bf7`
+- revision：`877d8888bc13e21b46193318f18a7c439938e764`
 - path：`assets/buildings/wukang-mansion/source/wukang-mansion.blend`
 - source SHA-256 / LFS OID：
   `517c17b203c2536609818ba8536a4e6ea529fdbdce8a47175c3e9bdf669aab94`

@@ -13,14 +13,14 @@
   },
   "codeRepository": {
     "repository": "denki-san/wander-xinhua",
-    "baselineCommit": "d5f88ed3ff1a743f8b9ea3334bc28dfd91373d0f",
+    "baselineCommit": "b0b869e82cdf1664bd0d76f772530cfb925b7319",
     "branch": "codex/issue-1-lfs-pilot-phase2",
     "assetLock": "config/asset-lock.json"
   },
   "assetRepository": {
     "repository": "denki-san/wander-xinhua-assets",
     "visibility": "private",
-    "revision": "f1fd9c891f5576ce48006fb35e49d1bde5121bf7",
+    "revision": "877d8888bc13e21b46193318f18a7c439938e764",
     "path": "assets/buildings/wukang-mansion/source/wukang-mansion.blend",
     "lfsOid": "sha256:517c17b203c2536609818ba8536a4e6ea529fdbdce8a47175c3e9bdf669aab94",
     "sha256": "517c17b203c2536609818ba8536a4e6ea529fdbdce8a47175c3e9bdf669aab94",
@@ -66,7 +66,7 @@
     "snapshot": "snapshots/2026-07-26-ad37273",
     "subjectPath": "repository/research/references/wukang-mansion",
     "snapshotChecksumPassed": true,
-    "checkedAt": "2026-07-29T21:20:21+08:00"
+    "checkedAt": "2026-07-29T21:53:44+08:00"
   },
   "excluded": [
     "research/source/wukang-mansion.blend1",
@@ -76,14 +76,14 @@
   ],
   "acceptance": {
     "remoteRepositoryPrivate": true,
-    "remoteMain": "4fe457644ea7f04764b5a1faf3c83fc481957f5e",
+    "remoteMain": "1bfdb6e52bb136273ae0dd5158b926487e1e7683",
     "remoteMainMatchesRevision": false,
     "lockedRevisionFetchable": true,
     "mainDifferenceFromLockedRevision": "README-only revision-checkout instructions",
     "lfsPointerMatchesSourceSha256": true,
     "cleanClone": {
       "status": "passed",
-      "revision": "f1fd9c891f5576ce48006fb35e49d1bde5121bf7",
+      "revision": "877d8888bc13e21b46193318f18a7c439938e764",
       "skipSmudge": {
         "workingFileBytes": 132,
         "gitDirectoryKiB": 136,
@@ -91,8 +91,8 @@
       },
       "singleAssetPull": {
         "workingFileBytes": 5226831,
-        "gitDirectoryKiB": 5768,
-        "lfsDirectoryKiB": 5632,
+        "gitDirectoryKiB": 5612,
+        "lfsDirectoryKiB": 5476,
         "sha256Passed": true,
         "lfsFsckPassed": true,
         "blenderOpen": {
@@ -109,8 +109,8 @@
     "codeOnlySparseCheckout": {
       "status": "passed",
       "validationMode": "local-shared-clone-path-shape-only",
-      "workingFiles": 659,
-      "checkoutKiB": 38944,
+      "workingFiles": 627,
+      "checkoutKiB": 41992,
       "includedProbe": "app/scene/xinhua-world.tsx",
       "includedGeneratorProbe": "research/source/create_wukang_mansion.py",
       "excludedProbes": [
@@ -135,8 +135,8 @@
   "validation": {
     "binaryPolicy": {
       "status": "passed",
-      "controlledFiles": 690,
-      "controlledMiB": 401.7
+      "controlledFiles": 1033,
+      "controlledMiB": 577.5
     },
     "targetedTests": {
       "status": "passed",

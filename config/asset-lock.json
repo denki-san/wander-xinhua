@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "project": "wander-xinhua",
-  "sourceGitSha": "d5f88ed3ff1a743f8b9ea3334bc28dfd91373d0f",
+  "sourceGitSha": "b0b869e82cdf1664bd0d76f772530cfb925b7319",
   "generatedAt": "2026-07-29T21:02:14+08:00",
   "assets": [
     {
@@ -11,7 +11,7 @@
       "source": {
         "storage": "git-lfs-asset-repository",
         "repository": "denki-san/wander-xinhua-assets",
-        "revision": "f1fd9c891f5576ce48006fb35e49d1bde5121bf7",
+        "revision": "877d8888bc13e21b46193318f18a7c439938e764",
         "path": "assets/buildings/wukang-mansion/source/wukang-mansion.blend",
         "sha256": "517c17b203c2536609818ba8536a4e6ea529fdbdce8a47175c3e9bdf669aab94",
         "bytes": 5226831

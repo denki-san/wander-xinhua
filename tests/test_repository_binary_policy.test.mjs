@@ -536,7 +536,7 @@ test("武康大楼 LFS 试点锁定源 revision 且保持生产 GLB 不变", asy
   assert.equal(asset.source.repository, "denki-san/wander-xinhua-assets");
   assert.equal(
     asset.source.revision,
-    "f1fd9c891f5576ce48006fb35e49d1bde5121bf7",
+    "877d8888bc13e21b46193318f18a7c439938e764",
   );
 
   const legacySource = await readFile(

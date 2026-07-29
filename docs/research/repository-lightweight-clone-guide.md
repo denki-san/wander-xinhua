@@ -107,7 +107,7 @@ GIT_LFS_SKIP_SMUDGE=1 git clone \
 
 cd wander-xinhua-assets
 GIT_LFS_SKIP_SMUDGE=1 git checkout --detach \
-  f1fd9c891f5576ce48006fb35e49d1bde5121bf7
+  877d8888bc13e21b46193318f18a7c439938e764
 git lfs ls-files
 ```
 
@@ -129,7 +129,7 @@ git lfs fsck
 锁定合同：
 
 - asset repository revision：
-  `f1fd9c891f5576ce48006fb35e49d1bde5121bf7`
+  `877d8888bc13e21b46193318f18a7c439938e764`
 - LFS OID / source SHA-256：
   `517c17b203c2536609818ba8536a4e6ea529fdbdce8a47175c3e9bdf669aab94`
 - source bytes：`5,226,831`
@@ -143,14 +143,14 @@ git lfs fsck
 - `shasum -a 256 -c` 与 `git lfs fsck` 均通过；
 - Blender `5.2.0 LTS` headless 只读打开成功，读取 525 个 mesh，退出后源 SHA 不变且
   没有生成 `.blend1`；
-- code-only sparse checkout 保留 659 个工作树文件，抽样确认应用代码和
+- code-only sparse checkout 保留 627 个工作树文件，抽样确认应用代码和
   `research/source/create_wukang_mansion.py` 存在，而武康大楼 `.blend`、生产 GLB
   和参考图均未检出。
 - runtime-ready sparse checkout 确认生成器和生产 GLB 存在、`.blend` 未检出，
   随后 `npm ci`、静态构建和 Sites 构建全部通过。
 
 两种 sparse checkout 都使用本地 shared clone 验证 path 形态，未测量网络传输量；
-不能把 `38,944 KiB` 的本地 checkout 占用当作 GitHub fresh clone 体积。
+不能把 `41,992 KiB` 的本地 checkout 占用当作 GitHub fresh clone 体积。
 
 ## 限制与后续迁移门槛
 
