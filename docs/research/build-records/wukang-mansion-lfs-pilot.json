@@ -144,10 +144,12 @@
       "failed": 0
     },
     "fullTests": {
-      "status": "blocked-by-pre-existing-unpublished-git-history",
+      "status": "blocked-by-pre-existing-non-reproducible-git-fixtures",
       "tests": 451,
       "passed": 442,
       "failed": 9,
+      "missingPathAtExistingCommit": 8,
+      "unavailableRevision": 1,
       "issueIntroducedByPilot": false
     },
     "lint": {

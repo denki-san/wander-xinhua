@@ -1,6 +1,6 @@
 # Errors
 
-## [ERR-20260729-004] clean_clone_missing_historical_git_objects
+## [ERR-20260729-004] clean_clone_non_reproducible_historical_fixtures
 
 **Logged**: 2026-07-29T21:55:37+08:00
 **Priority**: high
@@ -8,8 +8,8 @@
 **Area**: tests
 
 ### Summary
-GitHub 干净克隆的全量测试引用了远端任何 ref 都不可达的本机历史对象，导致 9 项
-`git show` 验证失败。
+GitHub 干净克隆的全量测试包含 9 项既有、远端不可复现的历史 fixture 引用：
+8 项对应的 commit 存在但目标 path 不存在，另 1 项引用的 revision 不可用。
 
 ### Error
 ```text
@@ -26,9 +26,9 @@ fatal: invalid object name 'ea77bc3'
 - 同一测试在包含额外本机对象的旧工作区通过，不能作为远端可复现证据。
 
 ### Suggested Fix
-逐项把历史 `git show <sha>:<path>` 输入迁移为远端可达 commit，或把所需不可变
-快照作为受控小型 fixture/外置证据索引保存；修复前不得宣称 GitHub 干净克隆全量
-测试通过。
+逐项核对历史 `git show <sha>:<path>` 的正确 commit-path 配对；找不到远端可复现
+输入时，把所需不可变快照作为受控小型 fixture/外置证据索引保存。修复前不得宣称
+GitHub 干净克隆全量测试通过。
 
 ### Metadata
 - Reproducible: yes
