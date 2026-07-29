@@ -87,7 +87,7 @@
     ],
     "qaTier": "legacy-hero",
     "rollbackProcedure": [
-      "restore production model, cacheVersion, localBounds and localObstacles from this rollback block",
+      "restore production model, cacheVersion, localBounds, localObstacles and collisionMargin from this rollback block",
       "restore Hudec hero, identity and massing entries in ACCEPTED_DERIVED_BUILDING_TIERS",
       "run focused Hudec tests, npm test, npm run lint and real ?start=hudec acceptance"
     ]

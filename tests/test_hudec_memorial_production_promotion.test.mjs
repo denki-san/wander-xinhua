@@ -128,6 +128,10 @@ test("Hudec 正式碰撞逐项来自 DSL collision，旧 V2 Hero 完整保留", 
   assert.equal(promotion.rollback.status, "preserved-not-default");
   assert.equal(promotion.rollback.qaTier, "legacy-hero");
   assert.equal(promotion.rollback.collisionMargin, 0.2);
+  assert.match(
+    promotion.rollback.rollbackProcedure[0],
+    /collisionMargin/,
+  );
 });
 
 test("确定性侧向绕行使用显式 QA 起点，普通 start 参数不受影响", () => {
@@ -195,6 +199,36 @@ test("production runtime record 的资源、回滚碰撞与截图指纹可复核
     cameraObstacles: "legacy-five-obstacles",
     collisionMargin: 0.2,
   });
+  assert.equal(record.postReviewRollbackRecheck.status, "pass");
+  assert.equal(
+    record.postReviewRollbackRecheck.requestedTier,
+    "legacy-hero",
+  );
+  assert.equal(
+    record.postReviewRollbackRecheck.loadedTier,
+    "legacy-hero",
+  );
+  assert.equal(
+    record.postReviewRollbackRecheck.source,
+    "/models/requested-pois/hudec-memorial-v2-hero.glb"
+      + "?v=20260726-hero-598b2ba19e24",
+  );
+  assert.deepEqual(record.postReviewRollbackRecheck.collision, {
+    characterObstacles: "legacy-five-obstacles",
+    cameraObstacles: "legacy-five-obstacles",
+    collisionMargin: 0.2,
+    contractTest: "pass",
+  });
+  assert.equal(record.postReviewRollbackRecheck.consoleErrors, 0);
+  assert.equal(record.postReviewRollbackRecheck.pageErrors, 0);
+  assert.equal(
+    record.postReviewRollbackRecheck.observedFrameSample.includedInMatchedBaseline,
+    false,
+  );
+  assert.match(
+    record.postReviewRollbackRecheck.observedFrameSample.exclusionReason,
+    /负载|不匹配/,
+  );
   assert.equal(record.publicationBoundary.push, false);
   assert.equal(record.publicationBoundary.merge, false);
   assert.equal(record.publicationBoundary.deploy, false);
