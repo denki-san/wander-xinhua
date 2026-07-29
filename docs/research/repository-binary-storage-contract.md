@@ -2,8 +2,8 @@
 
 ## 目的
 
-本合同对应 GitHub Issue #1 的第一阶段：先停止主仓库继续吸收动态证据和未锁定的
-大型二进制，再开展独立 LFS 资产仓库与 R2/CDN 试点。
+本合同源自 GitHub Issue #1 第一阶段：先停止主仓库继续吸收动态证据和未锁定的
+大型二进制；第二阶段继续记录独立 LFS 资产仓库试点。
 
 本阶段不删除既有文件、不迁移生产 runtime、不重写 Git 历史。
 
@@ -23,6 +23,8 @@
 
 - `config/repository-binary-policy.json`
 - `config/repository-binary-baseline.json`
+- `config/asset-lock.schema.json`
+- `config/asset-lock.json`
 
 并检查：
 
@@ -30,14 +32,17 @@
 2. 新增 runtime GLB 是否有显式 path/SHA/bytes/reason 审批；
 3. 新增普通二进制是否超过分类门槛；
 4. 既有 grandfather 文件是否超过冻结体积；
-5. 删除或缩小既有文件继续允许。
+5. 删除或缩小既有文件继续允许；
+6. asset lock 实例是否完整通过 Draft 2020-12 schema，包括 Git LFS repository /
+   revision 条件、枚举、附加字段、SHA、bytes 和 bounds。
 
 `npm test` 在构建前运行该门禁，因此 CI 不需要挂载本地 U 盘。
 `.github/workflows/repository-binary-policy.yml` 还会在 pull request 和 `main`
 push 上以只读权限独立运行门禁；它会获取完整 Git 历史，并通过事件提供的 base/before
 SHA 对照可信基线与 policy。当前分支只能提供精确 `approvedAdditions`，不能通过放宽
-分类、阈值或审批类别绕过基分支规则。CI 还会直接运行门禁专项负例测试；它不安装
-依赖、不构建、不部署。
+分类、阈值或审批类别绕过基分支规则。CI 还会直接运行门禁专项负例测试；它只通过
+`npm ci --ignore-scripts` 安装 package lock 固定依赖，不构建、不部署，也不下载
+LFS 内容。
 
 ## 更新原则
 
@@ -72,7 +77,26 @@ LFS 资产仓库。
 - triangles、bounds 与 fallback；
 - generator、build record 和 evidence snapshot lineage。
 
-本阶段只冻结 schema，不宣称全部 18 栋建筑已经迁入统一 asset lock。
+当前 asset lock 只登记武康大楼单建筑试点，不宣称全部 18 栋建筑已经迁入统一合同。
+
+## 第二阶段单建筑试点
+
+武康大楼可编辑源已作为复制式试点进入私有独立 LFS 仓库：
+
+- repository：`denki-san/wander-xinhua-assets`
+- revision：`f1fd9c891f5576ce48006fb35e49d1bde5121bf7`
+- path：`assets/buildings/wukang-mansion/source/wukang-mansion.blend`
+- source SHA-256 / LFS OID：
+  `517c17b203c2536609818ba8536a4e6ea529fdbdce8a47175c3e9bdf669aab94`
+- bytes：`5,226,831`
+
+主仓库通过 `config/asset-lock.json` 锁定上述来源。当前仍保留原
+`research/source/wukang-mansion.blend`，生产
+`public/models/building-evidence-lab/wukang-mansion.glb` 也保持原 path、SHA 和 bytes；
+只有在干净克隆、revision 回滚和生成器复现全部通过后，才讨论删除主仓库旧源。
+
+三种检出模式和限制见
+[`repository-lightweight-clone-guide.md`](repository-lightweight-clone-guide.md)。
 
 ## 历史与删除边界
 

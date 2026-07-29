@@ -28,6 +28,9 @@ jobs:
           node-version: 22.13.0
           package-manager-cache: false
 
+      - name: Install locked policy dependencies
+        run: npm ci --ignore-scripts
+
       - name: Check repository binary policy
         run: npm run check:binary-policy
 
