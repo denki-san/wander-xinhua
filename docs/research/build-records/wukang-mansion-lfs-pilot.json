@@ -1,0 +1,158 @@
+{
+  "recordVersion": 1,
+  "assetId": "wukang-mansion",
+  "version": "pilot-v1",
+  "status": "passed",
+  "scope": {
+    "phase": "issue-1-phase-2",
+    "sourceCopiedToIndependentLfsRepository": true,
+    "legacySourceRemoved": false,
+    "productionGlbModified": false,
+    "runtimeDeliveryModified": false,
+    "gitHistoryRewritten": false
+  },
+  "codeRepository": {
+    "repository": "denki-san/wander-xinhua",
+    "baselineCommit": "d5f88ed3ff1a743f8b9ea3334bc28dfd91373d0f",
+    "branch": "codex/issue-1-lfs-pilot-phase2",
+    "assetLock": "config/asset-lock.json"
+  },
+  "assetRepository": {
+    "repository": "denki-san/wander-xinhua-assets",
+    "visibility": "private",
+    "revision": "f1fd9c891f5576ce48006fb35e49d1bde5121bf7",
+    "path": "assets/buildings/wukang-mansion/source/wukang-mansion.blend",
+    "lfsOid": "sha256:517c17b203c2536609818ba8536a4e6ea529fdbdce8a47175c3e9bdf669aab94",
+    "sha256": "517c17b203c2536609818ba8536a4e6ea529fdbdce8a47175c3e9bdf669aab94",
+    "bytes": 5226831
+  },
+  "legacyEditableSource": {
+    "path": "research/source/wukang-mansion.blend",
+    "retained": true,
+    "sha256": "517c17b203c2536609818ba8536a4e6ea529fdbdce8a47175c3e9bdf669aab94",
+    "bytes": 5226831
+  },
+  "generator": {
+    "path": "research/source/create_wukang_mansion.py",
+    "sha256": "3c229482e3fdf3593596ce313d1e8db9026bdcfa8418f3f761c7cd62c0e68046",
+    "storage": "main-repository"
+  },
+  "runtime": {
+    "path": "public/models/building-evidence-lab/wukang-mansion.glb",
+    "delivery": "application",
+    "sha256": "5cb5f1dc7d3bfd5279db931d3636c58668108a4aa42dc4cf62ddf08939eed325",
+    "bytes": 3392404,
+    "triangles": 49224,
+    "nodes": 7,
+    "meshes": 7,
+    "materials": 7,
+    "images": 0,
+    "textures": 0,
+    "bounds": {
+      "min": [
+        -22.1899995803833,
+        0,
+        -4.380000114440918
+      ],
+      "max": [
+        17.899999618530273,
+        18.825001120567322,
+        4.889999985694885
+      ]
+    }
+  },
+  "evidence": {
+    "storage": "external-evidence",
+    "snapshot": "snapshots/2026-07-26-ad37273",
+    "subjectPath": "repository/research/references/wukang-mansion",
+    "snapshotChecksumPassed": true,
+    "checkedAt": "2026-07-29T21:20:21+08:00"
+  },
+  "excluded": [
+    "research/source/wukang-mansion.blend1",
+    "research/references/wukang-mansion/**",
+    "research/previews/test_wukang-mansion_preview.png",
+    "public/models/building-evidence-lab/wukang-mansion.glb"
+  ],
+  "acceptance": {
+    "remoteRepositoryPrivate": true,
+    "remoteMain": "4fe457644ea7f04764b5a1faf3c83fc481957f5e",
+    "remoteMainMatchesRevision": false,
+    "lockedRevisionFetchable": true,
+    "mainDifferenceFromLockedRevision": "README-only revision-checkout instructions",
+    "lfsPointerMatchesSourceSha256": true,
+    "cleanClone": {
+      "status": "passed",
+      "revision": "f1fd9c891f5576ce48006fb35e49d1bde5121bf7",
+      "skipSmudge": {
+        "workingFileBytes": 132,
+        "gitDirectoryKiB": 136,
+        "lfsDirectoryKiB": 0
+      },
+      "singleAssetPull": {
+        "workingFileBytes": 5226831,
+        "gitDirectoryKiB": 5768,
+        "lfsDirectoryKiB": 5632,
+        "sha256Passed": true,
+        "lfsFsckPassed": true,
+        "blenderOpen": {
+          "status": "passed",
+          "blenderVersion": "5.2.0 LTS",
+          "objects": 525,
+          "meshes": 525,
+          "materials": 8,
+          "sourceSha256StillPassed": true,
+          "blend1Created": false
+        }
+      }
+    },
+    "codeOnlySparseCheckout": {
+      "status": "passed",
+      "validationMode": "local-shared-clone-path-shape-only",
+      "workingFiles": 659,
+      "checkoutKiB": 38944,
+      "includedProbe": "app/scene/xinhua-world.tsx",
+      "includedGeneratorProbe": "research/source/create_wukang_mansion.py",
+      "excludedProbes": [
+        "research/source/wukang-mansion.blend",
+        "public/models/building-evidence-lab/wukang-mansion.glb",
+        "research/references/wukang-mansion/aerial-canonical.jpg"
+      ],
+      "networkTransferMeasured": false
+    },
+    "runtimeReadySparseCheckout": {
+      "status": "passed",
+      "validationMode": "local-shared-clone-build",
+      "editableSourcePresent": false,
+      "generatorPresent": true,
+      "productionGlbPresent": true,
+      "npmCiPassed": true,
+      "staticBuildPassed": true,
+      "sitesBuildPassed": true,
+      "networkTransferMeasured": false
+    }
+  },
+  "validation": {
+    "binaryPolicy": {
+      "status": "passed",
+      "controlledFiles": 690,
+      "controlledMiB": 401.7
+    },
+    "targetedTests": {
+      "status": "passed",
+      "tests": 13,
+      "failed": 0
+    },
+    "fullTests": {
+      "status": "passed",
+      "tests": 462,
+      "failed": 0
+    },
+    "lint": {
+      "status": "passed-with-existing-warning",
+      "errors": 0,
+      "warnings": 1,
+      "warningPath": "tests/test_house_315_map_position_candidate.test.mjs"
+    }
+  }
+}

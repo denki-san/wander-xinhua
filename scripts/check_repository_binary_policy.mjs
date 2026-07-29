@@ -8,12 +8,22 @@ import {
 } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import Ajv2020 from "ajv/dist/2020.js";
+import addFormats from "ajv-formats";
 
 const SCRIPT_PATH = fileURLToPath(import.meta.url);
 const PROJECT_ROOT = path.resolve(path.dirname(SCRIPT_PATH), "..");
 const DEFAULT_POLICY_PATH = path.join(
   PROJECT_ROOT,
   "config/repository-binary-policy.json",
+);
+const DEFAULT_ASSET_LOCK_SCHEMA_PATH = path.join(
+  PROJECT_ROOT,
+  "config/asset-lock.schema.json",
+);
+const DEFAULT_ASSET_LOCK_PATH = path.join(
+  PROJECT_ROOT,
+  "config/asset-lock.json",
 );
 
 function git(root, args, options = {}) {
@@ -552,8 +562,37 @@ export function validateAssetLockSchemaContract(schema) {
   for (const field of ["storage", "path", "sha256", "bytes"]) {
     if (!sourceRequired.has(field)) violations.push(`source.${field}`);
   }
+  const lfsConditional = (schema.$defs?.source?.allOf ?? []).find(
+    (entry) => (
+      entry.if?.properties?.storage?.const === "git-lfs-asset-repository"
+    ),
+  );
+  const lfsRequired = new Set(lfsConditional?.then?.required ?? []);
+  for (const field of ["repository", "revision"]) {
+    if (!lfsRequired.has(field)) violations.push(`source.lfs.${field}`);
+  }
   return {
     passed: violations.length === 0,
+    violations,
+  };
+}
+
+export function validateAssetLockDocument(lock, schema) {
+  const ajv = new Ajv2020({
+    allErrors: true,
+    strict: true,
+    strictRequired: false,
+  });
+  addFormats(ajv);
+  const validate = ajv.compile(schema);
+  const passed = validate(lock);
+  const violations = (validate.errors ?? []).map((error) => ({
+    code: `asset-lock-schema-${error.keyword}`,
+    path: `root${error.instancePath}`,
+    message: error.message ?? "不符合 asset lock schema",
+  }));
+  return {
+    passed,
     violations,
   };
 }
@@ -614,6 +653,39 @@ async function runCli() {
     policy: workingPolicy,
     policyPath,
   } = await loadInputs();
+  if (existsSync(DEFAULT_ASSET_LOCK_PATH)) {
+    const assetLockSchema = JSON.parse(
+      await readFile(DEFAULT_ASSET_LOCK_SCHEMA_PATH, "utf8"),
+    );
+    const schemaValidation = validateAssetLockSchemaContract(assetLockSchema);
+    if (!schemaValidation.passed) {
+      printViolations(
+        "asset lock schema 合同无效：",
+        schemaValidation.violations.map((targetPath) => ({
+          code: "asset-lock-schema",
+          path: targetPath,
+          message: "缺少必要 schema 约束",
+        })),
+      );
+      process.exitCode = 1;
+      return;
+    }
+    const assetLock = JSON.parse(
+      await readFile(DEFAULT_ASSET_LOCK_PATH, "utf8"),
+    );
+    const assetLockValidation = validateAssetLockDocument(
+      assetLock,
+      assetLockSchema,
+    );
+    if (!assetLockValidation.passed) {
+      printViolations(
+        "asset lock 实例无效：",
+        assetLockValidation.violations,
+      );
+      process.exitCode = 1;
+      return;
+    }
+  }
   const trustedRef = process.env.BINARY_POLICY_BASE_REF?.trim();
   const trustedGitSha = !writeBaseline && trustedRef
     ? resolveCommit(PROJECT_ROOT, trustedRef)

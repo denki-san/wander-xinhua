@@ -1,5 +1,40 @@
 # Errors
 
+## [ERR-20260729-003] ajv_strict_required_conditional_subschema
+
+**Logged**: 2026-07-29T21:31:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Ajv 的 `strictRequired` 把合法的跨父级 properties 条件 required 视为严格模式错误。
+
+### Error
+```text
+strict mode: required property "repository" is not defined at
+"asset-lock.schema.json#/allOf/0/then" (strictRequired)
+```
+
+### Context
+- Draft 2020-12 schema 在 `source.properties` 定义 `repository` 和 `revision`。
+- `source.allOf.then.required` 只在 Git LFS storage 下条件要求这两个字段。
+- 失败发生在 schema 编译阶段，尚未校验真实 asset lock。
+
+### Suggested Fix
+保留 Ajv 的完整 schema 校验与其他 strict 检查，只关闭会误报跨 subschema
+required 的 `strictRequired` lint。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `config/asset-lock.schema.json`, `scripts/check_repository_binary_policy.mjs`
+
+### Resolution
+- **Resolved**: 2026-07-29T21:31:00+08:00
+- **Notes**: 配置 `strictRequired: false` 后，合法 lock 与 storage/delivery/additionalProperties/bounds 负例均进入真实 schema 校验。
+
+---
+
 ## [ERR-20260727-A31] git_index_lock_sandbox_permission
 
 **Logged**: 2026-07-27T11:48:00+08:00
@@ -29,6 +64,73 @@ fatal: Unable to create '/Users/lei/App_developing/wander-xinhua/.git/index.lock
 ### Resolution
 - **Resolved**: 2026-07-27T11:49:00+08:00
 - **Notes**: 确认没有遗留锁文件后，以授权方式完成精确暂存和提交。
+
+---
+
+## [ERR-20260729-002] lightweight_clone_guide_missing_runtime_path
+
+**Logged**: 2026-07-29T21:02:14+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: docs
+
+### Summary
+轻量克隆说明只写了“生产 GLB 保持不变”，没有给出武康大楼 runtime 的完整仓库路径。
+
+### Error
+```text
+AssertionError: input did not match
+/public\/models\/building-evidence-lab\/wukang-mansion\.glb/
+```
+
+### Context
+- asset lock 与 build record 已包含精确 runtime path、SHA 和 bytes。
+- 缺口只出现在面向开发者的轻量克隆说明。
+
+### Suggested Fix
+存储边界说明必须同时写明资产角色与精确 path，避免“保持不变”无法定位到具体二进制。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `docs/research/repository-lightweight-clone-guide.md`
+
+### Resolution
+- **Resolved**: 2026-07-29T21:02:14+08:00
+- **Notes**: 已补充武康大楼生产 GLB 完整路径并重跑专项测试。
+
+---
+
+## [ERR-20260729-001] checksum_manifest_root_mismatch
+
+**Logged**: 2026-07-29T21:02:14+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+独立资产仓库的 `SHA256SUMS` 首版记录了相对清单目录的路径，但 README 从仓库根目录执行校验，导致文件无法打开。
+
+### Error
+```text
+source/wukang-mansion.blend: FAILED open or read
+shasum: source/wukang-mansion.blend: No such file or directory
+```
+
+### Context
+- 校验命令从资产仓库根目录运行。
+- 二进制源文件本身已正确复制，LFS attribute 也已生效。
+- 失败只来自清单路径基准不一致。
+
+### Suggested Fix
+清单统一记录相对仓库根目录的完整路径，并让 README、CI 和人工验收使用同一工作目录。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `assets/buildings/wukang-mansion/SHA256SUMS`
+
+### Resolution
+- **Resolved**: 2026-07-29T21:02:14+08:00
+- **Notes**: 已将清单路径改为 `assets/buildings/wukang-mansion/source/wukang-mansion.blend` 并重新校验。
 
 ---
 

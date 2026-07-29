@@ -48,6 +48,8 @@
       "properties": {
         "min": {
           "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
           "prefixItems": [
             {
               "type": "number"
@@ -63,6 +65,8 @@
         },
         "max": {
           "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
           "prefixItems": [
             {
               "type": "number"
@@ -99,6 +103,10 @@
           "type": "string",
           "minLength": 1
         },
+        "revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
         "path": {
           "type": "string",
           "minLength": 1
@@ -110,7 +118,27 @@
           "type": "integer",
           "minimum": 0
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "storage": {
+                "const": "git-lfs-asset-repository"
+              }
+            },
+            "required": [
+              "storage"
+            ]
+          },
+          "then": {
+            "required": [
+              "repository",
+              "revision"
+            ]
+          }
+        }
+      ]
     },
     "runtime": {
       "type": "object",

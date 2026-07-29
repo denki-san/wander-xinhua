@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import {
@@ -8,6 +9,7 @@ import {
   evaluateBaselineUpdate,
   evaluateBinaryPolicy,
   validateBaselineSnapshot,
+  validateAssetLockDocument,
   validateAssetLockSchemaContract,
 } from "../scripts/check_repository_binary_policy.mjs";
 
@@ -21,6 +23,18 @@ const policy = JSON.parse(
 const baseline = JSON.parse(
   await readFile(
     new URL("config/repository-binary-baseline.json", root),
+    "utf8",
+  ),
+);
+const assetLockSchema = JSON.parse(
+  await readFile(
+    new URL("config/asset-lock.schema.json", root),
+    "utf8",
+  ),
+);
+const assetLock = JSON.parse(
+  await readFile(
+    new URL("config/asset-lock.json", root),
     "utf8",
   ),
 );
@@ -402,39 +416,208 @@ test("GitHub CI 使用基分支 SHA，而不是信任 PR 自带基线", async ()
     /BINARY_POLICY_BASE_REF: \$\{\{ github\.event\.pull_request\.base\.sha \|\| github\.event\.before \}\}/,
   );
   assert.match(workflow, /fetch-depth: 0/);
-  assert.match(workflow, /npm run check:binary-policy/);
-  assert.match(
-    workflow,
-    /node --test tests\/test_repository_binary_policy\.test\.mjs/,
+  const installIndex = workflow.indexOf("run: npm ci --ignore-scripts");
+  const policyIndex = workflow.indexOf("run: npm run check:binary-policy");
+  const testIndex = workflow.indexOf(
+    "run: node --test tests/test_repository_binary_policy.test.mjs",
   );
+  assert.ok(installIndex >= 0, "CI 必须安装 package lock 固定的门禁依赖");
+  assert.ok(policyIndex > installIndex, "门禁必须在安装依赖后执行");
+  assert.ok(testIndex > policyIndex, "专项负例测试必须在门禁后执行");
 });
 
 test("asset lock schema 强制 source/runtime SHA、bytes 与 lineage", async () => {
-  const schema = JSON.parse(
-    await readFile(
-      new URL("config/asset-lock.schema.json", root),
-      "utf8",
-    ),
-  );
-  const result = validateAssetLockSchemaContract(schema);
+  const result = validateAssetLockSchemaContract(assetLockSchema);
   assert.equal(result.passed, true, result.violations.join(", "));
-  assert.equal(schema.properties.assets.minItems, 1);
-  assert.equal(schema.$defs.asset.properties.runtime.minItems, 1);
+  assert.equal(assetLockSchema.properties.assets.minItems, 1);
+  assert.equal(assetLockSchema.$defs.asset.properties.runtime.minItems, 1);
   assert.equal(
-    schema.$defs.asset.properties.lineage.properties.evidenceSnapshots.minItems,
+    assetLockSchema.$defs.asset.properties.lineage.properties.evidenceSnapshots.minItems,
     1,
   );
-  assert.equal(schema.$defs.sha256.pattern, "^[0-9a-f]{64}$");
+  assert.equal(assetLockSchema.$defs.bounds.properties.min.minItems, 3);
+  assert.equal(assetLockSchema.$defs.bounds.properties.min.maxItems, 3);
+  assert.equal(assetLockSchema.$defs.bounds.properties.max.minItems, 3);
+  assert.equal(assetLockSchema.$defs.bounds.properties.max.maxItems, 3);
+  assert.equal(assetLockSchema.$defs.sha256.pattern, "^[0-9a-f]{64}$");
   assert.deepEqual(
-    schema.$defs.runtime.properties.delivery.enum,
+    assetLockSchema.$defs.runtime.properties.delivery.enum,
     ["application", "cdn"],
   );
   assert.deepEqual(
-    schema.$defs.source.properties.storage.enum,
+    assetLockSchema.$defs.source.properties.storage.enum,
     [
       "main-repository",
       "git-lfs-asset-repository",
       "external-evidence",
     ],
+  );
+  assert.equal(
+    assetLockSchema.$defs.source.properties.revision.pattern,
+    "^[0-9a-f]{40}$",
+  );
+  const lfsConditional = assetLockSchema.$defs.source.allOf.find(
+    (entry) => (
+      entry.if?.properties?.storage?.const === "git-lfs-asset-repository"
+    ),
+  );
+  assert.deepEqual(
+    lfsConditional.then.required,
+    ["repository", "revision"],
+  );
+});
+
+test("asset lock 实例门禁拒绝缺少 revision 的 Git LFS source", () => {
+  const valid = validateAssetLockDocument(assetLock, assetLockSchema);
+  assert.equal(valid.passed, true, JSON.stringify(valid.violations));
+
+  const missingRevision = structuredClone(assetLock);
+  delete missingRevision.assets[0].source.revision;
+  const invalid = validateAssetLockDocument(
+    missingRevision,
+    assetLockSchema,
+  );
+  assert.equal(invalid.passed, false);
+  assert.ok(
+    invalid.violations.some(
+      ({ code }) => code === "asset-lock-schema-required",
+    ),
+  );
+
+  const bypassedStorage = structuredClone(assetLock);
+  bypassedStorage.assets[0].source.storage = "git-lfs-asset-repositor";
+  delete bypassedStorage.assets[0].source.revision;
+  const invalidStorage = validateAssetLockDocument(
+    bypassedStorage,
+    assetLockSchema,
+  );
+  assert.equal(invalidStorage.passed, false);
+  assert.ok(
+    invalidStorage.violations.some(
+      ({ code }) => code === "asset-lock-schema-enum",
+    ),
+  );
+
+  const invalidRuntime = structuredClone(assetLock);
+  invalidRuntime.assets[0].runtime[0].delivery = "unlocked";
+  invalidRuntime.assets[0].runtime[0].unexpected = true;
+  invalidRuntime.assets[0].runtime[0].bounds.min = [0, 0];
+  const invalidRuntimeResult = validateAssetLockDocument(
+    invalidRuntime,
+    assetLockSchema,
+  );
+  assert.equal(invalidRuntimeResult.passed, false);
+  for (const keyword of ["enum", "additionalProperties", "minItems"]) {
+    assert.ok(
+      invalidRuntimeResult.violations.some(
+        ({ code }) => code === `asset-lock-schema-${keyword}`,
+      ),
+      `应拒绝 ${keyword} 约束违规`,
+    );
+  }
+});
+
+test("武康大楼 LFS 试点锁定源 revision 且保持生产 GLB 不变", async () => {
+  const record = JSON.parse(
+    await readFile(
+      new URL(
+        "docs/research/build-records/wukang-mansion-lfs-pilot.json",
+        root,
+      ),
+      "utf8",
+    ),
+  );
+  const asset = assetLock.assets.find(
+    ({ assetId }) => assetId === "wukang-mansion",
+  );
+  assert.ok(asset);
+  assert.equal(asset.version, "pilot-v1");
+  assert.equal(asset.source.storage, "git-lfs-asset-repository");
+  assert.equal(asset.source.repository, "denki-san/wander-xinhua-assets");
+  assert.equal(
+    asset.source.revision,
+    "f1fd9c891f5576ce48006fb35e49d1bde5121bf7",
+  );
+
+  const legacySource = await readFile(
+    new URL("research/source/wukang-mansion.blend", root),
+  );
+  assert.equal(legacySource.byteLength, asset.source.bytes);
+  assert.equal(
+    createHash("sha256").update(legacySource).digest("hex"),
+    asset.source.sha256,
+  );
+
+  const runtime = asset.runtime[0];
+  const runtimeBinary = await readFile(
+    new URL(runtime.location, root),
+  );
+  assert.equal(runtimeBinary.byteLength, runtime.bytes);
+  assert.equal(
+    createHash("sha256").update(runtimeBinary).digest("hex"),
+    runtime.sha256,
+  );
+  assert.equal(runtime.delivery, "application");
+  assert.equal(record.scope.productionGlbModified, false);
+  assert.equal(record.scope.runtimeDeliveryModified, false);
+  assert.equal(record.legacyEditableSource.retained, true);
+  assert.equal(record.assetRepository.lfsOid, `sha256:${asset.source.sha256}`);
+  assert.equal(record.acceptance.cleanClone.status, "passed");
+  assert.equal(record.acceptance.cleanClone.singleAssetPull.lfsFsckPassed, true);
+  assert.equal(
+    record.acceptance.cleanClone.singleAssetPull.blenderOpen.status,
+    "passed",
+  );
+  assert.equal(
+    record.acceptance.cleanClone.singleAssetPull.blenderOpen.blend1Created,
+    false,
+  );
+  assert.equal(record.acceptance.codeOnlySparseCheckout.status, "passed");
+  assert.equal(
+    record.acceptance.codeOnlySparseCheckout.includedGeneratorProbe,
+    "research/source/create_wukang_mansion.py",
+  );
+  assert.equal(
+    record.acceptance.codeOnlySparseCheckout.networkTransferMeasured,
+    false,
+  );
+  assert.equal(record.acceptance.runtimeReadySparseCheckout.status, "passed");
+  assert.equal(
+    record.acceptance.runtimeReadySparseCheckout.editableSourcePresent,
+    false,
+  );
+  assert.equal(
+    record.acceptance.runtimeReadySparseCheckout.generatorPresent,
+    true,
+  );
+  assert.equal(
+    record.acceptance.runtimeReadySparseCheckout.productionGlbPresent,
+    true,
+  );
+  assert.equal(record.acceptance.runtimeReadySparseCheckout.sitesBuildPassed, true);
+  assert.match(
+    asset.lineage.evidenceSnapshots[0],
+    /^external-evidence:snapshots\//,
+  );
+});
+
+test("轻量克隆说明明确三种模式及其非验收边界", async () => {
+  const guide = await readFile(
+    new URL(
+      "docs/research/repository-lightweight-clone-guide.md",
+      root,
+    ),
+    "utf8",
+  );
+  assert.match(guide, /模式 A：code-only/);
+  assert.match(guide, /模式 B：runtime-ready/);
+  assert.match(guide, /模式 C：asset-authoring/);
+  assert.match(guide, /--filter=blob:none/);
+  assert.match(guide, /GIT_LFS_SKIP_SMUDGE=1/);
+  assert.match(guide, /不能据此宣称[\s\S]*npm test/);
+  assert.match(guide, /本 Issue 禁止重写历史或强推/);
+  assert.match(
+    guide,
+    /public\/models\/building-evidence-lab\/wukang-mansion\.glb/,
   );
 });

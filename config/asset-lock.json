@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "project": "wander-xinhua",
+  "sourceGitSha": "d5f88ed3ff1a743f8b9ea3334bc28dfd91373d0f",
+  "generatedAt": "2026-07-29T21:02:14+08:00",
+  "assets": [
+    {
+      "assetId": "wukang-mansion",
+      "kind": "building",
+      "version": "pilot-v1",
+      "source": {
+        "storage": "git-lfs-asset-repository",
+        "repository": "denki-san/wander-xinhua-assets",
+        "revision": "f1fd9c891f5576ce48006fb35e49d1bde5121bf7",
+        "path": "assets/buildings/wukang-mansion/source/wukang-mansion.blend",
+        "sha256": "517c17b203c2536609818ba8536a4e6ea529fdbdce8a47175c3e9bdf669aab94",
+        "bytes": 5226831
+      },
+      "runtime": [
+        {
+          "tier": "hero",
+          "delivery": "application",
+          "location": "public/models/building-evidence-lab/wukang-mansion.glb",
+          "sha256": "5cb5f1dc7d3bfd5279db931d3636c58668108a4aa42dc4cf62ddf08939eed325",
+          "bytes": 3392404,
+          "triangles": 49224,
+          "bounds": {
+            "min": [
+              -22.1899995803833,
+              0,
+              -4.380000114440918
+            ],
+            "max": [
+              17.899999618530273,
+              18.825001120567322,
+              4.889999985694885
+            ]
+          },
+          "cacheVersion": "sha256-5cb5f1dc7d3bfd5279db931d3636c58668108a4aa42dc4cf62ddf08939eed325"
+        }
+      ],
+      "lineage": {
+        "generator": "research/source/create_wukang_mansion.py",
+        "buildRecord": "docs/research/build-records/wukang-mansion-lfs-pilot.json",
+        "evidenceSnapshots": [
+          "external-evidence:snapshots/2026-07-26-ad37273/repository/research/references/wukang-mansion"
+        ]
+      }
+    }
+  ]
+}
