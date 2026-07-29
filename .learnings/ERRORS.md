@@ -19,11 +19,13 @@ Failed to create unified exec process: Too many open files (os error 24)
 ### Context
 - 失败发生在 `shasum` 启动前，没有修改文件；
 - 本轮此前已完成多次 Blender、Vinext build、production server 和浏览器三机位；
-- 停止本地 server 并关闭 agent-browser 后，同一 SHA 命令立即通过。
+- 停止本地 server 后，同一 SHA 命令立即通过；最终四项只读检查再次并行启动
+  shell 时复现，改成串行并终止仍驻留的 agent-browser daemon 后关闭。
 
 ### Suggested Fix
 完成 production Sandbox 截图、控制台和性能采样后立即关闭浏览器与本地 server，
-再运行全量测试、SHA 和归档；避免把长期存活进程留到收尾阶段。
+确认 daemon 实际退出；全量测试、SHA、归档和最终状态检查保持串行，避免把长期
+存活进程或并行 shell 留到收尾阶段。
 
 ### Metadata
 - Reproducible: yes
@@ -31,7 +33,8 @@ Failed to create unified exec process: Too many open files (os error 24)
 
 ### Resolution
 - **Resolved**: 2026-07-29T20:48:00+08:00
-- **Notes**: 先向 server PTY 发送中断，再执行 `agent-browser close`；文件句柄恢复。
+- **Notes**: 先向 server PTY 发送中断，再关闭浏览器；最终终止残留
+  agent-browser daemon，并把收尾检查改为串行。
 
 ---
 
