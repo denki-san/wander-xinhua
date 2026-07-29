@@ -1,5 +1,45 @@
 # Errors
 
+## [ERR-20260729-PGT] production_promotion_historical_isolation_assertion
+
+**Logged**: 2026-07-29T22:35:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Building Engine 从实验 tier 晋级 Hudec 正式入口后，全量测试仍把“任何正式
+registry 都不得引用 Building Engine”当作永久合同。
+
+### Error
+```text
+AssertionError: 正式 production registry 匹配 /building-engine-spike/
+AssertionError: promotion status 从 promotion-in-progress-local
+变为 runtime-pass-pending-project-gates
+```
+
+### Context
+- 本轮已由用户授权执行首栋 production promotion，但不授权 push、merge、deploy；
+- 旧断言来自实验阶段的隔离门，未表达“只有有 promotion record 的资产可晋级”；
+- 删除隔离测试会让其他建筑意外接入失去保护。
+
+### Suggested Fix
+把永久合同改为：Sandbox 保持隔离，正式 registry 中只有
+`building-engine/promotions/` 明确晋级的 Hudec 可引用 Building Engine；
+promotion 状态按受控状态机校验。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_building_engine_spike.test.mjs,
+  tests/test_hudec_memorial_production_promotion.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-29T22:38:00+08:00
+- **Notes**: 保留 Sandbox 隔离断言，并新增“仅 Hudec + promotion path 一致 +
+  deployment not-authorized”约束；状态断言接受运行时通过和本地就绪两个合法阶段。
+
+---
+
 ## [ERR-20260729-FDL] post_regression_open_file_exhaustion
 
 **Logged**: 2026-07-29T20:47:00+08:00

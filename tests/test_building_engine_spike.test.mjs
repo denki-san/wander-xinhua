@@ -439,7 +439,7 @@ test("真实 Sandbox 记录、最终三联图与 manifest 全部绑定当前 Mas
   }
 });
 
-test("Sandbox 保持隔离，正式 world 与生产 registry 未接入 Spike", () => {
+test("Sandbox 仍保持隔离，只有已审核的 Hudec promotion 接入正式 registry", () => {
   const sandbox = read(
     "app/building-engine-sandbox/BuildingEngineSandbox.tsx",
   );
@@ -450,7 +450,21 @@ test("Sandbox 保持隔离，正式 world 与生产 registry 未接入 Spike", (
   assert.match(sandbox, /MANIFEST_PATH/);
 
   const productionWorld = read("app/scene/xinhua-world.tsx");
-  const productionLandmarks = read("app/scene/xinhua-road-landmarks-data.json");
+  const productionLandmarks = readJson(
+    "app/scene/xinhua-road-landmarks-data.json",
+  );
+  const promotion = readJson(
+    "building-engine/promotions/hudec-memorial.json",
+  );
+  const promotedLandmarks = productionLandmarks.landmarks.filter(({ model }) =>
+    model.includes("/models/building-engine-spike/"),
+  );
+
   assert.doesNotMatch(productionWorld, /building-engine-spike/);
-  assert.doesNotMatch(productionLandmarks, /building-engine-spike/);
+  assert.deepEqual(
+    promotedLandmarks.map(({ id }) => id),
+    ["hudec-memorial"],
+  );
+  assert.equal(promotedLandmarks[0].model, promotion.production.hero.path);
+  assert.equal(promotion.validation.deployment, "not-authorized");
 });

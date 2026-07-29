@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "status": "runtime-pass-pending-project-gates",
+  "recordedAt": "2026-07-29T22:32:46+08:00",
+  "implementationCommit": "a65a6592f563fc688ddfbdd4c98de54e7a39fa29",
+  "browser": "agent-browser Chromium",
+  "buildMode": "production",
+  "scope": "local-default-production-registry-and-explicit-rollback",
+  "environment": {
+    "origin": "http://127.0.0.1:4328",
+    "browserViewport": [1280, 720],
+    "canvas": [1280, 577],
+    "pageVisibility": "visible",
+    "effects": "off",
+    "district": "off",
+    "networkProfile": "weak",
+    "prewarm": "route loaded and model status settled before capture",
+    "sampleFrames": 120
+  },
+  "lineage": {
+    "dslSha256": "637a2473f5285c42ed7d1cc8c2788a3ef83db335588a00e63d3498d6be0b5bf9",
+    "masterGlbSha256": "b7002cbd4e5cb2ce9448e747ebacd9cf7faaa3cdcd81046272c0e57fd3635002",
+    "massingGlbSha256": "c83fb903cc0c8ee9adc047a787a52f7e3e0f35257d305adfd8ba5bb0aabbb4d2",
+    "collisionSha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637",
+    "landmarkRegistrySha256": "625ae047807cf17ffcc50870d3906e9a01977f0e802b7dfeec9e0f539b4a1252",
+    "identityContractSha256": "43309a41f7d9e4f168771d4265cc9c33eec9e45d1f1a22a00f1b041aa4109481",
+    "qaContractSha256": "30bb74e1753fa474048e13f204f6607f0bbe34de2e22885bcd79aaff0ca7728b",
+    "cameraCollisionContractSha256": "21a66c3b8c25e5a2e0768c754ef4a343aa2fa207fbd6041b865e9c3f71967bd6"
+  },
+  "defaultProduction": {
+    "route": "/?start=hudec&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+    "qaTierDatasetAbsent": true,
+    "observedHudecResources": [
+      {
+        "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb?v=c83fb903cc0c",
+        "status": 200,
+        "bytes": 22040
+      },
+      {
+        "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb?v=b7002cbd4e5c",
+        "status": 200,
+        "bytes": 216172
+      }
+    ],
+    "oldHeroResourceAbsent": true,
+    "oldIdentityResourceAbsent": true,
+    "consoleErrors": 0,
+    "pageErrors": 0,
+    "frameSample": {
+      "frames": 120,
+      "durationMs": 2014,
+      "fps": 59.5829,
+      "rendererDrawCalls": 1624,
+      "rendererTriangles": 803541
+    }
+  },
+  "rollbackBaseline": {
+    "route": "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=legacy-hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+    "requestedTier": "legacy-hero",
+    "loadedTier": "legacy-hero",
+    "loadedStatus": "loaded",
+    "source": "/models/requested-pois/hudec-memorial-v2-hero.glb?v=20260726-hero-598b2ba19e24",
+    "sourceStatus": 200,
+    "sourceBytes": 1565920,
+    "consoleErrors": 0,
+    "pageErrors": 0,
+    "frameSample": {
+      "frames": 120,
+      "durationMs": 1982,
+      "fps": 60.5449,
+      "rendererDrawCalls": 1630,
+      "rendererTriangles": 843101
+    },
+    "limitation": "该路线的渐进加载还会预取当前正式 Massing 与 Master，因此不能把整页 Resource Timing 当成隔离的旧版传输基线。"
+  },
+  "checks": {
+    "canonicalAndGroundContact": {
+      "status": "pass",
+      "note": "默认正式入口可见选定 A 方案的交错双山墙、长单坡玻璃翼和位于同侧屋坡的两座加高烟囱；人物尺度、朝向与地面接触正常。"
+    },
+    "entrancePath": {
+      "status": "pass",
+      "target": [92.19902841221382, -134.69594698868693],
+      "finalPosition": [92.19902842150765, -135.34792654491898],
+      "standoff": 0.6519794550819918,
+      "note": "人物可进入中央门前区域；保留约 0.652 world unit 的墙前站距，不被侧翼碰撞提前截停。"
+    },
+    "solidWallCollision": {
+      "status": "pass",
+      "target": [92.535374, -132.52181],
+      "finalPosition": [92.53506367314384, -135.33485883667808],
+      "remainingDistance": 2.813048853799451,
+      "continuedInputBlocked": true
+    },
+    "sideCirculation": {
+      "status": "pass",
+      "qaStart": [85.69222379234995, -135.0250269773192],
+      "target": [86.66089908517415, -128.76351244990076],
+      "finalPosition": [86.67302974687671, -128.75153681197912],
+      "distanceToTarget": 0.017046400515198385,
+      "cameraSpringArm": {
+        "status": "pass",
+        "armLength": 1.65,
+        "unobstructedArmLength": 5.37,
+        "note": "相机碰撞体在窄侧道主动缩短弹簧臂，未进入屋顶。"
+      },
+      "frameSample": {
+        "frames": 120,
+        "durationMs": 2009.6,
+        "fps": 59.713,
+        "rendererDrawCalls": 1573,
+        "rendererTriangles": 780433
+      }
+    },
+    "collisionCoordinateMapping": {
+      "status": "pass",
+      "note": "DSL 使用 Blender XY，GLTF 原始局部坐标需映射为 minZ=-maxY、maxZ=-minY；正式 registry 与测试均采用该映射。"
+    }
+  },
+  "staticAssetComparison": {
+    "heroBytes": {
+      "legacy": 1565920,
+      "promotedMaster": 216172,
+      "difference": -1349748,
+      "percentSmaller": 86.195
+    },
+    "threeTierBinaryBytes": {
+      "legacyMassingIdentityHero": 2117152,
+      "promotedMassingSharedMaster": 238212,
+      "difference": -1878940,
+      "percentSmaller": 88.748
+    },
+    "matchedRendererSample": {
+      "trianglesDifference": -39560,
+      "trianglesPercent": -4.692,
+      "drawCallsDifference": -6
+    }
+  },
+  "performanceClaim": "本地同条件原始样本没有发现约 60 FPS 基线退化；静态二进制显著缩小。由于没有线上同条件基线，且回滚页会渐进预取新版资源，不声称线上性能提升或整页传输提升。",
+  "screenshots": [
+    {
+      "check": "canonicalAndGroundContact",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-production-default-canonical.png",
+      "sha256": "e077cb1547fa0137ce35361995fd3f65983f9290b8dc64e6252f904afee7c79a",
+      "bytes": 318626
+    },
+    {
+      "check": "sideView",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-production-side.png",
+      "sha256": "5bf2c851d92c5fd5644af212a4279117aa21e6f9878f65c2bfb6fbfe250f8439",
+      "bytes": 361672
+    },
+    {
+      "check": "entrancePath",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-production-entrance.png",
+      "sha256": "259444dbf8b517686c0add1a63a467653e3052c4eebb84766f94d4bb62a7ec3e",
+      "bytes": 441728
+    },
+    {
+      "check": "solidWallCollision",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-production-wall-block.png",
+      "sha256": "34628e3abd0408f477b0f972d78bd455c068251d1a708d261a97679f98577e98",
+      "bytes": 441738
+    },
+    {
+      "check": "sideCirculation",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-production-side-circulation.png",
+      "sha256": "dc7be356ecc85c8fab0da3a472a53e9e230d0d9d2d75a75d765f8ce9d8084ee7",
+      "bytes": 362306
+    },
+    {
+      "check": "rollbackBaseline",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-production-legacy-hero.png",
+      "sha256": "bb2be25ca02cd7941ad4ea14aa6fa5b93e4648d365a6f63b5e352f34357e2cde",
+      "bytes": 318042
+    }
+  ],
+  "pendingGates": [
+    "Building Engine all-asset QA",
+    "npm test",
+    "npm run lint",
+    "independent code review",
+    "new immutable external evidence snapshot"
+  ],
+  "publicationBoundary": {
+    "push": false,
+    "merge": false,
+    "deploy": false,
+    "onlineAcceptance": false
+  }
+}

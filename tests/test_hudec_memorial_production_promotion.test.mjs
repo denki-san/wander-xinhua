@@ -47,7 +47,13 @@ test("Hudec promotion record 与默认 registry、三档合同保持同一真值
   const landmark = landmarkData.landmarks.find(({ id }) => id === assetId);
   const tiers = ACCEPTED_DERIVED_BUILDING_TIERS[assetId];
 
-  assert.equal(promotion.status, "promotion-in-progress-local");
+  assert.ok(
+    [
+      "runtime-pass-pending-project-gates",
+      "production-promotion-ready-local",
+    ].includes(promotion.status),
+    `未知 promotion 状态：${promotion.status}`,
+  );
   assert.equal(landmark.model, promotion.production.hero.path);
   assert.equal(landmark.cacheVersion, promotion.production.hero.cacheVersion);
   assert.deepEqual(landmark.localBounds, promotion.production.localBounds);

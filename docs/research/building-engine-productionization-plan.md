@@ -411,3 +411,27 @@ Promotion 只有以下全部通过才可报告 `production-promotion-ready-local
 
 本地通过仍不等于已经上线。没有 Sites / VPS 同提交验收时，只能报告为
 `production-promotion-ready-local`，不能声称线上生产替换完成。
+
+### 12.6 本地真实入口初验
+
+实现提交 `a65a659` 已完成默认 registry、Hero / Identity / Massing 三档、
+正式碰撞与相机碰撞接入，原 V2 Hero 作为 `legacy-hero` 回滚路线保留。
+
+- 默认 `/?start=hudec` 只观察到当前 Massing 与复用的 Master，请求状态均为
+  `200`，没有旧 Hero / Identity 请求；
+- canonical、侧向、入口、实体墙阻挡和一条完整侧向绕行均通过，控制台与页面错误
+  都为 `0`；
+- DSL 碰撞为 Blender `XY`，正式 registry 使用 GLTF 原始局部坐标映射
+  `minZ = -maxY`、`maxZ = -minY`，避免把前后方向错误照搬；
+- 同一 production build、可见页面、弱网 profile 与 `120` 帧样本下，新旧路线
+  都维持约 `60 FPS`；这只表示本地样本未见回归；
+- 旧 Hero 二进制为 `1,565,920` bytes，新 Master 为 `216,172` bytes；
+  旧三档二进制合计 `2,117,152` bytes，新 Massing 加复用 Master 合计
+  `238,212` bytes；
+- 回滚页仍会被现有渐进加载预取新版 Massing / Master，因此不能用整页
+  Resource Timing 声称严格传输 A/B 或线上性能提升。
+
+原始路线、坐标、帧样本、截图 SHA 与回滚限制记录在
+`docs/research/build-records/building-engine-spike/hudec-memorial/production-promotion.json`。
+当前状态为 `runtime-pass-pending-project-gates`，仍需全资产 QA、全量测试、lint、
+独立代码审查和新的不可变外置快照。
