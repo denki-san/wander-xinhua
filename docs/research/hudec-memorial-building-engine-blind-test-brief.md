@@ -205,7 +205,7 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 | Calibration v4 | 比例、方向、接地和开放路径 | Fixed renders | Gate M | Passed |
 | Master v4 | 与 A 体块一致的半木构、玻璃翼、窗格与入口 | 三固定机位 | Sandbox Master | Passed with known unknowns |
 | Real map v4 | 显式 Building Engine Master QA | N/A | `/?start=hudec&qaModelTier=engine-master` | Deferred：不属于本轮简化 Pipeline |
-| Cold build v4 | 干净 worktree 单一 CLI 重建 | SHA / structure | N/A | Pending closure |
+| Cold build v4 | 干净 worktree 单一 CLI 重建 | SHA / structure | N/A | Passed |
 
 ## Validation
 
@@ -220,7 +220,7 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 - [x] 新参考 / Blender / Three.js 三联图通过
 - [ ] 真实 `/?start=hudec` 可见、接地、方向和碰撞通过
 - [x] 默认 Hudec 页面仍加载原正式 Hero
-- [ ] 最终提交在干净 worktree 重建三栋并得到一致 GLB
+- [x] 最终提交在干净 worktree 重建三栋并得到一致 GLB
 - [ ] 新输出动态证据快照与全量 SHA 通过
 
 ## Decision Log
@@ -469,6 +469,10 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 - Regression: 恢复冻结 Compiler `20ed07e1…`，不保留旧拓扑所需的通用旋转
   改动；Building Engine 专项 `8 / 8`、全量 `npm test` 为 `449 / 449`，
   lint 为 `0 error / 1` 条既有 warning；
+- Cold build: 从本地提交 `d7bb811b…` 创建干净 detached worktree，
+  三栋六个 GLB 与三个 collision 文件 `9 / 9` 逐字节一致，十八张 Blender
+  固定机位预览解码后 `18 / 18` 像素一致；记录见
+  `cold-build-d7bb811.json`；
 - Boundary: 本轮没有替换正式 Hudec Hero、没有修改 production registry、
   placement 或 cacheVersion，也没有 push、合并或部署。真实 `/?start=hudec`
   显式 Engine 复验和生产 promotion 继续属于独立后续任务。
