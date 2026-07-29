@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
 import { access, readFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import test from "node:test";
+import { historicalSha256 } from "./helpers/historical-git-fixtures.mjs";
 
 const root = new URL("../", import.meta.url);
 const recordPath = "docs/research/villa-le-bec-hero-visual-adjudication.json";
@@ -43,12 +43,10 @@ test("Villa Le Bec 视觉裁决锁定参考和候选截图指纹且保留旧候�
   }
   assert.deepEqual(record.reviewHistory.map(({ iteration }) => iteration), [1, 2, 3]);
   for (const historical of record.reviewHistory.slice(0, 2)) {
-    const buffer = execFileSync(
-      "git",
-      ["show", `${historical.gitCommit}:${record.candidate.glb}`],
-      { cwd: decodeURIComponent(root.pathname) },
+    assert.equal(
+      historicalSha256(historical.gitCommit, record.candidate.glb),
+      historical.sha256,
     );
-    assert.equal(createHash("sha256").update(buffer).digest("hex"), historical.sha256);
   }
   assert.equal(record.reviewHistory[1].bayGlazingSurfaceFix, "pass");
   assert.equal(record.reviewHistory[2].dormerGlazingSurfaceFix, "pass");

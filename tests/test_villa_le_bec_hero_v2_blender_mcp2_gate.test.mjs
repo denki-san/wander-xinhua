@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { historicalSha256 } from "./helpers/historical-git-fixtures.mjs";
 
 const root = new URL("../", import.meta.url);
 const gatePath = "docs/research/villa-le-bec-hero-v2-blender-mcp2-gate.json";
@@ -29,13 +29,8 @@ test("Villa Le Bec Hero v2 MCP2 锁定当前二进制、父级与被拒 v1 裁�
   for (const input of Object.values(gate.inputs)) {
     if (typeof input !== "object" || !input.path) continue;
     if (input.gitCommit) {
-      const snapshot = execFileSync(
-        "git",
-        ["show", `${input.gitCommit}:${input.path}`],
-        { cwd: decodeURIComponent(root.pathname) },
-      );
       assert.equal(
-        createHash("sha256").update(snapshot).digest("hex"),
+        historicalSha256(input.gitCommit, input.path),
         input.sha256,
         `${input.path}@${input.gitCommit}`,
       );

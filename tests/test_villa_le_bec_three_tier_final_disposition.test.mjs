@@ -1,12 +1,10 @@
 import assert from "node:assert/strict";
-import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
-import { promisify } from "node:util";
 import test from "node:test";
+import { historicalSha256 } from "./helpers/historical-git-fixtures.mjs";
 
 const root = new URL("../", import.meta.url);
-const run = promisify(execFile);
 const dispositionPath = "docs/research/villa-le-bec-three-tier-final-disposition.json";
 
 async function json(relativePath) {
@@ -20,11 +18,7 @@ async function sha256(relativePath) {
 }
 
 async function gitBlobSha(commit, relativePath) {
-  const { stdout } = await run("git", ["show", `${commit}:${relativePath}`], {
-    cwd: new URL("../", import.meta.url),
-    encoding: "buffer",
-  });
-  return createHash("sha256").update(stdout).digest("hex");
+  return historicalSha256(commit, relativePath);
 }
 
 test("Villa Le Bec 区分当前工作树与不可篡改的主窗口验收提交", async () => {

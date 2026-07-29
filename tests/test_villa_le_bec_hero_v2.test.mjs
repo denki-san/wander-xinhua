@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { historicalSha256 } from "./helpers/historical-git-fixtures.mjs";
 
 const root = new URL("../", import.meta.url);
 const recordPath =
@@ -85,16 +85,11 @@ test("Villa Le Bec Hero v2 新路径可追溯且保留冻结 Massing 与 Hero v1
       preservedInGitHistory: true,
     },
   ]);
-  const historicalV1 = execFileSync(
-    "git",
-    [
-      "show",
-      `${record.historicalLineage[0].baselineCommit}:${record.historicalLineage[0].pathAtCommit}`,
-    ],
-    { cwd: decodeURIComponent(root.pathname) },
-  );
   assert.equal(
-    createHash("sha256").update(historicalV1).digest("hex"),
+    historicalSha256(
+      record.historicalLineage[0].baselineCommit,
+      record.historicalLineage[0].pathAtCommit,
+    ),
     record.historicalLineage[0].sha256,
   );
   assert.equal(

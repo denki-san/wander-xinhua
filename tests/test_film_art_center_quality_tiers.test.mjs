@@ -1,9 +1,8 @@
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFile, stat } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
 import test from "node:test";
+import { historicalJsonProjection } from "./helpers/historical-git-fixtures.mjs";
 import { terrainHeightAt } from "../app/scene/terrain.ts";
 import {
   FILM_ART_CENTER_HERO_MODEL_PATH,
@@ -17,7 +16,6 @@ import {
 } from "../app/scene/film-art-center-tier-contract.mjs";
 
 const root = new URL("../", import.meta.url);
-const rootPath = fileURLToPath(root);
 const historicalFinalAuditBase =
   "aada3c412d10f822305c2e3410435f3b00278c2c";
 const recordUrl = new URL(
@@ -78,10 +76,7 @@ function sha256(buffer) {
 }
 
 function snapshotJson(commit, path) {
-  return JSON.parse(execFileSync("git", ["show", `${commit}:${path}`], {
-    cwd: rootPath,
-    encoding: "utf8",
-  }));
+  return historicalJsonProjection(commit, path);
 }
 
 function parseGlb(buffer) {

@@ -148,10 +148,13 @@ git lfs fsck
   和参考图均未检出。
 - runtime-ready sparse checkout 确认生成器和生产 GLB 存在、`.blend` 未检出，
   随后 `npm ci`、静态构建和 Sites 构建全部通过。
-- GitHub 干净 full clone 的二进制门禁和构建通过；全量测试为 `442 / 451`。
-  另有 9 项既有历史 fixture 回查无法复现：8 项对应 commit 存在但目标 path 不存在，
-  1 项引用的 revision 不可用。本试点没有修改这些测试，修复前不得宣称干净克隆
-  全量回归通过。
+- GitHub 干净 full clone 的二进制门禁、构建和全量测试全部通过，测试为
+  `453 / 453`。
+- 原 9 项历史 `git show` fixture 指向只存在于旧本机 object database、GitHub refs
+  不可达的 commit。byte-exact 输入已进入外置不可变快照
+  `snapshots/2026-07-29-issue-1-history-fixtures-d5f88ed`；主仓库只保存
+  `tests/fixtures/historical-git-fixture-lock.json` 和必要 JSON projection。挂载外置
+  证据库时，测试还会逐文件验证 SHA-256 与 bytes。
 
 两种 sparse checkout 都使用本地 shared clone 验证 path 形态，未测量网络传输量；
 不能把 `41,992 KiB` 的本地 checkout 占用当作 GitHub fresh clone 体积。
@@ -162,8 +165,8 @@ git lfs fsck
 - `--filter=blob:none` 依赖远端 partial clone 支持，实际下载量必须在干净环境记录，
   不能根据仓库目录大小推算。
 - 只要旧 `.blend` 仍在主仓库当前 tree，普通 full clone 仍会检出它。
-- 9 项历史回查测试仍使用远端干净克隆不可复现的 commit-path / revision 输入；需先
-  校正引用或迁移为受控 fixture，才能把 full clone 全量测试作为后续删除旧源的门槛证据。
+- 历史 fixture lock 或 projection 变化时，必须在外置证据库生成新快照并更新 lock；
+  禁止覆盖 `2026-07-29-issue-1-history-fixtures-d5f88ed`。
 - 后续若从主仓库当前 tree 移除旧源，只能新增普通提交；本 Issue 禁止重写历史或强推。
 - 删除主仓库旧源之前，必须证明 LFS 干净克隆、指定 revision 回滚、生成器复现和
   旧提交回查全部通过，并再次征得用户确认。

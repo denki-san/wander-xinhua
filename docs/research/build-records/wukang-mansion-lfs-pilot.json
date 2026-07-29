@@ -2,7 +2,7 @@
   "recordVersion": 1,
   "assetId": "wukang-mansion",
   "version": "pilot-v1",
-  "status": "partial",
+  "status": "passed",
   "scope": {
     "phase": "issue-1-phase-2",
     "sourceCopiedToIndependentLfsRepository": true,
@@ -144,13 +144,13 @@
       "failed": 0
     },
     "fullTests": {
-      "status": "blocked-by-pre-existing-non-reproducible-git-fixtures",
-      "tests": 451,
-      "passed": 442,
-      "failed": 9,
-      "missingPathAtExistingCommit": 8,
-      "unavailableRevision": 1,
-      "issueIntroducedByPilot": false
+      "status": "passed",
+      "tests": 453,
+      "passed": 453,
+      "failed": 0,
+      "historicalFixtureLock": "tests/fixtures/historical-git-fixture-lock.json",
+      "externalFixtureSnapshot": "snapshots/2026-07-29-issue-1-history-fixtures-d5f88ed",
+      "externalFixtureChecksumPassed": true
     },
     "lint": {
       "status": "passed-with-existing-warning",

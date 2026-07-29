@@ -44,6 +44,13 @@ SHA 对照可信基线与 policy。当前分支只能提供精确 `approvedAddit
 `npm ci --ignore-scripts` 安装 package lock 固定依赖，不构建、不部署，也不下载
 LFS 内容。
 
+干净克隆测试不得依赖只存在于某台机器 object database 的
+`git show <sha>:<path>`。若历史输入属于动态证据或被拒绝的二进制候选，byte-exact
+文件进入外置不可变快照；主仓库只保存可审查的小型 lock 和测试所需的最小 JSON
+projection。当前历史 fixture 快照为
+`snapshots/2026-07-29-issue-1-history-fixtures-d5f88ed`；挂载证据库时自动回查
+SHA-256 与 bytes，CI 不挂载时仍可用 lock/projection 确定性运行。
+
 ## 更新原则
 
 基线不是日常自动更新文件。只有明确审查一次合法二进制变化后，才能运行：

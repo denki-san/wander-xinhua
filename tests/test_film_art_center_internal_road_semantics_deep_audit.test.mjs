@@ -1,12 +1,13 @@
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
 import test from "node:test";
+import {
+  historicalJsonProjection,
+  historicalSha256,
+} from "./helpers/historical-git-fixtures.mjs";
 
 const root = new URL("../", import.meta.url);
-const rootPath = fileURLToPath(root);
 const auditPath =
   "docs/research/film-art-center-internal-road-semantics-deep-audit.json";
 const historicalRegistryCommit =
@@ -23,18 +24,11 @@ async function sha256(path) {
 }
 
 function snapshotSha256(commit, path) {
-  return createHash("sha256")
-    .update(execFileSync("git", ["show", `${commit}:${path}`], {
-      cwd: rootPath,
-    }))
-    .digest("hex");
+  return historicalSha256(commit, path);
 }
 
 function snapshotJson(commit, path) {
-  return JSON.parse(execFileSync("git", ["show", `${commit}:${path}`], {
-    cwd: rootPath,
-    encoding: "utf8",
-  }));
+  return historicalJsonProjection(commit, path);
 }
 
 function rounded(value, precision = 9) {

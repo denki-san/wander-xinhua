@@ -1,0 +1,823 @@
+{
+  "schemaVersion": 1,
+  "project": "wander-xinhua",
+  "archive": {
+    "storage": "external-evidence",
+    "snapshot": "2026-07-29-issue-1-history-fixtures-d5f88ed",
+    "root": "snapshots/2026-07-29-issue-1-history-fixtures-d5f88ed",
+    "checksumFile": "SHA256SUMS",
+    "checksumVerified": true,
+    "verifiedAt": "2026-07-29T14:44:17Z"
+  },
+  "entries": [
+    {
+      "commit": "0189d06a939651c0f7e2876d074321f2caa9a903",
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "6df9f4439679ff72203ef023cab289532df4c1d9c71a4242cfd6ef155e4055e8",
+      "bytes": 11929,
+      "archivedPath": "repository/history-fixtures/0189d06a939651c0f7e2876d074321f2caa9a903/app/scene/xinhua-road-landmarks-data.json",
+      "jsonProjection": {
+        "landmarks": [
+          {
+            "id": "film-art-center",
+            "query": "film-art",
+            "name": "上海电影艺术中心",
+            "address": "新华路200号",
+            "model": "/models/xinhua-road/film-art-center.glb",
+            "cacheVersion": "20260725-film-art-5",
+            "position": [
+              47.5,
+              81.5
+            ],
+            "yaw": 2.761592653589793,
+            "scale": 1,
+            "localBounds": {
+              "minX": -11.554999,
+              "maxX": 11.554999,
+              "minZ": -6.725,
+              "maxZ": 11.225
+            },
+            "localObstacles": [
+              {
+                "minX": -8,
+                "maxX": 8,
+                "minZ": -5.2,
+                "maxZ": 4.2
+              },
+              {
+                "minX": -11.46,
+                "maxX": -8.1,
+                "minZ": -3.63,
+                "maxZ": 4.63
+              },
+              {
+                "minX": 8.1,
+                "maxX": 11.46,
+                "minZ": -3.63,
+                "maxZ": 4.63
+              }
+            ],
+            "start": [
+              35,
+              99
+            ],
+            "forward": [
+              0.581,
+              -0.814
+            ],
+            "cameraTargetHeight": 3.6
+          }
+        ]
+      }
+    },
+    {
+      "commit": "0189d06a939651c0f7e2876d074321f2caa9a903",
+      "path": "app/scene/xinhua-district-massing-data.json",
+      "sha256": "ec3a8ce4cf06da4be593bf7fd995507242f50d5fa4f34eddd3d7eab23fc95132",
+      "bytes": 798214,
+      "archivedPath": "repository/history-fixtures/0189d06a939651c0f7e2876d074321f2caa9a903/app/scene/xinhua-district-massing-data.json"
+    },
+    {
+      "commit": "aada3c412d10f822305c2e3410435f3b00278c2c",
+      "path": "app/scene/xinhua-road-landmarks-data.json",
+      "sha256": "f87c8fde941c71c6876bba4e7a50cf9177c5b7d11163822c4f4ac906568d9fa6",
+      "bytes": 11810,
+      "archivedPath": "repository/history-fixtures/aada3c412d10f822305c2e3410435f3b00278c2c/app/scene/xinhua-road-landmarks-data.json",
+      "jsonProjection": {
+        "collisionMargin": 0.2,
+        "landmarks": [
+          {
+            "id": "shanghai-cinema",
+            "position": [
+              74.1,
+              80.9
+            ],
+            "yaw": 2.761592653589793,
+            "scale": 1,
+            "localBounds": {
+              "minX": -19,
+              "maxX": 19,
+              "minZ": -11.8,
+              "maxZ": 14.2
+            },
+            "localObstacles": [
+              {
+                "minX": -10.5,
+                "maxX": 10.5,
+                "minZ": -7.3,
+                "maxZ": 6.2
+              },
+              {
+                "minX": -14.4,
+                "maxX": -10.5,
+                "minZ": -10,
+                "maxZ": 4.5
+              },
+              {
+                "minX": 10.5,
+                "maxX": 14.4,
+                "minZ": -10,
+                "maxZ": 4.5
+              }
+            ],
+            "start": [
+              101,
+              112
+            ],
+            "forward": [
+              -0.654,
+              -0.756
+            ],
+            "cameraTargetHeight": 2.8
+          },
+          {
+            "id": "film-art-center",
+            "position": [
+              47.5,
+              81.5
+            ],
+            "yaw": 2.761592653589793,
+            "scale": 1,
+            "localBounds": {
+              "minX": -11.554999,
+              "maxX": 11.554999,
+              "minZ": -6.725,
+              "maxZ": 11.225
+            },
+            "localObstacles": [
+              {
+                "minX": -8,
+                "maxX": 8,
+                "minZ": -5.2,
+                "maxZ": 4.2
+              },
+              {
+                "minX": -11.46,
+                "maxX": -8.1,
+                "minZ": -3.63,
+                "maxZ": 4.63
+              },
+              {
+                "minX": 8.1,
+                "maxX": 11.46,
+                "minZ": -3.63,
+                "maxZ": 4.63
+              }
+            ],
+            "start": [
+              35,
+              99
+            ],
+            "forward": [
+              0.581,
+              -0.814
+            ],
+            "cameraTargetHeight": 3.6
+          },
+          {
+            "id": "one-step-garden",
+            "position": [
+              60.86,
+              120.73
+            ],
+            "yaw": -0.38,
+            "scale": 0.88,
+            "localBounds": {
+              "minX": -7.25,
+              "maxX": 7.25,
+              "minZ": -9.325,
+              "maxZ": 6.9
+            },
+            "localObstacles": [
+              {
+                "minX": -4.2,
+                "maxX": 4.2,
+                "minZ": -1.8,
+                "maxZ": 1.8
+              },
+              {
+                "minX": -6.7,
+                "maxX": -3.3,
+                "minZ": -0.5,
+                "maxZ": 6.7
+              },
+              {
+                "minX": 3.4,
+                "maxX": 6.6,
+                "minZ": -0.5,
+                "maxZ": 6.6
+              },
+              {
+                "minX": -1.24,
+                "maxX": -1.06,
+                "minZ": 6.16,
+                "maxZ": 6.34
+              },
+              {
+                "minX": 3.26,
+                "maxX": 3.44,
+                "minZ": 6.16,
+                "maxZ": 6.34
+              },
+              {
+                "minX": -7,
+                "maxX": 7,
+                "minZ": -9.1,
+                "maxZ": -4.9
+              },
+              {
+                "minX": -6.775,
+                "maxX": -3.525,
+                "minZ": -7.05,
+                "maxZ": -3.85
+              },
+              {
+                "minX": 3.525,
+                "maxX": 6.775,
+                "minZ": -7.05,
+                "maxZ": -3.85
+              }
+            ],
+            "start": [
+              73,
+              109
+            ],
+            "forward": [
+              -0.925,
+              0.381
+            ]
+          },
+          {
+            "id": "xinhua-villas-211",
+            "position": [
+              38.32,
+              110.67
+            ],
+            "yaw": -0.38,
+            "scale": 0.62,
+            "localBounds": {
+              "minX": -15.44861,
+              "maxX": 15.25,
+              "minZ": -13.949999,
+              "maxZ": 15.725
+            },
+            "localObstacles": [
+              {
+                "minX": -12.4,
+                "maxX": -4.6,
+                "minZ": 0.6,
+                "maxZ": 7.4
+              },
+              {
+                "minX": 4.6,
+                "maxX": 12.4,
+                "minZ": 0.1,
+                "maxZ": 6.9
+              },
+              {
+                "minX": -11.4,
+                "maxX": -3.6,
+                "minZ": -13.4,
+                "maxZ": -6.6
+              },
+              {
+                "minX": 3.3,
+                "maxX": 11.1,
+                "minZ": -13.6,
+                "maxZ": -6.7
+              },
+              {
+                "minX": 4.1,
+                "maxX": 7.3,
+                "minZ": 11.1,
+                "maxZ": 14.5
+              },
+              {
+                "minX": -3.7,
+                "maxX": -2.3,
+                "minZ": 14.4,
+                "maxZ": 15.7
+              },
+              {
+                "minX": 2.3,
+                "maxX": 3.7,
+                "minZ": 14.4,
+                "maxZ": 15.7
+              }
+            ],
+            "start": [
+              51.7,
+              106.5
+            ],
+            "forward": [
+              -0.925,
+              0.381
+            ]
+          },
+          {
+            "id": "xinhua-villas-329",
+            "position": [
+              -42.13,
+              79.48
+            ],
+            "yaw": -0.38,
+            "scale": 0.62,
+            "localBounds": {
+              "minX": -11.24861,
+              "maxX": 11.415185,
+              "minZ": -7.825001,
+              "maxZ": 11.5
+            },
+            "localObstacles": [
+              {
+                "minX": -8.6,
+                "maxX": 9.6,
+                "minZ": -7.2,
+                "maxZ": 5
+              }
+            ],
+            "start": [
+              -26,
+              63
+            ],
+            "forward": [
+              -0.79,
+              0.62
+            ]
+          },
+          {
+            "id": "house-315",
+            "position": [
+              -20.127789,
+              82.330463
+            ],
+            "yaw": -0.401372,
+            "scale": 0.754254,
+            "localBounds": {
+              "minX": -7.675,
+              "maxX": 7.225,
+              "minZ": -4.575,
+              "maxZ": 4.84
+            },
+            "localObstacles": [
+              {
+                "minX": -7.675,
+                "maxX": -2.1254,
+                "minZ": -4.575,
+                "maxZ": 1.307215
+              },
+              {
+                "minX": -2.1254,
+                "maxX": 7.225,
+                "minZ": -4.575,
+                "maxZ": 1.307215
+              },
+              {
+                "minX": -6.432454,
+                "maxX": -2.108321,
+                "minZ": 1.307215,
+                "maxZ": 4.84
+              }
+            ],
+            "start": [
+              -21.8,
+              67.6
+            ],
+            "forward": [
+              0.152032,
+              0.988376
+            ]
+          },
+          {
+            "id": "villa-le-bec",
+            "position": [
+              -34.1,
+              88.8
+            ],
+            "yaw": -0.38,
+            "scale": 0.82,
+            "localBounds": {
+              "minX": -9.5,
+              "maxX": 9.5,
+              "minZ": -6.3,
+              "maxZ": 10.4
+            },
+            "localObstacles": [
+              {
+                "minX": -7.8,
+                "maxX": 7.8,
+                "minZ": -6.2,
+                "maxZ": 5.4
+              }
+            ],
+            "start": [
+              -58,
+              88
+            ],
+            "forward": [
+              1,
+              0.03
+            ]
+          },
+          {
+            "id": "shanghai-orchestra",
+            "position": [
+              -44.4,
+              44
+            ],
+            "yaw": 2.761592653589793,
+            "scale": 0.88,
+            "localBounds": {
+              "minX": -13.5,
+              "maxX": 13.5,
+              "minZ": -9.208925,
+              "maxZ": 12.5
+            },
+            "localObstacles": [
+              {
+                "minX": -12.3,
+                "maxX": 12.3,
+                "minZ": -9.2,
+                "maxZ": 8.4
+              }
+            ],
+            "start": [
+              -28.5,
+              60
+            ],
+            "forward": [
+              -0.707,
+              -0.707
+            ]
+          },
+          {
+            "id": "hudec-memorial",
+            "position": [
+              91.34,
+              -131.74
+            ],
+            "yaw": 1.5707963267948966,
+            "scale": 0.72,
+            "localBounds": {
+              "minX": -8.75,
+              "maxX": 8.75,
+              "minZ": -6.95,
+              "maxZ": 8.55
+            },
+            "localObstacles": [
+              {
+                "minX": -6.4,
+                "maxX": 4.4,
+                "minZ": -5.1,
+                "maxZ": 2.1
+              },
+              {
+                "minX": 2.65,
+                "maxX": 6.95,
+                "minZ": -5.15,
+                "maxZ": 0.35
+              },
+              {
+                "minX": -1.3,
+                "maxX": 1.7,
+                "minZ": 2.28,
+                "maxZ": 3.95
+              },
+              {
+                "minX": -8.45,
+                "maxX": -2.95,
+                "minZ": 6.35,
+                "maxZ": 7.05
+              },
+              {
+                "minX": 2.95,
+                "maxX": 8.45,
+                "minZ": 6.35,
+                "maxZ": 7.05
+              },
+              {
+                "minX": -6.9,
+                "maxX": -2.9,
+                "minZ": 2.15,
+                "maxZ": 5.25
+              }
+            ],
+            "start": [
+              73,
+              -132
+            ],
+            "forward": [
+              1,
+              0
+            ]
+          },
+          {
+            "id": "xinhua-pocket-park",
+            "position": [
+              -56.9,
+              66.3
+            ],
+            "yaw": -0.38,
+            "scale": 0.88,
+            "localBounds": {
+              "minX": -0.8524,
+              "maxX": 0.8524,
+              "minZ": -4.6,
+              "maxZ": 4.64
+            },
+            "localObstacles": [
+              {
+                "minX": -0.84,
+                "maxX": -0.68,
+                "minZ": -4.6,
+                "maxZ": 4.6
+              },
+              {
+                "minX": 0.68,
+                "maxX": 0.84,
+                "minZ": -4.6,
+                "maxZ": 4.6
+              }
+            ],
+            "start": [
+              -51.5,
+              67
+            ],
+            "forward": [
+              -0.992,
+              -0.129
+            ]
+          },
+          {
+            "id": "xinhua-community-center",
+            "position": [
+              -74.78,
+              112.55
+            ],
+            "yaw": -0.38,
+            "scale": 0.6,
+            "localBounds": {
+              "minX": -10,
+              "maxX": 10,
+              "minZ": -8.5,
+              "maxZ": 7.6
+            },
+            "localObstacles": [
+              {
+                "minX": -6.9,
+                "maxX": 6.9,
+                "minZ": -5.5,
+                "maxZ": 1.75
+              },
+              {
+                "minX": -1.55,
+                "maxX": 1.55,
+                "minZ": 1.65,
+                "maxZ": 4.3
+              },
+              {
+                "minX": 4.1,
+                "maxX": 8.5,
+                "minZ": -6.75,
+                "maxZ": -3.2
+              }
+            ],
+            "start": [
+              -67.5,
+              101.5
+            ],
+            "forward": [
+              -0.55,
+              0.835
+            ]
+          },
+          {
+            "id": "debi-fahua-525",
+            "position": [
+              -102,
+              -49
+            ],
+            "yaw": -2.6,
+            "scale": 0.92,
+            "localBounds": {
+              "minX": -14,
+              "maxX": 14,
+              "minZ": -12,
+              "maxZ": 12
+            },
+            "localObstacles": [
+              {
+                "minX": -1.8,
+                "maxX": 10.85,
+                "minZ": -9.1,
+                "maxZ": 0
+              },
+              {
+                "minX": -12.4,
+                "maxX": -3.6,
+                "minZ": -7.3,
+                "maxZ": 0.2
+              },
+              {
+                "minX": -11.5,
+                "maxX": 5.5,
+                "minZ": -11.4,
+                "maxZ": -7.4
+              },
+              {
+                "minX": -4.6,
+                "maxX": 1.4,
+                "minZ": 1.45,
+                "maxZ": 5.2
+              },
+              {
+                "minX": -9.1,
+                "maxX": -6.2,
+                "minZ": 7.2,
+                "maxZ": 8.7
+              }
+            ],
+            "start": [
+              -95.8,
+              -38.5
+            ],
+            "forward": [
+              -0.51,
+              -0.86
+            ]
+          },
+          {
+            "id": "fahua-heritage",
+            "position": [
+              -63.4,
+              -2.6
+            ],
+            "yaw": -0.5,
+            "scale": 0.27,
+            "localBounds": {
+              "minX": -7.75,
+              "maxX": 7.75,
+              "minZ": -2.1,
+              "maxZ": 2.1
+            },
+            "localObstacles": [
+              {
+                "minX": -5.95,
+                "maxX": -5.05,
+                "minZ": -0.6,
+                "maxZ": 0.6
+              },
+              {
+                "minX": -2.8,
+                "maxX": -1.9,
+                "minZ": -0.6,
+                "maxZ": 0.6
+              },
+              {
+                "minX": 1.9,
+                "maxX": 2.8,
+                "minZ": -0.6,
+                "maxZ": 0.6
+              },
+              {
+                "minX": 5.05,
+                "maxX": 5.95,
+                "minZ": -0.6,
+                "maxZ": 0.6
+              },
+              {
+                "minX": -5.3,
+                "maxX": -2.7,
+                "minZ": -0.75,
+                "maxZ": -0.3
+              },
+              {
+                "minX": -2.05,
+                "maxX": 2.05,
+                "minZ": -0.75,
+                "maxZ": -0.3
+              },
+              {
+                "minX": 2.7,
+                "maxX": 5.3,
+                "minZ": -0.75,
+                "maxZ": -0.3
+              }
+            ],
+            "start": [
+              -61.97,
+              -5.23
+            ],
+            "forward": [
+              -0.479,
+              0.878
+            ]
+          },
+          {
+            "id": "fics-xinhua-365",
+            "position": [
+              -76.1,
+              75.2
+            ],
+            "yaw": -0.38,
+            "scale": 0.9,
+            "localBounds": {
+              "minX": -21.25,
+              "maxX": 23.5,
+              "minZ": -22.200001,
+              "maxZ": 13.242599
+            },
+            "localObstacles": [
+              {
+                "minX": 4.1,
+                "maxX": 19.9,
+                "minZ": -5,
+                "maxZ": 5
+              },
+              {
+                "minX": 1.6,
+                "maxX": 7,
+                "minZ": -5.3,
+                "maxZ": 1.9
+              },
+              {
+                "minX": 0.5,
+                "maxX": 23.5,
+                "minZ": 9.2,
+                "maxZ": 10.4
+              },
+              {
+                "minX": -21.25,
+                "maxX": -5.5,
+                "minZ": -13.8,
+                "maxZ": -2.6
+              },
+              {
+                "minX": -21.1,
+                "maxX": -4.9,
+                "minZ": 4.9,
+                "maxZ": 13.1
+              },
+              {
+                "minX": -19.2,
+                "maxX": 10.2,
+                "minZ": -21.7,
+                "maxZ": -14.3
+              }
+            ],
+            "start": [
+              -71.6,
+              43.8
+            ],
+            "forward": [
+              -0.096,
+              0.995
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "commit": "9db605f276abee125cc4b83538bba8ba13deb8e8",
+      "path": "docs/research/build-records/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.json",
+      "sha256": "770bd1bedc402647740d241f84bdb6e0279521e831ccf4e12e58d8f0c49ccd7b",
+      "bytes": 6699,
+      "archivedPath": "repository/history-fixtures/9db605f276abee125cc4b83538bba8ba13deb8e8/docs/research/build-records/tiers/xinhua-road/hero-v2/villa-le-bec-hero-v2.json"
+    },
+    {
+      "commit": "a897447a8413157de3fb57c3965803e20c3d8f18",
+      "path": "docs/research/villa-le-bec-map-candidate.json",
+      "sha256": "330e86fad6077188d2f09f2b4c66ff794a52cd1097a8c4fd99e39010233e2597",
+      "bytes": 10432,
+      "archivedPath": "repository/history-fixtures/a897447a8413157de3fb57c3965803e20c3d8f18/docs/research/villa-le-bec-map-candidate.json"
+    },
+    {
+      "commit": "833bb8aadac20334ed489dfb26666621126493f6",
+      "path": "docs/research/villa-le-bec-threejs-runtime-qa-v2.json",
+      "sha256": "cef09b7539cb2d7c0a2cd2d9831beb29e521895cf236ea512ed932aadc3193f8",
+      "bytes": 3027,
+      "archivedPath": "repository/history-fixtures/833bb8aadac20334ed489dfb26666621126493f6/docs/research/villa-le-bec-threejs-runtime-qa-v2.json"
+    },
+    {
+      "commit": "dcd619e04fc735e8b0a4b9b01cac7ca78a749ecb",
+      "path": "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
+      "sha256": "56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad",
+      "bytes": 92908,
+      "archivedPath": "repository/history-fixtures/dcd619e04fc735e8b0a4b9b01cac7ca78a749ecb/public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb"
+    },
+    {
+      "commit": "ea77bc3d28461023fddeea13bd15ab996b4c401a",
+      "path": "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
+      "sha256": "56cb58a3d9f0d24a1f35d3edd610de871fb01f135253043022bef2cbadf46dad",
+      "bytes": 92908,
+      "archivedPath": "repository/history-fixtures/ea77bc3d28461023fddeea13bd15ab996b4c401a/public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb"
+    },
+    {
+      "commit": "29760a1fc83cea2a7b5c7bc4c87e77491c496b9f",
+      "path": "public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb",
+      "sha256": "b608836074a7c0eb7e697eda38a00eeb95f98b0da6a68c5157efcb18539bf979",
+      "bytes": 92908,
+      "archivedPath": "repository/history-fixtures/29760a1fc83cea2a7b5c7bc4c87e77491c496b9f/public/models/tiers/xinhua-road/hero-v1/villa-le-bec-hero.glb"
+    }
+  ]
+}

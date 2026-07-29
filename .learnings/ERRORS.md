@@ -1,15 +1,51 @@
 # Errors
 
-## [ERR-20260729-004] clean_clone_non_reproducible_historical_fixtures
+## [ERR-20260730-005] temporary_publish_clone_evicted
+
+**Logged**: 2026-07-30T00:14:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+跨日续作时，位于 `/private/tmp` 的干净发布克隆和未提交 fixture 修复已被系统清理。
+已推送 PR 分支与外置不可变快照未受影响。
+
+### Error
+```text
+No such file or directory:
+/private/tmp/test_wander_xinhua_issue_1_publish
+```
+
+### Context
+- 临时克隆只承载未提交的测试修复，没有覆盖用户主工作区。
+- `plugin` APFS 卷仍连接但未挂载；挂载后旧快照完整存在且 `SHA256SUMS` 全通过。
+
+### Suggested Fix
+跨轮次发布工作使用仓库内 `.worktrees/test_*` 稳定隔离目录；`/private/tmp` 只用于可丢弃
+的一次性验证。重要修复通过专项测试后尽快提交。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `tests/fixtures/historical-git-fixture-lock.json`
+
+### Resolution
+**Resolved**: 2026-07-30T00:50:18+08:00
+**Notes**: 从 GitHub PR 分支重建稳定干净克隆，重新生成 lock/projection；30 项专项测试通过。
+
+---
+
+## [ERR-20260729-004] clean_clone_local_only_git_history_fixtures
 
 **Logged**: 2026-07-29T21:55:37+08:00
 **Priority**: high
-**Status**: pending
+**Status**: resolved
 **Area**: tests
 
 ### Summary
-GitHub 干净克隆的全量测试包含 9 项既有、远端不可复现的历史 fixture 引用：
-8 项对应的 commit 存在但目标 path 不存在，另 1 项引用的 revision 不可用。
+GitHub 干净克隆的 9 项历史 fixture 引用全部来自只存在于旧本机 object database、且
+GitHub refs 不可达的 commit。最初“8 个 path 缺失 + 1 个 revision 缺失”的拆分来自
+Git 歧义报错，不能证明前 8 个 commit 在远端存在。
 
 ### Error
 ```text
@@ -20,19 +56,22 @@ fatal: invalid object name 'ea77bc3'
 ```
 
 ### Context
-- 在从 GitHub `origin/main` 创建的干净发布克隆执行 `npm test`。
-- 二进制门禁、静态构建、Sites 构建和本次专项测试均通过。
-- 失败测试文件未被 Issue #1 Phase 1/2 修改。
-- 同一测试在包含额外本机对象的旧工作区通过，不能作为远端可复现证据。
+- 逐个 full SHA 用 `git cat-file` 对照：旧本机仓库全部存在，GitHub 干净克隆全部不存在。
+- 不发布这些本机历史 branch/tag，避免把大型二进制历史重新带回 GitHub。
+- 9 个 byte-exact 输入已归档到外置不可变快照
+  `2026-07-29-issue-1-history-fixtures-d5f88ed`。
 
 ### Suggested Fix
-逐项核对历史 `git show <sha>:<path>` 的正确 commit-path 配对；找不到远端可复现
-输入时，把所需不可变快照作为受控小型 fixture/外置证据索引保存。修复前不得宣称
-GitHub 干净克隆全量测试通过。
+主仓库只保存小型 lock 与测试所需的最小 JSON projection；挂载外置证据库时逐文件
+验证 archived bytes 与 SHA-256。历史输入变化时生成新快照，禁止覆盖旧快照。
 
 ### Metadata
 - Reproducible: yes
-- Related Files: `tests/test_film_art_center_internal_road_semantics_deep_audit.test.mjs`, `tests/test_film_art_center_quality_tiers.test.mjs`, `tests/test_villa_le_bec_hero_v2.test.mjs`, `tests/test_villa_le_bec_hero_v2_blender_mcp2_gate.test.mjs`, `tests/test_villa_le_bec_hero_visual_adjudication.test.mjs`, `tests/test_villa_le_bec_three_tier_final_disposition.test.mjs`
+- Related Files: `tests/fixtures/historical-git-fixture-lock.json`, `tests/helpers/historical-git-fixtures.mjs`, `tests/test_historical_git_fixture_lock.test.mjs`
+
+### Resolution
+**Resolved**: 2026-07-30T00:50:18+08:00
+**Notes**: 9 个测试输入已改用受控 lock/projection；外置快照 SHA 与 bytes 回查通过，专项测试 30/30 通过。
 
 ---
 
