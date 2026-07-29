@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "status": "pass",
+  "decision": "selected-a-spike-approved-with-known-unknowns",
+  "snapshot": {
+    "id": "2026-07-29-a396474",
+    "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-29-a396474",
+    "sourceCommit": "a396474",
+    "sourceWorktreeDirty": false,
+    "fileCount": 648,
+    "byteCount": 261066752,
+    "wikiEligible": false
+  },
+  "checksumVerification": {
+    "archiveScript": "pass",
+    "independentCheckedFiles": 648,
+    "independentFailures": 0
+  },
+  "verification": {
+    "selectedAArtifacts": {
+      "dslSha256": "637a2473f5285c42ed7d1cc8c2788a3ef83db335588a00e63d3498d6be0b5bf9",
+      "massingGlbSha256": "c83fb903cc0c8ee9adc047a787a52f7e3e0f35257d305adfd8ba5bb0aabbb4d2",
+      "masterGlbSha256": "b7002cbd4e5cb2ce9448e747ebacd9cf7faaa3cdcd81046272c0e57fd3635002",
+      "collisionSha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637"
+    },
+    "threeAssetColdBuild": {
+      "sourceCommit": "d7bb811b481666349d3792302b3a22a64031dd9c",
+      "artifactQaPassed": 6,
+      "glbBinaryIdentical": 6,
+      "collisionBinaryIdentical": 3,
+      "previewPixelIdentical": 18
+    },
+    "productionSandbox": {
+      "fixedViewsPassed": 3,
+      "modelVisible": true,
+      "groundContact": "pass",
+      "openPathCheck": "pass",
+      "consoleErrors": 0,
+      "pageErrors": 0,
+      "rawSampleSeconds": 5.1064,
+      "performanceClaim": "none"
+    },
+    "npmTest": {
+      "passed": 449,
+      "failed": 0
+    },
+    "lint": {
+      "errors": 0,
+      "warnings": 1,
+      "warningScope": "既有且不在本分支改动范围"
+    }
+  },
+  "knownUnknowns": [
+    "用户证据的原始 URL、作者和拍摄日期未知",
+    "隐藏东立面、背立面、精确测绘尺寸与室内平面未知",
+    "树木遮挡构件和风向标雕塑细节未知"
+  ],
+  "productionBoundary": {
+    "defaultHudecHeroChanged": false,
+    "productionRegistryChanged": false,
+    "productionPlacementChanged": false,
+    "push": false,
+    "merge": false,
+    "deploy": false
+  }
+}

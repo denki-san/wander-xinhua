@@ -221,7 +221,7 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
 - [ ] 真实 `/?start=hudec` 可见、接地、方向和碰撞通过
 - [x] 默认 Hudec 页面仍加载原正式 Hero
 - [x] 最终提交在干净 worktree 重建三栋并得到一致 GLB
-- [ ] 新输出动态证据快照与全量 SHA 通过
+- [x] 新输出动态证据快照与全量 SHA 通过
 
 ## Decision Log
 
@@ -473,6 +473,11 @@ Compiler / Schema SHA，并对三栋 Case 重跑验证。最终结论应称为
   三栋六个 GLB 与三个 collision 文件 `9 / 9` 逐字节一致，十八张 Blender
   固定机位预览解码后 `18 / 18` 像素一致；记录见
   `cold-build-d7bb811.json`；
+- Output snapshot:
+  `/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-29-a396474/`
+  来自干净提交 `a396474`，`648` files、`261066752` bytes、
+  `wikiEligible: false`；归档脚本与独立全量 `SHA256SUMS` 复核均为
+  `0` failures；
 - Boundary: 本轮没有替换正式 Hudec Hero、没有修改 production registry、
   placement 或 cacheVersion，也没有 push、合并或部署。真实 `/?start=hudec`
   显式 Engine 复验和生产 promotion 继续属于独立后续任务。

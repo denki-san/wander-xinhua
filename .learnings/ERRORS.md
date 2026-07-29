@@ -1,5 +1,40 @@
 # Errors
 
+## [ERR-20260729-FDL] post_regression_open_file_exhaustion
+
+**Logged**: 2026-07-29T20:47:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: config
+
+### Summary
+全量构建测试后仍同时保留 production server 与 Headless Chrome，导致后续只读
+SHA 命令无法创建新进程。
+
+### Error
+```text
+Failed to create unified exec process: Too many open files (os error 24)
+```
+
+### Context
+- 失败发生在 `shasum` 启动前，没有修改文件；
+- 本轮此前已完成多次 Blender、Vinext build、production server 和浏览器三机位；
+- 停止本地 server 并关闭 agent-browser 后，同一 SHA 命令立即通过。
+
+### Suggested Fix
+完成 production Sandbox 截图、控制台和性能采样后立即关闭浏览器与本地 server，
+再运行全量测试、SHA 和归档；避免把长期存活进程留到收尾阶段。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-29T20:48:00+08:00
+- **Notes**: 先向 server PTY 发送中断，再执行 `agent-browser close`；文件句柄恢复。
+
+---
+
 ## [ERR-20260729-B52] blender_52_metal_backend_sandbox_crash
 
 **Logged**: 2026-07-29T20:01:00+08:00
