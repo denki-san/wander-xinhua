@@ -1,10 +1,12 @@
 {
   "schemaVersion": 1,
   "assetId": "hudec-memorial",
-  "status": "runtime-pass-pending-project-gates",
+  "status": "production-promotion-ready-local",
   "decision": "promote-selected-topology-a",
   "sourceCommit": "2afcefbe500cbfa5ecc7d9da9888828f66b77706",
   "acceptedEvidenceSnapshot": "2026-07-29-a396474",
+  "reviewedSourceCommit": "c2e600a08a74e19d41b7bebe2a1e0cd607f201f0",
+  "promotionAcceptanceSnapshot": "2026-07-30-c2e600a",
   "production": {
     "hero": {
       "path": "/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb",
@@ -93,14 +95,16 @@
     ]
   },
   "validation": {
-    "status": "real-runtime-pass-pending-project-gates",
+    "status": "production-promotion-ready-local",
     "implementationCommit": "a65a6592f563fc688ddfbdd4c98de54e7a39fa29",
+    "reviewedSourceCommit": "c2e600a08a74e19d41b7bebe2a1e0cd607f201f0",
     "runtimeRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/production-promotion.json",
+    "acceptanceSnapshotRecord": "docs/research/build-records/building-engine-spike/hudec-memorial/acceptance-snapshot-c2e600a.json",
     "requiredRoutes": [
       "/?start=hudec&cameraQa=1&qaAutoStart=1&effects=off&district=off",
       "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=legacy-hero&cameraQa=1&qaAutoStart=1&effects=off&district=off"
     ],
-      "checks": {
+    "checks": {
       "defaultProductionMaster": "pass",
       "legacyRollbackRoute": "pass",
       "canonicalSideEntrance": "pass",
@@ -109,6 +113,13 @@
       "sideCirculation": "pass",
       "consoleErrors": 0,
       "pageErrors": 0
+    },
+    "projectGates": {
+      "buildingEngineArtifactQa": "6/6 pass",
+      "npmTest": "456/456 pass",
+      "lint": "0 errors / 1 pre-existing warning",
+      "independentReview": "0 Critical / 0 Important / 0 Minor",
+      "externalSnapshot": "745/745 SHA-256 pass"
     },
     "performanceClaim": "matched-local-raw-samples-no-online-improvement-claim",
     "deployment": "not-authorized"

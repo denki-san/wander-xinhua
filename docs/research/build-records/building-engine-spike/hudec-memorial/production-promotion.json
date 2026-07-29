@@ -1,9 +1,11 @@
 {
   "schemaVersion": 1,
   "assetId": "hudec-memorial",
-  "status": "runtime-pass-pending-project-gates",
+  "status": "production-promotion-ready-local",
   "recordedAt": "2026-07-29T22:32:46+08:00",
   "implementationCommit": "a65a6592f563fc688ddfbdd4c98de54e7a39fa29",
+  "reviewedSourceCommit": "c2e600a08a74e19d41b7bebe2a1e0cd607f201f0",
+  "acceptanceSnapshot": "2026-07-30-c2e600a",
   "browser": "agent-browser Chromium",
   "buildMode": "production",
   "scope": "local-default-production-registry-and-explicit-rollback",
@@ -25,8 +27,8 @@
     "collisionSha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637",
     "landmarkRegistrySha256": "625ae047807cf17ffcc50870d3906e9a01977f0e802b7dfeec9e0f539b4a1252",
     "identityContractSha256": "43309a41f7d9e4f168771d4265cc9c33eec9e45d1f1a22a00f1b041aa4109481",
-    "qaContractSha256": "30bb74e1753fa474048e13f204f6607f0bbe34de2e22885bcd79aaff0ca7728b",
-    "cameraCollisionContractSha256": "21a66c3b8c25e5a2e0768c754ef4a343aa2fa207fbd6041b865e9c3f71967bd6"
+    "qaContractSha256": "5a5f4c268ab634b674cd5cc4f9d6a1b294bfef23ba0f4d19216e08e4c17fdbd3",
+    "cameraCollisionContractSha256": "a9f4caa89b0e0679ce34a4eb529b4419d2488189f37856bdc7915ec4390f36bc"
   },
   "defaultProduction": {
     "route": "/?start=hudec&cameraQa=1&qaAutoStart=1&effects=off&district=off",
@@ -215,13 +217,34 @@
       "bytes": 319085
     }
   ],
-  "pendingGates": [
-    "Building Engine all-asset QA",
-    "npm test",
-    "npm run lint",
-    "independent code review",
-    "new immutable external evidence snapshot"
-  ],
+  "projectGates": {
+    "buildingEngineArtifactQa": {
+      "passed": 6,
+      "failed": 0
+    },
+    "npmTest": {
+      "passed": 456,
+      "failed": 0
+    },
+    "lint": {
+      "errors": 0,
+      "warnings": 1,
+      "warningScope": "既有且不在本分支改动范围"
+    },
+    "independentReview": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "externalSnapshot": {
+      "id": "2026-07-30-c2e600a",
+      "sourceCommit": "c2e600a08a74e19d41b7bebe2a1e0cd607f201f0",
+      "sourceWorktreeDirty": false,
+      "checkedFiles": 745,
+      "checksumFailures": 0
+    }
+  },
+  "pendingGates": [],
   "publicationBoundary": {
     "push": false,
     "merge": false,

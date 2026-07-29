@@ -1,6 +1,6 @@
 # 新华漫游建筑引擎：生产化验收方案
 
-- Status: `production-promotion-in-progress-local`
+- Status: `production-promotion-ready-local`
 - Branch: `codex/building-engine-spike`
 - Accepted Spike implementation: `6d294381da9011359af08100ea17ac44efd421ed`
 - Spike closure: `16f196fdf4479ca170509c2d4b797850e6a1a263`
@@ -10,9 +10,12 @@
 - Evidence-corrected implementation: `53b7a6dda3082fbcb244437a8ce0a40c6a39d362`
 - Evidence-corrected closure: `45cc711`
 - Evidence-corrected acceptance snapshot: `2026-07-29-45cc711`
-- Scope: 新证据修正版 Compiler、真实 `?start=` QA、干净复建、合并前审查
-- Explicitly excluded: 修改默认 production registry、替换正式 GLB、Meshy、
-  后台、数据库、Worker、任务队列、push、合并和部署
+- Production promotion reviewed source: `c2e600a08a74e19d41b7bebe2a1e0cd607f201f0`
+- Production promotion acceptance snapshot: `2026-07-30-c2e600a`
+- Scope: 新证据修正版 Compiler、真实 `?start=` QA、首栋默认 registry promotion、
+  原子回滚、同条件本地基线和合并前审查
+- Explicitly excluded: 其他建筑 promotion、Meshy、后台、数据库、Worker、任务队列、
+  push、合并、部署和线上性能结论
 
 ## 1. 本轮要回答的问题
 
@@ -456,3 +459,20 @@ Promotion 只有以下全部通过才可报告 `production-promotion-ready-local
 
 当前仍需修复后的全量测试、lint、独立复审和外置快照，才可晋级
 `production-promotion-ready-local`。
+
+### 12.8 Promotion 最终本地结论
+
+- 修复后 `npm test` 为 `456 / 456`，lint 为 `0 error / 1` 条既有 warning；
+- Building Engine 三栋 Massing / Master 六项 artifact QA 全部通过；
+- 独立复审为 `0 Critical / 0 Important / 0 Minor`；
+- clean detached worktree `c2e600a` 生成外置不可变快照
+  `/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-30-c2e600a`；
+- 快照包含 `745` 个文件、`314171392` bytes，来源 worktree clean；
+- 归档脚本与独立回查均为 `745 / 745` SHA-256 通过；
+- 原 dirty worktree 的未跟踪 A/B/C 与 topology 候选目录全部保留，未删除、未暂存；
+- 没有 push、合并或部署。
+
+因此本分支达到 `production-promotion-ready-local`：A 方案已在本地默认
+`/?start=hudec` 成为真实生产 registry 链路，并具备可执行的旧 V2 原子回滚。
+这表示可以进入主线合并评估，不表示线上已经替换；Sites / VPS 必须在获得发布授权后，
+对同一合并提交另行验收。

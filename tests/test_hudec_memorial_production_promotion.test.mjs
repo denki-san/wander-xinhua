@@ -188,6 +188,7 @@ test("production runtime record 的资源、回滚碰撞与截图指纹可复核
   ));
 
   assert.equal(record.assetId, assetId);
+  assert.equal(record.status, "production-promotion-ready-local");
   assert.equal(
     record.defaultProduction.observedHudecResources[1].path,
     "/models/building-engine-spike/hudec-memorial/"
@@ -229,6 +230,18 @@ test("production runtime record 的资源、回滚碰撞与截图指纹可复核
     record.postReviewRollbackRecheck.observedFrameSample.exclusionReason,
     /负载|不匹配/,
   );
+  assert.equal(
+    record.lineage.qaContractSha256,
+    sha256(await readFile(
+      new URL("app/scene/building-massing-qa-contract.mjs", root),
+    )),
+  );
+  assert.equal(
+    record.lineage.cameraCollisionContractSha256,
+    sha256(await readFile(
+      new URL("app/scene/xinhua-road-contract.ts", root),
+    )),
+  );
   assert.equal(record.publicationBoundary.push, false);
   assert.equal(record.publicationBoundary.merge, false);
   assert.equal(record.publicationBoundary.deploy, false);
@@ -238,4 +251,34 @@ test("production runtime record 的资源、回滚碰撞与截图指纹可复核
     assert.equal(buffer.byteLength, screenshot.bytes);
     assert.equal(sha256(buffer), screenshot.sha256);
   }
+});
+
+test("production promotion 的最终外置快照记录与本地边界闭合", async () => {
+  const promotion = JSON.parse(await readFile(
+    new URL("building-engine/promotions/hudec-memorial.json", root),
+    "utf8",
+  ));
+  const acceptance = JSON.parse(await readFile(
+    new URL(
+      "docs/research/build-records/building-engine-spike/"
+        + "hudec-memorial/acceptance-snapshot-c2e600a.json",
+      root,
+    ),
+    "utf8",
+  ));
+
+  assert.equal(promotion.status, "production-promotion-ready-local");
+  assert.equal(acceptance.status, "pass");
+  assert.equal(
+    promotion.promotionAcceptanceSnapshot,
+    acceptance.snapshot.id,
+  );
+  assert.equal(acceptance.snapshot.sourceWorktreeDirty, false);
+  assert.equal(acceptance.snapshot.fileCount, 745);
+  assert.equal(acceptance.checksumVerification.independentCheckedFiles, 745);
+  assert.equal(acceptance.checksumVerification.independentFailures, 0);
+  assert.equal(acceptance.productionBoundary.push, false);
+  assert.equal(acceptance.productionBoundary.merge, false);
+  assert.equal(acceptance.productionBoundary.deploy, false);
+  assert.equal(acceptance.productionBoundary.onlineAcceptance, false);
 });

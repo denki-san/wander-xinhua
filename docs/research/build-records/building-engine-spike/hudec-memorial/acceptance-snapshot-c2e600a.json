@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "assetId": "hudec-memorial",
+  "status": "pass",
+  "decision": "production-promotion-ready-local",
+  "snapshot": {
+    "id": "2026-07-30-c2e600a",
+    "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-30-c2e600a",
+    "sourceCommit": "c2e600a08a74e19d41b7bebe2a1e0cd607f201f0",
+    "sourceWorktreeDirty": false,
+    "fileCount": 745,
+    "byteCount": 314171392,
+    "wikiEligible": false
+  },
+  "checksumVerification": {
+    "archiveScript": "pass",
+    "independentCheckedFiles": 745,
+    "independentFailures": 0
+  },
+  "verification": {
+    "selectedAArtifacts": {
+      "dslSha256": "637a2473f5285c42ed7d1cc8c2788a3ef83db335588a00e63d3498d6be0b5bf9",
+      "massingGlbSha256": "c83fb903cc0c8ee9adc047a787a52f7e3e0f35257d305adfd8ba5bb0aabbb4d2",
+      "masterGlbSha256": "b7002cbd4e5cb2ce9448e747ebacd9cf7faaa3cdcd81046272c0e57fd3635002",
+      "collisionSha256": "0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637"
+    },
+    "runtimePromotion": {
+      "defaultProductionMaster": "pass",
+      "canonicalSideEntrance": "pass",
+      "entrancePath": "pass",
+      "solidWallBlock": "pass",
+      "sideCirculation": "pass",
+      "legacyHeroAtomicRollback": "pass",
+      "consoleErrors": 0,
+      "pageErrors": 0,
+      "performanceClaim": "matched-local-raw-samples-no-online-improvement-claim"
+    },
+    "projectGates": {
+      "buildingEngineArtifactQaPassed": 6,
+      "npmTestPassed": 456,
+      "npmTestFailed": 0,
+      "lintErrors": 0,
+      "lintWarnings": 1,
+      "independentReview": "0 Critical / 0 Important / 0 Minor"
+    }
+  },
+  "productionBoundary": {
+    "defaultHudecHeroChanged": true,
+    "productionRegistryChanged": true,
+    "productionPlacementChanged": false,
+    "legacyRollbackPreserved": true,
+    "push": false,
+    "merge": false,
+    "deploy": false,
+    "onlineAcceptance": false
+  }
+}
