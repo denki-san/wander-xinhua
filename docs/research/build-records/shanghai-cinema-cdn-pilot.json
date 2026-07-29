@@ -1,9 +1,10 @@
 {
   "asset": "shanghai-cinema",
   "pilot": "immutable-cdn-hero-v1",
-  "status": "deployment-validation-pending",
-  "generatedAt": "2026-07-30T01:19:13+08:00",
+  "status": "passed",
+  "generatedAt": "2026-07-30T03:14:06+08:00",
   "sourceGitSha": "6721176074aec7946834869257d683ce0b569996",
+  "implementationGitSha": "c9a584d1cf4fb0af0a7502547f7ef0cdb211da92",
   "scope": {
     "nonFirstScreenHero": true,
     "editableSourceModified": false,
@@ -150,6 +151,21 @@
           "nginx-origin-valid-range",
           "nginx-origin-invalid-range"
         ]
+      },
+      {
+        "snapshot": "snapshots/2026-07-30-issue-1-cross-surface-deployment-c9a584d",
+        "subjectPath": ".",
+        "files": 7,
+        "checksums": "passed",
+        "scope": [
+          "sites-default-cdn",
+          "sites-local-fallback",
+          "sites-v46-rollback",
+          "vps-default-cdn",
+          "vps-local-fallback",
+          "vps-old-release-rollback",
+          "vps-release-permission-recovery"
+        ]
       }
     ]
   },
@@ -162,8 +178,10 @@
     "localStaticArtifactKiB": 112544,
     "localStaticFileCount": 143,
     "vpsReleaseBeforePilotKiB": 97256,
-    "vpsReleaseAfterPilotKiB": null,
-    "sitesArtifactBytes": null
+    "vpsReleaseAfterPilotKiB": 96712,
+    "vpsReleaseAfterPilotFileCount": 143,
+    "sitesArtifactBytes": 104550400,
+    "sitesArtifactFileCount": 217
   },
   "acceptance": {
     "assetLock": "passed",
@@ -187,14 +205,37 @@
     "localDistanceGate": "passed",
     "nginxSyntax": "passed",
     "nginxMissingObjectNoStore": "passed",
-    "sitesRuntime": "pending",
-    "vpsRuntime": "pending",
-    "oldVersionRollback": "pending"
+    "sitesRuntime": {
+      "status": "passed",
+      "url": "https://xinhua-messenger.berry-fig-9187.chatgpt.site",
+      "version": 47,
+      "gitSha": "c9a584d1cf4fb0af0a7502547f7ef0cdb211da92",
+      "defaultCdn": "passed",
+      "forcedLocalFallback": "passed"
+    },
+    "vpsRuntime": {
+      "status": "passed",
+      "url": "https://xinhua.denkisan.me",
+      "gitSha": "c9a584d1cf4fb0af0a7502547f7ef0cdb211da92",
+      "defaultCdn": "passed",
+      "forcedLocalFallback": "passed",
+      "releasePermissions": "directories-755-files-644"
+    },
+    "oldVersionRollback": {
+      "status": "passed",
+      "sites": "v47-to-v46-to-v47",
+      "vps": "c9a584d-to-old-release-to-c9a584d",
+      "oldRuntimePath": "/models/xinhua-road/shanghai-cinema.glb?v=20260721-cinema-7"
+    }
   },
   "rollback": {
     "cdnObjectIsReleaseIndependent": true,
     "nginxPrePilotBackup": "/etc/nginx/sites-available/xinhua.denkisan.me.before-issue1-cdn-20260730",
     "nginxCurrentPilotBackup": "/etc/nginx/sites-available/xinhua.denkisan.me.before-issue1-max-ranges-20260730",
-    "releaseDirectoriesRetained": true
+    "vpsOldReleaseBackup": "/var/www/xinhua-messenger.backup-before-c9a584d-20260730-0304",
+    "sitesOldVersion": 46,
+    "sitesRestoredVersion": 47,
+    "releaseDirectoriesRetained": true,
+    "rollbackVerified": true
   }
 }

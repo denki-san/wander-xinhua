@@ -35,6 +35,45 @@ No such file or directory:
 
 ---
 
+## [ERR-20260730-A25] vps_static_archive_preserved_private_modes
+
+**Logged**: 2026-07-30T03:06:31+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: infra
+
+### Summary
+macOS 打包的静态 release 保留了本机私有权限，VPS 解包后目录为 `700`、文件为
+`600`，导致 Nginx 首页返回 `403 Permission denied`。
+
+### Error
+```text
+drwx------ /var/www/xinhua-messenger
+-rw------- /var/www/xinhua-messenger/index.html
+open() "/var/www/xinhua-messenger/index.html" failed (13: Permission denied)
+```
+
+### Context
+- 发布包内容、SHA 和文件数均正确，问题只在解包后的 Unix mode。
+- `COPYFILE_DISABLE=1` 能阻止 AppleDouble 文件，但不会把源目录的 mode 规范化。
+- 新 release 切换后，源站与 Cloudflare 均短暂返回 403。
+
+### Suggested Fix
+VPS 切换生产前，对候选 release 显式执行目录 `755`、文件 `644` 的规范化，并通过
+VPS 内部带 Host header 的 HTTPS 请求验证首页为 `200`；只有通过后才能改名为生产
+目录。
+
+### Metadata
+- Reproducible: yes
+- Related Files: deploy/README.md
+- See Also: ERR-20260726-023
+
+### Resolution
+- **Resolved**: 2026-07-30T03:06:31+08:00
+- **Notes**: 对当前 release 目录应用目录 755、文件 644 后，Nginx 源站立即恢复 200；后续部署说明会把该检查前移到切换前。
+
+---
+
 ## [ERR-20260729-004] clean_clone_local_only_git_history_fixtures
 
 **Logged**: 2026-07-29T21:55:37+08:00

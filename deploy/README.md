@@ -40,7 +40,10 @@ scp /tmp/test_xinhua_release.tgz root@66.154.109.135:/tmp/
 ```
 
 服务器只负责解包和目录切换：先解包到带时间戳的 release 目录，检查
-`index.html` 与 `assets/` 后，将现有线上目录改名为 backup，再把 release 改名为
+`index.html` 与 `assets/`，再把目录统一为 `755`、文件统一为 `644`。必须在切换前
+让 VPS 本机使用域名 Host 直接读取候选首页并得到 `200`；macOS 打包即使已经设置
+`COPYFILE_DISABLE=1`，仍可能保留本机 `600/700` mode，不能只检查文件存在。通过后
+才将现有线上目录改名为 backup，再把 release 改名为
 `/var/www/xinhua-messenger`。不在 VPS 安装依赖、运行构建或删除历史版本。
 
 ## 首次启用
@@ -64,6 +67,8 @@ scp /tmp/test_xinhua_release.tgz root@66.154.109.135:/tmp/
 依次确认：
 
 - VPS 上不存在新华漫游志的构建或开发进程；
+- 候选 release 的目录 mode 为 `755`、文件 mode 为 `644`，且没有 `._*`
+  AppleDouble 文件；
 - VPS 本机使用域名 Host 访问 Nginx 返回 200；
 - 公网访问 `https://xinhua.denkisan.me/` 返回 200；
 - 页面无需登录，可自由 3D 闲逛，并且只有一个行动点；
