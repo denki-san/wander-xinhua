@@ -5,7 +5,10 @@ import test from "node:test";
 
 import { ACCEPTED_DERIVED_BUILDING_TIERS } from "../app/scene/xinhua-road-identity-contract.ts";
 import landmarkData from "../app/scene/xinhua-road-landmarks-data.json" with { type: "json" };
+import { resolveBuildingTierQa } from "../app/scene/building-massing-qa-contract.mjs";
 import {
+  hudecCameraObstaclesForQa,
+  transformedLandmarkFootprint,
   XINHUA_HUDEC_CAMERA_OBSTACLES,
 } from "../app/scene/xinhua-road-contract.ts";
 
@@ -124,6 +127,7 @@ test("Hudec 正式碰撞逐项来自 DSL collision，旧 V2 Hero 完整保留", 
   assert.equal(sha256(rollbackBuffer), promotion.rollback.hero.sha256);
   assert.equal(promotion.rollback.status, "preserved-not-default");
   assert.equal(promotion.rollback.qaTier, "legacy-hero");
+  assert.equal(promotion.rollback.collisionMargin, 0.2);
 });
 
 test("确定性侧向绕行使用显式 QA 起点，普通 start 参数不受影响", () => {
@@ -138,4 +142,66 @@ test("Hudec 五个正式实体单独进入相机障碍层，避免窄通路镜�
   const landmark = landmarkData.landmarks.find(({ id }) => id === assetId);
   assert.equal(XINHUA_HUDEC_CAMERA_OBSTACLES.length, landmark.localObstacles.length);
   assert.equal(XINHUA_HUDEC_CAMERA_OBSTACLES.length, 5);
+});
+
+test("legacy-hero 同时恢复旧角色碰撞、旧 margin 与旧相机碰撞", () => {
+  const landmark = landmarkData.landmarks.find(({ id }) => id === assetId);
+  const legacy = resolveBuildingTierQa(
+    "?qaModelId=hudec-memorial&qaModelTier=legacy-hero",
+  );
+  const expectedCameraObstacles = legacy.localObstacles.map(
+    (localObstacle) => transformedLandmarkFootprint(
+      {
+        ...landmark,
+        position: [...legacy.placement.position],
+        yaw: legacy.placement.yaw,
+        scale: legacy.placement.scale,
+      },
+      localObstacle,
+      legacy.collisionMargin,
+    ),
+  );
+
+  assert.equal(legacy.collisionMargin, 0.2);
+  assert.deepEqual(
+    hudecCameraObstaclesForQa(legacy),
+    expectedCameraObstacles,
+  );
+  assert.notDeepEqual(
+    hudecCameraObstaclesForQa(legacy),
+    XINHUA_HUDEC_CAMERA_OBSTACLES,
+  );
+});
+
+test("production runtime record 的资源、回滚碰撞与截图指纹可复核", async () => {
+  const record = JSON.parse(await readFile(
+    new URL(
+      "docs/research/build-records/building-engine-spike/"
+        + "hudec-memorial/production-promotion.json",
+      root,
+    ),
+    "utf8",
+  ));
+
+  assert.equal(record.assetId, assetId);
+  assert.equal(
+    record.defaultProduction.observedHudecResources[1].path,
+    "/models/building-engine-spike/hudec-memorial/"
+      + "hudec-memorial-master.glb?v=b7002cbd4e5c",
+  );
+  assert.deepEqual(record.rollbackBaseline.collision, {
+    status: "pass",
+    characterObstacles: "legacy-five-obstacles",
+    cameraObstacles: "legacy-five-obstacles",
+    collisionMargin: 0.2,
+  });
+  assert.equal(record.publicationBoundary.push, false);
+  assert.equal(record.publicationBoundary.merge, false);
+  assert.equal(record.publicationBoundary.deploy, false);
+
+  for (const screenshot of record.screenshots) {
+    const buffer = await readFile(new URL(screenshot.path, root));
+    assert.equal(buffer.byteLength, screenshot.bytes);
+    assert.equal(sha256(buffer), screenshot.sha256);
+  }
 });

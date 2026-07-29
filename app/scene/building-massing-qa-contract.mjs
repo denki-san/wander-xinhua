@@ -363,6 +363,7 @@ export const ACCEPTED_BUILDING_TIER_QA = Object.freeze({
         + "hudec-memorial-v2-hero.json",
       runtimePromotionAllowed: false,
       rollbackOnly: true,
+      collisionMargin: 0.2,
       localObstacles: Object.freeze([
         Object.freeze({ minX: -4.608, maxX: 4.104, minZ: -2.988, maxZ: 2.052 }),
         Object.freeze({ minX: 2.016, maxX: 4.752, minZ: -3.42, maxZ: 1.62 }),

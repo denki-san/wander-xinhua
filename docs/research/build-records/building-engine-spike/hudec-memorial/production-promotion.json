@@ -63,6 +63,12 @@
     "source": "/models/requested-pois/hudec-memorial-v2-hero.glb?v=20260726-hero-598b2ba19e24",
     "sourceStatus": 200,
     "sourceBytes": 1565920,
+    "collision": {
+      "status": "pass",
+      "characterObstacles": "legacy-five-obstacles",
+      "cameraObstacles": "legacy-five-obstacles",
+      "collisionMargin": 0.2
+    },
     "consoleErrors": 0,
     "pageErrors": 0,
     "frameSample": {
@@ -73,6 +79,33 @@
       "rendererTriangles": 843101
     },
     "limitation": "该路线的渐进加载还会预取当前正式 Massing 与 Master，因此不能把整页 Resource Timing 当成隔离的旧版传输基线。"
+  },
+  "postReviewRollbackRecheck": {
+    "status": "pass",
+    "recordedAt": "2026-07-30T00:46:07+08:00",
+    "route": "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=legacy-hero&cameraQa=1&qaAutoStart=1&effects=off&district=off",
+    "loadedStatus": "loaded",
+    "requestedTier": "legacy-hero",
+    "loadedTier": "legacy-hero",
+    "source": "/models/requested-pois/hudec-memorial-v2-hero.glb?v=20260726-hero-598b2ba19e24",
+    "sourceBytes": 1565920,
+    "collision": {
+      "characterObstacles": "legacy-five-obstacles",
+      "cameraObstacles": "legacy-five-obstacles",
+      "collisionMargin": 0.2,
+      "contractTest": "pass"
+    },
+    "consoleErrors": 0,
+    "pageErrors": 0,
+    "observedFrameSample": {
+      "frames": 120,
+      "durationMs": 2602.7,
+      "fps": 46.106,
+      "rendererDrawCalls": 1630,
+      "rendererTriangles": 843101,
+      "includedInMatchedBaseline": false,
+      "exclusionReason": "复审时系统负载与原本同条件样本不匹配，只用于回滚功能复核。"
+    }
   },
   "checks": {
     "canonicalAndGroundContact": {
@@ -174,6 +207,12 @@
       "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-production-legacy-hero.png",
       "sha256": "bb2be25ca02cd7941ad4ea14aa6fa5b93e4648d365a6f63b5e352f34357e2cde",
       "bytes": 318042
+    },
+    {
+      "check": "postReviewRollbackRecheck",
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-production-legacy-hero-post-review.png",
+      "sha256": "3a61ad39bf01ec6294cb8d350c02f7d3d66f1aead00bb93f327aa774056a151b",
+      "bytes": 319085
     }
   ],
   "pendingGates": [

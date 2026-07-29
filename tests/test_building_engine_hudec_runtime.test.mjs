@@ -88,4 +88,5 @@ test("默认 Hudec 产品入口使用 A 方案，旧 V2 Hero 只保留显式回�
   );
   assert.equal(rollback.rollbackOnly, true);
   assert.equal(rollback.runtimePromotionAllowed, false);
+  assert.equal(rollback.collisionMargin, 0.2);
 });

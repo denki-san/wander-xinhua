@@ -77,6 +77,7 @@
       "minZ": -3.852000237,
       "maxZ": 3.756000519
     },
+    "collisionMargin": 0.2,
     "localObstacles": [
       { "minX": -4.608, "maxX": 4.104, "minZ": -2.988, "maxZ": 2.052 },
       { "minX": 2.016, "maxX": 4.752, "minZ": -3.42, "maxZ": 1.62 },
@@ -99,7 +100,7 @@
       "/?start=hudec&cameraQa=1&qaAutoStart=1&effects=off&district=off",
       "/?start=hudec&qaModelId=hudec-memorial&qaModelTier=legacy-hero&cameraQa=1&qaAutoStart=1&effects=off&district=off"
     ],
-    "checks": {
+      "checks": {
       "defaultProductionMaster": "pass",
       "legacyRollbackRoute": "pass",
       "canonicalSideEntrance": "pass",

@@ -435,3 +435,24 @@ Promotion 只有以下全部通过才可报告 `production-promotion-ready-local
 `docs/research/build-records/building-engine-spike/hudec-memorial/production-promotion.json`。
 当前状态为 `runtime-pass-pending-project-gates`，仍需全资产 QA、全量测试、lint、
 独立代码审查和新的不可变外置快照。
+
+### 12.7 独立审查修复
+
+首次独立审查为 `0 Critical / 1 Important`。Important 指出：
+`legacy-hero` 虽然加载旧 V2 GLB 和旧五碰撞体，但仍继承新版
+`collisionMargin: 0`，相机也无条件使用新版五碰撞体，实际是新旧混搭，不构成
+真实回滚。
+
+修复后：
+
+- `legacy-hero` 显式恢复旧 registry 的 `collisionMargin: 0.2`；
+- Hudec 相机碰撞会跟随 active QA tier，旧模型、旧角色碰撞和旧相机碰撞同时切换；
+- 新增自动测试直接比较 legacy 角色 / 相机碰撞与旧五碰撞体；
+- runtime record 的 URL、资源、碰撞语义与七张截图 SHA 全部进入自动一致性测试；
+- 2026-07-30 再次在 production build 打开 legacy 路由，旧 V2 Hero 状态为
+  `loaded`，console / page errors 均为 `0`；
+- 复审时机器负载与原 matched baseline 不同，观察到的约 `46 FPS` 只记录为功能
+  复核样本，不覆盖也不参与同条件性能结论。
+
+当前仍需修复后的全量测试、lint、独立复审和外置快照，才可晋级
+`production-promotion-ready-local`。

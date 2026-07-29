@@ -1,5 +1,40 @@
 # Learnings
 
+## [LRN-20260730-RBK] best_practice
+
+**Logged**: 2026-07-30T00:50:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: tests
+
+### Summary
+3D 资产回滚 QA 必须原子切换模型、角色碰撞、相机碰撞与 collision margin。
+
+### Details
+Hudec `legacy-hero` 首版只切回旧 GLB 和旧 `localObstacles`。Resolver 仍从新版
+shared contract 继承 `collisionMargin: 0`，相机障碍也无条件从新版 production
+landmark 生成，形成“旧模型 + 混合碰撞”的假回滚。仅检查旧 URL 与 loaded tier
+无法发现这种错误。
+
+### Suggested Action
+每个可回滚 3D tier 都应显式冻结碰撞 margin；角色与 spring-arm 相机必须从同一个
+active tier 构造障碍。自动测试要比较旧 tier 的角色 / 相机碰撞结果，并在真实页面
+重新验证旧资源、console 和 page errors。
+
+### Metadata
+- Source: error
+- Related Files: `app/scene/building-massing-qa-contract.mjs`,
+  `app/scene/xinhua-road-contract.ts`,
+  `tests/test_hudec_memorial_production_promotion.test.mjs`
+- Tags: rollback, collision, camera, qa, threejs
+
+### Resolution
+- **Resolved**: 2026-07-30T00:50:00+08:00
+- **Notes**: `legacy-hero` 显式恢复 `0.2` margin，相机碰撞跟随 active QA tier；
+  专项测试与 production runtime 重验通过。
+
+---
+
 ## [LRN-20260728-HUD] correction
 
 **Logged**: 2026-07-28T23:23:23+08:00
