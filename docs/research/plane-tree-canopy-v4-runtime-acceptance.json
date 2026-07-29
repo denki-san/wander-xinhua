@@ -1,0 +1,81 @@
+{
+  "assetFamily": "xinhua-road-plane-tree-family-canopy-v4",
+  "acceptedAt": "2026-07-28",
+  "candidate": {
+    "branch": "codex/plane-tree-canopy-v3",
+    "baseline": "8810d56",
+    "deployment": "local-candidate-not-deployed",
+    "runtimeHeroRequests": 0
+  },
+  "viewport": {
+    "width": 1200,
+    "height": 807,
+    "pageVisibility": "visible",
+    "buildMode": "production-static",
+    "sampleFrames": 120
+  },
+  "standard": {
+    "url": "/?start=house315&cameraQa=1&network=standard&qaAutoStart=1&qaMove=forward&qaMoveMs=5600&qaMoveTarget=0.20%2C79.89",
+    "identityAssets": [
+      "plane-tree-a.glb?v=4c0f78206959",
+      "plane-tree-b.glb?v=3545665d071e",
+      "plane-tree-c.glb?v=3fcfc53a959b",
+      "plane-tree-d.glb?v=e454862756d1"
+    ],
+    "massingAssets": [],
+    "elapsedMs": null,
+    "fps": null,
+    "drawCalls": null,
+    "triangles": null,
+    "consoleErrors": null,
+    "visualDecision": "pending final runtime recapture after radial Identity correction"
+  },
+  "weak": {
+    "url": "/?start=house315&cameraQa=1&network=weak&qaAutoStart=1&qaMove=forward&qaMoveMs=5600&qaMoveTarget=0.20%2C79.89",
+    "xinhuaMassingAssets": [
+      "plane-tree-massing-a.glb?v=75798812e312",
+      "plane-tree-massing-b.glb?v=fefadf540efe",
+      "plane-tree-massing-c.glb?v=2e355e79e70b"
+    ],
+    "elapsedMs": 2023.5,
+    "fps": 59.3032,
+    "drawCalls": 269,
+    "triangles": 477384,
+    "consoleErrors": [],
+    "visualDecision": "passed: four-direction radial branches and centered crown remove the prior windblown road-center bias",
+    "honestBoundary": "the weak tier retains a more open road-center sky gap than the real reference; this is an intentional lightweight-crown limitation, not evidence of directional branches"
+  },
+  "screenshots": [
+    {
+      "path": "test_artifacts/test_plane_tree_canopy_v4_runtime_standard.png",
+      "sha256": "bd5cc348f2bee9e9250d8bde649c5520a357aeba7b225ed9f27078d4b6d18742",
+      "disposition": "pre-review screenshot retained; superseded by radial Identity binary and must not be used as final acceptance"
+    },
+    {
+      "path": "test_artifacts/test_plane_tree_canopy_v4_runtime_weak.png",
+      "sha256": "34f2c2b04807f56aa5a77bae0d4e79085b0f9b1b7eaea4acbce3cf8b8de16225",
+      "disposition": "pre-review screenshot retained; Massing remains current but final page recapture is pending"
+    },
+    {
+      "path": "test_artifacts/test_plane_tree_canopy_v4_triptych.png",
+      "sha256": "331916903896ca9c3b58725727090b539d77f98c1c8b5507416fa817505de5ba",
+      "disposition": "pre-review comparison retained; not final radial Identity evidence"
+    }
+  ],
+  "assetValidation": {
+    "glbAudit": "7/7 passed; one node and one mesh per GLB; zero images and textures",
+    "geometryRegression": "Identity 4/4: 70 disconnected foliage lobes, 4200 foliage vertices, max lobe aspect <= 1.30, horizontal centroid |X/Z| <= 0.35; Massing 3/3 horizontal centroid |X/Z| <= 0.10",
+    "deterministicRebuild": "7/7 SHA-256 stable; radial Identity 4/4 verified by a second full rebuild",
+    "targetedTests": "30/30 passed",
+    "fullTests": "445/445 passed after static and Sites production builds",
+    "lint": "passed with one pre-existing unrelated warning in tests/test_house_315_map_position_candidate.test.mjs",
+    "independentReview": "second review passed with 0 Critical / 0 Important; final runtime recapture remains a completion blocker",
+    "externalFinalSnapshot": {
+      "path": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-29-plane-tree-canopy-v4-post-review-candidate-8810d56",
+      "files": 630,
+      "bytes": 264871936,
+      "sha256": "all passed",
+      "disposition": "post-review radial Identity candidate snapshot; final runtime screenshot remains pending"
+    }
+  }
+}

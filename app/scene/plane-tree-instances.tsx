@@ -31,16 +31,16 @@ export type PlaneTreeInstancePlacement = {
 };
 
 export const PLANE_TREE_MODELS = [
-  "/models/xinhua-road/plane-tree-a.glb?v=33996813d4a6",
-  "/models/xinhua-road/plane-tree-b.glb?v=ddb198367ee4",
-  "/models/xinhua-road/plane-tree-c.glb?v=ea6509dc6882",
-  "/models/xinhua-road/plane-tree-d.glb?v=2621693404c1",
+  "/models/xinhua-road/plane-tree-a.glb?v=4c0f78206959",
+  "/models/xinhua-road/plane-tree-b.glb?v=3545665d071e",
+  "/models/xinhua-road/plane-tree-c.glb?v=3fcfc53a959b",
+  "/models/xinhua-road/plane-tree-d.glb?v=e454862756d1",
 ] as const;
 
 export const PLANE_TREE_MASSING_MODELS = [
-  "/models/xinhua-road/plane-tree-massing-a.glb?v=f2285924a2d6",
-  "/models/xinhua-road/plane-tree-massing-b.glb?v=74de0c3d3765",
-  "/models/xinhua-road/plane-tree-massing-c.glb?v=4f71de83466e",
+  "/models/xinhua-road/plane-tree-massing-a.glb?v=75798812e312",
+  "/models/xinhua-road/plane-tree-massing-b.glb?v=fefadf540efe",
+  "/models/xinhua-road/plane-tree-massing-c.glb?v=2e355e79e70b",
 ] as const;
 
 export const PLANE_TREE_GROUND_INSET = 0.04;

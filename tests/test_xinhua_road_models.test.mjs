@@ -472,10 +472,10 @@ test("地图与房屋使用各自证据锁定比例，不得为退界任意缩�
 });
 
 test("梧桐位置沿新华路双侧避让，315试验段密植且分层加载", () => {
-  assert.match(planeTreeInstancesSource, /plane-tree-a\.glb\?v=33996813d4a6/);
-  assert.match(planeTreeInstancesSource, /plane-tree-b\.glb\?v=ddb198367ee4/);
-  assert.match(planeTreeInstancesSource, /plane-tree-c\.glb\?v=ea6509dc6882/);
-  assert.match(planeTreeInstancesSource, /plane-tree-d\.glb\?v=2621693404c1/);
+  assert.match(planeTreeInstancesSource, /plane-tree-a\.glb\?v=4c0f78206959/);
+  assert.match(planeTreeInstancesSource, /plane-tree-b\.glb\?v=3545665d071e/);
+  assert.match(planeTreeInstancesSource, /plane-tree-c\.glb\?v=3fcfc53a959b/);
+  assert.match(planeTreeInstancesSource, /plane-tree-d\.glb\?v=e454862756d1/);
   assert.match(planeTreeInstancesSource, /PLANE_TREE_MASSING_MODELS/);
   assert.match(planeTreeInstancesSource, /InstancedPlaneTreeVariant/);
   assert.match(planeTreeInstancesSource, /InstancedPlaneTreePart/);

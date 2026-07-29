@@ -353,10 +353,10 @@ function StandardCard({ animate, asset, dpr }: { animate: boolean; asset: AssetR
   let model = asset.model;
   if (asset.id === "plane-tree") {
     model = [
-      "/models/xinhua-road/plane-tree-a.glb?v=33996813d4a6",
-      "/models/xinhua-road/plane-tree-b.glb?v=ddb198367ee4",
-      "/models/xinhua-road/plane-tree-c.glb?v=ea6509dc6882",
-      "/models/xinhua-road/plane-tree-d.glb?v=2621693404c1",
+      "/models/xinhua-road/plane-tree-a.glb?v=4c0f78206959",
+      "/models/xinhua-road/plane-tree-b.glb?v=3545665d071e",
+      "/models/xinhua-road/plane-tree-c.glb?v=3fcfc53a959b",
+      "/models/xinhua-road/plane-tree-d.glb?v=e454862756d1",
     ][variant];
   }
   return (

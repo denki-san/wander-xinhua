@@ -30,6 +30,40 @@
 
 ---
 
+## [LRN-20260728-002] correction
+
+**Logged**: 2026-07-28T22:45:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+茂密林荫道不能靠把单树枝条统一拉向道路中心来制造；正常树冠应由更多、更小
+的球状叶团组成，弱网主枝应围绕树干向四周自然生长。
+
+### Details
+V3 用三根向道路中心延伸的主枝和大块连续叶团快速封闭天空。结果虽然形成拱廊，
+但单树读成被风吹向道路中央，叶冠也像一整块屋顶，而不是由许多低模叶团组成的
+成熟树冠。正确的层级是先让每棵树自身保持径向平衡，再由株距、冠幅和相邻叶团
+自然搭接形成林荫道。
+
+### Suggested Action
+- Identity 使用更多、较小、近球形的低模叶团，允许细碎透光。
+- Massing 的短主枝采用四周放射而非统一道路内侧方向。
+- 运行时密度负责树阵连续性，不能让枝条朝向承担整条道路的造型任务。
+
+### Metadata
+- Source: user_feedback
+- Related Files: scripts/create_xinhua_plane_tree_canopy_v2.py, app/scene/xinhua-road-placement.mjs
+- Tags: plane-tree, canopy, branch-direction, low-poly, correction
+- See Also: LRN-20260728-001
+
+### Resolution
+- **Resolved**: 2026-07-28T23:55:00+08:00
+- **Notes**: Identity 与 Massing 都改为径向平衡；GLB 二进制回归门验证 70 个独立小叶团、轴比与冠层质心，第二轮独立审查 0 Critical / 0 Important。最终 production-static 重截图因浏览器后端结束而单独保持 blocker。
+
+---
+
 ## [LRN-20260728-001] correction
 
 **Logged**: 2026-07-28T21:40:00+08:00
