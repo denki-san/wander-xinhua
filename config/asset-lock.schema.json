@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xinhua.denkisan.me/schemas/asset-lock.schema.json",
+  "title": "Wander Xinhua Asset Lock",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "project",
+    "sourceGitSha",
+    "assets"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "project": {
+      "const": "wander-xinhua"
+    },
+    "sourceGitSha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "assets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/asset"
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min",
+        "max"
+      ],
+      "properties": {
+        "min": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "items": false
+        },
+        "max": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "items": false
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "storage",
+        "path",
+        "sha256",
+        "bytes"
+      ],
+      "properties": {
+        "storage": {
+          "enum": [
+            "main-repository",
+            "git-lfs-asset-repository",
+            "external-evidence"
+          ]
+        },
+        "repository": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tier",
+        "delivery",
+        "location",
+        "sha256",
+        "bytes",
+        "cacheVersion"
+      ],
+      "properties": {
+        "tier": {
+          "enum": [
+            "hero",
+            "identity",
+            "massing"
+          ]
+        },
+        "delivery": {
+          "enum": [
+            "application",
+            "cdn"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fallbackLocation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "triangles": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bounds": {
+          "$ref": "#/$defs/bounds"
+        },
+        "cacheVersion": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assetId",
+        "kind",
+        "version",
+        "source",
+        "runtime",
+        "lineage"
+      ],
+      "properties": {
+        "assetId": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "kind": {
+          "enum": [
+            "building",
+            "character",
+            "environment",
+            "street-furniture",
+            "shared"
+          ]
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "runtime": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/runtime"
+          }
+        },
+        "lineage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "generator",
+            "buildRecord",
+            "evidenceSnapshots"
+          ],
+          "properties": {
+            "generator": {
+              "type": "string",
+              "minLength": 1
+            },
+            "buildRecord": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidenceSnapshots": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
