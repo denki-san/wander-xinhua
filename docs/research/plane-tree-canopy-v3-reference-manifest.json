@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "auditedAt": "2026-07-28",
+  "status": "evidence-gate-passed-modeling-not-started",
+  "subject": {
+    "id": "xinhua-road-plane-tree-canopy-v3",
+    "name": "新华路成熟悬铃木连续林冠",
+    "runtimeBoundary": "house315 道路中心视角与新华路树阵"
+  },
+  "dynamicEvidenceSnapshot": {
+    "snapshotId": "2026-07-28-plane-tree-canopy-v3-user-feedback-4f5e339",
+    "root": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-28-plane-tree-canopy-v3-user-feedback-4f5e339",
+    "fileCount": 620,
+    "byteCount": 263761920,
+    "checksumStatus": "passed",
+    "wikiEligible": false
+  },
+  "referencePhotos": [
+    {
+      "externalPath": "repository/test_artifacts/test_plane_tree_canopy_v3_user_runtime.png",
+      "source": "user-provided-runtime-screenshot",
+      "acquiredAt": "2026-07-28",
+      "view": "current-production-road-center",
+      "sha256": "a4f781665b460224fcfc4342e7877b6221d00c279153a73e0079ac88cee5a446",
+      "supports": [
+        "V2 主分叉过高且裸杆过长",
+        "V2 叶簇离散并读成孤立球串",
+        "V2 道路中心上方保留大面积连续天空",
+        "V2 纵深树阵无法形成连续林荫道"
+      ],
+      "doesNotSupport": [
+        "实景树木测绘尺寸",
+        "实景个体枝序"
+      ]
+    },
+    {
+      "externalPath": "repository/test_artifacts/test_plane_tree_canopy_v3_user_reference.png",
+      "source": "user-provided-xinhua-road-reference",
+      "acquiredAt": "2026-07-28",
+      "view": "canonical-road-center-summer",
+      "sha256": "866b7d2646539238fc4e26643e4b16bcad84f1dadf08eec261d4fb4ba313eca3",
+      "supports": [
+        "粗壮成熟树干和较低的大分叉",
+        "粗大主枝向道路中心弯曲横展",
+        "左右树冠在道路上方互相穿插",
+        "夏季浓绿叶冠形成连续但透光的拱顶",
+        "纵深中较密的树阵节奏"
+      ],
+      "doesNotSupport": [
+        "精确拍摄位置与焦距",
+        "每棵树的测绘尺寸",
+        "被遮挡的背面枝序"
+      ]
+    }
+  ],
+  "coverageMatrix": {
+    "canonicalRoadCanopy": "supported-by-user-reference",
+    "currentRuntimeGap": "supported-by-user-runtime-screenshot",
+    "sideOrOblique": "reuse-v2-official-2023-reference",
+    "identityDetail": "reuse-v2-official-2025-trunk-reference",
+    "singleTreeRear": "missing",
+    "surveyedDimensions": "missing"
+  },
+  "observed": [
+    "成熟树木的视觉主体是低位粗分叉、跨路横展主枝和连续浓绿林冠。",
+    "左右树冠在道路中心上方互相穿插，天空主要通过不规则小孔透出。",
+    "V2 的枝叶体量、内伸冠幅和纵深密度均明显不足。"
+  ],
+  "inferred": [
+    "主分叉可先按总高 24% 至 34% 校准。",
+    "单侧树冠需向道路内侧延伸约 4.8 至 6.0 scene units。",
+    "试验段以运行时证明的 20 个安全树位为上限，非试验段约 5.4 至 6.2 scene units 基础株距更接近实景节奏。",
+    "默认夏季浓绿色更适合作为本轮产品表现。"
+  ],
+  "unknown": [
+    "参考图的精确拍摄位置、镜头焦距和罗盘方向。",
+    "每棵树的真实树高、胸径、冠幅、株距和个体枝序。",
+    "被叶片遮挡的背面枝条与当前树位的历史对应关系。"
+  ]
+}

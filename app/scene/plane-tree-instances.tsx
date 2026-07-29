@@ -31,29 +31,29 @@ export type PlaneTreeInstancePlacement = {
 };
 
 export const PLANE_TREE_MODELS = [
-  "/models/xinhua-road/plane-tree-a.glb?v=ac1e64eb4352",
-  "/models/xinhua-road/plane-tree-b.glb?v=f5cb12e0ac1e",
-  "/models/xinhua-road/plane-tree-c.glb?v=b89237348db6",
-  "/models/xinhua-road/plane-tree-d.glb?v=c3cf688014a2",
+  "/models/xinhua-road/plane-tree-a.glb?v=4c0f78206959",
+  "/models/xinhua-road/plane-tree-b.glb?v=3545665d071e",
+  "/models/xinhua-road/plane-tree-c.glb?v=3fcfc53a959b",
+  "/models/xinhua-road/plane-tree-d.glb?v=e454862756d1",
 ] as const;
 
 export const PLANE_TREE_MASSING_MODELS = [
-  "/models/xinhua-road/plane-tree-massing-a.glb?v=bd85399575f7",
-  "/models/xinhua-road/plane-tree-massing-b.glb?v=cceebc88d362",
-  "/models/xinhua-road/plane-tree-massing-c.glb?v=da13f13c657b",
+  "/models/xinhua-road/plane-tree-massing-a.glb?v=75798812e312",
+  "/models/xinhua-road/plane-tree-massing-b.glb?v=fefadf540efe",
+  "/models/xinhua-road/plane-tree-massing-c.glb?v=2e355e79e70b",
 ] as const;
 
 export const PLANE_TREE_GROUND_INSET = 0.04;
 export const PLANE_TREE_IDENTITY_MINIMUM_Y = [
-  -0.079623,
-  -0.065563,
-  -0.072952,
-  -0.0647,
+  -0.071727,
+  -0.067057,
+  -0.072076,
+  -0.070362,
 ] as const;
 export const PLANE_TREE_MASSING_MINIMUM_Y = [
-  -0.003856,
-  -0.020009,
-  -0.015339,
+  -0.007271,
+  -0.038829,
+  -0.027669,
 ] as const;
 
 type ColorMaterial = Material & {
@@ -64,26 +64,26 @@ type ColorMaterial = Material & {
   roughness?: number;
 };
 
-export function cloneAutumnPlaneTreeMaterial(source: Material) {
+export function cloneSummerPlaneTreeMaterial(source: Material) {
   const material = source.clone() as ColorMaterial;
   const name = source.name.toLowerCase();
   if (!material.color) return material;
 
   if (/叶|leaf/.test(name)) {
     const target = /深|dark/.test(name)
-      ? "#74834f"
+      ? "#315c3c"
       : /浅|light/.test(name)
-        ? "#d7ad58"
-        : "#ad8140";
+        ? "#71934f"
+        : "#4f7944";
     material.color.set(target);
     if (material.emissive) {
-      material.emissive.set("#3c3420");
-      material.emissiveIntensity = 0.055;
+      material.emissive.set("#173523");
+      material.emissiveIntensity = 0.035;
     }
     if (typeof material.roughness === "number") material.roughness = 0.96;
     if (typeof material.metalness === "number") material.metalness = 0;
   } else if (/干|枝|bark|trunk|branch/.test(name)) {
-    material.color.lerp(new Color("#756654"), 0.38);
+    material.color.lerp(new Color("#8c856f"), 0.28);
     if (typeof material.roughness === "number") material.roughness = 0.92;
     if (typeof material.metalness === "number") material.metalness = 0;
   }
@@ -109,8 +109,8 @@ function InstancedPlaneTreePart({
   const instanceRef = useRef<InstancedMesh>(null);
   const material = useMemo(() => (
     Array.isArray(sourceMesh.material)
-      ? sourceMesh.material.map(cloneAutumnPlaneTreeMaterial)
-      : cloneAutumnPlaneTreeMaterial(sourceMesh.material)
+      ? sourceMesh.material.map(cloneSummerPlaneTreeMaterial)
+      : cloneSummerPlaneTreeMaterial(sourceMesh.material)
   ), [sourceMesh.material]);
 
   useEffect(() => () => {
@@ -159,7 +159,7 @@ function InstancedPlaneTreePart({
       frustumCulled
       userData={{
         vegetation: "xinhua-plane-tree",
-        season: "late-autumn",
+        season: "summer",
         variant,
         part,
         instanced: true,

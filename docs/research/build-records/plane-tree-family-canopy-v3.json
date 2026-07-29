@@ -1,0 +1,182 @@
+{
+  "asset": "xinhua-road-plane-tree-family-canopy-v3",
+  "builtAt": "2026-07-28",
+  "gitBaseline": "4f5e33934d2ca427b9e2463267e27bf71b4c570e",
+  "generator": "scripts/create_xinhua_plane_tree_canopy_v2.py",
+  "blender": "5.2.0 LTS",
+  "sourceLineage": {
+    "offlineHero": "public/models/building-evidence-lab/xinhua-plane-tree-hero.glb",
+    "offlineHeroRuntimeDisposition": "retained-offline-not-requested",
+    "referenceManifest": "docs/research/plane-tree-canopy-v3-reference-manifest.json",
+    "dynamicEvidenceSnapshot": "2026-07-28-plane-tree-canopy-v3-user-feedback-4f5e339",
+    "finalRuntimeSnapshot": "2026-07-28-plane-tree-canopy-v3-final-runtime-v2-4f5e339",
+    "v2RollbackCommit": "4f5e33934d2ca427b9e2463267e27bf71b4c570e"
+  },
+  "identity": [
+    {
+      "slug": "plane-tree-a",
+      "blend": "assets/models/source/xinhua-road/plane-tree-a.blend",
+      "glb": "public/models/xinhua-road/plane-tree-a.glb",
+      "sha256": "33996813d4a6ab846397f2256398cf2e6ceb7a6c306abcf71a92cf1bc6230985",
+      "cacheVersion": "33996813d4a6",
+      "sourceObjects": 81,
+      "bytes": 184688,
+      "triangles": 3734,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 6,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [-4.727636, -0.071727, -2.962693],
+        "max": [4.602085, 8.499914, 7.514902]
+      }
+    },
+    {
+      "slug": "plane-tree-b",
+      "blend": "assets/models/source/xinhua-road/plane-tree-b.blend",
+      "glb": "public/models/xinhua-road/plane-tree-b.glb",
+      "sha256": "ddb198367ee4bceca71a7d07f01896e7f1241ca83907d0a0db52613737ff80da",
+      "cacheVersion": "ddb198367ee4",
+      "sourceObjects": 81,
+      "bytes": 181404,
+      "triangles": 3636,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 6,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [-3.882972, -0.067057, -2.927806],
+        "max": [5.322887, 8.685879, 7.53543]
+      }
+    },
+    {
+      "slug": "plane-tree-c",
+      "blend": "assets/models/source/xinhua-road/plane-tree-c.blend",
+      "glb": "public/models/xinhua-road/plane-tree-c.glb",
+      "sha256": "ea6509dc6882f91ed7bdc1f15db17c02941f9dd06bc2a0f01276966579db04e8",
+      "cacheVersion": "ea6509dc6882",
+      "sourceObjects": 81,
+      "bytes": 181388,
+      "triangles": 3706,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 6,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [-5.250256, -0.072076, -3.31648],
+        "max": [3.840958, 8.827997, 7.38777]
+      }
+    },
+    {
+      "slug": "plane-tree-d",
+      "blend": "assets/models/source/xinhua-road/plane-tree-d.blend",
+      "glb": "public/models/xinhua-road/plane-tree-d.glb",
+      "sha256": "2621693404c13c4c729e0190d24129fc933dca3ad357d3d097cb1b79cbb3c0d7",
+      "cacheVersion": "2621693404c1",
+      "sourceObjects": 81,
+      "bytes": 180896,
+      "triangles": 3672,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 6,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [-4.36272, -0.070362, -2.709464],
+        "max": [4.674445, 8.646206, 7.946955]
+      }
+    }
+  ],
+  "massing": [
+    {
+      "slug": "plane-tree-massing-a",
+      "blend": "assets/models/source/xinhua-road/plane-tree-massing-a.blend",
+      "glb": "public/models/xinhua-road/plane-tree-massing-a.glb",
+      "sha256": "f2285924a2d633e8c285cb2aa0b3d68e178ad6a457f2ec52c0c09f7d057aa078",
+      "cacheVersion": "f2285924a2d6",
+      "sourceObjects": 21,
+      "bytes": 36740,
+      "triangles": 580,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 3,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [-3.986063, -0.007271, -1.621408],
+        "max": [4.086062, 7.75, 7.421408]
+      }
+    },
+    {
+      "slug": "plane-tree-massing-b",
+      "blend": "assets/models/source/xinhua-road/plane-tree-massing-b.blend",
+      "glb": "public/models/xinhua-road/plane-tree-massing-b.glb",
+      "sha256": "74de0c3d3765a422ffcdad52c88c0ea12165a49aaaa90f13e00701a861f9dcbb",
+      "cacheVersion": "74de0c3d3765",
+      "sourceObjects": 21,
+      "bytes": 36736,
+      "triangles": 580,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 3,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [-3.986063, -0.038829, -1.621408],
+        "max": [4.086062, 7.75, 7.421408]
+      }
+    },
+    {
+      "slug": "plane-tree-massing-c",
+      "blend": "assets/models/source/xinhua-road/plane-tree-massing-c.blend",
+      "glb": "public/models/xinhua-road/plane-tree-massing-c.glb",
+      "sha256": "4f71de83466e936eacdac28ada58c830e06797f8d833e4b100daa122f92a8da6",
+      "cacheVersion": "4f71de83466e",
+      "sourceObjects": 21,
+      "bytes": 36724,
+      "triangles": 580,
+      "nodes": 1,
+      "meshes": 1,
+      "materials": 3,
+      "images": 0,
+      "textures": 0,
+      "bounds": {
+        "min": [-3.986063, -0.027669, -1.621408],
+        "max": [4.086063, 7.75, 7.421409]
+      }
+    }
+  ],
+  "totals": {
+    "identityBytes": 728376,
+    "identityTriangles": 14748,
+    "massingBytes": 110200,
+    "massingTriangles": 1740,
+    "runtimeHeroBytes": 0
+  },
+  "runtime": {
+    "component": "app/scene/plane-tree-instances.tsx",
+    "strategy": "four Identity or three Massing GLBs loaded once and reused through InstancedMesh",
+    "pilotStart": "house315",
+    "pilotLengthSceneUnits": 55.6,
+    "pilotApproxMeters": 150,
+    "pilotTreeCount": 20,
+    "pilotSafetyLimit": 20,
+    "allRuntimeTreeCount": 83,
+    "sideCounts": [44, 39],
+    "assetLibraryTreeCountIncludingXingfuli": 86,
+    "orientation": "road-inward with deterministic plus-or-minus four-degree jitter",
+    "runtimeHeroRequests": 0,
+    "defaultSeason": "summer"
+  },
+  "validation": {
+    "massingIndependentReview": "passed-final-short-fork-no-critical-or-important-blockers",
+    "identityRuntime": "passed-production-static",
+    "canonicalCoverage": "passed-fixed-road-axis-human-review",
+    "performance": "standard-59.657-fps-weak-58.298-fps",
+    "externalFinalSnapshot": "2026-07-28-plane-tree-canopy-v3-final-runtime-v2-4f5e339"
+  },
+  "status": "local-runtime-candidate-passed-pending-user-visual-confirmation"
+}

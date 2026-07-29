@@ -16,6 +16,92 @@ function parseGlb(buffer) {
   return JSON.parse(buffer.toString("utf8", 20, 20 + jsonLength).trim());
 }
 
+function parseGlbWithBinary(buffer) {
+  const glb = parseGlb(buffer);
+  const jsonLength = buffer.readUInt32LE(12);
+  return { glb, binaryStart: 20 + jsonLength + 8 };
+}
+
+function readAccessor(buffer, glb, binaryStart, accessorIndex) {
+  const accessor = glb.accessors[accessorIndex];
+  const view = glb.bufferViews[accessor.bufferView];
+  const componentBytes = { 5121: 1, 5123: 2, 5125: 4, 5126: 4 }[accessor.componentType];
+  const start = binaryStart + (view.byteOffset ?? 0) + (accessor.byteOffset ?? 0);
+  const stride = view.byteStride ?? componentBytes * (accessor.type === "VEC3" ? 3 : 1);
+  return Array.from({ length: accessor.count }, (_, index) => {
+    const offset = start + index * stride;
+    if (accessor.type === "VEC3") {
+      return [
+        buffer.readFloatLE(offset),
+        buffer.readFloatLE(offset + 4),
+        buffer.readFloatLE(offset + 8),
+      ];
+    }
+    if (accessor.componentType === 5121) return buffer.readUInt8(offset);
+    if (accessor.componentType === 5123) return buffer.readUInt16LE(offset);
+    return buffer.readUInt32LE(offset);
+  });
+}
+
+function measureFoliage(buffer) {
+  const { glb, binaryStart } = parseGlbWithBinary(buffer);
+  const allPoints = [];
+  const components = [];
+  for (const primitive of glb.meshes[0].primitives) {
+    const materialName = glb.materials[primitive.material]?.name ?? "";
+    if (!materialName.includes("叶")) continue;
+    const points = readAccessor(buffer, glb, binaryStart, primitive.attributes.POSITION);
+    const indices = readAccessor(buffer, glb, binaryStart, primitive.indices);
+    allPoints.push(...points);
+
+    // Blender 的 flat-shaded 低模球会为三角面复制顶点；先按实际坐标合并，
+    // 再检查每个互不连接的叶团包络，避免只相信生成器注释或 extras。
+    const keys = points.map((point) => point.map((value) => Math.round(value * 100_000)).join(","));
+    const keyIndices = new Map();
+    for (const key of keys) {
+      if (!keyIndices.has(key)) keyIndices.set(key, keyIndices.size);
+    }
+    const parents = Array.from({ length: keyIndices.size }, (_, index) => index);
+    const find = (index) => parents[index] === index
+      ? index
+      : (parents[index] = find(parents[index]));
+    const union = (left, right) => {
+      const leftRoot = find(left);
+      const rightRoot = find(right);
+      if (leftRoot !== rightRoot) parents[rightRoot] = leftRoot;
+    };
+    for (let index = 0; index < indices.length; index += 3) {
+      const triangle = indices.slice(index, index + 3).map((vertex) => keyIndices.get(keys[vertex]));
+      union(triangle[0], triangle[1]);
+      union(triangle[1], triangle[2]);
+    }
+    const grouped = new Map();
+    points.forEach((point, index) => {
+      const rootIndex = find(keyIndices.get(keys[index]));
+      if (!grouped.has(rootIndex)) grouped.set(rootIndex, []);
+      grouped.get(rootIndex).push(point);
+    });
+    for (const componentPoints of grouped.values()) {
+      const minimum = [Infinity, Infinity, Infinity];
+      const maximum = [-Infinity, -Infinity, -Infinity];
+      for (const point of componentPoints) {
+        point.forEach((value, axis) => {
+          minimum[axis] = Math.min(minimum[axis], value);
+          maximum[axis] = Math.max(maximum[axis], value);
+        });
+      }
+      const extents = maximum.map((value, axis) => value - minimum[axis]);
+      components.push({
+        aspect: Math.max(...extents) / Math.min(...extents),
+      });
+    }
+  }
+  const centroid = [0, 1, 2].map(
+    (axis) => allPoints.reduce((sum, point) => sum + point[axis], 0) / allPoints.length,
+  );
+  return { pointCount: allPoints.length, centroid, components };
+}
+
 test("梧桐树替换白名单明确排除其他树种和通用绿化", async () => {
   const [rollout, xingfuli, generator, heroViewer] = await Promise.all([
     readFile(new URL("docs/research/plane-tree-variant-rollout.md", root), "utf8"),
@@ -52,11 +138,11 @@ test("街景梧桐生成器继承连续根颈并保留四 Identity 与三 Massin
   assert.match(generator, /def build_plane_tree_massing/);
   assert.match(generator, /plane-tree-d/);
   assert.match(generator, /plane-tree-massing-a/);
-  assert.match(generator, /canopy-v2-identity/);
-  assert.match(generator, /canopy-v2-massing/);
+  assert.match(generator, /canopy-v4-identity/);
+  assert.match(generator, /canopy-v4-massing/);
   assert.match(generator, /tree-leaf-cluster-/);
   assert.match(generator, /subdivisions=1/);
-  assert.match(generator, /留下照片中可见的天空孔洞/);
+  assert.match(generator, /局部透光孔/);
 });
 
 test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async () => {
@@ -67,7 +153,7 @@ test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async ()
   const first = buildPlaneTreePlacements(landmarkData.landmarks, []);
   const second = buildPlaneTreePlacements(landmarkData.landmarks, []);
   assert.deepEqual(first, second);
-  assert.equal(first.filter(({ id }) => id.includes("-pilot-")).length, 18);
+  assert.equal(first.filter(({ id }) => id.includes("-pilot-")).length, 20);
   assert.deepEqual([...new Set(first.map(({ variant }) => variant))].sort(), [0, 1, 2, 3]);
   const previousBySide = new Map();
   for (const placement of first) {
@@ -87,7 +173,7 @@ test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async ()
 
 test("Identity 与 Massing 都按真实最低点贴合地表", async () => {
   const buildRecord = JSON.parse(await readFile(
-    new URL("docs/research/build-records/plane-tree-family-canopy-v2.json", root),
+    new URL("docs/research/build-records/plane-tree-family-canopy-v4.json", root),
     "utf8",
   ));
   for (const asset of [...buildRecord.identity, ...buildRecord.massing]) {
@@ -132,13 +218,20 @@ test("四个 Identity 与三个 Massing 共享轻量预算并保持无图片策�
     assert.equal(glb.materials?.length, 6);
     assert.equal(glb.images, undefined);
     assert.equal(glb.textures, undefined);
-    assert.equal(glb.nodes?.[0]?.extras?.plane_tree_family, "canopy-v2-identity");
+    assert.equal(glb.nodes?.[0]?.extras?.plane_tree_family, "canopy-v4-identity");
     assert.equal(glb.nodes?.[0]?.extras?.instancing_ready, true);
     const triangles = glb.meshes[0].primitives.reduce(
       (sum, primitive) => sum + glb.accessors[primitive.indices].count / 3,
       0,
     );
-    assert.ok(triangles >= 2_500 && triangles <= 4_500);
+    assert.ok(triangles >= 4_000 && triangles <= 4_500);
+    const foliage = measureFoliage(buffer);
+    assert.equal(foliage.pointCount, 4_200);
+    assert.equal(foliage.components.length, 70);
+    assert.ok(foliage.components.every(({ aspect }) => aspect <= 1.3));
+    // glTF 的 X/Z 对应树冠水平面；质心需围绕树干，而不是统一偏向道路内侧。
+    assert.ok(Math.abs(foliage.centroid[0]) <= 0.35);
+    assert.ok(Math.abs(foliage.centroid[2]) <= 0.35);
     for (const suffix of ["preview", "canonical", "side", "root"]) {
       const preview = suffix === "preview"
         ? new URL(`test_artifacts/test_${slug}_preview.png`, root)
@@ -146,7 +239,7 @@ test("四个 Identity 与三个 Massing 共享轻量预算并保持无图片策�
       assert.ok((await stat(preview)).size > 10_000);
     }
   }
-  assert.ok(totalBytes > 750_000);
+  assert.ok(totalBytes > 650_000);
   assert.ok(totalBytes <= 1_200_000);
 
   for (const slug of [
@@ -161,13 +254,17 @@ test("四个 Identity 与三个 Massing 共享轻量预算并保持无图片策�
       (sum, primitive) => sum + glb.accessors[primitive.indices].count / 3,
       0,
     );
-    assert.ok(stats.size <= 40_000);
-    assert.ok(triangles >= 150 && triangles <= 500);
+    assert.ok(stats.size <= 60_000);
+    assert.ok(triangles >= 250 && triangles <= 900);
     assert.equal(glb.nodes?.length, 1);
     assert.equal(glb.materials?.length, 3);
     assert.equal(glb.images, undefined);
     assert.equal(glb.textures, undefined);
-    assert.equal(glb.nodes?.[0]?.extras?.plane_tree_family, "canopy-v2-massing");
+    assert.equal(glb.nodes?.[0]?.extras?.plane_tree_family, "canopy-v4-massing");
+    const foliage = measureFoliage(buffer);
+    assert.equal(foliage.pointCount, 780);
+    assert.ok(Math.abs(foliage.centroid[0]) <= 0.1);
+    assert.ok(Math.abs(foliage.centroid[2]) <= 0.1);
   }
 });
 
@@ -189,7 +286,7 @@ test("全览和弱网使用 Massing、标准近景使用四 Identity，Runtime H
     readFile(new URL("app/scene/xinhua-road-contract.ts", root), "utf8"),
     readFile(new URL("app/asset-library/AssetLibrary.tsx", root), "utf8"),
     readFile(new URL("app/asset-library/asset-data.ts", root), "utf8"),
-    readFile(new URL("docs/research/plane-tree-canopy-v2-model-brief.md", root), "utf8"),
+    readFile(new URL("docs/research/plane-tree-canopy-v4-model-brief.md", root), "utf8"),
     readFile(new URL("app/building-evidence-lab/PlaneTreeViewer.tsx", root), "utf8"),
     stat(new URL("public/models/building-evidence-lab/xinhua-plane-tree-hero.glb", root)),
   ]);
@@ -208,12 +305,12 @@ test("全览和弱网使用 Massing、标准近景使用四 Identity，Runtime H
   assert.match(contract, /XINHUA_PLANE_TREE_TRUNK_OBSTACLES/);
   assert.match(world, /\.\.\.XINHUA_PLANE_TREE_TRUNK_OBSTACLES/);
   assert.match(instances, /PLANE_TREE_MASSING_MODELS/);
-  assert.match(instances, /plane-tree-d\.glb\?v=c3cf688014a2/);
-  assert.match(assetLibrary, /plane-tree-d\.glb\?v=c3cf688014a2/);
+  assert.match(instances, /plane-tree-d\.glb\?v=e454862756d1/);
+  assert.match(assetLibrary, /plane-tree-d\.glb\?v=e454862756d1/);
   assert.doesNotMatch(assetLibrary, /xinhua-plane-tree-hero\.glb/);
-  assert.match(assetData, /instanceCount: 49/);
+  assert.match(assetData, /instanceCount: 86/);
   assert.match(assetData, /全览与弱网使用三款 Massing/);
-  assert.match(brief, /产品运行时不再请求、渲染或预加载 Hero/);
+  assert.match(brief, /Runtime Hero: 0/);
 });
 
 test("构建扫描不会沿外部知识库链接消耗系统资源", async () => {

@@ -353,10 +353,10 @@ function StandardCard({ animate, asset, dpr }: { animate: boolean; asset: AssetR
   let model = asset.model;
   if (asset.id === "plane-tree") {
     model = [
-      "/models/xinhua-road/plane-tree-a.glb?v=ac1e64eb4352",
-      "/models/xinhua-road/plane-tree-b.glb?v=f5cb12e0ac1e",
-      "/models/xinhua-road/plane-tree-c.glb?v=b89237348db6",
-      "/models/xinhua-road/plane-tree-d.glb?v=c3cf688014a2",
+      "/models/xinhua-road/plane-tree-a.glb?v=4c0f78206959",
+      "/models/xinhua-road/plane-tree-b.glb?v=3545665d071e",
+      "/models/xinhua-road/plane-tree-c.glb?v=3fcfc53a959b",
+      "/models/xinhua-road/plane-tree-d.glb?v=e454862756d1",
     ][variant];
   }
   return (
@@ -430,6 +430,9 @@ export function AssetLibrary() {
     asset.qualityLevels?.some((level) => level.id === "identity" && ["ready", "online"].includes(level.status))
   )).length;
   const onlineTotal = ALL_ASSETS.filter((asset) => asset.status === "online").length;
+  const onlineTreeInstances = ALL_ASSETS
+    .filter((asset) => asset.category === "trees" && asset.status === "online")
+    .reduce((sum, asset) => sum + (asset.instanceCount ?? 0), 0);
 
   return (
     <div className={styles.shell}>
@@ -466,7 +469,7 @@ export function AssetLibrary() {
             <div className={styles.miniStats}>
               <div><span>建筑 Hero</span><strong>{BUILDING_ASSETS.length}</strong></div>
               <div><span>Identity 就绪</span><strong>{readyIdentityCount}</strong></div>
-              <div><span>线上树木实例</span><strong>188</strong></div>
+              <div><span>线上树木实例</span><strong>{onlineTreeInstances}</strong></div>
             </div>
           </div>
         </section>
