@@ -1,0 +1,35 @@
+name: Repository Binary Policy
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  repository-binary-policy:
+    name: Check repository binary policy
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      BINARY_POLICY_BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22.13.0
+          package-manager-cache: false
+
+      - name: Check repository binary policy
+        run: npm run check:binary-policy
+
+      - name: Run repository binary policy tests
+        run: node --test tests/test_repository_binary_policy.test.mjs
