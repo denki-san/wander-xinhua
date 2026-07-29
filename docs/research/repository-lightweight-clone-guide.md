@@ -149,9 +149,11 @@ git lfs fsck
 - runtime-ready sparse checkout 确认生成器和生产 GLB 存在、`.blend` 未检出，
   随后 `npm ci`、静态构建和 Sites 构建全部通过。
 - GitHub 干净 full clone 的二进制门禁、构建和全量测试全部通过，测试为
-  `453 / 453`。
-- 该 full clone 在安装依赖前总占用 `1,108,184 KiB`，其中 `.git` 为
-  `491,972 KiB`。这是完整历史与当前 tree 的实际磁盘占用，不等同于网络传输量。
+  `457 / 457`，lint 为 `0 error`（保留 1 个既有 warning）。
+- 该 full clone 在安装依赖前总占用 `1,108,260 KiB`，其中 `.git` 为
+  `491,988 KiB`，工作树包含 1,604 个文件。安装依赖并完成两类构建后总占用
+  `2,300,192 KiB`，其中 `node_modules` 为 `961,028 KiB`。这是完整历史与当前
+  tree 的实际磁盘占用，不等同于网络传输量。
 - 原 9 项历史 `git show` fixture 指向只存在于旧本机 object database、GitHub refs
   不可达的 commit。byte-exact 输入已进入外置不可变快照
   `snapshots/2026-07-29-issue-1-history-fixtures-d5f88ed`；主仓库只保存

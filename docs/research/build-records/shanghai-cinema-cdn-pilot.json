@@ -154,8 +154,11 @@
     ]
   },
   "measurements": {
-    "githubFullCloneBeforeNodeModulesKiB": 1108184,
-    "githubFullCloneGitDirectoryKiB": 491972,
+    "githubFullCloneBeforeNodeModulesKiB": 1108260,
+    "githubFullCloneGitDirectoryKiB": 491988,
+    "githubFullCloneFileCount": 1604,
+    "githubFullCloneAfterDependenciesAndBuildKiB": 2300192,
+    "githubFullCloneNodeModulesKiB": 961028,
     "localStaticArtifactKiB": 112544,
     "localStaticFileCount": 143,
     "vpsReleaseBeforePilotKiB": 97256,
@@ -170,7 +173,13 @@
       "lintErrors": 0,
       "existingLintWarnings": 1
     },
-    "cleanClone": "pending",
+    "cleanClone": {
+      "status": "passed",
+      "gitSha": "7afd6a41361926b3efd5a1d8b8261c6906a4647a",
+      "fullSuite": "457/457",
+      "lintErrors": 0,
+      "existingLintWarnings": 1
+    },
     "localRuntime": "passed",
     "localForcedFallback": "passed",
     "localAutomaticFallback": "passed",
