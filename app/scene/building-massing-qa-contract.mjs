@@ -123,10 +123,14 @@ export const BUILDING_MASSING_QA_CANDIDATES = Object.freeze({
     assetId: "hudec-memorial",
     requestedTier: "massing",
     modelPath:
-      "/models/requested-pois/hudec-memorial-massing.glb"
-      + "?v=20260726-hudec-massing-772ce8a8445a",
-    buildRecord: "docs/research/build-records/hudec-memorial-massing.json",
-    mapGate: "test_artifacts/test_hudec-memorial_map_calibration.json",
+      "/models/building-engine-spike/hudec-memorial/"
+      + "hudec-memorial-massing.glb?v=c83fb903cc0c",
+    buildRecord:
+      "docs/research/build-records/building-engine-spike/"
+      + "hudec-memorial/massing.json",
+    mapGate:
+      "docs/research/build-records/building-engine-spike/"
+      + "hudec-memorial/production-promotion.json",
     placement: Object.freeze({
       position: Object.freeze([92.535374, -132.52181]),
       yaw: 0.153486288,
@@ -136,14 +140,13 @@ export const BUILDING_MASSING_QA_CANDIDATES = Object.freeze({
       position: Object.freeze([92.5, -145]),
       forward: Object.freeze([0, 1]),
     }),
+    collisionMargin: 0,
     localObstacles: Object.freeze([
-      Object.freeze({ minX: -4.608, maxX: 4.104, minZ: -2.988, maxZ: 2.052 }),
-      Object.freeze({ minX: 2.016, maxX: 4.752, minZ: -3.42, maxZ: 1.62 }),
-      Object.freeze({ minX: -4.5, maxX: -0.9, minZ: -3.762, maxZ: -1.35 }),
-      Object.freeze({ minX: 0.738, maxX: 1.1124, minZ: 1.926, maxZ: 3.186 }),
-      Object.freeze({ minX: 2.7036, maxX: 3.078, minZ: 1.926, maxZ: 3.186 }),
-      Object.freeze({ minX: -6.048, maxX: -2.448, minZ: 4.5216, maxZ: 4.9104 }),
-      Object.freeze({ minX: 2.448, maxX: 6.048, minZ: 4.5216, maxZ: 4.9104 }),
+      Object.freeze({ minX: -4.6, maxX: 4.6, minZ: -2.85, maxZ: 1.95 }),
+      Object.freeze({ minX: -4.25, maxX: -1.15, minZ: 0.7, maxZ: 3.4 }),
+      Object.freeze({ minX: 1.15, maxX: 4.25, minZ: 0.7, maxZ: 3.4 }),
+      Object.freeze({ minX: -6.65, maxX: -4.25, minZ: -1.8, maxZ: 3.1 }),
+      Object.freeze({ minX: 4.075, maxX: 6.225, minZ: -2.25, maxZ: 0.85 }),
     ]),
   }),
   "xinhua-community-center": Object.freeze({
@@ -302,56 +305,70 @@ export const ACCEPTED_BUILDING_TIER_QA = Object.freeze({
   "hudec-memorial": Object.freeze({
     hero: Object.freeze({
       modelPath:
-        "/models/requested-pois/hudec-memorial-v2-hero.glb"
-        + "?v=20260726-hero-598b2ba19e24",
+        "/models/building-engine-spike/hudec-memorial/"
+        + "hudec-memorial-master.glb?v=b7002cbd4e5c",
       buildRecord:
-        "docs/research/build-records/tiers/xinhua-road/hero/"
-        + "hudec-memorial-v2-hero.json",
+        "docs/research/build-records/building-engine-spike/"
+        + "hudec-memorial/master.json",
+      runtimePromotionAllowed: true,
+      collisionMargin: 0,
       localObstacles: Object.freeze([
-        Object.freeze({ minX: -4.608, maxX: 4.104, minZ: -2.988, maxZ: 2.052 }),
-        Object.freeze({ minX: 2.016, maxX: 4.752, minZ: -3.42, maxZ: 1.62 }),
-        Object.freeze({ minX: -4.5, maxX: -0.9, minZ: -3.762, maxZ: -1.35 }),
-        Object.freeze({ minX: 0.738, maxX: 1.1124, minZ: 1.926, maxZ: 3.186 }),
-        Object.freeze({ minX: 2.7036, maxX: 3.078, minZ: 1.926, maxZ: 3.186 }),
+        Object.freeze({ minX: -4.6, maxX: 4.6, minZ: -2.85, maxZ: 1.95 }),
+        Object.freeze({ minX: -4.25, maxX: -1.15, minZ: 0.7, maxZ: 3.4 }),
+        Object.freeze({ minX: 1.15, maxX: 4.25, minZ: 0.7, maxZ: 3.4 }),
+        Object.freeze({ minX: -6.65, maxX: -4.25, minZ: -1.8, maxZ: 3.1 }),
+        Object.freeze({ minX: 4.075, maxX: 6.225, minZ: -2.25, maxZ: 0.85 }),
       ]),
     }),
     identity: Object.freeze({
       modelPath:
-        "/models/tiers/xinhua-road/identity-v1/hudec-memorial-identity.glb"
-        + "?v=20260726-identity-867f336824f6",
+        "/models/building-engine-spike/hudec-memorial/"
+        + "hudec-memorial-master.glb?v=b7002cbd4e5c",
       buildRecord:
-        "docs/research/build-records/tiers/xinhua-road/identity-v1/"
-        + "hudec-memorial-identity.json",
+        "docs/research/build-records/building-engine-spike/"
+        + "hudec-memorial/master.json",
+      runtimePromotionAllowed: true,
+      collisionMargin: 0,
       localObstacles: Object.freeze([
-        Object.freeze({ minX: -4.608, maxX: 4.104, minZ: -2.988, maxZ: 2.052 }),
-        Object.freeze({ minX: 2.016, maxX: 4.752, minZ: -3.42, maxZ: 1.62 }),
-        Object.freeze({ minX: -4.5, maxX: -0.9, minZ: -3.762, maxZ: -1.35 }),
-        Object.freeze({ minX: 0.738, maxX: 1.1124, minZ: 1.926, maxZ: 3.186 }),
-        Object.freeze({ minX: 2.7036, maxX: 3.078, minZ: 1.926, maxZ: 3.186 }),
+        Object.freeze({ minX: -4.6, maxX: 4.6, minZ: -2.85, maxZ: 1.95 }),
+        Object.freeze({ minX: -4.25, maxX: -1.15, minZ: 0.7, maxZ: 3.4 }),
+        Object.freeze({ minX: 1.15, maxX: 4.25, minZ: 0.7, maxZ: 3.4 }),
+        Object.freeze({ minX: -6.65, maxX: -4.25, minZ: -1.8, maxZ: 3.1 }),
+        Object.freeze({ minX: 4.075, maxX: 6.225, minZ: -2.25, maxZ: 0.85 }),
       ]),
     }),
     "engine-master": Object.freeze({
       modelPath:
         "/models/building-engine-spike/hudec-memorial/"
-        + "hudec-memorial-master.glb?v=cd3d49fcc108",
+        + "hudec-memorial-master.glb?v=b7002cbd4e5c",
       buildRecord:
         "docs/research/build-records/building-engine-spike/"
         + "hudec-memorial/master.json",
-      runtimePromotionAllowed: false,
-      blocker: "experimental-building-engine-only-not-production-replacement",
-      // DSL 入口柱碰撞已贴合可见实体；人物半径本身提供安全留距。
-      // 继续叠加全局 0.2 会把已审核的入口开放路径封死。
+      runtimePromotionAllowed: true,
       collisionMargin: 0,
       localObstacles: Object.freeze([
-        Object.freeze({ minX: -4.2, maxX: 4.2, minZ: -2.8, maxZ: 1.9 }),
-        Object.freeze({ minX: -2.03, maxX: 1.13, minZ: -2.06, maxZ: 3.5 }),
-        Object.freeze({ minX: 1.23, maxX: 3.88, minZ: -2.15, maxZ: 2.65 }),
-        Object.freeze({ minX: -4.65, maxX: -0.79, minZ: 2.02, maxZ: 4.74 }),
-        Object.freeze({ minX: 2.95, maxX: 5.41, minZ: -3.06, maxZ: 0.1 }),
-        Object.freeze({ minX: 2.34, maxX: 2.62, minZ: 3.5, maxZ: 3.78 }),
-        Object.freeze({ minX: 3.98, maxX: 4.26, minZ: 3.5, maxZ: 3.78 }),
-        Object.freeze({ minX: -6.15, maxX: -5.85, minZ: 4.06, maxZ: 4.58 }),
-        Object.freeze({ minX: -4.85, maxX: -4.55, minZ: 4.06, maxZ: 4.58 }),
+        Object.freeze({ minX: -4.6, maxX: 4.6, minZ: -2.85, maxZ: 1.95 }),
+        Object.freeze({ minX: -4.25, maxX: -1.15, minZ: 0.7, maxZ: 3.4 }),
+        Object.freeze({ minX: 1.15, maxX: 4.25, minZ: 0.7, maxZ: 3.4 }),
+        Object.freeze({ minX: -6.65, maxX: -4.25, minZ: -1.8, maxZ: 3.1 }),
+        Object.freeze({ minX: 4.075, maxX: 6.225, minZ: -2.25, maxZ: 0.85 }),
+      ]),
+    }),
+    "legacy-hero": Object.freeze({
+      modelPath:
+        "/models/requested-pois/hudec-memorial-v2-hero.glb"
+        + "?v=20260726-hero-598b2ba19e24",
+      buildRecord:
+        "docs/research/build-records/tiers/xinhua-road/hero/"
+        + "hudec-memorial-v2-hero.json",
+      runtimePromotionAllowed: false,
+      rollbackOnly: true,
+      localObstacles: Object.freeze([
+        Object.freeze({ minX: -4.608, maxX: 4.104, minZ: -2.988, maxZ: 2.052 }),
+        Object.freeze({ minX: 2.016, maxX: 4.752, minZ: -3.42, maxZ: 1.62 }),
+        Object.freeze({ minX: -4.5, maxX: -0.9, minZ: -3.762, maxZ: -1.35 }),
+        Object.freeze({ minX: 0.738, maxX: 1.1124, minZ: 1.926, maxZ: 3.186 }),
+        Object.freeze({ minX: 2.7036, maxX: 3.078, minZ: 1.926, maxZ: 3.186 }),
       ]),
     }),
   }),
@@ -396,6 +413,7 @@ export function resolveBuildingTierQa(search = "") {
     requestedTier !== "hero"
     && requestedTier !== "identity"
     && requestedTier !== "engine-master"
+    && requestedTier !== "legacy-hero"
   ) return null;
   const shared = BUILDING_MASSING_QA_CANDIDATES[assetId];
   const tier = ACCEPTED_BUILDING_TIER_QA[assetId]?.[requestedTier];
@@ -409,6 +427,8 @@ export function resolveBuildingTierQa(search = "") {
         ? "identity"
         : requestedTier === "engine-master"
           ? "identity"
+          : requestedTier === "legacy-hero"
+            ? "identity"
           : "massing",
     forcedFallback:
       params.get("qaActiveFallback") === `${assetId}:${requestedTier}`,

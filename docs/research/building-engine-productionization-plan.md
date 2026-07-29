@@ -1,6 +1,6 @@
 # 新华漫游建筑引擎：生产化验收方案
 
-- Status: `merge-ready-evidence-corrected-experimental`
+- Status: `production-promotion-in-progress-local`
 - Branch: `codex/building-engine-spike`
 - Accepted Spike implementation: `6d294381da9011359af08100ea17ac44efd421ed`
 - Spike closure: `16f196fdf4479ca170509c2d4b797850e6a1a263`
@@ -335,3 +335,79 @@
 Building Engine Spike、显式 QA tier 和证据修正版 Hudec 可以进入后续合并评估；
 不表示已替换默认生产 Hero，也不授权 push、合并或部署。真正成为默认生产链路
 仍需单独执行 registry promotion、线上同条件性能基线和可回滚的首栋正式替换验收。
+
+## 12. 2026-07-29 A 方案 production promotion 合同
+
+用户从三种不同 3D 结构理解中选择 A，并进一步确认两个烟囱都位于正面屋坡，
+白色基座与红砖烟囱头都需要加高。当前选定产物已重新通过 Evidence、Massing、
+Final、Sandbox、冷构建与外置快照门，本节开始执行首栋正式替换。
+
+### 12.1 Promotion 输入
+
+| 输入 | 路径 | SHA-256 |
+| --- | --- | --- |
+| Building DSL | `building-engine/cases/hudec-memorial/building-dsl.json` | `637a2473f5285c42ed7d1cc8c2788a3ef83db335588a00e63d3498d6be0b5bf9` |
+| Master GLB | `public/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb` | `b7002cbd4e5cb2ce9448e747ebacd9cf7faaa3cdcd81046272c0e57fd3635002` |
+| Massing GLB | `public/models/building-engine-spike/hudec-memorial/hudec-memorial-massing.glb` | `c83fb903cc0c8ee9adc047a787a52f7e3e0f35257d305adfd8ba5bb0aabbb4d2` |
+| Collision | `public/models/building-engine-spike/hudec-memorial/hudec-memorial-collision.json` | `0e853d79a138aad90a77e97ce79ae58af242a2853ccf1cf2a02ba0536d78e637` |
+| Spike acceptance snapshot | `/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-29-a396474` | `648 / 648` 已通过 |
+
+### 12.2 默认三档策略
+
+本轮不重新生成一个虚假的独立 Identity。选定 Master 只有 `2,980` triangles、
+`216,172` bytes，低于旧 Identity 的 `392,920` bytes，也远低于旧 Hero 的
+`1,565,920` bytes，因此默认三档采用：
+
+| Runtime tier | Promotion 产物 | 说明 |
+| --- | --- | --- |
+| Hero | Building Engine Master | 近景正式模型 |
+| Identity | 同一个 Building Engine Master URL | 复用浏览器缓存，避免新旧结构切换跳变 |
+| Massing | Building Engine Massing | 远景覆盖模型，与 Master 同 DSL、原点、方向和碰撞语义 |
+
+这是一项明确的首资产策略，不表示后续建筑都应共用 Hero / Identity。只有在资产
+本身已满足低模预算且同 URL 缓存收益高于独立 Identity 收益时才可复用。
+
+### 12.3 Registry、摆位与碰撞
+
+- `hudec-memorial` 默认 `model` 切换为 Building Engine Master；
+- `cacheVersion` 使用当前 Master SHA 前 12 位 `b7002cbd4e5c`；
+- 世界位置、yaw 与 scale 暂保持
+  `[92.535374, -132.52181]`、`0.153486288`、`0.88`；
+- `localBounds` 必须与当前 Master GLB POSITION bounds 一致；
+- 正式 `localObstacles` 必须逐项来自当前 collision JSON 的五个拆分体块；
+- `collisionMargin` 为 `0`，不在已审核碰撞体外重复扩张；
+- 默认 `/?start=hudec` 必须能看到 A 方案、接地，并保持中央入口和两侧绕行路径；
+- 如果真实页面显示道路侵占、相机裁切或入口不可达，只校准 registry 的 placement /
+  start / camera，不修改已审核 DSL 来迁就地图。
+
+### 12.4 回滚合同
+
+旧资产不删除、不覆盖：
+
+```text
+/models/requested-pois/hudec-memorial-v2-hero.glb
+?v=20260726-hero-598b2ba19e24
+```
+
+显式 `qaModelTier=legacy-hero` 必须继续加载旧 V2 Hero 与旧碰撞，用于同条件视觉、
+性能与故障回查。Promotion record 必须保存旧、新 URL、SHA、bounds、碰撞和
+registry 字段；需要回滚时只恢复 Hudec 的 registry 与三档合同，不删除新旧二进制。
+
+### 12.5 审核门
+
+Promotion 只有以下全部通过才可报告 `production-promotion-ready-local`：
+
+1. 默认 `/?start=hudec` 只加载新 Master，不再请求旧 Hero / Identity；
+2. `legacy-hero` 显式 QA 路由仍可加载旧 V2 Hero；
+3. 默认 canonical、侧向和入口三个真实地图视角通过；
+4. 页面内确定性移动通过中央入口、实体墙阻挡与至少一条侧向绕行；
+5. 新旧两条路线在同视口、同 production build、同预热和采样时长下保存原始性能
+   样本；没有线上环境时只能称本地 matched baseline；
+6. Registry bounds 与 GLB 一致，五个碰撞体与 collision JSON 一致；
+7. Hudec 专项、Building Engine 全资产 QA、`npm test`、`npm run lint` 通过；
+8. 独立代码审查无 Critical / Important；
+9. 新截图、性能、promotion 与回滚记录进入新的不可变外置快照且全量 SHA 通过；
+10. 保持不 push、不合并、不部署，不改动原 dirty worktree。
+
+本地通过仍不等于已经上线。没有 Sites / VPS 同提交验收时，只能报告为
+`production-promotion-ready-local`，不能声称线上生产替换完成。

@@ -126,18 +126,22 @@ export const ACCEPTED_DERIVED_BUILDING_TIERS = {
   },
   "hudec-memorial": {
     hero: {
-      path: "/models/requested-pois/hudec-memorial-v2-hero.glb",
-      cacheVersion: "20260726-hero-598b2ba19e24",
+      path:
+        "/models/building-engine-spike/hudec-memorial/"
+        + "hudec-memorial-master.glb",
+      cacheVersion: "b7002cbd4e5c",
     },
     identity: {
       path:
-        "/models/tiers/xinhua-road/identity-v1/"
-        + "hudec-memorial-identity.glb",
-      cacheVersion: "20260726-identity-867f336824f6",
+        "/models/building-engine-spike/hudec-memorial/"
+        + "hudec-memorial-master.glb",
+      cacheVersion: "b7002cbd4e5c",
     },
     massing: {
-      path: "/models/requested-pois/hudec-memorial-massing.glb",
-      cacheVersion: "20260726-massing-772ce8a8445a",
+      path:
+        "/models/building-engine-spike/hudec-memorial/"
+        + "hudec-memorial-massing.glb",
+      cacheVersion: "c83fb903cc0c",
     },
   },
   "xinhua-pocket-park": {

@@ -157,9 +157,24 @@ const XINHUA_POCKET_PARK_CAMERA_OBSTACLES =
       })
     : [];
 
+// Hudec 的花园住宅两侧是贴近长坡翼楼的窄通路。人物沿外墙绕行时，
+// spring arm 必须把当前五个实体碰撞体视为不透明，避免镜头穿进屋檐或玻璃翼。
+// 这里只增加 Hudec，不改变其他街景地标既有的透明相机策略。
+export const XINHUA_HUDEC_CAMERA_OBSTACLES =
+  XINHUA_ROAD_LANDMARKS
+    .filter(({ id }) => id === "hudec-memorial")
+    .flatMap((landmark) => collisionObstaclesForLandmark(landmark).map(
+      (localObstacle) => transformedLandmarkFootprint(
+        landmark,
+        localObstacle,
+        landmark.collisionMargin,
+      ),
+    ));
+
 export const XINHUA_ROAD_CAMERA_OBSTACLES: MapObstacle[] = [
   ...XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
   ...XINHUA_POCKET_PARK_CAMERA_OBSTACLES,
+  ...XINHUA_HUDEC_CAMERA_OBSTACLES,
 ];
 
 export const XINHUA_ROAD_START_PRESETS = Object.fromEntries(

@@ -78,7 +78,7 @@ test("Hudec Massing 保持单资产安全并记录证据边界", async () => {
   }
 });
 
-test("Hudec 历史 Three.js 证据保留，当前 registry 使用已终审 V2 Hero", async () => {
+test("Hudec 历史 Three.js 证据保留，V2 Hero 退出默认 registry 后仍可回滚", async () => {
   const [qa, gate, record, glb, landmarkSource] = await Promise.all([
     readFile(runtimeQaUrl, "utf8").then(JSON.parse),
     readFile(mcpGateUrl, "utf8").then(JSON.parse),
@@ -137,10 +137,10 @@ test("Hudec 历史 Three.js 证据保留，当前 registry 使用已终审 V2 He
   );
   assert.equal(
     committedHudec.model,
-    "/models/requested-pois/hudec-memorial-v2-hero.glb",
-    "主窗口 MCP2/MCP3 通过后，公共 registry 必须使用冻结的 V2 Hero",
+    "/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb",
+    "公共 registry 必须使用用户选定并重新验收的 A 方案 Master",
   );
-  assert.equal(committedHudec.cacheVersion, "20260726-hero-598b2ba19e24");
+  assert.equal(committedHudec.cacheVersion, "b7002cbd4e5c");
 
   for (const screenshot of Object.values(qa.screenshots)) {
     const buffer = await readFile(new URL(screenshot.path, root));

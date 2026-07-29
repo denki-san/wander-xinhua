@@ -10,7 +10,7 @@ import landmarkData from "../app/scene/xinhua-road-landmarks-data.json" with { t
 const assetId = "hudec-memorial";
 const engineTier = "engine-master";
 
-test("邬达克 Building Engine Master 只通过显式 QA 参数接入真实地图", () => {
+test("邬达克 Building Engine Master 与当前默认生产资产使用同一二进制", () => {
   const resolved = resolveBuildingTierQa(
     `?qaModelId=${assetId}&qaModelTier=${engineTier}`,
   );
@@ -20,18 +20,14 @@ test("邬达克 Building Engine Master 只通过显式 QA 参数接入真实地�
   assert.equal(
     resolved.modelPath,
     "/models/building-engine-spike/hudec-memorial/"
-      + "hudec-memorial-master.glb?v=cd3d49fcc108",
+      + "hudec-memorial-master.glb?v=b7002cbd4e5c",
   );
   assert.equal(
     resolved.buildRecord,
     "docs/research/build-records/building-engine-spike/"
       + "hudec-memorial/master.json",
   );
-  assert.equal(resolved.runtimePromotionAllowed, false);
-  assert.equal(
-    resolved.blocker,
-    "experimental-building-engine-only-not-production-replacement",
-  );
+  assert.equal(resolved.runtimePromotionAllowed, true);
   assert.equal(resolved.fallbackTier, "identity");
   assert.equal(resolved.collisionMargin, 0);
   assert.deepEqual(resolved.placement, {
@@ -43,44 +39,32 @@ test("邬达克 Building Engine Master 只通过显式 QA 参数接入真实地�
     position: [92.5, -145],
     forward: [0, 1],
   });
-  assert.equal(resolved.localObstacles.length, 9);
+  assert.equal(resolved.localObstacles.length, 5);
 });
 
-test("邬达克 Engine 碰撞按 glTF Z 轴绑定九个拆分体块", () => {
+test("邬达克 Engine 碰撞按 glTF Z 轴绑定五个 DSL 拆分体块", () => {
   const resolved = ACCEPTED_BUILDING_TIER_QA[assetId][engineTier];
   assert.deepEqual(resolved.localObstacles[0], {
-    minX: -4.2,
-    maxX: 4.2,
-    minZ: -2.8,
-    maxZ: 1.9,
+    minX: -4.6,
+    maxX: 4.6,
+    minZ: -2.85,
+    maxZ: 1.95,
   });
   assert.deepEqual(resolved.localObstacles[3], {
-    minX: -4.65,
-    maxX: -0.79,
-    minZ: 2.02,
-    maxZ: 4.74,
+    minX: -6.65,
+    maxX: -4.25,
+    minZ: -1.8,
+    maxZ: 3.1,
   });
-  assert.deepEqual(resolved.localObstacles[5], {
-    minX: 2.34,
-    maxX: 2.62,
-    minZ: 3.5,
-    maxZ: 3.78,
-  });
-  assert.deepEqual(resolved.localObstacles[6], {
-    minX: 3.98,
-    maxX: 4.26,
-    minZ: 3.5,
-    maxZ: 3.78,
-  });
-  assert.deepEqual(resolved.localObstacles[7], {
-    minX: -6.15,
-    maxX: -5.85,
-    minZ: 4.06,
-    maxZ: 4.58,
+  assert.deepEqual(resolved.localObstacles[4], {
+    minX: 4.075,
+    maxX: 6.225,
+    minZ: -2.25,
+    maxZ: 0.85,
   });
 });
 
-test("默认 Hudec 产品入口仍使用已发布 Hero，不会静默切换 Engine", () => {
+test("默认 Hudec 产品入口使用 A 方案，旧 V2 Hero 只保留显式回滚入口", () => {
   const landmark = landmarkData.landmarks.find(({ id }) => id === assetId);
   assert.equal(resolveBuildingTierQa("?start=hudec"), null);
   assert.equal(
@@ -91,7 +75,17 @@ test("默认 Hudec 产品入口仍使用已发布 Hero，不会静默切换 Engi
   );
   assert.equal(
     landmark.model,
-    "/models/requested-pois/hudec-memorial-v2-hero.glb",
+    "/models/building-engine-spike/hudec-memorial/hudec-memorial-master.glb",
   );
-  assert.equal(landmark.cacheVersion, "20260726-hero-598b2ba19e24");
+  assert.equal(landmark.cacheVersion, "b7002cbd4e5c");
+  const rollback = resolveBuildingTierQa(
+    "?qaModelId=hudec-memorial&qaModelTier=legacy-hero",
+  );
+  assert.equal(
+    rollback.modelPath,
+    "/models/requested-pois/hudec-memorial-v2-hero.glb"
+      + "?v=20260726-hero-598b2ba19e24",
+  );
+  assert.equal(rollback.rollbackOnly, true);
+  assert.equal(rollback.runtimePromotionAllowed, false);
 });
