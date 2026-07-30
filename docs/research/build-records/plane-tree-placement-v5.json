@@ -5,7 +5,7 @@
   "binaryChange": false,
   "placementSource": {
     "path": "app/scene/xinhua-road-placement.mjs",
-    "sha256": "61dc15b36f79aeb1a4101700915b2b05b150863e0baeff3af7fbc7faa9066f1d"
+    "sha256": "503587cd4a9eb5bbdbef4b0845064c320da9ceb2bd8e913999e52d1708edbceb"
   },
   "streetDressingSource": {
     "path": "app/scene/street-dressing-placement.mjs",
@@ -15,7 +15,7 @@
   "sourceLineage": {
     "parentAsset": "xinhua-road-plane-tree-family-canopy-v4",
     "parentBuildRecord": "docs/research/build-records/plane-tree-family-canopy-v4.json",
-    "referenceManifest": "docs/research/plane-tree-placement-v5-reference-manifest.json",
+    "referenceManifest": "docs/research/plane-tree-canopy-v3-reference-manifest.json",
     "modelBrief": "docs/research/plane-tree-placement-v5-model-brief.md",
     "decisionLog": "docs/research/plane-tree-placement-v5-decision-log.md"
   },
@@ -36,24 +36,28 @@
       ]
     },
     "accepted": {
-      "xinhuaRoadCount": 79,
+      "xinhuaRoadCount": 83,
       "xingfuliSharedCount": 3,
-      "assetLibraryCount": 82,
+      "assetLibraryCount": 86,
       "sideCounts": [
-        41,
-        38
+        44,
+        39
       ],
-      "pilotCount": 16,
+      "pilotCount": 20,
       "pilotSideCounts": [
-        8,
+        12,
         8
       ],
-      "axisSpacing": 6.2,
-      "pilotCandidateSpacing": 4.2,
-      "pilotSidePhase": 1.5,
+      "axisSpacing": 6,
+      "pilotCandidateSpacing": 3.6,
+      "pilotSidePhase": 1.8,
+      "sidePhases": [
+        0.5,
+        0
+      ],
       "sideOffsets": [
         {
-          "base": 4.8,
+          "base": 5.05,
           "jitter": 0.45
         },
         {
@@ -145,38 +149,38 @@
     "editableBlendFiles": "7/7 present",
     "binaryHashComparison": "7/7 byte-identical to the V4 build record",
     "standardRuntime": {
-      "frames": 300,
-      "fps": 60.05,
-      "frameP95Ms": 18.1,
-      "maximumDrawCalls": 252,
-      "maximumTriangles": 870496,
+      "frames": 897,
+      "fps": 59.81,
+      "frameP95Ms": 19.6,
+      "maximumDrawCalls": 253,
+      "maximumTriangles": 1059174,
       "identityRequests": 4,
       "massingRequests": 0,
       "errors": 0
     },
     "weakRuntime": {
-      "frames": 299,
-      "fps": 59.97,
-      "frameP95Ms": 18.3,
-      "maximumDrawCalls": 218,
-      "maximumTriangles": 314250,
+      "frames": 896,
+      "fps": 59.74,
+      "frameP95Ms": 19.3,
+      "maximumDrawCalls": 220,
+      "maximumTriangles": 475092,
       "identityRequestsSharedByXingfuli": 3,
       "massingRequests": 3,
       "errors": 0
     },
     "performanceComparison": {
-      "standardFrameP95BaselineMs": 17.9,
-      "standardFrameP95AcceptedMs": 18.1,
-      "standardMaximumTrianglesDeltaPercent": -3.9,
-      "weakFrameP95BaselineMs": 18.7,
-      "weakFrameP95AcceptedMs": 18.3,
-      "weakMaximumTrianglesDeltaPercent": -2.3,
-      "conclusion": "matched-condition samples show no performance regression; no durable speedup claim is made from a single pair"
+      "standardFrameP95BaselineMs": 17.4,
+      "standardFrameP95AcceptedMs": 19.6,
+      "standardMaximumTrianglesDeltaPercent": 0.04,
+      "weakFrameP95BaselineMs": 22.9,
+      "weakFrameP95AcceptedMs": 19.3,
+      "weakMaximumTrianglesDeltaPercent": 0.06,
+      "conclusion": "15-second matched-condition samples remain inside the 15% P95 gate; no durable speedup claim is made"
     },
     "fullTests": "461/461 passed",
     "lint": "passed with zero errors and one pre-existing unrelated warning",
-    "externalSnapshot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-30-plane-tree-placement-v5-final-d5f88ed (657 files, 272535552 bytes, SHA256SUMS passed twice)"
+    "externalSnapshot": "pending count-preserving release snapshot"
   },
   "runtimeAcceptance": "docs/research/plane-tree-placement-v5-runtime-acceptance.json",
-  "status": "local-tests-runtime-evidence-accepted-pending-release"
+  "status": "count-preserving-local-tests-runtime-accepted-pending-release"
 }

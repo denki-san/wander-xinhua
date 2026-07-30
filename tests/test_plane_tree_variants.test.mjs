@@ -10,6 +10,7 @@ import {
   XINHUA_PLANE_TREE_PILOT_CANDIDATE_SPACING,
   XINHUA_PLANE_TREE_PILOT_SIDE_PHASE,
   XINHUA_PLANE_TREE_SIDE_OFFSETS,
+  XINHUA_PLANE_TREE_SIDE_PHASES,
   XINHUA_ROAD_AXIS,
   XINHUA_PLANE_TREE_TRUNK_HALF_EXTENT,
 } from "../app/scene/xinhua-road-placement.mjs";
@@ -194,7 +195,7 @@ test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async ()
   const first = buildPlaneTreePlacements(landmarkData.landmarks, []);
   const second = buildPlaneTreePlacements(landmarkData.landmarks, []);
   assert.deepEqual(first, second);
-  assert.equal(first.filter(({ id }) => id.includes("-pilot-")).length, 16);
+  assert.equal(first.filter(({ id }) => id.includes("-pilot-")).length, 20);
   assert.deepEqual([...new Set(first.map(({ variant }) => variant))].sort(), [0, 1, 2, 3]);
   const previousBySide = new Map();
   for (const placement of first) {
@@ -212,27 +213,28 @@ test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async ()
   assert.doesNotMatch(instancesSource, /material\.clone/);
 });
 
-test("V5 独立控制株距和两侧道路偏移且保持树干、入口与建筑净空", () => {
-  assert.equal(XINHUA_PLANE_TREE_AXIS_SPACING, 6.2);
-  assert.equal(XINHUA_PLANE_TREE_PILOT.targetCount, 16);
-  assert.equal(XINHUA_PLANE_TREE_PILOT_CANDIDATE_SPACING, 4.2);
-  assert.equal(XINHUA_PLANE_TREE_PILOT_SIDE_PHASE, 1.5);
+test("V5 保留 83 棵基线并独立控制两侧道路偏移和纵向错位", () => {
+  assert.equal(XINHUA_PLANE_TREE_AXIS_SPACING, 6);
+  assert.equal(XINHUA_PLANE_TREE_PILOT.targetCount, 20);
+  assert.equal(XINHUA_PLANE_TREE_PILOT_CANDIDATE_SPACING, 3.6);
+  assert.equal(XINHUA_PLANE_TREE_PILOT_SIDE_PHASE, 1.8);
   assert.deepEqual(XINHUA_PLANE_TREE_SIDE_OFFSETS, [
-    { base: 4.8, jitter: 0.45 },
+    { base: 5.05, jitter: 0.45 },
     { base: 6.55, jitter: 0.45 },
   ]);
-  assert.equal(XINHUA_PLANE_TREE_PLACEMENTS.length, 79);
+  assert.deepEqual(XINHUA_PLANE_TREE_SIDE_PHASES, [0.5, 0]);
+  assert.equal(XINHUA_PLANE_TREE_PLACEMENTS.length, 83);
   assert.equal(
     XINHUA_PLANE_TREE_PLACEMENTS.filter(({ id }) => id.includes("-pilot-")).length,
-    16,
+    20,
   );
   assert.equal(
     XINHUA_PLANE_TREE_PLACEMENTS.filter(({ id }) => id.startsWith("plane-tree-0-")).length,
-    41,
+    44,
   );
   assert.equal(
     XINHUA_PLANE_TREE_PLACEMENTS.filter(({ id }) => id.startsWith("plane-tree-1-")).length,
-    38,
+    39,
   );
 
   const visibleRoadEdge = (
@@ -279,12 +281,12 @@ test("V5 独立控制株距和两侧道路偏移且保持树干、入口与建�
       .filter((placement) => placement.side === side && placement.id.includes("-pilot-"))
       .sort((left, right) => left.road.along - right.road.along)
   ));
+  assert.deepEqual(pilotBySide.map((side) => side.length), [12, 8]);
   for (const side of pilotBySide) {
-    assert.equal(side.length, 8);
     for (let index = 1; index < side.length; index += 1) {
       assert.ok(
-        side[index].road.along - side[index - 1].road.along >= 4.19,
-        "试验段同侧树位需保持更疏的纵向节奏",
+        side[index].road.along - side[index - 1].road.along >= 3.59,
+        "试验段同侧树位需保持经过运行时证明的安全节奏",
       );
     }
   }
@@ -296,9 +298,9 @@ test("V5 build record 固化树位口径且不伪造新的 GLB 版本", async ()
     "utf8",
   ));
   assert.equal(record.binaryChange, false);
-  assert.equal(record.placement.accepted.xinhuaRoadCount, 79);
-  assert.deepEqual(record.placement.accepted.sideCounts, [41, 38]);
-  assert.deepEqual(record.placement.accepted.pilotSideCounts, [8, 8]);
+  assert.equal(record.placement.accepted.xinhuaRoadCount, 83);
+  assert.deepEqual(record.placement.accepted.sideCounts, [44, 39]);
+  assert.deepEqual(record.placement.accepted.pilotSideCounts, [12, 8]);
   assert.equal(record.placement.accepted.visibleRoadEnvelopeHalfWidth, 3.925);
   assert.equal(record.identity.length, 4);
   assert.equal(record.massing.length, 3);
@@ -444,7 +446,7 @@ test("全览和弱网使用 Massing、标准近景使用四 Identity，Runtime H
   assert.match(instances, /plane-tree-d\.glb\?v=e454862756d1/);
   assert.match(assetLibrary, /plane-tree-d\.glb\?v=e454862756d1/);
   assert.doesNotMatch(assetLibrary, /xinhua-plane-tree-hero\.glb/);
-  assert.match(assetData, /instanceCount: 82/);
+  assert.match(assetData, /instanceCount: 86/);
   assert.match(assetData, /全览与弱网使用三款 Massing/);
   assert.match(brief, /Runtime Hero: 0/);
 });

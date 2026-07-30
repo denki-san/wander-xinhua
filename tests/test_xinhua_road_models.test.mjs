@@ -502,7 +502,7 @@ test("梧桐位置沿新华路双侧避让，315试验段保持连续且分层�
     pilotObstacles,
   );
   assert.ok(placements.length >= 20, "避让后仍需保留连续的双侧梧桐树阵");
-  assert.equal(placements.filter(({ id }) => id.includes("-pilot-")).length, 16);
+  assert.equal(placements.filter(({ id }) => id.includes("-pilot-")).length, 20);
   assert.deepEqual([...new Set(placements.map(({ variant }) => variant))].sort(), [0, 1, 2, 3]);
   const previousVariantBySide = new Map();
   for (const placement of placements) {

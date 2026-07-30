@@ -94,12 +94,12 @@ GLB binaries.
 
 #### Inferred
 
-- Reducing the pilot count to 16 and increasing the safe-candidate step from 3.6 to 4.2
-  scene units provides a verifiable 8+8 rhythm without breaking the canopy sequence.
-- A side-0 offset of 4.80–5.25 scene units leaves approximately 0.88–1.33 scene units beyond
+- The researched 20-pilot / 83-road count is a hard constraint; visual density must not be
+  corrected by deleting placements.
+- A side-0 offset of 5.05–5.50 scene units leaves approximately 1.13–1.58 scene units beyond
   the visible verge edge and keeps trunks out of the motor lane.
-- Increasing the non-pilot base spacing from 6.0 to 6.2 scene units is a small correction,
-  not a road-expansion redesign.
+- A 0.5 scene-unit longitudinal phase on side 0 preserves its 44 safe placements after the
+  row moves inward; the V3-proven 6.0 / 3.6 sampling remains unchanged.
 
 #### Unknown
 
@@ -123,12 +123,12 @@ GLB binaries.
 - Coordinate source: committed Xinhua Road axis plus deterministic side offsets
 - Baseline:
   spacing 6.0 scene units, side offsets 6.55–7.10, pilot count 20
-- Candidate range:
-  spacing 6.2 scene units, side 0 offset 4.80–5.25, side 1 offset 6.55–7.00,
-  pilot count 16
+- Accepted range:
+  spacing 6.0 scene units, side 0 offset 5.05–5.50, side 1 offset 6.55–7.00,
+  pilot count 20 and total count 83
 - Pilot rhythm:
-  4.2 scene-unit candidate spacing with a 1.5 scene-unit cross-road phase; final safe
-  placements must remain 8+8 with no same-side gap below 4.2.
+  V3-proven 3.6 scene-unit candidate spacing with a 1.8 scene-unit cross-road phase;
+  final safe distribution remains 12+8 without shrinking entrance clearance.
 - Confidence: high for product-space correction, low for surveyed real tree pits
 
 ### Scale
@@ -170,8 +170,8 @@ the source of truth.
 
 ### Runtime Budget
 
-- Xinhua Road placements: exactly 79 for this correction.
-- Pilot placements: exactly 16.
+- Xinhua Road placements: exactly 83 for this correction.
+- Pilot placements: exactly 20.
 - Identity GLBs: exactly four, unchanged hashes.
 - Massing GLBs: exactly three, unchanged hashes.
 - Maximum GLB bytes: unchanged total `1,019,888`.
@@ -188,6 +188,9 @@ the source of truth.
 - Baseline commit: `d5f88ed`
 - Baseline record:
   `docs/research/build-records/plane-tree-family-canopy-v4.json`
+- Reference manifest:
+  `docs/research/plane-tree-canopy-v3-reference-manifest.json` (locks the researched
+  20-pilot / 83-road placement boundary)
 - Expected binary outputs:
   unchanged seven GLBs and seven editable Blend files
 - Placement acceptance:
@@ -210,10 +213,10 @@ the source of truth.
 ### Placement
 
 - [x] Named axis spacing and side offsets are independently testable.
-- [x] Pilot count is exactly 16.
-- [x] Pilot distribution is 8+8 and every same-side pilot gap is at least 4.2 scene units.
-- [x] Total Xinhua Road count is exactly 79.
-- [x] Side-0 tree centers stay within 4.80–5.25 scene units of the road axis.
+- [x] Pilot count is exactly 20.
+- [x] Pilot distribution is 12+8 and every same-side pilot gap is at least 3.6 scene units.
+- [x] Total Xinhua Road count is exactly 83.
+- [x] Side-0 tree centers stay within 5.05–5.50 scene units of the road axis.
 - [x] Side-1 baseline relationship is not materially changed.
 - [x] Every trunk stays outside the visible road envelope and all entrances/buildings.
 - [x] Adjacent deterministic variants still do not repeat.
@@ -279,19 +282,20 @@ the source of truth.
 ### Iteration 2 — Placement, Structure and Runtime Acceptance
 
 - Changes:
-  79 Xinhua Road trees, 16 pilot trees, 6.2 axis spacing, 4.2 pilot candidate spacing,
-  and a 4.80–5.25 side-0 road-axis offset.
+  the count-reducing 79/16 candidate was rejected after user correction.
+- Corrected contract:
+  83 Xinhua Road trees, 20 pilot trees, 6.0 axis spacing, 3.6 pilot candidate spacing,
+  a 5.05–5.50 side-0 road-axis offset, and a 0.5 side-0 longitudinal phase.
 - Graybox/runtime result:
-  the screen-right row now reads beside the verge; longitudinal trunks are less dense while
-  the two-sided canopy sequence remains intact.
+  pending recapture against the corrected count-preserving contract.
 - Blender result:
   all seven editable Blend files remain present; Blender was not opened because no binary
   changed.
 - GLB result:
   7/7 audits passed and all SHA-256 values remain byte-identical to V4.
 - Runtime result:
-  final standard 60.05 FPS / P95 18.1 ms / 300 frames; final weak 59.97 FPS /
-  P95 18.3 ms / 299 frames; deterministic movement complete, and zero
+  count-preserving standard 59.81 FPS / P95 19.6 ms / 897 frames; weak 59.74 FPS /
+  P95 19.3 ms / 896 frames; deterministic movement complete, and zero
   console/network/asset errors.
 - Performance interpretation:
   no matched-condition regression; the single capture pair is not treated as a durable

@@ -1,5 +1,36 @@
 # Learnings
 
+## [LRN-20260730-PTC] correction
+
+**Logged**: 2026-07-30T10:20:00+08:00
+**Priority**: critical
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+梧桐树阵的视觉密度优化不得覆盖调研中已锁定的 20 棵试验段和 83 棵全线数量。
+
+### Details
+V3 Brief 已把 20 个试验段安全树位和 83 棵全线树位写为运行时验证结果。后续
+树位优化错误地把“纵向画面偏密”解释为减少到 16/79，违反了已有硬约束。正确
+做法是把数量、纵向节奏和横向道路偏移作为独立合同：保持 20/83，通过安全的
+横向内移和纵向错位改善构图。
+
+### Suggested Action
+修改树阵前先读取最新 Brief、reference manifest 和 Decision log；测试必须同时
+锁定试验段数量、全线数量、左右数量、入口/建筑净空与道路外缘净空。
+
+### Metadata
+- Source: user_feedback
+- Related Files: `docs/research/plane-tree-canopy-v3-model-brief.md`, `app/scene/xinhua-road-placement.mjs`
+- Tags: plane-tree, count, placement, research-contract, correction
+
+### Resolution
+- **Resolved**: 2026-07-30T10:20:00+08:00
+- **Notes**: 恢复 20/83，并用 side 0 横向内移和 0.5 scene units 纵向错位保留 44/39 安全树位。
+
+---
+
 ## [LRN-20260727-MBX] correction
 
 **Logged**: 2026-07-27T12:00:00+08:00
