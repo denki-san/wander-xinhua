@@ -34,6 +34,17 @@
 6. 只让近景 Identity 投射实时阴影；碰撞仅查询玩家附近的小型树干 AABB。
 7. 本轮只部署 VPS，不发布 Sites；部署产物必须来自同一通过验收的提交。
 
+## 发布结果
+
+- 运行时提交：`c85d8a9`；
+- VPS：`https://xinhua.denkisan.me/`；
+- 公网 index SHA-256：
+  `ce7981fd0de0171bd052518cdb777e97b713988ea039d5ff87362c4ac57b8440`；
+- 回滚目录：
+  `/var/www/xinhua-messenger.backup-20260730-before-c85d8a9`；
+- 7 条道路深链、全览 332 Massing、手机弱网 0 Identity、控制台与页面错误均通过；
+- Sites 未部署。
+
 ## 回滚边界
 
 - 回滚代码时移除道路数据合同、空间索引和新树位运行时即可。

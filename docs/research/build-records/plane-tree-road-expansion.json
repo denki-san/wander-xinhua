@@ -84,6 +84,15 @@
     "fullTest": "484/484 passed",
     "lint": "passed with 0 errors and 1 unrelated existing warning",
     "runtime": "local production-static passed on 7 roads, overview, weak mobile, and matched performance gate",
-    "vps": "pending"
+    "vps": "commit c85d8a9 deployed and public runtime accepted"
+  },
+  "deployment": {
+    "runtimeCommit": "c85d8a9",
+    "surface": "VPS only",
+    "url": "https://xinhua.denkisan.me/",
+    "releaseIndexSha256": "ce7981fd0de0171bd052518cdb777e97b713988ea039d5ff87362c4ac57b8440",
+    "placementBundleSha256": "ea9e8e26c57559fde6933227f97949c933d3e19cc8871303f46989de2c5155f8",
+    "rollbackDirectory": "/var/www/xinhua-messenger.backup-20260730-before-c85d8a9",
+    "sitesDeployed": false
   }
 }

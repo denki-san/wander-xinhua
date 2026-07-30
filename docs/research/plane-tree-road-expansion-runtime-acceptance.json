@@ -146,6 +146,30 @@
   },
   "publication": {
     "local": "passed",
-    "vps": "pending"
+    "vps": "passed",
+    "runtimeCommit": "c85d8a9",
+    "url": "https://xinhua.denkisan.me/",
+    "httpRedirect": "301 to HTTPS",
+    "publicIndexSha256": "ce7981fd0de0171bd052518cdb777e97b713988ea039d5ff87362c4ac57b8440",
+    "publicPlacementBundleSha256": "ea9e8e26c57559fde6933227f97949c933d3e19cc8871303f46989de2c5155f8",
+    "roadChecks": "7/7 matched local LOD telemetry",
+    "overview": "0 Identity + 332 Massing",
+    "weak": "0 Identity + 20 nearby Massing at plane-tree-panyu",
+    "consoleErrors": 0,
+    "pageErrors": 0,
+    "screenshots": [
+      {
+        "name": "test_plane_tree_panyu_vps_runtime.png",
+        "sha256": "520bbbc525ebd1668c2f1623293b43636ef0cef6adbbcdb14628f25e4e0e97a6"
+      },
+      {
+        "name": "test_plane_tree_overview_vps_runtime.png",
+        "sha256": "30f382646444f09db4da56278c986c79ab3ba785e50a7421bf7e143861556fee"
+      },
+      {
+        "name": "test_plane_tree_mobile_weak_vps_runtime.png",
+        "sha256": "a1fa3425ab6e2463d455b7cefc492eb516044c16e0073a382b73c816f8d6e5a2"
+      }
+    ]
   }
 }
