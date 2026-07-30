@@ -74,14 +74,17 @@
 ## External Evidence
 
 - 候选快照只读保留并在回归修正后 superseded。
-- 最终快照：
-  `/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-30-plane-tree-placement-v5-final-d5f88ed`
-- 657 个文件，272,535,552 bytes。
+- 数量保持型 VPS 最终快照：
+  `/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-30-9617fc0`
+- 697 个文件，279,756,800 bytes。
 - 创建时与独立回查两次执行 `SHA256SUMS`，均全部通过。
 - `wikiEligible: false`；动态图片、指标与对照图未进入 LLM Wiki。
 
-## Remaining Release Gate
+## VPS Release Acceptance
 
-- 同一提交在 Sites 与 VPS 的线上验收。
-
-如果任一发布面与本记录的 source tree 不一致，V5 不得标记完成。
+- 运行时代码提交：`9617fc0`。
+- 公网：`https://xinhua.denkisan.me/?start=house315`。
+- HTTPS 200；公网、本地与 VPS `index.html` SHA-256 均为
+  `980541791087f13c48db92c988562e5918e3e0c87a9666de583dfe64e6692ae8`。
+- 公网标准/弱网均通过确定性移动、资源分层、控制台和网络错误门。
+- 本次用户只要求 VPS，不发布 Sites。

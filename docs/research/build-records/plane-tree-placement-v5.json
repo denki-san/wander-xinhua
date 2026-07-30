@@ -179,8 +179,8 @@
     },
     "fullTests": "461/461 passed",
     "lint": "passed with zero errors and one pre-existing unrelated warning",
-    "externalSnapshot": "pending count-preserving release snapshot"
+    "externalSnapshot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-30-9617fc0 (697 files, 279756800 bytes, SHA256SUMS passed twice)"
   },
   "runtimeAcceptance": "docs/research/plane-tree-placement-v5-runtime-acceptance.json",
-  "status": "count-preserving-local-tests-runtime-accepted-pending-release"
+  "status": "count-preserving-vps-released-and-runtime-accepted"
 }

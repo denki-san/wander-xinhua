@@ -86,6 +86,34 @@
     }
   },
   "performanceConclusion": "The 15-second matched-condition pair stays inside the 15% frame-P95 gate: standard 17.4 to 19.6 ms (+12.6%), weak 22.9 to 19.3 ms. Draw calls are unchanged and triangles rise by only 0.04%-0.06%. This is capture-time acceptance evidence, not a durable speedup claim.",
+  "vpsRelease": {
+    "runtimeCommit": "9617fc0",
+    "url": "https://xinhua.denkisan.me/?start=house315",
+    "httpStatus": 200,
+    "indexSha256": "980541791087f13c48db92c988562e5918e3e0c87a9666de583dfe64e6692ae8",
+    "manifest": "test_artifacts/test_plane_tree_placement_v5_vps_9617fc0/test_plane_tree_placement_v5_vps_9617fc0_manifest.json",
+    "standard": {
+      "fps": 59.98,
+      "frameP95Ms": 24.6,
+      "identityRequests": 4,
+      "massingRequests": 0,
+      "errors": 0
+    },
+    "weak": {
+      "fps": 60.04,
+      "frameP95Ms": 21.9,
+      "identityRequestsSharedByXingfuli": 3,
+      "massingRequests": 3,
+      "errors": 0
+    },
+    "passed": true
+  },
+  "externalSnapshot": {
+    "path": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-30-9617fc0",
+    "fileCount": 697,
+    "byteCount": 279756800,
+    "checksum": "SHA256SUMS passed during creation and independent second verification"
+  },
   "limitations": [
     "Product-space placement is verified against the committed road geometry, not a surveyed tree-pit dataset.",
     "The three weak-tier Identity requests belong to existing Xingfuli shared trees; the Xinhua Road array itself uses only the three Massing variants.",
