@@ -1,5 +1,40 @@
 # Errors
 
+## [ERR-20260730-BPG] check_repository_binary_policy
+
+**Logged**: 2026-07-30T10:20:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: tests
+
+### Summary
+提交前 untracked 的动态证据 manifest 未被门禁扫描，提交后才触发禁止新增类别。
+
+### Error
+```
+[blocked-new-category] docs/research/plane-tree-placement-v5-reference-manifest.json:
+禁止新增 dynamic-evidence 到主仓库
+```
+
+### Context
+- `npm test` 中的二进制门禁只扫描 Git tracked paths。
+- V5 manifest 在首次测试时尚未 tracked，提交 `1009ba4` 后才进入扫描范围。
+- V3 reference manifest 已完整覆盖本轮所需的 20/83 证据边界。
+
+### Suggested Fix
+首次提交后再次运行 `npm run check:binary-policy`；新增 3D 动态证据不得靠新
+manifest 入库，应复用允许的抽象研究文档并把动态证据放入外置快照。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `scripts/check_repository_binary_policy.mjs`, `config/repository-binary-policy.json`
+
+### Resolution
+- **Resolved**: 2026-07-30T10:20:00+08:00
+- **Notes**: 删除 V5 新 manifest，build record 改为引用既有 V3 reference manifest。
+
+---
+
 ## [ERR-20260729-PGT] production_promotion_historical_isolation_assertion
 
 **Logged**: 2026-07-29T22:35:00+08:00

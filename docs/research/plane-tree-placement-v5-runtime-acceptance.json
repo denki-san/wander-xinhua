@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "wander-xinhua.plane-tree-placement-runtime-acceptance.v1",
+  "acceptedAt": "2026-07-30",
+  "gitBaseline": "d5f88ed",
+  "placementSourceSha256": "503587cd4a9eb5bbdbef4b0845064c320da9ceb2bd8e913999e52d1708edbceb",
+  "route": "/?start=house315&cameraQa=1&network=standard&qaAutoStart=1&qaMove=forward&qaMoveMs=5600&qaMoveTarget=0.20%2C79.89",
+  "buildMode": "production-static",
+  "protocol": {
+    "browser": "Chrome 146.0.7680.153",
+    "viewport": {
+      "width": 1200,
+      "height": 807,
+      "deviceScaleFactor": 1
+    },
+    "cache": "disabled",
+    "warmupMs": 8000,
+    "sampleDurationMs": 15000,
+    "pageVisibility": "visible throughout",
+    "movement": "deterministic qaAutoStart forward movement completed"
+  },
+  "placement": {
+    "xinhuaRoadCount": 83,
+    "pilotCount": 20,
+    "pilotSideCounts": [
+      12,
+      8
+    ],
+    "sideCounts": [
+      44,
+      39
+    ],
+    "sameSidePilotMinimumGap": ">= 3.6 scene units",
+    "nearCameraSideOffset": "5.05-5.50 scene units from road axis",
+    "farSideOffset": "6.55-7.00 scene units from road axis",
+    "visibleRoadEnvelopeHalfWidth": 3.925,
+    "geometryAcceptance": "all scaled trunks remain outside the full asphalt, curb, sidewalk and verge envelope and preserve entrance/building clearance"
+  },
+  "visualAcceptance": {
+    "canonicalDirection": "house315 toward qaMoveTarget 0.20,79.89",
+    "nearCameraSide": "screen-right side-0 tree line now reads beside the verge instead of receding into the outer lawn",
+    "longitudinalRhythm": "83-tree/20-pilot researched count preserved; side-0 non-pilot row uses a 0.5 scene-unit phase to retain safe placements after inward relocation",
+    "referenceBlenderRuntimeTriptych": "test_artifacts/test_plane_tree_placement_v5_final_comparisons/test_plane_tree_placement_v5_reference_blender_threejs.png",
+    "beforeAfter": "test_artifacts/test_plane_tree_placement_v5_final_comparisons/test_plane_tree_placement_v5_before_after.png",
+    "standardWeak": "test_artifacts/test_plane_tree_placement_v5_final_comparisons/test_plane_tree_placement_v5_standard_weak.png"
+  },
+  "baseline": {
+    "manifest": "test_artifacts/test_plane_tree_placement_v5_samecondition_baseline_long/test_plane_tree_placement_v5_samecondition_baseline_long_manifest.json",
+    "standard": {
+      "frames": 896,
+      "fps": 59.74,
+      "frameP95Ms": 17.4,
+      "maximumDrawCalls": 253,
+      "maximumTriangles": 1058802
+    },
+    "weak": {
+      "frames": 895,
+      "fps": 59.75,
+      "frameP95Ms": 22.9,
+      "maximumDrawCalls": 220,
+      "maximumTriangles": 474788
+    }
+  },
+  "accepted": {
+    "manifest": "test_artifacts/test_plane_tree_placement_v5_countfix_long/test_plane_tree_placement_v5_countfix_long_manifest.json",
+    "standard": {
+      "frames": 897,
+      "fps": 59.81,
+      "frameP95Ms": 19.6,
+      "maximumDrawCalls": 253,
+      "maximumTriangles": 1059174,
+      "identityRequests": 4,
+      "massingRequests": 0,
+      "errors": 0,
+      "passed": true
+    },
+    "weak": {
+      "frames": 896,
+      "fps": 59.74,
+      "frameP95Ms": 19.3,
+      "maximumDrawCalls": 220,
+      "maximumTriangles": 475092,
+      "identityRequestsSharedByXingfuli": 3,
+      "massingRequests": 3,
+      "errors": 0,
+      "passed": true
+    }
+  },
+  "performanceConclusion": "The 15-second matched-condition pair stays inside the 15% frame-P95 gate: standard 17.4 to 19.6 ms (+12.6%), weak 22.9 to 19.3 ms. Draw calls are unchanged and triangles rise by only 0.04%-0.06%. This is capture-time acceptance evidence, not a durable speedup claim.",
+  "vpsRelease": {
+    "runtimeCommit": "9617fc0",
+    "url": "https://xinhua.denkisan.me/?start=house315",
+    "httpStatus": 200,
+    "indexSha256": "980541791087f13c48db92c988562e5918e3e0c87a9666de583dfe64e6692ae8",
+    "manifest": "test_artifacts/test_plane_tree_placement_v5_vps_9617fc0/test_plane_tree_placement_v5_vps_9617fc0_manifest.json",
+    "standard": {
+      "fps": 59.98,
+      "frameP95Ms": 24.6,
+      "identityRequests": 4,
+      "massingRequests": 0,
+      "errors": 0
+    },
+    "weak": {
+      "fps": 60.04,
+      "frameP95Ms": 21.9,
+      "identityRequestsSharedByXingfuli": 3,
+      "massingRequests": 3,
+      "errors": 0
+    },
+    "passed": true
+  },
+  "externalSnapshot": {
+    "path": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-30-9617fc0",
+    "fileCount": 697,
+    "byteCount": 279756800,
+    "checksum": "SHA256SUMS passed during creation and independent second verification"
+  },
+  "limitations": [
+    "Product-space placement is verified against the committed road geometry, not a surveyed tree-pit dataset.",
+    "The three weak-tier Identity requests belong to existing Xingfuli shared trees; the Xinhua Road array itself uses only the three Massing variants.",
+    "The seven V4 Blender and GLB binaries are unchanged; this acceptance validates placement and runtime integration."
+  ],
+  "checks": {
+    "consoleErrors": 0,
+    "windowErrors": 0,
+    "unhandledRejections": 0,
+    "networkFailures": 0,
+    "httpErrors": 0,
+    "fatalOverlay": false,
+    "movementComplete": true,
+    "standardPassed": true,
+    "weakPassed": true
+  },
+  "status": "local-production-runtime-passed"
+}

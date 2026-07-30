@@ -15,6 +15,14 @@ export const XINHUA_PLANE_TREE_PILOT = Object.freeze({
   targetCount: 20,
 });
 export const XINHUA_PLANE_TREE_TRUNK_HALF_EXTENT = 0.48;
+export const XINHUA_PLANE_TREE_AXIS_SPACING = 6;
+export const XINHUA_PLANE_TREE_PILOT_CANDIDATE_SPACING = 3.6;
+export const XINHUA_PLANE_TREE_PILOT_SIDE_PHASE = 1.8;
+export const XINHUA_PLANE_TREE_SIDE_OFFSETS = Object.freeze([
+  Object.freeze({ base: 5.05, jitter: 0.45 }),
+  Object.freeze({ base: 6.55, jitter: 0.45 }),
+]);
+export const XINHUA_PLANE_TREE_SIDE_PHASES = Object.freeze([0.5, 0]);
 
 /** 只按树干底部生成玩家碰撞盒，不把树冠或板根算作阻挡。 */
 export function buildPlaneTreeTrunkObstacles(
@@ -112,9 +120,9 @@ export function buildPlaneTreePlacements(
   const entrances = landmarks.map(({ start }) => start);
   const candidatesBySide = [[], []];
   const pilotCandidatesBySide = [[], []];
-  // V2 的 14.5 scene units 约等于 39 米，纵深中过于稀疏。V3 按成熟
-  // 行道树约 16 米的推断节奏密采样，仍由入口和建筑净空过滤。
-  const spacing = 6;
+  // 纵向节奏与左右法向落位是独立合同。V3 已证明 6.0 的全线基础株距
+  // 与试验段 20 个安全树位；本轮只调整横向道路位置，不通过减树制造疏朗感。
+  const spacing = XINHUA_PLANE_TREE_AXIS_SPACING;
   const total = polylineLength(XINHUA_ROAD_AXIS);
   const pilotStart = XINHUA_PLANE_TREE_PILOT.centerDistance
     - XINHUA_PLANE_TREE_PILOT.length / 2;
@@ -131,7 +139,9 @@ export function buildPlaneTreePlacements(
   ) {
     const { point, tangent } = samplePolyline(XINHUA_ROAD_AXIS, distance);
     const sideSign = side === 0 ? 1 : -1;
-    const offset = 6.55 + deterministicUnit(id, 13) * 0.55;
+    const offsetContract = XINHUA_PLANE_TREE_SIDE_OFFSETS[side];
+    const offset = offsetContract.base
+      + deterministicUnit(id, 13) * offsetContract.jitter;
     const position = [
       point[0] - tangent[1] * offset * sideSign,
       point[1] + tangent[0] * offset * sideSign,
@@ -159,7 +169,12 @@ export function buildPlaneTreePlacements(
   }
 
   for (let side = 0; side < 2; side += 1) {
-    for (let distance = 7 + side * spacing * 0.5, index = 0; distance < total - 6; distance += spacing, index += 1) {
+    for (
+      let distance = 7 + side * spacing * 0.5
+        + XINHUA_PLANE_TREE_SIDE_PHASES[side], index = 0;
+      distance < total - 6;
+      distance += spacing, index += 1
+    ) {
       if (distance >= pilotStart && distance <= pilotEnd) continue;
       appendCandidate(
         side,
@@ -170,12 +185,14 @@ export function buildPlaneTreePlacements(
         obstacles,
       );
     }
-    // 先密采样，再从安全树位中均匀抽取。这样入口/建筑避让后仍能稳定得到
-    // 9+9 棵，而不是为了凑数把树放进入口净空。
+    // 先按明确最小节奏采样，再从安全树位中均匀抽取。入口/建筑避让后允许
+    // 把不足一侧的名额分配给另一侧，稳定保留 20 棵且不缩小入口净空。
     for (
-      let distance = pilotStart + 1.8 + side * 1.8, index = 0;
+      let distance = (
+        pilotStart + 1.8 + side * XINHUA_PLANE_TREE_PILOT_SIDE_PHASE
+      ), index = 0;
       distance < pilotEnd - 1.8;
-      distance += 3.6, index += 1
+      distance += XINHUA_PLANE_TREE_PILOT_CANDIDATE_SPACING, index += 1
     ) {
       appendCandidate(
         side,
