@@ -61,8 +61,8 @@ import {
   XINHUA_ROAD_CAMERA_OBSTACLES,
   XINHUA_ROAD_LANDMARKS,
   XINHUA_ROAD_OBSTACLES,
-  XINHUA_PLANE_TREE_TRUNK_OBSTACLES,
   XINHUA_ROAD_START_PRESETS,
+  nearbyPlaneTreeTrunkObstacles,
 } from "./xinhua-road-contract";
 import { XinhuaRoadMassing } from "./xinhua-road-massing";
 import {
@@ -428,7 +428,6 @@ const WORLD_OBSTACLES: MapObstacle[] = [
   ...HUASHAN_GREEN_OBSTACLES,
   ...SHANGSHENG_XINSUO_OBSTACLES,
   ...XINHUA_ROAD_OBSTACLES,
-  ...XINHUA_PLANE_TREE_TRUNK_OBSTACLES,
 ];
 
 const WORLD_CAMERA_OBSTACLES: MapObstacle[] = [
@@ -1398,7 +1397,13 @@ function PlayableWanderer({
         currentPosition,
         s.displacement,
         XINHUA_BOUNDARY,
-        WORLD_OBSTACLES,
+        [
+          ...WORLD_OBSTACLES,
+          ...nearbyPlaneTreeTrunkObstacles(
+            [currentPosition.x, currentPosition.z],
+            PLAYER_RADIUS + 3,
+          ),
+        ],
         PLAYER_RADIUS,
         currentPosition,
       );

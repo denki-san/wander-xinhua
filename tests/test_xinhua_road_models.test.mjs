@@ -6,6 +6,7 @@ import { Mesh } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import {
   buildPlaneTreePlacements,
+  PLANE_TREE_ROAD_CONTRACTS,
   TREE_BUILDING_CLEARANCE,
   XINHUA_ROAD_AXIS,
   XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
@@ -471,7 +472,7 @@ test("地图与房屋使用各自证据锁定比例，不得为退界任意缩�
   );
 });
 
-test("梧桐位置沿新华路双侧避让，315试验段保持连续且分层加载", () => {
+test("梧桐扩展覆盖 A+B 道路，315 试验段保持连续且按空间索引分层加载", () => {
   assert.match(planeTreeInstancesSource, /plane-tree-a\.glb\?v=4c0f78206959/);
   assert.match(planeTreeInstancesSource, /plane-tree-b\.glb\?v=3545665d071e/);
   assert.match(planeTreeInstancesSource, /plane-tree-c\.glb\?v=3fcfc53a959b/);
@@ -485,9 +486,9 @@ test("梧桐位置沿新华路双侧避让，315试验段保持连续且分层�
   assert.match(planeTreeInstancesSource, /scale\.set\(scaleX, scaleY, scaleZ\)/);
   assert.match(planeTreeInstancesSource, /scale=\{\[1, 1, -1\]\}/);
   assert.match(planeTreeInstancesSource, /placementsByVariant\[variant\]\.length > 0/);
-  assert.match(sceneSource, /arrangement: "road-oriented-pilot-density"/);
+  assert.match(sceneSource, /arrangement: "approved-road-network-spatial-lod"/);
   assert.match(sceneSource, /tier="massing"/);
-  assert.match(sceneSource, /if \(!detailed\)/);
+  assert.match(sceneSource, /resolvePlaneTreeActiveSets/);
   assert.match(sceneSource, /<PlaneTreeInstances/);
 
   const obstacles = landmarkData.landmarks.map(transformedFootprint);
@@ -501,14 +502,31 @@ test("梧桐位置沿新华路双侧避让，315试验段保持连续且分层�
     obstacles,
     pilotObstacles,
   );
-  assert.ok(placements.length >= 20, "避让后仍需保留连续的双侧梧桐树阵");
+  assert.equal(placements.length, 332, "A+B 白名单道路必须生成 332 棵梧桐");
   assert.equal(placements.filter(({ id }) => id.includes("-pilot-")).length, 20);
+  assert.deepEqual(
+    Object.fromEntries(
+      [...new Set(placements.map(({ roadId }) => roadId))].map((roadId) => [
+        roadId,
+        placements.filter((placement) => placement.roadId === roadId).length,
+      ]),
+    ),
+    {
+      xinhua: 98,
+      panyu: 60,
+      anshun: 48,
+      "huaihai-west": 32,
+      hunan: 18,
+      huashan: 56,
+      taian: 20,
+    },
+  );
   assert.deepEqual([...new Set(placements.map(({ variant }) => variant))].sort(), [0, 1, 2, 3]);
   const previousVariantBySide = new Map();
   for (const placement of placements) {
-    const side = placement.id.split("-")[2];
-    assert.notEqual(placement.variant, previousVariantBySide.get(side));
-    previousVariantBySide.set(side, placement.variant);
+    const sequence = `${placement.roadId}:${placement.side}`;
+    assert.notEqual(placement.variant, previousVariantBySide.get(sequence));
+    previousVariantBySide.set(sequence, placement.variant);
     assert.equal(placement.scale.length, 3);
     assert.ok(placement.scale.every((value) => value > 0));
     const activeObstacles = placement.id.includes("-pilot-")
@@ -527,7 +545,7 @@ test("梧桐位置沿新华路双侧避让，315试验段保持连续且分层�
           placement.position[0] - landmark.start[0],
           placement.position[1] - landmark.start[1],
         ) >= (placement.id.includes("-pilot-") ? 5.4 : 9.2),
-        `${placement.id} 不得堵住 ${landmark.query} 入口`,
+        `${placement.id} 不得堵住 ${landmark.query} 的已知定位接近点`,
       );
     }
   }
@@ -697,6 +715,20 @@ test("所有快速定位角色避开硬碰撞，首帧相机使用独立障碍�
     worldContractSource,
     /XINHUA_POCKET_PARK_CAMERA_OBSTACLES/,
   );
+});
+
+test("7 条梧桐道路都有可重复的 start 验收入口", async () => {
+  const { XINHUA_ROAD_START_PRESETS } = await import(
+    "../app/scene/xinhua-road-contract.ts"
+  );
+  for (const { id } of PLANE_TREE_ROAD_CONTRACTS) {
+    const preset = XINHUA_ROAD_START_PRESETS[`plane-tree-${id}`];
+    assert.ok(preset, `${id} 必须有可重复的 ?start= 验收入口`);
+    assert.equal(preset.position.length, 2);
+    assert.equal(preset.forward.length, 2);
+    assert.ok(preset.position.every(Number.isFinite));
+    assert.ok(preset.forward.every(Number.isFinite));
+  }
 });
 
 test("新地标参与渲染、角色硬碰撞和快速定位，但摄像机使用独立透明层", () => {

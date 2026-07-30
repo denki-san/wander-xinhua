@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-07-30",
+  "buildMode": "production-static",
+  "browser": "HeadlessChrome 146",
+  "streetTreeCount": 332,
+  "assetInstanceCount": 335,
+  "roadRuntimeChecks": [
+    {
+      "start": "plane-tree-xinhua",
+      "networkProfile": "standard",
+      "identityActive": 10,
+      "massingActive": 20,
+      "hidden": 302,
+      "screenshotSha256": "489636490293a18304307a1792bcd4bc4bd2104f2cb0c7424d8bc4884293dd98"
+    },
+    {
+      "start": "plane-tree-panyu",
+      "networkProfile": "standard",
+      "identityActive": 4,
+      "massingActive": 16,
+      "hidden": 312,
+      "screenshotSha256": "57eaaa2ebcebe5bad1535a94fee829c62a301bc217009fb38810c421c325fae9"
+    },
+    {
+      "start": "plane-tree-anshun",
+      "networkProfile": "standard",
+      "identityActive": 11,
+      "massingActive": 17,
+      "hidden": 304,
+      "screenshotSha256": "e3aaee76f213f5fa8bae2e6aab5ebe45644767bc2a881768e5bc9ff151066e3d"
+    },
+    {
+      "start": "plane-tree-huaihai-west",
+      "networkProfile": "standard",
+      "identityActive": 11,
+      "massingActive": 12,
+      "hidden": 309,
+      "screenshotSha256": "eb9b4e60f04ff7a9ebd6d1e0ab13a304ee75604636099e6b581d6345b6beede5"
+    },
+    {
+      "start": "plane-tree-hunan",
+      "networkProfile": "standard",
+      "identityActive": 12,
+      "massingActive": 25,
+      "hidden": 295,
+      "screenshotSha256": "a06b394812df17ede89ef45f9f0dc832fe032c2a9a0ac6f681352480150257a8"
+    },
+    {
+      "start": "plane-tree-huashan",
+      "networkProfile": "standard",
+      "identityActive": 10,
+      "massingActive": 24,
+      "hidden": 298,
+      "screenshotSha256": "e92af73c11cb65343af1bfb5f508cc8a74a3d210fe2e5a93c56b2cfcc39e3869"
+    },
+    {
+      "start": "plane-tree-taian",
+      "networkProfile": "standard",
+      "identityActive": 12,
+      "massingActive": 22,
+      "hidden": 298,
+      "screenshotSha256": "28ce4548b3639b863cf01494fc06ba3a2f4a3d27ae7d0de0657e0c232f143d67"
+    }
+  ],
+  "overview": {
+    "viewport": [1280, 720],
+    "networkProfile": "standard",
+    "identityActive": 0,
+    "massingActive": 332,
+    "hidden": 0,
+    "screenshotSha256": "00f1765412fd0ab262e8068e184c109ee8264a141de280b31cc9c7c1aa5bdfd3"
+  },
+  "mobileWeak": {
+    "start": "plane-tree-panyu",
+    "viewport": [390, 844],
+    "networkProfile": "weak",
+    "identityActive": 0,
+    "massingActive": 20,
+    "hidden": 312,
+    "fps": 60,
+    "frameP95Ms": 17.8,
+    "longFrames": 0,
+    "drawCalls": 348,
+    "triangles": 324027,
+    "visibleThroughout": true,
+    "sampleDurationMs": 5016.1,
+    "screenshotSha256": "7cccb7df06cbde7cc2a41c2a073772d5230b0464c96d6b660ffd4b98ee932bf4"
+  },
+  "matchedWeakBaseline": {
+    "entry": "house315",
+    "viewport": [390, 844],
+    "networkProfile": "weak",
+    "warmupMs": 1000,
+    "sampleDurationMs": 5000,
+    "movementRoute": "stationary",
+    "visibleThroughout": true,
+    "baseline83": {
+      "surface": "current VPS before expansion deployment",
+      "fps": 60,
+      "frameP95Ms": 23.4,
+      "longFrames": 0,
+      "drawCalls": 154,
+      "triangles": 421244
+    },
+    "expanded332": {
+      "surface": "local production-static candidate",
+      "identityActive": 0,
+      "massingActive": 43,
+      "hidden": 289,
+      "fps": 59.97,
+      "frameP95Ms": 23.9,
+      "longFrames": 0,
+      "drawCalls": 145,
+      "triangles": 331700
+    },
+    "frameP95DegradationPercent": 2.14,
+    "gateMaximumPercent": 15,
+    "gate": "passed",
+    "note": "传输字节未比较，因为基线来自公网 VPS，候选来自本地静态服务器；帧采样协议、浏览器、视口、入口、网络档位、预热、时长、可见性和移动路线一致。"
+  },
+  "desktopStandard": {
+    "start": "plane-tree-panyu",
+    "viewport": [1280, 720],
+    "networkProfile": "standard",
+    "identityActive": 4,
+    "massingActive": 16,
+    "hidden": 312,
+    "fps": 60.04,
+    "frameP95Ms": 22.8,
+    "longFrames": 0,
+    "drawCalls": 690,
+    "triangles": 359315,
+    "visibleThroughout": true,
+    "sampleDurationMs": 5017.7
+  },
+  "consoleErrors": 0,
+  "pageErrors": 0,
+  "visualReview": {
+    "roadDirection": "passed",
+    "doubleSidedRhythm": "passed",
+    "groundContact": "passed",
+    "overviewCoverage": "passed",
+    "mobileOcclusion": "passed",
+    "trunkCollision": "passed by deterministic nearby-query and resolvePolygonMovement test for all 332 tree positions"
+  },
+  "publication": {
+    "local": "passed",
+    "vps": "pending"
+  }
+}

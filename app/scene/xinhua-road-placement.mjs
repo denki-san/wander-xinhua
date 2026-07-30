@@ -1,3 +1,5 @@
+import roadNetworkData from "./plane-tree-road-network-data.json" with { type: "json" };
+
 export const XINHUA_ROAD_AXIS = Object.freeze([
   Object.freeze([-144.9257, 22.4335]),
   Object.freeze([-88.5458, 44.2631]),
@@ -6,8 +8,8 @@ export const XINHUA_ROAD_AXIS = Object.freeze([
 ]);
 
 export const TREE_BUILDING_CLEARANCE = 1.4;
-export const TREE_ENTRANCE_CLEARANCE = 9.2;
-export const PILOT_TREE_ENTRANCE_CLEARANCE = 5.4;
+export const TREE_KNOWN_APPROACH_CLEARANCE = 9.2;
+export const PILOT_TREE_KNOWN_APPROACH_CLEARANCE = 5.4;
 export const XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES = Object.freeze([]);
 export const XINHUA_PLANE_TREE_PILOT = Object.freeze({
   centerDistance: 131.1,
@@ -23,6 +25,21 @@ export const XINHUA_PLANE_TREE_SIDE_OFFSETS = Object.freeze([
   Object.freeze({ base: 6.55, jitter: 0.45 }),
 ]);
 export const XINHUA_PLANE_TREE_SIDE_PHASES = Object.freeze([0.5, 0]);
+export const PLANE_TREE_INTERSECTION_CLEARANCE = 5.8;
+export const PLANE_TREE_ROAD_CANDIDATE_SPACING = 1.8;
+export const PLANE_TREE_ROAD_CONTRACTS = Object.freeze(
+  roadNetworkData.roads.map((road) => Object.freeze({
+    ...road,
+    points: Object.freeze(
+      road.points.map((point) => Object.freeze([...point])),
+    ),
+    intersections: Object.freeze(
+      road.intersections.map((point) => Object.freeze([...point])),
+    ),
+  })),
+);
+export const PLANE_TREE_STREET_TARGET =
+  roadNetworkData.approval.streetTreeTarget;
 
 /** 只按树干底部生成玩家碰撞盒，不把树冠或板根算作阻挡。 */
 export function buildPlaneTreeTrunkObstacles(
@@ -111,137 +128,233 @@ function evenlySelect(candidates, count) {
   ));
 }
 
-/** 使用生产道路轴线、入口和建筑碰撞包络生成梧桐树阵。 */
+function selectedCountsBySide(candidatesBySide, targetCount) {
+  const targetBySide = Math.floor(targetCount / 2);
+  const selectedCounts = candidatesBySide.map((candidates) => (
+    Math.min(targetBySide, candidates.length)
+  ));
+  let unassigned = targetCount - selectedCounts[0] - selectedCounts[1];
+  while (unassigned > 0) {
+    const remainingBySide = candidatesBySide.map(
+      (candidates, side) => candidates.length - selectedCounts[side],
+    );
+    const side = remainingBySide[0] >= remainingBySide[1] ? 0 : 1;
+    if (remainingBySide[side] <= 0) break;
+    selectedCounts[side] += 1;
+    unassigned -= 1;
+  }
+  return selectedCounts;
+}
+
+function pointIntersectsObstacle(position, obstacle, clearance) {
+  return position[0] >= obstacle.minX - clearance
+    && position[0] <= obstacle.maxX + clearance
+    && position[1] >= obstacle.minZ - clearance
+    && position[1] <= obstacle.maxZ + clearance;
+}
+
+function roadPilotCenterDistance(road) {
+  let distance = 0;
+  for (let index = 1; index < road.points.length; index += 1) {
+    const start = road.points[index - 1];
+    if (
+      Math.hypot(
+        start[0] - XINHUA_ROAD_AXIS[0][0],
+        start[1] - XINHUA_ROAD_AXIS[0][1],
+      ) < 0.01
+    ) {
+      return distance + XINHUA_PLANE_TREE_PILOT.centerDistance;
+    }
+    distance += Math.hypot(
+      road.points[index][0] - start[0],
+      road.points[index][1] - start[1],
+    );
+  }
+  throw new Error("新华路全段轴线缺少 315 号试验段锚点");
+}
+
+/**
+ * 使用显式 A+B 道路白名单、路口、已知定位接近点与建筑包络生成 332 个梧桐树位。
+ * 产品数量用于低多边形表达，不代表现实树木普查。
+ */
 export function buildPlaneTreePlacements(
   landmarks,
   obstacles,
   pilotObstacles = obstacles,
 ) {
-  const entrances = landmarks.map(({ start }) => start);
-  const candidatesBySide = [[], []];
-  const pilotCandidatesBySide = [[], []];
-  // 纵向节奏与左右法向落位是独立合同。V3 已证明 6.0 的全线基础株距
-  // 与试验段 20 个安全树位；本轮只调整横向道路位置，不通过减树制造疏朗感。
-  const spacing = XINHUA_PLANE_TREE_AXIS_SPACING;
-  const total = polylineLength(XINHUA_ROAD_AXIS);
-  const pilotStart = XINHUA_PLANE_TREE_PILOT.centerDistance
-    - XINHUA_PLANE_TREE_PILOT.length / 2;
-  const pilotEnd = XINHUA_PLANE_TREE_PILOT.centerDistance
-    + XINHUA_PLANE_TREE_PILOT.length / 2;
+  // start 是现有产品的已知定位/接近点，并非现实入口普查数据。
+  // 避让它可以保护可重复验收路线，但不得据此宣称已覆盖所有现实车行口。
+  const knownApproachPoints = landmarks.map(({ start }) => start);
+  const buildingObstacles = [
+    ...roadNetworkData.buildingObstacles,
+    ...obstacles,
+  ];
 
-  function appendCandidate(
+  function candidateAt(
+    road,
     side,
     distance,
     id,
-    target,
-    entranceClearance,
+    knownApproachClearance,
     activeObstacles,
+    checkIntersections = true,
   ) {
-    const { point, tangent } = samplePolyline(XINHUA_ROAD_AXIS, distance);
+    const { point, tangent } = samplePolyline(road.points, distance);
     const sideSign = side === 0 ? 1 : -1;
-    const offsetContract = XINHUA_PLANE_TREE_SIDE_OFFSETS[side];
-    const offset = offsetContract.base
-      + deterministicUnit(id, 13) * offsetContract.jitter;
+    const offsetJitter = road.id === "xinhua" ? 0.45 : 0.28;
+    const offset = road.offsets[side]
+      + deterministicUnit(id, 13) * offsetJitter;
     const position = [
       point[0] - tangent[1] * offset * sideSign,
       point[1] + tangent[0] * offset * sideSign,
     ];
-    const tooCloseToEntrance = entrances.some(
+    const tooCloseToKnownApproach = knownApproachPoints.some(
       ([x, z]) => (
-        Math.hypot(position[0] - x, position[1] - z) < entranceClearance
+        Math.hypot(position[0] - x, position[1] - z) < knownApproachClearance
       ),
     );
     const intersectsBuilding = activeObstacles.some((obstacle) => (
-      position[0] >= obstacle.minX - TREE_BUILDING_CLEARANCE
-      && position[0] <= obstacle.maxX + TREE_BUILDING_CLEARANCE
-      && position[1] >= obstacle.minZ - TREE_BUILDING_CLEARANCE
-      && position[1] <= obstacle.maxZ + TREE_BUILDING_CLEARANCE
+      pointIntersectsObstacle(position, obstacle, TREE_BUILDING_CLEARANCE)
     ));
-    if (tooCloseToEntrance || intersectsBuilding) return;
-    target.push({
+    const tooCloseToIntersection = checkIntersections && road.intersections.some(
+      ([x, z]) => (
+        Math.hypot(position[0] - x, position[1] - z)
+        < PLANE_TREE_INTERSECTION_CLEARANCE
+      ),
+    );
+    if (
+      tooCloseToKnownApproach
+      || intersectsBuilding
+      || tooCloseToIntersection
+    ) {
+      return null;
+    }
+    return {
       id,
+      roadId: road.id,
+      roadName: road.name,
+      grade: road.grade,
       side,
       distance,
+      offset,
       position,
       tangent,
       sideSign,
-    });
+    };
   }
 
-  for (let side = 0; side < 2; side += 1) {
-    for (
-      let distance = 7 + side * spacing * 0.5
-        + XINHUA_PLANE_TREE_SIDE_PHASES[side], index = 0;
-      distance < total - 6;
-      distance += spacing, index += 1
-    ) {
-      if (distance >= pilotStart && distance <= pilotEnd) continue;
-      appendCandidate(
-        side,
-        distance,
-        `plane-tree-${side}-${index}`,
-        candidatesBySide[side],
-        TREE_ENTRANCE_CLEARANCE,
-        obstacles,
-      );
-    }
-    // 先按明确最小节奏采样，再从安全树位中均匀抽取。入口/建筑避让后允许
-    // 把不足一侧的名额分配给另一侧，稳定保留 20 棵且不缩小入口净空。
-    for (
-      let distance = (
-        pilotStart + 1.8 + side * XINHUA_PLANE_TREE_PILOT_SIDE_PHASE
-      ), index = 0;
-      distance < pilotEnd - 1.8;
-      distance += XINHUA_PLANE_TREE_PILOT_CANDIDATE_SPACING, index += 1
-    ) {
-      appendCandidate(
-        side,
-        distance,
-        `plane-tree-${side}-pilot-${index}`,
-        pilotCandidatesBySide[side],
-        PILOT_TREE_ENTRANCE_CLEARANCE,
-        pilotObstacles,
-      );
-    }
-  }
+  const selectedByRoad = PLANE_TREE_ROAD_CONTRACTS.flatMap((road) => {
+    const total = polylineLength(road.points);
+    const candidatesBySide = [[], []];
+    const pilotCandidatesBySide = [[], []];
+    const pilotCenter = road.id === "xinhua"
+      ? roadPilotCenterDistance(road)
+      : null;
+    const pilotStart = pilotCenter === null
+      ? null
+      : pilotCenter - XINHUA_PLANE_TREE_PILOT.length / 2;
+    const pilotEnd = pilotCenter === null
+      ? null
+      : pilotCenter + XINHUA_PLANE_TREE_PILOT.length / 2;
 
-  const pilotTargetBySide = Math.floor(XINHUA_PLANE_TREE_PILOT.targetCount / 2);
-  const selectedCounts = pilotCandidatesBySide.map((candidates) => (
-    Math.min(pilotTargetBySide, candidates.length)
-  ));
-  let unassigned = XINHUA_PLANE_TREE_PILOT.targetCount
-    - selectedCounts[0]
-    - selectedCounts[1];
-  while (unassigned > 0) {
-    const side = pilotCandidatesBySide[0].length - selectedCounts[0]
-      >= pilotCandidatesBySide[1].length - selectedCounts[1]
-      ? 0
-      : 1;
-    if (selectedCounts[side] >= pilotCandidatesBySide[side].length) break;
-    selectedCounts[side] += 1;
-    unassigned -= 1;
-  }
-  const selectedPilot = [
-    ...evenlySelect(pilotCandidatesBySide[0], selectedCounts[0]),
-    ...evenlySelect(pilotCandidatesBySide[1], selectedCounts[1]),
-  ];
-  if (selectedPilot.length !== XINHUA_PLANE_TREE_PILOT.targetCount) {
-    throw new Error(
-      `新华路315号梧桐试验段安全树位不足：`
-      + `${selectedPilot.length}/${XINHUA_PLANE_TREE_PILOT.targetCount}`,
+    for (let side = 0; side < 2; side += 1) {
+      const phase = side * PLANE_TREE_ROAD_CANDIDATE_SPACING / 2
+        + (road.id === "xinhua" ? XINHUA_PLANE_TREE_SIDE_PHASES[side] : 0);
+      for (
+        let distance = 4 + phase, index = 0;
+        distance < total - 4;
+        distance += PLANE_TREE_ROAD_CANDIDATE_SPACING, index += 1
+      ) {
+        if (
+          pilotStart !== null
+          && distance >= pilotStart
+          && distance <= pilotEnd
+        ) {
+          continue;
+        }
+        const candidate = candidateAt(
+          road,
+          side,
+          distance,
+          `plane-tree-${road.id}-${side}-${index}`,
+          TREE_KNOWN_APPROACH_CLEARANCE,
+          buildingObstacles,
+        );
+        if (candidate) candidatesBySide[side].push(candidate);
+      }
+      if (pilotStart !== null && pilotEnd !== null) {
+        for (
+          let distance = pilotStart + 1.8
+            + side * XINHUA_PLANE_TREE_PILOT_SIDE_PHASE, index = 0;
+          distance < pilotEnd - 1.8;
+          distance += XINHUA_PLANE_TREE_PILOT_CANDIDATE_SPACING, index += 1
+        ) {
+          const candidate = candidateAt(
+            road,
+            side,
+            distance,
+            `plane-tree-${side}-pilot-${index}`,
+            PILOT_TREE_KNOWN_APPROACH_CLEARANCE,
+            pilotObstacles,
+            false,
+          );
+          if (candidate) pilotCandidatesBySide[side].push(candidate);
+        }
+      }
+    }
+
+    const pilotTarget = road.id === "xinhua"
+      ? XINHUA_PLANE_TREE_PILOT.targetCount
+      : 0;
+    const pilotCounts = selectedCountsBySide(
+      pilotCandidatesBySide,
+      pilotTarget,
     );
-  }
+    const selectedPilot = pilotCandidatesBySide.flatMap(
+      (candidates, side) => evenlySelect(candidates, pilotCounts[side]),
+    );
+    if (selectedPilot.length !== pilotTarget) {
+      throw new Error(
+        `${road.name}试验段安全树位不足：`
+        + `${selectedPilot.length}/${pilotTarget}`,
+      );
+    }
+
+    const regularTarget = road.targetCount - pilotTarget;
+    const regularCounts = selectedCountsBySide(
+      candidatesBySide,
+      regularTarget,
+    );
+    const selectedRegular = candidatesBySide.flatMap(
+      (candidates, side) => evenlySelect(candidates, regularCounts[side]),
+    );
+    const selected = [...selectedRegular, ...selectedPilot];
+    if (selected.length !== road.targetCount) {
+      throw new Error(
+        `${road.name}安全树位不足：`
+        + `${selected.length}/${road.targetCount}`,
+      );
+    }
+    return selected;
+  });
 
   const placements = [];
-  for (let side = 0; side < 2; side += 1) {
-    let previousVariant = -1;
-    const sideCandidates = [
-      ...candidatesBySide[side],
-      ...selectedPilot.filter((candidate) => candidate.side === side),
-    ].sort((a, b) => a.distance - b.distance);
-    for (const candidate of sideCandidates) {
+  for (const road of PLANE_TREE_ROAD_CONTRACTS) {
+    for (let side = 0; side < 2; side += 1) {
+      let previousVariant = -1;
+      const sideCandidates = selectedByRoad
+        .filter((candidate) => (
+          candidate.roadId === road.id && candidate.side === side
+        ))
+        .sort((left, right) => left.distance - right.distance);
+      for (const candidate of sideCandidates) {
       const {
         id,
+        roadId,
+        roadName,
+        grade,
+        side: candidateSide,
+        distance,
         position,
         tangent,
         sideSign,
@@ -259,6 +372,12 @@ export function buildPlaneTreePlacements(
       );
       placements.push({
         id,
+        roadId,
+        roadName,
+        grade,
+        side: candidateSide,
+        distance,
+        offset: candidate.offset,
         variant,
         position,
         yaw: inwardYaw + (deterministicUnit(id, 43) - 0.5) * 0.14,
@@ -269,6 +388,12 @@ export function buildPlaneTreePlacements(
         ],
       });
     }
+  }
+  }
+  if (placements.length !== PLANE_TREE_STREET_TARGET) {
+    throw new Error(
+      `梧桐道路总数不一致：${placements.length}/${PLANE_TREE_STREET_TARGET}`,
+    );
   }
   return placements;
 }

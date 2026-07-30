@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-07-30",
+  "scope": "A+B",
+  "binaryChange": false,
+  "evidenceSnapshot": "/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/2026-07-29-plane-tree-road-coverage-audit-d5f88ed",
+  "placement": {
+    "streetTreeCount": 332,
+    "xingfuliSharedTreeCount": 3,
+    "assetLibraryInstanceCount": 335,
+    "gradeCounts": {
+      "A": 256,
+      "B": 76
+    },
+    "roadCounts": {
+      "xinhua": 98,
+      "panyu": 60,
+      "anshun": 48,
+      "huaihai-west": 32,
+      "hunan": 18,
+      "huashan": 56,
+      "taian": 20
+    },
+    "networkDataSha256": "dcc75365d307c449e668c9e1538c627f1fa2bb63d956f169e9c640baafd10128",
+    "generatorSha256": "809b00287097b9f9543d86254a4b8564c88205cd1af223db778ca0f9130f87fb",
+    "runtimeContractSha256": "92dbc57b48420ac659203aaee3b9db8a275e7eb1b81770915bee209cbe0665f4"
+  },
+  "lod": {
+    "identityEnterDistance": 37,
+    "identityExitDistance": 42,
+    "identityActiveLimit": 80,
+    "massingEnterDistance": 75,
+    "massingExitDistance": 82,
+    "massingActiveLimit": 140,
+    "overviewMassingCount": 332,
+    "massingCastsShadow": false
+  },
+  "assets": {
+    "identity": [
+      {
+        "file": "public/models/xinhua-road/plane-tree-a.glb",
+        "bytes": 223696,
+        "sha256": "4c0f78206959bc510dc2ab378e2dcef707a4880b9e6294f9279add052212fa68"
+      },
+      {
+        "file": "public/models/xinhua-road/plane-tree-b.glb",
+        "bytes": 217520,
+        "sha256": "3545665d071e1c6b202319c68333e3d2b8434b07a3f60a0d8d0d2d95b4ef2fb1"
+      },
+      {
+        "file": "public/models/xinhua-road/plane-tree-c.glb",
+        "bytes": 222328,
+        "sha256": "3fcfc53a959b88c1f6879516d790b3513ecb28de3fbea23d9a651ea4158379d2"
+      },
+      {
+        "file": "public/models/xinhua-road/plane-tree-d.glb",
+        "bytes": 221836,
+        "sha256": "e454862756d10b6ac5fe7a36ef836a13941fc6b77f718bced6ace6e710b696b4"
+      }
+    ],
+    "massing": [
+      {
+        "file": "public/models/xinhua-road/plane-tree-massing-a.glb",
+        "bytes": 44836,
+        "sha256": "75798812e312038425135f1d7ac3e876dc3d465f62ac9ed673cd1b45b826c725"
+      },
+      {
+        "file": "public/models/xinhua-road/plane-tree-massing-b.glb",
+        "bytes": 44836,
+        "sha256": "fefadf540efedafe2ac13202965788b7bb9b7d258bab58847858303852dd4f5d"
+      },
+      {
+        "file": "public/models/xinhua-road/plane-tree-massing-c.glb",
+        "bytes": 44836,
+        "sha256": "2e355e79e70b550b225ee31247ec03561280ab3da42be14131059615ed7b4675"
+      }
+    ],
+    "totalBytes": 1019888,
+    "images": 0
+  },
+  "validation": {
+    "placementContract": "targeted placement, LOD hysteresis, spatial collision, and runtime tests passed",
+    "staticBuild": "passed",
+    "fullTest": "484/484 passed",
+    "lint": "passed with 0 errors and 1 unrelated existing warning",
+    "runtime": "local production-static passed on 7 roads, overview, weak mobile, and matched performance gate",
+    "vps": "pending"
+  }
+}

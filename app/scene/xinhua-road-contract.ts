@@ -2,8 +2,13 @@ import type { MapObstacle, MapPolygonPoint } from "./world-math";
 import {
   buildPlaneTreePlacements,
   buildPlaneTreeTrunkObstacles,
+  PLANE_TREE_ROAD_CONTRACTS,
   XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
 } from "./xinhua-road-placement.mjs";
+import {
+  buildPlaneTreeSpatialIndex,
+  queryPlaneTreeSpatialIndex,
+} from "./plane-tree-spatial-index.mjs";
 import { resolveBuildingTierQa } from "./building-massing-qa-contract.mjs";
 import landmarkData from "./xinhua-road-landmarks-data.json" with { type: "json" };
 
@@ -148,6 +153,26 @@ export const XINHUA_PLANE_TREE_PLACEMENTS = buildPlaneTreePlacements(
 export const XINHUA_PLANE_TREE_TRUNK_OBSTACLES: MapObstacle[] =
   buildPlaneTreeTrunkObstacles(XINHUA_PLANE_TREE_PLACEMENTS);
 
+const XINHUA_PLANE_TREE_TRUNK_SPATIAL_INDEX = buildPlaneTreeSpatialIndex(
+  XINHUA_PLANE_TREE_PLACEMENTS.map((placement, index) => ({
+    id: placement.id,
+    position: placement.position,
+    obstacle: XINHUA_PLANE_TREE_TRUNK_OBSTACLES[index],
+  })),
+);
+
+/** 玩家碰撞每帧只取附近树干，不遍历全地图 332 个 AABB。 */
+export function nearbyPlaneTreeTrunkObstacles(
+  focusPosition: readonly [number, number],
+  radius = 4,
+): MapObstacle[] {
+  return queryPlaneTreeSpatialIndex(
+    XINHUA_PLANE_TREE_TRUNK_SPATIAL_INDEX,
+    focusPosition,
+    radius,
+  ).map(({ placement }) => placement.obstacle);
+}
+
 const XINHUA_POCKET_PARK_CAMERA_OBSTACLES =
   ACTIVE_BUILDING_MASSING_QA?.assetId === "xinhua-pocket-park"
     ? XINHUA_ROAD_LANDMARKS
@@ -213,7 +238,49 @@ export const XINHUA_ROAD_CAMERA_OBSTACLES: MapObstacle[] = [
   ...XINHUA_HUDEC_CAMERA_OBSTACLES,
 ];
 
-export const XINHUA_ROAD_START_PRESETS = Object.fromEntries(
+function roadMidpointPreset(
+  points: readonly (readonly number[])[],
+) {
+  const segments = points.slice(1).map((end, index) => {
+    const start = points[index];
+    return {
+      start,
+      end,
+      length: Math.hypot(end[0] - start[0], end[1] - start[1]),
+    };
+  });
+  let remaining = segments.reduce((sum, { length }) => sum + length, 0) / 2;
+  for (const { start, end, length } of segments) {
+    if (remaining <= length) {
+      const ratio = remaining / length;
+      return {
+        position: [
+          start[0] + (end[0] - start[0]) * ratio,
+          start[1] + (end[1] - start[1]) * ratio,
+        ] as MapPolygonPoint,
+        forward: [
+          (end[0] - start[0]) / length,
+          (end[1] - start[1]) / length,
+        ] as MapPolygonPoint,
+      };
+    }
+    remaining -= length;
+  }
+  return {
+    position: [points[0]?.[0] ?? 0, points[0]?.[1] ?? 0] as MapPolygonPoint,
+    forward: [1, 0] as MapPolygonPoint,
+  };
+}
+
+const PLANE_TREE_ROAD_START_PRESETS = Object.fromEntries(
+  PLANE_TREE_ROAD_CONTRACTS.map((road) => [
+    `plane-tree-${road.id}`,
+    roadMidpointPreset(road.points),
+  ]),
+);
+
+export const XINHUA_ROAD_START_PRESETS = {
+  ...Object.fromEntries(
   XINHUA_ROAD_LANDMARKS.flatMap(
     ({ id, query, aliases = [], start, forward, cameraTargetHeight }) => (
       [query, ...aliases].map((preset) => {
@@ -235,7 +302,9 @@ export const XINHUA_ROAD_START_PRESETS = Object.fromEntries(
       })
     ),
   ),
-) as Record<string, {
+  ),
+  ...PLANE_TREE_ROAD_START_PRESETS,
+} as Record<string, {
   position: MapPolygonPoint;
   forward: MapPolygonPoint;
   cameraTargetHeight?: number;

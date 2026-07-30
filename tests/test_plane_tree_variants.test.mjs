@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile, stat } from "node:fs/promises";
 import test from "node:test";
+import { Vector3 } from "three";
 import {
   buildPlaneTreePlacements,
   buildPlaneTreeTrunkObstacles,
@@ -13,7 +14,17 @@ import {
   XINHUA_PLANE_TREE_SIDE_PHASES,
   XINHUA_ROAD_AXIS,
   XINHUA_PLANE_TREE_TRUNK_HALF_EXTENT,
+  PLANE_TREE_INTERSECTION_CLEARANCE,
+  PLANE_TREE_ROAD_CONTRACTS,
+  PLANE_TREE_STREET_TARGET,
 } from "../app/scene/xinhua-road-placement.mjs";
+import {
+  buildPlaneTreeSpatialIndex,
+  PLANE_TREE_IDENTITY_ACTIVE_LIMIT,
+  PLANE_TREE_MASSING_ACTIVE_LIMIT,
+  queryPlaneTreeSpatialIndex,
+  resolvePlaneTreeActiveSets,
+} from "../app/scene/plane-tree-spatial-index.mjs";
 import {
   XINHUA_ROAD_ASPHALT_WIDTH,
   XINHUA_ROAD_CURB_WIDTH,
@@ -25,7 +36,9 @@ import {
   XINHUA_ROAD_LANDMARKS,
   XINHUA_ROAD_MODEL_FOOTPRINTS,
   XINHUA_ROAD_OBSTACLES,
+  nearbyPlaneTreeTrunkObstacles,
 } from "../app/scene/xinhua-road-contract.ts";
+import { resolvePolygonMovement } from "../app/scene/world-math.ts";
 
 const root = new URL("../", import.meta.url);
 
@@ -121,12 +134,12 @@ function measureFoliage(buffer) {
   return { pointCount: allPoints.length, centroid, components };
 }
 
-function projectToRoadAxis([x, z]) {
+function projectToRoadAxis([x, z], points = XINHUA_ROAD_AXIS) {
   let best = { distance: Infinity, along: 0 };
   let alongBefore = 0;
-  for (let index = 1; index < XINHUA_ROAD_AXIS.length; index += 1) {
-    const [startX, startZ] = XINHUA_ROAD_AXIS[index - 1];
-    const [endX, endZ] = XINHUA_ROAD_AXIS[index];
+  for (let index = 1; index < points.length; index += 1) {
+    const [startX, startZ] = points[index - 1];
+    const [endX, endZ] = points[index];
     const dx = endX - startX;
     const dz = endZ - startZ;
     const length = Math.hypot(dx, dz);
@@ -199,9 +212,9 @@ test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async ()
   assert.deepEqual([...new Set(first.map(({ variant }) => variant))].sort(), [0, 1, 2, 3]);
   const previousBySide = new Map();
   for (const placement of first) {
-    const side = placement.id.split("-")[2];
-    assert.notEqual(placement.variant, previousBySide.get(side));
-    previousBySide.set(side, placement.variant);
+    const sequence = `${placement.roadId}:${placement.side}`;
+    assert.notEqual(placement.variant, previousBySide.get(sequence));
+    previousBySide.set(sequence, placement.variant);
     assert.equal(placement.scale.length, 3);
     assert.ok(placement.scale.every((value) => value > 0));
   }
@@ -213,7 +226,7 @@ test("梧桐实例分配确定、相邻不重复且只初始化矩阵", async ()
   assert.doesNotMatch(instancesSource, /material\.clone/);
 });
 
-test("V5 保留 83 棵基线并独立控制两侧道路偏移和纵向错位", () => {
+test("A+B 梧桐扩展严格生成 7 条道路 332 棵，并保留新华路 20 棵试验段", () => {
   assert.equal(XINHUA_PLANE_TREE_AXIS_SPACING, 6);
   assert.equal(XINHUA_PLANE_TREE_PILOT.targetCount, 20);
   assert.equal(XINHUA_PLANE_TREE_PILOT_CANDIDATE_SPACING, 3.6);
@@ -223,18 +236,34 @@ test("V5 保留 83 棵基线并独立控制两侧道路偏移和纵向错位", (
     { base: 6.55, jitter: 0.45 },
   ]);
   assert.deepEqual(XINHUA_PLANE_TREE_SIDE_PHASES, [0.5, 0]);
-  assert.equal(XINHUA_PLANE_TREE_PLACEMENTS.length, 83);
+  assert.equal(PLANE_TREE_STREET_TARGET, 332);
+  assert.equal(XINHUA_PLANE_TREE_PLACEMENTS.length, 332);
   assert.equal(
     XINHUA_PLANE_TREE_PLACEMENTS.filter(({ id }) => id.includes("-pilot-")).length,
     20,
   );
-  assert.equal(
-    XINHUA_PLANE_TREE_PLACEMENTS.filter(({ id }) => id.startsWith("plane-tree-0-")).length,
-    44,
+  assert.deepEqual(
+    Object.fromEntries(PLANE_TREE_ROAD_CONTRACTS.map(({ id }) => [
+      id,
+      XINHUA_PLANE_TREE_PLACEMENTS.filter(({ roadId }) => roadId === id).length,
+    ])),
+    {
+      xinhua: 98,
+      panyu: 60,
+      anshun: 48,
+      "huaihai-west": 32,
+      hunan: 18,
+      huashan: 56,
+      taian: 20,
+    },
   );
   assert.equal(
-    XINHUA_PLANE_TREE_PLACEMENTS.filter(({ id }) => id.startsWith("plane-tree-1-")).length,
-    39,
+    XINHUA_PLANE_TREE_PLACEMENTS.filter(({ grade }) => grade === "A").length,
+    256,
+  );
+  assert.equal(
+    XINHUA_PLANE_TREE_PLACEMENTS.filter(({ grade }) => grade === "B").length,
+    76,
   );
 
   const visibleRoadEdge = (
@@ -245,25 +274,34 @@ test("V5 保留 83 棵基线并独立控制两侧道路偏移和纵向错位", (
   );
   const projected = XINHUA_PLANE_TREE_PLACEMENTS.map((placement) => ({
     ...placement,
-    side: Number(placement.id.split("-")[2]),
-    road: projectToRoadAxis(placement.position),
+    road: projectToRoadAxis(
+      placement.position,
+      PLANE_TREE_ROAD_CONTRACTS.find(({ id }) => id === placement.roadId).points,
+    ),
   }));
   for (const placement of projected) {
-    const contract = XINHUA_PLANE_TREE_SIDE_OFFSETS[placement.side];
-    assert.ok(placement.road.distance >= contract.base - 1e-9);
-    assert.ok(placement.road.distance <= contract.base + contract.jitter + 1e-9);
+    const roadContract = PLANE_TREE_ROAD_CONTRACTS.find(
+      ({ id }) => id === placement.roadId,
+    );
+    const baseOffset = roadContract.offsets[placement.side];
+    const jitter = placement.roadId === "xinhua" ? 0.45 : 0.28;
+    assert.ok(placement.offset >= baseOffset - 1e-9);
+    assert.ok(placement.offset <= baseOffset + jitter + 1e-9);
+    assert.ok(placement.road.distance <= placement.offset + 1e-9);
     const trunkRadius = XINHUA_PLANE_TREE_TRUNK_HALF_EXTENT
       * Math.max(placement.scale[0], placement.scale[2]);
-    assert.ok(
-      placement.road.distance - trunkRadius > visibleRoadEdge,
-      `${placement.id} 的树干不得进入道路、路缘、人行道或绿化带`,
-    );
-    const entranceClearance = placement.id.includes("-pilot-") ? 5.4 : 9.2;
+    if (placement.roadId === "xinhua") {
+      assert.ok(
+        placement.road.distance - trunkRadius > visibleRoadEdge,
+        `${placement.id} 的树干不得进入新华路道路、路缘、人行道或绿化带`,
+      );
+    }
+    const knownApproachClearance = placement.id.includes("-pilot-") ? 5.4 : 9.2;
     assert.ok(XINHUA_ROAD_LANDMARKS.every(({ start }) => (
       Math.hypot(
         placement.position[0] - start[0],
         placement.position[1] - start[1],
-      ) >= entranceClearance
+      ) >= knownApproachClearance
     )));
     const activeBuildingObstacles = placement.id.includes("-pilot-")
       ? XINHUA_ROAD_OBSTACLES
@@ -274,6 +312,12 @@ test("V5 保留 83 棵基线并独立控制两侧道路偏移和纵向错位", (
       && placement.position[1] >= obstacle.minZ - 1.4
       && placement.position[1] <= obstacle.maxZ + 1.4
     )));
+    if (!placement.id.includes("-pilot-")) {
+      assert.ok(roadContract.intersections.every(([x, z]) => (
+        Math.hypot(placement.position[0] - x, placement.position[1] - z)
+          >= PLANE_TREE_INTERSECTION_CLEARANCE
+      )));
+    }
   }
 
   const pilotBySide = [0, 1].map((side) => (
@@ -290,6 +334,118 @@ test("V5 保留 83 棵基线并独立控制两侧道路偏移和纵向错位", (
       );
     }
   }
+});
+
+test("332 棵道路梧桐使用空间索引限制近景 Identity、弱网和中景 Massing", () => {
+  const placements3d = XINHUA_PLANE_TREE_PLACEMENTS.map((placement) => ({
+    ...placement,
+    position: [placement.position[0], 0, placement.position[1]],
+  }));
+  const index = buildPlaneTreeSpatialIndex(placements3d);
+  const focus = [
+    placements3d[0].position[0],
+    placements3d[0].position[2],
+  ];
+  const overview = resolvePlaneTreeActiveSets({
+    index,
+    focusPosition: focus,
+    loadMode: "overview",
+    networkProfile: "standard",
+  });
+  assert.equal(overview.identity.length, 0);
+  assert.equal(overview.massing.length, 332);
+
+  const standard = resolvePlaneTreeActiveSets({
+    index,
+    focusPosition: focus,
+    loadMode: "explore",
+    networkProfile: "standard",
+  });
+  assert.ok(standard.identity.length > 0);
+  assert.ok(standard.identity.length <= PLANE_TREE_IDENTITY_ACTIVE_LIMIT);
+  assert.ok(standard.massing.length <= PLANE_TREE_MASSING_ACTIVE_LIMIT);
+  assert.ok(standard.massing.every(({ id }) => !standard.identityIds.has(id)));
+
+  const weak = resolvePlaneTreeActiveSets({
+    index,
+    focusPosition: focus,
+    loadMode: "explore",
+    networkProfile: "weak",
+  });
+  assert.equal(weak.identity.length, 0);
+  assert.ok(weak.massing.length > 0);
+  assert.ok(weak.massing.length <= PLANE_TREE_MASSING_ACTIVE_LIMIT);
+  assert.ok(queryPlaneTreeSpatialIndex(index, focus, 4).length < 332);
+});
+
+test("梧桐 LOD 在 37/42 与 75/82 边界使用迟滞，避免来回抖动", () => {
+  const placement = {
+    id: "test-tree",
+    position: [0, 0, 0],
+  };
+  const index = buildPlaneTreeSpatialIndex([placement]);
+
+  const identityEntered = resolvePlaneTreeActiveSets({
+    index,
+    focusPosition: [36, 0],
+    loadMode: "explore",
+    networkProfile: "standard",
+  });
+  assert.deepEqual(identityEntered.identity.map(({ id }) => id), ["test-tree"]);
+  const identityRetained = resolvePlaneTreeActiveSets({
+    index,
+    focusPosition: [40, 0],
+    loadMode: "explore",
+    networkProfile: "standard",
+    previous: identityEntered,
+  });
+  assert.deepEqual(identityRetained.identity.map(({ id }) => id), ["test-tree"]);
+  const identityFreshAt40 = resolvePlaneTreeActiveSets({
+    index,
+    focusPosition: [40, 0],
+    loadMode: "explore",
+    networkProfile: "standard",
+  });
+  assert.equal(identityFreshAt40.identity.length, 0);
+  const identityExited = resolvePlaneTreeActiveSets({
+    index,
+    focusPosition: [43, 0],
+    loadMode: "explore",
+    networkProfile: "standard",
+    previous: identityRetained,
+  });
+  assert.equal(identityExited.identity.length, 0);
+
+  const massingEntered = resolvePlaneTreeActiveSets({
+    index,
+    focusPosition: [74, 0],
+    loadMode: "explore",
+    networkProfile: "weak",
+  });
+  assert.deepEqual(massingEntered.massing.map(({ id }) => id), ["test-tree"]);
+  const massingRetained = resolvePlaneTreeActiveSets({
+    index,
+    focusPosition: [78, 0],
+    loadMode: "explore",
+    networkProfile: "weak",
+    previous: massingEntered,
+  });
+  assert.deepEqual(massingRetained.massing.map(({ id }) => id), ["test-tree"]);
+  const massingFreshAt78 = resolvePlaneTreeActiveSets({
+    index,
+    focusPosition: [78, 0],
+    loadMode: "explore",
+    networkProfile: "weak",
+  });
+  assert.equal(massingFreshAt78.massing.length, 0);
+  const massingExited = resolvePlaneTreeActiveSets({
+    index,
+    focusPosition: [83, 0],
+    loadMode: "explore",
+    networkProfile: "weak",
+    previous: massingRetained,
+  });
+  assert.equal(massingExited.massing.length, 0);
 });
 
 test("V5 build record 固化树位口径且不伪造新的 GLB 版本", async () => {
@@ -324,7 +480,7 @@ test("Identity 与 Massing 都按真实最低点贴合地表", async () => {
   }
 });
 
-test("每个新华路梧桐树位只生成树干级玩家碰撞", async () => {
+test("每个道路梧桐树位只生成树干级玩家碰撞", async () => {
   const landmarkData = await readFile(
     new URL("app/scene/xinhua-road-landmarks-data.json", root),
     "utf8",
@@ -341,6 +497,54 @@ test("每个新华路梧桐树位只生成树干级玩家碰撞", async () => {
     assert.ok(obstacle.maxX - obstacle.minX < 1.2);
     assert.ok(obstacle.maxZ - obstacle.minZ < 1.2);
   });
+});
+
+test("附近树干空间查询不漏当前树位，并在确定性移动中阻止角色穿树", () => {
+  for (const placement of XINHUA_PLANE_TREE_PLACEMENTS) {
+    const nearby = nearbyPlaneTreeTrunkObstacles(placement.position, 0.01);
+    assert.ok(
+      nearby.some((obstacle) => (
+        placement.position[0] > obstacle.minX
+        && placement.position[0] < obstacle.maxX
+        && placement.position[1] > obstacle.minZ
+        && placement.position[1] < obstacle.maxZ
+      )),
+      `${placement.id} 的自身树干不得被空间查询漏掉`,
+    );
+  }
+
+  const placement = XINHUA_PLANE_TREE_PLACEMENTS[0];
+  const [treeX, treeZ] = placement.position;
+  const obstacles = nearbyPlaneTreeTrunkObstacles(
+    [treeX - 1, treeZ],
+    4,
+  );
+  const treeObstacle = obstacles.find((obstacle) => (
+    treeX > obstacle.minX
+    && treeX < obstacle.maxX
+    && treeZ > obstacle.minZ
+    && treeZ < obstacle.maxZ
+  ));
+  assert.ok(treeObstacle, "玩家附近必须查询到目标树干");
+  const playerRadius = 0.48;
+  const current = new Vector3(
+    treeObstacle.minX - playerRadius - 0.01,
+    0,
+    treeZ,
+  );
+  const result = resolvePolygonMovement(
+    current,
+    new Vector3(0.2, 0, 0),
+    [
+      [treeX - 10, treeZ - 10],
+      [treeX + 10, treeZ - 10],
+      [treeX + 10, treeZ + 10],
+      [treeX - 10, treeZ + 10],
+    ],
+    obstacles,
+    playerRadius,
+  );
+  assert.equal(result.x, current.x, "角色向树干移动时不得穿过树干碰撞盒");
 });
 
 test("四个 Identity 与三个 Massing 共享轻量预算并保持无图片策略", async () => {
@@ -437,17 +641,18 @@ test("全览和弱网使用 Massing、标准近景使用四 Identity，Runtime H
   assert.equal((landmarks.match(/grounding="bounds"/g) ?? []).length, 2);
   assert.match(
     landmarks,
-    /detailed=\{loadMode === "explore" && networkProfile !== "weak"\}/,
+    /resolvePlaneTreeActiveSets/,
   );
   assert.match(world, /networkProfile=\{networkProfile\}/);
-  assert.match(contract, /XINHUA_PLANE_TREE_TRUNK_OBSTACLES/);
-  assert.match(world, /\.\.\.XINHUA_PLANE_TREE_TRUNK_OBSTACLES/);
+  assert.match(landmarks, /xinhuaPlaneTreeLod/);
+  assert.match(contract, /nearbyPlaneTreeTrunkObstacles/);
+  assert.match(world, /nearbyPlaneTreeTrunkObstacles/);
   assert.match(instances, /PLANE_TREE_MASSING_MODELS/);
   assert.match(instances, /plane-tree-d\.glb\?v=e454862756d1/);
   assert.match(assetLibrary, /plane-tree-d\.glb\?v=e454862756d1/);
   assert.doesNotMatch(assetLibrary, /xinhua-plane-tree-hero\.glb/);
-  assert.match(assetData, /instanceCount: 86/);
-  assert.match(assetData, /全览与弱网使用三款 Massing/);
+  assert.match(assetData, /instanceCount: 335/);
+  assert.match(assetData, /7 条道路 332 株 \+ 幸福里 3 株/);
   assert.match(brief, /Runtime Hero: 0/);
 });
 

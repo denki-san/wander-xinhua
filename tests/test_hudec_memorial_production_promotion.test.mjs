@@ -261,9 +261,8 @@ test("production runtime record 的资源、回滚碰撞与截图指纹可复核
   );
   assert.equal(
     record.lineage.cameraCollisionContractSha256,
-    sha256(await readFile(
-      new URL("app/scene/xinhua-road-contract.ts", root),
-    )),
+    "154bb937dc6272e6e96331dfd717a67f7b8fdf9f4aba44091c74473ed1f27e6f",
+    "历史 promotion 记录必须冻结当时合同哈希，不得随当前场景合同改写",
   );
   assert.equal(record.publicationBoundary.push, false);
   assert.equal(record.publicationBoundary.merge, false);

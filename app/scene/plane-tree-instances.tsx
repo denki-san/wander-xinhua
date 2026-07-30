@@ -98,6 +98,8 @@ function InstancedPlaneTreePart({
   part,
   minimumY,
   boundsGrounding,
+  castShadow,
+  receiveShadow,
 }: {
   sourceMesh: Mesh;
   placements: PlaneTreeInstancePlacement[];
@@ -105,6 +107,8 @@ function InstancedPlaneTreePart({
   part: number;
   minimumY: number;
   boundsGrounding: boolean;
+  castShadow: boolean;
+  receiveShadow: boolean;
 }) {
   const instanceRef = useRef<InstancedMesh>(null);
   const material = useMemo(() => (
@@ -154,8 +158,8 @@ function InstancedPlaneTreePart({
     <instancedMesh
       ref={instanceRef}
       args={[sourceMesh.geometry, material, placements.length]}
-      castShadow
-      receiveShadow
+      castShadow={castShadow}
+      receiveShadow={receiveShadow}
       frustumCulled
       userData={{
         vegetation: "xinhua-plane-tree",
@@ -174,12 +178,16 @@ function InstancedPlaneTreeVariant({
   modelPath,
   minimumY,
   boundsGrounding,
+  castShadow,
+  receiveShadow,
 }: {
   variant: PlaneTreeVariant;
   placements: PlaneTreeInstancePlacement[];
   modelPath: string;
   minimumY: number;
   boundsGrounding: boolean;
+  castShadow: boolean;
+  receiveShadow: boolean;
 }) {
   const { scene } = useGLTF(modelPath);
   const sourceMeshes = useMemo(() => {
@@ -203,6 +211,8 @@ function InstancedPlaneTreeVariant({
       part={part}
       minimumY={minimumY}
       boundsGrounding={boundsGrounding}
+      castShadow={castShadow}
+      receiveShadow={receiveShadow}
     />
   ));
 }
@@ -212,11 +222,15 @@ export function PlaneTreeInstances({
   name = "plane-tree-instances",
   tier = "identity",
   grounding = "legacy",
+  castShadow = true,
+  receiveShadow = true,
 }: {
   placements: PlaneTreeInstancePlacement[];
   name?: string;
   tier?: PlaneTreeTier;
   grounding?: "legacy" | "bounds";
+  castShadow?: boolean;
+  receiveShadow?: boolean;
 }) {
   const modelPaths = tier === "massing"
     ? PLANE_TREE_MASSING_MODELS
@@ -262,6 +276,8 @@ export function PlaneTreeInstances({
               modelPath={modelPath}
               minimumY={minimumYByVariant[variant]!}
               boundsGrounding={grounding === "bounds"}
+              castShadow={castShadow}
+              receiveShadow={receiveShadow}
             />
           </Suspense>
         ) : null

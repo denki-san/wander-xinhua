@@ -82,9 +82,12 @@ test("全览关闭天空与树木装饰，详情恢复原有天空、树影和�
   );
   assert.match(world, /<fog attach="fog"/);
   assert.match(landmarks, /tier="massing"/);
-  assert.match(landmarks, /if \(!detailed\)/);
-  assert.match(landmarks, /<AutumnPlaneTreeShadows atmosphere=\{atmosphere\} \/>/);
-  assert.match(landmarks, /<AutumnLeafCarpet \/>/);
+  assert.match(landmarks, /active\.identity\.length > 0/);
+  assert.match(
+    landmarks,
+    /<AutumnPlaneTreeShadows[\s\S]*?placements=\{active\.identity\}/,
+  );
+  assert.match(landmarks, /<AutumnLeafCarpet placements=\{active\.identity\} \/>/);
 });
 
 test("地图预览直接切换正午与夕阳，并把选择同步到可分享 URL", async () => {

@@ -58,6 +58,11 @@ import {
   type PlaneTreeInstancePlacement,
   type PlaneTreeVariant,
 } from "./plane-tree-instances";
+import {
+  buildPlaneTreeSpatialIndex,
+  planeTreeSpatialCell,
+  resolvePlaneTreeActiveSets,
+} from "./plane-tree-spatial-index.mjs";
 import type { MapObstacle, MapPolygonPoint } from "./world-math";
 import {
   XINHUA_ROAD_TRANSPARENT_CAMERA_OBSTACLES,
@@ -164,6 +169,12 @@ export const XINHUA_ROAD_START_PRESETS = Object.fromEntries(
 
 type TreePlacement = {
   id: string;
+  roadId: string;
+  roadName: string;
+  grade: "A" | "B";
+  side: number;
+  distance: number;
+  offset: number;
   variant: PlaneTreeVariant;
   position: MapPolygonPoint;
   yaw: number;
@@ -190,20 +201,24 @@ const XINHUA_PLANE_TREE_INSTANCES: PlaneTreeInstancePlacement[] =
     };
   });
 
-const XINHUA_MASSING_PLANE_TREE_INSTANCES =
-  XINHUA_PLANE_TREE_INSTANCES.map((placement) => ({
-    ...placement,
-    variant: (placement.variant % 3) as PlaneTreeVariant,
-  }));
+const XINHUA_PLANE_TREE_SPATIAL_INDEX = buildPlaneTreeSpatialIndex(
+  XINHUA_PLANE_TREE_INSTANCES,
+);
 
-function AutumnPlaneTreeShadows({ atmosphere }: { atmosphere: XinhuaAtmosphere }) {
+function AutumnPlaneTreeShadows({
+  atmosphere,
+  placements,
+}: {
+  atmosphere: XinhuaAtmosphere;
+  placements: PlaneTreeInstancePlacement[];
+}) {
   const shadowLobes = useMemo(() => {
     const [sunX, , sunZ] = atmosphere.sun.offset;
     const shadowLength = Math.hypot(sunX, sunZ);
     const directionX = -sunX / shadowLength;
     const directionZ = -sunZ / shadowLength;
     const yaw = Math.atan2(directionX, directionZ);
-    return XINHUA_PLANE_TREE_INSTANCES.flatMap((tree, treeIndex) => (
+    return placements.flatMap((tree, treeIndex) => (
       Array.from({ length: 5 }, (_, lobeIndex) => {
         const distance = 1.05 + lobeIndex * 2.05;
         const sideOffset = Math.sin(treeIndex * 1.77 + lobeIndex * 2.13)
@@ -226,7 +241,7 @@ function AutumnPlaneTreeShadows({ atmosphere }: { atmosphere: XinhuaAtmosphere }
         };
       })
     ));
-  }, [atmosphere]);
+  }, [atmosphere, placements]);
   const mesh = useRef<InstancedMesh>(null);
   const trunks = useRef<InstancedMesh>(null);
 
@@ -258,7 +273,7 @@ function AutumnPlaneTreeShadows({ atmosphere }: { atmosphere: XinhuaAtmosphere }
     const directionX = -sunX / shadowLength;
     const directionZ = -sunZ / shadowLength;
     const yaw = Math.atan2(directionX, directionZ);
-    XINHUA_PLANE_TREE_INSTANCES.forEach((tree, index) => {
+    placements.forEach((tree, index) => {
       const positionX = tree.position[0] + directionX * 3.3;
       const positionZ = tree.position[2] + directionZ * 3.3;
       position.set(
@@ -274,7 +289,7 @@ function AutumnPlaneTreeShadows({ atmosphere }: { atmosphere: XinhuaAtmosphere }
     });
     trunks.current.instanceMatrix.needsUpdate = true;
     trunks.current.computeBoundingSphere();
-  }, [atmosphere, shadowLobes]);
+  }, [atmosphere, placements, shadowLobes]);
 
   return (
     <>
@@ -300,7 +315,7 @@ function AutumnPlaneTreeShadows({ atmosphere }: { atmosphere: XinhuaAtmosphere }
       </instancedMesh>
       <instancedMesh
         ref={trunks}
-        args={[undefined, undefined, XINHUA_PLANE_TREE_INSTANCES.length]}
+        args={[undefined, undefined, placements.length]}
         renderOrder={1}
         userData={{
           atmosphere: "storybook-plane-tree-trunk-shadows",
@@ -322,8 +337,12 @@ function AutumnPlaneTreeShadows({ atmosphere }: { atmosphere: XinhuaAtmosphere }
   );
 }
 
-function AutumnLeafCarpet() {
-  const leaves = useMemo(() => XINHUA_PLANE_TREE_INSTANCES.flatMap((tree, treeIndex) => (
+function AutumnLeafCarpet({
+  placements,
+}: {
+  placements: PlaneTreeInstancePlacement[];
+}) {
+  const leaves = useMemo(() => placements.flatMap((tree, treeIndex) => (
     Array.from({ length: 4 }, (_, leafIndex) => {
       const phase = treeIndex * 1.71 + leafIndex * 2.39;
       const radius = 0.42 + ((treeIndex + leafIndex * 3) % 5) * 0.16;
@@ -340,7 +359,7 @@ function AutumnLeafCarpet() {
         ],
       };
     })
-  )), []);
+  )), [placements]);
   const mesh = useRef<InstancedMesh>(null);
 
   useLayoutEffect(() => {
@@ -590,47 +609,120 @@ function GlbModel({
 }
 
 export function XinhuaRoadPlaneTrees({
-  detailed = false,
   atmosphere,
+  loadMode,
+  networkProfile,
+  focusPosition,
 }: {
-  detailed?: boolean;
   atmosphere: XinhuaAtmosphere;
+  loadMode: "overview" | "explore";
+  networkProfile: ProgressiveNetworkProfile;
+  focusPosition: RefObject<readonly [number, number]>;
 }) {
-  if (!detailed) {
-    return (
-      <group
-        name="xinhua-road-plane-trees"
-        userData={{
-          variants: 3,
-          arrangement: "road-oriented-pilot-density",
-          quality: "massing",
-        }}
-      >
-        <PlaneTreeInstances
-          name="xinhua-road-plane-tree-massing-batches"
-          placements={XINHUA_MASSING_PLANE_TREE_INSTANCES}
-          tier="massing"
-          grounding="bounds"
-        />
-      </group>
-    );
-  }
+  const initialFocus = focusPosition.current ?? [0, 0];
+  const [active, setActive] = useState(() => resolvePlaneTreeActiveSets({
+    index: XINHUA_PLANE_TREE_SPATIAL_INDEX,
+    focusPosition: initialFocus,
+    loadMode,
+    networkProfile,
+  }));
+  const activeRef = useRef(active);
+  const sampleElapsed = useRef(0);
+  const lastCell = useRef("");
+  const lastMode = useRef(`${loadMode}:${networkProfile}`);
+
+  useEffect(() => {
+    activeRef.current = active;
+    document.documentElement.dataset.xinhuaPlaneTreeLod = JSON.stringify({
+      total: XINHUA_PLANE_TREE_INSTANCES.length,
+      identity: active.identity.length,
+      massing: active.massing.length,
+      hidden: XINHUA_PLANE_TREE_INSTANCES.length
+        - active.identity.length
+        - active.massing.length,
+      loadMode,
+      networkProfile,
+    });
+  }, [active, loadMode, networkProfile]);
+
+  useFrame((_, delta) => {
+    const mode = `${loadMode}:${networkProfile}`;
+    const modeChanged = mode !== lastMode.current;
+    if (loadMode === "overview" && !modeChanged) return;
+    sampleElapsed.current += delta;
+    if (!modeChanged && sampleElapsed.current < 0.25) return;
+    sampleElapsed.current = 0;
+    const focus = focusPosition.current ?? [0, 0];
+    const [cellX, cellZ] = planeTreeSpatialCell(focus);
+    const cell = `${cellX}:${cellZ}:${mode}`;
+    const next = resolvePlaneTreeActiveSets({
+      index: XINHUA_PLANE_TREE_SPATIAL_INDEX,
+      focusPosition: focus,
+      loadMode,
+      networkProfile,
+      previous: modeChanged
+        ? { identityIds: new Set(), massingIds: new Set() }
+        : activeRef.current,
+    });
+    const current = activeRef.current;
+    const sameIds = (
+      left: Set<string>,
+      right: Set<string>,
+    ) => left.size === right.size && [...left].every((id) => right.has(id));
+    if (
+      cell === lastCell.current
+      && sameIds(current.identityIds, next.identityIds)
+      && sameIds(current.massingIds, next.massingIds)
+    ) {
+      return;
+    }
+    lastCell.current = cell;
+    lastMode.current = mode;
+    activeRef.current = next;
+    setActive(next);
+  });
+
+  const massingPlacements = active.massing.map((placement) => ({
+    ...placement,
+    variant: (placement.variant % 3) as PlaneTreeVariant,
+  }));
   return (
     <group
       name="xinhua-road-plane-trees"
       userData={{
-        variants: 4,
-        arrangement: "road-oriented-pilot-density",
-        quality: "identity",
+        variants: active.identity.length > 0 ? 7 : 3,
+        arrangement: "approved-road-network-spatial-lod",
+        total: XINHUA_PLANE_TREE_INSTANCES.length,
+        identityActive: active.identity.length,
+        massingActive: active.massing.length,
       }}
     >
-      <AutumnPlaneTreeShadows atmosphere={atmosphere} />
-      <PlaneTreeInstances
-        name="xinhua-road-plane-tree-batches"
-        placements={XINHUA_PLANE_TREE_INSTANCES}
-        grounding="bounds"
-      />
-      <AutumnLeafCarpet />
+      {active.identity.length > 0 && (
+        <>
+          <AutumnPlaneTreeShadows
+            atmosphere={atmosphere}
+            placements={active.identity}
+          />
+          <PlaneTreeInstances
+            name="xinhua-road-plane-tree-identity-batches"
+            placements={active.identity}
+            grounding="bounds"
+            castShadow
+            receiveShadow
+          />
+          <AutumnLeafCarpet placements={active.identity} />
+        </>
+      )}
+      {massingPlacements.length > 0 && (
+        <PlaneTreeInstances
+          name="xinhua-road-plane-tree-massing-batches"
+          placements={massingPlacements}
+          tier="massing"
+          grounding="bounds"
+          castShadow={false}
+          receiveShadow={false}
+        />
+      )}
     </group>
   );
 }
@@ -1040,8 +1132,10 @@ export default function XinhuaRoadFullLayer({
       <>
         <XinhuaRoadMassing identity hiddenLandmarkIds={mountedModelIds} />
         <XinhuaRoadPlaneTrees
-          detailed={loadMode === "explore" && networkProfile !== "weak"}
           atmosphere={atmosphere}
+          loadMode={loadMode}
+          networkProfile={networkProfile}
+          focusPosition={focusPosition}
         />
         <XinhuaRoadLandmarks
           showLabels={showLabels}
@@ -1062,8 +1156,10 @@ export default function XinhuaRoadFullLayer({
     <>
       <XinhuaRoadMassing identity hiddenLandmarkIds={activeMountedModelIds} />
       <XinhuaRoadPlaneTrees
-        detailed={loadMode === "explore" && networkProfile !== "weak"}
         atmosphere={atmosphere}
+        loadMode={loadMode}
+        networkProfile={networkProfile}
+        focusPosition={focusPosition}
       />
       <XinhuaRoadLandmarks
         showLabels={showLabels}
