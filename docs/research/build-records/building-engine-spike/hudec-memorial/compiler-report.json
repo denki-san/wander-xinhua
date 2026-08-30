@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "assetId": "hudec-memorial",
   "archetype": "garden-villa",
-  "status": "ok",
+  "status": "failed",
   "inputs": {
     "case": {
       "path": "building-engine/cases/hudec-memorial/building-case.json",
@@ -96,7 +96,12 @@
   ],
   "unsupported": [],
   "ignored": [],
-  "conflict": [],
+  "conflict": [
+    "证据不存在：/Users/lei/App_developing/wander-xinhua/.worktrees/test_building-engine-cold-c74b91b/docs/research/assets/requested-poi-references/hudec-memorial-user-oblique-overview-20260728.png",
+    "证据不存在：/Users/lei/App_developing/wander-xinhua/.worktrees/test_building-engine-cold-c74b91b/docs/research/assets/requested-poi-references/hudec-memorial-user-oblique-overview-crop-20260728.png",
+    "证据不存在：/Users/lei/App_developing/wander-xinhua/.worktrees/test_building-engine-cold-c74b91b/docs/research/assets/requested-poi-references/hudec-memorial-user-historic-front-20260728.png",
+    "证据不存在：/Users/lei/App_developing/wander-xinhua/.worktrees/test_building-engine-cold-c74b91b/docs/research/assets/requested-poi-references/hudec-memorial-user-glass-wing-20260728.png"
+  ],
   "counts": {
     "claims": 9,
     "evidenceItems": 8,
