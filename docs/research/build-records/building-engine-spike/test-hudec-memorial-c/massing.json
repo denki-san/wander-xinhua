@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "assetId": "test-hudec-memorial-c",
+  "archetype": "garden-villa",
+  "stage": "massing",
+  "status": "built-auto-qa-pass",
+  "blenderVersion": "5.2.0 LTS",
+  "generator": {
+    "path": "scripts/compile_garden_villa.py",
+    "sha256": "5be9529a023ed94fe1caceeae1e298499befd43df8e702f4f937917c6dc21552"
+  },
+  "inputs": {
+    "dsl": {
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/candidates/test_hudec-memorial-c-dsl.json",
+      "sha256": "2b8571da0696b70811f87c120095ed1dd52a75e7189dc4941c24b0505b22bccb"
+    },
+    "artProfile": {
+      "path": "building-engine/art-profiles/xinhua-autumn-lowpoly-v1.json",
+      "sha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10"
+    }
+  },
+  "lineage": {
+    "dslSha256": "2b8571da0696b70811f87c120095ed1dd52a75e7189dc4941c24b0505b22bccb",
+    "artProfileSha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10",
+    "compilerSha256": "5be9529a023ed94fe1caceeae1e298499befd43df8e702f4f937917c6dc21552"
+  },
+  "editableObjectCount": 32,
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/building-engine-spike/test-hudec-memorial-c/test-hudec-memorial-c-massing.blend",
+      "sha256": "e3c7a8b1c02eef101a3be23ac5756ae8255d42bd17501e745b95281fe2262cd5",
+      "bytes": 111044
+    },
+    "glb": {
+      "path": "public/models/building-engine-spike/test-hudec-memorial-c/test-hudec-memorial-c-massing.glb",
+      "sha256": "bb1fc4a73c0195e07e2b8b093beb527514bab6ee208231784bb53ebe77367702",
+      "bytes": 31124,
+      "nodes": 1,
+      "meshes": 1,
+      "primitives": 5,
+      "triangles": 360,
+      "materials": 5,
+      "images": 0,
+      "textures": 0,
+      "animations": 0,
+      "skins": 0,
+      "bounds": {
+        "min": [
+          -6.1,
+          0,
+          -4.05
+        ],
+        "max": [
+          4.525,
+          8.26,
+          5.64
+        ]
+      },
+      "transformedNodes": []
+    },
+    "collision": {
+      "path": "public/models/building-engine-spike/test-hudec-memorial-c/test-hudec-memorial-c-collision.json",
+      "sha256": "cf4f2456526e2bb2915a9d859a66e321761cf7294ecbf6e460290bdcc58912e5",
+      "obstacleCount": 9,
+      "openPathCount": 3
+    },
+    "previews": [
+      {
+        "view": "canonical",
+        "path": "test_artifacts/building-engine-spike/test-hudec-memorial-c/test_test-hudec-memorial-c-massing-canonical.png",
+        "sha256": "d7f55ce3261485fc205f28728adf013fa0600fc798b505f05bdf4a3be779c6d7",
+        "bytes": 759248
+      },
+      {
+        "view": "side",
+        "path": "test_artifacts/building-engine-spike/test-hudec-memorial-c/test_test-hudec-memorial-c-massing-side.png",
+        "sha256": "c71d8ceaf108c14f546b2325e6250d665b06dce4e07b1945dd9317ee912a4dbf",
+        "bytes": 683770
+      },
+      {
+        "view": "entrance",
+        "path": "test_artifacts/building-engine-spike/test-hudec-memorial-c/test_test-hudec-memorial-c-massing-entrance.png",
+        "sha256": "1ceff6e08857cc642a26b552fd4dafdc5f2878f94887e279182768bc40fbb673",
+        "bytes": 738529
+      }
+    ]
+  },
+  "geometryIntegrity": {
+    "vertices": 244,
+    "polygons": 186,
+    "triangles": 360,
+    "zeroAreaTriangles": 0,
+    "nonFinitePositions": 0,
+    "status": "ok"
+  },
+  "budget": {
+    "maxNodes": 32,
+    "maxTriangles": 2500,
+    "maxMaterials": 5,
+    "maxImages": 0,
+    "maxBytes": 500000
+  },
+  "mcpReview": {
+    "status": "not-run-addon-unavailable",
+    "fallback": "headless-fixed-camera-previews"
+  },
+  "nextGate": "massing-calibration-review"
+}

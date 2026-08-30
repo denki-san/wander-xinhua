@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "assetId": "test-hudec-topology-a-tall-roof-chimneys",
+  "archetype": "garden-villa",
+  "stage": "massing",
+  "status": "built-auto-qa-pass",
+  "blenderVersion": "5.2.0 LTS",
+  "generator": {
+    "path": "scripts/compile_garden_villa.py",
+    "sha256": "5be9529a023ed94fe1caceeae1e298499befd43df8e702f4f937917c6dc21552"
+  },
+  "inputs": {
+    "dsl": {
+      "path": "test_artifacts/building-engine-spike/hudec-memorial/topology-candidates/test-hudec-topology-a-tall-roof-chimneys-dsl.json",
+      "sha256": "7f7c530172f49e3275b378876916a5ce991de8fd128e743562861766032743f2"
+    },
+    "artProfile": {
+      "path": "building-engine/art-profiles/xinhua-autumn-lowpoly-v1.json",
+      "sha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10"
+    }
+  },
+  "lineage": {
+    "dslSha256": "7f7c530172f49e3275b378876916a5ce991de8fd128e743562861766032743f2",
+    "artProfileSha256": "be83132c810c9fe0e36d7070d61648ae43ac820621b785324ad6bc86cc4e9c10",
+    "compilerSha256": "5be9529a023ed94fe1caceeae1e298499befd43df8e702f4f937917c6dc21552"
+  },
+  "editableObjectCount": 21,
+  "outputs": {
+    "blend": {
+      "path": "assets/models/source/building-engine-spike/test-hudec-topology-a-tall-roof-chimneys/test-hudec-topology-a-tall-roof-chimneys-massing.blend",
+      "sha256": "f25077ebeebe64b7c7eec2a45af435581995ba7e6acebd04e7c7741df61c9a15",
+      "bytes": 106088
+    },
+    "glb": {
+      "path": "public/models/building-engine-spike/test-hudec-topology-a-tall-roof-chimneys/test-hudec-topology-a-tall-roof-chimneys-massing.glb",
+      "sha256": "85f740ae03b82d71d3b114a9a318e416e7a0a69bf95baec06cbeddbfa6fc0b26",
+      "bytes": 22276,
+      "nodes": 1,
+      "meshes": 1,
+      "primitives": 5,
+      "triangles": 232,
+      "materials": 5,
+      "images": 0,
+      "textures": 0,
+      "animations": 0,
+      "skins": 0,
+      "bounds": {
+        "min": [
+          -6.875,
+          0,
+          -3.15
+        ],
+        "max": [
+          6.4,
+          8.059999,
+          3.675
+        ]
+      },
+      "transformedNodes": []
+    },
+    "collision": {
+      "path": "public/models/building-engine-spike/test-hudec-topology-a-tall-roof-chimneys/test-hudec-topology-a-tall-roof-chimneys-collision.json",
+      "sha256": "a4eba970d16b7eaa616ed602e7b64a0f2bdfadffa65f53bd4dbe2c3ed7e1f002",
+      "obstacleCount": 5,
+      "openPathCount": 0
+    },
+    "previews": [
+      {
+        "view": "canonical",
+        "path": "test_artifacts/building-engine-spike/test-hudec-topology-a-tall-roof-chimneys/test_test-hudec-topology-a-tall-roof-chimneys-massing-canonical.png",
+        "sha256": "13788bd54c1a6de785e7f75a1383ff887b250d3fb144424efe7796b83f8b17cc",
+        "bytes": 744363
+      },
+      {
+        "view": "side",
+        "path": "test_artifacts/building-engine-spike/test-hudec-topology-a-tall-roof-chimneys/test_test-hudec-topology-a-tall-roof-chimneys-massing-side.png",
+        "sha256": "63b725f4d9707aa269b2d246c9f2793db34e2758540ba580e391a41597e5d028",
+        "bytes": 746983
+      },
+      {
+        "view": "entrance",
+        "path": "test_artifacts/building-engine-spike/test-hudec-topology-a-tall-roof-chimneys/test_test-hudec-topology-a-tall-roof-chimneys-massing-entrance.png",
+        "sha256": "f8b4a4543be0d6c633ebb6998d6372674fe899d9bf6c7488056936378cc967d0",
+        "bytes": 702510
+      }
+    ]
+  },
+  "geometryIntegrity": {
+    "vertices": 158,
+    "polygons": 121,
+    "triangles": 232,
+    "zeroAreaTriangles": 0,
+    "nonFinitePositions": 0,
+    "status": "ok"
+  },
+  "budget": {
+    "maxNodes": 32,
+    "maxTriangles": 2500,
+    "maxMaterials": 5,
+    "maxImages": 0,
+    "maxBytes": 500000
+  },
+  "mcpReview": {
+    "status": "not-run-addon-unavailable",
+    "fallback": "headless-fixed-camera-previews"
+  },
+  "nextGate": "massing-calibration-review"
+}

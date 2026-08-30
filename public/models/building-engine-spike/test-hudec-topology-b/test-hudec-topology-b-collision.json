@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "assetId": "test-hudec-topology-b",
+  "archetype": "garden-villa",
+  "dslSha256": "3b01e86c172a6031a55c57ee1bac8373d92dbef2dab673724e97b20204faf707",
+  "coordinateContract": {
+    "sceneUnitMeters": 2.7,
+    "front": "local-negative-y",
+    "groundDatum": 0
+  },
+  "obstacles": [
+    {
+      "id": "rear-link-range",
+      "minX": -4.7,
+      "maxX": 4.7,
+      "minY": -0.3999999999999999,
+      "maxY": 2.9
+    },
+    {
+      "id": "left-deep-wing",
+      "minX": -4.375,
+      "maxX": -1.125,
+      "minY": -4.800000000000001,
+      "maxY": 2.1
+    },
+    {
+      "id": "right-deep-wing",
+      "minX": 1.125,
+      "maxX": 4.375,
+      "minY": -4.800000000000001,
+      "maxY": 2.1
+    },
+    {
+      "id": "left-wing-glass-return",
+      "minX": -6.35,
+      "maxX": -4.15,
+      "minY": -4.1,
+      "maxY": 1.4999999999999998
+    }
+  ],
+  "requiredOpenPaths": []
+}

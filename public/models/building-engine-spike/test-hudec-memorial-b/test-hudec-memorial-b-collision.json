@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "assetId": "test-hudec-memorial-b",
+  "archetype": "garden-villa",
+  "dslSha256": "404a53652e1fb8f8a49bbeb58281b3c78884d720dfe4927e752bf08c69d81847",
+  "coordinateContract": {
+    "sceneUnitMeters": 2.7,
+    "front": "local-negative-y",
+    "groundDatum": 0
+  },
+  "obstacles": [
+    {
+      "id": "main-long-hall",
+      "minX": -2.8,
+      "maxX": 3,
+      "minY": -3,
+      "maxY": 3.7
+    },
+    {
+      "id": "side-west-gable",
+      "minX": -4.3,
+      "maxX": 1.1,
+      "minY": -1.65,
+      "maxY": 1.45
+    },
+    {
+      "id": "front-main-gable",
+      "minX": 0.05,
+      "maxX": 3.05,
+      "minY": -4.75,
+      "maxY": 1.65
+    },
+    {
+      "id": "side-glass-wing",
+      "minX": -5.4,
+      "maxX": -2.7,
+      "minY": -4.1,
+      "maxY": 1.6
+    },
+    {
+      "id": "front-secondary-gable",
+      "minX": 2.12,
+      "maxX": 4.38,
+      "minY": -3.05,
+      "maxY": 1.75
+    },
+    {
+      "id": "entrance-front-left-column",
+      "minX": 0.61,
+      "maxX": 0.89,
+      "minY": -5.29,
+      "maxY": -5.01
+    },
+    {
+      "id": "entrance-front-right-column",
+      "minX": 2.21,
+      "maxX": 2.49,
+      "minY": -5.29,
+      "maxY": -5.01
+    },
+    {
+      "id": "brick-gate-left-post",
+      "minX": -6.1,
+      "maxX": -5.8,
+      "minY": -4.88,
+      "maxY": -4.36
+    },
+    {
+      "id": "brick-gate-right-post",
+      "minX": -4.8,
+      "maxX": -4.5,
+      "minY": -4.88,
+      "maxY": -4.36
+    }
+  ],
+  "requiredOpenPaths": [
+    {
+      "id": "courtyard-to-entrance",
+      "from": [
+        1.55,
+        -6.4
+      ],
+      "to": [
+        1.55,
+        -5.5
+      ],
+      "width": 0.78
+    },
+    {
+      "id": "brick-gate-arch",
+      "from": [
+        -5.3,
+        -6.1
+      ],
+      "to": [
+        -5.3,
+        -5.12
+      ],
+      "width": 0.7
+    },
+    {
+      "id": "west-side-circulation",
+      "from": [
+        -6.7,
+        -4.1
+      ],
+      "to": [
+        -6.7,
+        3.6
+      ],
+      "width": 0.6
+    }
+  ]
+}

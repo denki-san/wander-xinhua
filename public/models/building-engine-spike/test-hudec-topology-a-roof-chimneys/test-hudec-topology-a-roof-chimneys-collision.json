@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "assetId": "test-hudec-topology-a-roof-chimneys",
+  "archetype": "garden-villa",
+  "dslSha256": "98097a96ad447bf94e35b0673fac1b5632653bc6d9f39c1833a266115f93c45b",
+  "coordinateContract": {
+    "sceneUnitMeters": 2.7,
+    "front": "local-negative-y",
+    "groundDatum": 0
+  },
+  "obstacles": [
+    {
+      "id": "rear-main-range",
+      "minX": -4.6,
+      "maxX": 4.6,
+      "minY": -1.95,
+      "maxY": 2.85
+    },
+    {
+      "id": "front-left-shallow-bay",
+      "minX": -4.25,
+      "maxX": -1.1500000000000001,
+      "minY": -3.4,
+      "maxY": -0.6999999999999997
+    },
+    {
+      "id": "front-right-shallow-bay",
+      "minX": 1.1500000000000001,
+      "maxX": 4.25,
+      "minY": -3.4,
+      "maxY": -0.6999999999999997
+    },
+    {
+      "id": "left-glass-lean-to",
+      "minX": -6.65,
+      "maxX": -4.25,
+      "minY": -3.1,
+      "maxY": 1.8000000000000003
+    },
+    {
+      "id": "right-low-return",
+      "minX": 4.075,
+      "maxX": 6.2250000000000005,
+      "minY": -0.8500000000000001,
+      "maxY": 2.25
+    }
+  ],
+  "requiredOpenPaths": []
+}
