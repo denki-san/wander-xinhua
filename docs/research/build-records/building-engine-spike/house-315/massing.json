@@ -28,8 +28,8 @@
   "outputs": {
     "blend": {
       "path": "assets/models/source/building-engine-spike/house-315/house-315-massing.blend",
-      "sha256": "818a2f6126fbe4f252eea61b9dbfc09718856b1d94c6653e7cb9f23efb1931b5",
-      "bytes": 100363
+      "sha256": "8c38ffc7a935462d11b788e5c2a10ea447abf1550a4dc8da221bc8d9460297f3",
+      "bytes": 100358
     },
     "glb": {
       "path": "public/models/building-engine-spike/house-315/house-315-massing.glb",
@@ -68,20 +68,20 @@
       {
         "view": "canonical",
         "path": "test_artifacts/building-engine-spike/house-315/test_house-315-massing-canonical.png",
-        "sha256": "4f4b6412b7e4c1d68a293b43558bf0d81ab2551e03592d8573d44e291a06026d",
-        "bytes": 736379
+        "sha256": "83048f1d47fac0da9cd18899a38172edfd9582b8029456e4f2f526ca5ff2dc53",
+        "bytes": 736391
       },
       {
         "view": "side",
         "path": "test_artifacts/building-engine-spike/house-315/test_house-315-massing-side.png",
-        "sha256": "02621b70d156ec90fbc18d5b24884136c3695dda04f8cca867e21d70ee26dcc6",
-        "bytes": 783097
+        "sha256": "335211b36cbf1df91f9a94c4c7a02b691a63559301661da35a2a10705d86366b",
+        "bytes": 783109
       },
       {
         "view": "entrance",
         "path": "test_artifacts/building-engine-spike/house-315/test_house-315-massing-entrance.png",
-        "sha256": "a9ac919617cfc2177ee414d36ab04ed60a1be62021460b7a5406d9f17cc5beea",
-        "bytes": 777287
+        "sha256": "3969379a6789f53655ead08c9740c870f8de3647dfcd049be0d114eaadca08f2",
+        "bytes": 777299
       }
     ]
   },

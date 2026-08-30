@@ -32,8 +32,8 @@
   "outputs": {
     "blend": {
       "path": "assets/models/source/building-engine-spike/house-315/house-315-master.blend",
-      "sha256": "79c6d973ae0b0d6aed30cd6461f3c542c36088a1524b3b9b6c40ef85ce076d3c",
-      "bytes": 135420
+      "sha256": "7dee1a0ba9a6ac67531932ed5d086cf9aaf92acc9e2f0bf09117b15883e8dae4",
+      "bytes": 135417
     },
     "glb": {
       "path": "public/models/building-engine-spike/house-315/house-315-master.glb",
@@ -72,20 +72,20 @@
       {
         "view": "canonical",
         "path": "test_artifacts/building-engine-spike/house-315/test_house-315-master-canonical.png",
-        "sha256": "cdd7bfbff4e044d607998c9774137b887e253c0159fbaaf0773ef81aa60e9260",
-        "bytes": 762482
+        "sha256": "b319708c1b34393dcdba2f07a392dc1e70e20035424f3aa73b841eabf6dc8772",
+        "bytes": 762494
       },
       {
         "view": "side",
         "path": "test_artifacts/building-engine-spike/house-315/test_house-315-master-side.png",
-        "sha256": "47e0e0639cee38007d2718f6fd9df0428445df8ec5c808906ae74f21af9c657a",
-        "bytes": 802701
+        "sha256": "bb2f71bc5c7355d21771c4c14a7fc6b4812fca1ee10308f73c550b1dac413f0f",
+        "bytes": 802713
       },
       {
         "view": "entrance",
         "path": "test_artifacts/building-engine-spike/house-315/test_house-315-master-entrance.png",
-        "sha256": "09fce0ebc7904d53ea427031138422f5d129d4805ace4ec32f6b7d9ccdcee11e",
-        "bytes": 810406
+        "sha256": "c29496838e31f58e7b62ae872699d6aeed622d9c2ce108fed1f935b3c7aecb43",
+        "bytes": 810418
       }
     ]
   },

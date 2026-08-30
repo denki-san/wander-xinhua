@@ -28,8 +28,8 @@
   "outputs": {
     "blend": {
       "path": "assets/models/source/building-engine-spike/sun-ke-villa/sun-ke-villa-massing.blend",
-      "sha256": "a59fbc3057ee321707ac4b7379fe3dbc94153fa1ea5aa16acb3f88f7c80ab5ba",
-      "bytes": 103067
+      "sha256": "c8ce862cc9457a36ea8c4566ed970e67f28fc3921b7b593461e086b1b226ccf9",
+      "bytes": 103052
     },
     "glb": {
       "path": "public/models/building-engine-spike/sun-ke-villa/sun-ke-villa-massing.glb",
@@ -68,20 +68,20 @@
       {
         "view": "canonical",
         "path": "test_artifacts/building-engine-spike/sun-ke-villa/test_sun-ke-villa-massing-canonical.png",
-        "sha256": "6c916fbbdca35de1d070a93c10c15e4e68229d0dc2e9946cf319b81112e3ec44",
-        "bytes": 709649
+        "sha256": "207dc0896b2e2e82019c8d4c1f7c6deee0237fb87d23e5cd9ab18d4139f2509b",
+        "bytes": 709661
       },
       {
         "view": "side",
         "path": "test_artifacts/building-engine-spike/sun-ke-villa/test_sun-ke-villa-massing-side.png",
-        "sha256": "efa9217ec04b35d1e4e1efb57aa45ca34e7093214c0f6579f9e932cd472dd49c",
-        "bytes": 736971
+        "sha256": "235670a924e05a19049ad3b0db083ac3d8a1384d425be993f7797c43fd8c426f",
+        "bytes": 736983
       },
       {
         "view": "entrance",
         "path": "test_artifacts/building-engine-spike/sun-ke-villa/test_sun-ke-villa-massing-entrance.png",
-        "sha256": "92ff78fcc59cd6c725cd43a84e0d2a0c321bcfd99d8ac21b39de5b95ecb771bf",
-        "bytes": 752716
+        "sha256": "57d6985dd9efbabad618d8da922b19e68cd859a1219621e674df68cd7083672c",
+        "bytes": 752728
       }
     ]
   },
