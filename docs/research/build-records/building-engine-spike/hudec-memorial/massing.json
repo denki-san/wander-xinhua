@@ -28,7 +28,7 @@
   "outputs": {
     "blend": {
       "path": "assets/models/source/building-engine-spike/hudec-memorial/hudec-memorial-massing.blend",
-      "sha256": "46c944920e2d434a4060c0465d67acdb4928a211c2b358b53f2f44020a68e72d",
+      "sha256": "a9e254d17a98919f9c0a53c93440303e3100d386d68c7559768076250a6f25f6",
       "bytes": 110564
     },
     "glb": {
@@ -68,20 +68,20 @@
       {
         "view": "canonical",
         "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-canonical.png",
-        "sha256": "9e99f1123c95f6f06eef479d80bbed6b11dae2f0883824a8bd2b5dbaeeb834f6",
-        "bytes": 761641
+        "sha256": "7b07a67ade14a2a56499a23362afdc8234ea996d0de68696341fc9138ac66523",
+        "bytes": 761653
       },
       {
         "view": "side",
         "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-side.png",
-        "sha256": "3671f108de68233054faa8410eb3bbf334a6ce09359c8f53c397ce232498f5bd",
-        "bytes": 789327
+        "sha256": "1d3bfba4a15538ec28985af16c302831f30ef89393cc26407fccac1bcc8581bf",
+        "bytes": 789339
       },
       {
         "view": "entrance",
         "path": "test_artifacts/building-engine-spike/hudec-memorial/test_hudec-memorial-massing-entrance.png",
-        "sha256": "b3cc9a9bd39e0e0acae87d0376dc0067c86fceb838770b35c251434d865b35f0",
-        "bytes": 790564
+        "sha256": "7fbcd489f2dc00f6efe1d1546586e2baeca279fbe51fdc9de24f1bbef3b681a2",
+        "bytes": 790576
       }
     ]
   },
