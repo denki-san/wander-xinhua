@@ -469,10 +469,8 @@ export function XinhuaExperience() {
   const [characterIdentityStatus, setCharacterIdentityStatus] =
     useState<RainIdentityPreloadStatus | null>(null);
   const [characterHeroVisible, setCharacterHeroVisible] = useState(false);
-  const [nearAction, setNearAction] = useState(false);
   const [nearPoiId, setNearPoiId] = useState<string | null>(null);
   const [destinationPreset, setDestinationPreset] = useState<string>();
-  const [actionOpen, setActionOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [atmosphereStyle, setAtmosphereStyle] = useState<XinhuaAtmosphereStyle>(
     requestedAtmosphereStyle,
@@ -628,18 +626,6 @@ export function XinhuaExperience() {
     return () => document.removeEventListener("fullscreenchange", syncFullscreen);
   }, []);
 
-  useEffect(() => {
-    if (!exploring) return;
-    const interact = (event: KeyboardEvent) => {
-      if (event.code === "KeyE" && nearAction) {
-        event.preventDefault();
-        setActionOpen(true);
-      }
-    };
-    window.addEventListener("keydown", interact);
-    return () => window.removeEventListener("keydown", interact);
-  }, [exploring, nearAction]);
-
   const begin = useCallback(() => {
     resetInput();
     setNearPoiId(null);
@@ -656,8 +642,6 @@ export function XinhuaExperience() {
 
   const showOverview = useCallback(() => {
     resetInput();
-    setNearAction(false);
-    setActionOpen(false);
     setNearPoiId(null);
     setOverviewStartPosition(playerPosition.current);
     setDestinationPreset(undefined);
@@ -745,8 +729,6 @@ export function XinhuaExperience() {
           mode={mode}
           lowTier={lowTier}
           atmosphereStyle={atmosphereStyle}
-          onNearAction={setNearAction}
-          onOpenAction={() => setActionOpen(true)}
           nearPoiId={nearPoiId}
           overviewStartPosition={overviewStartPosition}
           destinationPreset={destinationPreset}
@@ -862,13 +844,6 @@ export function XinhuaExperience() {
           </div>
           <TouchControls showPace={exploring} />
 
-          {exploring && nearAction && !actionOpen && (
-            <button type="button" className="action-prompt" onClick={() => setActionOpen(true)}>
-              <span>唯一行动点</span>
-              <strong>看看这一平米</strong>
-              <kbd>E</kbd>
-            </button>
-          )}
         </>
       )}
 
@@ -909,19 +884,6 @@ export function XinhuaExperience() {
             <button type="button" onClick={enterPoi}>进入 {nearPoi.name}</button>
           </div>
         </aside>
-      )}
-
-      {actionOpen && (
-        <div className="panel-layer" role="dialog" aria-modal="true" aria-labelledby="action-title" onClick={() => setActionOpen(false)}>
-          <article className="action-panel" onClick={(event) => event.stopPropagation()}>
-            <button type="button" className="panel-close" onClick={() => setActionOpen(false)} aria-label="关闭行动面板">×</button>
-            <span className="action-number">1 m²</span>
-            <p>新华路街区 · 唯一行动点</p>
-            <h2 id="action-title">给街角留出一平方米</h2>
-            <p className="action-copy">把一平方米变成邻里可以停一下、聊一句、交换一件小物的地方。当前版本只保留这一处行动入口，其余空间全部用来闲逛。</p>
-            <button type="button" className="action-button" onClick={() => setActionOpen(false)}>继续闲逛</button>
-          </article>
-        </div>
       )}
 
       {helpOpen && (

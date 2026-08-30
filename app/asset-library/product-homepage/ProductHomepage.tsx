@@ -43,7 +43,7 @@ export function ProductHomepage() {
           <p className={styles.eyebrow}>WANDER XINHUA · SHANGHAI</p>
           <h1 id="page-title">在新华路，<br /><em>慢一点发现。</em></h1>
           <p>
-            一个以真实街区为起点的 3D 漫游产品。我们把建筑、树影、故事与一平米的在地行动，慢慢放回同一张地图。
+            一个以真实街区为起点的 3D 漫游产品。我们把建筑、树影与街区故事，慢慢放回同一张地图。
           </p>
           <div className={styles.heroActions}>
             <Link className={styles.primaryAction} href="/">进入漫游</Link>

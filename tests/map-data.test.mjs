@@ -188,16 +188,13 @@ test("幸福里真实建筑碰撞四角与模型点使用同一全局变换", as
   assert.equal(transformed.maxZ, Math.max(...corners.map(([, z]) => z)));
 });
 
-test("起点和唯一行动点位于真实行政边界内且留有角色半径", async () => {
+test("起点位于真实行政边界内且留有角色半径", async () => {
   const map = JSON.parse(await readFile(new URL("app/scene/xinhua-map-data.json", root), "utf8"));
   const placement = map.landmarks.xingfuli;
   const boundary = map.boundary;
-  const action = transformMapPoint(-48, placement.localLaneCenterZ, placement.position, placement.rotationY, placement.horizontalScale, placement.localLaneCenterZ);
   const start = transformMapPoint(-65, placement.localLaneCenterZ, placement.position, placement.rotationY, placement.horizontalScale, placement.localLaneCenterZ);
 
-  assert.equal(isPointInsidePolygon(action[0], action[1], boundary), true);
   assert.equal(isPointInsidePolygon(start[0], start[1], boundary), true);
-  assert.equal(isPlanarPositionBlockedInPolygon(action[0], action[1], boundary, [], 0.48), false);
   assert.equal(isPlanarPositionBlockedInPolygon(start[0], start[1], boundary, [], 0.48), false);
 });
 

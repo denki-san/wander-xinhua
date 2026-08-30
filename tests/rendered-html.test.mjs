@@ -14,7 +14,7 @@ test("静态生产入口加载漫步新华 3D 闲逛应用", async () => {
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });
 
-test("产品源码锁定 WebGL 自由闲逛和唯一行动点", async () => {
+test("产品源码锁定 WebGL 自由闲逛且不包含行动点", async () => {
   const experience = await readFile(new URL("../app/xinhua-experience.tsx", import.meta.url), "utf8");
   const world = await readFile(new URL("../app/scene/xinhua-world.tsx", import.meta.url), "utf8");
   const xingfuli = await readFile(new URL("../app/scene/xingfuli-block.tsx", import.meta.url), "utf8");
@@ -31,8 +31,7 @@ test("产品源码锁定 WebGL 自由闲逛和唯一行动点", async () => {
   assert.match(world, /resolvePolygonMovement/);
   assert.doesNotMatch(world, /MAP_BOUNDS|NeighborhoodBoundary|NeighborhoodRoads/);
   assert.doesNotMatch(world, /PLANET_RADIUS|SurfaceAnchor|TinyPlanet/);
-  assert.equal(((world + xingfuli + huashan + shangsheng).match(/data-action-point=/g) ?? []).length, 1);
-  assert.match(experience, /唯一行动点/);
+  assert.doesNotMatch(world + xingfuli + huashan + shangsheng, /data-action-point=/);
   assert.doesNotMatch(experience + world, /送出第一张行动邀请|点亮一家街角小店|找到今年的行动地图|故事线/);
   assert.doesNotMatch(experience + world, /login|password|账号|密码/i);
   assert.doesNotMatch(page, /xinhua-game/);

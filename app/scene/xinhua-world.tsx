@@ -1,8 +1,6 @@
 "use client";
 
 import {
-  Float,
-  Html,
   RoundedBox,
   Shadow,
 } from "@react-three/drei";
@@ -22,7 +20,6 @@ import {
 import {
   lazy,
   Suspense,
-  type ReactNode,
   type RefObject,
   useCallback,
   useEffect,
@@ -215,7 +212,6 @@ function xingfuliLocalToWorld(x: number, z: number) {
   );
 }
 
-const [actionX, actionZ] = xingfuliLocalToWorld(-48, XINGFULI_PLACEMENT.localLaneCenterZ);
 const [startX, startZ] = xingfuliLocalToWorld(-65, XINGFULI_PLACEMENT.localLaneCenterZ);
 const [heroStartX, heroStartZ] = xingfuliLocalToWorld(-39.5, XINGFULI_PLACEMENT.localLaneCenterZ);
 const [xingfuliCanonicalX, xingfuliCanonicalZ] = xingfuliLocalToWorld(
@@ -229,7 +225,6 @@ const [xingfuliEntranceDetailX, xingfuliEntranceDetailZ] = xingfuliLocalToWorld(
   46,
   -5.05,
 );
-const ACTION_POSITION = new Vector3(actionX, terrainHeightAt(actionX, actionZ) + 0.34, actionZ);
 const START_POSITION = new Vector3(startX, terrainHeightAt(startX, startZ) + 0.33, startZ);
 const HERO_START_POSITION = new Vector3(
   heroStartX,
@@ -438,92 +433,7 @@ const WORLD_CAMERA_OBSTACLES: MapObstacle[] = [
   ...XINHUA_ROAD_CAMERA_OBSTACLES,
 ];
 
-function GroundAnchor({
-  x,
-  z,
-  y = 0,
-  yaw = 0,
-  children,
-}: {
-  x: number;
-  z: number;
-  y?: number;
-  yaw?: number;
-  children: ReactNode;
-}) {
-  return (
-    <group position={[x, y, z]} rotation-y={yaw}>
-      {children}
-    </group>
-  );
-}
-
-function ActionInstallation({ onOpenAction }: { onOpenAction: () => void }) {
-  return (
-    <GroundAnchor
-      x={ACTION_POSITION.x}
-      z={ACTION_POSITION.z}
-      y={ACTION_POSITION.y}
-      yaw={XINGFULI_PLACEMENT.rotationY}
-    >
-      <group
-        scale={0.7}
-        data-action-point="one-square-metre"
-        onClick={(event) => {
-          event.stopPropagation();
-          onOpenAction();
-        }}
-      >
-        <mesh position={[0, 0.05, 0]} receiveShadow>
-          <boxGeometry args={[2.35, 0.12, 2.35]} />
-          <meshToonMaterial color="#e8b94f" />
-        </mesh>
-        <mesh position={[0, 0.12, 0]} rotation-x={Math.PI / 2}>
-          <torusGeometry args={[1.45, 0.09, 8, 42]} />
-          <meshBasicMaterial color="#fff1b1" />
-        </mesh>
-        {[[-0.94, -0.94], [0.94, -0.94], [-0.94, 0.94], [0.94, 0.94]].map(([x, z], index) => (
-          <group key={index} position={[x, 0.28, z]}>
-            <mesh castShadow>
-              <cylinderGeometry args={[0.24, 0.3, 0.48, 8]} />
-              <meshToonMaterial color="#c45d4c" />
-            </mesh>
-            <mesh position={[0, 0.42, 0]} castShadow>
-              <icosahedronGeometry args={[0.38, 1]} />
-              <meshToonMaterial color="#4f8465" />
-            </mesh>
-          </group>
-        ))}
-        <mesh position={[0, 1.22, -0.82]} castShadow>
-          <boxGeometry args={[1.65, 0.92, 0.12]} />
-          <meshToonMaterial color="#f0ede0" />
-        </mesh>
-        <mesh position={[0, 1.22, -0.75]}>
-          <boxGeometry args={[1.05, 0.08, 0.025]} />
-          <meshBasicMaterial color="#cf604d" />
-        </mesh>
-        <Float speed={2.1} rotationIntensity={0.08} floatIntensity={0.28}>
-          <group position={[0, 2.45, 0]}>
-            <mesh castShadow>
-              <boxGeometry args={[1.15, 0.78, 0.22]} />
-              <meshToonMaterial color="#fff2cc" />
-            </mesh>
-            <mesh position={[0, 0.07, 0.125]} rotation-z={Math.PI / 4}>
-              <boxGeometry args={[0.66, 0.66, 0.035]} />
-              <meshToonMaterial color="#d36c54" />
-            </mesh>
-          </group>
-        </Float>
-        <Html center position={[0, 3.45, 0]} distanceFactor={9} transform sprite>
-          <button type="button" className="world-label" onClick={onOpenAction}>一平米行动</button>
-        </Html>
-      </group>
-    </GroundAnchor>
-  );
-}
-
 function FlatNeighborhood({
-  onOpenAction,
   atmosphere,
   lowTier,
   detailScale = 1,
@@ -535,7 +445,6 @@ function FlatNeighborhood({
   networkProfile,
   mode,
 }: {
-  onOpenAction: () => void;
   atmosphere: XinhuaAtmosphere;
   lowTier: boolean;
   detailScale?: number;
@@ -669,7 +578,6 @@ function FlatNeighborhood({
       ) : (
         <XinhuaRoadMassing identity={showDetailModels} />
       )}
-      <ActionInstallation onOpenAction={onOpenAction} />
     </group>
   );
 }
@@ -995,13 +903,11 @@ function useKeyboardControls() {
 }
 
 function PlayableWanderer({
-  onNearAction,
   startPreset,
   onPositionChange,
   atmosphere,
   cameraQaEnabled,
 }: {
-  onNearAction: (near: boolean) => void;
   startPreset?: string;
   onPositionChange: (position: readonly [number, number]) => void;
   atmosphere: XinhuaAtmosphere;
@@ -1061,8 +967,6 @@ function PlayableWanderer({
   const lastDragPointer = useRef({ x: 0, y: 0 });
   const dragDelta = useRef({ x: 0, y: 0 });
   const zoom = useRef(initialCameraOffset.length());
-  const wasNear = useRef(false);
-  const onNearRef = useRef(onNearAction);
   const onPositionRef = useRef(onPositionChange);
   const positionReportElapsed = useRef(0);
   useKeyboardControls();
@@ -1109,10 +1013,6 @@ function PlayableWanderer({
     camera.lookAt(cameraTarget);
     onPositionRef.current([currentPosition.x, currentPosition.z]);
   }, [camera, cameraTargetHeight, initialForward]);
-
-  useEffect(() => {
-    onNearRef.current = onNearAction;
-  }, [onNearAction]);
 
   useEffect(() => {
     onPositionRef.current = onPositionChange;
@@ -1565,14 +1465,6 @@ function PlayableWanderer({
       });
     }
 
-    const near = Math.hypot(
-      currentPosition.x - ACTION_POSITION.x,
-      currentPosition.z - ACTION_POSITION.z,
-    ) < 3.2;
-    if (near !== wasNear.current) {
-      wasNear.current = near;
-      onNearRef.current(near);
-    }
     positionReportElapsed.current += delta;
     if (positionReportElapsed.current >= 0.25) {
       positionReportElapsed.current = 0;
@@ -2060,8 +1952,6 @@ export function XinhuaWorld({
   mode,
   lowTier,
   atmosphereStyle,
-  onNearAction,
-  onOpenAction,
   nearPoiId,
   overviewStartPosition,
   destinationPreset,
@@ -2073,8 +1963,6 @@ export function XinhuaWorld({
   mode: "intro" | "overview" | "explore";
   lowTier: boolean;
   atmosphereStyle: XinhuaAtmosphereStyle;
-  onNearAction: (near: boolean) => void;
-  onOpenAction: () => void;
   nearPoiId: string | null;
   overviewStartPosition: readonly [number, number];
   destinationPreset?: string;
@@ -2131,7 +2019,6 @@ export function XinhuaWorld({
         atmosphere={atmosphere}
       />
       <FlatNeighborhood
-        onOpenAction={onOpenAction}
         atmosphere={atmosphere}
         lowTier={lowTier}
         detailScale={exploring ? DETAIL_WORLD_SCALE : 1}
@@ -2160,7 +2047,6 @@ export function XinhuaWorld({
       <OverviewRuntimeQa active={overview} />
       {exploring && (
         <PlayableWanderer
-          onNearAction={onNearAction}
           startPreset={destinationPreset}
           onPositionChange={reportProgressivePosition}
           atmosphere={atmosphere}

@@ -1,85 +1,260 @@
 # Learnings
 
-## [LRN-20260730-RBK] best_practice
+## [LRN-20260729-001] correction
 
-**Logged**: 2026-07-30T00:50:00+08:00
+**Logged**: 2026-07-29T18:00:00+08:00
 **Priority**: high
-**Status**: resolved
-**Area**: tests
-
-### Summary
-3D 资产回滚 QA 必须原子切换模型、角色碰撞、相机碰撞与 collision margin。
-
-### Details
-Hudec `legacy-hero` 首版只切回旧 GLB 和旧 `localObstacles`。Resolver 仍从新版
-shared contract 继承 `collisionMargin: 0`，相机障碍也无条件从新版 production
-landmark 生成，形成“旧模型 + 混合碰撞”的假回滚。仅检查旧 URL 与 loaded tier
-无法发现这种错误。
-
-### Suggested Action
-每个可回滚 3D tier 都应显式冻结碰撞 margin；角色与 spring-arm 相机必须从同一个
-active tier 构造障碍。自动测试要比较旧 tier 的角色 / 相机碰撞结果，并在真实页面
-重新验证旧资源、console 和 page errors。
-
-### Metadata
-- Source: error
-- Related Files: `app/scene/building-massing-qa-contract.mjs`,
-  `app/scene/xinhua-road-contract.ts`,
-  `tests/test_hudec_memorial_production_promotion.test.mjs`
-- Tags: rollback, collision, camera, qa, threejs
-
-### Resolution
-- **Resolved**: 2026-07-30T00:50:00+08:00
-- **Notes**: `legacy-hero` 显式恢复 `0.2` margin，相机碰撞跟随 active QA tier；
-  专项测试与 production runtime 重验通过。
-
----
-
-## [LRN-20260728-HUD] correction
-
-**Logged**: 2026-07-28T23:23:23+08:00
-**Priority**: critical
 **Status**: in_progress
-**Area**: research
+**Area**: frontend
 
 ### Summary
-用户新增的邬达克纪念馆照片证明已通过的 Building Engine Master 主体体块错误，
-上一轮视觉门属于假通过。
+梧桐树形和树冠通过后，树阵仍必须分别验收纵向株距与横向道路位置；不能把茂密等同于缩短株距，也不能让一侧树列退到沿路画面之外。
 
 ### Details
-旧三联图虽然同时展示参考、Blender 和 Three.js，但模型把真实的长坡玻璃翼、
-落地白色烟囱塔、前后交错双山墙和紧凑复合屋面简化成宽盒主体、独立低翼与悬浮式
-三烟道。结构差异在旧对照图中已经可见，却因为只检查“有烟囱、半木构、坡屋顶”等
-类别特征而没有被否决。新照片还证明低玻璃翼与大坡屋顶是一体关系，不是后侧独立小屋。
-用户随后在模型图上明确标注：左侧长坡玻璃翼、烟囱塔和相连体量属于建筑侧面，
-右侧山墙与入口方向才是正面。旧 DSL 把近乎正交的侧立面与正立面摊成同一排，
-因此问题不仅是体块比例，而是平面朝向、转角关系和屋顶拓扑均被误读。
-第二轮 A/B/C 候选仍然错误地复用了同一套体块拓扑，只改了山墙宽度、长坡长度和
-烟囱高度。用户要求的“三个方案”实际是三种互斥的 3D 结构解释，例如前凸山墙究竟
-是浅凸立面、两条深翼，还是由后部横向主楼连接的 U 形布局；参数微调不算不同方案。
-用户补充确认三张照片是同一栋建筑的三个机位：现代正面斜视、靠近画面左侧烟囱的
-近距离广角，以及历史完全正面；两个烟囱在整体结构上对称。
-用户最终选择“横向主楼加两个浅前凸山墙”的 A 拓扑，并在 A 三视图上继续标注：
-两根对称烟囱都从靠正面这一侧的主屋面坡面穿出。候选 A 把烟囱中心放到屋脊后侧，
-并把白色基座一直落到地面，导致侧向图读成外墙烟囱塔，位置仍然错误。
+Canopy V4 已修复树冠叶团和弱网枝干方向，但新华路 315 号运行时画面中，连续树列仍显得排列过密；靠近镜头一侧的树干又离道路过远，红圈所示沿路区域没有形成对应树列。模型质量、纵向节奏和横向落位是三个不同问题，必须在同一真实道路机位分别判断。
 
 ### Suggested Action
-撤销旧 Massing / Final 通过结论，从新证据快照、覆盖矩阵和 canonical 机位重新开始。
-后续人工门必须逐项比较整体轮廓、屋面连接、主次体块、烟囱基座和玻璃翼位置，不能只
-核对身份构件名称；三联图中出现明显轮廓不一致时必须直接 reject。
-固定机位必须包含同时看见“左侧面 + 右正面”的正面右 45 度转角视角，并显式核验两个
-立面是否保持正交空间关系，不能再仅凭画面左右位置推断建筑正面。
-进入比例微调前，候选之间必须先改变平面连接和屋顶相交关系，并为每案写出可被照片
-证伪的结构假设；若三案只共享同一组 volume / roof 拓扑，则不得称为三个结构方案。
-烟囱位置必须成对建模并从完全正面机位核验左右关系，不能把第二根降级为普通后置烟道。
-屋面烟囱的白色基座必须从坡面交点附近开始，不能默认从地面生成；同时用正面斜视和
-画面左烟囱侧两个机位核验它们位于同一侧坡面，而不只检查完全正面下的左右对称。
+把道路轴向株距和左右侧法向偏移设为可测试的独立参数：适度拉大轴向株距；将靠近镜头一侧的树列向道路内移，同时继续校验机动车道净距、步行区域、建筑入口、树干碰撞和两侧视觉平衡。以 `?start=house315` 的标准档与弱网档截图作为本轮位置验收面。
 
 ### Metadata
 - Source: user_feedback
-- Related Files: `building-engine/cases/hudec-memorial/`,
-  `docs/research/hudec-memorial-building-engine-blind-test-brief.md`
-- Tags: hudec, visual-gate, false-positive, evidence, correction
+- Related Files: app/scene/xinhua-road-placement.mjs, tests/test_plane_tree_variants.test.mjs
+- Tags: plane-tree, spacing, road-offset, placement, runtime-acceptance, correction
+
+---
+
+## [LRN-20260728-MA8] best_practice
+
+**Logged**: 2026-07-28T03:10:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: modeling
+
+### Summary
+同一批 Meshy 资产只能有一个正式运行时真值；选中包必须由三联对照、运行时指标和
+逐资产 build record 共同锁定，不能让实验性或并行候选同时进入 registry。
+
+### Details
+本轮最终选择 `meshy-agent-street-assets`：10 个 Blend、10 个 GLB，合计
+`5,326 tris / 435,012 bytes`，全部零图片和零纹理。长椅、花箱、石桩保留通过审核的
+Meshy 网格；细杆、薄片、闭合箱体、轮组和墙挂设备以 Meshy 为轮廓证据并确定性重建。
+真实 Chrome 与结构浏览器均通过，但正式地图保持零实例。
+
+### Suggested Action
+每个批次在终审时固定 `packageSlug`，并让模型清单、运行时 route、截图、指标、
+build record 和生产 registry 全部指向同一包。其他候选只保留为证据，不同时发布。
+本机热缓存加载时长只证明成功解码，不写成公网性能提升。
+
+### Metadata
+- Source: runtime_validation
+- Related Files: docs/research/meshy-agent-street-assets-model-manifest.json, docs/research/meshy-agent-street-assets-final-review.md
+- Tags: meshy, single-source-of-truth, runtime-qa, triptych, registry
+
+### Resolution
+- **Resolved**: 2026-07-28T03:10:00+08:00
+- **Notes**: 正式真值固定为 `meshy-agent-street-assets`，其他候选未写入生产地图。
+
+---
+
+## [LRN-20260728-MA6] best_practice
+
+**Logged**: 2026-07-28T01:45:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: webgl
+
+### Summary
+资产真实大小和实际用法必须共同决定生成预算、审核相机、安装锚点和 hidden 距离，
+不能给树、路灯、长椅和墙面空调套同一组参数。
+
+### Details
+首个梧桐 GLB 已通过结构审计，但沿用小街具的 4 米 QA 相机后，画面只能看到树干。
+路灯与悬臂伞也需要比长椅、石桩更远的 canonical 距离；空调外机不能落地审核，而要
+按背面锚点安装到墙面高度。把 QA 页面改为资产专用参数后，10 件才同时显示完整轮廓、
+人物尺度和正确接触/安装关系。
+
+### Suggested Action
+Asset Task Contract 必须填写真实尺寸、推荐审核距离、视线高度、安装方式、最大重复数
+和 hidden 距离。当前已验证初值：梧桐 `24/50 m`，路灯与伞 `10/28 m`，小街具
+`4/18–20 m`，空调在 `2.2 m` 墙面高度审核。具体地图接入时再按屏幕占比和设备基线校准。
+
+### Metadata
+- Source: runtime_validation
+- Related Files: app/nonbuilding-evidence-qa/NonbuildingEvidenceQa.tsx, docs/research/meshy-agent-street-assets-model-brief.md
+- Tags: real-scale, camera, hidden-distance, wall-anchor, webgl
+
+### Resolution
+- **Resolved**: 2026-07-28T01:45:00+08:00
+- **Notes**: 十件资产均已用各自推荐距离通过 visible-low 与 hidden 两态验收。
+
+---
+
+## [LRN-20260728-MA5] best_practice
+
+**Logged**: 2026-07-28T01:45:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: modeling
+
+### Summary
+Meshy 网页源候选与正式低模 topology 应分层：前者冻结轮廓和构件关系，后者由可重复
+生成器编译，并用源文件 SHA 保持 lineage。
+
+### Details
+石桩等粗实体能承受低面 Remesh；树枝、灯臂、伞骨、自行车轮组和垃圾桶闭合箱体在
+重复 Remesh 后仍会断裂、翻折或破洞。继续消耗 credits 不能稳定解决。将经审核的
+Meshy 形状转为确定性 Blender 构件后，10 件合计只有 4,504 tris / 354,636 bytes，
+同时保持三处识别构件和零贴图。
+
+### Suggested Action
+失败两次即停止盲目 Remesh。保留原始与失败版本，在新 `.blend` 中按资产类别选择
+等价低模、受控优化或确定性重建；每个 build record 保存 Meshy 源文件、SHA、
+compile route、米制目标、运行时 bounds 和真实 WebGL 截图。
+
+### Metadata
+- Source: runtime_validation
+- Related Files: scripts/create_meshy_agent_street_props.py, docs/research/meshy-agent-street-props-model-manifest.json
+- Tags: meshy, blender, lineage, deterministic-generator, low-poly
+
+### Resolution
+- **Resolved**: 2026-07-28T01:45:00+08:00
+- **Notes**: 10 个 Blender master 和 10 个 visible-low GLB 已生成并通过隔离运行时。
+
+---
+
+## [LRN-20260728-MA3] best_practice
+
+**Logged**: 2026-07-28T01:16:20+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: research
+
+### Summary
+Meshy Agent 的 Remesh 参数必须按真实用途和几何类别分档，不能把最低 triangle 目标
+当作低多边形资产的唯一正确答案。
+
+### Details
+本轮 10 件正式候选的实际结果显示：实体石桩、花箱和桌椅组合在低面数 Remesh 后仍
+可读；树冠卡片、路灯细杆、垃圾桶薄边、悬臂伞和自行车轮组则容易出现破洞、断裂、
+悬浮片或结构消失。第二轮提高目标面数也没有自动修复全部问题。Meshy Agent 对初始
+模型统一汇报 `10,000 tris`，Viewer 与导出 GLB 的实际值却各不相同。
+
+### Suggested Action
+先按“高重复 Identity、近景 Hero、混合/确定性重建”选择用途，再决定 Remesh：
+
+- 粗实体：可以先以目标上限做 triangle Remesh；
+- 条板或组合件：先保留识别缝、落地点和独立轮廓，再逐级降面；
+- 细杆、枝叶卡片、轮组、薄伞面：优先保留完整源模型，在 Blender 受控 Decimate
+  或确定性重建，Meshy Remesh 失败两次后停止消耗 credits；
+- 每个版本都以 Viewer、GLB triangles、bounds 和视觉对照共同判定。
+
+### Metadata
+- Source: browser_validation
+- Related Files: test_artifacts/test_meshy_agent_batch_20260728/test_meshy_agent_run_record.md, docs/research/meshy-agent-asset-batch-2026-07-28.md
+- Tags: meshy-agent, remesh, low-poly, hero, identity, category-aware
+
+### Resolution
+- **Resolved**: 2026-07-28T01:16:20+08:00
+- **Notes**: 已对 10 件模型完成两轮用途化 Remesh，并逐件冻结正确源版本。
+
+---
+
+## [LRN-20260728-MA4] best_practice
+
+**Logged**: 2026-07-28T01:16:20+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: research
+
+### Summary
+Meshy Agent 网页自动化必须验证动作实际发生，不能只依赖已填文本、Agent 自述或当前
+画布高亮状态。
+
+### Details
+一次点击发送后文本并未提交；按 Enter 后输入框清空并出现 Stop 按钮，才证明任务真正
+开始。旧对话里的 `Skip` 被 Agent 理解为继续旧模型，而不是停止。Viewer 弹窗堆叠时，
+当前画布选择还可能与下载对象不一致。
+
+### Suggested Action
+- 发送后同时验证输入框清空和 Stop/处理中状态出现；
+- 停止或新建任务使用明确句子，不用歧义词 `Skip`；
+- 逐资产生产优先从聊天响应模型卡片重新进入 Viewer；
+- 下载前核对资产名、tris/vertices，下载后核对文件名、SHA 和 bounds；
+- Agent 文字报告仅作线索，实际 UI 与导出物才是生产真值。
+
+### Metadata
+- Source: browser_validation
+- Related Files: docs/knowledge-sources/meshy-agent-browser-workflow-2026-07-27.md
+- Tags: meshy-agent, browser-automation, verification, stale-state
+
+### Resolution
+- **Resolved**: 2026-07-28T01:16:20+08:00
+- **Notes**: 后续 10 个选择版本均通过 Viewer 与 GLB 双重核对，错误导出被隔离。
+
+---
+
+## [LRN-20260727-MA2] best_practice
+
+**Logged**: 2026-07-27T18:10:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: research
+
+### Summary
+Meshy Agent 生产必须执行“2D 图片 → 人工证据对照 → 3D → 按用途 Remesh → 纹理决策 → 下载归档”，不能把一段长提示当作一键模型生产。
+
+### Details
+实际浏览器试跑确认 Agent 会先生成概念图并停下来请求确认。Smart Topology 长椅灰模为
+10,255 tris / 5,147 vertices，明显超过高重复长椅预算。下载页实际支持高度、底部/中心
+原点和 GLB，与 Agent 对自身能力的说明相冲突。当前浏览器又会拦截 `assets.meshy.ai`，
+因此概念图 alt 文本和 Agent 自评都不能替代视觉审核。
+
+### Suggested Action
+每个消耗 credits 的任务先填写单资产合同：证据快照、真实尺寸、实际游戏用法、重复数量、
+三角面/材质/纹理/字节预算、三处身份特征、Remesh 版本和停止条件。实际可见 UI 与导出
+优先于官方帮助，官方帮助又优先于 Agent 自述。每次运行都进入外置动态证据快照，可复用
+经验再更新主 Pipeline。
+
+### Metadata
+- Source: browser_validation
+- Related Files: docs/knowledge-sources/meshy-agent-browser-workflow-2026-07-27.md, docs/research/xinhua-wander-building-engine-plan.md
+- Tags: meshy-agent, browser, approval-gate, remesh, evidence, webgl
+
+### Resolution
+- **Resolved**: 2026-07-27T18:10:00+08:00
+- **Notes**: 已完成一次真实 Agent 分步试跑，并把参数矩阵、记录字段、停止条件和已知阻塞写入流程。
+
+---
+
+## [LRN-20260727-MSH] correction
+
+**Logged**: 2026-07-27T16:30:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: docs
+
+### Summary
+Meshy 在建筑 Pipeline 中通过智能体操作已登录浏览器并自行导出，不是项目后台 API 集成。
+
+### Details
+方案初稿错误地把 Meshy 描述为 API provider，包含 API key、endpoint、poll、webhook 和
+时效下载 URL。用户明确说明实际路径是智能体直接操作 Meshy 网页，完成上传、生成、候选选择
+和本地导出，再把导出物用于内部生产。因此它应建模为可人工接管的 Browser Agent 工位，
+而不是无人值守的后端服务。
+
+### Suggested Action
+Meshy 相关设计统一记录浏览器会话边界、页面可见设置、关键操作截图、页面任务引用、
+导出文件 SHA 和人工接管条件；后台不保存账号密码、Cookie 或 Browser Profile，也不假设
+存在 API、Webhook 或可重复的服务端调用。
+
+### Metadata
+- Source: user_feedback
+- Related Files: docs/research/xinhua-wander-building-engine-plan.md
+- Tags: meshy, browser-agent, 3d, pipeline, correction
+
+### Resolution
+- **Resolved**: 2026-07-27T16:30:00+08:00
+- **Notes**: 已将方案中的 Meshy API 适配器改为浏览器智能体工位，并重写流程、监控、验证和凭据边界。
 
 ---
 
@@ -171,6 +346,7 @@ GlobalBuildingAtlas 的 CC BY-NC 4.0 高度和 LoD1 可以在当前非商业用�
 - See Also: ERR-20260725-030
 
 ---
+
 ## [LRN-20260726-002] best_practice
 
 **Logged**: 2026-07-26T14:48:00+08:00
@@ -738,6 +914,7 @@ Kimi WebBridge 更新后不能把 daemon `status` 探针误报当成浏览器助
 - Tags: landmark-modeling, proportion, visual-identity, non-minecraft, xingfuli
 
 ---
+
 ## [LRN-20260717-001] best_practice
 
 **Logged**: 2026-07-17T00:58:00+08:00
@@ -1013,6 +1190,7 @@ GLB 审计通过不代表网页运行时完整渲染；植被实例化必须保�
 - **Notes**: 全览态现会挂载全部详细建筑，建筑自带标签只保留在闲逛态；17 个全览名称牌采用独立偏移与引导线。1280×720 实际页面测得 17/17 标签可见、标签相交数为 0，浏览器控制台无错误。
 
 ---
+
 ## [LRN-20260719-017] correction
 
 **Logged**: 2026-07-19T22:20:00+08:00
@@ -1148,6 +1326,7 @@ GLB 审计通过不代表网页运行时完整渲染；植被实例化必须保�
 ## [LRN-20260725-001] correction
 
 **Logged**: 2026-07-25T00:45:00+08:00
+
 ## [LRN-20260725-001] correction
 
 **Logged**: 2026-07-25T00:30:24+08:00
@@ -1310,6 +1489,7 @@ Messenger 式移动触控不是“永久隐藏摇杆、移动时显示跳跃按�
 - Tags: webgl, street-furniture, production-integration, visual-acceptance, correction
 
 ---
+
 ## [LRN-20260726-003] best_practice
 
 **Logged**: 2026-07-26T23:28:00+08:00
@@ -1335,3 +1515,108 @@ Messenger 式移动触控不是“永久隐藏摇杆、移动时显示跳跃按�
 - Tags: git, worktree, concurrency, tests, attribution
 
 ---
+
+## [LRN-20260728-001] correction
+
+**Logged**: 2026-07-28T00:00:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: research
+
+### Summary
+对外部 GIS 案例只核验了展示层，就过早收窄为“数据校验工具”，没有拆开数据来源、渲染实现、许可证、时间语义和与现有生产管线的衔接；用户指出调研不充分。
+
+### Details
+GeoLibre NYC 示例确实证明 footprint 挤出、年代表达和地铁叠加可成立，但不自动证明其高度来源、deck.gl 参与、完整历史复原或适合直接替换现有 Three.js 世界。重新核验后，漫步新华已经拥有 OSM 建筑 footprint、运行时高度记录和 Hero/Identity/Massing 资产分层；真正缺口是以稳定 buildingId 连接地理来源、置信度、时间有效性、本地坐标、渲染策略与碰撞策略的空间来源合同。
+
+### Suggested Action
+今后针对外部架构案例，结论前必须分别核验：官方示例声明、具体渲染器与数据字段、许可证/可商用边界、项目现有代码与数据契约、以及可用真实入口验收的小范围 POC。不得把“概念方向合理”写成“现成实现已被验证”。
+
+### Metadata
+- Source: user_feedback
+- Related Files: docs/knowledge-sources/geolibre-v230-review-2026-07-27.md, app/scene/xinhua-building-height-runtime.json, app/scene/xinhua-road-contract.ts
+- Tags: research, evidence, geospatial, licensing, architecture, correction
+- See Also: LRN-20260724-002
+
+---
+
+## [LRN-20260730-RBK] best_practice
+
+**Logged**: 2026-07-30T00:50:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: tests
+
+### Summary
+3D 资产回滚 QA 必须原子切换模型、角色碰撞、相机碰撞与 collision margin。
+
+### Details
+Hudec `legacy-hero` 首版只切回旧 GLB 和旧 `localObstacles`。Resolver 仍从新版
+shared contract 继承 `collisionMargin: 0`，相机障碍也无条件从新版 production
+landmark 生成，形成“旧模型 + 混合碰撞”的假回滚。仅检查旧 URL 与 loaded tier
+无法发现这种错误。
+
+### Suggested Action
+每个可回滚 3D tier 都应显式冻结碰撞 margin；角色与 spring-arm 相机必须从同一个
+active tier 构造障碍。自动测试要比较旧 tier 的角色 / 相机碰撞结果，并在真实页面
+重新验证旧资源、console 和 page errors。
+
+### Metadata
+- Source: error
+- Related Files: `app/scene/building-massing-qa-contract.mjs`,
+  `app/scene/xinhua-road-contract.ts`,
+  `tests/test_hudec_memorial_production_promotion.test.mjs`
+- Tags: rollback, collision, camera, qa, threejs
+
+### Resolution
+- **Resolved**: 2026-07-30T00:50:00+08:00
+- **Notes**: `legacy-hero` 显式恢复 `0.2` margin，相机碰撞跟随 active QA tier；
+  专项测试与 production runtime 重验通过。
+
+---
+
+## [LRN-20260728-HUD] correction
+
+**Logged**: 2026-07-28T23:23:23+08:00
+**Priority**: critical
+**Status**: in_progress
+**Area**: research
+
+### Summary
+用户新增的邬达克纪念馆照片证明已通过的 Building Engine Master 主体体块错误，
+上一轮视觉门属于假通过。
+
+### Details
+旧三联图虽然同时展示参考、Blender 和 Three.js，但模型把真实的长坡玻璃翼、
+落地白色烟囱塔、前后交错双山墙和紧凑复合屋面简化成宽盒主体、独立低翼与悬浮式
+三烟道。结构差异在旧对照图中已经可见，却因为只检查“有烟囱、半木构、坡屋顶”等
+类别特征而没有被否决。新照片还证明低玻璃翼与大坡屋顶是一体关系，不是后侧独立小屋。
+用户随后在模型图上明确标注：左侧长坡玻璃翼、烟囱塔和相连体量属于建筑侧面，
+右侧山墙与入口方向才是正面。旧 DSL 把近乎正交的侧立面与正立面摊成同一排，
+因此问题不仅是体块比例，而是平面朝向、转角关系和屋顶拓扑均被误读。
+第二轮 A/B/C 候选仍然错误地复用了同一套体块拓扑，只改了山墙宽度、长坡长度和
+烟囱高度。用户要求的“三个方案”实际是三种互斥的 3D 结构解释，例如前凸山墙究竟
+是浅凸立面、两条深翼，还是由后部横向主楼连接的 U 形布局；参数微调不算不同方案。
+用户补充确认三张照片是同一栋建筑的三个机位：现代正面斜视、靠近画面左侧烟囱的
+近距离广角，以及历史完全正面；两个烟囱在整体结构上对称。
+用户最终选择“横向主楼加两个浅前凸山墙”的 A 拓扑，并在 A 三视图上继续标注：
+两根对称烟囱都从靠正面这一侧的主屋面坡面穿出。候选 A 把烟囱中心放到屋脊后侧，
+并把白色基座一直落到地面，导致侧向图读成外墙烟囱塔，位置仍然错误。
+
+### Suggested Action
+撤销旧 Massing / Final 通过结论，从新证据快照、覆盖矩阵和 canonical 机位重新开始。
+后续人工门必须逐项比较整体轮廓、屋面连接、主次体块、烟囱基座和玻璃翼位置，不能只
+核对身份构件名称；三联图中出现明显轮廓不一致时必须直接 reject。
+固定机位必须包含同时看见“左侧面 + 右正面”的正面右 45 度转角视角，并显式核验两个
+立面是否保持正交空间关系，不能再仅凭画面左右位置推断建筑正面。
+进入比例微调前，候选之间必须先改变平面连接和屋顶相交关系，并为每案写出可被照片
+证伪的结构假设；若三案只共享同一组 volume / roof 拓扑，则不得称为三个结构方案。
+烟囱位置必须成对建模并从完全正面机位核验左右关系，不能把第二根降级为普通后置烟道。
+屋面烟囱的白色基座必须从坡面交点附近开始，不能默认从地面生成；同时用正面斜视和
+画面左烟囱侧两个机位核验它们位于同一侧坡面，而不只检查完全正面下的左右对称。
+
+### Metadata
+- Source: user_feedback
+- Related Files: `building-engine/cases/hudec-memorial/`,
+  `docs/research/hudec-memorial-building-engine-blind-test-brief.md`
+- Tags: hudec, visual-gate, false-positive, evidence, correction

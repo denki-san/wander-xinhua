@@ -668,50 +668,6 @@ kbd {
   font-weight: 900;
 }
 
-.action-prompt {
-  position: absolute;
-  z-index: 22;
-  bottom: 70px;
-  left: 50%;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  column-gap: 16px;
-  min-width: 260px;
-  padding: 11px 12px 11px 16px;
-  border: 2px solid #2d4641;
-  border-radius: 7px 7px 7px 2px;
-  color: #314843;
-  background: #f2ead2;
-  box-shadow: 5px 6px 0 rgba(42, 65, 60, 0.78);
-  text-align: left;
-  cursor: pointer;
-  transform: translateX(-50%) rotate(-0.4deg);
-}
-
-.action-prompt span,
-.action-prompt strong {
-  grid-column: 1;
-}
-
-.action-prompt span {
-  color: #c2614d;
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-}
-
-.action-prompt strong {
-  margin-top: 2px;
-  font-family: "Songti SC", serif;
-  font-size: 16px;
-}
-
-.action-prompt kbd {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  align-self: center;
-}
-
 .touch-controls {
   position: absolute;
   z-index: 19;
@@ -843,7 +799,6 @@ kbd {
   backdrop-filter: blur(8px) saturate(0.82);
 }
 
-.action-panel,
 .help-panel {
   position: relative;
   width: min(440px, 100%);
@@ -875,24 +830,6 @@ kbd {
   cursor: pointer;
 }
 
-.action-number {
-  display: grid;
-  width: 74px;
-  height: 74px;
-  place-items: center;
-  margin-bottom: 20px;
-  border: 3px solid #2d4540;
-  border-radius: 7px 7px 7px 2px;
-  color: #fff3cf;
-  background: var(--red);
-  box-shadow: 4px 5px 0 #2d4540;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 20px;
-  font-weight: 1000;
-  transform: rotate(-3deg);
-}
-
-.action-panel > p:first-of-type,
 .help-panel > p {
   margin: 0 0 8px;
   color: #bd5b49;
@@ -901,33 +838,11 @@ kbd {
   letter-spacing: 0.16em;
 }
 
-.action-panel h2,
 .help-panel h2 {
   margin: 0;
   font-family: "Songti SC", STSong, serif;
   font-size: 31px;
   line-height: 1.2;
-}
-
-.action-copy {
-  margin: 18px 0 24px !important;
-  color: #5f6b64 !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  line-height: 1.8;
-  letter-spacing: 0 !important;
-}
-
-.action-button {
-  width: 100%;
-  padding: 13px 18px;
-  border: 2px solid #2c4540;
-  border-radius: 6px 6px 6px 2px;
-  color: #fff3cd;
-  background: #4f7569;
-  box-shadow: 4px 5px 0 #2c4540;
-  font-weight: 900;
-  cursor: pointer;
 }
 
 .help-panel ul {
@@ -1182,11 +1097,6 @@ kbd {
     display: none;
   }
 
-  .action-prompt {
-    bottom: 116px;
-    min-width: 240px;
-  }
-
   .overview-poi-card {
     top: calc(env(safe-area-inset-top, 0px) + 124px);
     right: 15px;
@@ -1235,12 +1145,10 @@ kbd {
     font-size: 13px;
   }
 
-  .action-panel,
   .help-panel {
     padding: 31px 23px 24px;
   }
 
-  .action-panel h2,
   .help-panel h2 {
     font-size: 26px;
   }

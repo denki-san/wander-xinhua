@@ -3,9 +3,9 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "漫步新华｜新华路 3D 闲逛",
-  description: "进入按真实行政边界和道路比例重建的上海新华路手绘 3D 街区，自由闲逛，并发现唯一的一平米行动点。无需登录。",
+  description: "进入按真实行政边界和道路比例重建的上海新华路手绘 3D 街区，自由闲逛。无需登录。",
   applicationName: "漫步新华",
-  keywords: ["新华路", "幸福里", "一平米行动", "社区地图", "上海"],
+  keywords: ["新华路", "幸福里", "社区地图", "上海"],
   openGraph: {
     title: "漫步新华｜新华路 3D 闲逛",
     description: "在上海秋日暖光与梧桐树影里，沿着手绘 3D 新华路社区随便走走。",

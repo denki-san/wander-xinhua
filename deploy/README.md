@@ -61,7 +61,7 @@ scp /tmp/test_xinhua_release.tgz root@66.154.109.135:/tmp/
 - VPS 上不存在漫步新华的构建或开发进程；
 - VPS 本机使用域名 Host 访问 Nginx 返回 200；
 - 公网访问 `https://xinhua.denkisan.me/` 返回 200；
-- 页面无需登录，可自由 3D 闲逛，并且只有一个行动点；
+- 页面无需登录，可自由 3D 闲逛；
 - HTTP 自动跳转 HTTPS，证书域名为 `xinhua.denkisan.me`。
 
 ## 回滚

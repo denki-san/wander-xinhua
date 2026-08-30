@@ -13,5 +13,6 @@
 
 | 优先级 | 状态 | 待办 | 说明 |
 | --- | --- | --- | --- |
+| P1 | todo | [梧桐道路扩展](plane-tree-road-expansion.md) | 等待道路级批准；A 级候选 256 棵，B 级候选 76 棵，实施前先完成空间 LOD 和同条件性能基线。 |
 | P1 | done | [幸福里街具正式接入](xingfuli-street-furniture-production-integration.md) | 4 类、12 个实例已进入 full stage；远景仍 hidden，三条正式入口已验收。 |
 | P2 | todo | [新手操作引导](newcomer-onboarding.md) | 首次进入时教会移动与转动视角，不常驻显示摇杆。 |

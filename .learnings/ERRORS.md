@@ -1,225 +1,494 @@
 # Errors
 
-## [ERR-20260729-PGT] production_promotion_historical_isolation_assertion
+## [ERR-20260730-003] git_stash_shared_index_permission
 
-**Logged**: 2026-07-29T22:35:00+08:00
+**Logged**: 2026-07-30T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+在 dirty main 上创建包含未跟踪文件的安全 stash 时，共享 Git index 因沙箱写权限失败。
+
+### Error
+```text
+error: could not write index
+```
+
+### Context
+- 目标是先完整保存 dirty main，再快进本地 main 到已验收的建筑引擎集成提交；
+- 第一次 `git stash push -u` 在写 index 前失败，没有清理或覆盖工作区文件；
+- 同仓库独立 worktree 的 ref/index 写入此前也需要受控权限。
+
+### Suggested Fix
+确认工作区仍完整后，以受控 Git 权限重跑同一条 stash 命令；成功后核对 stash
+提交、工作区 clean 状态和全部未跟踪文件是否进入 stash。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `.git/index`, `.learnings/ERRORS.md`
+- See Also: ERR-20260727-A31
+
+### Resolution
+- **Resolved**: 2026-07-30T00:00:00+08:00
+- **Notes**: 受控权限下创建 stash 成功；提交 `fe815a1` 含 tracked、untracked 和旧方案备份，工作区随后 clean。
+
+---
+
+## [ERR-20260730-004] git_show_output_does_not_export_stage_blob
+
+**Logged**: 2026-07-30T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+用 `git show --output=<file> :2:path` 导出冲突 stage blob 时，内容仍输出到终端且目标临时文件为空。
+
+### Error
+```text
+临时 ours/base/theirs 文件均为 0 行，日志内容却进入命令输出
+```
+
+### Context
+- 目标是把两个 append-only 日志的 index stage 导出到 `/private/tmp/test_*`；
+- 空文件只存在于临时目录，仓库冲突文件、index stage 和 stash 均未改变；
+- 逐行 union 也不适合已经包含历史重复 ID 的长日志。
+
+### Suggested Fix
+导出 index stage 使用 `git cat-file blob ':2:path'`；长日志按完整条目做三方合并，
+避免对相邻插入块使用逐行 union。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `.learnings/ERRORS.md`, `.learnings/LEARNINGS.md`
+- See Also: ERR-20260730-003
+
+### Resolution
+- **Resolved**: 2026-07-30T00:00:00+08:00
+- **Notes**: 使用 `git cat-file blob` 重新导出非空 stage，并以条目级三方合并保留两侧完整内容。
+
+---
+
+## [ERR-20260730-005] main_worktree_missing_ignored_building_engine_qa_sources
+
+**Logged**: 2026-07-30T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+建筑引擎提交快进到 main 后，CLI QA 找不到按二进制政策忽略的本地 `.blend` 工作副本。
+
+### Error
+```text
+house-315 massing 产物缺失：
+assets/models/source/building-engine-spike/house-315/house-315-massing.blend
+```
+
+### Context
+- Git 合并只带入受控 runtime GLB、碰撞、DSL 和记录；
+- 可编辑 `.blend` 与动态截图按仓库政策不跟踪，因此新 worktree 不会自动物化；
+- 独立集成 worktree 中仍保留已通过 QA 的 ignored 工作副本。
+
+### Suggested Fix
+从已验收 worktree 或外置不可变证据快照复制 ignored 工作副本，不改 tracked 文件，
+确认 `git status` 不新增路径后再重跑同一 CLI QA。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `.gitignore`, `assets/models/source/building-engine-spike/`, `test_artifacts/building-engine-spike/`
+
+### Resolution
+- **Resolved**: 2026-07-30T00:00:00+08:00
+- **Notes**: 从独立集成 worktree 复制已验收 ignored 工作副本，并在 main 重跑正式与实验 QA。
+
+---
+
+## [ERR-20260728-MA8] parallel_asset_package_truth_drift
+
+**Logged**: 2026-07-28T03:10:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: docs
+
+### Summary
+同名十件资产出现了实验性并行包，部分流程文档一度引用了另一包的脚本、统计和 QA
+路由，造成“同一批资产存在两套完成真值”的风险。
+
+### Error
+```text
+meshy-agent-street-assets != meshy-agent-street-props
+```
+
+### Context
+- 当前终审和逐资产 build record 对应 `meshy-agent-street-assets`；
+- 两个包的三角面、字节数、截图路径和运行时 route 不同；
+- 未删除任何并行产物，也没有把任一候选自动写入生产地图。
+
+### Suggested Fix
+终审先冻结唯一 `packageSlug`，再机械校验文档、manifest、GLB、截图和 route 的路径
+一致性。并行候选保留为非生产证据，除非经过明确替换审核，不得同时进入 registry。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/meshy-agent-asset-batch-2026-07-28.md, docs/research/meshy-agent-street-assets-model-manifest.json
+- Tags: asset-package, source-of-truth, parallel-work, documentation
+
+### Resolution
+- **Resolved**: 2026-07-28T03:10:00+08:00
+- **Notes**: 流程和终审统一指向 `meshy-agent-street-assets`，生产 registry 保持不变。
+
+---
+
+## [ERR-20260729-PT5] floating_point_exact_width_assertion
+
+**Logged**: 2026-07-29T19:55:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: testing
+
+### Summary
+梧桐树绿化带净空测试直接比较浮点道路半宽，因 JavaScript 表示误差失败。
+
+### Error
+```text
+Expected 3.9250000000000003 to strictly equal 3.925
+```
+
+### Context
+- 只影响新增测试断言；生产树位、道路尺寸和运行时没有变化。
+
+### Suggested Fix
+几何派生值按验收精度取整后断言，保留实际碰撞净空的三位小数门槛。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `tests/test_xinhua_road_models.test.mjs`
+
+### Resolution
+- **Resolved**: 2026-07-29T19:55:00+08:00
+- **Notes**: 道路半宽改为三位小数断言；碰撞包络净空继续按完整计算值校验。
+
+---
+
+## [ERR-20260728-DN1] public_release_dns_in_sandbox
+
+**Logged**: 2026-07-28T20:55:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+VPS 原子切换成功后，本机默认 sandbox 的公网验收暂时无法解析发布域名。
+
+### Error
+```text
+curl: (6) Could not resolve host: xinhua.denkisan.me
+```
+
+### Context
+- VPS 本机 `curl --resolve` 已返回成功，Nginx 配置和新 GLB 均通过。
+- 失败仅发生在本机默认 sandbox 的公网 DNS，不应触发重复部署或再次目录切换。
+
+### Suggested Fix
+在受控网络权限下重跑同一组只读 `curl` 与 SHA-256 比对。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: deploy/README.md
+- See Also: ERR-20260728-PR1
+
+### Resolution
+- **Resolved**: 2026-07-28T20:56:00+08:00
+- **Notes**: 在受控公网权限下重跑成功；首页、JS、CSS 和两类新 GLB 的公网 SHA-256 均与本地构建一致。
+
+---
+
+## [ERR-20260728-PT1] migrated_dynamic_evidence_path_used_as_live_repo_path
+
+**Logged**: 2026-07-28T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: docs
+
+### Summary
+梧桐树只读评审沿用旧 `test_artifacts/` 路径读取运行时截图，但文件已经迁入外置不可变动态证据快照。
+
+### Error
+```text
+unable to locate image at .../test_artifacts/test_xinhua_autumn_storybook_v2_plane_tree_street_desktop.png:
+No such file or directory
+```
+
+### Context
+- 本轮只读盘点现有梧桐资产和运行时证据，没有修改或删除证据。
+- 仓库文档仍保留历史相对路径，但动态证据真值已迁入
+  `/Volumes/plugin/Wander_Xinhua_Dynamic_Evidence/snapshots/`。
+
+### Suggested Fix
+读取旧截图前先检查当前仓库路径；缺失时按动态证据快照 manifest 或同名相对路径回查外置不可变快照，不把迁移后的缺失误报为证据丢失。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `docs/research/dynamic-evidence-storage-policy.md`, `test_artifacts/`
+
+### Resolution
+- **Resolved**: 2026-07-28T00:00:00+08:00
+- **Notes**: 已从 `2026-07-27-storage-migration-52db477` 快照读取同名运行时截图和梧桐固定机位预览。
+
+---
+
+## [ERR-20260728-MA7] browser_screenshot_magic_extension_mismatch
+
+**Logged**: 2026-07-28T01:45:00+08:00
 **Priority**: medium
 **Status**: resolved
 **Area**: tests
 
 ### Summary
-Building Engine 从实验 tier 晋级 Hudec 正式入口后，全量测试仍把“任何正式
-registry 都不得引用 Building Engine”当作永久合同。
+Chrome 截图接口返回 JPEG bytes，但第一次按调用方给出的 `.png` 文件名落盘，导致
+后续拼图解码失败。
 
 ### Error
 ```text
-AssertionError: 正式 production registry 匹配 /building-engine-spike/
-AssertionError: promotion status 从 promotion-in-progress-local
-变为 runtime-pass-pending-project-gates
+Invalid PNG signature 0xFFD8FFE000104A46
 ```
 
 ### Context
-- 本轮已由用户授权执行首栋 production promotion，但不授权 push、merge、deploy；
-- 旧断言来自实验阶段的隔离门，未表达“只有有 promotion record 的资产可晋级”；
-- 删除隔离测试会让其他建筑意外接入失去保护。
+- 十件真实 WebGL 截图内容有效，magic bytes 为 JPEG；
+- 错误只影响扩展名和后续 ffmpeg 解码，没有丢失页面证据；
+- Blender 固定机位 PNG 不受影响。
 
 ### Suggested Fix
-把永久合同改为：Sandbox 保持隔离，正式 registry 中只有
-`building-engine/promotions/` 明确晋级的 Hudec 可引用 Building Engine；
-promotion 状态按受控状态机校验。
+所有浏览器下载与截图在落盘前检查 magic bytes，扩展名必须与实际编码一致。不能把
+调用参数或目标路径后缀当作返回内容格式的证明。
 
 ### Metadata
 - Reproducible: yes
-- Related Files: tests/test_building_engine_spike.test.mjs,
-  tests/test_hudec_memorial_production_promotion.test.mjs
+- Related Files: test_artifacts/nonbuilding/meshy-agent-street-props/
+- Tags: chrome, screenshot, magic-bytes, jpeg, evidence
 
 ### Resolution
-- **Resolved**: 2026-07-29T22:38:00+08:00
-- **Notes**: 保留 Sandbox 隔离断言，并新增“仅 Hudec + promotion path 一致 +
-  deployment not-authorized”约束；状态断言接受运行时通过和本地就绪两个合法阶段。
+- **Resolved**: 2026-07-28T01:45:00+08:00
+- **Notes**: 十件截图统一改为 `.jpg`，重新生成 WebGL contact sheet 并完成视觉复核。
 
 ---
 
-## [ERR-20260729-FDL] post_regression_open_file_exhaustion
+## [ERR-20260728-MA6] blender_beam_transform_order_scattered_parts
 
-**Logged**: 2026-07-29T20:47:00+08:00
-**Priority**: low
-**Status**: resolved
-**Area**: config
-
-### Summary
-全量构建测试后仍同时保留 production server 与 Headless Chrome，导致后续只读
-SHA 命令无法创建新进程。
-
-### Error
-```text
-Failed to create unified exec process: Too many open files (os error 24)
-```
-
-### Context
-- 失败发生在 `shasum` 启动前，没有修改文件；
-- 本轮此前已完成多次 Blender、Vinext build、production server 和浏览器三机位；
-- 停止本地 server 后，同一 SHA 命令立即通过；最终四项只读检查再次并行启动
-  shell 时复现，改成串行并终止仍驻留的 agent-browser daemon 后关闭。
-
-### Suggested Fix
-完成 production Sandbox 截图、控制台和性能采样后立即关闭浏览器与本地 server，
-确认 daemon 实际退出；全量测试、SHA、归档和最终状态检查保持串行，避免把长期
-存活进程或并行 shell 留到收尾阶段。
-
-### Metadata
-- Reproducible: yes
-- Related Files: .learnings/ERRORS.md
-
-### Resolution
-- **Resolved**: 2026-07-29T20:48:00+08:00
-- **Notes**: 先向 server PTY 发送中断，再关闭浏览器；最终终止残留
-  agent-browser daemon，并把收尾检查改为串行。
-
----
-
-## [ERR-20260729-B52] blender_52_metal_backend_sandbox_crash
-
-**Logged**: 2026-07-29T20:01:00+08:00
-**Priority**: medium
-**Status**: resolved
-**Area**: tooling
-
-### Summary
-Blender 5.2 在受限沙箱内启动 Headless 编译时，于 Metal 后端能力探测阶段崩溃。
-
-### Error
-```text
-supports_barycentric_whitelist
-GPU_backend_type_selection_detect
-hudec-memorial massing 编译失败
-```
-
-### Context
-- DSL 校验已通过，崩溃发生在 Blender 读取场景前；
-- crash backtrace 指向 Metal 设备探测，不是生成器几何或 DSL 数据错误；
-- 同一命令在沙箱外运行后完成三机位渲染、Blend 保存、GLB 导出和 QA。
-
-### Suggested Fix
-macOS 上 Blender 5.2 若在沙箱内于 Metal 初始化崩溃，保留 crash report 后在受控沙箱外重跑同一确定性命令；不得把崩溃误报为模型编译失败。
-
-### Metadata
-- Reproducible: yes
-- Related Files: scripts/building_engine_spike.mjs, scripts/compile_garden_villa.py
-
-### Resolution
-- **Resolved**: 2026-07-29T20:01:07+08:00
-- **Notes**: 沙箱外重跑 `build --asset hudec-memorial --stage massing` 与 artifact QA 均通过。
-
----
-
-## [ERR-20260729-P30] vinext_start_sandbox_port_permission
-
-**Logged**: 2026-07-29T19:28:00+08:00
-**Priority**: low
-**Status**: resolved
-**Area**: runtime-qa
-
-### Summary
-本地 Vinext production server 在默认沙箱内无法监听 `0.0.0.0:3000`。
-
-### Error
-```text
-Error: listen EPERM: operation not permitted 0.0.0.0:3000
-```
-
-### Context
-- `npm run build:sites` 已成功；
-- 首次 `npm run start:sites` 在创建监听 socket 时退出，未修改应用资产。
-- Server 授权启动后，默认沙箱中的 CLI 访问 `127.0.0.1:3000` 仍返回
-  `fetch failed`；同一 HTTP QA 授权重跑后页面、GLB 和 collision 均为 `200`
-  且 SHA 匹配。
-
-### Suggested Fix
-保持同一 production build，以授权方式重跑 `npm run start:sites`，不要降级到
-不挂载 App Router 的静态预览。
-
-### Metadata
-- Reproducible: yes
-- Related Files: `package.json`, `.learnings/ERRORS.md`
-- See Also: ERR-20260728-007
-
-### Resolution
-- **Resolved**: 2026-07-29T19:28:00+08:00
-- **Notes**: 授权后 Vinext production server 成功监听 3000 端口；HTTP QA
-  也需同等本机网络权限。
-
----
-
-## [ERR-20260729-EVS] building_engine_evidence_snapshot_status
-
-**Logged**: 2026-07-29T19:20:00+08:00
+**Logged**: 2026-07-28T01:45:00+08:00
 **Priority**: high
 **Status**: resolved
-**Area**: backend
+**Area**: modeling
 
 ### Summary
-Building Engine CLI 把证据快照通过状态硬编码为旧日期，拒绝新建且已独立校验的不可变快照。
+连接两点的细杆在旋转前错误地烘焙了 location，导致树枝、灯臂、伞骨和车架绕世界
+原点旋转，固定机位中出现地面散件。
 
 ### Error
 ```text
-hudec-memorial DSL validation failed
-conflict: 外置快照未记录本轮全量 SHA 通过
+GLB structure audit: ok
+Blender canonical: detached beams scattered around the asset
 ```
 
 ### Context
-- 新快照 `2026-07-29-hudec-a-evidence-v1-083bde0` 已由归档脚本和独立
-  `shasum -a 256 -c SHA256SUMS` 两次验证；
-- Case 的 `checksumStatus` 为
-  `verified-all-2026-07-29-independent-recheck`；
-- CLI 仍只接受精确字符串 `verified-all-2026-07-28`。
+- GLB magic、节点、三角面和 bounds 审计均不能证明构件连接正确；
+- 第一轮 contact sheet 同时暴露四类资产的共同散件；
+- 错误产物被后续确定性重建覆盖，没有进入运行时通过清单。
 
 ### Suggested Fix
-接受带 ISO 日期的 `verified-all-...` 状态，不绑定单个历史日期；归档日期与
-独立复核日期允许不同，同时拒绝 pending、partial 和无日期字符串。
+创建 beam 时保留对象 location，先用两点方向设置 rotation，再一次性
+`transform_apply`。每次改动共同几何 helper 后必须重建全批，并用固定机位 contact
+sheet 检查所有受影响类别。
 
 ### Metadata
 - Reproducible: yes
-- Related Files: `scripts/building_engine_spike.mjs`,
-  `tests/test_building_engine_spike.test.mjs`,
-  `building-engine/cases/hudec-memorial/building-case.json`
+- Related Files: scripts/create_meshy_agent_street_props.py, test_artifacts/nonbuilding/meshy-agent-street-props/test_canonical_contact_sheet.png
+- Tags: blender, transform, beam, fixed-camera, visual-gate
 
 ### Resolution
-- **Resolved**: 2026-07-29T19:25:00+08:00
-- **Notes**: 改为接受带 ISO 日期的 `verified-all-...` 全量校验状态；旧迁移
-  快照、新独立复核后缀、pending 和 partial 单元负例通过，三栋 validate 全通过。
+- **Resolved**: 2026-07-28T01:45:00+08:00
+- **Notes**: 修正变换顺序后全批重建，第二轮固定机位和真实 WebGL 均无散件。
 
 ---
 
-## [ERR-20260728-009] jq_dollar_defs_key_access
+## [ERR-20260728-MA4] meshy_download_interception_and_stale_selection
 
-**Logged**: 2026-07-28T23:23:23+08:00
-**Priority**: low
+**Logged**: 2026-07-28T01:16:20+08:00
+**Priority**: high
 **Status**: resolved
-**Area**: tooling
+**Area**: infra
 
 ### Summary
-读取 JSON Schema 时把 `$defs` 写成 jq 变量语法，导致只读查询失败。
+Meshy 网页导出在当前 Chrome 被客户端拦截，且堆叠的 Viewer 弹窗可能让下载对象与
+当前审核对象不一致。
 
 ### Error
 ```text
-jq: error: syntax error, unexpected BINDING
+ERR_BLOCKED_BY_CLIENT
+Invalid InterceptionId
 ```
 
 ### Context
-- 尝试同时摘取 `roof`、`volume`、`feature` 和 `opening` 定义；
-- 命令没有修改仓库文件。
+- 原生点击下载会把当前页导航到 Meshy 的时效资源地址，然后被 Chrome 拦截；
+- Playwright 等待下载事件返回 `Invalid InterceptionId`；
+- 一次计划下载石桩时，实际得到损坏的自行车 Remesh 文件；
+- 错误文件被保留为失败证据，没有进入正式选择清单；
+- Meshy 签名 URL 没有写入仓库、聊天或长期记录。
 
 ### Suggested Fix
-对包含美元符号的 JSON key 使用 `.["$defs"]` 显式键访问。
+导出前关闭多余弹窗，从聊天响应的目标模型卡片重新进入 Viewer，同时核对资产名、
+tris/vertices 和 bounds。签名 URL 只进入 `/tmp/test_*.txt`，使用 `curl --config`
+下载，完成后立即删除临时配置。最终以文件名、SHA、GLB 结构和实际 bounds 四重确认。
 
 ### Metadata
 - Reproducible: yes
-- Related Files: `building-engine/schema/building-dsl.schema.json`
+- Related Files: test_artifacts/test_meshy_agent_batch_20260728/test_meshy_agent_run_record.md
+- Tags: meshy, chrome, download, signed-url, stale-selection, audit
 
 ### Resolution
-- **Resolved**: 2026-07-28T23:23:23+08:00
-- **Notes**: 改用 `.["$defs"]` 后继续只读检查。
+- **Resolved**: 2026-07-28T01:16:20+08:00
+- **Notes**: 干净画布标签页完成六件直接下载，四件使用仅存在于临时目录的短时配置回退；错误自行车只保留为 rejected evidence。
+
+---
+
+## [ERR-20260728-MA5] browser_capture_timeout_and_unsupported_paths
+
+**Logged**: 2026-07-28T01:16:20+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Chrome 的元素截图能力和 macOS `screencapture` 在当前受控环境不可用，一次长批量等待
+又超过 Node 工具的 30 秒限制并重置 kernel。
+
+### Error
+```text
+Chrome does not support command
+could not create image from display
+Node REPL request timed out after 30000 ms
+```
+
+### Context
+- `playwright.elementScreenshot` 在 Chrome 控制连接上不受支持；
+- 本机 `screencapture -x` 无法读取受控显示；
+- 连续 `5 × 5 s` 的 Computer Use 截图等待超过单次调用时限。
+
+### Suggested Fix
+用 Computer Use 应用截图保留视觉证据；每次最多处理 3 件模型，长等待拆分成多次工具
+调用，并在每次调用后验证浏览器和 Node 绑定仍可用。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/test_meshy_agent_batch_20260728/
+- Tags: chrome, screenshot, computer-use, node-repl, timeout
+
+### Resolution
+- **Resolved**: 2026-07-28T01:16:20+08:00
+- **Notes**: 改用短批次 Computer Use 截图，后续模型审核未再因等待超时中断。
+
+---
+
+## [ERR-20260727-MA3] meshy_assets_blocked_by_client
+
+**Logged**: 2026-07-27T18:05:00+08:00
+**Priority**: high
+**Status**: pending
+**Area**: infra
+
+### Summary
+当前 Chrome 会话拦截 `assets.meshy.ai`，导致 Meshy Agent 概念图无法视觉审核，GLB 下载失败。
+
+### Error
+```text
+ERR_BLOCKED_BY_CLIENT
+```
+
+### Context
+- Agent 已生成长椅、路灯和悬铃木概念图，以及长椅 Smart Topology 3D 候选；
+- 页面可以打开 3D Viewer 和 Download Settings；
+- 点击下载后跳到 Meshy 的时效资源地址，但客户端在资源请求层拦截；
+- Downloads 中没有新 GLB，不存在部分导出；
+- 签名下载 URL 未写入仓库或记录。
+
+### Suggested Fix
+先检查当前 Chrome 的内容拦截扩展、网络过滤和站点权限；由用户确认后在同一登录会话中
+临时允许 `assets.meshy.ai`，重新打开已有候选下载，避免重复消耗生成 credits。修复后必须
+同时验证概念图可见、GLB 下载、SHA、结构审计和外置快照。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/test_meshy_agent_pilot_20260727/
+- Tags: meshy, chrome, download, client-blocker, visual-review
+
+---
+
+## [ERR-20260727-MA2] meshy_agent_self_description_conflict
+
+**Logged**: 2026-07-27T17:55:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: docs
+
+### Summary
+Meshy Agent 对自身界面的说明与实际页面冲突。
+
+### Error
+```text
+Agent 声称 Auto 不是 3D 偏好，且网页下载不能设置尺寸和原点；
+实际 UI 出现 Auto / Standard / Smart Topology，以及高度和底部/中心原点。
+```
+
+### Context
+本轮同时打开官方帮助、Agent 手册对话和真实生成/下载页面进行对照。
+
+### Suggested Fix
+采用“实际 UI/导出 > 官方帮助 > Agent 自述 > 推断”的证据优先级，所有会影响成本和
+资产合同的能力都必须以实际页面截图或导出物验证。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/knowledge-sources/meshy-agent-browser-workflow-2026-07-27.md
+- Tags: meshy-agent, hallucination, ui-truth, documentation
+
+### Resolution
+- **Resolved**: 2026-07-27T17:55:00+08:00
+- **Notes**: 已把冲突记录进方法文档和主 Pipeline，未采用错误自述。
+
+---
+
+## [ERR-20260727-MSH] chrome_dom_cua_node_id_type
+
+**Logged**: 2026-07-27T16:45:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Chrome `dom_cua.click` 的 `node_id` 必须传字符串，不能直接传 DOM 快照中的数字。
+
+### Error
+```text
+dom_cua.click node_id must be a string
+```
+
+### Context
+- 操作 Meshy Agent 页面返回的 `node_id=21`
+- 首次调用误传 `{node_id: 21}`
+
+### Suggested Fix
+把可见 DOM 中的节点编号原样转为字符串，例如 `{node_id: "21"}`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: docs/research/xinhua-wander-building-engine-plan.md
+- Tags: chrome, browser, dom-cua, meshy
+
+### Resolution
+- **Resolved**: 2026-07-27T16:45:00+08:00
+- **Notes**: 改用字符串节点 ID 后继续页面操作。
 
 ---
 
@@ -255,141 +524,135 @@ fatal: Unable to create '/Users/lei/App_developing/wander-xinhua/.git/index.lock
 
 ---
 
-## [ERR-20260728-007] static_preview_does_not_mount_app_routes
+## [ERR-20260727-GH1] gh_issue_list_too_many_open_files
 
-**Logged**: 2026-07-28T22:16:00+08:00
-**Priority**: high
+**Logged**: 2026-07-27T00:00:00+08:00
+**Priority**: medium
 **Status**: resolved
-**Area**: runtime-qa
+**Area**: infra
 
 ### Summary
-Vite static preview 会把 `/building-engine-sandbox` 回退到单页入口，但
-`static-entry.tsx` 没有挂载该 App Router 页面，视觉上只出现产品首页。
+通过 `gh issue list` 检查重复 issue 时，提升权限后的统一执行进程被本机文件句柄上限拦截。
 
 ### Error
 ```text
-/building-engine-sandbox 返回 200，但 data-qa-route 缺失，页面显示“新华漫游”首页。
+Failed to create unified exec process: Too many open files (os error 24)
 ```
 
 ### Context
-- `vite.static.config.ts` 只生成一个 `dist-static/index.html`；
-- `static-entry.tsx` 只分流 `/asset-library` 与 `/product-homepage`；
-- 用 HTTP 200 或相似建筑画面判断 Sandbox 会产生假阳性。
+- 首次沙箱调用因无法连接 `api.github.com` 失败。
+- 按网络故障流程申请提升权限重试时，命令尚未启动就被本机文件句柄上限拒绝。
+- GitHub issue 尚未创建，不存在部分写入。
 
 ### Suggested Fix
-需要验证 App Router 页面时，先运行 `npm run build:sites`，再用
-`npm run start:sites` 启动本地 production server；必须核对
-`data-qa-route="building-engine-sandbox"` 和当前 GLB SHA。
+优先使用已连接的 GitHub 应用搜索和创建 issue；仅在连接器缺少能力时再回退到 `gh`。
 
 ### Metadata
-- Reproducible: yes
-- Related Files: static-entry.tsx, app/building-engine-sandbox/page.tsx
+- Reproducible: unknown
+- Related Files: .learnings/ERRORS.md
 
 ### Resolution
-- **Resolved**: 2026-07-28T22:17:00+08:00
-- **Notes**: 切换到本地 Vinext production build 后，Sandbox 路由、Canvas、
-  GLB 与 collision SHA 均可直接核对。
+- **Resolved**: 2026-07-27T00:00:00+08:00
+- **Notes**: GitHub 应用已提供 issue 搜索和创建能力，后续不再依赖本次失败的 CLI 路径。
 
 ---
 
-## [ERR-20260728-008] sandbox_warmup_exact_value_overfit
+## [ERR-20260727-GH2] github_app_issue_create_forbidden
 
-**Logged**: 2026-07-28T22:36:00+08:00
+**Logged**: 2026-07-27T00:00:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: infra
+
+### Summary
+已连接的 GitHub 应用可以搜索仓库 issue，但没有创建 `denki-san/wander-xinhua` issue 的权限。
+
+### Error
+```text
+GitHub API error 403: Resource not accessible by integration
+```
+
+### Context
+- 创建目标为 `denki-san/wander-xinhua`。
+- 创建调用没有产生 issue，不存在部分写入。
+- 用户已明确授权创建四个 issue。
+
+### Suggested Fix
+按 GitHub skill 的 hybrid fallback，连接器写权限不足时改用本机已认证的 `gh issue create`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-27T00:00:00+08:00
+- **Notes**: 改用本机 GitHub CLI 执行写操作，连接器继续用于只读搜索。
+
+---
+
+## [ERR-20260727-GH3] gh_auth_token_invalid
+
+**Logged**: 2026-07-27T00:00:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: infra
+
+### Summary
+本机 GitHub CLI 的 `denki-san` 默认账号仍处于 active 状态，但保存的 API token 已失效。
+
+### Error
+```text
+Failed to log in to github.com account denki-san
+The token in default is invalid.
+```
+
+### Context
+- SSH remote 仍可用于 Git，但 SSH 身份不能代替 GitHub Issues API token。
+- GitHub 应用对目标仓库缺少 issue 创建权限，因此 CLI token 是当前非浏览器写入路径。
+- 重新认证后已通过 `gh auth status` 和 Issues API 验证访问权限。
+- 四个计划 issue 已创建为 #1–#4。
+
+### Suggested Fix
+由用户在本机终端重新完成 GitHub CLI 认证；后续 token 不进入聊天或仓库。
+
+### Resolution
+2026-07-27 已恢复 GitHub CLI 认证，并成功创建、回读四个 issue。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+---
+
+## [ERR-20260727-001] node_geometry_compare_parenthesis
+
+**Logged**: 2026-07-27T22:20:00+08:00
 **Priority**: low
 **Status**: resolved
 **Area**: tests
 
 ### Summary
-专项测试把人工浏览器预热时间锁成精确 `2` 秒，新的诚实记录使用 `2.5` 秒后
-出现非语义失败。
+一次性 Node 几何比较命令的多余右括号导致脚本未执行。
 
 ### Error
 ```text
-AssertionError: 2.5 !== 2
+SyntaxError: Unexpected token ')'
 ```
 
 ### Context
-- 质量合同要求记录预热条件，不要求所有资产精确相同；
-- 页面状态、Canvas、错误数、GLB SHA 与三视角均已独立验证。
+- 正在只读比较 Overture Maps 与本地 OSM 的建筑 footprint。
+- 错误发生在 shoelace 面积辅助函数；没有写入项目或外部数据。
 
 ### Suggested Fix
-验证预热时间处于合理区间，同时继续强制 `sampleDurationSeconds >= 5`。
+重写并先运行最小语法正确的几何辅助函数，再输出 overlap / distance 结果。
 
 ### Metadata
 - Reproducible: yes
-- Related Files: tests/test_building_engine_spike.test.mjs
+- Related Files: /private/tmp/test_overture_shanghai_cinema_buildings.geojson
 
 ### Resolution
-- **Resolved**: 2026-07-28T22:37:00+08:00
-- **Notes**: 改为断言 `2 <= warmupSeconds <= 10`。
-
----
-
-## [ERR-20260728-001] python_bytecode_cache_outside_sandbox
-
-**Logged**: 2026-07-28T19:42:34+08:00
-**Priority**: low
-**Status**: resolved
-**Area**: config
-
-### Summary
-使用系统 Python 检查建筑编译器语法时，默认字节码缓存路径位于当前可写范围之外。
-
-### Error
-```text
-PermissionError: [Errno 1] Operation not permitted:
-/Users/lei/Library/Caches/com.apple.python/
-```
-
-### Context
-- 命令为 `python3 -m py_compile scripts/compile_garden_villa.py`。
-- 失败发生在写入 `__pycache__`，不能据此判定脚本存在语法错误。
-
-### Suggested Fix
-设置 `PYTHONPYCACHEPREFIX=/tmp/test_building_engine_pycache` 后重新执行语法检查，
-并继续用 Blender Python 做运行时验证。
-
-### Metadata
-- Reproducible: yes
-- Related Files: scripts/compile_garden_villa.py
-
-### Resolution
-- **Resolved**: 2026-07-28T19:43:00+08:00
-- **Notes**: 将字节码缓存定向到 `/tmp/test_building_engine_pycache` 后语法检查退出码为 0。
-
----
-
-## [ERR-20260728-002] building_engine_cli_missing_output_parent
-
-**Logged**: 2026-07-28T19:42:34+08:00
-**Priority**: high
-**Status**: resolved
-**Area**: backend
-
-### Summary
-建筑引擎 CLI 首次写入验证报告时，没有先创建按资产分隔的父目录。
-
-### Error
-```text
-ENOENT: no such file or directory, open
-docs/research/build-records/building-engine-spike/house-315/compiler-report.json
-```
-
-### Context
-- 命令为 `node scripts/building_engine_spike.mjs validate --asset all`。
-- `writeJson` 直接调用 `writeFileSync`，全新 worktree 中目标目录尚不存在。
-
-### Suggested Fix
-在统一的 `writeJson` 边界调用
-`mkdirSync(dirname(path), { recursive: true })`，随后重跑两栋建筑的完整验证。
-
-### Metadata
-- Reproducible: yes
-- Related Files: scripts/building_engine_spike.mjs
-
-### Resolution
-- **Resolved**: 2026-07-28T19:43:00+08:00
-- **Notes**: `writeJson` 统一创建父目录后，两栋建筑完整验证均通过。
+- **Resolved**: 2026-07-27T22:22:00+08:00
+- **Notes**: 修正 shoelace 面积函数的括号后重跑；两条外部候选 footprint 的面积和与本地 OSM 的最小边界距离均已输出。
 
 ---
 
@@ -516,6 +779,7 @@ zsh: segmentation fault
 Blender 在受限沙箱内出现 code 139 时，不反复修改脚本；先以同命令在系统级环境复核是否是 GUI/GPU/文件访问沙箱问题。
 
 ---
+
 # [ERR-20260726-017] rain_identity_first_pass_over_budget
 
 **Logged**: 2026-07-26
@@ -543,6 +807,7 @@ GLB：895668 bytes > 850000 bytes
 Blender 源 polygon 数和 GLB 导出后的三角面数不等价；角色 Identity 的预算必须以实际 GLB accessor 审计为准。
 
 ---
+
 # [ERR-20260726-018] local_preview_port_blocked_in_sandbox
 
 **Logged**: 2026-07-26
@@ -565,6 +830,7 @@ Error: listen EPERM: operation not permitted 127.0.0.1:4174
 真实浏览器验收需要本地端口时，如果出现 `listen EPERM`，直接按同一 host/port 申请本机网络权限，不改成公开监听地址。
 
 ---
+
 # [ERR-20260726-019] loading_contract_tests_expected_legacy_paths
 
 **Logged**: 2026-07-26
@@ -589,6 +855,7 @@ ReferenceError: detailedCharacter is not defined
 路径或运行时合同被主动重构时，同时搜索并更新对应的源码契约测试，不只新增测试。
 
 ---
+
 # [ERR-20260726-020] full_suite_retained_pre_identity_loading_contract
 
 **Logged**: 2026-07-26
@@ -614,6 +881,7 @@ expected Gltf- to remain deferred
 当产品主动把一种资源移入启动门槛时，需要同步修改首轮依赖预算，而不是继续把该资源当成禁止项。
 
 ---
+
 # [ERR-20260726-021] worktree_git_index_locked_by_sandbox
 
 **Logged**: 2026-07-26
@@ -673,6 +941,7 @@ fatal: cannot create directory at 'build': No space left on device
 - Related Files: .worktrees/verify-completed-8-buildings, .worktrees/merge-completed-8-buildings
 
 ---
+
 ## [ERR-20260726-014] static_release_preserved_unreadable_file_modes
 
 **Logged**: 2026-07-26T15:20:00+08:00
@@ -707,6 +976,7 @@ open() "/var/www/xinhua-messenger/index.html" failed (13: Permission denied)
 - **Notes**: 已将当前发布目录修正为目录 `755`、文件 `644`；源站和公网 HTTPS 均恢复 200，公开首页哈希与本地一致。
 
 ---
+
 ## [ERR-20260726-013] blender_mcp_eevee_engine_enum_mismatch
 
 **Logged**: 2026-07-26T14:45:00+08:00
@@ -1955,6 +2225,7 @@ curl: (7) Failed to connect to 127.0.0.1 port 4173
 - **Notes**: 改用 `endpoint`，并在授权环境并行检查页面与 8 个 GLB，全部返回 HTTP 200。
 
 ---
+
 ## [ERR-20260717-025] foreground_dev_server_reaped_after_turn
 
 **Logged**: 2026-07-17T07:49:00+08:00
@@ -1987,6 +2258,7 @@ write_stdin failed: Unknown process id 37575
 - **Recurrence**: 2026-07-17T15:24:00+08:00 完成二次构建和浏览器验收后，Terminal 预览进程曾退出；交付前重新启动脚本并再次确认带查询参数页面返回 HTTP 200。
 
 ---
+
 ## [ERR-20260717-024] vinext_localhost_ipv6_binding
 
 **Logged**: 2026-07-17T00:34:00+08:00
@@ -2020,6 +2292,7 @@ curl: (7) Failed to connect to 127.0.0.1 port 3001
 - **Notes**: 改用 `http://localhost:3001/` 继续验收。
 
 ---
+
 ## [ERR-20260717-002] camera_transition_source_assertion
 
 **Logged**: 2026-07-17T00:00:00+08:00
@@ -2051,6 +2324,7 @@ The input did not match the regular expression /\{playing \? <PlayableMessenger[
 - **Notes**: 已拆成两条只覆盖关键分支的断言。
 
 ---
+
 ## [ERR-20260717-001] preview_server_sandbox_and_webgl_capture_artifacts
 
 **Logged**: 2026-07-17T00:22:00+08:00
@@ -2116,6 +2390,7 @@ app/xinhua-experience.tsx(212,13): error TS2322: Type 'false | Element' is not a
 - **Notes**: 拆分首页和游戏态 Composer，随后重新运行完整测试。
 
 ---
+
 ## [ERR-20260716-024] sandbox_dns_blocked_reference_image_download
 
 **Logged**: 2026-07-16T21:12:00+08:00
@@ -2150,6 +2425,7 @@ curl: (6) Could not resolve host: images.smartshanghai.com.cn
 - **Notes**: 在获准的沙箱外环境下载到 `/private/tmp/test_navy_refs`，仅作视觉参考，未进入产品资产。
 
 ---
+
 ## [ERR-20260716-025] homebrew_autoupdate_blocks_blender_install
 
 **Logged**: 2026-07-16T21:18:00+08:00
@@ -2183,6 +2459,7 @@ Could not apply b68ebf8e...
 - **Notes**: 使用 `HOMEBREW_NO_AUTO_UPDATE=1` 绕过无关 tap 更新，未改动其 stash；Blender 安装完成。
 
 ---
+
 ## [ERR-20260716-026] blender_5_2_headless_arch_cache_crash
 
 **Logged**: 2026-07-16T21:31:00+08:00
@@ -2251,6 +2528,7 @@ fatal: Could not read from remote repository.
 - **Notes**: 继续通过分支跟踪状态和重试远端查询完成核验。
 
 ---
+
 ## [ERR-20260716-029] readme_concurrent_rename_context
 
 **Logged**: 2026-07-16T22:24:00+08:00
@@ -2282,6 +2560,7 @@ apply_patch verification failed: Failed to find expected lines in README.md
 - **Notes**: 重新读取后仅把英文标题更新为 Wander Xinhua，保留并行任务写入的“新华漫游志”。
 
 ---
+
 ## [ERR-20260716-027] vite_preview_host_forwarding_and_sandbox
 
 **Logged**: 2026-07-16T21:40:00+08:00
@@ -2314,6 +2593,7 @@ Error: listen EPERM: operation not permitted ::1:4173
 - **Notes**: 使用正确的脚本参数转发后，预览在 127.0.0.1:4173 正常启动。
 
 ---
+
 ## [ERR-20260716-028] node_typescript_extension_resolution
 
 **Logged**: 2026-07-16T22:08:00+08:00
@@ -2346,6 +2626,7 @@ TS5097: An import path can only end with a '.ts' extension when allowImportingTs
 - **Notes**: 地形模块内保留轻量、无依赖的多边形判断，实现已重新通过 Node 与场景 TypeScript 测试。
 
 ---
+
 ## [ERR-20260716-026] full_tsc_cloudflare_ambient_types
 
 **Logged**: 2026-07-16T21:25:00+08:00
@@ -2379,6 +2660,7 @@ Cannot find name 'D1Database'
 - **Notes**: 本轮改用定向场景类型测试作为验收，不把既有 Worker 类型问题混入场景修改。
 
 ---
+
 ## [ERR-20260716-025] r3f_mesh_toon_flat_shading_type
 
 **Logged**: 2026-07-16T21:22:00+08:00
@@ -2410,6 +2692,7 @@ TS2322: Type '{ color: string; flatShading: true; }' is not assignable to type .
 - **Notes**: 已移除不兼容属性，保留低分段几何造型。
 
 ---
+
 ## [ERR-20260716-024] create_goal_existing_active_goal
 
 **Logged**: 2026-07-16T21:02:00+08:00
@@ -2441,6 +2724,7 @@ cannot create a new goal because this thread has an unfinished goal; complete th
 - **Notes**: 已通过目标查询确认现有活动目标正是本轮六项修改，并继续沿用。
 
 ---
+
 ## [ERR-20260716-024] github_publish_preflight
 
 **Logged**: 2026-07-16T22:35:00+08:00
@@ -2475,6 +2759,7 @@ ssh: Could not resolve hostname github.com: -65563
 - **Recurrence**: 2026-07-17T20:10:00+08:00 再次确认 `gh` 默认令牌失效；改用 GitHub connector 与沙箱外 `git ls-remote` 完成远端分支和 PR 引用核验。
 
 ---
+
 ## [ERR-20260716-021] fountain_json_tuple_typecheck
 
 **Logged**: 2026-07-16T19:51:36+08:00
@@ -3052,6 +3337,7 @@ npm error audit endpoint returned an error
 - **Notes**: 在获准联网的本机环境重跑完成，生产依赖审计结果为 0 个漏洞。
 
 ---
+
 ## [ERR-20260716-018] landmark_full_test_contract
 
 **Logged**: 2026-07-16T18:18:00+08:00
@@ -3087,6 +3373,7 @@ TS2352: Conversion of type 'number[][]' to type 'MapPolygonPoint[]' may be a mis
 - **Notes**: JSON 边界改为显式元组映射，阴影契约更新为三地标中心，`useMemo` 改为内联函数；完整测试 27/27 和 Lint 均通过。
 
 ---
+
 ## [ERR-20260716-019] landmark_runtime_sky_only
 
 **Logged**: 2026-07-16T18:29:00+08:00
@@ -3120,6 +3407,7 @@ WebGL Canvas 正常加载且无页面异常，进入闲逛后场景几何与人�
 - **Notes**: 结构化浏览器错误显示 `data-landmark` 与 `data-osm-way` 在同一 R3F 对象上被解释为嵌套属性路径；两处地标全部改用 Three.js `name + userData`。新增源码契约禁止 `data-osm-way`，桌面和手机新会话 `errors=[]`，默认与全部地标直达坐标恢复渲染。
 
 ---
+
 ## [ERR-20260716-020] apply_patch_mixed_file_context
 
 **Logged**: 2026-07-16T19:07:00+08:00
@@ -3151,6 +3439,7 @@ apply_patch verification failed: Failed to find expected lines in app/scene/xinh
 - **Notes**: 已读取精确上下文并分文件重新应用。
 
 ---
+
 ## [ERR-20260716-022] agent_browser_environment_and_cli_mismatch
 
 **Logged**: 2026-07-16T20:43:00+08:00
@@ -3190,6 +3479,7 @@ URL 始终加单引号；使用绝对二进制路径；浏览器命令按 skill/
 - **Recurrence**: 2026-07-17 线上发布验收完成后，`agent-browser close` 再次因用户级 socket 目录不可写而失败；页面打开、点击和 DOM 验收均已成功，关闭命令应继续使用已授权的沙箱外执行。
 
 ---
+
 ## [ERR-20260716-023] stale_xingfuli_obstacle_source_contract
 
 **Logged**: 2026-07-16T20:47:00+08:00
@@ -3384,6 +3674,7 @@ Error: 429 Too Many Requests: https://overpass-api.de/api/interpreter
 - **Notes**: 改为一次种子查询加一次整批周边查询；成功写入 `requested-pois-osm-20260717-103840.json`。
 
 ---
+
 ## [ERR-20260717-033] in_app_browser_screenshot
 
 **Logged**: 2026-07-17T19:10:00+08:00
@@ -3875,6 +4166,7 @@ fatal: Unable to create '.git/index.lock': Operation not permitted
 - **Recurrence**: 2026-07-22T21:20:00+08:00 建筑资产正式发布暂存时再次遇到同一只读索引限制；继续使用显式文件列表和受控 Git 写入，不改仓库结构。
 
 ---
+
 ## [ERR-20260718-059] Blender 无界面复查角色源文件时进程崩溃
 
 **时间**：2026-07-18
@@ -3895,6 +4187,7 @@ fatal: Unable to create '.git/index.lock': Operation not permitted
 ### 复测记录
 
 同一隔离配置连续复用时仍会偶发在启动阶段崩溃；改用新的临时 `BLENDER_USER_CONFIG` 目录可恢复。后续无界面生成命令为每轮使用独立的 `test_blender_config_*` 目录。
+
 ## [ERR-20260718-060] 角色生成脚本遍历了已删除的 Blender 对象引用
 
 **时间**：2026-07-18
@@ -3913,6 +4206,7 @@ Blender 数据块删除后，Python 列表里原对象引用不会自动失效�
 在删除辅助对象之前先收集需要保留的眼睛和眉毛网格，后续只遍历这些有效引用。
 
 同一规则也应用到后续导入的模块化服装：先筛选服装网格，再删除 `Icosphere` 辅助对象。
+
 ## [ERR-20260718-061] Quaternius 男性基础体的节点名称与女性包不同
 
 **时间**：2026-07-18
@@ -3935,6 +4229,7 @@ Blender 数据块删除后，Python 列表里原对象引用不会自动失效�
 Blender 导入后的稳定名称为 `SuperHero_Male`（大写 H），眼睛与眉毛仍分别规范化为 `Eyes`、`Eyebrows`。脚本已改用实际名称，并把男性头部截取下界调整到 `z >= 1.50`，避免带入上胸。
 
 ---
+
 ## [ERR-20260718-062] 角色组件重命名补丁上下文不完整
 
 **时间**：2026-07-18
@@ -3949,6 +4244,7 @@ Blender 导入后的稳定名称为 `SuperHero_Male`（大写 H），眼睛与�
 先读取实际函数片段，再使用更小的精确上下文完成 `MessengerCharacter` 到 `WandererCharacter` 的重命名，并同步更新相关测试。
 
 ---
+
 ## [ERR-20260718-063] 两个 Vite 构建并行写入同一输出目录
 
 **时间**：2026-07-18
@@ -3967,6 +4263,7 @@ Blender 导入后的稳定名称为 `SuperHero_Male`（大写 H），眼睛与�
 保留 Lint 并行能力，但所有包含 Vite 构建的验证命令必须串行执行；随后单独重跑 `npm test`。
 
 ---
+
 ## [ERR-20260718-064] 全量测试仍锁定旧的高位摄像机参数
 
 **时间**：2026-07-18
@@ -3985,6 +4282,7 @@ Blender 导入后的稳定名称为 `SuperHero_Male`（大写 H），眼睛与�
 把测试更新为完整的新镜头参数组，包括目标高度、角色侧偏和目标侧偏，继续保留人物半径与街巷净宽约束。
 
 ---
+
 ## [ERR-20260718-065] Blender UV 图层集合不支持 clear
 
 **时间**：2026-07-18
@@ -4003,6 +4301,7 @@ Blender 导入后的稳定名称为 `SuperHero_Male`（大写 H），眼睛与�
 把 UV 图层和颜色属性复制为列表后逐项调用集合的 `remove()`，再重新生成角色。
 
 ---
+
 ## [ERR-20260718-066] 对拆边低模服装直接应用 Catmull-Clark 产生裂缝
 
 **时间**：2026-07-18
@@ -4021,6 +4320,7 @@ Blender 导入后的稳定名称为 `SuperHero_Male`（大写 H），眼睛与�
 删除拓扑细分，仅保留材质低对比配色和可逆的平滑法线处理；破损版本未进入最终运行时验证。
 
 ---
+
 ## [ERR-20260718-067] Google Drive 首次打开超时但页面已部分加载
 
 **时间**：2026-07-18
@@ -4035,6 +4335,7 @@ Blender 导入后的稳定名称为 `SuperHero_Male`（大写 H），眼睛与�
 超时后先读取当前浏览器状态，不重复开启页面；通过目录 DOM 和页面内 `data-id` 取得官方文件 ID，再逐个下载并校验大小与 SHA-256。
 
 ---
+
 ## [ERR-20260718-068] cp 不支持多个源目标配对
 
 **时间**：2026-07-18
@@ -4049,6 +4350,7 @@ Blender 导入后的稳定名称为 `SuperHero_Male`（大写 H），眼睛与�
 对三个已验证的源文件分别执行明确的单源单目标复制，复制后再次校验 SHA-256。
 
 ---
+
 ## [ERR-20260718-069] Blender 重新导入当前角色 GLB 时崩溃
 
 **时间**：2026-07-18
@@ -4077,6 +4379,7 @@ Blender 导入后的稳定名称为 `SuperHero_Male`（大写 H），眼睛与�
 崩溃发生在 Blender 启动时的 Metal 设备白名单检测，而不是 GLB 或 Blend 解析阶段。使用已获准的沙箱外 Blender 后台模式后，可正常打开 Blend、完成拓扑审计和重新导出。
 
 ---
+
 ## [ERR-20260718-070] agent-browser 无法在受限沙箱写入套接字目录
 
 **时间**：2026-07-18
@@ -4095,6 +4398,7 @@ Socket directory '/Users/lei/.agent-browser' is not writable: Operation not perm
 使用已获准的沙箱外 `agent-browser` 前缀运行独立会话；页面随后正常打开。
 
 ---
+
 ## [ERR-20260718-071] agent-browser eval 误用了 Playwright page 对象
 
 **时间**：2026-07-18
@@ -4113,6 +4417,7 @@ Socket directory '/Users/lei/.agent-browser' is not writable: Operation not perm
 视口和等待分别改用 `agent-browser set viewport` 与 `agent-browser wait`；页面内持续移动则返回一个原生 Promise 并派发键盘事件。
 
 ---
+
 ## [ERR-20260718-072] 角色测试把旧文件体积误当成质量下限
 
 **时间**：2026-07-18
@@ -4131,6 +4436,7 @@ Socket directory '/Users/lei/.agent-browser' is not writable: Operation not perm
 体积门槛改为 300KB～500KB，并新增导出顶点范围和生成器焊接逻辑断言；继续锁定三角面、四模块、骨骼、动作、无贴图和禁用背包节点。
 
 ---
+
 ## [ERR-20260718-073] 受限沙箱不能写入主仓库 worktree 索引锁
 
 **时间**：2026-07-18
@@ -4147,6 +4453,7 @@ Socket directory '/Users/lei/.agent-browser' is not writable: Operation not perm
 ### 修复
 
 使用已获准的 Git 暂存前缀在沙箱外完成同一组显式文件的暂存；不使用全量暂存，也不纳入临时截图或审计脚本。
+
 ## [ERR-20260719-080] llm_wiki_queue_array_probe
 
 **Logged**: 2026-07-19T22:25:00+08:00
@@ -4179,6 +4486,7 @@ jq: Cannot index array with string "items"
 - **Recurrence**: 2026-07-28 读取建筑 case 时误猜 `.evidence`；先用 `jq 'keys'` 确认实际字段为 `.evidenceItems` 后恢复只读查询。
 
 ---
+
 ## [ERR-20260721-081] parallel_exec_too_many_open_files
 
 **Logged**: 2026-07-21T00:00:00+08:00
@@ -4212,6 +4520,7 @@ Failed to create unified exec process: Too many open files (os error 24)
   关闭 production server、复位浏览器并改回串行后恢复，项目文件未受影响。
 
 ---
+
 ## [ERR-20260723-082] lighting_v3_effect_children_typecheck
 
 **Logged**: 2026-07-23T00:00:00+08:00
@@ -4245,6 +4554,7 @@ EffectComposer 内的条件 effect 使用空 Fragment 分支，测试正则直�
 - **Notes**: 已替换条件子节点表达式并修正测试正则，随后重新执行完整测试。
 
 ---
+
 ## [ERR-20260723-083] node_typescript_relative_import_extension
 
 **Logged**: 2026-07-23T00:00:00+08:00
@@ -4280,6 +4590,7 @@ TypeScript 合同可以显式导入 `.ts`。
   `.ts` 导入，由 Node、Vite 和完整 TypeScript 检查共同验证。
 
 ---
+
 ## [ERR-20260723-084] agent_browser_cli_unavailable
 
 **Logged**: 2026-07-23T00:00:00+08:00
@@ -4313,6 +4624,7 @@ zsh: command not found: agent-browser
 - **Notes**: 未安装新软件；新增道路顶面测试并在交付说明中保留截图边界。
 
 ---
+
 ## [ERR-20260724-085] sites_default_build_missing_dist
 
 **Logged**: 2026-07-24T00:20:00+08:00
@@ -4349,6 +4661,7 @@ cp: cannot stat 'dist': No such file or directory
   完整测试 120/120 和 lint 通过。
 
 ---
+
 ## [ERR-20260721-087] sandbox_ps_process_inspection
 
 **Logged**: 2026-07-21T08:33:49Z
@@ -4381,6 +4694,7 @@ zsh:1: operation not permitted: ps
 - **Notes**: 已改用会话轮询和 Hermes 日志，不再执行 `ps`。
 
 ---
+
 ## [ERR-20260721-088] browser_tabs_open_removed
 
 **Logged**: 2026-07-21T16:58:00+08:00
@@ -4413,6 +4727,7 @@ browser.tabs.open is not a function
 - **Notes**: 改为读取当前 Browser binding 文档后继续。
 
 ---
+
 ## [ERR-20260721-089] browser_evaluate_dom_constructors_unavailable
 
 **Logged**: 2026-07-21T17:13:00+08:00
@@ -4445,6 +4760,7 @@ TypeError: document.createEvent is not a function
 - **Notes**: 改用版本化 start preset 做 A/B，并在真实页面 reload 验收。
 
 ---
+
 ## [ERR-20260721-090] shell_quote_collision_in_rg_command
 
 **Logged**: 2026-07-21T17:27:00+08:00
@@ -4477,6 +4793,7 @@ zsh:2: unmatched "
 - **Notes**: 后续改用分离的安全正则，不再在一条 shell 字符串中混合单双引号。
 
 ---
+
 ## [ERR-20260721-091] overpass_get_406_for_film_art_center
 
 **Logged**: 2026-07-21T17:35:00+08:00
@@ -4510,6 +4827,7 @@ An appropriate representation of the requested resource could not be found on th
 - **Notes**: 本轮采用官方多视图和既有场景尺度进行保守估算，并在 Brief 中保留未知项。
 
 ---
+
 ## [ERR-20260721-092] blender_5_2_metal_probe_crash_in_sandbox
 
 **Logged**: 2026-07-21T17:58:00+08:00
@@ -4546,6 +4864,7 @@ blender::gpu::MTLBackend::metal_is_supported
 - **Notes**: 同一 Headless Blender 命令在沙箱外运行成功，生成 636 个源构件、1 个运行时节点及四张固定机位预览；确认崩溃来自受限环境中的 Metal 探测。
 
 ---
+
 ## [ERR-20260721-093] film_art_center_site_bounds_enter_road
 
 **Logged**: 2026-07-21T18:24:00+08:00
@@ -4578,6 +4897,7 @@ film-art-center 距道路中心仅 0.90，会压住 4.38 的道路及退界
 - **Notes**: 主楼和地址落点保持不动，仅把草坪/路径前缘从 GLB `maxZ=15.25` 收回到 `11.225`；道路净距、碰撞和快速定位专项测试 15/15 通过。
 
 ---
+
 ## [ERR-20260721-094] in_app_browser_discovery_empty
 
 **Logged**: 2026-07-21T18:31:00+08:00
@@ -4611,6 +4931,7 @@ agent.browsers.list() => []
 - **Notes**: 已切换到项目可用的 agent-browser 本地 Headless Chrome 作为透明回退路径。
 
 ---
+
 ## [ERR-20260721-095] agent_browser_broken_symlink
 
 **Logged**: 2026-07-21T18:34:00+08:00
@@ -4641,6 +4962,7 @@ no such file or directory
 - Related Files: `test_artifacts/test_film-art-center_runtime_preview.png`
 
 ---
+
 ## [ERR-20260722-099] in_app_browser_networkidle_not_supported
 
 **Logged**: 2026-07-22T00:17:14+08:00
@@ -4672,6 +4994,7 @@ playwright_wait_for_load_state does not support networkidle
 - **Notes**: 改用明确的 DOM、资源和性能条件，不依赖不受支持的 `networkidle`。
 
 ---
+
 ## [ERR-20260722-098] llm_wiki_ingest_queue_shape_assumption
 
 **Logged**: 2026-07-22T00:10:55+08:00
@@ -4703,6 +5026,7 @@ jq: Cannot index array with string "tasks"
 - **Notes**: 改用数组结构读取；未对 Wiki 队列做任何写操作。
 
 ---
+
 ## [ERR-20260721-097] llm_wiki_source_target_unavailable
 
 **Logged**: 2026-07-21T18:48:00+08:00
@@ -4736,6 +5060,7 @@ LLM Wiki API request failed. Is the desktop app running? fetch failed
 - **Notes**: U 盘恢复挂载后，将项目知识源复制到 `raw/sources/derived/wander-xinhua/`；启动 LLM Wiki 0.6.4，目标 ingest 任务完成并从队列移除。检索命中对象页、来源摘要、方法页和待核验页；读取内容与仓库证据一致，关系图节点保留 4 条关联。
 
 ---
+
 ## [ERR-20260721-096] macos_headless_browser_image_skia_crash
 
 **Logged**: 2026-07-21T18:40:00+08:00
@@ -4771,6 +5096,7 @@ FATAL:image_skia_rep_default.cc(36)] Check failed: bitmap_.colorType() == kN32_S
 - **Notes**: 新版应用内 Browser 恢复可用；已在 `/?start=film-art` 实测并保存 1280×720 运行时截图，读取目标 GLB 资源、console 与 Performance 指标。原独立 Headless Chromium 崩溃不再阻塞本项目验收。
 
 ---
+
 ## [ERR-20260722-100] browser_cdp_input_dispatch_unsupported
 
 **Logged**: 2026-07-22T00:25:03+08:00
@@ -4803,6 +5129,7 @@ This method is not supported through raw CDP. Use tab.cua.type(...) or tab.cua.k
 - **Notes**: 停止使用不支持的 CDP 输入方法；保留已取得的实际页面证据，并由专项测试验证出生点、相机和开放路径与三块碰撞体的关系。
 
 ---
+
 ## [ERR-20260722-101] missing_repo_python_venv_for_glb_audit
 
 **Logged**: 2026-07-22T00:25:03+08:00
@@ -4835,6 +5162,7 @@ python3: can't open file 'scripts/audit_glb_asset.py': [Errno 2] No such file or
 - **Notes**: 通过 `rg --files` 定位技能自带审计器，改用系统 Python 和真实脚本路径重跑。
 
 ---
+
 ## [ERR-20260722-102] stale_dev_server_session_id
 
 **Logged**: 2026-07-22T00:25:03+08:00
@@ -4866,6 +5194,7 @@ write_stdin failed: Unknown process id 6265
 - **Notes**: 将会话视为已结束，不再重试清理。后续 goal 续跑再次确认统一执行器中的 dev server 不保证跨轮次保活；每次实际 Browser 验收前都先以 HTTP 探测并按需重启。
 
 ---
+
 ## [ERR-20260722-103] film_art_canonical_camera_hits_neighbor
 
 **Logged**: 2026-07-22T00:25:03+08:00
@@ -4897,6 +5226,7 @@ film-art 的首帧相机不得位于地标碰撞范围内
 - **Notes**: 改用 `[35,99]` / `[0.581,-0.814]`；观察距离约 `21.51`，与 canonical 正向夹角约 `13.7°`，人物和相机均避开全部地标碰撞。
 
 ---
+
 ## [ERR-20260722-104] browser_reconnect_timeout_after_aborted_turn
 
 **Logged**: 2026-07-22T10:00:00+08:00
@@ -4929,6 +5259,7 @@ js execution timed out; kernel reset, rerun your request
 - **Notes**: 重置后的会话只执行一次干净重连，不复用已失效绑定；30 秒超时下成功连接到 Chrome extension，最终验收继续。
 
 ---
+
 ## [ERR-20260722-105] local_preview_listen_denied_in_sandbox
 
 **Logged**: 2026-07-22T11:07:00+08:00
@@ -4964,6 +5295,7 @@ Error: listen EPERM: operation not permitted 127.0.0.1:3002
   页面构建本身无监听错误。
 
 ---
+
 ## [ERR-20260722-106] cdp_raf_sample_hits_default_timeout
 
 **Logged**: 2026-07-22T11:10:00+08:00
@@ -4995,6 +5327,7 @@ Timed out after 3000ms waiting for CDP command Runtime.evaluate.
 - **Notes**: 命令超时放宽至 10 秒后成功采集 181 帧、59.99 FPS 和最终 GLB Resource Timing。
 
 ---
+
 ## [ERR-20260722-107] browser_finalize_native_pipe_closed
 
 **Logged**: 2026-07-22T11:12:00+08:00
@@ -5026,6 +5359,7 @@ native pipe closed before response
 - **Notes**: 未重试已失效的 Browser pipe；本地静态预览已用 Ctrl-C 正常停止。
 
 ---
+
 ## [ERR-20260722-108] final_typecheck_subprocess_stalls
 
 **Logged**: 2026-07-22T11:20:00+08:00
@@ -5058,6 +5392,7 @@ Promise resolution is still pending but the event loop has already resolved
 - **Notes**: 仅终止本任务启动的 Node/tsc 进程；串行 ESLint、模型专项测试、GLB 审计、JSON 校验与 `git diff --check` 均通过。
 
 ---
+
 ## [ERR-20260722-109] large_apply_patch_stalls_on_workflow_docs
 
 **Logged**: 2026-07-22T12:00:00+08:00
@@ -5089,6 +5424,7 @@ apply_patch did not return and required termination
 - **Notes**: 改用小型原子补丁继续，所有目标文件保持可解析且无半截写入。
 
 ---
+
 ## [ERR-20260722-109] vite_build_transform_stalls
 
 **Logged**: 2026-07-22T12:00:00+08:00
@@ -5119,6 +5455,7 @@ transforming (603) index.html
 - See Also: ERR-20260722-108
 
 ---
+
 ## [ERR-20260722-110] unquoted_url_query_in_zsh
 
 **Logged**: 2026-07-22T17:32:00+08:00
@@ -5150,6 +5487,7 @@ zsh: no matches found: https://.../plane-tree-a.glb?v=2
 - **Notes**: 改用单引号 URL 后重试线上哈希比对。
 
 ---
+
 ## [ERR-20260722-111] ffmpeg_missing_webp_encoder
 
 **Logged**: 2026-07-22T18:10:00+08:00
@@ -5183,6 +5521,7 @@ Error opening output file /tmp/test_xingfuli.webp.
 - **Notes**: 放弃不可复现的 WebP 转码路径，改做按距离分批预取和异步解码。
 
 ---
+
 ## [ERR-20260722-112] ambiguous_css_patch_target
 
 **Logged**: 2026-07-22T18:16:00+08:00
@@ -5214,6 +5553,7 @@ Error opening output file /tmp/test_xingfuli.webp.
 - **Notes**: 页头恢复 24px，POI 卡片改为 88px，并重新运行完整测试。
 
 ---
+
 ## [ERR-20260722-113] ffmpeg_drawtext_filter_unavailable
 
 **Logged**: 2026-07-22T21:00:00+08:00
@@ -5248,6 +5588,7 @@ Error : Filter not found
 - **Recurrence**: 2026-07-28 建筑引擎最终对照复现；继续使用固定左到右顺序，并在最终审核记录中声明列语义。
 
 ---
+
 ## [ERR-20260722-114] vps_precheck_shell_quote_mismatch
 
 **Logged**: 2026-07-22T20:51:00+08:00
@@ -5279,6 +5620,7 @@ bash: -c: line 1: unexpected EOF while looking for matching `"'
 - **Notes**: 去掉远端 HTML 正则，改用简单的 `head`、`find` 和 `sha256sum` 分步核验。
 
 ---
+
 ## [ERR-20260722-115] sites_large_asset_throughput_regression
 
 **Logged**: 2026-07-22T21:06:00+08:00
@@ -5309,6 +5651,7 @@ shanghai-orchestra.glb 2.35 MB: 208680 ms
 - See Also: `deploy/README.md`
 
 ---
+
 ## [ERR-20260722-116] sites_archive_download_transient_failure
 
 **Logged**: 2026-07-22T21:49:00+08:00
@@ -5344,6 +5687,7 @@ type: invalid_archive
 - **Notes**: 相同归档第二次保存成功，生成 Sites v20 并进入生产发布。
 
 ---
+
 ## [ERR-20260722-117] imagemagick_identify_unavailable
 
 **Logged**: 2026-07-22T22:20:00+08:00
@@ -5375,6 +5719,7 @@ macOS 项目预检优先使用系统自带的 `sips -g pixelWidth -g pixelHeight
 - **Notes**: 已使用 `sips` 完成九张参考图的尺寸核验。
 
 ---
+
 ## [ERR-20260722-118] hybrid_model_preflight_environment_failures
 
 **Logged**: 2026-07-23T00:15:00+08:00
@@ -5411,6 +5756,7 @@ zsh: no matches found: --remote-allow-origins=*
 - **Notes**: 三项均按上述方式修复；Blend/GLB 生成、CDP 六组采样和隔离全量测试随后通过。
 
 ---
+
 ## [ERR-20260722-118] blender_52_metal_backend_startup_crash
 
 **Logged**: 2026-07-22T22:33:00+08:00
@@ -5447,6 +5793,7 @@ GPU_backend_type_selection_detect()
 - **Notes**: 沙箱外运行同一最小命令输出 `BLENDER_HEADLESS_OK` 且 exit 0；确认是受限沙箱的 Metal 探测限制，不是 Blender 安装或生成器问题。后续 Blender headless 资产命令使用已批准的沙箱外入口。
 
 ---
+
 ## [ERR-20260722-119] browser_console_api_guess
 
 **Logged**: 2026-07-22T23:54:00+08:00
@@ -5479,6 +5826,7 @@ tab.playwright.documentation is not a function
 - **Notes**: 已用 `tab.dev.logs({})` 取得日志；页面没有新增 error，只有既有 Three.js 弃用警告。
 
 ---
+
 ## [ERR-20260723-120] agent_browser_command_unavailable
 
 **Logged**: 2026-07-23T00:00:00+08:00
@@ -5510,6 +5858,7 @@ zsh:1: command not found: agent-browser
 - **Notes**: 已改用 Codex 应用内 Browser binding，完成本地项目、Summer Afternoon 与 Messenger 的实机审查。
 
 ---
+
 ## [ERR-20260723-122] llm_wiki_desktop_api_unreachable
 
 **Logged**: 2026-07-23T00:24:00+08:00
@@ -5542,6 +5891,7 @@ LLM Wiki API request failed. Is the desktop app running? fetch failed
 - **Notes**: 启动 LLM Wiki 后，显式指定 `Threejs-3d-research` 项目完成 source rescan、队列清空、source search 命中和 MCP 原文读取；未写入当前选中的 TowerOld 项目。
 
 ---
+
 ## [ERR-20260723-121] glb_audit_script_path_assumption
 
 **Logged**: 2026-07-23T00:28:00+08:00
@@ -5574,6 +5924,7 @@ python3: can't open file '/Users/lei/App_developing/wander-xinhua/scripts/audit_
 - **Recurrence**: 2026-07-24 上海影城渐进 LOD 复核时再次误用仓库相对路径；已通过 `rg --files` 重新定位并改回 Skill 绝对路径。后续预检应先搜索 `.learnings/ERRORS.md` 中的工具名。
 
 ---
+
 ## [ERR-20260723-123] browser_networkidle_not_supported
 
 **Logged**: 2026-07-23T00:34:00+08:00
@@ -5605,6 +5956,7 @@ playwright_wait_for_load_state does not support networkidle
 - **Notes**: 改用 `load` 后完成 DOM、WebGL 截图与控制台验收。
 
 ---
+
 ## [ERR-20260723-124] oversized_apply_patch_context_mismatch
 
 **Logged**: 2026-07-23T00:43:00+08:00
@@ -5636,6 +5988,7 @@ apply_patch verification failed: Failed to find expected lines in app/scene/xing
 - **Notes**: 拆分为四个小补丁后，复用组件与铺地均已接入。
 
 ---
+
 ## [ERR-20260723-125] shared_street_asset_concurrent_export_mismatch
 
 **Logged**: 2026-07-23T00:49:00+08:00
@@ -5667,6 +6020,7 @@ MISSING_EXPORT: CantileverUmbrella, IrregularStoneBollards, StreetLampInstances
 - **Notes**: 幸福里改用现有语义化导出并补齐 evidenceRef、anchor、seed 与 variant 参数。
 
 ---
+
 ## [ERR-20260723-126] unrelated_style_lab_blocks_full_lint
 
 **Logged**: 2026-07-23T01:08:00+08:00
@@ -5698,6 +6052,7 @@ app/style-lab/StyleLab.tsx: 5 errors, 2 warnings
 - **Notes**: 并发 Style Lab 变更已自行收敛；最终全仓 `npm run lint` 退出码为 0，未改动其实现。
 
 ---
+
 ## [ERR-20260723-127] concurrent_test_context_drift
 
 **Logged**: 2026-07-23T01:10:00+08:00
@@ -5729,6 +6084,7 @@ apply_patch verification failed: Failed to find expected lines in tests/test_xin
 - **Notes**: 按当前文件逐块补齐并调整确定性路线，10 项专项测试全部通过。
 
 ---
+
 ## [ERR-20260723-128] concurrent_qa_preset_drift
 
 **Logged**: 2026-07-23T01:28:00+08:00
@@ -5760,6 +6116,7 @@ apply_patch verification failed: Failed to find expected lines in app/scene/xinh
 - **Notes**: 保留当前更完整的机位定义并重新进行生产构建和浏览器验收。
 
 ---
+
 ## [ERR-20260723-129] browser_cdp_performance_sampling_not_ready
 
 **Logged**: 2026-07-23T01:42:00+08:00
@@ -5792,6 +6149,7 @@ Raw CDP is unavailable while Browser Use is resolving a paused document response
 - **Notes**: 改用同源新标签页后完成 10 秒 Performance 采样、120 帧 rAF 采样和 console 来源核对；应用新增错误为 0，唯一 error 来自 CookieCloud 扩展的 `chrome-extension://` 脚本。
 
 ---
+
 ## [ERR-20260723-130] stale_repo_tests_after_xingfuli_final_integration
 
 **Logged**: 2026-07-23T01:13:00+08:00
@@ -6568,6 +6926,7 @@ TypeError: requestAnimationFrame is not a function
 - 改为只给可见卡片挂载独立 Canvas；
 - 动态模式持续渲染，静态模式使用 `frameloop="demand"`，相机拟合与模型加载完成后自动停帧；
 - 390px 低配触屏下确认垃圾桶模型可见、页面可滚动、变体可切换且无 error 日志。
+
 ## [ERR-20260724-086] npm_ci_exit_handler_failure
 
 **Logged**: 2026-07-24T19:38:31+08:00
@@ -6607,6 +6966,7 @@ npm error Log files were not written due to an error writing to the directory:
   使用项目内 cache/log 目录后，562 个依赖于 10 秒内安装完成。
 
 ---
+
 ## [ERR-20260724-087] progressive_split_source_contract_failures
 
 **Logged**: 2026-07-24T20:05:00+08:00
@@ -6643,6 +7003,7 @@ fail 15
   `npm test` 为 126/126，`npm run lint` 通过。
 
 ---
+
 ## [ERR-20260724-088] browser_raw_cdp_input_not_supported
 
 **Logged**: 2026-07-24T20:15:00+08:00
@@ -6677,6 +7038,7 @@ Use tab.cua.type(...) or tab.cua.keypress(...) instead.
   可见位移，且控制台无 error。
 
 ---
+
 ## [ERR-20260724-089] lazy_retry_component_created_during_render
 
 **Logged**: 2026-07-24T20:40:00+08:00
@@ -6712,6 +7074,7 @@ react-hooks/static-components
   `npm test` 均通过。
 
 ---
+
 ## [ERR-20260724-090] worktree_git_index_sandbox_denied
 
 **Logged**: 2026-07-24T20:36:03+08:00
@@ -6746,6 +7109,7 @@ Operation not permitted
 - **Notes**: 使用受控的 Git 元数据写入权限继续暂存与提交。
 
 ---
+
 ## [ERR-20260724-091] sites_source_non_fast_forward
 
 **Logged**: 2026-07-24T20:40:00+08:00
@@ -6781,6 +7145,7 @@ Operation not permitted
   Sites 源分支，并合并双方错误记录。
 
 ---
+
 ## [ERR-20260724-092] sites_packager_not_executable
 
 **Logged**: 2026-07-24T20:44:00+08:00
@@ -6815,6 +7180,7 @@ permission denied: sites/0.1.31/scripts/package-site.sh
   未修改插件文件或手工重写打包逻辑。
 
 ---
+
 ## [ERR-20260724-093] amended_pushed_sites_commit_lost_ancestry
 
 **Logged**: 2026-07-24T20:47:00+08:00
@@ -6849,6 +7215,7 @@ permission denied: sites/0.1.31/scripts/package-site.sh
 - **Notes**: 保留远端已推送父提交并创建合并节点；新增记录改为独立后续提交。
 
 ---
+
 ## [ERR-20260724-094] unquoted_query_url_in_zsh
 
 **Logged**: 2026-07-24T22:36:00+08:00
@@ -6880,6 +7247,7 @@ zsh:1: no matches found: https://xinhua-messenger.berry-fig-9187.chatgpt.site/?q
 - **Notes**: 改用单引号包裹完整 URL 后重新执行只读核对。
 
 ---
+
 ## [ERR-20260724-095] production_browser_navigation_timeouts
 
 **Logged**: 2026-07-24T22:53:00+08:00
@@ -6916,6 +7284,7 @@ js execution timed out; kernel reset, rerun your request
   零 error 日志和本地标准档 Full 截图作为分层证据。
 
 ---
+
 ## [ERR-20260724-096] isolated_worktree_index_lock_denied
 
 **Logged**: 2026-07-24T23:57:46+08:00
@@ -6949,6 +7318,7 @@ Operation not permitted
 - **Notes**: 复用已验证的限定 Git 权限路径重试，不扩大操作范围。
 
 ---
+
 ## [ERR-20260725-012] zsh_path_special_parameter_shadowed
 
 **Logged**: 2026-07-25T00:00:00+08:00
@@ -6983,6 +7353,7 @@ shell 循环使用 `file_path` 等任务专用变量名，避免 `path`、`statu
 - **Notes**: 改用 `file_path` 后重新执行，成功保留两侧追加记录并移除冲突标记。
 
 ---
+
 ## [ERR-20260725-013] javascript_template_literal_backtick_escape
 
 **Logged**: 2026-07-25T16:25:00+08:00
@@ -7015,6 +7386,7 @@ SyntaxError: missing ) after argument list
 - **Notes**: 改为普通字符串拼接后重新运行专项测试。
 
 ---
+
 ## [ERR-20260725-014] hudec_reference_path_assumption
 
 **Logged**: 2026-07-25T16:38:00+08:00
@@ -7048,6 +7420,7 @@ unable to locate image .../poi-references/hudec-memorial/hudec-memorial-street-o
 - **Notes**: 用 `rg --files` 定位真实路径后完成官方照片与三机位 Massing 对照。
 
 ---
+
 ## [ERR-20260725-015] blender_mcp_user_prompt_required
 
 **Logged**: 2026-07-25T16:43:00+08:00
@@ -7082,6 +7455,7 @@ user_prompt
 - **Notes**: 读取当前 schema 后补齐 `user_prompt`，成功确认共享 scene 仍为上海影城。
 
 ---
+
 ## [ERR-20260725-016] r3f_primitive_data_attribute_rejected
 
 **Logged**: 2026-07-25T16:03:00+08:00
@@ -7114,6 +7488,7 @@ R3F 场景元数据写入 `Object3D.userData`；不要把 DOM `data-*` 属性传
 - **Notes**: 删除 `primitive` 的 DOM 属性，保留 `userData`，并重新执行真实浏览器验收。
 
 ---
+
 ## [ERR-20260725-017] browser_evaluate_has_no_request_animation_frame
 
 **Logged**: 2026-07-25T16:08:00+08:00
@@ -7148,6 +7523,7 @@ TypeError: window.requestAnimationFrame is not a function
   页面可见性、average 与 P95。
 
 ---
+
 ## [ERR-20260725-018] import_meta_env_not_declared
 
 **Logged**: 2026-07-25T16:16:00+08:00
@@ -7181,6 +7557,7 @@ Vite 类型声明。
 - **Notes**: 改用 `process.env.NODE_ENV`，并重跑场景类型检查。
 
 ---
+
 ## [ERR-20260725-019] git_cherry_pick_worktree_index_lock_sandbox
 
 **Logged**: 2026-07-25T19:05:00+08:00
@@ -7217,6 +7594,7 @@ Worktree 元数据或手工复制整棵提交。
 - **Notes**: 保留失败现场无冲突状态，改用同一条明确提交的受控提权重试。2026-07-27 在同一 `integration-18-buildings` Worktree 精确暂存幸福里证据审计时再次复现；继续保持相同文件清单并使用受控 Git 元数据写权限。
 
 ---
+
 ## [ERR-20260725-020] build_and_rendered_tests_parallel_race
 
 **Logged**: 2026-07-25T19:12:00+08:00
@@ -7251,6 +7629,7 @@ ENOENT: no such file or directory, scandir
 - **Notes**: 构建完成后串行重跑全仓 Node 测试和范围专项测试。
 
 ---
+
 ## [ERR-20260725-021] zsh_unquoted_query_url_glob
 
 **Logged**: 2026-07-25T19:50:00+08:00
@@ -7284,6 +7663,7 @@ https://zenodo.org/records/12674244/files/China_1.rar?download=1
 - **Notes**: 改为单引号 URL 后重试。
 
 ---
+
 ## [ERR-20260725-022] building_height_source_access_and_resume
 
 **Logged**: 2026-07-25T19:57:00+08:00
@@ -7323,6 +7703,7 @@ curl: (18) transfer closed with 2791144153 bytes remaining to read
   GBA 本轮保持不可用且未导入。
 
 ---
+
 ## [ERR-20260725-023] poc_selection_upper_bound
 
 **Logged**: 2026-07-25T20:25:00+08:00
@@ -7356,6 +7737,7 @@ Error: PoC 选择数量必须为 80，实际 81
 - **Notes**: 增加入口与新增前的双重上限检查。
 
 ---
+
 ## [ERR-20260725-024] zsh_empty_config_glob
 
 **Logged**: 2026-07-25T20:39:00+08:00
@@ -7389,6 +7771,7 @@ zsh:1: no matches found: /Volumes/plugin/Threejs-3d-research/*.json
 - **Notes**: 改用 `find` 获取精确配置文件路径后继续只读检查。
 
 ---
+
 ## [ERR-20260725-025] raw_source_text_diff_whitespace
 
 **Logged**: 2026-07-25T20:47:00+08:00
@@ -7423,6 +7806,7 @@ globfp-readme-zenodo-15459025-20260725.txt: new blank line at EOF
 - **Notes**: 精确添加两个 binary 属性；未清洗或覆盖上游文本。
 
 ---
+
 ## [ERR-20260725-026] isolated_worktree_write_permission
 
 **Logged**: 2026-07-25T22:42:00+08:00
@@ -7457,6 +7841,7 @@ Error: EPERM: operation not permitted, open
 - **Notes**: 保留失败记录，并以精确命令和目标路径申请独立 worktree 写权限。
 
 ---
+
 ## [ERR-20260725-027] range_download_body_termination
 
 **Logged**: 2026-07-25T22:56:00+08:00
@@ -7492,6 +7877,7 @@ cause: UND_ERR_SOCKET
 - **Notes**: 已增加正文重试与稀疏文件断点扫描，并从 234 MB 继续下载。
 
 ---
+
 ## [ERR-20260725-028] district_massing_source_record_field_assumption
 
 **Logged**: 2026-07-25T20:10:00+08:00
@@ -7524,6 +7910,7 @@ TypeError: a is not iterable
 - **Notes**: 读取文件头确认字段为 `acceptedBuildings`，随后使用正确字段重跑。
 
 ---
+
 ## [ERR-20260725-029] threejs_wiki_source_path_mismatch
 
 **Logged**: 2026-07-25T20:32:00+08:00
@@ -7558,6 +7945,7 @@ cp: .../raw/sources/derived/wander-xinhua/...: No such file or directory
 - **Notes**: 已确认独立 Wiki 的 source root，改用其现有 wander-xinhua 分类。
 
 ---
+
 ## [ERR-20260725-030] mobile_poi_offset_contract_stale
 
 **Logged**: 2026-07-25T23:57:00+08:00
@@ -7589,6 +7977,7 @@ Expected /safe-area-inset-top ... + 72px/ but CSS uses + 124px.
 - **Notes**: 测试改为要求地图光线切换器和 124px 手机安全顶距。
 
 ---
+
 ## [ERR-20260726-001] blender_headless_sandbox_startup_crash
 
 **Logged**: 2026-07-26T00:00:00+08:00
@@ -7625,6 +8014,7 @@ exit code 139
 - **Notes**: 本轮建筑引擎首次构建复现同一 Metal 探测崩溃；同一 CLI 在受限沙箱外成功生成两栋 Massing 的 `.blend`、GLB、碰撞记录和六张固定机位图，确认不是生成器故障。
 
 ---
+
 ## [ERR-20260726-002] imagemagick_magick_command_missing
 
 **Logged**: 2026-07-26T00:00:00+08:00
@@ -7656,6 +8046,7 @@ zsh: command not found: magick
 - **Notes**: 改用环境中可用的图像拼接入口。
 
 ---
+
 ## [ERR-20260726-003] rain_source_blend_missing_for_full_rebuild
 
 **Logged**: 2026-07-26T00:00:00+08:00
@@ -7691,6 +8082,7 @@ assets/models/source/character/rain-source/rain_v01.blend，
 - **Notes**: 使用显式局部修复入口，保持现有已验收资产作为输入并重建既定产物。
 
 ---
+
 ## [ERR-20260726-004] vite_preview_sandbox_listen_eperm
 
 **Logged**: 2026-07-26T01:00:00+08:00
@@ -7722,6 +8114,7 @@ Error: listen EPERM: operation not permitted 127.0.0.1:4173
 - **Notes**: 使用批准的进程外本地预览入口。
 
 ---
+
 ## [ERR-20260726-005] browser_evaluate_performance_global_unavailable
 
 **Logged**: 2026-07-26T01:00:00+08:00
@@ -7753,6 +8146,7 @@ TypeError: Cannot read properties of undefined (reading 'getEntriesByType')
 - **Notes**: 改用 DOM、截图、控制台和本地服务器请求证据。
 
 ---
+
 ## [ERR-20260726-006] iab_canvas_press_focus_mismatch
 
 **Logged**: 2026-07-26T01:00:00+08:00
@@ -7785,6 +8179,7 @@ locator.press failed for selector canvas
 - **Notes**: 使用页面公开的触控控制验收同一运行时动画。
 
 ---
+
 ## [ERR-20260726-007] git_index_lock_sandbox_denied
 
 **Logged**: 2026-07-26T02:00:00+08:00
@@ -7816,6 +8211,7 @@ Git 写入操作应直接使用受控的提升权限，并继续维持精确文�
 - **Notes**: 使用受控的 Git 提升权限执行同一精确暂存命令。
 
 ---
+
 ## [ERR-20260726-008] rain_candidate_record_breaks_production_assertions
 
 **Logged**: 2026-07-26T04:00:00+08:00
@@ -7943,6 +8339,7 @@ The token in default is invalid.
 - **Notes**: 将用 Git SSH push 和远端 SHA 验证替代 GitHub CLI。
 
 ---
+
 ## [ERR-20260726-009] push_poll_payload_syntax_error
 
 **Logged**: 2026-07-26T01:45:57+08:00
@@ -8008,6 +8405,7 @@ exit code 126
 - **Notes**: 通过 `bash` 直接调用内层官方脚本，生成并验证了 32 MB Sites 归档。
 
 ---
+
 ## [ERR-20260726-010] cleanup_batch_rejected_by_safety_gate
 
 **Logged**: 2026-07-26T01:49:30+08:00
@@ -8041,6 +8439,7 @@ The automatic permission approval review did not finish before its deadline.
 - **Notes**: 拒绝发生在执行前，未影响线上目录、回滚版本或 Git 引用。
 
 ---
+
 ## [ERR-20260726-011] controls_multitouch_pulse_flaky_release_gate
 
 **Logged**: 2026-07-26T01:51:00+08:00
@@ -8074,6 +8473,7 @@ false !== true
 - **Notes**: 目标单测连续三次通过，随后完整 `npm test` 190/190 通过；按通过的完整构建发布最新 main。
 
 ---
+
 ## [ERR-20260726-012] remote_cleanup_preflight_quote_mismatch
 
 **Logged**: 2026-07-26T01:54:00+08:00
@@ -8105,6 +8505,7 @@ zsh: unmatched '
 - **Notes**: 错误发生在本地 Shell 解析阶段，远端未执行任何命令。
 
 ---
+
 ## [ERR-20260726-015] public_asset_dns_resolution_flapped
 
 **Logged**: 2026-07-26T20:09:35+08:00
@@ -8249,6 +8650,650 @@ manifest.json: No such file or directory
 
 ---
 
+## [ERR-20260727-XH1] xiaohongshu_video_asset_bundle_fetch_failed
+
+**Logged**: 2026-07-27T23:42:48+08:00
+**Priority**: medium
+**Status**: pending
+**Area**: infra
+
+### Summary
+浏览器已正常播放的小红书公开视频无法通过页面资产导出能力保存为本地证据文件。
+
+### Error
+```text
+pageAssets.bundle(video) failed: Loaded resource fetch failed
+TypeError: Failed to fetch
+```
+
+### Context
+- 研究对象为小红书视频帖 `6a674381000000000f01e982`，浏览器页面可读取标题、作者、标签和 162.987 秒的视频时长。
+- 页面资产清单能观察到一个 MP4 资源，但导出时页面内 fetch 失败；未尝试猜测或绕过受签名保护的媒体地址。
+- 本次没有生成原视频副本，也没有修改原帖或已有动态证据。
+
+### Suggested Fix
+优先使用平台允许的官方下载/分享入口，或在用户重新提供原视频后再做抽帧与归档；若仅能访问页面，应将视频内容标记为 `needs_review`，不能把标题和标签当作完整流程证据。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `/Users/lei/.codex/skills/social-content-evidence-wiki/SKILL.md`
+
+---
+
+## [ERR-20260727-MF1] macos_find_printf_unsupported
+
+**Logged**: 2026-07-27T23:44:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+快照目录检查误用了 GNU `find` 的 `-printf`，macOS 自带 BSD `find` 不支持该参数。
+
+### Error
+```text
+find: -printf: unknown primary or operator
+```
+
+### Context
+- 仅用于列出动态证据快照目录；没有写入、删除或改变任何归档文件。
+
+### Suggested Fix
+在 macOS 上优先使用 `find ... -exec basename {} \\;` 或 `rg --files`，不要假定 GNU `find -printf` 可用。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `scripts/archive_dynamic_evidence.sh`
+
+### Resolution
+- **Resolved**: 2026-07-27T23:44:00+08:00
+- **Notes**: 后续目录检查改用 BSD `find -exec basename`。
+
+---
+
+## [ERR-20260728-FO1] full_suite_file_descriptor_pressure
+
+**Logged**: 2026-07-28T00:00:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+在资产接入尚未完成时过早运行全仓 `npm test`，静态构建、Sites 构建和全量测试连续执行后触发本机文件句柄压力。
+
+### Error
+```text
+Failed to create unified exec process: Too many open files (os error 24)
+```
+
+### Context
+- 命令为 `npm test -- --runInBand`，但项目的 `npm test` 会先连续执行两个构建，再运行全量测试。
+- 首轮测试已经发现幸福里水边碰撞问题；此时更合适的路径应是先运行专项测试完成校准。
+- 构建进程退出后仍有短时文件句柄压力，新的统一执行进程无法启动。
+
+### Suggested Fix
+资产集成期间先串行运行专项 `node --test`；代码、碰撞和文档全部稳定后再单独串行执行 `npm test`、`npm run lint`，避免在中间状态重复全构建。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_xingfuli_models.test.mjs
+- See Also: ERR-20260727-GH1
+
+### Resolution
+- **Resolved**: 2026-07-28T00:00:00+08:00
+- **Notes**: 等待构建进程释放句柄，并切换为专项测试优先、最终全仓验证一次的串行路径。
+
+---
+
+<!-- dirty-main 合并时保留的集成侧完整变体；原 ID：ERR-20260728-FO1 -->
+## [ERR-20260728-FO1-INTEGRATION-20260730] full_suite_file_descriptor_pressure
+
+**Logged**: 2026-07-28T00:00:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+专项测试把“不建设”前缀误当成方案范围合同的一部分。
+
+### Error
+```text
+AssertionError: input did not match /不建设后台、数据库、Worker、任务队列/
+```
+
+### Context
+- 方案已明确写出 `Explicitly excluded: 后台、数据库、Worker、任务队列`。
+- 测试应锁定排除对象，不应锁定同义句式。
+
+### Suggested Fix
+只断言 `后台、数据库、Worker、任务队列` 的连续范围合同。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_building_engine_spike.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-28T20:12:30+08:00
+- **Notes**: 移除非语义前缀后重跑专项测试。
+
+---
+
+## [ERR-20260728-PR1] sandbox_local_preview_bind
+
+**Logged**: 2026-07-28T00:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+静态生产预览服务器在默认 sandbox 中无法绑定本地回环端口。
+
+### Error
+```text
+PermissionError: [Errno 1] Operation not permitted
+```
+
+### Context
+- 命令：`python3 -m http.server 4317 --bind 127.0.0.1 --directory dist-static`
+- 静态构建已成功，失败只发生在 socket bind。
+
+### Suggested Fix
+需要真实浏览器验收时，直接为同一只读本地服务器申请受控外部执行权限，不重复修改应用。
+
+### Metadata
+- Reproducible: yes
+- Related Files: dist-static/index.html
+
+### Resolution
+- **Resolved**: 2026-07-28T00:00:00+08:00
+- **Notes**: 受控外部执行后服务器成功监听 `127.0.0.1:4317`。
+
+---
+
+## [ERR-20260728-WQ1] llm_wiki_queue_root_shape_assumption
+
+**Logged**: 2026-07-28T18:00:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+读取 LLM Wiki 摄取队列时假定 JSON 根节点有 `tasks` 字段，但实际根节点是任务数组。
+
+### Error
+```text
+jq: error: Cannot index array with string "tasks"
+```
+
+### Context
+- 只读检查 `/Volumes/plugin/Threejs-3d-research/.llm-wiki/ingest-queue.json`，未改变队列或 Wiki 内容。
+
+### Suggested Fix
+先用 `jq 'type'` 确认队列 JSON 根结构；当前应使用 `.[]` 统计条目状态，而不是 `.tasks[]`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `/Volumes/plugin/Threejs-3d-research/.llm-wiki/ingest-queue.json`
+
+### Resolution
+- **Resolved**: 2026-07-28T18:00:00+08:00
+- **Notes**: 改为按根数组读取队列后再检查目标来源的 `pending` / `processing` 状态。
+
+---
+
+## [ERR-20260728-WQ2] sandbox_ps_process_inspection_denied
+
+**Logged**: 2026-07-28T18:02:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+在 sandbox 内尝试用 `ps` 检查 LLM Wiki 摄取进程时被系统权限拒绝。
+
+### Error
+```text
+zsh: operation not permitted: ps
+```
+
+### Context
+- 仅为诊断 Wiki 摄取队列是否运行；未修改任何进程或 Wiki 文件。
+
+### Suggested Fix
+优先通过 LLM Wiki MCP 状态、`ingest-queue.json` 与生成的 source 页面验证进度；只有必要时再申请受控的进程检查权限。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `/Volumes/plugin/Threejs-3d-research/.llm-wiki/ingest-queue.json`
+
+### Resolution
+- **Resolved**: 2026-07-28T18:02:00+08:00
+- **Notes**: 后续不依赖 sandbox 内的 `ps`，改用队列和文件状态进行只读验收。
+
+---
+
+## [ERR-20260728-FD1] host_file_descriptor_exhaustion_during_research
+
+**Logged**: 2026-07-28T00:00:00+08:00
+**Priority**: medium
+**Status**: mitigated
+**Area**: infra
+
+### Summary
+调研期间本地命令进程持续报 `Too many open files (os error 24)`，常规 `rg` / shell 只读检查无法启动。
+
+### Error
+```text
+Too many open files (os error 24)
+```
+
+### Context
+- 影响的是只读本地检索；未执行删除、重置或写入项目业务文件。
+
+### Suggested Fix
+先使用持久 Node REPL 做窄范围只读读取，并在后续空闲窗口检查宿主进程的文件描述符占用；不要因检索受阻而把历史上下文当作当前代码事实。
+
+### Metadata
+- Reproducible: intermittently
+- Related Files: package.json, app/scene/xinhua-map-data.json, app/scene/xinhua-building-height-runtime.json
+
+### Resolution
+- **Resolved**: 2026-07-28T00:00:00+08:00
+- **Notes**: 本轮改用 Node REPL 完成当前文件与数据结构核验；宿主 FD 根因仍待单独诊断。
+
+---
+
+## [ERR-20260729-CDN] official_image_http2_interruption
+
+**Logged**: 2026-07-29T20:30:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+批量下载长宁区政府页面的官方道路配图时，媒体 CDN 的 HTTP/2 流中途关闭。
+
+### Error
+```text
+curl: (92) HTTP/2 stream 1 was not closed cleanly: INTERNAL_ERROR (err 2)
+```
+
+### Context
+- 前三张图片已经完整下载，后两张尚未下载。
+- 官方规划 PDF、网页正文和已下载图片不受影响。
+
+### Suggested Fix
+对该 CDN 使用 `curl --http1.1` 逐张下载，并分别验证 MIME、尺寸与 SHA-256。
+
+### Metadata
+- Reproducible: unknown
+- Related Files: `/tmp/pdfs/test_*_official_*`
+
+### Resolution
+- **Resolved**: 2026-07-29T20:32:00+08:00
+- **Notes**: 改用 HTTP/1.1 逐张重试并对全部图片做文件类型和哈希检查。
+
+---
+
+## [ERR-20260729-PGT] production_promotion_historical_isolation_assertion
+
+**Logged**: 2026-07-29T22:35:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tests
+
+### Summary
+Building Engine 从实验 tier 晋级 Hudec 正式入口后，全量测试仍把“任何正式
+registry 都不得引用 Building Engine”当作永久合同。
+
+### Error
+```text
+AssertionError: 正式 production registry 匹配 /building-engine-spike/
+AssertionError: promotion status 从 promotion-in-progress-local
+变为 runtime-pass-pending-project-gates
+```
+
+### Context
+- 本轮已由用户授权执行首栋 production promotion，但不授权 push、merge、deploy；
+- 旧断言来自实验阶段的隔离门，未表达“只有有 promotion record 的资产可晋级”；
+- 删除隔离测试会让其他建筑意外接入失去保护。
+
+### Suggested Fix
+把永久合同改为：Sandbox 保持隔离，正式 registry 中只有
+`building-engine/promotions/` 明确晋级的 Hudec 可引用 Building Engine；
+promotion 状态按受控状态机校验。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_building_engine_spike.test.mjs,
+  tests/test_hudec_memorial_production_promotion.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-29T22:38:00+08:00
+- **Notes**: 保留 Sandbox 隔离断言，并新增“仅 Hudec + promotion path 一致 +
+  deployment not-authorized”约束；状态断言接受运行时通过和本地就绪两个合法阶段。
+
+---
+
+## [ERR-20260729-FDL] post_regression_open_file_exhaustion
+
+**Logged**: 2026-07-29T20:47:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: config
+
+### Summary
+全量构建测试后仍同时保留 production server 与 Headless Chrome，导致后续只读
+SHA 命令无法创建新进程。
+
+### Error
+```text
+Failed to create unified exec process: Too many open files (os error 24)
+```
+
+### Context
+- 失败发生在 `shasum` 启动前，没有修改文件；
+- 本轮此前已完成多次 Blender、Vinext build、production server 和浏览器三机位；
+- 停止本地 server 后，同一 SHA 命令立即通过；最终四项只读检查再次并行启动
+  shell 时复现，改成串行并终止仍驻留的 agent-browser daemon 后关闭。
+
+### Suggested Fix
+完成 production Sandbox 截图、控制台和性能采样后立即关闭浏览器与本地 server，
+确认 daemon 实际退出；全量测试、SHA、归档和最终状态检查保持串行，避免把长期
+存活进程或并行 shell 留到收尾阶段。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+- **Resolved**: 2026-07-29T20:48:00+08:00
+- **Notes**: 先向 server PTY 发送中断，再关闭浏览器；最终终止残留
+  agent-browser daemon，并把收尾检查改为串行。
+
+---
+
+## [ERR-20260729-B52] blender_52_metal_backend_sandbox_crash
+
+**Logged**: 2026-07-29T20:01:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+Blender 5.2 在受限沙箱内启动 Headless 编译时，于 Metal 后端能力探测阶段崩溃。
+
+### Error
+```text
+supports_barycentric_whitelist
+GPU_backend_type_selection_detect
+hudec-memorial massing 编译失败
+```
+
+### Context
+- DSL 校验已通过，崩溃发生在 Blender 读取场景前；
+- crash backtrace 指向 Metal 设备探测，不是生成器几何或 DSL 数据错误；
+- 同一命令在沙箱外运行后完成三机位渲染、Blend 保存、GLB 导出和 QA。
+
+### Suggested Fix
+macOS 上 Blender 5.2 若在沙箱内于 Metal 初始化崩溃，保留 crash report 后在受控沙箱外重跑同一确定性命令；不得把崩溃误报为模型编译失败。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/building_engine_spike.mjs, scripts/compile_garden_villa.py
+
+### Resolution
+- **Resolved**: 2026-07-29T20:01:07+08:00
+- **Notes**: 沙箱外重跑 `build --asset hudec-memorial --stage massing` 与 artifact QA 均通过。
+
+---
+
+## [ERR-20260729-P30] vinext_start_sandbox_port_permission
+
+**Logged**: 2026-07-29T19:28:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+本地 Vinext production server 在默认沙箱内无法监听 `0.0.0.0:3000`。
+
+### Error
+```text
+Error: listen EPERM: operation not permitted 0.0.0.0:3000
+```
+
+### Context
+- `npm run build:sites` 已成功；
+- 首次 `npm run start:sites` 在创建监听 socket 时退出，未修改应用资产。
+- Server 授权启动后，默认沙箱中的 CLI 访问 `127.0.0.1:3000` 仍返回
+  `fetch failed`；同一 HTTP QA 授权重跑后页面、GLB 和 collision 均为 `200`
+  且 SHA 匹配。
+
+### Suggested Fix
+保持同一 production build，以授权方式重跑 `npm run start:sites`，不要降级到
+不挂载 App Router 的静态预览。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `package.json`, `.learnings/ERRORS.md`
+- See Also: ERR-20260728-007
+
+### Resolution
+- **Resolved**: 2026-07-29T19:28:00+08:00
+- **Notes**: 授权后 Vinext production server 成功监听 3000 端口；HTTP QA
+  也需同等本机网络权限。
+
+---
+
+## [ERR-20260729-EVS] building_engine_evidence_snapshot_status
+
+**Logged**: 2026-07-29T19:20:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: backend
+
+### Summary
+Building Engine CLI 把证据快照通过状态硬编码为旧日期，拒绝新建且已独立校验的不可变快照。
+
+### Error
+```text
+hudec-memorial DSL validation failed
+conflict: 外置快照未记录本轮全量 SHA 通过
+```
+
+### Context
+- 新快照 `2026-07-29-hudec-a-evidence-v1-083bde0` 已由归档脚本和独立
+  `shasum -a 256 -c SHA256SUMS` 两次验证；
+- Case 的 `checksumStatus` 为
+  `verified-all-2026-07-29-independent-recheck`；
+- CLI 仍只接受精确字符串 `verified-all-2026-07-28`。
+
+### Suggested Fix
+接受带 ISO 日期的 `verified-all-...` 状态，不绑定单个历史日期；归档日期与
+独立复核日期允许不同，同时拒绝 pending、partial 和无日期字符串。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `scripts/building_engine_spike.mjs`,
+  `tests/test_building_engine_spike.test.mjs`,
+  `building-engine/cases/hudec-memorial/building-case.json`
+
+### Resolution
+- **Resolved**: 2026-07-29T19:25:00+08:00
+- **Notes**: 改为接受带 ISO 日期的 `verified-all-...` 全量校验状态；旧迁移
+  快照、新独立复核后缀、pending 和 partial 单元负例通过，三栋 validate 全通过。
+
+---
+
+## [ERR-20260728-009] jq_dollar_defs_key_access
+
+**Logged**: 2026-07-28T23:23:23+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tooling
+
+### Summary
+读取 JSON Schema 时把 `$defs` 写成 jq 变量语法，导致只读查询失败。
+
+### Error
+```text
+jq: error: syntax error, unexpected BINDING
+```
+
+### Context
+- 尝试同时摘取 `roof`、`volume`、`feature` 和 `opening` 定义；
+- 命令没有修改仓库文件。
+
+### Suggested Fix
+对包含美元符号的 JSON key 使用 `.["$defs"]` 显式键访问。
+
+### Metadata
+- Reproducible: yes
+- Related Files: `building-engine/schema/building-dsl.schema.json`
+
+### Resolution
+- **Resolved**: 2026-07-28T23:23:23+08:00
+- **Notes**: 改用 `.["$defs"]` 后继续只读检查。
+
+## [ERR-20260728-007] static_preview_does_not_mount_app_routes
+
+**Logged**: 2026-07-28T22:16:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: runtime-qa
+
+### Summary
+Vite static preview 会把 `/building-engine-sandbox` 回退到单页入口，但
+`static-entry.tsx` 没有挂载该 App Router 页面，视觉上只出现产品首页。
+
+### Error
+```text
+/building-engine-sandbox 返回 200，但 data-qa-route 缺失，页面显示“新华漫游”首页。
+```
+
+### Context
+- `vite.static.config.ts` 只生成一个 `dist-static/index.html`；
+- `static-entry.tsx` 只分流 `/asset-library` 与 `/product-homepage`；
+- 用 HTTP 200 或相似建筑画面判断 Sandbox 会产生假阳性。
+
+### Suggested Fix
+需要验证 App Router 页面时，先运行 `npm run build:sites`，再用
+`npm run start:sites` 启动本地 production server；必须核对
+`data-qa-route="building-engine-sandbox"` 和当前 GLB SHA。
+
+### Metadata
+- Reproducible: yes
+- Related Files: static-entry.tsx, app/building-engine-sandbox/page.tsx
+
+### Resolution
+- **Resolved**: 2026-07-28T22:17:00+08:00
+- **Notes**: 切换到本地 Vinext production build 后，Sandbox 路由、Canvas、
+  GLB 与 collision SHA 均可直接核对。
+
+---
+
+## [ERR-20260728-008] sandbox_warmup_exact_value_overfit
+
+**Logged**: 2026-07-28T22:36:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+专项测试把人工浏览器预热时间锁成精确 `2` 秒，新的诚实记录使用 `2.5` 秒后
+出现非语义失败。
+
+### Error
+```text
+AssertionError: 2.5 !== 2
+```
+
+### Context
+- 质量合同要求记录预热条件，不要求所有资产精确相同；
+- 页面状态、Canvas、错误数、GLB SHA 与三视角均已独立验证。
+
+### Suggested Fix
+验证预热时间处于合理区间，同时继续强制 `sampleDurationSeconds >= 5`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_building_engine_spike.test.mjs
+
+### Resolution
+- **Resolved**: 2026-07-28T22:37:00+08:00
+- **Notes**: 改为断言 `2 <= warmupSeconds <= 10`。
+
+---
+
+## [ERR-20260728-001] python_bytecode_cache_outside_sandbox
+
+**Logged**: 2026-07-28T19:42:34+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: config
+
+### Summary
+使用系统 Python 检查建筑编译器语法时，默认字节码缓存路径位于当前可写范围之外。
+
+### Error
+```text
+PermissionError: [Errno 1] Operation not permitted:
+/Users/lei/Library/Caches/com.apple.python/
+```
+
+### Context
+- 命令为 `python3 -m py_compile scripts/compile_garden_villa.py`。
+- 失败发生在写入 `__pycache__`，不能据此判定脚本存在语法错误。
+
+### Suggested Fix
+设置 `PYTHONPYCACHEPREFIX=/tmp/test_building_engine_pycache` 后重新执行语法检查，
+并继续用 Blender Python 做运行时验证。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/compile_garden_villa.py
+
+### Resolution
+- **Resolved**: 2026-07-28T19:43:00+08:00
+- **Notes**: 将字节码缓存定向到 `/tmp/test_building_engine_pycache` 后语法检查退出码为 0。
+
+---
+
+## [ERR-20260728-002] building_engine_cli_missing_output_parent
+
+**Logged**: 2026-07-28T19:42:34+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: backend
+
+### Summary
+建筑引擎 CLI 首次写入验证报告时，没有先创建按资产分隔的父目录。
+
+### Error
+```text
+ENOENT: no such file or directory, open
+docs/research/build-records/building-engine-spike/house-315/compiler-report.json
+```
+
+### Context
+- 命令为 `node scripts/building_engine_spike.mjs validate --asset all`。
+- `writeJson` 直接调用 `writeFileSync`，全新 worktree 中目标目录尚不存在。
+
+### Suggested Fix
+在统一的 `writeJson` 边界调用
+`mkdirSync(dirname(path), { recursive: true })`，随后重跑两栋建筑的完整验证。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/building_engine_spike.mjs
+
+### Resolution
+- **Resolved**: 2026-07-28T19:43:00+08:00
+- **Notes**: `writeJson` 统一创建父目录后，两栋建筑完整验证均通过。
+
+---
+
 ## [ERR-20260728-003] sandbox_null_derived_state_ternary
 
 **Logged**: 2026-07-28T19:53:30+08:00
@@ -8320,33 +9365,6 @@ fetch failed
 
 **Logged**: 2026-07-28T20:12:00+08:00
 **Priority**: low
-**Status**: resolved
-**Area**: tests
-
-### Summary
-专项测试把“不建设”前缀误当成方案范围合同的一部分。
-
-### Error
-```text
-AssertionError: input did not match /不建设后台、数据库、Worker、任务队列/
-```
-
-### Context
-- 方案已明确写出 `Explicitly excluded: 后台、数据库、Worker、任务队列`。
-- 测试应锁定排除对象，不应锁定同义句式。
-
-### Suggested Fix
-只断言 `后台、数据库、Worker、任务队列` 的连续范围合同。
-
-### Metadata
-- Reproducible: yes
-- Related Files: tests/test_building_engine_spike.test.mjs
-
-### Resolution
-- **Resolved**: 2026-07-28T20:12:30+08:00
-- **Notes**: 移除非语义前缀后重跑专项测试。
-
----
 
 ## [ERR-20260728-006] photo_reference_skill_entrypoint_missing
 
@@ -8482,5 +9500,28 @@ stderr: ""
 ### Resolution
 - **Resolved**: 2026-07-30T01:44:49+08:00
 - **Notes**: 超时由 30 秒提高到 120 秒；验证逻辑和期望 SHA 未改变。
+在资产接入尚未完成时过早运行全仓 `npm test`，静态构建、Sites 构建和全量测试连续执行后触发本机文件句柄压力。
+
+### Error
+```text
+Failed to create unified exec process: Too many open files (os error 24)
+```
+
+### Context
+- 命令为 `npm test -- --runInBand`，但项目的 `npm test` 会先连续执行两个构建，再运行全量测试。
+- 首轮测试已经发现幸福里水边碰撞问题；此时更合适的路径应是先运行专项测试完成校准。
+- 构建进程退出后仍有短时文件句柄压力，新的统一执行进程无法启动。
+
+### Suggested Fix
+资产集成期间先串行运行专项 `node --test`；代码、碰撞和文档全部稳定后再单独串行执行 `npm test`、`npm run lint`，避免在中间状态重复全构建。
+
+### Metadata
+- Reproducible: yes
+- Related Files: tests/test_xingfuli_models.test.mjs
+- See Also: ERR-20260727-GH1
+
+### Resolution
+- **Resolved**: 2026-07-28T00:00:00+08:00
+- **Notes**: 等待构建进程释放句柄，并切换为专项测试优先、最终全仓验证一次的串行路径。
 
 ---

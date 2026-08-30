@@ -217,7 +217,7 @@ test("上生新所保留三处历史建筑与泳池庭院结构", async () => {
   }
 });
 
-test("三个地标碰撞和两处直达验收入口已接入且仍只有一个行动点", async () => {
+test("三个地标碰撞和两处直达验收入口已接入且不包含行动点", async () => {
   const world = await readFile(new URL("app/scene/xinhua-world.tsx", root), "utf8");
   const huashan = await readFile(new URL("app/scene/huashan-green-block.tsx", root), "utf8");
   const shangsheng = await readFile(new URL("app/scene/shangsheng-xinsuo-block.tsx", root), "utf8");
@@ -236,5 +236,5 @@ test("三个地标碰撞和两处直达验收入口已接入且仍只有一个�
   assert.match(world, /CAMERA_COLLISION_RADIUS/);
   assert.match(world, /initialStart\.position\.clone\(\)/);
   assert.doesNotMatch(huashan + shangsheng, /data-osm-way/);
-  assert.equal(((world + huashan + shangsheng + xingfuli).match(/data-action-point=/g) ?? []).length, 1);
+  assert.doesNotMatch(world + huashan + shangsheng + xingfuli, /data-action-point=/);
 });
