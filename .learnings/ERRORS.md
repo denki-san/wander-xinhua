@@ -1,5 +1,74 @@
 # Errors
 
+## [ERR-20260728-PT7] tier_minimum_tuple_index_type
+
+**Logged**: 2026-07-28T21:25:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: frontend
+
+### Summary
+Identity 四项与 Massing 三项最低点 tuple 合并后，用四值 variant union 索引时
+TypeScript 正确地推断出潜在 `undefined`。
+
+### Error
+```text
+Type 'number | undefined' is not assignable to type 'number'.
+```
+
+### Context
+- 运行时 map 只会遍历当前 tier 的实际模型路径，Massing 不会产生 variant 3；
+- 静态构建成功，但独立 TypeScript 测试发现类型边界未表达完整。
+
+### Suggested Fix
+保留按当前模型路径迭代的结构，并在已由同一索引范围保证的位置使用非空断言；
+同时继续用全仓 typecheck 防止未来路径数组与最低点数组长度漂移。
+
+### Metadata
+- Reproducible: yes
+- Related Files: app/scene/plane-tree-instances.tsx
+
+### Resolution
+- **Resolved**: 2026-07-28T21:25:00+08:00
+- **Notes**: 在模型路径同索引取值处增加非空断言，全仓 typecheck 复验。
+
+---
+
+## [ERR-20260728-PT6] git_worktree_index_lock_sandbox
+
+**Logged**: 2026-07-28T21:10:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+隔离 worktree 的工作目录可写，但 Git 索引位于主仓 `.git/worktrees/`，
+默认 workspace-write 沙箱无法创建 `index.lock`。
+
+### Error
+```text
+fatal: Unable to create '.../.git/worktrees/plane-tree-canopy-v2/index.lock':
+Operation not permitted
+```
+
+### Context
+- 产品文件、测试和构建均已完成；
+- 失败只发生在 `git add` 写入 worktree 索引时；
+- 未产生部分暂存或提交。
+
+### Suggested Fix
+对限定工作树和明确文件列表使用受控 Git 暂存权限，不放宽到其他仓库或目录。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git/worktrees/plane-tree-canopy-v2/index
+
+### Resolution
+- **Resolved**: 2026-07-28T21:10:00+08:00
+- **Notes**: 改用限定工作目录与明确文件列表的受控 `git add`。
+
+---
+
 ## [ERR-20260727-A31] git_index_lock_sandbox_permission
 
 **Logged**: 2026-07-27T11:48:00+08:00
@@ -29,6 +98,152 @@ fatal: Unable to create '/Users/lei/App_developing/wander-xinhua/.git/index.lock
 ### Resolution
 - **Resolved**: 2026-07-27T11:49:00+08:00
 - **Notes**: 确认没有遗留锁文件后，以授权方式完成精确暂存和提交。
+
+---
+
+## [ERR-20260728-PT2] py_compile_cache_outside_workspace
+
+**Logged**: 2026-07-28T20:14:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+macOS 系统 Python 的 `py_compile` 默认尝试在受限的用户缓存目录创建镜像路径，
+导致工作区内脚本的静态语法检查被沙箱拒绝。
+
+### Error
+```text
+PermissionError: [Errno 1] Operation not permitted:
+'/Users/lei/Library/Caches/com.apple.python/Users/lei/App_developing/wander-xinhua/.worktrees/plane-tree-canopy-v2'
+```
+
+### Context
+- Command: `python3 -m py_compile scripts/create_xinhua_road_models.py`
+- 失败发生在 bytecode 缓存目录创建阶段，不是 Python 语法错误。
+- 环境为 macOS 系统 Python 3.9、workspace-write 沙箱。
+
+### Suggested Fix
+在受限工作区运行 `py_compile` 时显式设置
+`PYTHONPYCACHEPREFIX=/tmp/test_plane_tree_pycache`，让临时 bytecode 只写入允许目录。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_xinhua_road_models.py
+
+### Resolution
+- **Resolved**: 2026-07-28T20:14:00+08:00
+- **Notes**: 改用 `/tmp/test_plane_tree_pycache` 后继续静态检查。
+
+---
+
+## [ERR-20260728-PT3] blender_metal_backend_crash_in_sandbox
+
+**Logged**: 2026-07-28T20:15:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: infra
+
+### Summary
+Blender 5.2 Headless 在 workspace-write 沙箱内初始化 Metal 后端时以
+exit code 139 崩溃，尚未执行资产生成脚本。
+
+### Error
+```text
+supports_barycentric_whitelist
+MTLBackend::metal_is_supported
+GPU_backend_type_selection_detect
+Process exited with code 139
+```
+
+### Context
+- Blender `5.2.0 LTS` 的 `--version` 可在沙箱内执行。
+- 实际 `--background --python ...` 在读取 homefile、检测 Metal 时崩溃。
+- crash backtrace 不含 Python 栈，资产文件尚未被生成器打开。
+
+### Suggested Fix
+项目需要 Headless Blender 生成或渲染时，在确认崩溃点位于 GPU/Metal 初始化后，
+用相同的限定命令在沙箱外重跑；继续保留 `--python-exit-code 1`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/create_xinhua_road_models.py
+
+### Resolution
+- **Resolved**: 2026-07-28T20:16:00+08:00
+- **Notes**: 同一限定命令在沙箱外完成，Identity A 与 Massing A 均成功生成和渲染。
+
+---
+
+## [ERR-20260728-PT4] local_runtime_browser_path_and_socket
+
+**Logged**: 2026-07-28T20:40:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+vinext 本地服务只监听 `localhost`，且既有 agent-browser daemon 的相对截图路径
+继承旧工作目录；沙箱内重连时会因 `~/.agent-browser` 不可写失败。
+
+### Error
+```text
+Navigation failed: net::ERR_CONNECTION_REFUSED
+Socket directory '/Users/lei/.agent-browser' is not writable
+```
+
+### Context
+- `curl http://localhost:3017` 为 200，`127.0.0.1:3017` 被拒绝。
+- `agent-browser screenshot test_artifacts/...` 首次写入了主 worktree，
+  不是当前隔离 worktree。
+- 切换到沙箱外会话后旧元素 ref 失效，需要重新 `open` 和 `snapshot`。
+
+### Suggested Fix
+vinext 本地验收使用 `http://localhost:<port>`；截图始终传绝对 worktree 路径。
+若 socket 目录被沙箱拒绝，以限定的 `agent-browser` 前缀在沙箱外重开页面，
+并重新获取元素 ref。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts
+
+### Resolution
+- **Resolved**: 2026-07-28T20:40:00+08:00
+- **Notes**: 改用 localhost、绝对截图路径和重建后的浏览器 ref 完成验收；误写主 worktree 的两张本轮截图已移动到隔离 worktree。
+
+---
+
+## [ERR-20260728-PT5] imagemagick_not_installed
+
+**Logged**: 2026-07-28T20:38:00+08:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+本机没有 ImageMagick 的 `magick` 或 `montage`，不能直接拼接三联对照图。
+
+### Error
+```text
+magick not found
+montage not found
+```
+
+### Context
+- 目标是生成 reference / Blender / Three.js 的 `test_` 三联图。
+- 不需要为单张对照图引入新的系统依赖。
+
+### Suggested Fix
+用以 `test_` 命名的本地 HTML/CSS 排版三张图，再通过 agent-browser
+全页截图生成确定性 PNG。
+
+### Metadata
+- Reproducible: yes
+- Related Files: test_artifacts/test_plane_tree_canopy_v2_triptych.png
+
+### Resolution
+- **Resolved**: 2026-07-28T20:39:00+08:00
+- **Notes**: 使用 `/tmp/test_plane_tree_canopy_v2_triptych.html` 和本地浏览器生成三联图。
 
 ---
 
